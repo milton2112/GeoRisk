@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>GeoRisk</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+</head>
+<body>
+
+<div id="map"></div>
+
+<div id="search-bar">
+  <input id="map-search-input" type="text" placeholder="Buscar país o continente">
+  <button id="map-search-button" type="button">Buscar</button>
+</div>
+
+<div id="left-panel">
+  <h3>Top Población</h3>
+  <ul id="top-population"></ul>
+
+  <h3>Continentes</h3>
+  <ul id="continents"></ul>
+</div>
+
+<div id="country-panel">
+  <h2>Seleccioná un país</h2>
+</div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>

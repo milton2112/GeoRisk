@@ -1,0 +1,862 @@
+{
+  "ARG": {
+    "year": 1816,
+    "type": "Independencia",
+    "origin": "España"
+  },
+  "USA": {
+    "year": 1776,
+    "type": "Independencia",
+    "origin": "Reino Unido"
+  },
+  "FRA": {
+    "year": 843,
+    "type": "Formación histórica",
+    "origin": "Imperio Carolingio"
+  },
+  "AFG": {
+    "year": 1823,
+    "type": "estado unitario",
+    "origin": "Afganistán"
+  },
+  "AGO": {
+    "year": 1992,
+    "type": "república",
+    "origin": "República Popular de Angola"
+  },
+  "ALB": {
+    "year": 1912,
+    "type": "parlamentarismo",
+    "origin": "República Popular de Albania"
+  },
+  "AND": {
+    "year": 1278,
+    "type": "coprincipado parlamentario",
+    "origin": "Principado de Cataluña"
+  },
+  "ARE": {
+    "year": 1971,
+    "type": "monarquía constitucional",
+    "origin": "Estados de la Tregua"
+  },
+  "ARM": {
+    "year": 1991,
+    "type": "república",
+    "origin": "Unión Soviética"
+  },
+  "AUS": {
+    "year": 1901,
+    "type": "monarquía constitucional",
+    "origin": "Reino Unido de Gran Bretaña e Irlanda"
+  },
+  "AUT": {
+    "year": 1918,
+    "type": "semipresidencialismo",
+    "origin": "Imperio austrohúngaro"
+  },
+  "AZE": {
+    "year": 1991,
+    "type": "república",
+    "origin": "Unión Soviética"
+  },
+  "BDI": {
+    "year": 1962,
+    "type": "presidencialismo",
+    "origin": "reino de Burundi"
+  },
+  "BEL": {
+    "year": 1830,
+    "type": "federal monarquía parlamentaria",
+    "origin": "Reino Unido de los Países Bajos"
+  },
+  "BEN": {
+    "year": 1960,
+    "type": "república",
+    "origin": "África Occidental Francesa"
+  },
+  "BFA": {
+    "year": 1960,
+    "type": "república",
+    "origin": "África Occidental Francesa"
+  },
+  "BGD": {
+    "year": 1971,
+    "type": "sistema Westminster",
+    "origin": "Bangladés"
+  },
+  "BGR": {
+    "year": 1878,
+    "type": "república parlamentaria",
+    "origin": "República Popular de Bulgaria"
+  },
+  "BHR": {
+    "year": 1971,
+    "type": "monarquía constitucional",
+    "origin": "estado of Bahrain"
+  },
+  "BIH": {
+    "year": 1992,
+    "type": "república",
+    "origin": "República Federativa Socialista de Yugoslavia"
+  },
+  "BLR": {
+    "year": 1991,
+    "type": "presidencialismo",
+    "origin": "República Socialista Soviética de Bielorrusia"
+  },
+  "BOL": {
+    "year": 1825,
+    "type": "república parlamentaria",
+    "origin": "Territorio de Acre"
+  },
+  "BRA": {
+    "year": 1822,
+    "type": "presidencialismo",
+    "origin": "Imperio del Brasil"
+  },
+  "BRN": {
+    "year": 1984,
+    "type": "estado islámico",
+    "origin": "Brunéi"
+  },
+  "BWA": {
+    "year": 1966,
+    "type": "república parlamentaria",
+    "origin": "Bechuanalandia"
+  },
+  "CAF": {
+    "year": 1960,
+    "type": "país",
+    "origin": "Imperio centroafricano"
+  },
+  "CAN": {
+    "year": 1867,
+    "type": "monarquía constitucional",
+    "origin": "Provincia Unida de Canadá"
+  },
+  "CHE": {
+    "year": 1848,
+    "type": "república federal",
+    "origin": "Suiza"
+  },
+  "CHL": {
+    "year": 1810,
+    "type": "república democrática",
+    "origin": "Capitanía General de Chile"
+  },
+  "CHN": {
+    "year": 1949,
+    "type": "república",
+    "origin": "República de China"
+  },
+  "CIV": {
+    "year": 1960,
+    "type": "república",
+    "origin": "África Occidental Francesa"
+  },
+  "CMR": {
+    "year": 1960,
+    "type": "república",
+    "origin": "Cameroon"
+  },
+  "COD": {
+    "year": 1960,
+    "type": "república",
+    "origin": "Zaire"
+  },
+  "COG": {
+    "year": 1960,
+    "type": "república parlamentaria",
+    "origin": "República Popular del Congo"
+  },
+  "COL": {
+    "year": 1810,
+    "type": "república",
+    "origin": "Estados Unidos de Colombia"
+  },
+  "COM": {
+    "year": 1975,
+    "type": "república federal",
+    "origin": "Madagascar francés"
+  },
+  "CRI": {
+    "year": 1821,
+    "type": "país",
+    "origin": "Reino de Mosquitia"
+  },
+  "CUB": {
+    "year": 1898,
+    "type": "estado unitario",
+    "origin": "Capitanía General de Cuba"
+  },
+  "CYP": {
+    "year": 1960,
+    "type": "república",
+    "origin": "Chipre británica"
+  },
+  "CZE": {
+    "year": 1993,
+    "type": "república parlamentaria",
+    "origin": "República Federal Checa y Eslovaca"
+  },
+  "DEU": {
+    "year": 1949,
+    "type": "república",
+    "origin": "República Democrática Alemana"
+  },
+  "DJI": {
+    "year": 1977,
+    "type": "país",
+    "origin": "Territorio Francés de los Afars y de los Issas"
+  },
+  "DNK": {
+    "year": 800,
+    "type": "monarquía constitucional",
+    "origin": "Reino de Dinamarca"
+  },
+  "DOM": {
+    "year": 1844,
+    "type": "país insular",
+    "origin": "República Dominicana"
+  },
+  "DZA": {
+    "year": 1962,
+    "type": "semipresidencialismo",
+    "origin": "Argelia"
+  },
+  "ECU": {
+    "year": 1840,
+    "type": "república",
+    "origin": "Gran Colombia"
+  },
+  "EGY": {
+    "year": 1922,
+    "type": "república",
+    "origin": "Reino de Egipto"
+  },
+  "ERI": {
+    "year": 1993,
+    "type": "país",
+    "origin": "Eritrea"
+  },
+  "ESP": {
+    "year": 1516,
+    "type": "monarquía parlamentaria",
+    "origin": "Imperio Español"
+  },
+  "EST": {
+    "year": 1918,
+    "type": "república parlamentaria",
+    "origin": "Gobernación de Estonia"
+  },
+  "ETH": {
+    "year": 1995,
+    "type": "república federal",
+    "origin": "Etiopía"
+  },
+  "FIN": {
+    "year": 1917,
+    "type": "república parlamentaria",
+    "origin": "Reino de Finlandia"
+  },
+  "GAB": {
+    "year": 1960,
+    "type": "república",
+    "origin": "Congo Medio"
+  },
+  "GBR": {
+    "year": 1927,
+    "type": "monarquía constitucional",
+    "origin": "Reino Unido de Gran Bretaña e Irlanda"
+  },
+  "GEO": {
+    "year": 1991,
+    "type": "república",
+    "origin": "Reino de Lori"
+  },
+  "GHA": {
+    "year": 1957,
+    "type": "democracia",
+    "origin": "Costa de Oro británica"
+  },
+  "GIN": {
+    "year": 1958,
+    "type": "república",
+    "origin": "People's Revolutionary república of Guinea"
+  },
+  "GMB": {
+    "year": 1965,
+    "type": "república",
+    "origin": "Reino de la Mancomunidad de Gambia"
+  },
+  "GNB": {
+    "year": 1974,
+    "type": "país",
+    "origin": "Guinea Portuguesa"
+  },
+  "GNQ": {
+    "year": 1968,
+    "type": "país",
+    "origin": "Guinea Española"
+  },
+  "GRC": {
+    "year": 1821,
+    "type": "república parlamentaria",
+    "origin": "Third Hellenic república"
+  },
+  "GTM": {
+    "year": 1821,
+    "type": "presidencialismo",
+    "origin": "Estado de Guatemala"
+  },
+  "GUY": {
+    "year": 1966,
+    "type": "república parlamentaria",
+    "origin": "Reino de Guyana"
+  },
+  "HND": {
+    "year": 1821,
+    "type": "república",
+    "origin": "Reino de Mosquitia"
+  },
+  "HRV": {
+    "year": 1991,
+    "type": "república",
+    "origin": "República Federativa Socialista de Yugoslavia"
+  },
+  "HTI": {
+    "year": 1804,
+    "type": "país",
+    "origin": "Saint-Domingue"
+  },
+  "HUN": {
+    "year": 1000,
+    "type": "república parlamentaria",
+    "origin": "República Popular Húngara"
+  },
+  "IDN": {
+    "year": 1945,
+    "type": "república",
+    "origin": "Indias Orientales Neerlandesas"
+  },
+  "IND": {
+    "year": 1947,
+    "type": "democracia parlamentaria",
+    "origin": "Raj británico"
+  },
+  "IRL": {
+    "year": 1937,
+    "type": "república",
+    "origin": "Reino Unido de Gran Bretaña e Irlanda"
+  },
+  "IRN": {
+    "year": 1979,
+    "type": "presidencialismo",
+    "origin": "Irán Imperial"
+  },
+  "IRQ": {
+    "year": 1932,
+    "type": "federación",
+    "origin": "Reino de Irak"
+  },
+  "ISL": {
+    "year": 1944,
+    "type": "república parlamentaria",
+    "origin": "Reino de Islandia"
+  },
+  "ISR": {
+    "year": 1948,
+    "type": "república parlamentaria",
+    "origin": "Mandato británico de Palestina"
+  },
+  "ITA": {
+    "year": 1861,
+    "type": "república parlamentaria",
+    "origin": "Reino de Italia"
+  },
+  "JAM": {
+    "year": 1962,
+    "type": "país",
+    "origin": "Federación de las Indias Occidentales"
+  },
+  "JOR": {
+    "year": 1946,
+    "type": "país",
+    "origin": "Mandato británico de Palestina"
+  },
+  "JPN": {
+    "year": 1947,
+    "type": "monarquía constitucional",
+    "origin": "Imperio del Japón"
+  },
+  "KAZ": {
+    "year": 1991,
+    "type": "presidencialismo",
+    "origin": "Unión Soviética"
+  },
+  "KEN": {
+    "year": 1963,
+    "type": "país",
+    "origin": "Reino de la Mancomunidad de Kenia"
+  },
+  "KGZ": {
+    "year": 1991,
+    "type": "república parlamentaria",
+    "origin": "República Socialista Soviética Kirguisa"
+  },
+  "KHM": {
+    "year": 1953,
+    "type": "monarquía constitucional",
+    "origin": "Camboya"
+  },
+  "KOR": {
+    "year": 1948,
+    "type": "república",
+    "origin": "Corea"
+  },
+  "KWT": {
+    "year": 1991,
+    "type": "monarquía constitucional",
+    "origin": "República de Kuwait"
+  },
+  "LAO": {
+    "year": 1949,
+    "type": "república popular",
+    "origin": "Laos"
+  },
+  "LBN": {
+    "year": 1943,
+    "type": "república parlamentaria",
+    "origin": "Líbano"
+  },
+  "LBR": {
+    "year": 1822,
+    "type": "país",
+    "origin": "República de Maryland"
+  },
+  "LBY": {
+    "year": 1977,
+    "type": "república",
+    "origin": "Gran Yamahiriya Árabe Libia Popular Socialista"
+  },
+  "LKA": {
+    "year": 1972,
+    "type": "país",
+    "origin": "Dominio de Ceilán"
+  },
+  "LSO": {
+    "year": 1966,
+    "type": "monarquía constitucional",
+    "origin": "Basutolandia"
+  },
+  "LTU": {
+    "year": 1990,
+    "type": "semipresidencialismo",
+    "origin": "Unión Soviética"
+  },
+  "LUX": {
+    "year": 1815,
+    "type": "monarquía constitucional",
+    "origin": "Confederación Germánica"
+  },
+  "LVA": {
+    "year": 1918,
+    "type": "república",
+    "origin": "Gobernación de Pskov"
+  },
+  "MAR": {
+    "year": 789,
+    "type": "monarquía constitucional",
+    "origin": "Protectorado Español en Marruecos"
+  },
+  "MDA": {
+    "year": 1991,
+    "type": "república parlamentaria",
+    "origin": "República Socialista Soviética de Moldavia"
+  },
+  "MDG": {
+    "year": 1960,
+    "type": "república",
+    "origin": "Madagascar francés"
+  },
+  "MEX": {
+    "year": 1810,
+    "type": "república federal",
+    "origin": "Virreinato de Nueva España"
+  },
+  "MKD": {
+    "year": 1991,
+    "type": "república parlamentaria",
+    "origin": "República Federativa Socialista de Yugoslavia"
+  },
+  "MLI": {
+    "year": 1960,
+    "type": "país",
+    "origin": "África Occidental Francesa"
+  },
+  "MLT": {
+    "year": 1964,
+    "type": "democracia parlamentaria",
+    "origin": "Colonia de la Corona de Malta"
+  },
+  "MMR": {
+    "year": 1948,
+    "type": "república",
+    "origin": "República Socialista de la Unión de Birmania"
+  },
+  "MNE": {
+    "year": 2006,
+    "type": "república",
+    "origin": "Serbia y Montenegro"
+  },
+  "MNG": {
+    "year": 1992,
+    "type": "parlamentarismo",
+    "origin": "China Imperial"
+  },
+  "MOZ": {
+    "year": 1975,
+    "type": "país",
+    "origin": "República Popular de Mozambique"
+  },
+  "MRT": {
+    "year": 1960,
+    "type": "país",
+    "origin": "África Occidental Francesa"
+  },
+  "MWI": {
+    "year": 1964,
+    "type": "país",
+    "origin": "mancomunidad realm of Malawi"
+  },
+  "MYS": {
+    "year": 1963,
+    "type": "monarquía constitucional",
+    "origin": "colonia de la corona de Borneo Septentrional"
+  },
+  "NAM": {
+    "year": 1990,
+    "type": "país",
+    "origin": "África del Sudoeste"
+  },
+  "NER": {
+    "year": 1960,
+    "type": "país",
+    "origin": "África Occidental Francesa"
+  },
+  "NGA": {
+    "year": 1963,
+    "type": "república federal",
+    "origin": "federación of Nigeria"
+  },
+  "NIC": {
+    "year": 1821,
+    "type": "república",
+    "origin": "Mosquítia"
+  },
+  "NLD": {
+    "year": 1815,
+    "type": "monarquía constitucional",
+    "origin": null
+  },
+  "NOR": {
+    "year": 900,
+    "type": "monarquía constitucional",
+    "origin": "Noruega"
+  },
+  "NPL": {
+    "year": 2008,
+    "type": "república federal",
+    "origin": "Reino de Nepal"
+  },
+  "NZL": {
+    "year": 1841,
+    "type": "monarquía parlamentaria",
+    "origin": "Colonia de Nueva Zelanda"
+  },
+  "OMN": {
+    "year": 1970,
+    "type": "monarquía absoluta",
+    "origin": "Imanato de Omán"
+  },
+  "PAK": {
+    "year": 1947,
+    "type": "república federal",
+    "origin": "Dominio de Pakistán"
+  },
+  "PAN": {
+    "year": 1903,
+    "type": "presidencialismo",
+    "origin": "Departamento de Panamá"
+  },
+  "PER": {
+    "year": 1821,
+    "type": "presidencialismo",
+    "origin": "Protectorado del San Martín"
+  },
+  "PHL": {
+    "year": 1565,
+    "type": "república",
+    "origin": "Mancomunidad Filipina"
+  },
+  "POL": {
+    "year": 1918,
+    "type": "semipresidencialismo",
+    "origin": "República Popular de Polonia"
+  },
+  "PRK": {
+    "year": 1948,
+    "type": "república",
+    "origin": "Comité Popular para Corea del Norte"
+  },
+  "PRT": {
+    "year": 1128,
+    "type": "república",
+    "origin": "Reino de Portugal"
+  },
+  "PRY": {
+    "year": 1811,
+    "type": "país",
+    "origin": "Paraguay"
+  },
+  "QAT": {
+    "year": 1870,
+    "type": "monarquía constitucional",
+    "origin": "Catar"
+  },
+  "ROU": {
+    "year": 1859,
+    "type": "semipresidencialismo",
+    "origin": "República Socialista de Rumania"
+  },
+  "RUS": {
+    "year": 1263,
+    "type": "super-república presidencialista",
+    "origin": "República Socialista Federativa Soviética de Rusia"
+  },
+  "RWA": {
+    "year": 1962,
+    "type": "semipresidencialismo",
+    "origin": "Ruanda"
+  },
+  "SAU": {
+    "year": 1727,
+    "type": "monarquía",
+    "origin": "Emirato de Diriyah"
+  },
+  "SDN": {
+    "year": 1956,
+    "type": "república federal",
+    "origin": "Sudán anglo-egipcio"
+  },
+  "SEN": {
+    "year": 1960,
+    "type": "presidencialismo",
+    "origin": "África Occidental Francesa"
+  },
+  "SGP": {
+    "year": 1965,
+    "type": "república parlamentaria",
+    "origin": "Estado de Singapur"
+  },
+  "SLE": {
+    "year": 1971,
+    "type": "presidencialismo",
+    "origin": "Reino de Sierra Leona"
+  },
+  "SLV": {
+    "year": 1841,
+    "type": "república",
+    "origin": "Estado de El Salvador"
+  },
+  "SOM": {
+    "year": 1960,
+    "type": "república federal",
+    "origin": "Estado de Somalilandia"
+  },
+  "SRB": {
+    "year": 2006,
+    "type": "país",
+    "origin": "Serbia y Montenegro"
+  },
+  "SUR": {
+    "year": 1975,
+    "type": "república",
+    "origin": "Surinam"
+  },
+  "SVK": {
+    "year": 1993,
+    "type": "república parlamentaria",
+    "origin": "Slovak república"
+  },
+  "SVN": {
+    "year": 1991,
+    "type": "república democrática",
+    "origin": "República Socialista de Eslovenia"
+  },
+  "SWE": {
+    "year": 900,
+    "type": "monarquía constitucional",
+    "origin": null
+  },
+  "SYR": {
+    "year": 1920,
+    "type": "semipresidencialismo",
+    "origin": "Siria baazista"
+  },
+  "TCD": {
+    "year": 1960,
+    "type": "país",
+    "origin": "Chad"
+  },
+  "TGO": {
+    "year": 1960,
+    "type": "país",
+    "origin": "Togolandia francesa"
+  },
+  "THA": {
+    "year": 1768,
+    "type": "monarquía constitucional",
+    "origin": "Reino de Rattanakosin"
+  },
+  "TJK": {
+    "year": 1991,
+    "type": "presidencialismo",
+    "origin": "Unión Soviética"
+  },
+  "TTO": {
+    "year": 1976,
+    "type": "república parlamentaria",
+    "origin": "Federación de las Indias Occidentales"
+  },
+  "TUN": {
+    "year": 1956,
+    "type": "semipresidencialismo",
+    "origin": "Beylicato de Túnez"
+  },
+  "TUR": {
+    "year": 1923,
+    "type": "presidencialismo",
+    "origin": "Imperio otomano"
+  },
+  "TWN": {
+    "year": 1912,
+    "type": "democracia",
+    "origin": "Dinastía Qing"
+  },
+  "TZA": {
+    "year": 1964,
+    "type": "país",
+    "origin": "República Popular de Zanzíbar"
+  },
+  "UGA": {
+    "year": 1962,
+    "type": "presidencialismo",
+    "origin": "Uganda"
+  },
+  "UKR": {
+    "year": 1991,
+    "type": "semipresidencialismo",
+    "origin": "República Socialista Soviética de Ucrania"
+  },
+  "URY": {
+    "year": 1825,
+    "type": "presidencialismo",
+    "origin": "Estado Oriental del Uruguay"
+  },
+  "UZB": {
+    "year": 1991,
+    "type": "presidencialismo",
+    "origin": "Unión Soviética"
+  },
+  "VEN": {
+    "year": 1811,
+    "type": "presidencialismo",
+    "origin": "Gran Colombia"
+  },
+  "VNM": {
+    "year": 1804,
+    "type": "república",
+    "origin": "Vietnam del Norte"
+  },
+  "YEM": {
+    "year": 1990,
+    "type": "república",
+    "origin": "Yemen del Sur"
+  },
+  "ZAF": {
+    "year": 1910,
+    "type": "democracia representativa",
+    "origin": "república of South Africa (1961—1994)"
+  },
+  "ZMB": {
+    "year": 1964,
+    "type": "presidencialismo",
+    "origin": "Rodesia del Norte"
+  },
+  "ZWE": {
+    "year": 1980,
+    "type": "país",
+    "origin": "Rodesia del Sur"
+  },
+  "BTN": {
+    "year": 7707,
+    "type": "monarquía constitucional",
+    "origin": "estado principesco"
+  },
+  "ESH": {
+    "year": 1032,
+    "type": "territorio disputado",
+    "origin": "República Árabe Saharaui Democrática"
+  },
+  "FJI": {
+    "year": 7332,
+    "type": "país",
+    "origin": "Colonia de Fiyi"
+  },
+  "FLK": {
+    "year": 7690,
+    "type": "territorio británico de ultramar",
+    "origin": "Reino Unido"
+  },
+  "GRL": {
+    "year": 7704,
+    "type": "monarquía parlamentaria",
+    "origin": "Condado de Groenlandia"
+  },
+  "NCL": {
+    "year": 7083,
+    "type": "territorio dependiente",
+    "origin": "Francia"
+  },
+  "SLB": {
+    "year": 7081,
+    "type": "Estado archipelágico",
+    "origin": "Islas Salomón británicas"
+  },
+  "SSD": {
+    "year": 5175,
+    "type": "república federal",
+    "origin": "Sudán del Sur"
+  },
+  "SWZ": {
+    "year": 7143,
+    "type": "monarquía absoluta",
+    "origin": "British Swaziland"
+  },
+  "TKM": {
+    "year": 7351,
+    "type": "república",
+    "origin": "Unión Soviética"
+  },
+  "TLS": {
+    "year": 1031,
+    "type": "república",
+    "origin": "Timor portugués"
+  },
+  "VUT": {
+    "year": 7082,
+    "type": "país",
+    "origin": "Nuevas Hébridas"
+  }
+}

@@ -1,0 +1,107 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+#map {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  background: #0a1a2f;
+}
+
+#search-bar {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1200;
+  display: flex;
+  gap: 8px;
+  width: min(460px, calc(100vw - 620px));
+}
+
+#search-bar input {
+  flex: 1;
+  min-width: 0;
+  padding: 11px 14px;
+  border: 1px solid rgba(77, 163, 255, 0.35);
+  border-radius: 10px;
+  background: rgba(10, 26, 47, 0.94);
+  color: white;
+}
+
+#search-bar button {
+  padding: 11px 16px;
+  border: 1px solid rgba(77, 163, 255, 0.4);
+  border-radius: 10px;
+  background: #163152;
+  color: white;
+  cursor: pointer;
+}
+
+#search-bar input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+#left-panel {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 260px;
+  height: 100%;
+  background: #0a1a2f;
+  color: white;
+  padding: 15px;
+  z-index: 1000;
+}
+
+#country-panel {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 300px;
+  height: 100%;
+  background: #0a1a2f;
+  color: white;
+  padding: 15px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+h2, h3 {
+  color: #4da3ff;
+}
+
+ul {
+  padding-left: 18px;
+}
+
+.panel-section {
+  border: 1px solid rgba(77, 163, 255, 0.25);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.panel-section summary {
+  cursor: pointer;
+  padding: 10px 12px;
+  color: #4da3ff;
+  font-weight: bold;
+}
+
+.panel-content {
+  padding: 0 12px 12px;
+}
+
+.panel-content p {
+  margin: 8px 0;
+}
+
+@media (max-width: 1100px) {
+  #search-bar {
+    width: min(420px, calc(100vw - 40px));
+  }
+}

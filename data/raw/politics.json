@@ -1,0 +1,36 @@
+{
+  "USA": "República federal presidencialista",
+  "ARG": "República federal presidencialista",
+  "BRA": "República federal presidencialista",
+  "MEX": "República federal presidencialista",
+
+  "FRA": "República semipresidencialista",
+  "DEU": "República parlamentaria federal",
+  "ESP": "Monarquía parlamentaria",
+  "ITA": "República parlamentaria",
+  "GBR": "Monarquía parlamentaria",
+  "CAN": "Monarquía constitucional parlamentaria",
+  "AUS": "Monarquía constitucional parlamentaria",
+
+  "RUS": "República federal semipresidencialista",
+  "CHN": "Estado socialista unipartidista",
+  "PRK": "Estado socialista totalitario",
+  "CUB": "Estado socialista unipartidista",
+  "VNM": "Estado socialista unipartidista",
+
+  "IND": "República federal parlamentaria",
+  "PAK": "República parlamentaria",
+  "IDN": "República presidencialista",
+  "JPN": "Monarquía constitucional parlamentaria",
+  "KOR": "República presidencialista",
+
+  "IRN": "República islámica teocrática",
+  "SAU": "Monarquía absoluta",
+  "ARE": "Monarquía federal",
+  "ISR": "República parlamentaria",
+
+  "EGY": "República presidencialista",
+  "ZAF": "República parlamentaria",
+  "NGA": "República federal presidencialista",
+  "ETH": "República federal parlamentaria"
+}

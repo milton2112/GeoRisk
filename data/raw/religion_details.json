@@ -1,0 +1,6810 @@
+{
+  "AFG": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 99
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "ALB": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 80.3
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 18
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1.4
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "DZA": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 97.9
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1.8
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "ASM": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 98.3
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "AND": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 89.5
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 8.8
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "AGO": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 90.5
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 5.1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 4.2
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "ATG": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 93
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 3.6
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1.7
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "ARG": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 85.2
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 12.2
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "ARM": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 98.5
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1.3
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "ABW": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 91.9
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 6
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1.3
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "AUS": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 67.3
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 24.2
+      },
+      {
+        "name": "Budismo",
+        "percentage": 2.7
+      },
+      {
+        "name": "Islam",
+        "percentage": 2.4
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1.4
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "AUT": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 80.4
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 13.5
+      },
+      {
+        "name": "Islam",
+        "percentage": 5.4
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "AZE": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 96.9
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 3
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "BHR": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 70.3
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 14.5
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 9.8
+      },
+      {
+        "name": "Budismo",
+        "percentage": 2.5
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1.9
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "BGD": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 90.4
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 8.5
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "BRB": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 95.2
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1.9
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1.4
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      }
+    ]
+  },
+  "BLR": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 71.2
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 28.6
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "BEL": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 64.2
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 29
+      },
+      {
+        "name": "Islam",
+        "percentage": 5.9
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "BLZ": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 87.6
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 8.9
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1.5
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "BEN": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 53
+      },
+      {
+        "name": "Islam",
+        "percentage": 23.8
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 18.1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 5
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "BMU": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 75
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 19.4
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 3
+      },
+      {
+        "name": "Islam",
+        "percentage": 1.1
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "BTN": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Budismo",
+        "percentage": 74.7
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 22.6
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1.9
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "BOL": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 93.9
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 4.1
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "BWA": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 72.1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 20.6
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 6
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "BRA": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 88.9
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 7.9
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 2.8
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "VGB": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 84.5
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 8.4
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 3.9
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1.2
+      },
+      {
+        "name": "Islam",
+        "percentage": 1.2
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "BGR": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 82.1
+      },
+      {
+        "name": "Islam",
+        "percentage": 13.7
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 4.2
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "BFA": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 61.6
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 22.5
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 15.4
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "BDI": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 91.5
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 5.7
+      },
+      {
+        "name": "Islam",
+        "percentage": 2.8
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "KHM": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Budismo",
+        "percentage": 96.9
+      },
+      {
+        "name": "Islam",
+        "percentage": 2
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "CMR": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 70.3
+      },
+      {
+        "name": "Islam",
+        "percentage": 18.3
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 5.3
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 3.3
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 2.7
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      }
+    ]
+  },
+  "CAN": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 69
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 23.7
+      },
+      {
+        "name": "Islam",
+        "percentage": 2.1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1.4
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1.2
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "CYM": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 83.5
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 9.4
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 4.5
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "CAF": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 89.5
+      },
+      {
+        "name": "Islam",
+        "percentage": 8.5
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "TCD": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 55.3
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 40.6
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 2.5
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1.4
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "CHI": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 85.2
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 14.2
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "CHL": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 89.4
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 8.6
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1.5
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "CHN": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 52.2
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 21.9
+      },
+      {
+        "name": "Budismo",
+        "percentage": 18.2
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 5.1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1.8
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "COL": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 92.5
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 6.6
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "COM": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 98.3
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "CRI": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 90.9
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 7.9
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "HRV": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 93.4
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 5.1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1.4
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "CUB": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 59.2
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 23
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 17.4
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "CYP": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 73.2
+      },
+      {
+        "name": "Islam",
+        "percentage": 25.3
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1.2
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "DNK": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 83.5
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 11.8
+      },
+      {
+        "name": "Islam",
+        "percentage": 4.1
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "DJI": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 96.9
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 2.3
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "DMA": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 94.4
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 3
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1.7
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "DOM": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 88
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 10.9
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "ECU": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 94.1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 5.5
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "SLV": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 88.2
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 11
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "GNQ": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 88.7
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 5
+      },
+      {
+        "name": "Islam",
+        "percentage": 4
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1.7
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "ERI": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 62.9
+      },
+      {
+        "name": "Islam",
+        "percentage": 36.6
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "EST": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 59.6
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 39.9
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "ETH": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 62.8
+      },
+      {
+        "name": "Islam",
+        "percentage": 34.6
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 2.6
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "FJI": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 64.4
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 27.9
+      },
+      {
+        "name": "Islam",
+        "percentage": 6.3
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "FIN": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 80.1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 19.1
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "FRA": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 63
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 28
+      },
+      {
+        "name": "Islam",
+        "percentage": 7.5
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "PYF": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 94
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 4.9
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "GAB": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 76.5
+      },
+      {
+        "name": "Islam",
+        "percentage": 11.2
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 6
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 5.6
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "GEO": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 88.5
+      },
+      {
+        "name": "Islam",
+        "percentage": 10.7
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "DEU": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 68.7
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 24.7
+      },
+      {
+        "name": "Islam",
+        "percentage": 5.8
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "GHA": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 74.9
+      },
+      {
+        "name": "Islam",
+        "percentage": 15.8
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 4.9
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 4.2
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "GIB": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 88.8
+      },
+      {
+        "name": "Islam",
+        "percentage": 4
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 2.9
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 2.1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1.8
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "GRC": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 88.1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 6.1
+      },
+      {
+        "name": "Islam",
+        "percentage": 5.3
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "GRL": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 96.1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 2.5
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "GRD": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 96.6
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1.3
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "GUM": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 94.2
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1.7
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1.6
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1.5
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1.1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      }
+    ]
+  },
+  "GTM": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 95.2
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 4.1
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "GIN": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 84.4
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 10.9
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 2.7
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1.8
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "GNB": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 45.1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 30.9
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 19.7
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 4.3
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "GUY": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 66
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 24.9
+      },
+      {
+        "name": "Islam",
+        "percentage": 6.4
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 2
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "HTI": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 86.9
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 10.6
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 2.2
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "HND": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 87.6
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 10.5
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1.1
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "HUN": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 81
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 18.6
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "ISL": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 95
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 3.5
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "IND": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Hinduismo",
+        "percentage": 79.5
+      },
+      {
+        "name": "Islam",
+        "percentage": 14.4
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 2.5
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 2.3
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "IDN": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 87.2
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 9.9
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1.7
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "IRQ": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 99
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "IRL": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 92
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 6.2
+      },
+      {
+        "name": "Islam",
+        "percentage": 1.1
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "IMN": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 84.1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 15.4
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "ISR": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Judaismo",
+        "percentage": 75.6
+      },
+      {
+        "name": "Islam",
+        "percentage": 18.6
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 3.1
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 2
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "ITA": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 83.3
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 12.4
+      },
+      {
+        "name": "Islam",
+        "percentage": 3.7
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "JAM": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 77.2
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 17.2
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 4.5
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "JPN": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 57
+      },
+      {
+        "name": "Budismo",
+        "percentage": 36.2
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 4.7
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 1.6
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      }
+    ]
+  },
+  "JOR": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 97.2
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 2.2
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "KAZ": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 70.4
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 24.7
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 4.2
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "KEN": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 84.8
+      },
+      {
+        "name": "Islam",
+        "percentage": 9.7
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 2.5
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1.7
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1.2
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      }
+    ]
+  },
+  "KIR": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 97
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 2.2
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "XKX": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 93.8
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 6.1
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "KWT": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 74.1
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 14.3
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 8.5
+      },
+      {
+        "name": "Budismo",
+        "percentage": 2.8
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "LVA": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 55.8
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 43.8
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "LBN": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 61.3
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 38.3
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "LSO": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 96.8
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 3.1
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "LBR": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 85.9
+      },
+      {
+        "name": "Islam",
+        "percentage": 12
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1.4
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "LBY": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 96.6
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 2.7
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "LIE": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 91.9
+      },
+      {
+        "name": "Islam",
+        "percentage": 5
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 2.9
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "LTU": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 89.8
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 10
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "LUX": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 70.4
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 26.8
+      },
+      {
+        "name": "Islam",
+        "percentage": 2.3
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "MDG": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 85.3
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 6.9
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 4.5
+      },
+      {
+        "name": "Islam",
+        "percentage": 3
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "MWI": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 82.7
+      },
+      {
+        "name": "Islam",
+        "percentage": 13
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 2.5
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1.7
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "MYS": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 63.7
+      },
+      {
+        "name": "Budismo",
+        "percentage": 17.7
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 9.4
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 6
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 2.3
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "MDV": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 98.4
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "MLI": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 94.4
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 2.7
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 2.4
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "MLT": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 97
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 2.5
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "MHL": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 97.5
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1.5
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "MRT": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 99
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "MUS": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Hinduismo",
+        "percentage": 48.5
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 32.7
+      },
+      {
+        "name": "Islam",
+        "percentage": 17.3
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "MEX": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 95.1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 4.7
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "MDA": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 97.4
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1.4
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "MCO": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 86
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 11.7
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1.7
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "MNG": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Budismo",
+        "percentage": 55.1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 35.9
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 3.5
+      },
+      {
+        "name": "Islam",
+        "percentage": 3.2
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 2.3
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "MNE": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 78.1
+      },
+      {
+        "name": "Islam",
+        "percentage": 18.7
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 3.2
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "MAR": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 99
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "MOZ": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 56.7
+      },
+      {
+        "name": "Islam",
+        "percentage": 18
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 17.9
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 7.4
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "NAM": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 97.5
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1.9
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "NRU": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 79
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 8.1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 7.4
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 4.5
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1.1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      }
+    ]
+  },
+  "NPL": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Hinduismo",
+        "percentage": 80.7
+      },
+      {
+        "name": "Budismo",
+        "percentage": 10.3
+      },
+      {
+        "name": "Islam",
+        "percentage": 4.6
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 3.7
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "NLD": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 50.6
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 42.1
+      },
+      {
+        "name": "Islam",
+        "percentage": 6
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "NCL": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 85.2
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 10.4
+      },
+      {
+        "name": "Islam",
+        "percentage": 2.8
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "NZL": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 57
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 36.6
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 2.1
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1.6
+      },
+      {
+        "name": "Islam",
+        "percentage": 1.2
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "NIC": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 85.8
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 12.5
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1.4
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "NER": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 98.4
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "NGA": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 49.3
+      },
+      {
+        "name": "Islam",
+        "percentage": 48.8
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1.4
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "MNP": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 81.3
+      },
+      {
+        "name": "Budismo",
+        "percentage": 10.6
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 5.3
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1.1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "NOR": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 84.7
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 10.1
+      },
+      {
+        "name": "Islam",
+        "percentage": 3.7
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "OMN": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 85.9
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 6.5
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 5.5
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "PAK": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 96.4
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1.9
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 1.6
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "PLW": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 86.7
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 10.4
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1.2
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      }
+    ]
+  },
+  "PAN": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 93
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 4.8
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "PNG": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 99
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "PRY": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 96.9
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1.7
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1.1
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "PER": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 95.5
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 3
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "PHL": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 92.6
+      },
+      {
+        "name": "Islam",
+        "percentage": 5.5
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1.5
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "POL": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 94.3
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 5.6
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "PRT": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 91.9
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 7.5
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "QAT": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 67.7
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 13.8
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 13.8
+      },
+      {
+        "name": "Budismo",
+        "percentage": 3.1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "ROU": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 99
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "RWA": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 93.4
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 3.6
+      },
+      {
+        "name": "Islam",
+        "percentage": 1.8
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "KNA": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 94.6
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1.6
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1.5
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1.3
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "LCA": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 91.1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 6
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 2
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      }
+    ]
+  },
+  "VCT": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 88.7
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 3.4
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 2.5
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 2
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 2
+      },
+      {
+        "name": "Islam",
+        "percentage": 1.5
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      }
+    ]
+  },
+  "WSM": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 96.8
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 2.5
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "SMR": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 91.6
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 7.2
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "STP": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 82.2
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 12.6
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 2.9
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 2.4
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      }
+    ]
+  },
+  "SAU": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 93
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 4.4
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1.1
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "SEN": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 96.4
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 3.6
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "SRB": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 92.6
+      },
+      {
+        "name": "Islam",
+        "percentage": 4.1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 3.3
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "SYC": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 94
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 2.1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 2.1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1.1
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "SLE": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 78
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 20.9
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "SGP": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Budismo",
+        "percentage": 33.9
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 18.2
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 16.4
+      },
+      {
+        "name": "Islam",
+        "percentage": 14.3
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 9.7
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 5.2
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 2.3
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      }
+    ]
+  },
+  "SVN": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 78.4
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 18
+      },
+      {
+        "name": "Islam",
+        "percentage": 3.6
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "SLB": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 97.4
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1.3
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "ZAF": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 81.2
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 14.9
+      },
+      {
+        "name": "Islam",
+        "percentage": 1.7
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1.1
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "ESP": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 78.6
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 19
+      },
+      {
+        "name": "Islam",
+        "percentage": 2.1
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "LKA": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Budismo",
+        "percentage": 69.3
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 13.6
+      },
+      {
+        "name": "Islam",
+        "percentage": 9.8
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 7.3
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "SDN": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 90.7
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 5.4
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 2.8
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "SUR": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 51.6
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 19.8
+      },
+      {
+        "name": "Islam",
+        "percentage": 15.2
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 5.4
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 5.3
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1.8
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      }
+    ]
+  },
+  "SWZ": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 88.1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 10.1
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "SWE": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 67.2
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 27
+      },
+      {
+        "name": "Islam",
+        "percentage": 4.6
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "CHE": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 72.7
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 20.9
+      },
+      {
+        "name": "Islam",
+        "percentage": 4.9
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "TJK": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 96.7
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 1.6
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1.5
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "TZA": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 61.4
+      },
+      {
+        "name": "Islam",
+        "percentage": 35.2
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1.8
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1.4
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "THA": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Budismo",
+        "percentage": 93.2
+      },
+      {
+        "name": "Islam",
+        "percentage": 5.5
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "TLS": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 99
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "TGO": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 43.7
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 35.6
+      },
+      {
+        "name": "Islam",
+        "percentage": 14
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 6.2
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "TON": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 98.9
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "TTO": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 65.9
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 22.7
+      },
+      {
+        "name": "Islam",
+        "percentage": 5.9
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1.9
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1.9
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1.4
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      }
+    ]
+  },
+  "TUN": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 99
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "TKM": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 93
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 6.4
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "TCA": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 92.1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 4.6
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 2.7
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "TUV": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 96.7
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1.9
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1.3
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      }
+    ]
+  },
+  "UGA": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 86.7
+      },
+      {
+        "name": "Islam",
+        "percentage": 11.5
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "UKR": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 83.8
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 14.7
+      },
+      {
+        "name": "Islam",
+        "percentage": 1.2
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "ARE": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 76.9
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 12.6
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 6.6
+      },
+      {
+        "name": "Budismo",
+        "percentage": 2
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1.1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "GBR": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 64.3
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 27.8
+      },
+      {
+        "name": "Islam",
+        "percentage": 4.8
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1.4
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "USA": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 78.3
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 16.4
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1.8
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1.2
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "URY": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 57.9
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 40.7
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "UZB": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 96.7
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 2.3
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "VUT": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 93.3
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 4.1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1.4
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1.2
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      }
+    ]
+  },
+  "ESH": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Islam",
+        "percentage": 99
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Cristianismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "ZMB": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 97.6
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "ZWE": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 87
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 7.9
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 3.8
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  },
+  "SSD": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 60.5
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 32.9
+      },
+      {
+        "name": "Islam",
+        "percentage": 6.2
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 1
+      }
+    ]
+  },
+  "CUW": {
+    "summary": null,
+    "composition": [
+      {
+        "name": "Cristianismo",
+        "percentage": 93.9
+      },
+      {
+        "name": "No afiliados / ateos / agnosticos",
+        "percentage": 3.3
+      },
+      {
+        "name": "Religiones populares",
+        "percentage": 1.2
+      },
+      {
+        "name": "Budismo",
+        "percentage": 1
+      },
+      {
+        "name": "Hinduismo",
+        "percentage": 1
+      },
+      {
+        "name": "Judaismo",
+        "percentage": 1
+      },
+      {
+        "name": "Islam",
+        "percentage": 1
+      },
+      {
+        "name": "Otras religiones",
+        "percentage": 1
+      }
+    ]
+  }
+}

@@ -1,0 +1,4615 @@
+{
+  "COK": {
+    "capital": {
+      "name": "Avarua",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "GIN": {
+    "capital": {
+      "name": "Conakry",
+      "population": 1659785,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Labé",
+        "population": 249515,
+        "isCapital": false
+      },
+      {
+        "name": "Coyah",
+        "population": 216928,
+        "isCapital": false
+      },
+      {
+        "name": "Nzérékoré",
+        "population": 195027,
+        "isCapital": false
+      },
+      {
+        "name": "Kankan",
+        "population": 190722,
+        "isCapital": false
+      },
+      {
+        "name": "Boke",
+        "population": 185548,
+        "isCapital": false
+      }
+    ]
+  },
+  "CXR": {
+    "capital": {
+      "name": "Flying Fish Cove",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "TGO": {
+    "capital": {
+      "name": "Lomé",
+      "population": 2188376,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Kara",
+        "population": 158090,
+        "isCapital": false
+      },
+      {
+        "name": "Dapaong",
+        "population": 117675,
+        "isCapital": false
+      },
+      {
+        "name": "Sokode",
+        "population": 115442,
+        "isCapital": false
+      }
+    ]
+  },
+  "TWN": {
+    "capital": {
+      "name": "Taipéi",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "KGZ": {
+    "capital": {
+      "name": "Bishkek",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "SUR": {
+    "capital": {
+      "name": "Paramaribo",
+      "population": 240924,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Wanica",
+        "population": 118222,
+        "isCapital": false
+      }
+    ]
+  },
+  "DOM": {
+    "capital": {
+      "name": "Santo Domingo",
+      "population": 965040,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Santo Domingo East",
+        "population": 851853,
+        "isCapital": false
+      },
+      {
+        "name": "Santiago de los Caballeros",
+        "population": 550753,
+        "isCapital": false
+      },
+      {
+        "name": "Santo Domingo North",
+        "population": 446753,
+        "isCapital": false
+      },
+      {
+        "name": "Santo Domingo West",
+        "population": 318181,
+        "isCapital": false
+      },
+      {
+        "name": "Los Alcarrizos",
+        "population": 186818,
+        "isCapital": false
+      }
+    ]
+  },
+  "GTM": {
+    "capital": {
+      "name": "Ciudad de Guatemala",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "CUIDAD DE GUATEMALA",
+        "population": 923392,
+        "isCapital": false
+      },
+      {
+        "name": "Mixco",
+        "population": 452134,
+        "isCapital": false
+      },
+      {
+        "name": "Villa Nueva",
+        "population": 390329,
+        "isCapital": false
+      },
+      {
+        "name": "Quetzaltenango",
+        "population": 152223,
+        "isCapital": false
+      },
+      {
+        "name": "Escuintla",
+        "population": 114626,
+        "isCapital": false
+      }
+    ]
+  },
+  "DZA": {
+    "capital": {
+      "name": "Algiers",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "ALGIERS (EL DJAZAIR)",
+        "population": 2712944,
+        "isCapital": false
+      },
+      {
+        "name": "Wahran (Oran)",
+        "population": 1165687,
+        "isCapital": false
+      },
+      {
+        "name": "Stif (Sétif)",
+        "population": 856457,
+        "isCapital": false
+      },
+      {
+        "name": "El Djelfa",
+        "population": 825411,
+        "isCapital": false
+      },
+      {
+        "name": "Batna",
+        "population": 768444,
+        "isCapital": false
+      }
+    ]
+  },
+  "UKR": {
+    "capital": {
+      "name": "Kiev",
+      "population": 2910994,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Kharkiv",
+        "population": 1401558,
+        "isCapital": false
+      },
+      {
+        "name": "Odessa",
+        "population": 992874,
+        "isCapital": false
+      },
+      {
+        "name": "Dnipro",
+        "population": 958377,
+        "isCapital": false
+      },
+      {
+        "name": "Donets'k",
+        "population": 892980,
+        "isCapital": false
+      },
+      {
+        "name": "Lviv",
+        "population": 710606,
+        "isCapital": false
+      }
+    ]
+  },
+  "KNA": {
+    "capital": {
+      "name": "Basseterre",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "HRV": {
+    "capital": {
+      "name": "Zagreb",
+      "population": 767131,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Split",
+        "population": 160577,
+        "isCapital": false
+      },
+      {
+        "name": "Rijeka",
+        "population": 107964,
+        "isCapital": false
+      },
+      {
+        "name": "Osijek",
+        "population": 96313,
+        "isCapital": false
+      }
+    ]
+  },
+  "GNQ": {
+    "capital": {
+      "name": "Ciudad de la Paz",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Bata",
+        "population": 362220,
+        "isCapital": false
+      },
+      {
+        "name": "MALABO",
+        "population": 315665,
+        "isCapital": false
+      },
+      {
+        "name": "Ebibeyín",
+        "population": 48980,
+        "isCapital": false
+      },
+      {
+        "name": "Mongomo",
+        "population": 42433,
+        "isCapital": false
+      }
+    ]
+  },
+  "PAN": {
+    "capital": {
+      "name": "Ciudad de Panama",
+      "population": 512582,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "San Miguelito",
+        "population": 399900,
+        "isCapital": false
+      },
+      {
+        "name": "Ciudad de Colon",
+        "population": 45390.2083246068,
+        "isCapital": false
+      }
+    ]
+  },
+  "BEL": {
+    "capital": {
+      "name": "Bruselas",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "BRUXELLES (BRUSSEL)",
+        "population": 1253178,
+        "isCapital": false
+      },
+      {
+        "name": "Antwerpen (Anvers)",
+        "population": 541122,
+        "isCapital": false
+      },
+      {
+        "name": "Liège (Luik)",
+        "population": 408069,
+        "isCapital": false
+      },
+      {
+        "name": "Gent (Gand)",
+        "population": 268335,
+        "isCapital": false
+      },
+      {
+        "name": "Charleroi",
+        "population": 240402,
+        "isCapital": false
+      }
+    ]
+  },
+  "BVT": {
+    "capital": null,
+    "cities": []
+  },
+  "RWA": {
+    "capital": {
+      "name": "Kigali",
+      "population": 1745555,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Nyagatare",
+        "population": 653861,
+        "isCapital": false
+      },
+      {
+        "name": "Rubavu",
+        "population": 546683,
+        "isCapital": false
+      },
+      {
+        "name": "Rusizi",
+        "population": 485529,
+        "isCapital": false
+      },
+      {
+        "name": "Musanze",
+        "population": 476522,
+        "isCapital": false
+      },
+      {
+        "name": "Huye",
+        "population": 381900,
+        "isCapital": false
+      }
+    ]
+  },
+  "ATF": {
+    "capital": {
+      "name": "Port-aux-Français",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "CPV": {
+    "capital": {
+      "name": "Praia",
+      "population": 141219,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "KOR": {
+    "capital": {
+      "name": "Seul",
+      "population": 9421415,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Busan (Pusan)",
+        "population": 3303196,
+        "isCapital": false
+      },
+      {
+        "name": "Incheon",
+        "population": 2975225,
+        "isCapital": false
+      },
+      {
+        "name": "Daegu (Taegu)",
+        "population": 2371593,
+        "isCapital": false
+      },
+      {
+        "name": "Daejeon (Taejon)",
+        "population": 1472473,
+        "isCapital": false
+      },
+      {
+        "name": "Gwangju (Kwangchu)",
+        "population": 1469502,
+        "isCapital": false
+      }
+    ]
+  },
+  "GUM": {
+    "capital": {
+      "name": "Hagåtña",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "AGANA",
+        "population": 1051,
+        "isCapital": false
+      }
+    ]
+  },
+  "AND": {
+    "capital": {
+      "name": "Andorra la Vella",
+      "population": 22205,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "SEN": {
+    "capital": {
+      "name": "Dakar",
+      "population": 1056009,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Pikine",
+        "population": 941245,
+        "isCapital": false
+      },
+      {
+        "name": "Thiès",
+        "population": 618436,
+        "isCapital": false
+      },
+      {
+        "name": "Mbour",
+        "population": 605346,
+        "isCapital": false
+      },
+      {
+        "name": "Kaolack",
+        "population": 410577,
+        "isCapital": false
+      },
+      {
+        "name": "Ziguinchor",
+        "population": 337295,
+        "isCapital": false
+      }
+    ]
+  },
+  "URY": {
+    "capital": {
+      "name": "Montevideo",
+      "population": 1384210.21128007,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Salto",
+        "population": 104028,
+        "isCapital": false
+      }
+    ]
+  },
+  "COG": {
+    "capital": {
+      "name": "Brazzaville",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "NAM": {
+    "capital": {
+      "name": "Windhoek",
+      "population": 486301,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Rundu",
+        "population": 118632,
+        "isCapital": false
+      },
+      {
+        "name": "Walvis Bay",
+        "population": 102592,
+        "isCapital": false
+      }
+    ]
+  },
+  "SGP": {
+    "capital": {
+      "name": "Singapore",
+      "population": 6036860,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "FIN": {
+    "capital": {
+      "name": "Helsinki",
+      "population": 674500,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Espoo",
+        "population": 314024,
+        "isCapital": false
+      },
+      {
+        "name": "Tampere",
+        "population": 255050,
+        "isCapital": false
+      },
+      {
+        "name": "Vantaa",
+        "population": 247443,
+        "isCapital": false
+      },
+      {
+        "name": "Oulu",
+        "population": 214633,
+        "isCapital": false
+      },
+      {
+        "name": "Turku",
+        "population": 201863,
+        "isCapital": false
+      }
+    ]
+  },
+  "EGY": {
+    "capital": {
+      "name": "Cairo",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "PLW": {
+    "capital": {
+      "name": "Ngerulmud",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Koror",
+        "population": 11199,
+        "isCapital": false
+      }
+    ]
+  },
+  "ASM": {
+    "capital": {
+      "name": "Pago Pago",
+      "population": 3000,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "ATG": {
+    "capital": {
+      "name": "Saint John's",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "ST. JOHN",
+        "population": 22342,
+        "isCapital": false
+      }
+    ]
+  },
+  "SYC": {
+    "capital": {
+      "name": "Victoria",
+      "population": 26450,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "KWT": {
+    "capital": {
+      "name": "Kuwait City",
+      "population": 32403,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Salmiya",
+        "population": 129775,
+        "isCapital": false
+      },
+      {
+        "name": "Jaleeb Al-Shuykh",
+        "population": 102169,
+        "isCapital": false
+      }
+    ]
+  },
+  "GRC": {
+    "capital": {
+      "name": "Atenas",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "ATHINAI",
+        "population": 664046,
+        "isCapital": false
+      },
+      {
+        "name": "Thessaloniki",
+        "population": 315196,
+        "isCapital": false
+      },
+      {
+        "name": "Patrai",
+        "population": 167446,
+        "isCapital": false
+      },
+      {
+        "name": "Pireas",
+        "population": 163688,
+        "isCapital": false
+      },
+      {
+        "name": "Larissa",
+        "population": 144651,
+        "isCapital": false
+      }
+    ]
+  },
+  "KIR": {
+    "capital": {
+      "name": "South Tarawa",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "TARAWA",
+        "population": 70090,
+        "isCapital": false
+      }
+    ]
+  },
+  "CYP": {
+    "capital": {
+      "name": "Nicosia",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "LEFKOSIA",
+        "population": 255350,
+        "isCapital": false
+      },
+      {
+        "name": "Lemesos",
+        "population": 198303,
+        "isCapital": false
+      }
+    ]
+  },
+  "MLI": {
+    "capital": {
+      "name": "Bamako",
+      "population": 1810366,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Sikasso",
+        "population": 226618,
+        "isCapital": false
+      },
+      {
+        "name": "Kayes",
+        "population": 149129,
+        "isCapital": false
+      },
+      {
+        "name": "Koutiala",
+        "population": 141444,
+        "isCapital": false
+      },
+      {
+        "name": "Ségou",
+        "population": 133501,
+        "isCapital": false
+      },
+      {
+        "name": "Mopti",
+        "population": 120786,
+        "isCapital": false
+      }
+    ]
+  },
+  "BMU": {
+    "capital": {
+      "name": "Hamilton",
+      "population": 854,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Town of St. George",
+        "population": 3398,
+        "isCapital": false
+      }
+    ]
+  },
+  "GRL": {
+    "capital": {
+      "name": "Nuuk",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "NUUK (GODTHAB)",
+        "population": 19783,
+        "isCapital": false
+      }
+    ]
+  },
+  "ERI": {
+    "capital": {
+      "name": "Asmara",
+      "population": 281110,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "TZA": {
+    "capital": {
+      "name": "Dodoma",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "VNM": {
+    "capital": {
+      "name": "Hanoi",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "TCD": {
+    "capital": {
+      "name": "N'Djamena",
+      "population": 530965,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "CIV": {
+    "capital": {
+      "name": "Yamoussoukro",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "GEO": {
+    "capital": {
+      "name": "Tbilisi",
+      "population": 1154314,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Batumi",
+        "population": 169095,
+        "isCapital": false
+      },
+      {
+        "name": "Kutaisi",
+        "population": 135201,
+        "isCapital": false
+      },
+      {
+        "name": "Rustavi",
+        "population": 128680,
+        "isCapital": false
+      }
+    ]
+  },
+  "IMN": {
+    "capital": {
+      "name": "Douglas",
+      "population": 26677,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "SGS": {
+    "capital": {
+      "name": "King Edward Point",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "BOL": {
+    "capital": {
+      "name": "Sucre",
+      "population": 193876,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Santa Cruz",
+        "population": 1113582,
+        "isCapital": false
+      },
+      {
+        "name": "LA PAZ",
+        "population": 789585,
+        "isCapital": false
+      },
+      {
+        "name": "El Alto",
+        "population": 647350,
+        "isCapital": false
+      },
+      {
+        "name": "Cochabamba",
+        "population": 516683,
+        "isCapital": false
+      },
+      {
+        "name": "Oruro",
+        "population": 201230,
+        "isCapital": false
+      }
+    ]
+  },
+  "UMI": {
+    "capital": {
+      "name": "Washington DC",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "DNK": {
+    "capital": {
+      "name": "Copenhague",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "KOBENHAVN",
+        "population": 638790,
+        "isCapital": false
+      },
+      {
+        "name": "Århus",
+        "population": 352315,
+        "isCapital": false
+      },
+      {
+        "name": "Ålborg",
+        "population": 219476,
+        "isCapital": false
+      },
+      {
+        "name": "Odense",
+        "population": 204795,
+        "isCapital": false
+      },
+      {
+        "name": "Vejle",
+        "population": 118028,
+        "isCapital": false
+      }
+    ]
+  },
+  "TKM": {
+    "capital": {
+      "name": "Ashgabat",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "ASHKHABAD",
+        "population": 407000,
+        "isCapital": false
+      },
+      {
+        "name": "Türkmenabat (Chardzhou)",
+        "population": 164000,
+        "isCapital": false
+      },
+      {
+        "name": "Tashauz",
+        "population": 114000,
+        "isCapital": false
+      }
+    ]
+  },
+  "NER": {
+    "capital": {
+      "name": "Niamey",
+      "population": 1026848,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Zinder",
+        "population": 322935,
+        "isCapital": false
+      },
+      {
+        "name": "Maradi",
+        "population": 267249,
+        "isCapital": false
+      },
+      {
+        "name": "Tahoua",
+        "population": 149498,
+        "isCapital": false
+      }
+    ]
+  },
+  "FSM": {
+    "capital": {
+      "name": "Palikir",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "JEY": {
+    "capital": {
+      "name": "Saint Helier",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "CYM": {
+    "capital": {
+      "name": "George Town",
+      "population": 34921,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "LIE": {
+    "capital": {
+      "name": "Vaduz",
+      "population": 5774,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "BIH": {
+    "capital": {
+      "name": "Sarajevo",
+      "population": 527049,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Banja Luka",
+        "population": 195692,
+        "isCapital": false
+      },
+      {
+        "name": "Zenica",
+        "population": 145517,
+        "isCapital": false
+      },
+      {
+        "name": "Tuzla",
+        "population": 131318,
+        "isCapital": false
+      },
+      {
+        "name": "Mostar",
+        "population": 126628,
+        "isCapital": false
+      },
+      {
+        "name": "Prijedor",
+        "population": 112543,
+        "isCapital": false
+      }
+    ]
+  },
+  "FRA": {
+    "capital": {
+      "name": "Paris",
+      "population": 2133111,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Marseille",
+        "population": 873076,
+        "isCapital": false
+      },
+      {
+        "name": "Lyon",
+        "population": 522250,
+        "isCapital": false
+      },
+      {
+        "name": "Toulouse",
+        "population": 504078,
+        "isCapital": false
+      },
+      {
+        "name": "Nice",
+        "population": 348085,
+        "isCapital": false
+      },
+      {
+        "name": "Nantes",
+        "population": 323204,
+        "isCapital": false
+      }
+    ]
+  },
+  "PYF": {
+    "capital": {
+      "name": "Papeetē",
+      "population": 26654,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "KAZ": {
+    "capital": {
+      "name": "Astana",
+      "population": 1392336.5,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Almaty",
+        "population": 2195289.5,
+        "isCapital": false
+      },
+      {
+        "name": "Shimkent",
+        "population": 1207132.5,
+        "isCapital": false
+      },
+      {
+        "name": "Aktobe",
+        "population": 565204.5,
+        "isCapital": false
+      },
+      {
+        "name": "Karaganda",
+        "population": 518263,
+        "isCapital": false
+      },
+      {
+        "name": "Taraz",
+        "population": 429293,
+        "isCapital": false
+      }
+    ]
+  },
+  "AGO": {
+    "capital": {
+      "name": "Luanda",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "NZL": {
+    "capital": {
+      "name": "Wellington",
+      "population": 209900,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Auckland",
+        "population": 1797300,
+        "isCapital": false
+      },
+      {
+        "name": "Christchurch",
+        "population": 412000,
+        "isCapital": false
+      },
+      {
+        "name": "Manukau",
+        "population": 375700,
+        "isCapital": false
+      },
+      {
+        "name": "North Shore",
+        "population": 229000,
+        "isCapital": false
+      },
+      {
+        "name": "Waitakere",
+        "population": 208100,
+        "isCapital": false
+      }
+    ]
+  },
+  "PRI": {
+    "capital": {
+      "name": "San Juan",
+      "population": 333005,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Bayamón",
+        "population": 180835,
+        "isCapital": false
+      },
+      {
+        "name": "Carolina",
+        "population": 150843,
+        "isCapital": false
+      },
+      {
+        "name": "Ponce",
+        "population": 130251,
+        "isCapital": false
+      },
+      {
+        "name": "Caguas",
+        "population": 124608,
+        "isCapital": false
+      },
+      {
+        "name": "Guaynabo",
+        "population": 89039,
+        "isCapital": false
+      }
+    ]
+  },
+  "SAU": {
+    "capital": {
+      "name": "Riyadh",
+      "population": 6924566,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Jiddah",
+        "population": 3712917,
+        "isCapital": false
+      },
+      {
+        "name": "Makkah",
+        "population": 2385509,
+        "isCapital": false
+      },
+      {
+        "name": "Al-Madinah",
+        "population": 1411599,
+        "isCapital": false
+      },
+      {
+        "name": "Ad-Dammam",
+        "population": 1386166,
+        "isCapital": false
+      },
+      {
+        "name": "Tabuk",
+        "population": 594350,
+        "isCapital": false
+      }
+    ]
+  },
+  "MNE": {
+    "capital": {
+      "name": "Podgorica",
+      "population": 179505,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "ZAF": {
+    "capital": {
+      "name": "Pretoria",
+      "population": 741651,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Johannesburg",
+        "population": 957441,
+        "isCapital": false
+      },
+      {
+        "name": "Soweto",
+        "population": 904165,
+        "isCapital": false
+      },
+      {
+        "name": "Port Elizabeth",
+        "population": 775255,
+        "isCapital": false
+      },
+      {
+        "name": "Durban",
+        "population": 595061,
+        "isCapital": false
+      },
+      {
+        "name": "Ciudad del Cabo",
+        "population": 433688,
+        "isCapital": false
+      }
+    ]
+  },
+  "PAK": {
+    "capital": {
+      "name": "Islamabad",
+      "population": 1108872,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Karachi",
+        "population": 18843844,
+        "isCapital": false
+      },
+      {
+        "name": "Lahore",
+        "population": 13004135,
+        "isCapital": false
+      },
+      {
+        "name": "Faisalabad (Lyallpur)",
+        "population": 3691999,
+        "isCapital": false
+      },
+      {
+        "name": "Rawalpindi",
+        "population": 3357612,
+        "isCapital": false
+      },
+      {
+        "name": "Gujranwala",
+        "population": 2668047,
+        "isCapital": false
+      }
+    ]
+  },
+  "LKA": {
+    "capital": {
+      "name": "Sri Jayawardenepura Kotte",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "COLOMBO",
+        "population": 647100,
+        "isCapital": false
+      },
+      {
+        "name": "Dehiwala-Mount Lavinia",
+        "population": 210546,
+        "isCapital": false
+      },
+      {
+        "name": "Moratuwa",
+        "population": 177563,
+        "isCapital": false
+      },
+      {
+        "name": "Negombo",
+        "population": 121701,
+        "isCapital": false
+      },
+      {
+        "name": "Sri Jayawardanapura Kotte",
+        "population": 116366,
+        "isCapital": false
+      }
+    ]
+  },
+  "CMR": {
+    "capital": {
+      "name": "Yaoundé",
+      "population": 1817524,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Douala",
+        "population": 1907479,
+        "isCapital": false
+      },
+      {
+        "name": "Bamenda",
+        "population": 269530,
+        "isCapital": false
+      },
+      {
+        "name": "Bafoussam",
+        "population": 239287,
+        "isCapital": false
+      },
+      {
+        "name": "Garoua",
+        "population": 235996,
+        "isCapital": false
+      },
+      {
+        "name": "Maroua",
+        "population": 201371,
+        "isCapital": false
+      }
+    ]
+  },
+  "GGY": {
+    "capital": {
+      "name": "St. Peter Port",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "LBR": {
+    "capital": {
+      "name": "Monrovia",
+      "population": 970824,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "ARE": {
+    "capital": {
+      "name": "Abu Dhabi",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "CHE": {
+    "capital": {
+      "name": "Bern",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Zürich",
+        "population": 423193,
+        "isCapital": false
+      },
+      {
+        "name": "Genève",
+        "population": 203401,
+        "isCapital": false
+      },
+      {
+        "name": "Bâle",
+        "population": 173064,
+        "isCapital": false
+      },
+      {
+        "name": "Lausanne",
+        "population": 140619,
+        "isCapital": false
+      },
+      {
+        "name": "BERNE",
+        "population": 134290,
+        "isCapital": false
+      }
+    ]
+  },
+  "HUN": {
+    "capital": {
+      "name": "Budapest",
+      "population": 1671004,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Debrecen",
+        "population": 201582,
+        "isCapital": false
+      },
+      {
+        "name": "Szeged",
+        "population": 158829,
+        "isCapital": false
+      },
+      {
+        "name": "Miskolc",
+        "population": 145248,
+        "isCapital": false
+      },
+      {
+        "name": "Pécs",
+        "population": 141031,
+        "isCapital": false
+      },
+      {
+        "name": "Györ",
+        "population": 130020,
+        "isCapital": false
+      }
+    ]
+  },
+  "LBY": {
+    "capital": {
+      "name": "Tripoli",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "VUT": {
+    "capital": {
+      "name": "Port Vila",
+      "population": 49034,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "WLF": {
+    "capital": {
+      "name": "Mata-Utu",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "LCA": {
+    "capital": {
+      "name": "Castries",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "CAF": {
+    "capital": {
+      "name": "Bangui",
+      "population": 451690,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "TJK": {
+    "capital": {
+      "name": "Dushanbe",
+      "population": 948251,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Khujand",
+        "population": 196427,
+        "isCapital": false
+      },
+      {
+        "name": "Bohktar",
+        "population": 124497,
+        "isCapital": false
+      }
+    ]
+  },
+  "IRL": {
+    "capital": {
+      "name": "Dublin",
+      "population": 592713,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Cork",
+        "population": 224004,
+        "isCapital": false
+      }
+    ]
+  },
+  "NCL": {
+    "capital": {
+      "name": "Numea",
+      "population": 94285,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "YEM": {
+    "capital": {
+      "name": "Sana'a",
+      "population": 1707586,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Adan",
+        "population": 589419,
+        "isCapital": false
+      },
+      {
+        "name": "Ta'izz",
+        "population": 317571,
+        "isCapital": false
+      },
+      {
+        "name": "Al-Hudaydah (Hodeidah)",
+        "population": 298452,
+        "isCapital": false
+      },
+      {
+        "name": "Al-Mukalla",
+        "population": 122359,
+        "isCapital": false
+      },
+      {
+        "name": "Ibb",
+        "population": 103312,
+        "isCapital": false
+      }
+    ]
+  },
+  "FRO": {
+    "capital": {
+      "name": "Tórshavn",
+      "population": 14169,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "CUB": {
+    "capital": {
+      "name": "Havana",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "LA HABANA",
+        "population": 1814207,
+        "isCapital": false
+      },
+      {
+        "name": "Santiago de Cuba",
+        "population": 406683,
+        "isCapital": false
+      },
+      {
+        "name": "Camagüey",
+        "population": 266702,
+        "isCapital": false
+      },
+      {
+        "name": "Holguín",
+        "population": 262523,
+        "isCapital": false
+      },
+      {
+        "name": "Guantánamo",
+        "population": 198855,
+        "isCapital": false
+      }
+    ]
+  },
+  "AZE": {
+    "capital": {
+      "name": "Baku",
+      "population": 2340700,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Sumgayit",
+        "population": 422577,
+        "isCapital": false
+      },
+      {
+        "name": "Ganja",
+        "population": 328823,
+        "isCapital": false
+      },
+      {
+        "name": "Xirdalan",
+        "population": 193939,
+        "isCapital": false
+      },
+      {
+        "name": "Mingecheviz",
+        "population": 101223,
+        "isCapital": false
+      }
+    ]
+  },
+  "SLB": {
+    "capital": {
+      "name": "Honiara",
+      "population": 64609,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "JAM": {
+    "capital": {
+      "name": "Kingston",
+      "population": 592291,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Portmore",
+        "population": 182800,
+        "isCapital": false
+      },
+      {
+        "name": "Spanish Town",
+        "population": 149479,
+        "isCapital": false
+      },
+      {
+        "name": "Montego Bay",
+        "population": 111037,
+        "isCapital": false
+      }
+    ]
+  },
+  "MAR": {
+    "capital": {
+      "name": "Rabat",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "TTO": {
+    "capital": {
+      "name": "Port of Spain",
+      "population": 37074,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "MYT": {
+    "capital": {
+      "name": "Mamoudzou",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "NIU": {
+    "capital": {
+      "name": "Alofi",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "BLZ": {
+    "capital": {
+      "name": "Belmopan",
+      "population": 20753.5875182738,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "CHN": {
+    "capital": {
+      "name": "Pekin",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Shanghai",
+        "population": 23019196,
+        "isCapital": false
+      },
+      {
+        "name": "BEIJING (PEKING)",
+        "population": 18796000,
+        "isCapital": false
+      },
+      {
+        "name": "Chongqing",
+        "population": 9691901,
+        "isCapital": false
+      },
+      {
+        "name": "Guangzhou",
+        "population": 8524826,
+        "isCapital": false
+      },
+      {
+        "name": "Wuhan",
+        "population": 8312700,
+        "isCapital": false
+      }
+    ]
+  },
+  "WSM": {
+    "capital": {
+      "name": "Apia",
+      "population": 35974,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "VGB": {
+    "capital": {
+      "name": "Road Town",
+      "population": 3500,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "SDN": {
+    "capital": {
+      "name": "Khartoum",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "NFK": {
+    "capital": {
+      "name": "Kingston",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "SVK": {
+    "capital": {
+      "name": "Bratislava",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "BDI": {
+    "capital": {
+      "name": "Gitega",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "BUJUMBURA",
+        "population": 497169,
+        "isCapital": false
+      }
+    ]
+  },
+  "MHL": {
+    "capital": {
+      "name": "Majuro",
+      "population": 23156,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "AUT": {
+    "capital": {
+      "name": "Viena",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "WIEN",
+        "population": 1926960,
+        "isCapital": false
+      },
+      {
+        "name": "Graz",
+        "population": 291731,
+        "isCapital": false
+      },
+      {
+        "name": "Linz",
+        "population": 206853,
+        "isCapital": false
+      },
+      {
+        "name": "Salzburg",
+        "population": 154604,
+        "isCapital": false
+      },
+      {
+        "name": "Innsbruck",
+        "population": 130385,
+        "isCapital": false
+      }
+    ]
+  },
+  "MOZ": {
+    "capital": {
+      "name": "Maputo",
+      "population": 1080277,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Nampula",
+        "population": 5483382,
+        "isCapital": false
+      },
+      {
+        "name": "Xai-Xai",
+        "population": 1388039,
+        "isCapital": false
+      },
+      {
+        "name": "Matola",
+        "population": 1032197,
+        "isCapital": false
+      },
+      {
+        "name": "Beira",
+        "population": 592090,
+        "isCapital": false
+      },
+      {
+        "name": "Chimoio",
+        "population": 363336,
+        "isCapital": false
+      }
+    ]
+  },
+  "VCT": {
+    "capital": {
+      "name": "Kingstown",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "PNG": {
+    "capital": {
+      "name": "Port Moresby",
+      "population": 364125,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "TUR": {
+    "capital": {
+      "name": "Ankara",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "UNK": {
+    "capital": {
+      "name": "Pristina",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "GRD": {
+    "capital": {
+      "name": "St. George's",
+      "population": 36586,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "KHM": {
+    "capital": {
+      "name": "Phnom Penh",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "PRT": {
+    "capital": {
+      "name": "Lisboa",
+      "population": 1935831,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Porto",
+        "population": 1008298,
+        "isCapital": false
+      },
+      {
+        "name": "Sintra",
+        "population": 395528,
+        "isCapital": false
+      },
+      {
+        "name": "Braga",
+        "population": 201583,
+        "isCapital": false
+      },
+      {
+        "name": "Vila Nova de Gaia",
+        "population": 188421,
+        "isCapital": false
+      },
+      {
+        "name": "Amadora",
+        "population": 171454,
+        "isCapital": false
+      }
+    ]
+  },
+  "GBR": {
+    "capital": {
+      "name": "Londres",
+      "population": 8135667,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "West Midlands",
+        "population": 2284093,
+        "isCapital": false
+      },
+      {
+        "name": "West Yorkshire",
+        "population": 1499465,
+        "isCapital": false
+      },
+      {
+        "name": "Glasgow",
+        "population": 1209143,
+        "isCapital": false
+      },
+      {
+        "name": "Birmingham",
+        "population": 1085810,
+        "isCapital": false
+      },
+      {
+        "name": "Tyneside",
+        "population": 879996,
+        "isCapital": false
+      }
+    ]
+  },
+  "NGA": {
+    "capital": {
+      "name": "Abuja",
+      "population": 107069,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Lagos",
+        "population": 5195247,
+        "isCapital": false
+      },
+      {
+        "name": "Kano",
+        "population": 2166554,
+        "isCapital": false
+      },
+      {
+        "name": "Ibadan",
+        "population": 1835300,
+        "isCapital": false
+      },
+      {
+        "name": "Kaduna",
+        "population": 993642,
+        "isCapital": false
+      },
+      {
+        "name": "Benin City",
+        "population": 762719,
+        "isCapital": false
+      }
+    ]
+  },
+  "AIA": {
+    "capital": {
+      "name": "The Valley",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "MNP": {
+    "capital": {
+      "name": "Saipan",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "GARAPAN",
+        "population": 3096,
+        "isCapital": false
+      }
+    ]
+  },
+  "ISR": {
+    "capital": {
+      "name": "Jerusalem",
+      "population": 987900,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Tel Aviv-Yafo",
+        "population": 469425,
+        "isCapital": false
+      },
+      {
+        "name": "Haifa",
+        "population": 290990,
+        "isCapital": false
+      },
+      {
+        "name": "Petah Tiqwa",
+        "population": 258818,
+        "isCapital": false
+      },
+      {
+        "name": "Rishon Leziyyon",
+        "population": 253959,
+        "isCapital": false
+      },
+      {
+        "name": "Netanya",
+        "population": 229603,
+        "isCapital": false
+      }
+    ]
+  },
+  "GUF": {
+    "capital": {
+      "name": "Cayena",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "LBN": {
+    "capital": {
+      "name": "Beirut",
+      "population": 363033,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Tripoli",
+        "population": 127611,
+        "isCapital": false
+      }
+    ]
+  },
+  "JPN": {
+    "capital": {
+      "name": "Tokio",
+      "population": 9733276,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Yokohama",
+        "population": 3777491,
+        "isCapital": false
+      },
+      {
+        "name": "Osaka",
+        "population": 2752412,
+        "isCapital": false
+      },
+      {
+        "name": "Nagoya",
+        "population": 2332176,
+        "isCapital": false
+      },
+      {
+        "name": "Sapporo",
+        "population": 1973395,
+        "isCapital": false
+      },
+      {
+        "name": "Fukuoka",
+        "population": 1612392,
+        "isCapital": false
+      }
+    ]
+  },
+  "GMB": {
+    "capital": {
+      "name": "Banjul",
+      "population": 42326,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "MAF": {
+    "capital": {
+      "name": "Marigot",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "GNB": {
+    "capital": {
+      "name": "Bissau",
+      "population": 387909,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "LAO": {
+    "capital": {
+      "name": "Vientiane",
+      "population": 698318,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "MKD": {
+    "capital": {
+      "name": "Skopje",
+      "population": 546824,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Kumanovo",
+        "population": 106626,
+        "isCapital": false
+      }
+    ]
+  },
+  "QAT": {
+    "capital": {
+      "name": "Doha",
+      "population": 1186023,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Al-Rayyan",
+        "population": 826786,
+        "isCapital": false
+      },
+      {
+        "name": "Al-Wakrah",
+        "population": 265102,
+        "isCapital": false
+      },
+      {
+        "name": "Al-Khoor",
+        "population": 140453,
+        "isCapital": false
+      }
+    ]
+  },
+  "ZMB": {
+    "capital": {
+      "name": "Lusaka",
+      "population": 1747152,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Kitwe",
+        "population": 517543,
+        "isCapital": false
+      },
+      {
+        "name": "Chipata",
+        "population": 455783,
+        "isCapital": false
+      },
+      {
+        "name": "Ndola",
+        "population": 451246,
+        "isCapital": false
+      },
+      {
+        "name": "Kasama",
+        "population": 231824,
+        "isCapital": false
+      },
+      {
+        "name": "Chingola",
+        "population": 216626,
+        "isCapital": false
+      }
+    ]
+  },
+  "BRB": {
+    "capital": {
+      "name": "Bridgetown",
+      "population": 7466,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "VAT": {
+    "capital": {
+      "name": "Vatican City",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "ITA": {
+    "capital": {
+      "name": "Roma",
+      "population": 2755309,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Milano",
+        "population": 3580530,
+        "isCapital": false
+      },
+      {
+        "name": "Napoli",
+        "population": 2809357,
+        "isCapital": false
+      },
+      {
+        "name": "Torino",
+        "population": 847398,
+        "isCapital": false
+      },
+      {
+        "name": "Palermo",
+        "population": 632499,
+        "isCapital": false
+      },
+      {
+        "name": "Genova",
+        "population": 561191,
+        "isCapital": false
+      }
+    ]
+  },
+  "COM": {
+    "capital": {
+      "name": "Moroni",
+      "population": 30365,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "ALB": {
+    "capital": {
+      "name": "Tirana",
+      "population": 598176,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Durrës",
+        "population": 153614,
+        "isCapital": false
+      },
+      {
+        "name": "Elbasan",
+        "population": 115101,
+        "isCapital": false
+      },
+      {
+        "name": "Shkodër",
+        "population": 102434,
+        "isCapital": false
+      }
+    ]
+  },
+  "GIB": {
+    "capital": {
+      "name": "Gibraltar",
+      "population": 34003,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "MNG": {
+    "capital": {
+      "name": "Ulan Bator",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "ULAANBAATAR",
+        "population": 1751500,
+        "isCapital": false
+      },
+      {
+        "name": "Hovsgol",
+        "population": 136640,
+        "isCapital": false
+      },
+      {
+        "name": "Bayan-Olgii",
+        "population": 117445,
+        "isCapital": false
+      },
+      {
+        "name": "Ovorhangay",
+        "population": 114491,
+        "isCapital": false
+      },
+      {
+        "name": "Orkhon",
+        "population": 111165,
+        "isCapital": false
+      }
+    ]
+  },
+  "TON": {
+    "capital": {
+      "name": "Nuku'alofa",
+      "population": 34142,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "MDG": {
+    "capital": {
+      "name": "Antananarivo",
+      "population": 1274225,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Toamasina",
+        "population": 325857,
+        "isCapital": false
+      },
+      {
+        "name": "Antsirabe",
+        "population": 246354,
+        "isCapital": false
+      },
+      {
+        "name": "Mahajanga",
+        "population": 246022,
+        "isCapital": false
+      },
+      {
+        "name": "Fianarantsoa",
+        "population": 191776,
+        "isCapital": false
+      },
+      {
+        "name": "Toliara",
+        "population": 168756,
+        "isCapital": false
+      }
+    ]
+  },
+  "SPM": {
+    "capital": {
+      "name": "Saint-Pierre",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "SHN": {
+    "capital": {
+      "name": "Jamestown",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "MCO": {
+    "capital": {
+      "name": "Monaco",
+      "population": 31109,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "BRA": {
+    "capital": {
+      "name": "Brasilia",
+      "population": 2817381,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "San Pablo",
+        "population": 11451999,
+        "isCapital": false
+      },
+      {
+        "name": "Rio de Janeiro",
+        "population": 6211223,
+        "isCapital": false
+      },
+      {
+        "name": "Fortaleza",
+        "population": 2428708,
+        "isCapital": false
+      },
+      {
+        "name": "Salvador",
+        "population": 2417678,
+        "isCapital": false
+      },
+      {
+        "name": "Belo Horizonte",
+        "population": 2315560,
+        "isCapital": false
+      }
+    ]
+  },
+  "AUS": {
+    "capital": {
+      "name": "Canberra",
+      "population": 466566,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Brisbane",
+        "population": 1323162,
+        "isCapital": false
+      },
+      {
+        "name": "Gold Coast-Tweed Heads",
+        "population": 765054,
+        "isCapital": false
+      },
+      {
+        "name": "Gold Coast",
+        "population": 666087,
+        "isCapital": false
+      },
+      {
+        "name": "Canberra-Queanbeyan",
+        "population": 531935,
+        "isCapital": false
+      },
+      {
+        "name": "Sunshine Coast",
+        "population": 365942,
+        "isCapital": false
+      }
+    ]
+  },
+  "GUY": {
+    "capital": {
+      "name": "Georgetown",
+      "population": 24849,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "SVN": {
+    "capital": {
+      "name": "Ljubljana",
+      "population": 285604,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Maribor",
+        "population": 97019,
+        "isCapital": false
+      }
+    ]
+  },
+  "SMR": {
+    "capital": {
+      "name": "City of San Marino",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "SAN MARINO",
+        "population": 4127,
+        "isCapital": false
+      }
+    ]
+  },
+  "TKL": {
+    "capital": {
+      "name": "Fakaofo",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "PSE": {
+    "capital": {
+      "name": "Ramallah",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "BTN": {
+    "capital": {
+      "name": "Thimphu",
+      "population": 114551,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "SXM": {
+    "capital": {
+      "name": "Philipsburg",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "PHL": {
+    "capital": {
+      "name": "Manila",
+      "population": 1846513,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Quezon City",
+        "population": 2960048,
+        "isCapital": false
+      },
+      {
+        "name": "Davao",
+        "population": 1776949,
+        "isCapital": false
+      },
+      {
+        "name": "Caloocan",
+        "population": 1661584,
+        "isCapital": false
+      },
+      {
+        "name": "Kalookan (Caloocan)",
+        "population": 1489040,
+        "isCapital": false
+      },
+      {
+        "name": "Zamboanga",
+        "population": 977234,
+        "isCapital": false
+      }
+    ]
+  },
+  "CHL": {
+    "capital": {
+      "name": "Santiago",
+      "population": 544388,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Puente Alto",
+        "population": 667904,
+        "isCapital": false
+      },
+      {
+        "name": "Maipú",
+        "population": 586812,
+        "isCapital": false
+      },
+      {
+        "name": "Antofagasta",
+        "population": 444276,
+        "isCapital": false
+      },
+      {
+        "name": "La Florida",
+        "population": 407297,
+        "isCapital": false
+      },
+      {
+        "name": "Viña del Mar",
+        "population": 371490,
+        "isCapital": false
+      }
+    ]
+  },
+  "MTQ": {
+    "capital": {
+      "name": "Fort-de-France",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "HTI": {
+    "capital": {
+      "name": "Puerto Principe",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "HMD": {
+    "capital": null,
+    "cities": []
+  },
+  "ATA": {
+    "capital": null,
+    "cities": []
+  },
+  "STP": {
+    "capital": {
+      "name": "São Tomé",
+      "population": 49957,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "MAC": {
+    "capital": null,
+    "cities": []
+  },
+  "MUS": {
+    "capital": {
+      "name": "Port Louis",
+      "population": 143366,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Vacoas - Phoenix",
+        "population": 109833,
+        "isCapital": false
+      },
+      {
+        "name": "Beau Bassin - Rose Hill",
+        "population": 94236,
+        "isCapital": false
+      }
+    ]
+  },
+  "BHR": {
+    "capital": {
+      "name": "Manama",
+      "population": 153395,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "MEX": {
+    "capital": {
+      "name": "Ciudad de Mexico",
+      "population": 22160289,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Monterrey",
+        "population": 5860795,
+        "isCapital": false
+      },
+      {
+        "name": "Guadalajara",
+        "population": 5437212,
+        "isCapital": false
+      },
+      {
+        "name": "Puebla-Tlaxcala",
+        "population": 2962230,
+        "isCapital": false
+      },
+      {
+        "name": "Toluca",
+        "population": 2509279,
+        "isCapital": false
+      },
+      {
+        "name": "Tijuana",
+        "population": 2239664,
+        "isCapital": false
+      }
+    ]
+  },
+  "PCN": {
+    "capital": {
+      "name": "Adamstown",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "ARG": {
+    "capital": {
+      "name": "Buenos Aires",
+      "population": 16007326.644826,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Cordoba",
+        "population": 1601119.90123875,
+        "isCapital": false
+      },
+      {
+        "name": "Rosario",
+        "population": 1353541.38805379,
+        "isCapital": false
+      },
+      {
+        "name": "Mendoza",
+        "population": 1056759.44878109,
+        "isCapital": false
+      },
+      {
+        "name": "La Plata",
+        "population": 934083.991167274,
+        "isCapital": false
+      },
+      {
+        "name": "Tucumán-Tafí Viejo",
+        "population": 923681.148120602,
+        "isCapital": false
+      }
+    ]
+  },
+  "NPL": {
+    "capital": {
+      "name": "Kathmandu",
+      "population": 862400,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Pokhara",
+        "population": 513504,
+        "isCapital": false
+      },
+      {
+        "name": "Bharatpur",
+        "population": 369268,
+        "isCapital": false
+      },
+      {
+        "name": "Lalitpur",
+        "population": 294098,
+        "isCapital": false
+      },
+      {
+        "name": "Birgunj",
+        "population": 272382,
+        "isCapital": false
+      },
+      {
+        "name": "Biratnagar",
+        "population": 243927,
+        "isCapital": false
+      }
+    ]
+  },
+  "SWE": {
+    "capital": {
+      "name": "Estocolmo",
+      "population": 1613975,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Göteborg",
+        "population": 715881,
+        "isCapital": false
+      },
+      {
+        "name": "Malmö",
+        "population": 362133,
+        "isCapital": false
+      },
+      {
+        "name": "Uppsala",
+        "population": 245328,
+        "isCapital": false
+      },
+      {
+        "name": "Linköping",
+        "population": 167403,
+        "isCapital": false
+      },
+      {
+        "name": "Västerås",
+        "population": 159661,
+        "isCapital": false
+      }
+    ]
+  },
+  "SLE": {
+    "capital": {
+      "name": "Freetown",
+      "population": 1055964,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Kenema",
+        "population": 200443,
+        "isCapital": false
+      },
+      {
+        "name": "Bo",
+        "population": 174369,
+        "isCapital": false
+      },
+      {
+        "name": "Makeni",
+        "population": 124634,
+        "isCapital": false
+      }
+    ]
+  },
+  "SWZ": {
+    "capital": {
+      "name": "Mbabane",
+      "population": 60691,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "ESP": {
+    "capital": {
+      "name": "Madrid",
+      "population": 5115272,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Barcelona",
+        "population": 3767382,
+        "isCapital": false
+      },
+      {
+        "name": "València",
+        "population": 1439503,
+        "isCapital": false
+      },
+      {
+        "name": "Sevilla",
+        "population": 881124,
+        "isCapital": false
+      },
+      {
+        "name": "Bilbao",
+        "population": 790197,
+        "isCapital": false
+      },
+      {
+        "name": "Zaragoza",
+        "population": 683949,
+        "isCapital": false
+      }
+    ]
+  },
+  "COL": {
+    "capital": {
+      "name": "Bogotá",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "BOGOTÁ, D.C.",
+        "population": 7181469,
+        "isCapital": false
+      },
+      {
+        "name": "Medellín",
+        "population": 2372330,
+        "isCapital": false
+      },
+      {
+        "name": "Cali",
+        "population": 1822869,
+        "isCapital": false
+      },
+      {
+        "name": "Barranquilla",
+        "population": 1120103,
+        "isCapital": false
+      },
+      {
+        "name": "Cartagena",
+        "population": 887946,
+        "isCapital": false
+      }
+    ]
+  },
+  "TCA": {
+    "capital": {
+      "name": "Cockburn Town",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "GRAND TURK",
+        "population": 4831,
+        "isCapital": false
+      }
+    ]
+  },
+  "DJI": {
+    "capital": {
+      "name": "Djibouti",
+      "population": 475322,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "NRU": {
+    "capital": {
+      "name": "Yaren",
+      "population": 672,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "SLV": {
+    "capital": {
+      "name": "San Salvador",
+      "population": 200319,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Soyapango",
+        "population": 284347,
+        "isCapital": false
+      },
+      {
+        "name": "San Miguel",
+        "population": 283264,
+        "isCapital": false
+      },
+      {
+        "name": "Santa Ana",
+        "population": 278743,
+        "isCapital": false
+      },
+      {
+        "name": "Apopa",
+        "population": 202871,
+        "isCapital": false
+      },
+      {
+        "name": "Ilopango",
+        "population": 145315,
+        "isCapital": false
+      }
+    ]
+  },
+  "ALA": {
+    "capital": {
+      "name": "Mariehamn",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "GLP": {
+    "capital": {
+      "name": "Basse-Terre",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "HND": {
+    "capital": {
+      "name": "Tegucigalpa",
+      "population": 996658.030300681,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "San Pedro Sula",
+        "population": 598518.79009974,
+        "isCapital": false
+      },
+      {
+        "name": "La Ceiba",
+        "population": 176211.661040041,
+        "isCapital": false
+      },
+      {
+        "name": "Choloma",
+        "population": 163817.898810044,
+        "isCapital": false
+      },
+      {
+        "name": "El Progreso",
+        "population": 114934.480470024,
+        "isCapital": false
+      },
+      {
+        "name": "Comayagua",
+        "population": 93114.5975600019,
+        "isCapital": false
+      }
+    ]
+  },
+  "KEN": {
+    "capital": {
+      "name": "Nairobi",
+      "population": 4395749,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Mombasa",
+        "population": 1208112,
+        "isCapital": false
+      },
+      {
+        "name": "Nakuru",
+        "population": 570614,
+        "isCapital": false
+      },
+      {
+        "name": "Ruiru",
+        "population": 490035,
+        "isCapital": false
+      },
+      {
+        "name": "Eldoret",
+        "population": 475659,
+        "isCapital": false
+      },
+      {
+        "name": "Kisumu",
+        "population": 397853,
+        "isCapital": false
+      }
+    ]
+  },
+  "MLT": {
+    "capital": {
+      "name": "Valletta",
+      "population": 5157,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "LVA": {
+    "capital": {
+      "name": "Riga",
+      "population": 609489,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Daugavpils",
+        "population": 78850,
+        "isCapital": false
+      }
+    ]
+  },
+  "GAB": {
+    "capital": {
+      "name": "Libreville",
+      "population": 703939,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Port-Gentil",
+        "population": 136462,
+        "isCapital": false
+      },
+      {
+        "name": "Franceville",
+        "population": 110568,
+        "isCapital": false
+      }
+    ]
+  },
+  "HKG": {
+    "capital": {
+      "name": "City of Victoria",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "SJM": {
+    "capital": {
+      "name": "Longyearbyen",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "TUV": {
+    "capital": {
+      "name": "Funafuti",
+      "population": 6320,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "TLS": {
+    "capital": {
+      "name": "Dili",
+      "population": 222323,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "ESH": {
+    "capital": {
+      "name": "El Aaiún",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "LSO": {
+    "capital": {
+      "name": "Maseru",
+      "population": 330760,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "USA": {
+    "capital": {
+      "name": "Washington, D.C.",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "New York (NY)",
+        "population": 8258035,
+        "isCapital": false
+      },
+      {
+        "name": "Los Angeles (CA)",
+        "population": 3820914,
+        "isCapital": false
+      },
+      {
+        "name": "Chicago (IL)",
+        "population": 2664452,
+        "isCapital": false
+      },
+      {
+        "name": "Houston (TX)",
+        "population": 2314157,
+        "isCapital": false
+      },
+      {
+        "name": "Phoenix (AZ)",
+        "population": 1650070,
+        "isCapital": false
+      }
+    ]
+  },
+  "THA": {
+    "capital": {
+      "name": "Bangkok",
+      "population": 8305218,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Chon Buri",
+        "population": 1158989,
+        "isCapital": false
+      },
+      {
+        "name": "Samut Prakan",
+        "population": 1082993,
+        "isCapital": false
+      },
+      {
+        "name": "Chiang Mai",
+        "population": 967020,
+        "isCapital": false
+      },
+      {
+        "name": "Songkhla",
+        "population": 800970,
+        "isCapital": false
+      },
+      {
+        "name": "Nonthaburi",
+        "population": 797739,
+        "isCapital": false
+      }
+    ]
+  },
+  "IOT": {
+    "capital": {
+      "name": "Diego Garcia",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "IND": {
+    "capital": {
+      "name": "Nueva Delhi",
+      "population": 302363,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Mumbai",
+        "population": 12442373,
+        "isCapital": false
+      },
+      {
+        "name": "Delhi",
+        "population": 9879172,
+        "isCapital": false
+      },
+      {
+        "name": "Bangalore",
+        "population": 8495492,
+        "isCapital": false
+      },
+      {
+        "name": "Ahmedabad",
+        "population": 5633927,
+        "isCapital": false
+      },
+      {
+        "name": "Chennai",
+        "population": 4646732,
+        "isCapital": false
+      }
+    ]
+  },
+  "LTU": {
+    "capital": {
+      "name": "Vilnius",
+      "population": 586836,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Kaunas",
+        "population": 302875,
+        "isCapital": false
+      },
+      {
+        "name": "Klaipeda",
+        "population": 156745,
+        "isCapital": false
+      },
+      {
+        "name": "Shauliai",
+        "population": 106087,
+        "isCapital": false
+      },
+      {
+        "name": "Panevezhis",
+        "population": 87395,
+        "isCapital": false
+      }
+    ]
+  },
+  "MSR": {
+    "capital": {
+      "name": "Plymouth",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "ZWE": {
+    "capital": {
+      "name": "Harare",
+      "population": 1698122,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Bulawayo",
+        "population": 665952,
+        "isCapital": false
+      },
+      {
+        "name": "Chitungwiza",
+        "population": 371246,
+        "isCapital": false
+      },
+      {
+        "name": "Mutare",
+        "population": 224804,
+        "isCapital": false
+      },
+      {
+        "name": "Gweru",
+        "population": 161294,
+        "isCapital": false
+      },
+      {
+        "name": "Kwekwe",
+        "population": 119863,
+        "isCapital": false
+      }
+    ]
+  },
+  "FLK": {
+    "capital": {
+      "name": "Stanley",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "MDV": {
+    "capital": {
+      "name": "Malé",
+      "population": 262925.369004526,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "TUN": {
+    "capital": {
+      "name": "Tunis",
+      "population": 1056247,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Monastir",
+        "population": 548828,
+        "isCapital": false
+      }
+    ]
+  },
+  "EST": {
+    "capital": {
+      "name": "Tallinn",
+      "population": 453864,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Tartu",
+        "population": 100724,
+        "isCapital": false
+      }
+    ]
+  },
+  "BGD": {
+    "capital": {
+      "name": "Dhaka",
+      "population": 8906035,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Dhaka North City Corporation",
+        "population": 5990723,
+        "isCapital": false
+      },
+      {
+        "name": "Dhaka South City Corporation",
+        "population": 4305063,
+        "isCapital": false
+      },
+      {
+        "name": "Chattogram City Corporation",
+        "population": 3230507,
+        "isCapital": false
+      },
+      {
+        "name": "Gazipur City Corporation",
+        "population": 2677715,
+        "isCapital": false
+      },
+      {
+        "name": "Chittagong",
+        "population": 2591681,
+        "isCapital": false
+      }
+    ]
+  },
+  "UZB": {
+    "capital": {
+      "name": "Tashkent",
+      "population": 3040786,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Namangan",
+        "population": 696520,
+        "isCapital": false
+      },
+      {
+        "name": "Samarkand",
+        "population": 585232,
+        "isCapital": false
+      },
+      {
+        "name": "Andizhan",
+        "population": 480794,
+        "isCapital": false
+      },
+      {
+        "name": "Nukus",
+        "population": 339166,
+        "isCapital": false
+      },
+      {
+        "name": "Fergana",
+        "population": 321820,
+        "isCapital": false
+      }
+    ]
+  },
+  "GHA": {
+    "capital": {
+      "name": "Accra",
+      "population": 1594419,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Kumasi",
+        "population": 1730249,
+        "isCapital": false
+      },
+      {
+        "name": "Tema",
+        "population": 292773,
+        "isCapital": false
+      },
+      {
+        "name": "Tamale",
+        "population": 223252,
+        "isCapital": false
+      },
+      {
+        "name": "Ashiaman",
+        "population": 190972,
+        "isCapital": false
+      },
+      {
+        "name": "Obuasi",
+        "population": 168641,
+        "isCapital": false
+      }
+    ]
+  },
+  "NOR": {
+    "capital": {
+      "name": "Oslo",
+      "population": 699827,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Trondheim",
+        "population": 286930,
+        "isCapital": false
+      },
+      {
+        "name": "Bergen",
+        "population": 144699,
+        "isCapital": false
+      },
+      {
+        "name": "Stavanger",
+        "population": 128369,
+        "isCapital": false
+      }
+    ]
+  },
+  "SOM": {
+    "capital": {
+      "name": "Mogadishu",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "BHS": {
+    "capital": {
+      "name": "Nassau",
+      "population": 296732,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "OMN": {
+    "capital": {
+      "name": "Muscat",
+      "population": 24893,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "As Seeb",
+        "population": 478517,
+        "isCapital": false
+      },
+      {
+        "name": "Bawshar",
+        "population": 364959,
+        "isCapital": false
+      },
+      {
+        "name": "Salalah",
+        "population": 293962,
+        "isCapital": false
+      },
+      {
+        "name": "Mutrah",
+        "population": 230881,
+        "isCapital": false
+      },
+      {
+        "name": "Sohar",
+        "population": 219264,
+        "isCapital": false
+      }
+    ]
+  },
+  "LUX": {
+    "capital": {
+      "name": "Luxembourg",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "LUXEMBOURG-VILLE",
+        "population": 128494,
+        "isCapital": false
+      }
+    ]
+  },
+  "IRQ": {
+    "capital": {
+      "name": "Baghdad",
+      "population": 3841268,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Mosul",
+        "population": 664221,
+        "isCapital": false
+      },
+      {
+        "name": "Kadhimain",
+        "population": 521444,
+        "isCapital": false
+      },
+      {
+        "name": "Erbil",
+        "population": 485968,
+        "isCapital": false
+      },
+      {
+        "name": "Adhamiyah",
+        "population": 464151,
+        "isCapital": false
+      },
+      {
+        "name": "Kirkuk",
+        "population": 418624,
+        "isCapital": false
+      }
+    ]
+  },
+  "VIR": {
+    "capital": {
+      "name": "Charlotte Amalie",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "MRT": {
+    "capital": {
+      "name": "Nouakchott",
+      "population": 958399,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Nouadhibou",
+        "population": 118167,
+        "isCapital": false
+      }
+    ]
+  },
+  "CAN": {
+    "capital": {
+      "name": "Ottawa",
+      "population": 1153843,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Toronto",
+        "population": 3273119,
+        "isCapital": false
+      },
+      {
+        "name": "Montréal",
+        "population": 1945359,
+        "isCapital": false
+      },
+      {
+        "name": "Ottawa - Gatineau",
+        "population": 1660269,
+        "isCapital": false
+      },
+      {
+        "name": "Calgary",
+        "population": 1569133,
+        "isCapital": false
+      },
+      {
+        "name": "Edmonton",
+        "population": 1190458,
+        "isCapital": false
+      }
+    ]
+  },
+  "MMR": {
+    "capital": {
+      "name": "Naypyidaw",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Yangon",
+        "population": 5211431,
+        "isCapital": false
+      },
+      {
+        "name": "Mandalay",
+        "population": 1225546,
+        "isCapital": false
+      },
+      {
+        "name": "NAY PYI TAW",
+        "population": 1160242,
+        "isCapital": false
+      },
+      {
+        "name": "Bago",
+        "population": 491434,
+        "isCapital": false
+      },
+      {
+        "name": "Hpa-an",
+        "population": 421575,
+        "isCapital": false
+      }
+    ]
+  },
+  "MYS": {
+    "capital": {
+      "name": "Kuala Lumpur",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "D.B. KUALA LUMPUR",
+        "population": 1982112,
+        "isCapital": false
+      },
+      {
+        "name": "M.P. Kajang",
+        "population": 1047356,
+        "isCapital": false
+      },
+      {
+        "name": "M.B. Seberang Perai",
+        "population": 946092,
+        "isCapital": false
+      },
+      {
+        "name": "M.B. Subang Jaya",
+        "population": 902086,
+        "isCapital": false
+      },
+      {
+        "name": "M.P. Klang",
+        "population": 902025,
+        "isCapital": false
+      }
+    ]
+  },
+  "CCK": {
+    "capital": {
+      "name": "West Island",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "BES": {
+    "capital": {
+      "name": "Kralendijk",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "UGA": {
+    "capital": {
+      "name": "Kampala",
+      "population": 1875834,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Arua",
+        "population": 380824,
+        "isCapital": false
+      },
+      {
+        "name": "Nansana",
+        "population": 365857,
+        "isCapital": false
+      },
+      {
+        "name": "Kira",
+        "population": 317428,
+        "isCapital": false
+      },
+      {
+        "name": "Jinja",
+        "population": 292386,
+        "isCapital": false
+      },
+      {
+        "name": "Mbale",
+        "population": 289941,
+        "isCapital": false
+      }
+    ]
+  },
+  "IRN": {
+    "capital": {
+      "name": "Tehran",
+      "population": 8693706,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Mashhad",
+        "population": 3001184,
+        "isCapital": false
+      },
+      {
+        "name": "Esfahan",
+        "population": 1961260,
+        "isCapital": false
+      },
+      {
+        "name": "Karaj",
+        "population": 1592492,
+        "isCapital": false
+      },
+      {
+        "name": "Shiraz",
+        "population": 1565572,
+        "isCapital": false
+      },
+      {
+        "name": "Tabriz",
+        "population": 1558693,
+        "isCapital": false
+      }
+    ]
+  },
+  "CUW": {
+    "capital": {
+      "name": "Willemstad",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "ROU": {
+    "capital": {
+      "name": "Bucarest",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "BUCURESTI",
+        "population": 1722865,
+        "isCapital": false
+      },
+      {
+        "name": "Cluj-Napoca",
+        "population": 286598,
+        "isCapital": false
+      },
+      {
+        "name": "Iasi",
+        "population": 271692,
+        "isCapital": false
+      },
+      {
+        "name": "Constanta",
+        "population": 263688,
+        "isCapital": false
+      },
+      {
+        "name": "Timisoara",
+        "population": 250849,
+        "isCapital": false
+      }
+    ]
+  },
+  "SYR": {
+    "capital": {
+      "name": "Damascus",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "FJI": {
+    "capital": {
+      "name": "Suva",
+      "population": 93870,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "ABW": {
+    "capital": {
+      "name": "Oranjestad",
+      "population": 28295,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "NLD": {
+    "capital": {
+      "name": "Amsterdam",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "PER": {
+    "capital": {
+      "name": "Lima",
+      "population": 9562280,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Arequipa",
+        "population": 1009132,
+        "isCapital": false
+      },
+      {
+        "name": "Trujillo",
+        "population": 919899,
+        "isCapital": false
+      },
+      {
+        "name": "Callao",
+        "population": 876876.999999987,
+        "isCapital": false
+      },
+      {
+        "name": "Chiclayo",
+        "population": 552508,
+        "isCapital": false
+      },
+      {
+        "name": "Piura",
+        "population": 473025,
+        "isCapital": false
+      }
+    ]
+  },
+  "REU": {
+    "capital": {
+      "name": "Saint-Denis",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "BWA": {
+    "capital": {
+      "name": "Gaborone",
+      "population": 246327,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Francistown",
+        "population": 103416,
+        "isCapital": false
+      }
+    ]
+  },
+  "AFG": {
+    "capital": {
+      "name": "Kabul",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "SRB": {
+    "capital": {
+      "name": "Belgrade",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "BEOGRAD (BELGRADE)",
+        "population": 1197714,
+        "isCapital": false
+      },
+      {
+        "name": "Novi Sad",
+        "population": 260438,
+        "isCapital": false
+      },
+      {
+        "name": "Niš",
+        "population": 178976,
+        "isCapital": false
+      },
+      {
+        "name": "Kragujevac",
+        "population": 146315,
+        "isCapital": false
+      },
+      {
+        "name": "Subotica",
+        "population": 88752,
+        "isCapital": false
+      }
+    ]
+  },
+  "CZE": {
+    "capital": {
+      "name": "Praga",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "PRAHA",
+        "population": 1301432,
+        "isCapital": false
+      },
+      {
+        "name": "Brno",
+        "population": 398510,
+        "isCapital": false
+      },
+      {
+        "name": "Ostrava",
+        "population": 282450,
+        "isCapital": false
+      },
+      {
+        "name": "Plzen",
+        "population": 174007,
+        "isCapital": false
+      },
+      {
+        "name": "Olomouc",
+        "population": 106063,
+        "isCapital": false
+      }
+    ]
+  },
+  "DMA": {
+    "capital": {
+      "name": "Roseau",
+      "population": 16243,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "POL": {
+    "capital": {
+      "name": "Varsovia",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "WARSZAWA",
+        "population": 1864679,
+        "isCapital": false
+      },
+      {
+        "name": "Kraków",
+        "population": 790279,
+        "isCapital": false
+      },
+      {
+        "name": "Wroclaw",
+        "population": 669564,
+        "isCapital": false
+      },
+      {
+        "name": "Lódz",
+        "population": 665259,
+        "isCapital": false
+      },
+      {
+        "name": "Poznan",
+        "population": 541782,
+        "isCapital": false
+      }
+    ]
+  },
+  "BEN": {
+    "capital": {
+      "name": "Porto-Novo",
+      "population": 264320,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Cotonou",
+        "population": 679012,
+        "isCapital": false
+      },
+      {
+        "name": "Parakou",
+        "population": 255478,
+        "isCapital": false
+      }
+    ]
+  },
+  "MDA": {
+    "capital": {
+      "name": "Chișinău",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "RUS": {
+    "capital": {
+      "name": "Moscu",
+      "population": 11918057,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "San Petersburgo",
+        "population": 4990602,
+        "isCapital": false
+      },
+      {
+        "name": "Novosibirsk",
+        "population": 1511369,
+        "isCapital": false
+      },
+      {
+        "name": "Ekaterinburg",
+        "population": 1386909,
+        "isCapital": false
+      },
+      {
+        "name": "Nizhny Novgorod",
+        "population": 1257260,
+        "isCapital": false
+      },
+      {
+        "name": "Samara (Samarskaya oblast)",
+        "population": 1170381,
+        "isCapital": false
+      }
+    ]
+  },
+  "BLM": {
+    "capital": {
+      "name": "Gustavia",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "IDN": {
+    "capital": {
+      "name": "Jakarta",
+      "population": 10562088,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Surabaya",
+        "population": 2874314,
+        "isCapital": false
+      },
+      {
+        "name": "Bandung",
+        "population": 2444160,
+        "isCapital": false
+      },
+      {
+        "name": "Medan",
+        "population": 2435252,
+        "isCapital": false
+      },
+      {
+        "name": "Tangerang",
+        "population": 1930556,
+        "isCapital": false
+      },
+      {
+        "name": "Palembang",
+        "population": 1707996,
+        "isCapital": false
+      }
+    ]
+  },
+  "NIC": {
+    "capital": {
+      "name": "Managua",
+      "population": 908892,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "León",
+        "population": 139433,
+        "isCapital": false
+      }
+    ]
+  },
+  "ARM": {
+    "capital": {
+      "name": "Yerevan",
+      "population": 1098866,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Gyumri (Leninakan)",
+        "population": 112301,
+        "isCapital": false
+      },
+      {
+        "name": "Vanadzoz (Kirovakan)",
+        "population": 75186,
+        "isCapital": false
+      }
+    ]
+  },
+  "BLR": {
+    "capital": {
+      "name": "Minsk",
+      "population": 2020133,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Gomel",
+        "population": 510243,
+        "isCapital": false
+      },
+      {
+        "name": "Vitebsk",
+        "population": 364862,
+        "isCapital": false
+      },
+      {
+        "name": "Mogilev",
+        "population": 357184,
+        "isCapital": false
+      },
+      {
+        "name": "Grodno",
+        "population": 356686,
+        "isCapital": false
+      },
+      {
+        "name": "Brest",
+        "population": 339519,
+        "isCapital": false
+      }
+    ]
+  },
+  "ETH": {
+    "capital": {
+      "name": "Addis Ababa",
+      "population": 2739551,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "CRI": {
+    "capital": {
+      "name": "San Jose",
+      "population": 357976,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Alajuela",
+        "population": 332676,
+        "isCapital": false
+      },
+      {
+        "name": "Desamparados",
+        "population": 255000,
+        "isCapital": false
+      },
+      {
+        "name": "San Carlos",
+        "population": 214596,
+        "isCapital": false
+      },
+      {
+        "name": "Cartago",
+        "population": 168971,
+        "isCapital": false
+      },
+      {
+        "name": "Pococí",
+        "population": 160387,
+        "isCapital": false
+      }
+    ]
+  },
+  "JOR": {
+    "capital": {
+      "name": "Amman",
+      "population": 4007526,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Irbid",
+        "population": 1770158,
+        "isCapital": false
+      },
+      {
+        "name": "Zarqa",
+        "population": 1364878,
+        "isCapital": false
+      },
+      {
+        "name": "Russiefa",
+        "population": 481900,
+        "isCapital": false
+      },
+      {
+        "name": "Aqaba",
+        "population": 188160,
+        "isCapital": false
+      }
+    ]
+  },
+  "DEU": {
+    "capital": {
+      "name": "Berlin",
+      "population": 3755251,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Hamburg",
+        "population": 1892122,
+        "isCapital": false
+      },
+      {
+        "name": "München",
+        "population": 1512491,
+        "isCapital": false
+      },
+      {
+        "name": "Köln",
+        "population": 1084831,
+        "isCapital": false
+      },
+      {
+        "name": "Frankfurt am Main",
+        "population": 773068,
+        "isCapital": false
+      },
+      {
+        "name": "Stuttgart",
+        "population": 632865,
+        "isCapital": false
+      }
+    ]
+  },
+  "ECU": {
+    "capital": {
+      "name": "Quito",
+      "population": 1763275,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Guayaquil",
+        "population": 2650288,
+        "isCapital": false
+      },
+      {
+        "name": "Cuenca",
+        "population": 361524,
+        "isCapital": false
+      },
+      {
+        "name": "Santo Domingo de los Colorados",
+        "population": 334826,
+        "isCapital": false
+      },
+      {
+        "name": "Santa Elena",
+        "population": 305632,
+        "isCapital": false
+      },
+      {
+        "name": "Durán",
+        "population": 295211,
+        "isCapital": false
+      }
+    ]
+  },
+  "PRK": {
+    "capital": {
+      "name": "Pyongyang",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "ISL": {
+    "capital": {
+      "name": "Reykjavik",
+      "population": 129886,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "SSD": {
+    "capital": {
+      "name": "Juba",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "MWI": {
+    "capital": {
+      "name": "Lilongwe",
+      "population": 989318,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Blantyre City",
+        "population": 800264,
+        "isCapital": false
+      },
+      {
+        "name": "Mzuzu City",
+        "population": 221272,
+        "isCapital": false
+      },
+      {
+        "name": "Zomba City",
+        "population": 105013,
+        "isCapital": false
+      }
+    ]
+  },
+  "BFA": {
+    "capital": {
+      "name": "Ouagadougou",
+      "population": 2415266,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Bobo Dioulasso",
+        "population": 984603,
+        "isCapital": false
+      },
+      {
+        "name": "Koudougou",
+        "population": 160239,
+        "isCapital": false
+      },
+      {
+        "name": "Ouahigouya",
+        "population": 124587,
+        "isCapital": false
+      },
+      {
+        "name": "Kaya",
+        "population": 121970,
+        "isCapital": false
+      },
+      {
+        "name": "Banfora",
+        "population": 117452,
+        "isCapital": false
+      }
+    ]
+  },
+  "COD": {
+    "capital": {
+      "name": "Kinshasa",
+      "population": null,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "VEN": {
+    "capital": {
+      "name": "Caracas",
+      "population": 2082130,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Maracaibo",
+        "population": 1653215,
+        "isCapital": false
+      },
+      {
+        "name": "Valencia",
+        "population": 888109,
+        "isCapital": false
+      },
+      {
+        "name": "Barquisimeto",
+        "population": 881127,
+        "isCapital": false
+      },
+      {
+        "name": "Ciudad Guayana",
+        "population": 877547,
+        "isCapital": false
+      },
+      {
+        "name": "Maturín",
+        "population": 571276,
+        "isCapital": false
+      }
+    ]
+  },
+  "BRN": {
+    "capital": {
+      "name": "Bandar Seri Begawan",
+      "population": 27285,
+      "isCapital": true
+    },
+    "cities": []
+  },
+  "PRY": {
+    "capital": {
+      "name": "Asunción",
+      "population": 462241,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Ciudad del Este",
+        "population": 325819,
+        "isCapital": false
+      },
+      {
+        "name": "Luque",
+        "population": 259705,
+        "isCapital": false
+      },
+      {
+        "name": "Capiatá",
+        "population": 236999,
+        "isCapital": false
+      },
+      {
+        "name": "San Lorenzo",
+        "population": 225395,
+        "isCapital": false
+      },
+      {
+        "name": "Limpio",
+        "population": 139652,
+        "isCapital": false
+      }
+    ]
+  },
+  "BGR": {
+    "capital": {
+      "name": "Sofia",
+      "population": 1183400,
+      "isCapital": true
+    },
+    "cities": [
+      {
+        "name": "Plovdiv",
+        "population": 319612,
+        "isCapital": false
+      },
+      {
+        "name": "Varna",
+        "population": 310664,
+        "isCapital": false
+      },
+      {
+        "name": "Burgas",
+        "population": 189741,
+        "isCapital": false
+      },
+      {
+        "name": "Ruse",
+        "population": 124787,
+        "isCapital": false
+      },
+      {
+        "name": "Stara Zagora",
+        "population": 122536,
+        "isCapital": false
+      }
+    ]
+  }
+}
