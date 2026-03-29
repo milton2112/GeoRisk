@@ -11,23 +11,40 @@ const DEFAULT_STYLE = {
 };
 
 const COUNTRY_HIGHLIGHT_STYLE = {
-  color: "#4da3ff",
+  color: "#8fd3ff",
   weight: 3,
-  fillColor: "#2a3f5f",
+  fillColor: "#5db7ff",
   fillOpacity: 0.9
 };
 
 const CONTINENT_HIGHLIGHT_STYLE = {
-  color: "#f2c14e",
+  color: "#b7f38b",
   weight: 2,
-  fillColor: "#2a3f5f",
-  fillOpacity: 0.85
+  fillColor: "#9bd96b",
+  fillOpacity: 0.86
+};
+
+const RELIGION_HIGHLIGHT_STYLE = {
+  color: "#ffb0b0",
+  weight: 2,
+  fillColor: "#f08b8b",
+  fillOpacity: 0.88
 };
 
 const map = L.map("map", {
   minZoom: 2,
   maxZoom: 5,
-  worldCopyJump: false
+  worldCopyJump: false,
+  preferCanvas: true,
+  dragging: true,
+  inertia: false,
+  zoomAnimation: false,
+  fadeAnimation: false,
+  markerZoomAnimation: false,
+  keyboard: false,
+  boxZoom: false,
+  maxBounds: worldBounds,
+  maxBoundsViscosity: 1
 }).setView([20, 0], 2);
 
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -35,17 +52,43 @@ L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
   bounds: worldBounds
 }).addTo(map);
 
-setTimeout(() => map.invalidateSize(), 200);
-window.addEventListener("resize", () => map.invalidateSize());
+function getWorldFitPadding() {
+  if (isMobileLayout()) {
+    return { paddingTopLeft: [20, 72], paddingBottomRight: [20, 20] };
+  }
+
+  return { paddingTopLeft: [290, 24], paddingBottomRight: [330, 24] };
+}
+
+function fitWorldView() {
+  map.fitBounds(worldBounds, {
+    ...getWorldFitPadding(),
+    animate: false
+  });
+  map.setMinZoom(map.getZoom());
+}
+
+setTimeout(() => {
+  map.invalidateSize();
+  fitWorldView();
+}, 200);
+window.addEventListener("resize", () => {
+  map.invalidateSize();
+  fitWorldView();
+});
 
 let countriesData = {};
 let selectedLayer = null;
 let selectedLayers = [];
 let continentBoundsLayer = null;
+let worldPopulationTotal = 0;
 const countryLayers = new Map();
 const countryAliases = new Map();
 const continentAliases = new Map();
+const religionAliases = new Map();
+const suggestionItems = [];
 const countryClickTargets = new Map();
+const mobileMediaQuery = window.matchMedia("(max-width: 820px)");
 const TERRITORY_LINKS = {
   FRA: ["GUF", "NCL", "ATF"],
   GUF: ["FRA"],
@@ -60,12 +103,92 @@ const TERRITORY_LINKS = {
   PRI: ["USA"]
 };
 
+const RELIGION_FAMILY_RULES = [
+  {
+    key: "cristianismo",
+    label: "Cristianismo",
+    aliases: ["cristianismo", "cristianos", "cristiano", "cristianas"],
+    matches: ["catol", "protest", "ortodox", "anglican", "cristian", "mormon", "copta", "evangelic"]
+  },
+  {
+    key: "islam",
+    label: "Islam",
+    aliases: ["islam", "musulmanes", "musulman", "musulmana", "musulmanas", "islamicos", "islamico"],
+    matches: ["musulman", "sunita", "chiita", "ibadi", "islam"]
+  },
+  {
+    key: "judaísmo",
+    label: "Judaismo",
+    aliases: ["judaismo", "judaísmo", "judios", "judio", "judia", "judias"],
+    matches: ["judio", "judia", "judais"]
+  },
+  {
+    key: "hinduismo",
+    label: "Hinduismo",
+    aliases: ["hinduismo", "hindues", "hindúes", "hindú", "hindues"],
+    matches: ["hindu"]
+  },
+  {
+    key: "budismo",
+    label: "Budismo",
+    aliases: ["budismo", "budistas", "budista"],
+    matches: ["budis"]
+  },
+  {
+    key: "sijismo",
+    label: "Sijismo",
+    aliases: ["sijismo", "sijs", "sij", "sikh", "sikhs"],
+    matches: ["sij", "sikh"]
+  },
+  {
+    key: "sintoísmo",
+    label: "Sintoismo",
+    aliases: ["sintoismo", "sintoísmo", "sintoistas", "sintoista", "shinto", "shintoismo"],
+    matches: ["sinto", "shinto"]
+  },
+  {
+    key: "zoroastrismo",
+    label: "Zoroastrismo",
+    aliases: ["zoroastrismo", "zoroastros", "zoroastro", "zoroastrianos"],
+    matches: ["zoroastr"]
+  },
+  {
+    key: "no afiliados",
+    label: "Ateos / agnosticos / sin afiliacion",
+    aliases: ["ateos", "ateo", "agnosticos", "agnóstico", "agnostico", "sin religion", "sin religión", "sin afiliacion", "sin afiliación", "no afiliados", "no creyentes"],
+    matches: ["ateo", "agnostic", "sin afili", "no afili", "no relig", "sin religion"]
+  },
+  {
+    key: "animismo",
+    label: "Religiones animistas",
+    aliases: ["animismo", "animistas", "religiones animistas", "tradicionales"],
+    matches: ["animist", "tradicional"]
+  },
+  {
+    key: "vudú",
+    label: "Vudú",
+    aliases: ["vudu", "vudú", "vodoo", "voodoo"],
+    matches: ["vudu", "vodoo", "voodoo"]
+  }
+];
+
 function formatNumber(value) {
   if (value === null || value === undefined || value === "") {
     return "Sin datos";
   }
 
   return Number(value).toLocaleString("es-AR");
+}
+
+function formatPercentage(value) {
+  if (value === null || value === undefined || Number.isNaN(value)) {
+    return "0%";
+  }
+
+  return `${value.toLocaleString("es-AR", {
+    minimumFractionDigits: value >= 10 ? 1 : 2,
+    maximumFractionDigits: value >= 10 ? 1 : 2
+  })}%`;
 }
 
 function normalizeText(value) {
@@ -78,12 +201,58 @@ function normalizeText(value) {
     .trim();
 }
 
+function escapeHtml(value) {
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 function renderList(items) {
   if (!items || !items.length) {
     return "<p>Sin datos</p>";
   }
 
   return `<ul>${items.map(item => `<li>${item}</li>`).join("")}</ul>`;
+}
+
+function isMobileLayout() {
+  return mobileMediaQuery.matches;
+}
+
+function closeMobilePanels() {
+  document.body.classList.remove("mobile-left-open", "mobile-country-open");
+}
+
+function openMobilePanel(panel) {
+  if (!isMobileLayout()) {
+    return;
+  }
+
+  document.body.classList.remove("mobile-left-open", "mobile-country-open");
+  document.body.classList.add(panel === "left" ? "mobile-left-open" : "mobile-country-open");
+}
+
+function toggleMobilePanel(panel) {
+  if (!isMobileLayout()) {
+    return;
+  }
+
+  const className = panel === "left" ? "mobile-left-open" : "mobile-country-open";
+  const isOpen = document.body.classList.contains(className);
+  closeMobilePanels();
+
+  if (!isOpen) {
+    document.body.classList.add(className);
+  }
+}
+
+function onMapInteractionStart() {
+  if (isMobileLayout()) {
+    closeMobilePanels();
+  }
 }
 
 function translateContinentName(continent) {
@@ -448,6 +617,10 @@ function renderConflicts(conflicts) {
 }
 
 function clearSelection() {
+  if (isMobileLayout()) {
+    closeMobilePanels();
+  }
+
   if (selectedLayer) {
     selectedLayer.setStyle(DEFAULT_STYLE);
     selectedLayer = null;
@@ -517,7 +690,10 @@ function fitLayerBounds(layerOrGroup) {
   const bounds = layerOrGroup.getBounds();
 
   if (bounds && bounds.isValid()) {
-    map.fitBounds(bounds.pad(0.15));
+    map.fitBounds(bounds.pad(0.15), {
+      ...getWorldFitPadding(),
+      animate: false
+    });
   }
 }
 
@@ -597,6 +773,8 @@ function renderCountry(country, fallbackName) {
       `${renderReligion(country.religion)}`
     )}
   `;
+
+  openMobilePanel("country");
 }
 
 function renderContinent(continent, countries) {
@@ -616,6 +794,28 @@ function renderContinent(continent, countries) {
         .sort((a, b) => a.localeCompare(b, "es"))
     )}
   `;
+
+  openMobilePanel("country");
+}
+
+function renderReligionSelection(religionName, countries, totalNominal) {
+  document.getElementById("country-panel").innerHTML = `
+    <h2>${religionName}</h2>
+    <p><b>Poblacion estimada en paises donde es mayoritaria:</b> ${formatNumber(Math.round(totalNominal || 0))}</p>
+    <p><b>Porcentaje de la poblacion mundial:</b> ${formatPercentage(worldPopulationTotal ? (totalNominal / worldPopulationTotal) * 100 : 0)}</p>
+    <p><b>Paises y territorios donde es la religion mayoritaria:</b></p>
+    ${renderList(
+      countries.map(country => {
+        const percentage = country.religion?.composition
+          ? Math.round(getReligionNominalPopulation(country, religionName) / Math.max(country.general?.population || 1, 1) * 1000) / 10
+          : 0;
+        const suffix = percentage ? ` (${percentage}%)` : "";
+        return `${country.name}${suffix}`;
+      })
+    )}
+  `;
+
+  openMobilePanel("country");
 }
 
 function renderEmpty(name) {
@@ -623,6 +823,8 @@ function renderEmpty(name) {
     <h2>${name}</h2>
     <p>Sin datos</p>
   `;
+
+  openMobilePanel("country");
 }
 
 function registerCountryAlias(alias, value) {
@@ -635,10 +837,140 @@ function registerCountryAlias(alias, value) {
   countryAliases.set(normalizedAlias, value);
 }
 
+function registerReligionAlias(alias, value) {
+  const normalizedAlias = normalizeText(alias);
+
+  if (!normalizedAlias) {
+    return;
+  }
+
+  religionAliases.set(normalizedAlias, value);
+}
+
+function registerSuggestion(label, type, value, subtitle) {
+  const normalizedLabel = normalizeText(label);
+  if (!normalizedLabel) {
+    return;
+  }
+
+  if (
+    suggestionItems.some(
+      item => item.type === type && normalizeText(item.label) === normalizedLabel && item.value === value
+    )
+  ) {
+    return;
+  }
+
+  suggestionItems.push({
+    label,
+    normalizedLabel,
+    type,
+    value,
+    subtitle
+  });
+}
+
+function getReligionFamilyByName(religionName) {
+  const normalizedName = normalizeText(religionName);
+  return (
+    RELIGION_FAMILY_RULES.find(rule =>
+      rule.matches.some(token => normalizedName.includes(normalizeText(token)))
+    ) || null
+  );
+}
+
+function getReligionKeyAndLabel(religionName) {
+  const family = getReligionFamilyByName(religionName);
+  if (family) {
+    return {
+      key: family.key,
+      label: family.label
+    };
+  }
+
+  return {
+    key: normalizeText(religionName),
+    label: religionName
+  };
+}
+
+function getReligionFamilyTotals(country) {
+  const composition = Array.isArray(country?.religion?.composition) ? country.religion.composition : [];
+  const summary = country?.religion?.summary || "";
+
+  if (!composition.length && summary) {
+    const religionInfo = getReligionKeyAndLabel(summary);
+    return [
+      {
+        key: religionInfo.key,
+        label: religionInfo.label,
+        percentage: 100
+      }
+    ];
+  }
+
+  const totals = new Map();
+
+  composition.forEach(entry => {
+    if (!entry?.name) {
+      return;
+    }
+
+    const religionInfo = getReligionKeyAndLabel(entry.name);
+    const current = totals.get(religionInfo.key) || {
+      key: religionInfo.key,
+      label: religionInfo.label,
+      percentage: 0
+    };
+
+    current.percentage += Number(entry.percentage) || 0;
+    totals.set(religionInfo.key, current);
+  });
+
+  return [...totals.values()].sort((a, b) => b.percentage - a.percentage);
+}
+
+function getMajorityReligionGroups(country) {
+  const totals = getReligionFamilyTotals(country);
+  if (!totals.length) {
+    return [];
+  }
+
+  const maxPercentage = totals[0].percentage || 0;
+  if (!maxPercentage) {
+    return [];
+  }
+
+  return totals.filter(entry => entry.percentage === maxPercentage);
+}
+
+function isReligionMajorityInCountry(country, religionName) {
+  const requestedReligion = getReligionKeyAndLabel(religionName);
+  return getMajorityReligionGroups(country).some(entry => entry.key === requestedReligion.key);
+}
+
+function getReligionNominalPopulation(country, religionName) {
+  const population = country.general?.population || 0;
+  const requestedReligion = getReligionKeyAndLabel(religionName);
+  const match = getReligionFamilyTotals(country).find(entry => entry.key === requestedReligion.key);
+  return population * (((match?.percentage) || 0) / 100);
+}
+
 function setupSearchIndex(featureNameByCode) {
+  RELIGION_FAMILY_RULES.forEach(rule => {
+    rule.aliases.forEach(alias => registerReligionAlias(alias, rule.label));
+    registerSuggestion(rule.label, "religion", rule.label, "Religion");
+  });
+
   Object.entries(countriesData).forEach(([code, country]) => {
     registerCountryAlias(country.name, code);
     registerCountryAlias(featureNameByCode[code], code);
+    registerSuggestion(country.name, "country", code, "Pais o territorio");
+
+    getMajorityReligionGroups(country).forEach(entry => {
+      registerReligionAlias(entry.label, entry.label);
+      registerSuggestion(entry.label, "religion", entry.label, "Religion");
+    });
   });
 
   const continentNameMap = {
@@ -664,36 +996,107 @@ function setupSearchIndex(featureNameByCode) {
   Object.values(countriesData).forEach(country => {
     if (country.continent) {
       continentAliases.set(normalizeText(country.continent), country.continent);
+      registerSuggestion(translateContinentName(country.continent), "continent", country.continent, "Continente");
     }
   });
 }
 
-function searchMap() {
+function getReligionMatches(religionName) {
+  return Object.values(countriesData)
+    .filter(country => isReligionMajorityInCountry(country, religionName))
+    .sort((a, b) => (b.general?.population || 0) - (a.general?.population || 0));
+}
+
+function getSuggestions(query) {
+  const normalizedQuery = normalizeText(query);
+  if (!normalizedQuery) {
+    return [];
+  }
+
+  return suggestionItems
+    .filter(
+      item =>
+        item.normalizedLabel.includes(normalizedQuery) ||
+        normalizeText(item.subtitle).includes(normalizedQuery)
+    )
+    .sort((a, b) => {
+      const aStarts = a.normalizedLabel.startsWith(normalizedQuery) ? 0 : 1;
+      const bStarts = b.normalizedLabel.startsWith(normalizedQuery) ? 0 : 1;
+      if (aStarts !== bStarts) {
+        return aStarts - bStarts;
+      }
+
+      if (a.type !== b.type) {
+        return a.type.localeCompare(b.type, "es");
+      }
+
+      return a.label.localeCompare(b.label, "es");
+    })
+    .slice(0, 8);
+}
+
+function renderSuggestions(query, activeIndex = 0) {
+  const suggestionBox = document.getElementById("search-suggestions");
+  const suggestions = getSuggestions(query);
+
+  if (!suggestions.length) {
+    suggestionBox.hidden = true;
+    suggestionBox.innerHTML = "";
+    return [];
+  }
+
+  suggestionBox.hidden = false;
+  suggestionBox.innerHTML = suggestions
+    .map(
+      (item, index) => `
+        <button
+          type="button"
+          class="search-suggestion${index === activeIndex ? " is-active" : ""}"
+          data-type="${escapeHtml(item.type)}"
+          data-value="${escapeHtml(String(item.value))}"
+          data-label="${escapeHtml(item.label)}"
+        >
+          ${escapeHtml(item.label)}
+          <small>${escapeHtml(item.subtitle)}</small>
+        </button>
+      `
+    )
+    .join("");
+
+  return suggestions;
+}
+
+function hideSuggestions() {
+  const suggestionBox = document.getElementById("search-suggestions");
+  suggestionBox.hidden = true;
+  suggestionBox.innerHTML = "";
+}
+
+async function selectSearchResult(result) {
+  if (!result) {
+    return;
+  }
+
   const input = document.getElementById("map-search-input");
-  const rawQuery = input.value;
-  const query = normalizeText(rawQuery);
+  input.value = result.label;
+  hideSuggestions();
 
-  if (!query) {
-    return;
+  if (result.type === "country") {
+    const countryCode = result.value;
+    if (countryCode && countryLayers.has(countryCode) && countriesData[countryCode]) {
+      const linkedLayers = getLinkedCodes(countryCode)
+        .map(code => countryLayers.get(code))
+        .filter(Boolean);
+      setCountrySelection(linkedLayers);
+      fitLayerBounds(L.featureGroup(linkedLayers));
+      await renderCountry(countriesData[countryCode], countriesData[countryCode].name);
+      return;
+    }
   }
 
-  const countryCode = countryAliases.get(query);
-
-  if (countryCode && countryLayers.has(countryCode) && countriesData[countryCode]) {
-    const linkedLayers = getLinkedCodes(countryCode)
-      .map(code => countryLayers.get(code))
-      .filter(Boolean);
-    setCountrySelection(linkedLayers);
-    fitLayerBounds(L.featureGroup(linkedLayers));
-    renderCountry(countriesData[countryCode], countriesData[countryCode].name);
-    return;
-  }
-
-  const continent = continentAliases.get(query);
-
-  if (continent) {
+  if (result.type === "continent") {
     const continentEntries = Object.entries(countriesData).filter(
-      ([, country]) => country.continent === continent
+      ([, country]) => country.continent === result.value
     );
     const layers = continentEntries
       .map(([code]) => countryLayers.get(code))
@@ -703,11 +1106,85 @@ function searchMap() {
       setContinentSelection(layers);
       fitLayerBounds(continentBoundsLayer);
       renderContinent(
-        translateContinentName(continent),
+        translateContinentName(result.value),
         continentEntries.map(([, country]) => country)
       );
       return;
     }
+  }
+
+  if (result.type === "religion") {
+    const matches = getReligionMatches(result.value);
+    const layers = Object.entries(countriesData)
+      .filter(([, country]) => isReligionMajorityInCountry(country, result.value))
+      .map(([code]) => countryLayers.get(code))
+      .filter(Boolean);
+
+    if (layers.length) {
+      clearSelection();
+      selectedLayers = layers;
+      selectedLayers.forEach(layer => layer.setStyle(RELIGION_HIGHLIGHT_STYLE));
+      continentBoundsLayer = L.featureGroup(layers);
+      fitLayerBounds(continentBoundsLayer);
+
+      const totalNominal = matches.reduce(
+        (sum, country) => sum + getReligionNominalPopulation(country, result.value),
+        0
+      );
+
+      renderReligionSelection(result.label, matches, totalNominal);
+      return;
+    }
+  }
+
+  renderEmpty(`No se encontro "${result.label}"`);
+}
+
+async function searchMap() {
+  const input = document.getElementById("map-search-input");
+  const rawQuery = input.value;
+  const query = normalizeText(rawQuery);
+
+  if (!query) {
+    return;
+  }
+
+  const firstSuggestion = getSuggestions(rawQuery)[0];
+  if (firstSuggestion && firstSuggestion.normalizedLabel === query) {
+    await selectSearchResult(firstSuggestion);
+    return;
+  }
+
+  const countryCode = countryAliases.get(query);
+
+  if (countryCode && countryLayers.has(countryCode) && countriesData[countryCode]) {
+    await selectSearchResult({
+      label: countriesData[countryCode].name,
+      type: "country",
+      value: countryCode
+    });
+    return;
+  }
+
+  const continent = continentAliases.get(query);
+
+  if (continent) {
+    await selectSearchResult({
+      label: translateContinentName(continent),
+      type: "continent",
+      value: continent
+    });
+    return;
+  }
+
+  const religion = religionAliases.get(query);
+  if (religion) {
+    await selectSearchResult({
+      label: religion,
+      type: "religion",
+      value: religion
+    });
+    return;
   }
 
   renderEmpty(`No se encontro "${rawQuery}"`);
@@ -716,9 +1193,20 @@ function searchMap() {
 async function loadData() {
   const res = await fetch("./data/countries_full.json");
   countriesData = await res.json();
+  worldPopulationTotal = Object.values(countriesData).reduce(
+    (sum, country) => sum + (country.general?.population || 0),
+    0
+  );
 
+  generateWorldPopulation();
   generateTopPopulation();
   generateContinents();
+  generateReligions();
+}
+
+function generateWorldPopulation() {
+  const target = document.getElementById("world-population-total");
+  target.textContent = formatNumber(worldPopulationTotal);
 }
 
 function generateTopPopulation() {
@@ -732,7 +1220,10 @@ function generateTopPopulation() {
 
   list.forEach(country => {
     const li = document.createElement("li");
-    li.textContent = `${country.name} (${formatNumber(country.general.population)})`;
+    const share = worldPopulationTotal
+      ? (country.general.population / worldPopulationTotal) * 100
+      : 0;
+    li.textContent = `${country.name} (${formatNumber(country.general.population)} - ${formatPercentage(share)})`;
     ul.appendChild(li);
   });
 }
@@ -752,7 +1243,38 @@ function generateContinents() {
     .sort((a, b) => b[1] - a[1])
     .forEach(([continent, total]) => {
       const li = document.createElement("li");
-      li.textContent = `${translateContinentName(continent)} (${formatNumber(total)})`;
+      const share = worldPopulationTotal ? (total / worldPopulationTotal) * 100 : 0;
+      li.textContent = `${translateContinentName(continent)} (${formatNumber(total)} - ${formatPercentage(share)})`;
+      ul.appendChild(li);
+    });
+}
+
+function generateReligions() {
+  const totals = {};
+
+  Object.values(countriesData).forEach(country => {
+    const population = country.general?.population || 0;
+    const composition = Array.isArray(country.religion?.composition) ? country.religion.composition : [];
+
+    composition.forEach(entry => {
+      if (!entry?.name || !entry?.percentage) {
+        return;
+      }
+
+      const nominal = population * (entry.percentage / 100);
+      totals[entry.name] = (totals[entry.name] || 0) + nominal;
+    });
+  });
+
+  const ul = document.getElementById("religions");
+  ul.innerHTML = "";
+
+  Object.entries(totals)
+    .sort((a, b) => b[1] - a[1])
+    .forEach(([religionName, total]) => {
+      const li = document.createElement("li");
+      const share = worldPopulationTotal ? (total / worldPopulationTotal) * 100 : 0;
+      li.textContent = `${religionName} (${formatNumber(Math.round(total))} - ${formatPercentage(share)})`;
       ul.appendChild(li);
     });
 }
@@ -778,7 +1300,11 @@ async function loadMap() {
         featureNameByCode[code] = feature.properties.name || code;
       }
 
-      const handleSelection = () => {
+      const handleSelection = event => {
+        if (event?.originalEvent) {
+          L.DomEvent.stopPropagation(event);
+        }
+
         const country = countriesData[code];
 
         if (!country) {
@@ -804,24 +1330,118 @@ async function loadMap() {
   }).addTo(map);
 
   setupSearchIndex(featureNameByCode);
+  fitWorldView();
 }
 
 function setupSearchEvents() {
   const input = document.getElementById("map-search-input");
   const button = document.getElementById("map-search-button");
+  const suggestionBox = document.getElementById("search-suggestions");
+  let activeIndex = 0;
+  let currentSuggestions = [];
 
-  button.addEventListener("click", searchMap);
-  input.addEventListener("keydown", event => {
+  button.addEventListener("click", () => searchMap());
+
+  input.addEventListener("input", () => {
+    activeIndex = 0;
+    currentSuggestions = renderSuggestions(input.value, activeIndex);
+  });
+
+  input.addEventListener("focus", () => {
+    currentSuggestions = renderSuggestions(input.value, activeIndex);
+  });
+
+  input.addEventListener("keydown", async event => {
+    if (event.key === "ArrowDown" && currentSuggestions.length) {
+      event.preventDefault();
+      activeIndex = (activeIndex + 1) % currentSuggestions.length;
+      renderSuggestions(input.value, activeIndex);
+      return;
+    }
+
+    if (event.key === "ArrowUp" && currentSuggestions.length) {
+      event.preventDefault();
+      activeIndex = (activeIndex - 1 + currentSuggestions.length) % currentSuggestions.length;
+      renderSuggestions(input.value, activeIndex);
+      return;
+    }
+
     if (event.key === "Enter") {
-      searchMap();
+      event.preventDefault();
+      if (currentSuggestions.length) {
+        await selectSearchResult(currentSuggestions[activeIndex] || currentSuggestions[0]);
+        currentSuggestions = [];
+        return;
+      }
+
+      await searchMap();
+      return;
+    }
+
+    if (event.key === "Escape") {
+      hideSuggestions();
+      currentSuggestions = [];
     }
   });
+
+  suggestionBox.addEventListener("mousedown", event => {
+    const buttonElement = event.target.closest(".search-suggestion");
+    if (!buttonElement) {
+      return;
+    }
+
+    event.preventDefault();
+  });
+
+  suggestionBox.addEventListener("click", async event => {
+    const buttonElement = event.target.closest(".search-suggestion");
+    if (!buttonElement) {
+      return;
+    }
+
+    await selectSearchResult({
+      label: buttonElement.dataset.label,
+      type: buttonElement.dataset.type,
+      value: buttonElement.dataset.value
+    });
+    currentSuggestions = [];
+  });
+
+  document.addEventListener("click", event => {
+    if (!event.target.closest("#search-bar")) {
+      hideSuggestions();
+      currentSuggestions = [];
+    }
+  });
+}
+
+function setupMobilePanelControls() {
+  const leftButton = document.getElementById("toggle-left-panel");
+  const countryButton = document.getElementById("toggle-country-panel");
+
+  leftButton.addEventListener("click", () => toggleMobilePanel("left"));
+  countryButton.addEventListener("click", () => toggleMobilePanel("country"));
+
+  mobileMediaQuery.addEventListener("change", event => {
+    if (!event.matches) {
+      closeMobilePanels();
+      fitWorldView();
+      return;
+    }
+
+    fitWorldView();
+  });
+
+  map.on("click", onMapInteractionStart);
+  map.on("dragstart", onMapInteractionStart);
+  map.on("zoomstart", onMapInteractionStart);
 }
 
 async function init() {
   await loadData();
   await loadMap();
   setupSearchEvents();
+  setupMobilePanelControls();
 }
 
 init();

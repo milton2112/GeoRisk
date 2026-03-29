@@ -2,8 +2,12 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>GeoRisk</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 </head>
@@ -12,16 +16,27 @@
 <div id="map"></div>
 
 <div id="search-bar">
-  <input id="map-search-input" type="text" placeholder="Buscar país o continente">
+  <input id="map-search-input" type="text" placeholder="Buscar pais, territorio, continente o religion" autocomplete="off">
   <button id="map-search-button" type="button">Buscar</button>
+  <div id="search-suggestions" hidden></div>
+</div>
+
+<div id="mobile-panel-controls">
+  <button id="toggle-left-panel" type="button">Top y continentes</button>
+  <button id="toggle-country-panel" type="button">Ficha del pais</button>
 </div>
 
 <div id="left-panel">
+  <h3>Poblacion mundial</h3>
+  <p id="world-population-total"></p>
   <h3>Top Población</h3>
   <ul id="top-population"></ul>
 
   <h3>Continentes</h3>
   <ul id="continents"></ul>
+
+  <h3>Religiones</h3>
+  <ul id="religions"></ul>
 </div>
 
 <div id="country-panel">

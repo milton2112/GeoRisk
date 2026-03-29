@@ -57,6 +57,55 @@ const CONTINENT_OVERRIDES = {
   "-99": "Africa"
 };
 
+const HISTORY_OVERRIDES = {
+  AND: { year: 1278, type: "legal" },
+  ARE: { year: 1971, type: "union" },
+  BHS: { year: 1973, type: "independencia", origin: "Reino Unido" },
+  BIH: { year: 1992, type: "disolucion de otro estado" },
+  BLZ: { year: 1981, type: "independencia", origin: "Reino Unido" },
+  BMU: { year: 1609, type: "legal", origin: "Reino Unido" },
+  BTN: { year: 1907, type: "legal" },
+  COD: { year: 1960, type: "independencia" },
+  COG: { year: 1960, type: "independencia" },
+  CZE: { year: 1993, type: "disolucion de otro estado" },
+  DEU: { year: 1990, type: "union" },
+  DNK: { year: 965, type: "legal" },
+  FJI: { year: 1970, type: "independencia" },
+  FRA: { year: 1958, type: "legal" },
+  GBR: { year: 1707, type: "union" },
+  GMB: { year: 1965, type: "independencia" },
+  GRL: { year: 1979, type: "legal" },
+  HTI: { year: 1804, type: "independencia", origin: "Francia" },
+  HUN: { year: 1989, type: "legal" },
+  KGZ: { year: 1991, type: "disolucion de otro estado" },
+  LAO: { year: 1953, type: "independencia" },
+  MAR: { year: 1956, type: "independencia" },
+  MKD: { year: 1991, type: "disolucion de otro estado" },
+  MMR: { year: 1948, type: "independencia" },
+  NCL: { year: 1853, type: "legal" },
+  NLD: { year: 1815, type: "legal", origin: "Republica de las Provincias Unidas" },
+  NOR: { year: 1905, type: "legal" },
+  PNG: { year: 1975, type: "independencia", origin: "Australia" },
+  PRT: { year: 1143, type: "independencia" },
+  PSE: { year: 1988, type: "legal", origin: "Mandato britanico de Palestina" },
+  RUS: { year: 1991, type: "disolucion de otro estado" },
+  SLB: { year: 1978, type: "independencia" },
+  SOM: { year: 1960, type: "union" },
+  SSD: { year: 2011, type: "independencia" },
+  SVK: { year: 1993, type: "disolucion de otro estado" },
+  SWE: { year: 1523, type: "independencia", origin: "Union de Kalmar" },
+  SWZ: { year: 1968, type: "independencia" },
+  SYR: { year: 1946, type: "independencia" },
+  TKM: { year: 1991, type: "disolucion de otro estado" },
+  TLS: { year: 2002, type: "independencia" },
+  TWN: { year: 1949, type: "guerra civil" },
+  TZA: { year: 1964, type: "union" },
+  VNM: { year: 1976, type: "union" },
+  VEN: { year: 1811, type: "independencia" },
+  VUT: { year: 1980, type: "independencia" },
+  YEM: { year: 1990, type: "union" }
+};
+
 const ENTITY_FALLBACKS = {
   USA: {
     replaceCities: true,
@@ -171,6 +220,27 @@ const ENTITY_FALLBACKS = {
     capital: { name: "Stanley", population: 2460, isCapital: true },
     cities: [{ name: "Monte Agradable", population: 1300, isCapital: false }]
   },
+  BHS: {
+    religion: {
+      summary: "Cristianismo",
+      composition: [
+        { name: "Cristianos", percentage: 90.6 },
+        { name: "Ateos / agnosticos / sin afiliacion", percentage: 7.9 },
+        { name: "Otras religiones", percentage: 1.5 }
+      ]
+    }
+  },
+  BRN: {
+    religion: {
+      summary: "Islam (Sunismo)",
+      composition: [
+        { name: "Musulmanes sunitas", percentage: 81 },
+        { name: "Budistas", percentage: 7 },
+        { name: "Cristianos", percentage: 7 },
+        { name: "Ateos / agnosticos / sin afiliacion", percentage: 5 }
+      ]
+    }
+  },
   "CS-KM": {
     population: 1756374,
     geography: "Balcanes centrales",
@@ -262,6 +332,202 @@ const ENTITY_FALLBACKS = {
       { name: "Taichung", population: 2820143, isCapital: false },
       { name: "Tainan", population: 1850000, isCapital: false }
     ]
+  },
+  COD: {
+    religion: {
+      summary: "Cristianismo (Catolicismo y Protestantismo)",
+      composition: [
+        { name: "Catolicos", percentage: 43 },
+        { name: "Protestantes y evangelicos", percentage: 32 },
+        { name: "Cristianos kimbanguistas y otros", percentage: 10 },
+        { name: "Religiones animistas y populares", percentage: 11 },
+        { name: "Musulmanes", percentage: 2 },
+        { name: "Ateos / agnosticos / sin afiliacion", percentage: 2 }
+      ]
+    }
+  },
+  VNM: {
+    religion: {
+      summary: "Religiones populares y Budismo",
+      composition: [
+        { name: "Religiones animistas y populares", percentage: 45.3 },
+        { name: "Budistas", percentage: 16.4 },
+        { name: "Cristianos", percentage: 8.2 },
+        { name: "Ateos / agnosticos / sin afiliacion", percentage: 29.1 },
+        { name: "Otras religiones", percentage: 1 }
+      ]
+    }
+  },
+  MMR: {
+    religion: {
+      summary: "Budismo",
+      composition: [
+        { name: "Budistas", percentage: 87.9 },
+        { name: "Cristianos", percentage: 6.2 },
+        { name: "Musulmanes sunitas", percentage: 4.3 },
+        { name: "Religiones animistas y populares", percentage: 1 },
+        { name: "Hindues", percentage: 0.5 },
+        { name: "Ateos / agnosticos / sin afiliacion", percentage: 0.1 }
+      ]
+    }
+  },
+  YEM: {
+    religion: {
+      summary: "Islam (Sunismo y Chiismo)",
+      composition: [
+        { name: "Musulmanes sunitas", percentage: 65 },
+        { name: "Musulmanes chiitas", percentage: 34 },
+        { name: "Cristianos", percentage: 0.5 },
+        { name: "Hindues", percentage: 0.3 },
+        { name: "Judios", percentage: 0.1 },
+        { name: "Ateos / agnosticos / sin afiliacion", percentage: 0.1 }
+      ]
+    }
+  },
+  CIV: {
+    religion: {
+      summary: "Islam y Cristianismo",
+      composition: [
+        { name: "Musulmanes sunitas", percentage: 42.9 },
+        { name: "Cristianos", percentage: 39.8 },
+        { name: "Religiones animistas y populares", percentage: 12.6 },
+        { name: "Ateos / agnosticos / sin afiliacion", percentage: 4.7 }
+      ]
+    }
+  },
+  VEN: {
+    religion: {
+      summary: "Cristianismo (Catolicismo)",
+      composition: [
+        { name: "Catolicos", percentage: 71 },
+        { name: "Protestantes y evangelicos", percentage: 17 },
+        { name: "Ateos / agnosticos / sin afiliacion", percentage: 8 },
+        { name: "Religiones animistas y populares", percentage: 2 },
+        { name: "Otras religiones", percentage: 2 }
+      ]
+    }
+  },
+  SYR: {
+    religion: {
+      summary: "Islam (Sunismo)",
+      composition: [
+        { name: "Musulmanes sunitas", percentage: 74 },
+        { name: "Musulmanes chiitas y alauitas", percentage: 13 },
+        { name: "Cristianos", percentage: 10 },
+        { name: "Drusos", percentage: 3 }
+      ]
+    }
+  },
+  SOM: {
+    religion: {
+      summary: "Islam (Sunismo)",
+      composition: [
+        { name: "Musulmanes sunitas", percentage: 99 },
+        { name: "Cristianos", percentage: 0.5 },
+        { name: "Ateos / agnosticos / sin afiliacion", percentage: 0.5 }
+      ]
+    }
+  },
+  CZE: {
+    religion: {
+      summary: "Sin afiliacion religiosa",
+      composition: [
+        { name: "Ateos / agnosticos / sin afiliacion", percentage: 72 },
+        { name: "Catolicos", percentage: 18 },
+        { name: "Protestantes", percentage: 4 },
+        { name: "Otros cristianos", percentage: 3 },
+        { name: "Otras religiones", percentage: 3 }
+      ]
+    }
+  },
+  LAO: {
+    religion: {
+      summary: "Budismo",
+      composition: [
+        { name: "Budistas", percentage: 66 },
+        { name: "Religiones animistas y populares", percentage: 30.7 },
+        { name: "Cristianos", percentage: 1.5 },
+        { name: "Ateos / agnosticos / sin afiliacion", percentage: 1.8 }
+      ]
+    }
+  },
+  KGZ: {
+    religion: {
+      summary: "Islam (Sunismo)",
+      composition: [
+        { name: "Musulmanes sunitas", percentage: 88 },
+        { name: "Cristianos ortodoxos", percentage: 9 },
+        { name: "Ateos / agnosticos / sin afiliacion", percentage: 2 },
+        { name: "Otras religiones", percentage: 1 }
+      ]
+    }
+  },
+  COG: {
+    religion: {
+      summary: "Cristianismo",
+      composition: [
+        { name: "Catolicos", percentage: 33 },
+        { name: "Protestantes y evangelicos", percentage: 52 },
+        { name: "Religiones animistas y populares", percentage: 8 },
+        { name: "Ateos / agnosticos / sin afiliacion", percentage: 5 },
+        { name: "Musulmanes", percentage: 2 }
+      ]
+    }
+  },
+  SVK: {
+    religion: {
+      summary: "Cristianismo (Catolicismo)",
+      composition: [
+        { name: "Catolicos", percentage: 55.8 },
+        { name: "Protestantes", percentage: 9.3 },
+        { name: "Cristianos ortodoxos", percentage: 4.1 },
+        { name: "Ateos / agnosticos / sin afiliacion", percentage: 28.3 },
+        { name: "Otras religiones", percentage: 2.5 }
+      ]
+    }
+  },
+  PSE: {
+    religion: {
+      summary: "Islam (Sunismo)",
+      composition: [
+        { name: "Musulmanes sunitas", percentage: 96.5 },
+        { name: "Cristianos", percentage: 2.5 },
+        { name: "Drusos", percentage: 0.5 },
+        { name: "Ateos / agnosticos / sin afiliacion", percentage: 0.5 }
+      ]
+    }
+  },
+  BIH: {
+    religion: {
+      summary: "Islam, Cristianismo ortodoxo y Catolicismo",
+      composition: [
+        { name: "Musulmanes sunitas", percentage: 50.7 },
+        { name: "Cristianos ortodoxos", percentage: 30.7 },
+        { name: "Catolicos", percentage: 15.2 },
+        { name: "Ateos / agnosticos / sin afiliacion", percentage: 3.4 }
+      ]
+    }
+  },
+  GMB: {
+    religion: {
+      summary: "Islam (Sunismo)",
+      composition: [
+        { name: "Musulmanes sunitas", percentage: 95.7 },
+        { name: "Cristianos", percentage: 4.2 },
+        { name: "Ateos / agnosticos / sin afiliacion", percentage: 0.1 }
+      ]
+    }
+  },
+  MKD: {
+    religion: {
+      summary: "Cristianismo ortodoxo e Islam",
+      composition: [
+        { name: "Cristianos ortodoxos", percentage: 58.6 },
+        { name: "Musulmanes sunitas", percentage: 39.3 },
+        { name: "Catolicos", percentage: 0.4 },
+        { name: "Ateos / agnosticos / sin afiliacion", percentage: 1.7 }
+      ]
+    }
   }
 };
 
@@ -337,6 +603,69 @@ function normalizeYear(year, fallbackYear = null) {
   }
 
   return year;
+}
+
+function normalizeFormationLabel(value) {
+  const normalized = normalizeKey(value);
+
+  if (!normalized) {
+    return null;
+  }
+
+  if (
+    normalized.includes("independ") ||
+    normalized.includes("colonia") ||
+    normalized.includes("protectorado")
+  ) {
+    return "independencia";
+  }
+
+  if (normalized.includes("union") || normalized.includes("reunif")) {
+    return "union";
+  }
+
+  if (
+    normalized.includes("soviet") ||
+    normalized.includes("yugoslav") ||
+    normalized.includes("checoslova") ||
+    normalized.includes("disol")
+  ) {
+    return "disolucion de otro estado";
+  }
+
+  if (normalized.includes("revolu")) {
+    return "revolucion";
+  }
+
+  if (normalized.includes("guerra civil")) {
+    return "guerra civil";
+  }
+
+  if (
+    normalized.includes("territorio") ||
+    normalized.includes("departamento") ||
+    normalized.includes("monarquia") ||
+    normalized.includes("republica") ||
+    normalized.includes("coprincipado") ||
+    normalized.includes("pais")
+  ) {
+    return "legal";
+  }
+
+  return null;
+}
+
+function formatFormationType(value) {
+  const labels = {
+    independencia: "Independencia",
+    union: "Union",
+    "disolucion de otro estado": "Disolucion de otro estado",
+    revolucion: "Revolucion",
+    "guerra civil": "Guerra civil",
+    legal: "Legal y pacifica"
+  };
+
+  return labels[value] || "Legal y pacifica";
 }
 
 function buildCityList(...lists) {
@@ -621,13 +950,28 @@ for (const code of allCodes) {
     compactNumber(capital?.population) ||
     compactNumber(cities.reduce((sum, city) => sum + (city.population || 0), 0)) ||
     0;
-  const normalizedHistoryYear = normalizeYear(historyData?.year, fallback.history?.year || null);
+  const historyOverride = HISTORY_OVERRIDES[code] || {};
+  const normalizedHistoryYear = normalizeYear(
+    historyData?.year,
+    historyOverride.year ?? fallback.history?.year ?? null
+  );
+  const normalizedFormationType =
+    historyOverride.type ||
+    normalizeFormationLabel(historyData?.type) ||
+    normalizeFormationLabel(historyData?.origin) ||
+    normalizeFormationLabel(fallback.history?.type) ||
+    normalizeFormationLabel(fallback.history?.origin) ||
+    "legal";
   const historyEntry =
-    historyData || fallback.history
+    historyData || fallback.history || historyOverride.year || historyOverride.type
       ? {
           year: normalizedHistoryYear,
-          type: historyData?.type || fallback.history?.type || null,
-          origin: historyData?.origin || fallback.history?.origin || null
+          type: formatFormationType(normalizedFormationType),
+          origin:
+            historyOverride.origin ||
+            historyData?.origin ||
+            fallback.history?.origin ||
+            null
         }
       : null;
 
