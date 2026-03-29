@@ -15,28 +15,120 @@
 
 <div id="map"></div>
 
-<div id="search-bar">
-  <input id="map-search-input" type="text" placeholder="Buscar pais, territorio, continente o religion" autocomplete="off">
-  <button id="map-search-button" type="button">Buscar</button>
-  <div id="search-suggestions" hidden></div>
+<div id="top-controls">
+  <div id="search-bar">
+    <input id="map-search-input" type="text" placeholder="Buscar pais, continente, religion, sistema politico u organizacion" autocomplete="off">
+    <button id="map-search-button" type="button">Buscar</button>
+    <div id="search-suggestions" hidden></div>
+  </div>
+
+  <details id="map-toolbar">
+    <summary>Capas tematicas</summary>
+    <div class="toolbar-content">
+      <div class="toolbar-row">
+        <label for="theme-select">Capa</label>
+        <select id="theme-select">
+          <option value="default">Vista politica</option>
+          <option value="continent">Continentes</option>
+          <option value="religion">Religion mayoritaria</option>
+          <option value="politics">Sistema politico</option>
+          <option value="population">Poblacion</option>
+          <option value="gdp">PBI</option>
+          <option value="gdpPerCapita">PBI per capita</option>
+          <option value="inflation">Inflacion</option>
+          <option value="historyType">Tipo historico</option>
+        </select>
+      </div>
+      <div class="toolbar-row">
+        <label for="language-select">Idioma</label>
+        <select id="language-select">
+          <option value="es">Español</option>
+          <option value="en">English</option>
+        </select>
+      </div>
+      <div class="toolbar-row toolbar-row-stack">
+        <label for="filter-continent-select">Filtros</label>
+        <div class="filter-grid">
+          <select id="filter-continent-select">
+            <option value="">Continente</option>
+            <option value="America">America</option>
+            <option value="Europe">Europa</option>
+            <option value="Asia">Asia</option>
+            <option value="Africa">Africa</option>
+            <option value="Oceania">Oceania</option>
+            <option value="Antarctica">Antartida</option>
+          </select>
+          <select id="filter-religion-select">
+            <option value="">Religion mayoritaria</option>
+          </select>
+          <select id="filter-system-select">
+            <option value="">Sistema politico</option>
+          </select>
+          <select id="filter-population-select">
+            <option value="">Poblacion minima</option>
+            <option value="1000000">1 millon</option>
+            <option value="10000000">10 millones</option>
+            <option value="50000000">50 millones</option>
+            <option value="100000000">100 millones</option>
+          </select>
+        </div>
+      </div>
+      <div class="toolbar-row">
+        <button id="apply-filters-button" type="button">Aplicar filtros</button>
+      </div>
+      <div class="toolbar-row">
+        <button id="save-filters-button" type="button">Guardar filtros</button>
+      </div>
+      <div class="toolbar-row">
+        <select id="saved-filters-select">
+          <option value="">Filtros guardados</option>
+        </select>
+      </div>
+      <div class="toolbar-row">
+        <button id="reset-view-button" type="button">Resetear vista</button>
+      </div>
+      <div class="toolbar-row">
+        <button id="presentation-mode-button" type="button">Modo presentacion</button>
+      </div>
+      <div id="theme-legend"></div>
+      <p id="offline-status">Cache local en preparacion.</p>
+    </div>
+  </details>
 </div>
 
 <div id="mobile-panel-controls">
   <button id="toggle-left-panel" type="button">Top y continentes</button>
+  <button id="toggle-tools-panel" type="button">Capas</button>
   <button id="toggle-country-panel" type="button">Ficha del pais</button>
 </div>
 
 <div id="left-panel">
-  <h3>Poblacion mundial</h3>
+  <h3 id="compare-title">Comparador</h3>
+  <div id="compare-panel">
+    <p id="compare-empty">Agrega hasta 3 paises desde la ficha o el buscador.</p>
+    <div id="compare-chips"></div>
+    <div id="compare-results"></div>
+  </div>
+
+  <h3 id="world-population-title">Poblacion mundial</h3>
   <p id="world-population-total"></p>
-  <h3>Top Población</h3>
+  <h3 id="top-population-title">Top Población</h3>
   <ul id="top-population"></ul>
 
-  <h3>Continentes</h3>
+  <h3 id="continents-title">Continentes</h3>
   <ul id="continents"></ul>
 
-  <h3>Religiones</h3>
+  <h3 id="religions-title">Religiones</h3>
   <ul id="religions"></ul>
+
+  <h3 id="gdp-title">Top PBI</h3>
+  <ul id="top-gdp"></ul>
+
+  <h3 id="inflation-title">Top Inflacion</h3>
+  <ul id="top-inflation"></ul>
+
+  <h3 id="systems-title">Sistemas politicos</h3>
+  <ul id="top-systems"></ul>
 </div>
 
 <div id="country-panel">
