@@ -1,5 +1,5 @@
-const APP_CACHE = "geo-risk-app-v2";
-const TILE_CACHE = "geo-risk-tiles-v2";
+const APP_CACHE = "geo-risk-app-v5";
+const TILE_CACHE = "geo-risk-tiles-v5";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -7,8 +7,25 @@ const APP_SHELL = [
   "./script.js",
   "./data/countries_full.json",
   "./data/world_countries.geo.json",
-  "https://unpkg.com/leaflet/dist/leaflet.css",
-  "https://unpkg.com/leaflet/dist/leaflet.js"
+  "./data/world_countries_simplified.geo.json",
+  "./data/raw/history.json",
+  "./data/raw/politics.json",
+  "./data/raw/inflation.json",
+  "./data/raw/religion.json",
+  "./assets/flags/ARG.svg",
+  "./assets/flags/BRA.svg",
+  "./assets/flags/USA.svg",
+  "./assets/flags/CHN.svg",
+  "./assets/flags/GBR.svg",
+  "./assets/flags/FRA.svg",
+  "./assets/flags/DEU.svg",
+  "./assets/flags/IND.svg",
+  "./assets/coats/ARG.svg",
+  "./assets/coats/BRA.svg",
+  "./assets/coats/USA.svg",
+  "./assets/coats/CHN.svg",
+  "https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Widgets/widgets.css",
+  "https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Cesium.js"
 ];
 
 self.addEventListener("install", event => {
@@ -72,13 +89,31 @@ self.addEventListener("fetch", event => {
     event.respondWith(
       caches.open(TILE_CACHE).then(async cache => {
         const cached = await cache.match(event.request);
-        if (cached) {
-          return cached;
-        }
+        const networkFetch = fetch(event.request)
+          .then(response => {
+            cache.put(event.request, response.clone());
+            return response;
+          })
+          .catch(() => cached);
 
-        const response = await fetch(event.request);
-        cache.put(event.request, response.clone());
-        return response;
+        return cached || networkFetch;
+      })
+    );
+    return;
+  }
+
+  if (url.hostname === "cesium.com") {
+    event.respondWith(
+      caches.open(APP_CACHE).then(async cache => {
+        const cached = await cache.match(event.request);
+        const networkFetch = fetch(event.request)
+          .then(response => {
+            cache.put(event.request, response.clone());
+            return response;
+          })
+          .catch(() => cached);
+
+        return cached || networkFetch;
       })
     );
   }

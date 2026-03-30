@@ -5,6 +5,195 @@ const YEAR_COLUMNS = Array.from({ length: 2025 - 1960 + 1 }, (_, index) =>
   String(2025 - index)
 );
 
+const TERRITORY_LINKS = {
+  FRA: ["GUF", "NCL", "ATF"],
+  GUF: ["FRA"],
+  NCL: ["FRA"],
+  ATF: ["FRA"],
+  DNK: ["GRL"],
+  GRL: ["DNK"],
+  GBR: ["FLK", "BMU"],
+  FLK: ["GBR"],
+  BMU: ["GBR"],
+  USA: ["PRI"],
+  PRI: ["USA"]
+};
+
+const OFFICIAL_NAME_OVERRIDES = {
+  ARG: "Republica Argentina",
+  AUS: "Mancomunidad de Australia",
+  BOL: "Estado Plurinacional de Bolivia",
+  BRA: "Republica Federativa del Brasil",
+  CAN: "Canada",
+  CHN: "Republica Popular China",
+  CIV: "Republica de Costa de Marfil",
+  COD: "Republica Democratica del Congo",
+  COG: "Republica del Congo",
+  DEU: "Republica Federal de Alemania",
+  ESP: "Reino de España",
+  FRA: "Republica Francesa",
+  GBR: "Reino Unido de Gran Bretaña e Irlanda del Norte",
+  GRC: "Republica Helenica",
+  IRN: "Republica Islamica de Iran",
+  LAO: "Republica Democratica Popular Lao",
+  MAR: "Reino de Marruecos",
+  MEX: "Estados Unidos Mexicanos",
+  NLD: "Reino de los Paises Bajos",
+  PRK: "Republica Popular Democratica de Corea",
+  RUS: "Federacion de Rusia",
+  SWZ: "Reino de Esuatini",
+  SYR: "Republica Arabe Siria",
+  TWN: "Republica de China",
+  USA: "Estados Unidos de America",
+  VEN: "Republica Bolivariana de Venezuela",
+  VNM: "Republica Socialista de Vietnam",
+  GUF: "Guayana Francesa",
+  PRI: "Estado Libre Asociado de Puerto Rico",
+  FLK: "Islas Malvinas",
+  BMU: "Bermudas",
+  NCL: "Nueva Caledonia",
+  GRL: "Groenlandia",
+  ATA: "Antartida",
+  ATF: "Tierras Australes y Antarticas Francesas",
+  "CS-KM": "Republica de Kosovo",
+  "-99": "Republica de Somalilandia"
+};
+
+const HISTORICAL_NAME_OVERRIDES = {
+  COD: ["Zaire", "Congo Belga"],
+  CIV: ["Costa de Marfil francesa"],
+  DEU: ["Republica Democratica Alemana", "Republica Federal de Alemania"],
+  GBR: ["Imperio Britanico"],
+  GHA: ["Costa de Oro"],
+  IRN: ["Persia"],
+  MMR: ["Birmania"],
+  MKD: ["Republica de Macedonia"],
+  NAM: ["Africa del Sudoeste"],
+  RUS: ["Union Sovietica"],
+  SWZ: ["Suazilandia"],
+  TZA: ["Tanganica", "Zanzibar"],
+  VNM: ["Vietnam del Norte", "Vietnam del Sur"],
+  ZWE: ["Rodesia del Sur"],
+  ESH: ["Sahara Espanol"],
+  PSE: ["Palestina bajo mandato britanico"],
+  GUF: ["Guyane francaise"],
+  FLK: ["Falkland Islands"],
+  PRI: ["Puerto Rico español"],
+  "CS-KM": ["Kosovo y Metohija"],
+  "-99": ["Somalilandia Britanica"]
+};
+
+const SYMBOL_OVERRIDES = {
+  ARG: {
+    flagDescription: "Bandera celeste y blanca con Sol de Mayo",
+    coatOfArms: "Escudo ovalado con manos entrelazadas, pica y gorro frigio"
+  },
+  BRA: {
+    flagDescription: "Bandera verde con rombo amarillo y globo azul estrellado",
+    coatOfArms: "Escudo con estrella verde-amarilla y espada"
+  },
+  CHN: {
+    flagDescription: "Bandera roja con cinco estrellas amarillas",
+    coatOfArms: "Emblema rojo y dorado con Tiananmén, engranaje y espigas"
+  },
+  ESP: {
+    flagDescription: "Bandera roja y amarilla con escudo nacional",
+    coatOfArms: "Escudo cuartelado con corona real y Columnas de Hercules"
+  },
+  FRA: {
+    flagDescription: "Bandera tricolor azul, blanca y roja",
+    coatOfArms: "Emblema republicano con fasces, ramas y monograma RF"
+  },
+  GBR: {
+    flagDescription: "Union Jack con cruces de San Jorge, San Andres y San Patricio",
+    coatOfArms: "Escudo real con leon y unicornio"
+  },
+  USA: {
+    flagDescription: "Bandera de barras y estrellas",
+    coatOfArms: "Gran Sello con aguila calva, escudo y flechas"
+  },
+  GUF: {
+    flagDescription: "Usa la bandera de Francia junto a simbolos locales",
+    coatOfArms: "Armas territoriales asociadas a la colectividad"
+  },
+  PRI: {
+    flagDescription: "Bandera con franjas rojas y blancas y triangulo azul con estrella",
+    coatOfArms: "Escudo historico de Puerto Rico con cordero místico"
+  },
+  FLK: {
+    flagDescription: "Blue Ensign con escudo de las Islas Malvinas",
+    coatOfArms: "Escudo con carnero, barco Desire y lema territorial"
+  },
+  "-99": {
+    flagDescription: "Bandera tricolor con shahada y estrella negra",
+    coatOfArms: "Emblema no estandarizado de la republica autodeclarada"
+  }
+};
+
+const TIMELINE_EVENT_OVERRIDES = {
+  ARG: [
+    { year: 1810, category: "politica", text: "Revolucion de Mayo" },
+    { year: 1816, category: "estado", text: "Declaracion de la Independencia" },
+    { year: 1853, category: "constitucion", text: "Sancion de la Constitucion nacional" },
+    { year: 1982, category: "guerra", text: "Guerra de las Malvinas" },
+    { year: 1983, category: "politica", text: "Retorno definitivo a la democracia" }
+  ],
+  BRA: [
+    { year: 1822, category: "estado", text: "Independencia del Brasil" },
+    { year: 1889, category: "politica", text: "Proclamacion de la Republica" },
+    { year: 1964, category: "golpe", text: "Golpe militar e inicio de la dictadura" },
+    { year: 1988, category: "constitucion", text: "Constitucion de la Nueva Republica" }
+  ],
+  USA: [
+    { year: 1776, category: "estado", text: "Declaracion de Independencia" },
+    { year: 1787, category: "constitucion", text: "Convencion y Constitucion federal" },
+    { year: 1861, category: "guerra", text: "Inicio de la Guerra Civil" },
+    { year: 1865, category: "estado", text: "Abolicion de la esclavitud y preservacion de la Union" }
+  ],
+  CHN: [
+    { year: 1911, category: "revolucion", text: "Revolucion de Xinhai y fin de la dinastia Qing" },
+    { year: 1949, category: "estado", text: "Proclamacion de la Republica Popular China" },
+    { year: 1978, category: "economia", text: "Inicio de la reforma y apertura" },
+    { year: 1997, category: "territorio", text: "Reintegracion de Hong Kong" }
+  ],
+  RUS: [
+    { year: 1917, category: "revolucion", text: "Revoluciones de Febrero y Octubre" },
+    { year: 1922, category: "union", text: "Creacion de la Union Sovietica" },
+    { year: 1991, category: "disolucion", text: "Disolucion de la URSS" },
+    { year: 1993, category: "constitucion", text: "Nueva Constitucion de la Federacion de Rusia" }
+  ],
+  IND: [
+    { year: 1858, category: "imperio", text: "Inicio del Raj britanico" },
+    { year: 1947, category: "estado", text: "Independencia y Particion" },
+    { year: 1950, category: "constitucion", text: "Entrada en vigor de la Constitucion" },
+    { year: 1971, category: "guerra", text: "Guerra indo-paquistani y nacimiento de Bangladesh" }
+  ],
+  DEU: [
+    { year: 1871, category: "union", text: "Unificacion alemana" },
+    { year: 1919, category: "constitucion", text: "Constitucion de Weimar" },
+    { year: 1949, category: "division", text: "Division en RFA y RDA" },
+    { year: 1990, category: "union", text: "Reunificacion alemana" }
+  ],
+  FRA: [
+    { year: 1789, category: "revolucion", text: "Revolucion francesa" },
+    { year: 1792, category: "estado", text: "Proclamacion de la Primera Republica" },
+    { year: 1958, category: "constitucion", text: "Fundacion de la Quinta Republica" },
+    { year: 1962, category: "descolonizacion", text: "Independencia de Argelia" }
+  ],
+  GBR: [
+    { year: 1707, category: "union", text: "Acta de Union entre Inglaterra y Escocia" },
+    { year: 1801, category: "union", text: "Union con Irlanda" },
+    { year: 1931, category: "imperio", text: "Estatuto de Westminster y autonomia imperial" },
+    { year: 1998, category: "acuerdo", text: "Acuerdo del Viernes Santo" }
+  ],
+  JPN: [
+    { year: 1868, category: "reforma", text: "Restauracion Meiji" },
+    { year: 1889, category: "constitucion", text: "Constitucion del Imperio del Japon" },
+    { year: 1947, category: "constitucion", text: "Constitucion pacifista de posguerra" },
+    { year: 1951, category: "tratado", text: "Tratado de San Francisco" }
+  ]
+};
+
 const COUNTRY_NAME_OVERRIDES = {
   PNG: "Papua Nueva Guinea",
   GRL: "Groenlandia",
@@ -584,6 +773,18 @@ function compactList(list) {
   return Array.isArray(list) ? list.filter(Boolean) : [];
 }
 
+function uniqueBy(list, getKey) {
+  const seen = new Set();
+  return list.filter(item => {
+    const key = getKey(item);
+    if (!key || seen.has(key)) {
+      return false;
+    }
+    seen.add(key);
+    return true;
+  });
+}
+
 function compactNumber(value) {
   return typeof value === "number" && !Number.isNaN(value) ? value : null;
 }
@@ -655,6 +856,12 @@ function normalizeFormationLabel(value) {
   return null;
 }
 
+function toDisplayTitleCase(value) {
+  return String(value || "")
+    .toLocaleLowerCase("es")
+    .replace(/(^|[\s\-/'(])([\p{L}])/gu, (match, prefix, letter) => `${prefix}${letter.toLocaleUpperCase("es")}`);
+}
+
 function formatFormationType(value) {
   const labels = {
     independencia: "Independencia",
@@ -701,6 +908,176 @@ function buildCityList(...lists) {
   });
 
   return result;
+}
+
+function parseOrganizationEntry(entry) {
+  if (!entry) {
+    return null;
+  }
+
+  if (typeof entry !== "string") {
+    return entry.name
+      ? {
+          name: entry.name,
+          abbreviation: entry.abbreviation || null,
+          startYear: compactNumber(entry.startYear),
+          endYear: compactNumber(entry.endYear)
+        }
+      : null;
+  }
+
+  const cleaned = entry.replace(/\s+\((politica|econ[oó]mica|militar|regional)\)\s*$/i, "").trim();
+  const abbreviationMatch = cleaned.match(/\(([^)]+)\)\s*$/);
+  const abbreviation = abbreviationMatch ? abbreviationMatch[1].trim() : null;
+  const name = abbreviationMatch ? cleaned.replace(/\(([^)]+)\)\s*$/,"").trim() : cleaned;
+
+  if (!name) {
+    return null;
+  }
+
+  return {
+    name,
+    abbreviation,
+    startYear: null,
+    endYear: null
+  };
+}
+
+function normalizeRivalEntry(entry) {
+  if (!entry) {
+    return null;
+  }
+
+  if (typeof entry === "string") {
+    return { name: toDisplayTitleCase(entry), type: "historico" };
+  }
+
+  if (!entry.name) {
+    return null;
+  }
+
+  return {
+    name: toDisplayTitleCase(entry.name),
+    type: entry.type || "historico"
+  };
+}
+
+function deriveOfficialName(code, commonName, system) {
+  if (OFFICIAL_NAME_OVERRIDES[code]) {
+    return OFFICIAL_NAME_OVERRIDES[code];
+  }
+
+  const normalizedSystem = normalizeKey(system);
+  if (normalizedSystem.includes("monarquia")) {
+    return `Reino de ${commonName}`;
+  }
+  if (normalizedSystem.includes("teocracia")) {
+    return `Estado de ${commonName}`;
+  }
+  if (normalizedSystem.includes("dependencia") || normalizedSystem.includes("territorio")) {
+    return commonName;
+  }
+  if (normalizedSystem.includes("federal")) {
+    return `Republica Federal de ${commonName}`;
+  }
+  if (commonName.startsWith("Republica") || commonName.startsWith("Reino") || commonName.startsWith("Estado")) {
+    return commonName;
+  }
+  return `Republica de ${commonName}`;
+}
+
+function deriveHistoricalNames(code, historyEntry) {
+  const historicalNames = [...(HISTORICAL_NAME_OVERRIDES[code] || [])];
+  if (historyEntry?.origin && !historicalNames.includes(historyEntry.origin)) {
+    historicalNames.push(historyEntry.origin);
+  }
+  return historicalNames.filter(Boolean);
+}
+
+function buildSymbolMetadata(code, commonName) {
+  return {
+    flagDescription: SYMBOL_OVERRIDES[code]?.flagDescription || `Bandera asociada a ${commonName}`,
+    coatOfArms: SYMBOL_OVERRIDES[code]?.coatOfArms || null
+  };
+}
+
+function deriveMetropole(code, historyEntry) {
+  const origin = normalizeKey(historyEntry?.origin);
+  if (!origin) {
+    return null;
+  }
+
+  if (
+    (code === "GBR" && origin.includes("reino unido")) ||
+    (code === "FRA" && origin.includes("francia")) ||
+    (code === "ESP" && origin.includes("espana")) ||
+    (code === "PRT" && origin.includes("portugal"))
+  ) {
+    return null;
+  }
+
+  const pairs = [
+    ["reino unido", "Reino Unido"],
+    ["francia", "Francia"],
+    ["espana", "España"],
+    ["portugal", "Portugal"],
+    ["paises bajos", "Países Bajos"],
+    ["holanda", "Países Bajos"],
+    ["dinamarca", "Dinamarca"],
+    ["australia", "Australia"],
+    ["estados unidos", "Estados Unidos"],
+    ["somalia", "Somalia"],
+    ["serbia", "Serbia"],
+    ["francia", "Francia"]
+  ];
+
+  const match = pairs.find(([key]) => origin.includes(normalizeKey(key)));
+  const resolved = match ? match[1] : null;
+  return resolved && normalizeKey(resolved) !== normalizeKey(COUNTRY_NAME_OVERRIDES[code] || code)
+    ? resolved
+    : null;
+}
+
+function getOrganizationBlocks(organizations) {
+  const blockRules = [
+    { key: "otan", label: "OTAN" },
+    { key: "otan", label: "NATO" },
+    { key: "union europea", label: "Union Europea" },
+    { key: "ue", label: "Union Europea" },
+    { key: "mercosur", label: "Mercosur" },
+    { key: "union africana", label: "Union Africana" },
+    { key: "asean", label: "ASEAN" },
+    { key: "commonwealth", label: "Commonwealth" },
+    { key: "otan", label: "OTAN" },
+    { key: "onu", label: "ONU" }
+  ];
+
+  return uniqueBy(
+    organizations.flatMap(organization => {
+      const label = normalizeKey(organization?.name || organization);
+      return blockRules
+        .filter(rule => label.includes(normalizeKey(rule.key)))
+        .map(rule => rule.label);
+    }),
+    item => normalizeKey(item)
+  );
+}
+
+function buildRelationMetadata(code, historyEntry, organizations, rivals) {
+  const metropole = deriveMetropole(code, historyEntry);
+  const territories = TERRITORY_LINKS[code] || [];
+  return {
+    exMetropole: metropole,
+    linkedTerritories: territories,
+    blocs: getOrganizationBlocks(organizations),
+    allies: uniqueBy(
+      organizations
+        .map(item => item?.name || item)
+        .filter(name => /otan|nato|union europea|mercosur|asean|union africana|commonwealth|brics/i.test(name)),
+      item => normalizeKey(item)
+    ),
+    rivalStates: uniqueBy(rivals.map(rival => rival?.name || rival), item => normalizeKey(item))
+  };
 }
 
 const RELIGION_DETAIL_OVERRIDES = {
@@ -989,6 +1366,36 @@ for (const code of allCodes) {
     religionSummary,
     religionCompositionSource
   );
+  const mergedOrganizations = uniqueBy(
+    [
+      ...compactList(politicsData.organizations).map(parseOrganizationEntry),
+      ...compactList(baseData.organizations).map(parseOrganizationEntry),
+      ...compactList(fallback.politics?.organizations).map(parseOrganizationEntry)
+    ].filter(Boolean),
+    item => normalizeKey(item?.name)
+  );
+  const mergedRivals = uniqueBy(
+    [
+      ...compactList(politicsData.rivals).map(normalizeRivalEntry),
+      ...compactList(baseData.rivals).map(normalizeRivalEntry),
+      ...compactList(fallback.politics?.rivals).map(normalizeRivalEntry)
+    ].filter(Boolean),
+    item => `${normalizeKey(item?.name)}:${item?.type || "historico"}`
+  );
+  const officialName = deriveOfficialName(
+    code,
+    COUNTRY_NAME_OVERRIDES[code] ||
+      countryNames[code] ||
+      baseData.name ||
+      populationData?.name ||
+      gdpData?.name ||
+      gdpPerCapitaData?.name ||
+      code,
+    politicsData.system || politics[code] || fallback.politics?.system || baseData.system
+  );
+  const historicalNames = deriveHistoricalNames(code, historyEntry);
+  const symbols = buildSymbolMetadata(code, officialName);
+  const relationMetadata = buildRelationMetadata(code, historyEntry, mergedOrganizations, mergedRivals);
 
   result[code] = {
     name:
@@ -1008,6 +1415,9 @@ for (const code of allCodes) {
         populationFallbackFromCities ??
         0,
       geography: baseData.geography || fallback.geography || null,
+      officialName,
+      historicalNames,
+      symbols,
       capital,
       cities
     },
@@ -1033,8 +1443,9 @@ for (const code of allCodes) {
         baseData.system ||
         historyEntry?.type ||
         "Estado soberano",
-      organizations: compactList(politicsData.organizations),
-      rivals: compactList(politicsData.rivals)
+      organizations: mergedOrganizations,
+      rivals: mergedRivals,
+      relations: relationMetadata
     },
     religion: {
       summary: religionSummary,
@@ -1044,6 +1455,10 @@ for (const code of allCodes) {
     organizations: compactList(baseData.organizations),
     rivals: compactList(baseData.rivals)
   };
+
+  if (result[code].history) {
+    result[code].history.events = TIMELINE_EVENT_OVERRIDES[code] || [];
+  }
 }
 
 fs.writeJsonSync("./data/countries_full.json", result, { spaces: 2 });

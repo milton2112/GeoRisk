@@ -1,34 +1,29 @@
-const worldBounds = L.latLngBounds(
-  L.latLng(-85, -180),
-  L.latLng(85, 180)
-);
-
 const DEFAULT_STYLE = {
-  color: "#222",
-  weight: 1,
+  color: "#0f3655",
+  weight: 1.4,
   fillColor: "#2a3f5f",
-  fillOpacity: 0.7
+  fillOpacity: 0.12
 };
 
 const COUNTRY_HIGHLIGHT_STYLE = {
-  color: "#8fd3ff",
-  weight: 3,
-  fillColor: "#5db7ff",
-  fillOpacity: 0.9
+  color: "#9ed8ff",
+  weight: 2.8,
+  fillColor: "#43a5ff",
+  fillOpacity: 0.34
 };
 
 const CONTINENT_HIGHLIGHT_STYLE = {
-  color: "#b7f38b",
-  weight: 2,
-  fillColor: "#9bd96b",
-  fillOpacity: 0.86
+  color: "#d1ff74",
+  weight: 2.8,
+  fillColor: "#86d94f",
+  fillOpacity: 0.32
 };
 
 const RELIGION_HIGHLIGHT_STYLE = {
-  color: "#ffb0b0",
-  weight: 2,
-  fillColor: "#f08b8b",
-  fillOpacity: 0.88
+  color: "#ffb4b4",
+  weight: 2.8,
+  fillColor: "#ff6b6b",
+  fillOpacity: 0.32
 };
 
 const THEME_STYLES = {
@@ -110,58 +105,334 @@ const THEME_STYLES = {
     { min: 5, color: "#f48c06", label: "5% a 9,9%" },
     { min: 0, color: "#ffba08", label: "0% a 4,9%" },
     { min: -1000, color: "#adb5bd", label: "Deflacion" }
-  ]
+  ],
+  militaryActive: [
+    { min: 1000000, color: "#3d0c02", label: "1 M o mas" },
+    { min: 500000, color: "#7f1d1d", label: "500 mil a 999 mil" },
+    { min: 250000, color: "#b91c1c", label: "250 mil a 499 mil" },
+    { min: 100000, color: "#dc2626", label: "100 mil a 249 mil" },
+    { min: 10000, color: "#f87171", label: "10 mil a 99 mil" },
+    { min: 0, color: "#fecaca", label: "Menos de 10 mil" }
+  ],
+  formationYear: [
+    { min: 2000, color: "#5f0f40", label: "2000 en adelante" },
+    { min: 1950, color: "#9a031e", label: "1950 a 1999" },
+    { min: 1900, color: "#fb8b24", label: "1900 a 1949" },
+    { min: 1800, color: "#e36414", label: "1800 a 1899" },
+    { min: 1500, color: "#0f4c5c", label: "1500 a 1799" },
+    { min: 0, color: "#6c757d", label: "Antes de 1500" }
+  ],
+  conflicts: [
+    { min: 80, color: "#4a0404", label: "80 o mas" },
+    { min: 40, color: "#7f1d1d", label: "40 a 79" },
+    { min: 20, color: "#b91c1c", label: "20 a 39" },
+    { min: 10, color: "#dc2626", label: "10 a 19" },
+    { min: 1, color: "#f87171", label: "1 a 9" },
+    { min: 0, color: "#fecaca", label: "Sin conflictos" }
+  ],
+  organizations: [
+    { min: 40, color: "#1d3557", label: "40 o mas" },
+    { min: 25, color: "#2a6f97", label: "25 a 39" },
+    { min: 15, color: "#468faf", label: "15 a 24" },
+    { min: 8, color: "#61a5c2", label: "8 a 14" },
+    { min: 1, color: "#89c2d9", label: "1 a 7" },
+    { min: 0, color: "#d9ed92", label: "Sin organizaciones" }
+  ],
+  rivals: [
+    { min: 20, color: "#6a040f", label: "20 o mas" },
+    { min: 10, color: "#9d0208", label: "10 a 19" },
+    { min: 5, color: "#d00000", label: "5 a 9" },
+    { min: 2, color: "#dc2f02", label: "2 a 4" },
+    { min: 1, color: "#f48c06", label: "1" },
+    { min: 0, color: "#ffd6a5", label: "Sin rivales" }
+  ],
+  religionDiversity: [
+    { min: 8, color: "#3a0ca3", label: "8 o mas grupos" },
+    { min: 6, color: "#7209b7", label: "6 a 7 grupos" },
+    { min: 4, color: "#b5179e", label: "4 a 5 grupos" },
+    { min: 2, color: "#f72585", label: "2 a 3 grupos" },
+    { min: 1, color: "#ff99c8", label: "1 grupo" },
+    { min: 0, color: "#ffc8dd", label: "Sin datos" }
+  ],
+  religionBranch: {
+    cristianismo: "#60a5fa",
+    islam: "#f28482",
+    hinduismo: "#f6bd60",
+    budismo: "#84a59d",
+    judaismo: "#cdb4db",
+    noafiliados: "#8d99ae",
+    otras: "#8ecae6"
+  },
+  exMetropole: {
+    "Reino Unido": "#4cc9f0",
+    "Francia": "#577590",
+    "España": "#ffb703",
+    "Portugal": "#f3722c",
+    "Países Bajos": "#fb8500",
+    "Estados Unidos": "#8d99ae",
+    "Sin datos": "#6c757d"
+  },
+  bloc: {
+    OTAN: "#1d3557",
+    "Union Europea": "#ffb703",
+    Mercosur: "#2a9d8f",
+    ASEAN: "#e76f51",
+    Commonwealth: "#8ecae6",
+    BRICS: "#6a994e",
+    ONU: "#adb5bd",
+    Otros: "#7b8ea8"
+  }
 };
 
-const map = L.map("map", {
-  minZoom: 2,
-  maxZoom: 5,
-  worldCopyJump: false,
-  preferCanvas: true,
-  dragging: true,
-  inertia: false,
-  zoomAnimation: false,
-  fadeAnimation: false,
-  markerZoomAnimation: false,
-  keyboard: false,
-  boxZoom: false,
-  maxBounds: worldBounds,
-  maxBoundsViscosity: 1
-}).setView([20, 0], 2);
+function cssColorToCesiumColor(cssColor, alpha = 1) {
+  return Cesium.Color.fromCssColorString(cssColor).withAlpha(alpha);
+}
 
-const baseTileLayer = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  noWrap: true,
-  bounds: worldBounds,
-  updateWhenIdle: true,
-  updateWhenZooming: false,
-  keepBuffer: 2
-}).addTo(map);
-
-function getWorldFitPadding() {
-  if (isMobileLayout()) {
-    return { paddingTopLeft: [20, 72], paddingBottomRight: [20, 20] };
+class CesiumCountryLayer {
+  constructor(code, entities = [], featureName = "") {
+    this.code = code;
+    this.entities = entities;
+    this.featureName = featureName;
+    this.rectangle = this.computeRectangle();
   }
 
-  return { paddingTopLeft: [290, 24], paddingBottomRight: [330, 24] };
+  computeRectangle() {
+    const rectangles = this.entities
+      .map(entity => entity.polygon?.hierarchy?.getValue(Cesium.JulianDate.now()))
+      .filter(Boolean)
+      .map(hierarchy => Cesium.Rectangle.fromCartesianArray(hierarchy.positions))
+      .filter(Boolean);
+
+    if (!rectangles.length) {
+      return null;
+    }
+
+    return rectangles.reduce((acc, rect) => acc ? Cesium.Rectangle.union(acc, rect, new Cesium.Rectangle()) : rect, null);
+  }
+
+  setStyle(style) {
+    this.entities.forEach(entity => {
+      if (entity.polygon) {
+        entity.polygon.material = cssColorToCesiumColor(style.fillColor, style.fillOpacity);
+        entity.polygon.outline = true;
+        entity.polygon.outlineColor = cssColorToCesiumColor(style.color, 1);
+      }
+      if (entity.polyline) {
+        entity.polyline.material = cssColorToCesiumColor(style.color, 1);
+        entity.polyline.width = Math.max(1.8, Math.min(style.weight || 1.4, 3));
+      }
+    });
+    viewer.scene.requestRender();
+  }
+
+  getBounds() {
+    return this.rectangle;
+  }
+}
+
+function createLayerGroup(layers = []) {
+  return {
+    layers,
+    getBounds() {
+      const rectangles = layers.map(layer => layer?.getBounds?.()).filter(Boolean);
+      if (!rectangles.length) {
+        return null;
+      }
+      return rectangles.reduce((acc, rect) => acc ? Cesium.Rectangle.union(acc, rect, new Cesium.Rectangle()) : rect, null);
+    }
+  };
+}
+
+function getInitialGlobeDistance() {
+  const earthRadius = Cesium.Ellipsoid.WGS84.maximumRadius;
+  return isMobileLayout() ? earthRadius * 3.55 : earthRadius * 3.05;
+}
+
+function getMaxGlobeDistance() {
+  return getInitialGlobeDistance();
+}
+
+const osmImageryProvider = new Cesium.UrlTemplateImageryProvider({
+  url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+  credit: "© OpenStreetMap contributors"
+});
+
+const satelliteImageryProvider = new Cesium.UrlTemplateImageryProvider({
+  url: "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+  credit: "Esri, Maxar, Earthstar Geographics, and the GIS User Community"
+});
+
+let viewer = null;
+
+const mapEventListeners = {
+  click: new Set(),
+  dragstart: new Set(),
+  zoomstart: new Set()
+};
+
+function emitMapEvent(eventName) {
+  (mapEventListeners[eventName] || []).forEach(listener => {
+    try {
+      listener();
+    } catch (error) {
+      console.error(`Error en listener de mapa: ${eventName}`, error);
+    }
+  });
+}
+
+const map = {
+  scene: null,
+  camera: null,
+  options: {
+    maxBoundsViscosity: 0.45,
+    inertia: false
+  },
+  removeLayer() {},
+  invalidateSize() {
+    if (!viewer) {
+      return;
+    }
+    viewer.resize();
+    viewer.scene.requestRender();
+  },
+  setMinZoom() {},
+  on(eventName, handler) {
+    if (mapEventListeners[eventName]) {
+      mapEventListeners[eventName].add(handler);
+    }
+  }
+};
+
+function initializeViewer() {
+  if (viewer) {
+    return viewer;
+  }
+
+  viewer = new Cesium.Viewer("map", {
+    animation: false,
+    baseLayerPicker: false,
+    fullscreenButton: false,
+    geocoder: false,
+    homeButton: false,
+    infoBox: false,
+    navigationHelpButton: false,
+    requestRenderMode: true,
+    sceneModePicker: false,
+    scene3DOnly: true,
+    selectionIndicator: false,
+    timeline: false
+  });
+
+  map.scene = viewer.scene;
+  map.camera = viewer.camera;
+
+  viewer.imageryLayers.removeAll();
+  try {
+    viewer.imageryLayers.addImageryProvider(satelliteImageryProvider);
+  } catch (error) {
+    console.error("No se pudo cargar la capa satelital principal:", error);
+    try {
+      viewer.imageryLayers.addImageryProvider(osmImageryProvider);
+    } catch (fallbackError) {
+      console.error("No se pudo cargar la capa base alternativa:", fallbackError);
+    }
+  }
+  viewer.scene.globe.show = true;
+  viewer.scene.globe.baseColor = cssColorToCesiumColor("#2b5d7d", 1);
+  viewer.scene.globe.showGroundAtmosphere = false;
+  viewer.scene.backgroundColor = cssColorToCesiumColor("#04101c", 1);
+  viewer.scene.skyBox.show = false;
+  viewer.scene.skyAtmosphere.show = false;
+  viewer.scene.sun.show = false;
+  viewer.scene.moon.show = false;
+  viewer.resolutionScale = isMobileLayout() ? 0.68 : 0.78;
+  viewer.scene.globe.enableLighting = false;
+  viewer.scene.globe.depthTestAgainstTerrain = false;
+  viewer.scene.globe.translucency.enabled = false;
+  viewer.scene.rethrowRenderErrors = false;
+  viewer.scene.fxaa = false;
+  if (viewer.scene.postProcessStages?.fxaa) {
+    viewer.scene.postProcessStages.fxaa.enabled = false;
+  }
+  viewer.scene.screenSpaceCameraController.enableCollisionDetection = false;
+  viewer.scene.screenSpaceCameraController.enableTilt = false;
+  viewer.scene.screenSpaceCameraController.enableLook = false;
+  viewer.scene.screenSpaceCameraController.minimumZoomDistance = 850000;
+  viewer.scene.screenSpaceCameraController.maximumZoomDistance = getMaxGlobeDistance();
+  viewer.camera.constrainedAxis = Cesium.Cartesian3.UNIT_Z;
+  viewer.cesiumWidget.creditContainer.style.display = "none";
+
+  try {
+    viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
+  } catch (error) {
+    console.error("No se pudo resetear la camara:", error);
+  }
+
+  const earthRadius = Cesium.Ellipsoid.WGS84.maximumRadius;
+  viewer.camera.flyToBoundingSphere(
+    new Cesium.BoundingSphere(Cesium.Cartesian3.ZERO, earthRadius),
+    {
+      offset: new Cesium.HeadingPitchRange(0, -1.03, getInitialGlobeDistance()),
+      duration: 0
+    }
+  );
+
+  viewer.camera.moveStart.addEventListener(() => {
+    emitMapEvent("dragstart");
+    emitMapEvent("zoomstart");
+  });
+
+  viewer.scene.renderError.addEventListener(error => {
+    console.error("Error de renderizado en Cesium:", error);
+  });
+
+  setTimeout(() => {
+    map.invalidateSize();
+    updateMapInteractionTuning();
+    fitWorldView();
+  }, 200);
+
+  return viewer;
 }
 
 function fitWorldView() {
-  map.fitBounds(worldBounds, {
-    ...getWorldFitPadding(),
-    animate: false
-  });
-  map.setMinZoom(map.getZoom());
+  if (!viewer) {
+    return;
+  }
+  const earthRadius = Cesium.Ellipsoid.WGS84.maximumRadius;
+  viewer.scene.screenSpaceCameraController.maximumZoomDistance = getMaxGlobeDistance();
+  viewer.camera.flyToBoundingSphere(
+    new Cesium.BoundingSphere(Cesium.Cartesian3.ZERO, earthRadius),
+    {
+      offset: new Cesium.HeadingPitchRange(0, -1.03, getInitialGlobeDistance()),
+      duration: 0
+    }
+  );
+  viewer.scene.requestRender();
 }
 
-setTimeout(() => {
-  map.invalidateSize();
-  fitWorldView();
-}, 200);
+function updateMapInteractionTuning() {
+  if (!viewer) {
+    return;
+  }
+  viewer.resolutionScale = isMobileLayout() ? 0.68 : 0.78;
+  viewer.scene.screenSpaceCameraController.inertiaSpin = isMobileLayout() ? 0.68 : 0.8;
+  viewer.scene.screenSpaceCameraController.inertiaTranslate = isMobileLayout() ? 0.68 : 0.82;
+  viewer.scene.screenSpaceCameraController.inertiaZoom = isMobileLayout() ? 0.58 : 0.72;
+  viewer.scene.screenSpaceCameraController.maximumZoomDistance = getMaxGlobeDistance();
+  viewer.scene.requestRender();
+}
 window.addEventListener("resize", () => {
   map.invalidateSize();
+  updateMapInteractionTuning();
 });
 
 let countriesData = {};
+let rawPoliticsSystems = {};
+let rawHistorySystems = {};
+let rawInflationByCode = {};
+let inflationFallbackByContinent = {};
+let globalInflationFallback = null;
 let selectedLayer = null;
 let selectedLayers = [];
 let continentBoundsLayer = null;
@@ -172,6 +443,7 @@ let compareSelection = [];
 let currentLanguage = "es";
 let currentPanelState = { type: "empty" };
 let savedFilters = [];
+const countryCodeLookup = new WeakMap();
 
 const STORAGE_KEYS = {
   filters: "geo-risk-saved-filters",
@@ -203,6 +475,8 @@ const TERRITORY_LINKS = {
   USA: ["PRI"],
   PRI: ["USA"]
 };
+const SYMBOL_IMAGE_CODES = new Set(["ARG", "BRA", "USA", "CHN", "GBR", "FRA", "DEU", "IND"]);
+const COAT_IMAGE_CODES = new Set(["ARG", "BRA", "USA", "CHN"]);
 
 const RELIGION_FAMILY_RULES = [
   {
@@ -287,7 +561,7 @@ const UI_STRINGS = {
     relations: "Relaciones",
     population: "Poblacion",
     continent: "Continente",
-    geography: "Geografia",
+    geography: "Capital",
     cities: "Ciudades destacadas",
     origin: "Origen",
     type: "Tipo",
@@ -328,7 +602,7 @@ const UI_STRINGS = {
     relations: "Relations",
     population: "Population",
     continent: "Continent",
-    geography: "Geography",
+    geography: "Capital",
     cities: "Key cities",
     origin: "Origin",
     type: "Type",
@@ -385,6 +659,231 @@ function normalizeText(value) {
     .replace(/[^a-z0-9\s]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+const HISTORICAL_FORMATION_TYPES = new Set([
+  "legal y pacifica",
+  "independencia",
+  "union",
+  "disolucion de otro estado",
+  "revolucion",
+  "guerra civil"
+]);
+
+const POLITICAL_SYSTEM_OVERRIDES = {
+  AFG: "Teocracia",
+  ARE: "Monarquia federal",
+  AUS: "Monarquia parlamentaria",
+  AUT: "Parlamentarismo",
+  BHS: "Monarquia parlamentaria",
+  BHR: "Monarquia constitucional",
+  BLZ: "Monarquia parlamentaria",
+  BMU: "Dependencia",
+  BTN: "Monarquia parlamentaria",
+  CAF: "Presidencialismo",
+  CHE: "Directorialismo",
+  COM: "Presidencialismo",
+  CRI: "Presidencialismo",
+  DJI: "Presidencialismo",
+  DOM: "Presidencialismo",
+  ERI: "Partido unico",
+  ETH: "Parlamentarismo",
+  FJI: "Parlamentarismo",
+  GHA: "Presidencialismo",
+  GIN: "Presidencialismo",
+  GNB: "Semipresidencialismo",
+  GNQ: "Presidencialismo",
+  HTI: "Semipresidencialismo",
+  IRQ: "Parlamentarismo",
+  JAM: "Monarquia parlamentaria",
+  JOR: "Monarquia constitucional",
+  KEN: "Presidencialismo",
+  KHM: "Monarquia constitucional",
+  KWT: "Monarquia constitucional",
+  LBR: "Presidencialismo",
+  LKA: "Semipresidencialismo",
+  LSO: "Monarquia parlamentaria",
+  MAR: "Monarquia constitucional",
+  MEX: "Presidencialismo",
+  MLI: "Semipresidencialismo",
+  MOZ: "Presidencialismo",
+  MRT: "Presidencialismo",
+  MWI: "Presidencialismo",
+  NAM: "Presidencialismo",
+  NER: "Semipresidencialismo",
+  NGA: "Presidencialismo",
+  NPL: "Parlamentarismo",
+  PAK: "Parlamentarismo",
+  PNG: "Parlamentarismo",
+  PRY: "Presidencialismo",
+  PSE: "Semipresidencialismo",
+  QAT: "Monarquia absoluta",
+  SDN: "Presidencialismo",
+  SLB: "Monarquia parlamentaria",
+  SOM: "Parlamentarismo",
+  SRB: "Parlamentarismo",
+  SSD: "Presidencialismo",
+  TCD: "Presidencialismo",
+  TGO: "Presidencialismo",
+  TWN: "Semipresidencialismo",
+  TZA: "Presidencialismo",
+  VUT: "Parlamentarismo",
+  YEM: "Presidencialismo",
+  ZAF: "Parlamentarismo",
+  ZWE: "Presidencialismo"
+};
+
+function getPoliticalSystemCandidates(country) {
+  const code = country.code || "";
+  return [
+    country.politics?.system,
+    rawPoliticsSystems[code],
+    rawHistorySystems[code]?.type
+  ].filter(Boolean);
+}
+
+function normalizePoliticalSystem(country) {
+  const code = country.code || "";
+  if (POLITICAL_SYSTEM_OVERRIDES[code]) {
+    return POLITICAL_SYSTEM_OVERRIDES[code];
+  }
+
+  for (const candidate of getPoliticalSystemCandidates(country)) {
+    const system = normalizeText(candidate);
+    if (!system || HISTORICAL_FORMATION_TYPES.has(system)) {
+      continue;
+    }
+
+    if (system.includes("territorio disputado")) {
+      return "Territorio disputado";
+    }
+
+    if (system.includes("depend") || system.includes("territorio") || system.includes("ultramar")) {
+      return "Dependencia";
+    }
+
+    if (system.includes("teocrat") || system.includes("estado islamico") || system.includes("republica islamica")) {
+      return "Teocracia";
+    }
+
+    if (
+      system.includes("socialista") ||
+      system.includes("partido unico") ||
+      system.includes("republica popular")
+    ) {
+      return "Partido unico socialista";
+    }
+
+    if (system.includes("directorial")) {
+      return "Directorialismo";
+    }
+
+    if (system.includes("semipresid")) {
+      return "Semipresidencialismo";
+    }
+
+    if (system.includes("presidenc")) {
+      return "Presidencialismo";
+    }
+
+    if (system.includes("monarquia absoluta")) {
+      return "Monarquia absoluta";
+    }
+
+    if (system.includes("monarquia federal")) {
+      return "Monarquia federal";
+    }
+
+    if (
+      system.includes("coprincipado") ||
+      system.includes("monarquia parlamentaria") ||
+      system.includes("monarquia constitucional") ||
+      system === "monarquia"
+    ) {
+      return "Monarquia parlamentaria";
+    }
+
+    if (
+      system.includes("westminster") ||
+      system.includes("parlament") ||
+      system.includes("democracia parlamentaria")
+    ) {
+      return "Parlamentarismo";
+    }
+
+    if (
+      system === "republica federal" ||
+      system === "republica" ||
+      system === "republica democratica" ||
+      system === "democracia" ||
+      system === "democracia representativa" ||
+      system === "estado unitario" ||
+      system === "federacion" ||
+      system === "pais" ||
+      system === "pais insular" ||
+      system === "estado archipelagico"
+    ) {
+      return "Presidencialismo";
+    }
+  }
+
+  return "Sin datos";
+}
+
+const HISTORY_TYPE_OVERRIDES = {
+  BGD: "Independencia",
+  BIH: "Guerra civil",
+  BLR: "Disolucion de otro estado",
+  ERI: "Guerra civil",
+  EST: "Disolucion de otro estado",
+  HRV: "Guerra civil",
+  KGZ: "Disolucion de otro estado",
+  KAZ: "Disolucion de otro estado",
+  LVA: "Disolucion de otro estado",
+  LTU: "Disolucion de otro estado",
+  MKD: "Disolucion de otro estado",
+  MDA: "Disolucion de otro estado",
+  RUS: "Disolucion de otro estado",
+  SSD: "Independencia",
+  SVN: "Guerra civil",
+  TJK: "Disolucion de otro estado",
+  TKM: "Disolucion de otro estado",
+  UKR: "Disolucion de otro estado",
+  UZB: "Disolucion de otro estado",
+  USA: "Independencia"
+};
+
+function normalizeHistoryType(country) {
+  const code = country.code || "";
+  if (HISTORY_TYPE_OVERRIDES[code]) {
+    return HISTORY_TYPE_OVERRIDES[code];
+  }
+
+  const current = normalizeText(country.history?.type);
+  if (!current) {
+    return "Sin datos";
+  }
+
+  if (current !== "legal y pacifica") {
+    return translateHistoryText(country.history.type);
+  }
+
+  const origin = normalizeText(country.history?.origin);
+  if (
+    /britan|frances|espan|portugues|neerland|holand|belga|danes|ottoman|otomano|mandato|protectorado|colonia|territorio frances|territorio britanico|raj/.test(origin)
+  ) {
+    return "Independencia";
+  }
+
+  if (/union sovietica|sovietic|yugoslav|checoslova|imperio ruso|republica popular hungara|republica socialista|popular de albania/.test(origin)) {
+    return "Disolucion de otro estado";
+  }
+
+  if (/federacion de las indias occidentales|mancomunidad|commonwealth realm|basutolandia|bechuanalandia|costa de oro britanica/.test(origin)) {
+    return "Independencia";
+  }
+
+  return "Legal y pacifica";
 }
 
 function escapeHtml(value) {
@@ -448,11 +947,19 @@ function getSearchScore(query, candidate) {
     return 1;
   }
 
+  if (getInitialism(normalizedCandidate) === normalizedQuery) {
+    return 1.5;
+  }
+
   const queryTokens = normalizedQuery.split(" ");
   const candidateTokens = normalizedCandidate.split(" ");
 
   if (queryTokens.every(token => candidateTokens.some(candidateToken => candidateToken.startsWith(token)))) {
     return 2;
+  }
+
+  if (queryTokens.every(token => normalizedCandidate.includes(token))) {
+    return 2.5;
   }
 
   if (normalizedCandidate.includes(normalizedQuery)) {
@@ -470,6 +977,12 @@ function normalizeCategoryLabel(value) {
     .trim();
 }
 
+function uniqueNormalizedList(items) {
+  return (items || []).filter(Boolean).filter((item, index, list) =>
+    index === list.findIndex(other => normalizeText(other) === normalizeText(item))
+  );
+}
+
 function compactNumber(value) {
   if (value === null || value === undefined || Number.isNaN(Number(value))) {
     return "Sin datos";
@@ -481,11 +994,19 @@ function compactNumber(value) {
   }).format(Number(value));
 }
 
+function getInitialism(value) {
+  return normalizeText(value)
+    .split(" ")
+    .filter(Boolean)
+    .map(token => token[0])
+    .join("");
+}
+
 function t(key) {
   return UI_STRINGS[currentLanguage]?.[key] || UI_STRINGS.es[key] || key;
 }
 
-function getFlagEmoji(code) {
+function getFlagEmojiLegacy(code) {
   const fallbackFlags = {
     "CS-KM": "🇽🇰",
     "-99": "🏴",
@@ -590,7 +1111,7 @@ function translateContinentName(continent) {
   return labels[continent] || continent || "Sin datos";
 }
 
-function renderCities(general) {
+function renderCitiesLegacy(general) {
   const capital = general?.capital;
   const cities = Array.isArray(general?.cities) ? general.cities : [];
 
@@ -598,7 +1119,7 @@ function renderCities(general) {
 
   if (capital?.name) {
     cityItems.push(
-      `${capital.name} (capital)${capital.population ? ` (${formatNumber(capital.population)} hab.)` : ""}`
+      `${capital.name}${capital.population ? ` (${formatNumber(capital.population)} hab.)` : ""}`
     );
   }
 
@@ -613,6 +1134,191 @@ function renderCities(general) {
   });
 
   return renderList(cityItems);
+}
+
+function getFlagEmoji(code) {
+  const iso2ByCode = {
+    ARG: "AR", AUS: "AU", AUT: "AT", BEL: "BE", BGR: "BG", BHS: "BS", BLR: "BY", BLZ: "BZ",
+    BMU: "BM", BOL: "BO", BRA: "BR", CAN: "CA", CHE: "CH", CHL: "CL", CHN: "CN", CIV: "CI",
+    CMR: "CM", COD: "CD", COG: "CG", COL: "CO", CRI: "CR", CUB: "CU", CYP: "CY", CZE: "CZ",
+    DEU: "DE", DJI: "DJ", DNK: "DK", DOM: "DO", DZA: "DZ", EGY: "EG", ESP: "ES", ETH: "ET",
+    FIN: "FI", FJI: "FJ", FRA: "FR", GAB: "GA", GBR: "GB", GEO: "GE", GHA: "GH", GIN: "GN",
+    GMB: "GM", GNB: "GW", GNQ: "GQ", GRC: "GR", GRL: "GL", GTM: "GT", GUF: "GF", HRV: "HR",
+    HUN: "HU", IDN: "ID", IND: "IN", IRL: "IE", IRN: "IR", IRQ: "IQ", ISL: "IS", ISR: "IL",
+    ITA: "IT", JPN: "JP", KAZ: "KZ", KEN: "KE", KGZ: "KG", KHM: "KH", KOR: "KR", KWT: "KW",
+    LAO: "LA", LBN: "LB", LBR: "LR", LKA: "LK", LSO: "LS", LUX: "LU", LVA: "LV", MAR: "MA",
+    MDA: "MD", MDG: "MG", MEX: "MX", MKD: "MK", MLI: "ML", MMR: "MM", MNE: "ME", MNG: "MN",
+    MOZ: "MZ", MRT: "MR", MWI: "MW", MYS: "MY", NAM: "NA", NCL: "NC", NER: "NE", NGA: "NG",
+    NLD: "NL", NOR: "NO", NPL: "NP", NZL: "NZ", PAK: "PK", PHL: "PH", PNG: "PG", POL: "PL",
+    PRT: "PT", PRK: "KP", PSE: "PS", QAT: "QA", ROU: "RO", RUS: "RU", SAU: "SA", SDN: "SD",
+    SEN: "SN", SLB: "SB", SOM: "SO", SRB: "RS", SSD: "SS", SWE: "SE", SVK: "SK", SVN: "SI",
+    SYR: "SY", TCD: "TD", TGO: "TG", THA: "TH", TLS: "TL", TUN: "TN", TUR: "TR", TWN: "TW",
+    TZA: "TZ", UGA: "UG", UKR: "UA", URY: "UY", USA: "US", VNM: "VN", VUT: "VU", YEM: "YE",
+    ZAF: "ZA", ZMB: "ZM", ZWE: "ZW", ARE: "AE", ATA: "AQ", FLK: "FK", PRI: "PR", "CS-KM": "XK"
+  };
+
+  if (!code) {
+    return "MAP";
+  }
+
+  if (code === "-99") {
+    return "SOL";
+  }
+
+  const normalized = (iso2ByCode[code] || "").toUpperCase();
+  if (!/^[A-Z]{2}$/.test(normalized)) {
+    return code.toUpperCase();
+  }
+
+  return String.fromCodePoint(
+    ...[...normalized].map(char => 127397 + char.charCodeAt(0))
+  );
+}
+
+function renderFlagVisual(code, label, className = "country-flag") {
+  const emoji = getFlagEmoji(code);
+  if (SYMBOL_IMAGE_CODES.has(code)) {
+    return `
+      <span class="${className}">
+        <img class="flag-image" src="./assets/flags/${code}.svg" alt="${escapeHtml(label || code)}" onerror="this.hidden=true;this.nextElementSibling.hidden=false;">
+        <span class="flag-fallback" hidden>${emoji}</span>
+      </span>
+    `;
+  }
+
+  return `<span class="${className}">${emoji}</span>`;
+}
+
+function renderCoatVisual(code, label) {
+  if (!COAT_IMAGE_CODES.has(code)) {
+    return "";
+  }
+
+  return `
+    <div class="coat-visual">
+      <img class="coat-image" src="./assets/coats/${code}.svg" alt="${escapeHtml(label || code)}" onerror="this.parentElement.hidden=true;">
+    </div>
+  `;
+}
+
+function toDisplayTitleCase(value) {
+  return String(value || "")
+    .toLocaleLowerCase("es")
+    .replace(/(^|[\s\-/'(])([\p{L}])/gu, (match, prefix, letter) => `${prefix}${letter.toLocaleUpperCase("es")}`);
+}
+
+function normalizeCityDisplayName(value) {
+  let name = String(value || "").replace(/\s+/g, " ").trim();
+  if (!name) {
+    return "";
+  }
+
+  const lettersOnly = name.replace(/[^\p{L}]/gu, "");
+  if (lettersOnly && lettersOnly === lettersOnly.toUpperCase()) {
+    name = toDisplayTitleCase(name);
+  }
+
+  name = name
+    .replace(/\bD\.?\s*C\.?\b/g, "D.C.")
+    .replace(/\bCuidad\b/g, "Ciudad");
+
+  return name;
+}
+
+function getCityDedupKey(value) {
+  return normalizeText(String(value || "").replace(/\s*\([^)]*\)\s*$/u, "").trim());
+}
+
+function renderCities(general) {
+  const capital = general?.capital;
+  const cities = Array.isArray(general?.cities) ? general.cities : [];
+  const cityEntries = [];
+  const populationTotal = general?.population || 0;
+
+  if (capital?.name) {
+    const capitalName = normalizeCityDisplayName(capital.name);
+    cityEntries.push({
+      name: capitalName,
+      population: capital.population || null
+    });
+  }
+
+  [...cities]
+    .forEach(city => {
+      const name = normalizeCityDisplayName(city?.name);
+      if (!name) {
+        return;
+      }
+
+      cityEntries.push({
+        name,
+        population: city.population || null
+      });
+    });
+
+  const dedupedCities = cityEntries
+    .filter((city, index, list) =>
+      index === list.findIndex(item => getCityDedupKey(item.name) === getCityDedupKey(city.name))
+    )
+    .sort((a, b) => (b.population || 0) - (a.population || 0))
+    .map(city => {
+      const percentage = populationTotal && city.population
+        ? ` - ${formatPercentage((city.population / populationTotal) * 100)}`
+        : "";
+      return `${city.name}${city.population ? ` (${formatNumber(city.population)} hab.${percentage})` : ""}`;
+    });
+
+  return renderList(dedupedCities);
+}
+
+function getCountryOverviewStats(country, countryCode) {
+  return [
+    {
+      label: t("gdpPerCapita"),
+      value: country.economy?.gdpPerCapita
+        ? `US$ ${formatNumber(Math.round(country.economy.gdpPerCapita))}`
+        : t("noData")
+    },
+    {
+      label: currentLanguage === "en" ? "Organizations" : "Organizaciones",
+      value: formatNumber(getCountryOrganizationCount(country))
+    },
+    {
+      label: currentLanguage === "en" ? "Conflicts" : "Conflictos",
+      value: formatNumber(getCountryConflictCount(country))
+    },
+    {
+      label: currentLanguage === "en" ? "Rivals" : "Rivales",
+      value: formatNumber(getCountryRivalCount(country))
+    },
+    {
+      label: currentLanguage === "en" ? "Religion groups" : "Grupos religiosos",
+      value: formatNumber(getCountryReligionDiversity(country))
+    },
+    {
+      label: currentLanguage === "en" ? "Country code" : "Codigo",
+      value: countryCode || "---"
+    }
+  ];
+}
+
+function renderCountryOverview(country, countryCode) {
+  const stats = getCountryOverviewStats(country, countryCode);
+  return `
+    <div class="country-meta-strip">
+      <span class="country-code-badge">${escapeHtml(countryCode || "---")}</span>
+      <span class="country-meta-pill">${escapeHtml(translateContinentName(country.continent || "Unknown"))}</span>
+      <span class="country-meta-pill">${escapeHtml(country.politics?.system || t("noData"))}</span>
+    </div>
+    <div class="country-overview-grid">
+      ${stats.map(item => `
+        <div class="overview-card">
+          <span class="overview-label">${escapeHtml(item.label)}</span>
+          <strong class="overview-value">${escapeHtml(item.value)}</strong>
+        </div>
+      `).join("")}
+    </div>
+  `;
 }
 
 function renderOrganizations(organizations) {
@@ -668,8 +1374,9 @@ function renderRivals(rivals) {
 }
 
 function renderReligion(religion) {
-  const summary = religion?.summary ? `<p><b>Religion principal:</b> ${religion.summary}</p>` : "";
-  const composition = Array.isArray(religion?.composition) ? religion.composition : [];
+  const composition = getReligionCompositionForDisplay(religion);
+  const summaryLabel = getReligionSummaryLabel(religion);
+  const summary = summaryLabel ? `<p><b>Religion principal:</b> ${summaryLabel}</p>` : "";
 
   if (!summary && !composition.length) {
     return "<p>Sin datos estructurados.</p>";
@@ -678,11 +1385,90 @@ function renderReligion(religion) {
   const compositionList = composition.length
     ? `<p><b>Composicion religiosa:</b></p><ul>${composition
         .sort((a, b) => (b.percentage || 0) - (a.percentage || 0))
-        .map(item => `<li>${item.name}: ${item.percentage}%</li>`)
+        .map(item => {
+          const population = religion?.populationBase || religion?.countryPopulation || 0;
+          const nominal = population && item.percentage
+            ? `${formatNumber(Math.round(population * (item.percentage / 100)))} - `
+            : "";
+          return `<li>${item.name}: ${nominal}${item.estimated ? "~" : ""}${item.percentage}%</li>`;
+        })
         .join("")}</ul>`
     : "";
 
   return `${summary}${compositionList}`;
+}
+
+function getTimelineEventQuery(event, country) {
+  if (event.query) {
+    return event.query;
+  }
+
+  if (event.reference) {
+    return event.reference;
+  }
+
+  return country?.name || event.text;
+}
+
+function getReligionSummaryLabel(religion) {
+  const summary = String(religion?.summary || "").trim();
+  const composition = getReligionCompositionForDisplay(religion);
+
+  if (!summary) {
+    return "";
+  }
+
+  const normalizedSummary = normalizeText(summary);
+  const topBranches = composition
+    .filter(item => {
+      const normalizedName = normalizeText(item.name);
+      if (normalizedSummary.includes("crist")) {
+        return /catol|protest|ortodox|anglican|evangel|copta/.test(normalizedName);
+      }
+      if (normalizedSummary.includes("islam") || normalizedSummary.includes("musulm")) {
+        return /sun|chi|ibad/.test(normalizedName);
+      }
+      return false;
+    })
+    .sort((a, b) => (b.percentage || 0) - (a.percentage || 0))
+    .slice(0, 3)
+    .map(item => item.name);
+
+  if (!topBranches.length) {
+    return summary;
+  }
+
+  return `${summary}: ${topBranches.join(", ")}`;
+}
+
+function getReligionCompositionForDisplay(religion) {
+  const composition = Array.isArray(religion?.composition) ? religion.composition.filter(Boolean) : [];
+  if (composition.length) {
+    return composition;
+  }
+
+  const summary = String(religion?.summary || "").trim();
+  if (!summary) {
+    return [];
+  }
+
+  const parts = summary
+    .split("/")
+    .map(item => item.trim())
+    .filter(Boolean);
+
+  if (!parts.length) {
+    return [{ name: summary, percentage: 100, estimated: true }];
+  }
+
+  const basePercentage = Math.floor((1000 / parts.length)) / 10;
+  return parts.map((item, index) => ({
+    name: item,
+    percentage: index === parts.length - 1
+      ? Number((100 - basePercentage * (parts.length - 1)).toFixed(1))
+      : basePercentage,
+    estimated: true
+  }));
 }
 
 function translateHistoryText(value) {
@@ -740,7 +1526,7 @@ function createSection(title, content, isOpen = false) {
   `;
 }
 
-function extractConflictStartYear(conflict) {
+function extractConflictStartYearLegacy(conflict) {
   if (!conflict) {
     return null;
   }
@@ -772,7 +1558,7 @@ function getConflictsSinceFormation(country) {
   });
 }
 
-function sortConflicts(conflicts) {
+function sortConflictsLegacy(conflicts) {
   return [...conflicts].sort((a, b) => {
     const yearA = a.startYear ?? Number.MAX_SAFE_INTEGER;
     const yearB = b.startYear ?? Number.MAX_SAFE_INTEGER;
@@ -792,7 +1578,7 @@ function sortConflicts(conflicts) {
   });
 }
 
-function cleanConflictName(name) {
+function cleanConflictNameLegacy(name) {
   return String(name || "")
     .replace(/\s*\((?:\d{3,4})(?:[-–]\d{3,4})?\)\s*$/u, "")
     .replace(/\s+\d{4}$/u, "")
@@ -827,10 +1613,21 @@ function translateConflictName(name) {
   }
 
   const replacements = [
+    [/^\d{4}\s+/i, ""],
     [/^Battle of /i, "Batalla de "],
     [/^Second Battle of /i, "Segunda batalla de "],
     [/^Third Battle of /i, "Tercera batalla de "],
     [/^First Battle of /i, "Primera batalla de "],
+    [/^Action of /i, "Accion de "],
+    [/^Actions of /i, "Acciones de "],
+    [/^Raid off /i, "Incursion frente a "],
+    [/^Raid on /i, "Incursion sobre "],
+    [/^Offensive of /i, "Ofensiva de "],
+    [/^Offensive in /i, "Ofensiva en "],
+    [/^Clash of /i, "Enfrentamiento de "],
+    [/^Clashes in /i, "Enfrentamientos en "],
+    [/^Clashes of /i, "Enfrentamientos de "],
+    [/^Struggle for /i, "Lucha por "],
     [/^Naval battle off /i, "Batalla naval de "],
     [/^Siege of /i, "Sitio de "],
     [/^Operation /i, "Operacion "],
@@ -839,9 +1636,16 @@ function translateConflictName(name) {
     [/^Invasion of /i, "Invasion de "],
     [/^War of /i, "Guerra de "],
     [/^War in /i, "Guerra en "],
+    [/^War between /i, "Guerra entre "],
     [/^Civil war of /i, "Guerra civil de "],
     [/^Civil War of /i, "Guerra civil de "],
-    [/^Front in the /i, "Frente en "]
+    [/^Front in the /i, "Frente en "],
+    [/^Landing in /i, "Desembarco en "],
+    [/^Capture of /i, "Captura de "],
+    [/^Bombings in /i, "Bombardeos en "],
+    [/^Bombing of /i, "Bombardeo de "],
+    [/^Airstrikes? on /i, "Ataques aereos sobre "],
+    [/^Airstrikes? in /i, "Ataques aereos en "]
   ];
 
   for (const [pattern, replacement] of replacements) {
@@ -859,7 +1663,7 @@ function translateConflictName(name) {
   return translated.charAt(0).toUpperCase() + translated.slice(1);
 }
 
-function normalizeConflictForDisplay(conflict) {
+function normalizeConflictForDisplayLegacy(conflict) {
   if (!conflict) {
     return null;
   }
@@ -913,7 +1717,7 @@ function formatConflictPeriod(conflict) {
   return ` (${conflict.startYear}-${endYear})`;
 }
 
-function renderConflicts(conflicts) {
+function renderConflictsLegacy(conflicts) {
   if (!conflicts || !conflicts.length) {
     return "<p>Sin datos</p>";
   }
@@ -937,17 +1741,129 @@ function renderConflicts(conflicts) {
     .join("")}</ul>`;
 }
 
+function extractYearsFromText(value) {
+  return [...new Set(
+    [...String(value || "").matchAll(/\b(1[0-9]{3}|20[0-9]{2}|2100)\b/g)].map(match => Number(match[1]))
+  )].sort((a, b) => a - b);
+}
+
+function extractConflictStartYear(conflict) {
+  if (!conflict) {
+    return null;
+  }
+
+  if (typeof conflict === "object" && conflict.startYear) {
+    return Number(conflict.startYear);
+  }
+
+  return extractYearsFromText(typeof conflict === "object" ? conflict.name : conflict)[0] || null;
+}
+
+function extractConflictEndYear(conflict) {
+  if (!conflict) {
+    return null;
+  }
+
+  if (typeof conflict === "object" && conflict.endYear) {
+    return Number(conflict.endYear);
+  }
+
+  const years = extractYearsFromText(typeof conflict === "object" ? conflict.name : conflict);
+  return years.length > 1 ? years.at(-1) : null;
+}
+
+function cleanConflictName(name) {
+  return String(name || "")
+    .replace(/\s*\((?:[^)]*?\b\d{4}\b[^)]*?)\)\s*$/u, "")
+    .replace(/\s+(?:de|en)?\s*\d{4}(?:\s*[-–—]\s*\d{4})?\s*$/u, "")
+    .replace(/\s*[-–—]\s*\d{4}(?:\s*[-–—]\s*\d{4})?\s*$/u, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function normalizeConflictForDisplay(conflict) {
+  if (!conflict) {
+    return null;
+  }
+
+  const rawName = conflict.name || conflict;
+  const translatedName = translateConflictName(rawName);
+  const startYear = conflict.startYear ?? extractConflictStartYear(conflict);
+  const parsedEndYear = conflict.endYear ?? extractConflictEndYear(conflict);
+  const endYear = conflict.ongoing ? null : parsedEndYear ?? startYear ?? null;
+  const cleanedName = cleanConflictName(translatedName) || translatedName;
+
+  if (!cleanedName) {
+    return null;
+  }
+
+  return {
+    name: cleanedName,
+    startYear: startYear || null,
+    endYear,
+    ongoing: Boolean(conflict.ongoing && startYear)
+  };
+}
+
+function sortConflicts(conflicts) {
+  return [...conflicts].sort((a, b) => {
+    const yearA = a.startYear ?? Number.MAX_SAFE_INTEGER;
+    const yearB = b.startYear ?? Number.MAX_SAFE_INTEGER;
+
+    if (yearA !== yearB) {
+      return yearA - yearB;
+    }
+
+    const endA = a.endYear ?? yearA;
+    const endB = b.endYear ?? yearB;
+
+    if (endA !== endB) {
+      return endA - endB;
+    }
+
+    return String(a.name || "").localeCompare(String(b.name || ""), "es");
+  });
+}
+
+function renderConflicts(conflicts) {
+  if (!conflicts || !conflicts.length) {
+    return "<p>Sin datos</p>";
+  }
+
+  const cleanedConflicts = sortConflicts(
+    conflicts
+      .map(normalizeConflictForDisplay)
+      .filter(Boolean)
+      .filter(conflict => conflict.startYear)
+      .filter(
+        (conflict, index, list) =>
+          index === list.findIndex(item => conflictDedupKey(item) === conflictDedupKey(conflict))
+      )
+  );
+
+  if (!cleanedConflicts.length) {
+    return "<p>Sin datos</p>";
+  }
+
+  return `<ul>${cleanedConflicts
+    .map(conflict => `<li>${conflict.name}${formatConflictPeriod(conflict)}</li>`)
+    .join("")}</ul>`;
+}
+
 function clearSelection() {
+  if (viewer) {
+    viewer.camera.cancelFlight();
+  }
   if (isMobileLayout()) {
     closeMobilePanels();
   }
 
   if (selectedLayer) {
-    selectedLayer.setStyle(DEFAULT_STYLE);
+    selectedLayer.setStyle(getCountryThemeStyle(selectedLayer.code));
     selectedLayer = null;
   }
 
-  selectedLayers.forEach(layer => layer.setStyle(DEFAULT_STYLE));
+  selectedLayers.forEach(layer => layer.setStyle(getCountryThemeStyle(layer.code)));
   selectedLayers = [];
 
   if (continentBoundsLayer) {
@@ -956,11 +1872,27 @@ function clearSelection() {
   }
 
   selectionMode = "country";
-  refreshCountryStyles();
+  viewer.scene.requestRender();
 }
 
 function getLinkedCodes(code) {
   return [code, ...(TERRITORY_LINKS[code] || [])];
+}
+
+function resolveCountryCode(rawCode, rawName = "") {
+  if (rawCode && countriesData[rawCode]) {
+    return rawCode;
+  }
+
+  const normalizedName = normalizeText(rawName);
+  if (normalizedName && countryAliases.has(normalizedName)) {
+    const aliasCode = countryAliases.get(normalizedName);
+    if (aliasCode && countriesData[aliasCode]) {
+      return aliasCode;
+    }
+  }
+
+  return null;
 }
 
 function setCountrySelection(layers) {
@@ -970,36 +1902,10 @@ function setCountrySelection(layers) {
   layerList.forEach(layer => layer.setStyle(COUNTRY_HIGHLIGHT_STYLE));
   selectedLayers = layerList;
   selectedLayer = layerList[0] || null;
+  viewer.scene.requestRender();
 }
 
 function getCountryClickTarget(code, layer) {
-  if (!code) {
-    return layer;
-  }
-
-  if (countryClickTargets.has(code)) {
-    return countryClickTargets.get(code);
-  }
-
-  const bounds = layer.getBounds();
-  const center = bounds.getCenter();
-  const area = Math.abs(
-    (bounds.getNorth() - bounds.getSouth()) * (bounds.getEast() - bounds.getWest())
-  );
-
-  if (area < 80) {
-    const marker = L.circleMarker(center, {
-      radius: 16,
-      stroke: false,
-      opacity: 0,
-      fillOpacity: 0,
-      bubblingMouseEvents: false
-    }).addTo(map);
-    countryClickTargets.set(code, marker);
-    return marker;
-  }
-
-  countryClickTargets.set(code, layer);
   return layer;
 }
 
@@ -1009,18 +1915,20 @@ function setContinentSelection(layers) {
   selectedLayers = layers;
   selectedLayers.forEach(layer => layer.setStyle(CONTINENT_HIGHLIGHT_STYLE));
 
-  continentBoundsLayer = L.featureGroup(layers);
+  continentBoundsLayer = createLayerGroup(layers);
+  viewer.scene.requestRender();
 }
 
 function fitLayerBounds(layerOrGroup) {
-  const bounds = layerOrGroup.getBounds();
+  const bounds = layerOrGroup?.getBounds?.();
 
-  if (bounds && bounds.isValid()) {
-    map.fitBounds(bounds.pad(0.15), {
-      ...getWorldFitPadding(),
-      maxZoom: isMobileLayout() ? 3 : 4,
-      animate: false
+  if (bounds) {
+    viewer.camera.cancelFlight();
+    viewer.camera.flyTo({
+      destination: bounds,
+      duration: 0.01
     });
+    viewer.scene.requestRender();
   }
 }
 
@@ -1035,7 +1943,11 @@ function dismissSearchInput() {
 
 function renderCountry(country, fallbackName) {
   const countryCode = getCountryCodeByObject(country);
-  currentPanelState = { type: "country", code: countryCode, fallbackName };
+  const timelineFilter =
+    currentPanelState.type === "country" && currentPanelState.code === countryCode
+      ? (currentPanelState.timelineFilter || "all")
+      : "all";
+  currentPanelState = { type: "country", code: countryCode, fallbackName, timelineFilter };
   const general = country.general || {};
   const economy = country.economy || {};
   const military = country.military || {};
@@ -1052,16 +1964,26 @@ function renderCountry(country, fallbackName) {
 
   document.getElementById("country-panel").innerHTML = `
     <div class="country-title">
-      <span class="country-flag">${getFlagEmoji(countryCode)}</span>
-      <h2>${country.name || fallbackName}</h2>
+      ${renderFlagVisual(countryCode, country.name || fallbackName, "country-flag")}
+      <div class="country-heading">
+        <h2>${country.name || fallbackName}</h2>
+        <p class="country-official-name">${escapeHtml(country.general?.officialName || country.name || fallbackName)}</p>
+      </div>
+      ${renderCoatVisual(countryCode, `${country.name || fallbackName} escudo`)}
     </div>
     <p><button id="add-to-compare-button" class="panel-action-button" type="button" ${countryCode ? "" : "disabled"}>${t("addToCompare")}</button></p>
+    ${renderCountryOverview(country, countryCode)}
     ${createSection(
       t("general"),
       `
         <p><b>${t("population")}:</b> ${formatNumber(general.population)}</p>
         <p><b>${t("continent")}:</b> ${translateContinentName(country.continent)}</p>
-        <p><b>${t("geography")}:</b> ${general.geography || t("noData")}</p>
+        <p><b>${t("geography")}:</b> ${general.capital?.name || t("noData")}</p>
+        <p><b>${currentLanguage === "en" ? "Official name" : "Nombre oficial"}:</b> ${escapeHtml(general.officialName || country.name || t("noData"))}</p>
+        <p><b>${currentLanguage === "en" ? "Historical names" : "Nombres historicos"}:</b></p>
+        ${renderRelationChips(general.historicalNames)}
+        <p><b>${currentLanguage === "en" ? "Flag" : "Bandera"}:</b> ${escapeHtml(general.symbols?.flagDescription || t("noData"))}</p>
+        <p><b>${currentLanguage === "en" ? "Coat of arms" : "Escudo"}:</b> ${escapeHtml(general.symbols?.coatOfArms || t("noData"))}</p>
         <p><b>${t("cities")}:</b></p>
         ${renderCities(general)}
       `,
@@ -1088,7 +2010,7 @@ function renderCountry(country, fallbackName) {
         }</p>
         <p><b>${t("inflation")}:</b> ${
           economy.inflation !== null && economy.inflation !== undefined
-            ? `${economy.inflation}%`
+            ? `${economy.inflationEstimated ? "~" : ""}${economy.inflation}%`
             : t("noData")
         }</p>
         <p><b>Exportaciones:</b></p>
@@ -1119,10 +2041,23 @@ function renderCountry(country, fallbackName) {
     ${createSection(
       t("relations"),
       `
+        ${renderRelationsSummary(country, countryCode)}
         ${renderRelationNetwork(country, countryCode)}
         <div class="relation-group">
+          <p class="relation-title">${currentLanguage === "en" ? "Former metropole" : "Ex metropoli"}</p>
+          ${renderRelationChips(country.politics?.relations?.exMetropole ? [country.politics.relations.exMetropole] : [])}
+        </div>
+        <div class="relation-group">
           <p class="relation-title">${t("linkedTerritories")}</p>
-          ${renderRelationChips(relatedTerritories)}
+          ${renderRelationChips(uniqueNormalizedList([...(country.politics?.relations?.linkedTerritories || []), ...relatedTerritories]))}
+        </div>
+        <div class="relation-group">
+          <p class="relation-title">${currentLanguage === "en" ? "Blocs" : "Bloques"}</p>
+          ${renderRelationChips(country.politics?.relations?.blocs)}
+        </div>
+        <div class="relation-group">
+          <p class="relation-title">${currentLanguage === "en" ? "Allies and associated partners" : "Aliados y socios asociados"}</p>
+          ${renderRelationChips(country.politics?.relations?.allies)}
         </div>
         <div class="relation-group">
           <p class="relation-title">${t("organizations")}</p>
@@ -1178,6 +2113,16 @@ function renderReligionSelection(religionName, countries, totalNominal) {
   currentPanelState = { type: "religion", religionName, countries, totalNominal };
   document.getElementById("country-panel").innerHTML = `
     <h2>${religionName}</h2>
+    <div class="country-overview-grid relation-overview-grid">
+      <div class="overview-card">
+        <span class="overview-label">${currentLanguage === "en" ? "Majority countries" : "Paises con mayoria"}</span>
+        <strong class="overview-value">${formatNumber(countries.length)}</strong>
+      </div>
+      <div class="overview-card">
+        <span class="overview-label">${currentLanguage === "en" ? "Estimated population" : "Poblacion estimada"}</span>
+        <strong class="overview-value">${formatNumber(Math.round(totalNominal || 0))}</strong>
+      </div>
+    </div>
     <p><b>${currentLanguage === "en" ? "Estimated population where it is the majority" : "Poblacion estimada en paises donde es mayoritaria"}:</b> ${formatNumber(Math.round(totalNominal || 0))}</p>
     <p><b>${currentLanguage === "en" ? "Share of world population" : "Porcentaje de la poblacion mundial"}:</b> ${formatPercentage(worldPopulationTotal ? (totalNominal / worldPopulationTotal) * 100 : 0)}</p>
     <p><b>${currentLanguage === "en" ? "Countries and territories where it is the majority religion" : "Paises y territorios donde es la religion mayoritaria"}:</b></p>
@@ -1365,12 +2310,16 @@ function getPoliticalThemeInfo(country) {
     return { key: "teocratico", label: "Teocraticos" };
   }
 
-  if (system.includes("comunist") || system.includes("partido unico")) {
+  if (system.includes("socialista") || system.includes("partido unico")) {
     return { key: "comunista", label: "Comunistas" };
   }
 
   if (system.includes("monarquia")) {
     return { key: "monarquia", label: "Monarquias" };
+  }
+
+  if (system.includes("directorial")) {
+    return { key: "parlamentario", label: "Parlamentarios" };
   }
 
   if (system.includes("autoritar") || system.includes("dictadura")) {
@@ -1403,6 +2352,62 @@ function getPopulationThemeInfo(country) {
 
 function getBucketThemeInfo(value, buckets) {
   return buckets.find(bucket => value >= bucket.min) || buckets.at(-1);
+}
+
+function getCountryConflictCount(country) {
+  return Array.isArray(country?.conflicts) ? country.conflicts.length : 0;
+}
+
+function getCountryOrganizationCount(country) {
+  return Array.isArray(country?.politics?.organizations) ? country.politics.organizations.length : 0;
+}
+
+function getCountryRivalCount(country) {
+  return Array.isArray(country?.politics?.rivals) ? country.politics.rivals.length : 0;
+}
+
+function getCountryReligionDiversity(country) {
+  return getReligionCompositionForDisplay(country?.religion).length;
+}
+
+function getCountryMilitaryActive(country) {
+  return Number(country?.military?.active) || 0;
+}
+
+function getCountryFormationYear(country) {
+  return Number(country?.history?.year) || 0;
+}
+
+function getReligionBranchThemeKey(country) {
+  const majority = getMajorityReligionGroups(country)[0]?.key || "";
+  if (majority.includes("crist")) {
+    return "cristianismo";
+  }
+  if (majority.includes("islam")) {
+    return "islam";
+  }
+  if (majority.includes("hindu")) {
+    return "hinduismo";
+  }
+  if (majority.includes("bud")) {
+    return "budismo";
+  }
+  if (majority.includes("juda")) {
+    return "judaismo";
+  }
+  if (majority.includes("afili")) {
+    return "noafiliados";
+  }
+  return "otras";
+}
+
+function getExMetropoleThemeKey(country) {
+  return country.politics?.relations?.exMetropole || "Sin datos";
+}
+
+function getBlocThemeKey(country) {
+  const blocs = country.politics?.relations?.blocs || [];
+  return blocs[0] || "Otros";
 }
 
 function getCountryThemeStyle(code) {
@@ -1446,6 +2451,51 @@ function getCountryThemeStyle(code) {
   if (currentTheme === "inflation") {
     const fillColor = getBucketThemeInfo(country.economy?.inflation ?? -1000, THEME_STYLES.inflation).color;
     return { ...DEFAULT_STYLE, color: "#5f0f40", fillColor, fillOpacity: 0.85 };
+  }
+
+  if (currentTheme === "militaryActive") {
+    const fillColor = getBucketThemeInfo(getCountryMilitaryActive(country), THEME_STYLES.militaryActive).color;
+    return { ...DEFAULT_STYLE, color: "#5b0000", fillColor, fillOpacity: 0.85 };
+  }
+
+  if (currentTheme === "formationYear") {
+    const fillColor = getBucketThemeInfo(getCountryFormationYear(country), THEME_STYLES.formationYear).color;
+    return { ...DEFAULT_STYLE, color: "#5f0f40", fillColor, fillOpacity: 0.84 };
+  }
+
+  if (currentTheme === "religionBranch") {
+    const fillColor = THEME_STYLES.religionBranch[getReligionBranchThemeKey(country)] || THEME_STYLES.religionBranch.otras;
+    return { ...DEFAULT_STYLE, color: "#3c096c", fillColor, fillOpacity: 0.84 };
+  }
+
+  if (currentTheme === "exMetropole") {
+    const fillColor = THEME_STYLES.exMetropole[getExMetropoleThemeKey(country)] || THEME_STYLES.exMetropole["Sin datos"];
+    return { ...DEFAULT_STYLE, color: "#274c77", fillColor, fillOpacity: 0.84 };
+  }
+
+  if (currentTheme === "bloc") {
+    const fillColor = THEME_STYLES.bloc[getBlocThemeKey(country)] || THEME_STYLES.bloc.Otros;
+    return { ...DEFAULT_STYLE, color: "#1d3557", fillColor, fillOpacity: 0.84 };
+  }
+
+  if (currentTheme === "conflicts") {
+    const fillColor = getBucketThemeInfo(getCountryConflictCount(country), THEME_STYLES.conflicts).color;
+    return { ...DEFAULT_STYLE, color: "#5b0000", fillColor, fillOpacity: 0.85 };
+  }
+
+  if (currentTheme === "organizations") {
+    const fillColor = getBucketThemeInfo(getCountryOrganizationCount(country), THEME_STYLES.organizations).color;
+    return { ...DEFAULT_STYLE, color: "#184e77", fillColor, fillOpacity: 0.85 };
+  }
+
+  if (currentTheme === "rivals") {
+    const fillColor = getBucketThemeInfo(getCountryRivalCount(country), THEME_STYLES.rivals).color;
+    return { ...DEFAULT_STYLE, color: "#6a040f", fillColor, fillOpacity: 0.85 };
+  }
+
+  if (currentTheme === "religionDiversity") {
+    const fillColor = getBucketThemeInfo(getCountryReligionDiversity(country), THEME_STYLES.religionDiversity).color;
+    return { ...DEFAULT_STYLE, color: "#6d28d9", fillColor, fillOpacity: 0.85 };
   }
 
   if (currentTheme === "historyType") {
@@ -1516,6 +2566,51 @@ function renderThemeLegend() {
       label: item.label,
       color: item.color
     }));
+  } else if (currentTheme === "militaryActive") {
+    items = THEME_STYLES.militaryActive.map(item => ({
+      label: item.label,
+      color: item.color
+    }));
+  } else if (currentTheme === "formationYear") {
+    items = THEME_STYLES.formationYear.map(item => ({
+      label: item.label,
+      color: item.color
+    }));
+  } else if (currentTheme === "religionBranch") {
+    items = Object.entries(THEME_STYLES.religionBranch).map(([label, color]) => ({
+      label: normalizeCategoryLabel(label),
+      color
+    }));
+  } else if (currentTheme === "exMetropole") {
+    items = Object.entries(THEME_STYLES.exMetropole).map(([label, color]) => ({
+      label,
+      color
+    }));
+  } else if (currentTheme === "bloc") {
+    items = Object.entries(THEME_STYLES.bloc).map(([label, color]) => ({
+      label,
+      color
+    }));
+  } else if (currentTheme === "conflicts") {
+    items = THEME_STYLES.conflicts.map(item => ({
+      label: item.label,
+      color: item.color
+    }));
+  } else if (currentTheme === "organizations") {
+    items = THEME_STYLES.organizations.map(item => ({
+      label: item.label,
+      color: item.color
+    }));
+  } else if (currentTheme === "rivals") {
+    items = THEME_STYLES.rivals.map(item => ({
+      label: item.label,
+      color: item.color
+    }));
+  } else if (currentTheme === "religionDiversity") {
+    items = THEME_STYLES.religionDiversity.map(item => ({
+      label: item.label,
+      color: item.color
+    }));
   } else if (currentTheme === "historyType") {
     items = Object.entries(THEME_STYLES.historyType).map(([label, color]) => ({
       label: normalizeCategoryLabel(label),
@@ -1542,8 +2637,31 @@ function setTheme(theme) {
 function renderGroupSelection(title, descriptor, countries) {
   currentPanelState = { type: "group", title, descriptor, countries };
   const totalPopulation = countries.reduce((sum, country) => sum + (country.general?.population || 0), 0);
+  const avgGdpPerCapita = countries.length
+    ? countries.reduce((sum, country) => sum + (country.economy?.gdpPerCapita || 0), 0) / countries.length
+    : 0;
+  const totalOrganizations = countries.reduce((sum, country) => sum + getCountryOrganizationCount(country), 0);
+  const totalConflicts = countries.reduce((sum, country) => sum + getCountryConflictCount(country), 0);
   document.getElementById("country-panel").innerHTML = `
     <h2>${title}</h2>
+    <div class="country-overview-grid relation-overview-grid">
+      <div class="overview-card">
+        <span class="overview-label">${currentLanguage === "en" ? "Population" : "Poblacion"}</span>
+        <strong class="overview-value">${formatNumber(totalPopulation)}</strong>
+      </div>
+      <div class="overview-card">
+        <span class="overview-label">${currentLanguage === "en" ? "Average GDP per capita" : "PBI per capita promedio"}</span>
+        <strong class="overview-value">${avgGdpPerCapita ? `US$ ${formatNumber(Math.round(avgGdpPerCapita))}` : t("noData")}</strong>
+      </div>
+      <div class="overview-card">
+        <span class="overview-label">${currentLanguage === "en" ? "Organizations" : "Organizaciones"}</span>
+        <strong class="overview-value">${formatNumber(totalOrganizations)}</strong>
+      </div>
+      <div class="overview-card">
+        <span class="overview-label">${currentLanguage === "en" ? "Conflicts" : "Conflictos"}</span>
+        <strong class="overview-value">${formatNumber(totalConflicts)}</strong>
+      </div>
+    </div>
     <p><b>${currentLanguage === "en" ? "Shown total population" : "Poblacion total mostrada"}:</b> ${formatNumber(totalPopulation)}</p>
     <p><b>${currentLanguage === "en" ? "Countries and territories found" : "Paises y territorios encontrados"}:</b> ${countries.length}</p>
     <p><b>${descriptor}:</b></p>
@@ -1560,46 +2678,143 @@ function renderGroupSelection(title, descriptor, countries) {
 function buildTimeline(country) {
   const items = [];
   if (country.history?.year) {
-    items.push({ year: country.history.year, text: `${country.history.type || t("noData")} desde ${country.history.origin || t("noData")}` });
+    items.push({
+      year: country.history.year,
+      category: currentLanguage === "en" ? "Formation" : "Formacion",
+      categoryKey: "formation",
+      text: `${country.history.type || t("noData")} desde ${country.history.origin || t("noData")}`,
+      reference: country.history.origin || country.name
+    });
   }
 
   const organizations = (country.politics?.organizations || [])
     .filter(item => item && item.startYear)
     .sort((a, b) => a.startYear - b.startYear)
-    .slice(0, 5)
     .map(item => ({
       year: item.startYear,
-      text: `Ingreso a ${getOrganizationDisplayName(item)}`
+      category: currentLanguage === "en" ? "Organization" : "Organizacion",
+      categoryKey: "organization",
+      text: `Ingreso a ${getOrganizationDisplayName(item)}`,
+      reference: getOrganizationDisplayName(item)
     }));
 
-  items.push(...organizations);
+  items.push(...organizations.slice(0, 4));
 
-  const firstConflict = getConflictsSinceFormation(country)
+  const normalizedConflicts = getConflictsSinceFormation(country)
     .map(normalizeConflictForDisplay)
-    .filter(Boolean)
-    .sort((a, b) => a.startYear - b.startYear)[0];
+    .filter(conflict => conflict?.startYear)
+    .sort((a, b) => a.startYear - b.startYear);
 
-  if (firstConflict?.startYear) {
+  normalizedConflicts.slice(0, 4).forEach(conflict => {
     items.push({
-      year: firstConflict.startYear,
-      text: `Primer conflicto registrado: ${firstConflict.name}`
+      year: conflict.startYear,
+      category: currentLanguage === "en" ? "Conflict" : "Conflicto",
+      categoryKey: "conflict",
+      text: `${conflict.ongoing ? "Conflicto vigente" : "Conflicto"}: ${conflict.name}`,
+      reference: conflict.name
+    });
+  });
+
+  if (country.politics?.system && country.history?.year) {
+    items.push({
+      year: country.history.year,
+      category: currentLanguage === "en" ? "System" : "Sistema",
+      categoryKey: "system",
+      text: `${currentLanguage === "en" ? "Current political system" : "Sistema politico actual"}: ${country.politics.system}`,
+      reference: country.politics.system
     });
   }
 
+  (country.history?.events || []).forEach(event => {
+    if (!event?.year || !event?.text) {
+      return;
+    }
+
+    const categoryMap = {
+      politica: "system",
+      constitucion: "formation",
+      estado: "formation",
+      union: "formation",
+      revolucion: "formation",
+      golpe: "system",
+      guerra: "conflict",
+      tratado: "organization",
+      acuerdo: "organization",
+      division: "formation",
+      descolonizacion: "formation",
+      reforma: "system",
+      territorio: "formation",
+      disolucion: "formation",
+      imperio: "formation",
+      economia: "organization"
+    };
+
+    items.push({
+      year: event.year,
+      category: toDisplayTitleCase(event.category || (currentLanguage === "en" ? "Event" : "Evento")),
+      categoryKey: categoryMap[normalizeText(event.category)] || "formation",
+      text: event.text,
+      reference: event.reference || event.text
+    });
+  });
+
   return items
     .filter(item => item.year && item.text)
-    .sort((a, b) => a.year - b.year)
-    .slice(0, 6);
+    .sort((a, b) => {
+      if (a.year !== b.year) {
+        return a.year - b.year;
+      }
+      return String(a.text).localeCompare(String(b.text), "es");
+    })
+    .filter((item, index, list) =>
+      index === list.findIndex(other =>
+        other.year === item.year &&
+        normalizeText(other.text) === normalizeText(item.text)
+      )
+    );
 }
 
 function renderTimeline(country) {
-  const items = buildTimeline(country);
+  const allItems = buildTimeline(country);
+  const activeFilter = currentPanelState.timelineFilter || "all";
+  const items = activeFilter === "all"
+    ? allItems
+    : allItems.filter(item => item.categoryKey === activeFilter);
+
+  const filters = [
+    { key: "all", label: currentLanguage === "en" ? "All" : "Todo" },
+    { key: "formation", label: currentLanguage === "en" ? "Formation" : "Formacion" },
+    { key: "organization", label: currentLanguage === "en" ? "Organizations" : "Organizaciones" },
+    { key: "conflict", label: currentLanguage === "en" ? "Conflicts" : "Conflictos" },
+    { key: "system", label: currentLanguage === "en" ? "System" : "Sistema" }
+  ];
+
+  const controls = `
+    <div class="timeline-filters">
+      ${filters.map(filter => `
+        <button
+          type="button"
+          class="timeline-filter${filter.key === activeFilter ? " is-active" : ""}"
+          data-timeline-filter="${filter.key}"
+        >${escapeHtml(filter.label)}</button>
+      `).join("")}
+    </div>
+  `;
+
   if (!items.length) {
-    return `<p>${t("noData")}</p>`;
+    return `${controls}<p>${t("noData")}</p>`;
   }
 
-  return `<div class="timeline">${items
-    .map(item => `<button class="timeline-item network-link" type="button" data-search-query="${escapeHtml(item.text)}"><span class="timeline-year">${item.year}</span>${escapeHtml(item.text)}</button>`)
+  return `${controls}<div class="timeline">${items
+    .map(item => `
+      <button class="timeline-item network-link" type="button" data-search-query="${escapeHtml(getTimelineEventQuery(item, country))}">
+        <span class="timeline-year">${item.year}</span>
+        <span class="timeline-copy">
+          <span class="timeline-kicker">${escapeHtml(item.category || (currentLanguage === "en" ? "Event" : "Evento"))}</span>
+          <span>${escapeHtml(item.text)}</span>
+        </span>
+      </button>
+    `)
     .join("")}</div>`;
 }
 
@@ -1615,19 +2830,23 @@ function renderRelationChips(items) {
 }
 
 function getCountryCodeByObject(country) {
-  return Object.entries(countriesData).find(([, entry]) => entry === country)?.[0] || "";
+  return countryCodeLookup.get(country) || "";
 }
 
 function renderRelationNetwork(country, countryCode) {
-  const organizations = (country.politics?.organizations || []).slice(0, 4).map(getOrganizationDisplayName);
-  const rivals = (country.politics?.rivals || []).slice(0, 4).map(rival => rival.name || rival);
-  const territories = getLinkedCodes(countryCode)
-    .filter(code => code !== countryCode)
-    .map(code => countriesData[code]?.name)
-    .filter(Boolean)
-    .slice(0, 4);
-
-  const nodes = [...organizations, ...rivals, ...territories].slice(0, 8);
+  const relations = country.politics?.relations || {};
+  const organizations = (country.politics?.organizations || []).slice(0, 3).map(getOrganizationDisplayName);
+  const rivals = (country.politics?.rivals || []).slice(0, 3).map(rival => rival.name || rival);
+  const territories = uniqueNormalizedList([
+    ...(relations.linkedTerritories || []),
+    ...getLinkedCodes(countryCode)
+      .filter(code => code !== countryCode)
+      .map(code => countriesData[code]?.name)
+      .filter(Boolean)
+  ]).slice(0, 3);
+  const blocs = (relations.blocs || []).slice(0, 3);
+  const allies = (relations.allies || []).slice(0, 3);
+  const nodes = [...organizations, ...blocs, ...allies, ...rivals, ...territories].slice(0, 10);
   if (!nodes.length) {
     return `<p>${t("noData")}</p>`;
   }
@@ -1642,9 +2861,55 @@ function renderRelationNetwork(country, countryCode) {
   `;
 }
 
+function renderRelationsSummary(country, countryCode) {
+  const relations = country.politics?.relations || {};
+  const linkedCount = uniqueNormalizedList([
+    ...(relations.linkedTerritories || []),
+    ...getLinkedCodes(countryCode).filter(code => code !== countryCode)
+  ]).length;
+  const summaries = [
+    {
+      label: currentLanguage === "en" ? "Organizations" : "Organizaciones",
+      value: getCountryOrganizationCount(country)
+    },
+    {
+      label: currentLanguage === "en" ? "Historical rivals" : "Rivales historicos",
+      value: (country.politics?.rivals || []).filter(rival => (rival.type || "historico") !== "actual").length
+    },
+    {
+      label: currentLanguage === "en" ? "Current rivals" : "Rivales actuales",
+      value: (country.politics?.rivals || []).filter(rival => rival.type === "actual").length
+    },
+    {
+      label: currentLanguage === "en" ? "Linked territories" : "Territorios vinculados",
+      value: linkedCount
+    },
+    {
+      label: currentLanguage === "en" ? "Blocs" : "Bloques",
+      value: (relations.blocs || []).length
+    },
+    {
+      label: currentLanguage === "en" ? "Allies" : "Aliados",
+      value: (relations.allies || []).length
+    }
+  ];
+
+  return `
+    <div class="country-overview-grid relation-overview-grid">
+      ${summaries.map(item => `
+        <div class="overview-card">
+          <span class="overview-label">${escapeHtml(item.label)}</span>
+          <strong class="overview-value">${formatNumber(item.value)}</strong>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
 function updateStaticText() {
   document.getElementById("compare-title").textContent = t("compareTitle");
   document.getElementById("compare-empty").textContent = t("compareHint");
+  document.getElementById("rankings-summary").textContent = currentLanguage === "en" ? "Global rankings" : "Rankings globales";
   document.getElementById("world-population-title").textContent = currentLanguage === "en" ? "World population" : "Poblacion mundial";
   document.getElementById("top-population-title").textContent = currentLanguage === "en" ? "Top population" : "Top Población";
   document.getElementById("continents-title").textContent = currentLanguage === "en" ? "Continents" : "Continentes";
@@ -1652,6 +2917,16 @@ function updateStaticText() {
   document.getElementById("gdp-title").textContent = t("topGdp");
   document.getElementById("inflation-title").textContent = t("topInflation");
   document.getElementById("systems-title").textContent = t("systems");
+  document.getElementById("gdp-per-capita-title").textContent = currentLanguage === "en" ? "Top GDP per capita" : "Top PBI per capita";
+  document.getElementById("organizations-top-title").textContent = currentLanguage === "en" ? "Top organizations" : "Top organizaciones";
+  document.getElementById("conflicts-top-title").textContent = currentLanguage === "en" ? "Top conflicts" : "Top conflictos";
+  document.getElementById("military-top-title").textContent = currentLanguage === "en" ? "Top active military" : "Top personal militar";
+  document.getElementById("diversity-top-title").textContent = currentLanguage === "en" ? "Top religious diversity" : "Top diversidad religiosa";
+  document.getElementById("organizations-reach-title").textContent = currentLanguage === "en" ? "Most widespread organizations" : "Organizaciones mas extendidas";
+  document.getElementById("rivalries-top-title").textContent = currentLanguage === "en" ? "Most repeated rivalries" : "Rivalidades mas repetidas";
+  document.getElementById("blocs-top-title").textContent = currentLanguage === "en" ? "Most widespread blocs" : "Bloques mas extendidos";
+  document.getElementById("metropoles-top-title").textContent = currentLanguage === "en" ? "Former metropoles" : "Ex metrópolis";
+  document.getElementById("history-types-top-title").textContent = currentLanguage === "en" ? "Historical types" : "Tipos historicos";
   document.getElementById("map-search-input").placeholder =
     currentLanguage === "en"
       ? "Search country, continent, religion, political system or organization"
@@ -1667,7 +2942,10 @@ function updateStaticText() {
   document.getElementById("apply-filters-button").textContent = currentLanguage === "en" ? "Apply filters" : "Aplicar filtros";
   document.getElementById("save-filters-button").textContent = currentLanguage === "en" ? "Save filters" : "Guardar filtros";
   document.getElementById("reset-view-button").textContent = currentLanguage === "en" ? "Reset view" : "Resetear vista";
-  document.getElementById("presentation-mode-button").textContent = currentLanguage === "en" ? "Presentation mode" : "Modo presentacion";
+  document.getElementById("presentation-mode-button").textContent =
+    document.body.classList.contains("presentation-mode")
+      ? (currentLanguage === "en" ? "Exit presentation" : "Salir de presentacion")
+      : (currentLanguage === "en" ? "Presentation mode" : "Modo presentacion");
   renderSavedFilters();
 }
 
@@ -1716,6 +2994,41 @@ function loadSavedPreferences() {
   }
 }
 
+function getMedian(values) {
+  const sorted = values.filter(value => typeof value === "number" && Number.isFinite(value)).sort((a, b) => a - b);
+  if (!sorted.length) {
+    return null;
+  }
+
+  const middle = Math.floor(sorted.length / 2);
+  if (sorted.length % 2) {
+    return sorted[middle];
+  }
+
+  return Number(((sorted[middle - 1] + sorted[middle]) / 2).toFixed(1));
+}
+
+function buildInflationFallbacks() {
+  const continentValues = {};
+  const globalValues = [];
+
+  Object.entries(rawInflationByCode).forEach(([code, value]) => {
+    const continent = countriesData[code]?.continent;
+    if (typeof value !== "number" || !continent) {
+      return;
+    }
+
+    continentValues[continent] = continentValues[continent] || [];
+    continentValues[continent].push(value);
+    globalValues.push(value);
+  });
+
+  inflationFallbackByContinent = Object.fromEntries(
+    Object.entries(continentValues).map(([continent, values]) => [continent, getMedian(values)])
+  );
+  globalInflationFallback = getMedian(globalValues);
+}
+
 function persistSavedFilters() {
   localStorage.setItem(STORAGE_KEYS.filters, JSON.stringify(savedFilters));
 }
@@ -1743,15 +3056,22 @@ function sanitizeCountryData(country) {
   }
 
   country.general.population = country.general.population || populationFallback;
+  country.general.officialName = country.general.officialName || country.name;
+  country.general.historicalNames = Array.isArray(country.general.historicalNames) ? country.general.historicalNames : [];
+  country.general.symbols = country.general.symbols || {};
   country.politics = country.politics || {};
   country.history = country.history || {};
   country.economy = country.economy || {};
   country.religion = country.religion || {};
+  country.religion.populationBase = country.general.population || 0;
+  country.politics.relations = country.politics.relations || {};
 
-  country.politics.system =
-    country.politics.system ||
-    translateHistoryText(country.history.type) ||
-    "Sin datos";
+  country.history.type = normalizeHistoryType(country);
+  country.politics.system = normalizePoliticalSystem(country);
+
+  if (country.general?.capital?.name) {
+    country.general.capital.name = normalizeCityDisplayName(country.general.capital.name);
+  }
 
   if (!country.religion.summary) {
     const majorityReligion = getMajorityReligionGroups(country)[0];
@@ -1761,7 +3081,12 @@ function sanitizeCountryData(country) {
   }
 
   if (!country.economy.inflation && country.economy.inflation !== 0) {
-    country.economy.inflation = null;
+    const estimatedInflation =
+      rawInflationByCode[country.code] ??
+      inflationFallbackByContinent[country.continent] ??
+      globalInflationFallback;
+    country.economy.inflation = estimatedInflation ?? null;
+    country.economy.inflationEstimated = rawInflationByCode[country.code] === undefined && estimatedInflation !== null && estimatedInflation !== undefined;
   }
 
   country.politics.organizations = (country.politics.organizations || [])
@@ -1781,8 +3106,26 @@ function sanitizeCountryData(country) {
       )
     );
 
+  country.politics.relations.linkedTerritories = uniqueNormalizedList([
+    ...(country.politics.relations.linkedTerritories || []),
+    ...(TERRITORY_LINKS[country.code] || [])
+      .map(code => countriesData[code]?.name)
+      .filter(Boolean)
+  ]);
+  country.politics.relations.blocs = uniqueNormalizedList(country.politics.relations.blocs || []);
+  country.politics.relations.allies = uniqueNormalizedList(country.politics.relations.allies || []);
+  country.politics.relations.rivalStates = uniqueNormalizedList([
+    ...(country.politics.relations.rivalStates || []),
+    ...country.politics.rivals.map(rival => rival.name || rival)
+  ]);
+
   country.general.cities = (country.general.cities || [])
     .filter(Boolean)
+    .map(city => ({
+      ...city,
+      name: normalizeCityDisplayName(city.name)
+    }))
+    .filter(city => normalizeText(city.name) !== normalizeText(country.general?.capital?.name || ""))
     .filter((city, index, list) =>
       index === list.findIndex(item => normalizeText(item.name) === normalizeText(city.name))
     );
@@ -1808,17 +3151,42 @@ function renderComparePanel() {
     .map(code => `<span class="compare-chip">${getFlagEmoji(code)} ${escapeHtml(countriesData[code]?.name || code)} <button type="button" data-remove-compare="${escapeHtml(code)}">x</button></span>`)
     .join("");
 
+  const countryCards = `
+    <div class="compare-country-cards">
+      ${compareSelection.map(code => {
+        const country = countriesData[code];
+        return `
+          <div class="compare-country-card">
+            <div class="compare-country-flag">${renderFlagVisual(code, country.name, "compare-country-flag-badge")}</div>
+            <div class="compare-country-name">${escapeHtml(country.name)}</div>
+            <div class="compare-country-meta compare-country-official">${escapeHtml(country.general?.officialName || country.name)}</div>
+            <div class="compare-country-meta">${escapeHtml(translateContinentName(country.continent))}</div>
+            <div class="compare-country-meta">${escapeHtml(country.politics?.system || t("noData"))}</div>
+          </div>
+        `;
+      }).join("")}
+    </div>
+  `;
+
   const metricFields = [
     { label: t("comparePopulation"), getValue: country => country.general?.population || 0, format: value => formatNumber(value) },
     { label: t("compareGdp"), getValue: country => country.economy?.gdp || 0, format: value => `US$ ${compactNumber(value)}` },
-    { label: t("compareGdpPerCapita"), getValue: country => country.economy?.gdpPerCapita || 0, format: value => `US$ ${formatNumber(Math.round(value))}` }
+    { label: t("compareGdpPerCapita"), getValue: country => country.economy?.gdpPerCapita || 0, format: value => `US$ ${formatNumber(Math.round(value))}` },
+    { label: currentLanguage === "en" ? "Active military" : "Personal activo", getValue: country => getCountryMilitaryActive(country), format: value => formatNumber(value) },
+    { label: currentLanguage === "en" ? "Reserve" : "Reserva", getValue: country => Number(country.military?.reserve) || 0, format: value => formatNumber(value) },
+    { label: currentLanguage === "en" ? "Organizations" : "Organizaciones", getValue: country => getCountryOrganizationCount(country), format: value => formatNumber(value) },
+    { label: currentLanguage === "en" ? "Conflicts" : "Conflictos", getValue: country => getCountryConflictCount(country), format: value => formatNumber(value) },
+    { label: currentLanguage === "en" ? "Rivals" : "Rivales", getValue: country => getCountryRivalCount(country), format: value => formatNumber(value) },
+    { label: currentLanguage === "en" ? "Religion groups" : "Grupos religiosos", getValue: country => getCountryReligionDiversity(country), format: value => formatNumber(value) }
   ];
 
   const infoFields = [
     { label: t("compareInflation"), getValue: country => country.economy?.inflation || country.economy?.inflation === 0 ? `${country.economy.inflation}%` : t("noData") },
     { label: t("compareSystem"), getValue: country => country.politics?.system || t("noData") },
     { label: t("compareReligion"), getValue: country => country.religion?.summary || t("noData") },
-    { label: t("compareYear"), getValue: country => country.history?.year || t("noData") }
+    { label: t("compareYear"), getValue: country => country.history?.year || t("noData") },
+    { label: currentLanguage === "en" ? "Blocs" : "Bloques", getValue: country => (country.politics?.relations?.blocs || []).join(", ") || t("noData") },
+    { label: currentLanguage === "en" ? "Former metropole" : "Ex metropoli", getValue: country => country.politics?.relations?.exMetropole || t("noData") }
   ];
 
   const metricMarkup = metricFields
@@ -1843,6 +3211,34 @@ function renderComparePanel() {
     `)
     .join("");
 
+  const leaderMarkup = `
+    <div class="compare-row compare-summary-row">
+      <strong>${currentLanguage === "en" ? "Leaders" : "Lideres"}</strong>
+      <div class="compare-values">
+        ${metricFields.map(field => {
+          const leaderCode = compareSelection
+            .map(code => ({ code, value: field.getValue(countriesData[code]) }))
+            .sort((a, b) => b.value - a.value)[0]?.code;
+          const leader = leaderCode ? countriesData[leaderCode] : null;
+          return `<div><b>${escapeHtml(field.label)}:</b> ${leader ? `${getFlagEmoji(leaderCode)} ${escapeHtml(leader.name)}` : t("noData")}</div>`;
+        }).join("")}
+      </div>
+    </div>
+  `;
+
+  const deltaMarkup = compareSelection.length >= 2
+    ? `
+      <div class="compare-row compare-summary-row">
+        <strong>${currentLanguage === "en" ? "Key gaps" : "Brechas clave"}</strong>
+        <div class="compare-values">
+          <div><b>${t("comparePopulation")}:</b> ${formatNumber(Math.abs((countriesData[compareSelection[0]]?.general?.population || 0) - (countriesData[compareSelection.at(-1)]?.general?.population || 0)))}</div>
+          <div><b>${t("compareGdp")}:</b> US$ ${compactNumber(Math.abs((countriesData[compareSelection[0]]?.economy?.gdp || 0) - (countriesData[compareSelection.at(-1)]?.economy?.gdp || 0)))}</div>
+          <div><b>${currentLanguage === "en" ? "Organizations" : "Organizaciones"}:</b> ${formatNumber(Math.abs(getCountryOrganizationCount(countriesData[compareSelection[0]]) - getCountryOrganizationCount(countriesData[compareSelection.at(-1)])))}</div>
+        </div>
+      </div>
+    `
+    : "";
+
   const infoMarkup = infoFields
     .map(field => `
       <div class="compare-row">
@@ -1857,7 +3253,205 @@ function renderComparePanel() {
     `)
     .join("");
 
-  results.innerHTML = metricMarkup + infoMarkup;
+  results.innerHTML = countryCards + leaderMarkup + deltaMarkup + metricMarkup + infoMarkup;
+}
+
+function generateGdpPerCapitaRanking() {
+  const list = Object.values(countriesData)
+    .filter(country => (country.economy?.gdpPerCapita || 0) > 0)
+    .sort((a, b) => (b.economy?.gdpPerCapita || 0) - (a.economy?.gdpPerCapita || 0))
+    .slice(0, 10);
+
+  renderInteractiveList("top-gdp-per-capita", list.map(country => ({
+    label: `${getFlagEmoji(getCountryCodeByObject(country))} ${country.name} (US$ ${formatNumber(Math.round(country.economy.gdpPerCapita))})`,
+    country
+  })), item => {
+    const code = getCountryCodeByObject(item.country);
+    if (code) {
+      selectSearchResult({ label: item.country.name, type: "country", value: code });
+    }
+  });
+}
+
+function generateOrganizationCountRanking() {
+  const list = Object.values(countriesData)
+    .filter(country => getCountryOrganizationCount(country) > 0)
+    .sort((a, b) => getCountryOrganizationCount(b) - getCountryOrganizationCount(a))
+    .slice(0, 10);
+
+  renderInteractiveList("top-organizations-count", list.map(country => ({
+    label: `${getFlagEmoji(getCountryCodeByObject(country))} ${country.name} (${formatNumber(getCountryOrganizationCount(country))})`,
+    country
+  })), item => {
+    const code = getCountryCodeByObject(item.country);
+    if (code) {
+      selectSearchResult({ label: item.country.name, type: "country", value: code });
+    }
+  });
+}
+
+function generateConflictCountRanking() {
+  const list = Object.values(countriesData)
+    .filter(country => getCountryConflictCount(country) > 0)
+    .sort((a, b) => getCountryConflictCount(b) - getCountryConflictCount(a))
+    .slice(0, 10);
+
+  renderInteractiveList("top-conflicts-count", list.map(country => ({
+    label: `${getFlagEmoji(getCountryCodeByObject(country))} ${country.name} (${formatNumber(getCountryConflictCount(country))})`,
+    country
+  })), item => {
+    const code = getCountryCodeByObject(item.country);
+    if (code) {
+      selectSearchResult({ label: item.country.name, type: "country", value: code });
+    }
+  });
+}
+
+function generateMilitaryRanking() {
+  const list = Object.values(countriesData)
+    .filter(country => getCountryMilitaryActive(country) > 0)
+    .sort((a, b) => getCountryMilitaryActive(b) - getCountryMilitaryActive(a))
+    .slice(0, 10);
+
+  renderInteractiveList("top-military-active", list.map(country => ({
+    label: `${getFlagEmoji(getCountryCodeByObject(country))} ${country.name} (${formatNumber(getCountryMilitaryActive(country))})`,
+    country
+  })), item => {
+    const code = getCountryCodeByObject(item.country);
+    if (code) {
+      selectSearchResult({ label: item.country.name, type: "country", value: code });
+    }
+  });
+}
+
+function generateReligionDiversityRanking() {
+  const list = Object.values(countriesData)
+    .filter(country => getCountryReligionDiversity(country) > 0)
+    .sort((a, b) => getCountryReligionDiversity(b) - getCountryReligionDiversity(a))
+    .slice(0, 10);
+
+  renderInteractiveList("top-religion-diversity", list.map(country => ({
+    label: `${getFlagEmoji(getCountryCodeByObject(country))} ${country.name} (${formatNumber(getCountryReligionDiversity(country))})`,
+    country
+  })), item => {
+    const code = getCountryCodeByObject(item.country);
+    if (code) {
+      selectSearchResult({ label: item.country.name, type: "country", value: code });
+    }
+  });
+}
+
+function generateOrganizationsReachRanking() {
+  const totals = {};
+
+  Object.values(countriesData).forEach(country => {
+    (country.politics?.organizations || []).forEach(organization => {
+      const label = normalizeCategoryLabel(getOrganizationDisplayName(organization));
+      if (!label || label === "Sin datos") {
+        return;
+      }
+      totals[label] = (totals[label] || 0) + 1;
+    });
+  });
+
+  renderInteractiveList("top-organizations-reach", Object.entries(totals)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 10)
+    .map(([organization, count]) => ({
+      label: `${organization} (${formatNumber(count)})`,
+      organization
+    })), item => {
+      selectSearchResult({ label: item.organization, type: "organization", value: item.organization });
+    });
+}
+
+function generateRivalriesRanking() {
+  const totals = {};
+
+  Object.values(countriesData).forEach(country => {
+    (country.politics?.rivals || []).forEach(rival => {
+      const label = normalizeCategoryLabel(rival?.name || rival);
+      if (!label || label === "Sin datos") {
+        return;
+      }
+      totals[label] = (totals[label] || 0) + 1;
+    });
+  });
+
+  renderInteractiveList("top-rivalries", Object.entries(totals)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 10)
+    .map(([rival, count]) => ({
+      label: `${rival} (${formatNumber(count)})`,
+      rival
+    })), item => {
+      selectSearchResult({ label: item.rival, type: "rival", value: item.rival });
+    });
+}
+
+function generateBlocsRanking() {
+  const totals = {};
+  Object.values(countriesData).forEach(country => {
+    (country.politics?.relations?.blocs || []).forEach(bloc => {
+      const label = normalizeCategoryLabel(bloc);
+      if (!label || label === "Sin datos") {
+        return;
+      }
+      totals[label] = (totals[label] || 0) + 1;
+    });
+  });
+
+  renderInteractiveList("top-blocs", Object.entries(totals)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 10)
+    .map(([bloc, count]) => ({
+      label: `${bloc} (${formatNumber(count)})`,
+      bloc
+    })), item => {
+      searchByQuery(item.bloc);
+    });
+}
+
+function generateMetropolesRanking() {
+  const totals = {};
+  Object.values(countriesData).forEach(country => {
+    const metropole = country.politics?.relations?.exMetropole;
+    if (!metropole) {
+      return;
+    }
+    totals[metropole] = (totals[metropole] || 0) + 1;
+  });
+
+  renderInteractiveList("top-metropoles", Object.entries(totals)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 10)
+    .map(([metropole, count]) => ({
+      label: `${metropole} (${formatNumber(count)})`,
+      metropole
+    })), item => {
+      searchByQuery(item.metropole);
+    });
+}
+
+function generateHistoryTypesRanking() {
+  const totals = {};
+  Object.values(countriesData).forEach(country => {
+    const type = normalizeCategoryLabel(country.history?.type);
+    if (!type || type === "Sin datos") {
+      return;
+    }
+    totals[type] = (totals[type] || 0) + 1;
+  });
+
+  renderInteractiveList("top-history-types", Object.entries(totals)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 10)
+    .map(([historyType, count]) => ({
+      label: `${historyType} (${formatNumber(count)})`,
+      historyType
+    })), item => {
+      selectSearchResult({ label: item.historyType, type: "history_type", value: item.historyType });
+    });
 }
 
 function addCountryToCompare(code) {
@@ -1894,6 +3488,10 @@ function getFilterState() {
     continent: document.getElementById("filter-continent-select").value,
     religion: document.getElementById("filter-religion-select").value,
     system: document.getElementById("filter-system-select").value,
+    organization: document.getElementById("filter-organization-select").value,
+    historyType: document.getElementById("filter-history-type-select").value,
+    origin: document.getElementById("filter-origin-select").value,
+    rival: document.getElementById("filter-rival-select").value,
     minPopulation: Number(document.getElementById("filter-population-select").value || 0)
   };
 }
@@ -1908,7 +3506,68 @@ function getFilteredCountries(filters = getFilterState()) {
       return false;
     }
 
-    if (filters.system && normalizeCategoryLabel(country.politics?.system) !== filters.system) {
+    if (filters.system) {
+      const systemLabel = normalizeCategoryLabel(country.politics?.system);
+      const normalizedSystem = normalizeText(systemLabel);
+      if (filters.system === "__monarquia__" && !normalizedSystem.includes("monarquia")) {
+        return false;
+      }
+      if (filters.system === "__semipresidencial__" && !normalizedSystem.includes("semipresid")) {
+        return false;
+      }
+      if (filters.system === "__presidencial__" && !normalizedSystem.includes("presidencial")) {
+        return false;
+      }
+      if (filters.system === "__parlamentario__" && !normalizedSystem.includes("parlament")) {
+        return false;
+      }
+      if (filters.system === "__federal__" && !/(federal|federacion)/.test(normalizedSystem)) {
+        return false;
+      }
+      if (!filters.system.startsWith("__") && systemLabel !== filters.system) {
+        return false;
+      }
+    }
+
+    if (
+      filters.organization &&
+      !(country.politics?.organizations || []).some(
+        organization => normalizeCategoryLabel(getOrganizationDisplayName(organization)) === filters.organization
+      )
+    ) {
+      return false;
+    }
+
+    if (filters.historyType && getHistoryTypeLabel(country) !== filters.historyType) {
+      return false;
+    }
+
+    if (filters.origin) {
+      const originLabel = getOriginLabel(country);
+      const normalizedOrigin = normalizeText(originLabel);
+      if (filters.origin === "__british__" && !/britan|reino unido|commonwealth|british/.test(normalizedOrigin)) {
+        return false;
+      }
+      if (filters.origin === "__french__" && !/francia|frances|french/.test(normalizedOrigin)) {
+        return false;
+      }
+      if (filters.origin === "__spanish__" && !/espana|espanol|spanish/.test(normalizedOrigin)) {
+        return false;
+      }
+      if (filters.origin === "__portuguese__" && !/portugal|portugues/.test(normalizedOrigin)) {
+        return false;
+      }
+      if (!filters.origin.startsWith("__") && originLabel !== filters.origin) {
+        return false;
+      }
+    }
+
+    if (
+      filters.rival &&
+      !(country.politics?.rivals || []).some(
+        rival => normalizeCategoryLabel(rival?.name || rival) === filters.rival
+      )
+    ) {
       return false;
     }
 
@@ -1931,7 +3590,7 @@ function applyFilters() {
   }
 
   setContinentSelection(layers);
-  fitLayerBounds(L.featureGroup(layers));
+  fitLayerBounds(createLayerGroup(layers));
   renderGroupSelection("Filtros globales", "Paises y territorios filtrados", countries);
 }
 
@@ -1941,6 +3600,10 @@ function parseSemanticQuery(rawQuery) {
     continent: "",
     religion: "",
     system: "",
+    organization: "",
+    historyType: "",
+    origin: "",
+    rival: "",
     minPopulation: 0
   };
 
@@ -1965,9 +3628,64 @@ function parseSemanticQuery(rawQuery) {
     }
   }
 
+  if (!filters.system) {
+    if (/\bmonarquia|\bmonarquias/.test(normalized)) {
+      filters.system = "__monarquia__";
+    } else if (/federal|federales/.test(normalized)) {
+      filters.system = "__federal__";
+    } else if (/semipresid/.test(normalized)) {
+      filters.system = "__semipresidencial__";
+    } else if (/presidencial/.test(normalized)) {
+      filters.system = "__presidencial__";
+    } else if (/parlament/.test(normalized)) {
+      filters.system = "__parlamentario__";
+    }
+  }
+
+  for (const [alias, organization] of organizationAliases.entries()) {
+    if (normalized.includes(alias)) {
+      filters.organization = organization;
+      break;
+    }
+  }
+
+  for (const [alias, historyType] of historyTypeAliases.entries()) {
+    if (normalized.includes(alias)) {
+      filters.historyType = historyType;
+      break;
+    }
+  }
+
+  for (const [alias, origin] of originAliases.entries()) {
+    if (normalized.includes(alias)) {
+      filters.origin = origin;
+      break;
+    }
+  }
+
+  if (!filters.origin) {
+    if (/ex colonias? britan|british colonies|imperio britan/.test(normalized)) {
+      filters.origin = "__british__";
+    } else if (/ex colonias? frances|french colonies/.test(normalized)) {
+      filters.origin = "__french__";
+    } else if (/ex colonias? espan|spanish colonies/.test(normalized)) {
+      filters.origin = "__spanish__";
+    } else if (/ex colonias? portugues|portuguese colonies/.test(normalized)) {
+      filters.origin = "__portuguese__";
+    }
+  }
+
+  for (const [alias, rival] of rivalAliases.entries()) {
+    if (normalized.includes(alias)) {
+      filters.rival = rival;
+      break;
+    }
+  }
+
   const populationMatchers = [
     { pattern: /mas de 100 millones|more than 100 million/, value: 100000000 },
     { pattern: /mas de 50 millones|more than 50 million/, value: 50000000 },
+    { pattern: /mas de 20 millones|more than 20 million/, value: 20000000 },
     { pattern: /mas de 10 millones|more than 10 million/, value: 10000000 },
     { pattern: /mas de 1 millon|more than 1 million/, value: 1000000 }
   ];
@@ -1977,8 +3695,29 @@ function parseSemanticQuery(rawQuery) {
     filters.minPopulation = populationMatch.value;
   }
 
+  const semanticPatterns = [
+    /miembros? de /,
+    /members? of /,
+    /rivales? de /,
+    /rivals? of /,
+    /ex colonias? de /,
+    /former colonies? of /,
+    /paises? .*guerra civil/,
+    /countries? .*civil war/,
+    /con mas conflictos/,
+    /with more conflicts/,
+    /con mas organizaciones/,
+    /with more organizations/
+  ];
+
+  if (/con mas conflictos|with more conflicts/.test(normalized)) {
+    filters.historyType = filters.historyType || "";
+  }
+
   const score = Object.values(filters).filter(Boolean).length;
-  return score >= 2 ? filters : null;
+  return score >= 2 || (score >= 1 && semanticPatterns.some(pattern => pattern.test(normalized)))
+    ? filters
+    : null;
 }
 
 function getOrganizationDisplayName(organization) {
@@ -2024,7 +3763,14 @@ function setupSearchIndex(featureNameByCode) {
   Object.entries(countriesData).forEach(([code, country]) => {
     registerCountryAlias(country.name, code);
     registerCountryAlias(featureNameByCode[code], code);
-    registerSuggestion(country.name, "country", code, "Pais o territorio", [featureNameByCode[code]]);
+    registerCountryAlias(code, code);
+    registerCountryAlias(country.general?.officialName, code);
+    (country.general?.historicalNames || []).forEach(alias => registerCountryAlias(alias, code));
+    registerSuggestion(country.name, "country", code, "Pais o territorio", [
+      featureNameByCode[code],
+      country.general?.officialName,
+      ...(country.general?.historicalNames || [])
+    ]);
 
     getMajorityReligionGroups(country).forEach(entry => {
       registerReligionAlias(entry.label, entry.label);
@@ -2244,7 +3990,7 @@ async function selectSearchResult(result) {
         .map(code => countryLayers.get(code))
         .filter(Boolean);
       setCountrySelection(linkedLayers);
-      fitLayerBounds(L.featureGroup(linkedLayers));
+      fitLayerBounds(createLayerGroup(linkedLayers));
       await renderCountry(countriesData[countryCode], countriesData[countryCode].name);
       return;
     }
@@ -2281,7 +4027,7 @@ async function selectSearchResult(result) {
       selectionMode = "religion";
       selectedLayers = layers;
       selectedLayers.forEach(layer => layer.setStyle(RELIGION_HIGHLIGHT_STYLE));
-      continentBoundsLayer = L.featureGroup(layers);
+      continentBoundsLayer = createLayerGroup(layers);
       fitLayerBounds(continentBoundsLayer);
 
       const totalNominal = matches.reduce(
@@ -2300,7 +4046,7 @@ async function selectSearchResult(result) {
 
     if (layers.length) {
       setContinentSelection(layers);
-      fitLayerBounds(L.featureGroup(layers));
+      fitLayerBounds(createLayerGroup(layers));
       renderGroupSelection(result.label, "Paises con este sistema politico", countries);
       return;
     }
@@ -2312,7 +4058,7 @@ async function selectSearchResult(result) {
 
     if (layers.length) {
       setContinentSelection(layers);
-      fitLayerBounds(L.featureGroup(layers));
+      fitLayerBounds(createLayerGroup(layers));
       renderGroupSelection(result.label, "Paises miembros encontrados", countries);
       return;
     }
@@ -2324,7 +4070,7 @@ async function selectSearchResult(result) {
 
     if (layers.length) {
       setContinentSelection(layers);
-      fitLayerBounds(L.featureGroup(layers));
+      fitLayerBounds(createLayerGroup(layers));
       renderGroupSelection(result.label, "Paises con este tipo de formacion", countries);
       return;
     }
@@ -2336,7 +4082,7 @@ async function selectSearchResult(result) {
 
     if (layers.length) {
       setContinentSelection(layers);
-      fitLayerBounds(L.featureGroup(layers));
+      fitLayerBounds(createLayerGroup(layers));
       renderGroupSelection(result.label, "Paises con este origen historico", countries);
       return;
     }
@@ -2348,7 +4094,7 @@ async function selectSearchResult(result) {
 
     if (layers.length) {
       setContinentSelection(layers);
-      fitLayerBounds(L.featureGroup(layers));
+      fitLayerBounds(createLayerGroup(layers));
       renderGroupSelection(result.label, "Paises que mencionan este rival", countries);
       return;
     }
@@ -2367,11 +4113,53 @@ async function searchMap() {
     return;
   }
 
+  if (/con mas conflictos|with more conflicts/.test(query)) {
+    const countries = Object.values(countriesData)
+      .filter(country => getCountryConflictCount(country) > 0)
+      .sort((a, b) => getCountryConflictCount(b) - getCountryConflictCount(a))
+      .slice(0, 15);
+    const layers = getLayersForCountries(countries);
+    if (layers.length) {
+      setContinentSelection(layers);
+      fitLayerBounds(createLayerGroup(layers));
+      renderGroupSelection(
+        currentLanguage === "en" ? "Countries with more conflicts" : "Paises con mas conflictos",
+        currentLanguage === "en" ? "Conflict count ranking" : "Ranking por cantidad de conflictos",
+        countries
+      );
+      dismissSearchInput();
+      return;
+    }
+  }
+
+  if (/con mas organizaciones|with more organizations/.test(query)) {
+    const countries = Object.values(countriesData)
+      .filter(country => getCountryOrganizationCount(country) > 0)
+      .sort((a, b) => getCountryOrganizationCount(b) - getCountryOrganizationCount(a))
+      .slice(0, 15);
+    const layers = getLayersForCountries(countries);
+    if (layers.length) {
+      setContinentSelection(layers);
+      fitLayerBounds(createLayerGroup(layers));
+      renderGroupSelection(
+        currentLanguage === "en" ? "Countries with more organizations" : "Paises con mas organizaciones",
+        currentLanguage === "en" ? "Organization count ranking" : "Ranking por cantidad de organizaciones",
+        countries
+      );
+      dismissSearchInput();
+      return;
+    }
+  }
+
   const semanticFilters = parseSemanticQuery(rawQuery);
   if (semanticFilters) {
     document.getElementById("filter-continent-select").value = semanticFilters.continent;
     document.getElementById("filter-religion-select").value = semanticFilters.religion;
     document.getElementById("filter-system-select").value = semanticFilters.system;
+    document.getElementById("filter-organization-select").value = semanticFilters.organization;
+    document.getElementById("filter-history-type-select").value = semanticFilters.historyType;
+    document.getElementById("filter-origin-select").value = semanticFilters.origin;
+    document.getElementById("filter-rival-select").value = semanticFilters.rival;
     document.getElementById("filter-population-select").value = semanticFilters.minPopulation ? String(semanticFilters.minPopulation) : "";
     applyFilters();
     dismissSearchInput();
@@ -2477,14 +4265,38 @@ async function searchByQuery(rawQuery) {
 }
 
 async function loadData() {
-  const res = await fetch("./data/countries_full.json");
-  countriesData = await res.json();
-  Object.values(countriesData).forEach(sanitizeCountryData);
+  const [countriesRes, rawPoliticsRes, rawHistoryRes, rawInflationRes] = await Promise.all([
+    fetch("./data/countries_full.json"),
+    fetch("./data/raw/politics.json"),
+    fetch("./data/raw/history.json"),
+    fetch("./data/raw/inflation.json")
+  ]);
+
+  countriesData = await countriesRes.json();
+  rawPoliticsSystems = await rawPoliticsRes.json();
+  rawHistorySystems = await rawHistoryRes.json();
+  rawInflationByCode = await rawInflationRes.json();
+  buildInflationFallbacks();
+
+  Object.entries(countriesData).forEach(([code, country]) => {
+    country.code = code;
+    countryCodeLookup.set(country, code);
+    sanitizeCountryData(country);
+  });
+  setupSearchIndex(
+    Object.fromEntries(
+      Object.entries(countriesData).map(([code, country]) => [code, country.name])
+    )
+  );
   worldPopulationTotal = Object.values(countriesData).reduce(
     (sum, country) => sum + (country.general?.population || 0),
     0
   );
 
+  refreshGlobalStats();
+}
+
+function refreshGlobalStats() {
   generateWorldPopulation();
   generateTopPopulation();
   generateContinents();
@@ -2492,6 +4304,16 @@ async function loadData() {
   generateGdpRanking();
   generateInflationRanking();
   generateSystemRanking();
+  generateGdpPerCapitaRanking();
+  generateOrganizationCountRanking();
+  generateConflictCountRanking();
+  generateMilitaryRanking();
+  generateReligionDiversityRanking();
+  generateOrganizationsReachRanking();
+  generateRivalriesRanking();
+  generateBlocsRanking();
+  generateMetropolesRanking();
+  generateHistoryTypesRanking();
 }
 
 function generateWorldPopulation() {
@@ -2628,66 +4450,171 @@ function generateSystemRanking() {
 }
 
 async function loadMap() {
+  initializeViewer();
   const res = await fetch("./data/world_countries.geo.json");
   const geojson = await res.json();
   const featureNameByCode = {};
+  let dataSource = null;
 
-  L.geoJSON(geojson, {
-    style: DEFAULT_STYLE,
-    smoothFactor: 0.4,
-    onEachFeature: (feature, layer) => {
-      const code =
-        feature.id ||
-        feature.properties.ISO_A3 ||
-        feature.properties.iso_a3 ||
-        feature.properties.ADM0_A3;
+  try {
+    dataSource = await Cesium.GeoJsonDataSource.load(geojson, {
+      clampToGround: false
+    });
+    await viewer.dataSources.add(dataSource);
+  } catch (error) {
+    console.error("No se pudo cargar el GeoJSON 3D:", error);
+    fitWorldView();
+    return;
+  }
 
-      if (code) {
-        countryLayers.set(code, layer);
-        featureNameByCode[code] = feature.properties.name || code;
-      }
+  const entitiesByCode = new Map();
+  dataSource.entities.values.forEach(entity => {
+    const properties = entity.properties;
+    const rawCode =
+      properties?.ISO_A3?.getValue?.() ||
+      properties?.iso_a3?.getValue?.() ||
+      properties?.ADM0_A3?.getValue?.() ||
+      entity.id;
+    const featureName = properties?.name?.getValue?.() || rawCode;
+    const code = resolveCountryCode(rawCode, featureName) || rawCode;
 
-      const handleSelection = event => {
-        if (event?.originalEvent) {
-          L.DomEvent.stopPropagation(event);
-        }
+    if (!code) {
+      return;
+    }
 
-        const country = countriesData[code];
+    registerCountryAlias(featureName, code);
+    featureNameByCode[code] = countriesData[code]?.name || featureName;
+    entity.countryCode = code;
+    entity.countryName = countriesData[code]?.name || featureName;
+    if (entity.polygon) {
+      entity.polygon.height = 0;
+      entity.polygon.perPositionHeight = false;
+      entity.polygon.outline = false;
+      entity.polygon.arcType = Cesium.ArcType.GEODESIC;
+    }
+    const list = entitiesByCode.get(code) || [];
+    list.push(entity);
+    entitiesByCode.set(code, list);
+  });
 
-        if (!country) {
-          clearSelection();
-          renderEmpty(feature.properties.name);
+  entitiesByCode.forEach((entities, code) => {
+    const layer = new CesiumCountryLayer(code, entities, featureNameByCode[code] || code);
+    layer.setStyle(getCountryThemeStyle(code));
+    countryLayers.set(code, layer);
+  });
+
+  const clickHandler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+  let hoveredLayer = null;
+  let hoverFramePending = false;
+  let pendingHoverLayer = null;
+
+  function restoreHover() {
+    if (hoveredLayer && !selectedLayers.includes(hoveredLayer)) {
+      hoveredLayer.setStyle(getCountryThemeStyle(hoveredLayer.code));
+    }
+    hoveredLayer = null;
+  }
+
+  clickHandler.setInputAction(movement => {
+    emitMapEvent("click");
+    const picked = viewer.scene.pick(movement.position);
+    const rawCode = picked?.id?.countryCode;
+    const featureName = picked?.id?.countryName;
+    const code = resolveCountryCode(rawCode, featureName) || rawCode;
+
+    if (!code) {
+      clearSelection();
+      if (featureName) {
+        const aliasCode = resolveCountryCode("", featureName);
+        if (aliasCode && countriesData[aliasCode]) {
+          const linkedLayers = getLinkedCodes(aliasCode)
+            .map(linkedCode => countryLayers.get(linkedCode))
+            .filter(Boolean);
+          if (linkedLayers.length) {
+            setCountrySelection(linkedLayers);
+          }
+          renderCountry(countriesData[aliasCode], countriesData[aliasCode].name);
+          viewer.scene.requestRender();
           return;
         }
+        renderEmpty(featureName);
+      }
+      return;
+    }
 
-        const linkedLayers = getLinkedCodes(code)
+    const country = countriesData[code];
+    if (!country) {
+      clearSelection();
+      const aliasCode = resolveCountryCode("", featureName || code);
+      if (aliasCode && countriesData[aliasCode]) {
+        const linkedLayers = getLinkedCodes(aliasCode)
           .map(linkedCode => countryLayers.get(linkedCode))
           .filter(Boolean);
-        setCountrySelection(linkedLayers);
-        renderCountry(country, feature.properties.name);
-      };
-
-      layer.on("click", handleSelection);
-      layer.on("mouseover", () => {
-        if (!selectedLayers.includes(layer)) {
-          layer.setStyle({
-            weight: 2,
-            fillOpacity: 0.9
-          });
+        if (linkedLayers.length) {
+          setCountrySelection(linkedLayers);
         }
-      });
-      layer.on("mouseout", () => {
-        if (!selectedLayers.includes(layer)) {
-          layer.setStyle(getCountryThemeStyle(code));
-        }
-      });
-
-      const clickTarget = getCountryClickTarget(code, layer);
-      if (clickTarget !== layer) {
-        clickTarget.on("click", handleSelection);
+        renderCountry(countriesData[aliasCode], countriesData[aliasCode].name);
+        viewer.scene.requestRender();
+        return;
       }
+      renderEmpty(featureName || code);
+      return;
     }
-  }).addTo(map);
+
+    const linkedLayers = getLinkedCodes(code)
+      .map(linkedCode => countryLayers.get(linkedCode))
+      .filter(Boolean);
+    setCountrySelection(linkedLayers);
+    renderCountry(country, featureName || country.name);
+    viewer.scene.requestRender();
+  }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
+  clickHandler.setInputAction(movement => {
+    if (isMobileLayout()) {
+      return;
+    }
+
+    const picked = viewer.scene.pick(movement.endPosition);
+    const code = picked?.id?.countryCode;
+    const layer = code ? countryLayers.get(code) : null;
+
+    pendingHoverLayer = layer || null;
+
+    if (hoverFramePending) {
+      return;
+    }
+
+    hoverFramePending = true;
+    requestAnimationFrame(() => {
+      hoverFramePending = false;
+      const nextLayer = pendingHoverLayer;
+
+      if (!nextLayer) {
+        restoreHover();
+        viewer.scene.requestRender();
+        return;
+      }
+
+      if (hoveredLayer === nextLayer) {
+        return;
+      }
+
+      if (hoveredLayer && hoveredLayer !== nextLayer && !selectedLayers.includes(hoveredLayer)) {
+        hoveredLayer.setStyle(getCountryThemeStyle(hoveredLayer.code));
+      }
+
+      hoveredLayer = nextLayer;
+      if (!selectedLayers.includes(nextLayer)) {
+        const baseStyle = getCountryThemeStyle(nextLayer.code);
+        nextLayer.setStyle({
+          ...baseStyle,
+          weight: Math.max((baseStyle.weight || 1.4) + 0.4, 1.8),
+          fillOpacity: Math.min((baseStyle.fillOpacity || 0.12) + 0.06, 0.22)
+        });
+      }
+      viewer.scene.requestRender();
+    });
+  }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
 
   setupSearchIndex(featureNameByCode);
   fitWorldView();
@@ -2776,6 +4703,13 @@ function setupSearchEvents() {
   });
 
   countryPanel.addEventListener("click", async event => {
+    const timelineFilterButton = event.target.closest("[data-timeline-filter]");
+    if (timelineFilterButton) {
+      currentPanelState.timelineFilter = timelineFilterButton.dataset.timelineFilter || "all";
+      rerenderCurrentPanel();
+      return;
+    }
+
     const trigger = event.target.closest("[data-search-query]");
     if (!trigger) {
       return;
@@ -2795,6 +4729,10 @@ function setupThemeControls() {
   const presentationButton = document.getElementById("presentation-mode-button");
   const religionFilter = document.getElementById("filter-religion-select");
   const systemFilter = document.getElementById("filter-system-select");
+  const organizationFilter = document.getElementById("filter-organization-select");
+  const historyTypeFilter = document.getElementById("filter-history-type-select");
+  const originFilter = document.getElementById("filter-origin-select");
+  const rivalFilter = document.getElementById("filter-rival-select");
 
   themeSelect.value = currentTheme;
   languageSelect.value = currentLanguage;
@@ -2811,6 +4749,34 @@ function setupThemeControls() {
   )].sort((a, b) => a.localeCompare(b, "es"));
   systemFilter.innerHTML += systemOptions.map(label => `<option value="${escapeHtml(label)}">${escapeHtml(label)}</option>`).join("");
 
+  const organizationOptions = [...new Set(
+    Object.values(countriesData)
+      .flatMap(country => (country.politics?.organizations || []).map(getOrganizationDisplayName))
+      .filter(Boolean)
+  )].sort((a, b) => a.localeCompare(b, "es"));
+  organizationFilter.innerHTML += organizationOptions.map(label => `<option value="${escapeHtml(label)}">${escapeHtml(label)}</option>`).join("");
+
+  const historyTypeOptions = [...new Set(
+    Object.values(countriesData)
+      .map(country => getHistoryTypeLabel(country))
+      .filter(label => label && label !== "Sin datos")
+  )].sort((a, b) => a.localeCompare(b, "es"));
+  historyTypeFilter.innerHTML += historyTypeOptions.map(label => `<option value="${escapeHtml(label)}">${escapeHtml(label)}</option>`).join("");
+
+  const originOptions = [...new Set(
+    Object.values(countriesData)
+      .map(country => getOriginLabel(country))
+      .filter(label => label && label !== "Sin datos")
+  )].sort((a, b) => a.localeCompare(b, "es"));
+  originFilter.innerHTML += originOptions.map(label => `<option value="${escapeHtml(label)}">${escapeHtml(label)}</option>`).join("");
+
+  const rivalOptions = [...new Set(
+    Object.values(countriesData)
+      .flatMap(country => (country.politics?.rivals || []).map(rival => normalizeCategoryLabel(rival?.name || rival)))
+      .filter(label => label && label !== "Sin datos")
+  )].sort((a, b) => a.localeCompare(b, "es"));
+  rivalFilter.innerHTML += rivalOptions.map(label => `<option value="${escapeHtml(label)}">${escapeHtml(label)}</option>`).join("");
+
   themeSelect.addEventListener("change", event => {
     setTheme(event.target.value);
   });
@@ -2819,6 +4785,8 @@ function setupThemeControls() {
     currentLanguage = event.target.value;
     localStorage.setItem(STORAGE_KEYS.language, currentLanguage);
     updateStaticText();
+    refreshGlobalStats();
+    renderThemeLegend();
     renderComparePanel();
     rerenderCurrentPanel();
   });
@@ -2831,6 +4799,10 @@ function setupThemeControls() {
       filters.continent && translateContinentName(filters.continent),
       filters.religion,
       filters.system,
+      filters.organization,
+      filters.historyType,
+      filters.origin,
+      filters.rival,
       filters.minPopulation ? `${currentLanguage === "en" ? "Min pop" : "Pob min"} ${compactNumber(filters.minPopulation)}` : ""
     ].filter(Boolean);
 
@@ -2856,6 +4828,10 @@ function setupThemeControls() {
     document.getElementById("filter-continent-select").value = selected.filters.continent;
     document.getElementById("filter-religion-select").value = selected.filters.religion;
     document.getElementById("filter-system-select").value = selected.filters.system;
+    document.getElementById("filter-organization-select").value = selected.filters.organization || "";
+    document.getElementById("filter-history-type-select").value = selected.filters.historyType || "";
+    document.getElementById("filter-origin-select").value = selected.filters.origin || "";
+    document.getElementById("filter-rival-select").value = selected.filters.rival || "";
     document.getElementById("filter-population-select").value = selected.filters.minPopulation ? String(selected.filters.minPopulation) : "";
     applyFilters();
   });
@@ -2870,6 +4846,8 @@ function setupThemeControls() {
     const enabled = !document.body.classList.contains("presentation-mode");
     document.body.classList.toggle("presentation-mode", enabled);
     localStorage.setItem(STORAGE_KEYS.presentation, String(enabled));
+    updateStaticText();
+    closeMobilePanels();
   });
 }
 
@@ -2887,6 +4865,15 @@ function setupCompareControls() {
   renderComparePanel();
 }
 
+function setupRankingsPanel() {
+  const rankingsPanel = document.getElementById("rankings-panel");
+  if (!rankingsPanel) {
+    return;
+  }
+
+  rankingsPanel.open = false;
+}
+
 function setupMobilePanelControls() {
   const leftButton = document.getElementById("toggle-left-panel");
   const toolsButton = document.getElementById("toggle-tools-panel");
@@ -2897,6 +4884,7 @@ function setupMobilePanelControls() {
   countryButton.addEventListener("click", () => toggleMobilePanel("country"));
 
   mobileMediaQuery.addEventListener("change", event => {
+    updateMapInteractionTuning();
     if (!event.matches) {
       closeMobilePanels();
       fitWorldView();
@@ -2929,14 +4917,25 @@ async function registerServiceWorker() {
 }
 
 async function init() {
-  loadSavedPreferences();
-  await loadData();
-  await loadMap();
-  setupSearchEvents();
-  setupThemeControls();
-  setupCompareControls();
-  setupMobilePanelControls();
-  await registerServiceWorker();
+  try {
+    loadSavedPreferences();
+    await loadData();
+    setupSearchEvents();
+    setupThemeControls();
+    setupCompareControls();
+    setupRankingsPanel();
+    await loadMap();
+    updateMapInteractionTuning();
+    setupMobilePanelControls();
+    await registerServiceWorker();
+  } catch (error) {
+    console.error("Error al inicializar GeoRisk 3D:", error);
+    const status = document.getElementById("offline-status");
+    if (status) {
+      status.textContent = "La vista 3D no pudo inicializarse por completo.";
+    }
+  }
 }
 
 init();
+

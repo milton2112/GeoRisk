@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Widgets/widgets.css">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 </head>
 <body>
 
@@ -36,6 +36,15 @@
           <option value="gdp">PBI</option>
           <option value="gdpPerCapita">PBI per capita</option>
           <option value="inflation">Inflacion</option>
+          <option value="militaryActive">Personal militar activo</option>
+          <option value="formationYear">Año de formacion</option>
+          <option value="religionBranch">Rama religiosa dominante</option>
+          <option value="exMetropole">Ex metropoli</option>
+          <option value="bloc">Bloques y alianzas</option>
+          <option value="conflicts">Conflictos</option>
+          <option value="organizations">Organizaciones</option>
+          <option value="rivals">Rivales</option>
+          <option value="religionDiversity">Diversidad religiosa</option>
           <option value="historyType">Tipo historico</option>
         </select>
       </div>
@@ -63,6 +72,18 @@
           </select>
           <select id="filter-system-select">
             <option value="">Sistema politico</option>
+          </select>
+          <select id="filter-organization-select">
+            <option value="">Organizacion</option>
+          </select>
+          <select id="filter-history-type-select">
+            <option value="">Tipo historico</option>
+          </select>
+          <select id="filter-origin-select">
+            <option value="">Origen historico</option>
+          </select>
+          <select id="filter-rival-select">
+            <option value="">Rival</option>
           </select>
           <select id="filter-population-select">
             <option value="">Poblacion minima</option>
@@ -103,39 +124,77 @@
 </div>
 
 <div id="left-panel">
-  <h3 id="compare-title">Comparador</h3>
-  <div id="compare-panel">
-    <p id="compare-empty">Agrega hasta 3 paises desde la ficha o el buscador.</p>
-    <div id="compare-chips"></div>
-    <div id="compare-results"></div>
-  </div>
+  <details id="rankings-panel">
+    <summary id="rankings-summary">Rankings globales</summary>
+    <div class="left-panel-inner">
+      <h3 id="compare-title">Comparador</h3>
+      <div id="compare-panel">
+        <p id="compare-empty">Agrega hasta 3 paises desde la ficha o el buscador.</p>
+        <div id="compare-chips"></div>
+        <div id="compare-results"></div>
+      </div>
 
-  <h3 id="world-population-title">Poblacion mundial</h3>
-  <p id="world-population-total"></p>
-  <h3 id="top-population-title">Top Población</h3>
-  <ul id="top-population"></ul>
+      <h3 id="world-population-title">Poblacion mundial</h3>
+      <p id="world-population-total"></p>
+      <h3 id="top-population-title">Top poblacion</h3>
+      <ul id="top-population"></ul>
 
-  <h3 id="continents-title">Continentes</h3>
-  <ul id="continents"></ul>
+      <h3 id="continents-title">Continentes</h3>
+      <ul id="continents"></ul>
 
-  <h3 id="religions-title">Religiones</h3>
-  <ul id="religions"></ul>
+      <h3 id="religions-title">Religiones</h3>
+      <ul id="religions"></ul>
 
-  <h3 id="gdp-title">Top PBI</h3>
-  <ul id="top-gdp"></ul>
+      <h3 id="gdp-title">Top PBI</h3>
+      <ul id="top-gdp"></ul>
 
-  <h3 id="inflation-title">Top Inflacion</h3>
-  <ul id="top-inflation"></ul>
+      <h3 id="inflation-title">Top inflacion</h3>
+      <ul id="top-inflation"></ul>
 
-  <h3 id="systems-title">Sistemas politicos</h3>
-  <ul id="top-systems"></ul>
+      <h3 id="systems-title">Sistemas politicos</h3>
+      <ul id="top-systems"></ul>
+
+      <h3 id="gdp-per-capita-title">Top PBI per capita</h3>
+      <ul id="top-gdp-per-capita"></ul>
+
+      <h3 id="organizations-top-title">Top organizaciones</h3>
+      <ul id="top-organizations-count"></ul>
+
+      <h3 id="conflicts-top-title">Top conflictos</h3>
+      <ul id="top-conflicts-count"></ul>
+
+      <h3 id="military-top-title">Top personal militar</h3>
+      <ul id="top-military-active"></ul>
+
+      <h3 id="diversity-top-title">Top diversidad religiosa</h3>
+      <ul id="top-religion-diversity"></ul>
+
+      <h3 id="organizations-reach-title">Organizaciones mas extendidas</h3>
+      <ul id="top-organizations-reach"></ul>
+
+      <h3 id="rivalries-top-title">Rivalidades mas repetidas</h3>
+      <ul id="top-rivalries"></ul>
+
+      <h3 id="blocs-top-title">Bloques mas extendidos</h3>
+      <ul id="top-blocs"></ul>
+
+      <h3 id="metropoles-top-title">Ex metrópolis</h3>
+      <ul id="top-metropoles"></ul>
+
+      <h3 id="history-types-top-title">Tipos historicos</h3>
+      <ul id="top-history-types"></ul>
+    </div>
+  </details>
 </div>
 
 <div id="country-panel">
-  <h2>Seleccioná un país</h2>
+  <h2>Selecciona un pais</h2>
 </div>
 
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+  window.CESIUM_BASE_URL = "https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/";
+</script>
+<script src="https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Cesium.js"></script>
 <script src="script.js"></script>
 
 </body>
