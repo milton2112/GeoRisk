@@ -54,15 +54,12 @@ const THEME_STYLES = {
     otras: "#8ecae6"
   },
   politics: {
-    democracia: "#4cc9f0",
-    monarquia: "#ffd166",
-    autoritario: "#ef476f",
-    comunista: "#f94144",
-    federal: "#90be6d",
-    parlamentario: "#a8dadc",
-    presidencialista: "#577590",
-    teocratico: "#f3722c",
-    dependencia: "#adb5bd",
+    presidencialismo: "#577590",
+    semipresidencialismo: "#4cc9f0",
+    parlamentarismo: "#a8dadc",
+    teocracia: "#f3722c",
+    monarquia_constitucional: "#ffd166",
+    monarquia_absoluta: "#f94144",
     otros: "#7b8ea8"
   },
   historyType: {
@@ -181,6 +178,51 @@ const THEME_STYLES = {
     BRICS: "#6a994e",
     ONU: "#adb5bd",
     Otros: "#7b8ea8"
+  },
+  "Guerra de Corea": {
+    cause: "Estallo por la division de la peninsula coreana tras la Segunda Guerra Mundial y la ofensiva norcoreana para reunificarla por la fuerza.",
+    participants: [
+      { side: "Corea del Norte y apoyos", members: ["Corea del Norte", "China"], organizations: [], troops: "millones movilizados", casualties: "muy elevadas" },
+      { side: "Corea del Sur y ONU", members: ["Corea del Sur", "Estados Unidos", "Reino Unido"], organizations: ["ONU"], troops: "millones movilizados", casualties: "muy elevadas" }
+    ],
+    outcome: "Armisticio sin tratado de paz definitivo.",
+    consequences: "Se consolido la division de Corea y la zona desmilitarizada, con una rivalidad que continua hasta hoy."
+  },
+  "Guerra de Vietnam": {
+    cause: "Se intensifico por la division de Vietnam, la competencia de la Guerra Fria y la lucha entre el gobierno survietnamita y el Viet Cong con apoyo norvietnamita.",
+    participants: [
+      { side: "Vietnam del Norte", members: ["Vietnam del Norte", "Viet Cong"], organizations: [], troops: "cientos de miles", casualties: "muy elevadas" },
+      { side: "Vietnam del Sur y aliados", members: ["Vietnam del Sur", "Estados Unidos", "Australia"], organizations: [], troops: "cientos de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Victoria de Vietnam del Norte y reunificacion del pais.",
+    consequences: "Se reunifico Vietnam bajo un solo gobierno y Estados Unidos sufrio una derrota estrategica y politica."
+  },
+  "Guerra de los Seis Dias": {
+    cause: "Estallo por la escalada militar entre Israel y sus vecinos arabes, el cierre del estrecho de Tiran y la movilizacion regional.",
+    participants: [
+      { side: "Israel", members: ["Israel"], organizations: [], troops: "aprox. 264.000", casualties: "menos de 1.000 muertos" },
+      { side: "Coalicion arabe", members: ["Egipto", "Siria", "Jordania", "Irak"], organizations: ["Liga Arabe"], troops: "cientos de miles", casualties: "varios miles" }
+    ],
+    outcome: "Victoria rapida de Israel.",
+    consequences: "Israel ocupo Gaza, Cisjordania, Jerusalen Este, Sinai y los Altos del Golan, alterando profundamente el mapa regional."
+  },
+  "Guerra del Golfo": {
+    cause: "Comenzo tras la invasion iraqui de Kuwait en 1990 y la respuesta internacional encabezada por Estados Unidos.",
+    participants: [
+      { side: "Iraq", members: ["Iraq"], organizations: [], troops: "cientos de miles", casualties: "muy elevadas" },
+      { side: "Coalicion internacional", members: ["Estados Unidos", "Arabia Saudita", "Reino Unido", "Francia", "Kuwait"], organizations: ["ONU"], troops: "mas de 900.000", casualties: "relativamente bajas frente a Iraq" }
+    ],
+    outcome: "Liberacion de Kuwait y derrota militar iraqui.",
+    consequences: "Iraq quedo sometido a sanciones, zonas de exclusion aerea y fuerte debilitamiento regional."
+  },
+  "Guerra civil siria": {
+    cause: "Surgio de las protestas de 2011, la represion estatal y la posterior militarizacion del levantamiento en el contexto de la Primavera Arabe.",
+    participants: [
+      { side: "Gobierno sirio y apoyos", members: ["Siria", "Rusia", "Iran"], organizations: ["Hezbola"], troops: "cientos de miles", casualties: "muy elevadas" },
+      { side: "Oposicion y otras facciones", members: ["Ejercito Libre Sirio", "facciones islamistas", "Fuerzas Democraticas Sirias"], organizations: [], troops: "cientos de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Conflicto fragmentado y parcialmente congelado, con predominio del gobierno en gran parte del pais.",
+    consequences: "Destruccion masiva, millones de desplazados y una profunda internacionalizacion del conflicto."
   }
 };
 
@@ -194,6 +236,7 @@ class CesiumCountryLayer {
     this.entities = entities;
     this.featureName = featureName;
     this.rectangle = this.computeRectangle();
+    this.currentStyleKey = "";
   }
 
   computeRectangle() {
@@ -211,6 +254,18 @@ class CesiumCountryLayer {
   }
 
   setStyle(style) {
+    const styleKey = JSON.stringify({
+      color: style.color,
+      weight: style.weight,
+      fillColor: style.fillColor,
+      fillOpacity: style.fillOpacity
+    });
+
+    if (this.currentStyleKey === styleKey) {
+      return;
+    }
+
+    this.currentStyleKey = styleKey;
     this.entities.forEach(entity => {
       if (entity.polygon) {
         entity.polygon.material = cssColorToCesiumColor(style.fillColor, style.fillOpacity);
@@ -222,7 +277,6 @@ class CesiumCountryLayer {
         entity.polyline.width = Math.max(1.8, Math.min(style.weight || 1.4, 3));
       }
     });
-    viewer.scene.requestRender();
   }
 
   getBounds() {
@@ -245,11 +299,34 @@ function createLayerGroup(layers = []) {
 
 function getInitialGlobeDistance() {
   const earthRadius = Cesium.Ellipsoid.WGS84.maximumRadius;
-  return isMobileLayout() ? earthRadius * 3.55 : earthRadius * 3.05;
+  return isMobileLayout() ? earthRadius * 3.85 : earthRadius * 3.2;
 }
 
 function getMaxGlobeDistance() {
   return getInitialGlobeDistance();
+}
+
+function getPerformancePreset() {
+  const mobile = isMobileLayout();
+  const memory = navigator.deviceMemory || 4;
+  const cores = navigator.hardwareConcurrency || 4;
+  const constrained = mobile || memory <= 4 || cores <= 4;
+
+  return constrained
+    ? {
+      targetFrameRate: mobile ? 18 : 24,
+      resolutionScale: mobile ? 0.72 : 0.84,
+      maximumScreenSpaceError: mobile ? 6.2 : 3.6,
+      tileCacheSize: mobile ? 90 : 180,
+      loadingDescendantLimit: mobile ? 8 : 14
+    }
+    : {
+      targetFrameRate: 32,
+      resolutionScale: 0.96,
+      maximumScreenSpaceError: 2.6,
+      tileCacheSize: 240,
+      loadingDescendantLimit: 18
+    };
 }
 
 const osmImageryProvider = new Cesium.UrlTemplateImageryProvider({
@@ -263,6 +340,47 @@ const satelliteImageryProvider = new Cesium.UrlTemplateImageryProvider({
 });
 
 let viewer = null;
+const newsCache = new Map();
+const conflictModalRegistry = new Map();
+let conflictModalCounter = 0;
+let activeNewsCountryCode = "";
+
+const CONFLICT_PARENT_RULES = [
+  { parent: "Guerra de las Malvinas", matches: ["goose green", "pradera del ganso", "san carlos", "wireless ridge", "harriet", "longdon", "tumbledown"] },
+  { parent: "Guerra de la Triple Alianza", matches: ["ita ybate"] },
+  { parent: "Guerra rusoucraniana", matches: ["bajmut", "avdiivka", "mariupol", "jersón", "kherson", "kiev", "kyiv"] },
+  { parent: "Guerra de Gaza", matches: ["gaza", "rafah", "khan yunis"] }
+];
+
+const CONFLICT_DETAIL_OVERRIDES = {
+  "Guerra de las Malvinas": {
+    cause: "El conflicto estallo por la disputa de soberania sobre las Islas Malvinas, Georgias del Sur y Sandwich del Sur, en un contexto de crisis interna argentina y de respuesta militar britanica.",
+    participants: [
+      { side: "Argentina", members: ["Argentina"], organizations: [], troops: "aprox. 23.000", casualties: "649 muertos" },
+      { side: "Reino Unido", members: ["Reino Unido"], organizations: ["OTAN (apoyo politico indirecto)"], troops: "aprox. 28.000", casualties: "255 muertos" }
+    ],
+    outcome: "Victoria militar britanica y restablecimiento del control del Reino Unido sobre las islas.",
+    consequences: "Argentina mantuvo el reclamo diplomatico y el Reino Unido reforzo su presencia militar y administrativa en el archipielago."
+  },
+  "Guerra de la Triple Alianza": {
+    cause: "Estallo por la disputa regional en la Cuenca del Plata, la intervencion en Uruguay y la ofensiva paraguaya contra Brasil y Argentina.",
+    participants: [
+      { side: "Triple Alianza", members: ["Argentina", "Brasil", "Uruguay"], organizations: [], troops: "cientos de miles", casualties: "muy elevadas en todos los bandos" },
+      { side: "Paraguay", members: ["Paraguay"], organizations: [], troops: "movilizacion masiva nacional", casualties: "catastroficas" }
+    ],
+    outcome: "Derrota paraguaya y ocupacion aliada del pais.",
+    consequences: "Paraguay perdio territorio, poblacion y capacidad militar; Argentina y Brasil consolidaron su influencia regional."
+  },
+  "Guerra rusoucraniana": {
+    cause: "Se intensifico por la invasion rusa a gran escala de Ucrania en 2022 sobre una rivalidad abierta desde 2014 y la disputa por Crimea, Donbas y la orientacion geopolitica ucraniana.",
+    participants: [
+      { side: "Rusia", members: ["Rusia"], organizations: [], troops: "cientos de miles", casualties: "muy elevadas" },
+      { side: "Ucrania y apoyos", members: ["Ucrania"], organizations: ["OTAN (apoyo indirecto)", "Union Europea (apoyo politico y material)"], troops: "cientos de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Conflicto en curso.",
+    consequences: "Cambio drástico del equilibrio de seguridad europeo, sanciones contra Rusia, ampliacion de la OTAN y destruccion masiva en territorio ucraniano."
+  }
+};
 
 const mapEventListeners = {
   click: new Set(),
@@ -310,16 +428,19 @@ function initializeViewer() {
 
   viewer = new Cesium.Viewer("map", {
     animation: false,
+    baseLayer: false,
     baseLayerPicker: false,
     fullscreenButton: false,
     geocoder: false,
     homeButton: false,
     infoBox: false,
     navigationHelpButton: false,
+    maximumRenderTimeChange: Infinity,
     requestRenderMode: true,
     sceneModePicker: false,
     scene3DOnly: true,
     selectionIndicator: false,
+    terrainProvider: new Cesium.EllipsoidTerrainProvider(),
     timeline: false
   });
 
@@ -345,10 +466,17 @@ function initializeViewer() {
   viewer.scene.skyAtmosphere.show = false;
   viewer.scene.sun.show = false;
   viewer.scene.moon.show = false;
-  viewer.resolutionScale = isMobileLayout() ? 0.68 : 0.78;
+  const preset = getPerformancePreset();
+  viewer.targetFrameRate = preset.targetFrameRate;
+  viewer.resolutionScale = preset.resolutionScale;
   viewer.scene.globe.enableLighting = false;
   viewer.scene.globe.depthTestAgainstTerrain = false;
   viewer.scene.globe.translucency.enabled = false;
+  viewer.scene.globe.preloadAncestors = false;
+  viewer.scene.globe.preloadSiblings = false;
+  viewer.scene.globe.maximumScreenSpaceError = preset.maximumScreenSpaceError;
+  viewer.scene.globe.tileCacheSize = preset.tileCacheSize;
+  viewer.scene.globe.loadingDescendantLimit = preset.loadingDescendantLimit;
   viewer.scene.rethrowRenderErrors = false;
   viewer.scene.fxaa = false;
   if (viewer.scene.postProcessStages?.fxaa) {
@@ -384,6 +512,9 @@ function initializeViewer() {
 
   viewer.scene.renderError.addEventListener(error => {
     console.error("Error de renderizado en Cesium:", error);
+    viewer.resolutionScale = Math.max(0.62, viewer.resolutionScale - 0.08);
+    viewer.scene.globe.maximumScreenSpaceError = Math.min(7, viewer.scene.globe.maximumScreenSpaceError + 0.6);
+    viewer.scene.requestRender();
   });
 
   setTimeout(() => {
@@ -415,10 +546,15 @@ function updateMapInteractionTuning() {
   if (!viewer) {
     return;
   }
-  viewer.resolutionScale = isMobileLayout() ? 0.68 : 0.78;
-  viewer.scene.screenSpaceCameraController.inertiaSpin = isMobileLayout() ? 0.68 : 0.8;
-  viewer.scene.screenSpaceCameraController.inertiaTranslate = isMobileLayout() ? 0.68 : 0.82;
-  viewer.scene.screenSpaceCameraController.inertiaZoom = isMobileLayout() ? 0.58 : 0.72;
+  const preset = getPerformancePreset();
+  viewer.targetFrameRate = preset.targetFrameRate;
+  viewer.resolutionScale = preset.resolutionScale;
+  viewer.scene.globe.maximumScreenSpaceError = preset.maximumScreenSpaceError;
+  viewer.scene.globe.tileCacheSize = preset.tileCacheSize;
+  viewer.scene.globe.loadingDescendantLimit = preset.loadingDescendantLimit;
+  viewer.scene.screenSpaceCameraController.inertiaSpin = isMobileLayout() ? 0.58 : 0.78;
+  viewer.scene.screenSpaceCameraController.inertiaTranslate = isMobileLayout() ? 0.58 : 0.8;
+  viewer.scene.screenSpaceCameraController.inertiaZoom = isMobileLayout() ? 0.5 : 0.68;
   viewer.scene.screenSpaceCameraController.maximumZoomDistance = getMaxGlobeDistance();
   viewer.scene.requestRender();
 }
@@ -443,6 +579,14 @@ let compareSelection = [];
 let currentLanguage = "es";
 let currentPanelState = { type: "empty" };
 let savedFilters = [];
+let quizState = {
+  category: "capital",
+  difficulty: "easy",
+  asked: [],
+  score: 0,
+  total: 0,
+  current: null
+};
 const countryCodeLookup = new WeakMap();
 
 const STORAGE_KEYS = {
@@ -487,7 +631,7 @@ const RELIGION_FAMILY_RULES = [
   },
   {
     key: "islam",
-    label: "Islam",
+    label: "Islamismo",
     aliases: ["islam", "musulmanes", "musulman", "musulmana", "musulmanas", "islamicos", "islamico"],
     matches: ["musulman", "sunita", "chiita", "ibadi", "islam"]
   },
@@ -546,6 +690,26 @@ const RELIGION_FAMILY_RULES = [
     matches: ["vudu", "vodoo", "voodoo"]
   }
 ];
+
+const INFLATION_OVERRIDES = {
+  AND: 3.2,
+  ATA: 0,
+  ATF: 2.4,
+  BMU: 3.4,
+  "CS-KM": 4.9,
+  CUB: 18.5,
+  ERI: 7.4,
+  ESH: 2.8,
+  FLK: 4.0,
+  GRL: 3.1,
+  GUF: 3.0,
+  PRI: 2.8,
+  PRK: 4.2,
+  SOM: 6.1,
+  TKM: 8.6,
+  TWN: 2.3,
+  "-99": 6.0
+};
 
 const UI_STRINGS = {
   es: {
@@ -651,6 +815,35 @@ function formatPercentage(value) {
   })}%`;
 }
 
+function parseInflationValue(value) {
+  if (value === null || value === undefined || value === "") {
+    return null;
+  }
+
+  if (typeof value === "number") {
+    return Number.isFinite(value) ? value : null;
+  }
+
+  const cleaned = String(value)
+    .replace(/[%~≈]/g, "")
+    .replace(",", ".")
+    .trim();
+  const parsed = Number(cleaned);
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function formatInflation(value) {
+  const parsed = parseInflationValue(value);
+  if (!isValidInflationValue(parsed)) {
+    return t("noData");
+  }
+
+  return `${parsed.toLocaleString("es-AR", {
+    minimumFractionDigits: parsed >= 10 ? 1 : 1,
+    maximumFractionDigits: 1
+  })}%`;
+}
+
 function normalizeText(value) {
   return String(value || "")
     .normalize("NFD")
@@ -672,37 +865,42 @@ const HISTORICAL_FORMATION_TYPES = new Set([
 
 const POLITICAL_SYSTEM_OVERRIDES = {
   AFG: "Teocracia",
-  ARE: "Monarquia federal",
-  AUS: "Monarquia parlamentaria",
+  ARE: "Monarquia constitucional",
+  AUS: "Monarquia constitucional",
   AUT: "Parlamentarismo",
-  BHS: "Monarquia parlamentaria",
+  BHS: "Monarquia constitucional",
   BHR: "Monarquia constitucional",
-  BLZ: "Monarquia parlamentaria",
-  BMU: "Dependencia",
-  BTN: "Monarquia parlamentaria",
+  BLZ: "Monarquia constitucional",
+  BMU: "Monarquia constitucional",
+  BTN: "Monarquia constitucional",
+  CAN: "Monarquia constitucional",
   CAF: "Presidencialismo",
-  CHE: "Directorialismo",
+  CHE: "Parlamentarismo",
   COM: "Presidencialismo",
   CRI: "Presidencialismo",
   DJI: "Presidencialismo",
   DOM: "Presidencialismo",
-  ERI: "Partido unico",
+  ERI: "Presidencialismo",
   ETH: "Parlamentarismo",
   FJI: "Parlamentarismo",
+  FLK: "Monarquia constitucional",
+  FRA: "Semipresidencialismo",
   GHA: "Presidencialismo",
+  GRL: "Monarquia constitucional",
   GIN: "Presidencialismo",
   GNB: "Semipresidencialismo",
   GNQ: "Presidencialismo",
+  GUF: "Semipresidencialismo",
   HTI: "Semipresidencialismo",
   IRQ: "Parlamentarismo",
-  JAM: "Monarquia parlamentaria",
+  JAM: "Monarquia constitucional",
   JOR: "Monarquia constitucional",
   KEN: "Presidencialismo",
   KHM: "Monarquia constitucional",
   KWT: "Monarquia constitucional",
   LBR: "Presidencialismo",
   LKA: "Semipresidencialismo",
-  LSO: "Monarquia parlamentaria",
+  LSO: "Monarquia constitucional",
   MAR: "Monarquia constitucional",
   MEX: "Presidencialismo",
   MLI: "Semipresidencialismo",
@@ -712,14 +910,16 @@ const POLITICAL_SYSTEM_OVERRIDES = {
   NAM: "Presidencialismo",
   NER: "Semipresidencialismo",
   NGA: "Presidencialismo",
+  NCL: "Semipresidencialismo",
   NPL: "Parlamentarismo",
   PAK: "Parlamentarismo",
   PNG: "Parlamentarismo",
   PRY: "Presidencialismo",
+  PRI: "Presidencialismo",
   PSE: "Semipresidencialismo",
   QAT: "Monarquia absoluta",
   SDN: "Presidencialismo",
-  SLB: "Monarquia parlamentaria",
+  SLB: "Monarquia constitucional",
   SOM: "Parlamentarismo",
   SRB: "Parlamentarismo",
   SSD: "Presidencialismo",
@@ -727,6 +927,7 @@ const POLITICAL_SYSTEM_OVERRIDES = {
   TGO: "Presidencialismo",
   TWN: "Semipresidencialismo",
   TZA: "Presidencialismo",
+  USA: "Presidencialismo",
   VUT: "Parlamentarismo",
   YEM: "Presidencialismo",
   ZAF: "Parlamentarismo",
@@ -754,28 +955,8 @@ function normalizePoliticalSystem(country) {
       continue;
     }
 
-    if (system.includes("territorio disputado")) {
-      return "Territorio disputado";
-    }
-
-    if (system.includes("depend") || system.includes("territorio") || system.includes("ultramar")) {
-      return "Dependencia";
-    }
-
     if (system.includes("teocrat") || system.includes("estado islamico") || system.includes("republica islamica")) {
       return "Teocracia";
-    }
-
-    if (
-      system.includes("socialista") ||
-      system.includes("partido unico") ||
-      system.includes("republica popular")
-    ) {
-      return "Partido unico socialista";
-    }
-
-    if (system.includes("directorial")) {
-      return "Directorialismo";
     }
 
     if (system.includes("semipresid")) {
@@ -790,20 +971,18 @@ function normalizePoliticalSystem(country) {
       return "Monarquia absoluta";
     }
 
-    if (system.includes("monarquia federal")) {
-      return "Monarquia federal";
-    }
-
     if (
       system.includes("coprincipado") ||
-      system.includes("monarquia parlamentaria") ||
       system.includes("monarquia constitucional") ||
+      system.includes("monarquia parlamentaria") ||
+      system.includes("monarquia federal") ||
       system === "monarquia"
     ) {
-      return "Monarquia parlamentaria";
+      return "Monarquia constitucional";
     }
 
     if (
+      system.includes("directorial") ||
       system.includes("westminster") ||
       system.includes("parlament") ||
       system.includes("democracia parlamentaria")
@@ -812,6 +991,7 @@ function normalizePoliticalSystem(country) {
     }
 
     if (
+      system.includes("republica presidencial") ||
       system === "republica federal" ||
       system === "republica" ||
       system === "republica democratica" ||
@@ -821,7 +1001,13 @@ function normalizePoliticalSystem(country) {
       system === "federacion" ||
       system === "pais" ||
       system === "pais insular" ||
-      system === "estado archipelagico"
+      system === "estado archipelagico" ||
+      system.includes("socialista") ||
+      system.includes("partido unico") ||
+      system.includes("republica popular") ||
+      system.includes("depend") ||
+      system.includes("territorio") ||
+      system.includes("ultramar")
     ) {
       return "Presidencialismo";
     }
@@ -1154,7 +1340,13 @@ function getFlagEmoji(code) {
     SEN: "SN", SLB: "SB", SOM: "SO", SRB: "RS", SSD: "SS", SWE: "SE", SVK: "SK", SVN: "SI",
     SYR: "SY", TCD: "TD", TGO: "TG", THA: "TH", TLS: "TL", TUN: "TN", TUR: "TR", TWN: "TW",
     TZA: "TZ", UGA: "UG", UKR: "UA", URY: "UY", USA: "US", VNM: "VN", VUT: "VU", YEM: "YE",
-    ZAF: "ZA", ZMB: "ZM", ZWE: "ZW", ARE: "AE", ATA: "AQ", FLK: "FK", PRI: "PR", "CS-KM": "XK"
+    ZAF: "ZA", ZMB: "ZM", ZWE: "ZW", ARE: "AE", ATA: "AQ", FLK: "FK", PRI: "PR", "CS-KM": "XK",
+    AFG: "AF", AGO: "AO", ALB: "AL", AND: "AD", ARM: "AM", ATF: "TF", AZE: "AZ", BDI: "BI",
+    BEN: "BJ", BFA: "BF", BGD: "BD", BHR: "BH", BIH: "BA", BRN: "BN", BTN: "BT", BWA: "BW",
+    CAF: "CF", COM: "KM", ECU: "EC", ERI: "ER", ESH: "EH", EST: "EE", GUY: "GY", HND: "HN",
+    HTI: "HT", JAM: "JM", JOR: "JO", LBY: "LY", LTU: "LT", MLT: "MT", NIC: "NI", OMN: "OM",
+    PAN: "PA", PER: "PE", PRY: "PY", RWA: "RW", SGP: "SG", SLE: "SL", SLV: "SV", SUR: "SR",
+    SWZ: "SZ", TJK: "TJ", TKM: "TM", TTO: "TT", UZB: "UZ", VEN: "VE"
   };
 
   if (!code) {
@@ -1162,12 +1354,12 @@ function getFlagEmoji(code) {
   }
 
   if (code === "-99") {
-    return "SOL";
+    return "🏴";
   }
 
   const normalized = (iso2ByCode[code] || "").toUpperCase();
   if (!/^[A-Z]{2}$/.test(normalized)) {
-    return code.toUpperCase();
+    return "🏳️";
   }
 
   return String.fromCodePoint(
@@ -1183,15 +1375,30 @@ function renderFlagVisual(code, label, className = "country-flag") {
         <img class="flag-image" src="./assets/flags/${code}.svg" alt="${escapeHtml(label || code)}" onerror="this.hidden=true;this.nextElementSibling.hidden=false;">
         <span class="flag-fallback" hidden>${emoji}</span>
       </span>
-    `;
+      `;
   }
 
-  return `<span class="${className}">${emoji}</span>`;
+  return `
+    <span class="${className}">
+      <span class="flag-fallback">${emoji}</span>
+    </span>
+  `;
 }
 
 function renderCoatVisual(code, label) {
   if (!COAT_IMAGE_CODES.has(code)) {
-    return "";
+    const initials = String(code || "?").slice(0, 3).toUpperCase();
+    const svg = encodeURIComponent(`
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 84 96">
+        <path d="M42 4 74 18v26c0 23-13 37-32 48C23 81 10 67 10 44V18L42 4z" fill="#15304f" stroke="#4da3ff" stroke-width="4"/>
+        <text x="42" y="54" text-anchor="middle" font-family="Public Sans, Segoe UI, sans-serif" font-size="24" font-weight="700" fill="#eef5ff">${initials}</text>
+      </svg>
+    `);
+    return `
+      <div class="coat-visual">
+        <img class="coat-image" src="data:image/svg+xml;charset=UTF-8,${svg}" alt="${escapeHtml(label || code)}">
+      </div>
+    `;
   }
 
   return `
@@ -1825,6 +2032,39 @@ function sortConflicts(conflicts) {
   });
 }
 
+function getConflictParentName(conflictName) {
+  const normalized = normalizeText(conflictName);
+  const match = CONFLICT_PARENT_RULES.find(rule =>
+    rule.matches.some(token => normalized.includes(normalizeText(token)))
+  );
+  return match?.parent || null;
+}
+
+function getConflictModalContent(conflict, countryName = "") {
+  const detail = CONFLICT_DETAIL_OVERRIDES[conflict.name] || {};
+  return {
+    title: `${conflict.name}${formatConflictPeriod(conflict)}`,
+    cause: detail.cause || "Sin datos detallados sobre el detonante inmediato del conflicto.",
+    participants: detail.participants || [
+      {
+        side: "Participantes identificados",
+        members: countryName ? [countryName] : ["Sin datos"],
+        organizations: [],
+        troops: "Sin datos",
+        casualties: "Sin datos"
+      }
+    ],
+    outcome: detail.outcome || "Sin datos detallados sobre la resolucion del conflicto.",
+    consequences: detail.consequences || "Sin datos detallados sobre cambios territoriales, politicos o militares."
+  };
+}
+
+function registerConflictModal(conflict, countryName = "") {
+  const key = `conflict-${conflictModalCounter += 1}`;
+  conflictModalRegistry.set(key, getConflictModalContent(conflict, countryName));
+  return key;
+}
+
 function renderConflicts(conflicts) {
   if (!conflicts || !conflicts.length) {
     return "<p>Sin datos</p>";
@@ -1845,9 +2085,108 @@ function renderConflicts(conflicts) {
     return "<p>Sin datos</p>";
   }
 
-  return `<ul>${cleanedConflicts
-    .map(conflict => `<li>${conflict.name}${formatConflictPeriod(conflict)}</li>`)
+  const groupedWars = [];
+  const standalone = [];
+
+  cleanedConflicts.forEach(conflict => {
+    const parentName = getConflictParentName(conflict.name);
+    if (!parentName) {
+      standalone.push(conflict);
+      return;
+    }
+
+    let group = groupedWars.find(item => item.name === parentName);
+    if (!group) {
+      const warConflict = cleanedConflicts.find(item => normalizeText(item.name) === normalizeText(parentName)) || {
+        name: parentName,
+        startYear: conflict.startYear,
+        endYear: conflict.endYear,
+        ongoing: false
+      };
+      group = { ...warConflict, battles: [] };
+      groupedWars.push(group);
+    }
+
+    if (normalizeText(conflict.name) !== normalizeText(parentName)) {
+      group.battles.push(conflict);
+    }
+  });
+
+  const merged = [
+    ...groupedWars.sort((a, b) => (a.startYear || 0) - (b.startYear || 0)),
+    ...standalone.filter(conflict => !groupedWars.some(group => normalizeText(group.name) === normalizeText(conflict.name)))
+  ];
+
+  return `<ul class="conflict-tree">${merged
+    .map(conflict => {
+      const modalKey = registerConflictModal(conflict, currentPanelState?.code ? countriesData[currentPanelState.code]?.name : "");
+      const battles = (conflict.battles || []).sort((a, b) => (a.startYear || 0) - (b.startYear || 0));
+      return `
+        <li>
+          <button type="button" class="conflict-trigger" data-conflict-key="${modalKey}">
+            ${escapeHtml(conflict.name)}${formatConflictPeriod(conflict)}
+          </button>
+          ${battles.length ? `<ul>${battles.map(battle => {
+            const battleKey = registerConflictModal(battle, currentPanelState?.code ? countriesData[currentPanelState.code]?.name : "");
+            return `<li><button type="button" class="conflict-trigger" data-conflict-key="${battleKey}">${escapeHtml(battle.name)}${formatConflictPeriod(battle)}</button></li>`;
+          }).join("")}</ul>` : ""}
+        </li>
+      `;
+    })
     .join("")}</ul>`;
+}
+
+function openConflictModal(key) {
+  const modal = document.getElementById("conflict-modal");
+  const body = document.getElementById("conflict-modal-body");
+  const detail = conflictModalRegistry.get(key);
+  if (!modal || !body || !detail) {
+    return;
+  }
+
+  body.innerHTML = `
+    <h3 id="conflict-modal-title">${escapeHtml(detail.title)}</h3>
+    <div class="conflict-modal-section">
+      <h4>${currentLanguage === "en" ? "Why it started" : "Por que estallo"}</h4>
+      <p>${escapeHtml(detail.cause)}</p>
+    </div>
+    <div class="conflict-modal-section">
+      <h4>${currentLanguage === "en" ? "Participants and sides" : "Participantes y bandos"}</h4>
+      ${detail.participants.map(item => `
+        <div class="conflict-modal-side">
+          <strong>${escapeHtml(item.side)}</strong>
+          <p><b>${currentLanguage === "en" ? "States" : "Paises"}:</b> ${escapeHtml((item.members || ["Sin datos"]).join(", "))}</p>
+          <p><b>${currentLanguage === "en" ? "Organizations" : "Organizaciones"}:</b> ${escapeHtml((item.organizations && item.organizations.length ? item.organizations : ["Sin datos"]).join(", "))}</p>
+          <p><b>${currentLanguage === "en" ? "Troops" : "Soldados"}:</b> ${escapeHtml(item.troops || "Sin datos")}</p>
+          <p><b>${currentLanguage === "en" ? "Casualties" : "Bajas"}:</b> ${escapeHtml(item.casualties || "Sin datos")}</p>
+        </div>
+      `).join("")}
+    </div>
+    <div class="conflict-modal-section">
+      <h4>${currentLanguage === "en" ? "How it ended" : "Como se resolvio"}</h4>
+      <p>${escapeHtml(detail.outcome)}</p>
+    </div>
+    <div class="conflict-modal-section">
+      <h4>${currentLanguage === "en" ? "Consequences" : "Que cambio despues"}</h4>
+      <p>${escapeHtml(detail.consequences)}</p>
+    </div>
+  `;
+
+  modal.hidden = false;
+  document.body.classList.add("modal-open");
+}
+
+function closeConflictModal() {
+  const modal = document.getElementById("conflict-modal");
+  const body = document.getElementById("conflict-modal-body");
+  if (!modal || modal.hidden) {
+    return;
+  }
+  modal.hidden = true;
+  document.body.classList.remove("modal-open");
+  if (body) {
+    body.innerHTML = "";
+  }
 }
 
 function clearSelection() {
@@ -1971,7 +2310,12 @@ function renderCountry(country, fallbackName) {
       </div>
       ${renderCoatVisual(countryCode, `${country.name || fallbackName} escudo`)}
     </div>
-    <p><button id="add-to-compare-button" class="panel-action-button" type="button" ${countryCode ? "" : "disabled"}>${t("addToCompare")}</button></p>
+    <div class="panel-actions-row">
+      <button id="add-to-compare-button" class="panel-action-button" type="button" ${countryCode ? "" : "disabled"}>${t("addToCompare")}</button>
+      <button class="panel-action-button" type="button" data-export-target="country-panel" data-export-format="png">${currentLanguage === "en" ? "Export image" : "Exportar imagen"}</button>
+      <button class="panel-action-button" type="button" data-export-target="country-panel" data-export-format="pdf">${currentLanguage === "en" ? "Export PDF" : "Exportar PDF"}</button>
+      <button class="panel-action-button" type="button" data-share-country="${escapeHtml(countryCode)}">${currentLanguage === "en" ? "Share" : "Compartir"}</button>
+    </div>
     ${renderCountryOverview(country, countryCode)}
     ${createSection(
       t("general"),
@@ -2008,11 +2352,7 @@ function renderCountry(country, fallbackName) {
             ? `US$ ${formatNumber(Math.round(economy.gdpPerCapita))}`
             : t("noData")
         }</p>
-        <p><b>${t("inflation")}:</b> ${
-          economy.inflation !== null && economy.inflation !== undefined
-            ? `${economy.inflationEstimated ? "~" : ""}${economy.inflation}%`
-            : t("noData")
-        }</p>
+        <p><b>${t("inflation")}:</b> ${formatInflation(economy.inflation)}</p>
         <p><b>Exportaciones:</b></p>
         ${renderList(economy.exports)}
         <p><b>Industrias:</b></p>
@@ -2060,6 +2400,14 @@ function renderCountry(country, fallbackName) {
           ${renderRelationChips(country.politics?.relations?.allies)}
         </div>
         <div class="relation-group">
+          <p class="relation-title">${currentLanguage === "en" ? "Disputes and contested spaces" : "Disputas y espacios disputados"}</p>
+          ${renderRelationChips(country.politics?.relations?.disputes)}
+        </div>
+        <div class="relation-group">
+          <p class="relation-title">${currentLanguage === "en" ? "Protectorates and dependencies" : "Protectorados y dependencias"}</p>
+          ${renderRelationChips(country.politics?.relations?.protectorates)}
+        </div>
+        <div class="relation-group">
           <p class="relation-title">${t("organizations")}</p>
           ${renderRelationChips((politics.organizations || []).slice(0, 8).map(getOrganizationDisplayName))}
         </div>
@@ -2078,6 +2426,8 @@ function renderCountry(country, fallbackName) {
       `${renderReligion(country.religion)}`
     )}
   `;
+
+  renderNewsHub(countryCode);
 
   const compareButton = document.getElementById("add-to-compare-button");
   if (compareButton && countryCode) {
@@ -2105,6 +2455,8 @@ function renderContinent(continent, countries) {
         .sort((a, b) => a.localeCompare(b, "es"))
     )}
   `;
+
+  renderNewsHub();
 
   openMobilePanel("country");
 }
@@ -2137,6 +2489,8 @@ function renderReligionSelection(religionName, countries, totalNominal) {
     )}
   `;
 
+  renderNewsHub();
+
   openMobilePanel("country");
 }
 
@@ -2146,6 +2500,8 @@ function renderEmpty(name) {
     <h2>${name}</h2>
     <p>Sin datos</p>
   `;
+
+  renderNewsHub();
 
   openMobilePanel("country");
 }
@@ -2228,6 +2584,56 @@ function getReligionKeyAndLabel(religionName) {
   };
 }
 
+function formatReligionDenominationLabel(denominationName, familyLabel) {
+  const normalizedName = normalizeText(denominationName);
+  const normalizedFamily = normalizeText(familyLabel);
+
+  if (!normalizedName) {
+    return familyLabel;
+  }
+
+  const genericPatterns = [
+    /^cristian(os|as)?$/,
+    /^musulman(es|as)?$/,
+    /^islam$/,
+    /^hindu(es)?$/,
+    /^budista(s)?$/,
+    /^judi(o|a|os|as)$/,
+    /^sij(s)?$/,
+    /^sintoista(s)?$/,
+    /^zoroastro(s)?$/,
+    /^ateos agnosticos sin afiliacion$/,
+    /^otras religiones$/
+  ];
+
+  if (normalizedName === normalizedFamily || genericPatterns.some(pattern => pattern.test(normalizedName))) {
+    return familyLabel;
+  }
+
+  const escapedFamilyLabel = familyLabel.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+  let branch = String(denominationName || "")
+    .replace(new RegExp(`^${escapedFamilyLabel}\\s*`, "i"), "")
+    .replace(new RegExp(`^${escapedFamilyLabel}\\s*\\/\\s*`, "i"), "")
+    .replace(/^Cristianos?\s+/i, "")
+    .replace(/^Cristianismo\s+/i, "")
+    .replace(/^Musulmanes?\s+/i, "")
+    .replace(/^Islam(ismo)?\s+/i, "")
+    .replace(/^Hindues?\s+/i, "")
+    .replace(/^Budistas?\s+/i, "")
+    .replace(/^Judios?\s+/i, "")
+    .replace(/^Sijs?\s+/i, "")
+    .replace(/^Sintoistas?\s+/i, "")
+    .replace(/^Zoroastros?\s+/i, "")
+    .trim();
+
+  if (!branch) {
+    return familyLabel;
+  }
+
+  return toDisplayTitleCase(branch);
+}
+
 function getReligionFamilyTotals(country) {
   const composition = Array.isArray(country?.religion?.composition) ? country.religion.composition : [];
   const summary = country?.religion?.summary || "";
@@ -2302,44 +2708,28 @@ function getPoliticalThemeInfo(country) {
     return { key: "otros", label: "Otros" };
   }
 
-  if (system.includes("depend") || system.includes("territorio") || system.includes("ultramar")) {
-    return { key: "dependencia", label: "Dependencias" };
+  if (system.includes("teocracia")) {
+    return { key: "teocracia", label: "Teocracias" };
   }
 
-  if (system.includes("teocratic")) {
-    return { key: "teocratico", label: "Teocraticos" };
+  if (system.includes("semipresid")) {
+    return { key: "semipresidencialismo", label: "Semipresidencialismos" };
   }
 
-  if (system.includes("socialista") || system.includes("partido unico")) {
-    return { key: "comunista", label: "Comunistas" };
+  if (system.includes("monarquia absoluta")) {
+    return { key: "monarquia_absoluta", label: "Monarquias absolutas" };
   }
 
-  if (system.includes("monarquia")) {
-    return { key: "monarquia", label: "Monarquias" };
-  }
-
-  if (system.includes("directorial")) {
-    return { key: "parlamentario", label: "Parlamentarios" };
-  }
-
-  if (system.includes("autoritar") || system.includes("dictadura")) {
-    return { key: "autoritario", label: "Autoritarios" };
-  }
-
-  if (system.includes("federal")) {
-    return { key: "federal", label: "Federales" };
+  if (system.includes("monarquia constitucional")) {
+    return { key: "monarquia_constitucional", label: "Monarquias constitucionales" };
   }
 
   if (system.includes("parlament")) {
-    return { key: "parlamentario", label: "Parlamentarios" };
+    return { key: "parlamentarismo", label: "Parlamentarismos" };
   }
 
   if (system.includes("presidenc")) {
-    return { key: "presidencialista", label: "Presidencialistas" };
-  }
-
-  if (system.includes("democr")) {
-    return { key: "democracia", label: "Democracias" };
+    return { key: "presidencialismo", label: "Presidencialismos" };
   }
 
   return { key: "otros", label: "Otros" };
@@ -2521,6 +2911,8 @@ function refreshCountryStyles() {
       layer.setStyle(CONTINENT_HIGHLIGHT_STYLE);
     }
   });
+
+  viewer?.scene?.requestRender?.();
 }
 
 function renderThemeLegend() {
@@ -2628,6 +3020,212 @@ function renderThemeLegend() {
     .join("");
 }
 
+function getCountryNewsUrl(country) {
+  const query = encodeURIComponent(country.general?.officialName || country.name);
+  return `https://news.google.com/search?q=${query}&hl=es-419&gl=AR&ceid=AR:es-419`;
+}
+
+function buildNewsQueries(country) {
+  const queries = uniqueNormalizedList([
+    country.general?.officialName,
+    country.name,
+    `${country.name} politica OR economia OR guerra`,
+    `${country.name} government OR conflict OR economy`
+  ]);
+
+  return queries.filter(Boolean);
+}
+
+async function fetchCountryHeadline(country) {
+  if (!country?.code) {
+    return null;
+  }
+
+  if (newsCache.has(country.code)) {
+    return newsCache.get(country.code);
+  }
+
+  const fallback = {
+    title: `Cobertura reciente sobre ${country.name}`,
+    source: "Google News",
+    date: "",
+    summary: `Abrir cobertura en vivo sobre ${country.name}.`,
+    url: getCountryNewsUrl(country)
+  };
+
+  const queries = buildNewsQueries(country);
+  for (const query of queries) {
+    try {
+      const url = `https://api.gdeltproject.org/api/v2/doc/doc?query=${encodeURIComponent(query)}&mode=ArtList&maxrecords=1&format=json&sort=HybridRel`;
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 3500);
+      const response = await fetch(url, { signal: controller.signal });
+      clearTimeout(timeoutId);
+      if (!response.ok) {
+        continue;
+      }
+
+      const payload = await response.json();
+      const article = payload?.articles?.[0];
+      if (!article) {
+        continue;
+      }
+
+      const item = {
+        title: article.title || fallback.title,
+        source: article.sourceCommonName || article.domain || fallback.source,
+        date: article.seendate ? formatNewsDate(article.seendate) : "",
+        summary: article.socialimage
+          ? `Cobertura destacada detectada sobre ${country.name}. Abrila para ver el desarrollo completo.`
+          : `Noticia reciente vinculada a ${country.name}.`,
+        url: article.url || fallback.url
+      };
+      newsCache.set(country.code, item);
+      return item;
+    } catch (error) {
+      console.error(`No se pudo cargar la noticia para ${country.name}:`, error);
+    }
+  }
+
+  newsCache.set(country.code, fallback);
+  return fallback;
+}
+
+function formatNewsDate(value) {
+  const raw = String(value || "");
+  if (!raw) {
+    return "";
+  }
+
+  const compact = raw.replace(/[^\d]/g, "");
+  if (compact.length >= 8) {
+    const year = Number(compact.slice(0, 4));
+    const month = Number(compact.slice(4, 6)) - 1;
+    const day = Number(compact.slice(6, 8));
+    const hour = compact.length >= 10 ? Number(compact.slice(8, 10)) : 0;
+    const minute = compact.length >= 12 ? Number(compact.slice(10, 12)) : 0;
+    const date = new Date(Date.UTC(year, month, day, hour, minute));
+    if (!Number.isNaN(date.getTime())) {
+      return date.toLocaleString(currentLanguage === "en" ? "en-US" : "es-AR", {
+        dateStyle: "medium",
+        timeStyle: "short"
+      });
+    }
+  }
+
+  const parsed = new Date(raw);
+  return Number.isNaN(parsed.getTime())
+    ? raw
+    : parsed.toLocaleString(currentLanguage === "en" ? "en-US" : "es-AR", {
+      dateStyle: "medium",
+      timeStyle: "short"
+    });
+}
+
+function renderNewsArticle(article, country) {
+  const articleContainer = document.getElementById("news-hub-article");
+  if (!articleContainer) {
+    return;
+  }
+
+  if (!article) {
+    articleContainer.innerHTML = "";
+    return;
+  }
+
+  articleContainer.innerHTML = `
+    <div class="news-hub-article-card">
+      <strong>${escapeHtml(article.title)}</strong>
+      <p>${escapeHtml(article.summary)}</p>
+      <div class="news-hub-meta">
+        ${escapeHtml(article.source || "Fuente")} ${article.date ? `· ${escapeHtml(article.date)}` : ""}
+      </div>
+      <a class="news-link" href="${article.url || getCountryNewsUrl(country)}" target="_blank" rel="noreferrer">
+        ${currentLanguage === "en" ? "Open full article" : "Abrir articulo completo"}
+      </a>
+    </div>
+  `;
+}
+
+async function showNewsArticle(countryCode) {
+  activeNewsCountryCode = countryCode;
+  const articleContainer = document.getElementById("news-hub-article");
+  const selectedContainer = document.getElementById("news-hub-selected");
+  const panelContent = document.querySelector("#news-hub-panel .news-hub-content");
+  const country = countriesData[countryCode];
+  if (!articleContainer || !selectedContainer || !country) {
+    return;
+  }
+
+  selectedContainer.innerHTML = `
+    <div class="news-hub-selected-card">
+      <strong>${escapeHtml(country.name)}</strong>
+      <div class="news-hub-meta">${escapeHtml(country.general?.officialName || country.name)}</div>
+    </div>
+  `;
+  articleContainer.innerHTML = `
+    <div class="news-hub-article-card">
+      <strong>${currentLanguage === "en" ? "Loading headline..." : "Cargando noticia..."}</strong>
+      <p>${currentLanguage === "en" ? "If live news is not available, the hub will show a direct link to current coverage." : "Si la noticia en vivo no esta disponible, el hub mostrara un enlace directo a la cobertura actual."}</p>
+      <a class="news-link" href="${getCountryNewsUrl(country)}" target="_blank" rel="noreferrer">
+        ${currentLanguage === "en" ? "Open live coverage now" : "Abrir cobertura en vivo ahora"}
+      </a>
+    </div>
+  `;
+  panelContent?.scrollTo({ top: 0, behavior: "smooth" });
+  document.querySelectorAll("#news-hub-list .news-hub-item").forEach(item => {
+    item.classList.toggle("is-active", item.querySelector("[data-news-country]")?.dataset.newsCountry === countryCode);
+  });
+  const article = await fetchCountryHeadline(country);
+  renderNewsArticle(article, country);
+}
+
+function renderNewsHub(selectedCode = "") {
+  const panel = document.getElementById("news-hub-panel");
+  const selectedContainer = document.getElementById("news-hub-selected");
+  const listContainer = document.getElementById("news-hub-list");
+  const articleContainer = document.getElementById("news-hub-article");
+  if (!panel || !selectedContainer || !listContainer || !articleContainer) {
+    return;
+  }
+
+  const countries = Object.entries(countriesData)
+    .map(([code, country]) => ({ code, country }))
+    .sort((a, b) => a.country.name.localeCompare(b.country.name, "es"));
+
+  const selected = selectedCode && countriesData[selectedCode] ? countriesData[selectedCode] : null;
+
+  selectedContainer.innerHTML = selected
+    ? `
+      <div class="news-hub-selected-card">
+        <strong>${escapeHtml(selected.name)}</strong>
+        <div class="news-hub-meta">${escapeHtml(selected.general?.officialName || selected.name)}</div>
+        <a class="news-link" href="${getCountryNewsUrl(selected)}" target="_blank" rel="noreferrer">
+          ${currentLanguage === "en" ? "Open country news portal" : "Abrir portal de noticias del pais"}
+        </a>
+      </div>
+    `
+    : "";
+
+  if (!panel.open) {
+    articleContainer.innerHTML = "";
+    listContainer.innerHTML = "";
+    return;
+  }
+
+  articleContainer.innerHTML = "";
+  listContainer.innerHTML = countries
+    .map(({ code, country }) => `
+      <div class="news-hub-item${code === activeNewsCountryCode ? " is-active" : ""}">
+        <a class="news-link-block" href="${getCountryNewsUrl(country)}" target="_blank" rel="noreferrer">
+          <strong>${escapeHtml(country.name)}</strong>
+          <span class="news-hub-meta">${escapeHtml(country.general?.officialName || country.name)}</span>
+        </a>
+      </div>
+    `)
+    .join("");
+}
+
 function setTheme(theme) {
   currentTheme = theme || "default";
   refreshCountryStyles();
@@ -2671,6 +3269,7 @@ function renderGroupSelection(title, descriptor, countries) {
         .sort((a, b) => a.localeCompare(b, "es"))
     )}
   `;
+  renderNewsHub();
 
   openMobilePanel("country");
 }
@@ -2698,14 +3297,14 @@ function buildTimeline(country) {
       reference: getOrganizationDisplayName(item)
     }));
 
-  items.push(...organizations.slice(0, 4));
+  items.push(...organizations.slice(0, 8));
 
   const normalizedConflicts = getConflictsSinceFormation(country)
     .map(normalizeConflictForDisplay)
     .filter(conflict => conflict?.startYear)
     .sort((a, b) => a.startYear - b.startYear);
 
-  normalizedConflicts.slice(0, 4).forEach(conflict => {
+  normalizedConflicts.slice(0, 8).forEach(conflict => {
     items.push({
       year: conflict.startYear,
       category: currentLanguage === "en" ? "Conflict" : "Conflicto",
@@ -2732,18 +3331,18 @@ function buildTimeline(country) {
 
     const categoryMap = {
       politica: "system",
-      constitucion: "formation",
+      constitucion: "constitution",
       estado: "formation",
       union: "formation",
       revolucion: "formation",
-      golpe: "system",
+      golpe: "coup",
       guerra: "conflict",
-      tratado: "organization",
+      tratado: "treaty",
       acuerdo: "organization",
-      division: "formation",
+      division: "secession",
       descolonizacion: "formation",
       reforma: "system",
-      territorio: "formation",
+      territorio: "annexation",
       disolucion: "formation",
       imperio: "formation",
       economia: "organization"
@@ -2786,7 +3385,10 @@ function renderTimeline(country) {
     { key: "formation", label: currentLanguage === "en" ? "Formation" : "Formacion" },
     { key: "organization", label: currentLanguage === "en" ? "Organizations" : "Organizaciones" },
     { key: "conflict", label: currentLanguage === "en" ? "Conflicts" : "Conflictos" },
-    { key: "system", label: currentLanguage === "en" ? "System" : "Sistema" }
+    { key: "system", label: currentLanguage === "en" ? "System" : "Sistema" },
+    { key: "constitution", label: currentLanguage === "en" ? "Constitutions" : "Constituciones" },
+    { key: "treaty", label: currentLanguage === "en" ? "Treaties" : "Tratados" },
+    { key: "coup", label: currentLanguage === "en" ? "Coups" : "Golpes" }
   ];
 
   const controls = `
@@ -2846,16 +3448,36 @@ function renderRelationNetwork(country, countryCode) {
   ]).slice(0, 3);
   const blocs = (relations.blocs || []).slice(0, 3);
   const allies = (relations.allies || []).slice(0, 3);
-  const nodes = [...organizations, ...blocs, ...allies, ...rivals, ...territories].slice(0, 10);
-  if (!nodes.length) {
+  const disputes = (relations.disputes || []).slice(0, 3);
+  const exMetropole = relations.exMetropole ? [relations.exMetropole] : [];
+  const protectorates = (relations.protectorates || []).slice(0, 3);
+  const groups = [
+    { title: currentLanguage === "en" ? "Organizations" : "Organizaciones", items: organizations },
+    { title: currentLanguage === "en" ? "Blocs" : "Bloques", items: blocs },
+    { title: currentLanguage === "en" ? "Allies" : "Aliados", items: allies },
+    { title: currentLanguage === "en" ? "Rivals" : "Rivales", items: rivals },
+    { title: currentLanguage === "en" ? "Linked territories" : "Territorios vinculados", items: territories },
+    { title: currentLanguage === "en" ? "Protectorates and dependencies" : "Protectorados y dependencias", items: protectorates },
+    { title: currentLanguage === "en" ? "Disputes" : "Disputas territoriales", items: disputes },
+    { title: currentLanguage === "en" ? "Former metropole" : "Ex metropoli", items: exMetropole }
+  ].filter(group => group.items.length);
+
+  if (!groups.length) {
     return `<p>${t("noData")}</p>`;
   }
 
   return `
     <div class="relation-network">
       <div class="network-center">${getFlagEmoji(countryCode)} ${escapeHtml(country.name)}</div>
-      <div class="network-links">
-        ${nodes.map(item => `<button type="button" class="network-link" data-search-query="${escapeHtml(item)}">${escapeHtml(item)}</button>`).join("")}
+      <div class="relation-network-groups">
+        ${groups.map(group => `
+          <div class="relation-network-group">
+            <div class="relation-network-title">${escapeHtml(group.title)}</div>
+            <div class="network-links">
+              ${group.items.map(item => `<button type="button" class="network-link" data-search-query="${escapeHtml(item)}">${escapeHtml(item)}</button>`).join("")}
+            </div>
+          </div>
+        `).join("")}
       </div>
     </div>
   `;
@@ -2891,6 +3513,10 @@ function renderRelationsSummary(country, countryCode) {
     {
       label: currentLanguage === "en" ? "Allies" : "Aliados",
       value: (relations.allies || []).length
+    },
+    {
+      label: currentLanguage === "en" ? "Disputes" : "Disputas",
+      value: (relations.disputes || []).length
     }
   ];
 
@@ -2908,6 +3534,28 @@ function renderRelationsSummary(country, countryCode) {
 
 function updateStaticText() {
   document.getElementById("compare-title").textContent = t("compareTitle");
+  const quizTitle = document.getElementById("quiz-title");
+  if (quizTitle) {
+    quizTitle.textContent = currentLanguage === "en" ? "Learning mode" : "Modo educativo";
+  }
+  const quizStartButton = document.getElementById("quiz-start-button");
+  if (quizStartButton) {
+    quizStartButton.textContent = currentLanguage === "en" ? "Start quiz" : "Iniciar quiz";
+  }
+  const quizDifficulty = document.getElementById("quiz-difficulty");
+  if (quizDifficulty) {
+    quizDifficulty.options[0].textContent = currentLanguage === "en" ? "Easy" : "Facil";
+    quizDifficulty.options[1].textContent = currentLanguage === "en" ? "Medium" : "Media";
+    quizDifficulty.options[2].textContent = currentLanguage === "en" ? "Hard" : "Dificil";
+  }
+  const quizNextButton = document.getElementById("quiz-next-button");
+  if (quizNextButton) {
+    quizNextButton.textContent = currentLanguage === "en" ? "Next" : "Siguiente";
+  }
+  const quizResetButton = document.getElementById("quiz-reset-button");
+  if (quizResetButton) {
+    quizResetButton.textContent = currentLanguage === "en" ? "Reset" : "Reiniciar";
+  }
   document.getElementById("compare-empty").textContent = t("compareHint");
   document.getElementById("rankings-summary").textContent = currentLanguage === "en" ? "Global rankings" : "Rankings globales";
   document.getElementById("world-population-title").textContent = currentLanguage === "en" ? "World population" : "Poblacion mundial";
@@ -2946,6 +3594,21 @@ function updateStaticText() {
     document.body.classList.contains("presentation-mode")
       ? (currentLanguage === "en" ? "Exit presentation" : "Salir de presentacion")
       : (currentLanguage === "en" ? "Presentation mode" : "Modo presentacion");
+  document.querySelectorAll("[data-export-target][data-export-format='png']").forEach(button => {
+    button.textContent = currentLanguage === "en" ? "Export image" : "Exportar imagen";
+  });
+  document.querySelectorAll("[data-export-target][data-export-format='pdf']").forEach(button => {
+    button.textContent = currentLanguage === "en" ? "Export PDF" : "Exportar PDF";
+  });
+  document.querySelectorAll("[data-share-target], [data-share-country]").forEach(button => {
+    button.textContent = currentLanguage === "en" ? "Share" : "Compartir";
+  });
+  const note = document.getElementById("news-hub-note");
+  if (note) {
+    note.textContent = currentLanguage === "en"
+      ? "Daily country news hub. Tap a country to open its live news portal directly."
+      : "Hub diario de noticias por pais. Toca un pais para abrir directamente su portal de noticias en vivo.";
+  }
   renderSavedFilters();
 }
 
@@ -3014,19 +3677,24 @@ function buildInflationFallbacks() {
 
   Object.entries(rawInflationByCode).forEach(([code, value]) => {
     const continent = countriesData[code]?.continent;
-    if (typeof value !== "number" || !continent) {
+    const parsed = parseInflationValue(value);
+    if (!isValidInflationValue(parsed) || !continent) {
       return;
     }
 
     continentValues[continent] = continentValues[continent] || [];
-    continentValues[continent].push(value);
-    globalValues.push(value);
+    continentValues[continent].push(parsed);
+    globalValues.push(parsed);
   });
 
   inflationFallbackByContinent = Object.fromEntries(
     Object.entries(continentValues).map(([continent, values]) => [continent, getMedian(values)])
   );
   globalInflationFallback = getMedian(globalValues);
+}
+
+function isValidInflationValue(value) {
+  return typeof value === "number" && Number.isFinite(value) && value >= 0 && value <= 300;
 }
 
 function persistSavedFilters() {
@@ -3080,13 +3748,31 @@ function sanitizeCountryData(country) {
     }
   }
 
-  if (!country.economy.inflation && country.economy.inflation !== 0) {
-    const estimatedInflation =
-      rawInflationByCode[country.code] ??
-      inflationFallbackByContinent[country.continent] ??
-      globalInflationFallback;
-    country.economy.inflation = estimatedInflation ?? null;
-    country.economy.inflationEstimated = rawInflationByCode[country.code] === undefined && estimatedInflation !== null && estimatedInflation !== undefined;
+  const directInflation = parseInflationValue(rawInflationByCode[country.code]);
+  const overrideInflation = parseInflationValue(INFLATION_OVERRIDES[country.code]);
+  const existingInflation = parseInflationValue(country.economy.inflation);
+  const continentFallback = inflationFallbackByContinent[country.continent];
+  const inheritedFallback =
+    directInflation === null &&
+    overrideInflation === null &&
+    existingInflation !== null &&
+    (
+      existingInflation === continentFallback ||
+      existingInflation === globalInflationFallback
+    );
+
+  if (isValidInflationValue(directInflation)) {
+    country.economy.inflation = Number(directInflation);
+    country.economy.inflationEstimated = false;
+  } else if (isValidInflationValue(overrideInflation)) {
+    country.economy.inflation = Number(overrideInflation);
+    country.economy.inflationEstimated = false;
+  } else if (existingInflation !== null && !inheritedFallback) {
+    country.economy.inflation = existingInflation;
+    country.economy.inflationEstimated = false;
+  } else {
+    country.economy.inflation = null;
+    country.economy.inflationEstimated = false;
   }
 
   country.politics.organizations = (country.politics.organizations || [])
@@ -3114,6 +3800,8 @@ function sanitizeCountryData(country) {
   ]);
   country.politics.relations.blocs = uniqueNormalizedList(country.politics.relations.blocs || []);
   country.politics.relations.allies = uniqueNormalizedList(country.politics.relations.allies || []);
+  country.politics.relations.disputes = uniqueNormalizedList(country.politics.relations.disputes || []);
+  country.politics.relations.protectorates = uniqueNormalizedList(country.politics.relations.protectorates || []);
   country.politics.relations.rivalStates = uniqueNormalizedList([
     ...(country.politics.relations.rivalStates || []),
     ...country.politics.rivals.map(rival => rival.name || rival)
@@ -3131,6 +3819,112 @@ function sanitizeCountryData(country) {
     );
 
   return country;
+}
+
+async function exportNodeAsImage(node, filename) {
+  if (!node || typeof html2canvas !== "function") {
+    return;
+  }
+
+  const canvas = await html2canvas(node, {
+    backgroundColor: "#071320",
+    scale: window.devicePixelRatio > 1 ? 2 : 1.5,
+    useCORS: true
+  });
+
+  const link = document.createElement("a");
+  link.href = canvas.toDataURL("image/png");
+  link.download = filename;
+  link.click();
+}
+
+async function exportNodeAsPdf(node, filename) {
+  if (!node || typeof html2canvas !== "function" || !window.jspdf?.jsPDF) {
+    return;
+  }
+
+  const canvas = await html2canvas(node, {
+    backgroundColor: "#071320",
+    scale: 2,
+    useCORS: true
+  });
+  const image = canvas.toDataURL("image/png");
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF({
+    orientation: canvas.width > canvas.height ? "landscape" : "portrait",
+    unit: "px",
+    format: [canvas.width, canvas.height]
+  });
+  pdf.addImage(image, "PNG", 0, 0, canvas.width, canvas.height);
+  pdf.save(filename);
+}
+
+async function shareText(title, text) {
+  if (navigator.share) {
+    try {
+      await navigator.share({ title, text });
+      return;
+    } catch (error) {
+      console.error("No se pudo compartir:", error);
+    }
+  }
+
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(`${title}\n\n${text}`);
+  }
+}
+
+function buildCompareRadarSVG(entries) {
+  const size = 220;
+  const center = size / 2;
+  const radius = 76;
+  const axes = [
+    { key: "population", label: currentLanguage === "en" ? "Population" : "Poblacion" },
+    { key: "gdp", label: "PBI" },
+    { key: "gdpPerCapita", label: currentLanguage === "en" ? "GDP pc" : "PBI pc" },
+    { key: "military", label: currentLanguage === "en" ? "Military" : "Militar" },
+    { key: "organizations", label: currentLanguage === "en" ? "Orgs" : "Orgs" }
+  ];
+  const maxByKey = Object.fromEntries(axes.map(axis => [
+    axis.key,
+    Math.max(...entries.map(entry => entry.values[axis.key] || 0), 1)
+  ]));
+
+  const rings = [0.25, 0.5, 0.75, 1]
+    .map(step => `<circle cx="${center}" cy="${center}" r="${radius * step}" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1" />`)
+    .join("");
+
+  const axisLines = axes.map((axis, index) => {
+    const angle = ((Math.PI * 2) / axes.length) * index - Math.PI / 2;
+    const x = center + Math.cos(angle) * radius;
+    const y = center + Math.sin(angle) * radius;
+    const lx = center + Math.cos(angle) * (radius + 20);
+    const ly = center + Math.sin(angle) * (radius + 20);
+    return `
+      <line x1="${center}" y1="${center}" x2="${x}" y2="${y}" stroke="rgba(255,255,255,0.16)" stroke-width="1" />
+      <text x="${lx}" y="${ly}" fill="rgba(238,245,255,0.86)" font-size="10" text-anchor="middle">${escapeHtml(axis.label)}</text>
+    `;
+  }).join("");
+
+  const polygons = entries.map((entry, index) => {
+    const color = ["#4da3ff", "#8fd694", "#ff9f6e"][index % 3];
+    const points = axes.map((axis, axisIndex) => {
+      const angle = ((Math.PI * 2) / axes.length) * axisIndex - Math.PI / 2;
+      const ratio = (entry.values[axis.key] || 0) / maxByKey[axis.key];
+      const x = center + Math.cos(angle) * radius * ratio;
+      const y = center + Math.sin(angle) * radius * ratio;
+      return `${x},${y}`;
+    }).join(" ");
+    return `<polygon points="${points}" fill="${color}33" stroke="${color}" stroke-width="2" />`;
+  }).join("");
+
+  return `
+    <svg viewBox="0 0 ${size} ${size}" class="compare-radar" aria-hidden="true">
+      ${rings}
+      ${axisLines}
+      ${polygons}
+    </svg>
+  `;
 }
 
 function renderComparePanel() {
@@ -3168,6 +3962,18 @@ function renderComparePanel() {
     </div>
   `;
 
+  const radarEntries = compareSelection.map(code => ({
+    code,
+    name: countriesData[code].name,
+    values: {
+      population: countriesData[code].general?.population || 0,
+      gdp: countriesData[code].economy?.gdp || 0,
+      gdpPerCapita: countriesData[code].economy?.gdpPerCapita || 0,
+      military: getCountryMilitaryActive(countriesData[code]),
+      organizations: getCountryOrganizationCount(countriesData[code])
+    }
+  }));
+
   const metricFields = [
     { label: t("comparePopulation"), getValue: country => country.general?.population || 0, format: value => formatNumber(value) },
     { label: t("compareGdp"), getValue: country => country.economy?.gdp || 0, format: value => `US$ ${compactNumber(value)}` },
@@ -3181,7 +3987,7 @@ function renderComparePanel() {
   ];
 
   const infoFields = [
-    { label: t("compareInflation"), getValue: country => country.economy?.inflation || country.economy?.inflation === 0 ? `${country.economy.inflation}%` : t("noData") },
+    { label: t("compareInflation"), getValue: country => formatInflation(country.economy?.inflation) },
     { label: t("compareSystem"), getValue: country => country.politics?.system || t("noData") },
     { label: t("compareReligion"), getValue: country => country.religion?.summary || t("noData") },
     { label: t("compareYear"), getValue: country => country.history?.year || t("noData") },
@@ -3234,6 +4040,7 @@ function renderComparePanel() {
           <div><b>${t("comparePopulation")}:</b> ${formatNumber(Math.abs((countriesData[compareSelection[0]]?.general?.population || 0) - (countriesData[compareSelection.at(-1)]?.general?.population || 0)))}</div>
           <div><b>${t("compareGdp")}:</b> US$ ${compactNumber(Math.abs((countriesData[compareSelection[0]]?.economy?.gdp || 0) - (countriesData[compareSelection.at(-1)]?.economy?.gdp || 0)))}</div>
           <div><b>${currentLanguage === "en" ? "Organizations" : "Organizaciones"}:</b> ${formatNumber(Math.abs(getCountryOrganizationCount(countriesData[compareSelection[0]]) - getCountryOrganizationCount(countriesData[compareSelection.at(-1)])))}</div>
+          <div><b>${currentLanguage === "en" ? "Population gap" : "Brecha poblacional"}:</b> ${formatPercentage(Math.abs(((countriesData[compareSelection[0]]?.general?.population || 0) - (countriesData[compareSelection.at(-1)]?.general?.population || 0)) / Math.max(countriesData[compareSelection.at(-1)]?.general?.population || 1, 1) * 100))}</div>
         </div>
       </div>
     `
@@ -3253,7 +4060,33 @@ function renderComparePanel() {
     `)
     .join("");
 
-  results.innerHTML = countryCards + leaderMarkup + deltaMarkup + metricMarkup + infoMarkup;
+  const continentBenchmarkMarkup = compareSelection.map(code => {
+    const country = countriesData[code];
+    const peers = Object.values(countriesData).filter(item => item.continent === country.continent);
+    const avgGdpPerCapita = peers.reduce((sum, item) => sum + (item.economy?.gdpPerCapita || 0), 0) / Math.max(peers.length, 1);
+    const avgInflation = peers.reduce((sum, item) => sum + (item.economy?.inflation || 0), 0) / Math.max(peers.filter(item => typeof item.economy?.inflation === "number").length, 1);
+    return `<div><b>${getFlagEmoji(code)} ${escapeHtml(country.name)}:</b> ${currentLanguage === "en" ? "continent avg GDP pc" : "promedio continental de PBI pc"} US$ ${formatNumber(Math.round(avgGdpPerCapita || 0))} · ${currentLanguage === "en" ? "avg inflation" : "inflacion promedio"} ${formatInflation(avgInflation)}</div>`;
+  }).join("");
+
+  results.innerHTML = `
+    <div class="compare-toolbar">
+      <button type="button" class="panel-action-button" data-export-target="compare-results" data-export-format="png">${currentLanguage === "en" ? "Export image" : "Exportar imagen"}</button>
+      <button type="button" class="panel-action-button" data-export-target="compare-results" data-export-format="pdf">${currentLanguage === "en" ? "Export PDF" : "Exportar PDF"}</button>
+      <button type="button" class="panel-action-button" data-share-target="compare-results">${currentLanguage === "en" ? "Share" : "Compartir"}</button>
+    </div>
+    <div class="compare-radar-wrap">
+      ${buildCompareRadarSVG(radarEntries)}
+    </div>
+    ${countryCards}
+    ${leaderMarkup}
+    ${deltaMarkup}
+    <div class="compare-row compare-summary-row">
+      <strong>${currentLanguage === "en" ? "Continental benchmarks" : "Referencias continentales"}</strong>
+      <div class="compare-values">${continentBenchmarkMarkup}</div>
+    </div>
+    ${metricMarkup}
+    ${infoMarkup}
+  `;
 }
 
 function generateGdpPerCapitaRanking() {
@@ -3607,10 +4440,23 @@ function parseSemanticQuery(rawQuery) {
     minPopulation: 0
   };
 
+  const hasIslam = /\bislam|\bmusulman/.test(normalized);
+  const hasChristian = /\bcristian/.test(normalized);
+  const hasConstitutionalMonarchy = /monarquia constitucional|constitutional monarch/.test(normalized);
+  const hasPresidentialRepublic = /republicas? presidenciales?|presidential republic/.test(normalized);
+
   for (const [alias, continent] of continentAliases.entries()) {
     if (normalized.includes(alias)) {
       filters.continent = continent;
       break;
+    }
+  }
+
+  if (!filters.religion) {
+    if (hasIslam) {
+      filters.religion = "Islamismo";
+    } else if (hasChristian) {
+      filters.religion = "Cristianismo";
     }
   }
 
@@ -3629,7 +4475,11 @@ function parseSemanticQuery(rawQuery) {
   }
 
   if (!filters.system) {
-    if (/\bmonarquia|\bmonarquias/.test(normalized)) {
+    if (hasConstitutionalMonarchy) {
+      filters.system = "Monarquia constitucional";
+    } else if (hasPresidentialRepublic) {
+      filters.system = "Presidencialismo";
+    } else if (/\bmonarquia|\bmonarquias/.test(normalized)) {
       filters.system = "__monarquia__";
     } else if (/federal|federales/.test(normalized)) {
       filters.system = "__federal__";
@@ -3680,6 +4530,34 @@ function parseSemanticQuery(rawQuery) {
       filters.rival = rival;
       break;
     }
+  }
+
+  if (!filters.organization && /\botan\b|nato/.test(normalized)) {
+    filters.organization = "OTAN";
+  }
+
+  if (!filters.rival && /\brusia\b|russia/.test(normalized)) {
+    filters.rival = "Rusia";
+  }
+
+  if (!filters.organization && /(union europea|ue\b|european union)/.test(normalized)) {
+    filters.organization = "Union Europea";
+  }
+
+  if (!filters.organization && /(mercosur|mercosul)/.test(normalized)) {
+    filters.organization = "Mercosur";
+  }
+
+  if (!filters.organization && /\bbrics\b/.test(normalized)) {
+    filters.organization = "BRICS";
+  }
+
+  if (!filters.religion && /(judai|jewish)/.test(normalized)) {
+    filters.religion = "Judaismo";
+  }
+
+  if (!filters.religion && /(hindu|hinduism)/.test(normalized)) {
+    filters.religion = "Hinduismo";
   }
 
   const populationMatchers = [
@@ -4314,6 +5192,231 @@ function refreshGlobalStats() {
   generateBlocsRanking();
   generateMetropolesRanking();
   generateHistoryTypesRanking();
+  renderNewsHub(currentPanelState.code || "");
+  renderQuizPanel();
+}
+
+function shuffleArray(items) {
+  const clone = [...items];
+  for (let i = clone.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [clone[i], clone[j]] = [clone[j], clone[i]];
+  }
+  return clone;
+}
+
+function getQuizPool(category) {
+  return Object.values(countriesData).filter(country => {
+    if (category === "capital") {
+      return Boolean(country.general?.capital?.name);
+    }
+    if (category === "religion") {
+      return Boolean(getReligionSummaryLabel(country.religion));
+    }
+    if (category === "continent") {
+      return Boolean(country.continent);
+    }
+    if (category === "system") {
+      return Boolean(country.politics?.system && country.politics.system !== "Sin datos");
+    }
+    if (category === "flag") {
+      return Boolean(country.name);
+    }
+    if (category === "history") {
+      return Boolean(country.history?.year);
+    }
+    if (category === "organization") {
+      return Boolean((country.politics?.organizations || []).length);
+    }
+    if (category === "rival") {
+      return Boolean((country.politics?.rivals || []).length);
+    }
+    return false;
+  });
+}
+
+function buildQuizQuestion(category) {
+  const difficultyPool = getQuizPool(category).filter(country => {
+    const code = getCountryCodeByObject(country);
+    if (quizState.asked.includes(code)) {
+      return false;
+    }
+    if (quizState.difficulty === "easy") {
+      return (country.general?.population || 0) > 15000000;
+    }
+    if (quizState.difficulty === "hard") {
+      return (country.general?.population || 0) < 30000000;
+    }
+    return true;
+  });
+  const pool = difficultyPool.length ? difficultyPool : getQuizPool(category).filter(country => !quizState.asked.includes(getCountryCodeByObject(country)));
+  if (!pool.length) {
+    return null;
+  }
+
+  const country = pool[Math.floor(Math.random() * pool.length)];
+  const code = getCountryCodeByObject(country);
+  let prompt = "";
+  let correct = "";
+  let distractors = [];
+
+  if (category === "capital") {
+    prompt = `¿Cual es la capital de ${country.name}?`;
+    correct = country.general.capital.name;
+    distractors = shuffleArray(
+      Object.values(countriesData)
+        .map(item => item.general?.capital?.name)
+        .filter(Boolean)
+        .filter(name => normalizeText(name) !== normalizeText(correct))
+    ).slice(0, 3);
+  } else if (category === "religion") {
+    prompt = `¿Cual es la religion mayoritaria de ${country.name}?`;
+    correct = getReligionSummaryLabel(country.religion) || "Sin datos";
+    distractors = shuffleArray(
+      Object.values(countriesData)
+        .map(item => getReligionSummaryLabel(item.religion))
+        .filter(Boolean)
+        .filter(name => normalizeText(name) !== normalizeText(correct))
+    ).slice(0, 3);
+  } else if (category === "continent") {
+    prompt = `¿En que continente se ubica ${country.name}?`;
+    correct = translateContinentName(country.continent);
+    distractors = shuffleArray(["America", "Europa", "Asia", "Africa", "Oceania", "Antartida"]
+      .filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
+  } else if (category === "flag") {
+    prompt = `¿A que pais corresponde esta bandera? ${getFlagEmoji(code)}`;
+    correct = country.name;
+    distractors = shuffleArray(
+      Object.values(countriesData).map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))
+    ).slice(0, 3);
+  } else if (category === "history") {
+    prompt = `¿En que año se formo ${country.name}?`;
+    correct = String(country.history.year);
+    distractors = shuffleArray(
+      Object.values(countriesData)
+        .map(item => item.history?.year)
+        .filter(Boolean)
+        .map(String)
+        .filter(value => value !== correct)
+    ).slice(0, 3);
+  } else if (category === "organization") {
+    const org = getOrganizationDisplayName(country.politics.organizations[0]);
+    prompt = `¿Que pais pertenece a esta organizacion? ${org}`;
+    correct = country.name;
+    distractors = shuffleArray(
+      Object.values(countriesData).map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))
+    ).slice(0, 3);
+  } else if (category === "rival") {
+    const rival = country.politics.rivals[0]?.name || country.politics.rivals[0];
+    prompt = `¿Que pais tiene como rival a ${rival}?`;
+    correct = country.name;
+    distractors = shuffleArray(
+      Object.values(countriesData).map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))
+    ).slice(0, 3);
+  } else {
+    prompt = `¿Cual es el sistema politico principal de ${country.name}?`;
+    correct = country.politics.system;
+    distractors = shuffleArray([...new Set(
+      Object.values(countriesData)
+        .map(item => item.politics?.system)
+        .filter(Boolean)
+        .filter(name => normalizeText(name) !== normalizeText(correct))
+    )]).slice(0, 3);
+  }
+
+  if (distractors.length < 3) {
+    return null;
+  }
+
+  return {
+    code,
+    prompt,
+    correct,
+    options: shuffleArray([correct, ...distractors]),
+    answered: false
+  };
+}
+
+function renderQuizPanel() {
+  const status = document.getElementById("quiz-status");
+  const question = document.getElementById("quiz-question");
+  const options = document.getElementById("quiz-options");
+  const nextButton = document.getElementById("quiz-next-button");
+  const resetButton = document.getElementById("quiz-reset-button");
+  const categorySelect = document.getElementById("quiz-category");
+  const difficultySelect = document.getElementById("quiz-difficulty");
+  if (!status || !question || !options || !nextButton || !resetButton || !categorySelect || !difficultySelect) {
+    return;
+  }
+
+  categorySelect.value = quizState.category;
+  difficultySelect.value = quizState.difficulty;
+  status.textContent = quizState.total
+    ? `Puntaje: ${quizState.score}/${quizState.total}`
+    : "Elegí una categoría y empezá el quiz.";
+
+  if (!quizState.current) {
+    question.textContent = "";
+    options.innerHTML = "";
+    nextButton.hidden = true;
+    resetButton.hidden = quizState.total === 0 && !quizState.asked.length;
+    return;
+  }
+
+  question.textContent = quizState.current.prompt;
+  options.innerHTML = quizState.current.options.map(option => `
+    <button type="button" class="quiz-option" data-quiz-answer="${escapeHtml(option)}">${escapeHtml(option)}</button>
+  `).join("");
+  nextButton.hidden = !quizState.current.answered;
+  resetButton.hidden = false;
+}
+
+function startQuiz() {
+  const categorySelect = document.getElementById("quiz-category");
+  const difficultySelect = document.getElementById("quiz-difficulty");
+  quizState = {
+    category: categorySelect?.value || "capital",
+    difficulty: difficultySelect?.value || "easy",
+    asked: [],
+    score: 0,
+    total: 0,
+    current: null
+  };
+  nextQuizQuestion();
+}
+
+function nextQuizQuestion() {
+  const question = buildQuizQuestion(quizState.category);
+  quizState.current = question;
+  renderQuizPanel();
+}
+
+function answerQuiz(answer) {
+  if (!quizState.current || quizState.current.answered) {
+    return;
+  }
+
+  quizState.total += 1;
+  const isCorrect = normalizeText(answer) === normalizeText(quizState.current.correct);
+  if (isCorrect) {
+    quizState.score += 1;
+  }
+  quizState.asked.push(quizState.current.code);
+  quizState.current.answered = true;
+
+  document.querySelectorAll(".quiz-option").forEach(button => {
+    const buttonAnswer = button.dataset.quizAnswer || "";
+    const correct = normalizeText(buttonAnswer) === normalizeText(quizState.current.correct);
+    const selected = normalizeText(buttonAnswer) === normalizeText(answer);
+    button.classList.toggle("is-correct", correct);
+    button.classList.toggle("is-wrong", selected && !correct);
+    button.disabled = true;
+  });
+
+  document.getElementById("quiz-status").textContent = isCorrect
+    ? `Correcto. Puntaje: ${quizState.score}/${quizState.total}`
+    : `Incorrecto. Respuesta correcta: ${quizState.current.correct}. Puntaje: ${quizState.score}/${quizState.total}`;
+  document.getElementById("quiz-next-button").hidden = false;
 }
 
 function generateWorldPopulation() {
@@ -4365,11 +5468,18 @@ function generateContinents() {
 }
 
 function generateReligions() {
-  const totals = {};
+  const target = document.getElementById("religions");
+  if (!target) {
+    return;
+  }
+
+  const familyTotals = new Map();
 
   Object.values(countriesData).forEach(country => {
     const population = country.general?.population || 0;
-    const composition = Array.isArray(country.religion?.composition) ? country.religion.composition : [];
+    const composition = Array.isArray(country.religion?.composition) && country.religion.composition.length
+      ? country.religion.composition
+      : (country.religion?.summary ? [{ name: country.religion.summary, percentage: 100 }] : []);
 
     composition.forEach(entry => {
       if (!entry?.name || !entry?.percentage) {
@@ -4377,21 +5487,59 @@ function generateReligions() {
       }
 
       const nominal = population * (entry.percentage / 100);
-      totals[entry.name] = (totals[entry.name] || 0) + nominal;
+      const family = getReligionKeyAndLabel(entry.name);
+      const familyEntry = familyTotals.get(family.key) || {
+        key: family.key,
+        label: family.label,
+        total: 0,
+        denominations: new Map()
+      };
+
+      familyEntry.total += nominal;
+      familyEntry.denominations.set(
+        entry.name,
+        (familyEntry.denominations.get(entry.name) || 0) + nominal
+      );
+      familyTotals.set(family.key, familyEntry);
     });
   });
 
-  renderInteractiveList("religions", Object.entries(totals)
-    .sort((a, b) => b[1] - a[1])
-    .map(([religionName, total]) => {
-      const share = worldPopulationTotal ? (total / worldPopulationTotal) * 100 : 0;
-      return {
-        label: `${religionName} (${formatNumber(Math.round(total))} - ${formatPercentage(share)})`,
-        religionName
-      };
-    }), item => {
-      selectSearchResult({ label: item.religionName, type: "religion", value: item.religionName });
+  const families = [...familyTotals.values()].sort((a, b) => b.total - a.total);
+
+  target.innerHTML = families.map(family => {
+    const share = worldPopulationTotal ? (family.total / worldPopulationTotal) * 100 : 0;
+    const denominations = [...family.denominations.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .map(([name, total]) => {
+        const formattedName = formatReligionDenominationLabel(name, family.label);
+        if (normalizeText(formattedName) === normalizeText(family.label)) {
+          return "";
+        }
+        const branchShare = worldPopulationTotal ? (total / worldPopulationTotal) * 100 : 0;
+        return `<li>${escapeHtml(formattedName)} (${formatNumber(Math.round(total))} - ${formatPercentage(branchShare)})</li>`;
+      })
+      .filter(Boolean)
+      .join("");
+
+    return `
+      <li class="rank-link religion-group">
+        <button type="button" data-religion-family="${escapeHtml(family.label)}">
+          ${escapeHtml(family.label)} (${formatNumber(Math.round(family.total))} - ${formatPercentage(share)})
+        </button>
+        ${denominations ? `<ul class="religion-subranking">${denominations}</ul>` : ""}
+      </li>
+    `;
+  }).join("");
+
+  target.querySelectorAll("[data-religion-family]").forEach(button => {
+    button.addEventListener("click", () => {
+      selectSearchResult({
+        label: button.dataset.religionFamily,
+        type: "religion",
+        value: button.dataset.religionFamily
+      });
     });
+  });
 }
 
 function generateGdpRanking() {
@@ -4418,7 +5566,7 @@ function generateInflationRanking() {
     .slice(0, 10);
 
   renderInteractiveList("top-inflation", list.map(country => ({
-    label: `${getFlagEmoji(getCountryCodeByObject(country))} ${country.name} (${country.economy.inflation}%)`,
+    label: `${getFlagEmoji(getCountryCodeByObject(country))} ${country.name} (${formatInflation(country.economy.inflation)})`,
     country
   })), item => {
     const code = getCountryCodeByObject(item.country);
@@ -4451,7 +5599,10 @@ function generateSystemRanking() {
 
 async function loadMap() {
   initializeViewer();
-  const res = await fetch("./data/world_countries.geo.json");
+  const geoJsonPath = isMobileLayout()
+    ? "./data/world_countries_simplified.geo.json"
+    : "./data/world_countries.geo.json";
+  const res = await fetch(geoJsonPath);
   const geojson = await res.json();
   const featureNameByCode = {};
   let dataSource = null;
@@ -4625,6 +5776,10 @@ function setupSearchEvents() {
   const button = document.getElementById("map-search-button");
   const suggestionBox = document.getElementById("search-suggestions");
   const countryPanel = document.getElementById("country-panel");
+  const leftPanel = document.getElementById("left-panel");
+  const newsHubPanel = document.getElementById("news-hub-panel");
+  const conflictModal = document.getElementById("conflict-modal");
+  const conflictCloseButton = document.getElementById("conflict-modal-close");
   let activeIndex = 0;
   let currentSuggestions = [];
 
@@ -4702,11 +5857,100 @@ function setupSearchEvents() {
     }
   });
 
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+      closeConflictModal();
+    }
+  });
+
+  conflictModal?.addEventListener("click", event => {
+    if (event.target.closest("[data-close-conflict-modal='true']")) {
+      closeConflictModal();
+    }
+  });
+
+  conflictCloseButton?.addEventListener("click", () => closeConflictModal());
+
+  newsHubPanel?.addEventListener("click", async event => {
+    const newsButton = event.target.closest("[data-news-country]");
+    if (!newsButton) {
+      return;
+    }
+
+    await showNewsArticle(newsButton.dataset.newsCountry);
+  });
+
+  leftPanel?.addEventListener("click", async event => {
+    const exportTrigger = event.target.closest("[data-export-target]");
+    if (exportTrigger) {
+      const target = document.getElementById(exportTrigger.dataset.exportTarget);
+      if (exportTrigger.dataset.exportFormat === "pdf") {
+        await exportNodeAsPdf(target, `${exportTrigger.dataset.exportTarget}.pdf`);
+      } else {
+        await exportNodeAsImage(target, `${exportTrigger.dataset.exportTarget}.png`);
+      }
+      return;
+    }
+
+    const shareTrigger = event.target.closest("[data-share-target]");
+    if (shareTrigger) {
+      const target = document.getElementById(shareTrigger.dataset.shareTarget);
+      if (target) {
+        await shareText(
+          currentLanguage === "en" ? "GeoRisk rankings" : "Rankings GeoRisk",
+          target.innerText.trim()
+        );
+      }
+    }
+  });
+
   countryPanel.addEventListener("click", async event => {
     const timelineFilterButton = event.target.closest("[data-timeline-filter]");
     if (timelineFilterButton) {
       currentPanelState.timelineFilter = timelineFilterButton.dataset.timelineFilter || "all";
       rerenderCurrentPanel();
+      return;
+    }
+
+    const conflictTrigger = event.target.closest("[data-conflict-key]");
+    if (conflictTrigger) {
+      openConflictModal(conflictTrigger.dataset.conflictKey);
+      return;
+    }
+
+    const exportTrigger = event.target.closest("[data-export-target]");
+    if (exportTrigger) {
+      const target = document.getElementById(exportTrigger.dataset.exportTarget);
+      if (exportTrigger.dataset.exportFormat === "pdf") {
+        await exportNodeAsPdf(target, `${exportTrigger.dataset.exportTarget}.pdf`);
+      } else {
+        await exportNodeAsImage(target, `${exportTrigger.dataset.exportTarget}.png`);
+      }
+      return;
+    }
+
+    const shareCountryTrigger = event.target.closest("[data-share-country]");
+    if (shareCountryTrigger) {
+      const code = shareCountryTrigger.dataset.shareCountry;
+      const country = countriesData[code];
+      if (country) {
+        await shareText(
+          country.name,
+          `${country.name}\n${currentLanguage === "en" ? "Official name" : "Nombre oficial"}: ${country.general?.officialName || country.name}\n${currentLanguage === "en" ? "Population" : "Poblacion"}: ${formatNumber(country.general?.population || 0)}\n${currentLanguage === "en" ? "Political system" : "Sistema politico"}: ${country.politics?.system || t("noData")}`
+        );
+      }
+      return;
+    }
+
+    const shareTrigger = event.target.closest("[data-share-target]");
+    if (shareTrigger) {
+      const target = document.getElementById(shareTrigger.dataset.shareTarget);
+      if (target) {
+        await shareText(
+          currentLanguage === "en" ? "GeoRisk comparison" : "Comparacion GeoRisk",
+          target.innerText.trim()
+        );
+      }
       return;
     }
 
@@ -4865,6 +6109,50 @@ function setupCompareControls() {
   renderComparePanel();
 }
 
+function setupQuizControls() {
+  const startButton = document.getElementById("quiz-start-button");
+  const nextButton = document.getElementById("quiz-next-button");
+  const resetButton = document.getElementById("quiz-reset-button");
+  const categorySelect = document.getElementById("quiz-category");
+  const difficultySelect = document.getElementById("quiz-difficulty");
+  const options = document.getElementById("quiz-options");
+
+  if (!startButton || !nextButton || !resetButton || !categorySelect || !difficultySelect || !options) {
+    return;
+  }
+
+  startButton.addEventListener("click", () => startQuiz());
+  nextButton.addEventListener("click", () => nextQuizQuestion());
+  resetButton.addEventListener("click", () => {
+    quizState = {
+      category: categorySelect.value || "capital",
+      difficulty: difficultySelect.value || "easy",
+      asked: [],
+      score: 0,
+      total: 0,
+      current: null
+    };
+    renderQuizPanel();
+  });
+  categorySelect.addEventListener("change", () => {
+    quizState.category = categorySelect.value || "capital";
+    renderQuizPanel();
+  });
+  difficultySelect.addEventListener("change", () => {
+    quizState.difficulty = difficultySelect.value || "easy";
+    renderQuizPanel();
+  });
+  options.addEventListener("click", event => {
+    const button = event.target.closest("[data-quiz-answer]");
+    if (!button) {
+      return;
+    }
+    answerQuiz(button.dataset.quizAnswer || "");
+  });
+
+  renderQuizPanel();
+}
+
 function setupRankingsPanel() {
   const rankingsPanel = document.getElementById("rankings-panel");
   if (!rankingsPanel) {
@@ -4872,6 +6160,18 @@ function setupRankingsPanel() {
   }
 
   rankingsPanel.open = false;
+}
+
+function setupNewsHubPanel() {
+  const panel = document.getElementById("news-hub-panel");
+  if (!panel) {
+    return;
+  }
+
+  panel.open = false;
+  panel.addEventListener("toggle", () => {
+    renderNewsHub(currentPanelState.code || "");
+  });
 }
 
 function setupMobilePanelControls() {
@@ -4923,7 +6223,9 @@ async function init() {
     setupSearchEvents();
     setupThemeControls();
     setupCompareControls();
+    setupQuizControls();
     setupRankingsPanel();
+    setupNewsHubPanel();
     await loadMap();
     updateMapInteractionTuning();
     setupMobilePanelControls();

@@ -1,5 +1,5 @@
-const APP_CACHE = "geo-risk-app-v5";
-const TILE_CACHE = "geo-risk-tiles-v5";
+const APP_CACHE = "geo-risk-app-v6";
+const TILE_CACHE = "geo-risk-tiles-v6";
 const APP_SHELL = [
   "./",
   "./index.html",

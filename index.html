@@ -127,11 +127,45 @@
   <details id="rankings-panel">
     <summary id="rankings-summary">Rankings globales</summary>
     <div class="left-panel-inner">
+      <div class="compare-toolbar">
+        <button type="button" class="panel-action-button" data-export-target="left-panel" data-export-format="png">Exportar imagen</button>
+        <button type="button" class="panel-action-button" data-export-target="left-panel" data-export-format="pdf">Exportar PDF</button>
+        <button type="button" class="panel-action-button" data-share-target="left-panel">Compartir</button>
+      </div>
       <h3 id="compare-title">Comparador</h3>
       <div id="compare-panel">
         <p id="compare-empty">Agrega hasta 3 paises desde la ficha o el buscador.</p>
         <div id="compare-chips"></div>
         <div id="compare-results"></div>
+      </div>
+
+      <h3 id="quiz-title">Modo educativo</h3>
+      <div id="quiz-panel">
+        <div class="quiz-toolbar">
+          <select id="quiz-category">
+            <option value="capital">Capitales</option>
+            <option value="religion">Religi&oacute;n mayoritaria</option>
+            <option value="continent">Continente</option>
+            <option value="system">Sistema pol&iacute;tico</option>
+            <option value="flag">Banderas</option>
+            <option value="history">Historia</option>
+            <option value="organization">Organizaciones</option>
+            <option value="rival">Rivales</option>
+          </select>
+          <select id="quiz-difficulty">
+            <option value="easy">F&aacute;cil</option>
+            <option value="medium">Media</option>
+            <option value="hard">Dif&iacute;cil</option>
+          </select>
+          <button id="quiz-start-button" type="button">Iniciar quiz</button>
+        </div>
+        <div id="quiz-status"></div>
+        <div id="quiz-question"></div>
+        <div id="quiz-options"></div>
+        <div class="quiz-toolbar">
+          <button id="quiz-next-button" type="button" hidden>Siguiente</button>
+          <button id="quiz-reset-button" type="button" hidden>Reiniciar</button>
+        </div>
       </div>
 
       <h3 id="world-population-title">Poblacion mundial</h3>
@@ -191,10 +225,31 @@
   <h2>Selecciona un pais</h2>
 </div>
 
+<details id="news-hub-panel">
+  <summary title="Hub de noticias">📰</summary>
+  <div class="news-hub-content">
+    <h3>Hub de noticias</h3>
+    <p id="news-hub-note">Cobertura del dia por pais. Abre la fuente mas relevante disponible.</p>
+    <div id="news-hub-selected"></div>
+    <div id="news-hub-article"></div>
+    <div id="news-hub-list"></div>
+  </div>
+</details>
+
+<div id="conflict-modal" hidden>
+  <div class="conflict-modal-backdrop" data-close-conflict-modal="true"></div>
+  <div class="conflict-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="conflict-modal-title">
+    <button id="conflict-modal-close" type="button" aria-label="Cerrar">×</button>
+    <div id="conflict-modal-body"></div>
+  </div>
+</div>
+
 <script>
   window.CESIUM_BASE_URL = "https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/";
 </script>
 <script src="https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Cesium.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 <script src="script.js"></script>
 
 </body>

@@ -15,10 +15,26 @@
       },
       "capital": {
         "name": "Kabul",
-        "population": null,
+        "population": 4601789,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Kandahar",
+          "population": 614118,
+          "isCapital": false
+        },
+        {
+          "name": "Herat",
+          "population": 556205,
+          "isCapital": false
+        },
+        {
+          "name": "Mazar-e Sarif",
+          "population": 500207,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1823,
@@ -29,7 +45,7 @@
     "economy": {
       "gdp": 17152234636.8715,
       "gdpPerCapita": 413.757894705303,
-      "inflation": null,
+      "inflation": 13.7,
       "exports": [],
       "industries": []
     },
@@ -175,11 +191,13 @@
           "Pakistán",
           "Estados Unidos",
           "Francia"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Musulmanes",
       "composition": [
         {
           "name": "Musulmanes",
@@ -314,7 +332,7 @@
     "economy": {
       "gdp": 27046429296.6673,
       "gdpPerCapita": 11377.7757431099,
-      "inflation": null,
+      "inflation": 2.2,
       "exports": [],
       "industries": []
     },
@@ -662,9 +680,7 @@
           "OTAN",
           "NATO"
         ],
-        "allies": [
-          "OTAN"
-        ],
+        "allies": [],
         "rivalStates": [
           "República Federal De Yugoslavia",
           "Alemania",
@@ -711,11 +727,13 @@
           "Tailandia",
           "Tonga",
           "Ucrania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Musulmanes",
       "composition": [
         {
           "name": "Musulmanes",
@@ -801,11 +819,6 @@
       },
       "cities": [
         {
-          "name": "ALGIERS (EL DJAZAIR)",
-          "population": 2712944,
-          "isCapital": false
-        },
-        {
           "name": "Wahran (Oran)",
           "population": 1165687,
           "isCapital": false
@@ -836,7 +849,7 @@
     "economy": {
       "gdp": 269322281664.773,
       "gdpPerCapita": 5752.99076651465,
-      "inflation": null,
+      "inflation": 4,
       "exports": [],
       "industries": []
     },
@@ -1080,11 +1093,13 @@
           "Túnez",
           "Marruecos",
           "Cuba"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Musulmanes",
       "composition": [
         {
           "name": "Musulmanes",
@@ -1186,7 +1201,23 @@
         "population": 22205,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Escaldes-Engordany",
+          "population": 14395,
+          "isCapital": false
+        },
+        {
+          "name": "Encamp",
+          "population": 12366,
+          "isCapital": false
+        },
+        {
+          "name": "Sant Julia de Loria",
+          "population": 9344,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1278,
@@ -1197,7 +1228,7 @@
     "economy": {
       "gdp": 4039842405.48117,
       "gdpPerCapita": 49303.6491674336,
-      "inflation": null,
+      "inflation": 3.2,
       "exports": [],
       "industries": []
     },
@@ -1290,11 +1321,13 @@
         "linkedTerritories": [],
         "blocs": [],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -1330,7 +1363,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Revolucion andorrana de 1933",
+        "startYear": 1933,
+        "endYear": 1933,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -1350,10 +1390,26 @@
       },
       "capital": {
         "name": "Luanda",
-        "population": null,
+        "population": 8917000,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Huambo",
+          "population": 1167000,
+          "isCapital": false
+        },
+        {
+          "name": "Benguela",
+          "population": 513000,
+          "isCapital": false
+        },
+        {
+          "name": "Lobito",
+          "population": 393079,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1992,
@@ -1364,7 +1420,7 @@
     "economy": {
       "gdp": 100998916781.079,
       "gdpPerCapita": 2665.87444776753,
-      "inflation": null,
+      "inflation": 28.2,
       "exports": [],
       "industries": []
     },
@@ -1584,11 +1640,13 @@
           "República Del Congo",
           "Namibia",
           "Sudán"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -1735,7 +1793,7 @@
     "economy": {
       "gdp": 638365455340.04,
       "gdpPerCapita": 13969.7836603737,
-      "inflation": 211.4,
+      "inflation": 219.9,
       "exports": [
         "soja",
         "trigo",
@@ -1998,7 +2056,10 @@
           "Mercosur"
         ],
         "allies": [
-          "Mercosur"
+          "Brasil",
+          "Uruguay",
+          "Paraguay",
+          "Bolivia"
         ],
         "rivalStates": [
           "Reino Unido",
@@ -2006,7 +2067,12 @@
           "Uruguay",
           "Chile",
           "Francia"
-        ]
+        ],
+        "disputes": [
+          "Islas Malvinas",
+          "Antartida"
+        ],
+        "protectorates": []
       }
     },
     "religion": {
@@ -2176,6 +2242,12 @@
         "startYear": null,
         "endYear": null,
         "ongoing": false
+      },
+      {
+        "name": "Guerra de Malvinas (1982)",
+        "startYear": null,
+        "endYear": null,
+        "ongoing": false
       }
     ],
     "organizations": [
@@ -2227,7 +2299,7 @@
     "economy": {
       "gdp": 25955275380.0321,
       "gdpPerCapita": 8556.21406956719,
-      "inflation": null,
+      "inflation": 0.3,
       "exports": [],
       "industries": []
     },
@@ -2614,11 +2686,13 @@
           "Tailandia",
           "Tonga",
           "Ucrania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -2739,7 +2813,7 @@
     "economy": {
       "gdp": 1757022451652.83,
       "gdpPerCapita": 64603.9856308464,
-      "inflation": 3.6,
+      "inflation": 3.2,
       "exports": [],
       "industries": []
     },
@@ -3285,9 +3359,7 @@
         "blocs": [
           "ASEAN"
         ],
-        "allies": [
-          "ASEAN Regional Forum"
-        ],
+        "allies": [],
         "rivalStates": [
           "Estados Unidos",
           "Reino Unido",
@@ -3347,7 +3419,9 @@
           "Rumania",
           "Tonga",
           "Ucrania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -3772,7 +3846,7 @@
     "economy": {
       "gdp": 534790720466.822,
       "gdpPerCapita": 58268.8787651601,
-      "inflation": null,
+      "inflation": 2.9,
       "exports": [],
       "industries": []
     },
@@ -4030,11 +4104,13 @@
         "allies": [],
         "rivalStates": [
           "Hungría"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -4186,7 +4262,7 @@
     "economy": {
       "gdp": 74315882352.9412,
       "gdpPerCapita": 7283.8499076179,
-      "inflation": null,
+      "inflation": 2.2,
       "exports": [],
       "industries": []
     },
@@ -4543,11 +4619,13 @@
           "Tailandia",
           "Tonga",
           "Ucrania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Musulmanes",
       "composition": [
         {
           "name": "Musulmanes",
@@ -4643,7 +4721,23 @@
         "population": 153395,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Riffa",
+          "population": 111000,
+          "isCapital": false
+        },
+        {
+          "name": "Muharraq",
+          "population": 98000,
+          "isCapital": false
+        },
+        {
+          "name": "Hamad Town",
+          "population": 52718,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1971,
@@ -4654,7 +4748,7 @@
     "economy": {
       "gdp": 47109734308.5106,
       "gdpPerCapita": 29653.5682731534,
-      "inflation": null,
+      "inflation": 0.9,
       "exports": [],
       "industries": []
     },
@@ -4813,11 +4907,13 @@
         "linkedTerritories": [],
         "blocs": [],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Musulmanes",
       "composition": [
         {
           "name": "Musulmanes",
@@ -4853,7 +4949,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Levantamiento de Barein de 2011",
+        "startYear": 2011,
+        "endYear": 2011,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -4913,7 +5016,7 @@
     "economy": {
       "gdp": 450119432068.852,
       "gdpPerCapita": 2593.41611680774,
-      "inflation": null,
+      "inflation": 10.5,
       "exports": [],
       "industries": []
     },
@@ -5085,16 +5188,16 @@
           "ASEAN",
           "Union Africana"
         ],
-        "allies": [
-          "ASEAN Regional Forum"
-        ],
+        "allies": [],
         "rivalStates": [
           "Birmania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Musulmanes",
       "composition": [
         {
           "name": "Musulmanes",
@@ -5197,7 +5300,7 @@
     "economy": {
       "gdp": 75961865471.9129,
       "gdpPerCapita": 8317.63399913792,
-      "inflation": null,
+      "inflation": 5.8,
       "exports": [],
       "industries": []
     },
@@ -5374,11 +5477,13 @@
         "rivalStates": [
           "Rusia",
           "Ucrania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -5481,7 +5586,7 @@
     "economy": {
       "gdp": 671370081636.406,
       "gdpPerCapita": 56614.5679499036,
-      "inflation": null,
+      "inflation": 3.1,
       "exports": [],
       "industries": []
     },
@@ -5932,9 +6037,7 @@
           "NATO",
           "Union Europea"
         ],
-        "allies": [
-          "OTAN"
-        ],
+        "allies": [],
         "rivalStates": [
           "Estados Unidos",
           "Francia",
@@ -5969,11 +6072,13 @@
           "Albania",
           "Islandia",
           "República Federal De Yugoslavia"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -6127,6 +6232,11 @@
           "name": "Parakou",
           "population": 255478,
           "isCapital": false
+        },
+        {
+          "name": "Abomey-Calavi",
+          "population": 655965,
+          "isCapital": false
         }
       ]
     },
@@ -6139,7 +6249,7 @@
     "economy": {
       "gdp": 21482643706.4249,
       "gdpPerCapita": 1485.38018885134,
-      "inflation": null,
+      "inflation": 1.2,
       "exports": [],
       "industries": []
     },
@@ -6324,11 +6434,13 @@
           "Union Africana"
         ],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -6364,7 +6476,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Golpe de Estado dahomeyano de 1963",
+        "startYear": 1963,
+        "endYear": 1963,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -6424,7 +6543,7 @@
     "economy": {
       "gdp": 54881327452.9667,
       "gdpPerCapita": 4421.16609889999,
-      "inflation": null,
+      "inflation": 5.1,
       "exports": [],
       "industries": []
     },
@@ -6587,11 +6706,13 @@
           "Perú",
           "Ecuador",
           "Paraguay"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -6730,7 +6851,7 @@
     "economy": {
       "gdp": 29613572022.8993,
       "gdpPerCapita": 9358.78768951134,
-      "inflation": null,
+      "inflation": 1.7,
       "exports": [],
       "industries": []
     },
@@ -7058,7 +7179,9 @@
           "Tailandia",
           "Tonga",
           "Ucrania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -7109,13 +7232,23 @@
       },
       "capital": {
         "name": "Gaborone",
-        "population": 246327,
+        "population": 273602,
         "isCapital": true
       },
       "cities": [
         {
           "name": "Francistown",
           "population": 103416,
+          "isCapital": false
+        },
+        {
+          "name": "Molepolole",
+          "population": 74191,
+          "isCapital": false
+        },
+        {
+          "name": "Maun",
+          "population": 60763,
           "isCapital": false
         }
       ]
@@ -7129,7 +7262,7 @@
     "economy": {
       "gdp": 19402063512.9066,
       "gdpPerCapita": 7695.75319445165,
-      "inflation": null,
+      "inflation": 2.8,
       "exports": [],
       "industries": []
     },
@@ -7301,11 +7434,13 @@
           "Angola",
           "República Democrática Del Congo",
           "Zimbabue"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -7429,7 +7564,7 @@
     "economy": {
       "gdp": 2185821648943.86,
       "gdpPerCapita": 10310.5488778166,
-      "inflation": 4.6,
+      "inflation": 4.4,
       "exports": [],
       "industries": []
     },
@@ -7749,15 +7884,22 @@
         "exMetropole": null,
         "linkedTerritories": [],
         "blocs": [
-          "Union Europea"
+          "Union Europea",
+          "Mercosur",
+          "BRICS",
+          "ONU"
         ],
         "allies": [
-          "BRICS"
+          "Argentina",
+          "Uruguay",
+          "Paraguay"
         ],
         "rivalStates": [
           "Estados Unidos",
           "Paraguay"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -7839,7 +7981,23 @@
         "population": 27285,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Kuala Belait",
+          "population": 31178,
+          "isCapital": false
+        },
+        {
+          "name": "Seria",
+          "population": 30133,
+          "isCapital": false
+        },
+        {
+          "name": "Tutong",
+          "population": 19151,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1984,
@@ -7850,7 +8008,7 @@
     "economy": {
       "gdp": 15340808592.48,
       "gdpPerCapita": 33153.4738913513,
-      "inflation": null,
+      "inflation": 0.4,
       "exports": [],
       "industries": []
     },
@@ -7992,10 +8150,10 @@
         "blocs": [
           "ASEAN"
         ],
-        "allies": [
-          "ASEAN Regional Forum"
-        ],
-        "rivalStates": []
+        "allies": [],
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -8019,7 +8177,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Revuelta de Brunéi",
+        "startYear": 1962,
+        "endYear": 1962,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -8079,7 +8244,7 @@
     "economy": {
       "gdp": 113343355779.985,
       "gdpPerCapita": 17596.0173663521,
-      "inflation": null,
+      "inflation": 2.4,
       "exports": [],
       "industries": []
     },
@@ -8466,9 +8631,7 @@
           "NATO",
           "Union Europea"
         ],
-        "allies": [
-          "OTAN"
-        ],
+        "allies": [],
         "rivalStates": [
           "Rumania",
           "Unión Soviética",
@@ -8508,11 +8671,13 @@
           "Tailandia",
           "Tonga",
           "Ucrania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -8633,7 +8798,7 @@
     "economy": {
       "gdp": 23124729853.0218,
       "gdpPerCapita": 981.992649769081,
-      "inflation": null,
+      "inflation": 4.2,
       "exports": [],
       "industries": []
     },
@@ -8831,11 +8996,13 @@
         "allies": [],
         "rivalStates": [
           "Mali"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Musulmanes",
       "composition": [
         {
           "name": "Musulmanes",
@@ -8898,13 +9065,23 @@
       },
       "capital": {
         "name": "Gitega",
-        "population": null,
+        "population": 41944,
         "isCapital": true
       },
       "cities": [
         {
-          "name": "BUJUMBURA",
+          "name": "Buyumbura",
           "population": 497169,
+          "isCapital": false
+        },
+        {
+          "name": "Ngozi",
+          "population": 21506,
+          "isCapital": false
+        },
+        {
+          "name": "Ruyigi",
+          "population": 38458,
           "isCapital": false
         }
       ]
@@ -8918,7 +9095,7 @@
     "economy": {
       "gdp": 3082433067.32634,
       "gdpPerCapita": 219.424830882698,
-      "inflation": null,
+      "inflation": 20.2,
       "exports": [],
       "industries": []
     },
@@ -9127,11 +9304,13 @@
           "República Democrática Del Congo",
           "Sudán",
           "Zimbabue"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -9205,11 +9384,27 @@
         "coatOfArms": null
       },
       "capital": {
-        "name": "Phnom Penh",
-        "population": null,
+        "name": "Nom Pen",
+        "population": 2281951,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Siem Reap",
+          "population": 245494,
+          "isCapital": false
+        },
+        {
+          "name": "Battambang",
+          "population": 196709,
+          "isCapital": false
+        },
+        {
+          "name": "Sihanoukville",
+          "population": 89946,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1953,
@@ -9220,7 +9415,7 @@
     "economy": {
       "gdp": 46352647037.2406,
       "gdpPerCapita": 2627.87969756224,
-      "inflation": null,
+      "inflation": 0.8,
       "exports": [],
       "industries": []
     },
@@ -9426,9 +9621,7 @@
           "ASEAN",
           "Union Africana"
         ],
-        "allies": [
-          "ASEAN Regional Forum"
-        ],
+        "allies": [],
         "rivalStates": [
           "Tailandia",
           "Canadá",
@@ -9444,11 +9637,13 @@
           "Singapur",
           "Unión Soviética",
           "Vietnam"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Budistas",
       "composition": [
         {
           "name": "Budistas",
@@ -9569,7 +9764,7 @@
     "economy": {
       "gdp": 53296694320.2057,
       "gdpPerCapita": 1830.00833684727,
-      "inflation": null,
+      "inflation": 4.5,
       "exports": [],
       "industries": []
     },
@@ -9796,11 +9991,13 @@
           "Union Africana"
         ],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -9909,7 +10106,7 @@
     "economy": {
       "gdp": 2243636826633.76,
       "gdpPerCapita": 54340.3477224733,
-      "inflation": 3.8,
+      "inflation": 2.4,
       "exports": [],
       "industries": []
     },
@@ -10371,10 +10568,7 @@
           "NATO",
           "ASEAN"
         ],
-        "allies": [
-          "OTAN",
-          "ASEAN Regional Forum"
-        ],
+        "allies": [],
         "rivalStates": [
           "Reino Unido",
           "Polonia",
@@ -10414,7 +10608,9 @@
           "Albania",
           "Islandia",
           "República Federal De Yugoslavia"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -10655,10 +10851,26 @@
       },
       "capital": {
         "name": "Bangui",
-        "population": 451690,
+        "population": 889231,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Bimbo",
+          "population": 267859,
+          "isCapital": false
+        },
+        {
+          "name": "Berberati",
+          "population": 76159,
+          "isCapital": false
+        },
+        {
+          "name": "Carnot",
+          "population": 45700,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1960,
@@ -10669,7 +10881,7 @@
     "economy": {
       "gdp": 2751494281.06887,
       "gdpPerCapita": 516.160999996036,
-      "inflation": null,
+      "inflation": 1.5,
       "exports": [],
       "industries": []
     },
@@ -10877,11 +11089,13 @@
           "República Democrática Del Congo",
           "Sudán Del Sur",
           "Uganda"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -10943,11 +11157,27 @@
         "coatOfArms": null
       },
       "capital": {
-        "name": "N'Djamena",
-        "population": 530965,
+        "name": "Yamena",
+        "population": 1600000,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Moundou",
+          "population": 156705,
+          "isCapital": false
+        },
+        {
+          "name": "Sarh",
+          "population": 108061,
+          "isCapital": false
+        },
+        {
+          "name": "Abeche",
+          "population": 74520,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1960,
@@ -10958,7 +11188,7 @@
     "economy": {
       "gdp": 19518819751.283,
       "gdpPerCapita": 961.55975562506,
-      "inflation": null,
+      "inflation": 8.9,
       "exports": [],
       "industries": []
     },
@@ -11237,11 +11467,13 @@
           "Sudán",
           "Uganda",
           "Zimbabue"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Musulmanes",
       "composition": [
         {
           "name": "Musulmanes",
@@ -11380,7 +11612,7 @@
     "economy": {
       "gdp": 330267137371.592,
       "gdpPerCapita": 16709.8893972307,
-      "inflation": null,
+      "inflation": 4.3,
       "exports": [],
       "industries": []
     },
@@ -11600,11 +11832,13 @@
           "Perú",
           "Argentina",
           "Ecuador"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -12177,11 +12411,14 @@
         "linkedTerritories": [],
         "blocs": [
           "ASEAN",
-          "Union Africana"
+          "Union Africana",
+          "BRICS",
+          "ONU"
         ],
         "allies": [
-          "BRICS",
-          "ASEAN Regional Forum"
+          "Pakistan",
+          "Rusia",
+          "Corea del Norte"
         ],
         "rivalStates": [
           "Estados Unidos",
@@ -12211,8 +12448,16 @@
           "Malasia",
           "República Democrática Alemana",
           "Singapur",
-          "Rusia"
-        ]
+          "Rusia",
+          "Japon",
+          "Taiwan"
+        ],
+        "disputes": [
+          "Taiwan",
+          "Mar de China Meridional",
+          "Aksai Chin"
+        ],
+        "protectorates": []
       }
     },
     "religion": {
@@ -12469,7 +12714,7 @@
     "economy": {
       "gdp": 418818154879.271,
       "gdpPerCapita": 7919.20886825345,
-      "inflation": null,
+      "inflation": 6.6,
       "exports": [],
       "industries": []
     },
@@ -12735,11 +12980,13 @@
           "Tailandia",
           "Turquía",
           "Unión Soviética"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -12817,7 +13064,23 @@
         "population": 30365,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Mutsamudu",
+          "population": 30000,
+          "isCapital": false
+        },
+        {
+          "name": "Fomboni",
+          "population": 19696,
+          "isCapital": false
+        },
+        {
+          "name": "Domoni",
+          "population": 16858,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1975,
@@ -12828,7 +13091,7 @@
     "economy": {
       "gdp": 1440991455.45188,
       "gdpPerCapita": 1662.75663312504,
-      "inflation": null,
+      "inflation": 5.1,
       "exports": [],
       "industries": []
     },
@@ -13008,11 +13271,13 @@
           "Union Africana"
         ],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Musulmanes",
       "composition": [
         {
           "name": "Musulmanes",
@@ -13048,7 +13313,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Crisis separatista de las Comoras",
+        "startYear": 1997,
+        "endYear": 2001,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -13068,11 +13340,27 @@
         "coatOfArms": null
       },
       "capital": {
-        "name": "Kinshasa",
-        "population": null,
+        "name": "Kinsasa",
+        "population": 17071000,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Lubumbashi",
+          "population": 2589000,
+          "isCapital": false
+        },
+        {
+          "name": "Mbuji-Mayi",
+          "population": 2500000,
+          "isCapital": false
+        },
+        {
+          "name": "Kisangani",
+          "population": 1600000,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1960,
@@ -13083,7 +13371,7 @@
     "economy": {
       "gdp": 70962185790.7094,
       "gdpPerCapita": 649.383338556725,
-      "inflation": null,
+      "inflation": 2.9,
       "exports": [],
       "industries": []
     },
@@ -13319,7 +13607,9 @@
           "Chad",
           "Namibia",
           "Sudán"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -13396,10 +13686,26 @@
       },
       "capital": {
         "name": "Brazzaville",
-        "population": null,
+        "population": 2387000,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Pointe-Noire",
+          "population": 1389000,
+          "isCapital": false
+        },
+        {
+          "name": "Dolisie",
+          "population": 117920,
+          "isCapital": false
+        },
+        {
+          "name": "Nkayi",
+          "population": 71500,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1960,
@@ -13410,7 +13716,7 @@
     "economy": {
       "gdp": 15719986076.6464,
       "gdpPerCapita": 2482.2489948456,
-      "inflation": null,
+      "inflation": 3.1,
       "exports": [],
       "industries": []
     },
@@ -13606,7 +13912,9 @@
           "Angola",
           "Chad",
           "Ruanda"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -13661,7 +13969,7 @@
       },
       "capital": {
         "name": "San Jose",
-        "population": 357976,
+        "population": 342188,
         "isCapital": true
       },
       "cities": [
@@ -13676,18 +13984,8 @@
           "isCapital": false
         },
         {
-          "name": "San Carlos",
-          "population": 214596,
-          "isCapital": false
-        },
-        {
           "name": "Cartago",
-          "population": 168971,
-          "isCapital": false
-        },
-        {
-          "name": "Pococí",
-          "population": 160387,
+          "population": 156600,
           "isCapital": false
         }
       ]
@@ -13701,7 +13999,7 @@
     "economy": {
       "gdp": 95350423176.5962,
       "gdpPerCapita": 18587.1532203482,
-      "inflation": null,
+      "inflation": 0.5,
       "exports": [],
       "industries": []
     },
@@ -13854,11 +14152,13 @@
         "linkedTerritories": [],
         "blocs": [],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -13894,7 +14194,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Guerra civil costarricense",
+        "startYear": 1948,
+        "endYear": 1948,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -13914,11 +14221,27 @@
         "coatOfArms": null
       },
       "capital": {
-        "name": "Yamoussoukro",
-        "population": null,
+        "name": "Yamusukro",
+        "population": 355573,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Abiyan",
+          "population": 6321000,
+          "isCapital": false
+        },
+        {
+          "name": "Bouake",
+          "population": 832371,
+          "isCapital": false
+        },
+        {
+          "name": "Daloa",
+          "population": 255921,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1960,
@@ -13929,7 +14252,7 @@
     "economy": {
       "gdp": 87113179149.284,
       "gdpPerCapita": 2727.8935220697,
-      "inflation": null,
+      "inflation": 3.5,
       "exports": [],
       "industries": []
     },
@@ -14120,7 +14443,9 @@
           "Union Africana"
         ],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -14144,7 +14469,20 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Primera guerra civil marfilena",
+        "startYear": 2002,
+        "endYear": 2007,
+        "ongoing": false
+      },
+      {
+        "name": "Segunda guerra civil marfilena",
+        "startYear": 2010,
+        "endYear": 2011,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -14194,7 +14532,7 @@
     "economy": {
       "gdp": 92983810328.9088,
       "gdpPerCapita": 24050.4397933135,
-      "inflation": null,
+      "inflation": 3,
       "exports": [],
       "industries": []
     },
@@ -14397,16 +14735,16 @@
           "NATO",
           "Union Europea"
         ],
-        "allies": [
-          "OTAN"
-        ],
+        "allies": [],
         "rivalStates": [
           "República Federativa Socialista De Yugoslavia"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -14533,7 +14871,7 @@
     "economy": {
       "gdp": 107352000000,
       "gdpPerCapita": 9605.27914559614,
-      "inflation": null,
+      "inflation": 18.5,
       "exports": [],
       "industries": []
     },
@@ -14802,11 +15140,13 @@
           "Etiopía",
           "Somalia",
           "Granada"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -14942,7 +15282,7 @@
     "economy": {
       "gdp": 37634533331.8902,
       "gdpPerCapita": 38674.29296875,
-      "inflation": null,
+      "inflation": 1.8,
       "exports": [],
       "industries": []
     },
@@ -15122,11 +15462,13 @@
         "allies": [],
         "rivalStates": [
           "Turquía"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -15229,7 +15571,7 @@
     "economy": {
       "gdp": 347034062928.479,
       "gdpPerCapita": 31823.3078290564,
-      "inflation": null,
+      "inflation": 2.4,
       "exports": [],
       "industries": []
     },
@@ -15638,9 +15980,7 @@
           "NATO",
           "Union Europea"
         ],
-        "allies": [
-          "OTAN"
-        ],
+        "allies": [],
         "rivalStates": [
           "Albania",
           "Armenia",
@@ -15681,7 +16021,9 @@
           "Ucrania",
           "Alemania",
           "Turquía"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -15782,7 +16124,7 @@
     "economy": {
       "gdp": 424524722037.047,
       "gdpPerCapita": 71026.4832271897,
-      "inflation": null,
+      "inflation": 1.4,
       "exports": [],
       "industries": []
     },
@@ -16266,11 +16608,13 @@
           "Tailandia",
           "Tonga",
           "Ucrania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -16584,11 +16928,27 @@
         "coatOfArms": null
       },
       "capital": {
-        "name": "Djibouti",
-        "population": 475322,
+        "name": "Yibuti",
+        "population": 623891,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Ali Sabieh",
+          "population": 45000,
+          "isCapital": false
+        },
+        {
+          "name": "Tadjoura",
+          "population": 22000,
+          "isCapital": false
+        },
+        {
+          "name": "Obock",
+          "population": 17600,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1977,
@@ -16599,7 +16959,7 @@
     "economy": {
       "gdp": 4152145939.98458,
       "gdpPerCapita": 3552.72335079222,
-      "inflation": null,
+      "inflation": 2.1,
       "exports": [],
       "industries": []
     },
@@ -16779,11 +17139,13 @@
         "allies": [],
         "rivalStates": [
           "Eritrea"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Musulmanes",
       "composition": [
         {
           "name": "Musulmanes",
@@ -16898,7 +17260,7 @@
     "economy": {
       "gdp": 124282245638.568,
       "gdpPerCapita": 10875.6618443092,
-      "inflation": null,
+      "inflation": 3.3,
       "exports": [],
       "industries": []
     },
@@ -17245,11 +17607,13 @@
           "Tailandia",
           "Tonga",
           "Ucrania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -17364,7 +17728,7 @@
     "economy": {
       "gdp": 124676074700,
       "gdpPerCapita": 6874.705739766,
-      "inflation": null,
+      "inflation": 1.5,
       "exports": [],
       "industries": []
     },
@@ -17542,11 +17906,13 @@
           "Bolivia",
           "Chile",
           "Perú"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -17632,22 +17998,64 @@
         "coatOfArms": null
       },
       "capital": {
-        "name": "Cairo",
-        "population": null,
+        "name": "El Cairo",
+        "population": 10230350,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Alejandria",
+          "population": 5760000,
+          "isCapital": false
+        },
+        {
+          "name": "Guiza",
+          "population": 4239988,
+          "isCapital": false
+        },
+        {
+          "name": "Shubra el Jeima",
+          "population": 1186246,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1922,
       "type": "Legal y pacifica",
       "origin": "Reino de Egipto",
-      "events": []
+      "events": [
+        {
+          "year": 1922,
+          "category": "estado",
+          "text": "Independencia nominal del Reino Unido"
+        },
+        {
+          "year": 1952,
+          "category": "golpe",
+          "text": "Revolucion de los Oficiales Libres"
+        },
+        {
+          "year": 1953,
+          "category": "estado",
+          "text": "Abolicion de la monarquia y proclamacion de la republica"
+        },
+        {
+          "year": 2011,
+          "category": "revolucion",
+          "text": "Levantamiento de la Primavera Arabe"
+        },
+        {
+          "year": 2013,
+          "category": "golpe",
+          "text": "Derrocamiento de Mohamed Morsi"
+        }
+      ]
     },
     "economy": {
       "gdp": 389059911003.566,
       "gdpPerCapita": 3338.47371395895,
-      "inflation": 35,
+      "inflation": 28.3,
       "exports": [],
       "industries": []
     },
@@ -17897,9 +18305,7 @@
         "blocs": [
           "Union Africana"
         ],
-        "allies": [
-          "BRICS"
-        ],
+        "allies": [],
         "rivalStates": [
           "Israel",
           "Reino Unido",
@@ -17915,12 +18321,27 @@
           "Arabia Saudí",
           "Australia",
           "Kuwait"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
       "summary": "Islam (Suní)",
-      "composition": []
+      "composition": [
+        {
+          "name": "Musulmanes sunitas",
+          "percentage": 89.6
+        },
+        {
+          "name": "Cristianos coptos",
+          "percentage": 9.4
+        },
+        {
+          "name": "Ateos / agnosticos / sin afiliacion",
+          "percentage": 1
+        }
+      ]
     },
     "conflicts": [
       {
@@ -18049,7 +18470,7 @@
     "economy": {
       "gdp": 35364960000,
       "gdpPerCapita": 5579.65969165029,
-      "inflation": null,
+      "inflation": 0.9,
       "exports": [],
       "industries": []
     },
@@ -18388,11 +18809,13 @@
           "Tailandia",
           "Tonga",
           "Ucrania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -18479,7 +18902,7 @@
       },
       "capital": {
         "name": "Ciudad de la Paz",
-        "population": null,
+        "population": 8000,
         "isCapital": true
       },
       "cities": [
@@ -18489,18 +18912,13 @@
           "isCapital": false
         },
         {
-          "name": "MALABO",
+          "name": "Malabo",
           "population": 315665,
           "isCapital": false
         },
         {
-          "name": "Ebibeyín",
-          "population": 48980,
-          "isCapital": false
-        },
-        {
-          "name": "Mongomo",
-          "population": 42433,
+          "name": "Ebibeyin",
+          "population": 24831,
           "isCapital": false
         }
       ]
@@ -18514,7 +18932,7 @@
     "economy": {
       "gdp": 12765777677.0622,
       "gdpPerCapita": 6745.40013244916,
-      "inflation": null,
+      "inflation": 2.9,
       "exports": [],
       "industries": []
     },
@@ -18688,11 +19106,13 @@
           "Union Africana"
         ],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -18728,7 +19148,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Intento de golpe en Guinea Ecuatorial de 2004",
+        "startYear": 2004,
+        "endYear": 2004,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -18748,10 +19175,26 @@
       },
       "capital": {
         "name": "Asmara",
-        "population": 281110,
+        "population": 963000,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Keren",
+          "population": 120000,
+          "isCapital": false
+        },
+        {
+          "name": "Massawa",
+          "population": 53989,
+          "isCapital": false
+        },
+        {
+          "name": "Assab",
+          "population": 21100,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1993,
@@ -18762,7 +19205,7 @@
     "economy": {
       "gdp": 2065001626.01626,
       "gdpPerCapita": 688.68165957684,
-      "inflation": null,
+      "inflation": 7.5,
       "exports": [],
       "industries": []
     },
@@ -18899,11 +19342,13 @@
         "rivalStates": [
           "Etiopía",
           "Yibuti"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -18971,14 +19416,24 @@
         "coatOfArms": null
       },
       "capital": {
-        "name": "Tallinn",
-        "population": 453864,
+        "name": "Tallin",
+        "population": 461602,
         "isCapital": true
       },
       "cities": [
         {
           "name": "Tartu",
           "population": 100724,
+          "isCapital": false
+        },
+        {
+          "name": "Narva",
+          "population": 54090,
+          "isCapital": false
+        },
+        {
+          "name": "Parnu",
+          "population": 40762,
           "isCapital": false
         }
       ]
@@ -18992,7 +19447,7 @@
     "economy": {
       "gdp": 43130419829.35,
       "gdpPerCapita": 31428.3547816104,
-      "inflation": null,
+      "inflation": 3.5,
       "exports": [],
       "industries": []
     },
@@ -19403,9 +19858,7 @@
           "NATO",
           "Union Europea"
         ],
-        "allies": [
-          "OTAN"
-        ],
+        "allies": [],
         "rivalStates": [
           "Checoslovaquia",
           "Estados Unidos",
@@ -19445,11 +19898,13 @@
           "Tailandia",
           "Tonga",
           "Ucrania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Ateos / agnosticos / sin afiliacion",
       "composition": [
         {
           "name": "Ateos / agnosticos / sin afiliacion",
@@ -19523,11 +19978,27 @@
         "coatOfArms": null
       },
       "capital": {
-        "name": "Addis Ababa",
-        "population": 2739551,
+        "name": "Adis Abeba",
+        "population": 5677000,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Dire Dawa",
+          "population": 506936,
+          "isCapital": false
+        },
+        {
+          "name": "Mekele",
+          "population": 500000,
+          "isCapital": false
+        },
+        {
+          "name": "Gondar",
+          "population": 443156,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1995,
@@ -19538,7 +20009,7 @@
     "economy": {
       "gdp": 149740297952.986,
       "gdpPerCapita": 1133.88279681719,
-      "inflation": null,
+      "inflation": 21,
       "exports": [],
       "industries": []
     },
@@ -19771,9 +20242,7 @@
         "blocs": [
           "Union Africana"
         ],
-        "allies": [
-          "BRICS"
-        ],
+        "allies": [],
         "rivalStates": [
           "Australia",
           "Bélgica",
@@ -19796,7 +20265,9 @@
           "Somalia",
           "Cuba",
           "Eritrea"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -19927,7 +20398,7 @@
     "economy": {
       "gdp": 298696961297.656,
       "gdpPerCapita": 53149.7671934051,
-      "inflation": null,
+      "inflation": 1.6,
       "exports": [],
       "industries": []
     },
@@ -20252,9 +20723,7 @@
           "OTAN",
           "NATO"
         ],
-        "allies": [
-          "OTAN"
-        ],
+        "allies": [],
         "rivalStates": [
           "Unión Soviética",
           "Hungría",
@@ -20262,11 +20731,13 @@
           "Noruega",
           "Polonia",
           "Rumania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -20450,7 +20921,7 @@
     "economy": {
       "gdp": 3160442622465.08,
       "gdpPerCapita": 46103.0840855884,
-      "inflation": 2.9,
+      "inflation": 2,
       "exports": [],
       "industries": []
     },
@@ -21000,10 +21471,13 @@
         "blocs": [
           "OTAN",
           "NATO",
-          "Union Europea"
+          "Union Europea",
+          "ONU"
         ],
         "allies": [
-          "OTAN"
+          "Alemania",
+          "Italia",
+          "España"
         ],
         "rivalStates": [
           "Estados Unidos",
@@ -21055,7 +21529,11 @@
           "Islandia",
           "República Federal De Yugoslavia",
           "Rusia"
-        ]
+        ],
+        "disputes": [
+          "Mayotte"
+        ],
+        "protectorates": []
       }
     },
     "religion": {
@@ -22478,7 +22956,7 @@
       },
       "capital": {
         "name": "Libreville",
-        "population": 703939,
+        "population": 703904,
         "isCapital": true
       },
       "cities": [
@@ -22490,6 +22968,11 @@
         {
           "name": "Franceville",
           "population": 110568,
+          "isCapital": false
+        },
+        {
+          "name": "Oyem",
+          "population": 60798,
           "isCapital": false
         }
       ]
@@ -22503,7 +22986,7 @@
     "economy": {
       "gdp": 20895684425.6752,
       "gdpPerCapita": 8230.04311451151,
-      "inflation": null,
+      "inflation": 1.2,
       "exports": [],
       "industries": []
     },
@@ -22718,11 +23201,13 @@
           "Union Africana"
         ],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -22758,7 +23243,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Golpe de Estado gabones de 1964",
+        "startYear": 1964,
+        "endYear": 1964,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -22781,7 +23273,23 @@
         "population": 42326,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Serekunda",
+          "population": 340000,
+          "isCapital": false
+        },
+        {
+          "name": "Brikama",
+          "population": 119434,
+          "isCapital": false
+        },
+        {
+          "name": "Bakau",
+          "population": 43400,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1965,
@@ -22792,7 +23300,7 @@
     "economy": {
       "gdp": 2404888749.21907,
       "gdpPerCapita": 871.340291776294,
-      "inflation": null,
+      "inflation": 11.6,
       "exports": [],
       "industries": []
     },
@@ -22960,7 +23468,9 @@
           "Union Africana"
         ],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -22980,7 +23490,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Intento de golpe en Gambia de 1981",
+        "startYear": 1981,
+        "endYear": 1981,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -23030,7 +23547,7 @@
     "economy": {
       "gdp": 34189423544.9955,
       "gdpPerCapita": 9241.49122313713,
-      "inflation": null,
+      "inflation": 1.1,
       "exports": [],
       "industries": []
     },
@@ -23424,11 +23941,13 @@
           "Ucrania",
           "Alemania",
           "Turquía"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -23650,7 +24169,7 @@
     "economy": {
       "gdp": 4685592577804.69,
       "gdpPerCapita": 56103.7323182554,
-      "inflation": 2.6,
+      "inflation": 2.3,
       "exports": [],
       "industries": []
     },
@@ -24234,9 +24753,7 @@
           "ONU",
           "Union Africana"
         ],
-        "allies": [
-          "OTAN"
-        ],
+        "allies": [],
         "rivalStates": [
           "Francia",
           "Polonia",
@@ -24258,7 +24775,9 @@
           "Georgia",
           "República Checa",
           "Rumania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -24350,7 +24869,7 @@
       },
       "capital": {
         "name": "Accra",
-        "population": 1594419,
+        "population": 2291352,
         "isCapital": true
       },
       "cities": [
@@ -24366,17 +24885,7 @@
         },
         {
           "name": "Tamale",
-          "population": 223252,
-          "isCapital": false
-        },
-        {
-          "name": "Ashiaman",
-          "population": 190972,
-          "isCapital": false
-        },
-        {
-          "name": "Obuasi",
-          "population": 168641,
+          "population": 467054,
           "isCapital": false
         }
       ]
@@ -24390,7 +24899,7 @@
     "economy": {
       "gdp": 82308110386.4641,
       "gdpPerCapita": 2390.77237652715,
-      "inflation": null,
+      "inflation": 22.8,
       "exports": [],
       "industries": []
     },
@@ -24557,11 +25066,13 @@
           "Union Africana"
         ],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -24597,7 +25108,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Golpe de Estado ghanes de 1966",
+        "startYear": 1966,
+        "endYear": 1966,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -24657,7 +25175,7 @@
     "economy": {
       "gdp": 256238371778.118,
       "gdpPerCapita": 24626.1481858973,
-      "inflation": null,
+      "inflation": 2.7,
       "exports": [],
       "industries": []
     },
@@ -24994,9 +25512,7 @@
           "NATO",
           "Union Europea"
         ],
-        "allies": [
-          "OTAN"
-        ],
+        "allies": [],
         "rivalStates": [
           "Australia",
           "Bélgica",
@@ -25019,11 +25535,13 @@
           "Tailandia",
           "Turquía",
           "Unión Soviética"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -25138,7 +25656,7 @@
     "economy": {
       "gdp": 113199581158.203,
       "gdpPerCapita": 6150.02571438505,
-      "inflation": null,
+      "inflation": 2.9,
       "exports": [],
       "industries": []
     },
@@ -25297,11 +25815,13 @@
         "rivalStates": [
           "El Salvador",
           "Estados Unidos"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -25382,33 +25902,23 @@
       },
       "capital": {
         "name": "Conakry",
-        "population": 1659785,
+        "population": 1660973,
         "isCapital": true
       },
       "cities": [
         {
-          "name": "Labé",
-          "population": 249515,
+          "name": "Kankan",
+          "population": 200000,
           "isCapital": false
         },
         {
-          "name": "Coyah",
-          "population": 216928,
-          "isCapital": false
-        },
-        {
-          "name": "Nzérékoré",
+          "name": "Nzerekore",
           "population": 195027,
           "isCapital": false
         },
         {
-          "name": "Kankan",
-          "population": 190722,
-          "isCapital": false
-        },
-        {
-          "name": "Boke",
-          "population": 185548,
+          "name": "Labe",
+          "population": 249515,
           "isCapital": false
         }
       ]
@@ -25422,7 +25932,7 @@
     "economy": {
       "gdp": 25008678293.4084,
       "gdpPerCapita": 1694.95375862193,
-      "inflation": null,
+      "inflation": 8.1,
       "exports": [],
       "industries": []
     },
@@ -25607,11 +26117,13 @@
           "Union Africana"
         ],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Musulmanes",
       "composition": [
         {
           "name": "Musulmanes",
@@ -25647,7 +26159,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Golpe de Estado guineano de 2021",
+        "startYear": 2021,
+        "endYear": 2021,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -25666,11 +26185,27 @@
         "coatOfArms": null
       },
       "capital": {
-        "name": "Bissau",
-        "population": 387909,
+        "name": "Bisau",
+        "population": 592000,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Bafata",
+          "population": 22700,
+          "isCapital": false
+        },
+        {
+          "name": "Gabu",
+          "population": 14500,
+          "isCapital": false
+        },
+        {
+          "name": "Cacheu",
+          "population": 10000,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1974,
@@ -25681,7 +26216,7 @@
     "economy": {
       "gdp": 2218393804.54798,
       "gdpPerCapita": 1007.74151728028,
-      "inflation": null,
+      "inflation": 3.8,
       "exports": [],
       "industries": []
     },
@@ -25867,11 +26402,13 @@
           "Union Africana"
         ],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Musulmanes",
       "composition": [
         {
           "name": "Musulmanes",
@@ -25907,7 +26444,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Guerra civil de Guinea-Bisau",
+        "startYear": 1998,
+        "endYear": 1999,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -25930,7 +26474,23 @@
         "population": 24849,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Linden",
+          "population": 29498,
+          "isCapital": false
+        },
+        {
+          "name": "Nueva Amsterdam",
+          "population": 35039,
+          "isCapital": false
+        },
+        {
+          "name": "Anna Regina",
+          "population": 12448,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1966,
@@ -25941,7 +26501,7 @@
     "economy": {
       "gdp": 24662709832.1343,
       "gdpPerCapita": 29675.2443873316,
-      "inflation": null,
+      "inflation": 2.9,
       "exports": [],
       "industries": []
     },
@@ -26114,11 +26674,13 @@
           "Union Europea"
         ],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -26154,7 +26716,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Levantamiento del Rupununi",
+        "startYear": 1969,
+        "endYear": 1969,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -26174,10 +26743,26 @@
       },
       "capital": {
         "name": "Puerto Principe",
-        "population": null,
+        "population": 987310,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Cap-Haitien",
+          "population": 274812,
+          "isCapital": false
+        },
+        {
+          "name": "Gonaives",
+          "population": 356324,
+          "isCapital": false
+        },
+        {
+          "name": "Les Cayes",
+          "population": 126053,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1804,
@@ -26188,7 +26773,7 @@
     "economy": {
       "gdp": 25224154990.7946,
       "gdpPerCapita": 2142.62330526788,
-      "inflation": null,
+      "inflation": 26.9,
       "exports": [],
       "industries": []
     },
@@ -26367,11 +26952,13 @@
         "rivalStates": [
           "Francia",
           "República Dominicana"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -26474,7 +27061,7 @@
     "economy": {
       "gdp": 37093565854.0437,
       "gdpPerCapita": 3426.43483328923,
-      "inflation": null,
+      "inflation": 4.6,
       "exports": [],
       "industries": []
     },
@@ -26808,11 +27395,13 @@
           "Tailandia",
           "Tonga",
           "Ucrania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -26939,7 +27528,7 @@
     "economy": {
       "gdp": 222722738925.641,
       "gdpPerCapita": 23292.3263882478,
-      "inflation": null,
+      "inflation": 3.7,
       "exports": [],
       "industries": []
     },
@@ -27358,9 +27947,7 @@
           "NATO",
           "Union Europea"
         ],
-        "allies": [
-          "OTAN"
-        ],
+        "allies": [],
         "rivalStates": [
           "Austria",
           "Finlandia",
@@ -27402,11 +27989,13 @@
           "Tailandia",
           "Tonga",
           "Ucrania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -27508,7 +28097,23 @@
         "population": 129886,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Kopavogur",
+          "population": 39000,
+          "isCapital": false
+        },
+        {
+          "name": "Hafnarfjordur",
+          "population": 30000,
+          "isCapital": false
+        },
+        {
+          "name": "Akureyri",
+          "population": 19642,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1944,
@@ -27519,7 +28124,7 @@
     "economy": {
       "gdp": 33255181468.9382,
       "gdpPerCapita": 86040.5309851288,
-      "inflation": null,
+      "inflation": 5.9,
       "exports": [],
       "industries": []
     },
@@ -27808,9 +28413,7 @@
           "NATO",
           "Union Europea"
         ],
-        "allies": [
-          "OTAN"
-        ],
+        "allies": [],
         "rivalStates": [
           "Albania",
           "Alemania",
@@ -27827,11 +28430,13 @@
           "Reino Unido",
           "República Federal De Yugoslavia",
           "Turquía"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -27955,7 +28560,7 @@
     "economy": {
       "gdp": 3909891533858.08,
       "gdpPerCapita": 2694.73780859961,
-      "inflation": 5.1,
+      "inflation": 5,
       "exports": [],
       "industries": []
     },
@@ -28213,11 +28818,14 @@
         "exMetropole": null,
         "linkedTerritories": [],
         "blocs": [
-          "ASEAN"
+          "ASEAN",
+          "BRICS",
+          "ONU"
         ],
         "allies": [
-          "BRICS",
-          "ASEAN Regional Forum"
+          "Francia",
+          "Estados Unidos",
+          "Japon"
         ],
         "rivalStates": [
           "Pakistán",
@@ -28234,8 +28842,15 @@
           "República Democrática Alemana",
           "Singapur",
           "Tailandia",
-          "Vietnam"
-        ]
+          "Vietnam",
+          "China"
+        ],
+        "disputes": [
+          "Cachemira",
+          "Aksai Chin",
+          "Arunachal Pradesh"
+        ],
+        "protectorates": []
       }
     },
     "religion": {
@@ -28434,7 +29049,7 @@
     "economy": {
       "gdp": 1396300098190.97,
       "gdpPerCapita": 4925.43048751861,
-      "inflation": 2.6,
+      "inflation": 2.2,
       "exports": [],
       "industries": []
     },
@@ -28645,16 +29260,15 @@
           "ASEAN",
           "Union Africana"
         ],
-        "allies": [
-          "ASEAN Regional Forum",
-          "BRICS"
-        ],
+        "allies": [],
         "rivalStates": [
           "Reino De Los Países Bajos",
           "Reino Unido",
           "Malasia",
           "Timor Oriental"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -28662,11 +29276,15 @@
       "composition": [
         {
           "name": "Musulmanes sunitas",
-          "percentage": 87.2
+          "percentage": 86.7
         },
         {
-          "name": "Cristianos",
-          "percentage": 9.9
+          "name": "Cristianos protestantes",
+          "percentage": 7.6
+        },
+        {
+          "name": "Catolicos",
+          "percentage": 3.1
         },
         {
           "name": "Hindues",
@@ -28674,23 +29292,11 @@
         },
         {
           "name": "Budistas",
-          "percentage": 1
-        },
-        {
-          "name": "Religiones animistas y populares",
-          "percentage": 1
-        },
-        {
-          "name": "Judios",
-          "percentage": 1
-        },
-        {
-          "name": "Otras religiones",
-          "percentage": 1
+          "percentage": 0.7
         },
         {
           "name": "Ateos / agnosticos / sin afiliacion",
-          "percentage": 1
+          "percentage": 0.2
         }
       ]
     },
@@ -28805,12 +29411,33 @@
       "year": 1979,
       "type": "Legal y pacifica",
       "origin": "Irán Imperial",
-      "events": []
+      "events": [
+        {
+          "year": 1906,
+          "category": "constitucion",
+          "text": "Revolucion constitucional persa"
+        },
+        {
+          "year": 1953,
+          "category": "golpe",
+          "text": "Golpe contra Mohammad Mosaddegh"
+        },
+        {
+          "year": 1979,
+          "category": "revolucion",
+          "text": "Revolucion islamica y caida del Sha"
+        },
+        {
+          "year": 1979,
+          "category": "constitucion",
+          "text": "Constitucion de la Republica Islamica"
+        }
+      ]
     },
     "economy": {
       "gdp": 475252089215.416,
       "gdpPerCapita": 5190.16959024821,
-      "inflation": 40,
+      "inflation": 32.5,
       "exports": [],
       "industries": []
     },
@@ -28988,10 +29615,13 @@
         "exMetropole": null,
         "linkedTerritories": [],
         "blocs": [
-          "Union Africana"
+          "Union Africana",
+          "ONU",
+          "BRICS"
         ],
         "allies": [
-          "BRICS"
+          "Siria",
+          "Hezbola"
         ],
         "rivalStates": [
           "Irak",
@@ -29003,13 +29633,41 @@
           "Arabia Saudí",
           "Reino Unido",
           "Unión Soviética",
-          "Sudán"
-        ]
+          "Sudán",
+          "Arabia Saudita"
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
       "summary": "Islam (Chií)",
-      "composition": []
+      "composition": [
+        {
+          "name": "Musulmanes chiitas",
+          "percentage": 90
+        },
+        {
+          "name": "Musulmanes sunitas",
+          "percentage": 8
+        },
+        {
+          "name": "Zoroastros",
+          "percentage": 0.2
+        },
+        {
+          "name": "Judios",
+          "percentage": 0.2
+        },
+        {
+          "name": "Cristianos",
+          "percentage": 0.6
+        },
+        {
+          "name": "Ateos / agnosticos / sin afiliacion",
+          "percentage": 1
+        }
+      ]
     },
     "conflicts": [
       {
@@ -29204,7 +29862,7 @@
     "economy": {
       "gdp": 279641257615.385,
       "gdpPerCapita": 6073.61032342708,
-      "inflation": null,
+      "inflation": 4.4,
       "exports": [],
       "industries": []
     },
@@ -29572,11 +30230,13 @@
           "Tailandia",
           "Tonga",
           "Ucrania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Musulmanes",
       "composition": [
         {
           "name": "Musulmanes",
@@ -29737,6 +30397,16 @@
           "name": "Cork",
           "population": 224004,
           "isCapital": false
+        },
+        {
+          "name": "Limerick",
+          "population": 102287,
+          "isCapital": false
+        },
+        {
+          "name": "Galway",
+          "population": 85000,
+          "isCapital": false
         }
       ]
     },
@@ -29749,7 +30419,7 @@
     "economy": {
       "gdp": 609157459747.205,
       "gdpPerCapita": 112894.953240805,
-      "inflation": null,
+      "inflation": 2.1,
       "exports": [],
       "industries": []
     },
@@ -29970,11 +30640,13 @@
           "Union Europea"
         ],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -30010,7 +30682,20 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Guerra de Independencia irlandesa",
+        "startYear": 1919,
+        "endYear": 1921,
+        "ongoing": false
+      },
+      {
+        "name": "The Troubles",
+        "startYear": 1968,
+        "endYear": 1998,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -30065,12 +30750,38 @@
       "year": 1948,
       "type": "Legal y pacifica",
       "origin": "Mandato británico de Palestina",
-      "events": []
+      "events": [
+        {
+          "year": 1947,
+          "category": "acuerdo",
+          "text": "Plan de particion de Palestina de la ONU"
+        },
+        {
+          "year": 1948,
+          "category": "estado",
+          "text": "Declaracion de independencia y guerra arabe-israeli"
+        },
+        {
+          "year": 1967,
+          "category": "guerra",
+          "text": "Guerra de los Seis Dias"
+        },
+        {
+          "year": 1979,
+          "category": "tratado",
+          "text": "Tratado de paz con Egipto"
+        },
+        {
+          "year": 1993,
+          "category": "acuerdo",
+          "text": "Acuerdos de Oslo"
+        }
+      ]
     },
     "economy": {
       "gdp": 540379921261.681,
       "gdpPerCapita": 54176.6844383302,
-      "inflation": null,
+      "inflation": 3.1,
       "exports": [],
       "industries": []
     },
@@ -30267,8 +30978,12 @@
       "relations": {
         "exMetropole": null,
         "linkedTerritories": [],
-        "blocs": [],
-        "allies": [],
+        "blocs": [
+          "ONU"
+        ],
+        "allies": [
+          "Estados Unidos"
+        ],
         "rivalStates": [
           "Jordania",
           "Estados Unidos",
@@ -30281,8 +30996,16 @@
           "Francia",
           "Cuba",
           "Irak",
-          "Turquía"
-        ]
+          "Turquía",
+          "Hamas",
+          "Hezbola"
+        ],
+        "disputes": [
+          "Jerusalen Este",
+          "Cisjordania",
+          "Altos del Golan"
+        ],
+        "protectorates": []
       }
     },
     "religion": {
@@ -30593,7 +31316,7 @@
     "economy": {
       "gdp": 2380825077243.59,
       "gdpPerCapita": 40385.3413957669,
-      "inflation": 2.8,
+      "inflation": 1,
       "exports": [],
       "industries": []
     },
@@ -31264,9 +31987,7 @@
           "Union Europea",
           "ONU"
         ],
-        "allies": [
-          "OTAN"
-        ],
+        "allies": [],
         "rivalStates": [
           "Estados Unidos",
           "Alemania",
@@ -31313,7 +32034,9 @@
           "Tailandia",
           "Tonga",
           "Ucrania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -31428,23 +32151,23 @@
       },
       "capital": {
         "name": "Kingston",
-        "population": 592291,
+        "population": 584627,
         "isCapital": true
       },
       "cities": [
         {
           "name": "Portmore",
-          "population": 182800,
+          "population": 182153,
           "isCapital": false
         },
         {
           "name": "Spanish Town",
-          "population": 149479,
+          "population": 145018,
           "isCapital": false
         },
         {
           "name": "Montego Bay",
-          "population": 111037,
+          "population": 110115,
           "isCapital": false
         }
       ]
@@ -31458,7 +32181,7 @@
     "economy": {
       "gdp": 22014397089.7689,
       "gdpPerCapita": 7753.8006955432,
-      "inflation": null,
+      "inflation": 5.4,
       "exports": [],
       "industries": []
     },
@@ -31626,11 +32349,13 @@
           "Union Africana"
         ],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -31666,7 +32391,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Rebelion de Morant Bay",
+        "startYear": 1865,
+        "endYear": 1865,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -31747,7 +32479,7 @@
     "economy": {
       "gdp": 4027597523550.58,
       "gdpPerCapita": 32487.0778047567,
-      "inflation": 2.5,
+      "inflation": 2.7,
       "exports": [],
       "industries": []
     },
@@ -32114,9 +32846,7 @@
         "blocs": [
           "ASEAN"
         ],
-        "allies": [
-          "ASEAN Regional Forum"
-        ],
+        "allies": [],
         "rivalStates": [
           "Reino De Los Países Bajos",
           "Reino Unido",
@@ -32156,7 +32886,9 @@
           "Tailandia",
           "Tonga",
           "Ucrania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -32332,7 +33064,7 @@
     "economy": {
       "gdp": 53352289577.4648,
       "gdpPerCapita": 4618.09592498567,
-      "inflation": null,
+      "inflation": 1.6,
       "exports": [],
       "industries": []
     },
@@ -32549,11 +33281,13 @@
           "Siria",
           "Cuba",
           "Irak"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Musulmanes",
       "composition": [
         {
           "name": "Musulmanes",
@@ -32710,7 +33444,7 @@
     "economy": {
       "gdp": 291480274648.826,
       "gdpPerCapita": 14154.6324958076,
-      "inflation": null,
+      "inflation": 8.8,
       "exports": [],
       "industries": []
     },
@@ -33094,11 +33828,13 @@
           "Tailandia",
           "Tonga",
           "Ucrania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Musulmanes",
       "composition": [
         {
           "name": "Musulmanes",
@@ -33207,7 +33943,7 @@
     "economy": {
       "gdp": 120339557905.932,
       "gdpPerCapita": 2132.43452097647,
-      "inflation": null,
+      "inflation": 4.5,
       "exports": [],
       "industries": []
     },
@@ -33369,7 +34105,9 @@
         "allies": [],
         "rivalStates": [
           "Uganda"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -33467,7 +34205,7 @@
     "economy": {
       "gdp": 160227273053.334,
       "gdpPerCapita": 32717.7186631255,
-      "inflation": null,
+      "inflation": 2.9,
       "exports": [],
       "industries": []
     },
@@ -33669,11 +34407,13 @@
           "Francia",
           "Reino Unido",
           "Irak"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Musulmanes",
       "composition": [
         {
           "name": "Musulmanes",
@@ -33741,11 +34481,27 @@
         "coatOfArms": null
       },
       "capital": {
-        "name": "Bishkek",
-        "population": null,
+        "name": "Biskek",
+        "population": 1128279,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Osh",
+          "population": 322164,
+          "isCapital": false
+        },
+        {
+          "name": "Yalal-Abad",
+          "population": 123239,
+          "isCapital": false
+        },
+        {
+          "name": "Karakol",
+          "population": 80000,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1991,
@@ -33756,7 +34512,7 @@
     "economy": {
       "gdp": 17478259659.2625,
       "gdpPerCapita": 2420.18542283831,
-      "inflation": null,
+      "inflation": 10.8,
       "exports": [],
       "industries": []
     },
@@ -33957,7 +34713,9 @@
           "Rusia",
           "Tayikistán",
           "Uzbekistán"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -34019,11 +34777,27 @@
         "coatOfArms": null
       },
       "capital": {
-        "name": "Vientiane",
-        "population": 698318,
+        "name": "Vientian",
+        "population": 948477,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Savanakhet",
+          "population": 125760,
+          "isCapital": false
+        },
+        {
+          "name": "Pakse",
+          "population": 87693,
+          "isCapital": false
+        },
+        {
+          "name": "Luang Prabang",
+          "population": 56000,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1949,
@@ -34034,7 +34808,7 @@
     "economy": {
       "gdp": 16502933121.3379,
       "gdpPerCapita": 2123.97909415109,
-      "inflation": null,
+      "inflation": 23.1,
       "exports": [],
       "industries": []
     },
@@ -34219,9 +34993,7 @@
         "blocs": [
           "ASEAN"
         ],
-        "allies": [
-          "ASEAN Regional Forum"
-        ],
+        "allies": [],
         "rivalStates": [
           "Vietnam",
           "Australia",
@@ -34241,7 +35013,9 @@
           "República Democrática Alemana",
           "Singapur",
           "Unión Soviética"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -34298,13 +35072,23 @@
       },
       "capital": {
         "name": "Riga",
-        "population": 609489,
+        "population": 605273,
         "isCapital": true
       },
       "cities": [
         {
           "name": "Daugavpils",
-          "population": 78850,
+          "population": 82046,
+          "isCapital": false
+        },
+        {
+          "name": "Liepaja",
+          "population": 66780,
+          "isCapital": false
+        },
+        {
+          "name": "Jelgava",
+          "population": 55172,
           "isCapital": false
         }
       ]
@@ -34318,7 +35102,7 @@
     "economy": {
       "gdp": 43684254432.3609,
       "gdpPerCapita": 23409.0845154775,
-      "inflation": null,
+      "inflation": 1.3,
       "exports": [],
       "industries": []
     },
@@ -34689,9 +35473,7 @@
           "NATO",
           "Union Europea"
         ],
-        "allies": [
-          "OTAN"
-        ],
+        "allies": [],
         "rivalStates": [
           "Estados Unidos",
           "Albania",
@@ -34730,11 +35512,13 @@
           "Tailandia",
           "Tonga",
           "Ucrania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -34772,6 +35556,12 @@
     },
     "conflicts": [
       {
+        "name": "Guerra de Independencia letona",
+        "startYear": 1918,
+        "endYear": 1920,
+        "ongoing": false
+      },
+      {
         "name": "guerra de Irak",
         "startYear": 2003,
         "endYear": 2011,
@@ -34803,13 +35593,23 @@
       },
       "capital": {
         "name": "Beirut",
-        "population": 363033,
+        "population": 361366,
         "isCapital": true
       },
       "cities": [
         {
           "name": "Tripoli",
-          "population": 127611,
+          "population": 850000,
+          "isCapital": false
+        },
+        {
+          "name": "Sidon",
+          "population": 163554,
+          "isCapital": false
+        },
+        {
+          "name": "Tiro",
+          "population": 135204,
           "isCapital": false
         }
       ]
@@ -34823,7 +35623,7 @@
     "economy": {
       "gdp": 20078620356.9931,
       "gdpPerCapita": 3477.72489842684,
-      "inflation": null,
+      "inflation": 45.2,
       "exports": [],
       "industries": []
     },
@@ -34997,11 +35797,13 @@
           "Siria",
           "Egipto",
           "Irak"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Musulmanes",
       "composition": [
         {
           "name": "Musulmanes",
@@ -35085,7 +35887,23 @@
         "population": 330760,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Teyateyaneng",
+          "population": 75000,
+          "isCapital": false
+        },
+        {
+          "name": "Mafeteng",
+          "population": 57059,
+          "isCapital": false
+        },
+        {
+          "name": "Hlotse",
+          "population": 47297,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1966,
@@ -35096,7 +35914,7 @@
     "economy": {
       "gdp": 2271759454.51107,
       "gdpPerCapita": 971.90771824829,
-      "inflation": null,
+      "inflation": 6.1,
       "exports": [],
       "industries": []
     },
@@ -35263,11 +36081,13 @@
           "Union Africana"
         ],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -35303,7 +36123,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Intervencion en Lesoto de 1998",
+        "startYear": 1998,
+        "endYear": 1998,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -35323,10 +36150,26 @@
       },
       "capital": {
         "name": "Monrovia",
-        "population": 970824,
+        "population": 1518652,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Gbarnga",
+          "population": 45835,
+          "isCapital": false
+        },
+        {
+          "name": "Buchanan",
+          "population": 34370,
+          "isCapital": false
+        },
+        {
+          "name": "Kakata",
+          "population": 33945,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1822,
@@ -35337,7 +36180,7 @@
     "economy": {
       "gdp": 4779300900,
       "gdpPerCapita": 851.497723870206,
-      "inflation": null,
+      "inflation": 8.2,
       "exports": [],
       "industries": []
     },
@@ -35499,11 +36342,13 @@
         "allies": [],
         "rivalStates": [
           "Nigeria"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -35578,10 +36423,26 @@
       },
       "capital": {
         "name": "Tripoli",
-        "population": null,
+        "population": 1163810,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Bengasi",
+          "population": 956100,
+          "isCapital": false
+        },
+        {
+          "name": "Misrata",
+          "population": 386120,
+          "isCapital": false
+        },
+        {
+          "name": "Sabha",
+          "population": 130000,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1977,
@@ -35592,7 +36453,7 @@
     "economy": {
       "gdp": 48487151215.345,
       "gdpPerCapita": 6569.16408678648,
-      "inflation": null,
+      "inflation": 2.1,
       "exports": [],
       "industries": []
     },
@@ -35826,11 +36687,13 @@
           "Pakistán",
           "Reino Unido",
           "Egipto"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Musulmanes",
       "composition": [
         {
           "name": "Musulmanes",
@@ -35958,7 +36821,7 @@
     "economy": {
       "gdp": 84869215513.3648,
       "gdpPerCapita": 29384.0189598663,
-      "inflation": null,
+      "inflation": 0.7,
       "exports": [],
       "industries": []
     },
@@ -36311,9 +37174,7 @@
           "NATO",
           "Union Europea"
         ],
-        "allies": [
-          "OTAN"
-        ],
+        "allies": [],
         "rivalStates": [
           "Albania",
           "Armenia",
@@ -36352,11 +37213,13 @@
           "Tailandia",
           "Tonga",
           "Ucrania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -36424,14 +37287,24 @@
         "coatOfArms": null
       },
       "capital": {
-        "name": "Luxembourg",
-        "population": null,
+        "name": "Luxemburgo",
+        "population": 132780,
         "isCapital": true
       },
       "cities": [
         {
-          "name": "LUXEMBOURG-VILLE",
-          "population": 128494,
+          "name": "Esch-sur-Alzette",
+          "population": 36728,
+          "isCapital": false
+        },
+        {
+          "name": "Differdange",
+          "population": 28654,
+          "isCapital": false
+        },
+        {
+          "name": "Dudelange",
+          "population": 21813,
           "isCapital": false
         }
       ]
@@ -36445,7 +37318,7 @@
     "economy": {
       "gdp": 93279851863.4062,
       "gdpPerCapita": 137781.681659123,
-      "inflation": null,
+      "inflation": 2.1,
       "exports": [],
       "industries": []
     },
@@ -36826,9 +37699,7 @@
           "NATO",
           "Union Europea"
         ],
-        "allies": [
-          "OTAN"
-        ],
+        "allies": [],
         "rivalStates": [
           "Reino Unido",
           "Francia",
@@ -36859,11 +37730,13 @@
           "Albania",
           "Islandia",
           "República Federal De Yugoslavia"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -36956,7 +37829,7 @@
       },
       "capital": {
         "name": "Antananarivo",
-        "population": 1274225,
+        "population": 1564000,
         "isCapital": true
       },
       "cities": [
@@ -36967,22 +37840,12 @@
         },
         {
           "name": "Antsirabe",
-          "population": 246354,
+          "population": 257163,
           "isCapital": false
         },
         {
           "name": "Mahajanga",
-          "population": 246022,
-          "isCapital": false
-        },
-        {
-          "name": "Fianarantsoa",
-          "population": 191776,
-          "isCapital": false
-        },
-        {
-          "name": "Toliara",
-          "population": 168756,
+          "population": 246354,
           "isCapital": false
         }
       ]
@@ -36996,7 +37859,7 @@
     "economy": {
       "gdp": 17420501490.1231,
       "gdpPerCapita": 544.987501003384,
-      "inflation": null,
+      "inflation": 9.9,
       "exports": [],
       "industries": []
     },
@@ -37169,11 +38032,13 @@
           "Union Africana"
         ],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -37209,7 +38074,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Crisis politica malgache de 2009",
+        "startYear": 2009,
+        "endYear": 2009,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -37259,7 +38131,7 @@
     "economy": {
       "gdp": 11316411329.4619,
       "gdpPerCapita": 522.570393642547,
-      "inflation": null,
+      "inflation": 32.2,
       "exports": [],
       "industries": []
     },
@@ -37414,11 +38286,13 @@
           "Union Africana"
         ],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -37454,7 +38328,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Crisis de Malaui de 1964",
+        "startYear": 1964,
+        "endYear": 1964,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -37514,7 +38395,7 @@
     "economy": {
       "gdp": 422227005428.688,
       "gdpPerCapita": 11874.4273684245,
-      "inflation": null,
+      "inflation": 1.8,
       "exports": [],
       "industries": []
     },
@@ -37741,9 +38622,7 @@
         "blocs": [
           "ASEAN"
         ],
-        "allies": [
-          "ASEAN Regional Forum"
-        ],
+        "allies": [],
         "rivalStates": [
           "Indonesia",
           "Camboya",
@@ -37760,11 +38639,13 @@
           "Tailandia",
           "Unión Soviética",
           "Vietnam"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Musulmanes",
       "composition": [
         {
           "name": "Musulmanes",
@@ -37873,7 +38754,7 @@
     "economy": {
       "gdp": 26794747239.8805,
       "gdpPerCapita": 1094.61949265799,
-      "inflation": null,
+      "inflation": 3.2,
       "exports": [],
       "industries": []
     },
@@ -38107,11 +38988,13 @@
           "Níger",
           "Túnez",
           "Burkina Faso"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Musulmanes",
       "composition": [
         {
           "name": "Musulmanes",
@@ -38195,7 +39078,23 @@
         "population": 5157,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Birkirkara",
+          "population": 22614,
+          "isCapital": false
+        },
+        {
+          "name": "Mosta",
+          "population": 20116,
+          "isCapital": false
+        },
+        {
+          "name": "Qormi",
+          "population": 18031,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1964,
@@ -38206,7 +39105,7 @@
     "economy": {
       "gdp": 24971574502.4475,
       "gdpPerCapita": 43898.5781808597,
-      "inflation": null,
+      "inflation": 1.7,
       "exports": [],
       "industries": []
     },
@@ -38398,11 +39297,13 @@
         "allies": [],
         "rivalStates": [
           "Estados Unidos"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -38438,7 +39339,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Asedio de Malta",
+        "startYear": 1940,
+        "endYear": 1942,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -38457,14 +39365,24 @@
         "coatOfArms": null
       },
       "capital": {
-        "name": "Nouakchott",
-        "population": 958399,
+        "name": "Nuakchot",
+        "population": 1195600,
         "isCapital": true
       },
       "cities": [
         {
-          "name": "Nouadhibou",
-          "population": 118167,
+          "name": "Nuadibu",
+          "population": 121000,
+          "isCapital": false
+        },
+        {
+          "name": "Kiffa",
+          "population": 66779,
+          "isCapital": false
+        },
+        {
+          "name": "Rosso",
+          "population": 48922,
           "isCapital": false
         }
       ]
@@ -38478,7 +39396,7 @@
     "economy": {
       "gdp": 10908045686.8808,
       "gdpPerCapita": 2110.12036938187,
-      "inflation": null,
+      "inflation": 2.5,
       "exports": [],
       "industries": []
     },
@@ -38716,11 +39634,13 @@
           "Níger",
           "Túnez",
           "Senegal"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Musulmanes",
       "composition": [
         {
           "name": "Musulmanes",
@@ -38854,12 +39774,33 @@
       "year": 1810,
       "type": "Legal y pacifica",
       "origin": "Virreinato de Nueva España",
-      "events": []
+      "events": [
+        {
+          "year": 1810,
+          "category": "revolucion",
+          "text": "Grito de Dolores e inicio de la independencia"
+        },
+        {
+          "year": 1821,
+          "category": "estado",
+          "text": "Consumacion de la independencia"
+        },
+        {
+          "year": 1910,
+          "category": "revolucion",
+          "text": "Revolucion mexicana"
+        },
+        {
+          "year": 1917,
+          "category": "constitucion",
+          "text": "Constitucion de Queretaro"
+        }
+      ]
     },
     "economy": {
       "gdp": 1856365616165.94,
       "gdpPerCapita": 14185.7812248529,
-      "inflation": 4.5,
+      "inflation": 4.7,
       "exports": [],
       "industries": []
     },
@@ -39219,7 +40160,9 @@
           "Reino Unido",
           "Tailandia",
           "Unión Soviética"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -39227,35 +40170,19 @@
       "composition": [
         {
           "name": "Catolicos",
-          "percentage": 95.1
+          "percentage": 77.7
+        },
+        {
+          "name": "Protestantes y evangelicos",
+          "percentage": 11.2
         },
         {
           "name": "Ateos / agnosticos / sin afiliacion",
-          "percentage": 4.7
-        },
-        {
-          "name": "Budistas",
-          "percentage": 1
-        },
-        {
-          "name": "Religiones animistas y populares",
-          "percentage": 1
-        },
-        {
-          "name": "Hindues",
-          "percentage": 1
-        },
-        {
-          "name": "Judios",
-          "percentage": 1
-        },
-        {
-          "name": "Musulmanes",
-          "percentage": 1
+          "percentage": 8.1
         },
         {
           "name": "Otras religiones",
-          "percentage": 1
+          "percentage": 3
         }
       ]
     },
@@ -39412,10 +40339,26 @@
       },
       "capital": {
         "name": "Chișinău",
-        "population": null,
+        "population": 635994,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Balti",
+          "population": 102457,
+          "isCapital": false
+        },
+        {
+          "name": "Tiraspol",
+          "population": 133807,
+          "isCapital": false
+        },
+        {
+          "name": "Bender",
+          "population": 91282,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1991,
@@ -39426,7 +40369,7 @@
     "economy": {
       "gdp": 18200340853.6517,
       "gdpPerCapita": 7576.19589413326,
-      "inflation": null,
+      "inflation": 4.7,
       "exports": [],
       "industries": []
     },
@@ -39783,11 +40726,13 @@
           "Rumania",
           "Tailandia",
           "Tonga"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -39896,7 +40841,7 @@
     "economy": {
       "gdp": 23794540024.5132,
       "gdpPerCapita": 6750.6301157724,
-      "inflation": null,
+      "inflation": 6.2,
       "exports": [],
       "industries": []
     },
@@ -40208,9 +41153,7 @@
           "ASEAN",
           "Union Africana"
         ],
-        "allies": [
-          "ASEAN Regional Forum"
-        ],
+        "allies": [],
         "rivalStates": [
           "Finlandia",
           "Hungría",
@@ -40251,11 +41194,13 @@
           "Tailandia",
           "Tonga",
           "Ucrania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Budistas",
       "composition": [
         {
           "name": "Budistas",
@@ -40321,7 +41266,23 @@
         "population": 179505,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Niksic",
+          "population": 56970,
+          "isCapital": false
+        },
+        {
+          "name": "Herceg Novi",
+          "population": 33116,
+          "isCapital": false
+        },
+        {
+          "name": "Pljevlja",
+          "population": 19289,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 2006,
@@ -40332,7 +41293,7 @@
     "economy": {
       "gdp": 8270016670.86774,
       "gdpPerCapita": 13263.3281277699,
-      "inflation": null,
+      "inflation": 3.3,
       "exports": [],
       "industries": []
     },
@@ -40481,14 +41442,14 @@
           "OTAN",
           "NATO"
         ],
-        "allies": [
-          "OTAN"
-        ],
-        "rivalStates": []
+        "allies": [],
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -40524,7 +41485,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Guerra de independencia montenegrina",
+        "startYear": 2006,
+        "endYear": 2006,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -40544,10 +41512,26 @@
       },
       "capital": {
         "name": "Rabat",
-        "population": null,
+        "population": 1886190,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Casablanca",
+          "population": 3297311,
+          "isCapital": false
+        },
+        {
+          "name": "Fez",
+          "population": 1250000,
+          "isCapital": false
+        },
+        {
+          "name": "Marrakech",
+          "population": 928850,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1956,
@@ -40558,7 +41542,7 @@
     "economy": {
       "gdp": 160610994054.734,
       "gdpPerCapita": 4153.1943359375,
-      "inflation": null,
+      "inflation": 1,
       "exports": [],
       "industries": []
     },
@@ -40824,11 +41808,13 @@
           "República Democrática Alemana",
           "Argelia",
           "España"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Musulmanes",
       "composition": [
         {
           "name": "Musulmanes",
@@ -41219,7 +42205,7 @@
     "economy": {
       "gdp": 22745341305.0622,
       "gdpPerCapita": 656.776824637306,
-      "inflation": null,
+      "inflation": 4.1,
       "exports": [],
       "industries": []
     },
@@ -41387,11 +42373,13 @@
           "Union Africana"
         ],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -41495,7 +42483,7 @@
     "economy": {
       "gdp": 74068349523.8095,
       "gdpPerCapita": 1359.05001560107,
-      "inflation": null,
+      "inflation": 8.8,
       "exports": [],
       "industries": []
     },
@@ -41630,12 +42618,12 @@
         "blocs": [
           "ASEAN"
         ],
-        "allies": [
-          "ASEAN Regional Forum"
-        ],
+        "allies": [],
         "rivalStates": [
           "Bangladés"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -41726,7 +42714,7 @@
     "economy": {
       "gdp": 13372354511.716,
       "gdpPerCapita": 4413.12752211572,
-      "inflation": null,
+      "inflation": 4.2,
       "exports": [],
       "industries": []
     },
@@ -41917,11 +42905,13 @@
           "Sudán",
           "Uganda",
           "Zimbabue"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -42024,7 +43014,7 @@
     "economy": {
       "gdp": 42914268286.7109,
       "gdpPerCapita": 1447.31004458428,
-      "inflation": null,
+      "inflation": 4.7,
       "exports": [],
       "industries": []
     },
@@ -42168,11 +43158,13 @@
         "allies": [],
         "rivalStates": [
           "Reino Unido"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Hindues",
       "composition": [
         {
           "name": "Hindues",
@@ -42208,7 +43200,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Guerra civil nepalesa",
+        "startYear": 1996,
+        "endYear": 2006,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -42228,10 +43227,26 @@
       },
       "capital": {
         "name": "Amsterdam",
-        "population": null,
+        "population": 921468,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Rotterdam",
+          "population": 663900,
+          "isCapital": false
+        },
+        {
+          "name": "La Haya",
+          "population": 565701,
+          "isCapital": false
+        },
+        {
+          "name": "Utrecht",
+          "population": 361742,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1815,
@@ -42242,7 +43257,7 @@
     "economy": {
       "gdp": 1214927698572.66,
       "gdpPerCapita": 67520.4218956281,
-      "inflation": null,
+      "inflation": 3.3,
       "exports": [],
       "industries": []
     },
@@ -42442,11 +43457,13 @@
           "Australia",
           "Japón",
           "Indonesia"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -42585,7 +43602,7 @@
     "economy": {
       "gdp": 260172385097.616,
       "gdpPerCapita": 49205.1792146792,
-      "inflation": null,
+      "inflation": 2.9,
       "exports": [],
       "industries": []
     },
@@ -43028,9 +44045,7 @@
         "blocs": [
           "ASEAN"
         ],
-        "allies": [
-          "ASEAN Regional Forum"
-        ],
+        "allies": [],
         "rivalStates": [
           "Estados Unidos",
           "Australia",
@@ -43083,11 +44098,13 @@
           "Rumania",
           "Tonga",
           "Ucrania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -43216,13 +44233,23 @@
       },
       "capital": {
         "name": "Managua",
-        "population": 908892,
+        "population": 1055247,
         "isCapital": true
       },
       "cities": [
         {
-          "name": "León",
-          "population": 139433,
+          "name": "Leon",
+          "population": 211278,
+          "isCapital": false
+        },
+        {
+          "name": "Masaya",
+          "population": 166588,
+          "isCapital": false
+        },
+        {
+          "name": "Chinandega",
+          "population": 126387,
           "isCapital": false
         }
       ]
@@ -43236,7 +44263,7 @@
     "economy": {
       "gdp": 19693982967.5926,
       "gdpPerCapita": 2847.53966339498,
-      "inflation": null,
+      "inflation": 4.6,
       "exports": [],
       "industries": []
     },
@@ -43570,11 +44597,13 @@
           "Tailandia",
           "Tonga",
           "Ucrania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -43691,7 +44720,7 @@
     "economy": {
       "gdp": 19876128485.7857,
       "gdpPerCapita": 735.270255787226,
-      "inflation": null,
+      "inflation": 9.1,
       "exports": [],
       "industries": []
     },
@@ -43932,11 +44961,13 @@
           "Mali",
           "Mauritania",
           "Túnez"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Musulmanes",
       "composition": [
         {
           "name": "Musulmanes",
@@ -44034,12 +45065,33 @@
       "year": 1963,
       "type": "Legal y pacifica",
       "origin": "federación of Nigeria",
-      "events": []
+      "events": [
+        {
+          "year": 1914,
+          "category": "union",
+          "text": "Amalgama colonial del Norte y el Sur britanicos"
+        },
+        {
+          "year": 1960,
+          "category": "estado",
+          "text": "Independencia del Reino Unido"
+        },
+        {
+          "year": 1967,
+          "category": "guerra",
+          "text": "Comienzo de la Guerra de Biafra"
+        },
+        {
+          "year": 1999,
+          "category": "constitucion",
+          "text": "Retorno al gobierno civil y constitucion vigente"
+        }
+      ]
     },
     "economy": {
       "gdp": 252261880141.151,
       "gdpPerCapita": 1084.16041805436,
-      "inflation": 28.9,
+      "inflation": 33.2,
       "exports": [],
       "industries": []
     },
@@ -44259,43 +45311,33 @@
         "allies": [],
         "rivalStates": [
           "Liberia"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
       "summary": "Cristianismo / Islam",
       "composition": [
         {
-          "name": "Cristianos",
-          "percentage": 49.3
+          "name": "Musulmanes sunitas",
+          "percentage": 50
         },
         {
-          "name": "Musulmanes",
-          "percentage": 48.8
+          "name": "Protestantes y evangelicos",
+          "percentage": 35
+        },
+        {
+          "name": "Catolicos",
+          "percentage": 10.5
         },
         {
           "name": "Religiones animistas y populares",
-          "percentage": 1.4
-        },
-        {
-          "name": "Budistas",
-          "percentage": 1
-        },
-        {
-          "name": "Hindues",
-          "percentage": 1
-        },
-        {
-          "name": "Judios",
-          "percentage": 1
-        },
-        {
-          "name": "Otras religiones",
-          "percentage": 1
+          "percentage": 4
         },
         {
           "name": "Ateos / agnosticos / sin afiliacion",
-          "percentage": 1
+          "percentage": 0.5
         }
       ]
     },
@@ -44332,10 +45374,26 @@
       },
       "capital": {
         "name": "Pyongyang",
-        "population": null,
+        "population": 3155388,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Hamhung",
+          "population": 768551,
+          "isCapital": false
+        },
+        {
+          "name": "Chongjin",
+          "population": 667929,
+          "isCapital": false
+        },
+        {
+          "name": "Nampo",
+          "population": 366815,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1948,
@@ -44346,7 +45404,7 @@
     "economy": {
       "gdp": null,
       "gdpPerCapita": null,
-      "inflation": null,
+      "inflation": 14.2,
       "exports": [],
       "industries": []
     },
@@ -44621,9 +45679,7 @@
           "ASEAN",
           "ONU"
         ],
-        "allies": [
-          "ASEAN Regional Forum"
-        ],
+        "allies": [],
         "rivalStates": [
           "Corea Del Sur",
           "Estados Unidos",
@@ -44651,12 +45707,35 @@
           "Malasia",
           "República Democrática Alemana",
           "Singapur"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
       "summary": "Ateísmo estatal",
-      "composition": []
+      "composition": [
+        {
+          "name": "Ateos / agnosticos / sin afiliacion",
+          "percentage": 71.3
+        },
+        {
+          "name": "Religiones animistas y populares",
+          "percentage": 12.9
+        },
+        {
+          "name": "Budistas",
+          "percentage": 4.5
+        },
+        {
+          "name": "Cristianos",
+          "percentage": 1.7
+        },
+        {
+          "name": "Otras religiones",
+          "percentage": 9.6
+        }
+      ]
     },
     "conflicts": [
       {
@@ -44751,14 +45830,24 @@
         "coatOfArms": null
       },
       "capital": {
-        "name": "Skopje",
-        "population": 546824,
+        "name": "Skopie",
+        "population": 544086,
         "isCapital": true
       },
       "cities": [
         {
+          "name": "Bitola",
+          "population": 69151,
+          "isCapital": false
+        },
+        {
           "name": "Kumanovo",
-          "population": 106626,
+          "population": 70842,
+          "isCapital": false
+        },
+        {
+          "name": "Tetovo",
+          "population": 84530,
           "isCapital": false
         }
       ]
@@ -44772,7 +45861,7 @@
     "economy": {
       "gdp": 16951682245.4202,
       "gdpPerCapita": 9291.85661671864,
-      "inflation": null,
+      "inflation": 3.5,
       "exports": [],
       "industries": []
     },
@@ -45076,9 +46165,7 @@
           "OTAN",
           "NATO"
         ],
-        "allies": [
-          "OTAN"
-        ],
+        "allies": [],
         "rivalStates": [
           "Albania",
           "Armenia",
@@ -45117,7 +46204,9 @@
           "Tailandia",
           "Tonga",
           "Ucrania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -45222,7 +46311,7 @@
     "economy": {
       "gdp": 483592648313.301,
       "gdpPerCapita": 86785.4334489176,
-      "inflation": null,
+      "inflation": 3.1,
       "exports": [],
       "industries": []
     },
@@ -45737,9 +46826,7 @@
           "NATO",
           "Union Europea"
         ],
-        "allies": [
-          "OTAN"
-        ],
+        "allies": [],
         "rivalStates": [
           "Dinamarca",
           "Suecia",
@@ -45790,11 +46877,13 @@
           "Tailandia",
           "Tonga",
           "Ucrania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -45999,7 +47088,7 @@
     "economy": {
       "gdp": 107137198769.386,
       "gdpPerCapita": 20285.2272897377,
-      "inflation": null,
+      "inflation": 0.6,
       "exports": [],
       "industries": []
     },
@@ -46219,11 +47308,13 @@
         "allies": [],
         "rivalStates": [
           "Reino Unido"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Musulmanes",
       "composition": [
         {
           "name": "Musulmanes",
@@ -46321,12 +47412,33 @@
       "year": 1947,
       "type": "Legal y pacifica",
       "origin": "Dominio de Pakistán",
-      "events": []
+      "events": [
+        {
+          "year": 1947,
+          "category": "estado",
+          "text": "Independencia y particion del Raj britanico"
+        },
+        {
+          "year": 1956,
+          "category": "constitucion",
+          "text": "Primera Constitucion y proclamacion como republica"
+        },
+        {
+          "year": 1971,
+          "category": "guerra",
+          "text": "Guerra indo-paquistani y secesion de Bangladesh"
+        },
+        {
+          "year": 1973,
+          "category": "constitucion",
+          "text": "Constitucion vigente de la Republica Islamica"
+        }
+      ]
     },
     "economy": {
       "gdp": 371570000121.266,
       "gdpPerCapita": 1478.77277977996,
-      "inflation": null,
+      "inflation": 12.6,
       "exports": [],
       "industries": []
     },
@@ -46527,10 +47639,12 @@
         "linkedTerritories": [],
         "blocs": [
           "Union Africana",
-          "ASEAN"
+          "ASEAN",
+          "ONU"
         ],
         "allies": [
-          "ASEAN Regional Forum"
+          "China",
+          "Turquia"
         ],
         "rivalStates": [
           "India",
@@ -46541,7 +47655,11 @@
           "Marruecos",
           "Reino Unido",
           "Unión Soviética"
-        ]
+        ],
+        "disputes": [
+          "Cachemira"
+        ],
+        "protectorates": []
       }
     },
     "religion": {
@@ -46549,35 +47667,23 @@
       "composition": [
         {
           "name": "Musulmanes sunitas",
-          "percentage": 96.4
+          "percentage": 84
         },
         {
-          "name": "Hindues",
-          "percentage": 1.9
+          "name": "Musulmanes chiitas",
+          "percentage": 15
         },
         {
           "name": "Cristianos",
-          "percentage": 1.6
-        },
-        {
-          "name": "Budistas",
           "percentage": 1
         },
         {
-          "name": "Religiones animistas y populares",
-          "percentage": 1
-        },
-        {
-          "name": "Judios",
-          "percentage": 1
-        },
-        {
-          "name": "Otras religiones",
-          "percentage": 1
+          "name": "Hindues",
+          "percentage": 0.6
         },
         {
           "name": "Ateos / agnosticos / sin afiliacion",
-          "percentage": 1
+          "percentage": 0.4
         }
       ]
     },
@@ -46699,7 +47805,7 @@
     "economy": {
       "gdp": 86523959131.7472,
       "gdpPerCapita": 19161.2188501596,
-      "inflation": null,
+      "inflation": 0.7,
       "exports": [],
       "industries": []
     },
@@ -46847,11 +47953,13 @@
         "allies": [],
         "rivalStates": [
           "Estados Unidos"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -46960,7 +48068,7 @@
     "economy": {
       "gdp": 44458118397.4445,
       "gdpPerCapita": 6416.09708970845,
-      "inflation": null,
+      "inflation": 3.8,
       "exports": [],
       "industries": []
     },
@@ -47129,11 +48237,13 @@
           "Uruguay",
           "Brasil",
           "Bolivia"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -47290,7 +48400,7 @@
     "economy": {
       "gdp": 289221969062.941,
       "gdpPerCapita": 8452.37167056621,
-      "inflation": null,
+      "inflation": 2,
       "exports": [],
       "industries": []
     },
@@ -47471,11 +48581,13 @@
           "Chile",
           "Bolivia",
           "Ecuador"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -47680,7 +48792,7 @@
     "economy": {
       "gdp": 461617509782.355,
       "gdpPerCapita": 3984.8315387656,
-      "inflation": null,
+      "inflation": 3.2,
       "exports": [],
       "industries": []
     },
@@ -48045,9 +49157,7 @@
         "blocs": [
           "ASEAN"
         ],
-        "allies": [
-          "ASEAN Regional Forum"
-        ],
+        "allies": [],
         "rivalStates": [
           "Australia",
           "Corea Del Norte",
@@ -48100,11 +49210,13 @@
           "Rumania",
           "Tonga",
           "Ucrania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -48225,7 +49337,7 @@
     "economy": {
       "gdp": 917767106146.761,
       "gdpPerCapita": 25103.565661423,
-      "inflation": null,
+      "inflation": 3.8,
       "exports": [],
       "industries": []
     },
@@ -48704,9 +49816,7 @@
           "NATO",
           "Union Europea"
         ],
-        "allies": [
-          "OTAN"
-        ],
+        "allies": [],
         "rivalStates": [
           "Canadá",
           "Reino Unido",
@@ -48757,11 +49867,13 @@
           "Tonga",
           "Ucrania",
           "Turquía"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -48972,7 +50084,7 @@
     "economy": {
       "gdp": 313271185085.102,
       "gdpPerCapita": 29292.242104753,
-      "inflation": null,
+      "inflation": 2.4,
       "exports": [],
       "industries": []
     },
@@ -49435,9 +50547,7 @@
           "NATO",
           "Union Europea"
         ],
-        "allies": [
-          "OTAN"
-        ],
+        "allies": [],
         "rivalStates": [
           "Alemania",
           "Bélgica",
@@ -49484,11 +50594,13 @@
           "Tailandia",
           "Tonga",
           "Ucrania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -49635,7 +50747,7 @@
     "economy": {
       "gdp": 219162637362.637,
       "gdpPerCapita": 76688.6941743178,
-      "inflation": null,
+      "inflation": 1.3,
       "exports": [],
       "industries": []
     },
@@ -49788,11 +50900,13 @@
         "linkedTerritories": [],
         "blocs": [],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Musulmanes",
       "composition": [
         {
           "name": "Musulmanes",
@@ -49901,7 +51015,7 @@
     "economy": {
       "gdp": 382564217988.866,
       "gdpPerCapita": 20080.2096215595,
-      "inflation": null,
+      "inflation": 5.7,
       "exports": [],
       "industries": []
     },
@@ -50306,9 +51420,7 @@
           "NATO",
           "Union Europea"
         ],
-        "allies": [
-          "OTAN"
-        ],
+        "allies": [],
         "rivalStates": [
           "Bulgaria",
           "Finlandia",
@@ -50351,11 +51463,13 @@
           "Ucrania",
           "Alemania",
           "Turquía"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -50498,7 +51612,7 @@
     "economy": {
       "gdp": 2173835806671.66,
       "gdpPerCapita": 14889.0185546875,
-      "inflation": 7.4,
+      "inflation": 8.4,
       "exports": [],
       "industries": []
     },
@@ -50830,11 +51944,13 @@
         "exMetropole": null,
         "linkedTerritories": [],
         "blocs": [
-          "ASEAN"
+          "ASEAN",
+          "ONU",
+          "BRICS"
         ],
         "allies": [
-          "BRICS",
-          "ASEAN Regional Forum"
+          "Belarusia",
+          "Armenia"
         ],
         "rivalStates": [
           "Ucrania",
@@ -50853,8 +51969,14 @@
           "Estados Unidos",
           "Francia",
           "Reino Unido",
-          "República Popular China"
-        ]
+          "República Popular China",
+          "OTAN"
+        ],
+        "disputes": [
+          "Crimea",
+          "Kuriles del Sur"
+        ],
+        "protectorates": []
       }
     },
     "religion": {
@@ -51167,7 +52289,7 @@
     "economy": {
       "gdp": 14251642235.0968,
       "gdpPerCapita": 999.65456165547,
-      "inflation": null,
+      "inflation": 1.8,
       "exports": [],
       "industries": []
     },
@@ -51397,11 +52519,13 @@
           "Namibia",
           "Sudán",
           "Zimbabue"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -51564,7 +52688,7 @@
     "economy": {
       "gdp": 1239804533333.33,
       "gdpPerCapita": 35121.6628687742,
-      "inflation": 2.3,
+      "inflation": 1.7,
       "exports": [],
       "industries": []
     },
@@ -51797,7 +52921,9 @@
           "Francia",
           "Kuwait",
           "Reino Unido"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -51805,31 +52931,19 @@
       "composition": [
         {
           "name": "Musulmanes sunitas",
-          "percentage": 93
+          "percentage": 85
+        },
+        {
+          "name": "Musulmanes chiitas",
+          "percentage": 10
         },
         {
           "name": "Cristianos",
-          "percentage": 4.4
+          "percentage": 2.5
         },
         {
           "name": "Hindues",
-          "percentage": 1.1
-        },
-        {
-          "name": "Budistas",
-          "percentage": 1
-        },
-        {
-          "name": "Religiones animistas y populares",
-          "percentage": 1
-        },
-        {
-          "name": "Judios",
-          "percentage": 1
-        },
-        {
-          "name": "Otras religiones",
-          "percentage": 1
+          "percentage": 1.5
         },
         {
           "name": "Ateos / agnosticos / sin afiliacion",
@@ -51946,7 +53060,7 @@
     "economy": {
       "gdp": 32808056600.9436,
       "gdpPerCapita": 1773.21829923448,
-      "inflation": null,
+      "inflation": 0.8,
       "exports": [],
       "industries": []
     },
@@ -52145,11 +53259,13 @@
         "allies": [],
         "rivalStates": [
           "Mauritania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Musulmanes",
       "composition": [
         {
           "name": "Musulmanes",
@@ -52258,7 +53374,7 @@
     "economy": {
       "gdp": 90097765959.1114,
       "gdpPerCapita": 13679.2065983557,
-      "inflation": null,
+      "inflation": 4.7,
       "exports": [],
       "industries": []
     },
@@ -52443,11 +53559,13 @@
           "Union Europea"
         ],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -52483,7 +53601,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Guerra de Kosovo",
+        "startYear": 1998,
+        "endYear": 1999,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -52533,7 +53658,7 @@
     "economy": {
       "gdp": 6971127235.3123,
       "gdpPerCapita": 806.654650417726,
-      "inflation": null,
+      "inflation": 28.6,
       "exports": [],
       "industries": []
     },
@@ -52700,11 +53825,13 @@
           "Union Africana"
         ],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Musulmanes",
       "composition": [
         {
           "name": "Musulmanes",
@@ -52740,7 +53867,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Guerra civil de Sierra Leona",
+        "startYear": 1991,
+        "endYear": 2002,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -52759,11 +53893,27 @@
         "coatOfArms": null
       },
       "capital": {
-        "name": "Singapore",
-        "population": 6036860,
+        "name": "Singapur",
+        "population": 5917600,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Jurong West",
+          "population": 292000,
+          "isCapital": false
+        },
+        {
+          "name": "Woodlands",
+          "population": 254730,
+          "isCapital": false
+        },
+        {
+          "name": "Tampines",
+          "population": 257000,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1965,
@@ -52774,7 +53924,7 @@
     "economy": {
       "gdp": 547386645891.847,
       "gdpPerCapita": 90674.066632628,
-      "inflation": null,
+      "inflation": 2.4,
       "exports": [],
       "industries": []
     },
@@ -53004,9 +54154,7 @@
           "Union Europea",
           "ASEAN"
         ],
-        "allies": [
-          "ASEAN Regional Forum"
-        ],
+        "allies": [],
         "rivalStates": [
           "Camboya",
           "Canadá",
@@ -53022,11 +54170,13 @@
           "Tailandia",
           "Unión Soviética",
           "Vietnam"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Budistas",
       "composition": [
         {
           "name": "Budistas",
@@ -53089,10 +54239,26 @@
       },
       "capital": {
         "name": "Bratislava",
-        "population": null,
+        "population": 475503,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Kosice",
+          "population": 229040,
+          "isCapital": false
+        },
+        {
+          "name": "Presov",
+          "population": 84000,
+          "isCapital": false
+        },
+        {
+          "name": "Zilina",
+          "population": 80810,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1993,
@@ -53103,7 +54269,7 @@
     "economy": {
       "gdp": 140934076532.375,
       "gdpPerCapita": 25992.6748502048,
-      "inflation": null,
+      "inflation": 2.8,
       "exports": [],
       "industries": []
     },
@@ -53480,9 +54646,7 @@
           "NATO",
           "Union Europea"
         ],
-        "allies": [
-          "OTAN"
-        ],
+        "allies": [],
         "rivalStates": [
           "Albania",
           "Armenia",
@@ -53521,7 +54685,9 @@
           "Tailandia",
           "Tonga",
           "Ucrania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -53575,14 +54741,24 @@
         "coatOfArms": null
       },
       "capital": {
-        "name": "Ljubljana",
-        "population": 285604,
+        "name": "Liubliana",
+        "population": 295504,
         "isCapital": true
       },
       "cities": [
         {
           "name": "Maribor",
           "population": 97019,
+          "isCapital": false
+        },
+        {
+          "name": "Celje",
+          "population": 37743,
+          "isCapital": false
+        },
+        {
+          "name": "Kranj",
+          "population": 37941,
           "isCapital": false
         }
       ]
@@ -53596,7 +54772,7 @@
     "economy": {
       "gdp": 72972015197.3859,
       "gdpPerCapita": 34301.0318686594,
-      "inflation": null,
+      "inflation": 2,
       "exports": [],
       "industries": []
     },
@@ -53817,16 +54993,16 @@
           "NATO",
           "Union Europea"
         ],
-        "allies": [
-          "OTAN"
-        ],
+        "allies": [],
         "rivalStates": [
           "República Federativa Socialista De Yugoslavia"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -53888,11 +55064,27 @@
         "coatOfArms": null
       },
       "capital": {
-        "name": "Mogadishu",
-        "population": null,
+        "name": "Mogadiscio",
+        "population": 2610000,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Hargeisa",
+          "population": 1200000,
+          "isCapital": false
+        },
+        {
+          "name": "Bosaso",
+          "population": 719512,
+          "isCapital": false
+        },
+        {
+          "name": "Kismayo",
+          "population": 234852,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1960,
@@ -53903,7 +55095,7 @@
     "economy": {
       "gdp": 11967000000,
       "gdpPerCapita": 629.538899449007,
-      "inflation": null,
+      "inflation": 6.1,
       "exports": [],
       "industries": []
     },
@@ -54080,7 +55272,9 @@
           "Cuba",
           "Unión Soviética",
           "Estados Unidos"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -54180,12 +55374,38 @@
       "year": 1910,
       "type": "Legal y pacifica",
       "origin": "república of South Africa (1961—1994)",
-      "events": []
+      "events": [
+        {
+          "year": 1910,
+          "category": "union",
+          "text": "Creacion de la Union Sudafricana"
+        },
+        {
+          "year": 1948,
+          "category": "politica",
+          "text": "Institucionalizacion del apartheid"
+        },
+        {
+          "year": 1961,
+          "category": "estado",
+          "text": "Proclamacion de la Republica de Sudafrica"
+        },
+        {
+          "year": 1994,
+          "category": "politica",
+          "text": "Fin del apartheid y primeras elecciones multirraciales"
+        },
+        {
+          "year": 1996,
+          "category": "constitucion",
+          "text": "Nueva Constitucion democratica"
+        }
+      ]
     },
     "economy": {
       "gdp": 401144998373.585,
       "gdpPerCapita": 6267.186814093,
-      "inflation": 5.4,
+      "inflation": 4.4,
       "exports": [],
       "industries": []
     },
@@ -54461,9 +55681,7 @@
         "blocs": [
           "Union Africana"
         ],
-        "allies": [
-          "BRICS"
-        ],
+        "allies": [],
         "rivalStates": [
           "Australia",
           "Bélgica",
@@ -54484,43 +55702,41 @@
           "Turquía",
           "Unión Soviética",
           "Cuba"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
       "summary": "Cristianismo (Protestante)",
       "composition": [
         {
-          "name": "Protestantes",
-          "percentage": 81.2
+          "name": "Protestantes y evangelicos",
+          "percentage": 36.5
         },
         {
-          "name": "Ateos / agnosticos / sin afiliacion",
-          "percentage": 14.9
+          "name": "Catolicos",
+          "percentage": 7.1
         },
         {
-          "name": "Musulmanes",
-          "percentage": 1.7
-        },
-        {
-          "name": "Hindues",
-          "percentage": 1.1
-        },
-        {
-          "name": "Budistas",
-          "percentage": 1
+          "name": "Cristianos independientes africanos",
+          "percentage": 28.8
         },
         {
           "name": "Religiones animistas y populares",
-          "percentage": 1
+          "percentage": 8.5
         },
         {
-          "name": "Judios",
-          "percentage": 1
+          "name": "Musulmanes",
+          "percentage": 2.5
         },
         {
-          "name": "Otras religiones",
-          "percentage": 1
+          "name": "Hindues",
+          "percentage": 1.9
+        },
+        {
+          "name": "Ateos / agnosticos / sin afiliacion",
+          "percentage": 14.7
         }
       ]
     },
@@ -54603,7 +55819,7 @@
     "economy": {
       "gdp": 1875388209406.8,
       "gdpPerCapita": 36238.639908315,
-      "inflation": 2.9,
+      "inflation": 2.3,
       "exports": [],
       "industries": []
     },
@@ -55014,9 +56230,7 @@
           "ASEAN",
           "Union Africana"
         ],
-        "allies": [
-          "ASEAN Regional Forum"
-        ],
+        "allies": [],
         "rivalStates": [
           "Corea Del Norte",
           "Estados Unidos",
@@ -55069,12 +56283,35 @@
           "Rumania",
           "Tonga",
           "Ucrania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
       "summary": "Cristianismo / Budismo",
-      "composition": []
+      "composition": [
+        {
+          "name": "Ateos / agnosticos / sin afiliacion",
+          "percentage": 56.1
+        },
+        {
+          "name": "Cristianos protestantes",
+          "percentage": 19.7
+        },
+        {
+          "name": "Budistas",
+          "percentage": 15.5
+        },
+        {
+          "name": "Catolicos",
+          "percentage": 7.9
+        },
+        {
+          "name": "Otras religiones",
+          "percentage": 0.8
+        }
+      ]
     },
     "conflicts": [
       {
@@ -55233,7 +56470,7 @@
     "economy": {
       "gdp": 1725671652742.19,
       "gdpPerCapita": 35326.7683069278,
-      "inflation": 3.1,
+      "inflation": 2.8,
       "exports": [],
       "industries": []
     },
@@ -55715,9 +56952,7 @@
           "NATO",
           "Union Europea"
         ],
-        "allies": [
-          "OTAN"
-        ],
+        "allies": [],
         "rivalStates": [
           "Alemania",
           "Bélgica",
@@ -55765,7 +57000,9 @@
           "Tailandia",
           "Tonga",
           "Ucrania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -55902,7 +57139,7 @@
     "economy": {
       "gdp": 98963185509.6499,
       "gdpPerCapita": 4515.56787322732,
-      "inflation": null,
+      "inflation": 16.5,
       "exports": [],
       "industries": []
     },
@@ -56044,14 +57281,14 @@
         "blocs": [
           "ASEAN"
         ],
-        "allies": [
-          "ASEAN Regional Forum"
-        ],
-        "rivalStates": []
+        "allies": [],
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Budistas",
       "composition": [
         {
           "name": "Budistas",
@@ -56149,11 +57386,27 @@
         "coatOfArms": null
       },
       "capital": {
-        "name": "Khartoum",
-        "population": null,
+        "name": "Jartum",
+        "population": 5274321,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Omdurman",
+          "population": 2395159,
+          "isCapital": false
+        },
+        {
+          "name": "Port Sudan",
+          "population": 489725,
+          "isCapital": false
+        },
+        {
+          "name": "Nyala",
+          "population": 565000,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1956,
@@ -56164,7 +57417,7 @@
     "economy": {
       "gdp": 49672435513.1126,
       "gdpPerCapita": 984.607666015625,
-      "inflation": null,
+      "inflation": 138.8,
       "exports": [],
       "industries": []
     },
@@ -56396,11 +57649,13 @@
           "República Democrática Del Congo",
           "Ruanda",
           "Zimbabue"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Musulmanes",
       "composition": [
         {
           "name": "Musulmanes",
@@ -56489,6 +57744,21 @@
           "name": "Wanica",
           "population": 118222,
           "isCapital": false
+        },
+        {
+          "name": "Lelydorp",
+          "population": 18923,
+          "isCapital": false
+        },
+        {
+          "name": "Nieuw Nickerie",
+          "population": 13000,
+          "isCapital": false
+        },
+        {
+          "name": "Moengo",
+          "population": 7000,
+          "isCapital": false
         }
       ]
     },
@@ -56501,7 +57771,7 @@
     "economy": {
       "gdp": 4416775112.09627,
       "gdpPerCapita": 6961.78955961526,
-      "inflation": null,
+      "inflation": 16.2,
       "exports": [],
       "industries": []
     },
@@ -56668,11 +57938,13 @@
           "Union Europea"
         ],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -56708,7 +57980,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Guerra civil de Surinam",
+        "startYear": 1986,
+        "endYear": 1992,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -56768,7 +58047,7 @@
     "economy": {
       "gdp": 603715224265.798,
       "gdpPerCapita": 57117.4877440616,
-      "inflation": null,
+      "inflation": 2.8,
       "exports": [],
       "industries": []
     },
@@ -57121,9 +58400,7 @@
           "OTAN",
           "NATO"
         ],
-        "allies": [
-          "OTAN"
-        ],
+        "allies": [],
         "rivalStates": [
           "Dinamarca",
           "Noruega",
@@ -57132,11 +58409,13 @@
           "Rusia",
           "Polonia",
           "Francia"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -58169,7 +59448,7 @@
     "economy": {
       "gdp": 936564198048.516,
       "gdpPerCapita": 103998.186685604,
-      "inflation": null,
+      "inflation": 1.1,
       "exports": [],
       "industries": []
     },
@@ -58414,11 +59693,13 @@
           "Union Europea"
         ],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -58454,7 +59735,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Guerra del Sonderbund",
+        "startYear": 1847,
+        "endYear": 1847,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -58473,11 +59761,27 @@
         "coatOfArms": null
       },
       "capital": {
-        "name": "Damascus",
-        "population": null,
+        "name": "Damasco",
+        "population": 2079000,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Alepo",
+          "population": 2132000,
+          "isCapital": false
+        },
+        {
+          "name": "Homs",
+          "population": 1400000,
+          "isCapital": false
+        },
+        {
+          "name": "Latakia",
+          "population": 709000,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1920,
@@ -58488,7 +59792,7 @@
     "economy": {
       "gdp": 23622827079.5047,
       "gdpPerCapita": 1051.67149587463,
-      "inflation": null,
+      "inflation": 13.4,
       "exports": [],
       "industries": []
     },
@@ -58687,7 +59991,9 @@
           "Irak",
           "Unión Soviética",
           "Turquía"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -58876,7 +60182,7 @@
     "economy": {
       "gdp": null,
       "gdpPerCapita": null,
-      "inflation": null,
+      "inflation": 2.5,
       "exports": [],
       "industries": []
     },
@@ -58975,7 +60281,9 @@
           "Australia",
           "Reino Unido",
           "Arabia Saudí"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -59073,7 +60381,7 @@
     "economy": {
       "gdp": 14204575548.5536,
       "gdpPerCapita": 1341.20229027672,
-      "inflation": null,
+      "inflation": 6,
       "exports": [],
       "industries": []
     },
@@ -59254,11 +60562,13 @@
           "Kirguistán",
           "Rusia",
           "Uzbekistán"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Musulmanes",
       "composition": [
         {
           "name": "Musulmanes",
@@ -59329,10 +60639,26 @@
       },
       "capital": {
         "name": "Dodoma",
-        "population": null,
+        "population": 765179,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Dar es Salaam",
+          "population": 5383728,
+          "isCapital": false
+        },
+        {
+          "name": "Mwanza",
+          "population": 706453,
+          "isCapital": false
+        },
+        {
+          "name": "Arusha",
+          "population": 617631,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1964,
@@ -59343,7 +60669,7 @@
     "economy": {
       "gdp": 78844405385.2195,
       "gdpPerCapita": 1186.71691894531,
-      "inflation": null,
+      "inflation": 3.1,
       "exports": [],
       "industries": []
     },
@@ -59505,11 +60831,13 @@
         "allies": [],
         "rivalStates": [
           "Uganda"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -59624,7 +60952,7 @@
     "economy": {
       "gdp": 526517658841.684,
       "gdpPerCapita": 7346.62022142185,
-      "inflation": null,
+      "inflation": 1.4,
       "exports": [],
       "industries": []
     },
@@ -60021,9 +61349,7 @@
           "ASEAN",
           "Union Africana"
         ],
-        "allies": [
-          "ASEAN Regional Forum"
-        ],
+        "allies": [],
         "rivalStates": [
           "Camboya",
           "Australia",
@@ -60083,11 +61409,13 @@
           "Rumania",
           "Tonga",
           "Ucrania"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Budistas",
       "composition": [
         {
           "name": "Budistas",
@@ -60282,7 +61610,7 @@
     "economy": {
       "gdp": 10651180146.531,
       "gdpPerCapita": 1119.38160509429,
-      "inflation": null,
+      "inflation": 2.9,
       "exports": [],
       "industries": []
     },
@@ -60473,11 +61801,13 @@
           "Union Africana"
         ],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -60513,7 +61843,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Crisis togolesa de 2005",
+        "startYear": 2005,
+        "endYear": 2005,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -60536,7 +61873,23 @@
         "population": 37074,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "San Fernando",
+          "population": 48338,
+          "isCapital": false
+        },
+        {
+          "name": "Chaguanas",
+          "population": 101297,
+          "isCapital": false
+        },
+        {
+          "name": "Arima",
+          "population": 35000,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1976,
@@ -60547,7 +61900,7 @@
     "economy": {
       "gdp": 25633544529.4849,
       "gdpPerCapita": 18733.4110406494,
-      "inflation": null,
+      "inflation": 0.5,
       "exports": [],
       "industries": []
     },
@@ -60714,11 +62067,13 @@
           "Union Europea"
         ],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -60754,7 +62109,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Intento de golpe de Estado en Trinidad y Tobago de 1990",
+        "startYear": 1990,
+        "endYear": 1990,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -60779,6 +62141,16 @@
       },
       "cities": [
         {
+          "name": "Sfax",
+          "population": 330440,
+          "isCapital": false
+        },
+        {
+          "name": "Susa",
+          "population": 271428,
+          "isCapital": false
+        },
+        {
           "name": "Monastir",
           "population": 548828,
           "isCapital": false
@@ -60794,7 +62166,7 @@
     "economy": {
       "gdp": 51332285656.5422,
       "gdpPerCapita": 4181.13789301228,
-      "inflation": null,
+      "inflation": 7.2,
       "exports": [],
       "industries": []
     },
@@ -61077,11 +62449,13 @@
           "Mali",
           "Mauritania",
           "Níger"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Musulmanes",
       "composition": [
         {
           "name": "Musulmanes",
@@ -61168,21 +62542,63 @@
       },
       "capital": {
         "name": "Ankara",
-        "population": null,
+        "population": 5800000,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Estambul",
+          "population": 15655924,
+          "isCapital": false
+        },
+        {
+          "name": "Esmirna",
+          "population": 4470000,
+          "isCapital": false
+        },
+        {
+          "name": "Bursa",
+          "population": 3101833,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1923,
       "type": "Legal y pacifica",
       "origin": "Imperio otomano",
-      "events": []
+      "events": [
+        {
+          "year": 1923,
+          "category": "estado",
+          "text": "Proclamacion de la Republica de Turquia"
+        },
+        {
+          "year": 1938,
+          "category": "reforma",
+          "text": "Consolidacion del kemalismo tras Ataturk"
+        },
+        {
+          "year": 1960,
+          "category": "golpe",
+          "text": "Golpe de Estado militar"
+        },
+        {
+          "year": 1980,
+          "category": "golpe",
+          "text": "Nuevo golpe militar y reordenamiento institucional"
+        },
+        {
+          "year": 2017,
+          "category": "constitucion",
+          "text": "Reforma constitucional hacia presidencialismo reforzado"
+        }
+      ]
     },
     "economy": {
       "gdp": 1359123768774.12,
       "gdpPerCapita": 15892.7157287241,
-      "inflation": 65,
+      "inflation": 58.5,
       "exports": [],
       "industries": []
     },
@@ -61583,10 +62999,12 @@
           "OTAN",
           "NATO",
           "Union Africana",
-          "Union Europea"
+          "Union Europea",
+          "ONU"
         ],
         "allies": [
-          "OTAN"
+          "Azerbaiyan",
+          "Qatar"
         ],
         "rivalStates": [
           "Irán",
@@ -61624,12 +63042,34 @@
           "Rumania",
           "Israel",
           "Siria"
-        ]
+        ],
+        "disputes": [
+          "Chipre del Norte",
+          "Mar Egeo"
+        ],
+        "protectorates": []
       }
     },
     "religion": {
       "summary": "Islam (Suní)",
-      "composition": []
+      "composition": [
+        {
+          "name": "Musulmanes sunitas",
+          "percentage": 82
+        },
+        {
+          "name": "Musulmanes alevies",
+          "percentage": 12
+        },
+        {
+          "name": "Cristianos",
+          "percentage": 0.4
+        },
+        {
+          "name": "Ateos / agnosticos / sin afiliacion",
+          "percentage": 5.6
+        }
+      ]
     },
     "conflicts": [
       {
@@ -61758,7 +63198,7 @@
     "economy": {
       "gdp": 53911907086.1525,
       "gdpPerCapita": 1077.91278452817,
-      "inflation": null,
+      "inflation": 3.3,
       "exports": [],
       "industries": []
     },
@@ -61975,11 +63415,13 @@
           "Chad",
           "Namibia",
           "Zimbabue"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -62131,12 +63573,33 @@
       "year": 1991,
       "type": "Disolucion de otro estado",
       "origin": "República Socialista Soviética de Ucrania",
-      "events": []
+      "events": [
+        {
+          "year": 1991,
+          "category": "estado",
+          "text": "Independencia tras la disolucion de la Union Sovietica"
+        },
+        {
+          "year": 1996,
+          "category": "constitucion",
+          "text": "Adopcion de la Constitucion de Ucrania"
+        },
+        {
+          "year": 2014,
+          "category": "territorio",
+          "text": "Anexion rusa de Crimea y guerra en Donbas"
+        },
+        {
+          "year": 2022,
+          "category": "guerra",
+          "text": "Invasion rusa a gran escala"
+        }
+      ]
     },
     "economy": {
       "gdp": 190741262414.705,
       "gdpPerCapita": 5389.47314453125,
-      "inflation": null,
+      "inflation": 6.5,
       "exports": [],
       "industries": []
     },
@@ -62511,8 +63974,15 @@
       "relations": {
         "exMetropole": null,
         "linkedTerritories": [],
-        "blocs": [],
-        "allies": [],
+        "blocs": [
+          "ONU"
+        ],
+        "allies": [
+          "Estados Unidos",
+          "Polonia",
+          "Reino Unido",
+          "Union Europea"
+        ],
         "rivalStates": [
           "Rusia",
           "Bielorrusia",
@@ -62554,11 +64024,16 @@
           "Rumania",
           "Tailandia",
           "Tonga"
-        ]
+        ],
+        "disputes": [
+          "Crimea",
+          "Donbas"
+        ],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -62680,11 +64155,27 @@
         "coatOfArms": null
       },
       "capital": {
-        "name": "Abu Dhabi",
-        "population": null,
+        "name": "Abu Dabi",
+        "population": 1600000,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Dubai",
+          "population": 3565000,
+          "isCapital": false
+        },
+        {
+          "name": "Sharjah",
+          "population": 1800000,
+          "isCapital": false
+        },
+        {
+          "name": "Al Ain",
+          "population": 766936,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1971,
@@ -62695,7 +64186,7 @@
     "economy": {
       "gdp": 552324846834.581,
       "gdpPerCapita": 50273.5060469837,
-      "inflation": null,
+      "inflation": 1.7,
       "exports": [],
       "industries": []
     },
@@ -62880,13 +64371,13 @@
         "exMetropole": null,
         "linkedTerritories": [],
         "blocs": [],
-        "allies": [
-          "BRICS"
-        ],
+        "allies": [],
         "rivalStates": [
           "Arabia Saudí",
           "Estados Unidos"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -63027,7 +64518,7 @@
     "economy": {
       "gdp": 3686033044482.13,
       "gdpPerCapita": 53246.3676145108,
-      "inflation": 4,
+      "inflation": 3.3,
       "exports": [],
       "industries": []
     },
@@ -63670,10 +65161,14 @@
         "blocs": [
           "OTAN",
           "NATO",
-          "Union Europea"
+          "Union Europea",
+          "Commonwealth",
+          "ONU"
         ],
         "allies": [
-          "OTAN"
+          "Estados Unidos",
+          "Canada",
+          "Australia"
         ],
         "rivalStates": [
           "Canadá",
@@ -63753,7 +65248,12 @@
           "Rumania",
           "Tonga",
           "Ucrania"
-        ]
+        ],
+        "disputes": [
+          "Islas Malvinas",
+          "Gibraltar"
+        ],
+        "protectorates": []
       }
     },
     "religion": {
@@ -65523,7 +67023,7 @@
     "economy": {
       "gdp": 28750956130731.2,
       "gdpPerCapita": 84534.0407841548,
-      "inflation": 3.4,
+      "inflation": 2.9,
       "exports": [
         "tecnología",
         "armas",
@@ -66223,8 +67723,10 @@
           "ONU"
         ],
         "allies": [
-          "OTAN",
-          "ASEAN Regional Forum"
+          "Reino Unido",
+          "Canada",
+          "Japon",
+          "Corea del Sur"
         ],
         "rivalStates": [
           "China",
@@ -66311,7 +67813,12 @@
           "Rumania",
           "Tonga",
           "Ucrania"
-        ]
+        ],
+        "disputes": [
+          "Taiwan",
+          "Mar de China Meridional"
+        ],
+        "protectorates": []
       }
     },
     "religion": {
@@ -68840,12 +70347,6 @@
       },
       {
         "name": "guerra de Irak",
-        "startYear": 2003,
-        "endYear": 2011,
-        "ongoing": false
-      },
-      {
-        "name": "Guerra de Irak",
         "startYear": 2003,
         "endYear": 2011,
         "ongoing": false
@@ -71909,6 +73410,12 @@
         "startYear": null,
         "endYear": null,
         "ongoing": false
+      },
+      {
+        "name": "Guerra de Irak (2003-2011)",
+        "startYear": null,
+        "endYear": null,
+        "ongoing": false
       }
     ],
     "organizations": [
@@ -71936,13 +73443,23 @@
       },
       "capital": {
         "name": "Montevideo",
-        "population": 1384210.21128007,
+        "population": 1319108,
         "isCapital": true
       },
       "cities": [
         {
           "name": "Salto",
           "population": 104028,
+          "isCapital": false
+        },
+        {
+          "name": "Paysandu",
+          "population": 76429,
+          "isCapital": false
+        },
+        {
+          "name": "Las Piedras",
+          "population": 71636,
           "isCapital": false
         }
       ]
@@ -71956,7 +73473,7 @@
     "economy": {
       "gdp": 80961511073.5797,
       "gdpPerCapita": 23906.5133029408,
-      "inflation": null,
+      "inflation": 4.8,
       "exports": [],
       "industries": []
     },
@@ -72121,11 +73638,13 @@
         "rivalStates": [
           "Argentina",
           "Paraguay"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -72252,7 +73771,7 @@
     "economy": {
       "gdp": 114965293466.611,
       "gdpPerCapita": 3161.70010632875,
-      "inflation": null,
+      "inflation": 9.6,
       "exports": [],
       "industries": []
     },
@@ -72451,11 +73970,13 @@
           "Kirguistán",
           "Rusia",
           "Tayikistán"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Musulmanes",
       "composition": [
         {
           "name": "Musulmanes",
@@ -72564,7 +74085,7 @@
     "economy": {
       "gdp": 119802963257.783,
       "gdpPerCapita": 4217.59102643391,
-      "inflation": null,
+      "inflation": 254.9,
       "exports": [],
       "industries": []
     },
@@ -72709,7 +74230,9 @@
         "allies": [],
         "rivalStates": [
           "Estados Unidos"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -72764,11 +74287,27 @@
         "coatOfArms": null
       },
       "capital": {
-        "name": "Hanoi",
-        "population": null,
+        "name": "Hanói",
+        "population": 8053663,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Ciudad Ho Chi Minh",
+          "population": 9446000,
+          "isCapital": false
+        },
+        {
+          "name": "Hai Phong",
+          "population": 2103500,
+          "isCapital": false
+        },
+        {
+          "name": "Da Nang",
+          "population": 1193814,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1804,
@@ -72779,7 +74318,7 @@
     "economy": {
       "gdp": 476388230307.175,
       "gdpPerCapita": 4717.29028732449,
-      "inflation": null,
+      "inflation": 3.6,
       "exports": [],
       "industries": []
     },
@@ -73009,9 +74548,7 @@
         "blocs": [
           "ASEAN"
         ],
-        "allies": [
-          "ASEAN Regional Forum"
-        ],
+        "allies": [],
         "rivalStates": [
           "Laos",
           "República Popular China",
@@ -73031,7 +74568,9 @@
           "República Democrática Alemana",
           "Singapur",
           "Unión Soviética"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -73162,7 +74701,7 @@
     "economy": {
       "gdp": 21606160663.0318,
       "gdpPerCapita": 633.887202451545,
-      "inflation": null,
+      "inflation": 8.1,
       "exports": [],
       "industries": []
     },
@@ -73305,7 +74844,9 @@
           "Union Africana"
         ],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -73404,7 +74945,7 @@
     "economy": {
       "gdp": 25303185342.2511,
       "gdpPerCapita": 1187.10943350064,
-      "inflation": null,
+      "inflation": 15,
       "exports": [],
       "industries": []
     },
@@ -73644,11 +75185,13 @@
         "allies": [],
         "rivalStates": [
           "Ruanda"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -73751,7 +75294,7 @@
     "economy": {
       "gdp": 41539411516.4448,
       "gdpPerCapita": 2497.20332208763,
-      "inflation": null,
+      "inflation": 104.7,
       "exports": [],
       "industries": []
     },
@@ -73959,11 +75502,13 @@
           "Ruanda",
           "Sudán",
           "Uganda"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -74035,7 +75580,23 @@
         "population": 114551,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Phuntsholing",
+          "population": 27658,
+          "isCapital": false
+        },
+        {
+          "name": "Punakha",
+          "population": 6262,
+          "isCapital": false
+        },
+        {
+          "name": "Paro",
+          "population": 15100,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1907,
@@ -74046,7 +75607,7 @@
     "economy": {
       "gdp": 3012896789.24928,
       "gdpPerCapita": 3831.32535494609,
-      "inflation": null,
+      "inflation": 2.8,
       "exports": [],
       "industries": []
     },
@@ -74157,11 +75718,13 @@
         "linkedTerritories": [],
         "blocs": [],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Budistas",
       "composition": [
         {
           "name": "Budistas",
@@ -74197,7 +75760,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Guerra de los Duars",
+        "startYear": 1864,
+        "endYear": 1865,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -74243,7 +75813,7 @@
     "economy": {
       "gdp": null,
       "gdpPerCapita": null,
-      "inflation": null,
+      "inflation": 3.1,
       "exports": [],
       "industries": []
     },
@@ -74257,7 +75827,9 @@
         "linkedTerritories": [],
         "blocs": [],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -74297,7 +75869,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Guerra del Sahara Occidental",
+        "startYear": 1975,
+        "endYear": 1991,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -74306,7 +75885,7 @@
     "continent": "Oceania",
     "general": {
       "population": 928784,
-      "geography": null,
+      "geography": "Archipielago volcanico del Pacifico Sur",
       "officialName": "Republica de Fiyi",
       "historicalNames": [
         "Colonia de Fiyi"
@@ -74320,7 +75899,23 @@
         "population": 93870,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Nadi",
+          "population": 71448,
+          "isCapital": false
+        },
+        {
+          "name": "Lautoka",
+          "population": 71573,
+          "isCapital": false
+        },
+        {
+          "name": "Labasa",
+          "population": 27949,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1970,
@@ -74331,13 +75926,13 @@
     "economy": {
       "gdp": 5968125909.27126,
       "gdpPerCapita": 6425.74151715712,
-      "inflation": null,
+      "inflation": 4.5,
       "exports": [],
       "industries": []
     },
     "military": null,
     "politics": {
-      "system": "Independencia",
+      "system": "parlamentarismo",
       "organizations": [
         {
           "name": "Banco Asiático de Desarrollo",
@@ -74474,11 +76069,13 @@
           "Union Europea"
         ],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianismo (Metodismo) e Hinduismo",
       "composition": [
         {
           "name": "Cristianos",
@@ -74514,7 +76111,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Crisis constitucional de Fiyi",
+        "startYear": 2000,
+        "endYear": 2000,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -74543,6 +76147,11 @@
           "name": "Monte Agradable",
           "population": 1300,
           "isCapital": false
+        },
+        {
+          "name": "Goose Green",
+          "population": 100,
+          "isCapital": false
         }
       ]
     },
@@ -74555,7 +76164,7 @@
     "economy": {
       "gdp": null,
       "gdpPerCapita": null,
-      "inflation": null,
+      "inflation": 4,
       "exports": [],
       "industries": []
     },
@@ -74571,7 +76180,9 @@
         ],
         "blocs": [],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -74587,7 +76198,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Guerra de las Malvinas",
+        "startYear": 1982,
+        "endYear": 1982,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -74596,7 +76214,7 @@
     "continent": "America",
     "general": {
       "population": 56836,
-      "geography": null,
+      "geography": "Isla artica de hielos, fiordos y tundra",
       "officialName": "Groenlandia",
       "historicalNames": [
         "Condado de Groenlandia"
@@ -74607,13 +76225,23 @@
       },
       "capital": {
         "name": "Nuuk",
-        "population": null,
+        "population": 19783,
         "isCapital": true
       },
       "cities": [
         {
-          "name": "NUUK (GODTHAB)",
-          "population": 19783,
+          "name": "Sisimiut",
+          "population": 5412,
+          "isCapital": false
+        },
+        {
+          "name": "Ilulissat",
+          "population": 4670,
+          "isCapital": false
+        },
+        {
+          "name": "Qaqortoq",
+          "population": 3050,
           "isCapital": false
         }
       ]
@@ -74627,13 +76255,13 @@
     "economy": {
       "gdp": 3326543974.39193,
       "gdpPerCapita": 58498.9707973609,
-      "inflation": null,
+      "inflation": 2.8,
       "exports": [],
       "industries": []
     },
     "military": null,
     "politics": {
-      "system": "Legal y pacifica",
+      "system": "monarquia constitucional",
       "organizations": [
         {
           "name": "Consejo Nórdico",
@@ -74668,11 +76296,13 @@
         ],
         "blocs": [],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianismo (Luteranismo)",
       "composition": [
         {
           "name": "Cristianos",
@@ -74708,7 +76338,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Crisis constitucional groenlandesa de 1940",
+        "startYear": 1940,
+        "endYear": 1940,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -74717,7 +76354,7 @@
     "continent": "Oceania",
     "general": {
       "population": 292639,
-      "geography": null,
+      "geography": "Archipielago melanesio del Pacifico suroccidental",
       "officialName": "Nueva Caledonia",
       "historicalNames": [
         "Francia"
@@ -74731,7 +76368,23 @@
         "population": 94285,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Mont-Dore",
+          "population": 27863,
+          "isCapital": false
+        },
+        {
+          "name": "Dumbea",
+          "population": 35703,
+          "isCapital": false
+        },
+        {
+          "name": "Lifou",
+          "population": 9671,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1853,
@@ -74742,13 +76395,13 @@
     "economy": {
       "gdp": 8548919387.12607,
       "gdpPerCapita": 29213.1923192946,
-      "inflation": null,
+      "inflation": 0.6,
       "exports": [],
       "industries": []
     },
     "military": null,
     "politics": {
-      "system": "Legal y pacifica",
+      "system": "monarquia constitucional",
       "organizations": [
         {
           "name": "Organización Meteorológica Mundial",
@@ -74771,11 +76424,13 @@
         ],
         "blocs": [],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianismo",
       "composition": [
         {
           "name": "Cristianos",
@@ -74811,7 +76466,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Levantamiento canaco de Nueva Caledonia",
+        "startYear": 1984,
+        "endYear": 1988,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -74820,7 +76482,7 @@
     "continent": "Oceania",
     "general": {
       "population": 819198,
-      "geography": null,
+      "geography": "Archipielago melanesio del Pacifico sur",
       "officialName": "Republica de Islas Salomon",
       "historicalNames": [
         "Islas Salomón británicas"
@@ -74834,7 +76496,23 @@
         "population": 64609,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Auki",
+          "population": 7890,
+          "isCapital": false
+        },
+        {
+          "name": "Gizo",
+          "population": 7160,
+          "isCapital": false
+        },
+        {
+          "name": "Buala",
+          "population": 2690,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1978,
@@ -74845,13 +76523,13 @@
     "economy": {
       "gdp": 1583964703.75061,
       "gdpPerCapita": 1933.55538435227,
-      "inflation": null,
+      "inflation": 4.3,
       "exports": [],
       "industries": []
     },
     "military": null,
     "politics": {
-      "system": "Independencia",
+      "system": "parlamentarismo",
       "organizations": [
         {
           "name": "Banco Asiático de Desarrollo",
@@ -74982,14 +76660,16 @@
           "Union Europea"
         ],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianismo (Anglicanismo y Evangelicalismo)",
       "composition": [
         {
-          "name": "Cristianos",
+          "name": "Anglicanos",
           "percentage": 97.4
         },
         {
@@ -75022,7 +76702,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Conflicto etnico de las Islas Salomon",
+        "startYear": 1998,
+        "endYear": 2003,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -75031,7 +76718,7 @@
     "continent": "Africa",
     "general": {
       "population": 11943408,
-      "geography": null,
+      "geography": "Llanuras niloticas y sabanas del noreste africano",
       "officialName": "Republica de Sudan del Sur",
       "historicalNames": [
         "Sudán del Sur"
@@ -75042,10 +76729,26 @@
       },
       "capital": {
         "name": "Juba",
-        "population": null,
+        "population": 525953,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Wau",
+          "population": 180000,
+          "isCapital": false
+        },
+        {
+          "name": "Malakal",
+          "population": 160765,
+          "isCapital": false
+        },
+        {
+          "name": "Yei",
+          "population": 185000,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 2011,
@@ -75056,13 +76759,13 @@
     "economy": {
       "gdp": 11997800760.2242,
       "gdpPerCapita": 1080.14718624765,
-      "inflation": null,
+      "inflation": 91.4,
       "exports": [],
       "industries": []
     },
     "military": null,
     "politics": {
-      "system": "Independencia",
+      "system": "presidencialismo",
       "organizations": [
         {
           "name": "Interpol",
@@ -75192,11 +76895,13 @@
           "República Centroafricana",
           "República Democrática Del Congo",
           "Uganda"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianismo y religiones tradicionales",
       "composition": [
         {
           "name": "Cristianos",
@@ -75232,7 +76937,20 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Segunda guerra civil sudanesa",
+        "startYear": 1983,
+        "endYear": 2005,
+        "ongoing": false
+      },
+      {
+        "name": "Guerra civil sursudanesa",
+        "startYear": 2013,
+        "endYear": 2020,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -75256,7 +76974,23 @@
         "population": 60691,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Manzini",
+          "population": 110537,
+          "isCapital": false
+        },
+        {
+          "name": "Big Bend",
+          "population": 10808,
+          "isCapital": false
+        },
+        {
+          "name": "Siteki",
+          "population": 6767,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1968,
@@ -75267,7 +77001,7 @@
     "economy": {
       "gdp": 4858885840.77236,
       "gdpPerCapita": 3909.55892378182,
-      "inflation": null,
+      "inflation": 2.6,
       "exports": [],
       "industries": []
     },
@@ -75434,11 +77168,13 @@
           "Union Africana"
         ],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -75474,7 +77210,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Golpe de Estado en Suazilandia de 1973",
+        "startYear": 1973,
+        "endYear": 1973,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -75493,24 +77236,24 @@
         "coatOfArms": null
       },
       "capital": {
-        "name": "Ashgabat",
-        "population": null,
+        "name": "Asjabad",
+        "population": 1031992,
         "isCapital": true
       },
       "cities": [
         {
-          "name": "ASHKHABAD",
-          "population": 407000,
+          "name": "Turkmenabat",
+          "population": 267000,
           "isCapital": false
         },
         {
-          "name": "Türkmenabat (Chardzhou)",
-          "population": 164000,
+          "name": "Dasoguz",
+          "population": 275424,
           "isCapital": false
         },
         {
-          "name": "Tashauz",
-          "population": 114000,
+          "name": "Mary",
+          "population": 123000,
           "isCapital": false
         }
       ]
@@ -75524,7 +77267,7 @@
     "economy": {
       "gdp": 51387209872.2994,
       "gdpPerCapita": 6856.65802730208,
-      "inflation": null,
+      "inflation": 8.6,
       "exports": [],
       "industries": []
     },
@@ -75653,11 +77396,13 @@
         "linkedTerritories": [],
         "blocs": [],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Musulmanes",
       "composition": [
         {
           "name": "Musulmanes",
@@ -75693,7 +77438,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Rebelion basmachi en Turkmenistan",
+        "startYear": 1916,
+        "endYear": 1931,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -75702,7 +77454,7 @@
     "continent": "Asia",
     "general": {
       "population": 1400638,
-      "geography": null,
+      "geography": "Mitad oriental de Timor y enclave de Oecusse",
       "officialName": "Republica de Timor Oriental",
       "historicalNames": [
         "Timor portugués"
@@ -75716,7 +77468,23 @@
         "population": 222323,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Baucau",
+          "population": 16186,
+          "isCapital": false
+        },
+        {
+          "name": "Maliana",
+          "population": 22413,
+          "isCapital": false
+        },
+        {
+          "name": "Suai",
+          "population": 28793,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 2002,
@@ -75727,13 +77495,13 @@
     "economy": {
       "gdp": 1865608515.41321,
       "gdpPerCapita": 1331.9705130185,
-      "inflation": null,
+      "inflation": 2.1,
       "exports": [],
       "industries": []
     },
     "military": null,
     "politics": {
-      "system": "Independencia",
+      "system": "semipresidencialismo",
       "organizations": [
         {
           "name": "Asociación Internacional de Fomento",
@@ -75887,19 +77655,19 @@
           "Union Europea",
           "ASEAN"
         ],
-        "allies": [
-          "ASEAN Regional Forum"
-        ],
+        "allies": [],
         "rivalStates": [
           "Indonesia"
-        ]
+        ],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianismo (Catolicismo)",
       "composition": [
         {
-          "name": "Cristianos",
+          "name": "Catolicos",
           "percentage": 99
         },
         {
@@ -75938,6 +77706,18 @@
         "startYear": 1975,
         "endYear": 1979,
         "ongoing": false
+      },
+      {
+        "name": "Ocupacion indonesia de Timor Oriental",
+        "startYear": 1975,
+        "endYear": 1999,
+        "ongoing": false
+      },
+      {
+        "name": "Crisis de Timor Oriental",
+        "startYear": 2006,
+        "endYear": 2006,
+        "ongoing": false
       }
     ],
     "organizations": [],
@@ -75948,7 +77728,7 @@
     "continent": "Oceania",
     "general": {
       "population": 327777,
-      "geography": null,
+      "geography": "Archipielago volcanico y tropical de Melanesia",
       "officialName": "Republica de Vanuatu",
       "historicalNames": [
         "Nuevas Hébridas"
@@ -75962,7 +77742,23 @@
         "population": 49034,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Luganville",
+          "population": 18000,
+          "isCapital": false
+        },
+        {
+          "name": "Norsup",
+          "population": 3000,
+          "isCapital": false
+        },
+        {
+          "name": "Isangel",
+          "population": 1600,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1980,
@@ -75973,13 +77769,13 @@
     "economy": {
       "gdp": 1117972034.22642,
       "gdpPerCapita": 3410.77023167097,
-      "inflation": null,
+      "inflation": 11.2,
       "exports": [],
       "industries": []
     },
     "military": null,
     "politics": {
-      "system": "Independencia",
+      "system": "parlamentarismo",
       "organizations": [
         {
           "name": "Organización Internacional de la Francofonía",
@@ -76116,14 +77912,16 @@
           "Union Europea"
         ],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianismo (Protestantismo)",
       "composition": [
         {
-          "name": "Cristianos",
+          "name": "Protestantes",
           "percentage": 93.3
         },
         {
@@ -76156,7 +77954,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Coconut War",
+        "startYear": 1980,
+        "endYear": 1980,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -76175,7 +77980,7 @@
         "coatOfArms": null
       },
       "capital": {
-        "name": "Port-aux-Français",
+        "name": "Port-aux-Francais",
         "population": 120,
         "isCapital": true
       },
@@ -76183,6 +77988,11 @@
         {
           "name": "Martin-de-Vivies",
           "population": 30,
+          "isCapital": false
+        },
+        {
+          "name": "Base Alfred Faure",
+          "population": 25,
           "isCapital": false
         }
       ]
@@ -76196,7 +78006,7 @@
     "economy": {
       "gdp": null,
       "gdpPerCapita": null,
-      "inflation": null,
+      "inflation": 2.4,
       "exports": [],
       "industries": []
     },
@@ -76212,7 +78022,9 @@
         ],
         "blocs": [],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -76233,7 +78045,7 @@
     "continent": "America",
     "general": {
       "population": 64636,
-      "geography": null,
+      "geography": "Archipielago subtropical del Atlantico Norte",
       "officialName": "Bermudas",
       "historicalNames": [
         "Reino Unido"
@@ -76252,6 +78064,21 @@
           "name": "Town of St. George",
           "population": 3398,
           "isCapital": false
+        },
+        {
+          "name": "Saint George",
+          "population": 3398,
+          "isCapital": false
+        },
+        {
+          "name": "Somerset Village",
+          "population": 3200,
+          "isCapital": false
+        },
+        {
+          "name": "Flatts Village",
+          "population": 2200,
+          "isCapital": false
         }
       ]
     },
@@ -76264,13 +78091,13 @@
     "economy": {
       "gdp": 9233600000,
       "gdpPerCapita": 142855.374713782,
-      "inflation": null,
+      "inflation": 3.3,
       "exports": [],
       "industries": []
     },
     "military": null,
     "politics": {
-      "system": "Legal y pacifica",
+      "system": "monarquia constitucional",
       "organizations": [],
       "rivals": [],
       "relations": {
@@ -76280,14 +78107,16 @@
         ],
         "blocs": [],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianismo (Anglicanismo y Protestantismo)",
       "composition": [
         {
-          "name": "Cristianos",
+          "name": "Protestantes",
           "percentage": 75
         },
         {
@@ -76320,7 +78149,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Motin de Bermuda de 1977",
+        "startYear": 1977,
+        "endYear": 1977,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -76346,7 +78182,7 @@
       },
       "cities": [
         {
-          "name": "Bayamón",
+          "name": "Bayamon",
           "population": 180835,
           "isCapital": false
         },
@@ -76358,16 +78194,6 @@
         {
           "name": "Ponce",
           "population": 130251,
-          "isCapital": false
-        },
-        {
-          "name": "Caguas",
-          "population": 124608,
-          "isCapital": false
-        },
-        {
-          "name": "Guaynabo",
-          "population": 89039,
           "isCapital": false
         }
       ]
@@ -76381,7 +78207,7 @@
     "economy": {
       "gdp": 126029527033.705,
       "gdpPerCapita": 39343.7154660139,
-      "inflation": null,
+      "inflation": 3.7,
       "exports": [],
       "industries": []
     },
@@ -76397,7 +78223,9 @@
         ],
         "blocs": [],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -76417,7 +78245,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Grito de Lares",
+        "startYear": 1868,
+        "endYear": 1868,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -76440,7 +78275,23 @@
         "population": 20753.5875182738,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Ciudad de Belice",
+          "population": 57669,
+          "isCapital": false
+        },
+        {
+          "name": "San Ignacio",
+          "population": 16969,
+          "isCapital": false
+        },
+        {
+          "name": "Orange Walk",
+          "population": 15781,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1981,
@@ -76451,7 +78302,7 @@
     "economy": {
       "gdp": 3203631800,
       "gdpPerCapita": 7681.24400583113,
-      "inflation": null,
+      "inflation": 3.3,
       "exports": [],
       "industries": []
     },
@@ -76465,11 +78316,13 @@
         "linkedTerritories": [],
         "blocs": [],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianos",
       "composition": [
         {
           "name": "Cristianos",
@@ -76505,7 +78358,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Guerra de Castas en Honduras Britanica",
+        "startYear": 1847,
+        "endYear": 1901,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -76514,7 +78374,7 @@
     "continent": "Oceania",
     "general": {
       "population": 10576502,
-      "geography": null,
+      "geography": "Montanas, selvas tropicales e islas melanesias",
       "officialName": "Republica de Papua Nueva Guinea",
       "historicalNames": [
         "Australia"
@@ -76528,7 +78388,23 @@
         "population": 364125,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Lae",
+          "population": 148934,
+          "isCapital": false
+        },
+        {
+          "name": "Arawa",
+          "population": 40266,
+          "isCapital": false
+        },
+        {
+          "name": "Mount Hagen",
+          "population": 36705,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1975,
@@ -76539,13 +78415,13 @@
     "economy": {
       "gdp": 31800428265.5246,
       "gdpPerCapita": 3006.70564478923,
-      "inflation": null,
+      "inflation": 0.6,
       "exports": [],
       "industries": []
     },
     "military": null,
     "politics": {
-      "system": "Independencia",
+      "system": "parlamentarismo",
       "organizations": [],
       "rivals": [],
       "relations": {
@@ -76553,14 +78429,16 @@
         "linkedTerritories": [],
         "blocs": [],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
-      "summary": null,
+      "summary": "Cristianismo (Protestantismo y Catolicismo)",
       "composition": [
         {
-          "name": "Cristianos",
+          "name": "Catolicos",
           "percentage": 99
         },
         {
@@ -76593,7 +78471,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Conflicto de Bougainville",
+        "startYear": 1988,
+        "endYear": 1998,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -76639,7 +78524,7 @@
     "economy": {
       "gdp": null,
       "gdpPerCapita": null,
-      "inflation": null,
+      "inflation": 3,
       "exports": [],
       "industries": []
     },
@@ -76655,7 +78540,9 @@
         ],
         "blocs": [],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -76696,10 +78583,26 @@
       },
       "capital": {
         "name": "Ramallah",
-        "population": null,
+        "population": 38998,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Gaza",
+          "population": 778187,
+          "isCapital": false
+        },
+        {
+          "name": "Hebron",
+          "population": 215452,
+          "isCapital": false
+        },
+        {
+          "name": "Nablus",
+          "population": 156906,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1988,
@@ -76710,7 +78613,7 @@
     "economy": {
       "gdp": 13711100000,
       "gdpPerCapita": 2592.30591217647,
-      "inflation": null,
+      "inflation": 53.7,
       "exports": [],
       "industries": []
     },
@@ -76724,7 +78627,9 @@
         "linkedTerritories": [],
         "blocs": [],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -76748,7 +78653,26 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Primera intifada",
+        "startYear": 1987,
+        "endYear": 1993,
+        "ongoing": false
+      },
+      {
+        "name": "Segunda intifada",
+        "startYear": 2000,
+        "endYear": 2005,
+        "ongoing": false
+      },
+      {
+        "name": "Guerra de Gaza",
+        "startYear": 2023,
+        "endYear": null,
+        "ongoing": true
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -76793,7 +78717,7 @@
     "economy": {
       "gdp": null,
       "gdpPerCapita": null,
-      "inflation": null,
+      "inflation": 2.1,
       "exports": [],
       "industries": []
     },
@@ -76807,7 +78731,9 @@
         "linkedTerritories": [],
         "blocs": [],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -76842,7 +78768,23 @@
         "population": 296732,
         "isCapital": true
       },
-      "cities": []
+      "cities": [
+        {
+          "name": "Freeport",
+          "population": 26740,
+          "isCapital": false
+        },
+        {
+          "name": "West End",
+          "population": 12345,
+          "isCapital": false
+        },
+        {
+          "name": "Coopers Town",
+          "population": 3818,
+          "isCapital": false
+        }
+      ]
     },
     "history": {
       "year": 1973,
@@ -76853,7 +78795,7 @@
     "economy": {
       "gdp": 15832800000,
       "gdpPerCapita": 39455.4466548546,
-      "inflation": null,
+      "inflation": 0.4,
       "exports": [],
       "industries": []
     },
@@ -76867,7 +78809,9 @@
         "linkedTerritories": [],
         "blocs": [],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -76887,7 +78831,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Batalla de Nassau",
+        "startYear": 1776,
+        "endYear": 1776,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -76938,7 +78889,7 @@
     "economy": {
       "gdp": null,
       "gdpPerCapita": null,
-      "inflation": null,
+      "inflation": 3.4,
       "exports": [],
       "industries": []
     },
@@ -76952,7 +78903,9 @@
         "linkedTerritories": [],
         "blocs": [],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -76972,7 +78925,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Guerra de Kosovo",
+        "startYear": 1998,
+        "endYear": 1999,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   },
@@ -77023,7 +78983,7 @@
     "economy": {
       "gdp": null,
       "gdpPerCapita": null,
-      "inflation": null,
+      "inflation": 5.4,
       "exports": [],
       "industries": []
     },
@@ -77037,7 +78997,9 @@
         "linkedTerritories": [],
         "blocs": [],
         "allies": [],
-        "rivalStates": []
+        "rivalStates": [],
+        "disputes": [],
+        "protectorates": []
       }
     },
     "religion": {
@@ -77057,7 +79019,14 @@
         }
       ]
     },
-    "conflicts": [],
+    "conflicts": [
+      {
+        "name": "Guerra de Somalilandia",
+        "startYear": 1981,
+        "endYear": 1991,
+        "ongoing": false
+      }
+    ],
     "organizations": [],
     "rivals": []
   }

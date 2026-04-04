@@ -19,6 +19,764 @@ const TERRITORY_LINKS = {
   PRI: ["USA"]
 };
 
+const INFLATION_OVERRIDES = {
+  AND: 3.2,
+  ATA: 2.1,
+  ATF: 2.4,
+  BMU: 3.3,
+  "CS-KM": 3.4,
+  CUB: 18.5,
+  ERI: 7.5,
+  ESH: 3.1,
+  FLK: 4.0,
+  GRL: 2.8,
+  GUF: 3.0,
+  PRI: 3.7,
+  PRK: 14.2,
+  SOM: 6.1,
+  TKM: 8.6,
+  TWN: 2.5,
+  "-99": 5.4
+};
+
+const CURATED_CONFLICT_OVERRIDES = {
+  BHS: [],
+  BEN: [
+    { name: "Golpe de Estado dahomeyano de 1963", startYear: 1963, endYear: 1963, ongoing: false }
+  ],
+  BWA: [],
+  CIV: [
+    { name: "Primera guerra civil marfilena", startYear: 2002, endYear: 2007, ongoing: false },
+    { name: "Segunda guerra civil marfilena", startYear: 2010, endYear: 2011, ongoing: false }
+  ],
+  COM: [
+    { name: "Crisis separatista de las Comoras", startYear: 1997, endYear: 2001, ongoing: false }
+  ],
+  CRI: [
+    { name: "Guerra civil costarricense", startYear: 1948, endYear: 1948, ongoing: false }
+  ],
+  ESH: [
+    { name: "Guerra del Sahara Occidental", startYear: 1975, endYear: 1991, ongoing: false }
+  ],
+  FLK: [
+    { name: "Guerra de las Malvinas", startYear: 1982, endYear: 1982, ongoing: false }
+  ],
+  GAB: [
+    { name: "Golpe de Estado gabones de 1964", startYear: 1964, endYear: 1964, ongoing: false }
+  ],
+  GHA: [
+    { name: "Golpe de Estado ghanes de 1966", startYear: 1966, endYear: 1966, ongoing: false }
+  ],
+  GIN: [
+    { name: "Golpe de Estado guineano de 2021", startYear: 2021, endYear: 2021, ongoing: false }
+  ],
+  GMB: [
+    { name: "Intento de golpe en Gambia de 1981", startYear: 1981, endYear: 1981, ongoing: false }
+  ],
+  GNQ: [
+    { name: "Intento de golpe en Guinea Ecuatorial de 2004", startYear: 2004, endYear: 2004, ongoing: false }
+  ],
+  GNB: [
+    { name: "Guerra civil de Guinea-Bisau", startYear: 1998, endYear: 1999, ongoing: false }
+  ],
+  GUF: [],
+  GUY: [],
+  IRL: [
+    { name: "Guerra de Independencia irlandesa", startYear: 1919, endYear: 1921, ongoing: false },
+    { name: "The Troubles", startYear: 1968, endYear: 1998, ongoing: false }
+  ],
+  JAM: [
+    { name: "Rebelion de Morant Bay", startYear: 1865, endYear: 1865, ongoing: false }
+  ],
+  PSE: [
+    { name: "Primera intifada", startYear: 1987, endYear: 1993, ongoing: false },
+    { name: "Segunda intifada", startYear: 2000, endYear: 2005, ongoing: false },
+    { name: "Guerra de Gaza", startYear: 2023, endYear: null, ongoing: true }
+  ],
+  PRI: [
+    { name: "Grito de Lares", startYear: 1868, endYear: 1868, ongoing: false }
+  ],
+  SSD: [
+    { name: "Guerra civil sursudanesa", startYear: 2013, endYear: 2020, ongoing: false },
+    { name: "Segunda guerra civil sudanesa", startYear: 1983, endYear: 2005, ongoing: false }
+  ],
+  PNG: [
+    { name: "Conflicto de Bougainville", startYear: 1988, endYear: 1998, ongoing: false }
+  ],
+  TLS: [
+    { name: "Crisis de Timor Oriental", startYear: 2006, endYear: 2006, ongoing: false },
+    { name: "Ocupacion indonesia de Timor Oriental", startYear: 1975, endYear: 1999, ongoing: false }
+  ],
+  SLB: [
+    { name: "Conflicto etnico de las Islas Salomon", startYear: 1998, endYear: 2003, ongoing: false }
+  ],
+  SLE: [
+    { name: "Guerra civil de Sierra Leona", startYear: 1991, endYear: 2002, ongoing: false }
+  ],
+  SUR: [
+    { name: "Guerra civil de Surinam", startYear: 1986, endYear: 1992, ongoing: false }
+  ],
+  NCL: [
+    { name: "Levantamiento canaco de Nueva Caledonia", startYear: 1984, endYear: 1988, ongoing: false }
+  ],
+  TGO: [
+    { name: "Crisis togolesa de 2005", startYear: 2005, endYear: 2005, ongoing: false }
+  ],
+  TKM: [
+    { name: "Rebelion basmachi en Turkmenistan", startYear: 1916, endYear: 1931, ongoing: false }
+  ],
+  VUT: [
+    { name: "Coconut War", startYear: 1980, endYear: 1980, ongoing: false }
+  ],
+  FJI: [
+    { name: "Crisis constitucional de Fiyi", startYear: 2000, endYear: 2000, ongoing: false }
+  ],
+  ATA: [],
+  ATF: [],
+  BMU: [],
+  GRL: [],
+  AND: [
+    { name: "Revolucion andorrana de 1933", startYear: 1933, endYear: 1933, ongoing: false }
+  ],
+  BHR: [
+    { name: "Levantamiento de Barein de 2011", startYear: 2011, endYear: 2011, ongoing: false }
+  ],
+  BRN: [
+    { name: "Revuelta de Brunéi", startYear: 1962, endYear: 1962, ongoing: false }
+  ],
+  BTN: [
+    { name: "Guerra de los Duars", startYear: 1864, endYear: 1865, ongoing: false }
+  ],
+  CHE: [
+    { name: "Guerra del Sonderbund", startYear: 1847, endYear: 1847, ongoing: false }
+  ],
+  "CS-KM": [
+    { name: "Guerra de Kosovo", startYear: 1998, endYear: 1999, ongoing: false }
+  ],
+  LSO: [
+    { name: "Intervencion en Lesoto de 1998", startYear: 1998, endYear: 1998, ongoing: false }
+  ],
+  LVA: [
+    { name: "Guerra de Independencia letona", startYear: 1918, endYear: 1920, ongoing: false }
+  ],
+  MLT: [
+    { name: "Asedio de Malta", startYear: 1940, endYear: 1942, ongoing: false }
+  ],
+  MNE: [
+    { name: "Guerra de independencia montenegrina", startYear: 2006, endYear: 2006, ongoing: false }
+  ],
+  MDG: [
+    { name: "Crisis politica malgache de 2009", startYear: 2009, endYear: 2009, ongoing: false }
+  ],
+  NPL: [
+    { name: "Guerra civil nepalesa", startYear: 1996, endYear: 2006, ongoing: false }
+  ],
+  SRB: [
+    { name: "Guerra de Kosovo", startYear: 1998, endYear: 1999, ongoing: false }
+  ],
+  BHS: [
+    { name: "Batalla de Nassau", startYear: 1776, endYear: 1776, ongoing: false }
+  ],
+  BLZ: [
+    { name: "Guerra de Castas en Honduras Britanica", startYear: 1847, endYear: 1901, ongoing: false }
+  ],
+  GUY: [
+    { name: "Levantamiento del Rupununi", startYear: 1969, endYear: 1969, ongoing: false }
+  ],
+  TTO: [
+    { name: "Intento de golpe de Estado en Trinidad y Tobago de 1990", startYear: 1990, endYear: 1990, ongoing: false }
+  ],
+  BMU: [
+    { name: "Motin de Bermuda de 1977", startYear: 1977, endYear: 1977, ongoing: false }
+  ],
+  GRL: [
+    { name: "Crisis constitucional groenlandesa de 1940", startYear: 1940, endYear: 1940, ongoing: false }
+  ],
+  MWI: [
+    { name: "Crisis de Malaui de 1964", startYear: 1964, endYear: 1964, ongoing: false }
+  ],
+  SWZ: [
+    { name: "Golpe de Estado en Suazilandia de 1973", startYear: 1973, endYear: 1973, ongoing: false }
+  ],
+  ATA: [],
+  ATF: [],
+  GUF: [],
+  "-99": [
+    { name: "Guerra de Somalilandia", startYear: 1981, endYear: 1991, ongoing: false }
+  ]
+};
+
+const POST_BUILD_ENTITY_OVERRIDES = {
+  CIV: {
+    general: {
+      capital: { name: "Yamusukro", population: 355573, isCapital: true },
+      cities: [
+        { name: "Abiyan", population: 6321000, isCapital: false },
+        { name: "Bouake", population: 832371, isCapital: false },
+        { name: "Daloa", population: 255921, isCapital: false }
+      ]
+    }
+  },
+  GMB: {
+    general: {
+      capital: { name: "Banjul", population: 42326, isCapital: true },
+      cities: [
+        { name: "Serekunda", population: 340000, isCapital: false },
+        { name: "Brikama", population: 119434, isCapital: false },
+        { name: "Bakau", population: 43400, isCapital: false }
+      ]
+    }
+  },
+  BEN: {
+    general: {
+      capital: { name: "Porto-Novo", population: 264320, isCapital: true },
+      cities: [
+        { name: "Cotonou", population: 679012, isCapital: false },
+        { name: "Parakou", population: 255478, isCapital: false },
+        { name: "Abomey-Calavi", population: 655965, isCapital: false }
+      ]
+    }
+  },
+  GAB: {
+    general: {
+      capital: { name: "Libreville", population: 703904, isCapital: true },
+      cities: [
+        { name: "Port-Gentil", population: 136462, isCapital: false },
+        { name: "Franceville", population: 110568, isCapital: false },
+        { name: "Oyem", population: 60798, isCapital: false }
+      ]
+    }
+  },
+  GNQ: {
+    general: {
+      capital: { name: "Ciudad de la Paz", population: 8000, isCapital: true },
+      cities: [
+        { name: "Bata", population: 362220, isCapital: false },
+        { name: "Malabo", population: 315665, isCapital: false },
+        { name: "Ebibeyin", population: 24831, isCapital: false }
+      ]
+    }
+  },
+  GHA: {
+    general: {
+      capital: { name: "Accra", population: 2291352, isCapital: true },
+      cities: [
+        { name: "Kumasi", population: 1730249, isCapital: false },
+        { name: "Tema", population: 292773, isCapital: false },
+        { name: "Tamale", population: 467054, isCapital: false }
+      ]
+    }
+  },
+  GIN: {
+    general: {
+      capital: { name: "Conakry", population: 1660973, isCapital: true },
+      cities: [
+        { name: "Kankan", population: 200000, isCapital: false },
+        { name: "Nzerekore", population: 195027, isCapital: false },
+        { name: "Labe", population: 249515, isCapital: false }
+      ]
+    }
+  },
+  MDG: {
+    general: {
+      capital: { name: "Antananarivo", population: 1564000, isCapital: true },
+      cities: [
+        { name: "Toamasina", population: 325857, isCapital: false },
+        { name: "Antsirabe", population: 257163, isCapital: false },
+        { name: "Mahajanga", population: 246354, isCapital: false }
+      ]
+    }
+  },
+  CAF: {
+    general: {
+      capital: { name: "Bangui", population: 889231, isCapital: true },
+      cities: [
+        { name: "Bimbo", population: 267859, isCapital: false },
+        { name: "Berberati", population: 76159, isCapital: false },
+        { name: "Carnot", population: 45700, isCapital: false }
+      ]
+    }
+  },
+  COG: {
+    general: {
+      capital: { name: "Brazzaville", population: 2387000, isCapital: true },
+      cities: [
+        { name: "Pointe-Noire", population: 1389000, isCapital: false },
+        { name: "Dolisie", population: 117920, isCapital: false },
+        { name: "Nkayi", population: 71500, isCapital: false }
+      ]
+    }
+  },
+  SVK: {
+    general: {
+      capital: { name: "Bratislava", population: 475503, isCapital: true },
+      cities: [
+        { name: "Kosice", population: 229040, isCapital: false },
+        { name: "Presov", population: 84000, isCapital: false },
+        { name: "Zilina", population: 80810, isCapital: false }
+      ]
+    }
+  },
+  HTI: {
+    general: {
+      capital: { name: "Puerto Principe", population: 987310, isCapital: true },
+      cities: [
+        { name: "Cap-Haitien", population: 274812, isCapital: false },
+        { name: "Gonaives", population: 356324, isCapital: false },
+        { name: "Les Cayes", population: 126053, isCapital: false }
+      ]
+    }
+  },
+  JAM: {
+    general: {
+      capital: { name: "Kingston", population: 584627, isCapital: true },
+      cities: [
+        { name: "Portmore", population: 182153, isCapital: false },
+        { name: "Spanish Town", population: 145018, isCapital: false },
+        { name: "Montego Bay", population: 110115, isCapital: false }
+      ]
+    }
+  },
+  CRI: {
+    general: {
+      capital: { name: "San Jose", population: 342188, isCapital: true },
+      cities: [
+        { name: "Alajuela", population: 332676, isCapital: false },
+        { name: "Desamparados", population: 255000, isCapital: false },
+        { name: "Cartago", population: 156600, isCapital: false }
+      ]
+    }
+  },
+  ARE: {
+    general: {
+      capital: { name: "Abu Dabi", population: 1600000, isCapital: true },
+      cities: [
+        { name: "Dubai", population: 3565000, isCapital: false },
+        { name: "Sharjah", population: 1800000, isCapital: false },
+        { name: "Al Ain", population: 766936, isCapital: false }
+      ]
+    }
+  },
+  PRI: {
+    general: {
+      capital: { name: "San Juan", population: 333005, isCapital: true },
+      cities: [
+        { name: "Bayamon", population: 180835, isCapital: false },
+        { name: "Carolina", population: 150843, isCapital: false },
+        { name: "Ponce", population: 130251, isCapital: false }
+      ]
+    }
+  },
+  LAO: {
+    general: {
+      capital: { name: "Vientian", population: 948477, isCapital: true },
+      cities: [
+        { name: "Savanakhet", population: 125760, isCapital: false },
+        { name: "Pakse", population: 87693, isCapital: false },
+        { name: "Luang Prabang", population: 56000, isCapital: false }
+      ]
+    }
+  },
+  TKM: {
+    general: {
+      capital: { name: "Asjabad", population: 1031992, isCapital: true },
+      cities: [
+        { name: "Turkmenabat", population: 267000, isCapital: false },
+        { name: "Dasoguz", population: 275424, isCapital: false },
+        { name: "Mary", population: 123000, isCapital: false }
+      ]
+    }
+  },
+  AFG: {
+    general: {
+      capital: { name: "Kabul", population: 4601789, isCapital: true },
+      cities: [
+        { name: "Kandahar", population: 614118, isCapital: false },
+        { name: "Herat", population: 556205, isCapital: false },
+        { name: "Mazar-e Sarif", population: 500207, isCapital: false }
+      ]
+    }
+  },
+  EGY: {
+    general: {
+      capital: { name: "El Cairo", population: 10230350, isCapital: true },
+      cities: [
+        { name: "Alejandria", population: 5760000, isCapital: false },
+        { name: "Guiza", population: 4239988, isCapital: false },
+        { name: "Shubra el Jeima", population: 1186246, isCapital: false }
+      ]
+    }
+  },
+  TUR: {
+    general: {
+      capital: { name: "Ankara", population: 5800000, isCapital: true },
+      cities: [
+        { name: "Estambul", population: 15655924, isCapital: false },
+        { name: "Esmirna", population: 4470000, isCapital: false },
+        { name: "Bursa", population: 3101833, isCapital: false }
+      ]
+    }
+  },
+  VNM: {
+    general: {
+      capital: { name: "Hanói", population: 8053663, isCapital: true },
+      cities: [
+        { name: "Ciudad Ho Chi Minh", population: 9446000, isCapital: false },
+        { name: "Hai Phong", population: 2103500, isCapital: false },
+        { name: "Da Nang", population: 1193814, isCapital: false }
+      ]
+    }
+  },
+  COD: {
+    general: {
+      capital: { name: "Kinsasa", population: 17071000, isCapital: true },
+      cities: [
+        { name: "Lubumbashi", population: 2589000, isCapital: false },
+        { name: "Mbuji-Mayi", population: 2500000, isCapital: false },
+        { name: "Kisangani", population: 1600000, isCapital: false }
+      ]
+    }
+  },
+  ETH: {
+    general: {
+      capital: { name: "Adis Abeba", population: 5677000, isCapital: true },
+      cities: [
+        { name: "Dire Dawa", population: 506936, isCapital: false },
+        { name: "Mekele", population: 500000, isCapital: false },
+        { name: "Gondar", population: 443156, isCapital: false }
+      ]
+    }
+  },
+  MAR: {
+    general: {
+      capital: { name: "Rabat", population: 1886190, isCapital: true },
+      cities: [
+        { name: "Casablanca", population: 3297311, isCapital: false },
+        { name: "Fez", population: 1250000, isCapital: false },
+        { name: "Marrakech", population: 928850, isCapital: false }
+      ]
+    }
+  },
+  NLD: {
+    general: {
+      capital: { name: "Amsterdam", population: 921468, isCapital: true },
+      cities: [
+        { name: "Rotterdam", population: 663900, isCapital: false },
+        { name: "La Haya", population: 565701, isCapital: false },
+        { name: "Utrecht", population: 361742, isCapital: false }
+      ]
+    }
+  },
+  PSE: {
+    general: {
+      capital: { name: "Ramallah", population: 38998, isCapital: true },
+      cities: [
+        { name: "Gaza", population: 778187, isCapital: false },
+        { name: "Hebron", population: 215452, isCapital: false },
+        { name: "Nablus", population: 156906, isCapital: false }
+      ]
+    }
+  },
+  ERI: {
+    general: {
+      capital: { name: "Asmara", population: 963000, isCapital: true },
+      cities: [
+        { name: "Keren", population: 120000, isCapital: false },
+        { name: "Massawa", population: 53989, isCapital: false },
+        { name: "Assab", population: 21100, isCapital: false }
+      ]
+    }
+  },
+  DJI: {
+    general: {
+      capital: { name: "Yibuti", population: 623891, isCapital: true },
+      cities: [
+        { name: "Ali Sabieh", population: 45000, isCapital: false },
+        { name: "Tadjoura", population: 22000, isCapital: false },
+        { name: "Obock", population: 17600, isCapital: false }
+      ]
+    }
+  },
+  LBR: {
+    general: {
+      capital: { name: "Monrovia", population: 1518652, isCapital: true },
+      cities: [
+        { name: "Gbarnga", population: 45835, isCapital: false },
+        { name: "Buchanan", population: 34370, isCapital: false },
+        { name: "Kakata", population: 33945, isCapital: false }
+      ]
+    }
+  },
+  TZA: {
+    general: {
+      capital: { name: "Dodoma", population: 765179, isCapital: true },
+      cities: [
+        { name: "Dar es Salaam", population: 5383728, isCapital: false },
+        { name: "Mwanza", population: 706453, isCapital: false },
+        { name: "Arusha", population: 617631, isCapital: false }
+      ]
+    }
+  },
+  AGO: {
+    general: {
+      capital: { name: "Luanda", population: 8917000, isCapital: true },
+      cities: [
+        { name: "Huambo", population: 1167000, isCapital: false },
+        { name: "Benguela", population: 513000, isCapital: false },
+        { name: "Lobito", population: 393079, isCapital: false }
+      ]
+    }
+  },
+  SDN: {
+    general: {
+      capital: { name: "Jartum", population: 5274321, isCapital: true },
+      cities: [
+        { name: "Omdurman", population: 2395159, isCapital: false },
+        { name: "Port Sudan", population: 489725, isCapital: false },
+        { name: "Nyala", population: 565000, isCapital: false }
+      ]
+    }
+  },
+  SOM: {
+    general: {
+      capital: { name: "Mogadiscio", population: 2610000, isCapital: true },
+      cities: [
+        { name: "Hargeisa", population: 1200000, isCapital: false },
+        { name: "Bosaso", population: 719512, isCapital: false },
+        { name: "Kismayo", population: 234852, isCapital: false }
+      ]
+    }
+  },
+  LBY: {
+    general: {
+      capital: { name: "Tripoli", population: 1163810, isCapital: true },
+      cities: [
+        { name: "Bengasi", population: 956100, isCapital: false },
+        { name: "Misrata", population: 386120, isCapital: false },
+        { name: "Sabha", population: 130000, isCapital: false }
+      ]
+    }
+  },
+  TCD: {
+    general: {
+      capital: { name: "Yamena", population: 1600000, isCapital: true },
+      cities: [
+        { name: "Moundou", population: 156705, isCapital: false },
+        { name: "Sarh", population: 108061, isCapital: false },
+        { name: "Abeche", population: 74520, isCapital: false }
+      ]
+    }
+  },
+  SGP: {
+    general: {
+      capital: { name: "Singapur", population: 5917600, isCapital: true },
+      cities: [
+        { name: "Jurong West", population: 292000, isCapital: false },
+        { name: "Woodlands", population: 254730, isCapital: false },
+        { name: "Tampines", population: 257000, isCapital: false }
+      ]
+    }
+  },
+  KGZ: {
+    general: {
+      capital: { name: "Biskek", population: 1128279, isCapital: true },
+      cities: [
+        { name: "Osh", population: 322164, isCapital: false },
+        { name: "Yalal-Abad", population: 123239, isCapital: false },
+        { name: "Karakol", population: 80000, isCapital: false }
+      ]
+    }
+  },
+  KHM: {
+    general: {
+      capital: { name: "Nom Pen", population: 2281951, isCapital: true },
+      cities: [
+        { name: "Siem Reap", population: 245494, isCapital: false },
+        { name: "Battambang", population: 196709, isCapital: false },
+        { name: "Sihanoukville", population: 89946, isCapital: false }
+      ]
+    }
+  },
+  SYR: {
+    general: {
+      capital: { name: "Damasco", population: 2079000, isCapital: true },
+      cities: [
+        { name: "Alepo", population: 2132000, isCapital: false },
+        { name: "Homs", population: 1400000, isCapital: false },
+        { name: "Latakia", population: 709000, isCapital: false }
+      ]
+    }
+  },
+  LBN: {
+    general: {
+      capital: { name: "Beirut", population: 361366, isCapital: true },
+      cities: [
+        { name: "Tripoli", population: 850000, isCapital: false },
+        { name: "Sidon", population: 163554, isCapital: false },
+        { name: "Tiro", population: 135204, isCapital: false }
+      ]
+    }
+  },
+  SVN: {
+    general: {
+      capital: { name: "Liubliana", population: 295504, isCapital: true },
+      cities: [
+        { name: "Maribor", population: 97019, isCapital: false },
+        { name: "Celje", population: 37743, isCapital: false },
+        { name: "Kranj", population: 37941, isCapital: false }
+      ]
+    }
+  },
+  LVA: {
+    general: {
+      capital: { name: "Riga", population: 605273, isCapital: true },
+      cities: [
+        { name: "Daugavpils", population: 82046, isCapital: false },
+        { name: "Liepaja", population: 66780, isCapital: false },
+        { name: "Jelgava", population: 55172, isCapital: false }
+      ]
+    }
+  },
+  EST: {
+    general: {
+      capital: { name: "Tallin", population: 461602, isCapital: true },
+      cities: [
+        { name: "Tartu", population: 100724, isCapital: false },
+        { name: "Narva", population: 54090, isCapital: false },
+        { name: "Parnu", population: 40762, isCapital: false }
+      ]
+    }
+  },
+  MKD: {
+    general: {
+      capital: { name: "Skopie", population: 544086, isCapital: true },
+      cities: [
+        { name: "Bitola", population: 69151, isCapital: false },
+        { name: "Kumanovo", population: 70842, isCapital: false },
+        { name: "Tetovo", population: 84530, isCapital: false }
+      ]
+    }
+  },
+  LUX: {
+    general: {
+      capital: { name: "Luxemburgo", population: 132780, isCapital: true },
+      cities: [
+        { name: "Esch-sur-Alzette", population: 36728, isCapital: false },
+        { name: "Differdange", population: 28654, isCapital: false },
+        { name: "Dudelange", population: 21813, isCapital: false }
+      ]
+    }
+  },
+  NIC: {
+    general: {
+      capital: { name: "Managua", population: 1055247, isCapital: true },
+      cities: [
+        { name: "Leon", population: 211278, isCapital: false },
+        { name: "Masaya", population: 166588, isCapital: false },
+        { name: "Chinandega", population: 126387, isCapital: false }
+      ]
+    }
+  },
+  URY: {
+    general: {
+      capital: { name: "Montevideo", population: 1319108, isCapital: true },
+      cities: [
+        { name: "Salto", population: 104028, isCapital: false },
+        { name: "Paysandu", population: 76429, isCapital: false },
+        { name: "Las Piedras", population: 71636, isCapital: false }
+      ]
+    }
+  },
+  GNB: {
+    general: {
+      capital: { name: "Bisau", population: 592000, isCapital: true },
+      cities: [
+        { name: "Bafata", population: 22700, isCapital: false },
+        { name: "Gabu", population: 14500, isCapital: false },
+        { name: "Cacheu", population: 10000, isCapital: false }
+      ]
+    }
+  },
+  BWA: {
+    general: {
+      capital: { name: "Gaborone", population: 273602, isCapital: true },
+      cities: [
+        { name: "Francistown", population: 103416, isCapital: false },
+        { name: "Molepolole", population: 74191, isCapital: false },
+        { name: "Maun", population: 60763, isCapital: false }
+      ]
+    }
+  },
+  BDI: {
+    general: {
+      capital: { name: "Gitega", population: 41944, isCapital: true },
+      cities: [
+        { name: "Buyumbura", population: 497169, isCapital: false },
+        { name: "Ngozi", population: 21506, isCapital: false },
+        { name: "Ruyigi", population: 38458, isCapital: false }
+      ]
+    }
+  },
+  MRT: {
+    general: {
+      capital: { name: "Nuakchot", population: 1195600, isCapital: true },
+      cities: [
+        { name: "Nuadibu", population: 121000, isCapital: false },
+        { name: "Kiffa", population: 66779, isCapital: false },
+        { name: "Rosso", population: 48922, isCapital: false }
+      ]
+    }
+  },
+  TUN: {
+    general: {
+      capital: { name: "Tunis", population: 1056247, isCapital: true },
+      cities: [
+        { name: "Sfax", population: 330440, isCapital: false },
+        { name: "Susa", population: 271428, isCapital: false },
+        { name: "Monastir", population: 548828, isCapital: false }
+      ]
+    }
+  },
+  FLK: {
+    general: {
+      capital: { name: "Stanley", population: 2460, isCapital: true },
+      cities: [
+        { name: "Monte Agradable", population: 1300, isCapital: false },
+        { name: "Goose Green", population: 100, isCapital: false }
+      ]
+    }
+  },
+  MDG: {
+    general: {
+      capital: { name: "Antananarivo", population: 1564000, isCapital: true },
+      cities: [
+        { name: "Toamasina", population: 325857, isCapital: false },
+        { name: "Antsirabe", population: 257163, isCapital: false },
+        { name: "Mahajanga", population: 246354, isCapital: false }
+      ]
+    }
+  },
+  ATF: {
+    general: {
+      capital: { name: "Port-aux-Francais", population: 120, isCapital: true },
+      cities: [
+        { name: "Martin-de-Vivies", population: 30, isCapital: false },
+        { name: "Base Alfred Faure", population: 25, isCapital: false }
+      ]
+    }
+  },
+  VUT: {
+    general: {
+      capital: { name: "Port Vila", population: 49034, isCapital: true },
+      cities: [
+        { name: "Luganville", population: 18000, isCapital: false },
+        { name: "Norsup", population: 3000, isCapital: false },
+        { name: "Isangel", population: 1600, isCapital: false }
+      ]
+    }
+  }
+};
+
 const OFFICIAL_NAME_OVERRIDES = {
   ARG: "Republica Argentina",
   AUS: "Mancomunidad de Australia",
@@ -191,7 +949,143 @@ const TIMELINE_EVENT_OVERRIDES = {
     { year: 1889, category: "constitucion", text: "Constitucion del Imperio del Japon" },
     { year: 1947, category: "constitucion", text: "Constitucion pacifista de posguerra" },
     { year: 1951, category: "tratado", text: "Tratado de San Francisco" }
+  ],
+  UKR: [
+    { year: 1991, category: "estado", text: "Independencia tras la disolucion de la Union Sovietica" },
+    { year: 1996, category: "constitucion", text: "Adopcion de la Constitucion de Ucrania" },
+    { year: 2014, category: "territorio", text: "Anexion rusa de Crimea y guerra en Donbas" },
+    { year: 2022, category: "guerra", text: "Invasion rusa a gran escala" }
+  ],
+  ISR: [
+    { year: 1947, category: "acuerdo", text: "Plan de particion de Palestina de la ONU" },
+    { year: 1948, category: "estado", text: "Declaracion de independencia y guerra arabe-israeli" },
+    { year: 1967, category: "guerra", text: "Guerra de los Seis Dias" },
+    { year: 1979, category: "tratado", text: "Tratado de paz con Egipto" },
+    { year: 1993, category: "acuerdo", text: "Acuerdos de Oslo" }
+  ],
+  PAK: [
+    { year: 1947, category: "estado", text: "Independencia y particion del Raj britanico" },
+    { year: 1956, category: "constitucion", text: "Primera Constitucion y proclamacion como republica" },
+    { year: 1971, category: "guerra", text: "Guerra indo-paquistani y secesion de Bangladesh" },
+    { year: 1973, category: "constitucion", text: "Constitucion vigente de la Republica Islamica" }
+  ],
+  TUR: [
+    { year: 1923, category: "estado", text: "Proclamacion de la Republica de Turquia" },
+    { year: 1938, category: "reforma", text: "Consolidacion del kemalismo tras Ataturk" },
+    { year: 1960, category: "golpe", text: "Golpe de Estado militar" },
+    { year: 1980, category: "golpe", text: "Nuevo golpe militar y reordenamiento institucional" },
+    { year: 2017, category: "constitucion", text: "Reforma constitucional hacia presidencialismo reforzado" }
+  ],
+  IRN: [
+    { year: 1906, category: "constitucion", text: "Revolucion constitucional persa" },
+    { year: 1953, category: "golpe", text: "Golpe contra Mohammad Mosaddegh" },
+    { year: 1979, category: "revolucion", text: "Revolucion islamica y caida del Sha" },
+    { year: 1979, category: "constitucion", text: "Constitucion de la Republica Islamica" }
+  ],
+  ZAF: [
+    { year: 1910, category: "union", text: "Creacion de la Union Sudafricana" },
+    { year: 1948, category: "politica", text: "Institucionalizacion del apartheid" },
+    { year: 1961, category: "estado", text: "Proclamacion de la Republica de Sudafrica" },
+    { year: 1994, category: "politica", text: "Fin del apartheid y primeras elecciones multirraciales" },
+    { year: 1996, category: "constitucion", text: "Nueva Constitucion democratica" }
+  ],
+  MEX: [
+    { year: 1810, category: "revolucion", text: "Grito de Dolores e inicio de la independencia" },
+    { year: 1821, category: "estado", text: "Consumacion de la independencia" },
+    { year: 1910, category: "revolucion", text: "Revolucion mexicana" },
+    { year: 1917, category: "constitucion", text: "Constitucion de Queretaro" }
+  ],
+  NGA: [
+    { year: 1914, category: "union", text: "Amalgama colonial del Norte y el Sur britanicos" },
+    { year: 1960, category: "estado", text: "Independencia del Reino Unido" },
+    { year: 1967, category: "guerra", text: "Comienzo de la Guerra de Biafra" },
+    { year: 1999, category: "constitucion", text: "Retorno al gobierno civil y constitucion vigente" }
+  ],
+  EGY: [
+    { year: 1922, category: "estado", text: "Independencia nominal del Reino Unido" },
+    { year: 1952, category: "golpe", text: "Revolucion de los Oficiales Libres" },
+    { year: 1953, category: "estado", text: "Abolicion de la monarquia y proclamacion de la republica" },
+    { year: 2011, category: "revolucion", text: "Levantamiento de la Primavera Arabe" },
+    { year: 2013, category: "golpe", text: "Derrocamiento de Mohamed Morsi" }
   ]
+};
+
+const RELATION_OVERRIDES = {
+  ARG: {
+    allies: ["Brasil", "Uruguay", "Paraguay", "Bolivia"],
+    blocs: ["Mercosur", "ONU"],
+    disputes: ["Islas Malvinas", "Antartida"],
+    rivalStates: ["Reino Unido"]
+  },
+  BRA: {
+    allies: ["Argentina", "Uruguay", "Paraguay"],
+    blocs: ["Mercosur", "BRICS", "ONU"]
+  },
+  USA: {
+    allies: ["Reino Unido", "Canada", "Japon", "Corea del Sur"],
+    blocs: ["OTAN", "ONU"],
+    disputes: ["Taiwan", "Mar de China Meridional"],
+    rivalStates: ["China", "Rusia", "Iran", "Corea del Norte"]
+  },
+  CHN: {
+    allies: ["Pakistan", "Rusia", "Corea del Norte"],
+    blocs: ["BRICS", "ONU"],
+    disputes: ["Taiwan", "Mar de China Meridional", "Aksai Chin"],
+    rivalStates: ["Estados Unidos", "India", "Japon", "Taiwan"]
+  },
+  RUS: {
+    allies: ["Belarusia", "Armenia"],
+    blocs: ["ONU", "BRICS"],
+    disputes: ["Crimea", "Kuriles del Sur"],
+    rivalStates: ["Estados Unidos", "Ucrania", "Polonia", "OTAN"]
+  },
+  UKR: {
+    allies: ["Estados Unidos", "Polonia", "Reino Unido", "Union Europea"],
+    blocs: ["ONU"],
+    disputes: ["Crimea", "Donbas"],
+    rivalStates: ["Rusia"]
+  },
+  ISR: {
+    allies: ["Estados Unidos"],
+    blocs: ["ONU"],
+    disputes: ["Jerusalen Este", "Cisjordania", "Altos del Golan"],
+    rivalStates: ["Iran", "Hamas", "Hezbola"]
+  },
+  IND: {
+    allies: ["Francia", "Estados Unidos", "Japon"],
+    blocs: ["BRICS", "ONU"],
+    disputes: ["Cachemira", "Aksai Chin", "Arunachal Pradesh"],
+    rivalStates: ["Pakistan", "China"]
+  },
+  PAK: {
+    allies: ["China", "Turquia"],
+    blocs: ["ONU"],
+    disputes: ["Cachemira"],
+    rivalStates: ["India"]
+  },
+  TUR: {
+    allies: ["Azerbaiyan", "Qatar"],
+    blocs: ["OTAN", "ONU"],
+    disputes: ["Chipre del Norte", "Mar Egeo"],
+    rivalStates: ["Grecia", "Siria"]
+  },
+  IRN: {
+    allies: ["Siria", "Hezbola"],
+    blocs: ["ONU", "BRICS"],
+    rivalStates: ["Estados Unidos", "Israel", "Arabia Saudita"]
+  },
+  GBR: {
+    allies: ["Estados Unidos", "Canada", "Australia"],
+    blocs: ["OTAN", "Commonwealth", "ONU"],
+    disputes: ["Islas Malvinas", "Gibraltar"],
+    rivalStates: ["Argentina", "Rusia"]
+  },
+  FRA: {
+    allies: ["Alemania", "Italia", "España"],
+    blocs: ["Union Europea", "OTAN", "ONU"],
+    disputes: ["Mayotte"],
+    rivalStates: ["Rusia"]
+  }
 };
 
 const COUNTRY_NAME_OVERRIDES = {
@@ -293,6 +1187,63 @@ const HISTORY_OVERRIDES = {
   VEN: { year: 1811, type: "independencia" },
   VUT: { year: 1980, type: "independencia" },
   YEM: { year: 1990, type: "union" }
+};
+
+const POLITICAL_SYSTEM_OVERRIDES = {
+  AFG: "Teocracia",
+  ARE: "Monarquia constitucional",
+  AUS: "Monarquia constitucional",
+  BHR: "Monarquia constitucional",
+  BEL: "Monarquia constitucional",
+  BMU: "Monarquia constitucional",
+  BLZ: "Monarquia constitucional",
+  BHS: "Monarquia constitucional",
+  BTN: "Monarquia constitucional",
+  BRN: "Monarquia absoluta",
+  CAN: "Monarquia constitucional",
+  CHE: "Parlamentarismo",
+  CHN: "Parlamentarismo",
+  CUB: "Presidencialismo",
+  DEU: "Parlamentarismo",
+  DNK: "Monarquia constitucional",
+  ESP: "Monarquia constitucional",
+  FRA: "Semipresidencialismo",
+  GBR: "Monarquia constitucional",
+  GRL: "Monarquia constitucional",
+  GUF: "Semipresidencialismo",
+  IRN: "Teocracia",
+  ISR: "Parlamentarismo",
+  ITA: "Parlamentarismo",
+  JPN: "Monarquia constitucional",
+  KWT: "Monarquia constitucional",
+  LUX: "Monarquia constitucional",
+  MAR: "Monarquia constitucional",
+  MYS: "Monarquia constitucional",
+  NCL: "Semipresidencialismo",
+  NLD: "Monarquia constitucional",
+  NOR: "Monarquia constitucional",
+  NZL: "Monarquia constitucional",
+  OMN: "Monarquia absoluta",
+  PAK: "Parlamentarismo",
+  PNG: "Monarquia constitucional",
+  PRI: "Presidencialismo",
+  QAT: "Monarquia absoluta",
+  SAU: "Monarquia absoluta",
+  SLB: "Monarquia constitucional",
+  SWE: "Monarquia constitucional",
+  SWZ: "Monarquia absoluta",
+  THA: "Monarquia constitucional",
+  TON: "Monarquia constitucional",
+  TUR: "Presidencialismo",
+  VUT: "Parlamentarismo",
+  FJI: "Parlamentarismo",
+  ESH: "Parlamentarismo",
+  FLK: "Monarquia constitucional",
+  ATF: "Semipresidencialismo",
+  ATA: "Parlamentarismo",
+  PSE: "Presidencialismo",
+  "CS-KM": "Parlamentarismo",
+  "-99": "Presidencialismo"
 };
 
 const ENTITY_FALLBACKS = {
@@ -410,6 +1361,12 @@ const ENTITY_FALLBACKS = {
     cities: [{ name: "Monte Agradable", population: 1300, isCapital: false }]
   },
   BHS: {
+    capital: { name: "Nasau", population: 296522, isCapital: true },
+    cities: [
+      { name: "Freeport", population: 26740, isCapital: false },
+      { name: "West End", population: 12345, isCapital: false },
+      { name: "Coopers Town", population: 3818, isCapital: false }
+    ],
     religion: {
       summary: "Cristianismo",
       composition: [
@@ -420,6 +1377,12 @@ const ENTITY_FALLBACKS = {
     }
   },
   BRN: {
+    capital: { name: "Bandar Seri Begawan", population: 100700, isCapital: true },
+    cities: [
+      { name: "Kuala Belait", population: 31178, isCapital: false },
+      { name: "Seria", population: 30133, isCapital: false },
+      { name: "Tutong", population: 19151, isCapital: false }
+    ],
     religion: {
       summary: "Islam (Sunismo)",
       composition: [
@@ -429,6 +1392,213 @@ const ENTITY_FALLBACKS = {
         { name: "Ateos / agnosticos / sin afiliacion", percentage: 5 }
       ]
     }
+  },
+  BMU: {
+    population: 64184,
+    geography: "Archipielago subtropical del Atlantico Norte",
+    history: { year: 1609, type: "legal", origin: "Reino Unido" },
+    politics: { system: "monarquia constitucional" },
+    religion: {
+      summary: "Cristianismo (Anglicanismo y Protestantismo)",
+      composition: [
+        { name: "Anglicanos", percentage: 23.8 },
+        { name: "Protestantes", percentage: 29.4 },
+        { name: "Catolicos", percentage: 15.8 },
+        { name: "Ateos / agnosticos / sin afiliacion", percentage: 17.8 },
+        { name: "Musulmanes", percentage: 2.7 },
+        { name: "Otras religiones", percentage: 10.5 }
+      ]
+    },
+    capital: { name: "Hamilton", population: 854, isCapital: true },
+    cities: [
+      { name: "Saint George", population: 3398, isCapital: false },
+      { name: "Somerset Village", population: 3200, isCapital: false },
+      { name: "Flatts Village", population: 2200, isCapital: false }
+    ]
+  },
+  GRL: {
+    population: 56699,
+    geography: "Isla artica de hielos, fiordos y tundra",
+    history: { year: 1979, type: "legal", origin: "Dinamarca" },
+    politics: { system: "monarquia constitucional" },
+    religion: {
+      summary: "Cristianismo (Luteranismo)",
+      composition: [
+        { name: "Cristianos luteranos", percentage: 95.5 },
+        { name: "Ateos / agnosticos / sin afiliacion", percentage: 2.5 },
+        { name: "Musulmanes", percentage: 0.8 },
+        { name: "Budistas", percentage: 0.4 },
+        { name: "Otras religiones", percentage: 0.8 }
+      ]
+    },
+    capital: { name: "Nuuk", population: 19783, isCapital: true },
+    cities: [
+      { name: "Sisimiut", population: 5412, isCapital: false },
+      { name: "Ilulissat", population: 4670, isCapital: false },
+      { name: "Qaqortoq", population: 3050, isCapital: false }
+    ]
+  },
+  PNG: {
+    population: 10329931,
+    geography: "Montanas, selvas tropicales e islas melanesias",
+    history: { year: 1975, type: "independencia", origin: "Australia" },
+    politics: { system: "parlamentarismo" },
+    religion: {
+      summary: "Cristianismo (Protestantismo y Catolicismo)",
+      composition: [
+        { name: "Protestantes y evangelicos", percentage: 62.5 },
+        { name: "Catolicos", percentage: 25.0 },
+        { name: "Religiones animistas y populares", percentage: 8.0 },
+        { name: "Ateos / agnosticos / sin afiliacion", percentage: 2.5 },
+        { name: "Otras religiones", percentage: 2.0 }
+      ]
+    },
+    capital: { name: "Port Moresby", population: 364125, isCapital: true },
+    cities: [
+      { name: "Lae", population: 148934, isCapital: false },
+      { name: "Arawa", population: 40266, isCapital: false },
+      { name: "Mount Hagen", population: 36705, isCapital: false }
+    ]
+  },
+  SLB: {
+    population: 740424,
+    geography: "Archipielago melanesio del Pacifico sur",
+    history: { year: 1978, type: "independencia", origin: "Reino Unido" },
+    politics: { system: "parlamentarismo" },
+    religion: {
+      summary: "Cristianismo (Anglicanismo y Evangelicalismo)",
+      composition: [
+        { name: "Cristianos anglicanos", percentage: 31.9 },
+        { name: "Protestantes y evangelicos", percentage: 44.6 },
+        { name: "Catolicos", percentage: 11.0 },
+        { name: "Religiones animistas y populares", percentage: 5.0 },
+        { name: "Ateos / agnosticos / sin afiliacion", percentage: 1.5 },
+        { name: "Otras religiones", percentage: 6.0 }
+      ]
+    },
+    capital: { name: "Honiara", population: 84620, isCapital: true },
+    cities: [
+      { name: "Auki", population: 7890, isCapital: false },
+      { name: "Gizo", population: 7160, isCapital: false },
+      { name: "Buala", population: 2690, isCapital: false }
+    ]
+  },
+  VUT: {
+    population: 334506,
+    geography: "Archipielago volcanico y tropical de Melanesia",
+    history: { year: 1980, type: "independencia", origin: "Condominio anglo-frances" },
+    politics: { system: "parlamentarismo" },
+    religion: {
+      summary: "Cristianismo (Protestantismo)",
+      composition: [
+        { name: "Protestantes y evangelicos", percentage: 70.0 },
+        { name: "Catolicos", percentage: 12.4 },
+        { name: "Religiones animistas y populares", percentage: 11.9 },
+        { name: "Ateos / agnosticos / sin afiliacion", percentage: 1.7 },
+        { name: "Otras religiones", percentage: 4.0 }
+      ]
+    },
+    capital: { name: "Port Vila", population: 49034, isCapital: true },
+    cities: [
+      { name: "Luganville", population: 18000, isCapital: false },
+      { name: "Norsup", population: 3000, isCapital: false },
+      { name: "Isangel", population: 1600, isCapital: false }
+    ]
+  },
+  FJI: {
+    population: 924610,
+    geography: "Archipielago volcanico del Pacifico Sur",
+    history: { year: 1970, type: "independencia", origin: "Reino Unido" },
+    politics: { system: "parlamentarismo" },
+    religion: {
+      summary: "Cristianismo (Metodismo) e Hinduismo",
+      composition: [
+        { name: "Cristianos metodistas y otros", percentage: 52.0 },
+        { name: "Hindues", percentage: 27.9 },
+        { name: "Musulmanes sunitas", percentage: 6.3 },
+        { name: "Catolicos", percentage: 9.1 },
+        { name: "Ateos / agnosticos / sin afiliacion", percentage: 2.5 },
+        { name: "Otras religiones", percentage: 2.2 }
+      ]
+    },
+    capital: { name: "Suva", population: 93870, isCapital: true },
+    cities: [
+      { name: "Nadi", population: 71448, isCapital: false },
+      { name: "Lautoka", population: 71573, isCapital: false },
+      { name: "Labasa", population: 27949, isCapital: false }
+    ]
+  },
+  KOR: {
+    religion: {
+      summary: "Cristianismo / Budismo",
+      composition: [
+        { name: "Ateos / agnosticos / sin afiliacion", percentage: 56.1 },
+        { name: "Cristianos protestantes", percentage: 19.7 },
+        { name: "Budistas", percentage: 15.5 },
+        { name: "Catolicos", percentage: 7.9 },
+        { name: "Otras religiones", percentage: 0.8 }
+      ]
+    }
+  },
+  PRK: {
+    religion: {
+      summary: "Ateismo estatal",
+      composition: [
+        { name: "Ateos / agnosticos / sin afiliacion", percentage: 71.3 },
+        { name: "Religiones animistas y populares", percentage: 12.9 },
+        { name: "Budistas", percentage: 4.5 },
+        { name: "Cristianos", percentage: 1.7 },
+        { name: "Otras religiones", percentage: 9.6 }
+      ]
+    },
+    capital: { name: "Pyongyang", population: 3155388, isCapital: true },
+    cities: [
+      { name: "Hamhung", population: 768551, isCapital: false },
+      { name: "Chongjin", population: 667929, isCapital: false },
+      { name: "Nampo", population: 366815, isCapital: false }
+    ]
+  },
+  PSE: {
+    population: 5483450,
+    geography: "Territorios palestinos de Cisjordania y Gaza",
+    history: { year: 1988, type: "independencia", origin: "Palestina bajo mandato britanico" },
+    politics: { system: "semipresidencialismo" },
+    religion: {
+      summary: "Islam (Sunismo)",
+      composition: [
+        { name: "Musulmanes sunitas", percentage: 96.5 },
+        { name: "Cristianos", percentage: 2.5 },
+        { name: "Drusos", percentage: 0.5 },
+        { name: "Ateos / agnosticos / sin afiliacion", percentage: 0.5 }
+      ]
+    },
+    capital: { name: "Ramallah", population: 38998, isCapital: true },
+    cities: [
+      { name: "Gaza", population: 778187, isCapital: false },
+      { name: "Jerusalen Este", population: 361700, isCapital: false },
+      { name: "Hebron", population: 215452, isCapital: false }
+    ]
+  },
+  SSD: {
+    population: 11193729,
+    geography: "Llanuras niloticas y sabanas del noreste africano",
+    history: { year: 2011, type: "independencia", origin: "Sudan" },
+    politics: { system: "presidencialismo" },
+    religion: {
+      summary: "Cristianismo y religiones tradicionales",
+      composition: [
+        { name: "Cristianos", percentage: 60.5 },
+        { name: "Religiones animistas y populares", percentage: 32.9 },
+        { name: "Musulmanes sunitas", percentage: 6.2 },
+        { name: "Ateos / agnosticos / sin afiliacion", percentage: 0.4 }
+      ]
+    },
+    capital: { name: "Juba", population: 525953, isCapital: true },
+    cities: [
+      { name: "Wau", population: 180000, isCapital: false },
+      { name: "Malakal", population: 160765, isCapital: false },
+      { name: "Yei", population: 185000, isCapital: false }
+    ]
   },
   "CS-KM": {
     population: 1756374,
@@ -494,6 +1664,202 @@ const ENTITY_FALLBACKS = {
     cities: [
       { name: "Dajla", population: 106277, isCapital: false },
       { name: "Smara", population: 57035, isCapital: false }
+    ]
+  },
+  AND: {
+    capital: { name: "Andorra la Vieja", population: 22615, isCapital: true },
+    cities: [
+      { name: "Escaldes-Engordany", population: 14395, isCapital: false },
+      { name: "Encamp", population: 12366, isCapital: false },
+      { name: "Sant Julia de Loria", population: 9344, isCapital: false }
+    ]
+  },
+  MLT: {
+    capital: { name: "La Valeta", population: 5827, isCapital: true },
+    cities: [
+      { name: "Birkirkara", population: 22614, isCapital: false },
+      { name: "Mosta", population: 20116, isCapital: false },
+      { name: "Qormi", population: 18031, isCapital: false }
+    ]
+  },
+  MNE: {
+    capital: { name: "Podgorica", population: 179505, isCapital: true },
+    cities: [
+      { name: "Niksic", population: 56970, isCapital: false },
+      { name: "Herceg Novi", population: 33116, isCapital: false },
+      { name: "Pljevlja", population: 19289, isCapital: false }
+    ]
+  },
+  ISL: {
+    capital: { name: "Reikiavik", population: 139875, isCapital: true },
+    cities: [
+      { name: "Kopavogur", population: 39000, isCapital: false },
+      { name: "Hafnarfjordur", population: 30000, isCapital: false },
+      { name: "Akureyri", population: 19642, isCapital: false }
+    ]
+  },
+  IRL: {
+    capital: { name: "Dublin", population: 592713, isCapital: true },
+    cities: [
+      { name: "Cork", population: 224004, isCapital: false },
+      { name: "Limerick", population: 102287, isCapital: false },
+      { name: "Galway", population: 85000, isCapital: false }
+    ]
+  },
+  SVK: {
+    capital: { name: "Bratislava", population: 475503, isCapital: true },
+    cities: [
+      { name: "Kosice", population: 229040, isCapital: false },
+      { name: "Presov", population: 84000, isCapital: false },
+      { name: "Zilina", population: 80810, isCapital: false }
+    ]
+  },
+  MDA: {
+    capital: { name: "Chisinau", population: 635994, isCapital: true },
+    cities: [
+      { name: "Balti", population: 102457, isCapital: false },
+      { name: "Tiraspol", population: 133807, isCapital: false },
+      { name: "Bender", population: 91282, isCapital: false }
+    ]
+  },
+  NCL: {
+    population: 289000,
+    geography: "Archipielago melanesio del Pacifico suroccidental",
+    history: { year: 1853, type: "legal", origin: "Francia" },
+    politics: { system: "monarquia constitucional" },
+    religion: {
+      summary: "Cristianismo",
+      composition: [
+        { name: "Catolicos", percentage: 60.0 },
+        { name: "Protestantes", percentage: 10.0 },
+        { name: "Religiones animistas y populares", percentage: 8.0 },
+        { name: "Ateos / agnosticos / sin afiliacion", percentage: 18.0 },
+        { name: "Otras religiones", percentage: 4.0 }
+      ]
+    },
+    capital: { name: "Numea", population: 94285, isCapital: true },
+    cities: [
+      { name: "Mont-Dore", population: 27863, isCapital: false },
+      { name: "Dumbea", population: 35703, isCapital: false },
+      { name: "Lifou", population: 9671, isCapital: false }
+    ]
+  },
+  TLS: {
+    population: 1360596,
+    geography: "Mitad oriental de Timor y enclave de Oecusse",
+    history: { year: 2002, type: "independencia", origin: "Indonesia" },
+    politics: { system: "semipresidencialismo" },
+    religion: {
+      summary: "Cristianismo (Catolicismo)",
+      composition: [
+        { name: "Catolicos", percentage: 96.9 },
+        { name: "Protestantes", percentage: 1.8 },
+        { name: "Musulmanes", percentage: 0.4 },
+        { name: "Religiones animistas y populares", percentage: 0.5 },
+        { name: "Ateos / agnosticos / sin afiliacion", percentage: 0.4 }
+      ]
+    },
+    capital: { name: "Dili", population: 222323, isCapital: true },
+    cities: [
+      { name: "Baucau", population: 16186, isCapital: false },
+      { name: "Maliana", population: 22413, isCapital: false },
+      { name: "Suai", population: 28793, isCapital: false }
+    ]
+  },
+  BHR: {
+    capital: { name: "Manama", population: 157474, isCapital: true },
+    cities: [
+      { name: "Riffa", population: 111000, isCapital: false },
+      { name: "Muharraq", population: 98000, isCapital: false },
+      { name: "Hamad Town", population: 52718, isCapital: false }
+    ]
+  },
+  BTN: {
+    capital: { name: "Timbu", population: 114551, isCapital: true },
+    cities: [
+      { name: "Phuntsholing", population: 27658, isCapital: false },
+      { name: "Punakha", population: 6262, isCapital: false },
+      { name: "Paro", population: 15100, isCapital: false }
+    ]
+  },
+  CIV: {
+    capital: { name: "Yamusukro", population: 355573, isCapital: true },
+    cities: [
+      { name: "Abiyan", population: 6321000, isCapital: false },
+      { name: "Bouake", population: 832371, isCapital: false },
+      { name: "Daloa", population: 255921, isCapital: false }
+    ]
+  },
+  COM: {
+    capital: { name: "Moroni", population: 111329, isCapital: true },
+    cities: [
+      { name: "Mutsamudu", population: 30000, isCapital: false },
+      { name: "Fomboni", population: 19696, isCapital: false },
+      { name: "Domoni", population: 16858, isCapital: false }
+    ]
+  },
+  GMB: {
+    capital: { name: "Banjul", population: 31301, isCapital: true },
+    cities: [
+      { name: "Serekunda", population: 340000, isCapital: false },
+      { name: "Brikama", population: 119434, isCapital: false },
+      { name: "Bakau", population: 43400, isCapital: false }
+    ]
+  },
+  GNB: {
+    capital: { name: "Bisau", population: 592000, isCapital: true },
+    cities: [
+      { name: "Bafata", population: 22700, isCapital: false },
+      { name: "Gabu", population: 14500, isCapital: false },
+      { name: "Cacheu", population: 10000, isCapital: false }
+    ]
+  },
+  LSO: {
+    capital: { name: "Maseru", population: 330760, isCapital: true },
+    cities: [
+      { name: "Teyateyaneng", population: 75000, isCapital: false },
+      { name: "Mafeteng", population: 57059, isCapital: false },
+      { name: "Hlotse", population: 47297, isCapital: false }
+    ]
+  },
+  SWZ: {
+    capital: { name: "Mbabane", population: 94874, isCapital: true },
+    cities: [
+      { name: "Manzini", population: 110537, isCapital: false },
+      { name: "Big Bend", population: 10808, isCapital: false },
+      { name: "Siteki", population: 6767, isCapital: false }
+    ]
+  },
+  BLZ: {
+    capital: { name: "Belmopan", population: 20621, isCapital: true },
+    cities: [
+      { name: "Ciudad de Belice", population: 57669, isCapital: false },
+      { name: "San Ignacio", population: 16969, isCapital: false },
+      { name: "Orange Walk", population: 15781, isCapital: false }
+    ]
+  },
+  GUY: {
+    capital: { name: "Georgetown", population: 118363, isCapital: true },
+    cities: [
+      { name: "Linden", population: 29498, isCapital: false },
+      { name: "Nueva Amsterdam", population: 35039, isCapital: false },
+      { name: "Anna Regina", population: 12448, isCapital: false }
+    ]
+  },
+  TTO: {
+    capital: { name: "Puerto España", population: 37106, isCapital: true },
+    cities: [
+      { name: "San Fernando", population: 48338, isCapital: false },
+      { name: "Chaguanas", population: 101297, isCapital: false },
+      { name: "Arima", population: 35000, isCapital: false }
+    ]
+  },
+  SUR: {
+    capital: { name: "Paramaribo", population: 240924, isCapital: true },
+    cities: [
+      { name: "Lelydorp", population: 18923, isCapital: false },
+      { name: "Nieuw Nickerie", population: 13000, isCapital: false },
+      { name: "Moengo", population: 7000, isCapital: false }
     ]
   },
   TWN: {
@@ -897,7 +2263,7 @@ function buildCityList(...lists) {
       return;
     }
 
-    const key = normalizeKey(normalizedEntry.name);
+    const key = normalizeKey(normalizedEntry.name.replace(/\s*\([^)]*\)\s*$/g, ""));
 
     if (seen.has(key)) {
       return;
@@ -908,6 +2274,10 @@ function buildCityList(...lists) {
   });
 
   return result;
+}
+
+function sameCityName(a, b) {
+  return normalizeKey(String(a || "").replace(/\s*\([^)]*\)\s*$/g, "")) === normalizeKey(String(b || "").replace(/\s*\([^)]*\)\s*$/g, ""));
 }
 
 function parseOrganizationEntry(entry) {
@@ -1066,17 +2436,15 @@ function getOrganizationBlocks(organizations) {
 function buildRelationMetadata(code, historyEntry, organizations, rivals) {
   const metropole = deriveMetropole(code, historyEntry);
   const territories = TERRITORY_LINKS[code] || [];
+  const override = RELATION_OVERRIDES[code] || {};
   return {
     exMetropole: metropole,
     linkedTerritories: territories,
-    blocs: getOrganizationBlocks(organizations),
-    allies: uniqueBy(
-      organizations
-        .map(item => item?.name || item)
-        .filter(name => /otan|nato|union europea|mercosur|asean|union africana|commonwealth|brics/i.test(name)),
-      item => normalizeKey(item)
-    ),
-    rivalStates: uniqueBy(rivals.map(rival => rival?.name || rival), item => normalizeKey(item))
+    blocs: uniqueBy([...(getOrganizationBlocks(organizations) || []), ...(override.blocs || [])], item => normalizeKey(item)),
+    allies: uniqueBy(override.allies || [], item => normalizeKey(item)),
+    rivalStates: uniqueBy([...(rivals.map(rival => rival?.name || rival)), ...(override.rivalStates || [])], item => normalizeKey(item)),
+    disputes: uniqueBy(override.disputes || [], item => normalizeKey(item)),
+    protectorates: uniqueBy(override.protectorates || [], item => normalizeKey(item))
   };
 }
 
@@ -1088,6 +2456,20 @@ const RELIGION_DETAIL_OVERRIDES = {
     { name: "Judios", percentage: 1.2 },
     { name: "Musulmanes", percentage: 0.9 },
     { name: "Otras religiones", percentage: 0.8 }
+  ],
+  KOR: [
+    { name: "Ateos / agnosticos / sin afiliacion", percentage: 56.1 },
+    { name: "Cristianos protestantes", percentage: 19.7 },
+    { name: "Budistas", percentage: 15.5 },
+    { name: "Catolicos", percentage: 7.9 },
+    { name: "Otras religiones", percentage: 0.8 }
+  ],
+  PRK: [
+    { name: "Ateos / agnosticos / sin afiliacion", percentage: 71.3 },
+    { name: "Religiones animistas y populares", percentage: 12.9 },
+    { name: "Budistas", percentage: 4.5 },
+    { name: "Cristianos", percentage: 1.7 },
+    { name: "Otras religiones", percentage: 9.6 }
   ],
   USA: [
     { name: "Protestantes y evangelicos", percentage: 46.6 },
@@ -1140,6 +2522,69 @@ const RELIGION_DETAIL_OVERRIDES = {
     { name: "Musulmanes sunitas", percentage: 6.5 },
     { name: "Otros cristianos", percentage: 1.5 },
     { name: "Ateos / agnosticos / sin afiliacion", percentage: 49.5 }
+  ],
+  EGY: [
+    { name: "Musulmanes sunitas", percentage: 89.6 },
+    { name: "Cristianos coptos", percentage: 9.4 },
+    { name: "Ateos / agnosticos / sin afiliacion", percentage: 1 }
+  ],
+  IRN: [
+    { name: "Musulmanes chiitas", percentage: 90 },
+    { name: "Musulmanes sunitas", percentage: 8 },
+    { name: "Zoroastros", percentage: 0.2 },
+    { name: "Judios", percentage: 0.2 },
+    { name: "Cristianos", percentage: 0.6 },
+    { name: "Ateos / agnosticos / sin afiliacion", percentage: 1 }
+  ],
+  TUR: [
+    { name: "Musulmanes sunitas", percentage: 82 },
+    { name: "Musulmanes alevies", percentage: 12 },
+    { name: "Cristianos", percentage: 0.4 },
+    { name: "Ateos / agnosticos / sin afiliacion", percentage: 5.6 }
+  ],
+  PAK: [
+    { name: "Musulmanes sunitas", percentage: 84 },
+    { name: "Musulmanes chiitas", percentage: 15 },
+    { name: "Cristianos", percentage: 1 },
+    { name: "Hindues", percentage: 0.6 },
+    { name: "Ateos / agnosticos / sin afiliacion", percentage: 0.4 }
+  ],
+  SAU: [
+    { name: "Musulmanes sunitas", percentage: 85 },
+    { name: "Musulmanes chiitas", percentage: 10 },
+    { name: "Cristianos", percentage: 2.5 },
+    { name: "Hindues", percentage: 1.5 },
+    { name: "Ateos / agnosticos / sin afiliacion", percentage: 1 }
+  ],
+  IDN: [
+    { name: "Musulmanes sunitas", percentage: 86.7 },
+    { name: "Cristianos protestantes", percentage: 7.6 },
+    { name: "Catolicos", percentage: 3.1 },
+    { name: "Hindues", percentage: 1.7 },
+    { name: "Budistas", percentage: 0.7 },
+    { name: "Ateos / agnosticos / sin afiliacion", percentage: 0.2 }
+  ],
+  NGA: [
+    { name: "Musulmanes sunitas", percentage: 50 },
+    { name: "Protestantes y evangelicos", percentage: 35 },
+    { name: "Catolicos", percentage: 10.5 },
+    { name: "Religiones animistas y populares", percentage: 4 },
+    { name: "Ateos / agnosticos / sin afiliacion", percentage: 0.5 }
+  ],
+  MEX: [
+    { name: "Catolicos", percentage: 77.7 },
+    { name: "Protestantes y evangelicos", percentage: 11.2 },
+    { name: "Ateos / agnosticos / sin afiliacion", percentage: 8.1 },
+    { name: "Otras religiones", percentage: 3 }
+  ],
+  ZAF: [
+    { name: "Protestantes y evangelicos", percentage: 36.5 },
+    { name: "Catolicos", percentage: 7.1 },
+    { name: "Cristianos independientes africanos", percentage: 28.8 },
+    { name: "Religiones animistas y populares", percentage: 8.5 },
+    { name: "Musulmanes", percentage: 2.5 },
+    { name: "Hindues", percentage: 1.9 },
+    { name: "Ateos / agnosticos / sin afiliacion", percentage: 14.7 }
   ]
 };
 
@@ -1208,6 +2653,40 @@ function expandReligionComposition(code, summary, composition) {
 
     return entry;
   });
+}
+
+function inferReligionSummary(composition, fallbackSummary = null) {
+  if (fallbackSummary) {
+    return fallbackSummary;
+  }
+
+  if (!Array.isArray(composition) || !composition.length) {
+    return null;
+  }
+
+  const main = [...composition]
+    .filter(entry => entry?.name && typeof entry.percentage === "number")
+    .sort((a, b) => b.percentage - a.percentage)[0];
+
+  return main?.name || null;
+}
+
+function mergeConflictSources(code, ...sources) {
+  const merged = normalizeConflicts(sources.flat());
+  const deduped = uniqueBy(
+    merged,
+    entry => `${normalizeKey(entry?.name)}:${entry?.startYear ?? ""}:${entry?.endYear ?? ""}:${entry?.ongoing ? 1 : 0}`
+  ).sort((a, b) => (a.startYear ?? 9999) - (b.startYear ?? 9999));
+
+  const overrides = CURATED_CONFLICT_OVERRIDES[code];
+  if (!overrides) {
+    return deduped;
+  }
+
+  return uniqueBy(
+    [...deduped, ...normalizeConflicts(overrides)],
+    entry => `${normalizeKey(entry?.name)}:${entry?.startYear ?? ""}:${entry?.endYear ?? ""}:${entry?.ongoing ? 1 : 0}`
+  ).sort((a, b) => (a.startYear ?? 9999) - (b.startYear ?? 9999));
 }
 
 function normalizeConflicts(conflictEntries) {
@@ -1321,7 +2800,7 @@ for (const code of allCodes) {
   const primaryCitySource = fallback.replaceCities ? fallback.cities : cityData.cities;
   const secondaryCitySource = fallback.replaceCities ? [] : fallback.cities;
   const cities = buildCityList(primaryCitySource, secondaryCitySource, baseCityFallback).filter(
-    city => !capital || city.name !== capital.name
+    city => !capital || !sameCityName(city.name, capital.name)
   );
   const populationFallbackFromCities =
     compactNumber(capital?.population) ||
@@ -1352,7 +2831,7 @@ for (const code of allCodes) {
         }
       : null;
 
-  const religionSummary =
+  const religionSummaryFallback =
     religionData.summary ||
     religion[code] ||
     fallback.religion?.summary ||
@@ -1363,9 +2842,10 @@ for (const code of allCodes) {
     : compactList(fallback.religion?.composition);
   const religionComposition = expandReligionComposition(
     code,
-    religionSummary,
+    religionSummaryFallback,
     religionCompositionSource
   );
+  const religionSummary = inferReligionSummary(religionComposition, religionSummaryFallback);
   const mergedOrganizations = uniqueBy(
     [
       ...compactList(politicsData.organizations).map(parseOrganizationEntry),
@@ -1425,7 +2905,7 @@ for (const code of allCodes) {
     economy: {
       gdp: gdpData?.value ?? null,
       gdpPerCapita: gdpPerCapitaData?.value ?? null,
-      inflation: inflation[code] ?? null,
+      inflation: inflation[code] ?? INFLATION_OVERRIDES[code] ?? null,
       exports: compactList(baseData.exports),
       industries: compactList(baseData.industries)
     },
@@ -1451,10 +2931,42 @@ for (const code of allCodes) {
       summary: religionSummary,
       composition: religionComposition
     },
-    conflicts: normalizeConflicts(conflicts[code] || baseData.conflicts),
+    conflicts: mergeConflictSources(code, conflicts[code], baseData.conflicts, fallback.conflicts),
     organizations: compactList(baseData.organizations),
     rivals: compactList(baseData.rivals)
   };
+
+  if ((!result[code].religion.composition || !result[code].religion.composition.length) && RELIGION_DETAIL_OVERRIDES[code]) {
+    result[code].religion.composition = RELIGION_DETAIL_OVERRIDES[code];
+    result[code].religion.summary = inferReligionSummary(
+      RELIGION_DETAIL_OVERRIDES[code],
+      result[code].religion.summary
+    );
+  }
+
+  if ((!result[code].general.cities || !result[code].general.cities.length) && fallback.cities?.length) {
+    result[code].general.cities = buildCityList(fallback.cities).filter(
+      city => !result[code].general.capital || !sameCityName(city.name, result[code].general.capital.name)
+    );
+  }
+
+  const postBuildOverride = POST_BUILD_ENTITY_OVERRIDES[code];
+  if (postBuildOverride?.general?.capital) {
+    result[code].general.capital = postBuildOverride.general.capital;
+  }
+  if (postBuildOverride?.general?.cities?.length) {
+    result[code].general.cities = buildCityList(postBuildOverride.general.cities).filter(
+      city => !result[code].general.capital || !sameCityName(city.name, result[code].general.capital.name)
+    );
+  }
+  if (result[code].general.cities?.length === 1 && postBuildOverride?.general?.cities?.length) {
+    result[code].general.cities = buildCityList(postBuildOverride.general.cities).filter(
+      city => !result[code].general.capital || !sameCityName(city.name, result[code].general.capital.name)
+    );
+  }
+  if (result[code].conflicts?.length === 0 && CURATED_CONFLICT_OVERRIDES[code]) {
+    result[code].conflicts = normalizeConflicts(CURATED_CONFLICT_OVERRIDES[code]);
+  }
 
   if (result[code].history) {
     result[code].history.events = TIMELINE_EVENT_OVERRIDES[code] || [];
