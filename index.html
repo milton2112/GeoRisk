@@ -14,6 +14,7 @@
 <body>
 
 <div id="map"></div>
+<div id="fatal-error-banner" hidden></div>
 
 <div id="top-controls">
   <div id="search-bar">
@@ -46,6 +47,9 @@
           <option value="rivals">Rivales</option>
           <option value="religionDiversity">Diversidad religiosa</option>
           <option value="historyType">Tipo historico</option>
+          <option value="exportBreadth">Diversidad exportadora</option>
+          <option value="industryBreadth">Diversidad industrial</option>
+          <option value="capitalShare">Peso demografico de la capital</option>
         </select>
       </div>
       <div class="toolbar-row">
@@ -111,8 +115,23 @@
       <div class="toolbar-row">
         <button id="presentation-mode-button" type="button">Modo presentacion</button>
       </div>
+      <div class="toolbar-row toolbar-row-stack">
+        <label for="saved-views-select">Vistas guardadas</label>
+        <div class="filter-grid saved-view-grid">
+          <button id="save-view-button" type="button">Guardar vista</button>
+          <select id="saved-views-select">
+            <option value="">Vistas guardadas</option>
+          </select>
+          <button id="open-help-button" type="button">Guia</button>
+        </div>
+      </div>
+      <p id="semantic-helper">Ejemplos: monarquias constitucionales de Asia con islam mayoritario; paises de la OTAN rivales de Rusia; republicas presidenciales de America.</p>
       <div id="theme-legend"></div>
       <p id="offline-status">Cache local en preparacion.</p>
+      <div id="app-status-panel">
+        <span class="status-chip" id="render-profile-chip">Perfil de render: balanceado</span>
+        <span class="status-chip" id="dataset-health-chip">Dataset: validado</span>
+      </div>
     </div>
   </details>
 </div>
@@ -132,42 +151,6 @@
         <button type="button" class="panel-action-button" data-export-target="left-panel" data-export-format="pdf">Exportar PDF</button>
         <button type="button" class="panel-action-button" data-share-target="left-panel">Compartir</button>
       </div>
-      <h3 id="compare-title">Comparador</h3>
-      <div id="compare-panel">
-        <p id="compare-empty">Agrega hasta 3 paises desde la ficha o el buscador.</p>
-        <div id="compare-chips"></div>
-        <div id="compare-results"></div>
-      </div>
-
-      <h3 id="quiz-title">Modo educativo</h3>
-      <div id="quiz-panel">
-        <div class="quiz-toolbar">
-          <select id="quiz-category">
-            <option value="capital">Capitales</option>
-            <option value="religion">Religi&oacute;n mayoritaria</option>
-            <option value="continent">Continente</option>
-            <option value="system">Sistema pol&iacute;tico</option>
-            <option value="flag">Banderas</option>
-            <option value="history">Historia</option>
-            <option value="organization">Organizaciones</option>
-            <option value="rival">Rivales</option>
-          </select>
-          <select id="quiz-difficulty">
-            <option value="easy">F&aacute;cil</option>
-            <option value="medium">Media</option>
-            <option value="hard">Dif&iacute;cil</option>
-          </select>
-          <button id="quiz-start-button" type="button">Iniciar quiz</button>
-        </div>
-        <div id="quiz-status"></div>
-        <div id="quiz-question"></div>
-        <div id="quiz-options"></div>
-        <div class="quiz-toolbar">
-          <button id="quiz-next-button" type="button" hidden>Siguiente</button>
-          <button id="quiz-reset-button" type="button" hidden>Reiniciar</button>
-        </div>
-      </div>
-
       <h3 id="world-population-title">Poblacion mundial</h3>
       <p id="world-population-total"></p>
       <h3 id="top-population-title">Top poblacion</h3>
@@ -221,20 +204,102 @@
   </details>
 </div>
 
+<button id="map-mode-toggle" type="button" title="Cambiar vista de mapa">2D</button>
+
 <div id="country-panel">
   <h2>Selecciona un pais</h2>
 </div>
+
+<details id="compare-hub-panel">
+  <summary title="Comparador">📊</summary>
+  <div class="compare-hub-content">
+    <h3 id="compare-title">Comparador</h3>
+    <p id="compare-empty">Agrega hasta 3 paises desde la ficha o el buscador.</p>
+    <input id="compare-country-search" type="text" placeholder="Filtrar paises para comparar">
+    <div class="compare-picker-row">
+      <select id="compare-country-select">
+        <option value="">Seleccionar pais</option>
+      </select>
+      <button id="compare-add-button" type="button">Agregar</button>
+    </div>
+    <div id="compare-chips"></div>
+    <div class="compare-toolbar compare-toolbar-secondary">
+      <button id="compare-benchmark-world" type="button" class="panel-action-button">Vs mundo</button>
+      <button id="compare-benchmark-continent" type="button" class="panel-action-button">Vs continente</button>
+    </div>
+    <div class="compare-toolbar">
+      <button id="open-compare-modal-button" type="button" class="panel-action-button">Ver comparacion</button>
+      <button id="clear-compare-button" type="button" class="panel-action-button">Limpiar</button>
+    </div>
+    <div id="compare-results" hidden></div>
+  </div>
+</details>
+
+<details id="quiz-hub-panel">
+  <summary title="Quiz educativo">?</summary>
+  <div class="quiz-hub-content">
+    <h3 id="quiz-title">Modo educativo</h3>
+    <div id="quiz-panel">
+      <div class="quiz-toolbar">
+        <select id="quiz-category">
+          <option value="capital">Capitales</option>
+          <option value="religion">Religi&oacute;n mayoritaria</option>
+          <option value="continent">Continente</option>
+          <option value="system">Sistema pol&iacute;tico</option>
+          <option value="flag">Banderas</option>
+          <option value="history">Historia</option>
+          <option value="organization">Organizaciones</option>
+          <option value="rival">Rivales</option>
+        </select>
+        <select id="quiz-difficulty">
+          <option value="easy">F&aacute;cil</option>
+          <option value="medium">Media</option>
+          <option value="hard">Dif&iacute;cil</option>
+        </select>
+        <select id="quiz-mode">
+          <option value="classic">Clasico</option>
+          <option value="timed">Contra reloj</option>
+        </select>
+        <button id="quiz-start-button" type="button">Iniciar quiz</button>
+      </div>
+      <div id="quiz-status"></div>
+      <div id="quiz-meta"></div>
+      <div id="quiz-question"></div>
+      <div id="quiz-options"></div>
+      <div class="quiz-toolbar">
+        <button id="quiz-next-button" type="button" hidden>Siguiente</button>
+        <button id="quiz-reset-button" type="button" hidden>Reiniciar</button>
+      </div>
+    </div>
+  </div>
+</details>
 
 <details id="news-hub-panel">
   <summary title="Hub de noticias">📰</summary>
   <div class="news-hub-content">
     <h3>Hub de noticias</h3>
     <p id="news-hub-note">Cobertura del dia por pais. Abre la fuente mas relevante disponible.</p>
+    <div class="news-toolbar">
+      <select id="news-topic-select">
+        <option value="general">Panorama general</option>
+        <option value="politics">Politica</option>
+        <option value="economy">Economia</option>
+        <option value="conflict">Guerra y seguridad</option>
+      </select>
+    </div>
     <div id="news-hub-selected"></div>
     <div id="news-hub-article"></div>
     <div id="news-hub-list"></div>
   </div>
 </details>
+
+<div id="compare-modal" hidden>
+  <div class="compare-modal-backdrop" data-close-compare-modal="true"></div>
+  <div class="compare-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="compare-modal-title">
+    <button id="compare-modal-close" type="button" aria-label="Cerrar">×</button>
+    <div id="compare-modal-body"></div>
+  </div>
+</div>
 
 <div id="conflict-modal" hidden>
   <div class="conflict-modal-backdrop" data-close-conflict-modal="true"></div>
@@ -244,12 +309,52 @@
   </div>
 </div>
 
+<div id="help-modal" hidden>
+  <div class="help-modal-backdrop" data-close-help-modal="true"></div>
+  <div class="help-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="help-modal-title">
+    <button id="help-modal-close" type="button" aria-label="Cerrar">×</button>
+    <div id="help-modal-body">
+      <h2 id="help-modal-title">Guia rapida</h2>
+      <div class="help-section">
+        <h3>Como usar GeoRisk</h3>
+        <p>Busca paises, continentes, religiones, sistemas u organizaciones. Cambia entre 2D y 3D, activa capas tematicas y usa la ficha del pais para explorar historia, economia, politica, religion y conflictos.</p>
+      </div>
+      <div class="help-section">
+        <h3>Atajos</h3>
+        <ul>
+          <li><b>/</b> enfoca el buscador</li>
+          <li><b>?</b> abre esta guia</li>
+          <li><b>Esc</b> cierra modales y paneles flotantes</li>
+        </ul>
+      </div>
+      <div class="help-section">
+        <h3>Vistas guardadas</h3>
+        <p>Guarda combinaciones de capa, filtros, modo de mapa y pais seleccionado para volver rapido a una escena de trabajo o clase.</p>
+      </div>
+      <div class="help-section">
+        <h3>Estado del proyecto</h3>
+        <p>El proyecto mantiene una hoja de ruta local en <code>ROADMAP.md</code> y un resumen de fuentes en <code>DATA_SOURCES.md</code>. Tambien vas a ver dentro de la app el perfil de render activo y el estado general del dataset.</p>
+      </div>
+      <div class="help-section">
+        <h3>Sugerencias</h3>
+        <ul>
+          <li>Usa el comparador para hasta 3 paises.</li>
+          <li>Proba el quiz educativo y el hub de noticias desde los accesos inferiores.</li>
+          <li>Activa el modo presentacion para una interfaz mas limpia.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
   window.CESIUM_BASE_URL = "https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/";
 </script>
 <script src="https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Cesium.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+<script src="app-runtime.js"></script>
+<script src="app-curation.js"></script>
 <script src="script.js"></script>
 
 </body>

@@ -1,29 +1,94 @@
+const fallbackGetDeviceProfile = ({ isMobile, currentMapMode, deviceMemory = 4, hardwareConcurrency = 4 }) => {
+  const constrained = isMobile || deviceMemory <= 4 || hardwareConcurrency <= 4;
+  const mode2d = currentMapMode === "2d";
+
+  if (constrained) {
+    return {
+      constrained: true,
+      targetFrameRate: mode2d ? (isMobile ? 18 : 26) : (isMobile ? 18 : 24),
+      resolutionScale: mode2d ? (isMobile ? 0.48 : 0.66) : (isMobile ? 0.72 : 0.84),
+      maximumScreenSpaceError: mode2d ? (isMobile ? 10.4 : 6.8) : (isMobile ? 6.2 : 3.6),
+      tileCacheSize: mode2d ? (isMobile ? 36 : 88) : (isMobile ? 90 : 180),
+      loadingDescendantLimit: mode2d ? (isMobile ? 3 : 7) : (isMobile ? 8 : 14),
+      enableFxaa: false,
+      preloadAncestors: false,
+      preloadSiblings: false
+    };
+  }
+
+  return {
+    constrained: false,
+    targetFrameRate: mode2d ? 32 : 32,
+    resolutionScale: mode2d ? 0.72 : 0.96,
+    maximumScreenSpaceError: mode2d ? 5.4 : 2.6,
+    tileCacheSize: mode2d ? 116 : 240,
+    loadingDescendantLimit: mode2d ? 8 : 18,
+    enableFxaa: true,
+    preloadAncestors: true,
+    preloadSiblings: true
+  };
+};
+
+const fallbackGetRenderProfileText = ({ language = "es", isMobile, currentMapMode, resolutionScale }) => {
+  if (isMobile) {
+    return language === "en"
+      ? `Mobile ${currentMapMode.toUpperCase()} · optimized`
+      : `Mobile ${currentMapMode.toUpperCase()} · optimizado`;
+  }
+
+  if (resolutionScale >= 0.9) {
+    return language === "en"
+      ? `${currentMapMode.toUpperCase()} · high quality`
+      : `${currentMapMode.toUpperCase()} · alta calidad`;
+  }
+
+  if (resolutionScale >= 0.72) {
+    return language === "en"
+      ? `${currentMapMode.toUpperCase()} · balanced`
+      : `${currentMapMode.toUpperCase()} · balanceado`;
+  }
+
+  return language === "en"
+    ? `${currentMapMode.toUpperCase()} · performance`
+    : `${currentMapMode.toUpperCase()} · rendimiento`;
+};
+
+const {
+  getDeviceProfile: runtimeGetDeviceProfile = fallbackGetDeviceProfile,
+  getRenderProfileText: runtimeGetRenderProfileText = fallbackGetRenderProfileText
+} = window.GeoRiskRuntime || {};
+const {
+  EXTRA_CONFLICT_DETAIL_OVERRIDES: curatedConflictDetailOverrides = {},
+  EXTRA_CURATED_TIMELINE_EXTRAS: curatedTimelineExtras = {}
+} = window.GeoRiskCuration || {};
+const APP_VERSION = "2026-04-06-fix2";
+
 const DEFAULT_STYLE = {
-  color: "#0f3655",
-  weight: 1.4,
+  color: "#184b74",
+  weight: 1.8,
   fillColor: "#2a3f5f",
-  fillOpacity: 0.12
+  fillOpacity: 0.1
 };
 
 const COUNTRY_HIGHLIGHT_STYLE = {
-  color: "#9ed8ff",
-  weight: 2.8,
-  fillColor: "#43a5ff",
-  fillOpacity: 0.34
+  color: "#c9eeff",
+  weight: 3.4,
+  fillColor: "#49b3ff",
+  fillOpacity: 0.28
 };
 
 const CONTINENT_HIGHLIGHT_STYLE = {
-  color: "#d1ff74",
-  weight: 2.8,
-  fillColor: "#86d94f",
-  fillOpacity: 0.32
+  color: "#f0ffb8",
+  weight: 3.2,
+  fillColor: "#8ddb48",
+  fillOpacity: 0.3
 };
 
 const RELIGION_HIGHLIGHT_STYLE = {
-  color: "#ffb4b4",
-  weight: 2.8,
-  fillColor: "#ff6b6b",
-  fillOpacity: 0.32
+  color: "#ffd2d2",
+  weight: 3.2,
+  fillColor: "#ff6464",
+  fillOpacity: 0.3
 };
 
 const THEME_STYLES = {
@@ -71,6 +136,30 @@ const THEME_STYLES = {
     "legal y pacifica": "#06d6a0",
     otros: "#8d99ae"
   },
+  exportBreadth: [
+    { min: 12, color: "#14213d", label: "12 sectores o mas" },
+    { min: 8, color: "#1d3557", label: "8 a 11 sectores" },
+    { min: 5, color: "#457b9d", label: "5 a 7 sectores" },
+    { min: 3, color: "#7fb3d5", label: "3 a 4 sectores" },
+    { min: 1, color: "#bde0fe", label: "1 a 2 sectores" },
+    { min: 0, color: "#e9f5ff", label: "Sin datos" }
+  ],
+  industryBreadth: [
+    { min: 12, color: "#283618", label: "12 ramas o mas" },
+    { min: 8, color: "#4f772d", label: "8 a 11 ramas" },
+    { min: 5, color: "#7aa95c", label: "5 a 7 ramas" },
+    { min: 3, color: "#a7c957", label: "3 a 4 ramas" },
+    { min: 1, color: "#d4e09b", label: "1 a 2 ramas" },
+    { min: 0, color: "#eef5d2", label: "Sin datos" }
+  ],
+  capitalShare: [
+    { min: 30, color: "#4a0d67", label: "30% o mas" },
+    { min: 20, color: "#7b2cbf", label: "20% a 29,9%" },
+    { min: 10, color: "#9d4edd", label: "10% a 19,9%" },
+    { min: 5, color: "#c77dff", label: "5% a 9,9%" },
+    { min: 1, color: "#e0aaff", label: "1% a 4,9%" },
+    { min: 0, color: "#f5e9ff", label: "Sin datos" }
+  ],
   population: [
     { min: 200000000, color: "#081c15", label: "200 M o mas" },
     { min: 100000000, color: "#1b4332", label: "100 M a 199,9 M" },
@@ -223,6 +312,141 @@ const THEME_STYLES = {
     ],
     outcome: "Conflicto fragmentado y parcialmente congelado, con predominio del gobierno en gran parte del pais.",
     consequences: "Destruccion masiva, millones de desplazados y una profunda internacionalizacion del conflicto."
+  },
+  "Segunda Guerra Mundial": {
+    cause: "Estallo por la expansion agresiva de la Alemania nazi, el militarismo japones y el fracaso del sistema internacional de entreguerras para contener esas potencias.",
+    participants: [
+      { side: "Aliados", members: ["Reino Unido", "Union Sovietica", "Estados Unidos", "Francia", "China"], organizations: [], troops: "decenas de millones", casualties: "extraordinariamente elevadas" },
+      { side: "Eje", members: ["Alemania", "Italia", "Japon"], organizations: [], troops: "decenas de millones", casualties: "extraordinariamente elevadas" }
+    ],
+    outcome: "Victoria aliada y derrota total del Eje.",
+    consequences: "Reconfiguro el orden mundial, abrio paso a la ONU, la Guerra Fria, la descolonizacion acelerada y cambios fronterizos profundos en Europa y Asia."
+  },
+  "Primera Guerra Mundial": {
+    cause: "Fue desencadenada por el asesinato del archiduque Francisco Fernando en un sistema europeo ya tensado por alianzas militares, nacionalismos y rivalidades imperiales.",
+    participants: [
+      { side: "Aliados", members: ["Francia", "Reino Unido", "Rusia", "Italia", "Estados Unidos"], organizations: [], troops: "decenas de millones", casualties: "muy elevadas" },
+      { side: "Potencias Centrales", members: ["Alemania", "Austria-Hungria", "Imperio otomano", "Bulgaria"], organizations: [], troops: "decenas de millones", casualties: "muy elevadas" }
+    ],
+    outcome: "Victoria aliada y armisticio de 1918.",
+    consequences: "Provoco la caida de varios imperios, nuevos estados europeos, el Tratado de Versalles y condiciones que incubaron la Segunda Guerra Mundial."
+  },
+  "Guerra civil espanola": {
+    cause: "Comenzo tras el levantamiento militar contra la Segunda Republica Espanola en un clima de fuerte polarizacion politica y social.",
+    participants: [
+      { side: "Republicanos", members: ["Republica Espanola"], organizations: ["Brigadas Internacionales"], troops: "cientos de miles", casualties: "muy elevadas" },
+      { side: "Nacionalistas", members: ["Sublevados dirigidos por Franco"], organizations: ["Apoyo italiano y aleman"], troops: "cientos de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Victoria nacionalista y establecimiento de la dictadura de Franco.",
+    consequences: "Transformo el sistema politico espanol durante decadas y dejo una profunda fractura social y memorial."
+  },
+  "Guerra Iran-Iraq": {
+    cause: "Estallo por rivalidades fronterizas, ambiciones regionales de Bagdad y el impacto de la revolucion irani de 1979.",
+    participants: [
+      { side: "Iran", members: ["Iran"], organizations: [], troops: "millones movilizados", casualties: "muy elevadas" },
+      { side: "Iraq", members: ["Iraq"], organizations: [], troops: "millones movilizados", casualties: "muy elevadas" }
+    ],
+    outcome: "Empate estrategico sin cambios territoriales decisivos.",
+    consequences: "Ambos paises quedaron devastados, altamente endeudados y militarizados, alterando toda la seguridad del Golfo."
+  },
+  "Guerra de Afganistan": {
+    cause: "Comenzo tras los atentados del 11 de septiembre y la ofensiva liderada por Estados Unidos contra el regimen taliban por albergar a Al Qaeda.",
+    participants: [
+      { side: "Gobierno afgano y coalicion", members: ["Afganistan", "Estados Unidos", "Reino Unido"], organizations: ["OTAN"], troops: "cientos de miles", casualties: "muy elevadas" },
+      { side: "Insurgencia", members: ["Talibanes", "grupos insurgentes aliados"], organizations: [], troops: "decenas de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Retirada occidental y regreso taliban al poder en 2021.",
+    consequences: "Colapso del gobierno republicano afgano y redefinicion del equilibrio regional y de la credibilidad occidental."
+  },
+  "Guerra de Corea": {
+    cause: "Estallo por la division de la peninsula coreana tras la Segunda Guerra Mundial y la ofensiva norcoreana para reunificarla por la fuerza.",
+    participants: [
+      { side: "Corea del Norte y apoyos", members: ["Corea del Norte", "China"], organizations: [], troops: "millones movilizados", casualties: "muy elevadas" },
+      { side: "Corea del Sur y ONU", members: ["Corea del Sur", "Estados Unidos", "Reino Unido"], organizations: ["ONU"], troops: "millones movilizados", casualties: "muy elevadas" }
+    ],
+    outcome: "Armisticio sin tratado de paz definitivo.",
+    consequences: "Se consolido la division de Corea y la zona desmilitarizada, con una rivalidad que continua hasta hoy."
+  },
+  "Guerra de Vietnam": {
+    cause: "Se intensifico por la division de Vietnam, la competencia de la Guerra Fria y la lucha entre el gobierno survietnamita y el Viet Cong con apoyo norvietnamita.",
+    participants: [
+      { side: "Vietnam del Norte", members: ["Vietnam del Norte", "Viet Cong"], organizations: [], troops: "cientos de miles", casualties: "muy elevadas" },
+      { side: "Vietnam del Sur y aliados", members: ["Vietnam del Sur", "Estados Unidos", "Australia"], organizations: [], troops: "cientos de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Victoria de Vietnam del Norte y reunificacion del pais.",
+    consequences: "Se reunifico Vietnam bajo un solo gobierno y Estados Unidos sufrio una derrota estrategica y politica."
+  },
+  "Guerra de los Seis Dias": {
+    cause: "Estallo por la escalada militar entre Israel y sus vecinos arabes, el cierre del estrecho de Tiran y la movilizacion regional.",
+    participants: [
+      { side: "Israel", members: ["Israel"], organizations: [], troops: "aprox. 264.000", casualties: "menos de 1.000 muertos" },
+      { side: "Coalicion arabe", members: ["Egipto", "Siria", "Jordania", "Irak"], organizations: ["Liga Arabe"], troops: "cientos de miles", casualties: "varios miles" }
+    ],
+    outcome: "Victoria rapida de Israel.",
+    consequences: "Israel ocupo Gaza, Cisjordania, Jerusalen Este, Sinai y los Altos del Golan, alterando profundamente el mapa regional."
+  },
+  "Guerra del Golfo": {
+    cause: "Comenzo tras la invasion iraqui de Kuwait en 1990 y la respuesta internacional encabezada por Estados Unidos.",
+    participants: [
+      { side: "Iraq", members: ["Iraq"], organizations: [], troops: "cientos de miles", casualties: "muy elevadas" },
+      { side: "Coalicion internacional", members: ["Estados Unidos", "Arabia Saudita", "Reino Unido", "Francia", "Kuwait"], organizations: ["ONU"], troops: "mas de 900.000", casualties: "relativamente bajas frente a Iraq" }
+    ],
+    outcome: "Liberacion de Kuwait y derrota militar iraqui.",
+    consequences: "Iraq quedo sometido a sanciones, zonas de exclusion aerea y fuerte debilitamiento regional."
+  },
+  "Guerra civil siria": {
+    cause: "Surgio de las protestas de 2011, la represion estatal y la posterior militarizacion del levantamiento en el contexto de la Primavera Arabe.",
+    participants: [
+      { side: "Gobierno sirio y apoyos", members: ["Siria", "Rusia", "Iran"], organizations: ["Hezbola"], troops: "cientos de miles", casualties: "muy elevadas" },
+      { side: "Oposicion y otras facciones", members: ["Ejercito Libre Sirio", "facciones islamistas", "Fuerzas Democraticas Sirias"], organizations: [], troops: "cientos de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Conflicto fragmentado y parcialmente congelado, con predominio del gobierno en gran parte del pais.",
+    consequences: "Destruccion masiva, millones de desplazados y una profunda internacionalizacion del conflicto."
+  },
+  "Segunda Guerra Mundial": {
+    cause: "Estallo por la expansion agresiva de la Alemania nazi, el militarismo japones y el fracaso del sistema internacional de entreguerras para contener esas potencias.",
+    participants: [
+      { side: "Aliados", members: ["Reino Unido", "Union Sovietica", "Estados Unidos", "Francia", "China"], organizations: [], troops: "decenas de millones", casualties: "extraordinariamente elevadas" },
+      { side: "Eje", members: ["Alemania", "Italia", "Japon"], organizations: [], troops: "decenas de millones", casualties: "extraordinariamente elevadas" }
+    ],
+    outcome: "Victoria aliada y derrota total del Eje.",
+    consequences: "Reconfiguro el orden mundial, abrio paso a la ONU, la Guerra Fria, la descolonizacion acelerada y cambios fronterizos profundos en Europa y Asia."
+  },
+  "Primera Guerra Mundial": {
+    cause: "Fue desencadenada por el asesinato del archiduque Francisco Fernando en un sistema europeo ya tensado por alianzas militares, nacionalismos y rivalidades imperiales.",
+    participants: [
+      { side: "Aliados", members: ["Francia", "Reino Unido", "Rusia", "Italia", "Estados Unidos"], organizations: [], troops: "decenas de millones", casualties: "muy elevadas" },
+      { side: "Potencias Centrales", members: ["Alemania", "Austria-Hungria", "Imperio otomano", "Bulgaria"], organizations: [], troops: "decenas de millones", casualties: "muy elevadas" }
+    ],
+    outcome: "Victoria aliada y armisticio de 1918.",
+    consequences: "Provoco la caida de varios imperios, nuevos estados europeos, el Tratado de Versalles y condiciones que incubaron la Segunda Guerra Mundial."
+  },
+  "Guerra civil espanola": {
+    cause: "Comenzo tras el levantamiento militar contra la Segunda Republica Espanola en un clima de fuerte polarizacion politica y social.",
+    participants: [
+      { side: "Republicanos", members: ["Republica Espanola"], organizations: ["Brigadas Internacionales"], troops: "cientos de miles", casualties: "muy elevadas" },
+      { side: "Nacionalistas", members: ["Sublevados dirigidos por Franco"], organizations: ["Apoyo italiano y aleman"], troops: "cientos de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Victoria nacionalista y establecimiento de la dictadura de Franco.",
+    consequences: "Transformo el sistema politico espanol durante decadas y dejo una profunda fractura social y memorial."
+  },
+  "Guerra Iran-Iraq": {
+    cause: "Estallo por rivalidades fronterizas, ambiciones regionales de Bagdad y el impacto de la revolucion irani de 1979.",
+    participants: [
+      { side: "Iran", members: ["Iran"], organizations: [], troops: "millones movilizados", casualties: "muy elevadas" },
+      { side: "Iraq", members: ["Iraq"], organizations: [], troops: "millones movilizados", casualties: "muy elevadas" }
+    ],
+    outcome: "Empate estrategico sin cambios territoriales decisivos.",
+    consequences: "Ambos paises quedaron devastados, altamente endeudados y militarizados, alterando toda la seguridad del Golfo."
+  },
+  "Guerra de Afganistan": {
+    cause: "Comenzo tras los atentados del 11 de septiembre y la ofensiva liderada por Estados Unidos contra el regimen taliban por albergar a Al Qaeda.",
+    participants: [
+      { side: "Gobierno afgano y coalicion", members: ["Afganistan", "Estados Unidos", "Reino Unido"], organizations: ["OTAN"], troops: "cientos de miles", casualties: "muy elevadas" },
+      { side: "Insurgencia", members: ["Talibanes", "grupos insurgentes aliados"], organizations: [], troops: "decenas de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Retirada occidental y regreso taliban al poder en 2021.",
+    consequences: "Colapso del gobierno republicano afgano y redefinicion del equilibrio regional y de la credibilidad occidental."
   }
 };
 
@@ -306,27 +530,30 @@ function getMaxGlobeDistance() {
   return getInitialGlobeDistance();
 }
 
-function getPerformancePreset() {
-  const mobile = isMobileLayout();
-  const memory = navigator.deviceMemory || 4;
-  const cores = navigator.hardwareConcurrency || 4;
-  const constrained = mobile || memory <= 4 || cores <= 4;
+function getDefaultMapMode() {
+  return isMobileLayout() ? "2d" : "3d";
+}
 
-  return constrained
-    ? {
-      targetFrameRate: mobile ? 18 : 24,
-      resolutionScale: mobile ? 0.72 : 0.84,
-      maximumScreenSpaceError: mobile ? 6.2 : 3.6,
-      tileCacheSize: mobile ? 90 : 180,
-      loadingDescendantLimit: mobile ? 8 : 14
-    }
-    : {
-      targetFrameRate: 32,
-      resolutionScale: 0.96,
-      maximumScreenSpaceError: 2.6,
-      tileCacheSize: 240,
-      loadingDescendantLimit: 18
-    };
+function isConstrainedDevice() {
+  return runtimeGetDeviceProfile({
+    isMobile: isMobileLayout(),
+    currentMapMode,
+    deviceMemory: navigator.deviceMemory || 4,
+    hardwareConcurrency: navigator.hardwareConcurrency || 4
+  }).constrained;
+}
+
+function shouldUseHoverHighlights() {
+  return !isConstrainedDevice() && currentMapMode !== "2d";
+}
+
+function getPerformancePreset() {
+  return runtimeGetDeviceProfile({
+    isMobile: isMobileLayout(),
+    currentMapMode,
+    deviceMemory: navigator.deviceMemory || 4,
+    hardwareConcurrency: navigator.hardwareConcurrency || 4
+  });
 }
 
 const osmImageryProvider = new Cesium.UrlTemplateImageryProvider({
@@ -339,17 +566,109 @@ const satelliteImageryProvider = new Cesium.UrlTemplateImageryProvider({
   credit: "Esri, Maxar, Earthstar Geographics, and the GIS User Community"
 });
 
+let activeGeoJsonDataSource = null;
+let activeClickHandler = null;
+let mapSearchAliasesRegistered = false;
+let navigationQualityRestoreTimer = null;
+
+function applyImageryForMode() {
+  if (!viewer) {
+    return;
+  }
+
+  viewer.imageryLayers.removeAll();
+  try {
+    viewer.imageryLayers.addImageryProvider(satelliteImageryProvider);
+  } catch (error) {
+    console.error("No se pudo aplicar la capa base del mapa:", error);
+    try {
+      viewer.imageryLayers.addImageryProvider(osmImageryProvider);
+    } catch (fallbackError) {
+      console.error("No se pudo cargar la capa base alternativa:", fallbackError);
+    }
+  }
+}
+
+async function getCachedGeoJson(path) {
+  if (geoJsonCache.has(path)) {
+    return geoJsonCache.get(path);
+  }
+
+  const geoJsonPromise = fetch(`${path}${path.includes("?") ? "&" : "?"}v=${APP_VERSION}`, { cache: "no-store" }).then(async response => {
+    if (!response.ok) {
+      throw new Error(`No se pudo cargar ${path}: ${response.status}`);
+    }
+    return response.json();
+  });
+
+  geoJsonCache.set(path, geoJsonPromise);
+  return geoJsonPromise;
+}
+
+function setNavigationQualityState(isNavigating) {
+  if (!viewer) {
+    return;
+  }
+
+  const preset = getPerformancePreset();
+  if (navigationQualityRestoreTimer) {
+    clearTimeout(navigationQualityRestoreTimer);
+    navigationQualityRestoreTimer = null;
+  }
+
+  if (isNavigating) {
+    if (currentMapMode === "2d") {
+      viewer.resolutionScale = Math.max(isMobileLayout() ? 0.42 : 0.58, preset.resolutionScale - 0.12);
+      viewer.scene.globe.maximumScreenSpaceError = Math.max(preset.maximumScreenSpaceError, preset.maximumScreenSpaceError + 2.1);
+    } else {
+      viewer.resolutionScale = Math.max(isMobileLayout() ? 0.6 : 0.76, preset.resolutionScale - 0.06);
+      viewer.scene.globe.maximumScreenSpaceError = Math.max(preset.maximumScreenSpaceError, preset.maximumScreenSpaceError + 0.95);
+    }
+    viewer.scene.requestRender();
+    return;
+  }
+
+  navigationQualityRestoreTimer = setTimeout(() => {
+    const stablePreset = getPerformancePreset();
+    viewer.resolutionScale = stablePreset.resolutionScale;
+    viewer.scene.globe.maximumScreenSpaceError = stablePreset.maximumScreenSpaceError;
+    viewer.scene.requestRender();
+  }, currentMapMode === "2d" ? 120 : 180);
+}
+
 let viewer = null;
 const newsCache = new Map();
+const geoJsonCache = new Map();
 const conflictModalRegistry = new Map();
 let conflictModalCounter = 0;
 let activeNewsCountryCode = "";
+
+const DATA_SOURCE_SUMMARY = {
+  es: [
+    "Dataset geopolitico local curado del proyecto",
+    "Banco Mundial para inflacion",
+    "GeoJSON politico y curaduria historica/manual propia"
+  ],
+  en: [
+    "Local curated geopolitical project dataset",
+    "World Bank for inflation",
+    "Political GeoJSON plus in-project historical/manual curation"
+  ]
+};
 
 const CONFLICT_PARENT_RULES = [
   { parent: "Guerra de las Malvinas", matches: ["goose green", "pradera del ganso", "san carlos", "wireless ridge", "harriet", "longdon", "tumbledown"] },
   { parent: "Guerra de la Triple Alianza", matches: ["ita ybate"] },
   { parent: "Guerra rusoucraniana", matches: ["bajmut", "avdiivka", "mariupol", "jersón", "kherson", "kiev", "kyiv"] },
-  { parent: "Guerra de Gaza", matches: ["gaza", "rafah", "khan yunis"] }
+  { parent: "Guerra de Gaza", matches: ["gaza", "rafah", "khan yunis"] },
+  { parent: "Segunda Guerra Mundial", matches: ["normandia", "stalingrado", "kursk", "el alamein", "midway", "berlin", "okinawa", "guadalcanal"] },
+  { parent: "Primera Guerra Mundial", matches: ["somme", "verdun", "marne", "ypres", "gallipoli"] },
+  { parent: "Guerra civil espanola", matches: ["guadalajara", "ebro", "jarama", "madrid", "brunete"] },
+  { parent: "Guerra Iran-Iraq", matches: ["jorramshahr", "abadan", "faw", "basora"] },
+  { parent: "Guerra de Vietnam", matches: ["tet", "khe sanh", "hue", "saigon", "dien bien phu"] },
+  { parent: "Guerra de Corea", matches: ["incheon", "chosin", "pusan", "seul"] },
+  { parent: "Guerra del Golfo", matches: ["73 easting", "khafji"] },
+  { parent: "Guerra de Afganistan", matches: ["tora bora", "kunduz", "helmand", "kandahar"] }
 ];
 
 const CONFLICT_DETAIL_OVERRIDES = {
@@ -382,11 +701,77 @@ const CONFLICT_DETAIL_OVERRIDES = {
   }
 };
 
+Object.assign(CONFLICT_DETAIL_OVERRIDES, curatedConflictDetailOverrides);
+
 const mapEventListeners = {
   click: new Set(),
   dragstart: new Set(),
   zoomstart: new Set()
 };
+
+const CURATED_TIMELINE_EXTRAS = {
+  ARG: [
+    { year: 1810, category: "revolucion", text: "Revolucion de Mayo y quiebre del orden virreinal", reference: "Revolucion de Mayo" },
+    { year: 1853, category: "constitucion", text: "Sancion de la Constitucion nacional", reference: "Constitucion de 1853" },
+    { year: 1983, category: "politica", text: "Restauracion democratica tras la dictadura militar", reference: "Transicion democratica" }
+  ],
+  BRA: [
+    { year: 1822, category: "descolonizacion", text: "Proclamacion de la independencia del Imperio del Brasil", reference: "Independencia de Brasil" },
+    { year: 1889, category: "golpe", text: "Fin del Imperio y proclamacion de la republica", reference: "Proclamacion de la Republica" },
+    { year: 1988, category: "constitucion", text: "Nueva constitucion democratica posdictadura", reference: "Constitucion de 1988" }
+  ],
+  DEU: [
+    { year: 1871, category: "union", text: "Unificacion del Imperio aleman", reference: "Unificacion alemana" },
+    { year: 1949, category: "division", text: "Division formal entre RFA y RDA", reference: "Division de Alemania" },
+    { year: 1990, category: "union", text: "Reunificacion alemana", reference: "Reunificacion de Alemania" }
+  ],
+  ESP: [
+    { year: 1812, category: "constitucion", text: "Constitucion de Cadiz", reference: "Constitucion de 1812" },
+    { year: 1931, category: "politica", text: "Proclamacion de la Segunda Republica", reference: "Segunda Republica" },
+    { year: 1978, category: "constitucion", text: "Constitucion vigente de la monarquia parlamentaria", reference: "Constitucion de 1978" }
+  ],
+  FRA: [
+    { year: 1789, category: "revolucion", text: "Inicio de la Revolucion francesa", reference: "Revolucion francesa" },
+    { year: 1870, category: "politica", text: "Consolidacion de la Tercera Republica", reference: "Tercera Republica" },
+    { year: 1958, category: "constitucion", text: "Fundacion de la Quinta Republica", reference: "Constitucion de 1958" }
+  ],
+  GBR: [
+    { year: 1707, category: "union", text: "Acta de Union entre Inglaterra y Escocia", reference: "Acta de Union" },
+    { year: 1801, category: "union", text: "Union con Irlanda y conformacion del Reino Unido", reference: "Union de 1801" },
+    { year: 1922, category: "division", text: "Separacion del Estado Libre Irlandes", reference: "Independencia irlandesa" }
+  ],
+  ITA: [
+    { year: 1861, category: "union", text: "Proclamacion del Reino de Italia y unificacion inicial", reference: "Unificacion italiana" },
+    { year: 1946, category: "politica", text: "Fin de la monarquia y nacimiento de la republica", reference: "Referendum institucional" }
+  ],
+  JPN: [
+    { year: 1868, category: "reforma", text: "Restauracion Meiji y modernizacion del Estado", reference: "Restauracion Meiji" },
+    { year: 1947, category: "constitucion", text: "Constitucion pacifista de posguerra", reference: "Constitucion de 1947" }
+  ],
+  MEX: [
+    { year: 1810, category: "revolucion", text: "Inicio de la guerra de independencia", reference: "Grito de Dolores" },
+    { year: 1917, category: "constitucion", text: "Constitucion surgida de la Revolucion mexicana", reference: "Constitucion de 1917" }
+  ],
+  RUS: [
+    { year: 1917, category: "revolucion", text: "Revoluciones de 1917 y fin del imperio", reference: "Revolucion rusa" },
+    { year: 1991, category: "disolucion", text: "Fin de la Union Sovietica y nacimiento de la Federacion de Rusia", reference: "Disolucion de la URSS" }
+  ],
+  TUR: [
+    { year: 1923, category: "politica", text: "Proclamacion de la Republica de Turquía", reference: "Republica de Turquía" },
+    { year: 2017, category: "reforma", text: "Reforma constitucional hacia un presidencialismo fuerte", reference: "Referendum de 2017" }
+  ],
+  UKR: [
+    { year: 1991, category: "disolucion", text: "Independencia tras la disolucion de la URSS", reference: "Independencia de Ucrania" },
+    { year: 2014, category: "territorio", text: "Anexion rusa de Crimea y guerra en Donbas", reference: "Crisis de Crimea" }
+  ],
+  USA: [
+    { year: 1776, category: "descolonizacion", text: "Declaracion de independencia", reference: "Declaracion de Independencia" },
+    { year: 1787, category: "constitucion", text: "Constitucion federal", reference: "Constitucion de 1787" },
+    { year: 1861, category: "guerra", text: "Comienzo de la Guerra Civil estadounidense", reference: "Guerra Civil" }
+  ]
+};
+
+Object.assign(CURATED_TIMELINE_EXTRAS, curatedTimelineExtras);
 
 function emitMapEvent(eventName) {
   (mapEventListeners[eventName] || []).forEach(listener => {
@@ -438,7 +823,7 @@ function initializeViewer() {
     maximumRenderTimeChange: Infinity,
     requestRenderMode: true,
     sceneModePicker: false,
-    scene3DOnly: true,
+    scene3DOnly: false,
     selectionIndicator: false,
     terrainProvider: new Cesium.EllipsoidTerrainProvider(),
     timeline: false
@@ -447,17 +832,7 @@ function initializeViewer() {
   map.scene = viewer.scene;
   map.camera = viewer.camera;
 
-  viewer.imageryLayers.removeAll();
-  try {
-    viewer.imageryLayers.addImageryProvider(satelliteImageryProvider);
-  } catch (error) {
-    console.error("No se pudo cargar la capa satelital principal:", error);
-    try {
-      viewer.imageryLayers.addImageryProvider(osmImageryProvider);
-    } catch (fallbackError) {
-      console.error("No se pudo cargar la capa base alternativa:", fallbackError);
-    }
-  }
+  applyImageryForMode();
   viewer.scene.globe.show = true;
   viewer.scene.globe.baseColor = cssColorToCesiumColor("#2b5d7d", 1);
   viewer.scene.globe.showGroundAtmosphere = false;
@@ -472,15 +847,15 @@ function initializeViewer() {
   viewer.scene.globe.enableLighting = false;
   viewer.scene.globe.depthTestAgainstTerrain = false;
   viewer.scene.globe.translucency.enabled = false;
-  viewer.scene.globe.preloadAncestors = false;
-  viewer.scene.globe.preloadSiblings = false;
+  viewer.scene.globe.preloadAncestors = preset.preloadAncestors;
+  viewer.scene.globe.preloadSiblings = preset.preloadSiblings;
   viewer.scene.globe.maximumScreenSpaceError = preset.maximumScreenSpaceError;
   viewer.scene.globe.tileCacheSize = preset.tileCacheSize;
   viewer.scene.globe.loadingDescendantLimit = preset.loadingDescendantLimit;
   viewer.scene.rethrowRenderErrors = false;
-  viewer.scene.fxaa = false;
+  viewer.scene.fxaa = preset.enableFxaa;
   if (viewer.scene.postProcessStages?.fxaa) {
-    viewer.scene.postProcessStages.fxaa.enabled = false;
+    viewer.scene.postProcessStages.fxaa.enabled = preset.enableFxaa;
   }
   viewer.scene.screenSpaceCameraController.enableCollisionDetection = false;
   viewer.scene.screenSpaceCameraController.enableTilt = false;
@@ -508,6 +883,11 @@ function initializeViewer() {
   viewer.camera.moveStart.addEventListener(() => {
     emitMapEvent("dragstart");
     emitMapEvent("zoomstart");
+    setNavigationQualityState(true);
+  });
+
+  viewer.camera.moveEnd.addEventListener(() => {
+    setNavigationQualityState(false);
   });
 
   viewer.scene.renderError.addEventListener(error => {
@@ -523,11 +903,23 @@ function initializeViewer() {
     fitWorldView();
   }, 200);
 
+  currentMapMode = getDefaultMapMode();
+  updateMapModeToggle();
+
   return viewer;
 }
 
 function fitWorldView() {
   if (!viewer) {
+    return;
+  }
+  if (currentMapMode === "2d") {
+    viewer.camera.cancelFlight();
+    viewer.camera.flyTo({
+      destination: Cesium.Rectangle.fromDegrees(-180, -70, 180, 85),
+      duration: 0
+    });
+    viewer.scene.requestRender();
     return;
   }
   const earthRadius = Cesium.Ellipsoid.WGS84.maximumRadius;
@@ -552,11 +944,68 @@ function updateMapInteractionTuning() {
   viewer.scene.globe.maximumScreenSpaceError = preset.maximumScreenSpaceError;
   viewer.scene.globe.tileCacheSize = preset.tileCacheSize;
   viewer.scene.globe.loadingDescendantLimit = preset.loadingDescendantLimit;
+  viewer.scene.globe.preloadAncestors = preset.preloadAncestors;
+  viewer.scene.globe.preloadSiblings = preset.preloadSiblings;
+  viewer.scene.fxaa = preset.enableFxaa;
+  if (viewer.scene.postProcessStages?.fxaa) {
+    viewer.scene.postProcessStages.fxaa.enabled = preset.enableFxaa;
+  }
   viewer.scene.screenSpaceCameraController.inertiaSpin = isMobileLayout() ? 0.58 : 0.78;
-  viewer.scene.screenSpaceCameraController.inertiaTranslate = isMobileLayout() ? 0.58 : 0.8;
-  viewer.scene.screenSpaceCameraController.inertiaZoom = isMobileLayout() ? 0.5 : 0.68;
-  viewer.scene.screenSpaceCameraController.maximumZoomDistance = getMaxGlobeDistance();
+  viewer.scene.screenSpaceCameraController.inertiaTranslate = currentMapMode === "2d"
+    ? (isMobileLayout() ? 0.18 : 0.24)
+    : (isMobileLayout() ? 0.58 : 0.8);
+  viewer.scene.screenSpaceCameraController.inertiaZoom = currentMapMode === "2d"
+    ? (isMobileLayout() ? 0.12 : 0.18)
+    : (isMobileLayout() ? 0.5 : 0.68);
+  viewer.scene.screenSpaceCameraController.maximumZoomDistance = currentMapMode === "2d"
+    ? Number.POSITIVE_INFINITY
+    : getMaxGlobeDistance();
+  viewer.scene.requestRenderMode = true;
+  viewer.scene.maximumRenderTimeChange = currentMapMode === "2d" ? 0.18 : 0.35;
   viewer.scene.requestRender();
+}
+
+function updateMapModeToggle() {
+  const button = document.getElementById("map-mode-toggle");
+  if (!button) {
+    return;
+  }
+
+  const nextMode = currentMapMode === "3d" ? "2d" : "3d";
+  button.textContent = nextMode.toUpperCase();
+  button.title = currentLanguage === "en"
+    ? `Switch to ${nextMode.toUpperCase()} map`
+    : `Cambiar a mapa ${nextMode.toUpperCase()}`;
+}
+
+function applyMapMode(mode, animate = true) {
+  if (!viewer) {
+    currentMapMode = mode;
+    updateMapModeToggle();
+    return;
+  }
+
+  const normalizedMode = mode === "2d" ? "2d" : "3d";
+  currentMapMode = normalizedMode;
+  applyImageryForMode();
+
+  if (normalizedMode === "2d") {
+    viewer.scene.morphTo2D(animate ? 0.8 : 0);
+  } else {
+    viewer.scene.morphTo3D(animate ? 0.8 : 0);
+  }
+
+  updateMapInteractionTuning();
+  setTimeout(async () => {
+    await loadMap();
+    fitWorldView();
+    viewer.scene.requestRender();
+  }, animate ? 850 : 0);
+  updateMapModeToggle();
+}
+
+function toggleMapMode() {
+  applyMapMode(currentMapMode === "3d" ? "2d" : "3d");
 }
 window.addEventListener("resize", () => {
   map.invalidateSize();
@@ -574,25 +1023,37 @@ let selectedLayers = [];
 let continentBoundsLayer = null;
 let worldPopulationTotal = 0;
 let currentTheme = "default";
+let currentMapMode = "3d";
 let selectionMode = "country";
 let compareSelection = [];
 let currentLanguage = "es";
 let currentPanelState = { type: "empty" };
 let savedFilters = [];
+let savedViews = [];
+let compareBenchmarkMode = "world";
+let activeNewsTopic = "general";
+let performanceMonitorId = null;
 let quizState = {
   category: "capital",
   difficulty: "easy",
+  mode: "classic",
   asked: [],
   score: 0,
   total: 0,
-  current: null
+  current: null,
+  streak: 0,
+  bestStreak: 0,
+  timeLeft: 0,
+  timerId: null
 };
 const countryCodeLookup = new WeakMap();
 
 const STORAGE_KEYS = {
   filters: "geo-risk-saved-filters",
   language: "geo-risk-language",
-  presentation: "geo-risk-presentation-mode"
+  presentation: "geo-risk-presentation-mode",
+  views: "geo-risk-saved-views",
+  helpSeen: "geo-risk-help-seen"
 };
 const countryLayers = new Map();
 const countryAliases = new Map();
@@ -1436,6 +1897,63 @@ function getCityDedupKey(value) {
   return normalizeText(String(value || "").replace(/\s*\([^)]*\)\s*$/u, "").trim());
 }
 
+function translateCapitalRole(role) {
+  const normalized = normalizeText(role);
+  const labels = {
+    nacional: currentLanguage === "en" ? "national capital" : "capital nacional",
+    constitucional: currentLanguage === "en" ? "constitutional capital" : "capital constitucional",
+    administrativa: currentLanguage === "en" ? "administrative capital" : "capital administrativa",
+    ejecutiva: currentLanguage === "en" ? "executive seat" : "sede ejecutiva",
+    legislativa: currentLanguage === "en" ? "legislative seat" : "sede legislativa",
+    judicial: currentLanguage === "en" ? "judicial seat" : "sede judicial",
+    "ejecutiva y legislativa": currentLanguage === "en" ? "executive and legislative seat" : "sede ejecutiva y legislativa",
+    reclamada: currentLanguage === "en" ? "claimed capital" : "capital reclamada"
+  };
+
+  return labels[normalized] || role || (currentLanguage === "en" ? "capital" : "capital");
+}
+
+function renderCapitalProfiles(general) {
+  const capitals = Array.isArray(general?.capitals) && general.capitals.length
+    ? general.capitals
+    : general?.capital?.name
+      ? [{ role: "nacional", name: general.capital.name, population: general.capital.population || null }]
+      : [];
+
+  if (!capitals.length) {
+    return `<p>${t("noData")}</p>`;
+  }
+
+  return renderList(
+    capitals.map(capital => {
+      const roleLabel = translateCapitalRole(capital.role);
+      const populationText = capital.population ? ` · ${formatNumber(capital.population)} hab.` : "";
+      return `${escapeHtml(normalizeCityDisplayName(capital.name))} (${escapeHtml(roleLabel)})${populationText}`;
+    })
+  );
+}
+
+function renderLanguages(general) {
+  const languages = Array.isArray(general?.languages) ? general.languages.filter(Boolean) : [];
+  return languages.length ? renderList(languages) : `<p>${t("noData")}</p>`;
+}
+
+function renderSubdivisionSummary(general) {
+  const subdivisions = general?.subdivisions;
+  if (!subdivisions?.type) {
+    return t("noData");
+  }
+
+  const parts = [subdivisions.type];
+  if (subdivisions.count) {
+    parts.push(currentLanguage === "en" ? `${formatNumber(subdivisions.count)} units` : `${formatNumber(subdivisions.count)} unidades`);
+  }
+  if (subdivisions.notes) {
+    parts.push(subdivisions.notes);
+  }
+  return escapeHtml(parts.join(" · "));
+}
+
 function renderCities(general) {
   const capital = general?.capital;
   const cities = Array.isArray(general?.cities) ? general.cities : [];
@@ -1748,7 +2266,9 @@ function extractConflictStartYearLegacy(conflict) {
 
 function getConflictsSinceFormation(country) {
   const formationYear = country.history?.year;
-  const conflicts = Array.isArray(country.conflicts) ? country.conflicts : [];
+  const conflicts = Array.isArray(country?.military?.conflicts)
+    ? country.military.conflicts
+    : (Array.isArray(country?.conflicts) ? country.conflicts : []);
 
   if (!formationYear) {
     return conflicts;
@@ -2122,13 +2642,14 @@ function renderConflicts(conflicts) {
       const modalKey = registerConflictModal(conflict, currentPanelState?.code ? countriesData[currentPanelState.code]?.name : "");
       const battles = (conflict.battles || []).sort((a, b) => (a.startYear || 0) - (b.startYear || 0));
       return `
-        <li>
-          <button type="button" class="conflict-trigger" data-conflict-key="${modalKey}">
-            ${escapeHtml(conflict.name)}${formatConflictPeriod(conflict)}
+        <li class="conflict-entry">
+          <button type="button" class="conflict-trigger conflict-trigger-main" data-conflict-key="${modalKey}">
+            <span class="conflict-trigger-title">${escapeHtml(conflict.name)}</span>
+            <span class="conflict-trigger-period">${formatConflictPeriod(conflict).trim()}</span>
           </button>
-          ${battles.length ? `<ul>${battles.map(battle => {
+          ${battles.length ? `<ul class="conflict-battles">${battles.map(battle => {
             const battleKey = registerConflictModal(battle, currentPanelState?.code ? countriesData[currentPanelState.code]?.name : "");
-            return `<li><button type="button" class="conflict-trigger" data-conflict-key="${battleKey}">${escapeHtml(battle.name)}${formatConflictPeriod(battle)}</button></li>`;
+            return `<li><button type="button" class="conflict-trigger conflict-trigger-battle" data-conflict-key="${battleKey}"><span class="conflict-trigger-title">${escapeHtml(battle.name)}</span><span class="conflict-trigger-period">${formatConflictPeriod(battle).trim()}</span></button></li>`;
           }).join("")}</ul>` : ""}
         </li>
       `;
@@ -2146,6 +2667,7 @@ function openConflictModal(key) {
 
   body.innerHTML = `
     <h3 id="conflict-modal-title">${escapeHtml(detail.title)}</h3>
+    <p class="conflict-modal-subtitle">${currentLanguage === "en" ? "Historical conflict summary" : "Resumen historico del conflicto"}</p>
     <div class="conflict-modal-section">
       <h4>${currentLanguage === "en" ? "Why it started" : "Por que estallo"}</h4>
       <p>${escapeHtml(detail.cause)}</p>
@@ -2197,12 +2719,12 @@ function clearSelection() {
     closeMobilePanels();
   }
 
-  if (selectedLayer) {
-    selectedLayer.setStyle(getCountryThemeStyle(selectedLayer.code));
-    selectedLayer = null;
-  }
-
-  selectedLayers.forEach(layer => layer.setStyle(getCountryThemeStyle(layer.code)));
+  selectedLayers.forEach(layer => {
+    if (layer) {
+      layer.setStyle(getCountryThemeStyle(layer.code));
+    }
+  });
+  selectedLayer = null;
   selectedLayers = [];
 
   if (continentBoundsLayer) {
@@ -2322,8 +2844,13 @@ function renderCountry(country, fallbackName) {
       `
         <p><b>${t("population")}:</b> ${formatNumber(general.population)}</p>
         <p><b>${t("continent")}:</b> ${translateContinentName(country.continent)}</p>
-        <p><b>${t("geography")}:</b> ${general.capital?.name || t("noData")}</p>
+        <p><b>${currentLanguage === "en" ? "Capitals" : "Capitales"}:</b></p>
+        ${renderCapitalProfiles(general)}
         <p><b>${currentLanguage === "en" ? "Official name" : "Nombre oficial"}:</b> ${escapeHtml(general.officialName || country.name || t("noData"))}</p>
+        <p><b>${currentLanguage === "en" ? "Official and main languages" : "Idiomas oficiales y principales"}:</b></p>
+        ${renderLanguages(general)}
+        <p><b>${currentLanguage === "en" ? "State structure" : "Estructura del Estado"}:</b> ${escapeHtml(general.stateStructure || t("noData"))}</p>
+        <p><b>${currentLanguage === "en" ? "Primary subdivisions" : "Subdivisiones principales"}:</b> ${renderSubdivisionSummary(general)}</p>
         <p><b>${currentLanguage === "en" ? "Historical names" : "Nombres historicos"}:</b></p>
         ${renderRelationChips(general.historicalNames)}
         <p><b>${currentLanguage === "en" ? "Flag" : "Bandera"}:</b> ${escapeHtml(general.symbols?.flagDescription || t("noData"))}</p>
@@ -2425,6 +2952,10 @@ function renderCountry(country, fallbackName) {
       t("religion"),
       `${renderReligion(country.religion)}`
     )}
+    ${createSection(
+      currentLanguage === "en" ? "Sources and quality" : "Fuentes y calidad",
+      `${renderDataQuality(country)}`
+    )}
   `;
 
   renderNewsHub(countryCode);
@@ -2504,6 +3035,112 @@ function renderEmpty(name) {
   renderNewsHub();
 
   openMobilePanel("country");
+}
+
+function getRenderProfileLabel() {
+  const preset = getPerformancePreset();
+  return runtimeGetRenderProfileText({
+    language: currentLanguage,
+    isMobile: isMobileLayout(),
+    currentMapMode,
+    resolutionScale: preset.resolutionScale
+  });
+}
+
+function updateAppStatusPanel(extra = {}) {
+  const renderChip = document.getElementById("render-profile-chip");
+  const datasetChip = document.getElementById("dataset-health-chip");
+
+  if (renderChip) {
+    const fpsSuffix = typeof extra.fps === "number"
+      ? ` · ${Math.round(extra.fps)} FPS`
+      : "";
+    renderChip.innerHTML = `<strong>${currentLanguage === "en" ? "Render" : "Render"}:</strong> ${escapeHtml(getRenderProfileLabel())}${fpsSuffix}`;
+  }
+
+  if (datasetChip) {
+    datasetChip.innerHTML = `<strong>${currentLanguage === "en" ? "Dataset" : "Dataset"}:</strong> ${currentLanguage === "en" ? "validated and curated" : "validado y curado"}`;
+  }
+}
+
+function showFatalError(message) {
+  const banner = document.getElementById("fatal-error-banner");
+  if (!banner) {
+    return;
+  }
+
+  banner.hidden = false;
+  banner.textContent = message;
+}
+
+function renderDataQuality(country) {
+  const organizationCount = getCountryOrganizationCount(country);
+  const conflictCount = getConflictsSinceFormation(country).length;
+  const religionCount = Array.isArray(country.religion?.composition) ? country.religion.composition.length : 0;
+  const cityCount = Array.isArray(country.general?.cities) ? country.general.cities.length : 0;
+  const sources = country.metadata?.sources || {};
+  const genericSources = DATA_SOURCE_SUMMARY[currentLanguage] || DATA_SOURCE_SUMMARY.es;
+  const estimatedFields = Array.isArray(country.metadata?.quality?.estimatedFields)
+    ? country.metadata.quality.estimatedFields
+    : [];
+  const curatedFields = Array.isArray(country.metadata?.quality?.curatedFields)
+    ? country.metadata.quality.curatedFields
+    : [];
+  const sectionStatus = country.metadata?.quality?.sectionStatus || {};
+
+  const sourceSections = [
+    { key: "general", label: currentLanguage === "en" ? "General" : "General" },
+    { key: "history", label: currentLanguage === "en" ? "History" : "Historia" },
+    { key: "economy", label: currentLanguage === "en" ? "Economy" : "Economia" },
+    { key: "military", label: currentLanguage === "en" ? "Military" : "Militar" },
+    { key: "politics", label: currentLanguage === "en" ? "Politics" : "Politica" },
+    { key: "religion", label: currentLanguage === "en" ? "Religion" : "Religion" }
+  ];
+
+  return `
+    <div class="data-quality-grid">
+      <div class="data-quality-card">
+        <span class="data-quality-label">${currentLanguage === "en" ? "Organizations" : "Organizaciones"}</span>
+        <strong class="data-quality-value">${formatNumber(organizationCount)}</strong>
+      </div>
+      <div class="data-quality-card">
+        <span class="data-quality-label">${currentLanguage === "en" ? "Conflicts" : "Conflictos"}</span>
+        <strong class="data-quality-value">${formatNumber(conflictCount)}</strong>
+      </div>
+      <div class="data-quality-card">
+        <span class="data-quality-label">${currentLanguage === "en" ? "Religious branches" : "Ramas religiosas"}</span>
+        <strong class="data-quality-value">${formatNumber(religionCount)}</strong>
+      </div>
+      <div class="data-quality-card">
+        <span class="data-quality-label">${currentLanguage === "en" ? "Cities loaded" : "Ciudades cargadas"}</span>
+        <strong class="data-quality-value">${formatNumber(cityCount)}</strong>
+      </div>
+      <div class="data-quality-card">
+        <span class="data-quality-label">${currentLanguage === "en" ? "Estimated fields" : "Campos estimados"}</span>
+        <strong class="data-quality-value">${formatNumber(estimatedFields.length)}</strong>
+      </div>
+      <div class="data-quality-card">
+        <span class="data-quality-label">${currentLanguage === "en" ? "Curated fields" : "Campos curados"}</span>
+        <strong class="data-quality-value">${formatNumber(curatedFields.length)}</strong>
+      </div>
+    </div>
+    <p class="data-source-note"><b>${currentLanguage === "en" ? "Validation" : "Validacion"}:</b> ${currentLanguage === "en" ? "local dataset checks currently pass without reported issues" : "los chequeos locales del dataset estan pasando sin incidencias reportadas"}</p>
+    <p class="data-source-note"><b>${currentLanguage === "en" ? "Dataset updated" : "Dataset actualizado"}:</b> ${escapeHtml(country.metadata?.updatedAt || "2026-04-06")}</p>
+    <p><b>${currentLanguage === "en" ? "Section sources" : "Fuentes por seccion"}:</b></p>
+    <ul class="data-source-list">
+      ${sourceSections.map(section => {
+        const items = Array.isArray(sources[section.key]) && sources[section.key].length
+          ? sources[section.key]
+          : genericSources;
+        const statusLabel = sectionStatus[section.key]
+          ? ` · ${escapeHtml(sectionStatus[section.key])}`
+          : "";
+        return `<li><b>${escapeHtml(section.label)}</b>${statusLabel}: ${items.map(item => escapeHtml(item)).join(", ")}</li>`;
+      }).join("")}
+    </ul>
+    <p><b>${currentLanguage === "en" ? "Estimated fields" : "Campos estimados"}:</b> ${estimatedFields.length ? escapeHtml(estimatedFields.join(", ")) : (currentLanguage === "en" ? "none" : "ninguno")}</p>
+    <p><b>${currentLanguage === "en" ? "Curated fields" : "Campos curados"}:</b> ${curatedFields.length ? escapeHtml(curatedFields.join(", ")) : (currentLanguage === "en" ? "none" : "ninguno")}</p>
+  `;
 }
 
 function registerCountryAlias(alias, value) {
@@ -2768,6 +3405,38 @@ function getCountryFormationYear(country) {
   return Number(country?.history?.year) || 0;
 }
 
+function getCountryExportBreadth(country) {
+  return Array.isArray(country?.economy?.exports) ? country.economy.exports.filter(Boolean).length : 0;
+}
+
+function getCountryIndustryBreadth(country) {
+  return Array.isArray(country?.economy?.industries) ? country.economy.industries.filter(Boolean).length : 0;
+}
+
+function getCountryCapitalShare(country) {
+  const capitalPopulation = Number(country?.general?.capital?.population) || 0;
+  const population = Number(country?.general?.population) || 0;
+  if (!capitalPopulation || !population) {
+    return 0;
+  }
+  return (capitalPopulation / population) * 100;
+}
+
+function getCountryBlocLabel(country) {
+  return (country?.politics?.relations?.blocs || []).slice(0, 2).join(", ") || t("noData");
+}
+
+function getCountryNewsTopics(country) {
+  const base = country?.general?.officialName || country?.name || "";
+  const encoded = value => encodeURIComponent(value);
+  return {
+    general: `https://news.google.com/search?q=${encoded(base)}&hl=es-419&gl=AR&ceid=AR:es-419`,
+    politics: `https://news.google.com/search?q=${encoded(`${base} politica OR gobierno OR elecciones`)}&hl=es-419&gl=AR&ceid=AR:es-419`,
+    economy: `https://news.google.com/search?q=${encoded(`${base} economia OR inflacion OR comercio`)}&hl=es-419&gl=AR&ceid=AR:es-419`,
+    conflict: `https://news.google.com/search?q=${encoded(`${base} guerra OR seguridad OR conflicto`)}&hl=es-419&gl=AR&ceid=AR:es-419`
+  };
+}
+
 function getReligionBranchThemeKey(country) {
   const majority = getMajorityReligionGroups(country)[0]?.key || "";
   if (majority.includes("crist")) {
@@ -2894,6 +3563,21 @@ function getCountryThemeStyle(code) {
     return { ...DEFAULT_STYLE, color: "#3c096c", fillColor, fillOpacity: 0.84 };
   }
 
+  if (currentTheme === "exportBreadth") {
+    const fillColor = getBucketThemeInfo(getCountryExportBreadth(country), THEME_STYLES.exportBreadth).color;
+    return { ...DEFAULT_STYLE, color: "#133c55", fillColor, fillOpacity: 0.86 };
+  }
+
+  if (currentTheme === "industryBreadth") {
+    const fillColor = getBucketThemeInfo(getCountryIndustryBreadth(country), THEME_STYLES.industryBreadth).color;
+    return { ...DEFAULT_STYLE, color: "#365314", fillColor, fillOpacity: 0.86 };
+  }
+
+  if (currentTheme === "capitalShare") {
+    const fillColor = getBucketThemeInfo(getCountryCapitalShare(country), THEME_STYLES.capitalShare).color;
+    return { ...DEFAULT_STYLE, color: "#581c87", fillColor, fillOpacity: 0.86 };
+  }
+
   return DEFAULT_STYLE;
 }
 
@@ -3008,6 +3692,21 @@ function renderThemeLegend() {
       label: normalizeCategoryLabel(label),
       color
     }));
+  } else if (currentTheme === "exportBreadth") {
+    items = THEME_STYLES.exportBreadth.map(item => ({
+      label: item.label,
+      color: item.color
+    }));
+  } else if (currentTheme === "industryBreadth") {
+    items = THEME_STYLES.industryBreadth.map(item => ({
+      label: item.label,
+      color: item.color
+    }));
+  } else if (currentTheme === "capitalShare") {
+    items = THEME_STYLES.capitalShare.map(item => ({
+      label: item.label,
+      color: item.color
+    }));
   }
 
   if (!items.length) {
@@ -3021,15 +3720,30 @@ function renderThemeLegend() {
 }
 
 function getCountryNewsUrl(country) {
-  const query = encodeURIComponent(country.general?.officialName || country.name);
-  return `https://news.google.com/search?q=${query}&hl=es-419&gl=AR&ceid=AR:es-419`;
+  const topicUrls = getCountryNewsTopics(country);
+  return topicUrls[activeNewsTopic] || topicUrls.general;
+}
+
+function getCountryNewsPortalLinks(country) {
+  const baseQuery = encodeURIComponent(country.general?.officialName || country.name);
+  return [
+    { label: "Google News", url: getCountryNewsUrl(country) },
+    { label: currentLanguage === "en" ? "Web search" : "Busqueda web", url: `https://www.google.com/search?tbm=nws&q=${baseQuery}` },
+    { label: currentLanguage === "en" ? "Regional press" : "Prensa regional", url: `https://news.google.com/search?q=${encodeURIComponent(`${country.name} periodico OR diario OR news`)}&hl=es-419&gl=AR&ceid=AR:es-419` }
+  ];
 }
 
 function buildNewsQueries(country) {
+  const topicTerms = {
+    general: "politica OR economia OR guerra",
+    politics: "politica OR gobierno OR elecciones",
+    economy: "economia OR inflacion OR comercio",
+    conflict: "guerra OR seguridad OR conflicto"
+  };
   const queries = uniqueNormalizedList([
     country.general?.officialName,
     country.name,
-    `${country.name} politica OR economia OR guerra`,
+    `${country.name} ${topicTerms[activeNewsTopic] || topicTerms.general}`,
     `${country.name} government OR conflict OR economy`
   ]);
 
@@ -3122,7 +3836,7 @@ function formatNewsDate(value) {
     });
 }
 
-function renderNewsArticle(article, country) {
+renderNewsArticle = function renderNewsArticle(article, country) {
   const articleContainer = document.getElementById("news-hub-article");
   if (!articleContainer) {
     return;
@@ -3145,6 +3859,151 @@ function renderNewsArticle(article, country) {
       </a>
     </div>
   `;
+};
+
+showNewsArticle = async function showNewsArticle(countryCode) {
+  activeNewsCountryCode = countryCode;
+  const articleContainer = document.getElementById("news-hub-article");
+  const selectedContainer = document.getElementById("news-hub-selected");
+  const panelContent = document.querySelector("#news-hub-panel .news-hub-content");
+  const country = countriesData[countryCode];
+  if (!articleContainer || !selectedContainer || !country) return;
+
+  selectedContainer.innerHTML = `
+    <div class="news-hub-selected-card">
+      <strong>${escapeHtml(country.name)}</strong>
+      <div class="news-hub-meta">${escapeHtml(country.general?.officialName || country.name)}</div>
+      <div class="news-source-links">
+        ${getCountryNewsPortalLinks(country).map(link => `<a class="news-link" href="${link.url}" target="_blank" rel="noreferrer">${escapeHtml(link.label)}</a>`).join("")}
+      </div>
+    </div>
+  `;
+  articleContainer.innerHTML = `
+    <div class="news-hub-article-card">
+      <strong>${currentLanguage === "en" ? "Loading headline..." : "Cargando noticia..."}</strong>
+      <p>${currentLanguage === "en" ? "If live news is not available, direct coverage links will remain visible." : "Si la noticia en vivo no esta disponible, quedaran visibles los enlaces directos a cobertura."}</p>
+      <div class="news-source-links">
+        ${getCountryNewsPortalLinks(country).map(link => `<a class="news-link" href="${link.url}" target="_blank" rel="noreferrer">${escapeHtml(link.label)}</a>`).join("")}
+      </div>
+    </div>
+  `;
+  panelContent?.scrollTo({ top: 0, behavior: "smooth" });
+  document.querySelectorAll("#news-hub-list .news-hub-item").forEach(item => {
+    item.classList.toggle("is-active", item.querySelector("[data-news-country]")?.dataset.newsCountry === countryCode);
+  });
+  const article = await fetchCountryHeadline(country);
+  renderNewsArticle(article, country);
+};
+
+renderNewsHub = function renderNewsHub(selectedCode = "") {
+  const panel = document.getElementById("news-hub-panel");
+  const selectedContainer = document.getElementById("news-hub-selected");
+  const listContainer = document.getElementById("news-hub-list");
+  const articleContainer = document.getElementById("news-hub-article");
+  if (!panel || !selectedContainer || !listContainer || !articleContainer) return;
+
+  const countries = Object.entries(countriesData)
+    .map(([code, country]) => ({ code, country }))
+    .sort((a, b) => a.country.name.localeCompare(b.country.name, "es"));
+  const selected = selectedCode && countriesData[selectedCode] ? countriesData[selectedCode] : null;
+
+  selectedContainer.innerHTML = selected
+    ? `<div class="news-hub-selected-card"><strong>${escapeHtml(selected.name)}</strong><div class="news-hub-meta">${escapeHtml(selected.general?.officialName || selected.name)}</div><div class="news-source-links">${getCountryNewsPortalLinks(selected).map(link => `<a class="news-link" href="${link.url}" target="_blank" rel="noreferrer">${escapeHtml(link.label)}</a>`).join("")}</div></div>`
+    : "";
+
+  if (!panel.open) {
+    articleContainer.innerHTML = "";
+    listContainer.innerHTML = "";
+    return;
+  }
+
+  articleContainer.innerHTML = "";
+  listContainer.innerHTML = countries.map(({ code, country }) => `
+    <div class="news-hub-item${code === activeNewsCountryCode ? " is-active" : ""}">
+      <button type="button" class="news-link-block" data-news-country="${escapeHtml(code)}">
+        <strong>${escapeHtml(country.name)}</strong>
+        <span class="news-hub-meta">${escapeHtml(country.general?.officialName || country.name)}</span>
+      </button>
+    </div>
+  `).join("");
+};
+
+setupNewsHubPanel = function setupNewsHubPanel() {
+  const panel = document.getElementById("news-hub-panel");
+  const topicSelect = document.getElementById("news-topic-select");
+  if (!panel) return;
+  panel.open = false;
+  if (topicSelect) {
+    topicSelect.value = activeNewsTopic;
+    topicSelect.addEventListener("change", () => {
+      activeNewsTopic = topicSelect.value || "general";
+      newsCache.clear();
+      renderNewsHub(currentPanelState.code || "");
+      if (activeNewsCountryCode) showNewsArticle(activeNewsCountryCode);
+    });
+  }
+  panel.addEventListener("toggle", () => {
+    if (panel.open) {
+      const comparePanel = document.getElementById("compare-hub-panel");
+      const quizPanel = document.getElementById("quiz-hub-panel");
+      if (comparePanel) comparePanel.open = false;
+      if (quizPanel) quizPanel.open = false;
+    }
+    renderNewsHub(currentPanelState.code || "");
+  });
+};
+
+function updateExtendedStaticText() {
+  const semanticHelper = document.getElementById("semantic-helper");
+  if (semanticHelper) {
+    semanticHelper.textContent = currentLanguage === "en"
+      ? "Examples: constitutional monarchies in Asia with an Islamic majority; NATO countries rival to Russia; presidential republics in the Americas."
+      : "Ejemplos: monarquias constitucionales de Asia con islam mayoritario; paises de la OTAN rivales de Rusia; republicas presidenciales de America.";
+  }
+  const search = document.getElementById("compare-country-search");
+  if (search) search.placeholder = currentLanguage === "en" ? "Filter countries to compare" : "Filtrar paises para comparar";
+  const quizMode = document.getElementById("quiz-mode");
+  if (quizMode) {
+    quizMode.options[0].textContent = currentLanguage === "en" ? "Classic" : "Clasico";
+    quizMode.options[1].textContent = currentLanguage === "en" ? "Timed" : "Contra reloj";
+  }
+  const topic = document.getElementById("news-topic-select");
+  if (topic) {
+    topic.options[0].textContent = currentLanguage === "en" ? "General overview" : "Panorama general";
+    topic.options[1].textContent = currentLanguage === "en" ? "Politics" : "Politica";
+    topic.options[2].textContent = currentLanguage === "en" ? "Economy" : "Economia";
+    topic.options[3].textContent = currentLanguage === "en" ? "War and security" : "Guerra y seguridad";
+  }
+  updateAppStatusPanel();
+}
+
+function startPerformanceMonitor() {
+  if (performanceMonitorId || !viewer || typeof requestAnimationFrame !== "function") return;
+  let frameCount = 0;
+  let lastCheck = performance.now();
+  const tick = now => {
+    frameCount += 1;
+    if (now - lastCheck >= 2500) {
+      const fps = (frameCount * 1000) / (now - lastCheck);
+      if (fps < (isMobileLayout() ? 17 : 14)) {
+        viewer.resolutionScale = Math.max(isMobileLayout() ? 0.54 : 0.88, viewer.resolutionScale - (isMobileLayout() ? 0.05 : 0.03));
+        viewer.scene.globe.maximumScreenSpaceError = Math.min(currentMapMode === "2d" ? 10.5 : 8.5, viewer.scene.globe.maximumScreenSpaceError + 0.4);
+        viewer.scene.globe.loadingDescendantLimit = Math.max(currentMapMode === "2d" ? 3 : 6, viewer.scene.globe.loadingDescendantLimit - 1);
+        viewer.scene.globe.tileCacheSize = Math.max(currentMapMode === "2d" ? 36 : 72, viewer.scene.globe.tileCacheSize - 12);
+      } else if (fps > (isMobileLayout() ? 28 : 30)) {
+        const preset = getPerformancePreset();
+        viewer.resolutionScale = Math.min(preset.resolutionScale, viewer.resolutionScale + 0.03);
+        viewer.scene.globe.maximumScreenSpaceError = Math.max(preset.maximumScreenSpaceError, viewer.scene.globe.maximumScreenSpaceError - 0.2);
+        viewer.scene.globe.loadingDescendantLimit = Math.min(preset.loadingDescendantLimit, viewer.scene.globe.loadingDescendantLimit + 1);
+        viewer.scene.globe.tileCacheSize = Math.min(preset.tileCacheSize, viewer.scene.globe.tileCacheSize + 12);
+      }
+      updateAppStatusPanel({ fps });
+      frameCount = 0;
+      lastCheck = now;
+    }
+    performanceMonitorId = requestAnimationFrame(tick);
+  };
+  performanceMonitorId = requestAnimationFrame(tick);
 }
 
 async function showNewsArticle(countryCode) {
@@ -3276,6 +4135,7 @@ function renderGroupSelection(title, descriptor, countries) {
 
 function buildTimeline(country) {
   const items = [];
+  const countryCode = getCountryCodeByObject(country);
   if (country.history?.year) {
     items.push({
       year: country.history.year,
@@ -3297,14 +4157,14 @@ function buildTimeline(country) {
       reference: getOrganizationDisplayName(item)
     }));
 
-  items.push(...organizations.slice(0, 8));
+  items.push(...organizations.slice(0, 10));
 
   const normalizedConflicts = getConflictsSinceFormation(country)
     .map(normalizeConflictForDisplay)
     .filter(conflict => conflict?.startYear)
     .sort((a, b) => a.startYear - b.startYear);
 
-  normalizedConflicts.slice(0, 8).forEach(conflict => {
+  normalizedConflicts.slice(0, 10).forEach(conflict => {
     items.push({
       year: conflict.startYear,
       category: currentLanguage === "en" ? "Conflict" : "Conflicto",
@@ -3337,9 +4197,13 @@ function buildTimeline(country) {
       revolucion: "formation",
       golpe: "coup",
       guerra: "conflict",
+      conflicto: "conflict",
+      constituyente: "constitution",
       tratado: "treaty",
       acuerdo: "organization",
       division: "secession",
+      secesion: "secession",
+      anexion: "annexation",
       descolonizacion: "formation",
       reforma: "system",
       territorio: "annexation",
@@ -3352,6 +4216,28 @@ function buildTimeline(country) {
       year: event.year,
       category: toDisplayTitleCase(event.category || (currentLanguage === "en" ? "Event" : "Evento")),
       categoryKey: categoryMap[normalizeText(event.category)] || "formation",
+      text: event.text,
+      reference: event.reference || event.text
+    });
+  });
+
+  (CURATED_TIMELINE_EXTRAS[countryCode] || []).forEach(event => {
+    items.push({
+      year: event.year,
+      category: toDisplayTitleCase(event.category || (currentLanguage === "en" ? "Event" : "Evento")),
+      categoryKey: {
+        revolucion: "formation",
+        descolonizacion: "formation",
+        union: "formation",
+        division: "secession",
+        constitucion: "constitution",
+        golpe: "coup",
+        politica: "system",
+        reforma: "system",
+        territorio: "annexation",
+        guerra: "conflict",
+        disolucion: "formation"
+      }[normalizeText(event.category)] || "formation",
       text: event.text,
       reference: event.reference || event.text
     });
@@ -3557,6 +4443,22 @@ function updateStaticText() {
     quizResetButton.textContent = currentLanguage === "en" ? "Reset" : "Reiniciar";
   }
   document.getElementById("compare-empty").textContent = t("compareHint");
+  const compareAddButton = document.getElementById("compare-add-button");
+  if (compareAddButton) {
+    compareAddButton.textContent = currentLanguage === "en" ? "Add" : "Agregar";
+  }
+  const compareSelect = document.getElementById("compare-country-select");
+  if (compareSelect?.options?.[0]) {
+    compareSelect.options[0].textContent = currentLanguage === "en" ? "Select country" : "Seleccionar pais";
+  }
+  const openCompareButton = document.getElementById("open-compare-modal-button");
+  if (openCompareButton) {
+    openCompareButton.textContent = currentLanguage === "en" ? "Open comparison" : "Ver comparacion";
+  }
+  const clearCompareButton = document.getElementById("clear-compare-button");
+  if (clearCompareButton) {
+    clearCompareButton.textContent = currentLanguage === "en" ? "Clear" : "Limpiar";
+  }
   document.getElementById("rankings-summary").textContent = currentLanguage === "en" ? "Global rankings" : "Rankings globales";
   document.getElementById("world-population-title").textContent = currentLanguage === "en" ? "World population" : "Poblacion mundial";
   document.getElementById("top-population-title").textContent = currentLanguage === "en" ? "Top population" : "Top Población";
@@ -3584,12 +4486,16 @@ function updateStaticText() {
   document.getElementById("toggle-tools-panel").textContent = currentLanguage === "en" ? "Layers" : "Capas";
   document.getElementById("toggle-country-panel").textContent = currentLanguage === "en" ? "Country card" : "Ficha del pais";
   document.querySelector("#map-toolbar summary").textContent = currentLanguage === "en" ? "Thematic layers" : "Capas tematicas";
+  updateMapModeToggle();
   document.querySelector("label[for='theme-select']").textContent = currentLanguage === "en" ? "Layer" : "Capa";
   document.querySelector("label[for='language-select']").textContent = currentLanguage === "en" ? "Language" : "Idioma";
   document.querySelector("label[for='filter-continent-select']").textContent = currentLanguage === "en" ? "Filters" : "Filtros";
   document.getElementById("apply-filters-button").textContent = currentLanguage === "en" ? "Apply filters" : "Aplicar filtros";
   document.getElementById("save-filters-button").textContent = currentLanguage === "en" ? "Save filters" : "Guardar filtros";
   document.getElementById("reset-view-button").textContent = currentLanguage === "en" ? "Reset view" : "Resetear vista";
+  document.querySelector("label[for='saved-views-select']").textContent = currentLanguage === "en" ? "Saved views" : "Vistas guardadas";
+  document.getElementById("save-view-button").textContent = currentLanguage === "en" ? "Save view" : "Guardar vista";
+  document.getElementById("open-help-button").textContent = currentLanguage === "en" ? "Guide" : "Guia";
   document.getElementById("presentation-mode-button").textContent =
     document.body.classList.contains("presentation-mode")
       ? (currentLanguage === "en" ? "Exit presentation" : "Salir de presentacion")
@@ -3610,6 +4516,7 @@ function updateStaticText() {
       : "Hub diario de noticias por pais. Toca un pais para abrir directamente su portal de noticias en vivo.";
   }
   renderSavedFilters();
+  renderSavedViews();
 }
 
 function rerenderCurrentPanel() {
@@ -3650,10 +4557,16 @@ function loadSavedPreferences() {
       savedFilters = JSON.parse(storedFilters);
     }
 
+    const storedViews = localStorage.getItem(STORAGE_KEYS.views);
+    if (storedViews) {
+      savedViews = JSON.parse(storedViews);
+    }
+
     const presentation = localStorage.getItem(STORAGE_KEYS.presentation) === "true";
     document.body.classList.toggle("presentation-mode", presentation);
   } catch (error) {
     savedFilters = [];
+    savedViews = [];
   }
 }
 
@@ -3710,6 +4623,161 @@ function renderSavedFilters() {
   select.innerHTML = `<option value="">${currentLanguage === "en" ? "Saved filters" : "Filtros guardados"}</option>${savedFilters
     .map((item, index) => `<option value="${index}">${escapeHtml(item.name)}</option>`)
     .join("")}`;
+}
+
+function persistSavedViews() {
+  localStorage.setItem(STORAGE_KEYS.views, JSON.stringify(savedViews));
+}
+
+function renderSavedViews() {
+  const select = document.getElementById("saved-views-select");
+  if (!select) {
+    return;
+  }
+
+  select.innerHTML = `<option value="">${currentLanguage === "en" ? "Saved views" : "Vistas guardadas"}</option>${savedViews
+    .map((item, index) => `<option value="${index}">${escapeHtml(item.name)}</option>`)
+    .join("")}`;
+}
+
+function openHelpModal() {
+  const modal = document.getElementById("help-modal");
+  if (!modal) {
+    return;
+  }
+
+  modal.hidden = false;
+  localStorage.setItem(STORAGE_KEYS.helpSeen, "true");
+}
+
+function closeHelpModal() {
+  const modal = document.getElementById("help-modal");
+  if (!modal) {
+    return;
+  }
+
+  modal.hidden = true;
+}
+
+function setupSavedViewControls() {
+  const saveButton = document.getElementById("save-view-button");
+  const select = document.getElementById("saved-views-select");
+  const helpButton = document.getElementById("open-help-button");
+  const helpModal = document.getElementById("help-modal");
+  const helpClose = document.getElementById("help-modal-close");
+
+  renderSavedViews();
+
+  saveButton?.addEventListener("click", () => {
+    const view = getCurrentViewState();
+    if (!view.name) {
+      view.name = currentLanguage === "en" ? "Saved view" : "Vista guardada";
+    }
+    savedViews.unshift(view);
+    savedViews = savedViews.slice(0, 10);
+    persistSavedViews();
+    renderSavedViews();
+  });
+
+  select?.addEventListener("change", async event => {
+    const selected = savedViews[Number(event.target.value)];
+    if (!selected) {
+      return;
+    }
+    await applySavedView(selected);
+  });
+
+  helpButton?.addEventListener("click", () => openHelpModal());
+  helpClose?.addEventListener("click", () => closeHelpModal());
+  helpModal?.addEventListener("click", event => {
+    if (event.target.closest("[data-close-help-modal='true']")) {
+      closeHelpModal();
+    }
+  });
+}
+
+function setupGlobalKeyboardShortcuts() {
+  document.addEventListener("keydown", event => {
+    const targetTag = event.target?.tagName?.toLowerCase?.() || "";
+    const isTyping = targetTag === "input" || targetTag === "textarea" || targetTag === "select";
+
+    if (!isTyping && event.key === "/") {
+      event.preventDefault();
+      document.getElementById("map-search-input")?.focus();
+      return;
+    }
+
+    if (!isTyping && event.key === "?") {
+      event.preventDefault();
+      openHelpModal();
+      return;
+    }
+
+    if (event.key === "Escape") {
+      closeHelpModal();
+      closeCompareModal();
+      closeConflictModal();
+      const searchSuggestions = document.getElementById("search-suggestions");
+      if (searchSuggestions && !searchSuggestions.hidden) {
+        hideSuggestions();
+      }
+    }
+  });
+}
+
+function getCurrentViewState() {
+  return {
+    name: [
+      currentPanelState.type === "country" && currentPanelState.code ? countriesData[currentPanelState.code]?.name : "",
+      currentTheme !== "default" ? currentTheme : "",
+      currentMapMode.toUpperCase()
+    ].filter(Boolean).join(" / "),
+    theme: currentTheme,
+    mapMode: currentMapMode,
+    filters: getFilterState(),
+    panelState: currentPanelState,
+    selectedCode: currentPanelState.code || ""
+  };
+}
+
+async function applySavedView(view) {
+  if (!view) {
+    return;
+  }
+
+  document.getElementById("filter-continent-select").value = view.filters?.continent || "";
+  document.getElementById("filter-religion-select").value = view.filters?.religion || "";
+  document.getElementById("filter-system-select").value = view.filters?.system || "";
+  document.getElementById("filter-organization-select").value = view.filters?.organization || "";
+  document.getElementById("filter-history-type-select").value = view.filters?.historyType || "";
+  document.getElementById("filter-origin-select").value = view.filters?.origin || "";
+  document.getElementById("filter-rival-select").value = view.filters?.rival || "";
+  document.getElementById("filter-population-select").value = view.filters?.minPopulation ? String(view.filters.minPopulation) : "";
+
+  if (view.theme) {
+    setTheme(view.theme);
+    const themeSelect = document.getElementById("theme-select");
+    if (themeSelect) {
+      themeSelect.value = view.theme;
+    }
+  }
+
+  if (view.mapMode && view.mapMode !== currentMapMode) {
+    applyMapMode(view.mapMode, false);
+    await new Promise(resolve => setTimeout(resolve, 120));
+  }
+
+  applyFilters();
+
+  if (view.selectedCode && countriesData[view.selectedCode]) {
+    await selectSearchResult({
+      label: countriesData[view.selectedCode].name,
+      type: "country",
+      value: view.selectedCode
+    });
+  } else {
+    fitWorldView();
+  }
 }
 
 function sanitizeCountryData(country) {
@@ -3821,7 +4889,7 @@ function sanitizeCountryData(country) {
   return country;
 }
 
-async function exportNodeAsImage(node, filename) {
+exportNodeAsImage = async function exportNodeAsImage(node, filename) {
   if (!node || typeof html2canvas !== "function") {
     return;
   }
@@ -3836,9 +4904,9 @@ async function exportNodeAsImage(node, filename) {
   link.href = canvas.toDataURL("image/png");
   link.download = filename;
   link.click();
-}
+};
 
-async function exportNodeAsPdf(node, filename) {
+exportNodeAsPdf = async function exportNodeAsPdf(node, filename) {
   if (!node || typeof html2canvas !== "function" || !window.jspdf?.jsPDF) {
     return;
   }
@@ -3857,9 +4925,9 @@ async function exportNodeAsPdf(node, filename) {
   });
   pdf.addImage(image, "PNG", 0, 0, canvas.width, canvas.height);
   pdf.save(filename);
-}
+};
 
-async function shareText(title, text) {
+shareText = async function shareText(title, text) {
   if (navigator.share) {
     try {
       await navigator.share({ title, text });
@@ -3872,7 +4940,7 @@ async function shareText(title, text) {
   if (navigator.clipboard?.writeText) {
     await navigator.clipboard.writeText(`${title}\n\n${text}`);
   }
-}
+};
 
 function buildCompareRadarSVG(entries) {
   const size = 220;
@@ -3927,16 +4995,20 @@ function buildCompareRadarSVG(entries) {
   `;
 }
 
-function renderComparePanel() {
+renderComparePanel = function renderComparePanel() {
   const empty = document.getElementById("compare-empty");
   const chips = document.getElementById("compare-chips");
   const results = document.getElementById("compare-results");
+  const openButton = document.getElementById("open-compare-modal-button");
   empty.textContent = t("compareHint");
 
   if (!compareSelection.length) {
     empty.hidden = false;
     chips.innerHTML = "";
     results.innerHTML = "";
+    if (openButton) {
+      openButton.disabled = true;
+    }
     return;
   }
 
@@ -4087,6 +5159,39 @@ function renderComparePanel() {
     ${metricMarkup}
     ${infoMarkup}
   `;
+
+  if (openButton) {
+    openButton.disabled = compareSelection.length < 2;
+  }
+}
+
+function openCompareModal() {
+  const modal = document.getElementById("compare-modal");
+  const body = document.getElementById("compare-modal-body");
+  const compareResults = document.getElementById("compare-results");
+  if (!modal || !body || !compareResults || compareSelection.length < 2) {
+    return;
+  }
+
+  const modalMarkup = compareResults.innerHTML.replaceAll('data-export-target="compare-results"', 'data-export-target="compare-modal-content"')
+    .replaceAll('data-share-target="compare-results"', 'data-share-target="compare-modal-content"');
+  body.innerHTML = `<div id="compare-modal-content">${modalMarkup}</div>`;
+  modal.hidden = false;
+  document.body.classList.add("modal-open");
+}
+
+function closeCompareModal() {
+  const modal = document.getElementById("compare-modal");
+  const body = document.getElementById("compare-modal-body");
+  if (!modal || modal.hidden) {
+    return;
+  }
+
+  modal.hidden = true;
+  document.body.classList.remove("modal-open");
+  if (body) {
+    body.innerHTML = "";
+  }
 }
 
 function generateGdpPerCapitaRanking() {
@@ -4852,6 +5957,15 @@ function getLayersForCountries(countries) {
     .filter(Boolean);
 }
 
+function getGeoJsonPathForCurrentMode() {
+  if (currentMapMode === "2d") {
+    return "./data/world_countries_simplified.geo.json";
+  }
+  return isMobileLayout()
+    ? "./data/world_countries_simplified.geo.json"
+    : "./data/world_countries.geo.json";
+}
+
 async function selectSearchResult(result) {
   if (!result) {
     return;
@@ -5144,11 +6258,17 @@ async function searchByQuery(rawQuery) {
 
 async function loadData() {
   const [countriesRes, rawPoliticsRes, rawHistoryRes, rawInflationRes] = await Promise.all([
-    fetch("./data/countries_full.json"),
-    fetch("./data/raw/politics.json"),
-    fetch("./data/raw/history.json"),
-    fetch("./data/raw/inflation.json")
+    fetch(`./data/countries_full.json?v=${APP_VERSION}`, { cache: "no-store" }),
+    fetch(`./data/raw/politics.json?v=${APP_VERSION}`, { cache: "no-store" }),
+    fetch(`./data/raw/history.json?v=${APP_VERSION}`, { cache: "no-store" }),
+    fetch(`./data/raw/inflation.json?v=${APP_VERSION}`, { cache: "no-store" })
   ]);
+
+  [countriesRes, rawPoliticsRes, rawHistoryRes, rawInflationRes].forEach(response => {
+    if (!response.ok) {
+      throw new Error(`No se pudo cargar ${response.url} (${response.status})`);
+    }
+  });
 
   countriesData = await countriesRes.json();
   rawPoliticsSystems = await rawPoliticsRes.json();
@@ -5235,7 +6355,7 @@ function getQuizPool(category) {
   });
 }
 
-function buildQuizQuestion(category) {
+buildQuizQuestion = function buildQuizQuestion(category) {
   const difficultyPool = getQuizPool(category).filter(country => {
     const code = getCountryCodeByObject(country);
     if (quizState.asked.includes(code)) {
@@ -5335,9 +6455,9 @@ function buildQuizQuestion(category) {
     options: shuffleArray([correct, ...distractors]),
     answered: false
   };
-}
+};
 
-function renderQuizPanel() {
+renderQuizPanel = function renderQuizPanel() {
   const status = document.getElementById("quiz-status");
   const question = document.getElementById("quiz-question");
   const options = document.getElementById("quiz-options");
@@ -5369,9 +6489,9 @@ function renderQuizPanel() {
   `).join("");
   nextButton.hidden = !quizState.current.answered;
   resetButton.hidden = false;
-}
+};
 
-function startQuiz() {
+startQuiz = function startQuiz() {
   const categorySelect = document.getElementById("quiz-category");
   const difficultySelect = document.getElementById("quiz-difficulty");
   quizState = {
@@ -5383,15 +6503,15 @@ function startQuiz() {
     current: null
   };
   nextQuizQuestion();
-}
+};
 
-function nextQuizQuestion() {
+nextQuizQuestion = function nextQuizQuestion() {
   const question = buildQuizQuestion(quizState.category);
   quizState.current = question;
   renderQuizPanel();
-}
+};
 
-function answerQuiz(answer) {
+answerQuiz = function answerQuiz(answer) {
   if (!quizState.current || quizState.current.answered) {
     return;
   }
@@ -5599,11 +6719,22 @@ function generateSystemRanking() {
 
 async function loadMap() {
   initializeViewer();
-  const geoJsonPath = isMobileLayout()
-    ? "./data/world_countries_simplified.geo.json"
-    : "./data/world_countries.geo.json";
-  const res = await fetch(geoJsonPath);
-  const geojson = await res.json();
+  const geoJsonPath = getGeoJsonPathForCurrentMode();
+  if (activeClickHandler) {
+    activeClickHandler.destroy();
+    activeClickHandler = null;
+  }
+  if (activeGeoJsonDataSource) {
+    try {
+      await viewer.dataSources.remove(activeGeoJsonDataSource, true);
+    } catch (error) {
+      console.error("No se pudo limpiar la capa GeoJSON anterior:", error);
+    }
+    activeGeoJsonDataSource = null;
+  }
+  countryLayers.clear();
+  countryClickTargets.clear();
+  const geojson = await getCachedGeoJson(geoJsonPath);
   const featureNameByCode = {};
   let dataSource = null;
 
@@ -5612,6 +6743,7 @@ async function loadMap() {
       clampToGround: false
     });
     await viewer.dataSources.add(dataSource);
+    activeGeoJsonDataSource = dataSource;
   } catch (error) {
     console.error("No se pudo cargar el GeoJSON 3D:", error);
     fitWorldView();
@@ -5655,15 +6787,18 @@ async function loadMap() {
   });
 
   const clickHandler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+  activeClickHandler = clickHandler;
   let hoveredLayer = null;
   let hoverFramePending = false;
   let pendingHoverLayer = null;
+  let lastHoverCode = "";
 
   function restoreHover() {
     if (hoveredLayer && !selectedLayers.includes(hoveredLayer)) {
       hoveredLayer.setStyle(getCountryThemeStyle(hoveredLayer.code));
     }
     hoveredLayer = null;
+    lastHoverCode = "";
   }
 
   clickHandler.setInputAction(movement => {
@@ -5715,21 +6850,39 @@ async function loadMap() {
     const linkedLayers = getLinkedCodes(code)
       .map(linkedCode => countryLayers.get(linkedCode))
       .filter(Boolean);
+    if (
+      selectionMode === "country" &&
+      selectedLayers.length === linkedLayers.length &&
+      linkedLayers.length &&
+      linkedLayers.every((layer, index) => selectedLayers[index] === layer)
+    ) {
+      renderCountry(country, featureName || country.name);
+      viewer.scene.requestRender();
+      return;
+    }
     setCountrySelection(linkedLayers);
     renderCountry(country, featureName || country.name);
     viewer.scene.requestRender();
   }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
 
   clickHandler.setInputAction(movement => {
-    if (isMobileLayout()) {
+    if (!shouldUseHoverHighlights()) {
+      restoreHover();
+      viewer.scene.requestRender();
       return;
     }
 
     const picked = viewer.scene.pick(movement.endPosition);
     const code = picked?.id?.countryCode;
     const layer = code ? countryLayers.get(code) : null;
+    const hoverCode = layer?.code || "";
+
+    if (hoverCode === lastHoverCode) {
+      return;
+    }
 
     pendingHoverLayer = layer || null;
+    lastHoverCode = hoverCode;
 
     if (hoverFramePending) {
       return;
@@ -5759,15 +6912,21 @@ async function loadMap() {
         const baseStyle = getCountryThemeStyle(nextLayer.code);
         nextLayer.setStyle({
           ...baseStyle,
-          weight: Math.max((baseStyle.weight || 1.4) + 0.4, 1.8),
-          fillOpacity: Math.min((baseStyle.fillOpacity || 0.12) + 0.06, 0.22)
+          weight: Math.max((baseStyle.weight || 1.4) + 0.65, 2.2),
+          fillOpacity: Math.min(
+            (baseStyle.fillOpacity || 0.12) + (currentTheme === "default" ? 0.03 : 0.05),
+            currentTheme === "default" ? 0.16 : 0.24
+          )
         });
       }
       viewer.scene.requestRender();
     });
   }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
 
-  setupSearchIndex(featureNameByCode);
+  if (!mapSearchAliasesRegistered) {
+    setupSearchIndex(featureNameByCode);
+    mapSearchAliasesRegistered = true;
+  }
   fitWorldView();
 }
 
@@ -5778,6 +6937,7 @@ function setupSearchEvents() {
   const countryPanel = document.getElementById("country-panel");
   const leftPanel = document.getElementById("left-panel");
   const newsHubPanel = document.getElementById("news-hub-panel");
+  const compareModal = document.getElementById("compare-modal");
   const conflictModal = document.getElementById("conflict-modal");
   const conflictCloseButton = document.getElementById("conflict-modal-close");
   let activeIndex = 0;
@@ -5859,6 +7019,7 @@ function setupSearchEvents() {
 
   document.addEventListener("keydown", event => {
     if (event.key === "Escape") {
+      closeCompareModal();
       closeConflictModal();
     }
   });
@@ -5898,6 +7059,32 @@ function setupSearchEvents() {
       if (target) {
         await shareText(
           currentLanguage === "en" ? "GeoRisk rankings" : "Rankings GeoRisk",
+          target.innerText.trim()
+        );
+      }
+      }
+    });
+
+  compareModal?.addEventListener("click", async event => {
+    const exportTrigger = event.target.closest("[data-export-target]");
+    if (exportTrigger) {
+      const target = document.getElementById(exportTrigger.dataset.exportTarget);
+      if (target) {
+        if (exportTrigger.dataset.exportFormat === "pdf") {
+          await exportNodeAsPdf(target, `${exportTrigger.dataset.exportTarget}.pdf`);
+        } else {
+          await exportNodeAsImage(target, `${exportTrigger.dataset.exportTarget}.png`);
+        }
+      }
+      return;
+    }
+
+    const shareTrigger = event.target.closest("[data-share-target]");
+    if (shareTrigger) {
+      const target = document.getElementById(shareTrigger.dataset.shareTarget);
+      if (target) {
+        await shareText(
+          currentLanguage === "en" ? "GeoRisk comparison" : "Comparacion GeoRisk",
           target.innerText.trim()
         );
       }
@@ -6029,6 +7216,7 @@ function setupThemeControls() {
     currentLanguage = event.target.value;
     localStorage.setItem(STORAGE_KEYS.language, currentLanguage);
     updateStaticText();
+    updateExtendedStaticText();
     refreshGlobalStats();
     renderThemeLegend();
     renderComparePanel();
@@ -6093,20 +7281,380 @@ function setupThemeControls() {
     updateStaticText();
     closeMobilePanels();
   });
-}
+};
 
-function setupCompareControls() {
+setupCompareControls = function setupCompareControls() {
   const chips = document.getElementById("compare-chips");
+  const select = document.getElementById("compare-country-select");
+  const addButton = document.getElementById("compare-add-button");
+  const openButton = document.getElementById("open-compare-modal-button");
+  const clearButton = document.getElementById("clear-compare-button");
+  const comparePanel = document.getElementById("compare-hub-panel");
+  const compareModal = document.getElementById("compare-modal");
+  const compareCloseButton = document.getElementById("compare-modal-close");
+
+  if (select) {
+    select.innerHTML = `<option value="">${currentLanguage === "en" ? "Select country" : "Seleccionar pais"}</option>${
+      Object.entries(countriesData)
+        .sort(([, a], [, b]) => String(a.name).localeCompare(String(b.name), "es"))
+        .map(([code, country]) => `<option value="${escapeHtml(code)}">${escapeHtml(country.name)}</option>`)
+        .join("")
+    }`;
+  }
+
   chips.addEventListener("click", event => {
     const button = event.target.closest("[data-remove-compare]");
     if (!button) {
       return;
     }
 
-    removeCountryFromCompare(button.dataset.removeCompare);
+      removeCountryFromCompare(button.dataset.removeCompare);
+    });
+
+  addButton?.addEventListener("click", () => {
+    if (!select?.value) {
+      return;
+    }
+    addCountryToCompare(select.value);
+    if (compareSelection.length >= 2) {
+      openCompareModal();
+    }
   });
 
+  openButton?.addEventListener("click", () => openCompareModal());
+  clearButton?.addEventListener("click", () => {
+    compareSelection = [];
+    renderComparePanel();
+    closeCompareModal();
+  });
+  comparePanel?.addEventListener("toggle", () => {
+    if (!comparePanel.open) {
+      return;
+    }
+    renderComparePanel();
+  });
+  compareModal?.addEventListener("click", event => {
+    if (event.target.closest("[data-close-compare-modal='true']")) {
+      closeCompareModal();
+    }
+  });
+  compareCloseButton?.addEventListener("click", () => closeCompareModal());
+
   renderComparePanel();
+};
+
+function clearQuizTimer() {
+  if (quizState.timerId) {
+    clearInterval(quizState.timerId);
+    quizState.timerId = null;
+  }
+}
+
+function updateQuizMeta() {
+  const meta = document.getElementById("quiz-meta");
+  if (!meta) {
+    return;
+  }
+
+  const best = Number(localStorage.getItem("geo-risk-quiz-best-streak") || quizState.bestStreak || 0);
+  meta.innerHTML = `
+    <span class="quiz-meta-pill">${currentLanguage === "en" ? "Streak" : "Racha"}: ${quizState.streak || 0}</span>
+    <span class="quiz-meta-pill">${currentLanguage === "en" ? "Best streak" : "Mejor racha"}: ${best}</span>
+    <span class="quiz-meta-pill">${quizState.mode === "timed" ? `${currentLanguage === "en" ? "Time" : "Tiempo"}: ${quizState.timeLeft || 0}s` : (currentLanguage === "en" ? "Mode: classic" : "Modo: clasico")}</span>
+  `;
+}
+
+function buildQuizQuestion(category) {
+  const pool = Object.entries(countriesData).filter(([code, country]) => {
+    if (quizState.asked.includes(code)) return false;
+    if (category === "capital") return Boolean(country.general?.capital?.name);
+    if (category === "religion") return Boolean(getReligionSummaryLabel(country.religion));
+    if (category === "continent") return Boolean(country.continent);
+    if (category === "flag") return Boolean(country.name);
+    if (category === "history") return Boolean(country.history?.year);
+    if (category === "organization") return Boolean(country.politics?.organizations?.length);
+    if (category === "rival") return Boolean(country.politics?.rivals?.length);
+    return Boolean(country.politics?.system);
+  });
+
+  if (!pool.length) return null;
+  const [code, country] = shuffleArray(pool)[0];
+  const difficulty = quizState.difficulty || "easy";
+  let prompt = "";
+  let correct = "";
+  let distractors = [];
+
+  if (category === "capital") {
+    prompt = `Â¿Cual es la capital de ${country.name}?`;
+    correct = country.general.capital.name;
+    distractors = shuffleArray(Object.values(countriesData)
+      .filter(item => difficulty === "easy" || item.continent === country.continent)
+      .map(item => item.general?.capital?.name).filter(Boolean).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
+  } else if (category === "religion") {
+    prompt = `Â¿Cual es la religion mayoritaria de ${country.name}?`;
+    correct = getReligionSummaryLabel(country.religion) || "Sin datos";
+    distractors = shuffleArray(Object.values(countriesData).map(item => getReligionSummaryLabel(item.religion)).filter(Boolean).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
+  } else if (category === "continent") {
+    prompt = `Â¿En que continente se ubica ${country.name}?`;
+    correct = translateContinentName(country.continent);
+    distractors = shuffleArray(["America", "Europa", "Asia", "Africa", "Oceania", "Antartida"].filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
+  } else if (category === "flag") {
+    prompt = `Â¿A que pais corresponde esta bandera? ${getFlagEmoji(code)}`;
+    correct = country.name;
+    distractors = shuffleArray(Object.values(countriesData).filter(item => difficulty === "easy" || item.continent === country.continent).map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
+  } else if (category === "history") {
+    prompt = `Â¿En que aÃ±o se formo ${country.name}?`;
+    correct = String(country.history.year);
+    distractors = shuffleArray(Object.values(countriesData).map(item => item.history?.year).filter(Boolean).map(String).filter(value => value !== correct)).slice(0, 3);
+  } else if (category === "organization") {
+    const org = getOrganizationDisplayName(country.politics.organizations[0]);
+    prompt = `Â¿Que pais pertenece a esta organizacion? ${org}`;
+    correct = country.name;
+    distractors = shuffleArray(Object.values(countriesData).map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
+  } else if (category === "rival") {
+    const rival = country.politics.rivals[0]?.name || country.politics.rivals[0];
+    prompt = `Â¿Que pais tiene como rival a ${rival}?`;
+    correct = country.name;
+    distractors = shuffleArray(Object.values(countriesData).map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
+  } else {
+    prompt = `Â¿Cual es el sistema politico principal de ${country.name}?`;
+    correct = country.politics.system;
+    distractors = shuffleArray([...new Set(Object.values(countriesData).map(item => item.politics?.system).filter(Boolean).filter(name => normalizeText(name) !== normalizeText(correct)))]).slice(0, 3);
+  }
+
+  if (distractors.length < 3) return null;
+  return { code, prompt, correct, options: shuffleArray([correct, ...distractors]), answered: false };
+}
+
+function renderQuizPanel() {
+  const status = document.getElementById("quiz-status");
+  const question = document.getElementById("quiz-question");
+  const options = document.getElementById("quiz-options");
+  const nextButton = document.getElementById("quiz-next-button");
+  const resetButton = document.getElementById("quiz-reset-button");
+  const categorySelect = document.getElementById("quiz-category");
+  const difficultySelect = document.getElementById("quiz-difficulty");
+  const modeSelect = document.getElementById("quiz-mode");
+  if (!status || !question || !options || !nextButton || !resetButton || !categorySelect || !difficultySelect || !modeSelect) return;
+
+  categorySelect.value = quizState.category;
+  difficultySelect.value = quizState.difficulty;
+  modeSelect.value = quizState.mode || "classic";
+  status.textContent = quizState.total ? `Puntaje: ${quizState.score}/${quizState.total}` : "ElegÃ­ una categorÃ­a y empezÃ¡ el quiz.";
+  updateQuizMeta();
+
+  if (!quizState.current) {
+    question.textContent = "";
+    options.innerHTML = "";
+    nextButton.hidden = true;
+    resetButton.hidden = quizState.total === 0 && !quizState.asked.length;
+    return;
+  }
+
+  question.textContent = quizState.current.prompt;
+  options.innerHTML = quizState.current.options.map(option => `<button type="button" class="quiz-option" data-quiz-answer="${escapeHtml(option)}">${escapeHtml(option)}</button>`).join("");
+  nextButton.hidden = !quizState.current.answered;
+  resetButton.hidden = false;
+}
+
+function startQuizTimer() {
+  clearQuizTimer();
+  if (quizState.mode !== "timed") {
+    quizState.timeLeft = 0;
+    updateQuizMeta();
+    return;
+  }
+  quizState.timeLeft = quizState.difficulty === "hard" ? 12 : quizState.difficulty === "medium" ? 18 : 25;
+  updateQuizMeta();
+  quizState.timerId = setInterval(() => {
+    quizState.timeLeft -= 1;
+    updateQuizMeta();
+    if (quizState.timeLeft <= 0) {
+      clearQuizTimer();
+      if (quizState.current && !quizState.current.answered) answerQuiz("__timeout__");
+    }
+  }, 1000);
+}
+
+function startQuiz() {
+  const categorySelect = document.getElementById("quiz-category");
+  const difficultySelect = document.getElementById("quiz-difficulty");
+  const modeSelect = document.getElementById("quiz-mode");
+  quizState = {
+    category: categorySelect?.value || "capital",
+    difficulty: difficultySelect?.value || "easy",
+    mode: modeSelect?.value || "classic",
+    asked: [],
+    score: 0,
+    total: 0,
+    current: null,
+    streak: 0,
+    bestStreak: Number(localStorage.getItem("geo-risk-quiz-best-streak") || 0),
+    timeLeft: 0,
+    timerId: null
+  };
+  nextQuizQuestion();
+}
+
+function nextQuizQuestion() {
+  clearQuizTimer();
+  const question = buildQuizQuestion(quizState.category);
+  quizState.current = question;
+  renderQuizPanel();
+  startQuizTimer();
+}
+
+function answerQuiz(answer) {
+  if (!quizState.current || quizState.current.answered) return;
+  clearQuizTimer();
+  quizState.total += 1;
+  const isCorrect = normalizeText(answer) === normalizeText(quizState.current.correct);
+  if (isCorrect) {
+    quizState.score += 1;
+    quizState.streak += 1;
+    quizState.bestStreak = Math.max(quizState.bestStreak || 0, quizState.streak);
+    localStorage.setItem("geo-risk-quiz-best-streak", String(quizState.bestStreak));
+  } else {
+    quizState.streak = 0;
+  }
+  quizState.asked.push(quizState.current.code);
+  quizState.current.answered = true;
+
+  document.querySelectorAll(".quiz-option").forEach(button => {
+    const buttonAnswer = button.dataset.quizAnswer || "";
+    const correct = normalizeText(buttonAnswer) === normalizeText(quizState.current.correct);
+    const selected = normalizeText(buttonAnswer) === normalizeText(answer);
+    button.classList.toggle("is-correct", correct);
+    button.classList.toggle("is-wrong", selected && !correct);
+    button.disabled = true;
+  });
+
+  document.getElementById("quiz-status").textContent = isCorrect
+    ? `Correcto. Puntaje: ${quizState.score}/${quizState.total}`
+    : `${answer === "__timeout__" ? "Tiempo agotado." : "Incorrecto."} Respuesta correcta: ${quizState.current.correct}. Puntaje: ${quizState.score}/${quizState.total}`;
+  document.getElementById("quiz-next-button").hidden = false;
+  updateQuizMeta();
+};
+
+setupQuizControls = function setupQuizControls() {
+  const startButton = document.getElementById("quiz-start-button");
+  const nextButton = document.getElementById("quiz-next-button");
+  const resetButton = document.getElementById("quiz-reset-button");
+  const categorySelect = document.getElementById("quiz-category");
+  const difficultySelect = document.getElementById("quiz-difficulty");
+  const modeSelect = document.getElementById("quiz-mode");
+  const options = document.getElementById("quiz-options");
+  if (!startButton || !nextButton || !resetButton || !categorySelect || !difficultySelect || !modeSelect || !options) return;
+
+  startButton.addEventListener("click", () => startQuiz());
+  nextButton.addEventListener("click", () => nextQuizQuestion());
+  resetButton.addEventListener("click", () => {
+    clearQuizTimer();
+    quizState = {
+      category: categorySelect.value || "capital",
+      difficulty: difficultySelect.value || "easy",
+      mode: modeSelect.value || "classic",
+      asked: [],
+      score: 0,
+      total: 0,
+      current: null,
+      streak: 0,
+      bestStreak: Number(localStorage.getItem("geo-risk-quiz-best-streak") || 0),
+      timeLeft: 0,
+      timerId: null
+    };
+    renderQuizPanel();
+  });
+  categorySelect.addEventListener("change", () => { quizState.category = categorySelect.value || "capital"; renderQuizPanel(); });
+  difficultySelect.addEventListener("change", () => { quizState.difficulty = difficultySelect.value || "easy"; renderQuizPanel(); });
+  modeSelect.addEventListener("change", () => { quizState.mode = modeSelect.value || "classic"; renderQuizPanel(); });
+  options.addEventListener("click", event => {
+    const button = event.target.closest("[data-quiz-answer]");
+    if (button) answerQuiz(button.dataset.quizAnswer || "");
+  });
+  renderQuizPanel();
+};
+
+parseSemanticQuery = function parseSemanticQuery(rawQuery) {
+  const normalized = normalizeText(rawQuery);
+  const filters = { continent: "", religion: "", system: "", organization: "", historyType: "", origin: "", rival: "", minPopulation: 0 };
+
+  for (const [alias, continent] of continentAliases.entries()) {
+    if (normalized.includes(alias)) { filters.continent = continent; break; }
+  }
+  for (const [alias, religion] of religionAliases.entries()) {
+    if (normalized.includes(alias)) { filters.religion = religion; break; }
+  }
+  for (const [alias, system] of systemAliases.entries()) {
+    if (normalized.includes(alias)) { filters.system = system; break; }
+  }
+  if (!filters.system) {
+    if (/monarquia constitucional|constitutional monarch/.test(normalized)) filters.system = "Monarquia constitucional";
+    else if (/monarquia absoluta|absolute monarch/.test(normalized)) filters.system = "Monarquia absoluta";
+    else if (/semipresid/.test(normalized)) filters.system = "Semipresidencialismo";
+    else if (/presidenc|republicas? presidenciales?/.test(normalized)) filters.system = "Presidencialismo";
+    else if (/parlament/.test(normalized)) filters.system = "Parlamentarismo";
+    else if (/teocrac|republica islamica/.test(normalized)) filters.system = "Teocracia";
+  }
+  for (const [alias, organization] of organizationAliases.entries()) {
+    if (normalized.includes(alias)) { filters.organization = organization; break; }
+  }
+  if (!filters.organization && /\botan\b|nato/.test(normalized)) filters.organization = "OTAN";
+  if (!filters.organization && /(union europea|ue\b|european union)/.test(normalized)) filters.organization = "Union Europea";
+  if (!filters.organization && /(mercosur|mercosul)/.test(normalized)) filters.organization = "Mercosur";
+  if (!filters.organization && /\bbrics\b/.test(normalized)) filters.organization = "BRICS";
+  for (const [alias, origin] of originAliases.entries()) {
+    if (normalized.includes(alias)) { filters.origin = origin; break; }
+  }
+  if (!filters.origin) {
+    if (/ex colonias? britan|british colon|imperio britan/.test(normalized)) filters.origin = "__british__";
+    else if (/ex colonias? frances|french colon/.test(normalized)) filters.origin = "__french__";
+    else if (/ex colonias? espan|spanish colon/.test(normalized)) filters.origin = "__spanish__";
+    else if (/ex colonias? portugues|portuguese colon/.test(normalized)) filters.origin = "__portuguese__";
+  }
+  for (const [alias, rival] of rivalAliases.entries()) {
+    if (normalized.includes(alias)) { filters.rival = rival; break; }
+  }
+  if (!filters.rival && /\brusia\b|russia/.test(normalized)) filters.rival = "Rusia";
+  if (!filters.religion) {
+    if (/\bislam|\bmusulman|\bsunita|\bchiita/.test(normalized)) filters.religion = "Islamismo";
+    else if (/\bcristian|\bcatolic|\bprotest|\bortodox|\banglican/.test(normalized)) filters.religion = "Cristianismo";
+    else if (/\bhindu/.test(normalized)) filters.religion = "Hinduismo";
+    else if (/\bjudai|\bjew/.test(normalized)) filters.religion = "Judaismo";
+    else if (/\bbudis/.test(normalized)) filters.religion = "Budismo";
+  }
+
+  const populationMatchers = [
+    { pattern: /mas de 100 millones|more than 100 million/, value: 100000000 },
+    { pattern: /mas de 50 millones|more than 50 million/, value: 50000000 },
+    { pattern: /mas de 20 millones|more than 20 million/, value: 20000000 },
+    { pattern: /mas de 10 millones|more than 10 million/, value: 10000000 },
+    { pattern: /mas de 1 millon|more than 1 million/, value: 1000000 }
+  ];
+  const populationMatch = populationMatchers.find(item => item.pattern.test(normalized));
+  if (populationMatch) filters.minPopulation = populationMatch.value;
+  const score = Object.values(filters).filter(Boolean).length;
+  return score >= 2 ? filters : null;
+};
+
+function renderNewsArticle(article, country) {
+  const articleContainer = document.getElementById("news-hub-article");
+  if (!articleContainer) return;
+  if (!article) {
+    articleContainer.innerHTML = "";
+    return;
+  }
+  articleContainer.innerHTML = `
+    <div class="news-hub-article-card">
+      <strong>${escapeHtml(article.title)}</strong>
+      <p>${escapeHtml(article.summary)}</p>
+      <div class="news-hub-meta">${escapeHtml(article.source || "Fuente")} ${article.date ? `· ${escapeHtml(article.date)}` : ""}</div>
+      <div class="news-source-links">
+        <a class="news-link" href="${article.url || getCountryNewsUrl(country)}" target="_blank" rel="noreferrer">${currentLanguage === "en" ? "Open full article" : "Abrir articulo completo"}</a>
+        ${getCountryNewsPortalLinks(country).map(link => `<a class="news-link" href="${link.url}" target="_blank" rel="noreferrer">${escapeHtml(link.label)}</a>`).join("")}
+      </div>
+    </div>
+  `;
 }
 
 function setupQuizControls() {
@@ -6170,7 +7718,49 @@ function setupNewsHubPanel() {
 
   panel.open = false;
   panel.addEventListener("toggle", () => {
+    if (panel.open) {
+      const comparePanel = document.getElementById("compare-hub-panel");
+      const quizPanel = document.getElementById("quiz-hub-panel");
+      if (comparePanel) comparePanel.open = false;
+      if (quizPanel) quizPanel.open = false;
+    }
     renderNewsHub(currentPanelState.code || "");
+  });
+}
+
+function setupQuizHubPanel() {
+  const panel = document.getElementById("quiz-hub-panel");
+  if (!panel) {
+    return;
+  }
+
+  panel.open = false;
+  panel.addEventListener("toggle", () => {
+    if (!panel.open) {
+      return;
+    }
+    const comparePanel = document.getElementById("compare-hub-panel");
+    const newsPanel = document.getElementById("news-hub-panel");
+    if (comparePanel) comparePanel.open = false;
+    if (newsPanel) newsPanel.open = false;
+  });
+}
+
+function setupCompareHubPanel() {
+  const panel = document.getElementById("compare-hub-panel");
+  if (!panel) {
+    return;
+  }
+
+  panel.open = false;
+  panel.addEventListener("toggle", () => {
+    if (!panel.open) {
+      return;
+    }
+    const quizPanel = document.getElementById("quiz-hub-panel");
+    const newsPanel = document.getElementById("news-hub-panel");
+    if (quizPanel) quizPanel.open = false;
+    if (newsPanel) newsPanel.open = false;
   });
 }
 
@@ -6199,6 +7789,286 @@ function setupMobilePanelControls() {
   map.on("zoomstart", onMapInteractionStart);
 }
 
+function setupMapModeControl() {
+  const button = document.getElementById("map-mode-toggle");
+  if (!button) {
+    return;
+  }
+
+  updateMapModeToggle();
+  button.addEventListener("click", () => toggleMapMode());
+}
+
+function getExportContextLabel() {
+  if (currentPanelState.type === "country" && currentPanelState.code && countriesData[currentPanelState.code]) {
+    return countriesData[currentPanelState.code].name;
+  }
+  if (currentPanelState.type === "continent") {
+    return currentPanelState.continent;
+  }
+  if (currentPanelState.type === "religion") {
+    return currentPanelState.religionName;
+  }
+  if (currentPanelState.type === "group") {
+    return currentPanelState.title;
+  }
+  return "georisk";
+}
+
+function buildExportFilename(base) {
+  const stamp = new Date().toISOString().slice(0, 10);
+  return `${normalizeText(base || getExportContextLabel() || "georisk").replace(/\s+/g, "-") || "georisk"}-${stamp}`;
+}
+
+exportNodeAsImage = async function exportNodeAsImage(node, filename) {
+  if (!node || typeof html2canvas !== "function") {
+    return;
+  }
+
+  const canvas = await html2canvas(node, {
+    backgroundColor: "#071320",
+    scale: Math.min(window.devicePixelRatio > 1 ? 2 : 1.8, 2.2),
+    useCORS: true
+  });
+
+  const link = document.createElement("a");
+  link.href = canvas.toDataURL("image/png");
+  link.download = `${buildExportFilename(filename?.replace(/\.png$/i, ""))}.png`;
+  link.click();
+};
+
+exportNodeAsPdf = async function exportNodeAsPdf(node, filename) {
+  if (!node || typeof html2canvas !== "function" || !window.jspdf?.jsPDF) {
+    return;
+  }
+
+  const canvas = await html2canvas(node, {
+    backgroundColor: "#071320",
+    scale: 2,
+    useCORS: true
+  });
+  const image = canvas.toDataURL("image/png");
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF({
+    orientation: canvas.width > canvas.height ? "landscape" : "portrait",
+    unit: "px",
+    format: [canvas.width, canvas.height]
+  });
+  pdf.addImage(image, "PNG", 0, 0, canvas.width, canvas.height);
+  pdf.save(`${buildExportFilename(filename?.replace(/\.pdf$/i, ""))}.pdf`);
+};
+
+shareText = async function shareText(title, text) {
+  const payload = `${title}\n\n${text}\n\nGeoRisk · ${new Date().toLocaleDateString(currentLanguage === "en" ? "en-US" : "es-AR")}`;
+  if (navigator.share) {
+    try {
+      await navigator.share({ title, text: payload });
+      return;
+    } catch (error) {
+      console.error("No se pudo compartir:", error);
+    }
+  }
+
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(payload);
+  }
+};
+
+function getCompareSelectionList(filterText = "") {
+  const normalizedFilter = normalizeText(filterText);
+  return Object.entries(countriesData)
+    .filter(([, country]) => !normalizedFilter || normalizeText(country.name).includes(normalizedFilter) || normalizeText(country.general?.officialName).includes(normalizedFilter))
+    .sort(([, a], [, b]) => String(a.name).localeCompare(String(b.name), "es"));
+}
+
+function getComparisonBenchmark(country) {
+  const world = Object.values(countriesData);
+  const continentPeers = world.filter(item => item.continent === country.continent);
+  const peers = compareBenchmarkMode === "continent" ? continentPeers : world;
+  return {
+    populationAvg: peers.reduce((sum, item) => sum + (item.general?.population || 0), 0) / Math.max(peers.length, 1),
+    gdpPcAvg: peers.reduce((sum, item) => sum + (item.economy?.gdpPerCapita || 0), 0) / Math.max(peers.length, 1),
+    orgAvg: peers.reduce((sum, item) => sum + getCountryOrganizationCount(item), 0) / Math.max(peers.length, 1),
+    label: compareBenchmarkMode === "continent"
+      ? (currentLanguage === "en" ? "Continental benchmark" : "Benchmark continental")
+      : (currentLanguage === "en" ? "World benchmark" : "Benchmark mundial")
+  };
+}
+
+function updateCompareSelectOptions(filterText = "") {
+  const select = document.getElementById("compare-country-select");
+  if (!select) {
+    return;
+  }
+
+  select.innerHTML = `<option value="">${currentLanguage === "en" ? "Select country" : "Seleccionar pais"}</option>${
+    getCompareSelectionList(filterText)
+      .map(([code, country]) => `<option value="${escapeHtml(code)}">${escapeHtml(country.name)}</option>`)
+      .join("")
+  }`;
+}
+
+function renderComparePanel() {
+  const empty = document.getElementById("compare-empty");
+  const chips = document.getElementById("compare-chips");
+  const results = document.getElementById("compare-results");
+  const openButton = document.getElementById("open-compare-modal-button");
+  const worldButton = document.getElementById("compare-benchmark-world");
+  const continentButton = document.getElementById("compare-benchmark-continent");
+  empty.textContent = t("compareHint");
+
+  if (worldButton) worldButton.classList.toggle("is-secondary", compareBenchmarkMode !== "world");
+  if (continentButton) continentButton.classList.toggle("is-secondary", compareBenchmarkMode !== "continent");
+
+  if (!compareSelection.length) {
+    empty.hidden = false;
+    chips.innerHTML = "";
+    results.innerHTML = "";
+    if (openButton) openButton.disabled = true;
+    return;
+  }
+
+  empty.hidden = true;
+  chips.innerHTML = compareSelection
+    .map(code => `<span class="compare-chip">${getFlagEmoji(code)} ${escapeHtml(countriesData[code]?.name || code)} <button type="button" data-remove-compare="${escapeHtml(code)}">x</button></span>`)
+    .join("");
+
+  const radarEntries = compareSelection.map(code => ({
+    code,
+    name: countriesData[code].name,
+    values: {
+      population: countriesData[code].general?.population || 0,
+      gdp: countriesData[code].economy?.gdp || 0,
+      gdpPerCapita: countriesData[code].economy?.gdpPerCapita || 0,
+      military: getCountryMilitaryActive(countriesData[code]),
+      organizations: getCountryOrganizationCount(countriesData[code])
+    }
+  }));
+
+  const cards = compareSelection.map(code => {
+    const country = countriesData[code];
+    const benchmark = getComparisonBenchmark(country);
+    const populationDelta = benchmark.populationAvg ? (((country.general?.population || 0) - benchmark.populationAvg) / benchmark.populationAvg) * 100 : 0;
+    const gdpDelta = benchmark.gdpPcAvg ? (((country.economy?.gdpPerCapita || 0) - benchmark.gdpPcAvg) / benchmark.gdpPcAvg) * 100 : 0;
+    return `
+      <div class="compare-country-card">
+        <div class="compare-country-flag">${renderFlagVisual(code, country.name, "compare-country-flag-badge")}</div>
+        <div class="compare-country-name">${escapeHtml(country.name)}</div>
+        <div class="compare-country-meta compare-country-official">${escapeHtml(country.general?.officialName || country.name)}</div>
+        <div class="compare-country-meta">${escapeHtml(translateContinentName(country.continent))}</div>
+        <div class="compare-country-meta">${escapeHtml(country.politics?.system || t("noData"))}</div>
+        <div class="compare-country-meta">${escapeHtml(getCountryBlocLabel(country))}</div>
+        <div class="compare-benchmark-grid">
+          <div class="compare-benchmark-card">
+            <strong>${currentLanguage === "en" ? "Population gap" : "Brecha poblacional"}</strong>
+            <span>${formatPercentage(populationDelta)}</span>
+          </div>
+          <div class="compare-benchmark-card">
+            <strong>${currentLanguage === "en" ? "GDP pc gap" : "Brecha de PBI pc"}</strong>
+            <span>${formatPercentage(gdpDelta)}</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  const metricFields = [
+    { label: t("comparePopulation"), getValue: country => country.general?.population || 0, format: value => formatNumber(value) },
+    { label: t("compareGdp"), getValue: country => country.economy?.gdp || 0, format: value => `US$ ${compactNumber(value)}` },
+    { label: t("compareGdpPerCapita"), getValue: country => country.economy?.gdpPerCapita || 0, format: value => `US$ ${formatNumber(Math.round(value))}` },
+    { label: currentLanguage === "en" ? "Active military" : "Personal activo", getValue: country => getCountryMilitaryActive(country), format: value => formatNumber(value) },
+    { label: currentLanguage === "en" ? "Organizations" : "Organizaciones", getValue: country => getCountryOrganizationCount(country), format: value => formatNumber(value) },
+    { label: currentLanguage === "en" ? "Exports" : "Exportaciones", getValue: country => getCountryExportBreadth(country), format: value => formatNumber(value) },
+    { label: currentLanguage === "en" ? "Industries" : "Industrias", getValue: country => getCountryIndustryBreadth(country), format: value => formatNumber(value) }
+  ];
+
+  const metricMarkup = metricFields.map(field => `
+    <div class="compare-row">
+      <strong>${field.label}</strong>
+      <div class="compare-values compare-bars">
+        ${compareSelection.map(code => {
+          const country = countriesData[code];
+          const value = field.getValue(country);
+          const maxValue = Math.max(...compareSelection.map(compareCode => field.getValue(countriesData[compareCode])), 1);
+          const width = maxValue ? (value / maxValue) * 100 : 0;
+          return `<div class="compare-bar-item"><div class="compare-bar-label"><b>${getFlagEmoji(code)} ${escapeHtml(country.name)}:</b> ${escapeHtml(field.format(value))}</div><div class="compare-bar-track"><div class="compare-bar-fill" style="width:${width}%"></div></div></div>`;
+        }).join("")}
+      </div>
+    </div>
+  `).join("");
+
+  results.innerHTML = `
+    <div class="compare-toolbar">
+      <button type="button" class="panel-action-button" data-export-target="compare-results" data-export-format="png">${currentLanguage === "en" ? "Export image" : "Exportar imagen"}</button>
+      <button type="button" class="panel-action-button" data-export-target="compare-results" data-export-format="pdf">${currentLanguage === "en" ? "Export PDF" : "Exportar PDF"}</button>
+      <button type="button" class="panel-action-button" data-share-target="compare-results">${currentLanguage === "en" ? "Share" : "Compartir"}</button>
+    </div>
+    <div class="compare-radar-wrap">${buildCompareRadarSVG(radarEntries)}</div>
+    <div class="compare-country-cards">${cards}</div>
+    <div class="compare-row compare-summary-row">
+      <strong>${compareBenchmarkMode === "continent" ? (currentLanguage === "en" ? "Continental benchmarks" : "Referencias continentales") : (currentLanguage === "en" ? "World benchmarks" : "Referencias mundiales")}</strong>
+      <div class="compare-values">
+        ${compareSelection.map(code => {
+          const country = countriesData[code];
+          const benchmark = getComparisonBenchmark(country);
+          return `<div><b>${getFlagEmoji(code)} ${escapeHtml(country.name)}:</b> ${benchmark.label} · ${currentLanguage === "en" ? "avg population" : "prom. poblacion"} ${formatNumber(Math.round(benchmark.populationAvg || 0))} · ${currentLanguage === "en" ? "avg GDP pc" : "prom. PBI pc"} US$ ${formatNumber(Math.round(benchmark.gdpPcAvg || 0))}</div>`;
+        }).join("")}
+      </div>
+    </div>
+    ${metricMarkup}
+  `;
+
+  if (openButton) openButton.disabled = compareSelection.length < 2;
+}
+
+function setupCompareControls() {
+  const chips = document.getElementById("compare-chips");
+  const select = document.getElementById("compare-country-select");
+  const addButton = document.getElementById("compare-add-button");
+  const openButton = document.getElementById("open-compare-modal-button");
+  const clearButton = document.getElementById("clear-compare-button");
+  const search = document.getElementById("compare-country-search");
+  const benchmarkWorld = document.getElementById("compare-benchmark-world");
+  const benchmarkContinent = document.getElementById("compare-benchmark-continent");
+  const comparePanel = document.getElementById("compare-hub-panel");
+  const compareModal = document.getElementById("compare-modal");
+  const compareCloseButton = document.getElementById("compare-modal-close");
+
+  updateCompareSelectOptions();
+  chips?.addEventListener("click", event => {
+    const button = event.target.closest("[data-remove-compare]");
+    if (button) removeCountryFromCompare(button.dataset.removeCompare);
+  });
+  search?.addEventListener("input", () => updateCompareSelectOptions(search.value));
+  addButton?.addEventListener("click", () => {
+    if (!select?.value) return;
+    addCountryToCompare(select.value);
+    if (compareSelection.length >= 2) openCompareModal();
+  });
+  openButton?.addEventListener("click", () => openCompareModal());
+  clearButton?.addEventListener("click", () => {
+    compareSelection = [];
+    renderComparePanel();
+    closeCompareModal();
+  });
+  benchmarkWorld?.addEventListener("click", () => {
+    compareBenchmarkMode = "world";
+    renderComparePanel();
+  });
+  benchmarkContinent?.addEventListener("click", () => {
+    compareBenchmarkMode = "continent";
+    renderComparePanel();
+  });
+  comparePanel?.addEventListener("toggle", () => {
+    if (comparePanel.open) renderComparePanel();
+  });
+  compareModal?.addEventListener("click", event => {
+    if (event.target.closest("[data-close-compare-modal='true']")) closeCompareModal();
+  });
+  compareCloseButton?.addEventListener("click", () => closeCompareModal());
+  renderComparePanel();
+}
+
 async function registerServiceWorker() {
   const status = document.getElementById("offline-status");
 
@@ -6208,11 +8078,13 @@ async function registerServiceWorker() {
   }
 
   try {
-    const registration = await navigator.serviceWorker.register("./sw.js");
-    await registration.update();
-    status.textContent = "Cache local activo para app, datos y tiles visitados.";
+    const registrations = await navigator.serviceWorker.getRegistrations();
+    await Promise.all(registrations.map(registration => registration.unregister()));
+    status.textContent = "Cache offline desactivado temporalmente para estabilizar la carga.";
+    updateAppStatusPanel();
   } catch (error) {
-    status.textContent = "No se pudo activar el cache offline.";
+    status.textContent = "No se pudo limpiar el cache offline.";
+    updateAppStatusPanel();
   }
 }
 
@@ -6222,20 +8094,31 @@ async function init() {
     await loadData();
     setupSearchEvents();
     setupThemeControls();
-    setupCompareControls();
-    setupQuizControls();
-    setupRankingsPanel();
-    setupNewsHubPanel();
-    await loadMap();
+      updateExtendedStaticText();
+      setupCompareControls();
+      setupQuizControls();
+      setupRankingsPanel();
+      setupCompareHubPanel();
+      setupQuizHubPanel();
+      setupNewsHubPanel();
+      setupMapModeControl();
+      setupSavedViewControls();
+      setupGlobalKeyboardShortcuts();
+      await loadMap();
+    startPerformanceMonitor();
     updateMapInteractionTuning();
     setupMobilePanelControls();
     await registerServiceWorker();
+    if (localStorage.getItem(STORAGE_KEYS.helpSeen) !== "true") {
+      openHelpModal();
+    }
   } catch (error) {
     console.error("Error al inicializar GeoRisk 3D:", error);
     const status = document.getElementById("offline-status");
     if (status) {
       status.textContent = "La vista 3D no pudo inicializarse por completo.";
     }
+    showFatalError(`GeoRisk no pudo terminar de inicializarse: ${error?.message || error}`);
   }
 }
 

@@ -2,6 +2,10 @@
   "name": "geo-risk",
   "version": "1.0.0",
   "type": "module",
+  "scripts": {
+    "build:data": "node scripts/buildDataset.js",
+    "validate:data": "node scripts/validateDataset.js"
+  },
   "dependencies": {
     "csv-parser": "^3.0.0",
     "fs-extra": "^11.2.0",

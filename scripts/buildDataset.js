@@ -39,6 +39,330 @@ const INFLATION_OVERRIDES = {
   "-99": 5.4
 };
 
+const BUILD_UPDATED_AT = "2026-04-06";
+
+const LANGUAGE_OVERRIDES = {
+  ARG: ["Español"],
+  AND: ["Catalán"],
+  ARE: ["Árabe"],
+  AFG: ["Pastún", "Darí"],
+  AGO: ["Portugués"],
+  ALB: ["Albanés"],
+  ARM: ["Armenio"],
+  AUS: ["Inglés"],
+  AUT: ["Alemán"],
+  AZE: ["Azerí"],
+  BEL: ["Neerlandés", "Francés", "Alemán"],
+  BEN: ["Francés"],
+  BGD: ["Bengalí"],
+  BHR: ["Árabe"],
+  BIH: ["Bosnio", "Croata", "Serbio"],
+  BLR: ["Bielorruso", "Ruso"],
+  BOL: ["Español", "Quechua", "Aimara", "Guaraní"],
+  BRA: ["Portugués"],
+  BRN: ["Malayo"],
+  BTN: ["Dzongkha"],
+  BWA: ["Inglés", "Setsuana"],
+  BDI: ["Kirundi", "Francés", "Inglés"],
+  BFA: ["Francés"],
+  BGR: ["Búlgaro"],
+  CAN: ["Inglés", "Francés"],
+  CAF: ["Sango", "Francés"],
+  CMR: ["Francés", "Inglés"],
+  CHE: ["Alemán", "Francés", "Italiano", "Romanche"],
+  CHL: ["Español"],
+  CHN: ["Chino mandarín"],
+  COL: ["Español"],
+  COD: ["Francés", "Lingala", "Suajili", "Kikongo", "Tshiluba"],
+  COG: ["Francés"],
+  COM: ["Comorense", "Árabe", "Francés"],
+  CRI: ["Español"],
+  CUB: ["Español"],
+  CIV: ["Francés"],
+  CYP: ["Griego", "Turco"],
+  CZE: ["Checo"],
+  DEU: ["Alemán"],
+  DNK: ["Danés"],
+  DOM: ["Español"],
+  DJI: ["Árabe", "Francés"],
+  DZA: ["Árabe", "Tamazight"],
+  ECU: ["Español"],
+  EGY: ["Árabe"],
+  ERI: ["Tigriña", "Árabe", "Inglés"],
+  ESH: ["Árabe", "Español"],
+  ESP: ["Español"],
+  EST: ["Estonio"],
+  ETH: ["Amárico"],
+  FIN: ["Finés", "Sueco"],
+  FJI: ["Inglés", "Fiyiano", "Hindi fiyiano"],
+  FLK: ["Inglés"],
+  FRA: ["Francés"],
+  GAB: ["Francés"],
+  GBR: ["Inglés"],
+  GEO: ["Georgiano"],
+  GHA: ["Inglés"],
+  GMB: ["Inglés"],
+  GIN: ["Francés"],
+  GNB: ["Portugués"],
+  GNQ: ["Español", "Francés", "Portugués"],
+  GRC: ["Griego"],
+  GRL: ["Groenlandés", "Danés"],
+  GTM: ["Español"],
+  GUF: ["Francés"],
+  GUY: ["Inglés"],
+  HND: ["Español"],
+  HRV: ["Croata"],
+  HTI: ["Criollo haitiano", "Francés"],
+  HUN: ["Húngaro"],
+  IDN: ["Indonesio"],
+  IND: ["Hindi", "Inglés"],
+  IRL: ["Irlandés", "Inglés"],
+  IRN: ["Persa"],
+  IRQ: ["Árabe", "Kurdo"],
+  ISL: ["Islandés"],
+  ISR: ["Hebreo", "Árabe"],
+  ITA: ["Italiano"],
+  JAM: ["Inglés"],
+  JPN: ["Japonés"],
+  JOR: ["Árabe"],
+  KAZ: ["Kazajo", "Ruso"],
+  KEN: ["Suajili", "Inglés"],
+  KGZ: ["Kirguís", "Ruso"],
+  KHM: ["Jemer"],
+  KOR: ["Coreano"],
+  KWT: ["Árabe"],
+  LAO: ["Lao"],
+  LBN: ["Árabe"],
+  LBR: ["Inglés"],
+  LBY: ["Árabe"],
+  LKA: ["Cingalés", "Tamil"],
+  LSO: ["Sesoto", "Inglés"],
+  LTU: ["Lituano"],
+  LUX: ["Luxemburgués", "Francés", "Alemán"],
+  LVA: ["Letón"],
+  MAR: ["Árabe", "Tamazight"],
+  MDA: ["Rumano"],
+  MDG: ["Malgache", "Francés"],
+  MEX: ["Español"],
+  MKD: ["Macedonio", "Albanés"],
+  MLI: ["Francés"],
+  MMR: ["Birmano"],
+  MNE: ["Montenegrino"],
+  MNG: ["Mongol"],
+  MOZ: ["Portugués"],
+  MRT: ["Árabe"],
+  MWI: ["Inglés", "Chichewa"],
+  MYS: ["Malayo"],
+  NAM: ["Inglés"],
+  NCL: ["Francés"],
+  NER: ["Francés"],
+  NGA: ["Inglés"],
+  NIC: ["Español"],
+  NLD: ["Neerlandés"],
+  NOR: ["Noruego"],
+  NPL: ["Nepalí"],
+  NZL: ["Inglés", "Maorí", "Lengua de señas neozelandesa"],
+  OMN: ["Árabe"],
+  PAK: ["Urdu", "Inglés"],
+  PAN: ["Español"],
+  PER: ["Español", "Quechua", "Aimara"],
+  PHL: ["Filipino", "Inglés"],
+  PNG: ["Inglés", "Tok pisin", "Hiri motu"],
+  POL: ["Polaco"],
+  PRY: ["Español", "Guaraní"],
+  PRI: ["Español", "Inglés"],
+  PRK: ["Coreano"],
+  PRT: ["Portugués"],
+  PSE: ["Árabe"],
+  QAT: ["Árabe"],
+  ROU: ["Rumano"],
+  RUS: ["Ruso"],
+  RWA: ["Kinyarwanda", "Francés", "Inglés", "Suajili"],
+  SAU: ["Árabe"],
+  SDN: ["Árabe", "Inglés"],
+  SEN: ["Francés"],
+  SGP: ["Inglés", "Malayo", "Mandarín", "Tamil"],
+  SLB: ["Inglés"],
+  SLE: ["Inglés"],
+  SLV: ["Español"],
+  SOM: ["Somalí", "Árabe"],
+  SRB: ["Serbio"],
+  SSD: ["Inglés"],
+  SUR: ["Neerlandés"],
+  SVK: ["Eslovaco"],
+  SVN: ["Esloveno"],
+  SWE: ["Sueco"],
+  SWZ: ["Suazi", "Inglés"],
+  SYR: ["Árabe"],
+  TCD: ["Árabe", "Francés"],
+  THA: ["Tailandés"],
+  TJK: ["Tayiko"],
+  TGO: ["Francés"],
+  TKM: ["Turcomano"],
+  TLS: ["Tetun", "Portugués"],
+  TTO: ["Inglés"],
+  TUN: ["Árabe"],
+  TUR: ["Turco"],
+  TWN: ["Chino mandarín"],
+  TZA: ["Suajili", "Inglés"],
+  UGA: ["Inglés", "Suajili"],
+  UKR: ["Ucraniano"],
+  URY: ["Español"],
+  USA: ["Inglés"],
+  UZB: ["Uzbeko"],
+  VEN: ["Español"],
+  VNM: ["Vietnamita"],
+  VUT: ["Bislama", "Inglés", "Francés"],
+  YEM: ["Árabe"],
+  ZAF: ["Zulú", "Xhosa", "Afrikáans", "Inglés", "Sepedi", "Setsuana", "Sesoto", "Xitsonga", "Siswati", "Tshivenda", "Ndebele del sur"],
+  ZMB: ["Inglés"],
+  ZWE: ["Inglés", "Shona", "Sindebele"],
+  "CS-KM": ["Albanés", "Serbio"],
+  "-99": ["Somalí", "Árabe"]
+};
+
+const CAPITAL_ROLE_OVERRIDES = {
+  BOL: [
+    { role: "constitucional", name: "Sucre" },
+    { role: "ejecutiva y legislativa", name: "La Paz" }
+  ],
+  MYS: [
+    { role: "constitucional", name: "Kuala Lumpur" },
+    { role: "administrativa", name: "Putrajaya" }
+  ],
+  NLD: [
+    { role: "constitucional", name: "Ámsterdam" },
+    { role: "administrativa", name: "La Haya" }
+  ],
+  LKA: [
+    { role: "legislativa", name: "Sri Jayawardenepura Kotte" },
+    { role: "ejecutiva", name: "Colombo" }
+  ],
+  ZAF: [
+    { role: "ejecutiva", name: "Pretoria" },
+    { role: "legislativa", name: "Ciudad del Cabo" },
+    { role: "judicial", name: "Bloemfontein" }
+  ],
+  PSE: [
+    { role: "reclamada", name: "Jerusalén Este" },
+    { role: "administrativa", name: "Ramala" }
+  ]
+};
+
+const STATE_STRUCTURE_OVERRIDES = {
+  ARG: "Estado federal presidencial",
+  AUS: "Monarquía constitucional federal parlamentaria",
+  AUT: "República federal parlamentaria",
+  BEL: "Monarquía constitucional federal parlamentaria",
+  BOL: "Estado plurinacional unitario descentralizado",
+  BIH: "Estado federal complejo con entidades constitutivas",
+  BRA: "República federal presidencial",
+  CAN: "Monarquía constitucional federal parlamentaria",
+  CHE: "República federal directorial",
+  CHN: "Estado socialista unitario de partido único",
+  DEU: "República federal parlamentaria",
+  ESP: "Monarquía constitucional con Estado autonómico",
+  FRA: "República unitaria semipresidencial",
+  GBR: "Monarquía constitucional unitaria con devolucion",
+  IND: "República federal parlamentaria",
+  IRN: "República teocrática unitaria",
+  ISR: "República parlamentaria unitaria",
+  ITA: "República parlamentaria unitaria regionalizada",
+  MEX: "República federal presidencial",
+  MYS: "Monarquía constitucional federal parlamentaria",
+  NGA: "República federal presidencial",
+  NLD: "Monarquía constitucional unitaria descentralizada",
+  PAK: "República federal parlamentaria",
+  RUS: "República federal semipresidencial",
+  ZAF: "República parlamentaria unitaria descentralizada",
+  USA: "República federal presidencial",
+  ARE: "Federación de emiratos",
+  PRI: "Territorio no incorporado de Estados Unidos",
+  GUF: "Departamento y región de ultramar de Francia",
+  NCL: "Colectividad especial francesa de ultramar",
+  ATF: "Territorio francés de ultramar",
+  BMU: "Territorio británico de ultramar",
+  FLK: "Territorio británico de ultramar",
+  GRL: "Territorio autónomo dentro del Reino de Dinamarca",
+  PSE: "Estado con reconocimiento limitado y administración dividida",
+  ATA: "Espacio internacional regido por el Sistema del Tratado Antártico"
+};
+
+const SUBDIVISION_OVERRIDES = {
+  ARG: { type: "provincias y ciudad autónoma", count: 24 },
+  ARE: { type: "emiratos", count: 7 },
+  AUS: { type: "estados y territorios", count: 8 },
+  AUT: { type: "estados federados", count: 9 },
+  BEL: { type: "regiones y comunidades", count: 6, notes: "Sistema federal complejo con doble eje territorial y lingüístico" },
+  BOL: { type: "departamentos", count: 9 },
+  BRA: { type: "estados y distrito federal", count: 27 },
+  CAN: { type: "provincias y territorios", count: 13 },
+  CHE: { type: "cantones", count: 26 },
+  CHN: { type: "provincias, regiones autónomas, municipios y regiones administrativas especiales", count: 34 },
+  DEU: { type: "estados federados", count: 16 },
+  ESP: { type: "comunidades y ciudades autónomas", count: 19 },
+  FRA: { type: "regiones y departamentos", notes: "Incluye Francia metropolitana y ultramar" },
+  GBR: { type: "naciones constituyentes y subdivisiones", count: 4 },
+  IND: { type: "estados y territorios de la Unión", count: 36 },
+  ITA: { type: "regiones", count: 20 },
+  JPN: { type: "prefecturas", count: 47 },
+  MEX: { type: "estados y ciudad capital", count: 32 },
+  MYS: { type: "estados y territorios federales", count: 16 },
+  NGA: { type: "estados y territorio de la capital federal", count: 37 },
+  NLD: { type: "provincias", count: 12 },
+  PAK: { type: "provincias, territorios y capital", count: 6 },
+  RUS: { type: "sujetos federales", count: 89 },
+  USA: { type: "estados y distrito federal", count: 51 },
+  ZAF: { type: "provincias", count: 9 },
+  PRI: { type: "municipios", count: 78 },
+  GRL: { type: "municipios", count: 5 },
+  BMU: { type: "parroquias y municipios", count: 11 }
+};
+
+const ORGANIZATION_FILL_OVERRIDES = {
+  BHS: [
+    { name: "Organización de las Naciones Unidas", abbreviation: "UN", startYear: 1973, endYear: null },
+    { name: "Organización de los Estados Americanos", abbreviation: "OEA", startYear: 1982, endYear: null },
+    { name: "Comunidad del Caribe", abbreviation: "CARICOM", startYear: 1983, endYear: null },
+    { name: "Mancomunidad de Naciones", abbreviation: null, startYear: 1973, endYear: null }
+  ],
+  BLZ: [
+    { name: "Organización de las Naciones Unidas", abbreviation: "UN", startYear: 1981, endYear: null },
+    { name: "Organización de los Estados Americanos", abbreviation: "OEA", startYear: 1981, endYear: null },
+    { name: "Comunidad del Caribe", abbreviation: "CARICOM", startYear: 1974, endYear: null },
+    { name: "Mancomunidad de Naciones", abbreviation: null, startYear: 1981, endYear: null }
+  ],
+  PNG: [
+    { name: "Organización de las Naciones Unidas", abbreviation: "UN", startYear: 1975, endYear: null },
+    { name: "Mancomunidad de Naciones", abbreviation: null, startYear: 1975, endYear: null },
+    { name: "Foro de las Islas del Pacífico", abbreviation: "PIF", startYear: 1975, endYear: null },
+    { name: "Cooperación Económica Asia-Pacífico", abbreviation: "APEC", startYear: 1993, endYear: null }
+  ],
+  PSE: [
+    { name: "Liga Árabe", abbreviation: null, startYear: 1976, endYear: null },
+    { name: "Organización para la Cooperación Islámica", abbreviation: "OIC", startYear: 1969, endYear: null },
+    { name: "Movimiento de Países No Alineados", abbreviation: "NAM", startYear: 1976, endYear: null }
+  ],
+  ESH: [
+    { name: "Unión Africana", abbreviation: "UA", startYear: 1984, endYear: null }
+  ]
+};
+
+const RIVAL_FILL_OVERRIDES = {
+  BLZ: [{ name: "Guatemala", type: "historico" }],
+  PSE: [{ name: "Israel", type: "actual" }],
+  ESH: [{ name: "Marruecos", type: "actual" }],
+  PNG: [{ name: "Indonesia", type: "historico" }],
+  BHR: [{ name: "Iran", type: "actual" }],
+  BRN: [{ name: "Malasia", type: "historico" }],
+  BEN: [{ name: "Niger", type: "historico" }],
+  COM: [{ name: "Francia", type: "historico" }],
+  CRI: [{ name: "Nicaragua", type: "historico" }],
+  CIV: [{ name: "Burkina Faso", type: "historico" }],
+  GNQ: [{ name: "Gabón", type: "historico" }],
+  GAB: [{ name: "Guinea Ecuatorial", type: "historico" }]
+};
+
 const CURATED_CONFLICT_OVERRIDES = {
   BHS: [],
   BEN: [
@@ -2371,6 +2695,196 @@ function buildSymbolMetadata(code, commonName) {
   };
 }
 
+function deriveLanguages(code, historyEntry) {
+  if (LANGUAGE_OVERRIDES[code]?.length) {
+    return LANGUAGE_OVERRIDES[code];
+  }
+
+  const linkedCode = (TERRITORY_LINKS[code] || []).find(candidate => LANGUAGE_OVERRIDES[candidate]?.length);
+  if (linkedCode) {
+    return LANGUAGE_OVERRIDES[linkedCode];
+  }
+
+  const origin = normalizeKey(historyEntry?.origin);
+  if (origin.includes("francia")) return ["Francés"];
+  if (origin.includes("reino unido")) return ["Inglés"];
+  if (origin.includes("espana")) return ["Español"];
+  if (origin.includes("portugal")) return ["Portugués"];
+  if (origin.includes("paises bajos")) return ["Neerlandés"];
+  if (origin.includes("dinamarca")) return ["Danés"];
+  if (origin.includes("estados unidos")) return ["Inglés"];
+
+  return [];
+}
+
+function deriveCapitalProfiles(code, capital, cities = []) {
+  const overrides = CAPITAL_ROLE_OVERRIDES[code];
+  const byName = new Map(
+    [capital, ...cities]
+      .filter(entry => entry?.name)
+      .map(entry => [normalizeKey(entry.name), entry])
+  );
+
+  if (overrides?.length) {
+    return overrides.map(item => {
+      const city = byName.get(normalizeKey(item.name));
+      return {
+        role: item.role,
+        name: item.name,
+        population: compactNumber(item.population ?? city?.population)
+      };
+    });
+  }
+
+  if (!capital?.name) {
+    return [];
+  }
+
+  return [
+    {
+      role: "nacional",
+      name: capital.name,
+      population: compactNumber(capital.population)
+    }
+  ];
+}
+
+function deriveStateStructure(code, politicalSystem, officialName) {
+  if (STATE_STRUCTURE_OVERRIDES[code]) {
+    return STATE_STRUCTURE_OVERRIDES[code];
+  }
+
+  const system = normalizeKey(politicalSystem);
+  const name = normalizeKey(officialName);
+
+  if (system.includes("territorio") || system.includes("dependencia")) {
+    return "Territorio dependiente o asociado";
+  }
+  if (name.includes("federal") || system.includes("federal")) {
+    return "Estado federal";
+  }
+  if (system.includes("monarquia")) {
+    return "Monarquía constitucional o absoluta de base unitaria";
+  }
+  if (system.includes("teocracia")) {
+    return "Estado unitario teocrático";
+  }
+  if (system.includes("parlament")) {
+    return "Estado unitario parlamentario";
+  }
+  if (system.includes("presidencial")) {
+    return "Estado unitario presidencial";
+  }
+  if (system.includes("semipresidencial")) {
+    return "Estado unitario semipresidencial";
+  }
+
+  return "Estado soberano";
+}
+
+function deriveSubdivisionMetadata(code, politicalSystem, stateStructure) {
+  if (SUBDIVISION_OVERRIDES[code]) {
+    return SUBDIVISION_OVERRIDES[code];
+  }
+
+  const normalized = normalizeKey(`${politicalSystem || ""} ${stateStructure || ""}`);
+  if (normalized.includes("federal")) {
+    return { type: "estados o provincias federadas", count: null };
+  }
+  if (normalized.includes("territorio") || normalized.includes("dependencia")) {
+    return { type: "municipios, distritos o divisiones administrativas", count: null };
+  }
+  return { type: "provincias, regiones o departamentos", count: null };
+}
+
+function buildMetadataSources(code, context = {}) {
+  const withManual = section => [
+    ...section,
+    "Curaduría manual interna"
+  ];
+
+  return {
+    general: withManual([
+      "country_names.json",
+      "countries_base.json",
+      "population.csv",
+      "city_details.json"
+    ]),
+    history: withManual([
+      "history.json",
+      "conflicts.json"
+    ]),
+    economy: withManual([
+      "worldbank_gdp.csv",
+      "gdp_per_capita.csv",
+      "inflation.json"
+    ]),
+    military: withManual([
+      "military.json",
+      "conflicts.json"
+    ]),
+    politics: withManual([
+      "politics.json",
+      "politics_details.json",
+      "continents.json"
+    ]),
+    religion: withManual([
+      "religion.json",
+      "religion_details.json"
+    ])
+  };
+}
+
+function buildQualityMetadata(context = {}) {
+  const estimatedFields = [];
+  const curatedFields = [];
+
+  if (!context.populationFromPrimarySource && context.populationValue) {
+    estimatedFields.push("general.population");
+  }
+  if (!context.inflationFromPrimarySource && context.inflationValue !== null && context.inflationValue !== undefined) {
+    estimatedFields.push("economy.inflation");
+  }
+  if (!context.religionCompositionFromPrimarySource && context.religionCompositionCount) {
+    estimatedFields.push("religion.composition");
+  }
+  if (!context.organizationFromPrimarySource && context.organizationCount) {
+    estimatedFields.push("politics.organizations");
+  }
+
+  if (context.languagesCount) {
+    curatedFields.push("general.languages");
+  }
+  if (context.capitalsCount > 1) {
+    curatedFields.push("general.capitals");
+  }
+  if (context.stateStructure) {
+    curatedFields.push("general.stateStructure");
+  }
+  if (context.subdivisionType) {
+    curatedFields.push("general.subdivisions");
+  }
+  if (context.hasCuratedTimeline) {
+    curatedFields.push("history.events");
+  }
+  if (context.hasCuratedConflicts) {
+    curatedFields.push("military.conflicts");
+  }
+
+  return {
+    estimatedFields,
+    curatedFields,
+    sectionStatus: {
+      general: context.languagesCount || context.capitalsCount || context.stateStructure ? "curated" : "base",
+      history: context.hasCuratedTimeline ? "curated" : "base",
+      economy: !context.inflationFromPrimarySource && context.inflationValue !== null && context.inflationValue !== undefined ? "mixed" : "confirmed",
+      military: context.hasCuratedConflicts ? "curated" : "base",
+      politics: context.organizationCount || context.rivalCount ? "curated" : "base",
+      religion: context.religionCompositionCount ? (context.religionCompositionFromPrimarySource ? "confirmed" : "mixed") : "base"
+    }
+  };
+}
+
 function deriveMetropole(code, historyEntry) {
   const origin = normalizeKey(historyEntry?.origin);
   if (!origin) {
@@ -2846,11 +3360,13 @@ for (const code of allCodes) {
     religionCompositionSource
   );
   const religionSummary = inferReligionSummary(religionComposition, religionSummaryFallback);
+  const mergedConflicts = mergeConflictSources(code, conflicts[code], baseData.conflicts, fallback.conflicts);
   const mergedOrganizations = uniqueBy(
     [
       ...compactList(politicsData.organizations).map(parseOrganizationEntry),
       ...compactList(baseData.organizations).map(parseOrganizationEntry),
-      ...compactList(fallback.politics?.organizations).map(parseOrganizationEntry)
+      ...compactList(fallback.politics?.organizations).map(parseOrganizationEntry),
+      ...compactList(ORGANIZATION_FILL_OVERRIDES[code]).map(parseOrganizationEntry)
     ].filter(Boolean),
     item => normalizeKey(item?.name)
   );
@@ -2858,7 +3374,8 @@ for (const code of allCodes) {
     [
       ...compactList(politicsData.rivals).map(normalizeRivalEntry),
       ...compactList(baseData.rivals).map(normalizeRivalEntry),
-      ...compactList(fallback.politics?.rivals).map(normalizeRivalEntry)
+      ...compactList(fallback.politics?.rivals).map(normalizeRivalEntry),
+      ...compactList(RIVAL_FILL_OVERRIDES[code]).map(normalizeRivalEntry)
     ].filter(Boolean),
     item => `${normalizeKey(item?.name)}:${item?.type || "historico"}`
   );
@@ -2875,7 +3392,26 @@ for (const code of allCodes) {
   );
   const historicalNames = deriveHistoricalNames(code, historyEntry);
   const symbols = buildSymbolMetadata(code, officialName);
+  const languages = deriveLanguages(code, historyEntry);
+  const capitals = deriveCapitalProfiles(code, capital, cities);
+  const stateStructure = deriveStateStructure(
+    code,
+    politicsData.system || politics[code] || fallback.politics?.system || baseData.system,
+    officialName
+  );
+  const subdivisions = deriveSubdivisionMetadata(
+    code,
+    politicsData.system || politics[code] || fallback.politics?.system || baseData.system,
+    stateStructure
+  );
   const relationMetadata = buildRelationMetadata(code, historyEntry, mergedOrganizations, mergedRivals);
+  const finalRivals = uniqueBy(
+    [
+      ...mergedRivals,
+      ...compactList(relationMetadata.rivalStates).map(name => normalizeRivalEntry({ name, type: "actual" }))
+    ].filter(Boolean),
+    item => `${normalizeKey(item?.name)}:${item?.type || "historico"}`
+  );
 
   result[code] = {
     name:
@@ -2899,6 +3435,10 @@ for (const code of allCodes) {
       historicalNames,
       symbols,
       capital,
+      capitals,
+      languages,
+      stateStructure,
+      subdivisions,
       cities
     },
     history: historyEntry,
@@ -2909,14 +3449,14 @@ for (const code of allCodes) {
       exports: compactList(baseData.exports),
       industries: compactList(baseData.industries)
     },
-    military: militaryData
-      ? {
-          active: militaryData.active ?? null,
-          reserve: militaryData.reserve ?? null
-        }
-      : null,
+    military: {
+      active: militaryData?.active ?? null,
+      reserve: militaryData?.reserve ?? null,
+      conflicts: mergedConflicts
+    },
     politics: {
       system:
+        POLITICAL_SYSTEM_OVERRIDES[code] ||
         politicsData.system ||
         politics[code] ||
         fallback.politics?.system ||
@@ -2924,14 +3464,44 @@ for (const code of allCodes) {
         historyEntry?.type ||
         "Estado soberano",
       organizations: mergedOrganizations,
-      rivals: mergedRivals,
+      rivals: finalRivals,
       relations: relationMetadata
     },
     religion: {
       summary: religionSummary,
       composition: religionComposition
     },
-    conflicts: mergeConflictSources(code, conflicts[code], baseData.conflicts, fallback.conflicts),
+    metadata: {
+      updatedAt: BUILD_UPDATED_AT,
+      sources: buildMetadataSources(code, {
+        organizations: mergedOrganizations,
+        rivals: finalRivals,
+        conflicts: mergedConflicts
+      }),
+      quality: buildQualityMetadata({
+        populationFromPrimarySource: populationData?.value !== undefined && populationData?.value !== null,
+        populationValue:
+          populationData?.value ??
+          fallback.population ??
+          baseData.population ??
+          populationFallbackFromCities ??
+          null,
+        inflationFromPrimarySource: inflation[code] !== undefined && inflation[code] !== null,
+        inflationValue: inflation[code] ?? INFLATION_OVERRIDES[code] ?? null,
+        religionCompositionFromPrimarySource: compactList(religionData.composition).length > 0,
+        religionCompositionCount: religionComposition.length,
+        organizationFromPrimarySource: compactList(politicsData.organizations).length > 0,
+        organizationCount: mergedOrganizations.length,
+        rivalCount: finalRivals.length,
+        languagesCount: languages.length,
+        capitalsCount: capitals.length,
+        stateStructure,
+        subdivisionType: subdivisions?.type,
+        hasCuratedTimeline: Boolean(TIMELINE_EVENT_OVERRIDES[code]?.length),
+        hasCuratedConflicts: Boolean(CURATED_CONFLICT_OVERRIDES[code]?.length)
+      })
+    },
+    conflicts: mergedConflicts,
     organizations: compactList(baseData.organizations),
     rivals: compactList(baseData.rivals)
   };
@@ -2953,16 +3523,19 @@ for (const code of allCodes) {
   const postBuildOverride = POST_BUILD_ENTITY_OVERRIDES[code];
   if (postBuildOverride?.general?.capital) {
     result[code].general.capital = postBuildOverride.general.capital;
+    result[code].general.capitals = deriveCapitalProfiles(code, result[code].general.capital, result[code].general.cities);
   }
   if (postBuildOverride?.general?.cities?.length) {
     result[code].general.cities = buildCityList(postBuildOverride.general.cities).filter(
       city => !result[code].general.capital || !sameCityName(city.name, result[code].general.capital.name)
     );
+    result[code].general.capitals = deriveCapitalProfiles(code, result[code].general.capital, result[code].general.cities);
   }
   if (result[code].general.cities?.length === 1 && postBuildOverride?.general?.cities?.length) {
     result[code].general.cities = buildCityList(postBuildOverride.general.cities).filter(
       city => !result[code].general.capital || !sameCityName(city.name, result[code].general.capital.name)
     );
+    result[code].general.capitals = deriveCapitalProfiles(code, result[code].general.capital, result[code].general.cities);
   }
   if (result[code].conflicts?.length === 0 && CURATED_CONFLICT_OVERRIDES[code]) {
     result[code].conflicts = normalizeConflicts(CURATED_CONFLICT_OVERRIDES[code]);
@@ -2971,6 +3544,25 @@ for (const code of allCodes) {
   if (result[code].history) {
     result[code].history.events = TIMELINE_EVENT_OVERRIDES[code] || [];
   }
+
+  result[code].military.conflicts = result[code].conflicts;
+  result[code].metadata.quality = buildQualityMetadata({
+    populationFromPrimarySource: populationData?.value !== undefined && populationData?.value !== null,
+    populationValue: result[code].general.population,
+    inflationFromPrimarySource: inflation[code] !== undefined && inflation[code] !== null,
+    inflationValue: result[code].economy.inflation,
+    religionCompositionFromPrimarySource: compactList(religionData.composition).length > 0,
+    religionCompositionCount: result[code].religion.composition.length,
+    organizationFromPrimarySource: compactList(politicsData.organizations).length > 0,
+    organizationCount: result[code].politics.organizations.length,
+    rivalCount: result[code].politics.rivals.length,
+    languagesCount: result[code].general.languages.length,
+    capitalsCount: result[code].general.capitals.length,
+    stateStructure: result[code].general.stateStructure,
+    subdivisionType: result[code].general.subdivisions?.type,
+    hasCuratedTimeline: Boolean(result[code].history?.events?.length),
+    hasCuratedConflicts: Boolean(CURATED_CONFLICT_OVERRIDES[code]?.length)
+  });
 }
 
 fs.writeJsonSync("./data/countries_full.json", result, { spaces: 2 });

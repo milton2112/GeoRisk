@@ -1,10 +1,12 @@
-const APP_CACHE = "geo-risk-app-v6";
-const TILE_CACHE = "geo-risk-tiles-v6";
+const APP_CACHE = "geo-risk-app-v7";
+const TILE_CACHE = "geo-risk-tiles-v7";
 const APP_SHELL = [
   "./",
   "./index.html",
   "./style.css",
   "./script.js",
+  "./app-runtime.js",
+  "./app-curation.js",
   "./data/countries_full.json",
   "./data/world_countries.geo.json",
   "./data/world_countries_simplified.geo.json",
