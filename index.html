@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>GeoRisk</title>
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,7 +22,19 @@
   <div id="search-bar">
     <input id="map-search-input" type="text" placeholder="Buscar pais, continente, religion, sistema politico u organizacion" autocomplete="off">
     <button id="map-search-button" type="button">Buscar</button>
+    <button id="save-search-button" type="button" title="Guardar busqueda">&#9733;</button>
     <div id="search-suggestions" hidden></div>
+    <div id="search-query-chips" hidden></div>
+    <div id="search-memory" hidden>
+      <div class="search-memory-block">
+        <strong id="search-history-title">Recientes</strong>
+        <div id="search-history-list" class="search-chip-list"></div>
+      </div>
+      <div class="search-memory-block">
+        <strong id="saved-search-title">Guardadas</strong>
+        <div id="saved-search-list" class="search-chip-list"></div>
+      </div>
+    </div>
   </div>
 
   <details id="map-toolbar">
@@ -34,10 +48,19 @@
           <option value="religion">Religion mayoritaria</option>
           <option value="politics">Sistema politico</option>
           <option value="population">Poblacion</option>
+          <option value="density">Densidad de poblacion</option>
+          <option value="urbanization">Urbanizacion (est.)</option>
+          <option value="lifeExpectancy">Esperanza de vida (est.)</option>
+          <option value="populationGrowth">Crecimiento demografico</option>
           <option value="gdp">PBI</option>
           <option value="gdpPerCapita">PBI per capita</option>
+          <option value="gdpPpp">PBI PPC (est.)</option>
           <option value="inflation">Inflacion</option>
+          <option value="inflationHistory">Inflacion historica (proxy)</option>
+          <option value="unemployment">Desempleo (est.)</option>
+          <option value="debt">Deuda (est.)</option>
           <option value="militaryActive">Personal militar activo</option>
+          <option value="militarySpending">Gasto militar (est.)</option>
           <option value="formationYear">Año de formacion</option>
           <option value="religionBranch">Rama religiosa dominante</option>
           <option value="exMetropole">Ex metropoli</option>
@@ -48,8 +71,11 @@
           <option value="religionDiversity">Diversidad religiosa</option>
           <option value="historyType">Tipo historico</option>
           <option value="exportBreadth">Diversidad exportadora</option>
+          <option value="exportVolume">Volumen exportador (est.)</option>
           <option value="industryBreadth">Diversidad industrial</option>
           <option value="capitalShare">Peso demografico de la capital</option>
+          <option value="naturalResources">Recursos naturales</option>
+          <option value="geopoliticalIndex">Indice geopolitico</option>
         </select>
       </div>
       <div class="toolbar-row">
@@ -58,6 +84,30 @@
           <option value="es">Español</option>
           <option value="en">English</option>
         </select>
+      </div>
+      <div class="toolbar-row">
+        <label for="quality-preset-select">Render</label>
+        <select id="quality-preset-select">
+          <option value="auto">Automatico</option>
+          <option value="high">Alta calidad</option>
+          <option value="balanced">Balanceado</option>
+          <option value="performance">Rendimiento</option>
+        </select>
+      </div>
+      <div class="toolbar-row">
+        <label for="label-mode-select">Etiquetas</label>
+        <select id="label-mode-select">
+          <option value="none">Sin etiquetas</option>
+          <option value="countries">Paises</option>
+          <option value="full">Paises y mundo</option>
+        </select>
+      </div>
+      <div class="toolbar-row toolbar-row-stack">
+        <label>Vista 3D</label>
+        <div class="filter-grid saved-view-grid toolbar-quick-actions">
+          <button id="world-view-button" type="button">Volver al mundo</button>
+          <button id="auto-rotate-button" type="button">Rotacion automatica</button>
+        </div>
       </div>
       <div class="toolbar-row toolbar-row-stack">
         <label for="filter-continent-select">Filtros</label>
@@ -151,49 +201,109 @@
         <button type="button" class="panel-action-button" data-export-target="left-panel" data-export-format="pdf">Exportar PDF</button>
         <button type="button" class="panel-action-button" data-share-target="left-panel">Compartir</button>
       </div>
-      <h3 id="world-population-title">Poblacion mundial</h3>
-      <p id="world-population-total"></p>
-      <h3 id="top-population-title">Top poblacion</h3>
-      <ul id="top-population"></ul>
+      <details class="ranking-group" open>
+        <summary><span id="world-population-title">Poblacion mundial</span></summary>
+        <div class="ranking-group-content">
+          <p id="world-population-total"></p>
+        </div>
+      </details>
+      <details class="ranking-group" open>
+        <summary><span id="top-population-title">Top poblacion</span></summary>
+        <div class="ranking-group-content">
+          <ul id="top-population"></ul>
+        </div>
+      </details>
 
-      <h3 id="continents-title">Continentes</h3>
-      <ul id="continents"></ul>
+      <details class="ranking-group">
+        <summary><span id="continents-title">Continentes</span></summary>
+        <div class="ranking-group-content">
+          <ul id="continents"></ul>
+        </div>
+      </details>
 
-      <h3 id="religions-title">Religiones</h3>
-      <ul id="religions"></ul>
+      <details class="ranking-group">
+        <summary><span id="religions-title">Religiones</span></summary>
+        <div class="ranking-group-content">
+          <ul id="religions"></ul>
+        </div>
+      </details>
 
-      <h3 id="gdp-title">Top PBI</h3>
-      <ul id="top-gdp"></ul>
+      <details class="ranking-group">
+        <summary><span id="gdp-title">Top PBI</span></summary>
+        <div class="ranking-group-content">
+          <ul id="top-gdp"></ul>
+        </div>
+      </details>
 
-      <h3 id="inflation-title">Top inflacion</h3>
-      <ul id="top-inflation"></ul>
+      <details class="ranking-group">
+        <summary><span id="inflation-title">Top inflacion</span></summary>
+        <div class="ranking-group-content">
+          <ul id="top-inflation"></ul>
+        </div>
+      </details>
 
-      <h3 id="systems-title">Sistemas politicos</h3>
-      <ul id="top-systems"></ul>
+      <details class="ranking-group">
+        <summary><span id="systems-title">Sistemas politicos</span></summary>
+        <div class="ranking-group-content">
+          <ul id="top-systems"></ul>
+        </div>
+      </details>
 
-      <h3 id="gdp-per-capita-title">Top PBI per capita</h3>
-      <ul id="top-gdp-per-capita"></ul>
+      <details class="ranking-group">
+        <summary><span id="gdp-per-capita-title">Top PBI per capita</span></summary>
+        <div class="ranking-group-content">
+          <ul id="top-gdp-per-capita"></ul>
+        </div>
+      </details>
 
-      <h3 id="organizations-top-title">Top organizaciones</h3>
-      <ul id="top-organizations-count"></ul>
+      <details class="ranking-group">
+        <summary><span id="organizations-top-title">Top organizaciones</span></summary>
+        <div class="ranking-group-content">
+          <ul id="top-organizations-count"></ul>
+        </div>
+      </details>
 
-      <h3 id="conflicts-top-title">Top conflictos</h3>
-      <ul id="top-conflicts-count"></ul>
+      <details class="ranking-group">
+        <summary><span id="conflicts-top-title">Top conflictos</span></summary>
+        <div class="ranking-group-content">
+          <ul id="top-conflicts-count"></ul>
+        </div>
+      </details>
 
-      <h3 id="military-top-title">Top personal militar</h3>
-      <ul id="top-military-active"></ul>
+      <details class="ranking-group">
+        <summary><span id="military-top-title">Top personal militar</span></summary>
+        <div class="ranking-group-content">
+          <ul id="top-military-active"></ul>
+        </div>
+      </details>
 
-      <h3 id="diversity-top-title">Top diversidad religiosa</h3>
-      <ul id="top-religion-diversity"></ul>
+      <details class="ranking-group">
+        <summary><span id="diversity-top-title">Top diversidad religiosa</span></summary>
+        <div class="ranking-group-content">
+          <ul id="top-religion-diversity"></ul>
+        </div>
+      </details>
 
-      <h3 id="organizations-reach-title">Organizaciones mas extendidas</h3>
-      <ul id="top-organizations-reach"></ul>
+      <details class="ranking-group">
+        <summary><span id="organizations-reach-title">Organizaciones mas extendidas</span></summary>
+        <div class="ranking-group-content">
+          <ul id="top-organizations-reach"></ul>
+        </div>
+      </details>
 
-      <h3 id="rivalries-top-title">Rivalidades mas repetidas</h3>
-      <ul id="top-rivalries"></ul>
+      <details class="ranking-group">
+        <summary><span id="rivalries-top-title">Rivalidades mas repetidas</span></summary>
+        <div class="ranking-group-content">
+          <ul id="top-rivalries"></ul>
+        </div>
+      </details>
 
-      <h3 id="blocs-top-title">Bloques mas extendidos</h3>
-      <ul id="top-blocs"></ul>
+      <details class="ranking-group">
+        <summary><span id="blocs-top-title">Bloques mas extendidos</span></summary>
+        <div class="ranking-group-content">
+          <ul id="top-blocs"></ul>
+        </div>
+      </details>
 
       <h3 id="metropoles-top-title">Ex metrópolis</h3>
       <ul id="top-metropoles"></ul>
@@ -206,8 +316,14 @@
 
 <button id="map-mode-toggle" type="button" title="Cambiar vista de mapa">2D</button>
 
-<div id="country-panel">
-  <h2>Selecciona un pais</h2>
+<div id="country-modal" hidden>
+  <div class="country-modal-backdrop" data-close-country-modal="true"></div>
+  <div class="country-modal-dialog">
+    <button id="country-modal-close" type="button" aria-label="Cerrar ficha">×</button>
+    <div id="country-panel">
+      <h2>Selecciona un pais</h2>
+    </div>
+  </div>
 </div>
 
 <details id="compare-hub-panel">
@@ -287,6 +403,7 @@
         <option value="conflict">Guerra y seguridad</option>
       </select>
     </div>
+    <input id="news-country-filter" type="text" placeholder="Filtrar pais en noticias">
     <div id="news-hub-selected"></div>
     <div id="news-hub-article"></div>
     <div id="news-hub-list"></div>
@@ -306,6 +423,14 @@
   <div class="conflict-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="conflict-modal-title">
     <button id="conflict-modal-close" type="button" aria-label="Cerrar">×</button>
     <div id="conflict-modal-body"></div>
+  </div>
+</div>
+
+<div id="timeline-modal" hidden>
+  <div class="conflict-modal-backdrop" data-close-timeline-modal="true"></div>
+  <div class="conflict-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="timeline-modal-title">
+    <button id="timeline-modal-close" type="button" aria-label="Cerrar">×</button>
+    <div id="timeline-modal-body"></div>
   </div>
 </div>
 

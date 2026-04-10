@@ -1412,6 +1412,142 @@ const RELATION_OVERRIDES = {
   }
 };
 
+const RELATION_OVERRIDES_V2 = {
+  ARG: {
+    militaryAllies: ["Brasil"],
+    economicPartners: ["Brasil", "Uruguay", "Paraguay", "Bolivia", "Chile"],
+    diplomaticPartners: ["Brasil", "Uruguay", "Paraguay"],
+    economicBlocs: ["Mercosur", "BRICS"],
+    diplomaticBlocs: ["ONU", "CELAC"],
+    currentRivals: ["Reino Unido"]
+  },
+  BRA: {
+    militaryAllies: ["Argentina"],
+    economicPartners: ["Argentina", "Uruguay", "Paraguay", "China"],
+    diplomaticPartners: ["Argentina", "India", "Sudafrica"],
+    economicBlocs: ["Mercosur", "BRICS"],
+    diplomaticBlocs: ["ONU", "CELAC"]
+  },
+  USA: {
+    militaryAllies: ["Reino Unido", "Canada", "Japon", "Corea del Sur", "Australia", "Polonia"],
+    economicPartners: ["Canada", "Mexico", "Union Europea", "Japon"],
+    diplomaticPartners: ["Reino Unido", "Canada", "Australia", "Japon"],
+    militaryBlocs: ["OTAN"],
+    economicBlocs: ["USMCA", "APEC"],
+    diplomaticBlocs: ["ONU", "G7"],
+    currentRivals: ["China", "Rusia", "Iran", "Corea del Norte"],
+    associatedTerritories: ["Puerto Rico", "Guam", "Samoa Americana"]
+  },
+  CHN: {
+    militaryAllies: ["Pakistan", "Corea del Norte"],
+    economicPartners: ["Rusia", "Pakistan", "ASEAN", "Africa subsahariana"],
+    diplomaticPartners: ["Rusia", "Pakistan", "Iran"],
+    economicBlocs: ["BRICS", "OCS"],
+    diplomaticBlocs: ["ONU"],
+    currentRivals: ["Estados Unidos", "India", "Japon", "Taiwan"]
+  },
+  RUS: {
+    militaryAllies: ["Belarusia"],
+    economicPartners: ["China", "Belarusia", "Kazajistan"],
+    diplomaticPartners: ["China", "Belarusia", "Iran"],
+    militaryBlocs: ["OTSC"],
+    economicBlocs: ["UEE", "BRICS"],
+    diplomaticBlocs: ["ONU"],
+    currentRivals: ["Estados Unidos", "Ucrania", "Polonia", "OTAN"]
+  },
+  UKR: {
+    militaryAllies: ["Estados Unidos", "Polonia", "Reino Unido", "Francia"],
+    economicPartners: ["Union Europea", "Polonia"],
+    diplomaticPartners: ["Estados Unidos", "Polonia", "Reino Unido", "Union Europea"],
+    diplomaticBlocs: ["ONU", "Consejo de Europa"],
+    currentRivals: ["Rusia"]
+  },
+  ISR: {
+    militaryAllies: ["Estados Unidos"],
+    economicPartners: ["Estados Unidos", "Union Europea", "India"],
+    diplomaticPartners: ["Estados Unidos", "Egipto", "Jordania"],
+    diplomaticBlocs: ["ONU"],
+    currentRivals: ["Iran", "Hamas", "Hezbola"],
+    historicalRivals: ["Egipto", "Siria"]
+  },
+  IND: {
+    militaryAllies: ["Francia", "Estados Unidos", "Japon"],
+    economicPartners: ["Estados Unidos", "Union Europea", "Emiratos Arabes Unidos"],
+    diplomaticPartners: ["Francia", "Estados Unidos", "Japon", "Australia"],
+    economicBlocs: ["BRICS"],
+    diplomaticBlocs: ["ONU", "Quad"],
+    currentRivals: ["Pakistan", "China"]
+  },
+  PAK: {
+    militaryAllies: ["China", "Turquia"],
+    economicPartners: ["China", "Arabia Saudita"],
+    diplomaticPartners: ["China", "Turquia", "Arabia Saudita"],
+    economicBlocs: ["OCS"],
+    diplomaticBlocs: ["ONU", "OIC"],
+    currentRivals: ["India"]
+  },
+  TUR: {
+    militaryAllies: ["Azerbaiyan", "Qatar"],
+    economicPartners: ["Union Europea", "Qatar", "Azerbaiyan"],
+    diplomaticPartners: ["Azerbaiyan", "Qatar", "Pakistan"],
+    militaryBlocs: ["OTAN"],
+    diplomaticBlocs: ["ONU", "OIC"],
+    currentRivals: ["Grecia", "Siria"],
+    dependencies: ["Chipre del Norte"]
+  },
+  IRN: {
+    militaryAllies: ["Siria", "Hezbola"],
+    economicPartners: ["China", "Rusia"],
+    diplomaticPartners: ["Siria", "Rusia", "China"],
+    economicBlocs: ["BRICS"],
+    diplomaticBlocs: ["ONU", "OIC"],
+    currentRivals: ["Estados Unidos", "Israel", "Arabia Saudita"]
+  },
+  GBR: {
+    militaryAllies: ["Estados Unidos", "Canada", "Australia", "Polonia"],
+    economicPartners: ["Estados Unidos", "Union Europea", "Canada"],
+    diplomaticPartners: ["Estados Unidos", "Canada", "Australia", "India"],
+    militaryBlocs: ["OTAN"],
+    economicBlocs: ["CPTPP"],
+    diplomaticBlocs: ["Commonwealth", "ONU", "G7"],
+    currentRivals: ["Rusia"],
+    historicalRivals: ["Argentina"],
+    dependencies: ["Bermudas", "Islas Malvinas", "Gibraltar", "Islas Caiman"]
+  },
+  FRA: {
+    militaryAllies: ["Alemania", "Italia", "Estados Unidos"],
+    economicPartners: ["Alemania", "Italia", "Espana"],
+    diplomaticPartners: ["Alemania", "Italia", "Espana"],
+    militaryBlocs: ["OTAN"],
+    economicBlocs: ["Union Europea"],
+    diplomaticBlocs: ["ONU", "Francofonia"],
+    currentRivals: ["Rusia"],
+    dependencies: ["Guayana Francesa", "Nueva Caledonia", "Mayotte", "Reunion"]
+  }
+};
+
+const RELATION_BLOC_CATEGORY_RULES = [
+  { key: "otan", label: "OTAN", category: "military" },
+  { key: "otsc", label: "OTSC", category: "military" },
+  { key: "quad", label: "Quad", category: "military" },
+  { key: "mercosur", label: "Mercosur", category: "economic" },
+  { key: "union europea", label: "Union Europea", category: "economic" },
+  { key: "uee", label: "UEE", category: "economic" },
+  { key: "usmca", label: "USMCA", category: "economic" },
+  { key: "apec", label: "APEC", category: "economic" },
+  { key: "asean", label: "ASEAN", category: "economic" },
+  { key: "brics", label: "BRICS", category: "economic" },
+  { key: "cptpp", label: "CPTPP", category: "economic" },
+  { key: "ocs", label: "OCS", category: "economic" },
+  { key: "onu", label: "ONU", category: "diplomatic" },
+  { key: "commonwealth", label: "Commonwealth", category: "diplomatic" },
+  { key: "celac", label: "CELAC", category: "diplomatic" },
+  { key: "consejo de europa", label: "Consejo de Europa", category: "diplomatic" },
+  { key: "oic", label: "OIC", category: "diplomatic" },
+  { key: "francofonia", label: "Francofonia", category: "diplomatic" },
+  { key: "g7", label: "G7", category: "diplomatic" }
+];
+
 const COUNTRY_NAME_OVERRIDES = {
   PNG: "Papua Nueva Guinea",
   GRL: "Groenlandia",
@@ -2479,6 +2615,60 @@ function compactNumber(value) {
   return typeof value === "number" && !Number.isNaN(value) ? value : null;
 }
 
+function repairMojibake(value) {
+  const text = String(value || "");
+  if (!/[ÃÂâ€œâ€â€“â€”]/.test(text)) {
+    return text;
+  }
+
+  try {
+    const repaired = Buffer.from(text, "latin1").toString("utf8");
+    if (/[�]/.test(repaired)) {
+      return text;
+    }
+    return repaired;
+  } catch {
+    return text;
+  }
+}
+
+function sanitizeText(value) {
+  if (typeof value !== "string") {
+    return value;
+  }
+
+  return repairMojibake(value)
+    .replace(/\bRepublica\b/g, "República")
+    .replace(/\bDemocratica\b/g, "Democrática")
+    .replace(/\bIslamica\b/g, "Islámica")
+    .replace(/\bHelenica\b/g, "Helénica")
+    .replace(/\bArabe\b/g, "Árabe")
+    .replace(/\bMonarquia\b/g, "Monarquía")
+    .replace(/\bConstitucion\b/g, "Constitución")
+    .replace(/\bUnion\b/g, "Unión")
+    .replace(/\bDisolucion\b/g, "Disolución")
+    .replace(/\bpacifica\b/g, "pacífica")
+    .replace(/\bEspanol\b/g, "Español")
+    .replace(/\bPortugues\b/g, "Portugués")
+    .replace(/\bDanes\b/g, "Danés")
+    .replace(/\bJapones\b/g, "Japonés")
+    .replace(/\bAleman\b/g, "Alemán")
+    .replace(/\bIran\b/g, "Irán")
+    .trim();
+}
+
+function sanitizeDeep(value) {
+  if (Array.isArray(value)) {
+    return value.map(sanitizeDeep);
+  }
+
+  if (value && typeof value === "object") {
+    return Object.fromEntries(Object.entries(value).map(([key, innerValue]) => [key, sanitizeDeep(innerValue)]));
+  }
+
+  return sanitizeText(value);
+}
+
 function normalizeKey(value) {
   return String(value || "")
     .replace(/\s*\([A-Z]{2,}\)\s*$/g, "")
@@ -2555,14 +2745,14 @@ function toDisplayTitleCase(value) {
 function formatFormationType(value) {
   const labels = {
     independencia: "Independencia",
-    union: "Union",
-    "disolucion de otro estado": "Disolucion de otro estado",
-    revolucion: "Revolucion",
+    union: "Unión",
+    "disolucion de otro estado": "Disolución de otro estado",
+    revolucion: "Revolución",
     "guerra civil": "Guerra civil",
-    legal: "Legal y pacifica"
+    legal: "Legal y pacífica"
   };
 
-  return labels[value] || "Legal y pacifica";
+  return labels[value] || "Legal y pacífica";
 }
 
 function buildCityList(...lists) {
@@ -2672,12 +2862,17 @@ function deriveOfficialName(code, commonName, system) {
     return commonName;
   }
   if (normalizedSystem.includes("federal")) {
-    return `Republica Federal de ${commonName}`;
+    return `República Federal de ${commonName}`;
   }
-  if (commonName.startsWith("Republica") || commonName.startsWith("Reino") || commonName.startsWith("Estado")) {
+  if (
+    commonName.startsWith("República") ||
+    commonName.startsWith("Republica") ||
+    commonName.startsWith("Reino") ||
+    commonName.startsWith("Estado")
+  ) {
     return commonName;
   }
-  return `Republica de ${commonName}`;
+  return `República de ${commonName}`;
 }
 
 function deriveHistoricalNames(code, historyEntry) {
@@ -2838,6 +3033,7 @@ function buildMetadataSources(code, context = {}) {
 function buildQualityMetadata(context = {}) {
   const estimatedFields = [];
   const curatedFields = [];
+  const missingFields = [];
 
   if (!context.populationFromPrimarySource && context.populationValue) {
     estimatedFields.push("general.population");
@@ -2850,6 +3046,28 @@ function buildQualityMetadata(context = {}) {
   }
   if (!context.organizationFromPrimarySource && context.organizationCount) {
     estimatedFields.push("politics.organizations");
+  }
+
+  if (!context.languagesCount) {
+    missingFields.push("general.languages");
+  }
+  if (!context.capitalsCount) {
+    missingFields.push("general.capitals");
+  }
+  if (!context.stateStructure) {
+    missingFields.push("general.stateStructure");
+  }
+  if (!context.subdivisionType) {
+    missingFields.push("general.subdivisions");
+  }
+  if (!context.religionCompositionCount) {
+    missingFields.push("religion.composition");
+  }
+  if (!context.organizationCount) {
+    missingFields.push("politics.organizations");
+  }
+  if (!context.conflictCount) {
+    missingFields.push("military.conflicts");
   }
 
   if (context.languagesCount) {
@@ -2874,6 +3092,8 @@ function buildQualityMetadata(context = {}) {
   return {
     estimatedFields,
     curatedFields,
+    missingFields,
+    score: Math.min(100, Math.max(0, 100 - estimatedFields.length * 6 - missingFields.length * 10 + curatedFields.length * 3)),
     sectionStatus: {
       general: context.languagesCount || context.capitalsCount || context.stateStructure ? "curated" : "base",
       history: context.hasCuratedTimeline ? "curated" : "base",
@@ -2947,18 +3167,104 @@ function getOrganizationBlocks(organizations) {
   );
 }
 
+function getCategorizedOrganizationBlocks(organizations) {
+  const grouped = {
+    military: [],
+    economic: [],
+    diplomatic: []
+  };
+
+  compactList(organizations).forEach(organization => {
+    const label = normalizeKey(organization?.name || organization);
+    RELATION_BLOC_CATEGORY_RULES.forEach(rule => {
+      if (label.includes(rule.key)) {
+        grouped[rule.category].push(rule.label);
+      }
+    });
+  });
+
+  return {
+    military: uniqueBy(grouped.military, item => normalizeKey(item)),
+    economic: uniqueBy(grouped.economic, item => normalizeKey(item)),
+    diplomatic: uniqueBy(grouped.diplomatic, item => normalizeKey(item))
+  };
+}
+
 function buildRelationMetadata(code, historyEntry, organizations, rivals) {
   const metropole = deriveMetropole(code, historyEntry);
   const territories = TERRITORY_LINKS[code] || [];
-  const override = RELATION_OVERRIDES[code] || {};
+  const override = {
+    ...(RELATION_OVERRIDES[code] || {}),
+    ...(RELATION_OVERRIDES_V2[code] || {})
+  };
+  const categorizedBlocs = getCategorizedOrganizationBlocks(organizations);
+  const currentRivals = uniqueBy(
+    [
+      ...compactList(override.currentRivals),
+      ...rivals.filter(rival => (rival?.type || "historico") === "actual").map(rival => rival?.name || rival)
+    ],
+    item => normalizeKey(item)
+  );
+  const historicalRivals = uniqueBy(
+    [
+      ...compactList(override.historicalRivals),
+      ...rivals.filter(rival => (rival?.type || "historico") !== "actual").map(rival => rival?.name || rival)
+    ],
+    item => normalizeKey(item)
+  );
+  const militaryBlocs = uniqueBy(
+    [...categorizedBlocs.military, ...compactList(override.militaryBlocs)],
+    item => normalizeKey(item)
+  );
+  const economicBlocs = uniqueBy(
+    [...categorizedBlocs.economic, ...compactList(override.economicBlocs)],
+    item => normalizeKey(item)
+  );
+  const diplomaticBlocs = uniqueBy(
+    [...categorizedBlocs.diplomatic, ...compactList(override.diplomaticBlocs), ...(override.blocs || [])],
+    item => normalizeKey(item)
+  );
+  const militaryAllies = uniqueBy(compactList(override.militaryAllies), item => normalizeKey(item));
+  const economicPartners = uniqueBy(compactList(override.economicPartners), item => normalizeKey(item));
+  const diplomaticPartners = uniqueBy(compactList(override.diplomaticPartners), item => normalizeKey(item));
+  const linkedTerritories = uniqueBy(
+    [...territories, ...compactList(override.associatedTerritories), ...compactList(override.linkedTerritories)],
+    item => normalizeKey(item)
+  );
+  const dependencies = uniqueBy(
+    [...compactList(override.dependencies), ...compactList(override.protectorates)],
+    item => normalizeKey(item)
+  );
+  const exColonies = uniqueBy(compactList(override.exColonies), item => normalizeKey(item));
   return {
     exMetropole: metropole,
-    linkedTerritories: territories,
-    blocs: uniqueBy([...(getOrganizationBlocks(organizations) || []), ...(override.blocs || [])], item => normalizeKey(item)),
-    allies: uniqueBy(override.allies || [], item => normalizeKey(item)),
-    rivalStates: uniqueBy([...(rivals.map(rival => rival?.name || rival)), ...(override.rivalStates || [])], item => normalizeKey(item)),
+    exColonies,
+    linkedTerritories,
+    associatedTerritories: linkedTerritories,
+    militaryBlocs,
+    economicBlocs,
+    diplomaticBlocs,
+    blocs: uniqueBy(
+      [...(getOrganizationBlocks(organizations) || []), ...militaryBlocs, ...economicBlocs, ...diplomaticBlocs],
+      item => normalizeKey(item)
+    ),
+    militaryAllies,
+    economicPartners,
+    diplomaticPartners,
+    allies: uniqueBy(
+      [...compactList(override.allies), ...militaryAllies, ...economicPartners, ...diplomaticPartners],
+      item => normalizeKey(item)
+    ),
+    currentRivals,
+    historicalRivals,
+    rivalStates: uniqueBy(
+      [...currentRivals, ...historicalRivals, ...(rivals.map(rival => rival?.name || rival)), ...(override.rivalStates || [])],
+      item => normalizeKey(item)
+    ),
     disputes: uniqueBy(override.disputes || [], item => normalizeKey(item)),
-    protectorates: uniqueBy(override.protectorates || [], item => normalizeKey(item))
+    disputedTerritories: uniqueBy(override.disputes || [], item => normalizeKey(item)),
+    protectorates: dependencies,
+    dependencies
   };
 }
 
@@ -3493,6 +3799,7 @@ for (const code of allCodes) {
         organizationFromPrimarySource: compactList(politicsData.organizations).length > 0,
         organizationCount: mergedOrganizations.length,
         rivalCount: finalRivals.length,
+        conflictCount: mergedConflicts.length,
         languagesCount: languages.length,
         capitalsCount: capitals.length,
         stateStructure,
@@ -3556,6 +3863,7 @@ for (const code of allCodes) {
     organizationFromPrimarySource: compactList(politicsData.organizations).length > 0,
     organizationCount: result[code].politics.organizations.length,
     rivalCount: result[code].politics.rivals.length,
+    conflictCount: result[code].military.conflicts.length,
     languagesCount: result[code].general.languages.length,
     capitalsCount: result[code].general.capitals.length,
     stateStructure: result[code].general.stateStructure,
@@ -3565,6 +3873,46 @@ for (const code of allCodes) {
   });
 }
 
-fs.writeJsonSync("./data/countries_full.json", result, { spaces: 2 });
+const exColoniesByMetropole = {};
+for (const country of Object.values(result)) {
+  const metropole = country.politics?.relations?.exMetropole;
+  if (!metropole || !country?.name) {
+    continue;
+  }
+  if (!exColoniesByMetropole[metropole]) {
+    exColoniesByMetropole[metropole] = [];
+  }
+  exColoniesByMetropole[metropole].push(country.name);
+}
 
-console.log(`Dataset generado: ${Object.keys(result).length} paises.`);
+for (const country of Object.values(result)) {
+  const relationData = country.politics?.relations || {};
+  relationData.exColonies = uniqueBy(
+    [
+      ...(relationData.exColonies || []),
+      ...(exColoniesByMetropole[country.name] || [])
+    ],
+    item => normalizeKey(item)
+  );
+  relationData.associatedTerritories = uniqueBy(
+    [
+      ...(relationData.associatedTerritories || []),
+      ...(relationData.linkedTerritories || [])
+    ],
+    item => normalizeKey(item)
+  );
+  relationData.dependencies = uniqueBy(
+    [
+      ...(relationData.dependencies || []),
+      ...(relationData.protectorates || [])
+    ],
+    item => normalizeKey(item)
+  );
+  relationData.protectorates = relationData.dependencies;
+}
+
+const sanitizedResult = sanitizeDeep(result);
+
+fs.writeJsonSync("./data/countries_full.json", sanitizedResult, { spaces: 2 });
+
+console.log(`Dataset generado: ${Object.keys(sanitizedResult).length} paises.`);
