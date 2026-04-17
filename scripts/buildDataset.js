@@ -39,7 +39,7 @@ const INFLATION_OVERRIDES = {
   "-99": 5.4
 };
 
-const BUILD_UPDATED_AT = "2026-04-06";
+const BUILD_UPDATED_AT = "2026-04-11";
 
 const LANGUAGE_OVERRIDES = {
   ARG: ["Español"],
@@ -1116,16 +1116,22 @@ const OFFICIAL_NAME_OVERRIDES = {
   FRA: "Republica Francesa",
   GBR: "Reino Unido de Gran Bretaña e Irlanda del Norte",
   GRC: "Republica Helenica",
+  IND: "Republica de la India",
   IRN: "Republica Islamica de Iran",
+  JPN: "Estado del Japon",
   LAO: "Republica Democratica Popular Lao",
   MAR: "Reino de Marruecos",
   MEX: "Estados Unidos Mexicanos",
   NLD: "Reino de los Paises Bajos",
+  PAK: "Republica Islamica del Pakistan",
   PRK: "Republica Popular Democratica de Corea",
   RUS: "Federacion de Rusia",
+  SAU: "Reino de Arabia Saudita",
   SWZ: "Reino de Esuatini",
   SYR: "Republica Arabe Siria",
   TWN: "Republica de China",
+  TUR: "Republica de Turquia",
+  UKR: "Ucrania",
   USA: "Estados Unidos de America",
   VEN: "Republica Bolivariana de Venezuela",
   VNM: "Republica Socialista de Vietnam",
@@ -1142,18 +1148,24 @@ const OFFICIAL_NAME_OVERRIDES = {
 };
 
 const HISTORICAL_NAME_OVERRIDES = {
+  ARG: ["Confederacion Argentina", "Provincias Unidas del Rio de la Plata"],
   COD: ["Zaire", "Congo Belga"],
   CIV: ["Costa de Marfil francesa"],
   DEU: ["Republica Democratica Alemana", "Republica Federal de Alemania"],
+  EGY: ["Reino de Egipto", "Republica Arabe Unida"],
   GBR: ["Imperio Britanico"],
   GHA: ["Costa de Oro"],
   IRN: ["Persia"],
+  JPN: ["Imperio del Japon"],
   MMR: ["Birmania"],
   MKD: ["Republica de Macedonia"],
   NAM: ["Africa del Sudoeste"],
+  PAK: ["Dominio de Pakistan"],
   RUS: ["Union Sovietica"],
   SWZ: ["Suazilandia"],
+  TUR: ["Imperio Otomano"],
   TZA: ["Tanganica", "Zanzibar"],
+  UKR: ["Republica Socialista Sovietica de Ucrania"],
   VNM: ["Vietnam del Norte", "Vietnam del Sur"],
   ZWE: ["Rodesia del Sur"],
   ESH: ["Sahara Espanol"],
@@ -1190,9 +1202,37 @@ const SYMBOL_OVERRIDES = {
     flagDescription: "Union Jack con cruces de San Jorge, San Andres y San Patricio",
     coatOfArms: "Escudo real con leon y unicornio"
   },
+  DEU: {
+    flagDescription: "Bandera tricolor horizontal negra, roja y dorada",
+    coatOfArms: "Aguila federal negra sobre escudo dorado"
+  },
+  IND: {
+    flagDescription: "Bandera tricolor con rueda Ashoka azul en el centro",
+    coatOfArms: "Emblema con el Leon Capital de Ashoka"
+  },
   USA: {
     flagDescription: "Bandera de barras y estrellas",
     coatOfArms: "Gran Sello con aguila calva, escudo y flechas"
+  },
+  JPN: {
+    flagDescription: "Bandera blanca con disco solar rojo centrado",
+    coatOfArms: "Sello imperial del crisantemo usado como emblema nacional"
+  },
+  RUS: {
+    flagDescription: "Bandera tricolor blanca, azul y roja",
+    coatOfArms: "Aguila bicefala dorada coronada con San Jorge en el escuson"
+  },
+  UKR: {
+    flagDescription: "Bandera azul y amarilla bicolor horizontal",
+    coatOfArms: "Tridente dorado de Volodimir sobre campo azul"
+  },
+  CAN: {
+    flagDescription: "Bandera roja y blanca con hoja de arce roja",
+    coatOfArms: "Armas reales de Canada con hojas de arce y corona"
+  },
+  AUS: {
+    flagDescription: "Blue Ensign con Union Jack, Commonwealth Star y Cruz del Sur",
+    coatOfArms: "Escudo de los estados australianos sostenido por un canguro y un emu"
   },
   GUF: {
     flagDescription: "Usa la bandera de Francia junto a simbolos locales",
@@ -1525,6 +1565,397 @@ const RELATION_OVERRIDES_V2 = {
     dependencies: ["Guayana Francesa", "Nueva Caledonia", "Mayotte", "Reunion"]
   }
 };
+
+Object.assign(LANGUAGE_OVERRIDES, {
+  BOL: ["Espanol", "Quechua", "Aimara", "Guarani"],
+  COL: ["Espanol", "Wayuu", "Nasa Yuwe"],
+  DZA: ["Arabe", "Tamazight", "Frances"],
+  ECU: ["Espanol", "Quechua", "Shuar"],
+  GTM: ["Espanol", "Kiche", "Qeqchi"],
+  HND: ["Espanol", "Garifuna", "Misquito"],
+  MLT: ["Maltes", "Ingles"],
+  MEX: ["Espanol", "Nahuatl", "Maya yucateco", "Mixteco", "Zapoteco"],
+  NIC: ["Espanol", "Miskitu", "Mayangna"],
+  PAN: ["Espanol", "Ngabere", "Guna"],
+  PER: ["Espanol", "Quechua", "Aimara", "Ashaninka"],
+  PHL: ["Filipino", "Ingles", "Cebuano"],
+  PRY: ["Espanol", "Guarani"],
+  SDN: ["Arabe", "Ingles", "Beja"],
+  SOM: ["Somali", "Arabe", "Ingles"],
+  TUN: ["Arabe", "Frances"],
+  URY: ["Espanol", "Portunol fronterizo"],
+  VEN: ["Espanol", "Wayuu", "Pemon"],
+  VNM: ["Vietnamita", "Ingles"],
+  YEM: ["Arabe", "Mehri"],
+  MLI: ["Frances", "Bambara"],
+  SEN: ["Frances", "Wolof"]
+});
+
+Object.assign(CAPITAL_ROLE_OVERRIDES, {
+  BEN: [
+    { role: "constitucional", name: "Porto-Novo" },
+    { role: "ejecutiva", name: "Cotonu" }
+  ],
+  BOL: [
+    { role: "constitucional", name: "Sucre" },
+    { role: "ejecutiva y legislativa", name: "La Paz" }
+  ],
+  CHL: [
+    { role: "administrativa", name: "Santiago" },
+    { role: "legislativa", name: "Valparaiso" }
+  ],
+  CIV: [
+    { role: "constitucional", name: "Yamusukro" },
+    { role: "ejecutiva", name: "Abiyan" }
+  ],
+  TZA: [
+    { role: "constitucional", name: "Dodoma" },
+    { role: "economica", name: "Dar es-Salam" }
+  ],
+  ECU: [
+    { role: "constitucional y ejecutiva", name: "Quito" },
+    { role: "economica", name: "Guayaquil" }
+  ],
+  PAN: [
+    { role: "nacional", name: "Ciudad de Panama" },
+    { role: "judicial", name: "Ancon" }
+  ]
+});
+
+Object.assign(SYMBOL_OVERRIDES, {
+  BOL: {
+    flagDescription: "Bandera tricolor horizontal roja, amarilla y verde con escudo al centro",
+    coatOfArms: "Escudo ovalado con cerro Potosi, alpaca, canones y condor"
+  },
+  CHL: {
+    flagDescription: "Bandera blanca, azul y roja con estrella solitaria",
+    coatOfArms: "Escudo con huemul y condor coronados"
+  },
+  COL: {
+    flagDescription: "Bandera tricolor horizontal amarilla, azul y roja",
+    coatOfArms: "Escudo con condor, granada y dos cornucopias"
+  },
+  CUB: {
+    flagDescription: "Bandera con cinco franjas azules y blancas y triangulo rojo con estrella",
+    coatOfArms: "Escudo con llave del golfo, gorro frigio y paisaje tropical"
+  },
+  ECU: {
+    flagDescription: "Bandera amarilla, azul y roja con escudo nacional",
+    coatOfArms: "Escudo con condor, Chimborazo, rio Guayas y signos del zodiaco"
+  },
+  CHE: {
+    flagDescription: "Bandera roja cuadrada con cruz blanca centrada",
+    coatOfArms: "Escudo rojo con cruz blanca, version heraldica del emblema federal"
+  },
+  EGY: {
+    flagDescription: "Bandera roja, blanca y negra con aguila dorada de Saladino",
+    coatOfArms: "Aguila de Saladino sobre escudo tricolor"
+  },
+  IDN: {
+    flagDescription: "Bandera bicolor horizontal roja y blanca",
+    coatOfArms: "Garuda Pancasila con escudo de cinco principios"
+  },
+  IRN: {
+    flagDescription: "Bandera verde, blanca y roja con emblema central rojo",
+    coatOfArms: "Emblema estilizado de la Republica Islamica"
+  },
+  ISR: {
+    flagDescription: "Bandera blanca con dos franjas azules y estrella de David",
+    coatOfArms: "Menora flanqueada por ramas de olivo"
+  },
+  ITA: {
+    flagDescription: "Bandera tricolor vertical verde, blanca y roja",
+    coatOfArms: "Emblema republicano con estrella, rueda dentada y ramas de olivo y encina"
+  },
+  KOR: {
+    flagDescription: "Bandera blanca con taegeuk rojo-azul y trigramas negros",
+    coatOfArms: "Emblema estatal circular con hibisco y taegeuk central"
+  },
+  MEX: {
+    flagDescription: "Bandera tricolor verde, blanca y roja con escudo al centro",
+    coatOfArms: "Aguila sobre nopal devorando una serpiente"
+  },
+  NGA: {
+    flagDescription: "Bandera tricolor vertical verde, blanca y verde",
+    coatOfArms: "Escudo negro con banda ondulada blanca y caballos plateados"
+  },
+  NLD: {
+    flagDescription: "Bandera tricolor horizontal roja, blanca y azul",
+    coatOfArms: "Armas reales neerlandesas con leon coronado"
+  },
+  PAK: {
+    flagDescription: "Bandera verde con banda blanca, media luna y estrella",
+    coatOfArms: "Escudo con cuarto de algodon, trigo, te y yute"
+  },
+  PRK: {
+    flagDescription: "Bandera roja con franjas azules y blancas y estrella roja",
+    coatOfArms: "Emblema con presa hidroeléctrica, monte Paektu y estrella roja"
+  },
+  SAU: {
+    flagDescription: "Bandera verde con shahada blanca y espada",
+    coatOfArms: "Palmera sobre dos espadas cruzadas"
+  },
+  TUR: {
+    flagDescription: "Bandera roja con media luna y estrella blancas",
+    coatOfArms: "Emblema no heraldico con luna creciente y estrella"
+  },
+  URY: {
+    flagDescription: "Bandera blanca con franjas azules y Sol de Mayo",
+    coatOfArms: "Escudo oval con balanza, cerro, caballo y buey"
+  },
+  VEN: {
+    flagDescription: "Bandera amarilla, azul y roja con arco de estrellas blancas",
+    coatOfArms: "Escudo con caballo blanco, armas y cuernos de abundancia"
+  },
+  ZAF: {
+    flagDescription: "Bandera multicolor en Y horizontal convergente",
+    coatOfArms: "Escudo con figura khoisan, lanza, elefante y ave secretaria"
+  }
+});
+
+Object.assign(TIMELINE_EVENT_OVERRIDES, {
+  BOL: [
+    { year: 1825, category: "estado", text: "Independencia de Bolivia" },
+    { year: 1879, category: "guerra", text: "Guerra del Pacifico y perdida del litoral" },
+    { year: 2009, category: "constitucion", text: "Nueva Constitucion del Estado Plurinacional" }
+  ],
+  CAN: [
+    { year: 1867, category: "union", text: "Confederacion canadiense" },
+    { year: 1931, category: "tratado", text: "Estatuto de Westminster y autonomia legislativa" },
+    { year: 1982, category: "constitucion", text: "Patriacion constitucional y Carta de Derechos" }
+  ],
+  EGY: [
+    { year: 1956, category: "tratado", text: "Crisis de Suez y afirmacion del nacionalismo egipcio" },
+    { year: 1978, category: "tratado", text: "Acuerdos de Camp David" }
+  ],
+  ITA: [
+    { year: 1861, category: "union", text: "Proclamacion del Reino de Italia" },
+    { year: 1922, category: "cambio_regimen", text: "Marcha sobre Roma y ascenso del fascismo" },
+    { year: 1946, category: "cambio_regimen", text: "Referendum institucional y nacimiento de la republica" },
+    { year: 1948, category: "constitucion", text: "Entrada en vigor de la Constitucion republicana" }
+  ],
+  JPN: [
+    { year: 1868, category: "reforma", text: "Restauracion Meiji y modernizacion estatal" },
+    { year: 1945, category: "cambio_regimen", text: "Derrota imperial y ocupacion aliada" }
+  ],
+  KOR: [
+    { year: 1948, category: "estado", text: "Fundacion de la Republica de Corea" },
+    { year: 1961, category: "golpe", text: "Golpe de Park Chung-hee" },
+    { year: 1987, category: "constitucion", text: "Transicion democratica y nueva constitucion" }
+  ],
+  PRK: [
+    { year: 1948, category: "estado", text: "Fundacion de Corea del Norte" },
+    { year: 1994, category: "cambio_regimen", text: "Sucesion de Kim Jong-il tras la muerte de Kim Il-sung" },
+    { year: 2011, category: "cambio_regimen", text: "Sucesion de Kim Jong-un" }
+  ],
+  PSE: [
+    { year: 1947, category: "tratado", text: "Plan de particion de Palestina de la ONU" },
+    { year: 1988, category: "estado", text: "Proclamacion del Estado de Palestina" },
+    { year: 1993, category: "tratado", text: "Acuerdos de Oslo" }
+  ],
+  SAU: [
+    { year: 1932, category: "union", text: "Unificacion del Reino de Arabia Saudita" },
+    { year: 1992, category: "constitucion", text: "Ley Basica de Gobierno" }
+  ],
+  URY: [
+    { year: 1828, category: "estado", text: "Convencion Preliminar de Paz y nacimiento del Uruguay independiente" },
+    { year: 1830, category: "constitucion", text: "Primera constitucion uruguaya" },
+    { year: 1973, category: "golpe", text: "Golpe de Estado y comienzo de la dictadura" },
+    { year: 1985, category: "reforma", text: "Restauracion democratica" }
+  ],
+  VEN: [
+    { year: 1811, category: "estado", text: "Primera declaracion de independencia" },
+    { year: 1830, category: "secesion", text: "Separacion de la Gran Colombia" },
+    { year: 1958, category: "cambio_regimen", text: "Caida de Perez Jimenez y apertura democratica" },
+    { year: 1999, category: "constitucion", text: "Constitucion de la Republica Bolivariana" }
+  ]
+});
+
+Object.assign(RELATION_OVERRIDES, {
+  BOL: {
+    allies: ["Brasil", "Peru", "Paraguay"],
+    blocs: ["Mercosur", "CAN", "ONU"],
+    disputes: ["Reivindicacion maritima frente a Chile"],
+    rivalStates: ["Chile"]
+  },
+  CHL: {
+    allies: ["Argentina", "Brasil", "Estados Unidos"],
+    blocs: ["Alianza del Pacifico", "APEC", "ONU"],
+    disputes: ["Hielos Continentales", "Reivindicacion maritima boliviana"],
+    rivalStates: []
+  },
+  COL: {
+    allies: ["Estados Unidos", "Peru", "Ecuador"],
+    blocs: ["Alianza del Pacifico", "ONU", "OEA"],
+    disputes: ["Golfo de Venezuela", "Archipielago de San Andres y Providencia"],
+    rivalStates: ["Venezuela", "ELN"]
+  },
+  CUB: {
+    allies: ["Venezuela", "Nicaragua", "Bolivia"],
+    blocs: ["ALBA", "ONU", "CELAC"],
+    rivalStates: ["Estados Unidos"]
+  },
+  DEU: {
+    allies: ["Francia", "Polonia", "Paises Bajos", "Italia"],
+    blocs: ["Union Europea", "OTAN", "ONU"],
+    rivalStates: ["Rusia"]
+  },
+  EGY: {
+    allies: ["Arabia Saudita", "Emiratos Arabes Unidos"],
+    blocs: ["Liga Arabe", "ONU", "OIC"],
+    disputes: ["Triangulo de Halaib", "Franja de Gaza"],
+    rivalStates: ["Etiopia", "Hamas"]
+  },
+  JPN: {
+    allies: ["Estados Unidos", "Australia", "Corea del Sur"],
+    blocs: ["G7", "ONU"],
+    disputes: ["Kuriles del Sur", "Senkaku/Diaoyu"],
+    rivalStates: ["China", "Corea del Norte", "Rusia"]
+  },
+  MEX: {
+    allies: ["Estados Unidos", "Canada", "Guatemala"],
+    blocs: ["USMCA", "CELAC", "ONU"],
+    rivalStates: []
+  },
+  PER: {
+    allies: ["Estados Unidos", "Chile", "Colombia", "Ecuador"],
+    blocs: ["Alianza del Pacifico", "APEC", "ONU"],
+    disputes: ["Triangulo terrestre con Chile"],
+    rivalStates: []
+  },
+  PRY: {
+    allies: ["Brasil", "Argentina", "Uruguay"],
+    blocs: ["Mercosur", "ONU"],
+    rivalStates: ["Bolivia"]
+  },
+  POL: {
+    allies: ["Estados Unidos", "Reino Unido", "Ucrania"],
+    blocs: ["OTAN", "Union Europea", "ONU"],
+    rivalStates: ["Rusia", "Belarusia"]
+  },
+  SAU: {
+    allies: ["Estados Unidos", "Emiratos Arabes Unidos", "Bahrein"],
+    blocs: ["OIC", "ONU", "Consejo de Cooperacion del Golfo"],
+    rivalStates: ["Iran", "Huties"]
+  },
+  URY: {
+    allies: ["Argentina", "Brasil", "Paraguay"],
+    blocs: ["Mercosur", "ONU", "CELAC"],
+    rivalStates: []
+  },
+  VEN: {
+    allies: ["Cuba", "Nicaragua", "Bolivia", "Rusia"],
+    blocs: ["ALBA", "OPEP", "ONU"],
+    disputes: ["Esequibo"],
+    rivalStates: ["Colombia", "Estados Unidos", "Guyana"]
+  }
+});
+
+Object.assign(RELATION_OVERRIDES_V2, {
+  BOL: {
+    economicPartners: ["Brasil", "Argentina", "Peru", "Chile"],
+    diplomaticPartners: ["Brasil", "Argentina", "Peru"],
+    economicBlocs: ["Mercosur", "CAN"],
+    diplomaticBlocs: ["ONU", "CELAC"],
+    currentRivals: ["Chile"]
+  },
+  CHL: {
+    militaryAllies: ["Estados Unidos"],
+    economicPartners: ["China", "Estados Unidos", "Brasil", "Peru"],
+    diplomaticPartners: ["Argentina", "Brasil", "Peru", "Colombia"],
+    economicBlocs: ["Alianza del Pacifico", "APEC"],
+    diplomaticBlocs: ["ONU", "CELAC"]
+  },
+  COL: {
+    militaryAllies: ["Estados Unidos"],
+    economicPartners: ["Estados Unidos", "Mexico", "Peru", "Brasil"],
+    diplomaticPartners: ["Estados Unidos", "Peru", "Ecuador", "Chile"],
+    economicBlocs: ["Alianza del Pacifico"],
+    diplomaticBlocs: ["ONU", "OEA", "CELAC"],
+    currentRivals: ["Venezuela"],
+    historicalRivals: ["FARC", "ELN"]
+  },
+  CUB: {
+    diplomaticPartners: ["Venezuela", "Nicaragua", "Bolivia", "Mexico"],
+    diplomaticBlocs: ["ALBA", "ONU", "CELAC"],
+    currentRivals: ["Estados Unidos"]
+  },
+  DEU: {
+    militaryAllies: ["Francia", "Estados Unidos", "Polonia"],
+    economicPartners: ["Francia", "Paises Bajos", "Italia", "Polonia"],
+    diplomaticPartners: ["Francia", "Italia", "Polonia", "Union Europea"],
+    militaryBlocs: ["OTAN"],
+    economicBlocs: ["Union Europea"],
+    diplomaticBlocs: ["ONU", "G7"],
+    currentRivals: ["Rusia"]
+  },
+  EGY: {
+    militaryAllies: ["Arabia Saudita", "Emiratos Arabes Unidos"],
+    economicPartners: ["Arabia Saudita", "Emiratos Arabes Unidos", "Union Europea"],
+    diplomaticPartners: ["Estados Unidos", "Arabia Saudita", "Jordania"],
+    diplomaticBlocs: ["ONU", "Liga Arabe", "OIC"],
+    currentRivals: ["Etiopia"],
+    historicalRivals: ["Israel"]
+  },
+  JPN: {
+    militaryAllies: ["Estados Unidos", "Australia"],
+    economicPartners: ["Estados Unidos", "China", "Corea del Sur", "ASEAN"],
+    diplomaticPartners: ["Estados Unidos", "Australia", "India"],
+    diplomaticBlocs: ["ONU", "G7"],
+    currentRivals: ["Corea del Norte", "China"],
+    historicalRivals: ["Rusia"]
+  },
+  MEX: {
+    economicPartners: ["Estados Unidos", "Canada", "Union Europea"],
+    diplomaticPartners: ["Estados Unidos", "Canada", "Colombia", "Chile"],
+    economicBlocs: ["USMCA", "APEC"],
+    diplomaticBlocs: ["ONU", "CELAC"]
+  },
+  PER: {
+    economicPartners: ["China", "Estados Unidos", "Chile", "Colombia"],
+    diplomaticPartners: ["Chile", "Colombia", "Ecuador", "Estados Unidos"],
+    economicBlocs: ["Alianza del Pacifico", "APEC"],
+    diplomaticBlocs: ["ONU", "CELAC"]
+  },
+  PRY: {
+    economicPartners: ["Brasil", "Argentina", "Uruguay"],
+    diplomaticPartners: ["Brasil", "Argentina", "Uruguay"],
+    economicBlocs: ["Mercosur"],
+    diplomaticBlocs: ["ONU", "CELAC"],
+    historicalRivals: ["Bolivia"]
+  },
+  POL: {
+    militaryAllies: ["Estados Unidos", "Reino Unido", "Ucrania"],
+    economicPartners: ["Alemania", "Francia", "Chequia"],
+    diplomaticPartners: ["Estados Unidos", "Reino Unido", "Ucrania", "Union Europea"],
+    militaryBlocs: ["OTAN"],
+    economicBlocs: ["Union Europea"],
+    diplomaticBlocs: ["ONU", "Consejo de Europa"],
+    currentRivals: ["Rusia", "Belarusia"]
+  },
+  SAU: {
+    militaryAllies: ["Estados Unidos", "Emiratos Arabes Unidos", "Bahrein"],
+    economicPartners: ["China", "Estados Unidos", "India"],
+    diplomaticPartners: ["Estados Unidos", "Emiratos Arabes Unidos", "Egipto"],
+    diplomaticBlocs: ["ONU", "OIC", "Consejo de Cooperacion del Golfo"],
+    currentRivals: ["Iran", "Huties"]
+  },
+  URY: {
+    economicPartners: ["Brasil", "Argentina", "China"],
+    diplomaticPartners: ["Argentina", "Brasil", "Paraguay", "Chile"],
+    economicBlocs: ["Mercosur"],
+    diplomaticBlocs: ["ONU", "CELAC"]
+  },
+  VEN: {
+    militaryAllies: ["Cuba"],
+    economicPartners: ["China", "Cuba", "Rusia"],
+    diplomaticPartners: ["Cuba", "Bolivia", "Nicaragua", "Rusia"],
+    economicBlocs: ["ALBA", "OPEP"],
+    diplomaticBlocs: ["ONU", "CELAC"],
+    currentRivals: ["Estados Unidos", "Guyana"],
+    historicalRivals: ["Colombia"]
+  }
+});
 
 const RELATION_BLOC_CATEGORY_RULES = [
   { key: "otan", label: "OTAN", category: "military" },
@@ -2657,6 +3088,37 @@ function sanitizeText(value) {
     .trim();
 }
 
+function applyUnicodeCorrections(value) {
+  if (typeof value !== "string") {
+    return value;
+  }
+
+  return value
+    .replace(/\bRepublica\b/g, "Rep\u00fablica")
+    .replace(/\bDemocratica\b/g, "Democr\u00e1tica")
+    .replace(/\bIslamica\b/g, "Isl\u00e1mica")
+    .replace(/\bHelenica\b/g, "Hel\u00e9nica")
+    .replace(/\bArabe\b/g, "\u00c1rabe")
+    .replace(/\bMonarquia\b/g, "Monarqu\u00eda")
+    .replace(/\bConstitucion\b/g, "Constituci\u00f3n")
+    .replace(/\bUnion\b/g, "Uni\u00f3n")
+    .replace(/\bDisolucion\b/g, "Disoluci\u00f3n")
+    .replace(/\bRevolucion\b/g, "Revoluci\u00f3n")
+    .replace(/\bSecesion\b/g, "Secesi\u00f3n")
+    .replace(/\bAnexion\b/g, "Anexi\u00f3n")
+    .replace(/\bpacifica\b/g, "pac\u00edfica")
+    .replace(/\bEspanol\b/g, "Espa\u00f1ol")
+    .replace(/\bPortugues\b/g, "Portugu\u00e9s")
+    .replace(/\bDanes\b/g, "Dan\u00e9s")
+    .replace(/\bJapones\b/g, "Japon\u00e9s")
+    .replace(/\bAleman\b/g, "Alem\u00e1n")
+    .replace(/\bFrances\b/g, "Franc\u00e9s")
+    .replace(/\bIran\b/g, "Ir\u00e1n")
+    .replace(/\bPakistan\b/g, "Pakist\u00e1n")
+    .replace(/\bAfganistan\b/g, "Afganist\u00e1n")
+    .replace(/\bTiananmen\b/g, "Tiananm\u00e9n");
+}
+
 function sanitizeDeep(value) {
   if (Array.isArray(value)) {
     return value.map(sanitizeDeep);
@@ -2666,7 +3128,7 @@ function sanitizeDeep(value) {
     return Object.fromEntries(Object.entries(value).map(([key, innerValue]) => [key, sanitizeDeep(innerValue)]));
   }
 
-  return sanitizeText(value);
+  return applyUnicodeCorrections(sanitizeText(value));
 }
 
 function normalizeKey(value) {
@@ -2883,10 +3345,21 @@ function deriveHistoricalNames(code, historyEntry) {
   return historicalNames.filter(Boolean);
 }
 
+function getLocalSymbolAssets(code) {
+  const flagPath = `./assets/flags/${code}.svg`;
+  const coatPath = `./assets/coats/${code}.svg`;
+  return {
+    flagPath: fs.existsSync(flagPath) ? `/assets/flags/${code}.svg` : null,
+    coatPath: fs.existsSync(coatPath) ? `/assets/coats/${code}.svg` : null
+  };
+}
+
 function buildSymbolMetadata(code, commonName) {
+  const assets = getLocalSymbolAssets(code);
   return {
     flagDescription: SYMBOL_OVERRIDES[code]?.flagDescription || `Bandera asociada a ${commonName}`,
-    coatOfArms: SYMBOL_OVERRIDES[code]?.coatOfArms || null
+    coatOfArms: SYMBOL_OVERRIDES[code]?.coatOfArms || null,
+    assets
   };
 }
 
@@ -3026,6 +3499,15 @@ function buildMetadataSources(code, context = {}) {
     religion: withManual([
       "religion.json",
       "religion_details.json"
+    ]),
+    symbols: withManual([
+      "assets/flags",
+      "assets/coats"
+    ]),
+    relations: withManual([
+      "politics.json",
+      "politics_details.json",
+      "curated relation overrides"
     ])
   };
 }
@@ -3033,19 +3515,28 @@ function buildMetadataSources(code, context = {}) {
 function buildQualityMetadata(context = {}) {
   const estimatedFields = [];
   const curatedFields = [];
+  const confirmedFields = [];
   const missingFields = [];
 
   if (!context.populationFromPrimarySource && context.populationValue) {
     estimatedFields.push("general.population");
+  } else if (context.populationValue) {
+    confirmedFields.push("general.population");
   }
   if (!context.inflationFromPrimarySource && context.inflationValue !== null && context.inflationValue !== undefined) {
     estimatedFields.push("economy.inflation");
+  } else if (context.inflationValue !== null && context.inflationValue !== undefined) {
+    confirmedFields.push("economy.inflation");
   }
   if (!context.religionCompositionFromPrimarySource && context.religionCompositionCount) {
     estimatedFields.push("religion.composition");
+  } else if (context.religionCompositionCount) {
+    confirmedFields.push("religion.composition");
   }
   if (!context.organizationFromPrimarySource && context.organizationCount) {
     estimatedFields.push("politics.organizations");
+  } else if (context.organizationCount) {
+    confirmedFields.push("politics.organizations");
   }
 
   if (!context.languagesCount) {
@@ -3073,6 +3564,9 @@ function buildQualityMetadata(context = {}) {
   if (context.languagesCount) {
     curatedFields.push("general.languages");
   }
+  if (context.symbolCoverage > 0) {
+    curatedFields.push("general.symbols");
+  }
   if (context.capitalsCount > 1) {
     curatedFields.push("general.capitals");
   }
@@ -3088,12 +3582,27 @@ function buildQualityMetadata(context = {}) {
   if (context.hasCuratedConflicts) {
     curatedFields.push("military.conflicts");
   }
+  if (context.relationCoverageCount) {
+    curatedFields.push("politics.relations");
+  }
+
+  const sourceCoverageScore = Math.min(
+    100,
+    Math.round((Object.values(context.sourceSectionCoverage || {}).filter(Boolean).length / 8) * 100)
+  );
+  const score = Math.min(
+    100,
+    Math.max(0, 100 - estimatedFields.length * 6 - missingFields.length * 10 + curatedFields.length * 3 + Math.round(sourceCoverageScore * 0.08))
+  );
 
   return {
     estimatedFields,
     curatedFields,
+    confirmedFields,
     missingFields,
-    score: Math.min(100, Math.max(0, 100 - estimatedFields.length * 6 - missingFields.length * 10 + curatedFields.length * 3)),
+    score,
+    sourceCoverageScore,
+    status: score >= 90 ? "alta" : score >= 75 ? "buena" : score >= 60 ? "media" : "basica",
     sectionStatus: {
       general: context.languagesCount || context.capitalsCount || context.stateStructure ? "curated" : "base",
       history: context.hasCuratedTimeline ? "curated" : "base",
@@ -3102,6 +3611,90 @@ function buildQualityMetadata(context = {}) {
       politics: context.organizationCount || context.rivalCount ? "curated" : "base",
       religion: context.religionCompositionCount ? (context.religionCompositionFromPrimarySource ? "confirmed" : "mixed") : "base"
     }
+  };
+}
+
+function buildMetadataProvenance(code, context = {}) {
+  const sectionCoverage = Object.fromEntries(
+    Object.entries(context.sources || {}).map(([section, list]) => [section, compactList(list).length])
+  );
+
+  return {
+    code,
+    updatedAt: BUILD_UPDATED_AT,
+    sections: {
+      general: { sourceCount: sectionCoverage.general || 0, status: context.quality?.sectionStatus?.general || "base" },
+      history: { sourceCount: sectionCoverage.history || 0, status: context.quality?.sectionStatus?.history || "base" },
+      economy: { sourceCount: sectionCoverage.economy || 0, status: context.quality?.sectionStatus?.economy || "base" },
+      military: { sourceCount: sectionCoverage.military || 0, status: context.quality?.sectionStatus?.military || "base" },
+      politics: { sourceCount: sectionCoverage.politics || 0, status: context.quality?.sectionStatus?.politics || "base" },
+      religion: { sourceCount: sectionCoverage.religion || 0, status: context.quality?.sectionStatus?.religion || "base" },
+      symbols: { sourceCount: sectionCoverage.symbols || 0, status: context.symbolCoverage > 0 ? "curated" : "fallback" },
+      relations: { sourceCount: sectionCoverage.relations || 0, status: context.relationCoverageCount ? "curated" : "base" }
+    },
+    flags: {
+      hasLocalFlag: Boolean(context.symbolAssets?.flagPath),
+      hasLocalCoat: Boolean(context.symbolAssets?.coatPath),
+      hasCuratedTimeline: Boolean(context.hasCuratedTimeline),
+      hasCuratedConflicts: Boolean(context.hasCuratedConflicts)
+    }
+  };
+}
+
+function createMetadataBundle(code, context = {}) {
+  const sources = buildMetadataSources(code, {
+    organizations: context.organizations || [],
+    rivals: context.rivals || [],
+    conflicts: context.conflicts || []
+  });
+  const relationCoverageCount =
+    (context.relationMetadata?.militaryAllies?.length || 0) +
+    (context.relationMetadata?.economicPartners?.length || 0) +
+    (context.relationMetadata?.diplomaticPartners?.length || 0) +
+    (context.relationMetadata?.currentRivals?.length || 0) +
+    (context.relationMetadata?.historicalRivals?.length || 0) +
+    (context.relationMetadata?.disputedTerritories?.length || 0);
+  const symbolCoverage =
+    Number(Boolean(context.symbolAssets?.flagPath)) +
+    Number(Boolean(context.symbolAssets?.coatPath));
+  const sourceSectionCoverage = Object.fromEntries(
+    Object.entries(sources).map(([section, list]) => [section, compactList(list).length])
+  );
+  const quality = buildQualityMetadata({
+    populationFromPrimarySource: context.populationFromPrimarySource,
+    populationValue: context.populationValue,
+    inflationFromPrimarySource: context.inflationFromPrimarySource,
+    inflationValue: context.inflationValue,
+    religionCompositionFromPrimarySource: context.religionCompositionFromPrimarySource,
+    religionCompositionCount: context.religionCompositionCount,
+    organizationFromPrimarySource: context.organizationFromPrimarySource,
+    organizationCount: context.organizationCount,
+    rivalCount: context.rivalCount,
+    conflictCount: context.conflictCount,
+    languagesCount: context.languagesCount,
+    capitalsCount: context.capitalsCount,
+    stateStructure: context.stateStructure,
+    subdivisionType: context.subdivisionType,
+    hasCuratedTimeline: context.hasCuratedTimeline,
+    hasCuratedConflicts: context.hasCuratedConflicts,
+    symbolCoverage,
+    relationCoverageCount,
+    sourceSectionCoverage
+  });
+
+  return {
+    updatedAt: BUILD_UPDATED_AT,
+    sources,
+    quality,
+    provenance: buildMetadataProvenance(code, {
+      sources,
+      quality,
+      symbolCoverage,
+      relationCoverageCount,
+      symbolAssets: context.symbolAssets,
+      hasCuratedTimeline: context.hasCuratedTimeline,
+      hasCuratedConflicts: context.hasCuratedConflicts
+    })
   };
 }
 
@@ -3408,6 +4001,114 @@ const RELIGION_DETAIL_OVERRIDES = {
   ]
 };
 
+Object.assign(RELIGION_DETAIL_OVERRIDES, {
+  BOL: [
+    { name: "Catolicos", percentage: 64.0 },
+    { name: "Protestantes y evangelicos", percentage: 18.2 },
+    { name: "Religiones animistas y populares", percentage: 8.3 },
+    { name: "Ateos / agnosticos / sin afiliacion", percentage: 8.7 },
+    { name: "Otras religiones", percentage: 0.8 }
+  ],
+  CHL: [
+    { name: "Catolicos", percentage: 54.0 },
+    { name: "Protestantes y evangelicos", percentage: 16.3 },
+    { name: "Ateos / agnosticos / sin afiliacion", percentage: 27.5 },
+    { name: "Otras religiones", percentage: 2.2 }
+  ],
+  COL: [
+    { name: "Catolicos", percentage: 68.8 },
+    { name: "Protestantes y evangelicos", percentage: 16.7 },
+    { name: "Ateos / agnosticos / sin afiliacion", percentage: 11.8 },
+    { name: "Otras religiones", percentage: 2.7 }
+  ],
+  CUB: [
+    { name: "Catolicos", percentage: 41.0 },
+    { name: "Religiones afrocubanas", percentage: 18.0 },
+    { name: "Protestantes y evangelicos", percentage: 12.0 },
+    { name: "Ateos / agnosticos / sin afiliacion", percentage: 26.0 },
+    { name: "Otras religiones", percentage: 3.0 }
+  ],
+  ECU: [
+    { name: "Catolicos", percentage: 67.9 },
+    { name: "Protestantes y evangelicos", percentage: 19.2 },
+    { name: "Ateos / agnosticos / sin afiliacion", percentage: 10.4 },
+    { name: "Otras religiones", percentage: 2.5 }
+  ],
+  EGY: [
+    { name: "Musulmanes sunitas", percentage: 89.6 },
+    { name: "Cristianos coptos", percentage: 9.4 },
+    { name: "Cristianos protestantes", percentage: 0.5 },
+    { name: "Ateos / agnosticos / sin afiliacion", percentage: 0.5 }
+  ],
+  ETH: [
+    { name: "Cristianos ortodoxos", percentage: 43.8 },
+    { name: "Musulmanes sunitas", percentage: 31.3 },
+    { name: "Protestantes y evangelicos", percentage: 22.8 },
+    { name: "Religiones animistas y populares", percentage: 1.6 },
+    { name: "Catolicos", percentage: 0.5 }
+  ],
+  ISR: [
+    { name: "Judios", percentage: 73.6 },
+    { name: "Musulmanes sunitas", percentage: 18.1 },
+    { name: "Cristianos", percentage: 1.9 },
+    { name: "Drusos", percentage: 1.6 },
+    { name: "Ateos / agnosticos / sin afiliacion", percentage: 4.8 }
+  ],
+  ITA: [
+    { name: "Catolicos", percentage: 74.4 },
+    { name: "Ateos / agnosticos / sin afiliacion", percentage: 19.6 },
+    { name: "Musulmanes sunitas", percentage: 3.7 },
+    { name: "Cristianos ortodoxos", percentage: 1.1 },
+    { name: "Otros cristianos", percentage: 1.2 }
+  ],
+  PER: [
+    { name: "Catolicos", percentage: 63.6 },
+    { name: "Protestantes y evangelicos", percentage: 14.1 },
+    { name: "Religiones animistas y populares", percentage: 6.8 },
+    { name: "Ateos / agnosticos / sin afiliacion", percentage: 13.0 },
+    { name: "Otras religiones", percentage: 2.5 }
+  ],
+  POL: [
+    { name: "Catolicos", percentage: 84.2 },
+    { name: "Ateos / agnosticos / sin afiliacion", percentage: 11.4 },
+    { name: "Cristianos ortodoxos", percentage: 1.3 },
+    { name: "Protestantes", percentage: 0.8 },
+    { name: "Otras religiones", percentage: 2.3 }
+  ],
+  PRY: [
+    { name: "Catolicos", percentage: 73.3 },
+    { name: "Protestantes y evangelicos", percentage: 17.2 },
+    { name: "Ateos / agnosticos / sin afiliacion", percentage: 7.5 },
+    { name: "Otras religiones", percentage: 2.0 }
+  ],
+  SAU: [
+    { name: "Musulmanes sunitas", percentage: 85.0 },
+    { name: "Musulmanes chiitas", percentage: 10.0 },
+    { name: "Cristianos", percentage: 2.5 },
+    { name: "Hindues", percentage: 1.5 },
+    { name: "Ateos / agnosticos / sin afiliacion", percentage: 1.0 }
+  ],
+  URY: [
+    { name: "Catolicos", percentage: 38.0 },
+    { name: "Protestantes y evangelicos", percentage: 5.7 },
+    { name: "Ateos / agnosticos / sin afiliacion", percentage: 53.8 },
+    { name: "Otras religiones", percentage: 2.5 }
+  ],
+  UKR: [
+    { name: "Cristianos ortodoxos", percentage: 67.4 },
+    { name: "Catolicos orientales", percentage: 8.8 },
+    { name: "Protestantes", percentage: 2.2 },
+    { name: "Musulmanes sunitas", percentage: 1.1 },
+    { name: "Ateos / agnosticos / sin afiliacion", percentage: 20.5 }
+  ],
+  VEN: [
+    { name: "Catolicos", percentage: 67.0 },
+    { name: "Protestantes y evangelicos", percentage: 17.0 },
+    { name: "Ateos / agnosticos / sin afiliacion", percentage: 12.5 },
+    { name: "Otras religiones", percentage: 3.5 }
+  ]
+});
+
 function expandReligionComposition(code, summary, composition) {
   if (RELIGION_DETAIL_OVERRIDES[code]) {
     return RELIGION_DETAIL_OVERRIDES[code];
@@ -3474,6 +4175,200 @@ function expandReligionComposition(code, summary, composition) {
     return entry;
   });
 }
+
+Object.assign(POST_BUILD_ENTITY_OVERRIDES, {
+  ARG: {
+    general: {
+      cities: [
+        { name: "Cordoba", population: 1565112, isCapital: false },
+        { name: "Rosario", population: 1343425, isCapital: false },
+        { name: "Mendoza", population: 1150414, isCapital: false },
+        { name: "La Plata", population: 772618, isCapital: false }
+      ]
+    }
+  },
+  BOL: {
+    general: {
+      cities: [
+        { name: "Santa Cruz de la Sierra", population: 1680000, isCapital: false },
+        { name: "El Alto", population: 1093017, isCapital: false },
+        { name: "Cochabamba", population: 856198, isCapital: false },
+        { name: "Sucre", population: 329000, isCapital: false }
+      ]
+    }
+  },
+  BRA: {
+    general: {
+      cities: [
+        { name: "Sao Paulo", population: 11451999, isCapital: false },
+        { name: "Rio de Janeiro", population: 6211223, isCapital: false },
+        { name: "Salvador", population: 2417678, isCapital: false },
+        { name: "Belo Horizonte", population: 2315560, isCapital: false }
+      ]
+    }
+  },
+  CAN: {
+    general: {
+      cities: [
+        { name: "Toronto", population: 2794356, isCapital: false },
+        { name: "Montreal", population: 1762949, isCapital: false },
+        { name: "Vancouver", population: 662248, isCapital: false },
+        { name: "Calgary", population: 1306784, isCapital: false },
+        { name: "Ottawa", population: 1017449, isCapital: true }
+      ]
+    }
+  },
+  CHL: {
+    general: {
+      cities: [
+        { name: "Valparaiso", population: 296655, isCapital: false },
+        { name: "Concepcion", population: 223574, isCapital: false },
+        { name: "Antofagasta", population: 361873, isCapital: false },
+        { name: "La Serena", population: 221054, isCapital: false }
+      ]
+    }
+  },
+  COL: {
+    general: {
+      cities: [
+        { name: "Medellin", population: 2569000, isCapital: false },
+        { name: "Cali", population: 2227642, isCapital: false },
+        { name: "Barranquilla", population: 1326588, isCapital: false },
+        { name: "Cartagena", population: 1036412, isCapital: false }
+      ]
+    }
+  },
+  CUB: {
+    general: {
+      cities: [
+        { name: "Santiago de Cuba", population: 431272, isCapital: false },
+        { name: "Camaguey", population: 321992, isCapital: false },
+        { name: "Holguin", population: 302158, isCapital: false },
+        { name: "Santa Clara", population: 220210, isCapital: false }
+      ]
+    }
+  },
+  ECU: {
+    general: {
+      cities: [
+        { name: "Guayaquil", population: 2697801, isCapital: false },
+        { name: "Cuenca", population: 596101, isCapital: false },
+        { name: "Santo Domingo", population: 458580, isCapital: false },
+        { name: "Machala", population: 276669, isCapital: false }
+      ]
+    }
+  },
+  EGY: {
+    general: {
+      cities: [
+        { name: "Alejandria", population: 5230000, isCapital: false },
+        { name: "Giza", population: 4239988, isCapital: false },
+        { name: "Port Said", population: 749371, isCapital: false },
+        { name: "Suez", population: 744189, isCapital: false }
+      ]
+    }
+  },
+  MEX: {
+    general: {
+      cities: [
+        { name: "Guadalajara", population: 1385621, isCapital: false },
+        { name: "Monterrey", population: 1142994, isCapital: false },
+        { name: "Puebla", population: 1692181, isCapital: false },
+        { name: "Tijuana", population: 1810645, isCapital: false }
+      ]
+    }
+  },
+  PER: {
+    general: {
+      cities: [
+        { name: "Arequipa", population: 1100000, isCapital: false },
+        { name: "Trujillo", population: 970016, isCapital: false },
+        { name: "Chiclayo", population: 799675, isCapital: false },
+        { name: "Piura", population: 505028, isCapital: false }
+      ]
+    }
+  },
+  PRY: {
+    general: {
+      cities: [
+        { name: "Ciudad del Este", population: 301815, isCapital: false },
+        { name: "San Lorenzo", population: 252561, isCapital: false },
+        { name: "Luque", population: 263604, isCapital: false },
+        { name: "Encarnacion", population: 134059, isCapital: false }
+      ]
+    }
+  },
+  URY: {
+    general: {
+      cities: [
+        { name: "Salto", population: 104028, isCapital: false },
+        { name: "Ciudad de la Costa", population: 112449, isCapital: false },
+        { name: "Paysandu", population: 76429, isCapital: false },
+        { name: "Las Piedras", population: 71343, isCapital: false }
+      ]
+    }
+  },
+  VEN: {
+    general: {
+      cities: [
+        { name: "Maracaibo", population: 1650000, isCapital: false },
+        { name: "Valencia", population: 1200000, isCapital: false },
+        { name: "Barquisimeto", population: 1016000, isCapital: false },
+        { name: "Maracay", population: 955362, isCapital: false }
+      ]
+    }
+  },
+  ETH: {
+    general: {
+      cities: [
+        { name: "Dire Dawa", population: 506936, isCapital: false },
+        { name: "Mekelle", population: 500000, isCapital: false },
+        { name: "Adama", population: 387000, isCapital: false },
+        { name: "Bahir Dar", population: 348429, isCapital: false }
+      ]
+    }
+  },
+  ITA: {
+    general: {
+      cities: [
+        { name: "Milan", population: 1374582, isCapital: false },
+        { name: "Napoles", population: 914758, isCapital: false },
+        { name: "Turin", population: 848748, isCapital: false },
+        { name: "Palermo", population: 630828, isCapital: false }
+      ]
+    }
+  },
+  JPN: {
+    general: {
+      cities: [
+        { name: "Yokohama", population: 3777491, isCapital: false },
+        { name: "Osaka", population: 2752412, isCapital: false },
+        { name: "Nagoya", population: 2332176, isCapital: false },
+        { name: "Sapporo", population: 1973395, isCapital: false }
+      ]
+    }
+  },
+  POL: {
+    general: {
+      cities: [
+        { name: "Cracovia", population: 804237, isCapital: false },
+        { name: "Lodz", population: 655279, isCapital: false },
+        { name: "Wroclaw", population: 674079, isCapital: false },
+        { name: "Poznan", population: 540365, isCapital: false }
+      ]
+    }
+  },
+  SAU: {
+    general: {
+      cities: [
+        { name: "Yeda", population: 3976000, isCapital: false },
+        { name: "La Meca", population: 2150000, isCapital: false },
+        { name: "Medina", population: 1411000, isCapital: false },
+        { name: "Dammam", population: 1252000, isCapital: false }
+      ]
+    }
+  }
+});
 
 function inferReligionSummary(composition, fallbackSummary = null) {
   if (fallbackSummary) {
@@ -3777,37 +4672,34 @@ for (const code of allCodes) {
       summary: religionSummary,
       composition: religionComposition
     },
-    metadata: {
-      updatedAt: BUILD_UPDATED_AT,
-      sources: buildMetadataSources(code, {
-        organizations: mergedOrganizations,
-        rivals: finalRivals,
-        conflicts: mergedConflicts
-      }),
-      quality: buildQualityMetadata({
-        populationFromPrimarySource: populationData?.value !== undefined && populationData?.value !== null,
-        populationValue:
-          populationData?.value ??
-          fallback.population ??
-          baseData.population ??
-          populationFallbackFromCities ??
-          null,
-        inflationFromPrimarySource: inflation[code] !== undefined && inflation[code] !== null,
-        inflationValue: inflation[code] ?? INFLATION_OVERRIDES[code] ?? null,
-        religionCompositionFromPrimarySource: compactList(religionData.composition).length > 0,
-        religionCompositionCount: religionComposition.length,
-        organizationFromPrimarySource: compactList(politicsData.organizations).length > 0,
-        organizationCount: mergedOrganizations.length,
-        rivalCount: finalRivals.length,
-        conflictCount: mergedConflicts.length,
-        languagesCount: languages.length,
-        capitalsCount: capitals.length,
-        stateStructure,
-        subdivisionType: subdivisions?.type,
-        hasCuratedTimeline: Boolean(TIMELINE_EVENT_OVERRIDES[code]?.length),
-        hasCuratedConflicts: Boolean(CURATED_CONFLICT_OVERRIDES[code]?.length)
-      })
-    },
+    metadata: createMetadataBundle(code, {
+      organizations: mergedOrganizations,
+      rivals: finalRivals,
+      conflicts: mergedConflicts,
+      relationMetadata,
+      symbolAssets: symbols.assets,
+      populationFromPrimarySource: populationData?.value !== undefined && populationData?.value !== null,
+      populationValue:
+        populationData?.value ??
+        fallback.population ??
+        baseData.population ??
+        populationFallbackFromCities ??
+        null,
+      inflationFromPrimarySource: inflation[code] !== undefined && inflation[code] !== null,
+      inflationValue: inflation[code] ?? INFLATION_OVERRIDES[code] ?? null,
+      religionCompositionFromPrimarySource: compactList(religionData.composition).length > 0,
+      religionCompositionCount: religionComposition.length,
+      organizationFromPrimarySource: compactList(politicsData.organizations).length > 0,
+      organizationCount: mergedOrganizations.length,
+      rivalCount: finalRivals.length,
+      conflictCount: mergedConflicts.length,
+      languagesCount: languages.length,
+      capitalsCount: capitals.length,
+      stateStructure,
+      subdivisionType: subdivisions?.type,
+      hasCuratedTimeline: Boolean(TIMELINE_EVENT_OVERRIDES[code]?.length),
+      hasCuratedConflicts: Boolean(CURATED_CONFLICT_OVERRIDES[code]?.length)
+    }),
     conflicts: mergedConflicts,
     organizations: compactList(baseData.organizations),
     rivals: compactList(baseData.rivals)
@@ -3853,7 +4745,12 @@ for (const code of allCodes) {
   }
 
   result[code].military.conflicts = result[code].conflicts;
-  result[code].metadata.quality = buildQualityMetadata({
+  result[code].metadata = createMetadataBundle(code, {
+    organizations: result[code].politics.organizations,
+    rivals: result[code].politics.rivals,
+    conflicts: result[code].military.conflicts,
+    relationMetadata: result[code].politics.relations,
+    symbolAssets: result[code].general.symbols?.assets,
     populationFromPrimarySource: populationData?.value !== undefined && populationData?.value !== null,
     populationValue: result[code].general.population,
     inflationFromPrimarySource: inflation[code] !== undefined && inflation[code] !== null,
@@ -3916,3 +4813,53 @@ const sanitizedResult = sanitizeDeep(result);
 fs.writeJsonSync("./data/countries_full.json", sanitizedResult, { spaces: 2 });
 
 console.log(`Dataset generado: ${Object.keys(sanitizedResult).length} paises.`);
+/*
+  PAN: {
+    flagDescription: "Bandera cuartelada blanca, roja y azul con estrellas",
+    coatOfArms: "Escudo con aguila harpía, armas, cornucopia y lema nacional"
+  },
+  PER: {
+    flagDescription: "Bandera roja, blanca y roja vertical con escudo en version estatal",
+    coatOfArms: "Escudo con vicuna, quina y cornucopia"
+  },
+  PRY: {
+    flagDescription: "Bandera tricolor roja, blanca y azul con escudos distintos en anverso y reverso",
+    coatOfArms: "Escudo nacional con estrella amarilla y ramas de palma y olivo"
+  },
+  COL: [
+    { year: 1810, category: "revolucion", text: "Cabildo Abierto de Santa Fe y proceso independentista" },
+    { year: 1886, category: "constitucion", text: "Constitucion centralista de 1886" },
+    { year: 1948, category: "guerra", text: "Bogotazo y comienzo de La Violencia" },
+    { year: 1991, category: "constitucion", text: "Nueva Constitucion de Colombia" },
+    { year: 2016, category: "tratado", text: "Acuerdo de paz con las FARC" }
+  ],
+  CUB: [
+    { year: 1902, category: "estado", text: "Proclamacion de la Republica de Cuba" },
+    { year: 1959, category: "revolucion", text: "Triunfo de la Revolucion cubana" },
+    { year: 1976, category: "constitucion", text: "Constitucion socialista" }
+  ],
+  ECU: [
+    { year: 1809, category: "revolucion", text: "Primer grito de independencia de Quito" },
+    { year: 1830, category: "estado", text: "Separacion de la Gran Colombia" },
+    { year: 1941, category: "guerra", text: "Guerra peruano-ecuatoriana" },
+    { year: 2008, category: "constitucion", text: "Constitucion de Montecristi" }
+  ],
+  PER: [
+    { year: 1821, category: "estado", text: "Proclamacion de la independencia del Peru" },
+    { year: 1879, category: "guerra", text: "Participacion en la Guerra del Pacifico" },
+    { year: 1992, category: "golpe", text: "Autogolpe de Alberto Fujimori" },
+    { year: 1993, category: "constitucion", text: "Constitucion vigente de 1993" }
+  ],
+  ECU: {
+    allies: ["Colombia", "Peru"],
+    blocs: ["CAN", "ONU", "CELAC"],
+    disputes: ["Espacios maritimos con Peru"],
+    rivalStates: []
+  },
+  ECU: {
+    economicPartners: ["Estados Unidos", "China", "Peru", "Colombia"],
+    diplomaticPartners: ["Colombia", "Peru", "Chile"],
+    economicBlocs: ["CAN"],
+    diplomaticBlocs: ["ONU", "CELAC"]
+  },
+*/

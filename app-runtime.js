@@ -7,14 +7,18 @@ function getDeviceProfile({ isMobile, currentMapMode, deviceMemory = 4, hardware
     return {
       constrained: true,
       tier: "low",
-      targetFrameRate: mode2d ? (isMobile ? 20 : 28) : (isMobile ? 18 : 24),
-      resolutionScale: mode2d ? (isMobile ? 0.46 : 0.68) : (isMobile ? 0.8 : 0.94),
-      maximumScreenSpaceError: mode2d ? (isMobile ? 11.4 : 7.2) : (isMobile ? 5.4 : 2.8),
+      targetFrameRate: mode2d ? (isMobile ? 22 : 30) : (isMobile ? 20 : 26),
+      resolutionScale: mode2d ? (isMobile ? 0.5 : 0.72) : (isMobile ? 0.82 : 0.98),
+      maximumScreenSpaceError: mode2d ? (isMobile ? 10.8 : 6.8) : (isMobile ? 4.9 : 2.6),
       tileCacheSize: mode2d ? (isMobile ? 24 : 64) : (isMobile ? 90 : 180),
       loadingDescendantLimit: mode2d ? (isMobile ? 2 : 5) : (isMobile ? 8 : 14),
       enableFxaa: false,
       preloadAncestors: false,
-      preloadSiblings: false
+      preloadSiblings: false,
+      hoverEnabled: false,
+      geoJsonPrecision: mode2d ? 2 : 4,
+      geoJsonCoordinateStep: mode2d ? (isMobile ? 4 : 3) : (isMobile ? 2 : 1),
+      maxPreparedGeoJsonEntries: mode2d ? 1 : 2
     };
   }
 
@@ -22,28 +26,36 @@ function getDeviceProfile({ isMobile, currentMapMode, deviceMemory = 4, hardware
     return {
       constrained: false,
       tier: "medium",
-      targetFrameRate: mode2d ? 32 : 30,
-      resolutionScale: mode2d ? 0.72 : 1.02,
-      maximumScreenSpaceError: mode2d ? 5.8 : 2.2,
-      tileCacheSize: mode2d ? 96 : 220,
-      loadingDescendantLimit: mode2d ? 6 : 18,
+      targetFrameRate: mode2d ? 34 : 31,
+      resolutionScale: mode2d ? 0.76 : 1.05,
+      maximumScreenSpaceError: mode2d ? 5.4 : 2.05,
+      tileCacheSize: mode2d ? 108 : 236,
+      loadingDescendantLimit: mode2d ? 7 : 19,
       enableFxaa: !mode2d,
       preloadAncestors: !mode2d,
-      preloadSiblings: !mode2d
+      preloadSiblings: !mode2d,
+      hoverEnabled: !mode2d,
+      geoJsonPrecision: mode2d ? 3 : 5,
+      geoJsonCoordinateStep: mode2d ? 2 : 1,
+      maxPreparedGeoJsonEntries: 3
     };
   }
 
   return {
     constrained: false,
     tier: "high",
-    targetFrameRate: mode2d ? 34 : 32,
-    resolutionScale: mode2d ? 0.78 : 1.1,
-    maximumScreenSpaceError: mode2d ? 5.2 : 1.9,
-    tileCacheSize: mode2d ? 104 : 280,
-    loadingDescendantLimit: mode2d ? 7 : 22,
+    targetFrameRate: mode2d ? 36 : 34,
+    resolutionScale: mode2d ? 0.82 : 1.12,
+    maximumScreenSpaceError: mode2d ? 4.9 : 1.75,
+    tileCacheSize: mode2d ? 120 : 320,
+    loadingDescendantLimit: mode2d ? 8 : 24,
     enableFxaa: !mode2d,
     preloadAncestors: !mode2d,
-    preloadSiblings: !mode2d
+    preloadSiblings: !mode2d,
+    hoverEnabled: !mode2d,
+    geoJsonPrecision: mode2d ? 3 : 6,
+    geoJsonCoordinateStep: 1,
+    maxPreparedGeoJsonEntries: 4
   };
 }
 

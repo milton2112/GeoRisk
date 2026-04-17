@@ -60,9 +60,17 @@ const {
 const {
   EXTRA_CONFLICT_DETAIL_OVERRIDES: curatedConflictDetailOverrides = {},
   EXTRA_CURATED_TIMELINE_EXTRAS: curatedTimelineExtras = {},
-  EXTRA_TIMELINE_DETAIL_OVERRIDES: curatedTimelineDetailOverrides = {}
+  EXTRA_TIMELINE_DETAIL_OVERRIDES: curatedTimelineDetailOverrides = {},
+  COUNTRY_CURATION_OVERRIDES: curatedCountryOverrides = {}
 } = window.GeoRiskCuration || {};
-const APP_VERSION = "2026-04-07-3d-upgrade";
+const newsUi = window.GeoRiskNewsUI || {};
+const compareUi = window.GeoRiskCompareUI || {};
+const quizUi = window.GeoRiskQuizUI || {};
+const countryPanelUi = window.GeoRiskCountryPanel || {};
+const timelineConflictUi = window.GeoRiskTimelineConflicts || {};
+const sharedTheme = window.GeoRiskTheme || {};
+const sharedText = window.GeoRiskText || {};
+const APP_VERSION = "2026-04-16-product-polish-1";
 
 const QUALITY_PRESET_OVERRIDES = {
   auto: null,
@@ -615,6 +623,31 @@ const THEME_PROXY_KEYS = new Set([
   "geopoliticalIndex"
 ]);
 
+if (sharedTheme.MAP_LABEL_SETS) {
+  Object.assign(MAP_LABEL_SETS, sharedTheme.MAP_LABEL_SETS);
+}
+if (sharedTheme.DEFAULT_STYLE) {
+  Object.assign(DEFAULT_STYLE, sharedTheme.DEFAULT_STYLE);
+}
+if (sharedTheme.COUNTRY_HIGHLIGHT_STYLE) {
+  Object.assign(COUNTRY_HIGHLIGHT_STYLE, sharedTheme.COUNTRY_HIGHLIGHT_STYLE);
+}
+if (sharedTheme.CONTINENT_HIGHLIGHT_STYLE) {
+  Object.assign(CONTINENT_HIGHLIGHT_STYLE, sharedTheme.CONTINENT_HIGHLIGHT_STYLE);
+}
+if (sharedTheme.RELIGION_HIGHLIGHT_STYLE) {
+  Object.assign(RELIGION_HIGHLIGHT_STYLE, sharedTheme.RELIGION_HIGHLIGHT_STYLE);
+}
+if (sharedTheme.THEME_STYLES) {
+  Object.keys(sharedTheme.THEME_STYLES).forEach(key => {
+    THEME_STYLES[key] = sharedTheme.THEME_STYLES[key];
+  });
+}
+if (sharedTheme.THEME_PROXY_KEYS instanceof Set) {
+  THEME_PROXY_KEYS.clear();
+  sharedTheme.THEME_PROXY_KEYS.forEach(key => THEME_PROXY_KEYS.add(key));
+}
+
 function cssColorToCesiumColor(cssColor, alpha = 1) {
   return Cesium.Color.fromCssColorString(cssColor).withAlpha(alpha);
 }
@@ -623,6 +656,15 @@ class CesiumCountryLayer {
   constructor(code, entities = [], featureName = "") {
     this.code = code;
     this.entities = entities;
+    this.entities.forEach(entity => {
+      if (!entity.__geoRiskPolylinePositions && entity.polygon?.hierarchy?.getValue) {
+        const hierarchy = entity.polygon.hierarchy.getValue(Cesium.JulianDate.now());
+        const positions = hierarchy?.positions || [];
+        if (positions.length > 2) {
+          entity.__geoRiskPolylinePositions = [...positions, positions[0]];
+        }
+      }
+    });
     this.featureName = featureName;
     this.rectangle = this.computeRectangle();
     this.currentStyleKey = "";
@@ -660,15 +702,13 @@ class CesiumCountryLayer {
     this.entities.forEach(entity => {
       if (entity.polygon) {
         entity.polygon.material = cssColorToCesiumColor(style.fillColor, style.fillOpacity);
-        entity.polygon.outline = true;
-        entity.polygon.outlineColor = cssColorToCesiumColor(style.color, 1);
+        entity.polygon.outline = false;
       }
       if (!entity.polyline && entity.polygon) {
-        const hierarchy = entity.polygon.hierarchy?.getValue?.(Cesium.JulianDate.now());
-        const positions = hierarchy?.positions || [];
+        const positions = entity.__geoRiskPolylinePositions || [];
         if (positions.length > 2) {
           entity.polyline = new Cesium.PolylineGraphics({
-            positions: [...positions, positions[0]],
+            positions,
             clampToGround: false,
             width: scaledWeight,
             material: cssColorToCesiumColor(style.color, 0.92)
@@ -841,6 +881,73 @@ function update3DPresentationState() {
   viewer?.scene?.requestRender?.();
 }
 
+function applyAppMode(mode = "default", persist = true) {
+  appMode = ["default", "analysis", "encyclopedia", "presentation"].includes(mode) ? mode : "default";
+  document.body.dataset.appMode = appMode;
+  document.body.classList.toggle("presentation-mode", appMode === "presentation");
+  if (persist) {
+    localStorage.setItem(STORAGE_KEYS.appMode, appMode);
+    localStorage.setItem(STORAGE_KEYS.presentation, String(appMode === "presentation"));
+  }
+
+  const select = document.getElementById("app-mode-select");
+  if (select) {
+    select.value = appMode;
+  }
+
+  const rankingsPanel = document.getElementById("rankings-panel");
+  const toolbar = document.getElementById("map-toolbar");
+  if (rankingsPanel) {
+    rankingsPanel.open = appMode === "analysis";
+  }
+  if (toolbar) {
+    toolbar.open = appMode === "analysis" || appMode === "encyclopedia";
+  }
+
+  updateStaticText();
+  update3DPresentationState();
+  updateAppStatusPanel();
+}
+
+function openIntroModal() {
+  const modal = document.getElementById("intro-modal");
+  if (!modal) {
+    return;
+  }
+  modal.hidden = false;
+  syncModalOpenState();
+}
+
+function closeIntroModal() {
+  const modal = document.getElementById("intro-modal");
+  if (!modal) {
+    return;
+  }
+  modal.hidden = true;
+  localStorage.setItem(STORAGE_KEYS.introSeen, "true");
+  syncModalOpenState();
+}
+
+function openProductModal(title, bodyHtml) {
+  const modal = document.getElementById("product-modal");
+  const body = document.getElementById("product-modal-body");
+  if (!modal || !body) {
+    return;
+  }
+  body.innerHTML = `<h2 id="product-modal-title">${escapeHtml(title)}</h2>${bodyHtml}`;
+  modal.hidden = false;
+  syncModalOpenState();
+}
+
+function closeProductModal() {
+  const modal = document.getElementById("product-modal");
+  if (!modal) {
+    return;
+  }
+  modal.hidden = true;
+  syncModalOpenState();
+}
+
 function setAutoRotateState(enabled) {
   autoRotateEnabled = Boolean(enabled);
   localStorage.setItem(STORAGE_KEYS.autoRotate, String(autoRotateEnabled));
@@ -890,7 +997,11 @@ function isConstrainedDevice() {
 }
 
 function shouldUseHoverHighlights() {
-  return !isConstrainedDevice() && !isCameraNavigating && currentMapMode !== "2d" && qualityPreset !== "performance";
+  return getPerformancePreset().hoverEnabled &&
+    Date.now() >= hoverSuppressedUntil &&
+    !isCameraNavigating &&
+    currentMapMode !== "2d" &&
+    qualityPreset !== "performance";
 }
 
 function getPerformancePreset() {
@@ -998,6 +1109,24 @@ const satelliteImageryProvider2D = new Cesium.UrlTemplateImageryProvider({
 let activeGeoJsonDataSource = null;
 let activeClickHandler = null;
 let mapSearchAliasesRegistered = false;
+const resourceCache = new Map();
+
+function fetchResourceCached(url, responseType = "json") {
+  const cacheKey = `${responseType}:${url}`;
+  if (resourceCache.has(cacheKey)) {
+    return resourceCache.get(cacheKey);
+  }
+
+  const promise = fetch(url, { cache: "default" }).then(async response => {
+    if (!response.ok) {
+      throw new Error(`No se pudo cargar ${url}: ${response.status}`);
+    }
+    return responseType === "text" ? response.text() : response.json();
+  });
+
+  resourceCache.set(cacheKey, promise);
+  return promise;
+}
 
 function applyImageryForMode() {
   if (!viewer) {
@@ -1022,12 +1151,7 @@ async function getCachedGeoJson(path) {
     return geoJsonCache.get(path);
   }
 
-  const geoJsonPromise = fetch(`${path}${path.includes("?") ? "&" : "?"}v=${APP_VERSION}`, { cache: "no-store" }).then(async response => {
-    if (!response.ok) {
-      throw new Error(`No se pudo cargar ${path}: ${response.status}`);
-    }
-    return response.json();
-  });
+  const geoJsonPromise = fetchResourceCached(`${path}${path.includes("?") ? "&" : "?"}v=${APP_VERSION}`, "json");
 
   geoJsonCache.set(path, geoJsonPromise);
   return geoJsonPromise;
@@ -1038,22 +1162,49 @@ function roundCoordinateValue(value, precision = 3) {
   return Math.round(value * factor) / factor;
 }
 
-function simplifyCoordinatesFor2D(coordinates) {
+function decimateCoordinateRing(points, precision, step) {
+  if (!Array.isArray(points) || !points.length) {
+    return points;
+  }
+  if (typeof points[0] === "number") {
+    return [
+      roundCoordinateValue(points[0], precision),
+      roundCoordinateValue(points[1], precision)
+    ];
+  }
+  if (!Array.isArray(points[0]) || typeof points[0][0] !== "number") {
+    return points.map(item => simplifyCoordinatesForMode(item, precision, step)).filter(Boolean);
+  }
+
+  const normalizedPoints = points.map(point => decimateCoordinateRing(point, precision, 1));
+  if (step <= 1 || normalizedPoints.length <= 8) {
+    return normalizedPoints;
+  }
+
+  const reduced = normalizedPoints.filter((_, index) =>
+    index === 0 ||
+    index === normalizedPoints.length - 1 ||
+    index % step === 0
+  );
+
+  if (reduced.length < 4) {
+    return normalizedPoints;
+  }
+
+  return reduced;
+}
+
+function simplifyCoordinatesForMode(coordinates, precision = 3, step = 1) {
   if (!Array.isArray(coordinates)) {
     return coordinates;
   }
-  if (typeof coordinates[0] === "number") {
-    return [
-      roundCoordinateValue(coordinates[0], 3),
-      roundCoordinateValue(coordinates[1], 3)
-    ];
-  }
-  return coordinates
-    .map(simplifyCoordinatesFor2D)
-    .filter(Boolean);
+  return decimateCoordinateRing(coordinates, precision, step);
 }
 
 function buildPreparedGeoJsonFor2D(rawGeoJson) {
+  const profile = getPerformancePreset();
+  const precision = profile.geoJsonPrecision || 3;
+  const step = profile.geoJsonCoordinateStep || 1;
   return {
     type: rawGeoJson.type,
     features: (rawGeoJson.features || []).map(feature => ({
@@ -1066,27 +1217,59 @@ function buildPreparedGeoJsonFor2D(rawGeoJson) {
       geometry: feature.geometry
         ? {
             type: feature.geometry.type,
-            coordinates: simplifyCoordinatesFor2D(feature.geometry.coordinates)
+            coordinates: simplifyCoordinatesForMode(feature.geometry.coordinates, precision, step)
           }
         : null
     }))
   };
 }
 
-async function getPreparedGeoJson(path) {
-  const cacheKey = `${path}::${currentMapMode}`;
+function buildPreparedGeoJsonFor3D(rawGeoJson) {
+  const precision = isMobileLayout() ? 5 : 6;
+  return {
+    type: rawGeoJson.type,
+    features: (rawGeoJson.features || []).map(feature => ({
+      type: feature.type,
+      properties: {
+        ISO_A3: feature.properties?.ISO_A3 || feature.properties?.iso_a3 || feature.properties?.ADM0_A3 || "",
+        ADM0_A3: feature.properties?.ADM0_A3 || feature.properties?.ISO_A3 || feature.properties?.iso_a3 || "",
+        ADM0_A3_US: feature.properties?.ADM0_A3_US || "",
+        WB_A3: feature.properties?.WB_A3 || "",
+        BRK_A3: feature.properties?.BRK_A3 || "",
+        SOV_A3: feature.properties?.SOV_A3 || "",
+        GU_A3: feature.properties?.GU_A3 || "",
+        name: feature.properties?.name || feature.properties?.NAME || feature.properties?.ADMIN || ""
+      },
+      geometry: feature.geometry
+        ? {
+            type: feature.geometry.type,
+            coordinates: simplifyCoordinatesForMode(feature.geometry.coordinates, precision, 1)
+          }
+        : null
+    }))
+  };
+}
+
+async function getPreparedGeoJson(path, mode = currentMapMode) {
+  const cacheKey = `${path}::${mode}`;
   if (preparedGeoJsonCache.has(cacheKey)) {
     return preparedGeoJsonCache.get(cacheKey);
   }
   const raw = await getCachedGeoJson(path);
-  const prepared = currentMapMode === "2d" ? buildPreparedGeoJsonFor2D(raw) : raw;
+  const prepared = mode === "2d" ? buildPreparedGeoJsonFor2D(raw) : buildPreparedGeoJsonFor3D(raw);
   preparedGeoJsonCache.set(cacheKey, prepared);
   return prepared;
 }
 
 function trimDataCaches() {
-  const tier = getDeviceTier();
+  const preset = getPerformancePreset();
+  const tier = preset.tier;
   if (tier === "high") {
+    while (preparedGeoJsonCache.size > (preset.maxPreparedGeoJsonEntries || 4)) {
+      const firstKey = preparedGeoJsonCache.keys().next().value;
+      if (!firstKey) break;
+      preparedGeoJsonCache.delete(firstKey);
+    }
     return;
   }
 
@@ -1103,6 +1286,34 @@ function trimDataCaches() {
         geoJsonCache.delete(key);
       }
     }
+    for (const key of [...resourceCache.keys()]) {
+      if (!key.includes(activePath) && !key.includes("countries_full.json")) {
+        resourceCache.delete(key);
+      }
+    }
+  }
+}
+
+function scheduleGeoJsonWarmup() {
+  const preset = getPerformancePreset();
+  if (preset.tier === "low") {
+    return;
+  }
+
+  const alternateMode = currentMapMode === "2d" ? "3d" : "2d";
+  const warmPath = alternateMode === "2d"
+    ? "./data/world_countries_simplified.geo.json"
+    : (isMobileLayout() ? "./data/world_countries_simplified.geo.json" : "./data/world_countries.geo.json");
+  const warm = () => {
+    getPreparedGeoJson(warmPath, alternateMode).catch(error => {
+      console.error("No se pudo precalentar el GeoJSON alternativo:", error);
+    });
+  };
+
+  if (window.requestIdleCallback) {
+    window.requestIdleCallback(warm, { timeout: 1200 });
+  } else {
+    setTimeout(warm, 320);
   }
 }
 
@@ -1142,6 +1353,8 @@ function setNavigationQualityState(isNavigating) {
 }
 
 let viewer = null;
+let requestSceneRender = () => {};
+let scheduledSceneRenderFrame = null;
 const newsCache = new Map();
 const geoJsonCache = new Map();
 const preparedGeoJsonCache = new Map();
@@ -1153,6 +1366,37 @@ let activeNewsCountryCode = "";
 let loadDataPromise = null;
 let deferredGlobalStatsTimer = null;
 let deferredGlobalStatsReady = false;
+let hoverSuppressedUntil = 0;
+let lastHoverSampleAt = 0;
+let lastThemeSummarySignature = "";
+
+function installSceneRenderScheduler() {
+  if (!viewer?.scene || viewer.__geoRiskRenderSchedulerInstalled) {
+    return;
+  }
+
+  const originalRequestRender = viewer.scene.requestRender.bind(viewer.scene);
+  requestSceneRender = () => {
+    if (scheduledSceneRenderFrame !== null) {
+      return;
+    }
+    const flush = () => {
+      scheduledSceneRenderFrame = null;
+      if (viewer?.scene) {
+        originalRequestRender();
+      }
+    };
+
+    if (typeof requestAnimationFrame === "function") {
+      scheduledSceneRenderFrame = requestAnimationFrame(flush);
+    } else {
+      scheduledSceneRenderFrame = setTimeout(flush, 16);
+    }
+  };
+
+  viewer.scene.requestRender = requestSceneRender;
+  viewer.__geoRiskRenderSchedulerInstalled = true;
+}
 
 const DATA_SOURCE_SUMMARY = {
   es: [
@@ -1181,6 +1425,8 @@ const CONFLICT_PARENT_RULES = [
   { parent: "Guerra del Golfo", matches: ["73 easting", "khafji"] },
   { parent: "Guerra de Afganistan", matches: ["tora bora", "kunduz", "helmand", "kandahar"] }
 ];
+
+const CONFLICT_CAMPAIGN_MARKERS = ["operacion", "campana", "campaña", "ofensiva", "frente", "asedio", "sitio"];
 
 const CONFLICT_DETAIL_OVERRIDES = {
   "Guerra de las Malvinas": {
@@ -1362,6 +1608,7 @@ function initializeViewer() {
     terrainProvider: new Cesium.EllipsoidTerrainProvider(),
     timeline: false
   });
+  installSceneRenderScheduler();
 
   map.scene = viewer.scene;
   map.camera = viewer.camera;
@@ -1506,27 +1753,27 @@ function updateMapInteractionTuning() {
   }
   viewer.scene.screenSpaceCameraController.inertiaSpin = isMobileLayout() ? 0.58 : 0.78;
   viewer.scene.screenSpaceCameraController.inertiaTranslate = currentMapMode === "2d"
-    ? (isMobileLayout() ? 0.08 : 0.14)
-    : (isMobileLayout() ? 0.58 : 0.8);
+    ? (isMobileLayout() ? 0.07 : 0.12)
+    : (isMobileLayout() ? 0.52 : 0.74);
   viewer.scene.screenSpaceCameraController.inertiaZoom = currentMapMode === "2d"
-    ? (isMobileLayout() ? 0.08 : 0.14)
-    : (isMobileLayout() ? 0.5 : 0.68);
+    ? (isMobileLayout() ? 0.07 : 0.12)
+    : (isMobileLayout() ? 0.46 : 0.62);
   viewer.scene.screenSpaceCameraController.enableRotate = currentMapMode !== "2d";
   viewer.scene.screenSpaceCameraController.enableTranslate = true;
   viewer.scene.screenSpaceCameraController.enableZoom = true;
   viewer.scene.screenSpaceCameraController.maximumMovementRatio = currentMapMode === "2d"
-    ? (isMobileLayout() ? 0.08 : 0.11)
-    : 0.18;
+    ? (isMobileLayout() ? 0.07 : 0.1)
+    : (isMobileLayout() ? 0.15 : 0.17);
   viewer.scene.screenSpaceCameraController.maximumZoomDistance = currentMapMode === "2d"
     ? Number.POSITIVE_INFINITY
     : getMaxGlobeDistance();
   viewer.scene.screenSpaceCameraController.minimumZoomDistance = currentMapMode === "2d" ? 1 : 850000;
   viewer.scene.requestRenderMode = true;
-  viewer.scene.maximumRenderTimeChange = currentMapMode === "2d" ? 0.08 : 0.35;
+  viewer.scene.maximumRenderTimeChange = currentMapMode === "2d" ? 0.06 : 0.28;
   viewer.scene.skyAtmosphere.show = qualityPreset === "high" && currentMapMode === "3d" && !document.body.classList.contains("presentation-mode");
   viewer.scene.globe.showGroundAtmosphere = qualityPreset === "high" && currentMapMode === "3d" && !document.body.classList.contains("presentation-mode");
   lastOverlayBucket = getCurrentOverlayBucket();
-  viewer.scene.requestRender();
+  requestSceneRender();
 }
 
 function updateMapModeToggle() {
@@ -1583,6 +1830,10 @@ let rawPoliticsSystems = {};
 let rawHistorySystems = {};
 let rawInflationByCode = {};
 let populationGrowthByCode = {};
+let countryCodeByEnglishName = new Map();
+let mapNameAliasOverrides = {};
+let mapNameAliasIndex = new Map();
+let worldBankNameAliasOverrides = {};
 let inflationFallbackByContinent = {};
 let globalInflationFallback = null;
 let countryAreaCache = {};
@@ -1598,10 +1849,12 @@ let currentLanguage = "es";
 let currentPanelState = { type: "empty" };
 let savedFilters = [];
 let savedViews = [];
+let favoriteViews = [];
 let searchHistory = [];
 let savedSearches = [];
 let compareBenchmarkMode = "world";
 let activeNewsTopic = "general";
+let appMode = "default";
 let performanceMonitorId = null;
 let labelEntities = [];
 let qualityPreset = localStorage.getItem("geo-risk-quality-preset") || "auto";
@@ -1621,6 +1874,7 @@ let quizState = {
   score: 0,
   total: 0,
   current: null,
+  feedback: null,
   streak: 0,
   bestStreak: 0,
   timeLeft: 0,
@@ -1633,7 +1887,10 @@ const STORAGE_KEYS = {
   language: "geo-risk-language",
   presentation: "geo-risk-presentation-mode",
   views: "geo-risk-saved-views",
+  favorites: "geo-risk-favorite-views",
   helpSeen: "geo-risk-help-seen",
+  introSeen: "geo-risk-intro-seen",
+  appMode: "geo-risk-app-mode",
   qualityPreset: "geo-risk-quality-preset",
   labelMode: "geo-risk-label-mode",
   autoRotate: "geo-risk-auto-rotate",
@@ -1670,7 +1927,7 @@ const TERRITORY_LINKS = {
   USA: ["PRI"],
   PRI: ["USA"]
 };
-const SYMBOL_IMAGE_CODES = new Set(["ARG", "BRA", "USA", "CHN", "GBR", "FRA", "DEU", "IND"]);
+const SYMBOL_IMAGE_CODES = new Set(["ARG", "BRA", "USA", "CHN", "GBR", "FRA", "DEU", "IND", "BHS", "GRL", "MKD", "PSE", "SRB", "TWN", "TZA"]);
 const COAT_IMAGE_CODES = new Set(["ARG", "BRA", "USA", "CHN"]);
 
 const RELIGION_FAMILY_RULES = [
@@ -1847,7 +2104,17 @@ const UI_STRINGS = {
   }
 };
 
+if (sharedText.UI_STRINGS?.es) {
+  Object.assign(UI_STRINGS.es, sharedText.UI_STRINGS.es);
+}
+if (sharedText.UI_STRINGS?.en) {
+  Object.assign(UI_STRINGS.en, sharedText.UI_STRINGS.en);
+}
+
 function formatNumber(value) {
+  if (typeof sharedText.formatNumber === "function") {
+    return sharedText.formatNumber(value);
+  }
   if (value === null || value === undefined || value === "") {
     return "Sin datos";
   }
@@ -1856,6 +2123,9 @@ function formatNumber(value) {
 }
 
 function formatPercentage(value) {
+  if (typeof sharedText.formatPercentage === "function") {
+    return sharedText.formatPercentage(value);
+  }
   if (value === null || value === undefined || Number.isNaN(value)) {
     return "0%";
   }
@@ -1867,6 +2137,9 @@ function formatPercentage(value) {
 }
 
 function parseInflationValue(value) {
+  if (typeof sharedText.parseInflationValue === "function") {
+    return sharedText.parseInflationValue(value);
+  }
   if (value === null || value === undefined || value === "") {
     return null;
   }
@@ -1884,6 +2157,15 @@ function parseInflationValue(value) {
 }
 
 function formatInflation(value) {
+  if (typeof sharedText.formatInflation === "function") {
+    const formatted = sharedText.formatInflation(value, { noDataLabel: t("noData") });
+    if (formatted !== t("noData")) {
+      const parsedShared = parseInflationValue(value);
+      if (isValidInflationValue(parsedShared)) {
+        return formatted;
+      }
+    }
+  }
   const parsed = parseInflationValue(value);
   if (!isValidInflationValue(parsed)) {
     return t("noData");
@@ -1895,8 +2177,42 @@ function formatInflation(value) {
   })}%`;
 }
 
+function repairMojibake(value) {
+  if (typeof sharedText.repairMojibake === "function") {
+    return sharedText.repairMojibake(value);
+  }
+  const raw = String(value || "");
+  if (!raw || !/[ÃÂâ€œâ€\uFFFD]/.test(raw)) {
+    return raw;
+  }
+
+  return raw
+    .replace(/Ã¡/g, "á")
+    .replace(/Ã©/g, "é")
+    .replace(/Ã­/g, "í")
+    .replace(/Ã³/g, "ó")
+    .replace(/Ãº/g, "ú")
+    .replace(/Ã±/g, "ñ")
+    .replace(/Ã¼/g, "ü")
+    .replace(/Ã/g, "Á")
+    .replace(/Ã‰/g, "É")
+    .replace(/Ã/g, "Í")
+    .replace(/Ã“/g, "Ó")
+    .replace(/Ãš/g, "Ú")
+    .replace(/Ã‘/g, "Ñ")
+    .replace(/Ãœ/g, "Ü")
+    .replace(/â€“/g, "-")
+    .replace(/â€”/g, "-")
+    .replace(/â€˜|â€™/g, "'")
+    .replace(/â€œ|â€�/g, "\"")
+    .replace(/Â/g, "");
+}
+
 function normalizeText(value) {
-  return String(value || "")
+  if (typeof sharedText.normalizeText === "function") {
+    return sharedText.normalizeText(value);
+  }
+  return repairMojibake(String(value || ""))
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
@@ -2124,6 +2440,9 @@ function normalizeHistoryType(country) {
 }
 
 function escapeHtml(value) {
+  if (typeof sharedText.escapeHtml === "function") {
+    return sharedText.escapeHtml(value);
+  }
   return String(value || "")
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
@@ -2233,6 +2552,23 @@ function uniqueNormalizedList(items) {
   );
 }
 
+function uniqueBy(items, getKey) {
+  const list = Array.isArray(items) ? items : [];
+  const keyFn = typeof getKey === "function" ? getKey : (item => item);
+  const seen = new Set();
+  return list.filter(item => {
+    if (!item) {
+      return false;
+    }
+    const key = keyFn(item);
+    if (seen.has(key)) {
+      return false;
+    }
+    seen.add(key);
+    return true;
+  });
+}
+
 function compactNumber(value) {
   if (value === null || value === undefined || Number.isNaN(Number(value))) {
     return "Sin datos";
@@ -2245,6 +2581,9 @@ function compactNumber(value) {
 }
 
 function getInitialism(value) {
+  if (typeof sharedText.getInitialism === "function") {
+    return sharedText.getInitialism(value);
+  }
   return normalizeText(value)
     .split(" ")
     .filter(Boolean)
@@ -2253,6 +2592,9 @@ function getInitialism(value) {
 }
 
 function t(key) {
+  if (typeof sharedText.createTranslator === "function") {
+    return sharedText.createTranslator(() => currentLanguage)(key);
+  }
   return UI_STRINGS[currentLanguage]?.[key] || UI_STRINGS.es[key] || key;
 }
 
@@ -2431,12 +2773,13 @@ function getFlagEmoji(code) {
   );
 }
 
-function renderFlagVisual(code, label, className = "country-flag") {
+function renderFlagVisual(code, label, className = "country-flag", assetSrc = "") {
   const emoji = getFlagEmoji(code);
-  if (SYMBOL_IMAGE_CODES.has(code)) {
+  const resolvedSrc = assetSrc || (SYMBOL_IMAGE_CODES.has(code) ? `./assets/flags/${code}.svg` : "");
+  if (resolvedSrc) {
     return `
       <span class="${className}">
-        <img class="flag-image" src="./assets/flags/${code}.svg" alt="${escapeHtml(label || code)}" onerror="this.hidden=true;this.nextElementSibling.hidden=false;">
+        <img class="flag-image" src="${escapeHtml(resolvedSrc)}" alt="${escapeHtml(label || code)}" onerror="this.hidden=true;this.nextElementSibling.hidden=false;">
         <span class="flag-fallback" hidden>${emoji}</span>
       </span>
       `;
@@ -2449,8 +2792,9 @@ function renderFlagVisual(code, label, className = "country-flag") {
   `;
 }
 
-function renderCoatVisual(code, label) {
-  if (!COAT_IMAGE_CODES.has(code)) {
+function renderCoatVisual(code, label, assetSrc = "") {
+  const resolvedSrc = assetSrc || (COAT_IMAGE_CODES.has(code) ? `./assets/coats/${code}.svg` : "");
+  if (!resolvedSrc) {
     const initials = String(code || "?").slice(0, 3).toUpperCase();
     const svg = encodeURIComponent(`
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 84 96">
@@ -2467,9 +2811,113 @@ function renderCoatVisual(code, label) {
 
   return `
     <div class="coat-visual">
-      <img class="coat-image" src="./assets/coats/${code}.svg" alt="${escapeHtml(label || code)}" onerror="this.parentElement.hidden=true;">
+      <img class="coat-image" src="${escapeHtml(resolvedSrc)}" alt="${escapeHtml(label || code)}" onerror="this.parentElement.hidden=true;">
     </div>
   `;
+}
+
+function getCountrySymbolAssets(country, code) {
+  const assets = country?.general?.symbols?.assets || {};
+  return {
+    flagSrc: assets.flagPath || (SYMBOL_IMAGE_CODES.has(code) ? `./assets/flags/${code}.svg` : ""),
+    coatSrc: assets.coatPath || (COAT_IMAGE_CODES.has(code) ? `./assets/coats/${code}.svg` : "")
+  };
+}
+
+function renderSymbolShowcase(country, code) {
+  const symbols = country?.general?.symbols || {};
+  const { flagSrc, coatSrc } = getCountrySymbolAssets(country, code);
+  const flagDescription = symbols.flagDescription || (currentLanguage === "en" ? "No structured description" : "Sin descripcion estructurada");
+  const coatDescription = symbols.coatOfArms || (currentLanguage === "en" ? "No structured description" : "Sin descripcion estructurada");
+
+  return `
+    <div class="symbol-showcase">
+      <article class="symbol-card">
+        <div class="symbol-card-asset">${renderFlagVisual(code, `${country?.name || code} bandera`, "country-flag country-flag-large", flagSrc)}</div>
+        <div class="symbol-card-copy">
+          <span class="symbol-card-label">${currentLanguage === "en" ? "Flag" : "Bandera"}</span>
+          <strong class="symbol-card-title">${flagSrc ? (currentLanguage === "en" ? "Local asset available" : "Activo local disponible") : (currentLanguage === "en" ? "Fallback active" : "Fallback activo")}</strong>
+          <p>${escapeHtml(flagDescription)}</p>
+        </div>
+      </article>
+      <article class="symbol-card">
+        <div class="symbol-card-asset">${renderCoatVisual(code, `${country?.name || code} escudo`, coatSrc)}</div>
+        <div class="symbol-card-copy">
+          <span class="symbol-card-label">${currentLanguage === "en" ? "Coat of arms" : "Escudo"}</span>
+          <strong class="symbol-card-title">${coatSrc ? (currentLanguage === "en" ? "Local asset available" : "Activo local disponible") : (currentLanguage === "en" ? "Generated fallback" : "Fallback generado")}</strong>
+          <p>${escapeHtml(coatDescription)}</p>
+        </div>
+      </article>
+    </div>
+  `;
+}
+
+function getMiniMetricRatio(value, ceiling) {
+  if (!Number.isFinite(value) || !Number.isFinite(ceiling) || ceiling <= 0) {
+    return 0;
+  }
+  return Math.max(6, Math.min(100, Math.round((value / ceiling) * 100)));
+}
+
+function renderMiniMetrics(items = [], emptyLabel = "") {
+  const validItems = items.filter(item => item && (item.value || item.secondary));
+  if (!validItems.length) {
+    return `<p>${escapeHtml(emptyLabel || t("noData"))}</p>`;
+  }
+
+  return `
+    <div class="mini-metric-grid">
+      ${validItems.map(item => `
+        <div class="mini-metric-card">
+          <div class="mini-metric-head">
+            <span class="mini-metric-label">${escapeHtml(item.label)}</span>
+            <strong class="mini-metric-value">${escapeHtml(item.value)}</strong>
+          </div>
+          <div class="mini-metric-bar" aria-hidden="true"><span style="width:${Math.max(0, Math.min(100, item.ratio || 0))}%"></span></div>
+          ${item.secondary ? `<span class="mini-metric-secondary">${escapeHtml(item.secondary)}</span>` : ""}
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+function renderEconomyMiniMetrics(country) {
+  const economy = country?.economy || {};
+  const exportsCount = Array.isArray(economy.exports) ? economy.exports.length : 0;
+  const industriesCount = Array.isArray(economy.industries) ? economy.industries.length : 0;
+  const inflationValue = Number(economy.inflation);
+  return renderMiniMetrics([
+    {
+      label: currentLanguage === "en" ? "GDP" : "PBI",
+      value: economy.gdp ? `US$ ${formatNumber(Math.round(economy.gdp))}` : t("noData"),
+      secondary: currentLanguage === "en" ? "Relative global scale" : "Escala relativa global",
+      ratio: getMiniMetricRatio(economy.gdp || 0, 25000000000000)
+    },
+    {
+      label: t("gdpPerCapita"),
+      value: economy.gdpPerCapita ? `US$ ${formatNumber(Math.round(economy.gdpPerCapita))}` : t("noData"),
+      secondary: currentLanguage === "en" ? "Approx. prosperity" : "Prosperidad aproximada",
+      ratio: getMiniMetricRatio(economy.gdpPerCapita || 0, 90000)
+    },
+    {
+      label: currentLanguage === "en" ? "Export breadth" : "Diversidad exportadora",
+      value: formatNumber(exportsCount),
+      secondary: currentLanguage === "en" ? "Tracked export groups" : "Rubros exportadores relevados",
+      ratio: getMiniMetricRatio(exportsCount, 18)
+    },
+    {
+      label: t("inflation"),
+      value: formatInflation(economy.inflation),
+      secondary: currentLanguage === "en" ? "Lower pressure is better" : "Menor presion es mejor",
+      ratio: Number.isFinite(inflationValue) ? Math.max(6, Math.min(100, 100 - Math.min(100, inflationValue))) : 0
+    },
+    {
+      label: currentLanguage === "en" ? "Industry breadth" : "Diversidad industrial",
+      value: formatNumber(industriesCount),
+      secondary: currentLanguage === "en" ? "Tracked industry groups" : "Rubros industriales relevados",
+      ratio: getMiniMetricRatio(industriesCount, 18)
+    }
+  ], currentLanguage === "en" ? "No economic mini metrics available." : "No hay mini metricas economicas disponibles.");
 }
 
 function toDisplayTitleCase(value) {
@@ -2729,6 +3177,54 @@ function renderReligion(religion) {
   return `${summary}${compositionList}`;
 }
 
+function renderReligionMiniMetrics(religion) {
+  const composition = getReligionCompositionForDisplay(religion)
+    .sort((a, b) => (b.percentage || 0) - (a.percentage || 0))
+    .slice(0, 4);
+
+  return renderMiniMetrics(
+    composition.map(item => ({
+      label: item.name,
+      value: `${item.estimated ? "~" : ""}${formatPercentage(item.percentage || 0)}`,
+      secondary: item.estimated
+        ? (currentLanguage === "en" ? "Estimated share" : "Participacion estimada")
+        : (currentLanguage === "en" ? "Reported share" : "Participacion reportada"),
+      ratio: Math.max(6, Math.min(100, Math.round(item.percentage || 0)))
+    })),
+    currentLanguage === "en" ? "No religious composition available." : "No hay composicion religiosa disponible."
+  );
+}
+
+function renderDataQualityHighlights(country) {
+  const quality = country?.metadata?.quality || {};
+  const provenance = country?.metadata?.provenance || {};
+  const qualityScore = Number.isFinite(quality.score) ? Math.max(0, Math.round(quality.score)) : null;
+  const statusEntries = Object.entries(quality.sectionStatus || {});
+  const curatedSections = statusEntries.filter(([, value]) => value === "curated" || value === "confirmed").length;
+  const estimatedFields = Array.isArray(quality.estimatedFields) ? quality.estimatedFields.length : 0;
+  const missingFields = Array.isArray(quality.missingFields) ? quality.missingFields.length : 0;
+
+  return `
+    <div class="source-audit-grid">
+      <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Quality score" : "Calidad"}</span><strong class="overview-value">${qualityScore !== null ? `${qualityScore}/100` : t("noData")}</strong></div>
+      <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Updated" : "Actualizado"}</span><strong class="overview-value">${escapeHtml(country?.metadata?.updatedAt || "2026-04-16")}</strong></div>
+      <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Curated sections" : "Secciones curadas"}</span><strong class="overview-value">${formatNumber(curatedSections)}</strong></div>
+      <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Estimated fields" : "Campos estimados"}</span><strong class="overview-value">${formatNumber(estimatedFields)}</strong></div>
+      <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Missing fields" : "Campos faltantes"}</span><strong class="overview-value">${formatNumber(missingFields)}</strong></div>
+    </div>
+    ${Object.keys(provenance).length ? `
+      <div class="provenance-grid">
+        ${Object.entries(provenance).map(([key, value]) => `
+          <div class="provenance-card">
+            <span class="overview-label">${escapeHtml(key)}</span>
+            <strong class="overview-value">${escapeHtml(value?.status || value || t("noData"))}</strong>
+          </div>
+        `).join("")}
+      </div>
+    ` : ""}
+  `;
+}
+
 function getTimelineEventQuery(event, country) {
   if (event.query) {
     return event.query;
@@ -2777,6 +3273,41 @@ function getTimelineIntensityLabel(value) {
   return labels[normalizeText(value)] || value;
 }
 
+function getTimelineIntensityWeight(value) {
+  const weights = { alta: 3, media: 2, baja: 1 };
+  return weights[normalizeText(value)] || 0;
+}
+
+function getTimelineRelevance(event) {
+  const explicit = normalizeText(event.relevance || "");
+  if (explicit) {
+    return explicit;
+  }
+
+  const category = normalizeText(event.categoryKey || "");
+  const intensity = normalizeText(event.intensity || getTimelineIntensity(event));
+
+  if (["formation", "conflict", "annexation", "secession"].includes(category)) {
+    return "alta";
+  }
+  if (["constitution", "coup"].includes(category)) {
+    return intensity === "alta" ? "alta" : "media";
+  }
+  if (["treaty", "system", "organization"].includes(category)) {
+    return intensity === "alta" ? "media" : "baja";
+  }
+  return intensity === "alta" ? "media" : "baja";
+}
+
+function getTimelineRelevanceLabel(value) {
+  const labels = {
+    alta: currentLanguage === "en" ? "Core milestone" : "Hito central",
+    media: currentLanguage === "en" ? "Relevant milestone" : "Hito relevante",
+    baja: currentLanguage === "en" ? "Context milestone" : "Hito contextual"
+  };
+  return labels[normalizeText(value)] || value;
+}
+
 function getTimelineCategoryLabel(key, fallback = "") {
   const labels = {
     formation: currentLanguage === "en" ? "Formation" : "Formacion",
@@ -2815,10 +3346,12 @@ function getTimelineDetailContent(item, contextLabel = "") {
     category: getTimelineCategoryLabel(item.categoryKey, item.category),
     century: getTimelineCentury(item.year),
     intensity: getTimelineIntensityLabel(item.intensity || getTimelineIntensity(item)),
+    relevance: getTimelineRelevanceLabel(item.relevance || getTimelineRelevance(item)),
     region: item.contextLabel || contextLabel || "",
     detail: override.detail || item.text,
     significance: override.significance || (currentLanguage === "en" ? "Contextual event within the selected timeline." : "Evento contextual dentro del timeline seleccionado."),
-    reference: item.reference || item.text
+    reference: item.reference || item.text,
+    query: item.reference || item.text
   };
 }
 
@@ -2844,6 +3377,7 @@ function openTimelineModal(key) {
       <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Category" : "Categoria"}</span><strong class="overview-value">${escapeHtml(detail.category)}</strong></div>
       <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Century" : "Siglo"}</span><strong class="overview-value">${escapeHtml(detail.century || "")}</strong></div>
       <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Impact" : "Impacto"}</span><strong class="overview-value">${escapeHtml(detail.intensity)}</strong></div>
+      <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Relevance" : "Relevancia"}</span><strong class="overview-value">${escapeHtml(detail.relevance)}</strong></div>
     </div>
     ${detail.region ? `<div class="conflict-modal-section"><h4>${currentLanguage === "en" ? "Context" : "Contexto"}</h4><p>${escapeHtml(detail.region)}</p></div>` : ""}
     <div class="conflict-modal-section">
@@ -2854,6 +3388,7 @@ function openTimelineModal(key) {
       <h4>${currentLanguage === "en" ? "Why it matters" : "Por que importa"}</h4>
       <p>${escapeHtml(detail.significance)}</p>
     </div>
+    ${detail.query ? `<div class="conflict-modal-actions"><button type="button" class="panel-action-button" data-search-query="${escapeHtml(detail.query)}">${currentLanguage === "en" ? "Explore related entries" : "Explorar referencias relacionadas"}</button></div>` : ""}
   `;
 
   modal.hidden = false;
@@ -3437,6 +3972,110 @@ function inferConflictRegion(conflict, detail = {}, countryName = "") {
   return countryName ? `${countryName} y su entorno regional` : "Region indeterminada";
 }
 
+function getConflictRegionFilterKey(region = "") {
+  const normalized = normalizeText(region);
+  if (!normalized) {
+    return "otras";
+  }
+  if (/europa|balcanes|caucaso/.test(normalized)) {
+    return "europa";
+  }
+  if (/asia|medio oriente|golfo|levante/.test(normalized)) {
+    return "asia";
+  }
+  if (/africa/.test(normalized)) {
+    return "africa";
+  }
+  if (/america|caribe/.test(normalized)) {
+    return "america";
+  }
+  return "otras";
+}
+
+function inferConflictLevel(conflict, detail = {}, parentName = null) {
+  const explicit = normalizeText(detail.level || "");
+  if (explicit) {
+    return explicit;
+  }
+
+  if (!parentName) {
+    return "war";
+  }
+
+  const normalized = normalizeText(conflict?.name || conflict || "");
+  if (CONFLICT_CAMPAIGN_MARKERS.some(marker => normalized.includes(marker))) {
+    return "campaign";
+  }
+  return "battle";
+}
+
+function getConflictLevelLabel(level) {
+  const labels = {
+    war: currentLanguage === "en" ? "War" : "Guerra",
+    campaign: currentLanguage === "en" ? "Campaign" : "Campaña",
+    battle: currentLanguage === "en" ? "Battle" : "Batalla"
+  };
+  return labels[level] || (currentLanguage === "en" ? "Conflict" : "Conflicto");
+}
+
+function inferConflictOutcomeKey(detail = {}) {
+  const normalized = normalizeText(detail.outcome || "");
+  if (!normalized) {
+    return "other";
+  }
+  if (/curso|ongoing|sin resolver|parcialmente congelado/.test(normalized)) {
+    return "ongoing";
+  }
+  if (/armistic|alto el fuego|cese del fuego/.test(normalized)) {
+    return "ceasefire";
+  }
+  if (/independenc|secesion/.test(normalized)) {
+    return "independence";
+  }
+  if (/victoria|derrota|liberacion|retirada|colapso|captura/.test(normalized)) {
+    return "victory";
+  }
+  return "other";
+}
+
+function getConflictOutcomeLabel(key) {
+  const labels = {
+    victory: currentLanguage === "en" ? "Victory / defeat" : "Victoria / derrota",
+    ceasefire: currentLanguage === "en" ? "Ceasefire / armistice" : "Armisticio / alto el fuego",
+    independence: currentLanguage === "en" ? "Independence / secession" : "Independencia / secesion",
+    ongoing: currentLanguage === "en" ? "Ongoing / unresolved" : "En curso / sin resolver",
+    other: currentLanguage === "en" ? "Other outcome" : "Otro desenlace"
+  };
+  return labels[key] || labels.other;
+}
+
+function getConflictCountryRelationship(detail = {}, country = null) {
+  if (!country || !Array.isArray(detail.participants)) {
+    return null;
+  }
+
+  const namesToMatch = uniqueNormalizedList([
+    country.name,
+    country.general?.officialName,
+    ...(country.general?.historicalNames || [])
+  ]);
+
+  const matchedSides = detail.participants.filter(side =>
+    [...(side.members || []), ...(side.organizations || [])].some(member =>
+      namesToMatch.some(name => normalizeText(member) === normalizeText(name))
+    )
+  );
+
+  if (!matchedSides.length) {
+    return null;
+  }
+
+  return {
+    sideLabels: matchedSides.map(side => side.side).filter(Boolean),
+    participants: matchedSides
+  };
+}
+
 function getConflictTypeLabel(type) {
   const labels = {
     "guerra mundial": currentLanguage === "en" ? "World war" : "Guerra mundial",
@@ -3454,6 +4093,33 @@ function getConflictScopeLabel(scope) {
     nacional: currentLanguage === "en" ? "Domestic" : "Nacional"
   };
   return labels[scope] || scope || (currentLanguage === "en" ? "Regional" : "Regional");
+}
+
+function assignBattlesToCampaigns(campaigns, battles) {
+  const remainingBattles = [];
+
+  battles.forEach(battle => {
+    const battleKey = normalizeText(battle.name);
+    const match = campaigns.find(campaign => {
+      const keywords = normalizeText(campaign.name)
+        .split(/\s+/)
+        .filter(token => token.length >= 4 && !CONFLICT_CAMPAIGN_MARKERS.includes(token));
+      return keywords.some(token => battleKey.includes(token));
+    });
+
+    if (match) {
+      match.battles = match.battles || [];
+      match.battles.push(battle);
+      return;
+    }
+
+    remainingBattles.push(battle);
+  });
+
+  return {
+    campaigns,
+    battles: remainingBattles
+  };
 }
 
 function buildConflictGroups(conflicts) {
@@ -3474,7 +4140,7 @@ function buildConflictGroups(conflicts) {
   cleanedConflicts.forEach(conflict => {
     const parentName = getConflictParentName(conflict.name);
     if (!parentName) {
-      standalone.push(conflict);
+      standalone.push({ ...conflict, level: "war", campaigns: [], battles: [] });
       return;
     }
 
@@ -3486,61 +4152,92 @@ function buildConflictGroups(conflicts) {
         endYear: conflict.endYear,
         ongoing: false
       };
-      group = { ...warConflict, battles: [] };
+      group = { ...warConflict, level: "war", campaigns: [], battles: [] };
       groupedWars.push(group);
     }
 
     if (normalizeText(conflict.name) !== normalizeText(parentName)) {
-      group.battles.push(conflict);
+      const detail = CONFLICT_DETAIL_OVERRIDES[conflict.name] || {};
+      const level = inferConflictLevel(conflict, detail, parentName);
+      const enriched = { ...conflict, level, battles: [] };
+      if (level === "campaign") {
+        group.campaigns.push(enriched);
+      } else {
+        group.battles.push(enriched);
+      }
     }
   });
 
-  return [
+  const merged = [
     ...groupedWars.sort((a, b) => (a.startYear || 0) - (b.startYear || 0)),
     ...standalone.filter(conflict => !groupedWars.some(group => normalizeText(group.name) === normalizeText(conflict.name)))
   ];
-}
 
-function filterConflictGroups(groups, filter = "all") {
-  if (filter === "all") {
-    return groups;
-  }
-
-  return groups.filter(group => {
-    const detail = CONFLICT_DETAIL_OVERRIDES[group.name] || {};
-    const type = inferConflictType(group, detail);
-    const scope = inferConflictScope(group, detail);
-
-    if (filter === "ongoing") {
-      return Boolean(group.ongoing);
-    }
-    if (filter === "historical") {
-      return !group.ongoing;
-    }
-    if (filter === "global") {
-      return scope === "global";
-    }
-    if (filter === "regional") {
-      return scope === "regional";
-    }
-    if (filter === "internal") {
-      return type === "conflicto interno";
-    }
-    if (filter === "interstate") {
-      return type === "guerra interestatal" || type === "intervencion u ocupacion";
-    }
-
-    return true;
+  return merged.map(group => {
+    const sortedCampaigns = sortConflicts(group.campaigns || []).map(campaign => ({ ...campaign, battles: [] }));
+    const assignment = assignBattlesToCampaigns(sortedCampaigns, sortConflicts(group.battles || []));
+    return {
+      ...group,
+      campaigns: assignment.campaigns.map(campaign => ({
+        ...campaign,
+        battles: sortConflicts(campaign.battles || [])
+      })),
+      battles: assignment.battles
+    };
   });
 }
 
-function renderConflictFilters(groups) {
-  const activeFilter =
-    currentPanelState.type === "country"
-      ? (currentPanelState.conflictFilter || "all")
-      : "all";
+function matchesConflictFilter(group, filter) {
+  if (filter === "all") {
+    return true;
+  }
 
-  const options = [
+  const detail = CONFLICT_DETAIL_OVERRIDES[group.name] || {};
+  const type = inferConflictType(group, detail);
+  const scope = inferConflictScope(group, detail);
+  const regionKey = getConflictRegionFilterKey(inferConflictRegion(group, detail));
+  const outcomeKey = inferConflictOutcomeKey(detail);
+  const sideLabels = (detail.participants || []).map(side => normalizeText(side.side));
+
+  if (filter === "ongoing") return Boolean(group.ongoing || outcomeKey === "ongoing");
+  if (filter === "historical") return !group.ongoing && outcomeKey !== "ongoing";
+  if (filter === "global") return scope === "global";
+  if (filter === "regional") return scope === "regional";
+  if (filter === "internal") return type === "conflicto interno";
+  if (filter === "interstate") return type === "guerra interestatal" || type === "intervencion u ocupacion";
+  if (filter.startsWith("region:")) return regionKey === filter.split(":")[1];
+  if (filter.startsWith("outcome:")) return outcomeKey === filter.split(":")[1];
+  if (filter.startsWith("side:")) return sideLabels.some(side => side.includes(filter.split(":")[1]));
+
+  return true;
+}
+
+function getConflictFilterState() {
+  return {
+    primary: currentPanelState.conflictFilter || "all",
+    region: currentPanelState.conflictRegion || "all",
+    outcome: currentPanelState.conflictOutcome || "all",
+    side: currentPanelState.conflictSide || "all"
+  };
+}
+
+function filterConflictGroups(groups, filters = "all") {
+  const normalizedFilters = typeof filters === "string" ? { primary: filters } : (filters || {});
+  return groups.filter(group =>
+    matchesConflictFilter(group, normalizedFilters.primary || "all")
+    && matchesConflictFilter(group, normalizedFilters.region || "all")
+    && matchesConflictFilter(group, normalizedFilters.outcome || "all")
+    && matchesConflictFilter(group, normalizedFilters.side || "all")
+  );
+}
+
+function renderConflictFilters(groups) {
+  const activeFilters = currentPanelState.type === "country"
+    ? getConflictFilterState()
+    : { primary: "all", region: "all", outcome: "all", side: "all" };
+  const filteredCount = filterConflictGroups(groups, activeFilters).length;
+
+  const primaryOptions = [
     { key: "all", label: currentLanguage === "en" ? "All" : "Todos" },
     { key: "ongoing", label: currentLanguage === "en" ? "Ongoing" : "Vigentes" },
     { key: "historical", label: currentLanguage === "en" ? "Historical" : "Historicos" },
@@ -3548,19 +4245,64 @@ function renderConflictFilters(groups) {
     { key: "internal", label: currentLanguage === "en" ? "Internal" : "Internos" },
     { key: "regional", label: currentLanguage === "en" ? "Regional" : "Regionales" },
     { key: "global", label: currentLanguage === "en" ? "Global" : "Globales" }
-  ].filter(option => option.key === "all" || filterConflictGroups(groups, option.key).length > 0);
+  ].filter(option => option.key === "all" || filterConflictGroups(groups, { primary: option.key }).length > 0);
 
-  return `
-    <div class="timeline-filters conflict-filters">
+  const regionOptions = [
+    { key: "all", label: currentLanguage === "en" ? "Any region" : "Cualquier region" },
+    ...uniqueBy(groups.map(group => {
+      const detail = CONFLICT_DETAIL_OVERRIDES[group.name] || {};
+      const key = getConflictRegionFilterKey(inferConflictRegion(group, detail));
+      const labelMap = {
+        europa: "Europa",
+        asia: currentLanguage === "en" ? "Asia / Middle East" : "Asia / Medio Oriente",
+        africa: "Africa",
+        america: currentLanguage === "en" ? "America / Caribbean" : "America / Caribe",
+        otras: currentLanguage === "en" ? "Other regions" : "Otras regiones"
+      };
+      return { key: `region:${key}`, label: labelMap[key] || key };
+    }), item => item.key)
+  ];
+
+  const outcomeOptions = [
+    { key: "all", label: currentLanguage === "en" ? "Any outcome" : "Cualquier desenlace" },
+    ...uniqueBy(groups.map(group => {
+      const key = inferConflictOutcomeKey(CONFLICT_DETAIL_OVERRIDES[group.name] || {});
+      return { key: `outcome:${key}`, label: getConflictOutcomeLabel(key) };
+    }), item => item.key)
+  ];
+
+  const sideOptions = [
+    { key: "all", label: currentLanguage === "en" ? "Any side" : "Cualquier bando" },
+    ...uniqueBy(
+      groups.flatMap(group =>
+        (CONFLICT_DETAIL_OVERRIDES[group.name]?.participants || []).map(side => ({
+          key: `side:${normalizeText(side.side)}`,
+          label: side.side
+        }))
+      ),
+      item => item.key
+    )
+  ].slice(0, 12);
+
+  const renderRow = (options, activeKey, attr) => `
+    <div class="timeline-filters conflict-filters${attr !== "data-conflict-filter" ? " timeline-filters-secondary" : ""}">
       ${options.map(option => `
         <button
           type="button"
-          class="timeline-filter${option.key === activeFilter ? " is-active" : ""}"
-          data-conflict-filter="${option.key}"
-        >${option.label}</button>
+          class="timeline-filter${option.key === activeKey ? " is-active" : ""}"
+          ${attr}="${escapeHtml(option.key)}"
+        >${escapeHtml(option.label)}</button>
       `).join("")}
     </div>
   `;
+
+  return [
+    renderRow(primaryOptions, activeFilters.primary, "data-conflict-filter"),
+    renderRow(regionOptions, activeFilters.region, "data-conflict-region"),
+    renderRow(outcomeOptions, activeFilters.outcome, "data-conflict-outcome"),
+    renderRow(sideOptions, activeFilters.side, "data-conflict-side"),
+    `<p class="compare-note">${currentLanguage === "en" ? "Visible conflicts" : "Conflictos visibles"}: ${formatNumber(filteredCount)} / ${formatNumber(groups.length)}</p>`
+  ].join("");
 }
 
 function renderConflictOverview(groups, country) {
@@ -3568,16 +4310,22 @@ function renderConflictOverview(groups, country) {
   const battles = groups.reduce((sum, group) => sum + (group.battles?.length || 0), 0);
   const ongoing = groups.filter(group => group.ongoing).length;
   const global = groups.filter(group => inferConflictScope(group, CONFLICT_DETAIL_OVERRIDES[group.name] || {}) === "global").length;
+  const regional = groups.filter(group => inferConflictScope(group, CONFLICT_DETAIL_OVERRIDES[group.name] || {}) === "regional").length;
+  const latestConflict = groups
+    .slice()
+    .sort((a, b) => Number(b.startYear || b.endYear || 0) - Number(a.startYear || a.endYear || 0))[0];
 
   return `
-    <div class="country-overview-grid relation-overview-grid conflict-overview-grid">
-      <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Wars" : "Guerras"}</span><strong class="overview-value">${formatNumber(wars)}</strong></div>
+      <div class="country-overview-grid relation-overview-grid conflict-overview-grid">
+        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Wars" : "Guerras"}</span><strong class="overview-value">${formatNumber(wars)}</strong></div>
       <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Battles" : "Batallas"}</span><strong class="overview-value">${formatNumber(battles)}</strong></div>
       <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Ongoing" : "Vigentes"}</span><strong class="overview-value">${formatNumber(ongoing)}</strong></div>
-      <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Global wars" : "Guerras globales"}</span><strong class="overview-value">${formatNumber(global)}</strong></div>
-    </div>
-    <p class="data-source-note"><b>${currentLanguage === "en" ? "Regional focus" : "Foco regional"}:</b> ${escapeHtml(translateContinentName(country?.continent || "Unknown"))}</p>
-  `;
+        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Global wars" : "Guerras globales"}</span><strong class="overview-value">${formatNumber(global)}</strong></div>
+        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Regional wars" : "Guerras regionales"}</span><strong class="overview-value">${formatNumber(regional)}</strong></div>
+      </div>
+      <p class="data-source-note"><b>${currentLanguage === "en" ? "Regional focus" : "Foco regional"}:</b> ${escapeHtml(translateContinentName(country?.continent || "Unknown"))}</p>
+      ${latestConflict ? `<p class="data-source-note"><b>${currentLanguage === "en" ? "Most linked conflict" : "Conflicto mas vinculado"}:</b> ${escapeHtml(latestConflict.name)}${latestConflict.startYear ? ` (${escapeHtml(String(latestConflict.startYear))})` : ""}</p>` : ""}
+    `;
 }
 
 function renderRelatedConflictSummary(groups) {
@@ -3621,6 +4369,7 @@ function getConflictModalContent(conflict, countryName = "") {
       }
     ],
     chronology: Array.isArray(detail.chronology) ? detail.chronology : [],
+    battles: Array.isArray(conflict.battles) ? conflict.battles : [],
     related: Array.isArray(detail.related) ? detail.related : [],
     outcome: detail.outcome || "Sin datos detallados sobre la resolucion del conflicto.",
     consequences: detail.consequences || "Sin datos detallados sobre cambios territoriales, politicos o militares."
@@ -3715,6 +4464,14 @@ function openConflictModal(key) {
         </ul>
       </div>
     ` : ""}
+    ${detail.battles?.length ? `
+      <div class="conflict-modal-section">
+        <h4>${currentLanguage === "en" ? "Campaigns and battles" : "Campanas y batallas"}</h4>
+        <ul class="data-source-list">
+          ${detail.battles.slice().sort((a, b) => (a.startYear || 0) - (b.startYear || 0)).map(item => `<li><b>${escapeHtml(item.name || "Batalla")}</b>${formatConflictPeriod(item)}</li>`).join("")}
+        </ul>
+      </div>
+    ` : ""}
     <div class="conflict-modal-section">
       <h4>${currentLanguage === "en" ? "How it ended" : "Como se resolvio"}</h4>
       <p>${escapeHtml(detail.outcome)}</p>
@@ -3778,21 +4535,149 @@ function clearSelection() {
   viewer.scene.requestRender();
 }
 
+function updateLayerSelection(nextLayers, nextMode, highlightStyle) {
+  const previousLayers = selectedLayers.filter(Boolean);
+  const nextValidLayers = (nextLayers || []).filter(Boolean);
+  const previousSet = new Set(previousLayers);
+  const nextSet = new Set(nextValidLayers);
+
+  previousLayers.forEach(layer => {
+    if (!nextSet.has(layer)) {
+      layer.setStyle(getCountryThemeStyle(layer.code));
+    }
+  });
+
+  nextValidLayers.forEach(layer => {
+    if (!previousSet.has(layer)) {
+      layer.setStyle(highlightStyle);
+    }
+  });
+
+  selectedLayers = nextValidLayers;
+  selectedLayer = nextMode === "country" ? (nextValidLayers[0] || null) : null;
+  selectionMode = nextMode;
+}
+
 function getLinkedCodes(code) {
   return [code, ...(TERRITORY_LINKS[code] || [])];
 }
 
-function resolveCountryCode(rawCode, rawName = "") {
-  if (rawCode && countriesData[rawCode]) {
-    return rawCode;
+function buildCountryLookupVariants(value) {
+  const raw = String(value || "").trim();
+  if (!raw) {
+    return [];
   }
 
-  const normalizedName = normalizeText(rawName);
-  if (normalizedName && countryAliases.has(normalizedName)) {
-    const aliasCode = countryAliases.get(normalizedName);
-    if (aliasCode && countriesData[aliasCode]) {
-      return aliasCode;
+  const variants = new Set();
+  const queue = [raw, repairMojibake(raw)];
+
+  while (queue.length) {
+    const current = queue.pop();
+    const normalized = normalizeText(current);
+    if (!normalized || variants.has(normalized)) {
+      continue;
     }
+
+    variants.add(normalized);
+
+    const withoutParentheses = normalized.replace(/\([^)]*\)/g, " ").replace(/\s+/g, " ").trim();
+    const punctuationSimplified = normalized
+      .replace(/[.'",]/g, " ")
+      .replace(/&/g, " and ")
+      .replace(/\s+/g, " ")
+      .trim();
+    const expandedAbbreviations = punctuationSimplified
+      .replace(/\brep\b/g, "republic")
+      .replace(/\bdem\b/g, "democratic")
+      .replace(/\bis\b/g, "islands")
+      .replace(/\bst\b/g, "saint")
+      .replace(/\bn\b/g, "north")
+      .replace(/\bs\b/g, "south")
+      .replace(/\bw\b/g, "western")
+      .replace(/\be\b/g, "eastern")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    [withoutParentheses, punctuationSimplified, expandedAbbreviations].forEach(variant => {
+      if (variant && !variants.has(variant)) {
+        queue.push(variant);
+      }
+    });
+  }
+
+  return Array.from(variants);
+}
+
+function buildNormalizedAliasIndex(aliasTable = {}) {
+  const index = new Map();
+  Object.entries(aliasTable).forEach(([alias, code]) => {
+    buildCountryLookupVariants(alias).forEach(variant => {
+      index.set(variant, code);
+    });
+  });
+  return index;
+}
+
+function findCountryCodeByNameFallback(rawName) {
+  const variants = buildCountryLookupVariants(rawName);
+  if (!variants.length) {
+    return null;
+  }
+
+  for (const variant of variants) {
+    const overrideCode = mapNameAliasIndex.get(variant) || mapNameAliasOverrides[variant];
+    if (overrideCode && countriesData[overrideCode]) {
+      return overrideCode;
+    }
+
+    if (countryAliases.has(variant)) {
+      const aliasCode = countryAliases.get(variant);
+      if (aliasCode && countriesData[aliasCode]) {
+        return aliasCode;
+      }
+    }
+
+    if (countryCodeByEnglishName.has(variant)) {
+      const englishNameCode = countryCodeByEnglishName.get(variant);
+      if (englishNameCode && countriesData[englishNameCode]) {
+        return englishNameCode;
+      }
+    }
+  }
+
+  for (const [code, country] of Object.entries(countriesData)) {
+    const candidateVariants = new Set();
+    [
+      code,
+      country?.name,
+      country?.general?.officialName,
+      ...(country?.general?.historicalNames || [])
+    ].forEach(name => {
+      buildCountryLookupVariants(name).forEach(variant => candidateVariants.add(variant));
+    });
+
+    if (variants.some(variant => candidateVariants.has(variant))) {
+      return code;
+    }
+  }
+
+  return null;
+}
+
+function resolveCountryCode(rawCode, rawName = "") {
+  const normalizedRawCode = String(rawCode || "").trim().toUpperCase();
+  if (normalizedRawCode && countriesData[normalizedRawCode]) {
+    return normalizedRawCode;
+  }
+
+  const strippedCode = normalizedRawCode.replace(/[^A-Z0-9-]/g, "");
+  if (strippedCode && countriesData[strippedCode]) {
+    return strippedCode;
+  }
+
+  const fallbackCode = findCountryCodeByNameFallback(rawName);
+  if (fallbackCode) {
+    return fallbackCode;
   }
 
   return null;
@@ -3810,11 +4695,14 @@ function setCountrySelection(layers) {
     return;
   }
 
-  clearSelection();
-  selectionMode = "country";
-  layerList.forEach(layer => layer.setStyle(COUNTRY_HIGHLIGHT_STYLE));
-  selectedLayers = layerList;
-  selectedLayer = layerList[0] || null;
+  if (viewer) {
+    viewer.camera.cancelFlight();
+  }
+  if (continentBoundsLayer) {
+    map.removeLayer(continentBoundsLayer);
+    continentBoundsLayer = null;
+  }
+  updateLayerSelection(layerList, "country", COUNTRY_HIGHLIGHT_STYLE);
   viewer.scene.requestRender();
 }
 
@@ -3833,10 +4721,10 @@ function setContinentSelection(layers) {
     return;
   }
 
-  clearSelection();
-  selectionMode = "continent";
-  selectedLayers = layers;
-  selectedLayers.forEach(layer => layer.setStyle(CONTINENT_HIGHLIGHT_STYLE));
+  if (viewer) {
+    viewer.camera.cancelFlight();
+  }
+  updateLayerSelection(layers, "continent", CONTINENT_HIGHLIGHT_STYLE);
 
   continentBoundsLayer = createLayerGroup(layers);
   viewer.scene.requestRender();
@@ -3861,23 +4749,39 @@ function dismissSearchInput() {
 
 function renderCountry(country, fallbackName) {
   const countryCode = getCountryCodeByObject(country);
+  const symbolAssets = getCountrySymbolAssets(country, countryCode);
+  try {
+  const defaultTimelineFilters =
+    typeof timelineConflictUi.getDefaultTimelineFilters === "function"
+      ? timelineConflictUi.getDefaultTimelineFilters()
+      : {
+          timelineFilter: "all",
+          timelineCentury: "all",
+          timelineIntensity: "all",
+          timelineRelevance: "all",
+          conflictFilter: "all"
+        };
   const timelineFilter =
     currentPanelState.type === "country" && currentPanelState.code === countryCode
-      ? (currentPanelState.timelineFilter || "all")
-      : "all";
+      ? (currentPanelState.timelineFilter || defaultTimelineFilters.timelineFilter)
+      : defaultTimelineFilters.timelineFilter;
   const timelineCentury =
     currentPanelState.type === "country" && currentPanelState.code === countryCode
-      ? (currentPanelState.timelineCentury || "all")
-      : "all";
+      ? (currentPanelState.timelineCentury || defaultTimelineFilters.timelineCentury)
+      : defaultTimelineFilters.timelineCentury;
   const timelineIntensity =
     currentPanelState.type === "country" && currentPanelState.code === countryCode
-      ? (currentPanelState.timelineIntensity || "all")
-      : "all";
+      ? (currentPanelState.timelineIntensity || defaultTimelineFilters.timelineIntensity)
+      : defaultTimelineFilters.timelineIntensity;
+  const timelineRelevance =
+    currentPanelState.type === "country" && currentPanelState.code === countryCode
+      ? (currentPanelState.timelineRelevance || defaultTimelineFilters.timelineRelevance)
+      : defaultTimelineFilters.timelineRelevance;
   const conflictFilter =
     currentPanelState.type === "country" && currentPanelState.code === countryCode
-      ? (currentPanelState.conflictFilter || "all")
-      : "all";
-  currentPanelState = { type: "country", code: countryCode, fallbackName, timelineFilter, timelineCentury, timelineIntensity, conflictFilter };
+      ? (currentPanelState.conflictFilter || defaultTimelineFilters.conflictFilter)
+      : defaultTimelineFilters.conflictFilter;
+  currentPanelState = { type: "country", code: countryCode, fallbackName, timelineFilter, timelineCentury, timelineIntensity, timelineRelevance, conflictFilter };
   const general = country.general || {};
   const economy = country.economy || {};
   const military = country.military || {};
@@ -3889,18 +4793,31 @@ function renderCountry(country, fallbackName) {
     .filter(Boolean);
   const conflictsSinceFormation = getConflictsSinceFormation(country);
   const conflictGroups = buildConflictGroups(conflictsSinceFormation);
+  const countrySectionDescriptors =
+    typeof countryPanelUi.getSectionDescriptors === "function"
+      ? countryPanelUi.getSectionDescriptors(currentLanguage)
+      : [
+          { id: "country-section-general", label: t("general") },
+          { id: "country-section-history", label: t("history") },
+          { id: "country-section-economy", label: t("economy") },
+          { id: "country-section-military", label: t("military") },
+          { id: "country-section-politics", label: t("politics") },
+          { id: "country-section-relations", label: t("relations") },
+          { id: "country-section-religion", label: t("religion") },
+          { id: "country-section-sources", label: currentLanguage === "en" ? "Sources" : "Fuentes" }
+        ];
   const conflictsLabel = history.year
     ? "Conflictos desde su año de formación:"
     : "Conflictos registrados:";
 
   document.getElementById("country-panel").innerHTML = `
     <div class="country-title">
-      ${renderFlagVisual(countryCode, country.name || fallbackName, "country-flag")}
+      ${renderFlagVisual(countryCode, country.name || fallbackName, "country-flag", symbolAssets.flagSrc)}
       <div class="country-heading">
         <h2>${country.name || fallbackName}</h2>
         <p class="country-official-name">${escapeHtml(country.general?.officialName || country.name || fallbackName)}</p>
       </div>
-      ${renderCoatVisual(countryCode, `${country.name || fallbackName} escudo`)}
+      ${renderCoatVisual(countryCode, `${country.name || fallbackName} escudo`, symbolAssets.coatSrc)}
     </div>
     <div class="panel-actions-row">
       <button id="add-to-compare-button" class="panel-action-button" type="button" ${countryCode ? "" : "disabled"}>${t("addToCompare")}</button>
@@ -3910,16 +4827,7 @@ function renderCountry(country, fallbackName) {
     </div>
     ${renderCountryOverview(country, countryCode)}
     ${renderCountryMetaRibbon(country, conflictGroups)}
-    ${renderCountryQuickNav([
-      { id: "country-section-general", label: t("general") },
-      { id: "country-section-history", label: t("history") },
-      { id: "country-section-economy", label: t("economy") },
-      { id: "country-section-military", label: t("military") },
-      { id: "country-section-politics", label: t("politics") },
-      { id: "country-section-relations", label: t("relations") },
-      { id: "country-section-religion", label: t("religion") },
-      { id: "country-section-sources", label: currentLanguage === "en" ? "Sources" : "Fuentes" }
-    ])}
+    ${renderCountryQuickNav(countrySectionDescriptors)}
     ${createSection(
       t("general"),
       `
@@ -3934,8 +4842,8 @@ function renderCountry(country, fallbackName) {
         <p><b>${currentLanguage === "en" ? "Primary subdivisions" : "Subdivisiones principales"}:</b> ${renderSubdivisionSummary(general)}</p>
         <p><b>${currentLanguage === "en" ? "Historical names" : "Nombres historicos"}:</b></p>
         ${renderRelationChips(general.historicalNames)}
-        <p><b>${currentLanguage === "en" ? "Flag" : "Bandera"}:</b> ${escapeHtml(general.symbols?.flagDescription || t("noData"))}</p>
-        <p><b>${currentLanguage === "en" ? "Coat of arms" : "Escudo"}:</b> ${escapeHtml(general.symbols?.coatOfArms || t("noData"))}</p>
+        <p><b>${currentLanguage === "en" ? "Symbols" : "Simbolos"}:</b></p>
+        ${renderSymbolShowcase(country, countryCode)}
         <p><b>${t("cities")}:</b></p>
         ${renderCities(general)}
       `,
@@ -3964,6 +4872,8 @@ function renderCountry(country, fallbackName) {
             : t("noData")
         }</p>
         <p><b>${t("inflation")}:</b> ${formatInflation(economy.inflation)}</p>
+        <p><b>${currentLanguage === "en" ? "Economic snapshot" : "Pulso economico"}:</b></p>
+        ${renderEconomyMiniMetrics(country)}
         <p><b>Exportaciones:</b></p>
         ${renderList(economy.exports)}
         <p><b>Industrias:</b></p>
@@ -4070,13 +4980,13 @@ function renderCountry(country, fallbackName) {
     )}
     ${createSection(
       t("religion"),
-      `${renderReligion(country.religion)}`,
+      `${renderReligionMiniMetrics(country.religion)}${renderReligion(country.religion)}`,
       false,
       "country-section-religion"
     )}
     ${createSection(
       currentLanguage === "en" ? "Sources and quality" : "Fuentes y calidad",
-      `${renderDataQuality(country)}`,
+      `${renderDataQualityHighlights(country)}${renderDataQuality(country)}`,
       false,
       "country-section-sources"
     )}
@@ -4089,7 +4999,35 @@ function renderCountry(country, fallbackName) {
     compareButton.addEventListener("click", () => addCountryToCompare(countryCode));
   }
 
+  renderThemeSummary();
   openCountryModal();
+  } catch (error) {
+    console.error(`No se pudo renderizar la ficha de ${country?.name || fallbackName || "pais"}:`, error);
+    const countryCode = getCountryCodeByObject(country);
+    currentPanelState = { type: "country", code: countryCode, fallbackName };
+    document.getElementById("country-panel").innerHTML = `
+      <div class="country-title">
+        ${renderFlagVisual(countryCode, country?.name || fallbackName || "Pais", "country-flag", symbolAssets.flagSrc)}
+        <div class="country-heading">
+          <h2>${escapeHtml(country?.name || fallbackName || "Pais")}</h2>
+          <p class="country-official-name">${escapeHtml(country?.general?.officialName || country?.name || fallbackName || t("noData"))}</p>
+        </div>
+        ${renderCoatVisual(countryCode, `${country?.name || fallbackName || "Pais"} escudo`, symbolAssets.coatSrc)}
+      </div>
+      <div class="country-overview-grid relation-overview-grid">
+        <div class="overview-card"><span class="overview-label">${t("population")}</span><strong class="overview-value">${formatNumber(country?.general?.population || 0)}</strong></div>
+        <div class="overview-card"><span class="overview-label">${t("continent")}</span><strong class="overview-value">${escapeHtml(translateContinentName(country?.continent || "Unknown"))}</strong></div>
+      </div>
+      <p><b>${currentLanguage === "en" ? "Official name" : "Nombre oficial"}:</b> ${escapeHtml(country?.general?.officialName || country?.name || fallbackName || t("noData"))}</p>
+      <p><b>${t("politicalSystem")}:</b> ${escapeHtml(country?.politics?.system || t("noData"))}</p>
+      <p><b>${t("gdp")}:</b> ${country?.economy?.gdp ? `US$ ${formatNumber(Math.round(country.economy.gdp))}` : t("noData")}</p>
+      <p><b>${t("inflation")}:</b> ${formatInflation(country?.economy?.inflation)}</p>
+      <p class="data-source-note">${currentLanguage === "en" ? "The full tab could not be rendered, but the country was identified correctly." : "La ficha completa no pudo renderizarse, pero el pais fue identificado correctamente."}</p>
+    `;
+    renderNewsHub(countryCode);
+    renderThemeSummary();
+    openCountryModal();
+  }
 }
 
 function renderContinent(continent, countries) {
@@ -4105,7 +5043,11 @@ function renderContinent(continent, countries) {
     currentPanelState.type === "continent" && currentPanelState.continent === continent
       ? (currentPanelState.timelineIntensity || "all")
       : "all";
-  currentPanelState = { type: "continent", continent, countries, timelineFilter, timelineCentury, timelineIntensity };
+  const timelineRelevance =
+    currentPanelState.type === "continent" && currentPanelState.continent === continent
+      ? (currentPanelState.timelineRelevance || "all")
+      : "all";
+  currentPanelState = { type: "continent", continent, countries, timelineFilter, timelineCentury, timelineIntensity, timelineRelevance };
   const totalPopulation = countries.reduce(
     (sum, country) => sum + (country.general?.population || 0),
     0
@@ -4128,6 +5070,7 @@ function renderContinent(continent, countries) {
 
   renderNewsHub();
 
+  renderThemeSummary();
   openCountryModal();
 }
 
@@ -4161,6 +5104,7 @@ function renderReligionSelection(religionName, countries, totalNominal) {
 
   renderNewsHub();
 
+  renderThemeSummary();
   openCountryModal();
 }
 
@@ -4173,6 +5117,7 @@ function renderEmpty(name) {
 
   renderNewsHub();
 
+  renderThemeSummary();
   openCountryModal();
 }
 
@@ -4195,11 +5140,21 @@ function updateAppStatusPanel(extra = {}) {
     const fpsSuffix = typeof extra.fps === "number"
       ? ` · ${Math.round(extra.fps)} FPS`
       : "";
-    renderChip.innerHTML = `<strong>${currentLanguage === "en" ? "Render" : "Render"}:</strong> ${escapeHtml(getRenderProfileLabel())}${fpsSuffix}`;
+    const modeLabel = {
+      default: currentLanguage === "en" ? "explore" : "exploracion",
+      analysis: currentLanguage === "en" ? "analysis" : "analisis",
+      encyclopedia: currentLanguage === "en" ? "encyclopedia" : "enciclopedia",
+      presentation: currentLanguage === "en" ? "presentation" : "presentacion"
+    }[appMode] || appMode;
+    renderChip.innerHTML = `<strong>${currentLanguage === "en" ? "Render" : "Render"}:</strong> ${escapeHtml(getRenderProfileLabel())} · ${escapeHtml(modeLabel)}${fpsSuffix}`;
   }
 
   if (datasetChip) {
-    datasetChip.innerHTML = `<strong>${currentLanguage === "en" ? "Dataset" : "Dataset"}:</strong> ${currentLanguage === "en" ? "validated and curated" : "validado y curado"}`;
+    const total = Object.keys(countriesData || {}).length;
+    const avgQuality = total
+      ? Math.round(Object.values(countriesData).reduce((sum, country) => sum + (country.metadata?.quality?.score || 0), 0) / total)
+      : 0;
+    datasetChip.innerHTML = `<strong>${currentLanguage === "en" ? "Dataset" : "Dataset"}:</strong> ${currentLanguage === "en" ? "validated" : "validado"} · ${avgQuality}/100 · ${total} ${currentLanguage === "en" ? "entries" : "entradas"}`;
   }
 }
 
@@ -4226,7 +5181,17 @@ function renderDataQuality(country) {
   const curatedFields = Array.isArray(country.metadata?.quality?.curatedFields)
     ? country.metadata.quality.curatedFields
     : [];
+  const confirmedFields = Array.isArray(country.metadata?.quality?.confirmedFields)
+    ? country.metadata.quality.confirmedFields
+    : [];
+  const missingFields = Array.isArray(country.metadata?.quality?.missingFields)
+    ? country.metadata.quality.missingFields
+    : [];
   const sectionStatus = country.metadata?.quality?.sectionStatus || {};
+  const provenance = country.metadata?.provenance || {};
+  const qualityScore = Number.isFinite(country.metadata?.quality?.score)
+    ? Math.max(0, Math.round(country.metadata.quality.score))
+    : null;
 
   const sourceSections = [
     { key: "general", label: currentLanguage === "en" ? "General" : "General" },
@@ -4234,7 +5199,9 @@ function renderDataQuality(country) {
     { key: "economy", label: currentLanguage === "en" ? "Economy" : "Economia" },
     { key: "military", label: currentLanguage === "en" ? "Military" : "Militar" },
     { key: "politics", label: currentLanguage === "en" ? "Politics" : "Politica" },
-    { key: "religion", label: currentLanguage === "en" ? "Religion" : "Religion" }
+    { key: "religion", label: currentLanguage === "en" ? "Religion" : "Religion" },
+    { key: "symbols", label: currentLanguage === "en" ? "Symbols" : "Simbolos" },
+    { key: "relations", label: currentLanguage === "en" ? "Relations" : "Relaciones" }
   ];
 
   return `
@@ -4263,9 +5230,18 @@ function renderDataQuality(country) {
         <span class="data-quality-label">${currentLanguage === "en" ? "Curated fields" : "Campos curados"}</span>
         <strong class="data-quality-value">${formatNumber(curatedFields.length)}</strong>
       </div>
+      <div class="data-quality-card">
+        <span class="data-quality-label">${currentLanguage === "en" ? "Confirmed fields" : "Campos confirmados"}</span>
+        <strong class="data-quality-value">${formatNumber(confirmedFields.length)}</strong>
+      </div>
+      <div class="data-quality-card">
+        <span class="data-quality-label">${currentLanguage === "en" ? "Quality score" : "Puntaje de calidad"}</span>
+        <strong class="data-quality-value">${qualityScore !== null ? `${qualityScore}/100` : t("noData")}</strong>
+      </div>
     </div>
     <p class="data-source-note"><b>${currentLanguage === "en" ? "Validation" : "Validacion"}:</b> ${currentLanguage === "en" ? "local dataset checks currently pass without reported issues" : "los chequeos locales del dataset estan pasando sin incidencias reportadas"}</p>
     <p class="data-source-note"><b>${currentLanguage === "en" ? "Dataset updated" : "Dataset actualizado"}:</b> ${escapeHtml(country.metadata?.updatedAt || "2026-04-06")}</p>
+    ${Object.keys(provenance).length ? `<p class="data-source-note"><b>${currentLanguage === "en" ? "Provenance" : "Procedencia"}:</b> ${escapeHtml(Object.entries(provenance).map(([key, value]) => `${key}: ${value?.status || value}`).join(" | "))}</p>` : ""}
     <p><b>${currentLanguage === "en" ? "Section sources" : "Fuentes por seccion"}:</b></p>
     <ul class="data-source-list">
       ${sourceSections.map(section => {
@@ -4278,19 +5254,19 @@ function renderDataQuality(country) {
         return `<li><b>${escapeHtml(section.label)}</b>${statusLabel}: ${items.map(item => escapeHtml(item)).join(", ")}</li>`;
       }).join("")}
     </ul>
+    <p><b>${currentLanguage === "en" ? "Missing fields" : "Campos faltantes"}:</b> ${missingFields.length ? escapeHtml(missingFields.join(", ")) : (currentLanguage === "en" ? "none" : "ninguno")}</p>
     <p><b>${currentLanguage === "en" ? "Estimated fields" : "Campos estimados"}:</b> ${estimatedFields.length ? escapeHtml(estimatedFields.join(", ")) : (currentLanguage === "en" ? "none" : "ninguno")}</p>
+    <p><b>${currentLanguage === "en" ? "Confirmed fields" : "Campos confirmados"}:</b> ${confirmedFields.length ? escapeHtml(confirmedFields.join(", ")) : (currentLanguage === "en" ? "none" : "ninguno")}</p>
     <p><b>${currentLanguage === "en" ? "Curated fields" : "Campos curados"}:</b> ${curatedFields.length ? escapeHtml(curatedFields.join(", ")) : (currentLanguage === "en" ? "none" : "ninguno")}</p>
   `;
 }
 
-function registerCountryAlias(alias, value) {
-  const normalizedAlias = normalizeText(alias);
-
-  if (!normalizedAlias) {
-    return;
-  }
-
-  countryAliases.set(normalizedAlias, value);
+function registerCountryAlias(alias, value, overwrite = false) {
+  buildCountryLookupVariants(alias).forEach(variant => {
+    if (overwrite || !countryAliases.has(variant) || countryAliases.get(variant) === value) {
+      countryAliases.set(variant, value);
+    }
+  });
 }
 
 function registerFeatureNameAliases(featureNameByCode = {}) {
@@ -4299,7 +5275,7 @@ function registerFeatureNameAliases(featureNameByCode = {}) {
       return;
     }
 
-    registerCountryAlias(featureName, code);
+    registerCountryAlias(featureName, code, true);
   });
 }
 
@@ -5379,6 +6355,208 @@ function renderThemeLegend() {
     .join("")}${proxyNote}`;
 }
 
+function getCurrentThemeSelectedCountry() {
+  return currentPanelState.type === "country" && currentPanelState.code && countriesData[currentPanelState.code]
+    ? countriesData[currentPanelState.code]
+    : null;
+}
+
+function getThemeMetricConfig(theme = currentTheme) {
+  const configs = {
+    density: {
+      title: currentLanguage === "en" ? "Population density" : "Densidad de poblacion",
+      description: currentLanguage === "en"
+        ? "Estimates inhabitants per square kilometer using population and mapped surface."
+        : "Estima habitantes por kilometro cuadrado usando poblacion y superficie cartografiada.",
+      formatter: value => `${formatNumber(Math.round(value || 0))} hab/km²`,
+      getter: (country, code) => getCountryPopulationDensity(country, code),
+      estimated: false
+    },
+    urbanization: {
+      title: currentLanguage === "en" ? "Urbanization" : "Urbanizacion",
+      description: currentLanguage === "en"
+        ? "Approximates the weight of major cities and the concentration of population in urban areas."
+        : "Aproxima el peso de las grandes ciudades y la concentracion de poblacion en areas urbanas.",
+      formatter: value => formatPercentage(value || 0),
+      getter: country => getCountryUrbanizationShare(country),
+      estimated: true
+    },
+    lifeExpectancy: {
+      title: currentLanguage === "en" ? "Life expectancy" : "Esperanza de vida",
+      description: currentLanguage === "en"
+        ? "Derived estimate built from development, conflict exposure and urbanization."
+        : "Estimacion derivada a partir de desarrollo, exposicion al conflicto y urbanizacion.",
+      formatter: value => `${formatNumber(Math.round((value || 0) * 10) / 10)} ${currentLanguage === "en" ? "years" : "anos"}`,
+      getter: (country, code) => getCountryLifeExpectancyEstimate(country, code),
+      estimated: true
+    },
+    populationGrowth: {
+      title: currentLanguage === "en" ? "Demographic growth" : "Crecimiento demografico",
+      description: currentLanguage === "en"
+        ? "Uses local series when available and otherwise estimates the demographic trend."
+        : "Usa series locales cuando existen y en otros casos estima la tendencia demografica.",
+      formatter: value => formatPercentage(value || 0),
+      getter: (country, code) => getCountryPopulationGrowth(country, code),
+      estimated: true
+    },
+    unemployment: {
+      title: currentLanguage === "en" ? "Unemployment" : "Desempleo",
+      description: currentLanguage === "en"
+        ? "Proxy based on inflation, conflict pressure, urbanization and growth."
+        : "Proxy basado en inflacion, presion conflictiva, urbanizacion y crecimiento.",
+      formatter: value => formatPercentage(value || 0),
+      getter: (country, code) => getCountryUnemploymentEstimate(country, code),
+      estimated: true
+    },
+    debt: {
+      title: currentLanguage === "en" ? "Public debt" : "Deuda publica",
+      description: currentLanguage === "en"
+        ? "Debt-to-GDP estimate inferred from income level, inflation stress and conflict load."
+        : "Estimacion de deuda sobre PBI inferida desde ingreso, tension inflacionaria y carga conflictiva.",
+      formatter: value => formatPercentage(value || 0),
+      getter: country => getCountryDebtEstimate(country),
+      estimated: true
+    },
+    militarySpending: {
+      title: currentLanguage === "en" ? "Military spending" : "Gasto militar",
+      description: currentLanguage === "en"
+        ? "Approximated as share of GDP from active personnel, conflict profile and geopolitical weight."
+        : "Aproximado como porcentaje del PBI desde personal activo, perfil conflictivo y peso geopolítico.",
+      formatter: value => formatPercentage(value || 0),
+      getter: country => getCountryMilitarySpendingEstimate(country),
+      estimated: true
+    },
+    exportVolume: {
+      title: currentLanguage === "en" ? "Export volume" : "Volumen exportador",
+      description: currentLanguage === "en"
+        ? "Estimated export scale from GDP, export basket and resource profile."
+        : "Escala exportadora estimada desde PBI, canasta exportadora y perfil de recursos.",
+      formatter: value => `US$ ${compactNumber(value || 0)}`,
+      getter: country => getCountryExportVolumeEstimate(country),
+      estimated: true
+    },
+    gdpPpp: {
+      title: currentLanguage === "en" ? "GDP PPP" : "PBI PPC",
+      description: currentLanguage === "en"
+        ? "Purchasing power estimate derived from GDP, income level and structural breadth."
+        : "Estimacion de paridad de poder adquisitivo derivada de PBI, ingreso y amplitud estructural.",
+      formatter: value => `US$ ${compactNumber(value || 0)}`,
+      getter: country => getCountryGdpPppEstimate(country),
+      estimated: true
+    },
+    naturalResources: {
+      title: currentLanguage === "en" ? "Natural resources" : "Recursos naturales",
+      description: currentLanguage === "en"
+        ? "Classifies the country's extractive and productive resource profile."
+        : "Clasifica el perfil extractivo y productivo dominante del pais.",
+      formatter: value => normalizeCategoryLabel(value || (currentLanguage === "en" ? "No data" : "Sin datos")),
+      getter: country => getCountryNaturalResourceThemeKey(country),
+      estimated: false
+    },
+    geopoliticalIndex: {
+      title: currentLanguage === "en" ? "Geopolitical index" : "Indice geopolitico",
+      description: currentLanguage === "en"
+        ? "Composite score combining demographics, economy, military capacity, organizations and conflict exposure."
+        : "Indice compuesto que combina demografia, economia, capacidad militar, organizaciones y exposicion al conflicto.",
+      formatter: value => `${formatNumber(Math.round((value || 0) * 10) / 10)} / 100`,
+      getter: country => getCountryGeopoliticalIndex(country),
+      estimated: true
+    }
+  };
+
+  return configs[theme] || null;
+}
+
+function renderThemeSummary() {
+  const container = document.getElementById("theme-summary");
+  if (!container) {
+    return;
+  }
+
+  const metric = getThemeMetricConfig();
+  if (!metric) {
+    container.hidden = true;
+    container.innerHTML = "";
+    lastThemeSummarySignature = "";
+    return;
+  }
+
+  const values = Object.entries(countriesData)
+    .map(([code, country]) => ({
+      code,
+      country,
+      value: metric.getter(country, code)
+    }))
+    .filter(item => item.value !== null && item.value !== undefined && item.value !== "" && !(typeof item.value === "number" && Number.isNaN(item.value)));
+
+  if (!values.length) {
+    container.hidden = true;
+    container.innerHTML = "";
+    lastThemeSummarySignature = "";
+    return;
+  }
+
+  const numeric = values.every(item => typeof item.value === "number");
+  const leader = numeric
+    ? [...values].sort((a, b) => b.value - a.value)[0]
+    : values[0];
+  const average = numeric
+    ? values.reduce((sum, item) => sum + item.value, 0) / Math.max(values.length, 1)
+    : null;
+  const selectedCountry = getCurrentThemeSelectedCountry();
+  const selectedCode = selectedCountry ? getCountryCodeByObject(selectedCountry) : "";
+  const selectedItem = selectedCode ? values.find(item => item.code === selectedCode) : null;
+  const median = numeric
+    ? [...values].sort((a, b) => a.value - b.value)[Math.floor(values.length / 2)]?.value ?? null
+    : null;
+  const percentile = numeric && selectedItem
+    ? Math.round((values.filter(item => item.value <= selectedItem.value).length / Math.max(values.length, 1)) * 100)
+    : null;
+  const summarySignature = JSON.stringify({
+    theme: currentTheme,
+    language: currentLanguage,
+    selectedCode,
+    leader: leader?.code || "",
+    average: average === null ? null : Math.round(average * 100) / 100,
+    median: median === null ? null : Math.round(median * 100) / 100,
+    percentile,
+    coverage: values.length
+  });
+  if (!container.hidden && lastThemeSummarySignature === summarySignature) {
+    return;
+  }
+
+  container.hidden = false;
+  container.innerHTML = `
+    <p class="theme-summary-title">${escapeHtml(metric.title)}</p>
+    <p class="theme-summary-description">${escapeHtml(metric.description)}</p>
+    <div class="theme-summary-grid">
+      <div class="theme-summary-card">
+        <span class="theme-summary-label">${currentLanguage === "en" ? "Global leader" : "Lider global"}</span>
+        <strong class="theme-summary-value">${leader ? `${escapeHtml(leader.country.name)} · ${escapeHtml(metric.formatter(leader.value))}` : t("noData")}</strong>
+      </div>
+      <div class="theme-summary-card">
+        <span class="theme-summary-label">${currentLanguage === "en" ? "Average" : "Promedio"}</span>
+        <strong class="theme-summary-value">${average === null ? (currentLanguage === "en" ? "Categorical layer" : "Capa categórica") : escapeHtml(metric.formatter(average))}</strong>
+      </div>
+      <div class="theme-summary-card">
+        <span class="theme-summary-label">${currentLanguage === "en" ? "Median / baseline" : "Mediana / base"}</span>
+        <strong class="theme-summary-value">${median === null ? (currentLanguage === "en" ? "Categorical layer" : "Capa categorica") : escapeHtml(metric.formatter(median))}</strong>
+      </div>
+      <div class="theme-summary-card">
+        <span class="theme-summary-label">${currentLanguage === "en" ? "Coverage" : "Cobertura"}</span>
+        <strong class="theme-summary-value">${formatNumber(values.length)} ${currentLanguage === "en" ? "countries" : "paises"}</strong>
+      </div>
+      <div class="theme-summary-card">
+        <span class="theme-summary-label">${currentLanguage === "en" ? "Selected country" : "Pais seleccionado"}</span>
+        <strong class="theme-summary-value">${selectedItem ? `${escapeHtml(selectedItem.country.name)} · ${escapeHtml(metric.formatter(selectedItem.value))}` : (currentLanguage === "en" ? "Select a country" : "Selecciona un pais")}</strong>
+      </div>
+    </div>
+    <p class="theme-summary-note">${selectedItem && percentile !== null ? `${currentLanguage === "en" ? "Selected country percentile" : "Percentil del pais seleccionado"}: ${percentile}. ` : ""}${metric.estimated ? (currentLanguage === "en" ? "This thematic layer uses local estimates or proxies." : "Esta capa tematica usa estimaciones o proxies locales.") : (currentLanguage === "en" ? "This thematic layer is based on direct categorical data." : "Esta capa tematica se basa en datos categoricos directos.")}</p>
+  `;
+  lastThemeSummarySignature = summarySignature;
+}
+
 function getCountryNewsUrl(country) {
   const topicUrls = getCountryNewsTopics(country);
   return topicUrls[activeNewsTopic] || topicUrls.general;
@@ -5388,6 +6566,8 @@ function getCountryNewsPortalLinks(country) {
   const baseQuery = encodeURIComponent(country.general?.officialName || country.name);
   return [
     { label: "Google News", url: getCountryNewsUrl(country) },
+    { label: "Reuters", url: `https://www.reuters.com/site-search/?query=${baseQuery}` },
+    { label: "BBC", url: `https://www.bbc.co.uk/search?q=${baseQuery}` },
     { label: currentLanguage === "en" ? "Web search" : "Busqueda web", url: `https://www.google.com/search?tbm=nws&q=${baseQuery}` },
     { label: currentLanguage === "en" ? "Regional press" : "Prensa regional", url: `https://news.google.com/search?q=${encodeURIComponent(`${country.name} periodico OR diario OR news`)}&hl=es-419&gl=AR&ceid=AR:es-419` }
   ];
@@ -5641,31 +6821,39 @@ function startPerformanceMonitor() {
   if (performanceMonitorId || !viewer || typeof requestAnimationFrame !== "function") return;
   let frameCount = 0;
   let lastCheck = performance.now();
+  let rollingFps = getPerformancePreset().targetFrameRate;
   const tick = now => {
     frameCount += 1;
     if (now - lastCheck >= 2500) {
       const fps = (frameCount * 1000) / (now - lastCheck);
+      rollingFps = rollingFps * 0.62 + fps * 0.38;
       const tier = getDeviceTier();
       const lowFpsThreshold = isMobileLayout() ? 18 : tier === "low" ? 15 : tier === "medium" ? 18 : 20;
       const highFpsThreshold = isMobileLayout() ? 28 : tier === "low" ? 24 : tier === "medium" ? 30 : 34;
-      if (qualityPreset === "auto" && fps < lowFpsThreshold) {
+      if (qualityPreset === "auto" && rollingFps < lowFpsThreshold) {
+        hoverSuppressedUntil = Date.now() + 3200;
         viewer.resolutionScale = Math.max(
           currentMapMode === "2d"
-            ? (isMobileLayout() ? 0.42 : tier === "low" ? 0.58 : 0.68)
-            : (isMobileLayout() ? 0.74 : tier === "low" ? 0.86 : 0.94),
-          viewer.resolutionScale - (isMobileLayout() ? 0.06 : 0.04)
-        );
+              ? (isMobileLayout() ? 0.42 : tier === "low" ? 0.58 : 0.68)
+              : (isMobileLayout() ? 0.74 : tier === "low" ? 0.86 : 0.94),
+            viewer.resolutionScale - (isMobileLayout() ? 0.06 : 0.04)
+          );
         viewer.scene.globe.maximumScreenSpaceError = Math.min(currentMapMode === "2d" ? 12.5 : 9.2, viewer.scene.globe.maximumScreenSpaceError + 0.45);
         viewer.scene.globe.loadingDescendantLimit = Math.max(currentMapMode === "2d" ? 2 : 5, viewer.scene.globe.loadingDescendantLimit - 1);
         viewer.scene.globe.tileCacheSize = Math.max(currentMapMode === "2d" ? 24 : 60, viewer.scene.globe.tileCacheSize - 14);
-      } else if (qualityPreset === "auto" && fps > highFpsThreshold) {
+        viewer.scene.maximumRenderTimeChange = currentMapMode === "2d" ? 0.09 : 0.4;
+        if (labelEntities.length && currentMapMode === "3d" && rollingFps < lowFpsThreshold - 2) {
+          clearMapLabels();
+        }
+      } else if (qualityPreset === "auto" && rollingFps > highFpsThreshold) {
         const preset = getPerformancePreset();
         viewer.resolutionScale = Math.min(preset.resolutionScale, viewer.resolutionScale + 0.03);
         viewer.scene.globe.maximumScreenSpaceError = Math.max(preset.maximumScreenSpaceError, viewer.scene.globe.maximumScreenSpaceError - 0.2);
         viewer.scene.globe.loadingDescendantLimit = Math.min(preset.loadingDescendantLimit, viewer.scene.globe.loadingDescendantLimit + 1);
         viewer.scene.globe.tileCacheSize = Math.min(preset.tileCacheSize, viewer.scene.globe.tileCacheSize + 12);
+        viewer.scene.maximumRenderTimeChange = currentMapMode === "2d" ? 0.06 : 0.28;
       }
-      updateAppStatusPanel({ fps });
+      updateAppStatusPanel({ fps: Math.round(rollingFps * 10) / 10 });
       frameCount = 0;
       lastCheck = now;
     }
@@ -5764,6 +6952,7 @@ function setTheme(theme) {
   currentTheme = theme || "default";
   refreshCountryStyles();
   renderThemeLegend();
+  renderThemeSummary();
 }
 
 function renderGroupSelection(title, descriptor, countries) {
@@ -5779,7 +6968,11 @@ function renderGroupSelection(title, descriptor, countries) {
     currentPanelState.type === "group" && currentPanelState.title === title
       ? (currentPanelState.timelineIntensity || "all")
       : "all";
-  currentPanelState = { type: "group", title, descriptor, countries, timelineFilter, timelineCentury, timelineIntensity };
+  const timelineRelevance =
+    currentPanelState.type === "group" && currentPanelState.title === title
+      ? (currentPanelState.timelineRelevance || "all")
+      : "all";
+  currentPanelState = { type: "group", title, descriptor, countries, timelineFilter, timelineCentury, timelineIntensity, timelineRelevance };
   const totalPopulation = countries.reduce((sum, country) => sum + (country.general?.population || 0), 0);
   const avgGdpPerCapita = countries.length
     ? countries.reduce((sum, country) => sum + (country.economy?.gdpPerCapita || 0), 0) / countries.length
@@ -5886,22 +7079,25 @@ function buildTimeline(country) {
       return;
     }
 
-    const categoryMap = {
-      politica: "system",
-      constitucion: "constitution",
-      estado: "formation",
-      union: "formation",
-      revolucion: "formation",
-      golpe: "coup",
+      const categoryMap = {
+        politica: "system",
+        cambioregimen: "system",
+        cambio_regimen: "system",
+        constitucion: "constitution",
+        estado: "formation",
+        union: "formation",
+        revolucion: "formation",
+        golpe: "coup",
       guerra: "conflict",
       conflicto: "conflict",
       constituyente: "constitution",
       tratado: "treaty",
-      acuerdo: "organization",
-      division: "secession",
-      secesion: "secession",
-      anexion: "annexation",
-      descolonizacion: "formation",
+        acuerdo: "organization",
+        division: "secession",
+        secesion: "secession",
+        independencia: "secession",
+        anexion: "annexation",
+        descolonizacion: "formation",
       reforma: "system",
       territorio: "annexation",
       disolucion: "formation",
@@ -5961,7 +7157,8 @@ function buildTimeline(country) {
     .map(item => ({
       ...item,
       century: getTimelineCentury(item.year),
-      intensity: item.intensity || getTimelineIntensity(item)
+      intensity: item.intensity || getTimelineIntensity(item),
+      relevance: item.relevance || getTimelineRelevance(item)
     }))
     .sort((a, b) => {
       if (a.year !== b.year) {
@@ -5983,9 +7180,15 @@ function buildAggregateTimeline(countries, label = "") {
       ...item,
       contextLabel: label || country.name,
       countryName: country.name,
-      text: label ? `${country.name}: ${item.text}` : item.text
+      text: label ? `${country.name}: ${item.text}` : item.text,
+      relevance: item.relevance || getTimelineRelevance(item)
     })))
     .sort((a, b) => {
+      const relevanceWeight = { alta: 3, media: 2, baja: 1 };
+      const relevanceDiff = (relevanceWeight[normalizeText(b.relevance)] || 0) - (relevanceWeight[normalizeText(a.relevance)] || 0);
+      if (relevanceDiff !== 0) {
+        return relevanceDiff;
+      }
       if (a.year !== b.year) {
         return a.year - b.year;
       }
@@ -5994,16 +7197,18 @@ function buildAggregateTimeline(countries, label = "") {
     .filter((item, index, list) =>
       index === list.findIndex(other =>
         other.year === item.year &&
-        normalizeText(other.text) === normalizeText(item.text)
+        normalizeText(other.reference || other.text) === normalizeText(item.reference || item.text) &&
+        normalizeText(other.countryName || "") === normalizeText(item.countryName || "")
       )
     )
-    .slice(0, 24);
+    .slice(0, 48);
 }
 
 function filterTimelineItems(items) {
   const activeType = currentPanelState.timelineFilter || "all";
   const activeCentury = currentPanelState.timelineCentury || "all";
   const activeIntensity = currentPanelState.timelineIntensity || "all";
+  const activeRelevance = currentPanelState.timelineRelevance || "all";
 
   return items.filter(item => {
     if (activeType !== "all" && item.categoryKey !== activeType) {
@@ -6015,6 +7220,9 @@ function filterTimelineItems(items) {
     if (activeIntensity !== "all" && normalizeText(item.intensity) !== normalizeText(activeIntensity)) {
       return false;
     }
+    if (activeRelevance !== "all" && normalizeText(item.relevance) !== normalizeText(activeRelevance)) {
+      return false;
+    }
     return true;
   });
 }
@@ -6023,6 +7231,7 @@ function renderTimelineControls(items) {
   const activeType = currentPanelState.timelineFilter || "all";
   const activeCentury = currentPanelState.timelineCentury || "all";
   const activeIntensity = currentPanelState.timelineIntensity || "all";
+  const activeRelevance = currentPanelState.timelineRelevance || "all";
 
   const typeFilters = [
     { key: "all", label: currentLanguage === "en" ? "All" : "Todo" },
@@ -6050,6 +7259,14 @@ function renderTimelineControls(items) {
     }))
   ];
 
+  const relevanceFilters = [
+    { key: "all", label: currentLanguage === "en" ? "Any relevance" : "Cualquier relevancia" },
+    ...[...new Set(items.map(item => item.relevance).filter(Boolean))].map(relevance => ({
+      key: relevance,
+      label: getTimelineRelevanceLabel(relevance)
+    }))
+  ];
+
   return `
     <div class="timeline-filters">
       ${typeFilters.map(filter => `
@@ -6066,18 +7283,64 @@ function renderTimelineControls(items) {
         <button type="button" class="timeline-filter${filter.key === activeIntensity ? " is-active" : ""}" data-timeline-intensity="${escapeHtml(filter.key)}">${escapeHtml(filter.label)}</button>
       `).join("")}
     </div>
+    <div class="timeline-filters timeline-filters-secondary">
+      ${relevanceFilters.map(filter => `
+        <button type="button" class="timeline-filter${filter.key === activeRelevance ? " is-active" : ""}" data-timeline-relevance="${escapeHtml(filter.key)}">${escapeHtml(filter.label)}</button>
+      `).join("")}
+    </div>
+  `;
+}
+
+function renderTimelineAggregateSummary(items) {
+  const counts = {
+    constitution: 0,
+    coup: 0,
+    treaty: 0,
+    annexation: 0,
+    secession: 0,
+    system: 0,
+    formation: 0,
+    conflict: 0
+  };
+
+  items.forEach(item => {
+    if (counts[item.categoryKey] !== undefined) {
+      counts[item.categoryKey] += 1;
+    }
+  });
+
+  const summaryItems = [
+    { key: "constitution", label: currentLanguage === "en" ? "Constitutions" : "Constituciones" },
+    { key: "coup", label: currentLanguage === "en" ? "Coups" : "Golpes" },
+    { key: "treaty", label: currentLanguage === "en" ? "Treaties" : "Tratados" },
+    { key: "annexation", label: currentLanguage === "en" ? "Annexations" : "Anexiones" },
+    { key: "secession", label: currentLanguage === "en" ? "Secessions" : "Secesiones" },
+    { key: "system", label: currentLanguage === "en" ? "Regime / reform" : "Regimen / reforma" },
+    { key: "formation", label: currentLanguage === "en" ? "Formation / union" : "Formacion / union" },
+    { key: "conflict", label: currentLanguage === "en" ? "Conflicts" : "Conflictos" }
+  ].filter(item => counts[item.key] > 0);
+
+  if (!summaryItems.length) {
+    return "";
+  }
+
+  return `
+    <div class="country-meta-ribbon timeline-summary-ribbon">
+      ${summaryItems.map(item => `<span class="country-meta-pill"><b>${escapeHtml(item.label)}:</b> ${formatNumber(counts[item.key])}</span>`).join("")}
+    </div>
   `;
 }
 
 function renderTimelineCollection(items, contextCountry = null) {
   const controls = renderTimelineControls(items);
   const filtered = filterTimelineItems(items);
+  const aggregateSummary = !contextCountry && items.some(item => item.countryName) ? renderTimelineAggregateSummary(items) : "";
 
   if (!filtered.length) {
-    return `${controls}<p>${t("noData")}</p>`;
+    return `${controls}${aggregateSummary}<p>${t("noData")}</p>`;
   }
 
-  return `${controls}<div class="timeline">${filtered
+  return `${controls}${aggregateSummary}<div class="timeline">${filtered
     .map(item => {
       const modalKey = registerTimelineModal(item, item.contextLabel || contextCountry?.name || "");
       const query = contextCountry ? getTimelineEventQuery(item, contextCountry) : (item.reference || item.text);
@@ -6085,7 +7348,7 @@ function renderTimelineCollection(items, contextCountry = null) {
         <button class="timeline-item network-link" type="button" data-timeline-key="${modalKey}" data-timeline-query="${escapeHtml(query)}" style="--accent:${getTimelineCategoryAccent(item.categoryKey)};">
           <span class="timeline-year">${item.year}</span>
           <span class="timeline-copy">
-            <span class="timeline-kicker">${escapeHtml(item.category || (currentLanguage === "en" ? "Event" : "Evento"))} · ${escapeHtml(item.century || "")} · ${escapeHtml(getTimelineIntensityLabel(item.intensity))}</span>
+            <span class="timeline-kicker">${escapeHtml(item.category || (currentLanguage === "en" ? "Event" : "Evento"))} · ${escapeHtml(item.century || "")} · ${escapeHtml(getTimelineIntensityLabel(item.intensity))} · ${escapeHtml(getTimelineRelevanceLabel(item.relevance || getTimelineRelevance(item)))}</span>
             <span>${escapeHtml(item.text)}</span>
           </span>
         </button>
@@ -6096,6 +7359,51 @@ function renderTimelineCollection(items, contextCountry = null) {
 
 function renderTimeline(country) {
   return renderTimelineCollection(buildTimeline(country), country);
+}
+
+function buildCompareTimelineSummary(compareCodes) {
+  if (!Array.isArray(compareCodes) || compareCodes.length < 2) {
+    return "";
+  }
+
+  const rows = compareCodes
+    .map(code => {
+      const country = countriesData[code];
+      if (!country) {
+        return null;
+      }
+      const timelineItems = buildTimeline(country);
+      const topEvents = timelineItems
+        .slice()
+        .sort((a, b) => getTimelineIntensityWeight(b.intensity) - getTimelineIntensityWeight(a.intensity) || (b.year || 0) - (a.year || 0))
+        .slice(0, 3);
+      const conflictCount = getCountryConflictCount(country);
+      return `
+        <div class="compare-benchmark-card compare-timeline-card">
+          <strong>${escapeHtml(country.name)}</strong>
+          <span>${currentLanguage === "en" ? "High-impact milestones" : "Hitos de mayor impacto"}: ${formatNumber(topEvents.length)}</span>
+          <span>${currentLanguage === "en" ? "Conflicts in profile" : "Conflictos en perfil"}: ${formatNumber(conflictCount)}</span>
+          <div class="compare-mini-list">
+            ${topEvents.map(item => `<span>${escapeHtml(`${item.year}: ${item.reference || item.text}`)}</span>`).join("")}
+          </div>
+        </div>
+      `;
+    })
+    .filter(Boolean)
+    .join("");
+
+  if (!rows) {
+    return "";
+  }
+
+  return `
+    <div class="compare-row compare-summary-row">
+      <strong>${currentLanguage === "en" ? "Timeline and conflict profile" : "Perfil temporal y conflictivo"}</strong>
+      <div class="compare-benchmark-grid">
+        ${rows}
+      </div>
+    </div>
+  `;
 }
 
 function renderRelationChips(items) {
@@ -6364,6 +7672,38 @@ function updateStaticText() {
     saveSearchButton.title = currentLanguage === "en" ? "Save search" : "Guardar busqueda";
     saveSearchButton.setAttribute("aria-label", saveSearchButton.title);
   }
+  const appModeSelect = document.getElementById("app-mode-select");
+  if (appModeSelect) {
+    appModeSelect.options[0].textContent = currentLanguage === "en" ? "Explore" : "Exploracion";
+    appModeSelect.options[1].textContent = currentLanguage === "en" ? "Geopolitical analysis" : "Analisis geopolitico";
+    appModeSelect.options[2].textContent = currentLanguage === "en" ? "Encyclopedia" : "Enciclopedia";
+    appModeSelect.options[3].textContent = currentLanguage === "en" ? "Presentation" : "Presentacion";
+    appModeSelect.value = appMode;
+  }
+  const favoriteViewsSelect = document.getElementById("favorite-views-select");
+  if (favoriteViewsSelect?.options?.[0]) {
+    favoriteViewsSelect.options[0].textContent = currentLanguage === "en" ? "Favorites" : "Favoritos";
+  }
+  const saveFavoriteButton = document.getElementById("save-favorite-button");
+  if (saveFavoriteButton) {
+    saveFavoriteButton.textContent = currentLanguage === "en" ? "Save favorite" : "Guardar favorito";
+  }
+  const openIntroButton = document.getElementById("open-intro-button");
+  if (openIntroButton) {
+    openIntroButton.textContent = currentLanguage === "en" ? "Intro" : "Portada";
+  }
+  const openHealthButton = document.getElementById("open-health-button");
+  if (openHealthButton) {
+    openHealthButton.textContent = currentLanguage === "en" ? "Dataset health" : "Salud dataset";
+  }
+  const openChangelogButton = document.getElementById("open-changelog-button");
+  if (openChangelogButton) {
+    openChangelogButton.textContent = currentLanguage === "en" ? "Changelog" : "Changelog";
+  }
+  const openDocsButton = document.getElementById("open-docs-button");
+  if (openDocsButton) {
+    openDocsButton.textContent = currentLanguage === "en" ? "Docs" : "Documentacion";
+  }
   const searchHistoryTitle = document.getElementById("search-history-title");
   if (searchHistoryTitle) {
     searchHistoryTitle.textContent = currentLanguage === "en" ? "Recent" : "Recientes";
@@ -6475,29 +7815,45 @@ function updateStaticText() {
   renderSearchMemory();
 }
 
+let rerenderCurrentPanelFrame = null;
+
 function rerenderCurrentPanel() {
-  if (currentPanelState.type === "country" && currentPanelState.code && countriesData[currentPanelState.code]) {
-    renderCountry(countriesData[currentPanelState.code], currentPanelState.fallbackName);
+  if (rerenderCurrentPanelFrame !== null) {
     return;
   }
 
-  if (currentPanelState.type === "continent") {
-    renderContinent(currentPanelState.continent, currentPanelState.countries);
-    return;
-  }
+  const flush = () => {
+    rerenderCurrentPanelFrame = null;
 
-  if (currentPanelState.type === "religion") {
-    renderReligionSelection(currentPanelState.religionName, currentPanelState.countries, currentPanelState.totalNominal);
-    return;
-  }
+    if (currentPanelState.type === "country" && currentPanelState.code && countriesData[currentPanelState.code]) {
+      renderCountry(countriesData[currentPanelState.code], currentPanelState.fallbackName);
+      return;
+    }
 
-  if (currentPanelState.type === "group") {
-    renderGroupSelection(currentPanelState.title, currentPanelState.descriptor, currentPanelState.countries);
-    return;
-  }
+    if (currentPanelState.type === "continent") {
+      renderContinent(currentPanelState.continent, currentPanelState.countries);
+      return;
+    }
 
-  if (currentPanelState.type === "empty") {
-    renderEmpty(currentPanelState.name || t("noData"));
+    if (currentPanelState.type === "religion") {
+      renderReligionSelection(currentPanelState.religionName, currentPanelState.countries, currentPanelState.totalNominal);
+      return;
+    }
+
+    if (currentPanelState.type === "group") {
+      renderGroupSelection(currentPanelState.title, currentPanelState.descriptor, currentPanelState.countries);
+      return;
+    }
+
+    if (currentPanelState.type === "empty") {
+      renderEmpty(currentPanelState.name || t("noData"));
+    }
+  };
+
+  if (typeof requestAnimationFrame === "function") {
+    rerenderCurrentPanelFrame = requestAnimationFrame(flush);
+  } else {
+    rerenderCurrentPanelFrame = setTimeout(flush, 16);
   }
 }
 
@@ -6517,6 +7873,10 @@ function loadSavedPreferences() {
     if (storedViews) {
       savedViews = JSON.parse(storedViews);
     }
+    const storedFavorites = localStorage.getItem(STORAGE_KEYS.favorites);
+    if (storedFavorites) {
+      favoriteViews = JSON.parse(storedFavorites);
+    }
 
     const storedSearchHistory = localStorage.getItem(STORAGE_KEYS.searchHistory);
     if (storedSearchHistory) {
@@ -6528,11 +7888,12 @@ function loadSavedPreferences() {
       savedSearches = JSON.parse(storedSavedSearches);
     }
 
-    const presentation = localStorage.getItem(STORAGE_KEYS.presentation) === "true";
-    document.body.classList.toggle("presentation-mode", presentation);
+    appMode = localStorage.getItem(STORAGE_KEYS.appMode) || (localStorage.getItem(STORAGE_KEYS.presentation) === "true" ? "presentation" : "default");
+    document.body.classList.toggle("presentation-mode", appMode === "presentation");
   } catch (error) {
     savedFilters = [];
     savedViews = [];
+    favoriteViews = [];
     searchHistory = [];
     savedSearches = [];
   }
@@ -6633,6 +7994,46 @@ function parseWorldBankSeriesChanges(csvText) {
   return result;
 }
 
+function parseWorldBankCountryNameMap(csvText) {
+  const lines = csvText.split(/\r?\n/).filter(Boolean);
+  const headerIndex = lines.findIndex(line => line.startsWith("\"Country Name\""));
+  if (headerIndex === -1) {
+    return new Map();
+  }
+
+  const result = new Map();
+  for (const line of lines.slice(headerIndex + 1)) {
+    if (!line.startsWith("\"")) {
+      continue;
+    }
+
+    const parts = parseQuotedCsvLine(line);
+    if (parts.length < 2) {
+      continue;
+    }
+
+    const name = parts[0];
+    const code = parts[1];
+    if (!name || !code || !countriesData[code]) {
+      continue;
+    }
+
+    buildCountryLookupVariants(name).forEach(variant => {
+      result.set(variant, code);
+    });
+  }
+
+  Object.entries(worldBankNameAliasOverrides).forEach(([alias, code]) => {
+    if (countriesData[code]) {
+      buildCountryLookupVariants(alias).forEach(variant => {
+        result.set(variant, code);
+      });
+    }
+  });
+
+  return result;
+}
+
 function persistSavedFilters() {
   localStorage.setItem(STORAGE_KEYS.filters, JSON.stringify(savedFilters));
 }
@@ -6652,6 +8053,10 @@ function persistSavedViews() {
   localStorage.setItem(STORAGE_KEYS.views, JSON.stringify(savedViews));
 }
 
+function persistFavoriteViews() {
+  localStorage.setItem(STORAGE_KEYS.favorites, JSON.stringify(favoriteViews));
+}
+
 function renderSavedViews() {
   const select = document.getElementById("saved-views-select");
   if (!select) {
@@ -6659,8 +8064,116 @@ function renderSavedViews() {
   }
 
   select.innerHTML = `<option value="">${currentLanguage === "en" ? "Saved views" : "Vistas guardadas"}</option>${savedViews
-    .map((item, index) => `<option value="${index}">${escapeHtml(item.name)}</option>`)
+    .map((item, index) => {
+      const modeLabel = item.mapMode ? item.mapMode.toUpperCase() : "3D";
+      const themeLabel = item.theme && item.theme !== "default" ? item.theme : (currentLanguage === "en" ? "political" : "politica");
+      return `<option value="${index}">${escapeHtml(`${item.name} · ${modeLabel} · ${themeLabel}`)}</option>`;
+    })
     .join("")}`;
+}
+
+function renderFavoriteViews() {
+  const select = document.getElementById("favorite-views-select");
+  if (!select) {
+    return;
+  }
+
+  select.innerHTML = `<option value="">${currentLanguage === "en" ? "Favorites" : "Favoritos"}</option>${favoriteViews
+    .map((item, index) => {
+      const modeLabel = item.appMode && item.appMode !== "default" ? item.appMode : (currentLanguage === "en" ? "explore" : "exploracion");
+      return `<option value="${index}">${escapeHtml(`${item.name} · ${modeLabel}`)}</option>`;
+    })
+    .join("")}`;
+}
+
+async function openMarkdownDocument(title, fileName) {
+  try {
+    const markdown = await fetchResourceCached(`./${fileName}?v=${APP_VERSION}`, "text");
+    openProductModal(
+      title,
+      `<div class="product-doc"><pre>${escapeHtml(markdown)}</pre></div>`
+    );
+  } catch (error) {
+    openProductModal(
+      title,
+      `<p>${currentLanguage === "en" ? "The document could not be loaded." : "No se pudo cargar el documento."}</p>`
+    );
+  }
+}
+
+function renderDatasetHealthPanel() {
+  const countries = Object.values(countriesData || {});
+  const total = countries.length || 0;
+  const withTimeline = countries.filter(country => (country.history?.events || []).length > 0).length;
+  const withConflicts = countries.filter(country => (country.military?.conflicts || []).length > 0).length;
+  const withLocalFlag = countries.filter(country => country.general?.symbols?.assets?.flagPath).length;
+  const withLocalCoat = countries.filter(country => country.general?.symbols?.assets?.coatPath).length;
+  const withLanguages = countries.filter(country => Array.isArray(country.general?.languages) && country.general.languages.length > 0).length;
+  const withCapitals = countries.filter(country => Array.isArray(country.general?.capitals) && country.general.capitals.length > 0).length;
+  const withProvenance = countries.filter(country => Object.keys(country.metadata?.provenance || {}).length > 0).length;
+  const withMissingFields = countries.filter(country => (country.metadata?.quality?.missingFields || []).length > 0).length;
+  const averageQuality = total
+    ? Math.round(countries.reduce((sum, country) => sum + (country.metadata?.quality?.score || 0), 0) / total)
+    : 0;
+  const estimatedAverage = total
+    ? Math.round(countries.reduce((sum, country) => sum + ((country.metadata?.quality?.estimatedFields || []).length || 0), 0) / total)
+    : 0;
+  const statusRows = countries
+    .slice()
+    .sort((a, b) => (b.metadata?.quality?.score || 0) - (a.metadata?.quality?.score || 0))
+    .slice(0, 12)
+    .map(country => `<li><b>${escapeHtml(country.name)}</b>: ${country.metadata?.quality?.score || 0}/100</li>`)
+    .join("");
+  const sectionTotals = ["general", "history", "economy", "military", "politics", "religion", "symbols", "relations"]
+    .map(section => {
+      const curatedCount = countries.filter(country => country.metadata?.quality?.sectionStatus?.[section] === "curated" || country.metadata?.quality?.sectionStatus?.[section] === "confirmed").length;
+      return `<li><b>${escapeHtml(section)}</b>: ${formatNumber(curatedCount)}/${formatNumber(total)}</li>`;
+    })
+    .join("");
+  const weakestCountries = countries
+    .slice()
+    .sort((a, b) => (a.metadata?.quality?.score || 0) - (b.metadata?.quality?.score || 0))
+    .slice(0, 10)
+    .map(country => `<li><b>${escapeHtml(country.name)}</b>: ${country.metadata?.quality?.score || 0}/100</li>`)
+    .join("");
+
+  openProductModal(
+    currentLanguage === "en" ? "Dataset health" : "Salud del dataset",
+    `
+      <div class="product-summary-grid">
+        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Countries" : "Paises"}</span><strong class="overview-value">${formatNumber(total)}</strong></div>
+        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Average quality" : "Calidad promedio"}</span><strong class="overview-value">${averageQuality}/100</strong></div>
+        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "With timeline" : "Con timeline"}</span><strong class="overview-value">${formatNumber(withTimeline)}</strong></div>
+        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "With conflicts" : "Con conflictos"}</span><strong class="overview-value">${formatNumber(withConflicts)}</strong></div>
+        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Local flags" : "Banderas locales"}</span><strong class="overview-value">${formatNumber(withLocalFlag)}</strong></div>
+        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Local coats" : "Escudos locales"}</span><strong class="overview-value">${formatNumber(withLocalCoat)}</strong></div>
+        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "With languages" : "Con idiomas"}</span><strong class="overview-value">${formatNumber(withLanguages)}</strong></div>
+        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "With capitals" : "Con capitales"}</span><strong class="overview-value">${formatNumber(withCapitals)}</strong></div>
+        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "With provenance" : "Con procedencia"}</span><strong class="overview-value">${formatNumber(withProvenance)}</strong></div>
+        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Avg. estimated fields" : "Prom. campos estimados"}</span><strong class="overview-value">${formatNumber(estimatedAverage)}</strong></div>
+      </div>
+      <div class="help-section">
+        <h3>${currentLanguage === "en" ? "Quality leaders" : "Lideres de calidad"}</h3>
+        <ul>${statusRows}</ul>
+      </div>
+      <div class="help-section">
+        <h3>${currentLanguage === "en" ? "Quality watchlist" : "Watchlist de calidad"}</h3>
+        <ul>${weakestCountries}</ul>
+      </div>
+      <div class="help-section">
+        <h3>${currentLanguage === "en" ? "Section coverage" : "Cobertura por seccion"}</h3>
+        <ul>${sectionTotals}</ul>
+      </div>
+      <div class="help-section">
+        <h3>${currentLanguage === "en" ? "Current audit status" : "Estado actual de auditoria"}</h3>
+        <ul>
+          <li><b>${currentLanguage === "en" ? "Countries with missing fields" : "Paises con campos faltantes"}</b>: ${formatNumber(withMissingFields)}</li>
+          <li><b>${currentLanguage === "en" ? "Offline shell" : "Shell offline"}</b>: ${currentLanguage === "en" ? "available via service worker cache" : "disponible via cache del service worker"}</li>
+          <li><b>${currentLanguage === "en" ? "Local validation" : "Validacion local"}</b>: ${currentLanguage === "en" ? "latest checks passed without blocking issues" : "los ultimos chequeos pasaron sin incidencias bloqueantes"}</li>
+        </ul>
+      </div>
+    `
+  );
 }
 
 function openHelpModal() {
@@ -6687,21 +8200,41 @@ function closeHelpModal() {
 function setupSavedViewControls() {
   const saveButton = document.getElementById("save-view-button");
   const select = document.getElementById("saved-views-select");
+  const favoriteButton = document.getElementById("save-favorite-button");
+  const favoriteSelect = document.getElementById("favorite-views-select");
+  const appModeSelect = document.getElementById("app-mode-select");
+  const introButton = document.getElementById("open-intro-button");
+  const healthButton = document.getElementById("open-health-button");
+  const changelogButton = document.getElementById("open-changelog-button");
+  const docsButton = document.getElementById("open-docs-button");
   const helpButton = document.getElementById("open-help-button");
+  const datasetChip = document.getElementById("dataset-health-chip");
+  const renderChip = document.getElementById("render-profile-chip");
   const helpModal = document.getElementById("help-modal");
   const helpClose = document.getElementById("help-modal-close");
+  const introModal = document.getElementById("intro-modal");
+  const introClose = document.getElementById("intro-modal-close");
+  const productModal = document.getElementById("product-modal");
+  const productClose = document.getElementById("product-modal-close");
 
   renderSavedViews();
+  renderFavoriteViews();
 
   saveButton?.addEventListener("click", () => {
     const view = getCurrentViewState();
     if (!view.name) {
       view.name = currentLanguage === "en" ? "Saved view" : "Vista guardada";
     }
-    savedViews.unshift(view);
-    savedViews = savedViews.slice(0, 10);
+    savedViews = storeViewEntry(savedViews, view, 10);
     persistSavedViews();
     renderSavedViews();
+  });
+  favoriteButton?.addEventListener("click", () => {
+    const view = getCurrentViewState();
+    view.name = view.name || (currentLanguage === "en" ? "Favorite configuration" : "Configuracion favorita");
+    favoriteViews = storeViewEntry(favoriteViews, view, 8);
+    persistFavoriteViews();
+    renderFavoriteViews();
   });
 
   select?.addEventListener("change", async event => {
@@ -6711,12 +8244,61 @@ function setupSavedViewControls() {
     }
     await applySavedView(selected);
   });
+  favoriteSelect?.addEventListener("change", async event => {
+    const selected = favoriteViews[Number(event.target.value)];
+    if (!selected) {
+      return;
+    }
+    await applySavedView(selected);
+  });
+  appModeSelect?.addEventListener("change", event => {
+    applyAppMode(event.target.value || "default");
+  });
+  introButton?.addEventListener("click", () => openIntroModal());
+  healthButton?.addEventListener("click", () => renderDatasetHealthPanel());
+  changelogButton?.addEventListener("click", () => openMarkdownDocument("CHANGELOG", "CHANGELOG.md"));
+  docsButton?.addEventListener("click", async () => {
+    const userGuide = await fetchResourceCached(`./USER_GUIDE.md?v=${APP_VERSION}`, "text").catch(() => "");
+    const technicalGuide = await fetchResourceCached(`./TECHNICAL.md?v=${APP_VERSION}`, "text").catch(() => "");
+    openProductModal(
+      currentLanguage === "en" ? "Documentation" : "Documentacion",
+      `
+        <div class="help-section">
+          <h3>USER_GUIDE.md</h3>
+          <pre>${escapeHtml(userGuide || "No disponible")}</pre>
+        </div>
+        <div class="help-section">
+          <h3>TECHNICAL.md</h3>
+          <pre>${escapeHtml(technicalGuide || "No disponible")}</pre>
+        </div>
+      `
+    );
+  });
+  datasetChip?.addEventListener("click", () => renderDatasetHealthPanel());
+  renderChip?.addEventListener("click", () => openIntroModal());
 
   helpButton?.addEventListener("click", () => openHelpModal());
   helpClose?.addEventListener("click", () => closeHelpModal());
   helpModal?.addEventListener("click", event => {
     if (event.target.closest("[data-close-help-modal='true']")) {
       closeHelpModal();
+    }
+  });
+  introClose?.addEventListener("click", () => closeIntroModal());
+  introModal?.addEventListener("click", event => {
+    if (event.target.closest("[data-close-intro-modal='true']")) {
+      closeIntroModal();
+    }
+    const modeButton = event.target.closest("[data-app-mode-choice]");
+    if (modeButton) {
+      applyAppMode(modeButton.dataset.appModeChoice || "default");
+      closeIntroModal();
+    }
+  });
+  productClose?.addEventListener("click", () => closeProductModal());
+  productModal?.addEventListener("click", event => {
+    if (event.target.closest("[data-close-product-modal='true']")) {
+      closeProductModal();
     }
   });
 }
@@ -6739,6 +8321,8 @@ function setupGlobalKeyboardShortcuts() {
     }
 
     if (event.key === "Escape") {
+      closeIntroModal();
+      closeProductModal();
       closeCountryModal();
       closeHelpModal();
       closeCompareModal();
@@ -6756,9 +8340,12 @@ function getCurrentViewState() {
     name: [
       currentPanelState.type === "country" && currentPanelState.code ? countriesData[currentPanelState.code]?.name : "",
       currentTheme !== "default" ? currentTheme : "",
+      appMode !== "default" ? appMode : "",
       currentMapMode.toUpperCase()
     ].filter(Boolean).join(" / "),
+    savedAt: new Date().toISOString(),
     theme: currentTheme,
+    appMode,
     mapMode: currentMapMode,
     filters: getFilterState(),
     panelState: currentPanelState,
@@ -6766,9 +8353,29 @@ function getCurrentViewState() {
   };
 }
 
+function getSavedViewSignature(view) {
+  return JSON.stringify({
+    theme: view?.theme || "default",
+    appMode: view?.appMode || "default",
+    mapMode: view?.mapMode || "3d",
+    selectedCode: view?.selectedCode || "",
+    filters: view?.filters || {}
+  });
+}
+
+function storeViewEntry(collection, view, limit) {
+  const signature = getSavedViewSignature(view);
+  const next = [view, ...collection.filter(item => getSavedViewSignature(item) !== signature)];
+  return next.slice(0, limit);
+}
+
 async function applySavedView(view) {
   if (!view) {
     return;
+  }
+
+  if (view.appMode) {
+    applyAppMode(view.appMode);
   }
 
   document.getElementById("filter-continent-select").value = view.filters?.continent || "";
@@ -6806,6 +8413,31 @@ async function applySavedView(view) {
   }
 }
 
+function mergeCountryCuration(target, source) {
+  if (!target || !source || typeof source !== "object") {
+    return target;
+  }
+
+  Object.entries(source).forEach(([key, value]) => {
+    if (Array.isArray(value)) {
+      target[key] = value.map(item => (item && typeof item === "object" ? { ...item } : item));
+      return;
+    }
+
+    if (value && typeof value === "object") {
+      target[key] = target[key] && typeof target[key] === "object" && !Array.isArray(target[key])
+        ? target[key]
+        : {};
+      mergeCountryCuration(target[key], value);
+      return;
+    }
+
+    target[key] = value;
+  });
+
+  return target;
+}
+
 function sanitizeCountryData(country) {
   const populationFallback =
     country.general?.population ||
@@ -6815,6 +8447,10 @@ function sanitizeCountryData(country) {
 
   if (!country.general) {
     country.general = {};
+  }
+
+  if (country.code && curatedCountryOverrides[country.code]) {
+    mergeCountryCuration(country, curatedCountryOverrides[country.code]);
   }
 
   country.general.population = country.general.population || populationFallback;
@@ -7189,6 +8825,22 @@ renderComparePanel = function renderComparePanel() {
     const avgInflation = peers.reduce((sum, item) => sum + (item.economy?.inflation || 0), 0) / Math.max(peers.filter(item => typeof item.economy?.inflation === "number").length, 1);
     return `<div><b>${getFlagEmoji(code)} ${escapeHtml(country.name)}:</b> ${currentLanguage === "en" ? "continent avg GDP pc" : "promedio continental de PBI pc"} US$ ${formatNumber(Math.round(avgGdpPerCapita || 0))} · ${currentLanguage === "en" ? "avg inflation" : "inflacion promedio"} ${formatInflation(avgInflation)}</div>`;
   }).join("");
+
+  const sharedTimelineSummary = (() => {
+    const categories = ["constitution", "coup", "treaty", "annexation", "secession", "system", "formation", "conflict"]
+      .filter(category => compareSelection.every(code => buildTimeline(countriesData[code]).some(item => item.categoryKey === category)));
+    if (!categories.length) {
+      return "";
+    }
+    return `
+      <div class="compare-row compare-summary-row">
+        <strong>${currentLanguage === "en" ? "Shared milestones" : "Hitos compartidos"}</strong>
+        <div class="compare-values">
+          ${categories.map(category => `<span class="country-meta-pill">${escapeHtml(getTimelineCategoryLabel(category))}</span>`).join("")}
+        </div>
+      </div>
+    `;
+  })();
 
   results.innerHTML = `
     <div class="compare-toolbar">
@@ -7914,11 +9566,11 @@ function setupSearchIndex(featureNameByCode) {
   });
 
   Object.entries(countriesData).forEach(([code, country]) => {
-    registerCountryAlias(country.name, code);
-    registerCountryAlias(featureNameByCode[code], code);
-    registerCountryAlias(code, code);
-    registerCountryAlias(country.general?.officialName, code);
-    (country.general?.historicalNames || []).forEach(alias => registerCountryAlias(alias, code));
+    registerCountryAlias(country.name, code, true);
+    registerCountryAlias(featureNameByCode[code], code, true);
+    registerCountryAlias(code, code, true);
+    registerCountryAlias(country.general?.officialName, code, true);
+    (country.general?.historicalNames || []).forEach(alias => registerCountryAlias(alias, code, false));
     registerSuggestion(country.name, "country", code, "Pais o territorio", [
       featureNameByCode[code],
       country.general?.officialName,
@@ -8012,6 +9664,12 @@ function setupSearchIndex(featureNameByCode) {
       registerLookupAlias(rivalAliases, rivalName, rivalName);
       registerSuggestion(rivalName, "rival", rivalName, "Rival historico o actual");
     });
+  });
+
+  Object.entries(mapNameAliasOverrides).forEach(([alias, code]) => {
+    if (countriesData[code]) {
+      registerCountryAlias(alias, code, true);
+    }
   });
 
   const continentNameMap = {
@@ -8646,8 +10304,15 @@ function runDeferredGlobalStatsBatch(step = 0) {
       generateHistoryTypesRanking();
     },
     () => {
-      renderNewsHub(currentPanelState.code || "");
-      renderQuizPanel();
+      if (document.getElementById("news-hub-panel")?.open) {
+        renderNewsHub(currentPanelState.code || "");
+      }
+      if (document.getElementById("quiz-hub-panel")?.open) {
+        renderQuizPanel();
+      }
+      if (document.getElementById("compare-hub-panel")?.open) {
+        renderComparePanel();
+      }
       deferredGlobalStatsReady = true;
     }
   ];
@@ -8688,25 +10353,24 @@ async function loadData() {
   }
 
   loadDataPromise = (async () => {
-  const [countriesRes, rawPoliticsRes, rawHistoryRes, rawInflationRes, rawPopulationSeriesRes] = await Promise.all([
-    fetch(`./data/countries_full.json?v=${APP_VERSION}`, { cache: "no-store" }),
-    fetch(`./data/raw/politics.json?v=${APP_VERSION}`, { cache: "no-store" }),
-    fetch(`./data/raw/history.json?v=${APP_VERSION}`, { cache: "no-store" }),
-    fetch(`./data/raw/inflation.json?v=${APP_VERSION}`, { cache: "no-store" }),
-    fetch(`./data/raw/population.csv?v=${APP_VERSION}`, { cache: "no-store" })
+  const [countriesJson, rawPoliticsJson, rawHistoryJson, rawInflationJson, rawPopulationSeriesText, aliasConfigJson] = await Promise.all([
+    fetchResourceCached(`./data/countries_full.json?v=${APP_VERSION}`, "json"),
+    fetchResourceCached(`./data/raw/politics.json?v=${APP_VERSION}`, "json"),
+    fetchResourceCached(`./data/raw/history.json?v=${APP_VERSION}`, "json"),
+    fetchResourceCached(`./data/raw/inflation.json?v=${APP_VERSION}`, "json"),
+    fetchResourceCached(`./data/raw/population.csv?v=${APP_VERSION}`, "text"),
+    fetchResourceCached(`./data/geo_aliases.json?v=${APP_VERSION}`, "json")
   ]);
 
-  [countriesRes, rawPoliticsRes, rawHistoryRes, rawInflationRes, rawPopulationSeriesRes].forEach(response => {
-    if (!response.ok) {
-      throw new Error(`No se pudo cargar ${response.url} (${response.status})`);
-    }
-  });
-
-  countriesData = await countriesRes.json();
-  rawPoliticsSystems = await rawPoliticsRes.json();
-  rawHistorySystems = await rawHistoryRes.json();
-  rawInflationByCode = await rawInflationRes.json();
-  populationGrowthByCode = parseWorldBankSeriesChanges(await rawPopulationSeriesRes.text());
+  countriesData = countriesJson;
+  rawPoliticsSystems = rawPoliticsJson;
+  rawHistorySystems = rawHistoryJson;
+  rawInflationByCode = rawInflationJson;
+  mapNameAliasOverrides = aliasConfigJson?.mapNameAliases || {};
+  mapNameAliasIndex = buildNormalizedAliasIndex(mapNameAliasOverrides);
+  worldBankNameAliasOverrides = aliasConfigJson?.worldBankNameAliases || {};
+  populationGrowthByCode = parseWorldBankSeriesChanges(rawPopulationSeriesText);
+  countryCodeByEnglishName = parseWorldBankCountryNameMap(rawPopulationSeriesText);
   buildInflationFallbacks();
 
   Object.entries(countriesData).forEach(([code, country]) => {
@@ -9157,7 +10821,7 @@ async function loadMap() {
   }
   countryLayers.clear();
   countryClickTargets.clear();
-  const geojson = await getPreparedGeoJson(geoJsonPath);
+  const geojson = await getPreparedGeoJson(geoJsonPath, currentMapMode);
   const featureNameByCode = {};
   let dataSource = null;
 
@@ -9180,15 +10844,26 @@ async function loadMap() {
       properties?.ISO_A3?.getValue?.() ||
       properties?.iso_a3?.getValue?.() ||
       properties?.ADM0_A3?.getValue?.() ||
+      properties?.ADM0_A3_US?.getValue?.() ||
+      properties?.WB_A3?.getValue?.() ||
+      properties?.BRK_A3?.getValue?.() ||
+      properties?.SOV_A3?.getValue?.() ||
+      properties?.GU_A3?.getValue?.() ||
       entity.id;
-    const featureName = properties?.name?.getValue?.() || rawCode;
+    const featureName =
+      properties?.name?.getValue?.() ||
+      properties?.ADMIN?.getValue?.() ||
+      properties?.NAME?.getValue?.() ||
+      properties?.formal_en?.getValue?.() ||
+      properties?.NAME_EN?.getValue?.() ||
+      rawCode;
     const code = resolveCountryCode(rawCode, featureName) || rawCode;
 
     if (!code) {
       return;
     }
 
-    registerCountryAlias(featureName, code);
+    registerCountryAlias(featureName, code, true);
     featureNameByCode[code] = countriesData[code]?.name || featureName;
     entity.countryCode = code;
     entity.countryName = countriesData[code]?.name || featureName;
@@ -9295,9 +10970,16 @@ async function loadMap() {
   clickHandler.setInputAction(movement => {
     if (!shouldUseHoverHighlights()) {
       restoreHover();
-      viewer.scene.requestRender();
+      requestSceneRender();
       return;
     }
+
+    const now = Date.now();
+    const hoverSampleWindow = isMobileLayout() ? 56 : currentMapMode === "2d" ? 42 : 28;
+    if (now - lastHoverSampleAt < hoverSampleWindow) {
+      return;
+    }
+    lastHoverSampleAt = now;
 
     const picked = viewer.scene.pick(movement.endPosition);
     const code = picked?.id?.countryCode;
@@ -9322,7 +11004,7 @@ async function loadMap() {
 
       if (!nextLayer) {
         restoreHover();
-        viewer.scene.requestRender();
+        requestSceneRender();
         return;
       }
 
@@ -9347,13 +11029,14 @@ async function loadMap() {
             )
           });
         }
-        viewer.scene.requestRender();
+        requestSceneRender();
       });
   }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
 
   registerFeatureNameAliases(featureNameByCode);
   fitWorldView();
   renderMapLabels();
+  scheduleGeoJsonWarmup();
 }
 
 function setupSearchEvents() {
@@ -9586,6 +11269,13 @@ function setupSearchEvents() {
       return;
     }
 
+    const timelineRelevanceButton = event.target.closest("[data-timeline-relevance]");
+    if (timelineRelevanceButton) {
+      currentPanelState.timelineRelevance = timelineRelevanceButton.dataset.timelineRelevance || "all";
+      rerenderCurrentPanel();
+      return;
+    }
+
     const timelineTrigger = event.target.closest("[data-timeline-key]");
     if (timelineTrigger) {
       openTimelineModal(timelineTrigger.dataset.timelineKey);
@@ -9678,6 +11368,7 @@ function setupThemeControls() {
     labelModeSelect.value = labelMode;
   }
   renderThemeLegend();
+  renderThemeSummary();
   updateStaticText();
   setAutoRotateState(autoRotateEnabled);
 
@@ -9728,8 +11419,11 @@ function setupThemeControls() {
     localStorage.setItem(STORAGE_KEYS.language, currentLanguage);
     updateStaticText();
     updateExtendedStaticText();
+    renderSavedViews();
+    renderFavoriteViews();
     refreshGlobalStats();
     renderThemeLegend();
+    renderThemeSummary();
     renderComparePanel();
     renderMapLabels();
     rerenderCurrentPanel();
@@ -9813,12 +11507,10 @@ function setupThemeControls() {
   });
 
   presentationButton.addEventListener("click", () => {
-    const enabled = !document.body.classList.contains("presentation-mode");
-    document.body.classList.toggle("presentation-mode", enabled);
-    localStorage.setItem(STORAGE_KEYS.presentation, String(enabled));
+    const enabled = appMode !== "presentation";
+    applyAppMode(enabled ? "presentation" : "default");
     updateStaticText();
     closeMobilePanels();
-    update3DPresentationState();
   });
 };
 
@@ -10027,6 +11719,7 @@ function startQuiz() {
     score: 0,
     total: 0,
     current: null,
+    feedback: null,
     streak: 0,
     bestStreak: Number(localStorage.getItem("geo-risk-quiz-best-streak") || 0),
     timeLeft: 0,
@@ -10039,6 +11732,7 @@ function nextQuizQuestion() {
   clearQuizTimer();
   const question = buildQuizQuestion(quizState.category);
   quizState.current = question;
+  quizState.feedback = null;
   renderQuizPanel();
   startQuizTimer();
 }
@@ -10058,6 +11752,16 @@ function answerQuiz(answer) {
   }
   quizState.asked.push(quizState.current.code);
   quizState.current.answered = true;
+  const feedbackTitle = isCorrect
+    ? (currentLanguage === "en" ? "Well answered" : "Bien respondido")
+    : (answer === "__timeout__"
+        ? (currentLanguage === "en" ? "Time expired" : "Tiempo agotado")
+        : (currentLanguage === "en" ? "Correct answer" : "Respuesta correcta"));
+  quizState.feedback = {
+    kind: isCorrect ? "ok" : "error",
+    title: feedbackTitle,
+    body: `${currentLanguage === "en" ? "Answer" : "Respuesta"}: ${quizState.current.correct}. ${currentLanguage === "en" ? "Category" : "Categoria"}: ${quizState.category}.`
+  };
 
   document.querySelectorAll(".quiz-option").forEach(button => {
     const buttonAnswer = button.dataset.quizAnswer || "";
@@ -10097,6 +11801,7 @@ setupQuizControls = function setupQuizControls() {
       score: 0,
       total: 0,
       current: null,
+      feedback: null,
       streak: 0,
       bestStreak: Number(localStorage.getItem("geo-risk-quiz-best-streak") || 0),
       timeLeft: 0,
@@ -10116,7 +11821,7 @@ setupQuizControls = function setupQuizControls() {
 
 parseSemanticQuery = function parseSemanticQuery(rawQuery) {
   const normalized = normalizeText(rawQuery);
-  const filters = { continent: "", religion: "", system: "", organization: "", historyType: "", origin: "", rival: "", minPopulation: 0 };
+  const filters = { continent: "", religion: "", system: "", organization: "", language: "", bloc: "", metropole: "", conflict: "", period: "", historyType: "", origin: "", rival: "", minPopulation: 0 };
 
   for (const [alias, continent] of continentAliases.entries()) {
     if (normalized.includes(alias)) { filters.continent = continent; break; }
@@ -10138,10 +11843,28 @@ parseSemanticQuery = function parseSemanticQuery(rawQuery) {
   for (const [alias, organization] of organizationAliases.entries()) {
     if (normalized.includes(alias)) { filters.organization = organization; break; }
   }
+  for (const [alias, language] of languageAliases.entries()) {
+    if (normalized.includes(alias)) { filters.language = language; break; }
+  }
+  for (const [alias, bloc] of blocAliases.entries()) {
+    if (normalized.includes(alias)) { filters.bloc = bloc; break; }
+  }
+  for (const [alias, metropole] of metropoleAliases.entries()) {
+    if (normalized.includes(alias)) { filters.metropole = metropole; break; }
+  }
+  for (const [alias, conflict] of conflictAliases.entries()) {
+    if (normalized.includes(alias)) { filters.conflict = conflict; break; }
+  }
+  for (const [alias, period] of periodAliases.entries()) {
+    if (normalized.includes(alias)) { filters.period = period; break; }
+  }
   if (!filters.organization && /\botan\b|nato/.test(normalized)) filters.organization = "OTAN";
   if (!filters.organization && /(union europea|ue\b|european union)/.test(normalized)) filters.organization = "Union Europea";
   if (!filters.organization && /(mercosur|mercosul)/.test(normalized)) filters.organization = "Mercosur";
   if (!filters.organization && /\bbrics\b/.test(normalized)) filters.organization = "BRICS";
+  if (!filters.bloc && filters.organization && /(OTAN|Union Europea|Mercosur|BRICS)/.test(filters.organization)) {
+    filters.bloc = filters.organization;
+  }
   for (const [alias, origin] of originAliases.entries()) {
     if (normalized.includes(alias)) { filters.origin = origin; break; }
   }
@@ -10155,12 +11878,19 @@ parseSemanticQuery = function parseSemanticQuery(rawQuery) {
     if (normalized.includes(alias)) { filters.rival = rival; break; }
   }
   if (!filters.rival && /\brusia\b|russia/.test(normalized)) filters.rival = "Rusia";
+  if (!filters.metropole && /(ex metropoli britan|british metropole)/.test(normalized)) filters.metropole = "Reino Unido";
+  if (!filters.metropole && /(ex metropoli frances|french metropole)/.test(normalized)) filters.metropole = "Francia";
   if (!filters.religion) {
     if (/\bislam|\bmusulman|\bsunita|\bchiita/.test(normalized)) filters.religion = "Islamismo";
     else if (/\bcristian|\bcatolic|\bprotest|\bortodox|\banglican/.test(normalized)) filters.religion = "Cristianismo";
     else if (/\bhindu/.test(normalized)) filters.religion = "Hinduismo";
     else if (/\bjudai|\bjew/.test(normalized)) filters.religion = "Judaismo";
     else if (/\bbudis/.test(normalized)) filters.religion = "Budismo";
+  }
+  if (!filters.period) {
+    if (/(siglo xxi|siglo 21|21st century)/.test(normalized)) filters.period = "Siglo XXI";
+    else if (/(siglo xx|siglo 20|20th century)/.test(normalized)) filters.period = "Siglo XX";
+    else if (/(siglo xix|siglo 19|19th century)/.test(normalized)) filters.period = "Siglo XIX";
   }
 
   const populationMatchers = [
@@ -10172,8 +11902,21 @@ parseSemanticQuery = function parseSemanticQuery(rawQuery) {
   ];
   const populationMatch = populationMatchers.find(item => item.pattern.test(normalized));
   if (populationMatch) filters.minPopulation = populationMatch.value;
+  const semanticPatterns = [
+    /miembros? de /,
+    /members? of /,
+    /rivales? de /,
+    /rivals? of /,
+    /ex colonias? de /,
+    /former colonies? of /,
+    /idioma|language/,
+    /guerra|batalla|war|battle/,
+    /siglo|century/,
+    /bloque|bloc|alliance|alianza/,
+    /ex metropoli|former metropole/
+  ];
   const score = Object.values(filters).filter(Boolean).length;
-  return score >= 2 ? filters : null;
+  return score >= 2 || (score >= 1 && semanticPatterns.some(pattern => pattern.test(normalized))) ? filters : null;
 };
 
 function renderNewsArticle(article, country) {
@@ -10288,6 +12031,7 @@ function setupNewsHubPanel() {
   const panel = document.getElementById("news-hub-panel");
   const filterInput = document.getElementById("news-country-filter");
   const topicSelect = document.getElementById("news-topic-select");
+  let filterTimer = null;
   if (!panel) {
     return;
   }
@@ -10296,17 +12040,28 @@ function setupNewsHubPanel() {
   topicSelect?.addEventListener("change", () => {
     activeNewsTopic = topicSelect.value || "general";
     newsCache.clear();
-    renderNewsHub(currentPanelState.code || "");
+    if (panel.open) {
+      renderNewsHub(currentPanelState.code || "");
+    }
   });
-  filterInput?.addEventListener("input", () => renderNewsHub(currentPanelState.code || ""));
+  filterInput?.addEventListener("input", () => {
+    if (filterTimer) {
+      clearTimeout(filterTimer);
+    }
+    filterTimer = setTimeout(() => {
+      if (panel.open) {
+        renderNewsHub(currentPanelState.code || "");
+      }
+    }, 120);
+  });
   panel.addEventListener("toggle", () => {
     if (panel.open) {
       const comparePanel = document.getElementById("compare-hub-panel");
       const quizPanel = document.getElementById("quiz-hub-panel");
       if (comparePanel) comparePanel.open = false;
       if (quizPanel) quizPanel.open = false;
+      renderNewsHub(currentPanelState.code || "");
     }
-    renderNewsHub(currentPanelState.code || "");
   });
 }
 
@@ -10325,6 +12080,7 @@ function setupQuizHubPanel() {
     const newsPanel = document.getElementById("news-hub-panel");
     if (comparePanel) comparePanel.open = false;
     if (newsPanel) newsPanel.open = false;
+    renderQuizPanel();
   });
 }
 
@@ -10343,6 +12099,7 @@ function setupCompareHubPanel() {
     const newsPanel = document.getElementById("news-hub-panel");
     if (quizPanel) quizPanel.open = false;
     if (newsPanel) newsPanel.open = false;
+    renderComparePanel();
   });
 }
 
@@ -10403,7 +12160,12 @@ function getExportContextLabel() {
 
 function buildExportFilename(base) {
   const stamp = new Date().toISOString().slice(0, 10);
-  return `${normalizeText(base || getExportContextLabel() || "georisk").replace(/\s+/g, "-") || "georisk"}-${stamp}`;
+  const context = [
+    base || getExportContextLabel() || "georisk",
+    currentTheme && currentTheme !== "default" ? currentTheme : "",
+    appMode && appMode !== "default" ? appMode : ""
+  ].filter(Boolean).join("-");
+  return `${normalizeText(context).replace(/\s+/g, "-") || "georisk"}-${stamp}`;
 }
 
 exportNodeAsImage = async function exportNodeAsImage(node, filename) {
@@ -10495,6 +12257,7 @@ function updateCompareSelectOptions(filterText = "") {
 }
 
 function renderComparePanel() {
+  const comparePanel = document.getElementById("compare-hub-panel");
   const empty = document.getElementById("compare-empty");
   const chips = document.getElementById("compare-chips");
   const results = document.getElementById("compare-results");
@@ -10520,6 +12283,25 @@ function renderComparePanel() {
   chips.innerHTML = compareSelection
     .map(code => `<span class="compare-chip">${getFlagEmoji(code)} ${escapeHtml(countriesData[code]?.name || code)} <button type="button" data-remove-compare="${escapeHtml(code)}">x</button></span>`)
     .join("");
+
+  const heavyMode = comparePanel?.open || compareSelection.length >= 2;
+  if (!heavyMode) {
+    results.innerHTML = `
+      <div class="compare-insight-grid">
+        ${compareSelection.map(code => {
+          const country = countriesData[code];
+          return `
+            <div class="compare-insight-card">
+              <strong>${getFlagEmoji(code)} ${escapeHtml(country.name)}</strong>
+              <span>${escapeHtml(country.general?.officialName || country.name)}</span>
+            </div>
+          `;
+        }).join("")}
+      </div>
+    `;
+    if (openButton) openButton.disabled = compareSelection.length < 2;
+    return;
+  }
 
   const radarEntries = compareSelection.map(code => ({
     code,
@@ -10606,7 +12388,16 @@ function renderComparePanel() {
 
   const timelineComparisonMarkup = compareSelection.map(code => {
     const country = countriesData[code];
-    const events = buildTimeline(country).slice(0, 6);
+    const events = buildTimeline(country)
+      .sort((a, b) => {
+        const relevanceWeight = { alta: 3, media: 2, baja: 1 };
+        const relevanceDiff = (relevanceWeight[normalizeText(b.relevance)] || 0) - (relevanceWeight[normalizeText(a.relevance)] || 0);
+        if (relevanceDiff !== 0) {
+          return relevanceDiff;
+        }
+        return (a.year || 0) - (b.year || 0);
+      })
+      .slice(0, 6);
     return `
       <div class="compare-row">
         <strong>${getFlagEmoji(code)} ${escapeHtml(country.name)} · ${currentLanguage === "en" ? "Timeline" : "Timeline"}</strong>
@@ -10616,6 +12407,22 @@ function renderComparePanel() {
       </div>
     `;
   }).join("");
+
+  const sharedTimelineSummary = (() => {
+    const categories = ["constitution", "coup", "treaty", "annexation", "secession", "system", "formation", "conflict"]
+      .filter(category => compareSelection.every(code => buildTimeline(countriesData[code]).some(item => item.categoryKey === category)));
+    if (!categories.length) {
+      return "";
+    }
+    return `
+      <div class="compare-row compare-summary-row">
+        <strong>${currentLanguage === "en" ? "Shared milestones" : "Hitos compartidos"}</strong>
+        <div class="compare-values">
+          ${categories.map(category => `<span class="country-meta-pill">${escapeHtml(getTimelineCategoryLabel(category))}</span>`).join("")}
+        </div>
+      </div>
+    `;
+  })();
 
   results.innerHTML = `
     <div class="compare-toolbar">
@@ -10646,6 +12453,7 @@ function renderComparePanel() {
         }).join("")}
       </div>
     </div>
+    ${sharedTimelineSummary}
     ${timelineComparisonMarkup}
     ${metricMarkup}
   `;
@@ -10701,6 +12509,191 @@ function setupCompareControls() {
   renderComparePanel();
 }
 
+if (typeof newsUi.buildArticleCard === "function") {
+  renderNewsArticle = function renderNewsArticle(article, country) {
+    const articleContainer = document.getElementById("news-hub-article");
+    if (!articleContainer) return;
+    if (!article) {
+      articleContainer.innerHTML = "";
+      return;
+    }
+    articleContainer.innerHTML = newsUi.buildArticleCard({
+      title: escapeHtml(article.title),
+      summary: escapeHtml(article.summary),
+      meta: `${escapeHtml(article.source || "Fuente")}${article.date ? ` · ${escapeHtml(article.date)}` : ""}`,
+      actionLabel: currentLanguage === "en" ? "Open full article" : "Abrir articulo completo",
+      actionUrl: article.url || getCountryNewsUrl(country)
+    });
+  };
+
+  renderNewsHub = function renderNewsHub(selectedCode = "") {
+    const panel = document.getElementById("news-hub-panel");
+    const selectedContainer = document.getElementById("news-hub-selected");
+    const listContainer = document.getElementById("news-hub-list");
+    const articleContainer = document.getElementById("news-hub-article");
+    const filterInput = document.getElementById("news-country-filter");
+    if (!panel || !selectedContainer || !listContainer || !articleContainer) return;
+
+    const filterText = normalizeText(filterInput?.value || "");
+    const countries = Object.entries(countriesData)
+      .map(([code, country]) => ({ code, country }))
+      .filter(({ country }) => {
+        if (!filterText) return true;
+        return normalizeText(country.name).includes(filterText)
+          || normalizeText(country.general?.officialName || "").includes(filterText);
+      })
+      .sort((a, b) => a.country.name.localeCompare(b.country.name, "es"));
+
+    const selected = selectedCode && countriesData[selectedCode] ? countriesData[selectedCode] : null;
+    selectedContainer.innerHTML = selected
+      ? newsUi.buildSelectedCard(
+        selected,
+        getCountryNewsPortalLinks(selected).map(link => `<a class="news-link" href="${link.url}" target="_blank" rel="noreferrer">${escapeHtml(link.label)}</a>`).join(""),
+        escapeHtml
+      )
+      : "";
+
+    if (!panel.open) {
+      articleContainer.innerHTML = "";
+      listContainer.innerHTML = "";
+      return;
+    }
+
+    articleContainer.innerHTML = selected
+      ? `<div class="news-hub-article-card"><strong>${currentLanguage === "en" ? "Quick focus" : "Foco rapido"}</strong><p>${currentLanguage === "en" ? "Open one of the recommended sources or wait for the highlighted article preview." : "Abri una de las fuentes recomendadas o espera la vista previa del articulo destacado."}</p></div>`
+      : "";
+      listContainer.innerHTML = newsUi.buildNewsList(countries, activeNewsCountryCode, escapeHtml, getCountryNewsUrl);
+
+    if (selected) {
+      fetchCountryHeadline(selected)
+        .then(article => {
+          if (selected.code !== activeNewsCountryCode && selectedCode !== selected.code) {
+            return;
+          }
+          renderNewsArticle(article, selected);
+        })
+        .catch(() => {});
+    }
+  };
+}
+
+if (typeof compareUi.buildCompareChips === "function") {
+  renderComparePanel = function renderComparePanel() {
+    const comparePanel = document.getElementById("compare-hub-panel");
+    const empty = document.getElementById("compare-empty");
+    const chips = document.getElementById("compare-chips");
+    const results = document.getElementById("compare-results");
+    const openButton = document.getElementById("open-compare-modal-button");
+    const worldButton = document.getElementById("compare-benchmark-world");
+    const continentButton = document.getElementById("compare-benchmark-continent");
+    empty.textContent = t("compareHint");
+
+    if (worldButton) worldButton.classList.toggle("is-secondary", compareBenchmarkMode !== "world");
+    if (continentButton) continentButton.classList.toggle("is-secondary", compareBenchmarkMode !== "continent");
+
+    if (!compareSelection.length) {
+      empty.hidden = false;
+      chips.innerHTML = "";
+      results.innerHTML = "";
+      results.hidden = true;
+      if (openButton) openButton.disabled = true;
+      return;
+    }
+
+    empty.hidden = true;
+    results.hidden = false;
+    chips.innerHTML = compareUi.buildCompareChips(compareSelection, countriesData, getFlagEmoji, escapeHtml);
+
+    const heavyMode = comparePanel?.open || compareSelection.length >= 2;
+    if (!heavyMode) {
+      results.innerHTML = compareUi.buildLightCards(compareSelection, countriesData, getFlagEmoji, escapeHtml);
+      if (openButton) openButton.disabled = compareSelection.length < 2;
+      return;
+    }
+
+    const radarEntries = compareSelection.map(code => ({
+      code,
+      name: countriesData[code].name,
+      values: {
+        population: countriesData[code].general?.population || 0,
+        gdp: countriesData[code].economy?.gdp || 0,
+        gdpPerCapita: countriesData[code].economy?.gdpPerCapita || 0,
+        military: getCountryMilitaryActive(countriesData[code]),
+        organizations: getCountryOrganizationCount(countriesData[code])
+      }
+    }));
+
+    const cards = compareUi.buildCountryCards(
+      compareSelection,
+      countriesData,
+      escapeHtml,
+      renderFlagVisual,
+      translateContinentName,
+      t,
+      getCountryBlocLabel,
+      getComparisonBenchmark,
+      formatPercentage
+    );
+    const timelineSummary = buildCompareTimelineSummary(compareSelection);
+
+    results.innerHTML = `
+      <div class="compare-toolbar">
+        <button type="button" class="panel-action-button" data-export-target="compare-results" data-export-format="png">${currentLanguage === "en" ? "Export image" : "Exportar imagen"}</button>
+        <button type="button" class="panel-action-button" data-export-target="compare-results" data-export-format="pdf">${currentLanguage === "en" ? "Export PDF" : "Exportar PDF"}</button>
+        <button type="button" class="panel-action-button" data-share-target="compare-results">${currentLanguage === "en" ? "Share" : "Compartir"}</button>
+      </div>
+      <div class="compare-radar-wrap">${buildCompareRadarSVG(radarEntries)}</div>
+      <div class="compare-country-cards">${cards}</div>
+      ${timelineSummary}
+    `;
+
+    if (openButton) openButton.disabled = compareSelection.length < 2;
+  };
+}
+
+if (typeof quizUi.buildStatusText === "function") {
+  updateQuizMeta = function updateQuizMeta() {
+    const meta = document.getElementById("quiz-meta");
+    if (!meta) return;
+    const best = Number(localStorage.getItem("geo-risk-quiz-best-streak") || quizState.bestStreak || 0);
+    meta.innerHTML = quizUi.buildMetaHtml(quizState, currentLanguage, best);
+  };
+
+  renderQuizPanel = function renderQuizPanel() {
+    const status = document.getElementById("quiz-status");
+    const question = document.getElementById("quiz-question");
+    const feedback = document.getElementById("quiz-feedback");
+    const options = document.getElementById("quiz-options");
+    const nextButton = document.getElementById("quiz-next-button");
+    const resetButton = document.getElementById("quiz-reset-button");
+    const categorySelect = document.getElementById("quiz-category");
+    const difficultySelect = document.getElementById("quiz-difficulty");
+    const modeSelect = document.getElementById("quiz-mode");
+    if (!status || !question || !feedback || !options || !nextButton || !resetButton || !categorySelect || !difficultySelect || !modeSelect) return;
+
+    categorySelect.value = quizState.category;
+    difficultySelect.value = quizState.difficulty;
+    modeSelect.value = quizState.mode || "classic";
+    status.textContent = quizUi.buildStatusText(quizState);
+    updateQuizMeta();
+
+    if (!quizState.current) {
+      question.textContent = "";
+      feedback.innerHTML = "";
+      options.innerHTML = "";
+      nextButton.hidden = true;
+      resetButton.hidden = quizState.total === 0 && !quizState.asked.length;
+      return;
+    }
+
+    question.textContent = quizState.current.prompt;
+    feedback.innerHTML = typeof quizUi.buildFeedbackHtml === "function" ? quizUi.buildFeedbackHtml(quizState.feedback, escapeHtml) : "";
+    options.innerHTML = quizUi.buildOptionsMarkup(quizState.current.options, escapeHtml);
+    nextButton.hidden = !quizState.current.answered;
+    resetButton.hidden = false;
+  };
+}
+
 async function registerServiceWorker() {
   const status = document.getElementById("offline-status");
 
@@ -10710,12 +12703,16 @@ async function registerServiceWorker() {
   }
 
   try {
-    const registrations = await navigator.serviceWorker.getRegistrations();
-    await Promise.all(registrations.map(registration => registration.unregister()));
-    status.textContent = "Cache offline desactivado temporalmente para estabilizar la carga.";
+    const registration = await navigator.serviceWorker.register("./sw.js");
+    await registration.update();
+    status.textContent = currentLanguage === "en"
+      ? "Offline mode active with local cache."
+      : "Modo offline activo con cache local.";
     updateAppStatusPanel();
   } catch (error) {
-    status.textContent = "No se pudo limpiar el cache offline.";
+    status.textContent = currentLanguage === "en"
+      ? "Offline cache could not be initialized."
+      : "No se pudo inicializar el cache offline.";
     updateAppStatusPanel();
   }
 }
@@ -10723,6 +12720,7 @@ async function registerServiceWorker() {
 async function init() {
   try {
     loadSavedPreferences();
+    applyAppMode(appMode, false);
     await loadData();
     setupSearchEvents();
     setupThemeControls();
@@ -10743,7 +12741,9 @@ async function init() {
     updateMapInteractionTuning();
     setupMobilePanelControls();
     await registerServiceWorker();
-    if (localStorage.getItem(STORAGE_KEYS.helpSeen) !== "true") {
+    if (localStorage.getItem(STORAGE_KEYS.introSeen) !== "true") {
+      openIntroModal();
+    } else if (localStorage.getItem(STORAGE_KEYS.helpSeen) !== "true") {
       openHelpModal();
     }
   } catch (error) {

@@ -1,5 +1,5 @@
-const APP_CACHE = "geo-risk-app-v7";
-const TILE_CACHE = "geo-risk-tiles-v7";
+const APP_CACHE = "geo-risk-app-v11";
+const TILE_CACHE = "geo-risk-tiles-v11";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -7,7 +7,21 @@ const APP_SHELL = [
   "./script.js",
   "./app-runtime.js",
   "./app-curation.js",
+  "./app-theme.js",
+  "./app-text.js",
+  "./app-news-ui.js",
+  "./app-compare-ui.js",
+  "./app-quiz-ui.js",
+  "./app-country-panel.js",
+  "./app-timeline-conflicts.js",
+  "./README.md",
+  "./CHANGELOG.md",
+  "./TECHNICAL.md",
+  "./USER_GUIDE.md",
+  "./favicon.ico",
+  "./favicon.svg",
   "./data/countries_full.json",
+  "./data/geo_aliases.json",
   "./data/world_countries.geo.json",
   "./data/world_countries_simplified.geo.json",
   "./data/raw/history.json",
@@ -22,12 +36,21 @@ const APP_SHELL = [
   "./assets/flags/FRA.svg",
   "./assets/flags/DEU.svg",
   "./assets/flags/IND.svg",
+  "./assets/flags/BHS.svg",
+  "./assets/flags/GRL.svg",
+  "./assets/flags/MKD.svg",
+  "./assets/flags/PSE.svg",
+  "./assets/flags/SRB.svg",
+  "./assets/flags/TWN.svg",
+  "./assets/flags/TZA.svg",
   "./assets/coats/ARG.svg",
   "./assets/coats/BRA.svg",
   "./assets/coats/USA.svg",
   "./assets/coats/CHN.svg",
   "https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Widgets/widgets.css",
-  "https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Cesium.js"
+  "https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Cesium.js",
+  "https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js",
+  "https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"
 ];
 
 self.addEventListener("install", event => {

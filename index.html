@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Widgets/widgets.css">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=2026-04-16-product-polish-1">
 </head>
 <body>
 
@@ -175,8 +175,33 @@
           <button id="open-help-button" type="button">Guia</button>
         </div>
       </div>
+      <div class="toolbar-row toolbar-row-stack">
+        <label for="app-mode-select">Modo de producto</label>
+        <div class="filter-grid saved-view-grid">
+          <select id="app-mode-select">
+            <option value="default">Exploracion</option>
+            <option value="analysis">Analisis geopolitico</option>
+            <option value="encyclopedia">Enciclopedia</option>
+            <option value="presentation">Presentacion</option>
+          </select>
+          <button id="save-favorite-button" type="button">Guardar favorito</button>
+          <select id="favorite-views-select">
+            <option value="">Favoritos</option>
+          </select>
+        </div>
+      </div>
+      <div class="toolbar-row toolbar-row-stack">
+        <label>Proyecto</label>
+        <div class="filter-grid saved-view-grid">
+          <button id="open-intro-button" type="button">Portada</button>
+          <button id="open-health-button" type="button">Salud dataset</button>
+          <button id="open-changelog-button" type="button">Changelog</button>
+          <button id="open-docs-button" type="button">Documentacion</button>
+        </div>
+      </div>
       <p id="semantic-helper">Ejemplos: monarquias constitucionales de Asia con islam mayoritario; paises de la OTAN rivales de Rusia; republicas presidenciales de America.</p>
       <div id="theme-legend"></div>
+      <div id="theme-summary" hidden></div>
       <p id="offline-status">Cache local en preparacion.</p>
       <div id="app-status-panel">
         <span class="status-chip" id="render-profile-chip">Perfil de render: balanceado</span>
@@ -381,6 +406,7 @@
       <div id="quiz-status"></div>
       <div id="quiz-meta"></div>
       <div id="quiz-question"></div>
+      <div id="quiz-feedback"></div>
       <div id="quiz-options"></div>
       <div class="quiz-toolbar">
         <button id="quiz-next-button" type="button" hidden>Siguiente</button>
@@ -472,15 +498,71 @@
   </div>
 </div>
 
+<div id="intro-modal" hidden>
+  <div class="help-modal-backdrop" data-close-intro-modal="true"></div>
+  <div class="help-modal-dialog product-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="intro-modal-title">
+    <button id="intro-modal-close" type="button" aria-label="Cerrar">Ã—</button>
+    <div id="intro-modal-body">
+      <h2 id="intro-modal-title">GeoRisk</h2>
+      <p class="product-lead">Atlas geopolitico interactivo para explorar paises, conflictos, historia, relaciones internacionales y comparaciones globales.</p>
+      <div class="product-summary-grid">
+        <div class="overview-card"><span class="overview-label">Entrada recomendada</span><strong class="overview-value">Buscar + tocar un pais</strong></div>
+        <div class="overview-card"><span class="overview-label">Modo rapido</span><strong class="overview-value">Analisis geopolitico</strong></div>
+        <div class="overview-card"><span class="overview-label">Modo profundo</span><strong class="overview-value">Enciclopedia</strong></div>
+        <div class="overview-card"><span class="overview-label">Modo demo</span><strong class="overview-value">Presentacion</strong></div>
+      </div>
+      <div class="product-mode-grid">
+        <button type="button" class="product-mode-card" data-app-mode-choice="analysis">
+          <strong>Analisis geopolitico</strong>
+          <span>Capas, rankings, rivalidades, bloques y lectura comparada.</span>
+        </button>
+        <button type="button" class="product-mode-card" data-app-mode-choice="encyclopedia">
+          <strong>Enciclopedia</strong>
+          <span>Foco en fichas, timelines, conflictos y datos curados por pais.</span>
+        </button>
+        <button type="button" class="product-mode-card" data-app-mode-choice="presentation">
+          <strong>Presentacion</strong>
+          <span>Vista limpia para clase, demo o exposicion.</span>
+        </button>
+      </div>
+      <div class="help-section">
+        <h3>Atajos utiles</h3>
+        <ul>
+          <li><b>/</b>: enfoca el buscador</li>
+          <li><b>?</b>: abre la guia</li>
+          <li><b>Esc</b>: cierra modales y hubs</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="product-modal" hidden>
+  <div class="help-modal-backdrop" data-close-product-modal="true"></div>
+  <div class="help-modal-dialog product-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="product-modal-title">
+    <button id="product-modal-close" type="button" aria-label="Cerrar">Ã—</button>
+    <div id="product-modal-body">
+      <h2 id="product-modal-title">Proyecto</h2>
+    </div>
+  </div>
+</div>
+
 <script>
   window.CESIUM_BASE_URL = "https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/";
 </script>
 <script src="https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Cesium.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
-<script src="app-runtime.js"></script>
-<script src="app-curation.js"></script>
-<script src="script.js"></script>
+<script src="app-runtime.js?v=2026-04-16-product-polish-1"></script>
+<script src="app-curation.js?v=2026-04-16-product-polish-1"></script>
+<script src="app-theme.js?v=2026-04-16-product-polish-1"></script>
+<script src="app-text.js?v=2026-04-16-product-polish-1"></script>
+<script src="app-news-ui.js?v=2026-04-16-product-polish-1"></script>
+<script src="app-compare-ui.js?v=2026-04-16-product-polish-1"></script>
+<script src="app-quiz-ui.js?v=2026-04-16-product-polish-1"></script>
+<script src="app-country-panel.js?v=2026-04-16-product-polish-1"></script>
+<script src="app-timeline-conflicts.js?v=2026-04-16-product-polish-1"></script>
+<script src="script.js?v=2026-04-12-country-match-fix"></script>
 
 </body>
 </html>

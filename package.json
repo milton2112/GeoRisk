@@ -1,10 +1,16 @@
 {
   "name": "geo-risk",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "type": "module",
   "scripts": {
     "build:data": "node scripts/buildDataset.js",
-    "validate:data": "node scripts/validateDataset.js"
+    "validate:data": "node scripts/validateDataset.js",
+    "test:normalization": "node scripts/tests/normalization.test.js",
+    "test:logic": "node scripts/tests/logic.test.js",
+    "test:country-matching": "node scripts/tests/country-matching.test.js",
+    "test:modal-render": "node scripts/tests/modal-render.test.js",
+    "test:map-coverage": "node scripts/tests/map-coverage.test.js",
+    "test": "npm run test:normalization && npm run test:logic && npm run test:country-matching && npm run test:modal-render && npm run test:map-coverage && npm run validate:data"
   },
   "dependencies": {
     "csv-parser": "^3.0.0",
