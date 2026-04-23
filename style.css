@@ -36,6 +36,20 @@ body.modal-open {
   overflow: hidden;
 }
 
+body.globe-loading #left-panel,
+body.globe-loading #top-controls,
+body.globe-loading #mobile-panel-controls,
+body.globe-loading #map-toolbar,
+body.globe-loading #compare-hub-panel,
+body.globe-loading #quiz-hub-panel,
+body.globe-loading #news-hub-panel,
+body.globe-loading #toggle-left-panel,
+body.globe-loading #map-mode-toggle {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
 #map {
   position: absolute;
   height: 100vh;
@@ -1788,6 +1802,43 @@ body[data-app-mode="encyclopedia"] #country-modal #country-panel {
   transform: translateY(-1px);
 }
 
+.news-headline-list {
+  margin-top: 12px;
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid rgba(106, 180, 255, 0.18);
+  border-radius: 14px;
+  background: rgba(9, 22, 38, 0.58);
+}
+
+.news-headline-list strong {
+  margin-bottom: 2px;
+}
+
+.news-headline-item {
+  display: grid;
+  gap: 3px;
+  color: #edf6ff;
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(88, 161, 255, 0.15);
+  background: rgba(255, 255, 255, 0.02);
+  transition: border-color 0.16s ease, background 0.16s ease, transform 0.16s ease;
+}
+
+.news-headline-item:hover,
+.news-headline-item:focus-visible {
+  border-color: rgba(125, 198, 255, 0.34);
+  background: rgba(77, 163, 255, 0.08);
+  transform: translateY(-1px);
+}
+
+.news-headline-item small {
+  color: #9cb9d5;
+}
+
 .news-hub-meta {
   margin-top: 6px;
   color: rgba(238, 245, 255, 0.68);
@@ -2183,6 +2234,84 @@ body[data-app-mode="encyclopedia"] #country-modal #country-panel {
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 0.8rem;
   margin-bottom: 1rem;
+}
+
+.changelog-release-list {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.changelog-release-card {
+  border: 1px solid rgba(88, 161, 255, 0.18);
+  border-radius: 18px;
+  padding: 1rem;
+  background: linear-gradient(180deg, rgba(11, 28, 48, 0.92), rgba(8, 20, 36, 0.9));
+}
+
+.changelog-release-card h3 {
+  margin: 0 0 0.45rem;
+}
+
+.changelog-release-card p {
+  margin: 0 0 0.7rem;
+  color: #d2e5f7;
+}
+
+.changelog-release-card ul {
+  margin: 0;
+  padding-left: 1rem;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.export-report-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(127, 188, 255, 0.2);
+}
+
+.export-report-kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+  color: #9cc7ef;
+  margin-bottom: 6px;
+}
+
+.export-report-header h1 {
+  margin: 0 0 6px;
+  font-size: 1.9rem;
+}
+
+.export-report-header p,
+.export-report-meta {
+  margin: 0;
+  color: #bfd8ef;
+}
+
+body[data-app-mode="analysis"] #theme-summary {
+  display: block;
+}
+
+body[data-app-mode="analysis"] #rankings-panel,
+body[data-app-mode="analysis"] #map-toolbar {
+  box-shadow: 0 20px 46px rgba(2, 10, 24, 0.35);
+}
+
+body[data-app-mode="encyclopedia"] .country-modal-content {
+  max-width: min(1080px, 96vw);
+}
+
+body[data-app-mode="encyclopedia"] .country-section {
+  padding-top: 1rem;
+}
+
+body.presentation-mode #top-controls {
+  backdrop-filter: blur(18px);
 }
 
 .conflict-modal-backdrop {

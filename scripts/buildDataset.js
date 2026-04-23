@@ -1,5 +1,11 @@
-import fs from "fs-extra";
+﻿import fs from "fs-extra";
 import csvParser from "csv-parser";
+import {
+  canonicalizeConflictNameWithRules,
+  inferConflictYearsFromText,
+  mergeConflictEntries
+} from "./lib/conflict-cleaning.js";
+import { repairMojibake as repairMojibakeShared } from "./lib/text-normalization.js";
 
 const YEAR_COLUMNS = Array.from({ length: 2025 - 1960 + 1 }, (_, index) =>
   String(2025 - index)
@@ -42,183 +48,183 @@ const INFLATION_OVERRIDES = {
 const BUILD_UPDATED_AT = "2026-04-11";
 
 const LANGUAGE_OVERRIDES = {
-  ARG: ["Español"],
-  AND: ["Catalán"],
-  ARE: ["Árabe"],
-  AFG: ["Pastún", "Darí"],
-  AGO: ["Portugués"],
-  ALB: ["Albanés"],
+  ARG: ["EspaÃ±ol"],
+  AND: ["CatalÃ¡n"],
+  ARE: ["Ãrabe"],
+  AFG: ["PastÃºn", "DarÃ­"],
+  AGO: ["PortuguÃ©s"],
+  ALB: ["AlbanÃ©s"],
   ARM: ["Armenio"],
-  AUS: ["Inglés"],
-  AUT: ["Alemán"],
-  AZE: ["Azerí"],
-  BEL: ["Neerlandés", "Francés", "Alemán"],
-  BEN: ["Francés"],
-  BGD: ["Bengalí"],
-  BHR: ["Árabe"],
+  AUS: ["InglÃ©s"],
+  AUT: ["AlemÃ¡n"],
+  AZE: ["AzerÃ­"],
+  BEL: ["NeerlandÃ©s", "FrancÃ©s", "AlemÃ¡n"],
+  BEN: ["FrancÃ©s"],
+  BGD: ["BengalÃ­"],
+  BHR: ["Ãrabe"],
   BIH: ["Bosnio", "Croata", "Serbio"],
   BLR: ["Bielorruso", "Ruso"],
-  BOL: ["Español", "Quechua", "Aimara", "Guaraní"],
-  BRA: ["Portugués"],
+  BOL: ["EspaÃ±ol", "Quechua", "Aimara", "GuaranÃ­"],
+  BRA: ["PortuguÃ©s"],
   BRN: ["Malayo"],
   BTN: ["Dzongkha"],
-  BWA: ["Inglés", "Setsuana"],
-  BDI: ["Kirundi", "Francés", "Inglés"],
-  BFA: ["Francés"],
-  BGR: ["Búlgaro"],
-  CAN: ["Inglés", "Francés"],
-  CAF: ["Sango", "Francés"],
-  CMR: ["Francés", "Inglés"],
-  CHE: ["Alemán", "Francés", "Italiano", "Romanche"],
-  CHL: ["Español"],
-  CHN: ["Chino mandarín"],
-  COL: ["Español"],
-  COD: ["Francés", "Lingala", "Suajili", "Kikongo", "Tshiluba"],
-  COG: ["Francés"],
-  COM: ["Comorense", "Árabe", "Francés"],
-  CRI: ["Español"],
-  CUB: ["Español"],
-  CIV: ["Francés"],
+  BWA: ["InglÃ©s", "Setsuana"],
+  BDI: ["Kirundi", "FrancÃ©s", "InglÃ©s"],
+  BFA: ["FrancÃ©s"],
+  BGR: ["BÃºlgaro"],
+  CAN: ["InglÃ©s", "FrancÃ©s"],
+  CAF: ["Sango", "FrancÃ©s"],
+  CMR: ["FrancÃ©s", "InglÃ©s"],
+  CHE: ["AlemÃ¡n", "FrancÃ©s", "Italiano", "Romanche"],
+  CHL: ["EspaÃ±ol"],
+  CHN: ["Chino mandarÃ­n"],
+  COL: ["EspaÃ±ol"],
+  COD: ["FrancÃ©s", "Lingala", "Suajili", "Kikongo", "Tshiluba"],
+  COG: ["FrancÃ©s"],
+  COM: ["Comorense", "Ãrabe", "FrancÃ©s"],
+  CRI: ["EspaÃ±ol"],
+  CUB: ["EspaÃ±ol"],
+  CIV: ["FrancÃ©s"],
   CYP: ["Griego", "Turco"],
   CZE: ["Checo"],
-  DEU: ["Alemán"],
-  DNK: ["Danés"],
-  DOM: ["Español"],
-  DJI: ["Árabe", "Francés"],
-  DZA: ["Árabe", "Tamazight"],
-  ECU: ["Español"],
-  EGY: ["Árabe"],
-  ERI: ["Tigriña", "Árabe", "Inglés"],
-  ESH: ["Árabe", "Español"],
-  ESP: ["Español"],
+  DEU: ["AlemÃ¡n"],
+  DNK: ["DanÃ©s"],
+  DOM: ["EspaÃ±ol"],
+  DJI: ["Ãrabe", "FrancÃ©s"],
+  DZA: ["Ãrabe", "Tamazight"],
+  ECU: ["EspaÃ±ol"],
+  EGY: ["Ãrabe"],
+  ERI: ["TigriÃ±a", "Ãrabe", "InglÃ©s"],
+  ESH: ["Ãrabe", "EspaÃ±ol"],
+  ESP: ["EspaÃ±ol"],
   EST: ["Estonio"],
-  ETH: ["Amárico"],
-  FIN: ["Finés", "Sueco"],
-  FJI: ["Inglés", "Fiyiano", "Hindi fiyiano"],
-  FLK: ["Inglés"],
-  FRA: ["Francés"],
-  GAB: ["Francés"],
-  GBR: ["Inglés"],
+  ETH: ["AmÃ¡rico"],
+  FIN: ["FinÃ©s", "Sueco"],
+  FJI: ["InglÃ©s", "Fiyiano", "Hindi fiyiano"],
+  FLK: ["InglÃ©s"],
+  FRA: ["FrancÃ©s"],
+  GAB: ["FrancÃ©s"],
+  GBR: ["InglÃ©s"],
   GEO: ["Georgiano"],
-  GHA: ["Inglés"],
-  GMB: ["Inglés"],
-  GIN: ["Francés"],
-  GNB: ["Portugués"],
-  GNQ: ["Español", "Francés", "Portugués"],
+  GHA: ["InglÃ©s"],
+  GMB: ["InglÃ©s"],
+  GIN: ["FrancÃ©s"],
+  GNB: ["PortuguÃ©s"],
+  GNQ: ["EspaÃ±ol", "FrancÃ©s", "PortuguÃ©s"],
   GRC: ["Griego"],
-  GRL: ["Groenlandés", "Danés"],
-  GTM: ["Español"],
-  GUF: ["Francés"],
-  GUY: ["Inglés"],
-  HND: ["Español"],
+  GRL: ["GroenlandÃ©s", "DanÃ©s"],
+  GTM: ["EspaÃ±ol"],
+  GUF: ["FrancÃ©s"],
+  GUY: ["InglÃ©s"],
+  HND: ["EspaÃ±ol"],
   HRV: ["Croata"],
-  HTI: ["Criollo haitiano", "Francés"],
-  HUN: ["Húngaro"],
+  HTI: ["Criollo haitiano", "FrancÃ©s"],
+  HUN: ["HÃºngaro"],
   IDN: ["Indonesio"],
-  IND: ["Hindi", "Inglés"],
-  IRL: ["Irlandés", "Inglés"],
+  IND: ["Hindi", "InglÃ©s"],
+  IRL: ["IrlandÃ©s", "InglÃ©s"],
   IRN: ["Persa"],
-  IRQ: ["Árabe", "Kurdo"],
-  ISL: ["Islandés"],
-  ISR: ["Hebreo", "Árabe"],
+  IRQ: ["Ãrabe", "Kurdo"],
+  ISL: ["IslandÃ©s"],
+  ISR: ["Hebreo", "Ãrabe"],
   ITA: ["Italiano"],
-  JAM: ["Inglés"],
-  JPN: ["Japonés"],
-  JOR: ["Árabe"],
+  JAM: ["InglÃ©s"],
+  JPN: ["JaponÃ©s"],
+  JOR: ["Ãrabe"],
   KAZ: ["Kazajo", "Ruso"],
-  KEN: ["Suajili", "Inglés"],
-  KGZ: ["Kirguís", "Ruso"],
+  KEN: ["Suajili", "InglÃ©s"],
+  KGZ: ["KirguÃ­s", "Ruso"],
   KHM: ["Jemer"],
   KOR: ["Coreano"],
-  KWT: ["Árabe"],
+  KWT: ["Ãrabe"],
   LAO: ["Lao"],
-  LBN: ["Árabe"],
-  LBR: ["Inglés"],
-  LBY: ["Árabe"],
-  LKA: ["Cingalés", "Tamil"],
-  LSO: ["Sesoto", "Inglés"],
+  LBN: ["Ãrabe"],
+  LBR: ["InglÃ©s"],
+  LBY: ["Ãrabe"],
+  LKA: ["CingalÃ©s", "Tamil"],
+  LSO: ["Sesoto", "InglÃ©s"],
   LTU: ["Lituano"],
-  LUX: ["Luxemburgués", "Francés", "Alemán"],
-  LVA: ["Letón"],
-  MAR: ["Árabe", "Tamazight"],
+  LUX: ["LuxemburguÃ©s", "FrancÃ©s", "AlemÃ¡n"],
+  LVA: ["LetÃ³n"],
+  MAR: ["Ãrabe", "Tamazight"],
   MDA: ["Rumano"],
-  MDG: ["Malgache", "Francés"],
-  MEX: ["Español"],
-  MKD: ["Macedonio", "Albanés"],
-  MLI: ["Francés"],
+  MDG: ["Malgache", "FrancÃ©s"],
+  MEX: ["EspaÃ±ol"],
+  MKD: ["Macedonio", "AlbanÃ©s"],
+  MLI: ["FrancÃ©s"],
   MMR: ["Birmano"],
   MNE: ["Montenegrino"],
   MNG: ["Mongol"],
-  MOZ: ["Portugués"],
-  MRT: ["Árabe"],
-  MWI: ["Inglés", "Chichewa"],
+  MOZ: ["PortuguÃ©s"],
+  MRT: ["Ãrabe"],
+  MWI: ["InglÃ©s", "Chichewa"],
   MYS: ["Malayo"],
-  NAM: ["Inglés"],
-  NCL: ["Francés"],
-  NER: ["Francés"],
-  NGA: ["Inglés"],
-  NIC: ["Español"],
-  NLD: ["Neerlandés"],
+  NAM: ["InglÃ©s"],
+  NCL: ["FrancÃ©s"],
+  NER: ["FrancÃ©s"],
+  NGA: ["InglÃ©s"],
+  NIC: ["EspaÃ±ol"],
+  NLD: ["NeerlandÃ©s"],
   NOR: ["Noruego"],
-  NPL: ["Nepalí"],
-  NZL: ["Inglés", "Maorí", "Lengua de señas neozelandesa"],
-  OMN: ["Árabe"],
-  PAK: ["Urdu", "Inglés"],
-  PAN: ["Español"],
-  PER: ["Español", "Quechua", "Aimara"],
-  PHL: ["Filipino", "Inglés"],
-  PNG: ["Inglés", "Tok pisin", "Hiri motu"],
+  NPL: ["NepalÃ­"],
+  NZL: ["InglÃ©s", "MaorÃ­", "Lengua de seÃ±as neozelandesa"],
+  OMN: ["Ãrabe"],
+  PAK: ["Urdu", "InglÃ©s"],
+  PAN: ["EspaÃ±ol"],
+  PER: ["EspaÃ±ol", "Quechua", "Aimara"],
+  PHL: ["Filipino", "InglÃ©s"],
+  PNG: ["InglÃ©s", "Tok pisin", "Hiri motu"],
   POL: ["Polaco"],
-  PRY: ["Español", "Guaraní"],
-  PRI: ["Español", "Inglés"],
+  PRY: ["EspaÃ±ol", "GuaranÃ­"],
+  PRI: ["EspaÃ±ol", "InglÃ©s"],
   PRK: ["Coreano"],
-  PRT: ["Portugués"],
-  PSE: ["Árabe"],
-  QAT: ["Árabe"],
+  PRT: ["PortuguÃ©s"],
+  PSE: ["Ãrabe"],
+  QAT: ["Ãrabe"],
   ROU: ["Rumano"],
   RUS: ["Ruso"],
-  RWA: ["Kinyarwanda", "Francés", "Inglés", "Suajili"],
-  SAU: ["Árabe"],
-  SDN: ["Árabe", "Inglés"],
-  SEN: ["Francés"],
-  SGP: ["Inglés", "Malayo", "Mandarín", "Tamil"],
-  SLB: ["Inglés"],
-  SLE: ["Inglés"],
-  SLV: ["Español"],
-  SOM: ["Somalí", "Árabe"],
+  RWA: ["Kinyarwanda", "FrancÃ©s", "InglÃ©s", "Suajili"],
+  SAU: ["Ãrabe"],
+  SDN: ["Ãrabe", "InglÃ©s"],
+  SEN: ["FrancÃ©s"],
+  SGP: ["InglÃ©s", "Malayo", "MandarÃ­n", "Tamil"],
+  SLB: ["InglÃ©s"],
+  SLE: ["InglÃ©s"],
+  SLV: ["EspaÃ±ol"],
+  SOM: ["SomalÃ­", "Ãrabe"],
   SRB: ["Serbio"],
-  SSD: ["Inglés"],
-  SUR: ["Neerlandés"],
+  SSD: ["InglÃ©s"],
+  SUR: ["NeerlandÃ©s"],
   SVK: ["Eslovaco"],
   SVN: ["Esloveno"],
   SWE: ["Sueco"],
-  SWZ: ["Suazi", "Inglés"],
-  SYR: ["Árabe"],
-  TCD: ["Árabe", "Francés"],
-  THA: ["Tailandés"],
+  SWZ: ["Suazi", "InglÃ©s"],
+  SYR: ["Ãrabe"],
+  TCD: ["Ãrabe", "FrancÃ©s"],
+  THA: ["TailandÃ©s"],
   TJK: ["Tayiko"],
-  TGO: ["Francés"],
+  TGO: ["FrancÃ©s"],
   TKM: ["Turcomano"],
-  TLS: ["Tetun", "Portugués"],
-  TTO: ["Inglés"],
-  TUN: ["Árabe"],
+  TLS: ["Tetun", "PortuguÃ©s"],
+  TTO: ["InglÃ©s"],
+  TUN: ["Ãrabe"],
   TUR: ["Turco"],
-  TWN: ["Chino mandarín"],
-  TZA: ["Suajili", "Inglés"],
-  UGA: ["Inglés", "Suajili"],
+  TWN: ["Chino mandarÃ­n"],
+  TZA: ["Suajili", "InglÃ©s"],
+  UGA: ["InglÃ©s", "Suajili"],
   UKR: ["Ucraniano"],
-  URY: ["Español"],
-  USA: ["Inglés"],
+  URY: ["EspaÃ±ol"],
+  USA: ["InglÃ©s"],
   UZB: ["Uzbeko"],
-  VEN: ["Español"],
+  VEN: ["EspaÃ±ol"],
   VNM: ["Vietnamita"],
-  VUT: ["Bislama", "Inglés", "Francés"],
-  YEM: ["Árabe"],
-  ZAF: ["Zulú", "Xhosa", "Afrikáans", "Inglés", "Sepedi", "Setsuana", "Sesoto", "Xitsonga", "Siswati", "Tshivenda", "Ndebele del sur"],
-  ZMB: ["Inglés"],
-  ZWE: ["Inglés", "Shona", "Sindebele"],
-  "CS-KM": ["Albanés", "Serbio"],
-  "-99": ["Somalí", "Árabe"]
+  VUT: ["Bislama", "InglÃ©s", "FrancÃ©s"],
+  YEM: ["Ãrabe"],
+  ZAF: ["ZulÃº", "Xhosa", "AfrikÃ¡ans", "InglÃ©s", "Sepedi", "Setsuana", "Sesoto", "Xitsonga", "Siswati", "Tshivenda", "Ndebele del sur"],
+  ZMB: ["InglÃ©s"],
+  ZWE: ["InglÃ©s", "Shona", "Sindebele"],
+  "CS-KM": ["AlbanÃ©s", "Serbio"],
+  "-99": ["SomalÃ­", "Ãrabe"]
 };
 
 const CAPITAL_ROLE_OVERRIDES = {
@@ -231,7 +237,7 @@ const CAPITAL_ROLE_OVERRIDES = {
     { role: "administrativa", name: "Putrajaya" }
   ],
   NLD: [
-    { role: "constitucional", name: "Ámsterdam" },
+    { role: "constitucional", name: "Ãmsterdam" },
     { role: "administrativa", name: "La Haya" }
   ],
   LKA: [
@@ -244,66 +250,66 @@ const CAPITAL_ROLE_OVERRIDES = {
     { role: "judicial", name: "Bloemfontein" }
   ],
   PSE: [
-    { role: "reclamada", name: "Jerusalén Este" },
+    { role: "reclamada", name: "JerusalÃ©n Este" },
     { role: "administrativa", name: "Ramala" }
   ]
 };
 
 const STATE_STRUCTURE_OVERRIDES = {
   ARG: "Estado federal presidencial",
-  AUS: "Monarquía constitucional federal parlamentaria",
-  AUT: "República federal parlamentaria",
-  BEL: "Monarquía constitucional federal parlamentaria",
+  AUS: "MonarquÃ­a constitucional federal parlamentaria",
+  AUT: "RepÃºblica federal parlamentaria",
+  BEL: "MonarquÃ­a constitucional federal parlamentaria",
   BOL: "Estado plurinacional unitario descentralizado",
   BIH: "Estado federal complejo con entidades constitutivas",
-  BRA: "República federal presidencial",
-  CAN: "Monarquía constitucional federal parlamentaria",
-  CHE: "República federal directorial",
-  CHN: "Estado socialista unitario de partido único",
-  DEU: "República federal parlamentaria",
-  ESP: "Monarquía constitucional con Estado autonómico",
-  FRA: "República unitaria semipresidencial",
-  GBR: "Monarquía constitucional unitaria con devolucion",
-  IND: "República federal parlamentaria",
-  IRN: "República teocrática unitaria",
-  ISR: "República parlamentaria unitaria",
-  ITA: "República parlamentaria unitaria regionalizada",
-  MEX: "República federal presidencial",
-  MYS: "Monarquía constitucional federal parlamentaria",
-  NGA: "República federal presidencial",
-  NLD: "Monarquía constitucional unitaria descentralizada",
-  PAK: "República federal parlamentaria",
-  RUS: "República federal semipresidencial",
-  ZAF: "República parlamentaria unitaria descentralizada",
-  USA: "República federal presidencial",
-  ARE: "Federación de emiratos",
+  BRA: "RepÃºblica federal presidencial",
+  CAN: "MonarquÃ­a constitucional federal parlamentaria",
+  CHE: "RepÃºblica federal directorial",
+  CHN: "Estado socialista unitario de partido Ãºnico",
+  DEU: "RepÃºblica federal parlamentaria",
+  ESP: "MonarquÃ­a constitucional con Estado autonÃ³mico",
+  FRA: "RepÃºblica unitaria semipresidencial",
+  GBR: "MonarquÃ­a constitucional unitaria con devolucion",
+  IND: "RepÃºblica federal parlamentaria",
+  IRN: "RepÃºblica teocrÃ¡tica unitaria",
+  ISR: "RepÃºblica parlamentaria unitaria",
+  ITA: "RepÃºblica parlamentaria unitaria regionalizada",
+  MEX: "RepÃºblica federal presidencial",
+  MYS: "MonarquÃ­a constitucional federal parlamentaria",
+  NGA: "RepÃºblica federal presidencial",
+  NLD: "MonarquÃ­a constitucional unitaria descentralizada",
+  PAK: "RepÃºblica federal parlamentaria",
+  RUS: "RepÃºblica federal semipresidencial",
+  ZAF: "RepÃºblica parlamentaria unitaria descentralizada",
+  USA: "RepÃºblica federal presidencial",
+  ARE: "FederaciÃ³n de emiratos",
   PRI: "Territorio no incorporado de Estados Unidos",
-  GUF: "Departamento y región de ultramar de Francia",
+  GUF: "Departamento y regiÃ³n de ultramar de Francia",
   NCL: "Colectividad especial francesa de ultramar",
-  ATF: "Territorio francés de ultramar",
-  BMU: "Territorio británico de ultramar",
-  FLK: "Territorio británico de ultramar",
-  GRL: "Territorio autónomo dentro del Reino de Dinamarca",
-  PSE: "Estado con reconocimiento limitado y administración dividida",
-  ATA: "Espacio internacional regido por el Sistema del Tratado Antártico"
+  ATF: "Territorio francÃ©s de ultramar",
+  BMU: "Territorio britÃ¡nico de ultramar",
+  FLK: "Territorio britÃ¡nico de ultramar",
+  GRL: "Territorio autÃ³nomo dentro del Reino de Dinamarca",
+  PSE: "Estado con reconocimiento limitado y administraciÃ³n dividida",
+  ATA: "Espacio internacional regido por el Sistema del Tratado AntÃ¡rtico"
 };
 
 const SUBDIVISION_OVERRIDES = {
-  ARG: { type: "provincias y ciudad autónoma", count: 24 },
+  ARG: { type: "provincias y ciudad autÃ³noma", count: 24 },
   ARE: { type: "emiratos", count: 7 },
   AUS: { type: "estados y territorios", count: 8 },
   AUT: { type: "estados federados", count: 9 },
-  BEL: { type: "regiones y comunidades", count: 6, notes: "Sistema federal complejo con doble eje territorial y lingüístico" },
+  BEL: { type: "regiones y comunidades", count: 6, notes: "Sistema federal complejo con doble eje territorial y lingÃ¼Ã­stico" },
   BOL: { type: "departamentos", count: 9 },
   BRA: { type: "estados y distrito federal", count: 27 },
   CAN: { type: "provincias y territorios", count: 13 },
   CHE: { type: "cantones", count: 26 },
-  CHN: { type: "provincias, regiones autónomas, municipios y regiones administrativas especiales", count: 34 },
+  CHN: { type: "provincias, regiones autÃ³nomas, municipios y regiones administrativas especiales", count: 34 },
   DEU: { type: "estados federados", count: 16 },
-  ESP: { type: "comunidades y ciudades autónomas", count: 19 },
+  ESP: { type: "comunidades y ciudades autÃ³nomas", count: 19 },
   FRA: { type: "regiones y departamentos", notes: "Incluye Francia metropolitana y ultramar" },
   GBR: { type: "naciones constituyentes y subdivisiones", count: 4 },
-  IND: { type: "estados y territorios de la Unión", count: 36 },
+  IND: { type: "estados y territorios de la UniÃ³n", count: 36 },
   ITA: { type: "regiones", count: 20 },
   JPN: { type: "prefecturas", count: 47 },
   MEX: { type: "estados y ciudad capital", count: 32 },
@@ -321,27 +327,27 @@ const SUBDIVISION_OVERRIDES = {
 
 const ORGANIZATION_FILL_OVERRIDES = {
   BHS: [
-    { name: "Organización de las Naciones Unidas", abbreviation: "UN", startYear: 1973, endYear: null },
-    { name: "Organización de los Estados Americanos", abbreviation: "OEA", startYear: 1982, endYear: null },
+    { name: "OrganizaciÃ³n de las Naciones Unidas", abbreviation: "UN", startYear: 1973, endYear: null },
+    { name: "OrganizaciÃ³n de los Estados Americanos", abbreviation: "OEA", startYear: 1982, endYear: null },
     { name: "Comunidad del Caribe", abbreviation: "CARICOM", startYear: 1983, endYear: null },
     { name: "Mancomunidad de Naciones", abbreviation: null, startYear: 1973, endYear: null }
   ],
   BLZ: [
-    { name: "Organización de las Naciones Unidas", abbreviation: "UN", startYear: 1981, endYear: null },
-    { name: "Organización de los Estados Americanos", abbreviation: "OEA", startYear: 1981, endYear: null },
+    { name: "OrganizaciÃ³n de las Naciones Unidas", abbreviation: "UN", startYear: 1981, endYear: null },
+    { name: "OrganizaciÃ³n de los Estados Americanos", abbreviation: "OEA", startYear: 1981, endYear: null },
     { name: "Comunidad del Caribe", abbreviation: "CARICOM", startYear: 1974, endYear: null },
     { name: "Mancomunidad de Naciones", abbreviation: null, startYear: 1981, endYear: null }
   ],
   PNG: [
-    { name: "Organización de las Naciones Unidas", abbreviation: "UN", startYear: 1975, endYear: null },
+    { name: "OrganizaciÃ³n de las Naciones Unidas", abbreviation: "UN", startYear: 1975, endYear: null },
     { name: "Mancomunidad de Naciones", abbreviation: null, startYear: 1975, endYear: null },
-    { name: "Foro de las Islas del Pacífico", abbreviation: "PIF", startYear: 1975, endYear: null },
-    { name: "Cooperación Económica Asia-Pacífico", abbreviation: "APEC", startYear: 1993, endYear: null }
+    { name: "Foro de las Islas del PacÃ­fico", abbreviation: "PIF", startYear: 1975, endYear: null },
+    { name: "CooperaciÃ³n EconÃ³mica Asia-PacÃ­fico", abbreviation: "APEC", startYear: 1993, endYear: null }
   ],
   PSE: [
-    { name: "Liga Árabe", abbreviation: null, startYear: 1976, endYear: null },
-    { name: "Organización para la Cooperación Islámica", abbreviation: "OIC", startYear: 1969, endYear: null },
-    { name: "Movimiento de Países No Alineados", abbreviation: "NAM", startYear: 1976, endYear: null }
+    { name: "Liga Ãrabe", abbreviation: null, startYear: 1976, endYear: null },
+    { name: "OrganizaciÃ³n para la CooperaciÃ³n IslÃ¡mica", abbreviation: "OIC", startYear: 1969, endYear: null },
+    { name: "Movimiento de PaÃ­ses No Alineados", abbreviation: "NAM", startYear: 1976, endYear: null }
   ],
   ESH: [
     { name: "Unión Africana", abbreviation: "UA", startYear: 1984, endYear: null }
@@ -466,7 +472,7 @@ const CURATED_CONFLICT_OVERRIDES = {
     { name: "Levantamiento de Barein de 2011", startYear: 2011, endYear: 2011, ongoing: false }
   ],
   BRN: [
-    { name: "Revuelta de Brunéi", startYear: 1962, endYear: 1962, ongoing: false }
+    { name: "Revuelta de BrunÃ©i", startYear: 1962, endYear: 1962, ongoing: false }
   ],
   BTN: [
     { name: "Guerra de los Duars", startYear: 1864, endYear: 1865, ongoing: false }
@@ -527,6 +533,334 @@ const CURATED_CONFLICT_OVERRIDES = {
   GUF: [],
   "-99": [
     { name: "Guerra de Somalilandia", startYear: 1981, endYear: 1991, ongoing: false }
+  ]
+};
+
+const CONFLICT_NAME_CANONICAL_RULES = [
+  [/^Guerra de Malvinas$/i, "Guerra de las Malvinas"],
+  [/^Falklands War$/i, "Guerra de las Malvinas"],
+  [/^World War I$/i, "Primera Guerra Mundial"],
+  [/^First World War$/i, "Primera Guerra Mundial"],
+  [/^Great War$/i, "Primera Guerra Mundial"],
+  [/^World War II$/i, "Segunda Guerra Mundial"],
+  [/^Second World War$/i, "Segunda Guerra Mundial"],
+  [/^Russo-Ukrainian War$/i, "Guerra rusoucraniana"],
+  [/^Russian invasion of Ukraine$/i, "Guerra rusoucraniana"],
+  [/^War in Donbas$/i, "Guerra del Donbas"],
+  [/^Korean War$/i, "Guerra de Corea"],
+  [/^Vietnam War$/i, "Guerra de Vietnam"],
+  [/^Iraq War$/i, "Guerra de Irak"],
+  [/^Gulf War$/i, "Guerra del Golfo"],
+  [/^War in Afghanistan$/i, "Guerra de Afganistan"],
+  [/^Syrian civil war$/i, "Guerra civil siria"],
+  [/^Spanish Civil War$/i, "Guerra civil espanola"],
+  [/^Chinese Civil War$/i, "Guerra civil china"],
+  [/^Crimean War$/i, "Guerra de Crimea"],
+  [/^Russo-Japanese War$/i, "Guerra ruso-japonesa"],
+  [/^Algerian War$/i, "Guerra de Argelia"],
+  [/^War of the Pacific$/i, "Guerra del Pacifico"],
+  [/^Chaco War$/i, "Guerra del Chaco"],
+  [/^Arab-Israeli War of 1948$/i, "Guerra arabe-israeli de 1948"],
+  [/^Arab.*Israeli Wars$/i, "Guerras arabe-israelies"],
+  [/^First Congo War$/i, "Primera Guerra del Congo"],
+  [/^Second Congo War$/i, "Segunda Guerra del Congo"],
+  [/^Kivu conflict$/i, "Guerra de Kivu"],
+  [/^Ethiopian Civil War$/i, "Guerra civil etiope"],
+  [/^Anti-piracy measures (in|en) Somalia$/i, "Medidas antipirateria en Somalia"],
+  [/^Naxalbari uprising$/i, "Levantamiento de Naxalbari"],
+  [/^German occupation (of|de) Luxembourg (in|en) World War II$/i, "Ocupacion alemana de Luxemburgo en la Segunda Guerra Mundial"],
+  [/^Liberation (of|de) Jerusalem (in|en) Six-Day War$/i, "Liberacion de Jerusalen en la Guerra de los Seis Dias"],
+  [/^Hamgyong Campaign$/i, "Campana de Hamgyong"],
+  [/^Bombing (of|de) Ahvaz-Tehran passenger train$/i, "Bombardeo del tren de pasajeros Ahvaz-Teheran"],
+  [/^Drone attack on Izmail$/i, "Ataque con drones a Izmail"],
+  [/^Dzhangildin expedition$/i, "Expedicion de Dzhangildin"],
+  [/^Shrevsky Operation$/i, "Operacion Shrevsky"],
+  [/^Attack on Galle Harbour$/i, "Ataque al puerto de Galle"],
+  [/^Bali Strait Incident$/i, "Incidente del estrecho de Bali"],
+  [/^Psilander Affair$/i, "Asunto Psilander"],
+  [/^Hudson Bay expedition$/i, "Expedicion de la bahia de Hudson"],
+  [/^Allemand's escape from Lorient$/i, "Escape de Allemand desde Lorient"],
+  [/^Battles? (of|de) Barfleur (and|y) La Hougue$/i, "Batallas de Barfleur y La Hougue"],
+  [/^Combat de la Junon contre le Fox$/i, "Combate de la Junon contra el Fox"],
+  [/^Levantamiento zapatista$/i, "Levantamiento zapatista"],
+  [/^Western Sahara conflict$/i, "Conflicto del Sahara Occidental"],
+  [/^Anglo-Afghan War$/i, "Guerras anglo-afganas"],
+  [/^Guerra anglo-afgana$/i, "Guerras anglo-afganas"],
+  [/^Battle of /i, "Batalla de "],
+  [/^First Battle of /i, "Primera batalla de "],
+  [/^Second Battle of /i, "Segunda batalla de "],
+  [/^Third Battle of /i, "Tercera batalla de "],
+  [/^Naval battle off /i, "Batalla naval de "],
+  [/^Naval battle near /i, "Batalla naval cerca de "],
+  [/^Campaign of /i, "Campana de "],
+  [/^Campaign /i, "Campana "],
+  [/^Siege of /i, "Sitio de "],
+  [/^Operation /i, "Operacion "],
+  [/^Invasion of /i, "Invasion de "],
+  [/^Capture of /i, "Captura de "],
+  [/^Capture de /i, "Captura de "],
+  [/^Sinking of /i, "Hundimiento de "],
+  [/^Sinking de /i, "Hundimiento de "],
+  [/^Skirmish at /i, "Escaramuza en "],
+  [/^Skirmish of /i, "Escaramuza de "],
+  [/^Marine landing in /i, "Desembarco en "]
+];
+
+const CONFLICT_YEAR_HINTS = {
+  "Primera Guerra Mundial": { startYear: 1914, endYear: 1918 },
+  "Segunda Guerra Mundial": { startYear: 1939, endYear: 1945 },
+  "Guerra de Corea": { startYear: 1950, endYear: 1953 },
+  "Guerra de Vietnam": { startYear: 1955, endYear: 1975 },
+  "Guerra del Golfo": { startYear: 1990, endYear: 1991 },
+  "Guerra de Afganistan": { startYear: 2001, endYear: 2021 },
+  "Guerra de Irak": { startYear: 2003, endYear: 2011 },
+  "Guerra civil siria": { startYear: 2011, endYear: null, ongoing: true },
+  "Guerra civil espanola": { startYear: 1936, endYear: 1939 },
+  "Guerra Iran-Iraq": { startYear: 1980, endYear: 1988 },
+  "Guerra ruso-japonesa": { startYear: 1904, endYear: 1905 },
+  "Guerra de Argelia": { startYear: 1954, endYear: 1962 },
+  "Guerra del Pacifico": { startYear: 1879, endYear: 1884 },
+  "Guerra del Chaco": { startYear: 1932, endYear: 1935 },
+  "Guerra arabe-israeli de 1948": { startYear: 1948, endYear: 1949 },
+  "Guerras arabe-israelies": { startYear: 1948, endYear: 1973 },
+  "Arab???Israeli Wars": { startYear: 1948, endYear: 1973 },
+  "Guerra civil china": { startYear: 1927, endYear: 1949 },
+  "Guerra civil etiope": { startYear: 1974, endYear: 1991 },
+  "Guerras anglo-afganas": { startYear: 1839, endYear: 1919 },
+  "Guerra anglo-afgana": { startYear: 1839, endYear: 1919 },
+  "Guerra rusoucraniana": { startYear: 2014, endYear: null, ongoing: true },
+  "Guerra del Donbas": { startYear: 2014, endYear: 2022 },
+  "Primera intifada": { startYear: 1987, endYear: 1993 },
+  "Segunda intifada": { startYear: 2000, endYear: 2005 },
+  "Guerra de Gaza": { startYear: 2023, endYear: null, ongoing: true },
+  "Medidas antipirateria en Somalia": { startYear: 2008, endYear: null, ongoing: true },
+  "Anti-piracy measures en Somalia": { startYear: 2008, endYear: null, ongoing: true },
+  "Levantamiento de Naxalbari": { startYear: 1967, endYear: 1967 },
+  "Naxalbari uprising": { startYear: 1967, endYear: 1967 },
+  "Ocupacion alemana de Luxemburgo en la Segunda Guerra Mundial": { startYear: 1940, endYear: 1944 },
+  "German occupation de Luxembourg en World War II": { startYear: 1940, endYear: 1944 },
+  "Liberacion de Jerusalen en la Guerra de los Seis Dias": { startYear: 1967, endYear: 1967 },
+  "Liberation de Jerusalem en Six-Day War": { startYear: 1967, endYear: 1967 },
+  "Campana de Hamgyong": { startYear: 1597, endYear: 1597 },
+  "Hamgyong Campaign": { startYear: 1597, endYear: 1597 },
+  "Bombardeo del tren de pasajeros Ahvaz-Teheran": { startYear: 1924, endYear: 1924 },
+  "Bombing de Ahvaz-Tehran passenger train": { startYear: 1924, endYear: 1924 },
+  "Ataque con drones a Izmail": { startYear: 2023, endYear: 2023 },
+  "Drone attack on Izmail": { startYear: 2023, endYear: 2023 },
+  "Expedicion de Dzhangildin": { startYear: 1918, endYear: 1918 },
+  "Dzhangildin expedition": { startYear: 1918, endYear: 1918 },
+  "Operacion Shrevsky": { startYear: 1919, endYear: 1919 },
+  "Shrevsky Operation": { startYear: 1919, endYear: 1919 },
+  "Ataque al puerto de Galle": { startYear: 2006, endYear: 2006 },
+  "Attack on Galle Harbour": { startYear: 2006, endYear: 2006 },
+  "Incidente del estrecho de Bali": { startYear: 1942, endYear: 1942 },
+  "Bali Strait Incident": { startYear: 1942, endYear: 1942 },
+  "Asunto Psilander": { startYear: 1940, endYear: 1940 },
+  "Psilander Affair": { startYear: 1940, endYear: 1940 },
+  "Expedicion de la bahia de Hudson": { startYear: 1686, endYear: 1686 },
+  "Hudson Bay expedition": { startYear: 1686, endYear: 1686 },
+  "Escape de Allemand desde Lorient": { startYear: 1805, endYear: 1805 },
+  "Allemand's escape from Lorient": { startYear: 1805, endYear: 1805 },
+  "Batallas de Barfleur y La Hougue": { startYear: 1692, endYear: 1692 },
+  "Battles de Barfleur y La Hougue": { startYear: 1692, endYear: 1692 },
+  "Combate de la Junon contra el Fox": { startYear: 1809, endYear: 1809 },
+  "Combat de la Junon contre le Fox": { startYear: 1809, endYear: 1809 },
+  "Levantamiento zapatista": { startYear: 1994, endYear: null, ongoing: true },
+  "Conflicto del Sahara Occidental": { startYear: 1975, endYear: null, ongoing: true },
+  "Ethiopian Civil War": { startYear: 1974, endYear: 1991 },
+  "Arab-Israeli Wars": { startYear: 1948, endYear: 1973 },
+  "Croisiere du Grand Hiver": { startYear: 1794, endYear: 1795 },
+  "Expedicion contra Quebec": { startYear: 1775, endYear: 1775 },
+  "Glorioso primero de junio": { startYear: 1794, endYear: 1794 },
+  "Invasion de Inglaterra por Canuto el Grande": { startYear: 1013, endYear: 1014 },
+  "Paso de Humaita": { startYear: 1868, endYear: 1868 },
+  "Paso de Mercedes": { startYear: 1865, endYear: 1865 },
+  "Toma de Lubumbashi": { startYear: 1998, endYear: 1998 },
+  "Toma del puesto fronterizo internacional de Vrtojba": { startYear: 1991, endYear: 1991 },
+  "Campana de Harald Cabellera Hermosa en Gotia": { startYear: 1026, endYear: 1026 },
+  "Guerra sueco-noruega de 1063": { startYear: 1063, endYear: 1063 },
+  "Invasion japonesa de Tailandia": { startYear: 1941, endYear: 1941 },
+  "Incursion de Yakla": { startYear: 2017, endYear: 2017 },
+  "Adlertag": { startYear: 1940, endYear: 1940 },
+  "Bolsa del Ruhr": { startYear: 1945, endYear: 1945 },
+  "Viernes Negro": { startYear: 1910, endYear: 1910 },
+  "Dull Knife Fight": { startYear: 1876, endYear: 1876 },
+  "Elsenborn Ridge": { startYear: 1944, endYear: 1945 },
+  "Guerra arikara": { startYear: 1823, endYear: 1823 },
+  "Kake War": { startYear: 1869, endYear: 1869 },
+  "Negro Fort": { startYear: 1816, endYear: 1816 },
+  "Paiute War": { startYear: 1860, endYear: 1860 },
+  "St. Clair's Defeat": { startYear: 1791, endYear: 1791 },
+  "USS Constitution vs HMS Guerriere": { startYear: 1812, endYear: 1812 },
+  "USS United States vs HMS Macedonian": { startYear: 1812, endYear: 1812 },
+  "Batalla de Long Tan": { startYear: 1966, endYear: 1966 },
+  "Batalla de la Vuelta de Obligado": { startYear: 1845, endYear: 1845 },
+  "Hundimiento del ARA General Belgrano": { startYear: 1982, endYear: 1982 },
+  "Incidente de la Isla Decepcion": { startYear: 1952, endYear: 1952 },
+  "Incidente del islote Snipe": { startYear: 1958, endYear: 1958 },
+  "Operacion Black Buck": { startYear: 1982, endYear: 1982 },
+  "Hundimiento de HMS Sheffield": { startYear: 1982, endYear: 1982 },
+  "Batalla de Shusha": { startYear: 2020, endYear: 2020 },
+  "Captura de Lachin": { startYear: 2022, endYear: 2022 },
+  "Batalla de Cape Spada": { startYear: 1940, endYear: 1940 },
+  "Batalla del canal de Otranto": { startYear: 1917, endYear: 1917 },
+  "Batalla del Alto de la Alianza": { startYear: 1880, endYear: 1880 },
+  "Operacion Encore": { startYear: 1950, endYear: 1950 },
+  "Captura de la canonera Pilcomayo": { startYear: 1879, endYear: 1879 },
+  "Captura del vapor Rimac": { startYear: 1879, endYear: 1879 },
+  "Combate naval de Arica": { startYear: 1880, endYear: 1880 },
+  "Combate naval de Iquique": { startYear: 1879, endYear: 1879 },
+  "Doble ruptura del bloqueo de Arica": { startYear: 1880, endYear: 1880 },
+  "Segundo combate naval de Iquique": { startYear: 1879, endYear: 1879 },
+  "Batalla de Galwan": { startYear: 2020, endYear: 2020 },
+  "Batalla de Gurung Hill": { startYear: 1962, endYear: 1962 },
+  "Batalla de Rezang La": { startYear: 1962, endYear: 1962 },
+  "Incidente del Arrecife Johnson del Sur": { startYear: 1988, endYear: 1988 },
+  "Ataque a Bari Alai": { startYear: 2009, endYear: 2009 },
+  "Batalla de Cheonpyeong Valley": { startYear: 1951, endYear: 1951 },
+  "Batalla de Osan": { startYear: 1950, endYear: 1950 },
+  "Sublevacion en Herat de 2001": { startYear: 2001, endYear: 2001 },
+  "Ataques aereos de Yemen de 2024": { startYear: 2024, endYear: 2024 },
+  "1984 DMZ incident": { startYear: 1984, endYear: 1984 },
+  "Struggle for Negev 1947-1956": { startYear: 1947, endYear: 1956 },
+  "Batalla de Joybar": { startYear: 2001, endYear: 2001 },
+  "Batalla de Gang Toi": { startYear: 1965, endYear: 1965 },
+  "Batalla de Svolder": { startYear: 999, endYear: 999 },
+  "Batalla de Durazzo": { startYear: 1918, endYear: 1918 },
+  "Batalla de Khaz Oruzgan": { startYear: 2010, endYear: 2010 },
+  "Escaramuza de Karacsfa": { startYear: 1921, endYear: 1921 },
+  "Batalla de Ixmiquilpan": { startYear: 1866, endYear: 1866 },
+  "Combate de Rio Grande": { startYear: 1879, endYear: 1879 },
+  "Combate de Buenavista": { startYear: 1838, endYear: 1838 },
+  "Combate de El Manzano": { startYear: 1838, endYear: 1838 },
+  "Chinese invasion de Taiwan": { startYear: 2026, endYear: 2026 },
+  "Batalla de Bogesund": { startYear: 1520, endYear: 1520 },
+  "Batalla de Greifswald Bodden": { startYear: 1715, endYear: 1715 },
+  "Batalla de Helsingborg": { startYear: 1710, endYear: 1710 },
+  "Batalla de Hjorungavagr": { startYear: 986, endYear: 986 },
+  "Batalla de Kolding": { startYear: 1849, endYear: 1849 },
+  "Batalla de Lena": { startYear: 1208, endYear: 1208 },
+  "Batalla de Nisa": { startYear: 1062, endYear: 1062 },
+  "Batalla de Stockholm": { startYear: 1518, endYear: 1518 },
+  "Captura de la balandra Anne": { startYear: 1777, endYear: 1777 },
+  "Batalla naval cerca de Majdal": { startYear: 1948, endYear: 1948 },
+  "Batalla de Burullus": { startYear: 1956, endYear: 1956 },
+  "Batalla de Flamborough Head": { startYear: 1779, endYear: 1779 },
+  "Batalla de la cota 233": { startYear: 1973, endYear: 1973 },
+  "Enfrentamiento entre el USS Constellation y L'Insurgente": { startYear: 1799, endYear: 1799 },
+  "Incursiones en Boulogne": { startYear: 1804, endYear: 1805 },
+  "Guerra subsidiaria irano-saudi": { startYear: 1979, endYear: null, ongoing: true },
+  "Operacion Mantis Religiosa": { startYear: 1988, endYear: 1988 },
+  "Operacion Morvarid": { startYear: 1980, endYear: 1980 },
+  "Liberacion de Jerusalem en Six-Day War": { startYear: 1967, endYear: 1967 },
+  "Syrian front en War de Attrition": { startYear: 1967, endYear: 1970 },
+  "Ataque misilistico libio contra Lampedusa": { startYear: 1986, endYear: 1986 },
+  "Batalla de Failaka": { startYear: 1991, endYear: 1991 },
+  "Accion del golfo de Sidra": { startYear: 1981, endYear: 1981 },
+  "Batalla de Palo Alto": { startYear: 1846, endYear: 1846 },
+  "Batalla de Resaca de la Palma": { startYear: 1846, endYear: 1846 },
+  "Ingham incident": { startYear: 1959, endYear: 1959 },
+  "Batalla del Estrecho de Corea": { startYear: 1950, endYear: 1950 },
+  "LÃ¶wendalsfejden": { startYear: 1789, endYear: 1790 },
+  "Batalla de Mirbat": { startYear: 1972, endYear: 1972 },
+  "Batalla del puente del rio Pacora": { startYear: 1821, endYear: 1821 },
+  "Artillery Duel at Korkiansaari": { startYear: 1941, endYear: 1941 }
+};
+
+const CONFLICT_YEAR_HINTS_NORMALIZED = Object.fromEntries(
+  Object.entries(CONFLICT_YEAR_HINTS).map(([name, value]) => [normalizeKey(name), value])
+);
+
+const GLOBAL_CONFLICT_PARTICIPATION = {
+  ARG: [],
+  AUS: [
+    { name: "Primera Guerra Mundial", startYear: 1914, endYear: 1918, ongoing: false },
+    { name: "Segunda Guerra Mundial", startYear: 1939, endYear: 1945, ongoing: false }
+  ],
+  AUT: [{ name: "Primera Guerra Mundial", startYear: 1914, endYear: 1918, ongoing: false }],
+  BEL: [
+    { name: "Primera Guerra Mundial", startYear: 1914, endYear: 1918, ongoing: false },
+    { name: "Segunda Guerra Mundial", startYear: 1939, endYear: 1945, ongoing: false }
+  ],
+  BRA: [
+    { name: "Primera Guerra Mundial", startYear: 1917, endYear: 1918, ongoing: false },
+    { name: "Segunda Guerra Mundial", startYear: 1942, endYear: 1945, ongoing: false }
+  ],
+  BGR: [{ name: "Primera Guerra Mundial", startYear: 1915, endYear: 1918, ongoing: false }],
+  CAN: [
+    { name: "Primera Guerra Mundial", startYear: 1914, endYear: 1918, ongoing: false },
+    { name: "Segunda Guerra Mundial", startYear: 1939, endYear: 1945, ongoing: false }
+  ],
+  CHN: [
+    { name: "Primera Guerra Mundial", startYear: 1917, endYear: 1918, ongoing: false },
+    { name: "Segunda Guerra Mundial", startYear: 1937, endYear: 1945, ongoing: false }
+  ],
+  CUB: [{ name: "Segunda Guerra Mundial", startYear: 1941, endYear: 1945, ongoing: false }],
+  DEU: [
+    { name: "Primera Guerra Mundial", startYear: 1914, endYear: 1918, ongoing: false },
+    { name: "Segunda Guerra Mundial", startYear: 1939, endYear: 1945, ongoing: false }
+  ],
+  FRA: [
+    { name: "Primera Guerra Mundial", startYear: 1914, endYear: 1918, ongoing: false },
+    { name: "Segunda Guerra Mundial", startYear: 1939, endYear: 1945, ongoing: false }
+  ],
+  GBR: [
+    { name: "Primera Guerra Mundial", startYear: 1914, endYear: 1918, ongoing: false },
+    { name: "Segunda Guerra Mundial", startYear: 1939, endYear: 1945, ongoing: false }
+  ],
+  GRC: [
+    { name: "Primera Guerra Mundial", startYear: 1917, endYear: 1918, ongoing: false },
+    { name: "Segunda Guerra Mundial", startYear: 1940, endYear: 1945, ongoing: false }
+  ],
+  HUN: [{ name: "Primera Guerra Mundial", startYear: 1914, endYear: 1918, ongoing: false }],
+  ITA: [
+    { name: "Primera Guerra Mundial", startYear: 1915, endYear: 1918, ongoing: false },
+    { name: "Segunda Guerra Mundial", startYear: 1940, endYear: 1945, ongoing: false }
+  ],
+  JPN: [
+    { name: "Primera Guerra Mundial", startYear: 1914, endYear: 1918, ongoing: false },
+    { name: "Segunda Guerra Mundial", startYear: 1937, endYear: 1945, ongoing: false }
+  ],
+  MEX: [{ name: "Segunda Guerra Mundial", startYear: 1942, endYear: 1945, ongoing: false }],
+  NLD: [{ name: "Segunda Guerra Mundial", startYear: 1940, endYear: 1945, ongoing: false }],
+  NOR: [{ name: "Segunda Guerra Mundial", startYear: 1940, endYear: 1945, ongoing: false }],
+  NZL: [
+    { name: "Primera Guerra Mundial", startYear: 1914, endYear: 1918, ongoing: false },
+    { name: "Segunda Guerra Mundial", startYear: 1939, endYear: 1945, ongoing: false }
+  ],
+  POL: [
+    { name: "Primera Guerra Mundial", startYear: 1914, endYear: 1918, ongoing: false },
+    { name: "Segunda Guerra Mundial", startYear: 1939, endYear: 1945, ongoing: false }
+  ],
+  PRT: [
+    { name: "Primera Guerra Mundial", startYear: 1916, endYear: 1918, ongoing: false },
+    { name: "Segunda Guerra Mundial", startYear: 1939, endYear: 1945, ongoing: false }
+  ],
+  ROU: [
+    { name: "Primera Guerra Mundial", startYear: 1916, endYear: 1918, ongoing: false },
+    { name: "Segunda Guerra Mundial", startYear: 1941, endYear: 1945, ongoing: false }
+  ],
+  RUS: [
+    { name: "Primera Guerra Mundial", startYear: 1914, endYear: 1918, ongoing: false },
+    { name: "Segunda Guerra Mundial", startYear: 1941, endYear: 1945, ongoing: false }
+  ],
+  SRB: [
+    { name: "Primera Guerra Mundial", startYear: 1914, endYear: 1918, ongoing: false },
+    { name: "Segunda Guerra Mundial", startYear: 1941, endYear: 1945, ongoing: false }
+  ],
+  TUR: [
+    { name: "Primera Guerra Mundial", startYear: 1914, endYear: 1918, ongoing: false },
+    { name: "Guerra de Corea", startYear: 1950, endYear: 1953, ongoing: false }
+  ],
+  UKR: [
+    { name: "Primera Guerra Mundial", startYear: 1914, endYear: 1918, ongoing: false },
+    { name: "Segunda Guerra Mundial", startYear: 1941, endYear: 1945, ongoing: false }
+  ],
+  USA: [
+    { name: "Primera Guerra Mundial", startYear: 1917, endYear: 1918, ongoing: false },
+    { name: "Segunda Guerra Mundial", startYear: 1941, endYear: 1945, ongoing: false },
+    { name: "Guerra de Corea", startYear: 1950, endYear: 1953, ongoing: false },
+    { name: "Guerra de Vietnam", startYear: 1955, endYear: 1975, ongoing: false }
   ]
 };
 
@@ -743,7 +1077,7 @@ const POST_BUILD_ENTITY_OVERRIDES = {
   },
   VNM: {
     general: {
-      capital: { name: "Hanói", population: 8053663, isCapital: true },
+      capital: { name: "HanÃ³i", population: 8053663, isCapital: true },
       cities: [
         { name: "Ciudad Ho Chi Minh", population: 9446000, isCapital: false },
         { name: "Hai Phong", population: 2103500, isCapital: false },
@@ -1112,9 +1446,9 @@ const OFFICIAL_NAME_OVERRIDES = {
   COD: "Republica Democratica del Congo",
   COG: "Republica del Congo",
   DEU: "Republica Federal de Alemania",
-  ESP: "Reino de España",
+  ESP: "Reino de EspaÃ±a",
   FRA: "Republica Francesa",
-  GBR: "Reino Unido de Gran Bretaña e Irlanda del Norte",
+  GBR: "Reino Unido de Gran BretaÃ±a e Irlanda del Norte",
   GRC: "Republica Helenica",
   IND: "Republica de la India",
   IRN: "Republica Islamica de Iran",
@@ -1172,7 +1506,7 @@ const HISTORICAL_NAME_OVERRIDES = {
   PSE: ["Palestina bajo mandato britanico"],
   GUF: ["Guyane francaise"],
   FLK: ["Falkland Islands"],
-  PRI: ["Puerto Rico español"],
+  PRI: ["Puerto Rico espaÃ±ol"],
   "CS-KM": ["Kosovo y Metohija"],
   "-99": ["Somalilandia Britanica"]
 };
@@ -1188,7 +1522,7 @@ const SYMBOL_OVERRIDES = {
   },
   CHN: {
     flagDescription: "Bandera roja con cinco estrellas amarillas",
-    coatOfArms: "Emblema rojo y dorado con Tiananmén, engranaje y espigas"
+    coatOfArms: "Emblema rojo y dorado con TiananmÃ©n, engranaje y espigas"
   },
   ESP: {
     flagDescription: "Bandera roja y amarilla con escudo nacional",
@@ -1240,7 +1574,7 @@ const SYMBOL_OVERRIDES = {
   },
   PRI: {
     flagDescription: "Bandera con franjas rojas y blancas y triangulo azul con estrella",
-    coatOfArms: "Escudo historico de Puerto Rico con cordero místico"
+    coatOfArms: "Escudo historico de Puerto Rico con cordero mÃ­stico"
   },
   FLK: {
     flagDescription: "Blue Ensign con escudo de las Islas Malvinas",
@@ -1445,7 +1779,7 @@ const RELATION_OVERRIDES = {
     rivalStates: ["Argentina", "Rusia"]
   },
   FRA: {
-    allies: ["Alemania", "Italia", "España"],
+    allies: ["Alemania", "Italia", "EspaÃ±a"],
     blocs: ["Union Europea", "OTAN", "ONU"],
     disputes: ["Mayotte"],
     rivalStates: ["Rusia"]
@@ -1689,7 +2023,7 @@ Object.assign(SYMBOL_OVERRIDES, {
   },
   PRK: {
     flagDescription: "Bandera roja con franjas azules y blancas y estrella roja",
-    coatOfArms: "Emblema con presa hidroeléctrica, monte Paektu y estrella roja"
+    coatOfArms: "Emblema con presa hidroelÃ©ctrica, monte Paektu y estrella roja"
   },
   SAU: {
     flagDescription: "Bandera verde con shahada blanca y espada",
@@ -2738,7 +3072,7 @@ const ENTITY_FALLBACKS = {
     ]
   },
   TTO: {
-    capital: { name: "Puerto España", population: 37106, isCapital: true },
+    capital: { name: "Puerto EspaÃ±a", population: 37106, isCapital: true },
     cities: [
       { name: "San Fernando", population: 48338, isCapital: false },
       { name: "Chaguanas", population: 101297, isCapital: false },
@@ -2772,7 +3106,7 @@ const ENTITY_FALLBACKS = {
         { name: "Otras religiones", percentage: 15.5 }
       ]
     },
-    capital: { name: "Taipéi", population: 2489394, isCapital: true },
+    capital: { name: "TaipÃ©i", population: 2489394, isCapital: true },
     cities: [
       { name: "Kaohsiung", population: 2739661, isCapital: false },
       { name: "Taichung", population: 2820143, isCapital: false },
@@ -3047,20 +3381,7 @@ function compactNumber(value) {
 }
 
 function repairMojibake(value) {
-  const text = String(value || "");
-  if (!/[ÃÂâ€œâ€â€“â€”]/.test(text)) {
-    return text;
-  }
-
-  try {
-    const repaired = Buffer.from(text, "latin1").toString("utf8");
-    if (/[�]/.test(repaired)) {
-      return text;
-    }
-    return repaired;
-  } catch {
-    return text;
-  }
+  return repairMojibakeShared(value);
 }
 
 function sanitizeText(value) {
@@ -3069,22 +3390,33 @@ function sanitizeText(value) {
   }
 
   return repairMojibake(value)
-    .replace(/\bRepublica\b/g, "República")
-    .replace(/\bDemocratica\b/g, "Democrática")
-    .replace(/\bIslamica\b/g, "Islámica")
-    .replace(/\bHelenica\b/g, "Helénica")
-    .replace(/\bArabe\b/g, "Árabe")
-    .replace(/\bMonarquia\b/g, "Monarquía")
-    .replace(/\bConstitucion\b/g, "Constitución")
-    .replace(/\bUnion\b/g, "Unión")
-    .replace(/\bDisolucion\b/g, "Disolución")
-    .replace(/\bpacifica\b/g, "pacífica")
-    .replace(/\bEspanol\b/g, "Español")
-    .replace(/\bPortugues\b/g, "Portugués")
-    .replace(/\bDanes\b/g, "Danés")
-    .replace(/\bJapones\b/g, "Japonés")
-    .replace(/\bAleman\b/g, "Alemán")
-    .replace(/\bIran\b/g, "Irán")
+    .replace(/\bRepublica\b/g, "\u0052\u0065\u0070\u00FA\u0062\u006C\u0069\u0063\u0061")
+    .replace(/\bDemocratica\b/g, "\u0044\u0065\u006D\u006F\u0063\u0072\u00E1\u0074\u0069\u0063\u0061")
+    .replace(/\bIslamica\b/g, "\u0049\u0073\u006C\u00E1\u006D\u0069\u0063\u0061")
+    .replace(/\bHelenica\b/g, "\u0048\u0065\u006C\u00E9\u006E\u0069\u0063\u0061")
+    .replace(/\bArabe\b/g, "\u00C1\u0072\u0061\u0062\u0065")
+    .replace(/\bMonarquia\b/g, "\u004D\u006F\u006E\u0061\u0072\u0071\u0075\u00ED\u0061")
+    .replace(/\bConstitucion\b/g, "\u0043\u006F\u006E\u0073\u0074\u0069\u0074\u0075\u0063\u0069\u00F3\u006E")
+    .replace(/\bUnion\b/g, "\u0055\u006E\u0069\u00F3\u006E")
+    .replace(/\bDisolucion\b/g, "\u0044\u0069\u0073\u006F\u006C\u0075\u0063\u0069\u00F3\u006E")
+    .replace(/\bRevolucion\b/g, "\u0052\u0065\u0076\u006F\u006C\u0075\u0063\u0069\u00F3\u006E")
+    .replace(/\bSecesion\b/g, "\u0053\u0065\u0063\u0065\u0073\u0069\u00F3\u006E")
+    .replace(/\bAnexion\b/g, "\u0041\u006E\u0065\u0078\u0069\u00F3\u006E")
+    .replace(/\bpacifica\b/g, "\u0070\u0061\u0063\u00ED\u0066\u0069\u0063\u0061")
+    .replace(/\bEspanol\b/g, "\u0045\u0073\u0070\u0061\u00F1\u006F\u006C")
+    .replace(/\bPortugues\b/g, "\u0050\u006F\u0072\u0074\u0075\u0067\u0075\u00E9\u0073")
+    .replace(/\bDanes\b/g, "\u0044\u0061\u006E\u00E9\u0073")
+    .replace(/\bJapones\b/g, "\u004A\u0061\u0070\u006F\u006E\u00E9\u0073")
+    .replace(/\bAleman\b/g, "\u0041\u006C\u0065\u006D\u00E1\u006E")
+    .replace(/\bFrances\b/g, "\u0046\u0072\u0061\u006E\u0063\u00E9\u0073")
+    .replace(/\bAno\b/g, "\u0041\u00F1\u006F")
+    .replace(/\bOrganizacion\b/g, "\u004F\u0072\u0067\u0061\u006E\u0069\u007A\u0061\u0063\u0069\u00F3\u006E")
+    .replace(/\bPoblacion\b/g, "\u0050\u006F\u0062\u006C\u0061\u0063\u0069\u00F3\u006E")
+    .replace(/\bMetr[óo]polis\b/g, "\u004D\u0065\u0074\u0072\u00F3\u0070\u006F\u006C\u0069\u0073")
+    .replace(/\bIran\b/g, "\u0049\u0072\u00E1\u006E")
+    .replace(/\bPakistan\b/g, "\u0050\u0061\u006B\u0069\u0073\u0074\u00E1\u006E")
+    .replace(/\bAfganistan\b/g, "\u0041\u0066\u0067\u0061\u006E\u0069\u0073\u0074\u00E1\u006E")
+    .replace(/\bTiananmen\b/g, "\u0054\u0069\u0061\u006E\u0061\u006E\u006D\u00E9\u006E")
     .trim();
 }
 
@@ -3093,30 +3425,7 @@ function applyUnicodeCorrections(value) {
     return value;
   }
 
-  return value
-    .replace(/\bRepublica\b/g, "Rep\u00fablica")
-    .replace(/\bDemocratica\b/g, "Democr\u00e1tica")
-    .replace(/\bIslamica\b/g, "Isl\u00e1mica")
-    .replace(/\bHelenica\b/g, "Hel\u00e9nica")
-    .replace(/\bArabe\b/g, "\u00c1rabe")
-    .replace(/\bMonarquia\b/g, "Monarqu\u00eda")
-    .replace(/\bConstitucion\b/g, "Constituci\u00f3n")
-    .replace(/\bUnion\b/g, "Uni\u00f3n")
-    .replace(/\bDisolucion\b/g, "Disoluci\u00f3n")
-    .replace(/\bRevolucion\b/g, "Revoluci\u00f3n")
-    .replace(/\bSecesion\b/g, "Secesi\u00f3n")
-    .replace(/\bAnexion\b/g, "Anexi\u00f3n")
-    .replace(/\bpacifica\b/g, "pac\u00edfica")
-    .replace(/\bEspanol\b/g, "Espa\u00f1ol")
-    .replace(/\bPortugues\b/g, "Portugu\u00e9s")
-    .replace(/\bDanes\b/g, "Dan\u00e9s")
-    .replace(/\bJapones\b/g, "Japon\u00e9s")
-    .replace(/\bAleman\b/g, "Alem\u00e1n")
-    .replace(/\bFrances\b/g, "Franc\u00e9s")
-    .replace(/\bIran\b/g, "Ir\u00e1n")
-    .replace(/\bPakistan\b/g, "Pakist\u00e1n")
-    .replace(/\bAfganistan\b/g, "Afganist\u00e1n")
-    .replace(/\bTiananmen\b/g, "Tiananm\u00e9n");
+  return sanitizeText(value);
 }
 
 function sanitizeDeep(value) {
@@ -3128,7 +3437,7 @@ function sanitizeDeep(value) {
     return Object.fromEntries(Object.entries(value).map(([key, innerValue]) => [key, sanitizeDeep(innerValue)]));
   }
 
-  return applyUnicodeCorrections(sanitizeText(value));
+  return sanitizeText(value);
 }
 
 function normalizeKey(value) {
@@ -3141,7 +3450,7 @@ function normalizeKey(value) {
 }
 
 function normalizeYear(year, fallbackYear = null) {
-  if (typeof year !== "number" || Number.isNaN(year) || year < 1400 || year > 2100) {
+  if (typeof year !== "number" || Number.isNaN(year) || year < 900 || year > 2100) {
     return fallbackYear;
   }
 
@@ -3207,14 +3516,14 @@ function toDisplayTitleCase(value) {
 function formatFormationType(value) {
   const labels = {
     independencia: "Independencia",
-    union: "Unión",
-    "disolucion de otro estado": "Disolución de otro estado",
-    revolucion: "Revolución",
+    union: "UniÃ³n",
+    "disolucion de otro estado": "DisoluciÃ³n de otro estado",
+    revolucion: "RevoluciÃ³n",
     "guerra civil": "Guerra civil",
-    legal: "Legal y pacífica"
+    legal: "Legal y pacÃ­fica"
   };
 
-  return labels[value] || "Legal y pacífica";
+  return labels[value] || "Legal y pacÃ­fica";
 }
 
 function buildCityList(...lists) {
@@ -3272,7 +3581,7 @@ function parseOrganizationEntry(entry) {
       : null;
   }
 
-  const cleaned = entry.replace(/\s+\((politica|econ[oó]mica|militar|regional)\)\s*$/i, "").trim();
+  const cleaned = entry.replace(/\s+\((politica|econ[oÃ³]mica|militar|regional)\)\s*$/i, "").trim();
   const abbreviationMatch = cleaned.match(/\(([^)]+)\)\s*$/);
   const abbreviation = abbreviationMatch ? abbreviationMatch[1].trim() : null;
   const name = abbreviationMatch ? cleaned.replace(/\(([^)]+)\)\s*$/,"").trim() : cleaned;
@@ -3324,17 +3633,17 @@ function deriveOfficialName(code, commonName, system) {
     return commonName;
   }
   if (normalizedSystem.includes("federal")) {
-    return `República Federal de ${commonName}`;
+    return `RepÃºblica Federal de ${commonName}`;
   }
   if (
-    commonName.startsWith("República") ||
+    commonName.startsWith("RepÃºblica") ||
     commonName.startsWith("Republica") ||
     commonName.startsWith("Reino") ||
     commonName.startsWith("Estado")
   ) {
     return commonName;
   }
-  return `República de ${commonName}`;
+  return `RepÃºblica de ${commonName}`;
 }
 
 function deriveHistoricalNames(code, historyEntry) {
@@ -3374,13 +3683,13 @@ function deriveLanguages(code, historyEntry) {
   }
 
   const origin = normalizeKey(historyEntry?.origin);
-  if (origin.includes("francia")) return ["Francés"];
-  if (origin.includes("reino unido")) return ["Inglés"];
-  if (origin.includes("espana")) return ["Español"];
-  if (origin.includes("portugal")) return ["Portugués"];
-  if (origin.includes("paises bajos")) return ["Neerlandés"];
-  if (origin.includes("dinamarca")) return ["Danés"];
-  if (origin.includes("estados unidos")) return ["Inglés"];
+  if (origin.includes("francia")) return ["FrancÃ©s"];
+  if (origin.includes("reino unido")) return ["InglÃ©s"];
+  if (origin.includes("espana")) return ["EspaÃ±ol"];
+  if (origin.includes("portugal")) return ["PortuguÃ©s"];
+  if (origin.includes("paises bajos")) return ["NeerlandÃ©s"];
+  if (origin.includes("dinamarca")) return ["DanÃ©s"];
+  if (origin.includes("estados unidos")) return ["InglÃ©s"];
 
   return [];
 }
@@ -3432,10 +3741,10 @@ function deriveStateStructure(code, politicalSystem, officialName) {
     return "Estado federal";
   }
   if (system.includes("monarquia")) {
-    return "Monarquía constitucional o absoluta de base unitaria";
+    return "MonarquÃ­a constitucional o absoluta de base unitaria";
   }
   if (system.includes("teocracia")) {
-    return "Estado unitario teocrático";
+    return "Estado unitario teocrÃ¡tico";
   }
   if (system.includes("parlament")) {
     return "Estado unitario parlamentario";
@@ -3468,7 +3777,7 @@ function deriveSubdivisionMetadata(code, politicalSystem, stateStructure) {
 function buildMetadataSources(code, context = {}) {
   const withManual = section => [
     ...section,
-    "Curaduría manual interna"
+    "CuradurÃ­a manual interna"
   ];
 
   return {
@@ -3716,10 +4025,10 @@ function deriveMetropole(code, historyEntry) {
   const pairs = [
     ["reino unido", "Reino Unido"],
     ["francia", "Francia"],
-    ["espana", "España"],
+    ["espana", "EspaÃ±a"],
     ["portugal", "Portugal"],
-    ["paises bajos", "Países Bajos"],
-    ["holanda", "Países Bajos"],
+    ["paises bajos", "PaÃ­ses Bajos"],
+    ["holanda", "PaÃ­ses Bajos"],
     ["dinamarca", "Dinamarca"],
     ["australia", "Australia"],
     ["estados unidos", "Estados Unidos"],
@@ -4386,22 +4695,291 @@ function inferReligionSummary(composition, fallbackSummary = null) {
   return main?.name || null;
 }
 
-function mergeConflictSources(code, ...sources) {
-  const merged = normalizeConflicts(sources.flat());
-  const deduped = uniqueBy(
-    merged,
-    entry => `${normalizeKey(entry?.name)}:${entry?.startYear ?? ""}:${entry?.endYear ?? ""}:${entry?.ongoing ? 1 : 0}`
-  ).sort((a, b) => (a.startYear ?? 9999) - (b.startYear ?? 9999));
+function canonicalizeConflictName(name) {
+  return canonicalizeConflictNameWithRules(name, CONFLICT_NAME_CANONICAL_RULES);
+}
 
-  const overrides = CURATED_CONFLICT_OVERRIDES[code];
-  if (!overrides) {
-    return deduped;
+function getConflictYearHints(name) {
+  const canonicalName = canonicalizeConflictName(name);
+  return {
+    ...(getImportedConflictYearHints(canonicalName) || {}),
+    ...(CONFLICT_YEAR_HINTS[canonicalName] || CONFLICT_YEAR_HINTS_NORMALIZED[normalizeKey(canonicalName)] || {})
+  };
+}
+
+function getGlobalConflictParticipation(code) {
+  return GLOBAL_CONFLICT_PARTICIPATION[code] || [];
+}
+
+let importedConflictYearHintsCache = null;
+let dyadicCountryIndexCache = null;
+
+function getImportedConflictYearHints(name) {
+  if (!importedConflictYearHintsCache) {
+    importedConflictYearHintsCache = new Map();
+    const importedConflicts = importedConflictDetails?.conflicts || importedConflictDetails || {};
+    Object.entries(importedConflicts).forEach(([rawName, detail]) => {
+      const canonicalName = canonicalizeConflictName(rawName);
+      const chronologyText = (Array.isArray(detail?.chronology) ? detail.chronology : [])
+        .map(item => `${item?.year ?? ""} ${item?.text ?? ""}`.trim())
+        .join(" ");
+      const inferred = inferConflictYearsFromText(chronologyText);
+      if (inferred.startYear || inferred.endYear || inferred.ongoing) {
+        importedConflictYearHintsCache.set(canonicalName, inferred);
+        importedConflictYearHintsCache.set(normalizeKey(canonicalName), inferred);
+      }
+    });
   }
 
-  return uniqueBy(
-    [...deduped, ...normalizeConflicts(overrides)],
-    entry => `${normalizeKey(entry?.name)}:${entry?.startYear ?? ""}:${entry?.endYear ?? ""}:${entry?.ongoing ? 1 : 0}`
-  ).sort((a, b) => (a.startYear ?? 9999) - (b.startYear ?? 9999));
+  return importedConflictYearHintsCache.get(name) || importedConflictYearHintsCache.get(normalizeKey(name)) || null;
+}
+
+function getDyadicRegionLabel(regions = []) {
+  const primary = compactList(regions)[0];
+  return DYADIC_REGION_LABELS[String(primary)] || null;
+}
+
+function getDyadicConflictTypeLabel(conflictTypes = []) {
+  const primary = compactList(conflictTypes)[0];
+  return DYADIC_CONFLICT_TYPE_LABELS[String(primary)] || null;
+}
+
+function getDyadicIntensityLabel(intensityLevels = []) {
+  const levels = compactList(intensityLevels).map(value => String(value));
+  if (levels.includes("2")) {
+    return "guerra";
+  }
+  if (levels.includes("1")) {
+    return "conflicto armado";
+  }
+  return null;
+}
+
+function buildDyadicCountryIndex() {
+  if (dyadicCountryIndexCache) {
+    return dyadicCountryIndexCache;
+  }
+
+  const reverseAliasMap = new Map();
+  const countryIndex = new Map();
+
+  const registerAlias = (code, alias) => {
+    const normalized = normalizeKey(alias);
+    if (!normalized) {
+      return;
+    }
+    if (!reverseAliasMap.has(normalized)) {
+      reverseAliasMap.set(normalized, code);
+    }
+  };
+
+  allCodes.forEach(code => {
+    registerAlias(code, code);
+    registerAlias(code, COUNTRY_NAME_OVERRIDES[code]);
+    registerAlias(code, countryNames[code]);
+    registerAlias(code, base[code]?.name);
+    registerAlias(code, OFFICIAL_NAME_OVERRIDES[code]);
+    compactList(HISTORICAL_NAME_OVERRIDES[code]).forEach(name => registerAlias(code, name));
+    compactList(DYADIC_COUNTRY_ALIAS_OVERRIDES[code]).forEach(name => registerAlias(code, name));
+    countryIndex.set(code, []);
+  });
+
+  compactList(dyadicConflictSummary?.conflicts).forEach(conflict => {
+    const aliases = [...compactList(conflict.locations), ...compactList(conflict.territoryNames)];
+    const matchedCodes = new Set(
+      aliases
+        .map(alias => reverseAliasMap.get(normalizeKey(alias)))
+        .filter(Boolean)
+    );
+
+    const normalizedConflict = {
+      dyadicConflictId: conflict.conflictId,
+      startYear: conflict.startYear ?? null,
+      endYear: conflict.endYear ?? null,
+      region: getDyadicRegionLabel(conflict.regions),
+      conflictType: getDyadicConflictTypeLabel(conflict.conflictTypes),
+      intensityLevel: getDyadicIntensityLabel(conflict.intensityLevels),
+      participants: {
+        sideA: compactList(conflict.sideA),
+        sideB: compactList(conflict.sideB)
+      },
+      locations: compactList(conflict.locations),
+      territoryNames: compactList(conflict.territoryNames),
+      source: "UCDP Dyadic Dataset v25.1"
+    };
+
+    matchedCodes.forEach(code => {
+      countryIndex.get(code)?.push(normalizedConflict);
+    });
+  });
+
+  dyadicCountryIndexCache = countryIndex;
+  return dyadicCountryIndexCache;
+}
+
+function conflictsYearsOverlap(conflict, candidate) {
+  const leftStart = conflict.startYear ?? conflict.endYear ?? null;
+  const leftEnd = conflict.endYear ?? conflict.startYear ?? null;
+  const rightStart = candidate.startYear ?? candidate.endYear ?? null;
+  const rightEnd = candidate.endYear ?? candidate.startYear ?? null;
+
+  if (leftStart === null || rightStart === null) {
+    return false;
+  }
+
+  return leftStart <= rightEnd && rightStart <= leftEnd;
+}
+
+function scoreDyadicConflictCandidate(conflict, candidate) {
+  let score = 0;
+  const conflictStart = conflict.startYear ?? conflict.endYear ?? null;
+  const conflictEnd = conflict.endYear ?? conflict.startYear ?? null;
+  const candidateStart = candidate.startYear ?? candidate.endYear ?? null;
+  const candidateEnd = candidate.endYear ?? candidate.startYear ?? null;
+
+  if (conflictsYearsOverlap(conflict, candidate)) {
+    score += 5;
+  }
+  if (conflict.startYear !== null && candidate.startYear !== null && conflict.startYear === candidate.startYear) {
+    score += 2;
+  }
+  if (conflict.endYear !== null && candidate.endYear !== null && conflict.endYear === candidate.endYear) {
+    score += 2;
+  }
+  if (conflict.ongoing && candidate.endYear === null) {
+    score += 1;
+  }
+  if (candidateStart !== null && candidateEnd !== null) {
+    const candidateSpan = Math.max(1, candidateEnd - candidateStart + 1);
+    score += Math.max(0, 3 - Math.min(3, Math.floor(candidateSpan / 10)));
+  }
+  if (conflictStart !== null && candidateStart !== null) {
+    score += Math.max(0, 3 - Math.min(3, Math.floor(Math.abs(conflictStart - candidateStart) / 5)));
+  }
+  if (conflictEnd !== null && candidateEnd !== null) {
+    score += Math.max(0, 3 - Math.min(3, Math.floor(Math.abs(conflictEnd - candidateEnd) / 5)));
+  }
+
+  return score;
+}
+
+function isSpecificDyadicMatch(conflict, candidate) {
+  const conflictStart = conflict.startYear ?? conflict.endYear ?? null;
+  const conflictEnd = conflict.endYear ?? conflict.startYear ?? null;
+  const candidateStart = candidate.startYear ?? candidate.endYear ?? null;
+  const candidateEnd = candidate.endYear ?? candidate.startYear ?? null;
+
+  if (conflictStart === null || candidateStart === null || candidateEnd === null) {
+    return false;
+  }
+
+  const candidateSpan = Math.max(1, candidateEnd - candidateStart + 1);
+  if (candidateSpan <= 15) {
+    return true;
+  }
+
+  const startDistance = Math.abs(conflictStart - candidateStart);
+  const endDistance = Math.abs((conflictEnd ?? conflictStart) - candidateEnd);
+  return startDistance <= 3 && endDistance <= 3;
+}
+
+function enrichConflictsWithDyadic(code, conflicts = []) {
+  const countryCandidates = buildDyadicCountryIndex().get(code) || [];
+  if (!countryCandidates.length) {
+    return conflicts;
+  }
+
+  return conflicts.map(conflict => {
+    if (!conflict?.name) {
+      return conflict;
+    }
+
+    if ((conflict.startYear ?? conflict.endYear ?? 0) < 2000) {
+      return conflict;
+    }
+
+    const needsSupplement = !conflict.region || !conflict.participants || !conflict.conflictType || !conflict.intensityLevel;
+    if (!needsSupplement) {
+      return conflict;
+    }
+
+    const ranked = countryCandidates
+      .map(candidate => ({ candidate, score: scoreDyadicConflictCandidate(conflict, candidate) }))
+      .filter(entry => entry.score > 0 && isSpecificDyadicMatch(conflict, entry.candidate))
+      .sort((a, b) => b.score - a.score);
+
+    if (!ranked.length) {
+      return conflict;
+    }
+
+    const best = ranked[0];
+    const second = ranked[1];
+    if (second && best.score <= second.score) {
+      return conflict;
+    }
+
+    const supplementalSources = uniqueBy(
+      [...compactList(conflict.sources), best.candidate.source],
+      value => normalizeKey(value)
+    );
+
+    return {
+      ...conflict,
+      region: conflict.region || best.candidate.region || null,
+      conflictType: conflict.conflictType || best.candidate.conflictType || null,
+      intensityLevel: conflict.intensityLevel || best.candidate.intensityLevel || null,
+      participants:
+        conflict.participants ||
+        (best.candidate.participants.sideA.length || best.candidate.participants.sideB.length
+          ? best.candidate.participants
+          : null),
+      dyadicConflictId: conflict.dyadicConflictId || best.candidate.dyadicConflictId,
+      locations: uniqueBy(
+        [...compactList(conflict.locations), ...compactList(best.candidate.locations)],
+        value => normalizeKey(value)
+      ),
+      territoryNames: uniqueBy(
+        [...compactList(conflict.territoryNames), ...compactList(best.candidate.territoryNames)],
+        value => normalizeKey(value)
+      ),
+      sources: supplementalSources
+    };
+  });
+}
+
+function stripHistoricalDyadicSupplement(conflicts = []) {
+  return conflicts.map(conflict => {
+    if (!conflict?.dyadicConflictId) {
+      return conflict;
+    }
+
+    const conflictYear = conflict.startYear ?? conflict.endYear ?? 0;
+    if (conflictYear >= 2000) {
+      return conflict;
+    }
+
+    const remainingSources = compactList(conflict.sources).filter(source => normalizeKey(source) !== normalizeKey("UCDP Dyadic Dataset v25.1"));
+    const { dyadicConflictId, participants, region, conflictType, intensityLevel, locations, territoryNames, sources, ...rest } = conflict;
+
+    return {
+      ...rest,
+      ...(remainingSources.length ? { sources: remainingSources } : {})
+    };
+  });
+}
+
+function mergeConflictSources(code, ...sources) {
+  const merged = normalizeConflicts([...sources.flat(), ...getGlobalConflictParticipation(code)]);
+  const deduped = mergeConflictEntries(merged)
+    .sort((a, b) => (a.startYear ?? 9999) - (b.startYear ?? 9999) || (a.endYear ?? 9999) - (b.endYear ?? 9999) || String(a.name || "").localeCompare(String(b.name || ""), "es"));
+
+  const overrides = CURATED_CONFLICT_OVERRIDES[code];
+  const baseConflicts = overrides
+    ? mergeConflictEntries([...deduped, ...normalizeConflicts(overrides)])
+    : deduped;
+
+  return stripHistoricalDyadicSupplement(enrichConflictsWithDyadic(code, baseConflicts))
+    .sort((a, b) => (a.startYear ?? 9999) - (b.startYear ?? 9999) || (a.endYear ?? 9999) - (b.endYear ?? 9999) || String(a.name || "").localeCompare(String(b.name || ""), "es"));
 }
 
 function normalizeConflicts(conflictEntries) {
@@ -4416,19 +4994,31 @@ function normalizeConflicts(conflictEntries) {
       }
 
       if (typeof entry === "string") {
+        const canonicalName = canonicalizeConflictName(entry);
+        const hints = getConflictYearHints(canonicalName);
+        const inferredFromName = inferConflictYearsFromText(entry);
         return {
-          name: entry,
-          startYear: null,
-          endYear: null,
-          ongoing: false
+          name: canonicalName,
+          startYear: hints?.startYear ?? inferredFromName.startYear ?? inferredFromName.endYear ?? null,
+          endYear: hints?.endYear ?? inferredFromName.endYear ?? inferredFromName.startYear ?? null,
+          ongoing: Boolean(hints?.ongoing ?? inferredFromName.ongoing)
         };
       }
 
+      const canonicalName = canonicalizeConflictName(entry.name || null);
+      const hints = getConflictYearHints(canonicalName);
+      const inferredFromName = inferConflictYearsFromText(entry.name || "");
+      const explicitStartYear = entry.startYear ?? null;
+      const explicitEndYear = entry.endYear ?? null;
+      const resolvedStartYear = explicitStartYear ?? hints?.startYear ?? inferredFromName.startYear ?? explicitEndYear ?? hints?.endYear ?? inferredFromName.endYear ?? null;
+      const resolvedEndYear = explicitEndYear ?? hints?.endYear ?? inferredFromName.endYear ?? resolvedStartYear ?? null;
+
       return {
-        name: entry.name || null,
-        startYear: entry.startYear ?? null,
-        endYear: entry.endYear ?? null,
-        ongoing: Boolean(entry.ongoing)
+        ...entry,
+        name: canonicalName,
+        startYear: resolvedStartYear,
+        endYear: resolvedEndYear,
+        ongoing: Boolean(entry.ongoing ?? hints?.ongoing ?? inferredFromName.ongoing)
       };
     })
     .filter(entry => entry?.name);
@@ -4446,6 +5036,59 @@ const religionDetails = readJson("./data/raw/religion_details.json");
 const military = readJson("./data/raw/military.json");
 const conflicts = readJson("./data/raw/conflicts.json");
 const inflation = readJson("./data/raw/inflation.json");
+const importedConflictDetails = readJson("./data/conflict_details.generated.json");
+const dyadicConflictSummary = readJson("./data/conflict_dyadic_summary.json");
+
+const DYADIC_REGION_LABELS = {
+  "1": "Europa",
+  "2": "Medio Oriente",
+  "3": "Asia",
+  "4": "Africa",
+  "5": "America"
+};
+
+const DYADIC_CONFLICT_TYPE_LABELS = {
+  "1": "interestatal",
+  "2": "extraestatal",
+  "3": "interno",
+  "4": "internacionalizado"
+};
+
+const DYADIC_COUNTRY_ALIAS_OVERRIDES = {
+  AFG: ["afghanistan"],
+  COD: ["dr congo (zaire)", "democratic republic of congo", "democratic republic of the congo", "zaire", "dr congo"],
+  COG: ["republic of congo", "congo-brazzaville"],
+  CIV: ["ivory coast"],
+  CZE: ["czech republic", "czechia"],
+  SWZ: ["eswatini", "swaziland"],
+  MKD: ["macedonia", "north macedonia"],
+  TZA: ["tanzania", "united republic of tanzania"],
+  PSE: ["west bank", "palestine"],
+  TWN: ["taiwan", "republic of china"],
+  GRL: ["greenland"],
+  GUF: ["french guiana"],
+  ATA: ["antarctica"],
+  "-99": ["somaliland"],
+  IRQ: ["iraq"],
+  ISR: ["israel"],
+  UKR: ["ukraine"],
+  VNM: ["north vietnam", "south vietnam", "vietnam"],
+  KHM: ["cambodia", "cambodia (kampuchea)"],
+  LAO: ["laos", "lao pdr"],
+  SYR: ["syria", "syrian arab republic"],
+  IRN: ["iran", "iran (persia)"],
+  PRK: ["north korea", "korea, north", "democratic people's republic of korea"],
+  KOR: ["south korea", "korea, south", "republic of korea"],
+  USA: ["united states", "united states of america"],
+  GBR: ["united kingdom", "great britain"],
+  RUS: ["russia", "russian federation"],
+  BOL: ["bolivia"],
+  VEN: ["venezuela"],
+  ETH: ["ethiopia"],
+  SOM: ["somalia"],
+  SDN: ["sudan"],
+  SSD: ["south sudan"]
+};
 
 const continentByCode = Object.fromEntries(
   continents.map(entry => [entry.code, entry.continent])
@@ -4816,7 +5459,7 @@ console.log(`Dataset generado: ${Object.keys(sanitizedResult).length} paises.`);
 /*
   PAN: {
     flagDescription: "Bandera cuartelada blanca, roja y azul con estrellas",
-    coatOfArms: "Escudo con aguila harpía, armas, cornucopia y lema nacional"
+    coatOfArms: "Escudo con aguila harpÃ­a, armas, cornucopia y lema nacional"
   },
   PER: {
     flagDescription: "Bandera roja, blanca y roja vertical con escudo en version estatal",
@@ -4863,3 +5506,4 @@ console.log(`Dataset generado: ${Object.keys(sanitizedResult).length} paises.`);
     diplomaticBlocs: ["ONU", "CELAC"]
   },
 */
+

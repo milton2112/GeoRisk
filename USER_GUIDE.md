@@ -212,3 +212,5 @@ Limitaciones:
 
 - noticias en vivo dependen de internet;
 - imagenes y scripts remotos de terceros pueden requerir conectividad en una primera carga.
+
+Si queres ver hacia donde podria crecer GeoRisk con una API propia, mira `BACKEND_PLAN.md` desde la seccion de documentacion.

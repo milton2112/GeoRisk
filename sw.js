@@ -1,5 +1,6 @@
-const APP_CACHE = "geo-risk-app-v11";
-const TILE_CACHE = "geo-risk-tiles-v11";
+const CACHE_VERSION = "2026-04-20-boot-1";
+const APP_CACHE = `geo-risk-app-${CACHE_VERSION}`;
+const TILE_CACHE = `geo-risk-tiles-${CACHE_VERSION}`;
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -18,9 +19,11 @@ const APP_SHELL = [
   "./CHANGELOG.md",
   "./TECHNICAL.md",
   "./USER_GUIDE.md",
+  "./BACKEND_PLAN.md",
   "./favicon.ico",
   "./favicon.svg",
   "./data/countries_full.json",
+  "./data/conflict_details.generated.json",
   "./data/geo_aliases.json",
   "./data/world_countries.geo.json",
   "./data/world_countries_simplified.geo.json",
@@ -71,6 +74,12 @@ self.addEventListener("activate", event => {
     )
   );
   self.clients.claim();
+});
+
+self.addEventListener("message", event => {
+  if (event.data?.type === "SKIP_WAITING") {
+    self.skipWaiting();
+  }
 });
 
 self.addEventListener("fetch", event => {

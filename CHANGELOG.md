@@ -6,6 +6,19 @@ Este proyecto usa versionado semantico:
 - `MINOR`: nuevas funciones importantes sin romper compatibilidad.
 - `PATCH`: fixes, pulido y ajustes menores.
 
+## v1.6.0
+
+Actualizacion de producto orientada a uso real y crecimiento futuro.
+
+- Titulares reales dentro del hub de noticias con varias cabeceras en vivo por pais cuando la fuente responde.
+- Mas categorias de quiz: idiomas, bloques y conflictos.
+- Comparador mas profundo con calidad del dataset, alcance diplomatico, idiomas, exposicion conflictiva y mas lectura estrategica.
+- Nuevas capas tematicas: calidad del dataset, diversidad linguistica y alcance diplomatico.
+- Modos de producto mas marcados para analisis, enciclopedia y presentacion.
+- Exportaciones tipo informe con cabecera editorial y contexto de vista.
+- Changelog visible mas rico dentro de la app.
+- Documentacion ampliada con plan de futura API/backend simple.
+
 ## v1.5.0
 
 Actualizacion amplia de producto, arquitectura y curaduria.

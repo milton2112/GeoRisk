@@ -13,6 +13,23 @@
 - `data/raw/religion.json`
 - `data/raw/inflation.json`
 
+## Conflictos suplementarios
+
+- `data/conflict_details.generated.json`
+  Detalle enriquecido desde Wikipedia para conflictos con infobox compatible.
+
+- `data/conflict_dyadic_summary.json`
+  Resumen auxiliar generado desde `Dyadic_v25_1.xlsx` del UCDP.
+  Se conserva como fuente complementaria segura para:
+  - rangos de años,
+  - lados enfrentados,
+  - region,
+  - localizacion agregada por `conflict_id`.
+
+- `GEDEvent_v25_1.xlsx`
+  Revisado a nivel estructural, pero no integrado todavia en el pipeline principal.
+  Ese archivo trabaja a nivel evento y con mucho mas volumen, asi que necesita una ingesta dedicada para no mezclar eventos tacticos con guerras canonicas ni castigar el rendimiento.
+
 ## Integraciones y criterios
 
 - Inflacion: prioriza serie local consolidada con base del Banco Mundial.

@@ -1,4 +1,4 @@
-const fallbackGetDeviceProfile = ({ isMobile, currentMapMode, deviceMemory = 4, hardwareConcurrency = 4 }) => {
+﻿const fallbackGetDeviceProfile = ({ isMobile, currentMapMode, deviceMemory = 4, hardwareConcurrency = 4 }) => {
   const constrained = isMobile || deviceMemory <= 4 || hardwareConcurrency <= 4;
   const mode2d = currentMapMode === "2d";
 
@@ -70,7 +70,7 @@ const countryPanelUi = window.GeoRiskCountryPanel || {};
 const timelineConflictUi = window.GeoRiskTimelineConflicts || {};
 const sharedTheme = window.GeoRiskTheme || {};
 const sharedText = window.GeoRiskText || {};
-const APP_VERSION = "2026-04-16-product-polish-1";
+const APP_VERSION = "2026-04-20-boot-1";
 
 const QUALITY_PRESET_OVERRIDES = {
   auto: null,
@@ -167,15 +167,12 @@ const THEME_STYLES = {
     islam: "#f28482",
     hinduismo: "#f6bd60",
     budismo: "#84a59d",
-    judaísmo: "#cdb4db",
     judaismo: "#cdb4db",
     sijismo: "#ffd166",
-    sintoísmo: "#43aa8b",
     sintoismo: "#43aa8b",
     zoroastrismo: "#bc6c25",
     animismo: "#6a994e",
     "no afiliados": "#8d99ae",
-    vudú: "#b56576",
     vudu: "#b56576",
     otras: "#8ecae6"
   },
@@ -895,13 +892,45 @@ function applyAppMode(mode = "default", persist = true) {
     select.value = appMode;
   }
 
+  const preferredThemesByMode = {
+    analysis: "geopoliticalIndex",
+    encyclopedia: "qualityScore",
+    presentation: "default"
+  };
+  const preferredTheme = preferredThemesByMode[appMode];
+  if (preferredTheme && (currentTheme === "default" || currentTheme === "qualityScore" || currentTheme === "geopoliticalIndex")) {
+    setTheme(preferredTheme);
+    const themeSelect = document.getElementById("theme-select");
+    if (themeSelect) {
+      themeSelect.value = preferredTheme;
+    }
+  }
+
   const rankingsPanel = document.getElementById("rankings-panel");
   const toolbar = document.getElementById("map-toolbar");
+  const comparePanel = document.getElementById("compare-hub-panel");
+  const quizPanel = document.getElementById("quiz-hub-panel");
+  const newsPanel = document.getElementById("news-hub-panel");
   if (rankingsPanel) {
     rankingsPanel.open = appMode === "analysis";
   }
   if (toolbar) {
     toolbar.open = appMode === "analysis" || appMode === "encyclopedia";
+  }
+  if (comparePanel) {
+    comparePanel.open = appMode === "analysis" && compareSelection.length > 0;
+  }
+  if (quizPanel) {
+    quizPanel.open = false;
+  }
+  if (newsPanel) {
+    newsPanel.open = appMode === "presentation" ? false : newsPanel.open;
+  }
+  if (appMode === "encyclopedia" && currentPanelState.type === "country" && currentPanelState.code) {
+    const selectedCountry = countriesData[currentPanelState.code];
+    if (selectedCountry) {
+      renderCountry(selectedCountry);
+    }
   }
 
   updateStaticText();
@@ -1100,10 +1129,22 @@ const satelliteImageryProvider = new Cesium.UrlTemplateImageryProvider({
   credit: "Esri, Maxar, Earthstar Geographics, and the GIS User Community"
 });
 
+const satelliteImageryProviderBoot = new Cesium.UrlTemplateImageryProvider({
+  url: "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+  credit: "Esri, Maxar, Earthstar Geographics, and the GIS User Community",
+  maximumLevel: 4
+});
+
 const satelliteImageryProvider2D = new Cesium.UrlTemplateImageryProvider({
   url: "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
   credit: "Esri, Maxar, Earthstar Geographics, and the GIS User Community",
   maximumLevel: 9
+});
+
+const satelliteImageryProvider2DBoot = new Cesium.UrlTemplateImageryProvider({
+  url: "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+  credit: "Esri, Maxar, Earthstar Geographics, and the GIS User Community",
+  maximumLevel: 5
 });
 
 let activeGeoJsonDataSource = null;
@@ -1128,14 +1169,17 @@ function fetchResourceCached(url, responseType = "json") {
   return promise;
 }
 
-function applyImageryForMode() {
+function applyImageryForMode(boot = false) {
   if (!viewer) {
     return;
   }
 
   viewer.imageryLayers.removeAll();
   try {
-    viewer.imageryLayers.addImageryProvider(currentMapMode === "2d" ? satelliteImageryProvider2D : satelliteImageryProvider);
+    const provider = currentMapMode === "2d"
+      ? (boot ? satelliteImageryProvider2DBoot : satelliteImageryProvider2D)
+      : (boot ? satelliteImageryProviderBoot : satelliteImageryProvider);
+    viewer.imageryLayers.addImageryProvider(provider);
   } catch (error) {
     console.error("No se pudo aplicar la capa base del mapa:", error);
     try {
@@ -1312,6 +1356,33 @@ function scheduleGeoJsonWarmup() {
 
   if (window.requestIdleCallback) {
     window.requestIdleCallback(warm, { timeout: 1200 });
+  } else if (category === "language") {
+    const mainLanguage = country.general.languages[0];
+    prompt = `¿Cual es uno de los idiomas principales de ${country.name}?`;
+    correct = typeof mainLanguage === "string" ? mainLanguage : (mainLanguage?.name || "Sin datos");
+    distractors = shuffleArray(
+      Object.values(countriesData)
+        .flatMap(item => item.general?.languages || [])
+        .map(item => typeof item === "string" ? item : item?.name)
+        .filter(Boolean)
+        .filter(name => normalizeText(name) !== normalizeText(correct))
+    ).slice(0, 3);
+  } else if (category === "bloc") {
+    const bloc = (country.politics?.relations?.blocs || [])[0];
+    prompt = `¿Que pais pertenece a este bloque? ${bloc}`;
+    correct = country.name;
+    distractors = shuffleArray(Object.values(countriesData).map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
+  } else if (category === "conflict") {
+    const conflict = (country.military?.conflicts || country.conflicts || [])[0];
+    const label = typeof conflict === "string" ? conflict : (conflict?.name || conflict?.war || "Conflicto");
+    prompt = `¿Que pais estuvo vinculado a ${label}?`;
+    correct = country.name;
+    distractors = shuffleArray(
+      Object.values(countriesData)
+        .filter(item => difficulty === "easy" || item.continent === country.continent)
+        .map(item => item.name)
+        .filter(name => normalizeText(name) !== normalizeText(correct))
+    ).slice(0, 3);
   } else {
     setTimeout(warm, 320);
   }
@@ -1364,6 +1435,72 @@ const timelineModalRegistry = new Map();
 let timelineModalCounter = 0;
 let activeNewsCountryCode = "";
 let loadDataPromise = null;
+let loadSupplementalDataPromise = null;
+let loadDeferredDataEnhancementsPromise = null;
+let loadMapPromise = null;
+let loadMapMode = "";
+const bootMetrics = {
+  startedAt: 0,
+  completedAt: 0,
+  steps: {},
+  errors: []
+};
+
+function markBootStepStart(name) {
+  if (!bootMetrics.startedAt) {
+    bootMetrics.startedAt = performance.now();
+  }
+  bootMetrics.steps[name] = {
+    ...(bootMetrics.steps[name] || {}),
+    start: performance.now()
+  };
+}
+
+function markBootStepEnd(name, extra = {}) {
+  const current = bootMetrics.steps[name] || {};
+  const start = current.start || performance.now();
+  bootMetrics.steps[name] = {
+    ...current,
+    ...extra,
+    end: performance.now(),
+    duration: Math.max(0, performance.now() - start)
+  };
+}
+
+async function measureBootStep(name, task, extra = {}) {
+  markBootStepStart(name);
+  try {
+    const result = await task();
+    markBootStepEnd(name, extra);
+    return result;
+  } catch (error) {
+    bootMetrics.errors.push({ name, message: error?.message || String(error) });
+    markBootStepEnd(name, { error: error?.message || String(error), ...extra });
+    throw error;
+  }
+}
+
+function completeBootMetrics() {
+  bootMetrics.completedAt = performance.now();
+}
+
+function getBootProfileSummary() {
+  const total = bootMetrics.completedAt && bootMetrics.startedAt
+    ? Math.max(0, bootMetrics.completedAt - bootMetrics.startedAt)
+    : 0;
+  const imagery = bootMetrics.steps.mapBootReady?.duration || 0;
+  const data = bootMetrics.steps.loadData?.duration || 0;
+  const overlay = bootMetrics.steps.loadMapOverlay?.duration || 0;
+  const ui = bootMetrics.steps.deferredUi?.duration || 0;
+  return {
+    total,
+    imagery,
+    data,
+    overlay,
+    ui
+  };
+}
+let mapOverlayLoadToken = 0;
 let deferredGlobalStatsTimer = null;
 let deferredGlobalStatsReady = false;
 let hoverSuppressedUntil = 0;
@@ -1411,10 +1548,255 @@ const DATA_SOURCE_SUMMARY = {
   ]
 };
 
+const CONFLICT_NAME_ALIASES = [
+  [/^Guerra de Malvinas$/i, "Guerra de las Malvinas"],
+  [/^Falklands War$/i, "Guerra de las Malvinas"],
+  [/^Guerra de Falklands$/i, "Guerra de las Malvinas"],
+  [/^World War I$/i, "Primera Guerra Mundial"],
+  [/^First World War$/i, "Primera Guerra Mundial"],
+  [/^Great War$/i, "Primera Guerra Mundial"],
+  [/^World War II$/i, "Segunda Guerra Mundial"],
+  [/^Second World War$/i, "Segunda Guerra Mundial"],
+  [/^Iraq War$/i, "Guerra de Irak"],
+  [/^War in Afghanistan$/i, "Guerra de Afganistan"],
+  [/^Korean War$/i, "Guerra de Corea"],
+  [/^Kosovo War$/i, "Guerra de Kosovo"],
+  [/^Vietnam War$/i, "Guerra de Vietnam"],
+  [/^War of Attrition$/i, "Guerra de Desgaste"],
+  [/^Six-Day War$/i, "Guerra de los Seis Dias"],
+  [/^Yom Kippur War$/i, "Guerra de Yom Kipur"],
+  [/^First Congo War$/i, "Primera Guerra del Congo"],
+  [/^Second Congo War$/i, "Segunda Guerra del Congo"],
+  [/^Kivu conflict$/i, "Guerra de Kivu"],
+  [/^Russo-Ukrainian War$/i, "Guerra rusoucraniana"],
+  [/^Russian invasion of Ukraine$/i, "Guerra rusoucraniana"],
+  [/^War in Donbas$/i, "Guerra del Donbas"],
+  [/^Arab-Israeli War of 1948$/i, "Guerra arabe-israeli de 1948"],
+  [/^Chinese Civil War$/i, "Guerra civil china"],
+  [/^Crimean War$/i, "Guerra de Crimea"],
+  [/^Russo-Japanese War$/i, "Guerra ruso-japonesa"],
+  [/^Algerian War$/i, "Guerra de Argelia"],
+  [/^War of the Pacific$/i, "Guerra del Pacifico"],
+  [/^Chaco War$/i, "Guerra del Chaco"],
+  [/^Cenepa War$/i, "Guerra del Cenepa"],
+  [/^False Paquisha conflict$/i, "Conflicto del Falso Paquisha"],
+  [/^Dominican War of Independence$/i, "Guerra de la Independencia Dominicana"],
+  [/^War of the Confederation$/i, "Guerra contra la Confederacion Peru-Boliviana"],
+  [/^Guatemalan-Salvadoran War of 1906$/i, "Guerra entre Guatemala y El Salvador de 1906"],
+  [/^Honduran-Salvadoran War of 1871$/i, "Guerra entre Honduras y El Salvador de 1871"],
+  [/^Mexican Drug War$/i, "Guerra contra el narcotrafico en Mexico"],
+  [/^Zapatista uprising$/i, "Levantamiento zapatista"],
+  [/^Guerra de Malvinas \\(1982\\)$/i, "Guerra de las Malvinas"],
+  [/^Guerra contra el narcotrÃ¡fico en MÃ©xico$/i, "Guerra contra el narcotrafico en Mexico"],
+  [/^Guerra contra la ConfederaciÃ³n PerÃº-Boliviana$/i, "Guerra contra la Confederacion Peru-Boliviana"],
+  [/^Honduran-Salvadoran War de 1871$/i, "Guerra entre Honduras y El Salvador de 1871"],
+  [/^Gulf War$/i, "Guerra del Golfo"],
+  [/^Syrian civil war$/i, "Guerra civil siria"],
+  [/^Spanish Civil War$/i, "Guerra civil espanola"],
+  [/^Iran-Iraq War$/i, "Guerra Iran-Iraq"],
+  [/^First Intifada$/i, "Primera intifada"],
+  [/^Second Intifada$/i, "Segunda intifada"],
+  [/^Operation Deliberate Force$/i, "Operacion Deliberate Force"],
+  [/^1984 DMZ incident$/i, "Incidente de la ZDC de 1984"],
+  [/^Struggle for Negev 1947-1956$/i, "Campana del Neguev (1947-1956)"],
+  [/^Battle of Amiens$/i, "Batalla de Amiens"],
+  [/^Battle of Bubiyan$/i, "Batalla de Bubiyan"],
+  [/^Battle of Long Tan$/i, "Batalla de Long Tan"],
+  [/^Battle of Manila$/i, "Batalla de Manila"],
+  [/^Borneo campaign$/i, "Campana de Borneo"],
+  [/^Sa'dah conflict$/i, "Conflicto de Sa'dah"],
+  [/^Water War over the Jordan River$/i, "Guerra por el agua del rio Jordan"],
+  [/^Arabâ€“Israeli Wars$/i, "Guerras arabe-israelies"],
+  [/^Guerra Ã¡rabe-israelÃ­ de 1948$/i, "Guerra arabe-israeli de 1948"],
+  [/^Bombing de Gaza Strip$/i, "Bombardeo de la Franja de Gaza"],
+  [/^Conflicto de la Franja de Gaza de 2008[â€“-]2009$/i, "Conflicto de la Franja de Gaza de 2008-2009"],
+  [/^IrÃ¡n.?Israel conflict during Syrian civil war$/i, "Conflicto irano-israeli durante la guerra civil siria"],
+  [/^Conflicto irano-israel[iÃ­]$/i, "Conflicto irano-israeli"],
+  [/^Israeli-British clash de January 7, 1949$/i, "Choque israelo-britanico del 7 de enero de 1949"],
+  [/^Conflicto fronterizo sirio-israel[iÃ­] \\(2012-presente\\)$/i, "Conflicto fronterizo sirio-israeli (2012-presente)"],
+  [/^Crisis del golfo PÃ©rsico de 2019-2022$/i, "Crisis del golfo Persico de 2019-2022"],
+  [/^Guerra subsidiaria irano-saud[iÃ­]$/i, "Guerra subsidiaria irano-saudi"],
+  [/^Guerra subsidiaria irano-turca$/i, "Guerra subsidiaria irano-turca"],
+  [/^Insurgencia palestina en el sur del L[iÃ­]bano$/i, "Insurgencia palestina en el sur del Libano"],
+  [/^Ataque de IrÃ¡n a Israel de 2024$/i, "Ataque de Iran a Israel de 2024"],
+  [/^Ataques de Estados Unidos en Yemen en 2025$/i, "Ataques de Estados Unidos en Yemen en 2025"],
+  [/^Conflicto afgano-iran[iÃ­] de 2021$/i, "Conflicto afgano-irani de 2021"],
+  [/^Conflicto afgano-iran[iÃ­] de 2023$/i, "Conflicto afgano-irani de 2023"],
+  [/^IntervenciÃ³n estadounidense en la guerra civil siria$/i, "Intervencion estadounidense en la guerra civil siria"],
+  [/^Iranian bombings en Iraqi Kurdistan en 2022$/i, "Bombardeos iranies en el Kurdistan iraqui en 2022"],
+  [/^Iraq War troop surge de 2007$/i, "Escalada de tropas en la guerra de Irak de 2007"],
+  [/^Levantamiento de Barein de 2011$/i, "Levantamiento de Barein de 2011"],
+  [/^RebeliÃ³n asiria$/i, "Rebelion asiria"],
+  [/^Saudi maritime expansion, 1789-1809$/i, "Expansion maritima saudita (1789-1809)"],
+  [/^Syrian front en War de Attrition$/i, "Frente sirio en la Guerra de Desgaste"],
+  [/^Enfrentamientos en el sur de Siria \\(abril-mayo de 2025\\)$/i, "Enfrentamientos en el sur de Siria (abril-mayo de 2025)"],
+  [/^Enfrentamientos en el sur de Siria \\(julio de 2025-presente\\)$/i, "Enfrentamientos en el sur de Siria (julio de 2025-presente)"],
+  [/^Battle of Inchon$/i, "Batalla de Incheon"],
+  [/^Inchon Landing$/i, "Batalla de Incheon"],
+  [/^UN offensive into North Korea$/i, "Ofensiva de la ONU en Corea del Norte"],
+  [/^Vietnam Counteroffensive Phase II$/i, "Contraofensiva vietnamita fase II"],
+  [/^Vietnam Counteroffensive Phase III$/i, "Contraofensiva vietnamita fase III"],
+  [/^Arabâ€“Israeli Wars$/i, "Guerras arabe-israelies"],
+  [/^Arab-Israeli Wars$/i, "Guerras arabe-israelies"],
+  [/^Gaza War$/i, "Guerra de Gaza"],
+  [/^2012 Gaza War$/i, "Guerra de Gaza de 2012"],
+  [/^Iran.?Israel conflict during Syrian civil war$/i, "Conflicto irano-israeli durante la guerra civil siria"],
+  [/^Iran.?Israel conflict$/i, "Conflicto irano-israeli"],
+  [/^Israeli-British clash.*1949$/i, "Choque israelo-britanico del 7 de enero de 1949"],
+  [/^Battle of the Bulge$/i, "Batalla de las Ardenas"],
+  [/^North Borneo campaign$/i, "Batalla de North Borneo"],
+  [/^North Borneo battle$/i, "Batalla de North Borneo"],
+  [/^Battle of Midway$/i, "Batalla de Midway"],
+  [/^Guadalcanal Campaign$/i, "Campaña de Guadalcanal"],
+  [/^Naval Battle of Guadalcanal$/i, "Batalla naval de Guadalcanal"],
+  [/^First Battle of El Alamein$/i, "Primera Batalla de El Alamein"],
+  [/^Second Battle of El Alamein$/i, "Segunda batalla de El Alamein"],
+  [/^Battle of Gazala$/i, "Batalla de Gazala"],
+  [/^Tet Offensive$/i, "Ofensiva del Tet"],
+  [/^Siege of Khe Sanh$/i, "Sitio de Khe Sanh"],
+  [/^Battle of Coral[-â€“]Balmoral$/i, "Batalla de Coral-Balmoral"],
+  [/^Batalla de Coral[-â€“]Balmoral$/i, "Batalla de Coral-Balmoral"],
+  [/^Battle of Saigon$/i, "Batalla de Saigon"],
+  [/^Signal Hill.*Vietnam$/i, "Batalla de Signal Hill Vietnam"],
+  [/^Battle of Ia Drang$/i, "Batalla del valle de Ia Drang"],
+  [/^Ia Drang Valley$/i, "Batalla del valle de Ia Drang"],
+  [/^Indochina Wars$/i, "Guerras de Indochina"],
+  [/^Darfur conflict$/i, "Conflicto de Darfur"],
+  [/^Ethiopian Civil War$/i, "Guerra civil etiope"],
+  [/^Ethiopian-Somali border conflict$/i, "Conflicto fronterizo etiope-somali"],
+  [/^Western Sahara conflict$/i, "Conflicto del Sahara Occidental"],
+  [/^Western Sahara War$/i, "Guerra del Sahara Occidental"],
+  [/^South Sudanese Civil War$/i, "Guerra civil sursudanesa"],
+  [/^Second Sudanese Civil War$/i, "Segunda guerra civil sudanesa"],
+  [/^April 2009 raid off Somalia$/i, "Incursion de abril de 2009 frente a Somalia"],
+  [/^Anti-piracy measures en Somalia$/i, "Medidas antipirateria en Somalia"],
+  [/^Chadian-Libyan conflict$/i, "Conflicto entre Chad y Libia"],
+  [/^Djiboutian-Eritrean border conflict$/i, "Conflicto fronterizo entre Yibuti y Eritrea"],
+  [/^Eritrean-Ethiopian War$/i, "Guerra entre Etiopia y Eritrea"],
+  [/^First Burundi War$/i, "Primera guerra de Burundi"],
+  [/^First Burundian Civil War$/i, "Primera guerra de Burundi"],
+  [/^First Chad \\(FROLINAT\\) Rebellion$/i, "Primera rebelion de Chad (FROLINAT)"],
+  [/^First Rwanda War$/i, "Primera guerra de Ruanda"],
+  [/^Second Rwanda War$/i, "Segunda guerra de Ruanda"],
+  [/^Third Rwanda War$/i, "Tercera guerra de Ruanda"],
+  [/^First Uganda War$/i, "Primera guerra de Uganda"],
+  [/^Republic of the Congo Civil War$/i, "Guerra civil de la Republica del Congo"],
+  [/^Somaliland War of Independence$/i, "Guerra de Independencia de Somalilandia"],
+  [/^Somaliland War$/i, "Guerra de Somalilandia"],
+  [/^Grebo-Liberian War$/i, "Guerra grebo-liberiana"],
+  [/^Operation Ivory Coast$/i, "Operacion Costa de Marfil"],
+  [/^First Ivorian Civil War$/i, "Primera guerra civil marfilena"],
+  [/^Second Ivorian Civil War$/i, "Segunda guerra civil marfilena"],
+  [/^Second Liberia War$/i, "Segunda guerra liberiana"],
+  [/^Moroccan invasion of Spanish Sahara$/i, "Invasion marroqui del Sahara espanol"],
+  [/^First Sahrawi Intifada$/i, "Primera intifada saharaui"],
+  [/^Second Sahrawi Intifada$/i, "Segunda intifada saharaui"],
+  [/^Guerra civil de la RepÃºblica del Congo$/i, "Guerra civil de la Republica del Congo"],
+  [/^Guerra entre EtiopÃ­a y Eritrea$/i, "Guerra entre Etiopia y Eritrea"],
+  [/^Invasión marroquí del Sahara español$/i, "Invasion marroqui del Sahara espanol"],
+  [/^OperaciÃ³n Costa de Marfil$/i, "Operacion Costa de Marfil"],
+  [/^Primera Intifada saharaui$/i, "Primera intifada saharaui"],
+  [/^Segunda Intifada saharaui$/i, "Segunda intifada saharaui"],
+  [/^Battle of Arras$/i, "Batalla de Arras"],
+  [/^Battle of Cambrai$/i, "Batalla de Cambrai"],
+  [/^Battle of Jutland$/i, "Batalla de Jutlandia"],
+  [/^Battle of Vimy Ridge$/i, "Batalla de la Cresta de Vimy"],
+  [/^Battle of Messines$/i, "Batalla de Messines"],
+  [/^Battle of the Meuse$/i, "Batalla de Meuse"],
+  [/^Battle of Picardy$/i, "Batalla de Picardy"],
+  [/^Battle of the Scarpe$/i, "Batalla de Scarpe"],
+  [/^Battle of Vittorio Veneto$/i, "Batalla de Vittorio Veneto"],
+  [/^First Battle of Ypres$/i, "Primera batalla de Ypres"],
+  [/^Second Battle of the Somme$/i, "Segunda batalla de Somme"],
+  [/^Second Battle of the Marne$/i, "Segunda batalla del Marne"],
+  [/^Third Battle of the Aisne$/i, "Tercera batalla de Aisne"],
+  [/^2022 Russian invasion de Ukraine$/i, "Invasion rusa de Ucrania de 2022"],
+  [/^2016 Sirte offensive$/i, "Ofensiva de Sirte de 2016"],
+  [/^Aleppo Offensive \\(April 2016\\)$/i, "Ofensiva de Alepo de abril de 2016"],
+  [/^Battle of Al Fao de 2003$/i, "Batalla de Al Fao de 2003"],
+  [/^Battle of Baghdad de 2003$/i, "Batalla de Bagdad de 2003"],
+  [/^Battle of Kerbala de 2003$/i, "Batalla de Kerbala de 2003"],
+  [/^Battle of Mosul \\(2004\\)$/i, "Batalla de Mosul de 2004"],
+  [/^Battle of Mosul \\(2016-2017\\)$/i, "Batalla de Mosul de 2016-2017"],
+  [/^Battle of Kandahar \\(2021\\)$/i, "Batalla de Kandahar de 2021"],
+  [/^Battle of Shusha \\(2020\\)$/i, "Batalla de Shusha de 2020"],
+  [/^Battle of Tinzawatene \\(2024\\)$/i, "Batalla de Tinzawatene de 2024"],
+  [/^Battle of Dikwa \\(2 mar 2015\\)$/i, "Batalla de Dikwa de 2015"],
+  [/^Battle of Boulikessi \\(2025\\)$/i, "Batalla de Boulikessi de 2025"],
+  [/^Battle of Ras Kamboni \\(2024\\)$/i, "Batalla de Ras Kamboni de 2024"],
+  [/^Galwan Valley clash de 2020$/i, "Combate en el valle del Galwan de 2020"],
+  [/^Kharkiv Oblast counteroffensive de 2022$/i, "Contraofensiva del oblast de Jarkov de 2022"],
+  [/^Anglophone Crisis in Cameroon$/i, "Crisis anglofona de Camerun"],
+  [/^2001 insurgency in the Republic of Macedonia$/i, "Conflicto de la Republica de Macedonia de 2001"],
+  [/^Puntland crisis \\(2001-2003\\)$/i, "Crisis de Puntlandia (2001-2003)"],
+  [/^Red Sea crisis$/i, "Crisis del mar Rojo"],
+  [/^Guinean coup d'etat de 2021$/i, "Golpe de Estado guineano de 2021"],
+  [/^Somali Civil War \\(2006-2009\\)$/i, "Guerra civil somali (2006-2009)"],
+  [/^South Ossetia War$/i, "Guerra de Osetia del Sur de 2008"],
+  [/^North Waziristan border incidents de 2025$/i, "Incidentes fronterizos en Waziristan del Norte de 2025"],
+  [/^Russian drone incursions into Poland de September 2025$/i, "Incursion de drones rusos en Polonia de septiembre de 2025"],
+  [/^2001 invasion of Afghanistan$/i, "Invasion de Afganistan de 2001"],
+  [/^2003 invasion of Iraq$/i, "Invasion de Irak de 2003"],
+  [/^Iraq War \\(2003-2011\\)$/i, "Guerra de Irak (2003-2011)"],
+  [/^Boko Haram insurgency de 2009$/i, "Rebelion de Boko Haram de 2009"],
+  [/^Herat uprising de 2001$/i, "Sublevacion en Herat de 2001"],
+  [/^Ataques aÃ©reos de Yemen de 2024$/i, "Ataques de Estados Unidos en Yemen en 2025"],
+  [/^Batalla de Boulikessi \\(2025\\)$/i, "Batalla de Boulikessi de 2025"],
+  [/^Batalla de Dikwa \\(2 mar 2015\\)$/i, "Batalla de Dikwa de 2015"],
+  [/^Batalla de Galwan$/i, "Combate en el valle del Galwan de 2020"],
+  [/^Batalla de Kandahar \\(2021\\)$/i, "Batalla de Kandahar de 2021"],
+  [/^Batalla de Mosul \\(2004\\)$/i, "Batalla de Mosul de 2004"],
+  [/^Batalla de Mosul \\(2016-2017\\)$/i, "Batalla de Mosul de 2016-2017"],
+  [/^Batalla de Ras Kamboni \\(2024\\)$/i, "Batalla de Ras Kamboni de 2024"],
+  [/^Batalla de Shusha \\(2020\\)$/i, "Batalla de Shusha de 2020"],
+  [/^Batalla de TinzawatÃ¨ne \\(2024\\)$/i, "Batalla de Tinzawatene de 2024"],
+  [/^Conflicto de la RepÃºblica de Macedonia de 2001$/i, "Conflicto de la Republica de Macedonia de 2001"],
+  [/^Contraofensiva del Ã“blast de JÃ¡rkov de 2022$/i, "Contraofensiva del oblast de Jarkov de 2022"],
+  [/^Crisis anglÃ³fona de CamerÃºn$/i, "Crisis anglofona de Camerun"],
+  [/^Guerra civil somalÃ­ \\(2006-2009\\)$/i, "Guerra civil somali (2006-2009)"],
+  [/^Guerra entre IrÃ¡n e Irak$/i, "Guerra Iran-Iraq"],
+  [/^Incidentes fronterizos en WaziristÃ¡n del Norte de 2025$/i, "Incidentes fronterizos en Waziristan del Norte de 2025"],
+  [/^IncursiÃ³n de drones rusos en Polonia de septiembre de 2025$/i, "Incursion de drones rusos en Polonia de septiembre de 2025"],
+  [/^InvasiÃ³n de AfganistÃ¡n de 2001$/i, "Invasion de Afganistan de 2001"],
+  [/^InvasiÃ³n de Irak de 2003$/i, "Invasion de Irak de 2003"],
+  [/^RebeliÃ³n de Boko Haram de 2009$/i, "Rebelion de Boko Haram de 2009"],
+  [/^SublevaciÃ³n en Herat de 2001$/i, "Sublevacion en Herat de 2001"],
+  [/^Adriatic Campaign.*World War II$/i, "Campaña del Adriatico en la Segunda Guerra Mundial"],
+  [/^German occupation.*Luxembourg.*World War II$/i, "Ocupacion alemana de Luxemburgo en la Segunda Guerra Mundial"],
+  [/^Operation Barbarossa$/i, "Operación Barbarroja"],
+  [/^Operation Barbarossa$/i, "Operacion Barbarroja"],
+  [/^American airborne operations in Normandy$/i, "Operaciones aerotransportadas americanas en Normandia"],
+  [/^Battle of Caen$/i, "Batalla de Caen"],
+  [/^Battle of Brest$/i, "Batalla de Brest"],
+  [/^Battle of Monte Cassino$/i, "Batalla de Montecassino"],
+  [/^Battle of Guam$/i, "Batalla de Guam"],
+  [/^Battle of Labuan$/i, "Batalla de Labuan"],
+  [/^Battle of Bologna$/i, "Batalla de Bologna"],
+  [/^Battle of Durazzo$/i, "Batalla de Durazzo"],
+  [/^Battle of Authion$/i, "Batalla de Authion"],
+  [/^Battle of Damascus \\(1941\\)$/i, "Batalla de Damasco (1941)"],
+  [/^Battle of Garfagnana$/i, "Batalla de Garfagnana"],
+  [/^Battle of Giarabub$/i, "Batalla de Giarabub"],
+  [/^Battle of Kolombangara$/i, "Batalla de Kolombangara"],
+  [/^Battle of Shenkursk$/i, "Batalla de Shenkursk"],
+  [/^Attack on Pearl Harbor$/i, "Ataque a Pearl Harbor"],
+  [/^Battle of Chongju$/i, "Batalla de Chongju"],
+  [/^Battle of Chuam-ni$/i, "Batalla de Chuam-ni"],
+  [/^Battle of Kapyong$/i, "Batalla de Kapyong"],
+  [/^Battle of Kujin$/i, "Batalla de Kujin"],
+  [/^Battle of Chosin Reservoir$/i, "Batalla de la reserva de Chosin"],
+  [/^Battle of Maehwa-san$/i, "Batalla de Maehwa-san"],
+  [/^Battle of Busan$/i, "Batalla de Busan"],
+  [/^Battle of Imjin River$/i, "Batalla del rio Imjin"],
+  [/^Battle of Pusan Perimeter logistics$/i, "Batalla de la logistica del Perimetro de Pusan"],
+  [/^Korean Theater$/i, "Teatro coreano"],
+  [/^Second Battle of the Hook$/i, "Segunda batalla de Hook"]
+];
+
 const CONFLICT_PARENT_RULES = [
   { parent: "Guerra de las Malvinas", matches: ["goose green", "pradera del ganso", "san carlos", "wireless ridge", "harriet", "longdon", "tumbledown"] },
-  { parent: "Guerra de la Triple Alianza", matches: ["ita ybate"] },
-  { parent: "Guerra rusoucraniana", matches: ["bajmut", "avdiivka", "mariupol", "jersón", "kherson", "kiev", "kyiv"] },
+  { parent: "Guerra de la Triple Alianza", matches: ["ita ybate", "tuyuti", "curupayti", "humaita"] },
+  { parent: "Guerra ruso-ucraniana", matches: ["bajmut", "avdiivka", "mariupol", "jersÃ³n", "kherson", "kiev", "kyiv"] },
   { parent: "Guerra de Gaza", matches: ["gaza", "rafah", "khan yunis"] },
   { parent: "Segunda Guerra Mundial", matches: ["normandia", "stalingrado", "kursk", "el alamein", "midway", "berlin", "okinawa", "guadalcanal"] },
   { parent: "Primera Guerra Mundial", matches: ["somme", "verdun", "marne", "ypres", "gallipoli"] },
@@ -1427,6 +1809,60 @@ const CONFLICT_PARENT_RULES = [
 ];
 
 const CONFLICT_CAMPAIGN_MARKERS = ["operacion", "campana", "campaña", "ofensiva", "frente", "asedio", "sitio"];
+
+CONFLICT_PARENT_RULES.push(
+  { parent: "Segunda Guerra Mundial", matches: ["desembarco de normandia", "barbarroja", "ardennes", "market garden", "monte cassino", "pearl harbor", "frente oriental de la segunda guerra mundial", "frente del sudeste de asia en la segunda guerra mundial"] },
+  { parent: "Primera Guerra Mundial", matches: ["jutlandia", "tannenberg", "caporetto", "aisne", "meuse", "scarpe", "picardy"] },
+  { parent: "Primera Guerra Mundial", matches: ["arras", "cambrai", "vimy", "messines", "vittorio veneto", "primera batalla de ypres", "segunda batalla de somme", "segunda batalla del marne", "tercera batalla de aisne"] },
+  { parent: "Guerra de Vietnam", matches: ["ia drang", "hamburger hill"] },
+  { parent: "Guerra de Corea", matches: ["busan", "imjin", "punchbowl", "hook"] },
+  { parent: "Guerra de Afganistan", matches: ["alasay", "uzbin", "joybar"] },
+  { parent: "Guerra ruso-japonesa", matches: ["port arthur", "tsushima", "mukden"] },
+  { parent: "Guerra de Argelia", matches: ["argel", "constantina", "aures"] },
+  { parent: "Guerra del Pacifico", matches: ["iquique", "angamos", "arica", "tacna", "chorrillos", "miraflores"] },
+  { parent: "Guerra del Chaco", matches: ["boqueron", "nanawa", "campo via", "fortin"] },
+  { parent: "Guerra del Cenepa", matches: ["cenepa", "falso paquisha"] },
+  { parent: "Guerra contra el narcotrafico en Mexico", matches: ["carteles", "sinaloa", "juarez", "michoacan"] },
+  { parent: "Levantamiento zapatista", matches: ["chiapas", "ezln", "zapatista"] },
+  { parent: "Guerra contra la Confederacion Peru-Boliviana", matches: ["confederacion peru-boliviana"] },
+  { parent: "Guerra civil china", matches: ["huaihai", "liaoshen", "pingjin"] },
+  { parent: "Guerra arabe-israeli de 1948", matches: ["latrun", "negev", "jerusalen"] },
+  { parent: "Segunda Guerra Mundial", matches: ["amiens", "manila", "borneo"] },
+  { parent: "Guerra de Vietnam", matches: ["long tan", "coral", "balmoral"] },
+  { parent: "Guerra del Golfo", matches: ["bubiyan"] },
+  { parent: "Guerra arabe-israeli de 1948", matches: ["campana del neguev"] },
+  { parent: "Guerra de Corea", matches: ["dmz incident", "cheonpyeong", "incheon", "ofensiva de la onu en corea del norte"] },
+  { parent: "Guerra de Corea", matches: ["chongju", "chuam-ni", "kapyong", "kujin", "chosin", "maehwa-san", "busan", "imjin", "teatro coreano", "segunda batalla de hook", "perimetro de pusan"] },
+  { parent: "Guerra de Vietnam", matches: ["contraofensiva vietnamita fase ii", "contraofensiva vietnamita fase iii"] },
+  { parent: "Conflicto entre Gaza e Israel", matches: ["guerra de gaza", "gaza strip", "gaza de 2012"] },
+  { parent: "Conflicto irano-israeli", matches: ["irano-israeli durante la guerra civil siria"] },
+  { parent: "Segunda Guerra Mundial", matches: ["batalla de las ardenas", "north borneo"] },
+  { parent: "Segunda Guerra Mundial", matches: ["midway", "guadalcanal", "el alamein", "gazala"] },
+  { parent: "Guerra de Vietnam", matches: ["ofensiva del tet", "khe sanh", "coral-balmoral", "saigon", "ia drang", "signal hill"] },
+  { parent: "Guerras arabe-israelies", matches: ["guerra de independencia de israel", "yom kippur", "guerra de los seis dias", "suez"] },
+  { parent: "Segunda guerra del Congo", matches: ["kivu", "conflicto entre la republica democratica del congo y ruanda"] },
+  { parent: "Guerra del Sahara Occidental", matches: ["sahara occidental", "saharaui"] },
+  { parent: "Guerra civil sursudanesa", matches: ["sursudanesa"] },
+  { parent: "Segunda guerra civil sudanesa", matches: ["sudanesa"] },
+  { parent: "Segunda guerra del Congo", matches: ["ituri", "congo y ruanda"] },
+  { parent: "Guerra del Sahara Occidental", matches: ["intifada saharaui", "sahara espanol"] },
+  { parent: "Guerra civil somali", matches: ["somalilandia", "frente a somalia", "antipirateria en somalia"] },
+  { parent: "Guerra entre Etiopia y Eritrea", matches: ["yibuti y eritrea", "eritrea-etiope"] },
+  { parent: "Primera guerra de Ruanda", matches: ["ruandesa de 1990"] },
+  { parent: "Segunda guerra de Ruanda", matches: ["ruandesa de 1994", "genocidio de ruanda"] },
+  { parent: "Segunda guerra liberiana", matches: ["guerra liberiana"] },
+  { parent: "Primera guerra civil marfilena", matches: ["marfilena"] },
+  { parent: "Guerra de Irak", matches: ["al fao de 2003", "bagdad de 2003", "kerbala de 2003", "mosul de 2004", "mosul de 2016-2017", "invasion de irak de 2003", "guerra de irak (2003-2011)"] },
+  { parent: "Guerra de Afganistan", matches: ["kandahar de 2021", "invasion de afganistan de 2001", "sublevacion en herat de 2001", "waziristan"] },
+  { parent: "Guerra civil siria", matches: ["alepo de abril de 2016"] },
+  { parent: "Guerra rusoucraniana", matches: ["invasion rusa de ucrania de 2022", "contraofensiva del oblast de jarkov de 2022"] },
+  { parent: "Conflicto entre Gaza e Israel", matches: ["crisis del mar rojo", "beqaa valley airstrikes"] },
+  { parent: "Guerra civil somali", matches: ["ras kamboni de 2024", "guerra civil somali (2006-2009)", "puntlandia"] },
+  { parent: "Rebelion de Boko Haram de 2009", matches: ["dikwa de 2015"] },
+  { parent: "Crisis anglofona de Camerun", matches: ["boulikessi de 2025"] },
+  { parent: "Segunda Guerra Mundial", matches: ["caen", "brest", "montecassino", "guam", "labuan", "bologna", "durazzo", "authion", "damasco (1941)", "garfagnana", "giarabub", "kolombangara", "shenkursk", "barbarroja", "pearl harbor", "luxemburgo en la segunda guerra mundial", "campana del adriatico en la segunda guerra mundial"] },
+  { parent: "Desembarco de Normandia", matches: ["operaciones aerotransportadas americanas en normandia", "batalla de caen", "batalla de brest"] }
+);
 
 const CONFLICT_DETAIL_OVERRIDES = {
   "Guerra de las Malvinas": {
@@ -1447,7 +1883,7 @@ const CONFLICT_DETAIL_OVERRIDES = {
     outcome: "Derrota paraguaya y ocupacion aliada del pais.",
     consequences: "Paraguay perdio territorio, poblacion y capacidad militar; Argentina y Brasil consolidaron su influencia regional."
   },
-  "Guerra rusoucraniana": {
+  "Guerra ruso-ucraniana": {
     cause: "Se intensifico por la invasion rusa a gran escala de Ucrania en 2022 sobre una rivalidad abierta desde 2014 y la disputa por Crimea, Donbas y la orientacion geopolitica ucraniana.",
     participants: [
       { side: "Rusia", members: ["Rusia"], organizations: [], troops: "cientos de miles", casualties: "muy elevadas" },
@@ -1459,6 +1895,186 @@ const CONFLICT_DETAIL_OVERRIDES = {
 };
 
 Object.assign(CONFLICT_DETAIL_OVERRIDES, curatedConflictDetailOverrides);
+
+function mergeConflictChronology(baseItems = [], importedItems = []) {
+  const seen = new Set();
+  return [...baseItems, ...importedItems].filter(item => {
+    const key = `${item?.year || ""}:${normalizeText(item?.text || item || "")}`;
+    if (!key || seen.has(key)) {
+      return false;
+    }
+    seen.add(key);
+    return true;
+  });
+}
+
+function mergeConflictParticipants(baseItems = [], importedItems = []) {
+  return dedupeConflictParticipants([...baseItems, ...importedItems]);
+}
+
+function inferConflictCoalitionLabel(side = "", members = []) {
+  const explicit = sanitizeConflictModalText(side).replace(/\s*:\s*$/, "");
+  if (explicit && !/^Bando \d+$/i.test(explicit) && !/^Beligerantes$/i.test(explicit)) {
+    return explicit;
+  }
+
+  const normalizedMembers = (members || []).map(member => normalizeText(member));
+  const hasAny = needles => needles.some(needle => normalizedMembers.some(member => member.includes(normalizeText(needle))));
+
+  if (hasAny(["Corea del Norte", "China"])) return "Corea del Norte y apoyos";
+  if (hasAny(["Corea del Sur", "Estados Unidos", "Reino Unido", "Australia", "Canada"])) return "Corea del Sur y ONU";
+  if (hasAny(["Vietnam del Norte", "Viet Cong"])) return "Vietnam del Norte y Viet Cong";
+  if (hasAny(["Vietnam del Sur", "Estados Unidos", "Australia"])) return "Vietnam del Sur y aliados";
+  if (hasAny(["Israel"])) return "Israel";
+  if (hasAny(["Egipto", "Siria", "Jordania", "Irak"]) && !hasAny(["Israel"])) return "Coalicion arabe";
+  if (hasAny(["Alemania", "Italia", "Japon"])) return "Eje";
+  if (hasAny(["Austria-Hungria", "Imperio otomano", "Bulgaria"]) && hasAny(["Alemania"])) return "Potencias Centrales";
+  if (hasAny(["Reino Unido", "Union Sovietica", "Estados Unidos", "Francia", "China", "Belgica", "Paises Bajos", "Luxemburgo"])) return "Aliados";
+  return explicit || "";
+}
+
+function sanitizeConflictParticipant(item = {}) {
+  const members = uniqueNormalizedList((item?.members || []).map(sanitizeConflictModalText));
+  const organizations = uniqueNormalizedList((item?.organizations || []).map(sanitizeConflictModalText));
+  const side = inferConflictCoalitionLabel(item?.side || "", members);
+  return {
+    side,
+    members,
+    organizations,
+    troops: sanitizeConflictModalText(item?.troops || ""),
+    casualties: sanitizeConflictModalText(item?.casualties || "")
+  };
+}
+
+function dedupeConflictParticipants(items = []) {
+  const sanitizedItems = items.map(sanitizeConflictParticipant);
+  const duplicateSideCounts = sanitizedItems.reduce((acc, item) => {
+    const key = normalizeText(item.side || "");
+    if (key) {
+      acc.set(key, (acc.get(key) || 0) + 1);
+    }
+    return acc;
+  }, new Map());
+  const merged = new Map();
+
+  sanitizedItems
+    .filter(item => item.side || item.members.length || item.organizations.length || item.troops || item.casualties)
+    .forEach(item => {
+      const sideKey = normalizeText(item.side || "");
+      if (sideKey && (duplicateSideCounts.get(sideKey) || 0) > 1) {
+        const inferred = inferConflictCoalitionLabel("", item.members);
+        if (inferred) {
+          item = { ...item, side: inferred };
+        }
+      }
+      const key = `${item.members.map(normalizeText).sort().join("|")}::${item.organizations.map(normalizeText).sort().join("|")}`;
+      if (!key) {
+        return;
+      }
+
+      const existing = merged.get(key);
+      if (!existing) {
+        merged.set(key, item);
+        return;
+      }
+
+      const existingGeneric = /^Bando \d+$/i.test(existing.side || "") || /^Beligerantes$/i.test(existing.side || "");
+      const currentGeneric = /^Bando \d+$/i.test(item.side || "") || /^Beligerantes$/i.test(item.side || "");
+      merged.set(key, {
+        side: !existingGeneric ? existing.side : (currentGeneric ? existing.side : item.side),
+        members: existing.members.length >= item.members.length ? existing.members : item.members,
+        organizations: uniqueNormalizedList([...existing.organizations, ...item.organizations]),
+        troops: existing.troops || item.troops,
+        casualties: existing.casualties || item.casualties
+      });
+    });
+
+  const values = [...merged.values()];
+  const hasNamedCoalitions = values.some(item => item.side && !/^Bando \d+$/i.test(item.side) && !/^Beligerantes$/i.test(item.side));
+  return values.filter(item => !hasNamedCoalitions || !/^Bando \d+$/i.test(item.side || ""));
+}
+
+function getConflictChronologySortYear(conflictName, detail = null) {
+  const resolvedDetail = detail || CONFLICT_DETAIL_OVERRIDES[conflictName] || {};
+  const chronologyYears = (resolvedDetail?.chronology || [])
+    .map(item => Number(item?.year))
+    .filter(Number.isFinite);
+  return chronologyYears.length ? Math.min(...chronologyYears) : null;
+}
+
+function normalizeWikipediaConflictDetail(detail = {}) {
+  if (!detail || typeof detail !== "object") {
+    return null;
+  }
+
+  const wikipedia = detail.wikipedia && typeof detail.wikipedia === "object" ? detail.wikipedia : {};
+  const normalized = {
+    ...detail,
+    wikipedia,
+    participants: dedupeConflictParticipants(detail.participants || [])
+  };
+
+  if (Array.isArray(detail.related)) {
+    normalized.related = uniqueNormalizedList(detail.related.filter(Boolean).map(sanitizeConflictModalText));
+  }
+
+  if (Array.isArray(detail.chronology)) {
+    normalized.chronology = detail.chronology
+      .map(item => ({
+        ...item,
+        text: sanitizeConflictModalText(item?.text || item || "")
+      }))
+      .filter(item => item.text)
+      .sort((a, b) => {
+        const yearA = Number.isFinite(Number(a?.year)) ? Number(a.year) : Number.MAX_SAFE_INTEGER;
+        const yearB = Number.isFinite(Number(b?.year)) ? Number(b.year) : Number.MAX_SAFE_INTEGER;
+        if (yearA !== yearB) {
+          return yearA - yearB;
+        }
+        return String(a?.text || "").localeCompare(String(b?.text || ""), "es");
+      });
+  }
+
+  if (normalized.participants.length) {
+    delete normalized.wikipedia?.belligerents;
+    if (normalized.participants.some(item => item.troops)) {
+      delete normalized.wikipedia?.strength;
+    }
+    if (normalized.participants.some(item => item.casualties)) {
+      delete normalized.wikipedia?.casualties;
+    }
+  }
+
+  return normalized;
+}
+
+function mergeImportedConflictDetails(importedDetails = {}) {
+  if (wikipediaConflictDetailsMerged || !importedDetails || typeof importedDetails !== "object") {
+    return;
+  }
+
+  Object.entries(importedDetails).forEach(([conflictName, importedDetail]) => {
+    const normalizedImport = normalizeWikipediaConflictDetail(importedDetail);
+    if (!conflictName || !normalizedImport || normalizedImport.error) {
+      return;
+    }
+
+    const base = CONFLICT_DETAIL_OVERRIDES[conflictName] || {};
+    CONFLICT_DETAIL_OVERRIDES[conflictName] = {
+      ...normalizedImport,
+      ...base,
+      wikipedia: {
+        ...(normalizedImport.wikipedia || {}),
+        ...(base.wikipedia || {})
+      },
+      participants: mergeConflictParticipants(base.participants || [], normalizedImport.participants || []),
+      chronology: mergeConflictChronology(base.chronology || [], normalizedImport.chronology || []),
+      related: [...new Set([...(base.related || []), ...(normalizedImport.related || [])].filter(Boolean))]
+    };
+  });
+
+  wikipediaConflictDetailsMerged = true;
+}
 
 const mapEventListeners = {
   click: new Set(),
@@ -1514,7 +2130,7 @@ const CURATED_TIMELINE_EXTRAS = {
     { year: 1991, category: "disolucion", text: "Fin de la Union Sovietica y nacimiento de la Federacion de Rusia", reference: "Disolucion de la URSS" }
   ],
   TUR: [
-    { year: 1923, category: "politica", text: "Proclamacion de la Republica de Turquía", reference: "Republica de Turquía" },
+    { year: 1923, category: "politica", text: "Proclamacion de la Republica de Turquia", reference: "Republica de Turquia" },
     { year: 2017, category: "reforma", text: "Reforma constitucional hacia un presidencialismo fuerte", reference: "Referendum de 2017" }
   ],
   UKR: [
@@ -1543,7 +2159,7 @@ const TIMELINE_DETAIL_OVERRIDES = {
   },
   "Reunificacion de Alemania": {
     title: "Reunificación alemana",
-    detail: "La absorción de la RDA por la RFA en 1990 cerró una de las divisiones emblemáticas de la Guerra fría y redefinió el mapa europeo.",
+    detail: "La absorción de la RDA por la RFA en 1990 cerró una de las divisiones emblemáticas de la Guerra fria y redefinió el mapa europeo.",
     significance: "reconfiguración continental",
     intensity: "alta"
   }
@@ -1613,7 +2229,7 @@ function initializeViewer() {
   map.scene = viewer.scene;
   map.camera = viewer.camera;
 
-  applyImageryForMode();
+  applyImageryForMode(true);
   viewer.scene.globe.show = true;
   viewer.scene.globe.baseColor = cssColorToCesiumColor("#2b5d7d", 1);
   viewer.scene.globe.showGroundAtmosphere = false;
@@ -1831,6 +2447,9 @@ let rawHistorySystems = {};
 let rawInflationByCode = {};
 let populationGrowthByCode = {};
 let countryCodeByEnglishName = new Map();
+let wikipediaConflictDetailOverrides = {};
+let loadWikipediaConflictDetailsPromise = null;
+let wikipediaConflictDetailsMerged = false;
 let mapNameAliasOverrides = {};
 let mapNameAliasIndex = new Map();
 let worldBankNameAliasOverrides = {};
@@ -1952,7 +2571,7 @@ const RELIGION_FAMILY_RULES = [
   {
     key: "hinduismo",
     label: "Hinduismo",
-    aliases: ["hinduismo", "hindues", "hindúes", "hindú", "hindues"],
+    aliases: ["hinduismo", "hindues", "hindÃºes", "hindÃº", "hindues"],
     matches: ["hindu"]
   },
   {
@@ -1982,7 +2601,7 @@ const RELIGION_FAMILY_RULES = [
   {
     key: "no afiliados",
     label: "Ateos / agnosticos / sin afiliacion",
-    aliases: ["ateos", "ateo", "agnosticos", "agnóstico", "agnostico", "sin religion", "sin religión", "sin afiliacion", "sin afiliación", "no afiliados", "no creyentes"],
+    aliases: ["ateos", "ateo", "agnosticos", "agnÃ³stico", "agnostico", "sin religion", "sin religiÃ³n", "sin afiliacion", "sin afiliaciÃ³n", "no afiliados", "no creyentes"],
     matches: ["ateo", "agnostic", "sin afili", "no afili", "no relig", "sin religion"]
   },
   {
@@ -2149,7 +2768,7 @@ function parseInflationValue(value) {
   }
 
   const cleaned = String(value)
-    .replace(/[%~≈]/g, "")
+    .replace(/[%~â‰ˆ]/g, "")
     .replace(",", ".")
     .trim();
   const parsed = Number(cleaned);
@@ -2182,11 +2801,25 @@ function repairMojibake(value) {
     return sharedText.repairMojibake(value);
   }
   const raw = String(value || "");
-  if (!raw || !/[ÃÂâ€œâ€\uFFFD]/.test(raw)) {
+  if (!raw || !(/[ÃƒÃ‚Ã¢â‚¬Å“Ã¢â‚¬\uFFFDÂâã]/.test(raw) || /ã|â|Â/.test(raw))) {
     return raw;
   }
 
   return raw
+    .replace(/ÃƒÂ¡/g, "Ã¡")
+    .replace(/ÃƒÂ©/g, "Ã©")
+    .replace(/ÃƒÂ­/g, "Ã­")
+    .replace(/ÃƒÂ³/g, "Ã³")
+    .replace(/ÃƒÂº/g, "Ãº")
+    .replace(/ÃƒÂ±/g, "Ã±")
+    .replace(/ÃƒÂ¼/g, "Ã¼")
+    .replace(/ÃƒÂ/g, "Ã")
+    .replace(/Ãƒâ€°/g, "Ã‰")
+    .replace(/ÃƒÂ/g, "Ã")
+    .replace(/Ãƒâ€œ/g, "Ã“")
+    .replace(/ÃƒÅ¡/g, "Ãš")
+    .replace(/Ãƒâ€˜/g, "Ã‘")
+    .replace(/ÃƒÅ“/g, "Ãœ")
     .replace(/Ã¡/g, "á")
     .replace(/Ã©/g, "é")
     .replace(/Ã­/g, "í")
@@ -2194,6 +2827,23 @@ function repairMojibake(value) {
     .replace(/Ãº/g, "ú")
     .replace(/Ã±/g, "ñ")
     .replace(/Ã¼/g, "ü")
+    .replace(/Ã¨/g, "è")
+    .replace(/Ã /g, "à")
+    .replace(/Ã¬/g, "ì")
+    .replace(/Ã²/g, "ò")
+    .replace(/Ã¹/g, "ù")
+    .replace(/Ã¢/g, "â")
+    .replace(/Ãª/g, "ê")
+    .replace(/Ã®/g, "î")
+    .replace(/Ã´/g, "ô")
+    .replace(/Ã»/g, "û")
+    .replace(/Ã§/g, "ç")
+    .replace(/ã¡/g, "á")
+    .replace(/ã©/g, "é")
+    .replace(/ã­/g, "í")
+    .replace(/ã³/g, "ó")
+    .replace(/ãº/g, "ú")
+    .replace(/ã±/g, "ñ")
     .replace(/Ã/g, "Á")
     .replace(/Ã‰/g, "É")
     .replace(/Ã/g, "Í")
@@ -2201,11 +2851,24 @@ function repairMojibake(value) {
     .replace(/Ãš/g, "Ú")
     .replace(/Ã‘/g, "Ñ")
     .replace(/Ãœ/g, "Ü")
-    .replace(/â€“/g, "-")
-    .replace(/â€”/g, "-")
-    .replace(/â€˜|â€™/g, "'")
-    .replace(/â€œ|â€�/g, "\"")
-    .replace(/Â/g, "");
+    .replace(/Â·/g, "·")
+    .replace(/Â¿/g, "¿")
+    .replace(/Â¡/g, "¡")
+    .replace(/Â²/g, "²")
+    .replace(/Â³/g, "³")
+    .replace(/Ã¢â‚¬â€œ/g, "-")
+    .replace(/Ã¢â‚¬â€/g, "-")
+    .replace(/Ã¢â‚¬Ëœ|Ã¢â‚¬â„¢/g, "'")
+    .replace(/Ã¢â‚¬Å“|Ã¢â‚¬ï¿½/g, "\"")
+    .replace(/â€¢/g, "•")
+    .replace(/â€“/g, "–")
+    .replace(/â€”/g, "—")
+    .replace(/â€˜/g, "‘")
+    .replace(/â€™/g, "’")
+    .replace(/â€œ/g, "“")
+    .replace(/â€/g, "”")
+    .replace(/â€¦/g, "…")
+    .replace(/Ã‚/g, "");
 }
 
 function normalizeText(value) {
@@ -2441,9 +3104,9 @@ function normalizeHistoryType(country) {
 
 function escapeHtml(value) {
   if (typeof sharedText.escapeHtml === "function") {
-    return sharedText.escapeHtml(value);
+    return sharedText.escapeHtml(repairMojibake(value));
   }
-  return String(value || "")
+  return repairMojibake(String(value || ""))
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
@@ -2600,13 +3263,13 @@ function t(key) {
 
 function getFlagEmojiLegacy(code) {
   const fallbackFlags = {
-    "CS-KM": "🇽🇰",
-    "-99": "🏴",
-    ATA: "🇦🇶"
+    "CS-KM": "ðŸ‡½ðŸ‡°",
+    "-99": "ðŸ´",
+    ATA: "ðŸ‡¦ðŸ‡¶"
   };
 
   if (!code) {
-    return "🏳️";
+    return "ðŸ³ï¸";
   }
 
   if (fallbackFlags[code]) {
@@ -2615,7 +3278,7 @@ function getFlagEmojiLegacy(code) {
 
   const normalized = code.slice(0, 2).toUpperCase();
   if (!/^[A-Z]{2}$/.test(normalized)) {
-    return "🏳️";
+    return "ðŸ³ï¸";
   }
 
   return String.fromCodePoint(
@@ -2628,7 +3291,7 @@ function renderList(items) {
     return "<p>Sin datos</p>";
   }
 
-  return `<ul>${items.map(item => `<li>${item}</li>`).join("")}</ul>`;
+  return `<ul>${items.map(item => `<li>${escapeHtml(repairMojibake(item))}</li>`).join("")}</ul>`;
 }
 
 function isMobileLayout() {
@@ -2760,12 +3423,12 @@ function getFlagEmoji(code) {
   }
 
   if (code === "-99") {
-    return "🏴";
+    return "ðŸ´";
   }
 
   const normalized = (iso2ByCode[code] || "").toUpperCase();
   if (!/^[A-Z]{2}$/.test(normalized)) {
-    return "🏳️";
+    return "ðŸ³ï¸";
   }
 
   return String.fromCodePoint(
@@ -3409,7 +4072,7 @@ function closeTimelineModal() {
 }
 
 function syncModalOpenState() {
-  const modalIds = ["country-modal", "compare-modal", "conflict-modal", "timeline-modal", "help-modal"];
+  const modalIds = ["country-modal", "compare-modal", "conflict-modal", "timeline-modal", "help-modal", "intro-modal", "product-modal"];
   const hasOpenModal = modalIds.some(id => {
     const modal = document.getElementById(id);
     return modal && !modal.hidden;
@@ -3663,7 +4326,7 @@ function sortConflictsLegacy(conflicts) {
 
 function cleanConflictNameLegacy(name) {
   return String(name || "")
-    .replace(/\s*\((?:\d{3,4})(?:[-–]\d{3,4})?\)\s*$/u, "")
+    .replace(/\s*\((?:\d{3,4})(?:[-â€“]\d{3,4})?\)\s*$/u, "")
     .replace(/\s+\d{4}$/u, "")
     .replace(/\s+/g, " ")
     .trim();
@@ -3672,24 +4335,7 @@ function cleanConflictNameLegacy(name) {
 function translateConflictName(name) {
   let translated = cleanConflictName(name);
 
-  const aliases = [
-    [/^Guerra de Malvinas$/i, "Guerra de las Malvinas"],
-    [/^Falklands War$/i, "Guerra de las Malvinas"],
-    [/^Guerra de Falklands$/i, "Guerra de las Malvinas"],
-    [/^Iraq War$/i, "Guerra de Irak"],
-    [/^War in Afghanistan$/i, "Guerra de Afganistan"],
-    [/^Korean War$/i, "Guerra de Corea"],
-    [/^Kosovo War$/i, "Guerra de Kosovo"],
-    [/^Vietnam War$/i, "Guerra de Vietnam"],
-    [/^War of Attrition$/i, "Guerra de Desgaste"],
-    [/^Six-Day War$/i, "Guerra de los Seis Dias"],
-    [/^Yom Kippur War$/i, "Guerra de Yom Kipur"],
-    [/^First Congo War$/i, "Primera Guerra del Congo"],
-    [/^Second Congo War$/i, "Segunda Guerra del Congo"],
-    [/^Kivu conflict$/i, "Guerra de Kivu"]
-  ];
-
-  for (const [pattern, replacement] of aliases) {
+  for (const [pattern, replacement] of CONFLICT_NAME_ALIASES) {
     if (pattern.test(translated)) {
       return replacement;
     }
@@ -3697,25 +4343,34 @@ function translateConflictName(name) {
 
   const replacements = [
     [/^\d{4}\s+/i, ""],
+    [/^World War II$/i, "Segunda Guerra Mundial"],
+    [/^World War I$/i, "Primera Guerra Mundial"],
     [/^Battle of /i, "Batalla de "],
     [/^Second Battle of /i, "Segunda batalla de "],
     [/^Third Battle of /i, "Tercera batalla de "],
     [/^First Battle of /i, "Primera batalla de "],
+    [/^Fourth Battle of /i, "Cuarta batalla de "],
     [/^Action of /i, "Accion de "],
     [/^Actions of /i, "Acciones de "],
     [/^Raid off /i, "Incursion frente a "],
     [/^Raid on /i, "Incursion sobre "],
+    [/^Raid in /i, "Incursion en "],
     [/^Offensive of /i, "Ofensiva de "],
     [/^Offensive in /i, "Ofensiva en "],
+    [/^Counteroffensive of /i, "Contraofensiva de "],
+    [/^Counteroffensive in /i, "Contraofensiva en "],
     [/^Clash of /i, "Enfrentamiento de "],
     [/^Clashes in /i, "Enfrentamientos en "],
     [/^Clashes of /i, "Enfrentamientos de "],
     [/^Struggle for /i, "Lucha por "],
     [/^Naval battle off /i, "Batalla naval de "],
+    [/^Naval Battle of /i, "Batalla naval de "],
     [/^Siege of /i, "Sitio de "],
     [/^Operation /i, "Operacion "],
     [/^Campaign of /i, "Campana de "],
     [/^Campaign /i, "Campana "],
+    [/^Front in /i, "Frente en "],
+    [/^Front of /i, "Frente de "],
     [/^Invasion of /i, "Invasion de "],
     [/^War of /i, "Guerra de "],
     [/^War in /i, "Guerra en "],
@@ -3728,7 +4383,16 @@ function translateConflictName(name) {
     [/^Bombings in /i, "Bombardeos en "],
     [/^Bombing of /i, "Bombardeo de "],
     [/^Airstrikes? on /i, "Ataques aereos sobre "],
-    [/^Airstrikes? in /i, "Ataques aereos en "]
+    [/^Airstrikes? in /i, "Ataques aereos en "],
+    [/^Battle for /i, "Batalla por "],
+    [/^Battle in /i, "Batalla en "],
+    [/^Skirmish at /i, "Escaramuza de "],
+    [/^Skirmish in /i, "Escaramuza en "],
+    [/^Occupation of /i, "Ocupacion de "],
+    [/^Liberation of /i, "Liberacion de "],
+    [/^Expedition to /i, "Expedicion a "],
+    [/^Expedition against /i, "Expedicion contra "],
+    [/^Crisis in /i, "Crisis en "]
   ];
 
   for (const [pattern, replacement] of replacements) {
@@ -3739,11 +4403,106 @@ function translateConflictName(name) {
     .replace(/\bthe\b/gi, "")
     .replace(/\bof\b/gi, "de")
     .replace(/\bin\b/gi, "en")
+    .replace(/\boff\b/gi, "frente a")
+    .replace(/\bfront\b/gi, "frente")
+    .replace(/\bborder\b/gi, "fronterizo")
+    .replace(/\bconflict\b/gi, "conflicto")
+    .replace(/\bcivil war\b/gi, "guerra civil")
+    .replace(/\bcampaign\b/gi, "campana")
+    .replace(/\bbattle\b/gi, "batalla")
+    .replace(/\bsiege\b/gi, "sitio")
+    .replace(/\boffensive\b/gi, "ofensiva")
+    .replace(/\bcounteroffensive\b/gi, "contraofensiva")
+    .replace(/\boccupation\b/gi, "ocupacion")
+    .replace(/\blanding\b/gi, "desembarco")
+    .replace(/\bwar\b/gi, "guerra")
     .replace(/\band\b/gi, "y")
+    .replace(/\bstrip\b/gi, "franja")
+    .replace(/\bbank\b/gi, "banco")
+    .replace(/\bwestern\b/gi, "occidental")
+    .replace(/\beastern\b/gi, "oriental")
+    .replace(/\bnorthern\b/gi, "norte")
+    .replace(/\bsouthern\b/gi, "sur")
+    .replace(/\bfirst\b/gi, "primera")
+    .replace(/\bsecond\b/gi, "segunda")
+    .replace(/\bthird\b/gi, "tercera")
+    .replace(/\bfourth\b/gi, "cuarta")
     .replace(/\s+/g, " ")
     .trim();
 
   return translated.charAt(0).toUpperCase() + translated.slice(1);
+}
+
+function buildGenericConflictChronology(conflict) {
+  const startYear = conflict?.startYear || null;
+  const endYear = conflict?.ongoing ? null : (conflict?.endYear || startYear || null);
+  if (!startYear) {
+    if (conflict?.ongoing) {
+      return [
+        {
+          year: null,
+          text: currentLanguage === "en"
+            ? "The conflict remains active or unresolved within its broader historical context."
+            : "El conflicto sigue activo o sin resolucion definitiva dentro de su contexto historico mas amplio."
+        }
+      ];
+    }
+    if (conflict?.parentName) {
+      return [
+        {
+          year: null,
+          text: currentLanguage === "en"
+            ? "This episode formed part of a broader war or campaign already identified in the dataset."
+            : "Este episodio formo parte de una guerra o campana mas amplia ya identificada en el dataset."
+        }
+      ];
+    }
+    return [
+      {
+        year: null,
+        text: currentLanguage === "en"
+          ? "The conflict belongs to a broader historical sequence, although its exact internal phases are not yet fully structured."
+          : "El conflicto forma parte de una secuencia historica mas amplia, aunque sus fases internas todavia no estan completamente estructuradas."
+      }
+    ];
+  }
+
+  const chronology = [
+    {
+      year: startYear,
+      text: currentLanguage === "en"
+        ? "The conflict began or entered an open phase."
+        : "El conflicto comenzo o entro en una fase abierta."
+    }
+  ];
+
+  if (endYear && endYear !== startYear) {
+    const midpoint = Math.floor((startYear + endYear) / 2);
+    if (midpoint > startYear && midpoint < endYear) {
+      chronology.push({
+        year: midpoint,
+        text: currentLanguage === "en"
+          ? "The conflict reached one of its most intense or decisive phases."
+          : "El conflicto alcanzo una de sus fases mas intensas o decisivas."
+      });
+    }
+
+    chronology.push({
+      year: endYear,
+      text: currentLanguage === "en"
+        ? "The main armed phase ended or was contained."
+        : "La fase armada principal termino o fue contenida."
+    });
+  } else if (conflict?.ongoing) {
+    chronology.push({
+      year: startYear,
+      text: currentLanguage === "en"
+        ? "The conflict remains active or unresolved."
+        : "El conflicto sigue activo o sin resolucion definitiva."
+    });
+  }
+
+  return chronology;
 }
 
 function normalizeConflictForDisplayLegacy(conflict) {
@@ -3752,10 +4511,10 @@ function normalizeConflictForDisplayLegacy(conflict) {
   }
 
   const name = translateConflictName(conflict.name || conflict);
-  const startYear = conflict.startYear ?? extractConflictStartYear(conflict);
-  const endYear = conflict.ongoing ? null : conflict.endYear ?? startYear ?? null;
+  const startYear = extractConflictStartYear(conflict);
+  const endYear = conflict.ongoing ? null : extractConflictEndYear(conflict);
 
-  if (!name || !startYear) {
+  if (!name) {
     return null;
   }
 
@@ -3763,7 +4522,7 @@ function normalizeConflictForDisplayLegacy(conflict) {
     name,
     startYear,
     endYear,
-    ongoing: Boolean(conflict.ongoing && startYear)
+    ongoing: Boolean(conflict.ongoing)
   };
 }
 
@@ -3778,7 +4537,7 @@ function conflictDedupKey(conflict) {
     .replace(/\s+/g, " ")
     .trim();
 
-  const endPart = conflict.ongoing ? "actualidad" : conflict.endYear ?? conflict.startYear;
+  const endPart = conflict.ongoing ? "actualidad" : (conflict.endYear ?? conflict.startYear ?? "sin-fin");
   return `${canonicalName}|${conflict.startYear}|${endPart}`;
 }
 
@@ -3858,8 +4617,8 @@ function extractConflictEndYear(conflict) {
 function cleanConflictName(name) {
   return String(name || "")
     .replace(/\s*\((?:[^)]*?\b\d{4}\b[^)]*?)\)\s*$/u, "")
-    .replace(/\s+(?:de|en)?\s*\d{4}(?:\s*[-–—]\s*\d{4})?\s*$/u, "")
-    .replace(/\s*[-–—]\s*\d{4}(?:\s*[-–—]\s*\d{4})?\s*$/u, "")
+    .replace(/\s+(?:de|en)?\s*\d{4}(?:\s*[-â€“â€”]\s*\d{4})?\s*$/u, "")
+    .replace(/\s*[-â€“â€”]\s*\d{4}(?:\s*[-â€“â€”]\s*\d{4})?\s*$/u, "")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -3871,9 +4630,13 @@ function normalizeConflictForDisplay(conflict) {
 
   const rawName = conflict.name || conflict;
   const translatedName = translateConflictName(rawName);
-  const startYear = conflict.startYear ?? extractConflictStartYear(conflict);
-  const parsedEndYear = conflict.endYear ?? extractConflictEndYear(conflict);
-  const endYear = conflict.ongoing ? null : parsedEndYear ?? startYear ?? null;
+  const detail = CONFLICT_DETAIL_OVERRIDES[translatedName] || CONFLICT_DETAIL_OVERRIDES[rawName] || {};
+  const inferredChronologyStart = getConflictChronologySortYear(translatedName, detail);
+  const startYear = extractConflictStartYear(conflict) || inferredChronologyStart;
+  const parsedEndYear = extractConflictEndYear(conflict);
+  const chronologyYears = (detail?.chronology || []).map(item => Number(item?.year)).filter(Number.isFinite);
+  const inferredChronologyEnd = chronologyYears.length ? Math.max(...chronologyYears) : null;
+  const endYear = conflict.ongoing ? null : (parsedEndYear ?? inferredChronologyEnd ?? startYear ?? null);
   const cleanedName = cleanConflictName(translatedName) || translatedName;
 
   if (!cleanedName) {
@@ -3884,7 +4647,8 @@ function normalizeConflictForDisplay(conflict) {
     name: cleanedName,
     startYear: startYear || null,
     endYear,
-    ongoing: Boolean(conflict.ongoing && startYear)
+    ongoing: Boolean(conflict.ongoing),
+    sourceName: rawName
   };
 }
 
@@ -3913,7 +4677,30 @@ function getConflictParentName(conflictName) {
   const match = CONFLICT_PARENT_RULES.find(rule =>
     rule.matches.some(token => normalized.includes(normalizeText(token)))
   );
-  return match?.parent || null;
+  if (match?.parent) {
+    return match.parent;
+  }
+
+  const detail = CONFLICT_DETAIL_OVERRIDES[conflictName] || {};
+  const related = Array.isArray(detail.related) ? detail.related : [];
+  const relatedWar = related.find(item => {
+    const normalizedRelated = normalizeText(item);
+    return /\bguerra\b|world war|conflicto|campaign|campana/.test(normalizedRelated);
+  });
+  if (relatedWar && normalizeText(relatedWar) !== normalized) {
+    return translateConflictName(relatedWar);
+  }
+
+  if (/^batalla de |^primera batalla de |^segunda batalla de |^tercera batalla de |^sitio de |^desembarco de /i.test(conflictName)) {
+    if (/\b(1940|1941|1942|1943|1944|1945)\b/.test(conflictName) || /normandia|francia|berlin|caen|brest|montecassino|guam|labuan|el alamein|gazala|midway|guadalcanal/i.test(conflictName)) {
+      return "Segunda Guerra Mundial";
+    }
+    if (/\b(1914|1915|1916|1917|1918)\b/.test(conflictName) || /verdun|somme|marne|ypres|jutlandia|aisne|cambrai|arras/i.test(conflictName)) {
+      return "Primera Guerra Mundial";
+    }
+  }
+
+  return null;
 }
 
 function inferConflictType(conflict, detail = {}) {
@@ -3923,6 +4710,12 @@ function inferConflictType(conflict, detail = {}) {
   }
 
   const normalized = normalizeText(conflict?.name || conflict || "");
+  if (/batalla|siege|sitio|desembarco|raid|incursion|choque|enfrentamiento/.test(normalized)) {
+    return "batalla o combate";
+  }
+  if (/campana|campaign|ofensiva|contraofensiva|frente/.test(normalized)) {
+    return "campana militar";
+  }
   if (normalized.includes("primera guerra mundial") || normalized.includes("segunda guerra mundial")) {
     return "guerra mundial";
   }
@@ -3942,6 +4735,9 @@ function inferConflictScope(conflict, detail = {}) {
   }
 
   const normalized = normalizeText(conflict?.name || conflict || "");
+  if (/batalla|sitio|desembarco|raid|incursion|choque/.test(normalized)) {
+    return "subregional";
+  }
   if (normalized.includes("guerra mundial")) {
     return "global";
   }
@@ -3957,16 +4753,16 @@ function inferConflictRegion(conflict, detail = {}, countryName = "") {
   }
 
   const normalized = normalizeText(conflict?.name || conflict || "");
-  if (/malvinas|triple alianza|surinam|haiti|costarricense/.test(normalized)) {
+  if (/malvinas|triple alianza|surinam|haiti|costarricense|chaco|pacifico|chapultepec|obligado/.test(normalized)) {
     return "America Latina y el Caribe";
   }
-  if (/yom kippur|seis dias|gaza|iran|iraq|siria|afganistan|kargil|china|india|corea|vietnam/.test(normalized)) {
+  if (/yom kippur|seis dias|gaza|iran|iraq|siria|afganistan|kargil|china|india|corea|vietnam|israel|palestin|jord[aá]n|arab/.test(normalized)) {
     return "Asia y Medio Oriente";
   }
-  if (/mundial|verdun|somme|marne|ypres|kosovo|espanola|ucran/.test(normalized)) {
+  if (/mundial|verdun|somme|marne|ypres|kosovo|espanola|ucran|ardenas|midway|guadalcanal|alamein|gazala|jutlandia|normandia|stalingrado|kursk/.test(normalized)) {
     return "Europa";
   }
-  if (/congo|kivu|sahara|sudan|etiop|eritrea/.test(normalized)) {
+  if (/congo|kivu|sahara|sudan|etiop|eritrea|somali|darfur|ogaden|ruanda|uganda|burundi|libia/.test(normalized)) {
     return "Africa";
   }
   return countryName ? `${countryName} y su entorno regional` : "Region indeterminada";
@@ -4081,7 +4877,9 @@ function getConflictTypeLabel(type) {
     "guerra mundial": currentLanguage === "en" ? "World war" : "Guerra mundial",
     "guerra interestatal": currentLanguage === "en" ? "Interstate war" : "Guerra interestatal",
     "conflicto interno": currentLanguage === "en" ? "Internal conflict" : "Conflicto interno",
-    "intervencion u ocupacion": currentLanguage === "en" ? "Intervention or occupation" : "Intervencion u ocupacion"
+    "intervencion u ocupacion": currentLanguage === "en" ? "Intervention or occupation" : "Intervencion u ocupacion",
+    "batalla o combate": currentLanguage === "en" ? "Battle or combat" : "Batalla o combate",
+    "campana militar": currentLanguage === "en" ? "Military campaign" : "Campana militar"
   };
   return labels[type] || type || (currentLanguage === "en" ? "Conflict" : "Conflicto");
 }
@@ -4090,7 +4888,8 @@ function getConflictScopeLabel(scope) {
   const labels = {
     global: currentLanguage === "en" ? "Global" : "Global",
     regional: currentLanguage === "en" ? "Regional" : "Regional",
-    nacional: currentLanguage === "en" ? "Domestic" : "Nacional"
+    nacional: currentLanguage === "en" ? "Domestic" : "Nacional",
+    subregional: currentLanguage === "en" ? "Subregional" : "Subregional"
   };
   return labels[scope] || scope || (currentLanguage === "en" ? "Regional" : "Regional");
 }
@@ -4127,7 +4926,6 @@ function buildConflictGroups(conflicts) {
     conflicts
       .map(normalizeConflictForDisplay)
       .filter(Boolean)
-      .filter(conflict => conflict.startYear)
       .filter(
         (conflict, index, list) =>
           index === list.findIndex(item => conflictDedupKey(item) === conflictDedupKey(conflict))
@@ -4159,7 +4957,7 @@ function buildConflictGroups(conflicts) {
     if (normalizeText(conflict.name) !== normalizeText(parentName)) {
       const detail = CONFLICT_DETAIL_OVERRIDES[conflict.name] || {};
       const level = inferConflictLevel(conflict, detail, parentName);
-      const enriched = { ...conflict, level, battles: [] };
+      const enriched = { ...conflict, level, battles: [], parentName };
       if (level === "campaign") {
         group.campaigns.push(enriched);
       } else {
@@ -4168,10 +4966,10 @@ function buildConflictGroups(conflicts) {
     }
   });
 
-  const merged = [
-    ...groupedWars.sort((a, b) => (a.startYear || 0) - (b.startYear || 0)),
+  const merged = sortConflicts([
+    ...groupedWars,
     ...standalone.filter(conflict => !groupedWars.some(group => normalizeText(group.name) === normalizeText(conflict.name)))
-  ];
+  ]);
 
   return merged.map(group => {
     const sortedCampaigns = sortConflicts(group.campaigns || []).map(campaign => ({ ...campaign, battles: [] }));
@@ -4348,32 +5146,313 @@ function renderRelatedConflictSummary(groups) {
   `;
 }
 
+function buildGenericConflictCause(conflict, type, scope, region, countryName = "") {
+  const parentLabel = conflict?.parentName ? ` dentro de ${conflict.parentName}` : "";
+  const locationLabel = region && region !== "Region indeterminada" ? ` en ${region}` : "";
+  const actorLabel = countryName ? ` para ${countryName}` : "";
+
+  if (conflict?.level === "battle") {
+    return `Fue un enfrentamiento tactico${parentLabel}${locationLabel}${actorLabel}, vinculado a operaciones militares mas amplias y a objetivos inmediatos de control territorial, desgaste o ruptura del frente.`;
+  }
+  if (conflict?.level === "campaign") {
+    return `Fue una campana militar${parentLabel}${locationLabel}${actorLabel}, desarrollada para sostener una ofensiva, asegurar una region clave o modificar el equilibrio operativo del conflicto principal.`;
+  }
+  if (type === "guerra mundial") {
+    return `Se produjo por la escalada entre grandes coaliciones rivales, la militarizacion acumulada y disputas estrategicas que terminaron proyectandose a escala ${scope}.`;
+  }
+  if (type === "conflicto interno") {
+    return `Se origino en una crisis de poder, legitimidad o control territorial${locationLabel}${actorLabel}, con enfrentamientos entre el aparato estatal y fuerzas rebeldes, insurgentes o secesionistas.`;
+  }
+  if (type === "intervencion u ocupacion") {
+    return `Se desencadeno por una invasion, intervencion externa u ocupacion${locationLabel}${actorLabel}, en un contexto de seguridad regional, cambio de regimen o disputa por influencia estrategica.`;
+  }
+  return `Se desarrollo por disputas interestatales${locationLabel}${actorLabel} vinculadas a fronteras, equilibrio regional, seguridad o control de espacios y recursos estrategicos.`;
+}
+
+function buildGenericConflictParticipants(conflict, type, countryName = "") {
+  const selectedCountry = countryName || "Estado implicado";
+  if (conflict?.level === "battle") {
+    return [
+      {
+        side: "Fuerzas enfrentadas",
+        members: [selectedCountry || "Actores del conflicto principal"],
+        organizations: conflict.parentName ? [conflict.parentName] : [],
+        troops: "contingentes militares variables",
+        casualties: "sin cifra consolidada"
+      }
+    ];
+  }
+  if (conflict?.level === "campaign" || type === "campana militar") {
+    return [
+      {
+        side: "Fuerzas de la campaña principal",
+        members: [selectedCountry],
+        organizations: conflict.parentName ? [conflict.parentName] : [],
+        troops: "fuerzas regulares y apoyos variables",
+        casualties: "sin cifra consolidada"
+      }
+    ];
+  }
+  if (type === "conflicto interno") {
+    return [
+      {
+        side: "Gobierno y aparato estatal",
+        members: [selectedCountry],
+        organizations: [],
+        troops: "movilizacion estatal variable",
+        casualties: "sin cifra consolidada"
+      },
+      {
+        side: "Rebeldes / insurgentes / oposicion armada",
+        members: ["facciones armadas no estatales"],
+        organizations: [],
+        troops: "fuerzas irregulares o mixtas",
+        casualties: "sin cifra consolidada"
+      }
+    ];
+  }
+  if (type === "guerra mundial") {
+    return [
+      {
+        side: "Coalicion principal",
+        members: [selectedCountry],
+        organizations: [],
+        troops: "movilizacion de gran escala",
+        casualties: "muy elevadas"
+      },
+      {
+        side: "Coalicion rival",
+        members: ["potencias rivales"],
+        organizations: [],
+        troops: "movilizacion de gran escala",
+        casualties: "muy elevadas"
+      }
+    ];
+  }
+  if (type === "intervencion u ocupacion") {
+    return [
+      {
+        side: "Fuerzas intervinientes",
+        members: [selectedCountry],
+        organizations: [],
+        troops: "fuerzas expedicionarias o combinadas",
+        casualties: "sin cifra consolidada"
+      },
+      {
+        side: "Defensa local / resistencia / actor intervenido",
+        members: ["fuerzas locales"],
+        organizations: [],
+        troops: "fuerzas regulares e irregulares",
+        casualties: "sin cifra consolidada"
+      }
+    ];
+  }
+  return [
+    {
+      side: "Estado o coalicion principal",
+      members: [selectedCountry],
+      organizations: [],
+      troops: "fuerzas regulares",
+      casualties: "sin cifra consolidada"
+    },
+    {
+      side: "Estado o coalicion rival",
+      members: ["adversarios estatales"],
+      organizations: [],
+      troops: "fuerzas regulares",
+      casualties: "sin cifra consolidada"
+    }
+  ];
+}
+
+function buildGenericConflictOutcome(conflict) {
+  if (conflict?.level === "battle") {
+    return "El combate altero de forma puntual la situacion tactica del frente, aunque su balance exacto no esta completamente estructurado en el dataset.";
+  }
+  if (conflict?.level === "campaign") {
+    return "La campaña modifico el equilibrio operativo del conflicto mayor, aunque su desenlace puntual todavia no esta completamente estructurado.";
+  }
+  if (conflict?.ongoing) {
+    return "El conflicto sigue abierto o no cuenta todavia con una resolucion estable y ampliamente aceptada.";
+  }
+  if (conflict?.endYear && conflict?.startYear && conflict.endYear !== conflict.startYear) {
+    return `La fase armada principal concluyo en ${conflict.endYear}, tras varios ciclos de combate, negociacion o agotamiento militar.`;
+  }
+  if (conflict?.startYear) {
+    return `El episodio principal se cerro en ${conflict.startYear}, aunque sus efectos politicos y territoriales pudieron continuar despues.`;
+  }
+  return "El desenlace puntual no esta completamente estructurado, pero el episodio forma parte de una secuencia historica mayor ya identificada por el dataset.";
+}
+
+function buildGenericConflictConsequences(conflict, type, region, countryName = "") {
+  const regionLabel = region && region !== "Region indeterminada" ? ` en ${region}` : "";
+  const actorLabel = countryName ? ` para ${countryName}` : " para los actores implicados";
+  if (conflict?.level === "battle") {
+    return `Su efecto principal fue operativo: altero posiciones, ritmos de ofensiva o capacidad de resistencia dentro del conflicto mayor${conflict?.parentName ? ` asociado a ${conflict.parentName}` : ""}.`;
+  }
+  if (type === "conflicto interno") {
+    return `Dejo secuelas politicas, sociales y de seguridad${regionLabel}${actorLabel}, con desplazamientos, reconfiguracion del poder interno y efectos duraderos sobre la legitimidad estatal.`;
+  }
+  if (type === "campana militar") {
+    return `Su efecto principal fue operativo y estrategico${regionLabel}${actorLabel}: sostuvo ofensivas, desgasto fuerzas rivales o preparo batallas de mayor escala dentro del conflicto principal.`;
+  }
+  if (type === "guerra mundial") {
+    return `Transformo el equilibrio internacional${regionLabel}${actorLabel}, alterando fronteras, alianzas, doctrinas militares y el sistema politico global posterior.`;
+  }
+  return `Produjo cambios militares y diplomaticos${regionLabel}${actorLabel}, con impacto sobre fronteras, alianzas, prestigio estrategico o seguridad regional.`;
+}
+
+function buildGenericRelatedConflicts(conflict) {
+  const related = [];
+  if (conflict?.parentName) {
+    related.push(conflict.parentName);
+  }
+  const normalized = normalizeText(conflict?.name || "");
+  if (normalized.includes("primera guerra mundial")) {
+    related.push("Segunda Guerra Mundial");
+  }
+  if (normalized.includes("segunda guerra mundial")) {
+    related.push("Primera Guerra Mundial");
+  }
+  if (normalized.includes("guerra ruso-ucraniana") || normalized.includes("donbas")) {
+    related.push("Guerra de Crimea");
+  }
+  if (/midway|guadalcanal|alamein|gazala|ardenas/.test(normalized)) {
+    related.push("Segunda Guerra Mundial");
+  }
+  if (/tet|khe sanh|long tan|hamburger hill|vietnamita fase/.test(normalized)) {
+    related.push("Guerra de Vietnam");
+  }
+  if (/gaza|yom kippur|seis dias|israel|palestin/.test(normalized)) {
+    related.push("Guerras arabe-israelies");
+  }
+  if (/congo|kivu|ruanda/.test(normalized)) {
+    related.push("Segunda guerra del Congo");
+  }
+  if (/sahara|saharaui/.test(normalized)) {
+    related.push("Guerra del Sahara Occidental");
+  }
+  if (/sudan|darfur|sursudan/.test(normalized)) {
+    related.push("Segunda guerra civil sudanesa");
+  }
+  return [...new Set(related)];
+}
+
+function renderConflictWikipediaField(labelEs, labelEn, value) {
+  if (!value || (Array.isArray(value) && !value.length)) {
+    return "";
+  }
+
+  const label = currentLanguage === "en" ? labelEn : labelEs;
+  const normalizeItem = item => String(item || "")
+    .replace(/&#\d+;?/g, " ")
+    .replace(/&#x[a-f0-9]+;?/gi, " ")
+    .replace(/[\u200B-\u200D\uFEFF]/g, " ")
+    .replace(/&&&&+[^ \n]*/g, " ")
+    .replace(/Expresi[oó]n err[oó]nea:[^.;\n]*/gi, " ")
+    .replace(/(?:^|\s)(?:ver|vease|v[eé]ase)\s+el?\s+anexo(?:$|\s)/gi, " ")
+    .replace(/\b(?:ver|mostrar|ocultar)\b/gi, " ")
+    .replace(/Â·/g, " · ")
+    .replace(/Â/g, " ")
+    .replace(/\bTotal:\s*Total:/gi, "Total:")
+    .replace(/\b([\p{L}\p{N}][\p{L}\p{N}.-]*(?:\s+[\p{L}\p{N}][\p{L}\p{N}.-]*)+)\s+\1\b/gu, "$1")
+    .replace(/\b([\p{L}\p{N}][\p{L}\p{N}.-]*)\s+\1\b/gu, "$1")
+    .replace(/\?{2,}/g, " - ")
+    .replace(/\s+/g, " ")
+    .trim();
+  const shouldDrop = item => {
+    const normalized = normalizeItem(item).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    return !normalized
+      || normalized === "vease el anexo"
+      || normalized === "ver anexo"
+      || normalized === "beligerantes"
+      || normalized === "belligerents";
+  };
+
+  if (Array.isArray(value)) {
+    const items = value.some(item => Array.isArray(item))
+      ? value
+        .map((entry, index) => `${currentLanguage === "en" ? "Side" : "Bando"} ${index + 1}: ${(entry || []).map(normalizeItem).filter(item => !shouldDrop(item)).join(", ")}`)
+        .filter(item => !shouldDrop(item))
+      : uniqueNormalizedList(value.map(normalizeItem).filter(item => !shouldDrop(item)));
+    if (!items.length) {
+      return "";
+    }
+    return `
+      <div class="conflict-modal-side">
+        <strong>${escapeHtml(label)}</strong>
+        <p>${escapeHtml(items.join(" · "))}</p>
+      </div>
+    `;
+  }
+
+  if (shouldDrop(value)) {
+    return "";
+  }
+
+  return `
+    <div class="conflict-modal-side">
+      <strong>${escapeHtml(label)}</strong>
+      <p>${escapeHtml(normalizeItem(value))}</p>
+    </div>
+  `;
+}
+
 function getConflictModalContent(conflict, countryName = "") {
   const detail = CONFLICT_DETAIL_OVERRIDES[conflict.name] || {};
   const type = inferConflictType(conflict, detail);
   const scope = inferConflictScope(conflict, detail);
   const region = inferConflictRegion(conflict, detail, countryName);
+  const participants = dedupeConflictParticipants(
+    (Array.isArray(detail.participants) && detail.participants.length)
+      ? detail.participants
+      : buildGenericConflictParticipants(conflict, type, countryName)
+  );
+  const chronology = (Array.isArray(detail.chronology) && detail.chronology.length ? detail.chronology : buildGenericConflictChronology(conflict))
+    .map(item => ({ ...item, text: sanitizeConflictModalText(item?.text || item || "") }))
+    .filter(item => item.text)
+    .sort((a, b) => {
+      const yearA = Number.isFinite(Number(a?.year)) ? Number(a.year) : Number.MAX_SAFE_INTEGER;
+      const yearB = Number.isFinite(Number(b?.year)) ? Number(b.year) : Number.MAX_SAFE_INTEGER;
+      if (yearA !== yearB) {
+        return yearA - yearB;
+      }
+      return String(a?.text || "").localeCompare(String(b?.text || ""), "es");
+    });
   return {
     title: `${conflict.name}${formatConflictPeriod(conflict)}`,
     type,
     scope,
     region,
-    cause: detail.cause || "Sin datos detallados sobre el detonante inmediato del conflicto.",
-    participants: detail.participants || [
-      {
-        side: "Participantes identificados",
-        members: countryName ? [countryName] : ["Sin datos"],
-        organizations: [],
-        troops: "Sin datos",
-        casualties: "Sin datos"
-      }
-    ],
-    chronology: Array.isArray(detail.chronology) ? detail.chronology : [],
+    cause: detail.cause || buildGenericConflictCause(conflict, type, scope, region, countryName),
+    participants,
+    chronology,
     battles: Array.isArray(conflict.battles) ? conflict.battles : [],
-    related: Array.isArray(detail.related) ? detail.related : [],
-    outcome: detail.outcome || "Sin datos detallados sobre la resolucion del conflicto.",
-    consequences: detail.consequences || "Sin datos detallados sobre cambios territoriales, politicos o militares."
+    campaigns: Array.isArray(conflict.campaigns) ? conflict.campaigns : [],
+    related: (Array.isArray(detail.related) && detail.related.length) ? detail.related : buildGenericRelatedConflicts(conflict),
+    outcome: detail.outcome || buildGenericConflictOutcome(conflict),
+    consequences: detail.consequences || buildGenericConflictConsequences(conflict, type, region, countryName),
+    wikipedia: detail.wikipedia || null
   };
+}
+
+function sanitizeConflictModalText(value = "") {
+  return String(value || "")
+    .replace(/&#\d+;?/g, " ")
+    .replace(/&#x[a-f0-9]+;?/gi, " ")
+    .replace(/[\u200B-\u200D\uFEFF]/g, " ")
+    .replace(/&&&&+[^ \n]*/g, " ")
+    .replace(/Expresi[oó]n err[oó]nea:[^.;\n]*/gi, " ")
+    .replace(/(?:^|\s)(?:ver|vease|v[eé]ase)\s+el?\s+anexo(?:$|\s)/gi, " ")
+    .replace(/\b(?:ver|mostrar|ocultar)\b/gi, " ")
+    .replace(/Â·/g, " · ")
+    .replace(/Â/g, " ")
+    .replace(/\bTotal:\s*Total:/gi, "Total:")
+    .replace(/\b([\p{L}\p{N}][\p{L}\p{N}.-]*(?:\s+[\p{L}\p{N}][\p{L}\p{N}.-]*)+)\s+\1\b/gu, "$1")
+    .replace(/\b([\p{L}\p{N}][\p{L}\p{N}.-]*)\s+\1\b/gu, "$1")
+    .replace(/\?{2,}/g, " - ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function registerConflictModal(conflict, countryName = "") {
@@ -4390,7 +5469,7 @@ function renderConflicts(conflicts) {
   const groupedConflicts = buildConflictGroups(conflicts);
   const filteredConflicts = filterConflictGroups(
     groupedConflicts,
-    currentPanelState.type === "country" ? (currentPanelState.conflictFilter || "all") : "all"
+    currentPanelState.type === "country" ? getConflictFilterState() : "all"
   );
 
   if (!filteredConflicts.length) {
@@ -4400,7 +5479,8 @@ function renderConflicts(conflicts) {
   return `${renderConflictFilters(groupedConflicts)}<ul class="conflict-tree">${filteredConflicts
     .map(conflict => {
       const modalKey = registerConflictModal(conflict, currentPanelState?.code ? countriesData[currentPanelState.code]?.name : "");
-      const battles = (conflict.battles || []).sort((a, b) => (a.startYear || 0) - (b.startYear || 0));
+      const campaigns = sortConflicts(conflict.campaigns || []);
+      const battles = sortConflicts(conflict.battles || []);
       const detail = CONFLICT_DETAIL_OVERRIDES[conflict.name] || {};
       const type = getConflictTypeLabel(inferConflictType(conflict, detail));
       const scope = getConflictScopeLabel(inferConflictScope(conflict, detail));
@@ -4414,6 +5494,20 @@ function renderConflicts(conflicts) {
             </span>
             <span class="conflict-trigger-period">${formatConflictPeriod(conflict).trim()}</span>
           </button>
+          ${campaigns.length ? `<ul class="conflict-campaigns">${campaigns.map(campaign => {
+            const campaignKey = registerConflictModal(campaign, currentPanelState?.code ? countriesData[currentPanelState.code]?.name : "");
+            const campaignBattles = sortConflicts(campaign.battles || []);
+            return `<li>
+              <button type="button" class="conflict-trigger conflict-trigger-campaign" data-conflict-key="${campaignKey}">
+                <span class="conflict-trigger-title">${escapeHtml(campaign.name)}</span>
+                <span class="conflict-trigger-period">${formatConflictPeriod(campaign).trim()}</span>
+              </button>
+              ${campaignBattles.length ? `<ul class="conflict-battles">${campaignBattles.map(battle => {
+                const battleKey = registerConflictModal(battle, currentPanelState?.code ? countriesData[currentPanelState.code]?.name : "");
+                return `<li><button type="button" class="conflict-trigger conflict-trigger-battle" data-conflict-key="${battleKey}"><span class="conflict-trigger-title">${escapeHtml(battle.name)}</span><span class="conflict-trigger-period">${formatConflictPeriod(battle).trim()}</span></button></li>`;
+              }).join("")}</ul>` : ""}
+            </li>`;
+          }).join("")}</ul>` : ""}
           ${battles.length ? `<ul class="conflict-battles">${battles.map(battle => {
             const battleKey = registerConflictModal(battle, currentPanelState?.code ? countriesData[currentPanelState.code]?.name : "");
             return `<li><button type="button" class="conflict-trigger conflict-trigger-battle" data-conflict-key="${battleKey}"><span class="conflict-trigger-title">${escapeHtml(battle.name)}</span><span class="conflict-trigger-period">${formatConflictPeriod(battle).trim()}</span></button></li>`;
@@ -4444,23 +5538,52 @@ function openConflictModal(key) {
       <h4>${currentLanguage === "en" ? "Why it started" : "Por que estallo"}</h4>
       <p>${escapeHtml(detail.cause)}</p>
     </div>
-    <div class="conflict-modal-section">
-      <h4>${currentLanguage === "en" ? "Participants and sides" : "Participantes y bandos"}</h4>
+      <div class="conflict-modal-section">
+        <h4>${currentLanguage === "en" ? "Participants and sides" : "Participantes y bandos"}</h4>
       ${detail.participants.map(item => `
         <div class="conflict-modal-side">
-          <strong>${escapeHtml(item.side)}</strong>
-          <p><b>${currentLanguage === "en" ? "States" : "Paises"}:</b> ${escapeHtml((item.members || ["Sin datos"]).join(", "))}</p>
-          <p><b>${currentLanguage === "en" ? "Organizations" : "Organizaciones"}:</b> ${escapeHtml((item.organizations && item.organizations.length ? item.organizations : ["Sin datos"]).join(", "))}</p>
-          <p><b>${currentLanguage === "en" ? "Troops" : "Soldados"}:</b> ${escapeHtml(item.troops || "Sin datos")}</p>
-          <p><b>${currentLanguage === "en" ? "Casualties" : "Bajas"}:</b> ${escapeHtml(item.casualties || "Sin datos")}</p>
+          <strong>${escapeHtml(sanitizeConflictModalText(item.side))}</strong>
+          <p><b>${currentLanguage === "en" ? "States" : "Paises"}:</b> ${escapeHtml((item.members || ["Sin datos"]).map(sanitizeConflictModalText).join(", "))}</p>
+          ${item.organizations && item.organizations.length ? `<p><b>${currentLanguage === "en" ? "Organizations" : "Organizaciones"}:</b> ${escapeHtml(item.organizations.map(sanitizeConflictModalText).join(", "))}</p>` : ""}
+          ${item.troops ? `<p><b>${currentLanguage === "en" ? "Troops" : "Soldados"}:</b> ${escapeHtml(sanitizeConflictModalText(item.troops))}</p>` : ""}
+          ${item.casualties ? `<p><b>${currentLanguage === "en" ? "Casualties" : "Bajas"}:</b> ${escapeHtml(sanitizeConflictModalText(item.casualties))}</p>` : ""}
         </div>
       `).join("")}
     </div>
+    ${detail.wikipedia ? `
+      <div class="conflict-modal-section">
+        <h4>${currentLanguage === "en" ? "Wikipedia infobox" : "Ficha de Wikipedia"}</h4>
+        ${renderConflictWikipediaField("Fecha", "Date", detail.wikipedia.date)}
+        ${renderConflictWikipediaField("Lugar", "Place", detail.wikipedia.place)}
+        ${renderConflictWikipediaField("Casus belli", "Casus belli", detail.wikipedia.casusBelli)}
+        ${renderConflictWikipediaField("Resultado", "Result", detail.wikipedia.result)}
+        ${renderConflictWikipediaField("Cambios territoriales", "Territorial changes", detail.wikipedia.territorialChanges)}
+        ${detail.participants?.length ? "" : renderConflictWikipediaField("Beligerantes", "Belligerents", detail.wikipedia.belligerents)}
+        ${renderConflictWikipediaField("Figuras politicas", "Political figures", detail.wikipedia.commanders)}
+        ${detail.participants?.some(item => item?.troops) ? "" : renderConflictWikipediaField("Fuerzas en combate", "Strength", detail.wikipedia.strength)}
+        ${detail.participants?.some(item => item?.casualties) ? "" : renderConflictWikipediaField("Bajas", "Casualties", detail.wikipedia.casualties)}
+      </div>
+    ` : ""}
     ${detail.chronology?.length ? `
       <div class="conflict-modal-section">
         <h4>${currentLanguage === "en" ? "Internal chronology" : "Cronologia interna"}</h4>
         <ul class="data-source-list">
-          ${detail.chronology.map(item => `<li><b>${escapeHtml(String(item.year || ""))}</b> · ${escapeHtml(item.text || item)}</li>`).join("")}
+          ${detail.chronology.map(item => {
+            const yearLabel = item?.year ? `<b>${escapeHtml(String(item.year))}</b> · ` : "";
+            return `<li>${yearLabel}${escapeHtml(item.text || item)}</li>`;
+          }).join("")}
+        </ul>
+      </div>
+    ` : ""}
+    ${detail.campaigns?.length ? `
+      <div class="conflict-modal-section">
+        <h4>${currentLanguage === "en" ? "Campaigns" : "Campanas"}</h4>
+        <ul class="data-source-list">
+          ${detail.campaigns
+            .slice()
+            .sort((a, b) => (a.startYear || 0) - (b.startYear || 0))
+            .map(item => `<li><b>${escapeHtml(item.name || "Campana")}</b>${formatConflictPeriod(item)}</li>`)
+            .join("")}
         </ul>
       </div>
     ` : ""}
@@ -5118,7 +6241,7 @@ function renderEmpty(name) {
   renderNewsHub();
 
   renderThemeSummary();
-  openCountryModal();
+  closeCountryModal();
 }
 
 function getRenderProfileLabel() {
@@ -5134,6 +6257,7 @@ function getRenderProfileLabel() {
 
 function updateAppStatusPanel(extra = {}) {
   const renderChip = document.getElementById("render-profile-chip");
+  const bootChip = document.getElementById("boot-profile-chip");
   const datasetChip = document.getElementById("dataset-health-chip");
 
   if (renderChip) {
@@ -5147,6 +6271,22 @@ function updateAppStatusPanel(extra = {}) {
       presentation: currentLanguage === "en" ? "presentation" : "presentacion"
     }[appMode] || appMode;
     renderChip.innerHTML = `<strong>${currentLanguage === "en" ? "Render" : "Render"}:</strong> ${escapeHtml(getRenderProfileLabel())} · ${escapeHtml(modeLabel)}${fpsSuffix}`;
+  }
+
+  if (bootChip) {
+    const summary = getBootProfileSummary();
+    const hasBootData = summary.total > 0 || Object.keys(bootMetrics.steps).length > 0;
+    if (!hasBootData) {
+      bootChip.innerHTML = `<strong>${currentLanguage === "en" ? "Boot" : "Arranque"}:</strong> ${currentLanguage === "en" ? "pending" : "pendiente"}`;
+    } else {
+      const totalLabel = `${Math.round(summary.total)} ms`;
+      const detailParts = [];
+      if (summary.imagery) detailParts.push(`${currentLanguage === "en" ? "imagery" : "imagery"} ${Math.round(summary.imagery)} ms`);
+      if (summary.data) detailParts.push(`${currentLanguage === "en" ? "data" : "datos"} ${Math.round(summary.data)} ms`);
+      if (summary.overlay) detailParts.push(`${currentLanguage === "en" ? "overlay" : "overlay"} ${Math.round(summary.overlay)} ms`);
+      if (summary.ui) detailParts.push(`${currentLanguage === "en" ? "ui" : "ui"} ${Math.round(summary.ui)} ms`);
+      bootChip.innerHTML = `<strong>${currentLanguage === "en" ? "Boot" : "Arranque"}:</strong> ${escapeHtml(totalLabel)}${detailParts.length ? ` · ${escapeHtml(detailParts.join(" · "))}` : ""}`;
+    }
   }
 
   if (datasetChip) {
@@ -5705,6 +6845,24 @@ function getCountryIndustryBreadth(country) {
   return Array.isArray(country?.economy?.industries) ? country.economy.industries.filter(Boolean).length : 0;
 }
 
+function getCountryQualityScore(country) {
+  return Number(country?.metadata?.quality?.score) || 0;
+}
+
+function getCountryLanguageDiversity(country) {
+  return Array.isArray(country?.general?.languages) ? country.general.languages.filter(Boolean).length : 0;
+}
+
+function getCountryDiplomaticReach(country) {
+  const relations = country?.politics?.relations || {};
+  const organizations = getCountryOrganizationCount(country);
+  const blocs = (relations.blocs || []).length + (relations.militaryBlocs || []).length + (relations.economicBlocs || []).length + (relations.diplomaticBlocs || []).length;
+  const allies = (relations.militaryAllies || []).length + (relations.economicPartners || []).length + (relations.diplomaticPartners || []).length;
+  const rivals = (relations.currentRivals || []).length + (relations.historicRivals || []).length;
+  const disputes = (relations.territorialDisputes || []).length;
+  return organizations + blocs + allies + Math.min(rivals, 6) + disputes;
+}
+
 function getCountryCapitalShare(country) {
   const capitalPopulation = Number(country?.general?.capital?.population) || 0;
   const population = Number(country?.general?.population) || 0;
@@ -6147,6 +7305,21 @@ function getCountryThemeStyle(code) {
     return adapt({ ...DEFAULT_STYLE, color: "#240046", fillColor, fillOpacity: 0.86 });
   }
 
+  if (currentTheme === "qualityScore") {
+    const fillColor = getBucketThemeInfo(getCountryQualityScore(country), THEME_STYLES.qualityScore).color;
+    return adapt({ ...DEFAULT_STYLE, color: "#0b3d20", fillColor, fillOpacity: 0.85 });
+  }
+
+  if (currentTheme === "languageDiversity") {
+    const fillColor = getBucketThemeInfo(getCountryLanguageDiversity(country), THEME_STYLES.languageDiversity).color;
+    return adapt({ ...DEFAULT_STYLE, color: "#5a189a", fillColor, fillOpacity: 0.85 });
+  }
+
+  if (currentTheme === "diplomaticReach") {
+    const fillColor = getBucketThemeInfo(getCountryDiplomaticReach(country), THEME_STYLES.diplomaticReach).color;
+    return adapt({ ...DEFAULT_STYLE, color: "#003049", fillColor, fillOpacity: 0.85 });
+  }
+
   return adapt(DEFAULT_STYLE);
 }
 
@@ -6339,6 +7512,21 @@ function renderThemeLegend() {
       label: item.label,
       color: item.color
     }));
+  } else if (currentTheme === "qualityScore") {
+    items = THEME_STYLES.qualityScore.map(item => ({
+      label: item.label,
+      color: item.color
+    }));
+  } else if (currentTheme === "languageDiversity") {
+    items = THEME_STYLES.languageDiversity.map(item => ({
+      label: item.label,
+      color: item.color
+    }));
+  } else if (currentTheme === "diplomaticReach") {
+    items = THEME_STYLES.diplomaticReach.map(item => ({
+      label: item.label,
+      color: item.color
+    }));
   }
 
   if (!items.length) {
@@ -6421,7 +7609,7 @@ function getThemeMetricConfig(theme = currentTheme) {
       title: currentLanguage === "en" ? "Military spending" : "Gasto militar",
       description: currentLanguage === "en"
         ? "Approximated as share of GDP from active personnel, conflict profile and geopolitical weight."
-        : "Aproximado como porcentaje del PBI desde personal activo, perfil conflictivo y peso geopolítico.",
+        : "Aproximado como porcentaje del PBI desde personal activo, perfil conflictivo y peso geopolitico.",
       formatter: value => formatPercentage(value || 0),
       getter: country => getCountryMilitarySpendingEstimate(country),
       estimated: true
@@ -6460,6 +7648,33 @@ function getThemeMetricConfig(theme = currentTheme) {
         : "Indice compuesto que combina demografia, economia, capacidad militar, organizaciones y exposicion al conflicto.",
       formatter: value => `${formatNumber(Math.round((value || 0) * 10) / 10)} / 100`,
       getter: country => getCountryGeopoliticalIndex(country),
+      estimated: true
+    },
+    qualityScore: {
+      title: currentLanguage === "en" ? "Dataset quality" : "Calidad del dataset",
+      description: currentLanguage === "en"
+        ? "Reads the local curation quality score for each country profile."
+        : "Lee el puntaje local de calidad y curaduria de cada ficha pais.",
+      formatter: value => `${formatNumber(Math.round(value || 0))} / 100`,
+      getter: country => getCountryQualityScore(country),
+      estimated: false
+    },
+    languageDiversity: {
+      title: currentLanguage === "en" ? "Language diversity" : "Diversidad linguistica",
+      description: currentLanguage === "en"
+        ? "Counts official and principal languages registered in the country profile."
+        : "Cuenta idiomas oficiales y principales registrados en la ficha del pais.",
+      formatter: value => `${formatNumber(Math.round(value || 0))} ${currentLanguage === "en" ? "languages" : "idiomas"}`,
+      getter: country => getCountryLanguageDiversity(country),
+      estimated: false
+    },
+    diplomaticReach: {
+      title: currentLanguage === "en" ? "Diplomatic reach" : "Alcance diplomatico",
+      description: currentLanguage === "en"
+        ? "Proxy built from organizations, blocs, allies, rivals and disputes."
+        : "Proxy armado a partir de organizaciones, bloques, aliados, rivales y disputas.",
+      formatter: value => `${formatNumber(Math.round(value || 0))} ${currentLanguage === "en" ? "links" : "vinculos"}`,
+      getter: country => getCountryDiplomaticReach(country),
       estimated: true
     }
   };
@@ -6507,7 +7722,7 @@ function renderThemeSummary() {
   const selectedCode = selectedCountry ? getCountryCodeByObject(selectedCountry) : "";
   const selectedItem = selectedCode ? values.find(item => item.code === selectedCode) : null;
   const median = numeric
-    ? [...values].sort((a, b) => a.value - b.value)[Math.floor(values.length / 2)]?.value ?? null
+    ? ([...values].sort((a, b) => a.value - b.value)[Math.floor(values.length / 2)]?.value ?? null)
     : null;
   const percentile = numeric && selectedItem
     ? Math.round((values.filter(item => item.value <= selectedItem.value).length / Math.max(values.length, 1)) * 100)
@@ -6537,7 +7752,7 @@ function renderThemeSummary() {
       </div>
       <div class="theme-summary-card">
         <span class="theme-summary-label">${currentLanguage === "en" ? "Average" : "Promedio"}</span>
-        <strong class="theme-summary-value">${average === null ? (currentLanguage === "en" ? "Categorical layer" : "Capa categórica") : escapeHtml(metric.formatter(average))}</strong>
+          <strong class="theme-summary-value">${average === null ? (currentLanguage === "en" ? "Categorical layer" : "Capa categorica") : escapeHtml(metric.formatter(average))}</strong>
       </div>
       <div class="theme-summary-card">
         <span class="theme-summary-label">${currentLanguage === "en" ? "Median / baseline" : "Mediana / base"}</span>
@@ -6590,9 +7805,9 @@ function buildNewsQueries(country) {
   return queries.filter(Boolean);
 }
 
-async function fetchCountryHeadline(country) {
+async function fetchCountryHeadlines(country) {
   if (!country?.code) {
-    return null;
+    return [];
   }
 
   if (newsCache.has(country.code)) {
@@ -6606,11 +7821,13 @@ async function fetchCountryHeadline(country) {
     summary: `Abrir cobertura en vivo sobre ${country.name}.`,
     url: getCountryNewsUrl(country)
   };
+  const collected = [];
+  const seenUrls = new Set();
 
   const queries = buildNewsQueries(country);
   for (const query of queries) {
     try {
-      const url = `https://api.gdeltproject.org/api/v2/doc/doc?query=${encodeURIComponent(query)}&mode=ArtList&maxrecords=1&format=json&sort=HybridRel`;
+      const url = `https://api.gdeltproject.org/api/v2/doc/doc?query=${encodeURIComponent(query)}&mode=ArtList&maxrecords=4&format=json&sort=HybridRel`;
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 3500);
       const response = await fetch(url, { signal: controller.signal });
@@ -6620,29 +7837,46 @@ async function fetchCountryHeadline(country) {
       }
 
       const payload = await response.json();
-      const article = payload?.articles?.[0];
-      if (!article) {
+      const articles = payload?.articles || [];
+      if (!articles.length) {
         continue;
       }
 
-      const item = {
-        title: article.title || fallback.title,
-        source: article.sourceCommonName || article.domain || fallback.source,
-        date: article.seendate ? formatNewsDate(article.seendate) : "",
-        summary: article.socialimage
-          ? `Cobertura destacada detectada sobre ${country.name}. Abrila para ver el desarrollo completo.`
-          : `Noticia reciente vinculada a ${country.name}.`,
-        url: article.url || fallback.url
-      };
-      newsCache.set(country.code, item);
-      return item;
+      for (const article of articles) {
+        const articleUrl = article.url || fallback.url;
+        if (!articleUrl || seenUrls.has(articleUrl)) {
+          continue;
+        }
+        seenUrls.add(articleUrl);
+        collected.push({
+          title: article.title || fallback.title,
+          source: article.sourceCommonName || article.domain || fallback.source,
+          date: article.seendate ? formatNewsDate(article.seendate) : "",
+          summary: article.socialimage
+            ? `Cobertura destacada detectada sobre ${country.name}. Abrila para ver el desarrollo completo.`
+            : `Noticia reciente vinculada a ${country.name}.`,
+          url: articleUrl
+        });
+        if (collected.length >= 4) {
+          break;
+        }
+      }
+      if (collected.length >= 4) {
+        break;
+      }
     } catch (error) {
       console.error(`No se pudo cargar la noticia para ${country.name}:`, error);
     }
   }
 
-  newsCache.set(country.code, fallback);
-  return fallback;
+  const finalItems = collected.length ? collected : [fallback];
+  newsCache.set(country.code, finalItems);
+  return finalItems;
+}
+
+async function fetchCountryHeadline(country) {
+  const headlines = await fetchCountryHeadlines(country);
+  return headlines[0] || null;
 }
 
 function formatNewsDate(value) {
@@ -6794,6 +8028,20 @@ setupNewsHubPanel = function setupNewsHubPanel() {
 };
 
 function updateExtendedStaticText() {
+  const introCloseButton = document.getElementById("intro-modal-close");
+  if (introCloseButton) {
+    introCloseButton.innerHTML = "&times;";
+  }
+  const productCloseButton = document.getElementById("product-modal-close");
+  if (productCloseButton) {
+    productCloseButton.innerHTML = "&times;";
+  }
+  const introModalBody = document.getElementById("intro-modal-body");
+  if (introModalBody) {
+    introModalBody.innerHTML = introModalBody.innerHTML
+          .replace(/campaÃ±as/g, "campañas")
+      .replace(/Ãƒâ€”/g, "&times;");
+  }
   const semanticHelper = document.getElementById("semantic-helper");
   if (semanticHelper) {
     semanticHelper.textContent = currentLanguage === "en"
@@ -6891,8 +8139,8 @@ async function showNewsArticle(countryCode) {
   document.querySelectorAll("#news-hub-list .news-hub-item").forEach(item => {
     item.classList.toggle("is-active", item.querySelector("[data-news-country]")?.dataset.newsCountry === countryCode);
   });
-  const article = await fetchCountryHeadline(country);
-  renderNewsArticle(article, country);
+  const headlines = await fetchCountryHeadlines(country);
+  renderNewsArticle(headlines[0], country, headlines);
 }
 
 function renderNewsHub(selectedCode = "") {
@@ -7646,7 +8894,7 @@ function updateStaticText() {
   }
   document.getElementById("rankings-summary").textContent = currentLanguage === "en" ? "Global rankings" : "Rankings globales";
   document.getElementById("world-population-title").textContent = currentLanguage === "en" ? "World population" : "Poblacion mundial";
-  document.getElementById("top-population-title").textContent = currentLanguage === "en" ? "Top population" : "Top Población";
+  document.getElementById("top-population-title").textContent = currentLanguage === "en" ? "Top population" : "Top poblacion";
   document.getElementById("continents-title").textContent = currentLanguage === "en" ? "Continents" : "Continentes";
   document.getElementById("religions-title").textContent = currentLanguage === "en" ? "Religions" : "Religiones";
   document.getElementById("gdp-title").textContent = t("topGdp");
@@ -7660,7 +8908,7 @@ function updateStaticText() {
   document.getElementById("organizations-reach-title").textContent = currentLanguage === "en" ? "Most widespread organizations" : "Organizaciones mas extendidas";
   document.getElementById("rivalries-top-title").textContent = currentLanguage === "en" ? "Most repeated rivalries" : "Rivalidades mas repetidas";
   document.getElementById("blocs-top-title").textContent = currentLanguage === "en" ? "Most widespread blocs" : "Bloques mas extendidos";
-  document.getElementById("metropoles-top-title").textContent = currentLanguage === "en" ? "Former metropoles" : "Ex metrópolis";
+  document.getElementById("metropoles-top-title").textContent = currentLanguage === "en" ? "Former metropoles" : "Ex metropoles";
   document.getElementById("history-types-top-title").textContent = currentLanguage === "en" ? "Historical types" : "Tipos historicos";
   document.getElementById("map-search-input").placeholder =
     currentLanguage === "en"
@@ -8101,6 +9349,69 @@ async function openMarkdownDocument(title, fileName) {
   }
 }
 
+function parseChangelogMarkdown(markdown) {
+  const releases = [];
+  let current = null;
+  String(markdown || "").split(/\r?\n/).forEach(line => {
+    if (/^##\s+/.test(line)) {
+      if (current) {
+        releases.push(current);
+      }
+      current = {
+        title: line.replace(/^##\s+/, "").trim(),
+        summary: "",
+        items: []
+      };
+      return;
+    }
+    if (!current) {
+      return;
+    }
+    if (/^\-\s+/.test(line)) {
+      current.items.push(line.replace(/^\-\s+/, "").trim());
+      return;
+    }
+    if (!current.summary && line.trim()) {
+      current.summary = line.trim();
+    }
+  });
+  if (current) {
+    releases.push(current);
+  }
+  return releases;
+}
+
+async function renderChangelogPanel() {
+  try {
+    const markdown = await fetchResourceCached(`./CHANGELOG.md?v=${APP_VERSION}`, "text");
+    const releases = parseChangelogMarkdown(markdown).slice(0, 6);
+    openProductModal(
+      "CHANGELOG",
+      `
+        <div class="product-summary-grid">
+          ${releases.slice(0, 3).map(release => `
+            <div class="overview-card">
+              <span class="overview-label">${escapeHtml(release.title)}</span>
+              <strong class="overview-value">${escapeHtml(release.summary || (currentLanguage === "en" ? "Release notes" : "Notas de version"))}</strong>
+            </div>
+          `).join("")}
+        </div>
+        <div class="changelog-release-list">
+          ${releases.map(release => `
+            <section class="changelog-release-card">
+              <h3>${escapeHtml(release.title)}</h3>
+              ${release.summary ? `<p>${escapeHtml(release.summary)}</p>` : ""}
+              <ul>${release.items.slice(0, 8).map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+            </section>
+          `).join("")}
+        </div>
+      `
+    );
+  } catch (error) {
+    openMarkdownDocument("CHANGELOG", "CHANGELOG.md");
+  }
+}
+
 function renderDatasetHealthPanel() {
   const countries = Object.values(countriesData || {});
   const total = countries.length || 0;
@@ -8256,10 +9567,11 @@ function setupSavedViewControls() {
   });
   introButton?.addEventListener("click", () => openIntroModal());
   healthButton?.addEventListener("click", () => renderDatasetHealthPanel());
-  changelogButton?.addEventListener("click", () => openMarkdownDocument("CHANGELOG", "CHANGELOG.md"));
+  changelogButton?.addEventListener("click", () => renderChangelogPanel());
   docsButton?.addEventListener("click", async () => {
     const userGuide = await fetchResourceCached(`./USER_GUIDE.md?v=${APP_VERSION}`, "text").catch(() => "");
     const technicalGuide = await fetchResourceCached(`./TECHNICAL.md?v=${APP_VERSION}`, "text").catch(() => "");
+    const backendPlan = await fetchResourceCached(`./BACKEND_PLAN.md?v=${APP_VERSION}`, "text").catch(() => "");
     openProductModal(
       currentLanguage === "en" ? "Documentation" : "Documentacion",
       `
@@ -8270,6 +9582,10 @@ function setupSavedViewControls() {
         <div class="help-section">
           <h3>TECHNICAL.md</h3>
           <pre>${escapeHtml(technicalGuide || "No disponible")}</pre>
+        </div>
+        <div class="help-section">
+          <h3>BACKEND_PLAN.md</h3>
+          <pre>${escapeHtml(backendPlan || "No disponible")}</pre>
         </div>
       `
     );
@@ -9674,9 +10990,9 @@ function setupSearchIndex(featureNameByCode) {
 
   const continentNameMap = {
     america: "America",
-    américa: "America",
+    americamojibake: "America",
     americas: "America",
-    américas: "America",
+    americasmojibake: "America",
     asia: "Asia",
     europa: "Europe",
     europe: "Europe",
@@ -9684,7 +11000,7 @@ function setupSearchIndex(featureNameByCode) {
     oceania: "Oceania",
     oceania: "Oceania",
     antartida: "Antarctica",
-    antártida: "Antarctica",
+    antartidamojibake: "Antarctica",
     antarctica: "Antarctica"
   };
 
@@ -10347,51 +11663,121 @@ function scheduleDeferredGlobalStats(force = false) {
   runDeferredGlobalStatsBatch(0);
 }
 
+async function loadSupplementalData() {
+  if (loadSupplementalDataPromise) {
+    return loadSupplementalDataPromise;
+  }
+
+  loadSupplementalDataPromise = (async () => {
+    const [rawPoliticsJson, rawHistoryJson, rawInflationJson, rawPopulationSeriesText] = await Promise.all([
+      fetchResourceCached(`./data/raw/politics.json?v=${APP_VERSION}`, "json"),
+      fetchResourceCached(`./data/raw/history.json?v=${APP_VERSION}`, "json"),
+      fetchResourceCached(`./data/raw/inflation.json?v=${APP_VERSION}`, "json"),
+      fetchResourceCached(`./data/raw/population.csv?v=${APP_VERSION}`, "text")
+    ]);
+
+    rawPoliticsSystems = rawPoliticsJson;
+    rawHistorySystems = rawHistoryJson;
+    rawInflationByCode = rawInflationJson;
+    populationGrowthByCode = parseWorldBankSeriesChanges(rawPopulationSeriesText);
+    countryCodeByEnglishName = parseWorldBankCountryNameMap(rawPopulationSeriesText);
+    buildInflationFallbacks();
+    refreshGlobalStats();
+    rerenderCurrentPanel?.();
+  })().catch(error => {
+    console.warn("No se pudieron cargar datos suplementarios al arranque:", error);
+  });
+
+  return loadSupplementalDataPromise;
+}
+
+async function loadDeferredDataEnhancements() {
+  if (loadDeferredDataEnhancementsPromise) {
+    return loadDeferredDataEnhancementsPromise;
+  }
+
+  loadDeferredDataEnhancementsPromise = (async () => {
+    setupSearchIndex(
+      Object.fromEntries(
+        Object.entries(countriesData).map(([code, country]) => [code, country.name])
+      )
+    );
+    mapSearchAliasesRegistered = true;
+    runCriticalGlobalStats();
+    scheduleDeferredGlobalStats(true);
+    await loadSupplementalData();
+  })().catch(error => {
+    console.warn("No se pudieron completar las mejoras diferidas del arranque:", error);
+  });
+
+  return loadDeferredDataEnhancementsPromise;
+}
+
+async function loadWikipediaConflictDetails() {
+  if (loadWikipediaConflictDetailsPromise) {
+    return loadWikipediaConflictDetailsPromise;
+  }
+
+  loadWikipediaConflictDetailsPromise = (async () => {
+    markBootStepStart("fetchWikipediaConflicts");
+    try {
+      const wikipediaConflictJson = await fetchResourceCached(`./data/conflict_details.generated.json?v=${APP_VERSION}`, "json");
+      wikipediaConflictDetailOverrides = wikipediaConflictJson?.conflicts || wikipediaConflictJson || {};
+      mergeImportedConflictDetails(wikipediaConflictDetailOverrides);
+      markBootStepEnd("fetchWikipediaConflicts");
+      refreshGlobalStats();
+      rerenderCurrentPanel?.();
+      return wikipediaConflictDetailOverrides;
+    } catch (error) {
+      markBootStepEnd("fetchWikipediaConflicts", { skipped: true });
+      console.warn("No se pudieron cargar los conflictos enriquecidos de Wikipedia:", error);
+      wikipediaConflictDetailOverrides = {};
+      return wikipediaConflictDetailOverrides;
+    }
+  })();
+
+  return loadWikipediaConflictDetailsPromise;
+}
+
 async function loadData() {
   if (loadDataPromise) {
     return loadDataPromise;
   }
 
-  loadDataPromise = (async () => {
-  const [countriesJson, rawPoliticsJson, rawHistoryJson, rawInflationJson, rawPopulationSeriesText, aliasConfigJson] = await Promise.all([
-    fetchResourceCached(`./data/countries_full.json?v=${APP_VERSION}`, "json"),
-    fetchResourceCached(`./data/raw/politics.json?v=${APP_VERSION}`, "json"),
-    fetchResourceCached(`./data/raw/history.json?v=${APP_VERSION}`, "json"),
-    fetchResourceCached(`./data/raw/inflation.json?v=${APP_VERSION}`, "json"),
-    fetchResourceCached(`./data/raw/population.csv?v=${APP_VERSION}`, "text"),
-    fetchResourceCached(`./data/geo_aliases.json?v=${APP_VERSION}`, "json")
-  ]);
+  loadDataPromise = measureBootStep("loadData", async () => {
+    markBootStepStart("fetchCountries");
+    const countriesPromise = fetchResourceCached(`./data/countries_full.json?v=${APP_VERSION}`, "json")
+      .then(result => {
+        markBootStepEnd("fetchCountries");
+        return result;
+      });
+    markBootStepStart("fetchGeoAliases");
+    const aliasPromise = fetchResourceCached(`./data/geo_aliases.json?v=${APP_VERSION}`, "json")
+      .then(result => {
+        markBootStepEnd("fetchGeoAliases");
+        return result;
+      });
 
-  countriesData = countriesJson;
-  rawPoliticsSystems = rawPoliticsJson;
-  rawHistorySystems = rawHistoryJson;
-  rawInflationByCode = rawInflationJson;
-  mapNameAliasOverrides = aliasConfigJson?.mapNameAliases || {};
-  mapNameAliasIndex = buildNormalizedAliasIndex(mapNameAliasOverrides);
-  worldBankNameAliasOverrides = aliasConfigJson?.worldBankNameAliases || {};
-  populationGrowthByCode = parseWorldBankSeriesChanges(rawPopulationSeriesText);
-  countryCodeByEnglishName = parseWorldBankCountryNameMap(rawPopulationSeriesText);
-  buildInflationFallbacks();
+    const [countriesJson, aliasConfigJson] = await Promise.all([
+      countriesPromise,
+      aliasPromise
+    ]);
 
-  Object.entries(countriesData).forEach(([code, country]) => {
-    country.code = code;
-    countryCodeLookup.set(country, code);
-    sanitizeCountryData(country);
+    countriesData = countriesJson;
+    mapNameAliasOverrides = aliasConfigJson?.mapNameAliases || {};
+    mapNameAliasIndex = buildNormalizedAliasIndex(mapNameAliasOverrides);
+    worldBankNameAliasOverrides = aliasConfigJson?.worldBankNameAliases || {};
+
+    Object.entries(countriesData).forEach(([code, country]) => {
+      country.code = code;
+      countryCodeLookup.set(country, code);
+      sanitizeCountryData(country);
+    });
+    worldPopulationTotal = Object.values(countriesData).reduce(
+      (sum, country) => sum + (country.general?.population || 0),
+      0
+    );
   });
-  setupSearchIndex(
-    Object.fromEntries(
-      Object.entries(countriesData).map(([code, country]) => [code, country.name])
-    )
-  );
-  mapSearchAliasesRegistered = true;
-  worldPopulationTotal = Object.values(countriesData).reduce(
-    (sum, country) => sum + (country.general?.population || 0),
-    0
-  );
-
-  runCriticalGlobalStats();
-  scheduleDeferredGlobalStats(true);
-  })();
 
   return loadDataPromise;
 }
@@ -10803,106 +12189,127 @@ function generateSystemRanking() {
 }
 
 async function loadMap() {
+  const requestedMode = currentMapMode;
+  if (loadMapPromise && loadMapMode === requestedMode) {
+    return loadMapPromise;
+  }
+
+  const loadToken = ++mapOverlayLoadToken;
+  loadMapMode = requestedMode;
   countryAreaCache = {};
   initializeViewer();
   const geoJsonPath = getGeoJsonPathForCurrentMode();
   trimDataCaches();
-  if (activeClickHandler) {
-    activeClickHandler.destroy();
-    activeClickHandler = null;
-  }
-  if (activeGeoJsonDataSource) {
-    try {
-      await viewer.dataSources.remove(activeGeoJsonDataSource, true);
-    } catch (error) {
-      console.error("No se pudo limpiar la capa GeoJSON anterior:", error);
+
+  loadMapPromise = measureBootStep("loadMapOverlay", async () => {
+    if (activeClickHandler) {
+      activeClickHandler.destroy();
+      activeClickHandler = null;
     }
-    activeGeoJsonDataSource = null;
-  }
-  countryLayers.clear();
-  countryClickTargets.clear();
-  const geojson = await getPreparedGeoJson(geoJsonPath, currentMapMode);
-  const featureNameByCode = {};
-  let dataSource = null;
+    if (activeGeoJsonDataSource) {
+      try {
+        await viewer.dataSources.remove(activeGeoJsonDataSource, true);
+      } catch (error) {
+        console.error("No se pudo limpiar la capa GeoJSON anterior:", error);
+      }
+      activeGeoJsonDataSource = null;
+    }
+    countryLayers.clear();
+    countryClickTargets.clear();
+    markBootStepStart("geoJsonPrepare");
+    const geojson = await getPreparedGeoJson(geoJsonPath, requestedMode);
+    markBootStepEnd("geoJsonPrepare", { mode: requestedMode });
+    if (loadToken !== mapOverlayLoadToken || requestedMode !== currentMapMode) {
+      return;
+    }
+    const featureNameByCode = {};
+    let dataSource = null;
 
-  try {
-    dataSource = await Cesium.GeoJsonDataSource.load(geojson, {
-      clampToGround: false
-    });
-    await viewer.dataSources.add(dataSource);
-    activeGeoJsonDataSource = dataSource;
-  } catch (error) {
-    console.error("No se pudo cargar el GeoJSON 3D:", error);
-    fitWorldView();
-    return;
-  }
-
-  const entitiesByCode = new Map();
-  dataSource.entities.values.forEach(entity => {
-    const properties = entity.properties;
-    const rawCode =
-      properties?.ISO_A3?.getValue?.() ||
-      properties?.iso_a3?.getValue?.() ||
-      properties?.ADM0_A3?.getValue?.() ||
-      properties?.ADM0_A3_US?.getValue?.() ||
-      properties?.WB_A3?.getValue?.() ||
-      properties?.BRK_A3?.getValue?.() ||
-      properties?.SOV_A3?.getValue?.() ||
-      properties?.GU_A3?.getValue?.() ||
-      entity.id;
-    const featureName =
-      properties?.name?.getValue?.() ||
-      properties?.ADMIN?.getValue?.() ||
-      properties?.NAME?.getValue?.() ||
-      properties?.formal_en?.getValue?.() ||
-      properties?.NAME_EN?.getValue?.() ||
-      rawCode;
-    const code = resolveCountryCode(rawCode, featureName) || rawCode;
-
-    if (!code) {
+    try {
+      markBootStepStart("geoJsonCesiumLoad");
+      dataSource = await Cesium.GeoJsonDataSource.load(geojson, {
+        clampToGround: false
+      });
+      markBootStepEnd("geoJsonCesiumLoad", { mode: requestedMode });
+      if (loadToken !== mapOverlayLoadToken || requestedMode !== currentMapMode) {
+        return;
+      }
+      await viewer.dataSources.add(dataSource);
+      activeGeoJsonDataSource = dataSource;
+    } catch (error) {
+      console.error("No se pudo cargar el GeoJSON 3D:", error);
+      fitWorldView();
       return;
     }
 
-    registerCountryAlias(featureName, code, true);
-    featureNameByCode[code] = countriesData[code]?.name || featureName;
-    entity.countryCode = code;
-    entity.countryName = countriesData[code]?.name || featureName;
-    if (entity.polygon) {
-      entity.polygon.height = 0;
-      entity.polygon.perPositionHeight = false;
-      entity.polygon.outline = false;
-      entity.polygon.arcType = Cesium.ArcType.GEODESIC;
-      if (currentMapMode === "2d") {
-        entity.polygon.granularity = Cesium.Math.RADIANS_PER_DEGREE * 1.2;
+    markBootStepStart("geoJsonEntityIndex");
+    const entitiesByCode = new Map();
+    dataSource.entities.values.forEach(entity => {
+      const properties = entity.properties;
+      const rawCode =
+        properties?.ISO_A3?.getValue?.() ||
+        properties?.iso_a3?.getValue?.() ||
+        properties?.ADM0_A3?.getValue?.() ||
+        properties?.ADM0_A3_US?.getValue?.() ||
+        properties?.WB_A3?.getValue?.() ||
+        properties?.BRK_A3?.getValue?.() ||
+        properties?.SOV_A3?.getValue?.() ||
+        properties?.GU_A3?.getValue?.() ||
+        entity.id;
+      const featureName =
+        properties?.name?.getValue?.() ||
+        properties?.ADMIN?.getValue?.() ||
+        properties?.NAME?.getValue?.() ||
+        properties?.formal_en?.getValue?.() ||
+        properties?.NAME_EN?.getValue?.() ||
+        rawCode;
+      const code = resolveCountryCode(rawCode, featureName) || rawCode;
+
+      if (!code) {
+        return;
       }
+
+      registerCountryAlias(featureName, code, true);
+      featureNameByCode[code] = countriesData[code]?.name || featureName;
+      entity.countryCode = code;
+      entity.countryName = countriesData[code]?.name || featureName;
+      if (entity.polygon) {
+        entity.polygon.height = 0;
+        entity.polygon.perPositionHeight = false;
+        entity.polygon.outline = false;
+        entity.polygon.arcType = Cesium.ArcType.GEODESIC;
+        if (requestedMode === "2d") {
+          entity.polygon.granularity = Cesium.Math.RADIANS_PER_DEGREE * 1.2;
+        }
+      }
+      const list = entitiesByCode.get(code) || [];
+      list.push(entity);
+      entitiesByCode.set(code, list);
+    });
+
+    entitiesByCode.forEach((entities, code) => {
+      const layer = new CesiumCountryLayer(code, entities, featureNameByCode[code] || code);
+      layer.setStyle(getCountryThemeStyle(code));
+      countryLayers.set(code, layer);
+    });
+    markBootStepEnd("geoJsonEntityIndex", { entities: dataSource.entities.values.length, countries: entitiesByCode.size });
+
+    const clickHandler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+    activeClickHandler = clickHandler;
+    let hoveredLayer = null;
+    let hoverFramePending = false;
+    let pendingHoverLayer = null;
+    let lastHoverCode = "";
+
+    function restoreHover() {
+      if (hoveredLayer && !selectedLayers.includes(hoveredLayer)) {
+        hoveredLayer.setStyle(getCountryThemeStyle(hoveredLayer.code));
+      }
+      hoveredLayer = null;
+      lastHoverCode = "";
     }
-    const list = entitiesByCode.get(code) || [];
-    list.push(entity);
-    entitiesByCode.set(code, list);
-  });
 
-  entitiesByCode.forEach((entities, code) => {
-    const layer = new CesiumCountryLayer(code, entities, featureNameByCode[code] || code);
-    layer.setStyle(getCountryThemeStyle(code));
-    countryLayers.set(code, layer);
-  });
-
-  const clickHandler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
-  activeClickHandler = clickHandler;
-  let hoveredLayer = null;
-  let hoverFramePending = false;
-  let pendingHoverLayer = null;
-  let lastHoverCode = "";
-
-  function restoreHover() {
-    if (hoveredLayer && !selectedLayers.includes(hoveredLayer)) {
-      hoveredLayer.setStyle(getCountryThemeStyle(hoveredLayer.code));
-    }
-    hoveredLayer = null;
-    lastHoverCode = "";
-  }
-
-  clickHandler.setInputAction(movement => {
+    clickHandler.setInputAction(movement => {
     emitMapEvent("click");
     const picked = viewer.scene.pick(movement.position);
     const rawCode = picked?.id?.countryCode;
@@ -10965,9 +12372,9 @@ async function loadMap() {
     focusRectangle(createLayerGroup(linkedLayers).getBounds());
     renderCountry(country, featureName || country.name);
     viewer.scene.requestRender();
-  }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+    }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
 
-  clickHandler.setInputAction(movement => {
+    clickHandler.setInputAction(movement => {
     if (!shouldUseHoverHighlights()) {
       restoreHover();
       requestSceneRender();
@@ -11031,12 +12438,67 @@ async function loadMap() {
         }
         requestSceneRender();
       });
-  }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
+    }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
 
-  registerFeatureNameAliases(featureNameByCode);
-  fitWorldView();
-  renderMapLabels();
-  scheduleGeoJsonWarmup();
+    registerFeatureNameAliases(featureNameByCode);
+    applyImageryForMode(false);
+    fitWorldView();
+    renderMapLabels();
+    scheduleGeoJsonWarmup();
+  }).finally(() => {
+    if (loadMapMode === requestedMode) {
+      loadMapPromise = null;
+    }
+  });
+
+  return loadMapPromise;
+}
+
+async function waitForMapBootReady(timeoutMs = 2600) {
+  if (!viewer?.scene) {
+    return;
+  }
+
+  await new Promise(resolve => {
+    let settled = false;
+    let renderedOnce = false;
+    let tilesReady = Boolean(viewer.scene.globe?.tilesLoaded);
+    let timeoutId = null;
+
+    const finish = () => {
+      if (settled) {
+        return;
+      }
+      settled = true;
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      viewer?.scene?.postRender?.removeEventListener(onPostRender);
+      viewer?.scene?.globe?.tileLoadProgressEvent?.removeEventListener(onTileProgress);
+      resolve();
+    };
+
+    const maybeFinish = () => {
+      if (renderedOnce && tilesReady) {
+        finish();
+      }
+    };
+
+    const onPostRender = () => {
+      renderedOnce = true;
+      maybeFinish();
+    };
+
+    const onTileProgress = remainingTiles => {
+      tilesReady = remainingTiles === 0;
+      maybeFinish();
+    };
+
+    viewer.scene.postRender.addEventListener(onPostRender);
+    viewer.scene.globe?.tileLoadProgressEvent?.addEventListener(onTileProgress);
+    timeoutId = setTimeout(finish, timeoutMs);
+    requestSceneRender();
+  });
 }
 
 function setupSearchEvents() {
@@ -11605,6 +13067,9 @@ function buildQuizQuestion(category) {
     if (category === "history") return Boolean(country.history?.year);
     if (category === "organization") return Boolean(country.politics?.organizations?.length);
     if (category === "rival") return Boolean(country.politics?.rivals?.length);
+    if (category === "language") return Boolean(country.general?.languages?.length);
+    if (category === "bloc") return Boolean((country.politics?.relations?.blocs || []).length);
+    if (category === "conflict") return Boolean((country.military?.conflicts || country.conflicts || []).length);
     return Boolean(country.politics?.system);
   });
 
@@ -11616,39 +13081,39 @@ function buildQuizQuestion(category) {
   let distractors = [];
 
   if (category === "capital") {
-    prompt = `Â¿Cual es la capital de ${country.name}?`;
+    prompt = `¿Cual es la capital de ${country.name}?`;
     correct = country.general.capital.name;
     distractors = shuffleArray(Object.values(countriesData)
       .filter(item => difficulty === "easy" || item.continent === country.continent)
       .map(item => item.general?.capital?.name).filter(Boolean).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
   } else if (category === "religion") {
-    prompt = `Â¿Cual es la religion mayoritaria de ${country.name}?`;
+    prompt = `¿Cual es la religion mayoritaria de ${country.name}?`;
     correct = getReligionSummaryLabel(country.religion) || "Sin datos";
     distractors = shuffleArray(Object.values(countriesData).map(item => getReligionSummaryLabel(item.religion)).filter(Boolean).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
   } else if (category === "continent") {
-    prompt = `Â¿En que continente se ubica ${country.name}?`;
+    prompt = `¿En que continente se ubica ${country.name}?`;
     correct = translateContinentName(country.continent);
     distractors = shuffleArray(["America", "Europa", "Asia", "Africa", "Oceania", "Antartida"].filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
   } else if (category === "flag") {
-    prompt = `Â¿A que pais corresponde esta bandera? ${getFlagEmoji(code)}`;
+    prompt = `¿A que pais corresponde esta bandera? ${getFlagEmoji(code)}`;
     correct = country.name;
     distractors = shuffleArray(Object.values(countriesData).filter(item => difficulty === "easy" || item.continent === country.continent).map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
   } else if (category === "history") {
-    prompt = `Â¿En que aÃ±o se formo ${country.name}?`;
+    prompt = `¿En que año se formo ${country.name}?`;
     correct = String(country.history.year);
     distractors = shuffleArray(Object.values(countriesData).map(item => item.history?.year).filter(Boolean).map(String).filter(value => value !== correct)).slice(0, 3);
   } else if (category === "organization") {
     const org = getOrganizationDisplayName(country.politics.organizations[0]);
-    prompt = `Â¿Que pais pertenece a esta organizacion? ${org}`;
+    prompt = `¿Que pais pertenece a esta organizacion? ${org}`;
     correct = country.name;
     distractors = shuffleArray(Object.values(countriesData).map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
   } else if (category === "rival") {
     const rival = country.politics.rivals[0]?.name || country.politics.rivals[0];
-    prompt = `Â¿Que pais tiene como rival a ${rival}?`;
+    prompt = `¿Que pais tiene como rival a ${rival}?`;
     correct = country.name;
     distractors = shuffleArray(Object.values(countriesData).map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
   } else {
-    prompt = `Â¿Cual es el sistema politico principal de ${country.name}?`;
+    prompt = `¿Cual es el sistema politico principal de ${country.name}?`;
     correct = country.politics.system;
     distractors = shuffleArray([...new Set(Object.values(countriesData).map(item => item.politics?.system).filter(Boolean).filter(name => normalizeText(name) !== normalizeText(correct)))]).slice(0, 3);
   }
@@ -11671,7 +13136,7 @@ function renderQuizPanel() {
   categorySelect.value = quizState.category;
   difficultySelect.value = quizState.difficulty;
   modeSelect.value = quizState.mode || "classic";
-  status.textContent = quizState.total ? `Puntaje: ${quizState.score}/${quizState.total}` : "ElegÃ­ una categorÃ­a y empezÃ¡ el quiz.";
+  status.textContent = quizState.total ? `Puntaje: ${quizState.score}/${quizState.total}` : "Elegí una categoría y empezá el quiz.";
   updateQuizMeta();
 
   if (!quizState.current) {
@@ -12111,7 +13576,7 @@ function setupMobilePanelControls() {
   leftButton.addEventListener("click", () => toggleMobilePanel("left"));
   toolsButton.addEventListener("click", () => toggleMobilePanel("tools"));
   countryButton.addEventListener("click", () => {
-    if (currentPanelState?.type) {
+    if (currentPanelState?.type === "country" && currentPanelState?.code && countriesData[currentPanelState.code]) {
       openCountryModal();
     }
   });
@@ -12168,21 +13633,62 @@ function buildExportFilename(base) {
   return `${normalizeText(context).replace(/\s+/g, "-") || "georisk"}-${stamp}`;
 }
 
+function buildReportCaptureNode(node, title) {
+  const wrapper = document.createElement("div");
+  wrapper.className = "export-report-shell";
+  wrapper.style.position = "fixed";
+  wrapper.style.left = "-99999px";
+  wrapper.style.top = "0";
+  wrapper.style.width = `${Math.min(1280, Math.max(900, node?.scrollWidth || 960))}px`;
+  wrapper.style.padding = "32px";
+  wrapper.style.background = "#071320";
+  wrapper.style.color = "#eef5ff";
+
+  const reportTitle = title || (currentLanguage === "en" ? "GeoRisk report" : "Informe GeoRisk");
+  const contextLine = [
+    currentPanelState?.code && countriesData[currentPanelState.code] ? countriesData[currentPanelState.code].name : "",
+    currentTheme && currentTheme !== "default" ? currentTheme : (currentLanguage === "en" ? "political view" : "vista politica"),
+    appMode && appMode !== "default" ? appMode : (currentLanguage === "en" ? "exploration" : "exploracion")
+  ].filter(Boolean).join(" · ");
+
+  wrapper.innerHTML = `
+    <div class="export-report-header">
+      <div>
+        <div class="export-report-kicker">GeoRisk</div>
+        <h1>${escapeHtml(reportTitle)}</h1>
+        <p>${escapeHtml(contextLine)}</p>
+      </div>
+      <div class="export-report-meta">${new Date().toLocaleString(currentLanguage === "en" ? "en-US" : "es-AR", { dateStyle: "medium", timeStyle: "short" })}</div>
+    </div>
+  `;
+
+  const clone = node.cloneNode(true);
+  clone.classList.add("export-report-body");
+  wrapper.appendChild(clone);
+  document.body.appendChild(wrapper);
+  return wrapper;
+}
+
 exportNodeAsImage = async function exportNodeAsImage(node, filename) {
   if (!node || typeof html2canvas !== "function") {
     return;
   }
 
-  const canvas = await html2canvas(node, {
-    backgroundColor: "#071320",
-    scale: Math.min(window.devicePixelRatio > 1 ? 2 : 1.8, 2.2),
-    useCORS: true
-  });
+  const captureNode = buildReportCaptureNode(node, filename?.replace(/\.(png|pdf)$/i, ""));
+  try {
+    const canvas = await html2canvas(captureNode, {
+      backgroundColor: "#071320",
+      scale: Math.min(window.devicePixelRatio > 1 ? 2 : 1.8, 2.2),
+      useCORS: true
+    });
 
-  const link = document.createElement("a");
-  link.href = canvas.toDataURL("image/png");
-  link.download = `${buildExportFilename(filename?.replace(/\.png$/i, ""))}.png`;
-  link.click();
+    const link = document.createElement("a");
+    link.href = canvas.toDataURL("image/png");
+    link.download = `${buildExportFilename(filename?.replace(/\.png$/i, ""))}.png`;
+    link.click();
+  } finally {
+    captureNode.remove();
+  }
 };
 
 exportNodeAsPdf = async function exportNodeAsPdf(node, filename) {
@@ -12190,20 +13696,25 @@ exportNodeAsPdf = async function exportNodeAsPdf(node, filename) {
     return;
   }
 
-  const canvas = await html2canvas(node, {
-    backgroundColor: "#071320",
-    scale: 2,
-    useCORS: true
-  });
-  const image = canvas.toDataURL("image/png");
-  const { jsPDF } = window.jspdf;
-  const pdf = new jsPDF({
-    orientation: canvas.width > canvas.height ? "landscape" : "portrait",
-    unit: "px",
-    format: [canvas.width, canvas.height]
-  });
-  pdf.addImage(image, "PNG", 0, 0, canvas.width, canvas.height);
-  pdf.save(`${buildExportFilename(filename?.replace(/\.pdf$/i, ""))}.pdf`);
+  const captureNode = buildReportCaptureNode(node, filename?.replace(/\.(png|pdf)$/i, ""));
+  try {
+    const canvas = await html2canvas(captureNode, {
+      backgroundColor: "#071320",
+      scale: 2,
+      useCORS: true
+    });
+    const image = canvas.toDataURL("image/png");
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({
+      orientation: canvas.width > canvas.height ? "landscape" : "portrait",
+      unit: "px",
+      format: [canvas.width, canvas.height]
+    });
+    pdf.addImage(image, "PNG", 0, 0, canvas.width, canvas.height);
+    pdf.save(`${buildExportFilename(filename?.replace(/\.pdf$/i, ""))}.pdf`);
+  } finally {
+    captureNode.remove();
+  }
 };
 
 shareText = async function shareText(title, text) {
@@ -12510,7 +14021,7 @@ function setupCompareControls() {
 }
 
 if (typeof newsUi.buildArticleCard === "function") {
-  renderNewsArticle = function renderNewsArticle(article, country) {
+  renderNewsArticle = function renderNewsArticle(article, country, relatedArticles = []) {
     const articleContainer = document.getElementById("news-hub-article");
     if (!articleContainer) return;
     if (!article) {
@@ -12571,6 +14082,90 @@ if (typeof newsUi.buildArticleCard === "function") {
             return;
           }
           renderNewsArticle(article, selected);
+        })
+        .catch(() => {});
+    }
+  };
+}
+
+if (typeof newsUi.buildArticleCard === "function") {
+  renderNewsArticle = function renderNewsArticle(article, country, relatedArticles = []) {
+    const articleContainer = document.getElementById("news-hub-article");
+    if (!articleContainer) return;
+    if (!article) {
+      articleContainer.innerHTML = "";
+      return;
+    }
+
+    const headlineMarkup = relatedArticles.slice(1, 4).map(item => `
+      <a class="news-headline-item" href="${item.url || getCountryNewsUrl(country)}" target="_blank" rel="noreferrer">
+        <span>${escapeHtml(item.title)}</span>
+        <small>${escapeHtml(item.source || "Fuente")}${item.date ? ` · ${escapeHtml(item.date)}` : ""}</small>
+      </a>
+    `).join("");
+
+    articleContainer.innerHTML = `
+      ${newsUi.buildArticleCard({
+        title: escapeHtml(article.title),
+        summary: escapeHtml(article.summary),
+        meta: `${escapeHtml(article.source || "Fuente")}${article.date ? ` · ${escapeHtml(article.date)}` : ""}`,
+        actionLabel: currentLanguage === "en" ? "Open full article" : "Abrir articulo completo",
+        actionUrl: article.url || getCountryNewsUrl(country)
+      })}
+      ${headlineMarkup ? `
+        <div class="news-headline-list">
+          <strong>${currentLanguage === "en" ? "More live headlines" : "Mas titulares en vivo"}</strong>
+          ${headlineMarkup}
+        </div>
+      ` : ""}
+    `;
+  };
+
+  renderNewsHub = function renderNewsHub(selectedCode = "") {
+    const panel = document.getElementById("news-hub-panel");
+    const selectedContainer = document.getElementById("news-hub-selected");
+    const listContainer = document.getElementById("news-hub-list");
+    const articleContainer = document.getElementById("news-hub-article");
+    const filterInput = document.getElementById("news-country-filter");
+    if (!panel || !selectedContainer || !listContainer || !articleContainer) return;
+
+    const filterText = normalizeText(filterInput?.value || "");
+    const countries = Object.entries(countriesData)
+      .map(([code, country]) => ({ code, country }))
+      .filter(({ country }) => {
+        if (!filterText) return true;
+        return normalizeText(country.name).includes(filterText)
+          || normalizeText(country.general?.officialName || "").includes(filterText);
+      })
+      .sort((a, b) => a.country.name.localeCompare(b.country.name, "es"));
+
+    const selected = selectedCode && countriesData[selectedCode] ? countriesData[selectedCode] : null;
+    selectedContainer.innerHTML = selected
+      ? newsUi.buildSelectedCard(
+          selected,
+          getCountryNewsPortalLinks(selected).map(link => `<a class="news-link" href="${link.url}" target="_blank" rel="noreferrer">${escapeHtml(link.label)}</a>`).join(""),
+          escapeHtml
+        )
+      : "";
+
+    if (!panel.open) {
+      articleContainer.innerHTML = "";
+      listContainer.innerHTML = "";
+      return;
+    }
+
+    articleContainer.innerHTML = selected
+      ? `<div class="news-hub-article-card"><strong>${currentLanguage === "en" ? "Quick focus" : "Foco rapido"}</strong><p>${currentLanguage === "en" ? "Now the hub also brings live headlines from the selected country when they are available." : "Ahora el hub tambien trae titulares en vivo del pais seleccionado cuando estan disponibles."}</p></div>`
+      : "";
+    listContainer.innerHTML = newsUi.buildNewsList(countries, activeNewsCountryCode, escapeHtml, getCountryNewsUrl);
+
+    if (selected) {
+      fetchCountryHeadlines(selected)
+        .then(headlines => {
+          if (selected.code !== activeNewsCountryCode && selectedCode !== selected.code) {
+            return;
+          }
+          renderNewsArticle(headlines[0], selected, headlines);
         })
         .catch(() => {});
     }
@@ -12651,6 +14246,183 @@ if (typeof compareUi.buildCompareChips === "function") {
   };
 }
 
+function buildCompareInsightCards(compareSelectionCodes) {
+  const insightDefs = [
+    {
+      label: currentLanguage === "en" ? "Highest quality" : "Mayor calidad",
+      value: country => getCountryQualityScore(country)
+    },
+    {
+      label: currentLanguage === "en" ? "Greatest diplomatic reach" : "Mayor alcance diplomatico",
+      value: country => getCountryDiplomaticReach(country)
+    },
+    {
+      label: currentLanguage === "en" ? "Most languages" : "Mas idiomas",
+      value: country => getCountryLanguageDiversity(country)
+    },
+    {
+      label: currentLanguage === "en" ? "Most conflict exposure" : "Mayor exposicion conflictiva",
+      value: country => getCountryWarParticipationCount(country)
+    }
+  ];
+
+  return insightDefs.map(definition => {
+    const topCode = compareSelectionCodes
+      .map(code => ({ code, value: definition.value(countriesData[code]) }))
+      .sort((a, b) => b.value - a.value)[0]?.code;
+    const topCountry = topCode ? countriesData[topCode] : null;
+    return `
+      <div class="compare-insight-card">
+        <strong>${escapeHtml(definition.label)}</strong>
+        <span>${topCountry ? `${getFlagEmoji(topCode)} ${escapeHtml(topCountry.name)}` : t("noData")}</span>
+      </div>
+    `;
+  }).join("");
+}
+
+if (typeof compareUi.buildCompareChips === "function") {
+  renderComparePanel = function renderComparePanel() {
+    const comparePanel = document.getElementById("compare-hub-panel");
+    const empty = document.getElementById("compare-empty");
+    const chips = document.getElementById("compare-chips");
+    const results = document.getElementById("compare-results");
+    const openButton = document.getElementById("open-compare-modal-button");
+    const worldButton = document.getElementById("compare-benchmark-world");
+    const continentButton = document.getElementById("compare-benchmark-continent");
+    empty.textContent = t("compareHint");
+
+    if (worldButton) worldButton.classList.toggle("is-secondary", compareBenchmarkMode !== "world");
+    if (continentButton) continentButton.classList.toggle("is-secondary", compareBenchmarkMode !== "continent");
+
+    if (!compareSelection.length) {
+      empty.hidden = false;
+      chips.innerHTML = "";
+      results.innerHTML = "";
+      results.hidden = true;
+      if (openButton) openButton.disabled = true;
+      return;
+    }
+
+    empty.hidden = true;
+    results.hidden = false;
+    chips.innerHTML = compareUi.buildCompareChips(compareSelection, countriesData, getFlagEmoji, escapeHtml);
+
+    const heavyMode = comparePanel?.open || compareSelection.length >= 2;
+    if (!heavyMode) {
+      results.innerHTML = `
+        ${compareUi.buildLightCards(compareSelection, countriesData, getFlagEmoji, escapeHtml)}
+        <div class="compare-insight-grid">${buildCompareInsightCards(compareSelection)}</div>
+      `;
+      if (openButton) openButton.disabled = compareSelection.length < 2;
+      return;
+    }
+
+    const radarEntries = compareSelection.map(code => ({
+      code,
+      name: countriesData[code].name,
+      values: {
+        population: countriesData[code].general?.population || 0,
+        gdp: countriesData[code].economy?.gdp || 0,
+        gdpPerCapita: countriesData[code].economy?.gdpPerCapita || 0,
+        military: getCountryMilitaryActive(countriesData[code]),
+        organizations: getCountryOrganizationCount(countriesData[code])
+      }
+    }));
+
+    const cards = compareUi.buildCountryCards(
+      compareSelection,
+      countriesData,
+      escapeHtml,
+      renderFlagVisual,
+      translateContinentName,
+      t,
+      getCountryBlocLabel,
+      getComparisonBenchmark,
+      formatPercentage
+    );
+
+    const additionalRows = [
+      {
+        label: currentLanguage === "en" ? "Quality score" : "Calidad del dataset",
+        getValue: country => getCountryQualityScore(country),
+        format: value => `${formatNumber(Math.round(value || 0))}/100`
+      },
+      {
+        label: currentLanguage === "en" ? "Diplomatic reach" : "Alcance diplomatico",
+        getValue: country => getCountryDiplomaticReach(country),
+        format: value => formatNumber(value)
+      },
+      {
+        label: currentLanguage === "en" ? "Languages" : "Idiomas",
+        getValue: country => getCountryLanguageDiversity(country),
+        format: value => formatNumber(value)
+      },
+      {
+        label: currentLanguage === "en" ? "War participation" : "Participacion en guerras",
+        getValue: country => getCountryWarParticipationCount(country),
+        format: value => formatNumber(value)
+      },
+      {
+        label: currentLanguage === "en" ? "Export breadth" : "Diversidad exportadora",
+        getValue: country => getCountryExportBreadth(country),
+        format: value => formatNumber(value)
+      },
+      {
+        label: currentLanguage === "en" ? "Industrial breadth" : "Diversidad industrial",
+        getValue: country => getCountryIndustryBreadth(country),
+        format: value => formatNumber(value)
+      }
+    ].map(field => `
+      <div class="compare-row">
+        <strong>${field.label}</strong>
+        <div class="compare-values compare-bars">
+          ${compareSelection.map(code => {
+            const country = countriesData[code];
+            const value = field.getValue(country);
+            const maxValue = Math.max(...compareSelection.map(compareCode => field.getValue(countriesData[compareCode])), 1);
+            const width = maxValue ? (value / maxValue) * 100 : 0;
+            return `<div class="compare-bar-item"><div class="compare-bar-label"><b>${getFlagEmoji(code)} ${escapeHtml(country.name)}:</b> ${escapeHtml(field.format(value))}</div><div class="compare-bar-track"><div class="compare-bar-fill" style="width:${width}%"></div></div></div>`;
+          }).join("")}
+        </div>
+      </div>
+    `).join("");
+
+    const benchmarkMarkup = compareSelection.map(code => {
+      const country = countriesData[code];
+      const benchmark = getComparisonBenchmark(country);
+      return `<div><b>${getFlagEmoji(code)} ${escapeHtml(country.name)}:</b> ${benchmark.label} · ${currentLanguage === "en" ? "avg population" : "prom. poblacion"} ${formatNumber(Math.round(benchmark.populationAvg || 0))} · ${currentLanguage === "en" ? "avg GDP pc" : "prom. PBI pc"} US$ ${formatNumber(Math.round(benchmark.gdpPcAvg || 0))}</div>`;
+    }).join("");
+
+    const profileRows = compareSelection.map(code => {
+      const country = countriesData[code];
+      return `<div><b>${getFlagEmoji(code)} ${escapeHtml(country.name)}:</b> ${currentLanguage === "en" ? "quality" : "calidad"} ${getCountryQualityScore(country)}/100 · ${currentLanguage === "en" ? "languages" : "idiomas"} ${formatNumber(getCountryLanguageDiversity(country))} · ${currentLanguage === "en" ? "war exposure" : "exposicion belica"} ${formatNumber(getCountryWarParticipationCount(country))}</div>`;
+    }).join("");
+
+    results.innerHTML = `
+      <div class="compare-toolbar">
+        <button type="button" class="panel-action-button" data-export-target="compare-results" data-export-format="png">${currentLanguage === "en" ? "Export image" : "Exportar imagen"}</button>
+        <button type="button" class="panel-action-button" data-export-target="compare-results" data-export-format="pdf">${currentLanguage === "en" ? "Export PDF" : "Exportar PDF"}</button>
+        <button type="button" class="panel-action-button" data-share-target="compare-results">${currentLanguage === "en" ? "Share" : "Compartir"}</button>
+      </div>
+      <div class="compare-insight-grid">${buildCompareInsightCards(compareSelection)}</div>
+      <div class="compare-radar-wrap">${buildCompareRadarSVG(radarEntries)}</div>
+      <div class="compare-country-cards">${cards}</div>
+      <div class="compare-row compare-summary-row">
+        <strong>${currentLanguage === "en" ? "Strategic profile" : "Perfil estrategico"}</strong>
+        <div class="compare-values">${profileRows}</div>
+      </div>
+      <div class="compare-row compare-summary-row">
+        <strong>${compareBenchmarkMode === "continent" ? (currentLanguage === "en" ? "Continental benchmarks" : "Referencias continentales") : (currentLanguage === "en" ? "World benchmarks" : "Referencias mundiales")}</strong>
+        <div class="compare-values">${benchmarkMarkup}</div>
+      </div>
+      ${buildCompareTimelineSummary(compareSelection)}
+      ${additionalRows}
+    `;
+
+    if (openButton) openButton.disabled = compareSelection.length < 2;
+  };
+}
+
 if (typeof quizUi.buildStatusText === "function") {
   updateQuizMeta = function updateQuizMeta() {
     const meta = document.getElementById("quiz-meta");
@@ -12703,8 +14475,24 @@ async function registerServiceWorker() {
   }
 
   try {
-    const registration = await navigator.serviceWorker.register("./sw.js");
+    const registrations = await navigator.serviceWorker.getRegistrations();
+    await Promise.all(
+      registrations
+        .filter(registration => registration.active?.scriptURL && !registration.active.scriptURL.includes(`v=${APP_VERSION}`))
+        .map(registration => registration.unregister())
+    );
+
+    const registration = await navigator.serviceWorker.register(`./sw.js?v=${APP_VERSION}`);
     await registration.update();
+    if (registration.waiting) {
+      registration.waiting.postMessage({ type: "SKIP_WAITING" });
+    }
+    navigator.serviceWorker.addEventListener("controllerchange", () => {
+      if (!window.__geoRiskReloadingForSw) {
+        window.__geoRiskReloadingForSw = true;
+        window.location.reload();
+      }
+    }, { once: true });
     status.textContent = currentLanguage === "en"
       ? "Offline mode active with local cache."
       : "Modo offline activo con cache local.";
@@ -12719,34 +14507,113 @@ async function registerServiceWorker() {
 
 async function init() {
   try {
+    bootMetrics.startedAt = performance.now();
+    document.body.classList.add("globe-loading");
+    closeCountryModal();
+    closeCompareModal?.();
+    closeConflictModal?.();
+    closeTimelineModal?.();
+    closeHelpModal?.();
+    closeIntroModal?.();
+    closeProductModal?.();
     loadSavedPreferences();
+    const shouldStartCollapsed = true;
+    currentTheme = "default";
     applyAppMode(appMode, false);
-    await loadData();
+    await measureBootStep("viewerBoot", async () => {
+      initializeViewer();
+      requestSceneRender();
+    });
+    const dataLoadPromise = loadData();
+    const bootReadyPromise = measureBootStep("mapBootReady", () => waitForMapBootReady(isMobileLayout() ? 5200 : 4200));
+    await dataLoadPromise;
     setupSearchEvents();
     setupThemeControls();
-      setupRankingGroups();
-      updateExtendedStaticText();
-      setupCompareControls();
-      setupQuizControls();
-      setupRankingsPanel();
-      setupCompareHubPanel();
-      setupQuizHubPanel();
-      setupNewsHubPanel();
-      setupMapModeControl();
-      setupSavedViewControls();
-      setupGlobalKeyboardShortcuts();
-      await loadMap();
-      update3DPresentationState();
+    setTheme("default");
+    const themeSelect = document.getElementById("theme-select");
+    if (themeSelect) {
+      themeSelect.value = "default";
+    }
+    if (shouldStartCollapsed) {
+      const toolbar = document.getElementById("map-toolbar");
+      const rankingsPanel = document.getElementById("rankings-panel");
+      if (toolbar) {
+        toolbar.open = false;
+      }
+      if (rankingsPanel) {
+        rankingsPanel.open = false;
+      }
+    }
+    setupMapModeControl();
+    const overlayLoadPromise = loadMap();
+    await bootReadyPromise;
+    if (shouldStartCollapsed) {
+      const toolbar = document.getElementById("map-toolbar");
+      const rankingsPanel = document.getElementById("rankings-panel");
+      if (toolbar) {
+        toolbar.open = false;
+      }
+      if (rankingsPanel) {
+        rankingsPanel.open = false;
+      }
+    }
+    update3DPresentationState();
     startPerformanceMonitor();
     updateMapInteractionTuning();
-    setupMobilePanelControls();
-    await registerServiceWorker();
-    if (localStorage.getItem(STORAGE_KEYS.introSeen) !== "true") {
-      openIntroModal();
-    } else if (localStorage.getItem(STORAGE_KEYS.helpSeen) !== "true") {
-      openHelpModal();
+    setTimeout(() => {
+      document.body.classList.remove("globe-loading");
+      completeBootMetrics();
+      updateAppStatusPanel();
+      console.info("GeoRisk boot profile", getBootProfileSummary(), bootMetrics.steps);
+    }, 120);
+
+    const bootDeferredUi = () => {
+      measureBootStep("deferredUi", async () => {
+        const safeUiTask = (name, task) => {
+          try {
+            task();
+          } catch (error) {
+            console.error(`No se pudo inicializar ${name}:`, error);
+          }
+        };
+
+        loadDeferredDataEnhancements();
+        safeUiTask("ranking groups", () => setupRankingGroups());
+        safeUiTask("extended static text", () => updateExtendedStaticText());
+        safeUiTask("compare controls", () => setupCompareControls());
+        safeUiTask("quiz controls", () => setupQuizControls());
+        safeUiTask("rankings panel", () => setupRankingsPanel());
+        safeUiTask("compare hub", () => setupCompareHubPanel());
+        safeUiTask("quiz hub", () => setupQuizHubPanel());
+        safeUiTask("news hub", () => setupNewsHubPanel());
+        safeUiTask("saved views", () => setupSavedViewControls());
+        safeUiTask("global shortcuts", () => setupGlobalKeyboardShortcuts());
+        safeUiTask("mobile controls", () => setupMobilePanelControls());
+        await registerServiceWorker();
+        updateAppStatusPanel();
+      });
+    };
+
+    if (window.requestIdleCallback) {
+      window.requestIdleCallback(() => bootDeferredUi(), { timeout: 900 });
+    } else {
+      setTimeout(() => bootDeferredUi(), 120);
     }
+
+    setTimeout(() => {
+      loadWikipediaConflictDetails().catch(error => {
+        console.warn("No se pudieron aplicar los conflictos enriquecidos tras el arranque:", error);
+      });
+    }, isMobileLayout() ? 4200 : 2800);
+
+    overlayLoadPromise?.catch(error => {
+      console.error("La capa politica no pudo completar su carga inicial:", error);
+    });
+
+    updateExtendedStaticText();
+    openIntroModal();
   } catch (error) {
+    document.body.classList.remove("globe-loading");
     console.error("Error al inicializar GeoRisk 3D:", error);
     const status = document.getElementById("offline-status");
     if (status) {
@@ -12757,4 +14624,5 @@ async function init() {
 }
 
 init();
+
 

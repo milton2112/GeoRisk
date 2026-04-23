@@ -17,7 +17,7 @@
       cities: "Ciudades destacadas",
       origin: "Origen",
       type: "Tipo",
-      formationYear: "AÃ±o de formacion",
+      formationYear: "Año de formacion",
       timeline: "Linea de tiempo",
       politicalSystem: "Sistema politico",
       organizations: "Organizaciones",
@@ -35,7 +35,7 @@
       compareInflation: "Inflacion",
       compareSystem: "Sistema politico",
       compareReligion: "Religion principal",
-      compareYear: "AÃ±o de formacion",
+      compareYear: "Año de formacion",
       noData: "Sin datos",
       topGdp: "Top PBI",
       topInflation: "Top Inflacion",
@@ -84,31 +84,60 @@
     }
   };
 
-  function repairMojibake(value) {
-    const raw = String(value || "");
-    if (!raw || !/[ÃƒÃ‚Ã¢â‚¬Å“Ã¢â‚¬\uFFFD]/.test(raw)) {
+  const directPairs = [
+    ["ÃƒÂ¡", "á"], ["ÃƒÂ©", "é"], ["ÃƒÂ­", "í"], ["ÃƒÂ³", "ó"], ["ÃƒÂº", "ú"], ["ÃƒÂ±", "ñ"], ["ÃƒÂ¼", "ü"],
+    ["ÃƒÂ", "Á"], ["Ãƒâ€°", "É"], ["ÃƒÂ", "Í"], ["Ãƒâ€œ", "Ó"], ["ÃƒÅ¡", "Ú"], ["Ãƒâ€˜", "Ñ"], ["ÃƒÅ“", "Ü"],
+    ["Ã¡", "á"], ["Ã©", "é"], ["Ã­", "í"], ["Ã³", "ó"], ["Ãº", "ú"], ["Ã±", "ñ"], ["Ã¼", "ü"],
+    ["Ã", "Á"], ["Ã‰", "É"], ["Ã", "Í"], ["Ã“", "Ó"], ["Ãš", "Ú"], ["Ã‘", "Ñ"], ["Ãœ", "Ü"],
+    ["Ã¨", "è"], ["Ã ", "à"], ["Ã¬", "ì"], ["Ã²", "ò"], ["Ã¹", "ù"], ["Ã¢", "â"], ["Ãª", "ê"], ["Ã®", "î"],
+    ["Ã´", "ô"], ["Ã»", "û"], ["Ã§", "ç"], ["Ãˆ", "È"], ["Ã€", "À"], ["ÃŒ", "Ì"], ["Ã’", "Ò"], ["Ã™", "Ù"],
+    ["Ã‚", "Â"], ["ÃŠ", "Ê"], ["ÃŽ", "Î"], ["Ã”", "Ô"], ["Ã›", "Û"], ["Ã‡", "Ç"],
+    ["ã¡", "á"], ["ã©", "é"], ["ã­", "í"], ["ã³", "ó"], ["ãº", "ú"], ["ã±", "ñ"],
+    ["Â·", "·"], ["Â¿", "¿"], ["Â¡", "¡"], ["Â²", "²"], ["Â³", "³"],
+    ["â€¢", "•"], ["â€“", "–"], ["â€”", "—"], ["â€˜", "‘"], ["â€™", "’"], ["â€œ", "“"], ["â€", "”"], ["â€¦", "…"],
+    ["Ã‚Â·", "·"], ["Ã‚Â¿", "¿"], ["Ã‚Â¡", "¡"], ["Ã‚Â²", "²"], ["Ã‚Â³", "³"],
+    ["Ã¢â‚¬Â¢", "•"], ["Ã¢â‚¬â€œ", "–"], ["Ã¢â‚¬â€", "—"], ["Ã¢â‚¬Ëœ", "‘"], ["Ã¢â‚¬â„¢", "’"], ["Ã¢â‚¬Å“", "“"], ["Ã¢â‚¬Â¦", "…"]
+  ];
+
+  function applyDirectPairs(raw) {
+    return directPairs.reduce((text, [from, to]) => text.replaceAll(from, to), raw)
+      .replaceAll("Ã‚", "")
+      .replaceAll("Â", "");
+  }
+
+  function decodeLatin1InBrowser(raw) {
+    try {
+      return decodeURIComponent(
+        Array.from(raw, char => `%${char.charCodeAt(0).toString(16).padStart(2, "0")}`).join("")
+      );
+    } catch {
       return raw;
     }
-    return raw
-      .replace(/ÃƒÂ¡/g, "Ã¡")
-      .replace(/ÃƒÂ©/g, "Ã©")
-      .replace(/ÃƒÂ­/g, "Ã­")
-      .replace(/ÃƒÂ³/g, "Ã³")
-      .replace(/ÃƒÂº/g, "Ãº")
-      .replace(/ÃƒÂ±/g, "Ã±")
-      .replace(/ÃƒÂ¼/g, "Ã¼")
-      .replace(/ÃƒÂ/g, "Ã")
-      .replace(/Ãƒâ€°/g, "Ã‰")
-      .replace(/ÃƒÂ/g, "Ã")
-      .replace(/Ãƒâ€œ/g, "Ã“")
-      .replace(/ÃƒÅ¡/g, "Ãš")
-      .replace(/Ãƒâ€˜/g, "Ã‘")
-      .replace(/ÃƒÅ“/g, "Ãœ")
-      .replace(/Ã¢â‚¬â€œ/g, "-")
-      .replace(/Ã¢â‚¬â€/g, "-")
-      .replace(/Ã¢â‚¬Ëœ|Ã¢â‚¬â„¢/g, "'")
-      .replace(/Ã¢â‚¬Å“|Ã¢â‚¬ï¿½/g, "\"")
-      .replace(/Ã‚/g, "");
+  }
+
+  function repairMojibake(value) {
+    const raw = String(value || "");
+    if (!raw || !(/[ÃÂâãï¿½]/.test(raw) || /�/.test(raw))) {
+      return raw;
+    }
+
+    let repaired = applyDirectPairs(raw);
+    if (repaired !== raw && !repaired.includes("Ã")) {
+      return repaired;
+    }
+
+    for (let index = 0; index < 2; index += 1) {
+      const decoded = decodeLatin1InBrowser(repaired);
+      if (!decoded || decoded === repaired) {
+        break;
+      }
+      repaired = applyDirectPairs(decoded);
+      if (!repaired.includes("Ã") && !repaired.includes("Â")) {
+        break;
+      }
+    }
+
+    return repaired;
   }
 
   function normalizeText(value) {
@@ -145,8 +174,8 @@
     if (typeof value === "number") {
       return Number.isFinite(value) ? value : null;
     }
-    const cleaned = String(value)
-      .replace(/[%~â‰ˆ]/g, "")
+    const cleaned = repairMojibake(String(value))
+      .replace(/[%~≈]/g, "")
       .replace(",", ".")
       .trim();
     const parsed = Number(cleaned);
@@ -165,7 +194,7 @@
   }
 
   function escapeHtml(value) {
-    return String(value || "")
+    return repairMojibake(String(value || ""))
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
@@ -184,7 +213,14 @@
   function createTranslator(getLanguage) {
     return function translate(key) {
       const language = typeof getLanguage === "function" ? getLanguage() : "es";
-      return UI_STRINGS[language]?.[key] || UI_STRINGS.es[key] || key;
+      const rawValue = UI_STRINGS[language]?.[key] || UI_STRINGS.es[key] || key;
+      return repairMojibake(rawValue)
+        .replaceAll("AÃ±o", "Año")
+        .replaceAll("AÃ±os", "Años")
+        .replaceAll("Ano", "Año")
+        .replaceAll("anos", "años")
+        .replaceAll("Organizacion", "Organización")
+        .replaceAll("Poblacion", "Población");
     };
   }
 

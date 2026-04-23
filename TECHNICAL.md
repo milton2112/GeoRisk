@@ -166,3 +166,5 @@ La siguiente fase de arquitectura deberia extraer de `script.js` tres dominios t
 - timeline y conflictos
 
 Eso dejaria la base mucho mas testeable y reducira regresiones al seguir expandiendo producto y dataset.
+
+Para la siguiente etapa de plataforma, ver tambien `BACKEND_PLAN.md`.

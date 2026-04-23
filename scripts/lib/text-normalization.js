@@ -1,28 +1,51 @@
+const directPairs = [
+  ["ÃƒÂ¡", "á"], ["ÃƒÂ©", "é"], ["ÃƒÂ­", "í"], ["ÃƒÂ³", "ó"], ["ÃƒÂº", "ú"], ["ÃƒÂ±", "ñ"], ["ÃƒÂ¼", "ü"],
+  ["ÃƒÂ", "Á"], ["Ãƒâ€°", "É"], ["ÃƒÂ", "Í"], ["Ãƒâ€œ", "Ó"], ["ÃƒÅ¡", "Ú"], ["Ãƒâ€˜", "Ñ"], ["ÃƒÅ“", "Ü"],
+  ["Ã¡", "á"], ["Ã©", "é"], ["Ã­", "í"], ["Ã³", "ó"], ["Ãº", "ú"], ["Ã±", "ñ"], ["Ã¼", "ü"],
+  ["Ã", "Á"], ["Ã‰", "É"], ["Ã", "Í"], ["Ã“", "Ó"], ["Ãš", "Ú"], ["Ã‘", "Ñ"], ["Ãœ", "Ü"],
+  ["Ã¨", "è"], ["Ã ", "à"], ["Ã¬", "ì"], ["Ã²", "ò"], ["Ã¹", "ù"], ["Ã¢", "â"], ["Ãª", "ê"], ["Ã®", "î"],
+  ["Ã´", "ô"], ["Ã»", "û"], ["Ã§", "ç"], ["Ãˆ", "È"], ["Ã€", "À"], ["ÃŒ", "Ì"], ["Ã’", "Ò"], ["Ã™", "Ù"],
+  ["Ã‚", "Â"], ["ÃŠ", "Ê"], ["ÃŽ", "Î"], ["Ã”", "Ô"], ["Ã›", "Û"], ["Ã‡", "Ç"],
+  ["ã¡", "á"], ["ã©", "é"], ["ã­", "í"], ["ã³", "ó"], ["ãº", "ú"], ["ã±", "ñ"],
+  ["Â·", "·"], ["Â¿", "¿"], ["Â¡", "¡"], ["Â²", "²"], ["Â³", "³"],
+  ["â€¢", "•"], ["â€“", "–"], ["â€”", "—"], ["â€˜", "‘"], ["â€™", "’"], ["â€œ", "“"], ["â€", "”"], ["â€¦", "…"],
+  ["Ã‚Â·", "·"], ["Ã‚Â¿", "¿"], ["Ã‚Â¡", "¡"], ["Ã‚Â²", "²"], ["Ã‚Â³", "³"],
+  ["Ã¢â‚¬Â¢", "•"], ["Ã¢â‚¬â€œ", "–"], ["Ã¢â‚¬â€", "—"], ["Ã¢â‚¬Ëœ", "‘"], ["Ã¢â‚¬â„¢", "’"], ["Ã¢â‚¬Å“", "“"], ["Ã¢â‚¬Â¦", "…"]
+];
+
+function applyDirectPairs(raw) {
+  return directPairs.reduce((text, [from, to]) => text.replaceAll(from, to), raw)
+    .replaceAll("Ã‚", "")
+    .replaceAll("Â", "");
+}
+
 export function repairMojibake(value) {
   const raw = String(value || "");
-  if (!raw || !/[\u00C2\u00C3\uFFFD]/.test(raw)) {
+  if (!raw || !(/[ÃÂâãï¿½]/.test(raw) || /�/.test(raw))) {
     return raw;
   }
 
-  return raw
-    .replace(/\u00C3\u00A1/g, "á")
-    .replace(/\u00C3\u00A9/g, "é")
-    .replace(/\u00C3\u00AD/g, "í")
-    .replace(/\u00C3\u00B3/g, "ó")
-    .replace(/\u00C3\u00BA/g, "ú")
-    .replace(/\u00C3\u00B1/g, "ñ")
-    .replace(/\u00C3\u00BC/g, "ü")
-    .replace(/\u00C3\u0081/g, "Á")
-    .replace(/\u00C3\u0089/g, "É")
-    .replace(/\u00C3\u008D/g, "Í")
-    .replace(/\u00C3\u0093/g, "Ó")
-    .replace(/\u00C3\u009A/g, "Ú")
-    .replace(/\u00C3\u0091/g, "Ñ")
-    .replace(/\u00C3\u009C/g, "Ü")
-    .replace(/\u00E2\u20AC\u201C|\u00E2\u20AC\u201D/g, "-")
-    .replace(/\u00E2\u20AC\u02DC|\u00E2\u20AC\u2122/g, "'")
-    .replace(/\u00E2\u20AC\u0153|\u00E2\u20AC\u009D/g, "\"")
-    .replace(/\u00C2/g, "");
+  let repaired = applyDirectPairs(raw);
+  if (repaired !== raw && !repaired.includes("Ã")) {
+    return repaired;
+  }
+
+  for (let index = 0; index < 2; index += 1) {
+    try {
+      const decoded = Buffer.from(repaired, "latin1").toString("utf8");
+      if (!decoded || decoded === repaired) {
+        break;
+      }
+      repaired = applyDirectPairs(decoded);
+      if (!repaired.includes("Ã") && !repaired.includes("Â")) {
+        break;
+      }
+    } catch {
+      break;
+    }
+  }
+
+  return repaired;
 }
 
 export function normalizeText(value) {
@@ -42,7 +65,7 @@ export function parseInflationValue(value) {
   if (typeof value === "number") {
     return Number.isFinite(value) ? value : null;
   }
-  const cleaned = String(value)
+  const cleaned = repairMojibake(String(value))
     .replace(/[%~\u2248]/g, "")
     .replace(",", ".")
     .trim();

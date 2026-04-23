@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Widgets/widgets.css">
-  <link rel="stylesheet" href="style.css?v=2026-04-16-product-polish-1">
+  <link rel="stylesheet" href="style.css?v=2026-04-20-boot-1">
 </head>
 <body>
 
@@ -76,6 +76,9 @@
           <option value="capitalShare">Peso demografico de la capital</option>
           <option value="naturalResources">Recursos naturales</option>
           <option value="geopoliticalIndex">Indice geopolitico</option>
+          <option value="qualityScore">Calidad del dataset</option>
+          <option value="languageDiversity">Diversidad linguistica</option>
+          <option value="diplomaticReach">Alcance diplomatico</option>
         </select>
       </div>
       <div class="toolbar-row">
@@ -205,6 +208,7 @@
       <p id="offline-status">Cache local en preparacion.</p>
       <div id="app-status-panel">
         <span class="status-chip" id="render-profile-chip">Perfil de render: balanceado</span>
+        <span class="status-chip" id="boot-profile-chip">Arranque: pendiente</span>
         <span class="status-chip" id="dataset-health-chip">Dataset: validado</span>
       </div>
     </div>
@@ -391,6 +395,9 @@
           <option value="history">Historia</option>
           <option value="organization">Organizaciones</option>
           <option value="rival">Rivales</option>
+          <option value="language">Idiomas</option>
+          <option value="bloc">Bloques</option>
+          <option value="conflict">Conflictos</option>
         </select>
         <select id="quiz-difficulty">
           <option value="easy">F&aacute;cil</option>
@@ -504,25 +511,39 @@
     <button id="intro-modal-close" type="button" aria-label="Cerrar">Ã—</button>
     <div id="intro-modal-body">
       <h2 id="intro-modal-title">GeoRisk</h2>
-      <p class="product-lead">Atlas geopolitico interactivo para explorar paises, conflictos, historia, relaciones internacionales y comparaciones globales.</p>
+      <p class="product-lead">GeoRisk es un atlas geopolitico interactivo para explorar paises, conflictos, historia, relaciones internacionales y comparaciones globales desde un solo lugar.</p>
       <div class="product-summary-grid">
-        <div class="overview-card"><span class="overview-label">Entrada recomendada</span><strong class="overview-value">Buscar + tocar un pais</strong></div>
-        <div class="overview-card"><span class="overview-label">Modo rapido</span><strong class="overview-value">Analisis geopolitico</strong></div>
-        <div class="overview-card"><span class="overview-label">Modo profundo</span><strong class="overview-value">Enciclopedia</strong></div>
-        <div class="overview-card"><span class="overview-label">Modo demo</span><strong class="overview-value">Presentacion</strong></div>
+        <div class="overview-card"><span class="overview-label">Que es hoy</span><strong class="overview-value">Una base interactiva de analisis geopolitico</strong></div>
+        <div class="overview-card"><span class="overview-label">Mejor entrada</span><strong class="overview-value">Buscar y abrir un pais</strong></div>
+        <div class="overview-card"><span class="overview-label">Foco actual</span><strong class="overview-value">Mapa + ficha pais + conflictos</strong></div>
+        <div class="overview-card"><span class="overview-label">Estado</span><strong class="overview-value">Proyecto en crecimiento continuo</strong></div>
+      </div>
+      <div class="help-section">
+        <h3>Que podes hacer ahora</h3>
+        <ul>
+          <li>Explorar el globo en 2D y 3D con vista satelital y capas tematicas.</li>
+          <li>Abrir fichas de pais con historia, economia, politica, religion, relaciones y conflictos.</li>
+          <li>Recorrer guerras, campañas y batallas con timelines y jerarquias internas.</li>
+          <li>Comparar paises, usar rankings globales, quiz educativo y hub de noticias.</li>
+          <li>Guardar vistas, favoritos y cambiar entre modos de producto segun el uso.</li>
+        </ul>
+      </div>
+      <div class="help-section">
+        <h3>Nota temporal</h3>
+        <p>Este mensaje es provisorio: GeoRisk va a seguir creciendo en cobertura, datos curados, capas, conflictos y herramientas de analisis. La base ya es util hoy, pero va a seguir escalando version a version.</p>
       </div>
       <div class="product-mode-grid">
         <button type="button" class="product-mode-card" data-app-mode-choice="analysis">
           <strong>Analisis geopolitico</strong>
-          <span>Capas, rankings, rivalidades, bloques y lectura comparada.</span>
+          <span>Capas, rankings, rivalidades, bloques y lectura comparada del sistema internacional.</span>
         </button>
         <button type="button" class="product-mode-card" data-app-mode-choice="encyclopedia">
-          <strong>Enciclopedia</strong>
+          <strong>Enciclopedia geopolitica</strong>
           <span>Foco en fichas, timelines, conflictos y datos curados por pais.</span>
         </button>
         <button type="button" class="product-mode-card" data-app-mode-choice="presentation">
           <strong>Presentacion</strong>
-          <span>Vista limpia para clase, demo o exposicion.</span>
+          <span>Vista limpia para clase, demo, exposicion o exploracion guiada.</span>
         </button>
       </div>
       <div class="help-section">
@@ -553,16 +574,16 @@
 <script src="https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Cesium.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
-<script src="app-runtime.js?v=2026-04-16-product-polish-1"></script>
-<script src="app-curation.js?v=2026-04-16-product-polish-1"></script>
-<script src="app-theme.js?v=2026-04-16-product-polish-1"></script>
-<script src="app-text.js?v=2026-04-16-product-polish-1"></script>
-<script src="app-news-ui.js?v=2026-04-16-product-polish-1"></script>
-<script src="app-compare-ui.js?v=2026-04-16-product-polish-1"></script>
-<script src="app-quiz-ui.js?v=2026-04-16-product-polish-1"></script>
-<script src="app-country-panel.js?v=2026-04-16-product-polish-1"></script>
-<script src="app-timeline-conflicts.js?v=2026-04-16-product-polish-1"></script>
-<script src="script.js?v=2026-04-12-country-match-fix"></script>
+<script src="app-runtime.js?v=2026-04-20-boot-1"></script>
+<script src="app-curation.js?v=2026-04-20-boot-1"></script>
+<script src="app-theme.js?v=2026-04-20-boot-1"></script>
+<script src="app-text.js?v=2026-04-20-boot-1"></script>
+<script src="app-news-ui.js?v=2026-04-20-boot-1"></script>
+<script src="app-compare-ui.js?v=2026-04-20-boot-1"></script>
+<script src="app-quiz-ui.js?v=2026-04-20-boot-1"></script>
+<script src="app-country-panel.js?v=2026-04-20-boot-1"></script>
+<script src="app-timeline-conflicts.js?v=2026-04-20-boot-1"></script>
+<script src="script.js?v=2026-04-20-boot-1"></script>
 
 </body>
 </html>
