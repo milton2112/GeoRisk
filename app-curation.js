@@ -2004,21 +2004,87 @@ const COUNTRY_CURATION_OVERRIDES = {
   ATA: {
     name: "Antartida",
     general: {
+      population: 1106,
+      geography: "Continente polar antartico sin poblacion permanente; la presencia humana corresponde a bases cientificas, logistica y turismo regulado.",
       officialName: "Antartida",
-      historicalNames: ["Continente antartico"],
-      languages: ["Sin idioma oficial permanente"],
+      historicalNames: ["Continente antartico", "Sistema del Tratado Antartico", "Territorios antarticos reclamados"],
+      symbols: {
+        flagDescription: "No existe bandera soberana oficial; se muestra el simbolo regional Unicode de Antartida como referencia visual.",
+        coatOfArms: "Sin escudo soberano oficial",
+        assets: {
+          flagPath: null,
+          coatPath: null
+        }
+      },
+      capital: { name: "Sin capital oficial", population: null, isCapital: true },
       capitals: [
         { role: "sin capital oficial", name: "Sin capital oficial", population: null }
       ],
-      stateStructure: "Territorio internacional regido por el Sistema del Tratado Antartico"
+      languages: ["Sin idioma oficial continental", "Ingles", "Español", "Frances", "Ruso"],
+      stateStructure: "Espacio internacional no soberano regido por el Sistema del Tratado Antartico",
+      subdivisions: {
+        type: "reclamos territoriales superpuestos y zonas de administracion cientifica",
+        count: null,
+        notes: "Los reclamos de Argentina, Australia, Chile, Francia, Nueva Zelanda, Noruega y Reino Unido quedan congelados por el Tratado Antartico."
+      },
+      cities: [
+        { name: "Estacion McMurdo", population: 1200, isCapital: false },
+        { name: "Base Amundsen-Scott", population: 150, isCapital: false },
+        { name: "Base Esperanza", population: 70, isCapital: false },
+        { name: "Base Marambio", population: 55, isCapital: false },
+        { name: "Base Vostok", population: 25, isCapital: false },
+        { name: "Base Rothera", population: 100, isCapital: false },
+        { name: "Base Palmer", population: 46, isCapital: false },
+        { name: "Base Dumont d'Urville", population: 80, isCapital: false }
+      ]
+    },
+    history: {
+      year: 1959,
+      type: "tratado internacional",
+      origin: "Tratado Antartico",
+      events: [
+        { year: 1959, name: "Firma del Tratado Antartico", type: "tratado", description: "Doce paises acordaron reservar la Antartida para fines pacificos y cientificos." },
+        { year: 1961, name: "Entrada en vigor del Tratado Antartico", type: "tratado", description: "El regimen juridico antartico comenzo a operar formalmente." },
+        { year: 1991, name: "Protocolo de Madrid", type: "tratado ambiental", description: "Se reforzo la proteccion ambiental y se prohibio la actividad minera no cientifica." }
+      ]
+    },
+    economy: {
+      gdp: null,
+      gdpPerCapita: null,
+      inflation: null,
+      exports: ["Investigacion cientifica", "Logistica polar", "Turismo antartico regulado"],
+      industries: ["Bases cientificas", "Apoyo logistico", "Observacion ambiental y climatica"]
+    },
+    military: {
+      active: null,
+      reserve: null,
+      conflicts: []
     },
     politics: {
+      system: "Sistema del Tratado Antartico",
       organizations: [
-        { name: "Sistema del Tratado Antartico", abbreviation: "ATS", startYear: 1959, endYear: null }
+        { name: "Sistema del Tratado Antartico", abbreviation: "ATS", startYear: 1959, endYear: null },
+        { name: "Tratado Antartico", abbreviation: null, startYear: 1959, endYear: null },
+        { name: "Comite Cientifico de Investigacion Antartica", abbreviation: "SCAR", startYear: 1958, endYear: null },
+        { name: "Convencion para la Conservacion de los Recursos Vivos Marinos Antarticos", abbreviation: "CCRVMA", startYear: 1982, endYear: null }
       ],
       relations: {
+        diplomaticPartners: ["Argentina", "Australia", "Chile", "Francia", "Nueva Zelanda", "Noruega", "Reino Unido", "Estados Unidos", "Rusia"],
         diplomaticBlocs: ["Sistema del Tratado Antartico"],
-        blocs: ["Sistema del Tratado Antartico"]
+        blocs: ["Sistema del Tratado Antartico"],
+        disputes: ["Reclamos antarticos congelados", "Gestion de recursos marinos", "Proteccion ambiental"],
+        disputedTerritories: ["Antartida Argentina", "Territorio Antartico Chileno", "Territorio Antartico Britanico", "Territorio Antartico Australiano", "Dependencia Ross", "Tierra Adelia", "Tierra de la Reina Maud"]
+      }
+    },
+    religion: {
+      summary: "Sin poblacion permanente",
+      composition: []
+    },
+    metadata: {
+      quality: {
+        curatedFields: ["general", "history", "economy", "politics", "religion", "relations", "symbols"],
+        missingFields: [],
+        status: "curada"
       }
     }
   },
@@ -5009,6 +5075,1272 @@ Object.assign(EXTRA_CONFLICT_DETAIL_OVERRIDES, {
   "Guerra civil somalí (2006-2009)": EXTRA_CONFLICT_DETAIL_OVERRIDES["Guerra civil somali (2006-2009)"],
   "Intervención armada dirigida por los Estados Unidos en Irak": EXTRA_CONFLICT_DETAIL_OVERRIDES["Invasion de Irak de 2003"],
   "Sitio de Alepo (1980-1981)": { cause: "No pertenece al bloque pos-2000 pero el corpus lo arrastra por la palabra Alepo.", type: "sitio", scope: "interno", region: "Siria", chronology: [{ year: 1980, text: "Fuerzas sirias cercan sectores insurgentes en Alepo." }], related: [], participants: [{ side: "Estado sirio", members: ["Siria"], organizations: [], troops: "indeterminadas", casualties: "indeterminadas" }, { side: "Insurgentes", members: ["insurgencia islamista"], organizations: [], troops: "indeterminadas", casualties: "indeterminadas" }], outcome: "Represion del levantamiento.", consequences: "Prefiguro futuras crisis sirias pero no es un conflicto pos-2000." }
+});
+
+Object.assign(EXTRA_CONFLICT_DETAIL_OVERRIDES, {
+  "Guerra de Independencia de Estados Unidos": {
+    cause: "Se origino por la ruptura politica entre las Trece Colonias y el Imperio britanico, agravada por impuestos, representacion limitada y disputa sobre autonomia colonial.",
+    type: "guerra de independencia",
+    scope: "regional",
+    region: "America del Norte",
+    chronology: [
+      { year: 1775, text: "Comienzan los combates en Lexington y Concord y se organiza la resistencia colonial." },
+      { year: 1776, text: "Las colonias declaran su independencia." },
+      { year: 1777, text: "La victoria de Saratoga favorece la entrada francesa en apoyo estadounidense." },
+      { year: 1781, text: "Yorktown decide militarmente la guerra." },
+      { year: 1783, text: "El Tratado de Paris reconoce la independencia de Estados Unidos." }
+    ],
+    related: ["Revolucion estadounidense", "Guerra anglo-estadounidense de 1812"],
+    participants: [
+      { side: "Patriotas estadounidenses y aliados", members: ["Estados Unidos", "Francia", "Espana", "Provincias Unidas"], organizations: [], troops: "centenares de miles movilizados en distintas fases", casualties: "elevadas" },
+      { side: "Imperio britanico y lealistas", members: ["Reino Unido", "lealistas", "auxiliares alemanes"], organizations: [], troops: "centenares de miles movilizados", casualties: "elevadas" }
+    ],
+    outcome: "Victoria estadounidense y reconocimiento internacional de la independencia.",
+    consequences: "Nacio Estados Unidos como Estado soberano y se debilito la posicion britanica en Norteamerica."
+  },
+  "Guerra anglo-estadounidense de 1812": {
+    cause: "Estallo por tensiones comerciales y navales entre Estados Unidos y Reino Unido, el reclutamiento forzoso de marineros y disputas fronterizas e indigenas.",
+    type: "guerra interestatal",
+    scope: "regional",
+    region: "America del Norte",
+    chronology: [
+      { year: 1812, text: "Estados Unidos declara la guerra al Reino Unido." },
+      { year: 1813, text: "Campanas fronterizas en los Grandes Lagos y Canada." },
+      { year: 1814, text: "Tropas britanicas incendian Washington; defensa estadounidense en Baltimore." },
+      { year: 1815, text: "Batalla de Nueva Orleans y ratificacion del Tratado de Gante." }
+    ],
+    related: ["Guerra de Independencia de Estados Unidos"],
+    participants: [
+      { side: "Estados Unidos", members: ["Estados Unidos"], organizations: [], troops: "decenas de miles", casualties: "elevadas" },
+      { side: "Reino Unido y aliados indigenas", members: ["Reino Unido", "Canada colonial", "confederaciones indigenas"], organizations: [], troops: "decenas de miles", casualties: "elevadas" }
+    ],
+    outcome: "Paz sin cambios territoriales mayores.",
+    consequences: "Refuerzo identidades nacionales en Estados Unidos y Canada y debilito proyectos indigenas de contencion territorial."
+  },
+  "Guerra mexico-estadounidense": {
+    cause: "Se produjo por la anexion estadounidense de Texas, disputas fronterizas y la expansion territorial estadounidense hacia el Pacifico.",
+    type: "guerra interestatal",
+    scope: "regional",
+    region: "America del Norte",
+    chronology: [
+      { year: 1846, text: "Choques en la frontera del Rio Grande abren la guerra." },
+      { year: 1846, text: "Batallas de Palo Alto, Resaca de la Palma y toma de Santa Fe." },
+      { year: 1847, text: "Campanas de Veracruz, Cerro Gordo, Chapultepec y ocupacion de Ciudad de Mexico." },
+      { year: 1848, text: "Tratado de Guadalupe Hidalgo." }
+    ],
+    related: ["Expansion territorial de Estados Unidos", "Guerra de Secesion"],
+    participants: [
+      { side: "Estados Unidos", members: ["Estados Unidos"], organizations: [], troops: "decenas de miles", casualties: "elevadas" },
+      { side: "Mexico", members: ["Mexico"], organizations: [], troops: "decenas de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Victoria estadounidense y gran cesion territorial mexicana.",
+    consequences: "Estados Unidos incorporo California y el Suroeste; Mexico perdio cerca de la mitad de su territorio reconocido."
+  },
+  "Guerra de Secesion": {
+    cause: "Surgio por la secesion de estados esclavistas del sur tras la eleccion de Abraham Lincoln, con disputas de fondo sobre esclavitud, federalismo y modelo economico.",
+    type: "conflicto interno",
+    scope: "regional",
+    region: "America del Norte",
+    chronology: [
+      { year: 1861, text: "Ataque a Fort Sumter y comienzo formal de la guerra." },
+      { year: 1863, text: "Gettysburg y Vicksburg cambian el equilibrio estrategico." },
+      { year: 1864, text: "Las campanas de Grant y Sherman erosionan a la Confederacion." },
+      { year: 1865, text: "Rendicion confederada en Appomattox." }
+    ],
+    related: ["Abolicion de la esclavitud", "Reconstruccion estadounidense"],
+    participants: [
+      { side: "Union", members: ["Estados Unidos"], organizations: [], troops: "millones movilizados", casualties: "muy elevadas" },
+      { side: "Confederacion", members: ["Estados Confederados"], organizations: [], troops: "centenares de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Victoria de la Union y preservacion del Estado federal.",
+    consequences: "Abolio la esclavitud, reforzo el poder federal e inicio la Reconstruccion."
+  },
+  "Guerra hispano-estadounidense": {
+    cause: "Estallo por la crisis cubana, la intervencion estadounidense contra Espana y la explosion del USS Maine como detonante politico inmediato.",
+    type: "guerra interestatal",
+    scope: "regional",
+    region: "Caribe y Pacifico",
+    chronology: [
+      { year: 1898, text: "Estados Unidos declara la guerra a Espana." },
+      { year: 1898, text: "Batallas navales de Manila y Santiago de Cuba." },
+      { year: 1898, text: "Tratado de Paris y fin del dominio colonial espanol sobre Cuba, Puerto Rico, Guam y Filipinas." }
+    ],
+    related: ["Independencia de Cuba", "Expansion estadounidense en el Caribe"],
+    participants: [
+      { side: "Estados Unidos y fuerzas independentistas", members: ["Estados Unidos", "independentistas cubanos"], organizations: [], troops: "decenas de miles", casualties: "moderadas" },
+      { side: "Espana", members: ["Espana"], organizations: [], troops: "decenas de miles", casualties: "elevadas" }
+    ],
+    outcome: "Victoria estadounidense.",
+    consequences: "Estados Unidos emergio como potencia imperial y Espana perdio sus ultimas grandes colonias ultramarinas."
+  },
+  "Revolucion mexicana": {
+    cause: "Surgio contra el porfiriato por exclusion politica, desigualdad agraria, autoritarismo y rivalidades entre elites y movimientos campesinos.",
+    type: "conflicto interno",
+    scope: "interno",
+    region: "America del Norte",
+    chronology: [
+      { year: 1910, text: "Madero llama al levantamiento contra Porfirio Diaz." },
+      { year: 1911, text: "Cae el porfiriato." },
+      { year: 1913, text: "Golpe de Huerta y radicalizacion de la guerra." },
+      { year: 1917, text: "Promulgacion de la Constitucion." },
+      { year: 1920, text: "Cierre del ciclo armado principal." }
+    ],
+    related: ["Constitucion mexicana de 1917", "Guerra contra el narcotrafico en Mexico"],
+    participants: [
+      { side: "Facciones revolucionarias", members: ["Maderistas", "Constitucionalistas", "Zapatistas", "Villistas"], organizations: [], troops: "centenares de miles", casualties: "muy elevadas" },
+      { side: "Gobierno federal y facciones rivales", members: ["Mexico"], organizations: [], troops: "centenares de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Reordenamiento del Estado mexicano bajo un nuevo marco constitucional.",
+    consequences: "Transformo el sistema politico mexicano, la cuestion agraria y la legitimidad del Estado posrevolucionario."
+  },
+  "Guerra de las 100 horas": {
+    cause: "Se origino por tensiones migratorias, agrarias y nacionalistas entre El Salvador y Honduras, amplificadas por una crisis deportiva y politica.",
+    type: "guerra interestatal",
+    scope: "subregional",
+    region: "Centroamerica",
+    chronology: [
+      { year: 1969, text: "El Salvador invade Honduras tras una escalada diplomatica y social." },
+      { year: 1969, text: "La OEA impulsa el alto el fuego y la retirada salvadorena." }
+    ],
+    related: ["Guerra entre Honduras y El Salvador de 1871"],
+    participants: [
+      { side: "El Salvador", members: ["El Salvador"], organizations: [], troops: "fuerzas armadas nacionales", casualties: "elevadas" },
+      { side: "Honduras", members: ["Honduras"], organizations: [], troops: "fuerzas armadas nacionales", casualties: "elevadas" }
+    ],
+    outcome: "Alto el fuego y retirada salvadorena.",
+    consequences: "Profundizo tensiones sociales y migratorias y afecto la integracion centroamericana."
+  },
+  "Invasion estadounidense de Panama": {
+    cause: "Estados Unidos intervino para capturar a Manuel Noriega, proteger intereses estrategicos y controlar la crisis politica panamena.",
+    type: "intervencion u ocupacion",
+    scope: "regional",
+    region: "Centroamerica",
+    chronology: [
+      { year: 1989, text: "Comienza la Operacion Causa Justa." },
+      { year: 1990, text: "Noriega se entrega y se consolida el nuevo gobierno panameno." }
+    ],
+    related: ["Canal de Panama", "Politica estadounidense en America Latina"],
+    participants: [
+      { side: "Estados Unidos", members: ["Estados Unidos"], organizations: [], troops: "decenas de miles", casualties: "moderadas" },
+      { side: "Panama", members: ["Panama", "Fuerzas de Defensa de Panama"], organizations: [], troops: "fuerzas nacionales", casualties: "elevadas" }
+    ],
+    outcome: "Derrocamiento de Noriega y ocupacion temporal estadounidense.",
+    consequences: "Reordeno la politica panamena y reforzo el debate regional sobre intervencionismo."
+  },
+  "Invasion de Granada": {
+    cause: "Estados Unidos y aliados caribenos intervinieron tras una crisis interna granadina y el asesinato de Maurice Bishop.",
+    type: "intervencion u ocupacion",
+    scope: "regional",
+    region: "Caribe",
+    chronology: [
+      { year: 1983, text: "Fuerzas estadounidenses y caribenas desembarcan en Granada." },
+      { year: 1983, text: "Cae el gobierno militar revolucionario." }
+    ],
+    related: ["Guerra fria en el Caribe"],
+    participants: [
+      { side: "Estados Unidos y aliados caribenos", members: ["Estados Unidos", "Organizacion de Estados del Caribe Oriental"], organizations: [], troops: "miles", casualties: "moderadas" },
+      { side: "Gobierno revolucionario de Granada", members: ["Granada", "asesores cubanos"], organizations: [], troops: "fuerzas limitadas", casualties: "moderadas" }
+    ],
+    outcome: "Victoria de la fuerza invasora y cambio de gobierno.",
+    consequences: "Confirmo la disposicion estadounidense a intervenir militarmente en el Caribe durante la Guerra fria."
+  },
+  "Conflicto fronterizo Honduras-Nicaragua de 1957": {
+    cause: "Fue una crisis fronteriza originada por disputas limitrofes y tension militar entre Honduras y Nicaragua.",
+    type: "conflicto fronterizo",
+    scope: "subregional",
+    region: "Centroamerica",
+    chronology: [
+      { year: 1957, text: "Escalan incidentes fronterizos entre ambos estados." },
+      { year: 1957, text: "La mediacion regional contiene la crisis." }
+    ],
+    related: ["Guerra de las 100 horas"],
+    participants: [
+      { side: "Honduras", members: ["Honduras"], organizations: [], troops: "fuerzas fronterizas", casualties: "limitadas" },
+      { side: "Nicaragua", members: ["Nicaragua"], organizations: [], troops: "fuerzas fronterizas", casualties: "limitadas" }
+    ],
+    outcome: "Desescalada diplomatica.",
+    consequences: "Mantuvo activa la sensibilidad fronteriza centroamericana durante la Guerra fria."
+  },
+  "Guerra grancolombo-peruana": {
+    cause: "Se produjo por disputas territoriales y politicas entre la Gran Colombia y Peru en la etapa temprana de las republicas andinas.",
+    type: "guerra interestatal",
+    scope: "regional",
+    region: "Andes septentrionales",
+    chronology: [
+      { year: 1828, text: "Escalan tensiones entre Peru y la Gran Colombia." },
+      { year: 1829, text: "La batalla del Portete de Tarqui y la negociacion posterior cierran la fase militar principal." }
+    ],
+    related: ["Guerra peruano-ecuatoriana"],
+    participants: [
+      { side: "Gran Colombia", members: ["Gran Colombia"], organizations: [], troops: "decenas de miles", casualties: "moderadas" },
+      { side: "Peru", members: ["Peru"], organizations: [], troops: "decenas de miles", casualties: "moderadas" }
+    ],
+    outcome: "Acuerdo de paz sin transformacion territorial estable inmediata.",
+    consequences: "Dejo disputas heredadas que influyeron en tensiones posteriores entre Peru, Ecuador y Colombia."
+  },
+  "Guerra civil de Surinam": {
+    cause: "Se origino por la rebelion del Comando de la Selva contra el gobierno militar de Surinam y por tensiones politicas, etnicas y territoriales.",
+    type: "conflicto interno",
+    scope: "interno",
+    region: "Guayanas",
+    chronology: [
+      { year: 1986, text: "Comienza la insurgencia del Comando de la Selva." },
+      { year: 1989, text: "Se abren negociaciones intermitentes." },
+      { year: 1992, text: "Acuerdo de paz y desmovilizacion." }
+    ],
+    related: ["Guerra fria en America Latina"],
+    participants: [
+      { side: "Gobierno de Surinam", members: ["Surinam"], organizations: [], troops: "fuerzas estatales", casualties: "moderadas" },
+      { side: "Comando de la Selva", members: ["insurgentes maroon"], organizations: [], troops: "fuerzas irregulares", casualties: "moderadas" }
+    ],
+    outcome: "Acuerdo de paz y reintegracion parcial.",
+    consequences: "Debilito al Estado surinames y dejo secuelas sociales en el interior del pais."
+  },
+  "Levantamiento del Rupununi": {
+    cause: "Fue una rebelion separatista en Guyana vinculada a tensiones regionales, propiedad de la tierra y temor a cambios politicos del nuevo Estado.",
+    type: "levantamiento",
+    scope: "interno",
+    region: "Guayanas",
+    chronology: [
+      { year: 1969, text: "Rebeldes del Rupununi intentan separar la region del Estado guyanes." },
+      { year: 1969, text: "El gobierno sofoca rapidamente el levantamiento." }
+    ],
+    related: ["Disputa del Esequibo"],
+    participants: [
+      { side: "Estado guyanes", members: ["Guyana"], organizations: [], troops: "fuerzas estatales", casualties: "limitadas" },
+      { side: "Rebeldes del Rupununi", members: ["rebeldes regionales"], organizations: [], troops: "fuerzas irregulares", casualties: "limitadas" }
+    ],
+    outcome: "Fracaso del levantamiento.",
+    consequences: "Reforzo la centralidad del control territorial en la joven Guyana independiente."
+  },
+  "Primera guerra de Guatemala": {
+    cause: "Se inserto en la crisis posfederal centroamericana y en la competencia entre facciones liberales y conservadoras.",
+    type: "guerra interestatal",
+    scope: "subregional",
+    region: "Centroamerica",
+    chronology: [{ year: 1826, text: "Guatemala participa en la secuencia de guerras posfederales centroamericanas." }],
+    related: ["Segunda guerra de Guatemala", "Tercera guerra de Guatemala"],
+    participants: [
+      { side: "Guatemala", members: ["Guatemala"], organizations: [], troops: "fuerzas regionales", casualties: "moderadas" },
+      { side: "Rivales centroamericanos", members: ["actores regionales centroamericanos"], organizations: [], troops: "fuerzas regionales", casualties: "moderadas" }
+    ],
+    outcome: "Resultado limitado dentro de una secuencia prolongada de guerras regionales.",
+    consequences: "Reflejo la fragilidad del orden centroamericano tras la disolucion federal."
+  },
+  "Segunda guerra de Guatemala": null,
+  "Tercera guerra de Guatemala": null
+});
+
+EXTRA_CONFLICT_DETAIL_OVERRIDES["Segunda guerra de Guatemala"] = EXTRA_CONFLICT_DETAIL_OVERRIDES["Primera guerra de Guatemala"];
+EXTRA_CONFLICT_DETAIL_OVERRIDES["Tercera guerra de Guatemala"] = EXTRA_CONFLICT_DETAIL_OVERRIDES["Primera guerra de Guatemala"];
+
+Object.assign(EXTRA_CONFLICT_DETAIL_OVERRIDES, {
+  "Guerras napoleonicas": {
+    cause: "Se originaron en la expansion de la Francia revolucionaria y napoleonica, la resistencia de coaliciones europeas y la disputa por la hegemonia continental.",
+    type: "guerra interestatal",
+    scope: "regional",
+    region: "Europa",
+    chronology: [
+      { year: 1803, text: "Se reanuda la guerra entre Reino Unido y Francia napoleonica." },
+      { year: 1805, text: "Austerlitz consolida el predominio frances en el continente; Trafalgar asegura la superioridad naval britanica." },
+      { year: 1812, text: "La invasion de Rusia desgasta decisivamente al Imperio frances." },
+      { year: 1813, text: "Leipzig marca la derrota de Napoleon frente a una gran coalicion." },
+      { year: 1815, text: "Waterloo cierra el ciclo napoleonico." }
+    ],
+    related: ["Guerras revolucionarias francesas", "Congreso de Viena"],
+    participants: [
+      { side: "Francia napoleonica y aliados", members: ["Francia", "estados satelites y aliados"], organizations: [], troops: "millones movilizados", casualties: "muy elevadas" },
+      { side: "Coaliciones europeas", members: ["Reino Unido", "Rusia", "Austria", "Prusia", "Espana", "Portugal y otros"], organizations: [], troops: "millones movilizados", casualties: "muy elevadas" }
+    ],
+    outcome: "Derrota final de Napoleon y restauracion del equilibrio europeo.",
+    consequences: "Redibujo el mapa europeo, impulso reformas estatales y dio origen al sistema diplomatico del Congreso de Viena."
+  },
+  "Guerras revolucionarias francesas": {
+    cause: "Estallaron por la radicalizacion de la Revolucion francesa y la reaccion de monarquias europeas contra el nuevo orden republicano.",
+    type: "guerra interestatal",
+    scope: "regional",
+    region: "Europa",
+    chronology: [
+      { year: 1792, text: "Francia entra en guerra con Austria y Prusia." },
+      { year: 1793, text: "La guerra se amplia con nuevas coaliciones europeas." },
+      { year: 1796, text: "Campanas italianas de Napoleon elevan el peso militar frances." },
+      { year: 1802, text: "La Paz de Amiens cierra temporalmente el ciclo revolucionario." }
+    ],
+    related: ["Guerras napoleonicas"],
+    participants: [
+      { side: "Francia revolucionaria", members: ["Francia"], organizations: [], troops: "movilizacion masiva", casualties: "muy elevadas" },
+      { side: "Coaliciones monarquicas", members: ["Austria", "Prusia", "Reino Unido", "Rusia", "Espana y otros"], organizations: [], troops: "centenares de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Supervivencia y expansion de la Republica francesa.",
+    consequences: "Exporto la guerra revolucionaria a Europa y preparo el ascenso de Napoleon."
+  },
+  "Guerra de los Treinta Anos": {
+    cause: "Comenzo como crisis religiosa y politica dentro del Sacro Imperio y escalo hacia una guerra europea por equilibrio de poder.",
+    type: "guerra interestatal",
+    scope: "regional",
+    region: "Europa central",
+    chronology: [
+      { year: 1618, text: "Defenestracion de Praga y comienzo de la rebelion bohemia." },
+      { year: 1630, text: "Intervencion sueca transforma el equilibrio militar." },
+      { year: 1635, text: "Francia entra de forma decisiva contra los Habsburgo." },
+      { year: 1648, text: "La Paz de Westfalia pone fin a la guerra." }
+    ],
+    related: ["Paz de Westfalia"],
+    participants: [
+      { side: "Habsburgo y aliados catolicos", members: ["Sacro Imperio", "Espana", "Liga Catolica"], organizations: [], troops: "centenares de miles", casualties: "catastroficas" },
+      { side: "Potencias protestantes y Francia", members: ["Suecia", "Francia", "Provincias Unidas", "principes protestantes"], organizations: [], troops: "centenares de miles", casualties: "catastroficas" }
+    ],
+    outcome: "Paz de Westfalia y debilitamiento relativo de los Habsburgo.",
+    consequences: "Devasto Europa central y consolidó principios de soberania estatal en la diplomacia europea."
+  },
+  "Gran Guerra del Norte": {
+    cause: "Se produjo por la disputa por la hegemonia en el Baltico y el intento de Rusia, Dinamarca-Noruega y Sajonia-Polonia de reducir el poder sueco.",
+    type: "guerra interestatal",
+    scope: "regional",
+    region: "Europa septentrional y oriental",
+    chronology: [
+      { year: 1700, text: "Coalicion antisueca inicia operaciones contra el Imperio sueco." },
+      { year: 1709, text: "Poltava destruye la capacidad ofensiva sueca frente a Rusia." },
+      { year: 1718, text: "Muerte de Carlos XII y agotamiento sueco." },
+      { year: 1721, text: "Tratado de Nystad confirma el ascenso ruso en el Baltico." }
+    ],
+    related: ["Ascenso del Imperio ruso"],
+    participants: [
+      { side: "Suecia", members: ["Suecia"], organizations: [], troops: "decenas de miles", casualties: "muy elevadas" },
+      { side: "Coalicion antisueca", members: ["Rusia", "Dinamarca-Noruega", "Sajonia-Polonia", "Prusia"], organizations: [], troops: "centenares de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Derrota sueca y ascenso ruso.",
+    consequences: "Rusia reemplazo a Suecia como potencia dominante del Baltico."
+  },
+  "Guerra de Crimea": {
+    cause: "Estallo por la competencia entre Rusia, el Imperio otomano y potencias occidentales sobre el mar Negro, los Balcanes y los lugares santos.",
+    type: "guerra interestatal",
+    scope: "regional",
+    region: "Mar Negro y Europa oriental",
+    chronology: [
+      { year: 1853, text: "Rusia ocupa principados danubianos y se abre la guerra." },
+      { year: 1854, text: "Reino Unido y Francia intervienen junto al Imperio otomano." },
+      { year: 1854, text: "Comienza el asedio de Sebastopol." },
+      { year: 1856, text: "Tratado de Paris." }
+    ],
+    related: ["Cuestion de Oriente"],
+    participants: [
+      { side: "Rusia", members: ["Imperio ruso"], organizations: [], troops: "centenares de miles", casualties: "muy elevadas" },
+      { side: "Coalicion otomana-occidental", members: ["Imperio otomano", "Reino Unido", "Francia", "Cerdeña"], organizations: [], troops: "centenares de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Derrota rusa y neutralizacion temporal del mar Negro.",
+    consequences: "Expuso debilidades rusas y modifico el equilibrio europeo previo a las unificaciones nacionales."
+  },
+  "Guerras de unificacion alemana": {
+    cause: "Fueron impulsadas por Prusia para reorganizar el espacio aleman bajo su liderazgo y desplazar la influencia austriaca y francesa.",
+    type: "guerra interestatal",
+    scope: "regional",
+    region: "Europa central",
+    chronology: [
+      { year: 1864, text: "Guerra de los Ducados contra Dinamarca." },
+      { year: 1866, text: "Guerra austro-prusiana y exclusion de Austria del proyecto aleman." },
+      { year: 1870, text: "Guerra franco-prusiana y proclamacion del Imperio aleman." }
+    ],
+    related: ["Guerra franco-prusiana", "Guerra austro-prusiana", "Guerra de los Ducados"],
+    participants: [
+      { side: "Prusia y aliados alemanes", members: ["Prusia", "estados alemanes aliados"], organizations: [], troops: "centenares de miles", casualties: "elevadas" },
+      { side: "Rivales regionales", members: ["Dinamarca", "Austria", "Francia"], organizations: [], troops: "centenares de miles", casualties: "elevadas" }
+    ],
+    outcome: "Unificacion alemana bajo liderazgo prusiano.",
+    consequences: "Creo el Imperio aleman y altero decisivamente el equilibrio europeo."
+  },
+  "Guerras balcanicas": {
+    cause: "Se originaron por el debilitamiento otomano en Europa y la competencia entre estados balcanicos por Macedonia, Tracia y territorios vecinos.",
+    type: "guerra interestatal",
+    scope: "regional",
+    region: "Balcanes",
+    chronology: [
+      { year: 1912, text: "La Liga Balcanica derrota al Imperio otomano en Europa." },
+      { year: 1913, text: "Bulgaria combate contra sus antiguos aliados por el reparto territorial." }
+    ],
+    related: ["Primera Guerra Mundial"],
+    participants: [
+      { side: "Liga Balcanica", members: ["Serbia", "Bulgaria", "Grecia", "Montenegro"], organizations: [], troops: "centenares de miles", casualties: "muy elevadas" },
+      { side: "Imperio otomano y rivales posteriores", members: ["Imperio otomano", "Bulgaria", "Rumania"], organizations: [], troops: "centenares de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Retirada otomana de gran parte de Europa y nuevo reparto territorial balcanico.",
+    consequences: "Aumento tensiones nacionales que alimentaron el camino hacia 1914."
+  },
+  "Guerra civil espanola": {
+    cause: "Estallo tras el golpe militar de 1936 contra la Segunda Republica, en un contexto de polarizacion social, militar y politica.",
+    type: "conflicto interno",
+    scope: "regional",
+    region: "Europa occidental",
+    chronology: [
+      { year: 1936, text: "Golpe militar fallido y comienzo de la guerra." },
+      { year: 1937, text: "Jarama, Guadalajara, Brunete y bombardeo de Guernica." },
+      { year: 1938, text: "Batalla del Ebro y desgaste decisivo republicano." },
+      { year: 1939, text: "Caida de Madrid y victoria franquista." }
+    ],
+    related: ["Segunda Guerra Mundial", "Antifascismo europeo"],
+    participants: [
+      { side: "Republica", members: ["Gobierno republicano espanol"], organizations: ["Brigadas Internacionales"], troops: "centenares de miles", casualties: "muy elevadas" },
+      { side: "Sublevados", members: ["Nacionalistas espanoles"], organizations: ["Alemania nazi", "Italia fascista"], troops: "centenares de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Victoria franquista.",
+    consequences: "Instalo una dictadura de larga duracion, provoco exilio masivo y funciono como antesala ideologica de la Segunda Guerra Mundial."
+  },
+  "Guerra de Invierno": {
+    cause: "La Union Sovietica ataco Finlandia tras no conseguir concesiones territoriales y de seguridad cerca de Leningrado.",
+    type: "guerra interestatal",
+    scope: "regional",
+    region: "Europa septentrional",
+    chronology: [
+      { year: 1939, text: "La URSS invade Finlandia." },
+      { year: 1940, text: "La defensa finlandesa resiste en la linea Mannerheim pero acepta la paz." }
+    ],
+    related: ["Segunda Guerra Mundial", "Guerra de Continuacion"],
+    participants: [
+      { side: "Finlandia", members: ["Finlandia"], organizations: [], troops: "centenares de miles", casualties: "elevadas" },
+      { side: "Union Sovietica", members: ["Union Sovietica"], organizations: [], troops: "centenares de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Victoria sovietica limitada con cesiones territoriales finlandesas.",
+    consequences: "Finlandia preservo su independencia, pero perdio territorios estrategicos."
+  },
+  "Guerra de Continuacion": {
+    cause: "Finlandia reanudo la guerra contra la Union Sovietica junto al Eje para recuperar territorios perdidos y asegurar su posicion.",
+    type: "guerra interestatal",
+    scope: "regional",
+    region: "Europa septentrional",
+    chronology: [
+      { year: 1941, text: "Finlandia entra en guerra contra la URSS en paralelo a Barbarroja." },
+      { year: 1944, text: "Ofensiva sovietica obliga a Finlandia a negociar." }
+    ],
+    related: ["Guerra de Invierno", "Segunda Guerra Mundial", "Guerra de Laponia"],
+    participants: [
+      { side: "Finlandia y Alemania", members: ["Finlandia", "Alemania"], organizations: ["Eje"], troops: "centenares de miles", casualties: "elevadas" },
+      { side: "Union Sovietica", members: ["Union Sovietica"], organizations: ["Aliados"], troops: "centenares de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Armisticio sovietico-finlandes y ruptura finlandesa con Alemania.",
+    consequences: "Finlandia acepto nuevas condiciones territoriales pero mantuvo su independencia."
+  },
+  "Guerra de Laponia": {
+    cause: "Finlandia combatió a las fuerzas alemanas para cumplir el armisticio firmado con la Union Sovietica.",
+    type: "guerra interestatal",
+    scope: "regional",
+    region: "Laponia",
+    chronology: [
+      { year: 1944, text: "Finlandia inicia operaciones contra tropas alemanas en el norte." },
+      { year: 1945, text: "Alemania se retira de Laponia." }
+    ],
+    related: ["Guerra de Continuacion", "Segunda Guerra Mundial"],
+    participants: [
+      { side: "Finlandia", members: ["Finlandia"], organizations: [], troops: "decenas de miles", casualties: "moderadas" },
+      { side: "Alemania", members: ["Alemania"], organizations: ["Eje"], troops: "decenas de miles", casualties: "moderadas" }
+    ],
+    outcome: "Retirada alemana.",
+    consequences: "Consolido el giro finlandes fuera del bloque del Eje y dejo destruccion significativa en el norte."
+  },
+  "Guerras sovietico-finlandesas": {
+    cause: "Agrupan las guerras entre Finlandia y la Union Sovietica derivadas de seguridad fronteriza, rivalidad regional y la Segunda Guerra Mundial.",
+    type: "guerra interestatal",
+    scope: "regional",
+    region: "Europa septentrional",
+    chronology: [
+      { year: 1939, text: "La Guerra de Invierno comienza con la invasion sovietica." },
+      { year: 1941, text: "La Guerra de Continuacion reabre el frente finlandes-sovietico." },
+      { year: 1944, text: "Finlandia firma armisticio con la URSS y combate luego a Alemania en Laponia." }
+    ],
+    related: ["Guerra de Invierno", "Guerra de Continuacion", "Guerra de Laponia", "Segunda Guerra Mundial"],
+    participants: [
+      { side: "Finlandia", members: ["Finlandia"], organizations: [], troops: "centenares de miles", casualties: "muy elevadas" },
+      { side: "Union Sovietica", members: ["Union Sovietica"], organizations: ["Aliados en la Segunda Guerra Mundial"], troops: "centenares de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Finlandia conserva su independencia pero acepta cesiones y restricciones.",
+    consequences: "Definio la posicion finlandesa de posguerra y su politica exterior prudente frente a Moscu."
+  },
+  "Guerras yugoslavas": {
+    cause: "Se desencadenaron por la desintegracion de Yugoslavia, nacionalismos rivales, disputas territoriales y crisis del poder federal.",
+    type: "conflicto interno",
+    scope: "regional",
+    region: "Balcanes",
+    chronology: [
+      { year: 1991, text: "Eslovenia y Croacia declaran independencia y comienzan las guerras." },
+      { year: 1992, text: "La guerra se expande a Bosnia." },
+      { year: 1995, text: "Dayton cierra la guerra de Bosnia." },
+      { year: 1998, text: "Escala la guerra de Kosovo." },
+      { year: 2001, text: "Crisis armada en Macedonia." }
+    ],
+    related: ["Guerra de Croacia", "Guerra de Bosnia", "Guerra de Kosovo"],
+    participants: [
+      { side: "Republicas independentistas y aliados", members: ["Croacia", "Bosnia y Herzegovina", "Eslovenia", "Kosovo y otros actores"], organizations: ["OTAN en fases finales"], troops: "centenares de miles", casualties: "muy elevadas" },
+      { side: "Yugoslavia/Serbia y fuerzas asociadas", members: ["Serbia", "Yugoslavia", "fuerzas serbobosnias y serbocroatas"], organizations: [], troops: "centenares de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Disolucion de Yugoslavia y nuevo mapa politico balcanico.",
+    consequences: "Provoco limpieza etnica, desplazamientos masivos, intervenciones internacionales y estados nuevos."
+  },
+  "Guerra de Bosnia": {
+    cause: "Estallo tras la independencia bosnia y el choque entre proyectos nacionales bosnio, serbio y croata.",
+    type: "conflicto interno",
+    scope: "regional",
+    region: "Balcanes",
+    chronology: [
+      { year: 1992, text: "Comienza el asedio de Sarajevo y la guerra generalizada." },
+      { year: 1995, text: "Srebrenica y la ofensiva croata-bosnia aceleran la intervencion internacional." },
+      { year: 1995, text: "Acuerdos de Dayton." }
+    ],
+    related: ["Guerras yugoslavas", "Operacion Deliberate Force"],
+    participants: [
+      { side: "Gobierno bosnio y aliados", members: ["Bosnia y Herzegovina", "Croacia"], organizations: ["OTAN (intervencion aerea)"], troops: "centenares de miles", casualties: "muy elevadas" },
+      { side: "Fuerzas serbobosnias", members: ["Republika Srpska", "Serbia (apoyo)"], organizations: [], troops: "centenares de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Acuerdos de Dayton y division institucional interna de Bosnia.",
+    consequences: "Dejo un Estado complejo, fuerte presencia internacional y memoria central de limpieza etnica y genocidio."
+  },
+  "Guerra de Croacia": {
+    cause: "Se origino por la independencia croata y la resistencia de fuerzas serbias locales apoyadas por el ejercito yugoslavo.",
+    type: "conflicto interno",
+    scope: "regional",
+    region: "Balcanes",
+    chronology: [
+      { year: 1991, text: "Combates en Vukovar, Dubrovnik y regiones de mayoria serbia." },
+      { year: 1995, text: "La Operacion Tormenta restablece el control croata sobre Krajina." }
+    ],
+    related: ["Guerras yugoslavas", "Guerra de Bosnia"],
+    participants: [
+      { side: "Croacia", members: ["Croacia"], organizations: [], troops: "centenares de miles", casualties: "elevadas" },
+      { side: "Fuerzas serbocroatas y Yugoslavia", members: ["Republica Serbia de Krajina", "Yugoslavia/Serbia"], organizations: [], troops: "centenares de miles", casualties: "elevadas" }
+    ],
+    outcome: "Victoria croata y reintegracion territorial.",
+    consequences: "Consolido la independencia croata y produjo desplazamientos masivos."
+  },
+  "Guerra de Kosovo": {
+    cause: "Estallo por la represion serbia en Kosovo, la insurgencia del UCK y la crisis humanitaria que llevo a la intervencion de la OTAN.",
+    type: "intervencion u ocupacion",
+    scope: "regional",
+    region: "Balcanes",
+    chronology: [
+      { year: 1998, text: "Escala la guerra entre fuerzas yugoslavas/serbias y el UCK." },
+      { year: 1999, text: "La OTAN inicia una campana aerea contra Yugoslavia." },
+      { year: 1999, text: "Retirada serbia y administracion internacional de Kosovo." }
+    ],
+    related: ["Guerras yugoslavas"],
+    participants: [
+      { side: "Kosovares albaneses y OTAN", members: ["UCK", "OTAN"], organizations: ["OTAN"], troops: "decenas de miles", casualties: "elevadas" },
+      { side: "Yugoslavia/Serbia", members: ["Yugoslavia", "Serbia"], organizations: [], troops: "decenas de miles", casualties: "elevadas" }
+    ],
+    outcome: "Retirada serbia y Kosovo bajo administracion internacional.",
+    consequences: "Abrió el camino a la independencia kosovar declarada en 2008 y mantuvo una disputa diplomatica persistente."
+  },
+  "Guerra de Independencia irlandesa": {
+    cause: "Se origino por la negativa republicana irlandesa a aceptar el dominio britanico tras el levantamiento de 1916 y las elecciones de 1918.",
+    type: "guerra de independencia",
+    scope: "regional",
+    region: "Islas britanicas",
+    chronology: [
+      { year: 1919, text: "Comienza la guerrilla del IRA contra fuerzas britanicas." },
+      { year: 1920, text: "Escalada de represion, inteligencia y violencia politica." },
+      { year: 1921, text: "Tratado anglo-irlandes y particion." }
+    ],
+    related: ["Conflicto de Irlanda del Norte", "Guerra civil irlandesa"],
+    participants: [
+      { side: "Republicanos irlandeses", members: ["IRA", "Dail Eireann"], organizations: [], troops: "fuerzas guerrilleras", casualties: "elevadas" },
+      { side: "Reino Unido", members: ["Reino Unido", "Royal Irish Constabulary", "Black and Tans"], organizations: [], troops: "decenas de miles", casualties: "elevadas" }
+    ],
+    outcome: "Tratado anglo-irlandes y creacion del Estado Libre Irlandes.",
+    consequences: "Particiono Irlanda y preparo la guerra civil irlandesa."
+  },
+  "Conflicto de Irlanda del Norte": {
+    cause: "Surgio por la disputa entre unionismo probritanico y republicanismo irlandes, discriminacion politica y tensiones sectarias en Irlanda del Norte.",
+    type: "conflicto interno",
+    scope: "regional",
+    region: "Islas britanicas",
+    chronology: [
+      { year: 1969, text: "Despliegue britanico tras disturbios sectarios." },
+      { year: 1972, text: "Domingo Sangriento y suspension del autogobierno norirlandes." },
+      { year: 1981, text: "Huelgas de hambre republicanias aumentan la dimension politica." },
+      { year: 1998, text: "Acuerdo de Viernes Santo." }
+    ],
+    related: ["Guerra de Independencia irlandesa"],
+    participants: [
+      { side: "Republicanos irlandeses", members: ["IRA Provisional", "organizaciones republicanas"], organizations: [], troops: "fuerzas irregulares", casualties: "elevadas" },
+      { side: "Reino Unido y unionistas", members: ["Reino Unido", "fuerzas de seguridad", "organizaciones lealistas"], organizations: [], troops: "fuerzas estatales e irregulares", casualties: "elevadas" }
+    ],
+    outcome: "Acuerdo de Viernes Santo y desescalada politica.",
+    consequences: "Instalo un sistema de poder compartido y redujo drásticamente la violencia."
+  },
+  "Guerra de Independencia de Estonia": {
+    cause: "Estonia defendio su independencia frente a fuerzas sovieticas y alemanas tras el colapso imperial ruso.",
+    type: "guerra de independencia",
+    scope: "regional",
+    region: "Baltico",
+    chronology: [
+      { year: 1918, text: "Comienza la guerra tras la retirada alemana y el avance sovietico." },
+      { year: 1920, text: "Tratado de Tartu reconoce la independencia estonia." }
+    ],
+    related: ["Guerras de independencia balticas"],
+    participants: [
+      { side: "Estonia y aliados", members: ["Estonia", "voluntarios finlandeses", "apoyo britanico"], organizations: [], troops: "decenas de miles", casualties: "elevadas" },
+      { side: "Rusia sovietica y fuerzas rivales", members: ["Rusia sovietica", "fuerzas alemanas balticas"], organizations: [], troops: "decenas de miles", casualties: "elevadas" }
+    ],
+    outcome: "Independencia estonia reconocida.",
+    consequences: "Consolido temporalmente el Estado estonio hasta la ocupacion sovietica de 1940."
+  },
+  "Guerra de Independencia letona": {
+    cause: "Letonia lucho por consolidar su independencia en medio del colapso ruso, presencia alemana y avance bolchevique.",
+    type: "guerra de independencia",
+    scope: "regional",
+    region: "Baltico",
+    chronology: [
+      { year: 1918, text: "Letonia declara independencia." },
+      { year: 1919, text: "Combates contra fuerzas bolcheviques y alemanas." },
+      { year: 1920, text: "Tratado de paz con Rusia sovietica." }
+    ],
+    related: ["Guerras de independencia balticas"],
+    participants: [
+      { side: "Letonia y aliados", members: ["Letonia", "Estonia", "Polonia"], organizations: [], troops: "decenas de miles", casualties: "elevadas" },
+      { side: "Fuerzas rivales", members: ["Rusia sovietica", "Bermontianos", "formaciones alemanas"], organizations: [], troops: "decenas de miles", casualties: "elevadas" }
+    ],
+    outcome: "Independencia letona consolidada.",
+    consequences: "Afianzo el Estado leton durante el periodo de entreguerras."
+  }
+});
+
+Object.assign(EXTRA_CONFLICT_DETAIL_OVERRIDES, {
+  "Guerra civil argelina": {
+    cause: "Se desencadeno tras la anulacion del proceso electoral de 1991 y la confrontacion entre el Estado argelino e insurgencias islamistas.",
+    type: "conflicto interno",
+    scope: "interno",
+    region: "Magreb",
+    chronology: [
+      { year: 1991, text: "El avance electoral islamista precipita la intervencion militar y la crisis politica." },
+      { year: 1992, text: "Comienza la insurgencia armada y la represion estatal." },
+      { year: 1997, text: "La violencia alcanza niveles extremos contra civiles." },
+      { year: 2002, text: "El Estado reduce la insurgencia principal, aunque quedan redes armadas residuales." }
+    ],
+    related: ["Insurgencia en el Magreb", "Guerra de Argelia"],
+    participants: [
+      { side: "Estado argelino", members: ["Argelia"], organizations: [], troops: "cientos de miles en fuerzas de seguridad", casualties: "muy elevadas" },
+      { side: "Insurgencias islamistas", members: ["FIS", "GIA", "GSPC y grupos asociados"], organizations: [], troops: "miles a decenas de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Victoria estatal parcial y fragmentacion insurgente.",
+    consequences: "Dejo una huella profunda en la seguridad argelina y alimento redes yihadistas regionales."
+  },
+  "Guerra de Mali": {
+    cause: "Surgio por la rebelion tuareg de 2012, el colapso estatal en el norte y la expansion de grupos yihadistas en el Sahel.",
+    type: "conflicto interno",
+    scope: "regional",
+    region: "Sahel",
+    chronology: [
+      { year: 2012, text: "Rebeldes tuareg y grupos yihadistas toman gran parte del norte de Mali." },
+      { year: 2013, text: "Francia interviene con la Operacion Serval y recupera ciudades clave." },
+      { year: 2015, text: "Acuerdos de Argel intentan estabilizar el norte." },
+      { year: 2020, text: "La violencia se regionaliza en el Sahel central." }
+    ],
+    related: ["Insurgencia en el Magreb", "Rebelion de Boko Haram de 2009"],
+    participants: [
+      { side: "Estado maliense y aliados", members: ["Mali", "Francia", "fuerzas regionales"], organizations: ["MINUSMA", "G5 Sahel"], troops: "decenas de miles", casualties: "muy elevadas" },
+      { side: "Rebeldes e insurgencias", members: ["MNLA", "grupos yihadistas sahelianos"], organizations: [], troops: "miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Conflicto persistente y fragmentado.",
+    consequences: "Desestabilizo Mali y contribuyo a la crisis regional del Sahel."
+  },
+  "Primera guerra de Uganda": {
+    cause: "Se relaciona con disputas internas y regionales previas al periodo de inestabilidad que culminaria en el regimen de Idi Amin.",
+    type: "conflicto interno",
+    scope: "interno",
+    region: "Africa oriental",
+    chronology: [
+      { year: 1966, text: "Crisis politica ugandesa y enfrentamientos por el control del Estado." }
+    ],
+    related: ["Guerra tanzano-ugandesa"],
+    participants: [
+      { side: "Gobierno ugandes", members: ["Uganda"], organizations: [], troops: "fuerzas estatales", casualties: "moderadas" },
+      { side: "Oposicion y actores regionales", members: ["actores internos ugandeses"], organizations: [], troops: "fuerzas limitadas", casualties: "moderadas" }
+    ],
+    outcome: "Consolidacion temporal del poder central.",
+    consequences: "Abrió una etapa de militarizacion e inestabilidad politica en Uganda."
+  },
+  "Guerra tanzano-ugandesa": {
+    cause: "Estallo tras la invasion ugandesa de territorio tanzano y la decision de Tanzania de derrocar al regimen de Idi Amin.",
+    type: "guerra interestatal",
+    scope: "regional",
+    region: "Africa oriental",
+    chronology: [
+      { year: 1978, text: "Uganda invade la region tanzana de Kagera." },
+      { year: 1979, text: "Tanzania contraataca y avanza sobre Kampala." },
+      { year: 1979, text: "Cae Idi Amin y se instala un nuevo gobierno ugandes." }
+    ],
+    related: ["Primera guerra de Uganda"],
+    participants: [
+      { side: "Tanzania y exiliados ugandeses", members: ["Tanzania", "Frente Nacional de Liberacion de Uganda"], organizations: [], troops: "decenas de miles", casualties: "elevadas" },
+      { side: "Uganda de Idi Amin", members: ["Uganda", "apoyos libios"], organizations: [], troops: "decenas de miles", casualties: "elevadas" }
+    ],
+    outcome: "Victoria tanzana y derrocamiento de Idi Amin.",
+    consequences: "Cambio el poder en Uganda y mostro el peso de Tanzania como actor regional."
+  },
+  "Guerra del Ogaden": {
+    cause: "Somalia intento anexar el Ogaden, region etiope habitada mayoritariamente por somalies, en el contexto de rivalidades del Cuerno de Africa y Guerra fria.",
+    type: "guerra interestatal",
+    scope: "regional",
+    region: "Cuerno de Africa",
+    chronology: [
+      { year: 1977, text: "Somalia invade el Ogaden y avanza rapidamente." },
+      { year: 1978, text: "Etiopia, apoyada por Cuba y la Union Sovietica, recupera el territorio." }
+    ],
+    related: ["Conflicto fronterizo etiope-somali", "Guerra civil somali"],
+    participants: [
+      { side: "Etiopia y aliados", members: ["Etiopia", "Cuba", "Union Sovietica"], organizations: [], troops: "centenares de miles", casualties: "muy elevadas" },
+      { side: "Somalia", members: ["Somalia"], organizations: [], troops: "decenas de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Victoria etiope y retirada somali.",
+    consequences: "Debilito al regimen somali y altero alianzas de la Guerra fria en el Cuerno de Africa."
+  },
+  "Guerra civil somali": {
+    cause: "Se origino por el colapso del regimen de Siad Barre, rivalidades de clanes, intervenciones extranjeras y fragmentacion estatal.",
+    type: "conflicto interno",
+    scope: "regional",
+    region: "Cuerno de Africa",
+    chronology: [
+      { year: 1991, text: "Cae Siad Barre y Somalia se fragmenta." },
+      { year: 1993, text: "Batalla de Mogadiscio durante la intervencion internacional." },
+      { year: 2006, text: "Intervencion etiope contra la Union de Tribunales Islamicos." },
+      { year: 2012, text: "Nuevo gobierno federal intenta reconstruir el Estado." }
+    ],
+    related: ["Guerra de Somalilandia", "Guerra civil somali (2006-2009)"],
+    participants: [
+      { side: "Gobiernos somalies y aliados", members: ["Somalia", "Etiopia", "Union Africana"], organizations: ["AMISOM/ATMIS"], troops: "decenas de miles", casualties: "muy elevadas" },
+      { side: "Milicias e insurgencias", members: ["clanes armados", "Al-Shabaab", "actores regionales"], organizations: [], troops: "miles a decenas de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Conflicto prolongado con reconstruccion estatal parcial.",
+    consequences: "Produjo fragmentacion territorial, crisis humanitaria, pirateria y proyeccion regional de Al-Shabaab."
+  },
+  "Guerra civil ruandesa": {
+    cause: "Surgio por la invasion del Frente Patriotico Ruandes desde Uganda, tensiones etnopoliticas y disputa por el retorno de refugiados tutsis.",
+    type: "conflicto interno",
+    scope: "regional",
+    region: "Africa de los Grandes Lagos",
+    chronology: [
+      { year: 1990, text: "El FPR invade Ruanda desde Uganda." },
+      { year: 1993, text: "Acuerdos de Arusha intentan compartir el poder." },
+      { year: 1994, text: "Genocidio contra los tutsis y victoria militar del FPR." }
+    ],
+    related: ["Primera guerra de Ruanda", "Segunda guerra de Ruanda", "Primera Guerra del Congo"],
+    participants: [
+      { side: "Gobierno ruandes", members: ["Ruanda", "fuerzas gubernamentales hutu"], organizations: [], troops: "decenas de miles", casualties: "catastroficas" },
+      { side: "Frente Patriotico Ruandes", members: ["FPR"], organizations: [], troops: "decenas de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Victoria del FPR y fin del regimen genocida.",
+    consequences: "El genocidio y el exodo de milicias hacia Zaire precipitaron las guerras del Congo."
+  },
+  "Primera Guerra del Congo": {
+    cause: "Se desato por la presencia de fuerzas genocidas ruandesas en Zaire, el debilitamiento de Mobutu y el apoyo regional a una rebelion congolesa.",
+    type: "conflicto interno",
+    scope: "regional",
+    region: "Africa de los Grandes Lagos",
+    chronology: [
+      { year: 1996, text: "La rebelion de la AFDL avanza desde el este de Zaire." },
+      { year: 1997, text: "Mobutu cae y Laurent-Désiré Kabila toma Kinshasa." }
+    ],
+    related: ["Guerra civil ruandesa", "Segunda guerra del Congo"],
+    participants: [
+      { side: "AFDL y aliados regionales", members: ["AFDL", "Ruanda", "Uganda", "Angola"], organizations: [], troops: "decenas de miles", casualties: "muy elevadas" },
+      { side: "Regimen de Mobutu y aliados", members: ["Zaire", "fuerzas hutu refugiadas"], organizations: [], troops: "decenas de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Derrocamiento de Mobutu y nacimiento de la Republica Democratica del Congo.",
+    consequences: "No estabilizo el pais y abrio el camino a la Segunda guerra del Congo."
+  },
+  "Guerra de Kivu": {
+    cause: "Se vincula a la persistencia de milicias, rivalidades etnicas, control de minerales y tensiones entre la RDC y Ruanda en el este congoles.",
+    type: "conflicto interno",
+    scope: "regional",
+    region: "Kivu y Grandes Lagos",
+    chronology: [
+      { year: 2004, text: "Milicias y grupos armados reactivan el conflicto en Kivu." },
+      { year: 2012, text: "El M23 toma Goma brevemente." },
+      { year: 2021, text: "El M23 reaparece y escala la tension regional." }
+    ],
+    related: ["Segunda guerra del Congo", "Conflicto entre la Republica Democratica del Congo y Ruanda"],
+    participants: [
+      { side: "RDC y aliados", members: ["Republica Democratica del Congo", "milicias aliadas"], organizations: ["MONUSCO"], troops: "decenas de miles", casualties: "muy elevadas" },
+      { side: "Milicias y actores regionales", members: ["M23", "FDLR", "grupos armados locales"], organizations: [], troops: "miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Conflicto persistente.",
+    consequences: "Mantiene desplazamientos masivos y una crisis regional prolongada en los Grandes Lagos."
+  },
+  "Guerra civil de Sierra Leona": {
+    cause: "Fue impulsada por la rebelion del RUF, el colapso estatal, redes de diamantes y guerras regionales de Liberia.",
+    type: "conflicto interno",
+    scope: "regional",
+    region: "Africa occidental",
+    chronology: [
+      { year: 1991, text: "El RUF inicia la rebelion desde la frontera liberiana." },
+      { year: 1997, text: "Golpe militar y alianza entre junta y rebeldes." },
+      { year: 2000, text: "Intervencion britanica y fortalecimiento de la mision internacional." },
+      { year: 2002, text: "Fin oficial de la guerra." }
+    ],
+    related: ["Segunda guerra liberiana", "Guerra civil liberiana"],
+    participants: [
+      { side: "Gobierno y aliados", members: ["Sierra Leona", "Reino Unido", "ECOMOG"], organizations: ["ONU"], troops: "decenas de miles", casualties: "muy elevadas" },
+      { side: "RUF y aliados", members: ["RUF", "facciones militares rebeldes"], organizations: [], troops: "miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Derrota del RUF y desarme progresivo.",
+    consequences: "Dejo destruccion social extrema y puso el tema de los diamantes de conflicto en agenda global."
+  },
+  "Guerra civil liberiana": {
+    cause: "Se origino en la rebelion contra Samuel Doe y en la competencia de facciones armadas por el control del Estado.",
+    type: "conflicto interno",
+    scope: "regional",
+    region: "Africa occidental",
+    chronology: [
+      { year: 1989, text: "Charles Taylor inicia la rebelion desde Costa de Marfil." },
+      { year: 1990, text: "Cae Doe y Liberia se fragmenta entre facciones." },
+      { year: 1997, text: "Taylor gana elecciones tras acuerdos de paz." }
+    ],
+    related: ["Segunda guerra liberiana", "Guerra civil de Sierra Leona"],
+    participants: [
+      { side: "Facciones rebeldes", members: ["NPFL", "INPFL y otros grupos"], organizations: [], troops: "miles", casualties: "muy elevadas" },
+      { side: "Gobierno liberiano y ECOMOG", members: ["Liberia", "fuerzas regionales"], organizations: ["ECOMOG"], troops: "decenas de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Acuerdos y eleccion de Charles Taylor.",
+    consequences: "La guerra se conecto con Sierra Leona y preparo una segunda guerra liberiana."
+  },
+  "Guerra civil angolena": {
+    cause: "Siguio a la independencia de Portugal y enfrento a movimientos rivales angolenos apoyados por bloques de la Guerra fria.",
+    type: "conflicto interno",
+    scope: "regional",
+    region: "Africa austral",
+    chronology: [
+      { year: 1975, text: "Independencia de Angola y comienzo de la guerra abierta." },
+      { year: 1988, text: "Cuito Cuanavale y acuerdos regionales modifican el equilibrio." },
+      { year: 1992, text: "Elecciones fallidas reanudan la guerra." },
+      { year: 2002, text: "Muerte de Jonas Savimbi y fin de la guerra." }
+    ],
+    related: ["Guerra civil de Rodesia", "Guerra de Independencia de Namibia"],
+    participants: [
+      { side: "MPLA y aliados", members: ["MPLA", "Cuba", "Union Sovietica"], organizations: [], troops: "centenares de miles", casualties: "muy elevadas" },
+      { side: "UNITA y aliados", members: ["UNITA", "Sudafrica", "apoyos occidentales"], organizations: [], troops: "decenas de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Victoria del MPLA y consolidacion del Estado angoleno.",
+    consequences: "Devasto Angola durante decadas y conecto conflictos de Africa austral."
+  },
+  "Guerra civil de Rodesia": {
+    cause: "Se origino por el dominio de la minoria blanca rodesiana y la lucha nacionalista africana por mayoria politica e independencia reconocida.",
+    type: "conflicto interno",
+    scope: "regional",
+    region: "Africa austral",
+    chronology: [
+      { year: 1965, text: "Rodesia declara independencia unilateral." },
+      { year: 1972, text: "La guerrilla nacionalista escala la guerra." },
+      { year: 1979, text: "Acuerdos de Lancaster House." },
+      { year: 1980, text: "Nace Zimbabue independiente." }
+    ],
+    related: ["Guerra civil angolena", "Descolonizacion africana"],
+    participants: [
+      { side: "Gobierno rodesiano", members: ["Rodesia"], organizations: [], troops: "fuerzas estatales", casualties: "elevadas" },
+      { side: "Guerrillas nacionalistas", members: ["ZANU", "ZAPU"], organizations: [], troops: "decenas de miles", casualties: "elevadas" }
+    ],
+    outcome: "Transicion a Zimbabue independiente.",
+    consequences: "Cerro el regimen de minoria blanca y reordeno la politica de Africa austral."
+  }
+});
+
+Object.assign(EXTRA_CONFLICT_DETAIL_OVERRIDES, {
+  "Guerras de Indochina": {
+    cause: "Agrupan los conflictos derivados de la descolonizacion francesa, la division ideologica de Vietnam y la rivalidad regional de la Guerra fria en Indochina.",
+    type: "guerra regional",
+    scope: "regional",
+    region: "Sudeste asiatico",
+    chronology: [
+      { year: 1946, text: "Comienza la Primera guerra de Indochina contra el dominio colonial frances." },
+      { year: 1954, text: "Dien Bien Phu y los Acuerdos de Ginebra dividen Vietnam." },
+      { year: 1955, text: "La guerra de Vietnam se convierte en el eje militar de la region." },
+      { year: 1978, text: "La guerra camboyano-vietnamita y la guerra sino-vietnamita abren la Tercera Guerra de Indochina." }
+    ],
+    related: ["Primera guerra de Indochina", "Guerra de Vietnam", "Tercera Guerra de Indochina"],
+    participants: [
+      { side: "Fuerzas comunistas y nacionalistas", members: ["Viet Minh", "Vietnam del Norte", "Pathet Lao", "facciones camboyanas"], organizations: [], troops: "cientos de miles", casualties: "muy elevadas" },
+      { side: "Francia, Estados Unidos y aliados regionales", members: ["Francia", "Estados Unidos", "Vietnam del Sur", "Laos", "Camboya y aliados"], organizations: [], troops: "cientos de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Derrota colonial francesa, reunificacion vietnamita y reordenamiento violento de Indochina.",
+    consequences: "Transformo el sudeste asiatico y dejo guerras civiles, desplazamientos y rivalidades fronterizas prolongadas."
+  },
+  "Tercera Guerra de Indochina": {
+    cause: "Se origino por la rivalidad entre Vietnam, Camboya de los Jemeres Rojos y China tras el fin de la guerra de Vietnam.",
+    type: "guerra interestatal",
+    scope: "regional",
+    region: "Sudeste asiatico",
+    chronology: [
+      { year: 1978, text: "Vietnam invade Camboya y derroca a los Jemeres Rojos." },
+      { year: 1979, text: "China ataca Vietnam en represalia por la intervencion camboyana." },
+      { year: 1989, text: "Vietnam retira sus fuerzas de Camboya." }
+    ],
+    related: ["Guerra camboyano-vietnamita", "Guerra sino-vietnamita", "Guerra de Vietnam"],
+    participants: [
+      { side: "Vietnam y aliados camboyanos", members: ["Vietnam", "Republica Popular de Kampuchea"], organizations: [], troops: "centenares de miles", casualties: "muy elevadas" },
+      { side: "China y Jemeres Rojos", members: ["China", "Jemeres Rojos", "facciones camboyanas rivales"], organizations: [], troops: "centenares de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Derrota militar de los Jemeres Rojos en Camboya, pero aislamiento regional de Vietnam.",
+    consequences: "Prolongo la inestabilidad camboyana y profundizo la ruptura sino-vietnamita."
+  },
+  "Guerra camboyano-vietnamita": {
+    cause: "Estallo por ataques fronterizos de los Jemeres Rojos, rivalidad ideologica y decision vietnamita de derribar el regimen de Pol Pot.",
+    type: "guerra interestatal",
+    scope: "regional",
+    region: "Camboya y Vietnam",
+    chronology: [
+      { year: 1978, text: "Vietnam lanza la invasion de Camboya." },
+      { year: 1979, text: "Phnom Penh cae y se instala un gobierno aliado de Vietnam." },
+      { year: 1989, text: "Vietnam retira sus tropas." }
+    ],
+    related: ["Tercera Guerra de Indochina"],
+    participants: [
+      { side: "Vietnam y gobierno camboyano aliado", members: ["Vietnam", "Republica Popular de Kampuchea"], organizations: [], troops: "centenares de miles", casualties: "elevadas" },
+      { side: "Jemeres Rojos y aliados", members: ["Kampuchea Democratica", "Jemeres Rojos"], organizations: [], troops: "decenas de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Caida del regimen de los Jemeres Rojos.",
+    consequences: "Puso fin al genocidio camboyano pero abrio una ocupacion y guerra insurgente prolongada."
+  },
+  "Guerra sino-vietnamita": {
+    cause: "China ataco Vietnam en respuesta a la invasion vietnamita de Camboya y a disputas fronterizas y geopoliticas.",
+    type: "guerra interestatal",
+    scope: "regional",
+    region: "Frontera sino-vietnamita",
+    chronology: [
+      { year: 1979, text: "China invade el norte de Vietnam." },
+      { year: 1979, text: "China se retira tras semanas de combates intensos." },
+      { year: 1984, text: "Choques fronterizos continúan en la decada de 1980." }
+    ],
+    related: ["Tercera Guerra de Indochina", "Guerra camboyano-vietnamita"],
+    participants: [
+      { side: "China", members: ["China"], organizations: [], troops: "centenares de miles", casualties: "elevadas" },
+      { side: "Vietnam", members: ["Vietnam"], organizations: [], troops: "centenares de miles", casualties: "elevadas" }
+    ],
+    outcome: "Retirada china sin cambio estrategico decisivo.",
+    consequences: "Consolido la rivalidad sino-vietnamita y militarizo la frontera durante años."
+  },
+  "Segunda guerra sino-japonesa": {
+    cause: "Fue causada por el expansionismo imperial japones en China y la resistencia china a la ocupacion.",
+    type: "guerra interestatal",
+    scope: "regional",
+    region: "Asia oriental",
+    chronology: [
+      { year: 1931, text: "Japon ocupa Manchuria." },
+      { year: 1937, text: "Incidente del Puente Marco Polo y guerra abierta a gran escala." },
+      { year: 1941, text: "El conflicto se integra plenamente en la Segunda Guerra Mundial." },
+      { year: 1945, text: "Rendicion japonesa." }
+    ],
+    related: ["Segunda Guerra Mundial", "Guerra civil china"],
+    participants: [
+      { side: "China", members: ["Republica de China", "comunistas chinos"], organizations: [], troops: "millones", casualties: "catastroficas" },
+      { side: "Japon", members: ["Imperio del Japon"], organizations: ["Eje"], troops: "millones", casualties: "muy elevadas" }
+    ],
+    outcome: "Victoria china dentro de la derrota general japonesa.",
+    consequences: "Devasto China, debilito al Kuomintang y preparo la reanudacion de la guerra civil china."
+  },
+  "Invasion china de Taiwan": {
+    cause: "Entrada prospectiva del corpus vinculada a la disputa de soberania entre la Republica Popular China y Taiwan.",
+    type: "conflicto prospectivo",
+    scope: "regional",
+    region: "Estrecho de Taiwan",
+    chronology: [
+      { year: 1949, text: "El Kuomintang se repliega a Taiwan tras perder la guerra civil china." },
+      { year: 1954, text: "Crisis del estrecho de Taiwan consolidan el riesgo militar." }
+    ],
+    related: ["Guerra civil china", "Crisis del estrecho de Taiwan"],
+    participants: [
+      { side: "China", members: ["Republica Popular China"], organizations: [], troops: "indeterminadas", casualties: "indeterminadas" },
+      { side: "Taiwan y apoyos", members: ["Republica de China", "Taiwan"], organizations: ["apoyo estadounidense potencial"], troops: "indeterminadas", casualties: "indeterminadas" }
+    ],
+    outcome: "No es un conflicto historico consolidado; mantener como escenario de baja confianza.",
+    consequences: "Debe mostrarse como riesgo o escenario, no como guerra ocurrida."
+  },
+  "Conflicto de Cachemira": {
+    cause: "Surgio de la particion de India britanica y la disputa entre India y Pakistan por Jammu y Cachemira.",
+    type: "conflicto territorial",
+    scope: "regional",
+    region: "Asia meridional",
+    chronology: [
+      { year: 1947, text: "Primera guerra indo-pakistani por Cachemira." },
+      { year: 1965, text: "Nueva guerra entre India y Pakistan." },
+      { year: 1971, text: "La rivalidad se combina con la guerra de Bangladesh." },
+      { year: 1999, text: "Guerra de Kargil." }
+    ],
+    related: ["Guerra indo-pakistani de 1965", "Guerra de Kargil", "Guerra de Bangladesh"],
+    participants: [
+      { side: "India", members: ["India"], organizations: [], troops: "centenares de miles", casualties: "muy elevadas" },
+      { side: "Pakistan y actores cachemires", members: ["Pakistan", "grupos insurgentes cachemires"], organizations: [], troops: "centenares de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Conflicto no resuelto con Linea de Control militarizada.",
+    consequences: "Mantiene una de las fronteras mas militarizadas y peligrosas del mundo."
+  },
+  "Guerra indo-pakistani de 1965": {
+    cause: "Pakistan intento alterar el statu quo en Cachemira y la escalada llevo a una guerra abierta con India.",
+    type: "guerra interestatal",
+    scope: "regional",
+    region: "Asia meridional",
+    chronology: [
+      { year: 1965, text: "Operaciones paquistanies en Cachemira escalan a guerra abierta." },
+      { year: 1966, text: "Declaracion de Taskent formaliza el alto el fuego." }
+    ],
+    related: ["Conflicto de Cachemira"],
+    participants: [
+      { side: "India", members: ["India"], organizations: [], troops: "centenares de miles", casualties: "elevadas" },
+      { side: "Pakistan", members: ["Pakistan"], organizations: [], troops: "centenares de miles", casualties: "elevadas" }
+    ],
+    outcome: "Alto el fuego sin cambio territorial decisivo.",
+    consequences: "Reforzo la rivalidad indo-pakistani y mantuvo abierta la disputa de Cachemira."
+  },
+  "Guerra civil de Sri Lanka": {
+    cause: "Surgio por tensiones etnonacionales entre el Estado ceilandes/srilanques y el separatismo tamil de los Tigres de Liberacion del Eelam Tamil.",
+    type: "conflicto interno",
+    scope: "interno",
+    region: "Asia meridional",
+    chronology: [
+      { year: 1983, text: "Julio Negro y comienzo de la guerra civil a gran escala." },
+      { year: 1987, text: "India interviene con una fuerza de paz." },
+      { year: 2002, text: "Alto el fuego temporal." },
+      { year: 2009, text: "El gobierno derrota militarmente al LTTE." }
+    ],
+    related: ["Primera guerra de Eelam", "Cuarta guerra de Eelam"],
+    participants: [
+      { side: "Gobierno de Sri Lanka", members: ["Sri Lanka"], organizations: [], troops: "centenares de miles", casualties: "muy elevadas" },
+      { side: "LTTE", members: ["Tigres de Liberacion del Eelam Tamil"], organizations: [], troops: "decenas de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Victoria militar del gobierno de Sri Lanka.",
+    consequences: "Puso fin al proyecto separatista armado tamil, pero dejo profundas heridas politicas y humanitarias."
+  },
+  "Guerra civil de Myanmar": {
+    cause: "Agrupa conflictos internos de larga duracion entre el Estado birmano, minorias etnicas armadas y oposicion politica.",
+    type: "conflicto interno",
+    scope: "regional",
+    region: "Sudeste asiatico continental",
+    chronology: [
+      { year: 1948, text: "Tras la independencia comienzan insurgencias etnicas persistentes." },
+      { year: 2011, text: "La guerra en Kachin se reactiva." },
+      { year: 2021, text: "El golpe militar amplifica la guerra civil nacional." }
+    ],
+    related: ["Conflicto en Kachin"],
+    participants: [
+      { side: "Estado birmano", members: ["Myanmar"], organizations: [], troops: "centenares de miles", casualties: "muy elevadas" },
+      { side: "Organizaciones etnicas y oposicion", members: ["KIA", "PDF", "otros grupos armados"], organizations: [], troops: "decenas de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Conflicto persistente sin resolucion estable.",
+    consequences: "Fragmenta el territorio, desplaza poblacion y debilita la gobernabilidad estatal."
+  },
+  "Guerra civil yemení": {
+    cause: "Escalo por la toma de Sana por los huties, el colapso de la transicion politica y la intervencion regional saudí-emirati.",
+    type: "conflicto interno",
+    scope: "regional",
+    region: "Península Arabiga",
+    chronology: [
+      { year: 2014, text: "Los huties toman Sana." },
+      { year: 2015, text: "Interviene una coalicion liderada por Arabia Saudi." },
+      { year: 2018, text: "Hudaydah se convierte en frente clave." },
+      { year: 2022, text: "Treguas reducen la intensidad, sin resolver el conflicto." }
+    ],
+    related: ["Conflicto de Sa'dah", "Guerra subsidiaria Irano-saudi"],
+    participants: [
+      { side: "Gobierno y coalicion saudí-emirati", members: ["Yemen", "Arabia Saudi", "Emiratos Arabes Unidos"], organizations: [], troops: "decenas de miles", casualties: "muy elevadas" },
+      { side: "Huties y aliados", members: ["movimiento huti", "fuerzas aliadas"], organizations: [], troops: "decenas de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Conflicto fragmentado y parcialmente congelado.",
+    consequences: "Genero una de las mayores crisis humanitarias contemporaneas."
+  },
+  "Conflicto de Nagorno-Karabaj": {
+    cause: "Se origino por la disputa entre armenios y azerbaiyanos por Nagorno-Karabaj tras el colapso sovietico.",
+    type: "conflicto territorial",
+    scope: "regional",
+    region: "Caucaso sur",
+    chronology: [
+      { year: 1988, text: "Movilizacion armenia de Karabaj y escalada interetnica." },
+      { year: 1991, text: "Guerra abierta entre Armenia, Azerbaiyan y fuerzas karabajíes." },
+      { year: 1994, text: "Alto el fuego deja control armenio sobre Karabaj y territorios vecinos." },
+      { year: 2020, text: "Azerbaiyan recupera gran parte del territorio en la segunda guerra." },
+      { year: 2023, text: "Azerbaiyan restablece control total sobre Nagorno-Karabaj." }
+    ],
+    related: ["Segunda guerra de Nagorno-Karabaj"],
+    participants: [
+      { side: "Armenios de Karabaj y Armenia", members: ["Armenia", "Republica de Artsaj"], organizations: [], troops: "decenas de miles", casualties: "muy elevadas" },
+      { side: "Azerbaiyan", members: ["Azerbaiyan"], organizations: ["apoyo turco en fases recientes"], troops: "decenas de miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Victoria final azerbaiyana en 2023 tras varias fases de guerra.",
+    consequences: "Provoco desplazamiento de poblacion armenia de Karabaj y reordeno el Caucaso sur."
+  },
+  "Guerra de Abjasia": {
+    cause: "Se desencadeno por la disputa entre Georgia y separatistas abjasios tras el colapso sovietico.",
+    type: "conflicto separatista",
+    scope: "regional",
+    region: "Caucaso sur",
+    chronology: [
+      { year: 1992, text: "Fuerzas georgianas entran en Abjasia y comienza la guerra." },
+      { year: 1993, text: "Caida de Sujumi y derrota georgiana." }
+    ],
+    related: ["Guerra de Osetia del Sur de 2008"],
+    participants: [
+      { side: "Georgia", members: ["Georgia"], organizations: [], troops: "decenas de miles", casualties: "elevadas" },
+      { side: "Separatistas abjasios y apoyos", members: ["Abjasia", "voluntarios norcaucasicos", "apoyo ruso indirecto"], organizations: [], troops: "decenas de miles", casualties: "elevadas" }
+    ],
+    outcome: "Separacion de facto de Abjasia.",
+    consequences: "Dejo desplazamientos masivos y una disputa congelada."
+  },
+  "Guerra civil tayika": {
+    cause: "Estallo tras la independencia de Tayikistan por la disputa entre el gobierno poscomunista, oposicion islamista-democratica y clanes regionales.",
+    type: "conflicto interno",
+    scope: "regional",
+    region: "Asia Central",
+    chronology: [
+      { year: 1992, text: "Comienza la guerra civil." },
+      { year: 1994, text: "Fases intensas de combate y desplazamiento." },
+      { year: 1997, text: "Acuerdo de paz." }
+    ],
+    related: ["Conflicto de Batken", "Conflicto entre Kirguistan y Tayikistan de 2021"],
+    participants: [
+      { side: "Gobierno tayiko y aliados", members: ["Tayikistan", "apoyos rusos y regionales"], organizations: [], troops: "decenas de miles", casualties: "muy elevadas" },
+      { side: "Oposicion tayika unida", members: ["oposicion islamista y democratica"], organizations: [], troops: "miles", casualties: "muy elevadas" }
+    ],
+    outcome: "Acuerdo de paz con reparto limitado de poder.",
+    consequences: "Consolido un orden politico centralizado y dejo fragilidad fronteriza regional."
+  }
+});
+
+Object.assign(EXTRA_CONFLICT_DETAIL_OVERRIDES, {
+  "Conflicto de Bougainville": {
+    cause: "Se origino por tensiones entre Bougainville y Papua Nueva Guinea en torno a autonomia, beneficios mineros, daños ambientales y control politico local.",
+    type: "conflicto interno",
+    scope: "subregional",
+    region: "Pacifico sur",
+    chronology: [
+      { year: 1988, text: "Sabotajes y protestas contra la mina de Panguna escalan hacia insurgencia." },
+      { year: 1990, text: "Bougainville queda aislada por bloqueo y guerra interna." },
+      { year: 1997, text: "Acuerdos de alto el fuego y despliegue de monitoreo regional." },
+      { year: 2001, text: "Acuerdo de Paz de Bougainville." },
+      { year: 2019, text: "Referendum no vinculante muestra apoyo masivo a la independencia." }
+    ],
+    related: ["Descolonizacion y autonomias del Pacifico"],
+    participants: [
+      { side: "Papua Nueva Guinea", members: ["Papua Nueva Guinea"], organizations: [], troops: "fuerzas estatales", casualties: "elevadas" },
+      { side: "Fuerzas secesionistas de Bougainville", members: ["Ejercito Revolucionario de Bougainville", "actores locales"], organizations: [], troops: "fuerzas irregulares", casualties: "elevadas" }
+    ],
+    outcome: "Acuerdo de paz y autonomia amplia para Bougainville.",
+    consequences: "Dejo abierta la cuestion de independencia y se volvio un caso central de autonomia insular en Oceanía."
+  },
+  "Crisis constitucional de Fiyi": {
+    cause: "Se relaciono con tensiones entre poder militar, representacion politica, etnicidad y disputas sobre el orden constitucional de Fiyi.",
+    type: "crisis politica",
+    scope: "interno",
+    region: "Pacifico sur",
+    chronology: [
+      { year: 1987, text: "Golpes militares alteran el equilibrio politico poscolonial." },
+      { year: 2000, text: "Golpe y toma de rehenes profundizan la crisis constitucional." },
+      { year: 2006, text: "Nuevo golpe militar suspende el orden politico." },
+      { year: 2013, text: "Nueva constitucion busca estabilizar el sistema." }
+    ],
+    related: ["Golpes de Estado en Fiyi"],
+    participants: [
+      { side: "Estado y Fuerzas Armadas", members: ["Fiyi"], organizations: [], troops: "fuerzas militares y policiales", casualties: "reducidas" },
+      { side: "Actores politicos y comunitarios", members: ["partidos politicos", "liderazgos etnocomunitarios"], organizations: [], troops: "movilizacion politica", casualties: "reducidas" }
+    ],
+    outcome: "Reordenamiento constitucional gradual.",
+    consequences: "Reforzo el rol militar en la politica fiyiana y mantuvo abierta la discusion sobre representacion multiétnica."
+  },
+  "Conflicto etnico de las Islas Salomon": {
+    cause: "Surgio por tensiones entre comunidades de Guadalcanal y migrantes de Malaita, debilidad estatal y competencia por tierra, empleo y poder politico.",
+    type: "conflicto interno",
+    scope: "subregional",
+    region: "Pacifico sur",
+    chronology: [
+      { year: 1998, text: "Milicias de Guadalcanal presionan contra comunidades malaitanas." },
+      { year: 2000, text: "Milicias rivales y crisis del gobierno central." },
+      { year: 2003, text: "La mision regional RAMSI interviene para estabilizar el pais." }
+    ],
+    related: ["Misiones regionales del Pacifico"],
+    participants: [
+      { side: "Gobierno y mision regional", members: ["Islas Salomon", "Australia", "Nueva Zelanda y estados del Pacifico"], organizations: ["RAMSI"], troops: "fuerzas policiales y militares regionales", casualties: "moderadas" },
+      { side: "Milicias locales", members: ["Isatabu Freedom Movement", "Malaita Eagle Force"], organizations: [], troops: "fuerzas irregulares", casualties: "moderadas" }
+    ],
+    outcome: "Estabilizacion regional y desarme parcial.",
+    consequences: "Mostro la fragilidad institucional de pequenos estados insulares y el peso de Australia/Nueva Zelanda en seguridad regional."
+  },
+  "Guerra del Coco": {
+    cause: "Fue una breve rebelion separatista en Vanuatu al momento de la independencia, vinculada a liderazgos locales y apoyos externos limitados.",
+    type: "levantamiento",
+    scope: "interno",
+    region: "Pacifico sur",
+    chronology: [
+      { year: 1980, text: "El movimiento de Jimmy Stevens declara la secesion de Espiritu Santo." },
+      { year: 1980, text: "Fuerzas de Papua Nueva Guinea, solicitadas por Vanuatu, sofocan la rebelion." }
+    ],
+    related: ["Independencia de Vanuatu"],
+    participants: [
+      { side: "Gobierno de Vanuatu y apoyo regional", members: ["Vanuatu", "Papua Nueva Guinea"], organizations: [], troops: "fuerzas limitadas", casualties: "bajas" },
+      { side: "Separatistas de Espiritu Santo", members: ["movimiento Nagriamel"], organizations: [], troops: "fuerzas irregulares", casualties: "bajas" }
+    ],
+    outcome: "Derrota separatista y consolidacion del Estado de Vanuatu.",
+    consequences: "Afirmo la autoridad del nuevo Estado independiente y la cooperacion regional del Pacifico."
+  },
+  "Emergencia Malaya": {
+    cause: "Se produjo por la insurgencia comunista contra el dominio britanico y el nuevo orden politico malayo de posguerra.",
+    type: "conflicto interno",
+    scope: "regional",
+    region: "Sudeste asiatico",
+    chronology: [
+      { year: 1948, text: "Comienza la insurgencia comunista en Malaya." },
+      { year: 1957, text: "Independencia de Malaya en medio de la campaña contrainsurgente." },
+      { year: 1960, text: "Fin oficial de la emergencia." }
+    ],
+    related: ["Guerras de Indochina", "Guerra fria en Asia"],
+    participants: [
+      { side: "Reino Unido, Malaya y Commonwealth", members: ["Reino Unido", "Malaya", "Australia", "Nueva Zelanda"], organizations: ["Commonwealth"], troops: "decenas de miles", casualties: "elevadas" },
+      { side: "Insurgencia comunista", members: ["Ejercito de Liberacion Nacional Malayo"], organizations: [], troops: "miles", casualties: "elevadas" }
+    ],
+    outcome: "Victoria gubernamental y debilitamiento de la insurgencia.",
+    consequences: "Se convirtio en referencia de contrainsurgencia y reforzo la cooperacion militar de la Commonwealth en Asia-Pacífico."
+  },
+  "Campana de Kokoda": {
+    cause: "Japon intento avanzar por tierra hacia Port Moresby, amenazando la posicion aliada en Nueva Guinea.",
+    type: "campana militar",
+    scope: "regional",
+    region: "Nueva Guinea",
+    chronology: [
+      { year: 1942, text: "Fuerzas japonesas avanzan por la pista de Kokoda." },
+      { year: 1942, text: "Australia contiene y revierte el avance japones." }
+    ],
+    related: ["Segunda Guerra Mundial", "Guerra del Pacifico"],
+    participants: [
+      { side: "Aliados", members: ["Australia", "Papua", "Estados Unidos"], organizations: ["Aliados"], troops: "decenas de miles", casualties: "elevadas" },
+      { side: "Japon", members: ["Imperio del Japon"], organizations: ["Eje"], troops: "decenas de miles", casualties: "elevadas" }
+    ],
+    outcome: "Victoria aliada y defensa de Port Moresby.",
+    consequences: "Se volvio un episodio central de la memoria militar australiana y freno el avance terrestre japones."
+  },
+  "Batalla del mar del Coral": {
+    cause: "Japon buscaba aislar Australia y avanzar sobre Port Moresby; Estados Unidos y Australia intentaron detener la ofensiva naval.",
+    type: "batalla",
+    scope: "regional",
+    region: "Mar del Coral",
+    chronology: [
+      { year: 1942, text: "Portaaviones aliados y japoneses combaten en una batalla naval aeronaval decisiva." }
+    ],
+    related: ["Segunda Guerra Mundial", "Guerra del Pacifico"],
+    participants: [
+      { side: "Aliados", members: ["Estados Unidos", "Australia"], organizations: ["Aliados"], troops: "fuerzas navales", casualties: "elevadas" },
+      { side: "Japon", members: ["Imperio del Japon"], organizations: ["Eje"], troops: "fuerzas navales", casualties: "elevadas" }
+    ],
+    outcome: "Resultado tactico ambiguo pero freno estrategico japones.",
+    consequences: "Impide la invasion maritima de Port Moresby y prepara el escenario de Midway."
+  },
+  "Batalla de Coral-Balmoral": {
+    cause: "Se produjo durante operaciones australianas y neozelandesas contra fuerzas comunistas en Vietnam del Sur.",
+    type: "batalla",
+    scope: "subregional",
+    region: "Vietnam del Sur",
+    chronology: [
+      { year: 1968, text: "Fuerzas australianas y neozelandesas resisten ataques norvietnamitas y del Viet Cong." }
+    ],
+    related: ["Guerra de Vietnam", "Ofensiva del Tet"],
+    participants: [
+      { side: "Australia, Nueva Zelanda y Vietnam del Sur", members: ["Australia", "Nueva Zelanda", "Vietnam del Sur"], organizations: [], troops: "miles", casualties: "moderadas" },
+      { side: "Vietnam del Norte y Viet Cong", members: ["Vietnam del Norte", "Viet Cong"], organizations: [], troops: "miles", casualties: "elevadas" }
+    ],
+    outcome: "Victoria defensiva aliada.",
+    consequences: "Fue una de las acciones mas intensas de Australia y Nueva Zelanda en la guerra de Vietnam."
+  }
 });
 
 window.GeoRiskCuration = {

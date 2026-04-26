@@ -57,6 +57,37 @@ body.globe-loading #map-mode-toggle {
   background: #0a1a2f;
 }
 
+#boot-floating-chip {
+  position: fixed;
+  left: 16px;
+  bottom: 92px;
+  z-index: 1120;
+  max-width: min(560px, calc(100vw - 32px));
+  padding: 8px 10px;
+  border: 1px solid rgba(122, 184, 255, 0.36);
+  border-radius: 8px;
+  background: rgba(7, 19, 32, 0.86);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+  color: rgba(238, 245, 255, 0.92);
+  font-size: 0.76rem;
+  line-height: 1.35;
+  backdrop-filter: blur(10px);
+  pointer-events: none;
+}
+
+#boot-floating-chip.is-complete {
+  opacity: 0.78;
+}
+
+@media (max-width: 760px) {
+  #boot-floating-chip {
+    left: 12px;
+    right: 12px;
+    bottom: 136px;
+    max-width: none;
+  }
+}
+
 #fatal-error-banner {
   position: fixed;
   left: 16px;

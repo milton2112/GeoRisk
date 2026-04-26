@@ -1,4 +1,4 @@
-const CACHE_VERSION = "2026-04-20-boot-1";
+const CACHE_VERSION = "2026-04-26-boot-3";
 const APP_CACHE = `geo-risk-app-${CACHE_VERSION}`;
 const TILE_CACHE = `geo-risk-tiles-${CACHE_VERSION}`;
 const APP_SHELL = [

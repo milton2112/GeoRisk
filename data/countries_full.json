@@ -142550,7 +142550,7 @@
     "continent": "Antarctica",
     "general": {
       "population": 1106,
-      "geography": "Continente polar antartico",
+      "geography": "Continente polar antartico sin poblacion permanente; presencia humana cientifica y logistica estacional",
       "officialName": "Antartida",
       "historicalNames": [
         "Tratado Antartico"
@@ -142575,10 +142575,16 @@
           "population": null
         }
       ],
-      "languages": [],
+      "languages": [
+        "Sin idioma oficial continental",
+        "Ingles",
+        "Español",
+        "Francés",
+        "Ruso"
+      ],
       "stateStructure": "Espacio internacional regido por el Sistema del Tratado Antártico",
       "subdivisions": {
-        "type": "municipios, distritos o divisiones administrativas",
+        "type": "provincias, regiones o departamentos",
         "count": null
       },
       "cities": [
@@ -142588,8 +142594,38 @@
           "isCapital": false
         },
         {
+          "name": "Base Amundsen-Scott",
+          "population": 150,
+          "isCapital": false
+        },
+        {
           "name": "Base Esperanza",
           "population": 70,
+          "isCapital": false
+        },
+        {
+          "name": "Base Marambio",
+          "population": 55,
+          "isCapital": false
+        },
+        {
+          "name": "Base Vostok",
+          "population": 25,
+          "isCapital": false
+        },
+        {
+          "name": "Base Rothera",
+          "population": 100,
+          "isCapital": false
+        },
+        {
+          "name": "Base Palmer",
+          "population": 46,
+          "isCapital": false
+        },
+        {
+          "name": "Base Dumont d'Urville",
+          "population": 80,
           "isCapital": false
         }
       ]
@@ -142603,9 +142639,17 @@
     "economy": {
       "gdp": null,
       "gdpPerCapita": null,
-      "inflation": 2.1,
-      "exports": [],
-      "industries": []
+      "inflation": null,
+      "exports": [
+        "Investigacion cientifica",
+        "Logistica polar",
+        "Turismo antartico regulado"
+      ],
+      "industries": [
+        "Bases cientificas",
+        "Apoyo logistico",
+        "Observacion ambiental y climatica"
+      ]
     },
     "military": {
       "active": null,
@@ -142613,8 +142657,33 @@
       "conflicts": []
     },
     "politics": {
-      "system": "Parlamentarismo",
-      "organizations": [],
+      "system": "Sistema del Tratado Antartico",
+      "organizations": [
+        {
+          "name": "Sistema del Tratado Antartico",
+          "abbreviation": "ATS",
+          "startYear": 1959,
+          "endYear": null
+        },
+        {
+          "name": "Tratado Antartico",
+          "abbreviation": null,
+          "startYear": 1959,
+          "endYear": null
+        },
+        {
+          "name": "Comite Cientifico de Investigacion Antartica",
+          "abbreviation": "SCAR",
+          "startYear": 1958,
+          "endYear": null
+        },
+        {
+          "name": "Convencion para la Conservacion de los Recursos Vivos Marinos Antarticos",
+          "abbreviation": "CCRVMA",
+          "startYear": 1982,
+          "endYear": null
+        }
+      ],
       "rivals": [],
       "relations": {
         "exMetropole": null,
@@ -142623,29 +142692,67 @@
         "associatedTerritories": [],
         "militaryBlocs": [],
         "economicBlocs": [],
-        "diplomaticBlocs": [],
-        "blocs": [],
+        "diplomaticBlocs": [
+          "Sistema del Tratado Antartico"
+        ],
+        "blocs": [
+          "Sistema del Tratado Antartico"
+        ],
         "militaryAllies": [],
-        "economicPartners": [],
-        "diplomaticPartners": [],
-        "allies": [],
+        "economicPartners": [
+          "Programas cientificos nacionales",
+          "Operadores logisticos polares",
+          "Turismo antartico regulado"
+        ],
+        "diplomaticPartners": [
+          "Argentina",
+          "Australia",
+          "Chile",
+          "Francia",
+          "Nueva Zelanda",
+          "Noruega",
+          "Reino Unido",
+          "Estados Unidos",
+          "Rusia"
+        ],
+        "allies": [
+          "Argentina",
+          "Australia",
+          "Chile",
+          "Francia",
+          "Nueva Zelanda",
+          "Noruega",
+          "Reino Unido",
+          "Estados Unidos",
+          "Rusia",
+          "Programas cientificos nacionales",
+          "Operadores logisticos polares",
+          "Turismo antartico regulado"
+        ],
         "currentRivals": [],
         "historicalRivals": [],
         "rivalStates": [],
-        "disputes": [],
-        "disputedTerritories": [],
+        "disputes": [
+          "Reclamos antarticos congelados",
+          "Gestion de recursos marinos",
+          "Proteccion ambiental"
+        ],
+        "disputedTerritories": [
+          "Antartida Argentina",
+          "Territorio Antartico Chileno",
+          "Territorio Antartico Britanico",
+          "Territorio Antartico Australiano",
+          "Dependencia Ross",
+          "Tierra Adelia",
+          "Tierra de la Reina Maud"
+        ],
         "protectorates": [],
         "dependencies": []
       }
     },
     "religion": {
-      "summary": "Sin religion predominante",
-      "composition": [
-        {
-          "name": "Ateos / agnosticos / sin afiliacion",
-          "percentage": 100
-        }
-      ]
+      "summary": "Sin poblacion permanente",
+      "composition": []
     },
     "metadata": {
       "updatedAt": "2026-04-11",
@@ -142699,29 +142806,29 @@
       "quality": {
         "estimatedFields": [
           "general.population",
-          "economy.inflation",
-          "religion.composition"
+          "politics.organizations"
         ],
         "curatedFields": [
+          "general.languages",
           "general.stateStructure",
-          "general.subdivisions"
+          "general.subdivisions",
+          "politics.relations"
         ],
         "confirmedFields": [],
         "missingFields": [
-          "general.languages",
-          "politics.organizations",
+          "religion.composition",
           "military.conflicts"
         ],
-        "score": 66,
+        "score": 88,
         "sourceCoverageScore": 100,
-        "status": "media",
+        "status": "buena",
         "sectionStatus": {
           "general": "curated",
           "history": "base",
-          "economy": "mixed",
+          "economy": "confirmed",
           "military": "base",
-          "politics": "base",
-          "religion": "mixed"
+          "politics": "curated",
+          "religion": "base"
         }
       },
       "provenance": {
@@ -142738,7 +142845,7 @@
           },
           "economy": {
             "sourceCount": 4,
-            "status": "mixed"
+            "status": "confirmed"
           },
           "military": {
             "sourceCount": 3,
@@ -142746,11 +142853,11 @@
           },
           "politics": {
             "sourceCount": 4,
-            "status": "base"
+            "status": "curated"
           },
           "religion": {
             "sourceCount": 3,
-            "status": "mixed"
+            "status": "base"
           },
           "symbols": {
             "sourceCount": 3,
@@ -142758,7 +142865,7 @@
           },
           "relations": {
             "sourceCount": 4,
-            "status": "base"
+            "status": "curated"
           }
         },
         "flags": {

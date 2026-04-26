@@ -70,7 +70,7 @@ const countryPanelUi = window.GeoRiskCountryPanel || {};
 const timelineConflictUi = window.GeoRiskTimelineConflicts || {};
 const sharedTheme = window.GeoRiskTheme || {};
 const sharedText = window.GeoRiskText || {};
-const APP_VERSION = "2026-04-20-boot-1";
+const APP_VERSION = "2026-04-26-boot-3";
 
 const QUALITY_PRESET_OVERRIDES = {
   auto: null,
@@ -1119,38 +1119,26 @@ function getCurrentOverlayBucket() {
   return currentMapMode === "3d" ? `3d-${get3DZoomBucket()}` : "2d";
 }
 
-const osmImageryProvider = new Cesium.UrlTemplateImageryProvider({
-  url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-  credit: "© OpenStreetMap contributors"
-});
-
-const satelliteImageryProvider = new Cesium.UrlTemplateImageryProvider({
-  url: "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-  credit: "Esri, Maxar, Earthstar Geographics, and the GIS User Community"
-});
-
-const satelliteImageryProviderBoot = new Cesium.UrlTemplateImageryProvider({
-  url: "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-  credit: "Esri, Maxar, Earthstar Geographics, and the GIS User Community",
-  maximumLevel: 4
-});
-
-const satelliteImageryProvider2D = new Cesium.UrlTemplateImageryProvider({
-  url: "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-  credit: "Esri, Maxar, Earthstar Geographics, and the GIS User Community",
-  maximumLevel: 9
-});
-
-const satelliteImageryProvider2DBoot = new Cesium.UrlTemplateImageryProvider({
-  url: "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-  credit: "Esri, Maxar, Earthstar Geographics, and the GIS User Community",
-  maximumLevel: 5
-});
-
 let activeGeoJsonDataSource = null;
 let activeClickHandler = null;
 let mapSearchAliasesRegistered = false;
+let activeImagerySignature = "";
 const resourceCache = new Map();
+
+function createSatelliteImageryProvider(maximumLevel = null) {
+  return new Cesium.UrlTemplateImageryProvider({
+    url: "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+    credit: "Esri, Maxar, Earthstar Geographics, and the GIS User Community",
+    ...(maximumLevel ? { maximumLevel } : {})
+  });
+}
+
+function createOsmImageryProvider() {
+  return new Cesium.UrlTemplateImageryProvider({
+    url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+    credit: "© OpenStreetMap contributors"
+  });
+}
 
 function fetchResourceCached(url, responseType = "json") {
   const cacheKey = `${responseType}:${url}`;
@@ -1174,16 +1162,23 @@ function applyImageryForMode(boot = false) {
     return;
   }
 
-  viewer.imageryLayers.removeAll();
+  const signature = `${currentMapMode}:${boot ? "boot" : "full"}`;
+  if (activeImagerySignature === signature && viewer.imageryLayers.length > 0) {
+    return;
+  }
+
+  viewer.imageryLayers.removeAll(false);
   try {
     const provider = currentMapMode === "2d"
-      ? (boot ? satelliteImageryProvider2DBoot : satelliteImageryProvider2D)
-      : (boot ? satelliteImageryProviderBoot : satelliteImageryProvider);
+      ? createSatelliteImageryProvider(boot ? 4 : 9)
+      : createSatelliteImageryProvider(boot ? 3 : null);
     viewer.imageryLayers.addImageryProvider(provider);
+    activeImagerySignature = signature;
   } catch (error) {
     console.error("No se pudo aplicar la capa base del mapa:", error);
     try {
-      viewer.imageryLayers.addImageryProvider(osmImageryProvider);
+      viewer.imageryLayers.addImageryProvider(createOsmImageryProvider());
+      activeImagerySignature = `${currentMapMode}:osm`;
     } catch (fallbackError) {
       console.error("No se pudo cargar la capa base alternativa:", fallbackError);
     }
@@ -1439,6 +1434,8 @@ let loadSupplementalDataPromise = null;
 let loadDeferredDataEnhancementsPromise = null;
 let loadMapPromise = null;
 let loadMapMode = "";
+let loadMapPath = "";
+let detailedOverlayUpgradeTimer = null;
 const bootMetrics = {
   startedAt: 0,
   completedAt: 0,
@@ -1793,6 +1790,225 @@ const CONFLICT_NAME_ALIASES = [
   [/^Second Battle of the Hook$/i, "Segunda batalla de Hook"]
 ];
 
+CONFLICT_NAME_ALIASES.push(
+  [/^American Revolutionary War$/i, "Guerra de Independencia de Estados Unidos"],
+  [/^United States War of Independence$/i, "Guerra de Independencia de Estados Unidos"],
+  [/^War of 1812$/i, "Guerra anglo-estadounidense de 1812"],
+  [/^Mexican-American War$/i, "Guerra mexico-estadounidense"],
+  [/^Mexican American War$/i, "Guerra mexico-estadounidense"],
+  [/^American Civil War$/i, "Guerra de Secesion"],
+  [/^Spanish-American War$/i, "Guerra hispano-estadounidense"],
+  [/^Spanish American War$/i, "Guerra hispano-estadounidense"],
+  [/^First Guatemala War$/i, "Primera guerra de Guatemala"],
+  [/^Second Guatemala War$/i, "Segunda guerra de Guatemala"],
+  [/^Third Guatemala War$/i, "Tercera guerra de Guatemala"],
+  [/^Honduran-Salvadoran War de 1871$/i, "Guerra entre Honduras y El Salvador de 1871"],
+  [/^1957 Honduras-Nicaragua border conflict$/i, "Conflicto fronterizo Honduras-Nicaragua de 1957"],
+  [/^Football War$/i, "Guerra de las 100 horas"],
+  [/^Invasion estadounidense de Panamá$/i, "Invasion estadounidense de Panama"],
+  [/^United States invasion of Panama$/i, "Invasion estadounidense de Panama"],
+  [/^Invasion de Granada$/i, "Invasion de Granada"],
+  [/^United States invasion of Grenada$/i, "Invasion de Granada"],
+  [/^Guerra Peruano-ecuatoriana$/i, "Guerra peruano-ecuatoriana"],
+  [/^Gran Colombia-Peru War$/i, "Guerra grancolombo-peruana"],
+  [/^Guerra grancolombo-Peruana$/i, "Guerra grancolombo-peruana"],
+  [/^Peruvian-Ecuadorian War$/i, "Guerra peruano-ecuatoriana"],
+  [/^Colombian conflict$/i, "Conflicto armado colombiano"],
+  [/^Suriname Interior War$/i, "Guerra civil de Surinam"],
+  [/^Rupununi uprising$/i, "Levantamiento del Rupununi"],
+  [/^Guerra de Malvinas \(1982\)$/i, "Guerra de las Malvinas"]
+);
+
+CONFLICT_NAME_ALIASES.push(
+  [/^Napoleonic Wars$/i, "Guerras napoleonicas"],
+  [/^French Revolutionary Wars$/i, "Guerras revolucionarias francesas"],
+  [/^Hundred Years'? War$/i, "Guerra de los Cien Anos"],
+  [/^Second Hundred Years'? War$/i, "Segunda Guerra de los Cien Anos"],
+  [/^Thirty Years'? War$/i, "Guerra de los Treinta Anos"],
+  [/^Great Northern War$/i, "Gran Guerra del Norte"],
+  [/^War of the Spanish Succession$/i, "Guerra de sucesion espanola"],
+  [/^War of the Austrian Succession$/i, "Guerra de sucesion austriaca"],
+  [/^Seven Years'? War$/i, "Guerra de los Siete Anos"],
+  [/^Germany Unification War$/i, "Guerras de unificacion alemana"],
+  [/^Second Schleswig War$/i, "Guerra de los Ducados"],
+  [/^Austro-Prussian War$/i, "Guerra austro-prusiana"],
+  [/^Franco-Prussian War$/i, "Guerra franco-prusiana"],
+  [/^Balkan Wars$/i, "Guerras balcanicas"],
+  [/^First Balkan War$/i, "Primera guerra balcanica"],
+  [/^Second Balkan War$/i, "Segunda guerra balcanica"],
+  [/^Bosnian War$/i, "Guerra de Bosnia"],
+  [/^Croatian War of Independence$/i, "Guerra de Croacia"],
+  [/^Croatian War$/i, "Guerra de Croacia"],
+  [/^Yugoslav Wars$/i, "Guerras yugoslavas"],
+  [/^Ten-Day War$/i, "Guerra de los Diez Dias"],
+  [/^Troubles$/i, "Conflicto de Irlanda del Norte"],
+  [/^The Troubles$/i, "Conflicto de Irlanda del Norte"],
+  [/^Irish War of Independence$/i, "Guerra de Independencia irlandesa"],
+  [/^Soviet-Finnish wars$/i, "Guerras sovietico-finlandesas"],
+  [/^First Soviet-Finnish War$/i, "Primera guerra sovietico-finlandesa"],
+  [/^Winter War$/i, "Guerra de Invierno"],
+  [/^Continuation War$/i, "Guerra de Continuacion"],
+  [/^Lapland War$/i, "Guerra de Laponia"],
+  [/^Soviet-Bulgarian War$/i, "Guerra sovietico-bulgara"],
+  [/^Eastern Front.*World War II.*Europe$/i, "Frente oriental de la Segunda Guerra Mundial"],
+  [/^Eastern Front.*World War II$/i, "Frente oriental de la Segunda Guerra Mundial"],
+  [/^Adriatic Campaign de World War II$/i, "Campana del Adriatico en la Segunda Guerra Mundial"],
+  [/^German occupation de Luxemburgo en World War II$/i, "Ocupacion alemana de Luxemburgo en la Segunda Guerra Mundial"],
+  [/^Liberation de East Finnmark$/i, "Liberacion de Finnmark oriental"],
+  [/^1919 Soviet Invasion de Ukraine$/i, "Invasion sovietica de Ucrania de 1919"],
+  [/^2022 Russian Invasion de Ukraine$/i, "Invasion rusa de Ucrania de 2022"],
+  [/^Moscow City drone attacks$/i, "Ataques con drones contra Moscu"],
+  [/^April 2009 raid off Somalia$/i, "Incursion naval frente a Somalia de abril de 2009"],
+  [/^Battle of Britain$/i, "Batalla de Inglaterra"],
+  [/^Battle of France$/i, "Batalla de Francia"],
+  [/^Battle of Belgium$/i, "Batalla de Belgica"],
+  [/^Battle of Dunkirk$/i, "Batalla de Dunkerque"],
+  [/^Battle of the Atlantic$/i, "Batalla del Atlantico"],
+  [/^Battle of Stalingrad$/i, "Batalla de Stalingrado"],
+  [/^Battle of Kursk$/i, "Batalla de Kursk"],
+  [/^Battle of Berlin$/i, "Batalla de Berlin"],
+  [/^Battle of Narvik$/i, "Batallas de Narvik"],
+  [/^Operation Dynamo$/i, "Operacion Dinamo"],
+  [/^Operation Weserubung$/i, "Operacion Weserubung"],
+  [/^Operation Weserübung$/i, "Operacion Weserubung"],
+  [/^Operation Market Garden$/i, "Operacion Market Garden"]
+);
+
+CONFLICT_NAME_ALIASES.push(
+  [/^Algerian Islamic Front War$/i, "Guerra civil argelina"],
+  [/^Algerian Civil War$/i, "Guerra civil argelina"],
+  [/^First Uganda War$/i, "Primera guerra de Uganda"],
+  [/^Uganda-Tanzania War$/i, "Guerra tanzano-ugandesa"],
+  [/^First Rwanda War$/i, "Primera guerra de Ruanda"],
+  [/^Second Rwanda War$/i, "Segunda guerra de Ruanda"],
+  [/^Third Rwanda War$/i, "Tercera guerra de Ruanda"],
+  [/^First Burundi War$/i, "Primera guerra de Burundi"],
+  [/^First Chad \(FROLINAT\) Rebellion$/i, "Primera rebelion chadiana del FROLINAT"],
+  [/^Second Liberia War$/i, "Segunda guerra liberiana"],
+  [/^Liberian Civil War$/i, "Guerra civil liberiana"],
+  [/^Sierra Leone Civil War$/i, "Guerra civil de Sierra Leona"],
+  [/^Guinea-Bissau Civil War$/i, "Guerra civil de Guinea-Bisau"],
+  [/^First Ivorian Civil War$/i, "Primera guerra civil marfilena"],
+  [/^Second Ivorian Civil War$/i, "Segunda guerra civil marfilena"],
+  [/^Rhodesian Bush War$/i, "Guerra civil de Rodesia"],
+  [/^Angolan Civil War$/i, "Guerra civil angolena"],
+  [/^Mozambican Civil War$/i, "Guerra civil mozambiquena"],
+  [/^Mali War$/i, "Guerra de Mali"],
+  [/^Northern Mali conflict$/i, "Guerra de Mali"],
+  [/^Maghreb insurgency$/i, "Insurgencia en el Magreb"],
+  [/^Lord's Resistance Army insurgency$/i, "Insurgencia del Ejercito de Resistencia del Senor"],
+  [/^Boko Haram insurgency$/i, "Rebelion de Boko Haram de 2009"],
+  [/^Boko Haram insurgency de 2009$/i, "Rebelion de Boko Haram de 2009"],
+  [/^Shifta War$/i, "Guerra de Shifta"],
+  [/^Ogaden War$/i, "Guerra de Ogaden"],
+  [/^Battle of Mogadishu$/i, "Batalla de Mogadiscio"],
+  [/^Battle of Lukaya$/i, "Batalla de Lukaya"],
+  [/^Battle of Masaka$/i, "Batalla de Masaka"],
+  [/^Battle of Kisangani$/i, "Batalla de Kisangani"],
+  [/^Battle of Mocimboa da Praia$/i, "Batalla de Mocimboa da Praia"],
+  [/^Battle of Mocímboa da Praia$/i, "Batalla de Mocimboa da Praia"],
+  [/^Battle of Kumbo$/i, "Batalla de Kumbo"],
+  [/^Battle of Tinzawatène \(2024\)$/i, "Batalla de Tinzawatene de 2024"],
+  [/^Battle of Boulikessi \(2025\)$/i, "Batalla de Boulikessi de 2025"],
+  [/^2016 Sirte offensive$/i, "Ofensiva de Sirte de 2016"],
+  [/^Amhara offensive de 2024$/i, "Ofensiva de Amhara de 2024"]
+);
+
+CONFLICT_NAME_ALIASES.push(
+  [/^Indochina Wars$/i, "Guerras de Indochina"],
+  [/^First Indochina War$/i, "Primera guerra de Indochina"],
+  [/^Second Indochina War$/i, "Guerra de Vietnam"],
+  [/^Third Indochina War$/i, "Tercera Guerra de Indochina"],
+  [/^Second Cambodia Civil$/i, "Segunda guerra civil camboyana"],
+  [/^Cambodian-Vietnamese War$/i, "Guerra camboyano-vietnamita"],
+  [/^Vietnamese-Cambodian War$/i, "Guerra camboyano-vietnamita"],
+  [/^Laotian Civil War$/i, "Guerra Civil de Laos"],
+  [/^Insurgency in Laos$/i, "Insurgencia en Laos"],
+  [/^Chinese invasion of Taiwan$/i, "Invasion china de Taiwan"],
+  [/^Chinese Invasion de Taiwan$/i, "Invasion china de Taiwan"],
+  [/^Second Sino-Japanese War$/i, "Segunda guerra sino-japonesa"],
+  [/^Sino-Vietnamese War$/i, "Guerra sino-vietnamita"],
+  [/^Third Indochina War$/i, "Tercera Guerra de Indochina"],
+  [/^Sino-Soviet border conflict$/i, "Conflicto fronterizo sino-sovietico"],
+  [/^Sino-Indian War$/i, "Guerra sino-india"],
+  [/^Nathu La and Cho La clashes$/i, "Enfrentamientos en Nathu La y Cho La"],
+  [/^South China Sea skirmish$/i, "Incidente del Arrecife Johnson del Sur"],
+  [/^Johnson South Reef Skirmish$/i, "Incidente del Arrecife Johnson del Sur"],
+  [/^UN offensive into North Korea$/i, "Ofensiva de la ONU en Corea del Norte"],
+  [/^Great Naktong Offensive$/i, "Gran ofensiva del Naktong"],
+  [/^Battle of White Horse$/i, "Batalla de White Horse"],
+  [/^Battle of Triangle Hill$/i, "Batalla de Triangle Hill"],
+  [/^Battle of Pork Chop Hill$/i, "Batalla del Monte Calvo"],
+  [/^Battle of Cheonpyeong Valley$/i, "Batalla del valle de Cheonpyeong"],
+  [/^Battle of Punchbowl$/i, "Batalla de Punchbowl"],
+  [/^Bombardment of Yeonpyeong$/i, "Bombardeo de Yeonpyeong"],
+  [/^Kashmir conflict$/i, "Conflicto de Cachemira"],
+  [/^Indo-Pakistani War of 1965$/i, "Guerra indo-pakistani de 1965"],
+  [/^Indo-Pakistani War of 1971$/i, "Guerra indo-pakistani de 1971"],
+  [/^Bangladesh Liberation War$/i, "Guerra de Liberacion de Bangladesh"],
+  [/^Bangladesh Liberation War$/i, "Guerra de Bangladesh"],
+  [/^Eelam War I$/i, "Primera guerra de Eelam"],
+  [/^Eelam War II$/i, "Segunda guerra de Eelam"],
+  [/^Eelam War III$/i, "Tercera guerra de Eelam"],
+  [/^Eelam War IV$/i, "Cuarta guerra de Eelam"],
+  [/^Eastern Theater de Eelam War IV$/i, "Teatro oriental de la Cuarta guerra de Eelam"],
+  [/^Sri Lankan Civil War$/i, "Guerra civil de Sri Lanka"],
+  [/^Indian intervention in the Sri Lankan Civil War$/i, "Intervencion india en la guerra civil de Sri Lanka"],
+  [/^Naf War$/i, "Guerra del Naf"],
+  [/^Kachin conflict$/i, "Conflicto en Kachin"],
+  [/^Indonesian National Revolution$/i, "Revolucion indonesia"],
+  [/^Indonesia-Malaysia confrontation$/i, "Confrontacion indonesio-malaya"],
+  [/^Indonesian invasion of East Timor$/i, "Invasion indonesia de Timor Oriental"],
+  [/^Indonesian occupation of East Timor$/i, "Ocupacion indonesia de Timor Oriental"],
+  [/^East Timor crisis$/i, "Crisis de Timor Oriental"],
+  [/^Georgia War$/i, "Guerra de Osetia del Sur de 2008"],
+  [/^Russo-Georgian War$/i, "Guerra de Osetia del Sur de 2008"],
+  [/^War in Abkhazia$/i, "Guerra de Abjasia"],
+  [/^Tajikistani Civil War$/i, "Guerra civil tayika"],
+  [/^Batken conflict$/i, "Conflicto de Batken"],
+  [/^Kyrgyzstan-Tajikistan clashes of 2021$/i, "Conflicto entre Kirguistan y Tayikistan de 2021"],
+  [/^Nagorno-Karabakh conflict$/i, "Conflicto de Nagorno-Karabaj"],
+  [/^2016 Nagorno-Karabakh conflict$/i, "Conflicto de Nagorno-Karabaj de 2016"],
+  [/^Second Nagorno-Karabakh War$/i, "Segunda guerra de Nagorno-Karabaj"],
+  [/^Battle of Shusha \(2020\)$/i, "Batalla de Shusha de 2020"],
+  [/^Capture of Lachin$/i, "Captura de Lachin"],
+  [/^Battle of Jabrayil$/i, "Batalla de Jabrayil"],
+  [/^Yemeni Civil War$/i, "Guerra civil yemení"],
+  [/^North Yemen Civil War$/i, "Guerra civil de Yemen del Norte"],
+  [/^Saudi-Yemeni War$/i, "Guerra saudo-yemeni"],
+  [/^South Thailand insurgency$/i, "Insurgencia en el sur de Tailandia"]
+);
+
+CONFLICT_NAME_ALIASES.push(
+  [/^Bougainville conflict$/i, "Conflicto de Bougainville"],
+  [/^Bougainville Civil War$/i, "Conflicto de Bougainville"],
+  [/^Fiji constitutional crisis$/i, "Crisis constitucional de Fiyi"],
+  [/^Solomon Islands ethnic tension$/i, "Conflicto etnico de las Islas Salomon"],
+  [/^Ethnic tension in the Solomon Islands$/i, "Conflicto etnico de las Islas Salomon"],
+  [/^Coconut War$/i, "Guerra del Coco"],
+  [/^Malayan Emergency$/i, "Emergencia Malaya"],
+  [/^Battle of Gang Toi$/i, "Batalla de Gang Toi"],
+  [/^Battle of Long Tan$/i, "Batalla de Long Tan"],
+  [/^Battle of Coral-Balmoral$/i, "Batalla de Coral-Balmoral"],
+  [/^Battle of Coral–Balmoral$/i, "Batalla de Coral-Balmoral"],
+  [/^Battle of Coralâ€“Balmoral$/i, "Batalla de Coral-Balmoral"],
+  [/^Battle of Singapore$/i, "Batalla de Singapur"],
+  [/^Battle of Sunda Strait$/i, "Batalla del estrecho de la Sonda"],
+  [/^Battle of the Java Sea$/i, "Batalla del mar de Java"],
+  [/^Battle of the Coral Sea$/i, "Batalla del mar del Coral"],
+  [/^Battle of Timor$/i, "Batalla de Timor"],
+  [/^Battle of Milne Bay$/i, "Batalla de la bahia de Milne"],
+  [/^Kokoda Track campaign$/i, "Campana de Kokoda"],
+  [/^Kokoda Trail campaign$/i, "Campana de Kokoda"],
+  [/^Battle of Kolombangara$/i, "Batalla de Kolombangara"],
+  [/^Battle of North Borneo$/i, "Batalla de Borneo septentrional"],
+  [/^North Borneo battle$/i, "Batalla de Borneo septentrional"],
+  [/^North Borneo campaign$/i, "Campana de Borneo septentrional"],
+  [/^Battle between HMAS Sydney and Kormoran$/i, "Combate entre el HMAS Sydney y el Kormoran"],
+  [/^Convoy GP 55$/i, "Convoy GP 55"],
+  [/^Battle off Endau$/i, "Batalla frente a Endau"]
+);
+
 const CONFLICT_PARENT_RULES = [
   { parent: "Guerra de las Malvinas", matches: ["goose green", "pradera del ganso", "san carlos", "wireless ridge", "harriet", "longdon", "tumbledown"] },
   { parent: "Guerra de la Triple Alianza", matches: ["ita ybate", "tuyuti", "curupayti", "humaita"] },
@@ -1811,6 +2027,84 @@ const CONFLICT_PARENT_RULES = [
 const CONFLICT_CAMPAIGN_MARKERS = ["operacion", "campana", "campaña", "ofensiva", "frente", "asedio", "sitio"];
 
 CONFLICT_PARENT_RULES.push(
+  { parent: "Guerra de Independencia de Estados Unidos", matches: ["saratoga", "yorktown", "ticonderoga", "white marsh", "machias", "flamborough head", "minisink", "sullivan expedition", "delaware capes", "bull's ferry", "anne"] },
+  { parent: "Guerra mexico-estadounidense", matches: ["palo alto", "resaca de la palma", "santa fe", "buena vista", "chapultepec", "cerro gordo", "contreras", "churubusco", "molino del rey"] },
+  { parent: "Guerra de Secesion", matches: ["fort sumter", "gettysburg", "vicksburg", "antietam", "shiloh", "chancellorsville", "appomattox", "bull run", "sherman", "atlanta"] },
+  { parent: "Guerra de las Malvinas", matches: ["bahia agradable", "ara general belgrano", "hms sheffield", "black buck", "puente murrell", "dos hermanas"] },
+  { parent: "Guerra del Pacifico", matches: ["pilcomayo", "rimac", "alto de la alianza", "callao", "arica", "iquique", "angamos", "tacna", "chorrillos", "miraflores", "pisagua"] },
+  { parent: "Guerra de la Triple Alianza", matches: ["riachuelo", "curupayty", "mercedes", "ita ybate", "humaita", "cabral y lima barros", "paso de curupayty"] },
+  { parent: "Guerra del Chaco", matches: ["alihuata", "boqueron", "nanawa", "campo via", "canada strongest", "fortin"] },
+  { parent: "Guerra peruano-ecuatoriana", matches: ["paquisha", "cenepa", "rio de janeiro", "cordillera del condor"] },
+  { parent: "Guerra contra la Confederacion Peru-Boliviana", matches: ["yungay", "portada de guias", "buin", "casma", "captura de buques de la confederacion"] },
+  { parent: "Guerra hispano-estadounidense", matches: ["san juan", "santiago de cuba", "manila bay", "bahia de manila", "el caney"] },
+  { parent: "Guerra civil de Surinam", matches: ["surinam", "interior war"] },
+  { parent: "Conflicto armado colombiano", matches: ["triangle hill", "monte calvo", "farc", "eln", "auc"] },
+  { parent: "Guerra contra el narcotrafico en Mexico", matches: ["campeche", "matamoros", "cerro del gallo", "gonzalez", "baja california"] },
+  { parent: "Guerras napoleonicas", matches: ["waterloo", "austerlitz", "trafalgar", "borodino", "leipzig", "wagram", "jena", "friedland", "peninsular"] },
+  { parent: "Guerra de Crimea", matches: ["sevastopol", "balaclava", "inkerman", "alma", "malakoff"] },
+  { parent: "Guerra franco-prusiana", matches: ["sedan", "metz", "paris 1870", "gravelotte", "mars-la-tour"] },
+  { parent: "Guerra civil espanola", matches: ["guernica", "teruel", "belchite", "malaga", "badajoz"] },
+  { parent: "Guerra de Bosnia", matches: ["sarajevo", "srebrenica", "mostar", "bihac", "operacion deliberate force"] },
+  { parent: "Guerra de Kosovo", matches: ["kosovo", "racak", "pristina", "frontera albano-yugoslava"] },
+  { parent: "Guerra de Croacia", matches: ["vukovar", "dubrovnik", "operacion tormenta", "krajina", "winter '94"] },
+  { parent: "Guerras yugoslavas", matches: ["guerra croata-bosnia", "krajina bosnia", "conflicto de la republica de macedonia", "aracinovo", "tetovo", "radusa"] },
+  { parent: "Guerra de Independencia irlandesa", matches: ["black and tans", "bloody sunday 1920", "cork", "soloheadbeg"] },
+  { parent: "Conflicto de Irlanda del Norte", matches: ["bloody sunday", "omagh", "ira provisional", "ulster", "belfast"] },
+  { parent: "Guerra de Invierno", matches: ["raate road", "suomussalmi", "mannerheim"] },
+  { parent: "Guerra de Continuacion", matches: ["petajasaari", "tali-ihantala", "viborg"] },
+  { parent: "Guerra de Laponia", matches: ["laponia", "rovaniemi"] },
+  { parent: "Guerra de los Treinta Anos", matches: ["breitenfeld", "lutzen", "rocroi", "white mountain"] },
+  { parent: "Gran Guerra del Norte", matches: ["poltava", "narva", "holowczyn", "helsingborg", "pruzany", "pryluky"] },
+  { parent: "Guerras de unificacion alemana", matches: ["guerra de los ducados", "guerra austro-prusiana", "guerra franco-prusiana", "kolding", "fredericia", "isted", "schleswig"] },
+  { parent: "Guerra ruso-ucraniana", matches: ["kupiansk", "kramatorsk", "izmail", "isla de las serpientes", "moscu", "moscow city", "pryluky", "karlivka"] },
+  { parent: "Guerra del Sahara Occidental", matches: ["la guera", "tichla", "ain ben tili", "amgala", "bucraa", "zuerate", "al mahbes", "tan-tan", "zag", "guelta zemmur", "ras el-khanfra", "esmara", "lemseied", "tifariti", "ain-lahchich", "hausa", "oum dreyga", "farsia", "bir enzaran", "cabo bojador", "lebouirate", "ramth-al-lbane", "z'moul"] },
+  { parent: "Guerra civil argelina", matches: ["frente islamico de salvacion", "grupo islamico armado", "guerra islamista argelina"] },
+  { parent: "Guerra tanzano-ugandesa", matches: ["lukaya", "masaka", "kampala"] },
+  { parent: "Guerra del Ogaden", matches: ["jijiga", "harar", "ogaden"] },
+  { parent: "Guerra civil somali", matches: ["mogadiscio", "mocadiscio", "ras kamboni", "puntlandia", "somalilandia", "pirateria somali"] },
+  { parent: "Segunda guerra del Congo", matches: ["kisangani", "lubumbashi", "guerra de kivu", "congo y ruanda", "ituri"] },
+  { parent: "Primera Guerra del Congo", matches: ["primera guerra del congo", "zair", "mobutu"] },
+  { parent: "Guerra civil ruandesa", matches: ["genocidio de ruanda", "asesinato de cascos azules belgas"] },
+  { parent: "Guerra civil de Sierra Leona", matches: ["sierra leona", "ruf", "freetown"] },
+  { parent: "Segunda guerra liberiana", matches: ["monrovia", "liberia", "lurd", "model"] },
+  { parent: "Primera guerra civil marfilena", matches: ["marfil", "bouake", "costa de marfil"] },
+  { parent: "Rebelion de Boko Haram de 2009", matches: ["dikwa", "kumbo", "boko haram", "lago chad"] },
+  { parent: "Guerra de Mali", matches: ["tinzawatene", "boulikessi", "azawad", "tuareg", "kidal", "gao", "tombuctu"] },
+  { parent: "Crisis anglofona de Camerun", matches: ["kumbo", "anglofona", "ambazonia"] },
+  { parent: "Guerra civil angolena", matches: ["angola", "unita", "mpla", "lucusse"] },
+  { parent: "Guerra civil de Rodesia", matches: ["rodesia", "zimbabue", "bush war"] },
+  { parent: "Guerra civil mozambiquena", matches: ["mocimboa", "renamo", "frelimo", "mozambique"] },
+  { parent: "Guerra civil china", matches: ["huaihai", "liaoshen", "pingjin", "taiwan", "kuomintang", "comunistas chinos"] },
+  { parent: "Segunda guerra sino-japonesa", matches: ["nankin", "shanghai 1937", "wuhan", "changsha", "hamgyong", "myeongnyang", "noryang"] },
+  { parent: "Guerra de Corea", matches: ["osan", "estrecho de corea", "perimetro de pusan", "naktong", "white horse", "triangle hill", "monte calvo", "punchbowl", "cheonpyeong", "yeonpyeong", "gurung hill"] },
+  { parent: "Guerra de Vietnam", matches: ["operacion masher", "tra vinh dong", "ofensiva del tet", "counteroffensive phase", "signal hill", "long tan"] },
+  { parent: "Guerras de Indochina", matches: ["indochina", "laos", "camboyano-vietnamita", "tercera guerra de indochina"] },
+  { parent: "Tercera Guerra de Indochina", matches: ["fakashan", "arrecife johnson", "guerra sino-vietnamita", "camboyano-vietnamita"] },
+  { parent: "Guerra sino-india", matches: ["rezang la", "walong", "nathu la", "cho la", "galwan"] },
+  { parent: "Conflicto de Cachemira", matches: ["cachemira", "kashmir", "basantar", "kargil"] },
+  { parent: "Guerra de Bangladesh", matches: ["liberacion de bangladesh", "guerra indo-pakistani de 1971", "naf"] },
+  { parent: "Guerra civil de Sri Lanka", matches: ["eelam", "galle", "tigres tamiles", "ltte"] },
+  { parent: "Guerra civil de Myanmar", matches: ["kachin", "naf", "birmania"] },
+  { parent: "Revolucion indonesia", matches: ["revolucion indonesia", "buru", "molucas del sur"] },
+  { parent: "Invasion indonesia de Timor Oriental", matches: ["aileu", "baucau", "lospalos", "timor oriental"] },
+  { parent: "Conflicto entre Gaza e Israel", matches: ["re'im", "gaza", "franja de gaza", "beqaa", "yemen de 2024", "crisis del mar rojo"] },
+  { parent: "Guerra Iran-Iraq", matches: ["morvarid", "abadan", "petroleros", "faluya", "marismas"] },
+  { parent: "Guerra de Irak", matches: ["bagdad de 2003", "ramadi", "mosul", "pirde", "um kasar", "fallujah", "faluya"] },
+  { parent: "Guerra civil siria", matches: ["al-qaryatayn", "acero de damasco", "amanecer de la libertad", "alepo", "siria oriental"] },
+  { parent: "Guerra civil yemení", matches: ["sana", "al hudaydah", "yakla", "sa'dah", "huti"] },
+  { parent: "Conflicto de Nagorno-Karabaj", matches: ["mardakert", "martuni", "shusha", "lachin", "jabrayil", "nagorno"] },
+  { parent: "Guerra de Abjasia", matches: ["gagra", "sujumi", "tkvarcheli", "kamani", "ochamchira", "abjasia"] },
+  { parent: "Guerra de Osetia del Sur de 2008", matches: ["osetia del sur", "liakhvi", "georgia war"] },
+  { parent: "Guerra civil tayika", matches: ["tayika", "batken", "tayikistan"] },
+  { parent: "Conflicto entre Kirguistan y Tayikistan de 2021", matches: ["kirguistan y tayikistan", "kirguistán y tayikistán"] },
+  { parent: "Segunda Guerra Mundial", matches: ["singapur", "estrecho de la sonda", "mar de java", "mar del coral", "timor", "bahia de milne", "kokoda", "kolombangara", "north borneo", "borneo septentrional", "hmas sydney", "kormoran", "convoy gp 55", "endau"] },
+  { parent: "Campana de Borneo", matches: ["labuan", "borneo septentrional", "north borneo", "tarakan", "balikpapan"] },
+  { parent: "Guerra de Vietnam", matches: ["gang toi", "long tan", "coral-balmoral", "coral–balmoral", "ofensiva del tet"] },
+  { parent: "Emergencia Malaya", matches: ["malaya", "malayan"] },
+  { parent: "Conflicto de Bougainville", matches: ["bougainville", "papua nueva guinea"] },
+  { parent: "Conflicto etnico de las Islas Salomon", matches: ["salomon", "guadalcanal moderna", "malaita"] },
+  { parent: "Crisis constitucional de Fiyi", matches: ["fiyi", "fiji", "constitucional de fiyi"] },
+  { parent: "Guerra del Coco", matches: ["coconut", "espiritu santo", "vanuatu"] },
   { parent: "Segunda Guerra Mundial", matches: ["desembarco de normandia", "barbarroja", "ardennes", "market garden", "monte cassino", "pearl harbor", "frente oriental de la segunda guerra mundial", "frente del sudeste de asia en la segunda guerra mundial"] },
   { parent: "Primera Guerra Mundial", matches: ["jutlandia", "tannenberg", "caporetto", "aisne", "meuse", "scarpe", "picardy"] },
   { parent: "Primera Guerra Mundial", matches: ["arras", "cambrai", "vimy", "messines", "vittorio veneto", "primera batalla de ypres", "segunda batalla de somme", "segunda batalla del marne", "tercera batalla de aisne"] },
@@ -1930,6 +2224,26 @@ function inferConflictCoalitionLabel(side = "", members = []) {
   if (hasAny(["Alemania", "Italia", "Japon"])) return "Eje";
   if (hasAny(["Austria-Hungria", "Imperio otomano", "Bulgaria"]) && hasAny(["Alemania"])) return "Potencias Centrales";
   if (hasAny(["Reino Unido", "Union Sovietica", "Estados Unidos", "Francia", "China", "Belgica", "Paises Bajos", "Luxemburgo"])) return "Aliados";
+  if (hasAny(["Argentina", "Brasil", "Uruguay"])) return "Triple Alianza";
+  if (hasAny(["Paraguay"])) return "Paraguay";
+  if (hasAny(["Chile"]) && hasAny(["Peru", "Bolivia"])) return "Chile y aliados";
+  if (hasAny(["Chile"])) return "Chile";
+  if (hasAny(["Peru", "Bolivia"])) return "Alianza Peru-Bolivia";
+  if (hasAny(["Peru"]) && hasAny(["Ecuador"])) return "Peru y Ecuador";
+  if (hasAny(["Peru"])) return "Peru";
+  if (hasAny(["Ecuador"])) return "Ecuador";
+  if (hasAny(["Bolivia"])) return "Bolivia";
+  if (hasAny(["Reino Unido"])) return "Reino Unido";
+  if (hasAny(["Argentina"])) return "Argentina";
+  if (hasAny(["Estados Unidos"]) && hasAny(["Mexico"])) return "Estados Unidos y Mexico";
+  if (hasAny(["Estados Unidos"])) return "Estados Unidos";
+  if (hasAny(["Mexico"])) return "Mexico";
+  if (hasAny(["Colombia"])) return "Estado colombiano";
+  if (hasAny(["FARC", "ELN", "AUC"])) return "Insurgencias y grupos armados";
+  if (hasAny(["Guatemala"])) return "Guatemala";
+  if (hasAny(["El Salvador"])) return "El Salvador";
+  if (hasAny(["Honduras"])) return "Honduras";
+  if (hasAny(["Nicaragua"])) return "Nicaragua";
   return explicit || "";
 }
 
@@ -2410,6 +2724,11 @@ function applyMapMode(mode, animate = true) {
     currentMapMode = mode;
     updateMapModeToggle();
     return;
+  }
+
+  if (detailedOverlayUpgradeTimer) {
+    clearTimeout(detailedOverlayUpgradeTimer);
+    detailedOverlayUpgradeTimer = null;
   }
 
   const normalizedMode = mode === "2d" ? "2d" : "3d";
@@ -2914,6 +3233,7 @@ const POLITICAL_SYSTEM_OVERRIDES = {
   ETH: "Parlamentarismo",
   FJI: "Parlamentarismo",
   FLK: "Monarquia constitucional",
+  ATA: "Sistema del Tratado Antartico",
   FRA: "Semipresidencialismo",
   GHA: "Presidencialismo",
   GRL: "Monarquia constitucional",
@@ -3229,6 +3549,16 @@ function uniqueBy(items, getKey) {
     }
     seen.add(key);
     return true;
+  });
+}
+
+function yieldToMainThread() {
+  return new Promise(resolve => {
+    if (typeof scheduler !== "undefined" && typeof scheduler.postTask === "function") {
+      scheduler.postTask(resolve, { priority: "background" });
+      return;
+    }
+    setTimeout(resolve, 0);
   });
 }
 
@@ -4879,7 +5209,15 @@ function getConflictTypeLabel(type) {
     "conflicto interno": currentLanguage === "en" ? "Internal conflict" : "Conflicto interno",
     "intervencion u ocupacion": currentLanguage === "en" ? "Intervention or occupation" : "Intervencion u ocupacion",
     "batalla o combate": currentLanguage === "en" ? "Battle or combat" : "Batalla o combate",
-    "campana militar": currentLanguage === "en" ? "Military campaign" : "Campana militar"
+    "campana militar": currentLanguage === "en" ? "Military campaign" : "Campana militar",
+    "guerra de independencia": currentLanguage === "en" ? "War of independence" : "Guerra de independencia",
+    "conflicto fronterizo": currentLanguage === "en" ? "Border conflict" : "Conflicto fronterizo",
+    levantamiento: currentLanguage === "en" ? "Uprising" : "Levantamiento",
+    desembarco: currentLanguage === "en" ? "Landing operation" : "Desembarco",
+    batalla: currentLanguage === "en" ? "Battle" : "Batalla",
+    campana: currentLanguage === "en" ? "Campaign" : "Campana",
+    "crisis politica": currentLanguage === "en" ? "Political crisis" : "Crisis politica",
+    "escalada militar": currentLanguage === "en" ? "Military escalation" : "Escalada militar"
   };
   return labels[type] || type || (currentLanguage === "en" ? "Conflict" : "Conflicto");
 }
@@ -5372,7 +5710,7 @@ function renderConflictWikipediaField(labelEs, labelEn, value) {
   if (Array.isArray(value)) {
     const items = value.some(item => Array.isArray(item))
       ? value
-        .map((entry, index) => `${currentLanguage === "en" ? "Side" : "Bando"} ${index + 1}: ${(entry || []).map(normalizeItem).filter(item => !shouldDrop(item)).join(", ")}`)
+        .map(entry => (entry || []).map(normalizeItem).filter(item => !shouldDrop(item)).join(", "))
         .filter(item => !shouldDrop(item))
       : uniqueNormalizedList(value.map(normalizeItem).filter(item => !shouldDrop(item)));
     if (!items.length) {
@@ -6258,6 +6596,7 @@ function getRenderProfileLabel() {
 function updateAppStatusPanel(extra = {}) {
   const renderChip = document.getElementById("render-profile-chip");
   const bootChip = document.getElementById("boot-profile-chip");
+  const floatingBootChip = document.getElementById("boot-floating-chip");
   const datasetChip = document.getElementById("dataset-health-chip");
 
   if (renderChip) {
@@ -6276,16 +6615,23 @@ function updateAppStatusPanel(extra = {}) {
   if (bootChip) {
     const summary = getBootProfileSummary();
     const hasBootData = summary.total > 0 || Object.keys(bootMetrics.steps).length > 0;
+    let bootText = "";
     if (!hasBootData) {
+      bootText = `${currentLanguage === "en" ? "Boot" : "Arranque"}: ${currentLanguage === "en" ? "pending" : "pendiente"}`;
       bootChip.innerHTML = `<strong>${currentLanguage === "en" ? "Boot" : "Arranque"}:</strong> ${currentLanguage === "en" ? "pending" : "pendiente"}`;
     } else {
       const totalLabel = `${Math.round(summary.total)} ms`;
       const detailParts = [];
-      if (summary.imagery) detailParts.push(`${currentLanguage === "en" ? "imagery" : "imagery"} ${Math.round(summary.imagery)} ms`);
+      if (summary.imagery) detailParts.push(`${currentLanguage === "en" ? "first render" : "primer render"} ${Math.round(summary.imagery)} ms`);
       if (summary.data) detailParts.push(`${currentLanguage === "en" ? "data" : "datos"} ${Math.round(summary.data)} ms`);
       if (summary.overlay) detailParts.push(`${currentLanguage === "en" ? "overlay" : "overlay"} ${Math.round(summary.overlay)} ms`);
       if (summary.ui) detailParts.push(`${currentLanguage === "en" ? "ui" : "ui"} ${Math.round(summary.ui)} ms`);
+      bootText = `${currentLanguage === "en" ? "Boot" : "Arranque"}: ${totalLabel}${detailParts.length ? ` · ${detailParts.join(" · ")}` : ""}`;
       bootChip.innerHTML = `<strong>${currentLanguage === "en" ? "Boot" : "Arranque"}:</strong> ${escapeHtml(totalLabel)}${detailParts.length ? ` · ${escapeHtml(detailParts.join(" · "))}` : ""}`;
+    }
+    if (floatingBootChip) {
+      floatingBootChip.textContent = bootText;
+      floatingBootChip.classList.toggle("is-complete", hasBootData && summary.total > 0);
     }
   }
 
@@ -7321,6 +7667,32 @@ function getCountryThemeStyle(code) {
   }
 
   return adapt(DEFAULT_STYLE);
+}
+
+function refreshLoadedCountryLayers() {
+  if (!countryLayers?.size) {
+    return;
+  }
+
+  countryLayers.forEach((layer, code) => {
+    const country = countriesData[code];
+    if (!country) {
+      return;
+    }
+    layer.featureName = country.name || layer.featureName;
+    layer.entities.forEach(entity => {
+      entity.countryName = country.name || entity.countryName;
+    });
+    if (!selectedLayers.includes(layer)) {
+      layer.setStyle(getCountryThemeStyle(code));
+    }
+  });
+  registerFeatureNameAliases(
+    Object.fromEntries(
+      [...countryLayers.entries()].map(([code, layer]) => [code, countriesData[code]?.name || layer.featureName || code])
+    )
+  );
+  requestSceneRender();
 }
 
 function refreshCountryStyles() {
@@ -11166,11 +11538,11 @@ function getLayersForCountries(countries) {
     .filter(Boolean);
 }
 
-function getGeoJsonPathForCurrentMode() {
+function getGeoJsonPathForCurrentMode(bootPhase = false) {
   if (currentMapMode === "2d") {
     return "./data/world_countries_simplified.geo.json";
   }
-  return isMobileLayout()
+  return (bootPhase || isMobileLayout())
     ? "./data/world_countries_simplified.geo.json"
     : "./data/world_countries.geo.json";
 }
@@ -11768,15 +12140,21 @@ async function loadData() {
     mapNameAliasIndex = buildNormalizedAliasIndex(mapNameAliasOverrides);
     worldBankNameAliasOverrides = aliasConfigJson?.worldBankNameAliases || {};
 
-    Object.entries(countriesData).forEach(([code, country]) => {
+    const countryEntries = Object.entries(countriesData);
+    for (let index = 0; index < countryEntries.length; index += 1) {
+      const [code, country] = countryEntries[index];
       country.code = code;
       countryCodeLookup.set(country, code);
       sanitizeCountryData(country);
-    });
+      if (index > 0 && index % 12 === 0) {
+        await yieldToMainThread();
+      }
+    }
     worldPopulationTotal = Object.values(countriesData).reduce(
       (sum, country) => sum + (country.general?.population || 0),
       0
     );
+    refreshLoadedCountryLayers();
   });
 
   return loadDataPromise;
@@ -12188,17 +12566,18 @@ function generateSystemRanking() {
     });
 }
 
-async function loadMap() {
+async function loadMap(bootPhase = false) {
   const requestedMode = currentMapMode;
-  if (loadMapPromise && loadMapMode === requestedMode) {
+  const geoJsonPath = getGeoJsonPathForCurrentMode(bootPhase);
+  if (loadMapPromise && loadMapMode === requestedMode && loadMapPath === geoJsonPath) {
     return loadMapPromise;
   }
 
   const loadToken = ++mapOverlayLoadToken;
   loadMapMode = requestedMode;
+  loadMapPath = geoJsonPath;
   countryAreaCache = {};
   initializeViewer();
-  const geoJsonPath = getGeoJsonPathForCurrentMode();
   trimDataCaches();
 
   loadMapPromise = measureBootStep("loadMapOverlay", async () => {
@@ -12208,7 +12587,7 @@ async function loadMap() {
     }
     if (activeGeoJsonDataSource) {
       try {
-        await viewer.dataSources.remove(activeGeoJsonDataSource, true);
+        await viewer.dataSources.remove(activeGeoJsonDataSource, false);
       } catch (error) {
         console.error("No se pudo limpiar la capa GeoJSON anterior:", error);
       }
@@ -12441,12 +12820,14 @@ async function loadMap() {
     }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
 
     registerFeatureNameAliases(featureNameByCode);
-    applyImageryForMode(false);
+    if (!bootPhase) {
+      applyImageryForMode(false);
+    }
     fitWorldView();
     renderMapLabels();
     scheduleGeoJsonWarmup();
   }).finally(() => {
-    if (loadMapMode === requestedMode) {
+    if (loadMapMode === requestedMode && loadMapPath === geoJsonPath) {
       loadMapPromise = null;
     }
   });
@@ -12464,6 +12845,7 @@ async function waitForMapBootReady(timeoutMs = 2600) {
     let renderedOnce = false;
     let tilesReady = Boolean(viewer.scene.globe?.tilesLoaded);
     let timeoutId = null;
+    let quickReadyId = null;
 
     const finish = () => {
       if (settled) {
@@ -12472,6 +12854,9 @@ async function waitForMapBootReady(timeoutMs = 2600) {
       settled = true;
       if (timeoutId) {
         clearTimeout(timeoutId);
+      }
+      if (quickReadyId) {
+        clearTimeout(quickReadyId);
       }
       viewer?.scene?.postRender?.removeEventListener(onPostRender);
       viewer?.scene?.globe?.tileLoadProgressEvent?.removeEventListener(onTileProgress);
@@ -12496,9 +12881,52 @@ async function waitForMapBootReady(timeoutMs = 2600) {
 
     viewer.scene.postRender.addEventListener(onPostRender);
     viewer.scene.globe?.tileLoadProgressEvent?.addEventListener(onTileProgress);
+    quickReadyId = setTimeout(() => {
+      if (renderedOnce) {
+        finish();
+      }
+    }, Math.min(timeoutMs, isMobileLayout() ? 900 : 650));
     timeoutId = setTimeout(finish, timeoutMs);
     requestSceneRender();
   });
+}
+
+function scheduleDetailedOverlayUpgrade() {
+  if (detailedOverlayUpgradeTimer) {
+    clearTimeout(detailedOverlayUpgradeTimer);
+    detailedOverlayUpgradeTimer = null;
+  }
+
+  if (currentMapMode !== "3d" || isMobileLayout()) {
+    return;
+  }
+
+  const detailedPath = "./data/world_countries.geo.json";
+  if (loadMapPath === detailedPath) {
+    return;
+  }
+
+  const scheduleUpgrade = () => {
+    detailedOverlayUpgradeTimer = null;
+    if (currentMapMode !== "3d") {
+      return;
+    }
+    if (Date.now() - lastInteractionAt < 3000) {
+      detailedOverlayUpgradeTimer = setTimeout(scheduleUpgrade, 3000);
+      return;
+    }
+    loadMap(false)
+      .then(() => {
+        lastOverlayBucket = getCurrentOverlayBucket();
+        renderMapLabels();
+        viewer?.scene?.requestRender?.();
+      })
+      .catch(error => {
+        console.warn("No se pudo aplicar la capa detallada del globo tras el arranque:", error);
+      });
+  };
+
+  detailedOverlayUpgradeTimer = setTimeout(scheduleUpgrade, isMobileLayout() ? 7000 : 5200);
 }
 
 function setupSearchEvents() {
@@ -14524,16 +14952,21 @@ async function init() {
       initializeViewer();
       requestSceneRender();
     });
-    const dataLoadPromise = loadData();
+    const overlayLoadPromise = loadMap(true);
     const bootReadyPromise = measureBootStep("mapBootReady", () => waitForMapBootReady(isMobileLayout() ? 5200 : 4200));
-    await dataLoadPromise;
-    setupSearchEvents();
-    setupThemeControls();
-    setTheme("default");
-    const themeSelect = document.getElementById("theme-select");
-    if (themeSelect) {
-      themeSelect.value = "default";
-    }
+    const dataLoadPromise = loadData()
+      .then(() => {
+        refreshLoadedCountryLayers();
+        updateAppStatusPanel();
+        return countriesData;
+      })
+      .catch(error => {
+        console.error("No se pudo cargar el dataset principal en segundo plano:", error);
+        if (typeof showToast === "function") {
+          showToast("El globo cargo, pero el dataset completo no pudo hidratarse.");
+        }
+        return {};
+      });
     if (shouldStartCollapsed) {
       const toolbar = document.getElementById("map-toolbar");
       const rankingsPanel = document.getElementById("rankings-panel");
@@ -14544,8 +14977,6 @@ async function init() {
         rankingsPanel.open = false;
       }
     }
-    setupMapModeControl();
-    const overlayLoadPromise = loadMap();
     await bootReadyPromise;
     if (shouldStartCollapsed) {
       const toolbar = document.getElementById("map-toolbar");
@@ -14564,7 +14995,20 @@ async function init() {
       document.body.classList.remove("globe-loading");
       completeBootMetrics();
       updateAppStatusPanel();
-      console.info("GeoRisk boot profile", getBootProfileSummary(), bootMetrics.steps);
+      if (window.GEORISK_DEBUG_BOOT === true || localStorage.getItem("georisk.debugBoot") === "true") {
+        console.info("GeoRisk boot profile", getBootProfileSummary(), bootMetrics.steps);
+      }
+      updateExtendedStaticText();
+      openIntroModal();
+      setTimeout(() => {
+        if (viewer && activeImagerySignature.includes(":boot")) {
+          applyImageryForMode(false);
+          requestSceneRender();
+        }
+      }, isMobileLayout() ? 1800 : 1100);
+      dataLoadPromise
+        .then(() => scheduleDetailedOverlayUpgrade())
+        .catch(() => {});
     }, 120);
 
     const bootDeferredUi = () => {
@@ -14577,7 +15021,12 @@ async function init() {
           }
         };
 
-        loadDeferredDataEnhancements();
+        dataLoadPromise
+          .then(() => loadDeferredDataEnhancements())
+          .catch(() => {});
+        safeUiTask("search events", () => setupSearchEvents());
+        safeUiTask("theme controls", () => setupThemeControls());
+        safeUiTask("map mode control", () => setupMapModeControl());
         safeUiTask("ranking groups", () => setupRankingGroups());
         safeUiTask("extended static text", () => updateExtendedStaticText());
         safeUiTask("compare controls", () => setupCompareControls());
@@ -14610,8 +15059,6 @@ async function init() {
       console.error("La capa politica no pudo completar su carga inicial:", error);
     });
 
-    updateExtendedStaticText();
-    openIntroModal();
   } catch (error) {
     document.body.classList.remove("globe-loading");
     console.error("Error al inicializar GeoRisk 3D:", error);

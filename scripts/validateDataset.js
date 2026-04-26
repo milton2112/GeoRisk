@@ -9,6 +9,7 @@ const datasetPath = path.join(projectRoot, "data", "countries_full.json");
 const ORGANIZATION_OPTIONAL_CODES = new Set(["BMU", "CS-KM", "-99", "FLK", "ATF", "PRI", "GUF", "ATA"]);
 const CONFLICT_OPTIONAL_CODES = new Set(["ATF", "GUF", "ATA"]);
 const LANGUAGE_OPTIONAL_CODES = new Set(["ATA", "ATF"]);
+const INFLATION_OPTIONAL_CODES = new Set(["ATA"]);
 const LOW_LEVEL_CONFLICT_WARNING_PATTERN = /batalla|battle|combate|combat|sitio|asedio|escaramuza|skirmish|hundimiento|bombardeo|bombing|ataque|attack|captura|capture|desembarco|landing|operaci[oÃ³]n|operation|acci[oÃ³]n|action|incursi[oÃ³]n|raid|naval battle|enfrentamiento|choque|uprising|levantamiento|rebeli[oÃ³]n|rebelion|massacre|masacre|blitz|affair|incident|incidente|expedition|expedici[oÃ³]n|occupation|ocupaci[oÃ³]n|campaign|campa[aÃ±]a|theater|theatre|pocket|disaster|blockade|bloqueo|assault|asalto|ambush|fight|defeat|ridge|fort|adlertag|viernes negro|bolsa del ruhr|toma de|paso de|vs /i;
 const CONFLICT_NOISE_NAME_PATTERN = /^Q\d+$/i;
 
@@ -53,7 +54,9 @@ async function main() {
     if (!hasValue(country.history?.type)) issues.push({ code, type: "history.type", detail: "sin tipo historico" });
     if (!hasValue(country.history?.origin)) issues.push({ code, type: "history.origin", detail: "sin origen historico" });
     if (!hasValue(country.politics?.system)) issues.push({ code, type: "politics.system", detail: "sin sistema politico" });
-    if (!hasValue(country.economy?.inflation)) issues.push({ code, type: "economy.inflation", detail: "sin inflacion" });
+    if (!INFLATION_OPTIONAL_CODES.has(code) && !hasValue(country.economy?.inflation)) {
+      issues.push({ code, type: "economy.inflation", detail: "sin inflacion" });
+    }
     if (!hasValue(country.metadata?.updatedAt)) issues.push({ code, type: "metadata.updatedAt", detail: "sin fecha de actualizacion" });
     if (!provenance) issues.push({ code, type: "metadata.provenance", detail: "sin trazabilidad" });
     if (!hasValue(quality?.status)) issues.push({ code, type: "metadata.quality.status", detail: "sin estado de calidad" });

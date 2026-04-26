@@ -27,7 +27,6 @@ const TERRITORY_LINKS = {
 
 const INFLATION_OVERRIDES = {
   AND: 3.2,
-  ATA: 2.1,
   ATF: 2.4,
   BMU: 3.3,
   "CS-KM": 3.4,
@@ -48,6 +47,7 @@ const INFLATION_OVERRIDES = {
 const BUILD_UPDATED_AT = "2026-04-11";
 
 const LANGUAGE_OVERRIDES = {
+  ATA: ["Sin idioma oficial continental", "Ingles", "Español", "Frances", "Ruso"],
   ARG: ["EspaÃ±ol"],
   AND: ["CatalÃ¡n"],
   ARE: ["Ãrabe"],
@@ -326,6 +326,12 @@ const SUBDIVISION_OVERRIDES = {
 };
 
 const ORGANIZATION_FILL_OVERRIDES = {
+  ATA: [
+    { name: "Sistema del Tratado Antartico", abbreviation: "ATS", startYear: 1959, endYear: null },
+    { name: "Tratado Antartico", abbreviation: null, startYear: 1959, endYear: null },
+    { name: "Comite Cientifico de Investigacion Antartica", abbreviation: "SCAR", startYear: 1958, endYear: null },
+    { name: "Convencion para la Conservacion de los Recursos Vivos Marinos Antarticos", abbreviation: "CCRVMA", startYear: 1982, endYear: null }
+  ],
   BHS: [
     { name: "OrganizaciÃ³n de las Naciones Unidas", abbreviation: "UN", startYear: 1973, endYear: null },
     { name: "OrganizaciÃ³n de los Estados Americanos", abbreviation: "OEA", startYear: 1982, endYear: null },
@@ -1709,6 +1715,11 @@ const TIMELINE_EVENT_OVERRIDES = {
 };
 
 const RELATION_OVERRIDES = {
+  ATA: {
+    allies: ["Argentina", "Australia", "Chile", "Francia", "Nueva Zelanda", "Noruega", "Reino Unido", "Estados Unidos", "Rusia"],
+    blocs: ["Sistema del Tratado Antartico"],
+    disputes: ["Reclamos antarticos congelados", "Gestion de recursos marinos", "Proteccion ambiental"]
+  },
   ARG: {
     allies: ["Brasil", "Uruguay", "Paraguay", "Bolivia"],
     blocs: ["Mercosur", "ONU"],
@@ -1787,6 +1798,13 @@ const RELATION_OVERRIDES = {
 };
 
 const RELATION_OVERRIDES_V2 = {
+  ATA: {
+    diplomaticPartners: ["Argentina", "Australia", "Chile", "Francia", "Nueva Zelanda", "Noruega", "Reino Unido", "Estados Unidos", "Rusia"],
+    diplomaticBlocs: ["Sistema del Tratado Antartico"],
+    economicPartners: ["Programas cientificos nacionales", "Operadores logisticos polares", "Turismo antartico regulado"],
+    currentRivals: [],
+    disputedTerritories: ["Antartida Argentina", "Territorio Antartico Chileno", "Territorio Antartico Britanico", "Territorio Antartico Australiano", "Dependencia Ross", "Tierra Adelia", "Tierra de la Reina Maud"]
+  },
   ARG: {
     militaryAllies: ["Brasil"],
     economicPartners: ["Brasil", "Uruguay", "Paraguay", "Bolivia", "Chile"],
@@ -2465,7 +2483,7 @@ const POLITICAL_SYSTEM_OVERRIDES = {
   ESH: "Parlamentarismo",
   FLK: "Monarquia constitucional",
   ATF: "Semipresidencialismo",
-  ATA: "Parlamentarismo",
+  ATA: "Sistema del Tratado Antartico",
   PSE: "Presidencialismo",
   "CS-KM": "Parlamentarismo",
   "-99": "Presidencialismo"
@@ -2518,17 +2536,27 @@ const ENTITY_FALLBACKS = {
   },
   ATA: {
     population: 1106,
-    geography: "Continente polar antartico",
-    history: { year: 1959, type: "territorio antartico", origin: "Tratado Antartico" },
-    politics: { system: "territorio antartico administrado por el Sistema del Tratado Antartico" },
+    geography: "Continente polar antartico sin poblacion permanente; presencia humana cientifica y logistica estacional",
+    history: { year: 1959, type: "tratado internacional", origin: "Tratado Antartico" },
+    politics: { system: "Sistema del Tratado Antartico" },
+    economy: {
+      exports: ["Investigacion cientifica", "Logistica polar", "Turismo antartico regulado"],
+      industries: ["Bases cientificas", "Apoyo logistico", "Observacion ambiental y climatica"]
+    },
     religion: {
-      summary: "Sin religion predominante",
-      composition: [{ name: "No afiliados / ateos / agnosticos", percentage: 100 }]
+      summary: "Sin poblacion permanente",
+      composition: []
     },
     capital: { name: "Sin capital oficial", population: null, isCapital: true },
     cities: [
       { name: "Estacion McMurdo", population: 1200, isCapital: false },
-      { name: "Base Esperanza", population: 70, isCapital: false }
+      { name: "Base Amundsen-Scott", population: 150, isCapital: false },
+      { name: "Base Esperanza", population: 70, isCapital: false },
+      { name: "Base Marambio", population: 55, isCapital: false },
+      { name: "Base Vostok", population: 25, isCapital: false },
+      { name: "Base Rothera", population: 100, isCapital: false },
+      { name: "Base Palmer", population: 46, isCapital: false },
+      { name: "Base Dumont d'Urville", population: 80, isCapital: false }
     ]
   },
   GUF: {
@@ -4164,7 +4192,10 @@ function buildRelationMetadata(code, historyEntry, organizations, rivals) {
       item => normalizeKey(item)
     ),
     disputes: uniqueBy(override.disputes || [], item => normalizeKey(item)),
-    disputedTerritories: uniqueBy(override.disputes || [], item => normalizeKey(item)),
+    disputedTerritories: uniqueBy(
+      compactList(compactList(override.disputedTerritories).length ? override.disputedTerritories : override.disputes),
+      item => normalizeKey(item)
+    ),
     protectorates: dependencies,
     dependencies
   };
@@ -5290,8 +5321,8 @@ for (const code of allCodes) {
       gdp: gdpData?.value ?? null,
       gdpPerCapita: gdpPerCapitaData?.value ?? null,
       inflation: inflation[code] ?? INFLATION_OVERRIDES[code] ?? null,
-      exports: compactList(baseData.exports),
-      industries: compactList(baseData.industries)
+      exports: compactList(baseData.exports).length ? compactList(baseData.exports) : compactList(fallback.economy?.exports),
+      industries: compactList(baseData.industries).length ? compactList(baseData.industries) : compactList(fallback.economy?.industries)
     },
     military: {
       active: militaryData?.active ?? null,
