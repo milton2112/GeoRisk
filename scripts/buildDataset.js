@@ -755,6 +755,7 @@ const CONFLICT_YEAR_HINTS = {
   "Batalla de la cota 233": { startYear: 1973, endYear: 1973 },
   "Enfrentamiento entre el USS Constellation y L'Insurgente": { startYear: 1799, endYear: 1799 },
   "Incursiones en Boulogne": { startYear: 1804, endYear: 1805 },
+  "Löwendalsfejden": { startYear: 1789, endYear: 1790 },
   "Guerra subsidiaria irano-saudi": { startYear: 1979, endYear: null, ongoing: true },
   "Operacion Mantis Religiosa": { startYear: 1988, endYear: 1988 },
   "Operacion Morvarid": { startYear: 1980, endYear: 1980 },
@@ -4517,6 +4518,16 @@ function expandReligionComposition(code, summary, composition) {
 }
 
 Object.assign(POST_BUILD_ENTITY_OVERRIDES, {
+  CHE: {
+    general: {
+      cities: [
+        { name: "Zurich", population: 421878, isCapital: false },
+        { name: "Ginebra", population: 203951, isCapital: false },
+        { name: "Basilea", population: 177654, isCapital: false },
+        { name: "Lausana", population: 140202, isCapital: false }
+      ]
+    }
+  },
   ARG: {
     general: {
       cities: [
@@ -5485,6 +5496,65 @@ for (const country of Object.values(result)) {
 const sanitizedResult = sanitizeDeep(result);
 
 fs.writeJsonSync("./data/countries_full.json", sanitizedResult, { spaces: 2 });
+
+const countryIndex = Object.fromEntries(
+  Object.entries(sanitizedResult).map(([code, country]) => [
+    code,
+    {
+      name: country.name,
+      continent: country.continent,
+      general: {
+        population: country.general?.population ?? 0,
+        geography: country.general?.geography ?? null,
+        officialName: country.general?.officialName ?? country.name,
+        historicalNames: country.general?.historicalNames || [],
+        symbols: country.general?.symbols || {},
+        capital: country.general?.capital || null,
+        capitals: country.general?.capitals || [],
+        languages: country.general?.languages || [],
+        stateStructure: country.general?.stateStructure || null,
+        subdivisions: country.general?.subdivisions || null,
+        cities: (country.general?.cities || []).slice(0, 5)
+      },
+      history: {
+        year: country.history?.year ?? null,
+        type: country.history?.type ?? null,
+        origin: country.history?.origin ?? null,
+        events: (country.history?.events || []).slice(0, 4)
+      },
+      economy: {
+        gdp: country.economy?.gdp ?? null,
+        gdpPerCapita: country.economy?.gdpPerCapita ?? null,
+        inflation: country.economy?.inflation ?? null,
+        exports: (country.economy?.exports || []).slice(0, 6),
+        industries: (country.economy?.industries || []).slice(0, 6)
+      },
+      military: {
+        active: country.military?.active ?? null,
+        reserve: country.military?.reserve ?? null,
+        conflicts: (country.military?.conflicts || []).slice(0, 8)
+      },
+      politics: {
+        system: country.politics?.system ?? null,
+        organizations: (country.politics?.organizations || []).slice(0, 8),
+        rivals: (country.politics?.rivals || []).slice(0, 8),
+        relations: country.politics?.relations || {}
+      },
+      religion: country.religion || {},
+      metadata: {
+        updatedAt: country.metadata?.updatedAt,
+        quality: country.metadata?.quality,
+        isIndex: true
+      },
+      conflicts: (country.conflicts || []).slice(0, 8)
+    }
+  ])
+);
+fs.writeJsonSync("./data/countries_index.json", sanitizeDeep(countryIndex), { spaces: 0 });
+fs.emptyDirSync("./data/countries");
+Object.entries(sanitizedResult).forEach(([code, country]) => {
+  fs.writeJsonSync(`./data/countries/${code}.json`, country, { spaces: 0 });
+});
 
 console.log(`Dataset generado: ${Object.keys(sanitizedResult).length} paises.`);
 /*

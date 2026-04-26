@@ -1,4 +1,4 @@
-const CACHE_VERSION = "2026-04-26-boot-3";
+const CACHE_VERSION = "2026-04-26-boot-5";
 const APP_CACHE = `geo-risk-app-${CACHE_VERSION}`;
 const TILE_CACHE = `geo-risk-tiles-${CACHE_VERSION}`;
 const APP_SHELL = [
@@ -7,7 +7,6 @@ const APP_SHELL = [
   "./style.css",
   "./script.js",
   "./app-runtime.js",
-  "./app-curation.js",
   "./app-theme.js",
   "./app-text.js",
   "./app-news-ui.js",
@@ -22,10 +21,8 @@ const APP_SHELL = [
   "./BACKEND_PLAN.md",
   "./favicon.ico",
   "./favicon.svg",
-  "./data/countries_full.json",
-  "./data/conflict_details.generated.json",
+  "./data/countries_index.json",
   "./data/geo_aliases.json",
-  "./data/world_countries.geo.json",
   "./data/world_countries_simplified.geo.json",
   "./data/raw/history.json",
   "./data/raw/politics.json",

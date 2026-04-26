@@ -59,8 +59,8 @@ body.globe-loading #map-mode-toggle {
 
 #boot-floating-chip {
   position: fixed;
-  left: 16px;
-  bottom: 92px;
+  right: 16px;
+  bottom: 16px;
   z-index: 1120;
   max-width: min(560px, calc(100vw - 32px));
   padding: 8px 10px;
@@ -83,7 +83,7 @@ body.globe-loading #map-mode-toggle {
   #boot-floating-chip {
     left: 12px;
     right: 12px;
-    bottom: 136px;
+    bottom: 96px;
     max-width: none;
   }
 }

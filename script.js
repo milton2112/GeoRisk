@@ -57,7 +57,7 @@ const {
   getDeviceProfile: runtimeGetDeviceProfile = fallbackGetDeviceProfile,
   getRenderProfileText: runtimeGetRenderProfileText = fallbackGetRenderProfileText
 } = window.GeoRiskRuntime || {};
-const {
+let {
   EXTRA_CONFLICT_DETAIL_OVERRIDES: curatedConflictDetailOverrides = {},
   EXTRA_CURATED_TIMELINE_EXTRAS: curatedTimelineExtras = {},
   EXTRA_TIMELINE_DETAIL_OVERRIDES: curatedTimelineDetailOverrides = {},
@@ -70,7 +70,7 @@ const countryPanelUi = window.GeoRiskCountryPanel || {};
 const timelineConflictUi = window.GeoRiskTimelineConflicts || {};
 const sharedTheme = window.GeoRiskTheme || {};
 const sharedText = window.GeoRiskText || {};
-const APP_VERSION = "2026-04-26-boot-3";
+const APP_VERSION = "2026-04-26-boot-5";
 
 const QUALITY_PRESET_OVERRIDES = {
   auto: null,
@@ -1432,6 +1432,9 @@ let activeNewsCountryCode = "";
 let loadDataPromise = null;
 let loadSupplementalDataPromise = null;
 let loadDeferredDataEnhancementsPromise = null;
+let loadFullCountryDataPromise = null;
+let loadRuntimeCurationPromise = null;
+const countryDetailPromises = new Map();
 let loadMapPromise = null;
 let loadMapMode = "";
 let loadMapPath = "";
@@ -6210,6 +6213,9 @@ function dismissSearchInput() {
 
 function renderCountry(country, fallbackName) {
   const countryCode = getCountryCodeByObject(country);
+  if (countryCode && country?.metadata?.isIndex) {
+    loadCountryDetail(countryCode);
+  }
   const symbolAssets = getCountrySymbolAssets(country, countryCode);
   try {
   const defaultTimelineFilters =
@@ -12117,11 +12123,16 @@ async function loadData() {
   }
 
   loadDataPromise = measureBootStep("loadData", async () => {
-    markBootStepStart("fetchCountries");
-    const countriesPromise = fetchResourceCached(`./data/countries_full.json?v=${APP_VERSION}`, "json")
+    markBootStepStart("fetchCountriesIndex");
+    const countriesPromise = fetchResourceCached(`./data/countries_index.json?v=${APP_VERSION}`, "json")
       .then(result => {
-        markBootStepEnd("fetchCountries");
+        markBootStepEnd("fetchCountriesIndex");
         return result;
+      })
+      .catch(async error => {
+        markBootStepEnd("fetchCountriesIndex", { fallback: true });
+        console.warn("No se pudo cargar countries_index.json; usando dataset completo:", error);
+        return fetchResourceCached(`./data/countries_full.json?v=${APP_VERSION}`, "json");
       });
     markBootStepStart("fetchGeoAliases");
     const aliasPromise = fetchResourceCached(`./data/geo_aliases.json?v=${APP_VERSION}`, "json")
@@ -12135,26 +12146,15 @@ async function loadData() {
       aliasPromise
     ]);
 
-    countriesData = countriesJson;
     mapNameAliasOverrides = aliasConfigJson?.mapNameAliases || {};
     mapNameAliasIndex = buildNormalizedAliasIndex(mapNameAliasOverrides);
     worldBankNameAliasOverrides = aliasConfigJson?.worldBankNameAliases || {};
 
-    const countryEntries = Object.entries(countriesData);
-    for (let index = 0; index < countryEntries.length; index += 1) {
-      const [code, country] = countryEntries[index];
-      country.code = code;
-      countryCodeLookup.set(country, code);
-      sanitizeCountryData(country);
-      if (index > 0 && index % 12 === 0) {
-        await yieldToMainThread();
-      }
-    }
-    worldPopulationTotal = Object.values(countriesData).reduce(
-      (sum, country) => sum + (country.general?.population || 0),
-      0
-    );
+    await hydrateCountriesData(countriesJson);
     refreshLoadedCountryLayers();
+    setTimeout(() => {
+      loadFullCountryData();
+    }, isMobileLayout() ? 1800 : 900);
   });
 
   return loadDataPromise;
@@ -12163,6 +12163,148 @@ async function loadData() {
 function refreshGlobalStats() {
   runCriticalGlobalStats();
   scheduleDeferredGlobalStats(true);
+}
+
+function loadScriptOnce(src, globalFlag) {
+  if (globalFlag && window[globalFlag]) {
+    return Promise.resolve(window[globalFlag]);
+  }
+
+  const existing = document.querySelector(`script[data-dynamic-src="${src}"]`);
+  if (existing?.dataset.loaded === "true") {
+    return Promise.resolve(globalFlag ? window[globalFlag] : true);
+  }
+
+  return new Promise((resolve, reject) => {
+    const script = existing || document.createElement("script");
+    script.src = src;
+    script.async = true;
+    script.dataset.dynamicSrc = src;
+    script.addEventListener("load", () => {
+      script.dataset.loaded = "true";
+      resolve(globalFlag ? window[globalFlag] : true);
+    }, { once: true });
+    script.addEventListener("error", () => reject(new Error(`No se pudo cargar ${src}`)), { once: true });
+    if (!existing) {
+      document.body.appendChild(script);
+    }
+  });
+}
+
+async function loadRuntimeCuration() {
+  if (loadRuntimeCurationPromise) {
+    return loadRuntimeCurationPromise;
+  }
+
+  loadRuntimeCurationPromise = measureBootStep("loadRuntimeCuration", async () => {
+    await loadScriptOnce(`./app-curation.js?v=${APP_VERSION}`, "GeoRiskCuration");
+    const curation = window.GeoRiskCuration || {};
+    curatedConflictDetailOverrides = curation.EXTRA_CONFLICT_DETAIL_OVERRIDES || {};
+    curatedTimelineExtras = curation.EXTRA_CURATED_TIMELINE_EXTRAS || {};
+    curatedTimelineDetailOverrides = curation.EXTRA_TIMELINE_DETAIL_OVERRIDES || {};
+    curatedCountryOverrides = curation.COUNTRY_CURATION_OVERRIDES || {};
+    Object.entries(countriesData).forEach(([code, country]) => {
+      if (curatedCountryOverrides[code]) {
+        mergeCountryCuration(country, curatedCountryOverrides[code]);
+        sanitizeCountryData(country);
+      }
+    });
+    mergeImportedConflictDetails(curatedConflictDetailOverrides);
+    refreshLoadedCountryLayers();
+    refreshGlobalStats();
+    rerenderCurrentPanel?.();
+    return curation;
+  }).catch(error => {
+    console.warn("No se pudo cargar la curaduria diferida:", error);
+    return {};
+  });
+
+  return loadRuntimeCurationPromise;
+}
+
+async function hydrateCountriesData(countriesJson, { refresh = false } = {}) {
+  countriesData = countriesJson || {};
+  const countryEntries = Object.entries(countriesData);
+  for (let index = 0; index < countryEntries.length; index += 1) {
+    const [code, country] = countryEntries[index];
+    country.code = code;
+    countryCodeLookup.set(country, code);
+    sanitizeCountryData(country);
+    if (index > 0 && index % 12 === 0) {
+      await yieldToMainThread();
+    }
+  }
+  worldPopulationTotal = Object.values(countriesData).reduce(
+    (sum, country) => sum + (country.general?.population || 0),
+    0
+  );
+  if (refresh) {
+    refreshLoadedCountryLayers();
+    refreshGlobalStats();
+    rerenderCurrentPanel?.();
+  }
+}
+
+async function loadFullCountryData() {
+  if (loadFullCountryDataPromise) {
+    return loadFullCountryDataPromise;
+  }
+
+  loadFullCountryDataPromise = measureBootStep("loadFullCountries", async () => {
+    markBootStepStart("fetchCountriesFull");
+    const countriesJson = await fetchResourceCached(`./data/countries_full.json?v=${APP_VERSION}`, "json")
+      .then(result => {
+        markBootStepEnd("fetchCountriesFull");
+        return result;
+      });
+    await hydrateCountriesData(countriesJson, { refresh: true });
+    return countriesData;
+  }).catch(error => {
+    console.warn("No se pudo hidratar el dataset completo:", error);
+    return countriesData;
+  });
+
+  return loadFullCountryDataPromise;
+}
+
+async function loadCountryDetail(code) {
+  const normalizedCode = String(code || "").trim();
+  if (!normalizedCode) {
+    return null;
+  }
+  if (!countriesData[normalizedCode]?.metadata?.isIndex) {
+    return countriesData[normalizedCode] || null;
+  }
+  if (countryDetailPromises.has(normalizedCode)) {
+    return countryDetailPromises.get(normalizedCode);
+  }
+
+  const promise = fetchResourceCached(`./data/countries/${encodeURIComponent(normalizedCode)}.json?v=${APP_VERSION}`, "json")
+    .then(async country => {
+      if (!country) {
+        return countriesData[normalizedCode] || null;
+      }
+      country.code = normalizedCode;
+      country.metadata = {
+        ...(country.metadata || {}),
+        isIndex: false
+      };
+      countriesData[normalizedCode] = country;
+      countryCodeLookup.set(country, normalizedCode);
+      sanitizeCountryData(country);
+      refreshLoadedCountryLayers();
+      if (currentPanelState.type === "country" && currentPanelState.code === normalizedCode) {
+        rerenderCurrentPanel?.();
+      }
+      return country;
+    })
+    .catch(error => {
+      console.warn(`No se pudo cargar detalle de ${normalizedCode}:`, error);
+      return countriesData[normalizedCode] || null;
+    });
+
+  countryDetailPromises.set(normalizedCode, promise);
+  return promise;
 }
 
 function shuffleArray(items) {
@@ -15022,6 +15164,8 @@ async function init() {
         };
 
         dataLoadPromise
+          .then(() => loadFullCountryData())
+          .then(() => loadRuntimeCuration())
           .then(() => loadDeferredDataEnhancements())
           .catch(() => {});
         safeUiTask("search events", () => setupSearchEvents());

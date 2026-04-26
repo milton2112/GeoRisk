@@ -80778,6 +80778,12 @@
           "ongoing": false
         },
         {
+          "name": "Löwendalsfejden",
+          "startYear": 1789,
+          "endYear": 1790,
+          "ongoing": false
+        },
+        {
           "name": "Frente Oriental de la Segunda Guerra Mundial en Europa",
           "startYear": 1939,
           "endYear": 1945,
@@ -80851,12 +80857,6 @@
         },
         {
           "name": "Batalla de Largs",
-          "startYear": null,
-          "endYear": null,
-          "ongoing": false
-        },
-        {
-          "name": "Löwendalsfejden",
           "startYear": null,
           "endYear": null,
           "ongoing": false
@@ -81877,6 +81877,12 @@
         "ongoing": false
       },
       {
+        "name": "Löwendalsfejden",
+        "startYear": 1789,
+        "endYear": 1790,
+        "ongoing": false
+      },
+      {
         "name": "Frente Oriental de la Segunda Guerra Mundial en Europa",
         "startYear": 1939,
         "endYear": 1945,
@@ -81950,12 +81956,6 @@
       },
       {
         "name": "Batalla de Largs",
-        "startYear": null,
-        "endYear": null,
-        "ongoing": false
-      },
-      {
-        "name": "Löwendalsfejden",
         "startYear": null,
         "endYear": null,
         "ongoing": false
@@ -101262,6 +101262,12 @@
           "ongoing": false
         },
         {
+          "name": "Löwendalsfejden",
+          "startYear": 1789,
+          "endYear": 1790,
+          "ongoing": false
+        },
+        {
           "name": "Batalla de Svensksund (1790)",
           "startYear": 1790,
           "endYear": 1790,
@@ -101719,12 +101725,6 @@
         },
         {
           "name": "Escaramuza en la península de Chukotka",
-          "startYear": null,
-          "endYear": null,
-          "ongoing": false
-        },
-        {
-          "name": "Löwendalsfejden",
           "startYear": null,
           "endYear": null,
           "ongoing": false
@@ -102733,6 +102733,12 @@
         "ongoing": false
       },
       {
+        "name": "Löwendalsfejden",
+        "startYear": 1789,
+        "endYear": 1790,
+        "ongoing": false
+      },
+      {
         "name": "Batalla de Svensksund (1790)",
         "startYear": 1790,
         "endYear": 1790,
@@ -103195,12 +103201,6 @@
         "ongoing": false
       },
       {
-        "name": "Löwendalsfejden",
-        "startYear": null,
-        "endYear": null,
-        "ongoing": false
-      },
-      {
         "name": "Naval battles on Lake Ladoga",
         "startYear": null,
         "endYear": null,
@@ -103283,28 +103283,23 @@
       },
       "cities": [
         {
-          "name": "Zürich",
-          "population": 423193,
+          "name": "Zurich",
+          "population": 421878,
           "isCapital": false
         },
         {
-          "name": "Genève",
-          "population": 203401,
+          "name": "Ginebra",
+          "population": 203951,
           "isCapital": false
         },
         {
-          "name": "B�le",
-          "population": 173064,
+          "name": "Basilea",
+          "population": 177654,
           "isCapital": false
         },
         {
-          "name": "Lausanne",
-          "population": 140619,
-          "isCapital": false
-        },
-        {
-          "name": "BERNE",
-          "population": 134290,
+          "name": "Lausana",
+          "population": 140202,
           "isCapital": false
         }
       ]
