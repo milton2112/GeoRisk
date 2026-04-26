@@ -7,6 +7,7 @@ const full = await fs.readJson(path.join(projectRoot, "data", "countries_full.js
 const index = await fs.readJson(path.join(projectRoot, "data", "countries_index.json"));
 const sw = await fs.readFile(path.join(projectRoot, "sw.js"), "utf8");
 const indexHtml = await fs.readFile(path.join(projectRoot, "index.html"), "utf8");
+const script = await fs.readFile(path.join(projectRoot, "script.js"), "utf8");
 const perCountryDir = path.join(projectRoot, "data", "countries");
 const perCountryFiles = (await fs.readdir(perCountryDir)).filter(file => file.endsWith(".json"));
 
@@ -26,5 +27,9 @@ assert.ok(!sw.includes("./data/countries_full.json\""), "countries_full no debe 
 assert.ok(!sw.includes("./data/conflict_details.generated.json\""), "conflictos pesados no deben precachearse al inicio");
 assert.ok(!sw.includes("./app-curation.js\""), "app-curation debe cargarse despues del arranque inicial");
 assert.ok(!indexHtml.includes("app-curation.js"), "index.html no debe bloquear el arranque con app-curation");
+assert.ok(!script.includes(".then(() => loadFullCountryData())"), "countries_full no debe encadenarse al arranque inmediato");
+assert.ok(script.includes("function scheduleFullCountryDataLoad()"), "countries_full debe agendarse en una funcion aislada");
+assert.ok(/isMobileLayout\(\)\s*\?\s*90000\s*:\s*45000/.test(script), "countries_full debe quedar muy diferido despues del arranque visible");
+assert.ok(script.includes("requestIdleCallback(startFullLoad"), "countries_full debe esperar un momento ocioso cuando el navegador lo soporte");
 
 console.log("startup-data.test.js ok");

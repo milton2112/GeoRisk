@@ -70,7 +70,7 @@ const countryPanelUi = window.GeoRiskCountryPanel || {};
 const timelineConflictUi = window.GeoRiskTimelineConflicts || {};
 const sharedTheme = window.GeoRiskTheme || {};
 const sharedText = window.GeoRiskText || {};
-const APP_VERSION = "2026-04-26-boot-5";
+const APP_VERSION = "2026-04-26-boot-7";
 
 const QUALITY_PRESET_OVERRIDES = {
   auto: null,
@@ -1435,6 +1435,12 @@ let loadDeferredDataEnhancementsPromise = null;
 let loadFullCountryDataPromise = null;
 let loadRuntimeCurationPromise = null;
 const countryDetailPromises = new Map();
+const deferredDataStatus = {
+  countryIndex: false,
+  fullCountries: false,
+  runtimeCuration: false,
+  wikipediaConflicts: false
+};
 let loadMapPromise = null;
 let loadMapMode = "";
 let loadMapPath = "";
@@ -6646,7 +6652,13 @@ function updateAppStatusPanel(extra = {}) {
     const avgQuality = total
       ? Math.round(Object.values(countriesData).reduce((sum, country) => sum + (country.metadata?.quality?.score || 0), 0) / total)
       : 0;
-    datasetChip.innerHTML = `<strong>${currentLanguage === "en" ? "Dataset" : "Dataset"}:</strong> ${currentLanguage === "en" ? "validated" : "validado"} · ${avgQuality}/100 · ${total} ${currentLanguage === "en" ? "entries" : "entradas"}`;
+    const loadStateParts = [
+      deferredDataStatus.countryIndex ? (currentLanguage === "en" ? "index" : "indice") : null,
+      deferredDataStatus.runtimeCuration ? (currentLanguage === "en" ? "curation" : "curaduria") : null,
+      deferredDataStatus.wikipediaConflicts ? (currentLanguage === "en" ? "conflicts" : "conflictos") : null,
+      deferredDataStatus.fullCountries ? (currentLanguage === "en" ? "full" : "completo") : (currentLanguage === "en" ? "full deferred" : "completo diferido")
+    ].filter(Boolean);
+    datasetChip.innerHTML = `<strong>${currentLanguage === "en" ? "Dataset" : "Dataset"}:</strong> ${currentLanguage === "en" ? "validated" : "validado"} · ${avgQuality}/100 · ${total} ${currentLanguage === "en" ? "entries" : "entradas"} · ${escapeHtml(loadStateParts.join(" / "))}`;
   }
 }
 
@@ -12102,8 +12114,10 @@ async function loadWikipediaConflictDetails() {
       const wikipediaConflictJson = await fetchResourceCached(`./data/conflict_details.generated.json?v=${APP_VERSION}`, "json");
       wikipediaConflictDetailOverrides = wikipediaConflictJson?.conflicts || wikipediaConflictJson || {};
       mergeImportedConflictDetails(wikipediaConflictDetailOverrides);
+      deferredDataStatus.wikipediaConflicts = true;
       markBootStepEnd("fetchWikipediaConflicts");
       refreshGlobalStats();
+      updateAppStatusPanel();
       rerenderCurrentPanel?.();
       return wikipediaConflictDetailOverrides;
     } catch (error) {
@@ -12151,10 +12165,10 @@ async function loadData() {
     worldBankNameAliasOverrides = aliasConfigJson?.worldBankNameAliases || {};
 
     await hydrateCountriesData(countriesJson);
+    deferredDataStatus.countryIndex = true;
     refreshLoadedCountryLayers();
-    setTimeout(() => {
-      loadFullCountryData();
-    }, isMobileLayout() ? 1800 : 900);
+    updateAppStatusPanel();
+    scheduleFullCountryDataLoad();
   });
 
   return loadDataPromise;
@@ -12210,8 +12224,10 @@ async function loadRuntimeCuration() {
       }
     });
     mergeImportedConflictDetails(curatedConflictDetailOverrides);
+    deferredDataStatus.runtimeCuration = true;
     refreshLoadedCountryLayers();
     refreshGlobalStats();
+    updateAppStatusPanel();
     rerenderCurrentPanel?.();
     return curation;
   }).catch(error => {
@@ -12220,6 +12236,29 @@ async function loadRuntimeCuration() {
   });
 
   return loadRuntimeCurationPromise;
+}
+
+function scheduleFullCountryDataLoad() {
+  const delayMs = isMobileLayout() ? 90000 : 45000;
+  const startFullLoad = () => {
+    if (document.visibilityState === "hidden") {
+      document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "visible") {
+          loadFullCountryData();
+        }
+      }, { once: true });
+      return;
+    }
+    loadFullCountryData();
+  };
+
+  setTimeout(() => {
+    if (window.requestIdleCallback) {
+      window.requestIdleCallback(startFullLoad, { timeout: 30000 });
+      return;
+    }
+    setTimeout(startFullLoad, 1500);
+  }, delayMs);
 }
 
 async function hydrateCountriesData(countriesJson, { refresh = false } = {}) {
@@ -12258,6 +12297,8 @@ async function loadFullCountryData() {
         return result;
       });
     await hydrateCountriesData(countriesJson, { refresh: true });
+    deferredDataStatus.fullCountries = true;
+    updateAppStatusPanel();
     return countriesData;
   }).catch(error => {
     console.warn("No se pudo hidratar el dataset completo:", error);
@@ -15164,7 +15205,6 @@ async function init() {
         };
 
         dataLoadPromise
-          .then(() => loadFullCountryData())
           .then(() => loadRuntimeCuration())
           .then(() => loadDeferredDataEnhancements())
           .catch(() => {});
@@ -15197,7 +15237,7 @@ async function init() {
       loadWikipediaConflictDetails().catch(error => {
         console.warn("No se pudieron aplicar los conflictos enriquecidos tras el arranque:", error);
       });
-    }, isMobileLayout() ? 4200 : 2800);
+    }, isMobileLayout() ? 9000 : 6000);
 
     overlayLoadPromise?.catch(error => {
       console.error("La capa politica no pudo completar su carga inicial:", error);

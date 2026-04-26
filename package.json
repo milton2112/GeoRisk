@@ -9,12 +9,13 @@
     "validate:data": "node scripts/validateDataset.js",
     "test:normalization": "node scripts/tests/normalization.test.js",
     "test:conflicts": "node scripts/tests/conflict-cleaning.test.js",
+    "test:conflict-audit": "node scripts/tests/conflict-audit.test.js",
     "test:logic": "node scripts/tests/logic.test.js",
     "test:startup": "node scripts/tests/startup-data.test.js",
     "test:country-matching": "node scripts/tests/country-matching.test.js",
     "test:modal-render": "node scripts/tests/modal-render.test.js",
     "test:map-coverage": "node scripts/tests/map-coverage.test.js",
-    "test": "npm run test:normalization && npm run test:conflicts && npm run test:logic && npm run test:startup && npm run test:country-matching && npm run test:modal-render && npm run test:map-coverage && npm run validate:data"
+    "test": "npm run test:normalization && npm run test:conflicts && npm run test:conflict-audit && npm run test:logic && npm run test:startup && npm run test:country-matching && npm run test:modal-render && npm run test:map-coverage && npm run validate:data"
   },
   "dependencies": {
     "csv-parser": "^3.0.0",

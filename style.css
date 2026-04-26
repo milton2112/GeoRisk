@@ -76,15 +76,17 @@ body.globe-loading #map-mode-toggle {
 }
 
 #boot-floating-chip.is-complete {
-  opacity: 0.78;
+  opacity: 0.62;
+  transform: translateY(4px);
 }
 
 @media (max-width: 760px) {
   #boot-floating-chip {
     left: 12px;
     right: 12px;
-    bottom: 96px;
+    bottom: calc(88px + env(safe-area-inset-bottom, 0px));
     max-width: none;
+    font-size: 0.72rem;
   }
 }
 
