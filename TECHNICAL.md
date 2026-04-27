@@ -27,6 +27,8 @@ GeoRisk es una aplicacion frontend orientada a exploracion geopolitica con datas
 ### Datos
 
 - `data/countries_full.json`: dataset curado principal.
+- `data/countries_index.json`: indice compacto para el arranque inicial.
+- `data/countries/*.json`: fichas completas por pais, cargadas bajo demanda.
 - `data/geo_aliases.json`: aliases geograficos y nombres alternativos del mapa.
 - `data/world_countries.geo.json`: geometria principal.
 - `data/world_countries_simplified.geo.json`: geometria simplificada para modo 2D.
@@ -44,12 +46,13 @@ GeoRisk es una aplicacion frontend orientada a exploracion geopolitica con datas
 
 ## Flujo de datos
 
-1. La app carga `data/countries_full.json`.
-2. Carga `data/geo_aliases.json` y `population.csv` para reforzar matching y capas.
-3. Normaliza el dataset en memoria.
-4. Construye aliases de busqueda, capas tematicas, rankings y paneles.
-5. En el mapa, resuelve clicks del GeoJSON a codigos ISO o especiales.
-6. La ficha modal, timeline, comparador, quiz y noticias consumen el estado ya curado.
+1. La app carga `data/countries_index.json` y `data/geo_aliases.json`.
+2. Renderiza mapa, busqueda basica, capas y ficha inicial con datos compactos.
+3. Si el usuario abre una ficha indexada, carga `data/countries/<codigo>.json` bajo demanda.
+4. Carga curaduria y datos suplementarios despues del arranque visible.
+5. Difiere `data/countries_full.json` a un momento ocioso para no congelar el globo.
+6. En el mapa, resuelve clicks del GeoJSON a codigos ISO o especiales.
+7. La ficha modal, timeline, comparador, quiz y noticias consumen el estado ya curado.
 
 ## Matching de paises
 
@@ -94,6 +97,8 @@ La estrategia actual combina:
 - `requestRenderMode`;
 - scheduler de render para evitar repintados innecesarios;
 - caches de recursos y GeoJSON preparado;
+- cache runtime con limite y reintento limpio de descargas fallidas;
+- service worker con precache liviano y tolerante a fallas parciales;
 - degradacion automatica con FPS suavizado;
 - supresion temporal de hover cuando la escena cae;
 - limpieza de labels si el rendimiento lo necesita.

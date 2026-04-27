@@ -25,12 +25,21 @@ for (const code of ["ATA", "GRL", "GUF", "TWN", "PSE", "-99"]) {
 assert.ok(sw.includes("./data/countries_index.json"));
 assert.ok(!sw.includes("./data/countries_full.json\""), "countries_full no debe precachearse en el shell inicial");
 assert.ok(!sw.includes("./data/conflict_details.generated.json\""), "conflictos pesados no deben precachearse al inicio");
+assert.ok(!sw.includes("./data/raw/history.json\""), "raw history debe cargarse bajo demanda");
+assert.ok(!sw.includes("./data/raw/politics.json\""), "raw politics debe cargarse bajo demanda");
+assert.ok(!sw.includes("./data/raw/inflation.json\""), "raw inflation debe cargarse bajo demanda");
+assert.ok(!sw.includes("./data/raw/religion.json\""), "raw religion debe cargarse bajo demanda");
 assert.ok(!sw.includes("./app-curation.js\""), "app-curation debe cargarse despues del arranque inicial");
+assert.ok(sw.includes("Promise.allSettled"), "service worker debe tolerar fallas parciales de precache");
 assert.ok(!indexHtml.includes("app-curation.js"), "index.html no debe bloquear el arranque con app-curation");
+assert.ok(Buffer.byteLength(indexHtml) < 35000, "index.html debe mantenerse liviano");
+assert.ok(Buffer.byteLength(sw) < 7000, "service worker debe mantenerse liviano");
 assert.ok(!script.includes(".then(() => loadFullCountryData())"), "countries_full no debe encadenarse al arranque inmediato");
 assert.ok(script.includes("function scheduleFullCountryDataLoad()"), "countries_full debe agendarse en una funcion aislada");
 assert.ok(/isMobileLayout\(\)\s*\?\s*90000\s*:\s*45000/.test(script), "countries_full debe quedar muy diferido despues del arranque visible");
 assert.ok(script.includes("requestIdleCallback(startFullLoad"), "countries_full debe esperar un momento ocioso cuando el navegador lo soporte");
+assert.ok(script.includes("MAX_RESOURCE_CACHE_ENTRIES = 36"), "cache en memoria debe tener limite");
+assert.ok(script.includes("resourceCache.delete(cacheKey)"), "descargas fallidas deben poder reintentarse");
 
 for (const country of Object.values(index)) {
   const relations = country.politics?.relations || {};

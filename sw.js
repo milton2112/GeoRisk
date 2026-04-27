@@ -1,4 +1,4 @@
-const CACHE_VERSION = "2026-04-26-boot-8";
+const CACHE_VERSION = "2026-04-26-boot-9";
 const APP_CACHE = `geo-risk-app-${CACHE_VERSION}`;
 const TILE_CACHE = `geo-risk-tiles-${CACHE_VERSION}`;
 const APP_SHELL = [
@@ -24,10 +24,6 @@ const APP_SHELL = [
   "./data/countries_index.json",
   "./data/geo_aliases.json",
   "./data/world_countries_simplified.geo.json",
-  "./data/raw/history.json",
-  "./data/raw/politics.json",
-  "./data/raw/inflation.json",
-  "./data/raw/religion.json",
   "./assets/flags/ARG.svg",
   "./assets/flags/BRA.svg",
   "./assets/flags/USA.svg",
@@ -55,7 +51,15 @@ const APP_SHELL = [
 
 self.addEventListener("install", event => {
   event.waitUntil(
-    caches.open(APP_CACHE).then(cache => cache.addAll(APP_SHELL))
+    caches.open(APP_CACHE).then(cache =>
+      Promise.allSettled(
+        APP_SHELL.map(resource =>
+          cache.add(resource).catch(error => {
+            console.warn("GeoRisk cache inicial omitido:", resource, error);
+          })
+        )
+      )
+    )
   );
   self.skipWaiting();
 });

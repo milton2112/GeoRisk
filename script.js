@@ -70,7 +70,7 @@ const countryPanelUi = window.GeoRiskCountryPanel || {};
 const timelineConflictUi = window.GeoRiskTimelineConflicts || {};
 const sharedTheme = window.GeoRiskTheme || {};
 const sharedText = window.GeoRiskText || {};
-const APP_VERSION = "2026-04-26-boot-8";
+const APP_VERSION = "2026-04-26-boot-9";
 
 const QUALITY_PRESET_OVERRIDES = {
   auto: null,
@@ -1124,6 +1124,31 @@ let activeClickHandler = null;
 let mapSearchAliasesRegistered = false;
 let activeImagerySignature = "";
 const resourceCache = new Map();
+const MAX_RESOURCE_CACHE_ENTRIES = 36;
+
+function shouldKeepResourceCacheEntry(key) {
+  return [
+    "countries_index.json",
+    "countries_full.json",
+    "geo_aliases.json",
+    "world_countries_simplified.geo.json",
+    "world_countries.geo.json"
+  ].some(fragment => key.includes(fragment));
+}
+
+function pruneResourceCache() {
+  if (resourceCache.size <= MAX_RESOURCE_CACHE_ENTRIES) {
+    return;
+  }
+  for (const key of resourceCache.keys()) {
+    if (resourceCache.size <= MAX_RESOURCE_CACHE_ENTRIES) {
+      break;
+    }
+    if (!shouldKeepResourceCacheEntry(key)) {
+      resourceCache.delete(key);
+    }
+  }
+}
 
 function createSatelliteImageryProvider(maximumLevel = null) {
   return new Cesium.UrlTemplateImageryProvider({
@@ -1146,14 +1171,20 @@ function fetchResourceCached(url, responseType = "json") {
     return resourceCache.get(cacheKey);
   }
 
-  const promise = fetch(url, { cache: "default" }).then(async response => {
-    if (!response.ok) {
-      throw new Error(`No se pudo cargar ${url}: ${response.status}`);
-    }
-    return responseType === "text" ? response.text() : response.json();
-  });
+  const promise = fetch(url, { cache: "default" })
+    .then(async response => {
+      if (!response.ok) {
+        throw new Error(`No se pudo cargar ${url}: ${response.status}`);
+      }
+      return responseType === "text" ? response.text() : response.json();
+    })
+    .catch(error => {
+      resourceCache.delete(cacheKey);
+      throw error;
+    });
 
   resourceCache.set(cacheKey, promise);
+  pruneResourceCache();
   return promise;
 }
 
