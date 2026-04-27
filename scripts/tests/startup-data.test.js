@@ -35,8 +35,15 @@ assert.ok(!indexHtml.includes("app-curation.js"), "index.html no debe bloquear e
 assert.ok(Buffer.byteLength(indexHtml) < 35000, "index.html debe mantenerse liviano");
 assert.ok(Buffer.byteLength(sw) < 7000, "service worker debe mantenerse liviano");
 assert.ok(indexHtml.includes("intro-runtime-grid"), "portada debe mostrar estado runtime");
+assert.ok(indexHtml.includes("intro-data-grid"), "portada debe mostrar cobertura del dataset");
+for (const id of ["intro-country-count", "intro-conflict-count", "intro-layer-count", "intro-special-count"]) {
+  assert.ok(indexHtml.includes(id), `portada debe exponer ${id}`);
+}
 assert.ok(indexHtml.includes("clear-local-cache-button"), "UI debe permitir limpiar cache local");
 assert.ok(!indexHtml.includes("Ã—"), "botones de cierre no deben tener mojibake visible");
+for (const token of ["AÃ", "Ãƒ", "Ã‚", "Â¿", "Â¡", "Ã—"]) {
+  assert.ok(!indexHtml.includes(token), `index.html no debe exponer mojibake visible: ${token}`);
+}
 assert.ok(!script.includes(".then(() => loadFullCountryData())"), "countries_full no debe encadenarse al arranque inmediato");
 assert.ok(script.includes("function scheduleFullCountryDataLoad()"), "countries_full debe agendarse en una funcion aislada");
 assert.ok(/isMobileLayout\(\)\s*\?\s*90000\s*:\s*45000/.test(script), "countries_full debe quedar muy diferido despues del arranque visible");

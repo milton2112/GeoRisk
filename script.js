@@ -70,7 +70,7 @@ const countryPanelUi = window.GeoRiskCountryPanel || {};
 const timelineConflictUi = window.GeoRiskTimelineConflicts || {};
 const sharedTheme = window.GeoRiskTheme || {};
 const sharedText = window.GeoRiskText || {};
-const APP_VERSION = "2026-04-26-boot-10";
+const APP_VERSION = "2026-04-26-boot-11";
 
 const QUALITY_PRESET_OVERRIDES = {
   auto: null,
@@ -1018,6 +1018,10 @@ function updateIntroRuntimeStatus() {
   const dataState = document.getElementById("intro-data-state");
   const offlineState = document.getElementById("intro-offline-state");
   const renderState = document.getElementById("intro-render-state");
+  const countryCount = document.getElementById("intro-country-count");
+  const conflictCount = document.getElementById("intro-conflict-count");
+  const layerCount = document.getElementById("intro-layer-count");
+  const specialCount = document.getElementById("intro-special-count");
   const summary = getBootProfileSummary();
   if (bootState) {
     bootState.textContent = summary.total
@@ -1037,6 +1041,31 @@ function updateIntroRuntimeStatus() {
   }
   if (renderState) {
     renderState.textContent = getRenderProfileLabel();
+  }
+  const countries = Object.values(countriesData || {});
+  if (countryCount) {
+    countryCount.textContent = countries.length ? formatNumber(countries.length) : "0";
+  }
+  if (conflictCount) {
+    const names = new Set();
+    countries.forEach(country => {
+      (country.conflicts || []).forEach(conflict => {
+        const name = typeof conflict === "string" ? conflict : conflict?.name;
+        if (name) names.add(normalizeText(name));
+      });
+      (country.military?.conflicts || []).forEach(conflict => {
+        const name = typeof conflict === "string" ? conflict : conflict?.name;
+        if (name) names.add(normalizeText(name));
+      });
+    });
+    conflictCount.textContent = formatNumber(names.size);
+  }
+  if (layerCount) {
+    layerCount.textContent = formatNumber(document.querySelectorAll("#theme-select option").length || 0);
+  }
+  if (specialCount) {
+    const specialCodes = ["ATA", "GRL", "GUF", "TWN", "PSE", "-99", "CS-KM", "SOM", "CYN"];
+    specialCount.textContent = formatNumber(specialCodes.filter(code => countriesData?.[code]).length);
   }
 }
 

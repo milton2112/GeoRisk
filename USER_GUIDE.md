@@ -211,6 +211,8 @@ Si una version vieja queda pegada en el navegador:
 - usa `Limpiar cache local`;
 - recarga la pagina para reconstruir el cache con la ultima version.
 
+La portada tambien muestra una lectura rapida de cobertura: paises y territorios cargados, conflictos enlazados, capas tematicas disponibles y entidades especiales reconocidas. Sirve para comprobar de un vistazo que el dataset liviano ya esta sano antes de abrir fichas pesadas.
+
 ## Estado offline
 
 El shell de la app, el indice inicial de paises y la documentacion deberian seguir accesibles offline despues de una carga correcta. Las fichas completas se van sumando al cache cuando se abren.

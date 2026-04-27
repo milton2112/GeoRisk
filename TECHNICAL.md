@@ -138,6 +138,7 @@ Se exportan:
 - `sw.js` cachea shell, dataset local, docs y assets principales.
 - El shell debe seguir funcionando offline.
 - Imagenes y noticias remotas siguen dependiendo de conectividad cuando vienen de terceros.
+- La portada consume solo el indice liviano para mostrar diagnostico de cobertura sin bloquear el globo.
 
 ## Tests y validacion
 

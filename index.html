@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Widgets/widgets.css">
-  <link rel="stylesheet" href="style.css?v=2026-04-26-boot-10">
+  <link rel="stylesheet" href="style.css?v=2026-04-26-boot-11">
 </head>
 <body>
 
@@ -513,11 +513,11 @@
     <button id="intro-modal-close" type="button" aria-label="Cerrar">&times;</button>
     <div id="intro-modal-body">
       <h2 id="intro-modal-title">GeoRisk</h2>
-      <p class="product-lead">GeoRisk es un atlas geopolitico interactivo para explorar paises, conflictos, historia, relaciones internacionales y comparaciones globales desde un solo lugar.</p>
+      <p class="product-lead">GeoRisk es un atlas geopol&iacute;tico interactivo para explorar pa&iacute;ses, conflictos, historia, relaciones internacionales y comparaciones globales desde un solo lugar.</p>
       <div class="product-summary-grid">
-        <div class="overview-card"><span class="overview-label">Que es hoy</span><strong class="overview-value">Una base interactiva de analisis geopolitico</strong></div>
-        <div class="overview-card"><span class="overview-label">Mejor entrada</span><strong class="overview-value">Buscar y abrir un pais</strong></div>
-        <div class="overview-card"><span class="overview-label">Foco actual</span><strong class="overview-value">Mapa + ficha pais + conflictos</strong></div>
+        <div class="overview-card"><span class="overview-label">Qu&eacute; es hoy</span><strong class="overview-value">Una base interactiva de an&aacute;lisis geopol&iacute;tico</strong></div>
+        <div class="overview-card"><span class="overview-label">Mejor entrada</span><strong class="overview-value">Buscar y abrir un pa&iacute;s</strong></div>
+        <div class="overview-card"><span class="overview-label">Foco actual</span><strong class="overview-value">Mapa + ficha pa&iacute;s + conflictos</strong></div>
         <div class="overview-card"><span class="overview-label">Estado</span><strong class="overview-value">Proyecto en crecimiento continuo</strong></div>
       </div>
       <div class="product-summary-grid product-runtime-grid" id="intro-runtime-grid" aria-live="polite">
@@ -526,36 +526,45 @@
         <div class="overview-card"><span class="overview-label">Offline</span><strong class="overview-value" id="intro-offline-state">Preparando cache</strong></div>
         <div class="overview-card"><span class="overview-label">Render</span><strong class="overview-value" id="intro-render-state">Automatico</strong></div>
       </div>
+      <div class="product-summary-grid product-data-grid" id="intro-data-grid" aria-label="Cobertura actual del dataset">
+        <div class="overview-card"><span class="overview-label">Pa&iacute;ses y territorios</span><strong class="overview-value" id="intro-country-count">Cargando...</strong></div>
+        <div class="overview-card"><span class="overview-label">Conflictos enlazados</span><strong class="overview-value" id="intro-conflict-count">Cargando...</strong></div>
+        <div class="overview-card"><span class="overview-label">Capas tem&aacute;ticas</span><strong class="overview-value" id="intro-layer-count">Cargando...</strong></div>
+        <div class="overview-card"><span class="overview-label">Entidades especiales</span><strong class="overview-value" id="intro-special-count">Cargando...</strong></div>
+      </div>
+      <div class="product-insight-strip">
+        <span>Recomendado: empez&aacute; con el buscador, abr&iacute; una ficha y salt&aacute; desde ah&iacute; a conflictos, timeline o comparador.</span>
+      </div>
       <div class="help-section">
-        <h3>Que podes hacer ahora</h3>
+        <h3>Qu&eacute; pod&eacute;s hacer ahora</h3>
         <ul>
-          <li>Explorar el globo en 2D y 3D con vista satelital y capas tematicas.</li>
-          <li>Abrir fichas de pais con historia, economia, politica, religion, relaciones y conflictos.</li>
-          <li>Recorrer guerras, campañas y batallas con timelines y jerarquias internas.</li>
-          <li>Comparar paises, usar rankings globales, quiz educativo y hub de noticias.</li>
-          <li>Guardar vistas, favoritos y cambiar entre modos de producto segun el uso.</li>
+          <li>Explorar el globo en 2D y 3D con vista satelital y capas tem&aacute;ticas.</li>
+          <li>Abrir fichas de pa&iacute;s con historia, econom&iacute;a, pol&iacute;tica, religi&oacute;n, relaciones y conflictos.</li>
+          <li>Recorrer guerras, campa&ntilde;as y batallas con timelines y jerarqu&iacute;as internas.</li>
+          <li>Comparar pa&iacute;ses, usar rankings globales, quiz educativo y hub de noticias.</li>
+          <li>Guardar vistas, favoritos y cambiar entre modos de producto seg&uacute;n el uso.</li>
         </ul>
       </div>
       <div class="help-section">
         <h3>Nota temporal</h3>
-        <p>Este mensaje es provisorio: GeoRisk va a seguir creciendo en cobertura, datos curados, capas, conflictos y herramientas de analisis. La base ya es util hoy, pero va a seguir escalando version a version.</p>
+        <p>Este mensaje es provisorio: GeoRisk va a seguir creciendo en cobertura, datos curados, capas, conflictos y herramientas de an&aacute;lisis. La base ya es &uacute;til hoy, pero va a seguir escalando versi&oacute;n a versi&oacute;n.</p>
       </div>
       <div class="product-mode-grid">
         <button type="button" class="product-mode-card" data-app-mode-choice="analysis">
-          <strong>Analisis geopolitico</strong>
+          <strong>An&aacute;lisis geopol&iacute;tico</strong>
           <span>Capas, rankings, rivalidades, bloques y lectura comparada del sistema internacional.</span>
         </button>
         <button type="button" class="product-mode-card" data-app-mode-choice="encyclopedia">
-          <strong>Enciclopedia geopolitica</strong>
-          <span>Foco en fichas, timelines, conflictos y datos curados por pais.</span>
+          <strong>Enciclopedia geopol&iacute;tica</strong>
+          <span>Foco en fichas, timelines, conflictos y datos curados por pa&iacute;s.</span>
         </button>
         <button type="button" class="product-mode-card" data-app-mode-choice="presentation">
-          <strong>Presentacion</strong>
-          <span>Vista limpia para clase, demo, exposicion o exploracion guiada.</span>
+          <strong>Presentaci&oacute;n</strong>
+          <span>Vista limpia para clase, demo, exposici&oacute;n o exploraci&oacute;n guiada.</span>
         </button>
       </div>
       <div class="help-section">
-        <h3>Atajos utiles</h3>
+        <h3>Atajos &uacute;tiles</h3>
         <ul>
           <li><b>/</b>: enfoca el buscador</li>
           <li><b>?</b>: abre la guia</li>
@@ -582,15 +591,15 @@
 <script src="https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Cesium.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
-<script src="app-runtime.js?v=2026-04-26-boot-10"></script>
-<script src="app-theme.js?v=2026-04-26-boot-10"></script>
-<script src="app-text.js?v=2026-04-26-boot-10"></script>
-<script src="app-news-ui.js?v=2026-04-26-boot-10"></script>
-<script src="app-compare-ui.js?v=2026-04-26-boot-10"></script>
-<script src="app-quiz-ui.js?v=2026-04-26-boot-10"></script>
-<script src="app-country-panel.js?v=2026-04-26-boot-10"></script>
-<script src="app-timeline-conflicts.js?v=2026-04-26-boot-10"></script>
-<script src="script.js?v=2026-04-26-boot-10"></script>
+<script src="app-runtime.js?v=2026-04-26-boot-11"></script>
+<script src="app-theme.js?v=2026-04-26-boot-11"></script>
+<script src="app-text.js?v=2026-04-26-boot-11"></script>
+<script src="app-news-ui.js?v=2026-04-26-boot-11"></script>
+<script src="app-compare-ui.js?v=2026-04-26-boot-11"></script>
+<script src="app-quiz-ui.js?v=2026-04-26-boot-11"></script>
+<script src="app-country-panel.js?v=2026-04-26-boot-11"></script>
+<script src="app-timeline-conflicts.js?v=2026-04-26-boot-11"></script>
+<script src="script.js?v=2026-04-26-boot-11"></script>
 
 </body>
 </html>
