@@ -5497,6 +5497,28 @@ const sanitizedResult = sanitizeDeep(result);
 
 fs.writeJsonSync("./data/countries_full.json", sanitizedResult, { spaces: 2 });
 
+function limitArray(value, maxItems = 4) {
+  return Array.isArray(value) ? value.slice(0, maxItems) : [];
+}
+
+function buildCountryIndexRelations(relations = {}) {
+  return {
+    exMetropole: relations.exMetropole || null,
+    blocs: limitArray(relations.blocs, 4),
+    militaryBlocs: limitArray(relations.militaryBlocs, 4),
+    economicBlocs: limitArray(relations.economicBlocs, 4),
+    diplomaticBlocs: limitArray(relations.diplomaticBlocs, 4),
+    militaryAllies: limitArray(relations.militaryAllies, 4),
+    economicPartners: limitArray(relations.economicPartners, 4),
+    diplomaticPartners: limitArray(relations.diplomaticPartners, 4),
+    currentRivals: limitArray(relations.currentRivals, 4),
+    historicalRivals: limitArray(relations.historicalRivals, 4),
+    disputedTerritories: limitArray(relations.disputedTerritories || relations.disputes, 4),
+    dependencies: limitArray(relations.dependencies || relations.protectorates, 4),
+    associatedTerritories: limitArray(relations.associatedTerritories || relations.linkedTerritories, 4)
+  };
+}
+
 const countryIndex = Object.fromEntries(
   Object.entries(sanitizedResult).map(([code, country]) => [
     code,
@@ -5507,20 +5529,20 @@ const countryIndex = Object.fromEntries(
         population: country.general?.population ?? 0,
         geography: country.general?.geography ?? null,
         officialName: country.general?.officialName ?? country.name,
-        historicalNames: country.general?.historicalNames || [],
+        historicalNames: (country.general?.historicalNames || []).slice(0, 4),
         symbols: country.general?.symbols || {},
         capital: country.general?.capital || null,
         capitals: country.general?.capitals || [],
         languages: country.general?.languages || [],
         stateStructure: country.general?.stateStructure || null,
         subdivisions: country.general?.subdivisions || null,
-        cities: (country.general?.cities || []).slice(0, 5)
+        cities: (country.general?.cities || []).slice(0, 3)
       },
       history: {
         year: country.history?.year ?? null,
         type: country.history?.type ?? null,
         origin: country.history?.origin ?? null,
-        events: (country.history?.events || []).slice(0, 4)
+        events: (country.history?.events || []).slice(0, 2)
       },
       economy: {
         gdp: country.economy?.gdp ?? null,
@@ -5532,21 +5554,26 @@ const countryIndex = Object.fromEntries(
       military: {
         active: country.military?.active ?? null,
         reserve: country.military?.reserve ?? null,
-        conflicts: (country.military?.conflicts || []).slice(0, 8)
+        conflicts: (country.military?.conflicts || []).slice(0, 5)
       },
       politics: {
         system: country.politics?.system ?? null,
-        organizations: (country.politics?.organizations || []).slice(0, 8),
-        rivals: (country.politics?.rivals || []).slice(0, 8),
-        relations: country.politics?.relations || {}
+        organizations: (country.politics?.organizations || []).slice(0, 5),
+        rivals: (country.politics?.rivals || []).slice(0, 5),
+        relations: buildCountryIndexRelations(country.politics?.relations)
       },
-      religion: country.religion || {},
+      religion: {
+        summary: country.religion?.summary || null,
+        majority: country.religion?.majority || null,
+        branch: country.religion?.branch || null,
+        composition: (country.religion?.composition || []).slice(0, 4)
+      },
       metadata: {
         updatedAt: country.metadata?.updatedAt,
         quality: country.metadata?.quality,
         isIndex: true
       },
-      conflicts: (country.conflicts || []).slice(0, 8)
+      conflicts: (country.conflicts || []).slice(0, 5)
     }
   ])
 );

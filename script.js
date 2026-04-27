@@ -70,7 +70,7 @@ const countryPanelUi = window.GeoRiskCountryPanel || {};
 const timelineConflictUi = window.GeoRiskTimelineConflicts || {};
 const sharedTheme = window.GeoRiskTheme || {};
 const sharedText = window.GeoRiskText || {};
-const APP_VERSION = "2026-04-26-boot-7";
+const APP_VERSION = "2026-04-26-boot-8";
 
 const QUALITY_PRESET_OVERRIDES = {
   auto: null,

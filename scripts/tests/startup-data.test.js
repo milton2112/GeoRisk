@@ -13,7 +13,7 @@ const perCountryFiles = (await fs.readdir(perCountryDir)).filter(file => file.en
 
 assert.equal(Object.keys(index).length, Object.keys(full).length);
 assert.equal(perCountryFiles.length, Object.keys(full).length);
-assert.ok(Buffer.byteLength(JSON.stringify(index)) < Buffer.byteLength(JSON.stringify(full)) * 0.45);
+assert.ok(Buffer.byteLength(JSON.stringify(index)) < Buffer.byteLength(JSON.stringify(full)) * 0.34);
 
 for (const code of ["ATA", "GRL", "GUF", "TWN", "PSE", "-99"]) {
   assert.ok(index[code], `${code} debe existir en el indice liviano`);
@@ -31,5 +31,16 @@ assert.ok(!script.includes(".then(() => loadFullCountryData())"), "countries_ful
 assert.ok(script.includes("function scheduleFullCountryDataLoad()"), "countries_full debe agendarse en una funcion aislada");
 assert.ok(/isMobileLayout\(\)\s*\?\s*90000\s*:\s*45000/.test(script), "countries_full debe quedar muy diferido despues del arranque visible");
 assert.ok(script.includes("requestIdleCallback(startFullLoad"), "countries_full debe esperar un momento ocioso cuando el navegador lo soporte");
+
+for (const country of Object.values(index)) {
+  const relations = country.politics?.relations || {};
+  for (const [key, value] of Object.entries(relations)) {
+    if (Array.isArray(value)) {
+      assert.ok(value.length <= 4, `relacion ${key} debe venir resumida en el indice`);
+    }
+  }
+  assert.ok((country.conflicts || []).length <= 5, "conflictos del indice deben venir resumidos");
+  assert.ok((country.religion?.composition || []).length <= 4, "religion del indice debe venir resumida");
+}
 
 console.log("startup-data.test.js ok");
