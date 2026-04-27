@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Widgets/widgets.css">
-  <link rel="stylesheet" href="style.css?v=2026-04-26-boot-9">
+  <link rel="stylesheet" href="style.css?v=2026-04-26-boot-10">
 </head>
 <body>
 
@@ -201,6 +201,7 @@
           <button id="open-health-button" type="button">Salud dataset</button>
           <button id="open-changelog-button" type="button">Changelog</button>
           <button id="open-docs-button" type="button">Documentacion</button>
+          <button id="clear-local-cache-button" type="button">Limpiar cache local</button>
         </div>
       </div>
       <p id="semantic-helper">Ejemplos: monarquias constitucionales de Asia con islam mayoritario; paises de la OTAN rivales de Rusia; republicas presidenciales de America.</p>
@@ -509,7 +510,7 @@
 <div id="intro-modal" hidden>
   <div class="help-modal-backdrop" data-close-intro-modal="true"></div>
   <div class="help-modal-dialog product-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="intro-modal-title">
-    <button id="intro-modal-close" type="button" aria-label="Cerrar">Ã—</button>
+    <button id="intro-modal-close" type="button" aria-label="Cerrar">&times;</button>
     <div id="intro-modal-body">
       <h2 id="intro-modal-title">GeoRisk</h2>
       <p class="product-lead">GeoRisk es un atlas geopolitico interactivo para explorar paises, conflictos, historia, relaciones internacionales y comparaciones globales desde un solo lugar.</p>
@@ -518,6 +519,12 @@
         <div class="overview-card"><span class="overview-label">Mejor entrada</span><strong class="overview-value">Buscar y abrir un pais</strong></div>
         <div class="overview-card"><span class="overview-label">Foco actual</span><strong class="overview-value">Mapa + ficha pais + conflictos</strong></div>
         <div class="overview-card"><span class="overview-label">Estado</span><strong class="overview-value">Proyecto en crecimiento continuo</strong></div>
+      </div>
+      <div class="product-summary-grid product-runtime-grid" id="intro-runtime-grid" aria-live="polite">
+        <div class="overview-card"><span class="overview-label">Carga inicial</span><strong class="overview-value" id="intro-boot-state">Midiendo...</strong></div>
+        <div class="overview-card"><span class="overview-label">Dataset</span><strong class="overview-value" id="intro-data-state">Indice liviano</strong></div>
+        <div class="overview-card"><span class="overview-label">Offline</span><strong class="overview-value" id="intro-offline-state">Preparando cache</strong></div>
+        <div class="overview-card"><span class="overview-label">Render</span><strong class="overview-value" id="intro-render-state">Automatico</strong></div>
       </div>
       <div class="help-section">
         <h3>Que podes hacer ahora</h3>
@@ -562,7 +569,7 @@
 <div id="product-modal" hidden>
   <div class="help-modal-backdrop" data-close-product-modal="true"></div>
   <div class="help-modal-dialog product-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="product-modal-title">
-    <button id="product-modal-close" type="button" aria-label="Cerrar">Ã—</button>
+    <button id="product-modal-close" type="button" aria-label="Cerrar">&times;</button>
     <div id="product-modal-body">
       <h2 id="product-modal-title">Proyecto</h2>
     </div>
@@ -575,15 +582,15 @@
 <script src="https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Cesium.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
-<script src="app-runtime.js?v=2026-04-26-boot-9"></script>
-<script src="app-theme.js?v=2026-04-26-boot-9"></script>
-<script src="app-text.js?v=2026-04-26-boot-9"></script>
-<script src="app-news-ui.js?v=2026-04-26-boot-9"></script>
-<script src="app-compare-ui.js?v=2026-04-26-boot-9"></script>
-<script src="app-quiz-ui.js?v=2026-04-26-boot-9"></script>
-<script src="app-country-panel.js?v=2026-04-26-boot-9"></script>
-<script src="app-timeline-conflicts.js?v=2026-04-26-boot-9"></script>
-<script src="script.js?v=2026-04-26-boot-9"></script>
+<script src="app-runtime.js?v=2026-04-26-boot-10"></script>
+<script src="app-theme.js?v=2026-04-26-boot-10"></script>
+<script src="app-text.js?v=2026-04-26-boot-10"></script>
+<script src="app-news-ui.js?v=2026-04-26-boot-10"></script>
+<script src="app-compare-ui.js?v=2026-04-26-boot-10"></script>
+<script src="app-quiz-ui.js?v=2026-04-26-boot-10"></script>
+<script src="app-country-panel.js?v=2026-04-26-boot-10"></script>
+<script src="app-timeline-conflicts.js?v=2026-04-26-boot-10"></script>
+<script src="script.js?v=2026-04-26-boot-10"></script>
 
 </body>
 </html>

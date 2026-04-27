@@ -34,12 +34,16 @@ assert.ok(sw.includes("Promise.allSettled"), "service worker debe tolerar fallas
 assert.ok(!indexHtml.includes("app-curation.js"), "index.html no debe bloquear el arranque con app-curation");
 assert.ok(Buffer.byteLength(indexHtml) < 35000, "index.html debe mantenerse liviano");
 assert.ok(Buffer.byteLength(sw) < 7000, "service worker debe mantenerse liviano");
+assert.ok(indexHtml.includes("intro-runtime-grid"), "portada debe mostrar estado runtime");
+assert.ok(indexHtml.includes("clear-local-cache-button"), "UI debe permitir limpiar cache local");
+assert.ok(!indexHtml.includes("Ã—"), "botones de cierre no deben tener mojibake visible");
 assert.ok(!script.includes(".then(() => loadFullCountryData())"), "countries_full no debe encadenarse al arranque inmediato");
 assert.ok(script.includes("function scheduleFullCountryDataLoad()"), "countries_full debe agendarse en una funcion aislada");
 assert.ok(/isMobileLayout\(\)\s*\?\s*90000\s*:\s*45000/.test(script), "countries_full debe quedar muy diferido despues del arranque visible");
 assert.ok(script.includes("requestIdleCallback(startFullLoad"), "countries_full debe esperar un momento ocioso cuando el navegador lo soporte");
 assert.ok(script.includes("MAX_RESOURCE_CACHE_ENTRIES = 36"), "cache en memoria debe tener limite");
 assert.ok(script.includes("resourceCache.delete(cacheKey)"), "descargas fallidas deben poder reintentarse");
+assert.ok(script.includes("async function clearLocalGeoRiskCache()"), "runtime debe exponer limpieza segura de cache local");
 
 for (const country of Object.values(index)) {
   const relations = country.politics?.relations || {};

@@ -1941,6 +1941,7 @@ body[data-app-mode="encyclopedia"] #country-modal #country-panel {
 #open-health-button,
 #open-changelog-button,
 #open-docs-button,
+#clear-local-cache-button,
 #world-view-button,
 #auto-rotate-button,
 #map-mode-toggle,
@@ -2267,6 +2268,21 @@ body[data-app-mode="encyclopedia"] #country-modal #country-panel {
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 0.8rem;
   margin-bottom: 1rem;
+}
+
+.product-runtime-grid {
+  margin-top: -0.25rem;
+  padding: 0.75rem;
+  border: 1px solid rgba(88, 161, 255, 0.16);
+  border-radius: 20px;
+  background:
+    linear-gradient(135deg, rgba(89, 167, 255, 0.11), transparent 46%),
+    rgba(5, 17, 31, 0.42);
+}
+
+.product-runtime-grid .overview-card {
+  border-color: rgba(126, 199, 255, 0.24);
+  background: rgba(8, 20, 36, 0.7);
 }
 
 .changelog-release-list {

@@ -204,9 +204,16 @@ Si una ficha abre con menos datos de lo esperado:
 - revisa la seccion `Fuentes y calidad`;
 - si persiste, conviene revisar alias del mapa o cobertura puntual del dataset.
 
+Si una version vieja queda pegada en el navegador:
+
+- abre `Capas tematicas`;
+- entra en `Proyecto`;
+- usa `Limpiar cache local`;
+- recarga la pagina para reconstruir el cache con la ultima version.
+
 ## Estado offline
 
-El shell de la app, el dataset principal y la documentacion deberian seguir accesibles offline despues de una carga correcta.
+El shell de la app, el indice inicial de paises y la documentacion deberian seguir accesibles offline despues de una carga correcta. Las fichas completas se van sumando al cache cuando se abren.
 
 Limitaciones:
 

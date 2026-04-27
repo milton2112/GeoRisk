@@ -70,7 +70,7 @@ const countryPanelUi = window.GeoRiskCountryPanel || {};
 const timelineConflictUi = window.GeoRiskTimelineConflicts || {};
 const sharedTheme = window.GeoRiskTheme || {};
 const sharedText = window.GeoRiskText || {};
-const APP_VERSION = "2026-04-26-boot-9";
+const APP_VERSION = "2026-04-26-boot-10";
 
 const QUALITY_PRESET_OVERRIDES = {
   auto: null,
@@ -943,6 +943,7 @@ function openIntroModal() {
   if (!modal) {
     return;
   }
+  updateIntroRuntimeStatus();
   modal.hidden = false;
   syncModalOpenState();
 }
@@ -975,6 +976,68 @@ function closeProductModal() {
   }
   modal.hidden = true;
   syncModalOpenState();
+}
+
+async function clearLocalGeoRiskCache() {
+  const status = document.getElementById("offline-status");
+  try {
+    if ("caches" in window) {
+      const keys = await caches.keys();
+      await Promise.all(keys.filter(key => key.startsWith("geo-risk-")).map(key => caches.delete(key)));
+    }
+    if ("serviceWorker" in navigator) {
+      const registrations = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(registrations.map(registration => registration.update().catch(() => null)));
+    }
+    resourceCache.clear();
+    geoJsonCache.clear();
+    if (status) {
+      status.textContent = currentLanguage === "en"
+        ? "Local cache cleared. Reload to rebuild it."
+        : "Cache local limpiado. Recarga para reconstruirlo.";
+    }
+    updateAppStatusPanel();
+    openProductModal(
+      currentLanguage === "en" ? "Local cache cleared" : "Cache local limpiado",
+      `<div class="help-section"><p>${currentLanguage === "en"
+        ? "GeoRisk removed local app caches and cleared runtime resources. Reload the page if you still see old assets."
+        : "GeoRisk elimino los caches locales de la app y limpio recursos de la sesion. Recarga la pagina si todavia ves archivos viejos."}</p></div>`
+    );
+  } catch (error) {
+    if (status) {
+      status.textContent = currentLanguage === "en"
+        ? "Local cache could not be cleared."
+        : "No se pudo limpiar el cache local.";
+    }
+    console.warn("No se pudo limpiar el cache local:", error);
+  }
+}
+
+function updateIntroRuntimeStatus() {
+  const bootState = document.getElementById("intro-boot-state");
+  const dataState = document.getElementById("intro-data-state");
+  const offlineState = document.getElementById("intro-offline-state");
+  const renderState = document.getElementById("intro-render-state");
+  const summary = getBootProfileSummary();
+  if (bootState) {
+    bootState.textContent = summary.total
+      ? `${Math.round(summary.total)} ms`
+      : (currentLanguage === "en" ? "Measuring..." : "Midiendo...");
+  }
+  if (dataState) {
+    const states = [
+      deferredDataStatus.countryIndex ? (currentLanguage === "en" ? "light index" : "indice liviano") : null,
+      deferredDataStatus.runtimeCuration ? (currentLanguage === "en" ? "curation" : "curaduria") : null,
+      deferredDataStatus.fullCountries ? (currentLanguage === "en" ? "full dataset" : "dataset completo") : (currentLanguage === "en" ? "full deferred" : "full diferido")
+    ].filter(Boolean);
+    dataState.textContent = states.join(" / ") || (currentLanguage === "en" ? "Preparing" : "Preparando");
+  }
+  if (offlineState) {
+    offlineState.textContent = document.getElementById("offline-status")?.textContent || (currentLanguage === "en" ? "Preparing cache" : "Preparando cache");
+  }
+  if (renderState) {
+    renderState.textContent = getRenderProfileLabel();
+  }
 }
 
 function setAutoRotateState(enabled) {
@@ -8483,6 +8546,7 @@ function updateExtendedStaticText() {
     topic.options[2].textContent = currentLanguage === "en" ? "Economy" : "Economia";
     topic.options[3].textContent = currentLanguage === "en" ? "War and security" : "Guerra y seguridad";
   }
+  updateIntroRuntimeStatus();
   updateAppStatusPanel();
 }
 
@@ -9373,6 +9437,10 @@ function updateStaticText() {
   if (openDocsButton) {
     openDocsButton.textContent = currentLanguage === "en" ? "Docs" : "Documentacion";
   }
+  const clearLocalCacheButton = document.getElementById("clear-local-cache-button");
+  if (clearLocalCacheButton) {
+    clearLocalCacheButton.textContent = currentLanguage === "en" ? "Clear local cache" : "Limpiar cache local";
+  }
   const searchHistoryTitle = document.getElementById("search-history-title");
   if (searchHistoryTitle) {
     searchHistoryTitle.textContent = currentLanguage === "en" ? "Recent" : "Recientes";
@@ -9939,6 +10007,7 @@ function setupSavedViewControls() {
   const healthButton = document.getElementById("open-health-button");
   const changelogButton = document.getElementById("open-changelog-button");
   const docsButton = document.getElementById("open-docs-button");
+  const clearLocalCacheButton = document.getElementById("clear-local-cache-button");
   const helpButton = document.getElementById("open-help-button");
   const datasetChip = document.getElementById("dataset-health-chip");
   const renderChip = document.getElementById("render-profile-chip");
@@ -9989,6 +10058,7 @@ function setupSavedViewControls() {
   introButton?.addEventListener("click", () => openIntroModal());
   healthButton?.addEventListener("click", () => renderDatasetHealthPanel());
   changelogButton?.addEventListener("click", () => renderChangelogPanel());
+  clearLocalCacheButton?.addEventListener("click", () => clearLocalGeoRiskCache());
   docsButton?.addEventListener("click", async () => {
     const userGuide = await fetchResourceCached(`./USER_GUIDE.md?v=${APP_VERSION}`, "text").catch(() => "");
     const technicalGuide = await fetchResourceCached(`./TECHNICAL.md?v=${APP_VERSION}`, "text").catch(() => "");

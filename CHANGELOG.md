@@ -13,6 +13,8 @@ Actualizacion de producto orientada a uso real y crecimiento futuro.
 - Optimizacion progresiva del arranque: indice inicial compacto, fichas por pais bajo demanda y dataset completo diferido.
 - Service worker mas liviano y tolerante a fallas parciales de precache.
 - Cache runtime con limite para evitar crecimiento indefinido durante sesiones largas.
+- Portada con estado runtime de arranque, dataset, offline y perfil de render.
+- Accion visible para limpiar cache local cuando una version vieja queda pegada.
 - Titulares reales dentro del hub de noticias con varias cabeceras en vivo por pais cuando la fuente responde.
 - Mas categorias de quiz: idiomas, bloques y conflictos.
 - Comparador mas profundo con calidad del dataset, alcance diplomatico, idiomas, exposicion conflictiva y mas lectura estrategica.
