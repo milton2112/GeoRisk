@@ -31,8 +31,14 @@ assert.ok(!sw.includes("./data/raw/politics.json\""), "raw politics debe cargars
 assert.ok(!sw.includes("./data/raw/inflation.json\""), "raw inflation debe cargarse bajo demanda");
 assert.ok(!sw.includes("./data/raw/religion.json\""), "raw religion debe cargarse bajo demanda");
 assert.ok(!sw.includes("./app-curation.js\""), "app-curation debe cargarse despues del arranque inicial");
+assert.ok(!sw.includes("./app-news-ui.js\""), "noticias no debe precachearse en el shell inicial");
+assert.ok(!sw.includes("./app-compare-ui.js\""), "comparador no debe precachearse en el shell inicial");
+assert.ok(!sw.includes("./app-quiz-ui.js\""), "quiz no debe precachearse en el shell inicial");
 assert.ok(sw.includes("Promise.allSettled"), "service worker debe tolerar fallas parciales de precache");
 assert.ok(!indexHtml.includes("app-curation.js"), "index.html no debe bloquear el arranque con app-curation");
+assert.ok(!indexHtml.includes("app-news-ui.js"), "noticias debe cargarse bajo demanda");
+assert.ok(!indexHtml.includes("app-compare-ui.js"), "comparador debe cargarse bajo demanda");
+assert.ok(!indexHtml.includes("app-quiz-ui.js"), "quiz debe cargarse bajo demanda");
 assert.ok(!indexHtml.includes("html2canvas"), "html2canvas debe cargarse bajo demanda al exportar");
 assert.ok(!indexHtml.includes("jspdf"), "jspdf debe cargarse bajo demanda al exportar PDF");
 assert.ok(!indexHtml.includes("app-performance-ui.js"), "panel de rendimiento debe cargarse bajo demanda");
@@ -63,6 +69,12 @@ assert.ok(script.includes("introCoverageCache"), "metricas de portada deben evit
 assert.ok(script.includes("async function ensureExportLibraries"), "exportaciones deben cargar librerias pesadas bajo demanda");
 assert.ok(script.includes("function renderPerformancePanel()") || script.includes("async function renderPerformancePanel()"), "runtime debe exponer panel de rendimiento");
 assert.ok(script.includes("app-performance-ui.js"), "panel de rendimiento debe vivir en modulo diferido");
+assert.ok(script.includes("ensureDeferredUiModule"), "modulos secundarios deben cargarse bajo demanda");
+assert.ok(script.includes("app-news-ui.js"), "noticias debe tener modulo diferido declarado");
+assert.ok(script.includes("app-compare-ui.js"), "comparador debe tener modulo diferido declarado");
+assert.ok(script.includes("app-quiz-ui.js"), "quiz debe tener modulo diferido declarado");
+assert.ok(script.includes("function renderCountryCurationTodo"), "ficha pais debe exponer checklist de curaduria");
+assert.ok(script.includes("Que falta curar"), "ficha pais debe mostrar que falta curar");
 assert.ok(appRuntime.includes(" - rendimiento"), "perfil runtime debe usar separador ASCII estable");
 assert.ok(!appRuntime.includes("Â"), "app-runtime no debe exponer mojibake visible");
 

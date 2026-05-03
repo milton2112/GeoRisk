@@ -78,6 +78,27 @@ Sirve para:
 ### Ficha del pais
 
 Se abre al tocar un pais.
+Ahora incluye un bloque temporal de "Que falta curar" para marcar campos incompletos, estimaciones, secciones flojas y areas donde conviene mejorar la ficha.
+
+### Smoke test local
+
+Para revisar la app sin depender del plugin de navegador:
+
+```bash
+npm run smoke:server
+```
+
+Despues abri `http://127.0.0.1:5525/`.
+
+### Auditoria de conflictos
+
+Para generar el reporte de limpieza de conflictos:
+
+```bash
+npm run audit:conflicts
+```
+
+El reporte queda en `reports/conflict-audit.json` y las sugerencias automaticas seguras en `reports/conflict-autofix-suggestions.json`.
 
 Incluye:
 

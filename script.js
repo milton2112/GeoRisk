@@ -63,14 +63,46 @@ let {
   EXTRA_TIMELINE_DETAIL_OVERRIDES: curatedTimelineDetailOverrides = {},
   COUNTRY_CURATION_OVERRIDES: curatedCountryOverrides = {}
 } = window.GeoRiskCuration || {};
-const newsUi = window.GeoRiskNewsUI || {};
-const compareUi = window.GeoRiskCompareUI || {};
-const quizUi = window.GeoRiskQuizUI || {};
+let newsUi = window.GeoRiskNewsUI || {};
+let compareUi = window.GeoRiskCompareUI || {};
+let quizUi = window.GeoRiskQuizUI || {};
 const countryPanelUi = window.GeoRiskCountryPanel || {};
 const timelineConflictUi = window.GeoRiskTimelineConflicts || {};
 const sharedTheme = window.GeoRiskTheme || {};
 const sharedText = window.GeoRiskText || {};
 const APP_VERSION = "2026-05-02-boot-12";
+const DEFERRED_UI_MODULES = {
+  news: "./app-news-ui.js?v=2026-05-02-boot-12",
+  compare: "./app-compare-ui.js?v=2026-05-02-boot-12",
+  quiz: "./app-quiz-ui.js?v=2026-05-02-boot-12"
+};
+const deferredUiModulePromises = new Map();
+
+function refreshDeferredUiGlobals() {
+  newsUi = window.GeoRiskNewsUI || newsUi || {};
+  compareUi = window.GeoRiskCompareUI || compareUi || {};
+  quizUi = window.GeoRiskQuizUI || quizUi || {};
+}
+
+async function ensureDeferredUiModule(moduleName) {
+  const moduleUrl = DEFERRED_UI_MODULES[moduleName];
+  if (!moduleUrl) {
+    return;
+  }
+
+  if (!deferredUiModulePromises.has(moduleName)) {
+    deferredUiModulePromises.set(
+      moduleName,
+      import(moduleUrl)
+        .catch(error => {
+          console.warn(`No se pudo cargar modulo diferido ${moduleName}:`, error);
+        })
+        .finally(refreshDeferredUiGlobals)
+    );
+  }
+
+  await deferredUiModulePromises.get(moduleName);
+}
 
 const QUALITY_PRESET_OVERRIDES = {
   auto: null,
@@ -4380,6 +4412,64 @@ function renderDataQualityHighlights(country) {
   `;
 }
 
+function getCountryCurationTodoItems(country, conflictGroups = []) {
+  const quality = country?.metadata?.quality || {};
+  const sectionStatus = quality.sectionStatus || {};
+  const missingFields = Array.isArray(quality.missingFields) ? quality.missingFields : [];
+  const estimatedFields = Array.isArray(quality.estimatedFields) ? quality.estimatedFields : [];
+  const weakSections = Object.entries(sectionStatus)
+    .filter(([, status]) => !["curated", "confirmed"].includes(String(status || "").toLowerCase()))
+    .map(([section, status]) => `${section}: ${status || "pendiente"}`);
+  const items = [];
+
+  if (missingFields.length) {
+    items.push(`${currentLanguage === "en" ? "Missing fields" : "Campos faltantes"}: ${missingFields.slice(0, 6).join(", ")}`);
+  }
+  if (estimatedFields.length) {
+    items.push(`${currentLanguage === "en" ? "Estimated fields to verify" : "Campos estimados por verificar"}: ${estimatedFields.slice(0, 5).join(", ")}`);
+  }
+  if (weakSections.length) {
+    items.push(`${currentLanguage === "en" ? "Weak sections" : "Secciones flojas"}: ${weakSections.slice(0, 4).join(", ")}`);
+  }
+  if (!conflictGroups.length && !getConflictsSinceFormation(country).length) {
+    items.push(currentLanguage === "en" ? "Military history needs curated conflicts." : "Historia militar necesita conflictos curados.");
+  }
+  if (!Array.isArray(country?.religion?.composition) || country.religion.composition.length < 2) {
+    items.push(currentLanguage === "en" ? "Religious composition needs more denominations." : "Composicion religiosa necesita mas denominaciones.");
+  }
+  if (!Array.isArray(country?.general?.cities) || country.general.cities.length < 3) {
+    items.push(currentLanguage === "en" ? "Urban hierarchy needs more highlighted cities." : "Jerarquia urbana necesita mas ciudades destacadas.");
+  }
+  if (!getCountryOrganizationCount(country)) {
+    items.push(currentLanguage === "en" ? "International organizations need review." : "Organizaciones internacionales necesitan revision.");
+  }
+
+  return [...new Set(items)].slice(0, 6);
+}
+
+function renderCountryCurationTodo(country, conflictGroups = []) {
+  const items = getCountryCurationTodoItems(country, conflictGroups);
+  const qualityScore = Number.isFinite(country?.metadata?.quality?.score)
+    ? Math.max(0, Math.round(country.metadata.quality.score))
+    : null;
+  const healthLabel = qualityScore === null
+    ? (currentLanguage === "en" ? "pending score" : "puntaje pendiente")
+    : `${qualityScore}/100`;
+
+  return `
+    <aside class="curation-todo-card" aria-label="${currentLanguage === "en" ? "Curation checklist" : "Checklist de curaduria"}">
+      <div>
+        <span class="curation-todo-kicker">${currentLanguage === "en" ? "Curation status" : "Estado de curaduria"}</span>
+        <h3>${currentLanguage === "en" ? "What still needs curation" : "Que falta curar"}</h3>
+      </div>
+      <span class="curation-score-pill">${escapeHtml(healthLabel)}</span>
+      ${items.length
+        ? `<ul class="curation-todo-list">${items.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`
+        : `<p class="curation-todo-complete">${currentLanguage === "en" ? "This profile is comparatively complete; keep validating sources and symbols." : "Esta ficha esta comparativamente completa; conviene seguir validando fuentes y simbolos."}</p>`}
+    </aside>
+  `;
+}
+
 function getTimelineEventQuery(event, country) {
   if (event.query) {
     return event.query;
@@ -6458,6 +6548,7 @@ function renderCountry(country, fallbackName) {
     </div>
     ${renderCountryOverview(country, countryCode)}
     ${renderCountryMetaRibbon(country, conflictGroups)}
+    ${renderCountryCurationTodo(country, conflictGroups)}
     ${renderCountryQuickNav(countrySectionDescriptors)}
     ${createSection(
       t("general"),
@@ -8572,6 +8663,7 @@ setupNewsHubPanel = function setupNewsHubPanel() {
   }
   panel.addEventListener("toggle", () => {
     if (panel.open) {
+      ensureDeferredUiModule("news").then(() => renderNewsHub(currentPanelState.code || ""));
       const comparePanel = document.getElementById("compare-hub-panel");
       const quizPanel = document.getElementById("quiz-hub-panel");
       if (comparePanel) comparePanel.open = false;
@@ -13885,6 +13977,7 @@ setupCompareControls = function setupCompareControls() {
     if (!comparePanel.open) {
       return;
     }
+    ensureDeferredUiModule("compare").then(renderComparePanel);
     renderComparePanel();
   });
   compareModal?.addEventListener("click", event => {
@@ -14406,6 +14499,7 @@ function setupQuizHubPanel() {
     const newsPanel = document.getElementById("news-hub-panel");
     if (comparePanel) comparePanel.open = false;
     if (newsPanel) newsPanel.open = false;
+    ensureDeferredUiModule("quiz").then(renderQuizPanel);
     renderQuizPanel();
   });
 }

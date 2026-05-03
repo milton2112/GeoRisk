@@ -1,0 +1,5773 @@
+{
+  "generatedAt": "2026-05-03T01:14:13.971Z",
+  "scannedConflicts": 2006,
+  "issueCount": 1956,
+  "summary": {
+    "battle_without_parent": 1177,
+    "duplicate_names": 3,
+    "weak_detail": 1906,
+    "generic_side": 22,
+    "english": 10,
+    "leading_year": 7
+  },
+  "topIssues": [
+    {
+      "key": "batalla de saigon",
+      "name": "Batalla de Saigon",
+      "names": [
+        "Batalla de Saigon",
+        "Batalla de Saigón"
+      ],
+      "countries": [
+        "FRA",
+        "USA"
+      ],
+      "startYear": 1955,
+      "endYear": 1955,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "duplicate_names",
+        "weak_detail"
+      ],
+      "severity": 9,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de hjorungavagr",
+      "name": "Batalla de Hjörungavágr",
+      "names": [
+        "Batalla de Hjörungavágr"
+      ],
+      "countries": [
+        "DNK",
+        "NOR"
+      ],
+      "startYear": 986,
+      "endYear": 986,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de svolder",
+      "name": "Batalla de Svolder",
+      "names": [
+        "Batalla de Svolder"
+      ],
+      "countries": [
+        "DNK",
+        "NOR",
+        "SWE"
+      ],
+      "startYear": 999,
+      "endYear": 999,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "generic_side"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de nisa",
+      "name": "Batalla de Niså",
+      "names": [
+        "Batalla de Niså"
+      ],
+      "countries": [
+        "DNK",
+        "NOR"
+      ],
+      "startYear": 1062,
+      "endYear": 1062,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de lena",
+      "name": "Batalla de Lena",
+      "names": [
+        "Batalla de Lena"
+      ],
+      "countries": [
+        "DNK",
+        "SWE"
+      ],
+      "startYear": 1208,
+      "endYear": 1208,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "sitio de nyk bing",
+      "name": "Sitio de Nykøbing",
+      "names": [
+        "Sitio de Nykøbing"
+      ],
+      "countries": [
+        "SWE"
+      ],
+      "startYear": 1360,
+      "endYear": 1368,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "sitio de helsingborg",
+      "name": "Sitio de Helsingborg",
+      "names": [
+        "Sitio de Helsingborg"
+      ],
+      "countries": [
+        "SWE"
+      ],
+      "startYear": 1368,
+      "endYear": 1369,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "sitio de lindholmen",
+      "name": "Sitio de Lindholmen",
+      "names": [
+        "Sitio de Lindholmen"
+      ],
+      "countries": [
+        "SWE"
+      ],
+      "startYear": 1368,
+      "endYear": 1369,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de rapallo 1495",
+      "name": "Batalla de Rapallo (1495)",
+      "names": [
+        "Batalla de Rapallo (1495)"
+      ],
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1495,
+      "endYear": 1495,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de stockholm",
+      "name": "Batalla de Stockholm",
+      "names": [
+        "Batalla de Stockholm"
+      ],
+      "countries": [
+        "DNK",
+        "SWE"
+      ],
+      "startYear": 1518,
+      "endYear": 1518,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de bogesund",
+      "name": "Batalla de Bogesund",
+      "names": [
+        "Batalla de Bogesund"
+      ],
+      "countries": [
+        "DNK",
+        "SWE"
+      ],
+      "startYear": 1520,
+      "endYear": 1520,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de solent",
+      "name": "Batalla de Solent",
+      "names": [
+        "Batalla de Solent"
+      ],
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1545,
+      "endYear": 1545,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "sitio de narva",
+      "name": "Sitio de Narva",
+      "names": [
+        "Sitio de Narva"
+      ],
+      "countries": [
+        "SWE"
+      ],
+      "startYear": 1581,
+      "endYear": 1581,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de salis",
+      "name": "Batalla de Salis",
+      "names": [
+        "Batalla de Salis"
+      ],
+      "countries": [
+        "SWE"
+      ],
+      "startYear": 1609,
+      "endYear": 1609,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "sitio de smolensk",
+      "name": "Sitio de Smolensk",
+      "names": [
+        "Sitio de Smolensk"
+      ],
+      "countries": [
+        "SWE"
+      ],
+      "startYear": 1609,
+      "endYear": 1611,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de swally",
+      "name": "Batalla de Swally",
+      "names": [
+        "Batalla de Swally"
+      ],
+      "countries": [
+        "PRT"
+      ],
+      "startYear": 1612,
+      "endYear": 1612,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de gniew",
+      "name": "Batalla de Gniew",
+      "names": [
+        "Batalla de Gniew"
+      ],
+      "countries": [
+        "SWE"
+      ],
+      "startYear": 1626,
+      "endYear": 1626,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de czarne",
+      "name": "Batalla de Czarne",
+      "names": [
+        "Batalla de Czarne"
+      ],
+      "countries": [
+        "SWE"
+      ],
+      "startYear": 1627,
+      "endYear": 1627,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de dirschau",
+      "name": "Batalla de Dirschau",
+      "names": [
+        "Batalla de Dirschau"
+      ],
+      "countries": [
+        "SWE"
+      ],
+      "startYear": 1627,
+      "endYear": 1627,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de koscianem 1655",
+      "name": "Batalla de Kościanem (1655)",
+      "names": [
+        "Batalla de Kościanem (1655)"
+      ],
+      "countries": [
+        "SWE"
+      ],
+      "startYear": 1655,
+      "endYear": 1655,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de nowy dwor mazowiecki",
+      "name": "Batalla de Nowy Dwór Mazowiecki",
+      "names": [
+        "Batalla de Nowy Dwór Mazowiecki"
+      ],
+      "countries": [
+        "SWE"
+      ],
+      "startYear": 1655,
+      "endYear": 1655,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de ujscie",
+      "name": "Batalla de Ujście",
+      "names": [
+        "Batalla de Ujście"
+      ],
+      "countries": [
+        "SWE"
+      ],
+      "startYear": 1655,
+      "endYear": 1655,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de go ab",
+      "name": "Batalla de Gołąb",
+      "names": [
+        "Batalla de Gołąb"
+      ],
+      "countries": [
+        "SWE"
+      ],
+      "startYear": 1656,
+      "endYear": 1656,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de varsovia",
+      "name": "Batalla de Varsovia",
+      "names": [
+        "Batalla de Varsovia"
+      ],
+      "countries": [
+        "SWE"
+      ],
+      "startYear": 1656,
+      "endYear": 1656,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "sitio de zamosc",
+      "name": "Sitio de Zamość",
+      "names": [
+        "Sitio de Zamość"
+      ],
+      "countries": [
+        "SWE"
+      ],
+      "startYear": 1656,
+      "endYear": 1656,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de m n",
+      "name": "Batalla de Møn",
+      "names": [
+        "Batalla de Møn"
+      ],
+      "countries": [
+        "DNK",
+        "SWE"
+      ],
+      "startYear": 1657,
+      "endYear": 1657,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "sitio de torun",
+      "name": "Sitio de Toruń",
+      "names": [
+        "Sitio de Toruń"
+      ],
+      "countries": [
+        "SWE"
+      ],
+      "startYear": 1658,
+      "endYear": 1658,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de martinique",
+      "name": "Batalla de Martinique",
+      "names": [
+        "Batalla de Martinique"
+      ],
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1667,
+      "endYear": 1667,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de k ge bay",
+      "name": "Batalla de Køge Bay",
+      "names": [
+        "Batalla de Køge Bay"
+      ],
+      "countries": [
+        "SWE"
+      ],
+      "startYear": 1677,
+      "endYear": 1677,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla del banco dogger 1696",
+      "name": "Batalla del banco Dogger (1696)",
+      "names": [
+        "Batalla del banco Dogger (1696)"
+      ],
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1696,
+      "endYear": 1696,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de vilnius 1702",
+      "name": "Batalla de Vilnius (1702)",
+      "names": [
+        "Batalla de Vilnius (1702)"
+      ],
+      "countries": [
+        "SWE"
+      ],
+      "startYear": 1702,
+      "endYear": 1702,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "sitio de tartu",
+      "name": "Sitio de Tartu",
+      "names": [
+        "Sitio de Tartu"
+      ],
+      "countries": [
+        "SWE"
+      ],
+      "startYear": 1704,
+      "endYear": 1704,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de helsingborg",
+      "name": "Batalla de Helsingborg",
+      "names": [
+        "Batalla de Helsingborg"
+      ],
+      "countries": [
+        "DNK",
+        "SWE"
+      ],
+      "startYear": 1710,
+      "endYear": 1710,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla naval de rugen",
+      "name": "Batalla naval de Rügen",
+      "names": [
+        "Batalla naval de Rügen"
+      ],
+      "countries": [
+        "DNK",
+        "SWE"
+      ],
+      "startYear": 1712,
+      "endYear": 1712,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de greifswald bodden",
+      "name": "Batalla de Greifswald Bodden",
+      "names": [
+        "Batalla de Greifswald Bodden"
+      ],
+      "countries": [
+        "DNK",
+        "SWE"
+      ],
+      "startYear": 1715,
+      "endYear": 1715,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de cuddalore 1758",
+      "name": "Batalla de Cuddalore (1758)",
+      "names": [
+        "Batalla de Cuddalore (1758)"
+      ],
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1758,
+      "endYear": 1758,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "raid on le havre",
+      "name": "Raid on Le Havre",
+      "names": [
+        "Raid on Le Havre"
+      ],
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1759,
+      "endYear": 1759,
+      "ongoing": false,
+      "issues": [
+        "english",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla del cabo finisterre",
+      "name": "Batalla del cabo Finisterre",
+      "names": [
+        "Batalla del cabo Finisterre"
+      ],
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1761,
+      "endYear": 1761,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de fort cumberland",
+      "name": "Batalla de Fort Cumberland",
+      "names": [
+        "Batalla de Fort Cumberland"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1776,
+      "endYear": 1776,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de iron works hill",
+      "name": "Batalla de Iron Works Hill",
+      "names": [
+        "Batalla de Iron Works Hill"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1776,
+      "endYear": 1776,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de nassau",
+      "name": "Batalla de Nassau",
+      "names": [
+        "Batalla de Nassau"
+      ],
+      "countries": [
+        "BHS"
+      ],
+      "startYear": 1776,
+      "endYear": 1776,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de machias 1777",
+      "name": "Batalla de Machias (1777)",
+      "names": [
+        "Batalla de Machias (1777)"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1777,
+      "endYear": 1777,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de saratoga",
+      "name": "Batalla de Saratoga",
+      "names": [
+        "Batalla de Saratoga"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1777,
+      "endYear": 1777,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de white marsh",
+      "name": "Batalla de White Marsh",
+      "names": [
+        "Batalla de White Marsh"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1777,
+      "endYear": 1777,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla del cabo finisterre 1778",
+      "name": "Batalla del cabo Finisterre (1778)",
+      "names": [
+        "Batalla del cabo Finisterre (1778)"
+      ],
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1778,
+      "endYear": 1778,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de flamborough head",
+      "name": "Batalla de Flamborough Head",
+      "names": [
+        "Batalla de Flamborough Head"
+      ],
+      "countries": [
+        "FRA",
+        "USA"
+      ],
+      "startYear": 1779,
+      "endYear": 1779,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de minisink",
+      "name": "Batalla de Minisink",
+      "names": [
+        "Batalla de Minisink"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1779,
+      "endYear": 1779,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de bull s ferry",
+      "name": "Batalla de Bull's Ferry",
+      "names": [
+        "Batalla de Bull's Ferry"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1780,
+      "endYear": 1780,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de ibiza",
+      "name": "Batalla de Ibiza",
+      "names": [
+        "Batalla de Ibiza"
+      ],
+      "countries": [
+        "SWE"
+      ],
+      "startYear": 1780,
+      "endYear": 1780,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de ushant 1781",
+      "name": "Batalla de Ushant (1781)",
+      "names": [
+        "Batalla de Ushant (1781)"
+      ],
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1781,
+      "endYear": 1781,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de yorktown",
+      "name": "Batalla de Yorktown",
+      "names": [
+        "Batalla de Yorktown"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1781,
+      "endYear": 1781,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de delaware capes",
+      "name": "Batalla de Delaware Capes",
+      "names": [
+        "Batalla de Delaware Capes"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1782,
+      "endYear": 1782,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de trincomalee",
+      "name": "Batalla de Trincomalee",
+      "names": [
+        "Batalla de Trincomalee"
+      ],
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1782,
+      "endYear": 1782,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de ushant 1782",
+      "name": "Batalla de Ushant (1782)",
+      "names": [
+        "Batalla de Ushant (1782)"
+      ],
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1782,
+      "endYear": 1782,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de cuddalore 1783",
+      "name": "Batalla de Cuddalore (1783)",
+      "names": [
+        "Batalla de Cuddalore (1783)"
+      ],
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1783,
+      "endYear": 1783,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de svensksund 1790",
+      "name": "Batalla de Svensksund (1790)",
+      "names": [
+        "Batalla de Svensksund (1790)"
+      ],
+      "countries": [
+        "SWE"
+      ],
+      "startYear": 1790,
+      "endYear": 1790,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "sunda strait campaign de january 1794",
+      "name": "Sunda Strait campaign de January 1794",
+      "names": [
+        "Sunda Strait campaign de January 1794"
+      ],
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1794,
+      "endYear": 1794,
+      "ongoing": false,
+      "issues": [
+        "english",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de fishguard",
+      "name": "Batalla de Fishguard",
+      "names": [
+        "Batalla de Fishguard"
+      ],
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1797,
+      "endYear": 1797,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "sitio de ancona 1799",
+      "name": "Sitio de Ancona (1799)",
+      "names": [
+        "Sitio de Ancona (1799)"
+      ],
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1799,
+      "endYear": 1799,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de crete a pierrot",
+      "name": "Batalla de Crête-à-Pierrot",
+      "names": [
+        "Batalla de Crête-à-Pierrot"
+      ],
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1802,
+      "endYear": 1802,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla del puerto de tripoli",
+      "name": "Batalla del puerto de Trípoli",
+      "names": [
+        "Batalla del puerto de Trípoli"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1804,
+      "endYear": 1804,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "raid on boulogne",
+      "name": "Raid on Boulogne",
+      "names": [
+        "Raid on Boulogne"
+      ],
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1804,
+      "endYear": 1804,
+      "ongoing": false,
+      "issues": [
+        "english",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de derna 1805",
+      "name": "Batalla de Derna (1805)",
+      "names": [
+        "Batalla de Derna (1805)"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1805,
+      "endYear": 1805,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de lokalaks",
+      "name": "Batalla de Lokalaks",
+      "names": [
+        "Batalla de Lokalaks"
+      ],
+      "countries": [
+        "SWE"
+      ],
+      "startYear": 1808,
+      "endYear": 1808,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de sandostrom",
+      "name": "Batalla de Sandöström",
+      "names": [
+        "Batalla de Sandöström"
+      ],
+      "countries": [
+        "SWE"
+      ],
+      "startYear": 1808,
+      "endYear": 1808,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de grand port",
+      "name": "Batalla de Grand Port",
+      "names": [
+        "Batalla de Grand Port"
+      ],
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1810,
+      "endYear": 1810,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de la guaira 1812",
+      "name": "Batalla de La Guaira (1812)",
+      "names": [
+        "Batalla de La Guaira (1812)"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1812,
+      "endYear": 1812,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de mississinewa",
+      "name": "Batalla de Mississinewa",
+      "names": [
+        "Batalla de Mississinewa"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1812,
+      "endYear": 1812,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de fort george",
+      "name": "Batalla de Fort George",
+      "names": [
+        "Batalla de Fort George"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1813,
+      "endYear": 1813,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de leipzig",
+      "name": "Batalla de Leipzig",
+      "names": [
+        "Batalla de Leipzig"
+      ],
+      "countries": [
+        "SWE"
+      ],
+      "startYear": 1813,
+      "endYear": 1813,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "segunda batalla de sacket s harbor",
+      "name": "Segunda batalla de Sacket's Harbor",
+      "names": [
+        "Segunda batalla de Sacket's Harbor"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1813,
+      "endYear": 1813,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de big sandy creek",
+      "name": "Batalla de Big Sandy Creek",
+      "names": [
+        "Batalla de Big Sandy Creek"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1814,
+      "endYear": 1814,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de credit island",
+      "name": "Batalla de Credit Island",
+      "names": [
+        "Batalla de Credit Island"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1814,
+      "endYear": 1814,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de mackinac island",
+      "name": "Batalla de Mackinac Island",
+      "names": [
+        "Batalla de Mackinac Island"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1814,
+      "endYear": 1814,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de pensacola 1814",
+      "name": "Batalla de Pensacola (1814)",
+      "names": [
+        "Batalla de Pensacola (1814)"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1814,
+      "endYear": 1814,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de plattsburgh",
+      "name": "Batalla de Plattsburgh",
+      "names": [
+        "Batalla de Plattsburgh"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1814,
+      "endYear": 1814,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "raid on alexandria",
+      "name": "Raid on Alexandria",
+      "names": [
+        "Raid on Alexandria"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1814,
+      "endYear": 1814,
+      "ongoing": false,
+      "issues": [
+        "english",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de fort peter",
+      "name": "Batalla de Fort Peter",
+      "names": [
+        "Batalla de Fort Peter"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1815,
+      "endYear": 1815,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla del cabo de palos 1815",
+      "name": "Batalla del cabo de Palos (1815)",
+      "names": [
+        "Batalla del cabo de Palos (1815)"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1815,
+      "endYear": 1815,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla del puente del rio pacora",
+      "name": "Batalla del puente del río Pacora",
+      "names": [
+        "Batalla del puente del río Pacora"
+      ],
+      "countries": [
+        "PAN",
+        "USA"
+      ],
+      "startYear": 1821,
+      "endYear": 1821,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de monte santiago",
+      "name": "Batalla de Monte Santiago",
+      "names": [
+        "Batalla de Monte Santiago"
+      ],
+      "countries": [
+        "ARG"
+      ],
+      "startYear": 1827,
+      "endYear": 1827,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de bad axe",
+      "name": "Batalla de Bad Axe",
+      "names": [
+        "Batalla de Bad Axe"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1832,
+      "endYear": 1832,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de wahoo swamp",
+      "name": "Batalla de Wahoo Swamp",
+      "names": [
+        "Batalla de Wahoo Swamp"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1836,
+      "endYear": 1836,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de san juan de ulua",
+      "name": "Batalla de San Juan de Ulúa",
+      "names": [
+        "Batalla de San Juan de Ulúa"
+      ],
+      "countries": [
+        "FRA",
+        "MEX"
+      ],
+      "startYear": 1838,
+      "endYear": 1838,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de malolo",
+      "name": "Batalla de Malolo",
+      "names": [
+        "Batalla de Malolo"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1840,
+      "endYear": 1840,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de la vuelta de obligado",
+      "name": "Batalla de la Vuelta de Obligado",
+      "names": [
+        "Batalla de la Vuelta de Obligado"
+      ],
+      "countries": [
+        "ARG",
+        "FRA"
+      ],
+      "startYear": 1845,
+      "endYear": 1845,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de providencia",
+      "name": "Batalla de Providencia",
+      "names": [
+        "Batalla de Providencia"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1845,
+      "endYear": 1845,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de chino",
+      "name": "Batalla de Chino",
+      "names": [
+        "Batalla de Chino"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1846,
+      "endYear": 1846,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de monterrey",
+      "name": "Batalla de Monterrey",
+      "names": [
+        "Batalla de Monterrey"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1846,
+      "endYear": 1846,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de palo alto",
+      "name": "Batalla de Palo Alto",
+      "names": [
+        "Batalla de Palo Alto"
+      ],
+      "countries": [
+        "MEX",
+        "USA"
+      ],
+      "startYear": 1846,
+      "endYear": 1846,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de resaca de la palma",
+      "name": "Batalla de Resaca de la Palma",
+      "names": [
+        "Batalla de Resaca de la Palma"
+      ],
+      "countries": [
+        "MEX",
+        "USA"
+      ],
+      "startYear": 1846,
+      "endYear": 1846,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de san pascual",
+      "name": "Batalla de San Pascual",
+      "names": [
+        "Batalla de San Pascual"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1846,
+      "endYear": 1846,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de santa fe",
+      "name": "Batalla de Santa Fe",
+      "names": [
+        "Batalla de Santa Fe"
+      ],
+      "countries": [
+        "MEX",
+        "USA"
+      ],
+      "startYear": 1846,
+      "endYear": 1846,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "primera batalla de tabasco",
+      "name": "Primera Batalla de Tabasco",
+      "names": [
+        "Primera Batalla de Tabasco"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1846,
+      "endYear": 1846,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "sitio de fort texas",
+      "name": "Sitio de Fort Texas",
+      "names": [
+        "Sitio de Fort Texas"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1846,
+      "endYear": 1846,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de buena vista",
+      "name": "Batalla de Buena Vista",
+      "names": [
+        "Batalla de Buena Vista"
+      ],
+      "countries": [
+        "MEX",
+        "USA"
+      ],
+      "startYear": 1847,
+      "endYear": 1847,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de chapultepec",
+      "name": "Batalla de Chapultepec",
+      "names": [
+        "Batalla de Chapultepec"
+      ],
+      "countries": [
+        "MEX",
+        "USA"
+      ],
+      "startYear": 1847,
+      "endYear": 1847,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de la ciudad de mexico",
+      "name": "Batalla de la Ciudad de Mexico",
+      "names": [
+        "Batalla de la Ciudad de Mexico"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1847,
+      "endYear": 1847,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de la paz",
+      "name": "Batalla de La Paz",
+      "names": [
+        "Batalla de La Paz"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1847,
+      "endYear": 1847,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de san jose del cabo",
+      "name": "Batalla de San José del Cabo",
+      "names": [
+        "Batalla de San José del Cabo"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1847,
+      "endYear": 1847,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla del rio san gabriel",
+      "name": "Batalla del Río San Gabriel",
+      "names": [
+        "Batalla del Río San Gabriel"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1847,
+      "endYear": 1847,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "segunda batalla de tabasco",
+      "name": "Segunda Batalla de Tabasco",
+      "names": [
+        "Segunda Batalla de Tabasco"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1847,
+      "endYear": 1847,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "sitio de puebla",
+      "name": "Sitio de Puebla",
+      "names": [
+        "Sitio de Puebla"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1847,
+      "endYear": 1847,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de kolding",
+      "name": "Batalla de Kolding",
+      "names": [
+        "Batalla de Kolding"
+      ],
+      "countries": [
+        "DNK",
+        "SWE"
+      ],
+      "startYear": 1849,
+      "endYear": 1849,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de muddy flat",
+      "name": "Batalla de Muddy Flat",
+      "names": [
+        "Batalla de Muddy Flat"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1854,
+      "endYear": 1854,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "sitio de petropavlovsk",
+      "name": "Sitio de Petropavlovsk",
+      "names": [
+        "Sitio de Petropavlovsk"
+      ],
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1854,
+      "endYear": 1854,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de los fuertes de la barrera",
+      "name": "Batalla de los Fuertes de la Barrera",
+      "names": [
+        "Batalla de los Fuertes de la Barrera"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1856,
+      "endYear": 1856,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de taku forts",
+      "name": "Batalla de Taku Forts",
+      "names": [
+        "Batalla de Taku Forts"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1859,
+      "endYear": 1859,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de stones river",
+      "name": "Batalla de Stones River",
+      "names": [
+        "Batalla de Stones River"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1862,
+      "endYear": 1863,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de gettysburg",
+      "name": "Batalla de Gettysburg",
+      "names": [
+        "Batalla de Gettysburg"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1863,
+      "endYear": 1863,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de salem church",
+      "name": "Batalla de Salem Church",
+      "names": [
+        "Batalla de Salem Church"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1863,
+      "endYear": 1863,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de whitestone hill",
+      "name": "Batalla de Whitestone Hill",
+      "names": [
+        "Batalla de Whitestone Hill"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1863,
+      "endYear": 1863,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de cold harbor",
+      "name": "Batalla de Cold Harbor",
+      "names": [
+        "Batalla de Cold Harbor"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1864,
+      "endYear": 1864,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de elkin s ferry",
+      "name": "Batalla de Elkin's Ferry",
+      "names": [
+        "Batalla de Elkin's Ferry"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1864,
+      "endYear": 1864,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de killdeer mountain",
+      "name": "Batalla de Killdeer Mountain",
+      "names": [
+        "Batalla de Killdeer Mountain"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1864,
+      "endYear": 1864,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de la espesura",
+      "name": "Batalla de la espesura",
+      "names": [
+        "Batalla de la espesura"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1864,
+      "endYear": 1864,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de meridian",
+      "name": "Batalla de Meridian",
+      "names": [
+        "Batalla de Meridian"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1864,
+      "endYear": 1864,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de bentonville",
+      "name": "Batalla de Bentonville",
+      "names": [
+        "Batalla de Bentonville"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1865,
+      "endYear": 1865,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla del riachuelo",
+      "name": "Batalla del Riachuelo",
+      "names": [
+        "Batalla del Riachuelo"
+      ],
+      "countries": [
+        "BRA",
+        "PRY"
+      ],
+      "startYear": 1865,
+      "endYear": 1865,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "generic_side"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de ixmiquilpan",
+      "name": "Batalla de Ixmiquilpan",
+      "names": [
+        "Batalla de Ixmiquilpan"
+      ],
+      "countries": [
+        "BEL",
+        "MEX"
+      ],
+      "startYear": 1866,
+      "endYear": 1866,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de infernal caverns",
+      "name": "Batalla de Infernal Caverns",
+      "names": [
+        "Batalla de Infernal Caverns"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1867,
+      "endYear": 1867,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de beecher island",
+      "name": "Batalla de Beecher Island",
+      "names": [
+        "Batalla de Beecher Island"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1868,
+      "endYear": 1868,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de ita ybate",
+      "name": "Batalla de Itá Ybaté",
+      "names": [
+        "Batalla de Itá Ybaté"
+      ],
+      "countries": [
+        "ARG",
+        "PRY",
+        "URY"
+      ],
+      "startYear": 1868,
+      "endYear": 1868,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "generic_side"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de slim buttes",
+      "name": "Batalla de Slim Buttes",
+      "names": [
+        "Batalla de Slim Buttes"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1876,
+      "endYear": 1876,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de bear paw",
+      "name": "Batalla de Bear Paw",
+      "names": [
+        "Batalla de Bear Paw"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1877,
+      "endYear": 1877,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de clearwater",
+      "name": "Batalla de Clearwater",
+      "names": [
+        "Batalla de Clearwater"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1877,
+      "endYear": 1877,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de cottonwood",
+      "name": "Batalla de Cottonwood",
+      "names": [
+        "Batalla de Cottonwood"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1877,
+      "endYear": 1877,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de milk creek",
+      "name": "Batalla de Milk Creek",
+      "names": [
+        "Batalla de Milk Creek"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1879,
+      "endYear": 1879,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de hembrillo basin",
+      "name": "Batalla de Hembrillo Basin",
+      "names": [
+        "Batalla de Hembrillo Basin"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1880,
+      "endYear": 1880,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla del alto de la alianza",
+      "name": "Batalla del Alto de la Alianza",
+      "names": [
+        "Batalla del Alto de la Alianza"
+      ],
+      "countries": [
+        "BOL",
+        "CHL"
+      ],
+      "startYear": 1880,
+      "endYear": 1880,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de fuzhou",
+      "name": "Batalla de Fuzhou",
+      "names": [
+        "Batalla de Fuzhou"
+      ],
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1884,
+      "endYear": 1884,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "sitio de battleford",
+      "name": "Sitio de Battleford",
+      "names": [
+        "Sitio de Battleford"
+      ],
+      "countries": [
+        "CAN"
+      ],
+      "startYear": 1885,
+      "endYear": 1885,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de khannour",
+      "name": "Batalla de Khannour",
+      "names": [
+        "Batalla de Khannour"
+      ],
+      "countries": [
+        "QAT"
+      ],
+      "startYear": 1889,
+      "endYear": 1889,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de fajardo",
+      "name": "Batalla de Fajardo",
+      "names": [
+        "Batalla de Fajardo"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1898,
+      "endYear": 1898,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de guantanamo bay",
+      "name": "Batalla de Guantánamo Bay",
+      "names": [
+        "Batalla de Guantánamo Bay"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1898,
+      "endYear": 1898,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de las guasimas 1898",
+      "name": "Batalla de las Guásimas (1898)",
+      "names": [
+        "Batalla de las Guásimas (1898)"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1898,
+      "endYear": 1898,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de calumpit",
+      "name": "Batalla de Calumpit",
+      "names": [
+        "Batalla de Calumpit"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1899,
+      "endYear": 1899,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de manila",
+      "name": "Batalla de Manila",
+      "names": [
+        "Batalla de Manila"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1899,
+      "endYear": 1945,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de olongapo",
+      "name": "Batalla de Olongapo",
+      "names": [
+        "Batalla de Olongapo"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1899,
+      "endYear": 1899,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de santa cruz",
+      "name": "Batalla de Santa Cruz",
+      "names": [
+        "Batalla de Santa Cruz"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1899,
+      "endYear": 1899,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "segunda batalla de caloocan",
+      "name": "Segunda batalla de Caloocan",
+      "names": [
+        "Segunda batalla de Caloocan"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1899,
+      "endYear": 1899,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de tientsin",
+      "name": "Batalla de Tientsin",
+      "names": [
+        "Batalla de Tientsin"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1900,
+      "endYear": 1900,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "segunda batalla de bud dajo",
+      "name": "Segunda batalla de Bud Dajo",
+      "names": [
+        "Segunda batalla de Bud Dajo"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1911,
+      "endYear": 1911,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de coyotepe",
+      "name": "Batalla de Coyotepe",
+      "names": [
+        "Batalla de Coyotepe"
+      ],
+      "countries": [
+        "NIC",
+        "USA"
+      ],
+      "startYear": 1912,
+      "endYear": 1912,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de bud bagsak",
+      "name": "Batalla de Bud Bagsak",
+      "names": [
+        "Batalla de Bud Bagsak"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1913,
+      "endYear": 1913,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de donon",
+      "name": "Batalla de Donon",
+      "names": [
+        "Batalla de Donon"
+      ],
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1914,
+      "endYear": 1914,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de la fosse a l eau",
+      "name": "Batalla de la Fosse-à-l'Eau",
+      "names": [
+        "Batalla de la Fosse-à-l'Eau"
+      ],
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1914,
+      "endYear": 1914,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de meuse",
+      "name": "Batalla de Meuse",
+      "names": [
+        "Batalla de Meuse"
+      ],
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1914,
+      "endYear": 1914,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de monchy au bois",
+      "name": "Batalla de Monchy-au-Bois",
+      "names": [
+        "Batalla de Monchy-au-Bois"
+      ],
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1914,
+      "endYear": 1914,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de revigny",
+      "name": "Batalla de Revigny",
+      "names": [
+        "Batalla de Revigny"
+      ],
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1914,
+      "endYear": 1914,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de upper meurthe",
+      "name": "Batalla de Upper Meurthe",
+      "names": [
+        "Batalla de Upper Meurthe"
+      ],
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1914,
+      "endYear": 1914,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "primera batalla de ypres",
+      "name": "Primera batalla de Ypres",
+      "names": [
+        "Primera batalla de Ypres"
+      ],
+      "countries": [
+        "BEL"
+      ],
+      "startYear": 1914,
+      "endYear": 1914,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de fort dipitie",
+      "name": "Batalla de Fort Dipitie",
+      "names": [
+        "Batalla de Fort Dipitie"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1915,
+      "endYear": 1915,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de jutlandia",
+      "name": "Batalla de Jutlandia",
+      "names": [
+        "Batalla de Jutlandia"
+      ],
+      "countries": [
+        "AUS",
+        "CAN"
+      ],
+      "startYear": 1916,
+      "endYear": 1916,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de cambrai",
+      "name": "Batalla de Cambrai",
+      "names": [
+        "Batalla de Cambrai"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1917,
+      "endYear": 1917,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de la cresta de vimy",
+      "name": "Batalla de la Cresta de Vimy",
+      "names": [
+        "Batalla de la Cresta de Vimy"
+      ],
+      "countries": [
+        "CAN"
+      ],
+      "startYear": 1917,
+      "endYear": 1917,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de messines",
+      "name": "Batalla de Messines",
+      "names": [
+        "Batalla de Messines"
+      ],
+      "countries": [
+        "AUS"
+      ],
+      "startYear": 1917,
+      "endYear": 1917,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla del canal de otranto",
+      "name": "Batalla del canal de Otranto",
+      "names": [
+        "Batalla del canal de Otranto"
+      ],
+      "countries": [
+        "AUS",
+        "GBR"
+      ],
+      "startYear": 1917,
+      "endYear": 1917,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de amiens",
+      "name": "Batalla de Amiens",
+      "names": [
+        "Batalla de Amiens"
+      ],
+      "countries": [
+        "AUS",
+        "CAN",
+        "USA"
+      ],
+      "startYear": 1918,
+      "endYear": 1918,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de belleau wood",
+      "name": "Batalla de Belleau Wood",
+      "names": [
+        "Batalla de Belleau Wood"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1918,
+      "endYear": 1918,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de blanc mont ridge",
+      "name": "Batalla de Blanc Mont Ridge",
+      "names": [
+        "Batalla de Blanc Mont Ridge"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1918,
+      "endYear": 1918,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de durazzo",
+      "name": "Batalla de Durazzo",
+      "names": [
+        "Batalla de Durazzo"
+      ],
+      "countries": [
+        "AUS",
+        "FRA",
+        "USA"
+      ],
+      "startYear": 1918,
+      "endYear": 1918,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de mont saint quentin",
+      "name": "Batalla de Mont Saint-Quentin",
+      "names": [
+        "Batalla de Mont Saint-Quentin"
+      ],
+      "countries": [
+        "AUS"
+      ],
+      "startYear": 1918,
+      "endYear": 1918,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de picardy",
+      "name": "Batalla de Picardy",
+      "names": [
+        "Batalla de Picardy"
+      ],
+      "countries": [
+        "AUS",
+        "FRA"
+      ],
+      "startYear": 1918,
+      "endYear": 1918,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de saint mihiel",
+      "name": "Batalla de Saint-Mihiel",
+      "names": [
+        "Batalla de Saint-Mihiel"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1918,
+      "endYear": 1918,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de saint thierry",
+      "name": "Batalla de Saint-Thierry",
+      "names": [
+        "Batalla de Saint-Thierry"
+      ],
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1918,
+      "endYear": 1918,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de scarpe",
+      "name": "Batalla de Scarpe",
+      "names": [
+        "Batalla de Scarpe"
+      ],
+      "countries": [
+        "CAN"
+      ],
+      "startYear": 1918,
+      "endYear": 1918,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de soissons",
+      "name": "Batalla de Soissons",
+      "names": [
+        "Batalla de Soissons"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1918,
+      "endYear": 1918,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de st quentin canal",
+      "name": "Batalla de St. Quentin Canal",
+      "names": [
+        "Batalla de St. Quentin Canal"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1918,
+      "endYear": 1918,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de tulgas",
+      "name": "Batalla de Tulgas",
+      "names": [
+        "Batalla de Tulgas"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1918,
+      "endYear": 1918,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de vittorio veneto",
+      "name": "Batalla de Vittorio Veneto",
+      "names": [
+        "Batalla de Vittorio Veneto"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1918,
+      "endYear": 1918,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "segunda batalla de somme",
+      "name": "Segunda batalla de Somme",
+      "names": [
+        "Segunda batalla de Somme"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1918,
+      "endYear": 1918,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "segunda batalla del marne",
+      "name": "Segunda batalla del Marne",
+      "names": [
+        "Segunda batalla del Marne"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1918,
+      "endYear": 1918,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "tercera batalla de aisne",
+      "name": "Tercera batalla de Aisne",
+      "names": [
+        "Tercera batalla de Aisne"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1918,
+      "endYear": 1918,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de juarez",
+      "name": "Batalla de Juárez",
+      "names": [
+        "Batalla de Juárez"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1919,
+      "endYear": 1919,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de shenkursk",
+      "name": "Batalla de Shenkursk",
+      "names": [
+        "Batalla de Shenkursk"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1919,
+      "endYear": 1919,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de csaszarkobanya",
+      "name": "Batalla de Császárkőbanya",
+      "names": [
+        "Batalla de Császárkőbanya"
+      ],
+      "countries": [
+        "AUT"
+      ],
+      "startYear": 1921,
+      "endYear": 1921,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de la flor",
+      "name": "Batalla de La Flor",
+      "names": [
+        "Batalla de La Flor"
+      ],
+      "countries": [
+        "NIC",
+        "USA"
+      ],
+      "startYear": 1928,
+      "endYear": 1928,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "primera batalla de alihuata",
+      "name": "Primera Batalla de Alihuatá",
+      "names": [
+        "Primera Batalla de Alihuatá"
+      ],
+      "countries": [
+        "BOL",
+        "PRY"
+      ],
+      "startYear": 1933,
+      "endYear": 1933,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "adriatic campaign de world war ii",
+      "name": "Adriatic Campaign de World War II",
+      "names": [
+        "Adriatic Campaign de World War II"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1939,
+      "endYear": 1945,
+      "ongoing": false,
+      "issues": [
+        "english",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": [
+        "Adriatic Campaign de Segunda Guerra Mundial"
+      ]
+    },
+    {
+      "key": "batalla del atlantico",
+      "name": "Batalla del Atlántico",
+      "names": [
+        "Batalla del Atlántico"
+      ],
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 1939,
+      "endYear": 1945,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de belgica",
+      "name": "Batalla de Bélgica",
+      "names": [
+        "Batalla de Bélgica"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1940,
+      "endYear": 1940,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de cape spada",
+      "name": "Batalla de Cape Spada",
+      "names": [
+        "Batalla de Cape Spada"
+      ],
+      "countries": [
+        "AUS",
+        "GBR"
+      ],
+      "startYear": 1940,
+      "endYear": 1940,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de dunkerque",
+      "name": "Batalla de Dunkerque",
+      "names": [
+        "Batalla de Dunkerque"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1940,
+      "endYear": 1940,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de giarabub",
+      "name": "Batalla de Giarabub",
+      "names": [
+        "Batalla de Giarabub"
+      ],
+      "countries": [
+        "AUS",
+        "GBR"
+      ],
+      "startYear": 1940,
+      "endYear": 1941,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de kvam",
+      "name": "Batalla de Kvam",
+      "names": [
+        "Batalla de Kvam"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1940,
+      "endYear": 1940,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de raate road",
+      "name": "Batalla de Raate Road",
+      "names": [
+        "Batalla de Raate Road"
+      ],
+      "countries": [
+        "FIN"
+      ],
+      "startYear": 1940,
+      "endYear": 1940,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de rotterdam",
+      "name": "Batalla de Rotterdam",
+      "names": [
+        "Batalla de Rotterdam"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1940,
+      "endYear": 1940,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de sedan 1940",
+      "name": "Batalla de Sedán (1940)",
+      "names": [
+        "Batalla de Sedán (1940)"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1940,
+      "endYear": 1940,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de sidi barrani",
+      "name": "Batalla de Sidi Barrani",
+      "names": [
+        "Batalla de Sidi Barrani"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1940,
+      "endYear": 1940,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de ypres comines canal",
+      "name": "Batalla de Ypres-Comines Canal",
+      "names": [
+        "Batalla de Ypres-Comines Canal"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1940,
+      "endYear": 1940,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de agordat",
+      "name": "Batalla de Agordat",
+      "names": [
+        "Batalla de Agordat"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1941,
+      "endYear": 1941,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de creta",
+      "name": "Batalla de Creta",
+      "names": [
+        "Batalla de Creta"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1941,
+      "endYear": 1941,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de damasco 1941",
+      "name": "Batalla de Damasco (1941)",
+      "names": [
+        "Batalla de Damasco (1941)"
+      ],
+      "countries": [
+        "AUS",
+        "GBR"
+      ],
+      "startYear": 1941,
+      "endYear": 1941,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de gondar",
+      "name": "Batalla de Gondar",
+      "names": [
+        "Batalla de Gondar"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1941,
+      "endYear": 1941,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de guam",
+      "name": "Batalla de Guam",
+      "names": [
+        "Batalla de Guam"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1941,
+      "endYear": 1941,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de gurun",
+      "name": "Batalla de Gurun",
+      "names": [
+        "Batalla de Gurun"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1941,
+      "endYear": 1941,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de hong kong",
+      "name": "Batalla de Hong Kong",
+      "names": [
+        "Batalla de Hong Kong"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1941,
+      "endYear": 1941,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de kampar",
+      "name": "Batalla de Kampar",
+      "names": [
+        "Batalla de Kampar"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1941,
+      "endYear": 1942,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de keren",
+      "name": "Batalla de Keren",
+      "names": [
+        "Batalla de Keren"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1941,
+      "endYear": 1941,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de kleisoura pass",
+      "name": "Batalla de Kleisoura Pass",
+      "names": [
+        "Batalla de Kleisoura Pass"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1941,
+      "endYear": 1941,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de ko chang",
+      "name": "Batalla de Ko Chang",
+      "names": [
+        "Batalla de Ko Chang"
+      ],
+      "countries": [
+        "THA"
+      ],
+      "startYear": 1941,
+      "endYear": 1941,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de la isla wake",
+      "name": "Batalla de la Isla Wake",
+      "names": [
+        "Batalla de la Isla Wake"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1941,
+      "endYear": 1941,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de metaxas line",
+      "name": "Batalla de Metaxas Line",
+      "names": [
+        "Batalla de Metaxas Line"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1941,
+      "endYear": 1941,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de prachuab khirikhan",
+      "name": "Batalla de Prachuab Khirikhan",
+      "names": [
+        "Batalla de Prachuab Khirikhan"
+      ],
+      "countries": [
+        "THA"
+      ],
+      "startYear": 1941,
+      "endYear": 1941,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de thermopylae",
+      "name": "Batalla de Thermopylae",
+      "names": [
+        "Batalla de Thermopylae"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1941,
+      "endYear": 1941,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla del cabo matapan",
+      "name": "Batalla del Cabo Matapán",
+      "names": [
+        "Batalla del Cabo Matapán"
+      ],
+      "countries": [
+        "AUS",
+        "GBR"
+      ],
+      "startYear": 1941,
+      "endYear": 1941,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "segunda batalla de amba alagi",
+      "name": "Segunda Batalla de Amba Alagi",
+      "names": [
+        "Segunda Batalla de Amba Alagi"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1941,
+      "endYear": 1941,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de alam el halfa",
+      "name": "Batalla de Alam el Halfa",
+      "names": [
+        "Batalla de Alam el Halfa"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1942,
+      "endYear": 1942,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de balikpapan",
+      "name": "Batalla de Balikpapan",
+      "names": [
+        "Batalla de Balikpapan"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1942,
+      "endYear": 1942,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de bir hakeim",
+      "name": "Batalla de Bir Hakeim",
+      "names": [
+        "Batalla de Bir Hakeim"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1942,
+      "endYear": 1942,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de bukit timah",
+      "name": "Batalla de Bukit Timah",
+      "names": [
+        "Batalla de Bukit Timah"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1942,
+      "endYear": 1942,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de buna gona",
+      "name": "Batalla de Buna-Gona",
+      "names": [
+        "Batalla de Buna-Gona"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1942,
+      "endYear": 1943,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de el agheila",
+      "name": "Batalla de El Agheila",
+      "names": [
+        "Batalla de El Agheila"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1942,
+      "endYear": 1942,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de gazala",
+      "name": "Batalla de Gazala",
+      "names": [
+        "Batalla de Gazala"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1942,
+      "endYear": 1942,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de java",
+      "name": "Batalla de Java",
+      "names": [
+        "Batalla de Java"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1942,
+      "endYear": 1942,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de kranji",
+      "name": "Batalla de Kranji",
+      "names": [
+        "Batalla de Kranji"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1942,
+      "endYear": 1942,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de la bahia de milne",
+      "name": "Batalla de la Bahía de Milne",
+      "names": [
+        "Batalla de la Bahía de Milne"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1942,
+      "endYear": 1942,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de las islas santa cruz",
+      "name": "Batalla de las islas Santa Cruz",
+      "names": [
+        "Batalla de las islas Santa Cruz"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1942,
+      "endYear": 1942,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de midway",
+      "name": "Batalla de Midway",
+      "names": [
+        "Batalla de Midway"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1942,
+      "endYear": 1942,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de mount austen galloping horse y sea horse",
+      "name": "Batalla de Mount Austen, Galloping Horse, y Sea Horse",
+      "names": [
+        "Batalla de Mount Austen, Galloping Horse, y Sea Horse"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1942,
+      "endYear": 1943,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de muar",
+      "name": "Batalla de Muar",
+      "names": [
+        "Batalla de Muar"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1942,
+      "endYear": 1942,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de port moresby",
+      "name": "Batalla de Port Moresby",
+      "names": [
+        "Batalla de Port Moresby"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1942,
+      "endYear": 1943,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de singapur",
+      "name": "Batalla de Singapur",
+      "names": [
+        "Batalla de Singapur"
+      ],
+      "countries": [
+        "AUS",
+        "GBR"
+      ],
+      "startYear": 1942,
+      "endYear": 1942,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de slim river",
+      "name": "Batalla de Slim River",
+      "names": [
+        "Batalla de Slim River"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1942,
+      "endYear": 1942,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de timor",
+      "name": "Batalla de Timor",
+      "names": [
+        "Batalla de Timor"
+      ],
+      "countries": [
+        "AUS",
+        "NLD"
+      ],
+      "startYear": 1942,
+      "endYear": 1943,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de tjiater pass",
+      "name": "Batalla de Tjiater Pass",
+      "names": [
+        "Batalla de Tjiater Pass"
+      ],
+      "countries": [
+        "GBR",
+        "NLD"
+      ],
+      "startYear": 1942,
+      "endYear": 1942,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de tulagi y gavutu tanambogo",
+      "name": "Batalla de Tulagi y Gavutu-Tanambogo",
+      "names": [
+        "Batalla de Tulagi y Gavutu-Tanambogo"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1942,
+      "endYear": 1942,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla del edson ridge",
+      "name": "Batalla del Edson Ridge",
+      "names": [
+        "Batalla del Edson Ridge"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1942,
+      "endYear": 1942,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla del estrecho badung",
+      "name": "Batalla del Estrecho Badung",
+      "names": [
+        "Batalla del Estrecho Badung"
+      ],
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 1942,
+      "endYear": 1942,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla del estrecho de la sonda",
+      "name": "Batalla del estrecho de la Sonda",
+      "names": [
+        "Batalla del estrecho de la Sonda"
+      ],
+      "countries": [
+        "AUS",
+        "USA"
+      ],
+      "startYear": 1942,
+      "endYear": 1942,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla naval de guadalcanal",
+      "name": "Batalla naval de Guadalcanal",
+      "names": [
+        "Batalla naval de Guadalcanal"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1942,
+      "endYear": 1942,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla por el campo henderson",
+      "name": "Batalla por el Campo Henderson",
+      "names": [
+        "Batalla por el Campo Henderson"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1942,
+      "endYear": 1942,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "primera batalla de el alamein",
+      "name": "Primera Batalla de El Alamein",
+      "names": [
+        "Primera Batalla de El Alamein"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1942,
+      "endYear": 1942,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "segunda batalla de el alamein",
+      "name": "Segunda batalla de El Alamein",
+      "names": [
+        "Segunda batalla de El Alamein"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1942,
+      "endYear": 1942,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de arawe",
+      "name": "Batalla de Arawe",
+      "names": [
+        "Batalla de Arawe"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1943,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de attu",
+      "name": "Batalla de Attu",
+      "names": [
+        "Batalla de Attu"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1943,
+      "endYear": 1943,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de centuripe",
+      "name": "Batalla de Centuripe",
+      "names": [
+        "Batalla de Centuripe"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1943,
+      "endYear": 1943,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de coconut grove",
+      "name": "Batalla de Coconut Grove",
+      "names": [
+        "Batalla de Coconut Grove"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1943,
+      "endYear": 1943,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de dumpu",
+      "name": "Batalla de Dumpu",
+      "names": [
+        "Batalla de Dumpu"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1943,
+      "endYear": 1943,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de enogai",
+      "name": "Batalla de Enogai",
+      "names": [
+        "Batalla de Enogai"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1943,
+      "endYear": 1943,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de gela",
+      "name": "Batalla de Gela",
+      "names": [
+        "Batalla de Gela"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1943,
+      "endYear": 1943,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de hellzapoppin ridge y hill 600a",
+      "name": "Batalla de Hellzapoppin Ridge y Hill 600A",
+      "names": [
+        "Batalla de Hellzapoppin Ridge y Hill 600A"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1943,
+      "endYear": 1943,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de hill 609",
+      "name": "Batalla de Hill 609",
+      "names": [
+        "Batalla de Hill 609"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1943,
+      "endYear": 1943,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de horaniu",
+      "name": "Batalla de Horaniu",
+      "names": [
+        "Batalla de Horaniu"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1943,
+      "endYear": 1943,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de kaiapit",
+      "name": "Batalla de Kaiapit",
+      "names": [
+        "Batalla de Kaiapit"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1943,
+      "endYear": 1943,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de kolombangara",
+      "name": "Batalla de Kolombangara",
+      "names": [
+        "Batalla de Kolombangara"
+      ],
+      "countries": [
+        "NZL",
+        "USA"
+      ],
+      "startYear": 1943,
+      "endYear": 1943,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de koromokina lagoon",
+      "name": "Batalla de Koromokina Lagoon",
+      "names": [
+        "Batalla de Koromokina Lagoon"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1943,
+      "endYear": 1943,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de kos",
+      "name": "Batalla de Kos",
+      "names": [
+        "Batalla de Kos"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1943,
+      "endYear": 1943,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de la isla rennell",
+      "name": "Batalla de la Isla Rennell",
+      "names": [
+        "Batalla de la Isla Rennell"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1943,
+      "endYear": 1943,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de leros",
+      "name": "Batalla de Leros",
+      "names": [
+        "Batalla de Leros"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1943,
+      "endYear": 1943,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de munda point",
+      "name": "Batalla de Munda Point",
+      "names": [
+        "Batalla de Munda Point"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1943,
+      "endYear": 1943,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de northern burma y western yunnan",
+      "name": "Batalla de Northern Burma y Western Yunnan",
+      "names": [
+        "Batalla de Northern Burma y Western Yunnan"
+      ],
+      "countries": [
+        "THA"
+      ],
+      "startYear": 1943,
+      "endYear": 1945,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de piva forks",
+      "name": "Batalla de Piva Forks",
+      "names": [
+        "Batalla de Piva Forks"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1943,
+      "endYear": 1943,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de sattelberg",
+      "name": "Batalla de Sattelberg",
+      "names": [
+        "Batalla de Sattelberg"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1943,
+      "endYear": 1943,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de scarlet beach",
+      "name": "Batalla de Scarlet Beach",
+      "names": [
+        "Batalla de Scarlet Beach"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1943,
+      "endYear": 1943,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de sedjenane",
+      "name": "Batalla de Sedjenane",
+      "names": [
+        "Batalla de Sedjenane"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1943,
+      "endYear": 1943,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de sidi bou zid",
+      "name": "Batalla de Sidi Bou Zid",
+      "names": [
+        "Batalla de Sidi Bou Zid"
+      ],
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 1943,
+      "endYear": 1943,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de sio",
+      "name": "Batalla de Sio",
+      "names": [
+        "Batalla de Sio"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1943,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de troina",
+      "name": "Batalla de Troina",
+      "names": [
+        "Batalla de Troina"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1943,
+      "endYear": 1943,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de wau",
+      "name": "Batalla de Wau",
+      "names": [
+        "Batalla de Wau"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1943,
+      "endYear": 1943,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de wickham anchorage",
+      "name": "Batalla de Wickham Anchorage",
+      "names": [
+        "Batalla de Wickham Anchorage"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1943,
+      "endYear": 1943,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla del cabo gloucester",
+      "name": "Batalla del Cabo Gloucester",
+      "names": [
+        "Batalla del Cabo Gloucester"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1943,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla del monte la difensa",
+      "name": "Batalla del Monte la Difensa",
+      "names": [
+        "Batalla del Monte la Difensa"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1943,
+      "endYear": 1943,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "battle for piva trail",
+      "name": "Battle for Piva Trail",
+      "names": [
+        "Battle for Piva Trail"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1943,
+      "endYear": 1943,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de 25 april 1944",
+      "name": "Batalla de 25 April 1944",
+      "names": [
+        "Batalla de 25 April 1944"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de angaur",
+      "name": "Batalla de Angaur",
+      "names": [
+        "Batalla de Angaur"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de aquisgran",
+      "name": "Batalla de Aquisgrán",
+      "names": [
+        "Batalla de Aquisgrán"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de arracourt",
+      "name": "Batalla de Arracourt",
+      "names": [
+        "Batalla de Arracourt"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de biak",
+      "name": "Batalla de Biak",
+      "names": [
+        "Batalla de Biak"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de brest",
+      "name": "Batalla de Brest",
+      "names": [
+        "Batalla de Brest"
+      ],
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de broekhuizen",
+      "name": "Batalla de Broekhuizen",
+      "names": [
+        "Batalla de Broekhuizen"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de cabo engano",
+      "name": "Batalla de Cabo Engaño",
+      "names": [
+        "Batalla de Cabo Engaño"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de caen",
+      "name": "Batalla de Caen",
+      "names": [
+        "Batalla de Caen"
+      ],
+      "countries": [
+        "CAN",
+        "GBR"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de carentan",
+      "name": "Batalla de Carentan",
+      "names": [
+        "Batalla de Carentan"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de cecina",
+      "name": "Batalla de Cecina",
+      "names": [
+        "Batalla de Cecina"
+      ],
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de chambois",
+      "name": "Batalla de Chambois",
+      "names": [
+        "Batalla de Chambois"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de cisterna",
+      "name": "Batalla de Cisterna",
+      "names": [
+        "Batalla de Cisterna"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de eniwetok",
+      "name": "Batalla de Eniwetok",
+      "names": [
+        "Batalla de Eniwetok"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de garfagnana",
+      "name": "Batalla de Garfagnana",
+      "names": [
+        "Batalla de Garfagnana"
+      ],
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de geel",
+      "name": "Batalla de Geel",
+      "names": [
+        "Batalla de Geel"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de gemmano",
+      "name": "Batalla de Gemmano",
+      "names": [
+        "Batalla de Gemmano"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de green islands",
+      "name": "Batalla de Green Islands",
+      "names": [
+        "Batalla de Green Islands"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de hollandia",
+      "name": "Batalla de Hollandia",
+      "names": [
+        "Batalla de Hollandia"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de imfal",
+      "name": "Batalla de Imfal",
+      "names": [
+        "Batalla de Imfal"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de kesternich",
+      "name": "Batalla de Kesternich",
+      "names": [
+        "Batalla de Kesternich"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1945,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de kohima",
+      "name": "Batalla de Kohima",
+      "names": [
+        "Batalla de Kohima"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de kwajalein",
+      "name": "Batalla de Kwajalein",
+      "names": [
+        "Batalla de Kwajalein"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de lanzerath ridge",
+      "name": "Batalla de Lanzerath Ridge",
+      "names": [
+        "Batalla de Lanzerath Ridge"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de las ardenas",
+      "name": "Batalla de las Ardenas",
+      "names": [
+        "Batalla de las Ardenas"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1945,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de leyte",
+      "name": "Batalla de Leyte",
+      "names": [
+        "Batalla de Leyte"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de mairy",
+      "name": "Batalla de Mairy",
+      "names": [
+        "Batalla de Mairy"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de metz",
+      "name": "Batalla de Metz",
+      "names": [
+        "Batalla de Metz"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de mindoro",
+      "name": "Batalla de Mindoro",
+      "names": [
+        "Batalla de Mindoro"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de moerbrugge",
+      "name": "Batalla de Moerbrugge",
+      "names": [
+        "Batalla de Moerbrugge"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de montecassino",
+      "name": "Batalla de Montecassino",
+      "names": [
+        "Batalla de Montecassino"
+      ],
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de morotai",
+      "name": "Batalla de Morotai",
+      "names": [
+        "Batalla de Morotai"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de nijmegen",
+      "name": "Batalla de Nijmegen",
+      "names": [
+        "Batalla de Nijmegen"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de noemfoor",
+      "name": "Batalla de Noemfoor",
+      "names": [
+        "Batalla de Noemfoor"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de ormoc bay",
+      "name": "Batalla de Ormoc Bay",
+      "names": [
+        "Batalla de Ormoc Bay"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    }
+  ]
+}
