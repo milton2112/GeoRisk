@@ -46,6 +46,9 @@ GeoRisk es una aplicacion frontend orientada a exploracion geopolitica con datas
 - `scripts/lib/render-logic.js`: logica pura reutilizable para tests y render.
 - `scripts/lib/ui-logic.js`: helpers puros de UI y paneles.
 - `scripts/auditConflicts.js`: genera `reports/conflict-audit.json` y `reports/conflict-autofix-suggestions.json`.
+- `scripts/applyConflictAutofix.js`: aplica solo renombres y detalles curados explicitos; escribe `reports/conflict-autofix-applied.json`.
+- `scripts/measureStartupAssets.js`: mide peso local de shell, modulos, GeoJSON y datos diferidos; escribe `reports/startup-assets.json`.
+- `scripts/releaseChecklist.js`: corre tests, auditoria, medicion y smoke server antes de release.
 - `scripts/localSmokeServer.js`: servidor HTTP local estable para smoke tests sin depender del browser plugin.
 
 ## Flujo de datos

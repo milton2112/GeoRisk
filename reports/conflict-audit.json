@@ -1,254 +1,16 @@
 {
-  "generatedAt": "2026-05-03T01:14:13.971Z",
-  "scannedConflicts": 2006,
-  "issueCount": 1956,
+  "generatedAt": "2026-05-03T02:30:35.423Z",
+  "scannedConflicts": 2007,
+  "issueCount": 1945,
   "summary": {
-    "battle_without_parent": 1177,
-    "duplicate_names": 3,
-    "weak_detail": 1906,
-    "generic_side": 22,
-    "english": 10,
+    "battle_without_parent": 1165,
+    "weak_detail": 1894,
+    "generic_side": 21,
+    "duplicate_names": 4,
+    "english": 5,
     "leading_year": 7
   },
   "topIssues": [
-    {
-      "key": "batalla de saigon",
-      "name": "Batalla de Saigon",
-      "names": [
-        "Batalla de Saigon",
-        "Batalla de Saigón"
-      ],
-      "countries": [
-        "FRA",
-        "USA"
-      ],
-      "startYear": 1955,
-      "endYear": 1955,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "duplicate_names",
-        "weak_detail"
-      ],
-      "severity": 9,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de hjorungavagr",
-      "name": "Batalla de Hjörungavágr",
-      "names": [
-        "Batalla de Hjörungavágr"
-      ],
-      "countries": [
-        "DNK",
-        "NOR"
-      ],
-      "startYear": 986,
-      "endYear": 986,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de svolder",
-      "name": "Batalla de Svolder",
-      "names": [
-        "Batalla de Svolder"
-      ],
-      "countries": [
-        "DNK",
-        "NOR",
-        "SWE"
-      ],
-      "startYear": 999,
-      "endYear": 999,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "generic_side"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de nisa",
-      "name": "Batalla de Niså",
-      "names": [
-        "Batalla de Niså"
-      ],
-      "countries": [
-        "DNK",
-        "NOR"
-      ],
-      "startYear": 1062,
-      "endYear": 1062,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de lena",
-      "name": "Batalla de Lena",
-      "names": [
-        "Batalla de Lena"
-      ],
-      "countries": [
-        "DNK",
-        "SWE"
-      ],
-      "startYear": 1208,
-      "endYear": 1208,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "sitio de nyk bing",
-      "name": "Sitio de Nykøbing",
-      "names": [
-        "Sitio de Nykøbing"
-      ],
-      "countries": [
-        "SWE"
-      ],
-      "startYear": 1360,
-      "endYear": 1368,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "sitio de helsingborg",
-      "name": "Sitio de Helsingborg",
-      "names": [
-        "Sitio de Helsingborg"
-      ],
-      "countries": [
-        "SWE"
-      ],
-      "startYear": 1368,
-      "endYear": 1369,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "sitio de lindholmen",
-      "name": "Sitio de Lindholmen",
-      "names": [
-        "Sitio de Lindholmen"
-      ],
-      "countries": [
-        "SWE"
-      ],
-      "startYear": 1368,
-      "endYear": 1369,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de rapallo 1495",
-      "name": "Batalla de Rapallo (1495)",
-      "names": [
-        "Batalla de Rapallo (1495)"
-      ],
-      "countries": [
-        "FRA"
-      ],
-      "startYear": 1495,
-      "endYear": 1495,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de stockholm",
-      "name": "Batalla de Stockholm",
-      "names": [
-        "Batalla de Stockholm"
-      ],
-      "countries": [
-        "DNK",
-        "SWE"
-      ],
-      "startYear": 1518,
-      "endYear": 1518,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de bogesund",
-      "name": "Batalla de Bogesund",
-      "names": [
-        "Batalla de Bogesund"
-      ],
-      "countries": [
-        "DNK",
-        "SWE"
-      ],
-      "startYear": 1520,
-      "endYear": 1520,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de solent",
-      "name": "Batalla de Solent",
-      "names": [
-        "Batalla de Solent"
-      ],
-      "countries": [
-        "FRA"
-      ],
-      "startYear": 1545,
-      "endYear": 1545,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
     {
       "key": "sitio de narva",
       "name": "Sitio de Narva",
@@ -710,25 +472,6 @@
       "autoFixes": []
     },
     {
-      "key": "raid on le havre",
-      "name": "Raid on Le Havre",
-      "names": [
-        "Raid on Le Havre"
-      ],
-      "countries": [
-        "FRA"
-      ],
-      "startYear": 1759,
-      "endYear": 1759,
-      "ongoing": false,
-      "issues": [
-        "english",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
       "key": "batalla del cabo finisterre",
       "name": "Batalla del cabo Finisterre",
       "names": [
@@ -1091,25 +834,6 @@
       "autoFixes": []
     },
     {
-      "key": "sunda strait campaign de january 1794",
-      "name": "Sunda Strait campaign de January 1794",
-      "names": [
-        "Sunda Strait campaign de January 1794"
-      ],
-      "countries": [
-        "FRA"
-      ],
-      "startYear": 1794,
-      "endYear": 1794,
-      "ongoing": false,
-      "issues": [
-        "english",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
       "key": "batalla de fishguard",
       "name": "Batalla de Fishguard",
       "names": [
@@ -1180,25 +904,6 @@
       "ongoing": false,
       "issues": [
         "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "raid on boulogne",
-      "name": "Raid on Boulogne",
-      "names": [
-        "Raid on Boulogne"
-      ],
-      "countries": [
-        "FRA"
-      ],
-      "startYear": 1804,
-      "endYear": 1804,
-      "ongoing": false,
-      "issues": [
-        "english",
         "weak_detail"
       ],
       "severity": 6,
@@ -1465,25 +1170,6 @@
       "ongoing": false,
       "issues": [
         "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "raid on alexandria",
-      "name": "Raid on Alexandria",
-      "names": [
-        "Raid on Alexandria"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1814,
-      "endYear": 1814,
-      "ongoing": false,
-      "issues": [
-        "english",
         "weak_detail"
       ],
       "severity": 6,
@@ -3450,27 +3136,6 @@
       ],
       "severity": 6,
       "autoFixes": []
-    },
-    {
-      "key": "adriatic campaign de world war ii",
-      "name": "Adriatic Campaign de World War II",
-      "names": [
-        "Adriatic Campaign de World War II"
-      ],
-      "countries": [
-        "GBR"
-      ],
-      "startYear": 1939,
-      "endYear": 1945,
-      "ongoing": false,
-      "issues": [
-        "english",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": [
-        "Adriatic Campaign de Segunda Guerra Mundial"
-      ]
     },
     {
       "key": "batalla del atlantico",
@@ -5761,6 +5426,332 @@
       ],
       "startYear": 1944,
       "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de overloon",
+      "name": "Batalla de Overloon",
+      "names": [
+        "Batalla de Overloon"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de peleliu",
+      "name": "Batalla de Peleliu",
+      "names": [
+        "Batalla de Peleliu"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de port en bessin",
+      "name": "Batalla de Port-en-Bessin",
+      "names": [
+        "Batalla de Port-en-Bessin"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de saipan",
+      "name": "Batalla de Saipán",
+      "names": [
+        "Batalla de Saipán"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de san marino",
+      "name": "Batalla de San Marino",
+      "names": [
+        "Batalla de San Marino"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de tinian",
+      "name": "Batalla de Tinian",
+      "names": [
+        "Batalla de Tinian"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de walcheren causeway",
+      "name": "Batalla de Walcheren Causeway",
+      "names": [
+        "Batalla de Walcheren Causeway"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla del bosque de hurtgen",
+      "name": "Batalla del Bosque de Hürtgen",
+      "names": [
+        "Batalla del Bosque de Hürtgen"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla del estuario del escalda",
+      "name": "Batalla del estuario del Escalda",
+      "names": [
+        "Batalla del estuario del Escalda"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla del golfo de leyte",
+      "name": "Batalla del Golfo de Leyte",
+      "names": [
+        "Batalla del Golfo de Leyte"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla del mar de filipinas",
+      "name": "Batalla del mar de Filipinas",
+      "names": [
+        "Batalla del mar de Filipinas"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "segunda batalla de odon",
+      "name": "Segunda batalla de Odon",
+      "names": [
+        "Segunda batalla de Odon"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1944,
+      "endYear": 1944,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de authion",
+      "name": "Batalla de Authion",
+      "names": [
+        "Batalla de Authion"
+      ],
+      "countries": [
+        "FRA",
+        "USA"
+      ],
+      "startYear": 1945,
+      "endYear": 1945,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de bataan",
+      "name": "Batalla de Bataan",
+      "names": [
+        "Batalla de Bataan"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1945,
+      "endYear": 1945,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de bologna",
+      "name": "Batalla de Bologna",
+      "names": [
+        "Batalla de Bologna"
+      ],
+      "countries": [
+        "GBR",
+        "POL",
+        "USA"
+      ],
+      "startYear": 1945,
+      "endYear": 1945,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de buchhof y stein am kocher",
+      "name": "Batalla de Buchhof y Stein am Kocher",
+      "names": [
+        "Batalla de Buchhof y Stein am Kocher"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1945,
+      "endYear": 1945,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de bure",
+      "name": "Batalla de Bure",
+      "names": [
+        "Batalla de Bure"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1945,
+      "endYear": 1945,
       "ongoing": false,
       "issues": [
         "battle_without_parent",

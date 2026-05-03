@@ -74,6 +74,7 @@ assert.ok(script.includes("app-news-ui.js"), "noticias debe tener modulo diferid
 assert.ok(script.includes("app-compare-ui.js"), "comparador debe tener modulo diferido declarado");
 assert.ok(script.includes("app-quiz-ui.js"), "quiz debe tener modulo diferido declarado");
 assert.ok(script.includes("function renderCountryCurationTodo"), "ficha pais debe exponer checklist de curaduria");
+assert.ok(script.includes("function getCountryCurationActions"), "ficha pais debe exponer acciones de curaduria por seccion");
 assert.ok(script.includes("Que falta curar"), "ficha pais debe mostrar que falta curar");
 assert.ok(appRuntime.includes(" - rendimiento"), "perfil runtime debe usar separador ASCII estable");
 assert.ok(!appRuntime.includes("Â"), "app-runtime no debe exponer mojibake visible");

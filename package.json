@@ -8,18 +8,22 @@
     "import:conflicts:dyadic": "powershell -ExecutionPolicy Bypass -File scripts/importDyadicSupplement.ps1",
     "smoke:server": "node scripts/localSmokeServer.js",
     "audit:conflicts": "node scripts/auditConflicts.js",
+    "fix:conflicts": "node scripts/applyConflictAutofix.js && node scripts/auditConflicts.js",
+    "measure:startup": "node scripts/measureStartupAssets.js",
+    "release:check": "node scripts/releaseChecklist.js",
     "validate:data": "node scripts/validateDataset.js",
     "test:normalization": "node scripts/tests/normalization.test.js",
     "test:conflicts": "node scripts/tests/conflict-cleaning.test.js",
     "test:conflict-audit": "node scripts/tests/conflict-audit.test.js",
     "test:conflict-audit-report": "node scripts/tests/conflict-audit-report.test.js",
+    "test:conflict-autofix": "node scripts/tests/conflict-autofix.test.js",
     "test:logic": "node scripts/tests/logic.test.js",
     "test:startup": "node scripts/tests/startup-data.test.js",
     "test:smoke-server": "node scripts/tests/local-smoke-server.test.js",
     "test:country-matching": "node scripts/tests/country-matching.test.js",
     "test:modal-render": "node scripts/tests/modal-render.test.js",
     "test:map-coverage": "node scripts/tests/map-coverage.test.js",
-    "test": "npm run test:normalization && npm run test:conflicts && npm run test:conflict-audit && npm run test:conflict-audit-report && npm run test:logic && npm run test:startup && npm run test:smoke-server && npm run test:country-matching && npm run test:modal-render && npm run test:map-coverage && npm run validate:data"
+    "test": "npm run test:normalization && npm run test:conflicts && npm run test:conflict-audit && npm run test:conflict-audit-report && npm run test:conflict-autofix && npm run test:logic && npm run test:startup && npm run test:smoke-server && npm run test:country-matching && npm run test:modal-render && npm run test:map-coverage && npm run validate:data"
   },
   "dependencies": {
     "csv-parser": "^3.0.0",

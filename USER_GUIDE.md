@@ -100,6 +100,22 @@ npm run audit:conflicts
 
 El reporte queda en `reports/conflict-audit.json` y las sugerencias automaticas seguras en `reports/conflict-autofix-suggestions.json`.
 
+Para aplicar solo correcciones confiables y luego auditar de nuevo:
+
+```bash
+npm run fix:conflicts
+```
+
+### Checklist de release
+
+Antes de subir una version grande:
+
+```bash
+npm run release:check
+```
+
+Ese comando corre tests, validacion, auditoria, medicion de arranque y smoke server.
+
 Incluye:
 
 - resumen general;

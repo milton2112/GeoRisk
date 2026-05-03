@@ -13,6 +13,8 @@ Actualizacion de producto orientada a uso real y crecimiento futuro.
 - Servidor local de smoke test con prueba automatica para revisar el shell sin depender del browser plugin.
 - Auditoria real de conflictos sobre el dataset completo con reporte de ingles, duplicados, bandos genericos, batallas sin padre y detalle flojo.
 - Sugerencias automaticas de normalizacion para conflictos en `reports/conflict-autofix-suggestions.json`.
+- Autofix seguro de conflictos con renombres explicitos, deduplicacion cronologica, padres de batallas y reporte de cambios aplicados.
+- Medicion local de peso de arranque y checklist de release automatica antes de subir cambios.
 - Ficha pais con bloque "Que falta curar" para orientar la curaduria pendiente.
 - Noticias, comparador y quiz dejan de bloquear el HTML inicial y pasan a carga diferida por panel.
 - Optimizacion progresiva del arranque: indice inicial compacto, fichas por pais bajo demanda y dataset completo diferido.

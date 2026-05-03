@@ -19,6 +19,7 @@ const BLOCK_FALSE_POSITIVES = {
 };
 
 import { cleanConflictLabel, inferConflictYearsFromText, normalizeConflictKey } from "./conflict-cleaning.js";
+import { CURATED_CONFLICT_DETAIL_FIXES, SAFE_CONFLICT_RENAMES } from "./conflict-autofix-rules.js";
 
 const ENGLISH_CONFLICT_MARKERS = [
   "war of ",
@@ -146,6 +147,11 @@ function getGeneratedConflictMap(generatedDetails) {
   return generatedDetails;
 }
 
+function getRenamedConflictRecord(name, generatedConflictMap) {
+  const renamed = SAFE_CONFLICT_RENAMES[name] || SAFE_CONFLICT_RENAMES[cleanConflictLabel(name)];
+  return renamed ? generatedConflictMap[renamed] : null;
+}
+
 function getConflictYears(record) {
   const explicitStart = Number.isFinite(record.startYear) ? record.startYear : null;
   const explicitEnd = Number.isFinite(record.endYear) ? record.endYear : null;
@@ -182,6 +188,11 @@ function scoreIssueSet(issues) {
 }
 
 export function suggestConflictAutoFix(name) {
+  const explicit = SAFE_CONFLICT_RENAMES[name] || SAFE_CONFLICT_RENAMES[cleanConflictLabel(name)];
+  if (explicit) {
+    return explicit;
+  }
+
   const cleaned = cleanConflictLabel(name)
     .replace(/^(\d{4})\s+(.+)$/u, "$2 ($1)")
     .replace(/\bWorld War I\b/gi, "Primera Guerra Mundial")
@@ -243,12 +254,24 @@ export function buildConflictAuditReport({ countries = {}, generatedDetails = {}
     record.details.push({ name, ...detail });
   }
 
+  for (const [name, detail] of Object.entries(CURATED_CONFLICT_DETAIL_FIXES)) {
+    const record = ensureRecord(name);
+    if (!record) {
+      continue;
+    }
+    record.details.push({ name, ...detail });
+  }
+
   const items = [...recordsByKey.values()].map(record => {
     const names = [...record.names].sort((a, b) => a.localeCompare(b, "es"));
     const representativeName = names.find(name => !getConflictNameIssues(name).includes("english")) || names[0];
     const issues = new Set();
     const autoFixes = new Set();
-    const allDetails = [...record.entries, ...record.details];
+    const allDetails = [
+      ...record.entries,
+      ...record.details,
+      ...names.map(name => getRenamedConflictRecord(name, generatedConflictMap)).filter(Boolean)
+    ];
 
     for (const name of names) {
       getConflictNameIssues(name).forEach(issue => issues.add(issue));
@@ -268,6 +291,12 @@ export function buildConflictAuditReport({ countries = {}, generatedDetails = {}
 
     if (!allDetails.some(hasUsefulDetail)) {
       issues.add("weak_detail");
+    }
+    if (allDetails.some(detail => detail?.parent || detail?.campaign || detail?.war)) {
+      issues.delete("battle_without_parent");
+    }
+    if (allDetails.some(hasUsefulDetail)) {
+      issues.delete("weak_detail");
     }
 
     const years = getConflictYears(allDetails.find(item => item.startYear || item.endYear) || allDetails[0] || {});

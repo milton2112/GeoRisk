@@ -1,0 +1,226 @@
+{
+  "generatedAt": "2026-05-03T02:30:35.805Z",
+  "startupBytes": 1577383,
+  "startupHuman": "1.50 MB",
+  "deferredBytes": 493936,
+  "deferredHuman": "482 KB",
+  "largestAssets": [
+    {
+      "path": "data/countries_index.json",
+      "exists": true,
+      "bytes": 648118,
+      "human": "633 KB",
+      "startupCritical": true
+    },
+    {
+      "path": "script.js",
+      "exists": true,
+      "bytes": 642277,
+      "human": "627 KB",
+      "startupCritical": true
+    },
+    {
+      "path": "data/world_countries.geo.json",
+      "exists": true,
+      "bytes": 256950,
+      "human": "251 KB",
+      "startupCritical": false
+    },
+    {
+      "path": "data/conflict_details.generated.json",
+      "exists": true,
+      "bytes": 229109,
+      "human": "224 KB",
+      "startupCritical": false
+    },
+    {
+      "path": "data/world_countries_simplified.geo.json",
+      "exists": true,
+      "bytes": 174321,
+      "human": "170 KB",
+      "startupCritical": true
+    },
+    {
+      "path": "style.css",
+      "exists": true,
+      "bytes": 67641,
+      "human": "66 KB",
+      "startupCritical": true
+    },
+    {
+      "path": "index.html",
+      "exists": true,
+      "bytes": 29029,
+      "human": "28 KB",
+      "startupCritical": true
+    },
+    {
+      "path": "app-text.js",
+      "exists": true,
+      "bytes": 8067,
+      "human": "8 KB",
+      "startupCritical": true
+    },
+    {
+      "path": "app-runtime.js",
+      "exists": true,
+      "bytes": 2961,
+      "human": "3 KB",
+      "startupCritical": true
+    },
+    {
+      "path": "app-compare-ui.js",
+      "exists": true,
+      "bytes": 2804,
+      "human": "3 KB",
+      "startupCritical": false
+    },
+    {
+      "path": "data/geo_aliases.json",
+      "exists": true,
+      "bytes": 2784,
+      "human": "3 KB",
+      "startupCritical": true
+    },
+    {
+      "path": "app-performance-ui.js",
+      "exists": true,
+      "bytes": 2067,
+      "human": "2 KB",
+      "startupCritical": false
+    }
+  ],
+  "assets": [
+    {
+      "path": "index.html",
+      "exists": true,
+      "bytes": 29029,
+      "human": "28 KB",
+      "startupCritical": true
+    },
+    {
+      "path": "script.js",
+      "exists": true,
+      "bytes": 642277,
+      "human": "627 KB",
+      "startupCritical": true
+    },
+    {
+      "path": "style.css",
+      "exists": true,
+      "bytes": 67641,
+      "human": "66 KB",
+      "startupCritical": true
+    },
+    {
+      "path": "app-runtime.js",
+      "exists": true,
+      "bytes": 2961,
+      "human": "3 KB",
+      "startupCritical": true
+    },
+    {
+      "path": "app-theme.js",
+      "exists": true,
+      "bytes": 338,
+      "human": "338 B",
+      "startupCritical": true
+    },
+    {
+      "path": "app-text.js",
+      "exists": true,
+      "bytes": 8067,
+      "human": "8 KB",
+      "startupCritical": true
+    },
+    {
+      "path": "app-country-panel.js",
+      "exists": true,
+      "bytes": 1243,
+      "human": "1 KB",
+      "startupCritical": true
+    },
+    {
+      "path": "app-timeline-conflicts.js",
+      "exists": true,
+      "bytes": 604,
+      "human": "604 B",
+      "startupCritical": true
+    },
+    {
+      "path": "app-news-ui.js",
+      "exists": true,
+      "bytes": 1511,
+      "human": "1 KB",
+      "startupCritical": false
+    },
+    {
+      "path": "app-compare-ui.js",
+      "exists": true,
+      "bytes": 2804,
+      "human": "3 KB",
+      "startupCritical": false
+    },
+    {
+      "path": "app-quiz-ui.js",
+      "exists": true,
+      "bytes": 1495,
+      "human": "1 KB",
+      "startupCritical": false
+    },
+    {
+      "path": "app-performance-ui.js",
+      "exists": true,
+      "bytes": 2067,
+      "human": "2 KB",
+      "startupCritical": false
+    },
+    {
+      "path": "data/countries_index.json",
+      "exists": true,
+      "bytes": 648118,
+      "human": "633 KB",
+      "startupCritical": true
+    },
+    {
+      "path": "data/geo_aliases.json",
+      "exists": true,
+      "bytes": 2784,
+      "human": "3 KB",
+      "startupCritical": true
+    },
+    {
+      "path": "data/world_countries_simplified.geo.json",
+      "exists": true,
+      "bytes": 174321,
+      "human": "170 KB",
+      "startupCritical": true
+    },
+    {
+      "path": "data/world_countries.geo.json",
+      "exists": true,
+      "bytes": 256950,
+      "human": "251 KB",
+      "startupCritical": false
+    },
+    {
+      "path": "data/conflict_details.generated.json",
+      "exists": true,
+      "bytes": 229109,
+      "human": "224 KB",
+      "startupCritical": false
+    }
+  ],
+  "externalRuntimeAssets": [
+    {
+      "url": "https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Cesium.js",
+      "measuredLocally": false,
+      "note": "Se descarga/cachea desde Cesium en runtime."
+    },
+    {
+      "url": "https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Widgets/widgets.css",
+      "measuredLocally": false,
+      "note": "Se descarga/cachea desde Cesium en runtime."
+    }
+  ]
+}

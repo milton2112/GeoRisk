@@ -1,0 +1,37 @@
+{
+  "generatedAt": "2026-05-03T02:28:17.929Z",
+  "changedFullCountries": 0,
+  "changedCountryFiles": 0,
+  "detailStats": {
+    "renamed": 0,
+    "enriched": 14
+  },
+  "safeRenames": {
+    "Adriatic Campaign de World War II": "Campana del Adriatico en la Segunda Guerra Mundial",
+    "Raid on Le Havre": "Incursion sobre Le Havre",
+    "Sunda Strait campaign de January 1794": "Campana del estrecho de Sonda de enero de 1794",
+    "Raid on Boulogne": "Incursion sobre Boulogne",
+    "Raid on Alexandria": "Incursion sobre Alejandria",
+    "Batalla de Saigón": "Batalla de Saigon",
+    "Batalla de SaigÃ³n": "Batalla de Saigon",
+    "Batalla de HjÃ¶rungavÃ¡gr": "Batalla de Hjorungavagr",
+    "Batalla de NisÃ¥": "Batalla de Nisa",
+    "Sitio de NykÃ¸bing": "Sitio de Nykobing"
+  },
+  "curatedDetails": [
+    "Batalla de Saigon",
+    "Batalla de Hjorungavagr",
+    "Batalla de Svolder",
+    "Batalla de Nisa",
+    "Batalla de Lena",
+    "Campana del Adriatico en la Segunda Guerra Mundial",
+    "Sitio de Nykobing",
+    "Sitio de Helsingborg",
+    "Sitio de Lindholmen",
+    "Batalla de Rapallo (1495)",
+    "Batalla de Stockholm",
+    "Batalla de Bogesund",
+    "Batalla de Solent",
+    "Sitio de NykÃ¸bing"
+  ]
+}

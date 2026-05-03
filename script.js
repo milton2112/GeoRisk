@@ -4447,8 +4447,45 @@ function getCountryCurationTodoItems(country, conflictGroups = []) {
   return [...new Set(items)].slice(0, 6);
 }
 
+function getCountryCurationActions(country, conflictGroups = []) {
+  const quality = country?.metadata?.quality || {};
+  const missingFields = new Set(Array.isArray(quality.missingFields) ? quality.missingFields : []);
+  const estimatedFields = new Set(Array.isArray(quality.estimatedFields) ? quality.estimatedFields : []);
+  const sectionStatus = quality.sectionStatus || {};
+  const actions = [
+    {
+      section: currentLanguage === "en" ? "General" : "General",
+      action: currentLanguage === "en" ? "Verify official names, languages, capitals and urban hierarchy." : "Verificar nombres oficiales, idiomas, capitales y jerarquia urbana.",
+      weak: missingFields.has("general") || estimatedFields.has("general") || !country?.general?.officialName || !Array.isArray(country?.general?.cities) || country.general.cities.length < 3
+    },
+    {
+      section: currentLanguage === "en" ? "Conflicts" : "Conflictos",
+      action: currentLanguage === "en" ? "Add parent war, sides, outcome and casualties for weak conflicts." : "Agregar guerra padre, bandos, resultado y bajas en conflictos flojos.",
+      weak: !conflictGroups.length || sectionStatus.military !== "curated"
+    },
+    {
+      section: currentLanguage === "en" ? "Relations" : "Relaciones",
+      action: currentLanguage === "en" ? "Review allies, rivals, disputes and bloc membership." : "Revisar aliados, rivales, disputas y pertenencia a bloques.",
+      weak: !Object.values(country?.politics?.relations || {}).some(value => Array.isArray(value) ? value.length : Boolean(value))
+    },
+    {
+      section: currentLanguage === "en" ? "Religion" : "Religion",
+      action: currentLanguage === "en" ? "Split major religion into denominations where possible." : "Separar religion mayoritaria en denominaciones cuando sea posible.",
+      weak: !Array.isArray(country?.religion?.composition) || country.religion.composition.length < 2
+    },
+    {
+      section: currentLanguage === "en" ? "Sources" : "Fuentes",
+      action: currentLanguage === "en" ? "Attach provenance and mark curated, estimated or missing data." : "Agregar procedencia y marcar dato curado, estimado o faltante.",
+      weak: !Object.keys(country?.metadata?.provenance || {}).length || (quality.score || 0) < 80
+    }
+  ];
+
+  return actions.filter(item => item.weak).slice(0, 5);
+}
+
 function renderCountryCurationTodo(country, conflictGroups = []) {
   const items = getCountryCurationTodoItems(country, conflictGroups);
+  const actions = getCountryCurationActions(country, conflictGroups);
   const qualityScore = Number.isFinite(country?.metadata?.quality?.score)
     ? Math.max(0, Math.round(country.metadata.quality.score))
     : null;
@@ -4466,6 +4503,16 @@ function renderCountryCurationTodo(country, conflictGroups = []) {
       ${items.length
         ? `<ul class="curation-todo-list">${items.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`
         : `<p class="curation-todo-complete">${currentLanguage === "en" ? "This profile is comparatively complete; keep validating sources and symbols." : "Esta ficha esta comparativamente completa; conviene seguir validando fuentes y simbolos."}</p>`}
+      ${actions.length ? `
+        <div class="curation-action-grid">
+          ${actions.map(item => `
+            <div class="curation-action-card">
+              <strong>${escapeHtml(item.section)}</strong>
+              <span>${escapeHtml(item.action)}</span>
+            </div>
+          `).join("")}
+        </div>
+      ` : ""}
     </aside>
   `;
 }
