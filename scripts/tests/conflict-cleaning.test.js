@@ -17,6 +17,8 @@ assert.equal(canonicalizeConflictNameWithRules("World War II", rules), "Segunda 
 assert.equal(canonicalizeConflictNameWithRules("Battle of Mosul", rules), "Batalla de Mosul");
 assert.equal(cleanConflictLabel("Operación Black Buck"), "Operacion Black Buck");
 assert.equal(cleanConflictLabel("México y Perú"), "Mexico y Peru");
+assert.equal(cleanConflictLabel("Bando 1: Aliados &#8203; ver anexo &&&&&&&099"), "Aliados");
+assert.equal(cleanConflictLabel("Bando 2: Eje mostrar ocultar"), "Eje");
 assert.equal(normalizeConflictKey("Segunda Guerra Mundial"), "segunda guerra mundial");
 assert.deepEqual(
   inferConflictYearsFromText("6 de junio-30 de agosto de 1944"),

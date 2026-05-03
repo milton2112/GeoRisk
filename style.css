@@ -2311,6 +2311,77 @@ body[data-app-mode="encyclopedia"] #country-modal #country-panel {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
+.health-progress-list {
+  display: grid;
+  gap: 0.65rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.health-progress-list li {
+  display: grid;
+  grid-template-columns: minmax(95px, 0.65fr) minmax(130px, 1.4fr) auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid rgba(88, 161, 255, 0.16);
+  border-radius: 14px;
+  background: rgba(8, 20, 36, 0.54);
+}
+
+.health-progress-list span {
+  color: #dbeeff;
+  font-weight: 700;
+}
+
+.health-progress-list b {
+  color: #9fd0ff;
+  font-size: 0.86rem;
+  text-align: right;
+}
+
+.health-progress-track {
+  height: 9px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(105, 151, 198, 0.16);
+}
+
+.health-progress-track i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #4da3ff, #5fd3b1);
+  box-shadow: 0 0 18px rgba(95, 211, 177, 0.28);
+}
+
+.empty-state-card,
+.empty-state-note {
+  display: grid;
+  gap: 0.45rem;
+  padding: 1rem;
+  border: 1px solid rgba(125, 198, 255, 0.18);
+  border-radius: 18px;
+  color: #dcefff;
+  background:
+    radial-gradient(circle at 0 0, rgba(77, 163, 255, 0.12), transparent 36%),
+    rgba(8, 20, 36, 0.66);
+}
+
+.empty-state-card strong {
+  color: #7dc6ff;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.empty-state-card p,
+.empty-state-card span,
+.empty-state-note {
+  margin: 0;
+  color: rgba(232, 244, 255, 0.78);
+}
+
 .changelog-release-list {
   display: grid;
   gap: 0.9rem;
@@ -3192,7 +3263,9 @@ p {
 
   #country-modal .country-modal-dialog {
     width: min(94vw, 700px);
+    max-height: min(82vh, 760px);
     padding: 18px 16px 16px;
+    border-radius: 18px;
   }
 
   #country-modal #country-panel {
@@ -3207,6 +3280,16 @@ p {
   #compare-hub-panel[open],
   #quiz-hub-panel[open] {
     width: min(88vw, 320px);
+  }
+
+  .help-modal-dialog,
+  .compare-modal-dialog,
+  .conflict-modal-dialog,
+  .product-modal-dialog {
+    width: min(94vw, 680px);
+    max-height: min(82vh, 760px);
+    padding: 18px 16px 16px;
+    border-radius: 18px;
   }
 
   .panel-section summary,
@@ -3261,11 +3344,21 @@ p {
     width: 100%;
   }
 
+  .health-progress-list li {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .health-progress-list b {
+    text-align: left;
+  }
+
   #country-modal-close,
   #compare-modal-close,
   #help-modal-close,
   #conflict-modal-close,
-  #timeline-modal-close {
+  #timeline-modal-close,
+  #product-modal-close {
     min-width: 44px;
     min-height: 44px;
     display: inline-flex;

@@ -63,3 +63,29 @@ export function getConflictNameIssues(name) {
 
   return issues;
 }
+
+export function getConflictDetailIssues(detail = {}) {
+  const issues = [];
+  const participants = Array.isArray(detail.participants) ? detail.participants : [];
+  const textBlocks = [
+    detail.cause,
+    detail.outcome,
+    detail.consequences,
+    ...(Array.isArray(detail.chronology) ? detail.chronology.map(item => item?.text || item) : [])
+  ].filter(Boolean).join(" ");
+
+  if (participants.some(item => /^Bando\s+\d+$/i.test(String(item?.side || "").trim()))) {
+    issues.push("generic_side");
+  }
+  if (/\b(?:ver|vease|v[eé]ase)\s+(?:el\s+)?anexo\b/i.test(textBlocks)) {
+    issues.push("wiki_residue");
+  }
+  if (/&&&&|&#\d+;?|&#x[a-f0-9]+;?/i.test(textBlocks)) {
+    issues.push("parse_residue");
+  }
+  if ((detail.type || "").toLowerCase().includes("batalla") && !(detail.parent || (detail.related || []).length)) {
+    issues.push("battle_without_parent");
+  }
+
+  return issues;
+}

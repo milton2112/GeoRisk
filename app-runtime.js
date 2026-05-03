@@ -62,25 +62,25 @@ function getDeviceProfile({ isMobile, currentMapMode, deviceMemory = 4, hardware
 function getRenderProfileText({ language = "es", isMobile, currentMapMode, resolutionScale }) {
   if (isMobile) {
     return language === "en"
-      ? `Mobile ${currentMapMode.toUpperCase()} · optimized`
-      : `Mobile ${currentMapMode.toUpperCase()} · optimizado`;
+      ? `Mobile ${currentMapMode.toUpperCase()} - optimized`
+      : `Mobile ${currentMapMode.toUpperCase()} - optimizado`;
   }
 
   if (resolutionScale >= 0.9) {
     return language === "en"
-      ? `${currentMapMode.toUpperCase()} · high quality`
-      : `${currentMapMode.toUpperCase()} · alta calidad`;
+      ? `${currentMapMode.toUpperCase()} - high quality`
+      : `${currentMapMode.toUpperCase()} - alta calidad`;
   }
 
   if (resolutionScale >= 0.72) {
     return language === "en"
-      ? `${currentMapMode.toUpperCase()} · balanced`
-      : `${currentMapMode.toUpperCase()} · balanceado`;
+      ? `${currentMapMode.toUpperCase()} - balanced`
+      : `${currentMapMode.toUpperCase()} - balanceado`;
   }
 
   return language === "en"
-    ? `${currentMapMode.toUpperCase()} · performance`
-    : `${currentMapMode.toUpperCase()} · rendimiento`;
+    ? `${currentMapMode.toUpperCase()} - performance`
+    : `${currentMapMode.toUpperCase()} - rendimiento`;
 }
 
 window.GeoRiskRuntime = {

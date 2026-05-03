@@ -213,6 +213,16 @@ Si una version vieja queda pegada en el navegador:
 
 La portada tambien muestra una lectura rapida de cobertura: paises y territorios cargados, conflictos enlazados, capas tematicas disponibles y entidades especiales reconocidas. Sirve para comprobar de un vistazo que el dataset liviano ya esta sano antes de abrir fichas pesadas.
 
+En `Salud dataset` vas a encontrar barras de cobertura para detectar rapido donde conviene seguir curando: timeline, conflictos, idiomas, capitales, relaciones, simbolos y procedencia. Si una barra baja, ese bloque es buen candidato para la siguiente tanda de datos.
+
+## Checklist para curar conflictos
+
+- Usar siempre nombres en espanol y una fecha inicial/final consistente.
+- Evitar secciones redundantes como `Beligerantes` si los bandos ya estan estructurados.
+- Separar guerra, campana y batalla para que la jerarquia sea navegable.
+- Limpiar residuos de importacion como `ver anexo`, codigos HTML, marcas de ocultar/mostrar y bandos genericos.
+- Completar, cuando exista, causa, lugar, resultado, consecuencias, tropas, bajas y paises participantes.
+
 ## Estado offline
 
 El shell de la app, el indice inicial de paises y la documentacion deberian seguir accesibles offline despues de una carga correcta. Las fichas completas se van sumando al cache cuando se abren.

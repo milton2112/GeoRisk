@@ -41,6 +41,7 @@ GeoRisk es una aplicacion frontend orientada a exploracion geopolitica con datas
 - `scripts/lib/dataset-shared.js`: helpers compartidos del dataset.
 - `scripts/lib/text-normalization.js`: normalizacion reutilizable.
 - `scripts/lib/country-matching.js`: matching entre nombres del mapa, aliases y codigos.
+- `scripts/lib/conflict-cleaning.js`: normalizacion, deduplicacion y limpieza reusable de conflictos.
 - `scripts/lib/render-logic.js`: logica pura reutilizable para tests y render.
 - `scripts/lib/ui-logic.js`: helpers puros de UI y paneles.
 
@@ -139,6 +140,15 @@ Se exportan:
 - El shell debe seguir funcionando offline.
 - Imagenes y noticias remotas siguen dependiendo de conectividad cuando vienen de terceros.
 - La portada consume solo el indice liviano para mostrar diagnostico de cobertura sin bloquear el globo.
+- Las metricas de portada se cachean por firma de dataset/modo para no recorrer todos los paises en cada apertura del modal.
+- `html2canvas` y `jspdf` se cargan bajo demanda solo cuando el usuario exporta imagen o PDF.
+
+## Criterios de calidad de conflictos
+
+- Cada conflicto debe tener nombre canonico en espanol, fechas, region, tipo, escala y estado.
+- Los bandos deben ser coaliciones reales o estados/organizaciones, no `Bando 1` / `Bando 2`.
+- Las batallas deben apuntar a su guerra o campana padre cuando exista.
+- Los textos importados no deben conservar controles de Wikipedia, anexos, entidades HTML sueltas ni duplicaciones de listas.
 
 ## Tests y validacion
 

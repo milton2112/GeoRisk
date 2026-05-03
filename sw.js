@@ -1,4 +1,4 @@
-const CACHE_VERSION = "2026-04-26-boot-11";
+const CACHE_VERSION = "2026-05-02-boot-12";
 const APP_CACHE = `geo-risk-app-${CACHE_VERSION}`;
 const TILE_CACHE = `geo-risk-tiles-${CACHE_VERSION}`;
 const APP_SHELL = [
@@ -44,9 +44,7 @@ const APP_SHELL = [
   "./assets/coats/USA.svg",
   "./assets/coats/CHN.svg",
   "https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Widgets/widgets.css",
-  "https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Cesium.js",
-  "https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js",
-  "https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"
+  "https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Cesium.js"
 ];
 
 self.addEventListener("install", event => {

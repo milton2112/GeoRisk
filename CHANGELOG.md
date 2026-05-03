@@ -15,6 +15,10 @@ Actualizacion de producto orientada a uso real y crecimiento futuro.
 - Cache runtime con limite para evitar crecimiento indefinido durante sesiones largas.
 - Portada con estado runtime de arranque, dataset, offline, perfil de render y cobertura actual del dataset.
 - Pulido de copy visible, acentos y textos de onboarding para reducir errores tipograficos en la interfaz.
+- Panel de salud del dataset mas accionable, con mapa de cobertura por timeline, conflictos, idiomas, capitales, relaciones, simbolos y procedencia.
+- Perfil de render con texto estable y sin mojibake, mas cacheo de metricas de portada para evitar recomputos innecesarios.
+- Exportaciones diferidas: html2canvas y jsPDF ya no bloquean el shell inicial y se cargan solo al exportar.
+- Estados vacios, mobile y modales con mejor lectura, tactilidad y feedback visual.
 - Accion visible para limpiar cache local cuando una version vieja queda pegada.
 - Titulares reales dentro del hub de noticias con varias cabeceras en vivo por pais cuando la fuente responde.
 - Mas categorias de quiz: idiomas, bloques y conflictos.

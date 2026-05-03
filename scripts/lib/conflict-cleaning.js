@@ -37,18 +37,43 @@ export function applyConflictUnicodeCorrections(value) {
     .replace(/Luxembourg/gi, "Luxemburgo");
 }
 
+export function stripConflictImportNoise(value) {
+  return String(value || "")
+    .replace(/&#\d+;?/g, " ")
+    .replace(/&#x[a-f0-9]+;?/gi, " ")
+    .replace(/[\u200B-\u200D\uFEFF]/g, " ")
+    .replace(/&&&&+[^ \n]*/g, " ")
+    .replace(/(?:^|\s)(?:ver|vease|v[eé]ase)\s+(?:el\s+)?anexo(?:$|\s)/gi, " ")
+    .replace(/\b(?:mostrar|ocultar)\b/gi, " ")
+    .replace(/\bBando\s+\d+\s*:\s*/gi, "");
+}
+
 export function normalizeConflictKey(value) {
-  return applyConflictUnicodeCorrections(repairConflictMojibake(String(value || "")))
+  return stripConflictImportNoise(applyConflictUnicodeCorrections(repairConflictMojibake(String(value || ""))))
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
     .replace(/[^a-z0-9\s]/g, " ")
+    .replace(/&#\d+;?/g, " ")
+    .replace(/&#x[a-f0-9]+;?/gi, " ")
+    .replace(/[\u200B-\u200D\uFEFF]/g, " ")
+    .replace(/&&&&+[^ \n]*/g, " ")
+    .replace(/(?:^|\s)(?:ver|vease|v[eé]ase)\s+el?\s+anexo(?:$|\s)/gi, " ")
+    .replace(/\b(?:mostrar|ocultar)\b/gi, " ")
+    .replace(/\bBando\s+\d+\s*:\s*/gi, "")
+    .replace(/&#\d+;?/g, " ")
+    .replace(/&#x[a-f0-9]+;?/gi, " ")
+    .replace(/[\u200B-\u200D\uFEFF]/g, " ")
+    .replace(/&&&&+[^ \n]*/g, " ")
+    .replace(/(?:^|\s)(?:ver|vease|v[eé]ase)\s+el?\s+anexo(?:$|\s)/gi, " ")
+    .replace(/\b(?:mostrar|ocultar)\b/gi, " ")
+    .replace(/\bBando\s+\d+\s*:\s*/gi, "")
     .replace(/\s+/g, " ")
     .trim();
 }
 
 export function cleanConflictLabel(value) {
-  return applyConflictUnicodeCorrections(repairConflictMojibake(value))
+  return stripConflictImportNoise(applyConflictUnicodeCorrections(repairConflictMojibake(value)))
     .replace(/[â€“â€”âˆ’]/g, "-")
     .replace(/[â€œâ€]/g, "\"")
     .replace(/[â€˜â€™]/g, "'")

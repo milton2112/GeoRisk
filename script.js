@@ -70,7 +70,7 @@ const countryPanelUi = window.GeoRiskCountryPanel || {};
 const timelineConflictUi = window.GeoRiskTimelineConflicts || {};
 const sharedTheme = window.GeoRiskTheme || {};
 const sharedText = window.GeoRiskText || {};
-const APP_VERSION = "2026-04-26-boot-11";
+const APP_VERSION = "2026-05-02-boot-12";
 
 const QUALITY_PRESET_OVERRIDES = {
   auto: null,
@@ -1013,6 +1013,41 @@ async function clearLocalGeoRiskCache() {
   }
 }
 
+function getIntroCoverageStats() {
+  const countries = Object.values(countriesData || {});
+  const signature = [
+    countries.length,
+    deferredDataStatus.countryIndex ? "index" : "no-index",
+    deferredDataStatus.fullCountries ? "full" : "lite",
+    currentTheme
+  ].join("|");
+  if (introCoverageCache.signature === signature && introCoverageCache.stats) {
+    return introCoverageCache.stats;
+  }
+
+  const conflictNames = new Set();
+  countries.forEach(country => {
+    (country.conflicts || []).forEach(conflict => {
+      const name = typeof conflict === "string" ? conflict : conflict?.name;
+      if (name) conflictNames.add(normalizeText(name));
+    });
+    (country.military?.conflicts || []).forEach(conflict => {
+      const name = typeof conflict === "string" ? conflict : conflict?.name;
+      if (name) conflictNames.add(normalizeText(name));
+    });
+  });
+
+  const specialCodes = ["ATA", "GRL", "GUF", "TWN", "PSE", "-99", "CS-KM", "SOM", "CYN"];
+  const stats = {
+    countries: countries.length,
+    conflicts: conflictNames.size,
+    layers: document.querySelectorAll("#theme-select option").length || 0,
+    specialEntities: specialCodes.filter(code => countriesData?.[code]).length
+  };
+  introCoverageCache = { signature, stats };
+  return stats;
+}
+
 function updateIntroRuntimeStatus() {
   const bootState = document.getElementById("intro-boot-state");
   const dataState = document.getElementById("intro-data-state");
@@ -1042,30 +1077,18 @@ function updateIntroRuntimeStatus() {
   if (renderState) {
     renderState.textContent = getRenderProfileLabel();
   }
-  const countries = Object.values(countriesData || {});
+  const coverage = getIntroCoverageStats();
   if (countryCount) {
-    countryCount.textContent = countries.length ? formatNumber(countries.length) : "0";
+    countryCount.textContent = formatNumber(coverage.countries);
   }
   if (conflictCount) {
-    const names = new Set();
-    countries.forEach(country => {
-      (country.conflicts || []).forEach(conflict => {
-        const name = typeof conflict === "string" ? conflict : conflict?.name;
-        if (name) names.add(normalizeText(name));
-      });
-      (country.military?.conflicts || []).forEach(conflict => {
-        const name = typeof conflict === "string" ? conflict : conflict?.name;
-        if (name) names.add(normalizeText(name));
-      });
-    });
-    conflictCount.textContent = formatNumber(names.size);
+    conflictCount.textContent = formatNumber(coverage.conflicts);
   }
   if (layerCount) {
-    layerCount.textContent = formatNumber(document.querySelectorAll("#theme-select option").length || 0);
+    layerCount.textContent = formatNumber(coverage.layers);
   }
   if (specialCount) {
-    const specialCodes = ["ATA", "GRL", "GUF", "TWN", "PSE", "-99", "CS-KM", "SOM", "CYN"];
-    specialCount.textContent = formatNumber(specialCodes.filter(code => countriesData?.[code]).length);
+    specialCount.textContent = formatNumber(coverage.specialEntities);
   }
 }
 
@@ -1635,6 +1658,9 @@ let deferredGlobalStatsReady = false;
 let hoverSuppressedUntil = 0;
 let lastHoverSampleAt = 0;
 let lastThemeSummarySignature = "";
+let introCoverageCache = { signature: "", stats: null };
+let exportCanvasLibraryPromise = null;
+let exportPdfLibraryPromise = null;
 
 function installSceneRenderScheduler() {
   if (!viewer?.scene || viewer.__geoRiskRenderSchedulerInstalled) {
@@ -3985,9 +4011,13 @@ function getMiniMetricRatio(value, ceiling) {
 }
 
 function renderMiniMetrics(items = [], emptyLabel = "") {
-  const validItems = items.filter(item => item && (item.value || item.secondary));
+  const validItems = items.filter(item => {
+    if (!item) return false;
+    const value = String(item.value || "").trim();
+    return Boolean(value && normalizeText(value) !== normalizeText(t("noData")));
+  });
   if (!validItems.length) {
-    return `<p>${escapeHtml(emptyLabel || t("noData"))}</p>`;
+    return `<p class="empty-state-note">${escapeHtml(emptyLabel || (currentLanguage === "en" ? "No structured metrics yet." : "Todavia no hay metricas estructuradas para esta seccion."))}</p>`;
   }
 
   return `
@@ -5820,7 +5850,7 @@ function renderConflictWikipediaField(labelEs, labelEn, value) {
     .replace(/[\u200B-\u200D\uFEFF]/g, " ")
     .replace(/&&&&+[^ \n]*/g, " ")
     .replace(/Expresi[oó]n err[oó]nea:[^.;\n]*/gi, " ")
-    .replace(/(?:^|\s)(?:ver|vease|v[eé]ase)\s+el?\s+anexo(?:$|\s)/gi, " ")
+    .replace(/(?:^|\s)(?:ver|vease|v[eé]ase)\s+(?:el\s+)?anexo(?:$|\s)/gi, " ")
     .replace(/\b(?:ver|mostrar|ocultar)\b/gi, " ")
     .replace(/Â·/g, " · ")
     .replace(/Â/g, " ")
@@ -5912,11 +5942,16 @@ function sanitizeConflictModalText(value = "") {
     .replace(/&#x[a-f0-9]+;?/gi, " ")
     .replace(/[\u200B-\u200D\uFEFF]/g, " ")
     .replace(/&&&&+[^ \n]*/g, " ")
+    .replace(/(?:\s*[;:·|-]\s*)?(?:Bajas|Fuerzas en combate|Beligerantes|Figuras politicas|Figuras políticas)\s*:\s*(?=(?:Bando|Aliados|Eje|Estados Unidos|Reino Unido|China|Union Sovietica|Unión Soviética)\b)/gi, " · ")
     .replace(/Expresi[oó]n err[oó]nea:[^.;\n]*/gi, " ")
     .replace(/(?:^|\s)(?:ver|vease|v[eé]ase)\s+el?\s+anexo(?:$|\s)/gi, " ")
     .replace(/\b(?:ver|mostrar|ocultar)\b/gi, " ")
+    .replace(/\bBando\s+1\s*:\s*/gi, "")
+    .replace(/\bBando\s+2\s*:\s*/gi, "")
+    .replace(/\bBando\s+3\s*:\s*/gi, "")
     .replace(/Â·/g, " · ")
     .replace(/Â/g, " ")
+    .replace(/â€“|â€”/g, "-")
     .replace(/\bTotal:\s*Total:/gi, "Total:")
     .replace(/\b([\p{L}\p{N}][\p{L}\p{N}.-]*(?:\s+[\p{L}\p{N}][\p{L}\p{N}.-]*)+)\s+\1\b/gu, "$1")
     .replace(/\b([\p{L}\p{N}][\p{L}\p{N}.-]*)\s+\1\b/gu, "$1")
@@ -6708,7 +6743,13 @@ function renderEmpty(name) {
   currentPanelState = { type: "empty", name };
   document.getElementById("country-panel").innerHTML = `
     <h2>${name}</h2>
-    <p>Sin datos</p>
+    <div class="empty-state-card">
+      <strong>${currentLanguage === "en" ? "Profile not curated yet" : "Ficha todavia no curada"}</strong>
+      <p>${currentLanguage === "en"
+        ? "GeoRisk identified the map entity, but there is no structured local profile for it yet."
+        : "GeoRisk identifico la entidad del mapa, pero todavia no hay una ficha local estructurada para este caso."}</p>
+      <span>${currentLanguage === "en" ? "Suggested next step: add aliases and baseline data." : "Siguiente paso sugerido: agregar aliases y datos base."}</span>
+    </div>
   `;
 
   renderNewsHub();
@@ -9941,6 +9982,11 @@ function renderDatasetHealthPanel() {
   const withCapitals = countries.filter(country => Array.isArray(country.general?.capitals) && country.general.capitals.length > 0).length;
   const withProvenance = countries.filter(country => Object.keys(country.metadata?.provenance || {}).length > 0).length;
   const withMissingFields = countries.filter(country => (country.metadata?.quality?.missingFields || []).length > 0).length;
+  const introStats = getIntroCoverageStats();
+  const withRelations = countries.filter(country => Object.values(country.politics?.relations || {}).some(value => Array.isArray(value) ? value.length > 0 : Boolean(value))).length;
+  const withSymbols = countries.filter(country => country.general?.symbols?.flag || country.general?.symbols?.coatOfArms || country.general?.symbols?.assets?.flagPath || country.general?.symbols?.assets?.coatPath).length;
+  const lowQualityCountries = countries.filter(country => (country.metadata?.quality?.score || 0) < 70).length;
+  const formatCoverage = value => total ? `${Math.round((value / total) * 100)}%` : "0%";
   const averageQuality = total
     ? Math.round(countries.reduce((sum, country) => sum + (country.metadata?.quality?.score || 0), 0) / total)
     : 0;
@@ -9965,6 +10011,21 @@ function renderDatasetHealthPanel() {
     .slice(0, 10)
     .map(country => `<li><b>${escapeHtml(country.name)}</b>: ${country.metadata?.quality?.score || 0}/100</li>`)
     .join("");
+  const coverageBars = [
+    { label: currentLanguage === "en" ? "Timeline" : "Timeline", value: withTimeline },
+    { label: currentLanguage === "en" ? "Conflicts" : "Conflictos", value: withConflicts },
+    { label: currentLanguage === "en" ? "Languages" : "Idiomas", value: withLanguages },
+    { label: currentLanguage === "en" ? "Capitals" : "Capitales", value: withCapitals },
+    { label: currentLanguage === "en" ? "Relations" : "Relaciones", value: withRelations },
+    { label: currentLanguage === "en" ? "Symbols" : "Simbolos", value: withSymbols },
+    { label: currentLanguage === "en" ? "Provenance" : "Procedencia", value: withProvenance }
+  ].map(item => `
+    <li>
+      <span>${escapeHtml(item.label)}</span>
+      <div class="health-progress-track"><i style="width:${formatCoverage(item.value)}"></i></div>
+      <b>${formatNumber(item.value)}/${formatNumber(total)} &middot; ${formatCoverage(item.value)}</b>
+    </li>
+  `).join("");
 
   openProductModal(
     currentLanguage === "en" ? "Dataset health" : "Salud del dataset",
@@ -9980,6 +10041,13 @@ function renderDatasetHealthPanel() {
         <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "With capitals" : "Con capitales"}</span><strong class="overview-value">${formatNumber(withCapitals)}</strong></div>
         <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "With provenance" : "Con procedencia"}</span><strong class="overview-value">${formatNumber(withProvenance)}</strong></div>
         <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Avg. estimated fields" : "Prom. campos estimados"}</span><strong class="overview-value">${formatNumber(estimatedAverage)}</strong></div>
+        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Linked conflicts" : "Conflictos enlazados"}</span><strong class="overview-value">${formatNumber(introStats.conflicts)}</strong></div>
+        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Special entities" : "Entidades especiales"}</span><strong class="overview-value">${formatNumber(introStats.specialEntities)}</strong></div>
+        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Quality watch" : "A revisar"}</span><strong class="overview-value">${formatNumber(lowQualityCountries)}</strong></div>
+      </div>
+      <div class="help-section">
+        <h3>${currentLanguage === "en" ? "Coverage map" : "Mapa de cobertura"}</h3>
+        <ul class="health-progress-list">${coverageBars}</ul>
       </div>
       <div class="help-section">
         <h3>${currentLanguage === "en" ? "Quality leaders" : "Lideres de calidad"}</h3>
@@ -10002,6 +10070,56 @@ function renderDatasetHealthPanel() {
         </ul>
       </div>
     `
+  );
+}
+
+async function renderPerformancePanel() {
+  await loadScriptOnce(`./app-performance-ui.js?v=${APP_VERSION}`, "GeoRiskPerformanceUi").catch(error => {
+    console.warn("No se pudo cargar el modulo de rendimiento:", error);
+  });
+  const summary = getBootProfileSummary();
+  const stepRows = Object.entries(bootMetrics.steps || {})
+    .filter(([, step]) => Number.isFinite(step?.duration))
+    .sort((a, b) => (b[1].duration || 0) - (a[1].duration || 0))
+    .map(([name, step]) => `
+      <li>
+        <span>${escapeHtml(name)}</span>
+        <div class="health-progress-track"><i style="width:${Math.min(100, Math.max(4, Math.round(((step.duration || 0) / Math.max(summary.total || 1, 1)) * 100)))}%"></i></div>
+        <b>${Math.round(step.duration || 0)} ms</b>
+      </li>
+    `).join("");
+  const preset = getPerformancePreset();
+  const exportStatus = [
+    typeof html2canvas === "function" ? "html2canvas listo" : "html2canvas diferido",
+    window.jspdf?.jsPDF ? "jsPDF listo" : "jsPDF diferido"
+  ].join(" / ");
+  const tuningRows = `
+    <li><b>Tier</b>: ${escapeHtml(preset.tier || "auto")}</li>
+    <li><b>Resolution scale</b>: ${escapeHtml(String(viewer?.resolutionScale ?? preset.resolutionScale))}</li>
+    <li><b>Tile cache</b>: ${escapeHtml(String(viewer?.scene?.globe?.tileCacheSize ?? preset.tileCacheSize))}</li>
+    <li><b>Hover</b>: ${shouldUseHoverHighlights() ? "activo" : "reducido"}</li>
+  `;
+  const body = window.GeoRiskPerformanceUi?.renderPerformancePanelContent
+    ? window.GeoRiskPerformanceUi.renderPerformancePanelContent({
+        language: currentLanguage,
+        summary,
+        stepRows,
+        renderLabel: escapeHtml(getRenderProfileLabel()),
+        presetLabel: escapeHtml(getQualityPresetLabel()),
+        exportStatus: escapeHtml(exportStatus),
+        tuningRows
+      })
+    : `
+      <div class="product-summary-grid">
+        <div class="overview-card"><span class="overview-label">Total boot</span><strong class="overview-value">${Math.round(summary.total || 0)} ms</strong></div>
+        <div class="overview-card"><span class="overview-label">Datos</span><strong class="overview-value">${Math.round(summary.data || 0)} ms</strong></div>
+        <div class="overview-card"><span class="overview-label">Export</span><strong class="overview-value">${escapeHtml(exportStatus)}</strong></div>
+      </div>
+    `;
+
+  openProductModal(
+    currentLanguage === "en" ? "Performance" : "Rendimiento",
+    body
   );
 }
 
@@ -10034,6 +10152,7 @@ function setupSavedViewControls() {
   const appModeSelect = document.getElementById("app-mode-select");
   const introButton = document.getElementById("open-intro-button");
   const healthButton = document.getElementById("open-health-button");
+  const performanceButton = document.getElementById("open-performance-button");
   const changelogButton = document.getElementById("open-changelog-button");
   const docsButton = document.getElementById("open-docs-button");
   const clearLocalCacheButton = document.getElementById("clear-local-cache-button");
@@ -10086,6 +10205,7 @@ function setupSavedViewControls() {
   });
   introButton?.addEventListener("click", () => openIntroModal());
   healthButton?.addEventListener("click", () => renderDatasetHealthPanel());
+  performanceButton?.addEventListener("click", () => renderPerformancePanel());
   changelogButton?.addEventListener("click", () => renderChangelogPanel());
   clearLocalCacheButton?.addEventListener("click", () => clearLocalGeoRiskCache());
   docsButton?.addEventListener("click", async () => {
@@ -14410,8 +14530,39 @@ function buildReportCaptureNode(node, title) {
   return wrapper;
 }
 
+async function ensureExportLibraries(format = "image") {
+  if (typeof html2canvas === "function" && (format !== "pdf" || window.jspdf?.jsPDF)) {
+    return true;
+  }
+
+  exportCanvasLibraryPromise ||= loadScriptOnce("https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js", "html2canvas").catch(error => {
+    exportCanvasLibraryPromise = null;
+    throw error;
+  });
+  await exportCanvasLibraryPromise;
+
+  if (format === "pdf") {
+    exportPdfLibraryPromise ||= loadScriptOnce("https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js", "jspdf").catch(error => {
+      exportPdfLibraryPromise = null;
+      throw error;
+    });
+    await exportPdfLibraryPromise;
+  }
+
+  return typeof html2canvas === "function" && (format !== "pdf" || Boolean(window.jspdf?.jsPDF));
+}
+
 exportNodeAsImage = async function exportNodeAsImage(node, filename) {
-  if (!node || typeof html2canvas !== "function") {
+  if (!node) {
+    return;
+  }
+
+  const ready = await ensureExportLibraries("image").catch(error => {
+    console.warn("No se pudieron cargar las librerias de exportacion:", error);
+    showToast?.(currentLanguage === "en" ? "Export tools could not load." : "No se pudieron cargar las herramientas de exportacion.");
+    return false;
+  });
+  if (!ready) {
     return;
   }
 
@@ -14433,7 +14584,16 @@ exportNodeAsImage = async function exportNodeAsImage(node, filename) {
 };
 
 exportNodeAsPdf = async function exportNodeAsPdf(node, filename) {
-  if (!node || typeof html2canvas !== "function" || !window.jspdf?.jsPDF) {
+  if (!node) {
+    return;
+  }
+
+  const ready = await ensureExportLibraries("pdf").catch(error => {
+    console.warn("No se pudieron cargar las librerias de exportacion:", error);
+    showToast?.(currentLanguage === "en" ? "PDF tools could not load." : "No se pudieron cargar las herramientas de PDF.");
+    return false;
+  });
+  if (!ready) {
     return;
   }
 

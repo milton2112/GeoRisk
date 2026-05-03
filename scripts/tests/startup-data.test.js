@@ -8,6 +8,7 @@ const index = await fs.readJson(path.join(projectRoot, "data", "countries_index.
 const sw = await fs.readFile(path.join(projectRoot, "sw.js"), "utf8");
 const indexHtml = await fs.readFile(path.join(projectRoot, "index.html"), "utf8");
 const script = await fs.readFile(path.join(projectRoot, "script.js"), "utf8");
+const appRuntime = await fs.readFile(path.join(projectRoot, "app-runtime.js"), "utf8");
 const perCountryDir = path.join(projectRoot, "data", "countries");
 const perCountryFiles = (await fs.readdir(perCountryDir)).filter(file => file.endsWith(".json"));
 
@@ -32,10 +33,16 @@ assert.ok(!sw.includes("./data/raw/religion.json\""), "raw religion debe cargars
 assert.ok(!sw.includes("./app-curation.js\""), "app-curation debe cargarse despues del arranque inicial");
 assert.ok(sw.includes("Promise.allSettled"), "service worker debe tolerar fallas parciales de precache");
 assert.ok(!indexHtml.includes("app-curation.js"), "index.html no debe bloquear el arranque con app-curation");
+assert.ok(!indexHtml.includes("html2canvas"), "html2canvas debe cargarse bajo demanda al exportar");
+assert.ok(!indexHtml.includes("jspdf"), "jspdf debe cargarse bajo demanda al exportar PDF");
+assert.ok(!indexHtml.includes("app-performance-ui.js"), "panel de rendimiento debe cargarse bajo demanda");
+assert.ok(!sw.includes("html2canvas"), "html2canvas no debe precachearse en el shell inicial");
+assert.ok(!sw.includes("jspdf"), "jspdf no debe precachearse en el shell inicial");
 assert.ok(Buffer.byteLength(indexHtml) < 35000, "index.html debe mantenerse liviano");
 assert.ok(Buffer.byteLength(sw) < 7000, "service worker debe mantenerse liviano");
 assert.ok(indexHtml.includes("intro-runtime-grid"), "portada debe mostrar estado runtime");
 assert.ok(indexHtml.includes("intro-data-grid"), "portada debe mostrar cobertura del dataset");
+assert.ok(indexHtml.includes("open-performance-button"), "UI debe exponer panel interno de rendimiento");
 for (const id of ["intro-country-count", "intro-conflict-count", "intro-layer-count", "intro-special-count"]) {
   assert.ok(indexHtml.includes(id), `portada debe exponer ${id}`);
 }
@@ -51,6 +58,13 @@ assert.ok(script.includes("requestIdleCallback(startFullLoad"), "countries_full 
 assert.ok(script.includes("MAX_RESOURCE_CACHE_ENTRIES = 36"), "cache en memoria debe tener limite");
 assert.ok(script.includes("resourceCache.delete(cacheKey)"), "descargas fallidas deben poder reintentarse");
 assert.ok(script.includes("async function clearLocalGeoRiskCache()"), "runtime debe exponer limpieza segura de cache local");
+assert.ok(script.includes("function getIntroCoverageStats()"), "portada debe cachear metricas de cobertura");
+assert.ok(script.includes("introCoverageCache"), "metricas de portada deben evitar recomputos innecesarios");
+assert.ok(script.includes("async function ensureExportLibraries"), "exportaciones deben cargar librerias pesadas bajo demanda");
+assert.ok(script.includes("function renderPerformancePanel()") || script.includes("async function renderPerformancePanel()"), "runtime debe exponer panel de rendimiento");
+assert.ok(script.includes("app-performance-ui.js"), "panel de rendimiento debe vivir en modulo diferido");
+assert.ok(appRuntime.includes(" - rendimiento"), "perfil runtime debe usar separador ASCII estable");
+assert.ok(!appRuntime.includes("Â"), "app-runtime no debe exponer mojibake visible");
 
 for (const country of Object.values(index)) {
   const relations = country.politics?.relations || {};
