@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-05-06T22:27:17.332Z",
-  "changedFullCountries": 0,
-  "changedCountryFiles": 0,
+  "generatedAt": "2026-05-07T02:06:40.071Z",
+  "changedFullCountries": 2,
+  "changedCountryFiles": 2,
   "detailStats": {
     "renamed": 0,
-    "enriched": 19
+    "enriched": 35
   },
   "safeRenames": {
     "Adriatic Campaign de World War II": "Campana del Adriatico en la Segunda Guerra Mundial",
@@ -16,7 +16,23 @@
     "Batalla de SaigÃ³n": "Batalla de Saigon",
     "Batalla de HjÃ¶rungavÃ¡gr": "Batalla de Hjorungavagr",
     "Batalla de NisÃ¥": "Batalla de Nisa",
-    "Sitio de NykÃ¸bing": "Sitio de Nykobing"
+    "Sitio de NykÃ¸bing": "Sitio de Nykobing",
+    "Batalla de GoÅ‚Ä…b": "Batalla de Golab",
+    "Batalla de MÃ¸n": "Batalla de Mon",
+    "Batalla de KÃ¸ge Bay": "Batalla de Koge Bay",
+    "Batalla de KoÅ›cianem (1655)": "Batalla de Koscianem (1655)",
+    "Batalla de Nowy DwÃ³r Mazowiecki": "Batalla de Nowy Dwor Mazowiecki",
+    "Batalla de UjÅ›cie": "Batalla de Ujscie",
+    "Sitio de ZamoÅ›Ä‡": "Sitio de Zamosc",
+    "Sitio de ToruÅ„": "Sitio de Torun",
+    "Batalla de Gołąb": "Batalla de Golab",
+    "Batalla de Møn": "Batalla de Mon",
+    "Batalla de Køge Bay": "Batalla de Koge Bay",
+    "Batalla de Kościanem (1655)": "Batalla de Koscianem (1655)",
+    "Batalla de Nowy Dwór Mazowiecki": "Batalla de Nowy Dwor Mazowiecki",
+    "Batalla de Ujście": "Batalla de Ujscie",
+    "Sitio de Zamość": "Sitio de Zamosc",
+    "Sitio de Toruń": "Sitio de Torun"
   },
   "curatedDetails": [
     "Batalla de Saigon",
@@ -37,6 +53,22 @@
     "Sitio de Smolensk",
     "Batalla de Swally",
     "Batalla de Gniew",
-    "Sitio de NykÃ¸bing"
+    "Sitio de NykÃ¸bing",
+    "Batalla de Czarne",
+    "Batalla de Dirschau",
+    "Batalla de Koscianem (1655)",
+    "Batalla de Nowy Dwor Mazowiecki",
+    "Batalla de Ujscie",
+    "Batalla de Golab",
+    "Batalla de Varsovia",
+    "Sitio de Zamosc",
+    "Batalla de Mon",
+    "Sitio de Torun",
+    "Batalla de Martinique",
+    "Batalla de Koge Bay",
+    "Batalla del banco Dogger (1696)",
+    "Batalla de Gołąb",
+    "Batalla de Møn",
+    "Batalla de Køge Bay"
   ]
 }

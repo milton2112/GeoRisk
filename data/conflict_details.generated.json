@@ -6961,6 +6961,653 @@
       "consequences": "Anticipo nuevas batallas por el control de Prusia.",
       "source": "Curaduria GeoRisk",
       "pageTitle": "Batalla de Gniew"
+    },
+    "Batalla de Czarne": {
+      "parent": "Guerra polaco-sueca de 1626-1629",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Prusia Real",
+      "cause": "Disputa sueco-polaca por el control de Prusia y las rutas balticas.",
+      "chronology": [
+        {
+          "year": 1627,
+          "text": "Combate dentro de Guerra polaco-sueca de 1626-1629."
+        }
+      ],
+      "related": [
+        "Guerra polaco-sueca de 1626-1629"
+      ],
+      "participants": [
+        {
+          "side": "Suecia",
+          "members": [
+            "Suecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Polonia-Lituania",
+          "members": [
+            "Polonia-Lituania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Accion tactica dentro de la campana prusiana.",
+      "consequences": "Mantuvo la presion sueca sobre posiciones polaco-lituanas en el Baltico.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Czarne"
+    },
+    "Batalla de Dirschau": {
+      "parent": "Guerra polaco-sueca de 1626-1629",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Prusia Real",
+      "cause": "Choque por el control de accesos y posiciones prusianas durante la guerra sueco-polaca.",
+      "chronology": [
+        {
+          "year": 1627,
+          "text": "Combate dentro de Guerra polaco-sueca de 1626-1629."
+        }
+      ],
+      "related": [
+        "Guerra polaco-sueca de 1626-1629"
+      ],
+      "participants": [
+        {
+          "side": "Suecia",
+          "members": [
+            "Suecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Polonia-Lituania",
+          "members": [
+            "Polonia-Lituania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Resultado tactico disputado, con continuidad de la campana.",
+      "consequences": "La guerra siguio centrada en control portuario, rutas fluviales y desgaste regional.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Dirschau"
+    },
+    "Batalla de Koscianem (1655)": {
+      "parent": "El Diluvio",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Polonia",
+      "cause": "Ofensiva sueca sobre la Mancomunidad polaco-lituana durante el Diluvio.",
+      "chronology": [
+        {
+          "year": 1655,
+          "text": "Combate dentro de El Diluvio."
+        }
+      ],
+      "related": [
+        "El Diluvio"
+      ],
+      "participants": [
+        {
+          "side": "Suecia",
+          "members": [
+            "Suecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Polonia-Lituania",
+          "members": [
+            "Polonia-Lituania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria sueca local.",
+      "consequences": "Contribuyo al avance sueco inicial y a la crisis militar de la Mancomunidad.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Koscianem (1655)"
+    },
+    "Batalla de Nowy Dwor Mazowiecki": {
+      "parent": "El Diluvio",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Mazovia",
+      "cause": "Control de rutas hacia Varsovia durante la invasion sueca de Polonia-Lituania.",
+      "chronology": [
+        {
+          "year": 1655,
+          "text": "Combate dentro de El Diluvio."
+        }
+      ],
+      "related": [
+        "El Diluvio"
+      ],
+      "participants": [
+        {
+          "side": "Suecia",
+          "members": [
+            "Suecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Polonia-Lituania",
+          "members": [
+            "Polonia-Lituania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Episodio tactico de la campana sueca.",
+      "consequences": "Reflejo la rapidez del avance sueco y la debilidad inicial de la defensa polaca.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Nowy Dwor Mazowiecki"
+    },
+    "Batalla de Ujscie": {
+      "parent": "El Diluvio",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Gran Polonia",
+      "cause": "Rendicion y choque politico-militar durante la entrada sueca en Polonia.",
+      "chronology": [
+        {
+          "year": 1655,
+          "text": "Combate dentro de El Diluvio."
+        }
+      ],
+      "related": [
+        "El Diluvio"
+      ],
+      "participants": [
+        {
+          "side": "Suecia",
+          "members": [
+            "Suecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Nobleza y fuerzas polacas",
+          "members": [
+            "Polonia-Lituania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Ventaja sueca y sometimiento regional temporal.",
+      "consequences": "Acelero la ocupacion sueca de sectores de la Mancomunidad.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Ujscie"
+    },
+    "Batalla de Golab": {
+      "parent": "El Diluvio",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Polonia",
+      "cause": "Contraofensivas polacas y operaciones suecas durante la guerra del Diluvio.",
+      "chronology": [
+        {
+          "year": 1656,
+          "text": "Combate dentro de El Diluvio."
+        }
+      ],
+      "related": [
+        "El Diluvio"
+      ],
+      "participants": [
+        {
+          "side": "Suecia",
+          "members": [
+            "Suecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Polonia-Lituania",
+          "members": [
+            "Polonia-Lituania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria sueca.",
+      "consequences": "La guerra continuo con resistencia polaca, desgaste sueco y cambios de alianzas.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Golab"
+    },
+    "Batalla de Varsovia": {
+      "parent": "El Diluvio",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Mazovia",
+      "cause": "Intento de controlar la capital y quebrar la resistencia polaco-lituana.",
+      "chronology": [
+        {
+          "year": 1656,
+          "text": "Combate dentro de El Diluvio."
+        }
+      ],
+      "related": [
+        "El Diluvio"
+      ],
+      "participants": [
+        {
+          "side": "Suecia y Brandeburgo",
+          "members": [
+            "Suecia",
+            "Brandeburgo-Prusia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Polonia-Lituania",
+          "members": [
+            "Polonia-Lituania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria sueco-brandeburguesa.",
+      "consequences": "No resolvio la guerra; la resistencia polaca siguio activa y el conflicto se amplio diplomaticamente.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Varsovia"
+    },
+    "Sitio de Zamosc": {
+      "parent": "El Diluvio",
+      "type": "sitio",
+      "scope": "regional",
+      "region": "Polonia",
+      "cause": "Intento sueco de tomar una plaza fortificada clave durante la invasion.",
+      "chronology": [
+        {
+          "year": 1656,
+          "text": "Operacion de sitio dentro de El Diluvio."
+        }
+      ],
+      "related": [
+        "El Diluvio"
+      ],
+      "participants": [
+        {
+          "side": "Suecia",
+          "members": [
+            "Suecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Defensores polacos",
+          "members": [
+            "Polonia-Lituania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Resistencia polaca y fracaso del asedio sueco.",
+      "consequences": "Fortalecio la moral defensiva y mostro los limites logisticos del avance sueco.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Sitio de Zamosc"
+    },
+    "Batalla de Mon": {
+      "parent": "Guerra dano-sueca de 1657-1658",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Baltico occidental",
+      "cause": "Disputa naval entre Dinamarca y Suecia por el control de estrechos y rutas balticas.",
+      "chronology": [
+        {
+          "year": 1657,
+          "text": "Combate dentro de Guerra dano-sueca de 1657-1658."
+        }
+      ],
+      "related": [
+        "Guerra dano-sueca de 1657-1658"
+      ],
+      "participants": [
+        {
+          "side": "Dinamarca-Noruega",
+          "members": [
+            "Dinamarca",
+            "Noruega"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Suecia",
+          "members": [
+            "Suecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Accion naval dentro de la guerra dano-sueca.",
+      "consequences": "Formo parte de la competencia por movilidad naval y control del Baltico.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Mon"
+    },
+    "Sitio de Torun": {
+      "parent": "El Diluvio",
+      "type": "sitio",
+      "scope": "regional",
+      "region": "Prusia Real",
+      "cause": "Recuperacion de posiciones ocupadas por Suecia durante la fase final del Diluvio.",
+      "chronology": [
+        {
+          "year": 1658,
+          "text": "Operacion de sitio dentro de El Diluvio."
+        }
+      ],
+      "related": [
+        "El Diluvio"
+      ],
+      "participants": [
+        {
+          "side": "Polonia-Lituania y aliados",
+          "members": [
+            "Polonia-Lituania",
+            "Austria"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Guarnicion sueca",
+          "members": [
+            "Suecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Recuperacion de Torun por fuerzas polacas y aliadas.",
+      "consequences": "Debilito el control sueco en Prusia y acompano el retroceso de la ocupacion.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Sitio de Torun"
+    },
+    "Batalla de Martinique": {
+      "parent": "Guerras anglo-francesas del Caribe",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Caribe",
+      "cause": "Rivalidad colonial franco-inglesa por islas, rutas y enclaves caribenos.",
+      "chronology": [
+        {
+          "year": 1667,
+          "text": "Combate dentro de Guerras anglo-francesas del Caribe."
+        }
+      ],
+      "related": [
+        "Guerras anglo-francesas del Caribe"
+      ],
+      "participants": [
+        {
+          "side": "Francia",
+          "members": [
+            "Francia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Inglaterra",
+          "members": [
+            "Inglaterra"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Combate naval de impacto regional.",
+      "consequences": "Refuerzo la importancia estrategica del Caribe en las guerras europeas.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Martinique"
+    },
+    "Batalla de Koge Bay": {
+      "parent": "Guerra escanesa",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Baltico",
+      "cause": "Control naval del Baltico durante la guerra entre Suecia y Dinamarca-Noruega.",
+      "chronology": [
+        {
+          "year": 1677,
+          "text": "Combate dentro de Guerra escanesa."
+        }
+      ],
+      "related": [
+        "Guerra escanesa"
+      ],
+      "participants": [
+        {
+          "side": "Dinamarca-Noruega",
+          "members": [
+            "Dinamarca",
+            "Noruega"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Suecia",
+          "members": [
+            "Suecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria danesa.",
+      "consequences": "Limito la movilidad naval sueca y favorecio operaciones danesas en el teatro escanes.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Koge Bay"
+    },
+    "Batalla del banco Dogger (1696)": {
+      "parent": "Guerra de los Nueve Anos",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Mar del Norte",
+      "cause": "Guerra maritima y proteccion de convoyes durante la rivalidad franco-aliada.",
+      "chronology": [
+        {
+          "year": 1696,
+          "text": "Combate dentro de Guerra de los Nueve Anos."
+        }
+      ],
+      "related": [
+        "Guerra de los Nueve Anos"
+      ],
+      "participants": [
+        {
+          "side": "Francia",
+          "members": [
+            "Francia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alianza anglo-neerlandesa",
+          "members": [
+            "Inglaterra",
+            "Paises Bajos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Accion naval vinculada a la guerra de corso y convoyes.",
+      "consequences": "Subrayo el peso de la guerra economica maritima en el conflicto europeo.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla del banco Dogger (1696)"
+    },
+    "Batalla de Gołąb": {
+      "parent": "El Diluvio",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Polonia",
+      "cause": "Contraofensivas polacas y operaciones suecas durante la guerra del Diluvio.",
+      "chronology": [
+        {
+          "year": 1656,
+          "text": "Combate dentro de El Diluvio."
+        }
+      ],
+      "related": [
+        "El Diluvio"
+      ],
+      "participants": [
+        {
+          "side": "Suecia",
+          "members": [
+            "Suecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Polonia-Lituania",
+          "members": [
+            "Polonia-Lituania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria sueca.",
+      "consequences": "La guerra continuo con resistencia polaca, desgaste sueco y cambios de alianzas.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Gołąb"
+    },
+    "Batalla de Møn": {
+      "parent": "Guerra dano-sueca de 1657-1658",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Baltico occidental",
+      "cause": "Disputa naval entre Dinamarca y Suecia por el control de estrechos y rutas balticas.",
+      "chronology": [
+        {
+          "year": 1657,
+          "text": "Combate dentro de Guerra dano-sueca de 1657-1658."
+        }
+      ],
+      "related": [
+        "Guerra dano-sueca de 1657-1658"
+      ],
+      "participants": [
+        {
+          "side": "Dinamarca-Noruega",
+          "members": [
+            "Dinamarca",
+            "Noruega"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Suecia",
+          "members": [
+            "Suecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Accion naval dentro de la guerra dano-sueca.",
+      "consequences": "Formo parte de la competencia por movilidad naval y control del Baltico.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Møn"
+    },
+    "Batalla de Køge Bay": {
+      "parent": "Guerra escanesa",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Baltico",
+      "cause": "Control naval del Baltico durante la guerra entre Suecia y Dinamarca-Noruega.",
+      "chronology": [
+        {
+          "year": 1677,
+          "text": "Combate dentro de Guerra escanesa."
+        }
+      ],
+      "related": [
+        "Guerra escanesa"
+      ],
+      "participants": [
+        {
+          "side": "Dinamarca-Noruega",
+          "members": [
+            "Dinamarca",
+            "Noruega"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Suecia",
+          "members": [
+            "Suecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria danesa.",
+      "consequences": "Limito la movilidad naval sueca y favorecio operaciones danesas en el teatro escanes.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Køge Bay"
     }
   }
 }

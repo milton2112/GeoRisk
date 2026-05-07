@@ -19,20 +19,18 @@ function compactSymbols(symbols = {}) {
 
 function compactQuality(quality = {}) {
   return {
-    score: quality.score ?? null,
-    missingFields: limitArray(quality.missingFields, 4),
-    estimatedFields: limitArray(quality.estimatedFields, 4)
+    score: quality.score ?? null
   };
 }
 
 function compactRelations(relations = {}) {
   return {
     exMetropole: relations.exMetropole || null,
-    blocs: limitArray(relations.blocs, 2),
-    militaryBlocs: limitArray(relations.militaryBlocs, 2),
-    economicBlocs: limitArray(relations.economicBlocs, 2),
-    currentRivals: limitArray(relations.currentRivals, 2),
-    disputedTerritories: limitArray(relations.disputedTerritories || relations.disputes, 2)
+    blocs: limitArray(relations.blocs, 1),
+    militaryBlocs: limitArray(relations.militaryBlocs, 1),
+    economicBlocs: limitArray(relations.economicBlocs, 1),
+    currentRivals: limitArray(relations.currentRivals, 1),
+    disputedTerritories: limitArray(relations.disputedTerritories || relations.disputes, 1)
   };
 }
 
@@ -78,15 +76,15 @@ export function buildStartupCountryIndex(countries = {}) {
         },
         politics: {
           system: country.politics?.system ?? null,
-          organizations: compactNameList(country.politics?.organizations, 2),
-          rivals: compactNameList(country.politics?.rivals, 2),
+          organizations: compactNameList(country.politics?.organizations, 1),
+          rivals: compactNameList(country.politics?.rivals, 1),
           relations: compactRelations(country.politics?.relations)
         },
         religion: {
           summary: country.religion?.summary || null,
           majority: country.religion?.majority || null,
           branch: country.religion?.branch || null,
-          composition: limitArray(country.religion?.composition, 2)
+          composition: limitArray(country.religion?.composition, 1)
         },
         metadata: {
           updatedAt: country.metadata?.updatedAt,

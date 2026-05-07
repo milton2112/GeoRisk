@@ -1047,6 +1047,98 @@ body.globe-loading #map-mode-toggle {
   font-size: 0.78rem;
 }
 
+.risk-watch-card small {
+  color: rgba(223, 238, 255, 0.72);
+  font-size: 0.72rem;
+}
+
+.risk-scenario-card {
+  align-content: start;
+}
+
+.risk-scenario-card ol {
+  display: grid;
+  gap: 4px;
+  margin: 4px 0 0;
+  padding-left: 18px;
+}
+
+.risk-scenario-card button {
+  border: 0;
+  color: #dff1ff;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.risk-scenario-card button:hover,
+.risk-scenario-card button:focus-visible {
+  color: #7cc4ff;
+}
+
+.audit-issue-list {
+  display: grid;
+  gap: 9px;
+}
+
+.audit-issue-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid rgba(73, 160, 255, 0.22);
+  border-radius: 14px;
+  background: rgba(12, 32, 58, 0.74);
+}
+
+.audit-issue-card strong,
+.audit-issue-card small,
+.audit-issue-card span {
+  display: block;
+}
+
+.audit-issue-card small {
+  margin-top: 4px;
+  color: rgba(223, 238, 255, 0.68);
+}
+
+.issue-chip {
+  display: inline-flex;
+  width: fit-content;
+  margin: 5px 5px 0 0;
+  padding: 3px 7px;
+  border: 1px solid rgba(255, 186, 8, 0.26);
+  border-radius: 999px;
+  color: #ffe8a3;
+  background: rgba(255, 186, 8, 0.08);
+  font-size: 0.7rem;
+}
+
+.audit-issue-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 7px;
+}
+
+.audit-issue-actions button {
+  min-height: 34px;
+  padding: 7px 10px;
+  border: 1px solid rgba(73, 160, 255, 0.34);
+  border-radius: 10px;
+  color: #e7f5ff;
+  background: rgba(18, 62, 111, 0.72);
+  cursor: pointer;
+}
+
+.audit-issue-actions button:hover,
+.audit-issue-actions button:focus-visible {
+  border-color: rgba(124, 196, 255, 0.72);
+  background: rgba(26, 85, 146, 0.82);
+}
+
 .relation-title {
   margin: 0 0 6px;
   color: #9fd0ff;
@@ -3469,6 +3561,19 @@ p {
 
   .health-progress-list b {
     text-align: left;
+  }
+
+  .audit-issue-card {
+    grid-template-columns: 1fr;
+  }
+
+  .audit-issue-actions {
+    justify-content: stretch;
+  }
+
+  .audit-issue-actions button {
+    flex: 1 1 140px;
+    min-height: 42px;
   }
 
   #country-modal-close,

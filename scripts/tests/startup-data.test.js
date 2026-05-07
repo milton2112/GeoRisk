@@ -39,6 +39,8 @@ assert.ok(!indexHtml.includes("app-curation.js"), "index.html no debe bloquear e
 assert.ok(!indexHtml.includes("app-news-ui.js"), "noticias debe cargarse bajo demanda");
 assert.ok(!indexHtml.includes("app-compare-ui.js"), "comparador debe cargarse bajo demanda");
 assert.ok(!indexHtml.includes("app-quiz-ui.js"), "quiz debe cargarse bajo demanda");
+assert.ok(!indexHtml.includes("app-risk-radar-ui.js"), "radar debe cargarse bajo demanda");
+assert.ok(!indexHtml.includes("app-conflict-audit-ui.js"), "auditoria debe cargarse bajo demanda");
 assert.ok(!indexHtml.includes("html2canvas"), "html2canvas debe cargarse bajo demanda al exportar");
 assert.ok(!indexHtml.includes("jspdf"), "jspdf debe cargarse bajo demanda al exportar PDF");
 assert.ok(!indexHtml.includes("app-performance-ui.js"), "panel de rendimiento debe cargarse bajo demanda");
@@ -50,6 +52,7 @@ assert.ok(indexHtml.includes("intro-runtime-grid"), "portada debe mostrar estado
 assert.ok(indexHtml.includes("intro-data-grid"), "portada debe mostrar cobertura del dataset");
 assert.ok(indexHtml.includes("open-performance-button"), "UI debe exponer panel interno de rendimiento");
 assert.ok(indexHtml.includes("open-risk-radar-button"), "UI debe exponer radar de riesgo multiparametrico");
+assert.ok(indexHtml.includes("open-conflict-audit-button"), "UI debe exponer auditoria interna de conflictos");
 for (const id of ["intro-country-count", "intro-conflict-count", "intro-layer-count", "intro-special-count"]) {
   assert.ok(indexHtml.includes(id), `portada debe exponer ${id}`);
 }
@@ -74,10 +77,14 @@ assert.ok(script.includes("ensureDeferredUiModule"), "modulos secundarios deben 
 assert.ok(script.includes("app-news-ui.js"), "noticias debe tener modulo diferido declarado");
 assert.ok(script.includes("app-compare-ui.js"), "comparador debe tener modulo diferido declarado");
 assert.ok(script.includes("app-quiz-ui.js"), "quiz debe tener modulo diferido declarado");
+assert.ok(script.includes("app-risk-radar-ui.js"), "radar debe tener modulo diferido declarado");
+assert.ok(script.includes("app-conflict-audit-ui.js"), "auditoria debe tener modulo diferido declarado");
 assert.ok(script.includes("function renderCountryCurationTodo"), "ficha pais debe exponer checklist de curaduria");
 assert.ok(script.includes("function getCountryCurationActions"), "ficha pais debe exponer acciones de curaduria por seccion");
 assert.ok(script.includes("function getCountryRiskRadarComponents"), "runtime debe exponer radar de riesgo explicable");
 assert.ok(script.includes("function renderRiskRadarPanel"), "runtime debe exponer panel interno de radar de riesgo");
+assert.ok(script.includes("function getCountryRiskDimension"), "runtime debe exponer capas por dimension de riesgo");
+assert.ok(script.includes("async function renderConflictAuditPanel"), "runtime debe exponer panel interno de auditoria de conflictos");
 assert.ok(script.includes("Que falta curar"), "ficha pais debe mostrar que falta curar");
 assert.ok(appRuntime.includes(" - rendimiento"), "perfil runtime debe usar separador ASCII estable");
 assert.ok(!appRuntime.includes("Â"), "app-runtime no debe exponer mojibake visible");

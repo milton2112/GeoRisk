@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-05-06T22:41:33.522Z",
-  "startupBytes": 1015514,
-  "startupHuman": "992 KB",
-  "deferredBytes": 674331,
-  "deferredHuman": "659 KB",
+  "generatedAt": "2026-05-07T02:09:26.545Z",
+  "startupBytes": 1000017,
+  "startupHuman": "977 KB",
+  "deferredBytes": 693162,
+  "deferredHuman": "677 KB",
   "largestAssets": [
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 649950,
-      "human": "635 KB",
+      "bytes": 660396,
+      "human": "645 KB",
       "startupCritical": true
     },
     {
@@ -20,18 +20,18 @@
       "startupCritical": false
     },
     {
-      "path": "data/countries_index.json",
-      "exists": true,
-      "bytes": 252082,
-      "human": "246 KB",
-      "startupCritical": true
-    },
-    {
       "path": "data/conflict_details.generated.json",
       "exists": true,
-      "bytes": 235183,
-      "human": "230 KB",
+      "bytes": 254014,
+      "human": "248 KB",
       "startupCritical": false
+    },
+    {
+      "path": "data/countries_index.json",
+      "exists": true,
+      "bytes": 223807,
+      "human": "219 KB",
+      "startupCritical": true
     },
     {
       "path": "data/world_countries_simplified.geo.json",
@@ -43,14 +43,14 @@
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 68289,
-      "human": "67 KB",
+      "bytes": 70183,
+      "human": "69 KB",
       "startupCritical": true
     },
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 29196,
+      "bytes": 29634,
       "human": "29 KB",
       "startupCritical": true
     },
@@ -94,22 +94,22 @@
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 29196,
+      "bytes": 29634,
       "human": "29 KB",
       "startupCritical": true
     },
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 649950,
-      "human": "635 KB",
+      "bytes": 660396,
+      "human": "645 KB",
       "startupCritical": true
     },
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 68289,
-      "human": "67 KB",
+      "bytes": 70183,
+      "human": "69 KB",
       "startupCritical": true
     },
     {
@@ -178,8 +178,8 @@
     {
       "path": "data/countries_index.json",
       "exists": true,
-      "bytes": 252082,
-      "human": "246 KB",
+      "bytes": 223807,
+      "human": "219 KB",
       "startupCritical": true
     },
     {
@@ -206,8 +206,8 @@
     {
       "path": "data/conflict_details.generated.json",
       "exists": true,
-      "bytes": 235183,
-      "human": "230 KB",
+      "bytes": 254014,
+      "human": "248 KB",
       "startupCritical": false
     }
   ],

@@ -10,6 +10,10 @@ Este proyecto usa versionado semantico:
 
 Actualizacion de producto orientada a uso real y crecimiento futuro.
 
+- Radar de riesgo ampliado con capas por dimension militar, economica, diplomatica, interna y territorial.
+- Radar con UI bajo demanda, lentes de escenario, factor principal por pais y mejor lectura analitica.
+- Vista interna "Auditoria de conflictos" conectada al reporte generado para ver top problemas sin abrir JSON.
+- Nueva tanda de curaduria segura para batallas europeas modernas, con parentado guerra > batalla y detalle estable.
 - Servidor local de smoke test con prueba automatica para revisar el shell sin depender del browser plugin.
 - Auditoria real de conflictos sobre el dataset completo con reporte de ingles, duplicados, bandos genericos, batallas sin padre y detalle flojo.
 - Sugerencias automaticas de normalizacion para conflictos en `reports/conflict-autofix-suggestions.json`.

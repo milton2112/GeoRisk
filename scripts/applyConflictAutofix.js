@@ -1,6 +1,7 @@
 import fs from "fs-extra";
 import path from "node:path";
 import { SAFE_CONFLICT_RENAMES, CURATED_CONFLICT_DETAIL_FIXES } from "./lib/conflict-autofix-rules.js";
+import { EXTRA_CURATED_CONFLICT_DETAIL_FIXES, EXTRA_SAFE_CONFLICT_RENAMES } from "./lib/conflict-curation-extra.js";
 import { cleanConflictLabel, mergeConflictEntries } from "./lib/conflict-cleaning.js";
 
 const projectRoot = path.resolve(process.cwd());
@@ -8,10 +9,18 @@ const fullPath = path.join(projectRoot, "data", "countries_full.json");
 const countriesDir = path.join(projectRoot, "data", "countries");
 const generatedDetailsPath = path.join(projectRoot, "data", "conflict_details.generated.json");
 const reportPath = path.join(projectRoot, "reports", "conflict-autofix-applied.json");
+const curatedConflictDetailFixes = {
+  ...CURATED_CONFLICT_DETAIL_FIXES,
+  ...EXTRA_CURATED_CONFLICT_DETAIL_FIXES
+};
+const safeConflictRenames = {
+  ...SAFE_CONFLICT_RENAMES,
+  ...EXTRA_SAFE_CONFLICT_RENAMES
+};
 
 function renameConflictName(name) {
   const cleanName = cleanConflictLabel(name);
-  return SAFE_CONFLICT_RENAMES[cleanName] || SAFE_CONFLICT_RENAMES[name] || cleanName;
+  return safeConflictRenames[cleanName] || safeConflictRenames[name] || cleanName;
 }
 
 function normalizeConflictEntry(entry) {
@@ -76,7 +85,7 @@ async function fixGeneratedDetails() {
   let renamed = 0;
   let enriched = 0;
 
-  for (const [from, to] of Object.entries(SAFE_CONFLICT_RENAMES)) {
+  for (const [from, to] of Object.entries(safeConflictRenames)) {
     if (conflicts[from] && !conflicts[to]) {
       conflicts[to] = { ...conflicts[from], pageTitle: to };
       delete conflicts[from];
@@ -84,7 +93,7 @@ async function fixGeneratedDetails() {
     }
   }
 
-  for (const [name, detail] of Object.entries(CURATED_CONFLICT_DETAIL_FIXES)) {
+  for (const [name, detail] of Object.entries(curatedConflictDetailFixes)) {
     conflicts[name] = {
       ...(conflicts[name] || {}),
       ...detail,
@@ -110,8 +119,8 @@ const report = {
   changedFullCountries,
   changedCountryFiles,
   detailStats,
-  safeRenames: SAFE_CONFLICT_RENAMES,
-  curatedDetails: Object.keys(CURATED_CONFLICT_DETAIL_FIXES)
+  safeRenames: safeConflictRenames,
+  curatedDetails: Object.keys(curatedConflictDetailFixes)
 };
 
 await fs.ensureDir(path.dirname(reportPath));

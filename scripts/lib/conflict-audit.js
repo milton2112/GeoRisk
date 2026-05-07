@@ -20,6 +20,16 @@ const BLOCK_FALSE_POSITIVES = {
 
 import { cleanConflictLabel, inferConflictYearsFromText, normalizeConflictKey } from "./conflict-cleaning.js";
 import { CURATED_CONFLICT_DETAIL_FIXES, SAFE_CONFLICT_RENAMES } from "./conflict-autofix-rules.js";
+import { EXTRA_CURATED_CONFLICT_DETAIL_FIXES, EXTRA_SAFE_CONFLICT_RENAMES } from "./conflict-curation-extra.js";
+
+const ALL_CURATED_CONFLICT_DETAIL_FIXES = {
+  ...CURATED_CONFLICT_DETAIL_FIXES,
+  ...EXTRA_CURATED_CONFLICT_DETAIL_FIXES
+};
+const ALL_SAFE_CONFLICT_RENAMES = {
+  ...SAFE_CONFLICT_RENAMES,
+  ...EXTRA_SAFE_CONFLICT_RENAMES
+};
 
 const ENGLISH_CONFLICT_MARKERS = [
   "war of ",
@@ -148,7 +158,7 @@ function getGeneratedConflictMap(generatedDetails) {
 }
 
 function getRenamedConflictRecord(name, generatedConflictMap) {
-  const renamed = SAFE_CONFLICT_RENAMES[name] || SAFE_CONFLICT_RENAMES[cleanConflictLabel(name)];
+  const renamed = ALL_SAFE_CONFLICT_RENAMES[name] || ALL_SAFE_CONFLICT_RENAMES[cleanConflictLabel(name)];
   return renamed ? generatedConflictMap[renamed] : null;
 }
 
@@ -188,7 +198,7 @@ function scoreIssueSet(issues) {
 }
 
 export function suggestConflictAutoFix(name) {
-  const explicit = SAFE_CONFLICT_RENAMES[name] || SAFE_CONFLICT_RENAMES[cleanConflictLabel(name)];
+  const explicit = ALL_SAFE_CONFLICT_RENAMES[name] || ALL_SAFE_CONFLICT_RENAMES[cleanConflictLabel(name)];
   if (explicit) {
     return explicit;
   }
@@ -254,7 +264,7 @@ export function buildConflictAuditReport({ countries = {}, generatedDetails = {}
     record.details.push({ name, ...detail });
   }
 
-  for (const [name, detail] of Object.entries(CURATED_CONFLICT_DETAIL_FIXES)) {
+  for (const [name, detail] of Object.entries(ALL_CURATED_CONFLICT_DETAIL_FIXES)) {
     const record = ensureRecord(name);
     if (!record) {
       continue;

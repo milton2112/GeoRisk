@@ -1,264 +1,16 @@
 {
-  "generatedAt": "2026-05-06T22:41:32.703Z",
-  "scannedConflicts": 2007,
-  "issueCount": 1940,
+  "generatedAt": "2026-05-07T02:09:25.799Z",
+  "scannedConflicts": 2010,
+  "issueCount": 1927,
   "summary": {
-    "battle_without_parent": 1160,
-    "weak_detail": 1889,
+    "battle_without_parent": 1147,
+    "weak_detail": 1876,
     "generic_side": 21,
     "duplicate_names": 4,
     "english": 5,
     "leading_year": 7
   },
   "topIssues": [
-    {
-      "key": "batalla de czarne",
-      "name": "Batalla de Czarne",
-      "names": [
-        "Batalla de Czarne"
-      ],
-      "countries": [
-        "SWE"
-      ],
-      "startYear": 1627,
-      "endYear": 1627,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de dirschau",
-      "name": "Batalla de Dirschau",
-      "names": [
-        "Batalla de Dirschau"
-      ],
-      "countries": [
-        "SWE"
-      ],
-      "startYear": 1627,
-      "endYear": 1627,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de koscianem 1655",
-      "name": "Batalla de Kościanem (1655)",
-      "names": [
-        "Batalla de Kościanem (1655)"
-      ],
-      "countries": [
-        "SWE"
-      ],
-      "startYear": 1655,
-      "endYear": 1655,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de nowy dwor mazowiecki",
-      "name": "Batalla de Nowy Dwór Mazowiecki",
-      "names": [
-        "Batalla de Nowy Dwór Mazowiecki"
-      ],
-      "countries": [
-        "SWE"
-      ],
-      "startYear": 1655,
-      "endYear": 1655,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de ujscie",
-      "name": "Batalla de Ujście",
-      "names": [
-        "Batalla de Ujście"
-      ],
-      "countries": [
-        "SWE"
-      ],
-      "startYear": 1655,
-      "endYear": 1655,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de go ab",
-      "name": "Batalla de Gołąb",
-      "names": [
-        "Batalla de Gołąb"
-      ],
-      "countries": [
-        "SWE"
-      ],
-      "startYear": 1656,
-      "endYear": 1656,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de varsovia",
-      "name": "Batalla de Varsovia",
-      "names": [
-        "Batalla de Varsovia"
-      ],
-      "countries": [
-        "SWE"
-      ],
-      "startYear": 1656,
-      "endYear": 1656,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "sitio de zamosc",
-      "name": "Sitio de Zamość",
-      "names": [
-        "Sitio de Zamość"
-      ],
-      "countries": [
-        "SWE"
-      ],
-      "startYear": 1656,
-      "endYear": 1656,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de m n",
-      "name": "Batalla de Møn",
-      "names": [
-        "Batalla de Møn"
-      ],
-      "countries": [
-        "DNK",
-        "SWE"
-      ],
-      "startYear": 1657,
-      "endYear": 1657,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "sitio de torun",
-      "name": "Sitio de Toruń",
-      "names": [
-        "Sitio de Toruń"
-      ],
-      "countries": [
-        "SWE"
-      ],
-      "startYear": 1658,
-      "endYear": 1658,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de martinique",
-      "name": "Batalla de Martinique",
-      "names": [
-        "Batalla de Martinique"
-      ],
-      "countries": [
-        "FRA"
-      ],
-      "startYear": 1667,
-      "endYear": 1667,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de k ge bay",
-      "name": "Batalla de Køge Bay",
-      "names": [
-        "Batalla de Køge Bay"
-      ],
-      "countries": [
-        "SWE"
-      ],
-      "startYear": 1677,
-      "endYear": 1677,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla del banco dogger 1696",
-      "name": "Batalla del banco Dogger (1696)",
-      "names": [
-        "Batalla del banco Dogger (1696)"
-      ],
-      "countries": [
-        "FRA"
-      ],
-      "startYear": 1696,
-      "endYear": 1696,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
     {
       "key": "batalla de vilnius 1702",
       "name": "Batalla de Vilnius (1702)",
@@ -5749,6 +5501,256 @@
       ],
       "countries": [
         "USA"
+      ],
+      "startYear": 1945,
+      "endYear": 1945,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de kassel",
+      "name": "Batalla de Kassel",
+      "names": [
+        "Batalla de Kassel"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1945,
+      "endYear": 1945,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de la brecha de argenta",
+      "name": "Batalla de la Brecha de Argenta",
+      "names": [
+        "Batalla de la Brecha de Argenta"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1945,
+      "endYear": 1945,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de labuan",
+      "name": "Batalla de Labuan",
+      "names": [
+        "Batalla de Labuan"
+      ],
+      "countries": [
+        "AUS",
+        "USA"
+      ],
+      "startYear": 1945,
+      "endYear": 1945,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de luzon",
+      "name": "Batalla de Luzón",
+      "names": [
+        "Batalla de Luzón"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1945,
+      "endYear": 1945,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de mindanao",
+      "name": "Batalla de Mindanao",
+      "names": [
+        "Batalla de Mindanao"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1945,
+      "endYear": 1945,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de north borneo",
+      "name": "Batalla de North Borneo",
+      "names": [
+        "Batalla de North Borneo"
+      ],
+      "countries": [
+        "AUS",
+        "USA"
+      ],
+      "startYear": 1945,
+      "endYear": 1945,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de nuremberg",
+      "name": "Batalla de Núremberg",
+      "names": [
+        "Batalla de Núremberg"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1945,
+      "endYear": 1945,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de poljana",
+      "name": "Batalla de Poljana",
+      "names": [
+        "Batalla de Poljana"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1945,
+      "endYear": 1945,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de remagen",
+      "name": "Batalla de Remagen",
+      "names": [
+        "Batalla de Remagen"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1945,
+      "endYear": 1945,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de riva ridge",
+      "name": "Batalla de Riva Ridge",
+      "names": [
+        "Batalla de Riva Ridge"
+      ],
+      "countries": [
+        "BRA",
+        "USA"
+      ],
+      "startYear": 1945,
+      "endYear": 1945,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de slivice",
+      "name": "Batalla de Slivice",
+      "names": [
+        "Batalla de Slivice"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1945,
+      "endYear": 1945,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de surabaya",
+      "name": "Batalla de Surabaya",
+      "names": [
+        "Batalla de Surabaya"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1945,
+      "endYear": 1945,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla del estrecho de malaca",
+      "name": "Batalla del Estrecho de Malaca",
+      "names": [
+        "Batalla del Estrecho de Malaca"
+      ],
+      "countries": [
+        "GBR"
       ],
       "startYear": 1945,
       "endYear": 1945,
