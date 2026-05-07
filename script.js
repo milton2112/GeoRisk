@@ -68,6 +68,7 @@ let compareUi = window.GeoRiskCompareUI || {};
 let quizUi = window.GeoRiskQuizUI || {};
 let riskRadarUi = window.GeoRiskRiskRadarUi || {};
 let conflictAuditUi = window.GeoRiskConflictAuditUi || {};
+let projectAuditUi = window.GeoRiskProjectAuditUi || {};
 const countryPanelUi = window.GeoRiskCountryPanel || {};
 const timelineConflictUi = window.GeoRiskTimelineConflicts || {};
 const sharedTheme = window.GeoRiskTheme || {};
@@ -78,7 +79,8 @@ const DEFERRED_UI_MODULES = {
   compare: "./app-compare-ui.js?v=2026-05-02-boot-12",
   quiz: "./app-quiz-ui.js?v=2026-05-02-boot-12",
   riskRadar: "./app-risk-radar-ui.js?v=2026-05-02-boot-12",
-  conflictAudit: "./app-conflict-audit-ui.js?v=2026-05-02-boot-12"
+  conflictAudit: "./app-conflict-audit-ui.js?v=2026-05-02-boot-12",
+  projectAudit: "./app-project-audit-ui.js?v=2026-05-02-boot-12"
 };
 const deferredUiModulePromises = new Map();
 
@@ -88,6 +90,7 @@ function refreshDeferredUiGlobals() {
   quizUi = window.GeoRiskQuizUI || quizUi || {};
   riskRadarUi = window.GeoRiskRiskRadarUi || riskRadarUi || {};
   conflictAuditUi = window.GeoRiskConflictAuditUi || conflictAuditUi || {};
+  projectAuditUi = window.GeoRiskProjectAuditUi || projectAuditUi || {};
 }
 
 async function ensureDeferredUiModule(moduleName) {
@@ -6937,8 +6940,6 @@ function getRenderProfileLabel() {
 
 function updateAppStatusPanel(extra = {}) {
   const renderChip = document.getElementById("render-profile-chip");
-  const bootChip = document.getElementById("boot-profile-chip");
-  const floatingBootChip = document.getElementById("boot-floating-chip");
   const datasetChip = document.getElementById("dataset-health-chip");
 
   if (renderChip) {
@@ -6952,29 +6953,6 @@ function updateAppStatusPanel(extra = {}) {
       presentation: currentLanguage === "en" ? "presentation" : "presentacion"
     }[appMode] || appMode;
     renderChip.innerHTML = `<strong>${currentLanguage === "en" ? "Render" : "Render"}:</strong> ${escapeHtml(getRenderProfileLabel())} · ${escapeHtml(modeLabel)}${fpsSuffix}`;
-  }
-
-  if (bootChip) {
-    const summary = getBootProfileSummary();
-    const hasBootData = summary.total > 0 || Object.keys(bootMetrics.steps).length > 0;
-    let bootText = "";
-    if (!hasBootData) {
-      bootText = `${currentLanguage === "en" ? "Boot" : "Arranque"}: ${currentLanguage === "en" ? "pending" : "pendiente"}`;
-      bootChip.innerHTML = `<strong>${currentLanguage === "en" ? "Boot" : "Arranque"}:</strong> ${currentLanguage === "en" ? "pending" : "pendiente"}`;
-    } else {
-      const totalLabel = `${Math.round(summary.total)} ms`;
-      const detailParts = [];
-      if (summary.imagery) detailParts.push(`${currentLanguage === "en" ? "first render" : "primer render"} ${Math.round(summary.imagery)} ms`);
-      if (summary.data) detailParts.push(`${currentLanguage === "en" ? "data" : "datos"} ${Math.round(summary.data)} ms`);
-      if (summary.overlay) detailParts.push(`${currentLanguage === "en" ? "overlay" : "overlay"} ${Math.round(summary.overlay)} ms`);
-      if (summary.ui) detailParts.push(`${currentLanguage === "en" ? "ui" : "ui"} ${Math.round(summary.ui)} ms`);
-      bootText = `${currentLanguage === "en" ? "Boot" : "Arranque"}: ${totalLabel}${detailParts.length ? ` · ${detailParts.join(" · ")}` : ""}`;
-      bootChip.innerHTML = `<strong>${currentLanguage === "en" ? "Boot" : "Arranque"}:</strong> ${escapeHtml(totalLabel)}${detailParts.length ? ` · ${escapeHtml(detailParts.join(" · "))}` : ""}`;
-    }
-    if (floatingBootChip) {
-      floatingBootChip.textContent = bootText;
-      floatingBootChip.classList.toggle("is-complete", hasBootData && summary.total > 0);
-    }
   }
 
   if (datasetChip) {
@@ -9788,6 +9766,10 @@ function updateStaticText() {
   if (openConflictAuditButton) {
     openConflictAuditButton.textContent = currentLanguage === "en" ? "Conflict audit" : "Auditoria conflictos";
   }
+  const openProjectAuditButton = document.getElementById("open-project-audit-button");
+  if (openProjectAuditButton) {
+    openProjectAuditButton.textContent = currentLanguage === "en" ? "Project audit" : "Auditoria proyecto";
+  }
   const openChangelogButton = document.getElementById("open-changelog-button");
   if (openChangelogButton) {
     openChangelogButton.textContent = currentLanguage === "en" ? "Changelog" : "Changelog";
@@ -10573,6 +10555,23 @@ async function renderConflictAuditPanel() {
       <span>${formatNumber(summary[key] || 0)} ${currentLanguage === "en" ? "cases" : "casos"}</span>
     </article>
   `).join("");
+  const focusBuckets = [
+    { label: currentLanguage === "en" ? "Before 1850" : "Antes de 1850", min: -Infinity, max: 1849 },
+    { label: "1850-1899", min: 1850, max: 1899 },
+    { label: "1900-1918", min: 1900, max: 1918 },
+    { label: "1919-1945", min: 1919, max: 1945 },
+    { label: currentLanguage === "en" ? "Post-1945" : "Pos-1945", min: 1946, max: Infinity }
+  ];
+  const focusCounts = focusBuckets.map(bucket => ({
+    ...bucket,
+    count: (report.topIssues || []).filter(issue => {
+      const year = Number(issue.startYear);
+      return Number.isFinite(year) && year >= bucket.min && year <= bucket.max;
+    }).length
+  })).filter(bucket => bucket.count > 0);
+  const focusRows = focusCounts.slice(0, 5).map(bucket => `
+    <span><b>${formatNumber(bucket.count)}</b>${escapeHtml(bucket.label)}</span>
+  `).join("");
   const topRows = (report.topIssues || []).slice(0, 40).map(issue => {
     const countryCode = Array.isArray(issue.countries) ? issue.countries.find(code => countriesData?.[code]) : "";
     const issueTags = (issue.issues || []).map(key => `<span class="issue-chip">${escapeHtml(issueLabels[key] || key)}</span>`).join("");
@@ -10595,6 +10594,7 @@ async function renderConflictAuditPanel() {
         language: currentLanguage,
         report,
         issueCards,
+        focusRows,
         topRows
       })
     : `<div class="help-section"><div class="audit-issue-list">${topRows}</div></div>`;
@@ -10619,6 +10619,47 @@ async function renderConflictAuditPanel() {
       }
     });
   });
+}
+
+async function renderProjectAuditPanel() {
+  await ensureDeferredUiModule("projectAudit");
+  const report = await fetchResourceCached(`./reports/project-audit.json?v=${APP_VERSION}`, "json").catch(() => null);
+  if (!report) {
+    openProductModal(
+      currentLanguage === "en" ? "Project audit" : "Auditoria del proyecto",
+      `<div class="help-section"><p>${currentLanguage === "en" ? "The project audit report is not available yet. Run npm run audit:project." : "El reporte de auditoria del proyecto todavia no esta disponible. Ejecuta npm run audit:project."}</p></div>`
+    );
+    return;
+  }
+
+  const fileRows = (report.sourceFiles || []).slice(0, 8).map(file => `
+    <article class="audit-issue-card">
+      <div>
+        <strong>${escapeHtml(file.path)}</strong>
+        <small>${escapeHtml(file.human || "s/m")}</small>
+      </div>
+      <div class="audit-issue-actions">
+        <span class="issue-chip">${file.exists ? "ok" : "faltante"}</span>
+      </div>
+    </article>
+  `).join("");
+  const actionRows = (report.nextActions || []).map(action => `
+    <article class="audit-issue-card">
+      <div>
+        <strong>${escapeHtml(action)}</strong>
+      </div>
+    </article>
+  `).join("");
+  const body = projectAuditUi.renderProjectAuditPanelContent
+    ? projectAuditUi.renderProjectAuditPanelContent({
+        language: currentLanguage,
+        report,
+        fileRows,
+        actionRows
+      })
+    : `<div class="help-section"><div class="audit-issue-list">${actionRows}${fileRows}</div></div>`;
+
+  openProductModal(currentLanguage === "en" ? "Project audit" : "Auditoria del proyecto", body);
 }
 
 function openHelpModal() {
@@ -10652,6 +10693,7 @@ function setupSavedViewControls() {
   const healthButton = document.getElementById("open-health-button");
   const riskRadarButton = document.getElementById("open-risk-radar-button");
   const conflictAuditButton = document.getElementById("open-conflict-audit-button");
+  const projectAuditButton = document.getElementById("open-project-audit-button");
   const performanceButton = document.getElementById("open-performance-button");
   const changelogButton = document.getElementById("open-changelog-button");
   const docsButton = document.getElementById("open-docs-button");
@@ -10707,6 +10749,7 @@ function setupSavedViewControls() {
   healthButton?.addEventListener("click", () => renderDatasetHealthPanel());
   riskRadarButton?.addEventListener("click", () => renderRiskRadarPanel());
   conflictAuditButton?.addEventListener("click", () => renderConflictAuditPanel());
+  projectAuditButton?.addEventListener("click", () => renderProjectAuditPanel());
   performanceButton?.addEventListener("click", () => renderPerformancePanel());
   changelogButton?.addEventListener("click", () => renderChangelogPanel());
   clearLocalCacheButton?.addEventListener("click", () => clearLocalGeoRiskCache());
@@ -10733,7 +10776,7 @@ function setupSavedViewControls() {
     );
   });
   datasetChip?.addEventListener("click", () => renderDatasetHealthPanel());
-  renderChip?.addEventListener("click", () => openIntroModal());
+  renderChip?.addEventListener("click", () => renderPerformancePanel());
 
   helpButton?.addEventListener("click", () => openHelpModal());
   helpClose?.addEventListener("click", () => closeHelpModal());

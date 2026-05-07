@@ -13,6 +13,32 @@ Actualizacion de producto orientada a uso real y crecimiento futuro.
 - Radar de riesgo ampliado con capas por dimension militar, economica, diplomatica, interna y territorial.
 - Radar con UI bajo demanda, lentes de escenario, factor principal por pais y mejor lectura analitica.
 - Vista interna "Auditoria de conflictos" conectada al reporte generado para ver top problemas sin abrir JSON.
+- Panel de capas con scroll propio, cabecera fija y sin chip de arranque invadiendo la vista principal.
+- Auditoria de conflictos con progreso de limpieza y estados vacios mas claros.
+- Chips de estado convertidos en acciones accesibles: render abre Rendimiento y dataset abre Salud dataset.
+- Test de higiene visual agregado al flujo completo para evitar regresiones de mojibake y UI vieja.
+- Auditoria general del proyecto con reporte JSON, vista interna y ejecucion dentro del checklist de release.
+- Nueva tanda de curaduria para Gran Guerra del Norte, Guerra de los Siete Anos y Guerra de Independencia estadounidense.
+- Curaduria ampliada de la Guerra de Independencia de Estados Unidos y su dimension naval global.
+- Curaduria segura adicional para Guerra de 1812, guerras berberiscas, Revolucion haitiana, Guerra finlandesa, Rio de la Plata y guerra mexicano-estadounidense.
+- Mas batallas parentadas cronologicamente con su guerra correspondiente entre 1790 y 1847.
+- Nueva tanda de curaduria para Mexico-Estados Unidos, Crimea/Pacifico, China en el siglo XIX y Guerra de Secesion estadounidense.
+- Panel de auditoria de conflictos con tira visual de prioridad para guiar limpieza: parentar batallas, limpiar bandos y subir detalle.
+- Curaduria ampliada para Guerra Civil estadounidense, Guerra de la Triple Alianza, intervencion francesa en Mexico y guerras indigenas de Estados Unidos.
+- Panel "Auditoria proyecto" con medidores visuales de presupuesto de arranque y avance de limpieza de conflictos.
+- Curaduria adicional para Guerra del Pacifico, guerra franco-china, Rebelion del Noroeste, guerra hispano-estadounidense, Filipinas, Boxers, Nicaragua y primeras batallas de 1914.
+- Normalizacion segura de variantes como Guantanamo/Guasimas para reducir nombres en ingles o con acentos rotos.
+- Auditoria del proyecto ampliada para incluir el modulo visual de auditoria y mostrar una tarjeta de higiene visual dentro de la app.
+- Curaduria ampliada de Primera Guerra Mundial con Ypres, Jutlandia, Vimy, Messines, Cambrai, Amiens, Belleau Wood, Blanc Mont Ridge y Durazzo.
+- Panel de auditoria de conflictos con foco editorial por periodo historico para orientar la siguiente tanda de limpieza.
+- Auditoria del proyecto enriquecida con deuda de conflictos por periodo historico dentro del reporte y de la UI.
+- Curaduria extendida de 1914-1918 con Meuse, Revigny, Upper Meurthe, Saint-Mihiel, Soissons, St. Quentin Canal, Vittorio Veneto, Somme, Marne y Aisne.
+- Autofix de conflictos mas robusto: cuando un renombre seguro ya existe, fusiona detalles y elimina el nombre viejo para no recrear duplicados.
+- Radar de riesgo con bloque metodologico: mejor uso, limites del modelo y proxima mejora analitica.
+- Curaduria de entreguerras y Segunda Guerra Mundial inicial: Juarez, Shenkursk, La Flor, Alihuata, Atlantico, Belgica, Dunkerque, Raate, Sedan, Sidi Barrani, Creta, Hong Kong y Keren.
+- Panel de rendimiento con recomendacion automatica segun el cuello de botella medido en arranque.
+- Panel "Auditoria proyecto" con tarjetas de advertencias para ver deuda tecnica y riesgos sin abrir reportes JSON.
+- Pulido visual moderno en modales, secciones, tarjetas de riesgo y auditorias internas.
 - Nueva tanda de curaduria segura para batallas europeas modernas, con parentado guerra > batalla y detalle estable.
 - Servidor local de smoke test con prueba automatica para revisar el shell sin depender del browser plugin.
 - Auditoria real de conflictos sobre el dataset completo con reporte de ingles, duplicados, bandos genericos, batallas sin padre y detalle flojo.

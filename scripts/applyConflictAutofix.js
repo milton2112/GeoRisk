@@ -2,6 +2,11 @@ import fs from "fs-extra";
 import path from "node:path";
 import { SAFE_CONFLICT_RENAMES, CURATED_CONFLICT_DETAIL_FIXES } from "./lib/conflict-autofix-rules.js";
 import { EXTRA_CURATED_CONFLICT_DETAIL_FIXES, EXTRA_SAFE_CONFLICT_RENAMES } from "./lib/conflict-curation-extra.js";
+import { US_REVOLUTION_CONFLICT_DETAIL_FIXES } from "./lib/conflict-curation-us-revolution.js";
+import { EARLY_1800_CONFLICT_DETAIL_FIXES, EARLY_1800_SAFE_CONFLICT_RENAMES } from "./lib/conflict-curation-early-1800.js";
+import { MID_1800_CONFLICT_DETAIL_FIXES, MID_1800_SAFE_CONFLICT_RENAMES } from "./lib/conflict-curation-1847-1864.js";
+import { LATE_1800_CONFLICT_DETAIL_FIXES, LATE_1800_SAFE_CONFLICT_RENAMES } from "./lib/conflict-curation-1877-1914.js";
+import { INTERWAR_CONFLICT_DETAIL_FIXES, INTERWAR_SAFE_CONFLICT_RENAMES } from "./lib/conflict-curation-1919-1941.js";
 import { cleanConflictLabel, mergeConflictEntries } from "./lib/conflict-cleaning.js";
 
 const projectRoot = path.resolve(process.cwd());
@@ -11,11 +16,20 @@ const generatedDetailsPath = path.join(projectRoot, "data", "conflict_details.ge
 const reportPath = path.join(projectRoot, "reports", "conflict-autofix-applied.json");
 const curatedConflictDetailFixes = {
   ...CURATED_CONFLICT_DETAIL_FIXES,
-  ...EXTRA_CURATED_CONFLICT_DETAIL_FIXES
+  ...EXTRA_CURATED_CONFLICT_DETAIL_FIXES,
+  ...US_REVOLUTION_CONFLICT_DETAIL_FIXES,
+  ...EARLY_1800_CONFLICT_DETAIL_FIXES,
+  ...MID_1800_CONFLICT_DETAIL_FIXES,
+  ...LATE_1800_CONFLICT_DETAIL_FIXES,
+  ...INTERWAR_CONFLICT_DETAIL_FIXES
 };
 const safeConflictRenames = {
   ...SAFE_CONFLICT_RENAMES,
-  ...EXTRA_SAFE_CONFLICT_RENAMES
+  ...EXTRA_SAFE_CONFLICT_RENAMES,
+  ...EARLY_1800_SAFE_CONFLICT_RENAMES,
+  ...MID_1800_SAFE_CONFLICT_RENAMES,
+  ...LATE_1800_SAFE_CONFLICT_RENAMES,
+  ...INTERWAR_SAFE_CONFLICT_RENAMES
 };
 
 function renameConflictName(name) {
@@ -86,8 +100,12 @@ async function fixGeneratedDetails() {
   let enriched = 0;
 
   for (const [from, to] of Object.entries(safeConflictRenames)) {
-    if (conflicts[from] && !conflicts[to]) {
-      conflicts[to] = { ...conflicts[from], pageTitle: to };
+    if (conflicts[from]) {
+      conflicts[to] = {
+        ...(conflicts[from] || {}),
+        ...(conflicts[to] || {}),
+        pageTitle: to
+      };
       delete conflicts[from];
       renamed += 1;
     }

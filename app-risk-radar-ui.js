@@ -30,6 +30,30 @@
         <h3>${isEnglish ? "Scenario lenses" : "Lentes de escenario"}</h3>
         <div class="risk-watch-grid">${scenarioCards}</div>
       </div>
+      <div class="risk-method-strip">
+        <article>
+          <strong>${isEnglish ? "Best use" : "Mejor uso"}</strong>
+          <span>${isEnglish ? "Compare countries, detect weak dimensions and decide where to curate deeper." : "Comparar paises, detectar dimensiones flojas y decidir donde curar mas profundo."}</span>
+        </article>
+        <article>
+          <strong>${isEnglish ? "Not a forecast" : "No es pronostico"}</strong>
+          <span>${isEnglish ? "Scores are transparent signals, not future certainty." : "Los puntajes son senales transparentes, no certeza futura."}</span>
+        </article>
+        <article>
+          <strong>${isEnglish ? "Next upgrade" : "Proxima mejora"}</strong>
+          <span>${isEnglish ? "Add time series and source confidence per variable." : "Sumar evolucion temporal y confianza de fuente por variable."}</span>
+        </article>
+      </div>
+      <div class="help-section">
+        <h3>${isEnglish ? "Dimension guide" : "Guia de dimensiones"}</h3>
+        <div class="risk-dimension-grid">
+          <article><strong>${isEnglish ? "Military" : "Militar"}</strong><span>${isEnglish ? "Armed capacity plus recent conflict exposure." : "Capacidad armada combinada con exposicion conflictiva reciente."}</span></article>
+          <article><strong>${isEnglish ? "Economic" : "Economica"}</strong><span>${isEnglish ? "Inflation, income buffer and structural stress." : "Inflacion, amortiguador de ingreso y estres estructural."}</span></article>
+          <article><strong>${isEnglish ? "Diplomatic" : "Diplomatica"}</strong><span>${isEnglish ? "Institutional buffers, blocs and external ties." : "Amortiguadores institucionales, bloques y vinculos externos."}</span></article>
+          <article><strong>${isEnglish ? "Internal" : "Interna"}</strong><span>${isEnglish ? "Governance and domestic fragility signals." : "Senales de gobernanza y fragilidad domestica."}</span></article>
+          <article><strong>${isEnglish ? "Territorial" : "Territorial"}</strong><span>${isEnglish ? "Rivals, disputes and contested sovereignty." : "Rivales, disputas y soberania contestada."}</span></article>
+        </div>
+      </div>
       <div class="help-section">
         <h3>${isEnglish ? "Top risk watchlist" : "Watchlist de riesgo"}</h3>
         <div class="risk-watch-grid">${watchCards}</div>

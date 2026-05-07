@@ -8,6 +8,7 @@
     "import:conflicts:dyadic": "powershell -ExecutionPolicy Bypass -File scripts/importDyadicSupplement.ps1",
     "smoke:server": "node scripts/localSmokeServer.js",
     "audit:conflicts": "node scripts/auditConflicts.js",
+    "audit:project": "node scripts/projectAudit.js",
     "fix:conflicts": "node scripts/applyConflictAutofix.js && node scripts/auditConflicts.js",
     "compact:index": "node scripts/compactStartupIndex.js",
     "measure:startup": "node scripts/compactStartupIndex.js && node scripts/measureStartupAssets.js",
@@ -20,11 +21,12 @@
     "test:conflict-autofix": "node scripts/tests/conflict-autofix.test.js",
     "test:logic": "node scripts/tests/logic.test.js",
     "test:startup": "node scripts/tests/startup-data.test.js",
+    "test:visual-hygiene": "node scripts/tests/visual-hygiene.test.js",
     "test:smoke-server": "node scripts/tests/local-smoke-server.test.js",
     "test:country-matching": "node scripts/tests/country-matching.test.js",
     "test:modal-render": "node scripts/tests/modal-render.test.js",
     "test:map-coverage": "node scripts/tests/map-coverage.test.js",
-    "test": "npm run test:normalization && npm run test:conflicts && npm run test:conflict-audit && npm run test:conflict-audit-report && npm run test:conflict-autofix && npm run test:logic && npm run test:startup && npm run test:smoke-server && npm run test:country-matching && npm run test:modal-render && npm run test:map-coverage && npm run validate:data"
+    "test": "npm run test:normalization && npm run test:conflicts && npm run test:conflict-audit && npm run test:conflict-audit-report && npm run test:conflict-autofix && npm run test:logic && npm run test:startup && npm run test:visual-hygiene && npm run test:smoke-server && npm run test:country-matching && npm run test:modal-render && npm run test:map-coverage && npm run validate:data"
   },
   "dependencies": {
     "csv-parser": "^3.0.0",

@@ -1,0 +1,291 @@
+{
+  "generatedAt": "2026-05-07T23:35:06.506Z",
+  "status": "operativo",
+  "startup": {
+    "critical": "986 KB",
+    "criticalBytes": 1009990,
+    "deferred": "849 KB",
+    "largestAssets": [
+      {
+        "path": "script.js",
+        "exists": true,
+        "bytes": 661712,
+        "human": "646 KB",
+        "startupCritical": true
+      },
+      {
+        "path": "data/conflict_details.generated.json",
+        "exists": true,
+        "bytes": 429044,
+        "human": "419 KB",
+        "startupCritical": false
+      },
+      {
+        "path": "data/world_countries.geo.json",
+        "exists": true,
+        "bytes": 256950,
+        "human": "251 KB",
+        "startupCritical": false
+      },
+      {
+        "path": "data/countries_index.json",
+        "exists": true,
+        "bytes": 223807,
+        "human": "219 KB",
+        "startupCritical": true
+      },
+      {
+        "path": "data/world_countries_simplified.geo.json",
+        "exists": true,
+        "bytes": 174321,
+        "human": "170 KB",
+        "startupCritical": false
+      },
+      {
+        "path": "style.css",
+        "exists": true,
+        "bytes": 78882,
+        "human": "77 KB",
+        "startupCritical": true
+      },
+      {
+        "path": "index.html",
+        "exists": true,
+        "bytes": 29592,
+        "human": "29 KB",
+        "startupCritical": true
+      },
+      {
+        "path": "app-text.js",
+        "exists": true,
+        "bytes": 8067,
+        "human": "8 KB",
+        "startupCritical": true
+      },
+      {
+        "path": "app-performance-ui.js",
+        "exists": true,
+        "bytes": 3380,
+        "human": "3 KB",
+        "startupCritical": false
+      },
+      {
+        "path": "app-runtime.js",
+        "exists": true,
+        "bytes": 2961,
+        "human": "3 KB",
+        "startupCritical": true
+      },
+      {
+        "path": "app-compare-ui.js",
+        "exists": true,
+        "bytes": 2804,
+        "human": "3 KB",
+        "startupCritical": false
+      },
+      {
+        "path": "data/geo_aliases.json",
+        "exists": true,
+        "bytes": 2784,
+        "human": "3 KB",
+        "startupCritical": true
+      }
+    ]
+  },
+  "conflicts": {
+    "scanned": 2010,
+    "issueCount": 1797,
+    "summary": {
+      "battle_without_parent": 1005,
+      "weak_detail": 1736,
+      "duplicate_names": 16,
+      "english": 5,
+      "generic_side": 19,
+      "leading_year": 7
+    },
+    "eraFocus": [
+      {
+        "label": "Antes de 1850",
+        "count": 1
+      },
+      {
+        "label": "1850-1899",
+        "count": 7
+      },
+      {
+        "label": "1900-1918",
+        "count": 4
+      },
+      {
+        "label": "1919-1945",
+        "count": 146
+      },
+      {
+        "label": "Pos-1945",
+        "count": 142
+      }
+    ]
+  },
+  "sourceFiles": [
+    {
+      "path": "script.js",
+      "exists": true,
+      "bytes": 661712,
+      "human": "646 KB"
+    },
+    {
+      "path": "style.css",
+      "exists": true,
+      "bytes": 78882,
+      "human": "77 KB"
+    },
+    {
+      "path": "index.html",
+      "exists": true,
+      "bytes": 29592,
+      "human": "29 KB"
+    },
+    {
+      "path": "app-text.js",
+      "exists": true,
+      "bytes": 8067,
+      "human": "8 KB"
+    },
+    {
+      "path": "TECHNICAL.md",
+      "exists": true,
+      "bytes": 7865,
+      "human": "8 KB"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "exists": true,
+      "bytes": 7507,
+      "human": "7 KB"
+    },
+    {
+      "path": "USER_GUIDE.md",
+      "exists": true,
+      "bytes": 6771,
+      "human": "7 KB"
+    },
+    {
+      "path": "app-project-audit-ui.js",
+      "exists": true,
+      "bytes": 5823,
+      "human": "6 KB"
+    },
+    {
+      "path": "app-risk-radar-ui.js",
+      "exists": true,
+      "bytes": 4639,
+      "human": "5 KB"
+    },
+    {
+      "path": "app-conflict-audit-ui.js",
+      "exists": true,
+      "bytes": 3519,
+      "human": "3 KB"
+    },
+    {
+      "path": "app-performance-ui.js",
+      "exists": true,
+      "bytes": 3380,
+      "human": "3 KB"
+    },
+    {
+      "path": "app-runtime.js",
+      "exists": true,
+      "bytes": 2961,
+      "human": "3 KB"
+    },
+    {
+      "path": "app-compare-ui.js",
+      "exists": true,
+      "bytes": 2804,
+      "human": "3 KB"
+    },
+    {
+      "path": "package.json",
+      "exists": true,
+      "bytes": 2211,
+      "human": "2 KB"
+    },
+    {
+      "path": "app-news-ui.js",
+      "exists": true,
+      "bytes": 1511,
+      "human": "1 KB"
+    },
+    {
+      "path": "app-quiz-ui.js",
+      "exists": true,
+      "bytes": 1495,
+      "human": "1 KB"
+    }
+  ],
+  "scriptMetrics": {
+    "functions": 471,
+    "asyncFunctions": 38,
+    "consoleWarnings": 14,
+    "consoleErrors": 16
+  },
+  "visualMetrics": {
+    "index.html": {
+      "bootChips": 0,
+      "mojibakeHints": 0
+    },
+    "style.css": {
+      "bootChips": 0,
+      "mojibakeHints": 0
+    },
+    "app-risk-radar-ui.js": {
+      "bootChips": 0,
+      "mojibakeHints": 0
+    },
+    "app-conflict-audit-ui.js": {
+      "bootChips": 0,
+      "mojibakeHints": 0
+    },
+    "app-project-audit-ui.js": {
+      "bootChips": 0,
+      "mojibakeHints": 0
+    }
+  },
+  "scripts": [
+    "audit:conflicts",
+    "audit:project",
+    "build:data",
+    "compact:index",
+    "fix:conflicts",
+    "import:conflicts:dyadic",
+    "import:conflicts:wikipedia",
+    "measure:startup",
+    "release:check",
+    "smoke:server",
+    "test",
+    "test:conflict-audit",
+    "test:conflict-audit-report",
+    "test:conflict-autofix",
+    "test:conflicts",
+    "test:country-matching",
+    "test:logic",
+    "test:map-coverage",
+    "test:modal-render",
+    "test:normalization",
+    "test:smoke-server",
+    "test:startup",
+    "test:visual-hygiene",
+    "validate:data"
+  ],
+  "criticalIssues": [],
+  "warnings": [
+    "script.js sigue siendo el mayor bloque de mantenimiento.",
+    "La auditoria de conflictos conserva 1797 alertas."
+  ],
+  "nextActions": [
+    "Mantener el arranque critico por debajo de 1 MB en cada release.",
+    "Extraer mas render de ficha, comparador, quiz y auditorias a modulos diferidos.",
+    "Limpiar conflictos por tandas desde reports/conflict-audit.json."
+  ]
+}

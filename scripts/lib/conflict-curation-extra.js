@@ -168,3 +168,112 @@ EXTRA_SAFE_CONFLICT_RENAMES["Sitio de Toruń"] = "Sitio de Torun";
 EXTRA_CURATED_CONFLICT_DETAIL_FIXES["Batalla de Gołąb"] = EXTRA_CURATED_CONFLICT_DETAIL_FIXES["Batalla de Golab"];
 EXTRA_CURATED_CONFLICT_DETAIL_FIXES["Batalla de Møn"] = EXTRA_CURATED_CONFLICT_DETAIL_FIXES["Batalla de Mon"];
 EXTRA_CURATED_CONFLICT_DETAIL_FIXES["Batalla de Køge Bay"] = EXTRA_CURATED_CONFLICT_DETAIL_FIXES["Batalla de Koge Bay"];
+
+Object.assign(EXTRA_CURATED_CONFLICT_DETAIL_FIXES, {
+  "Batalla de Vilnius (1702)": makeCuratedBattle({
+    parent: "Gran Guerra del Norte",
+    region: "Lituania",
+    year: 1702,
+    cause: "Disputa por posiciones estrategicas de la Mancomunidad polaco-lituana durante la expansion sueca y la coalicion antisueca.",
+    sides: [{ side: "Suecia", members: ["Suecia"] }, { side: "Fuerzas polaco-lituanas y sajonas", members: ["Polonia-Lituania", "Sajonia"] }],
+    outcome: "Ventaja sueca en el teatro lituano.",
+    consequences: "Refuerzo temporalmente la iniciativa sueca en Europa oriental durante la primera fase de la guerra."
+  }),
+  "Sitio de Tartu": makeCuratedBattle({
+    parent: "Gran Guerra del Norte",
+    type: "sitio",
+    region: "Livonia",
+    year: 1704,
+    cause: "Rusia busco tomar plazas balticas controladas por Suecia para abrir acceso estrategico al Baltico.",
+    sides: [{ side: "Rusia", members: ["Rusia"] }, { side: "Suecia", members: ["Suecia"] }],
+    outcome: "Captura rusa de Tartu.",
+    consequences: "Debilito la red sueca en Livonia y anticipo el giro ruso en el Baltico."
+  }),
+  "Batalla de Helsingborg": makeCuratedBattle({
+    parent: "Gran Guerra del Norte",
+    region: "Escania",
+    year: 1710,
+    cause: "Dinamarca-Noruega intento recuperar influencia en Escania aprovechando la presion militar sobre Suecia.",
+    sides: [{ side: "Suecia", members: ["Suecia"] }, { side: "Dinamarca-Noruega", members: ["Dinamarca", "Noruega"] }],
+    outcome: "Victoria sueca.",
+    consequences: "Freno la ofensiva danesa en Escania y sostuvo el control sueco del sur peninsular."
+  }),
+  "Batalla naval de Rugen": makeCuratedBattle({
+    parent: "Gran Guerra del Norte",
+    type: "batalla naval",
+    region: "Baltico",
+    year: 1712,
+    cause: "Control de comunicaciones y operaciones navales en torno a Pomerania sueca.",
+    sides: [{ side: "Suecia", members: ["Suecia"] }, { side: "Dinamarca-Noruega y aliados", members: ["Dinamarca", "Noruega"] }],
+    outcome: "Accion naval dentro del desgaste baltico.",
+    consequences: "Mantuvo la presion sobre las posiciones suecas en el sur del Baltico."
+  }),
+  "Batalla de Greifswald Bodden": makeCuratedBattle({
+    parent: "Gran Guerra del Norte",
+    type: "batalla naval",
+    region: "Pomerania sueca",
+    year: 1715,
+    cause: "Operaciones aliadas contra enclaves suecos en el Baltico meridional.",
+    sides: [{ side: "Suecia", members: ["Suecia"] }, { side: "Coalicion antisueca", members: ["Dinamarca", "Prusia", "Sajonia"] }],
+    outcome: "Retroceso sueco en el teatro pomerano.",
+    consequences: "Contribuyo al aislamiento de posiciones suecas y al debilitamiento de su poder baltico."
+  }),
+  "Batalla de Cuddalore (1758)": makeCuratedBattle({
+    parent: "Guerra de los Siete Anos",
+    region: "India",
+    year: 1758,
+    cause: "Competencia franco-britanica por enclaves comerciales y poder regional en el subcontinente indio.",
+    sides: [{ side: "Francia y aliados locales", members: ["Francia"] }, { side: "Reino Unido y aliados locales", members: ["Reino Unido"] }],
+    outcome: "Episodio tactico de la guerra colonial en India.",
+    consequences: "Se integro en la rivalidad global franco-britanica que redefinio el equilibrio colonial."
+  }),
+  "Batalla del cabo Finisterre": makeCuratedBattle({
+    parent: "Guerra de los Siete Anos",
+    type: "batalla naval",
+    region: "Atlantico nororiental",
+    year: 1761,
+    cause: "Disputa por convoyes, rutas maritimas y bloqueo durante la guerra naval franco-britanica.",
+    sides: [{ side: "Reino Unido", members: ["Reino Unido"] }, { side: "Francia", members: ["Francia"] }],
+    outcome: "Accion naval dentro del control britanico de rutas oceanicas.",
+    consequences: "Reflejo la ventaja maritima britanica y la presion sobre comunicaciones francesas."
+  }),
+  "Batalla de Fort Cumberland": makeCuratedBattle({
+    parent: "Guerra de Independencia de Estados Unidos",
+    region: "Nueva Escocia",
+    year: 1776,
+    cause: "Intento rebelde de ampliar la insurreccion contra el poder britanico hacia territorios atlanticos.",
+    sides: [{ side: "Rebeldes estadounidenses y simpatizantes", members: ["Estados Unidos"] }, { side: "Leales britanicos", members: ["Reino Unido"] }],
+    outcome: "Fracaso rebelde.",
+    consequences: "Ayudo a mantener Nueva Escocia bajo control britanico durante la guerra."
+  }),
+  "Batalla de Iron Works Hill": makeCuratedBattle({
+    parent: "Guerra de Independencia de Estados Unidos",
+    region: "Nueva Jersey",
+    year: 1776,
+    cause: "Choques de maniobra tras la campana de Nueva York y Nueva Jersey.",
+    sides: [{ side: "Estados Unidos", members: ["Estados Unidos"] }, { side: "Reino Unido y hessianos", members: ["Reino Unido", "Hesse"] }],
+    outcome: "Accion tactica favorable a fuerzas estadounidenses.",
+    consequences: "Formo parte de la recuperacion de iniciativa rebelde antes y despues de Trenton."
+  }),
+  "Batalla de Nassau": makeCuratedBattle({
+    parent: "Guerra de Independencia de Estados Unidos",
+    region: "Bahamas",
+    year: 1776,
+    cause: "Necesidad estadounidense de capturar polvora y suministros navales britanicos.",
+    sides: [{ side: "Estados Unidos", members: ["Estados Unidos"] }, { side: "Reino Unido", members: ["Reino Unido", "Bahamas britanicas"] }],
+    outcome: "Captura estadounidense de suministros.",
+    consequences: "Fue una de las primeras operaciones anfibias estadounidenses y tuvo valor logistico para la rebelion."
+  }),
+  "Batalla de Machias (1777)": makeCuratedBattle({
+    parent: "Guerra de Independencia de Estados Unidos",
+    region: "Maine",
+    year: 1777,
+    cause: "Operaciones britanicas y leales contra focos rebeldes costeros en Nueva Inglaterra.",
+    sides: [{ side: "Milicias estadounidenses", members: ["Estados Unidos"] }, { side: "Reino Unido", members: ["Reino Unido"] }],
+    outcome: "Defensa estadounidense local.",
+    consequences: "Mantuvo activo el control rebelde en zonas costeras y complico operaciones britanicas en Maine."
+  })
+});
+
+EXTRA_SAFE_CONFLICT_RENAMES["Batalla naval de RÃ¼gen"] = "Batalla naval de Rugen";
+EXTRA_CURATED_CONFLICT_DETAIL_FIXES["Batalla naval de RÃ¼gen"] = EXTRA_CURATED_CONFLICT_DETAIL_FIXES["Batalla naval de Rugen"];

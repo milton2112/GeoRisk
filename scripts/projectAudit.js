@@ -1,0 +1,156 @@
+import fs from "fs-extra";
+import path from "node:path";
+
+const projectRoot = path.resolve(process.cwd());
+const reportsDir = path.join(projectRoot, "reports");
+const reportPath = path.join(reportsDir, "project-audit.json");
+
+const SOURCE_FILES = [
+  "index.html",
+  "script.js",
+  "style.css",
+  "app-runtime.js",
+  "app-text.js",
+  "app-risk-radar-ui.js",
+  "app-conflict-audit-ui.js",
+  "app-project-audit-ui.js",
+  "app-news-ui.js",
+  "app-compare-ui.js",
+  "app-quiz-ui.js",
+  "app-performance-ui.js",
+  "package.json",
+  "CHANGELOG.md",
+  "TECHNICAL.md",
+  "USER_GUIDE.md"
+];
+
+function formatBytes(bytes = 0) {
+  if (bytes >= 1024 * 1024) {
+    return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+  }
+  if (bytes >= 1024) {
+    return `${Math.round(bytes / 1024)} KB`;
+  }
+  return `${bytes} B`;
+}
+
+async function readJsonSafe(relativePath, fallback = null) {
+  const absolutePath = path.join(projectRoot, relativePath);
+  if (!(await fs.pathExists(absolutePath))) {
+    return fallback;
+  }
+  return fs.readJson(absolutePath).catch(() => fallback);
+}
+
+async function getFileInfo(relativePath) {
+  const absolutePath = path.join(projectRoot, relativePath);
+  if (!(await fs.pathExists(absolutePath))) {
+    return { path: relativePath, exists: false, bytes: 0, human: "faltante" };
+  }
+  const stat = await fs.stat(absolutePath);
+  return { path: relativePath, exists: true, bytes: stat.size, human: formatBytes(stat.size) };
+}
+
+async function countTextMatches(relativePath, patterns) {
+  const absolutePath = path.join(projectRoot, relativePath);
+  if (!(await fs.pathExists(absolutePath))) {
+    return {};
+  }
+  const text = await fs.readFile(absolutePath, "utf8");
+  return Object.fromEntries(
+    Object.entries(patterns).map(([key, pattern]) => [key, (text.match(pattern) || []).length])
+  );
+}
+
+const startup = await readJsonSafe("reports/startup-assets.json", {});
+const conflictAudit = await readJsonSafe("reports/conflict-audit.json", {});
+const sourceFiles = await Promise.all(SOURCE_FILES.map(getFileInfo));
+const packageJson = await readJsonSafe("package.json", {});
+const scriptMetrics = await countTextMatches("script.js", {
+  functions: /function\s+[a-zA-Z0-9_]+/g,
+  asyncFunctions: /async function\s+[a-zA-Z0-9_]+/g,
+  consoleWarnings: /console\.warn/g,
+  consoleErrors: /console\.error/g
+});
+const visualMetrics = Object.fromEntries(
+  await Promise.all(
+    ["index.html", "style.css", "app-risk-radar-ui.js", "app-conflict-audit-ui.js", "app-project-audit-ui.js"].map(async file => [
+      file,
+      await countTextMatches(file, {
+        bootChips: /boot-(?:floating|profile)-chip/g,
+        mojibakeHints: /Ãƒ|Ã‚|Â¿|Â¡|â–|�/g
+      })
+    ])
+  )
+);
+
+const criticalIssues = [];
+const warnings = [];
+const nextActions = [];
+const conflictEraBuckets = [
+  { label: "Antes de 1850", min: -Infinity, max: 1849 },
+  { label: "1850-1899", min: 1850, max: 1899 },
+  { label: "1900-1918", min: 1900, max: 1918 },
+  { label: "1919-1945", min: 1919, max: 1945 },
+  { label: "Pos-1945", min: 1946, max: Infinity }
+].map(bucket => ({
+  label: bucket.label,
+  count: (conflictAudit.topIssues || []).filter(issue => {
+    const year = Number(issue.startYear);
+    return Number.isFinite(year) && year >= bucket.min && year <= bucket.max;
+  }).length
+})).filter(bucket => bucket.count > 0);
+
+if ((startup.startupBytes || 0) > 1024 * 1024) {
+  criticalIssues.push("El arranque critico supera 1 MB.");
+  nextActions.push("Seguir sacando logica de script.js y compactar mas data/countries_index.json.");
+} else {
+  nextActions.push("Mantener el arranque critico por debajo de 1 MB en cada release.");
+}
+
+if ((sourceFiles.find(file => file.path === "script.js")?.bytes || 0) > 600 * 1024) {
+  warnings.push("script.js sigue siendo el mayor bloque de mantenimiento.");
+  nextActions.push("Extraer mas render de ficha, comparador, quiz y auditorias a modulos diferidos.");
+}
+
+if ((conflictAudit.issueCount || 0) > 0) {
+  warnings.push(`La auditoria de conflictos conserva ${conflictAudit.issueCount} alertas.`);
+  nextActions.push("Limpiar conflictos por tandas desde reports/conflict-audit.json.");
+}
+
+if (Object.values(visualMetrics).some(metrics => metrics.bootChips || metrics.mojibakeHints)) {
+  criticalIssues.push("Hay posibles residuos visuales en archivos de UI.");
+  nextActions.push("Ejecutar npm run test:visual-hygiene y corregir tokens visibles.");
+}
+
+const report = {
+  generatedAt: new Date().toISOString(),
+  status: criticalIssues.length ? "requiere_atencion" : "operativo",
+  startup: {
+    critical: startup.startupHuman || "sin medir",
+    criticalBytes: startup.startupBytes || 0,
+    deferred: startup.deferredHuman || "sin medir",
+    largestAssets: startup.largestAssets || []
+  },
+  conflicts: {
+    scanned: conflictAudit.scannedConflicts || 0,
+    issueCount: conflictAudit.issueCount || 0,
+    summary: conflictAudit.summary || {},
+    eraFocus: conflictEraBuckets
+  },
+  sourceFiles: sourceFiles.sort((a, b) => b.bytes - a.bytes),
+  scriptMetrics,
+  visualMetrics,
+  scripts: Object.keys(packageJson.scripts || {}).sort(),
+  criticalIssues,
+  warnings,
+  nextActions: [...new Set(nextActions)]
+};
+
+await fs.ensureDir(reportsDir);
+await fs.writeJson(reportPath, report, { spaces: 2 });
+
+console.log(`Auditoria del proyecto: ${report.status}`);
+console.log(`Arranque critico: ${report.startup.critical}`);
+console.log(`Alertas de conflictos: ${report.conflicts.issueCount}`);
+console.log(`Reporte: ${path.relative(projectRoot, reportPath)}`);

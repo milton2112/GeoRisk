@@ -2342,39 +2342,44 @@
         ],
         "language": "es"
       },
-      "cause": "null",
+      "cause": "La Triple Alianza avanzo sobre las defensas paraguayas en la fase final de la campana de Lomas Valentinas.",
       "participants": [
         {
-          "side": "Bando 1",
+          "side": "Triple Alianza",
           "members": [
-            "República del Paraguay"
+            "Brasil",
+            "Argentina",
+            "Uruguay"
           ],
           "organizations": [],
-          "troops": "",
-          "casualties": ""
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
         },
         {
-          "side": "Bando 2",
+          "side": "Paraguay",
           "members": [
-            "Imperio del Brasil",
-            "República Argentina",
-            "Estado Oriental del Uruguay"
+            "Paraguay"
           ],
           "organizations": [],
-          "troops": "",
-          "casualties": ""
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
         }
       ],
-      "outcome": "Victoria aliada decisiva",
-      "consequences": "",
+      "outcome": "Victoria aliada.",
+      "consequences": "Debilito gravemente la defensa paraguaya y abrio paso a la ocupacion de Asuncion.",
       "chronology": [
         {
-          "year": null,
-          "text": "21-27 de diciembre de 1868"
+          "year": 1868,
+          "text": "Combate dentro de Guerra de la Triple Alianza."
         }
       ],
-      "related": [],
-      "region": "Itá Ybaté ( Lomas Valentinas ), a orillas del arroyo Piquisiry"
+      "related": [
+        "Guerra de la Triple Alianza"
+      ],
+      "region": "Paraguay",
+      "parent": "Guerra de la Triple Alianza",
+      "type": "batalla",
+      "scope": "regional"
     },
     "Batalla de La Lys": {
       "source": "Wikipedia",
@@ -5553,37 +5558,44 @@
         ],
         "language": "es"
       },
-      "cause": "Bloqueo de la flota brasileña en el río Paraná (A barcos paraguayos)",
+      "cause": "Brasil y Paraguay disputaron el control fluvial, clave para suministros y maniobra en la cuenca del Plata.",
       "participants": [
         {
-          "side": "Bando 1",
+          "side": "Triple Alianza",
+          "members": [
+            "Brasil",
+            "Argentina",
+            "Uruguay"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Paraguay",
           "members": [
             "Paraguay"
           ],
           "organizations": [],
-          "troops": "",
-          "casualties": ""
-        },
-        {
-          "side": "Bando 2",
-          "members": [
-            "Imperio del Brasil"
-          ],
-          "organizations": [],
-          "troops": "",
-          "casualties": ""
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
         }
       ],
-      "outcome": "Decisiva victoria brasileña",
-      "consequences": "",
+      "outcome": "Victoria naval brasilena.",
+      "consequences": "Aseguro la superioridad fluvial aliada y limito la capacidad paraguaya de sostener operaciones ofensivas.",
       "chronology": [
         {
-          "year": null,
-          "text": "11 de junio de 1865"
+          "year": 1865,
+          "text": "Combate dentro de Guerra de la Triple Alianza."
         }
       ],
-      "related": [],
-      "region": "Provincia de Corrientes , Argentina"
+      "related": [
+        "Guerra de la Triple Alianza"
+      ],
+      "region": "Rio Parana",
+      "parent": "Guerra de la Triple Alianza",
+      "type": "batalla naval",
+      "scope": "regional"
     },
     "Batalla del río Ch'ongch'on": {
       "source": "Wikipedia",
@@ -6712,48 +6724,6 @@
       "source": "Curaduria GeoRisk",
       "pageTitle": "Batalla de Solent"
     },
-    "Sitio de NykÃ¸bing": {
-      "parent": "Guerras entre Dinamarca y la Liga Hanseatica",
-      "type": "sitio",
-      "scope": "regional",
-      "region": "Escandinavia",
-      "cause": "Formo parte de la disputa por control comercial y militar en el Baltico.",
-      "chronology": [
-        {
-          "year": 1360,
-          "text": "Operaciones de sitio en torno a Nykobing durante la rivalidad dano-hanseatica."
-        }
-      ],
-      "related": [
-        "Guerras entre Dinamarca y la Liga Hanseatica"
-      ],
-      "participants": [
-        {
-          "side": "Dinamarca",
-          "members": [
-            "Dinamarca"
-          ],
-          "organizations": [],
-          "troops": "fuerzas medievales",
-          "casualties": "inciertas"
-        },
-        {
-          "side": "Liga Hanseatica y aliados",
-          "members": [
-            "Liga Hanseatica"
-          ],
-          "organizations": [
-            "Liga Hanseatica"
-          ],
-          "troops": "fuerzas medievales",
-          "casualties": "inciertas"
-        }
-      ],
-      "outcome": "Episodio militar regional sin cambio estrategico permanente aislado.",
-      "consequences": "Reflejo la centralidad del Baltico en la competencia comercial medieval.",
-      "source": "Curaduria GeoRisk",
-      "pageTitle": "Sitio de NykÃ¸bing"
-    },
     "Sitio de Narva": {
       "parent": "Guerra livonia",
       "type": "sitio",
@@ -7487,6 +7457,5171 @@
       "source": "Curaduria GeoRisk",
       "pageTitle": "Batalla del banco Dogger (1696)"
     },
+    "Batalla de Vilnius (1702)": {
+      "parent": "Gran Guerra del Norte",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Lituania",
+      "cause": "Disputa por posiciones estrategicas de la Mancomunidad polaco-lituana durante la expansion sueca y la coalicion antisueca.",
+      "chronology": [
+        {
+          "year": 1702,
+          "text": "Combate dentro de Gran Guerra del Norte."
+        }
+      ],
+      "related": [
+        "Gran Guerra del Norte"
+      ],
+      "participants": [
+        {
+          "side": "Suecia",
+          "members": [
+            "Suecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Fuerzas polaco-lituanas y sajonas",
+          "members": [
+            "Polonia-Lituania",
+            "Sajonia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Ventaja sueca en el teatro lituano.",
+      "consequences": "Refuerzo temporalmente la iniciativa sueca en Europa oriental durante la primera fase de la guerra.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Vilnius (1702)"
+    },
+    "Sitio de Tartu": {
+      "parent": "Gran Guerra del Norte",
+      "type": "sitio",
+      "scope": "regional",
+      "region": "Livonia",
+      "cause": "Rusia busco tomar plazas balticas controladas por Suecia para abrir acceso estrategico al Baltico.",
+      "chronology": [
+        {
+          "year": 1704,
+          "text": "Operacion de sitio dentro de Gran Guerra del Norte."
+        }
+      ],
+      "related": [
+        "Gran Guerra del Norte"
+      ],
+      "participants": [
+        {
+          "side": "Rusia",
+          "members": [
+            "Rusia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Suecia",
+          "members": [
+            "Suecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Captura rusa de Tartu.",
+      "consequences": "Debilito la red sueca en Livonia y anticipo el giro ruso en el Baltico.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Sitio de Tartu"
+    },
+    "Batalla de Helsingborg": {
+      "parent": "Gran Guerra del Norte",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Escania",
+      "cause": "Dinamarca-Noruega intento recuperar influencia en Escania aprovechando la presion militar sobre Suecia.",
+      "chronology": [
+        {
+          "year": 1710,
+          "text": "Combate dentro de Gran Guerra del Norte."
+        }
+      ],
+      "related": [
+        "Gran Guerra del Norte"
+      ],
+      "participants": [
+        {
+          "side": "Suecia",
+          "members": [
+            "Suecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Dinamarca-Noruega",
+          "members": [
+            "Dinamarca",
+            "Noruega"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria sueca.",
+      "consequences": "Freno la ofensiva danesa en Escania y sostuvo el control sueco del sur peninsular.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Helsingborg"
+    },
+    "Batalla naval de Rugen": {
+      "parent": "Gran Guerra del Norte",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Baltico",
+      "cause": "Control de comunicaciones y operaciones navales en torno a Pomerania sueca.",
+      "chronology": [
+        {
+          "year": 1712,
+          "text": "Combate dentro de Gran Guerra del Norte."
+        }
+      ],
+      "related": [
+        "Gran Guerra del Norte"
+      ],
+      "participants": [
+        {
+          "side": "Suecia",
+          "members": [
+            "Suecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Dinamarca-Noruega y aliados",
+          "members": [
+            "Dinamarca",
+            "Noruega"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Accion naval dentro del desgaste baltico.",
+      "consequences": "Mantuvo la presion sobre las posiciones suecas en el sur del Baltico.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla naval de Rugen"
+    },
+    "Batalla de Greifswald Bodden": {
+      "parent": "Gran Guerra del Norte",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Pomerania sueca",
+      "cause": "Operaciones aliadas contra enclaves suecos en el Baltico meridional.",
+      "chronology": [
+        {
+          "year": 1715,
+          "text": "Combate dentro de Gran Guerra del Norte."
+        }
+      ],
+      "related": [
+        "Gran Guerra del Norte"
+      ],
+      "participants": [
+        {
+          "side": "Suecia",
+          "members": [
+            "Suecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Coalicion antisueca",
+          "members": [
+            "Dinamarca",
+            "Prusia",
+            "Sajonia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Retroceso sueco en el teatro pomerano.",
+      "consequences": "Contribuyo al aislamiento de posiciones suecas y al debilitamiento de su poder baltico.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Greifswald Bodden"
+    },
+    "Batalla de Cuddalore (1758)": {
+      "parent": "Guerra de los Siete Anos",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "India",
+      "cause": "Competencia franco-britanica por enclaves comerciales y poder regional en el subcontinente indio.",
+      "chronology": [
+        {
+          "year": 1758,
+          "text": "Combate dentro de Guerra de los Siete Anos."
+        }
+      ],
+      "related": [
+        "Guerra de los Siete Anos"
+      ],
+      "participants": [
+        {
+          "side": "Francia y aliados locales",
+          "members": [
+            "Francia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Reino Unido y aliados locales",
+          "members": [
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Episodio tactico de la guerra colonial en India.",
+      "consequences": "Se integro en la rivalidad global franco-britanica que redefinio el equilibrio colonial.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Cuddalore (1758)"
+    },
+    "Batalla del cabo Finisterre": {
+      "parent": "Guerra de los Siete Anos",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Atlantico nororiental",
+      "cause": "Disputa por convoyes, rutas maritimas y bloqueo durante la guerra naval franco-britanica.",
+      "chronology": [
+        {
+          "year": 1761,
+          "text": "Combate dentro de Guerra de los Siete Anos."
+        }
+      ],
+      "related": [
+        "Guerra de los Siete Anos"
+      ],
+      "participants": [
+        {
+          "side": "Reino Unido",
+          "members": [
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Francia",
+          "members": [
+            "Francia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Accion naval dentro del control britanico de rutas oceanicas.",
+      "consequences": "Reflejo la ventaja maritima britanica y la presion sobre comunicaciones francesas.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla del cabo Finisterre"
+    },
+    "Batalla de Fort Cumberland": {
+      "parent": "Guerra de Independencia de Estados Unidos",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Nueva Escocia",
+      "cause": "Intento rebelde de ampliar la insurreccion contra el poder britanico hacia territorios atlanticos.",
+      "chronology": [
+        {
+          "year": 1776,
+          "text": "Combate dentro de Guerra de Independencia de Estados Unidos."
+        }
+      ],
+      "related": [
+        "Guerra de Independencia de Estados Unidos"
+      ],
+      "participants": [
+        {
+          "side": "Rebeldes estadounidenses y simpatizantes",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Leales britanicos",
+          "members": [
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Fracaso rebelde.",
+      "consequences": "Ayudo a mantener Nueva Escocia bajo control britanico durante la guerra.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Fort Cumberland"
+    },
+    "Batalla de Iron Works Hill": {
+      "parent": "Guerra de Independencia de Estados Unidos",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Nueva Jersey",
+      "cause": "Choques de maniobra tras la campana de Nueva York y Nueva Jersey.",
+      "chronology": [
+        {
+          "year": 1776,
+          "text": "Combate dentro de Guerra de Independencia de Estados Unidos."
+        }
+      ],
+      "related": [
+        "Guerra de Independencia de Estados Unidos"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Reino Unido y hessianos",
+          "members": [
+            "Reino Unido",
+            "Hesse"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Accion tactica favorable a fuerzas estadounidenses.",
+      "consequences": "Formo parte de la recuperacion de iniciativa rebelde antes y despues de Trenton.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Iron Works Hill"
+    },
+    "Batalla de Nassau": {
+      "parent": "Guerra de Independencia de Estados Unidos",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Bahamas",
+      "cause": "Necesidad estadounidense de capturar polvora y suministros navales britanicos.",
+      "chronology": [
+        {
+          "year": 1776,
+          "text": "Combate dentro de Guerra de Independencia de Estados Unidos."
+        }
+      ],
+      "related": [
+        "Guerra de Independencia de Estados Unidos"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Reino Unido",
+          "members": [
+            "Reino Unido",
+            "Bahamas britanicas"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Captura estadounidense de suministros.",
+      "consequences": "Fue una de las primeras operaciones anfibias estadounidenses y tuvo valor logistico para la rebelion.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Nassau"
+    },
+    "Batalla de Machias (1777)": {
+      "parent": "Guerra de Independencia de Estados Unidos",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Maine",
+      "cause": "Operaciones britanicas y leales contra focos rebeldes costeros en Nueva Inglaterra.",
+      "chronology": [
+        {
+          "year": 1777,
+          "text": "Combate dentro de Guerra de Independencia de Estados Unidos."
+        }
+      ],
+      "related": [
+        "Guerra de Independencia de Estados Unidos"
+      ],
+      "participants": [
+        {
+          "side": "Milicias estadounidenses",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Reino Unido",
+          "members": [
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Defensa estadounidense local.",
+      "consequences": "Mantuvo activo el control rebelde en zonas costeras y complico operaciones britanicas en Maine.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Machias (1777)"
+    },
+    "Batalla de Saratoga": {
+      "parent": "Guerra de Independencia de Estados Unidos",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Nueva York",
+      "cause": "La campana britanica busco cortar Nueva Inglaterra del resto de las colonias rebeldes.",
+      "chronology": [
+        {
+          "year": 1777,
+          "text": "Combate dentro de Guerra de Independencia de Estados Unidos."
+        }
+      ],
+      "related": [
+        "Guerra de Independencia de Estados Unidos"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Reino Unido",
+          "members": [
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria decisiva estadounidense.",
+      "consequences": "Impulso la alianza francesa con Estados Unidos y transformo la guerra en un conflicto internacional.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Saratoga"
+    },
+    "Batalla de White Marsh": {
+      "parent": "Guerra de Independencia de Estados Unidos",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Pensilvania",
+      "cause": "Maniobras britanicas para forzar combate contra el ejercito continental tras la toma de Filadelfia.",
+      "chronology": [
+        {
+          "year": 1777,
+          "text": "Combate dentro de Guerra de Independencia de Estados Unidos."
+        }
+      ],
+      "related": [
+        "Guerra de Independencia de Estados Unidos"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Reino Unido",
+          "members": [
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Retirada britanica sin destruir al ejercito continental.",
+      "consequences": "Washington preservo su fuerza principal antes del invierno en Valley Forge.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de White Marsh"
+    },
+    "Batalla del cabo Finisterre (1778)": {
+      "parent": "Guerra de Independencia de Estados Unidos",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Atlantico",
+      "cause": "La entrada francesa en la guerra amplio el conflicto al dominio naval atlantico.",
+      "chronology": [
+        {
+          "year": 1778,
+          "text": "Combate dentro de Guerra de Independencia de Estados Unidos."
+        }
+      ],
+      "related": [
+        "Guerra de Independencia de Estados Unidos"
+      ],
+      "participants": [
+        {
+          "side": "Francia",
+          "members": [
+            "Francia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Reino Unido",
+          "members": [
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Accion naval indecisa.",
+      "consequences": "Mostro la creciente presion francesa sobre las rutas britanicas y el caracter global de la guerra.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla del cabo Finisterre (1778)"
+    },
+    "Batalla de Flamborough Head": {
+      "parent": "Guerra de Independencia de Estados Unidos",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Mar del Norte",
+      "cause": "Operaciones navales estadounidenses y francesas contra comercio y convoyes britanicos.",
+      "chronology": [
+        {
+          "year": 1779,
+          "text": "Combate dentro de Guerra de Independencia de Estados Unidos."
+        }
+      ],
+      "related": [
+        "Guerra de Independencia de Estados Unidos"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos y Francia",
+          "members": [
+            "Estados Unidos",
+            "Francia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Reino Unido",
+          "members": [
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense-francesa.",
+      "consequences": "Aumento el prestigio naval rebelde y simbolizo la vulnerabilidad britanica incluso cerca de sus costas.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Flamborough Head"
+    },
+    "Batalla de Minisink": {
+      "parent": "Guerra de Independencia de Estados Unidos",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Nueva York",
+      "cause": "Incursiones leales e iroquesas contra asentamientos fronterizos rebeldes.",
+      "chronology": [
+        {
+          "year": 1779,
+          "text": "Combate dentro de Guerra de Independencia de Estados Unidos."
+        }
+      ],
+      "related": [
+        "Guerra de Independencia de Estados Unidos"
+      ],
+      "participants": [
+        {
+          "side": "Milicias estadounidenses",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Leales britanicos e iroqueses",
+          "members": [
+            "Reino Unido",
+            "Iroqueses aliados"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Derrota de las milicias estadounidenses.",
+      "consequences": "Evidencio la dureza de la guerra fronteriza y la importancia de alianzas indigenas.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Minisink"
+    },
+    "Batalla de Bull's Ferry": {
+      "parent": "Guerra de Independencia de Estados Unidos",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Nueva Jersey",
+      "cause": "Choque local por posiciones leales fortificadas y control del corredor del Hudson.",
+      "chronology": [
+        {
+          "year": 1780,
+          "text": "Combate dentro de Guerra de Independencia de Estados Unidos."
+        }
+      ],
+      "related": [
+        "Guerra de Independencia de Estados Unidos"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Leales britanicos",
+          "members": [
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Resistencia leal frente al ataque estadounidense.",
+      "consequences": "Mostro la persistencia de posiciones leales en zonas disputadas cerca de Nueva York.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Bull's Ferry"
+    },
+    "Batalla de Ibiza": {
+      "parent": "Guerra de Independencia de Estados Unidos",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Mediterraneo occidental",
+      "cause": "La guerra naval global afecto convoyes, corsarios y rutas comerciales europeas.",
+      "chronology": [
+        {
+          "year": 1780,
+          "text": "Combate dentro de Guerra de Independencia de Estados Unidos."
+        }
+      ],
+      "related": [
+        "Guerra de Independencia de Estados Unidos"
+      ],
+      "participants": [
+        {
+          "side": "Reino Unido",
+          "members": [
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Espana y aliados",
+          "members": [
+            "Espana"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Accion naval vinculada a la guerra maritima global.",
+      "consequences": "Reflejo como la independencia estadounidense se conecto con rivalidades europeas mas amplias.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Ibiza"
+    },
+    "Batalla de Ushant (1781)": {
+      "parent": "Guerra de Independencia de Estados Unidos",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Atlantico oriental",
+      "cause": "Competencia por convoyes y control maritimo entre Francia y Reino Unido.",
+      "chronology": [
+        {
+          "year": 1781,
+          "text": "Combate dentro de Guerra de Independencia de Estados Unidos."
+        }
+      ],
+      "related": [
+        "Guerra de Independencia de Estados Unidos"
+      ],
+      "participants": [
+        {
+          "side": "Francia",
+          "members": [
+            "Francia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Reino Unido",
+          "members": [
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Accion naval de resultado limitado.",
+      "consequences": "Formo parte del desgaste naval que condiciono comunicaciones y abastecimiento britanicos.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Ushant (1781)"
+    },
+    "Batalla de Yorktown": {
+      "parent": "Guerra de Independencia de Estados Unidos",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Virginia",
+      "cause": "Fuerzas franco-estadounidenses buscaron aislar al ejercito britanico de Cornwallis.",
+      "chronology": [
+        {
+          "year": 1781,
+          "text": "Combate dentro de Guerra de Independencia de Estados Unidos."
+        }
+      ],
+      "related": [
+        "Guerra de Independencia de Estados Unidos"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos y Francia",
+          "members": [
+            "Estados Unidos",
+            "Francia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Reino Unido",
+          "members": [
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Rendicion britanica en Yorktown.",
+      "consequences": "Abro el camino a negociaciones de paz y al reconocimiento de la independencia estadounidense.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Yorktown"
+    },
+    "Batalla de Delaware Capes": {
+      "parent": "Guerra de Independencia de Estados Unidos",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Atlantico occidental",
+      "cause": "Operaciones navales en torno a accesos costeros, convoyes y control de rutas.",
+      "chronology": [
+        {
+          "year": 1782,
+          "text": "Combate dentro de Guerra de Independencia de Estados Unidos."
+        }
+      ],
+      "related": [
+        "Guerra de Independencia de Estados Unidos"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Reino Unido",
+          "members": [
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Accion naval menor.",
+      "consequences": "Mantuvo la presion sobre la movilidad britanica en las costas norteamericanas.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Delaware Capes"
+    },
+    "Batalla de Trincomalee": {
+      "parent": "Guerra de Independencia de Estados Unidos",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Oceano Indico",
+      "cause": "Francia y Reino Unido disputaron bases y rutas del Indico en el marco global de la guerra.",
+      "chronology": [
+        {
+          "year": 1782,
+          "text": "Combate dentro de Guerra de Independencia de Estados Unidos."
+        }
+      ],
+      "related": [
+        "Guerra de Independencia de Estados Unidos"
+      ],
+      "participants": [
+        {
+          "side": "Francia",
+          "members": [
+            "Francia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Reino Unido",
+          "members": [
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Accion naval franco-britanica de alcance colonial.",
+      "consequences": "Confirmo que el conflicto norteamericano tenia efectos en India, Ceilan y rutas oceanicas.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Trincomalee"
+    },
+    "Batalla de Ushant (1782)": {
+      "parent": "Guerra de Independencia de Estados Unidos",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Atlantico oriental",
+      "cause": "Proteccion y ataque de convoyes durante la fase final de la guerra.",
+      "chronology": [
+        {
+          "year": 1782,
+          "text": "Combate dentro de Guerra de Independencia de Estados Unidos."
+        }
+      ],
+      "related": [
+        "Guerra de Independencia de Estados Unidos"
+      ],
+      "participants": [
+        {
+          "side": "Francia",
+          "members": [
+            "Francia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Reino Unido",
+          "members": [
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Accion naval tactica.",
+      "consequences": "Se sumo al desgaste naval que acompano las negociaciones finales del conflicto.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Ushant (1782)"
+    },
+    "Batalla de Cuddalore (1783)": {
+      "parent": "Guerra de Independencia de Estados Unidos",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "India",
+      "cause": "La guerra global entre Francia y Reino Unido se extendio a enclaves y aliados en India.",
+      "chronology": [
+        {
+          "year": 1783,
+          "text": "Combate dentro de Guerra de Independencia de Estados Unidos."
+        }
+      ],
+      "related": [
+        "Guerra de Independencia de Estados Unidos"
+      ],
+      "participants": [
+        {
+          "side": "Francia y Mysore",
+          "members": [
+            "Francia",
+            "Mysore"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Reino Unido",
+          "members": [
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Combate final de la guerra anglo-francesa en India.",
+      "consequences": "La paz europea detuvo las operaciones y estabilizo temporalmente el frente indio.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Cuddalore (1783)"
+    },
+    "Batalla de Svensksund (1790)": {
+      "parent": "Guerra ruso-sueca (1788-1790)",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Mar Baltico",
+      "cause": "La flota sueca intento romper la presion rusa y asegurar una salida honorable para la guerra.",
+      "chronology": [
+        {
+          "year": 1790,
+          "text": "Combate dentro de Guerra ruso-sueca (1788-1790)."
+        }
+      ],
+      "related": [
+        "Guerra ruso-sueca (1788-1790)"
+      ],
+      "participants": [
+        {
+          "side": "Suecia",
+          "members": [
+            "Suecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Rusia",
+          "members": [
+            "Imperio ruso"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria naval sueca.",
+      "consequences": "Fortalecio la posicion sueca en las negociaciones y facilito una paz sin grandes cesiones territoriales.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Svensksund (1790)"
+    },
+    "Batalla de Fishguard": {
+      "parent": "Guerras revolucionarias francesas",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Gales",
+      "cause": "Francia busco abrir un frente de distraccion contra Gran Bretana mediante un desembarco limitado.",
+      "chronology": [
+        {
+          "year": 1797,
+          "text": "Combate dentro de Guerras revolucionarias francesas."
+        }
+      ],
+      "related": [
+        "Guerras revolucionarias francesas"
+      ],
+      "participants": [
+        {
+          "side": "Francia revolucionaria",
+          "members": [
+            "Francia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Gran Bretana",
+          "members": [
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Fracaso del desembarco frances.",
+      "consequences": "Fue la ultima invasion extranjera sobre suelo britanico y reforzo la defensa costera.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Fishguard"
+    },
+    "Sitio de Ancona (1799)": {
+      "parent": "Guerras revolucionarias francesas",
+      "type": "sitio",
+      "scope": "regional",
+      "region": "Italia",
+      "cause": "La Segunda Coalicion intento expulsar a las fuerzas francesas de sus posiciones italianas.",
+      "chronology": [
+        {
+          "year": 1799,
+          "text": "Operacion de sitio dentro de Guerras revolucionarias francesas."
+        }
+      ],
+      "related": [
+        "Guerras revolucionarias francesas"
+      ],
+      "participants": [
+        {
+          "side": "Francia",
+          "members": [
+            "Francia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Coalicion austro-rusa y otomana",
+          "members": [
+            "Austria",
+            "Rusia",
+            "Imperio otomano"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Capitulacion francesa tras el sitio.",
+      "consequences": "Redujo la presencia francesa en el Adriatico antes de la recuperacion napoleonicamente impulsada de 1800.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Sitio de Ancona (1799)"
+    },
+    "Batalla de Crete-a-Pierrot": {
+      "parent": "Revolucion haitiana",
+      "type": "sitio",
+      "scope": "regional",
+      "region": "Haiti",
+      "cause": "La expedicion francesa intento restaurar el control colonial sobre Saint-Domingue.",
+      "chronology": [
+        {
+          "year": 1802,
+          "text": "Operacion de sitio dentro de Revolucion haitiana."
+        }
+      ],
+      "related": [
+        "Revolucion haitiana"
+      ],
+      "participants": [
+        {
+          "side": "Revolucionarios haitianos",
+          "members": [
+            "Haiti"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Francia",
+          "members": [
+            "Francia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Retirada haitiana organizada tras resistencia prolongada.",
+      "consequences": "La defensa mostro la capacidad militar haitiana y elevo el costo politico y humano de la expedicion francesa.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Crete-a-Pierrot"
+    },
+    "Batalla del puerto de Tripoli": {
+      "parent": "Primera Guerra Berberisca",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Mediterraneo",
+      "cause": "Estados Unidos ataco posiciones tripolitanas para proteger su comercio y responder a capturas corsarias.",
+      "chronology": [
+        {
+          "year": 1804,
+          "text": "Combate dentro de Primera Guerra Berberisca."
+        }
+      ],
+      "related": [
+        "Primera Guerra Berberisca"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Tripoli",
+          "members": [
+            "Tripoli"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Accion naval estadounidense contra las defensas del puerto.",
+      "consequences": "Consolido la proyeccion naval estadounidense temprana en el Mediterraneo.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla del puerto de Tripoli"
+    },
+    "Batalla de Derna (1805)": {
+      "parent": "Primera Guerra Berberisca",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Libia",
+      "cause": "Una expedicion terrestre y naval estadounidense apoyo a fuerzas locales contra el pasha de Tripoli.",
+      "chronology": [
+        {
+          "year": 1805,
+          "text": "Combate dentro de Primera Guerra Berberisca."
+        }
+      ],
+      "related": [
+        "Primera Guerra Berberisca"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos y aliados locales",
+          "members": [
+            "Estados Unidos",
+            "Aliados locales"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Tripoli",
+          "members": [
+            "Tripoli"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense y aliada.",
+      "consequences": "Presiono la firma de paz y quedo como antecedente simbolico de intervencion expedicionaria estadounidense.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Derna (1805)"
+    },
+    "Batalla de Lokalaks": {
+      "parent": "Guerra finlandesa",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Finlandia",
+      "cause": "La campana rusa en Finlandia busco forzar a Suecia a aceptar el sistema continental napoleonico.",
+      "chronology": [
+        {
+          "year": 1808,
+          "text": "Combate dentro de Guerra finlandesa."
+        }
+      ],
+      "related": [
+        "Guerra finlandesa"
+      ],
+      "participants": [
+        {
+          "side": "Suecia",
+          "members": [
+            "Suecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Rusia",
+          "members": [
+            "Imperio ruso"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Choque local dentro del avance ruso.",
+      "consequences": "Formo parte del deterioro sueco que culmino con la perdida de Finlandia.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Lokalaks"
+    },
+    "Batalla de Sandostrom": {
+      "parent": "Guerra finlandesa",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Archipielago finlandes",
+      "cause": "Suecia y Rusia disputaron el control de rutas costeras y apoyo logistico en Finlandia.",
+      "chronology": [
+        {
+          "year": 1808,
+          "text": "Combate dentro de Guerra finlandesa."
+        }
+      ],
+      "related": [
+        "Guerra finlandesa"
+      ],
+      "participants": [
+        {
+          "side": "Suecia",
+          "members": [
+            "Suecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Rusia",
+          "members": [
+            "Imperio ruso"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Accion naval de resultado limitado.",
+      "consequences": "Reflejo la importancia del litoral finlandes en una guerra decidida tambien por logistica y control maritimo.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Sandostrom"
+    },
+    "Batalla de Grand Port": {
+      "parent": "Guerras napoleonicas",
+      "type": "batalla naval",
+      "scope": "mundial",
+      "region": "Oceano Indico",
+      "cause": "Francia y Reino Unido disputaron bases y rutas comerciales en el Indico.",
+      "chronology": [
+        {
+          "year": 1810,
+          "text": "Combate dentro de Guerras napoleonicas."
+        }
+      ],
+      "related": [
+        "Guerras napoleonicas"
+      ],
+      "participants": [
+        {
+          "side": "Francia",
+          "members": [
+            "Francia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Reino Unido",
+          "members": [
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria naval francesa.",
+      "consequences": "Fue una rara victoria naval francesa de la etapa napoleonica, aunque la campana britanica termino capturando Mauricio.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Grand Port"
+    },
+    "Batalla de La Guaira (1812)": {
+      "parent": "Guerra anglo-estadounidense de 1812",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Caribe",
+      "cause": "La guerra naval entre Estados Unidos y Reino Unido se extendio a rutas comerciales y puertos del Caribe.",
+      "chronology": [
+        {
+          "year": 1812,
+          "text": "Combate dentro de Guerra anglo-estadounidense de 1812."
+        }
+      ],
+      "related": [
+        "Guerra anglo-estadounidense de 1812"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Reino Unido",
+          "members": [
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Accion naval menor.",
+      "consequences": "Muestra la dimension caribena y comercial de la Guerra de 1812.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de La Guaira (1812)"
+    },
+    "Batalla de Mississinewa": {
+      "parent": "Guerra anglo-estadounidense de 1812",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Indiana",
+      "cause": "Estados Unidos intento desarticular aldeas y bases aliadas nativas vinculadas a la resistencia de Tecumseh.",
+      "chronology": [
+        {
+          "year": 1812,
+          "text": "Combate dentro de Guerra anglo-estadounidense de 1812."
+        }
+      ],
+      "related": [
+        "Guerra anglo-estadounidense de 1812"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Confederacion indigena",
+          "members": [
+            "Pueblos nativos aliados"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria tactica estadounidense con fuertes dificultades logisticas.",
+      "consequences": "Intensifico la guerra fronteriza y evidencio el peso de las alianzas indigenas en el teatro occidental.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Mississinewa"
+    },
+    "Batalla de Fort George": {
+      "parent": "Guerra anglo-estadounidense de 1812",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Alto Canada",
+      "cause": "Estados Unidos intento controlar posiciones britanicas clave cerca del Niagara.",
+      "chronology": [
+        {
+          "year": 1813,
+          "text": "Combate dentro de Guerra anglo-estadounidense de 1812."
+        }
+      ],
+      "related": [
+        "Guerra anglo-estadounidense de 1812"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Reino Unido y Canada colonial",
+          "members": [
+            "Reino Unido",
+            "Canada colonial"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense.",
+      "consequences": "Abrio temporalmente el corredor del Niagara, aunque el control estadounidense no se consolido de forma decisiva.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Fort George"
+    },
+    "Batalla de Leipzig": {
+      "parent": "Guerras napoleonicas",
+      "type": "batalla",
+      "scope": "mundial",
+      "region": "Sajonia",
+      "cause": "La Sexta Coalicion busco destruir la capacidad militar napoleonica tras la campana de Rusia.",
+      "chronology": [
+        {
+          "year": 1813,
+          "text": "Combate dentro de Guerras napoleonicas."
+        }
+      ],
+      "related": [
+        "Guerras napoleonicas"
+      ],
+      "participants": [
+        {
+          "side": "Sexta Coalicion",
+          "members": [
+            "Rusia",
+            "Prusia",
+            "Austria",
+            "Suecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Imperio frances",
+          "members": [
+            "Francia",
+            "Aliados napoleonicos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria decisiva de la Sexta Coalicion.",
+      "consequences": "Forzo la retirada francesa de Alemania y acelero la caida del sistema napoleonico en Europa central.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Leipzig"
+    },
+    "Segunda batalla de Sacket's Harbor": {
+      "parent": "Guerra anglo-estadounidense de 1812",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Nueva York",
+      "cause": "Reino Unido intento destruir instalaciones navales estadounidenses en el lago Ontario.",
+      "chronology": [
+        {
+          "year": 1813,
+          "text": "Combate dentro de Guerra anglo-estadounidense de 1812."
+        }
+      ],
+      "related": [
+        "Guerra anglo-estadounidense de 1812"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Reino Unido y Canada colonial",
+          "members": [
+            "Reino Unido",
+            "Canada colonial"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Defensa estadounidense exitosa.",
+      "consequences": "Preservo una base naval clave para el control del lago Ontario.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Segunda batalla de Sacket's Harbor"
+    },
+    "Batalla de Big Sandy Creek": {
+      "parent": "Guerra anglo-estadounidense de 1812",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Nueva York",
+      "cause": "Las fuerzas britanicas buscaron interceptar suministros estadounidenses hacia Sackets Harbor.",
+      "chronology": [
+        {
+          "year": 1814,
+          "text": "Combate dentro de Guerra anglo-estadounidense de 1812."
+        }
+      ],
+      "related": [
+        "Guerra anglo-estadounidense de 1812"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Reino Unido",
+          "members": [
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense.",
+      "consequences": "Protegio suministros navales y limito operaciones britanicas en el lago Ontario.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Big Sandy Creek"
+    },
+    "Batalla de Credit Island": {
+      "parent": "Guerra anglo-estadounidense de 1812",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Alto Mississippi",
+      "cause": "Estados Unidos intento proyectar control sobre el alto Mississippi frente a fuerzas britanicas e indigenas aliadas.",
+      "chronology": [
+        {
+          "year": 1814,
+          "text": "Combate dentro de Guerra anglo-estadounidense de 1812."
+        }
+      ],
+      "related": [
+        "Guerra anglo-estadounidense de 1812"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Britanicos e indigenas aliados",
+          "members": [
+            "Reino Unido",
+            "Pueblos nativos aliados"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria britanica e indigena.",
+      "consequences": "Mantuvo la presion sobre posiciones estadounidenses en la frontera occidental.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Credit Island"
+    },
+    "Batalla de Mackinac Island": {
+      "parent": "Guerra anglo-estadounidense de 1812",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Grandes Lagos",
+      "cause": "Estados Unidos intento recuperar una posicion estrategica tomada por los britanicos al inicio de la guerra.",
+      "chronology": [
+        {
+          "year": 1814,
+          "text": "Combate dentro de Guerra anglo-estadounidense de 1812."
+        }
+      ],
+      "related": [
+        "Guerra anglo-estadounidense de 1812"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Reino Unido y aliados indigenas",
+          "members": [
+            "Reino Unido",
+            "Pueblos nativos aliados"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria britanica.",
+      "consequences": "Mantuvo el control britanico de Mackinac hasta el final de la guerra.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Mackinac Island"
+    },
+    "Batalla de Pensacola (1814)": {
+      "parent": "Guerra anglo-estadounidense de 1812",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Florida espanola",
+      "cause": "Andrew Jackson ataco Pensacola para neutralizar apoyo britanico y posiciones hostiles en Florida.",
+      "chronology": [
+        {
+          "year": 1814,
+          "text": "Combate dentro de Guerra anglo-estadounidense de 1812."
+        }
+      ],
+      "related": [
+        "Guerra anglo-estadounidense de 1812"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Espana y Reino Unido",
+          "members": [
+            "Espana",
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Ocupacion estadounidense temporal.",
+      "consequences": "Preparo el teatro del Golfo antes de la defensa de Nueva Orleans.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Pensacola (1814)"
+    },
+    "Batalla de Plattsburgh": {
+      "parent": "Guerra anglo-estadounidense de 1812",
+      "type": "batalla terrestre y naval",
+      "scope": "regional",
+      "region": "Lago Champlain",
+      "cause": "Reino Unido lanzo una ofensiva desde Canada para mejorar su posicion negociadora.",
+      "chronology": [
+        {
+          "year": 1814,
+          "text": "Combate dentro de Guerra anglo-estadounidense de 1812."
+        }
+      ],
+      "related": [
+        "Guerra anglo-estadounidense de 1812"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Reino Unido",
+          "members": [
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria decisiva estadounidense.",
+      "consequences": "Debilito la ofensiva britanica del norte e influyo en las negociaciones de Gante.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Plattsburgh"
+    },
+    "Batalla de Fort Peter": {
+      "parent": "Guerra anglo-estadounidense de 1812",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Georgia",
+      "cause": "Fuerzas britanicas atacaron posiciones costeras estadounidenses aun antes de conocerse plenamente la paz.",
+      "chronology": [
+        {
+          "year": 1815,
+          "text": "Combate dentro de Guerra anglo-estadounidense de 1812."
+        }
+      ],
+      "related": [
+        "Guerra anglo-estadounidense de 1812"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Reino Unido",
+          "members": [
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria britanica local.",
+      "consequences": "Fue una de las acciones finales de la guerra en la costa sur estadounidense.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Fort Peter"
+    },
+    "Batalla del puente del rio Pacora": {
+      "parent": "Independencia de Panama de Espana",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Panama",
+      "cause": "Las fuerzas independentistas buscaron asegurar rutas y posiciones frente a la autoridad realista.",
+      "chronology": [
+        {
+          "year": 1821,
+          "text": "Combate dentro de Independencia de Panama de Espana."
+        }
+      ],
+      "related": [
+        "Independencia de Panama de Espana"
+      ],
+      "participants": [
+        {
+          "side": "Independentistas panamenos",
+          "members": [
+            "Panama"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Realistas",
+          "members": [
+            "Espana"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Accion independentista local.",
+      "consequences": "Se integra al proceso que llevo a la ruptura panamena con la monarquia espanola.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla del puente del rio Pacora"
+    },
+    "Batalla de Monte Santiago": {
+      "parent": "Guerra del Brasil",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Rio de la Plata",
+      "cause": "Las armadas de Brasil y las Provincias Unidas disputaron el bloqueo y control de accesos fluviales.",
+      "chronology": [
+        {
+          "year": 1827,
+          "text": "Combate dentro de Guerra del Brasil."
+        }
+      ],
+      "related": [
+        "Guerra del Brasil"
+      ],
+      "participants": [
+        {
+          "side": "Provincias Unidas del Rio de la Plata",
+          "members": [
+            "Argentina"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Imperio del Brasil",
+          "members": [
+            "Brasil"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria brasilena.",
+      "consequences": "Afecto la capacidad naval argentina y mantuvo la presion brasilena en el teatro platense.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Monte Santiago"
+    },
+    "Batalla de San Juan de Ulua": {
+      "parent": "Guerra de los Pasteles",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Veracruz",
+      "cause": "Francia presiono militarmente a Mexico por reclamaciones economicas y diplomaticas.",
+      "chronology": [
+        {
+          "year": 1838,
+          "text": "Combate dentro de Guerra de los Pasteles."
+        }
+      ],
+      "related": [
+        "Guerra de los Pasteles"
+      ],
+      "participants": [
+        {
+          "side": "Francia",
+          "members": [
+            "Francia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Mexico",
+          "members": [
+            "Mexico"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria francesa.",
+      "consequences": "Forzo negociaciones y mostro la vulnerabilidad mexicana frente a potencias navales europeas.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de San Juan de Ulua"
+    },
+    "Batalla de Palo Alto": {
+      "parent": "Guerra mexicano-estadounidense",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Texas",
+      "cause": "La disputa fronteriza por Texas y el Rio Grande escalo a combate abierto.",
+      "chronology": [
+        {
+          "year": 1846,
+          "text": "Combate dentro de Guerra mexicano-estadounidense."
+        }
+      ],
+      "related": [
+        "Guerra mexicano-estadounidense"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Mexico",
+          "members": [
+            "Mexico"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense.",
+      "consequences": "Inicio una serie de victorias estadounidenses en el norte de Mexico.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Palo Alto"
+    },
+    "Batalla de Resaca de la Palma": {
+      "parent": "Guerra mexicano-estadounidense",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Texas",
+      "cause": "Estados Unidos persiguio a las fuerzas mexicanas tras Palo Alto.",
+      "chronology": [
+        {
+          "year": 1846,
+          "text": "Combate dentro de Guerra mexicano-estadounidense."
+        }
+      ],
+      "related": [
+        "Guerra mexicano-estadounidense"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Mexico",
+          "members": [
+            "Mexico"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense.",
+      "consequences": "Aseguro el alivio de Fort Texas y consolido la ofensiva estadounidense inicial.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Resaca de la Palma"
+    },
+    "Batalla de Monterrey": {
+      "parent": "Guerra mexicano-estadounidense",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Nuevo Leon",
+      "cause": "Estados Unidos avanzo sobre plazas del norte mexicano para quebrar la defensa regional.",
+      "chronology": [
+        {
+          "year": 1846,
+          "text": "Combate dentro de Guerra mexicano-estadounidense."
+        }
+      ],
+      "related": [
+        "Guerra mexicano-estadounidense"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Mexico",
+          "members": [
+            "Mexico"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense tras combate urbano.",
+      "consequences": "Abrio el norte mexicano a nuevas operaciones, aunque con alto costo y armisticio temporal.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Monterrey"
+    },
+    "Batalla de Buena Vista": {
+      "parent": "Guerra mexicano-estadounidense",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Coahuila",
+      "cause": "Mexico intento frenar la ofensiva estadounidense en el norte mediante una batalla decisiva.",
+      "chronology": [
+        {
+          "year": 1847,
+          "text": "Combate dentro de Guerra mexicano-estadounidense."
+        }
+      ],
+      "related": [
+        "Guerra mexicano-estadounidense"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Mexico",
+          "members": [
+            "Mexico"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria defensiva estadounidense.",
+      "consequences": "Mantuvo el control estadounidense del norte y elevo el perfil politico de Zachary Taylor.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Buena Vista"
+    },
+    "Batalla de Chapultepec": {
+      "parent": "Guerra mexicano-estadounidense",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Ciudad de Mexico",
+      "cause": "Las fuerzas estadounidenses avanzaron sobre las defensas finales de la capital mexicana.",
+      "chronology": [
+        {
+          "year": 1847,
+          "text": "Combate dentro de Guerra mexicano-estadounidense."
+        }
+      ],
+      "related": [
+        "Guerra mexicano-estadounidense"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Mexico",
+          "members": [
+            "Mexico"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense.",
+      "consequences": "Abrio el camino hacia la ocupacion de Ciudad de Mexico y el cierre politico de la guerra.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Chapultepec"
+    },
+    "Batalla del cabo de Palos (1815)": {
+      "parent": "Segunda Guerra Berberisca",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Mediterraneo",
+      "cause": "Estados Unidos envio una escuadra para terminar ataques corsarios y renegociar tributos en el Mediterraneo.",
+      "chronology": [
+        {
+          "year": 1815,
+          "text": "Combate dentro de Segunda Guerra Berberisca."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Berberisca"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Regencia de Argel",
+          "members": [
+            "Argel"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria naval estadounidense.",
+      "consequences": "Contribuyo a cerrar la practica de pagos forzados estadounidenses a potencias berberiscas.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla del cabo de Palos (1815)"
+    },
+    "Batalla de Bad Axe": {
+      "parent": "Guerra de Black Hawk",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Wisconsin",
+      "cause": "La expansion estadounidense y el retorno de la banda sauk de Black Hawk al este del Mississippi precipitaron la campana.",
+      "chronology": [
+        {
+          "year": 1832,
+          "text": "Combate dentro de Guerra de Black Hawk."
+        }
+      ],
+      "related": [
+        "Guerra de Black Hawk"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Sauk y Fox",
+          "members": [
+            "Sauk",
+            "Fox"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria decisiva estadounidense.",
+      "consequences": "Marco el colapso de la resistencia de Black Hawk y acelero el desplazamiento indigena regional.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Bad Axe"
+    },
+    "Batalla de Wahoo Swamp": {
+      "parent": "Segunda Guerra Seminola",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Florida",
+      "cause": "Las fuerzas estadounidenses intentaron quebrar la resistencia seminola en zonas pantanosas de dificil acceso.",
+      "chronology": [
+        {
+          "year": 1836,
+          "text": "Combate dentro de Segunda Guerra Seminola."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Seminola"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Seminolas",
+          "members": [
+            "Seminolas"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Combate inconcluso con retirada seminola.",
+      "consequences": "Mostro las dificultades estadounidenses para imponer una victoria rapida en Florida.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Wahoo Swamp"
+    },
+    "Batalla de la Vuelta de Obligado": {
+      "parent": "Bloqueo anglo-frances del Rio de la Plata",
+      "type": "batalla fluvial",
+      "scope": "regional",
+      "region": "Rio Parana",
+      "cause": "Reino Unido y Francia intentaron forzar la libre navegacion de rios interiores frente a la Confederacion Argentina.",
+      "chronology": [
+        {
+          "year": 1845,
+          "text": "Combate dentro de Bloqueo anglo-frances del Rio de la Plata."
+        }
+      ],
+      "related": [
+        "Bloqueo anglo-frances del Rio de la Plata"
+      ],
+      "participants": [
+        {
+          "side": "Confederacion Argentina",
+          "members": [
+            "Argentina"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Reino Unido y Francia",
+          "members": [
+            "Reino Unido",
+            "Francia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria tactica anglo-francesa con fuerte resistencia argentina.",
+      "consequences": "Se convirtio en simbolo de soberania fluvial argentina y encarecio politicamente la intervencion.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de la Vuelta de Obligado"
+    },
+    "Batalla de Providencia": {
+      "parent": "Revuelta de la Bandera del Oso",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Alta California",
+      "cause": "Tensiones entre autoridades mexicanas, pobladores locales y expansion estadounidense en California.",
+      "chronology": [
+        {
+          "year": 1845,
+          "text": "Combate dentro de Revuelta de la Bandera del Oso."
+        }
+      ],
+      "related": [
+        "Revuelta de la Bandera del Oso"
+      ],
+      "participants": [
+        {
+          "side": "Californios",
+          "members": [
+            "Mexico"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Fuerzas rebeldes locales",
+          "members": [
+            "Rebeldes de California"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria de fuerzas californias.",
+      "consequences": "Anticipo la fragilidad del control mexicano en California antes de la guerra con Estados Unidos.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Providencia"
+    },
+    "Batalla de Chino": {
+      "parent": "Guerra mexicano-estadounidense",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Alta California",
+      "cause": "La campana de California enfrento guarniciones y milicias locales durante el avance estadounidense.",
+      "chronology": [
+        {
+          "year": 1846,
+          "text": "Combate dentro de Guerra mexicano-estadounidense."
+        }
+      ],
+      "related": [
+        "Guerra mexicano-estadounidense"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Californios mexicanos",
+          "members": [
+            "Mexico"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria californio-mexicana.",
+      "consequences": "Mostro que la ocupacion estadounidense de California aun enfrentaba resistencia local.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Chino"
+    },
+    "Batalla de San Pascual": {
+      "parent": "Guerra mexicano-estadounidense",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Alta California",
+      "cause": "Fuerzas estadounidenses intentaron consolidar control en California frente a caballeria californiana.",
+      "chronology": [
+        {
+          "year": 1846,
+          "text": "Combate dentro de Guerra mexicano-estadounidense."
+        }
+      ],
+      "related": [
+        "Guerra mexicano-estadounidense"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Californios mexicanos",
+          "members": [
+            "Mexico"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Resultado disputado con fuertes bajas estadounidenses.",
+      "consequences": "Retraso operaciones estadounidenses y evidencio la capacidad tactica de los lanceros californios.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de San Pascual"
+    },
+    "Batalla de Santa Fe": {
+      "parent": "Guerra mexicano-estadounidense",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Nuevo Mexico",
+      "cause": "Estados Unidos avanzo para ocupar Nuevo Mexico como parte de la estrategia continental contra Mexico.",
+      "chronology": [
+        {
+          "year": 1846,
+          "text": "Combate dentro de Guerra mexicano-estadounidense."
+        }
+      ],
+      "related": [
+        "Guerra mexicano-estadounidense"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Mexico",
+          "members": [
+            "Mexico"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Ocupacion estadounidense sin gran combate.",
+      "consequences": "Aseguro Nuevo Mexico para Estados Unidos y facilito rutas hacia California.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Santa Fe"
+    },
+    "Primera Batalla de Tabasco": {
+      "parent": "Guerra mexicano-estadounidense",
+      "type": "batalla naval y anfibia",
+      "scope": "regional",
+      "region": "Tabasco",
+      "cause": "Estados Unidos extendio la guerra al litoral del Golfo para presionar puertos y comunicaciones mexicanas.",
+      "chronology": [
+        {
+          "year": 1846,
+          "text": "Combate dentro de Guerra mexicano-estadounidense."
+        }
+      ],
+      "related": [
+        "Guerra mexicano-estadounidense"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Mexico",
+          "members": [
+            "Mexico"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Accion estadounidense sin ocupacion duradera.",
+      "consequences": "Preparo nuevas operaciones navales contra puertos mexicanos del Golfo.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Primera Batalla de Tabasco"
+    },
+    "Sitio de Fort Texas": {
+      "parent": "Guerra mexicano-estadounidense",
+      "type": "sitio",
+      "scope": "regional",
+      "region": "Texas",
+      "cause": "Mexico intento presionar la posicion estadounidense fortificada cerca del Rio Grande.",
+      "chronology": [
+        {
+          "year": 1846,
+          "text": "Operacion de sitio dentro de Guerra mexicano-estadounidense."
+        }
+      ],
+      "related": [
+        "Guerra mexicano-estadounidense"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Mexico",
+          "members": [
+            "Mexico"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Resistencia estadounidense hasta el alivio del fuerte.",
+      "consequences": "Se enlazo con Palo Alto y Resaca de la Palma en la apertura militar de la guerra.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Sitio de Fort Texas"
+    },
+    "Batalla de la Ciudad de Mexico": {
+      "parent": "Guerra mexicano-estadounidense",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Ciudad de Mexico",
+      "cause": "La campana del valle de Mexico culmino en combates por el control de la capital.",
+      "chronology": [
+        {
+          "year": 1847,
+          "text": "Combate dentro de Guerra mexicano-estadounidense."
+        }
+      ],
+      "related": [
+        "Guerra mexicano-estadounidense"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Mexico",
+          "members": [
+            "Mexico"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Ocupacion estadounidense de la capital mexicana.",
+      "consequences": "Acelero las negociaciones que terminaron con el Tratado de Guadalupe Hidalgo.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de la Ciudad de Mexico"
+    },
+    "Batalla de La Paz": {
+      "parent": "Guerra mexicano-estadounidense",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Baja California",
+      "cause": "Fuerzas mexicanas locales resistieron la ocupacion estadounidense de Baja California.",
+      "chronology": [
+        {
+          "year": 1847,
+          "text": "Combate dentro de Guerra mexicano-estadounidense."
+        }
+      ],
+      "related": [
+        "Guerra mexicano-estadounidense"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Mexico",
+          "members": [
+            "Mexico"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Defensa estadounidense de la plaza.",
+      "consequences": "Ayudo a sostener la ocupacion estadounidense en el extremo noroccidental mexicano.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de La Paz"
+    },
+    "Batalla de San José del Cabo": {
+      "parent": "Guerra mexicano-estadounidense",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Baja California",
+      "cause": "Milicias mexicanas intentaron recuperar posiciones ocupadas por Estados Unidos en Baja California.",
+      "chronology": [
+        {
+          "year": 1847,
+          "text": "Combate dentro de Guerra mexicano-estadounidense."
+        }
+      ],
+      "related": [
+        "Guerra mexicano-estadounidense"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Mexico",
+          "members": [
+            "Mexico"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Resistencia estadounidense con apoyo naval.",
+      "consequences": "Mantuvo el control estadounidense local hasta el fin de la guerra.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de San José del Cabo"
+    },
+    "Batalla del Río San Gabriel": {
+      "parent": "Guerra mexicano-estadounidense",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Alta California",
+      "cause": "Estados Unidos busco quebrar la resistencia californio-mexicana cerca de Los Angeles.",
+      "chronology": [
+        {
+          "year": 1847,
+          "text": "Combate dentro de Guerra mexicano-estadounidense."
+        }
+      ],
+      "related": [
+        "Guerra mexicano-estadounidense"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Californios mexicanos",
+          "members": [
+            "Mexico"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense.",
+      "consequences": "Facilito la captura de Los Angeles y la consolidacion de la campana de California.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla del Río San Gabriel"
+    },
+    "Segunda Batalla de Tabasco": {
+      "parent": "Guerra mexicano-estadounidense",
+      "type": "batalla naval y anfibia",
+      "scope": "regional",
+      "region": "Tabasco",
+      "cause": "Estados Unidos reanudo operaciones contra puertos del Golfo para cortar recursos y presionar a Mexico.",
+      "chronology": [
+        {
+          "year": 1847,
+          "text": "Combate dentro de Guerra mexicano-estadounidense."
+        }
+      ],
+      "related": [
+        "Guerra mexicano-estadounidense"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Mexico",
+          "members": [
+            "Mexico"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Ocupacion estadounidense de San Juan Bautista.",
+      "consequences": "Mostro la capacidad anfibia estadounidense y amplio la presion sobre el litoral mexicano.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Segunda Batalla de Tabasco"
+    },
+    "Sitio de Puebla": {
+      "parent": "Guerra mexicano-estadounidense",
+      "type": "sitio",
+      "scope": "regional",
+      "region": "Puebla",
+      "cause": "Guerrillas y fuerzas mexicanas intentaron aislar una guarnicion estadounidense entre Veracruz y la capital.",
+      "chronology": [
+        {
+          "year": 1847,
+          "text": "Operacion de sitio dentro de Guerra mexicano-estadounidense."
+        }
+      ],
+      "related": [
+        "Guerra mexicano-estadounidense"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Mexico",
+          "members": [
+            "Mexico"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "La guarnicion estadounidense resistio hasta ser auxiliada.",
+      "consequences": "Evidencio que la ocupacion necesitaba proteger rutas logisticas, no solo ganar batallas campales.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Sitio de Puebla"
+    },
+    "Batalla de Kolding": {
+      "parent": "Primera Guerra de Schleswig",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Jutlandia",
+      "cause": "Dinamarca y fuerzas germanas disputaron Schleswig-Holstein y el equilibrio nacional en el ducado.",
+      "chronology": [
+        {
+          "year": 1849,
+          "text": "Combate dentro de Primera Guerra de Schleswig."
+        }
+      ],
+      "related": [
+        "Primera Guerra de Schleswig"
+      ],
+      "participants": [
+        {
+          "side": "Dinamarca",
+          "members": [
+            "Dinamarca"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Schleswig-Holstein y aliados germanos",
+          "members": [
+            "Schleswig-Holstein",
+            "Confederacion Germanica"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria danesa local.",
+      "consequences": "Refuerzo la posicion danesa durante la fase intermedia de la guerra.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Kolding"
+    },
+    "Sitio de Petropavlovsk": {
+      "parent": "Guerra de Crimea",
+      "type": "sitio",
+      "scope": "mundial",
+      "region": "Kamchatka",
+      "cause": "La guerra entre Rusia y la alianza franco-britanica se extendio a posiciones rusas del Pacifico.",
+      "chronology": [
+        {
+          "year": 1854,
+          "text": "Operacion de sitio dentro de Guerra de Crimea."
+        }
+      ],
+      "related": [
+        "Guerra de Crimea"
+      ],
+      "participants": [
+        {
+          "side": "Rusia",
+          "members": [
+            "Imperio ruso"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Francia y Reino Unido",
+          "members": [
+            "Francia",
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Defensa rusa exitosa.",
+      "consequences": "Mostro el alcance global de la Guerra de Crimea y la dificultad de sostener operaciones anfibias remotas.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Sitio de Petropavlovsk"
+    },
+    "Batalla de los Fuertes de Taku": {
+      "parent": "Segunda Guerra del Opio",
+      "type": "batalla naval y anfibia",
+      "scope": "regional",
+      "region": "Tianjin",
+      "cause": "Las potencias occidentales intentaron imponer el acceso diplomatico y comercial acordado con China.",
+      "chronology": [
+        {
+          "year": 1859,
+          "text": "Combate dentro de Segunda Guerra del Opio."
+        }
+      ],
+      "related": [
+        "Segunda Guerra del Opio"
+      ],
+      "participants": [
+        {
+          "side": "Imperio Qing",
+          "members": [
+            "China"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Reino Unido, Francia y Estados Unidos",
+          "members": [
+            "Reino Unido",
+            "Francia",
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria defensiva Qing en 1859.",
+      "consequences": "Provoco una nueva expedicion aliada que capturo los fuertes al ano siguiente.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de los Fuertes de Taku"
+    },
+    "Batalla de Stones River": {
+      "parent": "Guerra de Secesion estadounidense",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Tennessee",
+      "cause": "Union y Confederacion disputaron el control de Tennessee medio y las rutas hacia el sur profundo.",
+      "chronology": [
+        {
+          "year": 1862,
+          "text": "Combate dentro de Guerra de Secesion estadounidense."
+        }
+      ],
+      "related": [
+        "Guerra de Secesion estadounidense"
+      ],
+      "participants": [
+        {
+          "side": "Union",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Confederacion",
+          "members": [
+            "Estados Confederados"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estrategica de la Union.",
+      "consequences": "Elevo la moral unionista tras Fredericksburg y mantuvo la presion federal en el teatro occidental.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Stones River"
+    },
+    "Batalla de Gettysburg": {
+      "parent": "Guerra de Secesion estadounidense",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Pensilvania",
+      "cause": "La Confederacion invadio el norte para buscar una victoria decisiva y presion politica.",
+      "chronology": [
+        {
+          "year": 1863,
+          "text": "Combate dentro de Guerra de Secesion estadounidense."
+        }
+      ],
+      "related": [
+        "Guerra de Secesion estadounidense"
+      ],
+      "participants": [
+        {
+          "side": "Union",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Confederacion",
+          "members": [
+            "Estados Confederados"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria decisiva de la Union.",
+      "consequences": "Freno la ofensiva de Lee y se convirtio en punto de inflexion simbolico y militar de la guerra.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Gettysburg"
+    },
+    "Batalla de Salem Church": {
+      "parent": "Guerra de Secesion estadounidense",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Virginia",
+      "cause": "Fue parte de las operaciones alrededor de Chancellorsville y Fredericksburg.",
+      "chronology": [
+        {
+          "year": 1863,
+          "text": "Combate dentro de Guerra de Secesion estadounidense."
+        }
+      ],
+      "related": [
+        "Guerra de Secesion estadounidense"
+      ],
+      "participants": [
+        {
+          "side": "Union",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Confederacion",
+          "members": [
+            "Estados Confederados"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria confederada.",
+      "consequences": "Ayudo a contener el avance unionista durante la campana de Chancellorsville.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Salem Church"
+    },
+    "Batalla de Cold Harbor": {
+      "parent": "Guerra de Secesion estadounidense",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Virginia",
+      "cause": "La campana terrestre de Grant busco desgastar al ejercito de Lee y acercarse a Richmond.",
+      "chronology": [
+        {
+          "year": 1864,
+          "text": "Combate dentro de Guerra de Secesion estadounidense."
+        }
+      ],
+      "related": [
+        "Guerra de Secesion estadounidense"
+      ],
+      "participants": [
+        {
+          "side": "Union",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Confederacion",
+          "members": [
+            "Estados Confederados"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria defensiva confederada.",
+      "consequences": "Provoco fuertes bajas unionistas y anticipo la guerra de trincheras alrededor de Petersburg.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Cold Harbor"
+    },
+    "Batalla de Elkin's Ferry": {
+      "parent": "Guerra de Secesion estadounidense",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Arkansas",
+      "cause": "La campana de Camden buscaba sostener la ofensiva unionista en Arkansas y presionar a la Confederacion en el Trans-Mississippi.",
+      "chronology": [
+        {
+          "year": 1864,
+          "text": "Combate dentro de Guerra de Secesion estadounidense."
+        }
+      ],
+      "related": [
+        "Guerra de Secesion estadounidense"
+      ],
+      "participants": [
+        {
+          "side": "Union",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Confederacion",
+          "members": [
+            "Estados Confederados"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria unionista limitada.",
+      "consequences": "Permitio el cruce del Little Missouri, aunque la campana posterior quedo expuesta a problemas logisticos.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Elkin's Ferry"
+    },
+    "Batalla de la espesura": {
+      "parent": "Guerra de Secesion estadounidense",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Virginia",
+      "cause": "Grant inicio la campana terrestre para fijar y desgastar al ejercito de Lee.",
+      "chronology": [
+        {
+          "year": 1864,
+          "text": "Combate dentro de Guerra de Secesion estadounidense."
+        }
+      ],
+      "related": [
+        "Guerra de Secesion estadounidense"
+      ],
+      "participants": [
+        {
+          "side": "Union",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Confederacion",
+          "members": [
+            "Estados Confederados"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Resultado tactico indeciso con enormes bajas.",
+      "consequences": "La Union continuo avanzando, senalando una estrategia de desgaste sostenido contra la Confederacion.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de la espesura"
+    },
+    "Batalla de Meridian": {
+      "parent": "Guerra de Secesion estadounidense",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Misisipi",
+      "cause": "La Union busco destruir infraestructura ferroviaria y capacidad logistica confederada en Misisipi.",
+      "chronology": [
+        {
+          "year": 1864,
+          "text": "Combate dentro de Guerra de Secesion estadounidense."
+        }
+      ],
+      "related": [
+        "Guerra de Secesion estadounidense"
+      ],
+      "participants": [
+        {
+          "side": "Union",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Confederacion",
+          "members": [
+            "Estados Confederados"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria unionista.",
+      "consequences": "Dano severamente redes logisticas confederadas y anticipo la guerra de destruccion de infraestructura.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Meridian"
+    },
+    "Batalla de Bentonville": {
+      "parent": "Guerra de Secesion estadounidense",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Carolina del Norte",
+      "cause": "La Confederacion intento frenar el avance de Sherman por las Carolinas.",
+      "chronology": [
+        {
+          "year": 1865,
+          "text": "Combate dentro de Guerra de Secesion estadounidense."
+        }
+      ],
+      "related": [
+        "Guerra de Secesion estadounidense"
+      ],
+      "participants": [
+        {
+          "side": "Union",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Confederacion",
+          "members": [
+            "Estados Confederados"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estrategica unionista.",
+      "consequences": "Fue una de las ultimas grandes batallas de la guerra y acelero el colapso confederado en el este.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Bentonville"
+    },
+    "Batalla de Ixmiquilpan": {
+      "parent": "Segunda intervencion francesa en Mexico",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Hidalgo",
+      "cause": "Fuerzas republicanas mexicanas presionaron posiciones imperiales y europeas durante el retroceso frances.",
+      "chronology": [
+        {
+          "year": 1866,
+          "text": "Combate dentro de Segunda intervencion francesa en Mexico."
+        }
+      ],
+      "related": [
+        "Segunda intervencion francesa en Mexico"
+      ],
+      "participants": [
+        {
+          "side": "Republicanos mexicanos",
+          "members": [
+            "Mexico"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Imperio mexicano y voluntarios europeos",
+          "members": [
+            "Segundo Imperio Mexicano",
+            "Belgica"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria republicana mexicana.",
+      "consequences": "Reflejo el deterioro del proyecto imperial y el avance republicano hacia la restauracion.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Ixmiquilpan"
+    },
+    "Batalla de Beecher Island": {
+      "parent": "Guerras indias de Estados Unidos",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Colorado",
+      "cause": "La expansion estadounidense y las campanas militares en las Grandes Llanuras provocaron enfrentamientos con Cheyenne, Arapaho y aliados.",
+      "chronology": [
+        {
+          "year": 1868,
+          "text": "Combate dentro de Guerras indias de Estados Unidos."
+        }
+      ],
+      "related": [
+        "Guerras indias de Estados Unidos"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Cheyenne, Arapaho y aliados",
+          "members": [
+            "Cheyenne",
+            "Arapaho"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Resistencia estadounidense tras cerco indigena.",
+      "consequences": "Se convirtio en episodio destacado de las guerras de las Llanuras y aumento la militarizacion fronteriza.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Beecher Island"
+    },
+    "Batalla de Slim Buttes": {
+      "parent": "Gran Guerra Sioux",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Dakota",
+      "cause": "Estados Unidos persiguio a bandas lakota y cheyenne tras Little Bighorn.",
+      "chronology": [
+        {
+          "year": 1876,
+          "text": "Combate dentro de Gran Guerra Sioux."
+        }
+      ],
+      "related": [
+        "Gran Guerra Sioux"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Lakota y Cheyenne",
+          "members": [
+            "Lakota",
+            "Cheyenne"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense.",
+      "consequences": "Aumento la presion militar sobre grupos sioux y cheyenne durante la campana de 1876.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Slim Buttes"
+    },
+    "Batalla de Bear Paw": {
+      "parent": "Guerra de los Nez Perce",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Montana",
+      "cause": "Los nez perce intentaron llegar a Canada para evitar su traslado forzado a reservas.",
+      "chronology": [
+        {
+          "year": 1877,
+          "text": "Combate dentro de Guerra de los Nez Perce."
+        }
+      ],
+      "related": [
+        "Guerra de los Nez Perce"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Nez Perce",
+          "members": [
+            "Nez Perce"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Rendicion de los nez perce tras el sitio.",
+      "consequences": "Puso fin a la huida de Joseph y simbolizo el cierre violento de la autonomia indigena en la region.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Bear Paw"
+    },
+    "Batalla de Clearwater": {
+      "parent": "Guerra de los Nez Perce",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Idaho",
+      "cause": "Estados Unidos persiguio a los nez perce durante su retirada hacia el norte.",
+      "chronology": [
+        {
+          "year": 1877,
+          "text": "Combate dentro de Guerra de los Nez Perce."
+        }
+      ],
+      "related": [
+        "Guerra de los Nez Perce"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Nez Perce",
+          "members": [
+            "Nez Perce"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria tactica estadounidense.",
+      "consequences": "Empujo a los nez perce a continuar su retirada hacia Montana.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Clearwater"
+    },
+    "Batalla de Cottonwood": {
+      "parent": "Guerra de los Nez Perce",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Idaho",
+      "cause": "Fuerzas estadounidenses intentaron bloquear el movimiento nez perce durante la campana de 1877.",
+      "chronology": [
+        {
+          "year": 1877,
+          "text": "Combate dentro de Guerra de los Nez Perce."
+        }
+      ],
+      "related": [
+        "Guerra de los Nez Perce"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Nez Perce",
+          "members": [
+            "Nez Perce"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Combate de resultado limitado.",
+      "consequences": "Mantuvo la presion sobre la columna nez perce y prolongo la persecucion.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Cottonwood"
+    },
+    "Batalla de Milk Creek": {
+      "parent": "Guerra ute de 1879",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Colorado",
+      "cause": "Tensiones por tierras, agencias y presencia militar estadounidense derivaron en combate con los ute.",
+      "chronology": [
+        {
+          "year": 1879,
+          "text": "Combate dentro de Guerra ute de 1879."
+        }
+      ],
+      "related": [
+        "Guerra ute de 1879"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Ute",
+          "members": [
+            "Ute"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Resistencia ute frente a una columna estadounidense.",
+      "consequences": "Aumento la presion federal y acelero el desplazamiento forzado de comunidades ute.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Milk Creek"
+    },
+    "Batalla de Hembrillo Basin": {
+      "parent": "Guerras apaches",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Nuevo Mexico",
+      "cause": "Estados Unidos persiguio a grupos apaches durante la campana contra Victorio.",
+      "chronology": [
+        {
+          "year": 1880,
+          "text": "Combate dentro de Guerras apaches."
+        }
+      ],
+      "related": [
+        "Guerras apaches"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Apaches",
+          "members": [
+            "Apaches"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Combate intenso sin decision estrategica definitiva.",
+      "consequences": "Formo parte de la campana que redujo gradualmente la movilidad apache en el suroeste.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Hembrillo Basin"
+    },
+    "Batalla del Alto de la Alianza": {
+      "parent": "Guerra del Pacifico",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Tacna",
+      "cause": "Chile busco quebrar la defensa conjunta peruano-boliviana en el sur andino.",
+      "chronology": [
+        {
+          "year": 1880,
+          "text": "Combate dentro de Guerra del Pacifico."
+        }
+      ],
+      "related": [
+        "Guerra del Pacifico"
+      ],
+      "participants": [
+        {
+          "side": "Chile",
+          "members": [
+            "Chile"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Peru y Bolivia",
+          "members": [
+            "Peru",
+            "Bolivia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria chilena decisiva.",
+      "consequences": "Dejo a Bolivia fuera de la guerra activa y permitio la ocupacion chilena de Tacna.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla del Alto de la Alianza"
+    },
+    "Batalla de Fuzhou": {
+      "parent": "Guerra franco-china",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Fujian",
+      "cause": "Francia intento imponer su posicion en Tonkin y debilitar la flota china de Fujian.",
+      "chronology": [
+        {
+          "year": 1884,
+          "text": "Combate dentro de Guerra franco-china."
+        }
+      ],
+      "related": [
+        "Guerra franco-china"
+      ],
+      "participants": [
+        {
+          "side": "Francia",
+          "members": [
+            "Francia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Imperio Qing",
+          "members": [
+            "China"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria naval francesa.",
+      "consequences": "Destruyo gran parte de la flota de Fujian y amplio el conflicto colonial en Asia oriental.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Fuzhou"
+    },
+    "Sitio de Battleford": {
+      "parent": "Rebelion del Noroeste",
+      "type": "sitio",
+      "scope": "regional",
+      "region": "Saskatchewan",
+      "cause": "La crisis metis y la inseguridad fronteriza llevaron a comunidades locales a refugiarse en Battleford.",
+      "chronology": [
+        {
+          "year": 1885,
+          "text": "Operacion de sitio dentro de Rebelion del Noroeste."
+        }
+      ],
+      "related": [
+        "Rebelion del Noroeste"
+      ],
+      "participants": [
+        {
+          "side": "Canada",
+          "members": [
+            "Canada"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Cree y aliados locales",
+          "members": [
+            "Cree"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Sitio levantado tras llegada de fuerzas canadienses.",
+      "consequences": "Reflejo la expansion estatal canadiense y la tension con pueblos indigenas de las praderas.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Sitio de Battleford"
+    },
+    "Batalla de Fajardo": {
+      "parent": "Guerra hispano-estadounidense",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Puerto Rico",
+      "cause": "Estados Unidos extendio operaciones a Puerto Rico durante la guerra contra Espana.",
+      "chronology": [
+        {
+          "year": 1898,
+          "text": "Combate dentro de Guerra hispano-estadounidense."
+        }
+      ],
+      "related": [
+        "Guerra hispano-estadounidense"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Espana",
+          "members": [
+            "Espana"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Accion local estadounidense.",
+      "consequences": "Formo parte de la campana que termino con la cesion de Puerto Rico a Estados Unidos.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Fajardo"
+    },
+    "Batalla de la bahia de Guantanamo": {
+      "parent": "Guerra hispano-estadounidense",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Cuba",
+      "cause": "Estados Unidos busco asegurar una base naval y apoyo logistico en el oriente cubano.",
+      "chronology": [
+        {
+          "year": 1898,
+          "text": "Combate dentro de Guerra hispano-estadounidense."
+        }
+      ],
+      "related": [
+        "Guerra hispano-estadounidense"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos y aliados cubanos",
+          "members": [
+            "Estados Unidos",
+            "Insurgentes cubanos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Espana",
+          "members": [
+            "Espana"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense.",
+      "consequences": "Consolido la presencia naval estadounidense en Guantanamo durante la campana cubana.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de la bahia de Guantanamo"
+    },
+    "Batalla de Las Guasimas (1898)": {
+      "parent": "Guerra hispano-estadounidense",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Cuba",
+      "cause": "Fuerzas estadounidenses avanzaron hacia Santiago de Cuba contra defensas espanolas.",
+      "chronology": [
+        {
+          "year": 1898,
+          "text": "Combate dentro de Guerra hispano-estadounidense."
+        }
+      ],
+      "related": [
+        "Guerra hispano-estadounidense"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Espana",
+          "members": [
+            "Espana"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense tactica.",
+      "consequences": "Abrio el camino hacia combates mayores en San Juan y Santiago.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Las Guasimas (1898)"
+    },
+    "Batalla de Calumpit": {
+      "parent": "Guerra filipino-estadounidense",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Luzon",
+      "cause": "Estados Unidos avanzo hacia el norte de Manila para romper lineas republicanas filipinas.",
+      "chronology": [
+        {
+          "year": 1899,
+          "text": "Combate dentro de Guerra filipino-estadounidense."
+        }
+      ],
+      "related": [
+        "Guerra filipino-estadounidense"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Republica Filipina",
+          "members": [
+            "Filipinas"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense.",
+      "consequences": "Debilito la defensa filipina en Luzon central y empujo la guerra hacia una fase mas movil.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Calumpit"
+    },
+    "Batalla de Manila": {
+      "parent": "Guerra filipino-estadounidense",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Manila",
+      "cause": "La tension entre fuerzas estadounidenses y filipinas tras la guerra contra Espana escalo a combate abierto.",
+      "chronology": [
+        {
+          "year": 1899,
+          "text": "Combate dentro de Guerra filipino-estadounidense."
+        }
+      ],
+      "related": [
+        "Guerra filipino-estadounidense"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Republica Filipina",
+          "members": [
+            "Filipinas"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense.",
+      "consequences": "Marco el inicio abierto de la guerra filipino-estadounidense.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Manila"
+    },
+    "Batalla de Olongapo": {
+      "parent": "Guerra filipino-estadounidense",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Luzon",
+      "cause": "Estados Unidos busco controlar bases navales y comunicaciones en la bahia de Subic.",
+      "chronology": [
+        {
+          "year": 1899,
+          "text": "Combate dentro de Guerra filipino-estadounidense."
+        }
+      ],
+      "related": [
+        "Guerra filipino-estadounidense"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Republica Filipina",
+          "members": [
+            "Filipinas"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense.",
+      "consequences": "Aseguro una posicion naval importante para operaciones posteriores.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Olongapo"
+    },
+    "Segunda batalla de Caloocan": {
+      "parent": "Guerra filipino-estadounidense",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Luzon",
+      "cause": "Estados Unidos intento ampliar el control alrededor de Manila y romper posiciones filipinas.",
+      "chronology": [
+        {
+          "year": 1899,
+          "text": "Combate dentro de Guerra filipino-estadounidense."
+        }
+      ],
+      "related": [
+        "Guerra filipino-estadounidense"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Republica Filipina",
+          "members": [
+            "Filipinas"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense.",
+      "consequences": "Facilito el avance estadounidense hacia el interior de Luzon.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Segunda batalla de Caloocan"
+    },
+    "Batalla de Tientsin": {
+      "parent": "Rebelion de los Boxers",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Tianjin",
+      "cause": "La Alianza de las Ocho Naciones busco levantar el asedio y abrir el camino hacia Pekin.",
+      "chronology": [
+        {
+          "year": 1900,
+          "text": "Combate dentro de Rebelion de los Boxers."
+        }
+      ],
+      "related": [
+        "Rebelion de los Boxers"
+      ],
+      "participants": [
+        {
+          "side": "Alianza de las Ocho Naciones",
+          "members": [
+            "Estados Unidos",
+            "Reino Unido",
+            "Francia",
+            "Japon",
+            "Rusia",
+            "Alemania",
+            "Italia",
+            "Austria-Hungria"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Boxers e Imperio Qing",
+          "members": [
+            "China",
+            "Boxers"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria aliada.",
+      "consequences": "Permitio el avance internacional hacia Pekin y amplio la intervencion extranjera en China.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Tientsin"
+    },
+    "Batalla de Coyotepe": {
+      "parent": "Intervencion estadounidense en Nicaragua",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Nicaragua",
+      "cause": "Estados Unidos intervino para sostener al gobierno aliado y controlar puntos estrategicos durante la crisis nicaraguense.",
+      "chronology": [
+        {
+          "year": 1912,
+          "text": "Combate dentro de Intervencion estadounidense en Nicaragua."
+        }
+      ],
+      "related": [
+        "Intervencion estadounidense en Nicaragua"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos y gobierno nicaraguense",
+          "members": [
+            "Estados Unidos",
+            "Nicaragua"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Rebeldes liberales",
+          "members": [
+            "Rebeldes nicaraguenses"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense-gubernamental.",
+      "consequences": "Consolido una larga presencia militar estadounidense en Nicaragua.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Coyotepe"
+    },
+    "Batalla de Donon": {
+      "parent": "Primera Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Vosgos",
+      "cause": "Francia y Alemania chocaron en Alsacia-Lorena durante las primeras ofensivas de 1914.",
+      "chronology": [
+        {
+          "year": 1914,
+          "text": "Combate dentro de Primera Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Primera Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Francia",
+          "members": [
+            "Francia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria alemana local.",
+      "consequences": "Contribuyo al fracaso frances inicial en sectores de Alsacia-Lorena.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Donon"
+    },
+    "Primera batalla de Ypres": {
+      "parent": "Primera Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Flandes",
+      "cause": "Alemania y los Aliados intentaron envolver el flanco norte durante la carrera hacia el mar.",
+      "chronology": [
+        {
+          "year": 1914,
+          "text": "Combate dentro de Primera Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Primera Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "Francia",
+            "Belgica"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Defensa aliada y estabilizacion del saliente de Ypres.",
+      "consequences": "Cerro la fase de guerra de movimientos en el oeste y fijo un sector clave de trincheras.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Primera batalla de Ypres"
+    },
+    "Batalla de Jutlandia": {
+      "parent": "Primera Guerra Mundial",
+      "type": "batalla naval",
+      "scope": "mundial",
+      "region": "Mar del Norte",
+      "cause": "La flota alemana intento desafiar el bloqueo britanico y alterar el equilibrio naval.",
+      "chronology": [
+        {
+          "year": 1916,
+          "text": "Combate dentro de Primera Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Primera Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Reino Unido",
+          "members": [
+            "Reino Unido",
+            "Australia",
+            "Canada"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Resultado tactico disputado, ventaja estrategica britanica.",
+      "consequences": "La flota alemana de superficie no volvio a desafiar decisivamente el control britanico del Mar del Norte.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Jutlandia"
+    },
+    "Batalla de Cambrai": {
+      "parent": "Primera Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Frente occidental",
+      "cause": "Los britanicos usaron tanques de forma masiva para romper defensas alemanas.",
+      "chronology": [
+        {
+          "year": 1917,
+          "text": "Combate dentro de Primera Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Primera Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Avance inicial aliado seguido de contraataque aleman.",
+      "consequences": "Demostro el potencial tactico del tanque y anticipo cambios en la guerra mecanizada.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Cambrai"
+    },
+    "Batalla de la Cresta de Vimy": {
+      "parent": "Primera Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Artois",
+      "cause": "La ofensiva de Arras busco capturar alturas dominantes de la cresta de Vimy.",
+      "chronology": [
+        {
+          "year": 1917,
+          "text": "Combate dentro de Primera Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Primera Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Canada y Reino Unido",
+          "members": [
+            "Canada",
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria canadiense.",
+      "consequences": "Se convirtio en hito militar canadiense y mejoro la posicion aliada en Arras.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de la Cresta de Vimy"
+    },
+    "Batalla de Messines": {
+      "parent": "Primera Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Flandes",
+      "cause": "Los Aliados buscaron capturar la cresta de Messines antes de nuevas operaciones en Ypres.",
+      "chronology": [
+        {
+          "year": 1917,
+          "text": "Combate dentro de Primera Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Primera Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "Australia",
+            "Nueva Zelanda"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria aliada.",
+      "consequences": "El uso de minas y planificacion coordinada mejoro la posicion aliada en Flandes.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Messines"
+    },
+    "Batalla del canal de Otranto": {
+      "parent": "Primera Guerra Mundial",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Adriatico",
+      "cause": "Austria-Hungria intento romper el bloqueo aliado del canal de Otranto.",
+      "chronology": [
+        {
+          "year": 1917,
+          "text": "Combate dentro de Primera Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Primera Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "Italia",
+            "Francia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Austria-Hungria",
+          "members": [
+            "Austria-Hungria"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Exito tactico austrohungaro limitado.",
+      "consequences": "No rompio de forma duradera el bloqueo aliado del Adriatico.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla del canal de Otranto"
+    },
+    "Batalla de Amiens": {
+      "parent": "Primera Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Picardia",
+      "cause": "Los Aliados lanzaron una ofensiva combinada tras contener las ofensivas alemanas de primavera.",
+      "chronology": [
+        {
+          "year": 1918,
+          "text": "Combate dentro de Primera Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Primera Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "Francia",
+            "Australia",
+            "Canada",
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria aliada decisiva.",
+      "consequences": "Inicio los Cien Dias que llevaron al colapso militar aleman.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Amiens"
+    },
+    "Batalla de Durazzo": {
+      "parent": "Primera Guerra Mundial",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Adriatico",
+      "cause": "Los Aliados atacaron instalaciones austrohungaras en Durazzo para debilitar su apoyo naval y logistico.",
+      "chronology": [
+        {
+          "year": 1918,
+          "text": "Combate dentro de Primera Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Primera Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Italia",
+            "Reino Unido",
+            "Francia",
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Austria-Hungria",
+          "members": [
+            "Austria-Hungria"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria aliada.",
+      "consequences": "Debilito posiciones navales austrohungaras en la etapa final de la guerra.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Durazzo"
+    },
+    "Batalla de Belleau": {
+      "parent": "Primera Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Aisne-Marne",
+      "cause": "Estados Unidos y Francia intentaron contener el avance aleman hacia el Marne.",
+      "chronology": [
+        {
+          "year": 1918,
+          "text": "Combate dentro de Primera Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Primera Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Estados Unidos",
+            "Francia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria aliada.",
+      "consequences": "Afirmo la presencia combatiente estadounidense en el frente occidental.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Belleau"
+    },
+    "Batalla de Blanc Mont": {
+      "parent": "Primera Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Champana",
+      "cause": "Los Aliados atacaron posiciones alemanas fortificadas durante los Cien Dias.",
+      "chronology": [
+        {
+          "year": 1918,
+          "text": "Combate dentro de Primera Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Primera Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Estados Unidos",
+            "Francia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria aliada.",
+      "consequences": "Contribuyo al retroceso aleman y al desgaste final de sus defensas en 1918.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Blanc Mont"
+    },
+    "Batalla de la Fosse-a-l'Eau": {
+      "parent": "Primera Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Frente occidental",
+      "cause": "Los ejercitos aleman y frances chocaron durante la guerra de movimientos inicial.",
+      "chronology": [
+        {
+          "year": 1914,
+          "text": "Combate dentro de Primera Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Primera Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Francia",
+          "members": [
+            "Francia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Combate local dentro de las operaciones de 1914.",
+      "consequences": "Forma parte de la transicion desde maniobras rapidas hacia frentes mas estabilizados.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de la Fosse-a-l'Eau"
+    },
+    "Batalla de Meuse": {
+      "parent": "Primera Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Mosa",
+      "cause": "La ofensiva alemana y la respuesta francesa disputaron cruces, alturas y rutas del valle del Mosa.",
+      "chronology": [
+        {
+          "year": 1914,
+          "text": "Combate dentro de Primera Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Primera Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Francia",
+          "members": [
+            "Francia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Combates de resultado variable en el frente occidental.",
+      "consequences": "El area quedo como sector estrategico recurrente durante la guerra.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Meuse"
+    },
+    "Batalla de Monchy-au-Bois": {
+      "parent": "Primera Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Artois",
+      "cause": "La carrera hacia el mar produjo choques por pueblos y nudos de comunicacion en el norte de Francia.",
+      "chronology": [
+        {
+          "year": 1914,
+          "text": "Combate dentro de Primera Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Primera Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Francia y Reino Unido",
+          "members": [
+            "Francia",
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Combate local de la estabilizacion del frente.",
+      "consequences": "Contribuyo a fijar posiciones en el Artois antes de la guerra de trincheras.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Monchy-au-Bois"
+    },
+    "Batalla de Revigny": {
+      "parent": "Primera Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Marne",
+      "cause": "La contraofensiva aliada del Marne intento frenar el avance aleman hacia Paris.",
+      "chronology": [
+        {
+          "year": 1914,
+          "text": "Combate dentro de Primera Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Primera Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Francia",
+          "members": [
+            "Francia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria francesa local.",
+      "consequences": "Ayudo a sostener el giro estrategico que freno la ofensiva alemana de 1914.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Revigny"
+    },
+    "Batalla de Upper Meurthe": {
+      "parent": "Primera Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Lorena",
+      "cause": "Francia y Alemania disputaron pasos y valles de Lorena durante las operaciones iniciales.",
+      "chronology": [
+        {
+          "year": 1914,
+          "text": "Combate dentro de Primera Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Primera Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Francia",
+          "members": [
+            "Francia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Accion local en el frente de Lorena.",
+      "consequences": "Integra el conjunto de combates que estabilizaron el frente oriental de Francia.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Upper Meurthe"
+    },
+    "Batalla de Mont Saint-Quentin": {
+      "parent": "Primera Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Somme",
+      "cause": "El avance aliado de los Cien Dias busco romper posiciones alemanas alrededor de Peronne.",
+      "chronology": [
+        {
+          "year": 1918,
+          "text": "Combate dentro de Primera Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Primera Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Australia",
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria australiana.",
+      "consequences": "Acelero el retroceso aleman en la Somme y es una de las acciones australianas mas destacadas de 1918.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Mont Saint-Quentin"
+    },
+    "Batalla de Picardia": {
+      "parent": "Primera Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Picardia",
+      "cause": "Las ofensivas de primavera alemanas y la respuesta aliada concentraron combates en Picardia.",
+      "chronology": [
+        {
+          "year": 1918,
+          "text": "Combate dentro de Primera Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Primera Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Francia",
+            "Reino Unido",
+            "Australia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Conjunto de combates ligados al giro aliado de 1918.",
+      "consequences": "Preparo el terreno para las ofensivas aliadas de los Cien Dias.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Picardia"
+    },
+    "Batalla de Saint-Mihiel": {
+      "parent": "Primera Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Lorena",
+      "cause": "Estados Unidos lanzo una ofensiva para reducir el saliente aleman de Saint-Mihiel.",
+      "chronology": [
+        {
+          "year": 1918,
+          "text": "Combate dentro de Primera Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Primera Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Estados Unidos",
+            "Francia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense-francesa.",
+      "consequences": "Fue la primera gran ofensiva independiente estadounidense y mejoro la posicion aliada antes de Meuse-Argonne.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Saint-Mihiel"
+    },
+    "Batalla de Saint-Thierry": {
+      "parent": "Primera Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Marne",
+      "cause": "Los Aliados contraatacaron tras la ofensiva alemana de primavera en el sector del Marne.",
+      "chronology": [
+        {
+          "year": 1918,
+          "text": "Combate dentro de Primera Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Primera Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Francia",
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria aliada local.",
+      "consequences": "Contribuyo a frenar la iniciativa alemana y a preparar la Segunda batalla del Marne.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Saint-Thierry"
+    },
+    "Batalla de Scarpe": {
+      "parent": "Primera Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Arras",
+      "cause": "Los Aliados atacaron el sistema defensivo aleman durante los Cien Dias.",
+      "chronology": [
+        {
+          "year": 1918,
+          "text": "Combate dentro de Primera Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Primera Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Canada",
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria aliada.",
+      "consequences": "Aporto al avance canadiense y britanico contra la Linea Hindenburg.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Scarpe"
+    },
+    "Batalla de Soissons": {
+      "parent": "Primera Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Aisne",
+      "cause": "Francia y Estados Unidos contraatacaron para cortar el saliente aleman del Marne.",
+      "chronology": [
+        {
+          "year": 1918,
+          "text": "Combate dentro de Primera Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Primera Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Francia",
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria aliada.",
+      "consequences": "Ayudo a revertir la ofensiva alemana de primavera y a recuperar la iniciativa aliada.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Soissons"
+    },
+    "Batalla del canal de San Quintin": {
+      "parent": "Primera Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Picardia",
+      "cause": "Los Aliados atacaron un sector clave de la Linea Hindenburg.",
+      "chronology": [
+        {
+          "year": 1918,
+          "text": "Combate dentro de Primera Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Primera Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "Australia",
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria aliada decisiva.",
+      "consequences": "La ruptura del canal de San Quintin acelero el colapso defensivo aleman.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla del canal de San Quintin"
+    },
+    "Batalla de Vittorio Veneto": {
+      "parent": "Primera Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Frente italiano",
+      "cause": "Italia y sus aliados lanzaron una ofensiva final contra Austria-Hungria.",
+      "chronology": [
+        {
+          "year": 1918,
+          "text": "Combate dentro de Primera Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Primera Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Italia",
+            "Reino Unido",
+            "Francia",
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Austria-Hungria",
+          "members": [
+            "Austria-Hungria"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria aliada decisiva.",
+      "consequences": "Provoco el derrumbe militar austrohungaro y precipito el armisticio de Villa Giusti.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Vittorio Veneto"
+    },
+    "Segunda batalla de Somme": {
+      "parent": "Primera Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Somme",
+      "cause": "Los Aliados explotaron el debilitamiento aleman durante los Cien Dias.",
+      "chronology": [
+        {
+          "year": 1918,
+          "text": "Combate dentro de Primera Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Primera Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "Australia",
+            "Canada",
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria aliada.",
+      "consequences": "Empujo a Alemania fuera de posiciones ganadas en primavera y acelero la retirada general.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Segunda batalla de Somme"
+    },
+    "Segunda batalla del Marne": {
+      "parent": "Primera Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Marne",
+      "cause": "Alemania intento una ultima ofensiva mayor en el oeste antes de que el peso estadounidense creciera plenamente.",
+      "chronology": [
+        {
+          "year": 1918,
+          "text": "Combate dentro de Primera Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Primera Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Francia",
+            "Estados Unidos",
+            "Reino Unido",
+            "Italia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria aliada decisiva.",
+      "consequences": "Marco el fin de la iniciativa ofensiva alemana y abrio paso a los Cien Dias.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Segunda batalla del Marne"
+    },
+    "Tercera batalla de Aisne": {
+      "parent": "Primera Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Aisne",
+      "cause": "Alemania lanzo una ofensiva de primavera para romper el frente aliado antes de la llegada masiva estadounidense.",
+      "chronology": [
+        {
+          "year": 1918,
+          "text": "Combate dentro de Primera Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Primera Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Aliados",
+          "members": [
+            "Francia",
+            "Reino Unido",
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Avance aleman inicial contenido posteriormente.",
+      "consequences": "Extendio peligrosamente las lineas alemanas y precedio el contraataque aliado del verano.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Tercera batalla de Aisne"
+    },
+    "Sitio de NykÃ¸bing": {
+      "parent": "Guerras entre Dinamarca y la Liga Hanseatica",
+      "type": "sitio",
+      "scope": "regional",
+      "region": "Escandinavia",
+      "cause": "Formo parte de la disputa por control comercial y militar en el Baltico.",
+      "chronology": [
+        {
+          "year": 1360,
+          "text": "Operaciones de sitio en torno a Nykobing durante la rivalidad dano-hanseatica."
+        }
+      ],
+      "related": [
+        "Guerras entre Dinamarca y la Liga Hanseatica"
+      ],
+      "participants": [
+        {
+          "side": "Dinamarca",
+          "members": [
+            "Dinamarca"
+          ],
+          "organizations": [],
+          "troops": "fuerzas medievales",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Liga Hanseatica y aliados",
+          "members": [
+            "Liga Hanseatica"
+          ],
+          "organizations": [
+            "Liga Hanseatica"
+          ],
+          "troops": "fuerzas medievales",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Episodio militar regional sin cambio estrategico permanente aislado.",
+      "consequences": "Reflejo la centralidad del Baltico en la competencia comercial medieval.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Sitio de NykÃ¸bing"
+    },
     "Batalla de Gołąb": {
       "parent": "El Diluvio",
       "type": "batalla",
@@ -7608,6 +12743,627 @@
       "consequences": "Limito la movilidad naval sueca y favorecio operaciones danesas en el teatro escanes.",
       "source": "Curaduria GeoRisk",
       "pageTitle": "Batalla de Køge Bay"
+    },
+    "Batalla naval de RÃ¼gen": {
+      "parent": "Gran Guerra del Norte",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Baltico",
+      "cause": "Control de comunicaciones y operaciones navales en torno a Pomerania sueca.",
+      "chronology": [
+        {
+          "year": 1712,
+          "text": "Combate dentro de Gran Guerra del Norte."
+        }
+      ],
+      "related": [
+        "Gran Guerra del Norte"
+      ],
+      "participants": [
+        {
+          "side": "Suecia",
+          "members": [
+            "Suecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Dinamarca-Noruega y aliados",
+          "members": [
+            "Dinamarca",
+            "Noruega"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Accion naval dentro del desgaste baltico.",
+      "consequences": "Mantuvo la presion sobre las posiciones suecas en el sur del Baltico.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla naval de RÃ¼gen"
+    },
+    "Batalla de Juarez": {
+      "parent": "Revolucion mexicana",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Chihuahua",
+      "cause": "Fuerzas villistas atacaron Ciudad Juarez en el contexto final de la Revolucion mexicana.",
+      "chronology": [
+        {
+          "year": 1919,
+          "text": "Combate dentro de Revolucion mexicana."
+        }
+      ],
+      "related": [
+        "Revolucion mexicana"
+      ],
+      "participants": [
+        {
+          "side": "Gobierno mexicano y Estados Unidos",
+          "members": [
+            "Mexico",
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Villistas",
+          "members": [
+            "Fuerzas villistas"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Derrota villista.",
+      "consequences": "Reforzo el declive militar de Villa y mostro la sensibilidad fronteriza con Estados Unidos.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Juarez"
+    },
+    "Batalla de Shenkursk": {
+      "parent": "Intervencion aliada en la Guerra Civil rusa",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Rusia septentrional",
+      "cause": "Fuerzas bolcheviques atacaron posiciones aliadas y blancas en el norte ruso.",
+      "chronology": [
+        {
+          "year": 1919,
+          "text": "Combate dentro de Intervencion aliada en la Guerra Civil rusa."
+        }
+      ],
+      "related": [
+        "Intervencion aliada en la Guerra Civil rusa"
+      ],
+      "participants": [
+        {
+          "side": "Bolcheviques",
+          "members": [
+            "Rusia sovietica"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Aliados y blancos",
+          "members": [
+            "Estados Unidos",
+            "Reino Unido",
+            "Movimiento Blanco"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria bolchevique.",
+      "consequences": "Aumento el costo politico de la intervencion aliada y anticipo su retirada del norte ruso.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Shenkursk"
+    },
+    "Batalla de La Flor": {
+      "parent": "Guerra de Sandino",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Nicaragua",
+      "cause": "Las fuerzas sandinistas combatieron la ocupacion estadounidense y al gobierno apoyado por Washington.",
+      "chronology": [
+        {
+          "year": 1928,
+          "text": "Combate dentro de Guerra de Sandino."
+        }
+      ],
+      "related": [
+        "Guerra de Sandino"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos y Guardia Nacional",
+          "members": [
+            "Estados Unidos",
+            "Nicaragua"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Sandinistas",
+          "members": [
+            "Ejercito Defensor de la Soberania Nacional"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Choque guerrillero de resultado limitado.",
+      "consequences": "Reflejo el caracter prolongado de la resistencia sandinista en zonas rurales.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de La Flor"
+    },
+    "Primera Batalla de Alihuata": {
+      "parent": "Guerra del Chaco",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Chaco Boreal",
+      "cause": "Bolivia y Paraguay disputaron posiciones y lineas de abastecimiento en el Chaco.",
+      "chronology": [
+        {
+          "year": 1933,
+          "text": "Combate dentro de Guerra del Chaco."
+        }
+      ],
+      "related": [
+        "Guerra del Chaco"
+      ],
+      "participants": [
+        {
+          "side": "Bolivia",
+          "members": [
+            "Bolivia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Paraguay",
+          "members": [
+            "Paraguay"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria paraguaya.",
+      "consequences": "Debilito posiciones bolivianas y contribuyo al giro de la guerra a favor de Paraguay.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Primera Batalla de Alihuata"
+    },
+    "Batalla del Atlantico": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "campana naval",
+      "scope": "mundial",
+      "region": "Atlantico",
+      "cause": "Alemania intento cortar las rutas logisticas aliadas mediante submarinos y guerra naval.",
+      "chronology": [
+        {
+          "year": 1939,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "Estados Unidos",
+            "Canada"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Eje",
+          "members": [
+            "Alemania",
+            "Italia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estrategica aliada.",
+      "consequences": "Aseguro el flujo logistico hacia Europa y fue esencial para sostener la guerra aliada.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla del Atlantico"
+    },
+    "Batalla de Belgica": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Europa occidental",
+      "cause": "Alemania lanzo su ofensiva occidental atravesando Belgica y los Paises Bajos.",
+      "chronology": [
+        {
+          "year": 1940,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Belgica",
+            "Reino Unido",
+            "Francia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria alemana.",
+      "consequences": "Provoco la rendicion belga y abrio la ruta hacia el colapso aliado en Francia.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Belgica"
+    },
+    "Batalla del cabo Spada": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Mediterraneo",
+      "cause": "Fuerzas navales britanicas e italianas disputaron rutas y presencia en el Mediterraneo oriental.",
+      "chronology": [
+        {
+          "year": 1940,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "Australia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Italia",
+          "members": [
+            "Italia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria aliada.",
+      "consequences": "Reforzo la presion aliada sobre las operaciones navales italianas en el Mediterraneo.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla del cabo Spada"
+    },
+    "Batalla de Dunkerque": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Francia",
+      "cause": "El avance aleman encerro a fuerzas aliadas en el norte de Francia.",
+      "chronology": [
+        {
+          "year": 1940,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "Francia",
+            "Belgica"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria alemana terrestre con evacuacion aliada exitosa.",
+      "consequences": "La evacuacion preservo gran parte del ejercito britanico, aunque Francia quedo gravemente comprometida.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Dunkerque"
+    },
+    "Batalla de la carretera de Raate": {
+      "parent": "Guerra de Invierno",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Finlandia",
+      "cause": "Finlandia busco destruir columnas sovieticas vulnerables en bosques y caminos estrechos.",
+      "chronology": [
+        {
+          "year": 1940,
+          "text": "Combate dentro de Guerra de Invierno."
+        }
+      ],
+      "related": [
+        "Guerra de Invierno"
+      ],
+      "participants": [
+        {
+          "side": "Finlandia",
+          "members": [
+            "Finlandia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Union Sovietica",
+          "members": [
+            "Union Sovietica"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria finlandesa.",
+      "consequences": "Se convirtio en ejemplo clasico de tacticas de movilidad, clima y terreno contra fuerzas superiores.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de la carretera de Raate"
+    },
+    "Batalla de Sedan (1940)": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Francia",
+      "cause": "Alemania concentro blindados para cruzar el Mosa y romper el frente frances.",
+      "chronology": [
+        {
+          "year": 1940,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Francia",
+          "members": [
+            "Francia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria alemana decisiva.",
+      "consequences": "Abio la ruptura operativa que llevo al cerco aliado y a la caida de Francia.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Sedan (1940)"
+    },
+    "Batalla de Sidi Barrani": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Africa del Norte",
+      "cause": "Reino Unido contraataco posiciones italianas en Egipto durante la Operacion Compass.",
+      "chronology": [
+        {
+          "year": 1940,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "India britanica"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Italia",
+          "members": [
+            "Italia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria aliada.",
+      "consequences": "Inicio una serie de derrotas italianas en Cirenaica y altero el equilibrio en Africa del Norte.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Sidi Barrani"
+    },
+    "Batalla de Creta": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Mediterraneo oriental",
+      "cause": "Alemania intento capturar Creta para asegurar el flanco sur tras la campana de Grecia.",
+      "chronology": [
+        {
+          "year": 1941,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "Grecia",
+            "Australia",
+            "Nueva Zelanda"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria alemana.",
+      "consequences": "La alta perdida de paracaidistas alemanes limito futuras operaciones aerotransportadas de gran escala.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Creta"
+    },
+    "Batalla de Hong Kong": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Asia oriental",
+      "cause": "Japon ataco posesiones britanicas en Asia durante la expansion inicial del Pacifico.",
+      "chronology": [
+        {
+          "year": 1941,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "Canada",
+            "Hong Kong colonial"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria japonesa.",
+      "consequences": "Hong Kong quedo bajo ocupacion japonesa hasta 1945.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Hong Kong"
+    },
+    "Batalla de Keren": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Africa oriental",
+      "cause": "Los Aliados atacaron posiciones italianas en Eritrea para expulsar al Eje de Africa oriental.",
+      "chronology": [
+        {
+          "year": 1941,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "India britanica",
+            "Sudafrica"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Italia",
+          "members": [
+            "Italia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria aliada.",
+      "consequences": "Abio el camino a Asmara y Massawa, debilitando decisivamente el Africa Oriental Italiana.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Keren"
     }
   }
 }

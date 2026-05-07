@@ -16,7 +16,6 @@
 <body>
 
 <div id="map"></div>
-<div id="boot-floating-chip" aria-live="polite">Arranque: pendiente</div>
 <div id="fatal-error-banner" hidden></div>
 
 <div id="top-controls">
@@ -207,6 +206,7 @@
           <button id="open-health-button" type="button">Salud dataset</button>
           <button id="open-risk-radar-button" type="button">Radar riesgo</button>
           <button id="open-conflict-audit-button" type="button">Auditoria conflictos</button>
+          <button id="open-project-audit-button" type="button">Auditoria proyecto</button>
           <button id="open-performance-button" type="button">Rendimiento</button>
           <button id="open-changelog-button" type="button">Changelog</button>
           <button id="open-docs-button" type="button">Documentaci&oacute;n</button>
@@ -218,9 +218,8 @@
       <div id="theme-summary" hidden></div>
       <p id="offline-status">Cache local en preparacion.</p>
       <div id="app-status-panel">
-        <span class="status-chip" id="render-profile-chip">Perfil de render: balanceado</span>
-        <span class="status-chip" id="boot-profile-chip">Arranque: pendiente</span>
-        <span class="status-chip" id="dataset-health-chip">Dataset: validado</span>
+        <button class="status-chip" id="render-profile-chip" type="button">Perfil de render: balanceado</button>
+        <button class="status-chip" id="dataset-health-chip" type="button">Dataset: validado</button>
       </div>
     </div>
   </details>
