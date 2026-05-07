@@ -1,22 +1,15 @@
 {
-  "generatedAt": "2026-05-03T02:30:35.805Z",
-  "startupBytes": 1577383,
-  "startupHuman": "1.50 MB",
-  "deferredBytes": 493936,
-  "deferredHuman": "482 KB",
+  "generatedAt": "2026-05-06T22:41:33.522Z",
+  "startupBytes": 1015514,
+  "startupHuman": "992 KB",
+  "deferredBytes": 674331,
+  "deferredHuman": "659 KB",
   "largestAssets": [
-    {
-      "path": "data/countries_index.json",
-      "exists": true,
-      "bytes": 648118,
-      "human": "633 KB",
-      "startupCritical": true
-    },
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 642277,
-      "human": "627 KB",
+      "bytes": 649950,
+      "human": "635 KB",
       "startupCritical": true
     },
     {
@@ -27,10 +20,17 @@
       "startupCritical": false
     },
     {
+      "path": "data/countries_index.json",
+      "exists": true,
+      "bytes": 252082,
+      "human": "246 KB",
+      "startupCritical": true
+    },
+    {
       "path": "data/conflict_details.generated.json",
       "exists": true,
-      "bytes": 229109,
-      "human": "224 KB",
+      "bytes": 235183,
+      "human": "230 KB",
       "startupCritical": false
     },
     {
@@ -38,20 +38,20 @@
       "exists": true,
       "bytes": 174321,
       "human": "170 KB",
-      "startupCritical": true
+      "startupCritical": false
     },
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 67641,
-      "human": "66 KB",
+      "bytes": 68289,
+      "human": "67 KB",
       "startupCritical": true
     },
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 29029,
-      "human": "28 KB",
+      "bytes": 29196,
+      "human": "29 KB",
       "startupCritical": true
     },
     {
@@ -94,22 +94,22 @@
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 29029,
-      "human": "28 KB",
+      "bytes": 29196,
+      "human": "29 KB",
       "startupCritical": true
     },
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 642277,
-      "human": "627 KB",
+      "bytes": 649950,
+      "human": "635 KB",
       "startupCritical": true
     },
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 67641,
-      "human": "66 KB",
+      "bytes": 68289,
+      "human": "67 KB",
       "startupCritical": true
     },
     {
@@ -178,8 +178,8 @@
     {
       "path": "data/countries_index.json",
       "exists": true,
-      "bytes": 648118,
-      "human": "633 KB",
+      "bytes": 252082,
+      "human": "246 KB",
       "startupCritical": true
     },
     {
@@ -190,13 +190,6 @@
       "startupCritical": true
     },
     {
-      "path": "data/world_countries_simplified.geo.json",
-      "exists": true,
-      "bytes": 174321,
-      "human": "170 KB",
-      "startupCritical": true
-    },
-    {
       "path": "data/world_countries.geo.json",
       "exists": true,
       "bytes": 256950,
@@ -204,10 +197,17 @@
       "startupCritical": false
     },
     {
+      "path": "data/world_countries_simplified.geo.json",
+      "exists": true,
+      "bytes": 174321,
+      "human": "170 KB",
+      "startupCritical": false
+    },
+    {
       "path": "data/conflict_details.generated.json",
       "exists": true,
-      "bytes": 229109,
-      "human": "224 KB",
+      "bytes": 235183,
+      "human": "230 KB",
       "startupCritical": false
     }
   ],

@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-05-03T02:28:17.929Z",
+  "generatedAt": "2026-05-06T22:27:17.332Z",
   "changedFullCountries": 0,
   "changedCountryFiles": 0,
   "detailStats": {
     "renamed": 0,
-    "enriched": 14
+    "enriched": 19
   },
   "safeRenames": {
     "Adriatic Campaign de World War II": "Campana del Adriatico en la Segunda Guerra Mundial",
@@ -32,6 +32,11 @@
     "Batalla de Stockholm",
     "Batalla de Bogesund",
     "Batalla de Solent",
+    "Sitio de Narva",
+    "Batalla de Salis",
+    "Sitio de Smolensk",
+    "Batalla de Swally",
+    "Batalla de Gniew",
     "Sitio de NykÃ¸bing"
   ]
 }

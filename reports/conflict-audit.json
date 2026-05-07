@@ -1,111 +1,16 @@
 {
-  "generatedAt": "2026-05-03T02:30:35.423Z",
+  "generatedAt": "2026-05-06T22:41:32.703Z",
   "scannedConflicts": 2007,
-  "issueCount": 1945,
+  "issueCount": 1940,
   "summary": {
-    "battle_without_parent": 1165,
-    "weak_detail": 1894,
+    "battle_without_parent": 1160,
+    "weak_detail": 1889,
     "generic_side": 21,
     "duplicate_names": 4,
     "english": 5,
     "leading_year": 7
   },
   "topIssues": [
-    {
-      "key": "sitio de narva",
-      "name": "Sitio de Narva",
-      "names": [
-        "Sitio de Narva"
-      ],
-      "countries": [
-        "SWE"
-      ],
-      "startYear": 1581,
-      "endYear": 1581,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de salis",
-      "name": "Batalla de Salis",
-      "names": [
-        "Batalla de Salis"
-      ],
-      "countries": [
-        "SWE"
-      ],
-      "startYear": 1609,
-      "endYear": 1609,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "sitio de smolensk",
-      "name": "Sitio de Smolensk",
-      "names": [
-        "Sitio de Smolensk"
-      ],
-      "countries": [
-        "SWE"
-      ],
-      "startYear": 1609,
-      "endYear": 1611,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de swally",
-      "name": "Batalla de Swally",
-      "names": [
-        "Batalla de Swally"
-      ],
-      "countries": [
-        "PRT"
-      ],
-      "startYear": 1612,
-      "endYear": 1612,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de gniew",
-      "name": "Batalla de Gniew",
-      "names": [
-        "Batalla de Gniew"
-      ],
-      "countries": [
-        "SWE"
-      ],
-      "startYear": 1626,
-      "endYear": 1626,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
     {
       "key": "batalla de czarne",
       "name": "Batalla de Czarne",
@@ -5749,6 +5654,101 @@
       ],
       "countries": [
         "GBR"
+      ],
+      "startYear": 1945,
+      "endYear": 1945,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de collecchio",
+      "name": "Batalla de Collecchio",
+      "names": [
+        "Batalla de Collecchio"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1945,
+      "endYear": 1945,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de davao",
+      "name": "Batalla de Davao",
+      "names": [
+        "Batalla de Davao"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1945,
+      "endYear": 1945,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de frankfurt",
+      "name": "Batalla de Frankfurt",
+      "names": [
+        "Batalla de Frankfurt"
+      ],
+      "countries": [
+        "PER"
+      ],
+      "startYear": 1945,
+      "endYear": 1945,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de hamburgo",
+      "name": "Batalla de Hamburgo",
+      "names": [
+        "Batalla de Hamburgo"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1945,
+      "endYear": 1945,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de iwo jima",
+      "name": "Batalla de Iwo Jima",
+      "names": [
+        "Batalla de Iwo Jima"
+      ],
+      "countries": [
+        "USA"
       ],
       "startYear": 1945,
       "endYear": 1945,

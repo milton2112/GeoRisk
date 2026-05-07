@@ -5,6 +5,7 @@ import {
   inferConflictYearsFromText,
   mergeConflictEntries
 } from "./lib/conflict-cleaning.js";
+import { buildStartupCountryIndex } from "./lib/startup-index.js";
 import { repairMojibake as repairMojibakeShared } from "./lib/text-normalization.js";
 
 const YEAR_COLUMNS = Array.from({ length: 2025 - 1960 + 1 }, (_, index) =>
@@ -5501,82 +5502,7 @@ function limitArray(value, maxItems = 4) {
   return Array.isArray(value) ? value.slice(0, maxItems) : [];
 }
 
-function buildCountryIndexRelations(relations = {}) {
-  return {
-    exMetropole: relations.exMetropole || null,
-    blocs: limitArray(relations.blocs, 4),
-    militaryBlocs: limitArray(relations.militaryBlocs, 4),
-    economicBlocs: limitArray(relations.economicBlocs, 4),
-    diplomaticBlocs: limitArray(relations.diplomaticBlocs, 4),
-    militaryAllies: limitArray(relations.militaryAllies, 4),
-    economicPartners: limitArray(relations.economicPartners, 4),
-    diplomaticPartners: limitArray(relations.diplomaticPartners, 4),
-    currentRivals: limitArray(relations.currentRivals, 4),
-    historicalRivals: limitArray(relations.historicalRivals, 4),
-    disputedTerritories: limitArray(relations.disputedTerritories || relations.disputes, 4),
-    dependencies: limitArray(relations.dependencies || relations.protectorates, 4),
-    associatedTerritories: limitArray(relations.associatedTerritories || relations.linkedTerritories, 4)
-  };
-}
-
-const countryIndex = Object.fromEntries(
-  Object.entries(sanitizedResult).map(([code, country]) => [
-    code,
-    {
-      name: country.name,
-      continent: country.continent,
-      general: {
-        population: country.general?.population ?? 0,
-        geography: country.general?.geography ?? null,
-        officialName: country.general?.officialName ?? country.name,
-        historicalNames: (country.general?.historicalNames || []).slice(0, 4),
-        symbols: country.general?.symbols || {},
-        capital: country.general?.capital || null,
-        capitals: country.general?.capitals || [],
-        languages: country.general?.languages || [],
-        stateStructure: country.general?.stateStructure || null,
-        subdivisions: country.general?.subdivisions || null,
-        cities: (country.general?.cities || []).slice(0, 3)
-      },
-      history: {
-        year: country.history?.year ?? null,
-        type: country.history?.type ?? null,
-        origin: country.history?.origin ?? null,
-        events: (country.history?.events || []).slice(0, 2)
-      },
-      economy: {
-        gdp: country.economy?.gdp ?? null,
-        gdpPerCapita: country.economy?.gdpPerCapita ?? null,
-        inflation: country.economy?.inflation ?? null,
-        exports: (country.economy?.exports || []).slice(0, 6),
-        industries: (country.economy?.industries || []).slice(0, 6)
-      },
-      military: {
-        active: country.military?.active ?? null,
-        reserve: country.military?.reserve ?? null,
-        conflicts: (country.military?.conflicts || []).slice(0, 5)
-      },
-      politics: {
-        system: country.politics?.system ?? null,
-        organizations: (country.politics?.organizations || []).slice(0, 5),
-        rivals: (country.politics?.rivals || []).slice(0, 5),
-        relations: buildCountryIndexRelations(country.politics?.relations)
-      },
-      religion: {
-        summary: country.religion?.summary || null,
-        majority: country.religion?.majority || null,
-        branch: country.religion?.branch || null,
-        composition: (country.religion?.composition || []).slice(0, 4)
-      },
-      metadata: {
-        updatedAt: country.metadata?.updatedAt,
-        quality: country.metadata?.quality,
-        isIndex: true
-      },
-      conflicts: (country.conflicts || []).slice(0, 5)
-    }
-  ])
-);
+const countryIndex = buildStartupCountryIndex(sanitizedResult);
 fs.writeJsonSync("./data/countries_index.json", sanitizeDeep(countryIndex), { spaces: 0 });
 fs.emptyDirSync("./data/countries");
 Object.entries(sanitizedResult).forEach(([code, country]) => {

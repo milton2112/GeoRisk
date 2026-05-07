@@ -49,6 +49,7 @@ assert.ok(Buffer.byteLength(sw) < 7000, "service worker debe mantenerse liviano"
 assert.ok(indexHtml.includes("intro-runtime-grid"), "portada debe mostrar estado runtime");
 assert.ok(indexHtml.includes("intro-data-grid"), "portada debe mostrar cobertura del dataset");
 assert.ok(indexHtml.includes("open-performance-button"), "UI debe exponer panel interno de rendimiento");
+assert.ok(indexHtml.includes("open-risk-radar-button"), "UI debe exponer radar de riesgo multiparametrico");
 for (const id of ["intro-country-count", "intro-conflict-count", "intro-layer-count", "intro-special-count"]) {
   assert.ok(indexHtml.includes(id), `portada debe exponer ${id}`);
 }
@@ -75,6 +76,8 @@ assert.ok(script.includes("app-compare-ui.js"), "comparador debe tener modulo di
 assert.ok(script.includes("app-quiz-ui.js"), "quiz debe tener modulo diferido declarado");
 assert.ok(script.includes("function renderCountryCurationTodo"), "ficha pais debe exponer checklist de curaduria");
 assert.ok(script.includes("function getCountryCurationActions"), "ficha pais debe exponer acciones de curaduria por seccion");
+assert.ok(script.includes("function getCountryRiskRadarComponents"), "runtime debe exponer radar de riesgo explicable");
+assert.ok(script.includes("function renderRiskRadarPanel"), "runtime debe exponer panel interno de radar de riesgo");
 assert.ok(script.includes("Que falta curar"), "ficha pais debe mostrar que falta curar");
 assert.ok(appRuntime.includes(" - rendimiento"), "perfil runtime debe usar separador ASCII estable");
 assert.ok(!appRuntime.includes("Â"), "app-runtime no debe exponer mojibake visible");
@@ -83,11 +86,11 @@ for (const country of Object.values(index)) {
   const relations = country.politics?.relations || {};
   for (const [key, value] of Object.entries(relations)) {
     if (Array.isArray(value)) {
-      assert.ok(value.length <= 4, `relacion ${key} debe venir resumida en el indice`);
+      assert.ok(value.length <= 2, `relacion ${key} debe venir resumida en el indice`);
     }
   }
-  assert.ok((country.conflicts || []).length <= 5, "conflictos del indice deben venir resumidos");
-  assert.ok((country.religion?.composition || []).length <= 4, "religion del indice debe venir resumida");
+  assert.ok((country.conflicts || []).length <= 1, "conflictos del indice deben venir muy resumidos");
+  assert.ok((country.religion?.composition || []).length <= 2, "religion del indice debe venir resumida");
 }
 
 console.log("startup-data.test.js ok");

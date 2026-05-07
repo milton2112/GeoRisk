@@ -220,6 +220,84 @@ export const CURATED_CONFLICT_DETAIL_FIXES = {
     ],
     outcome: "Resultado indeciso con defensa inglesa de la costa.",
     consequences: "Quedo asociada al hundimiento del Mary Rose y a la defensa naval inglesa."
+  },
+  "Sitio de Narva": {
+    parent: "Guerra livonia",
+    type: "sitio",
+    scope: "regional",
+    region: "Baltico",
+    cause: "Control de Narva y rutas balticas durante la rivalidad entre Suecia, Rusia y Polonia-Lituania.",
+    chronology: [{ year: 1581, text: "Fuerzas suecas toman Narva durante la Guerra livonia." }],
+    related: ["Guerra livonia", "Rivalidad sueco-rusa"],
+    participants: [
+      { side: "Suecia", members: ["Suecia"], organizations: [], troops: "fuerzas de asedio", casualties: "significativas" },
+      { side: "Rusia zarista", members: ["Rusia"], organizations: [], troops: "guarnicion local", casualties: "significativas" }
+    ],
+    outcome: "Victoria sueca y captura de Narva.",
+    consequences: "Fortalecio la presencia sueca en el Baltico oriental."
+  },
+  "Batalla de Salis": {
+    parent: "Guerra polaco-sueca de 1600-1611",
+    type: "batalla naval",
+    scope: "regional",
+    region: "Baltico",
+    cause: "Disputa por Livonia y control naval del Baltico.",
+    chronology: [{ year: 1609, text: "Combate naval entre fuerzas suecas y polaco-lituanas." }],
+    related: ["Guerra polaco-sueca de 1600-1611"],
+    participants: [
+      { side: "Suecia", members: ["Suecia"], organizations: [], troops: "escuadra naval", casualties: "inciertas" },
+      { side: "Polonia-Lituania", members: ["Polonia-Lituania"], organizations: [], troops: "escuadra naval", casualties: "inciertas" }
+    ],
+    outcome: "Resultado tactico vinculado al control naval regional.",
+    consequences: "Mantuvo la presion sobre las rutas balticas."
+  },
+  "Sitio de Smolensk": {
+    parent: "Guerra polaco-rusa",
+    type: "sitio",
+    scope: "regional",
+    region: "Europa oriental",
+    cause: "Disputa por Smolensk durante el Tiempo de los Problemas ruso.",
+    chronology: [
+      { year: 1609, text: "Comienza el asedio polaco-lituano de Smolensk." },
+      { year: 1611, text: "La ciudad cae tras un largo sitio." }
+    ],
+    related: ["Guerra polaco-rusa", "Tiempo de los Problemas"],
+    participants: [
+      { side: "Polonia-Lituania", members: ["Polonia-Lituania"], organizations: [], troops: "fuerzas de asedio", casualties: "elevadas" },
+      { side: "Rusia", members: ["Rusia"], organizations: [], troops: "guarnicion y defensores locales", casualties: "elevadas" }
+    ],
+    outcome: "Captura de Smolensk por Polonia-Lituania.",
+    consequences: "Altero temporalmente el equilibrio en la frontera occidental rusa."
+  },
+  "Batalla de Swally": {
+    parent: "Rivalidad naval luso-inglesa en el Indico",
+    type: "batalla naval",
+    scope: "regional",
+    region: "Oceano Indico",
+    cause: "Competencia por rutas comerciales y presencia europea en India.",
+    chronology: [{ year: 1612, text: "Navios ingleses derrotan a una fuerza portuguesa cerca de Surat." }],
+    related: ["Expansion europea en el Oceano Indico"],
+    participants: [
+      { side: "Compania Inglesa de las Indias Orientales", members: ["Inglaterra"], organizations: ["Compania Inglesa de las Indias Orientales"], troops: "escuadra naval", casualties: "moderadas" },
+      { side: "Portugal", members: ["Portugal"], organizations: [], troops: "escuadra portuguesa", casualties: "moderadas" }
+    ],
+    outcome: "Victoria inglesa.",
+    consequences: "Facilito el establecimiento comercial ingles en Surat."
+  },
+  "Batalla de Gniew": {
+    parent: "Guerra polaco-sueca de 1626-1629",
+    type: "batalla",
+    scope: "regional",
+    region: "Prusia Real",
+    cause: "Disputa sueco-polaca por Prusia y el control del Baltico.",
+    chronology: [{ year: 1626, text: "Combate entre Gustavo Adolfo y fuerzas polaco-lituanas cerca de Gniew." }],
+    related: ["Guerra polaco-sueca de 1626-1629"],
+    participants: [
+      { side: "Suecia", members: ["Suecia"], organizations: [], troops: "fuerzas de campana", casualties: "significativas" },
+      { side: "Polonia-Lituania", members: ["Polonia-Lituania"], organizations: [], troops: "fuerzas de campana", casualties: "significativas" }
+    ],
+    outcome: "Resultado indeciso con continuidad de la campana.",
+    consequences: "Anticipo nuevas batallas por el control de Prusia."
   }
 };
 

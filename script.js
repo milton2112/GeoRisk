@@ -637,6 +637,14 @@ Object.assign(THEME_STYLES, {
     { min: 25, color: "#9d4edd", label: "Influencia media" },
     { min: 10, color: "#c77dff", label: "Influencia limitada" },
     { min: 0, color: "#efe2ff", label: "Influencia baja" }
+  ],
+  riskRadar: [
+    { min: 80, color: "#6a040f", label: "Riesgo critico" },
+    { min: 65, color: "#9d0208", label: "Riesgo muy alto" },
+    { min: 50, color: "#dc2f02", label: "Riesgo alto" },
+    { min: 35, color: "#f48c06", label: "Riesgo medio" },
+    { min: 20, color: "#ffba08", label: "Riesgo bajo" },
+    { min: 0, color: "#d9ed92", label: "Riesgo contenido" }
   ]
 });
 
@@ -649,7 +657,8 @@ const THEME_PROXY_KEYS = new Set([
   "exportVolume",
   "gdpPpp",
   "inflationHistory",
-  "geopoliticalIndex"
+  "geopoliticalIndex",
+  "riskRadar"
 ]);
 
 if (sharedTheme.MAP_LABEL_SETS) {
@@ -7745,6 +7754,44 @@ function getCountryGeopoliticalIndex(country) {
   return clampThemeValue(score, 0, 100);
 }
 
+function getCountryRiskRadarComponents(country) {
+  const conflictExposure = Math.min(100, getCountryWarParticipationCount(country) * 6 + getCountryConflictCount(country) * 8);
+  const militaryPressure = Math.min(100, Math.log10(getCountryMilitaryActive(country) + 1) * 13);
+  const rivalryPressure = Math.min(100, getCountryRivalCount(country) * 18 + (country?.politics?.relations?.disputedTerritories || []).length * 18);
+  const economicStress = Math.min(100,
+    Math.max(0, Number(country?.economy?.inflation) || 0) * 2.2
+    + (country?.economy?.gdpPerCapita ? Math.max(0, 28000 - Number(country.economy.gdpPerCapita)) / 700 : 18)
+  );
+  const governanceStress = Math.min(100,
+    /transicion|interino|junta|militar|autoritar|teocr/i.test(String(country?.politics?.system || "")) ? 55 : 24
+  );
+  const diplomaticBuffer = Math.min(35, getCountryOrganizationCount(country) * 0.7 + getCountryDiplomaticReach(country) * 0.35);
+  const risk = clampThemeValue(
+    conflictExposure * 0.28
+      + militaryPressure * 0.18
+      + rivalryPressure * 0.2
+      + economicStress * 0.18
+      + governanceStress * 0.12
+      - diplomaticBuffer * 0.35,
+    0,
+    100
+  );
+
+  return {
+    risk,
+    conflictExposure,
+    militaryPressure,
+    rivalryPressure,
+    economicStress,
+    governanceStress,
+    diplomaticBuffer
+  };
+}
+
+function getCountryRiskRadar(country) {
+  return getCountryRiskRadarComponents(country).risk;
+}
+
 function getCountryBlocLabel(country) {
   return (country?.politics?.relations?.blocs || []).slice(0, 2).join(", ") || t("noData");
 }
@@ -7969,6 +8016,11 @@ function getCountryThemeStyle(code) {
   if (currentTheme === "geopoliticalIndex") {
     const fillColor = getBucketThemeInfo(getCountryGeopoliticalIndex(country), THEME_STYLES.geopoliticalIndex).color;
     return adapt({ ...DEFAULT_STYLE, color: "#240046", fillColor, fillOpacity: 0.86 });
+  }
+
+  if (currentTheme === "riskRadar") {
+    const fillColor = getBucketThemeInfo(getCountryRiskRadar(country), THEME_STYLES.riskRadar).color;
+    return adapt({ ...DEFAULT_STYLE, color: "#6a040f", fillColor, fillOpacity: 0.88 });
   }
 
   if (currentTheme === "qualityScore") {
@@ -8204,6 +8256,11 @@ function renderThemeLegend() {
       label: item.label,
       color: item.color
     }));
+  } else if (currentTheme === "riskRadar") {
+    items = THEME_STYLES.riskRadar.map(item => ({
+      label: item.label,
+      color: item.color
+    }));
   } else if (currentTheme === "qualityScore") {
     items = THEME_STYLES.qualityScore.map(item => ({
       label: item.label,
@@ -8340,6 +8397,15 @@ function getThemeMetricConfig(theme = currentTheme) {
         : "Indice compuesto que combina demografia, economia, capacidad militar, organizaciones y exposicion al conflicto.",
       formatter: value => `${formatNumber(Math.round((value || 0) * 10) / 10)} / 100`,
       getter: country => getCountryGeopoliticalIndex(country),
+      estimated: true
+    },
+    riskRadar: {
+      title: currentLanguage === "en" ? "Multi-variable risk radar" : "Radar de riesgo multiparametrico",
+      description: currentLanguage === "en"
+        ? "Explainable proxy combining conflict exposure, military pressure, rivals, economic stress, governance and diplomatic buffers."
+        : "Proxy explicable que combina exposicion a conflictos, presion militar, rivales, estres economico, gobernanza y amortiguadores diplomaticos.",
+      formatter: value => `${formatNumber(Math.round((value || 0) * 10) / 10)} / 100`,
+      getter: country => getCountryRiskRadar(country),
       estimated: true
     },
     qualityScore: {
@@ -9638,6 +9704,10 @@ function updateStaticText() {
   if (openHealthButton) {
     openHealthButton.textContent = currentLanguage === "en" ? "Dataset health" : "Salud dataset";
   }
+  const openRiskRadarButton = document.getElementById("open-risk-radar-button");
+  if (openRiskRadarButton) {
+    openRiskRadarButton.textContent = currentLanguage === "en" ? "Risk radar" : "Radar riesgo";
+  }
   const openChangelogButton = document.getElementById("open-changelog-button");
   if (openChangelogButton) {
     openChangelogButton.textContent = currentLanguage === "en" ? "Changelog" : "Changelog";
@@ -10262,6 +10332,85 @@ async function renderPerformancePanel() {
   );
 }
 
+function renderRiskRadarPanel() {
+  const countries = Object.entries(countriesData || {})
+    .map(([code, country]) => ({
+      code,
+      country,
+      components: getCountryRiskRadarComponents(country)
+    }))
+    .sort((a, b) => b.components.risk - a.components.risk)
+    .slice(0, 18);
+  const selected = getCurrentThemeSelectedCountry();
+  const selectedComponents = selected ? getCountryRiskRadarComponents(selected) : null;
+  const componentRows = selectedComponents
+    ? Object.entries({
+        conflictExposure: currentLanguage === "en" ? "Conflict exposure" : "Exposicion a conflicto",
+        militaryPressure: currentLanguage === "en" ? "Military pressure" : "Presion militar",
+        rivalryPressure: currentLanguage === "en" ? "Rivals/disputes" : "Rivales y disputas",
+        economicStress: currentLanguage === "en" ? "Economic stress" : "Estres economico",
+        governanceStress: currentLanguage === "en" ? "Governance stress" : "Estres de gobernanza",
+        diplomaticBuffer: currentLanguage === "en" ? "Diplomatic buffer" : "Amortiguador diplomatico"
+      }).map(([key, label]) => `
+        <li>
+          <span>${escapeHtml(label)}</span>
+          <div class="health-progress-track"><i style="width:${Math.round(selectedComponents[key] || 0)}%"></i></div>
+          <b>${formatNumber(Math.round(selectedComponents[key] || 0))}/100</b>
+        </li>
+      `).join("")
+    : "";
+
+  openProductModal(
+    currentLanguage === "en" ? "Multi-variable risk radar" : "Radar de riesgo multiparametrico",
+    `
+      <div class="product-insight-strip">
+        <span>${currentLanguage === "en"
+          ? "Unlike a military-only radar, this view weighs conflict exposure, economic stress, rivals, governance and diplomatic buffers."
+          : "A diferencia de un radar solo militar, esta vista pondera conflictos, estres economico, rivales, gobernanza y amortiguadores diplomaticos."}</span>
+      </div>
+      <div class="product-summary-grid">
+        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Model" : "Modelo"}</span><strong class="overview-value">${currentLanguage === "en" ? "Explainable proxy" : "Proxy explicable"}</strong></div>
+        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Variables" : "Variables"}</span><strong class="overview-value">6</strong></div>
+        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Best use" : "Uso ideal"}</span><strong class="overview-value">${currentLanguage === "en" ? "Compare weak signals" : "Comparar senales debiles"}</strong></div>
+        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Map layer" : "Capa mapa"}</span><strong class="overview-value">riskRadar</strong></div>
+      </div>
+      ${selected ? `
+        <div class="help-section">
+          <h3>${escapeHtml(selected.name)} - ${formatNumber(Math.round(selectedComponents.risk))}/100</h3>
+          <ul class="health-progress-list">${componentRows}</ul>
+        </div>
+      ` : ""}
+      <div class="help-section">
+        <h3>${currentLanguage === "en" ? "Top risk watchlist" : "Watchlist de riesgo"}</h3>
+        <div class="risk-watch-grid">
+          ${countries.map(({ code, country, components }) => `
+            <button type="button" class="risk-watch-card" data-open-country="${escapeHtml(code)}">
+              <strong>${getFlagEmoji(code)} ${escapeHtml(country.name)}</strong>
+              <span>${formatNumber(Math.round(components.risk))}/100 - ${escapeHtml(country.continent || "")}</span>
+            </button>
+          `).join("")}
+        </div>
+      </div>
+      <div class="help-section">
+        <h3>${currentLanguage === "en" ? "How to read it" : "Como leerlo"}</h3>
+        <p>${currentLanguage === "en"
+          ? "This is not a prediction. It is a prioritization lens for curation and analysis, designed to show why a country appears risky."
+          : "No es una prediccion. Es una lente de priorizacion para curaduria y analisis, pensada para mostrar por que un pais aparece como riesgoso."}</p>
+      </div>
+    `
+  );
+
+  document.querySelectorAll("[data-open-country]").forEach(button => {
+    button.addEventListener("click", () => {
+      const code = button.dataset.openCountry;
+      if (code && countriesData[code]) {
+        closeProductModal();
+        renderCountry(countriesData[code], countriesData[code].name);
+      }
+    });
+  });
+}
+
 function openHelpModal() {
   const modal = document.getElementById("help-modal");
   if (!modal) {
@@ -10291,6 +10440,7 @@ function setupSavedViewControls() {
   const appModeSelect = document.getElementById("app-mode-select");
   const introButton = document.getElementById("open-intro-button");
   const healthButton = document.getElementById("open-health-button");
+  const riskRadarButton = document.getElementById("open-risk-radar-button");
   const performanceButton = document.getElementById("open-performance-button");
   const changelogButton = document.getElementById("open-changelog-button");
   const docsButton = document.getElementById("open-docs-button");
@@ -10344,6 +10494,7 @@ function setupSavedViewControls() {
   });
   introButton?.addEventListener("click", () => openIntroModal());
   healthButton?.addEventListener("click", () => renderDatasetHealthPanel());
+  riskRadarButton?.addEventListener("click", () => renderRiskRadarPanel());
   performanceButton?.addEventListener("click", () => renderPerformancePanel());
   changelogButton?.addEventListener("click", () => renderChangelogPanel());
   clearLocalCacheButton?.addEventListener("click", () => clearLocalGeoRiskCache());
