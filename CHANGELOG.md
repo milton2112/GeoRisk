@@ -37,6 +37,15 @@ Actualizacion de producto orientada a uso real y crecimiento futuro.
 - Radar de riesgo con bloque metodologico: mejor uso, limites del modelo y proxima mejora analitica.
 - Curaduria de entreguerras y Segunda Guerra Mundial inicial: Juarez, Shenkursk, La Flor, Alihuata, Atlantico, Belgica, Dunkerque, Raate, Sedan, Sidi Barrani, Creta, Hong Kong y Keren.
 - Panel de rendimiento con recomendacion automatica segun el cuello de botella medido en arranque.
+- Curaduria ampliada de Segunda Guerra Mundial inicial: Giarabub, Kvam, Rotterdam, Ypres-Comines, Agordat, Damasco, Gondar, Guam, Gurun, Kampar, Ko Chang, Wake, linea Metaxas, Termopilas, cabo Matapan y Amba Alagi.
+- Panel de rendimiento con banner visual de estado: arranque sano, en observacion o pesado.
+- Test de higiene visual ampliado para proteger el panel de rendimiento y sus recomendaciones.
+- Curaduria de 1942: Alam el Halfa, Bir Hakeim, Gazala, El Alamein, Midway, Java, Singapur, Buna-Gona, Bahia de Milne y Guadalcanal.
+- Curaduria ampliada de 1942-1943: Balikpapan, Bukit Timah, El Agheila, Kranji, cresta de Edson, Mount Austen, Muar, Port Moresby, Slim River, Timor, Tulagi, Badung, Sonda y Tjiater.
+- Curaduria adicional guiada por auditoria: Malolo, Muddy Flat, Barrier Forts, Whitestone Hill, Killdeer Mountain, Infernal Caverns, Khannour, Santa Cruz, Bud Dajo, Bud Bagsak, Fort Dipitie y nuevas batallas de 1943.
+- Nueva pasada de 1943: Kos, Leros, Isla Rennell, Munda Point, Piva Forks, Sattelberg, Scarlet Beach, Horaniu, Koromokina y campana del norte de Birmania/Yunnan.
+- Auditoria de conflictos con nota editorial automatica sobre la deuda dominante para orientar la siguiente tanda.
+- Test de autofix ampliado para cubrir curaduria moderna y renombres seguros de Segunda Guerra Mundial.
 - Panel "Auditoria proyecto" con tarjetas de advertencias para ver deuda tecnica y riesgos sin abrir reportes JSON.
 - Pulido visual moderno en modales, secciones, tarjetas de riesgo y auditorias internas.
 - Nueva tanda de curaduria segura para batallas europeas modernas, con parentado guerra > batalla y detalle estable.

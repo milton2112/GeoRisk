@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-05-07T23:35:06.506Z",
+  "generatedAt": "2026-05-12T00:30:59.733Z",
   "status": "operativo",
   "startup": {
-    "critical": "986 KB",
-    "criticalBytes": 1009990,
-    "deferred": "849 KB",
+    "critical": "988 KB",
+    "criticalBytes": 1011339,
+    "deferred": "938 KB",
     "largestAssets": [
       {
         "path": "script.js",
@@ -16,8 +16,8 @@
       {
         "path": "data/conflict_details.generated.json",
         "exists": true,
-        "bytes": 429044,
-        "human": "419 KB",
+        "bytes": 519938,
+        "human": "508 KB",
         "startupCritical": false
       },
       {
@@ -44,8 +44,8 @@
       {
         "path": "style.css",
         "exists": true,
-        "bytes": 78882,
-        "human": "77 KB",
+        "bytes": 80231,
+        "human": "78 KB",
         "startupCritical": true
       },
       {
@@ -65,8 +65,8 @@
       {
         "path": "app-performance-ui.js",
         "exists": true,
-        "bytes": 3380,
-        "human": "3 KB",
+        "bytes": 3959,
+        "human": "4 KB",
         "startupCritical": false
       },
       {
@@ -94,11 +94,11 @@
   },
   "conflicts": {
     "scanned": 2010,
-    "issueCount": 1797,
+    "issueCount": 1724,
     "summary": {
-      "battle_without_parent": 1005,
-      "weak_detail": 1736,
-      "duplicate_names": 16,
+      "battle_without_parent": 930,
+      "weak_detail": 1661,
+      "duplicate_names": 18,
       "english": 5,
       "generic_side": 19,
       "leading_year": 7
@@ -106,23 +106,19 @@
     "eraFocus": [
       {
         "label": "Antes de 1850",
-        "count": 1
-      },
-      {
-        "label": "1850-1899",
-        "count": 7
+        "count": 5
       },
       {
         "label": "1900-1918",
-        "count": 4
+        "count": 1
       },
       {
         "label": "1919-1945",
-        "count": 146
+        "count": 82
       },
       {
         "label": "Pos-1945",
-        "count": 142
+        "count": 212
       }
     ]
   },
@@ -136,14 +132,20 @@
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 78882,
-      "human": "77 KB"
+      "bytes": 80231,
+      "human": "78 KB"
     },
     {
       "path": "index.html",
       "exists": true,
       "bytes": 29592,
       "human": "29 KB"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "exists": true,
+      "bytes": 9107,
+      "human": "9 KB"
     },
     {
       "path": "app-text.js",
@@ -158,12 +160,6 @@
       "human": "8 KB"
     },
     {
-      "path": "CHANGELOG.md",
-      "exists": true,
-      "bytes": 7507,
-      "human": "7 KB"
-    },
-    {
       "path": "USER_GUIDE.md",
       "exists": true,
       "bytes": 6771,
@@ -172,7 +168,7 @@
     {
       "path": "app-project-audit-ui.js",
       "exists": true,
-      "bytes": 5823,
+      "bytes": 6451,
       "human": "6 KB"
     },
     {
@@ -184,14 +180,14 @@
     {
       "path": "app-conflict-audit-ui.js",
       "exists": true,
-      "bytes": 3519,
-      "human": "3 KB"
+      "bytes": 4332,
+      "human": "4 KB"
     },
     {
       "path": "app-performance-ui.js",
       "exists": true,
-      "bytes": 3380,
-      "human": "3 KB"
+      "bytes": 3959,
+      "human": "4 KB"
     },
     {
       "path": "app-runtime.js",
@@ -281,7 +277,7 @@
   "criticalIssues": [],
   "warnings": [
     "script.js sigue siendo el mayor bloque de mantenimiento.",
-    "La auditoria de conflictos conserva 1797 alertas."
+    "La auditoria de conflictos conserva 1724 alertas."
   ],
   "nextActions": [
     "Mantener el arranque critico por debajo de 1 MB en cada release.",

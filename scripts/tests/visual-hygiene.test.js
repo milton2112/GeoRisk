@@ -40,5 +40,11 @@ assert.ok(css.includes("#map-toolbar .toolbar-content") || css.includes(".toolba
 assert.ok(css.includes("overflow-y: auto"), "panel de capas debe tener scroll vertical propio");
 assert.ok(css.includes("overscroll-behavior: contain"), "panel de capas debe contener el scroll");
 assert.ok(css.includes("position: sticky"), "cabecera del panel de capas debe quedar fija al scrollear");
+assert.ok(css.includes(".performance-status-banner"), "panel de rendimiento debe exponer estado visual de arranque");
+assert.ok(css.includes(".performance-recommendation-card"), "panel de rendimiento debe exponer recomendacion automatica");
+
+const performanceUi = await fs.readFile(path.join(projectRoot, "app-performance-ui.js"), "utf8");
+assert.ok(performanceUi.includes("Recomendacion automatica"), "rendimiento debe explicar la recomendacion en espanol");
+assert.ok(performanceUi.includes("Arranque sano"), "rendimiento debe distinguir estado sano");
 
 console.log("visual-hygiene.test.js ok");

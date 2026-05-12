@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-05-07T23:35:05.727Z",
-  "startupBytes": 1009990,
-  "startupHuman": "986 KB",
-  "deferredBytes": 869505,
-  "deferredHuman": "849 KB",
+  "generatedAt": "2026-05-12T00:30:58.832Z",
+  "startupBytes": 1011339,
+  "startupHuman": "988 KB",
+  "deferredBytes": 960978,
+  "deferredHuman": "938 KB",
   "largestAssets": [
     {
       "path": "script.js",
@@ -15,8 +15,8 @@
     {
       "path": "data/conflict_details.generated.json",
       "exists": true,
-      "bytes": 429044,
-      "human": "419 KB",
+      "bytes": 519938,
+      "human": "508 KB",
       "startupCritical": false
     },
     {
@@ -43,8 +43,8 @@
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 78882,
-      "human": "77 KB",
+      "bytes": 80231,
+      "human": "78 KB",
       "startupCritical": true
     },
     {
@@ -64,8 +64,8 @@
     {
       "path": "app-performance-ui.js",
       "exists": true,
-      "bytes": 3380,
-      "human": "3 KB",
+      "bytes": 3959,
+      "human": "4 KB",
       "startupCritical": false
     },
     {
@@ -108,8 +108,8 @@
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 78882,
-      "human": "77 KB",
+      "bytes": 80231,
+      "human": "78 KB",
       "startupCritical": true
     },
     {
@@ -171,8 +171,8 @@
     {
       "path": "app-performance-ui.js",
       "exists": true,
-      "bytes": 3380,
-      "human": "3 KB",
+      "bytes": 3959,
+      "human": "4 KB",
       "startupCritical": false
     },
     {
@@ -206,8 +206,8 @@
     {
       "path": "data/conflict_details.generated.json",
       "exists": true,
-      "bytes": 429044,
-      "human": "419 KB",
+      "bytes": 519938,
+      "human": "508 KB",
       "startupCritical": false
     }
   ],

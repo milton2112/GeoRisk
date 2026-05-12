@@ -19,7 +19,16 @@ function renderPerformancePanelContent({
       : data > overlay
         ? (language === "en" ? "Data dominates: keep datasets lazy and avoid adding startup-critical JSON." : "Dominan los datos: mantener datasets diferidos y evitar JSON critico de arranque.")
         : (language === "en" ? "Startup is balanced: keep watching script.js and visual layers." : "Arranque equilibrado: seguir vigilando script.js y capas visuales.");
+  const bootState = total > 8000
+    ? { className: "heavy", label: language === "en" ? "Heavy boot" : "Arranque pesado" }
+    : total > 4000
+      ? { className: "watch", label: language === "en" ? "Watch closely" : "En observacion" }
+      : { className: "healthy", label: language === "en" ? "Healthy boot" : "Arranque sano" };
   return `
+    <div class="performance-status-banner ${bootState.className}">
+      <strong>${bootState.label}</strong>
+      <span>${language === "en" ? "Measured from the local boot profile." : "Medido desde el perfil local de arranque."}</span>
+    </div>
     <div class="product-summary-grid">
       <div class="overview-card"><span class="overview-label">Total boot</span><strong class="overview-value">${Math.round(summary.total || 0)} ms</strong></div>
       <div class="overview-card"><span class="overview-label">Imagery/Cesium</span><strong class="overview-value">${Math.round(summary.imagery || 0)} ms</strong></div>

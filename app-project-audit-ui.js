@@ -15,6 +15,7 @@
     const startupBytes = Number(report?.startup?.criticalBytes || 0);
     const startupBudget = 1024 * 1024;
     const startupPercent = startupBytes ? Math.min(100, Math.round((startupBytes / startupBudget) * 100)) : 0;
+    const startupRemainingKb = Math.max(0, Math.round((startupBudget - startupBytes) / 1024));
     const alertCount = Number(report?.conflicts?.issueCount || 0);
     const scanned = Number(report?.conflicts?.scanned || 0);
     const conflictPercent = scanned ? Math.max(0, Math.min(100, Math.round(((scanned - alertCount) / scanned) * 100))) : 0;
@@ -55,6 +56,13 @@
           <strong>${conflictPercent}%</strong>
           <i><b style="width:${conflictPercent}%"></b></i>
         </div>
+      </div>
+      <div class="project-visual-hygiene-card ${startupRemainingKb < 48 ? "needs-review" : "is-clean"}">
+        <strong>${isEnglish ? "Startup margin" : "Margen de arranque"}</strong>
+        <p>${isEnglish
+          ? `${startupRemainingKb} KB left before the internal 1 MB budget.`
+          : `Quedan ${startupRemainingKb} KB antes del presupuesto interno de 1 MB.`}</p>
+        <div><span>${isEnglish ? "Next: keep deferring non-critical panels." : "Siguiente: seguir difiriendo paneles no criticos."}</span></div>
       </div>
       <div class="project-audit-warning-grid">
         ${riskRows || `<div class="project-audit-warning-card healthy"><strong>${isEnglish ? "Clean" : "Limpio"}</strong><span>${isEnglish ? "No critical warnings in this report." : "No hay advertencias criticas en este reporte."}</span></div>`}

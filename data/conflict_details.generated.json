@@ -12580,211 +12580,6 @@
       "source": "Curaduria GeoRisk",
       "pageTitle": "Tercera batalla de Aisne"
     },
-    "Sitio de NykÃ¸bing": {
-      "parent": "Guerras entre Dinamarca y la Liga Hanseatica",
-      "type": "sitio",
-      "scope": "regional",
-      "region": "Escandinavia",
-      "cause": "Formo parte de la disputa por control comercial y militar en el Baltico.",
-      "chronology": [
-        {
-          "year": 1360,
-          "text": "Operaciones de sitio en torno a Nykobing durante la rivalidad dano-hanseatica."
-        }
-      ],
-      "related": [
-        "Guerras entre Dinamarca y la Liga Hanseatica"
-      ],
-      "participants": [
-        {
-          "side": "Dinamarca",
-          "members": [
-            "Dinamarca"
-          ],
-          "organizations": [],
-          "troops": "fuerzas medievales",
-          "casualties": "inciertas"
-        },
-        {
-          "side": "Liga Hanseatica y aliados",
-          "members": [
-            "Liga Hanseatica"
-          ],
-          "organizations": [
-            "Liga Hanseatica"
-          ],
-          "troops": "fuerzas medievales",
-          "casualties": "inciertas"
-        }
-      ],
-      "outcome": "Episodio militar regional sin cambio estrategico permanente aislado.",
-      "consequences": "Reflejo la centralidad del Baltico en la competencia comercial medieval.",
-      "source": "Curaduria GeoRisk",
-      "pageTitle": "Sitio de NykÃ¸bing"
-    },
-    "Batalla de Gołąb": {
-      "parent": "El Diluvio",
-      "type": "batalla",
-      "scope": "regional",
-      "region": "Polonia",
-      "cause": "Contraofensivas polacas y operaciones suecas durante la guerra del Diluvio.",
-      "chronology": [
-        {
-          "year": 1656,
-          "text": "Combate dentro de El Diluvio."
-        }
-      ],
-      "related": [
-        "El Diluvio"
-      ],
-      "participants": [
-        {
-          "side": "Suecia",
-          "members": [
-            "Suecia"
-          ],
-          "organizations": [],
-          "troops": "fuerzas variables",
-          "casualties": "inciertas"
-        },
-        {
-          "side": "Polonia-Lituania",
-          "members": [
-            "Polonia-Lituania"
-          ],
-          "organizations": [],
-          "troops": "fuerzas variables",
-          "casualties": "inciertas"
-        }
-      ],
-      "outcome": "Victoria sueca.",
-      "consequences": "La guerra continuo con resistencia polaca, desgaste sueco y cambios de alianzas.",
-      "source": "Curaduria GeoRisk",
-      "pageTitle": "Batalla de Gołąb"
-    },
-    "Batalla de Møn": {
-      "parent": "Guerra dano-sueca de 1657-1658",
-      "type": "batalla naval",
-      "scope": "regional",
-      "region": "Baltico occidental",
-      "cause": "Disputa naval entre Dinamarca y Suecia por el control de estrechos y rutas balticas.",
-      "chronology": [
-        {
-          "year": 1657,
-          "text": "Combate dentro de Guerra dano-sueca de 1657-1658."
-        }
-      ],
-      "related": [
-        "Guerra dano-sueca de 1657-1658"
-      ],
-      "participants": [
-        {
-          "side": "Dinamarca-Noruega",
-          "members": [
-            "Dinamarca",
-            "Noruega"
-          ],
-          "organizations": [],
-          "troops": "fuerzas variables",
-          "casualties": "inciertas"
-        },
-        {
-          "side": "Suecia",
-          "members": [
-            "Suecia"
-          ],
-          "organizations": [],
-          "troops": "fuerzas variables",
-          "casualties": "inciertas"
-        }
-      ],
-      "outcome": "Accion naval dentro de la guerra dano-sueca.",
-      "consequences": "Formo parte de la competencia por movilidad naval y control del Baltico.",
-      "source": "Curaduria GeoRisk",
-      "pageTitle": "Batalla de Møn"
-    },
-    "Batalla de Køge Bay": {
-      "parent": "Guerra escanesa",
-      "type": "batalla naval",
-      "scope": "regional",
-      "region": "Baltico",
-      "cause": "Control naval del Baltico durante la guerra entre Suecia y Dinamarca-Noruega.",
-      "chronology": [
-        {
-          "year": 1677,
-          "text": "Combate dentro de Guerra escanesa."
-        }
-      ],
-      "related": [
-        "Guerra escanesa"
-      ],
-      "participants": [
-        {
-          "side": "Dinamarca-Noruega",
-          "members": [
-            "Dinamarca",
-            "Noruega"
-          ],
-          "organizations": [],
-          "troops": "fuerzas variables",
-          "casualties": "inciertas"
-        },
-        {
-          "side": "Suecia",
-          "members": [
-            "Suecia"
-          ],
-          "organizations": [],
-          "troops": "fuerzas variables",
-          "casualties": "inciertas"
-        }
-      ],
-      "outcome": "Victoria danesa.",
-      "consequences": "Limito la movilidad naval sueca y favorecio operaciones danesas en el teatro escanes.",
-      "source": "Curaduria GeoRisk",
-      "pageTitle": "Batalla de Køge Bay"
-    },
-    "Batalla naval de RÃ¼gen": {
-      "parent": "Gran Guerra del Norte",
-      "type": "batalla naval",
-      "scope": "regional",
-      "region": "Baltico",
-      "cause": "Control de comunicaciones y operaciones navales en torno a Pomerania sueca.",
-      "chronology": [
-        {
-          "year": 1712,
-          "text": "Combate dentro de Gran Guerra del Norte."
-        }
-      ],
-      "related": [
-        "Gran Guerra del Norte"
-      ],
-      "participants": [
-        {
-          "side": "Suecia",
-          "members": [
-            "Suecia"
-          ],
-          "organizations": [],
-          "troops": "fuerzas variables",
-          "casualties": "inciertas"
-        },
-        {
-          "side": "Dinamarca-Noruega y aliados",
-          "members": [
-            "Dinamarca",
-            "Noruega"
-          ],
-          "organizations": [],
-          "troops": "fuerzas variables",
-          "casualties": "inciertas"
-        }
-      ],
-      "outcome": "Accion naval dentro del desgaste baltico.",
-      "consequences": "Mantuvo la presion sobre las posiciones suecas en el sur del Baltico.",
-      "source": "Curaduria GeoRisk",
-      "pageTitle": "Batalla naval de RÃ¼gen"
-    },
     "Batalla de Juarez": {
       "parent": "Revolucion mexicana",
       "type": "batalla",
@@ -13193,7 +12988,7 @@
         }
       ],
       "outcome": "Victoria alemana decisiva.",
-      "consequences": "Abio la ruptura operativa que llevo al cerco aliado y a la caida de Francia.",
+      "consequences": "Abrio la ruptura operativa que llevo al cerco aliado y a la caida de Francia.",
       "source": "Curaduria GeoRisk",
       "pageTitle": "Batalla de Sedan (1940)"
     },
@@ -13361,9 +13156,3288 @@
         }
       ],
       "outcome": "Victoria aliada.",
-      "consequences": "Abio el camino a Asmara y Massawa, debilitando decisivamente el Africa Oriental Italiana.",
+      "consequences": "Abrio el camino a Asmara y Massawa, debilitando decisivamente el Africa Oriental Italiana.",
       "source": "Curaduria GeoRisk",
       "pageTitle": "Batalla de Keren"
+    },
+    "Batalla de Giarabub": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Libia",
+      "cause": "Fuerzas aliadas sitiaron una posicion italiana aislada durante la campana de Africa del Norte.",
+      "chronology": [
+        {
+          "year": 1940,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Australia",
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Italia",
+          "members": [
+            "Italia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria aliada.",
+      "consequences": "Elimino una posicion italiana fronteriza y acompano el retroceso del Eje en Cirenaica.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Giarabub"
+    },
+    "Batalla de Kvam": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Noruega",
+      "cause": "Fuerzas britanicas y noruegas intentaron frenar el avance aleman durante la campana de Noruega.",
+      "chronology": [
+        {
+          "year": 1940,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Noruega",
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Retraso aliado temporal.",
+      "consequences": "Mostro la dificultad aliada para sostener posiciones ante la superioridad operacional alemana en Noruega.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Kvam"
+    },
+    "Batalla de Rotterdam": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Paises Bajos",
+      "cause": "Alemania busco quebrar rapidamente la resistencia neerlandesa durante la invasion occidental.",
+      "chronology": [
+        {
+          "year": 1940,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Paises Bajos",
+          "members": [
+            "Paises Bajos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria alemana y rendicion neerlandesa.",
+      "consequences": "El bombardeo de Rotterdam acelero la capitulacion de los Paises Bajos.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Rotterdam"
+    },
+    "Batalla del canal Ypres-Comines": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Belgica",
+      "cause": "Fuerzas britanicas intentaron cubrir la retirada aliada hacia Dunkerque.",
+      "chronology": [
+        {
+          "year": 1940,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Accion defensiva aliada durante la retirada.",
+      "consequences": "Contribuyo a ganar tiempo para la evacuacion de fuerzas aliadas en el norte de Francia.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla del canal Ypres-Comines"
+    },
+    "Batalla de Agordat": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Eritrea",
+      "cause": "Los Aliados avanzaron contra posiciones italianas en Africa oriental.",
+      "chronology": [
+        {
+          "year": 1941,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "India britanica",
+            "Sudan"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Italia",
+          "members": [
+            "Italia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria aliada.",
+      "consequences": "Abrio la ruta hacia Keren y acelero la caida de Eritrea italiana.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Agordat"
+    },
+    "Batalla de Damasco (1941)": {
+      "parent": "Campana de Siria y Libano",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Siria",
+      "cause": "Los Aliados atacaron territorios controlados por la Francia de Vichy para asegurar Oriente Medio.",
+      "chronology": [
+        {
+          "year": 1941,
+          "text": "Combate dentro de Campana de Siria y Libano."
+        }
+      ],
+      "related": [
+        "Campana de Siria y Libano"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "Australia",
+            "Francia Libre"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Francia de Vichy",
+          "members": [
+            "Francia de Vichy"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria aliada.",
+      "consequences": "Facilito el control aliado de Siria y Libano y redujo riesgos para rutas regionales.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Damasco (1941)"
+    },
+    "Batalla de Gondar": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Etiopia",
+      "cause": "Gondar fue una de las ultimas posiciones italianas en Africa oriental.",
+      "chronology": [
+        {
+          "year": 1941,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "Etiopia",
+            "Sudafrica"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Italia",
+          "members": [
+            "Italia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria aliada.",
+      "consequences": "Cerro la resistencia italiana organizada en Africa oriental.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Gondar"
+    },
+    "Batalla de Guam": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Pacifico",
+      "cause": "Japon ataco territorios estadounidenses en el Pacifico al iniciar su expansion regional.",
+      "chronology": [
+        {
+          "year": 1941,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria japonesa.",
+      "consequences": "Guam quedo ocupada por Japon hasta la reconquista estadounidense de 1944.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Guam"
+    },
+    "Batalla de Gurun": {
+      "parent": "Campana de Malasia",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Malasia",
+      "cause": "Japon avanzo rapidamente por la peninsula malaya contra defensas britanicas y de la Commonwealth.",
+      "chronology": [
+        {
+          "year": 1941,
+          "text": "Combate dentro de Campana de Malasia."
+        }
+      ],
+      "related": [
+        "Campana de Malasia"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "India britanica"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria japonesa.",
+      "consequences": "Acelero la retirada aliada hacia el sur y el deterioro de la defensa de Malasia.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Gurun"
+    },
+    "Batalla de Kampar": {
+      "parent": "Campana de Malasia",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Malasia",
+      "cause": "Fuerzas aliadas buscaron retrasar el avance japones hacia Singapur.",
+      "chronology": [
+        {
+          "year": 1941,
+          "text": "Combate dentro de Campana de Malasia."
+        }
+      ],
+      "related": [
+        "Campana de Malasia"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "India britanica"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Exito defensivo aliado temporal.",
+      "consequences": "Retraso el avance japones, aunque no altero el resultado general de la campana.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Kampar"
+    },
+    "Batalla de Ko Chang": {
+      "parent": "Guerra franco-tailandesa",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Golfo de Tailandia",
+      "cause": "Francia de Vichy y Tailandia disputaron territorios indochinos bajo presion regional japonesa.",
+      "chronology": [
+        {
+          "year": 1941,
+          "text": "Combate dentro de Guerra franco-tailandesa."
+        }
+      ],
+      "related": [
+        "Guerra franco-tailandesa"
+      ],
+      "participants": [
+        {
+          "side": "Francia de Vichy",
+          "members": [
+            "Francia de Vichy"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Tailandia",
+          "members": [
+            "Tailandia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria naval francesa.",
+      "consequences": "No impidio que la mediacion japonesa favoreciera concesiones territoriales a Tailandia.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Ko Chang"
+    },
+    "Batalla de la Isla Wake": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Pacifico",
+      "cause": "Japon intento capturar la isla Wake como parte de su ofensiva inicial en el Pacifico.",
+      "chronology": [
+        {
+          "year": 1941,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria japonesa tras resistencia estadounidense.",
+      "consequences": "La defensa de Wake se volvio simbolo temprano de resistencia estadounidense en el Pacifico.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de la Isla Wake"
+    },
+    "Batalla de la linea Metaxas": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Grecia",
+      "cause": "Alemania invadio Grecia y ataco fortificaciones griegas en la frontera norte.",
+      "chronology": [
+        {
+          "year": 1941,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Grecia",
+          "members": [
+            "Grecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria alemana.",
+      "consequences": "La caida de la linea Metaxas facilito la ocupacion alemana de Grecia.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de la linea Metaxas"
+    },
+    "Batalla de las Termopilas (1941)": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Grecia",
+      "cause": "Fuerzas aliadas intentaron retrasar el avance aleman durante la evacuacion de Grecia.",
+      "chronology": [
+        {
+          "year": 1941,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "Australia",
+            "Nueva Zelanda",
+            "Grecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Retirada aliada tras accion defensiva.",
+      "consequences": "Gano tiempo para la evacuacion aliada, aunque Grecia quedo bajo ocupacion del Eje.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de las Termopilas (1941)"
+    },
+    "Batalla del cabo Matapan": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Mediterraneo",
+      "cause": "La Royal Navy busco frenar operaciones italianas contra convoyes y posiciones aliadas.",
+      "chronology": [
+        {
+          "year": 1941,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "Australia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Italia",
+          "members": [
+            "Italia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria naval aliada decisiva.",
+      "consequences": "Redujo la capacidad italiana de desafiar a la flota britanica en el Mediterraneo oriental.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla del cabo Matapan"
+    },
+    "Segunda Batalla de Amba Alagi": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "sitio",
+      "scope": "regional",
+      "region": "Etiopia",
+      "cause": "Las fuerzas italianas se replegaron a posiciones montanosas tras derrotas en Africa oriental.",
+      "chronology": [
+        {
+          "year": 1941,
+          "text": "Operacion de sitio dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "Etiopia",
+            "India britanica"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Italia",
+          "members": [
+            "Italia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Rendicion italiana.",
+      "consequences": "Marco la caida de una posicion clave italiana y acelero el fin de la campana de Africa oriental.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Segunda Batalla de Amba Alagi"
+    },
+    "Batalla de Alam el Halfa": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Africa del Norte",
+      "cause": "El Eje intento envolver las posiciones britanicas en Egipto antes de El Alamein.",
+      "chronology": [
+        {
+          "year": 1942,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "Commonwealth"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Eje",
+          "members": [
+            "Alemania",
+            "Italia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria defensiva aliada.",
+      "consequences": "Freno la ultima ofensiva importante de Rommel hacia Egipto y preparo la contraofensiva aliada.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Alam el Halfa"
+    },
+    "Batalla de Bir Hakeim": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Libia",
+      "cause": "Fuerzas de la Francia Libre defendieron una posicion clave durante la batalla de Gazala.",
+      "chronology": [
+        {
+          "year": 1942,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Francia Libre",
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Eje",
+          "members": [
+            "Alemania",
+            "Italia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Retirada aliada tras resistencia prolongada.",
+      "consequences": "La defensa retraso al Eje y fortalecio el prestigio militar de la Francia Libre.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Bir Hakeim"
+    },
+    "Batalla de Gazala": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Libia",
+      "cause": "El Eje busco romper la linea aliada en Cirenaica y avanzar hacia Egipto.",
+      "chronology": [
+        {
+          "year": 1942,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "Commonwealth",
+            "Francia Libre"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Eje",
+          "members": [
+            "Alemania",
+            "Italia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria del Eje.",
+      "consequences": "Provoco la caida de Tobruk y abrio el avance hacia El Alamein.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Gazala"
+    },
+    "Primera Batalla de El Alamein": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Egipto",
+      "cause": "Los Aliados intentaron detener el avance del Eje hacia Alejandria y el canal de Suez.",
+      "chronology": [
+        {
+          "year": 1942,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "Commonwealth"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Eje",
+          "members": [
+            "Alemania",
+            "Italia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Avance del Eje detenido.",
+      "consequences": "Estabilizo el frente egipcio y evito una ruptura estrategica hacia Suez.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Primera Batalla de El Alamein"
+    },
+    "Segunda batalla de El Alamein": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Egipto",
+      "cause": "Montgomery lanzo una ofensiva para expulsar al Eje de Egipto.",
+      "chronology": [
+        {
+          "year": 1942,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "Commonwealth"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Eje",
+          "members": [
+            "Alemania",
+            "Italia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria aliada decisiva.",
+      "consequences": "Inicio la retirada del Eje de Africa del Norte y cambio el equilibrio estrategico regional.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Segunda batalla de El Alamein"
+    },
+    "Batalla de Midway": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla naval",
+      "scope": "mundial",
+      "region": "Pacifico",
+      "cause": "Japon intento destruir portaaviones estadounidenses y ampliar su perimetro defensivo.",
+      "chronology": [
+        {
+          "year": 1942,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria naval estadounidense decisiva.",
+      "consequences": "Cambio el equilibrio de portaaviones en el Pacifico y marco un punto de inflexion estrategico.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Midway"
+    },
+    "Batalla de Java": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Indias Orientales Neerlandesas",
+      "cause": "Japon avanzo sobre Java para controlar recursos y cerrar la defensa aliada del sudeste asiatico.",
+      "chronology": [
+        {
+          "year": 1942,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Paises Bajos",
+            "Estados Unidos",
+            "Reino Unido",
+            "Australia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria japonesa.",
+      "consequences": "Consolido el dominio japones sobre las Indias Orientales Neerlandesas.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Java"
+    },
+    "Batalla de Singapur": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Sudeste asiatico",
+      "cause": "Japon culmino la campana de Malasia atacando la principal base britanica regional.",
+      "chronology": [
+        {
+          "year": 1942,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "Australia",
+            "India britanica"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria japonesa decisiva.",
+      "consequences": "Fue una de las mayores capitulaciones britanicas y transformo el equilibrio colonial en Asia.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Singapur"
+    },
+    "Batalla de Buna-Gona": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Nueva Guinea",
+      "cause": "Los Aliados atacaron cabezas de playa japonesas tras frenar el avance hacia Port Moresby.",
+      "chronology": [
+        {
+          "year": 1942,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Estados Unidos",
+            "Australia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria aliada.",
+      "consequences": "Expulso a Japon de posiciones clave en la costa norte de Papua, con fuertes bajas.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Buna-Gona"
+    },
+    "Batalla de la Bahia de Milne": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Nueva Guinea",
+      "cause": "Japon intento capturar aerodromos aliados en Milne Bay.",
+      "chronology": [
+        {
+          "year": 1942,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Australia",
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria aliada.",
+      "consequences": "Fue una de las primeras derrotas terrestres japonesas claras en el Pacifico.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de la Bahia de Milne"
+    },
+    "Batalla naval de Guadalcanal": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Islas Salomon",
+      "cause": "Estados Unidos y Japon disputaron el control maritimo alrededor de Guadalcanal.",
+      "chronology": [
+        {
+          "year": 1942,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estrategica estadounidense.",
+      "consequences": "Aseguro el abastecimiento aliado de Guadalcanal y debilito la capacidad japonesa de recuperar la isla.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla naval de Guadalcanal"
+    },
+    "Batalla por el Campo Henderson": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Guadalcanal",
+      "cause": "Japon intento recuperar el aerodromo Henderson, clave para el control de Guadalcanal.",
+      "chronology": [
+        {
+          "year": 1942,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense.",
+      "consequences": "Preservo la superioridad aerea aliada local y marco el fracaso japones en la isla.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla por el Campo Henderson"
+    },
+    "Batalla de las islas Santa Cruz": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Pacifico sur",
+      "cause": "Las flotas de portaaviones chocaron durante la campana de Guadalcanal.",
+      "chronology": [
+        {
+          "year": 1942,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria tactica japonesa con desgaste estrategico.",
+      "consequences": "Japon sufrio perdidas de aviadores dificiles de reemplazar, pese a danar a la flota estadounidense.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de las islas Santa Cruz"
+    },
+    "Batalla de Balikpapan": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Borneo",
+      "cause": "Japon avanzo sobre instalaciones petroleras estrategicas en las Indias Orientales Neerlandesas.",
+      "chronology": [
+        {
+          "year": 1942,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Aliados",
+          "members": [
+            "Paises Bajos",
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria japonesa.",
+      "consequences": "Aseguro recursos energeticos clave para la expansion japonesa temprana.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Balikpapan"
+    },
+    "Batalla de Bukit Timah": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Singapur",
+      "cause": "Japon ataco una zona clave de reservas y comunicaciones durante la batalla de Singapur.",
+      "chronology": [
+        {
+          "year": 1942,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "Australia",
+            "India britanica"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria japonesa.",
+      "consequences": "Acelero el colapso defensivo aliado en Singapur.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Bukit Timah"
+    },
+    "Batalla de El Agheila": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Libia",
+      "cause": "El Eje intento retrasar la persecucion aliada tras El Alamein.",
+      "chronology": [
+        {
+          "year": 1942,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "Commonwealth"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Eje",
+          "members": [
+            "Alemania",
+            "Italia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Retirada del Eje.",
+      "consequences": "Permitio a los Aliados continuar el avance hacia Tripolitania.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de El Agheila"
+    },
+    "Batalla de Kranji": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Singapur",
+      "cause": "Japon cruzo hacia Singapur y presiono las defensas britanicas y de la Commonwealth.",
+      "chronology": [
+        {
+          "year": 1942,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "Australia",
+            "India britanica"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria japonesa.",
+      "consequences": "Abrio otro punto de ruptura en la defensa de Singapur.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Kranji"
+    },
+    "Batalla de la cresta de Edson": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Guadalcanal",
+      "cause": "Japon intento recuperar el aerodromo Henderson mediante ataques terrestres nocturnos.",
+      "chronology": [
+        {
+          "year": 1942,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense.",
+      "consequences": "Reforzo la defensa de Henderson Field y desgasto a las fuerzas japonesas en Guadalcanal.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de la cresta de Edson"
+    },
+    "Batalla de Mount Austen-Galloping Horse-Sea Horse": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Guadalcanal",
+      "cause": "Estados Unidos ataco posiciones japonesas en alturas interiores de Guadalcanal.",
+      "chronology": [
+        {
+          "year": 1943,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense.",
+      "consequences": "Contribuyo a despejar Guadalcanal y a cerrar la campana terrestre de la isla.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Mount Austen-Galloping Horse-Sea Horse"
+    },
+    "Batalla de Muar": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Malasia",
+      "cause": "Fuerzas aliadas intentaron frenar el avance japones hacia Singapur.",
+      "chronology": [
+        {
+          "year": 1942,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Australia",
+            "Reino Unido",
+            "India britanica"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria japonesa.",
+      "consequences": "La derrota aliada abrio la retirada hacia Singapur y dejo graves perdidas australianas e indias.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Muar"
+    },
+    "Campana de Port Moresby": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "campana",
+      "scope": "regional",
+      "region": "Nueva Guinea",
+      "cause": "Japon intento capturar Port Moresby para amenazar Australia y controlar rutas del Pacifico suroccidental.",
+      "chronology": [
+        {
+          "year": 1942,
+          "text": "Campana dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Australia",
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Fracaso japones.",
+      "consequences": "Port Moresby siguio como base aliada clave para la contraofensiva en Nueva Guinea.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Campana de Port Moresby"
+    },
+    "Batalla del rio Slim": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Malasia",
+      "cause": "Japon empleo blindados e infiltracion para romper defensas aliadas durante la campana de Malasia.",
+      "chronology": [
+        {
+          "year": 1942,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "India britanica"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria japonesa decisiva.",
+      "consequences": "Acelero la retirada aliada hacia Singapur.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla del rio Slim"
+    },
+    "Batalla de Timor": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Timor",
+      "cause": "Japon invadio Timor para asegurar posiciones entre las Indias Orientales y Australia.",
+      "chronology": [
+        {
+          "year": 1942,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Australia",
+            "Paises Bajos",
+            "Timor portugues"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Ocupacion japonesa con resistencia aliada irregular.",
+      "consequences": "La campana mantuvo presion japonesa pero tambien una resistencia de comandos aliada prolongada.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Timor"
+    },
+    "Batalla de Tulagi y Gavutu-Tanambogo": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Islas Salomon",
+      "cause": "Estados Unidos desembarco para asegurar posiciones cercanas a Guadalcanal.",
+      "chronology": [
+        {
+          "year": 1942,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense.",
+      "consequences": "Aseguro bases menores y apoyo el inicio de la campana de Guadalcanal.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Tulagi y Gavutu-Tanambogo"
+    },
+    "Batalla del estrecho de Badung": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Indias Orientales Neerlandesas",
+      "cause": "Fuerzas navales aliadas intentaron interferir con desembarcos japoneses en Bali.",
+      "chronology": [
+        {
+          "year": 1942,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Paises Bajos",
+            "Estados Unidos",
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria japonesa.",
+      "consequences": "Mostro la debilidad coordinativa aliada en las Indias Orientales al inicio de 1942.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla del estrecho de Badung"
+    },
+    "Batalla del estrecho de la Sonda": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Indias Orientales Neerlandesas",
+      "cause": "Buques aliados intentaron escapar tras la derrota del mar de Java y chocaron con fuerzas japonesas.",
+      "chronology": [
+        {
+          "year": 1942,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Estados Unidos",
+            "Australia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria japonesa.",
+      "consequences": "La perdida de cruceros aliados confirmo el colapso naval aliado en Java.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla del estrecho de la Sonda"
+    },
+    "Batalla del paso de Tjiater": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Java",
+      "cause": "Japon avanzo sobre defensas neerlandesas y aliadas en Java.",
+      "chronology": [
+        {
+          "year": 1942,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Paises Bajos",
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria japonesa.",
+      "consequences": "Contribuyo a la rendicion final de las fuerzas aliadas en Java.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla del paso de Tjiater"
+    },
+    "Batalla de Malolo": {
+      "parent": "Expedicion de exploracion de Estados Unidos",
+      "type": "expedicion punitiva",
+      "scope": "regional",
+      "region": "Fiyi",
+      "cause": "La expedicion Wilkes respondio con fuerza tras la muerte de dos marinos estadounidenses durante contactos tensos en Malolo.",
+      "chronology": [
+        {
+          "year": 1840,
+          "text": "Combate dentro de Expedicion de exploracion de Estados Unidos."
+        }
+      ],
+      "related": [
+        "Expedicion de exploracion de Estados Unidos"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Comunidades fijianas de Malolo",
+          "members": [
+            "Fiyi"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense y destruccion de aldeas locales.",
+      "consequences": "Quedo como episodio temprano de proyeccion naval estadounidense en el Pacifico y de violencia colonial en contactos expedicionarios.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Malolo"
+    },
+    "Batalla de Muddy Flat": {
+      "parent": "Rebelion Taiping",
+      "type": "batalla terrestre y naval",
+      "scope": "regional",
+      "region": "Shanghai",
+      "cause": "Fuerzas Qing y milicias locales presionaron el area de concesiones extranjeras durante la crisis de Shanghai.",
+      "chronology": [
+        {
+          "year": 1854,
+          "text": "Combate dentro de Rebelion Taiping."
+        }
+      ],
+      "related": [
+        "Rebelion Taiping"
+      ],
+      "participants": [
+        {
+          "side": "Fuerzas anglo-estadounidenses y Sociedad de las Espadas Pequenas",
+          "members": [
+            "Estados Unidos",
+            "Reino Unido",
+            "Sociedad de las Espadas Pequenas"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Imperio Qing",
+          "members": [
+            "China"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria anglo-estadounidense y rebelde local.",
+      "consequences": "Fortalecio la defensa de las concesiones de Shanghai y anticipo mayor intervencion extranjera en la Rebelion Taiping.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Muddy Flat"
+    },
+    "Batalla de los Fuertes de la Barrera": {
+      "parent": "Segunda Guerra del Opio",
+      "type": "batalla naval y anfibia",
+      "scope": "regional",
+      "region": "Rio Perla",
+      "cause": "Buques estadounidenses atacaron fuertes Qing tras disparos contra una embarcacion durante la crisis de Canton.",
+      "chronology": [
+        {
+          "year": 1856,
+          "text": "Combate dentro de Segunda Guerra del Opio."
+        }
+      ],
+      "related": [
+        "Segunda Guerra del Opio"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Imperio Qing",
+          "members": [
+            "China"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense y captura de fuertes.",
+      "consequences": "Mostro la capacidad naval estadounidense en China y se conecto con la escalada occidental de la Segunda Guerra del Opio.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de los Fuertes de la Barrera"
+    },
+    "Batalla de Whitestone Hill": {
+      "parent": "Guerras sioux",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Territorio de Dakota",
+      "cause": "Estados Unidos lanzo expediciones punitivas contra grupos dakota, yanktonai y lakota tras la Guerra Dakota de 1862.",
+      "chronology": [
+        {
+          "year": 1863,
+          "text": "Combate dentro de Guerras sioux."
+        }
+      ],
+      "related": [
+        "Guerras sioux"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Dakota, Yanktonai y Lakota",
+          "members": [
+            "Sioux"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense.",
+      "consequences": "Provoco fuertes bajas y capturas indigenas, y sigue siendo recordada por comunidades dakota como una masacre.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Whitestone Hill"
+    },
+    "Batalla de Killdeer Mountain": {
+      "parent": "Guerras sioux",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Territorio de Dakota",
+      "cause": "La expedicion de Alfred Sully busco proteger rutas hacia los campos auriferos y quebrar la resistencia sioux.",
+      "chronology": [
+        {
+          "year": 1864,
+          "text": "Combate dentro de Guerras sioux."
+        }
+      ],
+      "related": [
+        "Guerras sioux"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Lakota, Yanktonai y Dakota",
+          "members": [
+            "Sioux"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense.",
+      "consequences": "Destruyo campamentos y suministros sioux, empujando la campana hacia las Badlands.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Killdeer Mountain"
+    },
+    "Batalla de Infernal Caverns": {
+      "parent": "Guerra Snake",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "California",
+      "cause": "El ejercito estadounidense persiguio a combatientes paiute, pit river y modoc en el norte de California.",
+      "chronology": [
+        {
+          "year": 1867,
+          "text": "Combate dentro de Guerra Snake."
+        }
+      ],
+      "related": [
+        "Guerra Snake"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos y exploradores aliados",
+          "members": [
+            "Estados Unidos",
+            "Warm Springs",
+            "Shoshone"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Paiute, Pit River y Modoc",
+          "members": [
+            "Paiute",
+            "Pit River",
+            "Modoc"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense.",
+      "consequences": "Redujo la resistencia local en la fase final de la Guerra Snake y quedo como uno de los ultimos combates indigenas de California.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Infernal Caverns"
+    },
+    "Batalla de Khannour": {
+      "parent": "Conflictos de unificacion de Qatar",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Qatar",
+      "cause": "Disputas tribales y de autoridad local marcaron la consolidacion politica qatari en el Golfo.",
+      "chronology": [
+        {
+          "year": 1889,
+          "text": "Combate dentro de Conflictos de unificacion de Qatar."
+        }
+      ],
+      "related": [
+        "Conflictos de unificacion de Qatar"
+      ],
+      "participants": [
+        {
+          "side": "Fuerzas qataries",
+          "members": [
+            "Qatar"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Rivales tribales locales",
+          "members": [
+            "Rivales locales"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Resultado local asociado a la consolidacion qatari.",
+      "consequences": "Forma parte del proceso de centralizacion politica que antecedio al reconocimiento moderno de Qatar.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Khannour"
+    },
+    "Batalla de Santa Cruz": {
+      "parent": "Guerra filipino-estadounidense",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Laguna",
+      "cause": "Estados Unidos amplio operaciones al sur de Manila para controlar rutas, pueblos y posiciones republicanas filipinas.",
+      "chronology": [
+        {
+          "year": 1899,
+          "text": "Combate dentro de Guerra filipino-estadounidense."
+        }
+      ],
+      "related": [
+        "Guerra filipino-estadounidense"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Republica Filipina",
+          "members": [
+            "Filipinas"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense local.",
+      "consequences": "Extendio la ocupacion estadounidense en Luzon y sostuvo la presion sobre fuerzas filipinas regionales.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Santa Cruz"
+    },
+    "Segunda batalla de Bud Dajo": {
+      "parent": "Rebelion Moro",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Jolo",
+      "cause": "La autoridad colonial estadounidense intento imponer control militar sobre comunidades moro en Sulu.",
+      "chronology": [
+        {
+          "year": 1911,
+          "text": "Combate dentro de Rebelion Moro."
+        }
+      ],
+      "related": [
+        "Rebelion Moro"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos",
+            "Policia filipina"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Combatientes moro",
+          "members": [
+            "Moro"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense.",
+      "consequences": "Reforzo el control colonial en Sulu, pero mantuvo la resistencia moro como foco persistente de conflicto.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Segunda batalla de Bud Dajo"
+    },
+    "Batalla de Bud Bagsak": {
+      "parent": "Rebelion Moro",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Jolo",
+      "cause": "Fuerzas estadounidenses atacaron posiciones fortificadas moro durante la campana final de pacificacion en Sulu.",
+      "chronology": [
+        {
+          "year": 1913,
+          "text": "Combate dentro de Rebelion Moro."
+        }
+      ],
+      "related": [
+        "Rebelion Moro"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos",
+            "Policia filipina"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Combatientes moro",
+          "members": [
+            "Moro"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense.",
+      "consequences": "Fue uno de los combates finales de gran escala de la Rebelion Moro y consolido el dominio colonial estadounidense.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Bud Bagsak"
+    },
+    "Batalla de Fort Dipitie": {
+      "parent": "Ocupacion estadounidense de Haiti",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Haiti",
+      "cause": "La intervencion estadounidense en Haiti enfrento resistencia armada local durante la ocupacion inicial.",
+      "chronology": [
+        {
+          "year": 1915,
+          "text": "Combate dentro de Ocupacion estadounidense de Haiti."
+        }
+      ],
+      "related": [
+        "Ocupacion estadounidense de Haiti"
+      ],
+      "participants": [
+        {
+          "side": "Estados Unidos",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Cacos haitianos",
+          "members": [
+            "Haiti"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense.",
+      "consequences": "Contribuyo a estabilizar militarmente la ocupacion, aunque la resistencia haitiana continuo en anos posteriores.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Fort Dipitie"
+    },
+    "Batalla de Arawe": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Nueva Bretana",
+      "cause": "Estados Unidos desembarco en Arawe para distraer y fijar fuerzas japonesas antes de operaciones mayores en Nueva Bretana.",
+      "chronology": [
+        {
+          "year": 1943,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria aliada.",
+      "consequences": "Apoyo la campana de Nueva Bretana y ayudo a aislar Rabaul.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Arawe"
+    },
+    "Batalla de Attu": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Islas Aleutianas",
+      "cause": "Estados Unidos busco recuperar Attu tras la ocupacion japonesa de las Aleutianas occidentales.",
+      "chronology": [
+        {
+          "year": 1943,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Estados Unidos",
+            "Canada"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense.",
+      "consequences": "Elimino una posicion japonesa en territorio estadounidense y preparo la evacuacion japonesa de Kiska.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Attu"
+    },
+    "Batalla de Centuripe": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Sicilia",
+      "cause": "Fuerzas britanicas avanzaron por el interior siciliano para quebrar la defensa del Eje.",
+      "chronology": [
+        {
+          "year": 1943,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Eje",
+          "members": [
+            "Alemania",
+            "Italia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria britanica.",
+      "consequences": "Abrio el avance aliado hacia Adrano y debilito la linea defensiva del Eje en Sicilia.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Centuripe"
+    },
+    "Batalla de Coconut Grove": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Bougainville",
+      "cause": "Marines estadounidenses aseguraron posiciones alrededor de la cabeza de playa de Torokina.",
+      "chronology": [
+        {
+          "year": 1943,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense.",
+      "consequences": "Fortalecio el perimetro aliado en Bougainville durante la campana de las Salomon.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Coconut Grove"
+    },
+    "Batalla de Dumpu": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Nueva Guinea",
+      "cause": "Fuerzas australianas avanzaron por el valle de Ramu para presionar posiciones japonesas en Nueva Guinea.",
+      "chronology": [
+        {
+          "year": 1943,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Australia",
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria aliada.",
+      "consequences": "Facilito la campana de Finisterre Range y el avance aliado hacia Madang.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Dumpu"
+    },
+    "Batalla de Enogai": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Nueva Georgia",
+      "cause": "Estados Unidos busco cortar posiciones japonesas y apoyar la ofensiva sobre Munda.",
+      "chronology": [
+        {
+          "year": 1943,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense.",
+      "consequences": "Aseguro una posicion clave en Nueva Georgia y apoyo el avance aliado en las Islas Salomon.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Enogai"
+    },
+    "Batalla de Gela": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Sicilia",
+      "cause": "El Eje contraataco los desembarcos aliados de la Operacion Husky en el sector de Gela.",
+      "chronology": [
+        {
+          "year": 1943,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Estados Unidos",
+            "Reino Unido"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Eje",
+          "members": [
+            "Alemania",
+            "Italia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria defensiva aliada.",
+      "consequences": "Consolido la cabeza de playa aliada y permitio continuar la invasion de Sicilia.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Gela"
+    },
+    "Batalla de Hill 609": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Tunez",
+      "cause": "Estados Unidos ataco una altura clave para romper defensas del Eje durante la campana de Tunez.",
+      "chronology": [
+        {
+          "year": 1943,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Estados Unidos",
+            "Francia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Eje",
+          "members": [
+            "Alemania",
+            "Italia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense.",
+      "consequences": "Fue un paso importante en la maduracion tactica estadounidense tras Kasserine.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Hill 609"
+    },
+    "Batalla de Kaiapit": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Nueva Guinea",
+      "cause": "Australia busco capturar una posicion interior para abrir aerodromos y rutas de avance en el valle de Markham.",
+      "chronology": [
+        {
+          "year": 1943,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Australia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria australiana.",
+      "consequences": "Permitio desarrollar bases aereas aliadas y acelerar operaciones en Nueva Guinea.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Kaiapit"
+    },
+    "Batalla de Kolombangara": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Islas Salomon",
+      "cause": "Fuerzas navales aliadas y japonesas chocaron durante los intentos de abastecer o interceptar guarniciones en Nueva Georgia.",
+      "chronology": [
+        {
+          "year": 1943,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Estados Unidos",
+            "Nueva Zelanda"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria tactica japonesa.",
+      "consequences": "Reforzo la dificultad aliada para cortar movimientos nocturnos japoneses, aunque la campana terrestre siguio favoreciendo a los Aliados.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Kolombangara"
+    },
+    "Sitio de NykÃ¸bing": {
+      "parent": "Guerras entre Dinamarca y la Liga Hanseatica",
+      "type": "sitio",
+      "scope": "regional",
+      "region": "Escandinavia",
+      "cause": "Formo parte de la disputa por control comercial y militar en el Baltico.",
+      "chronology": [
+        {
+          "year": 1360,
+          "text": "Operaciones de sitio en torno a Nykobing durante la rivalidad dano-hanseatica."
+        }
+      ],
+      "related": [
+        "Guerras entre Dinamarca y la Liga Hanseatica"
+      ],
+      "participants": [
+        {
+          "side": "Dinamarca",
+          "members": [
+            "Dinamarca"
+          ],
+          "organizations": [],
+          "troops": "fuerzas medievales",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Liga Hanseatica y aliados",
+          "members": [
+            "Liga Hanseatica"
+          ],
+          "organizations": [
+            "Liga Hanseatica"
+          ],
+          "troops": "fuerzas medievales",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Episodio militar regional sin cambio estrategico permanente aislado.",
+      "consequences": "Reflejo la centralidad del Baltico en la competencia comercial medieval.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Sitio de NykÃ¸bing"
+    },
+    "Batalla de Gołąb": {
+      "parent": "El Diluvio",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Polonia",
+      "cause": "Contraofensivas polacas y operaciones suecas durante la guerra del Diluvio.",
+      "chronology": [
+        {
+          "year": 1656,
+          "text": "Combate dentro de El Diluvio."
+        }
+      ],
+      "related": [
+        "El Diluvio"
+      ],
+      "participants": [
+        {
+          "side": "Suecia",
+          "members": [
+            "Suecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Polonia-Lituania",
+          "members": [
+            "Polonia-Lituania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria sueca.",
+      "consequences": "La guerra continuo con resistencia polaca, desgaste sueco y cambios de alianzas.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Gołąb"
+    },
+    "Batalla de Møn": {
+      "parent": "Guerra dano-sueca de 1657-1658",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Baltico occidental",
+      "cause": "Disputa naval entre Dinamarca y Suecia por el control de estrechos y rutas balticas.",
+      "chronology": [
+        {
+          "year": 1657,
+          "text": "Combate dentro de Guerra dano-sueca de 1657-1658."
+        }
+      ],
+      "related": [
+        "Guerra dano-sueca de 1657-1658"
+      ],
+      "participants": [
+        {
+          "side": "Dinamarca-Noruega",
+          "members": [
+            "Dinamarca",
+            "Noruega"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Suecia",
+          "members": [
+            "Suecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Accion naval dentro de la guerra dano-sueca.",
+      "consequences": "Formo parte de la competencia por movilidad naval y control del Baltico.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Møn"
+    },
+    "Batalla de Køge Bay": {
+      "parent": "Guerra escanesa",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Baltico",
+      "cause": "Control naval del Baltico durante la guerra entre Suecia y Dinamarca-Noruega.",
+      "chronology": [
+        {
+          "year": 1677,
+          "text": "Combate dentro de Guerra escanesa."
+        }
+      ],
+      "related": [
+        "Guerra escanesa"
+      ],
+      "participants": [
+        {
+          "side": "Dinamarca-Noruega",
+          "members": [
+            "Dinamarca",
+            "Noruega"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Suecia",
+          "members": [
+            "Suecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria danesa.",
+      "consequences": "Limito la movilidad naval sueca y favorecio operaciones danesas en el teatro escanes.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Køge Bay"
+    },
+    "Batalla naval de RÃ¼gen": {
+      "parent": "Gran Guerra del Norte",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Baltico",
+      "cause": "Control de comunicaciones y operaciones navales en torno a Pomerania sueca.",
+      "chronology": [
+        {
+          "year": 1712,
+          "text": "Combate dentro de Gran Guerra del Norte."
+        }
+      ],
+      "related": [
+        "Gran Guerra del Norte"
+      ],
+      "participants": [
+        {
+          "side": "Suecia",
+          "members": [
+            "Suecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Dinamarca-Noruega y aliados",
+          "members": [
+            "Dinamarca",
+            "Noruega"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Accion naval dentro del desgaste baltico.",
+      "consequences": "Mantuvo la presion sobre las posiciones suecas en el sur del Baltico.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla naval de RÃ¼gen"
+    },
+    "Batalla de Hellzapoppin Ridge y Hill 600A": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Bougainville",
+      "cause": "Marines estadounidenses atacaron posiciones japonesas dentro del perimetro de Bougainville.",
+      "chronology": [
+        {
+          "year": 1943,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense.",
+      "consequences": "Fortalecio la cabeza de playa aliada en Bougainville y desgasto defensas japonesas interiores.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Hellzapoppin Ridge y Hill 600A"
+    },
+    "Batalla de Horaniu": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Islas Salomon",
+      "cause": "Japon intento establecer una base de barcazas para sostener evacuaciones y abastecimiento en Vella Lavella.",
+      "chronology": [
+        {
+          "year": 1943,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Estados Unidos",
+            "Nueva Zelanda"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Resultado tactico disputado.",
+      "consequences": "Los japoneses pudieron continuar movimientos limitados, pero la presion aliada sobre las Salomon siguio aumentando.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Horaniu"
+    },
+    "Batalla de la laguna Koromokina": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Bougainville",
+      "cause": "Japon contraataco el perimetro aliado de Torokina tras los desembarcos en Bougainville.",
+      "chronology": [
+        {
+          "year": 1943,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria defensiva estadounidense.",
+      "consequences": "Ayudo a consolidar la cabeza de playa de Bougainville.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de la laguna Koromokina"
+    },
+    "Batalla de Kos": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Dodecaneso",
+      "cause": "Tras la rendicion italiana, Reino Unido y Alemania disputaron el control de islas estrategicas del Egeo.",
+      "chronology": [
+        {
+          "year": 1943,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "Italia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria alemana.",
+      "consequences": "La perdida de Kos debilito la posicion aliada en el Dodecaneso y anticipo la caida de Leros.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Kos"
+    },
+    "Batalla de la Isla Rennell": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Islas Salomon",
+      "cause": "Aviacion japonesa ataco fuerzas navales estadounidenses que cubrian operaciones alrededor de Guadalcanal.",
+      "chronology": [
+        {
+          "year": 1943,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria tactica japonesa.",
+      "consequences": "Fue una de las ultimas acciones japonesas exitosas durante la evacuacion de Guadalcanal.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de la Isla Rennell"
+    },
+    "Batalla de Leros": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Dodecaneso",
+      "cause": "Alemania busco recuperar islas del Egeo tomadas por fuerzas britanicas e italianas tras el armisticio italiano.",
+      "chronology": [
+        {
+          "year": 1943,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Reino Unido",
+            "Italia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Alemania",
+          "members": [
+            "Alemania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria alemana.",
+      "consequences": "Puso fin a la principal tentativa aliada de sostener el Dodecaneso en 1943.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Leros"
+    },
+    "Batalla de Munda Point": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Nueva Georgia",
+      "cause": "Estados Unidos ataco el aerodromo japones de Munda para avanzar en la campana de las Islas Salomon.",
+      "chronology": [
+        {
+          "year": 1943,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense.",
+      "consequences": "La captura del aerodromo facilito nuevas operaciones aliadas hacia Bougainville.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Munda Point"
+    },
+    "Campana del norte de Birmania y oeste de Yunnan": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "campana",
+      "scope": "regional",
+      "region": "Birmania y Yunnan",
+      "cause": "Aliados y China buscaron reabrir comunicaciones terrestres con China y expulsar a Japon del norte de Birmania.",
+      "chronology": [
+        {
+          "year": 1943,
+          "text": "Campana dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "China",
+            "Estados Unidos",
+            "Reino Unido",
+            "India britanica"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Avance aliado gradual.",
+      "consequences": "Permitio recuperar rutas logisticas y preparo la reapertura de la carretera de Birmania.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Campana del norte de Birmania y oeste de Yunnan"
+    },
+    "Batalla de Piva Forks": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Bougainville",
+      "cause": "Japon intento presionar el perimetro estadounidense alrededor de Cabo Torokina.",
+      "chronology": [
+        {
+          "year": 1943,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense.",
+      "consequences": "Consolido el control aliado del sector interior de Bougainville.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Piva Forks"
+    },
+    "Batalla de Sattelberg": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Nueva Guinea",
+      "cause": "Australia ataco una posicion elevada japonesa que dominaba rutas cercanas a Finschhafen.",
+      "chronology": [
+        {
+          "year": 1943,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Australia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria australiana.",
+      "consequences": "Mejoro la seguridad aliada en la peninsula de Huon.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Sattelberg"
+    },
+    "Batalla de Scarlet Beach": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Nueva Guinea",
+      "cause": "Fuerzas australianas desembarcaron cerca de Finschhafen para avanzar por la peninsula de Huon.",
+      "chronology": [
+        {
+          "year": 1943,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Australia",
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria aliada.",
+      "consequences": "Establecio una cabeza de playa clave para capturar Finschhafen.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Scarlet Beach"
     }
   }
 }

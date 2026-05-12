@@ -178,6 +178,51 @@ export const LATE_1800_CONFLICT_DETAIL_FIXES = {
     outcome: "Victoria estadounidense-gubernamental.",
     consequences: "Consolido una larga presencia militar estadounidense en Nicaragua."
   }),
+  "Batalla de Khannour": makeCuratedBattle({
+    parent: "Conflictos de unificacion de Qatar",
+    region: "Qatar",
+    year: 1889,
+    cause: "Disputas tribales y de autoridad local marcaron la consolidacion politica qatari en el Golfo.",
+    sides: [{ side: "Fuerzas qataries", members: ["Qatar"] }, { side: "Rivales tribales locales", members: ["Rivales locales"] }],
+    outcome: "Resultado local asociado a la consolidacion qatari.",
+    consequences: "Forma parte del proceso de centralizacion politica que antecedio al reconocimiento moderno de Qatar."
+  }),
+  "Batalla de Santa Cruz": makeCuratedBattle({
+    parent: "Guerra filipino-estadounidense",
+    region: "Laguna",
+    year: 1899,
+    cause: "Estados Unidos amplio operaciones al sur de Manila para controlar rutas, pueblos y posiciones republicanas filipinas.",
+    sides: [{ side: "Estados Unidos", members: ["Estados Unidos"] }, { side: "Republica Filipina", members: ["Filipinas"] }],
+    outcome: "Victoria estadounidense local.",
+    consequences: "Extendio la ocupacion estadounidense en Luzon y sostuvo la presion sobre fuerzas filipinas regionales."
+  }),
+  "Segunda batalla de Bud Dajo": makeCuratedBattle({
+    parent: "Rebelion Moro",
+    region: "Jolo",
+    year: 1911,
+    cause: "La autoridad colonial estadounidense intento imponer control militar sobre comunidades moro en Sulu.",
+    sides: [{ side: "Estados Unidos", members: ["Estados Unidos", "Policia filipina"] }, { side: "Combatientes moro", members: ["Moro"] }],
+    outcome: "Victoria estadounidense.",
+    consequences: "Reforzo el control colonial en Sulu, pero mantuvo la resistencia moro como foco persistente de conflicto."
+  }),
+  "Batalla de Bud Bagsak": makeCuratedBattle({
+    parent: "Rebelion Moro",
+    region: "Jolo",
+    year: 1913,
+    cause: "Fuerzas estadounidenses atacaron posiciones fortificadas moro durante la campana final de pacificacion en Sulu.",
+    sides: [{ side: "Estados Unidos", members: ["Estados Unidos", "Policia filipina"] }, { side: "Combatientes moro", members: ["Moro"] }],
+    outcome: "Victoria estadounidense.",
+    consequences: "Fue uno de los combates finales de gran escala de la Rebelion Moro y consolido el dominio colonial estadounidense."
+  }),
+  "Batalla de Fort Dipitie": makeCuratedBattle({
+    parent: "Ocupacion estadounidense de Haiti",
+    region: "Haiti",
+    year: 1915,
+    cause: "La intervencion estadounidense en Haiti enfrento resistencia armada local durante la ocupacion inicial.",
+    sides: [{ side: "Estados Unidos", members: ["Estados Unidos"] }, { side: "Cacos haitianos", members: ["Haiti"] }],
+    outcome: "Victoria estadounidense.",
+    consequences: "Contribuyo a estabilizar militarmente la ocupacion, aunque la resistencia haitiana continuo en anos posteriores."
+  }),
   "Batalla de Donon": makeCuratedBattle({
     parent: "Primera Guerra Mundial",
     region: "Vosgos",

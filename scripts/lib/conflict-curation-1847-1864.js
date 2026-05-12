@@ -24,6 +24,17 @@ export const MID_1800_SAFE_CONFLICT_RENAMES = {
 };
 
 export const MID_1800_CONFLICT_DETAIL_FIXES = {
+  "Batalla de Malolo": makeCuratedBattle({
+    parent: "Expedicion de exploracion de Estados Unidos",
+    type: "expedicion punitiva",
+    scope: "regional",
+    region: "Fiyi",
+    year: 1840,
+    cause: "La expedicion Wilkes respondio con fuerza tras la muerte de dos marinos estadounidenses durante contactos tensos en Malolo.",
+    sides: [{ side: "Estados Unidos", members: ["Estados Unidos"] }, { side: "Comunidades fijianas de Malolo", members: ["Fiyi"] }],
+    outcome: "Victoria estadounidense y destruccion de aldeas locales.",
+    consequences: "Quedo como episodio temprano de proyeccion naval estadounidense en el Pacifico y de violencia colonial en contactos expedicionarios."
+  }),
   "Batalla de la Ciudad de Mexico": makeCuratedBattle({
     parent: "Guerra mexicano-estadounidense",
     region: "Ciudad de Mexico",
@@ -100,6 +111,28 @@ export const MID_1800_CONFLICT_DETAIL_FIXES = {
     outcome: "Defensa rusa exitosa.",
     consequences: "Mostro el alcance global de la Guerra de Crimea y la dificultad de sostener operaciones anfibias remotas."
   }),
+  "Batalla de Muddy Flat": makeCuratedBattle({
+    parent: "Rebelion Taiping",
+    type: "batalla terrestre y naval",
+    scope: "regional",
+    region: "Shanghai",
+    year: 1854,
+    cause: "Fuerzas Qing y milicias locales presionaron el area de concesiones extranjeras durante la crisis de Shanghai.",
+    sides: [{ side: "Fuerzas anglo-estadounidenses y Sociedad de las Espadas Pequenas", members: ["Estados Unidos", "Reino Unido", "Sociedad de las Espadas Pequenas"] }, { side: "Imperio Qing", members: ["China"] }],
+    outcome: "Victoria anglo-estadounidense y rebelde local.",
+    consequences: "Fortalecio la defensa de las concesiones de Shanghai y anticipo mayor intervencion extranjera en la Rebelion Taiping."
+  }),
+  "Batalla de los Fuertes de la Barrera": makeCuratedBattle({
+    parent: "Segunda Guerra del Opio",
+    type: "batalla naval y anfibia",
+    scope: "regional",
+    region: "Rio Perla",
+    year: 1856,
+    cause: "Buques estadounidenses atacaron fuertes Qing tras disparos contra una embarcacion durante la crisis de Canton.",
+    sides: [{ side: "Estados Unidos", members: ["Estados Unidos"] }, { side: "Imperio Qing", members: ["China"] }],
+    outcome: "Victoria estadounidense y captura de fuertes.",
+    consequences: "Mostro la capacidad naval estadounidense en China y se conecto con la escalada occidental de la Segunda Guerra del Opio."
+  }),
   "Batalla de los Fuertes de Taku": makeCuratedBattle({
     parent: "Segunda Guerra del Opio",
     type: "batalla naval y anfibia",
@@ -164,6 +197,24 @@ export const MID_1800_CONFLICT_DETAIL_FIXES = {
     outcome: "Resultado tactico indeciso con enormes bajas.",
     consequences: "La Union continuo avanzando, senalando una estrategia de desgaste sostenido contra la Confederacion."
   }),
+  "Batalla de Whitestone Hill": makeCuratedBattle({
+    parent: "Guerras sioux",
+    region: "Territorio de Dakota",
+    year: 1863,
+    cause: "Estados Unidos lanzo expediciones punitivas contra grupos dakota, yanktonai y lakota tras la Guerra Dakota de 1862.",
+    sides: [{ side: "Estados Unidos", members: ["Estados Unidos"] }, { side: "Dakota, Yanktonai y Lakota", members: ["Sioux"] }],
+    outcome: "Victoria estadounidense.",
+    consequences: "Provoco fuertes bajas y capturas indigenas, y sigue siendo recordada por comunidades dakota como una masacre."
+  }),
+  "Batalla de Killdeer Mountain": makeCuratedBattle({
+    parent: "Guerras sioux",
+    region: "Territorio de Dakota",
+    year: 1864,
+    cause: "La expedicion de Alfred Sully busco proteger rutas hacia los campos auriferos y quebrar la resistencia sioux.",
+    sides: [{ side: "Estados Unidos", members: ["Estados Unidos"] }, { side: "Lakota, Yanktonai y Dakota", members: ["Sioux"] }],
+    outcome: "Victoria estadounidense.",
+    consequences: "Destruyo campamentos y suministros sioux, empujando la campana hacia las Badlands."
+  }),
   "Batalla de Meridian": makeCuratedBattle({
     parent: "Guerra de Secesion estadounidense",
     region: "Misisipi",
@@ -201,6 +252,15 @@ export const MID_1800_CONFLICT_DETAIL_FIXES = {
     sides: [{ side: "Republicanos mexicanos", members: ["Mexico"] }, { side: "Imperio mexicano y voluntarios europeos", members: ["Segundo Imperio Mexicano", "Belgica"] }],
     outcome: "Victoria republicana mexicana.",
     consequences: "Reflejo el deterioro del proyecto imperial y el avance republicano hacia la restauracion."
+  }),
+  "Batalla de Infernal Caverns": makeCuratedBattle({
+    parent: "Guerra Snake",
+    region: "California",
+    year: 1867,
+    cause: "El ejercito estadounidense persiguio a combatientes paiute, pit river y modoc en el norte de California.",
+    sides: [{ side: "Estados Unidos y exploradores aliados", members: ["Estados Unidos", "Warm Springs", "Shoshone"] }, { side: "Paiute, Pit River y Modoc", members: ["Paiute", "Pit River", "Modoc"] }],
+    outcome: "Victoria estadounidense.",
+    consequences: "Redujo la resistencia local en la fase final de la Guerra Snake y quedo como uno de los ultimos combates indigenas de California."
   }),
   "Batalla de Beecher Island": makeCuratedBattle({
     parent: "Guerras indias de Estados Unidos",

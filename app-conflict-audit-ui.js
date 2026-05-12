@@ -6,6 +6,12 @@
     const issueCount = report?.issueCount || 0;
     const cleanCount = Math.max(0, scanned - issueCount);
     const cleanPercent = scanned ? Math.max(0, Math.min(100, Math.round((cleanCount / scanned) * 100))) : 0;
+    const dominantIssue = Object.entries(summary).sort((a, b) => Number(b[1] || 0) - Number(a[1] || 0))[0];
+    const dominantLabel = dominantIssue?.[0] === "weak_detail"
+      ? (isEnglish ? "Weak detail dominates" : "Domina el detalle flojo")
+      : dominantIssue?.[0] === "battle_without_parent"
+        ? (isEnglish ? "Missing parent wars dominate" : "Dominan batallas sin padre")
+        : (isEnglish ? "Mixed cleanup debt" : "Deuda de limpieza mixta");
     const noRowsText = isEnglish
       ? "No urgent rows in the current report. Run the audit again after the next data import."
       : "No hay filas urgentes en el reporte actual. Volve a correr la auditoria despues de la proxima importacion.";
@@ -39,6 +45,12 @@
       <div class="conflict-era-focus">
         <strong>${isEnglish ? "Current editorial focus" : "Foco editorial actual"}</strong>
         <div>${focusRows || `<span><b>0</b>${isEnglish ? "No dated urgent rows" : "Sin urgentes fechados"}</span>`}</div>
+      </div>
+      <div class="conflict-editorial-note">
+        <strong>${dominantLabel}</strong>
+        <span>${isEnglish
+          ? "The fastest quality gain is to enrich existing conflict detail while preserving safe parent links."
+          : "La mejora mas rapida de calidad es enriquecer detalle existente sin perder parentado seguro."}</span>
       </div>
       <div class="help-section">
         <h3>${isEnglish ? "Issue map" : "Mapa de problemas"}</h3>

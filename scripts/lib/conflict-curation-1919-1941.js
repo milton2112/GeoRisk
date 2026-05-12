@@ -28,7 +28,10 @@ export const INTERWAR_SAFE_CONFLICT_RENAMES = {
   "Batalla de Raate Road": "Batalla de la carretera de Raate",
   "Batalla de SedÃƒÂ¡n (1940)": "Batalla de Sedan (1940)",
   "Batalla de Kleisoura Pass": "Batalla del paso de Kleisoura",
-  "Batalla de Ypres-Comines Canal": "Batalla del canal Ypres-Comines"
+  "Batalla de Ypres-Comines Canal": "Batalla del canal Ypres-Comines",
+  "Batalla de Metaxas Line": "Batalla de la linea Metaxas",
+  "Batalla de Thermopylae": "Batalla de las Termopilas (1941)",
+  "Batalla del Cabo MatapÃƒÂ¡n": "Batalla del cabo Matapan"
 };
 
 export const INTERWAR_CONFLICT_DETAIL_FIXES = {
@@ -123,7 +126,7 @@ export const INTERWAR_CONFLICT_DETAIL_FIXES = {
     cause: "Alemania concentro blindados para cruzar el Mosa y romper el frente frances.",
     sides: [{ side: "Francia", members: ["Francia"] }, { side: "Alemania", members: ["Alemania"] }],
     outcome: "Victoria alemana decisiva.",
-    consequences: "Abio la ruptura operativa que llevo al cerco aliado y a la caida de Francia."
+    consequences: "Abrio la ruptura operativa que llevo al cerco aliado y a la caida de Francia."
   }),
   "Batalla de Sidi Barrani": makeCuratedBattle({
     parent: "Segunda Guerra Mundial",
@@ -159,6 +162,153 @@ export const INTERWAR_CONFLICT_DETAIL_FIXES = {
     cause: "Los Aliados atacaron posiciones italianas en Eritrea para expulsar al Eje de Africa oriental.",
     sides: [{ side: "Aliados", members: ["Reino Unido", "India britanica", "Sudafrica"] }, { side: "Italia", members: ["Italia"] }],
     outcome: "Victoria aliada.",
-    consequences: "Abio el camino a Asmara y Massawa, debilitando decisivamente el Africa Oriental Italiana."
+    consequences: "Abrio el camino a Asmara y Massawa, debilitando decisivamente el Africa Oriental Italiana."
+  }),
+  "Batalla de Giarabub": makeCuratedBattle({
+    parent: "Segunda Guerra Mundial",
+    region: "Libia",
+    year: 1940,
+    cause: "Fuerzas aliadas sitiaron una posicion italiana aislada durante la campana de Africa del Norte.",
+    sides: [{ side: "Aliados", members: ["Australia", "Reino Unido"] }, { side: "Italia", members: ["Italia"] }],
+    outcome: "Victoria aliada.",
+    consequences: "Elimino una posicion italiana fronteriza y acompano el retroceso del Eje en Cirenaica."
+  }),
+  "Batalla de Kvam": makeCuratedBattle({
+    parent: "Segunda Guerra Mundial",
+    region: "Noruega",
+    year: 1940,
+    cause: "Fuerzas britanicas y noruegas intentaron frenar el avance aleman durante la campana de Noruega.",
+    sides: [{ side: "Aliados", members: ["Noruega", "Reino Unido"] }, { side: "Alemania", members: ["Alemania"] }],
+    outcome: "Retraso aliado temporal.",
+    consequences: "Mostro la dificultad aliada para sostener posiciones ante la superioridad operacional alemana en Noruega."
+  }),
+  "Batalla de Rotterdam": makeCuratedBattle({
+    parent: "Segunda Guerra Mundial",
+    region: "Paises Bajos",
+    year: 1940,
+    cause: "Alemania busco quebrar rapidamente la resistencia neerlandesa durante la invasion occidental.",
+    sides: [{ side: "Paises Bajos", members: ["Paises Bajos"] }, { side: "Alemania", members: ["Alemania"] }],
+    outcome: "Victoria alemana y rendicion neerlandesa.",
+    consequences: "El bombardeo de Rotterdam acelero la capitulacion de los Paises Bajos."
+  }),
+  "Batalla del canal Ypres-Comines": makeCuratedBattle({
+    parent: "Segunda Guerra Mundial",
+    region: "Belgica",
+    year: 1940,
+    cause: "Fuerzas britanicas intentaron cubrir la retirada aliada hacia Dunkerque.",
+    sides: [{ side: "Aliados", members: ["Reino Unido"] }, { side: "Alemania", members: ["Alemania"] }],
+    outcome: "Accion defensiva aliada durante la retirada.",
+    consequences: "Contribuyo a ganar tiempo para la evacuacion de fuerzas aliadas en el norte de Francia."
+  }),
+  "Batalla de Agordat": makeCuratedBattle({
+    parent: "Segunda Guerra Mundial",
+    region: "Eritrea",
+    year: 1941,
+    cause: "Los Aliados avanzaron contra posiciones italianas en Africa oriental.",
+    sides: [{ side: "Aliados", members: ["Reino Unido", "India britanica", "Sudan"] }, { side: "Italia", members: ["Italia"] }],
+    outcome: "Victoria aliada.",
+    consequences: "Abrio la ruta hacia Keren y acelero la caida de Eritrea italiana."
+  }),
+  "Batalla de Damasco (1941)": makeCuratedBattle({
+    parent: "Campana de Siria y Libano",
+    region: "Siria",
+    year: 1941,
+    cause: "Los Aliados atacaron territorios controlados por la Francia de Vichy para asegurar Oriente Medio.",
+    sides: [{ side: "Aliados", members: ["Reino Unido", "Australia", "Francia Libre"] }, { side: "Francia de Vichy", members: ["Francia de Vichy"] }],
+    outcome: "Victoria aliada.",
+    consequences: "Facilito el control aliado de Siria y Libano y redujo riesgos para rutas regionales."
+  }),
+  "Batalla de Gondar": makeCuratedBattle({
+    parent: "Segunda Guerra Mundial",
+    region: "Etiopia",
+    year: 1941,
+    cause: "Gondar fue una de las ultimas posiciones italianas en Africa oriental.",
+    sides: [{ side: "Aliados", members: ["Reino Unido", "Etiopia", "Sudafrica"] }, { side: "Italia", members: ["Italia"] }],
+    outcome: "Victoria aliada.",
+    consequences: "Cerro la resistencia italiana organizada en Africa oriental."
+  }),
+  "Batalla de Guam": makeCuratedBattle({
+    parent: "Segunda Guerra Mundial",
+    region: "Pacifico",
+    year: 1941,
+    cause: "Japon ataco territorios estadounidenses en el Pacifico al iniciar su expansion regional.",
+    sides: [{ side: "Estados Unidos", members: ["Estados Unidos"] }, { side: "Japon", members: ["Japon"] }],
+    outcome: "Victoria japonesa.",
+    consequences: "Guam quedo ocupada por Japon hasta la reconquista estadounidense de 1944."
+  }),
+  "Batalla de Gurun": makeCuratedBattle({
+    parent: "Campana de Malasia",
+    region: "Malasia",
+    year: 1941,
+    cause: "Japon avanzo rapidamente por la peninsula malaya contra defensas britanicas y de la Commonwealth.",
+    sides: [{ side: "Aliados", members: ["Reino Unido", "India britanica"] }, { side: "Japon", members: ["Japon"] }],
+    outcome: "Victoria japonesa.",
+    consequences: "Acelero la retirada aliada hacia el sur y el deterioro de la defensa de Malasia."
+  }),
+  "Batalla de Kampar": makeCuratedBattle({
+    parent: "Campana de Malasia",
+    region: "Malasia",
+    year: 1941,
+    cause: "Fuerzas aliadas buscaron retrasar el avance japones hacia Singapur.",
+    sides: [{ side: "Aliados", members: ["Reino Unido", "India britanica"] }, { side: "Japon", members: ["Japon"] }],
+    outcome: "Exito defensivo aliado temporal.",
+    consequences: "Retraso el avance japones, aunque no altero el resultado general de la campana."
+  }),
+  "Batalla de Ko Chang": makeCuratedBattle({
+    parent: "Guerra franco-tailandesa",
+    type: "batalla naval",
+    region: "Golfo de Tailandia",
+    year: 1941,
+    cause: "Francia de Vichy y Tailandia disputaron territorios indochinos bajo presion regional japonesa.",
+    sides: [{ side: "Francia de Vichy", members: ["Francia de Vichy"] }, { side: "Tailandia", members: ["Tailandia"] }],
+    outcome: "Victoria naval francesa.",
+    consequences: "No impidio que la mediacion japonesa favoreciera concesiones territoriales a Tailandia."
+  }),
+  "Batalla de la Isla Wake": makeCuratedBattle({
+    parent: "Segunda Guerra Mundial",
+    region: "Pacifico",
+    year: 1941,
+    cause: "Japon intento capturar la isla Wake como parte de su ofensiva inicial en el Pacifico.",
+    sides: [{ side: "Estados Unidos", members: ["Estados Unidos"] }, { side: "Japon", members: ["Japon"] }],
+    outcome: "Victoria japonesa tras resistencia estadounidense.",
+    consequences: "La defensa de Wake se volvio simbolo temprano de resistencia estadounidense en el Pacifico."
+  }),
+  "Batalla de la linea Metaxas": makeCuratedBattle({
+    parent: "Segunda Guerra Mundial",
+    region: "Grecia",
+    year: 1941,
+    cause: "Alemania invadio Grecia y ataco fortificaciones griegas en la frontera norte.",
+    sides: [{ side: "Grecia", members: ["Grecia"] }, { side: "Alemania", members: ["Alemania"] }],
+    outcome: "Victoria alemana.",
+    consequences: "La caida de la linea Metaxas facilito la ocupacion alemana de Grecia."
+  }),
+  "Batalla de las Termopilas (1941)": makeCuratedBattle({
+    parent: "Segunda Guerra Mundial",
+    region: "Grecia",
+    year: 1941,
+    cause: "Fuerzas aliadas intentaron retrasar el avance aleman durante la evacuacion de Grecia.",
+    sides: [{ side: "Aliados", members: ["Reino Unido", "Australia", "Nueva Zelanda", "Grecia"] }, { side: "Alemania", members: ["Alemania"] }],
+    outcome: "Retirada aliada tras accion defensiva.",
+    consequences: "Gano tiempo para la evacuacion aliada, aunque Grecia quedo bajo ocupacion del Eje."
+  }),
+  "Batalla del cabo Matapan": makeCuratedBattle({
+    parent: "Segunda Guerra Mundial",
+    type: "batalla naval",
+    region: "Mediterraneo",
+    year: 1941,
+    cause: "La Royal Navy busco frenar operaciones italianas contra convoyes y posiciones aliadas.",
+    sides: [{ side: "Aliados", members: ["Reino Unido", "Australia"] }, { side: "Italia", members: ["Italia"] }],
+    outcome: "Victoria naval aliada decisiva.",
+    consequences: "Redujo la capacidad italiana de desafiar a la flota britanica en el Mediterraneo oriental."
+  }),
+  "Segunda Batalla de Amba Alagi": makeCuratedBattle({
+    parent: "Segunda Guerra Mundial",
+    type: "sitio",
+    region: "Etiopia",
+    year: 1941,
+    cause: "Las fuerzas italianas se replegaron a posiciones montanosas tras derrotas en Africa oriental.",
+    sides: [{ side: "Aliados", members: ["Reino Unido", "Etiopia", "India britanica"] }, { side: "Italia", members: ["Italia"] }],
+    outcome: "Rendicion italiana.",
+    consequences: "Marco la caida de una posicion clave italiana y acelero el fin de la campana de Africa oriental."
   })
 };

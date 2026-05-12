@@ -7,6 +7,7 @@ import { EARLY_1800_CONFLICT_DETAIL_FIXES, EARLY_1800_SAFE_CONFLICT_RENAMES } fr
 import { MID_1800_CONFLICT_DETAIL_FIXES, MID_1800_SAFE_CONFLICT_RENAMES } from "./lib/conflict-curation-1847-1864.js";
 import { LATE_1800_CONFLICT_DETAIL_FIXES, LATE_1800_SAFE_CONFLICT_RENAMES } from "./lib/conflict-curation-1877-1914.js";
 import { INTERWAR_CONFLICT_DETAIL_FIXES, INTERWAR_SAFE_CONFLICT_RENAMES } from "./lib/conflict-curation-1919-1941.js";
+import { WWII_1942_CONFLICT_DETAIL_FIXES, WWII_1942_SAFE_CONFLICT_RENAMES } from "./lib/conflict-curation-1942.js";
 import { cleanConflictLabel, mergeConflictEntries } from "./lib/conflict-cleaning.js";
 
 const projectRoot = path.resolve(process.cwd());
@@ -21,7 +22,8 @@ const curatedConflictDetailFixes = {
   ...EARLY_1800_CONFLICT_DETAIL_FIXES,
   ...MID_1800_CONFLICT_DETAIL_FIXES,
   ...LATE_1800_CONFLICT_DETAIL_FIXES,
-  ...INTERWAR_CONFLICT_DETAIL_FIXES
+  ...INTERWAR_CONFLICT_DETAIL_FIXES,
+  ...WWII_1942_CONFLICT_DETAIL_FIXES
 };
 const safeConflictRenames = {
   ...SAFE_CONFLICT_RENAMES,
@@ -29,7 +31,8 @@ const safeConflictRenames = {
   ...EARLY_1800_SAFE_CONFLICT_RENAMES,
   ...MID_1800_SAFE_CONFLICT_RENAMES,
   ...LATE_1800_SAFE_CONFLICT_RENAMES,
-  ...INTERWAR_SAFE_CONFLICT_RENAMES
+  ...INTERWAR_SAFE_CONFLICT_RENAMES,
+  ...WWII_1942_SAFE_CONFLICT_RENAMES
 };
 
 function renameConflictName(name) {

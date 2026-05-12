@@ -1,225 +1,16 @@
 {
-  "generatedAt": "2026-05-07T23:35:04.907Z",
+  "generatedAt": "2026-05-12T00:30:57.940Z",
   "scannedConflicts": 2010,
-  "issueCount": 1797,
+  "issueCount": 1724,
   "summary": {
-    "battle_without_parent": 1005,
-    "weak_detail": 1736,
-    "duplicate_names": 16,
+    "battle_without_parent": 930,
+    "weak_detail": 1661,
+    "duplicate_names": 18,
     "english": 5,
     "generic_side": 19,
     "leading_year": 7
   },
   "topIssues": [
-    {
-      "key": "batalla de malolo",
-      "name": "Batalla de Malolo",
-      "names": [
-        "Batalla de Malolo"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1840,
-      "endYear": 1840,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de muddy flat",
-      "name": "Batalla de Muddy Flat",
-      "names": [
-        "Batalla de Muddy Flat"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1854,
-      "endYear": 1854,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de los fuertes de la barrera",
-      "name": "Batalla de los Fuertes de la Barrera",
-      "names": [
-        "Batalla de los Fuertes de la Barrera"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1856,
-      "endYear": 1856,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de whitestone hill",
-      "name": "Batalla de Whitestone Hill",
-      "names": [
-        "Batalla de Whitestone Hill"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1863,
-      "endYear": 1863,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de killdeer mountain",
-      "name": "Batalla de Killdeer Mountain",
-      "names": [
-        "Batalla de Killdeer Mountain"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1864,
-      "endYear": 1864,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de infernal caverns",
-      "name": "Batalla de Infernal Caverns",
-      "names": [
-        "Batalla de Infernal Caverns"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1867,
-      "endYear": 1867,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de khannour",
-      "name": "Batalla de Khannour",
-      "names": [
-        "Batalla de Khannour"
-      ],
-      "countries": [
-        "QAT"
-      ],
-      "startYear": 1889,
-      "endYear": 1889,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de santa cruz",
-      "name": "Batalla de Santa Cruz",
-      "names": [
-        "Batalla de Santa Cruz"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1899,
-      "endYear": 1899,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "segunda batalla de bud dajo",
-      "name": "Segunda batalla de Bud Dajo",
-      "names": [
-        "Segunda batalla de Bud Dajo"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1911,
-      "endYear": 1911,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de bud bagsak",
-      "name": "Batalla de Bud Bagsak",
-      "names": [
-        "Batalla de Bud Bagsak"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1913,
-      "endYear": 1913,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de fort dipitie",
-      "name": "Batalla de Fort Dipitie",
-      "names": [
-        "Batalla de Fort Dipitie"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1915,
-      "endYear": 1915,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
     {
       "key": "batalla de tulgas",
       "name": "Batalla de Tulgas",
@@ -259,255 +50,6 @@
       "autoFixes": []
     },
     {
-      "key": "batalla de giarabub",
-      "name": "Batalla de Giarabub",
-      "names": [
-        "Batalla de Giarabub"
-      ],
-      "countries": [
-        "AUS",
-        "GBR"
-      ],
-      "startYear": 1940,
-      "endYear": 1941,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de kvam",
-      "name": "Batalla de Kvam",
-      "names": [
-        "Batalla de Kvam"
-      ],
-      "countries": [
-        "GBR"
-      ],
-      "startYear": 1940,
-      "endYear": 1940,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de rotterdam",
-      "name": "Batalla de Rotterdam",
-      "names": [
-        "Batalla de Rotterdam"
-      ],
-      "countries": [
-        "GBR"
-      ],
-      "startYear": 1940,
-      "endYear": 1940,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla del canal ypres comines",
-      "name": "Batalla del canal Ypres-Comines",
-      "names": [
-        "Batalla del canal Ypres-Comines"
-      ],
-      "countries": [
-        "GBR"
-      ],
-      "startYear": 1940,
-      "endYear": 1940,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de agordat",
-      "name": "Batalla de Agordat",
-      "names": [
-        "Batalla de Agordat"
-      ],
-      "countries": [
-        "GBR"
-      ],
-      "startYear": 1941,
-      "endYear": 1941,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de damasco 1941",
-      "name": "Batalla de Damasco (1941)",
-      "names": [
-        "Batalla de Damasco (1941)"
-      ],
-      "countries": [
-        "AUS",
-        "GBR"
-      ],
-      "startYear": 1941,
-      "endYear": 1941,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de gondar",
-      "name": "Batalla de Gondar",
-      "names": [
-        "Batalla de Gondar"
-      ],
-      "countries": [
-        "GBR"
-      ],
-      "startYear": 1941,
-      "endYear": 1941,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de guam",
-      "name": "Batalla de Guam",
-      "names": [
-        "Batalla de Guam"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1941,
-      "endYear": 1941,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de gurun",
-      "name": "Batalla de Gurun",
-      "names": [
-        "Batalla de Gurun"
-      ],
-      "countries": [
-        "GBR"
-      ],
-      "startYear": 1941,
-      "endYear": 1941,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de kampar",
-      "name": "Batalla de Kampar",
-      "names": [
-        "Batalla de Kampar"
-      ],
-      "countries": [
-        "GBR"
-      ],
-      "startYear": 1941,
-      "endYear": 1942,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de ko chang",
-      "name": "Batalla de Ko Chang",
-      "names": [
-        "Batalla de Ko Chang"
-      ],
-      "countries": [
-        "THA"
-      ],
-      "startYear": 1941,
-      "endYear": 1941,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de la isla wake",
-      "name": "Batalla de la Isla Wake",
-      "names": [
-        "Batalla de la Isla Wake"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1941,
-      "endYear": 1941,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de metaxas line",
-      "name": "Batalla de Metaxas Line",
-      "names": [
-        "Batalla de Metaxas Line"
-      ],
-      "countries": [
-        "GBR"
-      ],
-      "startYear": 1941,
-      "endYear": 1941,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
       "key": "batalla de prachuab khirikhan",
       "name": "Batalla de Prachuab Khirikhan",
       "names": [
@@ -515,45 +57,6 @@
       ],
       "countries": [
         "THA"
-      ],
-      "startYear": 1941,
-      "endYear": 1941,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de thermopylae",
-      "name": "Batalla de Thermopylae",
-      "names": [
-        "Batalla de Thermopylae"
-      ],
-      "countries": [
-        "GBR"
-      ],
-      "startYear": 1941,
-      "endYear": 1941,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla del cabo matapan",
-      "name": "Batalla del Cabo Matapán",
-      "names": [
-        "Batalla del Cabo Matapán"
-      ],
-      "countries": [
-        "AUS",
-        "GBR"
       ],
       "startYear": 1941,
       "endYear": 1941,
@@ -576,943 +79,6 @@
       ],
       "startYear": 1941,
       "endYear": 1941,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "segunda batalla de amba alagi",
-      "name": "Segunda Batalla de Amba Alagi",
-      "names": [
-        "Segunda Batalla de Amba Alagi"
-      ],
-      "countries": [
-        "GBR"
-      ],
-      "startYear": 1941,
-      "endYear": 1941,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de alam el halfa",
-      "name": "Batalla de Alam el Halfa",
-      "names": [
-        "Batalla de Alam el Halfa"
-      ],
-      "countries": [
-        "GBR"
-      ],
-      "startYear": 1942,
-      "endYear": 1942,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de balikpapan",
-      "name": "Batalla de Balikpapan",
-      "names": [
-        "Batalla de Balikpapan"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1942,
-      "endYear": 1942,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de bir hakeim",
-      "name": "Batalla de Bir Hakeim",
-      "names": [
-        "Batalla de Bir Hakeim"
-      ],
-      "countries": [
-        "GBR"
-      ],
-      "startYear": 1942,
-      "endYear": 1942,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de bukit timah",
-      "name": "Batalla de Bukit Timah",
-      "names": [
-        "Batalla de Bukit Timah"
-      ],
-      "countries": [
-        "GBR"
-      ],
-      "startYear": 1942,
-      "endYear": 1942,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de buna gona",
-      "name": "Batalla de Buna-Gona",
-      "names": [
-        "Batalla de Buna-Gona"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1942,
-      "endYear": 1943,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de el agheila",
-      "name": "Batalla de El Agheila",
-      "names": [
-        "Batalla de El Agheila"
-      ],
-      "countries": [
-        "GBR"
-      ],
-      "startYear": 1942,
-      "endYear": 1942,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de gazala",
-      "name": "Batalla de Gazala",
-      "names": [
-        "Batalla de Gazala"
-      ],
-      "countries": [
-        "GBR"
-      ],
-      "startYear": 1942,
-      "endYear": 1942,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de java",
-      "name": "Batalla de Java",
-      "names": [
-        "Batalla de Java"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1942,
-      "endYear": 1942,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de kranji",
-      "name": "Batalla de Kranji",
-      "names": [
-        "Batalla de Kranji"
-      ],
-      "countries": [
-        "GBR"
-      ],
-      "startYear": 1942,
-      "endYear": 1942,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de la bahia de milne",
-      "name": "Batalla de la Bahía de Milne",
-      "names": [
-        "Batalla de la Bahía de Milne"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1942,
-      "endYear": 1942,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de las islas santa cruz",
-      "name": "Batalla de las islas Santa Cruz",
-      "names": [
-        "Batalla de las islas Santa Cruz"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1942,
-      "endYear": 1942,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de midway",
-      "name": "Batalla de Midway",
-      "names": [
-        "Batalla de Midway"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1942,
-      "endYear": 1942,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de mount austen galloping horse y sea horse",
-      "name": "Batalla de Mount Austen, Galloping Horse, y Sea Horse",
-      "names": [
-        "Batalla de Mount Austen, Galloping Horse, y Sea Horse"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1942,
-      "endYear": 1943,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de muar",
-      "name": "Batalla de Muar",
-      "names": [
-        "Batalla de Muar"
-      ],
-      "countries": [
-        "GBR"
-      ],
-      "startYear": 1942,
-      "endYear": 1942,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de port moresby",
-      "name": "Batalla de Port Moresby",
-      "names": [
-        "Batalla de Port Moresby"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1942,
-      "endYear": 1943,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de singapur",
-      "name": "Batalla de Singapur",
-      "names": [
-        "Batalla de Singapur"
-      ],
-      "countries": [
-        "AUS",
-        "GBR"
-      ],
-      "startYear": 1942,
-      "endYear": 1942,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de slim river",
-      "name": "Batalla de Slim River",
-      "names": [
-        "Batalla de Slim River"
-      ],
-      "countries": [
-        "GBR"
-      ],
-      "startYear": 1942,
-      "endYear": 1942,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de timor",
-      "name": "Batalla de Timor",
-      "names": [
-        "Batalla de Timor"
-      ],
-      "countries": [
-        "AUS",
-        "NLD"
-      ],
-      "startYear": 1942,
-      "endYear": 1943,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de tjiater pass",
-      "name": "Batalla de Tjiater Pass",
-      "names": [
-        "Batalla de Tjiater Pass"
-      ],
-      "countries": [
-        "GBR",
-        "NLD"
-      ],
-      "startYear": 1942,
-      "endYear": 1942,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de tulagi y gavutu tanambogo",
-      "name": "Batalla de Tulagi y Gavutu-Tanambogo",
-      "names": [
-        "Batalla de Tulagi y Gavutu-Tanambogo"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1942,
-      "endYear": 1942,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla del edson ridge",
-      "name": "Batalla del Edson Ridge",
-      "names": [
-        "Batalla del Edson Ridge"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1942,
-      "endYear": 1942,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla del estrecho badung",
-      "name": "Batalla del Estrecho Badung",
-      "names": [
-        "Batalla del Estrecho Badung"
-      ],
-      "countries": [
-        "GBR",
-        "USA"
-      ],
-      "startYear": 1942,
-      "endYear": 1942,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla del estrecho de la sonda",
-      "name": "Batalla del estrecho de la Sonda",
-      "names": [
-        "Batalla del estrecho de la Sonda"
-      ],
-      "countries": [
-        "AUS",
-        "USA"
-      ],
-      "startYear": 1942,
-      "endYear": 1942,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla naval de guadalcanal",
-      "name": "Batalla naval de Guadalcanal",
-      "names": [
-        "Batalla naval de Guadalcanal"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1942,
-      "endYear": 1942,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla por el campo henderson",
-      "name": "Batalla por el Campo Henderson",
-      "names": [
-        "Batalla por el Campo Henderson"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1942,
-      "endYear": 1942,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "primera batalla de el alamein",
-      "name": "Primera Batalla de El Alamein",
-      "names": [
-        "Primera Batalla de El Alamein"
-      ],
-      "countries": [
-        "GBR"
-      ],
-      "startYear": 1942,
-      "endYear": 1942,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "segunda batalla de el alamein",
-      "name": "Segunda batalla de El Alamein",
-      "names": [
-        "Segunda batalla de El Alamein"
-      ],
-      "countries": [
-        "GBR"
-      ],
-      "startYear": 1942,
-      "endYear": 1942,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de arawe",
-      "name": "Batalla de Arawe",
-      "names": [
-        "Batalla de Arawe"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1943,
-      "endYear": 1944,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de attu",
-      "name": "Batalla de Attu",
-      "names": [
-        "Batalla de Attu"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1943,
-      "endYear": 1943,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de centuripe",
-      "name": "Batalla de Centuripe",
-      "names": [
-        "Batalla de Centuripe"
-      ],
-      "countries": [
-        "GBR"
-      ],
-      "startYear": 1943,
-      "endYear": 1943,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de coconut grove",
-      "name": "Batalla de Coconut Grove",
-      "names": [
-        "Batalla de Coconut Grove"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1943,
-      "endYear": 1943,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de dumpu",
-      "name": "Batalla de Dumpu",
-      "names": [
-        "Batalla de Dumpu"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1943,
-      "endYear": 1943,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de enogai",
-      "name": "Batalla de Enogai",
-      "names": [
-        "Batalla de Enogai"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1943,
-      "endYear": 1943,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de gela",
-      "name": "Batalla de Gela",
-      "names": [
-        "Batalla de Gela"
-      ],
-      "countries": [
-        "GBR"
-      ],
-      "startYear": 1943,
-      "endYear": 1943,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de hellzapoppin ridge y hill 600a",
-      "name": "Batalla de Hellzapoppin Ridge y Hill 600A",
-      "names": [
-        "Batalla de Hellzapoppin Ridge y Hill 600A"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1943,
-      "endYear": 1943,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de hill 609",
-      "name": "Batalla de Hill 609",
-      "names": [
-        "Batalla de Hill 609"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1943,
-      "endYear": 1943,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de horaniu",
-      "name": "Batalla de Horaniu",
-      "names": [
-        "Batalla de Horaniu"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1943,
-      "endYear": 1943,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de kaiapit",
-      "name": "Batalla de Kaiapit",
-      "names": [
-        "Batalla de Kaiapit"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1943,
-      "endYear": 1943,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de kolombangara",
-      "name": "Batalla de Kolombangara",
-      "names": [
-        "Batalla de Kolombangara"
-      ],
-      "countries": [
-        "NZL",
-        "USA"
-      ],
-      "startYear": 1943,
-      "endYear": 1943,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de koromokina lagoon",
-      "name": "Batalla de Koromokina Lagoon",
-      "names": [
-        "Batalla de Koromokina Lagoon"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1943,
-      "endYear": 1943,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de kos",
-      "name": "Batalla de Kos",
-      "names": [
-        "Batalla de Kos"
-      ],
-      "countries": [
-        "GBR"
-      ],
-      "startYear": 1943,
-      "endYear": 1943,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de la isla rennell",
-      "name": "Batalla de la Isla Rennell",
-      "names": [
-        "Batalla de la Isla Rennell"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1943,
-      "endYear": 1943,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de leros",
-      "name": "Batalla de Leros",
-      "names": [
-        "Batalla de Leros"
-      ],
-      "countries": [
-        "GBR"
-      ],
-      "startYear": 1943,
-      "endYear": 1943,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de munda point",
-      "name": "Batalla de Munda Point",
-      "names": [
-        "Batalla de Munda Point"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1943,
-      "endYear": 1943,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de northern burma y western yunnan",
-      "name": "Batalla de Northern Burma y Western Yunnan",
-      "names": [
-        "Batalla de Northern Burma y Western Yunnan"
-      ],
-      "countries": [
-        "THA"
-      ],
-      "startYear": 1943,
-      "endYear": 1945,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de piva forks",
-      "name": "Batalla de Piva Forks",
-      "names": [
-        "Batalla de Piva Forks"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1943,
-      "endYear": 1943,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de sattelberg",
-      "name": "Batalla de Sattelberg",
-      "names": [
-        "Batalla de Sattelberg"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1943,
-      "endYear": 1943,
-      "ongoing": false,
-      "issues": [
-        "battle_without_parent",
-        "weak_detail"
-      ],
-      "severity": 6,
-      "autoFixes": []
-    },
-    {
-      "key": "batalla de scarlet beach",
-      "name": "Batalla de Scarlet Beach",
-      "names": [
-        "Batalla de Scarlet Beach"
-      ],
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1943,
-      "endYear": 1943,
       "ongoing": false,
       "issues": [
         "battle_without_parent",
@@ -5769,6 +4335,1466 @@
       ],
       "startYear": 1988,
       "endYear": 1988,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de oum dreyga septiembre de 1988",
+      "name": "Batalla de Oum Dreyga (septiembre de 1988)",
+      "names": [
+        "Batalla de Oum Dreyga (septiembre de 1988)"
+      ],
+      "countries": [
+        "MAR"
+      ],
+      "startYear": 1988,
+      "endYear": 1988,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de amgala 1989",
+      "name": "Batalla de Amgala (1989)",
+      "names": [
+        "Batalla de Amgala (1989)"
+      ],
+      "countries": [
+        "MAR"
+      ],
+      "startYear": 1989,
+      "endYear": 1989,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de guelta zemmur 1989",
+      "name": "Batalla de Guelta Zemmur (1989)",
+      "names": [
+        "Batalla de Guelta Zemmur (1989)"
+      ],
+      "countries": [
+        "MAR"
+      ],
+      "startYear": 1989,
+      "endYear": 1989,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de hausa 1989",
+      "name": "Batalla de Hausa (1989)",
+      "names": [
+        "Batalla de Hausa (1989)"
+      ],
+      "countries": [
+        "MAR"
+      ],
+      "startYear": 1989,
+      "endYear": 1989,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de ad dawrah",
+      "name": "Batalla de Ad-Dawrah",
+      "names": [
+        "Batalla de Ad-Dawrah"
+      ],
+      "countries": [
+        "GBR",
+        "IRQ",
+        "KWT",
+        "USA"
+      ],
+      "startYear": 1991,
+      "endYear": 1991,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de bubiyan",
+      "name": "Batalla de Bubiyan",
+      "names": [
+        "Batalla de Bubiyan"
+      ],
+      "countries": [
+        "GBR",
+        "IRQ",
+        "USA"
+      ],
+      "startYear": 1991,
+      "endYear": 1991,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de failaka",
+      "name": "Batalla de Failaka",
+      "names": [
+        "Batalla de Failaka"
+      ],
+      "countries": [
+        "KWT",
+        "USA"
+      ],
+      "startYear": 1991,
+      "endYear": 1991,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de khafji",
+      "name": "Batalla de Khafji",
+      "names": [
+        "Batalla de Khafji"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1991,
+      "endYear": 1991,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de qurah y umm al maradim",
+      "name": "Batalla de Qurah y Umm al Maradim",
+      "names": [
+        "Batalla de Qurah y Umm al Maradim"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1991,
+      "endYear": 1991,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de wadi al batin",
+      "name": "Batalla de Wadi Al-Batin",
+      "names": [
+        "Batalla de Wadi Al-Batin"
+      ],
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 1991,
+      "endYear": 1991,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de gagra",
+      "name": "Batalla de Gagra",
+      "names": [
+        "Batalla de Gagra"
+      ],
+      "countries": [
+        "GEO"
+      ],
+      "startYear": 1992,
+      "endYear": 1992,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de sujumi 1992",
+      "name": "Batalla de Sujumi (1992)",
+      "names": [
+        "Batalla de Sujumi (1992)"
+      ],
+      "countries": [
+        "GEO"
+      ],
+      "startYear": 1992,
+      "endYear": 1992,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "sitio de tkvarcheli",
+      "name": "Sitio de Tkvarcheli",
+      "names": [
+        "Sitio de Tkvarcheli"
+      ],
+      "countries": [
+        "GEO"
+      ],
+      "startYear": 1992,
+      "endYear": 1993,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de mogadiscio",
+      "name": "Batalla de Mogadiscio",
+      "names": [
+        "Batalla de Mogadiscio"
+      ],
+      "countries": [
+        "SOM",
+        "USA"
+      ],
+      "startYear": 1993,
+      "endYear": 1993,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de sujumi 1993",
+      "name": "Batalla de Sujumi (1993)",
+      "names": [
+        "Batalla de Sujumi (1993)"
+      ],
+      "countries": [
+        "GEO"
+      ],
+      "startYear": 1993,
+      "endYear": 1993,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de dolinskoye",
+      "name": "Batalla de Dolinskoye",
+      "names": [
+        "Batalla de Dolinskoye"
+      ],
+      "countries": [
+        "RUS"
+      ],
+      "startYear": 1994,
+      "endYear": 1994,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de gudermes",
+      "name": "Batalla de Gudermés",
+      "names": [
+        "Batalla de Gudermés"
+      ],
+      "countries": [
+        "RUS"
+      ],
+      "startYear": 1995,
+      "endYear": 1995,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de kisangani",
+      "name": "Batalla de Kisangani",
+      "names": [
+        "Batalla de Kisangani"
+      ],
+      "countries": [
+        "RWA",
+        "UGA"
+      ],
+      "startYear": 1997,
+      "endYear": 1997,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de karamaji",
+      "name": "Batalla de Karamaji",
+      "names": [
+        "Batalla de Karamaji"
+      ],
+      "countries": [
+        "RUS"
+      ],
+      "startYear": 1999,
+      "endYear": 1999,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "segunda intifada",
+      "name": "Segunda intifada",
+      "names": [
+        "Segunda intifada",
+        "Segunda Intifada"
+      ],
+      "countries": [
+        "IRQ",
+        "ISR",
+        "PSE"
+      ],
+      "startYear": 2000,
+      "endYear": 2005,
+      "ongoing": false,
+      "issues": [
+        "duplicate_names",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de joybar",
+      "name": "Batalla de Joybar",
+      "names": [
+        "Batalla de Joybar"
+      ],
+      "countries": [
+        "AFG",
+        "FRA",
+        "USA"
+      ],
+      "startYear": 2001,
+      "endYear": 2001,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de qala i jangi",
+      "name": "Batalla de Qala-i-Jangi",
+      "names": [
+        "Batalla de Qala-i-Jangi"
+      ],
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 2001,
+      "endYear": 2001,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de radusa",
+      "name": "Batalla de Raduša",
+      "names": [
+        "Batalla de Raduša"
+      ],
+      "countries": [
+        "MKD"
+      ],
+      "startYear": 2001,
+      "endYear": 2001,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de tetovo",
+      "name": "Batalla de Tetovo",
+      "names": [
+        "Batalla de Tetovo"
+      ],
+      "countries": [
+        "MKD"
+      ],
+      "startYear": 2001,
+      "endYear": 2001,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de tora bora",
+      "name": "Batalla de Tora Bora",
+      "names": [
+        "Batalla de Tora Bora"
+      ],
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 2001,
+      "endYear": 2001,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de takur ghar",
+      "name": "Batalla de Takur Ghar",
+      "names": [
+        "Batalla de Takur Ghar"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2002,
+      "endYear": 2002,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de basora",
+      "name": "Batalla de Basora",
+      "names": [
+        "Batalla de Basora"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 2003,
+      "endYear": 2003,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de hilla",
+      "name": "Batalla de Hilla",
+      "names": [
+        "Batalla de Hilla"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2003,
+      "endYear": 2003,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de kerbala de 2003",
+      "name": "Batalla de Kerbala de 2003",
+      "names": [
+        "Batalla de Kerbala de 2003"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2003,
+      "endYear": 2003,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de nasiriya",
+      "name": "Batalla de Nasiriya",
+      "names": [
+        "Batalla de Nasiriya"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2003,
+      "endYear": 2003,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla del paso de debecka",
+      "name": "Batalla del paso de Debecka",
+      "names": [
+        "Batalla del paso de Debecka"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2003,
+      "endYear": 2003,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de los puentes",
+      "name": "Batalla de los puentes",
+      "names": [
+        "Batalla de los puentes"
+      ],
+      "countries": [
+        "ITA"
+      ],
+      "startYear": 2004,
+      "endYear": 2004,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de los puentes de nasiriya",
+      "name": "Batalla de los puentes de Nasiriya",
+      "names": [
+        "Batalla de los puentes de Nasiriya"
+      ],
+      "countries": [
+        "ITA"
+      ],
+      "startYear": 2004,
+      "endYear": 2004,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de mosul 2004",
+      "name": "Batalla de Mosul (2004)",
+      "names": [
+        "Batalla de Mosul (2004)"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2004,
+      "endYear": 2004,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de nayaf",
+      "name": "Batalla de Nayaf",
+      "names": [
+        "Batalla de Nayaf"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2004,
+      "endYear": 2004,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de samarra",
+      "name": "Batalla de Samarra",
+      "names": [
+        "Batalla de Samarra"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2004,
+      "endYear": 2004,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "primera batalla de faluya",
+      "name": "Primera batalla de Faluya",
+      "names": [
+        "Primera batalla de Faluya"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2004,
+      "endYear": 2004,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "segunda batalla de faluya",
+      "name": "Segunda batalla de Faluya",
+      "names": [
+        "Segunda batalla de Faluya"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2004,
+      "endYear": 2004,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de al qaim",
+      "name": "Batalla de Al Qaim",
+      "names": [
+        "Batalla de Al Qaim"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2005,
+      "endYear": 2005,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de haditha",
+      "name": "Batalla de Haditha",
+      "names": [
+        "Batalla de Haditha"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2005,
+      "endYear": 2005,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de tal afar",
+      "name": "Batalla de Tal Afar",
+      "names": [
+        "Batalla de Tal Afar"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2005,
+      "endYear": 2005,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de nowzad",
+      "name": "Batalla de Nowzad",
+      "names": [
+        "Batalla de Nowzad"
+      ],
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 2006,
+      "endYear": 2006,
+      "ongoing": true,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "sitio de musa qala",
+      "name": "Sitio de Musa Qala",
+      "names": [
+        "Sitio de Musa Qala"
+      ],
+      "countries": [
+        "DNK",
+        "GBR"
+      ],
+      "startYear": 2006,
+      "endYear": 2006,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de baquba",
+      "name": "Batalla de Baquba",
+      "names": [
+        "Batalla de Baquba"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2007,
+      "endYear": 2007,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de chora",
+      "name": "Batalla de Chora",
+      "names": [
+        "Batalla de Chora"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2007,
+      "endYear": 2007,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de donkey island",
+      "name": "Batalla de Donkey Island",
+      "names": [
+        "Batalla de Donkey Island"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2007,
+      "endYear": 2007,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de haifa street",
+      "name": "Batalla de Haifa Street",
+      "names": [
+        "Batalla de Haifa Street"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2007,
+      "endYear": 2007,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de musa qala",
+      "name": "Batalla de Musa Qala",
+      "names": [
+        "Batalla de Musa Qala"
+      ],
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 2007,
+      "endYear": 2007,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de ras kamboni",
+      "name": "Batalla de Ras Kamboni",
+      "names": [
+        "Batalla de Ras Kamboni"
+      ],
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 2007,
+      "endYear": 2007,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de basra",
+      "name": "Batalla de Basra",
+      "names": [
+        "Batalla de Basra"
+      ],
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 2008,
+      "endYear": 2008,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla del desfiladero de liakhvi",
+      "name": "Batalla del desfiladero de Liakhvi",
+      "names": [
+        "Batalla del desfiladero de Liakhvi"
+      ],
+      "countries": [
+        "GEO",
+        "RUS"
+      ],
+      "startYear": 2008,
+      "endYear": 2008,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de dahaneh",
+      "name": "Batalla de Dahaneh",
+      "names": [
+        "Batalla de Dahaneh"
+      ],
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 2009,
+      "endYear": 2009,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de kamdesh",
+      "name": "Batalla de Kamdesh",
+      "names": [
+        "Batalla de Kamdesh"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2009,
+      "endYear": 2009,
+      "ongoing": true,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de khaz oruzgan",
+      "name": "Batalla de Khaz Oruzgan",
+      "names": [
+        "Batalla de Khaz Oruzgan"
+      ],
+      "countries": [
+        "AUS",
+        "USA"
+      ],
+      "startYear": 2010,
+      "endYear": 2010,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de douz",
+      "name": "Batalla de Douz",
+      "names": [
+        "Batalla de Douz"
+      ],
+      "countries": [
+        "LBY",
+        "TUN"
+      ],
+      "startYear": 2011,
+      "endYear": 2011,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "iran israel conflict during syrian civil war",
+      "name": "Iran–Israel conflict during Syrian civil war",
+      "names": [
+        "Iran–Israel conflict during Syrian civil war"
+      ],
+      "countries": [
+        "IRN",
+        "ISR"
+      ],
+      "startYear": 2013,
+      "endYear": 2013,
+      "ongoing": true,
+      "issues": [
+        "english",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": [
+        "Iran–Israel conflict during Syrian Guerra civil"
+      ]
+    },
+    {
+      "key": "batalla de karlivka",
+      "name": "Batalla de Karlivka",
+      "names": [
+        "Batalla de Karlivka"
+      ],
+      "countries": [
+        "UKR"
+      ],
+      "startYear": 2014,
+      "endYear": 2014,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de dikwa 2 mar 2015",
+      "name": "Batalla de Dikwa (2 mar 2015)",
+      "names": [
+        "Batalla de Dikwa (2 mar 2015)"
+      ],
+      "countries": [
+        "TCD"
+      ],
+      "startYear": 2015,
+      "endYear": 2015,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de al qaryatayn",
+      "name": "Batalla de al-Qaryatayn",
+      "names": [
+        "Batalla de al-Qaryatayn"
+      ],
+      "countries": [
+        "RUS",
+        "SYR"
+      ],
+      "startYear": 2016,
+      "endYear": 2016,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "generic_side"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de faluya",
+      "name": "Batalla de Faluya",
+      "names": [
+        "Batalla de Faluya"
+      ],
+      "countries": [
+        "IRN",
+        "IRQ"
+      ],
+      "startYear": 2016,
+      "endYear": 2016,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de mosul 2016 2017",
+      "name": "Batalla de Mosul (2016-2017)",
+      "names": [
+        "Batalla de Mosul (2016-2017)"
+      ],
+      "countries": [
+        "IRQ"
+      ],
+      "startYear": 2016,
+      "endYear": 2017,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de sana",
+      "name": "Batalla de Saná",
+      "names": [
+        "Batalla de Saná"
+      ],
+      "countries": [
+        "ARE",
+        "SAU"
+      ],
+      "startYear": 2017,
+      "endYear": 2017,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de al hudaydah",
+      "name": "Batalla de Al Hudaydah",
+      "names": [
+        "Batalla de Al Hudaydah"
+      ],
+      "countries": [
+        "ARE",
+        "SAU"
+      ],
+      "startYear": 2018,
+      "endYear": 2018,
+      "ongoing": true,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de galwan",
+      "name": "Batalla de Galwan",
+      "names": [
+        "Batalla de Galwan"
+      ],
+      "countries": [
+        "CHN",
+        "IND"
+      ],
+      "startYear": 2020,
+      "endYear": 2020,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de shusha 2020",
+      "name": "Batalla de Shusha (2020)",
+      "names": [
+        "Batalla de Shusha (2020)"
+      ],
+      "countries": [
+        "ARM",
+        "AZE"
+      ],
+      "startYear": 2020,
+      "endYear": 2020,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de kandahar 2021",
+      "name": "Batalla de Kandahar (2021)",
+      "names": [
+        "Batalla de Kandahar (2021)"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2021,
+      "endYear": 2021,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de kupiansk",
+      "name": "Batalla de Kúpiansk",
+      "names": [
+        "Batalla de Kúpiansk"
+      ],
+      "countries": [
+        "RUS",
+        "UKR"
+      ],
+      "startYear": 2022,
+      "endYear": 2022,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de ras kamboni 2024",
+      "name": "Batalla de Ras Kamboni (2024)",
+      "names": [
+        "Batalla de Ras Kamboni (2024)"
+      ],
+      "countries": [
+        "SOM"
+      ],
+      "startYear": 2024,
+      "endYear": 2024,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de tinzawatene 2024",
+      "name": "Batalla de Tinzawatène (2024)",
+      "names": [
+        "Batalla de Tinzawatène (2024)"
+      ],
+      "countries": [
+        "MLI"
+      ],
+      "startYear": 2024,
+      "endYear": 2024,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de boulikessi 2025",
+      "name": "Batalla de Boulikessi (2025)",
+      "names": [
+        "Batalla de Boulikessi (2025)"
+      ],
+      "countries": [
+        "MLI"
+      ],
+      "startYear": 2025,
+      "endYear": 2025,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla aerea de samurra",
+      "name": "Batalla Aérea de Samurra",
+      "names": [
+        "Batalla Aérea de Samurra"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de abbeville",
+      "name": "Batalla de Abbeville",
+      "names": [
+        "Batalla de Abbeville"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de aguadores",
+      "name": "Batalla de Aguadores",
+      "names": [
+        "Batalla de Aguadores"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de agusan hill",
+      "name": "Batalla de Agusan Hill",
+      "names": [
+        "Batalla de Agusan Hill"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "ongoing": false,
+      "issues": [
+        "battle_without_parent",
+        "weak_detail"
+      ],
+      "severity": 6,
+      "autoFixes": []
+    },
+    {
+      "key": "batalla de aidabasalala",
+      "name": "Batalla de Aidabasalala",
+      "names": [
+        "Batalla de Aidabasalala"
+      ],
+      "countries": [
+        "AUS"
+      ],
+      "startYear": null,
+      "endYear": null,
       "ongoing": false,
       "issues": [
         "battle_without_parent",
