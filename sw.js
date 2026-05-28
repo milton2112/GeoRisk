@@ -14,27 +14,7 @@ const APP_SHELL = [
   "./favicon.ico",
   "./favicon.svg",
   "./data/countries_index.json",
-  "./data/geo_aliases.json",
-  "./data/world_countries_simplified.geo.json",
-  "./assets/flags/ARG.svg",
-  "./assets/flags/BRA.svg",
-  "./assets/flags/USA.svg",
-  "./assets/flags/CHN.svg",
-  "./assets/flags/GBR.svg",
-  "./assets/flags/FRA.svg",
-  "./assets/flags/DEU.svg",
-  "./assets/flags/IND.svg",
-  "./assets/flags/BHS.svg",
-  "./assets/flags/GRL.svg",
-  "./assets/flags/MKD.svg",
-  "./assets/flags/PSE.svg",
-  "./assets/flags/SRB.svg",
-  "./assets/flags/TWN.svg",
-  "./assets/flags/TZA.svg",
-  "./assets/coats/ARG.svg",
-  "./assets/coats/BRA.svg",
-  "./assets/coats/USA.svg",
-  "./assets/coats/CHN.svg"
+  "./data/geo_aliases.json"
 ];
 
 const HEAVY_RUNTIME_PATHS = [

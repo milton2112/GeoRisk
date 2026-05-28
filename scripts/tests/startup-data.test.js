@@ -34,6 +34,9 @@ assert.ok(!sw.includes("./app-curation.js\""), "app-curation debe cargarse despu
 assert.ok(!sw.includes("./app-news-ui.js\""), "noticias no debe precachearse en el shell inicial");
 assert.ok(!sw.includes("./app-compare-ui.js\""), "comparador no debe precachearse en el shell inicial");
 assert.ok(!sw.includes("./app-quiz-ui.js\""), "quiz no debe precachearse en el shell inicial");
+assert.ok(!sw.includes("./assets/coats/"), "escudos pesados deben cargarse bajo demanda");
+assert.ok(!sw.includes("./assets/flags/"), "banderas deben cargarse bajo demanda");
+assert.ok(!sw.includes("./data/world_countries_simplified.geo.json\""), "GeoJSON debe cachearse bajo demanda, no durante install");
 assert.ok(sw.includes("Promise.allSettled"), "service worker debe tolerar fallas parciales de precache");
 assert.ok(sw.includes("HEAVY_RUNTIME_PATHS"), "service worker debe reconocer datasets pesados bajo demanda");
 assert.ok(!sw.includes("https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Cesium.js\""), "Cesium remoto no debe precachearse en install");
@@ -74,6 +77,8 @@ assert.ok(script.includes("function scheduleFullCountryDataLoad()"), "countries_
 assert.ok(/isMobileLayout\(\)\s*\?\s*90000\s*:\s*45000/.test(script), "countries_full debe quedar muy diferido despues del arranque visible");
 assert.ok(script.includes("function scheduleWhenGlobeIsQuiet"), "tareas pesadas deben esperar a que el globo este quieto");
 assert.ok(script.includes("scheduleWhenGlobeIsQuiet(startFullLoad"), "countries_full debe esperar globo quieto antes de hidratarse");
+assert.ok(script.includes("function maybeEnhanceOpenConflictModal"), "conflictos enriquecidos deben cargarse bajo demanda al abrir modal");
+assert.ok(!script.includes("scheduleWhenGlobeIsQuiet(() => {\r\n      loadWikipediaConflictDetails"), "conflictos enriquecidos no deben cargarse por temporizador de arranque");
 assert.ok(script.includes("startLongTaskObserver"), "runtime debe medir bloqueos largos del hilo principal");
 assert.ok(script.includes("MAX_RESOURCE_CACHE_ENTRIES = 36"), "cache en memoria debe tener limite");
 assert.ok(script.includes("resourceCache.delete(cacheKey)"), "descargas fallidas deben poder reintentarse");

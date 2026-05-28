@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-05-28T22:26:48.101Z",
-  "startupBytes": 1013975,
-  "startupHuman": "990 KB",
+  "generatedAt": "2026-05-28T22:31:52.578Z",
+  "startupBytes": 1015654,
+  "startupHuman": "992 KB",
   "deferredBytes": 962217,
   "deferredHuman": "940 KB",
   "largestAssets": [
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 664348,
+      "bytes": 664956,
       "human": "649 KB",
       "startupCritical": true
     },
@@ -101,7 +101,7 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 664348,
+      "bytes": 664956,
       "human": "649 KB",
       "startupCritical": true
     },
@@ -209,6 +209,20 @@
       "bytes": 519938,
       "human": "508 KB",
       "startupCritical": false
+    },
+    {
+      "path": "favicon.ico",
+      "exists": true,
+      "bytes": 766,
+      "human": "766 B",
+      "startupCritical": true
+    },
+    {
+      "path": "favicon.svg",
+      "exists": true,
+      "bytes": 305,
+      "human": "305 B",
+      "startupCritical": true
     }
   ],
   "externalRuntimeAssets": [

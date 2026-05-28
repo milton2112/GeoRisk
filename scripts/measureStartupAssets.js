@@ -39,8 +39,31 @@ function formatBytes(bytes) {
   return `${bytes} B`;
 }
 
+async function readServiceWorkerShell() {
+  const swPath = path.join(projectRoot, "sw.js");
+  if (!(await fs.pathExists(swPath))) {
+    return new Set();
+  }
+
+  const source = await fs.readFile(swPath, "utf8");
+  const match = source.match(/const APP_SHELL = \[([\s\S]*?)\];/);
+  if (!match) {
+    return new Set();
+  }
+
+  return new Set(
+    [...match[1].matchAll(/"([^"]+)"/g)]
+      .map(item => item[1])
+      .filter(resource => resource.startsWith("./"))
+      .map(resource => resource.replace(/^\.\//, ""))
+      .filter(resource => resource && resource !== "/")
+  );
+}
+
+const appShell = await readServiceWorkerShell();
+const localAssetPaths = [...new Set([...LOCAL_ASSETS, ...appShell])];
 const assets = [];
-for (const relativePath of LOCAL_ASSETS) {
+for (const relativePath of localAssetPaths) {
   const absolutePath = path.join(projectRoot, relativePath);
   if (!(await fs.pathExists(absolutePath))) {
     assets.push({ path: relativePath, exists: false, bytes: 0, human: "faltante" });
@@ -52,19 +75,7 @@ for (const relativePath of LOCAL_ASSETS) {
     exists: true,
     bytes: stat.size,
     human: formatBytes(stat.size),
-    startupCritical: [
-      "index.html",
-      "script.js",
-      "style.css",
-      "app-runtime.js",
-      "app-theme.js",
-      "app-text.js",
-      "app-country-panel.js",
-      "app-timeline-conflicts.js",
-      "data/countries_index.json",
-      "data/geo_aliases.json",
-      "data/countries_index.json"
-    ].includes(relativePath)
+    startupCritical: appShell.has(relativePath)
   });
 }
 

@@ -1307,7 +1307,6 @@ const MAX_RESOURCE_CACHE_ENTRIES = 36;
 function shouldKeepResourceCacheEntry(key) {
   return [
     "countries_index.json",
-    "countries_full.json",
     "geo_aliases.json",
     "world_countries_simplified.geo.json",
     "world_countries.geo.json"
@@ -1535,7 +1534,7 @@ function trimDataCaches() {
       }
     }
     for (const key of [...resourceCache.keys()]) {
-      if (!key.includes(activePath) && !key.includes("countries_full.json")) {
+      if (!key.includes(activePath)) {
         resourceCache.delete(key);
       }
     }
@@ -6198,7 +6197,11 @@ function sanitizeConflictModalText(value = "") {
 
 function registerConflictModal(conflict, countryName = "") {
   const key = `conflict-${conflictModalCounter += 1}`;
-  conflictModalRegistry.set(key, getConflictModalContent(conflict, countryName));
+  conflictModalRegistry.set(key, {
+    conflict,
+    countryName,
+    detail: getConflictModalContent(conflict, countryName)
+  });
   return key;
 }
 
@@ -6259,10 +6262,41 @@ function renderConflicts(conflicts) {
     .join("")}</ul>`;
 }
 
-function openConflictModal(key) {
+function getConflictModalEntryDetail(entry) {
+  if (!entry) {
+    return null;
+  }
+  if (entry.detail) {
+    return entry.detail;
+  }
+  return entry;
+}
+
+function maybeEnhanceOpenConflictModal(key, entry) {
+  if (!entry?.conflict || deferredDataStatus.wikipediaConflicts || loadWikipediaConflictDetailsPromise) {
+    return;
+  }
+
+  loadWikipediaConflictDetails()
+    .then(() => {
+      const currentEntry = conflictModalRegistry.get(key);
+      const modal = document.getElementById("conflict-modal");
+      if (!currentEntry || modal?.hidden) {
+        return;
+      }
+      currentEntry.detail = getConflictModalContent(currentEntry.conflict, currentEntry.countryName || "");
+      openConflictModal(key, { enhance: false });
+    })
+    .catch(error => {
+      console.warn("No se pudo enriquecer el conflicto bajo demanda:", error);
+    });
+}
+
+function openConflictModal(key, { enhance = true } = {}) {
   const modal = document.getElementById("conflict-modal");
   const body = document.getElementById("conflict-modal-body");
-  const detail = conflictModalRegistry.get(key);
+  const entry = conflictModalRegistry.get(key);
+  const detail = getConflictModalEntryDetail(entry);
   if (!modal || !body || !detail) {
     return;
   }
@@ -6354,6 +6388,9 @@ function openConflictModal(key) {
 
   modal.hidden = false;
   syncModalOpenState();
+  if (enhance) {
+    maybeEnhanceOpenConflictModal(key, entry);
+  }
 }
 
 function closeConflictModal() {
@@ -16150,16 +16187,6 @@ async function init() {
       delay: isMobileLayout() ? 28000 : 16000,
       quietFor: isMobileLayout() ? 9000 : 6000,
       timeout: isMobileLayout() ? 120000 : 90000
-    });
-
-    scheduleWhenGlobeIsQuiet(() => {
-      loadWikipediaConflictDetails().catch(error => {
-        console.warn("No se pudieron aplicar los conflictos enriquecidos tras el arranque:", error);
-      });
-    }, {
-      delay: isMobileLayout() ? 70000 : 45000,
-      quietFor: isMobileLayout() ? 10000 : 7000,
-      timeout: isMobileLayout() ? 180000 : 120000
     });
 
     overlayLoadPromise?.catch(error => {
