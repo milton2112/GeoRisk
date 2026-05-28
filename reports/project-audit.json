@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-05-12T00:30:59.733Z",
+  "generatedAt": "2026-05-28T22:26:47.988Z",
   "status": "operativo",
   "startup": {
-    "critical": "988 KB",
-    "criticalBytes": 1011339,
-    "deferred": "938 KB",
+    "critical": "990 KB",
+    "criticalBytes": 1013975,
+    "deferred": "939 KB",
     "largestAssets": [
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 661712,
-        "human": "646 KB",
+        "bytes": 664348,
+        "human": "649 KB",
         "startupCritical": true
       },
       {
@@ -65,8 +65,8 @@
       {
         "path": "app-performance-ui.js",
         "exists": true,
-        "bytes": 3959,
-        "human": "4 KB",
+        "bytes": 4968,
+        "human": "5 KB",
         "startupCritical": false
       },
       {
@@ -126,8 +126,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 661712,
-      "human": "646 KB"
+      "bytes": 664348,
+      "human": "649 KB"
     },
     {
       "path": "style.css",
@@ -172,6 +172,12 @@
       "human": "6 KB"
     },
     {
+      "path": "app-performance-ui.js",
+      "exists": true,
+      "bytes": 5198,
+      "human": "5 KB"
+    },
+    {
       "path": "app-risk-radar-ui.js",
       "exists": true,
       "bytes": 4639,
@@ -181,12 +187,6 @@
       "path": "app-conflict-audit-ui.js",
       "exists": true,
       "bytes": 4332,
-      "human": "4 KB"
-    },
-    {
-      "path": "app-performance-ui.js",
-      "exists": true,
-      "bytes": 3959,
       "human": "4 KB"
     },
     {
@@ -204,7 +204,7 @@
     {
       "path": "package.json",
       "exists": true,
-      "bytes": 2211,
+      "bytes": 2358,
       "human": "2 KB"
     },
     {
@@ -221,9 +221,9 @@
     }
   ],
   "scriptMetrics": {
-    "functions": 471,
+    "functions": 473,
     "asyncFunctions": 38,
-    "consoleWarnings": 14,
+    "consoleWarnings": 15,
     "consoleErrors": 16
   },
   "visualMetrics": {
@@ -252,6 +252,8 @@
     "audit:conflicts",
     "audit:project",
     "build:data",
+    "check:startup-budget",
+    "clean:local",
     "compact:index",
     "fix:conflicts",
     "import:conflicts:dyadic",

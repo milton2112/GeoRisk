@@ -11,11 +11,6 @@ const APP_SHELL = [
   "./app-text.js",
   "./app-country-panel.js",
   "./app-timeline-conflicts.js",
-  "./README.md",
-  "./CHANGELOG.md",
-  "./TECHNICAL.md",
-  "./USER_GUIDE.md",
-  "./BACKEND_PLAN.md",
   "./favicon.ico",
   "./favicon.svg",
   "./data/countries_index.json",
@@ -39,10 +34,18 @@ const APP_SHELL = [
   "./assets/coats/ARG.svg",
   "./assets/coats/BRA.svg",
   "./assets/coats/USA.svg",
-  "./assets/coats/CHN.svg",
-  "https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Widgets/widgets.css",
-  "https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Cesium.js"
+  "./assets/coats/CHN.svg"
 ];
+
+const HEAVY_RUNTIME_PATHS = [
+  "/data/countries_full.json",
+  "/data/conflict_details.generated.json",
+  "/data/conflict_dyadic_summary.json"
+];
+
+function isHeavyRuntimeRequest(url) {
+  return HEAVY_RUNTIME_PATHS.some(path => url.pathname.endsWith(path));
+}
 
 self.addEventListener("install", event => {
   event.waitUntil(
@@ -88,6 +91,13 @@ self.addEventListener("fetch", event => {
   if (url.origin === self.location.origin) {
     const isNavigation = event.request.mode === "navigate";
     const isStaticAsset = [".html", ".css", ".js", ".json", ".geojson"].some(ext => url.pathname.endsWith(ext));
+
+    if (isHeavyRuntimeRequest(url)) {
+      event.respondWith(
+        fetch(event.request).catch(() => caches.match(event.request))
+      );
+      return;
+    }
 
     if (isNavigation || isStaticAsset || url.pathname === "/" || url.pathname.endsWith("/index.html")) {
       event.respondWith(

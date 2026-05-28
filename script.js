@@ -1660,6 +1660,43 @@ const bootMetrics = {
   steps: {},
   errors: []
 };
+const longTaskMetrics = {
+  supported: false,
+  count: 0,
+  totalDuration: 0,
+  longestDuration: 0,
+  recent: []
+};
+let longTaskObserver = null;
+
+function startLongTaskObserver() {
+  if (longTaskObserver || typeof PerformanceObserver === "undefined") {
+    return;
+  }
+
+  try {
+    longTaskObserver = new PerformanceObserver(list => {
+      list.getEntries().forEach(entry => {
+        const duration = Math.round(entry.duration || 0);
+        longTaskMetrics.supported = true;
+        longTaskMetrics.count += 1;
+        longTaskMetrics.totalDuration += duration;
+        longTaskMetrics.longestDuration = Math.max(longTaskMetrics.longestDuration, duration);
+        longTaskMetrics.recent.unshift({
+          name: entry.name || "longtask",
+          startTime: Math.round(entry.startTime || 0),
+          duration
+        });
+        longTaskMetrics.recent = longTaskMetrics.recent.slice(0, 8);
+      });
+    });
+    longTaskObserver.observe({ type: "longtask", buffered: true });
+    longTaskMetrics.supported = true;
+  } catch (error) {
+    longTaskObserver = null;
+    longTaskMetrics.supported = false;
+  }
+}
 
 function markBootStepStart(name) {
   if (!bootMetrics.startedAt) {
@@ -3781,6 +3818,37 @@ function yieldToMainThread() {
     }
     setTimeout(resolve, 0);
   });
+}
+
+function scheduleWhenGlobeIsQuiet(task, {
+  delay = 0,
+  quietFor = isMobileLayout() ? 7000 : 4500,
+  timeout = isMobileLayout() ? 90000 : 60000
+} = {}) {
+  const deadline = Date.now() + delay + timeout;
+
+  const runTask = () => {
+    if (window.requestIdleCallback) {
+      window.requestIdleCallback(() => task(), { timeout: 2500 });
+      return;
+    }
+    setTimeout(task, 0);
+  };
+
+  const check = () => {
+    const interactionAge = Date.now() - lastInteractionAt;
+    const globeQuiet = !isCameraNavigating && interactionAge >= quietFor;
+    const pageVisible = document.visibilityState !== "hidden";
+
+    if ((globeQuiet && pageVisible) || Date.now() >= deadline) {
+      runTask();
+      return;
+    }
+
+    setTimeout(check, Math.min(quietFor, 1500));
+  };
+
+  setTimeout(check, delay);
 }
 
 function compactNumber(value) {
@@ -10374,6 +10442,7 @@ async function renderPerformancePanel() {
     ? window.GeoRiskPerformanceUi.renderPerformancePanelContent({
         language: currentLanguage,
         summary,
+        longTaskMetrics,
         stepRows,
         renderLabel: escapeHtml(getRenderProfileLabel()),
         presetLabel: escapeHtml(getQualityPresetLabel()),
@@ -12845,7 +12914,10 @@ function scheduleDeferredGlobalStats(force = false) {
     deferredGlobalStatsTimer = null;
   }
   deferredGlobalStatsReady = false;
-  runDeferredGlobalStatsBatch(0);
+  const schedule = window.requestIdleCallback
+    ? callback => window.requestIdleCallback(callback, { timeout: 1200 })
+    : callback => setTimeout(callback, 120);
+  deferredGlobalStatsTimer = schedule(() => runDeferredGlobalStatsBatch(0));
 }
 
 async function loadSupplementalData() {
@@ -13047,13 +13119,11 @@ function scheduleFullCountryDataLoad() {
     loadFullCountryData();
   };
 
-  setTimeout(() => {
-    if (window.requestIdleCallback) {
-      window.requestIdleCallback(startFullLoad, { timeout: 30000 });
-      return;
-    }
-    setTimeout(startFullLoad, 1500);
-  }, delayMs);
+  scheduleWhenGlobeIsQuiet(startFullLoad, {
+    delay: delayMs,
+    quietFor: isMobileLayout() ? 12000 : 8000,
+    timeout: isMobileLayout() ? 180000 : 120000
+  });
 }
 
 async function hydrateCountriesData(countriesJson, { refresh = false } = {}) {
@@ -15956,6 +16026,7 @@ async function registerServiceWorker() {
 async function init() {
   try {
     bootMetrics.startedAt = performance.now();
+    startLongTaskObserver();
     document.body.classList.add("globe-loading");
     closeCountryModal();
     closeCompareModal?.();
@@ -16041,10 +16112,6 @@ async function init() {
           }
         };
 
-        dataLoadPromise
-          .then(() => loadRuntimeCuration())
-          .then(() => loadDeferredDataEnhancements())
-          .catch(() => {});
         safeUiTask("search events", () => setupSearchEvents());
         safeUiTask("theme controls", () => setupThemeControls());
         safeUiTask("map mode control", () => setupMapModeControl());
@@ -16064,17 +16131,36 @@ async function init() {
       });
     };
 
+    const bootHeavyDataEnhancements = () => {
+      dataLoadPromise
+        .then(() => loadDeferredDataEnhancements())
+        .then(() => loadRuntimeCuration())
+        .catch(error => {
+          console.warn("No se pudieron completar las mejoras pesadas diferidas:", error);
+        });
+    };
+
     if (window.requestIdleCallback) {
       window.requestIdleCallback(() => bootDeferredUi(), { timeout: 900 });
     } else {
       setTimeout(() => bootDeferredUi(), 120);
     }
 
-    setTimeout(() => {
+    scheduleWhenGlobeIsQuiet(bootHeavyDataEnhancements, {
+      delay: isMobileLayout() ? 28000 : 16000,
+      quietFor: isMobileLayout() ? 9000 : 6000,
+      timeout: isMobileLayout() ? 120000 : 90000
+    });
+
+    scheduleWhenGlobeIsQuiet(() => {
       loadWikipediaConflictDetails().catch(error => {
         console.warn("No se pudieron aplicar los conflictos enriquecidos tras el arranque:", error);
       });
-    }, isMobileLayout() ? 9000 : 6000);
+    }, {
+      delay: isMobileLayout() ? 70000 : 45000,
+      quietFor: isMobileLayout() ? 10000 : 7000,
+      timeout: isMobileLayout() ? 180000 : 120000
+    });
 
     overlayLoadPromise?.catch(error => {
       console.error("La capa politica no pudo completar su carga inicial:", error);

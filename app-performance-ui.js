@@ -1,17 +1,27 @@
 function renderPerformancePanelContent({
   language = "es",
   summary = {},
+  longTaskMetrics = {},
   stepRows = "",
   renderLabel = "",
   presetLabel = "",
   exportStatus = "",
   tuningRows = ""
 } = {}) {
+  const escapeLocal = value => String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
   const noMetrics = language === "en" ? "No boot metrics yet" : "Sin metricas de arranque todavia";
   const total = Math.round(summary.total || 0);
   const imagery = Math.round(summary.imagery || 0);
   const data = Math.round(summary.data || 0);
   const overlay = Math.round(summary.overlay || 0);
+  const longTaskRows = (longTaskMetrics.recent || [])
+    .map(item => `<li><span>${escapeLocal(item.name)} @ ${escapeLocal(item.startTime)} ms</span><div class="health-progress-track"><i style="width:${Math.min(100, Math.max(4, Math.round((item.duration / Math.max(longTaskMetrics.longestDuration || 1, 1)) * 100)))}%"></i></div><b>${escapeLocal(item.duration)} ms</b></li>`)
+    .join("");
   const recommendation = total > 8000
     ? (language === "en" ? "Startup is heavy: keep advanced panels deferred and prefer automatic/mobile render presets." : "Arranque pesado: mantener paneles avanzados diferidos y preferir presets automaticos/mobile.")
     : imagery > data && imagery > overlay
@@ -38,10 +48,15 @@ function renderPerformancePanelContent({
       <div class="overview-card"><span class="overview-label">Render</span><strong class="overview-value">${renderLabel}</strong></div>
       <div class="overview-card"><span class="overview-label">Preset</span><strong class="overview-value">${presetLabel}</strong></div>
       <div class="overview-card"><span class="overview-label">Export</span><strong class="overview-value">${exportStatus}</strong></div>
+      <div class="overview-card"><span class="overview-label">Long tasks</span><strong class="overview-value">${longTaskMetrics.supported ? `${longTaskMetrics.count || 0} / ${Math.round(longTaskMetrics.longestDuration || 0)} ms` : "N/D"}</strong></div>
     </div>
     <div class="help-section">
       <h3>${language === "en" ? "Boot steps" : "Pasos de arranque"}</h3>
       <ul class="health-progress-list">${stepRows || `<li><span>${noMetrics}</span><div class="health-progress-track"><i style="width:0%"></i></div><b>0 ms</b></li>`}</ul>
+    </div>
+    <div class="help-section">
+      <h3>${language === "en" ? "Main-thread blocks" : "Bloqueos del hilo principal"}</h3>
+      <ul class="health-progress-list">${longTaskRows || `<li><span>${language === "en" ? "No long tasks observed" : "Sin bloqueos largos observados"}</span><div class="health-progress-track"><i style="width:0%"></i></div><b>0 ms</b></li>`}</ul>
     </div>
     <div class="performance-recommendation-card">
       <strong>${language === "en" ? "Automatic recommendation" : "Recomendacion automatica"}</strong>

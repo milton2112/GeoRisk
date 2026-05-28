@@ -35,6 +35,8 @@ assert.ok(!sw.includes("./app-news-ui.js\""), "noticias no debe precachearse en 
 assert.ok(!sw.includes("./app-compare-ui.js\""), "comparador no debe precachearse en el shell inicial");
 assert.ok(!sw.includes("./app-quiz-ui.js\""), "quiz no debe precachearse en el shell inicial");
 assert.ok(sw.includes("Promise.allSettled"), "service worker debe tolerar fallas parciales de precache");
+assert.ok(sw.includes("HEAVY_RUNTIME_PATHS"), "service worker debe reconocer datasets pesados bajo demanda");
+assert.ok(!sw.includes("https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Cesium.js\""), "Cesium remoto no debe precachearse en install");
 assert.ok(!indexHtml.includes("app-curation.js"), "index.html no debe bloquear el arranque con app-curation");
 assert.ok(!indexHtml.includes("app-news-ui.js"), "noticias debe cargarse bajo demanda");
 assert.ok(!indexHtml.includes("app-compare-ui.js"), "comparador debe cargarse bajo demanda");
@@ -70,7 +72,9 @@ for (const token of ["AÃ", "Ãƒ", "Ã‚", "Â¿", "Â¡", "Ã—"]) {
 assert.ok(!script.includes(".then(() => loadFullCountryData())"), "countries_full no debe encadenarse al arranque inmediato");
 assert.ok(script.includes("function scheduleFullCountryDataLoad()"), "countries_full debe agendarse en una funcion aislada");
 assert.ok(/isMobileLayout\(\)\s*\?\s*90000\s*:\s*45000/.test(script), "countries_full debe quedar muy diferido despues del arranque visible");
-assert.ok(script.includes("requestIdleCallback(startFullLoad"), "countries_full debe esperar un momento ocioso cuando el navegador lo soporte");
+assert.ok(script.includes("function scheduleWhenGlobeIsQuiet"), "tareas pesadas deben esperar a que el globo este quieto");
+assert.ok(script.includes("scheduleWhenGlobeIsQuiet(startFullLoad"), "countries_full debe esperar globo quieto antes de hidratarse");
+assert.ok(script.includes("startLongTaskObserver"), "runtime debe medir bloqueos largos del hilo principal");
 assert.ok(script.includes("MAX_RESOURCE_CACHE_ENTRIES = 36"), "cache en memoria debe tener limite");
 assert.ok(script.includes("resourceCache.delete(cacheKey)"), "descargas fallidas deben poder reintentarse");
 assert.ok(script.includes("async function clearLocalGeoRiskCache()"), "runtime debe exponer limpieza segura de cache local");

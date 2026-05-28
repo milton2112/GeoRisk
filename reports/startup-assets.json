@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-05-12T00:30:58.832Z",
-  "startupBytes": 1011339,
-  "startupHuman": "988 KB",
-  "deferredBytes": 960978,
-  "deferredHuman": "938 KB",
+  "generatedAt": "2026-05-28T22:26:48.101Z",
+  "startupBytes": 1013975,
+  "startupHuman": "990 KB",
+  "deferredBytes": 962217,
+  "deferredHuman": "940 KB",
   "largestAssets": [
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 661712,
-      "human": "646 KB",
+      "bytes": 664348,
+      "human": "649 KB",
       "startupCritical": true
     },
     {
@@ -64,8 +64,8 @@
     {
       "path": "app-performance-ui.js",
       "exists": true,
-      "bytes": 3959,
-      "human": "4 KB",
+      "bytes": 5198,
+      "human": "5 KB",
       "startupCritical": false
     },
     {
@@ -101,8 +101,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 661712,
-      "human": "646 KB",
+      "bytes": 664348,
+      "human": "649 KB",
       "startupCritical": true
     },
     {
@@ -171,8 +171,8 @@
     {
       "path": "app-performance-ui.js",
       "exists": true,
-      "bytes": 3959,
-      "human": "4 KB",
+      "bytes": 5198,
+      "human": "5 KB",
       "startupCritical": false
     },
     {
