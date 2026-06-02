@@ -10,6 +10,8 @@ const indexHtml = await fs.readFile(path.join(projectRoot, "index.html"), "utf8"
 const script = await fs.readFile(path.join(projectRoot, "script.js"), "utf8");
 const appRuntime = await fs.readFile(path.join(projectRoot, "app-runtime.js"), "utf8");
 const appBootScheduler = await fs.readFile(path.join(projectRoot, "app-boot-scheduler.js"), "utf8");
+const rankingsWorker = await fs.readFile(path.join(projectRoot, "app-rankings-worker.js"), "utf8");
+const searchWorker = await fs.readFile(path.join(projectRoot, "app-search-worker.js"), "utf8");
 const perCountryDir = path.join(projectRoot, "data", "countries");
 const perCountryFiles = (await fs.readdir(perCountryDir)).filter(file => file.endsWith(".json"));
 
@@ -84,6 +86,13 @@ assert.ok(script.includes("startLongTaskObserver"), "runtime debe medir bloqueos
 assert.ok(indexHtml.includes("app-boot-scheduler.js"), "scheduler de arranque debe vivir en modulo separado");
 assert.ok(appBootScheduler.includes("scheduleWhenQuiet"), "modulo de scheduler debe exponer espera por quietud");
 assert.ok(appBootScheduler.includes("PerformanceObserver"), "modulo de scheduler debe medir long tasks");
+assert.ok(appBootScheduler.includes("budgetMs: 200"), "long tasks deben tener presupuesto de 200 ms");
+assert.ok(appBootScheduler.includes("recordStartupFps"), "modulo de scheduler debe medir FPS inicial durante 60 segundos");
+assert.ok(rankingsWorker.includes("rankings"), "worker de rankings debe preparar rankings fuera del hilo principal");
+assert.ok(searchWorker.includes("aliases"), "worker de busqueda debe preparar aliases fuera del hilo principal");
+assert.ok(script.includes("getCachedRanking"), "rankings deben cachearse por revision del dataset");
+assert.ok(script.includes("function isRankingsPanelOpen"), "rankings no deben recalcularse si el panel esta cerrado");
+assert.ok(script.includes("getCountryValues"), "UI debe reutilizar lista cacheada de paises");
 assert.ok(script.includes("MAX_RESOURCE_CACHE_ENTRIES = 36"), "cache en memoria debe tener limite");
 assert.ok(script.includes("resourceCache.delete(cacheKey)"), "descargas fallidas deben poder reintentarse");
 assert.ok(script.includes("async function clearLocalGeoRiskCache()"), "runtime debe exponer limpieza segura de cache local");

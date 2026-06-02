@@ -10,6 +10,7 @@ const SOURCE_FILES = [
   "script.js",
   "style.css",
   "app-runtime.js",
+  "app-boot-scheduler.js",
   "app-text.js",
   "app-risk-radar-ui.js",
   "app-conflict-audit-ui.js",
@@ -18,6 +19,8 @@ const SOURCE_FILES = [
   "app-compare-ui.js",
   "app-quiz-ui.js",
   "app-performance-ui.js",
+  "app-rankings-worker.js",
+  "app-search-worker.js",
   "package.json",
   "CHANGELOG.md",
   "TECHNICAL.md",
@@ -130,6 +133,7 @@ const report = {
     critical: startup.startupHuman || "sin medir",
     criticalBytes: startup.startupBytes || 0,
     deferred: startup.deferredHuman || "sin medir",
+    estimatedRuntimeMemory: startup.estimatedRuntimeMemory || null,
     largestAssets: startup.largestAssets || []
   },
   conflicts: {

@@ -2,6 +2,7 @@ function renderPerformancePanelContent({
   language = "es",
   summary = {},
   longTaskMetrics = {},
+  startupFpsMetrics = {},
   stepRows = "",
   renderLabel = "",
   presetLabel = "",
@@ -49,6 +50,8 @@ function renderPerformancePanelContent({
       <div class="overview-card"><span class="overview-label">Preset</span><strong class="overview-value">${presetLabel}</strong></div>
       <div class="overview-card"><span class="overview-label">Export</span><strong class="overview-value">${exportStatus}</strong></div>
       <div class="overview-card"><span class="overview-label">Long tasks</span><strong class="overview-value">${longTaskMetrics.supported ? `${longTaskMetrics.count || 0} / ${Math.round(longTaskMetrics.longestDuration || 0)} ms` : "N/D"}</strong></div>
+      <div class="overview-card"><span class="overview-label">Budget &gt;${Math.round(longTaskMetrics.budgetMs || 200)} ms</span><strong class="overview-value">${longTaskMetrics.supported ? `${longTaskMetrics.overBudgetCount || 0}` : "N/D"}</strong></div>
+      <div class="overview-card"><span class="overview-label">FPS 60s</span><strong class="overview-value">${startupFpsMetrics.samples ? `${Math.round(startupFpsMetrics.avg || 0)} avg / ${Math.round(startupFpsMetrics.min || 0)} min` : "Midiendo"}</strong></div>
     </div>
     <div class="help-section">
       <h3>${language === "en" ? "Boot steps" : "Pasos de arranque"}</h3>

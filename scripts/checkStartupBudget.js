@@ -11,6 +11,7 @@ const budgets = {
   "data/geo_aliases.json": 5000,
   "data/world_countries_simplified.geo.json": 190000
 };
+const LONG_TASK_BUDGET_MS = 200;
 
 const forbiddenStartupTokens = [
   "./data/countries_full.json\"",
@@ -37,11 +38,26 @@ for (const [file, maxBytes] of Object.entries(budgets)) {
 
 const sw = await fs.readFile(path.join(projectRoot, "sw.js"), "utf8");
 const indexHtml = await fs.readFile(path.join(projectRoot, "index.html"), "utf8");
+const bootScheduler = await fs.readFile(path.join(projectRoot, "app-boot-scheduler.js"), "utf8");
 
 for (const token of forbiddenStartupTokens) {
   if (sw.includes(token) || indexHtml.includes(token)) {
     failed = true;
     console.error(`startup-critical files include forbidden heavy token: ${token}`);
+  }
+}
+
+if (!bootScheduler.includes(`budgetMs: ${LONG_TASK_BUDGET_MS}`)) {
+  failed = true;
+  console.error(`long task budget must stay at ${LONG_TASK_BUDGET_MS} ms`);
+}
+
+for (const workerFile of ["app-rankings-worker.js", "app-search-worker.js"]) {
+  try {
+    await fs.stat(path.join(projectRoot, workerFile));
+  } catch {
+    failed = true;
+    console.error(`missing deferred worker: ${workerFile}`);
   }
 }
 

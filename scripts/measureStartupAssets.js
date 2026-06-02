@@ -18,6 +18,8 @@ const LOCAL_ASSETS = [
   "app-compare-ui.js",
   "app-quiz-ui.js",
   "app-performance-ui.js",
+  "app-rankings-worker.js",
+  "app-search-worker.js",
   "data/countries_index.json",
   "data/geo_aliases.json",
   "data/world_countries.geo.json",
@@ -86,6 +88,13 @@ const startupBytes = assets
 const deferredBytes = assets
   .filter(asset => asset.exists && !asset.startupCritical)
   .reduce((sum, asset) => sum + asset.bytes, 0);
+const fullCountriesAsset = assets.find(asset => asset.path === "data/countries_full.json") ||
+  (await fs.pathExists(path.join(projectRoot, "data/countries_full.json"))
+    ? {
+        path: "data/countries_full.json",
+        bytes: (await fs.stat(path.join(projectRoot, "data/countries_full.json"))).size
+      }
+    : null);
 
 const report = {
   generatedAt: new Date().toISOString(),
@@ -93,6 +102,13 @@ const report = {
   startupHuman: formatBytes(startupBytes),
   deferredBytes,
   deferredHuman: formatBytes(deferredBytes),
+  estimatedRuntimeMemory: {
+    countriesFullBytes: fullCountriesAsset?.bytes || 0,
+    countriesFullHuman: formatBytes(fullCountriesAsset?.bytes || 0),
+    estimatedParsedBytes: (fullCountriesAsset?.bytes || 0) * 3,
+    estimatedParsedHuman: formatBytes((fullCountriesAsset?.bytes || 0) * 3),
+    note: "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
+  },
   largestAssets: assets
     .filter(asset => asset.exists)
     .sort((a, b) => b.bytes - a.bytes)

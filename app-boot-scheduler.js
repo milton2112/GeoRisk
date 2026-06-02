@@ -1,11 +1,36 @@
 const longTaskMetrics = {
   supported: false,
+  budgetMs: 200,
   count: 0,
+  overBudgetCount: 0,
   totalDuration: 0,
   longestDuration: 0,
   recent: []
 };
+const startupFpsMetrics = {
+  active: true,
+  windowMs: 60000,
+  samples: 0,
+  min: null,
+  max: null,
+  avg: 0,
+  completed: false
+};
 let longTaskObserver = null;
+
+function recordStartupFps(fps, elapsedMs) {
+  if (!startupFpsMetrics.active) {
+    return;
+  }
+  startupFpsMetrics.samples += 1;
+  startupFpsMetrics.min = startupFpsMetrics.min === null ? fps : Math.min(startupFpsMetrics.min, fps);
+  startupFpsMetrics.max = startupFpsMetrics.max === null ? fps : Math.max(startupFpsMetrics.max, fps);
+  startupFpsMetrics.avg += (fps - startupFpsMetrics.avg) / startupFpsMetrics.samples;
+  if (elapsedMs >= startupFpsMetrics.windowMs) {
+    startupFpsMetrics.active = false;
+    startupFpsMetrics.completed = true;
+  }
+}
 
 function startLongTaskObserver() {
   if (longTaskObserver || typeof PerformanceObserver === "undefined") {
@@ -18,6 +43,9 @@ function startLongTaskObserver() {
         const duration = Math.round(entry.duration || 0);
         longTaskMetrics.supported = true;
         longTaskMetrics.count += 1;
+        if (duration > longTaskMetrics.budgetMs) {
+          longTaskMetrics.overBudgetCount += 1;
+        }
         longTaskMetrics.totalDuration += duration;
         longTaskMetrics.longestDuration = Math.max(longTaskMetrics.longestDuration, duration);
         longTaskMetrics.recent.unshift({
@@ -66,6 +94,8 @@ function scheduleWhenQuiet(task, {
 
 window.GeoRiskBootScheduler = {
   longTaskMetrics,
+  recordStartupFps,
   scheduleWhenQuiet,
-  startLongTaskObserver
+  startLongTaskObserver,
+  startupFpsMetrics
 };

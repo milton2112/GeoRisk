@@ -1661,6 +1661,7 @@ const bootMetrics = {
   errors: []
 };
 const longTaskMetrics = bootScheduler.longTaskMetrics || { supported: false, count: 0, totalDuration: 0, longestDuration: 0, recent: [] };
+const startupFpsMetrics = bootScheduler.startupFpsMetrics || { active: false, samples: 0, min: null, max: null, avg: 0, completed: false };
 const startLongTaskObserver = bootScheduler.startLongTaskObserver || (() => {});
 
 function markBootStepStart(name) {
@@ -2984,6 +2985,10 @@ window.addEventListener("resize", () => {
 });
 
 let countriesData = {};
+let countriesDataRevision = 0;
+let countryValuesCache = null;
+let countryEntriesCache = null;
+const rankingCache = new Map();
 let rawPoliticsSystems = {};
 let rawHistorySystems = {};
 let rawInflationByCode = {};
@@ -3019,7 +3024,11 @@ let appMode = "default";
 let performanceMonitorId = null;
 let labelEntities = [];
 let qualityPreset = localStorage.getItem("geo-risk-quality-preset") || "auto";
-let labelMode = localStorage.getItem("geo-risk-label-mode") || (window.matchMedia("(max-width: 820px)").matches ? "none" : "countries");
+const constrainedInitialDevice =
+  window.matchMedia("(max-width: 920px)").matches ||
+  (navigator.deviceMemory && navigator.deviceMemory <= 4) ||
+  (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
+let labelMode = localStorage.getItem("geo-risk-label-mode") || (constrainedInitialDevice ? "none" : "countries");
 let autoRotateEnabled = localStorage.getItem("geo-risk-auto-rotate") === "true";
 let lastInteractionAt = Date.now();
 let isCameraNavigating = false;
@@ -3773,6 +3782,35 @@ function uniqueBy(items, getKey) {
     seen.add(key);
     return true;
   });
+}
+
+function invalidateCountryDerivedCaches() {
+  countriesDataRevision += 1;
+  countryValuesCache = null;
+  countryEntriesCache = null;
+  rankingCache.clear();
+}
+
+function getCountryValues() {
+  if (!countryValuesCache) {
+    countryValuesCache = Object.values(countriesData);
+  }
+  return countryValuesCache;
+}
+
+function getCountryEntries() {
+  if (!countryEntriesCache) {
+    countryEntriesCache = Object.entries(countriesData);
+  }
+  return countryEntriesCache;
+}
+
+function getCachedRanking(key, buildFn) {
+  const cacheKey = `${key}:${countriesDataRevision}:${currentLanguage}`;
+  if (!rankingCache.has(cacheKey)) {
+    rankingCache.set(cacheKey, buildFn());
+  }
+  return rankingCache.get(cacheKey);
 }
 
 function yieldToMainThread() {
@@ -8939,11 +8977,13 @@ function startPerformanceMonitor() {
   let frameCount = 0;
   let lastCheck = performance.now();
   let rollingFps = getPerformancePreset().targetFrameRate;
+  const monitorStartedAt = performance.now();
   const tick = now => {
     frameCount += 1;
     if (now - lastCheck >= 2500) {
       const fps = (frameCount * 1000) / (now - lastCheck);
       rollingFps = rollingFps * 0.62 + fps * 0.38;
+      bootScheduler.recordStartupFps?.(fps, now - monitorStartedAt);
       const tier = getDeviceTier();
       const lowFpsThreshold = isMobileLayout() ? 18 : tier === "low" ? 15 : tier === "medium" ? 18 : 20;
       const highFpsThreshold = isMobileLayout() ? 28 : tier === "low" ? 24 : tier === "medium" ? 30 : 34;
@@ -10430,6 +10470,7 @@ async function renderPerformancePanel() {
         language: currentLanguage,
         summary,
         longTaskMetrics,
+        startupFpsMetrics,
         stepRows,
         renderLabel: escapeHtml(getRenderProfileLabel()),
         presetLabel: escapeHtml(getQualityPresetLabel()),
@@ -11460,10 +11501,10 @@ function closeCompareModal() {
 }
 
 function generateGdpPerCapitaRanking() {
-  const list = Object.values(countriesData)
+  const list = getCachedRanking("gdpPerCapita", () => getCountryValues()
     .filter(country => (country.economy?.gdpPerCapita || 0) > 0)
     .sort((a, b) => (b.economy?.gdpPerCapita || 0) - (a.economy?.gdpPerCapita || 0))
-    .slice(0, 10);
+    .slice(0, 10));
 
   renderInteractiveList("top-gdp-per-capita", list.map(country => ({
     label: `${getFlagEmoji(getCountryCodeByObject(country))} ${country.name} (US$ ${formatNumber(Math.round(country.economy.gdpPerCapita))})`,
@@ -11477,10 +11518,10 @@ function generateGdpPerCapitaRanking() {
 }
 
 function generateOrganizationCountRanking() {
-  const list = Object.values(countriesData)
+  const list = getCachedRanking("organizationCount", () => getCountryValues()
     .filter(country => getCountryOrganizationCount(country) > 0)
     .sort((a, b) => getCountryOrganizationCount(b) - getCountryOrganizationCount(a))
-    .slice(0, 10);
+    .slice(0, 10));
 
   renderInteractiveList("top-organizations-count", list.map(country => ({
     label: `${getFlagEmoji(getCountryCodeByObject(country))} ${country.name} (${formatNumber(getCountryOrganizationCount(country))})`,
@@ -11494,10 +11535,10 @@ function generateOrganizationCountRanking() {
 }
 
 function generateConflictCountRanking() {
-  const list = Object.values(countriesData)
+  const list = getCachedRanking("conflictCount", () => getCountryValues()
     .filter(country => getCountryWarParticipationCount(country) > 0)
     .sort((a, b) => getCountryWarParticipationCount(b) - getCountryWarParticipationCount(a))
-    .slice(0, 10);
+    .slice(0, 10));
 
   renderInteractiveList("top-conflicts-count", list.map(country => ({
     label: `${getFlagEmoji(getCountryCodeByObject(country))} ${country.name} (${formatNumber(getCountryWarParticipationCount(country))} ${currentLanguage === "en" ? "wars" : "guerras"})`,
@@ -11511,10 +11552,10 @@ function generateConflictCountRanking() {
 }
 
 function generateMilitaryRanking() {
-  const list = Object.values(countriesData)
+  const list = getCachedRanking("militaryActive", () => getCountryValues()
     .filter(country => getCountryMilitaryActive(country) > 0)
     .sort((a, b) => getCountryMilitaryActive(b) - getCountryMilitaryActive(a))
-    .slice(0, 10);
+    .slice(0, 10));
 
   renderInteractiveList("top-military-active", list.map(country => ({
     label: `${getFlagEmoji(getCountryCodeByObject(country))} ${country.name} (${formatNumber(getCountryMilitaryActive(country))})`,
@@ -11528,10 +11569,10 @@ function generateMilitaryRanking() {
 }
 
 function generateReligionDiversityRanking() {
-  const list = Object.values(countriesData)
+  const list = getCachedRanking("religionDiversity", () => getCountryValues()
     .filter(country => getCountryReligionDiversity(country) > 0)
     .sort((a, b) => getCountryReligionDiversity(b) - getCountryReligionDiversity(a))
-    .slice(0, 10);
+    .slice(0, 10));
 
   renderInteractiveList("top-religion-diversity", list.map(country => ({
     label: `${getFlagEmoji(getCountryCodeByObject(country))} ${country.name} (${formatNumber(getCountryReligionDiversity(country))})`,
@@ -11545,16 +11586,18 @@ function generateReligionDiversityRanking() {
 }
 
 function generateOrganizationsReachRanking() {
-  const totals = {};
-
-  Object.values(countriesData).forEach(country => {
+  const totals = getCachedRanking("organizationsReach", () => {
+    const result = {};
+    getCountryValues().forEach(country => {
     (country.politics?.organizations || []).forEach(organization => {
       const label = normalizeCategoryLabel(getOrganizationDisplayName(organization));
       if (!label || label === "Sin datos") {
         return;
       }
-      totals[label] = (totals[label] || 0) + 1;
+      result[label] = (result[label] || 0) + 1;
     });
+  });
+    return result;
   });
 
   renderInteractiveList("top-organizations-reach", Object.entries(totals)
@@ -11569,16 +11612,18 @@ function generateOrganizationsReachRanking() {
 }
 
 function generateRivalriesRanking() {
-  const totals = {};
-
-  Object.values(countriesData).forEach(country => {
+  const totals = getCachedRanking("rivalries", () => {
+    const result = {};
+    getCountryValues().forEach(country => {
     (country.politics?.rivals || []).forEach(rival => {
       const label = normalizeCategoryLabel(rival?.name || rival);
       if (!label || label === "Sin datos") {
         return;
       }
-      totals[label] = (totals[label] || 0) + 1;
+      result[label] = (result[label] || 0) + 1;
     });
+  });
+    return result;
   });
 
   renderInteractiveList("top-rivalries", Object.entries(totals)
@@ -11593,15 +11638,18 @@ function generateRivalriesRanking() {
 }
 
 function generateBlocsRanking() {
-  const totals = {};
-  Object.values(countriesData).forEach(country => {
+  const totals = getCachedRanking("blocs", () => {
+    const result = {};
+    getCountryValues().forEach(country => {
     (country.politics?.relations?.blocs || []).forEach(bloc => {
       const label = normalizeCategoryLabel(bloc);
       if (!label || label === "Sin datos") {
         return;
       }
-      totals[label] = (totals[label] || 0) + 1;
+      result[label] = (result[label] || 0) + 1;
     });
+  });
+    return result;
   });
 
   renderInteractiveList("top-blocs", Object.entries(totals)
@@ -11616,13 +11664,16 @@ function generateBlocsRanking() {
 }
 
 function generateMetropolesRanking() {
-  const totals = {};
-  Object.values(countriesData).forEach(country => {
+  const totals = getCachedRanking("metropoles", () => {
+    const result = {};
+    getCountryValues().forEach(country => {
     const metropole = country.politics?.relations?.exMetropole;
     if (!metropole) {
       return;
     }
-    totals[metropole] = (totals[metropole] || 0) + 1;
+    result[metropole] = (result[metropole] || 0) + 1;
+  });
+    return result;
   });
 
   renderInteractiveList("top-metropoles", Object.entries(totals)
@@ -11637,13 +11688,16 @@ function generateMetropolesRanking() {
 }
 
 function generateHistoryTypesRanking() {
-  const totals = {};
-  Object.values(countriesData).forEach(country => {
+  const totals = getCachedRanking("historyTypes", () => {
+    const result = {};
+    getCountryValues().forEach(country => {
     const type = normalizeCategoryLabel(country.history?.type);
     if (!type || type === "Sin datos") {
       return;
     }
-    totals[type] = (totals[type] || 0) + 1;
+    result[type] = (result[type] || 0) + 1;
+  });
+    return result;
   });
 
   renderInteractiveList("top-history-types", Object.entries(totals)
@@ -12834,7 +12888,17 @@ function runCriticalGlobalStats() {
   generateWorldPopulation();
 }
 
+function isRankingsPanelOpen() {
+  return Boolean(document.getElementById("rankings-panel")?.open);
+}
+
 function runDeferredGlobalStatsBatch(step = 0) {
+  if (!isRankingsPanelOpen()) {
+    deferredGlobalStatsReady = false;
+    deferredGlobalStatsTimer = null;
+    return;
+  }
+
   const batches = [
     () => {
       generateTopPopulation();
@@ -13115,17 +13179,19 @@ function scheduleFullCountryDataLoad() {
 
 async function hydrateCountriesData(countriesJson, { refresh = false } = {}) {
   countriesData = countriesJson || {};
+  invalidateCountryDerivedCaches();
   const countryEntries = Object.entries(countriesData);
+  const batchSize = isMobileLayout() ? 6 : 8;
   for (let index = 0; index < countryEntries.length; index += 1) {
     const [code, country] = countryEntries[index];
     country.code = code;
     countryCodeLookup.set(country, code);
     sanitizeCountryData(country);
-    if (index > 0 && index % 12 === 0) {
+    if (index > 0 && index % batchSize === 0) {
       await yieldToMainThread();
     }
   }
-  worldPopulationTotal = Object.values(countriesData).reduce(
+  worldPopulationTotal = getCountryValues().reduce(
     (sum, country) => sum + (country.general?.population || 0),
     0
   );
@@ -13183,6 +13249,7 @@ async function loadCountryDetail(code) {
         isIndex: false
       };
       countriesData[normalizedCode] = country;
+      invalidateCountryDerivedCaches();
       countryCodeLookup.set(country, normalizedCode);
       sanitizeCountryData(country);
       refreshLoadedCountryLayers();

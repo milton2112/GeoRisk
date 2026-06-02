@@ -1,15 +1,22 @@
 {
-  "generatedAt": "2026-06-02T02:30:51.499Z",
-  "startupBytes": 1016424,
-  "startupHuman": "993 KB",
-  "deferredBytes": 965810,
-  "deferredHuman": "943 KB",
+  "generatedAt": "2026-06-02T02:46:56.047Z",
+  "startupBytes": 1019498,
+  "startupHuman": "996 KB",
+  "deferredBytes": 968399,
+  "deferredHuman": "946 KB",
+  "estimatedRuntimeMemory": {
+    "countriesFullBytes": 2440437,
+    "countriesFullHuman": "2.33 MB",
+    "estimatedParsedBytes": 7321311,
+    "estimatedParsedHuman": "6.98 MB",
+    "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
+  },
   "largestAssets": [
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 663830,
-      "human": "648 KB",
+      "bytes": 666025,
+      "human": "650 KB",
       "startupCritical": true
     },
     {
@@ -64,8 +71,8 @@
     {
       "path": "app-performance-ui.js",
       "exists": true,
-      "bytes": 5198,
-      "human": "5 KB",
+      "bytes": 5742,
+      "human": "6 KB",
       "startupCritical": false
     },
     {
@@ -101,8 +108,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 663830,
-      "human": "648 KB",
+      "bytes": 666025,
+      "human": "650 KB",
       "startupCritical": true
     },
     {
@@ -150,8 +157,8 @@
     {
       "path": "app-boot-scheduler.js",
       "exists": true,
-      "bytes": 1829,
-      "human": "2 KB",
+      "bytes": 2708,
+      "human": "3 KB",
       "startupCritical": true
     },
     {
@@ -178,8 +185,22 @@
     {
       "path": "app-performance-ui.js",
       "exists": true,
-      "bytes": 5198,
-      "human": "5 KB",
+      "bytes": 5742,
+      "human": "6 KB",
+      "startupCritical": false
+    },
+    {
+      "path": "app-rankings-worker.js",
+      "exists": true,
+      "bytes": 1292,
+      "human": "1 KB",
+      "startupCritical": false
+    },
+    {
+      "path": "app-search-worker.js",
+      "exists": true,
+      "bytes": 753,
+      "human": "753 B",
       "startupCritical": false
     },
     {
