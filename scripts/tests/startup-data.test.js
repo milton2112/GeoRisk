@@ -14,6 +14,9 @@ const rankingsWorker = await fs.readFile(path.join(projectRoot, "app-rankings-wo
 const searchWorker = await fs.readFile(path.join(projectRoot, "app-search-worker.js"), "utf8");
 const perCountryDir = path.join(projectRoot, "data", "countries");
 const perCountryFiles = (await fs.readdir(perCountryDir)).filter(file => file.endsWith(".json"));
+const appShellMatch = sw.match(/const APP_SHELL = \[([\s\S]*?)\];/);
+assert.ok(appShellMatch, "service worker debe declarar APP_SHELL");
+const appShellBlock = appShellMatch[1];
 
 assert.equal(Object.keys(index).length, Object.keys(full).length);
 assert.equal(perCountryFiles.length, Object.keys(full).length);
@@ -27,6 +30,11 @@ for (const code of ["ATA", "GRL", "GUF", "TWN", "PSE", "-99"]) {
 }
 
 assert.ok(sw.includes("./data/countries_index.json"));
+assert.ok(!appShellBlock.includes("countries_full.json"), "countries_full no debe entrar en APP_SHELL");
+assert.ok(!appShellBlock.includes("conflict_details.generated.json"), "conflictos pesados no deben entrar en APP_SHELL");
+assert.ok(!appShellBlock.includes("world_countries_simplified.geo.json"), "GeoJSON no debe entrar en APP_SHELL");
+assert.ok(!appShellBlock.includes("assets/flags"), "banderas no deben entrar en APP_SHELL");
+assert.ok(!appShellBlock.includes("assets/coats"), "escudos no deben entrar en APP_SHELL");
 assert.ok(!sw.includes("./data/countries_full.json\""), "countries_full no debe precachearse en el shell inicial");
 assert.ok(!sw.includes("./data/conflict_details.generated.json\""), "conflictos pesados no deben precachearse al inicio");
 assert.ok(!sw.includes("./data/raw/history.json\""), "raw history debe cargarse bajo demanda");
@@ -42,6 +50,11 @@ assert.ok(!sw.includes("./assets/flags/"), "banderas deben cargarse bajo demanda
 assert.ok(!sw.includes("./data/world_countries_simplified.geo.json\""), "GeoJSON debe cachearse bajo demanda, no durante install");
 assert.ok(sw.includes("Promise.allSettled"), "service worker debe tolerar fallas parciales de precache");
 assert.ok(sw.includes("HEAVY_RUNTIME_PATHS"), "service worker debe reconocer datasets pesados bajo demanda");
+assert.ok(sw.includes("RUNTIME_CACHEABLE_PATHS"), "service worker debe cachear GeoJSON, banderas y escudos solo bajo demanda");
+assert.ok(sw.includes("RUNTIME_CACHE"), "service worker debe separar cache runtime del shell");
+assert.ok(sw.includes("key.startsWith(\"geo-risk-\")"), "service worker debe borrar caches viejos de GeoRisk agresivamente");
+assert.ok(sw.includes("MAX_RUNTIME_CACHE_ENTRIES"), "service worker debe limitar cache runtime");
+assert.ok(/if \(isHeavyRuntimeRequest\(url\)\) \{\s*event\.respondWith\(fetch\(event\.request\)\)/.test(sw), "datasets pesados deben usar red sin guardarse en CacheStorage");
 assert.ok(!sw.includes("https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Cesium.js\""), "Cesium remoto no debe precachearse en install");
 assert.ok(!indexHtml.includes("app-curation.js"), "index.html no debe bloquear el arranque con app-curation");
 assert.ok(!indexHtml.includes("app-news-ui.js"), "noticias debe cargarse bajo demanda");
@@ -70,7 +83,9 @@ assert.ok(indexHtml.includes('id="dataset-health-chip" type="button"'), "chip de
 for (const id of ["intro-country-count", "intro-conflict-count", "intro-layer-count", "intro-special-count"]) {
   assert.ok(indexHtml.includes(id), `portada debe exponer ${id}`);
 }
-assert.ok(indexHtml.includes("clear-local-cache-button"), "UI debe permitir limpiar cache local");
+assert.ok(indexHtml.includes("clear-local-cache-button"), "UI debe permitir limpiar cache offline");
+assert.ok(indexHtml.includes("Limpiar cache offline"), "boton de limpieza debe mencionar cache offline explicitamente");
+assert.ok(indexHtml.includes("offline-cache-size"), "UI debe mostrar tamano aproximado del cache offline");
 assert.ok(!indexHtml.includes("Ã—"), "botones de cierre no deben tener mojibake visible");
 for (const token of ["AÃ", "Ãƒ", "Ã‚", "Â¿", "Â¡", "Ã—"]) {
   assert.ok(!indexHtml.includes(token), `index.html no debe exponer mojibake visible: ${token}`);
@@ -95,7 +110,9 @@ assert.ok(script.includes("function isRankingsPanelOpen"), "rankings no deben re
 assert.ok(script.includes("getCountryValues"), "UI debe reutilizar lista cacheada de paises");
 assert.ok(script.includes("MAX_RESOURCE_CACHE_ENTRIES = 36"), "cache en memoria debe tener limite");
 assert.ok(script.includes("resourceCache.delete(cacheKey)"), "descargas fallidas deben poder reintentarse");
-assert.ok(script.includes("async function clearLocalGeoRiskCache()"), "runtime debe exponer limpieza segura de cache local");
+assert.ok(script.includes("async function clearLocalGeoRiskCache()"), "runtime debe exponer limpieza segura de cache offline");
+assert.ok(script.includes("async function estimateOfflineCacheSize()"), "runtime debe estimar tamano del cache offline");
+assert.ok(script.includes("async function updateOfflineCacheSizeLabel()"), "runtime debe refrescar tamano visible del cache offline");
 assert.ok(script.includes("function getIntroCoverageStats()"), "portada debe cachear metricas de cobertura");
 assert.ok(script.includes("introCoverageCache"), "metricas de portada deben evitar recomputos innecesarios");
 assert.ok(script.includes("async function ensureExportLibraries"), "exportaciones deben cargar librerias pesadas bajo demanda");

@@ -74,14 +74,14 @@ const timelineConflictUi = window.GeoRiskTimelineConflicts || {};
 const sharedTheme = window.GeoRiskTheme || {};
 const sharedText = window.GeoRiskText || {};
 const bootScheduler = window.GeoRiskBootScheduler || {};
-const APP_VERSION = "2026-05-02-boot-12";
+const APP_VERSION = "2026-06-01-offline-2";
 const DEFERRED_UI_MODULES = {
-  news: "./app-news-ui.js?v=2026-05-02-boot-12",
-  compare: "./app-compare-ui.js?v=2026-05-02-boot-12",
-  quiz: "./app-quiz-ui.js?v=2026-05-02-boot-12",
-  riskRadar: "./app-risk-radar-ui.js?v=2026-05-02-boot-12",
-  conflictAudit: "./app-conflict-audit-ui.js?v=2026-05-02-boot-12",
-  projectAudit: "./app-project-audit-ui.js?v=2026-05-02-boot-12"
+  news: "./app-news-ui.js?v=2026-06-01-offline-2",
+  compare: "./app-compare-ui.js?v=2026-06-01-offline-2",
+  quiz: "./app-quiz-ui.js?v=2026-06-01-offline-2",
+  riskRadar: "./app-risk-radar-ui.js?v=2026-06-01-offline-2",
+  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-01-offline-2",
+  projectAudit: "./app-project-audit-ui.js?v=2026-06-01-offline-2"
 };
 const deferredUiModulePromises = new Map();
 
@@ -1042,6 +1042,68 @@ function closeProductModal() {
   syncModalOpenState();
 }
 
+function formatApproxBytes(bytes) {
+  if (!Number.isFinite(bytes) || bytes <= 0) {
+    return currentLanguage === "en" ? "0 KB" : "0 KB";
+  }
+  if (bytes >= 1024 * 1024) {
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  }
+  return `${Math.max(1, Math.round(bytes / 1024))} KB`;
+}
+
+async function estimateOfflineCacheSize() {
+  if (!("caches" in window)) {
+    return null;
+  }
+
+  const keys = (await caches.keys()).filter(key => key.startsWith("geo-risk-"));
+  let bytes = 0;
+  let entries = 0;
+
+  for (const key of keys) {
+    const cache = await caches.open(key);
+    const requests = await cache.keys();
+    entries += requests.length;
+    for (const request of requests) {
+      const response = await cache.match(request);
+      if (!response) {
+        continue;
+      }
+      const blob = await response.clone().blob().catch(() => null);
+      bytes += blob?.size || 0;
+    }
+  }
+
+  return { bytes, entries, caches: keys.length };
+}
+
+async function updateOfflineCacheSizeLabel() {
+  const label = document.getElementById("offline-cache-size");
+  if (!label) {
+    return null;
+  }
+
+  try {
+    const estimate = await estimateOfflineCacheSize();
+    if (!estimate) {
+      label.textContent = currentLanguage === "en"
+        ? "Offline cache size: unavailable."
+        : "Tamano cache offline: no disponible.";
+      return null;
+    }
+    label.textContent = currentLanguage === "en"
+      ? `Offline cache: approx. ${formatApproxBytes(estimate.bytes)} in ${estimate.entries} files.`
+      : `Cache offline: aprox. ${formatApproxBytes(estimate.bytes)} en ${estimate.entries} archivos.`;
+    return estimate;
+  } catch (error) {
+    label.textContent = currentLanguage === "en"
+      ? "Offline cache size could not be estimated."
+      : "No se pudo estimar el tamano del cache offline.";
+    return null;
+  }
+}
+
 async function clearLocalGeoRiskCache() {
   const status = document.getElementById("offline-status");
   try {
@@ -1058,22 +1120,23 @@ async function clearLocalGeoRiskCache() {
     if (status) {
       status.textContent = currentLanguage === "en"
         ? "Local cache cleared. Reload to rebuild it."
-        : "Cache local limpiado. Recarga para reconstruirlo.";
+        : "Cache offline limpiado. Recarga para reconstruirlo.";
     }
+    await updateOfflineCacheSizeLabel();
     updateAppStatusPanel();
     openProductModal(
-      currentLanguage === "en" ? "Local cache cleared" : "Cache local limpiado",
+      currentLanguage === "en" ? "Offline cache cleared" : "Cache offline limpiado",
       `<div class="help-section"><p>${currentLanguage === "en"
         ? "GeoRisk removed local app caches and cleared runtime resources. Reload the page if you still see old assets."
-        : "GeoRisk elimino los caches locales de la app y limpio recursos de la sesion. Recarga la pagina si todavia ves archivos viejos."}</p></div>`
+        : "GeoRisk elimino los caches offline de la app y limpio recursos de la sesion. Recarga la pagina si todavia ves archivos viejos."}</p></div>`
     );
   } catch (error) {
     if (status) {
       status.textContent = currentLanguage === "en"
         ? "Local cache could not be cleared."
-        : "No se pudo limpiar el cache local.";
+        : "No se pudo limpiar el cache offline.";
     }
-    console.warn("No se pudo limpiar el cache local:", error);
+    console.warn("No se pudo limpiar el cache offline:", error);
   }
 }
 
@@ -9875,7 +9938,7 @@ function updateStaticText() {
   }
   const clearLocalCacheButton = document.getElementById("clear-local-cache-button");
   if (clearLocalCacheButton) {
-    clearLocalCacheButton.textContent = currentLanguage === "en" ? "Clear local cache" : "Limpiar cache local";
+    clearLocalCacheButton.textContent = currentLanguage === "en" ? "Clear offline cache" : "Limpiar cache offline";
   }
   const searchHistoryTitle = document.getElementById("search-history-title");
   if (searchHistoryTitle) {
@@ -16042,7 +16105,10 @@ async function registerServiceWorker() {
   const status = document.getElementById("offline-status");
 
   if (!("serviceWorker" in navigator)) {
-    status.textContent = "Cache offline no disponible en este navegador.";
+    if (status) {
+      status.textContent = "Cache offline no disponible en este navegador.";
+    }
+    await updateOfflineCacheSizeLabel();
     return;
   }
 
@@ -16065,14 +16131,33 @@ async function registerServiceWorker() {
         window.location.reload();
       }
     }, { once: true });
-    status.textContent = currentLanguage === "en"
-      ? "Offline mode active with local cache."
-      : "Modo offline activo con cache local.";
+    if (status) {
+      status.textContent = currentLanguage === "en"
+        ? "Partial offline mode active."
+        : "Modo offline parcial activo.";
+    }
+    await updateOfflineCacheSizeLabel();
     updateAppStatusPanel();
   } catch (error) {
-    status.textContent = currentLanguage === "en"
-      ? "Offline cache could not be initialized."
-      : "No se pudo inicializar el cache offline.";
+    const hasGeoRiskCache = "caches" in window
+      ? await caches.keys().then(keys => keys.some(key => key.startsWith("geo-risk-"))).catch(() => false)
+      : false;
+    if (navigator.serviceWorker?.controller || hasGeoRiskCache) {
+      if (status) {
+        status.textContent = currentLanguage === "en"
+          ? "Partial offline mode active."
+          : "Modo offline parcial activo.";
+      }
+      await updateOfflineCacheSizeLabel();
+      updateAppStatusPanel();
+      return;
+    }
+    if (status) {
+      status.textContent = currentLanguage === "en"
+        ? "Offline cache could not be initialized."
+        : "No se pudo inicializar el cache offline.";
+    }
+    await updateOfflineCacheSizeLabel();
     updateAppStatusPanel();
   }
 }

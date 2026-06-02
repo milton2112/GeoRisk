@@ -65,7 +65,8 @@ Actualizacion de producto orientada a uso real y crecimiento futuro.
 - Perfil de render con texto estable y sin mojibake, mas cacheo de metricas de portada para evitar recomputos innecesarios.
 - Exportaciones diferidas: html2canvas y jsPDF ya no bloquean el shell inicial y se cargan solo al exportar.
 - Estados vacios, mobile y modales con mejor lectura, tactilidad y feedback visual.
-- Accion visible para limpiar cache local cuando una version vieja queda pegada.
+- Accion visible para limpiar cache offline cuando una version vieja queda pegada.
+- Cache offline versionado al 2026-06-01, con tamano aproximado visible, limpieza mas clara, runtime bajo demanda y veto a datasets pesados en CacheStorage.
 - Titulares reales dentro del hub de noticias con varias cabeceras en vivo por pais cuando la fuente responde.
 - Mas categorias de quiz: idiomas, bloques y conflictos.
 - Comparador mas profundo con calidad del dataset, alcance diplomatico, idiomas, exposicion conflictiva y mas lectura estrategica.

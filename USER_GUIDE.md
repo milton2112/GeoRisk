@@ -245,7 +245,7 @@ Si una version vieja queda pegada en el navegador:
 
 - abre `Capas tematicas`;
 - entra en `Proyecto`;
-- usa `Limpiar cache local`;
+- usa `Limpiar cache offline`;
 - recarga la pagina para reconstruir el cache con la ultima version.
 
 La portada tambien muestra una lectura rapida de cobertura: paises y territorios cargados, conflictos enlazados, capas tematicas disponibles y entidades especiales reconocidas. Sirve para comprobar de un vistazo que el dataset liviano ya esta sano antes de abrir fichas pesadas.
@@ -262,11 +262,23 @@ En `Salud dataset` vas a encontrar barras de cobertura para detectar rapido dond
 
 ## Estado offline
 
-El shell de la app, el indice inicial de paises y la documentacion deberian seguir accesibles offline despues de una carga correcta. Las fichas completas se van sumando al cache cuando se abren.
+GeoRisk usa un modo offline parcial despues de una primera visita correcta. La app guarda el shell inicial, estilos, scripts esenciales, indice liviano de paises, aliases y documentacion. En `Capas tematicas > Proyecto` se muestra el tamano aproximado del cache offline y el boton `Limpiar cache offline` permite reconstruirlo si queda una version vieja.
+
+Funciona offline despues de la visita inicial:
+
+- apertura de la app y portada;
+- busqueda basica con el indice liviano;
+- capas y rankings que usan datos ya cargados;
+- documentacion y changelog si fueron guardados;
+- fichas por pais que ya se abrieron antes;
+- GeoJSON, banderas, escudos y tiles que ya se descargaron bajo demanda.
 
 Limitaciones:
 
-- noticias en vivo dependen de internet;
-- imagenes y scripts remotos de terceros pueden requerir conectividad en una primera carga.
+- `countries_full.json` no se guarda en CacheStorage para no ocupar almacenamiento;
+- `conflict_details.generated.json` no se guarda en CacheStorage;
+- fichas profundas no visitadas antes pueden necesitar internet;
+- detalles enriquecidos de conflictos y noticias en vivo dependen de internet;
+- imagenes, tiles y scripts remotos de terceros pueden requerir conectividad en una primera carga.
 
 Si queres ver hacia donde podria crecer GeoRisk con una API propia, mira `BACKEND_PLAN.md` desde la seccion de documentacion.

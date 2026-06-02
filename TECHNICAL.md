@@ -107,10 +107,16 @@ La estrategia actual combina:
 - caches de recursos y GeoJSON preparado;
 - modulos secundarios (`news`, `compare`, `quiz`) cargados bajo demanda al abrir paneles;
 - cache runtime con limite y reintento limpio de descargas fallidas;
-- service worker con precache liviano y tolerante a fallas parciales;
+- service worker con version fechada, precache liviano y tolerante a fallas parciales;
+- cache offline parcial: shell inicial en `APP_CACHE`, recursos bajo demanda en `RUNTIME_CACHE` y tiles en `TILE_CACHE`;
+- veto explicito para que `countries_full.json` y `conflict_details.generated.json` no entren en CacheStorage;
+- GeoJSON, banderas y escudos solo se cachean cuando el usuario los pide;
+- limpieza agresiva de caches `geo-risk-*` viejos durante `activate`;
 - degradacion automatica con FPS suavizado;
 - supresion temporal de hover cuando la escena cae;
 - limpieza de labels si el rendimiento lo necesita.
+
+El modo offline garantiza apertura de la app, indice liviano, busqueda basica y recursos visitados previamente. No garantiza datos profundos no visitados, noticias en vivo ni recursos remotos que no hayan sido descargados durante una sesion online previa.
 
 ## Dataset metadata
 

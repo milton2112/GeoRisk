@@ -1,3 +1,4 @@
+(() => {
 const longTaskMetrics = {
   supported: false,
   budgetMs: 200,
@@ -99,3 +100,4 @@ window.GeoRiskBootScheduler = {
   startLongTaskObserver,
   startupFpsMetrics
 };
+})();

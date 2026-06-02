@@ -560,10 +560,16 @@ body.globe-loading #map-mode-toggle {
   color: rgba(214, 229, 244, 0.72);
 }
 
-#offline-status {
+#offline-status,
+#offline-cache-size {
   margin: 10px 0 0;
   font-size: 0.77rem;
   color: rgba(238, 245, 255, 0.7);
+}
+
+#offline-cache-size {
+  margin-top: 4px;
+  color: rgba(170, 207, 238, 0.76);
 }
 
 #app-status-panel {
