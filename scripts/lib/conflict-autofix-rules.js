@@ -4,6 +4,23 @@ export const SAFE_CONFLICT_RENAMES = {
   "Sunda Strait campaign de January 1794": "Campana del estrecho de Sonda de enero de 1794",
   "Raid on Boulogne": "Incursion sobre Boulogne",
   "Raid on Alexandria": "Incursion sobre Alejandria",
+  "Battle for Piva Trail": "Batalla de Piva Trail",
+  "Battle off Endau": "Batalla frente a Endau",
+  "German occupation de Luxemburgo en World War II": "Ocupacion alemana de Luxemburgo en la Segunda Guerra Mundial",
+  "Raid on Santorini": "Incursion sobre Santorini",
+  "Raid on Black Rock": "Incursion sobre Black Rock",
+  "Raid on Havre de Grace": "Incursion sobre Havre de Grace",
+  "Iran–Israel conflict during Syrian civil war": "Conflicto irano-israeli durante la guerra civil siria",
+  "Iran-Israel conflict during Syrian civil war": "Conflicto irano-israeli durante la guerra civil siria",
+  "1952 Clash de Ismailia": "Choque de Ismailia de 1952",
+  "1957 Honduras-Nicaragua border conflict": "Conflicto fronterizo Honduras-Nicaragua de 1957",
+  "2024 Beqaa Valley airstrikes": "Ataques aereos del valle de la Becaa de 2024",
+  "2016 Sirte offensive": "Ofensiva de Sirte de 2016",
+  "1984 DMZ incident": "Incidente de la zona desmilitarizada de Corea de 1984",
+  "2022 Russian Invasion de Ukraine": "Invasion rusa de Ucrania de 2022",
+  "1919 Soviet Invasion de Ukraine": "Invasion sovietica de Ucrania de 1919",
+  "Primera intifada": "Primera Intifada",
+  "Segunda intifada": "Segunda Intifada",
   "Batalla de Saigón": "Batalla de Saigon",
   "Batalla de SaigÃ³n": "Batalla de Saigon",
   "Batalla de HjÃ¶rungavÃ¡gr": "Batalla de Hjorungavagr",
@@ -12,6 +29,40 @@ export const SAFE_CONFLICT_RENAMES = {
 };
 
 export const CURATED_CONFLICT_DETAIL_FIXES = {
+  "Conflicto irano-israeli durante la guerra civil siria": {
+    parent: "Guerra civil siria",
+    type: "conflicto regional",
+    scope: "regional",
+    region: "Siria y Oriente Medio",
+    cause: "Escalada de choques indirectos y directos entre Iran, Israel y actores aliados dentro del marco de la guerra civil siria.",
+    chronology: [
+      { year: 2013, text: "Aumentan los incidentes vinculados a presencia irani, milicias aliadas y operaciones israelies en el teatro sirio." }
+    ],
+    related: ["Guerra civil siria", "Conflicto irano-israeli"],
+    participants: [
+      { side: "Israel", members: ["Israel"], organizations: [], troops: "fuerzas aereas y de inteligencia", casualties: "variables" },
+      { side: "Iran y aliados", members: ["Iran", "Siria"], organizations: ["Hezbola y milicias aliadas"], troops: "fuerzas y milicias desplegadas en Siria", casualties: "variables" }
+    ],
+    outcome: "Conflicto intermitente y no resuelto dentro del escenario sirio.",
+    consequences: "Internacionalizo aun mas la guerra civil siria y mantuvo una zona de friccion regional persistente."
+  },
+  "Batalla de al-Qaryatayn": {
+    parent: "Guerra civil siria",
+    type: "batalla",
+    scope: "regional",
+    region: "Siria central",
+    cause: "Disputa por el control de al-Qaryatayn durante la guerra civil siria y la ofensiva contra Estado Islamico.",
+    chronology: [
+      { year: 2016, text: "Fuerzas sirias, con apoyo ruso, combaten por recuperar al-Qaryatayn de manos de Estado Islamico." }
+    ],
+    related: ["Guerra civil siria", "Guerra contra Estado Islamico"],
+    participants: [
+      { side: "Gobierno sirio y aliados", members: ["Siria", "Rusia"], organizations: ["Fuerzas Armadas Sirias"], troops: "fuerzas terrestres y apoyo aereo", casualties: "significativas o inciertas" },
+      { side: "Estado Islamico", members: ["Estado Islamico"], organizations: ["Estado Islamico"], troops: "combatientes irregulares", casualties: "significativas o inciertas" }
+    ],
+    outcome: "Recuperacion temporal de la ciudad por fuerzas progubernamentales.",
+    consequences: "Debilito posiciones de Estado Islamico en Siria central y reforzo el control gubernamental de rutas locales."
+  },
   "Batalla de Saigon": {
     parent: "Guerra de Vietnam",
     type: "batalla",

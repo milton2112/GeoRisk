@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-05-12T00:30:06.111Z",
-  "changedFullCountries": 2,
-  "changedCountryFiles": 2,
+  "generatedAt": "2026-06-02T02:28:09.341Z",
+  "changedFullCountries": 13,
+  "changedCountryFiles": 13,
   "detailStats": {
-    "renamed": 5,
-    "enriched": 253
+    "renamed": 8,
+    "enriched": 273
   },
   "safeRenames": {
     "Adriatic Campaign de World War II": "Campana del Adriatico en la Segunda Guerra Mundial",
@@ -12,6 +12,23 @@
     "Sunda Strait campaign de January 1794": "Campana del estrecho de Sonda de enero de 1794",
     "Raid on Boulogne": "Incursion sobre Boulogne",
     "Raid on Alexandria": "Incursion sobre Alejandria",
+    "Battle for Piva Trail": "Batalla de Piva Trail",
+    "Battle off Endau": "Batalla frente a Endau",
+    "German occupation de Luxemburgo en World War II": "Ocupacion alemana de Luxemburgo en la Segunda Guerra Mundial",
+    "Raid on Santorini": "Incursion sobre Santorini",
+    "Raid on Black Rock": "Incursion sobre Black Rock",
+    "Raid on Havre de Grace": "Incursion sobre Havre de Grace",
+    "Iran–Israel conflict during Syrian civil war": "Conflicto irano-israeli durante la guerra civil siria",
+    "Iran-Israel conflict during Syrian civil war": "Conflicto irano-israeli durante la guerra civil siria",
+    "1952 Clash de Ismailia": "Choque de Ismailia de 1952",
+    "1957 Honduras-Nicaragua border conflict": "Conflicto fronterizo Honduras-Nicaragua de 1957",
+    "2024 Beqaa Valley airstrikes": "Ataques aereos del valle de la Becaa de 2024",
+    "2016 Sirte offensive": "Ofensiva de Sirte de 2016",
+    "1984 DMZ incident": "Incidente de la zona desmilitarizada de Corea de 1984",
+    "2022 Russian Invasion de Ukraine": "Invasion rusa de Ucrania de 2022",
+    "1919 Soviet Invasion de Ukraine": "Invasion sovietica de Ucrania de 1919",
+    "Primera intifada": "Primera Intifada",
+    "Segunda intifada": "Segunda Intifada",
     "Batalla de Saigón": "Batalla de Saigon",
     "Batalla de SaigÃ³n": "Batalla de Saigon",
     "Batalla de HjÃ¶rungavÃ¡gr": "Batalla de Hjorungavagr",
@@ -74,6 +91,8 @@
     "Batalla de Northern Burma y Western Yunnan": "Campana del norte de Birmania y oeste de Yunnan"
   },
   "curatedDetails": [
+    "Conflicto irano-israeli durante la guerra civil siria",
+    "Batalla de al-Qaryatayn",
     "Batalla de Saigon",
     "Batalla de Hjorungavagr",
     "Batalla de Svolder",

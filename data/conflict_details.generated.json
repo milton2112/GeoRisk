@@ -720,7 +720,7 @@
       "cause": "Concentración de militares egipcios cerca de la frontera israelí.\nExigencia de expulsión, y posterior expulsión, de la Fuerza de Emergencia de las Naciones Unidas por parte de Egipto.\nMilitarización de Gaza .\nCierre de los estrechos de Tirán por parte de Egipto.\nFirma de un pacto entre Egipto, Siria y Jordania",
       "participants": [
         {
-          "side": "Bando 1",
+          "side": "Israel",
           "members": [
             "Israel"
           ],
@@ -729,7 +729,7 @@
           "casualties": ""
         },
         {
-          "side": "Bando 2",
+          "side": "República Árabe Unida, Siria, Jordania y aliados",
           "members": [
             "República Árabe Unida",
             "Siria",
@@ -944,7 +944,7 @@
       "cause": "Disputa territorial por el Chaco Boreal, que se intensificó cuando Bolivia ocupó el fortín Carlos Antonio López en 1932, lo que provocó la respuesta militar de Paraguay",
       "participants": [
         {
-          "side": "Bando 1",
+          "side": "República de Bolivia, Apoyado por:, Chile (apoyo informal) y aliados",
           "members": [
             "República de Bolivia",
             "Apoyado por:",
@@ -956,7 +956,7 @@
           "casualties": ""
         },
         {
-          "side": "Bando 2",
+          "side": "República del Paraguay, Apoyado por:, Argentina (apoyo informal)",
           "members": [
             "República del Paraguay",
             "Apoyado por:",
@@ -1140,7 +1140,7 @@
       "cause": "Violación del artículo 4 del Tratado limítrofe entre Bolivia y Chile, ocupación chilena de Antofagasta y activación de la alianza peruano-boliviana",
       "participants": [
         {
-          "side": "Bando 1",
+          "side": "Bolivia, Perú Perú",
           "members": [
             "Bolivia",
             "Perú Perú"
@@ -1150,7 +1150,7 @@
           "casualties": ""
         },
         {
-          "side": "Bando 2",
+          "side": "Chile",
           "members": [
             "Chile"
           ],
@@ -1659,127 +1659,6 @@
       "related": [],
       "region": "Indochina"
     },
-    "2016 Sirte offensive": {
-      "source": "Wikipedia",
-      "pageTitle": "Battle of Sirte (2016)",
-      "wikipedia": {
-        "date": "Date 12 May – 6 December 2016\n(6 months, 3 weeks and 3 days)",
-        "place": "Sirte District , Libya 31°12′26″N 16°35′30″E / 31.2072°N 16.5917°E / 31.2072; 16.5917",
-        "result": "GNA victory\nThe GNA capture Abu Qurayn , Bin Jawad , Nofaliya , Harawa , Ghardabiya Air Base and Sirte power station, completely besieging the city\nThe GNA take control of Sirte in December 2016",
-        "commanders": [
-          [
-            "Fayez al-Sarraj",
-            "(Head of Unity Government)",
-            "Colonel Al-Mahdi Al-Barghathi",
-            "(GNA Minister of Defense)",
-            "Rida Issa",
-            "(GNA navy commander)",
-            "Ibrahim Baitulmal",
-            "(Head of Misrata military council)",
-            "Ismail Shukri",
-            "(Head of military intelligence in Misrata)",
-            "Abdul Adeem al-Maadani",
-            "(Misrata Brigades senior commander)",
-            "Mohammed Issa",
-            "(field commander)",
-            "Daryl Caudle"
-          ],
-          [
-            "Abu Hudhayfah al-Muhajir",
-            "(ISIL governor of Wilayat Tarabulus)",
-            "Abu Habib Jazrawi",
-            "(ISIL leader in Libya)",
-            "Abu Omar al-Tunessi",
-            "(ISIL commander of Sirte)",
-            "Hamid Malouqa al-Zliteni",
-            "(ISIL top commander)",
-            "Hassan Kara",
-            "(ISIL field commander)",
-            "Yusuf Mulaytan",
-            "(ISIL commander)",
-            "Faiez Attiya",
-            "Qusai al-Jaili",
-            "Mirghani Badawi al-Bashir",
-            "(ISIL commander and preacher)",
-            "Hassan al-Karami",
-            "(ISIL preacher)"
-          ]
-        ],
-        "language": "en"
-      },
-      "cause": "null",
-      "participants": [
-        {
-          "side": "Bando 1",
-          "members": [
-            "Government of National Accord",
-            "Libyan Army",
-            "Misrata Brigades",
-            "Misrata Military Council",
-            "Petroleum Facilities Guard",
-            "Libyan Navy",
-            "United States",
-            "(since 1 Aug. 2016)",
-            "U.S. Air Force",
-            "U.S. Navy",
-            "U.S. Marine Corps",
-            "United Kingdom Special Forces",
-            "Royal Air Force",
-            "Royal Navy",
-            "France",
-            "French Special Forces",
-            "French Air Force",
-            "French Navy",
-            "Italy",
-            "Special Forces"
-          ],
-          "organizations": [],
-          "troops": "",
-          "casualties": ""
-        },
-        {
-          "side": "Bando 2",
-          "members": [
-            "Wilayat Tarabulus",
-            "Sirte Islamic Police"
-          ],
-          "organizations": [],
-          "troops": "",
-          "casualties": ""
-        }
-      ],
-      "outcome": "GNA victory\nThe GNA capture Abu Qurayn , Bin Jawad , Nofaliya , Harawa , Ghardabiya Air Base and Sirte power station, completely besieging the city\nThe GNA take control of Sirte in December 2016",
-      "consequences": "",
-      "chronology": [
-        {
-          "year": null,
-          "text": "Date 12 May – 6 December 2016\n(6 months, 3 weeks and 3 days)"
-        }
-      ],
-      "related": [],
-      "region": "Sirte District , Libya 31°12′26″N 16°35′30″E / 31.2072°N 16.5917°E / 31.2072; 16.5917"
-    },
-    "2024 Beqaa Valley airstrikes": {
-      "source": "Wikipedia",
-      "pageTitle": "2024 Beqaa Valley airstrikes",
-      "wikipedia": {
-        "place": "Beqaa Valley , Lebanon",
-        "date": "28 October 2024 – 6 November 2024",
-        "language": "en"
-      },
-      "cause": "null",
-      "participants": [],
-      "outcome": "null",
-      "consequences": "",
-      "chronology": [
-        {
-          "year": null,
-          "text": "28 October 2024 – 6 November 2024"
-        }
-      ],
-      "related": [],
-      "region": "Beqaa Valley , Lebanon"
-    },
     "Allied bombings de Amsterdam-Noord": {
       "source": "Wikipedia",
       "pageTitle": "Allied bombings of Amsterdam-Noord",
@@ -1825,7 +1704,7 @@
       "cause": "null",
       "participants": [
         {
-          "side": "Bando 1",
+          "side": "France, Germany",
           "members": [
             "France",
             "Germany"
@@ -1835,7 +1714,7 @@
           "casualties": ""
         },
         {
-          "side": "Bando 2",
+          "side": "Somali pirates",
           "members": [
             "Somali pirates"
           ],
@@ -2035,39 +1914,48 @@
         ],
         "language": "es"
       },
-      "cause": "null",
+      "cause": "Disputa por el control de al-Qaryatayn durante la guerra civil siria y la ofensiva contra Estado Islamico.",
       "participants": [
         {
-          "side": "Bando 1",
+          "side": "Gobierno sirio y aliados",
           "members": [
-            "Estado Islámico"
+            "Siria",
+            "Rusia"
           ],
-          "organizations": [],
-          "troops": "",
-          "casualties": ""
+          "organizations": [
+            "Fuerzas Armadas Sirias"
+          ],
+          "troops": "fuerzas terrestres y apoyo aereo",
+          "casualties": "significativas o inciertas"
         },
         {
-          "side": "Bando 2",
+          "side": "Estado Islamico",
           "members": [
-            "Fuerzas Armadas de Siria",
-            "Fuerzas de Defensa Nacional",
-            "Partido Social Nacionalista Sirio"
+            "Estado Islamico"
           ],
-          "organizations": [],
-          "troops": "",
-          "casualties": ""
+          "organizations": [
+            "Estado Islamico"
+          ],
+          "troops": "combatientes irregulares",
+          "casualties": "significativas o inciertas"
         }
       ],
-      "outcome": "Victoria del EI",
-      "consequences": "El EI captura inicialmente las localidades de Al Qaryatayn, Mahin y Huwwarin. ? El Ejército recaptura Mahin. y Huwwarin",
+      "outcome": "Recuperacion temporal de la ciudad por fuerzas progubernamentales.",
+      "consequences": "Debilito posiciones de Estado Islamico en Siria central y reforzo el control gubernamental de rutas locales.",
       "chronology": [
         {
-          "year": null,
-          "text": "5 de agosto de 2015"
+          "year": 2016,
+          "text": "Fuerzas sirias, con apoyo ruso, combaten por recuperar al-Qaryatayn de manos de Estado Islamico."
         }
       ],
-      "related": [],
-      "region": "Al Qaryatayn , Gobernación de Homs , Siria"
+      "related": [
+        "Guerra civil siria",
+        "Guerra contra Estado Islamico"
+      ],
+      "region": "Siria central",
+      "parent": "Guerra civil siria",
+      "type": "batalla",
+      "scope": "regional"
     },
     "Batalla de Alasay": {
       "source": "Wikipedia",
@@ -3569,7 +3457,7 @@
       "cause": "null",
       "participants": [
         {
-          "side": "Bando 1",
+          "side": "Movimiento Congoleño para la Democracia y el Desarrollo Integral, Milicia Ninja, Milicia Cocoye y aliados",
           "members": [
             "Movimiento Congoleño para la Democracia y el Desarrollo Integral",
             "Milicia Ninja",
@@ -3582,7 +3470,7 @@
           "casualties": ""
         },
         {
-          "side": "Bando 2",
+          "side": "Partido Congoleño del Trabajo ( FDU ), Milicia Cobra, Hutus ruandeses y aliados",
           "members": [
             "Partido Congoleño del Trabajo ( FDU )",
             "Milicia Cobra",
@@ -3637,7 +3525,7 @@
       "cause": "null",
       "participants": [
         {
-          "side": "Bando 1",
+          "side": "Frente Popular, Partido Comunista de Tayikistán, Partido Socialista de Tayikistán",
           "members": [
             "Frente Popular",
             "Partido Comunista de Tayikistán",
@@ -3648,7 +3536,7 @@
           "casualties": ""
         },
         {
-          "side": "Bando 2",
+          "side": "Partido del Renacimiento Islámico, Partido Democrático de Tayikistán, Partido de la Unidad Popular y aliados",
           "members": [
             "Partido del Renacimiento Islámico",
             "Partido Democrático de Tayikistán",
@@ -3735,7 +3623,7 @@
       "cause": "Una revuelta sueca tras la derrota danesa en la batalla de Hemmingstedt",
       "participants": [
         {
-          "side": "Bando 1",
+          "side": "Ciudad libre de Lübeck (desde 1509), Rebeldes noruegos (hasta 1504)",
           "members": [
             "Ciudad libre de Lübeck (desde 1509)",
             "Rebeldes noruegos (hasta 1504)"
@@ -3745,7 +3633,7 @@
           "casualties": ""
         },
         {
-          "side": "Bando 2",
+          "side": "Dinamarca, Noruega",
           "members": [
             "Dinamarca",
             "Noruega"
@@ -3864,7 +3752,7 @@
       "cause": "null",
       "participants": [
         {
-          "side": "Bando 1",
+          "side": "M23, CNDP (1994-2009), Apoyado por: y aliados",
           "members": [
             "M23",
             "CNDP (1994-2009)",
@@ -3878,7 +3766,7 @@
           "casualties": ""
         },
         {
-          "side": "Bando 2",
+          "side": "Fuerzas Armadas de la RDC, Paramilitares",
           "members": [
             "Fuerzas Armadas de la RDC",
             "Paramilitares"
@@ -3888,7 +3776,7 @@
           "casualties": ""
         },
         {
-          "side": "Bando 3",
+          "side": "FDLR, (2014–presente), APCLS (2013–2016) y aliados",
           "members": [
             "FDLR",
             "(2014–presente)",
@@ -3906,7 +3794,7 @@
           "casualties": ""
         },
         {
-          "side": "Bando 4",
+          "side": "NDC-R (2014–presente), Nduma Defensa del Congo (2008–2017), Mai Yakutumba (2009–presente) y aliados",
           "members": [
             "NDC-R (2014–presente)",
             "Nduma Defensa del Congo (2008–2017)",
@@ -3983,7 +3871,7 @@
       "cause": "Invasión brasileña a Uruguay , bombardeo colorado y brasileño a Paysandú , captura paraguaya del buque brasileño Marquês de Olinda",
       "participants": [
         {
-          "side": "Bando 1",
+          "side": "República del Paraguay",
           "members": [
             "República del Paraguay"
           ],
@@ -3992,7 +3880,7 @@
           "casualties": ""
         },
         {
-          "side": "Bando 2",
+          "side": "Triple Alianza :, Imperio del Brasil, Estado Oriental del Uruguay y aliados",
           "members": [
             "Triple Alianza :",
             "Imperio del Brasil",
@@ -4087,7 +3975,7 @@
       "cause": "null",
       "participants": [
         {
-          "side": "Bando 1",
+          "side": "Pakistán Oriental ( Bangladés ), India",
           "members": [
             "Pakistán Oriental ( Bangladés )",
             "India"
@@ -4097,7 +3985,7 @@
           "casualties": ""
         },
         {
-          "side": "Bando 2",
+          "side": "Jamaat-e-Islami, Al-Badr",
           "members": [
             "Jamaat-e-Islami",
             "Al-Badr"
@@ -4270,7 +4158,7 @@
       "cause": "Invasión de Irak del territorio iraní",
       "participants": [
         {
-          "side": "Bando 1",
+          "side": "Irán, PDK, UPK y aliados",
           "members": [
             "Irán",
             "PDK",
@@ -4285,7 +4173,7 @@
           "casualties": ""
         },
         {
-          "side": "Bando 2",
+          "side": "Irak, MEK, FRDLA y aliados",
           "members": [
             "Irak",
             "MEK",
@@ -4332,7 +4220,7 @@
       "cause": "null",
       "participants": [
         {
-          "side": "Bando 1",
+          "side": "Chile, Perú Perú (desde 1866), Ecuador (desde 1866) y aliados",
           "members": [
             "Chile",
             "Perú Perú (desde 1866)",
@@ -4344,7 +4232,7 @@
           "casualties": ""
         },
         {
-          "side": "Bando 2",
+          "side": "España",
           "members": [
             "España"
           ],
@@ -4754,7 +4642,7 @@
       "cause": "null",
       "participants": [
         {
-          "side": "Bando 1",
+          "side": "Rusia, República Popular de Donetsk, República Popular de Lugansk",
           "members": [
             "Rusia",
             "República Popular de Donetsk",
@@ -4765,7 +4653,7 @@
           "casualties": ""
         },
         {
-          "side": "Bando 2",
+          "side": "Ucrania Véase, Apoyo militar internacional a Ucrania",
           "members": [
             "Ucrania Véase",
             "Apoyo militar internacional a Ucrania"
@@ -5026,7 +4914,7 @@
       "cause": "null",
       "participants": [
         {
-          "side": "Bando 1",
+          "side": "República del Paraguay",
           "members": [
             "República del Paraguay"
           ],
@@ -5035,7 +4923,7 @@
           "casualties": ""
         },
         {
-          "side": "Bando 2",
+          "side": "Imperio del Brasil",
           "members": [
             "Imperio del Brasil"
           ],
@@ -5145,7 +5033,7 @@
       "cause": "El presidente del momento de Sudán instaura la ley sharía en 1983, lo cual provoca una rebelión en la parte sureña del Sudán del entonces",
       "participants": [
         {
-          "side": "Bando 1",
+          "side": "Sudán",
           "members": [
             "Sudán"
           ],
@@ -5154,7 +5042,7 @@
           "casualties": ""
         },
         {
-          "side": "Bando 2",
+          "side": "SPLA Frente Oriental, NDA (1989-2005)",
           "members": [
             "SPLA Frente Oriental",
             "NDA (1989-2005)"
@@ -5765,47 +5653,6 @@
       "related": [],
       "region": "La Güera y Tichla , Sahara Español"
     },
-    "Battle off Endau": {
-      "source": "Wikipedia",
-      "pageTitle": "Battle off Endau",
-      "wikipedia": {
-        "date": "Date 26–27 January 1942",
-        "place": "off Endau , Malaya",
-        "result": "Japanese victory",
-        "commanders": [
-          [
-            "Shintarō Hashimoto"
-          ],
-          [
-            "William Moran"
-          ]
-        ],
-        "language": "en"
-      },
-      "cause": "null",
-      "participants": [
-        {
-          "side": "Corea del Sur y ONU",
-          "members": [
-            "United Kingdom",
-            "Australia"
-          ],
-          "organizations": [],
-          "troops": "",
-          "casualties": ""
-        }
-      ],
-      "outcome": "Japanese victory",
-      "consequences": "",
-      "chronology": [
-        {
-          "year": null,
-          "text": "Date 26–27 January 1942"
-        }
-      ],
-      "related": [],
-      "region": "off Endau , Malaya"
-    },
     "Bombardeo de la embajada china en Belgrado": {
       "source": "Wikipedia",
       "pageTitle": "Bombardeo de la embajada china en Belgrado",
@@ -5996,7 +5843,7 @@
       "cause": "null",
       "participants": [
         {
-          "side": "Bando 1",
+          "side": "RS de Eslovenia",
           "members": [
             "RS de Eslovenia"
           ],
@@ -6005,7 +5852,7 @@
           "casualties": ""
         },
         {
-          "side": "Bando 2",
+          "side": "República Federal Socialista de Yugoslavia",
           "members": [
             "República Federal Socialista de Yugoslavia"
           ],
@@ -6053,7 +5900,7 @@
       "cause": "Estallido de la Primera Guerra Mundial en Europa",
       "participants": [
         {
-          "side": "Bando 1",
+          "side": "Unión Sudafricana, Portugal ( África Oriental Portuguesa y África Occidental Portuguesa )",
           "members": [
             "Unión Sudafricana",
             "Portugal ( África Oriental Portuguesa y África Occidental Portuguesa )"
@@ -6063,7 +5910,7 @@
           "casualties": ""
         },
         {
-          "side": "Bando 2",
+          "side": "Imperio alemán, África del Sudoeste Alemana, República Sudafricana",
           "members": [
             "Imperio alemán",
             "África del Sudoeste Alemana",
@@ -15787,211 +15634,6 @@
       "source": "Curaduria GeoRisk",
       "pageTitle": "Batalla de Kolombangara"
     },
-    "Sitio de NykÃ¸bing": {
-      "parent": "Guerras entre Dinamarca y la Liga Hanseatica",
-      "type": "sitio",
-      "scope": "regional",
-      "region": "Escandinavia",
-      "cause": "Formo parte de la disputa por control comercial y militar en el Baltico.",
-      "chronology": [
-        {
-          "year": 1360,
-          "text": "Operaciones de sitio en torno a Nykobing durante la rivalidad dano-hanseatica."
-        }
-      ],
-      "related": [
-        "Guerras entre Dinamarca y la Liga Hanseatica"
-      ],
-      "participants": [
-        {
-          "side": "Dinamarca",
-          "members": [
-            "Dinamarca"
-          ],
-          "organizations": [],
-          "troops": "fuerzas medievales",
-          "casualties": "inciertas"
-        },
-        {
-          "side": "Liga Hanseatica y aliados",
-          "members": [
-            "Liga Hanseatica"
-          ],
-          "organizations": [
-            "Liga Hanseatica"
-          ],
-          "troops": "fuerzas medievales",
-          "casualties": "inciertas"
-        }
-      ],
-      "outcome": "Episodio militar regional sin cambio estrategico permanente aislado.",
-      "consequences": "Reflejo la centralidad del Baltico en la competencia comercial medieval.",
-      "source": "Curaduria GeoRisk",
-      "pageTitle": "Sitio de NykÃ¸bing"
-    },
-    "Batalla de Gołąb": {
-      "parent": "El Diluvio",
-      "type": "batalla",
-      "scope": "regional",
-      "region": "Polonia",
-      "cause": "Contraofensivas polacas y operaciones suecas durante la guerra del Diluvio.",
-      "chronology": [
-        {
-          "year": 1656,
-          "text": "Combate dentro de El Diluvio."
-        }
-      ],
-      "related": [
-        "El Diluvio"
-      ],
-      "participants": [
-        {
-          "side": "Suecia",
-          "members": [
-            "Suecia"
-          ],
-          "organizations": [],
-          "troops": "fuerzas variables",
-          "casualties": "inciertas"
-        },
-        {
-          "side": "Polonia-Lituania",
-          "members": [
-            "Polonia-Lituania"
-          ],
-          "organizations": [],
-          "troops": "fuerzas variables",
-          "casualties": "inciertas"
-        }
-      ],
-      "outcome": "Victoria sueca.",
-      "consequences": "La guerra continuo con resistencia polaca, desgaste sueco y cambios de alianzas.",
-      "source": "Curaduria GeoRisk",
-      "pageTitle": "Batalla de Gołąb"
-    },
-    "Batalla de Møn": {
-      "parent": "Guerra dano-sueca de 1657-1658",
-      "type": "batalla naval",
-      "scope": "regional",
-      "region": "Baltico occidental",
-      "cause": "Disputa naval entre Dinamarca y Suecia por el control de estrechos y rutas balticas.",
-      "chronology": [
-        {
-          "year": 1657,
-          "text": "Combate dentro de Guerra dano-sueca de 1657-1658."
-        }
-      ],
-      "related": [
-        "Guerra dano-sueca de 1657-1658"
-      ],
-      "participants": [
-        {
-          "side": "Dinamarca-Noruega",
-          "members": [
-            "Dinamarca",
-            "Noruega"
-          ],
-          "organizations": [],
-          "troops": "fuerzas variables",
-          "casualties": "inciertas"
-        },
-        {
-          "side": "Suecia",
-          "members": [
-            "Suecia"
-          ],
-          "organizations": [],
-          "troops": "fuerzas variables",
-          "casualties": "inciertas"
-        }
-      ],
-      "outcome": "Accion naval dentro de la guerra dano-sueca.",
-      "consequences": "Formo parte de la competencia por movilidad naval y control del Baltico.",
-      "source": "Curaduria GeoRisk",
-      "pageTitle": "Batalla de Møn"
-    },
-    "Batalla de Køge Bay": {
-      "parent": "Guerra escanesa",
-      "type": "batalla naval",
-      "scope": "regional",
-      "region": "Baltico",
-      "cause": "Control naval del Baltico durante la guerra entre Suecia y Dinamarca-Noruega.",
-      "chronology": [
-        {
-          "year": 1677,
-          "text": "Combate dentro de Guerra escanesa."
-        }
-      ],
-      "related": [
-        "Guerra escanesa"
-      ],
-      "participants": [
-        {
-          "side": "Dinamarca-Noruega",
-          "members": [
-            "Dinamarca",
-            "Noruega"
-          ],
-          "organizations": [],
-          "troops": "fuerzas variables",
-          "casualties": "inciertas"
-        },
-        {
-          "side": "Suecia",
-          "members": [
-            "Suecia"
-          ],
-          "organizations": [],
-          "troops": "fuerzas variables",
-          "casualties": "inciertas"
-        }
-      ],
-      "outcome": "Victoria danesa.",
-      "consequences": "Limito la movilidad naval sueca y favorecio operaciones danesas en el teatro escanes.",
-      "source": "Curaduria GeoRisk",
-      "pageTitle": "Batalla de Køge Bay"
-    },
-    "Batalla naval de RÃ¼gen": {
-      "parent": "Gran Guerra del Norte",
-      "type": "batalla naval",
-      "scope": "regional",
-      "region": "Baltico",
-      "cause": "Control de comunicaciones y operaciones navales en torno a Pomerania sueca.",
-      "chronology": [
-        {
-          "year": 1712,
-          "text": "Combate dentro de Gran Guerra del Norte."
-        }
-      ],
-      "related": [
-        "Gran Guerra del Norte"
-      ],
-      "participants": [
-        {
-          "side": "Suecia",
-          "members": [
-            "Suecia"
-          ],
-          "organizations": [],
-          "troops": "fuerzas variables",
-          "casualties": "inciertas"
-        },
-        {
-          "side": "Dinamarca-Noruega y aliados",
-          "members": [
-            "Dinamarca",
-            "Noruega"
-          ],
-          "organizations": [],
-          "troops": "fuerzas variables",
-          "casualties": "inciertas"
-        }
-      ],
-      "outcome": "Accion naval dentro del desgaste baltico.",
-      "consequences": "Mantuvo la presion sobre las posiciones suecas en el sur del Baltico.",
-      "source": "Curaduria GeoRisk",
-      "pageTitle": "Batalla naval de RÃ¼gen"
-    },
     "Batalla de Hellzapoppin Ridge y Hill 600A": {
       "parent": "Segunda Guerra Mundial",
       "type": "batalla",
@@ -16235,46 +15877,6 @@
       "source": "Curaduria GeoRisk",
       "pageTitle": "Batalla de Leros"
     },
-    "Batalla de Munda Point": {
-      "parent": "Segunda Guerra Mundial",
-      "type": "batalla",
-      "scope": "regional",
-      "region": "Nueva Georgia",
-      "cause": "Estados Unidos ataco el aerodromo japones de Munda para avanzar en la campana de las Islas Salomon.",
-      "chronology": [
-        {
-          "year": 1943,
-          "text": "Combate dentro de Segunda Guerra Mundial."
-        }
-      ],
-      "related": [
-        "Segunda Guerra Mundial"
-      ],
-      "participants": [
-        {
-          "side": "Aliados",
-          "members": [
-            "Estados Unidos"
-          ],
-          "organizations": [],
-          "troops": "fuerzas variables",
-          "casualties": "inciertas"
-        },
-        {
-          "side": "Japon",
-          "members": [
-            "Japon"
-          ],
-          "organizations": [],
-          "troops": "fuerzas variables",
-          "casualties": "inciertas"
-        }
-      ],
-      "outcome": "Victoria estadounidense.",
-      "consequences": "La captura del aerodromo facilito nuevas operaciones aliadas hacia Bougainville.",
-      "source": "Curaduria GeoRisk",
-      "pageTitle": "Batalla de Munda Point"
-    },
     "Campana del norte de Birmania y oeste de Yunnan": {
       "parent": "Segunda Guerra Mundial",
       "type": "campana",
@@ -16438,6 +16040,457 @@
       "consequences": "Establecio una cabeza de playa clave para capturar Finschhafen.",
       "source": "Curaduria GeoRisk",
       "pageTitle": "Batalla de Scarlet Beach"
+    },
+    "Batalla frente a Endau": {
+      "source": "Wikipedia",
+      "pageTitle": "Batalla frente a Endau",
+      "wikipedia": {
+        "date": "Date 26–27 January 1942",
+        "place": "off Endau , Malaya",
+        "result": "Japanese victory",
+        "commanders": [
+          [
+            "Shintarō Hashimoto"
+          ],
+          [
+            "William Moran"
+          ]
+        ],
+        "language": "en"
+      },
+      "cause": "null",
+      "participants": [
+        {
+          "side": "Corea del Sur y ONU",
+          "members": [
+            "United Kingdom",
+            "Australia"
+          ],
+          "organizations": [],
+          "troops": "",
+          "casualties": ""
+        }
+      ],
+      "outcome": "Japanese victory",
+      "consequences": "",
+      "chronology": [
+        {
+          "year": null,
+          "text": "Date 26–27 January 1942"
+        }
+      ],
+      "related": [],
+      "region": "off Endau , Malaya"
+    },
+    "Conflicto irano-israeli durante la guerra civil siria": {
+      "parent": "Guerra civil siria",
+      "type": "conflicto regional",
+      "scope": "regional",
+      "region": "Siria y Oriente Medio",
+      "cause": "Escalada de choques indirectos y directos entre Iran, Israel y actores aliados dentro del marco de la guerra civil siria.",
+      "chronology": [
+        {
+          "year": 2013,
+          "text": "Aumentan los incidentes vinculados a presencia irani, milicias aliadas y operaciones israelies en el teatro sirio."
+        }
+      ],
+      "related": [
+        "Guerra civil siria",
+        "Conflicto irano-israeli"
+      ],
+      "participants": [
+        {
+          "side": "Israel",
+          "members": [
+            "Israel"
+          ],
+          "organizations": [],
+          "troops": "fuerzas aereas y de inteligencia",
+          "casualties": "variables"
+        },
+        {
+          "side": "Iran y aliados",
+          "members": [
+            "Iran",
+            "Siria"
+          ],
+          "organizations": [
+            "Hezbola y milicias aliadas"
+          ],
+          "troops": "fuerzas y milicias desplegadas en Siria",
+          "casualties": "variables"
+        }
+      ],
+      "outcome": "Conflicto intermitente y no resuelto dentro del escenario sirio.",
+      "consequences": "Internacionalizo aun mas la guerra civil siria y mantuvo una zona de friccion regional persistente.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Conflicto irano-israeli durante la guerra civil siria"
+    },
+    "Ataques aereos del valle de la Becaa de 2024": {
+      "source": "Wikipedia",
+      "pageTitle": "Ataques aereos del valle de la Becaa de 2024",
+      "wikipedia": {
+        "place": "Beqaa Valley , Lebanon",
+        "date": "28 October 2024 – 6 November 2024",
+        "language": "en"
+      },
+      "cause": "null",
+      "participants": [],
+      "outcome": "null",
+      "consequences": "",
+      "chronology": [
+        {
+          "year": null,
+          "text": "28 October 2024 – 6 November 2024"
+        }
+      ],
+      "related": [],
+      "region": "Beqaa Valley , Lebanon"
+    },
+    "Ofensiva de Sirte de 2016": {
+      "source": "Wikipedia",
+      "pageTitle": "Ofensiva de Sirte de 2016",
+      "wikipedia": {
+        "date": "Date 12 May – 6 December 2016\n(6 months, 3 weeks and 3 days)",
+        "place": "Sirte District , Libya 31°12′26″N 16°35′30″E / 31.2072°N 16.5917°E / 31.2072; 16.5917",
+        "result": "GNA victory\nThe GNA capture Abu Qurayn , Bin Jawad , Nofaliya , Harawa , Ghardabiya Air Base and Sirte power station, completely besieging the city\nThe GNA take control of Sirte in December 2016",
+        "commanders": [
+          [
+            "Fayez al-Sarraj",
+            "(Head of Unity Government)",
+            "Colonel Al-Mahdi Al-Barghathi",
+            "(GNA Minister of Defense)",
+            "Rida Issa",
+            "(GNA navy commander)",
+            "Ibrahim Baitulmal",
+            "(Head of Misrata military council)",
+            "Ismail Shukri",
+            "(Head of military intelligence in Misrata)",
+            "Abdul Adeem al-Maadani",
+            "(Misrata Brigades senior commander)",
+            "Mohammed Issa",
+            "(field commander)",
+            "Daryl Caudle"
+          ],
+          [
+            "Abu Hudhayfah al-Muhajir",
+            "(ISIL governor of Wilayat Tarabulus)",
+            "Abu Habib Jazrawi",
+            "(ISIL leader in Libya)",
+            "Abu Omar al-Tunessi",
+            "(ISIL commander of Sirte)",
+            "Hamid Malouqa al-Zliteni",
+            "(ISIL top commander)",
+            "Hassan Kara",
+            "(ISIL field commander)",
+            "Yusuf Mulaytan",
+            "(ISIL commander)",
+            "Faiez Attiya",
+            "Qusai al-Jaili",
+            "Mirghani Badawi al-Bashir",
+            "(ISIL commander and preacher)",
+            "Hassan al-Karami",
+            "(ISIL preacher)"
+          ]
+        ],
+        "language": "en"
+      },
+      "cause": "null",
+      "participants": [
+        {
+          "side": "Government of National Accord, Libyan Army, Misrata Brigades y aliados",
+          "members": [
+            "Government of National Accord",
+            "Libyan Army",
+            "Misrata Brigades",
+            "Misrata Military Council",
+            "Petroleum Facilities Guard",
+            "Libyan Navy",
+            "United States",
+            "(since 1 Aug. 2016)",
+            "U.S. Air Force",
+            "U.S. Navy",
+            "U.S. Marine Corps",
+            "United Kingdom Special Forces",
+            "Royal Air Force",
+            "Royal Navy",
+            "France",
+            "French Special Forces",
+            "French Air Force",
+            "French Navy",
+            "Italy",
+            "Special Forces"
+          ],
+          "organizations": [],
+          "troops": "",
+          "casualties": ""
+        },
+        {
+          "side": "Wilayat Tarabulus, Sirte Islamic Police",
+          "members": [
+            "Wilayat Tarabulus",
+            "Sirte Islamic Police"
+          ],
+          "organizations": [],
+          "troops": "",
+          "casualties": ""
+        }
+      ],
+      "outcome": "GNA victory\nThe GNA capture Abu Qurayn , Bin Jawad , Nofaliya , Harawa , Ghardabiya Air Base and Sirte power station, completely besieging the city\nThe GNA take control of Sirte in December 2016",
+      "consequences": "",
+      "chronology": [
+        {
+          "year": null,
+          "text": "Date 12 May – 6 December 2016\n(6 months, 3 weeks and 3 days)"
+        }
+      ],
+      "related": [],
+      "region": "Sirte District , Libya 31°12′26″N 16°35′30″E / 31.2072°N 16.5917°E / 31.2072; 16.5917"
+    },
+    "Sitio de NykÃ¸bing": {
+      "parent": "Guerras entre Dinamarca y la Liga Hanseatica",
+      "type": "sitio",
+      "scope": "regional",
+      "region": "Escandinavia",
+      "cause": "Formo parte de la disputa por control comercial y militar en el Baltico.",
+      "chronology": [
+        {
+          "year": 1360,
+          "text": "Operaciones de sitio en torno a Nykobing durante la rivalidad dano-hanseatica."
+        }
+      ],
+      "related": [
+        "Guerras entre Dinamarca y la Liga Hanseatica"
+      ],
+      "participants": [
+        {
+          "side": "Dinamarca",
+          "members": [
+            "Dinamarca"
+          ],
+          "organizations": [],
+          "troops": "fuerzas medievales",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Liga Hanseatica y aliados",
+          "members": [
+            "Liga Hanseatica"
+          ],
+          "organizations": [
+            "Liga Hanseatica"
+          ],
+          "troops": "fuerzas medievales",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Episodio militar regional sin cambio estrategico permanente aislado.",
+      "consequences": "Reflejo la centralidad del Baltico en la competencia comercial medieval.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Sitio de NykÃ¸bing"
+    },
+    "Batalla de Gołąb": {
+      "parent": "El Diluvio",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Polonia",
+      "cause": "Contraofensivas polacas y operaciones suecas durante la guerra del Diluvio.",
+      "chronology": [
+        {
+          "year": 1656,
+          "text": "Combate dentro de El Diluvio."
+        }
+      ],
+      "related": [
+        "El Diluvio"
+      ],
+      "participants": [
+        {
+          "side": "Suecia",
+          "members": [
+            "Suecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Polonia-Lituania",
+          "members": [
+            "Polonia-Lituania"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria sueca.",
+      "consequences": "La guerra continuo con resistencia polaca, desgaste sueco y cambios de alianzas.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Gołąb"
+    },
+    "Batalla de Møn": {
+      "parent": "Guerra dano-sueca de 1657-1658",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Baltico occidental",
+      "cause": "Disputa naval entre Dinamarca y Suecia por el control de estrechos y rutas balticas.",
+      "chronology": [
+        {
+          "year": 1657,
+          "text": "Combate dentro de Guerra dano-sueca de 1657-1658."
+        }
+      ],
+      "related": [
+        "Guerra dano-sueca de 1657-1658"
+      ],
+      "participants": [
+        {
+          "side": "Dinamarca-Noruega",
+          "members": [
+            "Dinamarca",
+            "Noruega"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Suecia",
+          "members": [
+            "Suecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Accion naval dentro de la guerra dano-sueca.",
+      "consequences": "Formo parte de la competencia por movilidad naval y control del Baltico.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Møn"
+    },
+    "Batalla de Køge Bay": {
+      "parent": "Guerra escanesa",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Baltico",
+      "cause": "Control naval del Baltico durante la guerra entre Suecia y Dinamarca-Noruega.",
+      "chronology": [
+        {
+          "year": 1677,
+          "text": "Combate dentro de Guerra escanesa."
+        }
+      ],
+      "related": [
+        "Guerra escanesa"
+      ],
+      "participants": [
+        {
+          "side": "Dinamarca-Noruega",
+          "members": [
+            "Dinamarca",
+            "Noruega"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Suecia",
+          "members": [
+            "Suecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria danesa.",
+      "consequences": "Limito la movilidad naval sueca y favorecio operaciones danesas en el teatro escanes.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Køge Bay"
+    },
+    "Batalla naval de RÃ¼gen": {
+      "parent": "Gran Guerra del Norte",
+      "type": "batalla naval",
+      "scope": "regional",
+      "region": "Baltico",
+      "cause": "Control de comunicaciones y operaciones navales en torno a Pomerania sueca.",
+      "chronology": [
+        {
+          "year": 1712,
+          "text": "Combate dentro de Gran Guerra del Norte."
+        }
+      ],
+      "related": [
+        "Gran Guerra del Norte"
+      ],
+      "participants": [
+        {
+          "side": "Suecia",
+          "members": [
+            "Suecia"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Dinamarca-Noruega y aliados",
+          "members": [
+            "Dinamarca",
+            "Noruega"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Accion naval dentro del desgaste baltico.",
+      "consequences": "Mantuvo la presion sobre las posiciones suecas en el sur del Baltico.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla naval de RÃ¼gen"
+    },
+    "Batalla de Munda Point": {
+      "parent": "Segunda Guerra Mundial",
+      "type": "batalla",
+      "scope": "regional",
+      "region": "Nueva Georgia",
+      "cause": "Estados Unidos ataco el aerodromo japones de Munda para avanzar en la campana de las Islas Salomon.",
+      "chronology": [
+        {
+          "year": 1943,
+          "text": "Combate dentro de Segunda Guerra Mundial."
+        }
+      ],
+      "related": [
+        "Segunda Guerra Mundial"
+      ],
+      "participants": [
+        {
+          "side": "Aliados",
+          "members": [
+            "Estados Unidos"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        },
+        {
+          "side": "Japon",
+          "members": [
+            "Japon"
+          ],
+          "organizations": [],
+          "troops": "fuerzas variables",
+          "casualties": "inciertas"
+        }
+      ],
+      "outcome": "Victoria estadounidense.",
+      "consequences": "La captura del aerodromo facilito nuevas operaciones aliadas hacia Bougainville.",
+      "source": "Curaduria GeoRisk",
+      "pageTitle": "Batalla de Munda Point"
     }
   }
 }

@@ -11,6 +11,7 @@ const APP_SHELL = [
   "./app-text.js",
   "./app-country-panel.js",
   "./app-timeline-conflicts.js",
+  "./app-boot-scheduler.js",
   "./favicon.ico",
   "./favicon.svg",
   "./data/countries_index.json",

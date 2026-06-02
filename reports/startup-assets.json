@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-05-28T22:31:52.578Z",
-  "startupBytes": 1015654,
-  "startupHuman": "992 KB",
-  "deferredBytes": 962217,
-  "deferredHuman": "940 KB",
+  "generatedAt": "2026-06-02T02:30:51.499Z",
+  "startupBytes": 1016424,
+  "startupHuman": "993 KB",
+  "deferredBytes": 965810,
+  "deferredHuman": "943 KB",
   "largestAssets": [
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 664956,
-      "human": "649 KB",
+      "bytes": 663830,
+      "human": "648 KB",
       "startupCritical": true
     },
     {
       "path": "data/conflict_details.generated.json",
       "exists": true,
-      "bytes": 519938,
-      "human": "508 KB",
+      "bytes": 523531,
+      "human": "511 KB",
       "startupCritical": false
     },
     {
@@ -50,7 +50,7 @@
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 29592,
+      "bytes": 29659,
       "human": "29 KB",
       "startupCritical": true
     },
@@ -94,15 +94,15 @@
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 29592,
+      "bytes": 29659,
       "human": "29 KB",
       "startupCritical": true
     },
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 664956,
-      "human": "649 KB",
+      "bytes": 663830,
+      "human": "648 KB",
       "startupCritical": true
     },
     {
@@ -145,6 +145,13 @@
       "exists": true,
       "bytes": 604,
       "human": "604 B",
+      "startupCritical": true
+    },
+    {
+      "path": "app-boot-scheduler.js",
+      "exists": true,
+      "bytes": 1829,
+      "human": "2 KB",
       "startupCritical": true
     },
     {
@@ -206,8 +213,8 @@
     {
       "path": "data/conflict_details.generated.json",
       "exists": true,
-      "bytes": 519938,
-      "human": "508 KB",
+      "bytes": 523531,
+      "human": "511 KB",
       "startupCritical": false
     },
     {

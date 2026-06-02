@@ -73,6 +73,7 @@ const countryPanelUi = window.GeoRiskCountryPanel || {};
 const timelineConflictUi = window.GeoRiskTimelineConflicts || {};
 const sharedTheme = window.GeoRiskTheme || {};
 const sharedText = window.GeoRiskText || {};
+const bootScheduler = window.GeoRiskBootScheduler || {};
 const APP_VERSION = "2026-05-02-boot-12";
 const DEFERRED_UI_MODULES = {
   news: "./app-news-ui.js?v=2026-05-02-boot-12",
@@ -1659,43 +1660,8 @@ const bootMetrics = {
   steps: {},
   errors: []
 };
-const longTaskMetrics = {
-  supported: false,
-  count: 0,
-  totalDuration: 0,
-  longestDuration: 0,
-  recent: []
-};
-let longTaskObserver = null;
-
-function startLongTaskObserver() {
-  if (longTaskObserver || typeof PerformanceObserver === "undefined") {
-    return;
-  }
-
-  try {
-    longTaskObserver = new PerformanceObserver(list => {
-      list.getEntries().forEach(entry => {
-        const duration = Math.round(entry.duration || 0);
-        longTaskMetrics.supported = true;
-        longTaskMetrics.count += 1;
-        longTaskMetrics.totalDuration += duration;
-        longTaskMetrics.longestDuration = Math.max(longTaskMetrics.longestDuration, duration);
-        longTaskMetrics.recent.unshift({
-          name: entry.name || "longtask",
-          startTime: Math.round(entry.startTime || 0),
-          duration
-        });
-        longTaskMetrics.recent = longTaskMetrics.recent.slice(0, 8);
-      });
-    });
-    longTaskObserver.observe({ type: "longtask", buffered: true });
-    longTaskMetrics.supported = true;
-  } catch (error) {
-    longTaskObserver = null;
-    longTaskMetrics.supported = false;
-  }
-}
+const longTaskMetrics = bootScheduler.longTaskMetrics || { supported: false, count: 0, totalDuration: 0, longestDuration: 0, recent: [] };
+const startLongTaskObserver = bootScheduler.startLongTaskObserver || (() => {});
 
 function markBootStepStart(name) {
   if (!bootMetrics.startedAt) {
@@ -3824,30 +3790,14 @@ function scheduleWhenGlobeIsQuiet(task, {
   quietFor = isMobileLayout() ? 7000 : 4500,
   timeout = isMobileLayout() ? 90000 : 60000
 } = {}) {
-  const deadline = Date.now() + delay + timeout;
-
-  const runTask = () => {
-    if (window.requestIdleCallback) {
-      window.requestIdleCallback(() => task(), { timeout: 2500 });
-      return;
-    }
-    setTimeout(task, 0);
-  };
-
-  const check = () => {
-    const interactionAge = Date.now() - lastInteractionAt;
-    const globeQuiet = !isCameraNavigating && interactionAge >= quietFor;
-    const pageVisible = document.visibilityState !== "hidden";
-
-    if ((globeQuiet && pageVisible) || Date.now() >= deadline) {
-      runTask();
-      return;
-    }
-
-    setTimeout(check, Math.min(quietFor, 1500));
-  };
-
-  setTimeout(check, delay);
+  const scheduleWhenQuiet = bootScheduler.scheduleWhenQuiet || ((callback, options = {}) => setTimeout(callback, options.delay || 0));
+  scheduleWhenQuiet(task, {
+    delay,
+    quietFor,
+    timeout,
+    isQuiet: () => !isCameraNavigating && Date.now() - lastInteractionAt >= quietFor,
+    isVisible: () => document.visibilityState !== "hidden"
+  });
 }
 
 function compactNumber(value) {

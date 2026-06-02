@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-05-28T22:38:34.220Z",
+  "generatedAt": "2026-06-02T02:31:00.721Z",
   "status": "operativo",
   "startup": {
-    "critical": "992 KB",
-    "criticalBytes": 1015654,
-    "deferred": "940 KB",
+    "critical": "993 KB",
+    "criticalBytes": 1016424,
+    "deferred": "943 KB",
     "largestAssets": [
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 664956,
-        "human": "649 KB",
+        "bytes": 663830,
+        "human": "648 KB",
         "startupCritical": true
       },
       {
         "path": "data/conflict_details.generated.json",
         "exists": true,
-        "bytes": 519938,
-        "human": "508 KB",
+        "bytes": 523531,
+        "human": "511 KB",
         "startupCritical": false
       },
       {
@@ -51,7 +51,7 @@
       {
         "path": "index.html",
         "exists": true,
-        "bytes": 29592,
+        "bytes": 29659,
         "human": "29 KB",
         "startupCritical": true
       },
@@ -94,31 +94,24 @@
   },
   "conflicts": {
     "scanned": 2010,
-    "issueCount": 1724,
+    "issueCount": 1608,
     "summary": {
-      "battle_without_parent": 930,
-      "weak_detail": 1661,
-      "duplicate_names": 18,
-      "english": 5,
-      "generic_side": 19,
-      "leading_year": 7
+      "battle_without_parent": 834,
+      "weak_detail": 1578,
+      "duplicate_names": 16
     },
     "eraFocus": [
       {
         "label": "Antes de 1850",
-        "count": 5
-      },
-      {
-        "label": "1900-1918",
-        "count": 1
+        "count": 91
       },
       {
         "label": "1919-1945",
-        "count": 82
+        "count": 1
       },
       {
         "label": "Pos-1945",
-        "count": 212
+        "count": 208
       }
     ]
   },
@@ -126,8 +119,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 664956,
-      "human": "649 KB"
+      "bytes": 663830,
+      "human": "648 KB"
     },
     {
       "path": "style.css",
@@ -138,7 +131,7 @@
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 29592,
+      "bytes": 29659,
       "human": "29 KB"
     },
     {
@@ -221,7 +214,7 @@
     }
   ],
   "scriptMetrics": {
-    "functions": 475,
+    "functions": 474,
     "asyncFunctions": 38,
     "consoleWarnings": 15,
     "consoleErrors": 16
@@ -279,7 +272,7 @@
   "criticalIssues": [],
   "warnings": [
     "script.js sigue siendo el mayor bloque de mantenimiento.",
-    "La auditoria de conflictos conserva 1724 alertas."
+    "La auditoria de conflictos conserva 1608 alertas."
   ],
   "nextActions": [
     "Mantener el arranque critico por debajo de 1 MB en cada release.",

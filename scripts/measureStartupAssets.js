@@ -13,6 +13,7 @@ const LOCAL_ASSETS = [
   "app-text.js",
   "app-country-panel.js",
   "app-timeline-conflicts.js",
+  "app-boot-scheduler.js",
   "app-news-ui.js",
   "app-compare-ui.js",
   "app-quiz-ui.js",

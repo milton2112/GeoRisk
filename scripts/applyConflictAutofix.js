@@ -40,13 +40,112 @@ function renameConflictName(name) {
   return safeConflictRenames[cleanName] || safeConflictRenames[name] || cleanName;
 }
 
+function isBattleLike(entry) {
+  return /\b(batalla|battle|sitio|siege)\b/i.test(`${entry?.name || ""} ${entry?.type || ""}`);
+}
+
+function getConflictYear(entry) {
+  if (Number.isFinite(entry?.startYear)) {
+    return entry.startYear;
+  }
+  const match = String(entry?.name || "").match(/\b(1[4-9]\d{2}|20\d{2})\b/);
+  return match ? Number(match[1]) : null;
+}
+
+function inferWorldWarBattleCuration(entry) {
+  if (!entry || !isBattleLike(entry)) {
+    return null;
+  }
+
+  const year = getConflictYear(entry);
+  const hasParent = entry.parent || entry.war || entry.campaign || (Array.isArray(entry.related) && entry.related.length);
+  const hasUsefulDetail = entry.cause || entry.outcome || entry.consequences || (Array.isArray(entry.participants) && entry.participants.length);
+
+  if (year >= 1914 && year <= 1918) {
+    return {
+      parent: entry.parent || entry.war || "Primera Guerra Mundial",
+      type: entry.type || (String(entry.name || "").toLowerCase().includes("sitio") ? "sitio" : "batalla"),
+      scope: entry.scope || "internacional",
+      region: entry.region || "Europa y teatros asociados de la Primera Guerra Mundial",
+      related: [...new Set([...(entry.related || []), "Primera Guerra Mundial"].filter(Boolean))],
+      ...(hasUsefulDetail ? {} : {
+        cause: "Operacion militar dentro de la Primera Guerra Mundial, vinculada a la disputa de posiciones estrategicas entre los bloques beligerantes.",
+        outcome: "Resultado tactico integrado en el desarrollo general del frente correspondiente.",
+        consequences: "Contribuyo al desgaste militar y a la evolucion operacional de la Primera Guerra Mundial.",
+        participants: [
+          { side: "Aliados", members: ["Aliados de la Primera Guerra Mundial"], organizations: ["Aliados"], troops: "fuerzas variables segun el frente", casualties: "significativas o inciertas" },
+          { side: "Potencias Centrales", members: ["Potencias Centrales"], organizations: ["Potencias Centrales"], troops: "fuerzas variables segun el frente", casualties: "significativas o inciertas" }
+        ]
+      })
+    };
+  }
+
+  if (year >= 1939 && year <= 1945) {
+    return {
+      parent: entry.parent || entry.war || "Segunda Guerra Mundial",
+      type: entry.type || (String(entry.name || "").toLowerCase().includes("sitio") ? "sitio" : "batalla"),
+      scope: entry.scope || "mundial",
+      region: entry.region || "Teatro de operaciones de la Segunda Guerra Mundial",
+      related: [...new Set([...(entry.related || []), "Segunda Guerra Mundial"].filter(Boolean))],
+      ...(hasUsefulDetail ? {} : {
+        cause: "Operacion militar dentro de la Segunda Guerra Mundial, ligada al control de posiciones, rutas o territorios estrategicos.",
+        outcome: "Resultado tactico integrado en la campana correspondiente de la Segunda Guerra Mundial.",
+        consequences: "Influyo en el avance, desgaste o reordenamiento operacional de las fuerzas beligerantes.",
+        participants: [
+          { side: "Aliados", members: ["Aliados de la Segunda Guerra Mundial"], organizations: ["Aliados"], troops: "fuerzas variables segun la campana", casualties: "significativas o inciertas" },
+          { side: "Eje", members: ["Potencias del Eje"], organizations: ["Eje"], troops: "fuerzas variables segun la campana", casualties: "significativas o inciertas" }
+        ]
+      })
+    };
+  }
+
+  return null;
+}
+
+function formatParticipantSide(participant, index) {
+  const members = Array.isArray(participant?.members) ? participant.members.filter(Boolean) : [];
+  const organizations = Array.isArray(participant?.organizations) ? participant.organizations.filter(Boolean) : [];
+  const source = members.length ? members : organizations;
+
+  if (source.length) {
+    const label = source.slice(0, 3).join(", ");
+    return source.length > 3 ? `${label} y aliados` : label;
+  }
+
+  return index === 0 ? "Parte beligerante principal" : `Parte beligerante ${index + 1}`;
+}
+
+function normalizeParticipantSides(detail) {
+  if (!Array.isArray(detail?.participants)) {
+    return detail;
+  }
+
+  return {
+    ...detail,
+    participants: detail.participants.map((participant, index) => {
+      if (!/^Bando\s+\d+$/i.test(String(participant?.side || "").trim())) {
+        return participant;
+      }
+      return {
+        ...participant,
+        side: formatParticipantSide(participant, index)
+      };
+    })
+  };
+}
+
 function normalizeConflictEntry(entry) {
   if (!entry || typeof entry !== "object") {
     return entry;
   }
-  return {
+  const renamedEntry = {
     ...entry,
     name: renameConflictName(entry.name)
+  };
+  const inferredCuration = inferWorldWarBattleCuration(renamedEntry);
+  return {
+    ...renamedEntry,
+    ...(inferredCuration || {})
   };
 }
 
@@ -122,6 +221,14 @@ async function fixGeneratedDetails() {
       pageTitle: conflicts[name]?.pageTitle || name
     };
     enriched += 1;
+  }
+
+  for (const [name, detail] of Object.entries(conflicts)) {
+    const normalized = normalizeParticipantSides(detail);
+    if (JSON.stringify(normalized?.participants || []) !== JSON.stringify(detail?.participants || [])) {
+      conflicts[name] = normalized;
+      enriched += 1;
+    }
   }
 
   await fs.writeJson(generatedDetailsPath, generated, { spaces: 2 });

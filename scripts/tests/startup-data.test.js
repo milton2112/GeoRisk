@@ -9,6 +9,7 @@ const sw = await fs.readFile(path.join(projectRoot, "sw.js"), "utf8");
 const indexHtml = await fs.readFile(path.join(projectRoot, "index.html"), "utf8");
 const script = await fs.readFile(path.join(projectRoot, "script.js"), "utf8");
 const appRuntime = await fs.readFile(path.join(projectRoot, "app-runtime.js"), "utf8");
+const appBootScheduler = await fs.readFile(path.join(projectRoot, "app-boot-scheduler.js"), "utf8");
 const perCountryDir = path.join(projectRoot, "data", "countries");
 const perCountryFiles = (await fs.readdir(perCountryDir)).filter(file => file.endsWith(".json"));
 
@@ -80,6 +81,9 @@ assert.ok(script.includes("scheduleWhenGlobeIsQuiet(startFullLoad"), "countries_
 assert.ok(script.includes("function maybeEnhanceOpenConflictModal"), "conflictos enriquecidos deben cargarse bajo demanda al abrir modal");
 assert.ok(!script.includes("scheduleWhenGlobeIsQuiet(() => {\r\n      loadWikipediaConflictDetails"), "conflictos enriquecidos no deben cargarse por temporizador de arranque");
 assert.ok(script.includes("startLongTaskObserver"), "runtime debe medir bloqueos largos del hilo principal");
+assert.ok(indexHtml.includes("app-boot-scheduler.js"), "scheduler de arranque debe vivir en modulo separado");
+assert.ok(appBootScheduler.includes("scheduleWhenQuiet"), "modulo de scheduler debe exponer espera por quietud");
+assert.ok(appBootScheduler.includes("PerformanceObserver"), "modulo de scheduler debe medir long tasks");
 assert.ok(script.includes("MAX_RESOURCE_CACHE_ENTRIES = 36"), "cache en memoria debe tener limite");
 assert.ok(script.includes("resourceCache.delete(cacheKey)"), "descargas fallidas deben poder reintentarse");
 assert.ok(script.includes("async function clearLocalGeoRiskCache()"), "runtime debe exponer limpieza segura de cache local");
