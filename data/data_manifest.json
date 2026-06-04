@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-06-04T20:58:58.141Z",
+  "productionPublic": {
+    "description": "Datos livianos aptos para produccion y cache inicial/bajo demanda.",
+    "files": [
+      "data/countries_index.json",
+      "data/conflicts_index.json",
+      "data/timeline_index.json",
+      "data/search_index.json",
+      "data/country_weights.json",
+      "data/conflicts/details_index.json",
+      "data/geo_aliases.json",
+      "data/world_countries_simplified.geo.json"
+    ]
+  },
+  "internalTechnical": {
+    "description": "Datos pesados, auditorias y fuentes internas. Excluir de builds prod estaticos.",
+    "files": [
+      "data/countries_full.json",
+      "data/conflict_details.generated.json",
+      "data/conflict_dyadic_summary.json",
+      "data/raw/**",
+      "reports/*.json"
+    ]
+  },
+  "educational": {
+    "description": "Material docente/documental que puede mostrarse desde la app sin cargar datasets internos.",
+    "files": [
+      "USER_GUIDE.md",
+      "TECHNICAL.md",
+      "CHANGELOG.md",
+      "data/timeline_index.json",
+      "data/conflicts_index.json"
+    ]
+  },
+  "internalReports": {
+    "description": "Reportes de mantenimiento; no deben entrar en APP_SHELL ni build prod.",
+    "files": [
+      "reports/data-curation-audit.json",
+      "reports/project-audit.json",
+      "reports/conflict-audit.json",
+      "reports/startup-assets.json"
+    ]
+  },
+  "prodExcludes": [
+    "reports/*.json",
+    "data/raw/**",
+    "data/countries_full.json",
+    "data/conflict_details.generated.json",
+    "data/conflict_dyadic_summary.json"
+  ]
+}

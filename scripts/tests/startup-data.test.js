@@ -5,6 +5,12 @@ import path from "path";
 const projectRoot = path.resolve(process.cwd());
 const full = await fs.readJson(path.join(projectRoot, "data", "countries_full.json"));
 const index = await fs.readJson(path.join(projectRoot, "data", "countries_index.json"));
+const conflictsIndex = await fs.readJson(path.join(projectRoot, "data", "conflicts_index.json"));
+const timelineIndex = await fs.readJson(path.join(projectRoot, "data", "timeline_index.json"));
+const searchIndex = await fs.readJson(path.join(projectRoot, "data", "search_index.json"));
+const countryWeights = await fs.readJson(path.join(projectRoot, "data", "country_weights.json"));
+const dataManifest = await fs.readJson(path.join(projectRoot, "data", "data_manifest.json"));
+const conflictDetailsIndex = await fs.readJson(path.join(projectRoot, "data", "conflicts", "details_index.json"));
 const sw = await fs.readFile(path.join(projectRoot, "sw.js"), "utf8");
 const indexHtml = await fs.readFile(path.join(projectRoot, "index.html"), "utf8");
 const script = await fs.readFile(path.join(projectRoot, "script.js"), "utf8");
@@ -24,6 +30,19 @@ const appShellBlock = appShellMatch[1];
 assert.equal(Object.keys(index).length, Object.keys(full).length);
 assert.equal(perCountryFiles.length, Object.keys(full).length);
 assert.ok(Buffer.byteLength(JSON.stringify(index)) < Buffer.byteLength(JSON.stringify(full)) * 0.34);
+assert.ok(Buffer.byteLength(JSON.stringify(index)) < 200000, "countries_index debe quedar por debajo de 200 KB");
+assert.ok(Array.isArray(conflictsIndex) && conflictsIndex.length > 1000, "debe existir indice liviano de conflictos");
+assert.ok(Array.isArray(timelineIndex) && timelineIndex.length > 1000, "debe existir indice liviano de timeline");
+assert.equal(searchIndex.length, Object.keys(full).length, "indice de busqueda debe cubrir todos los paises");
+assert.ok(Buffer.byteLength(JSON.stringify(searchIndex)) < 220000, "search_index debe mantenerse liviano");
+assert.equal(countryWeights.summary.totalCountries, Object.keys(full).length, "metadata de peso debe cubrir todos los paises");
+assert.ok(countryWeights.summary.tooLargeCount >= 1, "metadata de peso debe detectar fichas grandes");
+assert.ok(dataManifest.prodExcludes.includes("reports/*.json"), "build prod debe excluir reports/*.json");
+assert.ok(dataManifest.internalTechnical.files.includes("data/countries_full.json"), "countries_full debe quedar marcado como tecnico interno");
+assert.ok(conflictDetailsIndex.conflicts.length > 100, "detalles de conflictos deben dividirse en shards bajo demanda");
+for (const detail of conflictDetailsIndex.conflicts.slice(0, 10)) {
+  assert.ok(await fs.pathExists(path.join(projectRoot, detail.path)), `shard faltante: ${detail.path}`);
+}
 
 for (const code of ["ATA", "GRL", "GUF", "TWN", "PSE", "-99"]) {
   assert.ok(index[code], `${code} debe existir en el indice liviano`);
@@ -35,6 +54,7 @@ for (const code of ["ATA", "GRL", "GUF", "TWN", "PSE", "-99"]) {
 assert.ok(sw.includes("./data/countries_index.json"));
 assert.ok(!appShellBlock.includes("countries_full.json"), "countries_full no debe entrar en APP_SHELL");
 assert.ok(!appShellBlock.includes("conflict_details.generated.json"), "conflictos pesados no deben entrar en APP_SHELL");
+assert.ok(!appShellBlock.includes("reports/"), "reportes internos no deben entrar en APP_SHELL");
 assert.ok(!appShellBlock.includes("world_countries_simplified.geo.json"), "GeoJSON no debe entrar en APP_SHELL");
 assert.ok(!appShellBlock.includes("assets/flags"), "banderas no deben entrar en APP_SHELL");
 assert.ok(!appShellBlock.includes("assets/coats"), "escudos no deben entrar en APP_SHELL");

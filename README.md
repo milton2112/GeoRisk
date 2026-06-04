@@ -43,6 +43,9 @@ Ejemplos:
 - `npm run build:data`
   - regenera `data/countries_full.json`
 
+- `npm run build:indexes`
+  - genera indices livianos de conflictos, timeline, busqueda, pesos por pais y shards de detalle
+
 - `npm run validate:data`
   - valida consistencia del dataset curado
 
@@ -52,8 +55,22 @@ Ejemplos:
 - [script.js](C:/Users/deren/OneDrive/Escritorio/Cursos/geo-risk/script.js)
 - [style.css](C:/Users/deren/OneDrive/Escritorio/Cursos/geo-risk/style.css)
 - [scripts/buildDataset.js](C:/Users/deren/OneDrive/Escritorio/Cursos/geo-risk/scripts/buildDataset.js)
+- [scripts/buildDataIndexes.js](C:/Users/deren/OneDrive/Escritorio/Cursos/geo-risk/scripts/buildDataIndexes.js)
 - [scripts/validateDataset.js](C:/Users/deren/OneDrive/Escritorio/Cursos/geo-risk/scripts/validateDataset.js)
 - [CHANGELOG.md](C:/Users/deren/OneDrive/Escritorio/Cursos/geo-risk/CHANGELOG.md)
+
+## Datos livianos y produccion
+
+La app mantiene indices publicos compactos para arranque y busqueda:
+
+- `data/countries_index.json`
+- `data/conflicts_index.json`
+- `data/timeline_index.json`
+- `data/search_index.json`
+- `data/country_weights.json`
+- `data/conflicts/details_index.json`
+
+Los datos internos, reportes de auditoria y datasets completos quedan marcados en `data/data_manifest.json` para excluirlos de un build de produccion cuando exista pipeline formal.
 
 ## Próximos pasos recomendados
 

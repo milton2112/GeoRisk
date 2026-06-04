@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-06-04T20:46:52.928Z",
-  "startupBytes": 1024355,
-  "startupHuman": "1000 KB",
+  "generatedAt": "2026-06-04T20:58:59.385Z",
+  "startupBytes": 989073,
+  "startupHuman": "966 KB",
   "deferredBytes": 978983,
   "deferredHuman": "956 KB",
   "estimatedRuntimeMemory": {
@@ -36,8 +36,8 @@
     {
       "path": "data/countries_index.json",
       "exists": true,
-      "bytes": 223807,
-      "human": "219 KB",
+      "bytes": 188525,
+      "human": "184 KB",
       "startupCritical": true
     },
     {
@@ -227,8 +227,8 @@
     {
       "path": "data/countries_index.json",
       "exists": true,
-      "bytes": 223807,
-      "human": "219 KB",
+      "bytes": 188525,
+      "human": "184 KB",
       "startupCritical": true
     },
     {

@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-06-04T20:47:00.083Z",
+  "generatedAt": "2026-06-04T20:59:09.784Z",
   "status": "operativo",
   "startup": {
-    "critical": "1000 KB",
-    "criticalBytes": 1024355,
+    "critical": "966 KB",
+    "criticalBytes": 989073,
     "deferred": "956 KB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 2440437,
@@ -37,8 +37,8 @@
       {
         "path": "data/countries_index.json",
         "exists": true,
-        "bytes": 223807,
-        "human": "219 KB",
+        "bytes": 188525,
+        "human": "184 KB",
         "startupCritical": true
       },
       {
@@ -122,6 +122,286 @@
       }
     ]
   },
+  "data": {
+    "indexes": [
+      {
+        "path": "data/conflicts_index.json",
+        "exists": true,
+        "bytes": 311857,
+        "human": "305 KB"
+      },
+      {
+        "path": "data/timeline_index.json",
+        "exists": true,
+        "bytes": 286031,
+        "human": "279 KB"
+      },
+      {
+        "path": "data/countries_index.json",
+        "exists": true,
+        "bytes": 188525,
+        "human": "184 KB"
+      },
+      {
+        "path": "data/search_index.json",
+        "exists": true,
+        "bytes": 175992,
+        "human": "172 KB"
+      },
+      {
+        "path": "data/conflicts/details_index.json",
+        "exists": true,
+        "bytes": 50101,
+        "human": "49 KB"
+      },
+      {
+        "path": "data/country_weights.json",
+        "exists": true,
+        "bytes": 42273,
+        "human": "41 KB"
+      }
+    ],
+    "countryWeights": {
+      "totalCountries": 183,
+      "fullBytes": 2440437,
+      "duplicatedCountryFilesBytes": 2439335,
+      "tooLargeCount": 4,
+      "largest": [
+        {
+          "code": "USA",
+          "name": "Estados Unidos",
+          "bytes": 409290,
+          "inlineBytes": 409289,
+          "tooLarge": true,
+          "counts": {
+            "cities": 5,
+            "capitals": 1,
+            "languages": 1,
+            "religionGroups": 7,
+            "organizations": 55,
+            "rivals": 139,
+            "conflicts": 925,
+            "timelineEvents": 4
+          }
+        },
+        {
+          "code": "GBR",
+          "name": "Reino Unido",
+          "bytes": 200060,
+          "inlineBytes": 200059,
+          "tooLarge": true,
+          "counts": {
+            "cities": 5,
+            "capitals": 1,
+            "languages": 1,
+            "religionGroups": 6,
+            "organizations": 52,
+            "rivals": 137,
+            "conflicts": 277,
+            "timelineEvents": 4
+          }
+        },
+        {
+          "code": "FRA",
+          "name": "Francia",
+          "bytes": 71536,
+          "inlineBytes": 71535,
+          "tooLarge": true,
+          "counts": {
+            "cities": 5,
+            "capitals": 1,
+            "languages": 1,
+            "religionGroups": 5,
+            "organizations": 55,
+            "rivals": 80,
+            "conflicts": 230,
+            "timelineEvents": 4
+          }
+        },
+        {
+          "code": "AUS",
+          "name": "Australia",
+          "bytes": 60869,
+          "inlineBytes": 60868,
+          "tooLarge": true,
+          "counts": {
+            "cities": 5,
+            "capitals": 1,
+            "languages": 1,
+            "religionGroups": 8,
+            "organizations": 49,
+            "rivals": 113,
+            "conflicts": 54,
+            "timelineEvents": 0
+          }
+        },
+        {
+          "code": "CAN",
+          "name": "Canadá",
+          "bytes": 37661,
+          "inlineBytes": 37660,
+          "tooLarge": false,
+          "counts": {
+            "cities": 4,
+            "capitals": 1,
+            "languages": 2,
+            "religionGroups": 8,
+            "organizations": 48,
+            "rivals": 74,
+            "conflicts": 32,
+            "timelineEvents": 3
+          }
+        },
+        {
+          "code": "SWE",
+          "name": "Suecia",
+          "bytes": 34103,
+          "inlineBytes": 34102,
+          "tooLarge": false,
+          "counts": {
+            "cities": 5,
+            "capitals": 1,
+            "languages": 1,
+            "religionGroups": 8,
+            "organizations": 51,
+            "rivals": 9,
+            "conflicts": 152,
+            "timelineEvents": 0
+          }
+        },
+        {
+          "code": "POL",
+          "name": "Polonia",
+          "bytes": 22178,
+          "inlineBytes": 22177,
+          "tooLarge": false,
+          "counts": {
+            "cities": 4,
+            "capitals": 1,
+            "languages": 1,
+            "religionGroups": 5,
+            "organizations": 44,
+            "rivals": 95,
+            "conflicts": 21,
+            "timelineEvents": 0
+          }
+        },
+        {
+          "code": "ISR",
+          "name": "Israel",
+          "bytes": 22079,
+          "inlineBytes": 22078,
+          "tooLarge": false,
+          "counts": {
+            "cities": 5,
+            "capitals": 1,
+            "languages": 2,
+            "religionGroups": 5,
+            "organizations": 22,
+            "rivals": 19,
+            "conflicts": 35,
+            "timelineEvents": 5
+          }
+        },
+        {
+          "code": "BEL",
+          "name": "Bélgica",
+          "bytes": 20470,
+          "inlineBytes": 20469,
+          "tooLarge": false,
+          "counts": {
+            "cities": 5,
+            "capitals": 1,
+            "languages": 3,
+            "religionGroups": 8,
+            "organizations": 50,
+            "rivals": 60,
+            "conflicts": 16,
+            "timelineEvents": 0
+          }
+        },
+        {
+          "code": "NZL",
+          "name": "Nueva Zelanda",
+          "bytes": 20113,
+          "inlineBytes": 20112,
+          "tooLarge": false,
+          "counts": {
+            "cities": 5,
+            "capitals": 1,
+            "languages": 3,
+            "religionGroups": 8,
+            "organizations": 37,
+            "rivals": 99,
+            "conflicts": 14,
+            "timelineEvents": 0
+          }
+        },
+        {
+          "code": "DNK",
+          "name": "Dinamarca",
+          "bytes": 19442,
+          "inlineBytes": 19441,
+          "tooLarge": false,
+          "counts": {
+            "cities": 5,
+            "capitals": 1,
+            "languages": 1,
+            "religionGroups": 8,
+            "organizations": 38,
+            "rivals": 91,
+            "conflicts": 43,
+            "timelineEvents": 0
+          }
+        },
+        {
+          "code": "THA",
+          "name": "Tailandia",
+          "bytes": 18945,
+          "inlineBytes": 18944,
+          "tooLarge": false,
+          "counts": {
+            "cities": 5,
+            "capitals": 1,
+            "languages": 1,
+            "religionGroups": 8,
+            "organizations": 24,
+            "rivals": 115,
+            "conflicts": 18,
+            "timelineEvents": 0
+          }
+        }
+      ]
+    },
+    "manifest": {
+      "productionPublic": [
+        "data/countries_index.json",
+        "data/conflicts_index.json",
+        "data/timeline_index.json",
+        "data/search_index.json",
+        "data/country_weights.json",
+        "data/conflicts/details_index.json",
+        "data/geo_aliases.json",
+        "data/world_countries_simplified.geo.json"
+      ],
+      "prodExcludes": [
+        "reports/*.json",
+        "data/raw/**",
+        "data/countries_full.json",
+        "data/conflict_details.generated.json",
+        "data/conflict_dyadic_summary.json"
+      ]
+    },
+    "curationGaps": {
+      "general.cities": 123,
+      "politics.relations.blocs": 77,
+      "general.languages": 109,
+      "politics.rivals": 48,
+      "religion.denominations": 10,
+      "politics.relations.disputes": 1,
+      "politics.organizations": 15
+    }
+  },
   "sourceFiles": [
     {
       "path": "script.js",
@@ -142,16 +422,16 @@
       "human": "30 KB"
     },
     {
-      "path": "CHANGELOG.md",
-      "exists": true,
-      "bytes": 9266,
-      "human": "9 KB"
-    },
-    {
       "path": "TECHNICAL.md",
       "exists": true,
-      "bytes": 8515,
-      "human": "8 KB"
+      "bytes": 9805,
+      "human": "10 KB"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "exists": true,
+      "bytes": 9733,
+      "human": "10 KB"
     },
     {
       "path": "app-text.js",
@@ -210,7 +490,7 @@
     {
       "path": "package.json",
       "exists": true,
-      "bytes": 2358,
+      "bytes": 2451,
       "human": "2 KB"
     },
     {
@@ -288,6 +568,7 @@
     "audit:conflicts",
     "audit:project",
     "build:data",
+    "build:indexes",
     "check:startup-budget",
     "clean:local",
     "compact:index",
@@ -315,11 +596,13 @@
   "criticalIssues": [],
   "warnings": [
     "script.js sigue siendo el mayor bloque de mantenimiento.",
-    "La auditoria de conflictos conserva 1608 alertas."
+    "La auditoria de conflictos conserva 1608 alertas.",
+    "4 fichas de pais superan el umbral de peso."
   ],
   "nextActions": [
     "Mantener el arranque critico por debajo de 1 MB en cada release.",
     "Extraer mas render de ficha, comparador, quiz y auditorias a modulos diferidos.",
-    "Limpiar conflictos por tandas desde reports/conflict-audit.json."
+    "Limpiar conflictos por tandas desde reports/conflict-audit.json.",
+    "Dividir fichas grandes por seccion, empezando por conflictos de USA, GBR, FRA y AUS."
   ]
 }

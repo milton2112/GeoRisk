@@ -70,7 +70,18 @@ async function countTextMatches(relativePath, patterns) {
 
 const startup = await readJsonSafe("reports/startup-assets.json", {});
 const conflictAudit = await readJsonSafe("reports/conflict-audit.json", {});
+const countryWeights = await readJsonSafe("data/country_weights.json", {});
+const dataManifest = await readJsonSafe("data/data_manifest.json", {});
+const dataCurationAudit = await readJsonSafe("reports/data-curation-audit.json", {});
 const sourceFiles = await Promise.all(SOURCE_FILES.map(getFileInfo));
+const dataIndexFiles = await Promise.all([
+  "data/countries_index.json",
+  "data/conflicts_index.json",
+  "data/timeline_index.json",
+  "data/search_index.json",
+  "data/country_weights.json",
+  "data/conflicts/details_index.json"
+].map(getFileInfo));
 const packageJson = await readJsonSafe("package.json", {});
 const scriptMetrics = await countTextMatches("script.js", {
   functions: /function\s+[a-zA-Z0-9_]+/g,
@@ -124,6 +135,15 @@ if ((conflictAudit.issueCount || 0) > 0) {
   nextActions.push("Limpiar conflictos por tandas desde reports/conflict-audit.json.");
 }
 
+if ((countryWeights.summary?.tooLargeCount || 0) > 0) {
+  warnings.push(`${countryWeights.summary.tooLargeCount} fichas de pais superan el umbral de peso.`);
+  nextActions.push("Dividir fichas grandes por seccion, empezando por conflictos de USA, GBR, FRA y AUS.");
+}
+
+if (!dataManifest.prodExcludes?.includes("reports/*.json")) {
+  criticalIssues.push("El manifiesto de datos no excluye reports/*.json de produccion.");
+}
+
 if (Object.values(visualMetrics).some(metrics => metrics.bootChips || metrics.mojibakeHints)) {
   criticalIssues.push("Hay posibles residuos visuales en archivos de UI.");
   nextActions.push("Ejecutar npm run test:visual-hygiene y corregir tokens visibles.");
@@ -144,6 +164,15 @@ const report = {
     issueCount: conflictAudit.issueCount || 0,
     summary: conflictAudit.summary || {},
     eraFocus: conflictEraBuckets
+  },
+  data: {
+    indexes: dataIndexFiles.sort((a, b) => b.bytes - a.bytes),
+    countryWeights: countryWeights.summary || null,
+    manifest: {
+      productionPublic: dataManifest.productionPublic?.files || [],
+      prodExcludes: dataManifest.prodExcludes || []
+    },
+    curationGaps: dataCurationAudit.gapsByType || {}
   },
   sourceFiles: sourceFiles.sort((a, b) => b.bytes - a.bytes),
   scriptMetrics,

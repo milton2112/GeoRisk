@@ -11,6 +11,30 @@ function compactConflict(entry = {}) {
   };
 }
 
+function pruneEmpty(value) {
+  if (Array.isArray(value)) {
+    return value.map(pruneEmpty).filter(item => {
+      if (item === null || item === undefined || item === "") return false;
+      if (Array.isArray(item)) return item.length > 0;
+      if (typeof item === "object") return Object.keys(item).length > 0;
+      return true;
+    });
+  }
+  if (!value || typeof value !== "object") {
+    return value;
+  }
+  return Object.fromEntries(
+    Object.entries(value)
+      .map(([key, item]) => [key, pruneEmpty(item)])
+      .filter(([, item]) => {
+        if (item === null || item === undefined || item === "") return false;
+        if (Array.isArray(item)) return item.length > 0;
+        if (typeof item === "object") return Object.keys(item).length > 0;
+        return true;
+      })
+  );
+}
+
 function compactSymbols(symbols = {}) {
   return {
     assets: symbols.assets || {}
@@ -47,7 +71,7 @@ export function buildStartupCountryIndex(countries = {}) {
   return Object.fromEntries(
     Object.entries(countries).map(([code, country]) => [
       code,
-      {
+      pruneEmpty({
         name: country.name,
         continent: country.continent,
         general: {
@@ -92,7 +116,7 @@ export function buildStartupCountryIndex(countries = {}) {
           isIndex: true
         },
         conflicts: limitArray(country.conflicts, 1).map(compactConflict)
-      }
+      })
     ])
   );
 }

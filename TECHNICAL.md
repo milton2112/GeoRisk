@@ -29,6 +29,12 @@ GeoRisk es una aplicacion frontend orientada a exploracion geopolitica con datas
 - `data/countries_full.json`: dataset curado principal.
 - `data/countries_index.json`: indice compacto para el arranque inicial.
 - `data/countries/*.json`: fichas completas por pais, cargadas bajo demanda.
+- `data/conflicts_index.json`: indice liviano de conflictos para busqueda, timeline y exploracion sin cargar detalles pesados.
+- `data/timeline_index.json`: indice liviano cronologico con formaciones, eventos y conflictos.
+- `data/search_index.json`: indice liviano de busqueda por pais, alias y facets.
+- `data/country_weights.json`: metadata de peso por pais y alerta de fichas grandes.
+- `data/conflicts/details_index.json` + `data/conflicts/details/*.json`: detalles de conflictos divididos para carga granular.
+- `data/data_manifest.json`: frontera entre datos publicos, tecnicos internos, reportes y material docente.
 - `data/geo_aliases.json`: aliases geograficos y nombres alternativos del mapa.
 - `data/world_countries.geo.json`: geometria principal.
 - `data/world_countries_simplified.geo.json`: geometria simplificada para modo 2D.
@@ -57,10 +63,22 @@ GeoRisk es una aplicacion frontend orientada a exploracion geopolitica con datas
 1. La app carga `data/countries_index.json` y `data/geo_aliases.json`.
 2. Renderiza mapa, busqueda basica, capas y ficha inicial con datos compactos.
 3. Si el usuario abre una ficha indexada, carga `data/countries/<codigo>.json` bajo demanda.
-4. Carga curaduria y datos suplementarios despues del arranque visible.
-5. Difiere `data/countries_full.json` a un momento ocioso para no congelar el globo.
-6. En el mapa, resuelve clicks del GeoJSON a codigos ISO o especiales.
-7. La ficha modal, timeline, comparador, quiz y noticias consumen el estado ya curado.
+4. Carga indices livianos de conflictos, timeline o busqueda solo cuando una vista los necesite.
+5. Carga curaduria y datos suplementarios despues del arranque visible.
+6. Difiere `data/countries_full.json` a un momento ocioso para no congelar el globo.
+7. En el mapa, resuelve clicks del GeoJSON a codigos ISO o especiales.
+8. La ficha modal, timeline, comparador, quiz y noticias consumen el estado ya curado.
+
+## Separacion de datos
+
+`data/data_manifest.json` define cuatro grupos:
+
+- produccion publica: indices livianos y recursos aptos para cache/runtime;
+- tecnico interno: datasets grandes, raw data y auditorias;
+- docente: guias e indices narrativos utiles para explicar el proyecto;
+- reportes internos: JSON de mantenimiento que no deben entrar en `APP_SHELL` ni en un build prod.
+
+Si se crea un build de produccion, debe excluir `reports/*.json`, `data/raw/**`, `data/countries_full.json`, `data/conflict_details.generated.json` y `data/conflict_dyadic_summary.json`.
 
 ## Matching de paises
 
