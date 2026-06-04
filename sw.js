@@ -1,4 +1,4 @@
-const CACHE_VERSION = "2026-06-01-offline-2";
+const CACHE_VERSION = "2026-06-04-map-1";
 const APP_CACHE = `geo-risk-app-${CACHE_VERSION}`;
 const TILE_CACHE = `geo-risk-tiles-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `geo-risk-runtime-${CACHE_VERSION}`;
@@ -8,11 +8,10 @@ const APP_SHELL = [
   "./style.css",
   "./script.js",
   "./app-runtime.js",
-  "./app-theme.js",
-  "./app-text.js",
-  "./app-country-panel.js",
-  "./app-timeline-conflicts.js",
   "./app-boot-scheduler.js",
+  "./app-map.js",
+  "./app-map-styles.js",
+  "./app-map-interactions.js",
   "./favicon.ico",
   "./favicon.svg",
   "./data/countries_index.json",
@@ -30,6 +29,7 @@ const RUNTIME_CACHEABLE_PATHS = [
   "/data/world_countries_simplified.geo.json",
   "/assets/flags/",
   "/assets/coats/",
+  "/app-",
   "/reports/",
   "/USER_GUIDE.md",
   "/TECHNICAL.md",
@@ -37,7 +37,7 @@ const RUNTIME_CACHEABLE_PATHS = [
   "/CHANGELOG.md"
 ];
 
-const RUNTIME_CACHEABLE_EXTENSIONS = [".svg", ".json", ".geojson", ".md"];
+const RUNTIME_CACHEABLE_EXTENSIONS = [".svg", ".json", ".geojson", ".md", ".js"];
 const MAX_RUNTIME_CACHE_ENTRIES = 80;
 const MAX_TILE_CACHE_ENTRIES = 140;
 

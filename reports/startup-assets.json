@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-06-02T02:46:56.047Z",
-  "startupBytes": 1019498,
-  "startupHuman": "996 KB",
-  "deferredBytes": 968399,
-  "deferredHuman": "946 KB",
+  "generatedAt": "2026-06-04T20:46:52.928Z",
+  "startupBytes": 1024355,
+  "startupHuman": "1000 KB",
+  "deferredBytes": 978983,
+  "deferredHuman": "956 KB",
   "estimatedRuntimeMemory": {
     "countriesFullBytes": 2440437,
     "countriesFullHuman": "2.33 MB",
@@ -15,8 +15,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 666025,
-      "human": "650 KB",
+      "bytes": 675241,
+      "human": "659 KB",
       "startupCritical": true
     },
     {
@@ -50,15 +50,15 @@
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 80231,
+      "bytes": 80332,
       "human": "78 KB",
       "startupCritical": true
     },
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 29659,
-      "human": "29 KB",
+      "bytes": 30269,
+      "human": "30 KB",
       "startupCritical": true
     },
     {
@@ -66,12 +66,12 @@
       "exists": true,
       "bytes": 8067,
       "human": "8 KB",
-      "startupCritical": true
+      "startupCritical": false
     },
     {
       "path": "app-performance-ui.js",
       "exists": true,
-      "bytes": 5742,
+      "bytes": 6074,
       "human": "6 KB",
       "startupCritical": false
     },
@@ -101,21 +101,21 @@
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 29659,
-      "human": "29 KB",
+      "bytes": 30269,
+      "human": "30 KB",
       "startupCritical": true
     },
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 666025,
-      "human": "650 KB",
+      "bytes": 675241,
+      "human": "659 KB",
       "startupCritical": true
     },
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 80231,
+      "bytes": 80332,
       "human": "78 KB",
       "startupCritical": true
     },
@@ -131,34 +131,55 @@
       "exists": true,
       "bytes": 338,
       "human": "338 B",
-      "startupCritical": true
+      "startupCritical": false
     },
     {
       "path": "app-text.js",
       "exists": true,
       "bytes": 8067,
       "human": "8 KB",
-      "startupCritical": true
+      "startupCritical": false
     },
     {
       "path": "app-country-panel.js",
       "exists": true,
       "bytes": 1243,
       "human": "1 KB",
-      "startupCritical": true
+      "startupCritical": false
     },
     {
       "path": "app-timeline-conflicts.js",
       "exists": true,
       "bytes": 604,
       "human": "604 B",
-      "startupCritical": true
+      "startupCritical": false
     },
     {
       "path": "app-boot-scheduler.js",
       "exists": true,
-      "bytes": 2708,
+      "bytes": 2723,
       "human": "3 KB",
+      "startupCritical": true
+    },
+    {
+      "path": "app-map.js",
+      "exists": true,
+      "bytes": 2294,
+      "human": "2 KB",
+      "startupCritical": true
+    },
+    {
+      "path": "app-map-styles.js",
+      "exists": true,
+      "bytes": 1458,
+      "human": "1 KB",
+      "startupCritical": true
+    },
+    {
+      "path": "app-map-interactions.js",
+      "exists": true,
+      "bytes": 1415,
+      "human": "1 KB",
       "startupCritical": true
     },
     {
@@ -185,7 +206,7 @@
     {
       "path": "app-performance-ui.js",
       "exists": true,
-      "bytes": 5742,
+      "bytes": 6074,
       "human": "6 KB",
       "startupCritical": false
     },

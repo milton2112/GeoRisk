@@ -52,7 +52,7 @@ if (!bootScheduler.includes(`budgetMs: ${LONG_TASK_BUDGET_MS}`)) {
   console.error(`long task budget must stay at ${LONG_TASK_BUDGET_MS} ms`);
 }
 
-for (const workerFile of ["app-rankings-worker.js", "app-search-worker.js"]) {
+for (const workerFile of ["app-rankings-worker.js", "app-search-worker.js", "app-map.js", "app-map-styles.js", "app-map-interactions.js"]) {
   try {
     await fs.stat(path.join(projectRoot, workerFile));
   } catch {

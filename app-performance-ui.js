@@ -7,7 +7,8 @@ function renderPerformancePanelContent({
   renderLabel = "",
   presetLabel = "",
   exportStatus = "",
-  tuningRows = ""
+  tuningRows = "",
+  degradationRows = ""
 } = {}) {
   const escapeLocal = value => String(value ?? "")
     .replace(/&/g, "&amp;")
@@ -60,6 +61,10 @@ function renderPerformancePanelContent({
     <div class="help-section">
       <h3>${language === "en" ? "Main-thread blocks" : "Bloqueos del hilo principal"}</h3>
       <ul class="health-progress-list">${longTaskRows || `<li><span>${language === "en" ? "No long tasks observed" : "Sin bloqueos largos observados"}</span><div class="health-progress-track"><i style="width:0%"></i></div><b>0 ms</b></li>`}</ul>
+    </div>
+    <div class="help-section">
+      <h3>${language === "en" ? "Automatic render degradations" : "Degradaciones automaticas de render"}</h3>
+      <ul>${degradationRows || `<li>${language === "en" ? "No automatic degradations recorded." : "Sin degradaciones automaticas registradas."}</li>`}</ul>
     </div>
     <div class="performance-recommendation-card">
       <strong>${language === "en" ? "Automatic recommendation" : "Recomendacion automatica"}</strong>

@@ -46,5 +46,17 @@ assert.ok(css.includes(".performance-recommendation-card"), "panel de rendimient
 const performanceUi = await fs.readFile(path.join(projectRoot, "app-performance-ui.js"), "utf8");
 assert.ok(performanceUi.includes("Recomendacion automatica"), "rendimiento debe explicar la recomendacion en espanol");
 assert.ok(performanceUi.includes("Arranque sano"), "rendimiento debe distinguir estado sano");
+assert.ok(performanceUi.includes("Degradaciones automaticas de render"), "rendimiento debe mostrar degradaciones automaticas");
+
+const indexHtml = await fs.readFile(path.join(projectRoot, "index.html"), "utf8");
+const script = await fs.readFile(path.join(projectRoot, "script.js"), "utf8");
+const appMapInteractions = await fs.readFile(path.join(projectRoot, "app-map-interactions.js"), "utf8");
+assert.ok(indexHtml.includes('id="map"'), "la pantalla principal debe conservar contenedor de mapa/canvas");
+assert.ok(indexHtml.includes('id="map-mode-toggle"'), "la UI debe exponer cambio 2D/3D");
+assert.ok(script.includes("constrainedInitialDevice ? \"none\" : \"countries\""), "mobile debe arrancar con etiquetas reducidas");
+assert.ok(script.includes("requestSceneRender = () =>"), "canvas debe usar scheduler de render");
+assert.ok(script.includes("startPerformanceMonitor"), "canvas debe tener monitor FPS para detectar congelamiento");
+assert.ok(script.includes("recordMapDegradation"), "canvas debe registrar degradaciones automaticas");
+assert.ok(appMapInteractions.includes("isMobile || mode === \"2d\""), "hover mobile/2D debe quedar reducido");
 
 console.log("visual-hygiene.test.js ok");

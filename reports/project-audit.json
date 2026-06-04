@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-06-02T02:47:02.604Z",
+  "generatedAt": "2026-06-04T20:47:00.083Z",
   "status": "operativo",
   "startup": {
-    "critical": "996 KB",
-    "criticalBytes": 1019498,
-    "deferred": "946 KB",
+    "critical": "1000 KB",
+    "criticalBytes": 1024355,
+    "deferred": "956 KB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 2440437,
       "countriesFullHuman": "2.33 MB",
@@ -16,8 +16,8 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 666025,
-        "human": "650 KB",
+        "bytes": 675241,
+        "human": "659 KB",
         "startupCritical": true
       },
       {
@@ -51,15 +51,15 @@
       {
         "path": "style.css",
         "exists": true,
-        "bytes": 80231,
+        "bytes": 80332,
         "human": "78 KB",
         "startupCritical": true
       },
       {
         "path": "index.html",
         "exists": true,
-        "bytes": 29659,
-        "human": "29 KB",
+        "bytes": 30269,
+        "human": "30 KB",
         "startupCritical": true
       },
       {
@@ -67,12 +67,12 @@
         "exists": true,
         "bytes": 8067,
         "human": "8 KB",
-        "startupCritical": true
+        "startupCritical": false
       },
       {
         "path": "app-performance-ui.js",
         "exists": true,
-        "bytes": 5742,
+        "bytes": 6074,
         "human": "6 KB",
         "startupCritical": false
       },
@@ -126,26 +126,32 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 666025,
-      "human": "650 KB"
+      "bytes": 675241,
+      "human": "659 KB"
     },
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 80231,
+      "bytes": 80332,
       "human": "78 KB"
     },
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 29659,
-      "human": "29 KB"
+      "bytes": 30269,
+      "human": "30 KB"
     },
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 9107,
+      "bytes": 9266,
       "human": "9 KB"
+    },
+    {
+      "path": "TECHNICAL.md",
+      "exists": true,
+      "bytes": 8515,
+      "human": "8 KB"
     },
     {
       "path": "app-text.js",
@@ -154,15 +160,9 @@
       "human": "8 KB"
     },
     {
-      "path": "TECHNICAL.md",
-      "exists": true,
-      "bytes": 7865,
-      "human": "8 KB"
-    },
-    {
       "path": "USER_GUIDE.md",
       "exists": true,
-      "bytes": 6771,
+      "bytes": 7528,
       "human": "7 KB"
     },
     {
@@ -174,7 +174,7 @@
     {
       "path": "app-performance-ui.js",
       "exists": true,
-      "bytes": 5742,
+      "bytes": 6074,
       "human": "6 KB"
     },
     {
@@ -204,13 +204,19 @@
     {
       "path": "app-boot-scheduler.js",
       "exists": true,
-      "bytes": 2708,
+      "bytes": 2723,
       "human": "3 KB"
     },
     {
       "path": "package.json",
       "exists": true,
       "bytes": 2358,
+      "human": "2 KB"
+    },
+    {
+      "path": "app-map.js",
+      "exists": true,
+      "bytes": 2294,
       "human": "2 KB"
     },
     {
@@ -223,6 +229,18 @@
       "path": "app-quiz-ui.js",
       "exists": true,
       "bytes": 1495,
+      "human": "1 KB"
+    },
+    {
+      "path": "app-map-styles.js",
+      "exists": true,
+      "bytes": 1458,
+      "human": "1 KB"
+    },
+    {
+      "path": "app-map-interactions.js",
+      "exists": true,
+      "bytes": 1415,
       "human": "1 KB"
     },
     {
@@ -239,8 +257,8 @@
     }
   ],
   "scriptMetrics": {
-    "functions": 479,
-    "asyncFunctions": 38,
+    "functions": 485,
+    "asyncFunctions": 40,
     "consoleWarnings": 15,
     "consoleErrors": 16
   },

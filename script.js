@@ -8,7 +8,7 @@
       targetFrameRate: mode2d ? (isMobile ? 18 : 26) : (isMobile ? 18 : 24),
       resolutionScale: mode2d ? (isMobile ? 0.48 : 0.66) : (isMobile ? 0.72 : 0.84),
       maximumScreenSpaceError: mode2d ? (isMobile ? 10.4 : 6.8) : (isMobile ? 6.2 : 3.6),
-      tileCacheSize: mode2d ? (isMobile ? 36 : 88) : (isMobile ? 90 : 180),
+      tileCacheSize: mode2d ? (isMobile ? 28 : 82) : (isMobile ? 76 : 170),
       loadingDescendantLimit: mode2d ? (isMobile ? 3 : 7) : (isMobile ? 8 : 14),
       enableFxaa: false,
       preloadAncestors: false,
@@ -21,7 +21,7 @@
     targetFrameRate: mode2d ? 32 : 32,
     resolutionScale: mode2d ? 0.72 : 0.96,
     maximumScreenSpaceError: mode2d ? 5.4 : 2.6,
-    tileCacheSize: mode2d ? 116 : 240,
+    tileCacheSize: mode2d ? 108 : 220,
     loadingDescendantLimit: mode2d ? 8 : 18,
     enableFxaa: true,
     preloadAncestors: true,
@@ -74,14 +74,17 @@ const timelineConflictUi = window.GeoRiskTimelineConflicts || {};
 const sharedTheme = window.GeoRiskTheme || {};
 const sharedText = window.GeoRiskText || {};
 const bootScheduler = window.GeoRiskBootScheduler || {};
-const APP_VERSION = "2026-06-01-offline-2";
+const mapCore = window.GeoRiskMap || {};
+const mapStyleCore = window.GeoRiskMapStyles || {};
+const mapInteractionCore = window.GeoRiskMapInteractions || {};
+const APP_VERSION = "2026-06-04-map-1";
 const DEFERRED_UI_MODULES = {
-  news: "./app-news-ui.js?v=2026-06-01-offline-2",
-  compare: "./app-compare-ui.js?v=2026-06-01-offline-2",
-  quiz: "./app-quiz-ui.js?v=2026-06-01-offline-2",
-  riskRadar: "./app-risk-radar-ui.js?v=2026-06-01-offline-2",
-  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-01-offline-2",
-  projectAudit: "./app-project-audit-ui.js?v=2026-06-01-offline-2"
+  news: "./app-news-ui.js?v=2026-06-04-map-1",
+  compare: "./app-compare-ui.js?v=2026-06-04-map-1",
+  quiz: "./app-quiz-ui.js?v=2026-06-04-map-1",
+  riskRadar: "./app-risk-radar-ui.js?v=2026-06-04-map-1",
+  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-04-map-1",
+  projectAudit: "./app-project-audit-ui.js?v=2026-06-04-map-1"
 };
 const deferredUiModulePromises = new Map();
 
@@ -1268,6 +1271,16 @@ function isConstrainedDevice() {
 }
 
 function shouldUseHoverHighlights() {
+  if (typeof mapInteractionCore.shouldEnableHover === "function") {
+    return mapInteractionCore.shouldEnableHover({
+      isMobile: isMobileLayout(),
+      mode: currentMapMode,
+      preset: getPerformancePreset(),
+      isNavigating: isCameraNavigating,
+      qualityPreset,
+      suppressedUntil: hoverSuppressedUntil
+    });
+  }
   return getPerformancePreset().hoverEnabled &&
     Date.now() >= hoverSuppressedUntil &&
     !isCameraNavigating &&
@@ -2807,6 +2820,15 @@ function initializeViewer() {
   if (viewer) {
     return viewer;
   }
+  if (window.__geoRiskCesiumFallbackTimer) {
+    clearTimeout(window.__geoRiskCesiumFallbackTimer);
+    window.__geoRiskCesiumFallbackTimer = null;
+  }
+  const fallbackBanner = document.getElementById("fatal-error-banner");
+  if (fallbackBanner?.textContent?.includes("Cesium")) {
+    fallbackBanner.hidden = true;
+    fallbackBanner.textContent = "";
+  }
 
   viewer = new Cesium.Viewer("map", {
     animation: false,
@@ -2896,7 +2918,11 @@ function initializeViewer() {
     const nextBucket = getCurrentOverlayBucket();
     if (nextBucket !== lastOverlayBucket) {
       lastOverlayBucket = nextBucket;
+      lastStyleRefreshSignature = "";
       refreshCountryStyles();
+      if (nextBucket === "near") {
+        scheduleDetailedOverlayUpgrade();
+      }
     }
     renderMapLabels();
   });
@@ -2968,19 +2994,22 @@ function updateMapInteractionTuning() {
   if (viewer.scene.postProcessStages?.fxaa) {
     viewer.scene.postProcessStages.fxaa.enabled = preset.enableFxaa;
   }
-  viewer.scene.screenSpaceCameraController.inertiaSpin = isMobileLayout() ? 0.58 : 0.78;
-  viewer.scene.screenSpaceCameraController.inertiaTranslate = currentMapMode === "2d"
+  const navigationTuning = typeof mapInteractionCore.getNavigationTuning === "function"
+    ? mapInteractionCore.getNavigationTuning({ mode: currentMapMode, isMobile: isMobileLayout() })
+    : null;
+  viewer.scene.screenSpaceCameraController.inertiaSpin = navigationTuning?.inertiaSpin ?? (isMobileLayout() ? 0.58 : 0.78);
+  viewer.scene.screenSpaceCameraController.inertiaTranslate = navigationTuning?.inertiaTranslate ?? (currentMapMode === "2d"
     ? (isMobileLayout() ? 0.07 : 0.12)
-    : (isMobileLayout() ? 0.52 : 0.74);
-  viewer.scene.screenSpaceCameraController.inertiaZoom = currentMapMode === "2d"
+    : (isMobileLayout() ? 0.52 : 0.74));
+  viewer.scene.screenSpaceCameraController.inertiaZoom = navigationTuning?.inertiaZoom ?? (currentMapMode === "2d"
     ? (isMobileLayout() ? 0.07 : 0.12)
-    : (isMobileLayout() ? 0.46 : 0.62);
+    : (isMobileLayout() ? 0.46 : 0.62));
   viewer.scene.screenSpaceCameraController.enableRotate = currentMapMode !== "2d";
   viewer.scene.screenSpaceCameraController.enableTranslate = true;
   viewer.scene.screenSpaceCameraController.enableZoom = true;
-  viewer.scene.screenSpaceCameraController.maximumMovementRatio = currentMapMode === "2d"
+  viewer.scene.screenSpaceCameraController.maximumMovementRatio = navigationTuning?.maximumMovementRatio ?? (currentMapMode === "2d"
     ? (isMobileLayout() ? 0.07 : 0.1)
-    : (isMobileLayout() ? 0.15 : 0.17);
+    : (isMobileLayout() ? 0.15 : 0.17));
   viewer.scene.screenSpaceCameraController.maximumZoomDistance = currentMapMode === "2d"
     ? Number.POSITIVE_INFINITY
     : getMaxGlobeDistance();
@@ -3019,13 +3048,17 @@ function applyMapMode(mode, animate = true) {
   }
 
   const normalizedMode = mode === "2d" ? "2d" : "3d";
+  const previousMode = currentMapMode;
+  const transitionPlan = typeof mapCore.getTransitionPlan === "function"
+    ? mapCore.getTransitionPlan({ from: previousMode, to: normalizedMode, animate, isMobile: isMobileLayout() })
+    : { duration: animate ? (normalizedMode === "2d" ? 0.55 : 0.72) : 0, settleMs: animate ? (normalizedMode === "2d" ? 580 : 850) : 0 };
   currentMapMode = normalizedMode;
   applyImageryForMode();
 
   if (normalizedMode === "2d") {
-    viewer.scene.morphTo2D(animate ? 0.55 : 0);
+    viewer.scene.morphTo2D(transitionPlan.duration);
   } else {
-    viewer.scene.morphTo3D(animate ? 0.72 : 0);
+    viewer.scene.morphTo3D(transitionPlan.duration);
   }
 
   updateMapInteractionTuning();
@@ -3035,7 +3068,7 @@ function applyMapMode(mode, animate = true) {
     lastOverlayBucket = getCurrentOverlayBucket();
     renderMapLabels();
     viewer.scene.requestRender();
-  }, animate ? (normalizedMode === "2d" ? 580 : 850) : 0);
+  }, transitionPlan.settleMs);
   updateMapModeToggle();
 }
 
@@ -3052,6 +3085,12 @@ let countriesDataRevision = 0;
 let countryValuesCache = null;
 let countryEntriesCache = null;
 const rankingCache = new Map();
+const countryStyleCache = typeof mapStyleCore.createCountryStyleCache === "function"
+  ? mapStyleCore.createCountryStyleCache({ maxEntries: 2200 })
+  : { clear() {}, get() {}, set(key, value) { return value; }, size() { return 0; } };
+const mapDegradationLog = typeof mapCore.createDegradationLog === "function"
+  ? mapCore.createDegradationLog(32)
+  : { add() {}, list() { return []; }, count() { return 0; } };
 let rawPoliticsSystems = {};
 let rawHistorySystems = {};
 let rawInflationByCode = {};
@@ -3099,6 +3138,11 @@ let navigationQualityRestoreTimer = null;
 let globeAutoRotateHandlerAttached = false;
 let activeFocusToken = 0;
 let lastOverlayBucket = "";
+let lastStyleRefreshSignature = "";
+let reducedPerformanceMode = false;
+let reducedPerformanceReason = "";
+let sustainedLowFpsWindows = 0;
+let sustainedHighFpsWindows = 0;
 let quizState = {
   category: "capital",
   difficulty: "easy",
@@ -3852,6 +3896,8 @@ function invalidateCountryDerivedCaches() {
   countryValuesCache = null;
   countryEntriesCache = null;
   rankingCache.clear();
+  countryStyleCache.clear();
+  lastStyleRefreshSignature = "";
 }
 
 function getCountryValues() {
@@ -7094,6 +7140,18 @@ function getRenderProfileLabel() {
   return `${runtimeLabel} · ${getQualityPresetLabel()}`;
 }
 
+function recordMapDegradation(reason, details = {}) {
+  reducedPerformanceMode = true;
+  reducedPerformanceReason = reason;
+  mapDegradationLog.add(reason, {
+    mode: currentMapMode,
+    theme: currentTheme,
+    qualityPreset,
+    ...details
+  });
+  updateAppStatusPanel(details);
+}
+
 function updateAppStatusPanel(extra = {}) {
   const renderChip = document.getElementById("render-profile-chip");
   const datasetChip = document.getElementById("dataset-health-chip");
@@ -7108,7 +7166,15 @@ function updateAppStatusPanel(extra = {}) {
       encyclopedia: currentLanguage === "en" ? "encyclopedia" : "enciclopedia",
       presentation: currentLanguage === "en" ? "presentation" : "presentacion"
     }[appMode] || appMode;
-    renderChip.innerHTML = `<strong>${currentLanguage === "en" ? "Render" : "Render"}:</strong> ${escapeHtml(getRenderProfileLabel())} · ${escapeHtml(modeLabel)}${fpsSuffix}`;
+    const reducedLabel = typeof mapCore.getReducedPerformanceLabel === "function"
+      ? mapCore.getReducedPerformanceLabel({
+          language: currentLanguage,
+          active: reducedPerformanceMode,
+          reason: reducedPerformanceReason
+        })
+      : (reducedPerformanceMode ? (currentLanguage === "en" ? "Reduced performance mode" : "Modo rendimiento reducido") : "");
+    const reducedSuffix = reducedPerformanceMode ? ` · ${escapeHtml(reducedLabel)}` : "";
+    renderChip.innerHTML = `<strong>${currentLanguage === "en" ? "Render" : "Render"}:</strong> ${escapeHtml(getRenderProfileLabel())} · ${escapeHtml(modeLabel)}${fpsSuffix}${reducedSuffix}`;
   }
 
   if (datasetChip) {
@@ -8004,17 +8070,40 @@ function getBlocThemeKey(country) {
   return blocs[0] || "Otros";
 }
 
+function getCountryStyleCacheKey(code) {
+  if (typeof mapStyleCore.createStyleCacheKey === "function") {
+    return mapStyleCore.createStyleCacheKey({
+      code,
+      theme: currentTheme,
+      mode: currentMapMode,
+      overlayBucket: getCurrentOverlayBucket(),
+      dataRevision: countriesDataRevision
+    });
+  }
+  return `${code || ""}::${currentTheme}::${currentMapMode}::${getCurrentOverlayBucket()}::${countriesDataRevision}`;
+}
+
 function getCountryThemeStyle(code) {
+  const cacheKey = getCountryStyleCacheKey(code);
+  const cached = countryStyleCache.get(cacheKey);
+  if (cached) {
+    return cached;
+  }
+  return countryStyleCache.set(cacheKey, buildCountryThemeStyle(code));
+}
+
+function buildCountryThemeStyle(code) {
   const country = countriesData[code];
   const adapt = style => {
-    if (currentMapMode !== "2d") {
-      return style;
+    if (typeof mapStyleCore.adaptStyleForMode === "function") {
+      return mapStyleCore.adaptStyleForMode(style, {
+        mode: currentMapMode,
+        defaultStyle: DEFAULT_STYLE,
+        isMobile: isMobileLayout()
+      });
     }
-    return {
-      ...style,
-      weight: Math.max(1.2, (style.weight || DEFAULT_STYLE.weight) - 0.25),
-      fillOpacity: Math.max(0.06, (style.fillOpacity || DEFAULT_STYLE.fillOpacity) - 0.08)
-    };
+    if (currentMapMode !== "2d") return style;
+    return { ...style, weight: Math.max(1.2, (style.weight || DEFAULT_STYLE.weight) - 0.25), fillOpacity: Math.max(0.06, (style.fillOpacity || DEFAULT_STYLE.fillOpacity) - 0.08) };
   };
 
   if (!country) {
@@ -8241,6 +8330,23 @@ function refreshCountryStyles() {
   if (isCameraNavigating && currentMapMode === "3d") {
     return;
   }
+  const nextSignature = [
+    currentTheme,
+    currentMapMode,
+    getCurrentOverlayBucket(),
+    countriesDataRevision,
+    selectionMode,
+    selectedLayers.map(layer => layer.code).join(",")
+  ].join("|");
+  if (
+    countryLayers.size &&
+    typeof mapStyleCore.shouldRefreshStyles === "function" &&
+    !mapStyleCore.shouldRefreshStyles(lastStyleRefreshSignature, nextSignature)
+  ) {
+    return;
+  }
+  lastStyleRefreshSignature = nextSignature;
+
   countryLayers.forEach((layer, code) => {
     layer.setStyle(getCountryThemeStyle(code));
   });
@@ -9050,7 +9156,9 @@ function startPerformanceMonitor() {
       const tier = getDeviceTier();
       const lowFpsThreshold = isMobileLayout() ? 18 : tier === "low" ? 15 : tier === "medium" ? 18 : 20;
       const highFpsThreshold = isMobileLayout() ? 28 : tier === "low" ? 24 : tier === "medium" ? 30 : 34;
-      if (qualityPreset === "auto" && rollingFps < lowFpsThreshold) {
+      sustainedLowFpsWindows = rollingFps < lowFpsThreshold ? sustainedLowFpsWindows + 1 : 0;
+      sustainedHighFpsWindows = rollingFps > highFpsThreshold ? sustainedHighFpsWindows + 1 : 0;
+      if (qualityPreset === "auto" && sustainedLowFpsWindows >= 2) {
         hoverSuppressedUntil = Date.now() + 3200;
         viewer.resolutionScale = Math.max(
           currentMapMode === "2d"
@@ -9062,16 +9170,31 @@ function startPerformanceMonitor() {
         viewer.scene.globe.loadingDescendantLimit = Math.max(currentMapMode === "2d" ? 2 : 5, viewer.scene.globe.loadingDescendantLimit - 1);
         viewer.scene.globe.tileCacheSize = Math.max(currentMapMode === "2d" ? 24 : 60, viewer.scene.globe.tileCacheSize - 14);
         viewer.scene.maximumRenderTimeChange = currentMapMode === "2d" ? 0.09 : 0.4;
-        if (labelEntities.length && currentMapMode === "3d" && rollingFps < lowFpsThreshold - 2) {
+        if (
+          labelEntities.length &&
+          typeof mapInteractionCore.shouldDisableLabelsForFps === "function" &&
+          mapInteractionCore.shouldDisableLabelsForFps({ fps: rollingFps, isMobile: isMobileLayout(), tier, mode: currentMapMode })
+        ) {
           clearMapLabels();
+          recordMapDegradation(currentLanguage === "en" ? "labels disabled by FPS" : "etiquetas desactivadas por FPS", { fps: rollingFps });
         }
-      } else if (qualityPreset === "auto" && rollingFps > highFpsThreshold) {
+        recordMapDegradation(currentLanguage === "en" ? "low sustained FPS" : "FPS bajo sostenido", { fps: rollingFps });
+        sustainedLowFpsWindows = 0;
+      } else if (qualityPreset === "auto" && sustainedHighFpsWindows >= 3) {
         const preset = getPerformancePreset();
         viewer.resolutionScale = Math.min(preset.resolutionScale, viewer.resolutionScale + 0.03);
         viewer.scene.globe.maximumScreenSpaceError = Math.max(preset.maximumScreenSpaceError, viewer.scene.globe.maximumScreenSpaceError - 0.2);
         viewer.scene.globe.loadingDescendantLimit = Math.min(preset.loadingDescendantLimit, viewer.scene.globe.loadingDescendantLimit + 1);
         viewer.scene.globe.tileCacheSize = Math.min(preset.tileCacheSize, viewer.scene.globe.tileCacheSize + 12);
         viewer.scene.maximumRenderTimeChange = currentMapMode === "2d" ? 0.06 : 0.28;
+        if (
+          viewer.resolutionScale >= preset.resolutionScale &&
+          viewer.scene.globe.maximumScreenSpaceError <= preset.maximumScreenSpaceError
+        ) {
+          reducedPerformanceMode = false;
+          reducedPerformanceReason = "";
+        }
+        sustainedHighFpsWindows = 0;
       }
       updateAppStatusPanel({ fps: Math.round(rollingFps * 10) / 10 });
       frameCount = 0;
@@ -9169,8 +9292,14 @@ function renderNewsHub(selectedCode = "") {
 }
 
 function setTheme(theme) {
-  currentTheme = theme || "default";
-  refreshCountryStyles();
+  const nextTheme = theme || "default";
+  const themeChanged = nextTheme !== currentTheme;
+  currentTheme = nextTheme;
+  if (themeChanged) {
+    countryStyleCache.clear();
+    lastStyleRefreshSignature = "";
+    refreshCountryStyles();
+  }
   renderThemeLegend();
   renderThemeSummary();
 }
@@ -10527,7 +10656,12 @@ async function renderPerformancePanel() {
     <li><b>Resolution scale</b>: ${escapeHtml(String(viewer?.resolutionScale ?? preset.resolutionScale))}</li>
     <li><b>Tile cache</b>: ${escapeHtml(String(viewer?.scene?.globe?.tileCacheSize ?? preset.tileCacheSize))}</li>
     <li><b>Hover</b>: ${shouldUseHoverHighlights() ? "activo" : "reducido"}</li>
+    <li><b>Style cache</b>: ${escapeHtml(String(countryStyleCache.size?.() || 0))}</li>
   `;
+  const degradationRows = mapDegradationLog.list()
+    .slice(0, 8)
+    .map(item => `<li><b>${escapeHtml(item.reason || "auto")}</b>: ${escapeHtml(item.mode || currentMapMode)} · ${item.fps ? `${Math.round(item.fps)} FPS · ` : ""}${escapeHtml(item.at || "")}</li>`)
+    .join("");
   const body = window.GeoRiskPerformanceUi?.renderPerformancePanelContent
     ? window.GeoRiskPerformanceUi.renderPerformancePanelContent({
         language: currentLanguage,
@@ -10538,7 +10672,8 @@ async function renderPerformancePanel() {
         renderLabel: escapeHtml(getRenderProfileLabel()),
         presetLabel: escapeHtml(getQualityPresetLabel()),
         exportStatus: escapeHtml(exportStatus),
-        tuningRows
+        tuningRows,
+        degradationRows
       })
     : `
       <div class="product-summary-grid">
@@ -12525,8 +12660,13 @@ function getLayersForCountries(countries) {
 }
 
 function getGeoJsonPathForCurrentMode(bootPhase = false) {
-  if (currentMapMode === "2d") {
-    return "./data/world_countries_simplified.geo.json";
+  if (typeof mapCore.getGeoJsonPathForMode === "function") {
+    return mapCore.getGeoJsonPathForMode({
+      mode: currentMapMode,
+      bootPhase,
+      isMobile: isMobileLayout(),
+      near: getCurrentOverlayBucket() === "near"
+    });
   }
   return (bootPhase || isMobileLayout())
     ? "./data/world_countries_simplified.geo.json"
@@ -13926,7 +14066,13 @@ async function loadMap(bootPhase = false) {
     }
 
     const now = Date.now();
-    const hoverSampleWindow = isMobileLayout() ? 56 : currentMapMode === "2d" ? 42 : 28;
+    const hoverSampleWindow = typeof mapInteractionCore.getHoverSampleWindow === "function"
+      ? mapInteractionCore.getHoverSampleWindow({
+          isMobile: isMobileLayout(),
+          mode: currentMapMode,
+          reducedMotion: reducedPerformanceMode
+        })
+      : (isMobileLayout() ? 56 : currentMapMode === "2d" ? 42 : 28);
     if (now - lastHoverSampleAt < hoverSampleWindow) {
       return;
     }
@@ -14068,6 +14214,17 @@ function scheduleDetailedOverlayUpgrade() {
 
   const detailedPath = "./data/world_countries.geo.json";
   if (loadMapPath === detailedPath) {
+    return;
+  }
+  if (
+    typeof mapCore.shouldDeferDetailedGeometry === "function" &&
+    mapCore.shouldDeferDetailedGeometry({
+      mode: currentMapMode,
+      isMobile: isMobileLayout(),
+      zoomBucket: getCurrentOverlayBucket(),
+      bootPhase: false
+    })
+  ) {
     return;
   }
 
