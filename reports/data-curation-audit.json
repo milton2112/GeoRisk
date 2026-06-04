@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-06-04T20:58:58.135Z",
+  "generatedAt": "2026-06-04T21:19:33.304Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 2440437,
-    "duplicatedCountryFilesBytes": 2439335,
-    "tooLargeCount": 4,
+    "fullBytes": 8550643,
+    "duplicatedCountryFilesBytes": 8549541,
+    "tooLargeCount": 32,
     "largest": [
       {
         "code": "USA",
         "name": "Estados Unidos",
-        "bytes": 409290,
-        "inlineBytes": 409289,
+        "bytes": 2414632,
+        "inlineBytes": 2414631,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -27,8 +27,8 @@
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 200060,
-        "inlineBytes": 200059,
+        "bytes": 788692,
+        "inlineBytes": 788691,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -44,8 +44,8 @@
       {
         "code": "FRA",
         "name": "Francia",
-        "bytes": 71536,
-        "inlineBytes": 71535,
+        "bytes": 590164,
+        "inlineBytes": 590163,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -59,10 +59,27 @@
         }
       },
       {
+        "code": "SWE",
+        "name": "Suecia",
+        "bytes": 374799,
+        "inlineBytes": 374798,
+        "tooLarge": true,
+        "counts": {
+          "cities": 5,
+          "capitals": 1,
+          "languages": 1,
+          "religionGroups": 8,
+          "organizations": 51,
+          "rivals": 9,
+          "conflicts": 151,
+          "timelineEvents": 0
+        }
+      },
+      {
         "code": "AUS",
         "name": "Australia",
-        "bytes": 60869,
-        "inlineBytes": 60868,
+        "bytes": 175655,
+        "inlineBytes": 175654,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -76,113 +93,28 @@
         }
       },
       {
-        "code": "CAN",
-        "name": "Canadá",
-        "bytes": 37661,
-        "inlineBytes": 37660,
-        "tooLarge": false,
+        "code": "MAR",
+        "name": "Marruecos",
+        "bytes": 132191,
+        "inlineBytes": 132190,
+        "tooLarge": true,
         "counts": {
-          "cities": 4,
+          "cities": 3,
           "capitals": 1,
           "languages": 2,
           "religionGroups": 8,
-          "organizations": 48,
-          "rivals": 74,
-          "conflicts": 32,
-          "timelineEvents": 3
-        }
-      },
-      {
-        "code": "SWE",
-        "name": "Suecia",
-        "bytes": 34103,
-        "inlineBytes": 34102,
-        "tooLarge": false,
-        "counts": {
-          "cities": 5,
-          "capitals": 1,
-          "languages": 1,
-          "religionGroups": 8,
-          "organizations": 51,
-          "rivals": 9,
-          "conflicts": 152,
-          "timelineEvents": 0
-        }
-      },
-      {
-        "code": "POL",
-        "name": "Polonia",
-        "bytes": 22178,
-        "inlineBytes": 22177,
-        "tooLarge": false,
-        "counts": {
-          "cities": 4,
-          "capitals": 1,
-          "languages": 1,
-          "religionGroups": 5,
-          "organizations": 44,
-          "rivals": 95,
-          "conflicts": 21,
-          "timelineEvents": 0
-        }
-      },
-      {
-        "code": "ISR",
-        "name": "Israel",
-        "bytes": 22079,
-        "inlineBytes": 22078,
-        "tooLarge": false,
-        "counts": {
-          "cities": 5,
-          "capitals": 1,
-          "languages": 2,
-          "religionGroups": 5,
-          "organizations": 22,
-          "rivals": 19,
-          "conflicts": 35,
-          "timelineEvents": 5
-        }
-      },
-      {
-        "code": "BEL",
-        "name": "Bélgica",
-        "bytes": 20470,
-        "inlineBytes": 20469,
-        "tooLarge": false,
-        "counts": {
-          "cities": 5,
-          "capitals": 1,
-          "languages": 3,
-          "religionGroups": 8,
-          "organizations": 50,
-          "rivals": 60,
-          "conflicts": 16,
-          "timelineEvents": 0
-        }
-      },
-      {
-        "code": "NZL",
-        "name": "Nueva Zelanda",
-        "bytes": 20113,
-        "inlineBytes": 20112,
-        "tooLarge": false,
-        "counts": {
-          "cities": 5,
-          "capitals": 1,
-          "languages": 3,
-          "religionGroups": 8,
-          "organizations": 37,
-          "rivals": 99,
-          "conflicts": 14,
+          "organizations": 32,
+          "rivals": 13,
+          "conflicts": 49,
           "timelineEvents": 0
         }
       },
       {
         "code": "DNK",
         "name": "Dinamarca",
-        "bytes": 19442,
-        "inlineBytes": 19441,
-        "tooLarge": false,
+        "bytes": 122624,
+        "inlineBytes": 122623,
+        "tooLarge": true,
         "counts": {
           "cities": 5,
           "capitals": 1,
@@ -195,19 +127,87 @@
         }
       },
       {
-        "code": "THA",
-        "name": "Tailandia",
-        "bytes": 18945,
-        "inlineBytes": 18944,
-        "tooLarge": false,
+        "code": "RUS",
+        "name": "Rusia",
+        "bytes": 111345,
+        "inlineBytes": 111344,
+        "tooLarge": true,
+        "counts": {
+          "cities": 5,
+          "capitals": 1,
+          "languages": 1,
+          "religionGroups": 4,
+          "organizations": 41,
+          "rivals": 29,
+          "conflicts": 40,
+          "timelineEvents": 4
+        }
+      },
+      {
+        "code": "CAN",
+        "name": "Canadá",
+        "bytes": 107977,
+        "inlineBytes": 107976,
+        "tooLarge": true,
+        "counts": {
+          "cities": 4,
+          "capitals": 1,
+          "languages": 2,
+          "religionGroups": 8,
+          "organizations": 48,
+          "rivals": 74,
+          "conflicts": 32,
+          "timelineEvents": 3
+        }
+      },
+      {
+        "code": "ISR",
+        "name": "Israel",
+        "bytes": 100869,
+        "inlineBytes": 100868,
+        "tooLarge": true,
+        "counts": {
+          "cities": 5,
+          "capitals": 1,
+          "languages": 2,
+          "religionGroups": 5,
+          "organizations": 22,
+          "rivals": 19,
+          "conflicts": 35,
+          "timelineEvents": 5
+        }
+      },
+      {
+        "code": "CHN",
+        "name": "República Popular China",
+        "bytes": 84745,
+        "inlineBytes": 84744,
+        "tooLarge": true,
         "counts": {
           "cities": 5,
           "capitals": 1,
           "languages": 1,
           "religionGroups": 8,
-          "organizations": 24,
-          "rivals": 115,
-          "conflicts": 18,
+          "organizations": 33,
+          "rivals": 53,
+          "conflicts": 28,
+          "timelineEvents": 4
+        }
+      },
+      {
+        "code": "POL",
+        "name": "Polonia",
+        "bytes": 73864,
+        "inlineBytes": 73863,
+        "tooLarge": true,
+        "counts": {
+          "cities": 4,
+          "capitals": 1,
+          "languages": 1,
+          "religionGroups": 5,
+          "organizations": 44,
+          "rivals": 95,
+          "conflicts": 21,
           "timelineEvents": 0
         }
       }

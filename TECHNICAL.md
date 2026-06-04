@@ -49,10 +49,11 @@ GeoRisk es una aplicacion frontend orientada a exploracion geopolitica con datas
 - `scripts/lib/country-matching.js`: matching entre nombres del mapa, aliases y codigos.
 - `scripts/lib/conflict-cleaning.js`: normalizacion, deduplicacion y limpieza reusable de conflictos.
 - `scripts/lib/conflict-audit.js`: auditoria de conflictos, deteccion de nombres en ingles, duplicados, bandos genericos, batallas sin guerra padre y residuos de importacion.
+- `scripts/lib/conflict-batch-curation.js`: reglas de tandas seguras para agregar jerarquia, escala, tipo, region, estado, cronologia, participantes y notas de curaduria sin inventar bajas especificas.
 - `scripts/lib/render-logic.js`: logica pura reutilizable para tests y render.
 - `scripts/lib/ui-logic.js`: helpers puros de UI y paneles.
 - `scripts/auditConflicts.js`: genera `reports/conflict-audit.json` y `reports/conflict-autofix-suggestions.json`.
-- `scripts/applyConflictAutofix.js`: aplica solo renombres y detalles curados explicitos; escribe `reports/conflict-autofix-applied.json`.
+- `scripts/applyConflictAutofix.js`: aplica renombres, detalles curados explicitos y tandas seguras; escribe `reports/conflict-autofix-applied.json`.
 - `scripts/measureStartupAssets.js`: mide peso local de shell, modulos, GeoJSON y datos diferidos; escribe `reports/startup-assets.json`.
 - `scripts/projectAudit.js`: genera `reports/project-audit.json` con estado general, arranque, conflictos, archivos pesados, higiene visual y proximas acciones.
 - `scripts/releaseChecklist.js`: corre tests, auditoria de conflictos, medicion, auditoria de proyecto y smoke server antes de release.

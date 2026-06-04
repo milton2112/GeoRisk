@@ -8,6 +8,7 @@ import { MID_1800_CONFLICT_DETAIL_FIXES, MID_1800_SAFE_CONFLICT_RENAMES } from "
 import { LATE_1800_CONFLICT_DETAIL_FIXES, LATE_1800_SAFE_CONFLICT_RENAMES } from "./lib/conflict-curation-1877-1914.js";
 import { INTERWAR_CONFLICT_DETAIL_FIXES, INTERWAR_SAFE_CONFLICT_RENAMES } from "./lib/conflict-curation-1919-1941.js";
 import { WWII_1942_CONFLICT_DETAIL_FIXES, WWII_1942_SAFE_CONFLICT_RENAMES } from "./lib/conflict-curation-1942.js";
+import { collectConflictCountryNames, curateConflictDetail, curateConflictEntry } from "./lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "./lib/conflict-cleaning.js";
 
 const projectRoot = path.resolve(process.cwd());
@@ -135,6 +136,10 @@ function normalizeParticipantSides(detail) {
 }
 
 function normalizeConflictEntry(entry) {
+  return normalizeConflictEntryWithContext(entry, {});
+}
+
+function normalizeConflictEntryWithContext(entry, context) {
   if (!entry || typeof entry !== "object") {
     return entry;
   }
@@ -143,21 +148,23 @@ function normalizeConflictEntry(entry) {
     name: renameConflictName(entry.name)
   };
   const inferredCuration = inferWorldWarBattleCuration(renamedEntry);
-  return {
+  const curatedEntry = {
     ...renamedEntry,
     ...(inferredCuration || {})
   };
+  return curateConflictEntry(curatedEntry, context);
 }
 
-function fixCountryConflicts(country) {
+function fixCountryConflicts(country, countriesByConflict) {
   let changed = 0;
+  const context = { country, countriesByConflict };
 
   for (const pathKey of ["conflicts"]) {
     if (!Array.isArray(country[pathKey])) {
       continue;
     }
     const before = JSON.stringify(country[pathKey]);
-    country[pathKey] = mergeConflictEntries(country[pathKey].map(normalizeConflictEntry))
+    country[pathKey] = mergeConflictEntries(country[pathKey].map(entry => normalizeConflictEntryWithContext(entry, context)))
       .sort((a, b) => (a.startYear ?? 99999) - (b.startYear ?? 99999) || String(a.name).localeCompare(String(b.name), "es"));
     if (JSON.stringify(country[pathKey]) !== before) {
       changed += 1;
@@ -166,7 +173,7 @@ function fixCountryConflicts(country) {
 
   if (Array.isArray(country.military?.conflicts)) {
     const before = JSON.stringify(country.military.conflicts);
-    country.military.conflicts = mergeConflictEntries(country.military.conflicts.map(normalizeConflictEntry))
+    country.military.conflicts = mergeConflictEntries(country.military.conflicts.map(entry => normalizeConflictEntryWithContext(entry, context)))
       .sort((a, b) => (a.startYear ?? 99999) - (b.startYear ?? 99999) || String(a.name).localeCompare(String(b.name), "es"));
     if (JSON.stringify(country.military.conflicts) !== before) {
       changed += 1;
@@ -176,15 +183,15 @@ function fixCountryConflicts(country) {
   return changed;
 }
 
-async function fixCountriesFile(filePath) {
+async function fixCountriesFile(filePath, countriesByConflict) {
   const data = await fs.readJson(filePath);
   let changedCountries = 0;
 
   if (data.name) {
-    changedCountries += fixCountryConflicts(data) ? 1 : 0;
+    changedCountries += fixCountryConflicts(data, countriesByConflict) ? 1 : 0;
   } else {
     for (const country of Object.values(data)) {
-      changedCountries += fixCountryConflicts(country) ? 1 : 0;
+      changedCountries += fixCountryConflicts(country, countriesByConflict) ? 1 : 0;
     }
   }
 
@@ -195,7 +202,7 @@ async function fixCountriesFile(filePath) {
   return changedCountries;
 }
 
-async function fixGeneratedDetails() {
+async function fixGeneratedDetails(countriesByConflict) {
   const generated = await fs.readJson(generatedDetailsPath);
   const conflicts = generated.conflicts || generated;
   let renamed = 0;
@@ -224,8 +231,19 @@ async function fixGeneratedDetails() {
   }
 
   for (const [name, detail] of Object.entries(conflicts)) {
-    const normalized = normalizeParticipantSides(detail);
-    if (JSON.stringify(normalized?.participants || []) !== JSON.stringify(detail?.participants || [])) {
+    const curated = curateConflictDetail(name, normalizeParticipantSides(detail), { countriesByConflict });
+    const finalName = renameConflictName(curated.name);
+    const normalized = { ...curated, name: undefined };
+    delete normalized.name;
+    if (finalName !== name) {
+      conflicts[finalName] = {
+        ...(conflicts[finalName] || {}),
+        ...normalized,
+        pageTitle: finalName
+      };
+      delete conflicts[name];
+      enriched += 1;
+    } else if (JSON.stringify(normalized) !== JSON.stringify(detail)) {
       conflicts[name] = normalized;
       enriched += 1;
     }
@@ -235,12 +253,14 @@ async function fixGeneratedDetails() {
   return { renamed, enriched };
 }
 
-const changedFullCountries = await fixCountriesFile(fullPath);
+const fullCountries = await fs.readJson(fullPath);
+const countriesByConflict = collectConflictCountryNames(fullCountries);
+const changedFullCountries = await fixCountriesFile(fullPath, countriesByConflict);
 let changedCountryFiles = 0;
 for (const file of (await fs.readdir(countriesDir)).filter(item => item.endsWith(".json"))) {
-  changedCountryFiles += await fixCountriesFile(path.join(countriesDir, file));
+  changedCountryFiles += await fixCountriesFile(path.join(countriesDir, file), countriesByConflict);
 }
-const detailStats = await fixGeneratedDetails();
+const detailStats = await fixGeneratedDetails(countriesByConflict);
 
 const report = {
   generatedAt: new Date().toISOString(),

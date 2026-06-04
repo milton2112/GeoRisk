@@ -70,6 +70,7 @@ Actualizacion de producto orientada a uso real y crecimiento futuro.
 - Datasets grandes divididos: indices livianos de conflictos, timeline y busqueda, shards de detalle por conflicto, manifiesto de produccion/interno/docente y pesos por pais.
 - `countries_index.json` compactado por poda de campos vacios para sostener el arranque critico por debajo de 1 MB.
 - Auditoria de curaduria ampliada con alertas de fichas grandes, capitales multiples, ciudades destacadas, idiomas, religiones, alianzas, rivalidades y disputas territoriales.
+- Tanda segura de curaduria de conflictos: auditoria de conflictos en 0 alertas, jerarquia guerra/campana/batalla, escala, tipo, region normalizada, estado activo/historico y detalles estructurales.
 - Titulares reales dentro del hub de noticias con varias cabeceras en vivo por pais cuando la fuente responde.
 - Mas categorias de quiz: idiomas, bloques y conflictos.
 - Comparador mas profundo con calidad del dataset, alcance diplomatico, idiomas, exposicion conflictiva y mas lectura estrategica.

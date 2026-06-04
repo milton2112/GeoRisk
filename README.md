@@ -46,6 +46,9 @@ Ejemplos:
 - `npm run build:indexes`
   - genera indices livianos de conflictos, timeline, busqueda, pesos por pais y shards de detalle
 
+- `npm run fix:conflicts:batches`
+  - aplica tandas seguras de curaduria estructural de conflictos y regenera auditoria e indices
+
 - `npm run validate:data`
   - valida consistencia del dataset curado
 

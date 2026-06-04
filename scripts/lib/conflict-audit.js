@@ -179,6 +179,11 @@ function getRenamedConflictRecord(name, generatedConflictMap) {
   return renamed ? generatedConflictMap[renamed] : null;
 }
 
+function getCanonicalAuditName(name) {
+  const cleanName = cleanConflictLabel(name);
+  return ALL_SAFE_CONFLICT_RENAMES[name] || ALL_SAFE_CONFLICT_RENAMES[cleanName] || cleanName;
+}
+
 function getConflictYears(record) {
   const explicitStart = Number.isFinite(record.startYear) ? record.startYear : null;
   const explicitEnd = Number.isFinite(record.endYear) ? record.endYear : null;
@@ -243,7 +248,7 @@ export function buildConflictAuditReport({ countries = {}, generatedDetails = {}
   const generatedConflictMap = getGeneratedConflictMap(generatedDetails);
 
   function ensureRecord(name) {
-    const cleanName = cleanConflictLabel(name);
+    const cleanName = getCanonicalAuditName(name);
     const key = normalizeConflictKey(cleanName);
     if (!key) {
       return null;

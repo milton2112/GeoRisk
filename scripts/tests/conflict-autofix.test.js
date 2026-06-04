@@ -28,7 +28,7 @@ const saigon = report.topIssues.find(item => item.name === "Batalla de Saigon");
 assert.ok(!saigon?.issues.includes("battle_without_parent"), "Batalla de Saigon debe tener padre curado");
 
 const adriatic = report.topIssues.find(item => item.name === "Adriatic Campaign de World War II");
-assert.ok(adriatic?.autoFixes.includes("Campana del Adriatico en la Segunda Guerra Mundial"));
+assert.ok(!adriatic, "Los renombres seguros deben canonicalizarse antes de auditar duplicados");
 
 const midway = report.topIssues.find(item => item.name === "Batalla de Midway");
 assert.ok(!midway?.issues.includes("battle_without_parent"), "Batalla de Midway debe tener padre curado");
