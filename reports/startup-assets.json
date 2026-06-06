@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-06-04T21:19:33.792Z",
-  "startupBytes": 989091,
-  "startupHuman": "966 KB",
-  "deferredBytes": 1179659,
-  "deferredHuman": "1.13 MB",
+  "generatedAt": "2026-06-06T20:29:39.194Z",
+  "startupBytes": 1001496,
+  "startupHuman": "978 KB",
+  "deferredBytes": 1190919,
+  "deferredHuman": "1.14 MB",
   "estimatedRuntimeMemory": {
     "countriesFullBytes": 8550643,
     "countriesFullHuman": "8.15 MB",
@@ -22,8 +22,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 675241,
-      "human": "659 KB",
+      "bytes": 685895,
+      "human": "670 KB",
       "startupCritical": true
     },
     {
@@ -50,8 +50,8 @@
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 80332,
-      "human": "78 KB",
+      "bytes": 82083,
+      "human": "80 KB",
       "startupCritical": true
     },
     {
@@ -69,6 +69,13 @@
       "startupCritical": false
     },
     {
+      "path": "app-timeline-conflicts.js",
+      "exists": true,
+      "bytes": 8027,
+      "human": "8 KB",
+      "startupCritical": false
+    },
+    {
       "path": "app-performance-ui.js",
       "exists": true,
       "bytes": 6074,
@@ -76,23 +83,16 @@
       "startupCritical": false
     },
     {
-      "path": "app-runtime.js",
+      "path": "app-country-panel.js",
       "exists": true,
-      "bytes": 2961,
-      "human": "3 KB",
-      "startupCritical": true
-    },
-    {
-      "path": "app-compare-ui.js",
-      "exists": true,
-      "bytes": 2804,
-      "human": "3 KB",
+      "bytes": 5080,
+      "human": "5 KB",
       "startupCritical": false
     },
     {
-      "path": "data/geo_aliases.json",
+      "path": "app-runtime.js",
       "exists": true,
-      "bytes": 2784,
+      "bytes": 2961,
       "human": "3 KB",
       "startupCritical": true
     }
@@ -108,15 +108,15 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 675241,
-      "human": "659 KB",
+      "bytes": 685895,
+      "human": "670 KB",
       "startupCritical": true
     },
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 80332,
-      "human": "78 KB",
+      "bytes": 82083,
+      "human": "80 KB",
       "startupCritical": true
     },
     {
@@ -143,15 +143,15 @@
     {
       "path": "app-country-panel.js",
       "exists": true,
-      "bytes": 1243,
-      "human": "1 KB",
+      "bytes": 5080,
+      "human": "5 KB",
       "startupCritical": false
     },
     {
       "path": "app-timeline-conflicts.js",
       "exists": true,
-      "bytes": 604,
-      "human": "604 B",
+      "bytes": 8027,
+      "human": "8 KB",
       "startupCritical": false
     },
     {

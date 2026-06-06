@@ -808,6 +808,13 @@ body.globe-loading #map-mode-toggle {
   color: #9fd0ff;
 }
 
+.timeline-window-note {
+  margin: 8px 0 10px;
+  color: rgba(238, 245, 255, 0.68);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
 .timeline-item {
   position: relative;
   display: grid;
@@ -1594,6 +1601,84 @@ body.globe-loading #map-mode-toggle {
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-bottom: 12px;
+}
+
+.country-profile-mode-compact .panel-section:not(#country-section-general):not(#country-section-history):not(#country-section-economy):not(#country-section-sources) {
+  display: none;
+}
+
+.country-mode-switch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 12px;
+}
+
+.country-executive-summary,
+.country-local-tools,
+.country-skeleton {
+  margin: 0 0 14px;
+  padding: 12px;
+  border: 1px solid rgba(106, 180, 255, 0.16);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.country-executive-summary span,
+.country-local-tools h4,
+.country-skeleton-title {
+  display: block;
+  margin: 0 0 6px;
+  color: #9fd0ff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.country-executive-summary p,
+.country-skeleton p {
+  margin: 0;
+  color: rgba(238, 245, 255, 0.78);
+  line-height: 1.45;
+}
+
+.country-local-quality {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.country-notes-input {
+  width: 100%;
+  min-height: 88px;
+  resize: vertical;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(106, 180, 255, 0.2);
+  background: rgba(2, 7, 15, 0.5);
+  color: #eef5ff;
+  font: inherit;
+}
+
+.country-skeleton-line,
+.country-skeleton-grid span {
+  display: block;
+  min-height: 14px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.08), rgba(77, 163, 255, 0.16), rgba(255, 255, 255, 0.08));
+}
+
+.country-skeleton-line {
+  width: min(420px, 90%);
+  margin-bottom: 12px;
+}
+
+.country-skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
   margin-bottom: 12px;
 }
 
