@@ -203,7 +203,14 @@ function buildSearchIndex(countries) {
         country.religion?.summary,
         ...normalizeArray(country.general?.languages).map(compactName).slice(0, 4),
         ...normalizeArray(relations.blocs).slice(0, 4)
-      ].filter(Boolean)).slice(0, 10)
+      ].filter(Boolean)).slice(0, 10),
+      metrics: {
+        population: country.general?.population || 0,
+        conflicts: getCountryConflicts(country, code).length,
+        activeConflicts: getCountryConflicts(country, code).filter(conflict => conflict.ongoing).length,
+        organizations: normalizeArray(country.politics?.organizations).length,
+        military: country.military?.active || country.military?.activePersonnel || 0
+      }
     };
   }).sort((a, b) => a.name.localeCompare(b.name, "es"));
 }

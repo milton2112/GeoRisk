@@ -9,10 +9,22 @@ function normalizeText(value = "") {
 }
 
 self.addEventListener("message", event => {
-  const { id, countries = [] } = event.data || {};
+  const { id, countries = [], searchIndex = [] } = event.data || {};
   const aliases = [];
 
-  countries.forEach(country => {
+  searchIndex.forEach(entry => {
+    (entry.aliases || []).forEach(alias => {
+      aliases.push({
+        alias: normalizeText(alias),
+        label: entry.name,
+        type: "country",
+        value: entry.code,
+        facets: entry.facets || []
+      });
+    });
+  });
+
+  if (!aliases.length) countries.forEach(country => {
     const code = country.code;
     [
       country.name,

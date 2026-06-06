@@ -71,6 +71,8 @@ let conflictAuditUi = window.GeoRiskConflictAuditUi || {};
 let projectAuditUi = window.GeoRiskProjectAuditUi || {};
 const countryPanelUi = window.GeoRiskCountryPanel || {};
 const timelineConflictUi = window.GeoRiskTimelineConflicts || {};
+const searchCore = window.GeoRiskSearch || {};
+const rankingsCore = window.GeoRiskRankings || {};
 const sharedTheme = window.GeoRiskTheme || {};
 const sharedText = window.GeoRiskText || {};
 const bootScheduler = window.GeoRiskBootScheduler || {};
@@ -3085,6 +3087,12 @@ let countriesDataRevision = 0;
 let countryValuesCache = null;
 let countryEntriesCache = null;
 const rankingCache = new Map();
+const advancedRankingCache = typeof rankingsCore.createRankingsCache === "function"
+  ? rankingsCore.createRankingsCache()
+  : { get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
+const searchResultCache = typeof searchCore.createRecentSearchCache === "function"
+  ? searchCore.createRecentSearchCache(18)
+  : { get() {}, set(key, value) { return value; }, clear() {}, size() { return 0; } };
 const countryStyleCache = typeof mapStyleCore.createCountryStyleCache === "function"
   ? mapStyleCore.createCountryStyleCache({ maxEntries: 2200 })
   : { clear() {}, get() {}, set(key, value) { return value; }, size() { return 0; } };
@@ -3896,6 +3904,8 @@ function invalidateCountryDerivedCaches() {
   countryValuesCache = null;
   countryEntriesCache = null;
   rankingCache.clear();
+  advancedRankingCache.invalidate();
+  searchResultCache.clear();
   countryStyleCache.clear();
   lastStyleRefreshSignature = "";
 }
@@ -12051,7 +12061,65 @@ function generateHistoryTypesRanking() {
       historyType
     })), item => {
       selectSearchResult({ label: item.historyType, type: "history_type", value: item.historyType });
-    });
+  });
+}
+
+function ensureRankingList(targetId, title) {
+  let target = document.getElementById(targetId);
+  if (target) {
+    return target;
+  }
+  const container = document.querySelector("#rankings-panel .left-panel-inner");
+  if (!container) {
+    return null;
+  }
+  const wrapper = document.createElement("details");
+  wrapper.className = "ranking-group";
+  const summary = document.createElement("summary");
+  summary.textContent = title;
+  const content = document.createElement("div");
+  content.className = "ranking-group-content";
+  target = document.createElement("ul");
+  target.id = targetId;
+  content.appendChild(target);
+  wrapper.appendChild(summary);
+  wrapper.appendChild(content);
+  container.appendChild(wrapper);
+  return target;
+}
+
+function getRankingsPanelFilters() {
+  return {
+    continent: document.getElementById("rankings-continent-filter")?.value || "",
+    minPopulation: Number(document.getElementById("rankings-population-filter")?.value || 0)
+  };
+}
+
+function renderAdvancedRanking(targetId, title, metric, formatter = value => formatNumber(Math.round(value))) {
+  const target = ensureRankingList(targetId, title);
+  if (!target || typeof rankingsCore.buildRanking !== "function") {
+    return;
+  }
+  const ranking = advancedRankingCache.get(`${metric}:${JSON.stringify(getRankingsPanelFilters())}`, countriesDataRevision, () =>
+    rankingsCore.buildRanking(getCountryValues(), metric, { filters: getRankingsPanelFilters(), limit: 10 })
+  );
+  renderInteractiveList(targetId, ranking.map(item => ({
+    label: `${getFlagEmoji(getCountryCodeByObject(item.country))} ${item.name} (${formatter(item.score)})`,
+    country: item.country,
+    components: item.components
+  })), item => {
+    const code = getCountryCodeByObject(item.country);
+    if (code) selectSearchResult({ label: item.country.name, type: "country", value: code });
+  });
+}
+
+function generateAdvancedRankings() {
+  renderAdvancedRanking("top-risk-score", currentLanguage === "en" ? "Risk ranking" : "Ranking de riesgo", "risk");
+  renderAdvancedRanking("top-data-quality", currentLanguage === "en" ? "Data quality ranking" : "Ranking de calidad de datos", "dataQuality");
+  renderAdvancedRanking("top-active-conflicts", currentLanguage === "en" ? "Active conflicts" : "Conflictos activos", "activeConflicts");
+  renderAdvancedRanking("top-military-pressure", currentLanguage === "en" ? "Military pressure" : "Presion militar", "military");
+  renderAdvancedRanking("top-fragility", currentLanguage === "en" ? "Fragility" : "Fragilidad", "fragility");
+  renderAdvancedRanking("top-diplomacy", currentLanguage === "en" ? "Diplomatic buffer" : "Ranking diplomatico", "diplomacy");
 }
 
 function addCountryToCompare(code) {
@@ -12678,7 +12746,9 @@ function getSuggestions(query) {
     return [];
   }
 
-  return suggestionItems
+  const ranked = typeof searchCore.rankSuggestions === "function"
+    ? searchCore.rankSuggestions(suggestionItems, query, { isMobile: isMobileLayout(), limit: 10 })
+    : suggestionItems
     .map(item => {
       const scores = [
         getSearchScore(normalizedQuery, item.normalizedLabel),
@@ -12703,7 +12773,11 @@ function getSuggestions(query) {
 
       return a.label.localeCompare(b.label, "es");
     })
-    .slice(0, 8);
+    .slice(0, isMobileLayout() ? 6 : 8);
+
+  return typeof searchCore.groupSuggestions === "function"
+    ? searchCore.groupSuggestions(ranked, currentLanguage)
+    : ranked;
 }
 
 function renderSuggestions(query, activeIndex = 0) {
@@ -12724,7 +12798,8 @@ function renderSuggestions(query, activeIndex = 0) {
   }
   suggestionBox.innerHTML = suggestions
     .map(
-      (item, index) => `
+      (item, index, list) => `
+        ${item.groupLabel && item.groupLabel !== list[index - 1]?.groupLabel ? `<div class="search-suggestion-group">${escapeHtml(item.groupLabel)}</div>` : ""}
         <button
           type="button"
           class="search-suggestion${index === activeIndex ? " is-active" : ""}"
@@ -12802,6 +12877,66 @@ function getLayersForCountries(countries) {
   return [...matchingCodes]
     .map(code => countryLayers.get(code))
     .filter(Boolean);
+}
+
+function getSearchAliasContext() {
+  return {
+    continents: [...continentAliases.entries()],
+    religions: [...religionAliases.entries()],
+    systems: [...systemAliases.entries()],
+    organizations: [...organizationAliases.entries()],
+    blocs: [...blocAliases.entries()],
+    rivals: [...rivalAliases.entries()]
+  };
+}
+
+function getCountryMetricValue(country, metric) {
+  if (typeof rankingsCore.metricValue === "function") {
+    return rankingsCore.metricValue(country, metric);
+  }
+  const values = {
+    population: country.general?.population || 0,
+    gdp: country.economy?.gdp || 0,
+    gdpPerCapita: country.economy?.gdpPerCapita || 0,
+    conflicts: getCountryWarParticipationCount(country),
+    activeConflicts: getCountryConflictsForSearch(country).filter(conflict => conflict?.ongoing || conflict?.active || conflict?.status === "activo").length,
+    organizations: getCountryOrganizationCount(country),
+    military: getCountryMilitaryActive(country)
+  };
+  return values[metric] || 0;
+}
+
+function getCountriesForNaturalRanking(naturalQuery) {
+  const filters = naturalQuery?.filters || {};
+  return getCountryValues()
+    .filter(country => {
+      if (filters.continent && country.continent !== filters.continent) return false;
+      if (filters.religion && !isReligionMajorityInCountry(country, filters.religion)) return false;
+      if (filters.system && normalizeCategoryLabel(country.politics?.system) !== filters.system) return false;
+      if (filters.organization && !getCountriesByOrganization(filters.organization).includes(country)) return false;
+      if (filters.bloc && !getCountryBlocs(country).some(bloc => normalizeText(bloc) === normalizeText(filters.bloc))) return false;
+      if (filters.rival && !(country.politics?.rivals || []).some(rival => normalizeCategoryLabel(rival?.name || rival) === filters.rival)) return false;
+      return true;
+    })
+    .filter(country => getCountryMetricValue(country, naturalQuery.metric) > 0)
+    .sort((a, b) => getCountryMetricValue(b, naturalQuery.metric) - getCountryMetricValue(a, naturalQuery.metric))
+    .slice(0, 15);
+}
+
+function renderNaturalRankingSearch(rawQuery, naturalQuery) {
+  const cached = searchResultCache.get(rawQuery);
+  const countries = cached || searchResultCache.set(rawQuery, getCountriesForNaturalRanking(naturalQuery));
+  const layers = getLayersForCountries(countries);
+  if (!layers.length) {
+    return false;
+  }
+  setContinentSelection(layers);
+  fitLayerBounds(createLayerGroup(layers));
+  renderGroupSelection(rawQuery, currentLanguage === "en" ? "Natural ranking query" : "Consulta natural de ranking", countries);
+  pushSearchHistory(rawQuery);
+  renderSearchQueryChips({ ...naturalQuery.filters, ...naturalQuery.chips });
+  dismissSearchInput();
+  return true;
 }
 
 function getGeoJsonPathForCurrentMode(bootPhase = false) {
@@ -13011,6 +13146,13 @@ async function searchMap() {
   const query = normalizeText(rawQuery);
 
   if (!query) {
+    return;
+  }
+
+  const naturalRankingQuery = typeof searchCore.parseNaturalQuery === "function"
+    ? searchCore.parseNaturalQuery(rawQuery, getSearchAliasContext())
+    : null;
+  if (naturalRankingQuery && renderNaturalRankingSearch(rawQuery, naturalRankingQuery)) {
     return;
   }
 
@@ -13271,6 +13413,7 @@ function runDeferredGlobalStatsBatch(step = 0) {
       generateBlocsRanking();
       generateMetropolesRanking();
       generateHistoryTypesRanking();
+      generateAdvancedRankings();
     },
     () => {
       if (document.getElementById("news-hub-panel")?.open) {
@@ -15392,6 +15535,26 @@ function setupRankingsPanel() {
   if (!rankingsPanel) {
     return;
   }
+  const continentFilter = document.getElementById("rankings-continent-filter");
+  const populationFilter = document.getElementById("rankings-population-filter");
+  if (continentFilter && continentFilter.options.length <= 1) {
+    [...new Set(getCountryValues().map(country => country.continent).filter(Boolean))]
+      .sort((a, b) => translateContinentName(a).localeCompare(translateContinentName(b), "es"))
+      .forEach(continent => {
+        const option = document.createElement("option");
+        option.value = continent;
+        option.textContent = translateContinentName(continent);
+        continentFilter.appendChild(option);
+      });
+  }
+  [continentFilter, populationFilter].forEach(filter => {
+    filter?.addEventListener("change", () => {
+      advancedRankingCache.invalidate();
+      if (rankingsPanel.open) {
+        generateAdvancedRankings();
+      }
+    });
+  });
 
   rankingsPanel.open = false;
   rankingsPanel.addEventListener("toggle", () => {

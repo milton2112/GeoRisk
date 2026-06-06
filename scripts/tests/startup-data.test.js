@@ -21,6 +21,8 @@ const appMapStyles = await fs.readFile(path.join(projectRoot, "app-map-styles.js
 const appMapInteractions = await fs.readFile(path.join(projectRoot, "app-map-interactions.js"), "utf8");
 const rankingsWorker = await fs.readFile(path.join(projectRoot, "app-rankings-worker.js"), "utf8");
 const searchWorker = await fs.readFile(path.join(projectRoot, "app-search-worker.js"), "utf8");
+const appSearch = await fs.readFile(path.join(projectRoot, "app-search.js"), "utf8");
+const appRankings = await fs.readFile(path.join(projectRoot, "app-rankings.js"), "utf8");
 const perCountryDir = path.join(projectRoot, "data", "countries");
 const perCountryFiles = (await fs.readdir(perCountryDir)).filter(file => file.endsWith(".json"));
 const appShellMatch = sw.match(/const APP_SHELL = \[([\s\S]*?)\];/);
@@ -141,6 +143,10 @@ assert.ok(appMapInteractions.includes("shouldEnableHover"), "modulo de interacci
 assert.ok(appMapInteractions.includes("shouldDisableLabelsForFps"), "modulo de interacciones debe cortar labels por FPS");
 assert.ok(rankingsWorker.includes("rankings"), "worker de rankings debe preparar rankings fuera del hilo principal");
 assert.ok(searchWorker.includes("aliases"), "worker de busqueda debe preparar aliases fuera del hilo principal");
+assert.ok(appSearch.includes("parseNaturalQuery"), "busqueda debe vivir en modulo con consultas naturales");
+assert.ok(appSearch.includes("groupSuggestions"), "busqueda debe agrupar sugerencias por tipo");
+assert.ok(appRankings.includes("getRiskComponents"), "rankings/radar deben vivir en modulo con componentes explicables");
+assert.ok(appRankings.includes("proxyFields"), "rankings deben separar metricas reales de proxies");
 assert.ok(script.includes("getCachedRanking"), "rankings deben cachearse por revision del dataset");
 assert.ok(script.includes("countryStyleCache"), "estilos de pais deben cachearse");
 assert.ok(script.includes("lastStyleRefreshSignature"), "UI debe evitar recalcular estilos si tema/firma no cambio");
