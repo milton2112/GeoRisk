@@ -2440,6 +2440,7 @@ body[data-app-mode="encyclopedia"] #country-modal #country-panel {
 }
 
 #compare-country-search,
+#compare-preset-select,
 #news-topic-select,
 #news-country-filter,
 #quiz-mode {
@@ -2466,6 +2467,47 @@ body[data-app-mode="encyclopedia"] #country-modal #country-panel {
 #compare-add-button {
   cursor: pointer;
   font-weight: 600;
+}
+
+.compare-mini-chart {
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+}
+
+.compare-mini-chart span {
+  display: grid;
+  grid-template-columns: minmax(96px, 1fr) minmax(64px, 1.5fr) auto;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.76rem;
+}
+
+.compare-mini-chart i {
+  display: block;
+  height: 7px;
+  min-width: 3px;
+  border-radius: 999px;
+  background: #4da3ff;
+}
+
+.compare-mini-chart em {
+  color: rgba(238, 245, 255, 0.72);
+  font-style: normal;
+}
+
+.compare-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.quiz-review {
+  display: grid;
+  gap: 4px;
+  margin-top: 8px;
+  color: rgba(238, 245, 255, 0.72);
+  font-size: 0.76rem;
 }
 
 #news-hub-selected {

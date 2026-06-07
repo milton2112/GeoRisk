@@ -23,6 +23,8 @@ const rankingsWorker = await fs.readFile(path.join(projectRoot, "app-rankings-wo
 const searchWorker = await fs.readFile(path.join(projectRoot, "app-search-worker.js"), "utf8");
 const appSearch = await fs.readFile(path.join(projectRoot, "app-search.js"), "utf8");
 const appRankings = await fs.readFile(path.join(projectRoot, "app-rankings.js"), "utf8");
+const appCompare = await fs.readFile(path.join(projectRoot, "app-compare-ui.js"), "utf8");
+const appQuiz = await fs.readFile(path.join(projectRoot, "app-quiz-ui.js"), "utf8");
 const perCountryDir = path.join(projectRoot, "data", "countries");
 const perCountryFiles = (await fs.readdir(perCountryDir)).filter(file => file.endsWith(".json"));
 const appShellMatch = sw.match(/const APP_SHELL = \[([\s\S]*?)\];/);
@@ -147,6 +149,10 @@ assert.ok(appSearch.includes("parseNaturalQuery"), "busqueda debe vivir en modul
 assert.ok(appSearch.includes("groupSuggestions"), "busqueda debe agrupar sugerencias por tipo");
 assert.ok(appRankings.includes("getRiskComponents"), "rankings/radar deben vivir en modulo con componentes explicables");
 assert.ok(appRankings.includes("proxyFields"), "rankings deben separar metricas reales de proxies");
+assert.ok(appCompare.includes("buildComparisonModel"), "comparador debe tener modelo separado");
+assert.ok(appCompare.includes("buildProfessionalSections"), "comparador debe renderizar secciones profesionales desde modulo");
+assert.ok(appQuiz.includes("buildQuestionBank"), "quiz debe generar banco de preguntas desde dataset");
+assert.ok(appQuiz.includes("buildQuestionFromBank"), "quiz debe controlar dificultad y no repeticion");
 assert.ok(script.includes("getCachedRanking"), "rankings deben cachearse por revision del dataset");
 assert.ok(script.includes("countryStyleCache"), "estilos de pais deben cachearse");
 assert.ok(script.includes("lastStyleRefreshSignature"), "UI debe evitar recalcular estilos si tema/firma no cambio");

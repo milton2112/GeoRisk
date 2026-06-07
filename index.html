@@ -381,7 +381,14 @@
   <summary title="Comparador">📊</summary>
   <div class="compare-hub-content">
     <h3 id="compare-title">Comparador</h3>
-    <p id="compare-empty">Agrega hasta 3 paises desde la ficha o el buscador.</p>
+    <p id="compare-empty">Agrega hasta 5 paises desde la ficha o el buscador.</p>
+    <select id="compare-preset-select">
+      <option value="">Preset de comparacion</option>
+      <option value="south_america">Cono Sur / Sudamerica</option>
+      <option value="powers">Potencias globales</option>
+      <option value="conflicts">Focos de conflicto</option>
+      <option value="teachers">Modo docente base</option>
+    </select>
     <input id="compare-country-search" type="text" placeholder="Filtrar paises para comparar">
     <div class="compare-picker-row">
       <select id="compare-country-select">
@@ -410,11 +417,13 @@
       <div class="quiz-toolbar">
         <select id="quiz-category">
           <option value="capital">Capitales</option>
+          <option value="map">Mapa</option>
           <option value="religion">Religi&oacute;n mayoritaria</option>
           <option value="continent">Continente</option>
           <option value="system">Sistema pol&iacute;tico</option>
           <option value="flag">Banderas</option>
           <option value="history">Historia</option>
+          <option value="economy">Economia</option>
           <option value="organization">Organizaciones</option>
           <option value="rival">Rivales</option>
           <option value="language">Idiomas</option>
@@ -429,6 +438,9 @@
         <select id="quiz-mode">
           <option value="classic">Clasico</option>
           <option value="timed">Contra reloj</option>
+          <option value="practice">Practica</option>
+          <option value="exam">Examen</option>
+          <option value="teacher">Docente</option>
         </select>
         <button id="quiz-start-button" type="button">Iniciar quiz</button>
       </div>
@@ -440,6 +452,7 @@
       <div class="quiz-toolbar">
         <button id="quiz-next-button" type="button" hidden>Siguiente</button>
         <button id="quiz-reset-button" type="button" hidden>Reiniciar</button>
+        <button id="quiz-export-button" type="button" hidden>Exportar resultado</button>
       </div>
     </div>
   </div>

@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-06-06T20:37:16.904Z",
-  "startupBytes": 1010401,
-  "startupHuman": "987 KB",
-  "deferredBytes": 1203835,
-  "deferredHuman": "1.15 MB",
+  "generatedAt": "2026-06-07T01:59:23.649Z",
+  "startupBytes": 1016906,
+  "startupHuman": "993 KB",
+  "deferredBytes": 1214719,
+  "deferredHuman": "1.16 MB",
   "estimatedRuntimeMemory": {
     "countriesFullBytes": 8550643,
     "countriesFullHuman": "8.15 MB",
@@ -22,8 +22,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 693619,
-      "human": "677 KB",
+      "bytes": 698776,
+      "human": "682 KB",
       "startupCritical": true
     },
     {
@@ -50,16 +50,23 @@
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 82601,
+      "bytes": 83274,
       "human": "81 KB",
       "startupCritical": true
     },
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 30932,
-      "human": "30 KB",
+      "bytes": 31607,
+      "human": "31 KB",
       "startupCritical": true
+    },
+    {
+      "path": "app-compare-ui.js",
+      "exists": true,
+      "bytes": 8670,
+      "human": "8 KB",
+      "startupCritical": false
     },
     {
       "path": "app-text.js",
@@ -76,23 +83,16 @@
       "startupCritical": false
     },
     {
+      "path": "app-quiz-ui.js",
+      "exists": true,
+      "bytes": 6513,
+      "human": "6 KB",
+      "startupCritical": false
+    },
+    {
       "path": "app-performance-ui.js",
       "exists": true,
       "bytes": 6074,
-      "human": "6 KB",
-      "startupCritical": false
-    },
-    {
-      "path": "app-search.js",
-      "exists": true,
-      "bytes": 5935,
-      "human": "6 KB",
-      "startupCritical": false
-    },
-    {
-      "path": "app-rankings.js",
-      "exists": true,
-      "bytes": 5777,
       "human": "6 KB",
       "startupCritical": false
     }
@@ -101,21 +101,21 @@
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 30932,
-      "human": "30 KB",
+      "bytes": 31607,
+      "human": "31 KB",
       "startupCritical": true
     },
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 693619,
-      "human": "677 KB",
+      "bytes": 698776,
+      "human": "682 KB",
       "startupCritical": true
     },
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 82601,
+      "bytes": 83274,
       "human": "81 KB",
       "startupCritical": true
     },
@@ -206,15 +206,15 @@
     {
       "path": "app-compare-ui.js",
       "exists": true,
-      "bytes": 2804,
-      "human": "3 KB",
+      "bytes": 8670,
+      "human": "8 KB",
       "startupCritical": false
     },
     {
       "path": "app-quiz-ui.js",
       "exists": true,
-      "bytes": 1495,
-      "human": "1 KB",
+      "bytes": 6513,
+      "human": "6 KB",
       "startupCritical": false
     },
     {

@@ -3121,6 +3121,7 @@ let currentTheme = "default";
 let currentMapMode = "3d";
 let selectionMode = "country";
 let compareSelection = [];
+const compareDataCache = new Map();
 let currentLanguage = "es";
 let currentPanelState = { type: "empty" };
 let savedFilters = [];
@@ -3128,6 +3129,7 @@ let savedViews = [];
 let favoriteViews = [];
 let searchHistory = [];
 let savedSearches = [];
+let quizQuestionBank = [];
 let compareBenchmarkMode = "world";
 let activeNewsTopic = "general";
 let appMode = "default";
@@ -3162,6 +3164,8 @@ let quizState = {
   feedback: null,
   streak: 0,
   bestStreak: 0,
+  mistakes: [],
+  achievements: [],
   timeLeft: 0,
   timerId: null
 };
@@ -3906,6 +3910,8 @@ function invalidateCountryDerivedCaches() {
   rankingCache.clear();
   advancedRankingCache.invalidate();
   searchResultCache.clear();
+  compareDataCache.clear();
+  quizQuestionBank = [];
   countryStyleCache.clear();
   lastStyleRefreshSignature = "";
 }
@@ -12129,12 +12135,14 @@ function addCountryToCompare(code) {
 
   compareSelection = compareSelection.filter(item => item !== code);
   compareSelection.unshift(code);
-  compareSelection = compareSelection.slice(0, 3);
+  compareSelection = compareSelection.slice(0, 5);
+  compareDataCache.clear();
   renderComparePanel();
 }
 
 function removeCountryFromCompare(code) {
   compareSelection = compareSelection.filter(item => item !== code);
+  compareDataCache.clear();
   renderComparePanel();
 }
 
@@ -15140,8 +15148,20 @@ function updateQuizMeta() {
 }
 
 function buildQuizQuestion(category) {
+  if (typeof quizUi.buildQuestionBank === "function" && typeof quizUi.buildQuestionFromBank === "function") {
+    if (!quizQuestionBank.length) {
+      quizQuestionBank = quizUi.buildQuestionBank(countriesData, { translateContinentName });
+    }
+    const generatedQuestion = quizUi.buildQuestionFromBank(quizQuestionBank, countriesData, { ...quizState, category }, { translateContinentName });
+    if (generatedQuestion) {
+      return generatedQuestion;
+    }
+  }
+
   const pool = Object.entries(countriesData).filter(([code, country]) => {
     if (quizState.asked.includes(code)) return false;
+    if (category === "map") return Boolean(country.continent);
+    if (category === "economy") return Boolean(country.economy?.gdpPerCapita);
     if (category === "capital") return Boolean(country.general?.capital?.name);
     if (category === "religion") return Boolean(getReligionSummaryLabel(country.religion));
     if (category === "continent") return Boolean(country.continent);
@@ -15176,6 +15196,10 @@ function buildQuizQuestion(category) {
     prompt = `¿En que continente se ubica ${country.name}?`;
     correct = translateContinentName(country.continent);
     distractors = shuffleArray(["America", "Europa", "Asia", "Africa", "Oceania", "Antartida"].filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
+  } else if (category === "map") {
+    prompt = `Pregunta de mapa: ¿en que continente se ubica ${country.name}?`;
+    correct = translateContinentName(country.continent);
+    distractors = shuffleArray(["America", "Europa", "Asia", "Africa", "Oceania", "Antartida"].filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
   } else if (category === "flag") {
     prompt = `¿A que pais corresponde esta bandera? ${getFlagEmoji(code)}`;
     correct = country.name;
@@ -15184,6 +15208,10 @@ function buildQuizQuestion(category) {
     prompt = `¿En que año se formo ${country.name}?`;
     correct = String(country.history.year);
     distractors = shuffleArray(Object.values(countriesData).map(item => item.history?.year).filter(Boolean).map(String).filter(value => value !== correct)).slice(0, 3);
+  } else if (category === "economy") {
+    prompt = `¿Que pais tiene un PBI per capita aproximado de US$ ${formatNumber(Math.round(country.economy.gdpPerCapita))}?`;
+    correct = country.name;
+    distractors = shuffleArray(Object.values(countriesData).filter(item => item.economy?.gdpPerCapita).map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
   } else if (category === "organization") {
     const org = getOrganizationDisplayName(country.politics.organizations[0]);
     prompt = `¿Que pais pertenece a esta organizacion? ${org}`;
@@ -15201,7 +15229,7 @@ function buildQuizQuestion(category) {
   }
 
   if (distractors.length < 3) return null;
-  return { code, prompt, correct, options: shuffleArray([correct, ...distractors]), answered: false };
+  return { code, prompt, correct, options: shuffleArray([correct, ...distractors]), answered: false, explanation: `${currentLanguage === "en" ? "Source" : "Fuente"}: dataset GeoRisk.` };
 }
 
 function renderQuizPanel() {
@@ -15269,6 +15297,8 @@ function startQuiz() {
     feedback: null,
     streak: 0,
     bestStreak: Number(localStorage.getItem("geo-risk-quiz-best-streak") || 0),
+    mistakes: [],
+    achievements: [],
     timeLeft: 0,
     timerId: null
   };
@@ -15294,8 +15324,16 @@ function answerQuiz(answer) {
     quizState.streak += 1;
     quizState.bestStreak = Math.max(quizState.bestStreak || 0, quizState.streak);
     localStorage.setItem("geo-risk-quiz-best-streak", String(quizState.bestStreak));
+    if (quizState.streak === 5) {
+      quizState.achievements = [...(quizState.achievements || []), currentLanguage === "en" ? "5-answer streak" : "Racha de 5"];
+    }
   } else {
     quizState.streak = 0;
+    quizState.mistakes = [...(quizState.mistakes || []), {
+      prompt: quizState.current.prompt,
+      correct: quizState.current.correct,
+      category: quizState.category
+    }].slice(-10);
   }
   quizState.asked.push(quizState.current.code);
   quizState.current.answered = true;
@@ -15307,7 +15345,7 @@ function answerQuiz(answer) {
   quizState.feedback = {
     kind: isCorrect ? "ok" : "error",
     title: feedbackTitle,
-    body: `${currentLanguage === "en" ? "Answer" : "Respuesta"}: ${quizState.current.correct}. ${currentLanguage === "en" ? "Category" : "Categoria"}: ${quizState.category}.`
+    body: quizState.current.explanation || `${currentLanguage === "en" ? "Answer" : "Respuesta"}: ${quizState.current.correct}. ${currentLanguage === "en" ? "Category" : "Categoria"}: ${quizState.category}.`
   };
 
   document.querySelectorAll(".quiz-option").forEach(button => {
@@ -15333,6 +15371,7 @@ setupQuizControls = function setupQuizControls() {
   const categorySelect = document.getElementById("quiz-category");
   const difficultySelect = document.getElementById("quiz-difficulty");
   const modeSelect = document.getElementById("quiz-mode");
+  const exportButton = document.getElementById("quiz-export-button");
   const options = document.getElementById("quiz-options");
   if (!startButton || !nextButton || !resetButton || !categorySelect || !difficultySelect || !modeSelect || !options) return;
 
@@ -15351,6 +15390,8 @@ setupQuizControls = function setupQuizControls() {
       feedback: null,
       streak: 0,
       bestStreak: Number(localStorage.getItem("geo-risk-quiz-best-streak") || 0),
+      mistakes: [],
+      achievements: [],
       timeLeft: 0,
       timerId: null
     };
@@ -15359,6 +15400,12 @@ setupQuizControls = function setupQuizControls() {
   categorySelect.addEventListener("change", () => { quizState.category = categorySelect.value || "capital"; renderQuizPanel(); });
   difficultySelect.addEventListener("change", () => { quizState.difficulty = difficultySelect.value || "easy"; renderQuizPanel(); });
   modeSelect.addEventListener("change", () => { quizState.mode = modeSelect.value || "classic"; renderQuizPanel(); });
+  exportButton?.addEventListener("click", () => {
+    const text = typeof quizUi.buildResultsExport === "function"
+      ? quizUi.buildResultsExport(quizState, currentLanguage)
+      : `Puntaje: ${quizState.score}/${quizState.total}`;
+    shareText(currentLanguage === "en" ? "GeoRisk quiz results" : "Resultados del quiz GeoRisk", text);
+  });
   options.addEventListener("click", event => {
     const button = event.target.closest("[data-quiz-answer]");
     if (button) answerQuiz(button.dataset.quizAnswer || "");
@@ -16124,6 +16171,7 @@ function setupCompareControls() {
   const search = document.getElementById("compare-country-search");
   const benchmarkWorld = document.getElementById("compare-benchmark-world");
   const benchmarkContinent = document.getElementById("compare-benchmark-continent");
+  const presetSelect = document.getElementById("compare-preset-select");
   const comparePanel = document.getElementById("compare-hub-panel");
   const compareModal = document.getElementById("compare-modal");
   const compareCloseButton = document.getElementById("compare-modal-close");
@@ -16134,6 +16182,16 @@ function setupCompareControls() {
     if (button) removeCountryFromCompare(button.dataset.removeCompare);
   });
   search?.addEventListener("input", () => updateCompareSelectOptions(search.value));
+  presetSelect?.addEventListener("change", () => {
+    const codes = typeof compareUi.getPresetCountries === "function"
+      ? compareUi.getPresetCountries(presetSelect.value, countriesData)
+      : [];
+    if (codes.length) {
+      compareSelection = codes.slice(0, 5);
+      compareDataCache.clear();
+      renderComparePanel();
+    }
+  });
   addButton?.addEventListener("click", () => {
     if (!select?.value) return;
     addCountryToCompare(select.value);
@@ -16142,15 +16200,18 @@ function setupCompareControls() {
   openButton?.addEventListener("click", () => openCompareModal());
   clearButton?.addEventListener("click", () => {
     compareSelection = [];
+    compareDataCache.clear();
     renderComparePanel();
     closeCompareModal();
   });
   benchmarkWorld?.addEventListener("click", () => {
     compareBenchmarkMode = "world";
+    compareDataCache.clear();
     renderComparePanel();
   });
   benchmarkContinent?.addEventListener("click", () => {
     compareBenchmarkMode = "continent";
+    compareDataCache.clear();
     renderComparePanel();
   });
   comparePanel?.addEventListener("toggle", () => {
@@ -16315,7 +16376,7 @@ if (typeof newsUi.buildArticleCard === "function") {
   };
 }
 
-if (typeof compareUi.buildCompareChips === "function") {
+{
   renderComparePanel = function renderComparePanel() {
     const comparePanel = document.getElementById("compare-hub-panel");
     const empty = document.getElementById("compare-empty");
@@ -16340,7 +16401,9 @@ if (typeof compareUi.buildCompareChips === "function") {
 
     empty.hidden = true;
     results.hidden = false;
-    chips.innerHTML = compareUi.buildCompareChips(compareSelection, countriesData, getFlagEmoji, escapeHtml);
+    chips.innerHTML = typeof compareUi.buildCompareChips === "function"
+      ? compareUi.buildCompareChips(compareSelection, countriesData, getFlagEmoji, escapeHtml)
+      : compareSelection.map(code => `<span class="compare-chip">${getFlagEmoji(code)} ${escapeHtml(countriesData[code]?.name || code)} <button type="button" data-remove-compare="${escapeHtml(code)}">x</button></span>`).join("");
 
     const heavyMode = comparePanel?.open || compareSelection.length >= 2;
     if (!heavyMode) {
@@ -16423,6 +16486,17 @@ function buildCompareInsightCards(compareSelectionCodes) {
   }).join("");
 }
 
+function getCompareModelForSelection() {
+  const key = `${compareSelection.join("|")}:${countriesDataRevision}:${currentLanguage}`;
+  if (!compareDataCache.has(key)) {
+    const model = typeof compareUi.buildComparisonModel === "function"
+      ? compareUi.buildComparisonModel(compareSelection, countriesData)
+      : null;
+    compareDataCache.set(key, model);
+  }
+  return compareDataCache.get(key);
+}
+
 if (typeof compareUi.buildCompareChips === "function") {
   renderComparePanel = function renderComparePanel() {
     const comparePanel = document.getElementById("compare-hub-panel");
@@ -16452,8 +16526,11 @@ if (typeof compareUi.buildCompareChips === "function") {
 
     const heavyMode = comparePanel?.open || compareSelection.length >= 2;
     if (!heavyMode) {
+      const lightCards = typeof compareUi.buildLightCards === "function"
+        ? compareUi.buildLightCards(compareSelection, countriesData, getFlagEmoji, escapeHtml)
+        : "";
       results.innerHTML = `
-        ${compareUi.buildLightCards(compareSelection, countriesData, getFlagEmoji, escapeHtml)}
+        ${lightCards}
         <div class="compare-insight-grid">${buildCompareInsightCards(compareSelection)}</div>
       `;
       if (openButton) openButton.disabled = compareSelection.length < 2;
@@ -16472,17 +16549,19 @@ if (typeof compareUi.buildCompareChips === "function") {
       }
     }));
 
-    const cards = compareUi.buildCountryCards(
-      compareSelection,
-      countriesData,
-      escapeHtml,
-      renderFlagVisual,
-      translateContinentName,
-      t,
-      getCountryBlocLabel,
-      getComparisonBenchmark,
-      formatPercentage
-    );
+    const cards = typeof compareUi.buildCountryCards === "function"
+      ? compareUi.buildCountryCards(
+          compareSelection,
+          countriesData,
+          escapeHtml,
+          renderFlagVisual,
+          translateContinentName,
+          t,
+          getCountryBlocLabel,
+          getComparisonBenchmark,
+          formatPercentage
+        )
+      : "";
 
     const additionalRows = [
       {
@@ -16540,6 +16619,17 @@ if (typeof compareUi.buildCompareChips === "function") {
       const country = countriesData[code];
       return `<div><b>${getFlagEmoji(code)} ${escapeHtml(country.name)}:</b> ${currentLanguage === "en" ? "quality" : "calidad"} ${getCountryQualityScore(country)}/100 · ${currentLanguage === "en" ? "languages" : "idiomas"} ${formatNumber(getCountryLanguageDiversity(country))} · ${currentLanguage === "en" ? "war exposure" : "exposicion belica"} ${formatNumber(getCountryWarParticipationCount(country))}</div>`;
     }).join("");
+    const compareModel = getCompareModelForSelection();
+    const professionalSections = compareModel && typeof compareUi.buildProfessionalSections === "function"
+      ? compareUi.buildProfessionalSections(compareModel, {
+          language: currentLanguage,
+          escapeHtml,
+          getFlagEmoji,
+          formatNumber,
+          compactNumber,
+          formatInflation
+        })
+      : "";
 
     results.innerHTML = `
       <div class="compare-toolbar">
@@ -16554,6 +16644,7 @@ if (typeof compareUi.buildCompareChips === "function") {
         <strong>${currentLanguage === "en" ? "Strategic profile" : "Perfil estrategico"}</strong>
         <div class="compare-values">${profileRows}</div>
       </div>
+      ${professionalSections}
       <div class="compare-row compare-summary-row">
         <strong>${compareBenchmarkMode === "continent" ? (currentLanguage === "en" ? "Continental benchmarks" : "Referencias continentales") : (currentLanguage === "en" ? "World benchmarks" : "Referencias mundiales")}</strong>
         <div class="compare-values">${benchmarkMarkup}</div>
@@ -16566,7 +16657,7 @@ if (typeof compareUi.buildCompareChips === "function") {
   };
 }
 
-if (typeof quizUi.buildStatusText === "function") {
+{
   updateQuizMeta = function updateQuizMeta() {
     const meta = document.getElementById("quiz-meta");
     if (!meta) return;
@@ -16581,6 +16672,7 @@ if (typeof quizUi.buildStatusText === "function") {
     const options = document.getElementById("quiz-options");
     const nextButton = document.getElementById("quiz-next-button");
     const resetButton = document.getElementById("quiz-reset-button");
+    const exportButton = document.getElementById("quiz-export-button");
     const categorySelect = document.getElementById("quiz-category");
     const difficultySelect = document.getElementById("quiz-difficulty");
     const modeSelect = document.getElementById("quiz-mode");
@@ -16589,7 +16681,9 @@ if (typeof quizUi.buildStatusText === "function") {
     categorySelect.value = quizState.category;
     difficultySelect.value = quizState.difficulty;
     modeSelect.value = quizState.mode || "classic";
-    status.textContent = quizUi.buildStatusText(quizState);
+    status.textContent = typeof quizUi.buildStatusText === "function"
+      ? quizUi.buildStatusText(quizState)
+      : (quizState.total ? `Puntaje: ${quizState.score}/${quizState.total}` : "Elegi una categoria y empeza el quiz.");
     updateQuizMeta();
 
     if (!quizState.current) {
@@ -16598,13 +16692,20 @@ if (typeof quizUi.buildStatusText === "function") {
       options.innerHTML = "";
       nextButton.hidden = true;
       resetButton.hidden = quizState.total === 0 && !quizState.asked.length;
+      if (exportButton) exportButton.hidden = quizState.total === 0;
       return;
     }
 
     question.textContent = quizState.current.prompt;
-    feedback.innerHTML = typeof quizUi.buildFeedbackHtml === "function" ? quizUi.buildFeedbackHtml(quizState.feedback, escapeHtml) : "";
-    options.innerHTML = quizUi.buildOptionsMarkup(quizState.current.options, escapeHtml);
+    const review = (quizState.mistakes || []).length
+      ? `<div class="quiz-review">${(quizState.mistakes || []).slice(-3).map(item => `<span><b>${escapeHtml(item.category)}:</b> ${escapeHtml(item.correct)}</span>`).join("")}</div>`
+      : "";
+    feedback.innerHTML = `${typeof quizUi.buildFeedbackHtml === "function" ? quizUi.buildFeedbackHtml(quizState.feedback, escapeHtml) : ""}${review}`;
+    options.innerHTML = typeof quizUi.buildOptionsMarkup === "function"
+      ? quizUi.buildOptionsMarkup(quizState.current.options, escapeHtml)
+      : quizState.current.options.map(option => `<button type="button" class="quiz-option" data-quiz-answer="${escapeHtml(option)}">${escapeHtml(option)}</button>`).join("");
     nextButton.hidden = !quizState.current.answered;
+    if (exportButton) exportButton.hidden = quizState.total === 0;
     resetButton.hidden = false;
   };
 }
