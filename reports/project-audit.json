@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-06-04T21:19:32.742Z",
+  "generatedAt": "2026-06-13T19:28:41.577Z",
   "status": "operativo",
   "startup": {
-    "critical": "966 KB",
-    "criticalBytes": 989091,
-    "deferred": "1.13 MB",
+    "critical": "998 KB",
+    "criticalBytes": 1022000,
+    "deferred": "1.16 MB",
     "estimatedRuntimeMemory": {
-      "countriesFullBytes": 8549997,
+      "countriesFullBytes": 8550643,
       "countriesFullHuman": "8.15 MB",
-      "estimatedParsedBytes": 25649991,
+      "estimatedParsedBytes": 25651929,
       "estimatedParsedHuman": "24.46 MB",
       "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
     },
@@ -23,8 +23,8 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 675241,
-        "human": "659 KB",
+        "bytes": 696899,
+        "human": "681 KB",
         "startupCritical": true
       },
       {
@@ -51,16 +51,23 @@
       {
         "path": "style.css",
         "exists": true,
-        "bytes": 80332,
-        "human": "78 KB",
+        "bytes": 84633,
+        "human": "83 KB",
         "startupCritical": true
       },
       {
         "path": "index.html",
         "exists": true,
-        "bytes": 30269,
-        "human": "30 KB",
+        "bytes": 32039,
+        "human": "31 KB",
         "startupCritical": true
+      },
+      {
+        "path": "app-compare-ui.js",
+        "exists": true,
+        "bytes": 8670,
+        "human": "8 KB",
+        "startupCritical": false
       },
       {
         "path": "app-text.js",
@@ -70,32 +77,25 @@
         "startupCritical": false
       },
       {
+        "path": "app-timeline-conflicts.js",
+        "exists": true,
+        "bytes": 8027,
+        "human": "8 KB",
+        "startupCritical": false
+      },
+      {
+        "path": "app-quiz-ui.js",
+        "exists": true,
+        "bytes": 6513,
+        "human": "6 KB",
+        "startupCritical": false
+      },
+      {
         "path": "app-performance-ui.js",
         "exists": true,
         "bytes": 6074,
         "human": "6 KB",
         "startupCritical": false
-      },
-      {
-        "path": "app-runtime.js",
-        "exists": true,
-        "bytes": 2961,
-        "human": "3 KB",
-        "startupCritical": true
-      },
-      {
-        "path": "app-compare-ui.js",
-        "exists": true,
-        "bytes": 2804,
-        "human": "3 KB",
-        "startupCritical": false
-      },
-      {
-        "path": "data/geo_aliases.json",
-        "exists": true,
-        "bytes": 2784,
-        "human": "3 KB",
-        "startupCritical": true
       }
     ]
   },
@@ -120,16 +120,16 @@
         "human": "280 KB"
       },
       {
+        "path": "data/search_index.json",
+        "exists": true,
+        "bytes": 194380,
+        "human": "190 KB"
+      },
+      {
         "path": "data/countries_index.json",
         "exists": true,
         "bytes": 188543,
         "human": "184 KB"
-      },
-      {
-        "path": "data/search_index.json",
-        "exists": true,
-        "bytes": 175992,
-        "human": "172 KB"
       },
       {
         "path": "data/conflicts/details_index.json",
@@ -389,32 +389,38 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 675241,
-      "human": "659 KB"
+      "bytes": 696899,
+      "human": "681 KB"
     },
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 80332,
-      "human": "78 KB"
+      "bytes": 84633,
+      "human": "83 KB"
     },
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 30269,
-      "human": "30 KB"
-    },
-    {
-      "path": "TECHNICAL.md",
-      "exists": true,
-      "bytes": 9805,
-      "human": "10 KB"
+      "bytes": 32039,
+      "human": "31 KB"
     },
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 9733,
+      "bytes": 10789,
+      "human": "11 KB"
+    },
+    {
+      "path": "TECHNICAL.md",
+      "exists": true,
+      "bytes": 10018,
       "human": "10 KB"
+    },
+    {
+      "path": "app-compare-ui.js",
+      "exists": true,
+      "bytes": 8670,
+      "human": "8 KB"
     },
     {
       "path": "app-text.js",
@@ -427,6 +433,12 @@
       "exists": true,
       "bytes": 7528,
       "human": "7 KB"
+    },
+    {
+      "path": "app-quiz-ui.js",
+      "exists": true,
+      "bytes": 6513,
+      "human": "6 KB"
     },
     {
       "path": "app-project-audit-ui.js",
@@ -453,15 +465,21 @@
       "human": "4 KB"
     },
     {
+      "path": "package.json",
+      "exists": true,
+      "bytes": 3387,
+      "human": "3 KB"
+    },
+    {
       "path": "app-runtime.js",
       "exists": true,
       "bytes": 2961,
       "human": "3 KB"
     },
     {
-      "path": "app-compare-ui.js",
+      "path": "app-news-ui.js",
       "exists": true,
-      "bytes": 2804,
+      "bytes": 2958,
       "human": "3 KB"
     },
     {
@@ -471,28 +489,16 @@
       "human": "3 KB"
     },
     {
-      "path": "package.json",
-      "exists": true,
-      "bytes": 2590,
-      "human": "3 KB"
-    },
-    {
       "path": "app-map.js",
       "exists": true,
       "bytes": 2294,
       "human": "2 KB"
     },
     {
-      "path": "app-news-ui.js",
+      "path": "app-rankings-worker.js",
       "exists": true,
-      "bytes": 1511,
-      "human": "1 KB"
-    },
-    {
-      "path": "app-quiz-ui.js",
-      "exists": true,
-      "bytes": 1495,
-      "human": "1 KB"
+      "bytes": 2182,
+      "human": "2 KB"
     },
     {
       "path": "app-map-styles.js",
@@ -507,23 +513,17 @@
       "human": "1 KB"
     },
     {
-      "path": "app-rankings-worker.js",
-      "exists": true,
-      "bytes": 1292,
-      "human": "1 KB"
-    },
-    {
       "path": "app-search-worker.js",
       "exists": true,
-      "bytes": 753,
-      "human": "753 B"
+      "bytes": 1067,
+      "human": "1 KB"
     }
   ],
   "scriptMetrics": {
-    "functions": 485,
+    "functions": 495,
     "asyncFunctions": 40,
     "consoleWarnings": 15,
-    "consoleErrors": 16
+    "consoleErrors": 15
   },
   "visualMetrics": {
     "index.html": {
@@ -552,6 +552,7 @@
     "audit:project",
     "build:data",
     "build:indexes",
+    "build:prod",
     "check:startup-budget",
     "clean:local",
     "compact:index",
@@ -561,8 +562,11 @@
     "import:conflicts:wikipedia",
     "measure:startup",
     "release:check",
+    "release:tag",
     "smoke:server",
     "test",
+    "test:browser-visual",
+    "test:compare-quiz",
     "test:conflict-audit",
     "test:conflict-audit-report",
     "test:conflict-autofix",
@@ -571,9 +575,14 @@
     "test:logic",
     "test:map-coverage",
     "test:modal-render",
+    "test:news",
     "test:normalization",
+    "test:rankings",
+    "test:release-gates",
+    "test:search",
     "test:smoke-server",
     "test:startup",
+    "test:ui-architecture",
     "test:visual-hygiene",
     "validate:data"
   ],

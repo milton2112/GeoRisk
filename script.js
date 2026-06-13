@@ -81,14 +81,14 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 const uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-06-13-ux-1";
+const APP_VERSION = "2026-06-13-release-1";
 const DEFERRED_UI_MODULES = {
-  news: "./app-news-ui.js?v=2026-06-13-ux-1",
-  compare: "./app-compare-ui.js?v=2026-06-13-ux-1",
-  quiz: "./app-quiz-ui.js?v=2026-06-13-ux-1",
-  riskRadar: "./app-risk-radar-ui.js?v=2026-06-13-ux-1",
-  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-13-ux-1",
-  projectAudit: "./app-project-audit-ui.js?v=2026-06-13-ux-1"
+  news: "./app-news-ui.js?v=2026-06-13-release-1",
+  compare: "./app-compare-ui.js?v=2026-06-13-release-1",
+  quiz: "./app-quiz-ui.js?v=2026-06-13-release-1",
+  riskRadar: "./app-risk-radar-ui.js?v=2026-06-13-release-1",
+  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-13-release-1",
+  projectAudit: "./app-project-audit-ui.js?v=2026-06-13-release-1"
 };
 const deferredUiModulePromises = new Map();
 

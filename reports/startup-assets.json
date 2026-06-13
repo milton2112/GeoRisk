@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-06-07T01:59:23.649Z",
-  "startupBytes": 1016906,
-  "startupHuman": "993 KB",
-  "deferredBytes": 1214719,
+  "generatedAt": "2026-06-13T19:28:40.212Z",
+  "startupBytes": 1022000,
+  "startupHuman": "998 KB",
+  "deferredBytes": 1216166,
   "deferredHuman": "1.16 MB",
   "estimatedRuntimeMemory": {
     "countriesFullBytes": 8550643,
@@ -22,8 +22,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 698776,
-      "human": "682 KB",
+      "bytes": 696899,
+      "human": "681 KB",
       "startupCritical": true
     },
     {
@@ -50,14 +50,14 @@
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 83274,
-      "human": "81 KB",
+      "bytes": 84633,
+      "human": "83 KB",
       "startupCritical": true
     },
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 31607,
+      "bytes": 32039,
       "human": "31 KB",
       "startupCritical": true
     },
@@ -101,22 +101,22 @@
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 31607,
+      "bytes": 32039,
       "human": "31 KB",
       "startupCritical": true
     },
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 698776,
-      "human": "682 KB",
+      "bytes": 696899,
+      "human": "681 KB",
       "startupCritical": true
     },
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 83274,
-      "human": "81 KB",
+      "bytes": 84633,
+      "human": "83 KB",
       "startupCritical": true
     },
     {
@@ -199,8 +199,8 @@
     {
       "path": "app-news-ui.js",
       "exists": true,
-      "bytes": 1511,
-      "human": "1 KB",
+      "bytes": 2958,
+      "human": "3 KB",
       "startupCritical": false
     },
     {
@@ -272,6 +272,20 @@
       "bytes": 724207,
       "human": "707 KB",
       "startupCritical": false
+    },
+    {
+      "path": "app-store.js",
+      "exists": true,
+      "bytes": 1298,
+      "human": "1 KB",
+      "startupCritical": true
+    },
+    {
+      "path": "app-ui-polish.js",
+      "exists": true,
+      "bytes": 3882,
+      "human": "4 KB",
+      "startupCritical": true
     },
     {
       "path": "favicon.ico",

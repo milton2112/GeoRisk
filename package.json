@@ -1,9 +1,10 @@
 {
   "name": "geo-risk",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "type": "module",
   "scripts": {
     "build:data": "node scripts/buildDataset.js",
+    "build:prod": "node scripts/buildProduction.js",
     "import:conflicts:wikipedia": "node scripts/importWikipediaConflicts.js",
     "import:conflicts:dyadic": "powershell -ExecutionPolicy Bypass -File scripts/importDyadicSupplement.ps1",
     "smoke:server": "node scripts/localSmokeServer.js",
@@ -17,6 +18,7 @@
     "check:startup-budget": "node scripts/checkStartupBudget.js",
     "clean:local": "node scripts/cleanLocal.js",
     "release:check": "node scripts/releaseChecklist.js",
+    "release:tag": "node scripts/createReleaseTag.js",
     "validate:data": "node scripts/validateDataset.js",
     "test:normalization": "node scripts/tests/normalization.test.js",
     "test:conflicts": "node scripts/tests/conflict-cleaning.test.js",
@@ -28,6 +30,8 @@
     "test:rankings": "node scripts/tests/ranking-formulas.test.js",
     "test:news": "node scripts/tests/news-ui.test.js",
     "test:ui-architecture": "node scripts/tests/ui-architecture.test.js",
+    "test:release-gates": "node scripts/tests/release-gates.test.js",
+    "test:browser-visual": "node scripts/tests/browser-visual-smoke.test.js",
     "test:compare-quiz": "node scripts/tests/compare-quiz.test.js",
     "test:startup": "node scripts/tests/startup-data.test.js",
     "test:visual-hygiene": "node scripts/tests/visual-hygiene.test.js",
@@ -35,7 +39,7 @@
     "test:country-matching": "node scripts/tests/country-matching.test.js",
     "test:modal-render": "node scripts/tests/modal-render.test.js",
     "test:map-coverage": "node scripts/tests/map-coverage.test.js",
-    "test": "npm run check:startup-budget && npm run test:normalization && npm run test:conflicts && npm run test:conflict-audit && npm run test:conflict-audit-report && npm run test:conflict-autofix && npm run test:logic && npm run test:search && npm run test:rankings && npm run test:news && npm run test:ui-architecture && npm run test:compare-quiz && npm run test:startup && npm run test:visual-hygiene && npm run test:smoke-server && npm run test:country-matching && npm run test:modal-render && npm run test:map-coverage && npm run validate:data"
+    "test": "npm run check:startup-budget && npm run build:prod && npm run test:normalization && npm run test:conflicts && npm run test:conflict-audit && npm run test:conflict-audit-report && npm run test:conflict-autofix && npm run test:logic && npm run test:search && npm run test:rankings && npm run test:news && npm run test:ui-architecture && npm run test:release-gates && npm run test:browser-visual && npm run test:compare-quiz && npm run test:startup && npm run test:visual-hygiene && npm run test:smoke-server && npm run test:country-matching && npm run test:modal-render && npm run test:map-coverage && npm run validate:data"
   },
   "dependencies": {
     "csv-parser": "^3.0.0",

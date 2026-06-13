@@ -2,10 +2,13 @@ import { spawn } from "node:child_process";
 
 const steps = [
   ["tests completos", "npm", ["test"]],
+  ["build produccion", "npm", ["run", "build:prod"]],
+  ["release gates", "npm", ["run", "test:release-gates"]],
   ["auditoria de conflictos", "npm", ["run", "audit:conflicts"]],
   ["medicion de arranque", "npm", ["run", "measure:startup"]],
   ["auditoria del proyecto", "npm", ["run", "audit:project"]],
-  ["smoke server", "npm", ["run", "test:smoke-server"]]
+  ["smoke server", "npm", ["run", "test:smoke-server"]],
+  ["limpieza local", "npm", ["run", "clean:local"]]
 ];
 
 function runStep([label, command, args]) {

@@ -6,6 +6,17 @@ Este proyecto usa versionado semantico:
 - `MINOR`: nuevas funciones importantes sin romper compatibilidad.
 - `PATCH`: fixes, pulido y ajustes menores.
 
+## v1.6.1
+
+Release de hardening para testing, build y publicacion.
+
+- `npm test` queda como puerta de release con build prod, release gates, smoke visual local y validaciones de datos.
+- Build de produccion real en `dist/public` con manifest de assets, hashes SHA-256 y exclusion de `reports/`, `scripts/` y docs internas.
+- Tests nuevos para long tasks simuladas, service worker cache, APP_SHELL, tamanos criticos, lazy loading de datasets pesados, GeoJSON detallado y exportaciones diferidas.
+- Smoke visual basico con servidor local para proteger layout mobile, foco accesible, estados loading/offline y shell de hubs/modales.
+- `release:check` ahora automatiza test completo, build, gates, auditorias, medicion de startup, smoke server y limpieza local.
+- Checklist de release/push documentado con tag semantico y `git push origin main --follow-tags`.
+
 ## v1.6.0
 
 Actualizacion de producto orientada a uso real y crecimiento futuro.
