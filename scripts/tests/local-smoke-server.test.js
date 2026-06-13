@@ -38,6 +38,11 @@ try {
     "/app-text.js",
     "/app-country-panel.js",
     "/app-timeline-conflicts.js",
+    "/app-map.js",
+    "/app-map-styles.js",
+    "/app-map-interactions.js",
+    "/app-store.js",
+    "/app-ui-polish.js",
     "/data/geo_aliases.json",
     "/data/world_countries_simplified.geo.json",
     "/assets/flags/ARG.svg",
@@ -54,7 +59,12 @@ try {
     "app-theme.js",
     "app-text.js",
     "app-country-panel.js",
-    "app-timeline-conflicts.js"
+    "app-timeline-conflicts.js",
+    "app-map.js",
+    "app-map-styles.js",
+    "app-map-interactions.js",
+    "app-store.js",
+    "app-ui-polish.js"
   ];
   for (const file of shellFiles) {
     const text = await fs.readFile(path.join(process.cwd(), file), "utf8");

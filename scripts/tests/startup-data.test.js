@@ -19,6 +19,8 @@ const appBootScheduler = await fs.readFile(path.join(projectRoot, "app-boot-sche
 const appMap = await fs.readFile(path.join(projectRoot, "app-map.js"), "utf8");
 const appMapStyles = await fs.readFile(path.join(projectRoot, "app-map-styles.js"), "utf8");
 const appMapInteractions = await fs.readFile(path.join(projectRoot, "app-map-interactions.js"), "utf8");
+const appStore = await fs.readFile(path.join(projectRoot, "app-store.js"), "utf8");
+const appUiPolish = await fs.readFile(path.join(projectRoot, "app-ui-polish.js"), "utf8");
 const rankingsWorker = await fs.readFile(path.join(projectRoot, "app-rankings-worker.js"), "utf8");
 const searchWorker = await fs.readFile(path.join(projectRoot, "app-search-worker.js"), "utf8");
 const appSearch = await fs.readFile(path.join(projectRoot, "app-search.js"), "utf8");
@@ -130,9 +132,15 @@ assert.ok(indexHtml.includes("app-boot-scheduler.js"), "scheduler de arranque de
 assert.ok(indexHtml.includes("app-map.js"), "logica base de mapa debe vivir en modulo separado");
 assert.ok(indexHtml.includes("app-map-styles.js"), "estilos de mapa deben vivir en modulo separado");
 assert.ok(indexHtml.includes("app-map-interactions.js"), "interacciones de mapa deben vivir en modulo separado");
+assert.ok(indexHtml.includes("app-store.js"), "estado compartido debe vivir en store central simple");
+assert.ok(indexHtml.includes("app-ui-polish.js"), "polish UI/accesibilidad debe vivir en modulo separado");
 assert.ok(sw.includes("./app-map.js"), "modulo de mapa debe estar disponible offline");
 assert.ok(sw.includes("./app-map-styles.js"), "modulo de estilos de mapa debe estar disponible offline");
 assert.ok(sw.includes("./app-map-interactions.js"), "modulo de interacciones de mapa debe estar disponible offline");
+assert.ok(sw.includes("./app-store.js"), "store central debe estar disponible offline");
+assert.ok(sw.includes("./app-ui-polish.js"), "polish UI debe estar disponible offline");
+assert.ok(appStore.includes("createStore"), "store central debe exponer createStore");
+assert.ok(appUiPolish.includes("trapFocus"), "polish UI debe exponer navegacion por teclado/foco");
 assert.ok(appBootScheduler.includes("scheduleWhenQuiet"), "modulo de scheduler debe exponer espera por quietud");
 assert.ok(appBootScheduler.includes("PerformanceObserver"), "modulo de scheduler debe medir long tasks");
 assert.ok(appBootScheduler.includes("budgetMs: 200"), "long tasks deben tener presupuesto de 200 ms");

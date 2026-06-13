@@ -36,6 +36,21 @@ body.modal-open {
   overflow: hidden;
 }
 
+:focus-visible {
+  outline: 2px solid #9fd0ff;
+  outline-offset: 3px;
+}
+
+button,
+select,
+input,
+textarea,
+.news-link,
+.news-external-link,
+.network-link {
+  overflow-wrap: anywhere;
+}
+
 body.globe-loading #left-panel,
 body.globe-loading #top-controls,
 body.globe-loading #mobile-panel-controls,
@@ -335,6 +350,7 @@ body.globe-loading #map-mode-toggle {
   overflow-y: auto;
   overscroll-behavior: contain;
   padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  scrollbar-gutter: stable;
   scrollbar-width: thin;
   scrollbar-color: rgba(106, 180, 255, 0.44) rgba(255, 255, 255, 0.04);
 }
@@ -2528,6 +2544,7 @@ body[data-app-mode="encyclopedia"] #country-modal #country-panel {
     linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.028));
   padding: 12px 13px;
   transition: border-color 0.16s ease, background 0.16s ease, transform 0.16s ease;
+  overflow-wrap: anywhere;
 }
 
 .news-hub-selected-card {
@@ -2672,6 +2689,36 @@ body[data-app-mode="encyclopedia"] #country-modal #country-panel {
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.035);
   color: rgba(238, 245, 255, 0.72);
+}
+
+.loading-state,
+.offline-state,
+.context-help-card {
+  padding: 12px;
+  border: 1px solid rgba(106, 180, 255, 0.18);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.035);
+  color: rgba(238, 245, 255, 0.76);
+  line-height: 1.45;
+}
+
+.loading-state::before {
+  content: "";
+  display: inline-block;
+  width: 0.85em;
+  height: 0.85em;
+  margin-right: 0.45em;
+  border: 2px solid rgba(159, 208, 255, 0.28);
+  border-top-color: #9fd0ff;
+  border-radius: 999px;
+  vertical-align: -0.12em;
+  animation: georisk-spin 0.75s linear infinite;
+}
+
+@keyframes georisk-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .news-hub-meta {

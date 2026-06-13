@@ -79,14 +79,16 @@ const bootScheduler = window.GeoRiskBootScheduler || {};
 const mapCore = window.GeoRiskMap || {};
 const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
-const APP_VERSION = "2026-06-13-news-1";
+const appStore = window.GeoRiskStore?.store || null;
+const uiPolish = window.GeoRiskUiPolish || {};
+const APP_VERSION = "2026-06-13-ux-1";
 const DEFERRED_UI_MODULES = {
-  news: "./app-news-ui.js?v=2026-06-13-news-1",
-  compare: "./app-compare-ui.js?v=2026-06-13-news-1",
-  quiz: "./app-quiz-ui.js?v=2026-06-13-news-1",
-  riskRadar: "./app-risk-radar-ui.js?v=2026-06-13-news-1",
-  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-13-news-1",
-  projectAudit: "./app-project-audit-ui.js?v=2026-06-13-news-1"
+  news: "./app-news-ui.js?v=2026-06-13-ux-1",
+  compare: "./app-compare-ui.js?v=2026-06-13-ux-1",
+  quiz: "./app-quiz-ui.js?v=2026-06-13-ux-1",
+  riskRadar: "./app-risk-radar-ui.js?v=2026-06-13-ux-1",
+  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-13-ux-1",
+  projectAudit: "./app-project-audit-ui.js?v=2026-06-13-ux-1"
 };
 const deferredUiModulePromises = new Map();
 
@@ -948,6 +950,7 @@ function update3DPresentationState() {
 
 function applyAppMode(mode = "default", persist = true) {
   appMode = ["default", "analysis", "encyclopedia", "presentation"].includes(mode) ? mode : "default";
+  appStore?.setState({ appMode }, "app-mode");
   document.body.dataset.appMode = appMode;
   document.body.classList.toggle("presentation-mode", appMode === "presentation");
   if (persist) {
@@ -3041,6 +3044,7 @@ function updateMapModeToggle() {
 function applyMapMode(mode, animate = true) {
   if (!viewer) {
     currentMapMode = mode;
+    appStore?.setState({ mapMode: currentMapMode }, "map-mode");
     updateMapModeToggle();
     return;
   }
@@ -3056,6 +3060,7 @@ function applyMapMode(mode, animate = true) {
     ? mapCore.getTransitionPlan({ from: previousMode, to: normalizedMode, animate, isMobile: isMobileLayout() })
     : { duration: animate ? (normalizedMode === "2d" ? 0.55 : 0.72) : 0, settleMs: animate ? (normalizedMode === "2d" ? 580 : 850) : 0 };
   currentMapMode = normalizedMode;
+  appStore?.setState({ mapMode: currentMapMode }, "map-mode");
   applyImageryForMode();
 
   if (normalizedMode === "2d") {
@@ -6797,6 +6802,9 @@ function renderCountryLocalTools(country, countryCode, savedNotes = "") {
 
 function renderCountry(country, fallbackName) {
   const countryCode = getCountryCodeByObject(country);
+  if (countryCode) {
+    appStore?.setState({ selectedCode: countryCode }, "country-render");
+  }
   if (countryCode && country?.metadata?.isIndex) {
     const defaultTimelineFilters =
       typeof timelineConflictUi.getDefaultTimelineFilters === "function"
@@ -9446,6 +9454,7 @@ function setTheme(theme) {
   const nextTheme = theme || "default";
   const themeChanged = nextTheme !== currentTheme;
   currentTheme = nextTheme;
+  appStore?.setState({ theme: currentTheme }, "theme");
   if (themeChanged) {
     countryStyleCache.clear();
     lastStyleRefreshSignature = "";
@@ -11339,6 +11348,33 @@ function setupGlobalKeyboardShortcuts() {
     if (!isTyping && event.key === "?") {
       event.preventDefault();
       openHelpModal();
+      return;
+    }
+
+    if (!isTyping && event.key.toLowerCase() === "p") {
+      event.preventDefault();
+      applyAppMode(appMode === "presentation" ? "default" : "presentation");
+      return;
+    }
+
+    if (!isTyping && event.key.toLowerCase() === "r") {
+      event.preventDefault();
+      const rankingsPanel = document.getElementById("rankings-panel");
+      if (rankingsPanel) rankingsPanel.open = !rankingsPanel.open;
+      return;
+    }
+
+    if (!isTyping && event.altKey && event.key.toLowerCase() === "c") {
+      event.preventDefault();
+      const comparePanel = document.getElementById("compare-hub-panel");
+      if (comparePanel) comparePanel.open = !comparePanel.open;
+      return;
+    }
+
+    if (!isTyping && event.altKey && event.key.toLowerCase() === "n") {
+      event.preventDefault();
+      const newsPanel = document.getElementById("news-hub-panel");
+      if (newsPanel) newsPanel.open = !newsPanel.open;
       return;
     }
 
@@ -14998,6 +15034,7 @@ function setupThemeControls() {
 
   languageSelect.addEventListener("change", event => {
     currentLanguage = event.target.value;
+    appStore?.setState({ language: currentLanguage }, "language");
     localStorage.setItem(STORAGE_KEYS.language, currentLanguage);
     updateStaticText();
     updateExtendedStaticText();
@@ -15008,6 +15045,7 @@ function setupThemeControls() {
     renderThemeSummary();
     renderComparePanel();
     renderMapLabels();
+    uiPolish.enhanceTooltips?.();
     rerenderCurrentPanel();
   });
 
@@ -16755,6 +16793,7 @@ async function init() {
         safeUiTask("saved views", () => setupSavedViewControls());
         safeUiTask("global shortcuts", () => setupGlobalKeyboardShortcuts());
         safeUiTask("mobile controls", () => setupMobilePanelControls());
+        safeUiTask("ui polish", () => uiPolish.init?.());
         await registerServiceWorker();
         updateAppStatusPanel();
       });
