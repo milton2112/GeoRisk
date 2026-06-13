@@ -9931,6 +9931,30 @@ function getCountryCodeByObject(country) {
   return countryCodeLookup.get(country) || "";
 }
 
+function getRankedCountryCode(country) {
+  return getCountryCodeByObject(country) ||
+    resolveCountryCode("", country?.name) ||
+    Object.entries(countriesData).find(([, item]) =>
+      item === country || normalizeText(item?.name) === normalizeText(country?.name)
+    )?.[0] ||
+    "";
+}
+
+function selectRankedCountry(country) {
+  const code = getRankedCountryCode(country);
+  if (!code || !countriesData[code]) {
+    return;
+  }
+  const layers = getLinkedCodes(code)
+    .map(item => countryLayers.get(item))
+    .filter(Boolean);
+  if (layers.length) {
+    setCountrySelection(layers);
+    fitLayerBounds(createLayerGroup(layers));
+  }
+  renderCountry(countriesData[code], countriesData[code].name);
+}
+
 function collectRelationGroups(country, countryCode) {
   const relations = country.politics?.relations || {};
   const organizations = (country.politics?.organizations || []).map(getOrganizationDisplayName);
@@ -11868,12 +11892,7 @@ function generateGdpPerCapitaRanking() {
   renderInteractiveList("top-gdp-per-capita", list.map(country => ({
     label: `${getFlagEmoji(getCountryCodeByObject(country))} ${country.name} (US$ ${formatNumber(Math.round(country.economy.gdpPerCapita))})`,
     country
-  })), item => {
-    const code = getCountryCodeByObject(item.country);
-    if (code) {
-      selectSearchResult({ label: item.country.name, type: "country", value: code });
-    }
-  });
+  })));
 }
 
 function generateOrganizationCountRanking() {
@@ -11885,12 +11904,7 @@ function generateOrganizationCountRanking() {
   renderInteractiveList("top-organizations-count", list.map(country => ({
     label: `${getFlagEmoji(getCountryCodeByObject(country))} ${country.name} (${formatNumber(getCountryOrganizationCount(country))})`,
     country
-  })), item => {
-    const code = getCountryCodeByObject(item.country);
-    if (code) {
-      selectSearchResult({ label: item.country.name, type: "country", value: code });
-    }
-  });
+  })));
 }
 
 function generateConflictCountRanking() {
@@ -11902,12 +11916,7 @@ function generateConflictCountRanking() {
   renderInteractiveList("top-conflicts-count", list.map(country => ({
     label: `${getFlagEmoji(getCountryCodeByObject(country))} ${country.name} (${formatNumber(getCountryWarParticipationCount(country))} ${currentLanguage === "en" ? "wars" : "guerras"})`,
     country
-  })), item => {
-    const code = getCountryCodeByObject(item.country);
-    if (code) {
-      selectSearchResult({ label: item.country.name, type: "country", value: code });
-    }
-  });
+  })));
 }
 
 function generateMilitaryRanking() {
@@ -11919,12 +11928,7 @@ function generateMilitaryRanking() {
   renderInteractiveList("top-military-active", list.map(country => ({
     label: `${getFlagEmoji(getCountryCodeByObject(country))} ${country.name} (${formatNumber(getCountryMilitaryActive(country))})`,
     country
-  })), item => {
-    const code = getCountryCodeByObject(item.country);
-    if (code) {
-      selectSearchResult({ label: item.country.name, type: "country", value: code });
-    }
-  });
+  })));
 }
 
 function generateReligionDiversityRanking() {
@@ -11936,12 +11940,7 @@ function generateReligionDiversityRanking() {
   renderInteractiveList("top-religion-diversity", list.map(country => ({
     label: `${getFlagEmoji(getCountryCodeByObject(country))} ${country.name} (${formatNumber(getCountryReligionDiversity(country))})`,
     country
-  })), item => {
-    const code = getCountryCodeByObject(item.country);
-    if (code) {
-      selectSearchResult({ label: item.country.name, type: "country", value: code });
-    }
-  });
+  })));
 }
 
 function generateOrganizationsReachRanking() {
@@ -12113,10 +12112,7 @@ function renderAdvancedRanking(targetId, title, metric, formatter = value => for
     label: `${getFlagEmoji(getCountryCodeByObject(item.country))} ${item.name} (${formatter(item.score)})`,
     country: item.country,
     components: item.components
-  })), item => {
-    const code = getCountryCodeByObject(item.country);
-    if (code) selectSearchResult({ label: item.country.name, type: "country", value: code });
-  });
+  })));
 }
 
 function generateAdvancedRankings() {
@@ -12146,7 +12142,7 @@ function removeCountryFromCompare(code) {
   renderComparePanel();
 }
 
-function renderInteractiveList(targetId, items, onClick) {
+function renderInteractiveList(targetId, items, onClick = () => {}) {
   const target = document.getElementById(targetId);
   target.innerHTML = "";
 
@@ -12154,7 +12150,16 @@ function renderInteractiveList(targetId, items, onClick) {
     const li = document.createElement("li");
     li.className = "rank-link";
     li.textContent = item.label;
-    li.addEventListener("click", () => onClick(item));
+    li.tabIndex = 0;
+    li.setAttribute("role", "button");
+    const activate = () => item.country ? selectRankedCountry(item.country) : onClick(item);
+    li.addEventListener("click", activate);
+    li.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        activate();
+      }
+    });
     target.appendChild(li);
   });
 }
@@ -14008,12 +14013,7 @@ function generateTopPopulation() {
       label: `${getFlagEmoji(getCountryCodeByObject(country))} ${country.name} (${formatNumber(country.general.population)} - ${formatPercentage(share)})`,
       country
     };
-  }), item => {
-    const code = Object.entries(countriesData).find(([, country]) => country === item.country)?.[0];
-    if (code) {
-      selectSearchResult({ label: item.country.name, type: "country", value: code });
-    }
-  });
+  }));
 }
 
 function generateContinents() {
@@ -14121,12 +14121,7 @@ function generateGdpRanking() {
   renderInteractiveList("top-gdp", list.map(country => ({
     label: `${getFlagEmoji(getCountryCodeByObject(country))} ${country.name} (US$ ${compactNumber(country.economy.gdp)})`,
     country
-  })), item => {
-    const code = getCountryCodeByObject(item.country);
-    if (code) {
-      selectSearchResult({ label: item.country.name, type: "country", value: code });
-    }
-  });
+  })));
 }
 
 function generateInflationRanking() {
@@ -14138,12 +14133,7 @@ function generateInflationRanking() {
   renderInteractiveList("top-inflation", list.map(country => ({
     label: `${getFlagEmoji(getCountryCodeByObject(country))} ${country.name} (${formatInflation(country.economy.inflation)})`,
     country
-  })), item => {
-    const code = getCountryCodeByObject(item.country);
-    if (code) {
-      selectSearchResult({ label: item.country.name, type: "country", value: code });
-    }
-  });
+  })));
 }
 
 function generateSystemRanking() {
