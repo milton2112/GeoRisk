@@ -2657,6 +2657,23 @@ body[data-app-mode="encyclopedia"] #country-modal #country-panel {
   color: #9cb9d5;
 }
 
+.news-external-link,
+.news-hub-empty {
+  display: inline-flex;
+  margin-top: 8px;
+  color: #9fd0ff;
+  font-size: 0.78rem;
+}
+
+.news-hub-empty {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid rgba(106, 180, 255, 0.16);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.035);
+  color: rgba(238, 245, 255, 0.72);
+}
+
 .news-hub-meta {
   margin-top: 6px;
   color: rgba(238, 245, 255, 0.68);
@@ -4081,6 +4098,18 @@ p {
 
   #news-hub-panel[open] {
     width: min(88vw, 320px);
+  }
+
+  .news-source-links,
+  .news-toolbar {
+    gap: 6px;
+    padding: 10px;
+  }
+
+  .news-source-links a,
+  .news-external-link {
+    width: 100%;
+    justify-content: center;
   }
 
   #compare-hub-panel[open],

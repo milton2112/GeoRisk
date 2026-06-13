@@ -23,6 +23,7 @@ const rankingsWorker = await fs.readFile(path.join(projectRoot, "app-rankings-wo
 const searchWorker = await fs.readFile(path.join(projectRoot, "app-search-worker.js"), "utf8");
 const appSearch = await fs.readFile(path.join(projectRoot, "app-search.js"), "utf8");
 const appRankings = await fs.readFile(path.join(projectRoot, "app-rankings.js"), "utf8");
+const appNews = await fs.readFile(path.join(projectRoot, "app-news-ui.js"), "utf8");
 const appCompare = await fs.readFile(path.join(projectRoot, "app-compare-ui.js"), "utf8");
 const appQuiz = await fs.readFile(path.join(projectRoot, "app-quiz-ui.js"), "utf8");
 const perCountryDir = path.join(projectRoot, "data", "countries");
@@ -153,6 +154,11 @@ assert.ok(appCompare.includes("buildComparisonModel"), "comparador debe tener mo
 assert.ok(appCompare.includes("buildProfessionalSections"), "comparador debe renderizar secciones profesionales desde modulo");
 assert.ok(appQuiz.includes("buildQuestionBank"), "quiz debe generar banco de preguntas desde dataset");
 assert.ok(appQuiz.includes("buildQuestionFromBank"), "quiz debe controlar dificultad y no repeticion");
+assert.ok(script.includes("NEWS_CACHE_TTL_MS"), "noticias debe tener cache temporal");
+assert.ok(script.includes("diplomacy"), "noticias debe incluir tema diplomacia");
+assert.ok(script.includes("ensureDeferredUiModule(\"news\")"), "noticias debe cargar UI bajo demanda al abrir");
+assert.ok(appNews.includes("buildStateCard"), "noticias debe renderizar estados de carga/vacio desde modulo");
+assert.ok(appNews.includes("news-external-link"), "noticias debe separar busqueda externa de seleccion interna");
 assert.ok(script.includes("getCachedRanking"), "rankings deben cachearse por revision del dataset");
 assert.ok(script.includes("countryStyleCache"), "estilos de pais deben cachearse");
 assert.ok(script.includes("lastStyleRefreshSignature"), "UI debe evitar recalcular estilos si tema/firma no cambio");

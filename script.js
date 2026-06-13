@@ -79,14 +79,14 @@ const bootScheduler = window.GeoRiskBootScheduler || {};
 const mapCore = window.GeoRiskMap || {};
 const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
-const APP_VERSION = "2026-06-04-map-1";
+const APP_VERSION = "2026-06-13-news-1";
 const DEFERRED_UI_MODULES = {
-  news: "./app-news-ui.js?v=2026-06-04-map-1",
-  compare: "./app-compare-ui.js?v=2026-06-04-map-1",
-  quiz: "./app-quiz-ui.js?v=2026-06-04-map-1",
-  riskRadar: "./app-risk-radar-ui.js?v=2026-06-04-map-1",
-  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-04-map-1",
-  projectAudit: "./app-project-audit-ui.js?v=2026-06-04-map-1"
+  news: "./app-news-ui.js?v=2026-06-13-news-1",
+  compare: "./app-compare-ui.js?v=2026-06-13-news-1",
+  quiz: "./app-quiz-ui.js?v=2026-06-13-news-1",
+  riskRadar: "./app-risk-radar-ui.js?v=2026-06-13-news-1",
+  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-13-news-1",
+  projectAudit: "./app-project-audit-ui.js?v=2026-06-13-news-1"
 };
 const deferredUiModulePromises = new Map();
 
@@ -1709,6 +1709,7 @@ let viewer = null;
 let requestSceneRender = () => {};
 let scheduledSceneRenderFrame = null;
 const newsCache = new Map();
+const NEWS_CACHE_TTL_MS = 20 * 60 * 1000;
 const geoJsonCache = new Map();
 const preparedGeoJsonCache = new Map();
 const conflictModalRegistry = new Map();
@@ -8149,10 +8150,11 @@ function getCountryNewsTopics(country) {
   const base = country?.general?.officialName || country?.name || "";
   const encoded = value => encodeURIComponent(value);
   return {
-    general: `https://news.google.com/search?q=${encoded(base)}&hl=es-419&gl=AR&ceid=AR:es-419`,
-    politics: `https://news.google.com/search?q=${encoded(`${base} politica OR gobierno OR elecciones`)}&hl=es-419&gl=AR&ceid=AR:es-419`,
-    economy: `https://news.google.com/search?q=${encoded(`${base} economia OR inflacion OR comercio`)}&hl=es-419&gl=AR&ceid=AR:es-419`,
-    conflict: `https://news.google.com/search?q=${encoded(`${base} guerra OR seguridad OR conflicto`)}&hl=es-419&gl=AR&ceid=AR:es-419`
+    general: `https://news.google.com/search?q=${encoded(`"${base}" actualidad`)}&hl=es-419&gl=AR&ceid=AR:es-419`,
+    politics: `https://news.google.com/search?q=${encoded(`"${base}" politica gobierno elecciones`)}&hl=es-419&gl=AR&ceid=AR:es-419`,
+    economy: `https://news.google.com/search?q=${encoded(`"${base}" economia comercio inflacion`)}&hl=es-419&gl=AR&ceid=AR:es-419`,
+    conflict: `https://news.google.com/search?q=${encoded(`"${base}" conflicto seguridad guerra`)}&hl=es-419&gl=AR&ceid=AR:es-419`,
+    diplomacy: `https://news.google.com/search?q=${encoded(`"${base}" diplomacia relaciones exteriores acuerdo`)}&hl=es-419&gl=AR&ceid=AR:es-419`
   };
 }
 
@@ -8975,23 +8977,34 @@ function getCountryNewsPortalLinks(country) {
     { label: "Google News", url: getCountryNewsUrl(country) },
     { label: "Reuters", url: `https://www.reuters.com/site-search/?query=${baseQuery}` },
     { label: "BBC", url: `https://www.bbc.co.uk/search?q=${baseQuery}` },
-    { label: currentLanguage === "en" ? "Web search" : "Busqueda web", url: `https://www.google.com/search?tbm=nws&q=${baseQuery}` },
-    { label: currentLanguage === "en" ? "Regional press" : "Prensa regional", url: `https://news.google.com/search?q=${encodeURIComponent(`${country.name} periodico OR diario OR news`)}&hl=es-419&gl=AR&ceid=AR:es-419` }
+    { label: currentLanguage === "en" ? "External search" : "Busqueda externa", url: `https://www.google.com/search?tbm=nws&q=${baseQuery}` },
+    { label: currentLanguage === "en" ? "Regional press" : "Prensa regional", url: `https://news.google.com/search?q=${encodeURIComponent(`"${country.name}" prensa regional noticias`)}&hl=es-419&gl=AR&ceid=AR:es-419` }
   ];
+}
+
+function getNewsTopicLabel(topic = activeNewsTopic) {
+  const labels = currentLanguage === "en"
+    ? { general: "General view", politics: "Politics", economy: "Economy", conflict: "Conflict and security", diplomacy: "Diplomacy" }
+    : { general: "Panorama general", politics: "Politica", economy: "Economia", conflict: "Conflicto y seguridad", diplomacy: "Diplomacia" };
+  return labels[topic] || labels.general;
+}
+
+function getNewsCacheKey(country) {
+  return `${country?.code || country?.name || ""}:${activeNewsTopic}`;
 }
 
 function buildNewsQueries(country) {
   const topicTerms = {
-    general: "politica OR economia OR guerra",
-    politics: "politica OR gobierno OR elecciones",
-    economy: "economia OR inflacion OR comercio",
-    conflict: "guerra OR seguridad OR conflicto"
+    general: "actualidad",
+    politics: "politica gobierno elecciones",
+    economy: "economia comercio inflacion",
+    conflict: "conflicto seguridad guerra",
+    diplomacy: "diplomacia relaciones exteriores acuerdo"
   };
+  const base = country.general?.officialName || country.name;
   const queries = uniqueNormalizedList([
-    country.general?.officialName,
-    country.name,
-    `${country.name} ${topicTerms[activeNewsTopic] || topicTerms.general}`,
-    `${country.name} government OR conflict OR economy`
+    `"${base}" ${topicTerms[activeNewsTopic] || topicTerms.general}`,
+    country.name !== base ? `"${country.name}" ${topicTerms[activeNewsTopic] || topicTerms.general}` : ""
   ]);
 
   return queries.filter(Boolean);
@@ -9002,15 +9015,19 @@ async function fetchCountryHeadlines(country) {
     return [];
   }
 
-  if (newsCache.has(country.code)) {
-    return newsCache.get(country.code);
+  const cacheKey = getNewsCacheKey(country);
+  const cached = newsCache.get(cacheKey);
+  if (cached && cached.expires > Date.now()) {
+    return cached.items;
   }
 
   const fallback = {
     title: `Cobertura reciente sobre ${country.name}`,
     source: "Google News",
     date: "",
-    summary: `Abrir cobertura en vivo sobre ${country.name}.`,
+    summary: currentLanguage === "en"
+      ? `Live headlines are unavailable here. Open the external search for current coverage about ${country.name}.`
+      : `No hay titulares en vivo disponibles aqui. Abri la busqueda externa para ver cobertura actual sobre ${country.name}.`,
     url: getCountryNewsUrl(country)
   };
   const collected = [];
@@ -9019,9 +9036,9 @@ async function fetchCountryHeadlines(country) {
   const queries = buildNewsQueries(country);
   for (const query of queries) {
     try {
-      const url = `https://api.gdeltproject.org/api/v2/doc/doc?query=${encodeURIComponent(query)}&mode=ArtList&maxrecords=4&format=json&sort=HybridRel`;
+      const url = `https://api.gdeltproject.org/api/v2/doc/doc?query=${encodeURIComponent(query)}&mode=ArtList&maxrecords=4&format=json&sort=DateDesc`;
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 3500);
+      const timeoutId = setTimeout(() => controller.abort(), 2500);
       const response = await fetch(url, { signal: controller.signal });
       clearTimeout(timeoutId);
       if (!response.ok) {
@@ -9044,9 +9061,9 @@ async function fetchCountryHeadlines(country) {
           title: article.title || fallback.title,
           source: article.sourceCommonName || article.domain || fallback.source,
           date: article.seendate ? formatNewsDate(article.seendate) : "",
-          summary: article.socialimage
-            ? `Cobertura destacada detectada sobre ${country.name}. Abrila para ver el desarrollo completo.`
-            : `Noticia reciente vinculada a ${country.name}.`,
+          summary: currentLanguage === "en"
+            ? `Recent ${getNewsTopicLabel(activeNewsTopic).toLowerCase()} coverage linked to ${country.name}.`
+            : `Cobertura reciente de ${getNewsTopicLabel(activeNewsTopic).toLowerCase()} vinculada a ${country.name}.`,
           url: articleUrl
         });
         if (collected.length >= 4) {
@@ -9057,12 +9074,12 @@ async function fetchCountryHeadlines(country) {
         break;
       }
     } catch (error) {
-      console.error(`No se pudo cargar la noticia para ${country.name}:`, error);
+      console.info(`Noticias en vivo no disponibles para ${country.name}:`, error?.name || error);
     }
   }
 
   const finalItems = collected.length ? collected : [fallback];
-  newsCache.set(country.code, finalItems);
+  newsCache.set(cacheKey, { expires: Date.now() + NEWS_CACHE_TTL_MS, items: finalItems });
   return finalItems;
 }
 
@@ -9102,32 +9119,41 @@ function formatNewsDate(value) {
     });
 }
 
-renderNewsArticle = function renderNewsArticle(article, country) {
+renderNewsArticle = function renderNewsArticle(article, country, relatedArticles = []) {
   const articleContainer = document.getElementById("news-hub-article");
   if (!articleContainer) {
     return;
   }
 
   if (!article) {
-    articleContainer.innerHTML = "";
+    const links = getCountryNewsPortalLinks(country).map(link => `<a class="news-link" href="${link.url}" target="_blank" rel="noreferrer">${escapeHtml(link.label)}</a>`).join("");
+    articleContainer.innerHTML = typeof newsUi.buildStateCard === "function"
+      ? newsUi.buildStateCard(
+        currentLanguage === "en" ? "No live headlines" : "Sin titulares en vivo",
+        currentLanguage === "en" ? "Use the external searches for current coverage." : "Usa las busquedas externas para ver cobertura actual.",
+        links
+      )
+      : "";
     return;
   }
 
-  articleContainer.innerHTML = `
-    <div class="news-hub-article-card">
-      <strong>${escapeHtml(article.title)}</strong>
-      <p>${escapeHtml(article.summary)}</p>
-      <div class="news-hub-meta">
-        ${escapeHtml(article.source || "Fuente")} ${article.date ? `· ${escapeHtml(article.date)}` : ""}
-      </div>
-      <a class="news-link" href="${article.url || getCountryNewsUrl(country)}" target="_blank" rel="noreferrer">
-        ${currentLanguage === "en" ? "Open full article" : "Abrir articulo completo"}
-      </a>
-    </div>
-  `;
+  const relatedMarkup = typeof newsUi.buildRelatedList === "function"
+    ? newsUi.buildRelatedList(relatedArticles, escapeHtml, getCountryNewsUrl(country), currentLanguage === "en" ? "More live headlines" : "Mas titulares en vivo")
+    : "";
+  articleContainer.innerHTML = typeof newsUi.buildArticleCard === "function"
+    ? newsUi.buildArticleCard({
+      title: escapeHtml(article.title),
+      summary: escapeHtml(article.summary),
+      meta: `${escapeHtml(article.source || "Fuente")}${article.date ? ` · ${escapeHtml(article.date)}` : ""}`,
+      actionLabel: currentLanguage === "en" ? "Open source" : "Abrir fuente",
+      actionUrl: article.url || getCountryNewsUrl(country),
+      relatedMarkup
+    })
+    : `<div class="news-hub-article-card"><strong>${escapeHtml(article.title)}</strong><p>${escapeHtml(article.summary)}</p><div class="news-hub-meta">${escapeHtml(article.source || "Fuente")} ${article.date ? `· ${escapeHtml(article.date)}` : ""}</div></div>`;
 };
 
 showNewsArticle = async function showNewsArticle(countryCode) {
+  await ensureDeferredUiModule("news");
   activeNewsCountryCode = countryCode;
   const articleContainer = document.getElementById("news-hub-article");
   const selectedContainer = document.getElementById("news-hub-selected");
@@ -9135,30 +9161,19 @@ showNewsArticle = async function showNewsArticle(countryCode) {
   const country = countriesData[countryCode];
   if (!articleContainer || !selectedContainer || !country) return;
 
-  selectedContainer.innerHTML = `
-    <div class="news-hub-selected-card">
-      <strong>${escapeHtml(country.name)}</strong>
-      <div class="news-hub-meta">${escapeHtml(country.general?.officialName || country.name)}</div>
-      <div class="news-source-links">
-        ${getCountryNewsPortalLinks(country).map(link => `<a class="news-link" href="${link.url}" target="_blank" rel="noreferrer">${escapeHtml(link.label)}</a>`).join("")}
-      </div>
-    </div>
-  `;
-  articleContainer.innerHTML = `
-    <div class="news-hub-article-card">
-      <strong>${currentLanguage === "en" ? "Loading headline..." : "Cargando noticia..."}</strong>
-      <p>${currentLanguage === "en" ? "If live news is not available, direct coverage links will remain visible." : "Si la noticia en vivo no esta disponible, quedaran visibles los enlaces directos a cobertura."}</p>
-      <div class="news-source-links">
-        ${getCountryNewsPortalLinks(country).map(link => `<a class="news-link" href="${link.url}" target="_blank" rel="noreferrer">${escapeHtml(link.label)}</a>`).join("")}
-      </div>
-    </div>
-  `;
+  const links = getCountryNewsPortalLinks(country).map(link => `<a class="news-link" href="${link.url}" target="_blank" rel="noreferrer">${escapeHtml(link.label)}</a>`).join("");
+  selectedContainer.innerHTML = newsUi.buildSelectedCard(country, links, escapeHtml, { topicLabel: getNewsTopicLabel() });
+  articleContainer.innerHTML = newsUi.buildStateCard(
+    currentLanguage === "en" ? "Loading live headlines..." : "Cargando titulares en vivo...",
+    currentLanguage === "en" ? "If the live provider is unavailable, the external searches remain available." : "Si el proveedor en vivo no responde, quedan disponibles las busquedas externas.",
+    links
+  );
   panelContent?.scrollTo({ top: 0, behavior: "smooth" });
   document.querySelectorAll("#news-hub-list .news-hub-item").forEach(item => {
     item.classList.toggle("is-active", item.querySelector("[data-news-country]")?.dataset.newsCountry === countryCode);
   });
-  const article = await fetchCountryHeadline(country);
-  renderNewsArticle(article, country);
+  const headlines = await fetchCountryHeadlines(country);
+  renderNewsArticle(headlines[0], country, headlines);
 };
 
 renderNewsHub = function renderNewsHub(selectedCode = "") {
@@ -9166,16 +9181,20 @@ renderNewsHub = function renderNewsHub(selectedCode = "") {
   const selectedContainer = document.getElementById("news-hub-selected");
   const listContainer = document.getElementById("news-hub-list");
   const articleContainer = document.getElementById("news-hub-article");
+  const filterInput = document.getElementById("news-country-filter");
   if (!panel || !selectedContainer || !listContainer || !articleContainer) return;
 
+  const filterText = normalizeText(filterInput?.value || "");
   const countries = Object.entries(countriesData)
     .map(([code, country]) => ({ code, country }))
+    .filter(({ country }) => !filterText || normalizeText(country.name).includes(filterText) || normalizeText(country.general?.officialName || "").includes(filterText))
     .sort((a, b) => a.country.name.localeCompare(b.country.name, "es"));
   const selected = selectedCode && countriesData[selectedCode] ? countriesData[selectedCode] : null;
+  const selectedLinks = selected ? getCountryNewsPortalLinks(selected).map(link => `<a class="news-link" href="${link.url}" target="_blank" rel="noreferrer">${escapeHtml(link.label)}</a>`).join("") : "";
 
-  selectedContainer.innerHTML = selected
-    ? `<div class="news-hub-selected-card"><strong>${escapeHtml(selected.name)}</strong><div class="news-hub-meta">${escapeHtml(selected.general?.officialName || selected.name)}</div><div class="news-source-links">${getCountryNewsPortalLinks(selected).map(link => `<a class="news-link" href="${link.url}" target="_blank" rel="noreferrer">${escapeHtml(link.label)}</a>`).join("")}</div></div>`
-    : "";
+  selectedContainer.innerHTML = selected && typeof newsUi.buildSelectedCard === "function"
+    ? newsUi.buildSelectedCard(selected, selectedLinks, escapeHtml, { topicLabel: getNewsTopicLabel() })
+    : selected ? `<div class="news-hub-selected-card"><strong>${escapeHtml(selected.name)}</strong><div class="news-hub-meta">${escapeHtml(selected.general?.officialName || selected.name)}</div></div>` : "";
 
   if (!panel.open) {
     articleContainer.innerHTML = "";
@@ -9183,41 +9202,55 @@ renderNewsHub = function renderNewsHub(selectedCode = "") {
     return;
   }
 
-  articleContainer.innerHTML = "";
-  listContainer.innerHTML = countries.map(({ code, country }) => `
-    <div class="news-hub-item${code === activeNewsCountryCode ? " is-active" : ""}">
-      <button type="button" class="news-link-block" data-news-country="${escapeHtml(code)}">
-        <strong>${escapeHtml(country.name)}</strong>
-        <span class="news-hub-meta">${escapeHtml(country.general?.officialName || country.name)}</span>
-      </button>
-    </div>
-  `).join("");
+  articleContainer.innerHTML = selected && typeof newsUi.buildStateCard === "function"
+    ? newsUi.buildStateCard(currentLanguage === "en" ? "Ready" : "Listo", currentLanguage === "en" ? "Choose a country or open an external search." : "Elegi un pais o abri una busqueda externa.", selectedLinks)
+    : "";
+  listContainer.innerHTML = typeof newsUi.buildNewsList === "function"
+    ? newsUi.buildNewsList(countries, activeNewsCountryCode, escapeHtml, getCountryNewsUrl, {
+      openLabel: currentLanguage === "en" ? "Open external search" : "Abrir busqueda externa",
+      emptyLabel: currentLanguage === "en" ? "No countries match this filter." : "No hay paises para ese filtro."
+    })
+    : countries.map(({ code, country }) => `<div class="news-hub-item${code === activeNewsCountryCode ? " is-active" : ""}"><button type="button" class="news-link-block" data-news-country="${escapeHtml(code)}"><strong>${escapeHtml(country.name)}</strong><span class="news-hub-meta">${escapeHtml(country.general?.officialName || country.name)}</span></button></div>`).join("");
 };
 
 setupNewsHubPanel = function setupNewsHubPanel() {
   const panel = document.getElementById("news-hub-panel");
+  const filterInput = document.getElementById("news-country-filter");
   const topicSelect = document.getElementById("news-topic-select");
+  let filterTimer = null;
   if (!panel) return;
   panel.open = false;
   if (topicSelect) {
     topicSelect.value = activeNewsTopic;
     topicSelect.addEventListener("change", () => {
       activeNewsTopic = topicSelect.value || "general";
-      newsCache.clear();
-      renderNewsHub(currentPanelState.code || "");
-      if (activeNewsCountryCode) showNewsArticle(activeNewsCountryCode);
+      if (panel.open) {
+        renderNewsHub(currentPanelState.code || "");
+        if (activeNewsCountryCode) showNewsArticle(activeNewsCountryCode);
+      }
     });
   }
+  filterInput?.addEventListener("input", () => {
+    if (filterTimer) clearTimeout(filterTimer);
+    filterTimer = setTimeout(() => {
+      if (panel.open) renderNewsHub(currentPanelState.code || "");
+    }, 120);
+  });
   panel.addEventListener("toggle", () => {
     if (panel.open) {
-      ensureDeferredUiModule("news").then(() => renderNewsHub(currentPanelState.code || ""));
       const comparePanel = document.getElementById("compare-hub-panel");
       const quizPanel = document.getElementById("quiz-hub-panel");
       if (comparePanel) comparePanel.open = false;
       if (quizPanel) quizPanel.open = false;
+      ensureDeferredUiModule("news").then(() => renderNewsHub(currentPanelState.code || ""));
+      renderNewsHub(currentPanelState.code || "");
+    } else {
+      renderNewsHub(currentPanelState.code || "");
     }
-    renderNewsHub(currentPanelState.code || "");
   });
+  if (panel.open) {
+    ensureDeferredUiModule("news").then(() => renderNewsHub(currentPanelState.code || ""));
+  }
 };
 
 function updateExtendedStaticText() {
@@ -10352,8 +10385,16 @@ function updateStaticText() {
   const note = document.getElementById("news-hub-note");
   if (note) {
     note.textContent = currentLanguage === "en"
-      ? "Daily country news hub. Tap a country to open its live news portal directly."
-      : "Hub diario de noticias por pais. Toca un pais para abrir directamente su portal de noticias en vivo.";
+      ? "Country news hub. Select a country for a preview or open an external search."
+      : "Hub de noticias por pais. Selecciona un pais para vista previa o abri una busqueda externa.";
+  }
+  const newsTopic = document.getElementById("news-topic-select");
+  if (newsTopic) {
+    newsTopic.options[0].textContent = getNewsTopicLabel("general");
+    newsTopic.options[1].textContent = getNewsTopicLabel("politics");
+    newsTopic.options[2].textContent = getNewsTopicLabel("economy");
+    newsTopic.options[3].textContent = getNewsTopicLabel("conflict");
+    if (newsTopic.options[4]) newsTopic.options[4].textContent = getNewsTopicLabel("diplomacy");
   }
   const newsFilter = document.getElementById("news-country-filter");
   if (newsFilter) {
@@ -16214,158 +16255,6 @@ function setupCompareControls() {
   renderComparePanel();
 }
 
-if (typeof newsUi.buildArticleCard === "function") {
-  renderNewsArticle = function renderNewsArticle(article, country, relatedArticles = []) {
-    const articleContainer = document.getElementById("news-hub-article");
-    if (!articleContainer) return;
-    if (!article) {
-      articleContainer.innerHTML = "";
-      return;
-    }
-    articleContainer.innerHTML = newsUi.buildArticleCard({
-      title: escapeHtml(article.title),
-      summary: escapeHtml(article.summary),
-      meta: `${escapeHtml(article.source || "Fuente")}${article.date ? ` · ${escapeHtml(article.date)}` : ""}`,
-      actionLabel: currentLanguage === "en" ? "Open full article" : "Abrir articulo completo",
-      actionUrl: article.url || getCountryNewsUrl(country)
-    });
-  };
-
-  renderNewsHub = function renderNewsHub(selectedCode = "") {
-    const panel = document.getElementById("news-hub-panel");
-    const selectedContainer = document.getElementById("news-hub-selected");
-    const listContainer = document.getElementById("news-hub-list");
-    const articleContainer = document.getElementById("news-hub-article");
-    const filterInput = document.getElementById("news-country-filter");
-    if (!panel || !selectedContainer || !listContainer || !articleContainer) return;
-
-    const filterText = normalizeText(filterInput?.value || "");
-    const countries = Object.entries(countriesData)
-      .map(([code, country]) => ({ code, country }))
-      .filter(({ country }) => {
-        if (!filterText) return true;
-        return normalizeText(country.name).includes(filterText)
-          || normalizeText(country.general?.officialName || "").includes(filterText);
-      })
-      .sort((a, b) => a.country.name.localeCompare(b.country.name, "es"));
-
-    const selected = selectedCode && countriesData[selectedCode] ? countriesData[selectedCode] : null;
-    selectedContainer.innerHTML = selected
-      ? newsUi.buildSelectedCard(
-        selected,
-        getCountryNewsPortalLinks(selected).map(link => `<a class="news-link" href="${link.url}" target="_blank" rel="noreferrer">${escapeHtml(link.label)}</a>`).join(""),
-        escapeHtml
-      )
-      : "";
-
-    if (!panel.open) {
-      articleContainer.innerHTML = "";
-      listContainer.innerHTML = "";
-      return;
-    }
-
-    articleContainer.innerHTML = selected
-      ? `<div class="news-hub-article-card"><strong>${currentLanguage === "en" ? "Quick focus" : "Foco rapido"}</strong><p>${currentLanguage === "en" ? "Open one of the recommended sources or wait for the highlighted article preview." : "Abri una de las fuentes recomendadas o espera la vista previa del articulo destacado."}</p></div>`
-      : "";
-      listContainer.innerHTML = newsUi.buildNewsList(countries, activeNewsCountryCode, escapeHtml, getCountryNewsUrl);
-
-    if (selected) {
-      fetchCountryHeadline(selected)
-        .then(article => {
-          if (selected.code !== activeNewsCountryCode && selectedCode !== selected.code) {
-            return;
-          }
-          renderNewsArticle(article, selected);
-        })
-        .catch(() => {});
-    }
-  };
-}
-
-if (typeof newsUi.buildArticleCard === "function") {
-  renderNewsArticle = function renderNewsArticle(article, country, relatedArticles = []) {
-    const articleContainer = document.getElementById("news-hub-article");
-    if (!articleContainer) return;
-    if (!article) {
-      articleContainer.innerHTML = "";
-      return;
-    }
-
-    const headlineMarkup = relatedArticles.slice(1, 4).map(item => `
-      <a class="news-headline-item" href="${item.url || getCountryNewsUrl(country)}" target="_blank" rel="noreferrer">
-        <span>${escapeHtml(item.title)}</span>
-        <small>${escapeHtml(item.source || "Fuente")}${item.date ? ` · ${escapeHtml(item.date)}` : ""}</small>
-      </a>
-    `).join("");
-
-    articleContainer.innerHTML = `
-      ${newsUi.buildArticleCard({
-        title: escapeHtml(article.title),
-        summary: escapeHtml(article.summary),
-        meta: `${escapeHtml(article.source || "Fuente")}${article.date ? ` · ${escapeHtml(article.date)}` : ""}`,
-        actionLabel: currentLanguage === "en" ? "Open full article" : "Abrir articulo completo",
-        actionUrl: article.url || getCountryNewsUrl(country)
-      })}
-      ${headlineMarkup ? `
-        <div class="news-headline-list">
-          <strong>${currentLanguage === "en" ? "More live headlines" : "Mas titulares en vivo"}</strong>
-          ${headlineMarkup}
-        </div>
-      ` : ""}
-    `;
-  };
-
-  renderNewsHub = function renderNewsHub(selectedCode = "") {
-    const panel = document.getElementById("news-hub-panel");
-    const selectedContainer = document.getElementById("news-hub-selected");
-    const listContainer = document.getElementById("news-hub-list");
-    const articleContainer = document.getElementById("news-hub-article");
-    const filterInput = document.getElementById("news-country-filter");
-    if (!panel || !selectedContainer || !listContainer || !articleContainer) return;
-
-    const filterText = normalizeText(filterInput?.value || "");
-    const countries = Object.entries(countriesData)
-      .map(([code, country]) => ({ code, country }))
-      .filter(({ country }) => {
-        if (!filterText) return true;
-        return normalizeText(country.name).includes(filterText)
-          || normalizeText(country.general?.officialName || "").includes(filterText);
-      })
-      .sort((a, b) => a.country.name.localeCompare(b.country.name, "es"));
-
-    const selected = selectedCode && countriesData[selectedCode] ? countriesData[selectedCode] : null;
-    selectedContainer.innerHTML = selected
-      ? newsUi.buildSelectedCard(
-          selected,
-          getCountryNewsPortalLinks(selected).map(link => `<a class="news-link" href="${link.url}" target="_blank" rel="noreferrer">${escapeHtml(link.label)}</a>`).join(""),
-          escapeHtml
-        )
-      : "";
-
-    if (!panel.open) {
-      articleContainer.innerHTML = "";
-      listContainer.innerHTML = "";
-      return;
-    }
-
-    articleContainer.innerHTML = selected
-      ? `<div class="news-hub-article-card"><strong>${currentLanguage === "en" ? "Quick focus" : "Foco rapido"}</strong><p>${currentLanguage === "en" ? "Now the hub also brings live headlines from the selected country when they are available." : "Ahora el hub tambien trae titulares en vivo del pais seleccionado cuando estan disponibles."}</p></div>`
-      : "";
-    listContainer.innerHTML = newsUi.buildNewsList(countries, activeNewsCountryCode, escapeHtml, getCountryNewsUrl);
-
-    if (selected) {
-      fetchCountryHeadlines(selected)
-        .then(headlines => {
-          if (selected.code !== activeNewsCountryCode && selectedCode !== selected.code) {
-            return;
-          }
-          renderNewsArticle(headlines[0], selected, headlines);
-        })
-        .catch(() => {});
-    }
-  };
-}
-
 {
   renderComparePanel = function renderComparePanel() {
     const comparePanel = document.getElementById("compare-hub-panel");
@@ -16652,7 +16541,9 @@ if (typeof compareUi.buildCompareChips === "function") {
     const meta = document.getElementById("quiz-meta");
     if (!meta) return;
     const best = Number(localStorage.getItem("geo-risk-quiz-best-streak") || quizState.bestStreak || 0);
-    meta.innerHTML = quizUi.buildMetaHtml(quizState, currentLanguage, best);
+    meta.innerHTML = typeof quizUi.buildMetaHtml === "function"
+      ? quizUi.buildMetaHtml(quizState, currentLanguage, best)
+      : `<span class="quiz-meta-pill">${currentLanguage === "en" ? "Best streak" : "Mejor racha"}: ${best}</span>`;
   };
 
   renderQuizPanel = function renderQuizPanel() {
