@@ -3998,31 +3998,6 @@ function t(key) {
   return UI_STRINGS[currentLanguage]?.[key] || UI_STRINGS.es[key] || key;
 }
 
-function getFlagEmojiLegacy(code) {
-  const fallbackFlags = {
-    "CS-KM": "ðŸ‡½ðŸ‡°",
-    "-99": "ðŸ´",
-    ATA: "ðŸ‡¦ðŸ‡¶"
-  };
-
-  if (!code) {
-    return "ðŸ³ï¸";
-  }
-
-  if (fallbackFlags[code]) {
-    return fallbackFlags[code];
-  }
-
-  const normalized = code.slice(0, 2).toUpperCase();
-  if (!/^[A-Z]{2}$/.test(normalized)) {
-    return "ðŸ³ï¸";
-  }
-
-  return String.fromCodePoint(
-    ...[...normalized].map(char => 127397 + char.charCodeAt(0))
-  );
-}
-
 function renderList(items) {
   if (!items || !items.length) {
     return "<p>Sin datos</p>";
@@ -4101,31 +4076,6 @@ function translateContinentName(continent) {
   };
 
   return labels[continent] || continent || "Sin datos";
-}
-
-function renderCitiesLegacy(general) {
-  const capital = general?.capital;
-  const cities = Array.isArray(general?.cities) ? general.cities : [];
-
-  const cityItems = [];
-
-  if (capital?.name) {
-    cityItems.push(
-      `${capital.name}${capital.population ? ` (${formatNumber(capital.population)} hab.)` : ""}`
-    );
-  }
-
-  cities.forEach(city => {
-    if (!city?.name) {
-      return;
-    }
-
-    cityItems.push(
-      `${city.name}${city.population ? ` (${formatNumber(city.population)} hab.)` : ""}`
-    );
-  });
-
-  return renderList(cityItems);
 }
 
 function getFlagEmoji(code) {
@@ -5122,19 +5072,6 @@ function scrollCountrySectionIntoView(sectionId) {
   dialog.scrollTo({ top: offset, behavior: "smooth" });
 }
 
-function extractConflictStartYearLegacy(conflict) {
-  if (!conflict) {
-    return null;
-  }
-
-  if (typeof conflict === "object" && conflict.startYear) {
-    return Number(conflict.startYear);
-  }
-
-  const match = String(conflict).match(/\((\d{3,4})/);
-  return match ? Number(match[1]) : null;
-}
-
 function getConflictsSinceFormation(country) {
   const formationYear = country.history?.year;
   const conflicts = Array.isArray(country?.military?.conflicts)
@@ -5154,34 +5091,6 @@ function getConflictsSinceFormation(country) {
 
     return conflictStartYear >= formationYear;
   });
-}
-
-function sortConflictsLegacy(conflicts) {
-  return [...conflicts].sort((a, b) => {
-    const yearA = a.startYear ?? Number.MAX_SAFE_INTEGER;
-    const yearB = b.startYear ?? Number.MAX_SAFE_INTEGER;
-
-    if (yearA !== yearB) {
-      return yearA - yearB;
-    }
-
-    const endA = a.endYear ?? yearA;
-    const endB = b.endYear ?? yearB;
-
-    if (endA !== endB) {
-      return endA - endB;
-    }
-
-    return String(a.name || "").localeCompare(String(b.name || ""), "es");
-  });
-}
-
-function cleanConflictNameLegacy(name) {
-  return String(name || "")
-    .replace(/\s*\((?:\d{3,4})(?:[-â€“]\d{3,4})?\)\s*$/u, "")
-    .replace(/\s+\d{4}$/u, "")
-    .replace(/\s+/g, " ")
-    .trim();
 }
 
 function translateConflictName(name) {
@@ -5357,27 +5266,6 @@ function buildGenericConflictChronology(conflict) {
   return chronology;
 }
 
-function normalizeConflictForDisplayLegacy(conflict) {
-  if (!conflict) {
-    return null;
-  }
-
-  const name = translateConflictName(conflict.name || conflict);
-  const startYear = extractConflictStartYear(conflict);
-  const endYear = conflict.ongoing ? null : extractConflictEndYear(conflict);
-
-  if (!name) {
-    return null;
-  }
-
-  return {
-    name,
-    startYear,
-    endYear,
-    ongoing: Boolean(conflict.ongoing)
-  };
-}
-
 function conflictDedupKey(conflict) {
   const canonicalName = normalizeText(conflict.name)
     .replace(/\bde las\b/g, "de")
@@ -5409,30 +5297,6 @@ function formatConflictPeriod(conflict) {
   }
 
   return ` (${conflict.startYear}-${endYear})`;
-}
-
-function renderConflictsLegacy(conflicts) {
-  if (!conflicts || !conflicts.length) {
-    return "<p>Sin datos</p>";
-  }
-
-  const cleanedConflicts = sortConflicts(
-    conflicts
-      .map(normalizeConflictForDisplay)
-      .filter(Boolean)
-      .filter(
-        (conflict, index, list) =>
-          index === list.findIndex(item => conflictDedupKey(item) === conflictDedupKey(conflict))
-      )
-  );
-
-  if (!cleanedConflicts.length) {
-    return "<p>Sin datos</p>";
-  }
-
-  return `<ul>${cleanedConflicts
-    .map(conflict => `<li>${conflict.name}${formatConflictPeriod(conflict)}</li>`)
-    .join("")}</ul>`;
 }
 
 function extractYearsFromText(value) {

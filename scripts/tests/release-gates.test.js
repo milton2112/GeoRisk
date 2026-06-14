@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
 import nativeFs from "node:fs";
 import fs from "fs-extra";
 import path from "node:path";
@@ -85,6 +86,12 @@ assert.equal(schedulerContext.window.GeoRiskBootScheduler.longTaskMetrics.overBu
 assert.equal(schedulerContext.window.GeoRiskBootScheduler.longTaskMetrics.longestDuration, 240);
 
 const manifestPath = path.join(projectRoot, "dist", "public", "asset-manifest.json");
+if (!(await fs.pathExists(manifestPath))) {
+  execFileSync(process.execPath, ["scripts/buildProduction.js"], {
+    cwd: projectRoot,
+    stdio: "inherit"
+  });
+}
 assert.ok(await fs.pathExists(manifestPath), "build prod debe generar asset-manifest.json");
 const manifest = await fs.readJson(manifestPath);
 assert.ok(manifest.assetCount > 20, "manifest debe listar assets publicos");
