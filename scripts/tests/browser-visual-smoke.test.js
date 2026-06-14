@@ -18,7 +18,7 @@ try {
   assert.ok(html.includes('id="compare-hub-panel"'), "hubs deben estar en shell");
   assert.ok(html.includes('id="news-hub-panel"'), "hub noticias debe estar en shell");
   assert.ok(html.includes("app-store.js"), "store debe cargarse en shell visual");
-  assert.ok(html.includes("app-ui-polish.js"), "polish UI debe cargarse en shell visual");
+  assert.ok(!html.includes("app-ui-polish.js"), "polish UI debe quedar diferido en shell visual");
 
   const cssResponse = await fetch(`${baseUrl}/style.css?v=visual-smoke`);
   assert.equal(cssResponse.status, 200);

@@ -56,6 +56,7 @@ assert.ok(!indexHtml.includes("app-country-panel.js"), "ficha pais avanzada debe
 assert.ok(!indexHtml.includes("app-timeline-conflicts.js"), "timeline/conflictos debe cargarse bajo demanda");
 assert.ok(!indexHtml.includes("app-search.js"), "busqueda avanzada debe cargarse bajo demanda");
 assert.ok(!indexHtml.includes("app-rankings.js"), "rankings debe cargarse bajo demanda");
+assert.ok(!indexHtml.includes("app-ui-polish.js"), "pulido UI debe cargarse bajo demanda");
 assert.ok(!indexHtml.includes("html2canvas"), "exportacion debe cargar html2canvas bajo demanda");
 assert.ok(!indexHtml.includes("jspdf"), "exportacion debe cargar jsPDF bajo demanda");
 assert.ok(script.includes("scheduleFullCountryDataLoad"), "countries_full debe cargarse por scheduler");

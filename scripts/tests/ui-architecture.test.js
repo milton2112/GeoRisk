@@ -44,11 +44,12 @@ assert.ok(contributing.includes("Architecture Rules"), "guia interna debe cubrir
 
 const indexHtml = await fs.readFile(path.join(projectRoot, "index.html"), "utf8");
 assert.ok(indexHtml.includes("app-store.js"), "shell debe cargar store central");
-assert.ok(indexHtml.includes("app-ui-polish.js"), "shell debe cargar polish UI");
+assert.ok(!indexHtml.includes("app-ui-polish.js"), "polish UI debe quedar fuera del shell inicial");
 assert.ok(indexHtml.includes("Alt+C"), "ayuda debe documentar atajos de hubs");
 
 const script = await fs.readFile(path.join(projectRoot, "script.js"), "utf8");
 assert.ok(script.includes("appStore?.setState"), "runtime debe publicar estado al store central");
+assert.ok(script.includes("uiPolish: \"./app-ui-polish.js"), "runtime debe declarar polish UI como modulo diferido");
 assert.ok(script.includes("uiPolish.init"), "runtime debe inicializar polish UI");
 assert.ok(script.includes("event.key.toLowerCase() === \"p\""), "runtime debe exponer atajo de presentacion");
 assert.ok(script.includes("event.altKey && event.key.toLowerCase() === \"n\""), "runtime debe exponer atajo de noticias");

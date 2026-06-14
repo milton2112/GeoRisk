@@ -80,7 +80,7 @@ const mapCore = window.GeoRiskMap || {};
 const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
-const uiPolish = window.GeoRiskUiPolish || {};
+let uiPolish = window.GeoRiskUiPolish || {};
 const APP_VERSION = "2026-06-13-release-1";
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -97,6 +97,7 @@ const DEFERRED_UI_MODULES = {
   riskRadar: "./app-risk-radar-ui.js?v=2026-06-13-release-1",
   conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-13-release-1",
   projectAudit: "./app-project-audit-ui.js?v=2026-06-13-release-1",
+  uiPolish: "./app-ui-polish.js?v=2026-06-13-release-1",
   countryPanel: "./app-country-panel.js?v=2026-06-13-release-1",
   timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-13-release-1",
   search: "./app-search.js?v=2026-06-13-release-1",
@@ -111,6 +112,7 @@ function refreshDeferredUiGlobals() {
   riskRadarUi = window.GeoRiskRiskRadarUi || riskRadarUi || {};
   conflictAuditUi = window.GeoRiskConflictAuditUi || conflictAuditUi || {};
   projectAuditUi = window.GeoRiskProjectAuditUi || projectAuditUi || {};
+  uiPolish = window.GeoRiskUiPolish || uiPolish || {};
   countryPanelUi = window.GeoRiskCountryPanel || countryPanelUi || {};
   timelineConflictUi = window.GeoRiskTimelineConflicts || timelineConflictUi || {};
   searchCore = window.GeoRiskSearch || searchCore || {};
@@ -15662,6 +15664,7 @@ async function init() {
         safeUiTask("saved views", () => setupSavedViewControls());
         safeUiTask("global shortcuts", () => setupGlobalKeyboardShortcuts());
         safeUiTask("mobile controls", () => setupMobilePanelControls());
+        await ensureDeferredUiModule("uiPolish");
         safeUiTask("ui polish", () => uiPolish.init?.());
         await registerServiceWorker();
         updateAppStatusPanel();
