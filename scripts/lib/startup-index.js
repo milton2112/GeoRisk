@@ -114,8 +114,7 @@ export function buildStartupCountryIndex(countries = {}) {
           updatedAt: country.metadata?.updatedAt,
           quality: compactQuality(country.metadata?.quality),
           isIndex: true
-        },
-        conflicts: limitArray(country.conflicts, 1).map(compactConflict)
+        }
       })
     ])
   );

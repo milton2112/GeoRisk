@@ -7723,6 +7723,9 @@ function getBucketThemeInfo(value, buckets) {
 }
 
 function getCountryConflictCount(country) {
+  if (Array.isArray(country?.military?.conflicts)) {
+    return country.military.conflicts.length;
+  }
   return Array.isArray(country?.conflicts) ? country.conflicts.length : 0;
 }
 

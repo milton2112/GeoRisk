@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-06-14T01:31:06.068Z",
-  "startupBytes": 971871,
-  "startupHuman": "949 KB",
+  "generatedAt": "2026-06-14T01:35:35.694Z",
+  "startupBytes": 954069,
+  "startupHuman": "932 KB",
   "deferredBytes": 1207761,
   "deferredHuman": "1.15 MB",
   "estimatedRuntimeMemory": {
@@ -22,7 +22,7 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 642576,
+      "bytes": 642679,
       "human": "628 KB",
       "startupCritical": true
     },
@@ -34,18 +34,18 @@
       "startupCritical": false
     },
     {
-      "path": "data/countries_index.json",
-      "exists": true,
-      "bytes": 188543,
-      "human": "184 KB",
-      "startupCritical": true
-    },
-    {
       "path": "data/world_countries_simplified.geo.json",
       "exists": true,
       "bytes": 174321,
       "human": "170 KB",
       "startupCritical": false
+    },
+    {
+      "path": "data/countries_index.json",
+      "exists": true,
+      "bytes": 170638,
+      "human": "167 KB",
+      "startupCritical": true
     },
     {
       "path": "style.css",
@@ -108,7 +108,7 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 642576,
+      "bytes": 642679,
       "human": "628 KB",
       "startupCritical": true
     },
@@ -241,8 +241,8 @@
     {
       "path": "data/countries_index.json",
       "exists": true,
-      "bytes": 188543,
-      "human": "184 KB",
+      "bytes": 170638,
+      "human": "167 KB",
       "startupCritical": true
     },
     {

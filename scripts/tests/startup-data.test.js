@@ -212,7 +212,8 @@ for (const country of Object.values(index)) {
       assert.ok(value.length <= 2, `relacion ${key} debe venir resumida en el indice`);
     }
   }
-  assert.ok((country.conflicts || []).length <= 1, "conflictos del indice deben venir muy resumidos");
+  assert.ok(!Object.hasOwn(country, "conflicts"), "conflictos duplicados no deben vivir en raiz del indice");
+  assert.ok((country.military?.conflicts || []).length <= 1, "conflictos del indice deben venir muy resumidos");
   assert.ok((country.religion?.composition || []).length <= 2, "religion del indice debe venir resumida");
 }
 
