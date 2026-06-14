@@ -12,7 +12,6 @@ const APP_SHELL = [
   "./app-map-styles.js",
   "./app-map-interactions.js",
   "./app-store.js",
-  "./app-ui-polish.js",
   "./favicon.ico",
   "./favicon.svg",
   "./data/countries_index.json",

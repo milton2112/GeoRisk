@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-06-14T01:26:06.118Z",
-  "startupBytes": 975753,
-  "startupHuman": "953 KB",
+  "generatedAt": "2026-06-14T01:31:06.068Z",
+  "startupBytes": 971871,
+  "startupHuman": "949 KB",
   "deferredBytes": 1207761,
   "deferredHuman": "1.15 MB",
   "estimatedRuntimeMemory": {
@@ -278,13 +278,6 @@
       "exists": true,
       "bytes": 1298,
       "human": "1 KB",
-      "startupCritical": true
-    },
-    {
-      "path": "app-ui-polish.js",
-      "exists": true,
-      "bytes": 3882,
-      "human": "4 KB",
       "startupCritical": true
     },
     {

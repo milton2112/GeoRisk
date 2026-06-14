@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-06-14T01:26:06.694Z",
+  "generatedAt": "2026-06-14T01:31:06.699Z",
   "status": "operativo",
   "startup": {
-    "critical": "953 KB",
-    "criticalBytes": 975753,
+    "critical": "949 KB",
+    "criticalBytes": 971871,
     "deferred": "1.15 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 8550643,

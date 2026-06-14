@@ -139,7 +139,8 @@ assert.ok(sw.includes("./app-map.js"), "modulo de mapa debe estar disponible off
 assert.ok(sw.includes("./app-map-styles.js"), "modulo de estilos de mapa debe estar disponible offline");
 assert.ok(sw.includes("./app-map-interactions.js"), "modulo de interacciones de mapa debe estar disponible offline");
 assert.ok(sw.includes("./app-store.js"), "store central debe estar disponible offline");
-assert.ok(sw.includes("./app-ui-polish.js"), "polish UI debe estar disponible offline");
+assert.ok(!appShellBlock.includes("app-ui-polish.js"), "polish UI no debe entrar en APP_SHELL");
+assert.ok(sw.includes("\"/app-\""), "modulos app diferidos deben quedar cacheables bajo demanda");
 assert.ok(appStore.includes("createStore"), "store central debe exponer createStore");
 assert.ok(appUiPolish.includes("trapFocus"), "polish UI debe exponer navegacion por teclado/foco");
 assert.ok(appBootScheduler.includes("scheduleWhenQuiet"), "modulo de scheduler debe exponer espera por quietud");
