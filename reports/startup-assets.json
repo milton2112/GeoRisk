@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-06-14T00:55:02.336Z",
-  "startupBytes": 999204,
-  "startupHuman": "976 KB",
-  "deferredBytes": 1182942,
-  "deferredHuman": "1.13 MB",
+  "generatedAt": "2026-06-14T01:01:58.102Z",
+  "startupBytes": 988488,
+  "startupHuman": "965 KB",
+  "deferredBytes": 1194654,
+  "deferredHuman": "1.14 MB",
   "estimatedRuntimeMemory": {
     "countriesFullBytes": 8550643,
     "countriesFullHuman": "8.15 MB",
@@ -22,8 +22,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 640879,
-      "human": "626 KB",
+      "bytes": 641999,
+      "human": "627 KB",
       "startupCritical": true
     },
     {
@@ -57,7 +57,7 @@
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 32039,
+      "bytes": 31915,
       "human": "31 KB",
       "startupCritical": true
     },
@@ -101,15 +101,15 @@
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 32039,
+      "bytes": 31915,
       "human": "31 KB",
       "startupCritical": true
     },
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 640879,
-      "human": "626 KB",
+      "bytes": 641999,
+      "human": "627 KB",
       "startupCritical": true
     },
     {
@@ -159,14 +159,14 @@
       "exists": true,
       "bytes": 5935,
       "human": "6 KB",
-      "startupCritical": true
+      "startupCritical": false
     },
     {
       "path": "app-rankings.js",
       "exists": true,
       "bytes": 5777,
       "human": "6 KB",
-      "startupCritical": true
+      "startupCritical": false
     },
     {
       "path": "app-boot-scheduler.js",

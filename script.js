@@ -71,8 +71,8 @@ let conflictAuditUi = window.GeoRiskConflictAuditUi || {};
 let projectAuditUi = window.GeoRiskProjectAuditUi || {};
 const countryPanelUi = window.GeoRiskCountryPanel || {};
 const timelineConflictUi = window.GeoRiskTimelineConflicts || {};
-const searchCore = window.GeoRiskSearch || {};
-const rankingsCore = window.GeoRiskRankings || {};
+let searchCore = window.GeoRiskSearch || {};
+let rankingsCore = window.GeoRiskRankings || {};
 const sharedTheme = window.GeoRiskTheme || {};
 const sharedText = window.GeoRiskText || {};
 const bootScheduler = window.GeoRiskBootScheduler || {};
@@ -82,13 +82,23 @@ const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 const uiPolish = window.GeoRiskUiPolish || {};
 const APP_VERSION = "2026-06-13-release-1";
+function createFallbackCache() {
+  return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
+}
+
+function createFallbackSearchCache() {
+  return { isFallback: true, get() {}, set(key, value) { return value; }, clear() {}, size() { return 0; } };
+}
+
 const DEFERRED_UI_MODULES = {
   news: "./app-news-ui.js?v=2026-06-13-release-1",
   compare: "./app-compare-ui.js?v=2026-06-13-release-1",
   quiz: "./app-quiz-ui.js?v=2026-06-13-release-1",
   riskRadar: "./app-risk-radar-ui.js?v=2026-06-13-release-1",
   conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-13-release-1",
-  projectAudit: "./app-project-audit-ui.js?v=2026-06-13-release-1"
+  projectAudit: "./app-project-audit-ui.js?v=2026-06-13-release-1",
+  search: "./app-search.js?v=2026-06-13-release-1",
+  rankings: "./app-rankings.js?v=2026-06-13-release-1"
 };
 const deferredUiModulePromises = new Map();
 
@@ -99,6 +109,14 @@ function refreshDeferredUiGlobals() {
   riskRadarUi = window.GeoRiskRiskRadarUi || riskRadarUi || {};
   conflictAuditUi = window.GeoRiskConflictAuditUi || conflictAuditUi || {};
   projectAuditUi = window.GeoRiskProjectAuditUi || projectAuditUi || {};
+  searchCore = window.GeoRiskSearch || searchCore || {};
+  rankingsCore = window.GeoRiskRankings || rankingsCore || {};
+  if (advancedRankingCache?.isFallback && typeof rankingsCore.createRankingsCache === "function") {
+    advancedRankingCache = rankingsCore.createRankingsCache();
+  }
+  if (searchResultCache?.isFallback && typeof searchCore.createRecentSearchCache === "function") {
+    searchResultCache = searchCore.createRecentSearchCache(18);
+  }
 }
 
 async function ensureDeferredUiModule(moduleName) {
@@ -3093,12 +3111,12 @@ let countriesDataRevision = 0;
 let countryValuesCache = null;
 let countryEntriesCache = null;
 const rankingCache = new Map();
-const advancedRankingCache = typeof rankingsCore.createRankingsCache === "function"
+let advancedRankingCache = typeof rankingsCore.createRankingsCache === "function"
   ? rankingsCore.createRankingsCache()
-  : { get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
-const searchResultCache = typeof searchCore.createRecentSearchCache === "function"
+  : createFallbackCache();
+let searchResultCache = typeof searchCore.createRecentSearchCache === "function"
   ? searchCore.createRecentSearchCache(18)
-  : { get() {}, set(key, value) { return value; }, clear() {}, size() { return 0; } };
+  : createFallbackSearchCache();
 const countryStyleCache = typeof mapStyleCore.createCountryStyleCache === "function"
   ? mapStyleCore.createCountryStyleCache({ maxEntries: 2200 })
   : { clear() {}, get() {}, set(key, value) { return value; }, size() { return 0; } };
@@ -11734,7 +11752,8 @@ function renderAdvancedRanking(targetId, title, metric, formatter = value => for
   })));
 }
 
-function generateAdvancedRankings() {
+async function generateAdvancedRankings() {
+  await ensureDeferredUiModule("rankings");
   renderAdvancedRanking("top-risk-score", currentLanguage === "en" ? "Risk ranking" : "Ranking de riesgo", "risk");
   renderAdvancedRanking("top-data-quality", currentLanguage === "en" ? "Data quality ranking" : "Ranking de calidad de datos", "dataQuality");
   renderAdvancedRanking("top-active-conflicts", currentLanguage === "en" ? "Active conflicts" : "Conflictos activos", "activeConflicts");
@@ -12413,6 +12432,14 @@ function getSuggestions(query) {
 }
 
 function renderSuggestions(query, activeIndex = 0) {
+  if (typeof searchCore.rankSuggestions !== "function") {
+    ensureDeferredUiModule("search").then(() => {
+      if (document.getElementById("map-search-input")?.value === query) {
+        renderSuggestions(query, activeIndex);
+      }
+    });
+  }
+
   const suggestionBox = document.getElementById("search-suggestions");
   const suggestions = getSuggestions(query);
 
@@ -12773,6 +12800,7 @@ async function selectSearchResult(result) {
 }
 
 async function searchMap() {
+  await ensureDeferredUiModule("search");
   const input = document.getElementById("map-search-input");
   const rawQuery = input.value;
   const query = normalizeText(rawQuery);
@@ -13067,12 +13095,13 @@ function runDeferredGlobalStatsBatch(step = 0) {
     return;
   }
 
-  task();
   const schedule = window.requestIdleCallback
     ? callback => window.requestIdleCallback(callback, { timeout: 600 })
     : callback => setTimeout(callback, step === 0 ? 80 : 40);
 
-  deferredGlobalStatsTimer = schedule(() => runDeferredGlobalStatsBatch(step + 1));
+  Promise.resolve(task()).finally(() => {
+    deferredGlobalStatsTimer = schedule(() => runDeferredGlobalStatsBatch(step + 1));
+  });
 }
 
 function scheduleDeferredGlobalStats(force = false) {
