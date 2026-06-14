@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-06-13T19:28:40.212Z",
-  "startupBytes": 1022000,
-  "startupHuman": "998 KB",
+  "generatedAt": "2026-06-14T00:46:41.982Z",
+  "startupBytes": 969062,
+  "startupHuman": "946 KB",
   "deferredBytes": 1216166,
   "deferredHuman": "1.16 MB",
   "estimatedRuntimeMemory": {
@@ -22,8 +22,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 696899,
-      "human": "681 KB",
+      "bytes": 643961,
+      "human": "629 KB",
       "startupCritical": true
     },
     {
@@ -108,8 +108,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 696899,
-      "human": "681 KB",
+      "bytes": 643961,
+      "human": "629 KB",
       "startupCritical": true
     },
     {
