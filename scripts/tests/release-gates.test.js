@@ -52,6 +52,8 @@ assert.ok(startupCriticalResources.reduce((sum, resource) => {
 assert.ok(!indexHtml.includes("countries_full.json"), "countries_full no debe cargarse desde HTML inicial");
 assert.ok(!indexHtml.includes("conflict_details.generated.json"), "conflict_details no debe cargarse desde HTML inicial");
 assert.ok(!indexHtml.includes("app-curation.js"), "curation debe ser bajo demanda");
+assert.ok(!indexHtml.includes("app-country-panel.js"), "ficha pais avanzada debe cargarse bajo demanda");
+assert.ok(!indexHtml.includes("app-timeline-conflicts.js"), "timeline/conflictos debe cargarse bajo demanda");
 assert.ok(!indexHtml.includes("app-search.js"), "busqueda avanzada debe cargarse bajo demanda");
 assert.ok(!indexHtml.includes("app-rankings.js"), "rankings debe cargarse bajo demanda");
 assert.ok(!indexHtml.includes("html2canvas"), "exportacion debe cargar html2canvas bajo demanda");

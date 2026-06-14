@@ -69,8 +69,8 @@ let quizUi = window.GeoRiskQuizUI || {};
 let riskRadarUi = window.GeoRiskRiskRadarUi || {};
 let conflictAuditUi = window.GeoRiskConflictAuditUi || {};
 let projectAuditUi = window.GeoRiskProjectAuditUi || {};
-const countryPanelUi = window.GeoRiskCountryPanel || {};
-const timelineConflictUi = window.GeoRiskTimelineConflicts || {};
+let countryPanelUi = window.GeoRiskCountryPanel || {};
+let timelineConflictUi = window.GeoRiskTimelineConflicts || {};
 let searchCore = window.GeoRiskSearch || {};
 let rankingsCore = window.GeoRiskRankings || {};
 const sharedTheme = window.GeoRiskTheme || {};
@@ -97,6 +97,8 @@ const DEFERRED_UI_MODULES = {
   riskRadar: "./app-risk-radar-ui.js?v=2026-06-13-release-1",
   conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-13-release-1",
   projectAudit: "./app-project-audit-ui.js?v=2026-06-13-release-1",
+  countryPanel: "./app-country-panel.js?v=2026-06-13-release-1",
+  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-13-release-1",
   search: "./app-search.js?v=2026-06-13-release-1",
   rankings: "./app-rankings.js?v=2026-06-13-release-1"
 };
@@ -109,6 +111,8 @@ function refreshDeferredUiGlobals() {
   riskRadarUi = window.GeoRiskRiskRadarUi || riskRadarUi || {};
   conflictAuditUi = window.GeoRiskConflictAuditUi || conflictAuditUi || {};
   projectAuditUi = window.GeoRiskProjectAuditUi || projectAuditUi || {};
+  countryPanelUi = window.GeoRiskCountryPanel || countryPanelUi || {};
+  timelineConflictUi = window.GeoRiskTimelineConflicts || timelineConflictUi || {};
   searchCore = window.GeoRiskSearch || searchCore || {};
   rankingsCore = window.GeoRiskRankings || rankingsCore || {};
   if (advancedRankingCache?.isFallback && typeof rankingsCore.createRankingsCache === "function") {
@@ -6682,7 +6686,11 @@ function renderCountryLocalTools(country, countryCode, savedNotes = "") {
   `;
 }
 
-function renderCountry(country, fallbackName) {
+async function renderCountry(country, fallbackName) {
+  await Promise.all([
+    ensureDeferredUiModule("countryPanel"),
+    ensureDeferredUiModule("timelineConflicts")
+  ]);
   const countryCode = getCountryCodeByObject(country);
   if (countryCode) {
     appStore?.setState({ selectedCode: countryCode }, "country-render");
