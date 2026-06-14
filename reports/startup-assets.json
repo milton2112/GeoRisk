@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-06-14T00:50:44.985Z",
-  "startupBytes": 965980,
-  "startupHuman": "943 KB",
-  "deferredBytes": 1216166,
-  "deferredHuman": "1.16 MB",
+  "generatedAt": "2026-06-14T00:55:02.336Z",
+  "startupBytes": 999204,
+  "startupHuman": "976 KB",
+  "deferredBytes": 1182942,
+  "deferredHuman": "1.13 MB",
   "estimatedRuntimeMemory": {
     "countriesFullBytes": 8550643,
     "countriesFullHuman": "8.15 MB",
@@ -73,14 +73,14 @@
       "exists": true,
       "bytes": 8067,
       "human": "8 KB",
-      "startupCritical": false
+      "startupCritical": true
     },
     {
       "path": "app-timeline-conflicts.js",
       "exists": true,
       "bytes": 8027,
       "human": "8 KB",
-      "startupCritical": false
+      "startupCritical": true
     },
     {
       "path": "app-quiz-ui.js",
@@ -131,42 +131,42 @@
       "exists": true,
       "bytes": 338,
       "human": "338 B",
-      "startupCritical": false
+      "startupCritical": true
     },
     {
       "path": "app-text.js",
       "exists": true,
       "bytes": 8067,
       "human": "8 KB",
-      "startupCritical": false
+      "startupCritical": true
     },
     {
       "path": "app-country-panel.js",
       "exists": true,
       "bytes": 5080,
       "human": "5 KB",
-      "startupCritical": false
+      "startupCritical": true
     },
     {
       "path": "app-timeline-conflicts.js",
       "exists": true,
       "bytes": 8027,
       "human": "8 KB",
-      "startupCritical": false
+      "startupCritical": true
     },
     {
       "path": "app-search.js",
       "exists": true,
       "bytes": 5935,
       "human": "6 KB",
-      "startupCritical": false
+      "startupCritical": true
     },
     {
       "path": "app-rankings.js",
       "exists": true,
       "bytes": 5777,
       "human": "6 KB",
-      "startupCritical": false
+      "startupCritical": true
     },
     {
       "path": "app-boot-scheduler.js",

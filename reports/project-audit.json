@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-06-14T00:50:45.525Z",
+  "generatedAt": "2026-06-14T00:55:02.888Z",
   "status": "operativo",
   "startup": {
-    "critical": "943 KB",
-    "criticalBytes": 965980,
-    "deferred": "1.16 MB",
+    "critical": "976 KB",
+    "criticalBytes": 999204,
+    "deferred": "1.13 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 8550643,
       "countriesFullHuman": "8.15 MB",
@@ -74,14 +74,14 @@
         "exists": true,
         "bytes": 8067,
         "human": "8 KB",
-        "startupCritical": false
+        "startupCritical": true
       },
       {
         "path": "app-timeline-conflicts.js",
         "exists": true,
         "bytes": 8027,
         "human": "8 KB",
-        "startupCritical": false
+        "startupCritical": true
       },
       {
         "path": "app-quiz-ui.js",

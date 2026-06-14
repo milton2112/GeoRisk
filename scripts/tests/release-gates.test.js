@@ -22,6 +22,9 @@ const shellMatch = sw.match(/const APP_SHELL = \[([\s\S]*?)\];/);
 assert.ok(shellMatch, "service worker debe declarar APP_SHELL");
 const appShell = [...shellMatch[1].matchAll(/"([^"]+)"/g)].map(match => match[1]);
 const appShellText = appShell.join("\n");
+const initialLocalScripts = [...indexHtml.matchAll(/<script\s+src="([^"]+)"/g)]
+  .map(match => match[1].split("?")[0])
+  .filter(src => src && !/^https?:\/\//i.test(src));
 
 assert.ok(appShell.length <= 18, "APP_SHELL debe mantenerse chico");
 assert.ok(!appShellText.includes("countries_full.json"), "countries_full no debe entrar en APP_SHELL");
@@ -36,12 +39,15 @@ assert.ok(sw.includes("caches.match(\"./index.html\""), "offline debe poder abri
 
 assert.ok((await bytes("script.js")) < 700000, "script.js debe quedar bajo 700 KB");
 assert.ok((await bytes("data/countries_index.json")) < 240000, "countries_index debe quedar bajo 240 KB");
-const uniqueAppShell = [...new Set(appShell.map(resource => resource === "./" ? "./index.html" : resource))];
-assert.ok(uniqueAppShell.reduce((sum, resource) => {
+const startupCriticalResources = [...new Set([
+  ...appShell.map(resource => resource === "./" ? "./index.html" : resource),
+  ...initialLocalScripts.map(resource => resource.startsWith("./") ? resource : `./${resource}`)
+])];
+assert.ok(startupCriticalResources.reduce((sum, resource) => {
   const clean = resource.replace(/^\.\//, "");
   const file = clean === "" ? "index.html" : clean;
   return sum + (nativeFs.existsSync(path.join(projectRoot, file)) ? nativeFs.statSync(path.join(projectRoot, file)).size : 0);
-}, 0) < 1024 * 1024, "APP_SHELL debe quedar bajo 1 MiB");
+}, 0) < 1024 * 1024, "arranque critico real debe quedar bajo 1 MiB");
 
 assert.ok(!indexHtml.includes("countries_full.json"), "countries_full no debe cargarse desde HTML inicial");
 assert.ok(!indexHtml.includes("conflict_details.generated.json"), "conflict_details no debe cargarse desde HTML inicial");

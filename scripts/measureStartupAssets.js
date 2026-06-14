@@ -68,8 +68,24 @@ async function readServiceWorkerShell() {
   );
 }
 
+async function readInitialLocalScripts() {
+  const htmlPath = path.join(projectRoot, "index.html");
+  if (!(await fs.pathExists(htmlPath))) {
+    return new Set();
+  }
+
+  const source = await fs.readFile(htmlPath, "utf8");
+  return new Set(
+    [...source.matchAll(/<script\s+src="([^"]+)"/g)]
+      .map(match => match[1].split("?")[0])
+      .filter(src => src && !/^https?:\/\//i.test(src))
+  );
+}
+
 const appShell = await readServiceWorkerShell();
-const localAssetPaths = [...new Set([...LOCAL_ASSETS, ...appShell])];
+const initialLocalScripts = await readInitialLocalScripts();
+const startupCriticalAssets = new Set([...appShell, ...initialLocalScripts]);
+const localAssetPaths = [...new Set([...LOCAL_ASSETS, ...startupCriticalAssets])];
 const assets = [];
 for (const relativePath of localAssetPaths) {
   const absolutePath = path.join(projectRoot, relativePath);
@@ -83,7 +99,7 @@ for (const relativePath of localAssetPaths) {
     exists: true,
     bytes: stat.size,
     human: formatBytes(stat.size),
-    startupCritical: appShell.has(relativePath)
+    startupCritical: startupCriticalAssets.has(relativePath)
   });
 }
 
