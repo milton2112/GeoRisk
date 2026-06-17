@@ -1177,7 +1177,6 @@ function getIntroCoverageStats() {
   const signature = [
     countries.length,
     deferredDataStatus.countryIndex ? "index" : "no-index",
-    deferredDataStatus.fullCountries ? "full" : "lite",
     currentTheme
   ].join("|");
   if (introCoverageCache.signature === signature && introCoverageCache.stats) {
@@ -1226,7 +1225,7 @@ function updateIntroRuntimeStatus() {
     const states = [
       deferredDataStatus.countryIndex ? (currentLanguage === "en" ? "light index" : "indice liviano") : null,
       deferredDataStatus.runtimeCuration ? (currentLanguage === "en" ? "curation" : "curaduria") : null,
-      deferredDataStatus.fullCountries ? (currentLanguage === "en" ? "full dataset" : "dataset completo") : (currentLanguage === "en" ? "full deferred" : "full diferido")
+      currentLanguage === "en" ? "details on demand" : "detalle bajo demanda"
     ].filter(Boolean);
     dataState.textContent = states.join(" / ") || (currentLanguage === "en" ? "Preparing" : "Preparando");
   }
@@ -1747,12 +1746,10 @@ let activeNewsCountryCode = "";
 let loadDataPromise = null;
 let loadSupplementalDataPromise = null;
 let loadDeferredDataEnhancementsPromise = null;
-let loadFullCountryDataPromise = null;
 let loadRuntimeCurationPromise = null;
 const countryDetailPromises = new Map();
 const deferredDataStatus = {
   countryIndex: false,
-  fullCountries: false,
   runtimeCuration: false,
   wikipediaConflicts: false
 };
@@ -7205,7 +7202,7 @@ function updateAppStatusPanel(extra = {}) {
       deferredDataStatus.countryIndex ? (currentLanguage === "en" ? "index" : "indice") : null,
       deferredDataStatus.runtimeCuration ? (currentLanguage === "en" ? "curation" : "curaduria") : null,
       deferredDataStatus.wikipediaConflicts ? (currentLanguage === "en" ? "conflicts" : "conflictos") : null,
-      deferredDataStatus.fullCountries ? (currentLanguage === "en" ? "full" : "completo") : (currentLanguage === "en" ? "full deferred" : "completo diferido")
+      currentLanguage === "en" ? "details on demand" : "detalle bajo demanda"
     ].filter(Boolean);
     datasetChip.innerHTML = `<strong>${currentLanguage === "en" ? "Dataset" : "Dataset"}:</strong> ${currentLanguage === "en" ? "validated" : "validado"} · ${avgQuality}/100 · ${total} ${currentLanguage === "en" ? "entries" : "entradas"} · ${escapeHtml(loadStateParts.join(" / "))}`;
   }
@@ -13251,7 +13248,6 @@ async function loadData() {
     deferredDataStatus.countryIndex = true;
     refreshLoadedCountryLayers();
     updateAppStatusPanel();
-    scheduleFullCountryDataLoad();
   });
 
   return loadDataPromise;
@@ -13321,27 +13317,6 @@ async function loadRuntimeCuration() {
   return loadRuntimeCurationPromise;
 }
 
-function scheduleFullCountryDataLoad() {
-  const delayMs = isMobileLayout() ? 90000 : 45000;
-  const startFullLoad = () => {
-    if (document.visibilityState === "hidden") {
-      document.addEventListener("visibilitychange", () => {
-        if (document.visibilityState === "visible") {
-          loadFullCountryData();
-        }
-      }, { once: true });
-      return;
-    }
-    loadFullCountryData();
-  };
-
-  scheduleWhenGlobeIsQuiet(startFullLoad, {
-    delay: delayMs,
-    quietFor: isMobileLayout() ? 12000 : 8000,
-    timeout: isMobileLayout() ? 180000 : 120000
-  });
-}
-
 async function hydrateCountriesData(countriesJson, { refresh = false } = {}) {
   countriesData = countriesJson || {};
   invalidateCountryDerivedCaches();
@@ -13365,30 +13340,6 @@ async function hydrateCountriesData(countriesJson, { refresh = false } = {}) {
     refreshGlobalStats();
     rerenderCurrentPanel?.();
   }
-}
-
-async function loadFullCountryData() {
-  if (loadFullCountryDataPromise) {
-    return loadFullCountryDataPromise;
-  }
-
-  loadFullCountryDataPromise = measureBootStep("loadFullCountries", async () => {
-    markBootStepStart("fetchCountriesFull");
-    const countriesJson = await fetchResourceCached(`./data/countries_full.json?v=${APP_VERSION}`, "json")
-      .then(result => {
-        markBootStepEnd("fetchCountriesFull");
-        return result;
-      });
-    await hydrateCountriesData(countriesJson, { refresh: true });
-    deferredDataStatus.fullCountries = true;
-    updateAppStatusPanel();
-    return countriesData;
-  }).catch(error => {
-    console.warn("No se pudo hidratar el dataset completo:", error);
-    return countriesData;
-  });
-
-  return loadFullCountryDataPromise;
 }
 
 async function loadCountryDetail(code) {

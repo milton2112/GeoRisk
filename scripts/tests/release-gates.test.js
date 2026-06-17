@@ -60,7 +60,11 @@ assert.ok(!indexHtml.includes("app-rankings.js"), "rankings debe cargarse bajo d
 assert.ok(!indexHtml.includes("app-ui-polish.js"), "pulido UI debe cargarse bajo demanda");
 assert.ok(!indexHtml.includes("html2canvas"), "exportacion debe cargar html2canvas bajo demanda");
 assert.ok(!indexHtml.includes("jspdf"), "exportacion debe cargar jsPDF bajo demanda");
-assert.ok(script.includes("scheduleFullCountryDataLoad"), "countries_full debe cargarse por scheduler");
+assert.ok(!script.includes("scheduleFullCountryDataLoad"), "countries_full no debe precargarse por scheduler");
+assert.ok(!script.includes("startFullLoad"), "countries_full no debe tener disparador silencioso");
+assert.ok(!script.includes("async function loadFullCountryData()"), "countries_full no debe tener loader global sin consumidores");
+assert.equal((script.match(/countries_full\.json/g) || []).length, 1, "countries_full solo debe quedar como fallback del indice");
+assert.ok(script.includes("async function loadCountryDetail"), "detalle de pais debe cargarse bajo demanda");
 assert.ok(script.includes("maybeEnhanceOpenConflictModal"), "conflictos detallados deben cargarse al abrir modal");
 assert.ok(script.includes("scheduleDetailedOverlayUpgrade"), "GeoJSON detallado debe cargarse por upgrade diferido");
 assert.ok(appMap.includes("world_countries_simplified.geo.json"), "GeoJSON simplificado debe ser default inicial");
