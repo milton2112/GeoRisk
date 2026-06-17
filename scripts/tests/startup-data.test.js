@@ -133,6 +133,7 @@ assert.ok(indexHtml.includes("app-map.js"), "logica base de mapa debe vivir en m
 assert.ok(indexHtml.includes("app-map-styles.js"), "estilos de mapa deben vivir en modulo separado");
 assert.ok(indexHtml.includes("app-map-interactions.js"), "interacciones de mapa deben vivir en modulo separado");
 assert.ok(indexHtml.includes("app-store.js"), "estado compartido debe vivir en store central simple");
+assert.ok(!indexHtml.includes("app-text.js"), "texto/formato debe usar fallback inicial");
 assert.ok(!indexHtml.includes("app-ui-polish.js"), "polish UI/accesibilidad debe cargarse diferido");
 assert.ok(script.includes("uiPolish: \"./app-ui-polish.js"), "polish UI/accesibilidad debe vivir en modulo separado");
 assert.ok(sw.includes("./app-map.js"), "modulo de mapa debe estar disponible offline");

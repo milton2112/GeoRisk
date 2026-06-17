@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-06-14T01:35:35.694Z",
-  "startupBytes": 954069,
-  "startupHuman": "932 KB",
-  "deferredBytes": 1207761,
-  "deferredHuman": "1.15 MB",
+  "generatedAt": "2026-06-17T19:18:23.255Z",
+  "startupBytes": 945943,
+  "startupHuman": "924 KB",
+  "deferredBytes": 1215828,
+  "deferredHuman": "1.16 MB",
   "estimatedRuntimeMemory": {
     "countriesFullBytes": 8550643,
     "countriesFullHuman": "8.15 MB",
@@ -57,7 +57,7 @@
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 31710,
+      "bytes": 31651,
       "human": "31 KB",
       "startupCritical": true
     },
@@ -73,7 +73,7 @@
       "exists": true,
       "bytes": 8067,
       "human": "8 KB",
-      "startupCritical": true
+      "startupCritical": false
     },
     {
       "path": "app-timeline-conflicts.js",
@@ -101,7 +101,7 @@
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 31710,
+      "bytes": 31651,
       "human": "31 KB",
       "startupCritical": true
     },
@@ -138,7 +138,7 @@
       "exists": true,
       "bytes": 8067,
       "human": "8 KB",
-      "startupCritical": true
+      "startupCritical": false
     },
     {
       "path": "app-country-panel.js",
