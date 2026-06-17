@@ -53,6 +53,8 @@ const script = await fs.readFile(path.join(projectRoot, "script.js"), "utf8");
 const appMapInteractions = await fs.readFile(path.join(projectRoot, "app-map-interactions.js"), "utf8");
 assert.ok(indexHtml.includes('id="map"'), "la pantalla principal debe conservar contenedor de mapa/canvas");
 assert.ok(indexHtml.includes('id="map-mode-toggle"'), "la UI debe exponer cambio 2D/3D");
+assert.ok(indexHtml.includes('id="intro-start-button"'), "la portada debe tener CTA para entrar al mapa");
+assert.ok(indexHtml.includes('id="compare-hub-label"'), "los accesos inferiores deben usar etiquetas legibles");
 assert.ok(script.includes("constrainedInitialDevice ? \"none\" : \"countries\""), "mobile debe arrancar con etiquetas reducidas");
 assert.ok(script.includes("requestSceneRender = () =>"), "canvas debe usar scheduler de render");
 assert.ok(script.includes("startPerformanceMonitor"), "canvas debe tener monitor FPS para detectar congelamiento");

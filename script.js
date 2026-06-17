@@ -9980,6 +9980,12 @@ function updateStaticText() {
     clearCompareButton.textContent = currentLanguage === "en" ? "Clear" : "Limpiar";
   }
   document.getElementById("rankings-summary").textContent = currentLanguage === "en" ? "Global rankings" : "Rankings globales";
+  const compareHubLabel = document.getElementById("compare-hub-label");
+  const quizHubLabel = document.getElementById("quiz-hub-label");
+  const newsHubLabel = document.getElementById("news-hub-label");
+  if (compareHubLabel) compareHubLabel.textContent = currentLanguage === "en" ? "Compare" : "Comparar";
+  if (quizHubLabel) quizHubLabel.textContent = "Quiz";
+  if (newsHubLabel) newsHubLabel.textContent = currentLanguage === "en" ? "News" : "Noticias";
   document.getElementById("world-population-title").textContent = currentLanguage === "en" ? "World population" : "Poblacion mundial";
   document.getElementById("top-population-title").textContent = currentLanguage === "en" ? "Top population" : "Top poblacion";
   document.getElementById("continents-title").textContent = currentLanguage === "en" ? "Continents" : "Continentes";
@@ -9999,8 +10005,8 @@ function updateStaticText() {
   document.getElementById("history-types-top-title").textContent = currentLanguage === "en" ? "Historical types" : "Tipos historicos";
   document.getElementById("map-search-input").placeholder =
     currentLanguage === "en"
-      ? "Search country, continent, religion, political system or organization"
-      : "Buscar pais, continente, religion, sistema politico u organizacion";
+      ? "Search country, conflict, region or organization"
+      : "Buscar pais, conflicto, region u organizacion";
   document.getElementById("map-search-button").textContent = currentLanguage === "en" ? "Search" : "Buscar";
   const saveSearchButton = document.getElementById("save-search-button");
   if (saveSearchButton) {
@@ -10994,6 +11000,7 @@ function setupSavedViewControls() {
   const helpClose = document.getElementById("help-modal-close");
   const introModal = document.getElementById("intro-modal");
   const introClose = document.getElementById("intro-modal-close");
+  const introStart = document.getElementById("intro-start-button");
   const productModal = document.getElementById("product-modal");
   const productClose = document.getElementById("product-modal-close");
 
@@ -11075,6 +11082,10 @@ function setupSavedViewControls() {
     }
   });
   introClose?.addEventListener("click", () => closeIntroModal());
+  introStart?.addEventListener("click", () => {
+    closeIntroModal();
+    window.setTimeout(() => document.getElementById("map-search-input")?.focus({ preventScroll: true }), 0);
+  });
   introModal?.addEventListener("click", event => {
     if (event.target.closest("[data-close-intro-modal='true']")) {
       closeIntroModal();
@@ -11083,6 +11094,10 @@ function setupSavedViewControls() {
     if (modeButton) {
       applyAppMode(modeButton.dataset.appModeChoice || "default");
       closeIntroModal();
+    }
+    const introTarget = event.target.closest("[data-intro-target]");
+    if (introTarget) {
+      document.getElementById(introTarget.dataset.introTarget)?.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   });
   productClose?.addEventListener("click", () => closeProductModal());

@@ -20,7 +20,7 @@
 
 <div id="top-controls">
   <div id="search-bar">
-    <input id="map-search-input" type="text" placeholder="Buscar pais, continente, religion, sistema politico u organizacion" autocomplete="off">
+    <input id="map-search-input" type="text" placeholder="Buscar pa&iacute;s, conflicto, regi&oacute;n u organizaci&oacute;n" autocomplete="off">
     <button id="map-search-button" type="button">Buscar</button>
     <button id="save-search-button" type="button" title="Guardar busqueda">&#9733;</button>
     <div id="search-suggestions" hidden></div>
@@ -378,7 +378,10 @@
 </div>
 
 <details id="compare-hub-panel">
-  <summary title="Comparador">📊</summary>
+  <summary title="Comparador" aria-label="Abrir comparador">
+    <span class="hub-summary-icon" aria-hidden="true">&#8644;</span>
+    <span class="hub-summary-label" id="compare-hub-label">Comparar</span>
+  </summary>
   <div class="compare-hub-content">
     <h3 id="compare-title">Comparador</h3>
     <p id="compare-empty">Agrega hasta 5 paises desde la ficha o el buscador.</p>
@@ -410,7 +413,10 @@
 </details>
 
 <details id="quiz-hub-panel">
-  <summary title="Quiz educativo">?</summary>
+  <summary title="Quiz educativo" aria-label="Abrir quiz educativo">
+    <span class="hub-summary-icon" aria-hidden="true">?</span>
+    <span class="hub-summary-label" id="quiz-hub-label">Quiz</span>
+  </summary>
   <div class="quiz-hub-content">
     <h3 id="quiz-title">Modo educativo</h3>
     <div id="quiz-panel">
@@ -459,7 +465,10 @@
 </details>
 
 <details id="news-hub-panel">
-  <summary title="Hub de noticias">📰</summary>
+  <summary title="Hub de noticias" aria-label="Abrir noticias">
+    <span class="hub-summary-icon" aria-hidden="true">&#9638;</span>
+    <span class="hub-summary-label" id="news-hub-label">Noticias</span>
+  </summary>
   <div class="news-hub-content">
     <h3>Hub de noticias</h3>
     <p id="news-hub-note">Cobertura del dia por pais. Abre la fuente mas relevante disponible.</p>
@@ -550,8 +559,15 @@
   <div class="help-modal-dialog product-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="intro-modal-title">
     <button id="intro-modal-close" type="button" aria-label="Cerrar">&times;</button>
     <div id="intro-modal-body">
-      <h2 id="intro-modal-title">GeoRisk</h2>
-      <p class="product-lead">GeoRisk es un atlas geopol&iacute;tico interactivo para explorar pa&iacute;ses, conflictos, historia, relaciones internacionales y comparaciones globales desde un solo lugar.</p>
+      <header class="product-intro-header">
+        <span class="product-eyebrow">Atlas geopol&iacute;tico interactivo</span>
+        <h2 id="intro-modal-title">GeoRisk</h2>
+        <p class="product-lead">Explor&aacute; pa&iacute;ses, conflictos, historia y relaciones internacionales desde un mapa pensado para investigar, comparar y ense&ntilde;ar.</p>
+        <div class="product-intro-actions">
+          <button id="intro-start-button" type="button">Explorar el mapa</button>
+          <button type="button" class="product-secondary-action" data-intro-target="intro-modes">Elegir un modo</button>
+        </div>
+      </header>
       <div class="product-summary-grid">
         <div class="overview-card"><span class="overview-label">Qu&eacute; es hoy</span><strong class="overview-value">Una base interactiva de an&aacute;lisis geopol&iacute;tico</strong></div>
         <div class="overview-card"><span class="overview-label">Mejor entrada</span><strong class="overview-value">Buscar y abrir un pa&iacute;s</strong></div>
@@ -573,21 +589,7 @@
       <div class="product-insight-strip">
         <span>Recomendado: empez&aacute; con el buscador, abr&iacute; una ficha y salt&aacute; desde ah&iacute; a conflictos, timeline o comparador.</span>
       </div>
-      <div class="help-section">
-        <h3>Qu&eacute; pod&eacute;s hacer ahora</h3>
-        <ul>
-          <li>Explorar el globo en 2D y 3D con vista satelital y capas tem&aacute;ticas.</li>
-          <li>Abrir fichas de pa&iacute;s con historia, econom&iacute;a, pol&iacute;tica, religi&oacute;n, relaciones y conflictos.</li>
-          <li>Recorrer guerras, campa&ntilde;as y batallas con timelines y jerarqu&iacute;as internas.</li>
-          <li>Comparar pa&iacute;ses, usar rankings globales, quiz educativo y hub de noticias.</li>
-          <li>Guardar vistas, favoritos y cambiar entre modos de producto seg&uacute;n el uso.</li>
-        </ul>
-      </div>
-      <div class="help-section">
-        <h3>Nota temporal</h3>
-        <p>Este mensaje es provisorio: GeoRisk va a seguir creciendo en cobertura, datos curados, capas, conflictos y herramientas de an&aacute;lisis. La base ya es &uacute;til hoy, pero va a seguir escalando versi&oacute;n a versi&oacute;n.</p>
-      </div>
-      <div class="product-mode-grid">
+      <div class="product-mode-grid" id="intro-modes">
         <button type="button" class="product-mode-card" data-app-mode-choice="analysis">
           <strong>An&aacute;lisis geopol&iacute;tico</strong>
           <span>Capas, rankings, rivalidades, bloques y lectura comparada del sistema internacional.</span>
@@ -601,14 +603,28 @@
           <span>Vista limpia para clase, demo, exposici&oacute;n o exploraci&oacute;n guiada.</span>
         </button>
       </div>
-      <div class="help-section">
-        <h3>Atajos &uacute;tiles</h3>
-        <ul>
-          <li><b>/</b>: enfoca el buscador</li>
-          <li><b>?</b>: abre la guia</li>
-          <li><b>Esc</b>: cierra modales y hubs</li>
-        </ul>
-      </div>
+      <details class="product-intro-more">
+        <summary>Conocer funciones y atajos</summary>
+        <div class="product-intro-more-grid">
+          <div class="help-section">
+            <h3>Qu&eacute; pod&eacute;s hacer</h3>
+            <ul>
+              <li>Explorar el globo en 2D y 3D con capas tem&aacute;ticas.</li>
+              <li>Abrir fichas de pa&iacute;s con historia, econom&iacute;a, pol&iacute;tica y conflictos.</li>
+              <li>Recorrer guerras, campa&ntilde;as y batallas en sus timelines.</li>
+              <li>Comparar pa&iacute;ses, usar rankings, quiz y noticias.</li>
+            </ul>
+          </div>
+          <div class="help-section">
+            <h3>Atajos &uacute;tiles</h3>
+            <ul>
+              <li><b>/</b>: enfoca el buscador</li>
+              <li><b>?</b>: abre la gu&iacute;a</li>
+              <li><b>Esc</b>: cierra modales y paneles</li>
+            </ul>
+          </div>
+        </div>
+      </details>
     </div>
   </div>
 </div>

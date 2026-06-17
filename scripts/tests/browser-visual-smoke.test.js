@@ -17,6 +17,8 @@ try {
   assert.ok(html.includes('id="country-modal"'), "modales deben estar en shell");
   assert.ok(html.includes('id="compare-hub-panel"'), "hubs deben estar en shell");
   assert.ok(html.includes('id="news-hub-panel"'), "hub noticias debe estar en shell");
+  assert.ok(html.includes('class="hub-summary-label"'), "hubs deben mostrar etiquetas comprensibles");
+  assert.ok(html.includes('id="intro-start-button"'), "portada debe ofrecer una accion primaria visible");
   assert.ok(html.includes("app-store.js"), "store debe cargarse en shell visual");
   assert.ok(!html.includes("app-ui-polish.js"), "polish UI debe quedar diferido en shell visual");
 
@@ -24,6 +26,7 @@ try {
   assert.equal(cssResponse.status, 200);
   const css = await cssResponse.text();
   assert.ok(css.includes("@media (max-width: 820px)"), "CSS debe tener breakpoint mobile");
+  assert.ok(css.includes("grid-template-columns: repeat(3, minmax(0, 1fr))"), "mobile debe mostrar navegacion inferior de tres acciones");
   assert.ok(css.includes("#news-hub-panel[open]"), "CSS debe dimensionar hubs abiertos");
   assert.ok(css.includes(":focus-visible"), "CSS debe mostrar foco accesible");
   assert.ok(css.includes(".loading-state"), "CSS debe exponer estado loading");
