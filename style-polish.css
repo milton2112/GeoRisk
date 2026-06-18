@@ -1,0 +1,211 @@
+:root {
+  --ui-radius: 8px;
+  --ui-divider: rgba(114, 222, 192, 0.2);
+  --ui-hover: rgba(114, 222, 192, 0.1);
+}
+
+/* Deferred component polish: no effect on the first map paint. */
+.compare-country-card,
+.compare-insight-card,
+.compare-modal-header-summary,
+.compare-row,
+.overview-card,
+.country-executive-summary,
+.country-local-tools,
+.country-skeleton,
+.empty-state-card,
+.news-hub-selected-card,
+.news-hub-item,
+.news-hub-article-card,
+.compare-benchmark-card,
+.quiz-review,
+.timeline-item,
+.conflict-entry,
+.panel-section {
+  border-radius: var(--ui-radius);
+}
+
+.compare-country-card,
+.compare-insight-card,
+.compare-modal-header-summary,
+.overview-card,
+.country-executive-summary,
+.country-local-tools,
+.news-hub-selected-card,
+.news-hub-item,
+.news-hub-article-card {
+  border-color: var(--ui-divider);
+  background-image: none;
+  background-color: rgba(10, 27, 29, 0.96);
+}
+
+.status-chip,
+.country-meta-pill,
+.quiz-meta-pill {
+  border-color: var(--ui-divider);
+}
+
+.country-modal-dialog,
+.compare-modal-dialog,
+.conflict-modal-dialog,
+.timeline-modal-dialog,
+.help-modal-dialog {
+  border-color: rgba(114, 222, 192, 0.3);
+  background: #091719;
+}
+
+.panel-action-button,
+.panel-utility-button,
+.compare-toolbar button,
+.quiz-toolbar button,
+.country-mode-switch button,
+.country-nav-chip {
+  border-color: rgba(114, 222, 192, 0.24);
+  background: #10282b;
+  color: #f1f7f5;
+}
+
+.country-mode-switch button.is-active,
+.country-mode-switch button[aria-pressed="true"],
+.country-nav-chip:hover,
+.country-nav-chip:focus-visible {
+  border-color: var(--accent);
+  background: rgba(114, 222, 192, 0.14);
+  color: #effbf7;
+}
+
+.overview-label,
+.timeline-kicker,
+.conflict-trigger-meta,
+.country-executive-summary span {
+  letter-spacing: 0;
+}
+
+.status-chip::before {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  content: "";
+  box-shadow: 0 0 0 3px rgba(114, 222, 192, 0.1);
+}
+
+#map-toolbar > summary,
+#rankings-panel > summary,
+.ranking-group > summary,
+#compare-hub-panel > summary,
+#quiz-hub-panel > summary,
+#news-hub-panel > summary {
+  letter-spacing: 0;
+}
+
+#map-toolbar > summary::after,
+#rankings-panel > summary::after {
+  margin-left: auto;
+  color: var(--accent-soft);
+  content: "+";
+  font-size: 1rem;
+  line-height: 1;
+}
+
+#map-toolbar[open] > summary::after,
+#rankings-panel[open] > summary::after {
+  content: "−";
+}
+
+.panel-action-button,
+.panel-utility-button,
+.compare-toolbar button,
+.quiz-toolbar button,
+.news-source-links a,
+.news-source-links .news-source-link {
+  min-height: 36px;
+  border-radius: var(--ui-radius);
+}
+
+.panel-action-button:hover,
+.panel-utility-button:hover,
+.compare-toolbar button:hover,
+.quiz-toolbar button:hover {
+  border-color: var(--accent);
+  background: var(--ui-hover);
+}
+
+.country-notes-input,
+#compare-country-search,
+#news-country-filter,
+#compare-country-select,
+#compare-preset-select,
+#news-topic-select,
+#quiz-mode,
+#quiz-category,
+#quiz-difficulty {
+  border-radius: var(--ui-radius);
+}
+
+.country-notes-input:focus,
+#compare-country-search:focus,
+#news-country-filter:focus,
+#map-search-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(114, 222, 192, 0.12);
+}
+
+.country-skeleton-line,
+.country-skeleton-grid span {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.04), rgba(114, 222, 192, 0.13), rgba(255, 255, 255, 0.04));
+  background-size: 220% 100%;
+}
+
+* {
+  scrollbar-color: rgba(114, 222, 192, 0.42) rgba(255, 255, 255, 0.035);
+  scrollbar-width: thin;
+}
+
+@media (max-width: 760px) {
+  #mobile-panel-controls button,
+  #mobile-more-menu button,
+  #map-search-button,
+  #save-search-button,
+  #country-modal-close,
+  #compare-modal-close,
+  #conflict-modal-close,
+  #timeline-modal-close,
+  #help-modal-close {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  #mobile-panel-controls {
+    padding-bottom: max(7px, env(safe-area-inset-bottom));
+  }
+
+  .country-modal-dialog,
+  .compare-modal-dialog,
+  .conflict-modal-dialog,
+  .help-modal-dialog {
+    border-radius: var(--ui-radius) var(--ui-radius) 0 0;
+  }
+
+  .country-quick-nav {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    scroll-snap-type: x proximity;
+  }
+
+  .country-nav-chip {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

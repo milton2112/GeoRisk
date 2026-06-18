@@ -1937,29 +1937,90 @@ const RELATION_OVERRIDES_V2 = {
 };
 
 Object.assign(LANGUAGE_OVERRIDES, {
+  AGO: ["Portugues", "Umbundu", "Kimbundu", "Kikongo"],
+  ARG: ["Espanol", "Guarani", "Quechua", "Mapudungun"],
+  AUS: ["Ingles", "Mandarin", "Arabe", "Vietnamita"],
+  BGD: ["Bengali", "Chittagonian", "Sylheti", "Chakma"],
+  BEN: ["Frances", "Fon", "Yoruba", "Bariba"],
   BOL: ["Espanol", "Quechua", "Aimara", "Guarani"],
+  BRA: ["Portugues", "Guarani", "Tikuna", "Kaingang"],
+  BFA: ["Moore", "Dioula", "Fulfulde", "Frances"],
+  CHN: ["Chino mandarin", "Cantones", "Wu", "Tibetano", "Uigur"],
+  CIV: ["Frances", "Dioula", "Baoule", "Bete"],
   COL: ["Espanol", "Wayuu", "Nasa Yuwe"],
+  DEU: ["Aleman", "Bajo aleman", "Turco", "Danes", "Sorbio"],
   DZA: ["Arabe", "Tamazight", "Frances"],
   ECU: ["Espanol", "Quechua", "Shuar"],
+  EGY: ["Arabe egipcio", "Arabe estandar", "Nubio", "Copto liturgico"],
+  ESP: ["Espanol", "Catalan", "Gallego", "Euskera"],
+  ETH: ["Amarico", "Oromo", "Somali", "Tigrina", "Afar"],
+  FRA: ["Frances", "Occitano", "Alsaciano", "Breton", "Corso"],
+  GBR: ["Ingles", "Gales", "Gaelico escoces", "Irlandes", "Scots"],
+  GHA: ["Ingles", "Akan", "Ewe", "Ga", "Dagbani"],
   GTM: ["Espanol", "Kiche", "Qeqchi"],
   HND: ["Espanol", "Garifuna", "Misquito"],
+  IDN: ["Indonesio", "Javanes", "Sundanes", "Madures", "Minangkabau"],
+  IRN: ["Persa", "Azeri", "Kurdo", "Luri", "Arabe"],
+  ITA: ["Italiano", "Sardo", "Friulano", "Aleman", "Esloveno"],
+  JPN: ["Japones", "Lenguas ryukyuenses", "Ainu"],
+  MMR: ["Birmano", "Shan", "Karen", "Kachin", "Chin"],
   MLT: ["Maltes", "Ingles"],
   MEX: ["Espanol", "Nahuatl", "Maya yucateco", "Mixteco", "Zapoteco"],
+  MOZ: ["Portugues", "Makhuwa", "Tsonga", "Sena"],
+  MYS: ["Malayo", "Ingles", "Chino mandarin", "Tamil"],
+  NER: ["Frances", "Hausa", "Zarma", "Tamasheq", "Fulfulde"],
+  NGA: ["Ingles", "Hausa", "Yoruba", "Igbo"],
   NIC: ["Espanol", "Miskitu", "Mayangna"],
+  NPL: ["Nepali", "Maithili", "Bhojpuri", "Tharu", "Tamang"],
   PAN: ["Espanol", "Ngabere", "Guna"],
   PER: ["Espanol", "Quechua", "Aimara", "Ashaninka"],
   PHL: ["Filipino", "Ingles", "Cebuano"],
+  POL: ["Polaco", "Silesio", "Casubio", "Aleman"],
   PRY: ["Espanol", "Guarani"],
+  RUS: ["Ruso", "Tartaro", "Baskir", "Checheno", "Chuvasio"],
+  SAU: ["Arabe", "Ingles", "Urdu"],
   SDN: ["Arabe", "Ingles", "Beja"],
   SOM: ["Somali", "Arabe", "Ingles"],
+  SYR: ["Arabe", "Kurdo", "Armenio", "Siriaco"],
+  THA: ["Tailandes", "Isan", "Tailandes septentrional", "Malayo"],
   TUN: ["Arabe", "Frances"],
+  TUR: ["Turco", "Kurdo", "Arabe", "Zaza"],
+  TWN: ["Chino mandarin", "Hokkien taiwanes", "Hakka", "Lenguas formosanas"],
+  UKR: ["Ucraniano", "Ruso", "Rumano", "Hungaro", "Tartaro de Crimea"],
   URY: ["Espanol", "Portunol fronterizo"],
+  USA: ["Ingles", "Espanol", "Chino", "Tagalo"],
+  UZB: ["Uzbeko", "Ruso", "Tayiko", "Karakalpako"],
   VEN: ["Espanol", "Wayuu", "Pemon"],
   VNM: ["Vietnamita", "Ingles"],
   YEM: ["Arabe", "Mehri"],
+  ZMB: ["Ingles", "Bemba", "Nyanja", "Tonga", "Lozi"],
   MLI: ["Frances", "Bambara"],
   SEN: ["Frances", "Wolof"]
 });
+
+const CITY_SUPPLEMENT_OVERRIDES = {
+  AFG: ["Jalalabad"],
+  AGO: ["Lubango"],
+  ARM: ["Vanadzor", "Vagharshapat"],
+  TCD: ["Kelo"],
+  COD: ["Kananga"],
+  CIV: ["San-Pedro"],
+  CYP: ["Limassol", "Larnaca", "Famagusta"],
+  GHA: ["Sekondi-Takoradi"],
+  KWT: ["Hawalli"],
+  MDG: ["Fianarantsoa"],
+  MWI: ["Mangochi"],
+  MAR: ["Tanger"],
+  NAM: ["Oshakati"],
+  NER: ["Agadez"],
+  PRK: ["Wonsan"],
+  SDN: ["Kassala"],
+  SYR: ["Hama"],
+  TWN: ["Nueva Taipei"],
+  TJK: ["Kulob"],
+  TUR: ["Antalya"],
+  VNM: ["Can Tho"]
+};
 
 Object.assign(CAPITAL_ROLE_OVERRIDES, {
   BEN: [
@@ -2329,22 +2390,36 @@ Object.assign(RELATION_OVERRIDES_V2, {
 
 const RELATION_BLOC_CATEGORY_RULES = [
   { key: "otan", label: "OTAN", category: "military" },
+  { key: "organizacion del tratado del atlantico norte", label: "OTAN", category: "military" },
   { key: "otsc", label: "OTSC", category: "military" },
+  { key: "organizacion del tratado de la seguridad colectiva", label: "OTSC", category: "military" },
   { key: "quad", label: "Quad", category: "military" },
   { key: "mercosur", label: "Mercosur", category: "economic" },
   { key: "union europea", label: "Union Europea", category: "economic" },
   { key: "uee", label: "UEE", category: "economic" },
   { key: "usmca", label: "USMCA", category: "economic" },
   { key: "apec", label: "APEC", category: "economic" },
+  { key: "cooperacion economica asia-pacifico", label: "APEC", category: "economic" },
   { key: "asean", label: "ASEAN", category: "economic" },
   { key: "brics", label: "BRICS", category: "economic" },
   { key: "cptpp", label: "CPTPP", category: "economic" },
   { key: "ocs", label: "OCS", category: "economic" },
+  { key: "organizacion de cooperacion de shanghai", label: "OCS", category: "economic" },
+  { key: "comunidad del caribe", label: "CARICOM", category: "economic" },
+  { key: "mercado comun centroamericano", label: "MCCA", category: "economic" },
+  { key: "consejo de cooperacion para los estados arabes del golfo", label: "CCG", category: "economic" },
+  { key: "organizacion de paises exportadores de petroleo", label: "OPEP", category: "economic" },
   { key: "onu", label: "ONU", category: "diplomatic" },
+  { key: "organizacion de las naciones unidas", label: "ONU", category: "diplomatic" },
   { key: "commonwealth", label: "Commonwealth", category: "diplomatic" },
+  { key: "mancomunidad de naciones", label: "Commonwealth", category: "diplomatic" },
   { key: "celac", label: "CELAC", category: "diplomatic" },
   { key: "consejo de europa", label: "Consejo de Europa", category: "diplomatic" },
   { key: "oic", label: "OIC", category: "diplomatic" },
+  { key: "organizacion para la cooperacion islamica", label: "OIC", category: "diplomatic" },
+  { key: "organizacion de los estados americanos", label: "OEA", category: "diplomatic" },
+  { key: "liga arabe", label: "Liga Arabe", category: "diplomatic" },
+  { key: "foro de las islas del pacifico", label: "PIF", category: "diplomatic" },
   { key: "francofonia", label: "Francofonia", category: "diplomatic" },
   { key: "g7", label: "G7", category: "diplomatic" }
 ];
@@ -4093,18 +4168,30 @@ function deriveMetropole(code, historyEntry) {
 function getOrganizationBlocks(organizations) {
   const blockRules = [
     { key: "otan", label: "OTAN" },
+    { key: "organizacion del tratado del atlantico norte", label: "OTAN" },
     { key: "union europea", label: "Union Europea" },
-    { key: "ue", label: "Union Europea" },
     { key: "mercosur", label: "Mercosur" },
     { key: "union africana", label: "Union Africana" },
     { key: "asean", label: "ASEAN" },
     { key: "commonwealth", label: "Commonwealth" },
-    { key: "onu", label: "ONU" }
+    { key: "mancomunidad de naciones", label: "Commonwealth" },
+    { key: "organizacion de las naciones unidas", label: "ONU" },
+    { key: "organizacion para la cooperacion islamica", label: "OIC" },
+    { key: "organizacion del tratado de la seguridad colectiva", label: "OTSC" },
+    { key: "organizacion de cooperacion de shanghai", label: "OCS" },
+    { key: "organizacion de los estados americanos", label: "OEA" },
+    { key: "comunidad del caribe", label: "CARICOM" },
+    { key: "mercado comun centroamericano", label: "MCCA" },
+    { key: "consejo de cooperacion para los estados arabes del golfo", label: "CCG" },
+    { key: "organizacion de paises exportadores de petroleo", label: "OPEP" },
+    { key: "liga arabe", label: "Liga Arabe" },
+    { key: "foro de las islas del pacifico", label: "PIF" },
+    { key: "cooperacion economica asia-pacifico", label: "APEC" }
   ];
 
   return uniqueBy(
-    organizations.flatMap(organization => {
-      const label = normalizeKey(organization?.name || organization);
+    organizations.filter(organization => !organization?.endYear || organization.endYear > 2026).flatMap(organization => {
+      const label = normalizeKey(`${organization?.name || organization} ${organization?.abbreviation || ""}`);
       return blockRules
         .filter(rule => label.includes(normalizeKey(rule.key)))
         .map(rule => rule.label);
@@ -4120,8 +4207,10 @@ function getCategorizedOrganizationBlocks(organizations) {
     diplomatic: []
   };
 
-  compactList(organizations).forEach(organization => {
-    const label = normalizeKey(organization?.name || organization);
+  compactList(organizations)
+    .filter(organization => !organization?.endYear || organization.endYear > 2026)
+    .forEach(organization => {
+    const label = normalizeKey(`${organization?.name || organization} ${organization?.abbreviation || ""}`);
     RELATION_BLOC_CATEGORY_RULES.forEach(rule => {
       if (label.includes(rule.key)) {
         grouped[rule.category].push(rule.label);
@@ -4533,6 +4622,25 @@ function expandReligionComposition(code, summary, composition) {
 }
 
 Object.assign(POST_BUILD_ENTITY_OVERRIDES, {
+  ARM: {
+    general: {
+      cities: [
+        { name: "Gyumri", population: 112600, isCapital: false },
+        { name: "Vanadzor", population: 76000, isCapital: false },
+        { name: "Vagharshapat", population: 46500, isCapital: false },
+        { name: "Abovyan", population: 45000, isCapital: false }
+      ]
+    }
+  },
+  CYP: {
+    general: {
+      cities: [
+        { name: "Limassol", population: 108105, isCapital: false },
+        { name: "Larnaca", population: 84900, isCapital: false },
+        { name: "Famagusta", population: 40920, isCapital: false }
+      ]
+    }
+  },
   CHE: {
     general: {
       cities: [
@@ -5435,6 +5543,17 @@ for (const code of allCodes) {
       city => !result[code].general.capital || !sameCityName(city.name, result[code].general.capital.name)
     );
     result[code].general.capitals = deriveCapitalProfiles(code, result[code].general.capital, result[code].general.cities);
+  }
+  if (CITY_SUPPLEMENT_OVERRIDES[code]?.length) {
+    result[code].general.cities = buildCityList(
+      result[code].general.cities,
+      CITY_SUPPLEMENT_OVERRIDES[code]
+    ).filter(city => !result[code].general.capital || !sameCityName(city.name, result[code].general.capital.name));
+    result[code].general.capitals = deriveCapitalProfiles(
+      code,
+      result[code].general.capital,
+      result[code].general.cities
+    );
   }
   if (result[code].conflicts?.length === 0 && CURATED_CONFLICT_OVERRIDES[code]) {
     result[code].conflicts = normalizeConflicts(CURATED_CONFLICT_OVERRIDES[code]);

@@ -6,6 +6,7 @@ const projectRoot = path.resolve(process.cwd());
 const visibleFiles = [
   "index.html",
   "style.css",
+  "style-polish.css",
   "app-risk-radar-ui.js",
   "app-conflict-audit-ui.js",
   "app-project-audit-ui.js",
@@ -36,6 +37,7 @@ for (const file of visibleFiles) {
 }
 
 const css = await fs.readFile(path.join(projectRoot, "style.css"), "utf8");
+const polishCss = await fs.readFile(path.join(projectRoot, "style-polish.css"), "utf8");
 assert.ok(/\[hidden\]\s*\{\s*display:\s*none\s*!important;/.test(css), "hidden debe prevalecer sobre layouts de modales y paneles");
 assert.ok(css.includes("#map-toolbar .toolbar-content") || css.includes(".toolbar-content"));
 assert.ok(css.includes("overflow-y: auto"), "panel de capas debe tener scroll vertical propio");
@@ -43,6 +45,8 @@ assert.ok(css.includes("overscroll-behavior: contain"), "panel de capas debe con
 assert.ok(css.includes("position: sticky"), "cabecera del panel de capas debe quedar fija al scrollear");
 assert.ok(css.includes(".performance-status-banner"), "panel de rendimiento debe exponer estado visual de arranque");
 assert.ok(css.includes(".performance-recommendation-card"), "panel de rendimiento debe exponer recomendacion automatica");
+assert.ok(polishCss.includes("--ui-radius: 8px"), "componentes diferidos deben usar radio visual compacto");
+assert.ok(polishCss.includes("min-height: 44px"), "controles tactiles deben conservar un objetivo comodo");
 
 const performanceUi = await fs.readFile(path.join(projectRoot, "app-performance-ui.js"), "utf8");
 assert.ok(performanceUi.includes("Recomendacion automatica"), "rendimiento debe explicar la recomendacion en espanol");

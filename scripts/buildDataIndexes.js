@@ -310,6 +310,14 @@ function sectionSourceTrace(country = {}) {
 function buildCurationAudit(countries, weights) {
   const gaps = [];
   const languageIssues = [];
+  const singlePrimaryLanguageProfiles = new Set(["PRK", "KOR"]);
+  const languageDiversityPriorityPopulation = 20000000;
+  const specialOrDependentCodes = new Set([
+    "-99", "ATA", "ATF", "BMU", "ESH", "FLK", "GRL", "GUF", "NCL", "PRI", "PSE", "CS-KM"
+  ]);
+  const rivalryPriorityCodes = new Set([
+    "ARG", "ARM", "AZE", "CHN", "GBR", "GRC", "IND", "IRN", "ISR", "KOR", "MAR", "PAK", "PRK", "RUS", "SAU", "SRB", "SYR", "TUR", "TWN", "UKR", "USA"
+  ]);
   const englishSignal = /\b(of|the|for|realm|british|cameroon|republic|federation|strategic|capability|commission)\b/i;
   for (const [code, country] of Object.entries(countries)) {
     const relations = country.politics?.relations || {};
@@ -342,12 +350,34 @@ function buildCurationAudit(countries, weights) {
     if (normalizeArray(country.general?.capitals).length === 1 && /Bolivia|Sudafrica|Países Bajos|Netherlands|South Africa/i.test(country.name)) {
       addGap("general.capitals.multiple", "posible capital multiple a revisar");
     }
-    if (normalizeArray(country.religion?.composition).length < 4) addGap("religion.denominations", "pocas denominaciones religiosas");
-    if (normalizeArray(country.general?.languages).length < 2) addGap("general.languages", "baja diversidad linguistica documentada");
-    if (normalizeArray(country.politics?.organizations).length < 8) addGap("politics.organizations", "organizaciones internacionales poco profundas");
-    if (normalizeArray(country.politics?.rivals).length < 2 && normalizeArray(relations.currentRivals).length < 2) addGap("politics.rivals", "rivalidades poco profundas");
-    if (normalizeArray(relations.blocs).length < 2 && normalizeArray(relations.militaryBlocs).length + normalizeArray(relations.economicBlocs).length + normalizeArray(relations.diplomaticBlocs).length < 2) {
-      addGap("politics.relations.blocs", "alianzas y bloques poco profundos");
+    if (
+      normalizeArray(country.religion?.composition).length < 2 &&
+      !specialOrDependentCodes.has(code)
+    ) addGap("religion.denominations", "composicion religiosa sin desglose suficiente");
+    const languageCount = normalizeArray(country.general?.languages).length;
+    if (!languageCount) {
+      addGap("general.languages", "sin idiomas principales documentados", "alta");
+    } else if (
+      population >= languageDiversityPriorityPopulation &&
+      languageCount < 2 &&
+      !singlePrimaryLanguageProfiles.has(code)
+    ) {
+      addGap("general.languages", "pais de alta poblacion sin diversidad linguistica documentada");
+    }
+    if (
+      normalizeArray(country.politics?.organizations).length < 3 &&
+      !specialOrDependentCodes.has(code)
+    ) addGap("politics.organizations", "sin membresias internacionales suficientes");
+    const rivalryCount = normalizeArray(country.politics?.rivals).length + normalizeArray(relations.currentRivals).length;
+    if (rivalryPriorityCodes.has(code) && rivalryCount < 1) {
+      addGap("politics.rivals", "pais con tension prioritaria sin rivalidades documentadas");
+    }
+    const blocCount = normalizeArray(relations.blocs).length +
+      normalizeArray(relations.militaryBlocs).length +
+      normalizeArray(relations.economicBlocs).length +
+      normalizeArray(relations.diplomaticBlocs).length;
+    if (!specialOrDependentCodes.has(code) && blocCount < 1) {
+      addGap("politics.relations.blocs", "sin alianzas o bloques documentados");
     }
     if (normalizeArray(relations.disputedTerritories || relations.disputes).length < 1 && ["RUS", "UKR", "IND", "PAK", "CHN", "ISR", "TUR", "GRC", "ARG", "GBR"].includes(code)) {
       addGap("politics.relations.disputes", "disputas territoriales prioritarias sin profundidad", "alta");

@@ -81,7 +81,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-06-18-release-4";
+const APP_VERSION = "2026-06-18-release-5";
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
 }
@@ -91,17 +91,17 @@ function createFallbackSearchCache() {
 }
 
 const DEFERRED_UI_MODULES = {
-  news: "./app-news-ui.js?v=2026-06-18-release-4",
-  compare: "./app-compare-ui.js?v=2026-06-18-release-4",
-  quiz: "./app-quiz-ui.js?v=2026-06-18-release-4",
-  riskRadar: "./app-risk-radar-ui.js?v=2026-06-18-release-4",
-  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-18-release-4",
-  projectAudit: "./app-project-audit-ui.js?v=2026-06-18-release-4",
-  uiPolish: "./app-ui-polish.js?v=2026-06-18-release-4",
-  countryPanel: "./app-country-panel.js?v=2026-06-18-release-4",
-  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-18-release-4",
-  search: "./app-search.js?v=2026-06-18-release-4",
-  rankings: "./app-rankings.js?v=2026-06-18-release-4"
+  news: "./app-news-ui.js?v=2026-06-18-release-5",
+  compare: "./app-compare-ui.js?v=2026-06-18-release-5",
+  quiz: "./app-quiz-ui.js?v=2026-06-18-release-5",
+  riskRadar: "./app-risk-radar-ui.js?v=2026-06-18-release-5",
+  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-18-release-5",
+  projectAudit: "./app-project-audit-ui.js?v=2026-06-18-release-5",
+  uiPolish: "./app-ui-polish.js?v=2026-06-18-release-5",
+  countryPanel: "./app-country-panel.js?v=2026-06-18-release-5",
+  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-18-release-5",
+  search: "./app-search.js?v=2026-06-18-release-5",
+  rankings: "./app-rankings.js?v=2026-06-18-release-5"
 };
 const deferredUiModulePromises = new Map();
 
@@ -871,8 +871,8 @@ function clearMapLabels() {
 function buildLabelEntityConfig(item, category = "country") {
   const isContext = category !== "country";
   const zoomBucket = get3DZoomBucket();
-  const countryFont = zoomBucket === "near" ? "700 14px Public Sans, sans-serif" : zoomBucket === "mid" ? "600 13px Public Sans, sans-serif" : "600 12px Public Sans, sans-serif";
-  const contextFont = zoomBucket === "near" ? "700 16px Public Sans, sans-serif" : zoomBucket === "mid" ? "600 15px Public Sans, sans-serif" : "600 14px Public Sans, sans-serif";
+  const countryFont = zoomBucket === "near" ? "700 14px Segoe UI, sans-serif" : zoomBucket === "mid" ? "600 13px Segoe UI, sans-serif" : "600 12px Segoe UI, sans-serif";
+  const contextFont = zoomBucket === "near" ? "700 16px Segoe UI, sans-serif" : zoomBucket === "mid" ? "600 15px Segoe UI, sans-serif" : "600 14px Segoe UI, sans-serif";
   return {
     id: item.id,
     position: Cesium.Cartesian3.fromDegrees(item.lon, item.lat, 0),
@@ -4271,7 +4271,7 @@ function renderCoatVisual(code, label, assetSrc = "") {
     const svg = encodeURIComponent(`
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 84 96">
         <path d="M42 4 74 18v26c0 23-13 37-32 48C23 81 10 67 10 44V18L42 4z" fill="#15304f" stroke="#4da3ff" stroke-width="4"/>
-        <text x="42" y="54" text-anchor="middle" font-family="Public Sans, Segoe UI, sans-serif" font-size="24" font-weight="700" fill="#eef5ff">${initials}</text>
+        <text x="42" y="54" text-anchor="middle" font-family="Segoe UI, sans-serif" font-size="24" font-weight="700" fill="#eef5ff">${initials}</text>
       </svg>
     `);
     return `
@@ -6863,6 +6863,10 @@ async function renderCountry(country, fallbackName) {
     ensureDeferredUiModule("timelineConflicts")
   ]);
   const countryCode = getCountryCodeByObject(country);
+  // Curaduria profunda se solicita al abrir una ficha, nunca durante el arranque global.
+  loadRuntimeCuration().catch(error => {
+    console.warn("No se pudo completar la curaduria de la ficha:", error);
+  });
   if (countryCode) {
     appStore?.setState({ selectedCode: countryCode }, "country-render");
   }
@@ -15909,7 +15913,6 @@ async function init() {
     const bootHeavyDataEnhancements = () => {
       dataLoadPromise
         .then(() => loadDeferredDataEnhancements())
-        .then(() => loadRuntimeCuration())
         .catch(error => {
           console.warn("No se pudieron completar las mejoras pesadas diferidas:", error);
         });

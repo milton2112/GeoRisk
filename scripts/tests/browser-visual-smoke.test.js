@@ -33,6 +33,12 @@ try {
   assert.ok(css.includes(".offline-state"), "CSS debe exponer estado offline");
   assert.ok(css.includes("overflow-wrap: anywhere"), "CSS debe evitar desbordes de texto");
 
+  const polishResponse = await fetch(`${baseUrl}/style-polish.css?v=visual-smoke`);
+  assert.equal(polishResponse.status, 200);
+  const polishCss = await polishResponse.text();
+  assert.ok(polishCss.includes("min-height: 44px"), "pulido mobile debe conservar objetivos tactiles");
+  assert.ok(polishCss.includes("prefers-reduced-motion"), "pulido debe respetar movimiento reducido");
+
   const swResponse = await fetch(`${baseUrl}/sw.js?v=visual-smoke`);
   assert.equal(swResponse.status, 200);
   const sw = await swResponse.text();

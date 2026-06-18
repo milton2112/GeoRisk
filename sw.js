@@ -1,4 +1,4 @@
-const CACHE_VERSION = "2026-06-18-release-4";
+const CACHE_VERSION = "2026-06-18-release-5";
 const APP_CACHE = `geo-risk-app-${CACHE_VERSION}`;
 const TILE_CACHE = `geo-risk-tiles-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `geo-risk-runtime-${CACHE_VERSION}`;
@@ -30,6 +30,7 @@ const RUNTIME_CACHEABLE_PATHS = [
   "/assets/flags/",
   "/assets/coats/",
   "/app-",
+  "/style-polish.css",
   "/reports/",
   "/USER_GUIDE.md",
   "/TECHNICAL.md",
@@ -37,7 +38,7 @@ const RUNTIME_CACHEABLE_PATHS = [
   "/CHANGELOG.md"
 ];
 
-const RUNTIME_CACHEABLE_EXTENSIONS = [".svg", ".json", ".geojson", ".md", ".js"];
+const RUNTIME_CACHEABLE_EXTENSIONS = [".svg", ".json", ".geojson", ".md", ".js", ".css"];
 const MAX_RUNTIME_CACHE_ENTRIES = 80;
 const MAX_TILE_CACHE_ENTRIES = 140;
 

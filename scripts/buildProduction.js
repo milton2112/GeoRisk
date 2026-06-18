@@ -8,6 +8,7 @@ const outputRoot = path.join(projectRoot, "dist", "public");
 const PUBLIC_FILES = [
   "index.html",
   "style.css",
+  "style-polish.css",
   "script.js",
   "sw.js",
   "favicon.ico",

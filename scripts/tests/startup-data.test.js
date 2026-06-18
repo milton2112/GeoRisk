@@ -21,6 +21,7 @@ const appMapStyles = await fs.readFile(path.join(projectRoot, "app-map-styles.js
 const appMapInteractions = await fs.readFile(path.join(projectRoot, "app-map-interactions.js"), "utf8");
 const appStore = await fs.readFile(path.join(projectRoot, "app-store.js"), "utf8");
 const appUiPolish = await fs.readFile(path.join(projectRoot, "app-ui-polish.js"), "utf8");
+const stylePolish = await fs.readFile(path.join(projectRoot, "style-polish.css"), "utf8");
 const rankingsWorker = await fs.readFile(path.join(projectRoot, "app-rankings-worker.js"), "utf8");
 const searchWorker = await fs.readFile(path.join(projectRoot, "app-search-worker.js"), "utf8");
 const appSearch = await fs.readFile(path.join(projectRoot, "app-search.js"), "utf8");
@@ -87,6 +88,7 @@ assert.ok(sw.includes("MAX_RUNTIME_CACHE_ENTRIES"), "service worker debe limitar
 assert.ok(/if \(isHeavyRuntimeRequest\(url\)\) \{\s*event\.respondWith\(fetch\(event\.request\)\)/.test(sw), "datasets pesados deben usar red sin guardarse en CacheStorage");
 assert.ok(!sw.includes("https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Cesium.js\""), "Cesium remoto no debe precachearse en install");
 assert.ok(!indexHtml.includes("app-curation.js"), "index.html no debe bloquear el arranque con app-curation");
+assert.ok(!indexHtml.includes("fonts.googleapis.com"), "la fuente web no debe bloquear el primer render");
 assert.ok(!indexHtml.includes("app-news-ui.js"), "noticias debe cargarse bajo demanda");
 assert.ok(!indexHtml.includes("app-compare-ui.js"), "comparador debe cargarse bajo demanda");
 assert.ok(!indexHtml.includes("app-quiz-ui.js"), "quiz debe cargarse bajo demanda");
@@ -129,6 +131,8 @@ assert.ok(!script.includes("startFullLoad"), "countries_full no debe tener dispa
 assert.ok(!script.includes("async function loadFullCountryData()"), "countries_full no debe conservar un loader global sin consumidores");
 assert.equal((script.match(/countries_full\.json/g) || []).length, 1, "countries_full solo debe quedar como fallback del indice");
 assert.ok(script.includes("async function loadCountryDetail"), "fichas deben cargar detalle por pais bajo demanda");
+assert.ok(!/bootHeavyDataEnhancements[\s\S]{0,500}loadRuntimeCuration/.test(script), "curaduria profunda no debe ejecutarse desde el arranque diferido");
+assert.ok(/async function renderCountry[\s\S]{0,500}loadRuntimeCuration/.test(script), "curaduria profunda debe activarse al abrir una ficha");
 assert.ok(script.includes("function setupCriticalCountrySearchIndex"), "busqueda de pais debe tener un indice critico liviano");
 assert.ok(/await hydrateCountriesData\(countriesJson\);\s*setupCriticalCountrySearchIndex\(\);/.test(script), "indice critico de paises debe quedar listo al terminar la hidratacion inicial");
 assert.ok(script.includes("if (countryCode && countriesData[countryCode])"), "busqueda de pais debe abrir ficha aunque la geometria siga cargando");
@@ -158,6 +162,9 @@ assert.ok(!appShellBlock.includes("app-ui-polish.js"), "polish UI no debe entrar
 assert.ok(sw.includes("\"/app-\""), "modulos app diferidos deben quedar cacheables bajo demanda");
 assert.ok(appStore.includes("createStore"), "store central debe exponer createStore");
 assert.ok(appUiPolish.includes("trapFocus"), "polish UI debe exponer navegacion por teclado/foco");
+assert.ok(appUiPolish.includes("style-polish.css"), "pulido visual debe cargar su hoja diferida");
+assert.ok(stylePolish.includes("prefers-reduced-motion"), "pulido visual debe respetar movimiento reducido");
+assert.ok(sw.includes("/style-polish.css"), "hoja visual diferida debe quedar disponible offline bajo demanda");
 assert.ok(appBootScheduler.includes("scheduleWhenQuiet"), "modulo de scheduler debe exponer espera por quietud");
 assert.ok(appBootScheduler.includes("PerformanceObserver"), "modulo de scheduler debe medir long tasks");
 assert.ok(appBootScheduler.includes("budgetMs: 200"), "long tasks deben tener presupuesto de 200 ms");
@@ -184,6 +191,13 @@ assert.ok(script.includes("diplomacy"), "noticias debe incluir tema diplomacia")
 assert.ok(script.includes("ensureDeferredUiModule(\"news\")"), "noticias debe cargar UI bajo demanda al abrir");
 assert.ok(appNews.includes("buildStateCard"), "noticias debe renderizar estados de carga/vacio desde modulo");
 assert.ok(appNews.includes("news-external-link"), "noticias debe separar busqueda externa de seleccion interna");
+
+for (const code of ["ARG", "BRA", "CHN", "ETH", "GBR", "IDN", "NGA", "USA"]) {
+  assert.ok(full[code].general.languages.length >= 3, `${code} debe documentar diversidad linguistica prioritaria`);
+}
+for (const [code, city] of [["AFG", "Jalalabad"], ["ARM", "Vanadzor"], ["CYP", "Larnaca"], ["TUR", "Antalya"], ["VNM", "Can Tho"]]) {
+  assert.ok(full[code].general.cities.some(entry => entry.name === city), `${code} debe incluir ${city}`);
+}
 assert.ok(script.includes("getCachedRanking"), "rankings deben cachearse por revision del dataset");
 assert.ok(script.includes("countryStyleCache"), "estilos de pais deben cachearse");
 assert.ok(script.includes("lastStyleRefreshSignature"), "UI debe evitar recalcular estilos si tema/firma no cambio");

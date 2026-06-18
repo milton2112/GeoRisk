@@ -15,7 +15,7 @@ html, body {
 body {
   margin: 0;
   overflow: hidden;
-  font-family: "Public Sans", "Segoe UI", sans-serif;
+  font-family: "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
   font-size: 14px;
   line-height: 1.4;
   background: #091113;
@@ -3126,7 +3126,7 @@ body[data-app-mode="encyclopedia"] #country-modal #country-panel {
   border-radius: 8px;
   background: rgba(6, 20, 35, 0.78);
   color: #dcefff;
-  font: 500 1.35rem/1 "Public Sans", sans-serif;
+  font: 500 1.35rem/1 "Segoe UI Variable", "Segoe UI", sans-serif;
   cursor: pointer;
 }
 
@@ -3290,7 +3290,7 @@ body[data-app-mode="encyclopedia"] #country-modal #country-panel {
 .product-doc pre {
   white-space: pre-wrap;
   word-break: break-word;
-  font: 500 0.9rem/1.55 "Public Sans", sans-serif;
+  font: 500 0.9rem/1.55 "Segoe UI Variable", "Segoe UI", sans-serif;
   color: #dcecff;
   background: rgba(8, 20, 36, 0.72);
   border: 1px solid rgba(88, 161, 255, 0.18);

@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-06-18T21:39:54.411Z",
-  "startupBytes": 961165,
-  "startupHuman": "939 KB",
-  "deferredBytes": 1213168,
-  "deferredHuman": "1.16 MB",
+  "generatedAt": "2026-06-18T22:05:28.282Z",
+  "startupBytes": 962060,
+  "startupHuman": "940 KB",
+  "deferredBytes": 1222048,
+  "deferredHuman": "1.17 MB",
   "estimatedRuntimeMemory": {
-    "countriesFullBytes": 8456710,
-    "countriesFullHuman": "8.06 MB",
-    "estimatedParsedBytes": 25370130,
-    "estimatedParsedHuman": "24.19 MB",
+    "countriesFullBytes": 8463456,
+    "countriesFullHuman": "8.07 MB",
+    "estimatedParsedBytes": 25390368,
+    "estimatedParsedHuman": "24.21 MB",
     "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
   },
   "largestAssets": [
@@ -22,7 +22,7 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 651278,
+      "bytes": 651416,
       "human": "636 KB",
       "startupCritical": true
     },
@@ -43,22 +43,22 @@
     {
       "path": "data/countries_index.json",
       "exists": true,
-      "bytes": 170666,
-      "human": "167 KB",
+      "bytes": 171627,
+      "human": "168 KB",
       "startupCritical": true
     },
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 89522,
+      "bytes": 89575,
       "human": "87 KB",
       "startupCritical": true
     },
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 33357,
-      "human": "33 KB",
+      "bytes": 33100,
+      "human": "32 KB",
       "startupCritical": true
     },
     {
@@ -101,23 +101,30 @@
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 33357,
-      "human": "33 KB",
+      "bytes": 33100,
+      "human": "32 KB",
       "startupCritical": true
     },
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 651278,
+      "bytes": 651416,
       "human": "636 KB",
       "startupCritical": true
     },
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 89522,
+      "bytes": 89575,
       "human": "87 KB",
       "startupCritical": true
+    },
+    {
+      "path": "style-polish.css",
+      "exists": true,
+      "bytes": 4487,
+      "human": "4 KB",
+      "startupCritical": false
     },
     {
       "path": "app-runtime.js",
@@ -225,6 +232,13 @@
       "startupCritical": false
     },
     {
+      "path": "app-ui-polish.js",
+      "exists": true,
+      "bytes": 4393,
+      "human": "4 KB",
+      "startupCritical": false
+    },
+    {
       "path": "app-rankings-worker.js",
       "exists": true,
       "bytes": 2182,
@@ -241,8 +255,8 @@
     {
       "path": "data/countries_index.json",
       "exists": true,
-      "bytes": 170666,
-      "human": "167 KB",
+      "bytes": 171627,
+      "human": "168 KB",
       "startupCritical": true
     },
     {

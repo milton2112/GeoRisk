@@ -8,6 +8,11 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
+- La curaduria profunda de 405 KB ahora se carga al abrir una ficha y deja de ejecutarse durante el arranque diferido.
+- Se elimino la fuente web bloqueante y se adopto la tipografia nativa del sistema para mejorar primer render y modo offline.
+- Nuevo pulido visual diferido con componentes mas compactos, estados de foco, objetivos tactiles de 44 px y movimiento reducido.
+- Se amplio la diversidad linguistica de los paises mas poblados y se corrigieron ciudades prioritarias de 21 fichas.
+- La auditoria linguistica ahora prioriza ausencias reales y paises de alta poblacion, evitando falsos positivos poco utiles.
 - Origenes historicos y organizaciones internacionales corregidos y normalizados en espanol.
 - Inferencia de conflictos endurecida para evitar guerras y regiones falsas por simple coincidencia de fechas.
 - Regiones corregidas para Kivu, Magreb, Malvinas, disputas australes y Guerra del Uruguay.

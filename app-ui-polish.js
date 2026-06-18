@@ -1,4 +1,5 @@
 (() => {
+  const POLISH_STYLESHEET = "./style-polish.css?v=2026-06-18-release-5";
   const FOCUSABLE_SELECTOR = [
     "a[href]",
     "button:not([disabled])",
@@ -85,7 +86,17 @@
     });
   }
 
+  function loadPolishStyles() {
+    if (document.querySelector('link[data-geo-risk-polish="true"]')) return;
+    const stylesheet = document.createElement("link");
+    stylesheet.rel = "stylesheet";
+    stylesheet.href = POLISH_STYLESHEET;
+    stylesheet.dataset.geoRiskPolish = "true";
+    document.head.appendChild(stylesheet);
+  }
+
   function init() {
+    loadPolishStyles();
     enhanceTooltips();
     markDialogs();
     applyCompactLabels();
@@ -99,6 +110,7 @@
     focusFirstIn,
     trapFocus,
     applyCompactLabels,
+    loadPolishStyles,
     init
   };
 })();

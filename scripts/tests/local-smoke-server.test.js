@@ -33,6 +33,7 @@ try {
 
   for (const route of [
     "/style.css",
+    "/style-polish.css",
     "/app-runtime.js",
     "/app-theme.js",
     "/app-text.js",
@@ -64,7 +65,8 @@ try {
     "app-map-styles.js",
     "app-map-interactions.js",
     "app-store.js",
-    "app-ui-polish.js"
+    "app-ui-polish.js",
+    "style-polish.css"
   ];
   for (const file of shellFiles) {
     const text = await fs.readFile(path.join(process.cwd(), file), "utf8");
