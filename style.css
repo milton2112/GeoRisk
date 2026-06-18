@@ -2097,7 +2097,8 @@ body.globe-loading #map-mode-toggle {
   font-size: 0.94em;
 }
 
-#mobile-panel-controls {
+#mobile-panel-controls,
+#mobile-more-menu {
   display: none;
 }
 
@@ -4150,7 +4151,8 @@ p {
     padding: 0 11px 11px;
   }
 
-  #mobile-panel-controls {
+  #mobile-panel-controls,
+  #mobile-more-menu {
     position: fixed;
     left: 10px;
     right: 10px;
@@ -4158,7 +4160,6 @@ p {
     top: auto;
     z-index: 1250;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 5px;
     padding: 5px;
     border: 1px solid rgba(106, 180, 255, 0.24);
@@ -4167,6 +4168,15 @@ p {
     box-shadow: 0 16px 36px rgba(0, 0, 0, 0.34);
     backdrop-filter: blur(16px);
     pointer-events: auto;
+  }
+
+  #mobile-panel-controls {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  #mobile-more-menu {
+    bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   #map-mode-toggle {
@@ -4178,7 +4188,13 @@ p {
     border-radius: 16px;
   }
 
-  #mobile-panel-controls button {
+  body.mobile-more-open #map-mode-toggle {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  #mobile-panel-controls button,
+  #mobile-more-menu button {
     position: static;
     width: auto;
     min-width: 0;
@@ -4195,6 +4211,12 @@ p {
     writing-mode: horizontal-tb;
     text-orientation: mixed;
     letter-spacing: 0;
+  }
+
+  #mobile-more-menu button {
+    display: grid;
+    place-items: center;
+    gap: 2px;
   }
 
   #mobile-panel-controls button:disabled {
@@ -4270,27 +4292,17 @@ p {
     opacity: 1;
   }
 
+  #compare-hub-panel,
+  #quiz-hub-panel,
   #news-hub-panel {
-    right: 10px;
-    bottom: 82px;
-    width: 64px;
-  }
-
-  #compare-hub-panel {
-    right: 158px;
-    bottom: 82px;
-    width: 64px;
-  }
-
-  #quiz-hub-panel {
-    right: 84px;
-    bottom: 82px;
-    width: 64px;
+    display: none;
   }
 
   #compare-hub-panel[open],
   #quiz-hub-panel[open],
   #news-hub-panel[open] {
+    display: block;
+    bottom: 82px;
     width: min(84vw, 340px);
     right: 10px;
   }

@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-06-18T20:30:55.981Z",
-  "startupBytes": 956884,
-  "startupHuman": "934 KB",
+  "generatedAt": "2026-06-18T20:44:22.900Z",
+  "startupBytes": 960633,
+  "startupHuman": "938 KB",
   "deferredBytes": 1215828,
   "deferredHuman": "1.16 MB",
   "estimatedRuntimeMemory": {
@@ -22,8 +22,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 647889,
-      "human": "633 KB",
+      "bytes": 650593,
+      "human": "635 KB",
       "startupCritical": true
     },
     {
@@ -50,15 +50,15 @@
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 89393,
-      "human": "87 KB",
+      "bytes": 89703,
+      "human": "88 KB",
       "startupCritical": true
     },
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 32622,
-      "human": "32 KB",
+      "bytes": 33357,
+      "human": "33 KB",
       "startupCritical": true
     },
     {
@@ -101,22 +101,22 @@
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 32622,
-      "human": "32 KB",
+      "bytes": 33357,
+      "human": "33 KB",
       "startupCritical": true
     },
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 647889,
-      "human": "633 KB",
+      "bytes": 650593,
+      "human": "635 KB",
       "startupCritical": true
     },
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 89393,
-      "human": "87 KB",
+      "bytes": 89703,
+      "human": "88 KB",
       "startupCritical": true
     },
     {

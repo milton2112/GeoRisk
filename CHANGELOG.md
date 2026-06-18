@@ -11,6 +11,7 @@ Este proyecto usa versionado semantico:
 - Barra mobile mas compacta con accesos claros a rankings, capas y ficha.
 - Estado accesible y deshabilitado para la ficha hasta seleccionar un pais.
 - Paneles, capas y hubs mobile ahora se abren de forma exclusiva para evitar superposiciones.
+- Comparador, quiz y noticias pasan a un menu rapido bajo demanda para liberar espacio sobre el mapa mobile.
 
 ## v1.6.1
 

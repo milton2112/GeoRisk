@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Widgets/widgets.css">
-  <link rel="stylesheet" href="style.css?v=2026-06-18-release-1">
+  <link rel="stylesheet" href="style.css?v=2026-06-18-release-2">
 </head>
 <body>
 
@@ -230,6 +230,13 @@
   <button id="toggle-left-panel" type="button" aria-controls="left-panel" aria-expanded="false">Rankings</button>
   <button id="toggle-tools-panel" type="button" aria-controls="map-toolbar" aria-expanded="false">Capas</button>
   <button id="toggle-country-panel" type="button" aria-controls="country-modal" aria-expanded="false" aria-disabled="true" disabled>Ficha</button>
+  <button id="toggle-more-panel" type="button" aria-label="Abrir herramientas rapidas" aria-controls="mobile-more-menu" aria-expanded="false" aria-haspopup="true">Mas</button>
+</div>
+
+<div id="mobile-more-menu" role="toolbar" aria-label="Herramientas rapidas" hidden>
+  <button type="button" data-mobile-hub-target="compare-hub-panel"><span aria-hidden="true">&#8644;</span><span id="mobile-compare-label">Comparar</span></button>
+  <button type="button" data-mobile-hub-target="quiz-hub-panel"><span aria-hidden="true">?</span><span id="mobile-quiz-label">Quiz</span></button>
+  <button type="button" data-mobile-hub-target="news-hub-panel"><span aria-hidden="true">&#9638;</span><span id="mobile-news-label">Noticias</span></button>
 </div>
 
 <div id="left-panel">
@@ -650,14 +657,14 @@
   }, 7000);
 </script>
 <script src="https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Cesium.js"></script>
-<script src="app-runtime.js?v=2026-06-18-release-1"></script>
-<script src="app-theme.js?v=2026-06-18-release-1"></script>
-<script src="app-boot-scheduler.js?v=2026-06-18-release-1"></script>
-<script src="app-map.js?v=2026-06-18-release-1"></script>
-<script src="app-map-styles.js?v=2026-06-18-release-1"></script>
-<script src="app-map-interactions.js?v=2026-06-18-release-1"></script>
-<script src="app-store.js?v=2026-06-18-release-1"></script>
-<script src="script.js?v=2026-06-18-release-1"></script>
+<script src="app-runtime.js?v=2026-06-18-release-2"></script>
+<script src="app-theme.js?v=2026-06-18-release-2"></script>
+<script src="app-boot-scheduler.js?v=2026-06-18-release-2"></script>
+<script src="app-map.js?v=2026-06-18-release-2"></script>
+<script src="app-map-styles.js?v=2026-06-18-release-2"></script>
+<script src="app-map-interactions.js?v=2026-06-18-release-2"></script>
+<script src="app-store.js?v=2026-06-18-release-2"></script>
+<script src="script.js?v=2026-06-18-release-2"></script>
 
 </body>
 </html>

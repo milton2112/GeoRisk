@@ -81,7 +81,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-06-18-release-1";
+const APP_VERSION = "2026-06-18-release-2";
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
 }
@@ -91,17 +91,17 @@ function createFallbackSearchCache() {
 }
 
 const DEFERRED_UI_MODULES = {
-  news: "./app-news-ui.js?v=2026-06-18-release-1",
-  compare: "./app-compare-ui.js?v=2026-06-18-release-1",
-  quiz: "./app-quiz-ui.js?v=2026-06-18-release-1",
-  riskRadar: "./app-risk-radar-ui.js?v=2026-06-18-release-1",
-  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-18-release-1",
-  projectAudit: "./app-project-audit-ui.js?v=2026-06-18-release-1",
-  uiPolish: "./app-ui-polish.js?v=2026-06-18-release-1",
-  countryPanel: "./app-country-panel.js?v=2026-06-18-release-1",
-  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-18-release-1",
-  search: "./app-search.js?v=2026-06-18-release-1",
-  rankings: "./app-rankings.js?v=2026-06-18-release-1"
+  news: "./app-news-ui.js?v=2026-06-18-release-2",
+  compare: "./app-compare-ui.js?v=2026-06-18-release-2",
+  quiz: "./app-quiz-ui.js?v=2026-06-18-release-2",
+  riskRadar: "./app-risk-radar-ui.js?v=2026-06-18-release-2",
+  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-18-release-2",
+  projectAudit: "./app-project-audit-ui.js?v=2026-06-18-release-2",
+  uiPolish: "./app-ui-polish.js?v=2026-06-18-release-2",
+  countryPanel: "./app-country-panel.js?v=2026-06-18-release-2",
+  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-18-release-2",
+  search: "./app-search.js?v=2026-06-18-release-2",
+  rankings: "./app-rankings.js?v=2026-06-18-release-2"
 };
 const deferredUiModulePromises = new Map();
 
@@ -4072,11 +4072,21 @@ function closeMobileHubPanels() {
   });
 }
 
+function closeMobileMoreMenu() {
+  const menu = document.getElementById("mobile-more-menu");
+  if (menu) {
+    menu.hidden = true;
+  }
+  document.body.classList.remove("mobile-more-open");
+}
+
 function syncMobilePanelControlState() {
   const leftButton = document.getElementById("toggle-left-panel");
   const toolsButton = document.getElementById("toggle-tools-panel");
   const countryButton = document.getElementById("toggle-country-panel");
+  const moreButton = document.getElementById("toggle-more-panel");
   const countryModal = document.getElementById("country-modal");
+  const moreMenu = document.getElementById("mobile-more-menu");
   const hasSelectedCountry = Boolean(
     currentPanelState?.type === "country" &&
     currentPanelState?.code &&
@@ -4085,6 +4095,7 @@ function syncMobilePanelControlState() {
 
   leftButton?.setAttribute("aria-expanded", String(document.body.classList.contains("mobile-left-open")));
   toolsButton?.setAttribute("aria-expanded", String(document.body.classList.contains("mobile-tools-open")));
+  moreButton?.setAttribute("aria-expanded", String(Boolean(moreMenu && !moreMenu.hidden)));
   if (countryButton) {
     countryButton.disabled = !hasSelectedCountry;
     countryButton.setAttribute("aria-disabled", String(!hasSelectedCountry));
@@ -4097,6 +4108,7 @@ function syncMobilePanelControlState() {
 
 function closeMobilePanels() {
   document.body.classList.remove("mobile-left-open", "mobile-country-open", "mobile-tools-open");
+  closeMobileMoreMenu();
 
   const toolbar = document.getElementById("map-toolbar");
   if (toolbar && isMobileLayout()) {
@@ -4111,6 +4123,7 @@ function openMobilePanel(panel) {
   }
 
   closeMobileHubPanels();
+  closeMobileMoreMenu();
   document.body.classList.remove("mobile-left-open", "mobile-country-open", "mobile-tools-open");
 
   if (panel === "left") {
@@ -4124,6 +4137,24 @@ function openMobilePanel(panel) {
   } else {
     document.body.classList.add("mobile-country-open");
   }
+  syncMobilePanelControlState();
+}
+
+function toggleMobileMoreMenu() {
+  if (!isMobileLayout()) {
+    return;
+  }
+
+  const menu = document.getElementById("mobile-more-menu");
+  if (!menu) {
+    return;
+  }
+
+  const shouldOpen = menu.hidden;
+  closeMobilePanels();
+  closeMobileHubPanels();
+  menu.hidden = !shouldOpen;
+  document.body.classList.toggle("mobile-more-open", shouldOpen);
   syncMobilePanelControlState();
 }
 
@@ -4146,7 +4177,10 @@ function toggleMobilePanel(panel) {
   }
 }
 
-function onMapInteractionStart() {
+function onMapInteractionStart(event) {
+  if (event?.originalEvent?.target?.closest?.("#mobile-panel-controls, #mobile-more-menu")) {
+    return;
+  }
   if (isMobileLayout()) {
     closeMobilePanels();
   }
@@ -10210,6 +10244,13 @@ function updateStaticText() {
   document.getElementById("toggle-left-panel").textContent = "Rankings";
   document.getElementById("toggle-tools-panel").textContent = currentLanguage === "en" ? "Layers" : "Capas";
   document.getElementById("toggle-country-panel").textContent = currentLanguage === "en" ? "Profile" : "Ficha";
+  const mobileMoreButton = document.getElementById("toggle-more-panel");
+  mobileMoreButton.textContent = currentLanguage === "en" ? "More" : "Mas";
+  mobileMoreButton.setAttribute("aria-label", currentLanguage === "en" ? "Open quick tools" : "Abrir herramientas rapidas");
+  document.getElementById("mobile-compare-label").textContent = currentLanguage === "en" ? "Compare" : "Comparar";
+  document.getElementById("mobile-quiz-label").textContent = "Quiz";
+  document.getElementById("mobile-news-label").textContent = currentLanguage === "en" ? "News" : "Noticias";
+  document.getElementById("mobile-more-menu").setAttribute("aria-label", currentLanguage === "en" ? "Quick tools" : "Herramientas rapidas");
   syncMobilePanelControlState();
   document.querySelector("#map-toolbar summary").textContent = currentLanguage === "en" ? "Thematic layers" : "Capas tematicas";
   updateMapModeToggle();
@@ -11303,6 +11344,8 @@ function setupGlobalKeyboardShortcuts() {
     }
 
     if (event.key === "Escape") {
+      closeMobilePanels();
+      closeMobileHubPanels();
       closeIntroModal();
       closeProductModal();
       closeCountryModal();
@@ -15268,12 +15311,37 @@ function setupMobilePanelControls() {
   const leftButton = document.getElementById("toggle-left-panel");
   const toolsButton = document.getElementById("toggle-tools-panel");
   const countryButton = document.getElementById("toggle-country-panel");
+  const moreButton = document.getElementById("toggle-more-panel");
+  const moreMenu = document.getElementById("mobile-more-menu");
+  const controls = document.getElementById("mobile-panel-controls");
+
+  [controls, moreMenu].forEach(element => {
+    ["pointerdown", "mousedown", "mouseup", "touchstart", "touchend", "click"].forEach(eventName => {
+      element.addEventListener(eventName, event => event.stopPropagation());
+    });
+  });
 
   leftButton.addEventListener("click", () => toggleMobilePanel("left"));
   toolsButton.addEventListener("click", () => toggleMobilePanel("tools"));
   countryButton.addEventListener("click", () => {
     if (currentPanelState?.type === "country" && currentPanelState?.code && countriesData[currentPanelState.code]) {
       openCountryModal();
+    }
+  });
+  moreButton.addEventListener("click", () => toggleMobileMoreMenu());
+  moreMenu.addEventListener("click", event => {
+    const button = event.target.closest("[data-mobile-hub-target]");
+    if (!button) {
+      return;
+    }
+    const panel = document.getElementById(button.dataset.mobileHubTarget);
+    closeMobileMoreMenu();
+    syncMobilePanelControlState();
+    if (panel) {
+      requestAnimationFrame(() => {
+        panel.open = true;
+        panel.querySelector("summary")?.focus({ preventScroll: true });
+      });
     }
   });
   syncMobilePanelControlState();

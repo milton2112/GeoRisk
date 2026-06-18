@@ -60,6 +60,8 @@ assert.ok(indexHtml.includes('aria-labelledby="country-panel-title" tabindex="-1
 assert.ok(indexHtml.includes('id="compare-hub-label"'), "los accesos inferiores deben usar etiquetas legibles");
 assert.ok(indexHtml.includes('aria-controls="country-modal"'), "el acceso mobile a ficha debe declarar su dialogo controlado");
 assert.ok(indexHtml.includes('aria-disabled="true" disabled'), "la ficha mobile debe iniciar deshabilitada sin pais seleccionado");
+assert.ok(indexHtml.includes('id="mobile-more-menu" role="toolbar"'), "herramientas secundarias mobile deben vivir en un menu rapido");
+assert.ok(indexHtml.includes('data-mobile-hub-target="compare-hub-panel"'), "menu mobile debe conservar acceso al comparador");
 assert.ok(css.includes("body.modal-open #top-controls"), "los modales deben reducir distracciones del shell");
 assert.ok(css.includes(".country-profile > .panel-actions-row"), "acciones de ficha deben usar una grilla compacta y estable");
 assert.ok(css.includes(".country-title .coat-visual"), "encabezado mobile debe evitar que el escudo se superponga al cierre");
@@ -74,6 +76,12 @@ assert.ok(script.includes("containModalKeyboardFocus"), "modales deben contener 
 assert.ok(script.includes("modalFocusReturnTarget"), "modales deben restaurar el foco al cerrarse");
 assert.ok(script.includes("function syncMobilePanelControlState"), "controles mobile deben sincronizar disponibilidad y estado expandido");
 assert.ok(script.includes("function closeMobileHubPanels"), "paneles y hubs mobile deben abrirse de forma exclusiva");
+assert.ok(script.includes("function toggleMobileMoreMenu"), "mobile debe agrupar herramientas secundarias bajo demanda");
+assert.ok(script.includes('classList.toggle("mobile-more-open", shouldOpen)'), "menu rapido debe evitar superponerse al control 2D/3D");
+assert.ok(script.includes('event => event.stopPropagation()'), "controles mobile no deben reenviar el toque al mapa");
+assert.ok(script.includes('originalEvent?.target?.closest?.("#mobile-panel-controls, #mobile-more-menu")'), "mapa debe ignorar eventos nacidos en controles mobile");
+assert.ok(script.includes('panel.querySelector("summary")?.focus'), "hub abierto desde mobile debe recibir foco visible");
+assert.ok(css.includes("#mobile-more-menu"), "menu rapido mobile debe tener layout propio");
 assert.ok(script.includes("openMobilePanel(panel)"), "toggle mobile debe usar el flujo completo de apertura");
 assert.ok(script.includes('focusedElement?.closest("#search-suggestions")'), "ficha abierta desde busqueda debe devolver foco al buscador");
 assert.ok(appMapInteractions.includes("isMobile || mode === \"2d\""), "hover mobile/2D debe quedar reducido");
