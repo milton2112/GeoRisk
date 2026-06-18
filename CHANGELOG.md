@@ -6,6 +6,12 @@ Este proyecto usa versionado semantico:
 - `MINOR`: nuevas funciones importantes sin romper compatibilidad.
 - `PATCH`: fixes, pulido y ajustes menores.
 
+## Sin publicar
+
+- Barra mobile mas compacta con accesos claros a rankings, capas y ficha.
+- Estado accesible y deshabilitado para la ficha hasta seleccionar un pais.
+- Paneles, capas y hubs mobile ahora se abren de forma exclusiva para evitar superposiciones.
+
 ## v1.6.1
 
 Release de hardening para testing, build y publicacion.

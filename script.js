@@ -81,7 +81,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-06-17-release-7";
+const APP_VERSION = "2026-06-18-release-1";
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
 }
@@ -91,17 +91,17 @@ function createFallbackSearchCache() {
 }
 
 const DEFERRED_UI_MODULES = {
-  news: "./app-news-ui.js?v=2026-06-17-release-7",
-  compare: "./app-compare-ui.js?v=2026-06-17-release-7",
-  quiz: "./app-quiz-ui.js?v=2026-06-17-release-7",
-  riskRadar: "./app-risk-radar-ui.js?v=2026-06-17-release-7",
-  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-17-release-7",
-  projectAudit: "./app-project-audit-ui.js?v=2026-06-17-release-7",
-  uiPolish: "./app-ui-polish.js?v=2026-06-17-release-7",
-  countryPanel: "./app-country-panel.js?v=2026-06-17-release-7",
-  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-17-release-7",
-  search: "./app-search.js?v=2026-06-17-release-7",
-  rankings: "./app-rankings.js?v=2026-06-17-release-7"
+  news: "./app-news-ui.js?v=2026-06-18-release-1",
+  compare: "./app-compare-ui.js?v=2026-06-18-release-1",
+  quiz: "./app-quiz-ui.js?v=2026-06-18-release-1",
+  riskRadar: "./app-risk-radar-ui.js?v=2026-06-18-release-1",
+  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-18-release-1",
+  projectAudit: "./app-project-audit-ui.js?v=2026-06-18-release-1",
+  uiPolish: "./app-ui-polish.js?v=2026-06-18-release-1",
+  countryPanel: "./app-country-panel.js?v=2026-06-18-release-1",
+  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-18-release-1",
+  search: "./app-search.js?v=2026-06-18-release-1",
+  rankings: "./app-rankings.js?v=2026-06-18-release-1"
 };
 const deferredUiModulePromises = new Map();
 
@@ -4063,6 +4063,38 @@ function isMobileLayout() {
   return mobileMediaQuery.matches;
 }
 
+function closeMobileHubPanels() {
+  ["compare-hub-panel", "quiz-hub-panel", "news-hub-panel"].forEach(id => {
+    const panel = document.getElementById(id);
+    if (panel) {
+      panel.open = false;
+    }
+  });
+}
+
+function syncMobilePanelControlState() {
+  const leftButton = document.getElementById("toggle-left-panel");
+  const toolsButton = document.getElementById("toggle-tools-panel");
+  const countryButton = document.getElementById("toggle-country-panel");
+  const countryModal = document.getElementById("country-modal");
+  const hasSelectedCountry = Boolean(
+    currentPanelState?.type === "country" &&
+    currentPanelState?.code &&
+    countriesData[currentPanelState.code]
+  );
+
+  leftButton?.setAttribute("aria-expanded", String(document.body.classList.contains("mobile-left-open")));
+  toolsButton?.setAttribute("aria-expanded", String(document.body.classList.contains("mobile-tools-open")));
+  if (countryButton) {
+    countryButton.disabled = !hasSelectedCountry;
+    countryButton.setAttribute("aria-disabled", String(!hasSelectedCountry));
+    countryButton.setAttribute("aria-expanded", String(hasSelectedCountry && Boolean(countryModal && !countryModal.hidden)));
+    countryButton.title = hasSelectedCountry
+      ? (currentLanguage === "en" ? "Open selected country profile" : "Abrir ficha del pais seleccionado")
+      : (currentLanguage === "en" ? "Select a country on the map first" : "Primero selecciona un pais en el mapa");
+  }
+}
+
 function closeMobilePanels() {
   document.body.classList.remove("mobile-left-open", "mobile-country-open", "mobile-tools-open");
 
@@ -4070,6 +4102,7 @@ function closeMobilePanels() {
   if (toolbar && isMobileLayout()) {
     toolbar.open = false;
   }
+  syncMobilePanelControlState();
 }
 
 function openMobilePanel(panel) {
@@ -4077,6 +4110,7 @@ function openMobilePanel(panel) {
     return;
   }
 
+  closeMobileHubPanels();
   document.body.classList.remove("mobile-left-open", "mobile-country-open", "mobile-tools-open");
 
   if (panel === "left") {
@@ -4090,6 +4124,7 @@ function openMobilePanel(panel) {
   } else {
     document.body.classList.add("mobile-country-open");
   }
+  syncMobilePanelControlState();
 }
 
 function toggleMobilePanel(panel) {
@@ -4107,7 +4142,7 @@ function toggleMobilePanel(panel) {
   closeMobilePanels();
 
   if (!isOpen) {
-    document.body.classList.add(className);
+    openMobilePanel(panel);
   }
 }
 
@@ -5009,10 +5044,12 @@ function openCountryModal() {
   if (!modal) {
     return;
   }
+  closeMobileHubPanels();
   closeMobilePanels();
   modal.hidden = false;
   dialog?.scrollTo({ top: 0, behavior: "auto" });
   syncModalOpenState();
+  syncMobilePanelControlState();
 }
 
 function closeCountryModal() {
@@ -5022,6 +5059,7 @@ function closeCountryModal() {
   }
   modal.hidden = true;
   syncModalOpenState();
+  syncMobilePanelControlState();
 }
 
 function getReligionSummaryLabel(religion) {
@@ -10169,9 +10207,10 @@ function updateStaticText() {
   if (savedSearchTitle) {
     savedSearchTitle.textContent = currentLanguage === "en" ? "Saved" : "Guardadas";
   }
-  document.getElementById("toggle-left-panel").textContent = currentLanguage === "en" ? "Top lists" : "Top y continentes";
+  document.getElementById("toggle-left-panel").textContent = "Rankings";
   document.getElementById("toggle-tools-panel").textContent = currentLanguage === "en" ? "Layers" : "Capas";
-  document.getElementById("toggle-country-panel").textContent = currentLanguage === "en" ? "Country card" : "Ficha del pais";
+  document.getElementById("toggle-country-panel").textContent = currentLanguage === "en" ? "Profile" : "Ficha";
+  syncMobilePanelControlState();
   document.querySelector("#map-toolbar summary").textContent = currentLanguage === "en" ? "Thematic layers" : "Capas tematicas";
   updateMapModeToggle();
   const themeSelect = document.getElementById("theme-select");
@@ -15173,6 +15212,7 @@ function setupNewsHubPanel() {
   });
   panel.addEventListener("toggle", () => {
     if (panel.open) {
+      closeMobilePanels();
       const comparePanel = document.getElementById("compare-hub-panel");
       const quizPanel = document.getElementById("quiz-hub-panel");
       if (comparePanel) comparePanel.open = false;
@@ -15194,6 +15234,7 @@ function setupQuizHubPanel() {
     if (!panel.open) {
       return;
     }
+    closeMobilePanels();
     const comparePanel = document.getElementById("compare-hub-panel");
     const newsPanel = document.getElementById("news-hub-panel");
     if (comparePanel) comparePanel.open = false;
@@ -15214,6 +15255,7 @@ function setupCompareHubPanel() {
     if (!panel.open) {
       return;
     }
+    closeMobilePanels();
     const quizPanel = document.getElementById("quiz-hub-panel");
     const newsPanel = document.getElementById("news-hub-panel");
     if (quizPanel) quizPanel.open = false;
@@ -15234,6 +15276,7 @@ function setupMobilePanelControls() {
       openCountryModal();
     }
   });
+  syncMobilePanelControlState();
 
   mobileMediaQuery.addEventListener("change", event => {
     updateMapInteractionTuning();

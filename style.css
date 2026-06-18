@@ -4197,6 +4197,11 @@ p {
     letter-spacing: 0;
   }
 
+  #mobile-panel-controls button:disabled {
+    opacity: 0.42;
+    cursor: not-allowed;
+  }
+
   #mobile-panel-controls button:hover,
   #mobile-panel-controls button:focus-visible,
   body.mobile-left-open #toggle-left-panel,
