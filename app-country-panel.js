@@ -22,23 +22,24 @@ window.GeoRiskCountryPanel = {
     const language = options.language || "es";
     const population = country.general?.population
       ? options.formatNumber?.(country.general.population) || String(country.general.population)
-      : (language === "en" ? "unknown population" : "poblacion sin dato");
+      : null;
     const economy = country.economy?.gdpPerCapita
       ? `${language === "en" ? "GDP pc" : "PBI pc"} US$ ${options.formatNumber?.(Math.round(country.economy.gdpPerCapita)) || Math.round(country.economy.gdpPerCapita)}`
-      : (language === "en" ? "economic data pending" : "datos economicos pendientes");
-    const system = country.politics?.system || (language === "en" ? "political system pending" : "sistema politico pendiente");
+      : null;
+    const system = country.politics?.system || null;
     const bloc = country.politics?.relations?.economicBlocs?.[0]
       || country.politics?.relations?.diplomaticBlocs?.[0]
       || country.politics?.organizations?.[0]?.name
       || country.politics?.organizations?.[0]
       || "";
+    const name = country.name || (language === "en" ? "This country" : "Este pais");
     const parts = [
-      `${country.name || (language === "en" ? "This country" : "Este pais")} combina ${population}`,
-      economy,
-      system
-    ];
-    if (bloc) parts.push(`${language === "en" ? "main external anchor" : "anclaje externo principal"}: ${bloc}`);
-    return parts.join(" · ");
+      population ? `${name}: ${population} ${language === "en" ? "inhabitants" : "habitantes"}` : name,
+      system,
+      economy
+    ].filter(Boolean);
+    if (bloc) parts.push(`${language === "en" ? "Primary international anchor" : "Principal anclaje internacional"}: ${bloc}`);
+    return `${parts.join(". ")}.`;
   },
   buildSectionQuality(country = {}, language = "es") {
     const metadata = country.metadata || {};
@@ -53,6 +54,14 @@ window.GeoRiskCountryPanel = {
   },
   buildCurationChecklist(country = {}, conflictGroups = [], language = "es") {
     const items = [];
+    const population = Number(country.general?.population || 0);
+    const expectedPlaces = population >= 20000000 ? 5 : population >= 1000000 ? 4 : 3;
+    const placeNames = new Set([
+      ...(country.general?.cities || []).map(city => city?.name || city),
+      ...(country.general?.capitals || []).map(city => city?.name || city),
+      country.general?.capital?.name
+    ].filter(Boolean).map(value => String(value).toLocaleLowerCase("es")));
+    if (placeNames.size < expectedPlaces) items.push(language === "en" ? "Complete the main cities and capital." : "Completar ciudades principales y capital.");
     if (!country.history?.events?.length) items.push(language === "en" ? "Add a stronger political timeline." : "Agregar una cronologia politica mas fuerte.");
     if (!country.economy?.exports?.length) items.push(language === "en" ? "Complete exports and productive sectors." : "Completar exportaciones y sectores productivos.");
     if (!country.military?.active) items.push(language === "en" ? "Review military personnel figures." : "Revisar cifras de personal militar.");

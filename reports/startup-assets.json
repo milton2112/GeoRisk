@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-06-18T21:14:29.647Z",
-  "startupBytes": 960632,
-  "startupHuman": "938 KB",
-  "deferredBytes": 1212646,
+  "generatedAt": "2026-06-18T21:39:54.411Z",
+  "startupBytes": 961165,
+  "startupHuman": "939 KB",
+  "deferredBytes": 1213168,
   "deferredHuman": "1.16 MB",
   "estimatedRuntimeMemory": {
-    "countriesFullBytes": 8528014,
-    "countriesFullHuman": "8.13 MB",
-    "estimatedParsedBytes": 25584042,
-    "estimatedParsedHuman": "24.40 MB",
+    "countriesFullBytes": 8456710,
+    "countriesFullHuman": "8.06 MB",
+    "estimatedParsedBytes": 25370130,
+    "estimatedParsedHuman": "24.19 MB",
     "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
   },
   "largestAssets": [
@@ -22,8 +22,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 650593,
-      "human": "635 KB",
+      "bytes": 651278,
+      "human": "636 KB",
       "startupCritical": true
     },
     {
@@ -43,15 +43,15 @@
     {
       "path": "data/countries_index.json",
       "exists": true,
-      "bytes": 170637,
+      "bytes": 170666,
       "human": "167 KB",
       "startupCritical": true
     },
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 89703,
-      "human": "88 KB",
+      "bytes": 89522,
+      "human": "87 KB",
       "startupCritical": true
     },
     {
@@ -108,15 +108,15 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 650593,
-      "human": "635 KB",
+      "bytes": 651278,
+      "human": "636 KB",
       "startupCritical": true
     },
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 89703,
-      "human": "88 KB",
+      "bytes": 89522,
+      "human": "87 KB",
       "startupCritical": true
     },
     {
@@ -143,7 +143,7 @@
     {
       "path": "app-country-panel.js",
       "exists": true,
-      "bytes": 5080,
+      "bytes": 5602,
       "human": "5 KB",
       "startupCritical": false
     },
@@ -241,7 +241,7 @@
     {
       "path": "data/countries_index.json",
       "exists": true,
-      "bytes": 170637,
+      "bytes": 170666,
       "human": "167 KB",
       "startupCritical": true
     },

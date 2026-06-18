@@ -129,3 +129,11 @@ Actualizacion amplia de datos, mapa e interfaz.
 - `v1.5.1` para fixes o pulido chico.
 - `v1.6.0` para nuevas funciones importantes.
 - `v2.0.0` si una actualizacion rompe estructura o experiencia anterior.
+# 2026-06-18 - Rendimiento mobile, datos y pulido visual
+
+- El monitor de FPS ahora observa renders reales de Cesium y se detiene tras los primeros 60 segundos.
+- La mejora de imagen en mobile espera un periodo de calma para no interrumpir el arrastre inicial del globo.
+- La auditoria de ciudades usa capitales y un umbral proporcional a la poblacion, reduciendo falsos pendientes.
+- Grecia incorpora disputas del Egeo y Mediterraneo oriental, relaciones categorizadas y bloques sin duplicar OTAN/NATO.
+- La ficha pais presenta un resumen ejecutivo mas natural y un checklist de cobertura territorial mas preciso.
+- La primera vista adopta una paleta mas neutral con acentos verdes y mejor contraste de foco y controles.

@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-06-18T21:14:30.217Z",
+  "generatedAt": "2026-06-18T21:39:54.795Z",
   "status": "operativo",
   "startup": {
-    "critical": "938 KB",
-    "criticalBytes": 960632,
+    "critical": "939 KB",
+    "criticalBytes": 961165,
     "deferred": "1.16 MB",
     "estimatedRuntimeMemory": {
-      "countriesFullBytes": 8528014,
-      "countriesFullHuman": "8.13 MB",
-      "estimatedParsedBytes": 25584042,
-      "estimatedParsedHuman": "24.40 MB",
+      "countriesFullBytes": 8456710,
+      "countriesFullHuman": "8.06 MB",
+      "estimatedParsedBytes": 25370130,
+      "estimatedParsedHuman": "24.19 MB",
       "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
     },
     "largestAssets": [
@@ -23,8 +23,8 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 650593,
-        "human": "635 KB",
+        "bytes": 651278,
+        "human": "636 KB",
         "startupCritical": true
       },
       {
@@ -44,15 +44,15 @@
       {
         "path": "data/countries_index.json",
         "exists": true,
-        "bytes": 170637,
+        "bytes": 170666,
         "human": "167 KB",
         "startupCritical": true
       },
       {
         "path": "style.css",
         "exists": true,
-        "bytes": 89703,
-        "human": "88 KB",
+        "bytes": 89522,
+        "human": "87 KB",
         "startupCritical": true
       },
       {
@@ -110,25 +110,25 @@
       {
         "path": "data/conflicts_index.json",
         "exists": true,
-        "bytes": 358585,
-        "human": "350 KB"
+        "bytes": 351101,
+        "human": "343 KB"
       },
       {
         "path": "data/timeline_index.json",
         "exists": true,
-        "bytes": 286220,
-        "human": "280 KB"
+        "bytes": 285932,
+        "human": "279 KB"
       },
       {
         "path": "data/search_index.json",
         "exists": true,
-        "bytes": 194391,
+        "bytes": 194403,
         "human": "190 KB"
       },
       {
         "path": "data/countries_index.json",
         "exists": true,
-        "bytes": 170637,
+        "bytes": 170666,
         "human": "167 KB"
       },
       {
@@ -140,21 +140,21 @@
       {
         "path": "data/country_weights.json",
         "exists": true,
-        "bytes": 42394,
+        "bytes": 42390,
         "human": "41 KB"
       }
     ],
     "countryWeights": {
       "totalCountries": 183,
-      "fullBytes": 8528014,
-      "duplicatedCountryFilesBytes": 8526989,
+      "fullBytes": 8456710,
+      "duplicatedCountryFilesBytes": 8456362,
       "tooLargeCount": 31,
       "largest": [
         {
           "code": "USA",
           "name": "Estados Unidos",
-          "bytes": 2411777,
-          "inlineBytes": 2411776,
+          "bytes": 2404666,
+          "inlineBytes": 2404649,
           "tooLarge": true,
           "counts": {
             "cities": 5,
@@ -170,8 +170,8 @@
         {
           "code": "GBR",
           "name": "Reino Unido",
-          "bytes": 786698,
-          "inlineBytes": 786697,
+          "bytes": 762435,
+          "inlineBytes": 762486,
           "tooLarge": true,
           "counts": {
             "cities": 5,
@@ -187,8 +187,8 @@
         {
           "code": "FRA",
           "name": "Francia",
-          "bytes": 590034,
-          "inlineBytes": 590033,
+          "bytes": 581393,
+          "inlineBytes": 581388,
           "tooLarge": true,
           "counts": {
             "cities": 5,
@@ -204,8 +204,8 @@
         {
           "code": "SWE",
           "name": "Suecia",
-          "bytes": 374814,
-          "inlineBytes": 374813,
+          "bytes": 375655,
+          "inlineBytes": 375590,
           "tooLarge": true,
           "counts": {
             "cities": 5,
@@ -221,8 +221,8 @@
         {
           "code": "AUS",
           "name": "Australia",
-          "bytes": 173951,
-          "inlineBytes": 173950,
+          "bytes": 171023,
+          "inlineBytes": 171018,
           "tooLarge": true,
           "counts": {
             "cities": 5,
@@ -238,8 +238,8 @@
         {
           "code": "MAR",
           "name": "Marruecos",
-          "bytes": 132183,
-          "inlineBytes": 132182,
+          "bytes": 132909,
+          "inlineBytes": 132908,
           "tooLarge": true,
           "counts": {
             "cities": 3,
@@ -255,8 +255,8 @@
         {
           "code": "DNK",
           "name": "Dinamarca",
-          "bytes": 122354,
-          "inlineBytes": 122353,
+          "bytes": 122234,
+          "inlineBytes": 122175,
           "tooLarge": true,
           "counts": {
             "cities": 5,
@@ -272,8 +272,8 @@
         {
           "code": "RUS",
           "name": "Rusia",
-          "bytes": 111105,
-          "inlineBytes": 111104,
+          "bytes": 109837,
+          "inlineBytes": 109836,
           "tooLarge": true,
           "counts": {
             "cities": 5,
@@ -289,8 +289,8 @@
         {
           "code": "CAN",
           "name": "Canadá",
-          "bytes": 107053,
-          "inlineBytes": 107052,
+          "bytes": 104738,
+          "inlineBytes": 104735,
           "tooLarge": true,
           "counts": {
             "cities": 4,
@@ -306,8 +306,8 @@
         {
           "code": "ISR",
           "name": "Israel",
-          "bytes": 100571,
-          "inlineBytes": 100570,
+          "bytes": 98933,
+          "inlineBytes": 98816,
           "tooLarge": true,
           "counts": {
             "cities": 5,
@@ -323,8 +323,8 @@
         {
           "code": "CHN",
           "name": "República Popular China",
-          "bytes": 84509,
-          "inlineBytes": 84508,
+          "bytes": 83889,
+          "inlineBytes": 83888,
           "tooLarge": true,
           "counts": {
             "cities": 5,
@@ -340,8 +340,8 @@
         {
           "code": "POL",
           "name": "Polonia",
-          "bytes": 73223,
-          "inlineBytes": 73222,
+          "bytes": 70766,
+          "inlineBytes": 70765,
           "tooLarge": true,
           "counts": {
             "cities": 4,
@@ -376,12 +376,11 @@
       ]
     },
     "curationGaps": {
-      "general.cities": 123,
-      "politics.relations.blocs": 77,
+      "general.cities": 21,
+      "politics.relations.blocs": 76,
       "general.languages": 109,
       "politics.rivals": 48,
       "religion.denominations": 10,
-      "politics.relations.disputes": 1,
       "politics.organizations": 15
     }
   },
@@ -389,14 +388,14 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 650593,
-      "human": "635 KB"
+      "bytes": 651278,
+      "human": "636 KB"
     },
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 89703,
-      "human": "88 KB"
+      "bytes": 89522,
+      "human": "87 KB"
     },
     {
       "path": "index.html",
@@ -407,8 +406,8 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 11561,
-      "human": "11 KB"
+      "bytes": 12283,
+      "human": "12 KB"
     },
     {
       "path": "TECHNICAL.md",

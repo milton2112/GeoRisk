@@ -138,6 +138,10 @@ assert.ok(script.includes("function scheduleWhenGlobeIsQuiet"), "tareas pesadas 
 assert.ok(script.includes("function maybeEnhanceOpenConflictModal"), "conflictos enriquecidos deben cargarse bajo demanda al abrir modal");
 assert.ok(!script.includes("scheduleWhenGlobeIsQuiet(() => {\r\n      loadWikipediaConflictDetails"), "conflictos enriquecidos no deben cargarse por temporizador de arranque");
 assert.ok(script.includes("startLongTaskObserver"), "runtime debe medir bloqueos largos del hilo principal");
+assert.ok(script.includes("viewer.scene.postRender.addEventListener"), "FPS debe medir renders reales de Cesium");
+assert.ok(script.includes("const monitorDuration = 60000"), "monitor FPS inicial debe detenerse a los 60 segundos");
+assert.ok(!script.includes("performanceMonitorId = requestAnimationFrame"), "monitor FPS no debe mantener un RAF infinito");
+assert.ok(script.includes('!isMobileLayout() && activeImagerySignature.includes(":boot")'), "mobile no debe reemplazar la imagen inicial mientras se usa el globo");
 assert.ok(indexHtml.includes("app-boot-scheduler.js"), "scheduler de arranque debe vivir en modulo separado");
 assert.ok(indexHtml.includes("app-map.js"), "logica base de mapa debe vivir en modulo separado");
 assert.ok(indexHtml.includes("app-map-styles.js"), "estilos de mapa deben vivir en modulo separado");
@@ -227,5 +231,8 @@ for (const country of Object.values(index)) {
   assert.ok((country.military?.conflicts || []).length <= 1, "conflictos del indice deben venir muy resumidos");
   assert.ok((country.religion?.composition || []).length <= 2, "religion del indice debe venir resumida");
 }
+
+assert.ok((full.GRC?.politics?.relations?.disputes || []).length >= 2, "Grecia debe documentar sus disputas territoriales prioritarias");
+assert.ok(!(full.GRC?.politics?.relations?.blocs || []).includes("NATO"), "OTAN y NATO no deben duplicarse como bloques distintos");
 
 console.log("startup-data.test.js ok");

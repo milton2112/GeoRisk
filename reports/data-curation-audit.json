@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-06-18T21:14:28.703Z",
+  "generatedAt": "2026-06-18T21:39:54.012Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 8528014,
-    "duplicatedCountryFilesBytes": 8526989,
+    "fullBytes": 8456710,
+    "duplicatedCountryFilesBytes": 8456362,
     "tooLargeCount": 31,
     "largest": [
       {
         "code": "USA",
         "name": "Estados Unidos",
-        "bytes": 2411777,
-        "inlineBytes": 2411776,
+        "bytes": 2404666,
+        "inlineBytes": 2404649,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -27,8 +27,8 @@
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 786698,
-        "inlineBytes": 786697,
+        "bytes": 762435,
+        "inlineBytes": 762486,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -44,8 +44,8 @@
       {
         "code": "FRA",
         "name": "Francia",
-        "bytes": 590034,
-        "inlineBytes": 590033,
+        "bytes": 581393,
+        "inlineBytes": 581388,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -61,8 +61,8 @@
       {
         "code": "SWE",
         "name": "Suecia",
-        "bytes": 374814,
-        "inlineBytes": 374813,
+        "bytes": 375655,
+        "inlineBytes": 375590,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -78,8 +78,8 @@
       {
         "code": "AUS",
         "name": "Australia",
-        "bytes": 173951,
-        "inlineBytes": 173950,
+        "bytes": 171023,
+        "inlineBytes": 171018,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -95,8 +95,8 @@
       {
         "code": "MAR",
         "name": "Marruecos",
-        "bytes": 132183,
-        "inlineBytes": 132182,
+        "bytes": 132909,
+        "inlineBytes": 132908,
         "tooLarge": true,
         "counts": {
           "cities": 3,
@@ -112,8 +112,8 @@
       {
         "code": "DNK",
         "name": "Dinamarca",
-        "bytes": 122354,
-        "inlineBytes": 122353,
+        "bytes": 122234,
+        "inlineBytes": 122175,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -129,8 +129,8 @@
       {
         "code": "RUS",
         "name": "Rusia",
-        "bytes": 111105,
-        "inlineBytes": 111104,
+        "bytes": 109837,
+        "inlineBytes": 109836,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -146,8 +146,8 @@
       {
         "code": "CAN",
         "name": "Canadá",
-        "bytes": 107053,
-        "inlineBytes": 107052,
+        "bytes": 104738,
+        "inlineBytes": 104735,
         "tooLarge": true,
         "counts": {
           "cities": 4,
@@ -163,8 +163,8 @@
       {
         "code": "ISR",
         "name": "Israel",
-        "bytes": 100571,
-        "inlineBytes": 100570,
+        "bytes": 98933,
+        "inlineBytes": 98816,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -180,8 +180,8 @@
       {
         "code": "CHN",
         "name": "República Popular China",
-        "bytes": 84509,
-        "inlineBytes": 84508,
+        "bytes": 83889,
+        "inlineBytes": 83888,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -197,8 +197,8 @@
       {
         "code": "POL",
         "name": "Polonia",
-        "bytes": 73223,
-        "inlineBytes": 73222,
+        "bytes": 70766,
+        "inlineBytes": 70765,
         "tooLarge": true,
         "counts": {
           "cities": 4,
@@ -14677,882 +14677,160 @@
     "issues": []
   },
   "gapsByType": {
-    "general.cities": 123,
-    "politics.relations.blocs": 77,
+    "general.cities": 21,
+    "politics.relations.blocs": 76,
     "general.languages": 109,
     "politics.rivals": 48,
     "religion.denominations": 10,
-    "politics.relations.disputes": 1,
     "politics.organizations": 15
   },
   "priorityGaps": [
-    {
-      "code": "GRC",
-      "name": "Grecia",
-      "type": "politics.relations.disputes",
-      "severity": "alta",
-      "detail": "disputas territoriales prioritarias sin profundidad"
-    },
     {
       "code": "AFG",
       "name": "Afganistán",
       "type": "general.cities",
       "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "ALB",
-      "name": "Albania",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "DZA",
-      "name": "Argelia",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "AND",
-      "name": "Andorra",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
+      "detail": "menos de 5 ciudades y capitales destacadas"
     },
     {
       "code": "AGO",
       "name": "Angola",
       "type": "general.cities",
       "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "ARG",
-      "name": "Argentina",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
+      "detail": "menos de 5 ciudades y capitales destacadas"
     },
     {
       "code": "ARM",
       "name": "Armenia",
       "type": "general.cities",
       "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "AZE",
-      "name": "Azerbaiyán",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "BHR",
-      "name": "Baréin",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "BEN",
-      "name": "Benín",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "BOL",
-      "name": "Bolivia",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "BWA",
-      "name": "Botsuana",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "BRA",
-      "name": "Brasil",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "BRN",
-      "name": "Brunéi",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "BDI",
-      "name": "Burundi",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "KHM",
-      "name": "Camboya",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "CAN",
-      "name": "Canadá",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "CAF",
-      "name": "República Centroafricana",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
+      "detail": "menos de 4 ciudades y capitales destacadas"
     },
     {
       "code": "TCD",
       "name": "Chad",
       "type": "general.cities",
       "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "CHL",
-      "name": "Chile",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "COL",
-      "name": "Colombia",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "COM",
-      "name": "Comoras",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
+      "detail": "menos de 5 ciudades y capitales destacadas"
     },
     {
       "code": "COD",
       "name": "República Democrática del Congo",
       "type": "general.cities",
       "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "COG",
-      "name": "República del Congo",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "CRI",
-      "name": "Costa Rica",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
+      "detail": "menos de 5 ciudades y capitales destacadas"
     },
     {
       "code": "CIV",
       "name": "Costa de Marfil",
       "type": "general.cities",
       "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "HRV",
-      "name": "Croacia",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "CUB",
-      "name": "Cuba",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
+      "detail": "menos de 5 ciudades y capitales destacadas"
     },
     {
       "code": "CYP",
       "name": "Chipre",
       "type": "general.cities",
       "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "DJI",
-      "name": "Yibuti",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "ECU",
-      "name": "Ecuador",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "EGY",
-      "name": "Egipto",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "GNQ",
-      "name": "Guinea Ecuatorial",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "ERI",
-      "name": "Eritrea",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "EST",
-      "name": "Estonia",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "ETH",
-      "name": "Etiopía",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "GAB",
-      "name": "Gabón",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "GMB",
-      "name": "Gambia",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "GEO",
-      "name": "Georgia",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
+      "detail": "menos de 4 ciudades y capitales destacadas"
     },
     {
       "code": "GHA",
       "name": "Ghana",
       "type": "general.cities",
       "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "GIN",
-      "name": "Guinea",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "GNB",
-      "name": "Guinea-Bisáu",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "GUY",
-      "name": "Guyana",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "HTI",
-      "name": "Haití",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "ISL",
-      "name": "Islandia",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "IRL",
-      "name": "Irlanda",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "ITA",
-      "name": "Italia",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "JAM",
-      "name": "Jamaica",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "JPN",
-      "name": "Japón",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "JOR",
-      "name": "Jordania",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
+      "detail": "menos de 5 ciudades y capitales destacadas"
     },
     {
       "code": "KWT",
       "name": "Kuwait",
       "type": "general.cities",
       "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "KGZ",
-      "name": "Kirguistán",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "LAO",
-      "name": "Laos",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "LVA",
-      "name": "Letonia",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "LBN",
-      "name": "Líbano",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "LSO",
-      "name": "Lesoto",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "LBR",
-      "name": "Liberia",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "LBY",
-      "name": "Libia",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "LTU",
-      "name": "Lituania",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "LUX",
-      "name": "Luxemburgo",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
+      "detail": "menos de 4 ciudades y capitales destacadas"
     },
     {
       "code": "MDG",
       "name": "Madagascar",
       "type": "general.cities",
       "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
+      "detail": "menos de 5 ciudades y capitales destacadas"
     },
     {
       "code": "MWI",
       "name": "Malaui",
       "type": "general.cities",
       "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "MLT",
-      "name": "Malta",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "MRT",
-      "name": "Mauritania",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "MEX",
-      "name": "México",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "MDA",
-      "name": "Moldavia",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "MNE",
-      "name": "Montenegro",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
+      "detail": "menos de 5 ciudades y capitales destacadas"
     },
     {
       "code": "MAR",
       "name": "Marruecos",
       "type": "general.cities",
       "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
+      "detail": "menos de 5 ciudades y capitales destacadas"
     },
     {
       "code": "NAM",
       "name": "Namibia",
       "type": "general.cities",
       "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "NLD",
-      "name": "Reino de los Países Bajos",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "NIC",
-      "name": "Nicaragua",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
+      "detail": "menos de 4 ciudades y capitales destacadas"
     },
     {
       "code": "NER",
       "name": "Níger",
       "type": "general.cities",
       "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
+      "detail": "menos de 5 ciudades y capitales destacadas"
     },
     {
       "code": "PRK",
       "name": "Corea del Norte",
       "type": "general.cities",
       "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "MKD",
-      "name": "Macedonia del Norte",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "NOR",
-      "name": "Noruega",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "PAN",
-      "name": "Panamá",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "PRY",
-      "name": "Paraguay",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "PER",
-      "name": "Perú",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "POL",
-      "name": "Polonia",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "QAT",
-      "name": "Catar",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "SAU",
-      "name": "Arabia Saudí",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "SLE",
-      "name": "Sierra Leona",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "SGP",
-      "name": "Singapur",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "SVK",
-      "name": "Eslovaquia",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "SVN",
-      "name": "Eslovenia",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "SOM",
-      "name": "Somalia",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
+      "detail": "menos de 5 ciudades y capitales destacadas"
     },
     {
       "code": "SDN",
       "name": "Sudán",
       "type": "general.cities",
       "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "SUR",
-      "name": "Surinam",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "CHE",
-      "name": "Suiza",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
+      "detail": "menos de 5 ciudades y capitales destacadas"
     },
     {
       "code": "SYR",
       "name": "Siria",
       "type": "general.cities",
       "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
+      "detail": "menos de 5 ciudades y capitales destacadas"
     },
     {
       "code": "TWN",
       "name": "República de China",
       "type": "general.cities",
       "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
+      "detail": "menos de 5 ciudades y capitales destacadas"
     },
     {
       "code": "TJK",
       "name": "Tayikistán",
       "type": "general.cities",
       "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "TZA",
-      "name": "Tanzania",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "TGO",
-      "name": "Togo",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "TTO",
-      "name": "Trinidad y Tobago",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "TUN",
-      "name": "Túnez",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
+      "detail": "menos de 4 ciudades y capitales destacadas"
     },
     {
       "code": "TUR",
       "name": "Turquía",
       "type": "general.cities",
       "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "ARE",
-      "name": "Emiratos Árabes Unidos",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "URY",
-      "name": "Uruguay",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "VEN",
-      "name": "Venezuela",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
+      "detail": "menos de 5 ciudades y capitales destacadas"
     },
     {
       "code": "VNM",
       "name": "Vietnam",
       "type": "general.cities",
       "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "BTN",
-      "name": "Butan",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "ESH",
-      "name": "Sahara Occidental",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "FJI",
-      "name": "Fiyi",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "FLK",
-      "name": "Islas Malvinas",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "GRL",
-      "name": "Groenlandia",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "NCL",
-      "name": "Nueva Caledonia",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "SLB",
-      "name": "Islas Salomon",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "SSD",
-      "name": "Sudan del Sur",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "SWZ",
-      "name": "Esuatini",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "TKM",
-      "name": "Turkmenistan",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "TLS",
-      "name": "Timor Oriental",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "VUT",
-      "name": "Vanuatu",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "ATF",
-      "name": "Tierras Australes y Antarticas Francesas",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "BMU",
-      "name": "Bermudas",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "PRI",
-      "name": "Puerto Rico",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "BLZ",
-      "name": "Belice",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "PNG",
-      "name": "Papua Nueva Guinea",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "GUF",
-      "name": "Guayana Francesa",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "PSE",
-      "name": "Cisjordania",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "BHS",
-      "name": "Bahamas",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "CS-KM",
-      "name": "Kosovo",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
-    },
-    {
-      "code": "-99",
-      "name": "Somalilandia",
-      "type": "general.cities",
-      "severity": "media",
-      "detail": "menos de 5 ciudades destacadas"
+      "detail": "menos de 5 ciudades y capitales destacadas"
     },
     {
       "code": "ALB",
@@ -16365,6 +15643,727 @@
       "type": "politics.organizations",
       "severity": "media",
       "detail": "organizaciones internacionales poco profundas"
+    },
+    {
+      "code": "BLZ",
+      "name": "Belice",
+      "type": "politics.organizations",
+      "severity": "media",
+      "detail": "organizaciones internacionales poco profundas"
+    },
+    {
+      "code": "PNG",
+      "name": "Papua Nueva Guinea",
+      "type": "politics.organizations",
+      "severity": "media",
+      "detail": "organizaciones internacionales poco profundas"
+    },
+    {
+      "code": "GUF",
+      "name": "Guayana Francesa",
+      "type": "politics.organizations",
+      "severity": "media",
+      "detail": "organizaciones internacionales poco profundas"
+    },
+    {
+      "code": "PSE",
+      "name": "Cisjordania",
+      "type": "politics.organizations",
+      "severity": "media",
+      "detail": "organizaciones internacionales poco profundas"
+    },
+    {
+      "code": "ATA",
+      "name": "Antartida",
+      "type": "politics.organizations",
+      "severity": "media",
+      "detail": "organizaciones internacionales poco profundas"
+    },
+    {
+      "code": "BHS",
+      "name": "Bahamas",
+      "type": "politics.organizations",
+      "severity": "media",
+      "detail": "organizaciones internacionales poco profundas"
+    },
+    {
+      "code": "CS-KM",
+      "name": "Kosovo",
+      "type": "politics.organizations",
+      "severity": "media",
+      "detail": "organizaciones internacionales poco profundas"
+    },
+    {
+      "code": "-99",
+      "name": "Somalilandia",
+      "type": "politics.organizations",
+      "severity": "media",
+      "detail": "organizaciones internacionales poco profundas"
+    },
+    {
+      "code": "AFG",
+      "name": "Afganistán",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "AUS",
+      "name": "Australia",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "AZE",
+      "name": "Azerbaiyán",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "BHR",
+      "name": "Baréin",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "BLR",
+      "name": "Bielorrusia",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "BIH",
+      "name": "Bosnia y Herzegovina",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "BWA",
+      "name": "Botsuana",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "BRN",
+      "name": "Brunéi",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "CRI",
+      "name": "Costa Rica",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "DOM",
+      "name": "República Dominicana",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "ECU",
+      "name": "Ecuador",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "SLV",
+      "name": "El Salvador",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "ERI",
+      "name": "Eritrea",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "GHA",
+      "name": "Ghana",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "GTM",
+      "name": "Guatemala",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "GUY",
+      "name": "Guyana",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "HND",
+      "name": "Honduras",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "IRQ",
+      "name": "Irak",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "ISR",
+      "name": "Israel",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "JOR",
+      "name": "Jordania",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "KAZ",
+      "name": "Kazajistán",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "KEN",
+      "name": "Kenia",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "KWT",
+      "name": "Kuwait",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "KGZ",
+      "name": "Kirguistán",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "LBN",
+      "name": "Líbano",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "LSO",
+      "name": "Lesoto",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "LBR",
+      "name": "Liberia",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "LBY",
+      "name": "Libia",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "MWI",
+      "name": "Malaui",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "MYS",
+      "name": "Malasia",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "MMR",
+      "name": "Birmania",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "NAM",
+      "name": "Namibia",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "NPL",
+      "name": "Nepal",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "NLD",
+      "name": "Reino de los Países Bajos",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "NZL",
+      "name": "Nueva Zelanda",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "NIC",
+      "name": "Nicaragua",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "OMN",
+      "name": "Omán",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "PAN",
+      "name": "Panamá",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "PHL",
+      "name": "Filipinas",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "QAT",
+      "name": "Catar",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "SLE",
+      "name": "Sierra Leona",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "SOM",
+      "name": "Somalia",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "LKA",
+      "name": "Sri Lanka",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "SUR",
+      "name": "Surinam",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "SYR",
+      "name": "Siria",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "TWN",
+      "name": "República de China",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "TJK",
+      "name": "Tayikistán",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "TZA",
+      "name": "Tanzania",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "TTO",
+      "name": "Trinidad y Tobago",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "UGA",
+      "name": "Uganda",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "ARE",
+      "name": "Emiratos Árabes Unidos",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "UZB",
+      "name": "Uzbekistán",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "YEM",
+      "name": "Yemen",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "ZMB",
+      "name": "Zambia",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "ZWE",
+      "name": "Zimbabue",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "BTN",
+      "name": "Butan",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "ESH",
+      "name": "Sahara Occidental",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "FJI",
+      "name": "Fiyi",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "FLK",
+      "name": "Islas Malvinas",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "GRL",
+      "name": "Groenlandia",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "NCL",
+      "name": "Nueva Caledonia",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "SLB",
+      "name": "Islas Salomon",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "SSD",
+      "name": "Sudan del Sur",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "SWZ",
+      "name": "Esuatini",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "TKM",
+      "name": "Turkmenistan",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "ATF",
+      "name": "Tierras Australes y Antarticas Francesas",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "BMU",
+      "name": "Bermudas",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "PRI",
+      "name": "Puerto Rico",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "BLZ",
+      "name": "Belice",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "PNG",
+      "name": "Papua Nueva Guinea",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "GUF",
+      "name": "Guayana Francesa",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "PSE",
+      "name": "Cisjordania",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "ATA",
+      "name": "Antartida",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "BHS",
+      "name": "Bahamas",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "CS-KM",
+      "name": "Kosovo",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "-99",
+      "name": "Somalilandia",
+      "type": "politics.relations.blocs",
+      "severity": "media",
+      "detail": "alianzas y bloques poco profundos"
+    },
+    {
+      "code": "AND",
+      "name": "Andorra",
+      "type": "politics.rivals",
+      "severity": "media",
+      "detail": "rivalidades poco profundas"
+    },
+    {
+      "code": "AUT",
+      "name": "Austria",
+      "type": "politics.rivals",
+      "severity": "media",
+      "detail": "rivalidades poco profundas"
+    },
+    {
+      "code": "BHR",
+      "name": "Baréin",
+      "type": "politics.rivals",
+      "severity": "media",
+      "detail": "rivalidades poco profundas"
+    },
+    {
+      "code": "CMR",
+      "name": "Camerún",
+      "type": "politics.rivals",
+      "severity": "media",
+      "detail": "rivalidades poco profundas"
+    },
+    {
+      "code": "GMB",
+      "name": "Gambia",
+      "type": "politics.rivals",
+      "severity": "media",
+      "detail": "rivalidades poco profundas"
+    },
+    {
+      "code": "GHA",
+      "name": "Ghana",
+      "type": "politics.rivals",
+      "severity": "media",
+      "detail": "rivalidades poco profundas"
+    },
+    {
+      "code": "GIN",
+      "name": "Guinea",
+      "type": "politics.rivals",
+      "severity": "media",
+      "detail": "rivalidades poco profundas"
+    },
+    {
+      "code": "GNB",
+      "name": "Guinea-Bisáu",
+      "type": "politics.rivals",
+      "severity": "media",
+      "detail": "rivalidades poco profundas"
+    },
+    {
+      "code": "GUY",
+      "name": "Guyana",
+      "type": "politics.rivals",
+      "severity": "media",
+      "detail": "rivalidades poco profundas"
+    },
+    {
+      "code": "IRL",
+      "name": "Irlanda",
+      "type": "politics.rivals",
+      "severity": "media",
+      "detail": "rivalidades poco profundas"
+    },
+    {
+      "code": "JAM",
+      "name": "Jamaica",
+      "type": "politics.rivals",
+      "severity": "media",
+      "detail": "rivalidades poco profundas"
+    },
+    {
+      "code": "LSO",
+      "name": "Lesoto",
+      "type": "politics.rivals",
+      "severity": "media",
+      "detail": "rivalidades poco profundas"
+    },
+    {
+      "code": "MDG",
+      "name": "Madagascar",
+      "type": "politics.rivals",
+      "severity": "media",
+      "detail": "rivalidades poco profundas"
+    },
+    {
+      "code": "MWI",
+      "name": "Malaui",
+      "type": "politics.rivals",
+      "severity": "media",
+      "detail": "rivalidades poco profundas"
+    },
+    {
+      "code": "MNE",
+      "name": "Montenegro",
+      "type": "politics.rivals",
+      "severity": "media",
+      "detail": "rivalidades poco profundas"
+    },
+    {
+      "code": "MOZ",
+      "name": "Mozambique",
+      "type": "politics.rivals",
+      "severity": "media",
+      "detail": "rivalidades poco profundas"
+    },
+    {
+      "code": "OMN",
+      "name": "Omán",
+      "type": "politics.rivals",
+      "severity": "media",
+      "detail": "rivalidades poco profundas"
+    },
+    {
+      "code": "PAN",
+      "name": "Panamá",
+      "type": "politics.rivals",
+      "severity": "media",
+      "detail": "rivalidades poco profundas"
+    },
+    {
+      "code": "QAT",
+      "name": "Catar",
+      "type": "politics.rivals",
+      "severity": "media",
+      "detail": "rivalidades poco profundas"
     }
   ]
 }

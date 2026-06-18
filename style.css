@@ -18,22 +18,22 @@ body {
   font-family: "Public Sans", "Segoe UI", sans-serif;
   font-size: 14px;
   line-height: 1.4;
-  background: #071320;
-  color: #eef5ff;
+  background: #091113;
+  color: #f1f7f5;
 }
 
 :root {
-  --panel-bg: linear-gradient(180deg, rgba(10, 26, 47, 0.97), rgba(7, 19, 32, 0.94));
-  --panel-border: rgba(106, 180, 255, 0.22);
-  --panel-border-strong: rgba(106, 180, 255, 0.34);
+  --panel-bg: rgba(9, 22, 25, 0.96);
+  --panel-border: rgba(95, 211, 177, 0.24);
+  --panel-border-strong: rgba(95, 211, 177, 0.4);
   --panel-soft: rgba(255, 255, 255, 0.04);
   --panel-softer: rgba(255, 255, 255, 0.03);
   --panel-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
   --panel-shadow-soft: 0 10px 26px rgba(0, 0, 0, 0.22);
-  --accent: #6bb4ff;
-  --accent-soft: #9fd0ff;
-  --text-soft: rgba(238, 245, 255, 0.74);
-  --text-muted: rgba(238, 245, 255, 0.62);
+  --accent: #72dec0;
+  --accent-soft: #a6ead7;
+  --text-soft: rgba(235, 246, 242, 0.76);
+  --text-muted: rgba(235, 246, 242, 0.62);
 }
 
 body.modal-open {
@@ -56,7 +56,7 @@ body.modal-open #map {
 }
 
 :focus-visible {
-  outline: 2px solid #9fd0ff;
+  outline: 2px solid #8ee6cd;
   outline-offset: 3px;
 }
 
@@ -88,7 +88,7 @@ body.globe-loading #map-mode-toggle {
   position: absolute;
   height: 100vh;
   width: 100vw;
-  background: #0a1a2f;
+  background: #081214;
 }
 
 #fatal-error-banner {
@@ -165,9 +165,9 @@ body.globe-loading #map-mode-toggle {
   flex: 1;
   min-width: 0;
   padding: 10px 13px;
-  border: 1px solid rgba(77, 163, 255, 0.35);
+  border: 1px solid rgba(95, 211, 177, 0.38);
   border-radius: 10px;
-  background: rgba(10, 26, 47, 0.94);
+  background: rgba(8, 22, 25, 0.95);
   color: white;
   font: inherit;
   transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
@@ -175,9 +175,9 @@ body.globe-loading #map-mode-toggle {
 
 #search-bar button {
   padding: 10px 14px;
-  border: 1px solid rgba(77, 163, 255, 0.4);
+  border: 1px solid rgba(95, 211, 177, 0.42);
   border-radius: 10px;
-  background: linear-gradient(180deg, rgba(24, 57, 95, 0.98), rgba(18, 44, 74, 0.98));
+  background: #17383b;
   color: white;
   cursor: pointer;
   font: inherit;
@@ -202,9 +202,9 @@ body.globe-loading #map-mode-toggle {
 #search-bar button:focus-visible {
   outline: none;
   transform: translateY(-1px);
-  border-color: rgba(125, 198, 255, 0.62);
+  border-color: rgba(142, 230, 205, 0.72);
   box-shadow: 0 12px 22px rgba(4, 14, 26, 0.24);
-  background: linear-gradient(180deg, rgba(30, 69, 112, 0.98), rgba(20, 50, 84, 0.98));
+  background: #215052;
 }
 
 #search-suggestions {

@@ -1780,6 +1780,12 @@ const RELATION_OVERRIDES = {
     disputes: ["Chipre del Norte", "Mar Egeo"],
     rivalStates: ["Grecia", "Siria"]
   },
+  GRC: {
+    allies: ["Francia", "Chipre"],
+    blocs: ["OTAN", "Union Europea", "ONU"],
+    disputes: ["Delimitacion maritima del mar Egeo", "Espacio aereo del mar Egeo", "Zona economica exclusiva del Mediterraneo oriental"],
+    rivalStates: ["Turquia"]
+  },
   IRN: {
     allies: ["Siria", "Hezbola"],
     blocs: ["ONU", "BRICS"],
@@ -1888,6 +1894,16 @@ const RELATION_OVERRIDES_V2 = {
     diplomaticBlocs: ["ONU", "OIC"],
     currentRivals: ["Grecia", "Siria"],
     dependencies: ["Chipre del Norte"]
+  },
+  GRC: {
+    militaryAllies: ["Francia", "Chipre"],
+    economicPartners: ["Union Europea", "Alemania", "Italia"],
+    diplomaticPartners: ["Chipre", "Francia", "Egipto"],
+    militaryBlocs: ["OTAN"],
+    economicBlocs: ["Union Europea"],
+    diplomaticBlocs: ["ONU", "Consejo de Europa"],
+    currentRivals: ["Turquia"],
+    disputedTerritories: ["Mar Egeo", "Mediterraneo oriental"]
   },
   IRN: {
     militaryAllies: ["Siria", "Hezbola"],
@@ -4077,14 +4093,12 @@ function deriveMetropole(code, historyEntry) {
 function getOrganizationBlocks(organizations) {
   const blockRules = [
     { key: "otan", label: "OTAN" },
-    { key: "otan", label: "NATO" },
     { key: "union europea", label: "Union Europea" },
     { key: "ue", label: "Union Europea" },
     { key: "mercosur", label: "Mercosur" },
     { key: "union africana", label: "Union Africana" },
     { key: "asean", label: "ASEAN" },
     { key: "commonwealth", label: "Commonwealth" },
-    { key: "otan", label: "OTAN" },
     { key: "onu", label: "ONU" }
   ];
 

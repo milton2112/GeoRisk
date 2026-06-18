@@ -81,7 +81,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-06-18-release-3";
+const APP_VERSION = "2026-06-18-release-4";
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
 }
@@ -91,17 +91,17 @@ function createFallbackSearchCache() {
 }
 
 const DEFERRED_UI_MODULES = {
-  news: "./app-news-ui.js?v=2026-06-18-release-3",
-  compare: "./app-compare-ui.js?v=2026-06-18-release-3",
-  quiz: "./app-quiz-ui.js?v=2026-06-18-release-3",
-  riskRadar: "./app-risk-radar-ui.js?v=2026-06-18-release-3",
-  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-18-release-3",
-  projectAudit: "./app-project-audit-ui.js?v=2026-06-18-release-3",
-  uiPolish: "./app-ui-polish.js?v=2026-06-18-release-3",
-  countryPanel: "./app-country-panel.js?v=2026-06-18-release-3",
-  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-18-release-3",
-  search: "./app-search.js?v=2026-06-18-release-3",
-  rankings: "./app-rankings.js?v=2026-06-18-release-3"
+  news: "./app-news-ui.js?v=2026-06-18-release-4",
+  compare: "./app-compare-ui.js?v=2026-06-18-release-4",
+  quiz: "./app-quiz-ui.js?v=2026-06-18-release-4",
+  riskRadar: "./app-risk-radar-ui.js?v=2026-06-18-release-4",
+  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-18-release-4",
+  projectAudit: "./app-project-audit-ui.js?v=2026-06-18-release-4",
+  uiPolish: "./app-ui-polish.js?v=2026-06-18-release-4",
+  countryPanel: "./app-country-panel.js?v=2026-06-18-release-4",
+  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-18-release-4",
+  search: "./app-search.js?v=2026-06-18-release-4",
+  rankings: "./app-rankings.js?v=2026-06-18-release-4"
 };
 const deferredUiModulePromises = new Map();
 
@@ -1310,7 +1310,7 @@ function handleAutoRotateTick(clock) {
 
 function getInitialGlobeDistance() {
   const earthRadius = Cesium.Ellipsoid.WGS84.maximumRadius;
-  return isMobileLayout() ? earthRadius * 4.15 : earthRadius * 3.55;
+  return isMobileLayout() ? earthRadius * 5.05 : earthRadius * 3.55;
 }
 
 function getMaxGlobeDistance() {
@@ -9231,15 +9231,25 @@ function updateExtendedStaticText() {
 }
 
 function startPerformanceMonitor() {
-  if (performanceMonitorId || !viewer || typeof requestAnimationFrame !== "function") return;
+  if (performanceMonitorId || !viewer?.scene?.postRender) return;
   let frameCount = 0;
   let lastCheck = performance.now();
   let rollingFps = getPerformancePreset().targetFrameRate;
   const monitorStartedAt = performance.now();
-  const tick = now => {
+  const monitorDuration = 60000;
+  const removePostRenderListener = viewer.scene.postRender.addEventListener(() => {
     frameCount += 1;
-    if (now - lastCheck >= 2500) {
-      const fps = (frameCount * 1000) / (now - lastCheck);
+  });
+
+  const sample = () => {
+    const now = performance.now();
+    const elapsed = now - lastCheck;
+    const isActiveWindow = isCameraNavigating
+      || !viewer.scene.globe?.tilesLoaded
+      || Date.now() - lastInteractionAt < 3500;
+
+    if (isActiveWindow) {
+      const fps = (frameCount * 1000) / Math.max(1, elapsed);
       rollingFps = rollingFps * 0.62 + fps * 0.38;
       bootScheduler.recordStartupFps?.(fps, now - monitorStartedAt);
       const tier = getDeviceTier();
@@ -9286,12 +9296,21 @@ function startPerformanceMonitor() {
         sustainedHighFpsWindows = 0;
       }
       updateAppStatusPanel({ fps: Math.round(rollingFps * 10) / 10 });
-      frameCount = 0;
-      lastCheck = now;
     }
-    performanceMonitorId = requestAnimationFrame(tick);
+
+    frameCount = 0;
+    lastCheck = now;
   };
-  performanceMonitorId = requestAnimationFrame(tick);
+
+  performanceMonitorId = window.setInterval(sample, 2500);
+  window.setTimeout(() => {
+    if (performanceMonitorId) {
+      window.clearInterval(performanceMonitorId);
+      performanceMonitorId = null;
+    }
+    removePostRenderListener?.();
+    updateAppStatusPanel({ fps: Math.round(rollingFps * 10) / 10 });
+  }, monitorDuration);
 }
 
 async function showNewsArticle(countryCode) {
@@ -15841,12 +15860,16 @@ async function init() {
       if (localStorage.getItem(STORAGE_KEYS.introSeen) !== "true") {
         openIntroModal();
       }
-      setTimeout(() => {
-        if (viewer && activeImagerySignature.includes(":boot")) {
+      scheduleWhenGlobeIsQuiet(() => {
+        if (viewer && !isMobileLayout() && activeImagerySignature.includes(":boot")) {
           applyImageryForMode(false);
           requestSceneRender();
         }
-      }, isMobileLayout() ? 1800 : 1100);
+      }, {
+        delay: isMobileLayout() ? 7000 : 1100,
+        quietFor: isMobileLayout() ? 4500 : 1200,
+        timeout: isMobileLayout() ? 45000 : 12000
+      });
       dataLoadPromise
         .then(() => scheduleDetailedOverlayUpgrade())
         .catch(() => {});

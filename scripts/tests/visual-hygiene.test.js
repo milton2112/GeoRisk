@@ -69,6 +69,8 @@ assert.ok(css.includes(".panel-section[open] summary::after"), "secciones desple
 assert.ok(script.includes("constrainedInitialDevice ? \"none\" : \"countries\""), "mobile debe arrancar con etiquetas reducidas");
 assert.ok(script.includes("requestSceneRender = () =>"), "canvas debe usar scheduler de render");
 assert.ok(script.includes("startPerformanceMonitor"), "canvas debe tener monitor FPS para detectar congelamiento");
+assert.ok(script.includes("viewer.scene.postRender.addEventListener"), "monitor visual debe observar frames reales del canvas");
+assert.ok(!script.includes("performanceMonitorId = requestAnimationFrame"), "monitor visual no debe sostener un loop RAF permanente");
 assert.ok(script.includes("recordMapDegradation"), "canvas debe registrar degradaciones automaticas");
 assert.ok(script.includes("searchMemory.hidden = true"), "memoria de busqueda debe iniciar cerrada hasta recibir foco");
 assert.ok(script.includes('element.toggleAttribute("inert", hasOpenModal)'), "fondo modal debe quedar fuera de la navegacion por teclado");

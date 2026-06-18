@@ -323,7 +323,21 @@ function buildCurationAudit(countries, weights) {
     for (const organization of normalizeArray(country.politics?.organizations)) {
       trackLanguageIssue("politics.organizations.name", typeof organization === "string" ? organization : organization?.name);
     }
-    if (normalizeArray(country.general?.cities).length < 5) addGap("general.cities", "menos de 5 ciudades destacadas");
+    const cityNames = new Set(
+      normalizeArray(country.general?.cities)
+        .map(city => normalizeText(city?.name || city))
+        .filter(Boolean)
+    );
+    normalizeArray(country.general?.capitals)
+      .concat(country.general?.capital || [])
+      .map(city => normalizeText(city?.name || city))
+      .filter(Boolean)
+      .forEach(name => cityNames.add(name));
+    const population = Number(country.general?.population || 0);
+    const expectedCityCount = population >= 20000000 ? 5 : population >= 1000000 ? 4 : 3;
+    if (cityNames.size < expectedCityCount) {
+      addGap("general.cities", `menos de ${expectedCityCount} ciudades y capitales destacadas`);
+    }
     if (normalizeArray(country.general?.capitals).length < 1 && !country.general?.capital?.name) addGap("general.capitals", "sin capital estructurada", "alta");
     if (normalizeArray(country.general?.capitals).length === 1 && /Bolivia|Sudafrica|Países Bajos|Netherlands|South Africa/i.test(country.name)) {
       addGap("general.capitals.multiple", "posible capital multiple a revisar");
