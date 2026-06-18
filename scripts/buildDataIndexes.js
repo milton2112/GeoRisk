@@ -309,9 +309,20 @@ function sectionSourceTrace(country = {}) {
 
 function buildCurationAudit(countries, weights) {
   const gaps = [];
+  const languageIssues = [];
+  const englishSignal = /\b(of|the|for|realm|british|cameroon|republic|federation|strategic|capability|commission)\b/i;
   for (const [code, country] of Object.entries(countries)) {
     const relations = country.politics?.relations || {};
     const addGap = (type, detail, severity = "media") => gaps.push({ code, name: country.name, type, severity, detail });
+    const trackLanguageIssue = (field, value) => {
+      if (typeof value === "string" && englishSignal.test(value)) {
+        languageIssues.push({ code, name: country.name, field, value });
+      }
+    };
+    trackLanguageIssue("history.origin", country.history?.origin);
+    for (const organization of normalizeArray(country.politics?.organizations)) {
+      trackLanguageIssue("politics.organizations.name", typeof organization === "string" ? organization : organization?.name);
+    }
     if (normalizeArray(country.general?.cities).length < 5) addGap("general.cities", "menos de 5 ciudades destacadas");
     if (normalizeArray(country.general?.capitals).length < 1 && !country.general?.capital?.name) addGap("general.capitals", "sin capital estructurada", "alta");
     if (normalizeArray(country.general?.capitals).length === 1 && /Bolivia|Sudafrica|Países Bajos|Netherlands|South Africa/i.test(country.name)) {
@@ -335,6 +346,10 @@ function buildCurationAudit(countries, weights) {
     sourceTrace: Object.fromEntries(
       Object.entries(countries).map(([code, country]) => [code, sectionSourceTrace(country)])
     ),
+    languageQuality: {
+      issueCount: languageIssues.length,
+      issues: languageIssues.slice(0, 200)
+    },
     gapsByType: gaps.reduce((acc, gap) => {
       acc[gap.type] = (acc[gap.type] || 0) + 1;
       return acc;

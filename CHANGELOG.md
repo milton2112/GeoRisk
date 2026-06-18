@@ -8,6 +8,10 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
+- Origenes historicos y organizaciones internacionales corregidos y normalizados en espanol.
+- Inferencia de conflictos endurecida para evitar guerras y regiones falsas por simple coincidencia de fechas.
+- Regiones corregidas para Kivu, Magreb, Malvinas, disputas australes y Guerra del Uruguay.
+- Nueva puerta de calidad linguistica en `npm test` y reporte explicito dentro de la auditoria de datos.
 - Barra mobile mas compacta con accesos claros a rankings, capas y ficha.
 - Estado accesible y deshabilitado para la ficha hasta seleccionar un pais.
 - Paneles, capas y hubs mobile ahora se abren de forma exclusiva para evitar superposiciones.

@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-06-18T20:44:23.546Z",
+  "generatedAt": "2026-06-18T21:14:30.217Z",
   "status": "operativo",
   "startup": {
     "critical": "938 KB",
-    "criticalBytes": 960633,
+    "criticalBytes": 960632,
     "deferred": "1.16 MB",
     "estimatedRuntimeMemory": {
-      "countriesFullBytes": 8550643,
-      "countriesFullHuman": "8.15 MB",
-      "estimatedParsedBytes": 25651929,
-      "estimatedParsedHuman": "24.46 MB",
+      "countriesFullBytes": 8528014,
+      "countriesFullHuman": "8.13 MB",
+      "estimatedParsedBytes": 25584042,
+      "estimatedParsedHuman": "24.40 MB",
       "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
     },
     "largestAssets": [
       {
         "path": "data/conflict_details.generated.json",
         "exists": true,
-        "bytes": 724207,
-        "human": "707 KB",
+        "bytes": 721025,
+        "human": "704 KB",
         "startupCritical": false
       },
       {
@@ -44,7 +44,7 @@
       {
         "path": "data/countries_index.json",
         "exists": true,
-        "bytes": 170638,
+        "bytes": 170637,
         "human": "167 KB",
         "startupCritical": true
       },
@@ -110,25 +110,25 @@
       {
         "path": "data/conflicts_index.json",
         "exists": true,
-        "bytes": 360043,
-        "human": "352 KB"
+        "bytes": 358585,
+        "human": "350 KB"
       },
       {
         "path": "data/timeline_index.json",
         "exists": true,
-        "bytes": 286227,
+        "bytes": 286220,
         "human": "280 KB"
       },
       {
         "path": "data/search_index.json",
         "exists": true,
-        "bytes": 194380,
+        "bytes": 194391,
         "human": "190 KB"
       },
       {
         "path": "data/countries_index.json",
         "exists": true,
-        "bytes": 170638,
+        "bytes": 170637,
         "human": "167 KB"
       },
       {
@@ -140,21 +140,21 @@
       {
         "path": "data/country_weights.json",
         "exists": true,
-        "bytes": 42393,
+        "bytes": 42394,
         "human": "41 KB"
       }
     ],
     "countryWeights": {
       "totalCountries": 183,
-      "fullBytes": 8550643,
-      "duplicatedCountryFilesBytes": 8549541,
-      "tooLargeCount": 32,
+      "fullBytes": 8528014,
+      "duplicatedCountryFilesBytes": 8526989,
+      "tooLargeCount": 31,
       "largest": [
         {
           "code": "USA",
           "name": "Estados Unidos",
-          "bytes": 2414632,
-          "inlineBytes": 2414631,
+          "bytes": 2411777,
+          "inlineBytes": 2411776,
           "tooLarge": true,
           "counts": {
             "cities": 5,
@@ -170,8 +170,8 @@
         {
           "code": "GBR",
           "name": "Reino Unido",
-          "bytes": 788692,
-          "inlineBytes": 788691,
+          "bytes": 786698,
+          "inlineBytes": 786697,
           "tooLarge": true,
           "counts": {
             "cities": 5,
@@ -187,8 +187,8 @@
         {
           "code": "FRA",
           "name": "Francia",
-          "bytes": 590164,
-          "inlineBytes": 590163,
+          "bytes": 590034,
+          "inlineBytes": 590033,
           "tooLarge": true,
           "counts": {
             "cities": 5,
@@ -204,8 +204,8 @@
         {
           "code": "SWE",
           "name": "Suecia",
-          "bytes": 374799,
-          "inlineBytes": 374798,
+          "bytes": 374814,
+          "inlineBytes": 374813,
           "tooLarge": true,
           "counts": {
             "cities": 5,
@@ -221,8 +221,8 @@
         {
           "code": "AUS",
           "name": "Australia",
-          "bytes": 175655,
-          "inlineBytes": 175654,
+          "bytes": 173951,
+          "inlineBytes": 173950,
           "tooLarge": true,
           "counts": {
             "cities": 5,
@@ -238,8 +238,8 @@
         {
           "code": "MAR",
           "name": "Marruecos",
-          "bytes": 132191,
-          "inlineBytes": 132190,
+          "bytes": 132183,
+          "inlineBytes": 132182,
           "tooLarge": true,
           "counts": {
             "cities": 3,
@@ -255,8 +255,8 @@
         {
           "code": "DNK",
           "name": "Dinamarca",
-          "bytes": 122624,
-          "inlineBytes": 122623,
+          "bytes": 122354,
+          "inlineBytes": 122353,
           "tooLarge": true,
           "counts": {
             "cities": 5,
@@ -272,8 +272,8 @@
         {
           "code": "RUS",
           "name": "Rusia",
-          "bytes": 111345,
-          "inlineBytes": 111344,
+          "bytes": 111105,
+          "inlineBytes": 111104,
           "tooLarge": true,
           "counts": {
             "cities": 5,
@@ -289,8 +289,8 @@
         {
           "code": "CAN",
           "name": "Canadá",
-          "bytes": 107977,
-          "inlineBytes": 107976,
+          "bytes": 107053,
+          "inlineBytes": 107052,
           "tooLarge": true,
           "counts": {
             "cities": 4,
@@ -306,8 +306,8 @@
         {
           "code": "ISR",
           "name": "Israel",
-          "bytes": 100869,
-          "inlineBytes": 100868,
+          "bytes": 100571,
+          "inlineBytes": 100570,
           "tooLarge": true,
           "counts": {
             "cities": 5,
@@ -323,8 +323,8 @@
         {
           "code": "CHN",
           "name": "República Popular China",
-          "bytes": 84745,
-          "inlineBytes": 84744,
+          "bytes": 84509,
+          "inlineBytes": 84508,
           "tooLarge": true,
           "counts": {
             "cities": 5,
@@ -340,8 +340,8 @@
         {
           "code": "POL",
           "name": "Polonia",
-          "bytes": 73864,
-          "inlineBytes": 73863,
+          "bytes": 73223,
+          "inlineBytes": 73222,
           "tooLarge": true,
           "counts": {
             "cities": 4,
@@ -407,7 +407,7 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 11160,
+      "bytes": 11561,
       "human": "11 KB"
     },
     {
@@ -467,8 +467,8 @@
     {
       "path": "package.json",
       "exists": true,
-      "bytes": 3387,
-      "human": "3 KB"
+      "bytes": 3613,
+      "human": "4 KB"
     },
     {
       "path": "app-runtime.js",
@@ -558,6 +558,7 @@
     "compact:index",
     "fix:conflicts",
     "fix:conflicts:batches",
+    "fix:data-visible",
     "import:conflicts:dyadic",
     "import:conflicts:wikipedia",
     "measure:startup",
@@ -572,6 +573,7 @@
     "test:conflict-autofix",
     "test:conflicts",
     "test:country-matching",
+    "test:data-language",
     "test:logic",
     "test:map-coverage",
     "test:modal-render",
@@ -589,7 +591,7 @@
   "criticalIssues": [],
   "warnings": [
     "script.js sigue siendo el mayor bloque de mantenimiento.",
-    "32 fichas de pais superan el umbral de peso."
+    "31 fichas de pais superan el umbral de peso."
   ],
   "nextActions": [
     "Mantener el arranque critico por debajo de 1 MB en cada release.",

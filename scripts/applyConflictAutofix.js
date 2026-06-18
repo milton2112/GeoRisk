@@ -253,9 +253,16 @@ async function fixGeneratedDetails(countriesByConflict) {
   return { renamed, enriched };
 }
 
-const fullCountries = await fs.readJson(fullPath);
-const countriesByConflict = collectConflictCountryNames(fullCountries);
-const changedFullCountries = await fixCountriesFile(fullPath, countriesByConflict);
+let changedFullCountries = 0;
+let countriesByConflict = new Map();
+for (let pass = 0; pass < 3; pass += 1) {
+  const fullCountries = await fs.readJson(fullPath);
+  countriesByConflict = collectConflictCountryNames(fullCountries);
+  const changedThisPass = await fixCountriesFile(fullPath, countriesByConflict);
+  changedFullCountries += changedThisPass;
+  if (!changedThisPass) break;
+}
+countriesByConflict = collectConflictCountryNames(await fs.readJson(fullPath));
 let changedCountryFiles = 0;
 for (const file of (await fs.readdir(countriesDir)).filter(item => item.endsWith(".json"))) {
   changedCountryFiles += await fixCountriesFile(path.join(countriesDir, file), countriesByConflict);

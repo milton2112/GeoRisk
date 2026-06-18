@@ -67,6 +67,8 @@ const WAR_RULES = [
   { name: "Guerra de Yom Kipur", start: 1973, end: 1973, scale: "regional", type: "interestatal", region: "Oriente Medio" },
   { name: "Guerra de las Malvinas", start: 1982, end: 1982, scale: "regional", type: "interestatal", region: "Atlantico Sur" },
   { name: "Guerra del Golfo", start: 1990, end: 1991, scale: "internacional", type: "interestatal", region: "Golfo Persico" },
+  { name: "Guerra entre Iran e Irak", start: 1980, end: 1988, scale: "regional", type: "interestatal", region: "Oriente Medio" },
+  { name: "Guerra Iran-Irak", start: 1980, end: 1988, scale: "regional", type: "interestatal", region: "Oriente Medio" },
   { name: "Guerra de Kosovo", start: 1998, end: 1999, scale: "internacional", type: "insurgencia", region: "Balcanes" },
   { name: "Guerra de Afganistan", start: 2001, end: 2021, scale: "internacional", type: "insurgencia", region: "Asia central" },
   { name: "Guerra de Irak", start: 2003, end: 2011, scale: "internacional", type: "interestatal", region: "Oriente Medio" },
@@ -74,13 +76,30 @@ const WAR_RULES = [
 ];
 
 const CAMPAIGN_HINTS = [
-  { pattern: /\b(corea|korean|chosin|pusan|naktong|seoul|inchon|incheon|osan|wonju|kumsong|pork chop|outpost|imjin|kapyong|bloody ridge|heartbreak ridge|punchbowl)\b/i, war: "Guerra de Corea", campaign: "Campana de Corea", region: "Peninsula coreana" },
-  { pattern: /\b(vietnam|saigon|tet|anaconda|afganistan|taliban|uzbin)\b/i, war: "Guerra de Vietnam", campaign: "Campanas de Indochina y Asia contemporanea", region: "Asia" },
-  { pattern: /\b(malvinas|falklands|goose green|monte longdon|harriet|tumbledown|agradable)\b/i, war: "Guerra de las Malvinas", campaign: "Campana de las Malvinas", region: "Atlantico Sur" },
-  { pattern: /\b(irak|iraq|bagdad|al fao|ramadi|um kasar|73 easting|golfo)\b/i, war: "Guerra del Golfo", campaign: "Campanas del Golfo Persico", region: "Golfo Persico" },
+  { pattern: /\b(corea|korean|chosin|pusan|naktong|seoul|inchon|incheon|osan|wonju|kumsong|pork chop|outpost|imjin|kapyong|bloody ridge|heartbreak ridge|punchbowl|yeonpyeong)\b/i, war: "Guerra de Corea", campaign: "Campana de Corea", region: "Peninsula coreana" },
+  { pattern: /\boperacion encore\b/i, war: "Guerra de Corea", campaign: "Campana de Corea", region: "Peninsula coreana" },
+  { pattern: /\b(vietnam|saigon|tet)\b/i, war: "Guerra de Vietnam", campaign: "Campanas de Vietnam", region: "Sudeste asiatico" },
+  { pattern: /\b(anaconda|afganistan|taliban|uzbin)\b/i, war: "Guerra de Afganistan", campaign: "Campanas de Afganistan", region: "Asia central" },
+  { pattern: /\b(malvinas|falklands|goose green|monte longdon|harriet|tumbledown|agradable|sheffield|general belgrano|black buck|san carlos|wireless ridge|dos hermanas|murrell)\b/i, war: "Guerra de las Malvinas", campaign: "Campana de las Malvinas", region: "Atlantico Sur" },
+  { pattern: /\b(isla decepci[oó]n|islote snipe)\b/i, war: "Disputas australes", campaign: "Incidentes territoriales australes", region: "Atlantico Sur y Antartida" },
+  { pattern: /\b(invasion brasile[nñ]a de 1864|guerra del uruguay|uruguayan war)\b/i, war: "Guerra del Uruguay", campaign: "Campana de Uruguay de 1864", region: "America del Sur" },
+  { pattern: /\bbattleford\b/i, war: "Rebelion del Noroeste", campaign: "Campana de Saskatchewan", region: "Canada" },
+  { pattern: /\bdeliberate force\b/i, war: "Guerra de Bosnia", campaign: "Intervencion de la OTAN en Bosnia", region: "Balcanes" },
+  { pattern: /\b(73 easting|guerra del golfo|kuwait)\b/i, war: "Guerra del Golfo", campaign: "Campanas del Golfo Persico", region: "Golfo Persico" },
+  { pattern: /\b(irak|iraq|bagdad|al fao|ramadi|um kasar)\b/i, war: "Guerra de Irak", campaign: "Campanas de Irak", region: "Oriente Medio" },
   { pattern: /\b(israel|sina[ií]|gaza|majdal|mandelbaum|yom kipur|seis dias|yeonpyeong|jerusalen)\b/i, war: "Conflicto arabe-israeli", campaign: "Campanas del conflicto arabe-israeli", region: "Oriente Medio" },
-  { pattern: /\b(pacifico|midway|guadalcanal|java|singapur|buna|gona|wake|guam|okinawa|balikpapan|timor|tulagi|munda|sattelberg|scarlet|horaniu|rennell)\b/i, war: "Segunda Guerra Mundial", campaign: "Guerra del Pacifico de la Segunda Guerra Mundial", region: "Asia-Pacifico" },
-  { pattern: /\b(normandia|dunkerque|sedan|francia|belgica|rotterdam|crete|creta|el alamein|gazala|kasserine|sicilia|anzio|gondar|keren|agordat)\b/i, war: "Segunda Guerra Mundial", campaign: "Campanas de Europa y Africa de la Segunda Guerra Mundial", region: "Europa y Africa" }
+  { pattern: /\b(midway|guadalcanal|java|singapur|buna|gona|wake|guam|okinawa|balikpapan|timor|tulagi|munda|sattelberg|scarlet|horaniu|rennell|guerra del pacifico de la segunda guerra mundial)\b/i, war: "Segunda Guerra Mundial", campaign: "Guerra del Pacifico de la Segunda Guerra Mundial", region: "Asia-Pacifico" },
+  { pattern: /\b(normandia|dunkerque|sedan|francia|belgica|rotterdam)\b/i, war: "Segunda Guerra Mundial", campaign: "Campanas de Europa occidental de la Segunda Guerra Mundial", region: "Europa occidental" },
+  { pattern: /\b(el alamein|gazala|kasserine)\b/i, war: "Segunda Guerra Mundial", campaign: "Campana del Norte de Africa", region: "Norte de Africa" },
+  { pattern: /\b(sicilia|anzio|creta)\b/i, war: "Segunda Guerra Mundial", campaign: "Campanas del Mediterraneo", region: "Mediterraneo" },
+  { pattern: /\b(gondar|keren|agordat)\b/i, war: "Segunda Guerra Mundial", campaign: "Campana de Africa oriental", region: "Africa oriental" }
+];
+
+const REGION_HINTS = [
+  { pattern: /\bguerra de kivu\b/i, region: "Africa central" },
+  { pattern: /\b(insurgencia en el magreb|incidentes de tinduf|guerra de las arenas|frente de las fuerzas socialistas)\b/i, region: "Norte de Africa" },
+  { pattern: /\bfirst burundi war\b/i, region: "Africa oriental" },
+  { pattern: /\bfirst chad.*frolinat.*rebellion\b/i, region: "Africa central" }
 ];
 
 function getYear(entry = {}) {
@@ -93,20 +112,34 @@ function getEndYear(entry = {}) {
   return Number.isFinite(entry.endYear) ? entry.endYear : getYear(entry);
 }
 
+function hasBattleName(entry = {}) {
+  return /\b(batalla|battle|sitio|siege|combate|asalto|raid|incursion|ofensiva)\b/i.test(entry.name || "");
+}
+
 function isBattleLike(entry = {}) {
-  return /\b(batalla|battle|sitio|siege|combate|asalto|raid|incursion|ofensiva)\b/i.test(`${entry.name || ""} ${entry.type || ""}`);
+  return hasBattleName(entry) || /\b(batalla|battle|sitio|siege)\b/i.test(entry.type || "");
 }
 
 function inferWarRule(entry = {}) {
-  const year = getYear(entry);
-  const endYear = getEndYear(entry) ?? year;
-  if (!year) return null;
-  return WAR_RULES.find(rule => year >= rule.start && endYear <= rule.end + 1) || null;
+  const nameText = normalizeConflictKey(entry.name);
+  const nameRule = WAR_RULES.find(rule => nameText.includes(normalizeConflictKey(rule.name)));
+  if (nameRule) return nameRule;
+  const text = normalizeConflictKey(
+    [entry.parent, entry.war, entry.campaign].filter(Boolean).join(" ")
+  );
+  const directRule = WAR_RULES.find(rule => text.includes(normalizeConflictKey(rule.name)));
+  if (directRule) return directRule;
+  return null;
 }
 
 function inferCampaignHint(entry = {}) {
-  const text = `${entry.name || ""} ${entry.region || ""} ${entry.parent || ""} ${entry.campaign || ""}`;
+  const text = normalizeConflictKey(entry.name);
   return CAMPAIGN_HINTS.find(rule => rule.pattern.test(text)) || null;
+}
+
+function inferRegionHint(entry = {}) {
+  const text = normalizeConflictKey(entry.name);
+  return REGION_HINTS.find(rule => rule.pattern.test(text)) || null;
 }
 
 function inferConflictType(entry = {}, warRule = null) {
@@ -128,12 +161,17 @@ function inferScale(entry = {}, countryCount = 1, warRule = null) {
   return "local";
 }
 
-function normalizeRegion(entry = {}, country = {}, warRule = null, campaignHint = null) {
+function normalizeRegion(entry = {}, country = {}, warRule = null, campaignHint = null, regionHint = null) {
+  if (warRule?.region && normalizeConflictKey(entry.name) === normalizeConflictKey(warRule.name)) return warRule.region;
+  if (campaignHint?.region) return campaignHint.region;
+  if (regionHint?.region) return regionHint.region;
+  if (entry.region) return entry.region;
   if (entry.normalizedRegion) return entry.normalizedRegion;
   if (warRule?.region) return warRule.region;
-  if (campaignHint?.region) return campaignHint.region;
-  if (entry.region) return entry.region;
-  if (country.continent) return country.continent;
+  if (country.continent) {
+    const continent = normalizeConflictKey(country.continent);
+    return ({ america: "America", europe: "Europa", europa: "Europa", asia: "Asia", africa: "Africa", oceania: "Oceania", antarctica: "Antartida", antartida: "Antartida" })[continent] || country.continent;
+  }
   return "Region por determinar";
 }
 
@@ -227,36 +265,54 @@ export function curateConflictEntry(entry = {}, context = {}) {
   const name = renameConflict(entry.name);
   const special = SPECIAL_CONFLICT_METADATA.get(cleanConflictLabel(entry.name)) || SPECIAL_CONFLICT_METADATA.get(name) || {};
   const renamedEntry = { ...entry, ...special, name };
-  const warRule = inferWarRule(renamedEntry);
-  const campaignHint = inferCampaignHint(renamedEntry);
+  const inheritedParent = renamedEntry.parent || renamedEntry.war || "";
+  const hasObsoleteGenericParent = renamedEntry.curationBatch === "safe-structured-conflict-curation-2026-06"
+    && /^Conflicto regional de\b/i.test(inheritedParent)
+    && !hasBattleName(renamedEntry);
+  const baseEntry = { ...renamedEntry };
+  if (hasObsoleteGenericParent) {
+    delete baseEntry.type;
+  }
+  const warRule = inferWarRule(baseEntry);
+  const isTopLevelWar = Boolean(warRule && normalizeConflictKey(name) === normalizeConflictKey(warRule.name));
+  if (isTopLevelWar || normalizeConflictKey(inheritedParent) === normalizeConflictKey(name) || hasObsoleteGenericParent) {
+    delete baseEntry.parent;
+    delete baseEntry.war;
+    if (isTopLevelWar || /^Campana vinculada a\b/i.test(baseEntry.campaign || "")) {
+      delete baseEntry.campaign;
+    }
+  }
+  const campaignHint = isTopLevelWar ? null : inferCampaignHint(baseEntry);
+  const regionHint = inferRegionHint(baseEntry);
+  const preferNameHint = baseEntry.curationBatch === "safe-structured-conflict-curation-2026-06" && campaignHint;
   const countryCount = context.countriesByConflict?.get(normalizeConflictKey(name))?.size || 1;
-  const normalizedRegion = normalizeRegion(renamedEntry, context.country, warRule, campaignHint);
-  const parent = renamedEntry.parent || renamedEntry.war || campaignHint?.war || (isBattleLike(renamedEntry) ? (warRule?.name || `Conflicto regional de ${normalizedRegion}`) : null);
-  const campaign = renamedEntry.campaign || campaignHint?.campaign || (parent && isBattleLike(renamedEntry) ? `Campana vinculada a ${parent}` : null);
-  const conflictType = inferConflictType(renamedEntry, warRule);
-  const scale = inferScale(renamedEntry, countryCount, warRule);
-  const active = Boolean(renamedEntry.ongoing || warRule?.active || (getEndYear(renamedEntry) ?? 0) >= ACTIVE_THRESHOLD_YEAR);
+  const normalizedRegion = normalizeRegion(baseEntry, context.country, warRule, campaignHint, regionHint);
+  const parent = (preferNameHint ? campaignHint.war : null) || baseEntry.parent || baseEntry.war || campaignHint?.war || (isBattleLike(baseEntry) ? (warRule?.name || `Conflicto regional de ${normalizedRegion}`) : null);
+  const campaign = (preferNameHint ? campaignHint.campaign : null) || baseEntry.campaign || campaignHint?.campaign || (parent && isBattleLike(baseEntry) ? `Campana vinculada a ${parent}` : null);
+  const conflictType = inferConflictType(baseEntry, warRule);
+  const scale = inferScale(baseEntry, countryCount, warRule);
+  const active = Boolean(baseEntry.ongoing || warRule?.active || (getEndYear(baseEntry) ?? 0) >= ACTIVE_THRESHOLD_YEAR);
 
   return {
-    ...renamedEntry,
+    ...baseEntry,
     ...(parent ? { parent, war: parent } : {}),
     ...(campaign ? { campaign } : {}),
-    type: renamedEntry.type || (isBattleLike(renamedEntry) ? "batalla" : conflictType),
+    type: baseEntry.type || (isBattleLike(baseEntry) ? "batalla" : conflictType),
     conflictType,
-    scale: renamedEntry.scale || scale,
+    scale: baseEntry.scale || scale,
     status: active ? "activo" : "historico",
     active,
     normalizedRegion,
-    region: renamedEntry.region || normalizedRegion,
-    cause: renamedEntry.cause || `Disputa militar o politica asociada a ${parent || normalizedRegion}.`,
-    outcome: renamedEntry.outcome || "Resultado pendiente de curaduria especifica; registrado como evento historico verificado por presencia en el dataset.",
-    consequences: renamedEntry.consequences || `Impacto militar y politico localizado en ${normalizedRegion}; requiere ampliacion historiografica fina.`,
-    participants: buildParticipants(renamedEntry, context.countriesByConflict, context.country),
-    chronology: chronologyFor(renamedEntry),
-    treaties: closeAgreementsFor(renamedEntry),
-    curationPriority: isBattleLike(renamedEntry) || countryCount >= 3 || active ? "alta" : "media",
+    region: normalizedRegion,
+    cause: baseEntry.cause || `Disputa militar o politica asociada a ${parent || normalizedRegion}.`,
+    outcome: baseEntry.outcome || "Resultado pendiente de curaduria especifica; registrado como evento historico verificado por presencia en el dataset.",
+    consequences: baseEntry.consequences || `Impacto militar y politico localizado en ${normalizedRegion}; requiere ampliacion historiografica fina.`,
+    participants: buildParticipants(baseEntry, context.countriesByConflict, context.country),
+    chronology: chronologyFor(baseEntry),
+    treaties: closeAgreementsFor(baseEntry),
+    curationPriority: isBattleLike(baseEntry) || countryCount >= 3 || active ? "alta" : "media",
     curationBatch: "safe-structured-conflict-curation-2026-06",
-    curationNote: renamedEntry.curationNote || "Metadatos estructurales agregados por tanda segura; bajas y tratados especificos quedan como no consolidados si no habia fuente fina."
+    curationNote: baseEntry.curationNote || "Metadatos estructurales agregados por tanda segura; bajas y tratados especificos quedan como no consolidados si no habia fuente fina."
   };
 }
 

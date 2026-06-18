@@ -1,0 +1,47 @@
+import fs from "fs-extra";
+import path from "node:path";
+
+const projectRoot = path.resolve(process.cwd());
+const fullPath = path.join(projectRoot, "data", "countries_full.json");
+const countriesDir = path.join(projectRoot, "data", "countries");
+const replacements = new Map([
+  ["estado of Bahrain", "Protectorado británico de Baréin"],
+  ["Cameroon", "Camerún francés"],
+  ["People's Revolutionary república of Guinea", "Guinea Francesa"],
+  ["Third Hellenic república", "Imperio otomano"],
+  ["mancomunidad realm of Malawi", "Nyasalandia"],
+  ["federación of Nigeria", "Federación de Nigeria"],
+  ["Slovak república", "Checoslovaquia"],
+  ["república of South Africa (1961—1994)", "Colonia del Cabo, Natal, Transvaal y Colonia del Río Orange"],
+  ["British Swaziland", "Suazilandia británica"],
+  ["Organizacion for Cooperation of Railways", "Organización para la Cooperación de los Ferrocarriles"],
+  ["Organización for Cooperation of Railways", "Organización para la Cooperación de los Ferrocarriles"],
+  ["The Technical Cooperation Program", "Programa de Cooperación Técnica"],
+  ["Strategic Airlift Capability", "Capacidad de Transporte Aéreo Estratégico"],
+  ["Caribbean Free Comercio Asociacion", "Asociación de Libre Comercio del Caribe"],
+  ["Comunidad of Sahel-Saharan States", "Comunidad de Estados Sahelo-Saharianos"],
+  ["Commission for the Conservation of Southern Bluefin Tuna", "Comisión para la Conservación del Atún Rojo del Sur"],
+  ["Lake Chad Basin Commission", "Comisión de la Cuenca del Lago Chad"]
+]);
+
+function replaceVisibleStrings(value) {
+  if (typeof value === "string") return replacements.get(value) || value;
+  if (Array.isArray(value)) return value.map(replaceVisibleStrings);
+  if (!value || typeof value !== "object") return value;
+  return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, replaceVisibleStrings(item)]));
+}
+
+async function updateJson(filePath) {
+  const current = await fs.readJson(filePath);
+  const updated = replaceVisibleStrings(current);
+  if (JSON.stringify(current) === JSON.stringify(updated)) return false;
+  await fs.writeJson(filePath, updated, { spaces: 0 });
+  return true;
+}
+
+let updatedFiles = Number(await updateJson(fullPath));
+for (const fileName of (await fs.readdir(countriesDir)).filter(file => file.endsWith(".json"))) {
+  updatedFiles += Number(await updateJson(path.join(countriesDir, fileName)));
+}
+
+console.log(`Correcciones visibles aplicadas: ${updatedFiles} archivos`);

@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-06-18T20:44:21.805Z",
+  "generatedAt": "2026-06-18T21:14:28.703Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 8550643,
-    "duplicatedCountryFilesBytes": 8549541,
-    "tooLargeCount": 32,
+    "fullBytes": 8528014,
+    "duplicatedCountryFilesBytes": 8526989,
+    "tooLargeCount": 31,
     "largest": [
       {
         "code": "USA",
         "name": "Estados Unidos",
-        "bytes": 2414632,
-        "inlineBytes": 2414631,
+        "bytes": 2411777,
+        "inlineBytes": 2411776,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -27,8 +27,8 @@
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 788692,
-        "inlineBytes": 788691,
+        "bytes": 786698,
+        "inlineBytes": 786697,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -44,8 +44,8 @@
       {
         "code": "FRA",
         "name": "Francia",
-        "bytes": 590164,
-        "inlineBytes": 590163,
+        "bytes": 590034,
+        "inlineBytes": 590033,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -61,8 +61,8 @@
       {
         "code": "SWE",
         "name": "Suecia",
-        "bytes": 374799,
-        "inlineBytes": 374798,
+        "bytes": 374814,
+        "inlineBytes": 374813,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -78,8 +78,8 @@
       {
         "code": "AUS",
         "name": "Australia",
-        "bytes": 175655,
-        "inlineBytes": 175654,
+        "bytes": 173951,
+        "inlineBytes": 173950,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -95,8 +95,8 @@
       {
         "code": "MAR",
         "name": "Marruecos",
-        "bytes": 132191,
-        "inlineBytes": 132190,
+        "bytes": 132183,
+        "inlineBytes": 132182,
         "tooLarge": true,
         "counts": {
           "cities": 3,
@@ -112,8 +112,8 @@
       {
         "code": "DNK",
         "name": "Dinamarca",
-        "bytes": 122624,
-        "inlineBytes": 122623,
+        "bytes": 122354,
+        "inlineBytes": 122353,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -129,8 +129,8 @@
       {
         "code": "RUS",
         "name": "Rusia",
-        "bytes": 111345,
-        "inlineBytes": 111344,
+        "bytes": 111105,
+        "inlineBytes": 111104,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -146,8 +146,8 @@
       {
         "code": "CAN",
         "name": "Canadá",
-        "bytes": 107977,
-        "inlineBytes": 107976,
+        "bytes": 107053,
+        "inlineBytes": 107052,
         "tooLarge": true,
         "counts": {
           "cities": 4,
@@ -163,8 +163,8 @@
       {
         "code": "ISR",
         "name": "Israel",
-        "bytes": 100869,
-        "inlineBytes": 100868,
+        "bytes": 100571,
+        "inlineBytes": 100570,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -180,8 +180,8 @@
       {
         "code": "CHN",
         "name": "República Popular China",
-        "bytes": 84745,
-        "inlineBytes": 84744,
+        "bytes": 84509,
+        "inlineBytes": 84508,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -197,8 +197,8 @@
       {
         "code": "POL",
         "name": "Polonia",
-        "bytes": 73864,
-        "inlineBytes": 73863,
+        "bytes": 73223,
+        "inlineBytes": 73222,
         "tooLarge": true,
         "counts": {
           "cities": 4,
@@ -14671,6 +14671,10 @@
         "status": "base"
       }
     }
+  },
+  "languageQuality": {
+    "issueCount": 0,
+    "issues": []
   },
   "gapsByType": {
     "general.cities": 123,
