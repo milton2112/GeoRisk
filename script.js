@@ -81,7 +81,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-06-13-release-1";
+const APP_VERSION = "2026-06-17-release-1";
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
 }
@@ -91,17 +91,17 @@ function createFallbackSearchCache() {
 }
 
 const DEFERRED_UI_MODULES = {
-  news: "./app-news-ui.js?v=2026-06-13-release-1",
-  compare: "./app-compare-ui.js?v=2026-06-13-release-1",
-  quiz: "./app-quiz-ui.js?v=2026-06-13-release-1",
-  riskRadar: "./app-risk-radar-ui.js?v=2026-06-13-release-1",
-  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-13-release-1",
-  projectAudit: "./app-project-audit-ui.js?v=2026-06-13-release-1",
-  uiPolish: "./app-ui-polish.js?v=2026-06-13-release-1",
-  countryPanel: "./app-country-panel.js?v=2026-06-13-release-1",
-  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-13-release-1",
-  search: "./app-search.js?v=2026-06-13-release-1",
-  rankings: "./app-rankings.js?v=2026-06-13-release-1"
+  news: "./app-news-ui.js?v=2026-06-17-release-1",
+  compare: "./app-compare-ui.js?v=2026-06-17-release-1",
+  quiz: "./app-quiz-ui.js?v=2026-06-17-release-1",
+  riskRadar: "./app-risk-radar-ui.js?v=2026-06-17-release-1",
+  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-17-release-1",
+  projectAudit: "./app-project-audit-ui.js?v=2026-06-17-release-1",
+  uiPolish: "./app-ui-polish.js?v=2026-06-17-release-1",
+  countryPanel: "./app-country-panel.js?v=2026-06-17-release-1",
+  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-17-release-1",
+  search: "./app-search.js?v=2026-06-17-release-1",
+  rankings: "./app-rankings.js?v=2026-06-17-release-1"
 };
 const deferredUiModulePromises = new Map();
 
@@ -1039,19 +1039,51 @@ function openIntroModal() {
   if (!modal) {
     return;
   }
+  setupIntroModalControls(modal);
   updateIntroRuntimeStatus();
   modal.hidden = false;
   syncModalOpenState();
 }
 
-function closeIntroModal() {
+function closeIntroModal(markSeen = true) {
   const modal = document.getElementById("intro-modal");
   if (!modal) {
     return;
   }
   modal.hidden = true;
-  localStorage.setItem(STORAGE_KEYS.introSeen, "true");
+  if (markSeen) {
+    localStorage.setItem(STORAGE_KEYS.introSeen, "true");
+  }
   syncModalOpenState();
+}
+
+function setupIntroModalControls(modal = document.getElementById("intro-modal")) {
+  if (!modal || modal.dataset.controlsReady === "true") {
+    return;
+  }
+
+  modal.dataset.controlsReady = "true";
+  document.getElementById("intro-modal-close")?.addEventListener("click", () => closeIntroModal());
+  document.getElementById("intro-start-button")?.addEventListener("click", () => {
+    closeIntroModal();
+    window.setTimeout(() => document.getElementById("map-search-input")?.focus({ preventScroll: true }), 0);
+  });
+  modal.addEventListener("click", event => {
+    if (event.target.closest("[data-close-intro-modal='true']")) {
+      closeIntroModal();
+      return;
+    }
+    const modeButton = event.target.closest("[data-app-mode-choice]");
+    if (modeButton) {
+      applyAppMode(modeButton.dataset.appModeChoice || "default");
+      closeIntroModal();
+      return;
+    }
+    const introTarget = event.target.closest("[data-intro-target]");
+    if (introTarget) {
+      document.getElementById(introTarget.dataset.introTarget)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
 }
 
 function openProductModal(title, bodyHtml) {
@@ -4149,15 +4181,15 @@ function renderFlagVisual(code, label, className = "country-flag", assetSrc = ""
   const resolvedSrc = assetSrc || (SYMBOL_IMAGE_CODES.has(code) ? `./assets/flags/${code}.svg` : "");
   if (resolvedSrc) {
     return `
-      <span class="${className}">
-        <img class="flag-image" src="${escapeHtml(resolvedSrc)}" alt="${escapeHtml(label || code)}" onerror="this.hidden=true;this.nextElementSibling.hidden=false;">
+      <span class="${className}" role="img" aria-label="${escapeHtml(label || code)}">
+        <img class="flag-image" src="${escapeHtml(resolvedSrc)}" alt="" aria-hidden="true" onerror="this.hidden=true;this.nextElementSibling.hidden=false;">
         <span class="flag-fallback" hidden>${emoji}</span>
       </span>
       `;
   }
 
   return `
-    <span class="${className}">
+    <span class="${className}" role="img" aria-label="${escapeHtml(label || code)}">
       <span class="flag-fallback">${emoji}</span>
     </span>
   `;
@@ -7515,7 +7547,7 @@ function renderSearchQueryChips(filters = null) {
   container.innerHTML = chips.map(chip => `<span class="search-chip">${escapeHtml(chip)}</span>`).join("");
 }
 
-function renderSearchMemory() {
+function renderSearchMemory({ reveal = true } = {}) {
   const wrapper = document.getElementById("search-memory");
   const historyList = document.getElementById("search-history-list");
   const savedList = document.getElementById("saved-search-list");
@@ -7525,7 +7557,7 @@ function renderSearchMemory() {
 
   const historyItems = searchHistory.slice(0, 6);
   const savedItems = savedSearches.slice(0, 6);
-  wrapper.hidden = !historyItems.length && !savedItems.length;
+  wrapper.hidden = !reveal || (!historyItems.length && !savedItems.length);
 
   historyList.innerHTML = historyItems
     .map(item => `<button type="button" class="search-memory-chip" data-search-memory="${escapeHtml(item)}">${escapeHtml(item)}</button>`)
@@ -10177,7 +10209,7 @@ function updateStaticText() {
   updateAppStatusPanel();
   renderSavedFilters();
   renderSavedViews();
-  renderSearchMemory();
+  renderSearchMemory({ reveal: document.activeElement?.id === "map-search-input" });
 }
 
 let rerenderCurrentPanelFrame = null;
@@ -10998,9 +11030,6 @@ function setupSavedViewControls() {
   const renderChip = document.getElementById("render-profile-chip");
   const helpModal = document.getElementById("help-modal");
   const helpClose = document.getElementById("help-modal-close");
-  const introModal = document.getElementById("intro-modal");
-  const introClose = document.getElementById("intro-modal-close");
-  const introStart = document.getElementById("intro-start-button");
   const productModal = document.getElementById("product-modal");
   const productClose = document.getElementById("product-modal-close");
 
@@ -11079,25 +11108,6 @@ function setupSavedViewControls() {
   helpModal?.addEventListener("click", event => {
     if (event.target.closest("[data-close-help-modal='true']")) {
       closeHelpModal();
-    }
-  });
-  introClose?.addEventListener("click", () => closeIntroModal());
-  introStart?.addEventListener("click", () => {
-    closeIntroModal();
-    window.setTimeout(() => document.getElementById("map-search-input")?.focus({ preventScroll: true }), 0);
-  });
-  introModal?.addEventListener("click", event => {
-    if (event.target.closest("[data-close-intro-modal='true']")) {
-      closeIntroModal();
-    }
-    const modeButton = event.target.closest("[data-app-mode-choice]");
-    if (modeButton) {
-      applyAppMode(modeButton.dataset.appModeChoice || "default");
-      closeIntroModal();
-    }
-    const introTarget = event.target.closest("[data-intro-target]");
-    if (introTarget) {
-      document.getElementById(introTarget.dataset.introTarget)?.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   });
   productClose?.addEventListener("click", () => closeProductModal());
@@ -12650,12 +12660,14 @@ async function selectSearchResult(result) {
 
   if (result.type === "country") {
     const countryCode = result.value;
-    if (countryCode && countryLayers.has(countryCode) && countriesData[countryCode]) {
+    if (countryCode && countriesData[countryCode]) {
       const linkedLayers = getLinkedCodes(countryCode)
         .map(code => countryLayers.get(code))
         .filter(Boolean);
-      setCountrySelection(linkedLayers);
-      fitLayerBounds(createLayerGroup(linkedLayers));
+      if (linkedLayers.length) {
+        setCountrySelection(linkedLayers);
+        fitLayerBounds(createLayerGroup(linkedLayers));
+      }
       await renderCountry(countriesData[countryCode], countriesData[countryCode].name);
       return;
     }
@@ -12919,7 +12931,7 @@ async function searchMap() {
 
   const countryCode = countryAliases.get(query);
 
-  if (countryCode && countryLayers.has(countryCode) && countriesData[countryCode]) {
+  if (countryCode && countriesData[countryCode]) {
     await selectSearchResult({
       label: countriesData[countryCode].name,
       type: "country",
@@ -14101,7 +14113,9 @@ function setupSearchEvents() {
   let activeIndex = 0;
   let currentSuggestions = [];
 
-  renderSearchMemory();
+  if (searchMemory) {
+    searchMemory.hidden = true;
+  }
 
   button.addEventListener("click", () => searchMap());
   saveButton?.addEventListener("click", () => {
@@ -15540,7 +15554,7 @@ async function init() {
     closeConflictModal?.();
     closeTimelineModal?.();
     closeHelpModal?.();
-    closeIntroModal?.();
+    closeIntroModal?.(false);
     closeProductModal?.();
     loadSavedPreferences();
     const shouldStartCollapsed = true;
@@ -15597,7 +15611,9 @@ async function init() {
         console.info("GeoRisk boot profile", getBootProfileSummary(), bootMetrics.steps);
       }
       updateExtendedStaticText();
-      openIntroModal();
+      if (localStorage.getItem(STORAGE_KEYS.introSeen) !== "true") {
+        openIntroModal();
+      }
       setTimeout(() => {
         if (viewer && activeImagerySignature.includes(":boot")) {
           applyImageryForMode(false);

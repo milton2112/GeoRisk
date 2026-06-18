@@ -36,6 +36,17 @@ body.modal-open {
   overflow: hidden;
 }
 
+body.modal-open #top-controls,
+body.modal-open #left-panel,
+body.modal-open #map-mode-toggle,
+body.modal-open #compare-hub-panel,
+body.modal-open #quiz-hub-panel,
+body.modal-open #news-hub-panel,
+body.modal-open #mobile-panel-controls {
+  opacity: 0;
+  pointer-events: none;
+}
+
 :focus-visible {
   outline: 2px solid #9fd0ff;
   outline-offset: 3px;
@@ -1733,7 +1744,7 @@ body.globe-loading #map-mode-toggle {
   margin: 0;
   font-size: clamp(1.45rem, 2vw, 2rem);
   line-height: 1.05;
-  letter-spacing: -0.03em;
+  letter-spacing: 0;
 }
 
 .country-official-name {
@@ -1802,7 +1813,7 @@ body.globe-loading #map-mode-toggle {
   gap: 5px;
   padding: 12px 13px;
   border: 1px solid rgba(106, 180, 255, 0.2);
-  border-radius: 16px;
+  border-radius: 8px;
   background:
     radial-gradient(circle at top left, rgba(111, 190, 255, 0.11), transparent 42%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03));
@@ -2187,7 +2198,7 @@ body.globe-loading #map-mode-toggle {
 .ranking-group {
   margin-top: 10px;
   border: 1px solid rgba(106, 180, 255, 0.14);
-  border-radius: 14px;
+  border-radius: 8px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
   overflow: hidden;
 }
@@ -3286,26 +3297,11 @@ body[data-app-mode="encyclopedia"] #country-modal #country-panel {
 
 .product-runtime-grid {
   margin-top: -0.25rem;
-  padding: 0.75rem;
-  border: 1px solid rgba(88, 161, 255, 0.16);
-  border-radius: 20px;
-  background:
-    linear-gradient(135deg, rgba(89, 167, 255, 0.11), transparent 46%),
-    rgba(5, 17, 31, 0.42);
 }
 
 .product-runtime-grid .overview-card {
   border-color: rgba(126, 199, 255, 0.24);
   background: rgba(8, 20, 36, 0.7);
-}
-
-.product-data-grid {
-  padding: 0.85rem;
-  border: 1px solid rgba(95, 211, 177, 0.18);
-  border-radius: 20px;
-  background:
-    radial-gradient(circle at 8% 0%, rgba(95, 211, 177, 0.13), transparent 34%),
-    linear-gradient(135deg, rgba(19, 77, 72, 0.18), rgba(5, 17, 31, 0.46));
 }
 
 .product-data-grid .overview-card {
@@ -3317,7 +3313,7 @@ body[data-app-mode="encyclopedia"] #country-modal #country-panel {
   margin: -0.25rem 0 1rem;
   padding: 0.85rem 1rem;
   border: 1px solid rgba(125, 198, 255, 0.22);
-  border-radius: 16px;
+  border-radius: 8px;
   color: #dcefff;
   background:
     linear-gradient(90deg, rgba(77, 163, 255, 0.16), rgba(95, 211, 177, 0.08)),
@@ -3903,7 +3899,7 @@ p {
 
 .panel-section {
   border: 1px solid rgba(106, 180, 255, 0.2);
-  border-radius: 16px;
+  border-radius: 8px;
   margin-bottom: 12px;
   background:
     radial-gradient(circle at top right, rgba(107, 180, 255, 0.08), transparent 46%),
@@ -3925,6 +3921,18 @@ p {
 
 .panel-section summary::-webkit-details-marker {
   display: none;
+}
+
+.panel-section summary::after {
+  content: "+";
+  float: right;
+  color: rgba(159, 208, 255, 0.72);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.panel-section[open] summary::after {
+  content: "−";
 }
 
 .panel-content {
@@ -3964,7 +3972,8 @@ p {
 .quiz-hub-content,
 .news-hub-content,
 .compare-modal-dialog,
-.conflict-modal-dialog {
+.conflict-modal-dialog,
+.help-modal-dialog {
   scrollbar-width: thin;
   scrollbar-color: rgba(106, 180, 255, 0.45) rgba(255, 255, 255, 0.05);
 }
@@ -3975,7 +3984,8 @@ p {
 .quiz-hub-content::-webkit-scrollbar,
 .news-hub-content::-webkit-scrollbar,
 .compare-modal-dialog::-webkit-scrollbar,
-.conflict-modal-dialog::-webkit-scrollbar {
+.conflict-modal-dialog::-webkit-scrollbar,
+.help-modal-dialog::-webkit-scrollbar {
   width: 10px;
 }
 
@@ -3985,7 +3995,8 @@ p {
 .quiz-hub-content::-webkit-scrollbar-track,
 .news-hub-content::-webkit-scrollbar-track,
 .compare-modal-dialog::-webkit-scrollbar-track,
-.conflict-modal-dialog::-webkit-scrollbar-track {
+.conflict-modal-dialog::-webkit-scrollbar-track,
+.help-modal-dialog::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.04);
   border-radius: 999px;
 }
@@ -3996,7 +4007,8 @@ p {
 .quiz-hub-content::-webkit-scrollbar-thumb,
 .news-hub-content::-webkit-scrollbar-thumb,
 .compare-modal-dialog::-webkit-scrollbar-thumb,
-.conflict-modal-dialog::-webkit-scrollbar-thumb {
+.conflict-modal-dialog::-webkit-scrollbar-thumb,
+.help-modal-dialog::-webkit-scrollbar-thumb {
   background: rgba(106, 180, 255, 0.42);
   border-radius: 999px;
   border: 2px solid transparent;

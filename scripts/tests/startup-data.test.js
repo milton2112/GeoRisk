@@ -102,6 +102,9 @@ assert.ok(Buffer.byteLength(indexHtml) < 35000, "index.html debe mantenerse livi
 assert.ok(Buffer.byteLength(sw) < 7000, "service worker debe mantenerse liviano");
 assert.ok(indexHtml.includes("intro-runtime-grid"), "portada debe mostrar estado runtime");
 assert.ok(indexHtml.includes("intro-data-grid"), "portada debe mostrar cobertura del dataset");
+assert.ok(script.includes("setupIntroModalControls(modal)"), "portada debe conectar sus controles al abrirse");
+assert.ok(script.includes("closeIntroModal?.(false)"), "inicio no debe marcar la portada como vista al cerrarla preventivamente");
+assert.ok(script.includes('localStorage.getItem(STORAGE_KEYS.introSeen) !== "true"'), "portada automatica debe respetar si ya fue vista");
 assert.ok(indexHtml.includes("open-performance-button"), "UI debe exponer panel interno de rendimiento");
 assert.ok(indexHtml.includes("open-risk-radar-button"), "UI debe exponer radar de riesgo multiparametrico");
 assert.ok(indexHtml.includes("open-conflict-audit-button"), "UI debe exponer auditoria interna de conflictos");
@@ -126,6 +129,8 @@ assert.ok(!script.includes("startFullLoad"), "countries_full no debe tener dispa
 assert.ok(!script.includes("async function loadFullCountryData()"), "countries_full no debe conservar un loader global sin consumidores");
 assert.equal((script.match(/countries_full\.json/g) || []).length, 1, "countries_full solo debe quedar como fallback del indice");
 assert.ok(script.includes("async function loadCountryDetail"), "fichas deben cargar detalle por pais bajo demanda");
+assert.ok(script.includes("if (countryCode && countriesData[countryCode])"), "busqueda de pais debe abrir ficha aunque la geometria siga cargando");
+assert.ok(!script.includes("countryCode && countryLayers.has(countryCode) && countriesData[countryCode]"), "busqueda no debe depender de que la capa cartografica ya exista");
 assert.ok(script.includes("./data/countries/${encodeURIComponent(normalizedCode)}.json"), "detalle por pais debe evitar hidratar countries_full");
 assert.ok(script.includes("function scheduleWhenGlobeIsQuiet"), "tareas pesadas deben esperar a que el globo este quieto");
 assert.ok(script.includes("function maybeEnhanceOpenConflictModal"), "conflictos enriquecidos deben cargarse bajo demanda al abrir modal");

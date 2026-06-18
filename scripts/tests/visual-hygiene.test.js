@@ -55,10 +55,13 @@ assert.ok(indexHtml.includes('id="map"'), "la pantalla principal debe conservar 
 assert.ok(indexHtml.includes('id="map-mode-toggle"'), "la UI debe exponer cambio 2D/3D");
 assert.ok(indexHtml.includes('id="intro-start-button"'), "la portada debe tener CTA para entrar al mapa");
 assert.ok(indexHtml.includes('id="compare-hub-label"'), "los accesos inferiores deben usar etiquetas legibles");
+assert.ok(css.includes("body.modal-open #top-controls"), "los modales deben reducir distracciones del shell");
+assert.ok(css.includes(".panel-section[open] summary::after"), "secciones desplegables deben indicar su estado");
 assert.ok(script.includes("constrainedInitialDevice ? \"none\" : \"countries\""), "mobile debe arrancar con etiquetas reducidas");
 assert.ok(script.includes("requestSceneRender = () =>"), "canvas debe usar scheduler de render");
 assert.ok(script.includes("startPerformanceMonitor"), "canvas debe tener monitor FPS para detectar congelamiento");
 assert.ok(script.includes("recordMapDegradation"), "canvas debe registrar degradaciones automaticas");
+assert.ok(script.includes("searchMemory.hidden = true"), "memoria de busqueda debe iniciar cerrada hasta recibir foco");
 assert.ok(appMapInteractions.includes("isMobile || mode === \"2d\""), "hover mobile/2D debe quedar reducido");
 
 console.log("visual-hygiene.test.js ok");
