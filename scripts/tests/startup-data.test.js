@@ -129,6 +129,8 @@ assert.ok(!script.includes("startFullLoad"), "countries_full no debe tener dispa
 assert.ok(!script.includes("async function loadFullCountryData()"), "countries_full no debe conservar un loader global sin consumidores");
 assert.equal((script.match(/countries_full\.json/g) || []).length, 1, "countries_full solo debe quedar como fallback del indice");
 assert.ok(script.includes("async function loadCountryDetail"), "fichas deben cargar detalle por pais bajo demanda");
+assert.ok(script.includes("function setupCriticalCountrySearchIndex"), "busqueda de pais debe tener un indice critico liviano");
+assert.ok(/await hydrateCountriesData\(countriesJson\);\s*setupCriticalCountrySearchIndex\(\);/.test(script), "indice critico de paises debe quedar listo al terminar la hidratacion inicial");
 assert.ok(script.includes("if (countryCode && countriesData[countryCode])"), "busqueda de pais debe abrir ficha aunque la geometria siga cargando");
 assert.ok(!script.includes("countryCode && countryLayers.has(countryCode) && countriesData[countryCode]"), "busqueda no debe depender de que la capa cartografica ya exista");
 assert.ok(script.includes("./data/countries/${encodeURIComponent(normalizedCode)}.json"), "detalle por pais debe evitar hidratar countries_full");

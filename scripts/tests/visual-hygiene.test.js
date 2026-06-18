@@ -36,6 +36,7 @@ for (const file of visibleFiles) {
 }
 
 const css = await fs.readFile(path.join(projectRoot, "style.css"), "utf8");
+assert.ok(/\[hidden\]\s*\{\s*display:\s*none\s*!important;/.test(css), "hidden debe prevalecer sobre layouts de modales y paneles");
 assert.ok(css.includes("#map-toolbar .toolbar-content") || css.includes(".toolbar-content"));
 assert.ok(css.includes("overflow-y: auto"), "panel de capas debe tener scroll vertical propio");
 assert.ok(css.includes("overscroll-behavior: contain"), "panel de capas debe contener el scroll");
@@ -54,14 +55,22 @@ const appMapInteractions = await fs.readFile(path.join(projectRoot, "app-map-int
 assert.ok(indexHtml.includes('id="map"'), "la pantalla principal debe conservar contenedor de mapa/canvas");
 assert.ok(indexHtml.includes('id="map-mode-toggle"'), "la UI debe exponer cambio 2D/3D");
 assert.ok(indexHtml.includes('id="intro-start-button"'), "la portada debe tener CTA para entrar al mapa");
+assert.ok(indexHtml.includes('data-modal-initial-focus'), "la portada debe declarar un foco inicial accesible");
+assert.ok(indexHtml.includes('aria-labelledby="country-panel-title" tabindex="-1"'), "ficha pais debe exponer semantica de dialogo");
 assert.ok(indexHtml.includes('id="compare-hub-label"'), "los accesos inferiores deben usar etiquetas legibles");
 assert.ok(css.includes("body.modal-open #top-controls"), "los modales deben reducir distracciones del shell");
+assert.ok(css.includes(".country-profile > .panel-actions-row"), "acciones de ficha deben usar una grilla compacta y estable");
+assert.ok(css.includes(".country-title .coat-visual"), "encabezado mobile debe evitar que el escudo se superponga al cierre");
 assert.ok(css.includes(".panel-section[open] summary::after"), "secciones desplegables deben indicar su estado");
 assert.ok(script.includes("constrainedInitialDevice ? \"none\" : \"countries\""), "mobile debe arrancar con etiquetas reducidas");
 assert.ok(script.includes("requestSceneRender = () =>"), "canvas debe usar scheduler de render");
 assert.ok(script.includes("startPerformanceMonitor"), "canvas debe tener monitor FPS para detectar congelamiento");
 assert.ok(script.includes("recordMapDegradation"), "canvas debe registrar degradaciones automaticas");
 assert.ok(script.includes("searchMemory.hidden = true"), "memoria de busqueda debe iniciar cerrada hasta recibir foco");
+assert.ok(script.includes('element.toggleAttribute("inert", hasOpenModal)'), "fondo modal debe quedar fuera de la navegacion por teclado");
+assert.ok(script.includes("containModalKeyboardFocus"), "modales deben contener el foco de teclado");
+assert.ok(script.includes("modalFocusReturnTarget"), "modales deben restaurar el foco al cerrarse");
+assert.ok(script.includes('focusedElement?.closest("#search-suggestions")'), "ficha abierta desde busqueda debe devolver foco al buscador");
 assert.ok(appMapInteractions.includes("isMobile || mode === \"2d\""), "hover mobile/2D debe quedar reducido");
 
 console.log("visual-hygiene.test.js ok");

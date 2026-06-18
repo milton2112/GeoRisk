@@ -81,7 +81,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-06-17-release-1";
+const APP_VERSION = "2026-06-17-release-7";
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
 }
@@ -91,17 +91,17 @@ function createFallbackSearchCache() {
 }
 
 const DEFERRED_UI_MODULES = {
-  news: "./app-news-ui.js?v=2026-06-17-release-1",
-  compare: "./app-compare-ui.js?v=2026-06-17-release-1",
-  quiz: "./app-quiz-ui.js?v=2026-06-17-release-1",
-  riskRadar: "./app-risk-radar-ui.js?v=2026-06-17-release-1",
-  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-17-release-1",
-  projectAudit: "./app-project-audit-ui.js?v=2026-06-17-release-1",
-  uiPolish: "./app-ui-polish.js?v=2026-06-17-release-1",
-  countryPanel: "./app-country-panel.js?v=2026-06-17-release-1",
-  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-17-release-1",
-  search: "./app-search.js?v=2026-06-17-release-1",
-  rankings: "./app-rankings.js?v=2026-06-17-release-1"
+  news: "./app-news-ui.js?v=2026-06-17-release-7",
+  compare: "./app-compare-ui.js?v=2026-06-17-release-7",
+  quiz: "./app-quiz-ui.js?v=2026-06-17-release-7",
+  riskRadar: "./app-risk-radar-ui.js?v=2026-06-17-release-7",
+  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-17-release-7",
+  projectAudit: "./app-project-audit-ui.js?v=2026-06-17-release-7",
+  uiPolish: "./app-ui-polish.js?v=2026-06-17-release-7",
+  countryPanel: "./app-country-panel.js?v=2026-06-17-release-7",
+  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-17-release-7",
+  search: "./app-search.js?v=2026-06-17-release-7",
+  rankings: "./app-rankings.js?v=2026-06-17-release-7"
 };
 const deferredUiModulePromises = new Map();
 
@@ -1047,7 +1047,7 @@ function openIntroModal() {
 
 function closeIntroModal(markSeen = true) {
   const modal = document.getElementById("intro-modal");
-  if (!modal) {
+  if (!modal || modal.hidden) {
     return;
   }
   modal.hidden = true;
@@ -4926,13 +4926,81 @@ function closeTimelineModal() {
   }
 }
 
+const MODAL_IDS = ["country-modal", "compare-modal", "conflict-modal", "timeline-modal", "help-modal", "intro-modal", "product-modal"];
+const MODAL_SHELL_IDS = ["map", "top-controls", "left-panel", "map-mode-toggle", "compare-hub-panel", "quiz-hub-panel", "news-hub-panel", "mobile-panel-controls"];
+let activeModalElement = null;
+let modalFocusReturnTarget = null;
+
+function getModalDialog(modal) {
+  return modal?.querySelector("[role='dialog']") || null;
+}
+
+function getModalFocusableElements(modal) {
+  return [...(modal?.querySelectorAll("button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), a[href], [tabindex]:not([tabindex='-1'])") || [])]
+    .filter(element => !element.hidden && element.getAttribute("aria-hidden") !== "true" && element.getClientRects().length > 0);
+}
+
+function focusActiveModal(modal) {
+  if (activeModalElement !== modal || modal.hidden) {
+    return;
+  }
+  const initialTarget = modal.querySelector("[data-modal-initial-focus]")
+    || modal.querySelector("button[id$='-modal-close']")
+    || getModalDialog(modal);
+  initialTarget?.focus({ preventScroll: true });
+}
+
 function syncModalOpenState() {
-  const modalIds = ["country-modal", "compare-modal", "conflict-modal", "timeline-modal", "help-modal", "intro-modal", "product-modal"];
-  const hasOpenModal = modalIds.some(id => {
-    const modal = document.getElementById(id);
-    return modal && !modal.hidden;
-  });
+  const openModals = MODAL_IDS
+    .map(id => document.getElementById(id))
+    .filter(modal => modal && !modal.hidden);
+  const activeModal = openModals[openModals.length - 1] || null;
+  const hasOpenModal = Boolean(activeModal);
+
   document.body.classList.toggle("modal-open", hasOpenModal);
+
+  MODAL_SHELL_IDS.forEach(id => {
+    const element = document.getElementById(id);
+    if (!element) {
+      return;
+    }
+    element.toggleAttribute("inert", hasOpenModal);
+    if (hasOpenModal) {
+      element.setAttribute("aria-hidden", "true");
+    } else {
+      element.removeAttribute("aria-hidden");
+    }
+  });
+
+  MODAL_IDS.forEach(id => {
+    const modal = document.getElementById(id);
+    if (modal) {
+      modal.setAttribute("aria-hidden", modal === activeModal ? "false" : "true");
+    }
+  });
+
+  if (activeModal === activeModalElement) {
+    return;
+  }
+
+  if (activeModal && !activeModalElement) {
+    const focusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const searchInput = document.getElementById("map-search-input");
+    modalFocusReturnTarget = focusedElement?.closest("#search-suggestions")
+      ? searchInput
+      : (focusedElement && focusedElement !== document.body ? focusedElement : searchInput);
+  }
+  activeModalElement = activeModal;
+
+  if (activeModal) {
+    focusActiveModal(activeModal);
+  } else {
+    const returnTarget = modalFocusReturnTarget;
+    modalFocusReturnTarget = null;
+    if (returnTarget?.isConnected) {
+      returnTarget.focus({ preventScroll: true });
+    }
+  }
 }
 
 function openCountryModal() {
@@ -6844,7 +6912,7 @@ async function renderCountry(country, fallbackName) {
     <div class="country-title">
       ${renderFlagVisual(countryCode, country.name || fallbackName, "country-flag", symbolAssets.flagSrc)}
       <div class="country-heading">
-        <h2>${country.name || fallbackName}</h2>
+        <h2 id="country-panel-title">${country.name || fallbackName}</h2>
         <p class="country-official-name">${escapeHtml(country.general?.officialName || country.name || fallbackName)}</p>
       </div>
       ${renderCoatVisual(countryCode, `${country.name || fallbackName} escudo`, symbolAssets.coatSrc)}
@@ -11118,8 +11186,41 @@ function setupSavedViewControls() {
   });
 }
 
+function containModalKeyboardFocus(event) {
+  if (event.key !== "Tab" || !activeModalElement || activeModalElement.hidden) {
+    return false;
+  }
+
+  const focusable = getModalFocusableElements(activeModalElement);
+  const dialog = getModalDialog(activeModalElement);
+  if (!focusable.length) {
+    event.preventDefault();
+    dialog?.focus({ preventScroll: true });
+    return true;
+  }
+
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+  const current = document.activeElement;
+  if (event.shiftKey && (current === first || !activeModalElement.contains(current))) {
+    event.preventDefault();
+    last.focus({ preventScroll: true });
+    return true;
+  }
+  if (!event.shiftKey && current === last) {
+    event.preventDefault();
+    first.focus({ preventScroll: true });
+    return true;
+  }
+  return false;
+}
+
 function setupGlobalKeyboardShortcuts() {
   document.addEventListener("keydown", event => {
+    if (containModalKeyboardFocus(event)) {
+      return;
+    }
+
     const targetTag = event.target?.tagName?.toLowerCase?.() || "";
     const isTyping = targetTag === "input" || targetTag === "textarea" || targetTag === "select";
 
@@ -12249,6 +12350,29 @@ function getOriginLabel(country) {
   return normalizeCategoryLabel(country.history?.origin || "Sin datos");
 }
 
+function registerCriticalCountrySearchEntries(featureNameByCode = {}) {
+  Object.entries(countriesData).forEach(([code, country]) => {
+    registerCountryAlias(country.name, code, true);
+    registerCountryAlias(featureNameByCode[code], code, true);
+    registerCountryAlias(code, code, true);
+    registerCountryAlias(country.general?.officialName, code, true);
+    (country.general?.historicalNames || []).forEach(alias => registerCountryAlias(alias, code, false));
+    registerSuggestion(country.name, "country", code, "Pais o territorio", [
+      featureNameByCode[code],
+      country.general?.officialName,
+      ...(country.general?.historicalNames || [])
+    ]);
+  });
+}
+
+function setupCriticalCountrySearchIndex() {
+  const nonCountrySuggestions = suggestionItems.filter(item => item.type !== "country");
+  suggestionItems.length = 0;
+  suggestionItems.push(...nonCountrySuggestions);
+  countryAliases.clear();
+  registerCriticalCountrySearchEntries();
+}
+
 function setupSearchIndex(featureNameByCode) {
   let conflictSuggestionCount = 0;
   const seenConflictSuggestions = new Set();
@@ -12273,18 +12397,9 @@ function setupSearchIndex(featureNameByCode) {
     registerSuggestion(rule.label, "religion", rule.label, "Religion", rule.aliases);
   });
 
-  Object.entries(countriesData).forEach(([code, country]) => {
-    registerCountryAlias(country.name, code, true);
-    registerCountryAlias(featureNameByCode[code], code, true);
-    registerCountryAlias(code, code, true);
-    registerCountryAlias(country.general?.officialName, code, true);
-    (country.general?.historicalNames || []).forEach(alias => registerCountryAlias(alias, code, false));
-    registerSuggestion(country.name, "country", code, "Pais o territorio", [
-      featureNameByCode[code],
-      country.general?.officialName,
-      ...(country.general?.historicalNames || [])
-    ]);
+  registerCriticalCountrySearchEntries(featureNameByCode);
 
+  Object.entries(countriesData).forEach(([code, country]) => {
     getMajorityReligionGroups(country).forEach(entry => {
       registerReligionAlias(entry.label, entry.label);
       registerSuggestion(entry.label, "religion", entry.label, "Religion");
@@ -13272,6 +13387,7 @@ async function loadData() {
     worldBankNameAliasOverrides = aliasConfigJson?.worldBankNameAliases || {};
 
     await hydrateCountriesData(countriesJson);
+    setupCriticalCountrySearchIndex();
     deferredDataStatus.countryIndex = true;
     refreshLoadedCountryLayers();
     updateAppStatusPanel();

@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Widgets/widgets.css">
-  <link rel="stylesheet" href="style.css?v=2026-06-17-release-1">
+  <link rel="stylesheet" href="style.css?v=2026-06-17-release-7">
 </head>
 <body>
 
@@ -369,10 +369,10 @@
 
 <div id="country-modal" hidden>
   <div class="country-modal-backdrop" data-close-country-modal="true"></div>
-  <div class="country-modal-dialog">
+  <div class="country-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="country-panel-title" tabindex="-1">
     <button id="country-modal-close" type="button" aria-label="Cerrar ficha">×</button>
     <div id="country-panel">
-      <h2>Selecciona un pais</h2>
+      <h2 id="country-panel-title">Selecciona un pais</h2>
     </div>
   </div>
 </div>
@@ -490,7 +490,7 @@
 
 <div id="compare-modal" hidden>
   <div class="compare-modal-backdrop" data-close-compare-modal="true"></div>
-  <div class="compare-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="compare-modal-title">
+  <div class="compare-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="compare-modal-title" tabindex="-1">
     <button id="compare-modal-close" type="button" aria-label="Cerrar">×</button>
     <div id="compare-modal-body"></div>
   </div>
@@ -498,7 +498,7 @@
 
 <div id="conflict-modal" hidden>
   <div class="conflict-modal-backdrop" data-close-conflict-modal="true"></div>
-  <div class="conflict-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="conflict-modal-title">
+  <div class="conflict-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="conflict-modal-title" tabindex="-1">
     <button id="conflict-modal-close" type="button" aria-label="Cerrar">×</button>
     <div id="conflict-modal-body"></div>
   </div>
@@ -506,7 +506,7 @@
 
 <div id="timeline-modal" hidden>
   <div class="conflict-modal-backdrop" data-close-timeline-modal="true"></div>
-  <div class="conflict-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="timeline-modal-title">
+  <div class="conflict-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="timeline-modal-title" tabindex="-1">
     <button id="timeline-modal-close" type="button" aria-label="Cerrar">×</button>
     <div id="timeline-modal-body"></div>
   </div>
@@ -514,7 +514,7 @@
 
 <div id="help-modal" hidden>
   <div class="help-modal-backdrop" data-close-help-modal="true"></div>
-  <div class="help-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="help-modal-title">
+  <div class="help-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="help-modal-title" tabindex="-1">
     <button id="help-modal-close" type="button" aria-label="Cerrar">×</button>
     <div id="help-modal-body">
       <h2 id="help-modal-title">Guia rapida</h2>
@@ -556,7 +556,7 @@
 
 <div id="intro-modal" hidden>
   <div class="help-modal-backdrop" data-close-intro-modal="true"></div>
-  <div class="help-modal-dialog product-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="intro-modal-title">
+  <div class="help-modal-dialog product-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="intro-modal-title" tabindex="-1">
     <button id="intro-modal-close" type="button" aria-label="Cerrar">&times;</button>
     <div id="intro-modal-body">
       <header class="product-intro-header">
@@ -564,7 +564,7 @@
         <h2 id="intro-modal-title">GeoRisk</h2>
         <p class="product-lead">Explor&aacute; pa&iacute;ses, conflictos, historia y relaciones internacionales desde un mapa pensado para investigar, comparar y ense&ntilde;ar.</p>
         <div class="product-intro-actions">
-          <button id="intro-start-button" type="button">Explorar el mapa</button>
+          <button id="intro-start-button" type="button" data-modal-initial-focus>Explorar el mapa</button>
           <button type="button" class="product-secondary-action" data-intro-target="intro-modes">Elegir un modo</button>
         </div>
       </header>
@@ -631,7 +631,7 @@
 
 <div id="product-modal" hidden>
   <div class="help-modal-backdrop" data-close-product-modal="true"></div>
-  <div class="help-modal-dialog product-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="product-modal-title">
+  <div class="help-modal-dialog product-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="product-modal-title" tabindex="-1">
     <button id="product-modal-close" type="button" aria-label="Cerrar">&times;</button>
     <div id="product-modal-body">
       <h2 id="product-modal-title">Proyecto</h2>
@@ -650,14 +650,14 @@
   }, 7000);
 </script>
 <script src="https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Cesium.js"></script>
-<script src="app-runtime.js?v=2026-06-17-release-1"></script>
-<script src="app-theme.js?v=2026-06-17-release-1"></script>
-<script src="app-boot-scheduler.js?v=2026-06-17-release-1"></script>
-<script src="app-map.js?v=2026-06-17-release-1"></script>
-<script src="app-map-styles.js?v=2026-06-17-release-1"></script>
-<script src="app-map-interactions.js?v=2026-06-17-release-1"></script>
-<script src="app-store.js?v=2026-06-17-release-1"></script>
-<script src="script.js?v=2026-06-17-release-1"></script>
+<script src="app-runtime.js?v=2026-06-17-release-7"></script>
+<script src="app-theme.js?v=2026-06-17-release-7"></script>
+<script src="app-boot-scheduler.js?v=2026-06-17-release-7"></script>
+<script src="app-map.js?v=2026-06-17-release-7"></script>
+<script src="app-map-styles.js?v=2026-06-17-release-7"></script>
+<script src="app-map-interactions.js?v=2026-06-17-release-7"></script>
+<script src="app-store.js?v=2026-06-17-release-7"></script>
+<script src="script.js?v=2026-06-17-release-7"></script>
 
 </body>
 </html>

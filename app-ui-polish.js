@@ -39,8 +39,11 @@
     root.querySelectorAll("[id$='-modal']").forEach(modal => {
       const dialog = modal.querySelector("[role='dialog']");
       if (!dialog) return;
-      dialog.tabIndex = dialog.tabIndex < 0 ? 0 : dialog.tabIndex;
-      dialog.setAttribute("aria-describedby", dialog.getAttribute("aria-describedby") || `${modal.id}-body`);
+      if (!dialog.hasAttribute("tabindex")) dialog.tabIndex = -1;
+      const bodyId = `${modal.id}-body`;
+      if (!dialog.getAttribute("aria-describedby") && document.getElementById(bodyId)) {
+        dialog.setAttribute("aria-describedby", bodyId);
+      }
     });
   }
 
@@ -86,7 +89,6 @@
     enhanceTooltips();
     markDialogs();
     applyCompactLabels();
-    installKeyboardA11y();
   }
 
   window.GeoRiskUiPolish = {
