@@ -39,6 +39,17 @@ const low = rankings.getRiskComponents(countries[1]);
 assert.ok(high.risk > low.risk, "riesgo debe subir con conflictos, inflacion y presion militar");
 assert.ok(low.diplomaticBuffer > high.diplomaticBuffer, "buffer diplomatico debe reflejar organizaciones/bloques");
 
+const historicalOnly = rankings.getRiskComponents({
+  politics: {
+    rivals: [{ name: "Antiguo rival", type: "historico" }],
+    relations: { currentRivals: [] },
+    organizations: []
+  },
+  metadata: { quality: { score: 73 } }
+});
+assert.equal(historicalOnly.rivalPressure, 0, "rivalidades historicas no deben inflar el riesgo actual");
+assert.equal(historicalOnly.dataQuality, 73, "ranking de calidad debe usar el score curado del dataset");
+
 const ranking = rankings.buildRanking(countries, "risk", { limit: 2 });
 assert.equal(ranking[0].name, "Alta Presion", "ranking de riesgo debe ordenar por score");
 assert.ok(ranking[0].components.length, "cada score debe explicar componentes");

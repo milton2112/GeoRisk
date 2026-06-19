@@ -1821,6 +1821,15 @@ const RELATION_OVERRIDES_V2 = {
     diplomaticBlocs: ["ONU", "CELAC"],
     currentRivals: ["Reino Unido"]
   },
+  AUS: {
+    militaryAllies: ["Estados Unidos", "Reino Unido", "Nueva Zelanda"],
+    economicPartners: ["China", "Japon", "Corea del Sur", "Estados Unidos"],
+    diplomaticPartners: ["Nueva Zelanda", "Estados Unidos", "Reino Unido", "Japon"],
+    militaryBlocs: ["ANZUS", "AUKUS"],
+    economicBlocs: ["APEC", "CPTPP"],
+    diplomaticBlocs: ["ONU", "Commonwealth", "Quad"],
+    currentRivals: []
+  },
   BRA: {
     militaryAllies: ["Argentina"],
     economicPartners: ["Argentina", "Uruguay", "Paraguay", "China"],
@@ -3719,13 +3728,30 @@ function parseOrganizationEntry(entry) {
   };
 }
 
+const RIVAL_NAME_ALIASES = new Map([
+  ["china", "República Popular China"],
+  ["republica popular china", "República Popular China"],
+  ["taiwan", "República de China"],
+  ["republica de china", "República de China"],
+  ["corea del norte", "Corea del Norte"],
+  ["corea del sur", "Corea del Sur"],
+  ["estados unidos", "Estados Unidos"],
+  ["reino unido", "Reino Unido"],
+  ["otan", "OTAN"],
+  ["belarusia", "Bielorrusia"],
+  ["bielorrusia", "Bielorrusia"],
+  ["pakistan", "Pakistán"],
+  ["iran", "Irán"],
+  ["turquia", "Turquía"]
+]);
+
 function normalizeRivalEntry(entry) {
   if (!entry) {
     return null;
   }
 
   if (typeof entry === "string") {
-    return { name: toDisplayTitleCase(entry), type: "historico" };
+    return { name: canonicalizeRivalName(entry), type: "historico" };
   }
 
   if (!entry.name) {
@@ -3733,9 +3759,14 @@ function normalizeRivalEntry(entry) {
   }
 
   return {
-    name: toDisplayTitleCase(entry.name),
+    name: canonicalizeRivalName(entry.name),
     type: entry.type || "historico"
   };
+}
+
+function canonicalizeRivalName(value) {
+  const displayName = toDisplayTitleCase(value);
+  return RIVAL_NAME_ALIASES.get(normalizeKey(displayName)) || displayName;
 }
 
 function deriveOfficialName(code, commonName, system) {
@@ -4020,10 +4051,27 @@ function buildQualityMetadata(context = {}) {
     100,
     Math.round((Object.values(context.sourceSectionCoverage || {}).filter(Boolean).length / 8) * 100)
   );
-  const score = Math.min(
-    100,
-    Math.max(0, 100 - estimatedFields.length * 6 - missingFields.length * 10 + curatedFields.length * 3 + Math.round(sourceCoverageScore * 0.08))
-  );
+  const sectionStatus = {
+    general: context.languagesCount || context.capitalsCount || context.stateStructure ? "curated" : "base",
+    history: context.hasCuratedTimeline ? "curated" : "base",
+    economy: !context.inflationFromPrimarySource && context.inflationValue !== null && context.inflationValue !== undefined ? "mixed" : "confirmed",
+    military: context.hasCuratedConflicts ? "curated" : "base",
+    politics: context.organizationCount || context.rivalCount ? "curated" : "base",
+    religion: context.religionCompositionCount ? (context.religionCompositionFromPrimarySource ? "confirmed" : "mixed") : "base"
+  };
+  const sectionPenalty = Object.values(sectionStatus).reduce((total, status) => {
+    if (status === "base") return total + 5;
+    if (status === "mixed") return total + 2;
+    return total;
+  }, 0);
+  const score = Math.min(100, Math.max(
+    0,
+    100
+      - estimatedFields.length * 3
+      - missingFields.length * 7
+      - sectionPenalty
+      + Math.round(sourceCoverageScore * 0.02)
+  ));
 
   return {
     estimatedFields,
@@ -4033,14 +4081,7 @@ function buildQualityMetadata(context = {}) {
     score,
     sourceCoverageScore,
     status: score >= 90 ? "alta" : score >= 75 ? "buena" : score >= 60 ? "media" : "basica",
-    sectionStatus: {
-      general: context.languagesCount || context.capitalsCount || context.stateStructure ? "curated" : "base",
-      history: context.hasCuratedTimeline ? "curated" : "base",
-      economy: !context.inflationFromPrimarySource && context.inflationValue !== null && context.inflationValue !== undefined ? "mixed" : "confirmed",
-      military: context.hasCuratedConflicts ? "curated" : "base",
-      politics: context.organizationCount || context.rivalCount ? "curated" : "base",
-      religion: context.religionCompositionCount ? (context.religionCompositionFromPrimarySource ? "confirmed" : "mixed") : "base"
-    }
+    sectionStatus
   };
 }
 
@@ -4233,17 +4274,18 @@ function buildRelationMetadata(code, historyEntry, organizations, rivals) {
     ...(RELATION_OVERRIDES_V2[code] || {})
   };
   const categorizedBlocs = getCategorizedOrganizationBlocks(organizations);
-  const currentRivals = uniqueBy(
-    [
-      ...compactList(override.currentRivals),
-      ...rivals.filter(rival => (rival?.type || "historico") === "actual").map(rival => rival?.name || rival)
-    ],
+  const hasCuratedCurrentRivals = Object.prototype.hasOwnProperty.call(override, "currentRivals");
+  const currentRivalCandidates = uniqueBy(
+    (hasCuratedCurrentRivals
+      ? compactList(override.currentRivals)
+      : rivals.filter(rival => (rival?.type || "historico") === "actual").map(rival => rival?.name || rival)
+    ).map(canonicalizeRivalName),
     item => normalizeKey(item)
   );
   const historicalRivals = uniqueBy(
     [
-      ...compactList(override.historicalRivals),
-      ...rivals.filter(rival => (rival?.type || "historico") !== "actual").map(rival => rival?.name || rival)
+      ...compactList(override.historicalRivals).map(canonicalizeRivalName),
+      ...rivals.filter(rival => (rival?.type || "historico") !== "actual").map(rival => canonicalizeRivalName(rival?.name || rival))
     ],
     item => normalizeKey(item)
   );
@@ -4262,6 +4304,12 @@ function buildRelationMetadata(code, historyEntry, organizations, rivals) {
   const militaryAllies = uniqueBy(compactList(override.militaryAllies), item => normalizeKey(item));
   const economicPartners = uniqueBy(compactList(override.economicPartners), item => normalizeKey(item));
   const diplomaticPartners = uniqueBy(compactList(override.diplomaticPartners), item => normalizeKey(item));
+  const allies = uniqueBy(
+    [...compactList(override.allies), ...militaryAllies, ...economicPartners, ...diplomaticPartners],
+    item => normalizeKey(item)
+  );
+  const allyKeys = new Set(allies.map(item => normalizeKey(canonicalizeRivalName(item))));
+  const currentRivals = currentRivalCandidates.filter(item => !allyKeys.has(normalizeKey(canonicalizeRivalName(item))));
   const linkedTerritories = uniqueBy(
     [...territories, ...compactList(override.associatedTerritories), ...compactList(override.linkedTerritories)],
     item => normalizeKey(item)
@@ -4286,10 +4334,7 @@ function buildRelationMetadata(code, historyEntry, organizations, rivals) {
     militaryAllies,
     economicPartners,
     diplomaticPartners,
-    allies: uniqueBy(
-      [...compactList(override.allies), ...militaryAllies, ...economicPartners, ...diplomaticPartners],
-      item => normalizeKey(item)
-    ),
+    allies,
     currentRivals,
     historicalRivals,
     rivalStates: uniqueBy(
@@ -5416,8 +5461,14 @@ for (const code of allCodes) {
   const relationMetadata = buildRelationMetadata(code, historyEntry, mergedOrganizations, mergedRivals);
   const finalRivals = uniqueBy(
     [
-      ...mergedRivals,
-      ...compactList(relationMetadata.rivalStates).map(name => normalizeRivalEntry({ name, type: "actual" }))
+      ...mergedRivals.map(rival => ({
+        ...rival,
+        type: rival?.type === "actual" && !relationMetadata.currentRivals.some(name => normalizeKey(name) === normalizeKey(rival?.name))
+          ? "historico"
+          : rival?.type
+      })),
+      ...compactList(relationMetadata.currentRivals).map(name => normalizeRivalEntry({ name, type: "actual" })),
+      ...compactList(relationMetadata.historicalRivals).map(name => normalizeRivalEntry({ name, type: "historico" }))
     ].filter(Boolean),
     item => `${normalizeKey(item?.name)}:${item?.type || "historico"}`
   );

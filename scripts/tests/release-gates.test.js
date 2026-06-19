@@ -4,8 +4,21 @@ import nativeFs from "node:fs";
 import fs from "fs-extra";
 import path from "node:path";
 import vm from "node:vm";
+import { retryFileOperation } from "../lib/resilient-fs.js";
 
 const projectRoot = process.cwd();
+let transientAttempts = 0;
+const recoveredFileOperation = await retryFileOperation(() => {
+  transientAttempts += 1;
+  if (transientAttempts < 3) {
+    const error = new Error("OneDrive lock");
+    error.code = "UNKNOWN";
+    throw error;
+  }
+  return "ok";
+}, { attempts: 3, delayMs: 10 });
+assert.equal(recoveredFileOperation, "ok", "operaciones de release deben tolerar bloqueos transitorios");
+assert.equal(transientAttempts, 3, "reintento debe detenerse al recuperarse");
 
 const indexHtml = await fs.readFile(path.join(projectRoot, "index.html"), "utf8");
 const script = await fs.readFile(path.join(projectRoot, "script.js"), "utf8");
@@ -13,6 +26,7 @@ const sw = await fs.readFile(path.join(projectRoot, "sw.js"), "utf8");
 const bootScheduler = await fs.readFile(path.join(projectRoot, "app-boot-scheduler.js"), "utf8");
 const appMap = await fs.readFile(path.join(projectRoot, "app-map.js"), "utf8");
 const timelineConflicts = await fs.readFile(path.join(projectRoot, "app-timeline-conflicts.js"), "utf8");
+const cleanLocal = await fs.readFile(path.join(projectRoot, "scripts/cleanLocal.js"), "utf8");
 
 function bytes(file) {
   return fs.stat(path.join(projectRoot, file)).then(stat => stat.size);
@@ -65,6 +79,10 @@ assert.ok(!indexHtml.includes("html2canvas"), "exportacion debe cargar html2canv
 assert.ok(!indexHtml.includes("jspdf"), "exportacion debe cargar jsPDF bajo demanda");
 assert.ok(!script.includes("scheduleFullCountryDataLoad"), "countries_full no debe precargarse por scheduler");
 assert.ok(!script.includes("startFullLoad"), "countries_full no debe tener disparador silencioso");
+assert.ok(cleanLocal.includes("process.argv.includes(\"--deep\")"), "limpieza profunda debe ser explicita");
+const artifactTargets = cleanLocal.match(/const artifactTargets = \[([\s\S]*?)\];/)?.[1] || "";
+assert.ok(!artifactTargets.includes("node_modules"), "release:check no debe borrar dependencias");
+assert.ok(!cleanLocal.includes("package-lock.json"), "la limpieza no debe borrar el lockfile reproducible");
 assert.ok(!script.includes("async function loadFullCountryData()"), "countries_full no debe tener loader global sin consumidores");
 assert.equal((script.match(/countries_full\.json/g) || []).length, 1, "countries_full solo debe quedar como fallback del indice");
 assert.ok(script.includes("async function loadCountryDetail"), "detalle de pais debe cargarse bajo demanda");

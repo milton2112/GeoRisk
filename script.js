@@ -81,7 +81,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-06-18-release-5";
+const APP_VERSION = "2026-06-19-release-6";
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
 }
@@ -91,17 +91,17 @@ function createFallbackSearchCache() {
 }
 
 const DEFERRED_UI_MODULES = {
-  news: "./app-news-ui.js?v=2026-06-18-release-5",
-  compare: "./app-compare-ui.js?v=2026-06-18-release-5",
-  quiz: "./app-quiz-ui.js?v=2026-06-18-release-5",
-  riskRadar: "./app-risk-radar-ui.js?v=2026-06-18-release-5",
-  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-18-release-5",
-  projectAudit: "./app-project-audit-ui.js?v=2026-06-18-release-5",
-  uiPolish: "./app-ui-polish.js?v=2026-06-18-release-5",
-  countryPanel: "./app-country-panel.js?v=2026-06-18-release-5",
-  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-18-release-5",
-  search: "./app-search.js?v=2026-06-18-release-5",
-  rankings: "./app-rankings.js?v=2026-06-18-release-5"
+  news: "./app-news-ui.js?v=2026-06-19-release-6",
+  compare: "./app-compare-ui.js?v=2026-06-19-release-6",
+  quiz: "./app-quiz-ui.js?v=2026-06-19-release-6",
+  riskRadar: "./app-risk-radar-ui.js?v=2026-06-19-release-6",
+  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-19-release-6",
+  projectAudit: "./app-project-audit-ui.js?v=2026-06-19-release-6",
+  uiPolish: "./app-ui-polish.js?v=2026-06-19-release-6",
+  countryPanel: "./app-country-panel.js?v=2026-06-19-release-6",
+  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-19-release-6",
+  search: "./app-search.js?v=2026-06-19-release-6",
+  rankings: "./app-rankings.js?v=2026-06-19-release-6"
 };
 const deferredUiModulePromises = new Map();
 
@@ -3146,6 +3146,7 @@ let countriesDataRevision = 0;
 let countryValuesCache = null;
 let countryEntriesCache = null;
 const rankingCache = new Map();
+let activeRankingKey = "";
 let advancedRankingCache = typeof rankingsCore.createRankingsCache === "function"
   ? rankingsCore.createRankingsCache()
   : createFallbackCache();
@@ -4128,6 +4129,10 @@ function openMobilePanel(panel) {
 
   if (panel === "left") {
     document.body.classList.add("mobile-left-open");
+    const rankingsPanel = document.getElementById("rankings-panel");
+    if (rankingsPanel) {
+      rankingsPanel.open = true;
+    }
   } else if (panel === "tools") {
     document.body.classList.add("mobile-tools-open");
     const toolbar = document.getElementById("map-toolbar");
@@ -4540,7 +4545,7 @@ function getCountryOverviewStats(country, countryCode) {
     },
     {
       label: currentLanguage === "en" ? "Conflicts" : "Conflictos",
-      value: formatNumber(getCountryConflictCount(country))
+      value: formatNumber(getCountryWarParticipationCount(country))
     },
     {
       label: currentLanguage === "en" ? "Rivals" : "Rivales",
@@ -7911,7 +7916,13 @@ function getCountryOrganizationCount(country) {
 }
 
 function getCountryRivalCount(country) {
-  return Array.isArray(country?.politics?.rivals) ? country.politics.rivals.length : 0;
+  const currentRivals = country?.politics?.relations?.currentRivals;
+  if (Array.isArray(currentRivals)) {
+    return uniqueNormalizedList(currentRivals).length;
+  }
+  return (country?.politics?.rivals || []).filter(rival =>
+    typeof rival === "string" || rival?.type === "actual"
+  ).length;
 }
 
 function getCountryReligionDiversity(country) {
@@ -12027,11 +12038,25 @@ function renderInteractiveList(targetId, items, onClick = () => {}) {
 
   items.forEach(item => {
     const li = document.createElement("li");
+    const rankingKey = item.country
+      ? `country:${getRankedCountryCode(item.country)}`
+      : `${targetId}:${normalizeText(item.label)}`;
     li.className = "rank-link";
     li.textContent = item.label;
     li.tabIndex = 0;
     li.setAttribute("role", "button");
-    const activate = () => item.country ? selectRankedCountry(item.country) : onClick(item);
+    li.classList.toggle("is-active", activeRankingKey === rankingKey);
+    li.setAttribute("aria-pressed", String(activeRankingKey === rankingKey));
+    const activate = () => {
+      activeRankingKey = rankingKey;
+      document.querySelectorAll(".rank-link.is-active").forEach(activeItem => {
+        activeItem.classList.remove("is-active");
+        activeItem.setAttribute("aria-pressed", "false");
+      });
+      li.classList.add("is-active");
+      li.setAttribute("aria-pressed", "true");
+      return item.country ? selectRankedCountry(item.country) : onClick(item);
+    };
     li.addEventListener("click", activate);
     li.addEventListener("keydown", event => {
       if (event.key === "Enter" || event.key === " ") {

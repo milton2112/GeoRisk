@@ -26,11 +26,20 @@
 
   function getDataQualityScore(country = {}) {
     const quality = country.metadata?.quality || {};
+    if (Number.isFinite(quality.score)) return Math.max(0, Math.min(100, quality.score));
     const missing = Array.isArray(quality.missingFields) ? quality.missingFields.length : 0;
     const estimated = Array.isArray(quality.estimatedFields) ? quality.estimatedFields.length : 0;
     const sources = country.metadata?.sources || {};
     const sourceCount = Object.values(sources).flat().filter(Boolean).length;
     return Math.max(0, 100 - missing * 9 - estimated * 4 + Math.min(sourceCount, 20));
+  }
+
+  function getCurrentRivals(country = {}) {
+    const current = country.politics?.relations?.currentRivals;
+    if (Array.isArray(current)) return current.filter(Boolean);
+    return (country.politics?.rivals || []).filter(rival =>
+      typeof rival === "string" || rival?.type === "actual"
+    );
   }
 
   function getRiskComponents(country = {}) {
@@ -39,7 +48,7 @@
     const conflictExposure = Math.min(100, conflicts.length * 6 + activeConflicts * 18);
     const inflation = Math.max(0, Number(country.economy?.inflation || 0));
     const economicStress = Math.min(100, inflation / 3);
-    const rivalPressure = Math.min(100, (country.politics?.rivals || []).length * 14);
+    const rivalPressure = Math.min(100, getCurrentRivals(country).length * 14);
     const militaryPressure = Math.min(100, getMilitaryActive(country) / 12000);
     const diplomaticBuffer = Math.min(100, getOrganizations(country).length * 4 + getBlocs(country).length * 7);
     const dataQuality = getDataQualityScore(country);

@@ -8,6 +8,13 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
+- Rankings con seleccion visual persistente, estado accesible y apertura completa con un solo toque en mobile.
+- Riesgo y fichas ahora cuentan solo rivalidades actuales; aliados y rivales contradictorios se depuran al generar datos.
+- Nombres geopoliticos equivalentes se normalizan para evitar duplicados como China y Republica Popular China.
+- Puntajes de calidad recalibrados para que una ficha con secciones base o estimadas no muestre un 100/100 enganoso.
+- La ficha pais unifica el conteo visible de conflictos y evita la superposicion entre escudo y boton de cierre.
+- `release:check` conserva dependencias y lockfile; la limpieza profunda queda disponible de forma explicita con `npm run clean:deep`.
+- Los generadores reintentan lecturas y escrituras bloqueadas temporalmente por OneDrive durante el release.
 - La curaduria profunda de 405 KB ahora se carga al abrir una ficha y deja de ejecutarse durante el arranque diferido.
 - Se elimino la fuente web bloqueante y se adopto la tipografia nativa del sistema para mejorar primer render y modo offline.
 - Nuevo pulido visual diferido con componentes mas compactos, estados de foco, objetivos tactiles de 44 px y movimiento reducido.

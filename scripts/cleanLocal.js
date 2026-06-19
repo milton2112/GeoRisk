@@ -3,17 +3,18 @@ import path from "node:path";
 
 const projectRoot = process.cwd();
 
-const targets = [
-  "node_modules",
+const artifactTargets = [
   ".parcel-cache",
   ".vite",
   "coverage",
   "dist",
   "build",
   "tmp",
-  "temp",
-  "package-lock.json"
+  "temp"
 ];
+const targets = process.argv.includes("--deep")
+  ? [...artifactTargets, "node_modules"]
+  : artifactTargets;
 
 function isInsideProject(absolutePath) {
   const relative = path.relative(projectRoot, absolutePath);

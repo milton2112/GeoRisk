@@ -1,5 +1,6 @@
 import fs from "fs-extra";
 import path from "node:path";
+import { readJsonWithRetry, statWithRetry, writeJsonWithRetry } from "./lib/resilient-fs.js";
 
 const projectRoot = path.resolve(process.cwd());
 const dataDir = path.join(projectRoot, "data");
@@ -229,14 +230,14 @@ async function buildConflictDetailShards() {
   if (!(await fs.pathExists(sourcePath))) {
     return { generatedAt: new Date().toISOString(), conflicts: [], missingSource: true };
   }
-  const source = await fs.readJson(sourcePath);
+  const source = await readJsonWithRetry(sourcePath);
   const conflicts = source.conflicts || {};
   await fs.emptyDir(conflictDetailsDir);
   const index = [];
   for (const [name, detail] of Object.entries(conflicts)) {
     const file = `${slugifyConflictName(name)}.json`;
     const relativePath = `data/conflicts/details/${file}`;
-    await fs.writeJson(path.join(conflictDetailsDir, file), { name, ...detail }, { spaces: 0 });
+    await writeJsonWithRetry(path.join(conflictDetailsDir, file), { name, ...detail }, { spaces: 0 });
     index.push({
       name,
       path: relativePath,
@@ -257,7 +258,7 @@ async function buildCountryWeights(countries) {
   for (const [code, country] of Object.entries(countries)) {
     const countryPath = path.join(perCountryDir, `${code}.json`);
     const inlineBytes = Buffer.byteLength(JSON.stringify(country));
-    const fileBytes = await fs.pathExists(countryPath) ? (await fs.stat(countryPath)).size : 0;
+    const fileBytes = await fs.pathExists(countryPath) ? (await statWithRetry(countryPath)).size : 0;
     duplicatedCountryFilesBytes += fileBytes;
     entries.push({
       code,
@@ -277,7 +278,7 @@ async function buildCountryWeights(countries) {
       }
     });
   }
-  const fullBytes = (await fs.stat(path.join(dataDir, "countries_full.json"))).size;
+  const fullBytes = (await statWithRetry(path.join(dataDir, "countries_full.json"))).size;
   return {
     generatedAt: new Date().toISOString(),
     thresholdBytes: LARGE_COUNTRY_BYTES,
@@ -428,7 +429,7 @@ function buildManifest() {
 }
 
 await fs.ensureDir(reportsDir);
-const countries = await fs.readJson(path.join(dataDir, "countries_full.json"));
+const countries = await readJsonWithRetry(path.join(dataDir, "countries_full.json"));
 const conflictIndex = buildConflictIndex(countries);
 const timelineIndex = buildTimelineIndex(countries);
 const searchIndex = buildSearchIndex(countries);
@@ -437,13 +438,13 @@ const curationAudit = buildCurationAudit(countries, weights);
 const manifest = buildManifest();
 const conflictDetailsIndex = await buildConflictDetailShards();
 
-await fs.writeJson(path.join(dataDir, "conflicts_index.json"), conflictIndex, { spaces: 0 });
-await fs.writeJson(path.join(dataDir, "timeline_index.json"), timelineIndex, { spaces: 0 });
-await fs.writeJson(path.join(dataDir, "search_index.json"), searchIndex, { spaces: 0 });
-await fs.writeJson(path.join(dataDir, "country_weights.json"), weights, { spaces: 0 });
-await fs.writeJson(path.join(dataDir, "data_manifest.json"), manifest, { spaces: 2 });
-await fs.writeJson(path.join(dataDir, "conflicts", "details_index.json"), conflictDetailsIndex, { spaces: 0 });
-await fs.writeJson(path.join(reportsDir, "data-curation-audit.json"), curationAudit, { spaces: 2 });
+await writeJsonWithRetry(path.join(dataDir, "conflicts_index.json"), conflictIndex, { spaces: 0 });
+await writeJsonWithRetry(path.join(dataDir, "timeline_index.json"), timelineIndex, { spaces: 0 });
+await writeJsonWithRetry(path.join(dataDir, "search_index.json"), searchIndex, { spaces: 0 });
+await writeJsonWithRetry(path.join(dataDir, "country_weights.json"), weights, { spaces: 0 });
+await writeJsonWithRetry(path.join(dataDir, "data_manifest.json"), manifest, { spaces: 2 });
+await writeJsonWithRetry(path.join(dataDir, "conflicts", "details_index.json"), conflictDetailsIndex, { spaces: 0 });
+await writeJsonWithRetry(path.join(reportsDir, "data-curation-audit.json"), curationAudit, { spaces: 2 });
 
 console.log(`conflicts_index: ${conflictIndex.length} conflictos`);
 console.log(`timeline_index: ${timelineIndex.length} eventos`);

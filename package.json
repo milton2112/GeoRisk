@@ -18,6 +18,7 @@
     "measure:startup": "node scripts/compactStartupIndex.js && node scripts/buildDataIndexes.js && node scripts/measureStartupAssets.js",
     "check:startup-budget": "node scripts/checkStartupBudget.js",
     "clean:local": "node scripts/cleanLocal.js",
+    "clean:deep": "node scripts/cleanLocal.js --deep",
     "release:check": "node scripts/releaseChecklist.js",
     "release:tag": "node scripts/createReleaseTag.js",
     "validate:data": "node scripts/validateDataset.js",

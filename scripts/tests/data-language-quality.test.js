@@ -19,6 +19,26 @@ const servedLanguageIssues = Object.entries(countries).flatMap(([code, country])
   ...(country.politics?.organizations || []).map(organization => ({ code, value: organization?.name || "" }))
 ]).filter(item => englishSignal.test(item.value));
 assert.deepEqual(servedLanguageIssues, [], `Los datos servidos conservan textos en ingles: ${JSON.stringify(servedLanguageIssues.slice(0, 10))}`);
+const normalizeRelation = value => String(value || "")
+  .normalize("NFD")
+  .replace(/\p{Diacritic}/gu, "")
+  .toLowerCase()
+  .trim();
+const contradictoryRelations = Object.entries(countries).flatMap(([code, country]) => {
+  const relations = country.politics?.relations || {};
+  const allyKeys = new Set((relations.allies || []).map(normalizeRelation));
+  return (relations.currentRivals || [])
+    .filter(rival => allyKeys.has(normalizeRelation(rival)))
+    .map(rival => ({ code, rival }));
+});
+assert.deepEqual(contradictoryRelations, [], `Un aliado no puede figurar a la vez como rival actual: ${JSON.stringify(contradictoryRelations.slice(0, 10))}`);
+
+const misleadingPerfectScores = Object.entries(countries).filter(([, country]) => {
+  const quality = country.metadata?.quality || {};
+  const hasWeakSection = Object.values(quality.sectionStatus || {}).some(status => ["base", "mixed"].includes(status));
+  return quality.score === 100 && (hasWeakSection || (quality.missingFields || []).length || (quality.estimatedFields || []).length);
+});
+assert.deepEqual(misleadingPerfectScores, [], "Una ficha con secciones debiles no debe mostrar 100/100");
 assert.equal(history.BHR.origin, "Protectorado británico de Baréin");
 assert.equal(history.CMR.origin, "Camerún francés");
 assert.equal(history.GIN.origin, "Guinea Francesa");

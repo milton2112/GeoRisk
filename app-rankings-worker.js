@@ -25,9 +25,12 @@ self.addEventListener("message", event => {
 
   const conflicts = country => country.military?.conflicts || country.conflicts || [];
   const activeConflicts = country => conflicts(country).filter(conflict => conflict?.ongoing || conflict?.active || conflict?.status === "activo").length;
+  const currentRivals = country => Array.isArray(country.politics?.relations?.currentRivals)
+    ? country.politics.relations.currentRivals.filter(Boolean)
+    : (country.politics?.rivals || []).filter(rival => typeof rival === "string" || rival?.type === "actual");
   const militaryPressure = country => (country.military?.active || country.military?.activePersonnel || 0) / 12000;
   const diplomacy = country => (country.politics?.organizations || []).length * 4 + (country.politics?.relations?.blocs || []).length * 7;
-  const fragility = country => Math.max(0, conflicts(country).length * 6 + (country.economy?.inflation || 0) / 3 + (country.politics?.rivals || []).length * 14 - diplomacy(country) * 0.12);
+  const fragility = country => Math.max(0, conflicts(country).length * 6 + (country.economy?.inflation || 0) / 3 + currentRivals(country).length * 14 - diplomacy(country) * 0.12);
 
   self.postMessage({
     id,

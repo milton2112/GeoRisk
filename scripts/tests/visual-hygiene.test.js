@@ -47,6 +47,8 @@ assert.ok(css.includes(".performance-status-banner"), "panel de rendimiento debe
 assert.ok(css.includes(".performance-recommendation-card"), "panel de rendimiento debe exponer recomendacion automatica");
 assert.ok(polishCss.includes("--ui-radius: 8px"), "componentes diferidos deben usar radio visual compacto");
 assert.ok(polishCss.includes("min-height: 44px"), "controles tactiles deben conservar un objetivo comodo");
+assert.ok(polishCss.includes(".rank-link.is-active"), "rankings deben mostrar seleccion activa");
+assert.ok(polishCss.includes(".country-title > .coat-visual"), "cabecera de ficha debe reservar espacio al escudo");
 
 const performanceUi = await fs.readFile(path.join(projectRoot, "app-performance-ui.js"), "utf8");
 assert.ok(performanceUi.includes("Recomendacion automatica"), "rendimiento debe explicar la recomendacion en espanol");
@@ -81,6 +83,8 @@ assert.ok(script.includes('element.toggleAttribute("inert", hasOpenModal)'), "fo
 assert.ok(script.includes("containModalKeyboardFocus"), "modales deben contener el foco de teclado");
 assert.ok(script.includes("modalFocusReturnTarget"), "modales deben restaurar el foco al cerrarse");
 assert.ok(script.includes("function syncMobilePanelControlState"), "controles mobile deben sincronizar disponibilidad y estado expandido");
+assert.ok(script.includes('li.setAttribute("aria-pressed", "true")'), "seleccion de ranking debe anunciar su estado");
+assert.ok(script.includes("activeRankingKey === rankingKey"), "seleccion de ranking debe sobrevivir al rerender de datos");
 assert.ok(script.includes("function closeMobileHubPanels"), "paneles y hubs mobile deben abrirse de forma exclusiva");
 assert.ok(script.includes("function toggleMobileMoreMenu"), "mobile debe agrupar herramientas secundarias bajo demanda");
 assert.ok(script.includes('classList.toggle("mobile-more-open", shouldOpen)'), "menu rapido debe evitar superponerse al control 2D/3D");
@@ -89,6 +93,7 @@ assert.ok(script.includes('originalEvent?.target?.closest?.("#mobile-panel-contr
 assert.ok(script.includes('panel.querySelector("summary")?.focus'), "hub abierto desde mobile debe recibir foco visible");
 assert.ok(css.includes("#mobile-more-menu"), "menu rapido mobile debe tener layout propio");
 assert.ok(script.includes("openMobilePanel(panel)"), "toggle mobile debe usar el flujo completo de apertura");
+assert.ok(script.includes("rankingsPanel.open = true"), "acceso mobile a rankings debe mostrar el contenido con un solo toque");
 assert.ok(script.includes('focusedElement?.closest("#search-suggestions")'), "ficha abierta desde busqueda debe devolver foco al buscador");
 assert.ok(appMapInteractions.includes("isMobile || mode === \"2d\""), "hover mobile/2D debe quedar reducido");
 

@@ -1,5 +1,6 @@
 import fs from "fs-extra";
 import path from "node:path";
+import { readFileWithRetry, statWithRetry, writeJsonWithRetry } from "./lib/resilient-fs.js";
 
 const projectRoot = path.resolve(process.cwd());
 const reportPath = path.join(projectRoot, "reports", "startup-assets.json");
@@ -55,7 +56,7 @@ async function readServiceWorkerShell() {
     return new Set();
   }
 
-  const source = await fs.readFile(swPath, "utf8");
+  const source = await readFileWithRetry(swPath, "utf8");
   const match = source.match(/const APP_SHELL = \[([\s\S]*?)\];/);
   if (!match) {
     return new Set();
@@ -76,7 +77,7 @@ async function readInitialLocalScripts() {
     return new Set();
   }
 
-  const source = await fs.readFile(htmlPath, "utf8");
+  const source = await readFileWithRetry(htmlPath, "utf8");
   return new Set(
     [...source.matchAll(/<script\s+src="([^"]+)"/g)]
       .map(match => match[1].split("?")[0])
@@ -95,7 +96,7 @@ for (const relativePath of localAssetPaths) {
     assets.push({ path: relativePath, exists: false, bytes: 0, human: "faltante" });
     continue;
   }
-  const stat = await fs.stat(absolutePath);
+  const stat = await statWithRetry(absolutePath);
   assets.push({
     path: relativePath,
     exists: true,
@@ -115,7 +116,7 @@ const fullCountriesAsset = assets.find(asset => asset.path === "data/countries_f
   (await fs.pathExists(path.join(projectRoot, "data/countries_full.json"))
     ? {
         path: "data/countries_full.json",
-        bytes: (await fs.stat(path.join(projectRoot, "data/countries_full.json"))).size
+        bytes: (await statWithRetry(path.join(projectRoot, "data/countries_full.json"))).size
       }
     : null);
 
@@ -141,7 +142,7 @@ const report = {
 };
 
 await fs.ensureDir(path.dirname(reportPath));
-await fs.writeJson(reportPath, report, { spaces: 2 });
+await writeJsonWithRetry(reportPath, report, { spaces: 2 });
 
 console.log(`Startup critico local: ${report.startupHuman}`);
 console.log(`Diferido/local auxiliar: ${report.deferredHuman}`);

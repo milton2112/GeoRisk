@@ -45,6 +45,27 @@
   border-color: var(--ui-divider);
 }
 
+.country-meta-pill {
+  gap: 4px;
+}
+
+.country-title > .coat-visual {
+  margin-right: 52px;
+}
+
+.ranking-group-content > ul > .rank-link {
+  margin: 2px 0;
+  padding: 6px 8px;
+  border-radius: 6px;
+  transition: background-color 140ms ease, color 140ms ease, box-shadow 140ms ease;
+}
+
+.ranking-group-content > ul > .rank-link.is-active {
+  color: #effbf7;
+  background: rgba(114, 222, 192, 0.14);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
 .country-modal-dialog,
 .compare-modal-dialog,
 .conflict-modal-dialog,
@@ -196,6 +217,14 @@
   .country-nav-chip {
     flex: 0 0 auto;
     scroll-snap-align: start;
+  }
+
+  .country-title {
+    padding-right: 48px;
+  }
+
+  .country-title > .coat-visual {
+    margin-right: 0;
   }
 }
 

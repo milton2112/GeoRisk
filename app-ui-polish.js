@@ -1,5 +1,5 @@
 (() => {
-  const POLISH_STYLESHEET = "./style-polish.css?v=2026-06-18-release-5";
+  const POLISH_STYLESHEET = "./style-polish.css?v=2026-06-19-release-6";
   const FOCUSABLE_SELECTOR = [
     "a[href]",
     "button:not([disabled])",
