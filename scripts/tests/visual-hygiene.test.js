@@ -85,6 +85,11 @@ assert.ok(script.includes("modalFocusReturnTarget"), "modales deben restaurar el
 assert.ok(script.includes("function syncMobilePanelControlState"), "controles mobile deben sincronizar disponibilidad y estado expandido");
 assert.ok(script.includes('li.setAttribute("aria-pressed", "true")'), "seleccion de ranking debe anunciar su estado");
 assert.ok(script.includes("activeRankingKey === rankingKey"), "seleccion de ranking debe sobrevivir al rerender de datos");
+assert.ok(script.includes("function getUniqueDisplayLabels"), "filtros deben unificar etiquetas equivalentes por tildes y mayusculas");
+assert.ok(script.includes("formatNumber(Math.round(capital.population))"), "poblacion de capital debe mostrarse como habitantes enteros");
+assert.ok(script.includes("formatNumber(Math.round(city.population))"), "poblacion de ciudades debe mostrarse como habitantes enteros");
+assert.ok(script.includes('button.setAttribute("aria-pressed", String(selected))'), "ficha debe confirmar cuando un pais esta en el comparador");
+assert.ok(script.includes('button.classList.toggle("is-active", active)'), "navegacion de ficha debe mostrar la seccion elegida");
 assert.ok(script.includes("function closeMobileHubPanels"), "paneles y hubs mobile deben abrirse de forma exclusiva");
 assert.ok(script.includes("function toggleMobileMoreMenu"), "mobile debe agrupar herramientas secundarias bajo demanda");
 assert.ok(script.includes('classList.toggle("mobile-more-open", shouldOpen)'), "menu rapido debe evitar superponerse al control 2D/3D");
@@ -96,5 +101,13 @@ assert.ok(script.includes("openMobilePanel(panel)"), "toggle mobile debe usar el
 assert.ok(script.includes("rankingsPanel.open = true"), "acceso mobile a rankings debe mostrar el contenido con un solo toque");
 assert.ok(script.includes('focusedElement?.closest("#search-suggestions")'), "ficha abierta desde busqueda debe devolver foco al buscador");
 assert.ok(appMapInteractions.includes("isMobile || mode === \"2d\""), "hover mobile/2D debe quedar reducido");
+assert.ok(script.includes('applyMapMode("2d", false)'), "FPS critico sostenido debe poder degradar automaticamente a 2D");
+assert.ok(script.includes("sustainedCriticalFpsWindows >= 3"), "degradacion critica debe exigir varias ventanas y evitar falsos positivos");
+assert.ok(script.includes('declaredParent: typeof conflict === "object"'), "jerarquia de conflictos debe conservar padres explicitos curados");
+const conflictParentResolver = script.slice(
+  script.indexOf("function getConflictParentName"),
+  script.indexOf("function inferConflictType")
+);
+assert.ok(!conflictParentResolver.includes("detail.related"), "conflictos relacionados no deben convertirse en padres jerarquicos");
 
 console.log("visual-hygiene.test.js ok");

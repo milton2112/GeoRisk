@@ -8,6 +8,13 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
+- Comparador robustecido ante cargas diferidas: ya no falla si se usa antes de que llegue su modulo visual y confirma la seleccion en la ficha.
+- Noticias limitan la lista inicial por dispositivo, ofrecen fallback seguro cuando no hay titulares en vivo y dejan de renderizar 183 paises de golpe.
+- Filtros geopoliticos unifican variantes equivalentes por tildes y mayusculas para evitar opciones duplicadas.
+- Capitales y ciudades muestran poblaciones enteras, y la navegacion rapida de la ficha conserva estado visual y accesible.
+- El mapa actualiza su perfil 2D/3D inmediatamente y degrada a 2D tras FPS critico sostenido para recuperar interaccion.
+- Jerarquia militar corregida: relaciones tematicas ya no se confunden con guerras padre y se respetan los padres curados del dataset.
+- Verificacion real mobile en 390x844: sin desborde horizontal, controles tactiles de 44 px, noticias acotadas y rankings seleccionables.
 - Rankings con seleccion visual persistente, estado accesible y apertura completa con un solo toque en mobile.
 - Riesgo y fichas ahora cuentan solo rivalidades actuales; aliados y rivales contradictorios se depuran al generar datos.
 - Nombres geopoliticos equivalentes se normalizan para evitar duplicados como China y Republica Popular China.

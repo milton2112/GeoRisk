@@ -1,4 +1,4 @@
-const CACHE_VERSION = "2026-06-19-release-6";
+const CACHE_VERSION = "2026-06-20-release-7";
 const APP_CACHE = `geo-risk-app-${CACHE_VERSION}`;
 const TILE_CACHE = `geo-risk-tiles-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `geo-risk-runtime-${CACHE_VERSION}`;

@@ -189,6 +189,9 @@ assert.ok(appQuiz.includes("buildQuestionFromBank"), "quiz debe controlar dificu
 assert.ok(script.includes("NEWS_CACHE_TTL_MS"), "noticias debe tener cache temporal");
 assert.ok(script.includes("diplomacy"), "noticias debe incluir tema diplomacia");
 assert.ok(script.includes("ensureDeferredUiModule(\"news\")"), "noticias debe cargar UI bajo demanda al abrir");
+assert.ok(script.includes("function renderNewsArticle"), "noticias debe completar el estado de carga al recibir titulares o fallback");
+assert.ok(script.includes("function getSafeNewsUrl"), "noticias debe validar URLs externas antes de renderizarlas");
+assert.ok(script.includes("const listLimit = filterText ? 48 : (isMobileLayout() ? 18 : 32)"), "noticias debe limitar la lista inicial y evitar renderizar todos los paises");
 assert.ok(appNews.includes("buildStateCard"), "noticias debe renderizar estados de carga/vacio desde modulo");
 assert.ok(appNews.includes("news-external-link"), "noticias debe separar busqueda externa de seleccion interna");
 
@@ -219,6 +222,8 @@ assert.ok(script.includes("app-performance-ui.js"), "panel de rendimiento debe v
 assert.ok(script.includes("ensureDeferredUiModule"), "modulos secundarios deben cargarse bajo demanda");
 assert.ok(script.includes("app-news-ui.js"), "noticias debe tener modulo diferido declarado");
 assert.ok(script.includes("app-compare-ui.js"), "comparador debe tener modulo diferido declarado");
+assert.ok(script.includes("const compareRendererReady"), "comparador debe tolerar que su modulo diferido siga cargando");
+assert.ok(script.indexOf("const compareRendererReady") < script.indexOf("results.innerHTML = compareUi.buildLightCards"), "comparador debe validar el modulo antes de invocar sus renderers");
 assert.ok(script.includes("app-quiz-ui.js"), "quiz debe tener modulo diferido declarado");
 assert.ok(script.includes("app-risk-radar-ui.js"), "radar debe tener modulo diferido declarado");
 assert.ok(script.includes("app-conflict-audit-ui.js"), "auditoria debe tener modulo diferido declarado");

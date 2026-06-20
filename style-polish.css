@@ -88,6 +88,9 @@
 
 .country-mode-switch button.is-active,
 .country-mode-switch button[aria-pressed="true"],
+.panel-action-button[aria-pressed="true"],
+.country-nav-chip.is-active,
+.country-nav-chip[aria-pressed="true"],
 .country-nav-chip:hover,
 .country-nav-chip:focus-visible {
   border-color: var(--accent);
