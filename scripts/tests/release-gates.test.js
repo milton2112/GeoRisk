@@ -139,5 +139,9 @@ assert.ok(!manifestPaths.some(file => file.startsWith("reports/")), "build publi
 assert.ok(!manifestPaths.some(file => file.startsWith("scripts/")), "build publico debe excluir scripts internos");
 assert.ok(!manifestPaths.includes("ARCHITECTURE.md"), "build publico debe excluir docs internas");
 assert.ok(!manifestPaths.includes("CONTRIBUTING_INTERNAL.md"), "build publico debe excluir docs internas");
+assert.ok(!manifestPaths.includes("data/conflict_details.generated.json"), "build publico debe excluir el monolito de conflictos");
+assert.ok(!manifestPaths.includes("data/conflict_dyadic_summary.json"), "build publico debe excluir datos tecnicos diadicos");
+assert.ok(manifestPaths.includes("data/conflicts/details_index.json"), "build publico debe incluir el indice granular de conflictos");
+assert.ok(manifestPaths.some(file => file.startsWith("data/conflicts/details/")), "build publico debe incluir shards de conflictos");
 
 console.log("release-gates.test.js ok");

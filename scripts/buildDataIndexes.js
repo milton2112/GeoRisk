@@ -1,6 +1,7 @@
 import fs from "fs-extra";
 import path from "node:path";
 import { readJsonWithRetry, statWithRetry, writeJsonWithRetry } from "./lib/resilient-fs.js";
+import { buildPublicCountryRecord } from "./lib/public-country-record.js";
 
 const projectRoot = path.resolve(process.cwd());
 const dataDir = path.join(projectRoot, "data");
@@ -293,6 +294,17 @@ async function buildCountryWeights(countries) {
   };
 }
 
+async function writePublicCountryShards(countries) {
+  await fs.emptyDir(perCountryDir);
+  for (const [code, country] of Object.entries(countries)) {
+    await writeJsonWithRetry(
+      path.join(perCountryDir, `${code}.json`),
+      buildPublicCountryRecord(country),
+      { spaces: 0 }
+    );
+  }
+}
+
 function sectionSourceTrace(country = {}) {
   const sources = country.metadata?.sources || {};
   const provenanceSections = country.metadata?.provenance?.sections || {};
@@ -433,6 +445,7 @@ const countries = await readJsonWithRetry(path.join(dataDir, "countries_full.jso
 const conflictIndex = buildConflictIndex(countries);
 const timelineIndex = buildTimelineIndex(countries);
 const searchIndex = buildSearchIndex(countries);
+await writePublicCountryShards(countries);
 const weights = await buildCountryWeights(countries);
 const curationAudit = buildCurationAudit(countries, weights);
 const manifest = buildManifest();

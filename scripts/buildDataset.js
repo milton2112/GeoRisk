@@ -7,6 +7,7 @@ import {
 } from "./lib/conflict-cleaning.js";
 import { buildStartupCountryIndex } from "./lib/startup-index.js";
 import { repairMojibake as repairMojibakeShared } from "./lib/text-normalization.js";
+import { buildPublicCountryRecord } from "./lib/public-country-record.js";
 
 const YEAR_COLUMNS = Array.from({ length: 2025 - 1960 + 1 }, (_, index) =>
   String(2025 - index)
@@ -229,6 +230,9 @@ const LANGUAGE_OVERRIDES = {
 };
 
 const CAPITAL_ROLE_OVERRIDES = {
+  CUB: [
+    { role: "nacional", name: "La Habana" }
+  ],
   BOL: [
     { role: "constitucional", name: "Sucre" },
     { role: "ejecutiva y legislativa", name: "La Paz" }
@@ -5231,7 +5235,7 @@ function normalizeConflicts(conflictEntries) {
         ongoing: Boolean(entry.ongoing ?? hints?.ongoing ?? inferredFromName.ongoing)
       };
     })
-    .filter(entry => entry?.name);
+    .filter(entry => entry?.name && !/^Q\d+$/i.test(entry.name));
 }
 
 const base = readJson("./data/raw/countries_base.json");
@@ -5357,6 +5361,7 @@ for (const code of allCodes) {
     ? {
         ...fallback.capital,
         ...cityData.capital,
+        name: code === "CUB" ? "La Habana" : cityData.capital.name,
         population: cityData.capital.population ?? fallback.capital?.population ?? null
       }
     : fallback.capital ||
@@ -5690,7 +5695,7 @@ const countryIndex = buildStartupCountryIndex(sanitizedResult);
 fs.writeJsonSync("./data/countries_index.json", sanitizeDeep(countryIndex), { spaces: 0 });
 fs.emptyDirSync("./data/countries");
 Object.entries(sanitizedResult).forEach(([code, country]) => {
-  fs.writeJsonSync(`./data/countries/${code}.json`, country, { spaces: 0 });
+  fs.writeJsonSync(`./data/countries/${code}.json`, buildPublicCountryRecord(country), { spaces: 0 });
 });
 
 console.log(`Dataset generado: ${Object.keys(sanitizedResult).length} paises.`);

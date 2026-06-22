@@ -65,10 +65,11 @@ GeoRisk es una aplicacion frontend orientada a exploracion geopolitica con datas
 2. Renderiza mapa, busqueda basica, capas y ficha inicial con datos compactos.
 3. Si el usuario abre una ficha indexada, carga `data/countries/<codigo>.json` bajo demanda.
 4. Carga indices livianos de conflictos, timeline o busqueda solo cuando una vista los necesite.
-5. Carga curaduria y datos suplementarios despues del arranque visible.
-6. Difiere `data/countries_full.json` a un momento ocioso para no congelar el globo.
-7. En el mapa, resuelve clicks del GeoJSON a codigos ISO o especiales.
-8. La ficha modal, timeline, comparador, quiz y noticias consumen el estado ya curado.
+5. Carga curaduria profunda solo al abrir Historia o Militar dentro de una ficha.
+6. Carga `data/conflicts/details_index.json` y un shard individual al abrir un conflicto; el monolito tecnico no llega al navegador.
+7. Usa `data/countries_full.json` unicamente como fallback si falla el indice inicial; no existe una precarga ociosa.
+8. En el mapa, resuelve clicks del GeoJSON a codigos ISO o especiales.
+9. La ficha modal, timeline, comparador, quiz y noticias consumen datos bajo demanda segun la vista activa.
 
 ## Separacion de datos
 

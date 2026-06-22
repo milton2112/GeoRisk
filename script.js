@@ -81,7 +81,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-06-20-release-7";
+const APP_VERSION = "2026-06-22-release-14";
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
 }
@@ -91,17 +91,17 @@ function createFallbackSearchCache() {
 }
 
 const DEFERRED_UI_MODULES = {
-  news: "./app-news-ui.js?v=2026-06-20-release-7",
-  compare: "./app-compare-ui.js?v=2026-06-20-release-7",
-  quiz: "./app-quiz-ui.js?v=2026-06-20-release-7",
-  riskRadar: "./app-risk-radar-ui.js?v=2026-06-20-release-7",
-  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-20-release-7",
-  projectAudit: "./app-project-audit-ui.js?v=2026-06-20-release-7",
-  uiPolish: "./app-ui-polish.js?v=2026-06-20-release-7",
-  countryPanel: "./app-country-panel.js?v=2026-06-20-release-7",
-  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-20-release-7",
-  search: "./app-search.js?v=2026-06-20-release-7",
-  rankings: "./app-rankings.js?v=2026-06-20-release-7"
+  news: "./app-news-ui.js?v=2026-06-22-release-14",
+  compare: "./app-compare-ui.js?v=2026-06-22-release-14",
+  quiz: "./app-quiz-ui.js?v=2026-06-22-release-14",
+  riskRadar: "./app-risk-radar-ui.js?v=2026-06-22-release-14",
+  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-22-release-14",
+  projectAudit: "./app-project-audit-ui.js?v=2026-06-22-release-14",
+  uiPolish: "./app-ui-polish.js?v=2026-06-22-release-14",
+  countryPanel: "./app-country-panel.js?v=2026-06-22-release-14",
+  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-22-release-14",
+  search: "./app-search.js?v=2026-06-22-release-14",
+  rankings: "./app-rankings.js?v=2026-06-22-release-14"
 };
 const deferredUiModulePromises = new Map();
 
@@ -2733,7 +2733,7 @@ function normalizeWikipediaConflictDetail(detail = {}) {
 }
 
 function mergeImportedConflictDetails(importedDetails = {}) {
-  if (wikipediaConflictDetailsMerged || !importedDetails || typeof importedDetails !== "object") {
+  if (!importedDetails || typeof importedDetails !== "object") {
     return;
   }
 
@@ -2757,7 +2757,6 @@ function mergeImportedConflictDetails(importedDetails = {}) {
     };
   });
 
-  wikipediaConflictDetailsMerged = true;
 }
 
 const mapEventListeners = {
@@ -3179,8 +3178,8 @@ let rawInflationByCode = {};
 let populationGrowthByCode = {};
 let countryCodeByEnglishName = new Map();
 let wikipediaConflictDetailOverrides = {};
-let loadWikipediaConflictDetailsPromise = null;
-let wikipediaConflictDetailsMerged = false;
+let loadConflictDetailsIndexPromise = null;
+const conflictDetailShardPromises = new Map();
 let mapNameAliasOverrides = {};
 let mapNameAliasIndex = new Map();
 let worldBankNameAliasOverrides = {};
@@ -5259,9 +5258,10 @@ function renderCountryQuickNav(items = []) {
   if (!validItems.length) {
     return "";
   }
+  const activeSection = currentPanelState.countryActiveSection || validItems[0].id;
   return `
     <div class="country-quick-nav">
-      ${validItems.map((item, index) => `<button type="button" class="country-nav-chip${index === 0 ? " is-active" : ""}" data-country-nav="${escapeHtml(item.id)}" aria-pressed="${index === 0 ? "true" : "false"}">${escapeHtml(item.label)}</button>`).join("")}
+      ${validItems.map(item => `<button type="button" class="country-nav-chip${item.id === activeSection ? " is-active" : ""}" data-country-nav="${escapeHtml(item.id)}" aria-pressed="${item.id === activeSection ? "true" : "false"}">${escapeHtml(item.label)}</button>`).join("")}
     </div>
   `;
 }
@@ -5309,6 +5309,35 @@ function scrollCountrySectionIntoView(sectionId) {
   });
   const offset = Math.max(0, section.offsetTop - 90);
   dialog.scrollTo({ top: offset, behavior: "smooth" });
+}
+
+async function activateCountrySection(sectionId) {
+  if (!sectionId || currentPanelState.type !== "country") {
+    return;
+  }
+  const loadedSections = new Set(currentPanelState.countryLoadedSections || ["country-section-general"]);
+  loadedSections.add(sectionId);
+  currentPanelState.countryLoadedSections = [...loadedSections];
+  currentPanelState.countryActiveSection = sectionId;
+
+  if (
+    !deferredDataStatus.runtimeCuration
+    && (sectionId === "country-section-history" || sectionId === "country-section-military")
+  ) {
+    await loadRuntimeCuration();
+  } else {
+    rerenderCurrentPanel();
+  }
+  setTimeout(() => scrollCountrySectionIntoView(sectionId), 80);
+}
+
+function renderDeferredCountrySectionPrompt(sectionId) {
+  return `
+    <div class="deferred-country-section">
+      <p>${currentLanguage === "en" ? "This section loads only when opened." : "Esta seccion se carga solo cuando la abris."}</p>
+      <button type="button" class="panel-action-button" data-country-load-section="${escapeHtml(sectionId)}">${currentLanguage === "en" ? "Load section" : "Cargar seccion"}</button>
+    </div>
+  `;
 }
 
 function getConflictsSinceFormation(country) {
@@ -6442,16 +6471,25 @@ function renderConflicts(conflicts) {
     groupedConflicts,
     currentPanelState.type === "country" ? getConflictFilterState() : "all"
   );
+  const defaultVisibleLimit = isMobileLayout() ? 8 : 16;
+  const visibleLimit = Math.max(defaultVisibleLimit, Number(currentPanelState.conflictVisibleLimit) || 0);
+  const visibleConflicts = filteredConflicts.slice(0, visibleLimit);
+  const remainingConflicts = Math.max(0, filteredConflicts.length - visibleConflicts.length);
 
   if (!filteredConflicts.length) {
     return "<p>Sin datos</p>";
   }
 
-  return `${renderConflictFilters(groupedConflicts)}<ul class="conflict-tree">${filteredConflicts
+  return `${renderConflictFilters(groupedConflicts)}<ul class="conflict-tree">${visibleConflicts
     .map(conflict => {
       const modalKey = registerConflictModal(conflict, currentPanelState?.code ? countriesData[currentPanelState.code]?.name : "");
-      const campaigns = sortConflicts(conflict.campaigns || []);
-      const battles = sortConflicts(conflict.battles || []);
+      const groupKey = normalizeText(conflict.name);
+      const defaultChildLimit = isMobileLayout() ? 3 : 5;
+      const childLimit = Math.max(defaultChildLimit, Number(currentPanelState.conflictChildLimits?.[groupKey]) || 0);
+      const allCampaigns = sortConflicts(conflict.campaigns || []);
+      const allBattles = sortConflicts(conflict.battles || []);
+      const campaigns = allCampaigns.slice(0, Math.max(1, Math.ceil(childLimit / 2)));
+      const battles = allBattles.slice(0, childLimit);
       const detail = CONFLICT_DETAIL_OVERRIDES[conflict.name] || {};
       const type = getConflictTypeLabel(inferConflictType(conflict, detail));
       const scope = getConflictScopeLabel(inferConflictScope(conflict, detail));
@@ -6467,7 +6505,8 @@ function renderConflicts(conflicts) {
           </button>
           ${campaigns.length ? `<ul class="conflict-campaigns">${campaigns.map(campaign => {
             const campaignKey = registerConflictModal(campaign, currentPanelState?.code ? countriesData[currentPanelState.code]?.name : "");
-            const campaignBattles = sortConflicts(campaign.battles || []);
+            const allCampaignBattles = sortConflicts(campaign.battles || []);
+            const campaignBattles = allCampaignBattles.slice(0, childLimit);
             return `<li>
               <button type="button" class="conflict-trigger conflict-trigger-campaign" data-conflict-key="${campaignKey}">
                 <span class="conflict-trigger-title">${escapeHtml(campaign.name)}</span>
@@ -6477,16 +6516,27 @@ function renderConflicts(conflicts) {
                 const battleKey = registerConflictModal(battle, currentPanelState?.code ? countriesData[currentPanelState.code]?.name : "");
                 return `<li><button type="button" class="conflict-trigger conflict-trigger-battle" data-conflict-key="${battleKey}"><span class="conflict-trigger-title">${escapeHtml(battle.name)}</span><span class="conflict-trigger-period">${formatConflictPeriod(battle).trim()}</span></button></li>`;
               }).join("")}</ul>` : ""}
+              ${allCampaignBattles.length > campaignBattles.length ? `<p class="compare-note">+${formatNumber(allCampaignBattles.length - campaignBattles.length)} ${currentLanguage === "en" ? "battles in this campaign" : "batallas en esta campana"}</p>` : ""}
             </li>`;
           }).join("")}</ul>` : ""}
           ${battles.length ? `<ul class="conflict-battles">${battles.map(battle => {
             const battleKey = registerConflictModal(battle, currentPanelState?.code ? countriesData[currentPanelState.code]?.name : "");
             return `<li><button type="button" class="conflict-trigger conflict-trigger-battle" data-conflict-key="${battleKey}"><span class="conflict-trigger-title">${escapeHtml(battle.name)}</span><span class="conflict-trigger-period">${formatConflictPeriod(battle).trim()}</span></button></li>`;
           }).join("")}</ul>` : ""}
+          ${(allCampaigns.length > campaigns.length || allBattles.length > battles.length) ? `
+            <button type="button" class="conflict-child-more" data-conflict-expand-children="${escapeHtml(groupKey)}">
+              ${currentLanguage === "en" ? "Show more related actions" : "Mostrar mas acciones relacionadas"}
+            </button>
+          ` : ""}
         </li>
       `;
     })
-    .join("")}</ul>`;
+    .join("")}</ul>${remainingConflicts ? `
+      <button type="button" class="panel-action-button conflict-load-more" data-conflict-load-more>
+        ${currentLanguage === "en" ? "Show" : "Mostrar"} ${formatNumber(Math.min(defaultVisibleLimit, remainingConflicts))} ${currentLanguage === "en" ? "more" : "mas"}
+        <span>${formatNumber(visibleConflicts.length)} / ${formatNumber(filteredConflicts.length)}</span>
+      </button>
+    ` : ""}`;
 }
 
 function getConflictModalEntryDetail(entry) {
@@ -6500,15 +6550,15 @@ function getConflictModalEntryDetail(entry) {
 }
 
 function maybeEnhanceOpenConflictModal(key, entry) {
-  if (!entry?.conflict || deferredDataStatus.wikipediaConflicts || loadWikipediaConflictDetailsPromise) {
+  if (!entry?.conflict?.name) {
     return;
   }
 
-  loadWikipediaConflictDetails()
-    .then(() => {
+  loadWikipediaConflictDetails(entry.conflict.name)
+    .then(loadedDetail => {
       const currentEntry = conflictModalRegistry.get(key);
       const modal = document.getElementById("conflict-modal");
-      if (!currentEntry || modal?.hidden) {
+      if (!loadedDetail || !currentEntry || modal?.hidden) {
         return;
       }
       currentEntry.detail = getConflictModalContent(currentEntry.conflict, currentEntry.countryName || "");
@@ -6908,10 +6958,6 @@ async function renderCountry(country, fallbackName) {
     ensureDeferredUiModule("timelineConflicts")
   ]);
   const countryCode = getCountryCodeByObject(country);
-  // Curaduria profunda se solicita al abrir una ficha, nunca durante el arranque global.
-  loadRuntimeCuration().catch(error => {
-    console.warn("No se pudo completar la curaduria de la ficha:", error);
-  });
   if (countryCode) {
     appStore?.setState({ selectedCode: countryCode }, "country-render");
   }
@@ -6939,7 +6985,15 @@ async function renderCountry(country, fallbackName) {
       panel.innerHTML = countryPanelUi.renderSkeleton(country, currentLanguage);
       openCountryModal();
     }
-    loadCountryDetail(countryCode);
+    const detailedCountry = await loadCountryDetail(countryCode);
+    if (
+      detailedCountry
+      && !detailedCountry.metadata?.isIndex
+      && currentPanelState.type === "country"
+      && currentPanelState.code === countryCode
+    ) {
+      await renderCountry(detailedCountry, fallbackName);
+    }
     return;
   }
   const symbolAssets = getCountrySymbolAssets(country, countryCode);
@@ -6979,11 +7033,23 @@ async function renderCountry(country, fallbackName) {
     currentPanelState.type === "country" && currentPanelState.code === countryCode
       ? (currentPanelState.conflictFilter || defaultTimelineFilters.conflictFilter)
       : defaultTimelineFilters.conflictFilter;
+  const preserveConflictState = currentPanelState.type === "country" && currentPanelState.code === countryCode;
+  const conflictRegion = preserveConflictState ? (currentPanelState.conflictRegion || "all") : "all";
+  const conflictOutcome = preserveConflictState ? (currentPanelState.conflictOutcome || "all") : "all";
+  const conflictSide = preserveConflictState ? (currentPanelState.conflictSide || "all") : "all";
+  const conflictVisibleLimit = preserveConflictState ? (currentPanelState.conflictVisibleLimit || 0) : 0;
+  const conflictChildLimits = preserveConflictState ? (currentPanelState.conflictChildLimits || {}) : {};
+  const countryLoadedSections = preserveConflictState
+    ? (currentPanelState.countryLoadedSections || ["country-section-general"])
+    : ["country-section-general"];
+  const countryActiveSection = preserveConflictState
+    ? (currentPanelState.countryActiveSection || "country-section-general")
+    : "country-section-general";
   const countryViewMode =
     currentPanelState.type === "country" && currentPanelState.code === countryCode
       ? (currentPanelState.countryViewMode || "full")
       : "full";
-  currentPanelState = { type: "country", code: countryCode, fallbackName, timelineFilter, timelineCentury, timelineIntensity, timelineRelevance, timelineMode, conflictFilter, countryViewMode };
+  currentPanelState = { type: "country", code: countryCode, fallbackName, timelineFilter, timelineCentury, timelineIntensity, timelineRelevance, timelineMode, conflictFilter, conflictRegion, conflictOutcome, conflictSide, conflictVisibleLimit, conflictChildLimits, countryViewMode, countryLoadedSections, countryActiveSection };
   const general = country.general || {};
   const economy = country.economy || {};
   const military = country.military || {};
@@ -7080,19 +7146,19 @@ async function renderCountry(country, fallbackName) {
     )}
     ${createSection(
       t("history"),
-      `
+      countryLoadedSections.includes("country-section-history") ? `
         <p><b>${t("origin")}:</b> ${translateHistoryText(history.origin)}</p>
         <p><b>${t("type")}:</b> ${translateHistoryText(history.type)}</p>
         <p><b>${t("formationYear")}:</b> ${history.year || t("noData")}</p>
         <p><b>${t("timeline")}:</b></p>
         ${renderTimeline(country)}
-      `,
-      false,
+      ` : renderDeferredCountrySectionPrompt("country-section-history"),
+      countryActiveSection === "country-section-history",
       "country-section-history"
     )}
     ${createSection(
       t("economy"),
-      `
+      countryLoadedSections.includes("country-section-economy") ? `
         <p><b>${t("gdp")}:</b> ${economy.gdp ? `US$ ${formatNumber(Math.round(economy.gdp))}` : t("noData")}</p>
         <p><b>${t("gdpPerCapita")}:</b> ${
           economy.gdpPerCapita
@@ -7106,38 +7172,43 @@ async function renderCountry(country, fallbackName) {
         ${renderList(economy.exports)}
         <p><b>Industrias:</b></p>
         ${renderList(economy.industries)}
-      `,
-      false,
+      ` : renderDeferredCountrySectionPrompt("country-section-economy"),
+      countryActiveSection === "country-section-economy",
       "country-section-economy"
     )}
     ${compactHidden ? "" : createSection(
       t("military"),
-      `
+      countryLoadedSections.includes("country-section-military") ? `
         <p><b>${t("activePersonnel")}:</b> ${formatNumber(military.active)}</p>
         <p><b>${t("reserve")}:</b> ${formatNumber(military.reserve)}</p>
         ${renderConflictOverview(conflictGroups, country)}
         ${renderRelatedConflictSummary(conflictGroups)}
         <p><b>${conflictsLabel}</b></p>
         ${renderConflicts(conflictsSinceFormation)}
+      ` : `
+        <div class="deferred-country-section">
+          <p>${currentLanguage === "en" ? "Conflict hierarchy and detailed filters load when this section is opened." : "La jerarquia y los filtros de conflictos se cargan al abrir esta seccion."}</p>
+          <button type="button" class="panel-action-button" data-country-load-section="country-section-military">${currentLanguage === "en" ? "Load military detail" : "Cargar detalle militar"}</button>
+        </div>
       `,
-      false,
+      countryActiveSection === "country-section-military",
       "country-section-military"
     )}
     ${compactHidden ? "" : createSection(
       t("politics"),
-      `
+      countryLoadedSections.includes("country-section-politics") ? `
         <p><b>${t("politicalSystem")}:</b> ${politics.system || t("noData")}</p>
         <p><b>${t("organizations")}:</b></p>
         ${renderOrganizations(politics.organizations)}
         <p><b>Rivales historicos y actuales:</b></p>
         ${renderRivals(politics.rivals)}
-      `,
-      false,
+      ` : renderDeferredCountrySectionPrompt("country-section-politics"),
+      countryActiveSection === "country-section-politics",
       "country-section-politics"
     )}
     ${teachingHidden ? "" : createSection(
       t("relations"),
-      `
+      countryLoadedSections.includes("country-section-relations") ? `
         ${renderRelationsSummary(country, countryCode)}
         ${renderRelationNetwork(country, countryCode)}
         <div class="relation-group">
@@ -7202,20 +7273,24 @@ async function renderCountry(country, fallbackName) {
             ...(country.politics?.relations?.currentRivals || [])
           ]))}
         </div>
-      `,
-      false,
+      ` : renderDeferredCountrySectionPrompt("country-section-relations"),
+      countryActiveSection === "country-section-relations",
       "country-section-relations"
     )}
     ${createSection(
       t("religion"),
-      `${renderReligionMiniMetrics(country.religion)}${renderReligion(country.religion)}`,
-      false,
+      countryLoadedSections.includes("country-section-religion")
+        ? `${renderReligionMiniMetrics(country.religion)}${renderReligion(country.religion)}`
+        : renderDeferredCountrySectionPrompt("country-section-religion"),
+      countryActiveSection === "country-section-religion",
       "country-section-religion"
     )}
     ${createSection(
       currentLanguage === "en" ? "Sources and quality" : "Fuentes y calidad",
-      `${renderDataQualityHighlights(country)}${renderDataQuality(country)}${renderCountryLocalTools(country, countryCode, savedNotes)}`,
-      false,
+      countryLoadedSections.includes("country-section-sources")
+        ? `${renderDataQualityHighlights(country)}${renderDataQuality(country)}${renderCountryLocalTools(country, countryCode, savedNotes)}`
+        : renderDeferredCountrySectionPrompt("country-section-sources"),
+      countryActiveSection === "country-section-sources",
       "country-section-sources"
     )}
     </div>
@@ -10576,11 +10651,8 @@ function rerenderCurrentPanel() {
     }
   };
 
-  if (typeof requestAnimationFrame === "function") {
-    rerenderCurrentPanelFrame = requestAnimationFrame(flush);
-  } else {
-    rerenderCurrentPanelFrame = setTimeout(flush, 16);
-  }
+  // Los navegadores suspenden requestAnimationFrame en pestanas en segundo plano.
+  rerenderCurrentPanelFrame = setTimeout(flush, 0);
 }
 
 function loadSavedPreferences() {
@@ -13615,32 +13687,68 @@ async function loadDeferredDataEnhancements() {
   return loadDeferredDataEnhancementsPromise;
 }
 
-async function loadWikipediaConflictDetails() {
-  if (loadWikipediaConflictDetailsPromise) {
-    return loadWikipediaConflictDetailsPromise;
+async function loadConflictDetailsIndex() {
+  if (!loadConflictDetailsIndexPromise) {
+    loadConflictDetailsIndexPromise = fetchResourceCached(
+      `./data/conflicts/details_index.json?v=${APP_VERSION}`,
+      "json"
+    ).then(index => {
+      const byName = new Map();
+      (index?.conflicts || []).forEach(entry => {
+        [entry?.name, translateConflictName(entry?.name || "")]
+          .map(normalizeText)
+          .filter(Boolean)
+          .forEach(key => byName.set(key, entry));
+      });
+      return byName;
+    }).catch(error => {
+      console.warn("No se pudo cargar el indice de conflictos detallados:", error);
+      return new Map();
+    });
+  }
+  return loadConflictDetailsIndexPromise;
+}
+
+async function loadWikipediaConflictDetails(conflictName) {
+  const normalizedName = normalizeText(translateConflictName(conflictName || ""));
+  if (!normalizedName) {
+    return null;
+  }
+  if (conflictDetailShardPromises.has(normalizedName)) {
+    return conflictDetailShardPromises.get(normalizedName);
   }
 
-  loadWikipediaConflictDetailsPromise = (async () => {
-    markBootStepStart("fetchWikipediaConflicts");
+  const detailPromise = (async () => {
+    markBootStepStart("fetchConflictDetailShard");
     try {
-      const wikipediaConflictJson = await fetchResourceCached(`./data/conflict_details.generated.json?v=${APP_VERSION}`, "json");
-      wikipediaConflictDetailOverrides = wikipediaConflictJson?.conflicts || wikipediaConflictJson || {};
-      mergeImportedConflictDetails(wikipediaConflictDetailOverrides);
+      const detailsIndex = await loadConflictDetailsIndex();
+      const indexEntry = detailsIndex.get(normalizedName) || detailsIndex.get(normalizeText(conflictName));
+      if (!indexEntry?.path) {
+        markBootStepEnd("fetchConflictDetailShard", { skipped: true });
+        return null;
+      }
+      const importedDetail = await fetchResourceCached(`./${indexEntry.path}?v=${APP_VERSION}`, "json");
+      const detailName = indexEntry.name || importedDetail?.name || conflictName;
+      wikipediaConflictDetailOverrides[detailName] = importedDetail;
+      wikipediaConflictDetailOverrides[conflictName] = importedDetail;
+      mergeImportedConflictDetails({
+        [detailName]: importedDetail,
+        [conflictName]: importedDetail
+      });
       deferredDataStatus.wikipediaConflicts = true;
-      markBootStepEnd("fetchWikipediaConflicts");
+      markBootStepEnd("fetchConflictDetailShard");
       refreshGlobalStats();
       updateAppStatusPanel();
-      rerenderCurrentPanel?.();
-      return wikipediaConflictDetailOverrides;
+      return importedDetail;
     } catch (error) {
-      markBootStepEnd("fetchWikipediaConflicts", { skipped: true });
-      console.warn("No se pudieron cargar los conflictos enriquecidos de Wikipedia:", error);
-      wikipediaConflictDetailOverrides = {};
-      return wikipediaConflictDetailOverrides;
+      markBootStepEnd("fetchConflictDetailShard", { skipped: true });
+      console.warn(`No se pudo cargar el detalle de ${conflictName}:`, error);
+      return null;
     }
   })();
 
-  return loadWikipediaConflictDetailsPromise;
+  conflictDetailShardPromises.set(normalizedName, detailPromise);
+  return detailPromise;
 }
 
 async function loadData() {
@@ -13802,9 +13910,6 @@ async function loadCountryDetail(code) {
       countryCodeLookup.set(country, normalizedCode);
       sanitizeCountryData(country);
       refreshLoadedCountryLayers();
-      if (currentPanelState.type === "country" && currentPanelState.code === normalizedCode) {
-        rerenderCurrentPanel?.();
-      }
       return country;
     })
     .catch(error => {
@@ -14705,9 +14810,16 @@ function setupSearchEvents() {
   });
 
   countryPanel.addEventListener("click", async event => {
+    const deferredSectionTrigger = event.target.closest("[data-country-load-section]");
+    if (deferredSectionTrigger) {
+      await activateCountrySection(deferredSectionTrigger.dataset.countryLoadSection);
+      return;
+    }
+
     const countryNavTrigger = event.target.closest("[data-country-nav]");
     if (countryNavTrigger) {
-      scrollCountrySectionIntoView(countryNavTrigger.dataset.countryNav);
+      const sectionId = countryNavTrigger.dataset.countryNav;
+      await activateCountrySection(sectionId);
       return;
     }
 
@@ -14791,6 +14903,51 @@ function setupSearchEvents() {
     const conflictFilterButton = event.target.closest("[data-conflict-filter]");
     if (conflictFilterButton) {
       currentPanelState.conflictFilter = conflictFilterButton.dataset.conflictFilter || "all";
+      currentPanelState.conflictVisibleLimit = 0;
+      rerenderCurrentPanel();
+      return;
+    }
+
+    const conflictRegionButton = event.target.closest("[data-conflict-region]");
+    if (conflictRegionButton) {
+      currentPanelState.conflictRegion = conflictRegionButton.dataset.conflictRegion || "all";
+      currentPanelState.conflictVisibleLimit = 0;
+      rerenderCurrentPanel();
+      return;
+    }
+
+    const conflictOutcomeButton = event.target.closest("[data-conflict-outcome]");
+    if (conflictOutcomeButton) {
+      currentPanelState.conflictOutcome = conflictOutcomeButton.dataset.conflictOutcome || "all";
+      currentPanelState.conflictVisibleLimit = 0;
+      rerenderCurrentPanel();
+      return;
+    }
+
+    const conflictSideButton = event.target.closest("[data-conflict-side]");
+    if (conflictSideButton) {
+      currentPanelState.conflictSide = conflictSideButton.dataset.conflictSide || "all";
+      currentPanelState.conflictVisibleLimit = 0;
+      rerenderCurrentPanel();
+      return;
+    }
+
+    const conflictLoadMoreButton = event.target.closest("[data-conflict-load-more]");
+    if (conflictLoadMoreButton) {
+      const step = isMobileLayout() ? 8 : 16;
+      currentPanelState.conflictVisibleLimit = (Number(currentPanelState.conflictVisibleLimit) || step) + step;
+      rerenderCurrentPanel();
+      return;
+    }
+
+    const conflictChildMoreButton = event.target.closest("[data-conflict-expand-children]");
+    if (conflictChildMoreButton) {
+      const groupKey = conflictChildMoreButton.dataset.conflictExpandChildren;
+      const step = isMobileLayout() ? 3 : 5;
+      currentPanelState.conflictChildLimits = {
+        ...(currentPanelState.conflictChildLimits || {}),
+        [groupKey]: (Number(currentPanelState.conflictChildLimits?.[groupKey]) || step) + step
+      };
       rerenderCurrentPanel();
       return;
     }

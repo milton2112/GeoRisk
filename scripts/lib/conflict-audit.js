@@ -64,6 +64,9 @@ const ENGLISH_CONFLICT_MARKERS = [
   "civil war",
   "front in "
 ];
+const ENGLISH_NAME_EXCEPTIONS = new Set([
+  "Batalla de Battle Mountain"
+]);
 
 export function isConflictAuditFalsePositive(block, name) {
   const set = BLOCK_FALSE_POSITIVES[block];
@@ -79,6 +82,10 @@ export function getConflictNameIssues(name) {
   const normalized = text.toLowerCase();
   const issues = [];
 
+  if (/^Q\d+$/i.test(text)) {
+    issues.push("technical_identifier");
+  }
+
   if (/[ÃÂ]/.test(text)) {
     issues.push("mojibake");
   }
@@ -86,7 +93,10 @@ export function getConflictNameIssues(name) {
   if (/[ÃÂâ€]/.test(text)) {
     issues.push("mojibake");
   }
-  if (ENGLISH_CONFLICT_MARKERS.some(marker => normalized.includes(marker))) {
+  if (!ENGLISH_NAME_EXCEPTIONS.has(text) && ENGLISH_CONFLICT_MARKERS.some(marker => normalized.includes(marker))) {
+    issues.push("english");
+  }
+  if (!ENGLISH_NAME_EXCEPTIONS.has(text) && /\b(?:war|battle|siege|campaign|battlefield|theater)\b/i.test(text)) {
     issues.push("english");
   }
   if (/^\d{4}\s+/.test(text)) {
@@ -193,13 +203,45 @@ function getConflictYears(record) {
   return inferConflictYearsFromText(flattenConflictText(record));
 }
 
-function hasUsefulDetail(detail) {
-  return Boolean(
-    detail?.cause ||
-    detail?.outcome ||
-    detail?.consequences ||
-    (Array.isArray(detail?.participants) && detail.participants.length) ||
-    (Array.isArray(detail?.chronology) && detail.chronology.length)
+const WEAK_DETAIL_MARKERS = [
+  "pendiente de curaduria",
+  "requiere ampliacion historiografica",
+  "disputa militar o politica asociada",
+  "impacto militar y politico localizado",
+  "actor registrado",
+  "oponente o fuerza local documentada",
+  "no consolidado en fuentes livianas",
+  "cierre o arreglo posterior pendiente",
+  "inicio registrado del conflicto o accion militar",
+  "cierre registrado de la fase principal",
+  "resultado pendiente"
+];
+
+function isSubstantiveConflictText(value) {
+  const normalized = String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/\s+/g, " ")
+    .trim();
+  return normalized.length >= 12 && !WEAK_DETAIL_MARKERS.some(marker => normalized.includes(marker));
+}
+
+export function hasUsefulDetail(detail) {
+  if ([detail?.cause, detail?.outcome, detail?.consequences].some(isSubstantiveConflictText)) {
+    return true;
+  }
+  const participants = Array.isArray(detail?.participants) ? detail.participants : [];
+  const chronology = Array.isArray(detail?.chronology) ? detail.chronology : [];
+  if (participants.some(item =>
+    isSubstantiveConflictText(item?.side)
+    && Array.isArray(item?.members)
+    && item.members.some(isSubstantiveConflictText)
+  )) {
+    return true;
+  }
+  return chronology.some(item =>
+    isSubstantiveConflictText(item?.text || item?.event || item?.description)
   );
 }
 

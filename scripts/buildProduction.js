@@ -48,9 +48,7 @@ const PUBLIC_FILES = [
   "data/country_weights.json",
   "data/data_manifest.json",
   "data/world_countries.geo.json",
-  "data/world_countries_simplified.geo.json",
-  "data/conflict_dyadic_summary.json",
-  "data/conflict_details.generated.json"
+  "data/world_countries_simplified.geo.json"
 ];
 
 const PUBLIC_DIRS = [

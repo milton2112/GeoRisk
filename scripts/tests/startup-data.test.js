@@ -48,9 +48,25 @@ assert.ok(countryWeights.summary.tooLargeCount >= 1, "metadata de peso debe dete
 assert.ok(dataManifest.prodExcludes.includes("reports/*.json"), "build prod debe excluir reports/*.json");
 assert.ok(dataManifest.internalTechnical.files.includes("data/countries_full.json"), "countries_full debe quedar marcado como tecnico interno");
 assert.ok(conflictDetailsIndex.conflicts.length > 100, "detalles de conflictos deben dividirse en shards bajo demanda");
+assert.ok(script.includes("data/conflicts/details_index.json"), "runtime debe consultar el indice liviano de detalles");
+assert.equal((script.match(/conflict_details\.generated\.json/g) || []).length, 0, "runtime no debe descargar el monolito de conflictos");
 for (const detail of conflictDetailsIndex.conflicts.slice(0, 10)) {
   assert.ok(await fs.pathExists(path.join(projectRoot, detail.path)), `shard faltante: ${detail.path}`);
 }
+
+let largestCountryShard = 0;
+for (const file of perCountryFiles) {
+  const countryShardPath = path.join(perCountryDir, file);
+  const countryShard = await fs.readJson(countryShardPath);
+  largestCountryShard = Math.max(largestCountryShard, (await fs.stat(countryShardPath)).size);
+  assert.ok(!Object.hasOwn(countryShard, "conflicts"), `${file} no debe duplicar conflictos en raiz`);
+  for (const conflict of countryShard.military?.conflicts || []) {
+    assert.ok(!Object.hasOwn(conflict, "cause"), `${file} debe cargar causas por shard de conflicto`);
+    assert.ok(!Object.hasOwn(conflict, "participants"), `${file} debe cargar participantes por shard de conflicto`);
+    assert.ok(!Object.hasOwn(conflict, "chronology"), `${file} debe cargar cronologia por shard de conflicto`);
+  }
+}
+assert.ok(largestCountryShard < 350000, `la ficha publica mas pesada debe quedar bajo 350 KB; actual ${largestCountryShard}`);
 
 for (const code of ["ATA", "GRL", "GUF", "TWN", "PSE", "-99"]) {
   assert.ok(index[code], `${code} debe existir en el indice liviano`);
@@ -131,8 +147,14 @@ assert.ok(!script.includes("startFullLoad"), "countries_full no debe tener dispa
 assert.ok(!script.includes("async function loadFullCountryData()"), "countries_full no debe conservar un loader global sin consumidores");
 assert.equal((script.match(/countries_full\.json/g) || []).length, 1, "countries_full solo debe quedar como fallback del indice");
 assert.ok(script.includes("async function loadCountryDetail"), "fichas deben cargar detalle por pais bajo demanda");
+assert.ok(script.includes("const detailedCountry = await loadCountryDetail(countryCode)"), "una ficha cacheada debe salir del skeleton al reabrirse");
+assert.ok(script.includes("sectionId === \"country-section-military\""), "curaduria profunda debe esperar a una seccion de historia o conflictos");
+assert.ok(script.includes("data-country-load-section=\"country-section-military\""), "arbol militar debe renderizarse solo al abrir su seccion");
+assert.ok(script.includes("function renderDeferredCountrySectionPrompt"), "secciones cerradas de ficha no deben renderizar contenido pesado");
+assert.ok(script.includes("data-conflict-expand-children"), "campanas y batallas anidadas deben expandirse por tandas");
+assert.ok(/function rerenderCurrentPanel\(\)[\s\S]{0,1500}setTimeout\(flush, 0\)/.test(script), "rerender de panel no debe depender de frames visibles");
 assert.ok(!/bootHeavyDataEnhancements[\s\S]{0,500}loadRuntimeCuration/.test(script), "curaduria profunda no debe ejecutarse desde el arranque diferido");
-assert.ok(/async function renderCountry[\s\S]{0,500}loadRuntimeCuration/.test(script), "curaduria profunda debe activarse al abrir una ficha");
+assert.ok(/sectionId === "country-section-history"[\s\S]{0,220}loadRuntimeCuration/.test(script), "curaduria profunda debe activarse al abrir historia o conflictos");
 assert.ok(script.includes("function setupCriticalCountrySearchIndex"), "busqueda de pais debe tener un indice critico liviano");
 assert.ok(/await hydrateCountriesData\(countriesJson\);\s*setupCriticalCountrySearchIndex\(\);/.test(script), "indice critico de paises debe quedar listo al terminar la hidratacion inicial");
 assert.ok(script.includes("if (countryCode && countriesData[countryCode])"), "busqueda de pais debe abrir ficha aunque la geometria siga cargando");
@@ -200,6 +222,10 @@ for (const code of ["ARG", "BRA", "CHN", "ETH", "GBR", "IDN", "NGA", "USA"]) {
 }
 for (const [code, city] of [["AFG", "Jalalabad"], ["ARM", "Vanadzor"], ["CYP", "Larnaca"], ["TUR", "Antalya"], ["VNM", "Can Tho"]]) {
   assert.ok(full[code].general.cities.some(entry => entry.name === city), `${code} debe incluir ${city}`);
+}
+assert.equal(full.CUB.general.capital.name, "La Habana", "capital de Cuba debe mostrarse en espanol");
+for (const [code, country] of Object.entries(full)) {
+  assert.ok(!(country.military?.conflicts || []).some(conflict => /^Q\d+$/i.test(conflict.name)), `${code} no debe exponer identificadores tecnicos como conflictos`);
 }
 assert.ok(script.includes("getCachedRanking"), "rankings deben cachearse por revision del dataset");
 assert.ok(script.includes("countryStyleCache"), "estilos de pais deben cachearse");

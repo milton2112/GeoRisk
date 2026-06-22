@@ -8,6 +8,12 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
+- Las fichas pais compactan sus conflictos y cargan causas, participantes y cronologias por shard al abrir cada modal.
+- La lista militar renderiza conflictos por tandas y conecta filtros de region, desenlace y bando que antes no respondian.
+- El arbol militar deja de construirse al abrir la ficha y se activa al entrar en su seccion; reabrir una ficha cacheada ya no queda trabado en el skeleton.
+- El build publico excluye monolitos tecnicos de conflictos y reduce las fichas por pais de 8,4 MB a cerca de 2 MB en total.
+- La auditoria distingue curaduria real de texto de relleno y vuelve visible la deuda historiografica pendiente.
+- Se eliminan identificadores Wikidata sin etiqueta y se corrige La Habana como capital visible de Cuba.
 - Comparador robustecido ante cargas diferidas: ya no falla si se usa antes de que llegue su modulo visual y confirma la seleccion en la ficha.
 - Noticias limitan la lista inicial por dispositivo, ofrecen fallback seguro cuando no hay titulares en vivo y dejan de renderizar 183 paises de golpe.
 - Filtros geopoliticos unifican variantes equivalentes por tildes y mayusculas para evitar opciones duplicadas.
