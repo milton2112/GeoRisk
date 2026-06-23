@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-06-23T02:22:03.208Z",
+  "generatedAt": "2026-06-23T22:04:31.650Z",
   "status": "operativo",
   "startup": {
-    "critical": "957 KB",
-    "criticalBytes": 979981,
+    "critical": "959 KB",
+    "criticalBytes": 981597,
     "deferred": "1.20 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 9238191,
@@ -23,8 +23,8 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 672052,
-        "human": "656 KB",
+        "bytes": 673668,
+        "human": "658 KB",
         "startupCritical": true
       },
       {
@@ -65,7 +65,7 @@
       {
         "path": "style-polish.css",
         "exists": true,
-        "bytes": 8715,
+        "bytes": 8974,
         "human": "9 KB",
         "startupCritical": false
       },
@@ -383,8 +383,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 672052,
-      "human": "656 KB"
+      "bytes": 673668,
+      "human": "658 KB"
     },
     {
       "path": "style.css",
@@ -413,7 +413,7 @@
     {
       "path": "style-polish.css",
       "exists": true,
-      "bytes": 8715,
+      "bytes": 8974,
       "human": "9 KB"
     },
     {

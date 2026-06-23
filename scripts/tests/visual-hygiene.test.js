@@ -48,6 +48,7 @@ assert.ok(css.includes(".performance-recommendation-card"), "panel de rendimient
 assert.ok(polishCss.includes("--ui-radius: 8px"), "componentes diferidos deben usar radio visual compacto");
 assert.ok(polishCss.includes("min-height: 44px"), "controles tactiles deben conservar un objetivo comodo");
 assert.ok(polishCss.includes(".rank-link.is-active"), "rankings deben mostrar seleccion activa");
+assert.ok(polishCss.includes(".rank-empty-state"), "rankings deben mostrar estado vacio no interactivo");
 assert.ok(polishCss.includes(".country-title > .coat-visual"), "cabecera de ficha debe reservar espacio al escudo");
 assert.ok(polishCss.includes(".conflict-trust-badge"), "modal de conflicto debe mostrar calidad de dato sin ocupar una seccion completa");
 
@@ -86,6 +87,8 @@ assert.ok(script.includes("modalFocusReturnTarget"), "modales deben restaurar el
 assert.ok(script.includes("function syncMobilePanelControlState"), "controles mobile deben sincronizar disponibilidad y estado expandido");
 assert.ok(script.includes('li.setAttribute("aria-pressed", "true")'), "seleccion de ranking debe anunciar su estado");
 assert.ok(script.includes("activeRankingKey === rankingKey"), "seleccion de ranking debe sobrevivir al rerender de datos");
+assert.ok(script.includes("if (!target) {\n    return;\n  }\n  target.innerHTML = \"\";"), "listas interactivas deben tolerar contenedores diferidos ausentes");
+assert.ok(script.includes("rank-empty-state"), "listas interactivas deben mostrar un estado vacio claro");
 assert.ok(script.includes("function getUniqueDisplayLabels"), "filtros deben unificar etiquetas equivalentes por tildes y mayusculas");
 assert.ok(script.includes("formatNumber(Math.round(capital.population))"), "poblacion de capital debe mostrarse como habitantes enteros");
 assert.ok(script.includes("formatNumber(Math.round(city.population))"), "poblacion de ciudades debe mostrarse como habitantes enteros");

@@ -6,6 +6,17 @@ const history = JSON.parse(fs.readFileSync("data/raw/history.json", "utf8"));
 const politics = JSON.parse(fs.readFileSync("data/raw/politics_details.json", "utf8"));
 const countries = JSON.parse(fs.readFileSync("data/countries_full.json", "utf8"));
 const englishSignal = /\b(of|the|for|realm|british|cameroon|republic|federation|strategic|capability|commission)\b/i;
+const mojibakeSignal = /Ã|Â|â€|�/;
+
+function collectJsonFiles(directory) {
+  return fs.readdirSync(directory, { withFileTypes: true }).flatMap(entry => {
+    const fullPath = `${directory}/${entry.name}`;
+    if (entry.isDirectory()) {
+      return collectJsonFiles(fullPath);
+    }
+    return entry.isFile() && entry.name.endsWith(".json") ? [fullPath] : [];
+  });
+}
 
 const origins = Object.entries(history).map(([code, entry]) => ({ code, value: entry?.origin || "" }));
 const organizations = Object.entries(politics).flatMap(([code, entry]) =>
@@ -19,6 +30,9 @@ const servedLanguageIssues = Object.entries(countries).flatMap(([code, country])
   ...(country.politics?.organizations || []).map(organization => ({ code, value: organization?.name || "" }))
 ]).filter(item => englishSignal.test(item.value));
 assert.deepEqual(servedLanguageIssues, [], `Los datos servidos conservan textos en ingles: ${JSON.stringify(servedLanguageIssues.slice(0, 10))}`);
+const generatedMojibakeFiles = collectJsonFiles("data")
+  .filter(file => mojibakeSignal.test(fs.readFileSync(file, "utf8")));
+assert.deepEqual(generatedMojibakeFiles, [], `Los JSON servidos no deben tener mojibake: ${JSON.stringify(generatedMojibakeFiles.slice(0, 10))}`);
 const normalizeRelation = value => String(value || "")
   .normalize("NFD")
   .replace(/\p{Diacritic}/gu, "")

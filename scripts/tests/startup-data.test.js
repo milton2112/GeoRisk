@@ -159,7 +159,11 @@ assert.ok(script.includes("function renderConflicts(conflicts, prebuiltGroups = 
 assert.ok(script.includes("warParticipationCountCache"), "conteo de participacion belica debe cachearse para rankings/radar");
 assert.ok(/function invalidateCountryDerivedCaches\(\)[\s\S]{0,350}warParticipationCountCache\.clear\(\)/.test(script), "cache de participacion belica debe invalidarse con los datos derivados");
 assert.ok(/mergeImportedConflictDetails\(curatedConflictDetailOverrides\);[\s\S]{0,120}invalidateCountryDerivedCaches\(\)/.test(script), "curaduria diferida debe invalidar caches de rankings y conflictos");
+assert.ok(/function getFilteredCountries[\s\S]{0,120}getCountryValues\(\)\.filter/.test(script), "filtros principales deben reutilizar cache de paises");
+assert.ok(/function generateTopPopulation[\s\S]{0,120}getCountryValues\(\)/.test(script), "rankings basicos deben reutilizar cache de paises");
 assert.ok(script.includes("function renderDeferredCountrySectionPrompt"), "secciones cerradas de ficha no deben renderizar contenido pesado");
+assert.ok(/function getQuizPool[\s\S]{0,900}category === "language"[\s\S]{0,450}category === "bloc"[\s\S]{0,450}category === "conflict"/.test(script), "quiz debe incluir idiomas, bloques y conflictos en el pool fallback");
+assert.ok(/buildQuizQuestion = function buildQuizQuestion[\s\S]{0,4500}category === "language"[\s\S]{0,900}category === "bloc"[\s\S]{0,900}category === "conflict"/.test(script), "quiz fallback debe generar preguntas reales de idiomas, bloques y conflictos");
 assert.ok(script.includes("data-conflict-expand-children"), "campanas y batallas anidadas deben expandirse por tandas");
 assert.ok(/function rerenderCurrentPanel\(\)[\s\S]{0,1500}setTimeout\(flush, 0\)/.test(script), "rerender de panel no debe depender de frames visibles");
 assert.ok(!/bootHeavyDataEnhancements[\s\S]{0,500}loadRuntimeCuration/.test(script), "curaduria profunda no debe ejecutarse desde el arranque diferido");
@@ -170,6 +174,12 @@ assert.ok(script.includes("if (countryCode && countriesData[countryCode])"), "bu
 assert.ok(!script.includes("countryCode && countryLayers.has(countryCode) && countriesData[countryCode]"), "busqueda no debe depender de que la capa cartografica ya exista");
 assert.ok(script.includes("./data/countries/${encodeURIComponent(normalizedCode)}.json"), "detalle por pais debe evitar hidratar countries_full");
 assert.ok(script.includes("function scheduleWhenGlobeIsQuiet"), "tareas pesadas deben esperar a que el globo este quieto");
+const geoJsonWarmupBody = script.slice(
+  script.indexOf("function scheduleGeoJsonWarmup"),
+  script.indexOf("function setNavigationQualityState")
+);
+assert.ok(!geoJsonWarmupBody.includes("category ==="), "precalentamiento GeoJSON no debe contener ramas del quiz");
+assert.ok(geoJsonWarmupBody.includes("setTimeout(warm, 320)"), "precalentamiento GeoJSON debe tener fallback sin requestIdleCallback");
 assert.ok(script.includes("function maybeEnhanceOpenConflictModal"), "conflictos enriquecidos deben cargarse bajo demanda al abrir modal");
 assert.ok(!script.includes("scheduleWhenGlobeIsQuiet(() => {\r\n      loadWikipediaConflictDetails"), "conflictos enriquecidos no deben cargarse por temporizador de arranque");
 assert.ok(script.includes("startLongTaskObserver"), "runtime debe medir bloqueos largos del hilo principal");

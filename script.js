@@ -1696,33 +1696,6 @@ function scheduleGeoJsonWarmup() {
 
   if (window.requestIdleCallback) {
     window.requestIdleCallback(warm, { timeout: 1200 });
-  } else if (category === "language") {
-    const mainLanguage = country.general.languages[0];
-    prompt = `¿Cual es uno de los idiomas principales de ${country.name}?`;
-    correct = typeof mainLanguage === "string" ? mainLanguage : (mainLanguage?.name || "Sin datos");
-    distractors = shuffleArray(
-      Object.values(countriesData)
-        .flatMap(item => item.general?.languages || [])
-        .map(item => typeof item === "string" ? item : item?.name)
-        .filter(Boolean)
-        .filter(name => normalizeText(name) !== normalizeText(correct))
-    ).slice(0, 3);
-  } else if (category === "bloc") {
-    const bloc = (country.politics?.relations?.blocs || [])[0];
-    prompt = `¿Que pais pertenece a este bloque? ${bloc}`;
-    correct = country.name;
-    distractors = shuffleArray(Object.values(countriesData).map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
-  } else if (category === "conflict") {
-    const conflict = (country.military?.conflicts || country.conflicts || [])[0];
-    const label = typeof conflict === "string" ? conflict : (conflict?.name || conflict?.war || "Conflicto");
-    prompt = `¿Que pais estuvo vinculado a ${label}?`;
-    correct = country.name;
-    distractors = shuffleArray(
-      Object.values(countriesData)
-        .filter(item => difficulty === "easy" || item.continent === country.continent)
-        .map(item => item.name)
-        .filter(name => normalizeText(name) !== normalizeText(correct))
-    ).slice(0, 3);
   } else {
     setTimeout(warm, 320);
   }
@@ -7553,9 +7526,10 @@ function updateAppStatusPanel(extra = {}) {
   }
 
   if (datasetChip) {
-    const total = Object.keys(countriesData || {}).length;
+    const countries = getCountryValues();
+    const total = countries.length;
     const avgQuality = total
-      ? Math.round(Object.values(countriesData).reduce((sum, country) => sum + (country.metadata?.quality?.score || 0), 0) / total)
+      ? Math.round(countries.reduce((sum, country) => sum + (country.metadata?.quality?.score || 0), 0) / total)
       : 0;
     const loadStateParts = [
       deferredDataStatus.countryIndex ? (currentLanguage === "en" ? "index" : "indice") : null,
@@ -7783,25 +7757,25 @@ function getHistoryPeriodLabelFromYear(year) {
 }
 
 function getCountriesByLanguage(languageLabel) {
-  return Object.values(countriesData)
+  return getCountryValues()
     .filter(country => getCountryLanguages(country).some(language => normalizeText(language) === normalizeText(languageLabel)))
     .sort((a, b) => a.name.localeCompare(b.name, "es"));
 }
 
 function getCountriesByBloc(blocLabel) {
-  return Object.values(countriesData)
+  return getCountryValues()
     .filter(country => getCountryBlocs(country).some(bloc => normalizeText(bloc) === normalizeText(blocLabel)))
     .sort((a, b) => a.name.localeCompare(b.name, "es"));
 }
 
 function getCountriesByMetropole(metropoleLabel) {
-  return Object.values(countriesData)
+  return getCountryValues()
     .filter(country => normalizeText(country?.politics?.relations?.exMetropole) === normalizeText(metropoleLabel))
     .sort((a, b) => a.name.localeCompare(b.name, "es"));
 }
 
 function getCountriesByConflict(conflictLabel) {
-  return Object.values(countriesData)
+  return getCountryValues()
     .filter(country =>
       getCountryConflictsForSearch(country).some(conflict =>
         getConflictAliasList(conflict).some(alias => normalizeText(alias) === normalizeText(conflictLabel))
@@ -7811,7 +7785,7 @@ function getCountriesByConflict(conflictLabel) {
 }
 
 function getCountriesByPeriod(periodLabel) {
-  return Object.values(countriesData)
+  return getCountryValues()
     .filter(country => {
       const year = country?.history?.year;
       if (getHistoryPeriodLabelFromYear(year) === periodLabel) {
@@ -9161,7 +9135,7 @@ function renderThemeSummary() {
     return;
   }
 
-  const values = Object.entries(countriesData)
+  const values = getCountryEntries()
     .map(([code, country]) => ({
       code,
       country,
@@ -10231,7 +10205,7 @@ function getCountryCodeByObject(country) {
 function getRankedCountryCode(country) {
   return getCountryCodeByObject(country) ||
     resolveCountryCode("", country?.name) ||
-    Object.entries(countriesData).find(([, item]) =>
+    getCountryEntries().find(([, item]) =>
       item === country || normalizeText(item?.name) === normalizeText(country?.name)
     )?.[0] ||
     "";
@@ -12334,7 +12308,18 @@ function removeCountryFromCompare(code) {
 
 function renderInteractiveList(targetId, items, onClick = () => {}) {
   const target = document.getElementById(targetId);
+  if (!target) {
+    return;
+  }
   target.innerHTML = "";
+
+  if (!items.length) {
+    const empty = document.createElement("li");
+    empty.className = "rank-empty-state";
+    empty.textContent = currentLanguage === "en" ? "No results for this view." : "Sin resultados para esta vista.";
+    target.appendChild(empty);
+    return;
+  }
 
   items.forEach(item => {
     const li = document.createElement("li");
@@ -12387,7 +12372,7 @@ function getFilterState() {
 }
 
 function getFilteredCountries(filters = getFilterState()) {
-  return Object.values(countriesData).filter(country => {
+  return getCountryValues().filter(country => {
     if (filters.continent && country.continent !== filters.continent) {
       return false;
     }
@@ -12966,7 +12951,7 @@ function setupSearchIndex(featureNameByCode) {
 }
 
 function getReligionMatches(religionName) {
-  return Object.values(countriesData)
+  return getCountryValues()
     .filter(country => isReligionMajorityInCountry(country, religionName))
     .sort((a, b) => (b.general?.population || 0) - (a.general?.population || 0));
 }
@@ -13067,13 +13052,13 @@ function hideSuggestions() {
 }
 
 function getCountriesBySystem(systemLabel) {
-  return Object.values(countriesData)
+  return getCountryValues()
     .filter(country => normalizeCategoryLabel(country.politics?.system) === systemLabel)
     .sort((a, b) => a.name.localeCompare(b.name, "es"));
 }
 
 function getCountriesByOrganization(organizationLabel) {
-  return Object.values(countriesData)
+  return getCountryValues()
     .filter(country =>
       (country.politics?.organizations || []).some(
         organization =>
@@ -13085,19 +13070,19 @@ function getCountriesByOrganization(organizationLabel) {
 }
 
 function getCountriesByHistoryType(historyType) {
-  return Object.values(countriesData)
+  return getCountryValues()
     .filter(country => getHistoryTypeLabel(country) === historyType)
     .sort((a, b) => a.name.localeCompare(b.name, "es"));
 }
 
 function getCountriesByOrigin(origin) {
-  return Object.values(countriesData)
+  return getCountryValues()
     .filter(country => getOriginLabel(country) === origin)
     .sort((a, b) => a.name.localeCompare(b.name, "es"));
 }
 
 function getCountriesByRival(rivalName) {
-  return Object.values(countriesData)
+  return getCountryValues()
     .filter(country =>
       (country.politics?.rivals || []).some(
         rival => normalizeCategoryLabel(rival?.name || rival) === rivalName
@@ -13108,7 +13093,7 @@ function getCountriesByRival(rivalName) {
 
 function getLayersForCountries(countries) {
   const matchingCodes = new Set(
-    Object.entries(countriesData)
+    getCountryEntries()
       .filter(([, country]) => countries.includes(country))
       .map(([code]) => code)
   );
@@ -13219,7 +13204,7 @@ async function selectSearchResult(result) {
   }
 
   if (result.type === "continent") {
-    const continentEntries = Object.entries(countriesData).filter(
+    const continentEntries = getCountryEntries().filter(
       ([, country]) => country.continent === result.value
     );
     const layers = continentEntries
@@ -13239,7 +13224,7 @@ async function selectSearchResult(result) {
 
   if (result.type === "religion") {
     const matches = getReligionMatches(result.value);
-    const layers = Object.entries(countriesData)
+    const layers = getCountryEntries()
       .filter(([, country]) => isReligionMajorityInCountry(country, result.value))
       .map(([code]) => countryLayers.get(code))
       .filter(Boolean);
@@ -14000,7 +13985,7 @@ function shuffleArray(items) {
 }
 
 function getQuizPool(category) {
-  return Object.values(countriesData).filter(country => {
+  return getCountryValues().filter(country => {
     if (category === "capital") {
       return Boolean(country.general?.capital?.name);
     }
@@ -14024,6 +14009,15 @@ function getQuizPool(category) {
     }
     if (category === "rival") {
       return Boolean((country.politics?.rivals || []).length);
+    }
+    if (category === "language") {
+      return Boolean((country.general?.languages || []).length);
+    }
+    if (category === "bloc") {
+      return Boolean((country.politics?.relations?.blocs || []).length);
+    }
+    if (category === "conflict") {
+      return Boolean((country.military?.conflicts || country.conflicts || []).length);
     }
     return false;
   });
@@ -14058,7 +14052,7 @@ buildQuizQuestion = function buildQuizQuestion(category) {
     prompt = `¿Cual es la capital de ${country.name}?`;
     correct = country.general.capital.name;
     distractors = shuffleArray(
-      Object.values(countriesData)
+      getCountryValues()
         .map(item => item.general?.capital?.name)
         .filter(Boolean)
         .filter(name => normalizeText(name) !== normalizeText(correct))
@@ -14067,7 +14061,7 @@ buildQuizQuestion = function buildQuizQuestion(category) {
     prompt = `¿Cual es la religion mayoritaria de ${country.name}?`;
     correct = getReligionSummaryLabel(country.religion) || "Sin datos";
     distractors = shuffleArray(
-      Object.values(countriesData)
+      getCountryValues()
         .map(item => getReligionSummaryLabel(item.religion))
         .filter(Boolean)
         .filter(name => normalizeText(name) !== normalizeText(correct))
@@ -14081,13 +14075,13 @@ buildQuizQuestion = function buildQuizQuestion(category) {
     prompt = `¿A que pais corresponde esta bandera? ${getFlagEmoji(code)}`;
     correct = country.name;
     distractors = shuffleArray(
-      Object.values(countriesData).map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))
+      getCountryValues().map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))
     ).slice(0, 3);
   } else if (category === "history") {
     prompt = `¿En que año se formo ${country.name}?`;
     correct = String(country.history.year);
     distractors = shuffleArray(
-      Object.values(countriesData)
+      getCountryValues()
         .map(item => item.history?.year)
         .filter(Boolean)
         .map(String)
@@ -14098,20 +14092,47 @@ buildQuizQuestion = function buildQuizQuestion(category) {
     prompt = `¿Que pais pertenece a esta organizacion? ${org}`;
     correct = country.name;
     distractors = shuffleArray(
-      Object.values(countriesData).map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))
+      getCountryValues().map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))
     ).slice(0, 3);
   } else if (category === "rival") {
     const rival = country.politics.rivals[0]?.name || country.politics.rivals[0];
     prompt = `¿Que pais tiene como rival a ${rival}?`;
     correct = country.name;
     distractors = shuffleArray(
-      Object.values(countriesData).map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))
+      getCountryValues().map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))
+    ).slice(0, 3);
+  } else if (category === "language") {
+    const mainLanguage = country.general.languages[0];
+    prompt = `¿Cual es uno de los idiomas principales de ${country.name}?`;
+    correct = typeof mainLanguage === "string" ? mainLanguage : (mainLanguage?.name || "Sin datos");
+    distractors = shuffleArray(
+      getCountryValues()
+        .flatMap(item => item.general?.languages || [])
+        .map(item => typeof item === "string" ? item : item?.name)
+        .filter(Boolean)
+        .filter(name => normalizeText(name) !== normalizeText(correct))
+    ).slice(0, 3);
+  } else if (category === "bloc") {
+    const bloc = (country.politics?.relations?.blocs || [])[0];
+    prompt = `¿Que pais pertenece a este bloque? ${bloc}`;
+    correct = country.name;
+    distractors = shuffleArray(getCountryValues().map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
+  } else if (category === "conflict") {
+    const conflict = (country.military?.conflicts || country.conflicts || [])[0];
+    const label = typeof conflict === "string" ? conflict : (conflict?.name || conflict?.war || "Conflicto");
+    prompt = `¿Que pais estuvo vinculado a ${label}?`;
+    correct = country.name;
+    distractors = shuffleArray(
+      getCountryValues()
+        .filter(item => quizState.difficulty === "easy" || item.continent === country.continent)
+        .map(item => item.name)
+        .filter(name => normalizeText(name) !== normalizeText(correct))
     ).slice(0, 3);
   } else {
     prompt = `¿Cual es el sistema politico principal de ${country.name}?`;
     correct = country.politics.system;
     distractors = shuffleArray([...new Set(
-      Object.values(countriesData)
+      getCountryValues()
         .map(item => item.politics?.system)
         .filter(Boolean)
         .filter(name => normalizeText(name) !== normalizeText(correct))
@@ -14137,7 +14158,7 @@ function generateWorldPopulation() {
 }
 
 function generateTopPopulation() {
-  const list = Object.values(countriesData)
+  const list = getCountryValues()
     .filter(country => (country.general?.population || 0) > 0)
     .sort((a, b) => (b.general.population || 0) - (a.general.population || 0))
     .slice(0, 10);
@@ -14156,7 +14177,7 @@ function generateTopPopulation() {
 function generateContinents() {
   const totals = {};
 
-  Object.values(countriesData).forEach(country => {
+  getCountryValues().forEach(country => {
     const continent = country.continent || "Unknown";
     totals[continent] = (totals[continent] || 0) + (country.general?.population || 0);
   });
@@ -14182,7 +14203,7 @@ function generateReligions() {
 
   const familyTotals = new Map();
 
-  Object.values(countriesData).forEach(country => {
+  getCountryValues().forEach(country => {
     const population = country.general?.population || 0;
     const composition = Array.isArray(country.religion?.composition) && country.religion.composition.length
       ? country.religion.composition
@@ -14250,7 +14271,7 @@ function generateReligions() {
 }
 
 function generateGdpRanking() {
-  const list = Object.values(countriesData)
+  const list = getCountryValues()
     .filter(country => (country.economy?.gdp || 0) > 0)
     .sort((a, b) => (b.economy?.gdp || 0) - (a.economy?.gdp || 0))
     .slice(0, 10);
@@ -14262,7 +14283,7 @@ function generateGdpRanking() {
 }
 
 function generateInflationRanking() {
-  const list = Object.values(countriesData)
+  const list = getCountryValues()
     .filter(country => country.economy?.inflation || country.economy?.inflation === 0)
     .sort((a, b) => (b.economy?.inflation || 0) - (a.economy?.inflation || 0))
     .slice(0, 10);
@@ -14275,7 +14296,7 @@ function generateInflationRanking() {
 
 function generateSystemRanking() {
   const totals = {};
-  Object.values(countriesData).forEach(country => {
+  getCountryValues().forEach(country => {
     const key = normalizeCategoryLabel(country.politics?.system);
     if (!key || key === "Sin datos") {
       return;
@@ -15108,35 +15129,35 @@ function setupThemeControls() {
   religionFilter.innerHTML += religionOptions.map(label => `<option value="${escapeHtml(label)}">${escapeHtml(label)}</option>`).join("");
 
   const systemOptions = getUniqueDisplayLabels(
-    Object.values(countriesData)
+    getCountryValues()
       .map(country => normalizeCategoryLabel(country.politics?.system))
       .filter(label => label && label !== "Sin datos")
   );
   systemFilter.innerHTML += systemOptions.map(label => `<option value="${escapeHtml(label)}">${escapeHtml(label)}</option>`).join("");
 
   const organizationOptions = getUniqueDisplayLabels(
-    Object.values(countriesData)
+    getCountryValues()
       .flatMap(country => (country.politics?.organizations || []).map(getOrganizationDisplayName))
       .filter(Boolean)
   );
   organizationFilter.innerHTML += organizationOptions.map(label => `<option value="${escapeHtml(label)}">${escapeHtml(label)}</option>`).join("");
 
   const historyTypeOptions = getUniqueDisplayLabels(
-    Object.values(countriesData)
+    getCountryValues()
       .map(country => getHistoryTypeLabel(country))
       .filter(label => label && label !== "Sin datos")
   );
   historyTypeFilter.innerHTML += historyTypeOptions.map(label => `<option value="${escapeHtml(label)}">${escapeHtml(label)}</option>`).join("");
 
   const originOptions = getUniqueDisplayLabels(
-    Object.values(countriesData)
+    getCountryValues()
       .map(country => getOriginLabel(country))
       .filter(label => label && label !== "Sin datos")
   );
   originFilter.innerHTML += originOptions.map(label => `<option value="${escapeHtml(label)}">${escapeHtml(label)}</option>`).join("");
 
   const rivalOptions = getUniqueDisplayLabels(
-    Object.values(countriesData)
+    getCountryValues()
       .flatMap(country => (country.politics?.rivals || []).map(rival => normalizeCategoryLabel(rival?.name || rival)))
       .filter(label => label && label !== "Sin datos")
   );
@@ -15341,7 +15362,7 @@ function buildQuizQuestion(category) {
     }
   }
 
-  const pool = Object.entries(countriesData).filter(([code, country]) => {
+  const pool = getCountryEntries().filter(([code, country]) => {
     if (quizState.asked.includes(code)) return false;
     if (category === "map") return Boolean(country.continent);
     if (category === "economy") return Boolean(country.economy?.gdpPerCapita);
@@ -15368,13 +15389,13 @@ function buildQuizQuestion(category) {
   if (category === "capital") {
     prompt = `¿Cual es la capital de ${country.name}?`;
     correct = country.general.capital.name;
-    distractors = shuffleArray(Object.values(countriesData)
+    distractors = shuffleArray(getCountryValues()
       .filter(item => difficulty === "easy" || item.continent === country.continent)
       .map(item => item.general?.capital?.name).filter(Boolean).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
   } else if (category === "religion") {
     prompt = `¿Cual es la religion mayoritaria de ${country.name}?`;
     correct = getReligionSummaryLabel(country.religion) || "Sin datos";
-    distractors = shuffleArray(Object.values(countriesData).map(item => getReligionSummaryLabel(item.religion)).filter(Boolean).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
+    distractors = shuffleArray(getCountryValues().map(item => getReligionSummaryLabel(item.religion)).filter(Boolean).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
   } else if (category === "continent") {
     prompt = `¿En que continente se ubica ${country.name}?`;
     correct = translateContinentName(country.continent);
@@ -15386,29 +15407,52 @@ function buildQuizQuestion(category) {
   } else if (category === "flag") {
     prompt = `¿A que pais corresponde esta bandera? ${getFlagEmoji(code)}`;
     correct = country.name;
-    distractors = shuffleArray(Object.values(countriesData).filter(item => difficulty === "easy" || item.continent === country.continent).map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
+    distractors = shuffleArray(getCountryValues().filter(item => difficulty === "easy" || item.continent === country.continent).map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
   } else if (category === "history") {
     prompt = `¿En que año se formo ${country.name}?`;
     correct = String(country.history.year);
-    distractors = shuffleArray(Object.values(countriesData).map(item => item.history?.year).filter(Boolean).map(String).filter(value => value !== correct)).slice(0, 3);
+    distractors = shuffleArray(getCountryValues().map(item => item.history?.year).filter(Boolean).map(String).filter(value => value !== correct)).slice(0, 3);
   } else if (category === "economy") {
     prompt = `¿Que pais tiene un PBI per capita aproximado de US$ ${formatNumber(Math.round(country.economy.gdpPerCapita))}?`;
     correct = country.name;
-    distractors = shuffleArray(Object.values(countriesData).filter(item => item.economy?.gdpPerCapita).map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
+    distractors = shuffleArray(getCountryValues().filter(item => item.economy?.gdpPerCapita).map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
   } else if (category === "organization") {
     const org = getOrganizationDisplayName(country.politics.organizations[0]);
     prompt = `¿Que pais pertenece a esta organizacion? ${org}`;
     correct = country.name;
-    distractors = shuffleArray(Object.values(countriesData).map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
+    distractors = shuffleArray(getCountryValues().map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
   } else if (category === "rival") {
     const rival = country.politics.rivals[0]?.name || country.politics.rivals[0];
     prompt = `¿Que pais tiene como rival a ${rival}?`;
     correct = country.name;
-    distractors = shuffleArray(Object.values(countriesData).map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
+    distractors = shuffleArray(getCountryValues().map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
+  } else if (category === "language") {
+    const mainLanguage = country.general.languages[0];
+    prompt = `¿Cual es uno de los idiomas principales de ${country.name}?`;
+    correct = typeof mainLanguage === "string" ? mainLanguage : (mainLanguage?.name || "Sin datos");
+    distractors = shuffleArray(getCountryValues()
+      .flatMap(item => item.general?.languages || [])
+      .map(item => typeof item === "string" ? item : item?.name)
+      .filter(Boolean)
+      .filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
+  } else if (category === "bloc") {
+    const bloc = (country.politics?.relations?.blocs || [])[0];
+    prompt = `¿Que pais pertenece a este bloque? ${bloc}`;
+    correct = country.name;
+    distractors = shuffleArray(getCountryValues().map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
+  } else if (category === "conflict") {
+    const conflict = (country.military?.conflicts || country.conflicts || [])[0];
+    const label = typeof conflict === "string" ? conflict : (conflict?.name || conflict?.war || "Conflicto");
+    prompt = `¿Que pais estuvo vinculado a ${label}?`;
+    correct = country.name;
+    distractors = shuffleArray(getCountryValues()
+      .filter(item => difficulty === "easy" || item.continent === country.continent)
+      .map(item => item.name)
+      .filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
   } else {
     prompt = `¿Cual es el sistema politico principal de ${country.name}?`;
     correct = country.politics.system;
-    distractors = shuffleArray([...new Set(Object.values(countriesData).map(item => item.politics?.system).filter(Boolean).filter(name => normalizeText(name) !== normalizeText(correct)))]).slice(0, 3);
+    distractors = shuffleArray([...new Set(getCountryValues().map(item => item.politics?.system).filter(Boolean).filter(name => normalizeText(name) !== normalizeText(correct)))]).slice(0, 3);
   }
 
   if (distractors.length < 3) return null;
@@ -15974,13 +16018,13 @@ shareText = async function shareText(title, text) {
 
 function getCompareSelectionList(filterText = "") {
   const normalizedFilter = normalizeText(filterText);
-  return Object.entries(countriesData)
+  return getCountryEntries()
     .filter(([, country]) => !normalizedFilter || normalizeText(country.name).includes(normalizedFilter) || normalizeText(country.general?.officialName).includes(normalizedFilter))
     .sort(([, a], [, b]) => String(a.name).localeCompare(String(b.name), "es"));
 }
 
 function getComparisonBenchmark(country) {
-  const world = Object.values(countriesData);
+  const world = getCountryValues();
   const continentPeers = world.filter(item => item.continent === country.continent);
   const peers = compareBenchmarkMode === "continent" ? continentPeers : world;
   return {
