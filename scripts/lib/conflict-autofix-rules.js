@@ -2,6 +2,7 @@ export const SAFE_CONFLICT_RENAMES = {
   "Batalla naval de RÃ¼gen": "Batalla naval de Rugen",
   "Batalla de Rügen": "Batalla naval de Rugen",
   "Adriatic Campaign de World War II": "Campana del Adriatico en la Segunda Guerra Mundial",
+  "Northern France Campana": "Campana del norte de Francia",
   "Raid on Le Havre": "Incursion sobre Le Havre",
   "Sunda Strait campaign de January 1794": "Campana del estrecho de Sonda de enero de 1794",
   "Raid on Boulogne": "Incursion sobre Boulogne",

@@ -15,6 +15,7 @@ import {
 } from "./lib/conflict-curation-theater.js";
 import { collectConflictCountryNames, curateConflictDetail, curateConflictEntry } from "./lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "./lib/conflict-cleaning.js";
+import { readJsonWithRetry, writeJsonWithRetry } from "./lib/resilient-fs.js";
 
 const projectRoot = path.resolve(process.cwd());
 const fullPath = path.join(projectRoot, "data", "countries_full.json");
@@ -194,7 +195,7 @@ function fixCountryConflicts(country, countriesByConflict) {
 }
 
 async function fixCountriesFile(filePath, countriesByConflict) {
-  const data = await fs.readJson(filePath);
+  const data = await readJsonWithRetry(filePath);
   let changedCountries = 0;
 
   if (data.name) {
@@ -206,14 +207,14 @@ async function fixCountriesFile(filePath, countriesByConflict) {
   }
 
   if (changedCountries) {
-    await fs.writeJson(filePath, data, { spaces: 0 });
+    await writeJsonWithRetry(filePath, data, { spaces: 0 });
   }
 
   return changedCountries;
 }
 
 async function fixGeneratedDetails(countriesByConflict) {
-  const generated = await fs.readJson(generatedDetailsPath);
+  const generated = await readJsonWithRetry(generatedDetailsPath);
   const conflicts = generated.conflicts || generated;
   let renamed = 0;
   let enriched = 0;
@@ -259,20 +260,20 @@ async function fixGeneratedDetails(countriesByConflict) {
     }
   }
 
-  await fs.writeJson(generatedDetailsPath, generated, { spaces: 2 });
+  await writeJsonWithRetry(generatedDetailsPath, generated, { spaces: 2 });
   return { renamed, enriched };
 }
 
 let changedFullCountries = 0;
 let countriesByConflict = new Map();
 for (let pass = 0; pass < 3; pass += 1) {
-  const fullCountries = await fs.readJson(fullPath);
+  const fullCountries = await readJsonWithRetry(fullPath);
   countriesByConflict = collectConflictCountryNames(fullCountries);
   const changedThisPass = await fixCountriesFile(fullPath, countriesByConflict);
   changedFullCountries += changedThisPass;
   if (!changedThisPass) break;
 }
-countriesByConflict = collectConflictCountryNames(await fs.readJson(fullPath));
+countriesByConflict = collectConflictCountryNames(await readJsonWithRetry(fullPath));
 let changedCountryFiles = 0;
 for (const file of (await fs.readdir(countriesDir)).filter(item => item.endsWith(".json"))) {
   changedCountryFiles += await fixCountriesFile(path.join(countriesDir, file), countriesByConflict);
@@ -289,7 +290,7 @@ const report = {
 };
 
 await fs.ensureDir(path.dirname(reportPath));
-await fs.writeJson(reportPath, report, { spaces: 2 });
+await writeJsonWithRetry(reportPath, report, { spaces: 2 });
 
 console.log(`Paises actualizados en countries_full: ${changedFullCountries}`);
 console.log(`Fichas por pais actualizadas: ${changedCountryFiles}`);

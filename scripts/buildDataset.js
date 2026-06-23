@@ -8,6 +8,7 @@ import {
 import { buildStartupCountryIndex } from "./lib/startup-index.js";
 import { repairMojibake as repairMojibakeShared } from "./lib/text-normalization.js";
 import { buildPublicCountryRecord } from "./lib/public-country-record.js";
+import { applyVisibleStringReplacements, isTechnicalIdentifier } from "./lib/visible-data-corrections.js";
 
 const YEAR_COLUMNS = Array.from({ length: 2025 - 1960 + 1 }, (_, index) =>
   String(2025 - index)
@@ -3523,7 +3524,7 @@ function sanitizeText(value) {
     return value;
   }
 
-  return repairMojibake(value)
+  const cleaned = repairMojibake(value)
     .replace(/\bRepublica\b/g, "\u0052\u0065\u0070\u00FA\u0062\u006C\u0069\u0063\u0061")
     .replace(/\bDemocratica\b/g, "\u0044\u0065\u006D\u006F\u0063\u0072\u00E1\u0074\u0069\u0063\u0061")
     .replace(/\bIslamica\b/g, "\u0049\u0073\u006C\u00E1\u006D\u0069\u0063\u0061")
@@ -3552,6 +3553,8 @@ function sanitizeText(value) {
     .replace(/\bAfganistan\b/g, "\u0041\u0066\u0067\u0061\u006E\u0069\u0073\u0074\u00E1\u006E")
     .replace(/\bTiananmen\b/g, "\u0054\u0069\u0061\u006E\u0061\u006E\u006D\u00E9\u006E")
     .trim();
+
+  return applyVisibleStringReplacements(cleaned);
 }
 
 function applyUnicodeCorrections(value) {
@@ -3647,6 +3650,30 @@ function toDisplayTitleCase(value) {
     .replace(/(^|[\s\-/'(])([\p{L}])/gu, (match, prefix, letter) => `${prefix}${letter.toLocaleUpperCase("es")}`);
 }
 
+function normalizePlaceName(value) {
+  const cleaned = sanitizeText(value);
+  if (!cleaned) {
+    return cleaned;
+  }
+  const hasLongUppercaseRun = /[\p{Lu}]{3,}/u.test(cleaned);
+  const isAllCapsLabel = /^[\p{Lu}\s.'-]{4,}$/u.test(cleaned);
+  return hasLongUppercaseRun && isAllCapsLabel ? toDisplayTitleCase(cleaned) : cleaned;
+}
+
+function normalizeOrganizationName(name, abbreviation = "") {
+  const cleanedName = sanitizeText(name);
+  if (cleanedName && !isTechnicalIdentifier(cleanedName)) {
+    return cleanedName;
+  }
+  const cleanedAbbreviation = sanitizeText(abbreviation);
+  return cleanedAbbreviation && !isTechnicalIdentifier(cleanedAbbreviation) ? cleanedAbbreviation : null;
+}
+
+function normalizeOrganizationAbbreviation(value) {
+  const cleaned = sanitizeText(value);
+  return cleaned && !isTechnicalIdentifier(cleaned) ? cleaned : null;
+}
+
 function formatFormationType(value) {
   const labels = {
     independencia: "Independencia",
@@ -3671,9 +3698,9 @@ function buildCityList(...lists) {
 
     const normalizedEntry =
       typeof entry === "string"
-        ? { name: entry, population: null, isCapital: false }
+        ? { name: normalizePlaceName(entry), population: null, isCapital: false }
         : {
-            name: entry.name || null,
+            name: normalizePlaceName(entry.name || null),
             population: compactNumber(entry.population),
             isCapital: Boolean(entry.isCapital)
           };
@@ -3705,10 +3732,11 @@ function parseOrganizationEntry(entry) {
   }
 
   if (typeof entry !== "string") {
-    return entry.name
+    const name = normalizeOrganizationName(entry.name, entry.abbreviation);
+    return name
       ? {
-          name: entry.name,
-          abbreviation: entry.abbreviation || null,
+          name,
+          abbreviation: normalizeOrganizationAbbreviation(entry.abbreviation),
           startYear: compactNumber(entry.startYear),
           endYear: compactNumber(entry.endYear)
         }
@@ -3717,8 +3745,8 @@ function parseOrganizationEntry(entry) {
 
   const cleaned = entry.replace(/\s+\((politica|econ[oÃ³]mica|militar|regional)\)\s*$/i, "").trim();
   const abbreviationMatch = cleaned.match(/\(([^)]+)\)\s*$/);
-  const abbreviation = abbreviationMatch ? abbreviationMatch[1].trim() : null;
-  const name = abbreviationMatch ? cleaned.replace(/\(([^)]+)\)\s*$/,"").trim() : cleaned;
+  const abbreviation = abbreviationMatch ? normalizeOrganizationAbbreviation(abbreviationMatch[1].trim()) : null;
+  const name = normalizeOrganizationName(abbreviationMatch ? cleaned.replace(/\(([^)]+)\)\s*$/,"").trim() : cleaned, abbreviation);
 
   if (!name) {
     return null;

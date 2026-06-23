@@ -1,5 +1,5 @@
 (() => {
-  const POLISH_VERSION = window.GeoRiskAppVersion || "2026-06-23-release-2";
+  const POLISH_VERSION = window.GeoRiskAppVersion || "2026-06-23-release-3";
   const POLISH_STYLESHEET = `./style-polish.css?v=${POLISH_VERSION}`;
   const FOCUSABLE_SELECTOR = [
     "a[href]",
@@ -96,11 +96,32 @@
     document.head.appendChild(stylesheet);
   }
 
+  function syncNetworkStatus() {
+    const status = document.getElementById("offline-status");
+    const isOnline = navigator.onLine !== false;
+    document.body.dataset.networkState = isOnline ? "online" : "offline";
+    if (!status) return;
+    status.classList.add("offline-state-inline");
+    status.dataset.networkState = isOnline ? "online" : "offline";
+    status.setAttribute("role", "status");
+    status.setAttribute("aria-live", "polite");
+    if (!isOnline) {
+      status.textContent = "Sin conexion: usando modo offline parcial.";
+    }
+  }
+
+  function installNetworkStatus() {
+    syncNetworkStatus();
+    window.addEventListener("online", syncNetworkStatus);
+    window.addEventListener("offline", syncNetworkStatus);
+  }
+
   function init() {
     loadPolishStyles();
     enhanceTooltips();
     markDialogs();
     applyCompactLabels();
+    installNetworkStatus();
   }
 
   window.GeoRiskUiPolish = {
@@ -112,6 +133,8 @@
     trapFocus,
     applyCompactLabels,
     loadPolishStyles,
+    syncNetworkStatus,
+    installNetworkStatus,
     init
   };
 })();

@@ -1,9 +1,9 @@
 {
   "name": "geo-risk",
-  "version": "1.6.3",
+  "version": "1.6.4",
   "type": "module",
   "scripts": {
-    "build:data": "node scripts/buildDataset.js",
+    "build:data": "node scripts/buildDataset.js && node scripts/applyConflictAutofix.js && node scripts/buildDataIndexes.js",
     "build:prod": "node scripts/buildProduction.js",
     "import:conflicts:wikipedia": "node scripts/importWikipediaConflicts.js",
     "import:conflicts:dyadic": "powershell -ExecutionPolicy Bypass -File scripts/importDyadicSupplement.ps1",

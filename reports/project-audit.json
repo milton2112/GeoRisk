@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-06-23T22:42:12.526Z",
+  "generatedAt": "2026-06-23T22:59:40.534Z",
   "status": "operativo",
   "startup": {
     "critical": "952 KB",
-    "criticalBytes": 974972,
-    "deferred": "1.20 MB",
+    "criticalBytes": 974941,
+    "deferred": "1.21 MB",
     "estimatedRuntimeMemory": {
-      "countriesFullBytes": 9236567,
-      "countriesFullHuman": "8.81 MB",
-      "estimatedParsedBytes": 27709701,
-      "estimatedParsedHuman": "26.43 MB",
+      "countriesFullBytes": 9230827,
+      "countriesFullHuman": "8.80 MB",
+      "estimatedParsedBytes": 27692481,
+      "estimatedParsedHuman": "26.41 MB",
       "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
     },
     "largestAssets": [
@@ -44,7 +44,7 @@
       {
         "path": "data/countries_index.json",
         "exists": true,
-        "bytes": 171445,
+        "bytes": 171414,
         "human": "167 KB",
         "startupCritical": true
       },
@@ -65,8 +65,8 @@
       {
         "path": "style-polish.css",
         "exists": true,
-        "bytes": 8974,
-        "human": "9 KB",
+        "bytes": 9823,
+        "human": "10 KB",
         "startupCritical": false
       },
       {
@@ -110,25 +110,25 @@
       {
         "path": "data/timeline_index.json",
         "exists": true,
-        "bytes": 286607,
+        "bytes": 286604,
         "human": "280 KB"
       },
       {
         "path": "data/conflicts_index.json",
         "exists": true,
-        "bytes": 232655,
-        "human": "227 KB"
+        "bytes": 233024,
+        "human": "228 KB"
       },
       {
         "path": "data/search_index.json",
         "exists": true,
-        "bytes": 192928,
+        "bytes": 193015,
         "human": "188 KB"
       },
       {
         "path": "data/countries_index.json",
         "exists": true,
-        "bytes": 171445,
+        "bytes": 171414,
         "human": "167 KB"
       },
       {
@@ -146,15 +146,15 @@
     ],
     "countryWeights": {
       "totalCountries": 183,
-      "fullBytes": 9236567,
-      "duplicatedCountryFilesBytes": 1826899,
+      "fullBytes": 9230827,
+      "duplicatedCountryFilesBytes": 1826411,
       "tooLargeCount": 3,
       "largest": [
         {
           "code": "USA",
           "name": "Estados Unidos",
-          "bytes": 173929,
-          "inlineBytes": 2704537,
+          "bytes": 174125,
+          "inlineBytes": 2703699,
           "tooLarge": true,
           "counts": {
             "cities": 5,
@@ -170,8 +170,8 @@
         {
           "code": "GBR",
           "name": "Reino Unido",
-          "bytes": 63170,
-          "inlineBytes": 821687,
+          "bytes": 63138,
+          "inlineBytes": 821121,
           "tooLarge": true,
           "counts": {
             "cities": 5,
@@ -187,8 +187,8 @@
         {
           "code": "FRA",
           "name": "Francia",
-          "bytes": 47218,
-          "inlineBytes": 651317,
+          "bytes": 47237,
+          "inlineBytes": 651023,
           "tooLarge": true,
           "counts": {
             "cities": 5,
@@ -204,8 +204,8 @@
         {
           "code": "SWE",
           "name": "Suecia",
-          "bytes": 32246,
-          "inlineBytes": 424423,
+          "bytes": 32250,
+          "inlineBytes": 423381,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -221,8 +221,8 @@
         {
           "code": "AUS",
           "name": "Australia",
-          "bytes": 23214,
-          "inlineBytes": 176901,
+          "bytes": 23187,
+          "inlineBytes": 176805,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -238,8 +238,8 @@
         {
           "code": "CAN",
           "name": "Canadá",
-          "bytes": 17877,
-          "inlineBytes": 110984,
+          "bytes": 17848,
+          "inlineBytes": 110922,
           "tooLarge": false,
           "counts": {
             "cities": 4,
@@ -255,11 +255,11 @@
         {
           "code": "DNK",
           "name": "Dinamarca",
-          "bytes": 17549,
-          "inlineBytes": 133888,
+          "bytes": 17484,
+          "inlineBytes": 133607,
           "tooLarge": false,
           "counts": {
-            "cities": 5,
+            "cities": 4,
             "capitals": 1,
             "languages": 1,
             "religionGroups": 8,
@@ -273,7 +273,7 @@
           "code": "ITA",
           "name": "Italia",
           "bytes": 16818,
-          "inlineBytes": 50679,
+          "inlineBytes": 50657,
           "tooLarge": false,
           "counts": {
             "cities": 4,
@@ -290,7 +290,7 @@
           "code": "MAR",
           "name": "Marruecos",
           "bytes": 16131,
-          "inlineBytes": 151743,
+          "inlineBytes": 151645,
           "tooLarge": false,
           "counts": {
             "cities": 4,
@@ -307,7 +307,7 @@
           "code": "RUS",
           "name": "Rusia",
           "bytes": 15851,
-          "inlineBytes": 124611,
+          "inlineBytes": 124511,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -324,7 +324,7 @@
           "code": "DEU",
           "name": "Alemania",
           "bytes": 15459,
-          "inlineBytes": 42352,
+          "inlineBytes": 42334,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -341,7 +341,7 @@
           "code": "POL",
           "name": "Polonia",
           "bytes": 15429,
-          "inlineBytes": 76281,
+          "inlineBytes": 76239,
           "tooLarge": false,
           "counts": {
             "cities": 4,
@@ -401,8 +401,8 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 16477,
-      "human": "16 KB"
+      "bytes": 17423,
+      "human": "17 KB"
     },
     {
       "path": "TECHNICAL.md",
@@ -413,8 +413,8 @@
     {
       "path": "style-polish.css",
       "exists": true,
-      "bytes": 8974,
-      "human": "9 KB"
+      "bytes": 9823,
+      "human": "10 KB"
     },
     {
       "path": "app-compare-ui.js",
@@ -453,16 +453,16 @@
       "human": "6 KB"
     },
     {
+      "path": "app-ui-polish.js",
+      "exists": true,
+      "bytes": 5283,
+      "human": "5 KB"
+    },
+    {
       "path": "app-risk-radar-ui.js",
       "exists": true,
       "bytes": 4639,
       "human": "5 KB"
-    },
-    {
-      "path": "app-ui-polish.js",
-      "exists": true,
-      "bytes": 4467,
-      "human": "4 KB"
     },
     {
       "path": "app-conflict-audit-ui.js",
@@ -473,7 +473,7 @@
     {
       "path": "package.json",
       "exists": true,
-      "bytes": 3668,
+      "bytes": 3744,
       "human": "4 KB"
     },
     {

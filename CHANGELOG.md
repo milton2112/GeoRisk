@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.3 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.4 antes de cerrar la siguiente version.
+
+## v1.6.4 - 2026-06-23
+
+- Endurece la limpieza visible con una libreria compartida para reemplazos, identificadores tecnicos `Q...` y nombres urbanos crudos.
+- Integra esa limpieza al generador del dataset para que rebuilds futuros no reintroduzcan organizaciones tecnicas ni ciudades en mayusculas.
+- Protege `npm run build:data` para que regenere dataset, curaduria de conflictos e indices en una sola pasada consistente.
+- Hace resiliente el autofix de conflictos ante bloqueos temporales de OneDrive al leer o escribir JSON grandes.
+- Normaliza ciudades visibles como `PRAHA`, `KOBENHAVN`, `ATHINAI`, `CUIDAD DE GUATEMALA`, `ULAANBAATAR`, `BUCURESTI` y variantes similares.
+- Mejora el estado offline diferido con indicador visual, `aria-live` y `body[data-network-state]` para mobile y escritorio.
+- Agrega pruebas de calidad de datos y visual hygiene para bloquear regresiones de ciudades crudas, organizaciones tecnicas y estado offline.
 
 ## v1.6.3 - 2026-06-23
 

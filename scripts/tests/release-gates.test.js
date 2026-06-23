@@ -55,6 +55,8 @@ assert.ok(script.includes("window.GeoRiskAppVersion = APP_VERSION"), "script.js 
 assert.ok(uiPolish.includes("window.GeoRiskAppVersion"), "app-ui-polish debe leer el stamp de version activo");
 assert.ok(uiPolish.includes("style-polish.css?v=${POLISH_VERSION}"), "style-polish.css diferido debe usar el stamp de version activo");
 assert.ok(changelog.includes(`## v${packageJson.version}`), "CHANGELOG.md debe documentar la version del paquete");
+assert.ok(packageJson.scripts["build:data"].includes("applyConflictAutofix.js"), "build:data debe reaplicar curaduria de conflictos tras regenerar el dataset");
+assert.ok(packageJson.scripts["build:data"].includes("buildDataIndexes.js"), "build:data debe dejar indices publicos sincronizados");
 assert.ok(appShell.length <= 18, "APP_SHELL debe mantenerse chico");
 assert.ok(!appShellText.includes("countries_full.json"), "countries_full no debe entrar en APP_SHELL");
 assert.ok(!appShellText.includes("conflict_details.generated.json"), "conflict_details no debe entrar en APP_SHELL");

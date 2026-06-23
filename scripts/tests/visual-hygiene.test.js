@@ -52,8 +52,10 @@ assert.ok(polishCss.includes(".rank-link.is-active"), "rankings deben mostrar se
 assert.ok(polishCss.includes(".rank-empty-state"), "rankings deben mostrar estado vacio no interactivo");
 assert.ok(polishCss.includes(".country-title > .coat-visual"), "cabecera de ficha debe reservar espacio al escudo");
 assert.ok(polishCss.includes(".conflict-trust-badge"), "modal de conflicto debe mostrar calidad de dato sin ocupar una seccion completa");
+assert.ok(polishCss.includes("#offline-status.offline-state-inline"), "estado offline debe tener tratamiento visual diferido");
 
 const performanceUi = await fs.readFile(path.join(projectRoot, "app-performance-ui.js"), "utf8");
+const uiPolish = await fs.readFile(path.join(projectRoot, "app-ui-polish.js"), "utf8");
 assert.ok(performanceUi.includes("Recomendacion automatica"), "rendimiento debe explicar la recomendacion en espanol");
 assert.ok(performanceUi.includes("Arranque sano"), "rendimiento debe distinguir estado sano");
 assert.ok(performanceUi.includes("Degradaciones automaticas de render"), "rendimiento debe mostrar degradaciones automaticas");
@@ -90,6 +92,8 @@ assert.ok(script.includes('li.setAttribute("aria-pressed", "true")'), "seleccion
 assert.ok(script.includes("activeRankingKey === rankingKey"), "seleccion de ranking debe sobrevivir al rerender de datos");
 assert.ok(script.includes("if (!target) {\n    return;\n  }\n  target.innerHTML = \"\";"), "listas interactivas deben tolerar contenedores diferidos ausentes");
 assert.ok(script.includes("rank-empty-state"), "listas interactivas deben mostrar un estado vacio claro");
+assert.ok(uiPolish.includes("document.body.dataset.networkState"), "pulido visual debe exponer estado de red en el body");
+assert.ok(uiPolish.includes('status.setAttribute("aria-live", "polite")'), "estado offline debe anunciar cambios sin interrumpir");
 assert.ok(script.includes("function getUniqueDisplayLabels"), "filtros deben unificar etiquetas equivalentes por tildes y mayusculas");
 assert.ok(script.includes("formatNumber(Math.round(capital.population))"), "poblacion de capital debe mostrarse como habitantes enteros");
 assert.ok(script.includes("formatNumber(Math.round(city.population))"), "poblacion de ciudades debe mostrarse como habitantes enteros");

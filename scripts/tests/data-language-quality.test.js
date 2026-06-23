@@ -61,6 +61,18 @@ const technicalOrganizations = Object.entries(countries).flatMap(([code, country
     .map(organization => ({ code, name: organization.name }))
 );
 assert.deepEqual(technicalOrganizations, [], `No deben quedar identificadores Wikidata visibles en organizaciones: ${JSON.stringify(technicalOrganizations.slice(0, 10))}`);
+const rawTechnicalOrganizations = Object.entries(politics).flatMap(([code, entry]) =>
+  (entry?.organizations || [])
+    .filter(organization => /^Q\d+$/i.test(organization?.name || ""))
+    .map(organization => ({ code, name: organization.name }))
+);
+assert.deepEqual(rawTechnicalOrganizations, [], `Raw politico no debe conservar organizaciones tecnicas visibles: ${JSON.stringify(rawTechnicalOrganizations.slice(0, 10))}`);
+const shoutingCities = Object.entries(countries).flatMap(([code, country]) =>
+  [...(country.general?.cities || []), ...(country.general?.capitals || [])]
+    .map(city => ({ code, name: typeof city === "string" ? city : city?.name || "" }))
+    .filter(city => /^[A-ZÀ-Ý\s.'-]{4,}$/.test(city.name) && /[A-ZÀ-Ý]{3}/.test(city.name))
+);
+assert.deepEqual(shoutingCities, [], `No deben quedar ciudades visibles en mayusculas crudas: ${JSON.stringify(shoutingCities.slice(0, 10))}`);
 const normalizeRelation = value => String(value || "")
   .normalize("NFD")
   .replace(/\p{Diacritic}/gu, "")
