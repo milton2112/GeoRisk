@@ -40,6 +40,7 @@ assert.equal(perCountryFiles.length, Object.keys(full).length);
 assert.ok(Buffer.byteLength(JSON.stringify(index)) < Buffer.byteLength(JSON.stringify(full)) * 0.34);
 assert.ok(Buffer.byteLength(JSON.stringify(index)) < 200000, "countries_index debe quedar por debajo de 200 KB");
 assert.ok(Array.isArray(conflictsIndex) && conflictsIndex.length > 1000, "debe existir indice liviano de conflictos");
+assert.equal(conflictsIndex.filter(conflict => !Number.isFinite(conflict.startYear)).length, 0, "indice publico de conflictos no debe publicar entradas sin fecha");
 assert.ok(Array.isArray(timelineIndex) && timelineIndex.length > 1000, "debe existir indice liviano de timeline");
 assert.equal(searchIndex.length, Object.keys(full).length, "indice de busqueda debe cubrir todos los paises");
 assert.ok(Buffer.byteLength(JSON.stringify(searchIndex)) < 220000, "search_index debe mantenerse liviano");
@@ -47,6 +48,8 @@ assert.equal(countryWeights.summary.totalCountries, Object.keys(full).length, "m
 assert.ok(countryWeights.summary.tooLargeCount >= 1, "metadata de peso debe detectar fichas grandes");
 assert.ok(dataManifest.prodExcludes.includes("reports/*.json"), "build prod debe excluir reports/*.json");
 assert.ok(dataManifest.internalTechnical.files.includes("data/countries_full.json"), "countries_full debe quedar marcado como tecnico interno");
+const curationAudit = await fs.readJson(path.join(projectRoot, "reports", "data-curation-audit.json"));
+assert.ok(curationAudit.conflictDateQuality?.pendingCount > 0, "auditoria debe listar conflictos pendientes de fecha fuera del indice publico");
 assert.ok(conflictDetailsIndex.conflicts.length > 100, "detalles de conflictos deben dividirse en shards bajo demanda");
 assert.ok(script.includes("data/conflicts/details_index.json"), "runtime debe consultar el indice liviano de detalles");
 assert.equal((script.match(/conflict_details\.generated\.json/g) || []).length, 0, "runtime no debe descargar el monolito de conflictos");
@@ -264,6 +267,7 @@ assert.ok(script.includes("async function renderProjectAuditPanel"), "runtime de
 assert.ok(script.includes("Que falta curar"), "ficha pais debe mostrar que falta curar");
 assert.ok(appRuntime.includes(" - rendimiento"), "perfil runtime debe usar separador ASCII estable");
 assert.ok(!appRuntime.includes("Â"), "app-runtime no debe exponer mojibake visible");
+assert.ok(script.includes("fecha pendiente"), "conflictos sin fecha deben mostrar estado de curaduria pendiente");
 
 for (const country of Object.values(index)) {
   const relations = country.politics?.relations || {};

@@ -8,6 +8,11 @@ import { MID_1800_CONFLICT_DETAIL_FIXES, MID_1800_SAFE_CONFLICT_RENAMES } from "
 import { LATE_1800_CONFLICT_DETAIL_FIXES, LATE_1800_SAFE_CONFLICT_RENAMES } from "./lib/conflict-curation-1877-1914.js";
 import { INTERWAR_CONFLICT_DETAIL_FIXES, INTERWAR_SAFE_CONFLICT_RENAMES } from "./lib/conflict-curation-1919-1941.js";
 import { WWII_1942_CONFLICT_DETAIL_FIXES, WWII_1942_SAFE_CONFLICT_RENAMES } from "./lib/conflict-curation-1942.js";
+import {
+  getContextualConflictName,
+  THEATER_CONFLICT_DETAIL_FIXES,
+  THEATER_SAFE_CONFLICT_RENAMES
+} from "./lib/conflict-curation-theater.js";
 import { collectConflictCountryNames, curateConflictDetail, curateConflictEntry } from "./lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "./lib/conflict-cleaning.js";
 
@@ -24,7 +29,8 @@ const curatedConflictDetailFixes = {
   ...MID_1800_CONFLICT_DETAIL_FIXES,
   ...LATE_1800_CONFLICT_DETAIL_FIXES,
   ...INTERWAR_CONFLICT_DETAIL_FIXES,
-  ...WWII_1942_CONFLICT_DETAIL_FIXES
+  ...WWII_1942_CONFLICT_DETAIL_FIXES,
+  ...THEATER_CONFLICT_DETAIL_FIXES
 };
 const safeConflictRenames = {
   ...SAFE_CONFLICT_RENAMES,
@@ -33,7 +39,8 @@ const safeConflictRenames = {
   ...MID_1800_SAFE_CONFLICT_RENAMES,
   ...LATE_1800_SAFE_CONFLICT_RENAMES,
   ...INTERWAR_SAFE_CONFLICT_RENAMES,
-  ...WWII_1942_SAFE_CONFLICT_RENAMES
+  ...WWII_1942_SAFE_CONFLICT_RENAMES,
+  ...THEATER_SAFE_CONFLICT_RENAMES
 };
 
 function renameConflictName(name) {
@@ -147,10 +154,13 @@ function normalizeConflictEntryWithContext(entry, context) {
     ...entry,
     name: renameConflictName(entry.name)
   };
+  renamedEntry.name = getContextualConflictName(renamedEntry);
   const inferredCuration = inferWorldWarBattleCuration(renamedEntry);
+  const curatedDetailFix = curatedConflictDetailFixes[renamedEntry.name] || {};
   const curatedEntry = {
     ...renamedEntry,
-    ...(inferredCuration || {})
+    ...(inferredCuration || {}),
+    ...curatedDetailFix
   };
   return curateConflictEntry(curatedEntry, context);
 }

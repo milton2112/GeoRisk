@@ -144,6 +144,7 @@ function inferRegionHint(entry = {}) {
 
 function inferConflictType(entry = {}, warRule = null) {
   const text = `${entry.name || ""} ${entry.type || ""}`.toLowerCase();
+  if (entry.conflictType) return entry.conflictType;
   if (warRule?.type) return warRule.type;
   if (/\bcivil\b|guerra civil/.test(text)) return "civil";
   if (/\bindependencia|liberacion\b/.test(text)) return "independencia";

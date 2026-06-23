@@ -229,6 +229,11 @@
   .country-title > .coat-visual {
     margin-right: 0;
   }
+
+  .conflict-trigger-period {
+    max-width: 44%;
+    white-space: normal;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -275,6 +280,13 @@
   color: var(--text-color);
 }
 
+.conflict-trigger-period {
+  max-width: 38%;
+  overflow: hidden;
+  text-align: right;
+  text-overflow: ellipsis;
+}
+
 .deferred-country-section {
   display: grid;
   justify-items: start;
@@ -288,4 +300,9 @@
 .deferred-country-section p {
   margin: 0;
   color: var(--muted-text);
+}
+
+#map-toolbar[open] > summary::after,
+#rankings-panel[open] > summary::after {
+  content: "-";
 }

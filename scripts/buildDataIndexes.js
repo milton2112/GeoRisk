@@ -164,9 +164,22 @@ function buildConflictIndex(countries) {
       byName.set(key, entry);
     }
   }
-  return [...byName.values()]
-    .map(entry => ({ ...entry, countries: unique(entry.countries).sort() }))
+  const entries = [...byName.values()]
+    .map(entry => ({ ...entry, countries: unique(entry.countries).sort() }));
+  const undated = entries
+    .filter(entry => !Number.isFinite(entry.startYear))
+    .map(entry => ({
+      name: entry.name,
+      countries: entry.countries,
+      regions: entry.regions,
+      types: entry.types,
+      reason: "sin startYear consolidado en fuentes internas"
+    }))
+    .sort((a, b) => a.name.localeCompare(b.name, "es"));
+  const dated = entries
+    .filter(entry => Number.isFinite(entry.startYear))
     .sort((a, b) => (a.startYear ?? 99999) - (b.startYear ?? 99999) || a.name.localeCompare(b.name, "es"));
+  return { dated, undated };
 }
 
 function buildTimelineIndex(countries) {
@@ -320,7 +333,7 @@ function sectionSourceTrace(country = {}) {
   );
 }
 
-function buildCurationAudit(countries, weights) {
+function buildCurationAudit(countries, weights, undatedConflicts = []) {
   const gaps = [];
   const languageIssues = [];
   const singlePrimaryLanguageProfiles = new Set(["PRK", "KOR"]);
@@ -407,6 +420,11 @@ function buildCurationAudit(countries, weights) {
       issueCount: languageIssues.length,
       issues: languageIssues.slice(0, 200)
     },
+    conflictDateQuality: {
+      pendingCount: undatedConflicts.length,
+      description: "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
+      examples: undatedConflicts.slice(0, 160)
+    },
     gapsByType: gaps.reduce((acc, gap) => {
       acc[gap.type] = (acc[gap.type] || 0) + 1;
       return acc;
@@ -442,12 +460,13 @@ function buildManifest() {
 
 await fs.ensureDir(reportsDir);
 const countries = await readJsonWithRetry(path.join(dataDir, "countries_full.json"));
-const conflictIndex = buildConflictIndex(countries);
+const conflictIndexResult = buildConflictIndex(countries);
+const conflictIndex = conflictIndexResult.dated;
 const timelineIndex = buildTimelineIndex(countries);
 const searchIndex = buildSearchIndex(countries);
 await writePublicCountryShards(countries);
 const weights = await buildCountryWeights(countries);
-const curationAudit = buildCurationAudit(countries, weights);
+const curationAudit = buildCurationAudit(countries, weights, conflictIndexResult.undated);
 const manifest = buildManifest();
 const conflictDetailsIndex = await buildConflictDetailShards();
 
@@ -460,6 +479,7 @@ await writeJsonWithRetry(path.join(dataDir, "conflicts", "details_index.json"), 
 await writeJsonWithRetry(path.join(reportsDir, "data-curation-audit.json"), curationAudit, { spaces: 2 });
 
 console.log(`conflicts_index: ${conflictIndex.length} conflictos`);
+console.log(`conflict_date_pending: ${conflictIndexResult.undated.length} conflictos fuera del indice fechable`);
 console.log(`timeline_index: ${timelineIndex.length} eventos`);
 console.log(`search_index: ${searchIndex.length} paises`);
 console.log(`country_weights: ${weights.summary.tooLargeCount} fichas sobre ${LARGE_COUNTRY_BYTES} bytes`);

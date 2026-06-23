@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-06-22T21:02:00.749Z",
-  "startupBytes": 979128,
+  "generatedAt": "2026-06-23T01:58:31.731Z",
+  "startupBytes": 979201,
   "startupHuman": "956 KB",
-  "deferredBytes": 1224313,
-  "deferredHuman": "1.17 MB",
+  "deferredBytes": 1232140,
+  "deferredHuman": "1.18 MB",
   "estimatedRuntimeMemory": {
-    "countriesFullBytes": 8370743,
-    "countriesFullHuman": "7.98 MB",
-    "estimatedParsedBytes": 25112229,
-    "estimatedParsedHuman": "23.95 MB",
+    "countriesFullBytes": 8325075,
+    "countriesFullHuman": "7.94 MB",
+    "estimatedParsedBytes": 24975225,
+    "estimatedParsedHuman": "23.82 MB",
     "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
   },
   "largestAssets": [
     {
       "path": "data/conflict_details.generated.json",
       "exists": true,
-      "bytes": 721025,
-      "human": "704 KB",
+      "bytes": 728560,
+      "human": "711 KB",
       "startupCritical": false
     },
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 668671,
+      "bytes": 668736,
       "human": "653 KB",
       "startupCritical": true
     },
@@ -43,7 +43,7 @@
     {
       "path": "data/countries_index.json",
       "exists": true,
-      "bytes": 171431,
+      "bytes": 171439,
       "human": "167 KB",
       "startupCritical": true
     },
@@ -90,9 +90,9 @@
       "startupCritical": false
     },
     {
-      "path": "app-rankings.js",
+      "path": "style-polish.css",
       "exists": true,
-      "bytes": 6164,
+      "bytes": 6399,
       "human": "6 KB",
       "startupCritical": false
     }
@@ -108,7 +108,7 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 668671,
+      "bytes": 668736,
       "human": "653 KB",
       "startupCritical": true
     },
@@ -122,7 +122,7 @@
     {
       "path": "style-polish.css",
       "exists": true,
-      "bytes": 6107,
+      "bytes": 6399,
       "human": "6 KB",
       "startupCritical": false
     },
@@ -255,7 +255,7 @@
     {
       "path": "data/countries_index.json",
       "exists": true,
-      "bytes": 171431,
+      "bytes": 171439,
       "human": "167 KB",
       "startupCritical": true
     },
@@ -283,8 +283,8 @@
     {
       "path": "data/conflict_details.generated.json",
       "exists": true,
-      "bytes": 721025,
-      "human": "704 KB",
+      "bytes": 728560,
+      "human": "711 KB",
       "startupCritical": false
     },
     {

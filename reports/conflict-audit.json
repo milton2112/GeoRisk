@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-06-22T21:01:58.883Z",
-  "scannedConflicts": 2002,
-  "issueCount": 1474,
+  "generatedAt": "2026-06-23T01:58:29.883Z",
+  "scannedConflicts": 2003,
+  "issueCount": 1473,
   "summary": {
-    "weak_detail": 1474
+    "weak_detail": 1473
   },
   "topIssues": [
     {
@@ -658,10 +658,10 @@
       "autoFixes": []
     },
     {
-      "key": "dutch conquest de new sweden",
-      "name": "Dutch conquest de New Sweden",
+      "key": "conquista neerlandesa de nueva suecia",
+      "name": "Conquista neerlandesa de Nueva Suecia",
       "names": [
-        "Dutch conquest de New Sweden"
+        "Conquista neerlandesa de Nueva Suecia"
       ],
       "countries": [
         "SWE"
@@ -694,10 +694,10 @@
       "autoFixes": []
     },
     {
-      "key": "asedio de warsaw",
-      "name": "Asedio de Warsaw",
+      "key": "asedio de varsovia",
+      "name": "Asedio de Varsovia",
       "names": [
-        "Asedio de Warsaw"
+        "Asedio de Varsovia"
       ],
       "countries": [
         "SWE"
@@ -730,10 +730,10 @@
       "autoFixes": []
     },
     {
-      "key": "captura de warsaw 1657",
-      "name": "Captura de Warsaw (1657)",
+      "key": "captura de varsovia 1657",
+      "name": "Captura de Varsovia (1657)",
       "names": [
-        "Captura de Warsaw (1657)"
+        "Captura de Varsovia (1657)"
       ],
       "countries": [
         "SWE"
@@ -766,10 +766,10 @@
       "autoFixes": []
     },
     {
-      "key": "swedish invasion de brandenburg",
-      "name": "Swedish Invasion de Brandenburg",
+      "key": "invasion sueca de brandeburgo",
+      "name": "Invasion sueca de Brandeburgo",
       "names": [
-        "Swedish Invasion de Brandenburg"
+        "Invasion sueca de Brandeburgo"
       ],
       "countries": [
         "SWE"
@@ -856,10 +856,10 @@
       "autoFixes": []
     },
     {
-      "key": "newfoundland expedition",
-      "name": "Newfoundland Expedition",
+      "key": "expedicion de terranova",
+      "name": "Expedicion de Terranova",
       "names": [
-        "Newfoundland Expedition"
+        "Expedicion de Terranova"
       ],
       "countries": [
         "FRA"
@@ -910,10 +910,10 @@
       "autoFixes": []
     },
     {
-      "key": "naval battles en greifswalder bodden",
-      "name": "Naval battles en Greifswalder Bodden",
+      "key": "batallas navales en greifswalder bodden",
+      "name": "Batallas navales en Greifswalder Bodden",
       "names": [
-        "Naval battles en Greifswalder Bodden"
+        "Batallas navales en Greifswalder Bodden"
       ],
       "countries": [
         "DNK",
@@ -1164,10 +1164,10 @@
       "autoFixes": []
     },
     {
-      "key": "mount hope bay raids",
-      "name": "Mount Hope Bay raids",
+      "key": "incursiones en la bahia de mount hope",
+      "name": "Incursiones en la bahia de Mount Hope",
       "names": [
-        "Mount Hope Bay raids"
+        "Incursiones en la bahia de Mount Hope"
       ],
       "countries": [
         "USA"
@@ -1218,10 +1218,10 @@
       "autoFixes": []
     },
     {
-      "key": "sullivan expedition",
-      "name": "Sullivan Expedition",
+      "key": "expedicion de sullivan",
+      "name": "Expedicion de Sullivan",
       "names": [
-        "Sullivan Expedition"
+        "Expedicion de Sullivan"
       ],
       "countries": [
         "USA"
@@ -1687,6 +1687,24 @@
       "autoFixes": []
     },
     {
+      "key": "accion de fragata del 29 de mayo de 1794",
+      "name": "Accion de fragata del 29 de mayo de 1794",
+      "names": [
+        "Accion de fragata del 29 de mayo de 1794"
+      ],
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1794,
+      "endYear": 1794,
+      "ongoing": false,
+      "issues": [
+        "weak_detail"
+      ],
+      "severity": 3,
+      "autoFixes": []
+    },
+    {
       "key": "accion del 21 octubre 1794",
       "name": "Accion del 21 Octubre 1794",
       "names": [
@@ -1841,24 +1859,6 @@
       ],
       "startYear": 1794,
       "endYear": 1795,
-      "ongoing": false,
-      "issues": [
-        "weak_detail"
-      ],
-      "severity": 3,
-      "autoFixes": []
-    },
-    {
-      "key": "frigate action de 29 may 1794",
-      "name": "Frigate action de 29 May 1794",
-      "names": [
-        "Frigate action de 29 May 1794"
-      ],
-      "countries": [
-        "FRA"
-      ],
-      "startYear": 1794,
-      "endYear": 1794,
       "ongoing": false,
       "issues": [
         "weak_detail"
@@ -3111,10 +3111,10 @@
       "autoFixes": []
     },
     {
-      "key": "battles de emuckfaw y enotachopo creek",
-      "name": "Battles de Emuckfaw y Enotachopo Creek",
+      "key": "batallas de emuckfaw y enotachopo creek",
+      "name": "Batallas de Emuckfaw y Enotachopo Creek",
       "names": [
-        "Battles de Emuckfaw y Enotachopo Creek"
+        "Batallas de Emuckfaw y Enotachopo Creek"
       ],
       "countries": [
         "USA"
@@ -4946,6 +4946,24 @@
       "autoFixes": []
     },
     {
+      "key": "accion del 16 de marzo de 1917",
+      "name": "Accion del 16 de marzo de 1917",
+      "names": [
+        "Accion del 16 de marzo de 1917"
+      ],
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1917,
+      "endYear": 1917,
+      "ongoing": false,
+      "issues": [
+        "weak_detail"
+      ],
+      "severity": 3,
+      "autoFixes": []
+    },
+    {
       "key": "accion del 17 noviembre 1917",
       "name": "Accion del 17 Noviembre 1917",
       "names": [
@@ -4971,24 +4989,6 @@
       ],
       "countries": [
         "AUS"
-      ],
-      "startYear": 1917,
-      "endYear": 1917,
-      "ongoing": false,
-      "issues": [
-        "weak_detail"
-      ],
-      "severity": 3,
-      "autoFixes": []
-    },
-    {
-      "key": "action de 16 march 1917",
-      "name": "Action de 16 March 1917",
-      "names": [
-        "Action de 16 March 1917"
-      ],
-      "countries": [
-        "GBR"
       ],
       "startYear": 1917,
       "endYear": 1917,

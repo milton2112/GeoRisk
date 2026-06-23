@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-06-22T20:33:24.838Z",
-  "changedFullCountries": 2,
+  "generatedAt": "2026-06-23T01:52:41.446Z",
+  "changedFullCountries": 4,
   "changedCountryFiles": 180,
   "detailStats": {
-    "renamed": 1,
-    "enriched": 286
+    "renamed": 2,
+    "enriched": 304
   },
   "safeRenames": {
     "Batalla naval de RÃ¼gen": "Batalla naval de Rugen",
@@ -137,7 +137,34 @@
     "Batalla del Estrecho Badung": "Batalla del estrecho de Badung",
     "Batalla de Koromokina Lagoon": "Batalla de la laguna Koromokina",
     "Batalla de Munda Point": "Batalla de Munda Point",
-    "Batalla de Northern Burma y Western Yunnan": "Campana del norte de Birmania y oeste de Yunnan"
+    "Batalla de Northern Burma y Western Yunnan": "Campana del norte de Birmania y oeste de Yunnan",
+    "Dutch conquest de New Sweden": "Conquista neerlandesa de Nueva Suecia",
+    "Asedio de Warsaw": "Asedio de Varsovia",
+    "Captura de Warsaw (1657)": "Captura de Varsovia (1657)",
+    "Batalla de Martinique": "Batalla de Martinica",
+    "Swedish Invasion de Brandenburg": "Invasion sueca de Brandeburgo",
+    "Batalla de Koge Bay": "Batalla de la bahia de Koge",
+    "Newfoundland Expedition": "Expedicion de Terranova",
+    "Naval battles en Greifswalder Bodden": "Batallas navales en Greifswalder Bodden",
+    "Mount Hope Bay raids": "Incursiones en la bahia de Mount Hope",
+    "Sullivan Expedition": "Expedicion de Sullivan",
+    "Frigate action de 29 May 1794": "Accion de fragata del 29 de mayo de 1794",
+    "Battles de Emuckfaw y Enotachopo Creek": "Batallas de Emuckfaw y Enotachopo Creek",
+    "Action de 16 March 1917": "Accion del 16 de marzo de 1917",
+    "Koli Point action": "Accion de Koli Point",
+    "Great Naktong Offensive": "Gran ofensiva del Naktong",
+    "UN offensive into North Korea": "Ofensiva de la ONU en Corea del Norte",
+    "Aleppo Offensive (April 2016)": "Ofensiva de Alepo de abril de 2016",
+    "Chinese Invasion de Taiwan": "Invasion china de Taiwan",
+    "Action off Galveston Light": "Accion frente al faro de Galveston",
+    "Battles de Wenden": "Batallas de Wenden",
+    "Naval Batalla de Saint-Martin-de-Re": "Batalla naval de Saint-Martin-de-Re",
+    "Naval Batalla de Saint-Martin-de-Ré": "Batalla naval de Saint-Martin-de-Re",
+    "Naval battles on Lake Ladoga": "Batallas navales del lago Ladoga",
+    "Ogu Air Raid": "Ataque aereo de Ogu",
+    "Wake Atoll raid": "Incursion sobre el atolon Wake",
+    "Campana en África del Suroeste": "Campana en Africa del Suroeste",
+    "Incursión del Océano Índico": "Incursion del Oceano Indico"
   },
   "curatedDetails": [
     "Conflicto irano-israeli durante la guerra civil siria",
@@ -394,6 +421,14 @@
     "Campana del norte de Birmania y oeste de Yunnan",
     "Batalla de Piva Forks",
     "Batalla de Sattelberg",
-    "Batalla de Scarlet Beach"
+    "Batalla de Scarlet Beach",
+    "Campana del Norte de Rusia",
+    "Intervencion en Siberia",
+    "Campana en Africa del Suroeste",
+    "Operacion Dinamo",
+    "Incursion del Oceano Indico",
+    "Guerra del Pacifico de la Segunda Guerra Mundial",
+    "Campana en África del Suroeste",
+    "Incursión del Océano Índico"
   ]
 }

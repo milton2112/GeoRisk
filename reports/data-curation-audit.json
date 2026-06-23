@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-06-22T21:02:00.383Z",
+  "generatedAt": "2026-06-23T01:58:31.386Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 8370743,
-    "duplicatedCountryFilesBytes": 1828642,
+    "fullBytes": 8325075,
+    "duplicatedCountryFilesBytes": 1828589,
     "tooLargeCount": 3,
     "largest": [
       {
         "code": "USA",
         "name": "Estados Unidos",
-        "bytes": 174130,
-        "inlineBytes": 2402835,
+        "bytes": 173918,
+        "inlineBytes": 2388185,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -27,8 +27,8 @@
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 63903,
-        "inlineBytes": 758013,
+        "bytes": 63242,
+        "inlineBytes": 737929,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -44,8 +44,8 @@
       {
         "code": "FRA",
         "name": "Francia",
-        "bytes": 47651,
-        "inlineBytes": 578041,
+        "bytes": 47285,
+        "inlineBytes": 572353,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -54,15 +54,15 @@
           "religionGroups": 5,
           "organizations": 55,
           "rivals": 50,
-          "conflicts": 229,
+          "conflicts": 228,
           "timelineEvents": 4
         }
       },
       {
         "code": "SWE",
         "name": "Suecia",
-        "bytes": 32279,
-        "inlineBytes": 373627,
+        "bytes": 32318,
+        "inlineBytes": 373885,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -78,8 +78,8 @@
       {
         "code": "AUS",
         "name": "Australia",
-        "bytes": 23230,
-        "inlineBytes": 169287,
+        "bytes": 23212,
+        "inlineBytes": 162863,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -93,27 +93,10 @@
         }
       },
       {
-        "code": "DNK",
-        "name": "Dinamarca",
-        "bytes": 17553,
-        "inlineBytes": 120552,
-        "tooLarge": false,
-        "counts": {
-          "cities": 5,
-          "capitals": 1,
-          "languages": 1,
-          "religionGroups": 8,
-          "organizations": 38,
-          "rivals": 47,
-          "conflicts": 43,
-          "timelineEvents": 0
-        }
-      },
-      {
         "code": "CAN",
         "name": "Canadá",
-        "bytes": 17399,
-        "inlineBytes": 103408,
+        "bytes": 17875,
+        "inlineBytes": 103516,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -124,6 +107,23 @@
           "rivals": 38,
           "conflicts": 32,
           "timelineEvents": 3
+        }
+      },
+      {
+        "code": "DNK",
+        "name": "Dinamarca",
+        "bytes": 17621,
+        "inlineBytes": 120444,
+        "tooLarge": false,
+        "counts": {
+          "cities": 5,
+          "capitals": 1,
+          "languages": 1,
+          "religionGroups": 8,
+          "organizations": 38,
+          "rivals": 47,
+          "conflicts": 43,
+          "timelineEvents": 0
         }
       },
       {
@@ -163,8 +163,8 @@
       {
         "code": "RUS",
         "name": "Rusia",
-        "bytes": 15854,
-        "inlineBytes": 109437,
+        "bytes": 15851,
+        "inlineBytes": 109959,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -197,8 +197,8 @@
       {
         "code": "POL",
         "name": "Polonia",
-        "bytes": 15398,
-        "inlineBytes": 69085,
+        "bytes": 15501,
+        "inlineBytes": 69365,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -14675,6 +14675,2096 @@
   "languageQuality": {
     "issueCount": 0,
     "issues": []
+  },
+  "conflictDateQuality": {
+    "pendingCount": 694,
+    "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
+    "examples": [
+      {
+        "name": "Accion frente al faro de Galveston",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Accion militar de Calderilla",
+        "countries": [
+          "CHL"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Ambush de steamboat J. R. Williams",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Arandora Star disaster",
+        "countries": [
+          "GBR"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Asalto a los acorazados Cabral y Lima Barros",
+        "countries": [
+          "PRY"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Asedio de Fort Mackinac",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Asedio de Niemcza",
+        "countries": [
+          "DEU"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Ataque a Aruba",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Ataque a Pearl Harbor",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Ataque aereo de Ogu",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Attack on Åbo",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Bahia incident",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla Aérea de Samurra",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Abbeville",
+        "countries": [
+          "GBR"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Aguadores",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Agusan Hill",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Aidabasalala",
+        "countries": [
+          "AUS"
+        ],
+        "regions": [
+          "Oceania"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Al Busayyah",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Alegre",
+        "countries": [
+          "PRY"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Alligator Bridge",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Altamaha Bridge",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Antivari",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Ap Bac",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Apache Pass",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Apple River Fort",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Aranas",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Arras",
+        "countries": [
+          "GBR"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Ash Hollow",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Asinara",
+        "countries": [
+          "ITA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Assandun",
+        "countries": [
+          "DNK"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Assunpink Creek",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Athens",
+        "countries": [
+          "GBR"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Bairoko",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Baltimore",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Bandera Pass",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Bantry Bay",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Barbados",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Barents Sea",
+        "countries": [
+          "GBR"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Barren Hill",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Bau",
+        "countries": [
+          "GBR"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Bay de Biscay",
+        "countries": [
+          "GBR"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Bear Valley",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Beaufort",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Beaver Dams",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Beicang",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Beitang",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Bemis Heights",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Bennington",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de BIAP",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Big Dry Wash",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Big Hole",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Big Mound",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Bir Enzarán",
+        "countries": [
+          "MAR"
+        ],
+        "regions": [
+          "Africa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Blackstock's Farm",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Bladensburg",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Blanco Canyon",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Blandford",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Blue Licks",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Boca Teacapan",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Bockholmssund",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Bolshie Ozerki",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Bomarsund",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Bornholm",
+        "countries": [
+          "DNK"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Bound Brook",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Bov",
+        "countries": [
+          "DNK"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Brandywine",
+        "countries": [
+          "GBR",
+          "USA"
+        ],
+        "regions": [
+          "Europa",
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Bréville",
+        "countries": [
+          "GBR"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Brice's Cross Roads",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Britain Day",
+        "countries": [
+          "GBR"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Broodseinde",
+        "countries": [
+          "AUS"
+        ],
+        "regions": [
+          "Oceania"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Brownstown",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Buffalo",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Bunker Hill",
+        "countries": [
+          "GBR",
+          "USA"
+        ],
+        "regions": [
+          "Europa",
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Burnt Corn",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Busan",
+        "countries": [
+          "JPN"
+        ],
+        "regions": [
+          "Asia"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Cabo Bojador",
+        "countries": [
+          "MAR"
+        ],
+        "regions": [
+          "Africa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Cabo Norte",
+        "countries": [
+          "GBR"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Cabo Rachado",
+        "countries": [
+          "PRT"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Cabo Teulada",
+        "countries": [
+          "GBR"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Cagayan de Misamis",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Calabria",
+        "countries": [
+          "GBR"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Calebee Creek",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Caloocan",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Camaret",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Camas Creek",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Camden",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Campeche",
+        "countries": [
+          "MEX"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Cantigny",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Canyon Creek",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Cap-Français",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Caulk's Field",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Cavite",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Cedar Creek",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Cerro del Gallo",
+        "countries": [
+          "MEX"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Cerro Gordo",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Ch-teau-Thierry",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Ch-teauguay",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Chandannagar",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Charlotte",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Chef-de-Caux",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Chelsea Creek",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Chestnut Neck",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Chillicothe",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Chippawa",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Chobayashiura",
+        "countries": [
+          "JPN"
+        ],
+        "regions": [
+          "Asia"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Chojnice",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Churubusco",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Cibecue Creek",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Cieneguilla",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Cigno Convoy",
+        "countries": [
+          "GBR"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Claremore Mound",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Clouds",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Cobleskill",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Cockle Creek",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Colberger Heide",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Colson's Mill",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Columbus",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Connecticut Farms",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Cooch's Bridge",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Cook's Mills",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Cooke's Spring",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Cookes Canyon",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Corrick's Ford",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Craney Island",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Craonne",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Crooked Billet",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Crucifix Hill",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Crysler's Farm",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Czortkowem",
+        "countries": [
+          "POL"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Danghangpo",
+        "countries": [
+          "JPN"
+        ],
+        "regions": [
+          "Asia"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Dangpo",
+        "countries": [
+          "JPN"
+        ],
+        "regions": [
+          "Asia"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Danny Boy",
+        "countries": [
+          "GBR"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Dasman Palace",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Daugavgriva",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Dead Buffalo Lake",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Debrecen",
+        "countries": [
+          "HUN"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Deglebat-Leglia",
+        "countries": [
+          "MRT"
+        ],
+        "regions": [
+          "Africa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Delaware Bay",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Devil's Backbone",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Devil's Creek",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Devil's River",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Diablo Mountains",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Dieppe",
+        "countries": [
+          "CAN"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Diu",
+        "countries": [
+          "PRT"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Do Ab",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Dogger Bank",
+        "countries": [
+          "DNK"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Dolores River",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Doro Passage",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Douvres Radar Station",
+        "countries": [
+          "GBR"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Drohiczyn",
+        "countries": [
+          "POL"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Dry Lake",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Dschask",
+        "countries": [
+          "PRT"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Duisburg Convoy",
+        "countries": [
+          "GBR"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Dutch Harbor",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Dynekilen",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de El Brazito",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de El Caney",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de El Carrizal",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de El Guettar",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de El Sauce",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "America"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      }
+    ]
   },
   "gapsByType": {
     "politics.rivals": 1

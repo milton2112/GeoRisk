@@ -5551,7 +5551,7 @@ function conflictDedupKey(conflict) {
 
 function formatConflictPeriod(conflict) {
   if (!conflict?.startYear) {
-    return "";
+    return currentLanguage === "en" ? " (date pending)" : " (fecha pendiente)";
   }
 
   if (conflict.ongoing) {
