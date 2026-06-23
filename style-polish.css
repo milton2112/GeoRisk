@@ -206,6 +206,66 @@
   scrollbar-width: thin;
 }
 
+.toolbar-content,
+#rankings-panel[open] .left-panel-inner,
+#country-panel,
+.country-modal-dialog,
+.compare-hub-content,
+.quiz-hub-content,
+.news-hub-content,
+.compare-modal-dialog,
+.conflict-modal-dialog,
+.help-modal-dialog {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(106, 180, 255, 0.45) rgba(255, 255, 255, 0.05);
+}
+
+.toolbar-content::-webkit-scrollbar {
+  width: 9px;
+}
+
+#rankings-panel[open] .left-panel-inner::-webkit-scrollbar,
+#country-panel::-webkit-scrollbar,
+.country-modal-dialog::-webkit-scrollbar,
+.compare-hub-content::-webkit-scrollbar,
+.quiz-hub-content::-webkit-scrollbar,
+.news-hub-content::-webkit-scrollbar,
+.compare-modal-dialog::-webkit-scrollbar,
+.conflict-modal-dialog::-webkit-scrollbar,
+.help-modal-dialog::-webkit-scrollbar {
+  width: 10px;
+}
+
+.toolbar-content::-webkit-scrollbar-track,
+#rankings-panel[open] .left-panel-inner::-webkit-scrollbar-track,
+#country-panel::-webkit-scrollbar-track,
+.country-modal-dialog::-webkit-scrollbar-track,
+.compare-hub-content::-webkit-scrollbar-track,
+.quiz-hub-content::-webkit-scrollbar-track,
+.news-hub-content::-webkit-scrollbar-track,
+.compare-modal-dialog::-webkit-scrollbar-track,
+.conflict-modal-dialog::-webkit-scrollbar-track,
+.help-modal-dialog::-webkit-scrollbar-track {
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.toolbar-content::-webkit-scrollbar-thumb,
+#rankings-panel[open] .left-panel-inner::-webkit-scrollbar-thumb,
+#country-panel::-webkit-scrollbar-thumb,
+.country-modal-dialog::-webkit-scrollbar-thumb,
+.compare-hub-content::-webkit-scrollbar-thumb,
+.quiz-hub-content::-webkit-scrollbar-thumb,
+.news-hub-content::-webkit-scrollbar-thumb,
+.compare-modal-dialog::-webkit-scrollbar-thumb,
+.conflict-modal-dialog::-webkit-scrollbar-thumb,
+.help-modal-dialog::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: rgba(106, 180, 255, 0.42);
+  background-clip: padding-box;
+}
+
 @media (max-width: 760px) {
   #mobile-panel-controls button,
   #mobile-more-menu button,

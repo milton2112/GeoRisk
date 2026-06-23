@@ -370,24 +370,6 @@ body.globe-loading #map-mode-toggle {
   overscroll-behavior: contain;
   padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
   scrollbar-gutter: stable;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(106, 180, 255, 0.44) rgba(255, 255, 255, 0.04);
-}
-
-.toolbar-content::-webkit-scrollbar {
-  width: 9px;
-}
-
-.toolbar-content::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: 999px;
-}
-
-.toolbar-content::-webkit-scrollbar-thumb {
-  background: rgba(106, 180, 255, 0.42);
-  border-radius: 999px;
-  border: 2px solid transparent;
-  background-clip: padding-box;
 }
 
 .toolbar-row {
@@ -3992,76 +3974,6 @@ p {
 
 .relation-overview-grid {
   margin-bottom: 10px;
-}
-
-#rankings-panel[open] .left-panel-inner,
-#country-panel,
-.compare-hub-content,
-.quiz-hub-content,
-.news-hub-content,
-.compare-modal-dialog,
-.conflict-modal-dialog,
-.help-modal-dialog {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(106, 180, 255, 0.45) rgba(255, 255, 255, 0.05);
-}
-
-#rankings-panel[open] .left-panel-inner::-webkit-scrollbar,
-#country-panel::-webkit-scrollbar,
-.compare-hub-content::-webkit-scrollbar,
-.quiz-hub-content::-webkit-scrollbar,
-.news-hub-content::-webkit-scrollbar,
-.compare-modal-dialog::-webkit-scrollbar,
-.conflict-modal-dialog::-webkit-scrollbar,
-.help-modal-dialog::-webkit-scrollbar {
-  width: 10px;
-}
-
-#rankings-panel[open] .left-panel-inner::-webkit-scrollbar-track,
-#country-panel::-webkit-scrollbar-track,
-.compare-hub-content::-webkit-scrollbar-track,
-.quiz-hub-content::-webkit-scrollbar-track,
-.news-hub-content::-webkit-scrollbar-track,
-.compare-modal-dialog::-webkit-scrollbar-track,
-.conflict-modal-dialog::-webkit-scrollbar-track,
-.help-modal-dialog::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: 999px;
-}
-
-#rankings-panel[open] .left-panel-inner::-webkit-scrollbar-thumb,
-#country-panel::-webkit-scrollbar-thumb,
-.compare-hub-content::-webkit-scrollbar-thumb,
-.quiz-hub-content::-webkit-scrollbar-thumb,
-.news-hub-content::-webkit-scrollbar-thumb,
-.compare-modal-dialog::-webkit-scrollbar-thumb,
-.conflict-modal-dialog::-webkit-scrollbar-thumb,
-.help-modal-dialog::-webkit-scrollbar-thumb {
-  background: rgba(106, 180, 255, 0.42);
-  border-radius: 999px;
-  border: 2px solid transparent;
-  background-clip: padding-box;
-}
-
-.country-modal-dialog {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(106, 180, 255, 0.45) rgba(255, 255, 255, 0.05);
-}
-
-.country-modal-dialog::-webkit-scrollbar {
-  width: 10px;
-}
-
-.country-modal-dialog::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: 999px;
-}
-
-.country-modal-dialog::-webkit-scrollbar-thumb {
-  background: rgba(106, 180, 255, 0.42);
-  border-radius: 999px;
-  border: 2px solid transparent;
-  background-clip: padding-box;
 }
 
 @media (max-width: 1100px) {

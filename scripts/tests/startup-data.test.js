@@ -153,6 +153,12 @@ assert.ok(script.includes("async function loadCountryDetail"), "fichas deben car
 assert.ok(script.includes("const detailedCountry = await loadCountryDetail(countryCode)"), "una ficha cacheada debe salir del skeleton al reabrirse");
 assert.ok(script.includes("sectionId === \"country-section-military\""), "curaduria profunda debe esperar a una seccion de historia o conflictos");
 assert.ok(script.includes("data-country-load-section=\"country-section-military\""), "arbol militar debe renderizarse solo al abrir su seccion");
+assert.ok(script.includes("const shouldRenderMilitaryDetail = countryLoadedSections.includes(\"country-section-military\")"), "jerarquia militar debe tener compuerta explicita por seccion abierta");
+assert.ok(script.includes("shouldRenderMilitaryDetail ? buildConflictGroups(conflictsSinceFormation) : []"), "arbol de conflictos no debe armarse mientras la seccion militar esta cerrada");
+assert.ok(script.includes("function renderConflicts(conflicts, prebuiltGroups = null)"), "render de conflictos debe poder reutilizar grupos ya calculados");
+assert.ok(script.includes("warParticipationCountCache"), "conteo de participacion belica debe cachearse para rankings/radar");
+assert.ok(/function invalidateCountryDerivedCaches\(\)[\s\S]{0,350}warParticipationCountCache\.clear\(\)/.test(script), "cache de participacion belica debe invalidarse con los datos derivados");
+assert.ok(/mergeImportedConflictDetails\(curatedConflictDetailOverrides\);[\s\S]{0,120}invalidateCountryDerivedCaches\(\)/.test(script), "curaduria diferida debe invalidar caches de rankings y conflictos");
 assert.ok(script.includes("function renderDeferredCountrySectionPrompt"), "secciones cerradas de ficha no deben renderizar contenido pesado");
 assert.ok(script.includes("data-conflict-expand-children"), "campanas y batallas anidadas deben expandirse por tandas");
 assert.ok(/function rerenderCurrentPanel\(\)[\s\S]{0,1500}setTimeout\(flush, 0\)/.test(script), "rerender de panel no debe depender de frames visibles");

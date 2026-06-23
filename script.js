@@ -3159,6 +3159,7 @@ let countriesDataRevision = 0;
 let countryValuesCache = null;
 let countryEntriesCache = null;
 const rankingCache = new Map();
+const warParticipationCountCache = new Map();
 let activeRankingKey = "";
 let advancedRankingCache = typeof rankingsCore.createRankingsCache === "function"
   ? rankingsCore.createRankingsCache()
@@ -4003,6 +4004,7 @@ function invalidateCountryDerivedCaches() {
   countryValuesCache = null;
   countryEntriesCache = null;
   rankingCache.clear();
+  warParticipationCountCache.clear();
   advancedRankingCache.invalidate();
   searchResultCache.clear();
   compareDataCache.clear();
@@ -4741,11 +4743,23 @@ function renderDataQualityHighlights(country) {
   `;
 }
 
-function getCountryCurationTodoItems(country, conflictGroups = []) {
+function getProfileConflictCount(country, conflictGroups = [], conflictCountOverride = null) {
+  const override = Number(conflictCountOverride);
+  if (Number.isFinite(override) && override >= 0) {
+    return override;
+  }
+  if (Array.isArray(conflictGroups) && conflictGroups.length) {
+    return conflictGroups.length;
+  }
+  return getConflictsSinceFormation(country).length;
+}
+
+function getCountryCurationTodoItems(country, conflictGroups = [], conflictCountOverride = null) {
   const quality = country?.metadata?.quality || {};
   const sectionStatus = quality.sectionStatus || {};
   const missingFields = Array.isArray(quality.missingFields) ? quality.missingFields : [];
   const estimatedFields = Array.isArray(quality.estimatedFields) ? quality.estimatedFields : [];
+  const conflictCount = getProfileConflictCount(country, conflictGroups, conflictCountOverride);
   const weakSections = Object.entries(sectionStatus)
     .filter(([, status]) => !["curated", "confirmed"].includes(String(status || "").toLowerCase()))
     .map(([section, status]) => `${section}: ${status || "pendiente"}`);
@@ -4760,7 +4774,7 @@ function getCountryCurationTodoItems(country, conflictGroups = []) {
   if (weakSections.length) {
     items.push(`${currentLanguage === "en" ? "Weak sections" : "Secciones flojas"}: ${weakSections.slice(0, 4).join(", ")}`);
   }
-  if (!conflictGroups.length && !getConflictsSinceFormation(country).length) {
+  if (!conflictCount) {
     items.push(currentLanguage === "en" ? "Military history needs curated conflicts." : "Historia militar necesita conflictos curados.");
   }
   if (!Array.isArray(country?.religion?.composition) || country.religion.composition.length < 2) {
@@ -4776,11 +4790,12 @@ function getCountryCurationTodoItems(country, conflictGroups = []) {
   return [...new Set(items)].slice(0, 6);
 }
 
-function getCountryCurationActions(country, conflictGroups = []) {
+function getCountryCurationActions(country, conflictGroups = [], conflictCountOverride = null) {
   const quality = country?.metadata?.quality || {};
   const missingFields = new Set(Array.isArray(quality.missingFields) ? quality.missingFields : []);
   const estimatedFields = new Set(Array.isArray(quality.estimatedFields) ? quality.estimatedFields : []);
   const sectionStatus = quality.sectionStatus || {};
+  const conflictCount = getProfileConflictCount(country, conflictGroups, conflictCountOverride);
   const actions = [
     {
       section: currentLanguage === "en" ? "General" : "General",
@@ -4790,7 +4805,7 @@ function getCountryCurationActions(country, conflictGroups = []) {
     {
       section: currentLanguage === "en" ? "Conflicts" : "Conflictos",
       action: currentLanguage === "en" ? "Add parent war, sides, outcome and casualties for weak conflicts." : "Agregar guerra padre, bandos, resultado y bajas en conflictos flojos.",
-      weak: !conflictGroups.length || sectionStatus.military !== "curated"
+      weak: !conflictCount || sectionStatus.military !== "curated"
     },
     {
       section: currentLanguage === "en" ? "Relations" : "Relaciones",
@@ -4812,9 +4827,9 @@ function getCountryCurationActions(country, conflictGroups = []) {
   return actions.filter(item => item.weak).slice(0, 5);
 }
 
-function renderCountryCurationTodo(country, conflictGroups = []) {
-  const items = getCountryCurationTodoItems(country, conflictGroups);
-  const actions = getCountryCurationActions(country, conflictGroups);
+function renderCountryCurationTodo(country, conflictGroups = [], conflictCountOverride = null) {
+  const items = getCountryCurationTodoItems(country, conflictGroups, conflictCountOverride);
+  const actions = getCountryCurationActions(country, conflictGroups, conflictCountOverride);
   const qualityScore = Number.isFinite(country?.metadata?.quality?.score)
     ? Math.max(0, Math.round(country.metadata.quality.score))
     : null;
@@ -5266,7 +5281,8 @@ function renderCountryQuickNav(items = []) {
   `;
 }
 
-function renderCountryMetaRibbon(country, conflictGroups = []) {
+function renderCountryMetaRibbon(country, conflictGroups = [], conflictCountOverride = null) {
+  const conflictCount = getProfileConflictCount(country, conflictGroups, conflictCountOverride);
   const chips = [
     {
       label: currentLanguage === "en" ? "Population" : "Poblacion",
@@ -5282,7 +5298,7 @@ function renderCountryMetaRibbon(country, conflictGroups = []) {
     },
     {
       label: currentLanguage === "en" ? "Conflicts" : "Conflictos",
-      value: formatNumber(conflictGroups.length)
+      value: formatNumber(conflictCount)
     },
     {
       label: currentLanguage === "en" ? "Updated" : "Actualizado",
@@ -6504,12 +6520,12 @@ function registerConflictModal(conflict, countryName = "") {
   return key;
 }
 
-function renderConflicts(conflicts) {
+function renderConflicts(conflicts, prebuiltGroups = null) {
   if (!conflicts || !conflicts.length) {
     return "<p>Sin datos</p>";
   }
 
-  const groupedConflicts = buildConflictGroups(conflicts);
+  const groupedConflicts = Array.isArray(prebuiltGroups) ? prebuiltGroups : buildConflictGroups(conflicts);
   const filteredConflicts = filterConflictGroups(
     groupedConflicts,
     currentPanelState.type === "country" ? getConflictFilterState() : "all"
@@ -7104,7 +7120,9 @@ async function renderCountry(country, fallbackName) {
     .map(code => countriesData[code]?.name)
     .filter(Boolean);
   const conflictsSinceFormation = getConflictsSinceFormation(country);
-  const conflictGroups = buildConflictGroups(conflictsSinceFormation);
+  const shouldRenderMilitaryDetail = countryLoadedSections.includes("country-section-military") && countryViewMode !== "compact";
+  const conflictGroups = shouldRenderMilitaryDetail ? buildConflictGroups(conflictsSinceFormation) : [];
+  const conflictCountHint = conflictsSinceFormation.length;
   const countrySectionDescriptors =
     typeof countryPanelUi.getSectionDescriptors === "function"
       ? countryPanelUi.getSectionDescriptors(currentLanguage)
@@ -7163,8 +7181,8 @@ async function renderCountry(country, fallbackName) {
       <p>${escapeHtml(executiveSummary)}</p>
     </div>
     ${renderCountryOverview(country, countryCode)}
-    ${renderCountryMetaRibbon(country, conflictGroups)}
-    ${renderCountryCurationTodo(country, conflictGroups)}
+    ${renderCountryMetaRibbon(country, conflictGroups, conflictCountHint)}
+    ${renderCountryCurationTodo(country, conflictGroups, conflictCountHint)}
     ${renderCountryQuickNav(countrySectionDescriptors)}
     ${createSection(
       t("general"),
@@ -7222,13 +7240,13 @@ async function renderCountry(country, fallbackName) {
     )}
     ${compactHidden ? "" : createSection(
       t("military"),
-      countryLoadedSections.includes("country-section-military") ? `
+      shouldRenderMilitaryDetail ? `
         <p><b>${t("activePersonnel")}:</b> ${formatNumber(military.active)}</p>
         <p><b>${t("reserve")}:</b> ${formatNumber(military.reserve)}</p>
         ${renderConflictOverview(conflictGroups, country)}
         ${renderRelatedConflictSummary(conflictGroups)}
         <p><b>${conflictsLabel}</b></p>
-        ${renderConflicts(conflictsSinceFormation)}
+        ${renderConflicts(conflictsSinceFormation, conflictGroups)}
       ` : `
         <div class="deferred-country-section">
           <p>${currentLanguage === "en" ? "Conflict hierarchy and detailed filters load when this section is opened." : "La jerarquia y los filtros de conflictos se cargan al abrir esta seccion."}</p>
@@ -8068,7 +8086,13 @@ function getCountryConflictCount(country) {
 }
 
 function getCountryWarParticipationCount(country) {
-  return buildConflictGroups(getConflictsSinceFormation(country)).length;
+  const code = country?.code || getCountryCodeByObject(country) || country?.name || "";
+  const conflictCount = getCountryConflictCount(country);
+  const cacheKey = `${code}:${countriesDataRevision}:${conflictCount}`;
+  if (!warParticipationCountCache.has(cacheKey)) {
+    warParticipationCountCache.set(cacheKey, buildConflictGroups(getConflictsSinceFormation(country)).length);
+  }
+  return warParticipationCountCache.get(cacheKey);
 }
 
 function getCountryOrganizationCount(country) {
@@ -13888,6 +13912,7 @@ async function loadRuntimeCuration() {
       }
     });
     mergeImportedConflictDetails(curatedConflictDetailOverrides);
+    invalidateCountryDerivedCaches();
     deferredDataStatus.runtimeCuration = true;
     refreshLoadedCountryLayers();
     refreshGlobalStats();
