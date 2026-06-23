@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-06-23T01:58:31.386Z",
+  "generatedAt": "2026-06-23T02:09:31.430Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 8325075,
+    "fullBytes": 9238191,
     "duplicatedCountryFilesBytes": 1828589,
     "tooLargeCount": 3,
     "largest": [
@@ -11,7 +11,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 173918,
-        "inlineBytes": 2388185,
+        "inlineBytes": 2704517,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -28,7 +28,7 @@
         "code": "GBR",
         "name": "Reino Unido",
         "bytes": 63242,
-        "inlineBytes": 737929,
+        "inlineBytes": 821759,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -45,7 +45,7 @@
         "code": "FRA",
         "name": "Francia",
         "bytes": 47285,
-        "inlineBytes": 572353,
+        "inlineBytes": 651379,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -62,7 +62,7 @@
         "code": "SWE",
         "name": "Suecia",
         "bytes": 32318,
-        "inlineBytes": 373885,
+        "inlineBytes": 424495,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -79,7 +79,7 @@
         "code": "AUS",
         "name": "Australia",
         "bytes": 23212,
-        "inlineBytes": 162863,
+        "inlineBytes": 176899,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -96,7 +96,7 @@
         "code": "CAN",
         "name": "Canadá",
         "bytes": 17875,
-        "inlineBytes": 103516,
+        "inlineBytes": 110982,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -113,7 +113,7 @@
         "code": "DNK",
         "name": "Dinamarca",
         "bytes": 17621,
-        "inlineBytes": 120444,
+        "inlineBytes": 133960,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -130,7 +130,7 @@
         "code": "ITA",
         "name": "Italia",
         "bytes": 16890,
-        "inlineBytes": 46505,
+        "inlineBytes": 50751,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -147,7 +147,7 @@
         "code": "MAR",
         "name": "Marruecos",
         "bytes": 16131,
-        "inlineBytes": 132943,
+        "inlineBytes": 151743,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -164,7 +164,7 @@
         "code": "RUS",
         "name": "Rusia",
         "bytes": 15851,
-        "inlineBytes": 109959,
+        "inlineBytes": 124611,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -181,7 +181,7 @@
         "code": "DEU",
         "name": "Alemania",
         "bytes": 15531,
-        "inlineBytes": 39028,
+        "inlineBytes": 42424,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -198,7 +198,7 @@
         "code": "POL",
         "name": "Polonia",
         "bytes": 15501,
-        "inlineBytes": 69365,
+        "inlineBytes": 76353,
         "tooLarge": false,
         "counts": {
           "cities": 4,

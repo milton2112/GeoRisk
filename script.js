@@ -6389,6 +6389,47 @@ function renderConflictWikipediaField(labelEs, labelEn, value) {
   `;
 }
 
+function getConflictCurationStatusLabel(status) {
+  const key = normalizeText(status || "");
+  if (!key) return "";
+  const labels = {
+    estructural: currentLanguage === "en" ? "Structural curation" : "Curaduria estructural",
+    manual: currentLanguage === "en" ? "Manual curation" : "Curaduria manual",
+    verificado: currentLanguage === "en" ? "Verified detail" : "Detalle verificado"
+  };
+  return labels[key] || String(status || "");
+}
+
+function getConflictConfidenceLabel(confidence) {
+  const key = normalizeText(confidence || "");
+  if (!key) return "";
+  const labels = {
+    parcial: currentLanguage === "en" ? "Partial confidence" : "Confianza parcial",
+    alta: currentLanguage === "en" ? "High confidence" : "Confianza alta",
+    media: currentLanguage === "en" ? "Medium confidence" : "Confianza media",
+    baja: currentLanguage === "en" ? "Low confidence" : "Confianza baja"
+  };
+  return labels[key] || String(confidence || "");
+}
+
+function renderConflictTrustBadges(detail = {}) {
+  const badges = [
+    getConflictCurationStatusLabel(detail.curationStatus),
+    getConflictConfidenceLabel(detail.dataConfidence)
+  ].filter(Boolean);
+
+  if (!badges.length) {
+    return "";
+  }
+
+  const label = currentLanguage === "en" ? "Data quality" : "Calidad del dato";
+  return `
+    <div class="conflict-trust-badges" aria-label="${escapeHtml(label)}">
+      ${badges.map(item => `<span class="conflict-trust-badge">${escapeHtml(item)}</span>`).join("")}
+    </div>
+  `;
+}
+
 function getConflictModalContent(conflict, countryName = "") {
   const detail = CONFLICT_DETAIL_OVERRIDES[conflict.name] || {};
   const type = inferConflictType(conflict, detail);
@@ -6423,6 +6464,8 @@ function getConflictModalContent(conflict, countryName = "") {
     related: (Array.isArray(detail.related) && detail.related.length) ? detail.related : buildGenericRelatedConflicts(conflict),
     outcome: detail.outcome || buildGenericConflictOutcome(conflict),
     consequences: detail.consequences || buildGenericConflictConsequences(conflict, type, region, countryName),
+    curationStatus: detail.curationStatus || conflict.curationStatus || ((detail.curationBatch || conflict.curationBatch) ? "estructural" : ""),
+    dataConfidence: detail.dataConfidence || conflict.dataConfidence || "",
     wikipedia: detail.wikipedia || null
   };
 }
@@ -6581,6 +6624,7 @@ function openConflictModal(key, { enhance = true } = {}) {
   body.innerHTML = `
     <h3 id="conflict-modal-title">${escapeHtml(detail.title)}</h3>
     <p class="conflict-modal-subtitle">${currentLanguage === "en" ? "Historical conflict summary" : "Resumen historico del conflicto"}</p>
+    ${renderConflictTrustBadges(detail)}
     <div class="country-overview-grid relation-overview-grid conflict-overview-grid">
       <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Type" : "Tipo"}</span><strong class="overview-value">${escapeHtml(getConflictTypeLabel(detail.type))}</strong></div>
       <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Scope" : "Escala"}</span><strong class="overview-value">${escapeHtml(getConflictScopeLabel(detail.scope))}</strong></div>

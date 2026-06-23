@@ -45,6 +45,26 @@
   border-color: var(--ui-divider);
 }
 
+.conflict-trust-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: -4px 0 12px;
+}
+
+.conflict-trust-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 4px 8px;
+  border: 1px solid rgba(114, 222, 192, 0.24);
+  border-radius: 999px;
+  background: rgba(114, 222, 192, 0.08);
+  color: #d9f4ee;
+  font-size: 0.75rem;
+  line-height: 1.1;
+}
+
 .country-meta-pill {
   gap: 4px;
 }

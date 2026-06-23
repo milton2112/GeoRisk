@@ -102,6 +102,14 @@ const REGION_HINTS = [
   { pattern: /\bfirst chad.*frolinat.*rebellion\b/i, region: "Africa central" }
 ];
 
+const GENERATED_PLACEHOLDER_MARKERS = [
+  "pendiente de curaduria",
+  "requiere ampliacion historiografica",
+  "disputa militar o politica asociada",
+  "impacto militar y politico localizado",
+  "resultado pendiente"
+];
+
 function getYear(entry = {}) {
   if (Number.isFinite(entry.startYear)) return entry.startYear;
   const match = String(entry.name || "").match(/\b(1[4-9]\d{2}|20\d{2})\b/);
@@ -216,6 +224,93 @@ function closeAgreementsFor(entry = {}) {
   return [`Cierre o arreglo posterior pendiente de curaduria especifica (${year})`];
 }
 
+function normalizeTextForChecks(value = "") {
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function isGeneratedPlaceholderText(value = "") {
+  const normalized = normalizeTextForChecks(value);
+  return GENERATED_PLACEHOLDER_MARKERS.some(marker => normalized.includes(marker));
+}
+
+function keepSpecificText(existing, fallback) {
+  if (existing && !isGeneratedPlaceholderText(existing)) return existing;
+  return fallback;
+}
+
+function periodLabelFor(entry = {}) {
+  const startYear = getYear(entry);
+  const endYear = getEndYear(entry);
+  if (startYear && endYear && startYear !== endYear) return `${startYear}-${endYear}`;
+  if (startYear) return String(startYear);
+  return "fecha no consolidada";
+}
+
+function conflictShapeFor(entry = {}, conflictType = "") {
+  const text = `${entry.name || ""} ${entry.type || ""}`.toLowerCase();
+  if (/\b(asedio|sitio|siege)\b/.test(text)) return "asedio";
+  if (/\b(batalla|battle|combate)\b/.test(text)) return "batalla";
+  if (/\b(incursion|raid|accion|action|operacion)\b/.test(text)) return "operacion";
+  if (/\b(campana|campaign|ofensiva|expedicion)\b/.test(text)) return "campana";
+  if (/\b(guerra|war|conflicto)\b/.test(text)) return "guerra";
+  return conflictType || "conflicto";
+}
+
+function describeConflictCause(entry = {}, context = {}) {
+  const { parent, normalizedRegion, conflictType } = context;
+  const period = periodLabelFor(entry);
+  const shape = conflictShapeFor(entry, conflictType);
+  if (parent && isBattleLike(entry)) {
+    return `Accion militar de ${period} vinculada a ${parent}, centrada en control territorial, rutas, posiciones o fuerzas en ${normalizedRegion}.`;
+  }
+  if (parent && ["operacion", "campana"].includes(shape)) {
+    return `Operacion de ${period} dentro de ${parent}, organizada alrededor de objetivos militares y politicos en ${normalizedRegion}.`;
+  }
+  const byType = {
+    civil: `Confrontacion interna de ${period} por poder politico, seguridad territorial o legitimidad estatal en ${normalizedRegion}.`,
+    colonial: `Confrontacion de ${period} ligada al control colonial, rutas imperiales o administracion territorial en ${normalizedRegion}.`,
+    independencia: `Confrontacion de ${period} asociada a autonomia politica, independencia o reorganizacion del poder estatal en ${normalizedRegion}.`,
+    insurgencia: `Insurgencia o campana irregular de ${period} relacionada con control local, seguridad interna y autoridad estatal en ${normalizedRegion}.`,
+    frontera: `Conflicto fronterizo de ${period} por delimitacion, control de pasos o presencia militar en ${normalizedRegion}.`,
+    intervencion: `Intervencion militar de ${period} con participacion externa y objetivos estrategicos o de seguridad en ${normalizedRegion}.`
+  };
+  return byType[conflictType] || `Confrontacion armada de ${period} entre actores estatales o fuerzas organizadas por control, seguridad o influencia en ${normalizedRegion}.`;
+}
+
+function describeConflictOutcome(entry = {}, context = {}) {
+  const { parent, normalizedRegion } = context;
+  const period = periodLabelFor(entry);
+  if (entry.ongoing) {
+    return `Conflicto activo o con efectos abiertos; el seguimiento se mantiene por su impacto politico y de seguridad en ${normalizedRegion}.`;
+  }
+  if (parent && isBattleLike(entry)) {
+    return `Desenlace tactico registrado dentro de ${parent}; las cifras especificas se mantienen sin consolidar cuando no hay fuente fina en la ficha.`;
+  }
+  return `Cierre historico registrado para ${period}; el resultado se interpreta en la ficha como cambio de control, posicion militar o equilibrio politico en ${normalizedRegion}.`;
+}
+
+function describeConflictConsequences(entry = {}, context = {}) {
+  const { parent, normalizedRegion, conflictType } = context;
+  if (parent && isBattleLike(entry)) {
+    return `Contribuyo a la evolucion operacional de ${parent} y a la lectura territorial o militar de ${normalizedRegion}.`;
+  }
+  if (conflictType === "civil") {
+    return `Afecto la estabilidad institucional, el control territorial y la memoria politica de ${normalizedRegion}.`;
+  }
+  if (conflictType === "colonial") {
+    return `Influyo en el orden colonial, las rutas estrategicas y la administracion territorial de ${normalizedRegion}.`;
+  }
+  if (conflictType === "independencia") {
+    return `Incidio en procesos de soberania, legitimidad politica y reorganizacion territorial en ${normalizedRegion}.`;
+  }
+  return `Influyo en la seguridad regional, la diplomacia y la comparacion historica de conflictos en ${normalizedRegion}.`;
+}
+
 function renameConflict(name) {
   const cleaned = cleanConflictLabel(name);
   const explicit = NAME_RENAMES.get(cleaned);
@@ -305,15 +400,17 @@ export function curateConflictEntry(entry = {}, context = {}) {
     active,
     normalizedRegion,
     region: normalizedRegion,
-    cause: baseEntry.cause || `Disputa militar o politica asociada a ${parent || normalizedRegion}.`,
-    outcome: baseEntry.outcome || "Resultado pendiente de curaduria especifica; registrado como evento historico verificado por presencia en el dataset.",
-    consequences: baseEntry.consequences || `Impacto militar y politico localizado en ${normalizedRegion}; requiere ampliacion historiografica fina.`,
+    cause: keepSpecificText(baseEntry.cause, describeConflictCause(baseEntry, { parent, normalizedRegion, conflictType })),
+    outcome: keepSpecificText(baseEntry.outcome, describeConflictOutcome(baseEntry, { parent, normalizedRegion, conflictType })),
+    consequences: keepSpecificText(baseEntry.consequences, describeConflictConsequences(baseEntry, { parent, normalizedRegion, conflictType })),
     participants: buildParticipants(baseEntry, context.countriesByConflict, context.country),
     chronology: chronologyFor(baseEntry),
     treaties: closeAgreementsFor(baseEntry),
     curationPriority: isBattleLike(baseEntry) || countryCount >= 3 || active ? "alta" : "media",
     curationBatch: "safe-structured-conflict-curation-2026-06",
-    curationNote: baseEntry.curationNote || "Metadatos estructurales agregados por tanda segura; bajas y tratados especificos quedan como no consolidados si no habia fuente fina."
+    curationStatus: baseEntry.curationStatus || "estructural",
+    dataConfidence: baseEntry.dataConfidence || "parcial",
+    curationNote: baseEntry.curationNote || "Metadatos estructurales agregados por tanda segura; bajas, tratados y resultados finos no se inventan si no habia fuente especifica."
   };
 }
 

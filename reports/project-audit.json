@@ -1,30 +1,30 @@
 {
-  "generatedAt": "2026-06-23T01:58:32.348Z",
+  "generatedAt": "2026-06-23T02:09:32.565Z",
   "status": "operativo",
   "startup": {
-    "critical": "956 KB",
-    "criticalBytes": 979201,
-    "deferred": "1.18 MB",
+    "critical": "958 KB",
+    "criticalBytes": 980950,
+    "deferred": "1.20 MB",
     "estimatedRuntimeMemory": {
-      "countriesFullBytes": 8325075,
-      "countriesFullHuman": "7.94 MB",
-      "estimatedParsedBytes": 24975225,
-      "estimatedParsedHuman": "23.82 MB",
+      "countriesFullBytes": 9238191,
+      "countriesFullHuman": "8.81 MB",
+      "estimatedParsedBytes": 27714573,
+      "estimatedParsedHuman": "26.43 MB",
       "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
     },
     "largestAssets": [
       {
         "path": "data/conflict_details.generated.json",
         "exists": true,
-        "bytes": 728560,
-        "human": "711 KB",
+        "bytes": 755582,
+        "human": "738 KB",
         "startupCritical": false
       },
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 668736,
-        "human": "653 KB",
+        "bytes": 670485,
+        "human": "655 KB",
         "startupCritical": true
       },
       {
@@ -84,16 +84,16 @@
         "startupCritical": false
       },
       {
-        "path": "app-quiz-ui.js",
+        "path": "style-polish.css",
         "exists": true,
-        "bytes": 6513,
-        "human": "6 KB",
+        "bytes": 6784,
+        "human": "7 KB",
         "startupCritical": false
       },
       {
-        "path": "style-polish.css",
+        "path": "app-quiz-ui.js",
         "exists": true,
-        "bytes": 6399,
+        "bytes": 6513,
         "human": "6 KB",
         "startupCritical": false
       }
@@ -101,28 +101,9 @@
   },
   "conflicts": {
     "scanned": 2003,
-    "issueCount": 1473,
-    "summary": {
-      "weak_detail": 1473
-    },
-    "eraFocus": [
-      {
-        "label": "Antes de 1850",
-        "count": 209
-      },
-      {
-        "label": "1850-1899",
-        "count": 57
-      },
-      {
-        "label": "1900-1918",
-        "count": 22
-      },
-      {
-        "label": "1919-1945",
-        "count": 12
-      }
-    ]
+    "issueCount": 0,
+    "summary": {},
+    "eraFocus": []
   },
   "data": {
     "indexes": [
@@ -159,13 +140,13 @@
       {
         "path": "data/country_weights.json",
         "exists": true,
-        "bytes": 42295,
+        "bytes": 42297,
         "human": "41 KB"
       }
     ],
     "countryWeights": {
       "totalCountries": 183,
-      "fullBytes": 8325075,
+      "fullBytes": 9238191,
       "duplicatedCountryFilesBytes": 1828589,
       "tooLargeCount": 3,
       "largest": [
@@ -173,7 +154,7 @@
           "code": "USA",
           "name": "Estados Unidos",
           "bytes": 173918,
-          "inlineBytes": 2388185,
+          "inlineBytes": 2704517,
           "tooLarge": true,
           "counts": {
             "cities": 5,
@@ -190,7 +171,7 @@
           "code": "GBR",
           "name": "Reino Unido",
           "bytes": 63242,
-          "inlineBytes": 737929,
+          "inlineBytes": 821759,
           "tooLarge": true,
           "counts": {
             "cities": 5,
@@ -207,7 +188,7 @@
           "code": "FRA",
           "name": "Francia",
           "bytes": 47285,
-          "inlineBytes": 572353,
+          "inlineBytes": 651379,
           "tooLarge": true,
           "counts": {
             "cities": 5,
@@ -224,7 +205,7 @@
           "code": "SWE",
           "name": "Suecia",
           "bytes": 32318,
-          "inlineBytes": 373885,
+          "inlineBytes": 424495,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -241,7 +222,7 @@
           "code": "AUS",
           "name": "Australia",
           "bytes": 23212,
-          "inlineBytes": 162863,
+          "inlineBytes": 176899,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -258,7 +239,7 @@
           "code": "CAN",
           "name": "Canadá",
           "bytes": 17875,
-          "inlineBytes": 103516,
+          "inlineBytes": 110982,
           "tooLarge": false,
           "counts": {
             "cities": 4,
@@ -275,7 +256,7 @@
           "code": "DNK",
           "name": "Dinamarca",
           "bytes": 17621,
-          "inlineBytes": 120444,
+          "inlineBytes": 133960,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -292,7 +273,7 @@
           "code": "ITA",
           "name": "Italia",
           "bytes": 16890,
-          "inlineBytes": 46505,
+          "inlineBytes": 50751,
           "tooLarge": false,
           "counts": {
             "cities": 4,
@@ -309,7 +290,7 @@
           "code": "MAR",
           "name": "Marruecos",
           "bytes": 16131,
-          "inlineBytes": 132943,
+          "inlineBytes": 151743,
           "tooLarge": false,
           "counts": {
             "cities": 4,
@@ -326,7 +307,7 @@
           "code": "RUS",
           "name": "Rusia",
           "bytes": 15851,
-          "inlineBytes": 109959,
+          "inlineBytes": 124611,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -343,7 +324,7 @@
           "code": "DEU",
           "name": "Alemania",
           "bytes": 15531,
-          "inlineBytes": 39028,
+          "inlineBytes": 42424,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -360,7 +341,7 @@
           "code": "POL",
           "name": "Polonia",
           "bytes": 15501,
-          "inlineBytes": 69365,
+          "inlineBytes": 76353,
           "tooLarge": false,
           "counts": {
             "cities": 4,
@@ -402,8 +383,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 668736,
-      "human": "653 KB"
+      "bytes": 670485,
+      "human": "655 KB"
     },
     {
       "path": "style.css",
@@ -448,6 +429,12 @@
       "human": "7 KB"
     },
     {
+      "path": "style-polish.css",
+      "exists": true,
+      "bytes": 6784,
+      "human": "7 KB"
+    },
+    {
       "path": "app-quiz-ui.js",
       "exists": true,
       "bytes": 6513,
@@ -457,12 +444,6 @@
       "path": "app-project-audit-ui.js",
       "exists": true,
       "bytes": 6451,
-      "human": "6 KB"
-    },
-    {
-      "path": "style-polish.css",
-      "exists": true,
-      "bytes": 6399,
       "human": "6 KB"
     },
     {
@@ -545,7 +526,7 @@
     }
   ],
   "scriptMetrics": {
-    "functions": 488,
+    "functions": 491,
     "asyncFunctions": 42,
     "consoleWarnings": 15,
     "consoleErrors": 15
@@ -617,13 +598,11 @@
   "criticalIssues": [],
   "warnings": [
     "script.js sigue siendo el mayor bloque de mantenimiento.",
-    "La auditoria de conflictos conserva 1473 alertas.",
     "3 fichas de pais superan el umbral de peso."
   ],
   "nextActions": [
     "Mantener el arranque critico por debajo de 1 MB en cada release.",
     "Extraer mas render de ficha, comparador, quiz y auditorias a modulos diferidos.",
-    "Limpiar conflictos por tandas desde reports/conflict-audit.json.",
     "Dividir fichas grandes por seccion, empezando por conflictos de USA, GBR, FRA y AUS."
   ]
 }

@@ -49,6 +49,7 @@ assert.ok(polishCss.includes("--ui-radius: 8px"), "componentes diferidos deben u
 assert.ok(polishCss.includes("min-height: 44px"), "controles tactiles deben conservar un objetivo comodo");
 assert.ok(polishCss.includes(".rank-link.is-active"), "rankings deben mostrar seleccion activa");
 assert.ok(polishCss.includes(".country-title > .coat-visual"), "cabecera de ficha debe reservar espacio al escudo");
+assert.ok(polishCss.includes(".conflict-trust-badge"), "modal de conflicto debe mostrar calidad de dato sin ocupar una seccion completa");
 
 const performanceUi = await fs.readFile(path.join(projectRoot, "app-performance-ui.js"), "utf8");
 assert.ok(performanceUi.includes("Recomendacion automatica"), "rendimiento debe explicar la recomendacion en espanol");
@@ -104,6 +105,7 @@ assert.ok(appMapInteractions.includes("isMobile || mode === \"2d\""), "hover mob
 assert.ok(script.includes('applyMapMode("2d", false)'), "FPS critico sostenido debe poder degradar automaticamente a 2D");
 assert.ok(script.includes("sustainedCriticalFpsWindows >= 3"), "degradacion critica debe exigir varias ventanas y evitar falsos positivos");
 assert.ok(script.includes('declaredParent: typeof conflict === "object"'), "jerarquia de conflictos debe conservar padres explicitos curados");
+assert.ok(script.includes("renderConflictTrustBadges"), "modal de conflicto debe exponer confianza y estado de curaduria");
 const conflictParentResolver = script.slice(
   script.indexOf("function getConflictParentName"),
   script.indexOf("function inferConflictType")

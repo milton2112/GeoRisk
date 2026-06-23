@@ -20,6 +20,31 @@ const curatedIntervention = curateConflictEntry({
   conflictType: "intervencion"
 });
 assert.equal(curatedIntervention.conflictType, "intervencion", "la curaduria no debe pisar tipos explicitos");
+assert.equal(curatedIntervention.curationStatus, "estructural");
+assert.equal(curatedIntervention.dataConfidence, "parcial");
+
+const structuralBattle = curateConflictEntry({
+  name: "Batalla de Prueba",
+  startYear: 1777,
+  endYear: 1777,
+  type: "batalla"
+}, { country: { name: "Pais A", continent: "America" } });
+assert.match(structuralBattle.cause, /Accion militar de 1777/);
+assert.ok(!/pendiente|requiere ampliacion|disputa militar o politica/i.test(structuralBattle.cause));
+
+const refreshedPlaceholder = curateConflictEntry({
+  name: "Campana de Prueba",
+  startYear: 1800,
+  endYear: 1801,
+  cause: "Disputa militar o politica asociada a America.",
+  outcome: "Resultado pendiente de curaduria especifica; registrado como evento historico verificado por presencia en el dataset.",
+  consequences: "Impacto militar y politico localizado en America; requiere ampliacion historiografica fina."
+}, { country: { name: "Pais A", continent: "America" } });
+assert.ok(!/resultado pendiente|requiere ampliacion|disputa militar o politica/i.test([
+  refreshedPlaceholder.cause,
+  refreshedPlaceholder.outcome,
+  refreshedPlaceholder.consequences
+].join(" ")));
 
 const report = buildConflictAuditReport({
   countries: {
