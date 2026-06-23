@@ -13,7 +13,8 @@ const visibleFiles = [
   "app-news-ui.js",
   "app-compare-ui.js",
   "app-quiz-ui.js",
-  "app-performance-ui.js"
+  "app-performance-ui.js",
+  "app-ui-polish.js"
 ];
 
 const forbiddenVisibleTokens = [

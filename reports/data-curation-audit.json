@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-06-23T22:27:10.961Z",
+  "generatedAt": "2026-06-23T22:42:11.173Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 9238251,
-    "duplicatedCountryFilesBytes": 1828619,
+    "fullBytes": 9236567,
+    "duplicatedCountryFilesBytes": 1826899,
     "tooLargeCount": 3,
     "largest": [
       {
         "code": "USA",
         "name": "Estados Unidos",
-        "bytes": 173927,
-        "inlineBytes": 2704535,
+        "bytes": 173929,
+        "inlineBytes": 2704537,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -27,15 +27,15 @@
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 63242,
-        "inlineBytes": 821759,
+        "bytes": 63170,
+        "inlineBytes": 821687,
         "tooLarge": true,
         "counts": {
           "cities": 5,
           "capitals": 1,
           "languages": 5,
           "religionGroups": 6,
-          "organizations": 52,
+          "organizations": 51,
           "rivals": 78,
           "conflicts": 276,
           "timelineEvents": 4
@@ -44,15 +44,15 @@
       {
         "code": "FRA",
         "name": "Francia",
-        "bytes": 47290,
-        "inlineBytes": 651389,
+        "bytes": 47218,
+        "inlineBytes": 651317,
         "tooLarge": true,
         "counts": {
           "cities": 5,
           "capitals": 1,
           "languages": 5,
           "religionGroups": 5,
-          "organizations": 55,
+          "organizations": 54,
           "rivals": 50,
           "conflicts": 228,
           "timelineEvents": 4
@@ -61,15 +61,15 @@
       {
         "code": "SWE",
         "name": "Suecia",
-        "bytes": 32318,
-        "inlineBytes": 424495,
+        "bytes": 32246,
+        "inlineBytes": 424423,
         "tooLarge": false,
         "counts": {
           "cities": 5,
           "capitals": 1,
           "languages": 1,
           "religionGroups": 8,
-          "organizations": 51,
+          "organizations": 50,
           "rivals": 7,
           "conflicts": 150,
           "timelineEvents": 0
@@ -78,8 +78,8 @@
       {
         "code": "AUS",
         "name": "Australia",
-        "bytes": 23212,
-        "inlineBytes": 176899,
+        "bytes": 23214,
+        "inlineBytes": 176901,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -95,8 +95,8 @@
       {
         "code": "CAN",
         "name": "Canadá",
-        "bytes": 17875,
-        "inlineBytes": 110982,
+        "bytes": 17877,
+        "inlineBytes": 110984,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -112,15 +112,15 @@
       {
         "code": "DNK",
         "name": "Dinamarca",
-        "bytes": 17621,
-        "inlineBytes": 133960,
+        "bytes": 17549,
+        "inlineBytes": 133888,
         "tooLarge": false,
         "counts": {
           "cities": 5,
           "capitals": 1,
           "languages": 1,
           "religionGroups": 8,
-          "organizations": 38,
+          "organizations": 37,
           "rivals": 47,
           "conflicts": 43,
           "timelineEvents": 0
@@ -129,15 +129,15 @@
       {
         "code": "ITA",
         "name": "Italia",
-        "bytes": 16890,
-        "inlineBytes": 50751,
+        "bytes": 16818,
+        "inlineBytes": 50679,
         "tooLarge": false,
         "counts": {
           "cities": 4,
           "capitals": 1,
           "languages": 5,
           "religionGroups": 5,
-          "organizations": 78,
+          "organizations": 77,
           "rivals": 45,
           "conflicts": 11,
           "timelineEvents": 4
@@ -180,15 +180,15 @@
       {
         "code": "DEU",
         "name": "Alemania",
-        "bytes": 15531,
-        "inlineBytes": 42424,
+        "bytes": 15459,
+        "inlineBytes": 42352,
         "tooLarge": false,
         "counts": {
           "cities": 5,
           "capitals": 1,
           "languages": 5,
           "religionGroups": 5,
-          "organizations": 80,
+          "organizations": 79,
           "rivals": 21,
           "conflicts": 9,
           "timelineEvents": 4
@@ -197,15 +197,15 @@
       {
         "code": "POL",
         "name": "Polonia",
-        "bytes": 15501,
-        "inlineBytes": 76353,
+        "bytes": 15429,
+        "inlineBytes": 76281,
         "tooLarge": false,
         "counts": {
           "cities": 4,
           "capitals": 1,
           "languages": 4,
           "religionGroups": 5,
-          "organizations": 44,
+          "organizations": 43,
           "rivals": 50,
           "conflicts": 21,
           "timelineEvents": 0

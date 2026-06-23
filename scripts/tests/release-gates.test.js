@@ -25,6 +25,7 @@ const script = await fs.readFile(path.join(projectRoot, "script.js"), "utf8");
 const sw = await fs.readFile(path.join(projectRoot, "sw.js"), "utf8");
 const packageJson = await fs.readJson(path.join(projectRoot, "package.json"));
 const changelog = await fs.readFile(path.join(projectRoot, "CHANGELOG.md"), "utf8");
+const uiPolish = await fs.readFile(path.join(projectRoot, "app-ui-polish.js"), "utf8");
 const bootScheduler = await fs.readFile(path.join(projectRoot, "app-boot-scheduler.js"), "utf8");
 const appMap = await fs.readFile(path.join(projectRoot, "app-map.js"), "utf8");
 const timelineConflicts = await fs.readFile(path.join(projectRoot, "app-timeline-conflicts.js"), "utf8");
@@ -50,6 +51,9 @@ assert.ok(indexHtml.includes(`style.css?v=${appVersion}`), "style.css debe usar 
 for (const src of initialLocalScripts) {
   assert.ok(indexHtml.includes(`${src}?v=${appVersion}`), `${src} debe usar el stamp de version activo`);
 }
+assert.ok(script.includes("window.GeoRiskAppVersion = APP_VERSION"), "script.js debe exponer APP_VERSION a modulos diferidos");
+assert.ok(uiPolish.includes("window.GeoRiskAppVersion"), "app-ui-polish debe leer el stamp de version activo");
+assert.ok(uiPolish.includes("style-polish.css?v=${POLISH_VERSION}"), "style-polish.css diferido debe usar el stamp de version activo");
 assert.ok(changelog.includes(`## v${packageJson.version}`), "CHANGELOG.md debe documentar la version del paquete");
 assert.ok(appShell.length <= 18, "APP_SHELL debe mantenerse chico");
 assert.ok(!appShellText.includes("countries_full.json"), "countries_full no debe entrar en APP_SHELL");

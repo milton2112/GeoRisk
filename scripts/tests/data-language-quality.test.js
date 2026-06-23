@@ -44,10 +44,23 @@ for (const staleName of [
   "Vietnam Counteroffensive Phase III",
   "Northern France Campana",
   "Batalla de Phase Line Bullet",
-  "First Chad (FROLINAT) Rebellion"
+  "First Chad (FROLINAT) Rebellion",
+  "Alho Skirmish",
+  "Swirling Clash",
+  "Felsőőri Skirmish",
+  "First skirmish at Ágfalva",
+  "Karácsfa Skirmish",
+  "Mosonbánfalvi Skirmish",
+  "Pinkafői Skirmish"
 ]) {
   assert.ok(!servedConflictNames.includes(staleName), `Nombre de conflicto visible sin normalizar: ${staleName}`);
 }
+const technicalOrganizations = Object.entries(countries).flatMap(([code, country]) =>
+  (country.politics?.organizations || [])
+    .filter(organization => /^Q\d+$/i.test(organization?.name || ""))
+    .map(organization => ({ code, name: organization.name }))
+);
+assert.deepEqual(technicalOrganizations, [], `No deben quedar identificadores Wikidata visibles en organizaciones: ${JSON.stringify(technicalOrganizations.slice(0, 10))}`);
 const normalizeRelation = value => String(value || "")
   .normalize("NFD")
   .replace(/\p{Diacritic}/gu, "")

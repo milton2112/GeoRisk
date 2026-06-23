@@ -27,13 +27,31 @@ const replacements = new Map([
   ["Vietnam Counteroffensive Phase III", "Contraofensiva de Vietnam - fase III"],
   ["Northern France Campana", "Campaña del norte de Francia"],
   ["Batalla de Phase Line Bullet", "Batalla de la línea Bullet"],
-  ["First Chad (FROLINAT) Rebellion", "Primera rebelión de Chad (FROLINAT)"]
+  ["First Chad (FROLINAT) Rebellion", "Primera rebelión de Chad (FROLINAT)"],
+  ["WIEN", "Viena"],
+  ["Alho Skirmish", "Escaramuza de Alho"],
+  ["Swirling Clash", "Choque de Swirling"],
+  ["Felsőőri Skirmish", "Escaramuza de Felsőőr"],
+  ["First skirmish at Ágfalva", "Primera escaramuza de Ágfalva"],
+  ["Karácsfa Skirmish", "Escaramuza de Karácsfa"],
+  ["Mosonbánfalvi Skirmish", "Escaramuza de Mosonbánfalva"],
+  ["Pinkafői Skirmish", "Escaramuza de Pinkafő"],
+  ["Internacional Conmemoracion del Holocausto Alianza", "Alianza Internacional para la Memoria del Holocausto"],
+  ["Internacional Energy Forum", "Foro Internacional de Energia"],
+  ["espacio Schengen", "Espacio Schengen"],
+  ["Q4264", "Mercosur"]
 ]);
 
 function replaceVisibleStrings(value) {
   if (typeof value === "string") return replacements.get(value) || value;
-  if (Array.isArray(value)) return value.map(replaceVisibleStrings);
+  if (Array.isArray(value)) return value.map(replaceVisibleStrings).filter(item => item !== null);
   if (!value || typeof value !== "object") return value;
+  if (typeof value.name === "string" && /^Q\d+$/i.test(value.name)) {
+    const abbreviation = typeof value.abbreviation === "string" && !/^Q\d+$/i.test(value.abbreviation)
+      ? value.abbreviation
+      : "";
+    return abbreviation ? replaceVisibleStrings({ ...value, name: abbreviation }) : null;
+  }
   return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, replaceVisibleStrings(item)]));
 }
 

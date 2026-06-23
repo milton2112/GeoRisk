@@ -8,7 +8,14 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.2 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.3 antes de cerrar la siguiente version.
+
+## v1.6.3 - 2026-06-23
+
+- Corrige el stamp diferido de `style-polish.css` dentro de `app-ui-polish.js` para evitar hojas visuales cacheadas de una release anterior.
+- Normaliza datos visibles de Austria: ciudad `WIEN`, escaramuzas en ingles y etiquetas de organizaciones mezcladas.
+- Elimina identificadores Wikidata `Q...` de organizaciones servidas, usando abreviaturas cuando existen y quitando entradas sin etiqueta util.
+- Agrega pruebas para sincronizar `APP_VERSION`, `CACHE_VERSION`, estilos diferidos y changelog en cada release.
 
 ## v1.6.2 - 2026-06-23
 

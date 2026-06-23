@@ -1,5 +1,6 @@
 (() => {
-  const POLISH_STYLESHEET = "./style-polish.css?v=2026-06-22-release-14";
+  const POLISH_VERSION = window.GeoRiskAppVersion || "2026-06-23-release-2";
+  const POLISH_STYLESHEET = `./style-polish.css?v=${POLISH_VERSION}`;
   const FOCUSABLE_SELECTOR = [
     "a[href]",
     "button:not([disabled])",
