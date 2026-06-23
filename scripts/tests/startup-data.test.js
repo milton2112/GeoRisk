@@ -162,8 +162,9 @@ assert.ok(/mergeImportedConflictDetails\(curatedConflictDetailOverrides\);[\s\S]
 assert.ok(/function getFilteredCountries[\s\S]{0,120}getCountryValues\(\)\.filter/.test(script), "filtros principales deben reutilizar cache de paises");
 assert.ok(/function generateTopPopulation[\s\S]{0,120}getCountryValues\(\)/.test(script), "rankings basicos deben reutilizar cache de paises");
 assert.ok(script.includes("function renderDeferredCountrySectionPrompt"), "secciones cerradas de ficha no deben renderizar contenido pesado");
-assert.ok(/function getQuizPool[\s\S]{0,900}category === "language"[\s\S]{0,450}category === "bloc"[\s\S]{0,450}category === "conflict"/.test(script), "quiz debe incluir idiomas, bloques y conflictos en el pool fallback");
-assert.ok(/buildQuizQuestion = function buildQuizQuestion[\s\S]{0,4500}category === "language"[\s\S]{0,900}category === "bloc"[\s\S]{0,900}category === "conflict"/.test(script), "quiz fallback debe generar preguntas reales de idiomas, bloques y conflictos");
+assert.ok(!script.includes("buildQuizQuestion = function buildQuizQuestion"), "quiz no debe pisar el generador avanzado con fallback legado");
+assert.ok(/function buildQuizQuestion\(category\)[\s\S]{0,500}quizUi\.buildQuestionBank/.test(script), "quiz debe usar banco generado diferido cuando esta disponible");
+assert.ok(/function buildQuizQuestion\(category\)[\s\S]{0,2200}category === "language"[\s\S]{0,450}category === "bloc"[\s\S]{0,450}category === "conflict"/.test(script), "quiz fallback debe conservar idiomas, bloques y conflictos");
 assert.ok(script.includes("data-conflict-expand-children"), "campanas y batallas anidadas deben expandirse por tandas");
 assert.ok(/function rerenderCurrentPanel\(\)[\s\S]{0,1500}setTimeout\(flush, 0\)/.test(script), "rerender de panel no debe depender de frames visibles");
 assert.ok(!/bootHeavyDataEnhancements[\s\S]{0,500}loadRuntimeCuration/.test(script), "curaduria profunda no debe ejecutarse desde el arranque diferido");

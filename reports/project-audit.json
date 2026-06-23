@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-06-23T22:04:31.650Z",
+  "generatedAt": "2026-06-23T22:16:21.726Z",
   "status": "operativo",
   "startup": {
-    "critical": "959 KB",
-    "criticalBytes": 981597,
+    "critical": "952 KB",
+    "criticalBytes": 974947,
     "deferred": "1.20 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 9238191,
@@ -23,8 +23,8 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 673668,
-        "human": "658 KB",
+        "bytes": 667018,
+        "human": "651 KB",
         "startupCritical": true
       },
       {
@@ -93,8 +93,8 @@
       {
         "path": "app-quiz-ui.js",
         "exists": true,
-        "bytes": 6513,
-        "human": "6 KB",
+        "bytes": 7579,
+        "human": "7 KB",
         "startupCritical": false
       }
     ]
@@ -383,8 +383,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 673668,
-      "human": "658 KB"
+      "bytes": 667018,
+      "human": "651 KB"
     },
     {
       "path": "style.css",
@@ -429,16 +429,16 @@
       "human": "8 KB"
     },
     {
+      "path": "app-quiz-ui.js",
+      "exists": true,
+      "bytes": 7579,
+      "human": "7 KB"
+    },
+    {
       "path": "USER_GUIDE.md",
       "exists": true,
       "bytes": 7528,
       "human": "7 KB"
-    },
-    {
-      "path": "app-quiz-ui.js",
-      "exists": true,
-      "bytes": 6513,
-      "human": "6 KB"
     },
     {
       "path": "app-project-audit-ui.js",
@@ -526,7 +526,7 @@
     }
   ],
   "scriptMetrics": {
-    "functions": 492,
+    "functions": 490,
     "asyncFunctions": 42,
     "consoleWarnings": 15,
     "consoleErrors": 15

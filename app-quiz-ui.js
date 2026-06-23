@@ -49,27 +49,38 @@
     const countries = Object.entries(countriesData || {});
     const getConflicts = country => country.military?.conflicts || country.conflicts || [];
     const getOrgName = organization => typeof organization === "string" ? organization : (organization?.abbreviation || organization?.name || "");
+    const getLanguageName = language => typeof language === "string" ? language : (language?.name || "");
     const banks = [];
     countries.forEach(([code, country]) => {
       if (country.general?.capital?.name) {
-        banks.push({ code, category: "capital", difficulty: "easy", prompt: `¿Cual es la capital de ${country.name}?`, correct: country.general.capital.name, explanation: `${country.general.capital.name} es la capital registrada de ${country.name}.` });
+        banks.push({ code, category: "capital", difficulty: "easy", prompt: `Cual es la capital de ${country.name}?`, correct: country.general.capital.name, explanation: `${country.general.capital.name} es la capital registrada de ${country.name}.` });
       }
       if (country.continent) {
-        banks.push({ code, category: "map", difficulty: "easy", prompt: `¿En que continente se ubica ${country.name}?`, correct: helpers.translateContinentName?.(country.continent) || country.continent, explanation: `${country.name} esta indexado en ${helpers.translateContinentName?.(country.continent) || country.continent}.` });
+        banks.push({ code, category: "map", difficulty: "easy", prompt: `En que continente se ubica ${country.name}?`, correct: helpers.translateContinentName?.(country.continent) || country.continent, explanation: `${country.name} esta indexado en ${helpers.translateContinentName?.(country.continent) || country.continent}.` });
       }
       if (country.history?.year) {
-        banks.push({ code, category: "history", difficulty: "medium", prompt: `¿En que año se formo ${country.name}?`, correct: String(country.history.year), explanation: `El año de formacion usado por la ficha es ${country.history.year}.` });
+        banks.push({ code, category: "history", difficulty: "medium", prompt: `En que ano se formo ${country.name}?`, correct: String(country.history.year), explanation: `El ano de formacion usado por la ficha es ${country.history.year}.` });
+      }
+      if (country.general?.languages?.length) {
+        const language = getLanguageName(country.general.languages[0]);
+        if (language) {
+          banks.push({ code, category: "language", difficulty: "medium", prompt: `Cual es uno de los idiomas principales de ${country.name}?`, correct: language, explanation: `${language} figura entre los idiomas registrados de ${country.name}.` });
+        }
       }
       if (country.economy?.gdpPerCapita) {
-        banks.push({ code, category: "economy", difficulty: "hard", prompt: `¿Que pais tiene este PBI per capita aproximado: US$ ${Math.round(country.economy.gdpPerCapita)}?`, correct: country.name, explanation: `La metrica economica sale del dataset de la ficha pais.` });
+        banks.push({ code, category: "economy", difficulty: "hard", prompt: `Que pais tiene este PBI per capita aproximado: US$ ${Math.round(country.economy.gdpPerCapita)}?`, correct: country.name, explanation: `La metrica economica sale del dataset de la ficha pais.` });
       }
       if (getConflicts(country).length) {
         const conflict = getConflicts(country)[0];
-        banks.push({ code, category: "conflict", difficulty: "medium", prompt: `¿Que pais esta vinculado con ${conflict.name || conflict}?`, correct: country.name, explanation: `El conflicto aparece asociado a ${country.name} en la seccion militar/conflictos.` });
+        banks.push({ code, category: "conflict", difficulty: "medium", prompt: `Que pais esta vinculado con ${conflict.name || conflict}?`, correct: country.name, explanation: `El conflicto aparece asociado a ${country.name} en la seccion militar/conflictos.` });
       }
       if (country.politics?.organizations?.length) {
         const organization = getOrgName(country.politics.organizations[0]);
-        if (organization) banks.push({ code, category: "organization", difficulty: "medium", prompt: `¿Que pais pertenece a ${organization}?`, correct: country.name, explanation: `${organization} figura en organizaciones de ${country.name}.` });
+        if (organization) banks.push({ code, category: "organization", difficulty: "medium", prompt: `Que pais pertenece a ${organization}?`, correct: country.name, explanation: `${organization} figura en organizaciones de ${country.name}.` });
+      }
+      if (country.politics?.relations?.blocs?.length) {
+        const bloc = country.politics.relations.blocs[0];
+        if (bloc) banks.push({ code, category: "bloc", difficulty: "medium", prompt: `Que pais pertenece a ${bloc}?`, correct: country.name, explanation: `${bloc} figura entre los bloques o alianzas de ${country.name}.` });
       }
     });
     return banks;
@@ -89,7 +100,9 @@
       history: allCountries.map(country => country.history?.year).filter(Boolean).map(String),
       economy: allCountries.map(country => country.name),
       conflict: allCountries.map(country => country.name),
-      organization: allCountries.map(country => country.name)
+      organization: allCountries.map(country => country.name),
+      language: allCountries.flatMap(country => country.general?.languages || []).map(value => typeof value === "string" ? value : value?.name).filter(Boolean),
+      bloc: allCountries.map(country => country.name)
     };
     const distractors = pickDistractors(byCategory[item.category] || allCountries.map(country => country.name), item.correct, 3);
     if (distractors.length < 3) return null;

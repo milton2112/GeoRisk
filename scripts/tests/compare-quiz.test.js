@@ -26,7 +26,7 @@ const countries = {
   ARG: {
     name: "Argentina",
     continent: "America",
-    general: { population: 45000000, capital: { name: "Buenos Aires" }, languages: ["Español"] },
+    general: { population: 45000000, capital: { name: "Buenos Aires" }, languages: ["Espanol"] },
     economy: { gdp: 600, gdpPerCapita: 13000, inflation: 200 },
     military: { active: 75000, reserve: 30000, conflicts: [{ name: "Guerra de las Malvinas" }] },
     politics: { system: "Presidencialismo", organizations: [{ name: "ONU" }], rivals: ["Reino Unido"], relations: { blocs: ["Mercosur"] } },
@@ -36,7 +36,7 @@ const countries = {
   BRA: {
     name: "Brasil",
     continent: "America",
-    general: { population: 210000000, capital: { name: "Brasilia" }, languages: ["Portugués"] },
+    general: { population: 210000000, capital: { name: "Brasilia" }, languages: ["Portugues"] },
     economy: { gdp: 2000, gdpPerCapita: 9000, inflation: 5 },
     military: { active: 360000, reserve: 1300000, conflicts: [] },
     politics: { system: "Presidencialismo", organizations: [{ name: "ONU" }, { name: "BRICS" }], rivals: [], relations: { blocs: ["Mercosur", "BRICS"] } },
@@ -46,7 +46,7 @@ const countries = {
   CHL: {
     name: "Chile",
     continent: "America",
-    general: { population: 19000000, capital: { name: "Santiago" }, languages: ["Español"] },
+    general: { population: 19000000, capital: { name: "Santiago" }, languages: ["Mapudungun"] },
     economy: { gdp: 320, gdpPerCapita: 16000, inflation: 4 },
     military: { active: 80000, reserve: 40000, conflicts: [] },
     politics: { system: "Presidencialismo", organizations: [{ name: "ONU" }], rivals: [], relations: { blocs: ["Alianza del Pacifico"] } },
@@ -56,7 +56,7 @@ const countries = {
   URY: {
     name: "Uruguay",
     continent: "America",
-    general: { population: 3500000, capital: { name: "Montevideo" }, languages: ["Español"] },
+    general: { population: 3500000, capital: { name: "Montevideo" }, languages: ["Italiano"] },
     economy: { gdp: 80, gdpPerCapita: 21000, inflation: 6 },
     military: { active: 22000, reserve: 0, conflicts: [] },
     politics: { system: "Presidencialismo", organizations: [{ name: "ONU" }], rivals: [], relations: { blocs: ["Mercosur"] } },
@@ -84,11 +84,19 @@ const bank = quiz.buildQuestionBank(countries, { translateContinentName: value =
 assert.ok(bank.some(item => item.category === "capital"), "banco debe incluir capitales");
 assert.ok(bank.some(item => item.category === "economy"), "banco debe incluir economia");
 assert.ok(bank.some(item => item.category === "conflict"), "banco debe incluir conflictos");
+assert.ok(bank.some(item => item.category === "language"), "banco debe incluir idiomas");
+assert.ok(bank.some(item => item.category === "bloc"), "banco debe incluir bloques");
 const question = quiz.buildQuestionFromBank(bank, countries, { category: "capital", difficulty: "easy", asked: [] });
 assert.equal(question.options.length, 4, "pregunta debe tener cuatro opciones");
 const second = quiz.buildQuestionFromBank(bank, countries, { category: "capital", difficulty: "easy", asked: [question.code] });
 assert.notEqual(second?.code, question.code, "no debe repetir pais preguntado");
 const hard = quiz.buildQuestionFromBank(bank, countries, { category: "economy", difficulty: "hard", asked: [] });
 assert.equal(hard?.difficulty, "hard", "debe respetar dificultad cuando hay banco");
+const language = quiz.buildQuestionFromBank(bank, countries, { category: "language", difficulty: "medium", asked: [] });
+assert.equal(language?.category, "language", "debe generar preguntas de idiomas desde el modulo diferido");
+assert.equal(language.options.length, 4, "pregunta de idioma debe tener cuatro opciones");
+const bloc = quiz.buildQuestionFromBank(bank, countries, { category: "bloc", difficulty: "medium", asked: [] });
+assert.equal(bloc?.category, "bloc", "debe generar preguntas de bloques desde el modulo diferido");
+assert.equal(bloc.options.length, 4, "pregunta de bloque debe tener cuatro opciones");
 
 console.log("compare-quiz.test.js ok");
