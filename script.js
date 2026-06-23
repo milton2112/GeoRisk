@@ -81,7 +81,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-06-22-release-14";
+const APP_VERSION = "2026-06-23-release-1";
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
 }
@@ -91,17 +91,17 @@ function createFallbackSearchCache() {
 }
 
 const DEFERRED_UI_MODULES = {
-  news: "./app-news-ui.js?v=2026-06-22-release-14",
-  compare: "./app-compare-ui.js?v=2026-06-22-release-14",
-  quiz: "./app-quiz-ui.js?v=2026-06-22-release-14",
-  riskRadar: "./app-risk-radar-ui.js?v=2026-06-22-release-14",
-  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-22-release-14",
-  projectAudit: "./app-project-audit-ui.js?v=2026-06-22-release-14",
-  uiPolish: "./app-ui-polish.js?v=2026-06-22-release-14",
-  countryPanel: "./app-country-panel.js?v=2026-06-22-release-14",
-  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-22-release-14",
-  search: "./app-search.js?v=2026-06-22-release-14",
-  rankings: "./app-rankings.js?v=2026-06-22-release-14"
+  news: "./app-news-ui.js?v=2026-06-23-release-1",
+  compare: "./app-compare-ui.js?v=2026-06-23-release-1",
+  quiz: "./app-quiz-ui.js?v=2026-06-23-release-1",
+  riskRadar: "./app-risk-radar-ui.js?v=2026-06-23-release-1",
+  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-23-release-1",
+  projectAudit: "./app-project-audit-ui.js?v=2026-06-23-release-1",
+  uiPolish: "./app-ui-polish.js?v=2026-06-23-release-1",
+  countryPanel: "./app-country-panel.js?v=2026-06-23-release-1",
+  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-23-release-1",
+  search: "./app-search.js?v=2026-06-23-release-1",
+  rankings: "./app-rankings.js?v=2026-06-23-release-1"
 };
 const deferredUiModulePromises = new Map();
 

@@ -21,7 +21,13 @@ const replacements = new Map([
   ["Caribbean Free Comercio Asociacion", "Asociación de Libre Comercio del Caribe"],
   ["Comunidad of Sahel-Saharan States", "Comunidad de Estados Sahelo-Saharianos"],
   ["Commission for the Conservation of Southern Bluefin Tuna", "Comisión para la Conservación del Atún Rojo del Sur"],
-  ["Lake Chad Basin Commission", "Comisión de la Cuenca del Lago Chad"]
+  ["Lake Chad Basin Commission", "Comisión de la Cuenca del Lago Chad"],
+  ["Second Cambodia Civil", "Segunda guerra civil camboyana"],
+  ["Vietnam Counteroffensive Phase II", "Contraofensiva de Vietnam - fase II"],
+  ["Vietnam Counteroffensive Phase III", "Contraofensiva de Vietnam - fase III"],
+  ["Northern France Campana", "Campaña del norte de Francia"],
+  ["Batalla de Phase Line Bullet", "Batalla de la línea Bullet"],
+  ["First Chad (FROLINAT) Rebellion", "Primera rebelión de Chad (FROLINAT)"]
 ]);
 
 function replaceVisibleStrings(value) {

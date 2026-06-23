@@ -33,6 +33,21 @@ assert.deepEqual(servedLanguageIssues, [], `Los datos servidos conservan textos 
 const generatedMojibakeFiles = collectJsonFiles("data")
   .filter(file => mojibakeSignal.test(fs.readFileSync(file, "utf8")));
 assert.deepEqual(generatedMojibakeFiles, [], `Los JSON servidos no deben tener mojibake: ${JSON.stringify(generatedMojibakeFiles.slice(0, 10))}`);
+const servedConflictNames = Object.values(countries).flatMap(country =>
+  [...(country.military?.conflicts || []), ...(country.conflicts || [])]
+    .map(conflict => typeof conflict === "string" ? conflict : conflict?.name)
+    .filter(Boolean)
+);
+for (const staleName of [
+  "Second Cambodia Civil",
+  "Vietnam Counteroffensive Phase II",
+  "Vietnam Counteroffensive Phase III",
+  "Northern France Campana",
+  "Batalla de Phase Line Bullet",
+  "First Chad (FROLINAT) Rebellion"
+]) {
+  assert.ok(!servedConflictNames.includes(staleName), `Nombre de conflicto visible sin normalizar: ${staleName}`);
+}
 const normalizeRelation = value => String(value || "")
   .normalize("NFD")
   .replace(/\p{Diacritic}/gu, "")

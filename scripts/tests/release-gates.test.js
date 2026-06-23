@@ -23,6 +23,8 @@ assert.equal(transientAttempts, 3, "reintento debe detenerse al recuperarse");
 const indexHtml = await fs.readFile(path.join(projectRoot, "index.html"), "utf8");
 const script = await fs.readFile(path.join(projectRoot, "script.js"), "utf8");
 const sw = await fs.readFile(path.join(projectRoot, "sw.js"), "utf8");
+const packageJson = await fs.readJson(path.join(projectRoot, "package.json"));
+const changelog = await fs.readFile(path.join(projectRoot, "CHANGELOG.md"), "utf8");
 const bootScheduler = await fs.readFile(path.join(projectRoot, "app-boot-scheduler.js"), "utf8");
 const appMap = await fs.readFile(path.join(projectRoot, "app-map.js"), "utf8");
 const timelineConflicts = await fs.readFile(path.join(projectRoot, "app-timeline-conflicts.js"), "utf8");
@@ -39,7 +41,16 @@ const appShellText = appShell.join("\n");
 const initialLocalScripts = [...indexHtml.matchAll(/<script\s+src="([^"]+)"/g)]
   .map(match => match[1].split("?")[0])
   .filter(src => src && !/^https?:\/\//i.test(src));
+const appVersion = script.match(/const APP_VERSION = "([^"]+)"/)?.[1];
+const cacheVersion = sw.match(/const CACHE_VERSION = "([^"]+)"/)?.[1];
 
+assert.ok(appVersion, "script.js debe declarar APP_VERSION");
+assert.equal(cacheVersion, appVersion, "APP_VERSION y CACHE_VERSION deben estar sincronizados");
+assert.ok(indexHtml.includes(`style.css?v=${appVersion}`), "style.css debe usar el stamp de version activo");
+for (const src of initialLocalScripts) {
+  assert.ok(indexHtml.includes(`${src}?v=${appVersion}`), `${src} debe usar el stamp de version activo`);
+}
+assert.ok(changelog.includes(`## v${packageJson.version}`), "CHANGELOG.md debe documentar la version del paquete");
 assert.ok(appShell.length <= 18, "APP_SHELL debe mantenerse chico");
 assert.ok(!appShellText.includes("countries_full.json"), "countries_full no debe entrar en APP_SHELL");
 assert.ok(!appShellText.includes("conflict_details.generated.json"), "conflict_details no debe entrar en APP_SHELL");

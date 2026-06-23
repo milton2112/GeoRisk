@@ -8,6 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
+- Se documentaran aca los cambios posteriores a v1.6.2 antes de cerrar la siguiente version.
+
+## v1.6.2 - 2026-06-23
+
+- Version documentada con bump de `package.json`, `APP_VERSION` y `CACHE_VERSION` para evitar caches viejos.
+- El quiz diferido queda como motor principal y suma preguntas de idiomas y bloques sin volver al fallback pesado.
+- Datos visibles normalizados: se corrigen nombres de conflictos que quedaban mezclados en ingles en fichas e indices publicos.
+- Reportes de auditoria y medicion de arranque regenerados para esta version.
+
 - Las fichas pais compactan sus conflictos y cargan causas, participantes y cronologias por shard al abrir cada modal.
 - La lista militar renderiza conflictos por tandas y conecta filtros de region, desenlace y bando que antes no respondian.
 - El arbol militar deja de construirse al abrir la ficha y se activa al entrar en su seccion; reabrir una ficha cacheada ya no queda trabado en el skeleton.

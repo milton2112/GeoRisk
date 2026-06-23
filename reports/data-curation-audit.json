@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-06-23T22:16:19.560Z",
+  "generatedAt": "2026-06-23T22:27:10.961Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 9238191,
-    "duplicatedCountryFilesBytes": 1828589,
+    "fullBytes": 9238251,
+    "duplicatedCountryFilesBytes": 1828619,
     "tooLargeCount": 3,
     "largest": [
       {
         "code": "USA",
         "name": "Estados Unidos",
-        "bytes": 173918,
-        "inlineBytes": 2704517,
+        "bytes": 173927,
+        "inlineBytes": 2704535,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -44,8 +44,8 @@
       {
         "code": "FRA",
         "name": "Francia",
-        "bytes": 47285,
-        "inlineBytes": 651379,
+        "bytes": 47290,
+        "inlineBytes": 651389,
         "tooLarge": true,
         "counts": {
           "cities": 5,
