@@ -8,7 +8,11 @@ import {
 import { buildStartupCountryIndex } from "./lib/startup-index.js";
 import { repairMojibake as repairMojibakeShared } from "./lib/text-normalization.js";
 import { buildPublicCountryRecord } from "./lib/public-country-record.js";
-import { applyVisibleStringReplacements, isTechnicalIdentifier } from "./lib/visible-data-corrections.js";
+import {
+  applyVisibleStringReplacements,
+  isTechnicalIdentifier,
+  normalizeVisibleOrganizationEntry
+} from "./lib/visible-data-corrections.js";
 
 const YEAR_COLUMNS = Array.from({ length: 2025 - 1960 + 1 }, (_, index) =>
   String(2025 - index)
@@ -3687,6 +3691,91 @@ function formatFormationType(value) {
   return labels[value] || "Legal y pacÃ­fica";
 }
 
+const NON_POLITICAL_SYSTEM_LABELS = new Set([
+  "legal",
+  "legal y pacifica",
+  "independencia",
+  "union",
+  "disolucion de otro estado",
+  "revolucion",
+  "guerra civil",
+  "tratado internacional",
+  "anexion",
+  "secesion"
+]);
+
+const POLITICAL_SYSTEM_LABELS = new Map([
+  ["monarquia constitucional", "Monarqu\u00eda constitucional"],
+  ["monarquia parlamentaria", "Monarqu\u00eda constitucional"],
+  ["monarquia absoluta", "Monarqu\u00eda absoluta"],
+  ["monarquia", "Monarqu\u00eda"],
+  ["parlamentarismo", "Parlamentarismo"],
+  ["sistema westminster", "Parlamentarismo"],
+  ["republica parlamentaria", "Rep\u00fablica parlamentaria"],
+  ["democracia parlamentaria", "Rep\u00fablica parlamentaria"],
+  ["coprincipado parlamentario", "Coprincipado parlamentario"],
+  ["presidencialismo", "Presidencialismo"],
+  ["republica presidencialista", "Rep\u00fablica presidencialista"],
+  ["republica presidencialista con reconocimiento limitado", "Rep\u00fablica presidencialista con reconocimiento limitado"],
+  ["super-republica presidencialista", "Rep\u00fablica presidencialista"],
+  ["democracia representativa", "Rep\u00fablica presidencialista"],
+  ["semipresidencialismo", "Semipresidencialismo"],
+  ["republica semipresidencialista", "Rep\u00fablica semipresidencialista"],
+  ["republica federal", "Rep\u00fablica federal"],
+  ["republica federal presidencialista", "Rep\u00fablica federal presidencialista"],
+  ["federacion", "Federaci\u00f3n"],
+  ["republica", "Rep\u00fablica"],
+  ["pais", "Estado soberano"],
+  ["estado unitario", "Estado unitario"],
+  ["estado soberano", "Estado soberano"],
+  ["teocracia", "Teocracia"],
+  ["estado islamico", "Estado isl\u00e1mico"],
+  ["estado socialista", "Estado socialista"],
+  ["estado socialista unipartidista", "Estado socialista unipartidista"],
+  ["partido unico", "Estado de partido \u00fanico"],
+  ["junta militar", "Junta militar"],
+  ["gobierno militar", "Gobierno militar"],
+  ["territorio disputado", "Territorio disputado"],
+  ["territorio dependiente", "Territorio dependiente"],
+  ["territorio britanico de ultramar", "Territorio brit\u00e1nico de ultramar"],
+  ["territorio frances de ultramar administrado por francia", "Territorio franc\u00e9s de ultramar"],
+  ["departamento y region de ultramar de francia", "Departamento y regi\u00f3n de ultramar de Francia"],
+  ["territorio no incorporado de estados unidos", "Territorio no incorporado de Estados Unidos"],
+  ["sistema del tratado antartico", "Sistema del Tratado Ant\u00e1rtico"]
+]);
+
+function normalizePoliticalSystemLabel(value) {
+  const cleaned = sanitizeText(value);
+  const normalized = normalizeKey(cleaned);
+  if (!normalized || NON_POLITICAL_SYSTEM_LABELS.has(normalized)) {
+    return null;
+  }
+  return POLITICAL_SYSTEM_LABELS.get(normalized) || toDisplayTitleCase(cleaned);
+}
+
+function inferPoliticalSystemFromOfficialName(officialName) {
+  const normalized = normalizeKey(officialName);
+  if (!normalized) {
+    return null;
+  }
+  if (normalized.includes("reino") || normalized.includes("monarquia")) {
+    return "Monarqu\u00eda constitucional";
+  }
+  if (normalized.includes("territorio") || normalized.includes("dependencia")) {
+    return "Territorio dependiente";
+  }
+  if (normalized.includes("federal")) {
+    return "Rep\u00fablica federal";
+  }
+  if (normalized.includes("republica")) {
+    return "Rep\u00fablica";
+  }
+  if (normalized.includes("estado")) {
+    return "Estado soberano";
+  }
+  return null;
+}
+
 function buildCityList(...lists) {
   const seen = new Set();
   const result = [];
@@ -3734,12 +3823,12 @@ function parseOrganizationEntry(entry) {
   if (typeof entry !== "string") {
     const name = normalizeOrganizationName(entry.name, entry.abbreviation);
     return name
-      ? {
+      ? normalizeVisibleOrganizationEntry({
           name,
           abbreviation: normalizeOrganizationAbbreviation(entry.abbreviation),
           startYear: compactNumber(entry.startYear),
           endYear: compactNumber(entry.endYear)
-        }
+        })
       : null;
   }
 
@@ -3752,12 +3841,12 @@ function parseOrganizationEntry(entry) {
     return null;
   }
 
-  return {
+  return normalizeVisibleOrganizationEntry({
     name,
     abbreviation,
     startYear: null,
     endYear: null
-  };
+  });
 }
 
 const RIVAL_NAME_ALIASES = new Map([
@@ -5466,29 +5555,41 @@ for (const code of allCodes) {
     ].filter(Boolean),
     item => `${normalizeKey(item?.name)}:${item?.type || "historico"}`
   );
+  const rawPoliticalSystem =
+    POLITICAL_SYSTEM_OVERRIDES[code] ||
+    politicsData.system ||
+    politics[code] ||
+    fallback.politics?.system ||
+    baseData.system;
+  const commonName =
+    COUNTRY_NAME_OVERRIDES[code] ||
+    countryNames[code] ||
+    baseData.name ||
+    populationData?.name ||
+    gdpData?.name ||
+    gdpPerCapitaData?.name ||
+    code;
   const officialName = deriveOfficialName(
     code,
-    COUNTRY_NAME_OVERRIDES[code] ||
-      countryNames[code] ||
-      baseData.name ||
-      populationData?.name ||
-      gdpData?.name ||
-      gdpPerCapitaData?.name ||
-      code,
-    politicsData.system || politics[code] || fallback.politics?.system || baseData.system
+    commonName,
+    rawPoliticalSystem
   );
+  const politicalSystem =
+    normalizePoliticalSystemLabel(rawPoliticalSystem) ||
+    inferPoliticalSystemFromOfficialName(officialName) ||
+    "Estado soberano";
   const historicalNames = deriveHistoricalNames(code, historyEntry);
   const symbols = buildSymbolMetadata(code, officialName);
   const languages = deriveLanguages(code, historyEntry);
   const capitals = deriveCapitalProfiles(code, capital, cities);
   const stateStructure = deriveStateStructure(
     code,
-    politicsData.system || politics[code] || fallback.politics?.system || baseData.system,
+    politicalSystem,
     officialName
   );
   const subdivisions = deriveSubdivisionMetadata(
     code,
-    politicsData.system || politics[code] || fallback.politics?.system || baseData.system,
+    politicalSystem,
     stateStructure
   );
   const relationMetadata = buildRelationMetadata(code, historyEntry, mergedOrganizations, mergedRivals);
@@ -5507,14 +5608,7 @@ for (const code of allCodes) {
   );
 
   result[code] = {
-    name:
-      COUNTRY_NAME_OVERRIDES[code] ||
-      countryNames[code] ||
-      baseData.name ||
-      populationData?.name ||
-      gdpData?.name ||
-      gdpPerCapitaData?.name ||
-      code,
+    name: commonName,
     continent: CONTINENT_OVERRIDES[code] || continentByCode[code] || "Unknown",
     general: {
       population:
@@ -5548,14 +5642,7 @@ for (const code of allCodes) {
       conflicts: mergedConflicts
     },
     politics: {
-      system:
-        POLITICAL_SYSTEM_OVERRIDES[code] ||
-        politicsData.system ||
-        politics[code] ||
-        fallback.politics?.system ||
-        baseData.system ||
-        historyEntry?.type ||
-        "Estado soberano",
+      system: politicalSystem,
       organizations: mergedOrganizations,
       rivals: finalRivals,
       relations: relationMetadata

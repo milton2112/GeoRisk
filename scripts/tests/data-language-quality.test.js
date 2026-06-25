@@ -33,6 +33,86 @@ assert.deepEqual(servedLanguageIssues, [], `Los datos servidos conservan textos 
 const generatedMojibakeFiles = collectJsonFiles("data")
   .filter(file => mojibakeSignal.test(fs.readFileSync(file, "utf8")));
 assert.deepEqual(generatedMojibakeFiles, [], `Los JSON servidos no deben tener mojibake: ${JSON.stringify(generatedMojibakeFiles.slice(0, 10))}`);
+const normalizeDataLabel = value => String(value || "")
+  .normalize("NFD")
+  .replace(/[\u0300-\u036f]/g, "")
+  .toLowerCase()
+  .trim();
+const historicalLabelsInPoliticalSystems = new Set([
+  "legal y pacifica",
+  "independencia",
+  "union",
+  "disolucion de otro estado",
+  "revolucion",
+  "guerra civil",
+  "tratado internacional"
+]);
+const servedPoliticalSystemIssues = Object.entries(countries)
+  .filter(([, country]) => historicalLabelsInPoliticalSystems.has(normalizeDataLabel(country.politics?.system)))
+  .map(([code, country]) => ({ code, system: country.politics?.system }));
+assert.deepEqual(servedPoliticalSystemIssues, [], `El top de sistemas no debe mezclar tipos historicos: ${JSON.stringify(servedPoliticalSystemIssues.slice(0, 10))}`);
+const servedOrganizationDisplays = Object.values(countries).flatMap(country =>
+  (country.politics?.organizations || []).map(organization =>
+    organization?.abbreviation ? `${organization.name} (${organization.abbreviation})` : organization?.name || ""
+  )
+);
+for (const staleLabel of [
+  "ABCANZ Armies",
+  "Air Force Interoperability Consejo",
+  "ASEAN Regional Forum",
+  "Combined Communications-Electronics Board",
+  "Multinational Joint Task Force",
+  "Commonwealth",
+  "Francofonia",
+  "Tratado Antartico"
+]) {
+  assert.ok(
+    !servedOrganizationDisplays.some(label => label.toLocaleLowerCase("es").includes(staleLabel.toLocaleLowerCase("es"))),
+    `Etiqueta visible de top sin normalizar: ${staleLabel}`
+  );
+}
+const canonicalOrganizationAbbreviations = new Map([
+  ["organizacion de las naciones unidas", "ONU"],
+  ["organizacion de los estados americanos", "OEA"],
+  ["organizacion de paises exportadores de petroleo", "OPEP"],
+  ["organizacion mundial de aduanas", "OMA"],
+  ["fondo monetario internacional", "FMI"],
+  ["union africana", "UA"],
+  ["union europea", "UE"],
+  ["organizacion mundial de la salud", "OMS"],
+  ["organizacion mundial del comercio", "OMC"],
+  ["banco internacional de reconstruccion y fomento", "BIRF"],
+  ["union internacional de telecomunicaciones", "UIT"],
+  ["organizacion meteorologica mundial", "OMM"],
+  ["organizacion para la prohibicion de armas quimicas", "OPAQ"],
+  ["organismo multilateral de garantia de inversiones", "OMGI"],
+  ["tratado de no proliferacion nuclear", "TNP"],
+  ["asociacion internacional de fomento", "AIF"],
+  ["centro internacional de arreglo de diferencias relativas a inversiones", "CIADI"],
+  ["organizacion hidrografica internacional", "OHI"],
+  ["organizacion internacional de proteccion civil", "OIPC"],
+  ["organizacion para la cooperacion islamica", "OCI"],
+  ["banco asiatico de desarrollo", "BAsD"],
+  ["grupo de abastecedores nucleares", "GSN"],
+  ["consejo de europa", "CdE"],
+  ["organizacion para la cooperacion y el desarrollo economico", "OCDE"],
+  ["regimen de control de tecnologia misilistica", "RCTM"],
+  ["otan", "OTAN"]
+]);
+const organizationAbbreviationIssues = Object.entries(countries).flatMap(([code, country]) =>
+  (country.politics?.organizations || [])
+    .filter(organization => {
+      const expected = canonicalOrganizationAbbreviations.get(normalizeDataLabel(organization?.name));
+      return expected && organization?.abbreviation !== expected;
+    })
+    .map(organization => ({
+      code,
+      name: organization.name,
+      abbreviation: organization.abbreviation,
+      expected: canonicalOrganizationAbbreviations.get(normalizeDataLabel(organization?.name))
+    }))
+);
+assert.deepEqual(organizationAbbreviationIssues, [], `Siglas duplicadas o no traducidas en tops: ${JSON.stringify(organizationAbbreviationIssues.slice(0, 10))}`);
 const servedConflictNames = Object.values(countries).flatMap(country =>
   [...(country.military?.conflicts || []), ...(country.conflicts || [])]
     .map(conflict => typeof conflict === "string" ? conflict : conflict?.name)

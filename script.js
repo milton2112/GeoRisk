@@ -81,7 +81,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-06-25-release-1";
+const APP_VERSION = "2026-06-25-release-2";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -92,17 +92,17 @@ function createFallbackSearchCache() {
 }
 
 const DEFERRED_UI_MODULES = {
-  news: "./app-news-ui.js?v=2026-06-25-release-1",
-  compare: "./app-compare-ui.js?v=2026-06-25-release-1",
-  quiz: "./app-quiz-ui.js?v=2026-06-25-release-1",
-  riskRadar: "./app-risk-radar-ui.js?v=2026-06-25-release-1",
-  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-25-release-1",
-  projectAudit: "./app-project-audit-ui.js?v=2026-06-25-release-1",
-  uiPolish: "./app-ui-polish.js?v=2026-06-25-release-1",
-  countryPanel: "./app-country-panel.js?v=2026-06-25-release-1",
-  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-25-release-1",
-  search: "./app-search.js?v=2026-06-25-release-1",
-  rankings: "./app-rankings.js?v=2026-06-25-release-1"
+  news: "./app-news-ui.js?v=2026-06-25-release-2",
+  compare: "./app-compare-ui.js?v=2026-06-25-release-2",
+  quiz: "./app-quiz-ui.js?v=2026-06-25-release-2",
+  riskRadar: "./app-risk-radar-ui.js?v=2026-06-25-release-2",
+  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-25-release-2",
+  projectAudit: "./app-project-audit-ui.js?v=2026-06-25-release-2",
+  uiPolish: "./app-ui-polish.js?v=2026-06-25-release-2",
+  countryPanel: "./app-country-panel.js?v=2026-06-25-release-2",
+  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-25-release-2",
+  search: "./app-search.js?v=2026-06-25-release-2",
+  rankings: "./app-rankings.js?v=2026-06-25-release-2"
 };
 const deferredUiModulePromises = new Map();
 
@@ -3954,10 +3954,92 @@ function getSearchScore(query, candidate) {
     : Number.POSITIVE_INFINITY;
 }
 
+const TOP_CATEGORY_LABEL_REPLACEMENTS = new Map([
+  ["ABCANZ Armies", "Ej\u00e9rcitos ABCANZ"],
+  ["Air Force Interoperability Consejo", "Consejo de Interoperabilidad de Fuerzas A\u00e9reas"],
+  ["ASEAN Regional Forum", "Foro Regional de la ASEAN"],
+  ["Combined Communications-Electronics Board", "Junta Combinada de Comunicaciones y Electr\u00f3nica"],
+  ["Multinational Joint Task Force", "Fuerza Multinacional Conjunta"],
+  ["Commonwealth", "Mancomunidad de Naciones"],
+  ["Francofonia", "Francofon\u00eda"],
+  ["OIC", "OCI"],
+  ["Alianza del Pacifico", "Alianza del Pac\u00edfico"],
+  ["Tratado Antartico", "Tratado Ant\u00e1rtico"],
+  ["Sistema del Tratado Antartico", "Sistema del Tratado Ant\u00e1rtico"],
+  ["Organizaci\u00f3n de las Naciones Unidas (UN)", "Organizaci\u00f3n de las Naciones Unidas (ONU)"],
+  ["Organizaci\u00f3n de los Estados Americanos (OAS)", "Organizaci\u00f3n de los Estados Americanos (OEA)"],
+  ["Organizaci\u00f3n de Pa\u00edses Exportadores de Petr\u00f3leo (OPEC)", "Organizaci\u00f3n de Pa\u00edses Exportadores de Petr\u00f3leo (OPEP)"],
+  ["Fondo Monetario Internacional (IMF)", "Fondo Monetario Internacional (FMI)"],
+  ["Uni\u00f3n Africana (AU)", "Uni\u00f3n Africana (UA)"],
+  ["Organizaci\u00f3n Mundial de Aduanas (WCO)", "Organizaci\u00f3n Mundial de Aduanas (OMA)"],
+  ["Banco Internacional de Reconstrucci\u00f3n y Fomento (IBRD)", "Banco Internacional de Reconstrucci\u00f3n y Fomento (BIRF)"],
+  ["Uni\u00f3n Internacional de Telecomunicaciones (ITU)", "Uni\u00f3n Internacional de Telecomunicaciones (UIT)"],
+  ["Organizaci\u00f3n Meteorol\u00f3gica Mundial (WMO)", "Organizaci\u00f3n Meteorol\u00f3gica Mundial (OMM)"],
+  ["Organizaci\u00f3n para la Prohibici\u00f3n de Armas Qu\u00edmicas (OPCW)", "Organizaci\u00f3n para la Prohibici\u00f3n de Armas Qu\u00edmicas (OPAQ)"],
+  ["Tratado de No Proliferaci\u00f3n Nuclear (NPT)", "Tratado de No Proliferaci\u00f3n Nuclear (TNP)"],
+  ["Centro Internacional de Arreglo de Diferencias Relativas a Inversiones (ICSID)", "Centro Internacional de Arreglo de Diferencias Relativas a Inversiones (CIADI)"],
+  ["Organizaci\u00f3n Hidrogr\u00e1fica Internacional (IHO)", "Organizaci\u00f3n Hidrogr\u00e1fica Internacional (OHI)"],
+  ["Organizaci\u00f3n Internacional de Protecci\u00f3n Civil (ICDO)", "Organizaci\u00f3n Internacional de Protecci\u00f3n Civil (OIPC)"],
+  ["Organizaci\u00f3n para la Cooperaci\u00f3n Isl\u00e1mica (OIC)", "Organizaci\u00f3n para la Cooperaci\u00f3n Isl\u00e1mica (OCI)"],
+  ["Banco Asi\u00e1tico de Desarrollo (ADB)", "Banco Asi\u00e1tico de Desarrollo (BAsD)"],
+  ["Grupo de abastecedores nucleares (NSG)", "Grupo de abastecedores nucleares (GSN)"],
+  ["Consejo de Europa (CoE)", "Consejo de Europa (CdE)"],
+  ["Organizaci\u00f3n para la Cooperaci\u00f3n y el Desarrollo Econ\u00f3mico (OECD)", "Organizaci\u00f3n para la Cooperaci\u00f3n y el Desarrollo Econ\u00f3mico (OCDE)"],
+  ["R\u00e9gimen de Control de Tecnolog\u00eda Misil\u00edstica (MTCR)", "R\u00e9gimen de Control de Tecnolog\u00eda Misil\u00edstica (RCTM)"],
+  ["OTAN (NATO)", "OTAN"],
+  ["UNESCO (UNESCO)", "UNESCO"]
+].map(([source, target]) => [normalizeText(source), target]));
+
+const NON_POLITICAL_SYSTEM_TOP_LABELS = new Set([
+  "legal y pacifica",
+  "independencia",
+  "union",
+  "disolucion de otro estado",
+  "revolucion",
+  "guerra civil",
+  "tratado internacional"
+]);
+
+const POLITICAL_SYSTEM_TOP_REPLACEMENTS = new Map([
+  ["monarquia constitucional", "Monarqu\u00eda constitucional"],
+  ["monarquia parlamentaria", "Monarqu\u00eda constitucional"],
+  ["monarquia absoluta", "Monarqu\u00eda absoluta"],
+  ["parlamentarismo", "Parlamentarismo"],
+  ["sistema westminster", "Parlamentarismo"],
+  ["republica parlamentaria", "Rep\u00fablica parlamentaria"],
+  ["presidencialismo", "Presidencialismo"],
+  ["republica presidencialista", "Rep\u00fablica presidencialista"],
+  ["semipresidencialismo", "Semipresidencialismo"],
+  ["republica semipresidencialista", "Rep\u00fablica semipresidencialista"],
+  ["republica federal", "Rep\u00fablica federal"],
+  ["republica federal presidencialista", "Rep\u00fablica federal presidencialista"],
+  ["pais", "Estado soberano"],
+  ["republica", "Rep\u00fablica"],
+  ["estado soberano", "Estado soberano"],
+  ["territorio no incorporado de estados unidos", "Territorio no incorporado de Estados Unidos"],
+  ["territorio britanico de ultramar", "Territorio brit\u00e1nico de ultramar"],
+  ["territorio frances de ultramar", "Territorio franc\u00e9s de ultramar"],
+  ["departamento y region de ultramar de francia", "Departamento y regi\u00f3n de ultramar de Francia"],
+  ["sistema del tratado antartico", "Sistema del Tratado Ant\u00e1rtico"]
+]);
+
 function normalizeCategoryLabel(value) {
-  return String(value || "Sin datos")
+  const label = String(value || "Sin datos")
     .replace(/\s+/g, " ")
     .trim();
+  return TOP_CATEGORY_LABEL_REPLACEMENTS.get(normalizeText(label)) || label;
+}
+
+function normalizePoliticalSystemCategory(value) {
+  const label = normalizeCategoryLabel(value);
+  const normalized = normalizeText(label);
+  if (!normalized || label === "Sin datos") {
+    return "Sin datos";
+  }
+  if (NON_POLITICAL_SYSTEM_TOP_LABELS.has(normalized)) {
+    return "Estado soberano";
+  }
+  return POLITICAL_SYSTEM_TOP_REPLACEMENTS.get(normalized) || label;
 }
 
 function uniqueNormalizedList(items) {
@@ -7728,7 +7810,7 @@ function getCountryBlocs(country) {
     ...(relations.militaryBlocs || []),
     ...(relations.economicBlocs || []),
     ...(relations.diplomaticBlocs || [])
-  ]);
+  ].map(normalizeCategoryLabel));
 }
 
 function getCountryConflictsForSearch(country) {
@@ -8021,7 +8103,7 @@ function getReligionThemeKey(country) {
 }
 
 function getPoliticalThemeInfo(country) {
-  const system = normalizeText(country.politics?.system);
+  const system = normalizeText(normalizePoliticalSystemCategory(country.politics?.system));
 
   if (!system) {
     return { key: "otros", label: "Otros" };
@@ -12433,7 +12515,7 @@ function getFilteredCountries(filters = getFilterState()) {
     }
 
     if (filters.system) {
-      const systemLabel = normalizeCategoryLabel(country.politics?.system);
+      const systemLabel = normalizePoliticalSystemCategory(country.politics?.system);
       const normalizedSystem = normalizeText(systemLabel);
       if (filters.system === "__monarquia__" && !normalizedSystem.includes("monarquia")) {
         return false;
@@ -12450,18 +12532,20 @@ function getFilteredCountries(filters = getFilterState()) {
       if (filters.system === "__federal__" && !/(federal|federacion)/.test(normalizedSystem)) {
         return false;
       }
-      if (!filters.system.startsWith("__") && systemLabel !== filters.system) {
+      if (!filters.system.startsWith("__") && systemLabel !== normalizePoliticalSystemCategory(filters.system)) {
         return false;
       }
     }
 
-    if (
-      filters.organization &&
-      !(country.politics?.organizations || []).some(
-        organization => normalizeCategoryLabel(getOrganizationDisplayName(organization)) === filters.organization
-      )
-    ) {
-      return false;
+    if (filters.organization) {
+      const requestedOrganization = normalizeCategoryLabel(filters.organization);
+      if (
+        !(country.politics?.organizations || []).some(
+          organization => normalizeCategoryLabel(getOrganizationDisplayName(organization)) === requestedOrganization
+        )
+      ) {
+        return false;
+      }
     }
 
     if (filters.language && !getCountryLanguages(country).some(language => normalizeText(language) === normalizeText(filters.language))) {
@@ -12779,12 +12863,16 @@ function getOrganizationDisplayName(organization) {
   }
 
   if (typeof organization === "string") {
-    return organization;
+    return normalizeCategoryLabel(organization);
   }
 
-  return organization.abbreviation
-    ? `${organization.name} (${organization.abbreviation})`
-    : organization.name;
+  const name = normalizeCategoryLabel(organization.name);
+  const abbreviation = normalizeCategoryLabel(organization.abbreviation || "");
+  if (!abbreviation || normalizeText(name) === normalizeText(abbreviation)) {
+    return name;
+  }
+  const label = `${name} (${abbreviation})`;
+  return normalizeCategoryLabel(label);
 }
 
 function getOrganizationAliases(organization) {
@@ -12862,15 +12950,15 @@ function setupSearchIndex(featureNameByCode) {
       registerSuggestion(entry.label, "religion", entry.label, "Religion");
     });
 
-    const systemLabel = normalizeCategoryLabel(country.politics?.system);
+    const systemLabel = normalizePoliticalSystemCategory(country.politics?.system);
     if (systemLabel && systemLabel !== "Sin datos") {
       registerLookupAlias(systemAliases, systemLabel, systemLabel);
       registerSuggestion(systemLabel, "system", systemLabel, "Sistema politico");
     }
 
     (country.politics?.organizations || []).forEach(organization => {
-      const label = getOrganizationDisplayName(organization);
-      const aliases = getOrganizationAliases(organization);
+      const label = normalizeCategoryLabel(getOrganizationDisplayName(organization));
+      const aliases = uniqueNormalizedList([...getOrganizationAliases(organization), label]);
       if (!label) {
         return;
       }
@@ -13094,18 +13182,20 @@ function hideSuggestions() {
 }
 
 function getCountriesBySystem(systemLabel) {
+  const requestedSystem = normalizePoliticalSystemCategory(systemLabel);
   return getCountryValues()
-    .filter(country => normalizeCategoryLabel(country.politics?.system) === systemLabel)
+    .filter(country => normalizePoliticalSystemCategory(country.politics?.system) === requestedSystem)
     .sort((a, b) => a.name.localeCompare(b.name, "es"));
 }
 
 function getCountriesByOrganization(organizationLabel) {
+  const requestedOrganization = normalizeCategoryLabel(organizationLabel);
   return getCountryValues()
     .filter(country =>
       (country.politics?.organizations || []).some(
         organization =>
-          normalizeCategoryLabel(getOrganizationDisplayName(organization)) === organizationLabel ||
-          getOrganizationAliases(organization).some(alias => normalizeText(alias) === normalizeText(organizationLabel))
+          normalizeCategoryLabel(getOrganizationDisplayName(organization)) === requestedOrganization ||
+          getOrganizationAliases(organization).some(alias => normalizeText(alias) === normalizeText(requestedOrganization))
       )
     )
     .sort((a, b) => a.name.localeCompare(b.name, "es"));
@@ -13217,7 +13307,7 @@ function getCountriesForNaturalRanking(naturalQuery) {
     .filter(country => {
       if (filters.continent && country.continent !== filters.continent) return false;
       if (filters.religion && !isReligionMajorityInCountry(country, filters.religion)) return false;
-      if (filters.system && normalizeCategoryLabel(country.politics?.system) !== filters.system) return false;
+      if (filters.system && normalizePoliticalSystemCategory(country.politics?.system) !== normalizePoliticalSystemCategory(filters.system)) return false;
       if (filters.organization && !getCountriesByOrganization(filters.organization).includes(country)) return false;
       if (filters.bloc && !getCountryBlocs(country).some(bloc => normalizeText(bloc) === normalizeText(filters.bloc))) return false;
       if (filters.rival && !(country.politics?.rivals || []).some(rival => normalizeCategoryLabel(rival?.name || rival) === filters.rival)) return false;
@@ -14152,7 +14242,7 @@ function generateInflationRanking() {
 function generateSystemRanking() {
   const totals = {};
   getCountryValues().forEach(country => {
-    const key = normalizeCategoryLabel(country.politics?.system);
+    const key = normalizePoliticalSystemCategory(country.politics?.system);
     if (!key || key === "Sin datos") {
       return;
     }
@@ -14964,14 +15054,14 @@ function setupThemeControls() {
 
   const systemOptions = getUniqueDisplayLabels(
     getCountryValues()
-      .map(country => normalizeCategoryLabel(country.politics?.system))
+      .map(country => normalizePoliticalSystemCategory(country.politics?.system))
       .filter(label => label && label !== "Sin datos")
   );
   systemFilter.innerHTML += systemOptions.map(label => `<option value="${escapeHtml(label)}">${escapeHtml(label)}</option>`).join("");
 
   const organizationOptions = getUniqueDisplayLabels(
     getCountryValues()
-      .flatMap(country => (country.politics?.organizations || []).map(getOrganizationDisplayName))
+      .flatMap(country => (country.politics?.organizations || []).map(organization => normalizeCategoryLabel(getOrganizationDisplayName(organization))))
       .filter(Boolean)
   );
   organizationFilter.innerHTML += organizationOptions.map(label => `<option value="${escapeHtml(label)}">${escapeHtml(label)}</option>`).join("");
@@ -15285,8 +15375,11 @@ function buildQuizQuestion(category) {
       .filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
   } else {
     prompt = `¿Cual es el sistema politico principal de ${country.name}?`;
-    correct = country.politics.system;
-    distractors = shuffleArray([...new Set(getCountryValues().map(item => item.politics?.system).filter(Boolean).filter(name => normalizeText(name) !== normalizeText(correct)))]).slice(0, 3);
+    correct = normalizePoliticalSystemCategory(country.politics.system);
+    distractors = shuffleArray([...new Set(getCountryValues()
+      .map(item => normalizePoliticalSystemCategory(item.politics?.system))
+      .filter(Boolean)
+      .filter(name => name !== "Sin datos" && normalizeText(name) !== normalizeText(correct)))]).slice(0, 3);
   }
 
   if (distractors.length < 3) return null;

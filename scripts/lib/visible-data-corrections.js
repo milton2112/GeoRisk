@@ -62,6 +62,22 @@ export const visibleStringReplacements = new Map([
   ["Internacional Energy Forum", "Foro Internacional de Energía"],
   ["Foro Internacional de Energia", "Foro Internacional de Energía"],
   ["espacio Schengen", "Espacio Schengen"],
+  ["ABCANZ Armies", "Ej\u00e9rcitos ABCANZ"],
+  ["Air Force Interoperability Consejo", "Consejo de Interoperabilidad de Fuerzas A\u00e9reas"],
+  ["ASEAN Regional Forum", "Foro Regional de la ASEAN"],
+  ["Combined Communications-Electronics Board", "Junta Combinada de Comunicaciones y Electr\u00f3nica"],
+  ["Multinational Joint Task Force", "Fuerza Multinacional Conjunta"],
+  ["Commonwealth", "Mancomunidad de Naciones"],
+  ["Francofonia", "Francofon\u00eda"],
+  ["OIC", "OCI"],
+  ["Alianza del Pacifico", "Alianza del Pac\u00edfico"],
+  ["Tratado Antartico", "Tratado Ant\u00e1rtico"],
+  ["Sistema del Tratado Antartico", "Sistema del Tratado Ant\u00e1rtico"],
+  ["Organizacion de las Naciones Unidas", "Organizaci\u00f3n de las Naciones Unidas"],
+  ["Organizacion de los Estados Americanos", "Organizaci\u00f3n de los Estados Americanos"],
+  ["Organizacion de Paises Exportadores de Petroleo", "Organizaci\u00f3n de Pa\u00edses Exportadores de Petr\u00f3leo"],
+  ["Fondo Monetario Internacional", "Fondo Monetario Internacional"],
+  ["Union Africana", "Uni\u00f3n Africana"],
   ["Q4264", "Mercosur"]
 ]);
 
@@ -76,14 +92,81 @@ export function applyVisibleStringReplacements(value) {
   return visibleStringReplacements.get(value) || value;
 }
 
+function normalizeVisibleKey(value) {
+  return String(value || "")
+    .replace(/\s*\([^)]*\)\s*$/g, "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+}
+
+const canonicalOrganizationAbbreviations = new Map([
+  ["organizacion de las naciones unidas", "ONU"],
+  ["organizacion de los estados americanos", "OEA"],
+  ["organizacion de paises exportadores de petroleo", "OPEP"],
+  ["organizacion mundial de aduanas", "OMA"],
+  ["organizacion mundial de la salud", "OMS"],
+  ["organizacion mundial del comercio", "OMC"],
+  ["organizacion meteorologica mundial", "OMM"],
+  ["organizacion para la prohibicion de armas quimicas", "OPAQ"],
+  ["organizacion del tratado del atlantico norte", "OTAN"],
+  ["otan", "OTAN"],
+  ["agencia internacional de energia atomica", "OIEA"],
+  ["fondo monetario internacional", "FMI"],
+  ["banco internacional de reconstruccion y fomento", "BIRF"],
+  ["union internacional de telecomunicaciones", "UIT"],
+  ["union europea", "UE"],
+  ["union africana", "UA"],
+  ["organismo multilateral de garantia de inversiones", "OMGI"],
+  ["tratado de no proliferacion nuclear", "TNP"],
+  ["asociacion internacional de fomento", "AIF"],
+  ["centro internacional de arreglo de diferencias relativas a inversiones", "CIADI"],
+  ["organizacion hidrografica internacional", "OHI"],
+  ["organizacion internacional de proteccion civil", "OIPC"],
+  ["organizacion para la cooperacion islamica", "OCI"],
+  ["banco asiatico de desarrollo", "BAsD"],
+  ["grupo de abastecedores nucleares", "GSN"],
+  ["consejo de europa", "CdE"],
+  ["organizacion para la cooperacion y el desarrollo economico", "OCDE"],
+  ["regimen de control de tecnologia misilistica", "RCTM"],
+  ["comunidad del caribe", "CARICOM"],
+  ["foro regional de la asean", "ARF"]
+]);
+
+export function normalizeVisibleOrganizationEntry(value) {
+  if (!value || typeof value !== "object") {
+    return value;
+  }
+  if (typeof value.name !== "string" && typeof value.abbreviation !== "string") {
+    return value;
+  }
+
+  const name = applyVisibleStringReplacements(value.name);
+  const abbreviation = applyVisibleStringReplacements(value.abbreviation || "");
+  const canonicalAbbreviation = canonicalOrganizationAbbreviations.get(normalizeVisibleKey(name));
+  const normalized = {
+    ...value,
+    name
+  };
+
+  if (canonicalAbbreviation) {
+    normalized.abbreviation = canonicalAbbreviation;
+  } else if (abbreviation) {
+    normalized.abbreviation = abbreviation;
+  }
+
+  return normalized;
+}
+
 function normalizeTechnicalNamedObject(value) {
   const replacedName = applyVisibleStringReplacements(value.name);
   if (typeof replacedName === "string" && !isTechnicalIdentifier(replacedName)) {
-    return { ...value, name: replacedName };
+    return normalizeVisibleOrganizationEntry({ ...value, name: replacedName });
   }
   const abbreviation = applyVisibleStringReplacements(value.abbreviation || "");
   if (typeof abbreviation === "string" && abbreviation && !isTechnicalIdentifier(abbreviation)) {
-    return { ...value, name: abbreviation };
+    return normalizeVisibleOrganizationEntry({ ...value, name: abbreviation });
   }
   return null;
 }
@@ -102,8 +185,9 @@ export function normalizeVisibleValue(value) {
   if (typeof value.name === "string" && isTechnicalIdentifier(applyVisibleStringReplacements(value.name))) {
     return normalizeTechnicalNamedObject(value);
   }
+  const normalizedObject = normalizeVisibleOrganizationEntry(value);
   return Object.fromEntries(
-    Object.entries(value)
+    Object.entries(normalizedObject)
       .map(([key, item]) => [key, normalizeVisibleValue(item)])
       .filter(([, item]) => item !== null)
   );

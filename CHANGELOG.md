@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.5 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.6 antes de cerrar la siguiente version.
+
+## v1.6.6 - 2026-06-25
+
+- Corrige los datos visibles de tops: sistemas politicos dejan de mezclar tipos historicos como independencia, union o disolucion.
+- Normaliza organizaciones y bloques visibles con traducciones y siglas consistentes en espanol (`ONU`, `OEA`, `OPEP`, `FMI`, `OMA`, `BIRF`, `UIT`, `OMM`, `OPAQ`, `OCI`).
+- Evita displays redundantes como `UNESCO (UNESCO)` y hace que ranking, filtros y busqueda usen la misma etiqueta canonizada.
+- Integra `applyVisibleDataCorrections.js` dentro de `npm run build:data` y agrega pruebas para bloquear regresiones en tops.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-06-25-release-2` para invalidar datos cacheados de la release anterior.
 
 ## v1.6.5 - 2026-06-25
 
