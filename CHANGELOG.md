@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.4 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.5 antes de cerrar la siguiente version.
+
+## v1.6.5 - 2026-06-25
+
+- Repara el flujo comun de seleccion: tocar paises, rankings, sugerencias y botones internos vuelve a abrir la ficha y enfocar el mapa desde un helper unico.
+- Hace tolerante la apertura por codigo/nombre cuando el pais viene del indice liviano o de una ficha cargada bajo demanda.
+- Evita que busquedas por continente, religion, sistema, organizacion o filtros queden vacias si la geometria del mapa todavia no termino de cargar.
+- Protege las selecciones ante estados donde Cesium o `requestRender` no estan listos, evitando cortes silenciosos antes de abrir la ficha.
+- Agrega una prueba de regresion para bloquear que rankings/busqueda vuelvan a depender de capas cartograficas u objetos exactos.
 
 ## v1.6.4 - 2026-06-23
 

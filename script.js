@@ -81,7 +81,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-06-23-release-3";
+const APP_VERSION = "2026-06-25-release-1";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -92,17 +92,17 @@ function createFallbackSearchCache() {
 }
 
 const DEFERRED_UI_MODULES = {
-  news: "./app-news-ui.js?v=2026-06-23-release-3",
-  compare: "./app-compare-ui.js?v=2026-06-23-release-3",
-  quiz: "./app-quiz-ui.js?v=2026-06-23-release-3",
-  riskRadar: "./app-risk-radar-ui.js?v=2026-06-23-release-3",
-  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-23-release-3",
-  projectAudit: "./app-project-audit-ui.js?v=2026-06-23-release-3",
-  uiPolish: "./app-ui-polish.js?v=2026-06-23-release-3",
-  countryPanel: "./app-country-panel.js?v=2026-06-23-release-3",
-  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-23-release-3",
-  search: "./app-search.js?v=2026-06-23-release-3",
-  rankings: "./app-rankings.js?v=2026-06-23-release-3"
+  news: "./app-news-ui.js?v=2026-06-25-release-1",
+  compare: "./app-compare-ui.js?v=2026-06-25-release-1",
+  quiz: "./app-quiz-ui.js?v=2026-06-25-release-1",
+  riskRadar: "./app-risk-radar-ui.js?v=2026-06-25-release-1",
+  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-25-release-1",
+  projectAudit: "./app-project-audit-ui.js?v=2026-06-25-release-1",
+  uiPolish: "./app-ui-polish.js?v=2026-06-25-release-1",
+  countryPanel: "./app-country-panel.js?v=2026-06-25-release-1",
+  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-25-release-1",
+  search: "./app-search.js?v=2026-06-25-release-1",
+  rankings: "./app-rankings.js?v=2026-06-25-release-1"
 };
 const deferredUiModulePromises = new Map();
 
@@ -1836,6 +1836,16 @@ let lastThemeSummarySignature = "";
 let introCoverageCache = { signature: "", stats: null };
 let exportCanvasLibraryPromise = null;
 let exportPdfLibraryPromise = null;
+
+function requestMapRenderSafe(context = "map-update") {
+  try {
+    viewer?.scene?.requestRender?.();
+    return Boolean(viewer?.scene);
+  } catch (error) {
+    console.warn(`No se pudo pedir render del mapa (${context}):`, error);
+    return false;
+  }
+}
 
 function installSceneRenderScheduler() {
   if (!viewer?.scene || viewer.__geoRiskRenderSchedulerInstalled) {
@@ -6744,7 +6754,7 @@ function clearSelection() {
   }
 
   selectionMode = "country";
-  viewer.scene.requestRender();
+  requestMapRenderSafe("clear-selection");
 }
 
 function updateLayerSelection(nextLayers, nextMode, highlightStyle) {
@@ -6915,7 +6925,7 @@ function setCountrySelection(layers) {
     continentBoundsLayer = null;
   }
   updateLayerSelection(layerList, "country", COUNTRY_HIGHLIGHT_STYLE);
-  viewer.scene.requestRender();
+  requestMapRenderSafe("country-selection");
 }
 
 function getCountryClickTarget(code, layer) {
@@ -6939,7 +6949,7 @@ function setContinentSelection(layers) {
   updateLayerSelection(layers, "continent", CONTINENT_HIGHLIGHT_STYLE);
 
   continentBoundsLayer = createLayerGroup(layers);
-  viewer.scene.requestRender();
+  requestMapRenderSafe("group-selection");
 }
 
 function fitLayerBounds(layerOrGroup) {
@@ -10200,7 +10210,18 @@ function renderRelationChips(items) {
 }
 
 function getCountryCodeByObject(country) {
-  return countryCodeLookup.get(country) || "";
+  if (!country) {
+    return "";
+  }
+  const directCode = countryCodeLookup.get(country) || String(country.code || "").trim();
+  const normalizedDirectCode = directCode.toUpperCase();
+  if (directCode && countriesData[directCode]) {
+    return directCode;
+  }
+  if (normalizedDirectCode && countriesData[normalizedDirectCode]) {
+    return normalizedDirectCode;
+  }
+  return resolveCountryCode("", country.name || country.general?.officialName || "") || "";
 }
 
 function getRankedCountryCode(country) {
@@ -10212,19 +10233,48 @@ function getRankedCountryCode(country) {
     "";
 }
 
-function selectRankedCountry(country) {
-  const code = getRankedCountryCode(country);
-  if (!code || !countriesData[code]) {
-    return;
-  }
-  const layers = getLinkedCodes(code)
+function getCountrySelectionLayers(code) {
+  return getLinkedCodes(code)
     .map(item => countryLayers.get(item))
     .filter(Boolean);
-  if (layers.length) {
-    setCountrySelection(layers);
+}
+
+function focusCountrySelectionLayers(layers, { focusMap = true } = {}) {
+  if (!layers.length) {
+    return false;
+  }
+  setCountrySelection(layers);
+  if (focusMap) {
     fitLayerBounds(createLayerGroup(layers));
   }
-  renderCountry(countriesData[code], countriesData[code].name);
+  return true;
+}
+
+async function openCountryByCode(rawCode, fallbackName = "", options = {}) {
+  const code = resolveCountryCode(rawCode, fallbackName) || String(rawCode || "").trim();
+  if (!code) {
+    renderEmpty(fallbackName || (currentLanguage === "en" ? "Country not found" : "Pais no encontrado"));
+    return false;
+  }
+
+  const country = countriesData[code] || await loadCountryDetail(code);
+  if (!country) {
+    renderEmpty(fallbackName || code);
+    return false;
+  }
+
+  const selected = focusCountrySelectionLayers(getCountrySelectionLayers(code), options);
+  if (!selected) {
+    clearSelection();
+  }
+  await renderCountry(country, fallbackName || country.name || code);
+  requestMapRenderSafe("open-country");
+  return true;
+}
+
+async function selectRankedCountry(country) {
+  const code = getRankedCountryCode(country);
+  await openCountryByCode(code, country?.name || "");
 }
 
 function collectRelationGroups(country, countryCode) {
@@ -11277,11 +11327,11 @@ async function renderRiskRadarPanel() {
   );
 
   document.querySelectorAll("[data-open-country]").forEach(button => {
-    button.addEventListener("click", () => {
+    button.addEventListener("click", async () => {
       const code = button.dataset.openCountry;
-      if (code && countriesData[code]) {
+      if (code) {
         closeProductModal();
-        renderCountry(countriesData[code], countriesData[code].name);
+        await openCountryByCode(code);
       }
     });
   });
@@ -11373,11 +11423,11 @@ async function renderConflictAuditPanel() {
   openProductModal(currentLanguage === "en" ? "Conflict audit" : "Auditoria de conflictos", body);
 
   document.querySelectorAll("[data-open-country]").forEach(button => {
-    button.addEventListener("click", () => {
+    button.addEventListener("click", async () => {
       const code = button.dataset.openCountry;
-      if (code && countriesData[code]) {
+      if (code) {
         closeProductModal();
-        renderCountry(countriesData[code], countriesData[code].name);
+        await openCountryByCode(code);
       }
     });
   });
@@ -12487,16 +12537,7 @@ function getFilteredCountries(filters = getFilterState()) {
 function applyFilters() {
   const filters = getFilterState();
   const countries = getFilteredCountries(filters).sort((a, b) => a.name.localeCompare(b.name, "es"));
-  const layers = getLayersForCountries(countries);
-
-  if (!layers.length) {
-    renderEmpty("Sin resultados para esos filtros");
-    return;
-  }
-
-  setContinentSelection(layers);
-  fitLayerBounds(createLayerGroup(layers));
-  renderGroupSelection("Filtros globales", "Paises y territorios filtrados", countries);
+  renderSelectableCountryGroup("Filtros globales", "Paises y territorios filtrados", countries);
 }
 
 function parseSemanticQuery(rawQuery) {
@@ -13094,14 +13135,53 @@ function getCountriesByRival(rivalName) {
 
 function getLayersForCountries(countries) {
   const matchingCodes = new Set(
-    getCountryEntries()
-      .filter(([, country]) => countries.includes(country))
-      .map(([code]) => code)
+    (countries || [])
+      .map(country => getRankedCountryCode(country))
+      .filter(Boolean)
   );
 
   return [...matchingCodes]
     .map(code => countryLayers.get(code))
     .filter(Boolean);
+}
+
+function selectCountryGroupLayers(countries, { mode = "continent", focusMap = true } = {}) {
+  const layers = getLayersForCountries(countries);
+  if (!layers.length) {
+    clearSelection();
+    return false;
+  }
+
+  if (mode === "religion") {
+    clearSelection();
+    selectionMode = "religion";
+    selectedLayers = layers;
+    selectedLayers.forEach(layer => layer.setStyle(RELIGION_HIGHLIGHT_STYLE));
+    continentBoundsLayer = createLayerGroup(layers);
+    if (focusMap) {
+      fitLayerBounds(continentBoundsLayer);
+    }
+    requestMapRenderSafe("religion-selection");
+    return true;
+  }
+
+  setContinentSelection(layers);
+  if (focusMap) {
+    fitLayerBounds(createLayerGroup(layers));
+  }
+  return true;
+}
+
+function renderSelectableCountryGroup(title, subtitle, countries, options = {}) {
+  const cleanCountries = uniqueBy(countries || [], country => getRankedCountryCode(country) || country?.name)
+    .filter(Boolean);
+  if (!cleanCountries.length) {
+    renderEmpty(title || (currentLanguage === "en" ? "No results" : "Sin resultados"));
+    return false;
+  }
+  selectCountryGroupLayers(cleanCountries, options);
+  renderGroupSelection(title, subtitle, cleanCountries);
+  return true;
 }
 
 function getSearchAliasContext() {
@@ -13151,13 +13231,13 @@ function getCountriesForNaturalRanking(naturalQuery) {
 function renderNaturalRankingSearch(rawQuery, naturalQuery) {
   const cached = searchResultCache.get(rawQuery);
   const countries = cached || searchResultCache.set(rawQuery, getCountriesForNaturalRanking(naturalQuery));
-  const layers = getLayersForCountries(countries);
-  if (!layers.length) {
+  if (!renderSelectableCountryGroup(
+    rawQuery,
+    currentLanguage === "en" ? "Natural ranking query" : "Consulta natural de ranking",
+    countries
+  )) {
     return false;
   }
-  setContinentSelection(layers);
-  fitLayerBounds(createLayerGroup(layers));
-  renderGroupSelection(rawQuery, currentLanguage === "en" ? "Natural ranking query" : "Consulta natural de ranking", countries);
   pushSearchHistory(rawQuery);
   renderSearchQueryChips({ ...naturalQuery.filters, ...naturalQuery.chips });
   dismissSearchInput();
@@ -13191,15 +13271,8 @@ async function selectSearchResult(result) {
 
   if (result.type === "country") {
     const countryCode = result.value;
-    if (countryCode && countriesData[countryCode]) {
-      const linkedLayers = getLinkedCodes(countryCode)
-        .map(code => countryLayers.get(code))
-        .filter(Boolean);
-      if (linkedLayers.length) {
-        setCountrySelection(linkedLayers);
-        fitLayerBounds(createLayerGroup(linkedLayers));
-      }
-      await renderCountry(countriesData[countryCode], countriesData[countryCode].name);
+    if (countryCode) {
+      await openCountryByCode(countryCode, result.label);
       return;
     }
   }
@@ -13208,36 +13281,18 @@ async function selectSearchResult(result) {
     const continentEntries = getCountryEntries().filter(
       ([, country]) => country.continent === result.value
     );
-    const layers = continentEntries
-      .map(([code]) => countryLayers.get(code))
-      .filter(Boolean);
-
-    if (layers.length) {
-      setContinentSelection(layers);
-      fitLayerBounds(continentBoundsLayer);
-      renderContinent(
-        translateContinentName(result.value),
-        continentEntries.map(([, country]) => country)
-      );
+    const countries = continentEntries.map(([, country]) => country);
+    if (countries.length) {
+      selectCountryGroupLayers(countries);
+      renderContinent(translateContinentName(result.value), countries);
       return;
     }
   }
 
   if (result.type === "religion") {
     const matches = getReligionMatches(result.value);
-    const layers = getCountryEntries()
-      .filter(([, country]) => isReligionMajorityInCountry(country, result.value))
-      .map(([code]) => countryLayers.get(code))
-      .filter(Boolean);
-
-    if (layers.length) {
-      clearSelection();
-      selectionMode = "religion";
-      selectedLayers = layers;
-      selectedLayers.forEach(layer => layer.setStyle(RELIGION_HIGHLIGHT_STYLE));
-      continentBoundsLayer = createLayerGroup(layers);
-      fitLayerBounds(continentBoundsLayer);
-
+    if (matches.length) {
+      selectCountryGroupLayers(matches, { mode: "religion" });
       const totalNominal = matches.reduce(
         (sum, country) => sum + getReligionNominalPopulation(country, result.value),
         0
@@ -13250,115 +13305,90 @@ async function selectSearchResult(result) {
 
   if (result.type === "system") {
     const countries = getCountriesBySystem(result.value);
-    const layers = getLayersForCountries(countries);
-
-    if (layers.length) {
-      setContinentSelection(layers);
-      fitLayerBounds(createLayerGroup(layers));
-      renderGroupSelection(result.label, "Paises con este sistema politico", countries);
+    if (renderSelectableCountryGroup(result.label, "Paises con este sistema politico", countries)) {
       return;
     }
   }
 
   if (result.type === "organization") {
     const countries = getCountriesByOrganization(result.value);
-    const layers = getLayersForCountries(countries);
-
-    if (layers.length) {
-      setContinentSelection(layers);
-      fitLayerBounds(createLayerGroup(layers));
-      renderGroupSelection(result.label, "Paises miembros encontrados", countries);
+    if (renderSelectableCountryGroup(result.label, "Paises miembros encontrados", countries)) {
       return;
     }
   }
 
   if (result.type === "language") {
     const countries = getCountriesByLanguage(result.value);
-    const layers = getLayersForCountries(countries);
-    if (layers.length) {
-      setContinentSelection(layers);
-      fitLayerBounds(createLayerGroup(layers));
-      renderGroupSelection(result.label, currentLanguage === "en" ? "Countries using this language" : "Paises que usan este idioma", countries);
+    if (renderSelectableCountryGroup(
+      result.label,
+      currentLanguage === "en" ? "Countries using this language" : "Paises que usan este idioma",
+      countries
+    )) {
       return;
     }
   }
 
   if (result.type === "bloc") {
     const countries = getCountriesByBloc(result.value);
-    const layers = getLayersForCountries(countries);
-    if (layers.length) {
-      setContinentSelection(layers);
-      fitLayerBounds(createLayerGroup(layers));
-      renderGroupSelection(result.label, currentLanguage === "en" ? "Countries in this bloc or alliance" : "Paises en este bloque o alianza", countries);
+    if (renderSelectableCountryGroup(
+      result.label,
+      currentLanguage === "en" ? "Countries in this bloc or alliance" : "Paises en este bloque o alianza",
+      countries
+    )) {
       return;
     }
   }
 
   if (result.type === "metropole") {
     const countries = getCountriesByMetropole(result.value);
-    const layers = getLayersForCountries(countries);
-    if (layers.length) {
-      setContinentSelection(layers);
-      fitLayerBounds(createLayerGroup(layers));
-      renderGroupSelection(result.label, currentLanguage === "en" ? "Countries linked to this former metropole" : "Paises ligados a esta ex metropoli", countries);
+    if (renderSelectableCountryGroup(
+      result.label,
+      currentLanguage === "en" ? "Countries linked to this former metropole" : "Paises ligados a esta ex metropoli",
+      countries
+    )) {
       return;
     }
   }
 
   if (result.type === "history_type") {
     const countries = getCountriesByHistoryType(result.value);
-    const layers = getLayersForCountries(countries);
-
-    if (layers.length) {
-      setContinentSelection(layers);
-      fitLayerBounds(createLayerGroup(layers));
-      renderGroupSelection(result.label, "Paises con este tipo de formacion", countries);
+    if (renderSelectableCountryGroup(result.label, "Paises con este tipo de formacion", countries)) {
       return;
     }
   }
 
   if (result.type === "period") {
     const countries = getCountriesByPeriod(result.value);
-    const layers = getLayersForCountries(countries);
-    if (layers.length) {
-      setContinentSelection(layers);
-      fitLayerBounds(createLayerGroup(layers));
-      renderGroupSelection(result.label, currentLanguage === "en" ? "Countries linked to this period" : "Paises ligados a este periodo", countries);
+    if (renderSelectableCountryGroup(
+      result.label,
+      currentLanguage === "en" ? "Countries linked to this period" : "Paises ligados a este periodo",
+      countries
+    )) {
       return;
     }
   }
 
   if (result.type === "conflict") {
     const countries = getCountriesByConflict(result.value);
-    const layers = getLayersForCountries(countries);
-    if (layers.length) {
-      setContinentSelection(layers);
-      fitLayerBounds(createLayerGroup(layers));
-      renderGroupSelection(result.label, currentLanguage === "en" ? "Countries linked to this war or battle" : "Paises ligados a esta guerra o batalla", countries);
+    if (renderSelectableCountryGroup(
+      result.label,
+      currentLanguage === "en" ? "Countries linked to this war or battle" : "Paises ligados a esta guerra o batalla",
+      countries
+    )) {
       return;
     }
   }
 
   if (result.type === "origin") {
     const countries = getCountriesByOrigin(result.value);
-    const layers = getLayersForCountries(countries);
-
-    if (layers.length) {
-      setContinentSelection(layers);
-      fitLayerBounds(createLayerGroup(layers));
-      renderGroupSelection(result.label, "Paises con este origen historico", countries);
+    if (renderSelectableCountryGroup(result.label, "Paises con este origen historico", countries)) {
       return;
     }
   }
 
   if (result.type === "rival") {
     const countries = getCountriesByRival(result.value);
-    const layers = getLayersForCountries(countries);
-
-    if (layers.length) {
-      setContinentSelection(layers);
-      fitLayerBounds(createLayerGroup(layers));
-      renderGroupSelection(result.label, "Paises que mencionan este rival", countries);
+    if (renderSelectableCountryGroup(result.label, "Paises que mencionan este rival", countries)) {
       return;
     }
   }
@@ -13389,15 +13419,11 @@ async function searchMap() {
       .filter(country => getCountryConflictCount(country) > 0)
       .sort((a, b) => getCountryConflictCount(b) - getCountryConflictCount(a))
       .slice(0, 15);
-    const layers = getLayersForCountries(countries);
-    if (layers.length) {
-      setContinentSelection(layers);
-      fitLayerBounds(createLayerGroup(layers));
-      renderGroupSelection(
-        currentLanguage === "en" ? "Countries with more conflicts" : "Paises con mas conflictos",
-        currentLanguage === "en" ? "Conflict count ranking" : "Ranking por cantidad de conflictos",
-        countries
-      );
+    if (renderSelectableCountryGroup(
+      currentLanguage === "en" ? "Countries with more conflicts" : "Paises con mas conflictos",
+      currentLanguage === "en" ? "Conflict count ranking" : "Ranking por cantidad de conflictos",
+      countries
+    )) {
       pushSearchHistory(rawQuery);
       renderSearchQueryChips({ conflict: currentLanguage === "en" ? "Most conflicts" : "Mas conflictos" });
       dismissSearchInput();
@@ -13410,15 +13436,11 @@ async function searchMap() {
       .filter(country => getCountryOrganizationCount(country) > 0)
       .sort((a, b) => getCountryOrganizationCount(b) - getCountryOrganizationCount(a))
       .slice(0, 15);
-    const layers = getLayersForCountries(countries);
-    if (layers.length) {
-      setContinentSelection(layers);
-      fitLayerBounds(createLayerGroup(layers));
-      renderGroupSelection(
-        currentLanguage === "en" ? "Countries with more organizations" : "Paises con mas organizaciones",
-        currentLanguage === "en" ? "Organization count ranking" : "Ranking por cantidad de organizaciones",
-        countries
-      );
+    if (renderSelectableCountryGroup(
+      currentLanguage === "en" ? "Countries with more organizations" : "Paises con mas organizaciones",
+      currentLanguage === "en" ? "Organization count ranking" : "Ranking por cantidad de organizaciones",
+      countries
+    )) {
       pushSearchHistory(rawQuery);
       renderSearchQueryChips({ organization: currentLanguage === "en" ? "Most organizations" : "Mas organizaciones" });
       dismissSearchInput();
@@ -13437,11 +13459,11 @@ async function searchMap() {
     document.getElementById("filter-rival-select").value = semanticFilters.rival;
     document.getElementById("filter-population-select").value = semanticFilters.minPopulation ? String(semanticFilters.minPopulation) : "";
     const semanticCountries = getFilteredCountries(semanticFilters).sort((a, b) => a.name.localeCompare(b.name, "es"));
-    const layers = getLayersForCountries(semanticCountries);
-    if (layers.length) {
-      setContinentSelection(layers);
-      fitLayerBounds(createLayerGroup(layers));
-      renderGroupSelection(rawQuery, currentLanguage === "en" ? "Semantic search result" : "Resultado semantico", semanticCountries);
+    if (renderSelectableCountryGroup(
+      rawQuery,
+      currentLanguage === "en" ? "Semantic search result" : "Resultado semantico",
+      semanticCountries
+    )) {
       pushSearchHistory(rawQuery);
       renderSearchQueryChips(semanticFilters);
       dismissSearchInput();
@@ -14270,7 +14292,7 @@ async function loadMap(bootPhase = false) {
       lastHoverCode = "";
     }
 
-    clickHandler.setInputAction(movement => {
+    clickHandler.setInputAction(async movement => {
     emitMapEvent("click");
     const picked = viewer.scene.pick(movement.position);
     const rawCode = picked?.id?.countryCode;
@@ -14281,15 +14303,7 @@ async function loadMap(bootPhase = false) {
       clearSelection();
       if (featureName) {
         const aliasCode = resolveCountryCode("", featureName);
-        if (aliasCode && countriesData[aliasCode]) {
-          const linkedLayers = getLinkedCodes(aliasCode)
-            .map(linkedCode => countryLayers.get(linkedCode))
-            .filter(Boolean);
-          if (linkedLayers.length) {
-            setCountrySelection(linkedLayers);
-          }
-          renderCountry(countriesData[aliasCode], countriesData[aliasCode].name);
-          viewer.scene.requestRender();
+        if (aliasCode && await openCountryByCode(aliasCode, featureName, { focusMap: false })) {
           return;
         }
         renderEmpty(featureName);
@@ -14301,38 +14315,25 @@ async function loadMap(bootPhase = false) {
     if (!country) {
       clearSelection();
       const aliasCode = resolveCountryCode("", featureName || code);
-      if (aliasCode && countriesData[aliasCode]) {
-        const linkedLayers = getLinkedCodes(aliasCode)
-          .map(linkedCode => countryLayers.get(linkedCode))
-          .filter(Boolean);
-        if (linkedLayers.length) {
-          setCountrySelection(linkedLayers);
-        }
-        renderCountry(countriesData[aliasCode], countriesData[aliasCode].name);
-        viewer.scene.requestRender();
+      if (aliasCode && await openCountryByCode(aliasCode, featureName || code, { focusMap: false })) {
         return;
       }
       renderEmpty(featureName || code);
       return;
     }
 
-    const linkedLayers = getLinkedCodes(code)
-      .map(linkedCode => countryLayers.get(linkedCode))
-      .filter(Boolean);
+    const linkedLayers = getCountrySelectionLayers(code);
     if (
       selectionMode === "country" &&
       selectedLayers.length === linkedLayers.length &&
       linkedLayers.length &&
       linkedLayers.every((layer, index) => selectedLayers[index] === layer)
     ) {
-      renderCountry(country, featureName || country.name);
-      viewer.scene.requestRender();
+      await renderCountry(country, featureName || country.name);
+      requestMapRenderSafe("country-click-repeat");
       return;
     }
-    setCountrySelection(linkedLayers);
-    focusRectangle(createLayerGroup(linkedLayers).getBounds());
-    renderCountry(country, featureName || country.name);
-    viewer.scene.requestRender();
+    await openCountryByCode(code, featureName || country.name);
     }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
 
     clickHandler.setInputAction(movement => {
