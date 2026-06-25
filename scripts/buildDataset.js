@@ -4472,6 +4472,191 @@ function buildRelationMetadata(code, historyEntry, organizations, rivals) {
   };
 }
 
+const RELIGION_LABEL_REPLACEMENTS = new Map([
+  ["catolicos", "Cat\u00f3licos"],
+  ["catolicos orientales", "Cat\u00f3licos orientales"],
+  ["catolicas", "Cat\u00f3licas"],
+  ["catolico", "Cat\u00f3lico"],
+  ["cristianos protestantes", "Protestantes"],
+  ["protestantes evangelicos", "Protestantes y evang\u00e9licos"],
+  ["protestantes y evangelicos", "Protestantes y evang\u00e9licos"],
+  ["evangelicos", "Evang\u00e9licos"],
+  ["hindues", "Hind\u00faes"],
+  ["hindu", "Hind\u00fa"],
+  ["judaismo", "Juda\u00edsmo"],
+  ["judios", "Jud\u00edos"],
+  ["judio", "Jud\u00edo"],
+  ["sintoismo", "Sinto\u00edsmo"],
+  ["sintoistas", "Sinto\u00edstas"],
+  ["zoroastros", "Zoroastrianos"],
+  ["no afiliados ateos agnosticos", "Ateos / agn\u00f3sticos / sin afiliaci\u00f3n"],
+  ["ateos agnosticos sin afiliacion", "Ateos / agn\u00f3sticos / sin afiliaci\u00f3n"],
+  ["sin afiliacion religiosa", "Sin afiliaci\u00f3n religiosa"],
+  ["sin religion predominante", "Sin religi\u00f3n predominante"],
+  ["sin religion dominante", "Sin religi\u00f3n dominante"],
+  ["sin religion", "Sin religi\u00f3n"],
+  ["religion tradicional china", "Religi\u00f3n tradicional china"],
+  ["religiones populares", "Religiones animistas y populares"],
+  ["religiones animistas", "Religiones animistas y populares"],
+  ["religiones animistas y populares", "Religiones animistas y populares"],
+  ["otras religiones", "Otras religiones"],
+  ["cristianos", "Cristianos"],
+  ["musulmanes", "Musulmanes"],
+  ["musulmanes alevies", "Musulmanes alev\u00edes"],
+  ["musulmanes chiitas y alauitas", "Musulmanes chiitas y alauitas"],
+  ["budistas", "Budistas"],
+  ["sijs", "Sijs"],
+  ["jainistas", "Jainistas"],
+  ["drusos", "Drusos"],
+  ["mormones", "Mormones"]
+]);
+
+const RELIGION_SUMMARY_REPLACEMENTS = new Map([
+  ["ateismo sin religion dominante", "Ate\u00edsmo / sin religi\u00f3n dominante"],
+  ["ateismo estatal", "Ate\u00edsmo estatal"],
+  ["sin afiliacion religiosa", "Sin afiliaci\u00f3n religiosa"],
+  ["sin religion predominante", "Sin religi\u00f3n predominante"],
+  ["sin poblacion permanente", "Sin poblaci\u00f3n permanente"],
+  ["islam suni", "Islam (sunismo)"],
+  ["islam sunismo", "Islam (sunismo)"],
+  ["islam chii", "Islam (chiismo)"],
+  ["islam chiismo", "Islam (chiismo)"],
+  ["islam suni wahabismo", "Islam (sunismo wahab\u00ed)"],
+  ["islam sunismo y chiismo", "Islam (sunismo y chiismo)"],
+  ["islam cristianismo ortodoxo y catolicismo", "Islam, cristianismo ortodoxo y catolicismo"],
+  ["islam y cristianismo", "Islam y cristianismo"],
+  ["cristianismo catolicismo", "Cristianismo (catolicismo)"],
+  ["cristianismo catolicismo y protestantismo", "Cristianismo (catolicismo y protestantismo)"],
+  ["cristianismo protestantismo", "Cristianismo (protestantismo)"],
+  ["cristianismo protestantismo catolicismo", "Cristianismo (protestantismo y catolicismo)"],
+  ["cristianismo protestantismo y catolicismo", "Cristianismo (protestantismo y catolicismo)"],
+  ["cristianismo protestante", "Cristianismo (protestantismo)"],
+  ["cristianismo ortodoxo", "Cristianismo ortodoxo"],
+  ["cristianismo ortodoxo e islam", "Cristianismo ortodoxo e islam"],
+  ["cristianismo anglicanismo", "Cristianismo anglicano"],
+  ["cristianismo anglicanismo y evangelicalismo", "Cristianismo anglicano y evang\u00e9lico"],
+  ["cristianismo anglicanismo y protestantismo", "Cristianismo anglicano y protestante"],
+  ["cristianismo luteranismo", "Cristianismo luterano"],
+  ["cristianismo metodismo e hinduismo", "Cristianismo metodista e hinduismo"],
+  ["cristianismo budismo", "Cristianismo y budismo"],
+  ["cristianismo islam", "Cristianismo e islam"],
+  ["cristianismo y religiones tradicionales", "Cristianismo y religiones tradicionales"],
+  ["sintoismo y budismo", "Sinto\u00edsmo y budismo"],
+  ["religiones populares y budismo", "Religiones tradicionales y budismo"],
+  ["religiones animistas y populares y budismo", "Religiones tradicionales y budismo"],
+  ["catolicos", "Cat\u00f3licos"],
+  ["hindues", "Hind\u00faes"],
+  ["judaismo", "Juda\u00edsmo"]
+]);
+
+const RELIGION_ONE_PERCENT_FILLER_KEYS = new Set([
+  "budistas",
+  "cristianos",
+  "religiones animistas y populares",
+  "hindues",
+  "judios",
+  "musulmanes",
+  "otras religiones",
+  "ateos agnosticos sin afiliacion"
+]);
+
+function normalizeReligionKey(value) {
+  return normalizeKey(value)
+    .replace(/[^a-z0-9]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function normalizeReligionLabel(value) {
+  const cleaned = sanitizeText(value);
+  const key = normalizeReligionKey(cleaned);
+  if (!key) {
+    return null;
+  }
+  return RELIGION_LABEL_REPLACEMENTS.get(key) || cleaned;
+}
+
+function normalizeReligionSummary(value) {
+  const cleaned = sanitizeText(value);
+  const key = normalizeReligionKey(cleaned);
+  if (!key) {
+    return null;
+  }
+  return RELIGION_SUMMARY_REPLACEMENTS.get(key) || RELIGION_LABEL_REPLACEMENTS.get(key) || cleaned;
+}
+
+function roundReligionPercentage(value) {
+  const numeric = compactNumber(Number(value));
+  return numeric === null ? null : Number(numeric.toFixed(1));
+}
+
+function mergeReligionEntries(entries) {
+  const merged = new Map();
+  entries.forEach(entry => {
+    const name = normalizeReligionLabel(entry?.name);
+    const percentage = roundReligionPercentage(entry?.percentage);
+    if (!name || percentage === null || percentage <= 0) {
+      return;
+    }
+
+    const key = normalizeReligionKey(name);
+    const current = merged.get(key) || { ...entry, name, percentage: 0 };
+    current.name = name;
+    current.percentage = Number((current.percentage + percentage).toFixed(1));
+    merged.set(key, current);
+  });
+  return [...merged.values()];
+}
+
+function addOrMergeReligionEntry(entries, name, percentage) {
+  const normalizedName = normalizeReligionLabel(name);
+  const roundedPercentage = roundReligionPercentage(percentage);
+  if (!normalizedName || roundedPercentage === null || roundedPercentage <= 0) {
+    return entries;
+  }
+
+  const key = normalizeReligionKey(normalizedName);
+  const existing = entries.find(entry => normalizeReligionKey(entry.name) === key);
+  if (existing) {
+    existing.percentage = Number((existing.percentage + roundedPercentage).toFixed(1));
+    return entries;
+  }
+  entries.push({ name: normalizedName, percentage: roundedPercentage });
+  return entries;
+}
+
+function collapseGenericReligionFillers(entries) {
+  const total = entries.reduce((sum, entry) => sum + (Number(entry.percentage) || 0), 0);
+  if (total <= 102 || entries.length < 6) {
+    return entries;
+  }
+
+  const fillerEntries = entries.filter(entry =>
+    (Number(entry.percentage) || 0) <= 1.05 &&
+    RELIGION_ONE_PERCENT_FILLER_KEYS.has(normalizeReligionKey(entry.name))
+  );
+  if (fillerEntries.length < 3) {
+    return entries;
+  }
+
+  const retained = entries.filter(entry => !fillerEntries.includes(entry));
+  const retainedTotal = retained.reduce((sum, entry) => sum + (Number(entry.percentage) || 0), 0);
+  if (retainedTotal > 100.1) {
+    return entries;
+  }
+
+  const remainder = Number(Math.max(0, 100 - retainedTotal).toFixed(1));
+  if (remainder >= 0.1) {
+    addOrMergeReligionEntry(retained, "Otras religiones", remainder);
+  }
+  return retained;
+}
+
+function normalizeReligionCompositionEntries(entries) {
+  return mergeReligionEntries(collapseGenericReligionFillers(mergeReligionEntries(compactList(entries))))
+    .filter(entry => (Number(entry.percentage) || 0) > 0);
+}
+
 const RELIGION_DETAIL_OVERRIDES = {
   ARG: [
     { name: "Catolicos", percentage: 62.9 },
@@ -4722,21 +4907,21 @@ Object.assign(RELIGION_DETAIL_OVERRIDES, {
 
 function expandReligionComposition(code, summary, composition) {
   if (RELIGION_DETAIL_OVERRIDES[code]) {
-    return RELIGION_DETAIL_OVERRIDES[code];
+    return normalizeReligionCompositionEntries(RELIGION_DETAIL_OVERRIDES[code]);
   }
 
-  const summaryText = normalizeKey(summary);
+  const summaryText = normalizeKey(normalizeReligionSummary(summary));
 
-  return composition.map(entry => {
+  const expanded = composition.map(entry => {
     if (!entry?.name) {
       return entry;
     }
 
-    const normalizedName = normalizeKey(entry.name);
+    const normalizedName = normalizeReligionKey(entry.name);
 
     if (normalizedName === "cristianismo") {
       if (summaryText.includes("catolic")) {
-        return { ...entry, name: "Catolicos" };
+        return { ...entry, name: "Cat\u00f3licos" };
       }
       if (summaryText.includes("protest")) {
         return { ...entry, name: "Protestantes" };
@@ -4765,26 +4950,28 @@ function expandReligionComposition(code, summary, composition) {
     }
 
     if (normalizedName === "hinduismo") {
-      return { ...entry, name: "Hindues" };
+      return { ...entry, name: "Hind\u00faes" };
     }
 
     if (normalizedName === "judaismo") {
-      return { ...entry, name: "Judios" };
+      return { ...entry, name: "Jud\u00edos" };
     }
 
     if (normalizedName === "religiones populares") {
       if (code === "JPN" || summaryText.includes("sinto")) {
-        return { ...entry, name: "Sintoistas" };
+        return { ...entry, name: "Sinto\u00edstas" };
       }
       return { ...entry, name: "Religiones animistas y populares" };
     }
 
-    if (normalizedName === "no afiliados / ateos / agnosticos") {
-      return { ...entry, name: "Ateos / agnosticos / sin afiliacion" };
+    if (normalizedName === "no afiliados ateos agnosticos") {
+      return { ...entry, name: "Ateos / agn\u00f3sticos / sin afiliaci\u00f3n" };
     }
 
     return entry;
   });
+
+  return normalizeReligionCompositionEntries(expanded);
 }
 
 Object.assign(POST_BUILD_ENTITY_OVERRIDES, {
@@ -5012,7 +5199,7 @@ Object.assign(POST_BUILD_ENTITY_OVERRIDES, {
 
 function inferReligionSummary(composition, fallbackSummary = null) {
   if (fallbackSummary) {
-    return fallbackSummary;
+    return normalizeReligionSummary(fallbackSummary);
   }
 
   if (!Array.isArray(composition) || !composition.length) {
@@ -5023,7 +5210,7 @@ function inferReligionSummary(composition, fallbackSummary = null) {
     .filter(entry => entry?.name && typeof entry.percentage === "number")
     .sort((a, b) => b.percentage - a.percentage)[0];
 
-  return main?.name || null;
+  return normalizeReligionSummary(main?.name) || null;
 }
 
 function canonicalizeConflictName(name) {
@@ -5685,9 +5872,9 @@ for (const code of allCodes) {
   };
 
   if ((!result[code].religion.composition || !result[code].religion.composition.length) && RELIGION_DETAIL_OVERRIDES[code]) {
-    result[code].religion.composition = RELIGION_DETAIL_OVERRIDES[code];
+    result[code].religion.composition = normalizeReligionCompositionEntries(RELIGION_DETAIL_OVERRIDES[code]);
     result[code].religion.summary = inferReligionSummary(
-      RELIGION_DETAIL_OVERRIDES[code],
+      result[code].religion.composition,
       result[code].religion.summary
     );
   }

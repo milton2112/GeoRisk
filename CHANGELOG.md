@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.6 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.7 antes de cerrar la siguiente version.
+
+## v1.6.7 - 2026-06-25
+
+- Normaliza datos religiosos en raw, fichas por pais e indices: tildes, traducciones y variantes como `Cat\u00f3licos`, `Hind\u00faes`, `Jud\u00edos`, `Sinto\u00edstas` y `Ateos / agn\u00f3sticos / sin afiliaci\u00f3n`.
+- Colapsa rellenos religiosos genericos al 1% cuando inflaban composiciones por encima de 100%, preservando el resto disponible como `Otras religiones`.
+- Unifica etiquetas visibles de religion en filtros, busqueda natural, rankings y tema de mapa (`Islam`, `Juda\u00edsmo`, `Sinto\u00edsmo`, `Religiones animistas y populares`).
+- Agrega pruebas para bloquear textos religiosos sin normalizar, duplicados por ficha y composiciones servidas fuera de rango.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-06-25-release-3`.
 
 ## v1.6.6 - 2026-06-25
 

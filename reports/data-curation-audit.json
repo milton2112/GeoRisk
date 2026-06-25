@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-06-25T21:59:08.307Z",
+  "generatedAt": "2026-06-25T22:16:22.165Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 9038221,
-    "duplicatedCountryFilesBytes": 1679154,
+    "fullBytes": 9017877,
+    "duplicatedCountryFilesBytes": 1658810,
     "tooLargeCount": 3,
     "largest": [
       {
         "code": "USA",
         "name": "Estados Unidos",
-        "bytes": 172463,
-        "inlineBytes": 2675670,
+        "bytes": 172468,
+        "inlineBytes": 2675675,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -27,8 +27,8 @@
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 61619,
-        "inlineBytes": 815690,
+        "bytes": 61618,
+        "inlineBytes": 815689,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -44,8 +44,8 @@
       {
         "code": "FRA",
         "name": "Francia",
-        "bytes": 45766,
-        "inlineBytes": 645456,
+        "bytes": 45770,
+        "inlineBytes": 645460,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -61,14 +61,14 @@
       {
         "code": "SWE",
         "name": "Suecia",
-        "bytes": 30820,
-        "inlineBytes": 417855,
+        "bytes": 30663,
+        "inlineBytes": 417698,
         "tooLarge": false,
         "counts": {
           "cities": 5,
           "capitals": 1,
           "languages": 1,
-          "religionGroups": 8,
+          "religionGroups": 4,
           "organizations": 50,
           "rivals": 7,
           "conflicts": 150,
@@ -78,8 +78,8 @@
       {
         "code": "AUS",
         "name": "Australia",
-        "bytes": 21564,
-        "inlineBytes": 174926,
+        "bytes": 21571,
+        "inlineBytes": 174933,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -95,8 +95,8 @@
       {
         "code": "CAN",
         "name": "Canadá",
-        "bytes": 16369,
-        "inlineBytes": 109315,
+        "bytes": 16376,
+        "inlineBytes": 109322,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -112,14 +112,14 @@
       {
         "code": "DNK",
         "name": "Dinamarca",
-        "bytes": 16334,
-        "inlineBytes": 131817,
+        "bytes": 16177,
+        "inlineBytes": 131660,
         "tooLarge": false,
         "counts": {
           "cities": 4,
           "capitals": 1,
           "languages": 1,
-          "religionGroups": 8,
+          "religionGroups": 4,
           "organizations": 37,
           "rivals": 47,
           "conflicts": 43,
@@ -129,14 +129,14 @@
       {
         "code": "MAR",
         "name": "Marruecos",
-        "bytes": 15126,
-        "inlineBytes": 150256,
+        "bytes": 14866,
+        "inlineBytes": 149996,
         "tooLarge": false,
         "counts": {
           "cities": 4,
           "capitals": 1,
           "languages": 2,
-          "religionGroups": 8,
+          "religionGroups": 2,
           "organizations": 32,
           "rivals": 11,
           "conflicts": 49,
@@ -163,8 +163,8 @@
       {
         "code": "POL",
         "name": "Polonia",
-        "bytes": 14263,
-        "inlineBytes": 74817,
+        "bytes": 14267,
+        "inlineBytes": 74821,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -180,8 +180,8 @@
       {
         "code": "ITA",
         "name": "Italia",
-        "bytes": 14204,
-        "inlineBytes": 47979,
+        "bytes": 14207,
+        "inlineBytes": 47982,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -195,20 +195,20 @@
         }
       },
       {
-        "code": "NOR",
-        "name": "Noruega",
-        "bytes": 13432,
-        "inlineBytes": 67744,
+        "code": "DEU",
+        "name": "Alemania",
+        "bytes": 13334,
+        "inlineBytes": 40145,
         "tooLarge": false,
         "counts": {
-          "cities": 3,
+          "cities": 5,
           "capitals": 1,
-          "languages": 1,
-          "religionGroups": 8,
-          "organizations": 49,
-          "rivals": 49,
-          "conflicts": 19,
-          "timelineEvents": 0
+          "languages": 5,
+          "religionGroups": 5,
+          "organizations": 79,
+          "rivals": 21,
+          "conflicts": 9,
+          "timelineEvents": 4
         }
       }
     ]

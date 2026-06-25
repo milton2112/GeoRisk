@@ -81,7 +81,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-06-25-release-2";
+const APP_VERSION = "2026-06-25-release-3";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -92,17 +92,17 @@ function createFallbackSearchCache() {
 }
 
 const DEFERRED_UI_MODULES = {
-  news: "./app-news-ui.js?v=2026-06-25-release-2",
-  compare: "./app-compare-ui.js?v=2026-06-25-release-2",
-  quiz: "./app-quiz-ui.js?v=2026-06-25-release-2",
-  riskRadar: "./app-risk-radar-ui.js?v=2026-06-25-release-2",
-  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-25-release-2",
-  projectAudit: "./app-project-audit-ui.js?v=2026-06-25-release-2",
-  uiPolish: "./app-ui-polish.js?v=2026-06-25-release-2",
-  countryPanel: "./app-country-panel.js?v=2026-06-25-release-2",
-  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-25-release-2",
-  search: "./app-search.js?v=2026-06-25-release-2",
-  rankings: "./app-rankings.js?v=2026-06-25-release-2"
+  news: "./app-news-ui.js?v=2026-06-25-release-3",
+  compare: "./app-compare-ui.js?v=2026-06-25-release-3",
+  quiz: "./app-quiz-ui.js?v=2026-06-25-release-3",
+  riskRadar: "./app-risk-radar-ui.js?v=2026-06-25-release-3",
+  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-25-release-3",
+  projectAudit: "./app-project-audit-ui.js?v=2026-06-25-release-3",
+  uiPolish: "./app-ui-polish.js?v=2026-06-25-release-3",
+  countryPanel: "./app-country-panel.js?v=2026-06-25-release-3",
+  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-25-release-3",
+  search: "./app-search.js?v=2026-06-25-release-3",
+  rankings: "./app-rankings.js?v=2026-06-25-release-3"
 };
 const deferredUiModulePromises = new Map();
 
@@ -3287,20 +3287,20 @@ const RELIGION_FAMILY_RULES = [
   },
   {
     key: "islam",
-    label: "Islamismo",
+    label: "Islam",
     aliases: ["islam", "musulmanes", "musulman", "musulmana", "musulmanas", "islamicos", "islamico"],
     matches: ["musulman", "sunita", "chiita", "ibadi", "islam"]
   },
   {
     key: "judaísmo",
-    label: "Judaismo",
-    aliases: ["judaismo", "judaísmo", "judios", "judio", "judia", "judias"],
+    label: "Juda\u00edsmo",
+    aliases: ["judaismo", "juda\u00edsmo", "judios", "jud\u00edos", "judio", "jud\u00edo", "judia", "jud\u00eda", "judias", "jud\u00edas"],
     matches: ["judio", "judia", "judais"]
   },
   {
     key: "hinduismo",
     label: "Hinduismo",
-    aliases: ["hinduismo", "hindues", "hindÃºes", "hindÃº", "hindues"],
+    aliases: ["hinduismo", "hindues", "hind\u00faes", "hindu", "hind\u00fa"],
     matches: ["hindu"]
   },
   {
@@ -3317,8 +3317,8 @@ const RELIGION_FAMILY_RULES = [
   },
   {
     key: "sintoísmo",
-    label: "Sintoismo",
-    aliases: ["sintoismo", "sintoísmo", "sintoistas", "sintoista", "shinto", "shintoismo"],
+    label: "Sinto\u00edsmo",
+    aliases: ["sintoismo", "sinto\u00edsmo", "sintoistas", "sinto\u00edstas", "sintoista", "sinto\u00edsta", "shinto", "shintoismo"],
     matches: ["sinto", "shinto"]
   },
   {
@@ -3329,15 +3329,15 @@ const RELIGION_FAMILY_RULES = [
   },
   {
     key: "no afiliados",
-    label: "Ateos / agnosticos / sin afiliacion",
-    aliases: ["ateos", "ateo", "agnosticos", "agnÃ³stico", "agnostico", "sin religion", "sin religiÃ³n", "sin afiliacion", "sin afiliaciÃ³n", "no afiliados", "no creyentes"],
+    label: "Ateos / agn\u00f3sticos / sin afiliaci\u00f3n",
+    aliases: ["ateos", "ateo", "agnosticos", "agn\u00f3sticos", "agnostico", "agn\u00f3stico", "sin religion", "sin religi\u00f3n", "sin afiliacion", "sin afiliaci\u00f3n", "no afiliados", "no creyentes"],
     matches: ["ateo", "agnostic", "sin afili", "no afili", "no relig", "sin religion"]
   },
   {
     key: "animismo",
-    label: "Religiones animistas",
-    aliases: ["animismo", "animistas", "religiones animistas", "tradicionales"],
-    matches: ["animist", "tradicional"]
+    label: "Religiones animistas y populares",
+    aliases: ["animismo", "animistas", "religiones animistas", "religiones populares", "religiones tradicionales", "tradicionales"],
+    matches: ["animist", "tradicional", "religiones populares"]
   },
   {
     key: "vudú",
@@ -12656,7 +12656,7 @@ function parseSemanticQuery(rawQuery) {
 
   if (!filters.religion) {
     if (hasIslam) {
-      filters.religion = "Islamismo";
+      filters.religion = "Islam";
     } else if (hasChristian) {
       filters.religion = "Cristianismo";
     }
@@ -12806,7 +12806,7 @@ function parseSemanticQuery(rawQuery) {
   }
 
   if (!filters.religion && /(judai|jewish)/.test(normalized)) {
-    filters.religion = "Judaismo";
+    filters.religion = "Juda\u00edsmo";
   }
 
   if (!filters.religion && /(hindu|hinduism)/.test(normalized)) {

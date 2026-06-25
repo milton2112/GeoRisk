@@ -4,8 +4,12 @@ import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 
 const history = JSON.parse(fs.readFileSync("data/raw/history.json", "utf8"));
 const politics = JSON.parse(fs.readFileSync("data/raw/politics_details.json", "utf8"));
+const rawReligion = JSON.parse(fs.readFileSync("data/raw/religion.json", "utf8"));
+const rawReligionDetails = JSON.parse(fs.readFileSync("data/raw/religion_details.json", "utf8"));
 const countries = JSON.parse(fs.readFileSync("data/countries_full.json", "utf8"));
 const englishSignal = /\b(of|the|for|realm|british|cameroon|republic|federation|strategic|capability|commission)\b/i;
+const religionEnglishSignal = /\b(christian|muslim|jewish|buddhist|hindu|folk|unaffiliated|other religions|atheist|agnostic|shinto|sunni|shiite|catholic|orthodox|protestant|evangelical)\b/i;
+const staleReligionTextSignal = /Judaismo|Hindues|Catolicos|Sintoistas|agnosticos|afiliacion|Sin religion|Sin poblacion|alevies/i;
 const mojibakeSignal = /Ã|Â|â€|�/;
 
 function collectJsonFiles(directory) {
@@ -113,6 +117,45 @@ const organizationAbbreviationIssues = Object.entries(countries).flatMap(([code,
     }))
 );
 assert.deepEqual(organizationAbbreviationIssues, [], `Siglas duplicadas o no traducidas en tops: ${JSON.stringify(organizationAbbreviationIssues.slice(0, 10))}`);
+const servedReligionTextIssues = Object.entries(countries).flatMap(([code, country]) => [
+  { code, value: country.religion?.summary || "" },
+  ...(country.religion?.composition || []).map(entry => ({ code, value: entry?.name || "" }))
+]).filter(item =>
+  mojibakeSignal.test(item.value) ||
+  religionEnglishSignal.test(item.value) ||
+  staleReligionTextSignal.test(item.value)
+);
+assert.deepEqual(servedReligionTextIssues, [], `Religiones servidas sin normalizar: ${JSON.stringify(servedReligionTextIssues.slice(0, 10))}`);
+const rawReligionTextIssues = [
+  ...Object.entries(rawReligion).map(([code, value]) => ({ code, value: value || "" })),
+  ...Object.entries(rawReligionDetails).flatMap(([code, entry]) =>
+    (entry?.composition || []).map(item => ({ code, value: item?.name || "" }))
+  )
+].filter(item =>
+  mojibakeSignal.test(item.value) ||
+  religionEnglishSignal.test(item.value) ||
+  staleReligionTextSignal.test(item.value)
+);
+assert.deepEqual(rawReligionTextIssues, [], `Raw religion conserva textos visibles sin normalizar: ${JSON.stringify(rawReligionTextIssues.slice(0, 10))}`);
+const duplicateReligionLabels = Object.entries(countries).flatMap(([code, country]) => {
+  const seen = new Map();
+  return (country.religion?.composition || []).flatMap(entry => {
+    const key = normalizeDataLabel(entry?.name).replace(/[^a-z0-9]+/g, " ").trim();
+    if (!key) return [];
+    const duplicate = seen.get(key);
+    seen.set(key, entry?.name);
+    return duplicate ? [{ code, labels: [duplicate, entry?.name] }] : [];
+  });
+});
+assert.deepEqual(duplicateReligionLabels, [], `Religiones duplicadas por ficha: ${JSON.stringify(duplicateReligionLabels.slice(0, 10))}`);
+const religionTotalIssues = Object.entries(countries).flatMap(([code, country]) => {
+  const composition = country.religion?.composition || [];
+  const total = composition.reduce((sum, entry) => sum + (Number(entry?.percentage) || 0), 0);
+  return composition.length && (total < 98 || total > 102)
+    ? [{ code, total: Number(total.toFixed(1)) }]
+    : [];
+});
+assert.deepEqual(religionTotalIssues, [], `Composiciones religiosas fuera de rango: ${JSON.stringify(religionTotalIssues.slice(0, 10))}`);
 const servedConflictNames = Object.values(countries).flatMap(country =>
   [...(country.military?.conflicts || []), ...(country.conflicts || [])]
     .map(conflict => typeof conflict === "string" ? conflict : conflict?.name)

@@ -8,14 +8,16 @@ const countriesDir = path.join(projectRoot, "data", "countries");
 const rawPaths = [
   path.join(projectRoot, "data", "raw", "history.json"),
   path.join(projectRoot, "data", "raw", "politics_details.json"),
-  path.join(projectRoot, "data", "raw", "city_details.json")
+  path.join(projectRoot, "data", "raw", "city_details.json"),
+  path.join(projectRoot, "data", "raw", "religion.json"),
+  path.join(projectRoot, "data", "raw", "religion_details.json")
 ];
 
-async function updateJson(filePath) {
+async function updateJson(filePath, { spaces = 0 } = {}) {
   const current = await fs.readJson(filePath);
   const updated = normalizeVisibleValue(current);
   if (JSON.stringify(current) === JSON.stringify(updated)) return false;
-  await fs.writeJson(filePath, updated, { spaces: 0 });
+  await fs.writeJson(filePath, updated, { spaces });
   return true;
 }
 
@@ -25,7 +27,7 @@ for (const fileName of (await fs.readdir(countriesDir)).filter(file => file.ends
 }
 for (const rawPath of rawPaths) {
   if (await fs.pathExists(rawPath)) {
-    updatedFiles += Number(await updateJson(rawPath));
+    updatedFiles += Number(await updateJson(rawPath, { spaces: 2 }));
   }
 }
 
