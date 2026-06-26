@@ -81,7 +81,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-06-26-release-1";
+const APP_VERSION = "2026-06-26-release-2";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -92,17 +92,17 @@ function createFallbackSearchCache() {
 }
 
 const DEFERRED_UI_MODULES = {
-  news: "./app-news-ui.js?v=2026-06-26-release-1",
-  compare: "./app-compare-ui.js?v=2026-06-26-release-1",
-  quiz: "./app-quiz-ui.js?v=2026-06-26-release-1",
-  riskRadar: "./app-risk-radar-ui.js?v=2026-06-26-release-1",
-  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-26-release-1",
-  projectAudit: "./app-project-audit-ui.js?v=2026-06-26-release-1",
-  uiPolish: "./app-ui-polish.js?v=2026-06-26-release-1",
-  countryPanel: "./app-country-panel.js?v=2026-06-26-release-1",
-  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-26-release-1",
-  search: "./app-search.js?v=2026-06-26-release-1",
-  rankings: "./app-rankings.js?v=2026-06-26-release-1"
+  news: "./app-news-ui.js?v=2026-06-26-release-2",
+  compare: "./app-compare-ui.js?v=2026-06-26-release-2",
+  quiz: "./app-quiz-ui.js?v=2026-06-26-release-2",
+  riskRadar: "./app-risk-radar-ui.js?v=2026-06-26-release-2",
+  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-26-release-2",
+  projectAudit: "./app-project-audit-ui.js?v=2026-06-26-release-2",
+  uiPolish: "./app-ui-polish.js?v=2026-06-26-release-2",
+  countryPanel: "./app-country-panel.js?v=2026-06-26-release-2",
+  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-26-release-2",
+  search: "./app-search.js?v=2026-06-26-release-2",
+  rankings: "./app-rankings.js?v=2026-06-26-release-2"
 };
 const deferredUiModulePromises = new Map();
 
@@ -8181,10 +8181,10 @@ function getCountryLanguageDiversity(country) {
 function getCountryDiplomaticReach(country) {
   const relations = country?.politics?.relations || {};
   const organizations = getCountryOrganizationCount(country);
-  const blocs = (relations.blocs || []).length + (relations.militaryBlocs || []).length + (relations.economicBlocs || []).length + (relations.diplomaticBlocs || []).length;
+  const blocs = getCountryBlocs(country).length;
   const allies = (relations.militaryAllies || []).length + (relations.economicPartners || []).length + (relations.diplomaticPartners || []).length;
-  const rivals = (relations.currentRivals || []).length + (relations.historicRivals || []).length;
-  const disputes = (relations.territorialDisputes || []).length;
+  const rivals = uniqueNormalizedList([...(relations.currentRivals || []), ...(relations.historicalRivals || [])]).length;
+  const disputes = uniqueNormalizedList([...(relations.disputes || []), ...(relations.disputedTerritories || [])]).length;
   return organizations + blocs + allies + Math.min(rivals, 6) + disputes;
 }
 
@@ -8389,9 +8389,7 @@ function getCountryGeopoliticalIndex(country) {
   const organizations = getCountryOrganizationCount(country);
   const rivals = getCountryRivalCount(country);
   const conflicts = getCountryWarParticipationCount(country);
-  const blocs = (country?.politics?.relations?.blocs || []).length
-    + (country?.politics?.relations?.militaryBlocs || []).length
-    + (country?.politics?.relations?.economicBlocs || []).length;
+  const blocs = getCountryBlocs(country).length;
 
   const score = Math.min(30, Math.log10(gdp + 1) * 2.65)
     + Math.min(20, Math.log10(population + 1) * 2.05)

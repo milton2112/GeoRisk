@@ -19,14 +19,25 @@ function applyDirectPairs(raw) {
     .replaceAll("Â", "");
 }
 
+function hasMojibakeSignal(raw) {
+  const text = String(raw || "");
+  return (
+    text.includes("\uFFFD") ||
+    text.includes("\u00C3") ||
+    text.includes("\u00C2") ||
+    text.includes("\u00EF\u00BF\u00BD") ||
+    text.includes("\u00E2\u20AC")
+  );
+}
+
 export function repairMojibake(value) {
   const raw = String(value || "");
-  if (!raw || !(/[ÃÂâãï¿½]/.test(raw) || /�/.test(raw))) {
+  if (!raw || !hasMojibakeSignal(raw)) {
     return raw;
   }
 
   let repaired = applyDirectPairs(raw);
-  if (repaired !== raw && !repaired.includes("Ã")) {
+  if (repaired !== raw && !hasMojibakeSignal(repaired)) {
     return repaired;
   }
 
@@ -37,7 +48,7 @@ export function repairMojibake(value) {
         break;
       }
       repaired = applyDirectPairs(decoded);
-      if (!repaired.includes("Ã") && !repaired.includes("Â")) {
+      if (!hasMojibakeSignal(repaired)) {
         break;
       }
     } catch {

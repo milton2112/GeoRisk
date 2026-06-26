@@ -50,6 +50,26 @@ const historicalOnly = rankings.getRiskComponents({
 assert.equal(historicalOnly.rivalPressure, 0, "rivalidades historicas no deben inflar el riesgo actual");
 assert.equal(historicalOnly.dataQuality, 73, "ranking de calidad debe usar el score curado del dataset");
 
+const duplicateBlocBuffer = rankings.getRiskComponents({
+  politics: {
+    organizations: [],
+    relations: {
+      blocs: ["ONU"],
+      diplomaticBlocs: ["ONU"],
+      economicBlocs: ["ONU"]
+    }
+  },
+  metadata: { quality: { score: 80 } }
+}).diplomaticBuffer;
+const singleBlocBuffer = rankings.getRiskComponents({
+  politics: {
+    organizations: [],
+    relations: { blocs: ["ONU"] }
+  },
+  metadata: { quality: { score: 80 } }
+}).diplomaticBuffer;
+assert.equal(duplicateBlocBuffer, singleBlocBuffer, "bloques repetidos entre agregado y sublistas no deben inflar rankings");
+
 const ranking = rankings.buildRanking(countries, "risk", { limit: 2 });
 assert.equal(ranking[0].name, "Alta Presion", "ranking de riesgo debe ordenar por score");
 assert.ok(ranking[0].components.length, "cada score debe explicar componentes");

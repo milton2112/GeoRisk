@@ -1,6 +1,7 @@
 import fs from "fs-extra";
 import path from "node:path";
 import { buildConflictAuditReport } from "./lib/conflict-audit.js";
+import { normalizeVisibleValue } from "./lib/visible-data-corrections.js";
 
 const projectRoot = path.resolve(process.cwd());
 const countriesPath = path.join(projectRoot, "data", "countries_full.json");
@@ -9,9 +10,9 @@ const reportsDir = path.join(projectRoot, "reports");
 const reportPath = path.join(reportsDir, "conflict-audit.json");
 const fixesPath = path.join(reportsDir, "conflict-autofix-suggestions.json");
 
-const countries = await fs.readJson(countriesPath);
+const countries = normalizeVisibleValue(await fs.readJson(countriesPath));
 const generatedDetails = await fs.pathExists(detailsPath)
-  ? await fs.readJson(detailsPath)
+  ? normalizeVisibleValue(await fs.readJson(detailsPath))
   : {};
 
 const report = buildConflictAuditReport({ countries, generatedDetails, maxItems: 300 });

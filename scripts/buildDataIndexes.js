@@ -2,6 +2,7 @@ import fs from "fs-extra";
 import path from "node:path";
 import { readJsonWithRetry, statWithRetry, writeJsonWithRetry } from "./lib/resilient-fs.js";
 import { buildPublicCountryRecord } from "./lib/public-country-record.js";
+import { normalizeVisibleValue } from "./lib/visible-data-corrections.js";
 
 const projectRoot = path.resolve(process.cwd());
 const dataDir = path.join(projectRoot, "data");
@@ -249,14 +250,16 @@ async function buildConflictDetailShards() {
   await fs.emptyDir(conflictDetailsDir);
   const index = [];
   for (const [name, detail] of Object.entries(conflicts)) {
-    const file = `${slugifyConflictName(name)}.json`;
+    const normalizedDetail = normalizeVisibleValue({ name, ...detail });
+    const normalizedName = normalizedDetail.name || name;
+    const file = `${slugifyConflictName(normalizedName)}.json`;
     const relativePath = `data/conflicts/details/${file}`;
-    await writeJsonWithRetry(path.join(conflictDetailsDir, file), { name, ...detail }, { spaces: 0 });
+    await writeJsonWithRetry(path.join(conflictDetailsDir, file), normalizedDetail, { spaces: 0 });
     index.push({
-      name,
+      name: normalizedName,
       path: relativePath,
-      bytes: Buffer.byteLength(JSON.stringify({ name, ...detail })),
-      source: detail.source || detail.wikipedia?.source || "Wikipedia"
+      bytes: Buffer.byteLength(JSON.stringify(normalizedDetail)),
+      source: normalizedDetail.source || normalizedDetail.wikipedia?.source || "Wikipedia"
     });
   }
   return {

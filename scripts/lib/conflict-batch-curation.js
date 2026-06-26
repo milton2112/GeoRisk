@@ -45,6 +45,66 @@ const SPECIAL_CONFLICT_METADATA = new Map([
     scale: "mundial",
     conflictType: "interestatal",
     region: "Asia-Pacifico"
+  }],
+  ["Accion militar de Calderilla", {
+    name: "Accion militar de Calderilla",
+    startYear: 1865,
+    endYear: 1865,
+    parent: "Guerra hispano-sudamericana",
+    campaign: "Campana naval del Pacifico sur",
+    scale: "local",
+    conflictType: "interestatal",
+    region: "Pacifico sur"
+  }],
+  ["Acción militar de Calderilla", {
+    name: "Accion militar de Calderilla",
+    startYear: 1865,
+    endYear: 1865,
+    parent: "Guerra hispano-sudamericana",
+    campaign: "Campana naval del Pacifico sur",
+    scale: "local",
+    conflictType: "interestatal",
+    region: "Pacifico sur"
+  }],
+  ["Accion frente al faro de Galveston", {
+    name: "Accion frente al faro de Galveston",
+    startYear: 1863,
+    endYear: 1863,
+    parent: "Guerra Civil estadounidense",
+    campaign: "Campana naval del Golfo",
+    scale: "local",
+    conflictType: "civil",
+    region: "Golfo de Mexico"
+  }],
+  ["Action off Galveston Light", {
+    name: "Accion frente al faro de Galveston",
+    startYear: 1863,
+    endYear: 1863,
+    parent: "Guerra Civil estadounidense",
+    campaign: "Campana naval del Golfo",
+    scale: "local",
+    conflictType: "civil",
+    region: "Golfo de Mexico"
+  }],
+  ["Ocupacion alemana de Luxemburgo en la Segunda Guerra Mundial", {
+    name: "Ocupacion alemana de Luxemburgo en la Segunda Guerra Mundial",
+    startYear: 1940,
+    endYear: 1945,
+    parent: "Segunda Guerra Mundial",
+    campaign: "Ocupacion alemana de Luxemburgo",
+    scale: "mundial",
+    conflictType: "interestatal",
+    region: "Europa occidental"
+  }],
+  ["German occupation of Luxembourg in World War II", {
+    name: "Ocupacion alemana de Luxemburgo en la Segunda Guerra Mundial",
+    startYear: 1940,
+    endYear: 1945,
+    parent: "Segunda Guerra Mundial",
+    campaign: "Ocupacion alemana de Luxemburgo",
+    scale: "mundial",
+    conflictType: "interestatal",
+    region: "Europa occidental"
   }]
 ]);
 

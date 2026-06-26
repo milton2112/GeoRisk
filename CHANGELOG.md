@@ -8,7 +8,18 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.8 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.9 antes de cerrar la siguiente version.
+
+## v1.6.9 - 2026-06-26
+
+- Normaliza redundancias visibles de datos en idiomas, ciudades, rivales, regiones, organizaciones y conflictos con acentos faltantes.
+- Corrige el reparador de mojibake para no romper nombres portugueses validos como `Sao Paulo` con `a` nasal.
+- Amplia la limpieza narrativa de conflictos para textos generados: `Confrontacion`, `historico`, `politico`, `presion`, `tactico`, `accion`, `operacion`, regiones y gentilicios.
+- Agrega fechas y jerarquia segura a `Accion militar de Calderilla`, `Accion frente al faro de Galveston` y `Ocupacion alemana de Luxemburgo en la Segunda Guerra Mundial`.
+- Hace mas robustas las escrituras de dataset y correcciones visibles ante bloqueos temporales de OneDrive con escritura atomica y reintentos.
+- Evita que rankings/radar dupliquen bloques diplomaticos cuando una misma membresia aparece en listas agregadas y especificas.
+- Agrega pruebas de regresion para mojibake, textos narrativos sin tildes, duplicados de bloques y ramas religiosas redundantes.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-06-26-release-2`.
 
 ## v1.6.8 - 2026-06-26
 

@@ -18,6 +18,12 @@ const YEAR_COLUMNS = Array.from({ length: 2025 - 1960 + 1 }, (_, index) =>
   String(2025 - index)
 );
 
+function writeJsonAtomicSync(filePath, data, options = {}) {
+  const tempPath = `${filePath}.${process.pid}.tmp`;
+  fs.writeJsonSync(tempPath, data, options);
+  fs.moveSync(tempPath, filePath, { overwrite: true });
+}
+
 const TERRITORY_LINKS = {
   FRA: ["GUF", "NCL", "ATF"],
   GUF: ["FRA"],
@@ -653,8 +659,15 @@ const CONFLICT_YEAR_HINTS = {
   "Anti-piracy measures en Somalia": { startYear: 2008, endYear: null, ongoing: true },
   "Levantamiento de Naxalbari": { startYear: 1967, endYear: 1967 },
   "Naxalbari uprising": { startYear: 1967, endYear: 1967 },
-  "Ocupacion alemana de Luxemburgo en la Segunda Guerra Mundial": { startYear: 1940, endYear: 1944 },
-  "German occupation de Luxembourg en World War II": { startYear: 1940, endYear: 1944 },
+  "Ocupacion alemana de Luxemburgo en la Segunda Guerra Mundial": { startYear: 1940, endYear: 1945 },
+  "Ocupación alemana de Luxemburgo en la Segunda Guerra Mundial": { startYear: 1940, endYear: 1945 },
+  "German occupation de Luxembourg en World War II": { startYear: 1940, endYear: 1945 },
+  "German occupation of Luxembourg in World War II": { startYear: 1940, endYear: 1945 },
+  "Accion militar de Calderilla": { startYear: 1865, endYear: 1865 },
+  "Acción militar de Calderilla": { startYear: 1865, endYear: 1865 },
+  "Accion frente al faro de Galveston": { startYear: 1863, endYear: 1863 },
+  "Acción frente al faro de Galveston": { startYear: 1863, endYear: 1863 },
+  "Action off Galveston Light": { startYear: 1863, endYear: 1863 },
   "Liberacion de Jerusalen en la Guerra de los Seis Dias": { startYear: 1967, endYear: 1967 },
   "Liberation de Jerusalem en Six-Day War": { startYear: 1967, endYear: 1967 },
   "Campana de Hamgyong": { startYear: 1597, endYear: 1597 },
@@ -3544,10 +3557,73 @@ function sanitizeText(value) {
     .replace(/\bpacifica\b/g, "\u0070\u0061\u0063\u00ED\u0066\u0069\u0063\u0061")
     .replace(/\bEspanol\b/g, "\u0045\u0073\u0070\u0061\u00F1\u006F\u006C")
     .replace(/\bPortugues\b/g, "\u0050\u006F\u0072\u0074\u0075\u0067\u0075\u00E9\u0073")
+    .replace(/\bIngles\b/g, "\u0049\u006E\u0067\u006C\u00E9\u0073")
     .replace(/\bDanes\b/g, "\u0044\u0061\u006E\u00E9\u0073")
     .replace(/\bJapones\b/g, "\u004A\u0061\u0070\u006F\u006E\u00E9\u0073")
     .replace(/\bAleman\b/g, "\u0041\u006C\u0065\u006D\u00E1\u006E")
     .replace(/\bFrances\b/g, "\u0046\u0072\u0061\u006E\u0063\u00E9\u0073")
+    .replace(/\bMandarin\b/g, "\u004D\u0061\u006E\u0064\u0061\u0072\u00ED\u006E")
+    .replace(/\bGuarani\b/g, "\u0047\u0075\u0061\u0072\u0061\u006E\u00ED")
+    .replace(/\bArabe\b/g, "\u00C1\u0072\u0061\u0062\u0065")
+    .replace(/\bAzeri\b/g, "\u0041\u007A\u0065\u0072\u00ED")
+    .replace(/\bHungaro\b/g, "\u0048\u00FA\u006E\u0067\u0061\u0072\u006F")
+    .replace(/\bIrlandes\b/g, "\u0049\u0072\u006C\u0061\u006E\u0064\u00E9\u0073")
+    .replace(/\bSomali\b/g, "\u0053\u006F\u006D\u0061\u006C\u00ED")
+    .replace(/\bTigrina\b/g, "\u0054\u0069\u0067\u0072\u0069\u00F1\u0061")
+    .replace(/\bTartaro\b/g, "\u0054\u00E1\u0072\u0074\u0061\u0072\u006F")
+    .replace(/\bCatalan\b/g, "\u0043\u0061\u0074\u0061\u006C\u00E1\u006E")
+    .replace(/\bBengali\b/g, "\u0042\u0065\u006E\u0067\u0061\u006C\u00ED")
+    .replace(/\bCantones\b/g, "\u0043\u0061\u006E\u0074\u006F\u006E\u00E9\u0073")
+    .replace(/\bJavanes\b/g, "\u004A\u0061\u0076\u0061\u006E\u00E9\u0073")
+    .replace(/\bSundanes\b/g, "\u0053\u0075\u006E\u0064\u0061\u006E\u00E9\u0073")
+    .replace(/\bMadures\b/g, "\u004D\u0061\u0064\u0075\u0072\u00E9\u0073")
+    .replace(/\bMaltes\b/g, "\u004D\u0061\u006C\u0074\u00E9\u0073")
+    .replace(/\bTailandes\b/g, "\u0054\u0061\u0069\u006C\u0061\u006E\u0064\u00E9\u0073")
+    .replace(/\bTaiwanes\b/g, "\u0054\u0061\u0069\u0077\u0061\u006E\u00E9\u0073")
+    .replace(/\bPemon\b/g, "\u0050\u0065\u006D\u00F3\u006E")
+    .replace(/\bPortunol\b/g, "\u0050\u006F\u0072\u0074\u0075\u00F1\u006F\u006C")
+    .replace(/\bAmarico\b/g, "\u0041\u006D\u00E1\u0072\u0069\u0063\u006F")
+    .replace(/\bBaoule\b/g, "\u0042\u0061\u0075\u006C\u00E9")
+    .replace(/\bBete\b/g, "\u0042\u00E9\u0074\u00E9")
+    .replace(/\bGaelico escoces\b/g, "\u0047\u0061\u00E9\u006C\u0069\u0063\u006F \u0065\u0073\u0063\u006F\u0063\u00E9\u0073")
+    .replace(/\bGales\b/g, "\u0047\u0061\u006C\u00E9\u0073")
+    .replace(/\bKiche\b/g, "\u004B\u0027\u0069\u0063\u0068\u0065\u0027")
+    .replace(/\bQeqchi\b/g, "\u0051\u0027\u0065\u0071\u0063\u0068\u0069\u0027")
+    .replace(/\bNgabere\b/g, "\u004E\u0067\u00E4\u0062\u0065\u0072\u0065")
+    .replace(/\bJapon\b/g, "\u004A\u0061\u0070\u00F3\u006E")
+    .replace(/\bEtiopia\b/g, "\u0045\u0074\u0069\u006F\u0070\u00ED\u0061")
+    .replace(/\bNiger\b/g, "\u004E\u00ED\u0067\u0065\u0072")
+    .replace(/\bCanada\b/g, "\u0043\u0061\u006E\u0061\u0064\u00E1")
+    .replace(/\bMexico\b/g, "\u004D\u00E9\u0078\u0069\u0063\u006F")
+    .replace(/\bEspana\b/g, "\u0045\u0073\u0070\u0061\u00F1\u0061")
+    .replace(/\bTunez\b/g, "\u0054\u00FA\u006E\u0065\u007A")
+    .replace(/\bBarein\b/g, "\u0042\u0061\u0072\u00E9\u0069\u006E")
+    .replace(/\bReunion\b/g, "\u0052\u0065\u0075\u006E\u0069\u00F3\u006E")
+    .replace(/\bCaiman\b/g, "\u0043\u0061\u0069\u006D\u00E1\u006E")
+    .replace(/\bPeru\b/g, "\u0050\u0065\u0072\u00FA")
+    .replace(/\bTaiwan\b/g, "\u0054\u0061\u0069\u0077\u00E1\u006E")
+    .replace(/\bAfrica\b/g, "\u00C1\u0066\u0072\u0069\u0063\u0061")
+    .replace(/\bAtlantico\b/g, "\u0041\u0074\u006C\u00E1\u006E\u0074\u0069\u0063\u006F")
+    .replace(/\bPacifico\b/g, "\u0050\u0061\u0063\u00ED\u0066\u0069\u0063\u006F")
+    .replace(/\bIndico\b/g, "\u00CD\u006E\u0064\u0069\u0063\u006F")
+    .replace(/\bAntartico\b/g, "\u0041\u006E\u0074\u00E1\u0072\u0074\u0069\u0063\u006F")
+    .replace(/\bCordoba\b/g, "\u0043\u00F3\u0072\u0064\u006F\u0062\u0061")
+    .replace(/\bSao Paulo\b/g, "\u0053\u00E3\u006F \u0050\u0061\u0075\u006C\u006F")
+    .replace(/\bValparaiso\b/g, "\u0056\u0061\u006C\u0070\u0061\u0072\u0061\u00ED\u0073\u006F")
+    .replace(/\bConcepcion\b/g, "\u0043\u006F\u006E\u0063\u0065\u0070\u0063\u0069\u00F3\u006E")
+    .replace(/\bMedellin\b/g, "\u004D\u0065\u0064\u0065\u006C\u006C\u00ED\u006E")
+    .replace(/\bCamaguey\b/g, "\u0043\u0061\u006D\u0061\u0067\u00FC\u0065\u0079")
+    .replace(/\bHolguin\b/g, "\u0048\u006F\u006C\u0067\u0075\u00ED\u006E")
+    .replace(/\bAlejandria\b/g, "\u0041\u006C\u0065\u006A\u0061\u006E\u0064\u0072\u00ED\u0061")
+    .replace(/\bEncarnacion\b/g, "\u0045\u006E\u0063\u0061\u0072\u006E\u0061\u0063\u0069\u00F3\u006E")
+    .replace(/\bPaysandu\b/g, "\u0050\u0061\u0079\u0073\u0061\u006E\u0064\u00FA")
+    .replace(/\bMilan\b/g, "\u004D\u0069\u006C\u00E1\u006E")
+    .replace(/\bNapoles\b/g, "\u004E\u00E1\u0070\u006F\u006C\u0065\u0073")
+    .replace(/\bTurin\b/g, "\u0054\u0075\u0072\u00ED\u006E")
+    .replace(/\bInvasion\b/g, "\u0049\u006E\u0076\u0061\u0073\u0069\u00F3\u006E")
+    .replace(/\bCampana\b/g, "\u0043\u0061\u006D\u0070\u0061\u00F1\u0061")
+    .replace(/\bAccion\b/g, "\u0041\u0063\u0063\u0069\u00F3\u006E")
+    .replace(/\bPacificacion\b/g, "\u0050\u0061\u0063\u0069\u0066\u0069\u0063\u0061\u0063\u0069\u00F3\u006E")
     .replace(/\bAno\b/g, "\u0041\u00F1\u006F")
     .replace(/\bOrganizacion\b/g, "\u004F\u0072\u0067\u0061\u006E\u0069\u007A\u0061\u0063\u0069\u00F3\u006E")
     .replace(/\bPoblacion\b/g, "\u0050\u006F\u0062\u006C\u0061\u0063\u0069\u00F3\u006E")
@@ -3649,9 +3725,12 @@ function normalizeFormationLabel(value) {
 }
 
 function toDisplayTitleCase(value) {
-  return String(value || "")
+  const titled = String(value || "")
     .toLocaleLowerCase("es")
     .replace(/(^|[\s\-/'(])([\p{L}])/gu, (match, prefix, letter) => `${prefix}${letter.toLocaleUpperCase("es")}`);
+  return titled.replace(/\b(De|Del|La|Las|Los|Y|E|O|En)\b/g, (match, particle, offset) =>
+    offset === 0 ? match : match.toLocaleLowerCase("es")
+  );
 }
 
 function normalizePlaceName(value) {
@@ -6029,17 +6108,17 @@ for (const country of Object.values(result)) {
 
 const sanitizedResult = sanitizeDeep(result);
 
-fs.writeJsonSync("./data/countries_full.json", sanitizedResult, { spaces: 2 });
+writeJsonAtomicSync("./data/countries_full.json", sanitizedResult, { spaces: 2 });
 
 function limitArray(value, maxItems = 4) {
   return Array.isArray(value) ? value.slice(0, maxItems) : [];
 }
 
 const countryIndex = buildStartupCountryIndex(sanitizedResult);
-fs.writeJsonSync("./data/countries_index.json", sanitizeDeep(countryIndex), { spaces: 0 });
+writeJsonAtomicSync("./data/countries_index.json", sanitizeDeep(countryIndex), { spaces: 0 });
 fs.emptyDirSync("./data/countries");
 Object.entries(sanitizedResult).forEach(([code, country]) => {
-  fs.writeJsonSync(`./data/countries/${code}.json`, buildPublicCountryRecord(country), { spaces: 0 });
+  writeJsonAtomicSync(`./data/countries/${code}.json`, buildPublicCountryRecord(country), { spaces: 0 });
 });
 
 console.log(`Dataset generado: ${Object.keys(sanitizedResult).length} paises.`);

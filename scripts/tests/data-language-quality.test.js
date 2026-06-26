@@ -117,6 +117,146 @@ const organizationAbbreviationIssues = Object.entries(countries).flatMap(([code,
     }))
 );
 assert.deepEqual(organizationAbbreviationIssues, [], `Siglas duplicadas o no traducidas en tops: ${JSON.stringify(organizationAbbreviationIssues.slice(0, 10))}`);
+const staleVisibleDataLabels = new Set([
+  "Ingles",
+  "Mandarin",
+  "Chino mandarin",
+  "Guarani",
+  "Arabe",
+  "Arabe egipcio",
+  "Arabe estandar",
+  "Azeri",
+  "Hungaro",
+  "Irlandes",
+  "Somali",
+  "Tigrina",
+  "Tartaro",
+  "Tartaro de Crimea",
+  "Catalan",
+  "Bengali",
+  "Cantones",
+  "Javanes",
+  "Sundanes",
+  "Madures",
+  "Maltes",
+  "Tailandes",
+  "Taiwanes",
+  "Hokkien taiwanes",
+  "Pemon",
+  "Portunol fronterizo",
+  "Amarico",
+  "Baoule",
+  "Bete",
+  "Gaelico escoces",
+  "Gales",
+  "Kiche",
+  "Qeqchi",
+  "Ngabere",
+  "Japon",
+  "Etiopia",
+  "Niger",
+  "Canada",
+  "Mexico",
+  "Espana",
+  "Tunez",
+  "Barein",
+  "Reunion",
+  "Islas Caiman",
+  "Cordoba",
+  "Sao Paulo",
+  "Valparaiso",
+  "Concepcion",
+  "Medellin",
+  "Camaguey",
+  "Holguin",
+  "Alejandria",
+  "Encarnacion",
+  "Paysandu",
+  "Milan",
+  "Napoles",
+  "Turin",
+  "Amsterdam"
+]);
+const visibleDataTextItems = Object.entries(countries).flatMap(([code, country]) => {
+  const relations = country.politics?.relations || {};
+  return [
+    { code, field: "name", value: country.name || "" },
+    { code, field: "officialName", value: country.general?.officialName || "" },
+    { code, field: "capital", value: country.general?.capital?.name || "" },
+    ...(country.general?.languages || []).map(value => ({ code, field: "language", value })),
+    ...(country.general?.cities || []).map(city => ({ code, field: "city", value: typeof city === "string" ? city : city?.name || "" })),
+    ...(country.general?.capitals || []).map(city => ({ code, field: "capitalProfile", value: typeof city === "string" ? city : city?.name || "" })),
+    ...(country.politics?.rivals || []).map(rival => ({ code, field: "rival", value: rival?.name || rival || "" })),
+    ...(relations.currentRivals || []).map(value => ({ code, field: "currentRival", value })),
+    ...(relations.historicalRivals || []).map(value => ({ code, field: "historicalRival", value })),
+    ...(relations.rivalStates || []).map(value => ({ code, field: "rivalState", value })),
+    ...(country.military?.conflicts || []).map(conflict => ({ code, field: "conflict", value: conflict?.name || conflict || "" }))
+  ];
+});
+const staleVisibleDataIssues = visibleDataTextItems.filter(item =>
+  staleVisibleDataLabels.has(String(item.value || "").trim()) ||
+  /\b(Invasion|Campana|Accion|Pacificacion)\b/.test(String(item.value || ""))
+);
+assert.deepEqual(
+  staleVisibleDataIssues,
+  [],
+  `Quedan etiquetas visibles sin tildes o sin normalizar: ${JSON.stringify(staleVisibleDataIssues.slice(0, 12))}`
+);
+const narrativeAccentSignal = /\b(Confrontacion|historico|politico|posicion|comparacion|presion|brasilena|brasileno|intervencion|accion|operacion|navegacion|tactico|tactica|soberania|curaduria|habia|America|Mexico|Antartida|Confederacion|Rio Parana|Rio de la Plata|anglo-frances|especifica|especificas|Mediterraneo|Persico|Peninsula|Contribuyo|evolucion)\b/;
+const narrativeTextFields = new Set([
+  "campaign",
+  "cause",
+  "consequences",
+  "curationNote",
+  "event",
+  "historicalNames",
+  "members",
+  "name",
+  "normalizedRegion",
+  "officialName",
+  "outcome",
+  "parent",
+  "region",
+  "related",
+  "side",
+  "summary",
+  "text",
+  "treaties",
+  "war"
+]);
+const narrativeTextItems = [];
+function collectNarrativeText(value, pathParts = [], code = "") {
+  if (typeof value === "string") {
+    const lastKey = String(pathParts.at(-1) || "");
+    if (narrativeTextFields.has(lastKey)) {
+      narrativeTextItems.push({ code, field: pathParts.join("."), value });
+    }
+    return;
+  }
+  if (Array.isArray(value)) {
+    value.forEach((item, index) => collectNarrativeText(item, pathParts.concat(String(index)), code));
+    return;
+  }
+  if (value && typeof value === "object") {
+    Object.entries(value).forEach(([key, item]) => collectNarrativeText(item, pathParts.concat(key), code));
+  }
+}
+Object.entries(countries).forEach(([code, country]) => collectNarrativeText(country, [], code));
+const narrativeAccentIssues = narrativeTextItems.filter(item => narrativeAccentSignal.test(item.value));
+assert.deepEqual(
+  narrativeAccentIssues,
+  [],
+  `Textos narrativos visibles conservan palabras sin tilde: ${JSON.stringify(narrativeAccentIssues.slice(0, 12))}`
+);
+const badSpanishParticles = visibleDataTextItems.filter(item =>
+  ["name", "officialName", "rival", "currentRival", "historicalRival", "rivalState"].includes(item.field) &&
+  /\b(Y|De|Del|En)\b/.test(item.value)
+);
+assert.deepEqual(
+  badSpanishParticles,
+  [],
+  `Particulas internas deben ir en minuscula: ${JSON.stringify(badSpanishParticles.slice(0, 12))}`
+);
 const servedReligionTextIssues = Object.entries(countries).flatMap(([code, country]) => [
   { code, value: country.religion?.summary || "" },
   ...(country.religion?.composition || []).map(entry => ({ code, value: entry?.name || "" }))

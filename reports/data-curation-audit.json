@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-06-26T22:48:11.584Z",
+  "generatedAt": "2026-06-26T23:23:07.999Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 9017505,
-    "duplicatedCountryFilesBytes": 1658438,
+    "fullBytes": 9094748,
+    "duplicatedCountryFilesBytes": 1746245,
     "tooLargeCount": 3,
     "largest": [
       {
         "code": "USA",
         "name": "Estados Unidos",
-        "bytes": 172451,
-        "inlineBytes": 2675658,
+        "bytes": 215690,
+        "inlineBytes": 2705632,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -27,8 +27,8 @@
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 61623,
-        "inlineBytes": 815694,
+        "bytes": 70611,
+        "inlineBytes": 821685,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -44,8 +44,8 @@
       {
         "code": "FRA",
         "name": "Francia",
-        "bytes": 45771,
-        "inlineBytes": 645461,
+        "bytes": 52296,
+        "inlineBytes": 650440,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -61,8 +61,8 @@
       {
         "code": "SWE",
         "name": "Suecia",
-        "bytes": 30663,
-        "inlineBytes": 417698,
+        "bytes": 36266,
+        "inlineBytes": 420436,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -78,8 +78,8 @@
       {
         "code": "AUS",
         "name": "Australia",
-        "bytes": 21569,
-        "inlineBytes": 174931,
+        "bytes": 23156,
+        "inlineBytes": 176195,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -93,27 +93,10 @@
         }
       },
       {
-        "code": "CAN",
-        "name": "Canadá",
-        "bytes": 16374,
-        "inlineBytes": 109320,
-        "tooLarge": false,
-        "counts": {
-          "cities": 4,
-          "capitals": 1,
-          "languages": 2,
-          "religionGroups": 8,
-          "organizations": 48,
-          "rivals": 38,
-          "conflicts": 32,
-          "timelineEvents": 3
-        }
-      },
-      {
         "code": "DNK",
         "name": "Dinamarca",
-        "bytes": 16177,
-        "inlineBytes": 131660,
+        "bytes": 17604,
+        "inlineBytes": 132530,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -129,8 +112,8 @@
       {
         "code": "MAR",
         "name": "Marruecos",
-        "bytes": 14866,
-        "inlineBytes": 149996,
+        "bytes": 17196,
+        "inlineBytes": 151897,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -144,10 +127,27 @@
         }
       },
       {
+        "code": "CAN",
+        "name": "Canadá",
+        "bytes": 17040,
+        "inlineBytes": 110181,
+        "tooLarge": false,
+        "counts": {
+          "cities": 4,
+          "capitals": 1,
+          "languages": 2,
+          "religionGroups": 8,
+          "organizations": 48,
+          "rivals": 38,
+          "conflicts": 32,
+          "timelineEvents": 3
+        }
+      },
+      {
         "code": "RUS",
         "name": "Rusia",
-        "bytes": 14810,
-        "inlineBytes": 123022,
+        "bytes": 15645,
+        "inlineBytes": 123927,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -163,8 +163,8 @@
       {
         "code": "POL",
         "name": "Polonia",
-        "bytes": 14282,
-        "inlineBytes": 74836,
+        "bytes": 14709,
+        "inlineBytes": 75384,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -180,8 +180,8 @@
       {
         "code": "ITA",
         "name": "Italia",
-        "bytes": 14208,
-        "inlineBytes": 47983,
+        "bytes": 14458,
+        "inlineBytes": 48321,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -195,19 +195,19 @@
         }
       },
       {
-        "code": "DEU",
-        "name": "Alemania",
-        "bytes": 13318,
-        "inlineBytes": 40129,
+        "code": "CHN",
+        "name": "República Popular China",
+        "bytes": 14020,
+        "inlineBytes": 93071,
         "tooLarge": false,
         "counts": {
           "cities": 5,
           "capitals": 1,
           "languages": 5,
-          "religionGroups": 5,
-          "organizations": 79,
-          "rivals": 21,
-          "conflicts": 9,
+          "religionGroups": 6,
+          "organizations": 33,
+          "rivals": 29,
+          "conflicts": 28,
           "timelineEvents": 4
         }
       }
@@ -14677,42 +14677,16 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 694,
+    "pendingCount": 691,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
-      {
-        "name": "Accion frente al faro de Galveston",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "America"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Accion militar de Calderilla",
-        "countries": [
-          "CHL"
-        ],
-        "regions": [
-          "America"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
       {
         "name": "Ambush de steamboat J. R. Williams",
         "countries": [
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -14738,7 +14712,7 @@
           "PRY"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -14751,7 +14725,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -14777,7 +14751,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -14790,7 +14764,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -14803,7 +14777,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -14829,7 +14803,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -14842,7 +14816,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -14868,7 +14842,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -14881,7 +14855,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -14907,7 +14881,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -14920,7 +14894,7 @@
           "PRY"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -14933,7 +14907,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -14946,7 +14920,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -14972,7 +14946,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -14985,7 +14959,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -14998,7 +14972,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15011,7 +14985,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15037,7 +15011,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15076,7 +15050,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15102,7 +15076,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15115,7 +15089,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15128,7 +15102,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15154,7 +15128,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15180,7 +15154,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15219,7 +15193,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15232,7 +15206,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15245,7 +15219,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15258,7 +15232,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15271,7 +15245,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15284,7 +15258,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15297,7 +15271,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15310,7 +15284,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15323,7 +15297,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15336,7 +15310,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15349,7 +15323,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15362,7 +15336,7 @@
           "MAR"
         ],
         "regions": [
-          "Africa"
+          "África"
         ],
         "types": [
           "interestatal"
@@ -15375,7 +15349,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15388,7 +15362,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15401,7 +15375,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15414,7 +15388,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15427,7 +15401,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15440,7 +15414,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15466,7 +15440,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15505,7 +15479,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15533,7 +15507,7 @@
         ],
         "regions": [
           "Europa",
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15559,7 +15533,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15598,7 +15572,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15611,7 +15585,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15626,7 +15600,7 @@
         ],
         "regions": [
           "Europa",
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15639,7 +15613,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15665,7 +15639,7 @@
           "MAR"
         ],
         "regions": [
-          "Africa"
+          "África"
         ],
         "types": [
           "interestatal"
@@ -15717,7 +15691,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15743,7 +15717,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15756,7 +15730,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15782,7 +15756,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15795,7 +15769,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15808,7 +15782,7 @@
           "MEX"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15821,7 +15795,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15834,7 +15808,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15860,7 +15834,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15873,7 +15847,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15886,7 +15860,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15899,7 +15873,7 @@
           "MEX"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15912,7 +15886,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15925,7 +15899,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15938,7 +15912,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15964,7 +15938,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -15990,7 +15964,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16003,7 +15977,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16016,7 +15990,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16029,7 +16003,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16068,7 +16042,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16081,7 +16055,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16094,7 +16068,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16120,7 +16094,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16133,7 +16107,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16146,7 +16120,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16159,7 +16133,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16185,7 +16159,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16198,7 +16172,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16211,7 +16185,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16224,7 +16198,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16237,7 +16211,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16250,7 +16224,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16263,7 +16237,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16276,7 +16250,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16289,7 +16263,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16315,7 +16289,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16328,7 +16302,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16341,7 +16315,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16406,7 +16380,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16432,7 +16406,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16458,7 +16432,7 @@
           "MRT"
         ],
         "regions": [
-          "Africa"
+          "África"
         ],
         "types": [
           "interestatal"
@@ -16471,7 +16445,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16484,7 +16458,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16497,7 +16471,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16510,7 +16484,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16523,7 +16497,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16536,7 +16510,7 @@
           "CAN"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16562,7 +16536,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16588,7 +16562,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16601,7 +16575,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16640,7 +16614,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16679,7 +16653,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16705,7 +16679,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16718,7 +16692,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16731,7 +16705,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16744,7 +16718,7 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
         ],
         "types": [
           "interestatal"
@@ -16757,7 +16731,33 @@
           "USA"
         ],
         "regions": [
-          "America"
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Eoranpo",
+        "countries": [
+          "JPN"
+        ],
+        "regions": [
+          "Asia"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Eutaw Springs",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
         ],
         "types": [
           "interestatal"

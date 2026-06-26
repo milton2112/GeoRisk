@@ -28,6 +28,7 @@ import { LATE_1800_CONFLICT_DETAIL_FIXES, LATE_1800_SAFE_CONFLICT_RENAMES } from
 import { INTERWAR_CONFLICT_DETAIL_FIXES, INTERWAR_SAFE_CONFLICT_RENAMES } from "./conflict-curation-1919-1941.js";
 import { WWII_1942_CONFLICT_DETAIL_FIXES, WWII_1942_SAFE_CONFLICT_RENAMES } from "./conflict-curation-1942.js";
 import { THEATER_CONFLICT_DETAIL_FIXES, THEATER_SAFE_CONFLICT_RENAMES } from "./conflict-curation-theater.js";
+import { applyVisibleStringReplacements } from "./visible-data-corrections.js";
 
 const ALL_CURATED_CONFLICT_DETAIL_FIXES = {
   ...CURATED_CONFLICT_DETAIL_FIXES,
@@ -194,7 +195,7 @@ function getRenamedConflictRecord(name, generatedConflictMap) {
 
 function getCanonicalAuditName(name) {
   const cleanName = cleanConflictLabel(name);
-  return ALL_SAFE_CONFLICT_RENAMES[name] || ALL_SAFE_CONFLICT_RENAMES[cleanName] || cleanName;
+  return applyVisibleStringReplacements(ALL_SAFE_CONFLICT_RENAMES[name] || ALL_SAFE_CONFLICT_RENAMES[cleanName] || cleanName);
 }
 
 function getConflictYears(record) {

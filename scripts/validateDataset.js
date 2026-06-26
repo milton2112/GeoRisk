@@ -2,6 +2,7 @@ import fs from "fs-extra";
 import path from "path";
 import { hasMojibake, hasValue, isTerritoryLike, normalizeArray } from "./lib/dataset-shared.js";
 import { loadAliasConfig, createCountryAliasIndex, resolveCountryNameToCode } from "./lib/country-matching.js";
+import { normalizeText } from "./lib/text-normalization.js";
 
 const projectRoot = path.resolve(process.cwd());
 const datasetPath = path.join(projectRoot, "data", "countries_full.json");
@@ -10,7 +11,7 @@ const ORGANIZATION_OPTIONAL_CODES = new Set(["BMU", "CS-KM", "-99", "FLK", "ATF"
 const CONFLICT_OPTIONAL_CODES = new Set(["ATF", "GUF", "ATA"]);
 const LANGUAGE_OPTIONAL_CODES = new Set(["ATA", "ATF"]);
 const INFLATION_OPTIONAL_CODES = new Set(["ATA"]);
-const LOW_LEVEL_CONFLICT_WARNING_PATTERN = /batalla|battle|combate|combat|sitio|asedio|escaramuza|skirmish|hundimiento|bombardeo|bombing|ataque|attack|captura|capture|desembarco|landing|operaci[oÃ³]n|operation|acci[oÃ³]n|action|incursi[oÃ³]n|raid|naval battle|enfrentamiento|choque|uprising|levantamiento|rebeli[oÃ³]n|rebelion|massacre|masacre|blitz|affair|incident|incidente|expedition|expedici[oÃ³]n|occupation|ocupaci[oÃ³]n|campaign|campa[aÃ±]a|theater|theatre|pocket|disaster|blockade|bloqueo|assault|asalto|ambush|fight|defeat|ridge|fort|adlertag|viernes negro|bolsa del ruhr|toma de|paso de|vs /i;
+const LOW_LEVEL_CONFLICT_WARNING_PATTERN = /batalla|battle|combate|combat|sitio|asedio|escaramuza|skirmish|hundimiento|bombardeo|bombing|ataque|attack|captura|capture|desembarco|landing|operacion|operation|accion|action|incursion|raid|naval battle|enfrentamiento|choque|uprising|levantamiento|rebelion|massacre|masacre|blitz|affair|incident|incidente|expedition|expedicion|occupation|ocupacion|campaign|campana|theater|theatre|pocket|disaster|blockade|bloqueo|assault|asalto|ambush|fight|defeat|ridge|fort|adlertag|viernes negro|bolsa del ruhr|toma de|paso de|vs /i;
 const CONFLICT_NOISE_NAME_PATTERN = /^Q\d+$/i;
 
 async function main() {
@@ -127,6 +128,7 @@ async function main() {
 
     normalizeArray(country.military?.conflicts).forEach(conflict => {
       const conflictName = String(conflict?.name || "");
+      const normalizedConflictName = normalizeText(conflictName);
       if (!hasValue(conflict?.name)) {
         issues.push({ code, type: "military.conflicts.name", detail: "conflicto sin nombre" });
       }
@@ -134,7 +136,7 @@ async function main() {
         !hasValue(conflict?.startYear) &&
         !hasValue(conflict?.endYear) &&
         !CONFLICT_NOISE_NAME_PATTERN.test(conflictName) &&
-        !LOW_LEVEL_CONFLICT_WARNING_PATTERN.test(conflictName)
+        !LOW_LEVEL_CONFLICT_WARNING_PATTERN.test(normalizedConflictName)
       ) {
         warnings.push({ code, type: "military.conflicts.startYear", detail: `conflicto sin fecha (${conflictName || "s/n"})` });
       }

@@ -79,6 +79,72 @@ export const visibleStringReplacements = new Map([
   ["Fondo Monetario Internacional", "Fondo Monetario Internacional"],
   ["Union Africana", "Uni\u00f3n Africana"],
   ["Q4264", "Mercosur"],
+  ["Ingles", "Ingl\u00e9s"],
+  ["Mandarin", "Mandar\u00edn"],
+  ["Chino mandarin", "Chino mandar\u00edn"],
+  ["Guarani", "Guaran\u00ed"],
+  ["Arabe", "\u00c1rabe"],
+  ["Arabe egipcio", "\u00c1rabe egipcio"],
+  ["Arabe estandar", "\u00c1rabe est\u00e1ndar"],
+  ["Azeri", "Azer\u00ed"],
+  ["Hungaro", "H\u00fangaro"],
+  ["Irlandes", "Irland\u00e9s"],
+  ["Somali", "Somal\u00ed"],
+  ["Tigrina", "Tigri\u00f1a"],
+  ["Tartaro", "T\u00e1rtaro"],
+  ["Tartaro de Crimea", "T\u00e1rtaro de Crimea"],
+  ["Catalan", "Catal\u00e1n"],
+  ["Bengali", "Bengal\u00ed"],
+  ["Cantones", "Canton\u00e9s"],
+  ["Javanes", "Javan\u00e9s"],
+  ["Sundanes", "Sundan\u00e9s"],
+  ["Madures", "Madur\u00e9s"],
+  ["Maltes", "Malt\u00e9s"],
+  ["Tailandes", "Tailand\u00e9s"],
+  ["Taiwanes", "Taiwan\u00e9s"],
+  ["Hokkien taiwanes", "Hokkien taiwan\u00e9s"],
+  ["Pemon", "Pem\u00f3n"],
+  ["Portunol fronterizo", "Portu\u00f1ol fronterizo"],
+  ["Amarico", "Am\u00e1rico"],
+  ["Baoule", "Baul\u00e9"],
+  ["Bete", "B\u00e9t\u00e9"],
+  ["Gaelico escoces", "Ga\u00e9lico escoc\u00e9s"],
+  ["Gales", "Gal\u00e9s"],
+  ["Kiche", "K'iche'"],
+  ["Qeqchi", "Q'eqchi'"],
+  ["Ngabere", "Ng\u00e4bere"],
+  ["Japon", "Jap\u00f3n"],
+  ["Etiopia", "Etiop\u00eda"],
+  ["Niger", "N\u00edger"],
+  ["Canada", "Canad\u00e1"],
+  ["Mexico", "M\u00e9xico"],
+  ["Espana", "Espa\u00f1a"],
+  ["Tunez", "T\u00fanez"],
+  ["Barein", "Bar\u00e9in"],
+  ["Reunion", "Reuni\u00f3n"],
+  ["Islas Caiman", "Islas Caim\u00e1n"],
+  ["Cordoba", "C\u00f3rdoba"],
+  ["Sao Paulo", "S\u00e3o Paulo"],
+  ["S\uFFFDo Paulo", "S\u00e3o Paulo"],
+  ["Valparaiso", "Valpara\u00edso"],
+  ["Concepcion", "Concepci\u00f3n"],
+  ["Medellin", "Medell\u00edn"],
+  ["Camaguey", "Camag\u00fcey"],
+  ["Holguin", "Holgu\u00edn"],
+  ["Alejandria", "Alejandr\u00eda"],
+  ["Encarnacion", "Encarnaci\u00f3n"],
+  ["Paysandu", "Paysand\u00fa"],
+  ["Milan", "Mil\u00e1n"],
+  ["Napoles", "N\u00e1poles"],
+  ["Turin", "Tur\u00edn"],
+  ["Amsterdam", "\u00c1msterdam"],
+  ["Invasion de Afganistan de 2001", "Invasi\u00f3n de Afganist\u00e1n de 2001"],
+  ["Invasion de Irak de 2003", "Invasi\u00f3n de Irak de 2003"],
+  ["Invasion brasile\u00f1a de 1864", "Invasi\u00f3n brasile\u00f1a de 1864"],
+  ["Campana en Africa del Suroeste", "Campa\u00f1a en \u00c1frica del Suroeste"],
+  ["Campana del Norte de Rusia", "Campa\u00f1a del Norte de Rusia"],
+  ["Campana de Borneo", "Campa\u00f1a de Borneo"],
+  ["Accion del 4 Mayo 1917", "Acci\u00f3n del 4 Mayo 1917"],
   ["Catolicos", "Cat\u00f3licos"],
   ["Catolicos orientales", "Cat\u00f3licos orientales"],
   ["Catolicas", "Cat\u00f3licas"],
@@ -134,15 +200,143 @@ export const visibleStringReplacements = new Map([
   ["Religiones animistas y populares y budismo", "Religiones tradicionales y budismo"]
 ]);
 
+const visibleWordReplacements = [
+  [/\bRio de la Plata\b/g, "R\u00edo de la Plata"],
+  [/\bRio Parana\b/g, "R\u00edo Paran\u00e1"],
+  [/\bConfrontacion\b/g, "Confrontaci\u00f3n"],
+  [/\bconfrontacion\b/g, "confrontaci\u00f3n"],
+  [/\bhistorico\b/g, "hist\u00f3rico"],
+  [/\bhistorica\b/g, "hist\u00f3rica"],
+  [/\bhistoricos\b/g, "hist\u00f3ricos"],
+  [/\bhistoricas\b/g, "hist\u00f3ricas"],
+  [/\bpolitico\b/g, "pol\u00edtico"],
+  [/\bpolitica\b/g, "pol\u00edtica"],
+  [/\bpoliticos\b/g, "pol\u00edticos"],
+  [/\bpoliticas\b/g, "pol\u00edticas"],
+  [/\bposicion\b/g, "posici\u00f3n"],
+  [/\bcomparacion\b/g, "comparaci\u00f3n"],
+  [/\bpresion\b/g, "presi\u00f3n"],
+  [/\bintervencion\b/g, "intervenci\u00f3n"],
+  [/\bIntervencion\b/g, "Intervenci\u00f3n"],
+  [/\baccion\b/g, "acci\u00f3n"],
+  [/\boperacion\b/g, "operaci\u00f3n"],
+  [/\bOperacion\b/g, "Operaci\u00f3n"],
+  [/\bnavegacion\b/g, "navegaci\u00f3n"],
+  [/\btactico\b/g, "t\u00e1ctico"],
+  [/\btactica\b/g, "t\u00e1ctica"],
+  [/\btacticas\b/g, "t\u00e1cticas"],
+  [/\bsoberania\b/g, "soberan\u00eda"],
+  [/\bcuraduria\b/g, "curadur\u00eda"],
+  [/\bhabia\b/g, "hab\u00eda"],
+  [/\bespecifica\b/g, "espec\u00edfica"],
+  [/\bespecificas\b/g, "espec\u00edficas"],
+  [/\bespecifico\b/g, "espec\u00edfico"],
+  [/\bbrasilena\b/g, "brasile\u00f1a"],
+  [/\bbrasileno\b/g, "brasile\u00f1o"],
+  [/\banglo-frances\b/g, "anglo-franc\u00e9s"],
+  [/\bConfederacion\b/g, "Confederaci\u00f3n"],
+  [/\bconfederacion\b/g, "confederaci\u00f3n"],
+  [/\bDeclaracion\b/g, "Declaraci\u00f3n"],
+  [/\bdeclaracion\b/g, "declaraci\u00f3n"],
+  [/\bdisolucion\b/g, "disoluci\u00f3n"],
+  [/\bresolucion\b/g, "resoluci\u00f3n"],
+  [/\brelacion\b/g, "relaci\u00f3n"],
+  [/\bproteccion\b/g, "protecci\u00f3n"],
+  [/\badministracion\b/g, "administraci\u00f3n"],
+  [/\bparticipacion\b/g, "participaci\u00f3n"],
+  [/\bautonomia\b/g, "autonom\u00eda"],
+  [/\bdelimitacion\b/g, "delimitaci\u00f3n"],
+  [/\bocupacion\b/g, "ocupaci\u00f3n"],
+  [/\bOcupacion\b/g, "Ocupaci\u00f3n"],
+  [/\bestrategico\b/g, "estrat\u00e9gico"],
+  [/\bestrategica\b/g, "estrat\u00e9gica"],
+  [/\bestrategicos\b/g, "estrat\u00e9gicos"],
+  [/\blogisticos\b/g, "log\u00edsticos"],
+  [/\bdiplomaticos\b/g, "diplom\u00e1ticos"],
+  [/\bdiplomaticas\b/g, "diplom\u00e1ticas"],
+  [/\bsimbolo\b/g, "s\u00edmbolo"],
+  [/\bpoliticamente\b/g, "pol\u00edticamente"],
+  [/\bclasico\b/g, "cl\u00e1sico"],
+  [/\bAmerica\b/g, "Am\u00e9rica"],
+  [/\bMexico\b/g, "M\u00e9xico"],
+  [/\bAntartida\b/g, "Ant\u00e1rtida"],
+  [/\bMediterraneo\b/g, "Mediterr\u00e1neo"],
+  [/\bParana\b/g, "Paran\u00e1"],
+  [/\bPersico\b/g, "P\u00e9rsico"],
+  [/\bSinai\b/g, "Sina\u00ed"],
+  [/\bPeninsula\b/g, "Pen\u00ednsula"],
+  [/\bAfecto\b/g, "Afect\u00f3"],
+  [/\bReforzo\b/g, "Reforz\u00f3"],
+  [/\bMostro\b/g, "Mostr\u00f3"],
+  [/\bAumento\b/g, "Aument\u00f3"],
+  [/\bAltero\b/g, "Alter\u00f3"],
+  [/\bIncidio\b/g, "Incidi\u00f3"],
+  [/\bInfluyo\b/g, "Influy\u00f3"],
+  [/\bContribuyo\b/g, "Contribuy\u00f3"],
+  [/\bevolucion\b/g, "evoluci\u00f3n"],
+  [/\bTransformo\b/g, "Transform\u00f3"],
+  [/\bDestruyo\b/g, "Destruy\u00f3"],
+  [/\bPermitio\b/g, "Permiti\u00f3"],
+  [/\bQuedo\b/g, "Qued\u00f3"],
+  [/\bPresiono\b/g, "Presion\u00f3"],
+  [/\bAbro\b/g, "Abri\u00f3"],
+  [/\bInvadio\b/g, "Invadi\u00f3"],
+  [/\bAtaco\b/g, "Atac\u00f3"],
+  [/\bAmplio\b/g, "Ampli\u00f3"],
+  [/\bConsolido\b/g, "Consolid\u00f3"],
+  [/\bEnfrento\b/g, "Enfrent\u00f3"],
+  [/\bIntegro\b/g, "Integr\u00f3"],
+  [/\bAnticipo\b/g, "Anticip\u00f3"],
+  [/\bEstallo\b/g, "Estall\u00f3"],
+  [/\bDesencadeno\b/g, "Desencaden\u00f3"],
+  [/\bDesarrollo\b/g, "Desarroll\u00f3"],
+  [/\bSe desarrollo\b/g, "Se desarroll\u00f3"],
+  [/\bSe convirtio\b/g, "Se convirti\u00f3"],
+  [/\bInvasion\b/g, "Invasi\u00f3n"],
+  [/\bCampana\b/g, "Campa\u00f1a"],
+  [/\bAccion\b/g, "Acci\u00f3n"],
+  [/\bPacificacion\b/g, "Pacificaci\u00f3n"],
+  [/\bAfrica\b/g, "\u00c1frica"],
+  [/\bAtlantico\b/g, "Atl\u00e1ntico"],
+  [/\bPacifico\b/g, "Pac\u00edfico"],
+  [/\bIndico\b/g, "\u00cdndico"],
+  [/\bAntartico\b/g, "Ant\u00e1rtico"],
+  [/\bPeru\b/g, "Per\u00fa"],
+  [/\bTaiwan\b/g, "Taiw\u00e1n"]
+];
+
+const enumLikeVisibleKeys = new Set([
+  "active",
+  "category",
+  "categoryKey",
+  "conflictType",
+  "curationPriority",
+  "curationStatus",
+  "dataConfidence",
+  "role",
+  "scale",
+  "scope",
+  "source",
+  "status",
+  "type"
+]);
+
 export function isTechnicalIdentifier(value) {
   return TECHNICAL_IDENTIFIER_RE.test(String(value || "").trim());
 }
 
-export function applyVisibleStringReplacements(value) {
+export function applyVisibleStringReplacements(value, { includeWordReplacements = true } = {}) {
   if (typeof value !== "string") {
     return value;
   }
-  return visibleStringReplacements.get(value) || value;
+  const exact = visibleStringReplacements.get(value) || value;
+  if (!includeWordReplacements) {
+    return exact;
+  }
+  return visibleWordReplacements.reduce(
+    (text, [pattern, replacement]) => text.replace(pattern, replacement),
+    exact
+  );
 }
 
 function normalizeVisibleKey(value) {
@@ -224,13 +418,16 @@ function normalizeTechnicalNamedObject(value) {
   return null;
 }
 
-export function normalizeVisibleValue(value) {
+export function normalizeVisibleValue(value, path = []) {
   if (typeof value === "string") {
-    const replaced = applyVisibleStringReplacements(value);
+    const lastKey = String(path.at(-1) || "");
+    const replaced = applyVisibleStringReplacements(value, {
+      includeWordReplacements: !enumLikeVisibleKeys.has(lastKey)
+    });
     return isTechnicalIdentifier(replaced) ? null : replaced;
   }
   if (Array.isArray(value)) {
-    return value.map(normalizeVisibleValue).filter(item => item !== null);
+    return value.map((item, index) => normalizeVisibleValue(item, path.concat(String(index)))).filter(item => item !== null);
   }
   if (!value || typeof value !== "object") {
     return value;
@@ -241,7 +438,7 @@ export function normalizeVisibleValue(value) {
   const normalizedObject = normalizeVisibleOrganizationEntry(value);
   return Object.fromEntries(
     Object.entries(normalizedObject)
-      .map(([key, item]) => [key, normalizeVisibleValue(item)])
+      .map(([key, item]) => [key, normalizeVisibleValue(item, path.concat(key))])
       .filter(([, item]) => item !== null)
   );
 }

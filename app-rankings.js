@@ -10,14 +10,28 @@
     return Array.isArray(country.politics?.organizations) ? country.politics.organizations : [];
   }
 
+  function normalizeListKey(value = "") {
+    return String(value || "")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .trim();
+  }
+
   function getBlocs(country = {}) {
     const relations = country.politics?.relations || {};
+    const seen = new Set();
     return [
       ...(relations.blocs || []),
       ...(relations.militaryBlocs || []),
       ...(relations.economicBlocs || []),
       ...(relations.diplomaticBlocs || [])
-    ].filter(Boolean);
+    ].filter(Boolean).filter(bloc => {
+      const key = normalizeListKey(bloc);
+      if (!key || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
   }
 
   function getMilitaryActive(country = {}) {
