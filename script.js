@@ -81,7 +81,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-06-25-release-3";
+const APP_VERSION = "2026-06-26-release-1";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -92,17 +92,17 @@ function createFallbackSearchCache() {
 }
 
 const DEFERRED_UI_MODULES = {
-  news: "./app-news-ui.js?v=2026-06-25-release-3",
-  compare: "./app-compare-ui.js?v=2026-06-25-release-3",
-  quiz: "./app-quiz-ui.js?v=2026-06-25-release-3",
-  riskRadar: "./app-risk-radar-ui.js?v=2026-06-25-release-3",
-  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-25-release-3",
-  projectAudit: "./app-project-audit-ui.js?v=2026-06-25-release-3",
-  uiPolish: "./app-ui-polish.js?v=2026-06-25-release-3",
-  countryPanel: "./app-country-panel.js?v=2026-06-25-release-3",
-  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-25-release-3",
-  search: "./app-search.js?v=2026-06-25-release-3",
-  rankings: "./app-rankings.js?v=2026-06-25-release-3"
+  news: "./app-news-ui.js?v=2026-06-26-release-1",
+  compare: "./app-compare-ui.js?v=2026-06-26-release-1",
+  quiz: "./app-quiz-ui.js?v=2026-06-26-release-1",
+  riskRadar: "./app-risk-radar-ui.js?v=2026-06-26-release-1",
+  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-26-release-1",
+  projectAudit: "./app-project-audit-ui.js?v=2026-06-26-release-1",
+  uiPolish: "./app-ui-polish.js?v=2026-06-26-release-1",
+  countryPanel: "./app-country-panel.js?v=2026-06-26-release-1",
+  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-26-release-1",
+  search: "./app-search.js?v=2026-06-26-release-1",
+  rankings: "./app-rankings.js?v=2026-06-26-release-1"
 };
 const deferredUiModulePromises = new Map();
 
@@ -5219,33 +5219,7 @@ function closeCountryModal() {
 
 function getReligionSummaryLabel(religion) {
   const summary = String(religion?.summary || "").trim();
-  const composition = getReligionCompositionForDisplay(religion);
-
-  if (!summary) {
-    return "";
-  }
-
-  const normalizedSummary = normalizeText(summary);
-  const topBranches = composition
-    .filter(item => {
-      const normalizedName = normalizeText(item.name);
-      if (normalizedSummary.includes("crist")) {
-        return /catol|protest|ortodox|anglican|evangel|copta/.test(normalizedName);
-      }
-      if (normalizedSummary.includes("islam") || normalizedSummary.includes("musulm")) {
-        return /sun|chi|ibad/.test(normalizedName);
-      }
-      return false;
-    })
-    .sort((a, b) => (b.percentage || 0) - (a.percentage || 0))
-    .slice(0, 3)
-    .map(item => item.name);
-
-  if (!topBranches.length) {
-    return summary;
-  }
-
-  return `${summary}: ${topBranches.join(", ")}`;
+  return summary;
 }
 
 function getReligionCompositionForDisplay(religion) {
@@ -14161,6 +14135,8 @@ function generateReligions() {
 
       const nominal = population * (entry.percentage / 100);
       const family = getReligionKeyAndLabel(entry.name);
+      const denominationLabel = formatReligionDenominationLabel(entry.name, family.label);
+      const denominationKey = normalizeText(denominationLabel);
       const familyEntry = familyTotals.get(family.key) || {
         key: family.key,
         label: family.label,
@@ -14169,10 +14145,14 @@ function generateReligions() {
       };
 
       familyEntry.total += nominal;
-      familyEntry.denominations.set(
-        entry.name,
-        (familyEntry.denominations.get(entry.name) || 0) + nominal
-      );
+      if (denominationKey && denominationKey !== normalizeText(family.label)) {
+        const denominationEntry = familyEntry.denominations.get(denominationKey) || {
+          label: denominationLabel,
+          total: 0
+        };
+        denominationEntry.total += nominal;
+        familyEntry.denominations.set(denominationKey, denominationEntry);
+      }
       familyTotals.set(family.key, familyEntry);
     });
   });
@@ -14181,17 +14161,12 @@ function generateReligions() {
 
   target.innerHTML = families.map(family => {
     const share = worldPopulationTotal ? (family.total / worldPopulationTotal) * 100 : 0;
-    const denominations = [...family.denominations.entries()]
-      .sort((a, b) => b[1] - a[1])
-      .map(([name, total]) => {
-        const formattedName = formatReligionDenominationLabel(name, family.label);
-        if (normalizeText(formattedName) === normalizeText(family.label)) {
-          return "";
-        }
+    const denominations = [...family.denominations.values()]
+      .sort((a, b) => b.total - a.total)
+      .map(({ label, total }) => {
         const branchShare = worldPopulationTotal ? (total / worldPopulationTotal) * 100 : 0;
-        return `<li>${escapeHtml(formattedName)} (${formatNumber(Math.round(total))} - ${formatPercentage(branchShare)})</li>`;
+        return `<li>${escapeHtml(label)} (${formatNumber(Math.round(total))} - ${formatPercentage(branchShare)})</li>`;
       })
-      .filter(Boolean)
       .join("");
 
     return `

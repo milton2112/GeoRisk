@@ -4477,10 +4477,15 @@ const RELIGION_LABEL_REPLACEMENTS = new Map([
   ["catolicos orientales", "Cat\u00f3licos orientales"],
   ["catolicas", "Cat\u00f3licas"],
   ["catolico", "Cat\u00f3lico"],
-  ["cristianos protestantes", "Protestantes"],
+  ["cristianos protestantes", "Protestantes y evang\u00e9licos"],
+  ["cristianos evangelicos", "Protestantes y evang\u00e9licos"],
+  ["cristianismo protestante", "Protestantes y evang\u00e9licos"],
+  ["protestantismo", "Protestantes y evang\u00e9licos"],
+  ["protestantes", "Protestantes y evang\u00e9licos"],
   ["protestantes evangelicos", "Protestantes y evang\u00e9licos"],
   ["protestantes y evangelicos", "Protestantes y evang\u00e9licos"],
-  ["evangelicos", "Evang\u00e9licos"],
+  ["evangelicos", "Protestantes y evang\u00e9licos"],
+  ["otros cristianos", "Otras denominaciones cristianas"],
   ["hindues", "Hind\u00faes"],
   ["hindu", "Hind\u00fa"],
   ["judaismo", "Juda\u00edsmo"],
@@ -4583,6 +4588,43 @@ function normalizeReligionSummary(value) {
     return null;
   }
   return RELIGION_SUMMARY_REPLACEMENTS.get(key) || RELIGION_LABEL_REPLACEMENTS.get(key) || cleaned;
+}
+
+function simplifyReligionSummaryWithComposition(summary, composition) {
+  const normalizedSummary = normalizeReligionSummary(summary);
+  if (!normalizedSummary || !Array.isArray(composition) || !composition.length) {
+    return normalizedSummary;
+  }
+
+  const summaryKey = normalizeReligionKey(normalizedSummary);
+  const compositionKeys = composition
+    .map(entry => normalizeReligionKey(entry?.name))
+    .filter(Boolean);
+  const hasChristianBranch = compositionKeys.some(key =>
+    /catolic|protest|evangelic|ortodox|anglican|copto|kimbangu|mormon|luteran|metod|cristianos independientes/.test(key)
+  );
+  const hasIslamBranch = compositionKeys.some(key =>
+    /sunita|chiita|alauita|alevi|ibadi|wahabi/.test(key)
+  );
+
+  if (
+    hasChristianBranch &&
+    (/^cristianismo\b/.test(summaryKey) ||
+      summaryKey === "catolicos" ||
+      summaryKey === "cristianos ortodoxos" ||
+      summaryKey === "protestantes y evangelicos")
+  ) {
+    return "Cristianismo";
+  }
+
+  if (
+    hasIslamBranch &&
+    (/^islam\b/.test(summaryKey) || /^musulmanes\b/.test(summaryKey))
+  ) {
+    return "Islam";
+  }
+
+  return normalizedSummary;
 }
 
 function roundReligionPercentage(value) {
@@ -4924,7 +4966,7 @@ function expandReligionComposition(code, summary, composition) {
         return { ...entry, name: "Cat\u00f3licos" };
       }
       if (summaryText.includes("protest")) {
-        return { ...entry, name: "Protestantes" };
+        return { ...entry, name: "Protestantes y evang\u00e9licos" };
       }
       if (summaryText.includes("ortodox")) {
         return { ...entry, name: "Cristianos ortodoxos" };
@@ -5199,7 +5241,7 @@ Object.assign(POST_BUILD_ENTITY_OVERRIDES, {
 
 function inferReligionSummary(composition, fallbackSummary = null) {
   if (fallbackSummary) {
-    return normalizeReligionSummary(fallbackSummary);
+    return simplifyReligionSummaryWithComposition(fallbackSummary, composition);
   }
 
   if (!Array.isArray(composition) || !composition.length) {

@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.7 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.8 antes de cerrar la siguiente version.
+
+## v1.6.8 - 2026-06-26
+
+- Unifica las ramas protestantes visibles en una sola etiqueta canonica: `Protestantes y evangelicos`, evitando duplicados entre `Protestantes`, `Evangelicos` y variantes de `Cristianos protestantes`.
+- Simplifica resumenes religiosos servidos cuando la rama ya aparece en la composicion, para que fichas y paises no muestren textos redundantes como `Cristianismo (protestantismo): Protestantes...`.
+- Renombra el residual `Otros cristianos` a `Otras denominaciones cristianas` para que los tops y fichas se lean con menos ambiguedad.
+- Hace que el top de religiones agregue por etiqueta visible canonica, incluso si entran variantes futuras.
+- Agrega pruebas para bloquear ramas protestantes duplicadas, residuales cristianos antiguos y resumenes que repitan ramas ya detalladas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-06-26-release-1`.
 
 ## v1.6.7 - 2026-06-25
 

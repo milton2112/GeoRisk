@@ -148,6 +148,49 @@ const duplicateReligionLabels = Object.entries(countries).flatMap(([code, countr
   });
 });
 assert.deepEqual(duplicateReligionLabels, [], `Religiones duplicadas por ficha: ${JSON.stringify(duplicateReligionLabels.slice(0, 10))}`);
+const redundantReligionBranchLabels = new Set([
+  "cristianos protestantes",
+  "cristianos evangelicos",
+  "evangelicos",
+  "otros cristianos",
+  "protestantes",
+  "protestantismo"
+]);
+const redundantReligionLabels = Object.entries(countries).flatMap(([code, country]) =>
+  (country.religion?.composition || [])
+    .filter(entry => redundantReligionBranchLabels.has(normalizeDataLabel(entry?.name)))
+    .map(entry => ({
+      code,
+      label: entry.name,
+      canonical: normalizeDataLabel(entry?.name) === "otros cristianos"
+        ? "Otras denominaciones cristianas"
+        : "Protestantes y evang\u00e9licos"
+    }))
+);
+assert.deepEqual(
+  redundantReligionLabels,
+  [],
+  `No deben quedar ramas protestantes redundantes en fichas o tops: ${JSON.stringify(redundantReligionLabels.slice(0, 10))}`
+);
+const redundantReligionSummaries = Object.entries(countries).flatMap(([code, country]) => {
+  const summary = normalizeDataLabel(country.religion?.summary).replace(/[^a-z0-9]+/g, " ").trim();
+  const compositionKeys = (country.religion?.composition || []).map(entry =>
+    normalizeDataLabel(entry?.name).replace(/[^a-z0-9]+/g, " ").trim()
+  );
+  const hasDetailedBranch = compositionKeys.some(key =>
+    /catolic|protest|evangelic|ortodox|anglican|copto|kimbangu|mormon|luteran|metod|sunita|chiita|alauita|alevi|ibadi/.test(key)
+  );
+  const repeatsBranch =
+    /^(cristianismo|islam) (catolicismo|protestantismo|ortodoxo|anglicano|luterano|metodista|sunismo|chiismo|suni|chii)/.test(summary);
+  return hasDetailedBranch && repeatsBranch
+    ? [{ code, summary: country.religion?.summary, composition: country.religion?.composition?.map(entry => entry.name) || [] }]
+    : [];
+});
+assert.deepEqual(
+  redundantReligionSummaries,
+  [],
+  `El resumen religioso no debe repetir ramas que ya aparecen en composicion: ${JSON.stringify(redundantReligionSummaries.slice(0, 10))}`
+);
 const religionTotalIssues = Object.entries(countries).flatMap(([code, country]) => {
   const composition = country.religion?.composition || [];
   const total = composition.reduce((sum, entry) => sum + (Number(entry?.percentage) || 0), 0);

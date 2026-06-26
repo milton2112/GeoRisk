@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-06-25T22:16:23.067Z",
+  "generatedAt": "2026-06-26T22:48:13.253Z",
   "status": "operativo",
   "startup": {
-    "critical": "958 KB",
-    "criticalBytes": 980758,
+    "critical": "957 KB",
+    "criticalBytes": 979578,
     "deferred": "1.21 MB",
     "estimatedRuntimeMemory": {
-      "countriesFullBytes": 9017877,
+      "countriesFullBytes": 9017505,
       "countriesFullHuman": "8.60 MB",
-      "estimatedParsedBytes": 27053631,
+      "estimatedParsedBytes": 27052515,
       "estimatedParsedHuman": "25.80 MB",
       "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
     },
@@ -23,7 +23,7 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 672119,
+        "bytes": 671506,
         "human": "656 KB",
         "startupCritical": true
       },
@@ -44,7 +44,7 @@
       {
         "path": "data/countries_index.json",
         "exists": true,
-        "bytes": 172158,
+        "bytes": 171591,
         "human": "168 KB",
         "startupCritical": true
       },
@@ -122,13 +122,13 @@
       {
         "path": "data/search_index.json",
         "exists": true,
-        "bytes": 192971,
-        "human": "188 KB"
+        "bytes": 191687,
+        "human": "187 KB"
       },
       {
         "path": "data/countries_index.json",
         "exists": true,
-        "bytes": 172158,
+        "bytes": 171591,
         "human": "168 KB"
       },
       {
@@ -146,15 +146,15 @@
     ],
     "countryWeights": {
       "totalCountries": 183,
-      "fullBytes": 9017877,
-      "duplicatedCountryFilesBytes": 1658810,
+      "fullBytes": 9017505,
+      "duplicatedCountryFilesBytes": 1658438,
       "tooLargeCount": 3,
       "largest": [
         {
           "code": "USA",
           "name": "Estados Unidos",
-          "bytes": 172468,
-          "inlineBytes": 2675675,
+          "bytes": 172451,
+          "inlineBytes": 2675658,
           "tooLarge": true,
           "counts": {
             "cities": 5,
@@ -170,8 +170,8 @@
         {
           "code": "GBR",
           "name": "Reino Unido",
-          "bytes": 61618,
-          "inlineBytes": 815689,
+          "bytes": 61623,
+          "inlineBytes": 815694,
           "tooLarge": true,
           "counts": {
             "cities": 5,
@@ -187,8 +187,8 @@
         {
           "code": "FRA",
           "name": "Francia",
-          "bytes": 45770,
-          "inlineBytes": 645460,
+          "bytes": 45771,
+          "inlineBytes": 645461,
           "tooLarge": true,
           "counts": {
             "cities": 5,
@@ -221,8 +221,8 @@
         {
           "code": "AUS",
           "name": "Australia",
-          "bytes": 21571,
-          "inlineBytes": 174933,
+          "bytes": 21569,
+          "inlineBytes": 174931,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -238,8 +238,8 @@
         {
           "code": "CAN",
           "name": "Canadá",
-          "bytes": 16376,
-          "inlineBytes": 109322,
+          "bytes": 16374,
+          "inlineBytes": 109320,
           "tooLarge": false,
           "counts": {
             "cities": 4,
@@ -289,8 +289,8 @@
         {
           "code": "RUS",
           "name": "Rusia",
-          "bytes": 14804,
-          "inlineBytes": 123016,
+          "bytes": 14810,
+          "inlineBytes": 123022,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -306,8 +306,8 @@
         {
           "code": "POL",
           "name": "Polonia",
-          "bytes": 14267,
-          "inlineBytes": 74821,
+          "bytes": 14282,
+          "inlineBytes": 74836,
           "tooLarge": false,
           "counts": {
             "cities": 4,
@@ -323,8 +323,8 @@
         {
           "code": "ITA",
           "name": "Italia",
-          "bytes": 14207,
-          "inlineBytes": 47982,
+          "bytes": 14208,
+          "inlineBytes": 47983,
           "tooLarge": false,
           "counts": {
             "cities": 4,
@@ -340,8 +340,8 @@
         {
           "code": "DEU",
           "name": "Alemania",
-          "bytes": 13334,
-          "inlineBytes": 40145,
+          "bytes": 13318,
+          "inlineBytes": 40129,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -383,7 +383,7 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 672119,
+      "bytes": 671506,
       "human": "656 KB"
     },
     {
@@ -401,8 +401,8 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 19624,
-      "human": "19 KB"
+      "bytes": 20500,
+      "human": "20 KB"
     },
     {
       "path": "TECHNICAL.md",

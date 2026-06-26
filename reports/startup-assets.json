@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-06-25T22:16:22.615Z",
-  "startupBytes": 980758,
-  "startupHuman": "958 KB",
+  "generatedAt": "2026-06-26T22:48:12.620Z",
+  "startupBytes": 979578,
+  "startupHuman": "957 KB",
   "deferredBytes": 1264541,
   "deferredHuman": "1.21 MB",
   "estimatedRuntimeMemory": {
-    "countriesFullBytes": 9017877,
+    "countriesFullBytes": 9017505,
     "countriesFullHuman": "8.60 MB",
-    "estimatedParsedBytes": 27053631,
+    "estimatedParsedBytes": 27052515,
     "estimatedParsedHuman": "25.80 MB",
     "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
   },
@@ -22,7 +22,7 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 672119,
+      "bytes": 671506,
       "human": "656 KB",
       "startupCritical": true
     },
@@ -43,7 +43,7 @@
     {
       "path": "data/countries_index.json",
       "exists": true,
-      "bytes": 172158,
+      "bytes": 171591,
       "human": "168 KB",
       "startupCritical": true
     },
@@ -108,7 +108,7 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 672119,
+      "bytes": 671506,
       "human": "656 KB",
       "startupCritical": true
     },
@@ -255,7 +255,7 @@
     {
       "path": "data/countries_index.json",
       "exists": true,
-      "bytes": 172158,
+      "bytes": 171591,
       "human": "168 KB",
       "startupCritical": true
     },
