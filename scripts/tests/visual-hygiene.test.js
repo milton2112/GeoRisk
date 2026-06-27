@@ -53,6 +53,11 @@ assert.ok(polishCss.includes(".rank-empty-state"), "rankings deben mostrar estad
 assert.ok(polishCss.includes(".country-title > .coat-visual"), "cabecera de ficha debe reservar espacio al escudo");
 assert.ok(polishCss.includes(".conflict-trust-badge"), "modal de conflicto debe mostrar calidad de dato sin ocupar una seccion completa");
 assert.ok(polishCss.includes("#offline-status.offline-state-inline"), "estado offline debe tener tratamiento visual diferido");
+assert.ok(polishCss.includes("--ui-surface-raised"), "pulido diferido debe definir una superficie elevada reutilizable");
+assert.ok(polishCss.includes(".panel-section[open]"), "secciones abiertas deben ganar jerarquia visual");
+assert.ok(polishCss.includes("body.mobile-more-open #toggle-more-panel"), "controles mobile deben indicar que menu esta activo");
+assert.ok(polishCss.includes(".timeline-item:hover"), "cards densas deben tener hover/foco visual consistente");
+assert.ok(polishCss.includes("@keyframes countrySkeletonSweep"), "skeletons de ficha deben comunicar carga sin congelar la UI");
 
 const performanceUi = await fs.readFile(path.join(projectRoot, "app-performance-ui.js"), "utf8");
 const uiPolish = await fs.readFile(path.join(projectRoot, "app-ui-polish.js"), "utf8");
@@ -62,6 +67,7 @@ assert.ok(performanceUi.includes("Degradaciones automaticas de render"), "rendim
 
 const indexHtml = await fs.readFile(path.join(projectRoot, "index.html"), "utf8");
 const script = await fs.readFile(path.join(projectRoot, "script.js"), "utf8");
+const normalizedScript = script.replace(/\r\n/g, "\n");
 const appMapInteractions = await fs.readFile(path.join(projectRoot, "app-map-interactions.js"), "utf8");
 assert.ok(indexHtml.includes('id="map"'), "la pantalla principal debe conservar contenedor de mapa/canvas");
 assert.ok(indexHtml.includes('id="map-mode-toggle"'), "la UI debe exponer cambio 2D/3D");
@@ -90,7 +96,7 @@ assert.ok(script.includes("modalFocusReturnTarget"), "modales deben restaurar el
 assert.ok(script.includes("function syncMobilePanelControlState"), "controles mobile deben sincronizar disponibilidad y estado expandido");
 assert.ok(script.includes('li.setAttribute("aria-pressed", "true")'), "seleccion de ranking debe anunciar su estado");
 assert.ok(script.includes("activeRankingKey === rankingKey"), "seleccion de ranking debe sobrevivir al rerender de datos");
-assert.ok(script.includes("if (!target) {\n    return;\n  }\n  target.innerHTML = \"\";"), "listas interactivas deben tolerar contenedores diferidos ausentes");
+assert.ok(normalizedScript.includes("if (!target) {\n    return;\n  }\n  target.innerHTML = \"\";"), "listas interactivas deben tolerar contenedores diferidos ausentes");
 assert.ok(script.includes("rank-empty-state"), "listas interactivas deben mostrar un estado vacio claro");
 assert.ok(uiPolish.includes("document.body.dataset.networkState"), "pulido visual debe exponer estado de red en el body");
 assert.ok(uiPolish.includes('status.setAttribute("aria-live", "polite")'), "estado offline debe anunciar cambios sin interrumpir");

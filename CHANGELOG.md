@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.9 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.10 antes de cerrar la siguiente version.
+
+## v1.6.10 - 2026-06-27
+
+- Pule la jerarquia visual diferida de paneles, hubs y modales con superficies elevadas, bordes mas claros y estados abiertos mas distinguibles.
+- Mejora estados hover, foco y seleccion en rankings, timeline, conflictos, noticias, comparador y secciones de ficha pais.
+- Refuerza la barra mobile y el menu rapido con estados activos visibles, objetivos tactiles estables y mejor separacion del mapa.
+- Agrega skeleton animado respetando `prefers-reduced-motion` y normaliza indicadores desplegables a signos ASCII.
+- Amplia `visual-hygiene.test.js` para bloquear regresiones en pulido diferido, mobile y skeletons.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-06-27-release-1`.
 
 ## v1.6.9 - 2026-06-26
 
