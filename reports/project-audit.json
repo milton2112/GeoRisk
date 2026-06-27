@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-06-27T03:50:16.966Z",
+  "generatedAt": "2026-06-27T04:06:29.250Z",
   "status": "operativo",
   "startup": {
     "critical": "956 KB",
-    "criticalBytes": 979076,
+    "criticalBytes": 979223,
     "deferred": "1.21 MB",
     "estimatedRuntimeMemory": {
-      "countriesFullBytes": 9094748,
+      "countriesFullBytes": 9094699,
       "countriesFullHuman": "8.67 MB",
-      "estimatedParsedBytes": 27284244,
+      "estimatedParsedBytes": 27284097,
       "estimatedParsedHuman": "26.02 MB",
       "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
     },
@@ -23,7 +23,7 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 671310,
+        "bytes": 671472,
         "human": "656 KB",
         "startupCritical": true
       },
@@ -44,7 +44,7 @@
       {
         "path": "data/countries_index.json",
         "exists": true,
-        "bytes": 171745,
+        "bytes": 171730,
         "human": "168 KB",
         "startupCritical": true
       },
@@ -110,7 +110,7 @@
       {
         "path": "data/timeline_index.json",
         "exists": true,
-        "bytes": 287327,
+        "bytes": 287312,
         "human": "281 KB"
       },
       {
@@ -122,13 +122,13 @@
       {
         "path": "data/search_index.json",
         "exists": true,
-        "bytes": 192094,
+        "bytes": 192017,
         "human": "188 KB"
       },
       {
         "path": "data/countries_index.json",
         "exists": true,
-        "bytes": 171745,
+        "bytes": 171730,
         "human": "168 KB"
       },
       {
@@ -146,8 +146,8 @@
     ],
     "countryWeights": {
       "totalCountries": 183,
-      "fullBytes": 9094748,
-      "duplicatedCountryFilesBytes": 1746245,
+      "fullBytes": 9094699,
+      "duplicatedCountryFilesBytes": 1746196,
       "tooLargeCount": 3,
       "largest": [
         {
@@ -204,8 +204,8 @@
         {
           "code": "SWE",
           "name": "Suecia",
-          "bytes": 36266,
-          "inlineBytes": 420436,
+          "bytes": 36267,
+          "inlineBytes": 420437,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -383,7 +383,7 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 671310,
+      "bytes": 671472,
       "human": "656 KB"
     },
     {
@@ -401,8 +401,8 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 22303,
-      "human": "22 KB"
+      "bytes": 23088,
+      "human": "23 KB"
     },
     {
       "path": "style-polish.css",

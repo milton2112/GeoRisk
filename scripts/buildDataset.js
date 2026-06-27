@@ -2511,6 +2511,7 @@ const HISTORY_OVERRIDES = {
   AND: { year: 1278, type: "legal" },
   ARE: { year: 1971, type: "union" },
   BHS: { year: 1973, type: "independencia", origin: "Reino Unido" },
+  BGD: { year: 1971, type: "independencia", origin: "Pakistan Oriental" },
   BIH: { year: 1992, type: "disolucion de otro estado" },
   BLZ: { year: 1981, type: "independencia", origin: "Reino Unido" },
   BMU: { year: 1609, type: "legal", origin: "Reino Unido" },
@@ -2548,6 +2549,7 @@ const HISTORY_OVERRIDES = {
   SYR: { year: 1946, type: "independencia" },
   TKM: { year: 1991, type: "disolucion de otro estado" },
   TLS: { year: 2002, type: "independencia" },
+  ESH: { year: 1976, type: "territorio disputado", origin: "Sahara Espanol" },
   TWN: { year: 1949, type: "guerra civil" },
   TZA: { year: 1964, type: "union" },
   VNM: { year: 1976, type: "union" },
@@ -3684,13 +3686,10 @@ function normalizeFormationLabel(value) {
   if (
     normalized.includes("independ") ||
     normalized.includes("colonia") ||
-    normalized.includes("protectorado")
+    normalized.includes("protectorado") ||
+    normalized.includes("dominio")
   ) {
     return "independencia";
-  }
-
-  if (normalized.includes("union") || normalized.includes("reunif")) {
-    return "union";
   }
 
   if (
@@ -3702,6 +3701,10 @@ function normalizeFormationLabel(value) {
     return "disolucion de otro estado";
   }
 
+  if (normalized.includes("union") || normalized.includes("reunif")) {
+    return "union";
+  }
+
   if (normalized.includes("revolu")) {
     return "revolucion";
   }
@@ -3710,9 +3713,27 @@ function normalizeFormationLabel(value) {
     return "guerra civil";
   }
 
+  if (normalized.includes("tratado internacional")) {
+    return "tratado internacional";
+  }
+
+  if (normalized.includes("territorio disputado")) {
+    return "territorio disputado";
+  }
+
+  if (normalized.includes("territorio no incorporado")) {
+    return "territorio no incorporado";
+  }
+
   if (
     normalized.includes("territorio") ||
     normalized.includes("departamento") ||
+    normalized.includes("dependencia")
+  ) {
+    return "territorio dependiente";
+  }
+
+  if (
     normalized.includes("monarquia") ||
     normalized.includes("republica") ||
     normalized.includes("coprincipado") ||
@@ -3722,6 +3743,29 @@ function normalizeFormationLabel(value) {
   }
 
   return null;
+}
+
+function refineFormationTypeFromOrigin(type, origin, { isTerritoryLike = false } = {}) {
+  if (type !== "legal" || isTerritoryLike) {
+    return type;
+  }
+
+  const normalizedOrigin = normalizeKey(origin);
+  if (!normalizedOrigin) {
+    return type;
+  }
+
+  if (/union sovietica|sovietic|yugoslav|checoslova/.test(normalizedOrigin)) {
+    return "disolucion de otro estado";
+  }
+
+  if (
+    /britan|frances|espan|portugues|neerland|holand|belga|danes|otomano|mandato|protectorado|colonia|dominio|raj|indias orientales|federacion de las indias occidentales|basutolandia|bechuanalandia|costa de oro|rodesia|nyasalandia|tanganyika|zanzibar|togolandia|africa occidental francesa|africa ecuatorial francesa/.test(normalizedOrigin)
+  ) {
+    return "independencia";
+  }
+
+  return type;
 }
 
 function toDisplayTitleCase(value) {
@@ -3764,6 +3808,10 @@ function formatFormationType(value) {
     "disolucion de otro estado": "DisoluciÃ³n de otro estado",
     revolucion: "RevoluciÃ³n",
     "guerra civil": "Guerra civil",
+    "territorio disputado": "Territorio disputado",
+    "territorio dependiente": "Territorio dependiente",
+    "territorio no incorporado": "Territorio no incorporado",
+    "tratado internacional": "Tratado internacional",
     legal: "Legal y pacÃ­fica"
   };
 
@@ -5806,26 +5854,38 @@ for (const code of allCodes) {
     0;
   const historyOverride = HISTORY_OVERRIDES[code] || {};
   const normalizedHistoryYear = normalizeYear(
-    historyData?.year,
-    historyOverride.year ?? fallback.history?.year ?? null
+    historyOverride.year ?? historyData?.year,
+    fallback.history?.year ?? null
   );
-  const normalizedFormationType =
+  const historyOrigin =
+    historyOverride.origin ||
+    historyData?.origin ||
+    fallback.history?.origin ||
+    null;
+  const rawFormationType =
     historyOverride.type ||
     normalizeFormationLabel(historyData?.type) ||
     normalizeFormationLabel(historyData?.origin) ||
     normalizeFormationLabel(fallback.history?.type) ||
     normalizeFormationLabel(fallback.history?.origin) ||
     "legal";
+  const historyProfileHints = [
+    historyData?.type,
+    historyData?.origin,
+    politicsData.system,
+    politics[code],
+    fallback.history?.type,
+    fallback.politics?.system
+  ].map(normalizeKey).join(" ");
+  const normalizedFormationType = refineFormationTypeFromOrigin(rawFormationType, historyOrigin, {
+    isTerritoryLike: /territorio|dependencia|departamento|ultramar/.test(historyProfileHints)
+  });
   const historyEntry =
     historyData || fallback.history || historyOverride.year || historyOverride.type
       ? {
           year: normalizedHistoryYear,
           type: formatFormationType(normalizedFormationType),
-          origin:
-            historyOverride.origin ||
-            historyData?.origin ||
-            fallback.history?.origin ||
-            null
+          origin: historyOrigin
         }
       : null;
 

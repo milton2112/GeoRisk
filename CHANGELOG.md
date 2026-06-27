@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.10 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.11 antes de cerrar la siguiente version.
+
+## v1.6.11 - 2026-06-27
+
+- Corrige la prioridad de `HISTORY_OVERRIDES` para que los años curados ganen sobre años raw validos pero no docentes.
+- Repara fechas historicas visibles en timeline/fichas para Suecia, Rusia, Reino Unido, Alemania, Vietnam, Timor Oriental, Sahara Occidental y otros casos curados.
+- Clasifica mejor independencias coloniales y salidas de la URSS en el dataset servido, evitando que aparezcan como `Legal y pacifica`.
+- Agrega categorias historicas para territorios disputados/dependientes/no incorporados y tratado internacional en datos e indice.
+- Amplia pruebas de calidad de datos para bloquear regresiones de años historicos, independencias coloniales y disoluciones sovieticas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-06-27-release-2`.
 
 ## v1.6.10 - 2026-06-27
 

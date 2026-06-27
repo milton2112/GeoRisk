@@ -408,6 +408,70 @@ assert.equal(history.NGA.origin, "Federación de Nigeria");
 assert.equal(history.SVK.origin, "Checoslovaquia");
 assert.equal(history.ZAF.origin, "Colonia del Cabo, Natal, Transvaal y Colonia del Río Orange");
 assert.equal(history.SWZ.origin, "Suazilandia británica");
+assert.deepEqual(
+  {
+    DEU: countries.DEU.history.year,
+    ESH: countries.ESH.history.year,
+    FRA: countries.FRA.history.year,
+    GBR: countries.GBR.history.year,
+    HUN: countries.HUN.history.year,
+    RUS: countries.RUS.history.year,
+    SWE: countries.SWE.history.year,
+    TLS: countries.TLS.history.year,
+    VNM: countries.VNM.history.year
+  },
+  {
+    DEU: 1990,
+    ESH: 1976,
+    FRA: 1958,
+    GBR: 1707,
+    HUN: 1989,
+    RUS: 1991,
+    SWE: 1523,
+    TLS: 2002,
+    VNM: 1976
+  },
+  "Los overrides historicos curados deben tener prioridad sobre anios crudos validos pero no docentes"
+);
+assert.equal(countries.ESH.history.type, "Territorio disputado");
+assert.deepEqual(
+  {
+    BGD: countries.BGD.history.type,
+    BEN: countries.BEN.history.type,
+    CMR: countries.CMR.history.type,
+    IND: countries.IND.history.type,
+    IDN: countries.IDN.history.type,
+    MAR: countries.MAR.history.type,
+    PAK: countries.PAK.history.type
+  },
+  {
+    BGD: "Independencia",
+    BEN: "Independencia",
+    CMR: "Independencia",
+    IND: "Independencia",
+    IDN: "Independencia",
+    MAR: "Independencia",
+    PAK: "Independencia"
+  },
+  "Las independencias coloniales deben servirse como tipo historico, no como legal generico"
+);
+assert.deepEqual(
+  {
+    ARM: countries.ARM.history.type,
+    AZE: countries.AZE.history.type,
+    BLR: countries.BLR.history.type,
+    UKR: countries.UKR.history.type,
+    UZB: countries.UZB.history.type
+  },
+  {
+    ARM: "Disolución de otro estado",
+    AZE: "Disolución de otro estado",
+    BLR: "Disolución de otro estado",
+    UKR: "Disolución de otro estado",
+    UZB: "Disolución de otro estado"
+  },
+  "Las salidas de la URSS deben servirse como disolucion de otro estado"
+);
 
 const staleKivu = curateConflictEntry({
   name: "Guerra de Kivu",

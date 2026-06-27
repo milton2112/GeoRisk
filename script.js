@@ -81,7 +81,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-06-27-release-1";
+const APP_VERSION = "2026-06-27-release-2";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -92,17 +92,17 @@ function createFallbackSearchCache() {
 }
 
 const DEFERRED_UI_MODULES = {
-  news: "./app-news-ui.js?v=2026-06-27-release-1",
-  compare: "./app-compare-ui.js?v=2026-06-27-release-1",
-  quiz: "./app-quiz-ui.js?v=2026-06-27-release-1",
-  riskRadar: "./app-risk-radar-ui.js?v=2026-06-27-release-1",
-  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-27-release-1",
-  projectAudit: "./app-project-audit-ui.js?v=2026-06-27-release-1",
-  uiPolish: "./app-ui-polish.js?v=2026-06-27-release-1",
-  countryPanel: "./app-country-panel.js?v=2026-06-27-release-1",
-  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-27-release-1",
-  search: "./app-search.js?v=2026-06-27-release-1",
-  rankings: "./app-rankings.js?v=2026-06-27-release-1"
+  news: "./app-news-ui.js?v=2026-06-27-release-2",
+  compare: "./app-compare-ui.js?v=2026-06-27-release-2",
+  quiz: "./app-quiz-ui.js?v=2026-06-27-release-2",
+  riskRadar: "./app-risk-radar-ui.js?v=2026-06-27-release-2",
+  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-27-release-2",
+  projectAudit: "./app-project-audit-ui.js?v=2026-06-27-release-2",
+  uiPolish: "./app-ui-polish.js?v=2026-06-27-release-2",
+  countryPanel: "./app-country-panel.js?v=2026-06-27-release-2",
+  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-27-release-2",
+  search: "./app-search.js?v=2026-06-27-release-2",
+  rankings: "./app-rankings.js?v=2026-06-27-release-2"
 };
 const deferredUiModulePromises = new Map();
 
@@ -265,6 +265,10 @@ const THEME_STYLES = {
     "disolucion de otro estado": "#ff006e",
     revolucion: "#fb5607",
     "guerra civil": "#ef476f",
+    "territorio dependiente": "#4d96ff",
+    "territorio disputado": "#f8961e",
+    "territorio no incorporado": "#90be6d",
+    "tratado internacional": "#6c757d",
     "legal y pacifica": "#06d6a0",
     otros: "#8d99ae"
   },
@@ -16326,5 +16330,3 @@ async function init() {
 }
 
 init();
-
-
