@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-06-29T14:41:43.006Z",
+  "generatedAt": "2026-06-29T14:50:39.083Z",
   "status": "operativo",
   "startup": {
     "critical": "973 KB",
-    "criticalBytes": 996137,
+    "criticalBytes": 996233,
     "deferred": "1.02 MB",
     "estimatedRuntimeMemory": {
-      "countriesFullBytes": 9096550,
+      "countriesFullBytes": 9097009,
       "countriesFullHuman": "8.68 MB",
-      "estimatedParsedBytes": 27289650,
+      "estimatedParsedBytes": 27291027,
       "estimatedParsedHuman": "26.03 MB",
       "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
     },
@@ -16,7 +16,7 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 687804,
+        "bytes": 687792,
         "human": "672 KB",
         "startupCritical": true
       },
@@ -44,7 +44,7 @@
       {
         "path": "data/countries_index.json",
         "exists": true,
-        "bytes": 171645,
+        "bytes": 171762,
         "human": "168 KB",
         "startupCritical": true
       },
@@ -58,7 +58,7 @@
       {
         "path": "index.html",
         "exists": true,
-        "bytes": 33307,
+        "bytes": 33298,
         "human": "33 KB",
         "startupCritical": true
       },
@@ -122,13 +122,13 @@
       {
         "path": "data/search_index.json",
         "exists": true,
-        "bytes": 191743,
+        "bytes": 191758,
         "human": "187 KB"
       },
       {
         "path": "data/countries_index.json",
         "exists": true,
-        "bytes": 171645,
+        "bytes": 171762,
         "human": "168 KB"
       },
       {
@@ -146,8 +146,8 @@
     ],
     "countryWeights": {
       "totalCountries": 183,
-      "fullBytes": 9096550,
-      "duplicatedCountryFilesBytes": 1746094,
+      "fullBytes": 9097009,
+      "duplicatedCountryFilesBytes": 1746553,
       "tooLargeCount": 3,
       "largest": [
         {
@@ -375,15 +375,13 @@
         "data/conflict_dyadic_summary.json"
       ]
     },
-    "curationGaps": {
-      "politics.rivals": 1
-    }
+    "curationGaps": {}
   },
   "sourceFiles": [
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 687804,
+      "bytes": 687792,
       "human": "672 KB"
     },
     {
@@ -395,14 +393,14 @@
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 33307,
+      "bytes": 33298,
       "human": "33 KB"
     },
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 23878,
-      "human": "23 KB"
+      "bytes": 24535,
+      "human": "24 KB"
     },
     {
       "path": "style-polish.css",
@@ -455,7 +453,7 @@
     {
       "path": "app-ui-polish.js",
       "exists": true,
-      "bytes": 5423,
+      "bytes": 5422,
       "human": "5 KB"
     },
     {

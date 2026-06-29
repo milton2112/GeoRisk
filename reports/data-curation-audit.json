@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-06-29T14:41:41.908Z",
+  "generatedAt": "2026-06-29T14:50:37.734Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 9096550,
-    "duplicatedCountryFilesBytes": 1746094,
+    "fullBytes": 9097009,
+    "duplicatedCountryFilesBytes": 1746553,
     "tooLargeCount": 3,
     "largest": [
       {
@@ -10165,7 +10165,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 4,
-        "status": "base"
+        "status": "curated"
       }
     },
     "SLE": {
@@ -16766,16 +16766,6 @@
       }
     ]
   },
-  "gapsByType": {
-    "politics.rivals": 1
-  },
-  "priorityGaps": [
-    {
-      "code": "SRB",
-      "name": "Serbia",
-      "type": "politics.rivals",
-      "severity": "media",
-      "detail": "pais con tension prioritaria sin rivalidades documentadas"
-    }
-  ]
+  "gapsByType": {},
+  "priorityGaps": []
 }

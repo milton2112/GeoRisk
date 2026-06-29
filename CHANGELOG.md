@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.12 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.13 antes de cerrar la siguiente version.
+
+## v1.6.13 - 2026-06-29
+
+- Agrega `BACKLOG.md` como lista completa y priorizada de datos, rendimiento, UI/UX, busqueda, rankings, timeline, testing y release.
+- Cura Serbia con capital `Belgrado`, ciudades destacadas limpias, rivalidad actual con Kosovo y disputa territorial asociada.
+- Elimina la ultima brecha prioritaria de curaduria (`politics.rivals`) reportada por la auditoria interna.
+- Amplia pruebas de calidad para bloquear regresiones en capitales, ciudades y relaciones visibles de Serbia.
+- Regenera datos publicos, indices, shards de conflictos y reportes de auditoria.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-06-29-release-2`.
 
 ## v1.6.12 - 2026-06-29
 

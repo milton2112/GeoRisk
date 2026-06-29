@@ -955,6 +955,17 @@ const POST_BUILD_ENTITY_OVERRIDES = {
       ]
     }
   },
+  SRB: {
+    general: {
+      capital: { name: "Belgrado", population: 1197714, isCapital: true },
+      cities: [
+        { name: "Novi Sad", population: 260438, isCapital: false },
+        { name: "Ni\u0161", population: 178976, isCapital: false },
+        { name: "Kragujevac", population: 146315, isCapital: false },
+        { name: "Subotica", population: 88752, isCapital: false }
+      ]
+    }
+  },
   GIN: {
     general: {
       capital: { name: "Conakry", population: 1660973, isCapital: true },
@@ -2401,6 +2412,15 @@ Object.assign(RELATION_OVERRIDES_V2, {
     diplomaticPartners: ["Estados Unidos", "Emiratos Arabes Unidos", "Egipto"],
     diplomaticBlocs: ["ONU", "OIC", "Consejo de Cooperacion del Golfo"],
     currentRivals: ["Iran", "Huties"]
+  },
+  SRB: {
+    economicPartners: ["Union Europea", "Alemania", "Italia", "China"],
+    diplomaticPartners: ["Union Europea", "Rusia", "China", "Hungria"],
+    economicBlocs: ["CEFTA"],
+    diplomaticBlocs: ["ONU", "Consejo de Europa", "OSCE"],
+    currentRivals: ["Kosovo"],
+    historicalRivals: ["OTAN", "Croacia", "Bosnia y Herzegovina"],
+    disputedTerritories: ["Kosovo"]
   },
   URY: {
     economicPartners: ["Brasil", "Argentina", "China"],

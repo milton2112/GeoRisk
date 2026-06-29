@@ -410,6 +410,8 @@ assert.deepEqual(
     HTI: countries.HTI.general.capital.name,
     LAO: countries.LAO.general.capital.name,
     SAU: countries.SAU.general.capital.name,
+    SRB: countries.SRB.general.capital.name,
+    SRB_CITY: countries.SRB.general.cities[0]?.name,
     USA: countries.USA.general.cities.find(city => city.name.includes("Los"))?.name,
     AFG: countries.AFG.general.cities.find(city => city.name.includes("Mazar"))?.name
   },
@@ -419,6 +421,8 @@ assert.deepEqual(
     HTI: "Puerto Pr\u00edncipe",
     LAO: "Vienti\u00e1n",
     SAU: "Riad",
+    SRB: "Belgrado",
+    SRB_CITY: "Novi Sad",
     USA: "Los \u00c1ngeles",
     AFG: "Mazar-e Sharif"
   },
@@ -437,6 +441,19 @@ const contradictoryRelations = Object.entries(countries).flatMap(([code, country
     .map(rival => ({ code, rival }));
 });
 assert.deepEqual(contradictoryRelations, [], `Un aliado no puede figurar a la vez como rival actual: ${JSON.stringify(contradictoryRelations.slice(0, 10))}`);
+assert.deepEqual(
+  {
+    currentRivals: countries.SRB.politics.relations.currentRivals,
+    disputedTerritories: countries.SRB.politics.relations.disputedTerritories,
+    rivals: countries.SRB.politics.rivals.map(rival => rival.name || rival)
+  },
+  {
+    currentRivals: ["Kosovo"],
+    disputedTerritories: ["Kosovo"],
+    rivals: ["Kosovo", "OTAN", "Croacia", "Bosnia y Herzegovina"]
+  },
+  "Serbia debe tener relaciones y rivalidades visibles curadas"
+);
 
 const misleadingPerfectScores = Object.entries(countries).filter(([, country]) => {
   const quality = country.metadata?.quality || {};
