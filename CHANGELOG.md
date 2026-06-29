@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.11 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.12 antes de cerrar la siguiente version.
+
+## v1.6.12 - 2026-06-29
+
+- Normaliza datos visibles de politica: corrige organizaciones con `Desarrollo` mal escrito como verbo y bloquea la regresion en raw/datos servidos.
+- Mejora ciudades y capitales visibles: Ereván, San José, Puerto Príncipe, Vientián, Riad, Los Ángeles, Mazar-e Sharif y Savannakhet.
+- Extiende las correcciones visibles a conflictos raw, detalles generados y shards por conflicto para limpiar nombres/textos de batallas y guerras.
+- Mantiene `continent` como dato interno canonico para filtros, rankings y busqueda, evitando mezclas entre claves internas e idioma visible.
+- Amplia pruebas de calidad para organizaciones, ciudades, continentes canonicos y textos narrativos de conflictos.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-06-29-release-1`.
 
 ## v1.6.11 - 2026-06-27
 

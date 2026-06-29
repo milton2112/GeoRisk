@@ -1174,7 +1174,7 @@
   },
   "SAU": {
     "capital": {
-      "name": "Riyadh",
+      "name": "Riad",
       "population": 6924566,
       "isCapital": true
     },
@@ -2127,7 +2127,7 @@
   },
   "LAO": {
     "capital": {
-      "name": "Vientiane",
+      "name": "Vientián",
       "population": 698318,
       "isCapital": true
     },
@@ -2600,7 +2600,7 @@
   },
   "HTI": {
     "capital": {
-      "name": "Puerto Principe",
+      "name": "Puerto Príncipe",
       "isCapital": true
     },
     "cities": []
@@ -3134,7 +3134,7 @@
         "isCapital": false
       },
       {
-        "name": "Los Angeles (CA)",
+        "name": "Los Ángeles (CA)",
         "population": 3820914,
         "isCapital": false
       },
@@ -4124,7 +4124,7 @@
   },
   "ARM": {
     "capital": {
-      "name": "Yerevan",
+      "name": "Ereván",
       "population": 1098866,
       "isCapital": true
     },
@@ -4185,7 +4185,7 @@
   },
   "CRI": {
     "capital": {
-      "name": "San Jose",
+      "name": "San José",
       "population": 357976,
       "isCapital": true
     },

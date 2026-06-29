@@ -6,12 +6,15 @@ const projectRoot = path.resolve(process.cwd());
 const fullPath = path.join(projectRoot, "data", "countries_full.json");
 const countriesDir = path.join(projectRoot, "data", "countries");
 const rawPaths = [
+  path.join(projectRoot, "data", "raw", "conflicts.json"),
   path.join(projectRoot, "data", "raw", "history.json"),
   path.join(projectRoot, "data", "raw", "politics_details.json"),
   path.join(projectRoot, "data", "raw", "city_details.json"),
   path.join(projectRoot, "data", "raw", "religion.json"),
   path.join(projectRoot, "data", "raw", "religion_details.json")
 ];
+const conflictDetailsPath = path.join(projectRoot, "data", "conflict_details.generated.json");
+const conflictDetailsDir = path.join(projectRoot, "data", "conflicts", "details");
 
 const retryableFileErrorCodes = new Set(["UNKNOWN", "EBUSY", "EPERM", "EACCES"]);
 
@@ -60,6 +63,14 @@ for (const fileName of (await fs.readdir(countriesDir)).filter(file => file.ends
 for (const rawPath of rawPaths) {
   if (await fs.pathExists(rawPath)) {
     updatedFiles += Number(await updateJson(rawPath, { spaces: 2 }));
+  }
+}
+if (await fs.pathExists(conflictDetailsPath)) {
+  updatedFiles += Number(await updateJson(conflictDetailsPath, { spaces: 0 }));
+}
+if (await fs.pathExists(conflictDetailsDir)) {
+  for (const fileName of (await fs.readdir(conflictDetailsDir)).filter(file => file.endsWith(".json"))) {
+    updatedFiles += Number(await updateJson(path.join(conflictDetailsDir, fileName), { spaces: 0 }));
   }
 }
 

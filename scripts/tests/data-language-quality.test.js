@@ -7,6 +7,7 @@ const politics = JSON.parse(fs.readFileSync("data/raw/politics_details.json", "u
 const rawReligion = JSON.parse(fs.readFileSync("data/raw/religion.json", "utf8"));
 const rawReligionDetails = JSON.parse(fs.readFileSync("data/raw/religion_details.json", "utf8"));
 const countries = JSON.parse(fs.readFileSync("data/countries_full.json", "utf8"));
+const conflictDetails = JSON.parse(fs.readFileSync("data/conflict_details.generated.json", "utf8"));
 const englishSignal = /\b(of|the|for|realm|british|cameroon|republic|federation|strategic|capability|commission)\b/i;
 const religionEnglishSignal = /\b(christian|muslim|jewish|buddhist|hindu|folk|unaffiliated|other religions|atheist|agnostic|shinto|sunni|shiite|catholic|orthodox|protestant|evangelical)\b/i;
 const staleReligionTextSignal = /Judaismo|Hindues|Catolicos|Sintoistas|agnosticos|afiliacion|Sin religion|Sin poblacion|alevies/i;
@@ -55,6 +56,15 @@ const servedPoliticalSystemIssues = Object.entries(countries)
   .filter(([, country]) => historicalLabelsInPoliticalSystems.has(normalizeDataLabel(country.politics?.system)))
   .map(([code, country]) => ({ code, system: country.politics?.system }));
 assert.deepEqual(servedPoliticalSystemIssues, [], `El top de sistemas no debe mezclar tipos historicos: ${JSON.stringify(servedPoliticalSystemIssues.slice(0, 10))}`);
+const canonicalContinents = new Set(["Africa", "America", "Antarctica", "Asia", "Europe", "Oceania"]);
+const nonCanonicalContinents = Object.entries(countries)
+  .filter(([, country]) => !canonicalContinents.has(country.continent))
+  .map(([code, country]) => ({ code, continent: country.continent }));
+assert.deepEqual(
+  nonCanonicalContinents,
+  [],
+  `Los continentes internos deben ser canonicos para filtros/rankings: ${JSON.stringify(nonCanonicalContinents.slice(0, 10))}`
+);
 const servedOrganizationDisplays = Object.values(countries).flatMap(country =>
   (country.politics?.organizations || []).map(organization =>
     organization?.abbreviation ? `${organization.name} (${organization.abbreviation})` : organization?.name || ""
@@ -75,6 +85,19 @@ for (const staleLabel of [
     `Etiqueta visible de top sin normalizar: ${staleLabel}`
   );
 }
+const malformedDevelopmentOrganizations = [
+  ...Object.entries(countries).flatMap(([code, country]) =>
+    (country.politics?.organizations || []).map(organization => ({ code, value: organization?.name || "", source: "served" }))
+  ),
+  ...Object.entries(politics).flatMap(([code, entry]) =>
+    (entry?.organizations || []).map(organization => ({ code, value: organization?.name || "", source: "raw" }))
+  )
+].filter(item => /\bDesarroll\u00f3\b/.test(item.value));
+assert.deepEqual(
+  malformedDevelopmentOrganizations,
+  [],
+  `Organizaciones politicas usan Desarrolló como verbo: ${JSON.stringify(malformedDevelopmentOrganizations.slice(0, 10))}`
+);
 const canonicalOrganizationAbbreviations = new Map([
   ["organizacion de las naciones unidas", "ONU"],
   ["organizacion de los estados americanos", "OEA"],
@@ -202,7 +225,7 @@ assert.deepEqual(
   [],
   `Quedan etiquetas visibles sin tildes o sin normalizar: ${JSON.stringify(staleVisibleDataIssues.slice(0, 12))}`
 );
-const narrativeAccentSignal = /\b(Confrontacion|historico|politico|posicion|comparacion|presion|brasilena|brasileno|intervencion|accion|operacion|navegacion|tactico|tactica|soberania|curaduria|habia|America|Mexico|Antartida|Confederacion|Rio Parana|Rio de la Plata|anglo-frances|especifica|especificas|Mediterraneo|Persico|Peninsula|Contribuyo|evolucion)\b/;
+const narrativeAccentSignal = /\b(Confrontacion|historico|politico|posicion|comparacion|presion|brasilena|brasileno|intervencion|accion|operacion|navegacion|tactico|tactica|soberania|curaduria|habia|America|Mexico|Antartida|Confederacion|Rio Parana|Rio de la Plata|anglo-frances|especifica|especificas|especificos|Mediterraneo|Persico|Peninsula|Contribuyo|evolucion|busco|Facilito|facilito|consolidacion|campana|Campanas|Afganistan|Pakistan|Los Angeles)\b/;
 const narrativeTextFields = new Set([
   "campaign",
   "cause",
@@ -242,6 +265,7 @@ function collectNarrativeText(value, pathParts = [], code = "") {
   }
 }
 Object.entries(countries).forEach(([code, country]) => collectNarrativeText(country, [], code));
+collectNarrativeText(conflictDetails, [], "CONFLICT_DETAILS");
 const narrativeAccentIssues = narrativeTextItems.filter(item => narrativeAccentSignal.test(item.value));
 assert.deepEqual(
   narrativeAccentIssues,
@@ -379,6 +403,27 @@ const shoutingCities = Object.entries(countries).flatMap(([code, country]) =>
     .filter(city => /^[A-ZÀ-Ý\s.'-]{4,}$/.test(city.name) && /[A-ZÀ-Ý]{3}/.test(city.name))
 );
 assert.deepEqual(shoutingCities, [], `No deben quedar ciudades visibles en mayusculas crudas: ${JSON.stringify(shoutingCities.slice(0, 10))}`);
+assert.deepEqual(
+  {
+    ARM: countries.ARM.general.capital.name,
+    CRI: countries.CRI.general.capital.name,
+    HTI: countries.HTI.general.capital.name,
+    LAO: countries.LAO.general.capital.name,
+    SAU: countries.SAU.general.capital.name,
+    USA: countries.USA.general.cities.find(city => city.name.includes("Los"))?.name,
+    AFG: countries.AFG.general.cities.find(city => city.name.includes("Mazar"))?.name
+  },
+  {
+    ARM: "Erev\u00e1n",
+    CRI: "San Jos\u00e9",
+    HTI: "Puerto Pr\u00edncipe",
+    LAO: "Vienti\u00e1n",
+    SAU: "Riad",
+    USA: "Los \u00c1ngeles",
+    AFG: "Mazar-e Sharif"
+  },
+  "Capitales y ciudades visibles deben usar nombres normalizados en espanol"
+);
 const normalizeRelation = value => String(value || "")
   .normalize("NFD")
   .replace(/\p{Diacritic}/gu, "")

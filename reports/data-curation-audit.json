@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-06-27T04:06:28.210Z",
+  "generatedAt": "2026-06-29T14:41:41.908Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 9094699,
-    "duplicatedCountryFilesBytes": 1746196,
+    "fullBytes": 9096550,
+    "duplicatedCountryFilesBytes": 1746094,
     "tooLargeCount": 3,
     "largest": [
       {
         "code": "USA",
         "name": "Estados Unidos",
-        "bytes": 215690,
-        "inlineBytes": 2705632,
+        "bytes": 215734,
+        "inlineBytes": 2706229,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -27,8 +27,8 @@
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 70611,
-        "inlineBytes": 821685,
+        "bytes": 70632,
+        "inlineBytes": 822031,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -44,8 +44,8 @@
       {
         "code": "FRA",
         "name": "Francia",
-        "bytes": 52296,
-        "inlineBytes": 650440,
+        "bytes": 52300,
+        "inlineBytes": 650475,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -61,8 +61,8 @@
       {
         "code": "SWE",
         "name": "Suecia",
-        "bytes": 36267,
-        "inlineBytes": 420437,
+        "bytes": 36264,
+        "inlineBytes": 420459,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -78,8 +78,8 @@
       {
         "code": "AUS",
         "name": "Australia",
-        "bytes": 23156,
-        "inlineBytes": 176195,
+        "bytes": 23164,
+        "inlineBytes": 176282,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -96,7 +96,7 @@
         "code": "DNK",
         "name": "Dinamarca",
         "bytes": 17604,
-        "inlineBytes": 132530,
+        "inlineBytes": 132536,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -112,8 +112,8 @@
       {
         "code": "MAR",
         "name": "Marruecos",
-        "bytes": 17196,
-        "inlineBytes": 151897,
+        "bytes": 17193,
+        "inlineBytes": 151894,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -129,8 +129,8 @@
       {
         "code": "CAN",
         "name": "Canadá",
-        "bytes": 17040,
-        "inlineBytes": 110181,
+        "bytes": 17042,
+        "inlineBytes": 110246,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -147,7 +147,7 @@
         "code": "RUS",
         "name": "Rusia",
         "bytes": 15645,
-        "inlineBytes": 123927,
+        "inlineBytes": 123929,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -163,8 +163,8 @@
       {
         "code": "POL",
         "name": "Polonia",
-        "bytes": 14709,
-        "inlineBytes": 75384,
+        "bytes": 14715,
+        "inlineBytes": 75424,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -180,8 +180,8 @@
       {
         "code": "ITA",
         "name": "Italia",
-        "bytes": 14458,
-        "inlineBytes": 48321,
+        "bytes": 14454,
+        "inlineBytes": 48330,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -197,8 +197,8 @@
       {
         "code": "CHN",
         "name": "República Popular China",
-        "bytes": 14020,
-        "inlineBytes": 93071,
+        "bytes": 14017,
+        "inlineBytes": 93072,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -14677,7 +14677,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 691,
+    "pendingCount": 690,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -14772,7 +14772,7 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Ataque aereo de Ogu",
+        "name": "Ataque aéreo de Ogu",
         "countries": [
           "USA"
         ],
@@ -14798,7 +14798,7 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Bahia incident",
+        "name": "Bahía incident",
         "countries": [
           "USA"
         ],

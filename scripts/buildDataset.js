@@ -3538,7 +3538,7 @@ function repairMojibake(value) {
   return repairMojibakeShared(value);
 }
 
-function sanitizeText(value) {
+function sanitizeText(value, options = {}) {
   if (typeof value !== "string") {
     return value;
   }
@@ -3636,7 +3636,7 @@ function sanitizeText(value) {
     .replace(/\bTiananmen\b/g, "\u0054\u0069\u0061\u006E\u0061\u006E\u006D\u00E9\u006E")
     .trim();
 
-  return applyVisibleStringReplacements(cleaned);
+  return applyVisibleStringReplacements(cleaned, options);
 }
 
 function applyUnicodeCorrections(value) {
@@ -3647,16 +3647,22 @@ function applyUnicodeCorrections(value) {
   return sanitizeText(value);
 }
 
-function sanitizeDeep(value) {
+function sanitizeDeep(value, pathParts = []) {
   if (Array.isArray(value)) {
-    return value.map(sanitizeDeep);
+    return value.map((item, index) => sanitizeDeep(item, pathParts.concat(String(index))));
   }
 
   if (value && typeof value === "object") {
-    return Object.fromEntries(Object.entries(value).map(([key, innerValue]) => [key, sanitizeDeep(innerValue)]));
+    return Object.fromEntries(Object.entries(value).map(([key, innerValue]) => [key, sanitizeDeep(innerValue, pathParts.concat(key))]));
   }
 
-  return sanitizeText(value);
+  if (typeof value === "string" && String(pathParts.at(-1) || "") === "continent") {
+    return repairMojibake(value).trim();
+  }
+
+  return sanitizeText(value, {
+    includeWordReplacements: String(pathParts.at(-1) || "") !== "continent"
+  });
 }
 
 function normalizeKey(value) {

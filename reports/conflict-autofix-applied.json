@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-06-27T04:01:37.636Z",
+  "generatedAt": "2026-06-29T14:38:02.940Z",
   "changedFullCountries": 196,
   "changedCountryFiles": 180,
   "detailStats": {
     "renamed": 2,
-    "enriched": 304
+    "enriched": 378
   },
   "safeRenames": {
     "Batalla naval de RÃ¼gen": "Batalla naval de Rugen",
