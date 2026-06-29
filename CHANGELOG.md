@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.13 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.14 antes de cerrar la siguiente version.
+
+## v1.6.14 - 2026-06-29
+
+- Rediseña `Capas tematicas` como panel guiado con resumen de capa activa, texto orientativo, buscador y botones rapidos agrupados por base, sociedad, economia y riesgo.
+- Hace que todos los botones rapidos usen la misma logica de `setTheme` que el selector principal, sincronizando estado activo y etiqueta visible.
+- Evita la superposicion con comparador, quiz y noticias cerrando/ocultando esos hubs cuando el panel de capas queda abierto.
+- Completa etiquetas bilingues faltantes para capas de riesgo, calidad, diversidad linguistica y alcance diplomatico.
+- Ajusta indicadores CSS del desplegable y agrega regresion para que cada opcion del selector tenga boton rapido equivalente.
+- Fija line endings LF para assets web/JSON/Markdown y evita que CRLF infle los presupuestos de arranque.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-06-29-release-3`.
 
 ## v1.6.13 - 2026-06-29
 

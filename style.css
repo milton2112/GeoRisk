@@ -314,7 +314,7 @@ body.globe-loading #map-mode-toggle {
   position: fixed;
   top: 14px;
   right: 16px;
-  width: min(320px, calc(100vw - 640px));
+  width: min(390px, max(300px, calc(100vw - 620px)));
   max-height: calc(100dvh - 28px);
   overflow: hidden;
   border: 1px solid var(--panel-border);
@@ -337,6 +337,10 @@ body.globe-loading #map-mode-toggle {
   position: sticky;
   top: 0;
   z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 10px;
   list-style: none;
   cursor: pointer;
   padding: 12px 14px;
@@ -355,12 +359,56 @@ body.globe-loading #map-mode-toggle {
 
 #map-toolbar summary::after {
   content: "▾";
-  float: right;
   color: rgba(238, 245, 255, 0.78);
+  font-size: 0.78rem;
 }
 
 #map-toolbar[open] summary::after {
   content: "▴";
+}
+
+#layers-summary-active {
+  min-width: 0;
+  font-size: 0.72rem;
+  text-align: right;
+}
+
+.toolbar-lead {
+  margin: 12px 0 10px;
+}
+
+#theme-filter-input {
+  width: 100%;
+  min-width: 0;
+}
+
+#theme-quick-grid {
+  display: grid;
+  gap: 8px;
+  margin: 0 0 12px;
+}
+
+.theme-picker-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.theme-picker-button {
+  min-height: 46px;
+  text-align: left;
+}
+
+.theme-picker-button.is-active {
+  border-color: rgba(114, 222, 192, 0.72);
+}
+
+body.layers-panel-open #compare-hub-panel,
+body.layers-panel-open #quiz-hub-panel,
+body.layers-panel-open #news-hub-panel {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(18px);
 }
 
 .toolbar-content {

@@ -81,7 +81,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-06-29-release-2";
+const APP_VERSION = "2026-06-29-release-3";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -92,17 +92,17 @@ function createFallbackSearchCache() {
 }
 
 const DEFERRED_UI_MODULES = {
-  news: "./app-news-ui.js?v=2026-06-29-release-2",
-  compare: "./app-compare-ui.js?v=2026-06-29-release-2",
-  quiz: "./app-quiz-ui.js?v=2026-06-29-release-2",
-  riskRadar: "./app-risk-radar-ui.js?v=2026-06-29-release-2",
-  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-29-release-2",
-  projectAudit: "./app-project-audit-ui.js?v=2026-06-29-release-2",
-  uiPolish: "./app-ui-polish.js?v=2026-06-29-release-2",
-  countryPanel: "./app-country-panel.js?v=2026-06-29-release-2",
-  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-29-release-2",
-  search: "./app-search.js?v=2026-06-29-release-2",
-  rankings: "./app-rankings.js?v=2026-06-29-release-2"
+  news: "./app-news-ui.js?v=2026-06-29-release-3",
+  compare: "./app-compare-ui.js?v=2026-06-29-release-3",
+  quiz: "./app-quiz-ui.js?v=2026-06-29-release-3",
+  riskRadar: "./app-risk-radar-ui.js?v=2026-06-29-release-3",
+  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-29-release-3",
+  projectAudit: "./app-project-audit-ui.js?v=2026-06-29-release-3",
+  uiPolish: "./app-ui-polish.js?v=2026-06-29-release-3",
+  countryPanel: "./app-country-panel.js?v=2026-06-29-release-3",
+  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-29-release-3",
+  search: "./app-search.js?v=2026-06-29-release-3",
+  rankings: "./app-rankings.js?v=2026-06-29-release-3"
 };
 const deferredUiModulePromises = new Map();
 
@@ -9760,6 +9760,118 @@ function setTheme(theme) {
   }
   renderThemeLegend();
   renderThemeSummary();
+  syncThemeToolbarState();
+}
+
+const THEME_PICKER_GROUPS = [
+  { key: "base", es: "Base", en: "Base", items: ["default", "continent", "religion", "politics", "formationYear", "historyType"] },
+  { key: "people", es: "Poblacion y sociedad", en: "People and society", items: ["population", "density", "urbanization", "lifeExpectancy", "populationGrowth", "religionBranch", "religionDiversity", "languageDiversity"] },
+  { key: "economy", es: "Economia", en: "Economy", items: ["gdp", "gdpPerCapita", "gdpPpp", "inflation", "inflationHistory", "unemployment", "debt", "exportBreadth", "exportVolume", "industryBreadth", "capitalShare", "naturalResources"] },
+  { key: "risk", es: "Riesgo y relaciones", en: "Risk and relations", items: ["geopoliticalIndex", "riskRadar", "riskMilitary", "riskEconomic", "riskDiplomatic", "riskInternal", "riskTerritorial", "qualityScore", "diplomaticReach", "exMetropole", "bloc", "conflicts", "organizations", "rivals", "militaryActive", "militarySpending"] }
+];
+
+const THEME_PICKER_HINTS = {
+  default: ["Mapa base", "Base map"],
+  continent: ["Region", "Region"],
+  religion: ["Creencias", "Beliefs"],
+  politics: ["Gobierno", "Government"],
+  formationYear: ["Historia", "History"],
+  historyType: ["Origen", "Origin"],
+  population: ["Habitantes", "People"],
+  density: ["Hab/km2", "People/km2"],
+  urbanization: ["Ciudades", "Cities"],
+  lifeExpectancy: ["Estimado", "Estimate"],
+  populationGrowth: ["Tendencia", "Trend"],
+  religionBranch: ["Denominacion", "Branch"],
+  religionDiversity: ["Mezcla", "Mix"],
+  languageDiversity: ["Idiomas", "Languages"],
+  gdp: ["Tamano", "Size"],
+  gdpPerCapita: ["Ingreso", "Income"],
+  gdpPpp: ["Proxy", "Proxy"],
+  inflation: ["Precios", "Prices"],
+  inflationHistory: ["Proxy", "Proxy"],
+  unemployment: ["Estimado", "Estimate"],
+  debt: ["Estimado", "Estimate"],
+  exportBreadth: ["Canasta", "Basket"],
+  exportVolume: ["Estimado", "Estimate"],
+  industryBreadth: ["Sectores", "Sectors"],
+  capitalShare: ["Capital", "Capital"],
+  naturalResources: ["Perfil", "Profile"],
+  geopoliticalIndex: ["Indice", "Index"],
+  riskRadar: ["General", "Overall"],
+  riskMilitary: ["Militar", "Military"],
+  riskEconomic: ["Economico", "Economic"],
+  riskDiplomatic: ["Diplomatico", "Diplomatic"],
+  riskInternal: ["Interno", "Internal"],
+  riskTerritorial: ["Territorial", "Territorial"],
+  qualityScore: ["Calidad", "Quality"],
+  diplomaticReach: ["Vinculos", "Links"],
+  exMetropole: ["Historia", "History"],
+  bloc: ["Alianzas", "Alliances"],
+  conflicts: ["Guerras", "Wars"],
+  organizations: ["Membresias", "Memberships"],
+  rivals: ["Rivales", "Rivals"],
+  militaryActive: ["Tropas", "Troops"],
+  militarySpending: ["Gasto", "Spending"]
+};
+
+function getThemeOptionLabel(theme) {
+  return Array.from(document.getElementById("theme-select")?.options || [])
+    .find(option => option.value === theme)
+    ?.textContent
+    ?.trim() || theme;
+}
+
+function syncLayersPanelState() {
+  const toolbar = document.getElementById("map-toolbar");
+  const isOpen = Boolean(toolbar?.open);
+  document.body.classList.toggle("layers-panel-open", isOpen);
+  if (isOpen) {
+    ["compare-hub-panel", "quiz-hub-panel", "news-hub-panel"].forEach(id => {
+      const panel = document.getElementById(id);
+      if (panel) panel.open = false;
+    });
+    closeMobileMoreMenu?.();
+  }
+}
+
+function syncThemeToolbarState() {
+  const select = document.getElementById("theme-select");
+  if (select && select.value !== currentTheme) {
+    select.value = currentTheme;
+  }
+  const activeLabel = getThemeOptionLabel(currentTheme);
+  const activeSummary = document.getElementById("layers-summary-active");
+  if (activeSummary) {
+    activeSummary.textContent = activeLabel;
+  }
+  document.querySelectorAll("[data-theme-picker]").forEach(button => {
+    const active = button.dataset.themePicker === currentTheme;
+    button.classList.toggle("is-active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
+}
+
+function renderThemePicker() {
+  const grid = document.getElementById("theme-quick-grid");
+  if (!grid) return;
+  const query = normalizeText(document.getElementById("theme-filter-input")?.value || "");
+  const langIndex = currentLanguage === "en" ? 1 : 0;
+  const groups = THEME_PICKER_GROUPS.map(group => {
+    const buttons = group.items
+      .map(theme => ({ theme, label: getThemeOptionLabel(theme), hint: (THEME_PICKER_HINTS[theme] || ["", ""])[langIndex] }))
+      .filter(item => !query || normalizeText(`${item.label} ${item.hint}`).includes(query))
+      .map(item => `
+        <button type="button" class="theme-picker-button" data-theme-picker="${escapeHtml(item.theme)}" aria-pressed="${item.theme === currentTheme}">
+          <span>${escapeHtml(item.label)}</span>
+          <small>${escapeHtml(item.hint)}</small>
+        </button>
+      `)
+      .join("");
+    return buttons ? `<div class="theme-picker-group"><strong>${escapeHtml(currentLanguage === "en" ? group.en : group.es)}</strong><div class="theme-picker-buttons">${buttons}</div></div>` : "";
+  }).join("");
+  grid.innerHTML = groups || `<p class="legend-note">${currentLanguage === "en" ? "No matching layers." : "No hay capas que coincidan."}</p>`;
+  syncThemeToolbarState();
 }
 
 function renderGroupSelection(title, descriptor, countries) {
@@ -10659,7 +10771,24 @@ function updateStaticText() {
   document.getElementById("mobile-news-label").textContent = currentLanguage === "en" ? "News" : "Noticias";
   document.getElementById("mobile-more-menu").setAttribute("aria-label", currentLanguage === "en" ? "Quick tools" : "Herramientas rapidas");
   syncMobilePanelControlState();
-  document.querySelector("#map-toolbar summary").textContent = currentLanguage === "en" ? "Thematic layers" : "Capas tematicas";
+  const layersSummaryTitle = document.getElementById("layers-summary-title");
+  if (layersSummaryTitle) {
+    layersSummaryTitle.textContent = currentLanguage === "en" ? "Thematic layers" : "Capas tematicas";
+  }
+  const layersPanelTitle = document.getElementById("layers-panel-title");
+  if (layersPanelTitle) {
+    layersPanelTitle.textContent = currentLanguage === "en" ? "Thematic map" : "Mapa tematico";
+  }
+  const layersPanelHint = document.getElementById("layers-panel-hint");
+  if (layersPanelHint) {
+    layersPanelHint.textContent = currentLanguage === "en"
+      ? "Choose which data colors the map. Estimated layers are marked as dataset proxies."
+      : "Elegi que dato colorea el mapa. Las capas estimadas muestran proxies del dataset.";
+  }
+  const themeFilterInput = document.getElementById("theme-filter-input");
+  if (themeFilterInput) {
+    themeFilterInput.placeholder = currentLanguage === "en" ? "Filter layers" : "Filtrar capas";
+  }
   updateMapModeToggle();
   const themeSelect = document.getElementById("theme-select");
   const themeOptionLabels = {
@@ -10695,11 +10824,22 @@ function updateStaticText() {
     industryBreadth: currentLanguage === "en" ? "Industrial diversity" : "Diversidad industrial",
     capitalShare: currentLanguage === "en" ? "Capital population share" : "Peso demografico de la capital",
     naturalResources: currentLanguage === "en" ? "Natural resources" : "Recursos naturales",
-    geopoliticalIndex: currentLanguage === "en" ? "Geopolitical index" : "Indice geopolitico"
+    geopoliticalIndex: currentLanguage === "en" ? "Geopolitical index" : "Indice geopolitico",
+    riskRadar: currentLanguage === "en" ? "Multi-parameter risk radar" : "Radar de riesgo multiparametrico",
+    riskMilitary: currentLanguage === "en" ? "Military risk" : "Riesgo militar",
+    riskEconomic: currentLanguage === "en" ? "Economic risk" : "Riesgo economico",
+    riskDiplomatic: currentLanguage === "en" ? "Diplomatic risk" : "Riesgo diplomatico",
+    riskInternal: currentLanguage === "en" ? "Internal risk" : "Riesgo interno",
+    riskTerritorial: currentLanguage === "en" ? "Territorial risk" : "Riesgo territorial",
+    qualityScore: currentLanguage === "en" ? "Dataset quality" : "Calidad del dataset",
+    languageDiversity: currentLanguage === "en" ? "Language diversity" : "Diversidad linguistica",
+    diplomaticReach: currentLanguage === "en" ? "Diplomatic reach" : "Alcance diplomatico"
   };
   themeSelect?.querySelectorAll("option").forEach(option => {
     option.textContent = themeOptionLabels[option.value] || option.textContent;
   });
+  renderThemePicker();
+  syncThemeToolbarState();
   document.querySelector("label[for='theme-select']").textContent = currentLanguage === "en" ? "Layer" : "Capa";
   document.querySelector("label[for='language-select']").textContent = currentLanguage === "en" ? "Language" : "Idioma";
   document.querySelector("label[for='quality-preset-select']").textContent = currentLanguage === "en" ? "Render" : "Render";
@@ -14995,7 +15135,10 @@ function setupSearchEvents() {
 }
 
 function setupThemeControls() {
+  const toolbar = document.getElementById("map-toolbar");
   const themeSelect = document.getElementById("theme-select");
+  const themeFilterInput = document.getElementById("theme-filter-input");
+  const themeQuickGrid = document.getElementById("theme-quick-grid");
   const languageSelect = document.getElementById("language-select");
   const qualityPresetSelect = document.getElementById("quality-preset-select");
   const labelModeSelect = document.getElementById("label-mode-select");
@@ -15023,6 +15166,8 @@ function setupThemeControls() {
   }
   renderThemeLegend();
   renderThemeSummary();
+  renderThemePicker();
+  syncLayersPanelState();
   updateStaticText();
   setAutoRotateState(autoRotateEnabled);
 
@@ -15068,6 +15213,19 @@ function setupThemeControls() {
     setTheme(event.target.value);
   });
 
+  themeFilterInput?.addEventListener("input", renderThemePicker);
+
+  themeQuickGrid?.addEventListener("click", event => {
+    const button = event.target.closest("[data-theme-picker]");
+    if (!button) {
+      return;
+    }
+    setTheme(button.dataset.themePicker || "default");
+    showToast?.(`${currentLanguage === "en" ? "Layer applied" : "Capa aplicada"}: ${getThemeOptionLabel(currentTheme)}`);
+  });
+
+  toolbar?.addEventListener("toggle", syncLayersPanelState);
+
   languageSelect.addEventListener("change", event => {
     currentLanguage = event.target.value;
     appStore?.setState({ language: currentLanguage }, "language");
@@ -15079,6 +15237,7 @@ function setupThemeControls() {
     refreshGlobalStats();
     renderThemeLegend();
     renderThemeSummary();
+    renderThemePicker();
     renderComparePanel();
     renderMapLabels();
     uiPolish.enhanceTooltips?.();

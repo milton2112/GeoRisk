@@ -49,6 +49,7 @@ assert.ok(css.includes(".performance-recommendation-card"), "panel de rendimient
 assert.ok(polishCss.includes("--ui-radius: 8px"), "componentes diferidos deben usar radio visual compacto");
 assert.ok(polishCss.includes("min-height: 44px"), "controles tactiles deben conservar un objetivo comodo");
 assert.ok(polishCss.includes(".rank-link.is-active"), "rankings deben mostrar seleccion activa");
+assert.ok(polishCss.includes(".theme-picker-button.is-active"), "capas tematicas deben mostrar seleccion activa");
 assert.ok(polishCss.includes(".rank-empty-state"), "rankings deben mostrar estado vacio no interactivo");
 assert.ok(polishCss.includes(".country-title > .coat-visual"), "cabecera de ficha debe reservar espacio al escudo");
 assert.ok(polishCss.includes(".conflict-trust-badge"), "modal de conflicto debe mostrar calidad de dato sin ocupar una seccion completa");
@@ -79,7 +80,12 @@ assert.ok(indexHtml.includes('aria-controls="country-modal"'), "el acceso mobile
 assert.ok(indexHtml.includes('aria-disabled="true" disabled'), "la ficha mobile debe iniciar deshabilitada sin pais seleccionado");
 assert.ok(indexHtml.includes('id="mobile-more-menu" role="toolbar"'), "herramientas secundarias mobile deben vivir en un menu rapido");
 assert.ok(indexHtml.includes('data-mobile-hub-target="compare-hub-panel"'), "menu mobile debe conservar acceso al comparador");
+assert.ok(indexHtml.includes('id="layers-summary-active"'), "panel de capas debe mostrar la capa activa sin obligar a abrirlo");
+assert.ok(indexHtml.includes('id="theme-filter-input"'), "panel de capas debe permitir filtrar capas tematicas");
+assert.ok(indexHtml.includes('id="theme-quick-grid"'), "panel de capas debe exponer botones rapidos de capa");
 assert.ok(css.includes("body.modal-open #top-controls"), "los modales deben reducir distracciones del shell");
+assert.ok(css.includes("body.layers-panel-open #compare-hub-panel"), "panel de capas abierto debe ocultar hubs inferiores para evitar superposicion");
+assert.ok(css.includes("body.layers-panel-open #news-hub-panel"), "panel de capas abierto debe ocultar noticias para evitar superposicion");
 assert.ok(css.includes(".country-profile > .panel-actions-row"), "acciones de ficha deben usar una grilla compacta y estable");
 assert.ok(css.includes(".country-title .coat-visual"), "encabezado mobile debe evitar que el escudo se superponga al cierre");
 assert.ok(css.includes(".panel-section[open] summary::after"), "secciones desplegables deben indicar su estado");
@@ -106,6 +112,10 @@ assert.ok(script.includes("formatNumber(Math.round(city.population))"), "poblaci
 assert.ok(script.includes('button.setAttribute("aria-pressed", String(selected))'), "ficha debe confirmar cuando un pais esta en el comparador");
 assert.ok(script.includes('button.classList.toggle("is-active", active)'), "navegacion de ficha debe mostrar la seccion elegida");
 assert.ok(script.includes("function closeMobileHubPanels"), "paneles y hubs mobile deben abrirse de forma exclusiva");
+assert.ok(script.includes("function syncLayersPanelState"), "panel de capas debe sincronizar hubs inferiores al abrir/cerrar");
+assert.ok(script.includes('document.body.classList.toggle("layers-panel-open", isOpen)'), "panel de capas debe publicar estado abierto al CSS");
+assert.ok(script.includes('themeQuickGrid?.addEventListener("click"'), "botones rapidos de capas deben tener handler propio");
+assert.ok(script.includes("setTheme(button.dataset.themePicker"), "botones rapidos de capas deben aplicar la misma logica del selector");
 assert.ok(script.includes("function toggleMobileMoreMenu"), "mobile debe agrupar herramientas secundarias bajo demanda");
 assert.ok(script.includes('classList.toggle("mobile-more-open", shouldOpen)'), "menu rapido debe evitar superponerse al control 2D/3D");
 assert.ok(script.includes('event => event.stopPropagation()'), "controles mobile no deben reenviar el toque al mapa");
@@ -125,5 +135,14 @@ const conflictParentResolver = script.slice(
   script.indexOf("function inferConflictType")
 );
 assert.ok(!conflictParentResolver.includes("detail.related"), "conflictos relacionados no deben convertirse en padres jerarquicos");
+
+const themeSelectStart = indexHtml.indexOf('<select id="theme-select"');
+const themeSelectEnd = indexHtml.indexOf("</select>", themeSelectStart);
+const themeOptions = [...indexHtml.slice(themeSelectStart, themeSelectEnd).matchAll(/<option value="([^"]+)"/g)].map(match => match[1]);
+const pickerGroupBlock = script.match(/const THEME_PICKER_GROUPS = \[([\s\S]*?)\];/)?.[1] || "";
+const pickerThemes = [...pickerGroupBlock.matchAll(/items:\s*\[([^\]]+)\]/g)]
+  .flatMap(match => [...match[1].matchAll(/"([^"]+)"/g)].map(item => item[1]));
+assert.deepEqual(new Set(pickerThemes), new Set(themeOptions), "cada capa del selector debe tener boton rapido equivalente");
+assert.equal(pickerThemes.length, themeOptions.length, "los botones rapidos de capas no deben repetir opciones");
 
 console.log("visual-hygiene.test.js ok");

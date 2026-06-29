@@ -8,7 +8,7 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
   <link rel="stylesheet" href="https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Widgets/widgets.css">
-  <link rel="stylesheet" href="style.css?v=2026-06-29-release-2">
+  <link rel="stylesheet" href="style.css?v=2026-06-29-release-3">
 </head>
 <body>
 
@@ -35,8 +35,15 @@
   </div>
 
   <details id="map-toolbar">
-    <summary>Capas tematicas</summary>
+    <summary>
+      <span id="layers-summary-title">Capas tematicas</span>
+      <small id="layers-summary-active">Vista politica</small>
+    </summary>
     <div class="toolbar-content">
+      <div class="toolbar-lead">
+        <strong id="layers-panel-title">Mapa tematico</strong>
+        <span id="layers-panel-hint">Elegi que dato colorea el mapa. Las capas estimadas muestran proxies del dataset.</span>
+      </div>
       <div class="toolbar-row">
         <label for="theme-select">Capa</label>
         <select id="theme-select">
@@ -84,6 +91,11 @@
           <option value="diplomaticReach">Alcance diplom&aacute;tico</option>
         </select>
       </div>
+      <div class="toolbar-row">
+        <label for="theme-filter-input">Buscar</label>
+        <input id="theme-filter-input" type="search" placeholder="Filtrar capas">
+      </div>
+      <div id="theme-quick-grid" aria-label="Capas tematicas rapidas"></div>
       <div class="toolbar-row">
         <label for="language-select">Idioma</label>
         <select id="language-select">
@@ -654,14 +666,14 @@
   }, 7000);
 </script>
 <script src="https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Cesium.js"></script>
-<script src="app-runtime.js?v=2026-06-29-release-2"></script>
-<script src="app-theme.js?v=2026-06-29-release-2"></script>
-<script src="app-boot-scheduler.js?v=2026-06-29-release-2"></script>
-<script src="app-map.js?v=2026-06-29-release-2"></script>
-<script src="app-map-styles.js?v=2026-06-29-release-2"></script>
-<script src="app-map-interactions.js?v=2026-06-29-release-2"></script>
-<script src="app-store.js?v=2026-06-29-release-2"></script>
-<script src="script.js?v=2026-06-29-release-2"></script>
+<script src="app-runtime.js?v=2026-06-29-release-3"></script>
+<script src="app-theme.js?v=2026-06-29-release-3"></script>
+<script src="app-boot-scheduler.js?v=2026-06-29-release-3"></script>
+<script src="app-map.js?v=2026-06-29-release-3"></script>
+<script src="app-map-styles.js?v=2026-06-29-release-3"></script>
+<script src="app-map-interactions.js?v=2026-06-29-release-3"></script>
+<script src="app-store.js?v=2026-06-29-release-3"></script>
+<script src="script.js?v=2026-06-29-release-3"></script>
 
 </body>
 </html>

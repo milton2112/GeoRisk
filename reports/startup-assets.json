@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-06-29T14:50:38.599Z",
-  "startupBytes": 996233,
-  "startupHuman": "973 KB",
-  "deferredBytes": 1069924,
+  "generatedAt": "2026-06-29T15:28:48.452Z",
+  "startupBytes": 988341,
+  "startupHuman": "965 KB",
+  "deferredBytes": 1070998,
   "deferredHuman": "1.02 MB",
   "estimatedRuntimeMemory": {
     "countriesFullBytes": 9097009,
@@ -15,8 +15,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 687792,
-      "human": "672 KB",
+      "bytes": 679134,
+      "human": "663 KB",
       "startupCritical": true
     },
     {
@@ -50,22 +50,22 @@
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 87039,
-      "human": "85 KB",
+      "bytes": 87855,
+      "human": "86 KB",
       "startupCritical": true
     },
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 33298,
-      "human": "33 KB",
+      "bytes": 33248,
+      "human": "32 KB",
       "startupCritical": true
     },
     {
       "path": "style-polish.css",
       "exists": true,
-      "bytes": 17384,
-      "human": "17 KB",
+      "bytes": 18597,
+      "human": "18 KB",
       "startupCritical": false
     },
     {
@@ -101,29 +101,29 @@
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 33298,
-      "human": "33 KB",
+      "bytes": 33248,
+      "human": "32 KB",
       "startupCritical": true
     },
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 687792,
-      "human": "672 KB",
+      "bytes": 679134,
+      "human": "663 KB",
       "startupCritical": true
     },
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 87039,
-      "human": "85 KB",
+      "bytes": 87855,
+      "human": "86 KB",
       "startupCritical": true
     },
     {
       "path": "style-polish.css",
       "exists": true,
-      "bytes": 17384,
-      "human": "17 KB",
+      "bytes": 18597,
+      "human": "18 KB",
       "startupCritical": false
     },
     {
@@ -234,7 +234,7 @@
     {
       "path": "app-ui-polish.js",
       "exists": true,
-      "bytes": 5422,
+      "bytes": 5283,
       "human": "5 KB",
       "startupCritical": false
     },

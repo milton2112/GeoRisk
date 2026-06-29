@@ -10,6 +10,73 @@
 }
 
 /* Deferred component polish: no effect on the first map paint. */
+#layers-summary-active {
+  color: rgba(166, 234, 215, 0.86);
+  font-weight: 700;
+}
+
+.toolbar-lead {
+  display: grid;
+  gap: 3px;
+  padding: 10px 11px;
+  border: 1px solid rgba(95, 211, 177, 0.18);
+  border-radius: var(--ui-radius);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.toolbar-lead strong {
+  color: #f5fbff;
+  font-size: 0.88rem;
+}
+
+.toolbar-lead span {
+  color: var(--text-muted);
+  font-size: 0.76rem;
+}
+
+#theme-filter-input {
+  padding: 9px 11px;
+  border: 1px solid rgba(77, 163, 255, 0.35);
+  border-radius: var(--ui-radius);
+  background: rgba(18, 43, 74, 0.98);
+  color: #eef5ff;
+  font: inherit;
+}
+
+.theme-picker-group {
+  display: grid;
+  gap: 6px;
+}
+
+.theme-picker-group strong {
+  color: rgba(238, 245, 255, 0.72);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.theme-picker-button {
+  display: grid;
+  gap: 2px;
+  min-height: 54px;
+  border-radius: var(--ui-radius);
+}
+
+.theme-picker-button span {
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.theme-picker-button small {
+  color: rgba(238, 245, 255, 0.62);
+  font-size: 0.68rem;
+}
+
+.theme-picker-button.is-active {
+  background: rgba(41, 92, 86, 0.98);
+  box-shadow: 0 0 0 3px rgba(114, 222, 192, 0.14);
+}
+
 .compare-country-card,
 .compare-insight-card,
 .compare-modal-header-summary,
