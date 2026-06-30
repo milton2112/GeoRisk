@@ -1,5 +1,5 @@
 (() => {
-  const POLISH_VERSION = window.GeoRiskAppVersion || "2026-06-30-release-1";
+  const POLISH_VERSION = window.GeoRiskAppVersion || "2026-06-30-release-2";
   const POLISH_STYLESHEET = `./style-polish.css?v=${POLISH_VERSION}`;
   const FOCUSABLE_SELECTOR = [
     "a[href]",

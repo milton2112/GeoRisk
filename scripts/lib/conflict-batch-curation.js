@@ -114,6 +114,8 @@ const WAR_RULES = [
   { name: "Guerra de Independencia de Estados Unidos", start: 1775, end: 1783, scale: "internacional", type: "independencia", region: "America del Norte y Atlantico" },
   { name: "Guerras napoleonicas", start: 1803, end: 1815, scale: "internacional", type: "interestatal", region: "Europa y teatros coloniales" },
   { name: "Guerra de 1812", start: 1812, end: 1815, scale: "regional", type: "interestatal", region: "America del Norte" },
+  { name: "Cruzada Livonia", start: 1198, end: 1290, scale: "regional", type: "colonial", region: "Baltico oriental" },
+  { name: "Guerra de la Independencia de Chile", start: 1810, end: 1826, scale: "regional", type: "independencia", region: "America del Sur" },
   { name: "Guerra mexicano-estadounidense", start: 1846, end: 1848, scale: "regional", type: "interestatal", region: "America del Norte" },
   { name: "Guerra Civil estadounidense", start: 1861, end: 1865, scale: "regional", type: "civil", region: "America del Norte" },
   { name: "Guerra de la Triple Alianza", start: 1864, end: 1870, scale: "regional", type: "interestatal", region: "America del Sur" },
@@ -139,8 +141,8 @@ const WAR_RULES = [
 const CAMPAIGN_HINTS = [
   { pattern: /\b(corea|korean|chosin|pusan|naktong|seoul|inchon|incheon|osan|wonju|kumsong|pork chop|outpost|imjin|kapyong|bloody ridge|heartbreak ridge|punchbowl|yeonpyeong)\b/i, war: "Guerra de Corea", campaign: "Campana de Corea", region: "Peninsula coreana" },
   { pattern: /\boperacion encore\b/i, war: "Guerra de Corea", campaign: "Campana de Corea", region: "Peninsula coreana" },
-  { pattern: /\b(vietnam|saigon|tet)\b/i, war: "Guerra de Vietnam", campaign: "Campanas de Vietnam", region: "Sudeste asiatico" },
-  { pattern: /\b(anaconda|afganistan|taliban|uzbin)\b/i, war: "Guerra de Afganistan", campaign: "Campanas de Afganistan", region: "Asia central" },
+  { pattern: /\b(vietnam|saigon|tet|suoi tre)\b/i, war: "Guerra de Vietnam", campaign: "Campanas de Vietnam", region: "Sudeste asiatico" },
+  { pattern: /\b(anaconda|afganistan|taliban|uzbin|nowzad|kamdesh)\b/i, war: "Guerra de Afganistan", campaign: "Campanas de Afganistan", region: "Asia central" },
   { pattern: /\b(malvinas|falklands|goose green|monte longdon|harriet|tumbledown|agradable|sheffield|general belgrano|black buck|san carlos|wireless ridge|dos hermanas|murrell)\b/i, war: "Guerra de las Malvinas", campaign: "Campana de las Malvinas", region: "Atlantico Sur" },
   { pattern: /\b(isla decepci[oó]n|islote snipe)\b/i, war: "Disputas australes", campaign: "Incidentes territoriales australes", region: "Atlantico Sur y Antartida" },
   { pattern: /\b(invasion brasile[nñ]a de 1864|guerra del uruguay|uruguayan war)\b/i, war: "Guerra del Uruguay", campaign: "Campana de Uruguay de 1864", region: "America del Sur" },
@@ -148,6 +150,8 @@ const CAMPAIGN_HINTS = [
   { pattern: /\bdeliberate force\b/i, war: "Guerra de Bosnia", campaign: "Intervencion de la OTAN en Bosnia", region: "Balcanes" },
   { pattern: /\b(73 easting|guerra del golfo|kuwait)\b/i, war: "Guerra del Golfo", campaign: "Campanas del Golfo Persico", region: "Golfo Persico" },
   { pattern: /\b(irak|iraq|bagdad|al fao|ramadi|um kasar)\b/i, war: "Guerra de Irak", campaign: "Campanas de Irak", region: "Oriente Medio" },
+  { pattern: /\b(damasco|damascus|ghouta|siria|syria)\b/i, war: "Guerra civil siria", campaign: "Campanas de Siria", region: "Oriente Medio" },
+  { pattern: /\b(yemen|hudaydah|hodeidah|hodeida|mar rojo)\b/i, war: "Guerra civil yemeni", campaign: "Campanas de Yemen", region: "Oriente Medio" },
   { pattern: /\b(israel|sina[ií]|gaza|majdal|mandelbaum|yom kipur|seis dias|yeonpyeong|jerusalen)\b/i, war: "Conflicto arabe-israeli", campaign: "Campanas del conflicto arabe-israeli", region: "Oriente Medio" },
   { pattern: /\b(midway|guadalcanal|java|singapur|buna|gona|wake|guam|okinawa|balikpapan|timor|tulagi|munda|sattelberg|scarlet|horaniu|rennell|guerra del pacifico de la segunda guerra mundial)\b/i, war: "Segunda Guerra Mundial", campaign: "Guerra del Pacifico de la Segunda Guerra Mundial", region: "Asia-Pacifico" },
   { pattern: /\b(normandia|dunkerque|sedan|francia|belgica|rotterdam)\b/i, war: "Segunda Guerra Mundial", campaign: "Campanas de Europa occidental de la Segunda Guerra Mundial", region: "Europa occidental" },
@@ -157,6 +161,15 @@ const CAMPAIGN_HINTS = [
 ];
 
 const REGION_HINTS = [
+  { pattern: /\b(conflicto de sa\s*dah|sa\s*dah|saada)\b/i, region: "Oriente Medio" },
+  { pattern: /\b(guerra en el noroeste de pakistan|northwest pakistan|waziristan)\b/i, region: "Asia del Sur" },
+  { pattern: /\b(conflicto de cachemira|conflicto entre india y pakistan)\b/i, region: "Asia del Sur" },
+  { pattern: /\b(conflicto irano\s*israeli|guerra subsidiaria irano\s*turca)\b/i, region: "Oriente Medio" },
+  { pattern: /\b(invasion anglo\s*sovietica de iran|anglo\s*soviet invasion of iran|israeli\s*british clash)\b/i, region: "Oriente Medio" },
+  { pattern: /\b(crisis anglofona de camerun|crisis angl[oó]fona de camer[uú]n)\b/i, region: "Africa central" },
+  { pattern: /\b(conflicto en kachin|insurgencia en laos|insurgencia en el sur de tailandia)\b/i, region: "Sudeste asiatico" },
+  { pattern: /\bguerra contra el narcotrafico en mexico\b/i, region: "America del Norte" },
+  { pattern: /\bguerra contra el estado islamico\b/i, region: "Oriente Medio y Norte de Africa" },
   { pattern: /\bguerra de kivu\b/i, region: "Africa central" },
   { pattern: /\b(insurgencia en el magreb|incidentes de tinduf|guerra de las arenas|frente de las fuerzas socialistas)\b/i, region: "Norte de Africa" },
   { pattern: /\bfirst burundi war\b/i, region: "Africa oriental" },
@@ -185,7 +198,15 @@ function hasClosedEndYear(entry = {}) {
   return Number.isFinite(entry.endYear) && entry.ongoing !== true;
 }
 
+function isFiniteHistoricalAction(entry = {}) {
+  const startYear = getYear(entry);
+  if (!Number.isFinite(startYear) || startYear >= ACTIVE_THRESHOLD_YEAR) return false;
+  const text = `${entry.name || ""} ${entry.type || ""}`;
+  return /\b(batalla|battle|sitio|siege|combate|asalto|raid|incursion|incursi[oó]n|ofensiva|operacion|operación|operation|campana|campaña|desembarco|bombardeo|ataque)\b/i.test(text);
+}
+
 function isOpenConflict(entry = {}, warRule = null) {
+  if (isFiniteHistoricalAction(entry)) return false;
   if (warRule?.active) return true;
   if (hasClosedEndYear(entry)) return false;
   if (entry.ongoing === true && !Number.isFinite(entry.endYear)) return true;
@@ -445,8 +466,12 @@ export function curateConflictEntry(entry = {}, context = {}) {
   }
   const warRule = inferWarRule(baseEntry);
   const isTopLevelWar = Boolean(warRule && normalizeConflictKey(name) === normalizeConflictKey(warRule.name));
+  if (isFiniteHistoricalAction(baseEntry) && !Number.isFinite(baseEntry.endYear)) {
+    baseEntry.endYear = getYear(baseEntry);
+    baseEntry.ongoing = false;
+  }
   if (isTopLevelWar) {
-    if (Number.isFinite(warRule.start) && !Number.isFinite(baseEntry.startYear)) {
+    if (Number.isFinite(warRule.start)) {
       baseEntry.startYear = warRule.start;
     }
     if (warRule.active) {

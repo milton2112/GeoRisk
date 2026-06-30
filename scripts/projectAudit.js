@@ -109,6 +109,15 @@ const criticalIssues = [];
 const warnings = [];
 const nextActions = [];
 const currentYear = new Date().getFullYear();
+const HISTORICAL_ACTION_PATTERN = /\b(batalla|battle|sitio|siege|combate|asalto|raid|incursion|incursi[oó]n|ofensiva|operacion|operación|operation|campana|campaña|desembarco|bombardeo|ataque)\b/i;
+
+function isOpenHistoricalAction(row = {}) {
+  return HISTORICAL_ACTION_PATTERN.test(`${row.name || ""} ${row.type || ""}`) &&
+    Number.isFinite(row.startYear) &&
+    row.startYear < 2020 &&
+    !Number.isFinite(row.endYear) &&
+    (row.ongoing === true || row.active === true || String(row.status).toLowerCase() === "activo");
+}
 
 function collectConflictDataConsistency(countries = {}, details = {}) {
   const rows = [];
@@ -123,6 +132,7 @@ function collectConflictDataConsistency(countries = {}, details = {}) {
       ongoing: conflict.ongoing,
       active: conflict.active,
       status: conflict.status,
+      type: conflict.type || conflict.conflictType,
       region: conflict.normalizedRegion || conflict.region,
       cause: conflict.cause,
       outcome: conflict.outcome
@@ -150,22 +160,32 @@ function collectConflictDataConsistency(countries = {}, details = {}) {
   const nullNarrativeText = rows.filter(row =>
     ["cause", "outcome"].some(field => String(row[field] || "").trim().toLowerCase() === "null")
   );
-  const suspectRegions = rows.filter(row =>
-    /Afganist|Irak|Estado Isl|Siria|Kivu|Kosovo|Vietnam|Corea/i.test(row.name || "") &&
-    /Oceania|America del Sur|Europa occidental|Africa occidental/i.test(row.region || "")
+  const invalidYearRanges = rows.filter(row =>
+    Number.isFinite(row.startYear) &&
+    Number.isFinite(row.endYear) &&
+    row.endYear < row.startYear
   );
+  const suspectRegions = rows.filter(row =>
+    /Afganist|Irak|Estado Isl|Siria|Kivu|Kosovo|Vietnam|Corea|Sa['’]?dah|Pakist|Cachemira|Gaza|Israel|Iran|Irano|Kachin|Laos|Tailandia|Camerun|Camerún/i.test(row.name || "") &&
+    /Oceania|America del Sur|Europa occidental|Africa occidental|Europa$|America$/i.test(row.region || "")
+  );
+  const openHistoricalActions = rows.filter(isOpenHistoricalAction);
 
   return {
     checked: rows.length,
     closedMarkedActiveCount: closedMarkedActive.length,
     inactiveMarkedActiveCount: inactiveMarkedActive.length,
     nullNarrativeTextCount: nullNarrativeText.length,
+    invalidYearRangeCount: invalidYearRanges.length,
     suspectRegionCount: suspectRegions.length,
+    openHistoricalActionCount: openHistoricalActions.length,
     samples: {
       closedMarkedActive: closedMarkedActive.slice(0, 10),
       inactiveMarkedActive: inactiveMarkedActive.slice(0, 10),
       nullNarrativeText: nullNarrativeText.slice(0, 10),
-      suspectRegions: suspectRegions.slice(0, 10)
+      invalidYearRanges: invalidYearRanges.slice(0, 10),
+      suspectRegions: suspectRegions.slice(0, 10),
+      openHistoricalActions: openHistoricalActions.slice(0, 10)
     }
   };
 }
@@ -206,7 +226,9 @@ if (
   conflictDataConsistency.closedMarkedActiveCount ||
   conflictDataConsistency.inactiveMarkedActiveCount ||
   conflictDataConsistency.nullNarrativeTextCount ||
-  conflictDataConsistency.suspectRegionCount
+  conflictDataConsistency.invalidYearRangeCount ||
+  conflictDataConsistency.suspectRegionCount ||
+  conflictDataConsistency.openHistoricalActionCount
 ) {
   warnings.push("La consistencia semantica de conflictos conserva estados, textos o regiones sospechosas.");
   nextActions.push("Ejecutar npm run build:data y revisar report.data.conflictDataConsistency.");

@@ -9,18 +9,16 @@ Esta lista se mantiene como tablero vivo del proyecto. La prioridad sale de las 
 - `script.js`: 663 KB, bajo el limite de 700 KB pero sigue siendo el mayor bloque.
 - `countries_index.json`: 168 KB, bajo el limite de 240 KB.
 - Auditoria de conflictos: 2003 conflictos escaneados, 0 alertas.
-- Consistencia semantica de conflictos: 0 cerrados marcados activos, 0 `ongoing:false` con `active:true`, 0 textos narrativos `"null"`, 0 regiones sospechosas detectadas.
+- Consistencia semantica de conflictos: 0 cerrados marcados activos, 0 `ongoing:false` con `active:true`, 0 rangos de fecha invalidos, 0 acciones historicas abiertas, 0 textos narrativos `"null"`, 0 regiones sospechosas detectadas.
 - Fichas grandes detectadas: USA, GBR y FRA superan el umbral de peso por volumen de conflictos, organizaciones y rivalidades.
 
 ## Hecho en la tanda actual
 
-- Corrige conflictos cerrados que quedaban marcados como activos en fichas de pais.
-- Corrige contradicciones entre `ongoing`, `active` y `status`.
-- Limpia textos narrativos `"null"` en causas/resultados de detalles de conflictos.
-- Corrige la region de `Guerra contra el Estado Islamico` para no heredar `Oceania` desde Australia.
-- Ajusta `Invasion rusa a Ucrania` como conflicto activo sin cierre historico artificial.
-- Agrega auditoria semantica de conflictos a `reports/project-audit.json`.
-- Agrega pruebas de regresion de estados activos/historicos, regiones sospechosas y textos `"null"`.
+- Cierra como historicas batallas, operaciones y campanas antiguas que quedaban activas por no tener `endYear`.
+- Corrige rangos historicos de `Cruzada Livonia` y `Guerra de la Independencia de Chile`.
+- Corrige regiones heredadas mal en conflictos de Sa'dah, noroeste de Pakistan, Irano-israeli, Kachin, Laos, Siria, Yemen, Vietnam y Afganistan.
+- Agrega auditoria semantica para rangos de fecha invalidos y acciones historicas abiertas.
+- Agrega pruebas de regresion de acciones historicas, rangos invalidos y regiones sospechosas.
 - Regenera dataset, shards de conflictos, indices publicos y reportes.
 
 ## Prioridad critica
@@ -32,7 +30,7 @@ Esta lista se mantiene como tablero vivo del proyecto. La prioridad sale de las 
 - Dividir fichas grandes por seccion, empezando por USA, GBR y FRA.
 - Seguir midiendo congelamientos de inicio con long tasks y FPS real en PC y celular.
 - Verificar interacciones criticas: click de pais, rankings que marcan paises, busqueda y ficha.
-- Mantener en 0 la nueva consistencia semantica de conflictos: cerrados activos, `ongoing:false` activo, textos `"null"` y regiones sospechosas.
+- Mantener en 0 la nueva consistencia semantica de conflictos: cerrados activos, `ongoing:false` activo, rangos invalidos, acciones historicas abiertas, textos `"null"` y regiones sospechosas.
 
 ## Datos
 

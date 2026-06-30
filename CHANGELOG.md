@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.15 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.16 antes de cerrar la siguiente version.
+
+## v1.6.16 - 2026-06-30
+
+- Cierra como historicas batallas, operaciones y campanas anteriores a 2020 que quedaban activas por falta de `endYear`.
+- Corrige `Cruzada Livonia` y `Guerra de la Independencia de Chile` con rangos historicos coherentes.
+- Corrige regiones heredadas por pais participante en conflictos como Sa'dah, noroeste de Pakistan, Irano-israeli, Kachin, Laos, Siria, Yemen, Vietnam y Afganistan.
+- Agrega contadores de auditoria para rangos de fecha invalidos y acciones historicas abiertas.
+- Amplia pruebas de datos para bloquear regiones sospechosas, rangos imposibles y acciones historicas activas sin cierre.
+- Regenera dataset, shards de conflictos, indices publicos y reportes.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-06-30-release-2`.
 
 ## v1.6.15 - 2026-06-30
 

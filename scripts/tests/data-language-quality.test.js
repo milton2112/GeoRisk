@@ -620,6 +620,40 @@ assert.equal(islamicStateWar.active, true);
 assert.equal(islamicStateWar.ongoing, true);
 assert.equal(islamicStateWar.normalizedRegion, "Oriente Medio y Norte de Africa");
 
+const staleTacticalBattle = curateConflictEntry({
+  name: "Batalla de Suoi Tre",
+  startYear: 1967,
+  ongoing: true,
+  region: "America",
+  normalizedRegion: "America",
+  curationBatch: "safe-structured-conflict-curation-2026-06"
+}, { country: { name: "Estados Unidos", continent: "America" } });
+assert.equal(staleTacticalBattle.active, false);
+assert.equal(staleTacticalBattle.ongoing, false);
+assert.equal(staleTacticalBattle.endYear, 1967);
+assert.equal(staleTacticalBattle.parent, "Guerra de Vietnam");
+assert.equal(staleTacticalBattle.normalizedRegion, "Sudeste asiatico");
+
+const saadahConflict = curateConflictEntry({
+  name: "Conflicto de Sa'dah",
+  startYear: 2004,
+  ongoing: true,
+  region: "America",
+  normalizedRegion: "America",
+  curationBatch: "safe-structured-conflict-curation-2026-06"
+}, { country: { name: "Estados Unidos", continent: "America" } });
+assert.equal(saadahConflict.normalizedRegion, "Oriente Medio");
+
+const northwestPakistanConflict = curateConflictEntry({
+  name: "Guerra en el noroeste de Pakistan",
+  startYear: 2004,
+  ongoing: true,
+  region: "Europa",
+  normalizedRegion: "Europa",
+  curationBatch: "safe-structured-conflict-curation-2026-06"
+}, { country: { name: "Reino Unido", continent: "Europa" } });
+assert.equal(northwestPakistanConflict.normalizedRegion, "Asia del Sur");
+
 const closedServedConflictsMarkedActive = Object.entries(countries).flatMap(([code, country]) =>
   (country.military?.conflicts || []).map(conflict => ({ code, ...conflict }))
 ).filter(conflict =>
@@ -640,6 +674,47 @@ assert.deepEqual(
   explicitInactiveConflictsMarkedActive,
   [],
   `No deben convivir ongoing:false con active/status activo: ${JSON.stringify(explicitInactiveConflictsMarkedActive.slice(0, 10))}`
+);
+
+const invalidConflictYearRanges = Object.entries(countries).flatMap(([code, country]) =>
+  (country.military?.conflicts || []).map(conflict => ({ code, ...conflict }))
+).filter(conflict =>
+  Number.isFinite(conflict.startYear) &&
+  Number.isFinite(conflict.endYear) &&
+  conflict.endYear < conflict.startYear
+);
+assert.deepEqual(
+  invalidConflictYearRanges,
+  [],
+  `No deben servirse conflictos con endYear menor que startYear: ${JSON.stringify(invalidConflictYearRanges.slice(0, 10))}`
+);
+
+const historicalActionPattern = /\b(batalla|battle|sitio|siege|combate|asalto|raid|incursion|incursi[o\u00f3]n|ofensiva|operacion|operaci[o\u00f3]n|operation|campana|campa[n\u00f1]a|desembarco|bombardeo|ataque)\b/i;
+const openHistoricalActions = Object.entries(countries).flatMap(([code, country]) =>
+  (country.military?.conflicts || []).map(conflict => ({ code, ...conflict }))
+).filter(conflict =>
+  historicalActionPattern.test(`${conflict.name || ""} ${conflict.type || ""}`) &&
+  Number.isFinite(conflict.startYear) &&
+  conflict.startYear < 2020 &&
+  !Number.isFinite(conflict.endYear) &&
+  (conflict.ongoing === true || conflict.active === true || conflict.status === "activo")
+);
+assert.deepEqual(
+  openHistoricalActions,
+  [],
+  `Las batallas/operaciones historicas no deben quedar activas por falta de endYear: ${JSON.stringify(openHistoricalActions.slice(0, 10))}`
+);
+
+const suspectServedConflictRegions = Object.entries(countries).flatMap(([code, country]) =>
+  (country.military?.conflicts || []).map(conflict => ({ code, ...conflict }))
+).filter(conflict =>
+  /Afganist|Irak|Estado Isl|Siria|Kivu|Kosovo|Vietnam|Corea|Sa['’]?dah|Pakist|Cachemira|Gaza|Israel|Iran|Irano|Kachin|Laos|Tailandia|Camerun|Camer\u00fan/i.test(conflict.name || "") &&
+  /Oceania|America del Sur|Europa occidental|Africa occidental|Europa$|America$/i.test(conflict.normalizedRegion || conflict.region || "")
+);
+assert.deepEqual(
+  suspectServedConflictRegions,
+  [],
+  `Los conflictos no deben heredar regiones continentales sospechosas: ${JSON.stringify(suspectServedConflictRegions.slice(0, 10))}`
 );
 
 const nullNarrativeConflictDetails = Object.entries(conflictDetails.conflicts || {}).flatMap(([name, detail]) =>

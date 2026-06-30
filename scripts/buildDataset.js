@@ -638,6 +638,8 @@ const CONFLICT_YEAR_HINTS = {
   "Guerra de Irak": { startYear: 2003, endYear: 2011 },
   "Guerra civil siria": { startYear: 2011, endYear: null, ongoing: true },
   "Guerra civil espanola": { startYear: 1936, endYear: 1939 },
+  "Cruzada Livonia": { startYear: 1198, endYear: 1290 },
+  "Guerra de la Independencia de Chile": { startYear: 1810, endYear: 1826 },
   "Guerra Iran-Iraq": { startYear: 1980, endYear: 1988 },
   "Guerra ruso-japonesa": { startYear: 1904, endYear: 1905 },
   "Guerra de Argelia": { startYear: 1954, endYear: 1962 },
