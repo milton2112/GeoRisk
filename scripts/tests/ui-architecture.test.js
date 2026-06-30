@@ -44,9 +44,11 @@ assert.ok(contributing.includes("UI / UX Rules"), "guia interna debe cubrir UX")
 assert.ok(contributing.includes("Architecture Rules"), "guia interna debe cubrir arquitectura");
 
 const indexHtml = await fs.readFile(path.join(projectRoot, "index.html"), "utf8");
+const helpUi = await fs.readFile(path.join(projectRoot, "app-help-ui.js"), "utf8");
 assert.ok(indexHtml.includes("app-store.js"), "shell debe cargar store central");
 assert.ok(!indexHtml.includes("app-ui-polish.js"), "polish UI debe quedar fuera del shell inicial");
-assert.ok(indexHtml.includes("Alt+C"), "ayuda debe documentar atajos de hubs");
+assert.ok(!indexHtml.includes("Alt+C"), "ayuda larga debe quedar fuera del shell inicial");
+assert.ok(helpUi.includes("Alt+C"), "ayuda diferida debe documentar atajos de hubs");
 
 const script = await fs.readFile(path.join(projectRoot, "script.js"), "utf8");
 assert.ok(script.includes("appStore?.setState"), "runtime debe publicar estado al store central");

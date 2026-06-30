@@ -8,7 +8,7 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
   <link rel="stylesheet" href="https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Widgets/widgets.css">
-  <link rel="stylesheet" href="style.css?v=2026-06-30-release-3">
+  <link rel="stylesheet" href="style.css?v=2026-06-30-release-4">
 </head>
 <body>
 
@@ -520,7 +520,7 @@
 <div id="conflict-modal" hidden>
   <div class="conflict-modal-backdrop" data-close-conflict-modal="true"></div>
   <div class="conflict-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="conflict-modal-title" tabindex="-1">
-    <button id="conflict-modal-close" type="button" aria-label="Cerrar">×</button>
+    <button id="conflict-modal-close" type="button" aria-label="Cerrar">&times;</button>
     <div id="conflict-modal-body"></div>
   </div>
 </div>
@@ -528,7 +528,7 @@
 <div id="timeline-modal" hidden>
   <div class="conflict-modal-backdrop" data-close-timeline-modal="true"></div>
   <div class="conflict-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="timeline-modal-title" tabindex="-1">
-    <button id="timeline-modal-close" type="button" aria-label="Cerrar">×</button>
+    <button id="timeline-modal-close" type="button" aria-label="Cerrar">&times;</button>
     <div id="timeline-modal-body"></div>
   </div>
 </div>
@@ -539,38 +539,7 @@
     <button id="help-modal-close" type="button" aria-label="Cerrar">&times;</button>
     <div id="help-modal-body">
       <h2 id="help-modal-title">Guia rapida</h2>
-      <div class="help-section">
-        <h3>Como usar GeoRisk</h3>
-        <p>Busca paises, continentes, religiones, sistemas u organizaciones. Cambia entre 2D y 3D, activa capas tematicas y usa la ficha del pais para explorar historia, economia, politica, religion y conflictos.</p>
-      </div>
-      <div class="help-section">
-        <h3>Atajos</h3>
-        <ul>
-          <li><b>/</b> enfoca el buscador</li>
-          <li><b>?</b> abre esta guia</li>
-          <li><b>P</b> alterna modo presentacion</li>
-          <li><b>R</b> abre/cierra rankings</li>
-          <li><b>Alt+C</b> abre/cierra comparador</li>
-          <li><b>Alt+N</b> abre/cierra noticias</li>
-          <li><b>Esc</b> cierra modales y paneles flotantes</li>
-        </ul>
-      </div>
-      <div class="help-section">
-        <h3>Vistas guardadas</h3>
-        <p>Guarda combinaciones de capa, filtros, modo de mapa y pais seleccionado para volver rapido a una escena de trabajo o clase.</p>
-      </div>
-      <div class="help-section">
-        <h3>Estado del proyecto</h3>
-        <p>El proyecto mantiene una hoja de ruta local en <code>ROADMAP.md</code> y un resumen de fuentes en <code>DATA_SOURCES.md</code>. Tambi&eacute;n vas a ver dentro de la app el perfil de render activo y el estado general del dataset.</p>
-      </div>
-      <div class="help-section">
-        <h3>Sugerencias</h3>
-        <ul>
-          <li>Usa el comparador para hasta 3 paises.</li>
-          <li>Proba el quiz educativo y el hub de noticias desde los accesos inferiores.</li>
-          <li>Activa el modo presentacion para una interfaz mas limpia.</li>
-        </ul>
-      </div>
+      <div class="help-section"><p>Preparando guia...</p></div>
     </div>
   </div>
 </div>
@@ -596,12 +565,6 @@
         <button type="button" class="product-start-card" data-intro-action="conflicts"><span>4</span><strong>Conflictos</strong><small>Muestra la capa de conflictos.</small></button>
       </div>
       <div class="product-trust-strip" aria-label="Estado de confianza del producto"><span>Datos auditados</span><span>Fuentes por seccion</span><span>Campos estimados marcados</span><span>Modo offline parcial</span></div>
-      <div class="product-summary-grid">
-        <div class="overview-card"><span class="overview-label">Qu&eacute; es hoy</span><strong class="overview-value">Una base interactiva de an&aacute;lisis geopol&iacute;tico</strong></div>
-        <div class="overview-card"><span class="overview-label">Mejor entrada</span><strong class="overview-value">Buscar o tocar un pa&iacute;s</strong></div>
-        <div class="overview-card"><span class="overview-label">Foco actual</span><strong class="overview-value">Mapa + ficha pa&iacute;s + conflictos</strong></div>
-        <div class="overview-card"><span class="overview-label">Estado</span><strong class="overview-value">Proyecto en crecimiento continuo</strong></div>
-      </div>
       <div class="product-summary-grid product-runtime-grid" id="intro-runtime-grid" aria-live="polite">
         <div class="overview-card"><span class="overview-label">Carga inicial</span><strong class="overview-value" id="intro-boot-state">Midiendo...</strong></div>
         <div class="overview-card"><span class="overview-label">Dataset</span><strong class="overview-value" id="intro-data-state">Indice liviano</strong></div>
@@ -631,28 +594,6 @@
           <span>Vista limpia para clase, demo, exposici&oacute;n o exploraci&oacute;n guiada.</span>
         </button>
       </div>
-      <details class="product-intro-more">
-        <summary>Conocer funciones y atajos</summary>
-        <div class="product-intro-more-grid">
-          <div class="help-section">
-            <h3>Qu&eacute; pod&eacute;s hacer</h3>
-            <ul>
-              <li>Explorar el globo en 2D y 3D con capas tem&aacute;ticas.</li>
-              <li>Abrir fichas de pa&iacute;s con historia, econom&iacute;a, pol&iacute;tica y conflictos.</li>
-              <li>Recorrer guerras, campa&ntilde;as y batallas en sus timelines.</li>
-              <li>Comparar pa&iacute;ses, usar rankings, quiz y noticias.</li>
-            </ul>
-          </div>
-          <div class="help-section">
-            <h3>Atajos &uacute;tiles</h3>
-            <ul>
-              <li><b>/</b>: enfoca el buscador</li>
-              <li><b>?</b>: abre la gu&iacute;a</li>
-              <li><b>Esc</b>: cierra modales y paneles</li>
-            </ul>
-          </div>
-        </div>
-      </details>
     </div>
   </div>
 </div>
@@ -678,14 +619,14 @@
   }, 7000);
 </script>
 <script src="https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Cesium.js"></script>
-<script src="app-runtime.js?v=2026-06-30-release-3"></script>
-<script src="app-theme.js?v=2026-06-30-release-3"></script>
-<script src="app-boot-scheduler.js?v=2026-06-30-release-3"></script>
-<script src="app-map.js?v=2026-06-30-release-3"></script>
-<script src="app-map-styles.js?v=2026-06-30-release-3"></script>
-<script src="app-map-interactions.js?v=2026-06-30-release-3"></script>
-<script src="app-store.js?v=2026-06-30-release-3"></script>
-<script src="script.js?v=2026-06-30-release-3"></script>
+<script src="app-runtime.js?v=2026-06-30-release-4"></script>
+<script src="app-theme.js?v=2026-06-30-release-4"></script>
+<script src="app-boot-scheduler.js?v=2026-06-30-release-4"></script>
+<script src="app-map.js?v=2026-06-30-release-4"></script>
+<script src="app-map-styles.js?v=2026-06-30-release-4"></script>
+<script src="app-map-interactions.js?v=2026-06-30-release-4"></script>
+<script src="app-store.js?v=2026-06-30-release-4"></script>
+<script src="script.js?v=2026-06-30-release-4"></script>
 
 </body>
 </html>

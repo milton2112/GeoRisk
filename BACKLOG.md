@@ -5,8 +5,8 @@ Esta lista se mantiene como tablero vivo del proyecto. La prioridad sale de las 
 ## Estado auditado
 
 - Estado general: operativo, sin issues criticos en `reports/project-audit.json`.
-- Arranque critico: 972 KB, bajo el limite de 1 MB pero todavia cerca del umbral.
-- `script.js`: 667 KB, bajo el limite de 700 KB pero sigue siendo el mayor bloque.
+- Arranque critico: 970 KB, bajo el limite de 1 MB pero todavia cerca del umbral.
+- `script.js`: 669 KB, bajo el limite de 700 KB pero sigue siendo el mayor bloque.
 - `countries_index.json`: 168 KB, bajo el limite de 240 KB.
 - Auditoria de conflictos: 2003 conflictos escaneados, 0 alertas.
 - Consistencia semantica de conflictos: 0 cerrados marcados activos, 0 `ongoing:false` con `active:true`, 0 rangos de fecha invalidos, 0 acciones historicas abiertas, 0 textos narrativos `"null"`, 0 regiones sospechosas detectadas.
@@ -14,12 +14,11 @@ Esta lista se mantiene como tablero vivo del proyecto. La prioridad sale de las 
 
 ## Hecho en la tanda actual
 
-- Agrega una entrada publica guiada con flujos obvios: buscar o tocar pais, ver riesgo, comparar y explorar conflictos.
-- Conecta cada accion de onboarding con la UI real: buscador, comparador, radar de riesgo y capa de conflictos.
-- Agrega estado visible de arranque por fases para mejorar la percepcion de performance en PC y celular.
-- Refuerza confianza de datos en portada y chip de estado: calidad, fuentes por seccion, estimaciones marcadas y curaduria pendiente.
-- Mantiene el pulido visual nuevo fuera del CSS critico moviendolo a `style-polish.css`.
-- Amplia pruebas de higiene visual para bloquear regresiones de onboarding, feedback de arranque y flujos principales.
+- Diferir la guia rapida a `app-help-ui.js` para quitar contenido largo del HTML inicial.
+- Simplifica la portada publica: mantiene acciones principales, estado runtime, cobertura y modos; quita ayuda duplicada e indicadores internos.
+- Corrige botones de cierre visibles en conflicto y timeline para evitar mojibake.
+- Elimina CSS critico de portada que ya no tenia elementos asociados.
+- Amplia pruebas para bloquear guia no diferida, mojibake visible y fallos del smoke server con el nuevo modulo.
 
 ## Prioridad critica
 

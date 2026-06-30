@@ -123,6 +123,7 @@ assert.ok(Buffer.byteLength(indexHtml) < 35000, "index.html debe mantenerse livi
 assert.ok(Buffer.byteLength(sw) < 7000, "service worker debe mantenerse liviano");
 assert.ok(indexHtml.includes("intro-runtime-grid"), "portada debe mostrar estado runtime");
 assert.ok(indexHtml.includes("intro-data-grid"), "portada debe mostrar cobertura del dataset");
+assert.ok(!indexHtml.includes("Como usar GeoRisk"), "guia larga no debe vivir en el HTML critico");
 assert.ok(script.includes("setupIntroModalControls(modal)"), "portada debe conectar sus controles al abrirse");
 assert.ok(script.includes("closeIntroModal?.(false)"), "inicio no debe marcar la portada como vista al cerrarla preventivamente");
 assert.ok(script.includes('localStorage.getItem(STORAGE_KEYS.introSeen) !== "true"'), "portada automatica debe respetar si ya fue vista");

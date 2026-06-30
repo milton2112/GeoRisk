@@ -3320,26 +3320,6 @@ body[data-app-mode="encyclopedia"] #country-modal #country-panel {
   scroll-margin-top: 18px;
 }
 
-.product-intro-more {
-  margin-top: 4px;
-  border-top: 1px solid rgba(126, 199, 255, 0.16);
-}
-
-.product-intro-more > summary {
-  padding: 14px 2px 4px;
-  color: #9fd0ff;
-  font-size: 0.82rem;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.product-intro-more-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
-  padding-top: 10px;
-}
-
 #intro-modal .overview-card {
   min-height: 78px;
   padding: 11px 12px;
@@ -4454,10 +4434,6 @@ p {
 
   .product-intro-actions button {
     flex: 1 1 140px;
-  }
-
-  .product-intro-more-grid {
-    grid-template-columns: 1fr;
   }
 
   .country-overview-grid {

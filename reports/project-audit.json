@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-06-30T21:31:45.193Z",
+  "generatedAt": "2026-06-30T22:08:33.146Z",
   "status": "operativo",
   "startup": {
-    "critical": "972 KB",
-    "criticalBytes": 995036,
+    "critical": "970 KB",
+    "criticalBytes": 992879,
     "deferred": "1.04 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 9117197,
@@ -16,8 +16,8 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 683269,
-        "human": "667 KB",
+        "bytes": 684807,
+        "human": "669 KB",
         "startupCritical": true
       },
       {
@@ -51,15 +51,15 @@
       {
         "path": "style.css",
         "exists": true,
-        "bytes": 89167,
+        "bytes": 88734,
         "human": "87 KB",
         "startupCritical": true
       },
       {
         "path": "index.html",
         "exists": true,
-        "bytes": 34584,
-        "human": "34 KB",
+        "bytes": 31322,
+        "human": "31 KB",
         "startupCritical": true
       },
       {
@@ -398,25 +398,25 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 683269,
-      "human": "667 KB"
+      "bytes": 684807,
+      "human": "669 KB"
     },
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 89167,
+      "bytes": 88734,
       "human": "87 KB"
     },
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 34584,
-      "human": "34 KB"
+      "bytes": 31322,
+      "human": "31 KB"
     },
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 28224,
+      "bytes": 28900,
       "human": "28 KB"
     },
     {
@@ -541,9 +541,9 @@
     }
   ],
   "scriptMetrics": {
-    "functions": 507,
-    "asyncFunctions": 44,
-    "consoleWarnings": 16,
+    "functions": 508,
+    "asyncFunctions": 46,
+    "consoleWarnings": 17,
     "consoleErrors": 15
   },
   "visualMetrics": {

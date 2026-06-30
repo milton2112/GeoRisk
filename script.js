@@ -73,6 +73,7 @@ let countryPanelUi = window.GeoRiskCountryPanel || {};
 let timelineConflictUi = window.GeoRiskTimelineConflicts || {};
 let searchCore = window.GeoRiskSearch || {};
 let rankingsCore = window.GeoRiskRankings || {};
+let helpUi = window.GeoRiskHelpUi || {};
 const sharedTheme = window.GeoRiskTheme || {};
 const sharedText = window.GeoRiskText || {};
 const bootScheduler = window.GeoRiskBootScheduler || {};
@@ -81,7 +82,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-06-30-release-3";
+const APP_VERSION = "2026-06-30-release-4";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -92,17 +93,18 @@ function createFallbackSearchCache() {
 }
 
 const DEFERRED_UI_MODULES = {
-  news: "./app-news-ui.js?v=2026-06-30-release-3",
-  compare: "./app-compare-ui.js?v=2026-06-30-release-3",
-  quiz: "./app-quiz-ui.js?v=2026-06-30-release-3",
-  riskRadar: "./app-risk-radar-ui.js?v=2026-06-30-release-3",
-  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-30-release-3",
-  projectAudit: "./app-project-audit-ui.js?v=2026-06-30-release-3",
-  uiPolish: "./app-ui-polish.js?v=2026-06-30-release-3",
-  countryPanel: "./app-country-panel.js?v=2026-06-30-release-3",
-  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-30-release-3",
-  search: "./app-search.js?v=2026-06-30-release-3",
-  rankings: "./app-rankings.js?v=2026-06-30-release-3"
+  news: "./app-news-ui.js?v=2026-06-30-release-4",
+  compare: "./app-compare-ui.js?v=2026-06-30-release-4",
+  quiz: "./app-quiz-ui.js?v=2026-06-30-release-4",
+  riskRadar: "./app-risk-radar-ui.js?v=2026-06-30-release-4",
+  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-30-release-4",
+  projectAudit: "./app-project-audit-ui.js?v=2026-06-30-release-4",
+  help: "./app-help-ui.js?v=2026-06-30-release-4",
+  uiPolish: "./app-ui-polish.js?v=2026-06-30-release-4",
+  countryPanel: "./app-country-panel.js?v=2026-06-30-release-4",
+  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-30-release-4",
+  search: "./app-search.js?v=2026-06-30-release-4",
+  rankings: "./app-rankings.js?v=2026-06-30-release-4"
 };
 const deferredUiModulePromises = new Map();
 
@@ -113,6 +115,7 @@ function refreshDeferredUiGlobals() {
   riskRadarUi = window.GeoRiskRiskRadarUi || riskRadarUi || {};
   conflictAuditUi = window.GeoRiskConflictAuditUi || conflictAuditUi || {};
   projectAuditUi = window.GeoRiskProjectAuditUi || projectAuditUi || {};
+  helpUi = window.GeoRiskHelpUi || helpUi || {};
   uiPolish = window.GeoRiskUiPolish || uiPolish || {};
   countryPanelUi = window.GeoRiskCountryPanel || countryPanelUi || {};
   timelineConflictUi = window.GeoRiskTimelineConflicts || timelineConflictUi || {};
@@ -9600,6 +9603,14 @@ function updateExtendedStaticText() {
   if (productCloseButton) {
     productCloseButton.innerHTML = "&times;";
   }
+  const conflictCloseButton = document.getElementById("conflict-modal-close");
+  if (conflictCloseButton) {
+    conflictCloseButton.innerHTML = "&times;";
+  }
+  const timelineCloseButton = document.getElementById("timeline-modal-close");
+  if (timelineCloseButton) {
+    timelineCloseButton.innerHTML = "&times;";
+  }
   const introModalBody = document.getElementById("intro-modal-body");
   if (introModalBody) {
     introModalBody.innerHTML = introModalBody.innerHTML
@@ -9628,6 +9639,9 @@ function updateExtendedStaticText() {
   }
   updateIntroRuntimeStatus();
   updateIntroActionText();
+  if (document.getElementById("help-modal")?.hidden === false) {
+    renderHelpModalContent({ force: true });
+  }
   updateAppStatusPanel();
 }
 
@@ -11776,7 +11790,28 @@ async function renderProjectAuditPanel() {
   openProductModal(currentLanguage === "en" ? "Project audit" : "Auditoria del proyecto", body);
 }
 
-function openHelpModal() {
+async function renderHelpModalContent({ force = false } = {}) {
+  const body = document.getElementById("help-modal-body");
+  if (!body) {
+    return;
+  }
+  if (!force && body.dataset.helpLanguage === currentLanguage && body.dataset.loaded === "true") {
+    return;
+  }
+
+  body.innerHTML = `<h2 id="help-modal-title">${currentLanguage === "en" ? "Quick guide" : "Guia rapida"}</h2><div class="help-section"><p>${currentLanguage === "en" ? "Preparing guide..." : "Preparando guia..."}</p></div>`;
+  await ensureDeferredUiModule("help").catch(error => {
+    console.warn("No se pudo cargar la guia diferida:", error);
+  });
+  const renderer = helpUi.renderHelpContent || window.GeoRiskHelpUi?.renderHelpContent;
+  if (typeof renderer === "function") {
+    body.innerHTML = renderer({ language: currentLanguage });
+    body.dataset.loaded = "true";
+    body.dataset.helpLanguage = currentLanguage;
+  }
+}
+
+async function openHelpModal() {
   const modal = document.getElementById("help-modal");
   if (!modal) {
     return;
@@ -11784,6 +11819,8 @@ function openHelpModal() {
 
   modal.hidden = false;
   localStorage.setItem(STORAGE_KEYS.helpSeen, "true");
+  syncModalOpenState();
+  await renderHelpModalContent();
   syncModalOpenState();
 }
 

@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.17 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.18 antes de cerrar la siguiente version.
+
+## v1.6.18 - 2026-06-30
+
+- Diferir la guia rapida a `app-help-ui.js`, evitando cargar contenido de ayuda largo dentro del HTML inicial.
+- Simplifica la portada publica quitando texto interno y ayuda duplicada, dejando acciones principales, estado de runtime, cobertura y modos.
+- Corrige botones de cierre visibles en modales de conflicto y timeline para evitar caracteres mojibake.
+- Refuerza pruebas para bloquear mojibake visible, guia no diferida y regresiones del smoke server con el nuevo modulo.
+- Reduce el HTML critico de arranque y baja el CSS critico eliminando reglas de portada ya no usadas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-06-30-release-4`.
 
 ## v1.6.17 - 2026-06-30
 

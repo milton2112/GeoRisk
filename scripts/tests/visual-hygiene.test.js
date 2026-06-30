@@ -13,11 +13,14 @@ const visibleFiles = [
   "app-news-ui.js",
   "app-compare-ui.js",
   "app-quiz-ui.js",
+  "app-help-ui.js",
   "app-performance-ui.js",
   "app-ui-polish.js"
 ];
 
 const forbiddenVisibleTokens = [
+  "Ã—",
+  "Â·",
   "boot-floating-chip",
   "boot-profile-chip",
   "Arranque: pendiente",
@@ -77,6 +80,8 @@ const appMapInteractions = await fs.readFile(path.join(projectRoot, "app-map-int
 assert.ok(indexHtml.includes('id="map"'), "la pantalla principal debe conservar contenedor de mapa/canvas");
 assert.ok(indexHtml.includes('id="map-mode-toggle"'), "la UI debe exponer cambio 2D/3D");
 assert.ok(indexHtml.includes('id="intro-start-button"'), "la portada debe tener CTA para entrar al mapa");
+assert.ok(indexHtml.includes('id="help-modal-body"'), "guia rapida debe conservar contenedor accesible");
+assert.ok(!indexHtml.includes("Como usar GeoRisk"), "contenido largo de guia debe cargarse bajo demanda");
 assert.ok(indexHtml.includes('id="startup-status"'), "la pantalla inicial debe reservar feedback de arranque");
 assert.ok(indexHtml.includes('class="startup-progress"'), "estado de arranque debe incluir progreso visual liviano");
 assert.ok(indexHtml.includes('class="product-start-grid"'), "portada debe guiar los primeros flujos del usuario");
@@ -104,6 +109,8 @@ assert.ok(css.includes(".panel-section[open] summary::after"), "secciones desple
 assert.ok(script.includes("constrainedInitialDevice ? \"none\" : \"countries\""), "mobile debe arrancar con etiquetas reducidas");
 assert.ok(script.includes("function setStartupStatus"), "arranque debe informar fases sin bloquear la UI");
 assert.ok(script.includes("function runIntroAction"), "portada debe convertir acciones guiadas en flujo real");
+assert.ok(script.includes('help: "./app-help-ui.js'), "guia rapida debe cargarse como modulo diferido");
+assert.ok(script.includes("renderHelpModalContent"), "guia rapida debe renderizarse bajo demanda");
 assert.ok(script.includes("setTheme(\"riskRadar\")"), "accion de riesgo debe activar la capa de radar");
 assert.ok(script.includes("setTheme(\"conflicts\")"), "accion de conflictos debe activar la capa de conflictos");
 assert.ok(script.includes("openCompareHubFromIntro"), "accion de comparador debe abrir el hub correcto");

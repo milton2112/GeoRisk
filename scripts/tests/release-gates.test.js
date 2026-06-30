@@ -90,6 +90,7 @@ assert.ok(!indexHtml.includes("app-timeline-conflicts.js"), "timeline/conflictos
 assert.ok(!indexHtml.includes("app-search.js"), "busqueda avanzada debe cargarse bajo demanda");
 assert.ok(!indexHtml.includes("app-rankings.js"), "rankings debe cargarse bajo demanda");
 assert.ok(!indexHtml.includes("app-ui-polish.js"), "pulido UI debe cargarse bajo demanda");
+assert.ok(!indexHtml.includes("app-help-ui.js"), "guia rapida debe cargarse bajo demanda");
 assert.ok(!indexHtml.includes("style-polish.css"), "pulido visual no debe bloquear el primer mapa");
 assert.ok(!indexHtml.includes("fonts.googleapis.com"), "fuentes remotas no deben bloquear el primer render");
 assert.ok(!/bootHeavyDataEnhancements[\s\S]{0,500}loadRuntimeCuration/.test(script), "curaduria profunda debe esperar a una ficha");
