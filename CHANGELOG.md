@@ -8,7 +8,18 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.16 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.17 antes de cerrar la siguiente version.
+
+## v1.6.17 - 2026-06-30
+
+- Agrega una entrada publica guiada en la portada con cuatro caminos claros: buscar o tocar pais, ver riesgos, comparar paises y explorar conflictos.
+- Convierte esas acciones de onboarding en flujos reales: foco al buscador, apertura de comparador, activacion de radar de riesgo y capa de conflictos.
+- Agrega feedback visible durante el arranque con fases de carga liviana, mapa, indice de paises y UI diferida para mejorar la performance percibida.
+- Refuerza confianza de datos en la portada y en el chip de estado, mostrando calidad, fuentes por seccion, estimaciones marcadas y curaduria pendiente.
+- Pasa el pulido visual de las tarjetas de onboarding a `style-polish.css` para no inflar el CSS critico del primer mapa.
+- Corrige el cierre visible de la guia rapida para evitar caracteres rotos por encoding.
+- Amplia `visual-hygiene.test.js` para bloquear regresiones del onboarding, feedback de arranque y flujos principales.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-06-30-release-3`.
 
 ## v1.6.16 - 2026-06-30
 

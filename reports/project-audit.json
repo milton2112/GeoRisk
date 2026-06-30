@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-06-30T21:13:53.598Z",
+  "generatedAt": "2026-06-30T21:31:45.193Z",
   "status": "operativo",
   "startup": {
-    "critical": "965 KB",
-    "criticalBytes": 988253,
+    "critical": "972 KB",
+    "criticalBytes": 995036,
     "deferred": "1.04 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 9117197,
@@ -16,8 +16,8 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 679134,
-        "human": "663 KB",
+        "bytes": 683269,
+        "human": "667 KB",
         "startupCritical": true
       },
       {
@@ -51,22 +51,22 @@
       {
         "path": "style.css",
         "exists": true,
-        "bytes": 87855,
-        "human": "86 KB",
+        "bytes": 89167,
+        "human": "87 KB",
         "startupCritical": true
       },
       {
         "path": "index.html",
         "exists": true,
-        "bytes": 33248,
-        "human": "32 KB",
+        "bytes": 34584,
+        "human": "34 KB",
         "startupCritical": true
       },
       {
         "path": "style-polish.css",
         "exists": true,
-        "bytes": 18597,
-        "human": "18 KB",
+        "bytes": 20346,
+        "human": "20 KB",
         "startupCritical": false
       },
       {
@@ -398,32 +398,32 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 679134,
-      "human": "663 KB"
+      "bytes": 683269,
+      "human": "667 KB"
     },
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 87855,
-      "human": "86 KB"
+      "bytes": 89167,
+      "human": "87 KB"
     },
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 33248,
-      "human": "32 KB"
+      "bytes": 34584,
+      "human": "34 KB"
     },
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 27193,
-      "human": "27 KB"
+      "bytes": 28224,
+      "human": "28 KB"
     },
     {
       "path": "style-polish.css",
       "exists": true,
-      "bytes": 18597,
-      "human": "18 KB"
+      "bytes": 20346,
+      "human": "20 KB"
     },
     {
       "path": "TECHNICAL.md",
@@ -541,7 +541,7 @@
     }
   ],
   "scriptMetrics": {
-    "functions": 501,
+    "functions": 507,
     "asyncFunctions": 44,
     "consoleWarnings": 16,
     "consoleErrors": 15

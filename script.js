@@ -81,7 +81,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-06-30-release-2";
+const APP_VERSION = "2026-06-30-release-3";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -92,17 +92,17 @@ function createFallbackSearchCache() {
 }
 
 const DEFERRED_UI_MODULES = {
-  news: "./app-news-ui.js?v=2026-06-30-release-2",
-  compare: "./app-compare-ui.js?v=2026-06-30-release-2",
-  quiz: "./app-quiz-ui.js?v=2026-06-30-release-2",
-  riskRadar: "./app-risk-radar-ui.js?v=2026-06-30-release-2",
-  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-30-release-2",
-  projectAudit: "./app-project-audit-ui.js?v=2026-06-30-release-2",
-  uiPolish: "./app-ui-polish.js?v=2026-06-30-release-2",
-  countryPanel: "./app-country-panel.js?v=2026-06-30-release-2",
-  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-30-release-2",
-  search: "./app-search.js?v=2026-06-30-release-2",
-  rankings: "./app-rankings.js?v=2026-06-30-release-2"
+  news: "./app-news-ui.js?v=2026-06-30-release-3",
+  compare: "./app-compare-ui.js?v=2026-06-30-release-3",
+  quiz: "./app-quiz-ui.js?v=2026-06-30-release-3",
+  riskRadar: "./app-risk-radar-ui.js?v=2026-06-30-release-3",
+  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-30-release-3",
+  projectAudit: "./app-project-audit-ui.js?v=2026-06-30-release-3",
+  uiPolish: "./app-ui-polish.js?v=2026-06-30-release-3",
+  countryPanel: "./app-country-panel.js?v=2026-06-30-release-3",
+  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-30-release-3",
+  search: "./app-search.js?v=2026-06-30-release-3",
+  rankings: "./app-rankings.js?v=2026-06-30-release-3"
 };
 const deferredUiModulePromises = new Map();
 
@@ -1045,6 +1045,7 @@ function openIntroModal() {
     return;
   }
   setupIntroModalControls(modal);
+  updateIntroActionText();
   updateIntroRuntimeStatus();
   modal.hidden = false;
   syncModalOpenState();
@@ -1062,6 +1063,78 @@ function closeIntroModal(markSeen = true) {
   syncModalOpenState();
 }
 
+function focusSearchInput() {
+  window.setTimeout(() => document.getElementById("map-search-input")?.focus({ preventScroll: true }), 0);
+}
+
+function openCompareHubFromIntro() {
+  const panel = document.getElementById("compare-hub-panel");
+  if (!panel) {
+    return;
+  }
+  closeMobileHubPanels();
+  panel.open = true;
+  syncMobilePanelControlState();
+  window.setTimeout(() => document.getElementById("compare-country-search")?.focus({ preventScroll: true }), 0);
+}
+
+function openRankingsFromIntro() {
+  const panel = document.getElementById("rankings-panel");
+  if (!panel) {
+    return;
+  }
+  panel.open = true;
+  syncMobilePanelControlState();
+  window.setTimeout(() => panel.querySelector("summary")?.focus({ preventScroll: true }), 0);
+}
+
+function runIntroAction(action) {
+  closeIntroModal();
+  if (action === "search") {
+    focusSearchInput();
+    return;
+  }
+  if (action === "risk") {
+    applyAppMode("analysis");
+    setTheme("riskRadar");
+    openRankingsFromIntro();
+    return;
+  }
+  if (action === "compare") {
+    openCompareHubFromIntro();
+    return;
+  }
+  if (action === "conflicts") {
+    setTheme("conflicts");
+    openRankingsFromIntro();
+  }
+}
+
+function updateIntroActionText() {
+  const labels = {
+    search: currentLanguage === "en"
+      ? ["Search or tap", "Open a profile from search or map."]
+      : ["Buscar o tocar", "Abre una ficha desde buscador o mapa."],
+    risk: currentLanguage === "en"
+      ? ["View risks", "Color the map by risk radar."]
+      : ["Ver riesgos", "Colorea el mapa por radar de riesgo."],
+    compare: currentLanguage === "en"
+      ? ["Compare", "Prepare a country comparison."]
+      : ["Comparar", "Prepara una comparacion entre paises."],
+    conflicts: currentLanguage === "en"
+      ? ["Conflicts", "Show the conflict layer."]
+      : ["Conflictos", "Muestra la capa de conflictos."]
+  };
+  document.querySelectorAll("[data-intro-action]").forEach(button => {
+    const [title, subtitle] = labels[button.dataset.introAction] || [];
+    if (!title) return;
+    const titleNode = button.querySelector("strong");
+    const subtitleNode = button.querySelector("small");
+    if (titleNode) titleNode.textContent = title;
+    if (subtitleNode) subtitleNode.textContent = subtitle;
+  });
+}
+
 function setupIntroModalControls(modal = document.getElementById("intro-modal")) {
   if (!modal || modal.dataset.controlsReady === "true") {
     return;
@@ -1071,11 +1144,16 @@ function setupIntroModalControls(modal = document.getElementById("intro-modal"))
   document.getElementById("intro-modal-close")?.addEventListener("click", () => closeIntroModal());
   document.getElementById("intro-start-button")?.addEventListener("click", () => {
     closeIntroModal();
-    window.setTimeout(() => document.getElementById("map-search-input")?.focus({ preventScroll: true }), 0);
+    focusSearchInput();
   });
   modal.addEventListener("click", event => {
     if (event.target.closest("[data-close-intro-modal='true']")) {
       closeIntroModal();
+      return;
+    }
+    const introAction = event.target.closest("[data-intro-action]");
+    if (introAction) {
+      runIntroAction(introAction.dataset.introAction || "search");
       return;
     }
     const modeButton = event.target.closest("[data-app-mode-choice]");
@@ -1776,6 +1854,17 @@ const bootMetrics = {
 const longTaskMetrics = bootScheduler.longTaskMetrics || { supported: false, count: 0, totalDuration: 0, longestDuration: 0, recent: [] };
 const startupFpsMetrics = bootScheduler.startupFpsMetrics || { active: false, samples: 0, min: null, max: null, avg: 0, completed: false };
 const startLongTaskObserver = bootScheduler.startLongTaskObserver || (() => {});
+
+function setStartupStatus(text, title = null) {
+  const titleElement = document.getElementById("startup-status-title");
+  const textElement = document.getElementById("startup-status-text");
+  if (titleElement && title) {
+    titleElement.textContent = title;
+  }
+  if (textElement && text) {
+    textElement.textContent = text;
+  }
+}
 
 function markBootStepStart(name) {
   if (!bootMetrics.startedAt) {
@@ -7608,7 +7697,12 @@ function updateAppStatusPanel(extra = {}) {
       deferredDataStatus.wikipediaConflicts ? (currentLanguage === "en" ? "conflicts" : "conflictos") : null,
       currentLanguage === "en" ? "details on demand" : "detalle bajo demanda"
     ].filter(Boolean);
-    datasetChip.innerHTML = `<strong>${currentLanguage === "en" ? "Dataset" : "Dataset"}:</strong> ${currentLanguage === "en" ? "validated" : "validado"} · ${avgQuality}/100 · ${total} ${currentLanguage === "en" ? "entries" : "entradas"} · ${escapeHtml(loadStateParts.join(" / "))}`;
+    const trustLabel = currentLanguage === "en" ? "sources by section" : "fuentes por seccion";
+    const estimatedLabel = currentLanguage === "en" ? "estimates marked" : "estimados marcados";
+    datasetChip.title = currentLanguage === "en"
+      ? "Open dataset health: quality score, sources, estimates and pending curation."
+      : "Abrir salud del dataset: calidad, fuentes, estimaciones y curaduria pendiente.";
+    datasetChip.innerHTML = `<strong>${currentLanguage === "en" ? "Data" : "Datos"}:</strong> ${currentLanguage === "en" ? "validated" : "validado"} · ${avgQuality}/100 · ${total} ${currentLanguage === "en" ? "entries" : "entradas"} · ${trustLabel} · ${estimatedLabel} · ${escapeHtml(loadStateParts.join(" / "))}`;
   }
 }
 
@@ -9533,6 +9627,7 @@ function updateExtendedStaticText() {
     topic.options[3].textContent = currentLanguage === "en" ? "War and security" : "Guerra y seguridad";
   }
   updateIntroRuntimeStatus();
+  updateIntroActionText();
   updateAppStatusPanel();
 }
 
@@ -10722,7 +10817,7 @@ function updateStaticText() {
   }
   const openIntroButton = document.getElementById("open-intro-button");
   if (openIntroButton) {
-    openIntroButton.textContent = currentLanguage === "en" ? "Intro" : "Portada";
+    openIntroButton.textContent = currentLanguage === "en" ? "Start" : "Inicio";
   }
   const openHealthButton = document.getElementById("open-health-button");
   if (openHealthButton) {
@@ -10734,11 +10829,11 @@ function updateStaticText() {
   }
   const openConflictAuditButton = document.getElementById("open-conflict-audit-button");
   if (openConflictAuditButton) {
-    openConflictAuditButton.textContent = currentLanguage === "en" ? "Conflict audit" : "Auditoria conflictos";
+    openConflictAuditButton.textContent = currentLanguage === "en" ? "Conflict quality" : "Calidad conflictos";
   }
   const openProjectAuditButton = document.getElementById("open-project-audit-button");
   if (openProjectAuditButton) {
-    openProjectAuditButton.textContent = currentLanguage === "en" ? "Project audit" : "Auditoria proyecto";
+    openProjectAuditButton.textContent = currentLanguage === "en" ? "Project status" : "Estado proyecto";
   }
   const openChangelogButton = document.getElementById("open-changelog-button");
   if (openChangelogButton) {
@@ -16342,6 +16437,10 @@ async function init() {
     bootMetrics.startedAt = performance.now();
     startLongTaskObserver();
     document.body.classList.add("globe-loading");
+    setStartupStatus(
+      currentLanguage === "en" ? "Creating the lightweight map view." : "Creando la vista liviana del mapa.",
+      currentLanguage === "en" ? "Preparing GeoRisk" : "Preparando GeoRisk"
+    );
     closeCountryModal();
     closeCompareModal?.();
     closeConflictModal?.();
@@ -16354,13 +16453,16 @@ async function init() {
     currentTheme = "default";
     applyAppMode(appMode, false);
     await measureBootStep("viewerBoot", async () => {
+      setStartupStatus(currentLanguage === "en" ? "Starting the map engine." : "Iniciando el motor del mapa.");
       initializeViewer();
       requestSceneRender();
     });
+    setStartupStatus(currentLanguage === "en" ? "Loading simplified geography first." : "Cargando geografia simplificada primero.");
     const overlayLoadPromise = loadMap(true);
     const bootReadyPromise = measureBootStep("mapBootReady", () => waitForMapBootReady(isMobileLayout() ? 5200 : 4200));
     const dataLoadPromise = loadData()
       .then(() => {
+        setStartupStatus(currentLanguage === "en" ? "Light country index ready." : "Indice liviano de paises listo.");
         refreshLoadedCountryLayers();
         updateAppStatusPanel();
         return countriesData;
@@ -16383,6 +16485,7 @@ async function init() {
       }
     }
     await bootReadyPromise;
+    setStartupStatus(currentLanguage === "en" ? "Showing the initial map." : "Mostrando el mapa inicial.");
     if (shouldStartCollapsed) {
       const toolbar = document.getElementById("map-toolbar");
       const rankingsPanel = document.getElementById("rankings-panel");
@@ -16424,6 +16527,7 @@ async function init() {
 
     const bootDeferredUi = () => {
       measureBootStep("deferredUi", async () => {
+        setStartupStatus(currentLanguage === "en" ? "Activating search, layers and panels." : "Activando buscador, capas y paneles.");
         const safeUiTask = (name, task) => {
           try {
             task();
@@ -16454,6 +16558,7 @@ async function init() {
     };
 
     const bootHeavyDataEnhancements = () => {
+      setStartupStatus(currentLanguage === "en" ? "Heavy details remain on demand." : "Los detalles pesados quedan bajo demanda.");
       dataLoadPromise
         .then(() => loadDeferredDataEnhancements())
         .catch(error => {

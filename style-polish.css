@@ -10,6 +10,94 @@
 }
 
 /* Deferred component polish: no effect on the first map paint. */
+.product-start-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0 0 14px;
+}
+
+.product-start-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "step title"
+    "step text";
+  column-gap: 9px;
+  min-height: 86px;
+  padding: 12px;
+  border: 1px solid rgba(114, 222, 192, 0.22);
+  border-radius: var(--ui-radius);
+  background: rgba(7, 23, 32, 0.78);
+  color: #f5fbff;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.16s ease, background 0.16s ease, transform 0.16s ease;
+}
+
+.product-start-card span {
+  grid-area: step;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: rgba(114, 222, 192, 0.16);
+  color: #a8efd9;
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.product-start-card strong {
+  grid-area: title;
+  align-self: end;
+  font-size: 0.84rem;
+}
+
+.product-start-card small {
+  grid-area: text;
+  color: rgba(220, 239, 255, 0.74);
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
+.product-start-card:hover,
+.product-start-card:focus-visible {
+  border-color: rgba(114, 222, 192, 0.58);
+  background: rgba(15, 48, 55, 0.9);
+  transform: translateY(-1px);
+}
+
+.product-trust-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: -2px 0 14px;
+}
+
+.product-trust-strip span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 5px 9px;
+  border: 1px solid rgba(159, 220, 255, 0.2);
+  border-radius: 999px;
+  background: rgba(126, 199, 255, 0.08);
+  color: #dcefff;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+@media (max-width: 720px) {
+  .product-start-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .product-start-card {
+    min-height: 70px;
+  }
+}
+
 #layers-summary-active {
   color: rgba(166, 234, 215, 0.86);
   font-weight: 700;

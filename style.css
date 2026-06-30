@@ -107,6 +107,67 @@ body.globe-loading #map-mode-toggle {
   line-height: 1.45;
 }
 
+#startup-status {
+  position: fixed;
+  left: 50%;
+  top: 18px;
+  z-index: 3900;
+  width: min(420px, calc(100vw - 32px));
+  padding: 12px 14px;
+  border: 1px solid rgba(114, 222, 192, 0.34);
+  border-radius: 8px;
+  background: rgba(8, 22, 25, 0.96);
+  color: #eefbf7;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.28);
+  transform: translate(-50%, -12px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+body.globe-loading #startup-status {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+#startup-status strong,
+#startup-status span {
+  display: block;
+}
+
+#startup-status strong {
+  font-size: 0.82rem;
+  letter-spacing: 0;
+}
+
+#startup-status span {
+  margin-top: 2px;
+  color: rgba(235, 246, 242, 0.74);
+  font-size: 0.75rem;
+}
+
+.startup-progress {
+  height: 3px;
+  margin-top: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.startup-progress span {
+  width: 42%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(114, 222, 192, 0.25), rgba(114, 222, 192, 0.95));
+  animation: startupProgressPulse 1.7s ease-in-out infinite;
+}
+
+@keyframes startupProgressPulse {
+  0% { transform: translateX(-110%); }
+  55% { transform: translateX(150%); }
+  100% { transform: translateX(150%); }
+}
+
 #map .cesium-viewer,
 #map .cesium-viewer-cesiumWidget,
 #map canvas {

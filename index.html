@@ -8,12 +8,17 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
   <link rel="stylesheet" href="https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Widgets/widgets.css">
-  <link rel="stylesheet" href="style.css?v=2026-06-30-release-2">
+  <link rel="stylesheet" href="style.css?v=2026-06-30-release-3">
 </head>
 <body>
 
 <div id="map"></div>
 <div id="fatal-error-banner" hidden></div>
+<div id="startup-status" role="status" aria-live="polite">
+  <strong id="startup-status-title">Preparando GeoRisk</strong>
+  <span id="startup-status-text">Cargando mapa liviano y controles basicos.</span>
+  <div class="startup-progress" aria-hidden="true"><span></span></div>
+</div>
 
 <div id="top-controls">
   <div id="search-bar">
@@ -214,8 +219,8 @@
           <button id="open-intro-button" type="button">Portada</button>
           <button id="open-health-button" type="button">Salud dataset</button>
           <button id="open-risk-radar-button" type="button">Radar riesgo</button>
-          <button id="open-conflict-audit-button" type="button">Auditoria conflictos</button>
-          <button id="open-project-audit-button" type="button">Auditoria proyecto</button>
+          <button id="open-conflict-audit-button" type="button">Calidad conflictos</button>
+          <button id="open-project-audit-button" type="button">Estado proyecto</button>
           <button id="open-performance-button" type="button">Rendimiento</button>
           <button id="open-changelog-button" type="button">Changelog</button>
           <button id="open-docs-button" type="button">Documentaci&oacute;n</button>
@@ -531,7 +536,7 @@
 <div id="help-modal" hidden>
   <div class="help-modal-backdrop" data-close-help-modal="true"></div>
   <div class="help-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="help-modal-title" tabindex="-1">
-    <button id="help-modal-close" type="button" aria-label="Cerrar">×</button>
+    <button id="help-modal-close" type="button" aria-label="Cerrar">&times;</button>
     <div id="help-modal-body">
       <h2 id="help-modal-title">Guia rapida</h2>
       <div class="help-section">
@@ -584,9 +589,16 @@
           <button type="button" class="product-secondary-action" data-intro-target="intro-modes">Elegir un modo</button>
         </div>
       </header>
+      <div class="product-start-grid" aria-label="Acciones iniciales">
+        <button type="button" class="product-start-card" data-intro-action="search"><span>1</span><strong>Buscar o tocar</strong><small>Abre una ficha desde buscador o mapa.</small></button>
+        <button type="button" class="product-start-card" data-intro-action="risk"><span>2</span><strong>Ver riesgos</strong><small>Colorea el mapa por radar de riesgo.</small></button>
+        <button type="button" class="product-start-card" data-intro-action="compare"><span>3</span><strong>Comparar</strong><small>Prepara una comparacion entre paises.</small></button>
+        <button type="button" class="product-start-card" data-intro-action="conflicts"><span>4</span><strong>Conflictos</strong><small>Muestra la capa de conflictos.</small></button>
+      </div>
+      <div class="product-trust-strip" aria-label="Estado de confianza del producto"><span>Datos auditados</span><span>Fuentes por seccion</span><span>Campos estimados marcados</span><span>Modo offline parcial</span></div>
       <div class="product-summary-grid">
         <div class="overview-card"><span class="overview-label">Qu&eacute; es hoy</span><strong class="overview-value">Una base interactiva de an&aacute;lisis geopol&iacute;tico</strong></div>
-        <div class="overview-card"><span class="overview-label">Mejor entrada</span><strong class="overview-value">Buscar y abrir un pa&iacute;s</strong></div>
+        <div class="overview-card"><span class="overview-label">Mejor entrada</span><strong class="overview-value">Buscar o tocar un pa&iacute;s</strong></div>
         <div class="overview-card"><span class="overview-label">Foco actual</span><strong class="overview-value">Mapa + ficha pa&iacute;s + conflictos</strong></div>
         <div class="overview-card"><span class="overview-label">Estado</span><strong class="overview-value">Proyecto en crecimiento continuo</strong></div>
       </div>
@@ -666,14 +678,14 @@
   }, 7000);
 </script>
 <script src="https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Cesium.js"></script>
-<script src="app-runtime.js?v=2026-06-30-release-2"></script>
-<script src="app-theme.js?v=2026-06-30-release-2"></script>
-<script src="app-boot-scheduler.js?v=2026-06-30-release-2"></script>
-<script src="app-map.js?v=2026-06-30-release-2"></script>
-<script src="app-map-styles.js?v=2026-06-30-release-2"></script>
-<script src="app-map-interactions.js?v=2026-06-30-release-2"></script>
-<script src="app-store.js?v=2026-06-30-release-2"></script>
-<script src="script.js?v=2026-06-30-release-2"></script>
+<script src="app-runtime.js?v=2026-06-30-release-3"></script>
+<script src="app-theme.js?v=2026-06-30-release-3"></script>
+<script src="app-boot-scheduler.js?v=2026-06-30-release-3"></script>
+<script src="app-map.js?v=2026-06-30-release-3"></script>
+<script src="app-map-styles.js?v=2026-06-30-release-3"></script>
+<script src="app-map-interactions.js?v=2026-06-30-release-3"></script>
+<script src="app-store.js?v=2026-06-30-release-3"></script>
+<script src="script.js?v=2026-06-30-release-3"></script>
 
 </body>
 </html>
