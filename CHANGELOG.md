@@ -8,7 +8,19 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.14 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.15 antes de cerrar la siguiente version.
+
+## v1.6.15 - 2026-06-30
+
+- Corrige consistencia semantica de conflictos: conflictos cerrados ya no salen como activos y `ongoing:false` no convive con `active:true` o `status: activo`.
+- Limpia causas/resultados de conflictos que mostraban `"null"` como texto visible y fuerza fallback narrativo estructural.
+- Cura `Guerra contra el Estado Islamico` con region normalizada `Oriente Medio y Norte de Africa`, evitando heredar `Oceania` desde la ficha de Australia.
+- Mantiene `Invasion rusa a Ucrania` como conflicto activo sin cierre historico artificial.
+- Agrega contadores de consistencia semantica a `reports/project-audit.json`.
+- Amplia pruebas de datos para bloquear cerrados activos, regiones sospechosas y textos `"null"` en detalles de conflictos.
+- Actualiza `BACKLOG.md` con estado auditado, lista completa priorizada y pendientes medidos.
+- Regenera dataset, shards de conflictos, indices publicos y reportes.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-06-30-release-1`.
 
 ## v1.6.14 - 2026-06-29
 

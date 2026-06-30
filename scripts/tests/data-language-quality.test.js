@@ -608,4 +608,47 @@ const deliberateForce = curateConflictEntry({
 assert.equal(deliberateForce.parent, "Guerra de Bosnia");
 assert.equal(deliberateForce.normalizedRegion, "Balcanes");
 
+const islamicStateWar = curateConflictEntry({
+  name: "Guerra contra el Estado Islámico",
+  startYear: 2014,
+  ongoing: true,
+  region: "Oceania",
+  normalizedRegion: "Oceania",
+  curationBatch: "safe-structured-conflict-curation-2026-06"
+}, { country: { name: "Australia", continent: "Oceania" } });
+assert.equal(islamicStateWar.active, true);
+assert.equal(islamicStateWar.ongoing, true);
+assert.equal(islamicStateWar.normalizedRegion, "Oriente Medio y Norte de Africa");
+
+const closedServedConflictsMarkedActive = Object.entries(countries).flatMap(([code, country]) =>
+  (country.military?.conflicts || []).map(conflict => ({ code, ...conflict }))
+).filter(conflict =>
+  Number.isFinite(conflict.endYear) &&
+  conflict.endYear < 2026 &&
+  (conflict.ongoing === true || conflict.active === true || conflict.status === "activo")
+);
+assert.deepEqual(
+  closedServedConflictsMarkedActive,
+  [],
+  `No deben servirse conflictos cerrados como activos: ${JSON.stringify(closedServedConflictsMarkedActive.slice(0, 10))}`
+);
+
+const explicitInactiveConflictsMarkedActive = Object.entries(countries).flatMap(([code, country]) =>
+  (country.military?.conflicts || []).map(conflict => ({ code, ...conflict }))
+).filter(conflict => conflict.ongoing === false && (conflict.active === true || conflict.status === "activo"));
+assert.deepEqual(
+  explicitInactiveConflictsMarkedActive,
+  [],
+  `No deben convivir ongoing:false con active/status activo: ${JSON.stringify(explicitInactiveConflictsMarkedActive.slice(0, 10))}`
+);
+
+const nullNarrativeConflictDetails = Object.entries(conflictDetails.conflicts || {}).flatMap(([name, detail]) =>
+  ["cause", "outcome"].flatMap(field => String(detail?.[field] || "").trim().toLowerCase() === "null" ? [{ name, field }] : [])
+);
+assert.deepEqual(
+  nullNarrativeConflictDetails,
+  [],
+  `Los detalles de conflictos no deben mostrar "null" como texto narrativo: ${JSON.stringify(nullNarrativeConflictDetails.slice(0, 10))}`
+);
+
 console.log("data-language-quality.test.js ok");

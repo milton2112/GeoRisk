@@ -2,11 +2,26 @@
 
 Esta lista se mantiene como tablero vivo del proyecto. La prioridad sale de las auditorias locales, pruebas de release, reportes de datos y problemas visibles reportados durante uso real.
 
+## Estado auditado
+
+- Estado general: operativo, sin issues criticos en `reports/project-audit.json`.
+- Arranque critico: 965 KB, por debajo del limite de 1 MB.
+- `script.js`: 663 KB, bajo el limite de 700 KB pero sigue siendo el mayor bloque.
+- `countries_index.json`: 168 KB, bajo el limite de 240 KB.
+- Auditoria de conflictos: 2003 conflictos escaneados, 0 alertas.
+- Consistencia semantica de conflictos: 0 cerrados marcados activos, 0 `ongoing:false` con `active:true`, 0 textos narrativos `"null"`, 0 regiones sospechosas detectadas.
+- Fichas grandes detectadas: USA, GBR y FRA superan el umbral de peso por volumen de conflictos, organizaciones y rivalidades.
+
 ## Hecho en la tanda actual
 
-- Curar Serbia: capital visible en espanol, ciudades limpias, rivalidad actual con Kosovo y disputa territorial asociada.
-- Cubrir Serbia con prueba de regresion en datos visibles.
-- Mantener el backlog completo documentado para futuras tandas.
+- Corrige conflictos cerrados que quedaban marcados como activos en fichas de pais.
+- Corrige contradicciones entre `ongoing`, `active` y `status`.
+- Limpia textos narrativos `"null"` en causas/resultados de detalles de conflictos.
+- Corrige la region de `Guerra contra el Estado Islamico` para no heredar `Oceania` desde Australia.
+- Ajusta `Invasion rusa a Ucrania` como conflicto activo sin cierre historico artificial.
+- Agrega auditoria semantica de conflictos a `reports/project-audit.json`.
+- Agrega pruebas de regresion de estados activos/historicos, regiones sospechosas y textos `"null"`.
+- Regenera dataset, shards de conflictos, indices publicos y reportes.
 
 ## Prioridad critica
 
@@ -17,6 +32,7 @@ Esta lista se mantiene como tablero vivo del proyecto. La prioridad sale de las 
 - Dividir fichas grandes por seccion, empezando por USA, GBR y FRA.
 - Seguir midiendo congelamientos de inicio con long tasks y FPS real en PC y celular.
 - Verificar interacciones criticas: click de pais, rankings que marcan paises, busqueda y ficha.
+- Mantener en 0 la nueva consistencia semantica de conflictos: cerrados activos, `ongoing:false` activo, textos `"null"` y regiones sospechosas.
 
 ## Datos
 
@@ -25,6 +41,7 @@ Esta lista se mantiene como tablero vivo del proyecto. La prioridad sale de las 
 - Profundizar jerarquia guerra > campana > batalla cuando haya fuente segura.
 - Completar causas, consecuencias, resultado y participantes reales en conflictos prioritarios.
 - Separar con claridad conflictos activos e historicos.
+- Revisar conflictos activos reales con fuente externa antes de cerrar cada release de datos.
 - Completar capitales multiples y ciudades destacadas con nombres docentes normalizados.
 - Revisar idiomas por diversidad linguistica en paises grandes.
 - Profundizar religiones por denominacion sin crear categorias redundantes.
@@ -90,5 +107,6 @@ Esta lista se mantiene como tablero vivo del proyecto. La prioridad sale de las 
 - Agregar mas pruebas de interaccion real para rankings, busqueda y ficha pais.
 - Seguir probando offline despues de una visita inicial.
 - Automatizar medicion de startup y auditoria de proyecto en cada version.
+- Mantener `reports/project-audit.json` como fuente principal de la lista de pendientes.
 - Documentar cada version en `CHANGELOG.md`.
 - Etiquetar releases semanticos y subir tags.

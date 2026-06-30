@@ -5710,11 +5710,14 @@ function normalizeConflicts(conflictEntries) {
         const canonicalName = canonicalizeConflictName(entry);
         const hints = getConflictYearHints(canonicalName);
         const inferredFromName = inferConflictYearsFromText(entry);
+        const ongoing = Boolean(hints?.ongoing ?? inferredFromName.ongoing);
+        const startYear = hints?.startYear ?? inferredFromName.startYear ?? inferredFromName.endYear ?? null;
+        const endYear = hints?.endYear ?? inferredFromName.endYear ?? (ongoing ? null : inferredFromName.startYear) ?? null;
         return {
           name: canonicalName,
-          startYear: hints?.startYear ?? inferredFromName.startYear ?? inferredFromName.endYear ?? null,
-          endYear: hints?.endYear ?? inferredFromName.endYear ?? inferredFromName.startYear ?? null,
-          ongoing: Boolean(hints?.ongoing ?? inferredFromName.ongoing)
+          startYear,
+          endYear,
+          ongoing
         };
       }
 
@@ -5723,15 +5726,16 @@ function normalizeConflicts(conflictEntries) {
       const inferredFromName = inferConflictYearsFromText(entry.name || "");
       const explicitStartYear = entry.startYear ?? null;
       const explicitEndYear = entry.endYear ?? null;
+      const ongoing = Boolean(entry.ongoing ?? hints?.ongoing ?? inferredFromName.ongoing);
       const resolvedStartYear = explicitStartYear ?? hints?.startYear ?? inferredFromName.startYear ?? explicitEndYear ?? hints?.endYear ?? inferredFromName.endYear ?? null;
-      const resolvedEndYear = explicitEndYear ?? hints?.endYear ?? inferredFromName.endYear ?? resolvedStartYear ?? null;
+      const resolvedEndYear = explicitEndYear ?? hints?.endYear ?? inferredFromName.endYear ?? (ongoing ? null : resolvedStartYear) ?? null;
 
       return {
         ...entry,
         name: canonicalName,
         startYear: resolvedStartYear,
         endYear: resolvedEndYear,
-        ongoing: Boolean(entry.ongoing ?? hints?.ongoing ?? inferredFromName.ongoing)
+        ongoing
       };
     })
     .filter(entry => entry?.name && !/^Q\d+$/i.test(entry.name));

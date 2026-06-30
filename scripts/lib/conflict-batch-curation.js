@@ -132,7 +132,8 @@ const WAR_RULES = [
   { name: "Guerra de Kosovo", start: 1998, end: 1999, scale: "internacional", type: "insurgencia", region: "Balcanes" },
   { name: "Guerra de Afganistan", start: 2001, end: 2021, scale: "internacional", type: "insurgencia", region: "Asia central" },
   { name: "Guerra de Irak", start: 2003, end: 2011, scale: "internacional", type: "interestatal", region: "Oriente Medio" },
-  { name: "Invasion rusa a Ucrania", start: 2022, end: 2026, scale: "internacional", type: "interestatal", region: "Europa oriental", active: true }
+  { name: "Guerra contra el Estado Islamico", start: 2014, end: null, scale: "internacional", type: "insurgencia", region: "Oriente Medio y Norte de Africa", active: true },
+  { name: "Invasion rusa a Ucrania", start: 2022, end: null, scale: "internacional", type: "interestatal", region: "Europa oriental", active: true }
 ];
 
 const CAMPAIGN_HINTS = [
@@ -178,6 +179,18 @@ function getYear(entry = {}) {
 
 function getEndYear(entry = {}) {
   return Number.isFinite(entry.endYear) ? entry.endYear : getYear(entry);
+}
+
+function hasClosedEndYear(entry = {}) {
+  return Number.isFinite(entry.endYear) && entry.ongoing !== true;
+}
+
+function isOpenConflict(entry = {}, warRule = null) {
+  if (warRule?.active) return true;
+  if (hasClosedEndYear(entry)) return false;
+  if (entry.ongoing === true && !Number.isFinite(entry.endYear)) return true;
+  const startYear = getYear(entry);
+  return !Number.isFinite(entry.endYear) && startYear >= ACTIVE_THRESHOLD_YEAR && entry.ongoing !== false;
 }
 
 function hasBattleName(entry = {}) {
@@ -280,7 +293,7 @@ function closeAgreementsFor(entry = {}) {
   if (Array.isArray(entry.treaties) && entry.treaties.length) return entry.treaties;
   if (entry.closeAgreement) return [entry.closeAgreement];
   const year = getEndYear(entry);
-  if (!year || entry.ongoing) return [];
+  if (!year || isOpenConflict(entry)) return [];
   return [`Cierre o arreglo posterior pendiente de curaduria especifica (${year})`];
 }
 
@@ -299,7 +312,8 @@ function isGeneratedPlaceholderText(value = "") {
 }
 
 function keepSpecificText(existing, fallback) {
-  if (existing && !isGeneratedPlaceholderText(existing)) return existing;
+  const normalized = normalizeTextForChecks(existing);
+  if (normalized && !["null", "undefined", "nan", "n/a"].includes(normalized) && !isGeneratedPlaceholderText(existing)) return existing;
   return fallback;
 }
 
@@ -345,7 +359,7 @@ function describeConflictCause(entry = {}, context = {}) {
 function describeConflictOutcome(entry = {}, context = {}) {
   const { parent, normalizedRegion } = context;
   const period = periodLabelFor(entry);
-  if (entry.ongoing) {
+  if (isOpenConflict(entry)) {
     return `Conflicto activo o con efectos abiertos; el seguimiento se mantiene por su impacto politico y de seguridad en ${normalizedRegion}.`;
   }
   if (parent && isBattleLike(entry)) {
@@ -431,6 +445,18 @@ export function curateConflictEntry(entry = {}, context = {}) {
   }
   const warRule = inferWarRule(baseEntry);
   const isTopLevelWar = Boolean(warRule && normalizeConflictKey(name) === normalizeConflictKey(warRule.name));
+  if (isTopLevelWar) {
+    if (Number.isFinite(warRule.start) && !Number.isFinite(baseEntry.startYear)) {
+      baseEntry.startYear = warRule.start;
+    }
+    if (warRule.active) {
+      baseEntry.endYear = null;
+      baseEntry.ongoing = true;
+    } else if (Number.isFinite(warRule.end)) {
+      baseEntry.endYear = warRule.end;
+      baseEntry.ongoing = false;
+    }
+  }
   if (isTopLevelWar || normalizeConflictKey(inheritedParent) === normalizeConflictKey(name) || hasObsoleteGenericParent) {
     delete baseEntry.parent;
     delete baseEntry.war;
@@ -447,7 +473,7 @@ export function curateConflictEntry(entry = {}, context = {}) {
   const campaign = (preferNameHint ? campaignHint.campaign : null) || baseEntry.campaign || campaignHint?.campaign || (parent && isBattleLike(baseEntry) ? `Campana vinculada a ${parent}` : null);
   const conflictType = inferConflictType(baseEntry, warRule);
   const scale = inferScale(baseEntry, countryCount, warRule);
-  const active = Boolean(baseEntry.ongoing || warRule?.active || (getEndYear(baseEntry) ?? 0) >= ACTIVE_THRESHOLD_YEAR);
+  const active = isOpenConflict(baseEntry, warRule);
 
   return {
     ...baseEntry,
@@ -456,6 +482,7 @@ export function curateConflictEntry(entry = {}, context = {}) {
     type: baseEntry.type || (isBattleLike(baseEntry) ? "batalla" : conflictType),
     conflictType,
     scale: baseEntry.scale || scale,
+    ongoing: active,
     status: active ? "activo" : "historico",
     active,
     normalizedRegion,
