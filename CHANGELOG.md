@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.22 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.23 antes de cerrar la siguiente version.
+
+## v1.6.23 - 2026-07-01
+
+- Corrige la apertura de fichas desde rankings, busqueda y mapa cuando las capas del GeoJSON todavia no terminaron de indexarse.
+- Hace que la seleccion del mapa resuelva paises por codigo, alias o nombre normalizado, evitando que tops y grupos queden sin marcar por diferencias de GeoJSON.
+- Refuerza click y hover de Cesium leyendo entidades desde `picked.id` y `picked.primitive.id` para cubrir rutas distintas entre 2D y 3D.
+- Agrega reintento seguro para selecciones grupales de continente/religion cuando el mapa sigue cargando.
+- Amplia pruebas de arranque para bloquear regresiones de seleccion diferida, aliases de capas y picks de Cesium.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-01-release-5`.
 
 ## v1.6.22 - 2026-07-01
 

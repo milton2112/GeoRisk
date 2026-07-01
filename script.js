@@ -82,7 +82,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-07-01-release-4";
+const APP_VERSION = "2026-07-01-release-5";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -6962,6 +6962,48 @@ function getLinkedCodes(code) {
   return [code, ...(TERRITORY_LINKS[code] || [])];
 }
 
+function getCountryLayerByCodeOrName(rawCode, fallbackName = "") {
+  const candidates = uniqueNormalizedList([
+    rawCode,
+    String(rawCode || "").trim().toUpperCase(),
+    resolveCountryCode(rawCode, fallbackName),
+    resolveCountryCode("", fallbackName)
+  ]).filter(Boolean);
+
+  for (const candidate of candidates) {
+    const directLayer = countryLayers.get(candidate);
+    if (directLayer) {
+      return directLayer;
+    }
+  }
+
+  const normalizedCandidates = new Set();
+  candidates.forEach(candidate => {
+    buildCountryLookupVariants(candidate).forEach(variant => normalizedCandidates.add(variant));
+  });
+  buildCountryLookupVariants(fallbackName).forEach(variant => normalizedCandidates.add(variant));
+
+  if (!normalizedCandidates.size) {
+    return null;
+  }
+
+  for (const [layerCode, layer] of countryLayers.entries()) {
+    const countryName = countriesData[layer.code]?.name || countriesData[layerCode]?.name || "";
+    const layerVariants = [
+      layerCode,
+      layer.code,
+      layer.featureName,
+      countryName
+    ].flatMap(value => buildCountryLookupVariants(value));
+
+    if (layerVariants.some(variant => normalizedCandidates.has(variant))) {
+      return layer;
+    }
+  }
+
+  return null;
+}
+
 function buildCountryLookupVariants(value) {
   const raw = String(value || "").trim();
   if (!raw) {
@@ -10579,10 +10621,13 @@ function getRankedCountryCode(country) {
     "";
 }
 
-function getCountrySelectionLayers(code) {
-  return getLinkedCodes(code)
-    .map(item => countryLayers.get(item))
+function getCountrySelectionLayers(code, fallbackName = "") {
+  const resolvedCode = resolveCountryCode(code, fallbackName) || String(code || "").trim();
+  const linkedCodes = getLinkedCodes(resolvedCode).concat(getLinkedCodes(code));
+  const layers = linkedCodes
+    .map(item => getCountryLayerByCodeOrName(item, fallbackName))
     .filter(Boolean);
+  return uniqueBy(layers, layer => layer.code || layer.featureName);
 }
 
 function focusCountrySelectionLayers(layers, { focusMap = true } = {}) {
@@ -10594,6 +10639,56 @@ function focusCountrySelectionLayers(layers, { focusMap = true } = {}) {
     fitLayerBounds(createLayerGroup(layers));
   }
   return true;
+}
+
+let pendingCountryLayerReadyPromise = null;
+let countrySelectionRequestId = 0;
+
+async function ensureCountryLayersReady() {
+  if (countryLayers.size) {
+    return true;
+  }
+
+  if (!pendingCountryLayerReadyPromise) {
+    pendingCountryLayerReadyPromise = loadMap(false)
+      .catch(error => {
+        console.warn("No se pudieron preparar las capas del mapa para seleccionar paises:", error);
+        return null;
+      })
+      .finally(() => {
+        pendingCountryLayerReadyPromise = null;
+      });
+  }
+
+  await pendingCountryLayerReadyPromise;
+  return countryLayers.size > 0;
+}
+
+function selectCountryLayersWhenReady(code, fallbackName = "", options = {}) {
+  const requestId = ++countrySelectionRequestId;
+  const applySelection = () => {
+    if (requestId !== countrySelectionRequestId) {
+      return false;
+    }
+    const selected = focusCountrySelectionLayers(getCountrySelectionLayers(code, fallbackName), options);
+    if (!selected) {
+      clearSelection();
+    }
+    return selected;
+  };
+
+  if (countryLayers.size) {
+    return applySelection();
+  }
+
+  ensureCountryLayersReady().then(ready => {
+    if (!ready) {
+      return;
+    }
+    applySelection();
+    requestMapRenderSafe("country-selection-ready");
+  });
+  return false;
 }
 
 async function openCountryByCode(rawCode, fallbackName = "", options = {}) {
@@ -10609,10 +10704,7 @@ async function openCountryByCode(rawCode, fallbackName = "", options = {}) {
     return false;
   }
 
-  const selected = focusCountrySelectionLayers(getCountrySelectionLayers(code), options);
-  if (!selected) {
-    clearSelection();
-  }
+  selectCountryLayersWhenReady(code, country.name || fallbackName, options);
   await renderCountry(country, fallbackName || country.name || code);
   requestMapRenderSafe("open-country");
   return true;
@@ -13520,21 +13612,28 @@ function getCountriesByRival(rivalName) {
 }
 
 function getLayersForCountries(countries) {
-  const matchingCodes = new Set(
-    (countries || [])
-      .map(country => getRankedCountryCode(country))
-      .filter(Boolean)
-  );
+  const layers = [];
+  (countries || []).forEach(country => {
+    const code = getRankedCountryCode(country);
+    getCountrySelectionLayers(code, country?.name || country?.general?.officialName || "")
+      .forEach(layer => layers.push(layer));
+  });
 
-  return [...matchingCodes]
-    .map(code => countryLayers.get(code))
-    .filter(Boolean);
+  return uniqueBy(layers, layer => layer.code || layer.featureName);
 }
 
-function selectCountryGroupLayers(countries, { mode = "continent", focusMap = true } = {}) {
+function selectCountryGroupLayers(countries, { mode = "continent", focusMap = true, retryWhenReady = true } = {}) {
   const layers = getLayersForCountries(countries);
   if (!layers.length) {
-    clearSelection();
+    if (retryWhenReady && !countryLayers.size) {
+      ensureCountryLayersReady().then(ready => {
+        if (ready) {
+          selectCountryGroupLayers(countries, { mode, focusMap, retryWhenReady: false });
+        }
+      });
+    } else {
+      clearSelection();
+    }
     return false;
   }
 
@@ -14601,6 +14700,21 @@ function generateSystemRanking() {
     });
 }
 
+function getPickedCountryEntity(picked) {
+  if (!picked) {
+    return null;
+  }
+
+  const candidates = [
+    picked.id,
+    picked.primitive?.id,
+    picked.collection?.owner,
+    picked.primitive?._owner
+  ];
+
+  return candidates.find(candidate => candidate?.countryCode || candidate?.countryName) || null;
+}
+
 async function loadMap(bootPhase = false) {
   const requestedMode = currentMapMode;
   const geoJsonPath = getGeoJsonPathForCurrentMode(bootPhase);
@@ -14726,8 +14840,9 @@ async function loadMap(bootPhase = false) {
     clickHandler.setInputAction(async movement => {
     emitMapEvent("click");
     const picked = viewer.scene.pick(movement.position);
-    const rawCode = picked?.id?.countryCode;
-    const featureName = picked?.id?.countryName;
+    const pickedEntity = getPickedCountryEntity(picked);
+    const rawCode = pickedEntity?.countryCode;
+    const featureName = pickedEntity?.countryName;
     const code = resolveCountryCode(rawCode, featureName) || rawCode;
 
     if (!code) {
@@ -14742,7 +14857,7 @@ async function loadMap(bootPhase = false) {
       return;
     }
 
-    const country = countriesData[code];
+    const country = countriesData[code] || await loadCountryDetail(code);
     if (!country) {
       clearSelection();
       const aliasCode = resolveCountryCode("", featureName || code);
@@ -14753,7 +14868,7 @@ async function loadMap(bootPhase = false) {
       return;
     }
 
-    const linkedLayers = getCountrySelectionLayers(code);
+    const linkedLayers = getCountrySelectionLayers(code, featureName || country.name);
     if (
       selectionMode === "country" &&
       selectedLayers.length === linkedLayers.length &&
@@ -14788,8 +14903,9 @@ async function loadMap(bootPhase = false) {
     lastHoverSampleAt = now;
 
     const picked = viewer.scene.pick(movement.endPosition);
-    const code = picked?.id?.countryCode;
-    const layer = code ? countryLayers.get(code) : null;
+    const pickedEntity = getPickedCountryEntity(picked);
+    const code = resolveCountryCode(pickedEntity?.countryCode, pickedEntity?.countryName) || pickedEntity?.countryCode;
+    const layer = code ? getCountryLayerByCodeOrName(code, pickedEntity?.countryName || "") : null;
     const hoverCode = layer?.code || "";
 
     if (hoverCode === lastHoverCode) {

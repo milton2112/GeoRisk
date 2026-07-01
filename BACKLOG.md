@@ -5,8 +5,8 @@ Esta lista se mantiene como tablero vivo del proyecto. La prioridad sale de las 
 ## Estado auditado
 
 - Estado general: operativo, sin issues criticos en `reports/project-audit.json`.
-- Arranque critico: 973 KB, bajo el limite de 1 MB pero todavia cerca del umbral.
-- `script.js`: 672 KB, bajo el limite de 700 KB pero sigue siendo el mayor bloque.
+- Arranque critico: 977 KB, bajo el limite de 1 MB pero todavia cerca del umbral.
+- `script.js`: 692.036 bytes, bajo el limite de 700 KB pero muy cerca del umbral.
 - `countries_index.json`: 168 KB, bajo el limite de 240 KB.
 - Auditoria de conflictos: 2003 conflictos escaneados, 0 alertas.
 - Consistencia semantica de conflictos: 0 cerrados marcados activos, 0 `ongoing:false` con `active:true`, 0 rangos de fecha invalidos, 0 acciones historicas abiertas, 0 textos narrativos `"null"`, 0 regiones sospechosas detectadas.
@@ -14,10 +14,12 @@ Esta lista se mantiene como tablero vivo del proyecto. La prioridad sale de las 
 
 ## Hecho en la tanda actual
 
-- Audita funciones conectadas en hubs de proyecto, favoritos, ficha, notas locales, rankings y busqueda.
-- Agrega confirmacion accesible de guardado automatico para notas locales de ficha pais.
-- Mantiene el estilo de esa confirmacion en CSS diferido para no subir el CSS critico.
-- Agrega pruebas para bloquear notas locales sin estado visible de guardado.
+- Corrige el flujo critico de abrir ficha desde busqueda, rankings y mapa.
+- Agrega seleccion diferida cuando las capas del GeoJSON todavia no estan listas.
+- Hace que rankings y grupos resuelvan capas por codigo, alias o nombre normalizado.
+- Refuerza click/hover de Cesium para entidades expuestas por `picked.id` o `picked.primitive.id`.
+- Verifica en navegador local que buscar Argentina abre ficha y que tocar India en Top poblacion deja el ranking activo y abre la ficha.
+- Agrega pruebas para bloquear regresiones en seleccion diferida y picks de Cesium.
 
 ## Prioridad critica
 

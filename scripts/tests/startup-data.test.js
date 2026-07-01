@@ -175,6 +175,13 @@ assert.ok(/await hydrateCountriesData\(countriesJson\);\s*setupCriticalCountrySe
 assert.ok(script.includes("async function openCountryByCode"), "interacciones deben centralizar apertura de ficha por codigo");
 assert.ok(/if \(result\.type === "country"\)[\s\S]{0,180}await openCountryByCode\(countryCode, result\.label\)/.test(script), "busqueda de pais debe abrir ficha aunque la geometria siga cargando");
 assert.ok(/function selectRankedCountry\(country\)[\s\S]{0,180}await openCountryByCode\(code/.test(script), "rankings deben abrir fichas con el mismo flujo que busqueda/mapa");
+assert.ok(script.includes("function getCountryLayerByCodeOrName"), "seleccion de mapa debe resolver capas por codigo, alias o nombre");
+assert.ok(/function getCountrySelectionLayers\(code, fallbackName = ""\)[\s\S]{0,260}getCountryLayerByCodeOrName/.test(script), "seleccion de pais debe tolerar capas con codigos o nombres alternativos");
+assert.ok(script.includes("async function ensureCountryLayersReady"), "rankings y busqueda deben esperar capas si el mapa sigue cargando");
+assert.ok(/function selectCountryLayersWhenReady[\s\S]{0,650}ensureCountryLayersReady\(\)/.test(script), "apertura de ficha debe marcar mapa cuando las capas quedan listas");
+assert.ok(/let countrySelectionRequestId = 0[\s\S]{0,900}requestId !== countrySelectionRequestId/.test(script), "seleccion diferida no debe pisar la ultima ficha abierta");
+assert.ok(/function selectCountryGroupLayers\(countries,[\s\S]{0,500}retryWhenReady[\s\S]{0,500}ensureCountryLayersReady/.test(script), "selecciones de continente/religion deben reintentar cuando el mapa aun no esta indexado");
+assert.ok(/function getPickedCountryEntity\(picked\)[\s\S]{0,220}picked\.primitive\?\.id/.test(script), "click/hover de Cesium debe soportar entidades expuestas por primitive.id");
 assert.ok(script.includes("const religionDenominationAliases = new Map()"), "busqueda debe indexar denominaciones religiosas como categoria propia");
 assert.ok(script.includes("function getReligionDenominationMatches"), "denominaciones religiosas deben seleccionar paises sin degradar a familia general");
 assert.ok(script.includes("function getReligionSelectionNominalPopulation"), "fichas de religion deben calcular familias y denominaciones con la metrica correcta");
