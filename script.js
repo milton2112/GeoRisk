@@ -82,7 +82,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-07-01-release-3";
+const APP_VERSION = "2026-07-01-release-4";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -93,18 +93,18 @@ function createFallbackSearchCache() {
 }
 
 const DEFERRED_UI_MODULES = {
-  news: "./app-news-ui.js?v=2026-07-01-release-3",
-  compare: "./app-compare-ui.js?v=2026-07-01-release-3",
-  quiz: "./app-quiz-ui.js?v=2026-07-01-release-3",
-  riskRadar: "./app-risk-radar-ui.js?v=2026-07-01-release-3",
-  conflictAudit: "./app-conflict-audit-ui.js?v=2026-07-01-release-3",
-  projectAudit: "./app-project-audit-ui.js?v=2026-07-01-release-3",
-  help: "./app-help-ui.js?v=2026-07-01-release-3",
-  uiPolish: "./app-ui-polish.js?v=2026-07-01-release-3",
-  countryPanel: "./app-country-panel.js?v=2026-07-01-release-3",
-  timelineConflicts: "./app-timeline-conflicts.js?v=2026-07-01-release-3",
-  search: "./app-search.js?v=2026-07-01-release-3",
-  rankings: "./app-rankings.js?v=2026-07-01-release-3"
+  news: "./app-news-ui.js?v=2026-07-01-release-4",
+  compare: "./app-compare-ui.js?v=2026-07-01-release-4",
+  quiz: "./app-quiz-ui.js?v=2026-07-01-release-4",
+  riskRadar: "./app-risk-radar-ui.js?v=2026-07-01-release-4",
+  conflictAudit: "./app-conflict-audit-ui.js?v=2026-07-01-release-4",
+  projectAudit: "./app-project-audit-ui.js?v=2026-07-01-release-4",
+  help: "./app-help-ui.js?v=2026-07-01-release-4",
+  uiPolish: "./app-ui-polish.js?v=2026-07-01-release-4",
+  countryPanel: "./app-country-panel.js?v=2026-07-01-release-4",
+  timelineConflicts: "./app-timeline-conflicts.js?v=2026-07-01-release-4",
+  search: "./app-search.js?v=2026-07-01-release-4",
+  rankings: "./app-rankings.js?v=2026-07-01-release-4"
 };
 const deferredUiModulePromises = new Map();
 
@@ -7166,6 +7166,9 @@ function renderCountryLocalTools(country, countryCode, savedNotes = "") {
       <h4>${currentLanguage === "en" ? "Local notes and provenance" : "Notas locales y procedencia"}</h4>
       ${qualityMarkup}
       <textarea class="country-notes-input" data-country-notes="${escapeHtml(countryCode)}" rows="4" placeholder="${currentLanguage === "en" ? "Private notes saved on this device" : "Notas privadas guardadas en este dispositivo"}">${escapeHtml(savedNotes)}</textarea>
+      <small class="country-notes-status" data-country-notes-status aria-live="polite">${savedNotes
+        ? (currentLanguage === "en" ? "Notes saved on this device." : "Notas guardadas en este dispositivo.")
+        : (currentLanguage === "en" ? "Saved automatically on this device." : "Se guardan automaticamente en este dispositivo.")}</small>
       <div class="panel-actions-row">
         <button class="panel-action-button" type="button" data-quick-compare="${escapeHtml(countryCode)}">${currentLanguage === "en" ? "Quick compare" : "Comparacion rapida"}</button>
         <button class="panel-action-button" type="button" data-share-country="${escapeHtml(countryCode)}">${currentLanguage === "en" ? "Share profile" : "Compartir ficha"}</button>
@@ -7529,8 +7532,12 @@ async function renderCountry(country, fallbackName) {
   }
   const notesInput = document.querySelector("[data-country-notes]");
   if (notesInput && countryCode) {
+    const notesStatus = document.querySelector("[data-country-notes-status]");
     notesInput.addEventListener("input", event => {
       localStorage.setItem(notesKey, event.target.value || "");
+      if (notesStatus) {
+        notesStatus.textContent = currentLanguage === "en" ? "Notes saved." : "Notas guardadas.";
+      }
     });
   }
 

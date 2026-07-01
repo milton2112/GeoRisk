@@ -437,6 +437,13 @@
   box-shadow: 0 0 0 3px rgba(114, 222, 192, 0.12);
 }
 
+.country-notes-status {
+  display: block;
+  margin: 6px 0 10px;
+  color: rgba(220, 239, 255, 0.66);
+  font-size: 0.74rem;
+}
+
 .country-skeleton-line,
 .country-skeleton-grid span {
   background: linear-gradient(90deg, rgba(255, 255, 255, 0.04), rgba(114, 222, 192, 0.13), rgba(255, 255, 255, 0.04));

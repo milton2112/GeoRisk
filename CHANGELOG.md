@@ -8,7 +8,14 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.21 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.22 antes de cerrar la siguiente version.
+
+## v1.6.22 - 2026-07-01
+
+- Agrega feedback accesible de guardado automatico a las notas locales de ficha pais.
+- Mantiene el estilo del estado de notas en `style-polish.css` para no aumentar el CSS critico.
+- Refuerza pruebas de higiene visual para bloquear notas locales sin confirmacion de guardado.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-01-release-4`.
 
 ## v1.6.21 - 2026-07-01
 

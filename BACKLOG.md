@@ -14,11 +14,10 @@ Esta lista se mantiene como tablero vivo del proyecto. La prioridad sale de las 
 
 ## Hecho en la tanda actual
 
-- Audita funciones conectadas en rankings, busqueda, ficha grupal, noticias y quiz.
-- Convierte listas de paises de vistas agrupadas en botones que abren ficha: continente, religion, sistema, bloque, organizacion y rivalidad.
-- Corrige el calculo visible de denominaciones religiosas para no mostrar porcentajes de familia general.
-- Mueve estilos de listas grupales al CSS diferido y evita inflar el arranque critico.
-- Elimina una funcion de noticias sin uso y agrega pruebas para bloquear listas grupales no accionables.
+- Audita funciones conectadas en hubs de proyecto, favoritos, ficha, notas locales, rankings y busqueda.
+- Agrega confirmacion accesible de guardado automatico para notas locales de ficha pais.
+- Mantiene el estilo de esa confirmacion en CSS diferido para no subir el CSS critico.
+- Agrega pruebas para bloquear notas locales sin estado visible de guardado.
 
 ## Prioridad critica
 

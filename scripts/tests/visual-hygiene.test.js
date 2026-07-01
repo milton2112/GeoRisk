@@ -139,6 +139,8 @@ assert.ok(script.includes("formatNumber(Math.round(capital.population))"), "pobl
 assert.ok(script.includes("formatNumber(Math.round(city.population))"), "poblacion de ciudades debe mostrarse como habitantes enteros");
 assert.ok(script.includes('button.setAttribute("aria-pressed", String(selected))'), "ficha debe confirmar cuando un pais esta en el comparador");
 assert.ok(script.includes('button.classList.toggle("is-active", active)'), "navegacion de ficha debe mostrar la seccion elegida");
+assert.ok(script.includes("data-country-notes-status"), "notas locales deben mostrar estado de guardado accesible");
+assert.ok(polishCss.includes(".country-notes-status"), "estado de notas locales debe tener estilo visual diferido");
 assert.ok(script.includes("function closeMobileHubPanels"), "paneles y hubs mobile deben abrirse de forma exclusiva");
 assert.ok(script.includes("function syncLayersPanelState"), "panel de capas debe sincronizar hubs inferiores al abrir/cerrar");
 assert.ok(script.includes('document.body.classList.toggle("layers-panel-open", isOpen)'), "panel de capas debe publicar estado abierto al CSS");
