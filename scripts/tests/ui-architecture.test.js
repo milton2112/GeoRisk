@@ -52,7 +52,7 @@ assert.ok(helpUi.includes("Alt+C"), "ayuda diferida debe documentar atajos de hu
 
 const script = await fs.readFile(path.join(projectRoot, "script.js"), "utf8");
 assert.ok(script.includes("appStore?.setState"), "runtime debe publicar estado al store central");
-assert.ok(script.includes("uiPolish: \"./app-ui-polish.js"), "runtime debe declarar polish UI como modulo diferido");
+assert.ok(script.includes("uiPolish: `./app-ui-polish.js?v=${APP_VERSION}`"), "runtime debe declarar polish UI como modulo diferido versionado");
 assert.ok(script.includes("uiPolish.init"), "runtime debe inicializar polish UI");
 assert.ok(!indexHtml.includes("style-polish.css"), "estilos de paneles no deben bloquear el mapa inicial");
 assert.ok(script.includes("event.key.toLowerCase() === \"p\""), "runtime debe exponer atajo de presentacion");

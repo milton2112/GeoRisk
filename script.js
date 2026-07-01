@@ -82,7 +82,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-07-01-release-5";
+const APP_VERSION = "2026-07-01-release-6";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -93,18 +93,18 @@ function createFallbackSearchCache() {
 }
 
 const DEFERRED_UI_MODULES = {
-  news: "./app-news-ui.js?v=2026-07-01-release-4",
-  compare: "./app-compare-ui.js?v=2026-07-01-release-4",
-  quiz: "./app-quiz-ui.js?v=2026-07-01-release-4",
-  riskRadar: "./app-risk-radar-ui.js?v=2026-07-01-release-4",
-  conflictAudit: "./app-conflict-audit-ui.js?v=2026-07-01-release-4",
-  projectAudit: "./app-project-audit-ui.js?v=2026-07-01-release-4",
-  help: "./app-help-ui.js?v=2026-07-01-release-4",
-  uiPolish: "./app-ui-polish.js?v=2026-07-01-release-4",
-  countryPanel: "./app-country-panel.js?v=2026-07-01-release-4",
-  timelineConflicts: "./app-timeline-conflicts.js?v=2026-07-01-release-4",
-  search: "./app-search.js?v=2026-07-01-release-4",
-  rankings: "./app-rankings.js?v=2026-07-01-release-4"
+  news: `./app-news-ui.js?v=${APP_VERSION}`,
+  compare: `./app-compare-ui.js?v=${APP_VERSION}`,
+  quiz: `./app-quiz-ui.js?v=${APP_VERSION}`,
+  riskRadar: `./app-risk-radar-ui.js?v=${APP_VERSION}`,
+  conflictAudit: `./app-conflict-audit-ui.js?v=${APP_VERSION}`,
+  projectAudit: `./app-project-audit-ui.js?v=${APP_VERSION}`,
+  help: `./app-help-ui.js?v=${APP_VERSION}`,
+  uiPolish: `./app-ui-polish.js?v=${APP_VERSION}`,
+  countryPanel: `./app-country-panel.js?v=${APP_VERSION}`,
+  timelineConflicts: `./app-timeline-conflicts.js?v=${APP_VERSION}`,
+  search: `./app-search.js?v=${APP_VERSION}`,
+  rankings: `./app-rankings.js?v=${APP_VERSION}`
 };
 const deferredUiModulePromises = new Map();
 
@@ -5047,18 +5047,6 @@ function renderCountryCurationTodo(country, conflictGroups = [], conflictCountOv
       ` : ""}
     </aside>
   `;
-}
-
-function getTimelineEventQuery(event, country) {
-  if (event.query) {
-    return event.query;
-  }
-
-  if (event.reference) {
-    return event.reference;
-  }
-
-  return country?.name || event.text;
 }
 
 function getTimelineCentury(year) {
@@ -10517,7 +10505,6 @@ function renderTimelineCollection(items, contextCountry = null) {
   return `${controls}${aggregateSummary}${stats ? `<p class="timeline-window-note">${currentLanguage === "en" ? "Filtered events" : "Eventos filtrados"}: ${formatNumber(stats.total)}${stats.weakText ? ` · ${currentLanguage === "en" ? "weak texts" : "textos debiles"}: ${formatNumber(stats.weakText)}` : ""}</p>` : ""}<div class="timeline">${renderWindow.visible
     .map(item => {
       const modalKey = registerTimelineModal(item, item.contextLabel || contextCountry?.name || "");
-      const query = contextCountry ? getTimelineEventQuery(item, contextCountry) : (item.reference || item.text);
       const groupedLabel = item.groupedCount > 1
         ? ` · ${currentLanguage === "en" ? "grouped" : "agrupados"}: ${formatNumber(item.groupedCount)}`
         : "";
@@ -10525,7 +10512,7 @@ function renderTimelineCollection(items, contextCountry = null) {
         ? ` · ${currentLanguage === "en" ? "refs" : "refs"}: ${formatNumber(item.references.length)}`
         : "";
       return `
-        <button class="timeline-item network-link" type="button" data-timeline-key="${modalKey}" data-timeline-query="${escapeHtml(query)}" style="--accent:${getTimelineCategoryAccent(item.categoryKey)};">
+        <button class="timeline-item network-link" type="button" data-timeline-key="${modalKey}" style="--accent:${getTimelineCategoryAccent(item.categoryKey)};">
           <span class="timeline-year">${item.year}</span>
           <span class="timeline-copy">
             <span class="timeline-kicker">${escapeHtml(item.category || (currentLanguage === "en" ? "Event" : "Evento"))} · ${escapeHtml(item.century || "")} · ${escapeHtml(getTimelineIntensityLabel(item.intensity))} · ${escapeHtml(getTimelineRelevanceLabel(item.relevance || getTimelineRelevance(item)))}${escapeHtml(groupedLabel)}${escapeHtml(refsLabel)}</span>

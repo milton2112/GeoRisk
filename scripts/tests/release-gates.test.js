@@ -52,6 +52,9 @@ for (const src of initialLocalScripts) {
   assert.ok(indexHtml.includes(`${src}?v=${appVersion}`), `${src} debe usar el stamp de version activo`);
 }
 assert.ok(script.includes("window.GeoRiskAppVersion = APP_VERSION"), "script.js debe exponer APP_VERSION a modulos diferidos");
+const deferredModulesBlock = script.match(/const DEFERRED_UI_MODULES = \{([\s\S]*?)\};/)?.[1] || "";
+assert.ok(deferredModulesBlock.includes("APP_VERSION"), "modulos diferidos deben usar APP_VERSION");
+assert.ok(!/release-\d/.test(deferredModulesBlock), "modulos diferidos no deben fijar stamps viejos de release");
 assert.ok(uiPolish.includes("window.GeoRiskAppVersion"), "app-ui-polish debe leer el stamp de version activo");
 assert.ok(uiPolish.includes("style-polish.css?v=${POLISH_VERSION}"), "style-polish.css diferido debe usar el stamp de version activo");
 assert.ok(changelog.includes(`## v${packageJson.version}`), "CHANGELOG.md debe documentar la version del paquete");

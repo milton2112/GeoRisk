@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.23 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.24 antes de cerrar la siguiente version.
+
+## v1.6.24 - 2026-07-01
+
+- Corrige el versionado de modulos diferidos para que noticias, comparador, quiz, timeline, busqueda, rankings y paneles usen siempre `APP_VERSION`.
+- Evita que funciones cargadas bajo demanda puedan traer codigo cacheado de releases anteriores.
+- Elimina el atributo muerto `data-timeline-query` y la funcion sin uso asociada al render del timeline.
+- Refuerza pruebas de release para bloquear stamps fijos dentro de `DEFERRED_UI_MODULES`.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-01-release-6`.
 
 ## v1.6.23 - 2026-07-01
 

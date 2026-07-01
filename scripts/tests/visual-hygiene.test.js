@@ -109,7 +109,7 @@ assert.ok(css.includes(".panel-section[open] summary::after"), "secciones desple
 assert.ok(script.includes("constrainedInitialDevice ? \"none\" : \"countries\""), "mobile debe arrancar con etiquetas reducidas");
 assert.ok(script.includes("function setStartupStatus"), "arranque debe informar fases sin bloquear la UI");
 assert.ok(script.includes("function runIntroAction"), "portada debe convertir acciones guiadas en flujo real");
-assert.ok(script.includes('help: "./app-help-ui.js'), "guia rapida debe cargarse como modulo diferido");
+assert.ok(script.includes('help: `./app-help-ui.js?v=${APP_VERSION}`'), "guia rapida debe cargarse como modulo diferido versionado");
 assert.ok(script.includes("renderHelpModalContent"), "guia rapida debe renderizarse bajo demanda");
 assert.ok(script.includes("setTheme(\"riskRadar\")"), "accion de riesgo debe activar la capa de radar");
 assert.ok(script.includes("setTheme(\"conflicts\")"), "accion de conflictos debe activar la capa de conflictos");

@@ -6,7 +6,7 @@ Esta lista se mantiene como tablero vivo del proyecto. La prioridad sale de las 
 
 - Estado general: operativo, sin issues criticos en `reports/project-audit.json`.
 - Arranque critico: 977 KB, bajo el limite de 1 MB pero todavia cerca del umbral.
-- `script.js`: 692.036 bytes, bajo el limite de 700 KB pero muy cerca del umbral.
+- `script.js`: 691.609 bytes, bajo el limite de 700 KB pero muy cerca del umbral.
 - `countries_index.json`: 168 KB, bajo el limite de 240 KB.
 - Auditoria de conflictos: 2003 conflictos escaneados, 0 alertas.
 - Consistencia semantica de conflictos: 0 cerrados marcados activos, 0 `ongoing:false` con `active:true`, 0 rangos de fecha invalidos, 0 acciones historicas abiertas, 0 textos narrativos `"null"`, 0 regiones sospechosas detectadas.
@@ -14,12 +14,10 @@ Esta lista se mantiene como tablero vivo del proyecto. La prioridad sale de las 
 
 ## Hecho en la tanda actual
 
-- Corrige el flujo critico de abrir ficha desde busqueda, rankings y mapa.
-- Agrega seleccion diferida cuando las capas del GeoJSON todavia no estan listas.
-- Hace que rankings y grupos resuelvan capas por codigo, alias o nombre normalizado.
-- Refuerza click/hover de Cesium para entidades expuestas por `picked.id` o `picked.primitive.id`.
-- Verifica en navegador local que buscar Argentina abre ficha y que tocar India en Top poblacion deja el ranking activo y abre la ficha.
-- Agrega pruebas para bloquear regresiones en seleccion diferida y picks de Cesium.
+- Audita funciones visibles y contratos `data-*` de botones/controles.
+- Corrige el versionado de modulos diferidos para que usen `APP_VERSION` y no queden cacheados en releases viejas.
+- Elimina una ruta muerta del timeline (`data-timeline-query` y su helper sin uso).
+- Agrega prueba de release para bloquear stamps fijos dentro de `DEFERRED_UI_MODULES`.
 
 ## Prioridad critica
 
