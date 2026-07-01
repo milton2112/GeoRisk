@@ -16,9 +16,20 @@ const compareWindow = await loadBrowserModule("app-compare-ui.js");
 const quizWindow = await loadBrowserModule("app-quiz-ui.js");
 const compare = compareWindow.GeoRiskCompareUI;
 const quiz = quizWindow.GeoRiskQuizUI;
+const runtime = await fs.readFile(path.join(projectRoot, "script.js"), "utf8");
 
 assert.ok(compare.buildComparisonModel, "comparador debe exponer modelo logico");
 assert.ok(compare.buildProfessionalSections, "comparador debe renderizar secciones profesionales");
+assert.equal((runtime.match(/function setupCompareControls\(/g) || []).length, 1, "runtime debe tener un unico setup avanzado del comparador");
+assert.equal((runtime.match(/setupCompareControls = function setupCompareControls/g) || []).length, 0, "setup viejo del comparador no debe pisar la version avanzada");
+const compareSetupBody = runtime.slice(
+  runtime.indexOf("function setupCompareControls()"),
+  runtime.indexOf("renderComparePanel = function renderComparePanel")
+);
+assert.ok(compareSetupBody.includes("compare-country-search"), "comparador debe conectar el buscador interno");
+assert.ok(compareSetupBody.includes("compare-preset-select"), "comparador debe conectar presets");
+assert.ok(compareSetupBody.includes("compare-benchmark-world"), "comparador debe conectar benchmark mundo");
+assert.ok(compareSetupBody.includes("compare-benchmark-continent"), "comparador debe conectar benchmark continente");
 assert.ok(quiz.buildQuestionBank, "quiz debe generar banco desde dataset");
 assert.ok(quiz.buildQuestionFromBank, "quiz debe generar preguntas con dificultad");
 

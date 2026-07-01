@@ -113,6 +113,10 @@ assert.ok(appMap.includes("world_countries.geo.json"), "GeoJSON detallado debe e
 assert.ok(timelineConflicts.includes("filterTimelineEvents"), "timeline debe tener filtro testeable");
 assert.ok(timelineConflicts.includes("groupRepeatedEvents"), "timeline debe agrupar eventos repetidos");
 assert.ok(script.includes("ensureExportLibraries"), "exportacion debe tener loader dedicado");
+assert.equal((script.match(/exportNodeAsImage = async function exportNodeAsImage/g) || []).length, 1, "exportacion de imagen no debe conservar implementaciones duplicadas");
+assert.equal((script.match(/exportNodeAsPdf = async function exportNodeAsPdf/g) || []).length, 1, "exportacion PDF no debe conservar implementaciones duplicadas");
+assert.equal((script.match(/shareText = async function shareText/g) || []).length, 1, "compartir no debe conservar implementaciones duplicadas");
+assert.equal((script.match(/setupCompareControls = function setupCompareControls/g) || []).length, 0, "setup incompleto del comparador no debe pisar controles avanzados");
 assert.ok(script.includes("exportNodeAsImage"), "exportacion de imagen debe existir");
 assert.ok(script.includes("exportNodeAsPdf"), "exportacion PDF debe existir");
 

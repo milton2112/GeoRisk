@@ -82,7 +82,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-06-30-release-4";
+const APP_VERSION = "2026-07-01-release-1";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -93,18 +93,18 @@ function createFallbackSearchCache() {
 }
 
 const DEFERRED_UI_MODULES = {
-  news: "./app-news-ui.js?v=2026-06-30-release-4",
-  compare: "./app-compare-ui.js?v=2026-06-30-release-4",
-  quiz: "./app-quiz-ui.js?v=2026-06-30-release-4",
-  riskRadar: "./app-risk-radar-ui.js?v=2026-06-30-release-4",
-  conflictAudit: "./app-conflict-audit-ui.js?v=2026-06-30-release-4",
-  projectAudit: "./app-project-audit-ui.js?v=2026-06-30-release-4",
-  help: "./app-help-ui.js?v=2026-06-30-release-4",
-  uiPolish: "./app-ui-polish.js?v=2026-06-30-release-4",
-  countryPanel: "./app-country-panel.js?v=2026-06-30-release-4",
-  timelineConflicts: "./app-timeline-conflicts.js?v=2026-06-30-release-4",
-  search: "./app-search.js?v=2026-06-30-release-4",
-  rankings: "./app-rankings.js?v=2026-06-30-release-4"
+  news: "./app-news-ui.js?v=2026-07-01-release-1",
+  compare: "./app-compare-ui.js?v=2026-07-01-release-1",
+  quiz: "./app-quiz-ui.js?v=2026-07-01-release-1",
+  riskRadar: "./app-risk-radar-ui.js?v=2026-07-01-release-1",
+  conflictAudit: "./app-conflict-audit-ui.js?v=2026-07-01-release-1",
+  projectAudit: "./app-project-audit-ui.js?v=2026-07-01-release-1",
+  help: "./app-help-ui.js?v=2026-07-01-release-1",
+  uiPolish: "./app-ui-polish.js?v=2026-07-01-release-1",
+  countryPanel: "./app-country-panel.js?v=2026-07-01-release-1",
+  timelineConflicts: "./app-timeline-conflicts.js?v=2026-07-01-release-1",
+  search: "./app-search.js?v=2026-07-01-release-1",
+  rankings: "./app-rankings.js?v=2026-07-01-release-1"
 };
 const deferredUiModulePromises = new Map();
 
@@ -12273,59 +12273,6 @@ function sanitizeCountryData(country) {
   return country;
 }
 
-exportNodeAsImage = async function exportNodeAsImage(node, filename) {
-  if (!node || typeof html2canvas !== "function") {
-    return;
-  }
-
-  const canvas = await html2canvas(node, {
-    backgroundColor: "#071320",
-    scale: window.devicePixelRatio > 1 ? 2 : 1.5,
-    useCORS: true
-  });
-
-  const link = document.createElement("a");
-  link.href = canvas.toDataURL("image/png");
-  link.download = filename;
-  link.click();
-};
-
-exportNodeAsPdf = async function exportNodeAsPdf(node, filename) {
-  if (!node || typeof html2canvas !== "function" || !window.jspdf?.jsPDF) {
-    return;
-  }
-
-  const canvas = await html2canvas(node, {
-    backgroundColor: "#071320",
-    scale: 2,
-    useCORS: true
-  });
-  const image = canvas.toDataURL("image/png");
-  const { jsPDF } = window.jspdf;
-  const pdf = new jsPDF({
-    orientation: canvas.width > canvas.height ? "landscape" : "portrait",
-    unit: "px",
-    format: [canvas.width, canvas.height]
-  });
-  pdf.addImage(image, "PNG", 0, 0, canvas.width, canvas.height);
-  pdf.save(filename);
-};
-
-shareText = async function shareText(title, text) {
-  if (navigator.share) {
-    try {
-      await navigator.share({ title, text });
-      return;
-    } catch (error) {
-      console.error("No se pudo compartir:", error);
-    }
-  }
-
-  if (navigator.clipboard?.writeText) {
-    await navigator.clipboard.writeText(`${title}\n\n${text}`);
-  }
-};
-
 function buildCompareRadarSVG(entries) {
   const size = 220;
   const center = size / 2;
@@ -15459,67 +15406,6 @@ function setupThemeControls() {
     updateStaticText();
     closeMobilePanels();
   });
-};
-
-setupCompareControls = function setupCompareControls() {
-  const chips = document.getElementById("compare-chips");
-  const select = document.getElementById("compare-country-select");
-  const addButton = document.getElementById("compare-add-button");
-  const openButton = document.getElementById("open-compare-modal-button");
-  const clearButton = document.getElementById("clear-compare-button");
-  const comparePanel = document.getElementById("compare-hub-panel");
-  const compareModal = document.getElementById("compare-modal");
-  const compareCloseButton = document.getElementById("compare-modal-close");
-
-  if (select) {
-    select.innerHTML = `<option value="">${currentLanguage === "en" ? "Select country" : "Seleccionar pais"}</option>${
-      Object.entries(countriesData)
-        .sort(([, a], [, b]) => String(a.name).localeCompare(String(b.name), "es"))
-        .map(([code, country]) => `<option value="${escapeHtml(code)}">${escapeHtml(country.name)}</option>`)
-        .join("")
-    }`;
-  }
-
-  chips.addEventListener("click", event => {
-    const button = event.target.closest("[data-remove-compare]");
-    if (!button) {
-      return;
-    }
-
-      removeCountryFromCompare(button.dataset.removeCompare);
-    });
-
-  addButton?.addEventListener("click", () => {
-    if (!select?.value) {
-      return;
-    }
-    addCountryToCompare(select.value);
-    if (compareSelection.length >= 2) {
-      openCompareModal();
-    }
-  });
-
-  openButton?.addEventListener("click", () => openCompareModal());
-  clearButton?.addEventListener("click", () => {
-    compareSelection = [];
-    renderComparePanel();
-    closeCompareModal();
-  });
-  comparePanel?.addEventListener("toggle", () => {
-    if (!comparePanel.open) {
-      return;
-    }
-    ensureDeferredUiModule("compare").then(renderComparePanel);
-    renderComparePanel();
-  });
-  compareModal?.addEventListener("click", event => {
-    if (event.target.closest("[data-close-compare-modal='true']")) {
-      closeCompareModal();
-    }
-  });
-  compareCloseButton?.addEventListener("click", () => closeCompareModal());
-
-  renderComparePanel();
 };
 
 function clearQuizTimer() {

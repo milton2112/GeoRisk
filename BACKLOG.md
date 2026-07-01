@@ -5,8 +5,8 @@ Esta lista se mantiene como tablero vivo del proyecto. La prioridad sale de las 
 ## Estado auditado
 
 - Estado general: operativo, sin issues criticos en `reports/project-audit.json`.
-- Arranque critico: 970 KB, bajo el limite de 1 MB pero todavia cerca del umbral.
-- `script.js`: 669 KB, bajo el limite de 700 KB pero sigue siendo el mayor bloque.
+- Arranque critico: 966 KB, bajo el limite de 1 MB pero todavia cerca del umbral.
+- `script.js`: 665 KB, bajo el limite de 700 KB pero sigue siendo el mayor bloque.
 - `countries_index.json`: 168 KB, bajo el limite de 240 KB.
 - Auditoria de conflictos: 2003 conflictos escaneados, 0 alertas.
 - Consistencia semantica de conflictos: 0 cerrados marcados activos, 0 `ongoing:false` con `active:true`, 0 rangos de fecha invalidos, 0 acciones historicas abiertas, 0 textos narrativos `"null"`, 0 regiones sospechosas detectadas.
@@ -14,11 +14,11 @@ Esta lista se mantiene como tablero vivo del proyecto. La prioridad sale de las 
 
 ## Hecho en la tanda actual
 
-- Diferir la guia rapida a `app-help-ui.js` para quitar contenido largo del HTML inicial.
-- Simplifica la portada publica: mantiene acciones principales, estado runtime, cobertura y modos; quita ayuda duplicada e indicadores internos.
-- Corrige botones de cierre visibles en conflicto y timeline para evitar mojibake.
-- Elimina CSS critico de portada que ya no tenia elementos asociados.
-- Amplia pruebas para bloquear guia no diferida, mojibake visible y fallos del smoke server con el nuevo modulo.
+- Corrige una funcion duplicada de comparador que podia pisar el setup avanzado.
+- Mantiene activos busqueda interna, presets y benchmarks mundo/continente del comparador.
+- Elimina versiones viejas duplicadas de exportacion PNG, PDF y compartir texto.
+- Reduce `script.js` sin quitar funcionalidad visible.
+- Agrega pruebas para bloquear duplicados de comparador/exportacion en futuras releases.
 
 ## Prioridad critica
 

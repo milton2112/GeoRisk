@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.18 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.19 antes de cerrar la siguiente version.
+
+## v1.6.19 - 2026-07-01
+
+- Corrige una duplicacion de `setupCompareControls` que podia hacer que la version vieja del comparador pisara los controles avanzados.
+- Recupera de forma estable busqueda interna del comparador, presets y benchmarks mundo/continente desde el setup activo.
+- Elimina implementaciones viejas duplicadas de exportacion PNG, exportacion PDF y compartir texto, manteniendo solo la version con carga diferida de librerias.
+- Reduce `script.js` y agrega regresiones para bloquear duplicados de comparador/exportacion en futuras releases.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-01-release-1`.
 
 ## v1.6.18 - 2026-06-30
 
