@@ -291,6 +291,43 @@
   list-style: none;
 }
 
+.country-action-list {
+  display: grid;
+  gap: 6px;
+  margin: 10px 0 14px;
+  padding: 0;
+  list-style: none;
+}
+
+.country-action-list button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  min-height: 38px;
+  padding: 7px 9px;
+  border: 1px solid rgba(141, 189, 255, 0.18);
+  border-radius: var(--ui-radius);
+  background: rgba(7, 23, 40, 0.62);
+  color: #eef5ff;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.country-action-list button:hover,
+.country-action-list button:focus-visible {
+  border-color: rgba(114, 222, 192, 0.48);
+  background: rgba(19, 54, 65, 0.78);
+}
+
+.country-action-list small {
+  flex: 0 0 auto;
+  color: rgba(220, 239, 255, 0.72);
+  font-size: 0.78rem;
+}
+
 .country-modal-dialog,
 .compare-modal-dialog,
 .conflict-modal-dialog,

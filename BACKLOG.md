@@ -5,8 +5,8 @@ Esta lista se mantiene como tablero vivo del proyecto. La prioridad sale de las 
 ## Estado auditado
 
 - Estado general: operativo, sin issues criticos en `reports/project-audit.json`.
-- Arranque critico: 971 KB, bajo el limite de 1 MB pero todavia cerca del umbral.
-- `script.js`: 670 KB, bajo el limite de 700 KB pero sigue siendo el mayor bloque.
+- Arranque critico: 973 KB, bajo el limite de 1 MB pero todavia cerca del umbral.
+- `script.js`: 672 KB, bajo el limite de 700 KB pero sigue siendo el mayor bloque.
 - `countries_index.json`: 168 KB, bajo el limite de 240 KB.
 - Auditoria de conflictos: 2003 conflictos escaneados, 0 alertas.
 - Consistencia semantica de conflictos: 0 cerrados marcados activos, 0 `ongoing:false` con `active:true`, 0 rangos de fecha invalidos, 0 acciones historicas abiertas, 0 textos narrativos `"null"`, 0 regiones sospechosas detectadas.
@@ -14,11 +14,11 @@ Esta lista se mantiene como tablero vivo del proyecto. La prioridad sale de las 
 
 ## Hecho en la tanda actual
 
-- Audita controles criticos de ranking, busqueda, ficha, comparador y quiz.
-- Convierte denominaciones del top de religiones en botones accionables con foco, objetivo tactil y estado activo.
-- Agrega busqueda por denominacion religiosa como categoria separada, sin mezclarla con la familia religiosa general.
-- Unifica el estado activo de rankings para paises, grupos y subrankings.
-- Agrega pruebas para bloquear regresiones en rankings religiosos, busqueda por denominacion y estado activo.
+- Audita funciones conectadas en rankings, busqueda, ficha grupal, noticias y quiz.
+- Convierte listas de paises de vistas agrupadas en botones que abren ficha: continente, religion, sistema, bloque, organizacion y rivalidad.
+- Corrige el calculo visible de denominaciones religiosas para no mostrar porcentajes de familia general.
+- Mueve estilos de listas grupales al CSS diferido y evita inflar el arranque critico.
+- Elimina una funcion de noticias sin uso y agrega pruebas para bloquear listas grupales no accionables.
 
 ## Prioridad critica
 

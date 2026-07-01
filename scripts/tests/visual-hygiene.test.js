@@ -142,6 +142,9 @@ assert.ok(script.includes('button.classList.toggle("is-active", active)'), "nave
 assert.ok(script.includes("function closeMobileHubPanels"), "paneles y hubs mobile deben abrirse de forma exclusiva");
 assert.ok(script.includes("function syncLayersPanelState"), "panel de capas debe sincronizar hubs inferiores al abrir/cerrar");
 assert.ok(script.includes('document.body.classList.toggle("layers-panel-open", isOpen)'), "panel de capas debe publicar estado abierto al CSS");
+assert.ok(script.includes("function renderCountryActionList"), "listas grupales de paises deben exponer botones para abrir ficha");
+assert.ok(script.includes('event.target.closest("[data-open-country]")'), "ficha debe delegar apertura de paises desde listas grupales");
+assert.ok(polishCss.includes(".country-action-list button"), "listas grupales clickeables deben tener estilo tactil propio diferido");
 assert.ok(script.includes('themeQuickGrid?.addEventListener("click"'), "botones rapidos de capas deben tener handler propio");
 assert.ok(script.includes("setTheme(button.dataset.themePicker"), "botones rapidos de capas deben aplicar la misma logica del selector");
 assert.ok(script.includes("function toggleMobileMoreMenu"), "mobile debe agrupar herramientas secundarias bajo demanda");

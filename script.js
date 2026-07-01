@@ -82,7 +82,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-07-01-release-2";
+const APP_VERSION = "2026-07-01-release-3";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -93,18 +93,18 @@ function createFallbackSearchCache() {
 }
 
 const DEFERRED_UI_MODULES = {
-  news: "./app-news-ui.js?v=2026-07-01-release-2",
-  compare: "./app-compare-ui.js?v=2026-07-01-release-2",
-  quiz: "./app-quiz-ui.js?v=2026-07-01-release-2",
-  riskRadar: "./app-risk-radar-ui.js?v=2026-07-01-release-2",
-  conflictAudit: "./app-conflict-audit-ui.js?v=2026-07-01-release-2",
-  projectAudit: "./app-project-audit-ui.js?v=2026-07-01-release-2",
-  help: "./app-help-ui.js?v=2026-07-01-release-2",
-  uiPolish: "./app-ui-polish.js?v=2026-07-01-release-2",
-  countryPanel: "./app-country-panel.js?v=2026-07-01-release-2",
-  timelineConflicts: "./app-timeline-conflicts.js?v=2026-07-01-release-2",
-  search: "./app-search.js?v=2026-07-01-release-2",
-  rankings: "./app-rankings.js?v=2026-07-01-release-2"
+  news: "./app-news-ui.js?v=2026-07-01-release-3",
+  compare: "./app-compare-ui.js?v=2026-07-01-release-3",
+  quiz: "./app-quiz-ui.js?v=2026-07-01-release-3",
+  riskRadar: "./app-risk-radar-ui.js?v=2026-07-01-release-3",
+  conflictAudit: "./app-conflict-audit-ui.js?v=2026-07-01-release-3",
+  projectAudit: "./app-project-audit-ui.js?v=2026-07-01-release-3",
+  help: "./app-help-ui.js?v=2026-07-01-release-3",
+  uiPolish: "./app-ui-polish.js?v=2026-07-01-release-3",
+  countryPanel: "./app-country-panel.js?v=2026-07-01-release-3",
+  timelineConflicts: "./app-timeline-conflicts.js?v=2026-07-01-release-3",
+  search: "./app-search.js?v=2026-07-01-release-3",
+  rankings: "./app-rankings.js?v=2026-07-01-release-3"
 };
 const deferredUiModulePromises = new Map();
 
@@ -4260,6 +4260,31 @@ function renderList(items) {
   return `<ul>${items.map(item => `<li>${escapeHtml(repairMojibake(item))}</li>`).join("")}</ul>`;
 }
 
+function renderCountryActionList(countries, detailBuilder = null) {
+  const uniqueCountries = uniqueBy(countries || [], country => getRankedCountryCode(country) || country?.name)
+    .filter(Boolean)
+    .sort((a, b) => String(a.name || "").localeCompare(String(b.name || ""), "es"));
+  if (!uniqueCountries.length) {
+    return "<p>Sin datos</p>";
+  }
+
+  return `<ul class="country-action-list">${uniqueCountries.map(country => {
+    const code = getRankedCountryCode(country);
+    const detail = typeof detailBuilder === "function" ? detailBuilder(country) : "";
+    if (!code) {
+      return `<li>${escapeHtml(country.name || t("noData"))}${detail ? ` <small>${escapeHtml(detail)}</small>` : ""}</li>`;
+    }
+    return `
+      <li>
+        <button type="button" data-open-country="${escapeHtml(code)}">
+          <span>${getFlagEmoji(code)} ${escapeHtml(country.name || code)}</span>
+          ${detail ? `<small>${escapeHtml(detail)}</small>` : ""}
+        </button>
+      </li>
+    `;
+  }).join("")}</ul>`;
+}
+
 function isMobileLayout() {
   return mobileMediaQuery.matches;
 }
@@ -7573,11 +7598,7 @@ function renderContinent(continent, countries) {
     <p><b>${t("population")} total:</b> ${formatNumber(totalPopulation)}</p>
     <p><b>${currentLanguage === "en" ? "Countries shown" : "Cantidad de paises mostrados"}:</b> ${countries.length}</p>
     <p><b>${currentLanguage === "en" ? "Countries in this continent" : "Paises del continente"}:</b></p>
-    ${renderList(
-      countries
-        .map(country => country.name)
-        .sort((a, b) => a.localeCompare(b, "es"))
-    )}
+    ${renderCountryActionList(countries, country => formatNumber(country.general?.population || 0))}
     <p><b>${currentLanguage === "en" ? "Regional timeline" : "Timeline regional"}:</b></p>
     ${renderTimelineCollection(aggregateTimeline)}
   `;
@@ -7590,11 +7611,14 @@ function renderContinent(continent, countries) {
 
 function renderReligionSelection(religionName, countries, totalNominal) {
   currentPanelState = { type: "religion", religionName, countries, totalNominal };
+  const denominationMode = isKnownReligionDenomination(religionName);
   document.getElementById("country-panel").innerHTML = `
     <h2>${religionName}</h2>
     <div class="country-overview-grid relation-overview-grid">
       <div class="overview-card">
-        <span class="overview-label">${currentLanguage === "en" ? "Majority countries" : "Paises con mayoria"}</span>
+        <span class="overview-label">${denominationMode
+          ? (currentLanguage === "en" ? "Countries recorded" : "Paises registrados")
+          : (currentLanguage === "en" ? "Majority countries" : "Paises con mayoria")}</span>
         <strong class="overview-value">${formatNumber(countries.length)}</strong>
       </div>
       <div class="overview-card">
@@ -7602,18 +7626,19 @@ function renderReligionSelection(religionName, countries, totalNominal) {
         <strong class="overview-value">${formatNumber(Math.round(totalNominal || 0))}</strong>
       </div>
     </div>
-    <p><b>${currentLanguage === "en" ? "Estimated population where it is the majority" : "Poblacion estimada en paises donde es mayoritaria"}:</b> ${formatNumber(Math.round(totalNominal || 0))}</p>
+    <p><b>${denominationMode
+      ? (currentLanguage === "en" ? "Estimated population in countries with this denomination" : "Poblacion estimada en paises con esta denominacion")
+      : (currentLanguage === "en" ? "Estimated population where it is the majority" : "Poblacion estimada en paises donde es mayoritaria")}:</b> ${formatNumber(Math.round(totalNominal || 0))}</p>
     <p><b>${currentLanguage === "en" ? "Share of world population" : "Porcentaje de la poblacion mundial"}:</b> ${formatPercentage(worldPopulationTotal ? (totalNominal / worldPopulationTotal) * 100 : 0)}</p>
-    <p><b>${currentLanguage === "en" ? "Countries and territories where it is the majority religion" : "Paises y territorios donde es la religion mayoritaria"}:</b></p>
-    ${renderList(
-      countries.map(country => {
-        const percentage = country.religion?.composition
-          ? Math.round(getReligionNominalPopulation(country, religionName) / Math.max(country.general?.population || 1, 1) * 1000) / 10
-          : 0;
-        const suffix = percentage ? ` (${percentage}%)` : "";
-        return `${country.name}${suffix}`;
-      })
-    )}
+    <p><b>${denominationMode
+      ? (currentLanguage === "en" ? "Countries and territories with this denomination recorded" : "Paises y territorios con esta denominacion registrada")
+      : (currentLanguage === "en" ? "Countries and territories where it is the majority religion" : "Paises y territorios donde es la religion mayoritaria")}:</b></p>
+    ${renderCountryActionList(countries, country => {
+      const percentage = country.religion?.composition
+        ? Math.round(getReligionSelectionNominalPopulation(country, religionName) / Math.max(country.general?.population || 1, 1) * 1000) / 10
+        : 0;
+      return percentage ? `${percentage}%` : "";
+    })}
   `;
 
   renderNewsHub();
@@ -8204,6 +8229,16 @@ function getReligionDenominationMatches(denominationName) {
       getReligionDenominationNominalPopulation(b, denominationName) -
       getReligionDenominationNominalPopulation(a, denominationName)
     );
+}
+
+function isKnownReligionDenomination(religionName) {
+  return religionDenominationAliases.has(normalizeText(religionName));
+}
+
+function getReligionSelectionNominalPopulation(country, religionName) {
+  return isKnownReligionDenomination(religionName)
+    ? getReligionDenominationNominalPopulation(country, religionName)
+    : getReligionNominalPopulation(country, religionName);
 }
 
 function getReligionThemeKey(country) {
@@ -9528,11 +9563,6 @@ async function fetchCountryHeadlines(country) {
   return finalItems;
 }
 
-async function fetchCountryHeadline(country) {
-  const headlines = await fetchCountryHeadlines(country);
-  return headlines[0] || null;
-}
-
 function getSafeNewsUrl(value, fallbackUrl) {
   try {
     const url = new URL(String(value || ""), window.location.href);
@@ -10069,11 +10099,7 @@ function renderGroupSelection(title, descriptor, countries) {
     <p><b>${currentLanguage === "en" ? "Shown total population" : "Poblacion total mostrada"}:</b> ${formatNumber(totalPopulation)}</p>
     <p><b>${currentLanguage === "en" ? "Countries and territories found" : "Paises y territorios encontrados"}:</b> ${countries.length}</p>
     <p><b>${descriptor}:</b></p>
-    ${renderList(
-      countries
-        .map(country => country.name)
-        .sort((a, b) => a.localeCompare(b, "es"))
-    )}
+    ${renderCountryActionList(countries, country => country.continent ? translateContinentName(country.continent) : "")}
     <p><b>${currentLanguage === "en" ? "Shared timeline" : "Timeline compartido"}:</b></p>
     ${renderTimelineCollection(aggregateTimeline)}
   `;
@@ -15132,6 +15158,12 @@ function setupSearchEvents() {
   });
 
   countryPanel.addEventListener("click", async event => {
+    const openCountryTrigger = event.target.closest("[data-open-country]");
+    if (openCountryTrigger) {
+      await openCountryByCode(openCountryTrigger.dataset.openCountry, openCountryTrigger.textContent.trim());
+      return;
+    }
+
     const deferredSectionTrigger = event.target.closest("[data-country-load-section]");
     if (deferredSectionTrigger) {
       await activateCountrySection(deferredSectionTrigger.dataset.countryLoadSection);

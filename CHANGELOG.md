@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.20 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.21 antes de cerrar la siguiente version.
+
+## v1.6.21 - 2026-07-01
+
+- Convierte las listas de paises en vistas agrupadas de continente, religion, sistema, bloque, organizacion y rivalidad en botones que abren la ficha del pais.
+- Corrige el calculo visible de poblacion/porcentaje para denominaciones religiosas, separandolo de la familia religiosa general.
+- Mueve el estilo de esas listas grupales a `style-polish.css` para no inflar el CSS critico de arranque.
+- Elimina `fetchCountryHeadline`, funcion de noticias sin uso tras la carga de titulares por lista.
+- Refuerza pruebas de arranque e higiene visual para bloquear listas grupales no accionables.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-01-release-3`.
 
 ## v1.6.20 - 2026-07-01
 

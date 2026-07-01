@@ -177,8 +177,10 @@ assert.ok(/if \(result\.type === "country"\)[\s\S]{0,180}await openCountryByCode
 assert.ok(/function selectRankedCountry\(country\)[\s\S]{0,180}await openCountryByCode\(code/.test(script), "rankings deben abrir fichas con el mismo flujo que busqueda/mapa");
 assert.ok(script.includes("const religionDenominationAliases = new Map()"), "busqueda debe indexar denominaciones religiosas como categoria propia");
 assert.ok(script.includes("function getReligionDenominationMatches"), "denominaciones religiosas deben seleccionar paises sin degradar a familia general");
+assert.ok(script.includes("function getReligionSelectionNominalPopulation"), "fichas de religion deben calcular familias y denominaciones con la metrica correcta");
 assert.ok(/function getLayersForCountries\(countries\)[\s\S]{0,220}getRankedCountryCode\(country\)/.test(script), "resaltado de grupos no debe depender de identidad exacta de objetos");
 assert.ok(script.includes("function renderSelectableCountryGroup"), "continentes/religiones/filtros deben poder renderizar resultados sin esperar capas");
+assert.ok(/countryPanel\.addEventListener\("click"[\s\S]{0,260}data-open-country[\s\S]{0,180}openCountryByCode/.test(script), "listas grupales deben abrir fichas desde el panel");
 assert.ok(/function setCountrySelection[\s\S]{0,700}requestMapRenderSafe\("country-selection"\)/.test(script), "seleccion de pais no debe asumir Cesium listo");
 assert.ok(!script.includes("countryCode && countryLayers.has(countryCode) && countriesData[countryCode]"), "busqueda no debe depender de que la capa cartografica ya exista");
 assert.ok(script.includes("./data/countries/${encodeURIComponent(normalizedCode)}.json"), "detalle por pais debe evitar hidratar countries_full");
