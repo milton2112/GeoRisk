@@ -2166,7 +2166,8 @@ body.layers-panel-open #news-hub-panel {
   color: #9fd0ff;
 }
 
-.religion-group > button {
+.religion-group > button,
+.religion-subrank-item > button {
   width: 100%;
   padding: 0;
   border: 0;
@@ -2177,15 +2178,28 @@ body.layers-panel-open #news-hub-panel {
   cursor: pointer;
 }
 
+.religion-subrank-item > button {
+  min-height: 32px;
+  padding: 3px 2px;
+}
+
 .religion-subranking {
   margin: 6px 0 10px;
-  padding-left: 18px;
+  padding-left: 14px;
   color: rgba(238, 245, 255, 0.86);
 }
 
-.religion-subranking li {
+.religion-subranking .rank-link {
   margin-bottom: 4px;
+  padding: 2px 4px;
+  border-radius: 6px;
   font-size: 0.94em;
+}
+
+.religion-subranking .rank-link.is-active {
+  color: #effbf7;
+  background: rgba(114, 222, 192, 0.14);
+  box-shadow: inset 3px 0 0 var(--accent);
 }
 
 #mobile-panel-controls,

@@ -82,7 +82,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-07-01-release-1";
+const APP_VERSION = "2026-07-01-release-2";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -93,18 +93,18 @@ function createFallbackSearchCache() {
 }
 
 const DEFERRED_UI_MODULES = {
-  news: "./app-news-ui.js?v=2026-07-01-release-1",
-  compare: "./app-compare-ui.js?v=2026-07-01-release-1",
-  quiz: "./app-quiz-ui.js?v=2026-07-01-release-1",
-  riskRadar: "./app-risk-radar-ui.js?v=2026-07-01-release-1",
-  conflictAudit: "./app-conflict-audit-ui.js?v=2026-07-01-release-1",
-  projectAudit: "./app-project-audit-ui.js?v=2026-07-01-release-1",
-  help: "./app-help-ui.js?v=2026-07-01-release-1",
-  uiPolish: "./app-ui-polish.js?v=2026-07-01-release-1",
-  countryPanel: "./app-country-panel.js?v=2026-07-01-release-1",
-  timelineConflicts: "./app-timeline-conflicts.js?v=2026-07-01-release-1",
-  search: "./app-search.js?v=2026-07-01-release-1",
-  rankings: "./app-rankings.js?v=2026-07-01-release-1"
+  news: "./app-news-ui.js?v=2026-07-01-release-2",
+  compare: "./app-compare-ui.js?v=2026-07-01-release-2",
+  quiz: "./app-quiz-ui.js?v=2026-07-01-release-2",
+  riskRadar: "./app-risk-radar-ui.js?v=2026-07-01-release-2",
+  conflictAudit: "./app-conflict-audit-ui.js?v=2026-07-01-release-2",
+  projectAudit: "./app-project-audit-ui.js?v=2026-07-01-release-2",
+  help: "./app-help-ui.js?v=2026-07-01-release-2",
+  uiPolish: "./app-ui-polish.js?v=2026-07-01-release-2",
+  countryPanel: "./app-country-panel.js?v=2026-07-01-release-2",
+  timelineConflicts: "./app-timeline-conflicts.js?v=2026-07-01-release-2",
+  search: "./app-search.js?v=2026-07-01-release-2",
+  rankings: "./app-rankings.js?v=2026-07-01-release-2"
 };
 const deferredUiModulePromises = new Map();
 
@@ -3345,6 +3345,7 @@ const countryLayers = new Map();
 const countryAliases = new Map();
 const continentAliases = new Map();
 const religionAliases = new Map();
+const religionDenominationAliases = new Map();
 const systemAliases = new Map();
 const organizationAliases = new Map();
 const historyTypeAliases = new Map();
@@ -8172,6 +8173,39 @@ function getReligionNominalPopulation(country, religionName) {
   return population * (((match?.percentage) || 0) / 100);
 }
 
+function getReligionDenominationPercentage(country, denominationName) {
+  const requested = normalizeText(denominationName);
+  if (!requested) {
+    return 0;
+  }
+
+  return getReligionCompositionForDisplay(country?.religion).reduce((sum, entry) => {
+    if (!entry?.name) {
+      return sum;
+    }
+    const family = getReligionKeyAndLabel(entry.name);
+    const denominationLabel = formatReligionDenominationLabel(entry.name, family.label);
+    const candidates = [entry.name, denominationLabel].map(normalizeText);
+    return candidates.includes(requested)
+      ? sum + (Number(entry.percentage) || 0)
+      : sum;
+  }, 0);
+}
+
+function getReligionDenominationNominalPopulation(country, denominationName) {
+  const population = country.general?.population || 0;
+  return population * (getReligionDenominationPercentage(country, denominationName) / 100);
+}
+
+function getReligionDenominationMatches(denominationName) {
+  return getCountryValues()
+    .filter(country => getReligionDenominationPercentage(country, denominationName) > 0)
+    .sort((a, b) =>
+      getReligionDenominationNominalPopulation(b, denominationName) -
+      getReligionDenominationNominalPopulation(a, denominationName)
+    );
+}
+
 function getReligionThemeKey(country) {
   const [majority] = getMajorityReligionGroups(country);
   return majority?.key || "otras";
@@ -12634,6 +12668,27 @@ function removeCountryFromCompare(code) {
   renderComparePanel();
 }
 
+function getRankingItemKey(targetId, item) {
+  return item.country
+    ? `country:${getRankedCountryCode(item.country)}`
+    : `${targetId}:${normalizeText(item.label)}`;
+}
+
+function setActiveRankingItem(element, rankingKey) {
+  activeRankingKey = rankingKey || "";
+  document.querySelectorAll(".rank-link.is-active").forEach(activeItem => {
+    activeItem.classList.remove("is-active");
+    activeItem.setAttribute("aria-pressed", "false");
+    activeItem.querySelector("[aria-pressed]")?.setAttribute("aria-pressed", "false");
+  });
+  if (!element || !rankingKey) {
+    return;
+  }
+  element.classList.add("is-active");
+  element.setAttribute("aria-pressed", "true");
+  element.querySelector("[aria-pressed]")?.setAttribute("aria-pressed", "true");
+}
+
 function renderInteractiveList(targetId, items, onClick = () => {}) {
   const target = document.getElementById(targetId);
   if (!target) {
@@ -12651,9 +12706,7 @@ function renderInteractiveList(targetId, items, onClick = () => {}) {
 
   items.forEach(item => {
     const li = document.createElement("li");
-    const rankingKey = item.country
-      ? `country:${getRankedCountryCode(item.country)}`
-      : `${targetId}:${normalizeText(item.label)}`;
+    const rankingKey = getRankingItemKey(targetId, item);
     li.className = "rank-link";
     li.textContent = item.label;
     li.tabIndex = 0;
@@ -12661,13 +12714,7 @@ function renderInteractiveList(targetId, items, onClick = () => {}) {
     li.classList.toggle("is-active", activeRankingKey === rankingKey);
     li.setAttribute("aria-pressed", String(activeRankingKey === rankingKey));
     const activate = () => {
-      activeRankingKey = rankingKey;
-      document.querySelectorAll(".rank-link.is-active").forEach(activeItem => {
-        activeItem.classList.remove("is-active");
-        activeItem.setAttribute("aria-pressed", "false");
-      });
-      li.classList.add("is-active");
-      li.setAttribute("aria-pressed", "true");
+      setActiveRankingItem(li, rankingKey);
       return item.country ? selectRankedCountry(item.country) : onClick(item);
     };
     li.addEventListener("click", activate);
@@ -13121,6 +13168,7 @@ function setupSearchIndex(featureNameByCode) {
   countryAliases.clear();
   continentAliases.clear();
   religionAliases.clear();
+  religionDenominationAliases.clear();
   systemAliases.clear();
   organizationAliases.clear();
   historyTypeAliases.clear();
@@ -13143,6 +13191,26 @@ function setupSearchIndex(featureNameByCode) {
     getMajorityReligionGroups(country).forEach(entry => {
       registerReligionAlias(entry.label, entry.label);
       registerSuggestion(entry.label, "religion", entry.label, "Religion");
+    });
+
+    getReligionCompositionForDisplay(country.religion).forEach(entry => {
+      if (!entry?.name) {
+        return;
+      }
+      const family = getReligionKeyAndLabel(entry.name);
+      const denominationLabel = formatReligionDenominationLabel(entry.name, family.label);
+      const denominationKey = normalizeText(denominationLabel);
+      if (!denominationKey || denominationKey === normalizeText(family.label)) {
+        return;
+      }
+      religionDenominationAliases.set(denominationKey, denominationLabel);
+      registerSuggestion(
+        denominationLabel,
+        "religion_denomination",
+        denominationLabel,
+        currentLanguage === "en" ? "Religious denomination" : "Denominacion religiosa",
+        [entry.name]
+      );
     });
 
     const systemLabel = normalizePoliticalSystemCategory(country.politics?.system);
@@ -13588,6 +13656,20 @@ async function selectSearchResult(result) {
     }
   }
 
+  if (result.type === "religion_denomination") {
+    const matches = getReligionDenominationMatches(result.value);
+    if (matches.length) {
+      selectCountryGroupLayers(matches, { mode: "religion" });
+      const totalNominal = matches.reduce(
+        (sum, country) => sum + getReligionDenominationNominalPopulation(country, result.value),
+        0
+      );
+
+      renderReligionSelection(result.label, matches, totalNominal);
+      return;
+    }
+  }
+
   if (result.type === "system") {
     const countries = getCountriesBySystem(result.value);
     if (renderSelectableCountryGroup(result.label, "Paises con este sistema politico", countries)) {
@@ -13795,6 +13877,16 @@ async function searchMap() {
       label: religion,
       type: "religion",
       value: religion
+    });
+    return;
+  }
+
+  const religionDenomination = religionDenominationAliases.get(query);
+  if (religionDenomination) {
+    await selectSearchResult({
+      label: religionDenomination,
+      type: "religion_denomination",
+      value: religionDenomination
     });
     return;
   }
@@ -14382,17 +14474,25 @@ function generateReligions() {
 
   target.innerHTML = families.map(family => {
     const share = worldPopulationTotal ? (family.total / worldPopulationTotal) * 100 : 0;
+    const familyRankingKey = `religions:${normalizeText(family.label)}`;
     const denominations = [...family.denominations.values()]
       .sort((a, b) => b.total - a.total)
       .map(({ label, total }) => {
         const branchShare = worldPopulationTotal ? (total / worldPopulationTotal) * 100 : 0;
-        return `<li>${escapeHtml(label)} (${formatNumber(Math.round(total))} - ${formatPercentage(branchShare)})</li>`;
+        const denominationRankingKey = `religion_denomination:${normalizeText(label)}`;
+        return `
+          <li class="rank-link religion-subrank-item${activeRankingKey === denominationRankingKey ? " is-active" : ""}" aria-pressed="${activeRankingKey === denominationRankingKey ? "true" : "false"}">
+            <button type="button" data-religion-denomination="${escapeHtml(label)}" aria-pressed="${activeRankingKey === denominationRankingKey ? "true" : "false"}">
+              ${escapeHtml(label)} (${formatNumber(Math.round(total))} - ${formatPercentage(branchShare)})
+            </button>
+          </li>
+        `;
       })
       .join("");
 
     return `
-      <li class="rank-link religion-group">
-        <button type="button" data-religion-family="${escapeHtml(family.label)}">
+      <li class="rank-link religion-group${activeRankingKey === familyRankingKey ? " is-active" : ""}" aria-pressed="${activeRankingKey === familyRankingKey ? "true" : "false"}">
+        <button type="button" data-religion-family="${escapeHtml(family.label)}" aria-pressed="${activeRankingKey === familyRankingKey ? "true" : "false"}">
           ${escapeHtml(family.label)} (${formatNumber(Math.round(family.total))} - ${formatPercentage(share)})
         </button>
         ${denominations ? `<ul class="religion-subranking">${denominations}</ul>` : ""}
@@ -14402,10 +14502,22 @@ function generateReligions() {
 
   target.querySelectorAll("[data-religion-family]").forEach(button => {
     button.addEventListener("click", () => {
+      setActiveRankingItem(button.closest(".rank-link"), `religions:${normalizeText(button.dataset.religionFamily)}`);
       selectSearchResult({
         label: button.dataset.religionFamily,
         type: "religion",
         value: button.dataset.religionFamily
+      });
+    });
+  });
+
+  target.querySelectorAll("[data-religion-denomination]").forEach(button => {
+    button.addEventListener("click", () => {
+      setActiveRankingItem(button.closest(".rank-link"), `religion_denomination:${normalizeText(button.dataset.religionDenomination)}`);
+      selectSearchResult({
+        label: button.dataset.religionDenomination,
+        type: "religion_denomination",
+        value: button.dataset.religionDenomination
       });
     });
   });

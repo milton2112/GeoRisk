@@ -124,8 +124,12 @@ assert.ok(script.includes('element.toggleAttribute("inert", hasOpenModal)'), "fo
 assert.ok(script.includes("containModalKeyboardFocus"), "modales deben contener el foco de teclado");
 assert.ok(script.includes("modalFocusReturnTarget"), "modales deben restaurar el foco al cerrarse");
 assert.ok(script.includes("function syncMobilePanelControlState"), "controles mobile deben sincronizar disponibilidad y estado expandido");
-assert.ok(script.includes('li.setAttribute("aria-pressed", "true")'), "seleccion de ranking debe anunciar su estado");
+assert.ok(script.includes('element.setAttribute("aria-pressed", "true")'), "seleccion de ranking debe anunciar su estado");
 assert.ok(script.includes("activeRankingKey === rankingKey"), "seleccion de ranking debe sobrevivir al rerender de datos");
+assert.ok(script.includes("function setActiveRankingItem"), "rankings deben compartir estado activo entre listas comunes y religiones");
+assert.ok(script.includes("data-religion-denomination"), "subrankings de religion deben ser botones accionables");
+assert.ok(script.includes('type: "religion_denomination"'), "busqueda debe poder abrir denominaciones religiosas sin ampliar a toda la familia");
+assert.ok(css.includes(".religion-subrank-item > button"), "denominaciones religiosas deben tener objetivo tactil propio");
 assert.ok(normalizedScript.includes("if (!target) {\n    return;\n  }\n  target.innerHTML = \"\";"), "listas interactivas deben tolerar contenedores diferidos ausentes");
 assert.ok(script.includes("rank-empty-state"), "listas interactivas deben mostrar un estado vacio claro");
 assert.ok(uiPolish.includes("document.body.dataset.networkState"), "pulido visual debe exponer estado de red en el body");

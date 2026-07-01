@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.19 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.20 antes de cerrar la siguiente version.
+
+## v1.6.20 - 2026-07-01
+
+- Convierte las denominaciones del top de religiones en botones accionables con estado activo, foco y objetivo tactil propio.
+- Agrega busqueda por denominacion religiosa como categoria separada para no ampliar consultas como protestantismo o catolicismo a toda la familia religiosa.
+- Unifica el estado activo de rankings en un helper comun, manteniendo feedback visual consistente entre paises, grupos y subrankings.
+- Refuerza pruebas de higiene visual y arranque para bloquear regresiones en rankings religiosos y busqueda por denominacion.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-01-release-2`.
 
 ## v1.6.19 - 2026-07-01
 
