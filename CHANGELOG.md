@@ -8,7 +8,21 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.24 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.25 antes de cerrar la siguiente version.
+
+## v1.6.25 - 2026-07-02
+
+- Audita funciones visibles, contratos `data-*`, helpers sin uso y sintaxis de modulos JS.
+- Elimina el instalador duplicado de teclado en `app-ui-polish.js` y deja la contencion de foco en el runtime principal.
+- Mejora el modal de conflictos mostrando nivel jerarquico guerra/campana/batalla y bando del pais cuando puede inferirse.
+- Normaliza nombres visibles de conflictos que seguian mezclando ingles y espanol, incluyendo Gaza, Kurdistan iraqui, Taiwan, Aden, Sangin y choques israelo-britanicos.
+- Amplia la correccion final de datos visibles para tildes en operacion, rebelion, expedicion, liberacion, ocupacion e insurreccion.
+- Corrige la region servida del choque israelo-britanico de 1949 para que no herede Europa como region generica.
+- Excluye una invasion china de Taiwan sin fecha consolidada de los conflictos servidos, evitando advertencias de validacion por datos especulativos.
+- Elimina helpers muertos de runtime critico relacionados con dispositivo, etiquetas y click de capa.
+- Limpia el fallback de version de `app-ui-polish.js` para no conservar stamps antiguos.
+- Refuerza pruebas de arquitectura, arranque y calidad de datos para bloquear regresiones de accesibilidad, modal de conflictos, traducciones y regiones sospechosas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-02-release-1`.
 
 ## v1.6.24 - 2026-07-01
 

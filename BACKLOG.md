@@ -6,18 +6,22 @@ Esta lista se mantiene como tablero vivo del proyecto. La prioridad sale de las 
 
 - Estado general: operativo, sin issues criticos en `reports/project-audit.json`.
 - Arranque critico: 977 KB, bajo el limite de 1 MB pero todavia cerca del umbral.
-- `script.js`: 691.609 bytes, bajo el limite de 700 KB pero muy cerca del umbral.
+- `script.js`: 692.317 bytes, bajo el limite de 700 KB pero muy cerca del umbral.
 - `countries_index.json`: 168 KB, bajo el limite de 240 KB.
-- Auditoria de conflictos: 2003 conflictos escaneados, 0 alertas.
+- Auditoria de conflictos: 2002 conflictos escaneados, 0 alertas.
 - Consistencia semantica de conflictos: 0 cerrados marcados activos, 0 `ongoing:false` con `active:true`, 0 rangos de fecha invalidos, 0 acciones historicas abiertas, 0 textos narrativos `"null"`, 0 regiones sospechosas detectadas.
 - Fichas grandes detectadas: USA, GBR y FRA superan el umbral de peso por volumen de conflictos, organizaciones y rivalidades.
 
 ## Hecho en la tanda actual
 
-- Audita funciones visibles y contratos `data-*` de botones/controles.
-- Corrige el versionado de modulos diferidos para que usen `APP_VERSION` y no queden cacheados en releases viejas.
-- Elimina una ruta muerta del timeline (`data-timeline-query` y su helper sin uso).
-- Agrega prueba de release para bloquear stamps fijos dentro de `DEFERRED_UI_MODULES`.
+- Audita funciones visibles, contratos `data-*`, helpers sin uso y sintaxis JS de modulos raiz/scripts.
+- Elimina el instalador duplicado de teclado en `app-ui-polish.js` y conserva la contencion de foco en el runtime principal.
+- Mejora el modal de conflictos con nivel jerarquico y bando del pais inferido.
+- Normaliza una tanda de nombres visibles de conflictos que mezclaban ingles/espanol y corrige tildes de rebelion, expedicion, liberacion, operacion, ocupacion e insurreccion.
+- Corrige la region del choque israelo-britanico de 1949 y agrega regresiones para traducciones/regiones sospechosas.
+- Excluye de datos servidos una invasion china de Taiwan sin fecha consolidada, dejando `validate:data` sin advertencias.
+- Elimina helpers muertos del runtime critico.
+- Limpia fallbacks/stamps antiguos en modulos diferidos.
 
 ## Prioridad critica
 

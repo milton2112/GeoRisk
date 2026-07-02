@@ -82,7 +82,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-07-01-release-6";
+const APP_VERSION = "2026-07-02-release-1";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -1407,15 +1407,6 @@ function getDefaultMapMode() {
   return isMobileLayout() ? "2d" : "3d";
 }
 
-function isConstrainedDevice() {
-  return runtimeGetDeviceProfile({
-    isMobile: isMobileLayout(),
-    currentMapMode,
-    deviceMemory: navigator.deviceMemory || 4,
-    hardwareConcurrency: navigator.hardwareConcurrency || 4
-  }).constrained;
-}
-
 function shouldUseHoverHighlights() {
   if (typeof mapInteractionCore.shouldEnableHover === "function") {
     return mapInteractionCore.shouldEnableHover({
@@ -1473,15 +1464,6 @@ function getQualityPresetLabel() {
     performance: currentLanguage === "en" ? "Performance" : "Rendimiento"
   };
   return labels[qualityPreset] || labels.auto;
-}
-
-function getLabelModeLabel() {
-  const labels = {
-    none: currentLanguage === "en" ? "No labels" : "Sin etiquetas",
-    countries: currentLanguage === "en" ? "Countries" : "Paises",
-    full: currentLanguage === "en" ? "Countries and world" : "Paises y mundo"
-  };
-  return labels[labelMode] || labels.none;
 }
 
 function getDynamicBorderScale() {
@@ -6601,11 +6583,18 @@ function getConflictModalContent(conflict, countryName = "") {
   const type = inferConflictType(conflict, detail);
   const scope = inferConflictScope(conflict, detail);
   const region = inferConflictRegion(conflict, detail, countryName);
+  const parentName = conflict.parentName || getConflictParentName(conflict);
+  const level = conflict.level || inferConflictLevel(conflict, detail, parentName);
   const participants = dedupeConflictParticipants(
     (Array.isArray(detail.participants) && detail.participants.length)
       ? detail.participants
       : buildGenericConflictParticipants(conflict, type, countryName)
   );
+  const contextCountry = countryName
+    ? getCountryValues().find(country => [country.name, country.general?.officialName, ...(country.general?.historicalNames || [])]
+      .some(name => normalizeText(name) === normalizeText(countryName)))
+    : null;
+  const countryRelationship = getConflictCountryRelationship({ ...detail, participants }, contextCountry);
   const chronology = (Array.isArray(detail.chronology) && detail.chronology.length ? detail.chronology : buildGenericConflictChronology(conflict))
     .map(item => ({ ...item, text: sanitizeConflictModalText(item?.text || item || "") }))
     .filter(item => item.text)
@@ -6619,9 +6608,12 @@ function getConflictModalContent(conflict, countryName = "") {
     });
   return {
     title: `${conflict.name}${formatConflictPeriod(conflict)}`,
+    level,
+    parentName,
     type,
     scope,
     region,
+    countryRelationship,
     cause: detail.cause || buildGenericConflictCause(conflict, type, scope, region, countryName),
     participants,
     chronology,
@@ -6792,9 +6784,12 @@ function openConflictModal(key, { enhance = true } = {}) {
     <p class="conflict-modal-subtitle">${currentLanguage === "en" ? "Historical conflict summary" : "Resumen historico del conflicto"}</p>
     ${renderConflictTrustBadges(detail)}
     <div class="country-overview-grid relation-overview-grid conflict-overview-grid">
+      <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Level" : "Nivel"}</span><strong class="overview-value">${escapeHtml(getConflictLevelLabel(detail.level))}</strong></div>
       <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Type" : "Tipo"}</span><strong class="overview-value">${escapeHtml(getConflictTypeLabel(detail.type))}</strong></div>
       <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Scope" : "Escala"}</span><strong class="overview-value">${escapeHtml(getConflictScopeLabel(detail.scope))}</strong></div>
       <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Region" : "Region"}</span><strong class="overview-value">${escapeHtml(detail.region || "Sin datos")}</strong></div>
+      ${detail.parentName ? `<div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Parent conflict" : "Conflicto padre"}</span><strong class="overview-value">${escapeHtml(detail.parentName)}</strong></div>` : ""}
+      ${detail.countryRelationship?.sideLabels?.length ? `<div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Country side" : "Bando del pais"}</span><strong class="overview-value">${escapeHtml(detail.countryRelationship.sideLabels.join(" / "))}</strong></div>` : ""}
     </div>
     <div class="conflict-modal-section">
       <h4>${currentLanguage === "en" ? "Why it started" : "Por que estallo"}</h4>
@@ -7134,10 +7129,6 @@ function setCountrySelection(layers) {
   }
   updateLayerSelection(layerList, "country", COUNTRY_HIGHLIGHT_STYLE);
   requestMapRenderSafe("country-selection");
-}
-
-function getCountryClickTarget(code, layer) {
-  return layer;
 }
 
 function setContinentSelection(layers) {

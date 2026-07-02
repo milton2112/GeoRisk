@@ -218,7 +218,7 @@ const visibleDataTextItems = Object.entries(countries).flatMap(([code, country])
 });
 const staleVisibleDataIssues = visibleDataTextItems.filter(item =>
   staleVisibleDataLabels.has(String(item.value || "").trim()) ||
-  /\b(Invasion|Campana|Accion|Pacificacion)\b/.test(String(item.value || ""))
+  /\b(Invasion|Campana|Operacion|Intervencion|Insurreccion|Rebelion|Expedicion|Accion|Ocupacion|Liberacion|Pacificacion)\b/.test(String(item.value || ""))
 );
 assert.deepEqual(
   staleVisibleDataIssues,
@@ -377,6 +377,17 @@ for (const staleName of [
   "First Chad (FROLINAT) Rebellion",
   "Alho Skirmish",
   "Swirling Clash",
+  "Bombing de Gaza Strip",
+  "Iranian bombings en Iraqi Kurdistan en 2022",
+  "Moscow City drone attacks",
+  "Aden Emergency",
+  "Attack on Åbo",
+  "Bahía incident",
+  "Ethiopian-Somalí border conflict",
+  "Friendly fire incident at Sangin",
+  "Israeli-British clash de January 7, 1949",
+  "Skirmish at Andemose",
+  "Chinese Invasión de Taiwán",
   "Felsőőri Skirmish",
   "First skirmish at Ágfalva",
   "Karácsfa Skirmish",
@@ -385,6 +396,10 @@ for (const staleName of [
 ]) {
   assert.ok(!servedConflictNames.includes(staleName), `Nombre de conflicto visible sin normalizar: ${staleName}`);
 }
+assert.ok(
+  !servedConflictNames.includes("Invasión china de Taiwán"),
+  "No debe servirse como conflicto historico una invasion china de Taiwan sin fecha/fuente consolidada"
+);
 const technicalOrganizations = Object.entries(countries).flatMap(([code, country]) =>
   (country.politics?.organizations || [])
     .filter(organization => /^Q\d+$/i.test(organization?.name || ""))

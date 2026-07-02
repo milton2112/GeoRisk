@@ -1,5 +1,5 @@
 (() => {
-  const POLISH_VERSION = window.GeoRiskAppVersion || "2026-07-01-release-4";
+  const POLISH_VERSION = window.GeoRiskAppVersion || "dev";
   const POLISH_STYLESHEET = `./style-polish.css?v=${POLISH_VERSION}`;
   const FOCUSABLE_SELECTOR = [
     "a[href]",
@@ -9,7 +9,6 @@
     "textarea:not([disabled])",
     "[tabindex]:not([tabindex='-1'])"
   ].join(",");
-
   const TOOLTIP_MAP = {
     "map-search-button": "Buscar en paises, grupos y consultas naturales",
     "save-search-button": "Guardar esta busqueda",
@@ -72,13 +71,6 @@
 
   function getOpenDialog() {
     return document.querySelector("#country-modal:not([hidden]) .country-modal-dialog, #compare-modal:not([hidden]) .compare-modal-dialog, #conflict-modal:not([hidden]) .conflict-modal-dialog, #timeline-modal:not([hidden]) .conflict-modal-dialog, #help-modal:not([hidden]) .help-modal-dialog, #intro-modal:not([hidden]) .help-modal-dialog, #product-modal:not([hidden]) .help-modal-dialog");
-  }
-
-  function installKeyboardA11y() {
-    document.addEventListener("keydown", event => {
-      const dialog = getOpenDialog();
-      if (dialog) trapFocus(event, dialog);
-    });
   }
 
   function applyCompactLabels(root = document) {

@@ -298,6 +298,9 @@ assert.ok(script.includes("function renderRiskRadarPanel"), "runtime debe expone
 assert.ok(script.includes("function getCountryRiskDimension"), "runtime debe exponer capas por dimension de riesgo");
 assert.ok(script.includes("async function renderConflictAuditPanel"), "runtime debe exponer panel interno de auditoria de conflictos");
 assert.ok(script.includes("async function renderProjectAuditPanel"), "runtime debe exponer panel interno de auditoria del proyecto");
+assert.ok(script.includes("getConflictLevelLabel(detail.level)"), "modal de conflicto debe mostrar nivel guerra/campana/batalla");
+assert.ok(script.includes("detail.countryRelationship.sideLabels"), "modal de conflicto debe mostrar el bando del pais cuando se pueda inferir");
+assert.ok(!script.includes("function getCountryClickTarget"), "helpers de seleccion de mapa sin uso no deben quedar en runtime critico");
 assert.ok(script.includes("Que falta curar"), "ficha pais debe mostrar que falta curar");
 assert.ok(appRuntime.includes(" - rendimiento"), "perfil runtime debe usar separador ASCII estable");
 assert.ok(!appRuntime.includes("Â"), "app-runtime no debe exponer mojibake visible");

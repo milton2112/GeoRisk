@@ -592,8 +592,19 @@ const CONFLICT_NAME_CANONICAL_RULES = [
   [/^Naxalbari uprising$/i, "Levantamiento de Naxalbari"],
   [/^German occupation (of|de) Luxembourg (in|en) World War II$/i, "Ocupacion alemana de Luxemburgo en la Segunda Guerra Mundial"],
   [/^Liberation (of|de) Jerusalem (in|en) Six-Day War$/i, "Liberacion de Jerusalen en la Guerra de los Seis Dias"],
+  [/^Aden Emergency$/i, "Emergencia de Aden"],
+  [/^Attack on Åbo$/i, "Ataque a Åbo"],
+  [/^Bahía incident$/i, "Incidente de Bahía"],
+  [/^Ethiopian-Somal[ií] border conflict$/i, "Conflicto fronterizo etiope-somali"],
+  [/^Friendly fire incident at Sangin$/i, "Incidente de fuego amigo en Sangin"],
+  [/^Israeli-British clash of January 7, 1949$/i, "Choque israelo-britanico del 7 de enero de 1949"],
+  [/^The Skirmish at Andemose$/i, "Escaramuza en Andemose"],
   [/^Hamgyong Campaign$/i, "Campana de Hamgyong"],
   [/^Bombing (of|de) Ahvaz-Tehran passenger train$/i, "Bombardeo del tren de pasajeros Ahvaz-Teheran"],
+  [/^bombing of the Gaza Strip$/i, "Bombardeo de la Franja de Gaza"],
+  [/^Iranian bombings in Iraqi Kurdistan in 2022$/i, "Bombardeos iranies en el Kurdistan iraqui en 2022"],
+  [/^Moscow City drone attacks$/i, "Ataques con drones contra Moscu"],
+  [/^Chinese invasion of Taiw[aá]n$/i, "Invasion china de Taiwan"],
   [/^Drone attack on Izmail$/i, "Ataque con drones a Izmail"],
   [/^Dzhangildin expedition$/i, "Expedicion de Dzhangildin"],
   [/^Shrevsky Operation$/i, "Operacion Shrevsky"],
@@ -764,7 +775,6 @@ const CONFLICT_YEAR_HINTS = {
   "Combate de Rio Grande": { startYear: 1879, endYear: 1879 },
   "Combate de Buenavista": { startYear: 1838, endYear: 1838 },
   "Combate de El Manzano": { startYear: 1838, endYear: 1838 },
-  "Chinese invasion de Taiwan": { startYear: 2026, endYear: 2026 },
   "Batalla de Bogesund": { startYear: 1520, endYear: 1520 },
   "Batalla de Greifswald Bodden": { startYear: 1715, endYear: 1715 },
   "Batalla de Helsingborg": { startYear: 1710, endYear: 1710 },
@@ -802,6 +812,10 @@ const CONFLICT_YEAR_HINTS = {
 const CONFLICT_YEAR_HINTS_NORMALIZED = Object.fromEntries(
   Object.entries(CONFLICT_YEAR_HINTS).map(([name, value]) => [normalizeKey(name), value])
 );
+
+const EXCLUDED_CONFLICT_NAME_KEYS = new Set([
+  "invasion china de taiwan"
+]);
 
 const GLOBAL_CONFLICT_PARTICIPATION = {
   ARG: [],
@@ -3646,7 +3660,14 @@ function sanitizeText(value, options = {}) {
     .replace(/\bTurin\b/g, "\u0054\u0075\u0072\u00ED\u006E")
     .replace(/\bInvasion\b/g, "\u0049\u006E\u0076\u0061\u0073\u0069\u00F3\u006E")
     .replace(/\bCampana\b/g, "\u0043\u0061\u006D\u0070\u0061\u00F1\u0061")
+    .replace(/\bOperacion\b/g, "\u004F\u0070\u0065\u0072\u0061\u0063\u0069\u00F3\u006E")
+    .replace(/\bIntervencion\b/g, "\u0049\u006E\u0074\u0065\u0072\u0076\u0065\u006E\u0063\u0069\u00F3\u006E")
+    .replace(/\bInsurreccion\b/g, "\u0049\u006E\u0073\u0075\u0072\u0072\u0065\u0063\u0063\u0069\u00F3\u006E")
+    .replace(/\bRebelion\b/g, "\u0052\u0065\u0062\u0065\u006C\u0069\u00F3\u006E")
+    .replace(/\bExpedicion\b/g, "\u0045\u0078\u0070\u0065\u0064\u0069\u0063\u0069\u00F3\u006E")
     .replace(/\bAccion\b/g, "\u0041\u0063\u0063\u0069\u00F3\u006E")
+    .replace(/\bOcupacion\b/g, "\u004F\u0063\u0075\u0070\u0061\u0063\u0069\u00F3\u006E")
+    .replace(/\bLiberacion\b/g, "\u004C\u0069\u0062\u0065\u0072\u0061\u0063\u0069\u00F3\u006E")
     .replace(/\bPacificacion\b/g, "\u0050\u0061\u0063\u0069\u0066\u0069\u0063\u0061\u0063\u0069\u00F3\u006E")
     .replace(/\bAno\b/g, "\u0041\u00F1\u006F")
     .replace(/\bOrganizacion\b/g, "\u004F\u0072\u0067\u0061\u006E\u0069\u007A\u0061\u0063\u0069\u00F3\u006E")
@@ -5740,7 +5761,11 @@ function normalizeConflicts(conflictEntries) {
         ongoing
       };
     })
-    .filter(entry => entry?.name && !/^Q\d+$/i.test(entry.name));
+    .filter(entry =>
+      entry?.name &&
+      !/^Q\d+$/i.test(entry.name) &&
+      !EXCLUDED_CONFLICT_NAME_KEYS.has(normalizeKey(entry.name))
+    );
 }
 
 const base = readJson("./data/raw/countries_base.json");

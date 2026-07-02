@@ -22,6 +22,7 @@ assert.equal(storeWindow.GeoRiskStore.selectUiState().appMode, "presentation");
 const polishSource = await fs.readFile(path.join(projectRoot, "app-ui-polish.js"), "utf8");
 assert.ok(polishSource.includes("TOOLTIP_MAP"), "ui polish debe centralizar tooltips");
 assert.ok(polishSource.includes("trapFocus"), "ui polish debe exponer trap de foco");
+assert.ok(!polishSource.includes("installKeyboardA11y"), "ui polish no debe duplicar el listener principal de foco");
 assert.ok(polishSource.includes("applyCompactLabels"), "ui polish debe soportar controles compactos");
 assert.ok(polishSource.includes("loadPolishStyles"), "ui polish debe cargar estilos visuales bajo demanda");
 
@@ -54,6 +55,7 @@ const script = await fs.readFile(path.join(projectRoot, "script.js"), "utf8");
 assert.ok(script.includes("appStore?.setState"), "runtime debe publicar estado al store central");
 assert.ok(script.includes("uiPolish: `./app-ui-polish.js?v=${APP_VERSION}`"), "runtime debe declarar polish UI como modulo diferido versionado");
 assert.ok(script.includes("uiPolish.init"), "runtime debe inicializar polish UI");
+assert.ok(script.includes("function containModalKeyboardFocus"), "runtime principal debe contener foco modal");
 assert.ok(!indexHtml.includes("style-polish.css"), "estilos de paneles no deben bloquear el mapa inicial");
 assert.ok(script.includes("event.key.toLowerCase() === \"p\""), "runtime debe exponer atajo de presentacion");
 assert.ok(script.includes("event.altKey && event.key.toLowerCase() === \"n\""), "runtime debe exponer atajo de noticias");

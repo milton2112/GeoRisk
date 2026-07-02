@@ -165,7 +165,7 @@ const REGION_HINTS = [
   { pattern: /\b(guerra en el noroeste de pakistan|northwest pakistan|waziristan)\b/i, region: "Asia del Sur" },
   { pattern: /\b(conflicto de cachemira|conflicto entre india y pakistan)\b/i, region: "Asia del Sur" },
   { pattern: /\b(conflicto irano\s*israeli|guerra subsidiaria irano\s*turca)\b/i, region: "Oriente Medio" },
-  { pattern: /\b(invasion anglo\s*sovietica de iran|anglo\s*soviet invasion of iran|israeli\s*british clash)\b/i, region: "Oriente Medio" },
+  { pattern: /\b(invasion anglo\s*sovietica de iran|anglo\s*soviet invasion of iran|israeli\s*british clash|choque israelo\s*britanico)\b/i, region: "Oriente Medio" },
   { pattern: /\b(crisis anglofona de camerun|crisis angl[oó]fona de camer[uú]n)\b/i, region: "Africa central" },
   { pattern: /\b(conflicto en kachin|insurgencia en laos|insurgencia en el sur de tailandia)\b/i, region: "Sudeste asiatico" },
   { pattern: /\bguerra contra el narcotrafico en mexico\b/i, region: "America del Norte" },

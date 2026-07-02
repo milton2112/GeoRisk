@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-07-01T20:01:21.288Z",
+  "generatedAt": "2026-07-02T21:30:45.811Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 9117197,
-    "duplicatedCountryFilesBytes": 1747422,
+    "fullBytes": 9111563,
+    "duplicatedCountryFilesBytes": 1747270,
     "tooLargeCount": 3,
     "largest": [
       {
         "code": "USA",
         "name": "Estados Unidos",
-        "bytes": 215958,
-        "inlineBytes": 2708609,
+        "bytes": 215976,
+        "inlineBytes": 2708689,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -27,8 +27,8 @@
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 70761,
-        "inlineBytes": 823561,
+        "bytes": 70771,
+        "inlineBytes": 823581,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -44,8 +44,8 @@
       {
         "code": "FRA",
         "name": "Francia",
-        "bytes": 52354,
-        "inlineBytes": 650963,
+        "bytes": 52358,
+        "inlineBytes": 650975,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -61,8 +61,8 @@
       {
         "code": "SWE",
         "name": "Suecia",
-        "bytes": 36270,
-        "inlineBytes": 420879,
+        "bytes": 36275,
+        "inlineBytes": 420897,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -95,8 +95,8 @@
       {
         "code": "DNK",
         "name": "Dinamarca",
-        "bytes": 17610,
-        "inlineBytes": 132964,
+        "bytes": 17614,
+        "inlineBytes": 132980,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -129,8 +129,8 @@
       {
         "code": "CAN",
         "name": "Canadá",
-        "bytes": 17042,
-        "inlineBytes": 110254,
+        "bytes": 17044,
+        "inlineBytes": 110264,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -146,8 +146,8 @@
       {
         "code": "RUS",
         "name": "Rusia",
-        "bytes": 15738,
-        "inlineBytes": 125113,
+        "bytes": 15739,
+        "inlineBytes": 125115,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -197,8 +197,8 @@
       {
         "code": "CHN",
         "name": "República Popular China",
-        "bytes": 14017,
-        "inlineBytes": 93106,
+        "bytes": 13893,
+        "inlineBytes": 90294,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -207,7 +207,7 @@
           "religionGroups": 6,
           "organizations": 33,
           "rivals": 29,
-          "conflicts": 28,
+          "conflicts": 27,
           "timelineEvents": 4
         }
       }
@@ -14746,6 +14746,19 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
+        "name": "Ataque a Åbo",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
         "name": "Ataque a Aruba",
         "countries": [
           "USA"
@@ -14773,32 +14786,6 @@
       },
       {
         "name": "Ataque aéreo de Ogu",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Attack on Åbo",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Bahía incident",
         "countries": [
           "USA"
         ],
@@ -16753,6 +16740,19 @@
       },
       {
         "name": "Batalla de Eutaw Springs",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Fayetteville",
         "countries": [
           "USA"
         ],

@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-07-01T20:01:22.058Z",
-  "startupBytes": 999990,
+  "generatedAt": "2026-07-02T21:30:46.754Z",
+  "startupBytes": 1000702,
   "startupHuman": "977 KB",
-  "deferredBytes": 1093487,
+  "deferredBytes": 1093335,
   "deferredHuman": "1.04 MB",
   "estimatedRuntimeMemory": {
-    "countriesFullBytes": 9117197,
+    "countriesFullBytes": 9111563,
     "countriesFullHuman": "8.69 MB",
-    "estimatedParsedBytes": 27351591,
-    "estimatedParsedHuman": "26.08 MB",
+    "estimatedParsedBytes": 27334689,
+    "estimatedParsedHuman": "26.07 MB",
     "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
   },
   "largestAssets": [
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 691609,
-      "human": "675 KB",
+      "bytes": 692317,
+      "human": "676 KB",
       "startupCritical": true
     },
     {
       "path": "data/conflict_details.generated.json",
       "exists": true,
-      "bytes": 572771,
+      "bytes": 572819,
       "human": "559 KB",
       "startupCritical": false
     },
@@ -43,7 +43,7 @@
     {
       "path": "data/countries_index.json",
       "exists": true,
-      "bytes": 171674,
+      "bytes": 171678,
       "human": "168 KB",
       "startupCritical": true
     },
@@ -108,8 +108,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 691609,
-      "human": "675 KB",
+      "bytes": 692317,
+      "human": "676 KB",
       "startupCritical": true
     },
     {
@@ -234,7 +234,7 @@
     {
       "path": "app-ui-polish.js",
       "exists": true,
-      "bytes": 5283,
+      "bytes": 5083,
       "human": "5 KB",
       "startupCritical": false
     },
@@ -255,7 +255,7 @@
     {
       "path": "data/countries_index.json",
       "exists": true,
-      "bytes": 171674,
+      "bytes": 171678,
       "human": "168 KB",
       "startupCritical": true
     },
@@ -283,7 +283,7 @@
     {
       "path": "data/conflict_details.generated.json",
       "exists": true,
-      "bytes": 572771,
+      "bytes": 572819,
       "human": "559 KB",
       "startupCritical": false
     },
