@@ -8,7 +8,14 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.25 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.26 antes de cerrar la siguiente version.
+
+## v1.6.26 - 2026-07-02
+
+- Automatiza GitHub Actions como puerta de release con auditorias, presupuestos de arranque y smoke tests.
+- Agrega pre-push local liviano y limpieza de almacenamiento con `clean:storage`.
+- Agrega auditoria de datos programable y snapshot de performance por release.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-02-release-2`.
 
 ## v1.6.25 - 2026-07-02
 

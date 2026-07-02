@@ -23,4 +23,5 @@ export async function retryFileOperation(operation, options = {}) {
 export const readJsonWithRetry = file => retryFileOperation(() => fs.readJson(file));
 export const readFileWithRetry = (file, encoding) => retryFileOperation(() => fs.readFile(file, encoding));
 export const statWithRetry = file => retryFileOperation(() => fs.stat(file));
+export const writeFileWithRetry = (file, value) => retryFileOperation(() => fs.writeFile(file, value));
 export const writeJsonWithRetry = (file, value, options) => retryFileOperation(() => fs.writeJson(file, value, options));

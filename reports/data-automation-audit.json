@@ -1,0 +1,1261 @@
+{
+  "generatedAt": "2026-07-02T21:58:31.285Z",
+  "summary": {
+    "englishConflictNames": {
+      "count": 1
+    },
+    "undatedConflicts": {
+      "count": 705
+    },
+    "suspectRegions": {
+      "count": 0
+    },
+    "duplicateConflictNames": {
+      "count": 381
+    },
+    "redundantReligions": {
+      "count": 0
+    },
+    "uppercaseCities": {
+      "count": 2
+    },
+    "largeCountries": {
+      "count": 3
+    },
+    "weakDataProfiles": {
+      "count": 183
+    }
+  },
+  "samples": {
+    "englishConflictNames": [
+      {
+        "code": "USA",
+        "name": "Batalla de Battle Mountain"
+      }
+    ],
+    "undatedConflicts": [
+      {
+        "code": "ARG",
+        "name": "Batalla de Toldos Viejos",
+        "region": "América"
+      },
+      {
+        "code": "AUS",
+        "name": "Batalla de Aidabasalala",
+        "region": "Oceania"
+      },
+      {
+        "code": "AUS",
+        "name": "Batalla de Broodseinde",
+        "region": "Oceania"
+      },
+      {
+        "code": "AUS",
+        "name": "Batalla entre el HMAS Sydney y el Kormoran",
+        "region": "Oceania"
+      },
+      {
+        "code": "AUS",
+        "name": "Primera batalla de Dernancourt",
+        "region": "Oceania"
+      },
+      {
+        "code": "AUT",
+        "name": "Batalla de Gyanafalva",
+        "region": "Europa"
+      },
+      {
+        "code": "AUT",
+        "name": "Batalla de Kirchschlag",
+        "region": "Europa"
+      },
+      {
+        "code": "AUT",
+        "name": "Escaramuza de Felsőőr",
+        "region": "Europa"
+      },
+      {
+        "code": "AUT",
+        "name": "Escaramuza de Mosonbánfalva",
+        "region": "Europa"
+      },
+      {
+        "code": "AUT",
+        "name": "Escaramuza de Pinkafő",
+        "region": "Europa"
+      },
+      {
+        "code": "AUT",
+        "name": "Primera escaramuza de Ágfalva",
+        "region": "Europa"
+      },
+      {
+        "code": "AZE",
+        "name": "Batalla de Jabrayil",
+        "region": "Asia"
+      },
+      {
+        "code": "BEL",
+        "name": "Batalla de Rabosée",
+        "region": "Europa"
+      },
+      {
+        "code": "CMR",
+        "name": "Batalla de Kumbo",
+        "region": "África"
+      },
+      {
+        "code": "CAN",
+        "name": "Batalla de Dieppe",
+        "region": "América"
+      },
+      {
+        "code": "CAN",
+        "name": "Batalla de Pierres Noires",
+        "region": "América"
+      },
+      {
+        "code": "CHL",
+        "name": "Captura de buques de la Confederación",
+        "region": "América"
+      },
+      {
+        "code": "CHL",
+        "name": "Combate de Huite",
+        "region": "América"
+      },
+      {
+        "code": "CHL",
+        "name": "Combate naval de Casma",
+        "region": "América"
+      },
+      {
+        "code": "CHN",
+        "name": "Batalla de las Islas Paracelso",
+        "region": "Asia"
+      },
+      {
+        "code": "CHN",
+        "name": "Incidente fronterizo de Terekti",
+        "region": "Asia"
+      },
+      {
+        "code": "CHN",
+        "name": "Primera batalla de Zhenbao",
+        "region": "Asia"
+      },
+      {
+        "code": "DNK",
+        "name": "Batalla de Assandun",
+        "region": "Europa"
+      },
+      {
+        "code": "DNK",
+        "name": "Batalla de Bornholm",
+        "region": "Europa"
+      },
+      {
+        "code": "DNK",
+        "name": "Batalla de Bov",
+        "region": "Europa"
+      },
+      {
+        "code": "DNK",
+        "name": "Batalla de Dogger Bank",
+        "region": "Europa"
+      },
+      {
+        "code": "DNK",
+        "name": "Batalla de Fredericia",
+        "region": "Europa"
+      },
+      {
+        "code": "DNK",
+        "name": "Batalla de Heligoland",
+        "region": "Europa"
+      },
+      {
+        "code": "DNK",
+        "name": "Batalla de Isted",
+        "region": "Europa"
+      },
+      {
+        "code": "DNK",
+        "name": "Batalla de Schleswig",
+        "region": "Europa"
+      },
+      {
+        "code": "DNK",
+        "name": "Batalla de Zealand Point",
+        "region": "Europa"
+      },
+      {
+        "code": "DNK",
+        "name": "Batalla del Lago Peipus",
+        "region": "Europa"
+      },
+      {
+        "code": "FIN",
+        "name": "Batalla de Petäjäsaari",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Antivari",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Bantry Bay",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Bomarsund",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Camaret",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Cap-Français",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Chandannagar",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Chef-de-Caux",
+        "region": "Europa"
+      }
+    ],
+    "suspectRegions": [],
+    "duplicateConflictNames": [
+      {
+        "name": "Escaramuzas fronterizas entre Afganistán y Pakistán",
+        "count": 2,
+        "countries": [
+          "AFG",
+          "PAK"
+        ]
+      },
+      {
+        "name": "Batalla de Joybar",
+        "count": 3,
+        "countries": [
+          "AFG",
+          "FRA",
+          "USA"
+        ]
+      },
+      {
+        "name": "Invasión de Afganistán de 2001",
+        "count": 2,
+        "countries": [
+          "AFG",
+          "USA"
+        ]
+      },
+      {
+        "name": "Emboscada de Uzbin",
+        "count": 3,
+        "countries": [
+          "AFG",
+          "FRA",
+          "USA"
+        ]
+      },
+      {
+        "name": "Batalla de Alasay",
+        "count": 3,
+        "countries": [
+          "AFG",
+          "FRA",
+          "USA"
+        ]
+      },
+      {
+        "name": "Guerra afgano-Pakistání de 2026",
+        "count": 2,
+        "countries": [
+          "AFG",
+          "PAK"
+        ]
+      },
+      {
+        "name": "Guerra de Kosovo",
+        "count": 17,
+        "countries": [
+          "ALB",
+          "BEL",
+          "CAN",
+          "CS-KM",
+          "DEU",
+          "DNK",
+          "ESP",
+          "FRA",
+          "GBR",
+          "ISL",
+          "ITA",
+          "LUX",
+          "NOR",
+          "PRT",
+          "SRB",
+          "TUR",
+          "USA"
+        ]
+      },
+      {
+        "name": "Guerra de Irak",
+        "count": 37,
+        "countries": [
+          "ALB",
+          "ARM",
+          "AUS",
+          "AZE",
+          "BGR",
+          "BIH",
+          "CZE",
+          "DNK",
+          "DOM",
+          "ESP",
+          "EST",
+          "GBR",
+          "GEO",
+          "HND",
+          "HUN",
+          "IRQ",
+          "ITA",
+          "JPN",
+          "KAZ",
+          "KOR",
+          "LTU",
+          "LVA",
+          "MDA",
+          "MKD",
+          "MNG",
+          "NIC",
+          "NOR",
+          "NZL",
+          "PHL",
+          "POL",
+          "PRT",
+          "ROU",
+          "SLV",
+          "SVK",
+          "THA",
+          "UKR",
+          "USA"
+        ]
+      },
+      {
+        "name": "Incidentes de Tinduf (1962)",
+        "count": 2,
+        "countries": [
+          "DZA",
+          "MAR"
+        ]
+      },
+      {
+        "name": "Guerra de las Arenas",
+        "count": 4,
+        "countries": [
+          "CUB",
+          "DZA",
+          "FRA",
+          "MAR"
+        ]
+      },
+      {
+        "name": "Primera batalla de Amgala",
+        "count": 2,
+        "countries": [
+          "DZA",
+          "MAR"
+        ]
+      },
+      {
+        "name": "Segunda batalla de Amgala",
+        "count": 2,
+        "countries": [
+          "DZA",
+          "MAR"
+        ]
+      },
+      {
+        "name": "Insurgencia en el Magreb",
+        "count": 8,
+        "countries": [
+          "DZA",
+          "FRA",
+          "LBY",
+          "MLI",
+          "MRT",
+          "NER",
+          "TCD",
+          "TUN"
+        ]
+      },
+      {
+        "name": "Primera Guerra del Congo",
+        "count": 4,
+        "countries": [
+          "AGO",
+          "BDI",
+          "RWA",
+          "UGA"
+        ]
+      },
+      {
+        "name": "Guerra civil de la República del Congo",
+        "count": 4,
+        "countries": [
+          "AGO",
+          "COG",
+          "RWA",
+          "TCD"
+        ]
+      },
+      {
+        "name": "Segunda guerra del Congo",
+        "count": 9,
+        "countries": [
+          "AGO",
+          "BDI",
+          "COD",
+          "NAM",
+          "RWA",
+          "SDN",
+          "TCD",
+          "UGA",
+          "ZWE"
+        ]
+      },
+      {
+        "name": "Guerra de Kivu",
+        "count": 4,
+        "countries": [
+          "AGO",
+          "BWA",
+          "COD",
+          "ZWE"
+        ]
+      },
+      {
+        "name": "Batalla de la Vuelta de Obligado",
+        "count": 2,
+        "countries": [
+          "ARG",
+          "FRA"
+        ]
+      },
+      {
+        "name": "Guerra de la Triple Alianza",
+        "count": 3,
+        "countries": [
+          "ARG",
+          "PRY",
+          "URY"
+        ]
+      },
+      {
+        "name": "Invasión brasileña de 1864",
+        "count": 2,
+        "countries": [
+          "ARG",
+          "URY"
+        ]
+      },
+      {
+        "name": "Paso de Curupayty",
+        "count": 3,
+        "countries": [
+          "ARG",
+          "PRY",
+          "URY"
+        ]
+      },
+      {
+        "name": "Batalla de Itá Ybaté",
+        "count": 3,
+        "countries": [
+          "ARG",
+          "PRY",
+          "URY"
+        ]
+      },
+      {
+        "name": "Incidente de la Isla Decepción",
+        "count": 2,
+        "countries": [
+          "ARG",
+          "GBR"
+        ]
+      },
+      {
+        "name": "Incidente del islote Snipe",
+        "count": 2,
+        "countries": [
+          "ARG",
+          "CHL"
+        ]
+      },
+      {
+        "name": "Ataque aéreo de bahía Agradable",
+        "count": 2,
+        "countries": [
+          "ARG",
+          "GBR"
+        ]
+      },
+      {
+        "name": "Batalla de Pradera del Ganso",
+        "count": 2,
+        "countries": [
+          "ARG",
+          "GBR"
+        ]
+      },
+      {
+        "name": "Batalla de San Carlos",
+        "count": 2,
+        "countries": [
+          "ARG",
+          "GBR"
+        ]
+      },
+      {
+        "name": "Batalla de Wireless Ridge",
+        "count": 2,
+        "countries": [
+          "ARG",
+          "GBR"
+        ]
+      },
+      {
+        "name": "Batalla del monte Harriet",
+        "count": 2,
+        "countries": [
+          "ARG",
+          "GBR"
+        ]
+      },
+      {
+        "name": "Batalla del monte Longdon",
+        "count": 2,
+        "countries": [
+          "ARG",
+          "GBR"
+        ]
+      },
+      {
+        "name": "Batalla del monte Tumbledown",
+        "count": 2,
+        "countries": [
+          "ARG",
+          "GBR"
+        ]
+      },
+      {
+        "name": "Bombardeo del monte Dos Hermanas",
+        "count": 2,
+        "countries": [
+          "ARG",
+          "GBR"
+        ]
+      },
+      {
+        "name": "Combate del puente Murrell",
+        "count": 2,
+        "countries": [
+          "ARG",
+          "GBR"
+        ]
+      },
+      {
+        "name": "Guerra de las Malvinas",
+        "count": 3,
+        "countries": [
+          "ARG",
+          "FLK",
+          "GBR"
+        ]
+      },
+      {
+        "name": "Hundimiento de HMS Sheffield",
+        "count": 2,
+        "countries": [
+          "ARG",
+          "GBR"
+        ]
+      },
+      {
+        "name": "Hundimiento del ARA General Belgrano",
+        "count": 2,
+        "countries": [
+          "ARG",
+          "GBR"
+        ]
+      },
+      {
+        "name": "Operación Black Buck",
+        "count": 2,
+        "countries": [
+          "ARG",
+          "GBR"
+        ]
+      },
+      {
+        "name": "Conflicto de Nagorno-Karabaj de 2016",
+        "count": 2,
+        "countries": [
+          "ARM",
+          "AZE"
+        ]
+      },
+      {
+        "name": "Batalla de Shusha (2020)",
+        "count": 2,
+        "countries": [
+          "ARM",
+          "AZE"
+        ]
+      },
+      {
+        "name": "Captura de Lachin",
+        "count": 2,
+        "countries": [
+          "ARM",
+          "AZE"
+        ]
+      }
+    ],
+    "redundantReligions": [],
+    "uppercaseCities": [
+      {
+        "code": "BEL",
+        "name": "BRUXELLES (BRUSSEL)"
+      },
+      {
+        "code": "CHN",
+        "name": "BEIJING (PEKING)"
+      }
+    ],
+    "largeCountries": [
+      {
+        "code": "USA",
+        "bytes": 215976,
+        "human": null,
+        "metrics": null
+      },
+      {
+        "code": "GBR",
+        "bytes": 70771,
+        "human": null,
+        "metrics": null
+      },
+      {
+        "code": "FRA",
+        "bytes": 52358,
+        "human": null,
+        "metrics": null
+      }
+    ],
+    "weakDataProfiles": [
+      {
+        "code": "AFG",
+        "score": 92,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          },
+          {
+            "section": "military",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "ALB",
+        "score": 92,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          },
+          {
+            "section": "military",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "DZA",
+        "score": 92,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          },
+          {
+            "section": "military",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "AND",
+        "score": 92,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          },
+          {
+            "section": "economy",
+            "status": "mixed"
+          }
+        ]
+      },
+      {
+        "code": "AGO",
+        "score": 92,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          },
+          {
+            "section": "military",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "ARG",
+        "score": 97,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "military",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "ARM",
+        "score": 92,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          },
+          {
+            "section": "military",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "AUS",
+        "score": 92,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          },
+          {
+            "section": "military",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "AUT",
+        "score": 92,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          },
+          {
+            "section": "military",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "AZE",
+        "score": 92,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          },
+          {
+            "section": "military",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "BHR",
+        "score": 97,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "BGD",
+        "score": 92,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          },
+          {
+            "section": "military",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "BLR",
+        "score": 92,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          },
+          {
+            "section": "military",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "BEL",
+        "score": 92,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          },
+          {
+            "section": "military",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "BEN",
+        "score": 97,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "BOL",
+        "score": 97,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "military",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "BIH",
+        "score": 87,
+        "status": "buena",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          },
+          {
+            "section": "military",
+            "status": "base"
+          },
+          {
+            "section": "religion",
+            "status": "mixed"
+          }
+        ]
+      },
+      {
+        "code": "BWA",
+        "score": 92,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          },
+          {
+            "section": "military",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "BRA",
+        "score": 97,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "military",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "BRN",
+        "score": 92,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          },
+          {
+            "section": "religion",
+            "status": "mixed"
+          }
+        ]
+      },
+      {
+        "code": "BGR",
+        "score": 92,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          },
+          {
+            "section": "military",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "BFA",
+        "score": 92,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          },
+          {
+            "section": "military",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "BDI",
+        "score": 92,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          },
+          {
+            "section": "military",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "KHM",
+        "score": 92,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          },
+          {
+            "section": "military",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "CMR",
+        "score": 92,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          },
+          {
+            "section": "military",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "CAN",
+        "score": 97,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "military",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "CAF",
+        "score": 92,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          },
+          {
+            "section": "military",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "TCD",
+        "score": 92,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          },
+          {
+            "section": "military",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "CHL",
+        "score": 92,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          },
+          {
+            "section": "military",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "CHN",
+        "score": 97,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "military",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "COL",
+        "score": 92,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          },
+          {
+            "section": "military",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "COM",
+        "score": 97,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "COD",
+        "score": 87,
+        "status": "buena",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          },
+          {
+            "section": "military",
+            "status": "base"
+          },
+          {
+            "section": "religion",
+            "status": "mixed"
+          }
+        ]
+      },
+      {
+        "code": "COG",
+        "score": 87,
+        "status": "buena",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          },
+          {
+            "section": "military",
+            "status": "base"
+          },
+          {
+            "section": "religion",
+            "status": "mixed"
+          }
+        ]
+      },
+      {
+        "code": "CRI",
+        "score": 97,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "CIV",
+        "score": 92,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          },
+          {
+            "section": "religion",
+            "status": "mixed"
+          }
+        ]
+      },
+      {
+        "code": "HRV",
+        "score": 92,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          },
+          {
+            "section": "military",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "CUB",
+        "score": 87,
+        "status": "buena",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          },
+          {
+            "section": "economy",
+            "status": "mixed"
+          },
+          {
+            "section": "military",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "CYP",
+        "score": 92,
+        "status": "alta",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          },
+          {
+            "section": "military",
+            "status": "base"
+          }
+        ]
+      },
+      {
+        "code": "CZE",
+        "score": 87,
+        "status": "buena",
+        "weakSections": [
+          {
+            "section": "history",
+            "status": "base"
+          },
+          {
+            "section": "military",
+            "status": "base"
+          },
+          {
+            "section": "religion",
+            "status": "mixed"
+          }
+        ]
+      }
+    ]
+  },
+  "notes": [
+    "Este reporte es diagnostico y no reemplaza validate:data ni los tests estrictos.",
+    "Los duplicados de conflictos pueden ser esperados cuando varios paises participan del mismo conflicto."
+  ]
+}

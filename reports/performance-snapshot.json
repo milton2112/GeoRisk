@@ -1,0 +1,76 @@
+{
+  "generatedAt": "2026-07-02T21:58:31.719Z",
+  "packageVersion": "1.6.26",
+  "appVersion": "2026-07-02-release-2",
+  "cacheVersion": "2026-07-02-release-2",
+  "thresholds": {
+    "scriptJsBytes": 700000,
+    "countriesIndexBytes": 240000,
+    "startupCriticalBytes": 1048576,
+    "longTaskBudgetMs": 200
+  },
+  "assets": {
+    "scriptJs": {
+      "path": "script.js",
+      "exists": true,
+      "bytes": 692317,
+      "human": "676 KB"
+    },
+    "countriesIndex": {
+      "path": "data/countries_index.json",
+      "exists": true,
+      "bytes": 171678,
+      "human": "168 KB"
+    },
+    "startupCritical": {
+      "bytes": 1000702,
+      "human": "977 KB"
+    },
+    "buildTotal": {
+      "bytes": 5748631,
+      "human": "5.48 MB",
+      "assetCount": 596
+    }
+  },
+  "longTasks": {
+    "supported": true,
+    "budgetMs": 200,
+    "count": 3,
+    "overBudgetCount": 1,
+    "totalDuration": 422,
+    "longestDuration": 240,
+    "recent": [
+      {
+        "name": "simulated-map-style",
+        "startTime": 310,
+        "duration": 64
+      },
+      {
+        "name": "simulated-ui-hydration",
+        "startTime": 96,
+        "duration": 118
+      },
+      {
+        "name": "simulated-startup-work",
+        "startTime": 12,
+        "duration": 240
+      }
+    ]
+  },
+  "fpsSmoke": {
+    "active": false,
+    "windowMs": 60000,
+    "samples": 4,
+    "min": 46,
+    "max": 61,
+    "avg": 54.75,
+    "completed": true
+  },
+  "status": {
+    "scriptJsWithinBudget": true,
+    "countriesIndexWithinBudget": true,
+    "startupWithinBudget": true,
+    "simulatedLongTasksOverBudget": 1,
+    "fpsSmokeMin": 46
+  }
+}

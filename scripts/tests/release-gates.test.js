@@ -30,6 +30,12 @@ const bootScheduler = await fs.readFile(path.join(projectRoot, "app-boot-schedul
 const appMap = await fs.readFile(path.join(projectRoot, "app-map.js"), "utf8");
 const timelineConflicts = await fs.readFile(path.join(projectRoot, "app-timeline-conflicts.js"), "utf8");
 const cleanLocal = await fs.readFile(path.join(projectRoot, "scripts/cleanLocal.js"), "utf8");
+const cleanStorage = await fs.readFile(path.join(projectRoot, "scripts/cleanStorage.js"), "utf8");
+const releaseChecklist = await fs.readFile(path.join(projectRoot, "scripts/releaseChecklist.js"), "utf8");
+const performanceSnapshot = await fs.readFile(path.join(projectRoot, "scripts/performanceSnapshot.js"), "utf8");
+const dataAutomationAudit = await fs.readFile(path.join(projectRoot, "scripts/dataAutomationAudit.js"), "utf8");
+const releaseWorkflow = await fs.readFile(path.join(projectRoot, ".github/workflows/release-gate.yml"), "utf8");
+const prePushHook = await fs.readFile(path.join(projectRoot, ".githooks/pre-push"), "utf8");
 
 function bytes(file) {
   return fs.stat(path.join(projectRoot, file)).then(stat => stat.size);
@@ -61,6 +67,27 @@ assert.ok(changelog.includes(`## v${packageJson.version}`), "CHANGELOG.md debe d
 assert.ok(packageJson.scripts["build:data"].includes("applyConflictAutofix.js"), "build:data debe reaplicar curaduria de conflictos tras regenerar el dataset");
 assert.ok(packageJson.scripts["build:data"].includes("applyVisibleDataCorrections.js"), "build:data debe reaplicar limpieza visible tras regenerar el dataset");
 assert.ok(packageJson.scripts["build:data"].includes("buildDataIndexes.js"), "build:data debe dejar indices publicos sincronizados");
+assert.equal(packageJson.scripts["prepush:check"], "node scripts/prepushCheck.js", "debe existir puerta local pre-push");
+assert.equal(packageJson.scripts["clean:storage"], "node scripts/cleanStorage.js", "debe existir limpieza local de almacenamiento");
+assert.equal(packageJson.scripts["release:prepare"], "node scripts/prepareRelease.js", "debe existir preparacion automatica de release");
+assert.equal(packageJson.scripts["audit:data"], "node scripts/dataAutomationAudit.js", "debe existir auditoria programable de datos");
+assert.equal(packageJson.scripts["performance:snapshot"], "node scripts/performanceSnapshot.js", "debe existir snapshot de performance por release");
+assert.ok(prePushHook.includes("npm run prepush:check"), "hook pre-push debe correr puerta liviana local");
+assert.ok(releaseChecklist.includes("performance:snapshot"), "release:check debe guardar snapshot de performance");
+assert.ok(releaseChecklist.includes("audit:data"), "release:check debe guardar auditoria programable de datos");
+assert.ok(releaseWorkflow.includes("npm ci"), "GitHub Actions debe instalar con npm ci");
+assert.ok(releaseWorkflow.includes("npm run release:check"), "GitHub Actions debe correr release:check");
+assert.ok(releaseWorkflow.includes("npm run validate:data"), "GitHub Actions debe correr validate:data de forma explicita");
+assert.ok(releaseWorkflow.includes("npm run audit:conflicts"), "GitHub Actions debe auditar conflictos");
+assert.ok(releaseWorkflow.includes("npm run check:startup-budget"), "GitHub Actions debe correr presupuesto de arranque de forma explicita");
+assert.ok(releaseWorkflow.includes("npm run test:browser-visual"), "GitHub Actions debe correr smoke visual");
+assert.ok(releaseWorkflow.includes("schedule:"), "GitHub Actions debe incluir auditoria programada");
+assert.ok(cleanStorage.includes('"node_modules"'), "clean:storage debe poder liberar node_modules");
+assert.ok(cleanStorage.includes("isInsideProject"), "clean:storage debe negarse a borrar fuera del proyecto");
+assert.ok(performanceSnapshot.includes("performance-snapshot.json"), "snapshot debe escribirse en reports/");
+assert.ok(performanceSnapshot.includes("simulated-startup-work"), "snapshot debe simular long tasks");
+assert.ok(dataAutomationAudit.includes("englishConflictNames"), "auditoria de datos debe listar conflictos en ingles");
+assert.ok(dataAutomationAudit.includes("redundantReligions"), "auditoria de datos debe listar religiones redundantes");
 assert.ok(appShell.length <= 18, "APP_SHELL debe mantenerse chico");
 assert.ok(!appShellText.includes("countries_full.json"), "countries_full no debe entrar en APP_SHELL");
 assert.ok(!appShellText.includes("conflict_details.generated.json"), "conflict_details no debe entrar en APP_SHELL");

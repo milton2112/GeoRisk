@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-02T21:30:47.487Z",
+  "generatedAt": "2026-07-02T21:58:30.752Z",
   "status": "operativo",
   "startup": {
     "critical": "977 KB",
@@ -410,7 +410,7 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 33864,
+      "bytes": 34228,
       "human": "33 KB"
     },
     {
@@ -488,7 +488,7 @@
     {
       "path": "package.json",
       "exists": true,
-      "bytes": 3789,
+      "bytes": 4136,
       "human": "4 KB"
     },
     {
@@ -570,6 +570,7 @@
   },
   "scripts": [
     "audit:conflicts",
+    "audit:data",
     "audit:project",
     "build:data",
     "build:indexes",
@@ -577,14 +578,19 @@
     "check:startup-budget",
     "clean:deep",
     "clean:local",
+    "clean:storage",
     "compact:index",
     "fix:conflicts",
     "fix:conflicts:batches",
     "fix:data-visible",
+    "hooks:install",
     "import:conflicts:dyadic",
     "import:conflicts:wikipedia",
     "measure:startup",
+    "performance:snapshot",
+    "prepush:check",
     "release:check",
+    "release:prepare",
     "release:tag",
     "smoke:server",
     "test",

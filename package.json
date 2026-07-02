@@ -1,6 +1,6 @@
 {
   "name": "geo-risk",
-  "version": "1.6.25",
+  "version": "1.6.26",
   "type": "module",
   "scripts": {
     "build:data": "node scripts/buildDataset.js && node scripts/applyConflictAutofix.js && node scripts/applyVisibleDataCorrections.js && node scripts/buildDataIndexes.js",
@@ -19,9 +19,15 @@
     "check:startup-budget": "node scripts/checkStartupBudget.js",
     "clean:local": "node scripts/cleanLocal.js",
     "clean:deep": "node scripts/cleanLocal.js --deep",
+    "clean:storage": "node scripts/cleanStorage.js",
+    "prepush:check": "node scripts/prepushCheck.js",
+    "hooks:install": "git config core.hooksPath .githooks",
+    "release:prepare": "node scripts/prepareRelease.js",
     "release:check": "node scripts/releaseChecklist.js",
     "release:tag": "node scripts/createReleaseTag.js",
     "validate:data": "node scripts/validateDataset.js",
+    "audit:data": "node scripts/dataAutomationAudit.js",
+    "performance:snapshot": "node scripts/performanceSnapshot.js",
     "test:normalization": "node scripts/tests/normalization.test.js",
     "test:conflicts": "node scripts/tests/conflict-cleaning.test.js",
     "test:conflict-audit": "node scripts/tests/conflict-audit.test.js",

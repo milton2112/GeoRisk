@@ -1,0 +1,113 @@
+name: Release Gate
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+  schedule:
+    - cron: "0 10 * * 1"
+
+jobs:
+  release-gate:
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Startup budget
+        run: npm run check:startup-budget
+
+      - name: Startup smoke
+        run: npm run test:startup
+
+      - name: Data language quality
+        run: npm run test:data-language
+
+      - name: Validate data
+        run: npm run validate:data
+
+      - name: Fast local gate parity
+        run: npm run prepush:check
+
+      - name: Conflict audit
+        run: npm run audit:conflicts
+
+      - name: Scheduled data audit report
+        run: npm run audit:data
+
+      - name: Visual smoke
+        run: npm run test:browser-visual
+
+      - name: Smoke server
+        run: npm run test:smoke-server
+
+      - name: Full release check
+        run: npm run release:check
+
+      - name: Performance snapshot
+        run: npm run performance:snapshot
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: geo-risk-release-reports
+          path: |
+            reports/*.json
+          if-no-files-found: ignore
+
+  scheduled-data-audit:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Rebuild generated data
+        run: npm run build:data
+
+      - name: Conflict audit
+        run: npm run audit:conflicts
+
+      - name: Data automation audit
+        run: npm run audit:data
+
+      - name: Startup measurement
+        run: npm run measure:startup
+
+      - name: Performance snapshot
+        run: npm run performance:snapshot
+
+      - name: Upload scheduled audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: geo-risk-scheduled-data-audit
+          path: |
+            reports/*.json
+          if-no-files-found: ignore

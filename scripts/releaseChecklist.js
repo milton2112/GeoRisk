@@ -7,6 +7,8 @@ const steps = [
   ["auditoria de conflictos", "npm", ["run", "audit:conflicts"]],
   ["medicion de arranque", "npm", ["run", "measure:startup"]],
   ["auditoria del proyecto", "npm", ["run", "audit:project"]],
+  ["auditoria de datos programable", "npm", ["run", "audit:data"]],
+  ["snapshot de performance", "npm", ["run", "performance:snapshot"]],
   ["smoke server", "npm", ["run", "test:smoke-server"]],
   ["limpieza local", "npm", ["run", "clean:local"]]
 ];
