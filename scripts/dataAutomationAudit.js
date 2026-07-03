@@ -44,7 +44,10 @@ async function readJsonIfExists(relativePath, fallback) {
 const countries = await readJsonIfExists("data/countries_full.json", {});
 const weights = await readJsonIfExists("data/country_weights.json", { countries: [] });
 
-const englishConflictPattern = /\b(war|battle|campaign|operation|invasion|bombing|bombings|attacks|emergency|border conflict|counteroffensive|uprising|rebellion|skirmish|siege|capture|incident|clash|offensive|phase|against)\b/i;
+const englishConflictPattern = /\b(war|battle|campaign|operation|invasion|bombing|bombings|attacks|emergency|border conflict|counteroffensive|uprising|rebellion|skirmish|siege|capture|incident|clash|offensive|phase|against|landings|landing|disaster|blitz|ambush|massacre|steamboat|combat)\b/i;
+const englishConflictExceptionPattern = /\b(Batalla de Battle Mountain|Batalla de Kemp's Landing)\b/i;
+const lowLevelUndatedConflictPattern = /\b(batalla|batallas|combate|combat|sitio|asedio|escaramuza|captura|incidente|acci[oó]n|operaci[oó]n|incursi[oó]n|expedici[oó]n|desembarco|desembarcos|landing|landings|choque|ofensiva|bombardeo|bombardeos|ataque|ataques|asalto|emboscada|ambush|masacre|massacre|hundimiento|bloqueo|desastre|disaster|blitz)\b/i;
+const mojibakePattern = /[\u00c2\u00c3\uFFFD]|Ã|â€™|â€œ|â€|�|\u00c5[\u0080-\u00bf\u2018]/;
 const suspectRegionNamePattern = /Afganist|Irak|Estado Isl|Siria|Kivu|Kosovo|Vietnam|Corea|Sa(?:'|\u2019)?dah|Pakist|Cachemira|Gaza|Israel|Iran|Irano|Kachin|Laos|Tailandia|Camerun|Camer\u00fan/i;
 const suspectRegionPattern = /Oceania|America del Sur|Europa occidental|Africa occidental|Europa$|America$/i;
 const redundantReligionBranches = new Set([
@@ -75,11 +78,21 @@ for (const conflict of allConflicts) {
 }
 
 const englishConflictNames = allConflicts
-  .filter(conflict => englishConflictPattern.test(conflict.name || ""))
+  .filter(conflict =>
+    englishConflictPattern.test(conflict.name || "") &&
+    !englishConflictExceptionPattern.test(conflict.name || "")
+  )
   .map(conflict => ({ code: conflict.code, name: conflict.name }));
 
 const undatedConflicts = allConflicts
   .filter(conflict => !Number.isFinite(conflict.startYear))
+  .map(conflict => ({ code: conflict.code, name: conflict.name, region: conflict.normalizedRegion || conflict.region || null }));
+
+const undatedHighLevelConflicts = allConflicts
+  .filter(conflict =>
+    !Number.isFinite(conflict.startYear) &&
+    !lowLevelUndatedConflictPattern.test(conflict.name || "")
+  )
   .map(conflict => ({ code: conflict.code, name: conflict.name, region: conflict.normalizedRegion || conflict.region || null }));
 
 const suspectRegions = allConflicts
@@ -97,6 +110,14 @@ const duplicateConflictNames = [...conflictNameBuckets.values()]
   .filter(entry => entry.count > 1)
   .map(entry => ({ name: entry.name, count: entry.count, countries: [...entry.countries].sort() }));
 
+const sameCountryDuplicateConflicts = duplicateConflictNames
+  .filter(entry => entry.count > entry.countries.length)
+  .map(entry => ({
+    name: entry.name,
+    count: entry.count,
+    countries: entry.countries
+  }));
+
 const redundantReligions = Object.entries(countries).flatMap(([code, country]) =>
   asArray(country.religion?.composition)
     .filter(entry => redundantReligionBranches.has(normalizeText(entry?.name)))
@@ -108,6 +129,28 @@ const uppercaseCities = Object.entries(countries).flatMap(([code, country]) =>
     .map(city => ({ code, name: typeof city === "string" ? city : city?.name || "" }))
     .filter(city => looksLikeUppercaseName(city.name))
 );
+
+const mojibakeText = Object.entries(countries).flatMap(([code, country]) => {
+  const matches = [];
+  function visit(value, pathParts = []) {
+    if (matches.length >= 12) return;
+    if (typeof value === "string") {
+      if (mojibakePattern.test(value)) {
+        matches.push({ code, path: pathParts.join("."), value });
+      }
+      return;
+    }
+    if (Array.isArray(value)) {
+      value.forEach((item, index) => visit(item, pathParts.concat(String(index))));
+      return;
+    }
+    if (value && typeof value === "object") {
+      Object.entries(value).forEach(([key, item]) => visit(item, pathParts.concat(key)));
+    }
+  }
+  visit(country);
+  return matches;
+});
 
 const weakDataProfiles = Object.entries(countries).flatMap(([code, country]) => {
   const quality = country.metadata?.quality || {};
@@ -131,13 +174,43 @@ const largeCountries = asArray(weights.countries || weights.items)
 const sections = {
   englishConflictNames,
   undatedConflicts,
+  undatedHighLevelConflicts,
   suspectRegions,
   duplicateConflictNames,
+  sameCountryDuplicateConflicts,
   redundantReligions,
   uppercaseCities,
+  mojibakeText,
   largeCountries,
   weakDataProfiles
 };
+
+const actionPlan = [
+  {
+    priority: "alta",
+    title: "Corregir texto visible roto o en ingles",
+    count: englishConflictNames.length + mojibakeText.length + uppercaseCities.length,
+    command: "npm run fix:data-visible && npm run build:indexes && npm run audit:data"
+  },
+  {
+    priority: "media",
+    title: "Curar conflictos relevantes sin fecha",
+    count: undatedHighLevelConflicts.length,
+    command: "npm run fix:conflicts:batches"
+  },
+  {
+    priority: "media",
+    title: "Revisar duplicados dentro del mismo pais",
+    count: sameCountryDuplicateConflicts.length,
+    command: "npm run audit:data"
+  },
+  {
+    priority: "baja",
+    title: "Reducir fichas pesadas",
+    count: largeCountries.length,
+    command: "npm run build:indexes && npm run measure:startup"
+  }
+].filter(item => item.count > 0);
 
 const report = {
   generatedAt: new Date().toISOString(),
@@ -147,9 +220,11 @@ const report = {
   samples: Object.fromEntries(
     Object.entries(sections).map(([key, items]) => [key, sample(items)])
   ),
+  actionPlan,
   notes: [
     "Este reporte es diagnostico y no reemplaza validate:data ni los tests estrictos.",
-    "Los duplicados de conflictos pueden ser esperados cuando varios paises participan del mismo conflicto."
+    "Los duplicados de conflictos pueden ser esperados cuando varios paises participan del mismo conflicto.",
+    "undatedHighLevelConflicts y sameCountryDuplicateConflicts son las listas mas accionables."
   ]
 };
 

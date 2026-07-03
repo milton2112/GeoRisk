@@ -1,0 +1,120 @@
+{
+  "generatedAt": "2026-07-03T02:50:05.899Z",
+  "packageVersion": "1.6.27",
+  "status": "observacion",
+  "summary": {
+    "totalFindings": 1,
+    "bySeverity": {
+      "media": 1
+    },
+    "startupBytes": 1000690,
+    "scriptBytes": 692317,
+    "countriesIndexBytes": 171666,
+    "conflictAuditIssues": 0,
+    "dataCounts": {
+      "englishConflictNames": 0,
+      "undatedConflicts": 701,
+      "undatedHighLevelConflicts": 0,
+      "suspectRegions": 0,
+      "duplicateConflictNames": 381,
+      "sameCountryDuplicateConflicts": 0,
+      "redundantReligions": 0,
+      "uppercaseCities": 0,
+      "mojibakeText": 0,
+      "largeCountries": 3,
+      "weakDataProfiles": 183
+    }
+  },
+  "topActions": [
+    {
+      "area": "performance",
+      "title": "script.js sigue al limite",
+      "command": "Extraer mas UI a modulos diferidos."
+    }
+  ],
+  "findings": [
+    {
+      "severity": "media",
+      "area": "performance",
+      "title": "script.js sigue al limite",
+      "detail": "692317 bytes",
+      "command": "Extraer mas UI a modulos diferidos."
+    }
+  ],
+  "observedContracts": {
+    "deferredModules": [
+      {
+        "key": "news",
+        "file": "app-news-ui.js"
+      },
+      {
+        "key": "compare",
+        "file": "app-compare-ui.js"
+      },
+      {
+        "key": "quiz",
+        "file": "app-quiz-ui.js"
+      },
+      {
+        "key": "riskRadar",
+        "file": "app-risk-radar-ui.js"
+      },
+      {
+        "key": "conflictAudit",
+        "file": "app-conflict-audit-ui.js"
+      },
+      {
+        "key": "projectAudit",
+        "file": "app-project-audit-ui.js"
+      },
+      {
+        "key": "help",
+        "file": "app-help-ui.js"
+      },
+      {
+        "key": "uiPolish",
+        "file": "app-ui-polish.js"
+      },
+      {
+        "key": "countryPanel",
+        "file": "app-country-panel.js"
+      },
+      {
+        "key": "timelineConflicts",
+        "file": "app-timeline-conflicts.js"
+      },
+      {
+        "key": "search",
+        "file": "app-search.js"
+      },
+      {
+        "key": "rankings",
+        "file": "app-rankings.js"
+      }
+    ],
+    "htmlDataAttributes": [
+      "data-app-mode-choice",
+      "data-close-compare-modal",
+      "data-close-conflict-modal",
+      "data-close-country-modal",
+      "data-close-help-modal",
+      "data-close-intro-modal",
+      "data-close-product-modal",
+      "data-close-timeline-modal",
+      "data-export-format",
+      "data-export-target",
+      "data-intro-action",
+      "data-intro-target",
+      "data-mobile-hub-target",
+      "data-share-target"
+    ]
+  },
+  "dataAuditActionPlan": [
+    {
+      "priority": "baja",
+      "title": "Reducir fichas pesadas",
+      "count": 3,
+      "command": "npm run build:indexes && npm run measure:startup"
+    }
+  ]
+}

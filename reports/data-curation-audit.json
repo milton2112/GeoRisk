@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-07-02T21:58:29.653Z",
+  "generatedAt": "2026-07-03T02:50:03.257Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 9111563,
-    "duplicatedCountryFilesBytes": 1747270,
+    "fullBytes": 9114902,
+    "duplicatedCountryFilesBytes": 1748107,
     "tooLargeCount": 3,
     "largest": [
       {
         "code": "USA",
         "name": "Estados Unidos",
-        "bytes": 215976,
-        "inlineBytes": 2708689,
+        "bytes": 216366,
+        "inlineBytes": 2710305,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -27,8 +27,8 @@
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 70771,
-        "inlineBytes": 823581,
+        "bytes": 71022,
+        "inlineBytes": 824497,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -78,8 +78,8 @@
       {
         "code": "AUS",
         "name": "Australia",
-        "bytes": 23167,
-        "inlineBytes": 176468,
+        "bytes": 23195,
+        "inlineBytes": 176524,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -129,8 +129,8 @@
       {
         "code": "CAN",
         "name": "Canadá",
-        "bytes": 17044,
-        "inlineBytes": 110264,
+        "bytes": 17072,
+        "inlineBytes": 110320,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -197,8 +197,8 @@
       {
         "code": "CHN",
         "name": "República Popular China",
-        "bytes": 13893,
-        "inlineBytes": 90294,
+        "bytes": 13883,
+        "inlineBytes": 90284,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -14677,35 +14677,9 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 690,
+    "pendingCount": 686,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
-      {
-        "name": "Ambush de steamboat J. R. Williams",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Arandora Star disaster",
-        "countries": [
-          "GBR"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
       {
         "name": "Asalto a los acorazados Cabral y Lima Barros",
         "countries": [
@@ -16758,6 +16732,32 @@
         ],
         "regions": [
           "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Fehmarn",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Filipów",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
         ],
         "types": [
           "interestatal"

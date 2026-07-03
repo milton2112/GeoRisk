@@ -392,7 +392,19 @@ for (const staleName of [
   "First skirmish at Ágfalva",
   "Karácsfa Skirmish",
   "Mosonbánfalvi Skirmish",
-  "Pinkafői Skirmish"
+  "Pinkafői Skirmish",
+  "Birmingham Blitz",
+  "Bristol Blitz",
+  "Cardiff Blitz",
+  "Liverpool Blitz",
+  "Manchester Blitz",
+  "Newcastle Blitz",
+  "Plymouth Blitz",
+  "Southampton Blitz",
+  "Baedeker Blitz",
+  "Cherry Valley massacre",
+  "Combat off coast de Florida",
+  "Landing at Kip's Bay"
 ]) {
   assert.ok(!servedConflictNames.includes(staleName), `Nombre de conflicto visible sin normalizar: ${staleName}`);
 }
@@ -427,6 +439,11 @@ assert.deepEqual(
     SAU: countries.SAU.general.capital.name,
     SRB: countries.SRB.general.capital.name,
     SRB_CITY: countries.SRB.general.cities[0]?.name,
+    DZA: countries.DZA.general.capital.name,
+    DZA_CITY: countries.DZA.general.cities[0]?.name,
+    AZE: countries.AZE.general.capital.name,
+    BEL_CITY: countries.BEL.general.cities[0]?.name,
+    CHN_CITY: countries.CHN.general.cities.find(city => city.name === "Pekín")?.name,
     USA: countries.USA.general.cities.find(city => city.name.includes("Los"))?.name,
     AFG: countries.AFG.general.cities.find(city => city.name.includes("Mazar"))?.name
   },
@@ -438,6 +455,11 @@ assert.deepEqual(
     SAU: "Riad",
     SRB: "Belgrado",
     SRB_CITY: "Novi Sad",
+    DZA: "Argel",
+    DZA_CITY: "Wahran (Oran)",
+    AZE: "Bakú",
+    BEL_CITY: "Bruselas",
+    CHN_CITY: "Pekín",
     USA: "Los \u00c1ngeles",
     AFG: "Mazar-e Sharif"
   },

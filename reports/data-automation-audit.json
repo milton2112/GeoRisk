@@ -1,11 +1,14 @@
 {
-  "generatedAt": "2026-07-02T21:58:31.285Z",
+  "generatedAt": "2026-07-03T02:50:05.060Z",
   "summary": {
     "englishConflictNames": {
-      "count": 1
+      "count": 0
     },
     "undatedConflicts": {
-      "count": 705
+      "count": 701
+    },
+    "undatedHighLevelConflicts": {
+      "count": 0
     },
     "suspectRegions": {
       "count": 0
@@ -13,11 +16,17 @@
     "duplicateConflictNames": {
       "count": 381
     },
+    "sameCountryDuplicateConflicts": {
+      "count": 0
+    },
     "redundantReligions": {
       "count": 0
     },
     "uppercaseCities": {
-      "count": 2
+      "count": 0
+    },
+    "mojibakeText": {
+      "count": 0
     },
     "largeCountries": {
       "count": 3
@@ -27,12 +36,7 @@
     }
   },
   "samples": {
-    "englishConflictNames": [
-      {
-        "code": "USA",
-        "name": "Batalla de Battle Mountain"
-      }
-    ],
+    "englishConflictNames": [],
     "undatedConflicts": [
       {
         "code": "ARG",
@@ -235,6 +239,7 @@
         "region": "Europa"
       }
     ],
+    "undatedHighLevelConflicts": [],
     "suspectRegions": [],
     "duplicateConflictNames": [
       {
@@ -636,27 +641,20 @@
         ]
       }
     ],
+    "sameCountryDuplicateConflicts": [],
     "redundantReligions": [],
-    "uppercaseCities": [
-      {
-        "code": "BEL",
-        "name": "BRUXELLES (BRUSSEL)"
-      },
-      {
-        "code": "CHN",
-        "name": "BEIJING (PEKING)"
-      }
-    ],
+    "uppercaseCities": [],
+    "mojibakeText": [],
     "largeCountries": [
       {
         "code": "USA",
-        "bytes": 215976,
+        "bytes": 216366,
         "human": null,
         "metrics": null
       },
       {
         "code": "GBR",
-        "bytes": 70771,
+        "bytes": 71022,
         "human": null,
         "metrics": null
       },
@@ -1254,8 +1252,17 @@
       }
     ]
   },
+  "actionPlan": [
+    {
+      "priority": "baja",
+      "title": "Reducir fichas pesadas",
+      "count": 3,
+      "command": "npm run build:indexes && npm run measure:startup"
+    }
+  ],
   "notes": [
     "Este reporte es diagnostico y no reemplaza validate:data ni los tests estrictos.",
-    "Los duplicados de conflictos pueden ser esperados cuando varios paises participan del mismo conflicto."
+    "Los duplicados de conflictos pueden ser esperados cuando varios paises participan del mismo conflicto.",
+    "undatedHighLevelConflicts y sameCountryDuplicateConflicts son las listas mas accionables."
   ]
 }

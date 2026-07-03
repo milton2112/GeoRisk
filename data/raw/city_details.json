@@ -168,12 +168,12 @@
   },
   "DZA": {
     "capital": {
-      "name": "Algiers",
+      "name": "Argel",
       "isCapital": true
     },
     "cities": [
       {
-        "name": "ALGIERS (EL DJAZAIR)",
+        "name": "Argel",
         "population": 2712944,
         "isCapital": false
       },
@@ -318,7 +318,7 @@
     },
     "cities": [
       {
-        "name": "BRUXELLES (BRUSSEL)",
+        "name": "Bruselas",
         "population": 1253178,
         "isCapital": false
       },
@@ -1593,7 +1593,7 @@
   },
   "AZE": {
     "capital": {
-      "name": "Baku",
+      "name": "Bakú",
       "population": 2340700,
       "isCapital": true
     },
@@ -1701,7 +1701,7 @@
         "isCapital": false
       },
       {
-        "name": "BEIJING (PEKING)",
+        "name": "Pekín",
         "population": 18796000,
         "isCapital": false
       },

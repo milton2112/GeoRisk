@@ -8,7 +8,18 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.26 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.27 antes de cerrar la siguiente version.
+
+## v1.6.27 - 2026-07-03
+
+- Agrega `audit:doctor` con reporte consolidado de salud, acciones recomendadas, contratos UI, modulos diferidos y presupuestos.
+- Agrega `maintain:quick`, que ejecuta curaduria de conflictos, correccion visible, indices, auditorias, snapshot y pre-push en el orden correcto.
+- Mejora la auditoria programable de datos separando duplicados esperables de duplicados accionables, conflictos tacticos sin fecha y textos realmente sospechosos.
+- Corrige nombres visibles de ciudades/capitales en Argel, Bruselas, Baku y Pekin.
+- Traduce remanentes militares en ingles como Blitz regionales, Arandora Star, Cherry Valley, Florida y Kip's Bay.
+- Completa fechas y jerarquia para Rebelion de Baja California, Operaciones Temeraria y Persecucion, Arandora Star y la emboscada del vapor J. R. Williams.
+- Deja `validate:data` sin incidencias ni advertencias tras la pasada automatizada.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-03-release-1`.
 
 ## v1.6.26 - 2026-07-02
 

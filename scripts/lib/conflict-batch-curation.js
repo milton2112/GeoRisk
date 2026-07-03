@@ -105,6 +105,46 @@ const SPECIAL_CONFLICT_METADATA = new Map([
     scale: "mundial",
     conflictType: "interestatal",
     region: "Europa occidental"
+  }],
+  ["Rebelion de Baja California", {
+    name: "Rebelión de Baja California",
+    startYear: 1911,
+    endYear: 1911,
+    parent: "Revolución mexicana",
+    campaign: "Campaña magonista de Baja California",
+    scale: "local",
+    conflictType: "insurgencia",
+    region: "Baja California"
+  }],
+  ["Operaciones Temeraria y Persecucion", {
+    name: "Operaciones Temeraria y Persecución",
+    startYear: 1944,
+    endYear: 1944,
+    parent: "Segunda Guerra Mundial",
+    campaign: "Campaña de Nueva Guinea occidental",
+    scale: "mundial",
+    conflictType: "interestatal",
+    region: "Nueva Guinea occidental"
+  }],
+  ["Desastre del Arandora Star", {
+    name: "Desastre del Arandora Star",
+    startYear: 1940,
+    endYear: 1940,
+    parent: "Segunda Guerra Mundial",
+    campaign: "Guerra naval del Atlántico",
+    scale: "mundial",
+    conflictType: "interestatal",
+    region: "Atlántico nororiental"
+  }],
+  ["Emboscada del vapor J. R. Williams", {
+    name: "Emboscada del vapor J. R. Williams",
+    startYear: 1864,
+    endYear: 1864,
+    parent: "Guerra Civil estadounidense",
+    campaign: "Teatro Trans-Misisipi",
+    scale: "local",
+    conflictType: "civil",
+    region: "Territorio indio"
   }]
 ]);
 

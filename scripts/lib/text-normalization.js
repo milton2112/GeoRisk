@@ -13,6 +13,13 @@ const directPairs = [
   ["Ã¢â‚¬Â¢", "•"], ["Ã¢â‚¬â€œ", "–"], ["Ã¢â‚¬â€", "—"], ["Ã¢â‚¬Ëœ", "‘"], ["Ã¢â‚¬â„¢", "’"], ["Ã¢â‚¬Å“", "“"], ["Ã¢â‚¬Â¦", "…"]
 ];
 
+directPairs.push(
+  ["\u00c5\u2018", "\u0151"],
+  ["\u00c5\u0090", "\u0150"],
+  ["\u00c5\u00b1", "\u0171"],
+  ["\u00c5\u00b0", "\u0170"]
+);
+
 function applyDirectPairs(raw) {
   return directPairs.reduce((text, [from, to]) => text.replaceAll(from, to), raw)
     .replaceAll("Ã‚", "")
@@ -25,6 +32,8 @@ function hasMojibakeSignal(raw) {
     text.includes("\uFFFD") ||
     text.includes("\u00C3") ||
     text.includes("\u00C2") ||
+    text.includes("\u00C5\u2018") ||
+    text.includes("\u00C5\u00B1") ||
     text.includes("\u00EF\u00BF\u00BD") ||
     text.includes("\u00E2\u20AC")
   );

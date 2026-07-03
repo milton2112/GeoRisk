@@ -1,3 +1,5 @@
+import { repairMojibake } from "./text-normalization.js";
+
 const TECHNICAL_IDENTIFIER_RE = /^Q\d+$/i;
 
 export const visibleStringReplacements = new Map([
@@ -51,6 +53,11 @@ export const visibleStringReplacements = new Map([
   ["Naipyido", "Naipyidó"],
   ["BUCURESTI", "Bucarest"],
   ["COLOMBO", "Colombo"],
+  ["ALGIERS (EL DJAZAIR)", "Argel"],
+  ["Algiers", "Argel"],
+  ["BRUXELLES (BRUSSEL)", "Bruselas"],
+  ["Baku", "Bakú"],
+  ["BEIJING (PEKING)", "Pekín"],
   ["Alho Skirmish", "Escaramuza de Alho"],
   ["Swirling Clash", "Choque de Swirling"],
   ["Felsőőri Skirmish", "Escaramuza de Felsőőr"],
@@ -58,6 +65,25 @@ export const visibleStringReplacements = new Map([
   ["Karácsfa Skirmish", "Escaramuza de Karácsfa"],
   ["Mosonbánfalvi Skirmish", "Escaramuza de Mosonbánfalva"],
   ["Pinkafői Skirmish", "Escaramuza de Pinkafő"],
+  ["Åndalsnes landings", "Desembarcos de Åndalsnes"],
+  ["Arandora Star disaster", "Desastre del Arandora Star"],
+  ["Belfast Blitz", "Bombardeo de Belfast"],
+  ["Birmingham Blitz", "Bombardeo de Birmingham"],
+  ["Blitz", "Bombardeos del Blitz"],
+  ["Bombardeos del Blitz", "Bombardeos aéreos sobre el Reino Unido"],
+  ["Bristol Blitz", "Bombardeo de Bristol"],
+  ["Cardiff Blitz", "Bombardeo de Cardiff"],
+  ["Liverpool Blitz", "Bombardeo de Liverpool"],
+  ["Manchester Blitz", "Bombardeo de Mánchester"],
+  ["Newcastle Blitz", "Bombardeo de Newcastle"],
+  ["Plymouth Blitz", "Bombardeo de Plymouth"],
+  ["Southampton Blitz", "Bombardeo de Southampton"],
+  ["Baedeker Blitz", "Bombardeos Baedeker"],
+  ["Ambush de steamboat J. R. Williams", "Emboscada del vapor J. R. Williams"],
+  ["Baylor Massacre", "Masacre de Baylor"],
+  ["Cherry Valley massacre", "Masacre de Cherry Valley"],
+  ["Combat off coast de Florida", "Combate frente a la costa de Florida"],
+  ["Landing at Kip's Bay", "Desembarco en Kip's Bay"],
   ["Internacional Conmemoracion del Holocausto Alianza", "Alianza Internacional para la Memoria del Holocausto"],
   ["Internacional Energy Forum", "Foro Internacional de Energía"],
   ["Foro Internacional de Energia", "Foro Internacional de Energía"],
@@ -381,7 +407,8 @@ export function applyVisibleStringReplacements(value, { includeWordReplacements 
   if (typeof value !== "string") {
     return value;
   }
-  const exact = visibleStringReplacements.get(value) || value;
+  const repaired = repairMojibake(value);
+  const exact = visibleStringReplacements.get(repaired) || visibleStringReplacements.get(value) || repaired;
   if (!includeWordReplacements) {
     return exact;
   }

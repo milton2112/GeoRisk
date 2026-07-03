@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-07-02T21:58:30.752Z",
+  "generatedAt": "2026-07-03T02:50:04.451Z",
   "status": "operativo",
   "startup": {
     "critical": "977 KB",
-    "criticalBytes": 1000702,
+    "criticalBytes": 1000690,
     "deferred": "1.04 MB",
     "estimatedRuntimeMemory": {
-      "countriesFullBytes": 9111563,
+      "countriesFullBytes": 9114902,
       "countriesFullHuman": "8.69 MB",
-      "estimatedParsedBytes": 27334689,
-      "estimatedParsedHuman": "26.07 MB",
+      "estimatedParsedBytes": 27344706,
+      "estimatedParsedHuman": "26.08 MB",
       "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
     },
     "largestAssets": [
@@ -44,7 +44,7 @@
       {
         "path": "data/countries_index.json",
         "exists": true,
-        "bytes": 171678,
+        "bytes": 171666,
         "human": "168 KB",
         "startupCritical": true
       },
@@ -110,25 +110,25 @@
       {
         "path": "data/timeline_index.json",
         "exists": true,
-        "bytes": 287410,
+        "bytes": 288056,
         "human": "281 KB"
       },
       {
         "path": "data/conflicts_index.json",
         "exists": true,
-        "bytes": 234541,
-        "human": "229 KB"
+        "bytes": 235383,
+        "human": "230 KB"
       },
       {
         "path": "data/search_index.json",
         "exists": true,
-        "bytes": 191757,
+        "bytes": 191756,
         "human": "187 KB"
       },
       {
         "path": "data/countries_index.json",
         "exists": true,
-        "bytes": 171678,
+        "bytes": 171666,
         "human": "168 KB"
       },
       {
@@ -146,15 +146,15 @@
     ],
     "countryWeights": {
       "totalCountries": 183,
-      "fullBytes": 9111563,
-      "duplicatedCountryFilesBytes": 1747270,
+      "fullBytes": 9114902,
+      "duplicatedCountryFilesBytes": 1748107,
       "tooLargeCount": 3,
       "largest": [
         {
           "code": "USA",
           "name": "Estados Unidos",
-          "bytes": 215976,
-          "inlineBytes": 2708689,
+          "bytes": 216366,
+          "inlineBytes": 2710305,
           "tooLarge": true,
           "counts": {
             "cities": 5,
@@ -170,8 +170,8 @@
         {
           "code": "GBR",
           "name": "Reino Unido",
-          "bytes": 70771,
-          "inlineBytes": 823581,
+          "bytes": 71022,
+          "inlineBytes": 824497,
           "tooLarge": true,
           "counts": {
             "cities": 5,
@@ -221,8 +221,8 @@
         {
           "code": "AUS",
           "name": "Australia",
-          "bytes": 23167,
-          "inlineBytes": 176468,
+          "bytes": 23195,
+          "inlineBytes": 176524,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -272,8 +272,8 @@
         {
           "code": "CAN",
           "name": "Canadá",
-          "bytes": 17044,
-          "inlineBytes": 110264,
+          "bytes": 17072,
+          "inlineBytes": 110320,
           "tooLarge": false,
           "counts": {
             "cities": 4,
@@ -340,8 +340,8 @@
         {
           "code": "CHN",
           "name": "República Popular China",
-          "bytes": 13893,
-          "inlineBytes": 90294,
+          "bytes": 13883,
+          "inlineBytes": 90284,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -410,8 +410,8 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 34228,
-      "human": "33 KB"
+      "bytes": 35202,
+      "human": "34 KB"
     },
     {
       "path": "index.html",
@@ -488,7 +488,7 @@
     {
       "path": "package.json",
       "exists": true,
-      "bytes": 4136,
+      "bytes": 4247,
       "human": "4 KB"
     },
     {
@@ -571,6 +571,7 @@
   "scripts": [
     "audit:conflicts",
     "audit:data",
+    "audit:doctor",
     "audit:project",
     "build:data",
     "build:indexes",
@@ -586,6 +587,7 @@
     "hooks:install",
     "import:conflicts:dyadic",
     "import:conflicts:wikipedia",
+    "maintain:quick",
     "measure:startup",
     "performance:snapshot",
     "prepush:check",

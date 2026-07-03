@@ -62,6 +62,9 @@ jobs:
       - name: Performance snapshot
         run: npm run performance:snapshot
 
+      - name: Product doctor
+        run: npm run audit:doctor
+
       - name: Upload reports
         if: always()
         uses: actions/upload-artifact@v4
@@ -102,6 +105,9 @@ jobs:
 
       - name: Performance snapshot
         run: npm run performance:snapshot
+
+      - name: Product doctor
+        run: npm run audit:doctor
 
       - name: Upload scheduled audit
         if: always()

@@ -1,6 +1,6 @@
 {
   "name": "geo-risk",
-  "version": "1.6.26",
+  "version": "1.6.27",
   "type": "module",
   "scripts": {
     "build:data": "node scripts/buildDataset.js && node scripts/applyConflictAutofix.js && node scripts/applyVisibleDataCorrections.js && node scripts/buildDataIndexes.js",
@@ -27,7 +27,9 @@
     "release:tag": "node scripts/createReleaseTag.js",
     "validate:data": "node scripts/validateDataset.js",
     "audit:data": "node scripts/dataAutomationAudit.js",
+    "audit:doctor": "node scripts/projectDoctor.js",
     "performance:snapshot": "node scripts/performanceSnapshot.js",
+    "maintain:quick": "node scripts/maintenanceQuick.js",
     "test:normalization": "node scripts/tests/normalization.test.js",
     "test:conflicts": "node scripts/tests/conflict-cleaning.test.js",
     "test:conflict-audit": "node scripts/tests/conflict-audit.test.js",
