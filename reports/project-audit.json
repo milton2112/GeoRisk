@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-07-03T02:50:04.451Z",
+  "generatedAt": "2026-07-04T22:35:00.211Z",
   "status": "operativo",
   "startup": {
     "critical": "977 KB",
-    "criticalBytes": 1000690,
+    "criticalBytes": 1000144,
     "deferred": "1.04 MB",
     "estimatedRuntimeMemory": {
-      "countriesFullBytes": 9114902,
+      "countriesFullBytes": 9114346,
       "countriesFullHuman": "8.69 MB",
-      "estimatedParsedBytes": 27344706,
+      "estimatedParsedBytes": 27343038,
       "estimatedParsedHuman": "26.08 MB",
       "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
     },
@@ -44,8 +44,8 @@
       {
         "path": "data/countries_index.json",
         "exists": true,
-        "bytes": 171666,
-        "human": "168 KB",
+        "bytes": 171120,
+        "human": "167 KB",
         "startupCritical": true
       },
       {
@@ -122,14 +122,14 @@
       {
         "path": "data/search_index.json",
         "exists": true,
-        "bytes": 191756,
-        "human": "187 KB"
+        "bytes": 190769,
+        "human": "186 KB"
       },
       {
         "path": "data/countries_index.json",
         "exists": true,
-        "bytes": 171666,
-        "human": "168 KB"
+        "bytes": 171120,
+        "human": "167 KB"
       },
       {
         "path": "data/conflicts/details_index.json",
@@ -146,15 +146,15 @@
     ],
     "countryWeights": {
       "totalCountries": 183,
-      "fullBytes": 9114902,
-      "duplicatedCountryFilesBytes": 1748107,
+      "fullBytes": 9114346,
+      "duplicatedCountryFilesBytes": 1747546,
       "tooLargeCount": 3,
       "largest": [
         {
           "code": "USA",
           "name": "Estados Unidos",
-          "bytes": 216366,
-          "inlineBytes": 2710305,
+          "bytes": 216361,
+          "inlineBytes": 2710295,
           "tooLarge": true,
           "counts": {
             "cities": 5,
@@ -171,7 +171,7 @@
           "code": "GBR",
           "name": "Reino Unido",
           "bytes": 71022,
-          "inlineBytes": 824497,
+          "inlineBytes": 824529,
           "tooLarge": true,
           "counts": {
             "cities": 5,
@@ -187,8 +187,8 @@
         {
           "code": "FRA",
           "name": "Francia",
-          "bytes": 52358,
-          "inlineBytes": 650975,
+          "bytes": 52348,
+          "inlineBytes": 650965,
           "tooLarge": true,
           "counts": {
             "cities": 5,
@@ -306,8 +306,8 @@
         {
           "code": "POL",
           "name": "Polonia",
-          "bytes": 14700,
-          "inlineBytes": 75668,
+          "bytes": 14695,
+          "inlineBytes": 75663,
           "tooLarge": false,
           "counts": {
             "cities": 4,
@@ -340,8 +340,8 @@
         {
           "code": "CHN",
           "name": "República Popular China",
-          "bytes": 13883,
-          "inlineBytes": 90284,
+          "bytes": 13885,
+          "inlineBytes": 90286,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -410,8 +410,8 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 35202,
-      "human": "34 KB"
+      "bytes": 36379,
+      "human": "36 KB"
     },
     {
       "path": "index.html",
@@ -480,15 +480,15 @@
       "human": "5 KB"
     },
     {
-      "path": "app-conflict-audit-ui.js",
+      "path": "package.json",
       "exists": true,
-      "bytes": 4332,
+      "bytes": 4473,
       "human": "4 KB"
     },
     {
-      "path": "package.json",
+      "path": "app-conflict-audit-ui.js",
       "exists": true,
-      "bytes": 4247,
+      "bytes": 4332,
       "human": "4 KB"
     },
     {
@@ -584,6 +584,7 @@
     "fix:conflicts",
     "fix:conflicts:batches",
     "fix:data-visible",
+    "fix:source-text",
     "hooks:install",
     "import:conflicts:dyadic",
     "import:conflicts:wikipedia",
@@ -593,6 +594,7 @@
     "prepush:check",
     "release:check",
     "release:prepare",
+    "release:status",
     "release:tag",
     "smoke:server",
     "test",
@@ -614,6 +616,7 @@
     "test:search",
     "test:smoke-server",
     "test:startup",
+    "test:text-normalization",
     "test:ui-architecture",
     "test:visual-hygiene",
     "validate:data"

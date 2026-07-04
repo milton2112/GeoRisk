@@ -1,6 +1,7 @@
 import { spawn } from "node:child_process";
 
 const steps = [
+  ["normalizacion de fuentes", "npm", ["run", "fix:source-text"]],
   ["curaduria de conflictos", "npm", ["run", "fix:conflicts"]],
   ["correccion visible segura", "npm", ["run", "fix:data-visible"]],
   ["indices publicos", "npm", ["run", "build:indexes"]],
@@ -8,6 +9,7 @@ const steps = [
   ["auditoria de proyecto", "npm", ["run", "audit:project"]],
   ["snapshot de performance", "npm", ["run", "performance:snapshot"]],
   ["doctor de producto", "npm", ["run", "audit:doctor"]],
+  ["estado de release", "npm", ["run", "release:status"]],
   ["puerta local", "npm", ["run", "prepush:check"]]
 ];
 

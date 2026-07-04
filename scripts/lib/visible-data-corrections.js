@@ -58,6 +58,7 @@ export const visibleStringReplacements = new Map([
   ["BRUXELLES (BRUSSEL)", "Bruselas"],
   ["Baku", "Bakú"],
   ["BEIJING (PEKING)", "Pekín"],
+  ["Pekin", "Pekín"],
   ["Alho Skirmish", "Escaramuza de Alho"],
   ["Swirling Clash", "Choque de Swirling"],
   ["Felsőőri Skirmish", "Escaramuza de Felsőőr"],

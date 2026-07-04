@@ -8,7 +8,18 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.27 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.28 antes de cerrar la siguiente version.
+
+## v1.6.28 - 2026-07-04
+
+- Agrega `release:status` con reporte versionado de Git, tag esperado, alineacion de `APP_VERSION`/`CACHE_VERSION`, presupuestos, auditoria de datos y doctor de producto.
+- Agrega `fix:source-text` y `test:text-normalization` para reparar mojibake seguro en el generador principal sin introducir caracteres de reemplazo.
+- Amplia la auditoria programable y el doctor para detectar `sourceTextMojibake`, huecos de automatizacion, desalineacion de cache/version y ausencia de estado de release en GitHub Actions.
+- Hace mas robusto el matching de metadatos especiales de conflictos usando claves normalizadas sin acentos; recupera la fecha y jerarquia de `Operaciones Temeraria y Persecucion`.
+- Limpia mojibake en `scripts/buildDataset.js` para que la fuente de datos sea legible y no dependa solo de correcciones posteriores.
+- Corrige ciudades destacadas para conservar Bruselas y Pekin como entradas buscables sin duplicar capitales donde no corresponde.
+- Conecta `release:status` y `fix:source-text` al mantenimiento rapido, `release:check`, GitHub Actions y pruebas de gates.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-04-release-1`.
 
 ## v1.6.27 - 2026-07-03
 

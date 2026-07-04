@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-03T02:50:05.060Z",
+  "generatedAt": "2026-07-04T22:35:00.845Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
@@ -26,6 +26,9 @@
       "count": 0
     },
     "mojibakeText": {
+      "count": 0
+    },
+    "sourceTextMojibake": {
       "count": 0
     },
     "largeCountries": {
@@ -645,10 +648,11 @@
     "redundantReligions": [],
     "uppercaseCities": [],
     "mojibakeText": [],
+    "sourceTextMojibake": [],
     "largeCountries": [
       {
         "code": "USA",
-        "bytes": 216366,
+        "bytes": 216361,
         "human": null,
         "metrics": null
       },
@@ -660,7 +664,7 @@
       },
       {
         "code": "FRA",
-        "bytes": 52358,
+        "bytes": 52348,
         "human": null,
         "metrics": null
       }

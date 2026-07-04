@@ -61,183 +61,183 @@ const BUILD_UPDATED_AT = "2026-04-11";
 
 const LANGUAGE_OVERRIDES = {
   ATA: ["Sin idioma oficial continental", "Ingles", "Español", "Frances", "Ruso"],
-  ARG: ["EspaÃ±ol"],
-  AND: ["CatalÃ¡n"],
-  ARE: ["Ãrabe"],
-  AFG: ["PastÃºn", "DarÃ­"],
-  AGO: ["PortuguÃ©s"],
-  ALB: ["AlbanÃ©s"],
+  ARG: ["Español"],
+  AND: ["Catalán"],
+  ARE: ["Árabe"],
+  AFG: ["Pastún", "Darí"],
+  AGO: ["Portugués"],
+  ALB: ["Albanés"],
   ARM: ["Armenio"],
-  AUS: ["InglÃ©s"],
-  AUT: ["AlemÃ¡n"],
-  AZE: ["AzerÃ­"],
-  BEL: ["NeerlandÃ©s", "FrancÃ©s", "AlemÃ¡n"],
-  BEN: ["FrancÃ©s"],
-  BGD: ["BengalÃ­"],
-  BHR: ["Ãrabe"],
+  AUS: ["Inglés"],
+  AUT: ["Alemán"],
+  AZE: ["Azerí"],
+  BEL: ["Neerlandés", "Francés", "Alemán"],
+  BEN: ["Francés"],
+  BGD: ["Bengalí"],
+  BHR: ["Árabe"],
   BIH: ["Bosnio", "Croata", "Serbio"],
   BLR: ["Bielorruso", "Ruso"],
-  BOL: ["EspaÃ±ol", "Quechua", "Aimara", "GuaranÃ­"],
-  BRA: ["PortuguÃ©s"],
+  BOL: ["Español", "Quechua", "Aimara", "Guaraní"],
+  BRA: ["Portugués"],
   BRN: ["Malayo"],
   BTN: ["Dzongkha"],
-  BWA: ["InglÃ©s", "Setsuana"],
-  BDI: ["Kirundi", "FrancÃ©s", "InglÃ©s"],
-  BFA: ["FrancÃ©s"],
-  BGR: ["BÃºlgaro"],
-  CAN: ["InglÃ©s", "FrancÃ©s"],
-  CAF: ["Sango", "FrancÃ©s"],
-  CMR: ["FrancÃ©s", "InglÃ©s"],
-  CHE: ["AlemÃ¡n", "FrancÃ©s", "Italiano", "Romanche"],
-  CHL: ["EspaÃ±ol"],
-  CHN: ["Chino mandarÃ­n"],
-  COL: ["EspaÃ±ol"],
-  COD: ["FrancÃ©s", "Lingala", "Suajili", "Kikongo", "Tshiluba"],
-  COG: ["FrancÃ©s"],
-  COM: ["Comorense", "Ãrabe", "FrancÃ©s"],
-  CRI: ["EspaÃ±ol"],
-  CUB: ["EspaÃ±ol"],
-  CIV: ["FrancÃ©s"],
+  BWA: ["Inglés", "Setsuana"],
+  BDI: ["Kirundi", "Francés", "Inglés"],
+  BFA: ["Francés"],
+  BGR: ["Búlgaro"],
+  CAN: ["Inglés", "Francés"],
+  CAF: ["Sango", "Francés"],
+  CMR: ["Francés", "Inglés"],
+  CHE: ["Alemán", "Francés", "Italiano", "Romanche"],
+  CHL: ["Español"],
+  CHN: ["Chino mandarín"],
+  COL: ["Español"],
+  COD: ["Francés", "Lingala", "Suajili", "Kikongo", "Tshiluba"],
+  COG: ["Francés"],
+  COM: ["Comorense", "Árabe", "Francés"],
+  CRI: ["Español"],
+  CUB: ["Español"],
+  CIV: ["Francés"],
   CYP: ["Griego", "Turco"],
   CZE: ["Checo"],
-  DEU: ["AlemÃ¡n"],
-  DNK: ["DanÃ©s"],
-  DOM: ["EspaÃ±ol"],
-  DJI: ["Ãrabe", "FrancÃ©s"],
-  DZA: ["Ãrabe", "Tamazight"],
-  ECU: ["EspaÃ±ol"],
-  EGY: ["Ãrabe"],
-  ERI: ["TigriÃ±a", "Ãrabe", "InglÃ©s"],
-  ESH: ["Ãrabe", "EspaÃ±ol"],
-  ESP: ["EspaÃ±ol"],
+  DEU: ["Alemán"],
+  DNK: ["Danés"],
+  DOM: ["Español"],
+  DJI: ["Árabe", "Francés"],
+  DZA: ["Árabe", "Tamazight"],
+  ECU: ["Español"],
+  EGY: ["Árabe"],
+  ERI: ["Tigriña", "Árabe", "Inglés"],
+  ESH: ["Árabe", "Español"],
+  ESP: ["Español"],
   EST: ["Estonio"],
-  ETH: ["AmÃ¡rico"],
-  FIN: ["FinÃ©s", "Sueco"],
-  FJI: ["InglÃ©s", "Fiyiano", "Hindi fiyiano"],
-  FLK: ["InglÃ©s"],
-  FRA: ["FrancÃ©s"],
-  GAB: ["FrancÃ©s"],
-  GBR: ["InglÃ©s"],
+  ETH: ["Amárico"],
+  FIN: ["Finés", "Sueco"],
+  FJI: ["Inglés", "Fiyiano", "Hindi fiyiano"],
+  FLK: ["Inglés"],
+  FRA: ["Francés"],
+  GAB: ["Francés"],
+  GBR: ["Inglés"],
   GEO: ["Georgiano"],
-  GHA: ["InglÃ©s"],
-  GMB: ["InglÃ©s"],
-  GIN: ["FrancÃ©s"],
-  GNB: ["PortuguÃ©s"],
-  GNQ: ["EspaÃ±ol", "FrancÃ©s", "PortuguÃ©s"],
+  GHA: ["Inglés"],
+  GMB: ["Inglés"],
+  GIN: ["Francés"],
+  GNB: ["Portugués"],
+  GNQ: ["Español", "Francés", "Portugués"],
   GRC: ["Griego"],
-  GRL: ["GroenlandÃ©s", "DanÃ©s"],
-  GTM: ["EspaÃ±ol"],
-  GUF: ["FrancÃ©s"],
-  GUY: ["InglÃ©s"],
-  HND: ["EspaÃ±ol"],
+  GRL: ["Groenlandés", "Danés"],
+  GTM: ["Español"],
+  GUF: ["Francés"],
+  GUY: ["Inglés"],
+  HND: ["Español"],
   HRV: ["Croata"],
-  HTI: ["Criollo haitiano", "FrancÃ©s"],
-  HUN: ["HÃºngaro"],
+  HTI: ["Criollo haitiano", "Francés"],
+  HUN: ["Húngaro"],
   IDN: ["Indonesio"],
-  IND: ["Hindi", "InglÃ©s"],
-  IRL: ["IrlandÃ©s", "InglÃ©s"],
+  IND: ["Hindi", "Inglés"],
+  IRL: ["Irlandés", "Inglés"],
   IRN: ["Persa"],
-  IRQ: ["Ãrabe", "Kurdo"],
-  ISL: ["IslandÃ©s"],
-  ISR: ["Hebreo", "Ãrabe"],
+  IRQ: ["Árabe", "Kurdo"],
+  ISL: ["Islandés"],
+  ISR: ["Hebreo", "Árabe"],
   ITA: ["Italiano"],
-  JAM: ["InglÃ©s"],
-  JPN: ["JaponÃ©s"],
-  JOR: ["Ãrabe"],
+  JAM: ["Inglés"],
+  JPN: ["Japonés"],
+  JOR: ["Árabe"],
   KAZ: ["Kazajo", "Ruso"],
-  KEN: ["Suajili", "InglÃ©s"],
-  KGZ: ["KirguÃ­s", "Ruso"],
+  KEN: ["Suajili", "Inglés"],
+  KGZ: ["Kirguís", "Ruso"],
   KHM: ["Jemer"],
   KOR: ["Coreano"],
-  KWT: ["Ãrabe"],
+  KWT: ["Árabe"],
   LAO: ["Lao"],
-  LBN: ["Ãrabe"],
-  LBR: ["InglÃ©s"],
-  LBY: ["Ãrabe"],
-  LKA: ["CingalÃ©s", "Tamil"],
-  LSO: ["Sesoto", "InglÃ©s"],
+  LBN: ["Árabe"],
+  LBR: ["Inglés"],
+  LBY: ["Árabe"],
+  LKA: ["Cingalés", "Tamil"],
+  LSO: ["Sesoto", "Inglés"],
   LTU: ["Lituano"],
-  LUX: ["LuxemburguÃ©s", "FrancÃ©s", "AlemÃ¡n"],
-  LVA: ["LetÃ³n"],
-  MAR: ["Ãrabe", "Tamazight"],
+  LUX: ["Luxemburgués", "Francés", "Alemán"],
+  LVA: ["Letón"],
+  MAR: ["Árabe", "Tamazight"],
   MDA: ["Rumano"],
-  MDG: ["Malgache", "FrancÃ©s"],
-  MEX: ["EspaÃ±ol"],
-  MKD: ["Macedonio", "AlbanÃ©s"],
-  MLI: ["FrancÃ©s"],
+  MDG: ["Malgache", "Francés"],
+  MEX: ["Español"],
+  MKD: ["Macedonio", "Albanés"],
+  MLI: ["Francés"],
   MMR: ["Birmano"],
   MNE: ["Montenegrino"],
   MNG: ["Mongol"],
-  MOZ: ["PortuguÃ©s"],
-  MRT: ["Ãrabe"],
-  MWI: ["InglÃ©s", "Chichewa"],
+  MOZ: ["Portugués"],
+  MRT: ["Árabe"],
+  MWI: ["Inglés", "Chichewa"],
   MYS: ["Malayo"],
-  NAM: ["InglÃ©s"],
-  NCL: ["FrancÃ©s"],
-  NER: ["FrancÃ©s"],
-  NGA: ["InglÃ©s"],
-  NIC: ["EspaÃ±ol"],
-  NLD: ["NeerlandÃ©s"],
+  NAM: ["Inglés"],
+  NCL: ["Francés"],
+  NER: ["Francés"],
+  NGA: ["Inglés"],
+  NIC: ["Español"],
+  NLD: ["Neerlandés"],
   NOR: ["Noruego"],
-  NPL: ["NepalÃ­"],
-  NZL: ["InglÃ©s", "MaorÃ­", "Lengua de seÃ±as neozelandesa"],
-  OMN: ["Ãrabe"],
-  PAK: ["Urdu", "InglÃ©s"],
-  PAN: ["EspaÃ±ol"],
-  PER: ["EspaÃ±ol", "Quechua", "Aimara"],
-  PHL: ["Filipino", "InglÃ©s"],
-  PNG: ["InglÃ©s", "Tok pisin", "Hiri motu"],
+  NPL: ["Nepalí"],
+  NZL: ["Inglés", "Maorí", "Lengua de señas neozelandesa"],
+  OMN: ["Árabe"],
+  PAK: ["Urdu", "Inglés"],
+  PAN: ["Español"],
+  PER: ["Español", "Quechua", "Aimara"],
+  PHL: ["Filipino", "Inglés"],
+  PNG: ["Inglés", "Tok pisin", "Hiri motu"],
   POL: ["Polaco"],
-  PRY: ["EspaÃ±ol", "GuaranÃ­"],
-  PRI: ["EspaÃ±ol", "InglÃ©s"],
+  PRY: ["Español", "Guaraní"],
+  PRI: ["Español", "Inglés"],
   PRK: ["Coreano"],
-  PRT: ["PortuguÃ©s"],
-  PSE: ["Ãrabe"],
-  QAT: ["Ãrabe"],
+  PRT: ["Portugués"],
+  PSE: ["Árabe"],
+  QAT: ["Árabe"],
   ROU: ["Rumano"],
   RUS: ["Ruso"],
-  RWA: ["Kinyarwanda", "FrancÃ©s", "InglÃ©s", "Suajili"],
-  SAU: ["Ãrabe"],
-  SDN: ["Ãrabe", "InglÃ©s"],
-  SEN: ["FrancÃ©s"],
-  SGP: ["InglÃ©s", "Malayo", "MandarÃ­n", "Tamil"],
-  SLB: ["InglÃ©s"],
-  SLE: ["InglÃ©s"],
-  SLV: ["EspaÃ±ol"],
-  SOM: ["SomalÃ­", "Ãrabe"],
+  RWA: ["Kinyarwanda", "Francés", "Inglés", "Suajili"],
+  SAU: ["Árabe"],
+  SDN: ["Árabe", "Inglés"],
+  SEN: ["Francés"],
+  SGP: ["Inglés", "Malayo", "Mandarín", "Tamil"],
+  SLB: ["Inglés"],
+  SLE: ["Inglés"],
+  SLV: ["Español"],
+  SOM: ["Somalí", "Árabe"],
   SRB: ["Serbio"],
-  SSD: ["InglÃ©s"],
-  SUR: ["NeerlandÃ©s"],
+  SSD: ["Inglés"],
+  SUR: ["Neerlandés"],
   SVK: ["Eslovaco"],
   SVN: ["Esloveno"],
   SWE: ["Sueco"],
-  SWZ: ["Suazi", "InglÃ©s"],
-  SYR: ["Ãrabe"],
-  TCD: ["Ãrabe", "FrancÃ©s"],
-  THA: ["TailandÃ©s"],
+  SWZ: ["Suazi", "Inglés"],
+  SYR: ["Árabe"],
+  TCD: ["Árabe", "Francés"],
+  THA: ["Tailandés"],
   TJK: ["Tayiko"],
-  TGO: ["FrancÃ©s"],
+  TGO: ["Francés"],
   TKM: ["Turcomano"],
-  TLS: ["Tetun", "PortuguÃ©s"],
-  TTO: ["InglÃ©s"],
-  TUN: ["Ãrabe"],
+  TLS: ["Tetun", "Portugués"],
+  TTO: ["Inglés"],
+  TUN: ["Árabe"],
   TUR: ["Turco"],
-  TWN: ["Chino mandarÃ­n"],
-  TZA: ["Suajili", "InglÃ©s"],
-  UGA: ["InglÃ©s", "Suajili"],
+  TWN: ["Chino mandarín"],
+  TZA: ["Suajili", "Inglés"],
+  UGA: ["Inglés", "Suajili"],
   UKR: ["Ucraniano"],
-  URY: ["EspaÃ±ol"],
-  USA: ["InglÃ©s"],
+  URY: ["Español"],
+  USA: ["Inglés"],
   UZB: ["Uzbeko"],
-  VEN: ["EspaÃ±ol"],
+  VEN: ["Español"],
   VNM: ["Vietnamita"],
-  VUT: ["Bislama", "InglÃ©s", "FrancÃ©s"],
-  YEM: ["Ãrabe"],
-  ZAF: ["ZulÃº", "Xhosa", "AfrikÃ¡ans", "InglÃ©s", "Sepedi", "Setsuana", "Sesoto", "Xitsonga", "Siswati", "Tshivenda", "Ndebele del sur"],
-  ZMB: ["InglÃ©s"],
-  ZWE: ["InglÃ©s", "Shona", "Sindebele"],
-  "CS-KM": ["AlbanÃ©s", "Serbio"],
-  "-99": ["SomalÃ­", "Ãrabe"]
+  VUT: ["Bislama", "Inglés", "Francés"],
+  YEM: ["Árabe"],
+  ZAF: ["Zulú", "Xhosa", "Afrikáans", "Inglés", "Sepedi", "Setsuana", "Sesoto", "Xitsonga", "Siswati", "Tshivenda", "Ndebele del sur"],
+  ZMB: ["Inglés"],
+  ZWE: ["Inglés", "Shona", "Sindebele"],
+  "CS-KM": ["Albanés", "Serbio"],
+  "-99": ["Somalí", "Árabe"]
 };
 
 const CAPITAL_ROLE_OVERRIDES = {
@@ -253,7 +253,7 @@ const CAPITAL_ROLE_OVERRIDES = {
     { role: "administrativa", name: "Putrajaya" }
   ],
   NLD: [
-    { role: "constitucional", name: "Ãmsterdam" },
+    { role: "constitucional", name: "Ámsterdam" },
     { role: "administrativa", name: "La Haya" }
   ],
   LKA: [
@@ -266,66 +266,66 @@ const CAPITAL_ROLE_OVERRIDES = {
     { role: "judicial", name: "Bloemfontein" }
   ],
   PSE: [
-    { role: "reclamada", name: "JerusalÃ©n Este" },
+    { role: "reclamada", name: "Jerusalén Este" },
     { role: "administrativa", name: "Ramala" }
   ]
 };
 
 const STATE_STRUCTURE_OVERRIDES = {
   ARG: "Estado federal presidencial",
-  AUS: "MonarquÃ­a constitucional federal parlamentaria",
-  AUT: "RepÃºblica federal parlamentaria",
-  BEL: "MonarquÃ­a constitucional federal parlamentaria",
+  AUS: "Monarquía constitucional federal parlamentaria",
+  AUT: "República federal parlamentaria",
+  BEL: "Monarquía constitucional federal parlamentaria",
   BOL: "Estado plurinacional unitario descentralizado",
   BIH: "Estado federal complejo con entidades constitutivas",
-  BRA: "RepÃºblica federal presidencial",
-  CAN: "MonarquÃ­a constitucional federal parlamentaria",
-  CHE: "RepÃºblica federal directorial",
-  CHN: "Estado socialista unitario de partido Ãºnico",
-  DEU: "RepÃºblica federal parlamentaria",
-  ESP: "MonarquÃ­a constitucional con Estado autonÃ³mico",
-  FRA: "RepÃºblica unitaria semipresidencial",
-  GBR: "MonarquÃ­a constitucional unitaria con devolucion",
-  IND: "RepÃºblica federal parlamentaria",
-  IRN: "RepÃºblica teocrÃ¡tica unitaria",
-  ISR: "RepÃºblica parlamentaria unitaria",
-  ITA: "RepÃºblica parlamentaria unitaria regionalizada",
-  MEX: "RepÃºblica federal presidencial",
-  MYS: "MonarquÃ­a constitucional federal parlamentaria",
-  NGA: "RepÃºblica federal presidencial",
-  NLD: "MonarquÃ­a constitucional unitaria descentralizada",
-  PAK: "RepÃºblica federal parlamentaria",
-  RUS: "RepÃºblica federal semipresidencial",
-  ZAF: "RepÃºblica parlamentaria unitaria descentralizada",
-  USA: "RepÃºblica federal presidencial",
-  ARE: "FederaciÃ³n de emiratos",
+  BRA: "República federal presidencial",
+  CAN: "Monarquía constitucional federal parlamentaria",
+  CHE: "República federal directorial",
+  CHN: "Estado socialista unitario de partido único",
+  DEU: "República federal parlamentaria",
+  ESP: "Monarquía constitucional con Estado autonómico",
+  FRA: "República unitaria semipresidencial",
+  GBR: "Monarquía constitucional unitaria con devolucion",
+  IND: "República federal parlamentaria",
+  IRN: "República teocrática unitaria",
+  ISR: "República parlamentaria unitaria",
+  ITA: "República parlamentaria unitaria regionalizada",
+  MEX: "República federal presidencial",
+  MYS: "Monarquía constitucional federal parlamentaria",
+  NGA: "República federal presidencial",
+  NLD: "Monarquía constitucional unitaria descentralizada",
+  PAK: "República federal parlamentaria",
+  RUS: "República federal semipresidencial",
+  ZAF: "República parlamentaria unitaria descentralizada",
+  USA: "República federal presidencial",
+  ARE: "Federación de emiratos",
   PRI: "Territorio no incorporado de Estados Unidos",
-  GUF: "Departamento y regiÃ³n de ultramar de Francia",
+  GUF: "Departamento y región de ultramar de Francia",
   NCL: "Colectividad especial francesa de ultramar",
-  ATF: "Territorio francÃ©s de ultramar",
-  BMU: "Territorio britÃ¡nico de ultramar",
-  FLK: "Territorio britÃ¡nico de ultramar",
-  GRL: "Territorio autÃ³nomo dentro del Reino de Dinamarca",
-  PSE: "Estado con reconocimiento limitado y administraciÃ³n dividida",
-  ATA: "Espacio internacional regido por el Sistema del Tratado AntÃ¡rtico"
+  ATF: "Territorio francés de ultramar",
+  BMU: "Territorio británico de ultramar",
+  FLK: "Territorio británico de ultramar",
+  GRL: "Territorio autónomo dentro del Reino de Dinamarca",
+  PSE: "Estado con reconocimiento limitado y administración dividida",
+  ATA: "Espacio internacional regido por el Sistema del Tratado Antártico"
 };
 
 const SUBDIVISION_OVERRIDES = {
-  ARG: { type: "provincias y ciudad autÃ³noma", count: 24 },
+  ARG: { type: "provincias y ciudad autónoma", count: 24 },
   ARE: { type: "emiratos", count: 7 },
   AUS: { type: "estados y territorios", count: 8 },
   AUT: { type: "estados federados", count: 9 },
-  BEL: { type: "regiones y comunidades", count: 6, notes: "Sistema federal complejo con doble eje territorial y lingÃ¼Ã­stico" },
+  BEL: { type: "regiones y comunidades", count: 6, notes: "Sistema federal complejo con doble eje territorial y lingüístico" },
   BOL: { type: "departamentos", count: 9 },
   BRA: { type: "estados y distrito federal", count: 27 },
   CAN: { type: "provincias y territorios", count: 13 },
   CHE: { type: "cantones", count: 26 },
-  CHN: { type: "provincias, regiones autÃ³nomas, municipios y regiones administrativas especiales", count: 34 },
+  CHN: { type: "provincias, regiones autónomas, municipios y regiones administrativas especiales", count: 34 },
   DEU: { type: "estados federados", count: 16 },
-  ESP: { type: "comunidades y ciudades autÃ³nomas", count: 19 },
+  ESP: { type: "comunidades y ciudades autónomas", count: 19 },
   FRA: { type: "regiones y departamentos", notes: "Incluye Francia metropolitana y ultramar" },
   GBR: { type: "naciones constituyentes y subdivisiones", count: 4 },
-  IND: { type: "estados y territorios de la UniÃ³n", count: 36 },
+  IND: { type: "estados y territorios de la Unión", count: 36 },
   ITA: { type: "regiones", count: 20 },
   JPN: { type: "prefecturas", count: 47 },
   MEX: { type: "estados y ciudad capital", count: 32 },
@@ -349,27 +349,27 @@ const ORGANIZATION_FILL_OVERRIDES = {
     { name: "Convencion para la Conservacion de los Recursos Vivos Marinos Antarticos", abbreviation: "CCRVMA", startYear: 1982, endYear: null }
   ],
   BHS: [
-    { name: "OrganizaciÃ³n de las Naciones Unidas", abbreviation: "UN", startYear: 1973, endYear: null },
-    { name: "OrganizaciÃ³n de los Estados Americanos", abbreviation: "OEA", startYear: 1982, endYear: null },
+    { name: "Organización de las Naciones Unidas", abbreviation: "UN", startYear: 1973, endYear: null },
+    { name: "Organización de los Estados Americanos", abbreviation: "OEA", startYear: 1982, endYear: null },
     { name: "Comunidad del Caribe", abbreviation: "CARICOM", startYear: 1983, endYear: null },
     { name: "Mancomunidad de Naciones", abbreviation: null, startYear: 1973, endYear: null }
   ],
   BLZ: [
-    { name: "OrganizaciÃ³n de las Naciones Unidas", abbreviation: "UN", startYear: 1981, endYear: null },
-    { name: "OrganizaciÃ³n de los Estados Americanos", abbreviation: "OEA", startYear: 1981, endYear: null },
+    { name: "Organización de las Naciones Unidas", abbreviation: "UN", startYear: 1981, endYear: null },
+    { name: "Organización de los Estados Americanos", abbreviation: "OEA", startYear: 1981, endYear: null },
     { name: "Comunidad del Caribe", abbreviation: "CARICOM", startYear: 1974, endYear: null },
     { name: "Mancomunidad de Naciones", abbreviation: null, startYear: 1981, endYear: null }
   ],
   PNG: [
-    { name: "OrganizaciÃ³n de las Naciones Unidas", abbreviation: "UN", startYear: 1975, endYear: null },
+    { name: "Organización de las Naciones Unidas", abbreviation: "UN", startYear: 1975, endYear: null },
     { name: "Mancomunidad de Naciones", abbreviation: null, startYear: 1975, endYear: null },
-    { name: "Foro de las Islas del PacÃ­fico", abbreviation: "PIF", startYear: 1975, endYear: null },
-    { name: "CooperaciÃ³n EconÃ³mica Asia-PacÃ­fico", abbreviation: "APEC", startYear: 1993, endYear: null }
+    { name: "Foro de las Islas del Pacífico", abbreviation: "PIF", startYear: 1975, endYear: null },
+    { name: "Cooperación Económica Asia-Pacífico", abbreviation: "APEC", startYear: 1993, endYear: null }
   ],
   PSE: [
-    { name: "Liga Ãrabe", abbreviation: null, startYear: 1976, endYear: null },
-    { name: "OrganizaciÃ³n para la CooperaciÃ³n IslÃ¡mica", abbreviation: "OIC", startYear: 1969, endYear: null },
-    { name: "Movimiento de PaÃ­ses No Alineados", abbreviation: "NAM", startYear: 1976, endYear: null }
+    { name: "Liga Árabe", abbreviation: null, startYear: 1976, endYear: null },
+    { name: "Organización para la Cooperación Islámica", abbreviation: "OIC", startYear: 1969, endYear: null },
+    { name: "Movimiento de Países No Alineados", abbreviation: "NAM", startYear: 1976, endYear: null }
   ],
   ESH: [
     { name: "Unión Africana", abbreviation: "UA", startYear: 1984, endYear: null }
@@ -494,7 +494,7 @@ const CURATED_CONFLICT_OVERRIDES = {
     { name: "Levantamiento de Barein de 2011", startYear: 2011, endYear: 2011, ongoing: false }
   ],
   BRN: [
-    { name: "Revuelta de BrunÃ©i", startYear: 1962, endYear: 1962, ongoing: false }
+    { name: "Revuelta de Brunéi", startYear: 1962, endYear: 1962, ongoing: false }
   ],
   BTN: [
     { name: "Guerra de los Duars", startYear: 1864, endYear: 1865, ongoing: false }
@@ -803,7 +803,7 @@ const CONFLICT_YEAR_HINTS = {
   "Batalla de Resaca de la Palma": { startYear: 1846, endYear: 1846 },
   "Ingham incident": { startYear: 1959, endYear: 1959 },
   "Batalla del Estrecho de Corea": { startYear: 1950, endYear: 1950 },
-  "LÃ¶wendalsfejden": { startYear: 1789, endYear: 1790 },
+  "Löwendalsfejden": { startYear: 1789, endYear: 1790 },
   "Batalla de Mirbat": { startYear: 1972, endYear: 1972 },
   "Batalla del puente del rio Pacora": { startYear: 1821, endYear: 1821 },
   "Artillery Duel at Korkiansaari": { startYear: 1941, endYear: 1941 }
@@ -1134,7 +1134,7 @@ const POST_BUILD_ENTITY_OVERRIDES = {
   },
   VNM: {
     general: {
-      capital: { name: "HanÃ³i", population: 8053663, isCapital: true },
+      capital: { name: "Hanói", population: 8053663, isCapital: true },
       cities: [
         { name: "Ciudad Ho Chi Minh", population: 9446000, isCapital: false },
         { name: "Hai Phong", population: 2103500, isCapital: false },
@@ -1503,9 +1503,9 @@ const OFFICIAL_NAME_OVERRIDES = {
   COD: "Republica Democratica del Congo",
   COG: "Republica del Congo",
   DEU: "Republica Federal de Alemania",
-  ESP: "Reino de EspaÃ±a",
+  ESP: "Reino de España",
   FRA: "Republica Francesa",
-  GBR: "Reino Unido de Gran BretaÃ±a e Irlanda del Norte",
+  GBR: "Reino Unido de Gran Bretaña e Irlanda del Norte",
   GRC: "Republica Helenica",
   IND: "Republica de la India",
   IRN: "Republica Islamica de Iran",
@@ -1563,7 +1563,7 @@ const HISTORICAL_NAME_OVERRIDES = {
   PSE: ["Palestina bajo mandato britanico"],
   GUF: ["Guyane francaise"],
   FLK: ["Falkland Islands"],
-  PRI: ["Puerto Rico espaÃ±ol"],
+  PRI: ["Puerto Rico español"],
   "CS-KM": ["Kosovo y Metohija"],
   "-99": ["Somalilandia Britanica"]
 };
@@ -1579,7 +1579,7 @@ const SYMBOL_OVERRIDES = {
   },
   CHN: {
     flagDescription: "Bandera roja con cinco estrellas amarillas",
-    coatOfArms: "Emblema rojo y dorado con TiananmÃ©n, engranaje y espigas"
+    coatOfArms: "Emblema rojo y dorado con Tiananmén, engranaje y espigas"
   },
   ESP: {
     flagDescription: "Bandera roja y amarilla con escudo nacional",
@@ -1631,7 +1631,7 @@ const SYMBOL_OVERRIDES = {
   },
   PRI: {
     flagDescription: "Bandera con franjas rojas y blancas y triangulo azul con estrella",
-    coatOfArms: "Escudo historico de Puerto Rico con cordero mÃ­stico"
+    coatOfArms: "Escudo historico de Puerto Rico con cordero místico"
   },
   FLK: {
     flagDescription: "Blue Ensign con escudo de las Islas Malvinas",
@@ -1847,7 +1847,7 @@ const RELATION_OVERRIDES = {
     rivalStates: ["Argentina", "Rusia"]
   },
   FRA: {
-    allies: ["Alemania", "Italia", "EspaÃ±a"],
+    allies: ["Alemania", "Italia", "España"],
     blocs: ["Union Europea", "OTAN", "ONU"],
     disputes: ["Mayotte"],
     rivalStates: ["Rusia"]
@@ -2178,7 +2178,7 @@ Object.assign(SYMBOL_OVERRIDES, {
   },
   PRK: {
     flagDescription: "Bandera roja con franjas azules y blancas y estrella roja",
-    coatOfArms: "Emblema con presa hidroelÃ©ctrica, monte Paektu y estrella roja"
+    coatOfArms: "Emblema con presa hidroeléctrica, monte Paektu y estrella roja"
   },
   SAU: {
     flagDescription: "Bandera verde con shahada blanca y espada",
@@ -3262,7 +3262,7 @@ const ENTITY_FALLBACKS = {
     ]
   },
   TTO: {
-    capital: { name: "Puerto EspaÃ±a", population: 37106, isCapital: true },
+    capital: { name: "Puerto España", population: 37106, isCapital: true },
     cities: [
       { name: "San Fernando", population: 48338, isCapital: false },
       { name: "Chaguanas", population: 101297, isCapital: false },
@@ -3296,7 +3296,7 @@ const ENTITY_FALLBACKS = {
         { name: "Otras religiones", percentage: 15.5 }
       ]
     },
-    capital: { name: "TaipÃ©i", population: 2489394, isCapital: true },
+    capital: { name: "Taipéi", population: 2489394, isCapital: true },
     cities: [
       { name: "Kaohsiung", population: 2739661, isCapital: false },
       { name: "Taichung", population: 2820143, isCapital: false },
@@ -3853,18 +3853,18 @@ function normalizeOrganizationAbbreviation(value) {
 function formatFormationType(value) {
   const labels = {
     independencia: "Independencia",
-    union: "UniÃ³n",
-    "disolucion de otro estado": "DisoluciÃ³n de otro estado",
-    revolucion: "RevoluciÃ³n",
+    union: "Unión",
+    "disolucion de otro estado": "Disolución de otro estado",
+    revolucion: "Revolución",
     "guerra civil": "Guerra civil",
     "territorio disputado": "Territorio disputado",
     "territorio dependiente": "Territorio dependiente",
     "territorio no incorporado": "Territorio no incorporado",
     "tratado internacional": "Tratado internacional",
-    legal: "Legal y pacÃ­fica"
+    legal: "Legal y pacífica"
   };
 
-  return labels[value] || "Legal y pacÃ­fica";
+  return labels[value] || "Legal y pacífica";
 }
 
 const NON_POLITICAL_SYSTEM_LABELS = new Set([
@@ -3991,6 +3991,13 @@ function sameCityName(a, b) {
   return normalizeKey(String(a || "").replace(/\s*\([^)]*\)\s*$/g, "")) === normalizeKey(String(b || "").replace(/\s*\([^)]*\)\s*$/g, ""));
 }
 
+const FEATURED_CAPITAL_CITY_CODES = new Set(["BEL", "CHN"]);
+
+function filterCapitalFromCityList(code, cities = [], capital = null) {
+  if (!capital || FEATURED_CAPITAL_CITY_CODES.has(code)) return cities;
+  return cities.filter(city => !sameCityName(city.name, capital.name));
+}
+
 function parseOrganizationEntry(entry) {
   if (!entry) {
     return null;
@@ -4008,7 +4015,7 @@ function parseOrganizationEntry(entry) {
       : null;
   }
 
-  const cleaned = entry.replace(/\s+\((politica|econ[oÃ³]mica|militar|regional)\)\s*$/i, "").trim();
+  const cleaned = entry.replace(/\s+\((politica|econ[oó]mica|militar|regional)\)\s*$/i, "").trim();
   const abbreviationMatch = cleaned.match(/\(([^)]+)\)\s*$/);
   const abbreviation = abbreviationMatch ? normalizeOrganizationAbbreviation(abbreviationMatch[1].trim()) : null;
   const name = normalizeOrganizationName(abbreviationMatch ? cleaned.replace(/\(([^)]+)\)\s*$/,"").trim() : cleaned, abbreviation);
@@ -4082,17 +4089,17 @@ function deriveOfficialName(code, commonName, system) {
     return commonName;
   }
   if (normalizedSystem.includes("federal")) {
-    return `RepÃºblica Federal de ${commonName}`;
+    return `República Federal de ${commonName}`;
   }
   if (
-    commonName.startsWith("RepÃºblica") ||
+    commonName.startsWith("República") ||
     commonName.startsWith("Republica") ||
     commonName.startsWith("Reino") ||
     commonName.startsWith("Estado")
   ) {
     return commonName;
   }
-  return `RepÃºblica de ${commonName}`;
+  return `República de ${commonName}`;
 }
 
 function deriveHistoricalNames(code, historyEntry) {
@@ -4132,13 +4139,13 @@ function deriveLanguages(code, historyEntry) {
   }
 
   const origin = normalizeKey(historyEntry?.origin);
-  if (origin.includes("francia")) return ["FrancÃ©s"];
-  if (origin.includes("reino unido")) return ["InglÃ©s"];
-  if (origin.includes("espana")) return ["EspaÃ±ol"];
-  if (origin.includes("portugal")) return ["PortuguÃ©s"];
-  if (origin.includes("paises bajos")) return ["NeerlandÃ©s"];
-  if (origin.includes("dinamarca")) return ["DanÃ©s"];
-  if (origin.includes("estados unidos")) return ["InglÃ©s"];
+  if (origin.includes("francia")) return ["Francés"];
+  if (origin.includes("reino unido")) return ["Inglés"];
+  if (origin.includes("espana")) return ["Español"];
+  if (origin.includes("portugal")) return ["Portugués"];
+  if (origin.includes("paises bajos")) return ["Neerlandés"];
+  if (origin.includes("dinamarca")) return ["Danés"];
+  if (origin.includes("estados unidos")) return ["Inglés"];
 
   return [];
 }
@@ -4190,10 +4197,10 @@ function deriveStateStructure(code, politicalSystem, officialName) {
     return "Estado federal";
   }
   if (system.includes("monarquia")) {
-    return "MonarquÃ­a constitucional o absoluta de base unitaria";
+    return "Monarquía constitucional o absoluta de base unitaria";
   }
   if (system.includes("teocracia")) {
-    return "Estado unitario teocrÃ¡tico";
+    return "Estado unitario teocrático";
   }
   if (system.includes("parlament")) {
     return "Estado unitario parlamentario";
@@ -4226,7 +4233,7 @@ function deriveSubdivisionMetadata(code, politicalSystem, stateStructure) {
 function buildMetadataSources(code, context = {}) {
   const withManual = section => [
     ...section,
-    "CuradurÃ­a manual interna"
+    "Curaduría manual interna"
   ];
 
   return {
@@ -4484,10 +4491,10 @@ function deriveMetropole(code, historyEntry) {
   const pairs = [
     ["reino unido", "Reino Unido"],
     ["francia", "Francia"],
-    ["espana", "EspaÃ±a"],
+    ["espana", "España"],
     ["portugal", "Portugal"],
-    ["paises bajos", "PaÃ­ses Bajos"],
-    ["holanda", "PaÃ­ses Bajos"],
+    ["paises bajos", "Países Bajos"],
+    ["holanda", "Países Bajos"],
     ["dinamarca", "Dinamarca"],
     ["australia", "Australia"],
     ["estados unidos", "Estados Unidos"],
@@ -5902,8 +5909,10 @@ for (const code of allCodes) {
     compactList(cityData.cities).length >= 3 ? [] : compactList(baseData.cities).slice(capital ? 1 : 0);
   const primaryCitySource = fallback.replaceCities ? fallback.cities : cityData.cities;
   const secondaryCitySource = fallback.replaceCities ? [] : fallback.cities;
-  const cities = buildCityList(primaryCitySource, secondaryCitySource, baseCityFallback).filter(
-    city => !capital || !sameCityName(city.name, capital.name)
+  const cities = filterCapitalFromCityList(
+    code,
+    buildCityList(primaryCitySource, secondaryCitySource, baseCityFallback),
+    capital
   );
   const populationFallbackFromCities =
     compactNumber(capital?.population) ||
@@ -6118,8 +6127,10 @@ for (const code of allCodes) {
   }
 
   if ((!result[code].general.cities || !result[code].general.cities.length) && fallback.cities?.length) {
-    result[code].general.cities = buildCityList(fallback.cities).filter(
-      city => !result[code].general.capital || !sameCityName(city.name, result[code].general.capital.name)
+    result[code].general.cities = filterCapitalFromCityList(
+      code,
+      buildCityList(fallback.cities),
+      result[code].general.capital
     );
   }
 
@@ -6129,14 +6140,18 @@ for (const code of allCodes) {
     result[code].general.capitals = deriveCapitalProfiles(code, result[code].general.capital, result[code].general.cities);
   }
   if (postBuildOverride?.general?.cities?.length) {
-    result[code].general.cities = buildCityList(postBuildOverride.general.cities).filter(
-      city => !result[code].general.capital || !sameCityName(city.name, result[code].general.capital.name)
+    result[code].general.cities = filterCapitalFromCityList(
+      code,
+      buildCityList(postBuildOverride.general.cities),
+      result[code].general.capital
     );
     result[code].general.capitals = deriveCapitalProfiles(code, result[code].general.capital, result[code].general.cities);
   }
   if (result[code].general.cities?.length === 1 && postBuildOverride?.general?.cities?.length) {
-    result[code].general.cities = buildCityList(postBuildOverride.general.cities).filter(
-      city => !result[code].general.capital || !sameCityName(city.name, result[code].general.capital.name)
+    result[code].general.cities = filterCapitalFromCityList(
+      code,
+      buildCityList(postBuildOverride.general.cities),
+      result[code].general.capital
     );
     result[code].general.capitals = deriveCapitalProfiles(code, result[code].general.capital, result[code].general.cities);
   }
@@ -6144,7 +6159,12 @@ for (const code of allCodes) {
     result[code].general.cities = buildCityList(
       result[code].general.cities,
       CITY_SUPPLEMENT_OVERRIDES[code]
-    ).filter(city => !result[code].general.capital || !sameCityName(city.name, result[code].general.capital.name));
+    );
+    result[code].general.cities = filterCapitalFromCityList(
+      code,
+      result[code].general.cities,
+      result[code].general.capital
+    );
     result[code].general.capitals = deriveCapitalProfiles(
       code,
       result[code].general.capital,
@@ -6242,7 +6262,7 @@ console.log(`Dataset generado: ${Object.keys(sanitizedResult).length} paises.`);
 /*
   PAN: {
     flagDescription: "Bandera cuartelada blanca, roja y azul con estrellas",
-    coatOfArms: "Escudo con aguila harpÃ­a, armas, cornucopia y lema nacional"
+    coatOfArms: "Escudo con aguila harpía, armas, cornucopia y lema nacional"
   },
   PER: {
     flagDescription: "Bandera roja, blanca y roja vertical con escudo en version estatal",

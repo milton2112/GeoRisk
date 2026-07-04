@@ -41,6 +41,8 @@ const [
   conflictAudit,
   indexHtml,
   scriptSource,
+  swSource,
+  changelogSource,
   workflowSource
 ] = await Promise.all([
   readJson("package.json"),
@@ -50,6 +52,8 @@ const [
   readJson("reports/conflict-audit.json"),
   readText("index.html"),
   readText("script.js"),
+  readText("sw.js"),
+  readText("CHANGELOG.md"),
   readText(".github/workflows/release-gate.yml")
 ]);
 
@@ -59,10 +63,13 @@ const requiredScripts = [
   "prepush:check",
   "release:prepare",
   "release:check",
+  "release:status",
+  "fix:source-text",
   "audit:data",
   "audit:project",
   "audit:conflicts",
   "performance:snapshot",
+  "maintain:quick",
   "clean:storage"
 ];
 
@@ -75,6 +82,17 @@ for (const scriptName of requiredScripts) {
 const startupBytes = performanceSnapshot.assets?.startupCritical?.bytes || projectAudit.startup?.criticalBytes || 0;
 const scriptBytes = performanceSnapshot.assets?.scriptJs?.bytes || 0;
 const countriesIndexBytes = performanceSnapshot.assets?.countriesIndex?.bytes || 0;
+const appVersion = scriptSource.match(/const APP_VERSION = "([^"]+)"/)?.[1] || null;
+const cacheVersion = swSource.match(/const CACHE_VERSION = "([^"]+)"/)?.[1] || null;
+if (!appVersion || appVersion !== cacheVersion) {
+  addFinding(findings, "alta", "release", "Version de app/cache desalineada", `APP_VERSION=${appVersion || "faltante"}, CACHE_VERSION=${cacheVersion || "faltante"}`, "npm run release:prepare");
+}
+if (appVersion && !indexHtml.includes(`?v=${appVersion}`)) {
+  addFinding(findings, "alta", "release", "index.html no usa el stamp activo", appVersion, "npm run release:prepare");
+}
+if (packageJson.version && !changelogSource.includes(`## v${packageJson.version}`)) {
+  addFinding(findings, "media", "release", "CHANGELOG sin la version actual", `v${packageJson.version}`, "npm run release:prepare");
+}
 if (startupBytes > 1024 * 1024) {
   addFinding(findings, "critica", "performance", "Arranque critico sobre 1 MB", `${startupBytes} bytes`, "npm run measure:startup");
 }
@@ -89,14 +107,14 @@ if (countriesIndexBytes > 240000) {
 
 const dataSummary = dataAudit.summary || {};
 const dataCounts = Object.fromEntries(Object.entries(dataSummary).map(([key, value]) => [key, value.count || 0]));
-if (dataCounts.englishConflictNames > 0 || dataCounts.mojibakeText > 0 || dataCounts.uppercaseCities > 0) {
+if (dataCounts.englishConflictNames > 0 || dataCounts.mojibakeText > 0 || dataCounts.sourceTextMojibake > 0 || dataCounts.uppercaseCities > 0) {
   addFinding(
     findings,
     "alta",
     "datos",
     "Datos visibles con texto sospechoso",
-    `ingles=${dataCounts.englishConflictNames || 0}, mojibake=${dataCounts.mojibakeText || 0}, mayusculas=${dataCounts.uppercaseCities || 0}`,
-    "npm run fix:data-visible && npm run build:indexes && npm run audit:data"
+    `ingles=${dataCounts.englishConflictNames || 0}, mojibake=${dataCounts.mojibakeText || 0}, fuente=${dataCounts.sourceTextMojibake || 0}, mayusculas=${dataCounts.uppercaseCities || 0}`,
+    "npm run fix:source-text && npm run fix:data-visible && npm run build:indexes && npm run audit:data"
   );
 }
 if ((dataCounts.undatedHighLevelConflicts || 0) > 0) {
@@ -149,6 +167,9 @@ if (unreferencedDataAttributes.length) {
 
 if (!workflowSource.includes("npm run release:check")) {
   addFinding(findings, "alta", "automatizacion", "GitHub Actions no corre release:check", "La puerta remota no cubre la release completa.", "npm run test:release-gates");
+}
+if (!workflowSource.includes("npm run release:status")) {
+  addFinding(findings, "media", "automatizacion", "GitHub Actions no publica estado de release", "Falta el tablero resumido de version, datos y presupuestos.", "npm run test:release-gates");
 }
 if (!workflowSource.includes("schedule:")) {
   addFinding(findings, "media", "automatizacion", "GitHub Actions no tiene auditoria programada", "Conviene conservar una auditoria semanal de datos.", "npm run test:release-gates");

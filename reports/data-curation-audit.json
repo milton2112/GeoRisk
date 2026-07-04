@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-07-03T02:50:03.257Z",
+  "generatedAt": "2026-07-04T22:34:58.713Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 9114902,
-    "duplicatedCountryFilesBytes": 1748107,
+    "fullBytes": 9114346,
+    "duplicatedCountryFilesBytes": 1747546,
     "tooLargeCount": 3,
     "largest": [
       {
         "code": "USA",
         "name": "Estados Unidos",
-        "bytes": 216366,
-        "inlineBytes": 2710305,
+        "bytes": 216361,
+        "inlineBytes": 2710295,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -28,7 +28,7 @@
         "code": "GBR",
         "name": "Reino Unido",
         "bytes": 71022,
-        "inlineBytes": 824497,
+        "inlineBytes": 824529,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -44,8 +44,8 @@
       {
         "code": "FRA",
         "name": "Francia",
-        "bytes": 52358,
-        "inlineBytes": 650975,
+        "bytes": 52348,
+        "inlineBytes": 650965,
         "tooLarge": true,
         "counts": {
           "cities": 5,
@@ -163,8 +163,8 @@
       {
         "code": "POL",
         "name": "Polonia",
-        "bytes": 14700,
-        "inlineBytes": 75668,
+        "bytes": 14695,
+        "inlineBytes": 75663,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -197,8 +197,8 @@
       {
         "code": "CHN",
         "name": "República Popular China",
-        "bytes": 13883,
-        "inlineBytes": 90284,
+        "bytes": 13885,
+        "inlineBytes": 90286,
         "tooLarge": false,
         "counts": {
           "cities": 5,

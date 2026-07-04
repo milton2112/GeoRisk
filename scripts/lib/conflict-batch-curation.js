@@ -148,6 +148,10 @@ const SPECIAL_CONFLICT_METADATA = new Map([
   }]
 ]);
 
+const SPECIAL_CONFLICT_METADATA_BY_KEY = new Map(
+  [...SPECIAL_CONFLICT_METADATA.entries()].map(([key, value]) => [normalizeConflictKey(key), value])
+);
+
 const WAR_RULES = [
   { name: "Primera Guerra Mundial", start: 1914, end: 1918, scale: "mundial", type: "interestatal", region: "Europa y teatros globales" },
   { name: "Segunda Guerra Mundial", start: 1939, end: 1945, scale: "mundial", type: "interestatal", region: "Europa, Asia-Pacifico, Africa y Atlantico" },
@@ -450,7 +454,7 @@ function renameConflict(name) {
   const cleaned = cleanConflictLabel(name);
   const explicit = NAME_RENAMES.get(cleaned);
   if (explicit) return explicit;
-  const special = SPECIAL_CONFLICT_METADATA.get(cleaned);
+  const special = SPECIAL_CONFLICT_METADATA.get(cleaned) || SPECIAL_CONFLICT_METADATA_BY_KEY.get(normalizeConflictKey(cleaned));
   if (special?.name) return special.name;
   return cleaned
     .replace(YEAR_PREFIX, "$2 ($1)")
@@ -494,7 +498,12 @@ export function collectConflictCountryNames(countries = {}) {
 export function curateConflictEntry(entry = {}, context = {}) {
   if (!entry?.name) return entry;
   const name = renameConflict(entry.name);
-  const special = SPECIAL_CONFLICT_METADATA.get(cleanConflictLabel(entry.name)) || SPECIAL_CONFLICT_METADATA.get(name) || {};
+  const cleanedName = cleanConflictLabel(entry.name);
+  const special = SPECIAL_CONFLICT_METADATA.get(cleanedName)
+    || SPECIAL_CONFLICT_METADATA.get(name)
+    || SPECIAL_CONFLICT_METADATA_BY_KEY.get(normalizeConflictKey(cleanedName))
+    || SPECIAL_CONFLICT_METADATA_BY_KEY.get(normalizeConflictKey(name))
+    || {};
   const renamedEntry = { ...entry, ...special, name };
   const inheritedParent = renamedEntry.parent || renamedEntry.war || "";
   const hasObsoleteGenericParent = renamedEntry.curationBatch === "safe-structured-conflict-curation-2026-06"

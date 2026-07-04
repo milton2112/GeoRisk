@@ -10,6 +10,7 @@ const steps = [
   ["auditoria de datos programable", "npm", ["run", "audit:data"]],
   ["snapshot de performance", "npm", ["run", "performance:snapshot"]],
   ["doctor de producto", "npm", ["run", "audit:doctor"]],
+  ["estado de release", "npm", ["run", "release:status"]],
   ["smoke server", "npm", ["run", "test:smoke-server"]],
   ["limpieza local", "npm", ["run", "clean:local"]]
 ];

@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-07-03T02:50:05.899Z",
-  "packageVersion": "1.6.27",
+  "generatedAt": "2026-07-04T22:35:01.722Z",
+  "packageVersion": "1.6.28",
   "status": "observacion",
   "summary": {
     "totalFindings": 1,
     "bySeverity": {
       "media": 1
     },
-    "startupBytes": 1000690,
+    "startupBytes": 1000144,
     "scriptBytes": 692317,
-    "countriesIndexBytes": 171666,
+    "countriesIndexBytes": 171120,
     "conflictAuditIssues": 0,
     "dataCounts": {
       "englishConflictNames": 0,
@@ -21,6 +21,7 @@
       "redundantReligions": 0,
       "uppercaseCities": 0,
       "mojibakeText": 0,
+      "sourceTextMojibake": 0,
       "largeCountries": 3,
       "weakDataProfiles": 183
     }

@@ -17,7 +17,17 @@ directPairs.push(
   ["\u00c5\u2018", "\u0151"],
   ["\u00c5\u0090", "\u0150"],
   ["\u00c5\u00b1", "\u0171"],
-  ["\u00c5\u00b0", "\u0170"]
+  ["\u00c5\u00b0", "\u0170"],
+  ["\u00c3\u00a4", "ä"],
+  ["\u00c3\u0084", "Ä"],
+  ["\u00c3\u00b6", "ö"],
+  ["\u00c3\u0096", "Ö"],
+  ["\u00c3\u00b8", "ø"],
+  ["\u00c3\u0098", "Ø"],
+  ["\u00c3\u00a5", "å"],
+  ["\u00c3\u0085", "Å"],
+  ["\u00c3\u00a6", "æ"],
+  ["\u00c3\u0086", "Æ"]
 );
 
 function applyDirectPairs(raw) {
@@ -39,33 +49,41 @@ function hasMojibakeSignal(raw) {
   );
 }
 
+function mojibakeScore(value) {
+  const text = String(value || "");
+  const signalMatches = text.match(/[\u00C2\u00C3\uFFFD]|Ã|Â|â€|ï¿½/g) || [];
+  const replacementMatches = text.match(/\uFFFD/g) || [];
+  return signalMatches.length * 10 + replacementMatches.length * 30;
+}
+
+function decodeLatin1Utf8(value) {
+  try {
+    return Buffer.from(String(value || ""), "latin1").toString("utf8");
+  } catch {
+    return String(value || "");
+  }
+}
+
 export function repairMojibake(value) {
   const raw = String(value || "");
   if (!raw || !hasMojibakeSignal(raw)) {
     return raw;
   }
 
-  let repaired = applyDirectPairs(raw);
-  if (repaired !== raw && !hasMojibakeSignal(repaired)) {
-    return repaired;
+  const candidates = new Set([raw, applyDirectPairs(raw)]);
+  let decoded = raw;
+  for (let index = 0; index < 3; index += 1) {
+    decoded = decodeLatin1Utf8(decoded);
+    if (!decoded) break;
+    candidates.add(decoded);
+    candidates.add(applyDirectPairs(decoded));
   }
 
-  for (let index = 0; index < 2; index += 1) {
-    try {
-      const decoded = Buffer.from(repaired, "latin1").toString("utf8");
-      if (!decoded || decoded === repaired) {
-        break;
-      }
-      repaired = applyDirectPairs(decoded);
-      if (!hasMojibakeSignal(repaired)) {
-        break;
-      }
-    } catch {
-      break;
-    }
-  }
-
-  return repaired;
+  return [...candidates].sort((left, right) => {
+    const scoreDelta = mojibakeScore(left) - mojibakeScore(right);
+    if (scoreDelta !== 0) return scoreDelta;
+    return left.length - right.length;
+  })[0];
 }
 
 export function normalizeText(value) {

@@ -46,6 +46,14 @@ assert.ok(!/resultado pendiente|requiere ampliacion|disputa militar o politica/i
   refreshedPlaceholder.consequences
 ].join(" ")));
 
+const accentMatchedSpecialMetadata = curateConflictEntry({
+  name: "Operaciones Temeraria y Persecución",
+  ongoing: false
+}, { country: { name: "Estados Unidos", continent: "America" } });
+assert.equal(accentMatchedSpecialMetadata.startYear, 1944, "metadatos especiales deben matchear aunque varie el acento");
+assert.equal(accentMatchedSpecialMetadata.parent, "Segunda Guerra Mundial");
+assert.equal(accentMatchedSpecialMetadata.campaign, "Campaña de Nueva Guinea occidental");
+
 const report = buildConflictAuditReport({
   countries: {
     USA: {

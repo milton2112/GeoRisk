@@ -1,6 +1,6 @@
 {
   "name": "geo-risk",
-  "version": "1.6.27",
+  "version": "1.6.28",
   "type": "module",
   "scripts": {
     "build:data": "node scripts/buildDataset.js && node scripts/applyConflictAutofix.js && node scripts/applyVisibleDataCorrections.js && node scripts/buildDataIndexes.js",
@@ -11,6 +11,7 @@
     "audit:conflicts": "node scripts/auditConflicts.js",
     "audit:project": "node scripts/projectAudit.js",
     "fix:data-visible": "node scripts/applyVisibleDataCorrections.js",
+    "fix:source-text": "node scripts/fixSourceText.js",
     "fix:conflicts": "node scripts/applyConflictAutofix.js && node scripts/auditConflicts.js",
     "fix:conflicts:batches": "node scripts/applyVisibleDataCorrections.js && node scripts/applyConflictAutofix.js && node scripts/auditConflicts.js && node scripts/buildDataIndexes.js",
     "compact:index": "node scripts/compactStartupIndex.js",
@@ -24,12 +25,14 @@
     "hooks:install": "git config core.hooksPath .githooks",
     "release:prepare": "node scripts/prepareRelease.js",
     "release:check": "node scripts/releaseChecklist.js",
+    "release:status": "node scripts/releaseStatus.js",
     "release:tag": "node scripts/createReleaseTag.js",
     "validate:data": "node scripts/validateDataset.js",
     "audit:data": "node scripts/dataAutomationAudit.js",
     "audit:doctor": "node scripts/projectDoctor.js",
     "performance:snapshot": "node scripts/performanceSnapshot.js",
     "maintain:quick": "node scripts/maintenanceQuick.js",
+    "test:text-normalization": "node scripts/tests/text-normalization.test.js",
     "test:normalization": "node scripts/tests/normalization.test.js",
     "test:conflicts": "node scripts/tests/conflict-cleaning.test.js",
     "test:conflict-audit": "node scripts/tests/conflict-audit.test.js",
@@ -50,7 +53,7 @@
     "test:country-matching": "node scripts/tests/country-matching.test.js",
     "test:modal-render": "node scripts/tests/modal-render.test.js",
     "test:map-coverage": "node scripts/tests/map-coverage.test.js",
-    "test": "npm run check:startup-budget && npm run build:prod && npm run test:normalization && npm run test:conflicts && npm run test:conflict-audit && npm run test:conflict-audit-report && npm run test:conflict-autofix && npm run test:data-language && npm run test:logic && npm run test:search && npm run test:rankings && npm run test:news && npm run test:ui-architecture && npm run test:release-gates && npm run test:browser-visual && npm run test:compare-quiz && npm run test:startup && npm run test:visual-hygiene && npm run test:smoke-server && npm run test:country-matching && npm run test:modal-render && npm run test:map-coverage && npm run validate:data"
+    "test": "npm run check:startup-budget && npm run build:prod && npm run test:text-normalization && npm run test:normalization && npm run test:conflicts && npm run test:conflict-audit && npm run test:conflict-audit-report && npm run test:conflict-autofix && npm run test:data-language && npm run test:logic && npm run test:search && npm run test:rankings && npm run test:news && npm run test:ui-architecture && npm run test:release-gates && npm run test:browser-visual && npm run test:compare-quiz && npm run test:startup && npm run test:visual-hygiene && npm run test:smoke-server && npm run test:country-matching && npm run test:modal-render && npm run test:map-coverage && npm run validate:data"
   },
   "dependencies": {
     "csv-parser": "^3.0.0",

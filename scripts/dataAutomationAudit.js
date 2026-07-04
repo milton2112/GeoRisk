@@ -50,6 +50,7 @@ const lowLevelUndatedConflictPattern = /\b(batalla|batallas|combate|combat|sitio
 const mojibakePattern = /[\u00c2\u00c3\uFFFD]|Ã|â€™|â€œ|â€|�|\u00c5[\u0080-\u00bf\u2018]/;
 const suspectRegionNamePattern = /Afganist|Irak|Estado Isl|Siria|Kivu|Kosovo|Vietnam|Corea|Sa(?:'|\u2019)?dah|Pakist|Cachemira|Gaza|Israel|Iran|Irano|Kachin|Laos|Tailandia|Camerun|Camer\u00fan/i;
 const suspectRegionPattern = /Oceania|America del Sur|Europa occidental|Africa occidental|Europa$|America$/i;
+const sourceMojibakePattern = /Ã|Â|â€|�|ï¿½/;
 const redundantReligionBranches = new Set([
   "cristianos protestantes",
   "cristianos evangelicos",
@@ -62,6 +63,26 @@ const redundantReligionBranches = new Set([
 const allConflicts = Object.entries(countries).flatMap(([code, country]) =>
   asArray(country.military?.conflicts).map(conflict => ({ code, ...conflict }))
 );
+
+async function collectSourceTextMojibake() {
+  const targets = ["scripts/buildDataset.js"];
+  const issues = [];
+  for (const relativePath of targets) {
+    const absolutePath = path.join(projectRoot, relativePath);
+    if (!(await fs.pathExists(absolutePath))) continue;
+    const lines = (await fs.readFile(absolutePath, "utf8")).split(/\r?\n/);
+    lines.forEach((line, index) => {
+      if (sourceMojibakePattern.test(line)) {
+        issues.push({
+          file: relativePath,
+          line: index + 1,
+          value: line.trim().slice(0, 180)
+        });
+      }
+    });
+  }
+  return issues;
+}
 
 const conflictNameBuckets = new Map();
 for (const conflict of allConflicts) {
@@ -152,6 +173,8 @@ const mojibakeText = Object.entries(countries).flatMap(([code, country]) => {
   return matches;
 });
 
+const sourceTextMojibake = await collectSourceTextMojibake();
+
 const weakDataProfiles = Object.entries(countries).flatMap(([code, country]) => {
   const quality = country.metadata?.quality || {};
   const weakSections = Object.entries(quality.sectionStatus || {})
@@ -181,6 +204,7 @@ const sections = {
   redundantReligions,
   uppercaseCities,
   mojibakeText,
+  sourceTextMojibake,
   largeCountries,
   weakDataProfiles
 };
@@ -188,9 +212,9 @@ const sections = {
 const actionPlan = [
   {
     priority: "alta",
-    title: "Corregir texto visible roto o en ingles",
-    count: englishConflictNames.length + mojibakeText.length + uppercaseCities.length,
-    command: "npm run fix:data-visible && npm run build:indexes && npm run audit:data"
+    title: "Corregir texto visible roto, fuente corrupta o en ingles",
+    count: englishConflictNames.length + mojibakeText.length + sourceTextMojibake.length + uppercaseCities.length,
+    command: "npm run fix:source-text && npm run fix:data-visible && npm run build:indexes && npm run audit:data"
   },
   {
     priority: "media",

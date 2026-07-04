@@ -1,0 +1,104 @@
+{
+  "generatedAt": "2026-07-04T22:36:02.542Z",
+  "packageVersion": "1.6.28",
+  "appVersion": "2026-07-04-release-1",
+  "cacheVersion": "2026-07-04-release-1",
+  "status": "observacion",
+  "git": {
+    "branch": "main",
+    "head": "0cbc18f",
+    "expectedTag": "v1.6.28",
+    "tagsAtHead": [
+      "v1.6.27"
+    ],
+    "gitAvailable": true,
+    "failures": [],
+    "dirtyFileCount": 146,
+    "dirtySample": [
+      "M .github/workflows/release-gate.yml",
+      " M CHANGELOG.md",
+      " M data/conflicts/details_index.json",
+      " M data/countries/AGO.json",
+      " M data/countries/ALB.json",
+      " M data/countries/AND.json",
+      " M data/countries/ARM.json",
+      " M data/countries/AUT.json",
+      " M data/countries/AZE.json",
+      " M data/countries/BDI.json",
+      " M data/countries/BEN.json",
+      " M data/countries/BFA.json",
+      " M data/countries/BGD.json",
+      " M data/countries/BGR.json",
+      " M data/countries/BIH.json",
+      " M data/countries/BLR.json",
+      " M data/countries/BWA.json",
+      " M data/countries/CAF.json",
+      " M data/countries/CHL.json",
+      " M data/countries/CHN.json",
+      " M data/countries/CMR.json",
+      " M data/countries/COL.json",
+      " M data/countries/COM.json",
+      " M data/countries/CRI.json",
+      " M data/countries/CYP.json"
+    ]
+  },
+  "checks": {
+    "versionAligned": true,
+    "indexUsesActiveStamp": true,
+    "changelogHasPackageVersion": true,
+    "expectedTagAtHead": false,
+    "gitStatusAvailable": true,
+    "workingTreeClean": false,
+    "startupWithinBudget": true,
+    "scriptWithinBudget": true,
+    "countriesIndexWithinBudget": true,
+    "dataAuditClean": true,
+    "doctorHasNoHighSeverity": true,
+    "reportVersionsCurrent": true
+  },
+  "blockers": [],
+  "warnings": [
+    "El tag v1.6.28 todavia no apunta a HEAD.",
+    "Hay cambios locales pendientes."
+  ],
+  "assets": {
+    "startupCritical": {
+      "bytes": 1000144,
+      "human": "977 KB"
+    },
+    "scriptJs": {
+      "bytes": 692317,
+      "human": "676 KB"
+    },
+    "countriesIndex": {
+      "bytes": 171120,
+      "human": "167 KB"
+    },
+    "buildTotal": {
+      "bytes": 5751000,
+      "human": "5.48 MB",
+      "assetCount": 596
+    }
+  },
+  "dataCounts": {
+    "englishConflictNames": 0,
+    "undatedConflicts": 701,
+    "undatedHighLevelConflicts": 0,
+    "suspectRegions": 0,
+    "duplicateConflictNames": 381,
+    "sameCountryDuplicateConflicts": 0,
+    "redundantReligions": 0,
+    "uppercaseCities": 0,
+    "mojibakeText": 0,
+    "sourceTextMojibake": 0,
+    "largeCountries": 3,
+    "weakDataProfiles": 183
+  },
+  "doctor": {
+    "status": "observacion",
+    "findings": 1,
+    "bySeverity": {
+      "media": 1
+    }
+  }
+}
