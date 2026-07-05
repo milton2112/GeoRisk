@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-05T14:54:35.465Z",
-  "startupBytes": 1000144,
-  "startupHuman": "977 KB",
-  "deferredBytes": 1093335,
-  "deferredHuman": "1.04 MB",
+  "generatedAt": "2026-07-05T15:11:02.987Z",
+  "startupBytes": 996595,
+  "startupHuman": "973 KB",
+  "deferredBytes": 1101282,
+  "deferredHuman": "1.05 MB",
   "estimatedRuntimeMemory": {
     "countriesFullBytes": 9114346,
     "countriesFullHuman": "8.69 MB",
@@ -15,8 +15,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 692317,
-      "human": "676 KB",
+      "bytes": 688768,
+      "human": "673 KB",
       "startupCritical": true
     },
     {
@@ -90,10 +90,10 @@
       "startupCritical": false
     },
     {
-      "path": "app-quiz-ui.js",
+      "path": "app-export-share.js",
       "exists": true,
-      "bytes": 7579,
-      "human": "7 KB",
+      "bytes": 7947,
+      "human": "8 KB",
       "startupCritical": false
     }
   ],
@@ -108,8 +108,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 692317,
-      "human": "676 KB",
+      "bytes": 688768,
+      "human": "673 KB",
       "startupCritical": true
     },
     {
@@ -236,6 +236,13 @@
       "exists": true,
       "bytes": 5083,
       "human": "5 KB",
+      "startupCritical": false
+    },
+    {
+      "path": "app-export-share.js",
+      "exists": true,
+      "bytes": 7947,
+      "human": "8 KB",
       "startupCritical": false
     },
     {

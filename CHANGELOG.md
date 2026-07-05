@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.30 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.31 antes de cerrar la siguiente version.
+
+## v1.6.31 - 2026-07-05
+
+- Extrae exportar/compartir a `app-export-share.js` como modulo diferido; `html2canvas` y `jsPDF` siguen cargando solo al usar exportacion.
+- Reduce el peso de `script.js` de 676 KB a 673 KB y baja el arranque critico local a 973 KB.
+- Mejora `audit:data` separando conflictos compartidos entre paises (`sharedConflictNames`) de duplicados accionables (`duplicateConflictNames` y `sameCountryDuplicateConflicts`).
+- Separa baja confianza real (`weakDataProfiles`) de backlog gradual (`baseSectionProfiles`) y agrega `priorityWeakDataProfiles` para priorizar fichas publicas debiles.
+- Amplia `country_weights` con metricas por seccion, bytes de conflictos y promedio por conflicto para orientar la siguiente optimizacion de fichas pesadas.
+- Documenta `app-export-share.js` en arquitectura y refuerza tests de release, arranque, arquitectura y higiene visual.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-05-release-3`.
 
 ## v1.6.30 - 2026-07-05
 

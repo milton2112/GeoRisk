@@ -26,6 +26,7 @@ const LOCAL_ASSETS = [
   "app-quiz-ui.js",
   "app-performance-ui.js",
   "app-ui-polish.js",
+  "app-export-share.js",
   "app-rankings-worker.js",
   "app-search-worker.js",
   "data/countries_index.json",

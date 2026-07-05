@@ -59,6 +59,7 @@ const redundantReligionBranches = new Set([
   "protestantes",
   "protestantismo"
 ]);
+const specialOrDependentCodes = new Set(["-99", "ATA", "ATF", "BMU", "ESH", "FLK", "GRL", "GUF", "NCL", "PRI", "PSE", "CS-KM"]);
 
 const allConflicts = Object.entries(countries).flatMap(([code, country]) =>
   asArray(country.military?.conflicts).map(conflict => ({ code, ...conflict }))
@@ -131,6 +132,14 @@ const duplicateConflictNames = [...conflictNameBuckets.values()]
   .filter(entry => entry.count > 1)
   .map(entry => ({ name: entry.name, count: entry.count, countries: [...entry.countries].sort() }));
 
+const sharedConflictNames = duplicateConflictNames
+  .filter(entry => entry.countries.length > 1 && entry.count === entry.countries.length)
+  .map(entry => ({
+    name: entry.name,
+    count: entry.count,
+    countries: entry.countries
+  }));
+
 const sameCountryDuplicateConflicts = duplicateConflictNames
   .filter(entry => entry.count > entry.countries.length)
   .map(entry => ({
@@ -138,6 +147,8 @@ const sameCountryDuplicateConflicts = duplicateConflictNames
     count: entry.count,
     countries: entry.countries
   }));
+
+const actionableDuplicateConflictNames = sameCountryDuplicateConflicts;
 
 const redundantReligions = Object.entries(countries).flatMap(([code, country]) =>
   asArray(country.religion?.composition)
@@ -177,13 +188,27 @@ const sourceTextMojibake = await collectSourceTextMojibake();
 
 const weakDataProfiles = Object.entries(countries).flatMap(([code, country]) => {
   const quality = country.metadata?.quality || {};
+  const score = Number(quality.score || 0);
+  const status = normalizeText(quality.status || "");
   const weakSections = Object.entries(quality.sectionStatus || {})
     .filter(([, status]) => ["base", "mixed"].includes(status))
     .map(([section, status]) => ({ section, status }));
-  return weakSections.length || Number(quality.score || 0) < 85
+  return score < 85 || status === "media"
     ? [{ code, score: quality.score ?? null, status: quality.status || null, weakSections }]
     : [];
 });
+
+const baseSectionProfiles = Object.entries(countries).flatMap(([code, country]) => {
+  const quality = country.metadata?.quality || {};
+  const weakSections = Object.entries(quality.sectionStatus || {})
+    .filter(([, status]) => ["base", "mixed"].includes(status))
+    .map(([section, status]) => ({ section, status }));
+  return weakSections.length
+    ? [{ code, score: quality.score ?? null, status: quality.status || null, weakSections }]
+    : [];
+});
+
+const priorityWeakDataProfiles = weakDataProfiles.filter(item => !specialOrDependentCodes.has(item.code));
 
 const largeCountries = asArray(weights.countries || weights.items)
   .filter(item => item.tooLarge || item.bytes > (weights.summary?.thresholdBytes || 42000))
@@ -199,14 +224,17 @@ const sections = {
   undatedConflicts,
   undatedHighLevelConflicts,
   suspectRegions,
-  duplicateConflictNames,
+  duplicateConflictNames: actionableDuplicateConflictNames,
   sameCountryDuplicateConflicts,
+  sharedConflictNames,
   redundantReligions,
   uppercaseCities,
   mojibakeText,
   sourceTextMojibake,
   largeCountries,
-  weakDataProfiles
+  weakDataProfiles,
+  priorityWeakDataProfiles,
+  baseSectionProfiles
 };
 
 const actionPlan = [
@@ -233,6 +261,18 @@ const actionPlan = [
     title: "Reducir fichas pesadas",
     count: largeCountries.length,
     command: "npm run build:indexes && npm run measure:startup"
+  },
+  {
+    priority: "media",
+    title: "Profundizar fichas publicas con baja confianza real",
+    count: priorityWeakDataProfiles.length,
+    command: "npm run audit:data"
+  },
+  {
+    priority: "baja",
+    title: "Planificar curaduria gradual de secciones base",
+    count: baseSectionProfiles.length,
+    command: "npm run audit:data"
   }
 ].filter(item => item.count > 0);
 
@@ -247,7 +287,9 @@ const report = {
   actionPlan,
   notes: [
     "Este reporte es diagnostico y no reemplaza validate:data ni los tests estrictos.",
-    "Los duplicados de conflictos pueden ser esperados cuando varios paises participan del mismo conflicto.",
+    "sharedConflictNames lista conflictos compartidos entre paises; no son duplicados accionables.",
+    "weakDataProfiles marca baja confianza real; priorityWeakDataProfiles excluye territorios/casos especiales.",
+    "baseSectionProfiles lista curaduria gradual no bloqueante.",
     "undatedHighLevelConflicts y sameCountryDuplicateConflicts son las listas mas accionables."
   ]
 };

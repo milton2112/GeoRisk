@@ -15,6 +15,7 @@ const visibleFiles = [
   "app-quiz-ui.js",
   "app-help-ui.js",
   "app-performance-ui.js",
+  "app-export-share.js",
   "app-ui-polish.js"
 ];
 

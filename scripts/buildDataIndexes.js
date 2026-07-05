@@ -274,8 +274,17 @@ async function buildCountryWeights(countries) {
   let duplicatedCountryFilesBytes = 0;
   for (const [code, country] of Object.entries(countries)) {
     const countryPath = path.join(perCountryDir, `${code}.json`);
+    const publicRecord = buildPublicCountryRecord(country);
+    const sectionBytes = Object.fromEntries(
+      Object.entries(publicRecord)
+        .map(([section, value]) => [section, Buffer.byteLength(JSON.stringify(value))])
+        .sort((a, b) => b[1] - a[1])
+    );
+    const compactConflicts = normalizeArray(publicRecord.military?.conflicts);
+    const conflictsBytes = Buffer.byteLength(JSON.stringify(compactConflicts));
     const inlineBytes = Buffer.byteLength(JSON.stringify(country));
     const fileBytes = await fs.pathExists(countryPath) ? (await statWithRetry(countryPath)).size : 0;
+    const countryConflicts = getCountryConflicts(country, code);
     duplicatedCountryFilesBytes += fileBytes;
     entries.push({
       code,
@@ -290,8 +299,14 @@ async function buildCountryWeights(countries) {
         religionGroups: normalizeArray(country.religion?.composition).length,
         organizations: normalizeArray(country.politics?.organizations).length,
         rivals: normalizeArray(country.politics?.rivals).length,
-        conflicts: getCountryConflicts(country, code).length,
+        conflicts: countryConflicts.length,
         timelineEvents: normalizeArray(country.history?.events).length
+      },
+      metrics: {
+        sectionBytes,
+        largestSections: Object.entries(sectionBytes).slice(0, 4).map(([section, bytes]) => ({ section, bytes })),
+        conflictsBytes,
+        averageConflictBytes: compactConflicts.length ? Math.round(conflictsBytes / compactConflicts.length) : 0
       }
     });
   }

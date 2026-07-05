@@ -135,7 +135,9 @@ const features = [
   {
     key: "exports_share",
     label: "Exportar y compartir",
-    runtimeTokens: ["ensureExportLibraries", "exportNodeAsImage", "exportNodeAsPdf", "shareText"],
+    files: ["app-export-share.js"],
+    moduleTokens: { "app-export-share.js": ["GeoRiskExportShare", "exportNodeAsImage", "exportNodeAsPdf", "shareText"] },
+    runtimeTokens: ['ensureDeferredUiModule("exportShare")', "ensureExportLibraries", "exportNodeAsImage", "exportNodeAsPdf", "shareText"],
     htmlTokens: ["data-export-target", "data-share-target"],
     testScripts: ["test:release-gates"]
   },

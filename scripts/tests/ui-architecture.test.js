@@ -34,6 +34,7 @@ for (const token of [
   "app-country-panel.js",
   "app-timeline-conflicts.js",
   "app-news-ui.js",
+  "app-export-share.js",
   "Naming Conventions"
 ]) {
   assert.ok(architecture.includes(token), `arquitectura debe documentar ${token}`);

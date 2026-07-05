@@ -288,6 +288,8 @@ assert.ok(script.includes("app-compare-ui.js"), "comparador debe tener modulo di
 assert.ok(script.includes("const compareRendererReady"), "comparador debe tolerar que su modulo diferido siga cargando");
 assert.ok(script.indexOf("const compareRendererReady") < script.indexOf("results.innerHTML = compareUi.buildLightCards"), "comparador debe validar el modulo antes de invocar sus renderers");
 assert.ok(script.includes("app-quiz-ui.js"), "quiz debe tener modulo diferido declarado");
+assert.ok(script.includes("app-export-share.js"), "exportar/compartir debe tener modulo diferido declarado");
+assert.ok(script.includes('ensureDeferredUiModule("exportShare")'), "exportar/compartir debe cargarse al usarlo");
 assert.ok(script.includes("app-risk-radar-ui.js"), "radar debe tener modulo diferido declarado");
 assert.ok(script.includes("app-conflict-audit-ui.js"), "auditoria debe tener modulo diferido declarado");
 assert.ok(script.includes("app-project-audit-ui.js"), "auditoria del proyecto debe tener modulo diferido declarado");

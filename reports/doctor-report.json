@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-07-05T14:54:38.140Z",
-  "packageVersion": "1.6.30",
+  "generatedAt": "2026-07-05T15:11:06.025Z",
+  "packageVersion": "1.6.31",
   "status": "observacion",
   "summary": {
     "totalFindings": 1,
     "bySeverity": {
       "media": 1
     },
-    "startupBytes": 1000144,
-    "scriptBytes": 692317,
+    "startupBytes": 996595,
+    "scriptBytes": 688768,
     "countriesIndexBytes": 171120,
     "conflictAuditIssues": 0,
     "dataCounts": {
@@ -16,14 +16,17 @@
       "undatedConflicts": 701,
       "undatedHighLevelConflicts": 0,
       "suspectRegions": 0,
-      "duplicateConflictNames": 381,
+      "duplicateConflictNames": 0,
       "sameCountryDuplicateConflicts": 0,
+      "sharedConflictNames": 381,
       "redundantReligions": 0,
       "uppercaseCities": 0,
       "mojibakeText": 0,
       "sourceTextMojibake": 0,
       "largeCountries": 3,
-      "weakDataProfiles": 183
+      "weakDataProfiles": 10,
+      "priorityWeakDataProfiles": 2,
+      "baseSectionProfiles": 183
     }
   },
   "topActions": [
@@ -38,7 +41,7 @@
       "severity": "media",
       "area": "performance",
       "title": "script.js sigue al limite",
-      "detail": "692317 bytes",
+      "detail": "688768 bytes",
       "command": "Extraer mas UI a modulos diferidos."
     }
   ],
@@ -91,6 +94,10 @@
       {
         "key": "rankings",
         "file": "app-rankings.js"
+      },
+      {
+        "key": "exportShare",
+        "file": "app-export-share.js"
       }
     ],
     "htmlDataAttributes": [
@@ -116,6 +123,18 @@
       "title": "Reducir fichas pesadas",
       "count": 3,
       "command": "npm run build:indexes && npm run measure:startup"
+    },
+    {
+      "priority": "media",
+      "title": "Profundizar fichas publicas con baja confianza real",
+      "count": 2,
+      "command": "npm run audit:data"
+    },
+    {
+      "priority": "baja",
+      "title": "Planificar curaduria gradual de secciones base",
+      "count": 183,
+      "command": "npm run audit:data"
     }
   ]
 }

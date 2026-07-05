@@ -32,25 +32,25 @@ const fallbackGetDeviceProfile = ({ isMobile, currentMapMode, deviceMemory = 4, 
 const fallbackGetRenderProfileText = ({ language = "es", isMobile, currentMapMode, resolutionScale }) => {
   if (isMobile) {
     return language === "en"
-      ? `Mobile ${currentMapMode.toUpperCase()} · optimized`
-      : `Mobile ${currentMapMode.toUpperCase()} · optimizado`;
+      ? `Mobile ${currentMapMode.toUpperCase()} - optimized`
+      : `Mobile ${currentMapMode.toUpperCase()} - optimizado`;
   }
 
   if (resolutionScale >= 0.9) {
     return language === "en"
-      ? `${currentMapMode.toUpperCase()} · high quality`
-      : `${currentMapMode.toUpperCase()} · alta calidad`;
+      ? `${currentMapMode.toUpperCase()} - high quality`
+      : `${currentMapMode.toUpperCase()} - alta calidad`;
   }
 
   if (resolutionScale >= 0.72) {
     return language === "en"
-      ? `${currentMapMode.toUpperCase()} · balanced`
-      : `${currentMapMode.toUpperCase()} · balanceado`;
+      ? `${currentMapMode.toUpperCase()} - balanced`
+      : `${currentMapMode.toUpperCase()} - balanceado`;
   }
 
   return language === "en"
-    ? `${currentMapMode.toUpperCase()} · performance`
-    : `${currentMapMode.toUpperCase()} · rendimiento`;
+    ? `${currentMapMode.toUpperCase()} - performance`
+    : `${currentMapMode.toUpperCase()} - rendimiento`;
 };
 
 const {
@@ -74,6 +74,7 @@ let timelineConflictUi = window.GeoRiskTimelineConflicts || {};
 let searchCore = window.GeoRiskSearch || {};
 let rankingsCore = window.GeoRiskRankings || {};
 let helpUi = window.GeoRiskHelpUi || {};
+let exportShareUi = window.GeoRiskExportShare || {};
 const sharedTheme = window.GeoRiskTheme || {};
 const sharedText = window.GeoRiskText || {};
 const bootScheduler = window.GeoRiskBootScheduler || {};
@@ -82,7 +83,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-07-05-release-2";
+const APP_VERSION = "2026-07-05-release-3";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -104,7 +105,8 @@ const DEFERRED_UI_MODULES = {
   countryPanel: `./app-country-panel.js?v=${APP_VERSION}`,
   timelineConflicts: `./app-timeline-conflicts.js?v=${APP_VERSION}`,
   search: `./app-search.js?v=${APP_VERSION}`,
-  rankings: `./app-rankings.js?v=${APP_VERSION}`
+  rankings: `./app-rankings.js?v=${APP_VERSION}`,
+  exportShare: `./app-export-share.js?v=${APP_VERSION}`
 };
 const deferredUiModulePromises = new Map();
 
@@ -121,6 +123,7 @@ function refreshDeferredUiGlobals() {
   timelineConflictUi = window.GeoRiskTimelineConflicts || timelineConflictUi || {};
   searchCore = window.GeoRiskSearch || searchCore || {};
   rankingsCore = window.GeoRiskRankings || rankingsCore || {};
+  exportShareUi = window.GeoRiskExportShare || exportShareUi || {};
   if (advancedRankingCache?.isFallback && typeof rankingsCore.createRankingsCache === "function") {
     advancedRankingCache = rankingsCore.createRankingsCache();
   }
@@ -1912,8 +1915,6 @@ let hoverSuppressedUntil = 0;
 let lastHoverSampleAt = 0;
 let lastThemeSummarySignature = "";
 let introCoverageCache = { signature: "", stats: null };
-let exportCanvasLibraryPromise = null;
-let exportPdfLibraryPromise = null;
 
 function requestMapRenderSafe(context = "map-update") {
   try {
@@ -16192,102 +16193,42 @@ function getExportContextLabel() {
   return "georisk";
 }
 
-function buildExportFilename(base) {
-  const stamp = new Date().toISOString().slice(0, 10);
-  const context = [
-    base || getExportContextLabel() || "georisk",
-    currentTheme && currentTheme !== "default" ? currentTheme : "",
-    appMode && appMode !== "default" ? appMode : ""
-  ].filter(Boolean).join("-");
-  return `${normalizeText(context).replace(/\s+/g, "-") || "georisk"}-${stamp}`;
+function getExportShareContext() {
+  return {
+    language: currentLanguage,
+    contextLabel: getExportContextLabel(),
+    selectedCountryName: currentPanelState?.code && countriesData[currentPanelState.code]
+      ? countriesData[currentPanelState.code].name
+      : "",
+    theme: currentTheme,
+    mode: appMode,
+    normalizeText,
+    escapeHtml,
+    loadScriptOnce,
+    showToast: message => showToast?.(message)
+  };
 }
 
-function buildReportCaptureNode(node, title) {
-  const wrapper = document.createElement("div");
-  wrapper.className = "export-report-shell";
-  wrapper.style.position = "fixed";
-  wrapper.style.left = "-99999px";
-  wrapper.style.top = "0";
-  wrapper.style.width = `${Math.min(1280, Math.max(900, node?.scrollWidth || 960))}px`;
-  wrapper.style.padding = "32px";
-  wrapper.style.background = "#071320";
-  wrapper.style.color = "#eef5ff";
-
-  const reportTitle = title || (currentLanguage === "en" ? "GeoRisk report" : "Informe GeoRisk");
-  const contextLine = [
-    currentPanelState?.code && countriesData[currentPanelState.code] ? countriesData[currentPanelState.code].name : "",
-    currentTheme && currentTheme !== "default" ? currentTheme : (currentLanguage === "en" ? "political view" : "vista politica"),
-    appMode && appMode !== "default" ? appMode : (currentLanguage === "en" ? "exploration" : "exploracion")
-  ].filter(Boolean).join(" · ");
-
-  wrapper.innerHTML = `
-    <div class="export-report-header">
-      <div>
-        <div class="export-report-kicker">GeoRisk</div>
-        <h1>${escapeHtml(reportTitle)}</h1>
-        <p>${escapeHtml(contextLine)}</p>
-      </div>
-      <div class="export-report-meta">${new Date().toLocaleString(currentLanguage === "en" ? "en-US" : "es-AR", { dateStyle: "medium", timeStyle: "short" })}</div>
-    </div>
-  `;
-
-  const clone = node.cloneNode(true);
-  clone.classList.add("export-report-body");
-  wrapper.appendChild(clone);
-  document.body.appendChild(wrapper);
-  return wrapper;
+async function getExportShareTools() {
+  await ensureDeferredUiModule("exportShare");
+  exportShareUi = window.GeoRiskExportShare || exportShareUi || {};
+  return exportShareUi;
 }
 
 async function ensureExportLibraries(format = "image") {
-  if (typeof html2canvas === "function" && (format !== "pdf" || window.jspdf?.jsPDF)) {
-    return true;
-  }
-
-  exportCanvasLibraryPromise ||= loadScriptOnce("https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js", "html2canvas").catch(error => {
-    exportCanvasLibraryPromise = null;
-    throw error;
-  });
-  await exportCanvasLibraryPromise;
-
-  if (format === "pdf") {
-    exportPdfLibraryPromise ||= loadScriptOnce("https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js", "jspdf").catch(error => {
-      exportPdfLibraryPromise = null;
-      throw error;
-    });
-    await exportPdfLibraryPromise;
-  }
-
-  return typeof html2canvas === "function" && (format !== "pdf" || Boolean(window.jspdf?.jsPDF));
+  const tools = await getExportShareTools();
+  return typeof tools.ensureExportLibraries === "function"
+    ? tools.ensureExportLibraries(format, getExportShareContext())
+    : false;
 }
 
 exportNodeAsImage = async function exportNodeAsImage(node, filename) {
   if (!node) {
     return;
   }
-
-  const ready = await ensureExportLibraries("image").catch(error => {
-    console.warn("No se pudieron cargar las librerias de exportacion:", error);
-    showToast?.(currentLanguage === "en" ? "Export tools could not load." : "No se pudieron cargar las herramientas de exportacion.");
-    return false;
-  });
-  if (!ready) {
-    return;
-  }
-
-  const captureNode = buildReportCaptureNode(node, filename?.replace(/\.(png|pdf)$/i, ""));
-  try {
-    const canvas = await html2canvas(captureNode, {
-      backgroundColor: "#071320",
-      scale: Math.min(window.devicePixelRatio > 1 ? 2 : 1.8, 2.2),
-      useCORS: true
-    });
-
-    const link = document.createElement("a");
-    link.href = canvas.toDataURL("image/png");
-    link.download = `${buildExportFilename(filename?.replace(/\.png$/i, ""))}.png`;
-    link.click();
-  } finally {
-    captureNode.remove();
+  const tools = await getExportShareTools();
+  if (typeof tools.exportNodeAsImage === "function") {
+    await tools.exportNodeAsImage(node, filename, getExportShareContext());
   }
 };
 
@@ -16295,50 +16236,16 @@ exportNodeAsPdf = async function exportNodeAsPdf(node, filename) {
   if (!node) {
     return;
   }
-
-  const ready = await ensureExportLibraries("pdf").catch(error => {
-    console.warn("No se pudieron cargar las librerias de exportacion:", error);
-    showToast?.(currentLanguage === "en" ? "PDF tools could not load." : "No se pudieron cargar las herramientas de PDF.");
-    return false;
-  });
-  if (!ready) {
-    return;
-  }
-
-  const captureNode = buildReportCaptureNode(node, filename?.replace(/\.(png|pdf)$/i, ""));
-  try {
-    const canvas = await html2canvas(captureNode, {
-      backgroundColor: "#071320",
-      scale: 2,
-      useCORS: true
-    });
-    const image = canvas.toDataURL("image/png");
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF({
-      orientation: canvas.width > canvas.height ? "landscape" : "portrait",
-      unit: "px",
-      format: [canvas.width, canvas.height]
-    });
-    pdf.addImage(image, "PNG", 0, 0, canvas.width, canvas.height);
-    pdf.save(`${buildExportFilename(filename?.replace(/\.pdf$/i, ""))}.pdf`);
-  } finally {
-    captureNode.remove();
+  const tools = await getExportShareTools();
+  if (typeof tools.exportNodeAsPdf === "function") {
+    await tools.exportNodeAsPdf(node, filename, getExportShareContext());
   }
 };
 
 shareText = async function shareText(title, text) {
-  const payload = `${title}\n\n${text}\n\nGeoRisk · ${new Date().toLocaleDateString(currentLanguage === "en" ? "en-US" : "es-AR")}`;
-  if (navigator.share) {
-    try {
-      await navigator.share({ title, text: payload });
-      return;
-    } catch (error) {
-      console.error("No se pudo compartir:", error);
-    }
-  }
-
-  if (navigator.clipboard?.writeText) {
-    await navigator.clipboard.writeText(payload);
+  const tools = await getExportShareTools();
+  if (typeof tools.shareText === "function") {
+    await tools.shareText(title, text, getExportShareContext());
   }
 };
 

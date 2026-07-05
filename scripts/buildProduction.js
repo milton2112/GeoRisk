@@ -28,6 +28,7 @@ const PUBLIC_FILES = [
   "app-map-interactions.js",
   "app-store.js",
   "app-ui-polish.js",
+  "app-export-share.js",
   "app-news-ui.js",
   "app-compare-ui.js",
   "app-quiz-ui.js",

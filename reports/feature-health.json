@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-07-05T14:54:37.732Z",
-  "packageVersion": "1.6.30",
+  "generatedAt": "2026-07-05T15:11:05.587Z",
+  "packageVersion": "1.6.31",
   "status": "operativo",
   "summary": {
     "totalFeatures": 10,
@@ -774,10 +774,52 @@
       "label": "Exportar y compartir",
       "status": "operativo",
       "summary": {
-        "totalChecks": 7,
+        "totalChecks": 13,
         "failedChecks": 0
       },
       "checks": [
+        {
+          "ok": true,
+          "type": "file",
+          "target": "app-export-share.js",
+          "detail": "app-export-share.js debe existir para Exportar y compartir.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "module-token",
+          "target": "app-export-share.js:GeoRiskExportShare",
+          "detail": "Exportar y compartir debe exponer GeoRiskExportShare.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "module-token",
+          "target": "app-export-share.js:exportNodeAsImage",
+          "detail": "Exportar y compartir debe exponer exportNodeAsImage.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "module-token",
+          "target": "app-export-share.js:exportNodeAsPdf",
+          "detail": "Exportar y compartir debe exponer exportNodeAsPdf.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "module-token",
+          "target": "app-export-share.js:shareText",
+          "detail": "Exportar y compartir debe exponer shareText.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "runtime-token",
+          "target": "ensureDeferredUiModule(\"exportShare\")",
+          "detail": "Exportar y compartir debe estar conectado en runtime.",
+          "action": null
+        },
         {
           "ok": true,
           "type": "runtime-token",

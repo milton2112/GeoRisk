@@ -39,6 +39,7 @@ const maintenanceQuick = await fs.readFile(path.join(projectRoot, "scripts/maint
 const releaseStatus = await fs.readFile(path.join(projectRoot, "scripts/releaseStatus.js"), "utf8");
 const releaseArtifacts = await fs.readFile(path.join(projectRoot, "scripts/auditReleaseArtifacts.js"), "utf8");
 const featureHealth = await fs.readFile(path.join(projectRoot, "scripts/auditFeatureHealth.js"), "utf8");
+const exportShare = await fs.readFile(path.join(projectRoot, "app-export-share.js"), "utf8");
 const fixSourceText = await fs.readFile(path.join(projectRoot, "scripts/fixSourceText.js"), "utf8");
 const releaseWorkflow = await fs.readFile(path.join(projectRoot, ".github/workflows/release-gate.yml"), "utf8");
 const prePushHook = await fs.readFile(path.join(projectRoot, ".githooks/pre-push"), "utf8");
@@ -112,7 +113,10 @@ assert.ok(performanceSnapshot.includes("simulated-startup-work"), "snapshot debe
 assert.ok(dataAutomationAudit.includes("englishConflictNames"), "auditoria de datos debe listar conflictos en ingles");
 assert.ok(dataAutomationAudit.includes("redundantReligions"), "auditoria de datos debe listar religiones redundantes");
 assert.ok(dataAutomationAudit.includes("sameCountryDuplicateConflicts"), "auditoria de datos debe separar duplicados accionables");
+assert.ok(dataAutomationAudit.includes("sharedConflictNames"), "auditoria de datos debe separar conflictos compartidos de duplicados reales");
 assert.ok(dataAutomationAudit.includes("sourceTextMojibake"), "auditoria de datos debe detectar mojibake en fuentes generadoras");
+assert.ok(dataAutomationAudit.includes("baseSectionProfiles"), "auditoria de datos debe separar secciones base de baja confianza real");
+assert.ok(dataAutomationAudit.includes("priorityWeakDataProfiles"), "auditoria de datos debe priorizar fichas publicas debiles sobre territorios especiales");
 assert.ok(projectDoctor.includes("doctor-report.json"), "doctor debe escribir reporte consolidado");
 assert.ok(projectDoctor.includes("topActions"), "doctor debe sugerir acciones concretas");
 assert.ok(projectDoctor.includes("APP_VERSION") && projectDoctor.includes("CACHE_VERSION"), "doctor debe revisar version/cache");
@@ -139,6 +143,7 @@ assert.ok(featureHealth.includes("feature-health.json"), "audit:features debe es
 assert.ok(featureHealth.includes("country_profile"), "audit:features debe cubrir ficha pais");
 assert.ok(featureHealth.includes("rankings"), "audit:features debe cubrir rankings");
 assert.ok(featureHealth.includes("exports_share"), "audit:features debe cubrir exportar/compartir");
+assert.ok(featureHealth.includes("app-export-share.js"), "audit:features debe verificar el modulo diferido de exportar/compartir");
 assert.ok(fixSourceText.includes("scripts/buildDataset.js"), "fix:source-text debe cubrir el generador principal de datos");
 assert.ok(fixSourceText.includes("caracteres de reemplazo"), "fix:source-text debe abortar si empeora el texto");
 assert.ok(appShell.length <= 18, "APP_SHELL debe mantenerse chico");
@@ -179,6 +184,7 @@ assert.ok(!indexHtml.includes("fonts.googleapis.com"), "fuentes remotas no deben
 assert.ok(!/bootHeavyDataEnhancements[\s\S]{0,500}loadRuntimeCuration/.test(script), "curaduria profunda debe esperar a una ficha");
 assert.ok(!indexHtml.includes("html2canvas"), "exportacion debe cargar html2canvas bajo demanda");
 assert.ok(!indexHtml.includes("jspdf"), "exportacion debe cargar jsPDF bajo demanda");
+assert.ok(!indexHtml.includes("app-export-share.js"), "exportar/compartir no debe bloquear el shell inicial");
 assert.ok(!script.includes("scheduleFullCountryDataLoad"), "countries_full no debe precargarse por scheduler");
 assert.ok(!script.includes("startFullLoad"), "countries_full no debe tener disparador silencioso");
 assert.ok(cleanLocal.includes("process.argv.includes(\"--deep\")"), "limpieza profunda debe ser explicita");
@@ -196,9 +202,14 @@ assert.ok(appMap.includes("world_countries.geo.json"), "GeoJSON detallado debe e
 assert.ok(timelineConflicts.includes("filterTimelineEvents"), "timeline debe tener filtro testeable");
 assert.ok(timelineConflicts.includes("groupRepeatedEvents"), "timeline debe agrupar eventos repetidos");
 assert.ok(script.includes("ensureExportLibraries"), "exportacion debe tener loader dedicado");
+assert.ok(script.includes('exportShare: `./app-export-share.js?v=${APP_VERSION}`'), "exportar/compartir debe declararse como modulo diferido versionado");
+assert.ok(script.includes('ensureDeferredUiModule("exportShare")'), "exportar/compartir debe cargar su modulo al usarlo");
 assert.equal((script.match(/exportNodeAsImage = async function exportNodeAsImage/g) || []).length, 1, "exportacion de imagen no debe conservar implementaciones duplicadas");
 assert.equal((script.match(/exportNodeAsPdf = async function exportNodeAsPdf/g) || []).length, 1, "exportacion PDF no debe conservar implementaciones duplicadas");
 assert.equal((script.match(/shareText = async function shareText/g) || []).length, 1, "compartir no debe conservar implementaciones duplicadas");
+assert.ok(exportShare.includes("GeoRiskExportShare"), "modulo diferido debe exponer API global de exportar/compartir");
+assert.ok(exportShare.includes("html2canvas@1.4.1"), "html2canvas debe vivir en modulo diferido");
+assert.ok(exportShare.includes("jspdf@2.5.1"), "jsPDF debe vivir en modulo diferido");
 assert.equal((script.match(/setupCompareControls = function setupCompareControls/g) || []).length, 0, "setup incompleto del comparador no debe pisar controles avanzados");
 assert.ok(script.includes("exportNodeAsImage"), "exportacion de imagen debe existir");
 assert.ok(script.includes("exportNodeAsPdf"), "exportacion PDF debe existir");
