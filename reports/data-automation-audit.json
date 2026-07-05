@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-05T15:21:56.099Z",
+  "generatedAt": "2026-07-05T15:39:11.237Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
@@ -38,10 +38,10 @@
       "count": 0
     },
     "weakDataProfiles": {
-      "count": 10
+      "count": 0
     },
     "priorityWeakDataProfiles": {
-      "count": 2
+      "count": 0
     },
     "baseSectionProfiles": {
       "count": 183
@@ -660,286 +660,8 @@
     "mojibakeText": [],
     "sourceTextMojibake": [],
     "largeCountries": [],
-    "weakDataProfiles": [
-      {
-        "code": "SOM",
-        "score": 82,
-        "status": "buena",
-        "weakSections": [
-          {
-            "section": "history",
-            "status": "base"
-          },
-          {
-            "section": "economy",
-            "status": "mixed"
-          },
-          {
-            "section": "military",
-            "status": "base"
-          },
-          {
-            "section": "religion",
-            "status": "mixed"
-          }
-        ]
-      },
-      {
-        "code": "TWN",
-        "score": 79,
-        "status": "buena",
-        "weakSections": [
-          {
-            "section": "history",
-            "status": "base"
-          },
-          {
-            "section": "economy",
-            "status": "mixed"
-          },
-          {
-            "section": "military",
-            "status": "base"
-          },
-          {
-            "section": "religion",
-            "status": "mixed"
-          }
-        ]
-      },
-      {
-        "code": "FLK",
-        "score": 72,
-        "status": "media",
-        "weakSections": [
-          {
-            "section": "history",
-            "status": "base"
-          },
-          {
-            "section": "economy",
-            "status": "mixed"
-          },
-          {
-            "section": "politics",
-            "status": "base"
-          },
-          {
-            "section": "religion",
-            "status": "mixed"
-          }
-        ]
-      },
-      {
-        "code": "ATF",
-        "score": 60,
-        "status": "media",
-        "weakSections": [
-          {
-            "section": "history",
-            "status": "base"
-          },
-          {
-            "section": "economy",
-            "status": "mixed"
-          },
-          {
-            "section": "military",
-            "status": "base"
-          },
-          {
-            "section": "politics",
-            "status": "base"
-          },
-          {
-            "section": "religion",
-            "status": "mixed"
-          }
-        ]
-      },
-      {
-        "code": "BMU",
-        "score": 80,
-        "status": "buena",
-        "weakSections": [
-          {
-            "section": "history",
-            "status": "base"
-          },
-          {
-            "section": "economy",
-            "status": "mixed"
-          },
-          {
-            "section": "politics",
-            "status": "base"
-          }
-        ]
-      },
-      {
-        "code": "PRI",
-        "score": 75,
-        "status": "buena",
-        "weakSections": [
-          {
-            "section": "history",
-            "status": "base"
-          },
-          {
-            "section": "economy",
-            "status": "mixed"
-          },
-          {
-            "section": "politics",
-            "status": "base"
-          },
-          {
-            "section": "religion",
-            "status": "mixed"
-          }
-        ]
-      },
-      {
-        "code": "GUF",
-        "score": 60,
-        "status": "media",
-        "weakSections": [
-          {
-            "section": "history",
-            "status": "base"
-          },
-          {
-            "section": "economy",
-            "status": "mixed"
-          },
-          {
-            "section": "military",
-            "status": "base"
-          },
-          {
-            "section": "politics",
-            "status": "base"
-          },
-          {
-            "section": "religion",
-            "status": "mixed"
-          }
-        ]
-      },
-      {
-        "code": "ATA",
-        "score": 67,
-        "status": "media",
-        "weakSections": [
-          {
-            "section": "history",
-            "status": "base"
-          },
-          {
-            "section": "military",
-            "status": "base"
-          },
-          {
-            "section": "religion",
-            "status": "base"
-          }
-        ]
-      },
-      {
-        "code": "CS-KM",
-        "score": 72,
-        "status": "media",
-        "weakSections": [
-          {
-            "section": "history",
-            "status": "base"
-          },
-          {
-            "section": "economy",
-            "status": "mixed"
-          },
-          {
-            "section": "politics",
-            "status": "base"
-          },
-          {
-            "section": "religion",
-            "status": "mixed"
-          }
-        ]
-      },
-      {
-        "code": "-99",
-        "score": 72,
-        "status": "media",
-        "weakSections": [
-          {
-            "section": "history",
-            "status": "base"
-          },
-          {
-            "section": "economy",
-            "status": "mixed"
-          },
-          {
-            "section": "politics",
-            "status": "base"
-          },
-          {
-            "section": "religion",
-            "status": "mixed"
-          }
-        ]
-      }
-    ],
-    "priorityWeakDataProfiles": [
-      {
-        "code": "SOM",
-        "score": 82,
-        "status": "buena",
-        "weakSections": [
-          {
-            "section": "history",
-            "status": "base"
-          },
-          {
-            "section": "economy",
-            "status": "mixed"
-          },
-          {
-            "section": "military",
-            "status": "base"
-          },
-          {
-            "section": "religion",
-            "status": "mixed"
-          }
-        ]
-      },
-      {
-        "code": "TWN",
-        "score": 79,
-        "status": "buena",
-        "weakSections": [
-          {
-            "section": "history",
-            "status": "base"
-          },
-          {
-            "section": "economy",
-            "status": "mixed"
-          },
-          {
-            "section": "military",
-            "status": "base"
-          },
-          {
-            "section": "religion",
-            "status": "mixed"
-          }
-        ]
-      }
-    ],
+    "weakDataProfiles": [],
+    "priorityWeakDataProfiles": [],
     "baseSectionProfiles": [
       {
         "code": "AFG",
@@ -1528,12 +1250,6 @@
     ]
   },
   "actionPlan": [
-    {
-      "priority": "media",
-      "title": "Profundizar fichas publicas con baja confianza real",
-      "count": 2,
-      "command": "npm run audit:data"
-    },
     {
       "priority": "baja",
       "title": "Planificar curaduria gradual de secciones base",

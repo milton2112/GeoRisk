@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-07-05T15:21:54.197Z",
+  "generatedAt": "2026-07-05T15:39:09.279Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 9114346,
-    "duplicatedCountryFilesBytes": 1459353,
-    "countryConflictShardBytes": 366892,
+    "fullBytes": 9136348,
+    "duplicatedCountryFilesBytes": 1462922,
+    "countryConflictShardBytes": 366808,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 20681,
-        "inlineBytes": 2710295,
+        "inlineBytes": 2710239,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -54,8 +54,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 202424,
-          "conflictShardBytes": 202425,
+          "conflictsBytes": 202396,
+          "conflictShardBytes": 202397,
           "averageConflictBytes": 219
         }
       },
@@ -63,7 +63,7 @@
         "code": "GBR",
         "name": "Reino Unido",
         "bytes": 20284,
-        "inlineBytes": 824529,
+        "inlineBytes": 824473,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,16 +105,16 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 57608,
-          "conflictShardBytes": 57609,
+          "conflictsBytes": 57580,
+          "conflictShardBytes": 57581,
           "averageConflictBytes": 209
         }
       },
       {
         "code": "AUS",
         "name": "Australia",
-        "bytes": 19693,
-        "inlineBytes": 176524,
+        "bytes": 19665,
+        "inlineBytes": 176468,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -128,7 +128,7 @@
         },
         "metrics": {
           "sectionBytes": {
-            "military": 8160,
+            "military": 8132,
             "politics": 7905,
             "metadata": 1913,
             "general": 973,
@@ -141,7 +141,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 8160
+              "bytes": 8132
             },
             {
               "section": "politics",
@@ -156,8 +156,8 @@
               "bytes": 973
             }
           ],
-          "conflictsBytes": 11674,
-          "conflictShardBytes": 11675,
+          "conflictsBytes": 11646,
+          "conflictShardBytes": 11647,
           "averageConflictBytes": 216
         }
       },
@@ -215,8 +215,8 @@
       {
         "code": "CAN",
         "name": "Canadá",
-        "bytes": 17201,
-        "inlineBytes": 110320,
+        "bytes": 17173,
+        "inlineBytes": 110264,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -230,7 +230,7 @@
         },
         "metrics": {
           "sectionBytes": {
-            "military": 7053,
+            "military": 7025,
             "politics": 6435,
             "metadata": 1936,
             "general": 796,
@@ -243,7 +243,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 7053
+              "bytes": 7025
             },
             {
               "section": "politics",
@@ -258,9 +258,9 @@
               "bytes": 796
             }
           ],
-          "conflictsBytes": 6937,
+          "conflictsBytes": 6909,
           "conflictShardBytes": 0,
-          "averageConflictBytes": 217
+          "averageConflictBytes": 216
         }
       },
       {
@@ -6229,7 +6229,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 4,
-        "status": "base"
+        "status": "curated"
       }
     },
     "ISR": {
@@ -8362,7 +8362,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 4,
-        "status": "base"
+        "status": "curated"
       }
     },
     "MAR": {
@@ -10912,7 +10912,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 3,
-        "status": "base"
+        "status": "curated"
       },
       "economy": {
         "sources": [
@@ -10931,7 +10931,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 3,
-        "status": "base"
+        "status": "curated"
       },
       "politics": {
         "sources": [
@@ -11702,7 +11702,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 3,
-        "status": "base"
+        "status": "curated"
       },
       "economy": {
         "sources": [
@@ -11721,7 +11721,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 3,
-        "status": "base"
+        "status": "curated"
       },
       "politics": {
         "sources": [
@@ -13519,7 +13519,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 3,
-        "status": "base"
+        "status": "curated"
       },
       "economy": {
         "sources": [
@@ -13548,7 +13548,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 4,
-        "status": "base"
+        "status": "curated"
       },
       "religion": {
         "sources": [
@@ -13576,7 +13576,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 4,
-        "status": "base"
+        "status": "curated"
       }
     },
     "GRL": {
@@ -13655,7 +13655,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 4,
-        "status": "base"
+        "status": "curated"
       }
     },
     "NCL": {
@@ -13734,7 +13734,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 4,
-        "status": "base"
+        "status": "curated"
       }
     },
     "SLB": {
@@ -14230,7 +14230,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 3,
-        "status": "base"
+        "status": "curated"
       },
       "economy": {
         "sources": [
@@ -14249,7 +14249,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 3,
-        "status": "base"
+        "status": "confirmed"
       },
       "politics": {
         "sources": [
@@ -14259,7 +14259,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 4,
-        "status": "base"
+        "status": "curated"
       },
       "religion": {
         "sources": [
@@ -14287,7 +14287,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 4,
-        "status": "base"
+        "status": "curated"
       }
     },
     "BMU": {
@@ -14338,7 +14338,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 4,
-        "status": "base"
+        "status": "curated"
       },
       "religion": {
         "sources": [
@@ -14366,7 +14366,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 4,
-        "status": "base"
+        "status": "curated"
       }
     },
     "PRI": {
@@ -14417,7 +14417,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 4,
-        "status": "base"
+        "status": "curated"
       },
       "religion": {
         "sources": [
@@ -14445,7 +14445,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 4,
-        "status": "base"
+        "status": "curated"
       }
     },
     "BLZ": {
@@ -14625,7 +14625,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 3,
-        "status": "base"
+        "status": "curated"
       },
       "economy": {
         "sources": [
@@ -14644,7 +14644,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 3,
-        "status": "base"
+        "status": "confirmed"
       },
       "politics": {
         "sources": [
@@ -14654,7 +14654,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 4,
-        "status": "base"
+        "status": "curated"
       },
       "religion": {
         "sources": [
@@ -14682,7 +14682,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 4,
-        "status": "base"
+        "status": "curated"
       }
     },
     "PSE": {
@@ -14802,7 +14802,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 3,
-        "status": "base"
+        "status": "confirmed"
       },
       "politics": {
         "sources": [
@@ -14821,7 +14821,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 3,
-        "status": "base"
+        "status": "confirmed"
       },
       "symbols": {
         "sources": [
@@ -14919,7 +14919,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 4,
-        "status": "base"
+        "status": "curated"
       }
     },
     "CS-KM": {
@@ -14941,7 +14941,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 3,
-        "status": "base"
+        "status": "curated"
       },
       "economy": {
         "sources": [
@@ -14970,7 +14970,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 4,
-        "status": "base"
+        "status": "curated"
       },
       "religion": {
         "sources": [
@@ -14998,7 +14998,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 4,
-        "status": "base"
+        "status": "curated"
       }
     },
     "-99": {
@@ -15020,7 +15020,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 3,
-        "status": "base"
+        "status": "curated"
       },
       "economy": {
         "sources": [
@@ -15049,7 +15049,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 4,
-        "status": "base"
+        "status": "curated"
       },
       "religion": {
         "sources": [
@@ -15077,7 +15077,7 @@
           "Curaduría manual interna"
         ],
         "sourceCount": 4,
-        "status": "base"
+        "status": "curated"
       }
     }
   },

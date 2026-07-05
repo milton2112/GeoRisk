@@ -38,6 +38,12 @@ const TERRITORY_LINKS = {
   PRI: ["USA"]
 };
 
+const SPECIAL_OR_DEPENDENT_CODES = new Set([
+  "-99", "ATA", "ATF", "BMU", "ESH", "FLK", "GRL", "GUF", "NCL", "PRI", "PSE", "CS-KM"
+]);
+
+const NO_PERMANENT_POPULATION_CODES = new Set(["ATA", "ATF"]);
+
 const INFLATION_OVERRIDES = {
   AND: 3.2,
   ATF: 2.4,
@@ -465,6 +471,11 @@ const CURATED_CONFLICT_OVERRIDES = {
   SLE: [
     { name: "Guerra civil de Sierra Leona", startYear: 1991, endYear: 2002, ongoing: false }
   ],
+  SOM: [
+    { name: "Guerra civil somali", startYear: 1991, endYear: null, ongoing: true },
+    { name: "Insurgencia de Al Shabaab", startYear: 2006, endYear: null, ongoing: true },
+    { name: "Intervencion etiope en Somalia", startYear: 2006, endYear: 2009, ongoing: false }
+  ],
   SUR: [
     { name: "Guerra civil de Surinam", startYear: 1986, endYear: 1992, ongoing: false }
   ],
@@ -476,6 +487,12 @@ const CURATED_CONFLICT_OVERRIDES = {
   ],
   TKM: [
     { name: "Rebelion basmachi en Turkmenistan", startYear: 1916, endYear: 1931, ongoing: false }
+  ],
+  TWN: [
+    { name: "Guerra civil china", startYear: 1927, endYear: 1949, ongoing: false },
+    { name: "Primera crisis del Estrecho de Taiwan", startYear: 1954, endYear: 1955, ongoing: false },
+    { name: "Segunda crisis del Estrecho de Taiwan", startYear: 1958, endYear: 1958, ongoing: false },
+    { name: "Tercera crisis del Estrecho de Taiwan", startYear: 1995, endYear: 1996, ongoing: false }
   ],
   VUT: [
     { name: "Coconut War", startYear: 1980, endYear: 1980, ongoing: false }
@@ -2203,19 +2220,45 @@ Object.assign(SYMBOL_OVERRIDES, {
 });
 
 Object.assign(TIMELINE_EVENT_OVERRIDES, {
+  "-99": [
+    { year: 1960, category: "estado", text: "Independencia del Estado de Somalilandia" },
+    { year: 1960, category: "union", text: "Union con Somalia para formar la Republica Somali" },
+    { year: 1991, category: "estado", text: "Declaracion de restauracion de la independencia" },
+    { year: 2001, category: "constitucion", text: "Referendum constitucional de Somalilandia" }
+  ],
   BOL: [
     { year: 1825, category: "estado", text: "Independencia de Bolivia" },
     { year: 1879, category: "guerra", text: "Guerra del Pacifico y perdida del litoral" },
     { year: 2009, category: "constitucion", text: "Nueva Constitucion del Estado Plurinacional" }
+  ],
+  ATF: [
+    { year: 1955, category: "territorio", text: "Creacion de las Tierras Australes y Antarticas Francesas" },
+    { year: 2007, category: "territorio", text: "Incorporacion administrativa de las islas dispersas" },
+    { year: 2019, category: "ambiente", text: "Proteccion ampliada de la reserva natural nacional" }
   ],
   CAN: [
     { year: 1867, category: "union", text: "Confederacion canadiense" },
     { year: 1931, category: "tratado", text: "Estatuto de Westminster y autonomia legislativa" },
     { year: 1982, category: "constitucion", text: "Patriacion constitucional y Carta de Derechos" }
   ],
+  "CS-KM": [
+    { year: 1999, category: "tratado", text: "Resolucion 1244 del Consejo de Seguridad y administracion internacional" },
+    { year: 2008, category: "estado", text: "Declaracion de independencia de Kosovo" },
+    { year: 2013, category: "acuerdo", text: "Acuerdo de Bruselas con Serbia" }
+  ],
   EGY: [
     { year: 1956, category: "tratado", text: "Crisis de Suez y afirmacion del nacionalismo egipcio" },
     { year: 1978, category: "tratado", text: "Acuerdos de Camp David" }
+  ],
+  FLK: [
+    { year: 1833, category: "territorio", text: "Administracion britanica continua en las islas" },
+    { year: 1982, category: "guerra", text: "Guerra de las Malvinas" },
+    { year: 2013, category: "politica", text: "Referendum local sobre el estatus politico" }
+  ],
+  GUF: [
+    { year: 1946, category: "territorio", text: "Guayana Francesa pasa a ser departamento de ultramar" },
+    { year: 1964, category: "economia", text: "Decision de instalar el Centro Espacial Guayanes" },
+    { year: 2015, category: "politica", text: "Creacion de la colectividad territorial unica" }
   ],
   ITA: [
     { year: 1861, category: "union", text: "Proclamacion del Reino de Italia" },
@@ -2242,9 +2285,22 @@ Object.assign(TIMELINE_EVENT_OVERRIDES, {
     { year: 1988, category: "estado", text: "Proclamacion del Estado de Palestina" },
     { year: 1993, category: "tratado", text: "Acuerdos de Oslo" }
   ],
+  SOM: [
+    { year: 1960, category: "union", text: "Union de Somalilandia y Somalia italiana" },
+    { year: 1969, category: "golpe", text: "Golpe de Estado de Siad Barre" },
+    { year: 1991, category: "guerra", text: "Colapso del gobierno central e inicio de la guerra civil" },
+    { year: 2012, category: "constitucion", text: "Constitucion provisional y consolidacion federal" }
+  ],
   SAU: [
     { year: 1932, category: "union", text: "Unificacion del Reino de Arabia Saudita" },
     { year: 1992, category: "constitucion", text: "Ley Basica de Gobierno" }
+  ],
+  TWN: [
+    { year: 1912, category: "estado", text: "Fundacion de la Republica de China" },
+    { year: 1949, category: "guerra", text: "Retirada del gobierno de la Republica de China a Taiwan" },
+    { year: 1971, category: "diplomacia", text: "Transferencia del asiento chino en la ONU a la Republica Popular China" },
+    { year: 1987, category: "cambio_regimen", text: "Levantamiento de la ley marcial" },
+    { year: 1996, category: "politica", text: "Primera eleccion presidencial directa" }
   ],
   URY: [
     { year: 1828, category: "estado", text: "Convencion Preliminar de Paz y nacimiento del Uruguay independiente" },
@@ -4282,6 +4338,9 @@ function buildQualityMetadata(context = {}) {
   const curatedFields = [];
   const confirmedFields = [];
   const missingFields = [];
+  const isSpecialOrDependent = Boolean(context.isSpecialOrDependent);
+  const hasNoPermanentPopulation = Boolean(context.hasNoPermanentPopulation);
+  const hasPoliticalRelationCoverage = Boolean(context.relationCoverageCount);
 
   if (!context.populationFromPrimarySource && context.populationValue) {
     estimatedFields.push("general.population");
@@ -4316,13 +4375,13 @@ function buildQualityMetadata(context = {}) {
   if (!context.subdivisionType) {
     missingFields.push("general.subdivisions");
   }
-  if (!context.religionCompositionCount) {
+  if (!context.religionCompositionCount && !hasNoPermanentPopulation) {
     missingFields.push("religion.composition");
   }
-  if (!context.organizationCount) {
+  if (!context.organizationCount && !isSpecialOrDependent && !hasPoliticalRelationCoverage) {
     missingFields.push("politics.organizations");
   }
-  if (!context.conflictCount) {
+  if (!context.conflictCount && !isSpecialOrDependent) {
     missingFields.push("military.conflicts");
   }
 
@@ -4350,6 +4409,12 @@ function buildQualityMetadata(context = {}) {
   if (context.relationCoverageCount) {
     curatedFields.push("politics.relations");
   }
+  if (!context.conflictCount && isSpecialOrDependent) {
+    confirmedFields.push("military.noStandingConflictProfile");
+  }
+  if (!context.religionCompositionCount && hasNoPermanentPopulation) {
+    confirmedFields.push("religion.noPermanentPopulation");
+  }
 
   const sourceCoverageScore = Math.min(
     100,
@@ -4359,9 +4424,11 @@ function buildQualityMetadata(context = {}) {
     general: context.languagesCount || context.capitalsCount || context.stateStructure ? "curated" : "base",
     history: context.hasCuratedTimeline ? "curated" : "base",
     economy: !context.inflationFromPrimarySource && context.inflationValue !== null && context.inflationValue !== undefined ? "mixed" : "confirmed",
-    military: context.hasCuratedConflicts ? "curated" : "base",
-    politics: context.organizationCount || context.rivalCount ? "curated" : "base",
-    religion: context.religionCompositionCount ? (context.religionCompositionFromPrimarySource ? "confirmed" : "mixed") : "base"
+    military: context.hasCuratedConflicts ? "curated" : (isSpecialOrDependent && !context.conflictCount ? "confirmed" : "base"),
+    politics: context.organizationCount || context.rivalCount || hasPoliticalRelationCoverage ? "curated" : "base",
+    religion: context.religionCompositionCount
+      ? (context.religionCompositionFromPrimarySource ? "confirmed" : "mixed")
+      : (hasNoPermanentPopulation ? "confirmed" : "base")
   };
   const sectionPenalty = Object.values(sectionStatus).reduce((total, status) => {
     if (status === "base") return total + 5;
@@ -4423,12 +4490,17 @@ function createMetadataBundle(code, context = {}) {
     conflicts: context.conflicts || []
   });
   const relationCoverageCount =
+    Number(Boolean(context.relationMetadata?.exMetropole)) +
     (context.relationMetadata?.militaryAllies?.length || 0) +
     (context.relationMetadata?.economicPartners?.length || 0) +
     (context.relationMetadata?.diplomaticPartners?.length || 0) +
     (context.relationMetadata?.currentRivals?.length || 0) +
     (context.relationMetadata?.historicalRivals?.length || 0) +
-    (context.relationMetadata?.disputedTerritories?.length || 0);
+    (context.relationMetadata?.disputedTerritories?.length || 0) +
+    (context.relationMetadata?.linkedTerritories?.length || 0) +
+    (context.relationMetadata?.associatedTerritories?.length || 0) +
+    (context.relationMetadata?.dependencies?.length || 0) +
+    (context.relationMetadata?.protectorates?.length || 0);
   const symbolCoverage =
     Number(Boolean(context.symbolAssets?.flagPath)) +
     Number(Boolean(context.symbolAssets?.coatPath));
@@ -4452,6 +4524,8 @@ function createMetadataBundle(code, context = {}) {
     subdivisionType: context.subdivisionType,
     hasCuratedTimeline: context.hasCuratedTimeline,
     hasCuratedConflicts: context.hasCuratedConflicts,
+    isSpecialOrDependent: context.isSpecialOrDependent,
+    hasNoPermanentPopulation: context.hasNoPermanentPopulation,
     symbolCoverage,
     relationCoverageCount,
     sourceSectionCoverage
@@ -6111,7 +6185,9 @@ for (const code of allCodes) {
       stateStructure,
       subdivisionType: subdivisions?.type,
       hasCuratedTimeline: Boolean(TIMELINE_EVENT_OVERRIDES[code]?.length),
-      hasCuratedConflicts: Boolean(CURATED_CONFLICT_OVERRIDES[code]?.length)
+      hasCuratedConflicts: Boolean(CURATED_CONFLICT_OVERRIDES[code]?.length),
+      isSpecialOrDependent: SPECIAL_OR_DEPENDENT_CODES.has(code),
+      hasNoPermanentPopulation: NO_PERMANENT_POPULATION_CODES.has(code)
     }),
     conflicts: mergedConflicts,
     organizations: compactList(baseData.organizations),
@@ -6201,7 +6277,9 @@ for (const code of allCodes) {
     stateStructure: result[code].general.stateStructure,
     subdivisionType: result[code].general.subdivisions?.type,
     hasCuratedTimeline: Boolean(result[code].history?.events?.length),
-    hasCuratedConflicts: Boolean(CURATED_CONFLICT_OVERRIDES[code]?.length)
+    hasCuratedConflicts: Boolean(CURATED_CONFLICT_OVERRIDES[code]?.length),
+    isSpecialOrDependent: SPECIAL_OR_DEPENDENT_CODES.has(code),
+    hasNoPermanentPopulation: NO_PERMANENT_POPULATION_CODES.has(code)
   });
 }
 

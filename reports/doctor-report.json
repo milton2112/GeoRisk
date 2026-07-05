@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-07-05T15:21:57.827Z",
-  "packageVersion": "1.6.32",
+  "generatedAt": "2026-07-05T15:39:12.941Z",
+  "packageVersion": "1.6.33",
   "status": "observacion",
   "summary": {
     "totalFindings": 1,
     "bySeverity": {
       "media": 1
     },
-    "startupBytes": 1012466,
-    "scriptBytes": 691745,
-    "countriesIndexBytes": 184014,
+    "startupBytes": 1006249,
+    "scriptBytes": 690296,
+    "countriesIndexBytes": 179246,
     "conflictAuditIssues": 0,
     "dataCounts": {
       "englishConflictNames": 0,
@@ -24,8 +24,8 @@
       "mojibakeText": 0,
       "sourceTextMojibake": 0,
       "largeCountries": 0,
-      "weakDataProfiles": 10,
-      "priorityWeakDataProfiles": 2,
+      "weakDataProfiles": 0,
+      "priorityWeakDataProfiles": 0,
       "baseSectionProfiles": 183
     }
   },
@@ -41,7 +41,7 @@
       "severity": "media",
       "area": "performance",
       "title": "script.js sigue al limite",
-      "detail": "691745 bytes",
+      "detail": "690296 bytes",
       "command": "Extraer mas UI a modulos diferidos."
     }
   ],
@@ -118,12 +118,6 @@
     ]
   },
   "dataAuditActionPlan": [
-    {
-      "priority": "media",
-      "title": "Profundizar fichas publicas con baja confianza real",
-      "count": 2,
-      "command": "npm run audit:data"
-    },
     {
       "priority": "baja",
       "title": "Planificar curaduria gradual de secciones base",

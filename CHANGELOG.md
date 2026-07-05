@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.32 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.33 antes de cerrar la siguiente version.
+
+## v1.6.33 - 2026-07-05
+
+- Cura Somalia y Taiwan con timelines politicos, conflictos historicos/actuales y metadatos de calidad generados desde `scripts/buildDataset.js`.
+- Agrega hitos historicos para Malvinas, Guayana Francesa, Tierras Australes Francesas, Kosovo y Somalilandia.
+- Ajusta el modelo de calidad para territorios/casos especiales: no penaliza ausencia de ejercito/conflictos o religion permanente cuando no corresponde y cuenta relaciones territoriales como politica curada.
+- Baja `priorityWeakDataProfiles` y `weakDataProfiles` a 0 sin esconder campos estimados.
+- Reduce `countries_index.json` de ~180 KB a 175 KB quitando metadata redundante del indice inicial.
+- Recorta ramas opcionales muertas de texto en `script.js`; el archivo baja a ~674 KB y el arranque critico local queda en 983 KB.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-05-release-5`.
 
 ## v1.6.32 - 2026-07-05
 

@@ -76,14 +76,13 @@ let rankingsCore = window.GeoRiskRankings || {};
 let helpUi = window.GeoRiskHelpUi || {};
 let exportShareUi = window.GeoRiskExportShare || {};
 const sharedTheme = window.GeoRiskTheme || {};
-const sharedText = window.GeoRiskText || {};
 const bootScheduler = window.GeoRiskBootScheduler || {};
 const mapCore = window.GeoRiskMap || {};
 const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-07-05-release-4";
+const APP_VERSION = "2026-07-05-release-5";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -3533,17 +3532,7 @@ const UI_STRINGS = {
   }
 };
 
-if (sharedText.UI_STRINGS?.es) {
-  Object.assign(UI_STRINGS.es, sharedText.UI_STRINGS.es);
-}
-if (sharedText.UI_STRINGS?.en) {
-  Object.assign(UI_STRINGS.en, sharedText.UI_STRINGS.en);
-}
-
 function formatNumber(value) {
-  if (typeof sharedText.formatNumber === "function") {
-    return sharedText.formatNumber(value);
-  }
   if (value === null || value === undefined || value === "") {
     return "Sin datos";
   }
@@ -3573,9 +3562,6 @@ function getUniqueDisplayLabels(values = []) {
 }
 
 function formatPercentage(value) {
-  if (typeof sharedText.formatPercentage === "function") {
-    return sharedText.formatPercentage(value);
-  }
   if (value === null || value === undefined || Number.isNaN(value)) {
     return "0%";
   }
@@ -3587,9 +3573,6 @@ function formatPercentage(value) {
 }
 
 function parseInflationValue(value) {
-  if (typeof sharedText.parseInflationValue === "function") {
-    return sharedText.parseInflationValue(value);
-  }
   if (value === null || value === undefined || value === "") {
     return null;
   }
@@ -3607,15 +3590,6 @@ function parseInflationValue(value) {
 }
 
 function formatInflation(value) {
-  if (typeof sharedText.formatInflation === "function") {
-    const formatted = sharedText.formatInflation(value, { noDataLabel: t("noData") });
-    if (formatted !== t("noData")) {
-      const parsedShared = parseInflationValue(value);
-      if (isValidInflationValue(parsedShared)) {
-        return formatted;
-      }
-    }
-  }
   const parsed = parseInflationValue(value);
   if (!isValidInflationValue(parsed)) {
     return t("noData");
@@ -3628,9 +3602,6 @@ function formatInflation(value) {
 }
 
 function repairMojibake(value) {
-  if (typeof sharedText.repairMojibake === "function") {
-    return sharedText.repairMojibake(value);
-  }
   const raw = String(value || "");
   if (!raw || !(/[ÃƒÃ‚Ã¢â‚¬Å“Ã¢â‚¬\uFFFDÂâã]/.test(raw) || /ã|â|Â/.test(raw))) {
     return raw;
@@ -3703,9 +3674,6 @@ function repairMojibake(value) {
 }
 
 function normalizeText(value) {
-  if (typeof sharedText.normalizeText === "function") {
-    return sharedText.normalizeText(value);
-  }
   return repairMojibake(String(value || ""))
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
@@ -3935,9 +3903,6 @@ function normalizeHistoryType(country) {
 }
 
 function escapeHtml(value) {
-  if (typeof sharedText.escapeHtml === "function") {
-    return sharedText.escapeHtml(repairMojibake(value));
-  }
   return repairMojibake(String(value || ""))
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
@@ -4219,9 +4184,6 @@ function compactNumber(value) {
 }
 
 function getInitialism(value) {
-  if (typeof sharedText.getInitialism === "function") {
-    return sharedText.getInitialism(value);
-  }
   return normalizeText(value)
     .split(" ")
     .filter(Boolean)
@@ -4230,9 +4192,6 @@ function getInitialism(value) {
 }
 
 function t(key) {
-  if (typeof sharedText.createTranslator === "function") {
-    return sharedText.createTranslator(() => currentLanguage)(key);
-  }
   return UI_STRINGS[currentLanguage]?.[key] || UI_STRINGS.es[key] || key;
 }
 
