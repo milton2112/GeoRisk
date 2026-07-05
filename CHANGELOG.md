@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.31 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.32 antes de cerrar la siguiente version.
+
+## v1.6.32 - 2026-07-05
+
+- Divide las listas completas de conflictos por pais en `data/countries/conflicts/*.json` y deja en cada ficha publica solo un preview liviano.
+- Hace que la seccion Militar cargue su shard de conflictos bajo demanda antes de construir jerarquia, filtros y detalle.
+- Reduce las fichas publicas grandes: `USA.json` baja de 216 KB a 20 KB, `GBR.json` de 71 KB a 20 KB y `FRA.json` de 52 KB a 18 KB.
+- Deja `largeCountries` y `country_weights.summary.tooLargeCount` en 0; todas las fichas publicas quedan bajo 42 KB.
+- Conserva `conflictCount` real en el indice inicial para rankings y contadores, aunque la lista completa se cargue despues.
+- Documenta el nuevo flujo de datos y refuerza tests de arranque, release gates y arquitectura para bloquear regresiones.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-05-release-4`.
 
 ## v1.6.31 - 2026-07-05
 

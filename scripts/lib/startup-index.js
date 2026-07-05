@@ -96,7 +96,10 @@ export function buildStartupCountryIndex(countries = {}) {
         military: {
           active: country.military?.active ?? null,
           reserve: country.military?.reserve ?? null,
-          conflicts: limitArray(country.military?.conflicts, 1).map(compactConflict)
+          conflicts: limitArray(country.military?.conflicts, 1).map(compactConflict),
+          conflictCount: Array.isArray(country.military?.conflicts) ? country.military.conflicts.length : 0,
+          conflictsPreviewCount: Math.min(Array.isArray(country.military?.conflicts) ? country.military.conflicts.length : 0, 1),
+          conflictsComplete: false
         },
         politics: {
           system: country.politics?.system ?? null,

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-05T15:11:04.293Z",
+  "generatedAt": "2026-07-05T15:21:56.099Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
@@ -35,7 +35,7 @@
       "count": 0
     },
     "largeCountries": {
-      "count": 3
+      "count": 0
     },
     "weakDataProfiles": {
       "count": 10
@@ -659,122 +659,7 @@
     "uppercaseCities": [],
     "mojibakeText": [],
     "sourceTextMojibake": [],
-    "largeCountries": [
-      {
-        "code": "USA",
-        "bytes": 216361,
-        "human": null,
-        "metrics": {
-          "sectionBytes": {
-            "military": 202492,
-            "politics": 9973,
-            "metadata": 1875,
-            "general": 978,
-            "history": 394,
-            "religion": 353,
-            "economy": 167,
-            "name": 16,
-            "continent": 9
-          },
-          "largestSections": [
-            {
-              "section": "military",
-              "bytes": 202492
-            },
-            {
-              "section": "politics",
-              "bytes": 9973
-            },
-            {
-              "section": "metadata",
-              "bytes": 1875
-            },
-            {
-              "section": "general",
-              "bytes": 978
-            }
-          ],
-          "conflictsBytes": 202424,
-          "averageConflictBytes": 219
-        }
-      },
-      {
-        "code": "GBR",
-        "bytes": 71022,
-        "human": null,
-        "metrics": {
-          "sectionBytes": {
-            "military": 57674,
-            "politics": 9502,
-            "metadata": 1876,
-            "general": 1018,
-            "history": 395,
-            "religion": 331,
-            "economy": 101,
-            "name": 13,
-            "continent": 8
-          },
-          "largestSections": [
-            {
-              "section": "military",
-              "bytes": 57674
-            },
-            {
-              "section": "politics",
-              "bytes": 9502
-            },
-            {
-              "section": "metadata",
-              "bytes": 1876
-            },
-            {
-              "section": "general",
-              "bytes": 1018
-            }
-          ],
-          "conflictsBytes": 57608,
-          "averageConflictBytes": 209
-        }
-      },
-      {
-        "code": "FRA",
-        "bytes": 52348,
-        "human": null,
-        "metrics": {
-          "sectionBytes": {
-            "military": 40744,
-            "politics": 7898,
-            "metadata": 1876,
-            "general": 933,
-            "history": 390,
-            "religion": 287,
-            "economy": 99,
-            "name": 9,
-            "continent": 8
-          },
-          "largestSections": [
-            {
-              "section": "military",
-              "bytes": 40744
-            },
-            {
-              "section": "politics",
-              "bytes": 7898
-            },
-            {
-              "section": "metadata",
-              "bytes": 1876
-            },
-            {
-              "section": "general",
-              "bytes": 933
-            }
-          ],
-          "conflictsBytes": 40678,
-          "averageConflictBytes": 178
-        }
-      }
-    ],
+    "largeCountries": [],
     "weakDataProfiles": [
       {
         "code": "SOM",
@@ -1643,12 +1528,6 @@
     ]
   },
   "actionPlan": [
-    {
-      "priority": "baja",
-      "title": "Reducir fichas pesadas",
-      "count": 3,
-      "command": "npm run build:indexes && npm run measure:startup"
-    },
     {
       "priority": "media",
       "title": "Profundizar fichas publicas con baja confianza real",

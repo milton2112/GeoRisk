@@ -83,7 +83,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-07-05-release-3";
+const APP_VERSION = "2026-07-05-release-4";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -1824,6 +1824,7 @@ let loadSupplementalDataPromise = null;
 let loadDeferredDataEnhancementsPromise = null;
 let loadRuntimeCurationPromise = null;
 const countryDetailPromises = new Map();
+const countryConflictDetailPromises = new Map();
 const deferredDataStatus = {
   countryIndex: false,
   runtimeCuration: false,
@@ -5469,6 +5470,10 @@ async function activateCountrySection(sectionId) {
   currentPanelState.countryLoadedSections = [...loadedSections];
   currentPanelState.countryActiveSection = sectionId;
 
+  if (sectionId === "country-section-military") {
+    await loadCountryConflictDetail(currentPanelState.code);
+  }
+
   if (
     !deferredDataStatus.runtimeCuration
     && (sectionId === "country-section-history" || sectionId === "country-section-military")
@@ -7309,7 +7314,7 @@ async function renderCountry(country, fallbackName) {
   const conflictsSinceFormation = getConflictsSinceFormation(country);
   const shouldRenderMilitaryDetail = countryLoadedSections.includes("country-section-military") && countryViewMode !== "compact";
   const conflictGroups = shouldRenderMilitaryDetail ? buildConflictGroups(conflictsSinceFormation) : [];
-  const conflictCountHint = conflictsSinceFormation.length;
+  const conflictCountHint = getCountryConflictCount(country) || conflictsSinceFormation.length;
   const countrySectionDescriptors =
     typeof countryPanelUi.getSectionDescriptors === "function"
       ? countryPanelUi.getSectionDescriptors(currentLanguage)
@@ -8319,6 +8324,10 @@ function getBucketThemeInfo(value, buckets) {
 }
 
 function getCountryConflictCount(country) {
+  const declaredCount = Number(country?.military?.conflictCount || country?.metadata?.publicProfile?.conflictCount || 0);
+  if (declaredCount > 0) {
+    return declaredCount;
+  }
   if (Array.isArray(country?.military?.conflicts)) {
     return country.military.conflicts.length;
   }
@@ -8330,7 +8339,10 @@ function getCountryWarParticipationCount(country) {
   const conflictCount = getCountryConflictCount(country);
   const cacheKey = `${code}:${countriesDataRevision}:${conflictCount}`;
   if (!warParticipationCountCache.has(cacheKey)) {
-    warParticipationCountCache.set(cacheKey, buildConflictGroups(getConflictsSinceFormation(country)).length);
+    const estimatedCount = hasCompleteCountryConflicts(country)
+      ? buildConflictGroups(getConflictsSinceFormation(country)).length
+      : conflictCount;
+    warParticipationCountCache.set(cacheKey, estimatedCount);
   }
   return warParticipationCountCache.get(cacheKey);
 }
@@ -14483,6 +14495,78 @@ async function loadCountryDetail(code) {
     });
 
   countryDetailPromises.set(normalizedCode, promise);
+  return promise;
+}
+
+function getCountryConflictShardPath(country, code) {
+  const shardPath = country?.military?.conflictsShard || country?.metadata?.publicProfile?.conflictsShard || "";
+  if (shardPath) {
+    return shardPath.startsWith("./") ? shardPath : `./${shardPath}`;
+  }
+  if (country?.military?.conflictsComplete === false && code) {
+    return `./data/countries/conflicts/${encodeURIComponent(code)}.json`;
+  }
+  return "";
+}
+
+function hasCompleteCountryConflicts(country) {
+  const conflicts = Array.isArray(country?.military?.conflicts) ? country.military.conflicts : [];
+  const expectedCount = Number(country?.military?.conflictCount || country?.metadata?.publicProfile?.conflictCount || 0);
+  return country?.military?.conflictsComplete !== false || (expectedCount > 0 && conflicts.length >= expectedCount);
+}
+
+async function loadCountryConflictDetail(code) {
+  const normalizedCode = String(code || "").trim();
+  if (!normalizedCode) {
+    return null;
+  }
+
+  const country = countriesData[normalizedCode]?.metadata?.isIndex
+    ? await loadCountryDetail(normalizedCode)
+    : countriesData[normalizedCode];
+  if (!country || hasCompleteCountryConflicts(country)) {
+    return country || null;
+  }
+  if (countryConflictDetailPromises.has(normalizedCode)) {
+    return countryConflictDetailPromises.get(normalizedCode);
+  }
+
+  const shardPath = getCountryConflictShardPath(country, normalizedCode);
+  if (!shardPath) {
+    return country;
+  }
+
+  const promise = fetchResourceCached(`${shardPath}${shardPath.includes("?") ? "&" : "?"}v=${APP_VERSION}`, "json")
+    .then(conflicts => {
+      if (!Array.isArray(conflicts)) {
+        return country;
+      }
+      country.military = {
+        ...(country.military || {}),
+        conflicts,
+        conflictCount: conflicts.length,
+        conflictsPreviewCount: conflicts.length,
+        conflictsComplete: true
+      };
+      delete country.military.conflictsShard;
+      country.metadata = {
+        ...(country.metadata || {}),
+        publicProfile: {
+          ...(country.metadata?.publicProfile || {}),
+          conflictsSharded: false,
+          conflictPreviewCount: conflicts.length,
+          conflictCount: conflicts.length
+        }
+      };
+      invalidateCountryDerivedCaches();
+      return country;
+    })
+    .catch(error => {
+      console.warn(`No se pudo cargar conflictos de ${normalizedCode}:`, error);
+      return country;
+    });
+
+  countryConflictDetailPromises.set(normalizedCode, promise);
   return promise;
 }
 

@@ -29,7 +29,8 @@ GeoRisk es una aplicacion frontend orientada a exploracion geopolitica con datas
 
 - `data/countries_full.json`: dataset curado principal.
 - `data/countries_index.json`: indice compacto para el arranque inicial.
-- `data/countries/*.json`: fichas completas por pais, cargadas bajo demanda.
+- `data/countries/*.json`: fichas por pais cargadas bajo demanda, con conflictos en preview para no inflar la apertura.
+- `data/countries/conflicts/*.json`: listas completas de conflictos por pais, cargadas solo al abrir la seccion Militar.
 - `data/conflicts_index.json`: indice liviano de conflictos para busqueda, timeline y exploracion sin cargar detalles pesados.
 - `data/timeline_index.json`: indice liviano cronologico con formaciones, eventos y conflictos.
 - `data/search_index.json`: indice liviano de busqueda por pais, alias y facets.
@@ -66,11 +67,12 @@ GeoRisk es una aplicacion frontend orientada a exploracion geopolitica con datas
 2. Renderiza mapa, busqueda basica, capas y ficha inicial con datos compactos.
 3. Si el usuario abre una ficha indexada, carga `data/countries/<codigo>.json` bajo demanda.
 4. Carga indices livianos de conflictos, timeline o busqueda solo cuando una vista los necesite.
-5. Carga curaduria profunda solo al abrir Historia o Militar dentro de una ficha.
-6. Carga `data/conflicts/details_index.json` y un shard individual al abrir un conflicto; el monolito tecnico no llega al navegador.
-7. Usa `data/countries_full.json` unicamente como fallback si falla el indice inicial; no existe una precarga ociosa.
-8. En el mapa, resuelve clicks del GeoJSON a codigos ISO o especiales.
-9. La ficha modal, timeline, comparador, quiz y noticias consumen datos bajo demanda segun la vista activa.
+5. Si el usuario abre Militar, carga `data/countries/conflicts/<codigo>.json` y reemplaza la muestra inicial por la lista completa.
+6. Carga curaduria profunda solo al abrir Historia o Militar dentro de una ficha.
+7. Carga `data/conflicts/details_index.json` y un shard individual al abrir un conflicto; el monolito tecnico no llega al navegador.
+8. Usa `data/countries_full.json` unicamente como fallback si falla el indice inicial; no existe una precarga ociosa.
+9. En el mapa, resuelve clicks del GeoJSON a codigos ISO o especiales.
+10. La ficha modal, timeline, comparador, quiz y noticias consumen datos bajo demanda segun la vista activa.
 
 ## Separacion de datos
 

@@ -7,7 +7,7 @@ import {
 } from "./lib/conflict-cleaning.js";
 import { buildStartupCountryIndex } from "./lib/startup-index.js";
 import { repairMojibake as repairMojibakeShared } from "./lib/text-normalization.js";
-import { buildPublicCountryRecord } from "./lib/public-country-record.js";
+import { buildPublicCountryConflictRecord, buildPublicCountryRecord } from "./lib/public-country-record.js";
 import {
   applyVisibleStringReplacements,
   isTechnicalIdentifier,
@@ -6255,7 +6255,12 @@ const countryIndex = buildStartupCountryIndex(sanitizedResult);
 writeJsonAtomicSync("./data/countries_index.json", sanitizeDeep(countryIndex), { spaces: 0 });
 fs.emptyDirSync("./data/countries");
 Object.entries(sanitizedResult).forEach(([code, country]) => {
-  writeJsonAtomicSync(`./data/countries/${code}.json`, buildPublicCountryRecord(country), { spaces: 0 });
+  const publicRecord = buildPublicCountryRecord(country, code);
+  writeJsonAtomicSync(`./data/countries/${code}.json`, publicRecord, { spaces: 0 });
+  if (publicRecord.military?.conflictsShard) {
+    fs.ensureDirSync("./data/countries/conflicts");
+    writeJsonAtomicSync(`./data/countries/conflicts/${code}.json`, buildPublicCountryConflictRecord(country), { spaces: 0 });
+  }
 });
 
 console.log(`Dataset generado: ${Object.keys(sanitizedResult).length} paises.`);

@@ -11,6 +11,7 @@ const CONFLICT_SUMMARY_FIELDS = [
   "scale",
   "normalizedRegion"
 ];
+const DEFAULT_CONFLICT_PREVIEW_LIMIT = 36;
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
@@ -34,18 +35,33 @@ export function compactConflictForCountryShard(conflict) {
   return summary;
 }
 
-export function buildPublicCountryRecord(country) {
+export function getCountryConflictList(country) {
+  return Array.isArray(country?.military?.conflicts)
+    ? country.military.conflicts
+    : (Array.isArray(country?.conflicts) ? country.conflicts : []);
+}
+
+export function buildPublicCountryConflictRecord(country) {
+  return getCountryConflictList(country).map(compactConflictForCountryShard).filter(Boolean);
+}
+
+export function buildPublicCountryRecord(country, code = "") {
   const publicCountry = clone(country || {});
-  const conflicts = Array.isArray(publicCountry.military?.conflicts)
-    ? publicCountry.military.conflicts
-    : (Array.isArray(publicCountry.conflicts) ? publicCountry.conflicts : []);
-  const compactConflicts = conflicts.map(compactConflictForCountryShard).filter(Boolean);
+  const compactConflicts = buildPublicCountryConflictRecord(publicCountry);
+  const conflictPreview = compactConflicts.slice(0, DEFAULT_CONFLICT_PREVIEW_LIMIT);
+  const hasConflictShard = compactConflicts.length > conflictPreview.length;
+  const countryCode = code || publicCountry.code || "";
 
   publicCountry.military = {
     ...(publicCountry.military || {}),
-    conflicts: compactConflicts,
-    conflictCount: compactConflicts.length
+    conflicts: conflictPreview,
+    conflictCount: compactConflicts.length,
+    conflictsPreviewCount: conflictPreview.length,
+    conflictsComplete: !hasConflictShard
   };
+  if (hasConflictShard) {
+    publicCountry.military.conflictsShard = `data/countries/conflicts/${countryCode}.json`;
+  }
   delete publicCountry.conflicts;
   delete publicCountry.organizations;
   delete publicCountry.rivals;
@@ -54,6 +70,9 @@ export function buildPublicCountryRecord(country) {
     ...(publicCountry.metadata || {}),
     publicProfile: {
       conflictsCompact: true,
+      conflictsSharded: hasConflictShard,
+      conflictPreviewLimit: DEFAULT_CONFLICT_PREVIEW_LIMIT,
+      conflictPreviewCount: conflictPreview.length,
       conflictCount: compactConflicts.length
     }
   };

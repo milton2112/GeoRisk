@@ -1,13 +1,14 @@
 import fs from "fs-extra";
 import path from "node:path";
 import { readJsonWithRetry, statWithRetry, writeJsonWithRetry } from "./lib/resilient-fs.js";
-import { buildPublicCountryRecord } from "./lib/public-country-record.js";
+import { buildPublicCountryConflictRecord, buildPublicCountryRecord } from "./lib/public-country-record.js";
 import { normalizeVisibleValue } from "./lib/visible-data-corrections.js";
 
 const projectRoot = path.resolve(process.cwd());
 const dataDir = path.join(projectRoot, "data");
 const reportsDir = path.join(projectRoot, "reports");
 const perCountryDir = path.join(dataDir, "countries");
+const perCountryConflictsDir = path.join(perCountryDir, "conflicts");
 const conflictDetailsDir = path.join(dataDir, "conflicts", "details");
 
 const LARGE_COUNTRY_BYTES = 42000;
@@ -19,7 +20,9 @@ const PUBLIC_DATA_FILES = [
   "data/country_weights.json",
   "data/conflicts/details_index.json",
   "data/geo_aliases.json",
-  "data/world_countries_simplified.geo.json"
+  "data/world_countries_simplified.geo.json",
+  "data/countries/*.json",
+  "data/countries/conflicts/*.json"
 ];
 const TECHNICAL_DATA_FILES = [
   "data/countries_full.json",
@@ -272,20 +275,24 @@ async function buildConflictDetailShards() {
 async function buildCountryWeights(countries) {
   const entries = [];
   let duplicatedCountryFilesBytes = 0;
+  let countryConflictShardBytes = 0;
   for (const [code, country] of Object.entries(countries)) {
     const countryPath = path.join(perCountryDir, `${code}.json`);
-    const publicRecord = buildPublicCountryRecord(country);
+    const conflictShardPath = path.join(perCountryConflictsDir, `${code}.json`);
+    const publicRecord = buildPublicCountryRecord(country, code);
     const sectionBytes = Object.fromEntries(
       Object.entries(publicRecord)
         .map(([section, value]) => [section, Buffer.byteLength(JSON.stringify(value))])
         .sort((a, b) => b[1] - a[1])
     );
-    const compactConflicts = normalizeArray(publicRecord.military?.conflicts);
+    const compactConflicts = buildPublicCountryConflictRecord(country);
     const conflictsBytes = Buffer.byteLength(JSON.stringify(compactConflicts));
     const inlineBytes = Buffer.byteLength(JSON.stringify(country));
     const fileBytes = await fs.pathExists(countryPath) ? (await statWithRetry(countryPath)).size : 0;
+    const conflictShardBytes = await fs.pathExists(conflictShardPath) ? (await statWithRetry(conflictShardPath)).size : 0;
     const countryConflicts = getCountryConflicts(country, code);
     duplicatedCountryFilesBytes += fileBytes;
+    countryConflictShardBytes += conflictShardBytes;
     entries.push({
       code,
       name: country.name,
@@ -306,6 +313,7 @@ async function buildCountryWeights(countries) {
         sectionBytes,
         largestSections: Object.entries(sectionBytes).slice(0, 4).map(([section, bytes]) => ({ section, bytes })),
         conflictsBytes,
+        conflictShardBytes,
         averageConflictBytes: compactConflicts.length ? Math.round(conflictsBytes / compactConflicts.length) : 0
       }
     });
@@ -319,6 +327,7 @@ async function buildCountryWeights(countries) {
       totalCountries: entries.length,
       fullBytes,
       duplicatedCountryFilesBytes,
+      countryConflictShardBytes,
       tooLargeCount: entries.filter(entry => entry.tooLarge).length,
       largest: entries.sort((a, b) => b.bytes - a.bytes).slice(0, 12)
     }
@@ -327,12 +336,21 @@ async function buildCountryWeights(countries) {
 
 async function writePublicCountryShards(countries) {
   await fs.emptyDir(perCountryDir);
+  await fs.ensureDir(perCountryConflictsDir);
   for (const [code, country] of Object.entries(countries)) {
+    const publicRecord = buildPublicCountryRecord(country, code);
     await writeJsonWithRetry(
       path.join(perCountryDir, `${code}.json`),
-      buildPublicCountryRecord(country),
+      publicRecord,
       { spaces: 0 }
     );
+    if (publicRecord.military?.conflictsShard) {
+      await writeJsonWithRetry(
+        path.join(perCountryConflictsDir, `${code}.json`),
+        buildPublicCountryConflictRecord(country),
+        { spaces: 0 }
+      );
+    }
   }
 }
 

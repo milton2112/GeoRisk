@@ -30,6 +30,7 @@ const appNews = await fs.readFile(path.join(projectRoot, "app-news-ui.js"), "utf
 const appCompare = await fs.readFile(path.join(projectRoot, "app-compare-ui.js"), "utf8");
 const appQuiz = await fs.readFile(path.join(projectRoot, "app-quiz-ui.js"), "utf8");
 const perCountryDir = path.join(projectRoot, "data", "countries");
+const perCountryConflictsDir = path.join(perCountryDir, "conflicts");
 const perCountryFiles = (await fs.readdir(perCountryDir)).filter(file => file.endsWith(".json"));
 const appShellMatch = sw.match(/const APP_SHELL = \[([\s\S]*?)\];/);
 assert.ok(appShellMatch, "service worker debe declarar APP_SHELL");
@@ -45,9 +46,11 @@ assert.ok(Array.isArray(timelineIndex) && timelineIndex.length > 1000, "debe exi
 assert.equal(searchIndex.length, Object.keys(full).length, "indice de busqueda debe cubrir todos los paises");
 assert.ok(Buffer.byteLength(JSON.stringify(searchIndex)) < 220000, "search_index debe mantenerse liviano");
 assert.equal(countryWeights.summary.totalCountries, Object.keys(full).length, "metadata de peso debe cubrir todos los paises");
-assert.ok(countryWeights.summary.tooLargeCount >= 1, "metadata de peso debe detectar fichas grandes");
+assert.equal(countryWeights.summary.tooLargeCount, 0, "las fichas publicas deben quedar bajo el presupuesto de peso");
+assert.ok(countryWeights.summary.largest.every(item => item.bytes < countryWeights.thresholdBytes), "ninguna ficha publica debe superar el umbral");
 assert.ok(dataManifest.prodExcludes.includes("reports/*.json"), "build prod debe excluir reports/*.json");
 assert.ok(dataManifest.internalTechnical.files.includes("data/countries_full.json"), "countries_full debe quedar marcado como tecnico interno");
+assert.ok(dataManifest.productionPublic.files.includes("data/countries/conflicts/*.json"), "shards de conflictos por pais deben documentarse como datos publicos bajo demanda");
 const curationAudit = await fs.readJson(path.join(projectRoot, "reports", "data-curation-audit.json"));
 assert.ok(curationAudit.conflictDateQuality?.pendingCount > 0, "auditoria debe listar conflictos pendientes de fecha fuera del indice publico");
 assert.ok(conflictDetailsIndex.conflicts.length > 100, "detalles de conflictos deben dividirse en shards bajo demanda");
@@ -69,7 +72,16 @@ for (const file of perCountryFiles) {
     assert.ok(!Object.hasOwn(conflict, "chronology"), `${file} debe cargar cronologia por shard de conflicto`);
   }
 }
-assert.ok(largestCountryShard < 350000, `la ficha publica mas pesada debe quedar bajo 350 KB; actual ${largestCountryShard}`);
+assert.ok(largestCountryShard < 42000, `la ficha publica mas pesada debe quedar bajo 42 KB; actual ${largestCountryShard}`);
+for (const code of ["USA", "GBR", "FRA"]) {
+  const countryShard = await fs.readJson(path.join(perCountryDir, `${code}.json`));
+  const conflictShardPath = path.join(perCountryConflictsDir, `${code}.json`);
+  const conflictShard = await fs.readJson(conflictShardPath);
+  assert.equal(countryShard.military.conflictsComplete, false, `${code} debe iniciar con conflictos bajo demanda`);
+  assert.equal(countryShard.military.conflicts.length, countryShard.military.conflictsPreviewCount, `${code} debe exponer solo preview de conflictos`);
+  assert.equal(conflictShard.length, countryShard.military.conflictCount, `${code} debe conservar lista completa en shard`);
+  assert.ok((await fs.stat(conflictShardPath)).size > (await fs.stat(path.join(perCountryDir, `${code}.json`))).size, `${code} debe mover el peso militar al shard bajo demanda`);
+}
 
 for (const code of ["ATA", "GRL", "GUF", "TWN", "PSE", "-99"]) {
   assert.ok(index[code], `${code} debe existir en el indice liviano`);
@@ -151,7 +163,9 @@ assert.ok(!script.includes("startFullLoad"), "countries_full no debe tener dispa
 assert.ok(!script.includes("async function loadFullCountryData()"), "countries_full no debe conservar un loader global sin consumidores");
 assert.equal((script.match(/countries_full\.json/g) || []).length, 1, "countries_full solo debe quedar como fallback del indice");
 assert.ok(script.includes("async function loadCountryDetail"), "fichas deben cargar detalle por pais bajo demanda");
+assert.ok(script.includes("async function loadCountryConflictDetail"), "conflictos completos por pais deben cargar bajo demanda");
 assert.ok(script.includes("const detailedCountry = await loadCountryDetail(countryCode)"), "una ficha cacheada debe salir del skeleton al reabrirse");
+assert.ok(script.includes("await loadCountryConflictDetail(currentPanelState.code)"), "seccion militar debe cargar su shard antes de renderizar detalle");
 assert.ok(script.includes("sectionId === \"country-section-military\""), "curaduria profunda debe esperar a una seccion de historia o conflictos");
 assert.ok(script.includes("data-country-load-section=\"country-section-military\""), "arbol militar debe renderizarse solo al abrir su seccion");
 assert.ok(script.includes("const shouldRenderMilitaryDetail = countryLoadedSections.includes(\"country-section-military\")"), "jerarquia militar debe tener compuerta explicita por seccion abierta");

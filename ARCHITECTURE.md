@@ -40,6 +40,7 @@ Use this flow:
 - Workers should own expensive indexing/ranking work.
 - Deferred modules must stay out of `index.html` and `APP_SHELL` unless they are required before first interaction.
 - Service worker config should keep heavy datasets, flags, coats and reports out of initial precache.
+- Country profile shards should keep heavy conflict lists in `data/countries/conflicts/*.json` and load them only when the military section opens.
 
 ## Naming Conventions
 

@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-07-05T15:11:06.025Z",
-  "packageVersion": "1.6.31",
+  "generatedAt": "2026-07-05T15:21:57.827Z",
+  "packageVersion": "1.6.32",
   "status": "observacion",
   "summary": {
     "totalFindings": 1,
     "bySeverity": {
       "media": 1
     },
-    "startupBytes": 996595,
-    "scriptBytes": 688768,
-    "countriesIndexBytes": 171120,
+    "startupBytes": 1012466,
+    "scriptBytes": 691745,
+    "countriesIndexBytes": 184014,
     "conflictAuditIssues": 0,
     "dataCounts": {
       "englishConflictNames": 0,
@@ -23,7 +23,7 @@
       "uppercaseCities": 0,
       "mojibakeText": 0,
       "sourceTextMojibake": 0,
-      "largeCountries": 3,
+      "largeCountries": 0,
       "weakDataProfiles": 10,
       "priorityWeakDataProfiles": 2,
       "baseSectionProfiles": 183
@@ -41,7 +41,7 @@
       "severity": "media",
       "area": "performance",
       "title": "script.js sigue al limite",
-      "detail": "688768 bytes",
+      "detail": "691745 bytes",
       "command": "Extraer mas UI a modulos diferidos."
     }
   ],
@@ -118,12 +118,6 @@
     ]
   },
   "dataAuditActionPlan": [
-    {
-      "priority": "baja",
-      "title": "Reducir fichas pesadas",
-      "count": 3,
-      "command": "npm run build:indexes && npm run measure:startup"
-    },
     {
       "priority": "media",
       "title": "Profundizar fichas publicas con baja confianza real",

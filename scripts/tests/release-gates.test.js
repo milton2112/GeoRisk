@@ -194,6 +194,8 @@ assert.ok(!cleanLocal.includes("package-lock.json"), "la limpieza no debe borrar
 assert.ok(!script.includes("async function loadFullCountryData()"), "countries_full no debe tener loader global sin consumidores");
 assert.equal((script.match(/countries_full\.json/g) || []).length, 1, "countries_full solo debe quedar como fallback del indice");
 assert.ok(script.includes("async function loadCountryDetail"), "detalle de pais debe cargarse bajo demanda");
+assert.ok(script.includes("async function loadCountryConflictDetail"), "conflictos de pais deben cargarse desde shard bajo demanda");
+assert.ok(script.includes("data/countries/conflicts"), "runtime debe conocer shards de conflictos por pais");
 assert.ok(script.includes("maybeEnhanceOpenConflictModal"), "conflictos detallados deben cargarse al abrir modal");
 assert.ok(script.includes("scheduleDetailedOverlayUpgrade"), "GeoJSON detallado debe cargarse por upgrade diferido");
 assert.ok(appMap.includes("world_countries_simplified.geo.json"), "GeoJSON simplificado debe ser default inicial");
