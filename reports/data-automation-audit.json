@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-05T15:39:11.237Z",
+  "generatedAt": "2026-07-05T20:24:01.095Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 701
+      "count": 699
     },
     "undatedHighLevelConflicts": {
       "count": 0
@@ -32,6 +32,9 @@
       "count": 0
     },
     "sourceTextMojibake": {
+      "count": 0
+    },
+    "conflictDetailLocalizationIssues": {
       "count": 0
     },
     "largeCountries": {
@@ -659,6 +662,7 @@
     "uppercaseCities": [],
     "mojibakeText": [],
     "sourceTextMojibake": [],
+    "conflictDetailLocalizationIssues": [],
     "largeCountries": [],
     "weakDataProfiles": [],
     "priorityWeakDataProfiles": [],

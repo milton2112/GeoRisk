@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-07-05T15:37:01.833Z",
-  "changedFullCountries": 196,
+  "generatedAt": "2026-07-05T20:22:05.656Z",
+  "changedFullCountries": 197,
   "changedCountryFiles": 180,
   "detailStats": {
     "renamed": 2,
-    "enriched": 391
+    "enriched": 403
   },
   "safeRenames": {
     "Batalla naval de RÃ¼gen": "Batalla naval de Rugen",
@@ -26,7 +26,10 @@
     "1952 Clash de Ismailia": "Choque de Ismailia de 1952",
     "1957 Honduras-Nicaragua border conflict": "Conflicto fronterizo Honduras-Nicaragua de 1957",
     "2024 Beqaa Valley airstrikes": "Ataques aereos del valle de la Becaa de 2024",
+    "Ataques aéreos del valle de la Becaa de 2024": "Ataques aereos del valle de la Becaa de 2024",
     "2016 Sirte offensive": "Ofensiva de Sirte de 2016",
+    "Bombardeos aliados de Ámsterdam-Noord": "Bombardeos aliados de Amsterdam-Noord",
+    "Incursión de abril de 2009 frente a Somalia": "Incursion de abril de 2009 frente a Somalia",
     "1984 DMZ incident": "Incidente de la zona desmilitarizada de Corea de 1984",
     "2022 Russian Invasion de Ukraine": "Invasion rusa de Ucrania de 2022",
     "1919 Soviet Invasion de Ukraine": "Invasion sovietica de Ucrania de 1919",
@@ -168,6 +171,12 @@
     "Incursión del Océano Índico": "Incursion del Oceano Indico"
   },
   "curatedDetails": [
+    "Ataques aereos del valle de la Becaa de 2024",
+    "Batalla frente a Endau",
+    "Batalla del Monte Calvo",
+    "Bombardeos aliados de Amsterdam-Noord",
+    "Incursion de abril de 2009 frente a Somalia",
+    "Ofensiva de Sirte de 2016",
     "Conflicto irano-israeli durante la guerra civil siria",
     "Batalla de al-Qaryatayn",
     "Batalla de Saigon",

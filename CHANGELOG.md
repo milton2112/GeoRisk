@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.33 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.34 antes de cerrar la siguiente version.
+
+## v1.6.34 - 2026-07-05
+
+- Cura detalles visibles de conflictos importados con campos en ingles o coordenadas crudas: Becaa 2024, Endau, Amsterdam-Noord, Somalia 2009, Sirte 2016 y Monte Calvo.
+- Corrige jerarquias y regiones de esos conflictos en fichas por pais: Somalia deja de colgar de Afganistan, Sirte pasa a la Segunda guerra civil libia y Monte Calvo a la Guerra de Corea.
+- Agrega `conflictDetailLocalizationIssues` a `audit:data` para detectar shards diferidos con fechas/lugares/resultados sin localizar.
+- Refuerza `test:data-language` con checks de jerarquia/region curada y de shards sin ingles visible ni coordenadas crudas.
+- Reduce `countries_index.json` de ~175 KB a 161 KB sacando ciudades y estructura estatal del indice inicial; esos campos quedan bajo demanda en `data/countries/*.json`.
+- Baja el arranque critico local de 983 KB a 969 KB y deja `release:check` completo en verde.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-05-release-6`.
 
 ## v1.6.33 - 2026-07-05
 

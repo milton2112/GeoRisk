@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-07-05T15:39:10.010Z",
-  "startupBytes": 1006249,
-  "startupHuman": "983 KB",
-  "deferredBytes": 1101282,
+  "generatedAt": "2026-07-05T20:23:59.453Z",
+  "startupBytes": 992231,
+  "startupHuman": "969 KB",
+  "deferredBytes": 1099633,
   "deferredHuman": "1.05 MB",
   "estimatedRuntimeMemory": {
-    "countriesFullBytes": 9136348,
-    "countriesFullHuman": "8.71 MB",
-    "estimatedParsedBytes": 27409044,
-    "estimatedParsedHuman": "26.14 MB",
+    "countriesFullBytes": 9142879,
+    "countriesFullHuman": "8.72 MB",
+    "estimatedParsedBytes": 27428637,
+    "estimatedParsedHuman": "26.16 MB",
     "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
   },
   "largestAssets": [
@@ -22,8 +22,8 @@
     {
       "path": "data/conflict_details.generated.json",
       "exists": true,
-      "bytes": 572819,
-      "human": "559 KB",
+      "bytes": 571170,
+      "human": "558 KB",
       "startupCritical": false
     },
     {
@@ -34,18 +34,18 @@
       "startupCritical": false
     },
     {
-      "path": "data/countries_index.json",
-      "exists": true,
-      "bytes": 179246,
-      "human": "175 KB",
-      "startupCritical": true
-    },
-    {
       "path": "data/world_countries_simplified.geo.json",
       "exists": true,
       "bytes": 174321,
       "human": "170 KB",
       "startupCritical": false
+    },
+    {
+      "path": "data/countries_index.json",
+      "exists": true,
+      "bytes": 165228,
+      "human": "161 KB",
+      "startupCritical": true
     },
     {
       "path": "style.css",
@@ -262,8 +262,8 @@
     {
       "path": "data/countries_index.json",
       "exists": true,
-      "bytes": 179246,
-      "human": "175 KB",
+      "bytes": 165228,
+      "human": "161 KB",
       "startupCritical": true
     },
     {
@@ -290,8 +290,8 @@
     {
       "path": "data/conflict_details.generated.json",
       "exists": true,
-      "bytes": 572819,
-      "human": "559 KB",
+      "bytes": 571170,
+      "human": "558 KB",
       "startupCritical": false
     },
     {

@@ -40,6 +40,13 @@ assert.equal(Object.keys(index).length, Object.keys(full).length);
 assert.equal(perCountryFiles.length, Object.keys(full).length);
 assert.ok(Buffer.byteLength(JSON.stringify(index)) < Buffer.byteLength(JSON.stringify(full)) * 0.34);
 assert.ok(Buffer.byteLength(JSON.stringify(index)) < 200000, "countries_index debe quedar por debajo de 200 KB");
+const heavyIndexProfileFields = Object.entries(index).flatMap(([code, country]) => {
+  const issues = [];
+  if (country.general?.stateStructure) issues.push({ code, field: "general.stateStructure" });
+  if (Array.isArray(country.general?.cities) && country.general.cities.length) issues.push({ code, field: "general.cities" });
+  return issues;
+});
+assert.deepEqual(heavyIndexProfileFields, [], "countries_index no debe incluir campos de ficha que se cargan bajo demanda");
 assert.ok(Array.isArray(conflictsIndex) && conflictsIndex.length > 1000, "debe existir indice liviano de conflictos");
 assert.equal(conflictsIndex.filter(conflict => !Number.isFinite(conflict.startYear)).length, 0, "indice publico de conflictos no debe publicar entradas sin fecha");
 assert.ok(Array.isArray(timelineIndex) && timelineIndex.length > 1000, "debe existir indice liviano de timeline");

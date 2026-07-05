@@ -18,7 +18,10 @@ export const SAFE_CONFLICT_RENAMES = {
   "1952 Clash de Ismailia": "Choque de Ismailia de 1952",
   "1957 Honduras-Nicaragua border conflict": "Conflicto fronterizo Honduras-Nicaragua de 1957",
   "2024 Beqaa Valley airstrikes": "Ataques aereos del valle de la Becaa de 2024",
+  "Ataques aéreos del valle de la Becaa de 2024": "Ataques aereos del valle de la Becaa de 2024",
   "2016 Sirte offensive": "Ofensiva de Sirte de 2016",
+  "Bombardeos aliados de Ámsterdam-Noord": "Bombardeos aliados de Amsterdam-Noord",
+  "Incursión de abril de 2009 frente a Somalia": "Incursion de abril de 2009 frente a Somalia",
   "1984 DMZ incident": "Incidente de la zona desmilitarizada de Corea de 1984",
   "2022 Russian Invasion de Ukraine": "Invasion rusa de Ucrania de 2022",
   "1919 Soviet Invasion de Ukraine": "Invasion sovietica de Ucrania de 1919",
@@ -32,6 +35,233 @@ export const SAFE_CONFLICT_RENAMES = {
 };
 
 export const CURATED_CONFLICT_DETAIL_FIXES = {
+  "Ataques aereos del valle de la Becaa de 2024": {
+    name: "Ataques aereos del valle de la Becaa de 2024",
+    parent: "Conflicto Israel-Hezbola de 2023-2024",
+    war: "Conflicto Israel-Hezbola de 2023-2024",
+    campaign: "Frente libanes de la guerra Israel-Hamas",
+    type: "ataque aereo",
+    conflictType: "interestatal",
+    scale: "internacional",
+    status: "historico",
+    active: false,
+    ongoing: false,
+    startYear: 2024,
+    endYear: 2024,
+    region: "Valle de la Becaa, Libano",
+    normalizedRegion: "Valle de la Becaa, Libano",
+    wikipedia: {
+      date: "28 de octubre de 2024 - 6 de noviembre de 2024",
+      place: "Valle de la Becaa, Libano",
+      result: "Ataques aereos israelies contra objetivos en el valle de la Becaa",
+      language: "es"
+    },
+    cause: "Escalada de ataques entre Israel y Hezbola en el frente libanes durante la guerra regional iniciada en 2023.",
+    chronology: [
+      { year: 2024, text: "Entre el 28 de octubre y el 6 de noviembre se registraron ataques aereos sobre el valle de la Becaa." }
+    ],
+    related: ["Conflicto Israel-Hezbola de 2023-2024", "Guerra Israel-Hamas"],
+    participants: [
+      { side: "Israel", members: ["Israel"], organizations: ["Fuerzas de Defensa de Israel"], casualties: "No consolidado en fuentes livianas" },
+      { side: "Libano y Hezbola", members: ["Libano", "Hezbola"], organizations: ["Hezbola"], casualties: "No consolidado en fuentes livianas" }
+    ],
+    outcome: "Ataques localizados con impacto militar y civil; no implicaron cierre del conflicto regional.",
+    consequences: "Aumentaron la presion sobre el frente libanes y reforzaron el riesgo de escalada entre Israel, Libano y Hezbola.",
+    treaties: [],
+    curationPriority: "alta",
+    curationBatch: "visible-detail-curation-2026-07",
+    curationStatus: "curado",
+    dataConfidence: "parcial"
+  },
+  "Batalla frente a Endau": {
+    parent: "Segunda Guerra Mundial",
+    war: "Segunda Guerra Mundial",
+    campaign: "Campana de Malasia",
+    type: "batalla naval",
+    conflictType: "interestatal",
+    scale: "mundial",
+    status: "historico",
+    active: false,
+    ongoing: false,
+    startYear: 1942,
+    endYear: 1942,
+    region: "Malaya",
+    normalizedRegion: "Malaya",
+    wikipedia: {
+      date: "26-27 de enero de 1942",
+      place: "Frente a Endau, Malaya",
+      result: "Victoria japonesa",
+      language: "es"
+    },
+    cause: "Intento aliado de interceptar fuerzas japonesas durante la campana de Malasia en la Segunda Guerra Mundial.",
+    chronology: [
+      { year: 1942, text: "Combate naval y aereo frente a Endau durante la ofensiva japonesa en Malaya." }
+    ],
+    related: ["Segunda Guerra Mundial", "Campana de Malasia"],
+    participants: [
+      { side: "Aliados", members: ["Reino Unido", "Australia"], organizations: ["Aliados"], casualties: "No consolidado en fuentes livianas" },
+      { side: "Japon", members: ["Japon"], organizations: ["Eje"], casualties: "No consolidado en fuentes livianas" }
+    ],
+    outcome: "Victoria japonesa.",
+    consequences: "Facilito la continuidad del avance japones hacia Singapur y debilito la capacidad aliada en la zona.",
+    treaties: [],
+    curationPriority: "alta",
+    curationBatch: "visible-detail-curation-2026-07",
+    curationStatus: "curado",
+    dataConfidence: "parcial"
+  },
+  "Batalla del Monte Calvo": {
+    parent: "Guerra de Corea",
+    war: "Guerra de Corea",
+    campaign: "Campana de Corea",
+    type: "batalla",
+    conflictType: "interestatal",
+    scale: "internacional",
+    status: "historico",
+    active: false,
+    ongoing: false,
+    startYear: 1952,
+    endYear: 1953,
+    region: "Peninsula coreana",
+    normalizedRegion: "Peninsula coreana",
+    wikipedia: {
+      date: "26 de junio de 1952 - 26 de marzo de 1953",
+      place: "Monte Calvo, Corea del Sur",
+      result: "Resultado disputado: victoria de la ONU en 1952 y victoria china en 1953",
+      language: "es"
+    },
+    cause: "Combates por posiciones elevadas durante la fase de desgaste de la Guerra de Corea.",
+    chronology: [
+      { year: 1952, text: "Fuerzas de la ONU combaten por el control del Monte Calvo." },
+      { year: 1953, text: "Fuerzas chinas recuperan posiciones durante la fase final del frente." }
+    ],
+    related: ["Guerra de Corea"],
+    participants: [
+      { side: "Corea del Sur y ONU", members: ["Corea del Sur", "Estados Unidos", "Colombia"], organizations: ["ONU"], casualties: "No consolidado en fuentes livianas" },
+      { side: "China", members: ["China"], organizations: [], casualties: "No consolidado en fuentes livianas" }
+    ],
+    outcome: "Resultado disputado entre las fases de 1952 y 1953.",
+    consequences: "Reflejo la guerra de posiciones y el alto costo tactico de las colinas fortificadas en el tramo final de la Guerra de Corea.",
+    treaties: [],
+    curationPriority: "alta",
+    curationBatch: "visible-detail-curation-2026-07",
+    curationStatus: "curado",
+    dataConfidence: "parcial"
+  },
+  "Bombardeos aliados de Amsterdam-Noord": {
+    name: "Bombardeos aliados de Amsterdam-Noord",
+    parent: "Segunda Guerra Mundial",
+    war: "Segunda Guerra Mundial",
+    campaign: "Campana aerea aliada sobre los Paises Bajos",
+    type: "bombardeo",
+    conflictType: "interestatal",
+    scale: "mundial",
+    status: "historico",
+    active: false,
+    ongoing: false,
+    startYear: 1943,
+    endYear: 1943,
+    region: "Amsterdam-Noord, Paises Bajos",
+    normalizedRegion: "Amsterdam-Noord, Paises Bajos",
+    wikipedia: {
+      date: "17, 25 y 28 de julio de 1943",
+      place: "Amsterdam-Noord, Paises Bajos",
+      casualties: ["Al menos 206 muertos", "Al menos 119 heridos graves"],
+      language: "es"
+    },
+    cause: "Bombardeos aliados contra objetivos industriales y militares en Amsterdam-Noord durante la Segunda Guerra Mundial.",
+    chronology: [
+      { year: 1943, text: "Oleadas de bombardeos aliados registradas el 17, 25 y 28 de julio." }
+    ],
+    related: ["Segunda Guerra Mundial", "Campana aerea aliada sobre Europa occidental"],
+    participants: [
+      { side: "Aliados", members: ["Reino Unido", "Estados Unidos"], organizations: ["Aliados"], casualties: "No consolidado en fuentes livianas" },
+      { side: "Alemania", members: ["Alemania"], organizations: ["Eje"], casualties: "Al menos 206 muertos y 119 heridos graves en la zona bombardeada" }
+    ],
+    outcome: "Bombardeos con danos severos en Amsterdam-Noord y victimas civiles documentadas.",
+    consequences: "Dejaron un impacto local importante dentro de la campana aerea aliada sobre territorios ocupados.",
+    treaties: [],
+    curationPriority: "alta",
+    curationBatch: "visible-detail-curation-2026-07",
+    curationStatus: "curado",
+    dataConfidence: "parcial"
+  },
+  "Incursion de abril de 2009 frente a Somalia": {
+    name: "Incursion de abril de 2009 frente a Somalia",
+    parent: "Pirateria frente a Somalia",
+    war: "Pirateria frente a Somalia",
+    campaign: "Operaciones antipirateria frente al Cuerno de Africa",
+    type: "operacion naval",
+    conflictType: "insurgencia",
+    scale: "internacional",
+    status: "historico",
+    active: false,
+    ongoing: false,
+    startYear: 2009,
+    endYear: 2009,
+    region: "Cuerno de Africa",
+    normalizedRegion: "Cuerno de Africa",
+    wikipedia: {
+      date: "9 de abril de 2009",
+      place: "20 millas nauticas frente a Somalia",
+      result: "Victoria franco-alemana",
+      language: "es"
+    },
+    cause: "Operacion de rescate y respuesta naval ante actividad pirata frente a la costa somali.",
+    chronology: [
+      { year: 2009, text: "Operacion naval del 9 de abril contra piratas somalies en aguas frente a Somalia." }
+    ],
+    related: ["Pirateria frente a Somalia", "Operaciones antipirateria en el oceano Indico"],
+    participants: [
+      { side: "Fuerzas europeas", members: ["Francia", "Alemania"], organizations: ["Fuerzas navales europeas"], casualties: "No consolidado en fuentes livianas" },
+      { side: "Piratas somalies", members: ["Piratas somalies"], organizations: [], casualties: "No consolidado en fuentes livianas" }
+    ],
+    outcome: "Victoria franco-alemana y cierre de la accion naval puntual.",
+    consequences: "Refuerzo la presencia internacional contra la pirateria frente al Cuerno de Africa.",
+    treaties: [],
+    curationPriority: "alta",
+    curationBatch: "visible-detail-curation-2026-07",
+    curationStatus: "curado",
+    dataConfidence: "parcial"
+  },
+  "Ofensiva de Sirte de 2016": {
+    parent: "Segunda guerra civil libia",
+    war: "Segunda guerra civil libia",
+    campaign: "Campana de Sirte contra Estado Islamico",
+    type: "ofensiva",
+    conflictType: "civil",
+    scale: "internacional",
+    status: "historico",
+    active: false,
+    ongoing: false,
+    startYear: 2016,
+    endYear: 2016,
+    region: "Sirte, Libia",
+    normalizedRegion: "Sirte, Libia",
+    wikipedia: {
+      date: "12 de mayo de 2016 - 6 de diciembre de 2016",
+      place: "Distrito de Sirte, Libia",
+      result: "Victoria del Gobierno de Acuerdo Nacional",
+      language: "es"
+    },
+    cause: "Ofensiva del Gobierno de Acuerdo Nacional y fuerzas aliadas para expulsar a Estado Islamico de Sirte.",
+    chronology: [
+      { year: 2016, text: "Inicio de la ofensiva sobre Sirte en mayo." },
+      { year: 2016, text: "Toma de Sirte por fuerzas del Gobierno de Acuerdo Nacional en diciembre." }
+    ],
+    related: ["Segunda guerra civil libia", "Guerra contra Estado Islamico"],
+    participants: [
+      { side: "Gobierno de Acuerdo Nacional y aliados", members: ["Gobierno de Acuerdo Nacional", "Ejercito libio", "Brigadas de Misrata", "Estados Unidos", "Reino Unido", "Francia", "Italia"], organizations: ["Gobierno de Acuerdo Nacional"], casualties: "No consolidado en fuentes livianas" },
+      { side: "Estado Islamico en Libia", members: ["Estado Islamico en Libia"], organizations: ["Estado Islamico"], casualties: "No consolidado en fuentes livianas" }
+    ],
+    outcome: "Victoria del Gobierno de Acuerdo Nacional y recuperacion de Sirte.",
+    consequences: "Redujo el control territorial de Estado Islamico en Libia y reforzo temporalmente al Gobierno de Acuerdo Nacional.",
+    treaties: [],
+    curationPriority: "alta",
+    curationBatch: "visible-detail-curation-2026-07",
+    curationStatus: "curado",
+    dataConfidence: "parcial"
+  },
   "Conflicto irano-israeli durante la guerra civil siria": {
     parent: "Guerra civil siria",
     type: "conflicto regional",

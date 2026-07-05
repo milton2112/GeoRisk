@@ -194,6 +194,17 @@ export const visibleStringReplacements = new Map([
   ["Campana del Norte de Rusia", "Campa\u00f1a del Norte de Rusia"],
   ["Campana de Borneo", "Campa\u00f1a de Borneo"],
   ["Accion del 4 Mayo 1917", "Acci\u00f3n del 4 Mayo 1917"],
+  ["Incursion de abril de 2009 frente a Somalia", "Incursi\u00f3n de abril de 2009 frente a Somalia"],
+  ["Bombardeos aliados de Amsterdam-Noord", "Bombardeos aliados de \u00c1msterdam-Noord"],
+  ["Amsterdam-Noord, Paises Bajos", "\u00c1msterdam-Noord, Pa\u00edses Bajos"],
+  ["Amsterdam-Noord, Pa\u00edses Bajos", "\u00c1msterdam-Noord, Pa\u00edses Bajos"],
+  ["Operaciones antipirateria frente al Cuerno de Africa", "Operaciones antipirater\u00eda frente al Cuerno de \u00c1frica"],
+  ["Pirateria frente a Somalia", "Pirater\u00eda frente a Somalia"],
+  ["Piratas somalies", "Piratas somal\u00edes"],
+  ["Campana de Sirte contra Estado Islamico", "Campa\u00f1a de Sirte contra Estado Isl\u00e1mico"],
+  ["Estado Islamico en Libia", "Estado Isl\u00e1mico en Libia"],
+  ["Campana aerea aliada sobre los Paises Bajos", "Campa\u00f1a a\u00e9rea aliada sobre los Pa\u00edses Bajos"],
+  ["Campana aerea aliada sobre Europa occidental", "Campa\u00f1a a\u00e9rea aliada sobre Europa occidental"],
   ["Catolicos", "Cat\u00f3licos"],
   ["Catolicos orientales", "Cat\u00f3licos orientales"],
   ["Catolicas", "Cat\u00f3licas"],
@@ -380,7 +391,15 @@ const visibleWordReplacements = [
   [/\bPeru\b/g, "Per\u00fa"],
   [/\bAfganistan\b/g, "Afganist\u00e1n"],
   [/\bPakistan\b/g, "Pakist\u00e1n"],
-  [/\bTaiwan\b/g, "Taiw\u00e1n"]
+  [/\bTaiwan\b/g, "Taiw\u00e1n"],
+  [/\bLibano\b/g, "L\u00edbano"],
+  [/\bPaises Bajos\b/g, "Pa\u00edses Bajos"],
+  [/\bdanos\b/g, "da\u00f1os"],
+  [/\bnauticas\b/g, "n\u00e1uticas"],
+  [/\bsomali\b/g, "somal\u00ed"],
+  [/\bsomalies\b/g, "somal\u00edes"],
+  [/\bIslamico\b/g, "Isl\u00e1mico"],
+  [/\bislamico\b/g, "isl\u00e1mico"]
 ];
 
 const enumLikeVisibleKeys = new Set([

@@ -51,6 +51,8 @@ const mojibakePattern = /[\u00c2\u00c3\uFFFD]|Ã|â€™|â€œ|â€|�|\u00
 const suspectRegionNamePattern = /Afganist|Irak|Estado Isl|Siria|Kivu|Kosovo|Vietnam|Corea|Sa(?:'|\u2019)?dah|Pakist|Cachemira|Gaza|Israel|Iran|Irano|Kachin|Laos|Tailandia|Camerun|Camer\u00fan/i;
 const suspectRegionPattern = /Oceania|America del Sur|Europa occidental|Africa occidental|Europa$|America$/i;
 const sourceMojibakePattern = /Ã|Â|â€|�|ï¿½/;
+const conflictDetailLocalizationPattern = /\b(Date\s+\d|January|February|March|April|May|June|July|August|September|October|November|December|Beqaa Valley|off Endau|20 miles|Sirte District|Japanese victory|Franco-German victory|GNA victory|At least \d+ (?:killed|injured)|Government of National Accord|United Kingdom Special Forces|Libyan Army|Somali pirates)\b/i;
+const conflictDetailCoordinatePattern = /\d+°\d+|\/\s*-?\d{1,3}\.\d{3,}/;
 const redundantReligionBranches = new Set([
   "cristianos protestantes",
   "cristianos evangelicos",
@@ -82,6 +84,46 @@ async function collectSourceTextMojibake() {
       }
     });
   }
+  return issues;
+}
+
+async function collectConflictDetailLocalizationIssues() {
+  const detailsDir = path.join(projectRoot, "data", "conflicts", "details");
+  if (!(await fs.pathExists(detailsDir))) return [];
+  const issues = [];
+  const files = (await fs.readdir(detailsDir)).filter(file => file.endsWith(".json")).sort();
+
+  function visit(file, name, value, pathParts = []) {
+    if (issues.length >= 80) return;
+    if (typeof value === "string") {
+      if (
+        pathParts.at(-1) !== "language" &&
+        !pathParts.includes("commanders") &&
+        (conflictDetailLocalizationPattern.test(value) || conflictDetailCoordinatePattern.test(value))
+      ) {
+        issues.push({
+          file,
+          name,
+          path: pathParts.join("."),
+          value: value.slice(0, 180)
+        });
+      }
+      return;
+    }
+    if (Array.isArray(value)) {
+      value.forEach((item, index) => visit(file, name, item, pathParts.concat(String(index))));
+      return;
+    }
+    if (value && typeof value === "object") {
+      Object.entries(value).forEach(([key, item]) => visit(file, name, item, pathParts.concat(key)));
+    }
+  }
+
+  for (const file of files) {
+    const detail = await fs.readJson(path.join(detailsDir, file));
+    visit(file, detail.name || file, detail);
+  }
+
   return issues;
 }
 
@@ -185,6 +227,7 @@ const mojibakeText = Object.entries(countries).flatMap(([code, country]) => {
 });
 
 const sourceTextMojibake = await collectSourceTextMojibake();
+const conflictDetailLocalizationIssues = await collectConflictDetailLocalizationIssues();
 
 const weakDataProfiles = Object.entries(countries).flatMap(([code, country]) => {
   const quality = country.metadata?.quality || {};
@@ -231,6 +274,7 @@ const sections = {
   uppercaseCities,
   mojibakeText,
   sourceTextMojibake,
+  conflictDetailLocalizationIssues,
   largeCountries,
   weakDataProfiles,
   priorityWeakDataProfiles,
@@ -241,7 +285,7 @@ const actionPlan = [
   {
     priority: "alta",
     title: "Corregir texto visible roto, fuente corrupta o en ingles",
-    count: englishConflictNames.length + mojibakeText.length + sourceTextMojibake.length + uppercaseCities.length,
+    count: englishConflictNames.length + mojibakeText.length + sourceTextMojibake.length + conflictDetailLocalizationIssues.length + uppercaseCities.length,
     command: "npm run fix:source-text && npm run fix:data-visible && npm run build:indexes && npm run audit:data"
   },
   {

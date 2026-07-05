@@ -754,6 +754,70 @@ assert.deepEqual(
   `Los conflictos no deben heredar regiones continentales sospechosas: ${JSON.stringify(suspectServedConflictRegions.slice(0, 10))}`
 );
 
+const expectedServedConflictCuration = [
+  {
+    name: "Ataques a\u00e9reos del valle de la Becaa de 2024",
+    parent: "Conflicto Israel-Hezbola de 2023-2024",
+    region: "Valle de la Becaa, L\u00edbano"
+  },
+  {
+    name: "Batalla frente a Endau",
+    parent: "Segunda Guerra Mundial",
+    region: "Malaya"
+  },
+  {
+    name: "Batalla del Monte Calvo",
+    parent: "Guerra de Corea",
+    region: "Pen\u00ednsula coreana"
+  },
+  {
+    name: "Bombardeos aliados de \u00c1msterdam-Noord",
+    parent: "Segunda Guerra Mundial",
+    region: "\u00c1msterdam-Noord, Pa\u00edses Bajos"
+  },
+  {
+    name: "Incursi\u00f3n de abril de 2009 frente a Somalia",
+    parent: "Pirater\u00eda frente a Somalia",
+    region: "Cuerno de \u00c1frica"
+  },
+  {
+    name: "Ofensiva de Sirte de 2016",
+    parent: "Segunda guerra civil libia",
+    region: "Sirte, Libia"
+  }
+];
+const servedConflictsByName = new Map();
+Object.values(countries).forEach(country => {
+  (country.military?.conflicts || []).forEach(conflict => {
+    const key = normalizeDataLabel(conflict?.name);
+    if (!key) return;
+    const entries = servedConflictsByName.get(key) || [];
+    entries.push(conflict);
+    servedConflictsByName.set(key, entries);
+  });
+});
+const servedConflictCurationIssues = expectedServedConflictCuration.flatMap(expected => {
+  const entries = servedConflictsByName.get(normalizeDataLabel(expected.name)) || [];
+  if (!entries.length) return [{ name: expected.name, reason: "no encontrado" }];
+  return entries
+    .filter(entry =>
+      normalizeDataLabel(entry.parent || entry.war) !== normalizeDataLabel(expected.parent) ||
+      normalizeDataLabel(entry.normalizedRegion || entry.region) !== normalizeDataLabel(expected.region)
+    )
+    .map(entry => ({
+      name: entry.name,
+      parent: entry.parent || entry.war || null,
+      region: entry.normalizedRegion || entry.region || null,
+      expectedParent: expected.parent,
+      expectedRegion: expected.region
+    }));
+});
+assert.deepEqual(
+  servedConflictCurationIssues,
+  [],
+  `Conflictos visibles con jerarquia o region curada incorrecta: ${JSON.stringify(servedConflictCurationIssues.slice(0, 10))}`
+);
+
 const nullNarrativeConflictDetails = Object.entries(conflictDetails.conflicts || {}).flatMap(([name, detail]) =>
   ["cause", "outcome"].flatMap(field => String(detail?.[field] || "").trim().toLowerCase() === "null" ? [{ name, field }] : [])
 );
@@ -761,6 +825,39 @@ assert.deepEqual(
   nullNarrativeConflictDetails,
   [],
   `Los detalles de conflictos no deben mostrar "null" como texto narrativo: ${JSON.stringify(nullNarrativeConflictDetails.slice(0, 10))}`
+);
+
+const conflictDetailShardIssues = collectJsonFiles("data/conflicts/details").flatMap(file => {
+  const detail = JSON.parse(fs.readFileSync(file, "utf8"));
+  const issues = [];
+  const detailSignal = /\b(Date\s+\d|January|February|March|April|May|June|July|August|September|October|November|December|Beqaa Valley|off Endau|20 miles|Sirte District|Japanese victory|Franco-German victory|GNA victory|At least \d+ (?:killed|injured)|Government of National Accord|United Kingdom Special Forces|Libyan Army|Somali pirates)\b/i;
+  const coordinateSignal = /\d+°\d+|\/\s*-?\d{1,3}\.\d{3,}/;
+  function visit(value, pathParts = []) {
+    if (typeof value === "string") {
+      if (
+        pathParts.at(-1) !== "language" &&
+        !pathParts.includes("commanders") &&
+        (detailSignal.test(value) || coordinateSignal.test(value))
+      ) {
+        issues.push({ file, name: detail.name || file, path: pathParts.join("."), value });
+      }
+      return;
+    }
+    if (Array.isArray(value)) {
+      value.forEach((item, index) => visit(item, pathParts.concat(String(index))));
+      return;
+    }
+    if (value && typeof value === "object") {
+      Object.entries(value).forEach(([key, item]) => visit(item, pathParts.concat(key)));
+    }
+  }
+  visit(detail);
+  return issues;
+});
+assert.deepEqual(
+  conflictDetailShardIssues,
+  [],
+  `Los shards de detalle no deben conservar campos importados en ingles o coordenadas crudas: ${JSON.stringify(conflictDetailShardIssues.slice(0, 10))}`
 );
 
 console.log("data-language-quality.test.js ok");

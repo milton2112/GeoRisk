@@ -79,9 +79,7 @@ export function buildStartupCountryIndex(countries = {}) {
           officialName: country.general?.officialName ?? country.name,
           symbols: compactSymbols(country.general?.symbols),
           capital: country.general?.capital || null,
-          languages: compactNameList(country.general?.languages, 2),
-          stateStructure: country.general?.stateStructure || null,
-          cities: compactNameList(country.general?.cities, 1).map(name => ({ name }))
+          languages: compactNameList(country.general?.languages, 2)
         },
         history: {
           year: country.history?.year ?? null,
