@@ -8,6 +8,7 @@ const steps = [
   ["auditoria de datos", "npm", ["run", "audit:data"]],
   ["auditoria de proyecto", "npm", ["run", "audit:project"]],
   ["snapshot de performance", "npm", ["run", "performance:snapshot"]],
+  ["artefactos de release", "npm", ["run", "audit:release-artifacts"]],
   ["doctor de producto", "npm", ["run", "audit:doctor"]],
   ["estado de release", "npm", ["run", "release:status"]],
   ["puerta local", "npm", ["run", "prepush:check"]]

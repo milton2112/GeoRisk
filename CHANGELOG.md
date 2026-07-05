@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.28 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.29 antes de cerrar la siguiente version.
+
+## v1.6.29 - 2026-07-05
+
+- Convierte `reports/release-status.json` en artefacto efimero local/CI y lo saca del versionado para evitar snapshots Git obsoletos.
+- Agrega `audit:release-artifacts` con reporte `reports/release-artifacts.json` para validar `.gitignore`, scripts de release, workflow de GitHub Actions, upload de reportes y tracking accidental de artefactos efimeros.
+- Conecta la auditoria de artefactos a `maintain:quick`, `release:check`, GitHub Actions y `test:release-gates`.
+- Amplia el doctor para levantar fallas de configuracion de artefactos de release.
+- Mantiene `release:status` como reporte vivo generado por CI/local, con politica `artifactPolicy.kind = ephemeral`.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-05-release-1`.
 
 ## v1.6.28 - 2026-07-04
 

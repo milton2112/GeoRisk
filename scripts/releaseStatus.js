@@ -128,6 +128,11 @@ const report = {
   packageVersion,
   appVersion,
   cacheVersion,
+  artifactPolicy: {
+    kind: "ephemeral",
+    tracked: false,
+    reason: "Incluye estado vivo de Git; se genera localmente y en CI, pero no debe versionarse."
+  },
   status: blockers.length ? "requiere_atencion" : warnings.length ? "observacion" : "listo",
   git: {
     branch: git(["branch", "--show-current"]),

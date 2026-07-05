@@ -65,6 +65,9 @@ jobs:
       - name: Product doctor
         run: npm run audit:doctor
 
+      - name: Release artifact audit
+        run: npm run audit:release-artifacts
+
       - name: Release status
         run: npm run release:status
 
@@ -111,6 +114,9 @@ jobs:
 
       - name: Product doctor
         run: npm run audit:doctor
+
+      - name: Release artifact audit
+        run: npm run audit:release-artifacts
 
       - name: Release status
         run: npm run release:status

@@ -38,6 +38,7 @@ const [
   projectAudit,
   dataAudit,
   performanceSnapshot,
+  releaseArtifacts,
   conflictAudit,
   indexHtml,
   scriptSource,
@@ -49,6 +50,7 @@ const [
   readJson("reports/project-audit.json"),
   readJson("reports/data-automation-audit.json"),
   readJson("reports/performance-snapshot.json"),
+  readJson("reports/release-artifacts.json"),
   readJson("reports/conflict-audit.json"),
   readText("index.html"),
   readText("script.js"),
@@ -69,6 +71,7 @@ const requiredScripts = [
   "audit:project",
   "audit:conflicts",
   "performance:snapshot",
+  "audit:release-artifacts",
   "maintain:quick",
   "clean:storage"
 ];
@@ -139,6 +142,16 @@ if ((dataCounts.sameCountryDuplicateConflicts || 0) > 0) {
 }
 if ((conflictAudit.issueCount || 0) > 0) {
   addFinding(findings, "alta", "conflictos", "Auditoria de conflictos con alertas", `${conflictAudit.issueCount} alertas`, "npm run fix:conflicts");
+}
+if (releaseArtifacts.status && releaseArtifacts.status !== "operativo") {
+  addFinding(
+    findings,
+    "alta",
+    "release",
+    "Artefactos de release mal configurados",
+    `${releaseArtifacts.summary?.failedChecks || 0} checks fallidos`,
+    "npm run audit:release-artifacts"
+  );
 }
 
 const deferredModuleMatches = [...scriptSource.matchAll(/([a-zA-Z0-9_]+): `\.\/([^`?]+)\?v=\$\{APP_VERSION\}`/g)]

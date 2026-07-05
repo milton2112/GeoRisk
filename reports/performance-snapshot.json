@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-07-04T22:35:01.288Z",
-  "packageVersion": "1.6.28",
-  "appVersion": "2026-07-04-release-1",
-  "cacheVersion": "2026-07-04-release-1",
+  "generatedAt": "2026-07-05T14:46:20.897Z",
+  "packageVersion": "1.6.29",
+  "appVersion": "2026-07-05-release-1",
+  "cacheVersion": "2026-07-05-release-1",
   "thresholds": {
     "scriptJsBytes": 700000,
     "countriesIndexBytes": 240000,
@@ -27,8 +27,8 @@
       "human": "977 KB"
     },
     "buildTotal": {
-      "bytes": 5751000,
-      "human": "5.48 MB",
+      "bytes": 5751763,
+      "human": "5.49 MB",
       "assetCount": 596
     }
   },

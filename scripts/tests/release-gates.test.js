@@ -37,9 +37,11 @@ const dataAutomationAudit = await fs.readFile(path.join(projectRoot, "scripts/da
 const projectDoctor = await fs.readFile(path.join(projectRoot, "scripts/projectDoctor.js"), "utf8");
 const maintenanceQuick = await fs.readFile(path.join(projectRoot, "scripts/maintenanceQuick.js"), "utf8");
 const releaseStatus = await fs.readFile(path.join(projectRoot, "scripts/releaseStatus.js"), "utf8");
+const releaseArtifacts = await fs.readFile(path.join(projectRoot, "scripts/auditReleaseArtifacts.js"), "utf8");
 const fixSourceText = await fs.readFile(path.join(projectRoot, "scripts/fixSourceText.js"), "utf8");
 const releaseWorkflow = await fs.readFile(path.join(projectRoot, ".github/workflows/release-gate.yml"), "utf8");
 const prePushHook = await fs.readFile(path.join(projectRoot, ".githooks/pre-push"), "utf8");
+const gitignore = await fs.readFile(path.join(projectRoot, ".gitignore"), "utf8");
 
 function bytes(file) {
   return fs.stat(path.join(projectRoot, file)).then(stat => stat.size);
@@ -77,6 +79,7 @@ assert.equal(packageJson.scripts["release:prepare"], "node scripts/prepareReleas
 assert.equal(packageJson.scripts["release:status"], "node scripts/releaseStatus.js", "debe existir estado resumido de release");
 assert.equal(packageJson.scripts["audit:data"], "node scripts/dataAutomationAudit.js", "debe existir auditoria programable de datos");
 assert.equal(packageJson.scripts["audit:doctor"], "node scripts/projectDoctor.js", "debe existir doctor de producto");
+assert.equal(packageJson.scripts["audit:release-artifacts"], "node scripts/auditReleaseArtifacts.js", "debe existir auditoria de artefactos de release");
 assert.equal(packageJson.scripts["performance:snapshot"], "node scripts/performanceSnapshot.js", "debe existir snapshot de performance por release");
 assert.equal(packageJson.scripts["maintain:quick"], "node scripts/maintenanceQuick.js", "debe existir mantenimiento rapido automatizado");
 assert.equal(packageJson.scripts["fix:source-text"], "node scripts/fixSourceText.js", "debe existir normalizacion segura de fuentes de datos");
@@ -85,6 +88,7 @@ assert.ok(prePushHook.includes("npm run prepush:check"), "hook pre-push debe cor
 assert.ok(releaseChecklist.includes("performance:snapshot"), "release:check debe guardar snapshot de performance");
 assert.ok(releaseChecklist.includes("audit:data"), "release:check debe guardar auditoria programable de datos");
 assert.ok(releaseChecklist.includes("audit:doctor"), "release:check debe generar doctor de producto");
+assert.ok(releaseChecklist.includes("audit:release-artifacts"), "release:check debe auditar artefactos de release");
 assert.ok(releaseChecklist.includes("release:status"), "release:check debe publicar estado resumido");
 assert.ok(releaseWorkflow.includes("npm ci"), "GitHub Actions debe instalar con npm ci");
 assert.ok(releaseWorkflow.includes("npm run release:check"), "GitHub Actions debe correr release:check");
@@ -93,8 +97,10 @@ assert.ok(releaseWorkflow.includes("npm run audit:conflicts"), "GitHub Actions d
 assert.ok(releaseWorkflow.includes("npm run check:startup-budget"), "GitHub Actions debe correr presupuesto de arranque de forma explicita");
 assert.ok(releaseWorkflow.includes("npm run test:browser-visual"), "GitHub Actions debe correr smoke visual");
 assert.ok(releaseWorkflow.includes("npm run audit:doctor"), "GitHub Actions debe publicar doctor de producto");
+assert.ok(releaseWorkflow.includes("npm run audit:release-artifacts"), "GitHub Actions debe auditar artefactos de release");
 assert.ok(releaseWorkflow.includes("npm run release:status"), "GitHub Actions debe publicar estado de release");
 assert.ok(releaseWorkflow.includes("schedule:"), "GitHub Actions debe incluir auditoria programada");
+assert.ok(gitignore.split(/\r?\n/).some(line => line.trim() === "reports/release-status.json"), "release-status debe ignorarse porque contiene estado Git efimero");
 assert.ok(cleanStorage.includes('"node_modules"'), "clean:storage debe poder liberar node_modules");
 assert.ok(cleanStorage.includes("isInsideProject"), "clean:storage debe negarse a borrar fuera del proyecto");
 assert.ok(performanceSnapshot.includes("performance-snapshot.json"), "snapshot debe escribirse en reports/");
@@ -106,15 +112,22 @@ assert.ok(dataAutomationAudit.includes("sourceTextMojibake"), "auditoria de dato
 assert.ok(projectDoctor.includes("doctor-report.json"), "doctor debe escribir reporte consolidado");
 assert.ok(projectDoctor.includes("topActions"), "doctor debe sugerir acciones concretas");
 assert.ok(projectDoctor.includes("APP_VERSION") && projectDoctor.includes("CACHE_VERSION"), "doctor debe revisar version/cache");
+assert.ok(projectDoctor.includes("release-artifacts.json"), "doctor debe consumir auditoria de artefactos");
 assert.ok(maintenanceQuick.includes("prepush:check"), "mantenimiento rapido debe terminar con puerta local");
 assert.ok(maintenanceQuick.includes("fix:conflicts"), "mantenimiento rapido debe curar conflictos antes de normalizar visibles");
 assert.ok(maintenanceQuick.includes("fix:source-text"), "mantenimiento rapido debe reparar fuentes antes de auditar datos");
 assert.ok(maintenanceQuick.includes("release:status"), "mantenimiento rapido debe dejar resumen de release");
+assert.ok(maintenanceQuick.includes("audit:release-artifacts"), "mantenimiento rapido debe auditar artefactos de release");
 assert.ok(releaseStatus.includes("release-status.json"), "release:status debe escribir reporte en reports/");
+assert.ok(releaseStatus.includes("artifactPolicy"), "release:status debe declarar politica de artefacto efimero");
 assert.ok(releaseStatus.includes("expectedTagAtHead"), "release:status debe revisar tag esperado");
 assert.ok(releaseStatus.includes("gitStatusAvailable"), "release:status debe distinguir si pudo leer Git");
 assert.ok(releaseStatus.includes("workingTreeClean"), "release:status debe revisar si hay cambios locales");
 assert.ok(releaseStatus.includes("sourceTextMojibake"), "release:status debe incluir calidad de fuentes");
+assert.ok(releaseArtifacts.includes("release-artifacts.json"), "audit:release-artifacts debe escribir reporte propio");
+assert.ok(releaseArtifacts.includes("reports/release-status.json"), "audit:release-artifacts debe controlar que release-status sea ignorado");
+assert.ok(releaseArtifacts.includes("ls-files"), "audit:release-artifacts debe intentar detectar artefactos ignorados pero trackeados");
+assert.ok(releaseArtifacts.includes("actions/upload-artifact"), "audit:release-artifacts debe verificar subida de reportes en CI");
 assert.ok(fixSourceText.includes("scripts/buildDataset.js"), "fix:source-text debe cubrir el generador principal de datos");
 assert.ok(fixSourceText.includes("caracteres de reemplazo"), "fix:source-text debe abortar si empeora el texto");
 assert.ok(appShell.length <= 18, "APP_SHELL debe mantenerse chico");

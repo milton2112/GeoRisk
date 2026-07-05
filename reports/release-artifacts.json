@@ -1,0 +1,72 @@
+{
+  "generatedAt": "2026-07-05T14:46:21.322Z",
+  "packageVersion": "1.6.29",
+  "status": "operativo",
+  "summary": {
+    "totalChecks": 10,
+    "failedChecks": 0
+  },
+  "checks": [
+    {
+      "key": "release_status_ignored",
+      "ok": true,
+      "detail": "reports/release-status.json debe ser artefacto local/CI, no archivo versionado.",
+      "action": "Agregar reports/release-status.json a .gitignore y quitarlo del indice Git."
+    },
+    {
+      "key": "release_status_not_tracked",
+      "ok": true,
+      "detail": "reports/release-status.json no debe estar trackeado por Git.",
+      "action": "git rm --cached reports/release-status.json"
+    },
+    {
+      "key": "release_status_script",
+      "ok": true,
+      "detail": "Debe existir npm run release:status.",
+      "action": null
+    },
+    {
+      "key": "release_artifacts_script",
+      "ok": true,
+      "detail": "Debe existir npm run audit:release-artifacts.",
+      "action": null
+    },
+    {
+      "key": "release_check_runs_artifact_audit",
+      "ok": true,
+      "detail": "release:check debe auditar artefactos antes de publicar estado de release.",
+      "action": null
+    },
+    {
+      "key": "maintain_runs_artifact_audit",
+      "ok": true,
+      "detail": "maintain:quick debe dejar auditados los artefactos de release.",
+      "action": null
+    },
+    {
+      "key": "workflow_runs_artifact_audit",
+      "ok": true,
+      "detail": "GitHub Actions debe correr audit:release-artifacts.",
+      "action": null
+    },
+    {
+      "key": "workflow_uploads_reports",
+      "ok": true,
+      "detail": "GitHub Actions debe subir reportes JSON como artifacts.",
+      "action": null
+    },
+    {
+      "key": "release_status_has_policy",
+      "ok": true,
+      "detail": "release:status debe declarar que su reporte es efimero.",
+      "action": null
+    },
+    {
+      "key": "release_gates_cover_artifacts",
+      "ok": true,
+      "detail": "test:release-gates debe bloquear regresiones del flujo de artefactos.",
+      "action": null
+    }
+  ],
+  "actions": []
+}
