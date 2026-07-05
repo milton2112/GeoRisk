@@ -39,6 +39,7 @@ const [
   dataAudit,
   performanceSnapshot,
   releaseArtifacts,
+  featureHealth,
   conflictAudit,
   indexHtml,
   scriptSource,
@@ -51,6 +52,7 @@ const [
   readJson("reports/data-automation-audit.json"),
   readJson("reports/performance-snapshot.json"),
   readJson("reports/release-artifacts.json"),
+  readJson("reports/feature-health.json"),
   readJson("reports/conflict-audit.json"),
   readText("index.html"),
   readText("script.js"),
@@ -72,6 +74,7 @@ const requiredScripts = [
   "audit:conflicts",
   "performance:snapshot",
   "audit:release-artifacts",
+  "audit:features",
   "maintain:quick",
   "clean:storage"
 ];
@@ -151,6 +154,16 @@ if (releaseArtifacts.status && releaseArtifacts.status !== "operativo") {
     "Artefactos de release mal configurados",
     `${releaseArtifacts.summary?.failedChecks || 0} checks fallidos`,
     "npm run audit:release-artifacts"
+  );
+}
+if (featureHealth.status && featureHealth.status !== "operativo") {
+  addFinding(
+    findings,
+    "alta",
+    "funciones",
+    "Funciones principales con contratos incompletos",
+    `${featureHealth.summary?.failedFeatures || 0} funciones con fallas`,
+    "npm run audit:features"
   );
 }
 

@@ -68,6 +68,9 @@ jobs:
       - name: Release artifact audit
         run: npm run audit:release-artifacts
 
+      - name: Feature health audit
+        run: npm run audit:features
+
       - name: Release status
         run: npm run release:status
 
@@ -117,6 +120,9 @@ jobs:
 
       - name: Release artifact audit
         run: npm run audit:release-artifacts
+
+      - name: Feature health audit
+        run: npm run audit:features
 
       - name: Release status
         run: npm run release:status

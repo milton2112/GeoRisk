@@ -1,0 +1,908 @@
+{
+  "generatedAt": "2026-07-05T14:54:37.732Z",
+  "packageVersion": "1.6.30",
+  "status": "operativo",
+  "summary": {
+    "totalFeatures": 10,
+    "healthyFeatures": 10,
+    "failedFeatures": 0,
+    "failedChecks": 0
+  },
+  "features": [
+    {
+      "key": "map",
+      "label": "Mapa 2D/3D",
+      "status": "operativo",
+      "summary": {
+        "totalChecks": 12,
+        "failedChecks": 0
+      },
+      "checks": [
+        {
+          "ok": true,
+          "type": "file",
+          "target": "app-map.js",
+          "detail": "app-map.js debe existir para Mapa 2D/3D.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "file",
+          "target": "app-map-styles.js",
+          "detail": "app-map-styles.js debe existir para Mapa 2D/3D.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "file",
+          "target": "app-map-interactions.js",
+          "detail": "app-map-interactions.js debe existir para Mapa 2D/3D.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "runtime-token",
+          "target": "ensureCountryLayersReady",
+          "detail": "Mapa 2D/3D debe estar conectado en runtime.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "runtime-token",
+          "target": "selectCountryLayersWhenReady",
+          "detail": "Mapa 2D/3D debe estar conectado en runtime.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "runtime-token",
+          "target": "scheduleDetailedOverlayUpgrade",
+          "detail": "Mapa 2D/3D debe estar conectado en runtime.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "html-token",
+          "target": "id=\"map\"",
+          "detail": "Mapa 2D/3D debe tener contrato HTML visible.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "html-token",
+          "target": "id=\"theme-select\"",
+          "detail": "Mapa 2D/3D debe tener contrato HTML visible.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "html-token",
+          "target": "id=\"quality-preset-select\"",
+          "detail": "Mapa 2D/3D debe tener contrato HTML visible.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "test-script",
+          "target": "test:map-coverage",
+          "detail": "Mapa 2D/3D debe tener test:map-coverage.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "test-script",
+          "target": "test:country-matching",
+          "detail": "Mapa 2D/3D debe tener test:country-matching.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "data-file",
+          "target": "data/world_countries_simplified.geo.json",
+          "detail": "Mapa 2D/3D necesita data/world_countries_simplified.geo.json.",
+          "action": null
+        }
+      ]
+    },
+    {
+      "key": "country_profile",
+      "label": "Ficha pais",
+      "status": "operativo",
+      "summary": {
+        "totalChecks": 11,
+        "failedChecks": 0
+      },
+      "checks": [
+        {
+          "ok": true,
+          "type": "file",
+          "target": "app-country-panel.js",
+          "detail": "app-country-panel.js debe existir para Ficha pais.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "module-token",
+          "target": "app-country-panel.js:GeoRiskCountryPanel",
+          "detail": "Ficha pais debe exponer GeoRiskCountryPanel.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "module-token",
+          "target": "app-country-panel.js:renderSkeleton",
+          "detail": "Ficha pais debe exponer renderSkeleton.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "module-token",
+          "target": "app-country-panel.js:buildExecutiveSummary",
+          "detail": "Ficha pais debe exponer buildExecutiveSummary.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "runtime-token",
+          "target": "openCountryByCode",
+          "detail": "Ficha pais debe estar conectado en runtime.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "runtime-token",
+          "target": "openCountryModal",
+          "detail": "Ficha pais debe estar conectado en runtime.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "runtime-token",
+          "target": "loadCountryDetail",
+          "detail": "Ficha pais debe estar conectado en runtime.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "html-token",
+          "target": "id=\"country-modal\"",
+          "detail": "Ficha pais debe tener contrato HTML visible.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "html-token",
+          "target": "id=\"toggle-country-panel\"",
+          "detail": "Ficha pais debe tener contrato HTML visible.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "test-script",
+          "target": "test:modal-render",
+          "detail": "Ficha pais debe tener test:modal-render.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "test-script",
+          "target": "test:startup",
+          "detail": "Ficha pais debe tener test:startup.",
+          "action": null
+        }
+      ]
+    },
+    {
+      "key": "search",
+      "label": "Busqueda",
+      "status": "operativo",
+      "summary": {
+        "totalChecks": 13,
+        "failedChecks": 0
+      },
+      "checks": [
+        {
+          "ok": true,
+          "type": "file",
+          "target": "app-search.js",
+          "detail": "app-search.js debe existir para Busqueda.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "file",
+          "target": "app-search-worker.js",
+          "detail": "app-search-worker.js debe existir para Busqueda.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "module-token",
+          "target": "app-search.js:GeoRiskSearch",
+          "detail": "Busqueda debe exponer GeoRiskSearch.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "module-token",
+          "target": "app-search.js:parseNaturalQuery",
+          "detail": "Busqueda debe exponer parseNaturalQuery.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "module-token",
+          "target": "app-search.js:groupSuggestions",
+          "detail": "Busqueda debe exponer groupSuggestions.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "runtime-token",
+          "target": "ensureDeferredUiModule(\"search\")",
+          "detail": "Busqueda debe estar conectado en runtime.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "runtime-token",
+          "target": "openCountryByCode(countryCode",
+          "detail": "Busqueda debe estar conectado en runtime.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "html-token",
+          "target": "id=\"map-search-input\"",
+          "detail": "Busqueda debe tener contrato HTML visible.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "html-token",
+          "target": "id=\"search-suggestions\"",
+          "detail": "Busqueda debe tener contrato HTML visible.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "html-token",
+          "target": "id=\"search-memory\"",
+          "detail": "Busqueda debe tener contrato HTML visible.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "test-script",
+          "target": "test:search",
+          "detail": "Busqueda debe tener test:search.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "test-script",
+          "target": "test:startup",
+          "detail": "Busqueda debe tener test:startup.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "data-file",
+          "target": "data/search_index.json",
+          "detail": "Busqueda necesita data/search_index.json.",
+          "action": null
+        }
+      ]
+    },
+    {
+      "key": "rankings",
+      "label": "Rankings y radar",
+      "status": "operativo",
+      "summary": {
+        "totalChecks": 15,
+        "failedChecks": 0
+      },
+      "checks": [
+        {
+          "ok": true,
+          "type": "file",
+          "target": "app-rankings.js",
+          "detail": "app-rankings.js debe existir para Rankings y radar.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "file",
+          "target": "app-rankings-worker.js",
+          "detail": "app-rankings-worker.js debe existir para Rankings y radar.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "file",
+          "target": "app-risk-radar-ui.js",
+          "detail": "app-risk-radar-ui.js debe existir para Rankings y radar.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "module-token",
+          "target": "app-rankings.js:GeoRiskRankings",
+          "detail": "Rankings y radar debe exponer GeoRiskRankings.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "module-token",
+          "target": "app-rankings.js:getRiskComponents",
+          "detail": "Rankings y radar debe exponer getRiskComponents.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "module-token",
+          "target": "app-rankings.js:proxyFields",
+          "detail": "Rankings y radar debe exponer proxyFields.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "runtime-token",
+          "target": "setupRankingsPanel",
+          "detail": "Rankings y radar debe estar conectado en runtime.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "runtime-token",
+          "target": "selectRankedCountry",
+          "detail": "Rankings y radar debe estar conectado en runtime.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "runtime-token",
+          "target": "getCachedRanking",
+          "detail": "Rankings y radar debe estar conectado en runtime.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "runtime-token",
+          "target": "isRankingsPanelOpen",
+          "detail": "Rankings y radar debe estar conectado en runtime.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "html-token",
+          "target": "id=\"rankings-panel\"",
+          "detail": "Rankings y radar debe tener contrato HTML visible.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "html-token",
+          "target": "id=\"open-risk-radar-button\"",
+          "detail": "Rankings y radar debe tener contrato HTML visible.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "test-script",
+          "target": "test:rankings",
+          "detail": "Rankings y radar debe tener test:rankings.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "test-script",
+          "target": "test:visual-hygiene",
+          "detail": "Rankings y radar debe tener test:visual-hygiene.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "test-script",
+          "target": "test:startup",
+          "detail": "Rankings y radar debe tener test:startup.",
+          "action": null
+        }
+      ]
+    },
+    {
+      "key": "timeline_conflicts",
+      "label": "Timeline y conflictos",
+      "status": "operativo",
+      "summary": {
+        "totalChecks": 14,
+        "failedChecks": 0
+      },
+      "checks": [
+        {
+          "ok": true,
+          "type": "file",
+          "target": "app-timeline-conflicts.js",
+          "detail": "app-timeline-conflicts.js debe existir para Timeline y conflictos.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "module-token",
+          "target": "app-timeline-conflicts.js:GeoRiskTimelineConflicts",
+          "detail": "Timeline y conflictos debe exponer GeoRiskTimelineConflicts.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "module-token",
+          "target": "app-timeline-conflicts.js:filterTimelineEvents",
+          "detail": "Timeline y conflictos debe exponer filterTimelineEvents.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "module-token",
+          "target": "app-timeline-conflicts.js:groupRepeatedEvents",
+          "detail": "Timeline y conflictos debe exponer groupRepeatedEvents.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "runtime-token",
+          "target": "openTimelineModal",
+          "detail": "Timeline y conflictos debe estar conectado en runtime.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "runtime-token",
+          "target": "maybeEnhanceOpenConflictModal",
+          "detail": "Timeline y conflictos debe estar conectado en runtime.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "html-token",
+          "target": "id=\"timeline-modal\"",
+          "detail": "Timeline y conflictos debe tener contrato HTML visible.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "html-token",
+          "target": "id=\"conflict-modal\"",
+          "detail": "Timeline y conflictos debe tener contrato HTML visible.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "test-script",
+          "target": "test:conflicts",
+          "detail": "Timeline y conflictos debe tener test:conflicts.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "test-script",
+          "target": "test:conflict-audit",
+          "detail": "Timeline y conflictos debe tener test:conflict-audit.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "test-script",
+          "target": "test:startup",
+          "detail": "Timeline y conflictos debe tener test:startup.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "data-file",
+          "target": "data/timeline_index.json",
+          "detail": "Timeline y conflictos necesita data/timeline_index.json.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "data-file",
+          "target": "data/conflicts_index.json",
+          "detail": "Timeline y conflictos necesita data/conflicts_index.json.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "data-file",
+          "target": "data/conflicts/details_index.json",
+          "detail": "Timeline y conflictos necesita data/conflicts/details_index.json.",
+          "action": null
+        }
+      ]
+    },
+    {
+      "key": "compare",
+      "label": "Comparador",
+      "status": "operativo",
+      "summary": {
+        "totalChecks": 11,
+        "failedChecks": 0
+      },
+      "checks": [
+        {
+          "ok": true,
+          "type": "file",
+          "target": "app-compare-ui.js",
+          "detail": "app-compare-ui.js debe existir para Comparador.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "module-token",
+          "target": "app-compare-ui.js:GeoRiskCompareUI",
+          "detail": "Comparador debe exponer GeoRiskCompareUI.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "module-token",
+          "target": "app-compare-ui.js:buildComparisonModel",
+          "detail": "Comparador debe exponer buildComparisonModel.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "module-token",
+          "target": "app-compare-ui.js:buildProfessionalSections",
+          "detail": "Comparador debe exponer buildProfessionalSections.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "runtime-token",
+          "target": "setupCompareControls",
+          "detail": "Comparador debe estar conectado en runtime.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "runtime-token",
+          "target": "addCountryToCompare",
+          "detail": "Comparador debe estar conectado en runtime.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "runtime-token",
+          "target": "renderComparePanel",
+          "detail": "Comparador debe estar conectado en runtime.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "html-token",
+          "target": "id=\"compare-hub-panel\"",
+          "detail": "Comparador debe tener contrato HTML visible.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "html-token",
+          "target": "id=\"compare-modal\"",
+          "detail": "Comparador debe tener contrato HTML visible.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "html-token",
+          "target": "id=\"compare-country-search\"",
+          "detail": "Comparador debe tener contrato HTML visible.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "test-script",
+          "target": "test:compare-quiz",
+          "detail": "Comparador debe tener test:compare-quiz.",
+          "action": null
+        }
+      ]
+    },
+    {
+      "key": "quiz",
+      "label": "Quiz",
+      "status": "operativo",
+      "summary": {
+        "totalChecks": 10,
+        "failedChecks": 0
+      },
+      "checks": [
+        {
+          "ok": true,
+          "type": "file",
+          "target": "app-quiz-ui.js",
+          "detail": "app-quiz-ui.js debe existir para Quiz.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "module-token",
+          "target": "app-quiz-ui.js:GeoRiskQuizUI",
+          "detail": "Quiz debe exponer GeoRiskQuizUI.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "module-token",
+          "target": "app-quiz-ui.js:buildQuestionBank",
+          "detail": "Quiz debe exponer buildQuestionBank.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "module-token",
+          "target": "app-quiz-ui.js:buildQuestionFromBank",
+          "detail": "Quiz debe exponer buildQuestionFromBank.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "runtime-token",
+          "target": "setupQuizControls",
+          "detail": "Quiz debe estar conectado en runtime.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "runtime-token",
+          "target": "buildQuizQuestion",
+          "detail": "Quiz debe estar conectado en runtime.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "runtime-token",
+          "target": "quizUi.buildQuestionBank",
+          "detail": "Quiz debe estar conectado en runtime.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "html-token",
+          "target": "id=\"quiz-hub-panel\"",
+          "detail": "Quiz debe tener contrato HTML visible.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "html-token",
+          "target": "id=\"quiz-start-button\"",
+          "detail": "Quiz debe tener contrato HTML visible.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "test-script",
+          "target": "test:compare-quiz",
+          "detail": "Quiz debe tener test:compare-quiz.",
+          "action": null
+        }
+      ]
+    },
+    {
+      "key": "news",
+      "label": "Noticias",
+      "status": "operativo",
+      "summary": {
+        "totalChecks": 10,
+        "failedChecks": 0
+      },
+      "checks": [
+        {
+          "ok": true,
+          "type": "file",
+          "target": "app-news-ui.js",
+          "detail": "app-news-ui.js debe existir para Noticias.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "module-token",
+          "target": "app-news-ui.js:GeoRiskNewsUI",
+          "detail": "Noticias debe exponer GeoRiskNewsUI.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "module-token",
+          "target": "app-news-ui.js:buildNewsList",
+          "detail": "Noticias debe exponer buildNewsList.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "module-token",
+          "target": "app-news-ui.js:buildArticleCard",
+          "detail": "Noticias debe exponer buildArticleCard.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "runtime-token",
+          "target": "ensureDeferredUiModule(\"news\")",
+          "detail": "Noticias debe estar conectado en runtime.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "runtime-token",
+          "target": "setupNewsHubPanel",
+          "detail": "Noticias debe estar conectado en runtime.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "runtime-token",
+          "target": "getCountryNewsUrl",
+          "detail": "Noticias debe estar conectado en runtime.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "html-token",
+          "target": "id=\"news-hub-panel\"",
+          "detail": "Noticias debe tener contrato HTML visible.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "html-token",
+          "target": "id=\"news-topic-select\"",
+          "detail": "Noticias debe tener contrato HTML visible.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "test-script",
+          "target": "test:news",
+          "detail": "Noticias debe tener test:news.",
+          "action": null
+        }
+      ]
+    },
+    {
+      "key": "exports_share",
+      "label": "Exportar y compartir",
+      "status": "operativo",
+      "summary": {
+        "totalChecks": 7,
+        "failedChecks": 0
+      },
+      "checks": [
+        {
+          "ok": true,
+          "type": "runtime-token",
+          "target": "ensureExportLibraries",
+          "detail": "Exportar y compartir debe estar conectado en runtime.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "runtime-token",
+          "target": "exportNodeAsImage",
+          "detail": "Exportar y compartir debe estar conectado en runtime.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "runtime-token",
+          "target": "exportNodeAsPdf",
+          "detail": "Exportar y compartir debe estar conectado en runtime.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "runtime-token",
+          "target": "shareText",
+          "detail": "Exportar y compartir debe estar conectado en runtime.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "html-token",
+          "target": "data-export-target",
+          "detail": "Exportar y compartir debe tener contrato HTML visible.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "html-token",
+          "target": "data-share-target",
+          "detail": "Exportar y compartir debe tener contrato HTML visible.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "test-script",
+          "target": "test:release-gates",
+          "detail": "Exportar y compartir debe tener test:release-gates.",
+          "action": null
+        }
+      ]
+    },
+    {
+      "key": "offline",
+      "label": "Offline/cache",
+      "status": "operativo",
+      "summary": {
+        "totalChecks": 9,
+        "failedChecks": 0
+      },
+      "checks": [
+        {
+          "ok": true,
+          "type": "file",
+          "target": "sw.js",
+          "detail": "sw.js debe existir para Offline/cache.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "module-token",
+          "target": "sw.js:APP_SHELL",
+          "detail": "Offline/cache debe exponer APP_SHELL.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "module-token",
+          "target": "sw.js:HEAVY_RUNTIME_PATHS",
+          "detail": "Offline/cache debe exponer HEAVY_RUNTIME_PATHS.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "module-token",
+          "target": "sw.js:RUNTIME_CACHEABLE_PATHS",
+          "detail": "Offline/cache debe exponer RUNTIME_CACHEABLE_PATHS.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "html-token",
+          "target": "id=\"clear-local-cache-button\"",
+          "detail": "Offline/cache debe tener contrato HTML visible.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "html-token",
+          "target": "id=\"offline-cache-size\"",
+          "detail": "Offline/cache debe tener contrato HTML visible.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "html-token",
+          "target": "id=\"offline-status\"",
+          "detail": "Offline/cache debe tener contrato HTML visible.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "test-script",
+          "target": "test:startup",
+          "detail": "Offline/cache debe tener test:startup.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "test-script",
+          "target": "test:release-gates",
+          "detail": "Offline/cache debe tener test:release-gates.",
+          "action": null
+        }
+      ]
+    }
+  ],
+  "actions": []
+}

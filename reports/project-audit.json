@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-05T14:46:19.639Z",
+  "generatedAt": "2026-07-05T14:54:36.003Z",
   "status": "operativo",
   "startup": {
     "critical": "977 KB",
@@ -410,8 +410,8 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 37142,
-      "human": "36 KB"
+      "bytes": 37842,
+      "human": "37 KB"
     },
     {
       "path": "index.html",
@@ -482,7 +482,7 @@
     {
       "path": "package.json",
       "exists": true,
-      "bytes": 4545,
+      "bytes": 4605,
       "human": "4 KB"
     },
     {
@@ -572,6 +572,7 @@
     "audit:conflicts",
     "audit:data",
     "audit:doctor",
+    "audit:features",
     "audit:project",
     "audit:release-artifacts",
     "build:data",

@@ -66,6 +66,7 @@ const changelog = await readText("CHANGELOG.md");
 const performanceSnapshot = await readJson("reports/performance-snapshot.json");
 const dataAudit = await readJson("reports/data-automation-audit.json");
 const doctorReport = await readJson("reports/doctor-report.json");
+const featureHealth = await readJson("reports/feature-health.json");
 
 const packageVersion = packageJson.version || null;
 const appVersion = extractVersion(scriptSource, "APP_VERSION");
@@ -102,6 +103,7 @@ const checks = {
     "redundantReligions",
     "uppercaseCities"
   ].every(key => (dataCounts[key] || 0) === 0),
+  featureHealthClean: !featureHealth.status || featureHealth.status === "operativo",
   doctorHasNoHighSeverity: !["critica", "alta"].some(severity => (doctorReport.summary?.bySeverity?.[severity] || 0) > 0),
   reportVersionsCurrent: [performanceSnapshot, doctorReport]
     .filter(report => Object.keys(report || {}).length)
@@ -117,6 +119,7 @@ if (!checks.startupWithinBudget) blockers.push("El arranque critico esta fuera d
 if (!checks.scriptWithinBudget) blockers.push("script.js esta fuera de presupuesto.");
 if (!checks.countriesIndexWithinBudget) blockers.push("countries_index.json esta fuera de presupuesto.");
 if (!checks.dataAuditClean) blockers.push("La auditoria de datos conserva problemas visibles.");
+if (!checks.featureHealthClean) blockers.push("La auditoria de salud funcional conserva fallas.");
 if (!checks.doctorHasNoHighSeverity) blockers.push("El doctor de producto tiene hallazgos altos o criticos.");
 if (!checks.expectedTagAtHead) warnings.push(`El tag ${expectedTag || "(sin version)"} todavia no apunta a HEAD.`);
 if (!checks.gitStatusAvailable) warnings.push("No se pudo leer el estado de Git desde Node; verificar con git status --short.");
@@ -154,6 +157,10 @@ const report = {
     buildTotal: performanceSnapshot.assets?.buildTotal || null
   },
   dataCounts,
+  featureHealth: {
+    status: featureHealth.status || null,
+    summary: featureHealth.summary || null
+  },
   doctor: {
     status: doctorReport.status || null,
     findings: doctorReport.summary?.totalFindings || 0,

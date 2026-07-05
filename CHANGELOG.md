@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.29 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.30 antes de cerrar la siguiente version.
+
+## v1.6.30 - 2026-07-05
+
+- Agrega `audit:features` con reporte `reports/feature-health.json` para validar mapa, ficha pais, busqueda, rankings, timeline/conflictos, comparador, quiz, noticias, exportar/compartir y offline.
+- Conecta la auditoria funcional a `maintain:quick`, `release:check`, GitHub Actions, `projectDoctor`, `release:status` y `test:release-gates`.
+- Hace que `release:status` bloquee si la salud funcional conserva fallas y exponga el resumen de `feature-health`.
+- Refuerza gates para detectar modulos, workers, contratos HTML, tokens runtime, scripts de prueba y datasets faltantes en funciones principales.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-05-release-2`.
 
 ## v1.6.29 - 2026-07-05
 
