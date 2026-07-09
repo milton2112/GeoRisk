@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-07-09T04:03:17.767Z",
-  "packageVersion": "1.6.38",
-  "appVersion": "2026-07-09-release-4",
-  "cacheVersion": "2026-07-09-release-4",
+  "generatedAt": "2026-07-09T20:21:54.877Z",
+  "packageVersion": "1.6.39",
+  "appVersion": "2026-07-09-release-5",
+  "cacheVersion": "2026-07-09-release-5",
   "thresholds": {
     "scriptJsBytes": 700000,
     "countriesIndexBytes": 240000,
@@ -13,8 +13,8 @@
     "scriptJs": {
       "path": "script.js",
       "exists": true,
-      "bytes": 657581,
-      "human": "642 KB"
+      "bytes": 656319,
+      "human": "641 KB"
     },
     "countriesIndex": {
       "path": "data/countries_index.json",
@@ -23,11 +23,11 @@
       "human": "141 KB"
     },
     "startupCritical": {
-      "bytes": 938778,
-      "human": "917 KB"
+      "bytes": 937516,
+      "human": "916 KB"
     },
     "buildTotal": {
-      "bytes": 5911234,
+      "bytes": 5913022,
       "human": "5.64 MB",
       "assetCount": 606
     }
@@ -35,11 +35,16 @@
   "longTasks": {
     "supported": true,
     "budgetMs": 200,
-    "count": 3,
-    "overBudgetCount": 1,
+    "count": 4,
+    "overBudgetCount": 0,
     "totalDuration": 422,
-    "longestDuration": 240,
+    "longestDuration": 168,
     "recent": [
+      {
+        "name": "simulated-idle-search-index",
+        "startTime": 520,
+        "duration": 72
+      },
       {
         "name": "simulated-map-style",
         "startTime": 310,
@@ -47,13 +52,13 @@
       },
       {
         "name": "simulated-ui-hydration",
-        "startTime": 96,
+        "startTime": 124,
         "duration": 118
       },
       {
-        "name": "simulated-startup-work",
+        "name": "simulated-startup-data-batch",
         "startTime": 12,
-        "duration": 240
+        "duration": 168
       }
     ]
   },
@@ -70,7 +75,7 @@
     "scriptJsWithinBudget": true,
     "countriesIndexWithinBudget": true,
     "startupWithinBudget": true,
-    "simulatedLongTasksOverBudget": 1,
+    "simulatedLongTasksOverBudget": 0,
     "fpsSmokeMin": 46
   }
 }

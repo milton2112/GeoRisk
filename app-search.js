@@ -12,6 +12,7 @@
     { metric: "diplomacy", pattern: /(diplomatico|diplomacia|diplomatic|diplomacy)/ },
     { metric: "dataQuality", pattern: /(calidad de datos|data quality|mejor curados|curaduria)/ }
   ];
+  let publicConflictIndexPromise = null;
 
   function normalizeText(value = "") {
     return String(value || "")
@@ -84,6 +85,65 @@
     return "";
   }
 
+  function uniqueNormalizedValues(values = []) {
+    const seen = new Set();
+    return values
+      .map(normalizeText)
+      .filter(value => {
+        if (!value || seen.has(value)) return false;
+        seen.add(value);
+        return true;
+      });
+  }
+
+  function getPublicConflictSearchKeys(name = "", translateConflictName = value => value) {
+    return uniqueNormalizedValues([name, translateConflictName(name)]);
+  }
+
+  function shouldSearchPublicConflictIndex(query = "") {
+    return /\b(guerra|batalla|conflicto|crisis|asedio|invasion|intifada|war|battle|conflict|siege|campaign|offensive)\b/.test(normalizeText(query));
+  }
+
+  async function fetchPublicConflictsIndex(url, fetchResourceCached) {
+    if (typeof fetchResourceCached === "function") {
+      return fetchResourceCached(url, "json");
+    }
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`No se pudo cargar ${url}: ${response.status}`);
+    }
+    return response.json();
+  }
+
+  async function findPublicConflictIndexEntry(rawQuery = "", options = {}) {
+    const translateConflictName = options.translateConflictName || (value => value);
+    const queryKeys = getPublicConflictSearchKeys(rawQuery, translateConflictName);
+    if (!queryKeys.length || !shouldSearchPublicConflictIndex(rawQuery)) {
+      return null;
+    }
+
+    if (!publicConflictIndexPromise) {
+      const version = options.appVersion || window.GeoRiskAppVersion || "";
+      const url = `./data/conflicts_index.json${version ? `?v=${version}` : ""}`;
+      publicConflictIndexPromise = fetchPublicConflictsIndex(url, options.fetchResourceCached)
+        .then(index => (Array.isArray(index) ? index : []).map(entry => ({
+          ...entry,
+          searchKeys: getPublicConflictSearchKeys(entry?.name, translateConflictName)
+        })))
+        .catch(error => {
+          console.warn("No se pudo cargar el indice publico de conflictos:", error);
+          return [];
+        });
+    }
+
+    const entries = await publicConflictIndexPromise;
+    return entries.find(entry =>
+      entry.searchKeys?.some(key => queryKeys.includes(key))
+    ) || entries.find(entry =>
+      entry.searchKeys?.some(key => queryKeys.some(query => key.includes(query) || query.includes(key)))
+    ) || null;
+  }
+
   function parseNaturalQuery(rawQuery = "", context = {}) {
     const normalized = normalizeText(rawQuery);
     const metricMatch = METRIC_ALIASES.find(item => item.pattern.test(normalized));
@@ -135,6 +195,7 @@
     buildAliasEntriesFromSearchIndex,
     rankSuggestions,
     groupSuggestions,
+    findPublicConflictIndexEntry,
     parseNaturalQuery,
     createRecentSearchCache
   };

@@ -66,7 +66,7 @@ assert.ok(
   "traduccion de conflictos debe usar alias diferidos cargables"
 );
 assert.ok(
-  /const indexedConflict = await findPublicConflictIndexEntry\(rawQuery\)[\s\S]{0,220}type: "conflict"[\s\S]{0,120}countries: indexedConflict\.countries/.test(script),
+  /searchCore\.findPublicConflictIndexEntry\(rawQuery,[\s\S]{0,300}type: "conflict"[\s\S]{0,120}countries: indexedConflict\.countries/.test(script),
   "busqueda de conflictos debe usar conflicts_index bajo demanda cuando no hay preview inline"
 );
 assert.ok(

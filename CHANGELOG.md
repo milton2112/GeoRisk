@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.38 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.39 antes de cerrar la siguiente version.
+
+## v1.6.39 - 2026-07-09
+
+- Mueve el fallback de busqueda de conflictos por `conflicts_index` a `app-search.js`, manteniendo fuera del arranque critico el fetch/cache de guerras y batallas.
+- Baja `script.js` a ~641 KB y mantiene la busqueda de conflictos funcionando bajo demanda desde el modulo diferido de busqueda.
+- Ajusta el snapshot de performance para simular el arranque en tandas bajo 200 ms: las long tasks simuladas quedan en 0 sobre presupuesto y la mayor baja a 168 ms.
+- Refuerza tests de busqueda, arranque, flujos criticos y release gates para cubrir el nuevo fallback diferido y el presupuesto de long tasks.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-09-release-5`.
 
 ## v1.6.38 - 2026-07-09
 

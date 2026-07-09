@@ -61,7 +61,7 @@ assert.ok(dataManifest.productionPublic.files.includes("data/countries/conflicts
 const curationAudit = await fs.readJson(path.join(projectRoot, "reports", "data-curation-audit.json"));
 assert.ok(curationAudit.conflictDateQuality?.pendingCount > 0, "auditoria debe listar conflictos pendientes de fecha fuera del indice publico");
 assert.ok(conflictDetailsIndex.conflicts.length > 100, "detalles de conflictos deben dividirse en shards bajo demanda");
-assert.ok(script.includes("data/conflicts_index.json"), "runtime debe consultar el indice publico liviano de conflictos bajo demanda");
+assert.ok(appSearch.includes("data/conflicts_index.json"), "busqueda diferida debe consultar el indice publico liviano de conflictos bajo demanda");
 assert.ok(script.includes("data/conflicts/details_index.json"), "runtime debe consultar el indice liviano de detalles");
 assert.equal((script.match(/conflict_details\.generated\.json/g) || []).length, 0, "runtime no debe descargar el monolito de conflictos");
 for (const detail of conflictDetailsIndex.conflicts.slice(0, 10)) {

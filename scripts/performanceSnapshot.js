@@ -60,9 +60,10 @@ async function simulateLongTasksAndFps() {
       observe() {
         this.callback({
           getEntries: () => [
-            { name: "simulated-startup-work", startTime: 12, duration: 240 },
-            { name: "simulated-ui-hydration", startTime: 96, duration: 118 },
-            { name: "simulated-map-style", startTime: 310, duration: 64 }
+            { name: "simulated-startup-data-batch", startTime: 12, duration: 168 },
+            { name: "simulated-ui-hydration", startTime: 124, duration: 118 },
+            { name: "simulated-map-style", startTime: 310, duration: 64 },
+            { name: "simulated-idle-search-index", startTime: 520, duration: 72 }
           ]
         });
       }

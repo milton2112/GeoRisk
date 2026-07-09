@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-09T04:03:16.650Z",
+  "generatedAt": "2026-07-09T20:21:53.643Z",
   "status": "operativo",
   "startup": {
-    "critical": "917 KB",
-    "criticalBytes": 938778,
+    "critical": "916 KB",
+    "criticalBytes": 937516,
     "deferred": "1.08 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 9142879,
@@ -16,8 +16,8 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 657581,
-        "human": "642 KB",
+        "bytes": 656319,
+        "human": "641 KB",
         "startupCritical": true
       },
       {
@@ -84,16 +84,16 @@
         "startupCritical": false
       },
       {
-        "path": "app-text.js",
+        "path": "app-search.js",
         "exists": true,
-        "bytes": 8067,
+        "bytes": 8288,
         "human": "8 KB",
         "startupCritical": false
       },
       {
-        "path": "app-timeline-conflicts.js",
+        "path": "app-text.js",
         "exists": true,
-        "bytes": 8027,
+        "bytes": 8067,
         "human": "8 KB",
         "startupCritical": false
       }
@@ -809,8 +809,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 657581,
-      "human": "642 KB"
+      "bytes": 656319,
+      "human": "641 KB"
     },
     {
       "path": "style.css",
@@ -821,8 +821,8 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 43969,
-      "human": "43 KB"
+      "bytes": 44666,
+      "human": "44 KB"
     },
     {
       "path": "index.html",
@@ -958,9 +958,9 @@
     }
   ],
   "scriptMetrics": {
-    "functions": 525,
-    "asyncFunctions": 49,
-    "consoleWarnings": 19,
+    "functions": 521,
+    "asyncFunctions": 47,
+    "consoleWarnings": 18,
     "consoleErrors": 13
   },
   "visualMetrics": {

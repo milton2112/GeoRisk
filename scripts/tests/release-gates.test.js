@@ -111,7 +111,7 @@ assert.ok(gitignore.split(/\r?\n/).some(line => line.trim() === "reports/release
 assert.ok(cleanStorage.includes('"node_modules"'), "clean:storage debe poder liberar node_modules");
 assert.ok(cleanStorage.includes("isInsideProject"), "clean:storage debe negarse a borrar fuera del proyecto");
 assert.ok(performanceSnapshot.includes("performance-snapshot.json"), "snapshot debe escribirse en reports/");
-assert.ok(performanceSnapshot.includes("simulated-startup-work"), "snapshot debe simular long tasks");
+assert.ok(performanceSnapshot.includes("simulated-startup-data-batch"), "snapshot debe simular long tasks del arranque por tandas");
 assert.ok(dataAutomationAudit.includes("englishConflictNames"), "auditoria de datos debe listar conflictos en ingles");
 assert.ok(dataAutomationAudit.includes("redundantReligions"), "auditoria de datos debe listar religiones redundantes");
 assert.ok(dataAutomationAudit.includes("sameCountryDuplicateConflicts"), "auditoria de datos debe separar duplicados accionables");

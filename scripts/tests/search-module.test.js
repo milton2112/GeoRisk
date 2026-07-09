@@ -52,4 +52,17 @@ const natural = search.parseNaturalQuery("paises de Asia con mas conflictos", {
 assert.equal(natural.metric, "conflicts", "debe detectar ranking de conflictos");
 assert.equal(natural.filters.continent, "Asia", "debe detectar continente");
 
+const publicConflict = await search.findPublicConflictIndexEntry("Guerra de las Malvinas", {
+  appVersion: "test",
+  translateConflictName: value => value,
+  fetchResourceCached: async (url, type) => {
+    assert.ok(url.includes("data/conflicts_index.json"), "debe cargar indice publico de conflictos");
+    assert.equal(type, "json", "debe pedir el indice como json");
+    return [
+      { name: "Guerra de las Malvinas", countries: ["ARG", "GBR", "FLK"] }
+    ];
+  }
+});
+assert.deepEqual(publicConflict.countries, ["ARG", "GBR", "FLK"], "debe resolver paises desde conflicts_index bajo demanda");
+
 console.log("search-module.test.js ok");
