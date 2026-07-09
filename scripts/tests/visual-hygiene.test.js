@@ -50,8 +50,9 @@ assert.ok(css.includes("overscroll-behavior: contain"), "panel de capas debe con
 assert.ok(css.includes("position: sticky"), "cabecera del panel de capas debe quedar fija al scrollear");
 assert.ok(css.includes("#startup-status"), "arranque debe mostrar estado visible mientras el mapa se inicializa");
 assert.ok(css.includes("body.globe-loading #startup-status"), "estado de arranque debe depender del estado real de carga");
-assert.ok(css.includes(".performance-status-banner"), "panel de rendimiento debe exponer estado visual de arranque");
-assert.ok(css.includes(".performance-recommendation-card"), "panel de rendimiento debe exponer recomendacion automatica");
+assert.ok(!css.includes(".performance-status-banner"), "panel de rendimiento no debe inflar el CSS critico");
+assert.ok(polishCss.includes(".performance-status-banner"), "panel de rendimiento debe exponer estado visual diferido");
+assert.ok(polishCss.includes(".performance-recommendation-card"), "panel de rendimiento debe exponer recomendacion automatica diferida");
 assert.ok(polishCss.includes("--ui-radius: 8px"), "componentes diferidos deben usar radio visual compacto");
 assert.ok(polishCss.includes("min-height: 44px"), "controles tactiles deben conservar un objetivo comodo");
 assert.ok(polishCss.includes(".product-start-card"), "portada debe exponer accesos guiados con estilo diferido");

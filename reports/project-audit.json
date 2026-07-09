@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-07-09T20:30:39.715Z",
+  "generatedAt": "2026-07-09T20:39:32.778Z",
   "status": "operativo",
   "startup": {
-    "critical": "900 KB",
-    "criticalBytes": 921568,
-    "deferred": "1.08 MB",
+    "critical": "891 KB",
+    "criticalBytes": 912786,
+    "deferred": "1.09 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 9142879,
       "countriesFullHuman": "8.72 MB",
@@ -51,8 +51,8 @@
       {
         "path": "style.css",
         "exists": true,
-        "bytes": 88863,
-        "human": "87 KB",
+        "bytes": 80081,
+        "human": "78 KB",
         "startupCritical": true
       },
       {
@@ -63,17 +63,17 @@
         "startupCritical": true
       },
       {
-        "path": "app-conflict-aliases.js",
+        "path": "style-polish.css",
         "exists": true,
-        "bytes": 30394,
+        "bytes": 30985,
         "human": "30 KB",
         "startupCritical": false
       },
       {
-        "path": "style-polish.css",
+        "path": "app-conflict-aliases.js",
         "exists": true,
-        "bytes": 22094,
-        "human": "22 KB",
+        "bytes": 30394,
+        "human": "30 KB",
         "startupCritical": false
       },
       {
@@ -815,14 +815,14 @@
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 88863,
-      "human": "87 KB"
+      "bytes": 80081,
+      "human": "78 KB"
     },
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 45224,
-      "human": "44 KB"
+      "bytes": 45661,
+      "human": "45 KB"
     },
     {
       "path": "index.html",
@@ -831,16 +831,16 @@
       "human": "31 KB"
     },
     {
+      "path": "style-polish.css",
+      "exists": true,
+      "bytes": 30985,
+      "human": "30 KB"
+    },
+    {
       "path": "app-conflict-aliases.js",
       "exists": true,
       "bytes": 30394,
       "human": "30 KB"
-    },
-    {
-      "path": "style-polish.css",
-      "exists": true,
-      "bytes": 22094,
-      "human": "22 KB"
     },
     {
       "path": "app-project-audit-ui.js",

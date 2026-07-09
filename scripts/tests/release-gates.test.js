@@ -22,6 +22,8 @@ assert.equal(transientAttempts, 3, "reintento debe detenerse al recuperarse");
 
 const indexHtml = await fs.readFile(path.join(projectRoot, "index.html"), "utf8");
 const script = await fs.readFile(path.join(projectRoot, "script.js"), "utf8");
+const criticalStyle = await fs.readFile(path.join(projectRoot, "style.css"), "utf8");
+const polishStyle = await fs.readFile(path.join(projectRoot, "style-polish.css"), "utf8");
 const sw = await fs.readFile(path.join(projectRoot, "sw.js"), "utf8");
 const packageJson = await fs.readJson(path.join(projectRoot, "package.json"));
 const changelog = await fs.readFile(path.join(projectRoot, "CHANGELOG.md"), "utf8");
@@ -186,6 +188,10 @@ assert.ok(!indexHtml.includes("app-conflict-aliases.js"), "alias pesados de conf
 assert.ok(!indexHtml.includes("app-conflict-rules.js"), "reglas pesadas de conflictos deben cargarse bajo demanda");
 assert.ok(!indexHtml.includes("style-polish.css"), "pulido visual no debe bloquear el primer mapa");
 assert.ok(!indexHtml.includes("fonts.googleapis.com"), "fuentes remotas no deben bloquear el primer render");
+assert.ok(!criticalStyle.includes(".performance-status-banner"), "panel de rendimiento no debe inflar style.css critico");
+assert.ok(!criticalStyle.includes(".project-audit-status"), "auditoria interna no debe inflar style.css critico");
+assert.ok(polishStyle.includes(".performance-status-banner"), "panel de rendimiento debe vivir en style-polish.css");
+assert.ok(polishStyle.includes(".project-audit-status"), "auditoria interna debe vivir en style-polish.css");
 assert.ok(!/bootHeavyDataEnhancements[\s\S]{0,500}loadRuntimeCuration/.test(script), "curaduria profunda debe esperar a una ficha");
 assert.ok(!indexHtml.includes("html2canvas"), "exportacion debe cargar html2canvas bajo demanda");
 assert.ok(!indexHtml.includes("jspdf"), "exportacion debe cargar jsPDF bajo demanda");

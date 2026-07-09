@@ -8,7 +8,14 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.40 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.41 antes de cerrar la siguiente version.
+
+## v1.6.41 - 2026-07-09
+
+- Mueve estilos internos de auditoria, performance y curaduria visual a `style-polish.css` para que no bloqueen el primer mapa.
+- Reduce `style.css` de ~86.8 KB a ~78.2 KB y deja margen real bajo el presupuesto critico de 90 KB.
+- Agrega gates para impedir que el panel de rendimiento y la auditoria interna vuelvan a inflar el CSS critico.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-09-release-7`.
 
 ## v1.6.40 - 2026-07-09
 
