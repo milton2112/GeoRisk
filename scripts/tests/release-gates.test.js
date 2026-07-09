@@ -219,6 +219,7 @@ assert.ok(!script.includes("CONFLICT_PARENT_RULES.push("), "jerarquia pesada de 
 assert.ok(conflictRules.includes("window.GeoRiskConflictRules"), "modulo diferido debe exponer reglas pesadas de conflictos");
 assert.ok(riskRadarUi.includes("function buildScenarioCards"), "escenarios del radar deben vivir fuera del runtime critico");
 assert.ok(!script.includes("function getRiskMainDriverLabel"), "helper visual del radar no debe volver a script.js");
+assert.ok(!/function buildQuizQuestion\(category\)[\s\S]{0,2400}category === "language"/.test(script), "fallback pesado del quiz no debe volver al runtime critico");
 assert.ok(script.includes("ensureConflictAliasesLoaded"), "runtime debe poder cargar alias de conflictos bajo demanda");
 assert.ok(script.includes("scheduleDetailedOverlayUpgrade"), "GeoJSON detallado debe cargarse por upgrade diferido");
 assert.ok(appMap.includes("world_countries_simplified.geo.json"), "GeoJSON simplificado debe ser default inicial");

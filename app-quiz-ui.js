@@ -50,6 +50,9 @@
     const getConflicts = country => country.military?.conflicts || country.conflicts || [];
     const getOrgName = organization => typeof organization === "string" ? organization : (organization?.abbreviation || organization?.name || "");
     const getLanguageName = language => typeof language === "string" ? language : (language?.name || "");
+    const getReligionSummary = country => helpers.getReligionSummaryLabel?.(country.religion) || country.religion?.summary || "";
+    const getPoliticalSystem = country => helpers.normalizePoliticalSystemCategory?.(country.politics?.system) || country.politics?.system || "";
+    const getFlag = code => helpers.getFlagEmoji?.(code) || "";
     const banks = [];
     countries.forEach(([code, country]) => {
       if (country.general?.capital?.name) {
@@ -57,6 +60,20 @@
       }
       if (country.continent) {
         banks.push({ code, category: "map", difficulty: "easy", prompt: `En que continente se ubica ${country.name}?`, correct: helpers.translateContinentName?.(country.continent) || country.continent, explanation: `${country.name} esta indexado en ${helpers.translateContinentName?.(country.continent) || country.continent}.` });
+      }
+      if (country.continent) {
+        banks.push({ code, category: "continent", difficulty: "easy", prompt: `En que continente se ubica ${country.name}?`, correct: helpers.translateContinentName?.(country.continent) || country.continent, explanation: `${country.name} esta indexado en ${helpers.translateContinentName?.(country.continent) || country.continent}.` });
+      }
+      if (country.name) {
+        banks.push({ code, category: "flag", difficulty: "easy", prompt: `A que pais corresponde esta bandera? ${getFlag(code)}`, correct: country.name, explanation: `La bandera corresponde a ${country.name}.` });
+      }
+      const religion = getReligionSummary(country);
+      if (religion) {
+        banks.push({ code, category: "religion", difficulty: "medium", prompt: `Cual es la religion mayoritaria de ${country.name}?`, correct: religion, explanation: `${religion} figura como religion principal en la ficha de ${country.name}.` });
+      }
+      const system = getPoliticalSystem(country);
+      if (system) {
+        banks.push({ code, category: "system", difficulty: "medium", prompt: `Cual es el sistema politico principal de ${country.name}?`, correct: system, explanation: `${system} figura como sistema politico principal de ${country.name}.` });
       }
       if (country.history?.year) {
         banks.push({ code, category: "history", difficulty: "medium", prompt: `En que ano se formo ${country.name}?`, correct: String(country.history.year), explanation: `El ano de formacion usado por la ficha es ${country.history.year}.` });
@@ -82,6 +99,10 @@
         const bloc = country.politics.relations.blocs[0];
         if (bloc) banks.push({ code, category: "bloc", difficulty: "medium", prompt: `Que pais pertenece a ${bloc}?`, correct: country.name, explanation: `${bloc} figura entre los bloques o alianzas de ${country.name}.` });
       }
+      if (country.politics?.rivals?.length) {
+        const rival = country.politics.rivals[0]?.name || country.politics.rivals[0];
+        if (rival) banks.push({ code, category: "rival", difficulty: "medium", prompt: `Que pais tiene como rival a ${rival}?`, correct: country.name, explanation: `${rival} figura entre las rivalidades de ${country.name}.` });
+      }
     });
     return banks;
   }
@@ -97,10 +118,15 @@
     const byCategory = {
       capital: allCountries.map(country => country.general?.capital?.name),
       map: ["America", "Europa", "Asia", "Africa", "Oceania", "Antartida"],
+      continent: ["America", "Europa", "Asia", "Africa", "Oceania", "Antartida"],
+      religion: allCountries.map(country => helpers.getReligionSummaryLabel?.(country.religion) || country.religion?.summary).filter(Boolean),
+      system: allCountries.map(country => helpers.normalizePoliticalSystemCategory?.(country.politics?.system) || country.politics?.system).filter(Boolean),
+      flag: allCountries.map(country => country.name),
       history: allCountries.map(country => country.history?.year).filter(Boolean).map(String),
       economy: allCountries.map(country => country.name),
       conflict: allCountries.map(country => country.name),
       organization: allCountries.map(country => country.name),
+      rival: allCountries.map(country => country.name),
       language: allCountries.flatMap(country => country.general?.languages || []).map(value => typeof value === "string" ? value : value?.name).filter(Boolean),
       bloc: allCountries.map(country => country.name)
     };

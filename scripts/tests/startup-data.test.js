@@ -192,7 +192,7 @@ assert.ok(/function generateTopPopulation[\s\S]{0,120}getCountryValues\(\)/.test
 assert.ok(script.includes("function renderDeferredCountrySectionPrompt"), "secciones cerradas de ficha no deben renderizar contenido pesado");
 assert.ok(!script.includes("buildQuizQuestion = function buildQuizQuestion"), "quiz no debe pisar el generador avanzado con fallback legado");
 assert.ok(/function buildQuizQuestion\(category\)[\s\S]{0,500}quizUi\.buildQuestionBank/.test(script), "quiz debe usar banco generado diferido cuando esta disponible");
-assert.ok(/function buildQuizQuestion\(category\)[\s\S]{0,2200}category === "language"[\s\S]{0,450}category === "bloc"[\s\S]{0,450}category === "conflict"/.test(script), "quiz fallback debe conservar idiomas, bloques y conflictos");
+assert.ok(!/function buildQuizQuestion\(category\)[\s\S]{0,2400}category === "language"/.test(script), "quiz no debe conservar ramas pesadas de categorias en el runtime critico");
 assert.ok(script.includes("data-conflict-expand-children"), "campanas y batallas anidadas deben expandirse por tandas");
 assert.ok(/function rerenderCurrentPanel\(\)[\s\S]{0,1500}setTimeout\(flush, 0\)/.test(script), "rerender de panel no debe depender de frames visibles");
 assert.ok(!/bootHeavyDataEnhancements[\s\S]{0,500}loadRuntimeCuration/.test(script), "curaduria profunda no debe ejecutarse desde el arranque diferido");
@@ -272,6 +272,10 @@ assert.ok(appCompare.includes("buildComparisonModel"), "comparador debe tener mo
 assert.ok(appCompare.includes("buildProfessionalSections"), "comparador debe renderizar secciones profesionales desde modulo");
 assert.ok(appQuiz.includes("buildQuestionBank"), "quiz debe generar banco de preguntas desde dataset");
 assert.ok(appQuiz.includes("buildQuestionFromBank"), "quiz debe controlar dificultad y no repeticion");
+assert.ok(appQuiz.includes('category: "language"'), "quiz diferido debe conservar preguntas de idiomas");
+assert.ok(appQuiz.includes('category: "bloc"'), "quiz diferido debe conservar preguntas de bloques");
+assert.ok(appQuiz.includes('category: "conflict"'), "quiz diferido debe conservar preguntas de conflictos");
+assert.ok(appQuiz.includes('category: "religion"'), "quiz diferido debe conservar preguntas de religion");
 assert.ok(script.includes("NEWS_CACHE_TTL_MS"), "noticias debe tener cache temporal");
 assert.ok(script.includes("diplomacy"), "noticias debe incluir tema diplomacia");
 assert.ok(script.includes("ensureDeferredUiModule(\"news\")"), "noticias debe cargar UI bajo demanda al abrir");

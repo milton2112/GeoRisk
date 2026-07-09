@@ -8,7 +8,14 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.43 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.44 antes de cerrar la siguiente version.
+
+## v1.6.44 - 2026-07-09
+
+- Mueve las categorias pesadas del quiz al modulo diferido `app-quiz-ui.js`.
+- Reduce `script.js` quitando el fallback legacy de preguntas de religion, idioma, bloques, conflictos y otros temas.
+- Agrega gates para impedir que el fallback pesado del quiz vuelva al runtime critico.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-09-release-10`.
 
 ## v1.6.43 - 2026-07-09
 

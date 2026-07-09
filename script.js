@@ -82,7 +82,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-07-09-release-9";
+const APP_VERSION = "2026-07-09-release-10";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -14897,114 +14897,46 @@ function updateQuizMeta() {
 function buildQuizQuestion(category) {
   if (typeof quizUi.buildQuestionBank === "function" && typeof quizUi.buildQuestionFromBank === "function") {
     if (!quizQuestionBank.length) {
-      quizQuestionBank = quizUi.buildQuestionBank(countriesData, { translateContinentName });
+      quizQuestionBank = quizUi.buildQuestionBank(countriesData, {
+        translateContinentName,
+        getReligionSummaryLabel,
+        normalizePoliticalSystemCategory,
+        getFlagEmoji
+      });
     }
-    const generatedQuestion = quizUi.buildQuestionFromBank(quizQuestionBank, countriesData, { ...quizState, category }, { translateContinentName });
+    const generatedQuestion = quizUi.buildQuestionFromBank(quizQuestionBank, countriesData, { ...quizState, category }, {
+      translateContinentName,
+      getReligionSummaryLabel,
+      normalizePoliticalSystemCategory
+    });
     if (generatedQuestion) {
       return generatedQuestion;
     }
   }
 
-  const pool = getCountryEntries().filter(([code, country]) => {
-    if (quizState.asked.includes(code)) return false;
-    if (category === "map") return Boolean(country.continent);
-    if (category === "economy") return Boolean(country.economy?.gdpPerCapita);
-    if (category === "capital") return Boolean(country.general?.capital?.name);
-    if (category === "religion") return Boolean(getReligionSummaryLabel(country.religion));
-    if (category === "continent") return Boolean(country.continent);
-    if (category === "flag") return Boolean(country.name);
-    if (category === "history") return Boolean(country.history?.year);
-    if (category === "organization") return Boolean(country.politics?.organizations?.length);
-    if (category === "rival") return Boolean(country.politics?.rivals?.length);
-    if (category === "language") return Boolean(country.general?.languages?.length);
-    if (category === "bloc") return Boolean((country.politics?.relations?.blocs || []).length);
-    if (category === "conflict") return Boolean((country.military?.conflicts || country.conflicts || []).length);
-    return Boolean(country.politics?.system);
-  });
-
-  if (!pool.length) return null;
-  const [code, country] = shuffleArray(pool)[0];
-  const difficulty = quizState.difficulty || "easy";
-  let prompt = "";
-  let correct = "";
-  let distractors = [];
-
-  if (category === "capital") {
-    prompt = `¿Cual es la capital de ${country.name}?`;
-    correct = country.general.capital.name;
-    distractors = shuffleArray(getCountryValues()
-      .filter(item => difficulty === "easy" || item.continent === country.continent)
-      .map(item => item.general?.capital?.name).filter(Boolean).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
-  } else if (category === "religion") {
-    prompt = `¿Cual es la religion mayoritaria de ${country.name}?`;
-    correct = getReligionSummaryLabel(country.religion) || "Sin datos";
-    distractors = shuffleArray(getCountryValues().map(item => getReligionSummaryLabel(item.religion)).filter(Boolean).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
-  } else if (category === "continent") {
-    prompt = `¿En que continente se ubica ${country.name}?`;
-    correct = translateContinentName(country.continent);
-    distractors = shuffleArray(["America", "Europa", "Asia", "Africa", "Oceania", "Antartida"].filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
-  } else if (category === "map") {
-    prompt = `Pregunta de mapa: ¿en que continente se ubica ${country.name}?`;
-    correct = translateContinentName(country.continent);
-    distractors = shuffleArray(["America", "Europa", "Asia", "Africa", "Oceania", "Antartida"].filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
-  } else if (category === "flag") {
-    prompt = `¿A que pais corresponde esta bandera? ${getFlagEmoji(code)}`;
-    correct = country.name;
-    distractors = shuffleArray(getCountryValues().filter(item => difficulty === "easy" || item.continent === country.continent).map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
-  } else if (category === "history") {
-    prompt = `¿En que año se formo ${country.name}?`;
-    correct = String(country.history.year);
-    distractors = shuffleArray(getCountryValues().map(item => item.history?.year).filter(Boolean).map(String).filter(value => value !== correct)).slice(0, 3);
-  } else if (category === "economy") {
-    prompt = `¿Que pais tiene un PBI per capita aproximado de US$ ${formatNumber(Math.round(country.economy.gdpPerCapita))}?`;
-    correct = country.name;
-    distractors = shuffleArray(getCountryValues().filter(item => item.economy?.gdpPerCapita).map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
-  } else if (category === "organization") {
-    const org = getOrganizationDisplayName(country.politics.organizations[0]);
-    prompt = `¿Que pais pertenece a esta organizacion? ${org}`;
-    correct = country.name;
-    distractors = shuffleArray(getCountryValues().map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
-  } else if (category === "rival") {
-    const rival = country.politics.rivals[0]?.name || country.politics.rivals[0];
-    prompt = `¿Que pais tiene como rival a ${rival}?`;
-    correct = country.name;
-    distractors = shuffleArray(getCountryValues().map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
-  } else if (category === "language") {
-    const mainLanguage = country.general.languages[0];
-    prompt = `¿Cual es uno de los idiomas principales de ${country.name}?`;
-    correct = typeof mainLanguage === "string" ? mainLanguage : (mainLanguage?.name || "Sin datos");
-    distractors = shuffleArray(getCountryValues()
-      .flatMap(item => item.general?.languages || [])
-      .map(item => typeof item === "string" ? item : item?.name)
-      .filter(Boolean)
-      .filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
-  } else if (category === "bloc") {
-    const bloc = (country.politics?.relations?.blocs || [])[0];
-    prompt = `¿Que pais pertenece a este bloque? ${bloc}`;
-    correct = country.name;
-    distractors = shuffleArray(getCountryValues().map(item => item.name).filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
-  } else if (category === "conflict") {
-    const conflict = (country.military?.conflicts || country.conflicts || [])[0];
-    const label = typeof conflict === "string" ? conflict : (conflict?.name || conflict?.war || "Conflicto");
-    prompt = `¿Que pais estuvo vinculado a ${label}?`;
-    correct = country.name;
-    distractors = shuffleArray(getCountryValues()
-      .filter(item => difficulty === "easy" || item.continent === country.continent)
-      .map(item => item.name)
-      .filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
-  } else {
-    prompt = `¿Cual es el sistema politico principal de ${country.name}?`;
-    correct = normalizePoliticalSystemCategory(country.politics.system);
-    distractors = shuffleArray([...new Set(getCountryValues()
-      .map(item => normalizePoliticalSystemCategory(item.politics?.system))
-      .filter(Boolean)
-      .filter(name => name !== "Sin datos" && normalizeText(name) !== normalizeText(correct)))]).slice(0, 3);
+  const pool = getCountryEntries()
+    .filter(([code, country]) => !quizState.asked.includes(code) && country.general?.capital?.name);
+  if (!pool.length) {
+    return null;
   }
-
-  if (distractors.length < 3) return null;
-  return { code, prompt, correct, options: shuffleArray([correct, ...distractors]), answered: false, explanation: `${currentLanguage === "en" ? "Source" : "Fuente"}: dataset GeoRisk.` };
+  const [code, country] = shuffleArray(pool)[0];
+  const correct = country.general.capital.name;
+  const distractors = shuffleArray(getCountryValues()
+    .map(item => item.general?.capital?.name)
+    .filter(Boolean)
+    .filter(name => normalizeText(name) !== normalizeText(correct))).slice(0, 3);
+  if (distractors.length < 3) {
+    return null;
+  }
+  return {
+    code,
+    prompt: `Cual es la capital de ${country.name}?`,
+    correct,
+    options: shuffleArray([correct, ...distractors]),
+    answered: false,
+    explanation: `${currentLanguage === "en" ? "Source" : "Fuente"}: dataset GeoRisk.`
+  };
 }
-
 function renderQuizPanel() {
   const status = document.getElementById("quiz-status");
   const question = document.getElementById("quiz-question");
@@ -15055,10 +14987,11 @@ function startQuizTimer() {
   }, 1000);
 }
 
-function startQuiz() {
+async function startQuiz() {
   const categorySelect = document.getElementById("quiz-category");
   const difficultySelect = document.getElementById("quiz-difficulty");
   const modeSelect = document.getElementById("quiz-mode");
+  await ensureDeferredUiModule("quiz");
   quizState = {
     category: categorySelect?.value || "capital",
     difficulty: difficultySelect?.value || "easy",
