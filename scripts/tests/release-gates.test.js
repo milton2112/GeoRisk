@@ -87,6 +87,8 @@ assert.equal(packageJson.scripts["performance:snapshot"], "node scripts/performa
 assert.equal(packageJson.scripts["maintain:quick"], "node scripts/maintenanceQuick.js", "debe existir mantenimiento rapido automatizado");
 assert.equal(packageJson.scripts["fix:source-text"], "node scripts/fixSourceText.js", "debe existir normalizacion segura de fuentes de datos");
 assert.equal(packageJson.scripts["test:text-normalization"], "node scripts/tests/text-normalization.test.js", "debe existir test especifico de mojibake");
+assert.equal(packageJson.scripts["test:critical-flows"], "node scripts/tests/critical-flows.test.js", "debe existir QA automatizado de flujos criticos");
+assert.ok(packageJson.scripts.test.includes("test:critical-flows"), "npm test debe incluir flujos criticos");
 assert.ok(prePushHook.includes("npm run prepush:check"), "hook pre-push debe correr puerta liviana local");
 assert.ok(releaseChecklist.includes("performance:snapshot"), "release:check debe guardar snapshot de performance");
 assert.ok(releaseChecklist.includes("audit:data"), "release:check debe guardar auditoria programable de datos");

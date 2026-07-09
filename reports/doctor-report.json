@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-07-09T01:59:48.179Z",
-  "packageVersion": "1.6.35",
+  "generatedAt": "2026-07-09T03:09:05.165Z",
+  "packageVersion": "1.6.36",
   "status": "operativo",
   "summary": {
     "totalFindings": 0,
     "bySeverity": {},
-    "startupBytes": 954962,
-    "scriptBytes": 653027,
+    "startupBytes": 958877,
+    "scriptBytes": 655638,
     "countriesIndexBytes": 165228,
     "conflictAuditIssues": 0,
     "dataCounts": {

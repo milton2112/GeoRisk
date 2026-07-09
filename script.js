@@ -82,7 +82,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-07-09-release-1";
+const APP_VERSION = "2026-07-09-release-2";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -9541,6 +9541,24 @@ function setTheme(theme) {
   syncThemeToolbarState();
 }
 
+function getThemePickerHint(theme) {
+  const langIndex = currentLanguage === "en" ? 1 : 0;
+  return (THEME_PICKER_HINTS[theme] || ["", ""])[langIndex] || "";
+}
+
+function getThemeLayerKind(theme) {
+  if (theme === "default") {
+    return currentLanguage === "en" ? "Base" : "Base";
+  }
+  const metric = getThemeMetricConfig(theme);
+  if (!metric) {
+    return currentLanguage === "en" ? "Category" : "Categoria";
+  }
+  return metric.estimated
+    ? (currentLanguage === "en" ? "Proxy" : "Proxy")
+    : (currentLanguage === "en" ? "Data" : "Dato");
+}
+
 const THEME_PICKER_GROUPS = [
   { key: "base", es: "Base", en: "Base", items: ["default", "continent", "religion", "politics", "formationYear", "historyType"] },
   { key: "people", es: "Poblacion y sociedad", en: "People and society", items: ["population", "density", "urbanization", "lifeExpectancy", "populationGrowth", "religionBranch", "religionDiversity", "languageDiversity"] },
@@ -9619,9 +9637,23 @@ function syncThemeToolbarState() {
     select.value = currentTheme;
   }
   const activeLabel = getThemeOptionLabel(currentTheme);
+  const activeHint = getThemePickerHint(currentTheme);
+  const activeKind = getThemeLayerKind(currentTheme);
   const activeSummary = document.getElementById("layers-summary-active");
   if (activeSummary) {
     activeSummary.textContent = activeLabel;
+  }
+  const activeContext = document.getElementById("layers-active-context");
+  const activeContextLabel = document.getElementById("layers-active-label");
+  const activeContextNote = document.getElementById("layers-active-note");
+  if (activeContext) {
+    activeContext.dataset.layerKind = normalizeText(activeKind);
+  }
+  if (activeContextLabel) {
+    activeContextLabel.textContent = activeLabel;
+  }
+  if (activeContextNote) {
+    activeContextNote.textContent = activeHint ? `${activeKind} - ${activeHint}` : activeKind;
   }
   document.querySelectorAll("[data-theme-picker]").forEach(button => {
     const active = button.dataset.themePicker === currentTheme;
@@ -9634,15 +9666,20 @@ function renderThemePicker() {
   const grid = document.getElementById("theme-quick-grid");
   if (!grid) return;
   const query = normalizeText(document.getElementById("theme-filter-input")?.value || "");
-  const langIndex = currentLanguage === "en" ? 1 : 0;
   const groups = THEME_PICKER_GROUPS.map(group => {
     const buttons = group.items
-      .map(theme => ({ theme, label: getThemeOptionLabel(theme), hint: (THEME_PICKER_HINTS[theme] || ["", ""])[langIndex] }))
+      .map(theme => ({
+        theme,
+        label: getThemeOptionLabel(theme),
+        hint: getThemePickerHint(theme),
+        kind: getThemeLayerKind(theme)
+      }))
       .filter(item => !query || normalizeText(`${item.label} ${item.hint}`).includes(query))
       .map(item => `
-        <button type="button" class="theme-picker-button" data-theme-picker="${escapeHtml(item.theme)}" aria-pressed="${item.theme === currentTheme}">
+        <button type="button" class="theme-picker-button" data-theme-picker="${escapeHtml(item.theme)}" aria-pressed="${item.theme === currentTheme}" aria-label="${escapeHtml(`${item.label}: ${item.hint || item.kind}`)}" title="${escapeHtml(`${item.label} - ${item.hint || item.kind}`)}">
           <span>${escapeHtml(item.label)}</span>
           <small>${escapeHtml(item.hint)}</small>
+          <i>${escapeHtml(item.kind)}</i>
         </button>
       `)
       .join("");
@@ -12226,11 +12263,32 @@ function setActiveRankingItem(element, rankingKey) {
     activeItem.querySelector("[aria-pressed]")?.setAttribute("aria-pressed", "false");
   });
   if (!element || !rankingKey) {
+    syncRankingActiveSummary("");
     return;
   }
   element.classList.add("is-active");
   element.setAttribute("aria-pressed", "true");
   element.querySelector("[aria-pressed]")?.setAttribute("aria-pressed", "true");
+  syncRankingActiveSummary(element.textContent.trim());
+}
+
+function syncRankingActiveSummary(label = "") {
+  const wrapper = document.getElementById("ranking-active-summary");
+  const value = document.getElementById("ranking-active-label");
+  const kicker = document.getElementById("ranking-active-kicker");
+  if (!wrapper || !value) {
+    return;
+  }
+  const hasActive = Boolean(activeRankingKey && label);
+  wrapper.classList.toggle("has-active", hasActive);
+  value.textContent = hasActive
+    ? label.replace(/\s+/g, " ").trim()
+    : (currentLanguage === "en" ? "No active selection" : "Sin seleccion activa");
+  if (kicker) {
+    kicker.textContent = hasActive
+      ? (currentLanguage === "en" ? "Active ranking" : "Ranking activo")
+      : (currentLanguage === "en" ? "Current selection" : "Seleccion actual");
+  }
 }
 
 function renderInteractiveList(targetId, items, onClick = () => {}) {
@@ -12255,8 +12313,14 @@ function renderInteractiveList(targetId, items, onClick = () => {}) {
     li.textContent = item.label;
     li.tabIndex = 0;
     li.setAttribute("role", "button");
+    li.setAttribute("aria-label", item.country
+      ? `${item.label} - ${currentLanguage === "en" ? "open profile and select on map" : "abrir ficha y marcar en mapa"}`
+      : `${item.label} - ${currentLanguage === "en" ? "show group on map" : "mostrar grupo en mapa"}`);
     li.classList.toggle("is-active", activeRankingKey === rankingKey);
     li.setAttribute("aria-pressed", String(activeRankingKey === rankingKey));
+    if (activeRankingKey === rankingKey) {
+      syncRankingActiveSummary(item.label);
+    }
     const activate = () => {
       setActiveRankingItem(li, rankingKey);
       return item.country ? selectRankedCountry(item.country) : onClick(item);
@@ -15509,6 +15573,7 @@ function setupRankingsPanel() {
   });
 
   rankingsPanel.open = false;
+  syncRankingActiveSummary("");
   rankingsPanel.addEventListener("toggle", () => {
     if (rankingsPanel.open && !deferredGlobalStatsReady) {
       scheduleDeferredGlobalStats(true);

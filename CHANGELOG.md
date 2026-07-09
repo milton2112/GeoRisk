@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.35 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.36 antes de cerrar la siguiente version.
+
+## v1.6.36 - 2026-07-09
+
+- Agrega un estado visible de capa activa en el panel de capas tematicas, con tipo de dato/proxy y boton activo mas claro.
+- Agrega un estado visible de ranking activo para confirmar que los clicks de tops/rankings quedan seleccionados.
+- Suma `test:critical-flows` para cubrir busqueda, rankings, continentes, religiones, apertura de ficha y seleccion en mapa como contrato de producto.
+- Conecta `test:critical-flows` a `npm test` y a los release gates.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-09-release-2`.
 
 ## v1.6.35 - 2026-07-09
 

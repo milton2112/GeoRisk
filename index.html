@@ -8,7 +8,7 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
   <link rel="stylesheet" href="https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Widgets/widgets.css">
-  <link rel="stylesheet" href="style.css?v=2026-07-09-release-1">
+  <link rel="stylesheet" href="style.css?v=2026-07-09-release-2">
 </head>
 <body>
 
@@ -95,6 +95,10 @@
           <option value="languageDiversity">Diversidad ling&uuml;&iacute;stica</option>
           <option value="diplomaticReach">Alcance diplom&aacute;tico</option>
         </select>
+      </div>
+      <div id="layers-active-context" class="toolbar-state-card" aria-live="polite">
+        <strong id="layers-active-label">Vista politica</strong>
+        <span id="layers-active-note">Base</span>
       </div>
       <div class="toolbar-row">
         <label for="theme-filter-input">Buscar</label>
@@ -272,6 +276,10 @@
           <option value="10000000">Mas de 10M</option>
           <option value="50000000">Mas de 50M</option>
         </select>
+      </div>
+      <div id="ranking-active-summary" class="ranking-active-summary" aria-live="polite">
+        <span id="ranking-active-kicker">Seleccion actual</span>
+        <strong id="ranking-active-label">Sin seleccion activa</strong>
       </div>
       <details class="ranking-group" open>
         <summary><span id="world-population-title">Poblacion mundial</span></summary>
@@ -619,14 +627,14 @@
   }, 7000);
 </script>
 <script src="https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Cesium.js"></script>
-<script src="app-runtime.js?v=2026-07-09-release-1"></script>
-<script src="app-theme.js?v=2026-07-09-release-1"></script>
-<script src="app-boot-scheduler.js?v=2026-07-09-release-1"></script>
-<script src="app-map.js?v=2026-07-09-release-1"></script>
-<script src="app-map-styles.js?v=2026-07-09-release-1"></script>
-<script src="app-map-interactions.js?v=2026-07-09-release-1"></script>
-<script src="app-store.js?v=2026-07-09-release-1"></script>
-<script src="script.js?v=2026-07-09-release-1"></script>
+<script src="app-runtime.js?v=2026-07-09-release-2"></script>
+<script src="app-theme.js?v=2026-07-09-release-2"></script>
+<script src="app-boot-scheduler.js?v=2026-07-09-release-2"></script>
+<script src="app-map.js?v=2026-07-09-release-2"></script>
+<script src="app-map-styles.js?v=2026-07-09-release-2"></script>
+<script src="app-map-interactions.js?v=2026-07-09-release-2"></script>
+<script src="app-store.js?v=2026-07-09-release-2"></script>
+<script src="script.js?v=2026-07-09-release-2"></script>
 
 </body>
 </html>

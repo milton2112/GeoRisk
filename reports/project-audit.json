@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-09T01:59:45.937Z",
+  "generatedAt": "2026-07-09T03:09:00.293Z",
   "status": "operativo",
   "startup": {
-    "critical": "933 KB",
-    "criticalBytes": 954962,
+    "critical": "936 KB",
+    "criticalBytes": 958877,
     "deferred": "1.08 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 9142879,
@@ -16,8 +16,8 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 653027,
-        "human": "638 KB",
+        "bytes": 655638,
+        "human": "640 KB",
         "startupCritical": true
       },
       {
@@ -51,14 +51,14 @@
       {
         "path": "style.css",
         "exists": true,
-        "bytes": 89043,
-        "human": "87 KB",
+        "bytes": 89894,
+        "human": "88 KB",
         "startupCritical": true
       },
       {
         "path": "index.html",
         "exists": true,
-        "bytes": 31322,
+        "bytes": 31775,
         "human": "31 KB",
         "startupCritical": true
       },
@@ -809,25 +809,25 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 653027,
-      "human": "638 KB"
+      "bytes": 655638,
+      "human": "640 KB"
     },
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 89043,
-      "human": "87 KB"
+      "bytes": 89894,
+      "human": "88 KB"
     },
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 42292,
-      "human": "41 KB"
+      "bytes": 42844,
+      "human": "42 KB"
     },
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 31322,
+      "bytes": 31775,
       "human": "31 KB"
     },
     {
@@ -897,16 +897,16 @@
       "human": "5 KB"
     },
     {
+      "path": "package.json",
+      "exists": true,
+      "bytes": 4708,
+      "human": "5 KB"
+    },
+    {
       "path": "app-risk-radar-ui.js",
       "exists": true,
       "bytes": 4639,
       "human": "5 KB"
-    },
-    {
-      "path": "package.json",
-      "exists": true,
-      "bytes": 4605,
-      "human": "4 KB"
     },
     {
       "path": "app-runtime.js",
@@ -958,7 +958,7 @@
     }
   ],
   "scriptMetrics": {
-    "functions": 518,
+    "functions": 521,
     "asyncFunctions": 47,
     "consoleWarnings": 18,
     "consoleErrors": 13
@@ -1024,6 +1024,7 @@
     "test:conflict-autofix",
     "test:conflicts",
     "test:country-matching",
+    "test:critical-flows",
     "test:data-language",
     "test:logic",
     "test:map-coverage",
