@@ -82,7 +82,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-07-09-release-3";
+const APP_VERSION = "2026-07-09-release-4";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -2844,6 +2844,7 @@ let rawInflationByCode = {};
 let populationGrowthByCode = {};
 let countryCodeByEnglishName = new Map();
 let wikipediaConflictDetailOverrides = {};
+let loadPublicConflictsIndexPromise = null;
 let loadConflictDetailsIndexPromise = null;
 const conflictDetailShardPromises = new Map();
 let mapNameAliasOverrides = {};
@@ -7574,6 +7575,45 @@ function getCountriesByConflict(conflictLabel) {
       )
     )
     .sort((a, b) => a.name.localeCompare(b.name, "es"));
+}
+
+function getPublicConflictSearchKeys(name = "") {
+  return uniqueNormalizedList([name, translateConflictName(name)])
+    .map(normalizeText)
+    .filter(Boolean);
+}
+
+function shouldSearchPublicConflictIndex(query = "") {
+  return /\b(guerra|batalla|conflicto|crisis|asedio|invasion|invasión|intifada|war|battle|conflict|siege|campaign|offensive)\b/i.test(query);
+}
+
+async function loadPublicConflictsIndex() {
+  if (!loadPublicConflictsIndexPromise) {
+    loadPublicConflictsIndexPromise = fetchResourceCached(
+      `./data/conflicts_index.json?v=${APP_VERSION}`,
+      "json"
+    ).then(index => (Array.isArray(index) ? index : []).map(entry => ({
+      ...entry,
+      searchKeys: getPublicConflictSearchKeys(entry?.name)
+    }))).catch(error => {
+      console.warn("No se pudo cargar el indice publico de conflictos:", error);
+      return [];
+    });
+  }
+  return loadPublicConflictsIndexPromise;
+}
+
+async function findPublicConflictIndexEntry(rawQuery = "") {
+  const queryKeys = getPublicConflictSearchKeys(rawQuery);
+  if (!queryKeys.length || !shouldSearchPublicConflictIndex(rawQuery)) {
+    return null;
+  }
+  const entries = await loadPublicConflictsIndex();
+  return entries.find(entry =>
+    entry.searchKeys?.some(key => queryKeys.includes(key))
+  ) || entries.find(entry =>
+    entry.searchKeys?.some(key => queryKeys.some(query => key.includes(query) || query.includes(key)))
+  ) || null;
 }
 
 function getCountriesByPeriod(periodLabel) {
@@ -13351,7 +13391,10 @@ async function selectSearchResult(result) {
   }
 
   if (result.type === "conflict") {
-    const countries = getCountriesByConflict(result.value);
+    const indexedCountries = Array.isArray(result.countries)
+      ? result.countries.map(code => countriesData[code]).filter(Boolean)
+      : [];
+    const countries = indexedCountries.length ? indexedCountries : getCountriesByConflict(result.value);
     if (renderSelectableCountryGroup(
       result.label,
       currentLanguage === "en" ? "Countries linked to this war or battle" : "Paises ligados a esta guerra o batalla",
@@ -13562,6 +13605,17 @@ async function searchMap() {
       label: conflict,
       type: "conflict",
       value: conflict
+    });
+    return;
+  }
+
+  const indexedConflict = await findPublicConflictIndexEntry(rawQuery);
+  if (indexedConflict) {
+    await selectSearchResult({
+      label: indexedConflict.name,
+      type: "conflict",
+      value: indexedConflict.name,
+      countries: indexedConflict.countries || []
     });
     return;
   }

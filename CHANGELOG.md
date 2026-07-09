@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.37 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.38 antes de cerrar la siguiente version.
+
+## v1.6.38 - 2026-07-09
+
+- Compacta `countries_index.json` quitando previews inline de conflictos y `isCapital` redundante en capitales; los conflictos quedan en `conflicts_index` y shards bajo demanda.
+- Baja `countries_index.json` de ~161 KB a ~141 KB y reduce el arranque critico sin perder `conflictCount` para rankings/contadores.
+- Agrega fallback de busqueda de guerras/batallas contra `data/conflicts_index.json` para seguir marcando paises aunque el indice inicial no traiga conflictos embebidos.
+- Refuerza `startup-data` y `critical-flows` para bloquear regresiones de datos pesados en el arranque y de busqueda de conflictos.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-09-release-4`.
 
 ## v1.6.37 - 2026-07-09
 

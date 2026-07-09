@@ -61,6 +61,7 @@ assert.ok(dataManifest.productionPublic.files.includes("data/countries/conflicts
 const curationAudit = await fs.readJson(path.join(projectRoot, "reports", "data-curation-audit.json"));
 assert.ok(curationAudit.conflictDateQuality?.pendingCount > 0, "auditoria debe listar conflictos pendientes de fecha fuera del indice publico");
 assert.ok(conflictDetailsIndex.conflicts.length > 100, "detalles de conflictos deben dividirse en shards bajo demanda");
+assert.ok(script.includes("data/conflicts_index.json"), "runtime debe consultar el indice publico liviano de conflictos bajo demanda");
 assert.ok(script.includes("data/conflicts/details_index.json"), "runtime debe consultar el indice liviano de detalles");
 assert.equal((script.match(/conflict_details\.generated\.json/g) || []).length, 0, "runtime no debe descargar el monolito de conflictos");
 for (const detail of conflictDetailsIndex.conflicts.slice(0, 10)) {
@@ -341,7 +342,7 @@ for (const country of Object.values(index)) {
     }
   }
   assert.ok(!Object.hasOwn(country, "conflicts"), "conflictos duplicados no deben vivir en raiz del indice");
-  assert.ok((country.military?.conflicts || []).length <= 1, "conflictos del indice deben venir muy resumidos");
+  assert.ok(!Array.isArray(country.military?.conflicts) || country.military.conflicts.length === 0, "conflictos del indice deben vivir en shards e indices bajo demanda");
   assert.ok((country.religion?.composition || []).length <= 2, "religion del indice debe venir resumida");
 }
 

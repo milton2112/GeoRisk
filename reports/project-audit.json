@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-09T03:53:18.051Z",
+  "generatedAt": "2026-07-09T04:03:16.650Z",
   "status": "operativo",
   "startup": {
-    "critical": "935 KB",
-    "criticalBytes": 957846,
+    "critical": "917 KB",
+    "criticalBytes": 938778,
     "deferred": "1.08 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 9142879,
@@ -16,8 +16,8 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 655638,
-        "human": "640 KB",
+        "bytes": 657581,
+        "human": "642 KB",
         "startupCritical": true
       },
       {
@@ -44,8 +44,8 @@
       {
         "path": "data/countries_index.json",
         "exists": true,
-        "bytes": 165228,
-        "human": "161 KB",
+        "bytes": 144217,
+        "human": "141 KB",
         "startupCritical": true
       },
       {
@@ -128,8 +128,8 @@
       {
         "path": "data/countries_index.json",
         "exists": true,
-        "bytes": 165228,
-        "human": "161 KB"
+        "bytes": 144217,
+        "human": "141 KB"
       },
       {
         "path": "data/country_weights.json",
@@ -809,8 +809,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 655638,
-      "human": "640 KB"
+      "bytes": 657581,
+      "human": "642 KB"
     },
     {
       "path": "style.css",
@@ -821,8 +821,8 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 43260,
-      "human": "42 KB"
+      "bytes": 43969,
+      "human": "43 KB"
     },
     {
       "path": "index.html",
@@ -958,9 +958,9 @@
     }
   ],
   "scriptMetrics": {
-    "functions": 521,
-    "asyncFunctions": 47,
-    "consoleWarnings": 18,
+    "functions": 525,
+    "asyncFunctions": 49,
+    "consoleWarnings": 19,
     "consoleErrors": 13
   },
   "visualMetrics": {

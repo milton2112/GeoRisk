@@ -2,15 +2,6 @@ function limitArray(value, maxItems = 2) {
   return Array.isArray(value) ? value.slice(0, maxItems) : [];
 }
 
-function compactConflict(entry = {}) {
-  return {
-    name: entry.name,
-    startYear: entry.startYear ?? null,
-    endYear: entry.endYear ?? null,
-    ongoing: Boolean(entry.ongoing)
-  };
-}
-
 function pruneEmpty(value) {
   if (Array.isArray(value)) {
     return value.map(pruneEmpty).filter(item => {
@@ -38,6 +29,15 @@ function pruneEmpty(value) {
 function compactSymbols(symbols = {}) {
   return {
     assets: symbols.assets || {}
+  };
+}
+
+function compactCapital(capital) {
+  if (!capital) return null;
+  if (typeof capital === "string") return { name: capital };
+  return {
+    name: capital.name || capital.label || null,
+    population: capital.population ?? null
   };
 }
 
@@ -78,7 +78,7 @@ export function buildStartupCountryIndex(countries = {}) {
           population: country.general?.population ?? 0,
           officialName: country.general?.officialName ?? country.name,
           symbols: compactSymbols(country.general?.symbols),
-          capital: country.general?.capital || null,
+          capital: compactCapital(country.general?.capital),
           languages: compactNameList(country.general?.languages, 2)
         },
         history: {
@@ -94,7 +94,6 @@ export function buildStartupCountryIndex(countries = {}) {
         military: {
           active: country.military?.active ?? null,
           reserve: country.military?.reserve ?? null,
-          conflicts: limitArray(country.military?.conflicts, 1).map(compactConflict),
           conflictCount: Array.isArray(country.military?.conflicts) ? country.military.conflicts.length : 0,
           conflictsComplete: false
         },
