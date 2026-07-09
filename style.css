@@ -455,13 +455,6 @@ body.globe-loading #startup-status {
   gap: 7px;
 }
 
-.theme-picker-button{min-height:46px;text-align:left;display:grid;grid-template-columns:1fr auto;gap:2px 8px}
-.theme-picker-button.is-active{border-color:#72dec0;box-shadow:inset 3px 0 0 #72dec0}
-.theme-picker-button *,.toolbar-state-card *,.ranking-active-summary *{min-width:0;overflow-wrap:anywhere}
-.theme-picker-button small{grid-column:1/-1}
-.theme-picker-button i{padding:2px 6px;border-radius:999px;background:#20364c;color:#cfe0ef;font-size:.62rem;font-style:normal;text-transform:uppercase}
-.toolbar-state-card{display:grid;gap:3px;margin:0 0 10px;padding:9px 10px;border:1px solid #305f6d;border-radius:8px}
-
 body.layers-panel-open #compare-hub-panel,
 body.layers-panel-open #quiz-hub-panel,
 body.layers-panel-open #news-hub-panel {
@@ -964,10 +957,6 @@ body.layers-panel-open #news-hub-panel {
   font: inherit;
   font-size: 0.78rem;
 }
-
-.ranking-active-summary{display:grid;margin:8px 0 10px;padding:8px 10px;border:1px solid #28455e;border-radius:8px}
-.ranking-active-summary.has-active{border-color:#72dec0}
-.ranking-active-summary span{color:#95a8ba;font-size:.66rem;font-weight:800;text-transform:uppercase}
 
 .timeline-item {
   position: relative;
@@ -2160,13 +2149,9 @@ body.layers-panel-open #news-hub-panel {
   margin-top: 12px;
 }
 
-.rank-link{cursor:pointer;border-radius:8px}
-
 .rank-link:hover {
   color: #9fd0ff;
 }
-
-.rank-link.is-active{color:#eef5ff;background:#123331;box-shadow:inset 3px 0 0 #72dec0}
 
 .religion-group > button,
 .religion-subrank-item > button {

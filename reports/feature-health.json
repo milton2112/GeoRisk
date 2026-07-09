@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-07-09T03:09:04.393Z",
-  "packageVersion": "1.6.36",
+  "generatedAt": "2026-07-09T03:53:20.477Z",
+  "packageVersion": "1.6.37",
   "status": "operativo",
   "summary": {
     "totalFeatures": 10,
@@ -14,7 +14,7 @@
       "label": "Mapa 2D/3D",
       "status": "operativo",
       "summary": {
-        "totalChecks": 12,
+        "totalChecks": 13,
         "failedChecks": 0
       },
       "checks": [
@@ -97,6 +97,13 @@
         },
         {
           "ok": true,
+          "type": "test-script",
+          "target": "test:critical-flows",
+          "detail": "Mapa 2D/3D debe tener test:critical-flows.",
+          "action": null
+        },
+        {
+          "ok": true,
           "type": "data-file",
           "target": "data/world_countries_simplified.geo.json",
           "detail": "Mapa 2D/3D necesita data/world_countries_simplified.geo.json.",
@@ -109,7 +116,7 @@
       "label": "Ficha pais",
       "status": "operativo",
       "summary": {
-        "totalChecks": 11,
+        "totalChecks": 12,
         "failedChecks": 0
       },
       "checks": [
@@ -189,6 +196,13 @@
           "target": "test:startup",
           "detail": "Ficha pais debe tener test:startup.",
           "action": null
+        },
+        {
+          "ok": true,
+          "type": "test-script",
+          "target": "test:critical-flows",
+          "detail": "Ficha pais debe tener test:critical-flows.",
+          "action": null
         }
       ]
     },
@@ -197,7 +211,7 @@
       "label": "Busqueda",
       "status": "operativo",
       "summary": {
-        "totalChecks": 13,
+        "totalChecks": 14,
         "failedChecks": 0
       },
       "checks": [
@@ -287,6 +301,13 @@
         },
         {
           "ok": true,
+          "type": "test-script",
+          "target": "test:critical-flows",
+          "detail": "Busqueda debe tener test:critical-flows.",
+          "action": null
+        },
+        {
+          "ok": true,
           "type": "data-file",
           "target": "data/search_index.json",
           "detail": "Busqueda necesita data/search_index.json.",
@@ -299,7 +320,7 @@
       "label": "Rankings y radar",
       "status": "operativo",
       "summary": {
-        "totalChecks": 15,
+        "totalChecks": 16,
         "failedChecks": 0
       },
       "checks": [
@@ -406,6 +427,13 @@
           "type": "test-script",
           "target": "test:startup",
           "detail": "Rankings y radar debe tener test:startup.",
+          "action": null
+        },
+        {
+          "ok": true,
+          "type": "test-script",
+          "target": "test:critical-flows",
+          "detail": "Rankings y radar debe tener test:critical-flows.",
           "action": null
         }
       ]

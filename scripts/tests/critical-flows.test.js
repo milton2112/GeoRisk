@@ -6,13 +6,14 @@ const projectRoot = path.resolve(process.cwd());
 const script = await fs.readFile(path.join(projectRoot, "script.js"), "utf8");
 const indexHtml = await fs.readFile(path.join(projectRoot, "index.html"), "utf8");
 const css = await fs.readFile(path.join(projectRoot, "style.css"), "utf8");
+const polishCss = await fs.readFile(path.join(projectRoot, "style-polish.css"), "utf8");
 
 assert.ok(indexHtml.includes('id="layers-active-context"'), "capas debe mostrar el estado activo en el panel");
 assert.ok(indexHtml.includes('id="ranking-active-summary"'), "rankings debe mostrar seleccion activa persistente");
-assert.ok(css.includes(".toolbar-state-card"), "estado de capas debe tener estilo propio");
-assert.ok(css.includes(".ranking-active-summary.has-active"), "estado activo de rankings debe destacarse visualmente");
-assert.ok(css.includes(".theme-picker-button i"), "botones de capas deben marcar tipo de dato/proxy");
-assert.ok(css.includes(".rank-link.is-active"), "rankings deben resaltar el item activo");
+assert.ok(polishCss.includes(".toolbar-state-card"), "estado de capas debe tener estilo diferido propio");
+assert.ok(polishCss.includes(".ranking-active-summary.has-active"), "estado activo de rankings debe destacarse visualmente");
+assert.ok(polishCss.includes(".theme-picker-button i"), "botones de capas deben marcar tipo de dato/proxy");
+assert.ok(polishCss.includes(".rank-link.is-active"), "rankings deben resaltar el item activo");
 
 assert.ok(
   /if \(result\.type === "country"\)[\s\S]{0,180}await openCountryByCode\(countryCode, result\.label\)/.test(script),

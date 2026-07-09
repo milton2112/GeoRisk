@@ -8,7 +8,14 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.36 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.37 antes de cerrar la siguiente version.
+
+## v1.6.37 - 2026-07-09
+
+- Mueve el pulido visual de estados activos de capas/rankings a `style-polish.css` para recuperar margen en el CSS critico.
+- Baja `style.css` de ~89.9 KB a ~86.8 KB y deja margen real bajo el presupuesto de 90 KB.
+- Conecta `test:critical-flows` a la auditoria de salud funcional para mapa, ficha, busqueda y rankings.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-09-release-3`.
 
 ## v1.6.36 - 2026-07-09
 

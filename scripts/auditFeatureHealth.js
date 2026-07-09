@@ -64,7 +64,7 @@ const features = [
     files: ["app-map.js", "app-map-styles.js", "app-map-interactions.js"],
     runtimeTokens: ["ensureCountryLayersReady", "selectCountryLayersWhenReady", "scheduleDetailedOverlayUpgrade"],
     htmlTokens: ['id="map"', 'id="theme-select"', 'id="quality-preset-select"'],
-    testScripts: ["test:map-coverage", "test:country-matching"],
+    testScripts: ["test:map-coverage", "test:country-matching", "test:critical-flows"],
     dataFiles: ["data/world_countries_simplified.geo.json"]
   },
   {
@@ -74,7 +74,7 @@ const features = [
     moduleTokens: { "app-country-panel.js": ["GeoRiskCountryPanel", "renderSkeleton", "buildExecutiveSummary"] },
     runtimeTokens: ["openCountryByCode", "openCountryModal", "loadCountryDetail"],
     htmlTokens: ['id="country-modal"', 'id="toggle-country-panel"'],
-    testScripts: ["test:modal-render", "test:startup"]
+    testScripts: ["test:modal-render", "test:startup", "test:critical-flows"]
   },
   {
     key: "search",
@@ -83,7 +83,7 @@ const features = [
     moduleTokens: { "app-search.js": ["GeoRiskSearch", "parseNaturalQuery", "groupSuggestions"] },
     runtimeTokens: ['ensureDeferredUiModule("search")', "openCountryByCode(countryCode"],
     htmlTokens: ['id="map-search-input"', 'id="search-suggestions"', 'id="search-memory"'],
-    testScripts: ["test:search", "test:startup"],
+    testScripts: ["test:search", "test:startup", "test:critical-flows"],
     dataFiles: ["data/search_index.json"]
   },
   {
@@ -93,7 +93,7 @@ const features = [
     moduleTokens: { "app-rankings.js": ["GeoRiskRankings", "getRiskComponents", "proxyFields"] },
     runtimeTokens: ["setupRankingsPanel", "selectRankedCountry", "getCachedRanking", "isRankingsPanelOpen"],
     htmlTokens: ['id="rankings-panel"', 'id="open-risk-radar-button"'],
-    testScripts: ["test:rankings", "test:visual-hygiene", "test:startup"]
+    testScripts: ["test:rankings", "test:visual-hygiene", "test:startup", "test:critical-flows"]
   },
   {
     key: "timeline_conflicts",
