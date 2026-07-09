@@ -57,10 +57,30 @@ function updateHtmlQueryStrings(source, versionStamp) {
   return source.replace(/\?v=[^"'\s<>]+/g, `?v=${versionStamp}`);
 }
 
+function buildDefaultReleaseNotes(versionStamp) {
+  return [
+    "- Prepara una nueva version de mantenimiento con mediciones y auditorias actualizadas.",
+    `- Actualiza \`APP_VERSION\` y \`CACHE_VERSION\` a \`${versionStamp}\`.`
+  ].join("\n");
+}
+
+function getUnpublishedNotes(source, versionStamp) {
+  const match = source.match(/## Sin publicar\n\n([\s\S]*?)(?=\n## v|$)/);
+  const notes = match?.[1]?.trim() || "";
+  const isPlaceholder = /^- Se documentaran aca los cambios posteriores a v[\d.]+ antes de cerrar la siguiente version\.$/.test(notes);
+  if (!notes || isPlaceholder) {
+    return buildDefaultReleaseNotes(versionStamp);
+  }
+
+  return notes.includes("APP_VERSION") || notes.includes("CACHE_VERSION")
+    ? notes
+    : `${notes}\n- Actualiza \`APP_VERSION\` y \`CACHE_VERSION\` a \`${versionStamp}\`.`;
+}
+
 function updateChangelog(source, version, versionStamp, date) {
   const sectionTitle = `## v${version} - ${date}`;
   const unpublished = `## Sin publicar\n\n- Se documentaran aca los cambios posteriores a v${version} antes de cerrar la siguiente version.`;
-  const releaseSection = `${sectionTitle}\n\n- Automatiza GitHub Actions como puerta de release con auditorias, presupuestos de arranque y smoke tests.\n- Agrega pre-push local liviano y limpieza de almacenamiento con \`clean:storage\`.\n- Agrega auditoria de datos programable y snapshot de performance por release.\n- Actualiza \`APP_VERSION\` y \`CACHE_VERSION\` a \`${versionStamp}\`.`;
+  const releaseSection = `${sectionTitle}\n\n${getUnpublishedNotes(source, versionStamp)}`;
 
   const withoutCurrentRelease = source.includes(sectionTitle)
     ? source.replace(new RegExp(`\\n${sectionTitle.replace(/\./g, "\\.")}[\\s\\S]*?(?=\\n## v|$)`), "")

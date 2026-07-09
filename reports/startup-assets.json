@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-05T20:23:59.453Z",
-  "startupBytes": 992231,
-  "startupHuman": "969 KB",
-  "deferredBytes": 1099633,
-  "deferredHuman": "1.05 MB",
+  "generatedAt": "2026-07-09T01:59:45.426Z",
+  "startupBytes": 954962,
+  "startupHuman": "933 KB",
+  "deferredBytes": 1130027,
+  "deferredHuman": "1.08 MB",
   "estimatedRuntimeMemory": {
     "countriesFullBytes": 9142879,
     "countriesFullHuman": "8.72 MB",
@@ -15,8 +15,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 690296,
-      "human": "674 KB",
+      "bytes": 653027,
+      "human": "638 KB",
       "startupCritical": true
     },
     {
@@ -62,6 +62,13 @@
       "startupCritical": true
     },
     {
+      "path": "app-conflict-aliases.js",
+      "exists": true,
+      "bytes": 30394,
+      "human": "30 KB",
+      "startupCritical": false
+    },
+    {
       "path": "style-polish.css",
       "exists": true,
       "bytes": 21222,
@@ -88,13 +95,6 @@
       "bytes": 8027,
       "human": "8 KB",
       "startupCritical": false
-    },
-    {
-      "path": "app-export-share.js",
-      "exists": true,
-      "bytes": 7947,
-      "human": "8 KB",
-      "startupCritical": false
     }
   ],
   "assets": [
@@ -108,8 +108,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 690296,
-      "human": "674 KB",
+      "bytes": 653027,
+      "human": "638 KB",
       "startupCritical": true
     },
     {
@@ -243,6 +243,13 @@
       "exists": true,
       "bytes": 7947,
       "human": "8 KB",
+      "startupCritical": false
+    },
+    {
+      "path": "app-conflict-aliases.js",
+      "exists": true,
+      "bytes": 30394,
+      "human": "30 KB",
       "startupCritical": false
     },
     {

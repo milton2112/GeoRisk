@@ -179,6 +179,7 @@ assert.ok(!indexHtml.includes("app-search.js"), "busqueda avanzada debe cargarse
 assert.ok(!indexHtml.includes("app-rankings.js"), "rankings debe cargarse bajo demanda");
 assert.ok(!indexHtml.includes("app-ui-polish.js"), "pulido UI debe cargarse bajo demanda");
 assert.ok(!indexHtml.includes("app-help-ui.js"), "guia rapida debe cargarse bajo demanda");
+assert.ok(!indexHtml.includes("app-conflict-aliases.js"), "alias pesados de conflictos deben cargarse bajo demanda");
 assert.ok(!indexHtml.includes("style-polish.css"), "pulido visual no debe bloquear el primer mapa");
 assert.ok(!indexHtml.includes("fonts.googleapis.com"), "fuentes remotas no deben bloquear el primer render");
 assert.ok(!/bootHeavyDataEnhancements[\s\S]{0,500}loadRuntimeCuration/.test(script), "curaduria profunda debe esperar a una ficha");
@@ -197,6 +198,8 @@ assert.ok(script.includes("async function loadCountryDetail"), "detalle de pais 
 assert.ok(script.includes("async function loadCountryConflictDetail"), "conflictos de pais deben cargarse desde shard bajo demanda");
 assert.ok(script.includes("data/countries/conflicts"), "runtime debe conocer shards de conflictos por pais");
 assert.ok(script.includes("maybeEnhanceOpenConflictModal"), "conflictos detallados deben cargarse al abrir modal");
+assert.ok(script.includes("app-conflict-aliases.js"), "alias pesados de conflictos deben vivir fuera del runtime critico");
+assert.ok(script.includes("ensureConflictAliasesLoaded"), "runtime debe poder cargar alias de conflictos bajo demanda");
 assert.ok(script.includes("scheduleDetailedOverlayUpgrade"), "GeoJSON detallado debe cargarse por upgrade diferido");
 assert.ok(appMap.includes("world_countries_simplified.geo.json"), "GeoJSON simplificado debe ser default inicial");
 assert.ok(appMap.includes("world_countries.geo.json"), "GeoJSON detallado debe existir solo para zoom cercano");

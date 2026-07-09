@@ -82,7 +82,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-07-05-release-6";
+const APP_VERSION = "2026-07-09-release-1";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -1967,13 +1967,11 @@ const DATA_SOURCE_SUMMARY = {
   ]
 };
 
-const CONFLICT_NAME_ALIASES = [
+const CORE_CONFLICT_NAME_ALIASES = [
   [/^Guerra de Malvinas$/i, "Guerra de las Malvinas"],
   [/^Falklands War$/i, "Guerra de las Malvinas"],
-  [/^Guerra de Falklands$/i, "Guerra de las Malvinas"],
   [/^World War I$/i, "Primera Guerra Mundial"],
   [/^First World War$/i, "Primera Guerra Mundial"],
-  [/^Great War$/i, "Primera Guerra Mundial"],
   [/^World War II$/i, "Segunda Guerra Mundial"],
   [/^Second World War$/i, "Segunda Guerra Mundial"],
   [/^Iraq War$/i, "Guerra de Irak"],
@@ -1981,455 +1979,59 @@ const CONFLICT_NAME_ALIASES = [
   [/^Korean War$/i, "Guerra de Corea"],
   [/^Kosovo War$/i, "Guerra de Kosovo"],
   [/^Vietnam War$/i, "Guerra de Vietnam"],
-  [/^War of Attrition$/i, "Guerra de Desgaste"],
   [/^Six-Day War$/i, "Guerra de los Seis Dias"],
   [/^Yom Kippur War$/i, "Guerra de Yom Kipur"],
-  [/^First Congo War$/i, "Primera Guerra del Congo"],
-  [/^Second Congo War$/i, "Segunda Guerra del Congo"],
-  [/^Kivu conflict$/i, "Guerra de Kivu"],
   [/^Russo-Ukrainian War$/i, "Guerra rusoucraniana"],
   [/^Russian invasion of Ukraine$/i, "Guerra rusoucraniana"],
   [/^War in Donbas$/i, "Guerra del Donbas"],
-  [/^Arab-Israeli War of 1948$/i, "Guerra arabe-israeli de 1948"],
   [/^Chinese Civil War$/i, "Guerra civil china"],
   [/^Crimean War$/i, "Guerra de Crimea"],
-  [/^Russo-Japanese War$/i, "Guerra ruso-japonesa"],
-  [/^Algerian War$/i, "Guerra de Argelia"],
-  [/^War of the Pacific$/i, "Guerra del Pacifico"],
-  [/^Chaco War$/i, "Guerra del Chaco"],
-  [/^Cenepa War$/i, "Guerra del Cenepa"],
-  [/^False Paquisha conflict$/i, "Conflicto del Falso Paquisha"],
-  [/^Dominican War of Independence$/i, "Guerra de la Independencia Dominicana"],
-  [/^War of the Confederation$/i, "Guerra contra la Confederacion Peru-Boliviana"],
-  [/^Guatemalan-Salvadoran War of 1906$/i, "Guerra entre Guatemala y El Salvador de 1906"],
-  [/^Honduran-Salvadoran War of 1871$/i, "Guerra entre Honduras y El Salvador de 1871"],
-  [/^Mexican Drug War$/i, "Guerra contra el narcotrafico en Mexico"],
-  [/^Zapatista uprising$/i, "Levantamiento zapatista"],
-  [/^Guerra de Malvinas \\(1982\\)$/i, "Guerra de las Malvinas"],
-  [/^Guerra contra el narcotrÃ¡fico en MÃ©xico$/i, "Guerra contra el narcotrafico en Mexico"],
-  [/^Guerra contra la ConfederaciÃ³n PerÃº-Boliviana$/i, "Guerra contra la Confederacion Peru-Boliviana"],
-  [/^Honduran-Salvadoran War de 1871$/i, "Guerra entre Honduras y El Salvador de 1871"],
-  [/^Gulf War$/i, "Guerra del Golfo"],
-  [/^Syrian civil war$/i, "Guerra civil siria"],
   [/^Spanish Civil War$/i, "Guerra civil espanola"],
-  [/^Iran-Iraq War$/i, "Guerra Iran-Iraq"],
-  [/^First Intifada$/i, "Primera intifada"],
-  [/^Second Intifada$/i, "Segunda intifada"],
-  [/^Operation Deliberate Force$/i, "Operacion Deliberate Force"],
-  [/^1984 DMZ incident$/i, "Incidente de la ZDC de 1984"],
-  [/^Struggle for Negev 1947-1956$/i, "Campana del Neguev (1947-1956)"],
-  [/^Battle of Amiens$/i, "Batalla de Amiens"],
-  [/^Battle of Bubiyan$/i, "Batalla de Bubiyan"],
-  [/^Battle of Long Tan$/i, "Batalla de Long Tan"],
-  [/^Battle of Manila$/i, "Batalla de Manila"],
-  [/^Borneo campaign$/i, "Campana de Borneo"],
-  [/^Sa'dah conflict$/i, "Conflicto de Sa'dah"],
-  [/^Water War over the Jordan River$/i, "Guerra por el agua del rio Jordan"],
-  [/^Arabâ€“Israeli Wars$/i, "Guerras arabe-israelies"],
-  [/^Guerra Ã¡rabe-israelÃ­ de 1948$/i, "Guerra arabe-israeli de 1948"],
-  [/^Bombing de Gaza Strip$/i, "Bombardeo de la Franja de Gaza"],
-  [/^Conflicto de la Franja de Gaza de 2008[â€“-]2009$/i, "Conflicto de la Franja de Gaza de 2008-2009"],
-  [/^IrÃ¡n.?Israel conflict during Syrian civil war$/i, "Conflicto irano-israeli durante la guerra civil siria"],
-  [/^Conflicto irano-israel[iÃ­]$/i, "Conflicto irano-israeli"],
-  [/^Israeli-British clash de January 7, 1949$/i, "Choque israelo-britanico del 7 de enero de 1949"],
-  [/^Conflicto fronterizo sirio-israel[iÃ­] \\(2012-presente\\)$/i, "Conflicto fronterizo sirio-israeli (2012-presente)"],
-  [/^Crisis del golfo PÃ©rsico de 2019-2022$/i, "Crisis del golfo Persico de 2019-2022"],
-  [/^Guerra subsidiaria irano-saud[iÃ­]$/i, "Guerra subsidiaria irano-saudi"],
-  [/^Guerra subsidiaria irano-turca$/i, "Guerra subsidiaria irano-turca"],
-  [/^Insurgencia palestina en el sur del L[iÃ­]bano$/i, "Insurgencia palestina en el sur del Libano"],
-  [/^Ataque de IrÃ¡n a Israel de 2024$/i, "Ataque de Iran a Israel de 2024"],
-  [/^Ataques de Estados Unidos en Yemen en 2025$/i, "Ataques de Estados Unidos en Yemen en 2025"],
-  [/^Conflicto afgano-iran[iÃ­] de 2021$/i, "Conflicto afgano-irani de 2021"],
-  [/^Conflicto afgano-iran[iÃ­] de 2023$/i, "Conflicto afgano-irani de 2023"],
-  [/^IntervenciÃ³n estadounidense en la guerra civil siria$/i, "Intervencion estadounidense en la guerra civil siria"],
-  [/^Iranian bombings en Iraqi Kurdistan en 2022$/i, "Bombardeos iranies en el Kurdistan iraqui en 2022"],
-  [/^Iraq War troop surge de 2007$/i, "Escalada de tropas en la guerra de Irak de 2007"],
-  [/^Levantamiento de Barein de 2011$/i, "Levantamiento de Barein de 2011"],
-  [/^RebeliÃ³n asiria$/i, "Rebelion asiria"],
-  [/^Saudi maritime expansion, 1789-1809$/i, "Expansion maritima saudita (1789-1809)"],
-  [/^Syrian front en War de Attrition$/i, "Frente sirio en la Guerra de Desgaste"],
-  [/^Enfrentamientos en el sur de Siria \\(abril-mayo de 2025\\)$/i, "Enfrentamientos en el sur de Siria (abril-mayo de 2025)"],
-  [/^Enfrentamientos en el sur de Siria \\(julio de 2025-presente\\)$/i, "Enfrentamientos en el sur de Siria (julio de 2025-presente)"],
-  [/^Battle of Inchon$/i, "Batalla de Incheon"],
-  [/^Inchon Landing$/i, "Batalla de Incheon"],
-  [/^UN offensive into North Korea$/i, "Ofensiva de la ONU en Corea del Norte"],
-  [/^Vietnam Counteroffensive Phase II$/i, "Contraofensiva vietnamita fase II"],
-  [/^Vietnam Counteroffensive Phase III$/i, "Contraofensiva vietnamita fase III"],
-  [/^Arabâ€“Israeli Wars$/i, "Guerras arabe-israelies"],
-  [/^Arab-Israeli Wars$/i, "Guerras arabe-israelies"],
-  [/^Gaza War$/i, "Guerra de Gaza"],
-  [/^2012 Gaza War$/i, "Guerra de Gaza de 2012"],
-  [/^Iran.?Israel conflict during Syrian civil war$/i, "Conflicto irano-israeli durante la guerra civil siria"],
-  [/^Iran.?Israel conflict$/i, "Conflicto irano-israeli"],
-  [/^Israeli-British clash.*1949$/i, "Choque israelo-britanico del 7 de enero de 1949"],
-  [/^Battle of the Bulge$/i, "Batalla de las Ardenas"],
-  [/^North Borneo campaign$/i, "Batalla de North Borneo"],
-  [/^North Borneo battle$/i, "Batalla de North Borneo"],
-  [/^Battle of Midway$/i, "Batalla de Midway"],
-  [/^Guadalcanal Campaign$/i, "Campaña de Guadalcanal"],
-  [/^Naval Battle of Guadalcanal$/i, "Batalla naval de Guadalcanal"],
-  [/^First Battle of El Alamein$/i, "Primera Batalla de El Alamein"],
-  [/^Second Battle of El Alamein$/i, "Segunda batalla de El Alamein"],
-  [/^Battle of Gazala$/i, "Batalla de Gazala"],
-  [/^Tet Offensive$/i, "Ofensiva del Tet"],
-  [/^Siege of Khe Sanh$/i, "Sitio de Khe Sanh"],
-  [/^Battle of Coral[-â€“]Balmoral$/i, "Batalla de Coral-Balmoral"],
-  [/^Batalla de Coral[-â€“]Balmoral$/i, "Batalla de Coral-Balmoral"],
-  [/^Battle of Saigon$/i, "Batalla de Saigon"],
-  [/^Signal Hill.*Vietnam$/i, "Batalla de Signal Hill Vietnam"],
-  [/^Battle of Ia Drang$/i, "Batalla del valle de Ia Drang"],
-  [/^Ia Drang Valley$/i, "Batalla del valle de Ia Drang"],
-  [/^Indochina Wars$/i, "Guerras de Indochina"],
-  [/^Darfur conflict$/i, "Conflicto de Darfur"],
-  [/^Ethiopian Civil War$/i, "Guerra civil etiope"],
-  [/^Ethiopian-Somali border conflict$/i, "Conflicto fronterizo etiope-somali"],
-  [/^Western Sahara conflict$/i, "Conflicto del Sahara Occidental"],
-  [/^Western Sahara War$/i, "Guerra del Sahara Occidental"],
-  [/^South Sudanese Civil War$/i, "Guerra civil sursudanesa"],
-  [/^Second Sudanese Civil War$/i, "Segunda guerra civil sudanesa"],
-  [/^April 2009 raid off Somalia$/i, "Incursion de abril de 2009 frente a Somalia"],
-  [/^Anti-piracy measures en Somalia$/i, "Medidas antipirateria en Somalia"],
-  [/^Chadian-Libyan conflict$/i, "Conflicto entre Chad y Libia"],
-  [/^Djiboutian-Eritrean border conflict$/i, "Conflicto fronterizo entre Yibuti y Eritrea"],
-  [/^Eritrean-Ethiopian War$/i, "Guerra entre Etiopia y Eritrea"],
-  [/^First Burundi War$/i, "Primera guerra de Burundi"],
-  [/^First Burundian Civil War$/i, "Primera guerra de Burundi"],
-  [/^First Chad \\(FROLINAT\\) Rebellion$/i, "Primera rebelion de Chad (FROLINAT)"],
-  [/^First Rwanda War$/i, "Primera guerra de Ruanda"],
-  [/^Second Rwanda War$/i, "Segunda guerra de Ruanda"],
-  [/^Third Rwanda War$/i, "Tercera guerra de Ruanda"],
-  [/^First Uganda War$/i, "Primera guerra de Uganda"],
-  [/^Republic of the Congo Civil War$/i, "Guerra civil de la Republica del Congo"],
-  [/^Somaliland War of Independence$/i, "Guerra de Independencia de Somalilandia"],
-  [/^Somaliland War$/i, "Guerra de Somalilandia"],
-  [/^Grebo-Liberian War$/i, "Guerra grebo-liberiana"],
-  [/^Operation Ivory Coast$/i, "Operacion Costa de Marfil"],
-  [/^First Ivorian Civil War$/i, "Primera guerra civil marfilena"],
-  [/^Second Ivorian Civil War$/i, "Segunda guerra civil marfilena"],
-  [/^Second Liberia War$/i, "Segunda guerra liberiana"],
-  [/^Moroccan invasion of Spanish Sahara$/i, "Invasion marroqui del Sahara espanol"],
-  [/^First Sahrawi Intifada$/i, "Primera intifada saharaui"],
-  [/^Second Sahrawi Intifada$/i, "Segunda intifada saharaui"],
-  [/^Guerra civil de la RepÃºblica del Congo$/i, "Guerra civil de la Republica del Congo"],
-  [/^Guerra entre EtiopÃ­a y Eritrea$/i, "Guerra entre Etiopia y Eritrea"],
-  [/^Invasión marroquí del Sahara español$/i, "Invasion marroqui del Sahara espanol"],
-  [/^OperaciÃ³n Costa de Marfil$/i, "Operacion Costa de Marfil"],
-  [/^Primera Intifada saharaui$/i, "Primera intifada saharaui"],
-  [/^Segunda Intifada saharaui$/i, "Segunda intifada saharaui"],
-  [/^Battle of Arras$/i, "Batalla de Arras"],
-  [/^Battle of Cambrai$/i, "Batalla de Cambrai"],
-  [/^Battle of Jutland$/i, "Batalla de Jutlandia"],
-  [/^Battle of Vimy Ridge$/i, "Batalla de la Cresta de Vimy"],
-  [/^Battle of Messines$/i, "Batalla de Messines"],
-  [/^Battle of the Meuse$/i, "Batalla de Meuse"],
-  [/^Battle of Picardy$/i, "Batalla de Picardy"],
-  [/^Battle of the Scarpe$/i, "Batalla de Scarpe"],
-  [/^Battle of Vittorio Veneto$/i, "Batalla de Vittorio Veneto"],
-  [/^First Battle of Ypres$/i, "Primera batalla de Ypres"],
-  [/^Second Battle of the Somme$/i, "Segunda batalla de Somme"],
-  [/^Second Battle of the Marne$/i, "Segunda batalla del Marne"],
-  [/^Third Battle of the Aisne$/i, "Tercera batalla de Aisne"],
-  [/^2022 Russian invasion de Ukraine$/i, "Invasion rusa de Ucrania de 2022"],
-  [/^2016 Sirte offensive$/i, "Ofensiva de Sirte de 2016"],
-  [/^Aleppo Offensive \\(April 2016\\)$/i, "Ofensiva de Alepo de abril de 2016"],
-  [/^Battle of Al Fao de 2003$/i, "Batalla de Al Fao de 2003"],
-  [/^Battle of Baghdad de 2003$/i, "Batalla de Bagdad de 2003"],
-  [/^Battle of Kerbala de 2003$/i, "Batalla de Kerbala de 2003"],
-  [/^Battle of Mosul \\(2004\\)$/i, "Batalla de Mosul de 2004"],
-  [/^Battle of Mosul \\(2016-2017\\)$/i, "Batalla de Mosul de 2016-2017"],
-  [/^Battle of Kandahar \\(2021\\)$/i, "Batalla de Kandahar de 2021"],
-  [/^Battle of Shusha \\(2020\\)$/i, "Batalla de Shusha de 2020"],
-  [/^Battle of Tinzawatene \\(2024\\)$/i, "Batalla de Tinzawatene de 2024"],
-  [/^Battle of Dikwa \\(2 mar 2015\\)$/i, "Batalla de Dikwa de 2015"],
-  [/^Battle of Boulikessi \\(2025\\)$/i, "Batalla de Boulikessi de 2025"],
-  [/^Battle of Ras Kamboni \\(2024\\)$/i, "Batalla de Ras Kamboni de 2024"],
-  [/^Galwan Valley clash de 2020$/i, "Combate en el valle del Galwan de 2020"],
-  [/^Kharkiv Oblast counteroffensive de 2022$/i, "Contraofensiva del oblast de Jarkov de 2022"],
-  [/^Anglophone Crisis in Cameroon$/i, "Crisis anglofona de Camerun"],
-  [/^2001 insurgency in the Republic of Macedonia$/i, "Conflicto de la Republica de Macedonia de 2001"],
-  [/^Puntland crisis \\(2001-2003\\)$/i, "Crisis de Puntlandia (2001-2003)"],
-  [/^Red Sea crisis$/i, "Crisis del mar Rojo"],
-  [/^Guinean coup d'etat de 2021$/i, "Golpe de Estado guineano de 2021"],
-  [/^Somali Civil War \\(2006-2009\\)$/i, "Guerra civil somali (2006-2009)"],
-  [/^South Ossetia War$/i, "Guerra de Osetia del Sur de 2008"],
-  [/^North Waziristan border incidents de 2025$/i, "Incidentes fronterizos en Waziristan del Norte de 2025"],
-  [/^Russian drone incursions into Poland de September 2025$/i, "Incursion de drones rusos en Polonia de septiembre de 2025"],
-  [/^2001 invasion of Afghanistan$/i, "Invasion de Afganistan de 2001"],
-  [/^2003 invasion of Iraq$/i, "Invasion de Irak de 2003"],
-  [/^Iraq War \\(2003-2011\\)$/i, "Guerra de Irak (2003-2011)"],
-  [/^Boko Haram insurgency de 2009$/i, "Rebelion de Boko Haram de 2009"],
-  [/^Herat uprising de 2001$/i, "Sublevacion en Herat de 2001"],
-  [/^Ataques aÃ©reos de Yemen de 2024$/i, "Ataques de Estados Unidos en Yemen en 2025"],
-  [/^Batalla de Boulikessi \\(2025\\)$/i, "Batalla de Boulikessi de 2025"],
-  [/^Batalla de Dikwa \\(2 mar 2015\\)$/i, "Batalla de Dikwa de 2015"],
-  [/^Batalla de Galwan$/i, "Combate en el valle del Galwan de 2020"],
-  [/^Batalla de Kandahar \\(2021\\)$/i, "Batalla de Kandahar de 2021"],
-  [/^Batalla de Mosul \\(2004\\)$/i, "Batalla de Mosul de 2004"],
-  [/^Batalla de Mosul \\(2016-2017\\)$/i, "Batalla de Mosul de 2016-2017"],
-  [/^Batalla de Ras Kamboni \\(2024\\)$/i, "Batalla de Ras Kamboni de 2024"],
-  [/^Batalla de Shusha \\(2020\\)$/i, "Batalla de Shusha de 2020"],
-  [/^Batalla de TinzawatÃ¨ne \\(2024\\)$/i, "Batalla de Tinzawatene de 2024"],
-  [/^Conflicto de la RepÃºblica de Macedonia de 2001$/i, "Conflicto de la Republica de Macedonia de 2001"],
-  [/^Contraofensiva del Ã“blast de JÃ¡rkov de 2022$/i, "Contraofensiva del oblast de Jarkov de 2022"],
-  [/^Crisis anglÃ³fona de CamerÃºn$/i, "Crisis anglofona de Camerun"],
-  [/^Guerra civil somalÃ­ \\(2006-2009\\)$/i, "Guerra civil somali (2006-2009)"],
-  [/^Guerra entre IrÃ¡n e Irak$/i, "Guerra Iran-Iraq"],
-  [/^Incidentes fronterizos en WaziristÃ¡n del Norte de 2025$/i, "Incidentes fronterizos en Waziristan del Norte de 2025"],
-  [/^IncursiÃ³n de drones rusos en Polonia de septiembre de 2025$/i, "Incursion de drones rusos en Polonia de septiembre de 2025"],
-  [/^InvasiÃ³n de AfganistÃ¡n de 2001$/i, "Invasion de Afganistan de 2001"],
-  [/^InvasiÃ³n de Irak de 2003$/i, "Invasion de Irak de 2003"],
-  [/^RebeliÃ³n de Boko Haram de 2009$/i, "Rebelion de Boko Haram de 2009"],
-  [/^SublevaciÃ³n en Herat de 2001$/i, "Sublevacion en Herat de 2001"],
-  [/^Adriatic Campaign.*World War II$/i, "Campaña del Adriatico en la Segunda Guerra Mundial"],
-  [/^German occupation.*Luxembourg.*World War II$/i, "Ocupacion alemana de Luxemburgo en la Segunda Guerra Mundial"],
-  [/^Operation Barbarossa$/i, "Operación Barbarroja"],
-  [/^Operation Barbarossa$/i, "Operacion Barbarroja"],
-  [/^American airborne operations in Normandy$/i, "Operaciones aerotransportadas americanas en Normandia"],
-  [/^Battle of Caen$/i, "Batalla de Caen"],
-  [/^Battle of Brest$/i, "Batalla de Brest"],
-  [/^Battle of Monte Cassino$/i, "Batalla de Montecassino"],
-  [/^Battle of Guam$/i, "Batalla de Guam"],
-  [/^Battle of Labuan$/i, "Batalla de Labuan"],
-  [/^Battle of Bologna$/i, "Batalla de Bologna"],
-  [/^Battle of Durazzo$/i, "Batalla de Durazzo"],
-  [/^Battle of Authion$/i, "Batalla de Authion"],
-  [/^Battle of Damascus \\(1941\\)$/i, "Batalla de Damasco (1941)"],
-  [/^Battle of Garfagnana$/i, "Batalla de Garfagnana"],
-  [/^Battle of Giarabub$/i, "Batalla de Giarabub"],
-  [/^Battle of Kolombangara$/i, "Batalla de Kolombangara"],
-  [/^Battle of Shenkursk$/i, "Batalla de Shenkursk"],
-  [/^Attack on Pearl Harbor$/i, "Ataque a Pearl Harbor"],
-  [/^Battle of Chongju$/i, "Batalla de Chongju"],
-  [/^Battle of Chuam-ni$/i, "Batalla de Chuam-ni"],
-  [/^Battle of Kapyong$/i, "Batalla de Kapyong"],
-  [/^Battle of Kujin$/i, "Batalla de Kujin"],
-  [/^Battle of Chosin Reservoir$/i, "Batalla de la reserva de Chosin"],
-  [/^Battle of Maehwa-san$/i, "Batalla de Maehwa-san"],
-  [/^Battle of Busan$/i, "Batalla de Busan"],
-  [/^Battle of Imjin River$/i, "Batalla del rio Imjin"],
-  [/^Battle of Pusan Perimeter logistics$/i, "Batalla de la logistica del Perimetro de Pusan"],
-  [/^Korean Theater$/i, "Teatro coreano"],
-  [/^Second Battle of the Hook$/i, "Segunda batalla de Hook"]
+  [/^Syrian Civil War$/i, "Guerra civil siria"],
+  [/^Libyan Civil War$/i, "Guerra civil libia"],
+  [/^Second Libyan Civil War$/i, "Segunda guerra civil libia"],
+  [/^Gulf War$/i, "Guerra del Golfo"],
+  [/^Iran-Iraq War$/i, "Guerra Iran-Irak"],
+  [/^Arab-Israeli War of 1948$/i, "Guerra arabe-israeli de 1948"]
 ];
 
-CONFLICT_NAME_ALIASES.push(
-  [/^American Revolutionary War$/i, "Guerra de Independencia de Estados Unidos"],
-  [/^United States War of Independence$/i, "Guerra de Independencia de Estados Unidos"],
-  [/^War of 1812$/i, "Guerra anglo-estadounidense de 1812"],
-  [/^Mexican-American War$/i, "Guerra mexico-estadounidense"],
-  [/^Mexican American War$/i, "Guerra mexico-estadounidense"],
-  [/^American Civil War$/i, "Guerra de Secesion"],
-  [/^Spanish-American War$/i, "Guerra hispano-estadounidense"],
-  [/^Spanish American War$/i, "Guerra hispano-estadounidense"],
-  [/^First Guatemala War$/i, "Primera guerra de Guatemala"],
-  [/^Second Guatemala War$/i, "Segunda guerra de Guatemala"],
-  [/^Third Guatemala War$/i, "Tercera guerra de Guatemala"],
-  [/^Honduran-Salvadoran War de 1871$/i, "Guerra entre Honduras y El Salvador de 1871"],
-  [/^1957 Honduras-Nicaragua border conflict$/i, "Conflicto fronterizo Honduras-Nicaragua de 1957"],
-  [/^Football War$/i, "Guerra de las 100 horas"],
-  [/^Invasion estadounidense de Panamá$/i, "Invasion estadounidense de Panama"],
-  [/^United States invasion of Panama$/i, "Invasion estadounidense de Panama"],
-  [/^Invasion de Granada$/i, "Invasion de Granada"],
-  [/^United States invasion of Grenada$/i, "Invasion de Granada"],
-  [/^Guerra Peruano-ecuatoriana$/i, "Guerra peruano-ecuatoriana"],
-  [/^Gran Colombia-Peru War$/i, "Guerra grancolombo-peruana"],
-  [/^Guerra grancolombo-Peruana$/i, "Guerra grancolombo-peruana"],
-  [/^Peruvian-Ecuadorian War$/i, "Guerra peruano-ecuatoriana"],
-  [/^Colombian conflict$/i, "Conflicto armado colombiano"],
-  [/^Suriname Interior War$/i, "Guerra civil de Surinam"],
-  [/^Rupununi uprising$/i, "Levantamiento del Rupununi"],
-  [/^Guerra de Malvinas \(1982\)$/i, "Guerra de las Malvinas"]
-);
+let conflictNameAliases = window.GeoRiskConflictAliases?.entries || CORE_CONFLICT_NAME_ALIASES;
+let loadConflictAliasesPromise = null;
 
-CONFLICT_NAME_ALIASES.push(
-  [/^Napoleonic Wars$/i, "Guerras napoleonicas"],
-  [/^French Revolutionary Wars$/i, "Guerras revolucionarias francesas"],
-  [/^Hundred Years'? War$/i, "Guerra de los Cien Anos"],
-  [/^Second Hundred Years'? War$/i, "Segunda Guerra de los Cien Anos"],
-  [/^Thirty Years'? War$/i, "Guerra de los Treinta Anos"],
-  [/^Great Northern War$/i, "Gran Guerra del Norte"],
-  [/^War of the Spanish Succession$/i, "Guerra de sucesion espanola"],
-  [/^War of the Austrian Succession$/i, "Guerra de sucesion austriaca"],
-  [/^Seven Years'? War$/i, "Guerra de los Siete Anos"],
-  [/^Germany Unification War$/i, "Guerras de unificacion alemana"],
-  [/^Second Schleswig War$/i, "Guerra de los Ducados"],
-  [/^Austro-Prussian War$/i, "Guerra austro-prusiana"],
-  [/^Franco-Prussian War$/i, "Guerra franco-prusiana"],
-  [/^Balkan Wars$/i, "Guerras balcanicas"],
-  [/^First Balkan War$/i, "Primera guerra balcanica"],
-  [/^Second Balkan War$/i, "Segunda guerra balcanica"],
-  [/^Bosnian War$/i, "Guerra de Bosnia"],
-  [/^Croatian War of Independence$/i, "Guerra de Croacia"],
-  [/^Croatian War$/i, "Guerra de Croacia"],
-  [/^Yugoslav Wars$/i, "Guerras yugoslavas"],
-  [/^Ten-Day War$/i, "Guerra de los Diez Dias"],
-  [/^Troubles$/i, "Conflicto de Irlanda del Norte"],
-  [/^The Troubles$/i, "Conflicto de Irlanda del Norte"],
-  [/^Irish War of Independence$/i, "Guerra de Independencia irlandesa"],
-  [/^Soviet-Finnish wars$/i, "Guerras sovietico-finlandesas"],
-  [/^First Soviet-Finnish War$/i, "Primera guerra sovietico-finlandesa"],
-  [/^Winter War$/i, "Guerra de Invierno"],
-  [/^Continuation War$/i, "Guerra de Continuacion"],
-  [/^Lapland War$/i, "Guerra de Laponia"],
-  [/^Soviet-Bulgarian War$/i, "Guerra sovietico-bulgara"],
-  [/^Eastern Front.*World War II.*Europe$/i, "Frente oriental de la Segunda Guerra Mundial"],
-  [/^Eastern Front.*World War II$/i, "Frente oriental de la Segunda Guerra Mundial"],
-  [/^Adriatic Campaign de World War II$/i, "Campana del Adriatico en la Segunda Guerra Mundial"],
-  [/^German occupation de Luxemburgo en World War II$/i, "Ocupacion alemana de Luxemburgo en la Segunda Guerra Mundial"],
-  [/^Liberation de East Finnmark$/i, "Liberacion de Finnmark oriental"],
-  [/^1919 Soviet Invasion de Ukraine$/i, "Invasion sovietica de Ucrania de 1919"],
-  [/^2022 Russian Invasion de Ukraine$/i, "Invasion rusa de Ucrania de 2022"],
-  [/^Moscow City drone attacks$/i, "Ataques con drones contra Moscu"],
-  [/^April 2009 raid off Somalia$/i, "Incursion naval frente a Somalia de abril de 2009"],
-  [/^Battle of Britain$/i, "Batalla de Inglaterra"],
-  [/^Battle of France$/i, "Batalla de Francia"],
-  [/^Battle of Belgium$/i, "Batalla de Belgica"],
-  [/^Battle of Dunkirk$/i, "Batalla de Dunkerque"],
-  [/^Battle of the Atlantic$/i, "Batalla del Atlantico"],
-  [/^Battle of Stalingrad$/i, "Batalla de Stalingrado"],
-  [/^Battle of Kursk$/i, "Batalla de Kursk"],
-  [/^Battle of Berlin$/i, "Batalla de Berlin"],
-  [/^Battle of Narvik$/i, "Batallas de Narvik"],
-  [/^Operation Dynamo$/i, "Operacion Dinamo"],
-  [/^Operation Weserubung$/i, "Operacion Weserubung"],
-  [/^Operation Weserübung$/i, "Operacion Weserubung"],
-  [/^Operation Market Garden$/i, "Operacion Market Garden"]
-);
+function refreshConflictNameAliases() {
+  if (Array.isArray(window.GeoRiskConflictAliases?.entries) && window.GeoRiskConflictAliases.entries.length) {
+    conflictNameAliases = window.GeoRiskConflictAliases.entries;
+  }
+  return conflictNameAliases;
+}
 
-CONFLICT_NAME_ALIASES.push(
-  [/^Algerian Islamic Front War$/i, "Guerra civil argelina"],
-  [/^Algerian Civil War$/i, "Guerra civil argelina"],
-  [/^First Uganda War$/i, "Primera guerra de Uganda"],
-  [/^Uganda-Tanzania War$/i, "Guerra tanzano-ugandesa"],
-  [/^First Rwanda War$/i, "Primera guerra de Ruanda"],
-  [/^Second Rwanda War$/i, "Segunda guerra de Ruanda"],
-  [/^Third Rwanda War$/i, "Tercera guerra de Ruanda"],
-  [/^First Burundi War$/i, "Primera guerra de Burundi"],
-  [/^First Chad \(FROLINAT\) Rebellion$/i, "Primera rebelion chadiana del FROLINAT"],
-  [/^Second Liberia War$/i, "Segunda guerra liberiana"],
-  [/^Liberian Civil War$/i, "Guerra civil liberiana"],
-  [/^Sierra Leone Civil War$/i, "Guerra civil de Sierra Leona"],
-  [/^Guinea-Bissau Civil War$/i, "Guerra civil de Guinea-Bisau"],
-  [/^First Ivorian Civil War$/i, "Primera guerra civil marfilena"],
-  [/^Second Ivorian Civil War$/i, "Segunda guerra civil marfilena"],
-  [/^Rhodesian Bush War$/i, "Guerra civil de Rodesia"],
-  [/^Angolan Civil War$/i, "Guerra civil angolena"],
-  [/^Mozambican Civil War$/i, "Guerra civil mozambiquena"],
-  [/^Mali War$/i, "Guerra de Mali"],
-  [/^Northern Mali conflict$/i, "Guerra de Mali"],
-  [/^Maghreb insurgency$/i, "Insurgencia en el Magreb"],
-  [/^Lord's Resistance Army insurgency$/i, "Insurgencia del Ejercito de Resistencia del Senor"],
-  [/^Boko Haram insurgency$/i, "Rebelion de Boko Haram de 2009"],
-  [/^Boko Haram insurgency de 2009$/i, "Rebelion de Boko Haram de 2009"],
-  [/^Shifta War$/i, "Guerra de Shifta"],
-  [/^Ogaden War$/i, "Guerra de Ogaden"],
-  [/^Battle of Mogadishu$/i, "Batalla de Mogadiscio"],
-  [/^Battle of Lukaya$/i, "Batalla de Lukaya"],
-  [/^Battle of Masaka$/i, "Batalla de Masaka"],
-  [/^Battle of Kisangani$/i, "Batalla de Kisangani"],
-  [/^Battle of Mocimboa da Praia$/i, "Batalla de Mocimboa da Praia"],
-  [/^Battle of Mocímboa da Praia$/i, "Batalla de Mocimboa da Praia"],
-  [/^Battle of Kumbo$/i, "Batalla de Kumbo"],
-  [/^Battle of Tinzawatène \(2024\)$/i, "Batalla de Tinzawatene de 2024"],
-  [/^Battle of Boulikessi \(2025\)$/i, "Batalla de Boulikessi de 2025"],
-  [/^2016 Sirte offensive$/i, "Ofensiva de Sirte de 2016"],
-  [/^Amhara offensive de 2024$/i, "Ofensiva de Amhara de 2024"]
-);
+function getConflictNameAliases() {
+  return refreshConflictNameAliases();
+}
 
-CONFLICT_NAME_ALIASES.push(
-  [/^Indochina Wars$/i, "Guerras de Indochina"],
-  [/^First Indochina War$/i, "Primera guerra de Indochina"],
-  [/^Second Indochina War$/i, "Guerra de Vietnam"],
-  [/^Third Indochina War$/i, "Tercera Guerra de Indochina"],
-  [/^Second Cambodia Civil$/i, "Segunda guerra civil camboyana"],
-  [/^Cambodian-Vietnamese War$/i, "Guerra camboyano-vietnamita"],
-  [/^Vietnamese-Cambodian War$/i, "Guerra camboyano-vietnamita"],
-  [/^Laotian Civil War$/i, "Guerra Civil de Laos"],
-  [/^Insurgency in Laos$/i, "Insurgencia en Laos"],
-  [/^Chinese invasion of Taiwan$/i, "Invasion china de Taiwan"],
-  [/^Chinese Invasion de Taiwan$/i, "Invasion china de Taiwan"],
-  [/^Second Sino-Japanese War$/i, "Segunda guerra sino-japonesa"],
-  [/^Sino-Vietnamese War$/i, "Guerra sino-vietnamita"],
-  [/^Third Indochina War$/i, "Tercera Guerra de Indochina"],
-  [/^Sino-Soviet border conflict$/i, "Conflicto fronterizo sino-sovietico"],
-  [/^Sino-Indian War$/i, "Guerra sino-india"],
-  [/^Nathu La and Cho La clashes$/i, "Enfrentamientos en Nathu La y Cho La"],
-  [/^South China Sea skirmish$/i, "Incidente del Arrecife Johnson del Sur"],
-  [/^Johnson South Reef Skirmish$/i, "Incidente del Arrecife Johnson del Sur"],
-  [/^UN offensive into North Korea$/i, "Ofensiva de la ONU en Corea del Norte"],
-  [/^Great Naktong Offensive$/i, "Gran ofensiva del Naktong"],
-  [/^Battle of White Horse$/i, "Batalla de White Horse"],
-  [/^Battle of Triangle Hill$/i, "Batalla de Triangle Hill"],
-  [/^Battle of Pork Chop Hill$/i, "Batalla del Monte Calvo"],
-  [/^Battle of Cheonpyeong Valley$/i, "Batalla del valle de Cheonpyeong"],
-  [/^Battle of Punchbowl$/i, "Batalla de Punchbowl"],
-  [/^Bombardment of Yeonpyeong$/i, "Bombardeo de Yeonpyeong"],
-  [/^Kashmir conflict$/i, "Conflicto de Cachemira"],
-  [/^Indo-Pakistani War of 1965$/i, "Guerra indo-pakistani de 1965"],
-  [/^Indo-Pakistani War of 1971$/i, "Guerra indo-pakistani de 1971"],
-  [/^Bangladesh Liberation War$/i, "Guerra de Liberacion de Bangladesh"],
-  [/^Bangladesh Liberation War$/i, "Guerra de Bangladesh"],
-  [/^Eelam War I$/i, "Primera guerra de Eelam"],
-  [/^Eelam War II$/i, "Segunda guerra de Eelam"],
-  [/^Eelam War III$/i, "Tercera guerra de Eelam"],
-  [/^Eelam War IV$/i, "Cuarta guerra de Eelam"],
-  [/^Eastern Theater de Eelam War IV$/i, "Teatro oriental de la Cuarta guerra de Eelam"],
-  [/^Sri Lankan Civil War$/i, "Guerra civil de Sri Lanka"],
-  [/^Indian intervention in the Sri Lankan Civil War$/i, "Intervencion india en la guerra civil de Sri Lanka"],
-  [/^Naf War$/i, "Guerra del Naf"],
-  [/^Kachin conflict$/i, "Conflicto en Kachin"],
-  [/^Indonesian National Revolution$/i, "Revolucion indonesia"],
-  [/^Indonesia-Malaysia confrontation$/i, "Confrontacion indonesio-malaya"],
-  [/^Indonesian invasion of East Timor$/i, "Invasion indonesia de Timor Oriental"],
-  [/^Indonesian occupation of East Timor$/i, "Ocupacion indonesia de Timor Oriental"],
-  [/^East Timor crisis$/i, "Crisis de Timor Oriental"],
-  [/^Georgia War$/i, "Guerra de Osetia del Sur de 2008"],
-  [/^Russo-Georgian War$/i, "Guerra de Osetia del Sur de 2008"],
-  [/^War in Abkhazia$/i, "Guerra de Abjasia"],
-  [/^Tajikistani Civil War$/i, "Guerra civil tayika"],
-  [/^Batken conflict$/i, "Conflicto de Batken"],
-  [/^Kyrgyzstan-Tajikistan clashes of 2021$/i, "Conflicto entre Kirguistan y Tayikistan de 2021"],
-  [/^Nagorno-Karabakh conflict$/i, "Conflicto de Nagorno-Karabaj"],
-  [/^2016 Nagorno-Karabakh conflict$/i, "Conflicto de Nagorno-Karabaj de 2016"],
-  [/^Second Nagorno-Karabakh War$/i, "Segunda guerra de Nagorno-Karabaj"],
-  [/^Battle of Shusha \(2020\)$/i, "Batalla de Shusha de 2020"],
-  [/^Capture of Lachin$/i, "Captura de Lachin"],
-  [/^Battle of Jabrayil$/i, "Batalla de Jabrayil"],
-  [/^Yemeni Civil War$/i, "Guerra civil yemení"],
-  [/^North Yemen Civil War$/i, "Guerra civil de Yemen del Norte"],
-  [/^Saudi-Yemeni War$/i, "Guerra saudo-yemeni"],
-  [/^South Thailand insurgency$/i, "Insurgencia en el sur de Tailandia"]
-);
+async function ensureConflictAliasesLoaded() {
+  if (Array.isArray(window.GeoRiskConflictAliases?.entries) && window.GeoRiskConflictAliases.entries.length) {
+    refreshConflictNameAliases();
+    return conflictNameAliases;
+  }
+  if (!loadConflictAliasesPromise) {
+    loadConflictAliasesPromise = import(`./app-conflict-aliases.js?v=${APP_VERSION}`)
+      .catch(error => {
+        console.warn("No se pudo cargar alias diferidos de conflictos:", error);
+      })
+      .finally(refreshConflictNameAliases);
+  }
+  await loadConflictAliasesPromise;
+  return conflictNameAliases;
+}
 
-CONFLICT_NAME_ALIASES.push(
-  [/^Bougainville conflict$/i, "Conflicto de Bougainville"],
-  [/^Bougainville Civil War$/i, "Conflicto de Bougainville"],
-  [/^Fiji constitutional crisis$/i, "Crisis constitucional de Fiyi"],
-  [/^Solomon Islands ethnic tension$/i, "Conflicto etnico de las Islas Salomon"],
-  [/^Ethnic tension in the Solomon Islands$/i, "Conflicto etnico de las Islas Salomon"],
-  [/^Coconut War$/i, "Guerra del Coco"],
-  [/^Malayan Emergency$/i, "Emergencia Malaya"],
-  [/^Battle of Gang Toi$/i, "Batalla de Gang Toi"],
-  [/^Battle of Long Tan$/i, "Batalla de Long Tan"],
-  [/^Battle of Coral-Balmoral$/i, "Batalla de Coral-Balmoral"],
-  [/^Battle of Coral–Balmoral$/i, "Batalla de Coral-Balmoral"],
-  [/^Battle of Coralâ€“Balmoral$/i, "Batalla de Coral-Balmoral"],
-  [/^Battle of Singapore$/i, "Batalla de Singapur"],
-  [/^Battle of Sunda Strait$/i, "Batalla del estrecho de la Sonda"],
-  [/^Battle of the Java Sea$/i, "Batalla del mar de Java"],
-  [/^Battle of the Coral Sea$/i, "Batalla del mar del Coral"],
-  [/^Battle of Timor$/i, "Batalla de Timor"],
-  [/^Battle of Milne Bay$/i, "Batalla de la bahia de Milne"],
-  [/^Kokoda Track campaign$/i, "Campana de Kokoda"],
-  [/^Kokoda Trail campaign$/i, "Campana de Kokoda"],
-  [/^Battle of Kolombangara$/i, "Batalla de Kolombangara"],
-  [/^Battle of North Borneo$/i, "Batalla de Borneo septentrional"],
-  [/^North Borneo battle$/i, "Batalla de Borneo septentrional"],
-  [/^North Borneo campaign$/i, "Campana de Borneo septentrional"],
-  [/^Battle between HMAS Sydney and Kormoran$/i, "Combate entre el HMAS Sydney y el Kormoran"],
-  [/^Convoy GP 55$/i, "Convoy GP 55"],
-  [/^Battle off Endau$/i, "Batalla frente a Endau"]
-);
+function scheduleConflictAliasesLoad() {
+  const schedule = window.requestIdleCallback
+    ? callback => window.requestIdleCallback(callback, { timeout: 1800 })
+    : callback => setTimeout(callback, 500);
+  schedule(() => ensureConflictAliasesLoaded());
+}
+
 
 const CONFLICT_PARENT_RULES = [
   { parent: "Guerra de las Malvinas", matches: ["goose green", "pradera del ganso", "san carlos", "wireless ridge", "harriet", "longdon", "tumbledown"] },
@@ -5477,7 +5079,7 @@ function getConflictsSinceFormation(country) {
 function translateConflictName(name) {
   let translated = cleanConflictName(name);
 
-  for (const [pattern, replacement] of CONFLICT_NAME_ALIASES) {
+  for (const [pattern, replacement] of getConflictNameAliases()) {
     if (pattern.test(translated)) {
       return replacement;
     }
@@ -7272,6 +6874,9 @@ async function renderCountry(country, fallbackName) {
     .filter(Boolean);
   const conflictsSinceFormation = getConflictsSinceFormation(country);
   const shouldRenderMilitaryDetail = countryLoadedSections.includes("country-section-military") && countryViewMode !== "compact";
+  if (shouldRenderMilitaryDetail) {
+    await ensureConflictAliasesLoaded();
+  }
   const conflictGroups = shouldRenderMilitaryDetail ? buildConflictGroups(conflictsSinceFormation) : [];
   const conflictCountHint = getCountryConflictCount(country) || conflictsSinceFormation.length;
   const countrySectionDescriptors =
@@ -11471,105 +11076,20 @@ async function renderChangelogPanel() {
   }
 }
 
-function renderDatasetHealthPanel() {
+async function renderDatasetHealthPanel() {
+  await ensureDeferredUiModule("projectAudit");
   const countries = Object.values(countriesData || {});
-  const total = countries.length || 0;
-  const withTimeline = countries.filter(country => (country.history?.events || []).length > 0).length;
-  const withConflicts = countries.filter(country => (country.military?.conflicts || []).length > 0).length;
-  const withLocalFlag = countries.filter(country => country.general?.symbols?.assets?.flagPath).length;
-  const withLocalCoat = countries.filter(country => country.general?.symbols?.assets?.coatPath).length;
-  const withLanguages = countries.filter(country => Array.isArray(country.general?.languages) && country.general.languages.length > 0).length;
-  const withCapitals = countries.filter(country => Array.isArray(country.general?.capitals) && country.general.capitals.length > 0).length;
-  const withProvenance = countries.filter(country => Object.keys(country.metadata?.provenance || {}).length > 0).length;
-  const withMissingFields = countries.filter(country => (country.metadata?.quality?.missingFields || []).length > 0).length;
   const introStats = getIntroCoverageStats();
-  const withRelations = countries.filter(country => Object.values(country.politics?.relations || {}).some(value => Array.isArray(value) ? value.length > 0 : Boolean(value))).length;
-  const withSymbols = countries.filter(country => country.general?.symbols?.flag || country.general?.symbols?.coatOfArms || country.general?.symbols?.assets?.flagPath || country.general?.symbols?.assets?.coatPath).length;
-  const lowQualityCountries = countries.filter(country => (country.metadata?.quality?.score || 0) < 70).length;
-  const formatCoverage = value => total ? `${Math.round((value / total) * 100)}%` : "0%";
-  const averageQuality = total
-    ? Math.round(countries.reduce((sum, country) => sum + (country.metadata?.quality?.score || 0), 0) / total)
-    : 0;
-  const estimatedAverage = total
-    ? Math.round(countries.reduce((sum, country) => sum + ((country.metadata?.quality?.estimatedFields || []).length || 0), 0) / total)
-    : 0;
-  const statusRows = countries
-    .slice()
-    .sort((a, b) => (b.metadata?.quality?.score || 0) - (a.metadata?.quality?.score || 0))
-    .slice(0, 12)
-    .map(country => `<li><b>${escapeHtml(country.name)}</b>: ${country.metadata?.quality?.score || 0}/100</li>`)
-    .join("");
-  const sectionTotals = ["general", "history", "economy", "military", "politics", "religion", "symbols", "relations"]
-    .map(section => {
-      const curatedCount = countries.filter(country => country.metadata?.quality?.sectionStatus?.[section] === "curated" || country.metadata?.quality?.sectionStatus?.[section] === "confirmed").length;
-      return `<li><b>${escapeHtml(section)}</b>: ${formatNumber(curatedCount)}/${formatNumber(total)}</li>`;
-    })
-    .join("");
-  const weakestCountries = countries
-    .slice()
-    .sort((a, b) => (a.metadata?.quality?.score || 0) - (b.metadata?.quality?.score || 0))
-    .slice(0, 10)
-    .map(country => `<li><b>${escapeHtml(country.name)}</b>: ${country.metadata?.quality?.score || 0}/100</li>`)
-    .join("");
-  const coverageBars = [
-    { label: currentLanguage === "en" ? "Timeline" : "Timeline", value: withTimeline },
-    { label: currentLanguage === "en" ? "Conflicts" : "Conflictos", value: withConflicts },
-    { label: currentLanguage === "en" ? "Languages" : "Idiomas", value: withLanguages },
-    { label: currentLanguage === "en" ? "Capitals" : "Capitales", value: withCapitals },
-    { label: currentLanguage === "en" ? "Relations" : "Relaciones", value: withRelations },
-    { label: currentLanguage === "en" ? "Symbols" : "Simbolos", value: withSymbols },
-    { label: currentLanguage === "en" ? "Provenance" : "Procedencia", value: withProvenance }
-  ].map(item => `
-    <li>
-      <span>${escapeHtml(item.label)}</span>
-      <div class="health-progress-track"><i style="width:${formatCoverage(item.value)}"></i></div>
-      <b>${formatNumber(item.value)}/${formatNumber(total)} &middot; ${formatCoverage(item.value)}</b>
-    </li>
-  `).join("");
-
+  const body = projectAuditUi.renderDatasetHealthPanelContent
+    ? projectAuditUi.renderDatasetHealthPanelContent({
+        language: currentLanguage,
+        countries,
+        introStats
+      })
+    : `<div class="help-section"><p>${currentLanguage === "en" ? "Dataset health details are not available yet." : "El detalle de salud del dataset todavia no esta disponible."}</p></div>`;
   openProductModal(
     currentLanguage === "en" ? "Dataset health" : "Salud del dataset",
-    `
-      <div class="product-summary-grid">
-        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Countries" : "Paises"}</span><strong class="overview-value">${formatNumber(total)}</strong></div>
-        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Average quality" : "Calidad promedio"}</span><strong class="overview-value">${averageQuality}/100</strong></div>
-        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "With timeline" : "Con timeline"}</span><strong class="overview-value">${formatNumber(withTimeline)}</strong></div>
-        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "With conflicts" : "Con conflictos"}</span><strong class="overview-value">${formatNumber(withConflicts)}</strong></div>
-        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Local flags" : "Banderas locales"}</span><strong class="overview-value">${formatNumber(withLocalFlag)}</strong></div>
-        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Local coats" : "Escudos locales"}</span><strong class="overview-value">${formatNumber(withLocalCoat)}</strong></div>
-        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "With languages" : "Con idiomas"}</span><strong class="overview-value">${formatNumber(withLanguages)}</strong></div>
-        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "With capitals" : "Con capitales"}</span><strong class="overview-value">${formatNumber(withCapitals)}</strong></div>
-        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "With provenance" : "Con procedencia"}</span><strong class="overview-value">${formatNumber(withProvenance)}</strong></div>
-        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Avg. estimated fields" : "Prom. campos estimados"}</span><strong class="overview-value">${formatNumber(estimatedAverage)}</strong></div>
-        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Linked conflicts" : "Conflictos enlazados"}</span><strong class="overview-value">${formatNumber(introStats.conflicts)}</strong></div>
-        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Special entities" : "Entidades especiales"}</span><strong class="overview-value">${formatNumber(introStats.specialEntities)}</strong></div>
-        <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Quality watch" : "A revisar"}</span><strong class="overview-value">${formatNumber(lowQualityCountries)}</strong></div>
-      </div>
-      <div class="help-section">
-        <h3>${currentLanguage === "en" ? "Coverage map" : "Mapa de cobertura"}</h3>
-        <ul class="health-progress-list">${coverageBars}</ul>
-      </div>
-      <div class="help-section">
-        <h3>${currentLanguage === "en" ? "Quality leaders" : "Lideres de calidad"}</h3>
-        <ul>${statusRows}</ul>
-      </div>
-      <div class="help-section">
-        <h3>${currentLanguage === "en" ? "Quality watchlist" : "Watchlist de calidad"}</h3>
-        <ul>${weakestCountries}</ul>
-      </div>
-      <div class="help-section">
-        <h3>${currentLanguage === "en" ? "Section coverage" : "Cobertura por seccion"}</h3>
-        <ul>${sectionTotals}</ul>
-      </div>
-      <div class="help-section">
-        <h3>${currentLanguage === "en" ? "Current audit status" : "Estado actual de auditoria"}</h3>
-        <ul>
-          <li><b>${currentLanguage === "en" ? "Countries with missing fields" : "Paises con campos faltantes"}</b>: ${formatNumber(withMissingFields)}</li>
-          <li><b>${currentLanguage === "en" ? "Offline shell" : "Shell offline"}</b>: ${currentLanguage === "en" ? "available via service worker cache" : "disponible via cache del service worker"}</li>
-          <li><b>${currentLanguage === "en" ? "Local validation" : "Validacion local"}</b>: ${currentLanguage === "en" ? "latest checks passed without blocking issues" : "los ultimos chequeos pasaron sin incidencias bloqueantes"}</li>
-        </ul>
-      </div>
-    `
+    body
   );
 }
 
@@ -11777,64 +11297,13 @@ async function renderConflictAuditPanel() {
     return;
   }
 
-  const issueLabels = {
-    battle_without_parent: currentLanguage === "en" ? "Battles without parent war" : "Batallas sin guerra padre",
-    weak_detail: currentLanguage === "en" ? "Weak detail" : "Detalle flojo",
-    generic_side: currentLanguage === "en" ? "Generic sides" : "Bandos genericos",
-    duplicate_names: currentLanguage === "en" ? "Duplicate names" : "Nombres duplicados",
-    english: currentLanguage === "en" ? "English titles" : "Titulos en ingles",
-    leading_year: currentLanguage === "en" ? "Leading year" : "Anio al inicio"
-  };
-  const summary = report.summary || {};
-  const issueCards = Object.entries(issueLabels).map(([key, label]) => `
-    <article class="risk-watch-card audit-summary-card">
-      <strong>${escapeHtml(label)}</strong>
-      <span>${formatNumber(summary[key] || 0)} ${currentLanguage === "en" ? "cases" : "casos"}</span>
-    </article>
-  `).join("");
-  const focusBuckets = [
-    { label: currentLanguage === "en" ? "Before 1850" : "Antes de 1850", min: -Infinity, max: 1849 },
-    { label: "1850-1899", min: 1850, max: 1899 },
-    { label: "1900-1918", min: 1900, max: 1918 },
-    { label: "1919-1945", min: 1919, max: 1945 },
-    { label: currentLanguage === "en" ? "Post-1945" : "Pos-1945", min: 1946, max: Infinity }
-  ];
-  const focusCounts = focusBuckets.map(bucket => ({
-    ...bucket,
-    count: (report.topIssues || []).filter(issue => {
-      const year = Number(issue.startYear);
-      return Number.isFinite(year) && year >= bucket.min && year <= bucket.max;
-    }).length
-  })).filter(bucket => bucket.count > 0);
-  const focusRows = focusCounts.slice(0, 5).map(bucket => `
-    <span><b>${formatNumber(bucket.count)}</b>${escapeHtml(bucket.label)}</span>
-  `).join("");
-  const topRows = (report.topIssues || []).slice(0, 40).map(issue => {
-    const countryCode = Array.isArray(issue.countries) ? issue.countries.find(code => countriesData?.[code]) : "";
-    const issueTags = (issue.issues || []).map(key => `<span class="issue-chip">${escapeHtml(issueLabels[key] || key)}</span>`).join("");
-    return `
-      <article class="audit-issue-card">
-        <div>
-          <strong>${escapeHtml(issue.name || issue.key || "Sin titulo")}</strong>
-          <span>${issueTags || `<span class="issue-chip">${currentLanguage === "en" ? "Review" : "Revisar"}</span>`}</span>
-          <small>${currentLanguage === "en" ? "Severity" : "Severidad"} ${formatNumber(issue.severity || 0)}${issue.startYear ? ` - ${escapeHtml(String(issue.startYear))}` : ""}</small>
-        </div>
-        <div class="audit-issue-actions">
-          ${countryCode ? `<button type="button" data-open-country="${escapeHtml(countryCode)}">${currentLanguage === "en" ? "Open country" : "Abrir pais"}</button>` : ""}
-          <button type="button" data-open-conflict="${escapeHtml(issue.name || issue.key || "")}">${currentLanguage === "en" ? "Open conflict" : "Abrir conflicto"}</button>
-        </div>
-      </article>
-    `;
-  }).join("");
   const body = conflictAuditUi.renderConflictAuditPanelContent
     ? conflictAuditUi.renderConflictAuditPanelContent({
         language: currentLanguage,
         report,
-        issueCards,
-        focusRows,
-        topRows
+        countriesData
       })
-    : `<div class="help-section"><div class="audit-issue-list">${topRows}</div></div>`;
+    : `<div class="help-section"><p>${currentLanguage === "en" ? "Conflict audit details are not available yet." : "El detalle de auditoria de conflictos todavia no esta disponible."}</p></div>`;
 
   openProductModal(currentLanguage === "en" ? "Conflict audit" : "Auditoria de conflictos", body);
 
@@ -14214,6 +13683,7 @@ async function loadDeferredDataEnhancements() {
     mapSearchAliasesRegistered = true;
     runCriticalGlobalStats();
     scheduleDeferredGlobalStats(true);
+    scheduleConflictAliasesLoad();
     await loadSupplementalData();
   })().catch(error => {
     console.warn("No se pudieron completar las mejoras diferidas del arranque:", error);
@@ -14227,7 +13697,8 @@ async function loadConflictDetailsIndex() {
     loadConflictDetailsIndexPromise = fetchResourceCached(
       `./data/conflicts/details_index.json?v=${APP_VERSION}`,
       "json"
-    ).then(index => {
+    ).then(async index => {
+      await ensureConflictAliasesLoaded();
       const byName = new Map();
       (index?.conflicts || []).forEach(entry => {
         [entry?.name, translateConflictName(entry?.name || "")]
@@ -14245,6 +13716,7 @@ async function loadConflictDetailsIndex() {
 }
 
 async function loadWikipediaConflictDetails(conflictName) {
+  await ensureConflictAliasesLoaded();
   const normalizedName = normalizeText(translateConflictName(conflictName || ""));
   if (!normalizedName) {
     return null;

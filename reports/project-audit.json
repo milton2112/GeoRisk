@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-07-05T20:24:00.132Z",
+  "generatedAt": "2026-07-09T01:59:45.937Z",
   "status": "operativo",
   "startup": {
-    "critical": "969 KB",
-    "criticalBytes": 992231,
-    "deferred": "1.05 MB",
+    "critical": "933 KB",
+    "criticalBytes": 954962,
+    "deferred": "1.08 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 9142879,
       "countriesFullHuman": "8.72 MB",
@@ -16,8 +16,8 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 690296,
-        "human": "674 KB",
+        "bytes": 653027,
+        "human": "638 KB",
         "startupCritical": true
       },
       {
@@ -63,6 +63,13 @@
         "startupCritical": true
       },
       {
+        "path": "app-conflict-aliases.js",
+        "exists": true,
+        "bytes": 30394,
+        "human": "30 KB",
+        "startupCritical": false
+      },
+      {
         "path": "style-polish.css",
         "exists": true,
         "bytes": 21222,
@@ -87,13 +94,6 @@
         "path": "app-timeline-conflicts.js",
         "exists": true,
         "bytes": 8027,
-        "human": "8 KB",
-        "startupCritical": false
-      },
-      {
-        "path": "app-export-share.js",
-        "exists": true,
-        "bytes": 7947,
         "human": "8 KB",
         "startupCritical": false
       }
@@ -809,8 +809,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 690296,
-      "human": "674 KB"
+      "bytes": 653027,
+      "human": "638 KB"
     },
     {
       "path": "style.css",
@@ -821,8 +821,8 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 40904,
-      "human": "40 KB"
+      "bytes": 42292,
+      "human": "41 KB"
     },
     {
       "path": "index.html",
@@ -831,10 +831,22 @@
       "human": "31 KB"
     },
     {
+      "path": "app-conflict-aliases.js",
+      "exists": true,
+      "bytes": 30394,
+      "human": "30 KB"
+    },
+    {
       "path": "style-polish.css",
       "exists": true,
       "bytes": 21222,
       "human": "21 KB"
+    },
+    {
+      "path": "app-project-audit-ui.js",
+      "exists": true,
+      "bytes": 15060,
+      "human": "15 KB"
     },
     {
       "path": "TECHNICAL.md",
@@ -846,6 +858,12 @@
       "path": "app-compare-ui.js",
       "exists": true,
       "bytes": 8670,
+      "human": "8 KB"
+    },
+    {
+      "path": "app-conflict-audit-ui.js",
+      "exists": true,
+      "bytes": 8150,
       "human": "8 KB"
     },
     {
@@ -865,12 +883,6 @@
       "exists": true,
       "bytes": 7528,
       "human": "7 KB"
-    },
-    {
-      "path": "app-project-audit-ui.js",
-      "exists": true,
-      "bytes": 6451,
-      "human": "6 KB"
     },
     {
       "path": "app-performance-ui.js",
@@ -894,12 +906,6 @@
       "path": "package.json",
       "exists": true,
       "bytes": 4605,
-      "human": "4 KB"
-    },
-    {
-      "path": "app-conflict-audit-ui.js",
-      "exists": true,
-      "bytes": 4332,
       "human": "4 KB"
     },
     {
@@ -952,9 +958,9 @@
     }
   ],
   "scriptMetrics": {
-    "functions": 514,
-    "asyncFunctions": 45,
-    "consoleWarnings": 17,
+    "functions": 518,
+    "asyncFunctions": 47,
+    "consoleWarnings": 18,
     "consoleErrors": 13
   },
   "visualMetrics": {

@@ -18,6 +18,7 @@ const SOURCE_FILES = [
   "app-text.js",
   "app-risk-radar-ui.js",
   "app-conflict-audit-ui.js",
+  "app-conflict-aliases.js",
   "app-project-audit-ui.js",
   "app-news-ui.js",
   "app-compare-ui.js",

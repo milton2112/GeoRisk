@@ -1,14 +1,12 @@
 {
-  "generatedAt": "2026-07-05T20:24:03.587Z",
-  "packageVersion": "1.6.34",
-  "status": "observacion",
+  "generatedAt": "2026-07-09T01:59:48.179Z",
+  "packageVersion": "1.6.35",
+  "status": "operativo",
   "summary": {
-    "totalFindings": 1,
-    "bySeverity": {
-      "media": 1
-    },
-    "startupBytes": 992231,
-    "scriptBytes": 690296,
+    "totalFindings": 0,
+    "bySeverity": {},
+    "startupBytes": 954962,
+    "scriptBytes": 653027,
     "countriesIndexBytes": 165228,
     "conflictAuditIssues": 0,
     "dataCounts": {
@@ -30,22 +28,8 @@
       "baseSectionProfiles": 183
     }
   },
-  "topActions": [
-    {
-      "area": "performance",
-      "title": "script.js sigue al limite",
-      "command": "Extraer mas UI a modulos diferidos."
-    }
-  ],
-  "findings": [
-    {
-      "severity": "media",
-      "area": "performance",
-      "title": "script.js sigue al limite",
-      "detail": "690296 bytes",
-      "command": "Extraer mas UI a modulos diferidos."
-    }
-  ],
+  "topActions": [],
+  "findings": [],
   "observedContracts": {
     "deferredModules": [
       {

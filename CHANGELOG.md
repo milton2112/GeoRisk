@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.34 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.35 antes de cerrar la siguiente version.
+
+## v1.6.35 - 2026-07-09
+
+- Extrae el render de `Salud del dataset` a `app-project-audit-ui.js` para dejar el panel interno fuera del arranque critico.
+- Mueve la construccion de tarjetas de `Auditoria de conflictos` a `app-conflict-audit-ui.js`, manteniendo en el runtime principal solo la apertura y los listeners de pais/conflicto.
+- Extrae la tabla grande de alias de conflictos a `app-conflict-aliases.js`, cargada en idle o bajo demanda antes de detalles profundos.
+- Reduce `script.js` de ~674 KB a ~638 KB y lo deja por debajo del umbral de observacion de 660 KB.
+- Corrige `release:prepare` para que cierre el changelog con las notas reales de `Sin publicar` en lugar de escribir notas genericas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-09-release-1`.
 
 ## v1.6.34 - 2026-07-05
 
