@@ -8,7 +8,14 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.39 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.40 antes de cerrar la siguiente version.
+
+## v1.6.40 - 2026-07-09
+
+- Extrae la jerarquia pesada guerra > campana > batalla a `app-conflict-rules.js`, cargada solo cuando se abre curaduria profunda, historia o fuerzas armadas.
+- Reduce `script.js` de ~641 KB a ~625 KB y aumenta el margen del arranque critico sin perder la agrupacion completa de conflictos bajo demanda.
+- Refuerza `startup-data`, `release-gates` y `smoke-server` para bloquear que las reglas pesadas vuelvan al shell inicial o falten en el build de produccion.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-09-release-6`.
 
 ## v1.6.39 - 2026-07-09
 

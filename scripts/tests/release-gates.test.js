@@ -40,6 +40,7 @@ const releaseStatus = await fs.readFile(path.join(projectRoot, "scripts/releaseS
 const releaseArtifacts = await fs.readFile(path.join(projectRoot, "scripts/auditReleaseArtifacts.js"), "utf8");
 const featureHealth = await fs.readFile(path.join(projectRoot, "scripts/auditFeatureHealth.js"), "utf8");
 const exportShare = await fs.readFile(path.join(projectRoot, "app-export-share.js"), "utf8");
+const conflictRules = await fs.readFile(path.join(projectRoot, "app-conflict-rules.js"), "utf8");
 const fixSourceText = await fs.readFile(path.join(projectRoot, "scripts/fixSourceText.js"), "utf8");
 const releaseWorkflow = await fs.readFile(path.join(projectRoot, ".github/workflows/release-gate.yml"), "utf8");
 const prePushHook = await fs.readFile(path.join(projectRoot, ".githooks/pre-push"), "utf8");
@@ -182,6 +183,7 @@ assert.ok(!indexHtml.includes("app-rankings.js"), "rankings debe cargarse bajo d
 assert.ok(!indexHtml.includes("app-ui-polish.js"), "pulido UI debe cargarse bajo demanda");
 assert.ok(!indexHtml.includes("app-help-ui.js"), "guia rapida debe cargarse bajo demanda");
 assert.ok(!indexHtml.includes("app-conflict-aliases.js"), "alias pesados de conflictos deben cargarse bajo demanda");
+assert.ok(!indexHtml.includes("app-conflict-rules.js"), "reglas pesadas de conflictos deben cargarse bajo demanda");
 assert.ok(!indexHtml.includes("style-polish.css"), "pulido visual no debe bloquear el primer mapa");
 assert.ok(!indexHtml.includes("fonts.googleapis.com"), "fuentes remotas no deben bloquear el primer render");
 assert.ok(!/bootHeavyDataEnhancements[\s\S]{0,500}loadRuntimeCuration/.test(script), "curaduria profunda debe esperar a una ficha");
@@ -201,6 +203,9 @@ assert.ok(script.includes("async function loadCountryConflictDetail"), "conflict
 assert.ok(script.includes("data/countries/conflicts"), "runtime debe conocer shards de conflictos por pais");
 assert.ok(script.includes("maybeEnhanceOpenConflictModal"), "conflictos detallados deben cargarse al abrir modal");
 assert.ok(script.includes("app-conflict-aliases.js"), "alias pesados de conflictos deben vivir fuera del runtime critico");
+assert.ok(script.includes("app-conflict-rules.js"), "reglas pesadas de conflictos deben vivir fuera del runtime critico");
+assert.ok(!script.includes("CONFLICT_PARENT_RULES.push("), "jerarquia pesada de conflictos no debe volver a script.js");
+assert.ok(conflictRules.includes("window.GeoRiskConflictRules"), "modulo diferido debe exponer reglas pesadas de conflictos");
 assert.ok(script.includes("ensureConflictAliasesLoaded"), "runtime debe poder cargar alias de conflictos bajo demanda");
 assert.ok(script.includes("scheduleDetailedOverlayUpgrade"), "GeoJSON detallado debe cargarse por upgrade diferido");
 assert.ok(appMap.includes("world_countries_simplified.geo.json"), "GeoJSON simplificado debe ser default inicial");

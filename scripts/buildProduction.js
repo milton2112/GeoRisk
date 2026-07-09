@@ -36,6 +36,7 @@ const PUBLIC_FILES = [
   "app-risk-radar-ui.js",
   "app-conflict-audit-ui.js",
   "app-conflict-aliases.js",
+  "app-conflict-rules.js",
   "app-project-audit-ui.js",
   "app-curation.js",
   "CHANGELOG.md",

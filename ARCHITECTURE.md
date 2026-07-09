@@ -20,6 +20,7 @@ GeoRisk keeps runtime files in the repository root for now. The project is alrea
 - `app-export-share.js`: deferred export/share helpers and lazy third-party export libraries.
 - `app-help-ui.js`: deferred public help/onboarding copy.
 - `app-performance-ui.js`, `app-risk-radar-ui.js`, `app-conflict-audit-ui.js`, `app-project-audit-ui.js`: deferred internal panels.
+- `app-conflict-aliases.js`, `app-conflict-rules.js`, `app-curation.js`: deferred conflict aliases, hierarchy rules and deep curation used by country history/military detail.
 - `sw.js`: offline shell/runtime cache policy.
 
 ## State Direction

@@ -29,6 +29,7 @@ const appRankings = await fs.readFile(path.join(projectRoot, "app-rankings.js"),
 const appNews = await fs.readFile(path.join(projectRoot, "app-news-ui.js"), "utf8");
 const appCompare = await fs.readFile(path.join(projectRoot, "app-compare-ui.js"), "utf8");
 const appQuiz = await fs.readFile(path.join(projectRoot, "app-quiz-ui.js"), "utf8");
+const appConflictRules = await fs.readFile(path.join(projectRoot, "app-conflict-rules.js"), "utf8");
 const perCountryDir = path.join(projectRoot, "data", "countries");
 const perCountryConflictsDir = path.join(perCountryDir, "conflicts");
 const perCountryFiles = (await fs.readdir(perCountryDir)).filter(file => file.endsWith(".json"));
@@ -116,6 +117,7 @@ assert.ok(!sw.includes("./app-news-ui.js\""), "noticias no debe precachearse en 
 assert.ok(!sw.includes("./app-compare-ui.js\""), "comparador no debe precachearse en el shell inicial");
 assert.ok(!sw.includes("./app-quiz-ui.js\""), "quiz no debe precachearse en el shell inicial");
 assert.ok(!sw.includes("./app-conflict-aliases.js\""), "alias pesados de conflictos no deben precachearse en el shell inicial");
+assert.ok(!sw.includes("./app-conflict-rules.js\""), "reglas pesadas de conflictos no deben precachearse en el shell inicial");
 assert.ok(!sw.includes("./assets/coats/"), "escudos pesados deben cargarse bajo demanda");
 assert.ok(!sw.includes("./assets/flags/"), "banderas deben cargarse bajo demanda");
 assert.ok(!sw.includes("./data/world_countries_simplified.geo.json\""), "GeoJSON debe cachearse bajo demanda, no durante install");
@@ -135,6 +137,7 @@ assert.ok(!indexHtml.includes("app-quiz-ui.js"), "quiz debe cargarse bajo demand
 assert.ok(!indexHtml.includes("app-risk-radar-ui.js"), "radar debe cargarse bajo demanda");
 assert.ok(!indexHtml.includes("app-conflict-audit-ui.js"), "auditoria debe cargarse bajo demanda");
 assert.ok(!indexHtml.includes("app-conflict-aliases.js"), "alias pesados de conflictos deben cargarse bajo demanda");
+assert.ok(!indexHtml.includes("app-conflict-rules.js"), "reglas pesadas de conflictos deben cargarse bajo demanda");
 assert.ok(!indexHtml.includes("app-project-audit-ui.js"), "auditoria de proyecto debe cargarse bajo demanda");
 assert.ok(!indexHtml.includes("html2canvas"), "html2canvas debe cargarse bajo demanda al exportar");
 assert.ok(!indexHtml.includes("jspdf"), "jspdf debe cargarse bajo demanda al exportar PDF");
@@ -317,6 +320,10 @@ assert.ok(script.includes('ensureDeferredUiModule("exportShare")'), "exportar/co
 assert.ok(script.includes("app-risk-radar-ui.js"), "radar debe tener modulo diferido declarado");
 assert.ok(script.includes("app-conflict-audit-ui.js"), "auditoria debe tener modulo diferido declarado");
 assert.ok(script.includes("app-conflict-aliases.js"), "alias pesados de conflictos deben tener modulo diferido versionado");
+assert.ok(script.includes("app-conflict-rules.js"), "reglas pesadas de conflictos deben tener modulo diferido versionado");
+assert.ok(!script.includes("CONFLICT_PARENT_RULES.push("), "jerarquia pesada de conflictos debe vivir fuera del runtime critico");
+assert.ok(appConflictRules.includes("window.GeoRiskConflictRules"), "modulo diferido debe exponer reglas de jerarquia de conflictos");
+assert.ok(appConflictRules.includes("CONFLICT_PARENT_RULES.push("), "modulo diferido debe conservar reglas de jerarquia completas");
 assert.ok(script.includes("scheduleConflictAliasesLoad"), "alias pesados de conflictos deben cargarse en idle o bajo demanda");
 assert.ok(script.includes("app-project-audit-ui.js"), "auditoria del proyecto debe tener modulo diferido declarado");
 assert.ok(script.includes("function renderCountryCurationTodo"), "ficha pais debe exponer checklist de curaduria");

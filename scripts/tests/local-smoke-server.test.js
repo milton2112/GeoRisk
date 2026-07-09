@@ -45,6 +45,7 @@ try {
     "/app-map-interactions.js",
     "/app-store.js",
     "/app-ui-polish.js",
+    "/app-conflict-rules.js",
     "/data/geo_aliases.json",
     "/data/world_countries_simplified.geo.json",
     "/assets/flags/ARG.svg",
@@ -68,6 +69,7 @@ try {
     "app-map-interactions.js",
     "app-store.js",
     "app-ui-polish.js",
+    "app-conflict-rules.js",
     "style-polish.css"
   ];
   for (const file of shellFiles) {
