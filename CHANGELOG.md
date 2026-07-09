@@ -8,7 +8,14 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.41 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.42 antes de cerrar la siguiente version.
+
+## v1.6.42 - 2026-07-09
+
+- Limpia detalles de guerras duplicados que habian quedado mezclados dentro de `THEME_STYLES`.
+- Reduce `script.js` quitando datos de conflicto que no se usaban para pintar capas tematicas.
+- Agrega un gate para impedir que `THEME_STYLES` vuelva a mezclar `cause`, `participants` u otros campos de curaduria.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-09-release-8`.
 
 ## v1.6.41 - 2026-07-09
 

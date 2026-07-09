@@ -61,8 +61,12 @@ const initialLocalScripts = [...indexHtml.matchAll(/<script\s+src="([^"]+)"/g)]
   .filter(src => src && !/^https?:\/\//i.test(src));
 const appVersion = script.match(/const APP_VERSION = "([^"]+)"/)?.[1];
 const cacheVersion = sw.match(/const CACHE_VERSION = "([^"]+)"/)?.[1];
+const themeStylesBlock = script.match(/const THEME_STYLES = \{([\s\S]*?)\};\n\nObject\.assign\(THEME_STYLES/)?.[1] || "";
 
 assert.ok(appVersion, "script.js debe declarar APP_VERSION");
+assert.ok(themeStylesBlock, "script.js debe conservar configuracion visual de capas");
+assert.ok(!/cause:\s*"|participants:\s*\[|outcome:\s*"/.test(themeStylesBlock), "THEME_STYLES no debe mezclar detalles de conflictos");
+assert.ok(!themeStylesBlock.includes("Guerra de Corea"), "detalles de conflictos no deben volver a THEME_STYLES");
 assert.equal(cacheVersion, appVersion, "APP_VERSION y CACHE_VERSION deben estar sincronizados");
 assert.ok(indexHtml.includes(`style.css?v=${appVersion}`), "style.css debe usar el stamp de version activo");
 for (const src of initialLocalScripts) {

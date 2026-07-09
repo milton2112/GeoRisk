@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-09T20:39:32.778Z",
+  "generatedAt": "2026-07-09T20:46:17.684Z",
   "status": "operativo",
   "startup": {
-    "critical": "891 KB",
-    "criticalBytes": 912786,
+    "critical": "877 KB",
+    "criticalBytes": 897800,
     "deferred": "1.09 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 9142879,
@@ -16,8 +16,8 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 640371,
-        "human": "625 KB",
+        "bytes": 625385,
+        "human": "611 KB",
         "startupCritical": true
       },
       {
@@ -809,8 +809,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 640371,
-      "human": "625 KB"
+      "bytes": 625385,
+      "human": "611 KB"
     },
     {
       "path": "style.css",
@@ -821,7 +821,7 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 45661,
+      "bytes": 46066,
       "human": "45 KB"
     },
     {
