@@ -43,6 +43,7 @@ const releaseArtifacts = await fs.readFile(path.join(projectRoot, "scripts/audit
 const featureHealth = await fs.readFile(path.join(projectRoot, "scripts/auditFeatureHealth.js"), "utf8");
 const exportShare = await fs.readFile(path.join(projectRoot, "app-export-share.js"), "utf8");
 const conflictRules = await fs.readFile(path.join(projectRoot, "app-conflict-rules.js"), "utf8");
+const riskRadarUi = await fs.readFile(path.join(projectRoot, "app-risk-radar-ui.js"), "utf8");
 const fixSourceText = await fs.readFile(path.join(projectRoot, "scripts/fixSourceText.js"), "utf8");
 const releaseWorkflow = await fs.readFile(path.join(projectRoot, ".github/workflows/release-gate.yml"), "utf8");
 const prePushHook = await fs.readFile(path.join(projectRoot, ".githooks/pre-push"), "utf8");
@@ -216,6 +217,8 @@ assert.ok(script.includes("app-conflict-aliases.js"), "alias pesados de conflict
 assert.ok(script.includes("app-conflict-rules.js"), "reglas pesadas de conflictos deben vivir fuera del runtime critico");
 assert.ok(!script.includes("CONFLICT_PARENT_RULES.push("), "jerarquia pesada de conflictos no debe volver a script.js");
 assert.ok(conflictRules.includes("window.GeoRiskConflictRules"), "modulo diferido debe exponer reglas pesadas de conflictos");
+assert.ok(riskRadarUi.includes("function buildScenarioCards"), "escenarios del radar deben vivir fuera del runtime critico");
+assert.ok(!script.includes("function getRiskMainDriverLabel"), "helper visual del radar no debe volver a script.js");
 assert.ok(script.includes("ensureConflictAliasesLoaded"), "runtime debe poder cargar alias de conflictos bajo demanda");
 assert.ok(script.includes("scheduleDetailedOverlayUpgrade"), "GeoJSON detallado debe cargarse por upgrade diferido");
 assert.ok(appMap.includes("world_countries_simplified.geo.json"), "GeoJSON simplificado debe ser default inicial");

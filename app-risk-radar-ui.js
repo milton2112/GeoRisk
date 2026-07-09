@@ -1,13 +1,131 @@
 (() => {
+  function escapeLocal(value) {
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  function formatLocal(value, formatter) {
+    const number = Number(value) || 0;
+    if (typeof formatter === "function") {
+      return formatter(number);
+    }
+    return new Intl.NumberFormat("es-AR").format(number);
+  }
+
+  function flagLocal(code, flagResolver) {
+    if (typeof flagResolver === "function") {
+      return flagResolver(code);
+    }
+    return "";
+  }
+
+  function getRiskMainDriverLabel(components = {}, isEnglish = false) {
+    const labels = {
+      conflictExposure: isEnglish ? "conflict exposure" : "exposicion conflictiva",
+      militaryPressure: isEnglish ? "military pressure" : "presion militar",
+      rivalryPressure: isEnglish ? "territorial/rival pressure" : "presion territorial/rival",
+      economicStress: isEnglish ? "economic stress" : "estres economico",
+      governanceStress: isEnglish ? "internal stress" : "estres interno"
+    };
+    const [key] = Object.entries(labels)
+      .sort((a, b) => (components[b[0]] || 0) - (components[a[0]] || 0))[0] || ["conflictExposure"];
+    return labels[key] || labels.conflictExposure;
+  }
+
+  function buildComponentRows({ isEnglish, selectedComponents, formatNumber }) {
+    if (!selectedComponents) {
+      return "";
+    }
+    const labels = {
+      conflictExposure: isEnglish ? "Conflict exposure" : "Exposicion a conflicto",
+      militaryPressure: isEnglish ? "Military pressure" : "Presion militar",
+      rivalryPressure: isEnglish ? "Rivals/disputes" : "Rivales y disputas",
+      economicStress: isEnglish ? "Economic stress" : "Estres economico",
+      governanceStress: isEnglish ? "Governance stress" : "Estres de gobernanza",
+      diplomaticBuffer: isEnglish ? "Diplomatic buffer" : "Amortiguador diplomatico"
+    };
+    return Object.entries(labels).map(([key, label]) => {
+      const score = Math.round(selectedComponents[key] || 0);
+      return `
+        <li>
+          <span>${escapeLocal(label)}</span>
+          <div class="health-progress-track"><i style="width:${score}%"></i></div>
+          <b>${formatLocal(score, formatNumber)}/100</b>
+        </li>
+      `;
+    }).join("");
+  }
+
+  function buildScenarioCards({ isEnglish, allRiskCountries = [], formatNumber, getFlagEmoji }) {
+    const scenarioDefinitions = [
+      {
+        title: isEnglish ? "Military escalation" : "Escalada militar",
+        description: isEnglish ? "High armed capacity plus conflict exposure." : "Alta capacidad armada combinada con exposicion conflictiva.",
+        score: item => (item.components.militaryPressure * 0.55) + (item.components.conflictExposure * 0.45)
+      },
+      {
+        title: isEnglish ? "Economic stress" : "Estres economico",
+        description: isEnglish ? "Inflation, low income buffer and structural fragility." : "Inflacion, bajo amortiguador de ingreso y fragilidad estructural.",
+        score: item => item.components.economicStress
+      },
+      {
+        title: isEnglish ? "Territorial friction" : "Friccion territorial",
+        description: isEnglish ? "Rivals, disputes and contested sovereignty." : "Rivales, disputas y soberania contestada.",
+        score: item => item.components.rivalryPressure
+      },
+      {
+        title: isEnglish ? "Low diplomatic buffer" : "Bajo amortiguador diplomatico",
+        description: isEnglish ? "Few institutional buffers relative to pressure." : "Pocos amortiguadores institucionales frente a presion.",
+        score: item => Math.max(0, item.components.risk - item.components.diplomaticBuffer)
+      }
+    ];
+    return scenarioDefinitions.map(definition => {
+      const leaders = allRiskCountries
+        .map(item => ({ ...item, scenarioScore: definition.score(item) }))
+        .sort((a, b) => b.scenarioScore - a.scenarioScore)
+        .slice(0, 3);
+      return `
+        <article class="risk-watch-card risk-scenario-card">
+          <strong>${escapeLocal(definition.title)}</strong>
+          <span>${escapeLocal(definition.description)}</span>
+          <ol>
+            ${leaders.map(item => `<li><button type="button" data-open-country="${escapeLocal(item.code)}">${flagLocal(item.code, getFlagEmoji)} ${escapeLocal(item.name)} - ${formatLocal(Math.round(item.scenarioScore), formatNumber)}/100</button></li>`).join("")}
+          </ol>
+        </article>
+      `;
+    }).join("");
+  }
+
+  function buildWatchCards({ isEnglish, topRiskCountries = [], formatNumber, getFlagEmoji }) {
+    return topRiskCountries.map(({ code, name, continent, components }) => `
+      <button type="button" class="risk-watch-card" data-open-country="${escapeLocal(code)}">
+        <strong>${flagLocal(code, getFlagEmoji)} ${escapeLocal(name)}</strong>
+        <span>${formatLocal(Math.round(components.risk), formatNumber)}/100 - ${escapeLocal(continent || "")}</span>
+        <small>${isEnglish ? "Main driver" : "Factor principal"}: ${escapeLocal(getRiskMainDriverLabel(components, isEnglish))}</small>
+      </button>
+    `).join("");
+  }
+
   function renderRiskRadarPanelContent({
     language = "es",
     selected,
     selectedComponents,
+    topRiskCountries = [],
+    allRiskCountries = [],
+    formatNumber,
+    getFlagEmoji,
     componentRows = "",
     scenarioCards = "",
     watchCards = ""
   }) {
     const isEnglish = language === "en";
+    const selectedRows = componentRows || buildComponentRows({ isEnglish, selectedComponents, formatNumber });
+    const scenarioMarkup = scenarioCards || buildScenarioCards({ isEnglish, allRiskCountries, formatNumber, getFlagEmoji });
+    const watchMarkup = watchCards || buildWatchCards({ isEnglish, topRiskCountries, formatNumber, getFlagEmoji });
     return `
       <div class="product-insight-strip">
         <span>${isEnglish
@@ -22,13 +140,13 @@
       </div>
       ${selected ? `
         <div class="help-section">
-          <h3>${selected.name} - ${Math.round(selectedComponents.risk || 0)}/100</h3>
-          <ul class="health-progress-list">${componentRows}</ul>
+          <h3>${escapeLocal(selected.name)} - ${Math.round(selectedComponents.risk || 0)}/100</h3>
+          <ul class="health-progress-list">${selectedRows}</ul>
         </div>
       ` : ""}
       <div class="help-section">
         <h3>${isEnglish ? "Scenario lenses" : "Lentes de escenario"}</h3>
-        <div class="risk-watch-grid">${scenarioCards}</div>
+        <div class="risk-watch-grid">${scenarioMarkup}</div>
       </div>
       <div class="risk-method-strip">
         <article>
@@ -56,7 +174,7 @@
       </div>
       <div class="help-section">
         <h3>${isEnglish ? "Top risk watchlist" : "Watchlist de riesgo"}</h3>
-        <div class="risk-watch-grid">${watchCards}</div>
+        <div class="risk-watch-grid">${watchMarkup}</div>
       </div>
       <div class="help-section">
         <h3>${isEnglish ? "Important caveat" : "Aclaracion importante"}</h3>
@@ -68,6 +186,7 @@
   }
 
   window.GeoRiskRiskRadarUi = {
+    getRiskMainDriverLabel,
     renderRiskRadarPanelContent
   };
 })();

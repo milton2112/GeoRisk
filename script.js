@@ -82,7 +82,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-07-09-release-8";
+const APP_VERSION = "2026-07-09-release-9";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -10878,83 +10878,30 @@ async function renderPerformancePanel() {
 
 async function renderRiskRadarPanel() {
   await ensureDeferredUiModule("riskRadar");
-  const countries = Object.entries(countriesData || {})
-    .map(([code, country]) => ({
-      code,
-      country,
-      components: getCountryRiskRadarComponents(country)
-    }))
-    .sort((a, b) => b.components.risk - a.components.risk)
-    .slice(0, 18);
   const allRiskCountries = Object.entries(countriesData || {})
     .map(([code, country]) => ({
       code,
-      country,
+      name: country.name,
+      continent: country.continent,
       components: getCountryRiskRadarComponents(country)
     }));
+  const topRiskCountries = allRiskCountries
+    .slice()
+    .sort((a, b) => b.components.risk - a.components.risk)
+    .slice(0, 18);
   const selected = getCurrentThemeSelectedCountry();
   const selectedComponents = selected ? getCountryRiskRadarComponents(selected) : null;
-  const componentRows = selectedComponents
-    ? Object.entries({
-        conflictExposure: currentLanguage === "en" ? "Conflict exposure" : "Exposicion a conflicto",
-        militaryPressure: currentLanguage === "en" ? "Military pressure" : "Presion militar",
-        rivalryPressure: currentLanguage === "en" ? "Rivals/disputes" : "Rivales y disputas",
-        economicStress: currentLanguage === "en" ? "Economic stress" : "Estres economico",
-        governanceStress: currentLanguage === "en" ? "Governance stress" : "Estres de gobernanza",
-        diplomaticBuffer: currentLanguage === "en" ? "Diplomatic buffer" : "Amortiguador diplomatico"
-      }).map(([key, label]) => `
-        <li>
-          <span>${escapeHtml(label)}</span>
-          <div class="health-progress-track"><i style="width:${Math.round(selectedComponents[key] || 0)}%"></i></div>
-          <b>${formatNumber(Math.round(selectedComponents[key] || 0))}/100</b>
-        </li>
-      `).join("")
-    : "";
-  const scenarioDefinitions = [
-    {
-      title: currentLanguage === "en" ? "Military escalation" : "Escalada militar",
-      description: currentLanguage === "en" ? "High armed capacity plus conflict exposure." : "Alta capacidad armada combinada con exposicion conflictiva.",
-      score: item => (item.components.militaryPressure * 0.55) + (item.components.conflictExposure * 0.45)
-    },
-    {
-      title: currentLanguage === "en" ? "Economic stress" : "Estres economico",
-      description: currentLanguage === "en" ? "Inflation, low income buffer and structural fragility." : "Inflacion, bajo amortiguador de ingreso y fragilidad estructural.",
-      score: item => item.components.economicStress
-    },
-    {
-      title: currentLanguage === "en" ? "Territorial friction" : "Friccion territorial",
-      description: currentLanguage === "en" ? "Rivals, disputes and contested sovereignty." : "Rivales, disputas y soberania contestada.",
-      score: item => item.components.rivalryPressure
-    },
-    {
-      title: currentLanguage === "en" ? "Low diplomatic buffer" : "Bajo amortiguador diplomatico",
-      description: currentLanguage === "en" ? "Few institutional buffers relative to pressure." : "Pocos amortiguadores institucionales frente a presion.",
-      score: item => Math.max(0, item.components.risk - item.components.diplomaticBuffer)
-    }
-  ];
-  const scenarioCards = scenarioDefinitions.map(definition => {
-    const leaders = allRiskCountries
-      .map(item => ({ ...item, scenarioScore: definition.score(item) }))
-      .sort((a, b) => b.scenarioScore - a.scenarioScore)
-      .slice(0, 3);
-    return `
-      <article class="risk-watch-card risk-scenario-card">
-        <strong>${escapeHtml(definition.title)}</strong>
-        <span>${escapeHtml(definition.description)}</span>
-        <ol>
-          ${leaders.map(item => `<li><button type="button" data-open-country="${escapeHtml(item.code)}">${getFlagEmoji(item.code)} ${escapeHtml(item.country.name)} - ${formatNumber(Math.round(item.scenarioScore))}/100</button></li>`).join("")}
-        </ol>
-      </article>
-    `;
-  }).join("");
-  const watchCards = countries.map(({ code, country, components }) => `
-    <button type="button" class="risk-watch-card" data-open-country="${escapeHtml(code)}">
-      <strong>${getFlagEmoji(code)} ${escapeHtml(country.name)}</strong>
-      <span>${formatNumber(Math.round(components.risk))}/100 - ${escapeHtml(country.continent || "")}</span>
-      <small>${currentLanguage === "en" ? "Main driver" : "Factor principal"}: ${escapeHtml(getRiskMainDriverLabel(components))}</small>
-    </button>
-  `).join("");
-  const fallbackBody = `
+  const body = riskRadarUi.renderRiskRadarPanelContent
+    ? riskRadarUi.renderRiskRadarPanelContent({
+        language: currentLanguage,
+        selected: selected ? { name: selected.name } : null,
+        selectedComponents,
+        topRiskCountries,
+        allRiskCountries,
+        formatNumber,
+        getFlagEmoji
+      })
+    : `
     <div class="product-insight-strip">
       <span>${currentLanguage === "en"
         ? "Unlike a military-only radar, this view weighs conflict exposure, economic stress, rivals, governance and diplomatic buffers."
@@ -10963,24 +10910,18 @@ async function renderRiskRadarPanel() {
     ${selected ? `
       <div class="help-section">
         <h3>${escapeHtml(selected.name)} - ${formatNumber(Math.round(selectedComponents.risk))}/100</h3>
-        <ul class="health-progress-list">${componentRows}</ul>
       </div>
     ` : ""}
     <div class="help-section">
       <h3>${currentLanguage === "en" ? "Top risk watchlist" : "Watchlist de riesgo"}</h3>
-      <div class="risk-watch-grid">${watchCards}</div>
+      <div class="risk-watch-grid">${topRiskCountries.map(({ code, name, components }) => `
+        <button type="button" class="risk-watch-card" data-open-country="${escapeHtml(code)}">
+          <strong>${getFlagEmoji(code)} ${escapeHtml(name)}</strong>
+          <span>${formatNumber(Math.round(components.risk))}/100</span>
+        </button>
+      `).join("")}</div>
     </div>
   `;
-  const body = riskRadarUi.renderRiskRadarPanelContent
-    ? riskRadarUi.renderRiskRadarPanelContent({
-        language: currentLanguage,
-        selected,
-        selectedComponents,
-        componentRows,
-        scenarioCards,
-        watchCards
-      })
-    : fallbackBody;
 
   openProductModal(
     currentLanguage === "en" ? "Multi-variable risk radar" : "Radar de riesgo multiparametrico",
@@ -10996,19 +10937,6 @@ async function renderRiskRadarPanel() {
       }
     });
   });
-}
-
-function getRiskMainDriverLabel(components = {}) {
-  const labels = {
-    conflictExposure: currentLanguage === "en" ? "conflict exposure" : "exposicion conflictiva",
-    militaryPressure: currentLanguage === "en" ? "military pressure" : "presion militar",
-    rivalryPressure: currentLanguage === "en" ? "territorial/rival pressure" : "presion territorial/rival",
-    economicStress: currentLanguage === "en" ? "economic stress" : "estres economico",
-    governanceStress: currentLanguage === "en" ? "internal stress" : "estres interno"
-  };
-  const [key] = Object.entries(labels)
-    .sort((a, b) => (components[b[0]] || 0) - (components[a[0]] || 0))[0] || ["conflictExposure"];
-  return labels[key] || labels.conflictExposure;
 }
 
 async function renderConflictAuditPanel() {

@@ -71,6 +71,7 @@ assert.ok(polishCss.includes("@keyframes countrySkeletonSweep"), "skeletons de f
 
 const performanceUi = await fs.readFile(path.join(projectRoot, "app-performance-ui.js"), "utf8");
 const uiPolish = await fs.readFile(path.join(projectRoot, "app-ui-polish.js"), "utf8");
+const riskRadarUi = await fs.readFile(path.join(projectRoot, "app-risk-radar-ui.js"), "utf8");
 assert.ok(performanceUi.includes("Recomendacion automatica"), "rendimiento debe explicar la recomendacion en espanol");
 assert.ok(performanceUi.includes("Arranque sano"), "rendimiento debe distinguir estado sano");
 assert.ok(performanceUi.includes("Degradaciones automaticas de render"), "rendimiento debe mostrar degradaciones automaticas");
@@ -113,6 +114,9 @@ assert.ok(script.includes("function setStartupStatus"), "arranque debe informar 
 assert.ok(script.includes("function runIntroAction"), "portada debe convertir acciones guiadas en flujo real");
 assert.ok(script.includes('help: `./app-help-ui.js?v=${APP_VERSION}`'), "guia rapida debe cargarse como modulo diferido versionado");
 assert.ok(script.includes("renderHelpModalContent"), "guia rapida debe renderizarse bajo demanda");
+assert.ok(riskRadarUi.includes("function buildScenarioCards"), "radar de riesgo debe armar escenarios en su modulo diferido");
+assert.ok(riskRadarUi.includes("function getRiskMainDriverLabel"), "radar de riesgo debe explicar factor principal fuera del runtime critico");
+assert.ok(!script.includes("function getRiskMainDriverLabel"), "runtime principal no debe conservar helpers visuales del radar de riesgo");
 assert.ok(script.includes("setTheme(\"riskRadar\")"), "accion de riesgo debe activar la capa de radar");
 assert.ok(script.includes("setTheme(\"conflicts\")"), "accion de conflictos debe activar la capa de conflictos");
 assert.ok(script.includes("openCompareHubFromIntro"), "accion de comparador debe abrir el hub correcto");

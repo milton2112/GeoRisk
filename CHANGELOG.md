@@ -8,7 +8,14 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.42 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.43 antes de cerrar la siguiente version.
+
+## v1.6.43 - 2026-07-09
+
+- Mueve el armado de escenarios, filas y watchlist del radar de riesgo a `app-risk-radar-ui.js`.
+- Reduce el trabajo y el peso de `script.js` manteniendo el radar como modulo diferido versionado.
+- Agrega gates para impedir que helpers visuales del radar vuelvan al runtime critico.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-09-release-9`.
 
 ## v1.6.42 - 2026-07-09
 

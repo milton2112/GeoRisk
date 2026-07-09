@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-09T20:46:17.684Z",
+  "generatedAt": "2026-07-09T20:57:43.802Z",
   "status": "operativo",
   "startup": {
-    "critical": "877 KB",
-    "criticalBytes": 897800,
+    "critical": "873 KB",
+    "criticalBytes": 893675,
     "deferred": "1.09 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 9142879,
@@ -16,8 +16,8 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 625385,
-        "human": "611 KB",
+        "bytes": 621260,
+        "human": "607 KB",
         "startupCritical": true
       },
       {
@@ -809,8 +809,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 625385,
-      "human": "611 KB"
+      "bytes": 621260,
+      "human": "607 KB"
     },
     {
       "path": "style.css",
@@ -821,7 +821,7 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 46066,
+      "bytes": 46445,
       "human": "45 KB"
     },
     {
@@ -852,6 +852,12 @@
       "path": "TECHNICAL.md",
       "exists": true,
       "bytes": 10619,
+      "human": "10 KB"
+    },
+    {
+      "path": "app-risk-radar-ui.js",
+      "exists": true,
+      "bytes": 10251,
       "human": "10 KB"
     },
     {
@@ -900,12 +906,6 @@
       "path": "package.json",
       "exists": true,
       "bytes": 4708,
-      "human": "5 KB"
-    },
-    {
-      "path": "app-risk-radar-ui.js",
-      "exists": true,
-      "bytes": 4639,
       "human": "5 KB"
     },
     {
@@ -958,7 +958,7 @@
     }
   ],
   "scriptMetrics": {
-    "functions": 522,
+    "functions": 521,
     "asyncFunctions": 47,
     "consoleWarnings": 18,
     "consoleErrors": 13
