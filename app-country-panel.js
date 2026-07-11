@@ -11,6 +11,8 @@ const COUNTRY_PANEL_DATA_SOURCE_SUMMARY = {
   ]
 };
 
+const COUNTRY_FAVORITES_STORAGE_KEY = "geo-risk-country-favorites";
+
 function formatProvenanceValue(value, language = "es", depth = 0) {
   if (value === null || value === undefined || value === "") {
     return language === "en" ? "No data" : "Sin datos";
@@ -33,8 +35,197 @@ function formatProvenanceValue(value, language = "es", depth = 0) {
     .join(" | ");
 }
 
+function getInteractionTrigger(event, selector) {
+  return typeof event?.target?.closest === "function"
+    ? event.target.closest(selector)
+    : null;
+}
+
+function readFavoriteCodes(storage) {
+  try {
+    const value = JSON.parse(storage?.getItem(COUNTRY_FAVORITES_STORAGE_KEY) || "[]");
+    return Array.isArray(value) ? value.filter(code => typeof code === "string") : [];
+  } catch {
+    return [];
+  }
+}
+
+async function handleInteraction(event, options = {}) {
+  const state = options.getState?.() || {};
+  const language = options.getLanguage?.() || "es";
+  const getTrigger = selector => getInteractionTrigger(event, selector);
+
+  const openCountryTrigger = getTrigger("[data-open-country]");
+  if (openCountryTrigger) {
+    await options.openCountryByCode?.(
+      openCountryTrigger.dataset.openCountry,
+      openCountryTrigger.textContent?.trim() || ""
+    );
+    return true;
+  }
+
+  const deferredSectionTrigger = getTrigger("[data-country-load-section]");
+  if (deferredSectionTrigger) {
+    await options.activateCountrySection?.(deferredSectionTrigger.dataset.countryLoadSection);
+    return true;
+  }
+
+  const countryNavTrigger = getTrigger("[data-country-nav]");
+  if (countryNavTrigger) {
+    await options.activateCountrySection?.(countryNavTrigger.dataset.countryNav);
+    return true;
+  }
+
+  const countryViewModeButton = getTrigger("[data-country-view-mode]");
+  if (countryViewModeButton) {
+    state.countryViewMode = countryViewModeButton.dataset.countryViewMode || "full";
+    state.timelineMode = state.countryViewMode === "teaching" ? "teaching" : "full";
+    options.rerenderCurrentPanel?.();
+    return true;
+  }
+
+  const countryFavoriteButton = getTrigger("[data-country-favorite]");
+  if (countryFavoriteButton) {
+    const code = countryFavoriteButton.dataset.countryFavorite;
+    const country = options.getCountriesData?.()?.[code];
+    if (country) {
+      const favorites = readFavoriteCodes(options.storage);
+      const nextFavorites = [code, ...favorites.filter(item => item !== code)].slice(0, 24);
+      try {
+        options.storage?.setItem(COUNTRY_FAVORITES_STORAGE_KEY, JSON.stringify(nextFavorites));
+      } catch {
+        // Private browsing or a full quota must not block the country profile.
+      }
+      options.showToast?.(language === "en" ? "Country saved as favorite." : "Pais guardado como favorito.");
+    }
+    return true;
+  }
+
+  const quickCompareButton = getTrigger("[data-quick-compare]");
+  if (quickCompareButton) {
+    options.addCountryToCompare?.(quickCompareButton.dataset.quickCompare);
+    if ((options.getCompareSelection?.() || []).length >= 2) {
+      options.openCompareModal?.();
+    } else {
+      options.renderComparePanel?.();
+      options.showToast?.(language === "en" ? "Add one more country to compare." : "Agrega otro pais para comparar.");
+    }
+    return true;
+  }
+
+  const stateActions = [
+    ["[data-timeline-filter]", "timelineFilter", "timelineFilter", "all"],
+    ["[data-timeline-century]", "timelineCentury", "timelineCentury", "all"],
+    ["[data-timeline-intensity]", "timelineIntensity", "timelineIntensity", "all"],
+    ["[data-timeline-relevance]", "timelineRelevance", "timelineRelevance", "all"],
+    ["[data-timeline-mode]", "timelineMode", "timelineMode", "full"]
+  ];
+  for (const [selector, stateKey, dataKey, fallback] of stateActions) {
+    const trigger = getTrigger(selector);
+    if (trigger) {
+      state[stateKey] = trigger.dataset[dataKey] || fallback;
+      options.rerenderCurrentPanel?.();
+      return true;
+    }
+  }
+
+  const timelineTrigger = getTrigger("[data-timeline-key]");
+  if (timelineTrigger) {
+    options.openTimelineModal?.(timelineTrigger.dataset.timelineKey);
+    return true;
+  }
+
+  const conflictStateActions = [
+    ["[data-conflict-filter]", "conflictFilter", "conflictFilter"],
+    ["[data-conflict-region]", "conflictRegion", "conflictRegion"],
+    ["[data-conflict-outcome]", "conflictOutcome", "conflictOutcome"],
+    ["[data-conflict-side]", "conflictSide", "conflictSide"]
+  ];
+  for (const [selector, stateKey, dataKey] of conflictStateActions) {
+    const trigger = getTrigger(selector);
+    if (trigger) {
+      state[stateKey] = trigger.dataset[dataKey] || "all";
+      state.conflictVisibleLimit = 0;
+      options.rerenderCurrentPanel?.();
+      return true;
+    }
+  }
+
+  if (getTrigger("[data-conflict-load-more]")) {
+    const step = options.isMobileLayout?.() ? 8 : 16;
+    state.conflictVisibleLimit = (Number(state.conflictVisibleLimit) || step) + step;
+    options.rerenderCurrentPanel?.();
+    return true;
+  }
+
+  const conflictChildMoreButton = getTrigger("[data-conflict-expand-children]");
+  if (conflictChildMoreButton) {
+    const groupKey = conflictChildMoreButton.dataset.conflictExpandChildren;
+    const step = options.isMobileLayout?.() ? 3 : 5;
+    state.conflictChildLimits = {
+      ...(state.conflictChildLimits || {}),
+      [groupKey]: (Number(state.conflictChildLimits?.[groupKey]) || step) + step
+    };
+    options.rerenderCurrentPanel?.();
+    return true;
+  }
+
+  const conflictTrigger = getTrigger("[data-conflict-key]");
+  if (conflictTrigger) {
+    options.openConflictModal?.(conflictTrigger.dataset.conflictKey);
+    return true;
+  }
+
+  const exportTrigger = getTrigger("[data-export-target]");
+  if (exportTrigger) {
+    const target = options.document?.getElementById(exportTrigger.dataset.exportTarget);
+    if (target) {
+      if (exportTrigger.dataset.exportFormat === "pdf") {
+        await options.exportNodeAsPdf?.(target, `${exportTrigger.dataset.exportTarget}.pdf`);
+      } else {
+        await options.exportNodeAsImage?.(target, `${exportTrigger.dataset.exportTarget}.png`);
+      }
+    }
+    return true;
+  }
+
+  const shareCountryTrigger = getTrigger("[data-share-country]");
+  if (shareCountryTrigger) {
+    const country = options.getCountriesData?.()?.[shareCountryTrigger.dataset.shareCountry];
+    if (country) {
+      const noData = options.getNoDataLabel?.() || (language === "en" ? "No data" : "Sin datos");
+      await options.shareText?.(
+        country.name,
+        `${country.name}\n${language === "en" ? "Official name" : "Nombre oficial"}: ${country.general?.officialName || country.name}\n${language === "en" ? "Population" : "Poblacion"}: ${options.formatNumber?.(country.general?.population || 0) || country.general?.population || 0}\n${language === "en" ? "Political system" : "Sistema politico"}: ${country.politics?.system || noData}`
+      );
+    }
+    return true;
+  }
+
+  const shareTrigger = getTrigger("[data-share-target]");
+  if (shareTrigger) {
+    const target = options.document?.getElementById(shareTrigger.dataset.shareTarget);
+    if (target) {
+      await options.shareText?.(
+        language === "en" ? "GeoRisk comparison" : "Comparacion GeoRisk",
+        target.innerText?.trim() || ""
+      );
+    }
+    return true;
+  }
+
+  const searchTrigger = getTrigger("[data-search-query]");
+  if (searchTrigger) {
+    await options.searchByQuery?.(searchTrigger.dataset.searchQuery);
+    return true;
+  }
+
+  return false;
+}
+
 window.GeoRiskCountryPanel = {
   formatProvenanceValue,
+  handleInteraction,
   getSectionDescriptors(language = "es") {
     return [
       { id: "country-section-general", label: language === "en" ? "General" : "General" },
@@ -109,7 +300,7 @@ window.GeoRiskCountryPanel = {
     return `geo-risk-country-notes:${countryCode || "unknown"}`;
   },
   getFavoriteStorageKey() {
-    return "geo-risk-country-favorites";
+    return COUNTRY_FAVORITES_STORAGE_KEY;
   },
   renderSkeleton(country = {}, language = "es") {
     const name = country.name || (language === "en" ? "Country profile" : "Ficha pais");
@@ -182,7 +373,7 @@ window.GeoRiskCountryPanel = {
       <ul class="data-source-list">
         ${sourceSections.map(section => {
           const items = Array.isArray(sources[section.key]) && sources[section.key].length ? sources[section.key] : genericSources;
-          const statusLabel = sectionStatus[section.key] ? ` · ${escapeHtml(sectionStatus[section.key])}` : "";
+          const statusLabel = sectionStatus[section.key] ? ` - ${escapeHtml(sectionStatus[section.key])}` : "";
           return `<li><b>${escapeHtml(section.label)}</b>${statusLabel}: ${items.map(item => escapeHtml(item)).join(", ")}</li>`;
         }).join("")}
       </ul>

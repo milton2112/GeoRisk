@@ -7,6 +7,7 @@ const script = await fs.readFile(path.join(projectRoot, "script.js"), "utf8");
 const indexHtml = await fs.readFile(path.join(projectRoot, "index.html"), "utf8");
 const css = await fs.readFile(path.join(projectRoot, "style.css"), "utf8");
 const polishCss = await fs.readFile(path.join(projectRoot, "style-polish.css"), "utf8");
+const countryPanelUi = await fs.readFile(path.join(projectRoot, "app-country-panel.js"), "utf8");
 
 assert.ok(indexHtml.includes('id="layers-active-context"'), "capas debe mostrar el estado activo en el panel");
 assert.ok(indexHtml.includes('id="ranking-active-summary"'), "rankings debe mostrar seleccion activa persistente");
@@ -28,12 +29,22 @@ assert.ok(
   "busqueda de religion debe marcar paises y renderizar grupo"
 );
 assert.ok(
+  /async function searchMap\(\)[\s\S]{0,140}ensureSearchIndexReady\(\)/.test(script),
+  "busqueda de categorias debe completar alias al primer uso y no depender del idle de arranque"
+);
+assert.ok(
   /if \(result\.type === "religion_denomination"\)[\s\S]{0,260}selectCountryGroupLayers\(matches, \{ mode: "religion" \}\)[\s\S]{0,260}renderReligionSelection/.test(script),
   "busqueda de denominacion religiosa debe marcar paises y renderizar grupo"
 );
 assert.ok(
   /async function openCountryByCode[\s\S]{0,520}selectCountryLayersWhenReady\(code, country\.name \|\| fallbackName, options\)[\s\S]{0,120}await renderCountry/.test(script),
   "apertura central de pais debe marcar mapa antes de renderizar ficha"
+);
+assert.ok(
+  script.includes("handleCountryPanelInteraction(event)")
+    && countryPanelUi.includes('getTrigger("[data-open-country]")')
+    && countryPanelUi.includes("options.openCountryByCode"),
+  "resultados dentro de la ficha deben conservar apertura de pais con carga diferida"
 );
 assert.ok(
   /async function selectRankedCountry\(country\)[\s\S]{0,140}await openCountryByCode\(code, country\?\.name \|\| ""\)/.test(script),

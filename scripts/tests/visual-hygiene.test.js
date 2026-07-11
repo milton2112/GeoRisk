@@ -16,7 +16,8 @@ const visibleFiles = [
   "app-help-ui.js",
   "app-performance-ui.js",
   "app-export-share.js",
-  "app-ui-polish.js"
+  "app-ui-polish.js",
+  "app-country-panel.js"
 ];
 
 const forbiddenVisibleTokens = [
@@ -71,6 +72,7 @@ assert.ok(polishCss.includes("@keyframes countrySkeletonSweep"), "skeletons de f
 
 const performanceUi = await fs.readFile(path.join(projectRoot, "app-performance-ui.js"), "utf8");
 const uiPolish = await fs.readFile(path.join(projectRoot, "app-ui-polish.js"), "utf8");
+const countryPanelUi = await fs.readFile(path.join(projectRoot, "app-country-panel.js"), "utf8");
 const riskRadarUi = await fs.readFile(path.join(projectRoot, "app-risk-radar-ui.js"), "utf8");
 assert.ok(performanceUi.includes("Recomendacion automatica"), "rendimiento debe explicar la recomendacion en espanol");
 assert.ok(performanceUi.includes("Arranque sano"), "rendimiento debe distinguir estado sano");
@@ -151,7 +153,11 @@ assert.ok(script.includes("function closeMobileHubPanels"), "paneles y hubs mobi
 assert.ok(script.includes("function syncLayersPanelState"), "panel de capas debe sincronizar hubs inferiores al abrir/cerrar");
 assert.ok(script.includes('document.body.classList.toggle("layers-panel-open", isOpen)'), "panel de capas debe publicar estado abierto al CSS");
 assert.ok(script.includes("function renderCountryActionList"), "listas grupales de paises deben exponer botones para abrir ficha");
-assert.ok(script.includes('event.target.closest("[data-open-country]")'), "ficha debe delegar apertura de paises desde listas grupales");
+assert.ok(
+  script.includes("handleCountryPanelInteraction(event)")
+    && countryPanelUi.includes('getTrigger("[data-open-country]")'),
+  "ficha debe delegar apertura de paises desde listas grupales"
+);
 assert.ok(polishCss.includes(".country-action-list button"), "listas grupales clickeables deben tener estilo tactil propio diferido");
 assert.ok(script.includes('themeQuickGrid?.addEventListener("click"'), "botones rapidos de capas deben tener handler propio");
 assert.ok(script.includes("setTheme(button.dataset.themePicker"), "botones rapidos de capas deben aplicar la misma logica del selector");

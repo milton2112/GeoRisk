@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-07-11T02:18:44.531Z",
+  "generatedAt": "2026-07-11T15:47:16.362Z",
   "status": "operativo",
   "startup": {
-    "critical": "834 KB",
-    "criticalBytes": 854259,
-    "deferred": "1.12 MB",
+    "critical": "828 KB",
+    "criticalBytes": 847689,
+    "deferred": "1.13 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 9142879,
       "countriesFullHuman": "8.72 MB",
@@ -16,8 +16,8 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 581844,
-        "human": "568 KB",
+        "bytes": 575274,
+        "human": "562 KB",
         "startupCritical": true
       },
       {
@@ -65,8 +65,8 @@
       {
         "path": "style-polish.css",
         "exists": true,
-        "bytes": 30985,
-        "human": "30 KB",
+        "bytes": 31696,
+        "human": "31 KB",
         "startupCritical": false
       },
       {
@@ -84,17 +84,17 @@
         "startupCritical": false
       },
       {
+        "path": "app-country-panel.js",
+        "exists": true,
+        "bytes": 19574,
+        "human": "19 KB",
+        "startupCritical": false
+      },
+      {
         "path": "app-search.js",
         "exists": true,
         "bytes": 14186,
         "human": "14 KB",
-        "startupCritical": false
-      },
-      {
-        "path": "app-quiz-ui.js",
-        "exists": true,
-        "bytes": 12766,
-        "human": "12 KB",
         "startupCritical": false
       }
     ]
@@ -809,8 +809,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 581844,
-      "human": "568 KB"
+      "bytes": 575274,
+      "human": "562 KB"
     },
     {
       "path": "style.css",
@@ -821,8 +821,8 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 48773,
-      "human": "48 KB"
+      "bytes": 49683,
+      "human": "49 KB"
     },
     {
       "path": "index.html",
@@ -833,8 +833,8 @@
     {
       "path": "style-polish.css",
       "exists": true,
-      "bytes": 30985,
-      "human": "30 KB"
+      "bytes": 31696,
+      "human": "31 KB"
     },
     {
       "path": "app-conflict-aliases.js",
@@ -899,8 +899,8 @@
     {
       "path": "app-ui-polish.js",
       "exists": true,
-      "bytes": 5083,
-      "human": "5 KB"
+      "bytes": 5906,
+      "human": "6 KB"
     },
     {
       "path": "package.json",
@@ -958,9 +958,9 @@
     }
   ],
   "scriptMetrics": {
-    "functions": 521,
-    "asyncFunctions": 48,
-    "consoleWarnings": 18,
+    "functions": 523,
+    "asyncFunctions": 49,
+    "consoleWarnings": 19,
     "consoleErrors": 13
   },
   "visualMetrics": {

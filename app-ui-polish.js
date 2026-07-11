@@ -88,6 +88,31 @@
     document.head.appendChild(stylesheet);
   }
 
+  let toastTimer = null;
+
+  function showToast(message, duration = 2800) {
+    if (!message) return false;
+    let toast = document.getElementById("app-toast");
+    if (!toast) {
+      toast = document.createElement("div");
+      toast.id = "app-toast";
+      toast.className = "app-toast";
+      toast.setAttribute("role", "status");
+      toast.setAttribute("aria-live", "polite");
+      toast.setAttribute("aria-atomic", "true");
+      document.body.appendChild(toast);
+    }
+    toast.textContent = String(message);
+    toast.hidden = false;
+    toast.classList.add("is-visible");
+    window.clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(() => {
+      toast.classList.remove("is-visible");
+      toast.hidden = true;
+    }, Math.max(1200, Number(duration) || 2800));
+    return true;
+  }
+
   function syncNetworkStatus() {
     const status = document.getElementById("offline-status");
     const isOnline = navigator.onLine !== false;
@@ -125,6 +150,7 @@
     trapFocus,
     applyCompactLabels,
     loadPolishStyles,
+    showToast,
     syncNetworkStatus,
     installNetworkStatus,
     init

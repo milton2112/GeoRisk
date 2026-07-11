@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.47 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.48 antes de cerrar la siguiente version.
+
+## v1.6.48 - 2026-07-11
+
+- Mueve apertura de paises, favoritos, comparacion rapida, filtros de timeline/conflictos, exportacion y acciones de ficha a `app-country-panel.js`, cargado bajo demanda.
+- Reduce `script.js` en unos 6,5 KB y agrega gates para impedir que el controlador completo vuelva al runtime critico.
+- Corrige la primera busqueda por religion, sistema u organizacion cuando el indice avanzado aun no habia corrido en idle.
+- Agrega avisos visuales accesibles para capas, favoritos, comparacion y exportaciones, reemplazando referencias a un notifier global inexistente.
+- Endurece favoritos frente a JSON corrupto o cuota de almacenamiento llena y evita exportar nodos ausentes.
+- Verifica en navegador el flujo `cristianismo` -> Argentina -> ficha -> Fuentes y amplia las pruebas de arquitectura, flujos y limpieza visual.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-11-release-1`.
 
 ## v1.6.47 - 2026-07-10
 

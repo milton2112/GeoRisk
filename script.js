@@ -83,7 +83,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-07-10-release-3";
+const APP_VERSION = "2026-07-11-release-1";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -11960,6 +11960,20 @@ function setupSearchIndex(featureNameByCode) {
   });
 }
 
+function ensureSearchIndexReady() {
+  if (mapSearchAliasesRegistered) {
+    return false;
+  }
+
+  setupSearchIndex(
+    Object.fromEntries(
+      Object.entries(countriesData).map(([code, country]) => [code, country.name])
+    )
+  );
+  mapSearchAliasesRegistered = true;
+  return true;
+}
+
 function getReligionMatches(religionName) {
   return getCountryValues()
     .filter(country => isReligionMajorityInCountry(country, religionName))
@@ -12009,6 +12023,7 @@ function getSuggestions(query) {
 function renderSuggestions(query, activeIndex = 0) {
   if (typeof searchCore.rankSuggestions !== "function") {
     ensureDeferredUiModule("search").then(() => {
+      ensureSearchIndexReady();
       if (document.getElementById("map-search-input")?.value === query) {
         renderSuggestions(query, activeIndex);
       }
@@ -12400,6 +12415,7 @@ async function selectSearchResult(result) {
 
 async function searchMap() {
   await ensureDeferredUiModule("search");
+  ensureSearchIndexReady();
   const input = document.getElementById("map-search-input");
   const rawQuery = input.value;
   const query = normalizeText(rawQuery);
@@ -12777,12 +12793,7 @@ async function loadDeferredDataEnhancements() {
   }
 
   loadDeferredDataEnhancementsPromise = (async () => {
-    setupSearchIndex(
-      Object.fromEntries(
-        Object.entries(countriesData).map(([code, country]) => [code, country.name])
-      )
-    );
-    mapSearchAliasesRegistered = true;
+    ensureSearchIndexReady();
     runCriticalGlobalStats();
     scheduleDeferredGlobalStats(true);
     scheduleConflictAliasesLoad();
@@ -13676,6 +13687,38 @@ function scheduleDetailedOverlayUpgrade() {
   detailedOverlayUpgradeTimer = setTimeout(scheduleUpgrade, isMobileLayout() ? 7000 : 5200);
 }
 
+async function handleCountryPanelInteraction(event) {
+  await ensureDeferredUiModule("countryPanel");
+  if (typeof countryPanelUi.handleInteraction !== "function") {
+    return false;
+  }
+
+  return countryPanelUi.handleInteraction(event, {
+    document,
+    storage: localStorage,
+    getState: () => currentPanelState,
+    getCountriesData: () => countriesData,
+    getCompareSelection: () => compareSelection,
+    getLanguage: () => currentLanguage,
+    getNoDataLabel: () => t("noData"),
+    openCountryByCode,
+    activateCountrySection,
+    rerenderCurrentPanel,
+    addCountryToCompare,
+    openCompareModal,
+    renderComparePanel,
+    showToast: message => uiPolish.showToast?.(message),
+    openTimelineModal,
+    openConflictModal,
+    isMobileLayout,
+    exportNodeAsPdf,
+    exportNodeAsImage,
+    shareText,
+    formatNumber,
+    searchByQuery
+  });
+}
+
 function setupSearchEvents() {
   const input = document.getElementById("map-search-input");
   const button = document.getElementById("map-search-button");
@@ -13880,203 +13923,10 @@ function setupSearchEvents() {
     }
   });
 
-  countryPanel.addEventListener("click", async event => {
-    const openCountryTrigger = event.target.closest("[data-open-country]");
-    if (openCountryTrigger) {
-      await openCountryByCode(openCountryTrigger.dataset.openCountry, openCountryTrigger.textContent.trim());
-      return;
-    }
-
-    const deferredSectionTrigger = event.target.closest("[data-country-load-section]");
-    if (deferredSectionTrigger) {
-      await activateCountrySection(deferredSectionTrigger.dataset.countryLoadSection);
-      return;
-    }
-
-    const countryNavTrigger = event.target.closest("[data-country-nav]");
-    if (countryNavTrigger) {
-      const sectionId = countryNavTrigger.dataset.countryNav;
-      await activateCountrySection(sectionId);
-      return;
-    }
-
-    const countryViewModeButton = event.target.closest("[data-country-view-mode]");
-    if (countryViewModeButton) {
-      currentPanelState.countryViewMode = countryViewModeButton.dataset.countryViewMode || "full";
-      currentPanelState.timelineMode = currentPanelState.countryViewMode === "teaching" ? "teaching" : "full";
-      rerenderCurrentPanel();
-      return;
-    }
-
-    const countryFavoriteButton = event.target.closest("[data-country-favorite]");
-    if (countryFavoriteButton) {
-      const code = countryFavoriteButton.dataset.countryFavorite;
-      const country = countriesData[code];
-      if (country) {
-        const storageKey = typeof countryPanelUi.getFavoriteStorageKey === "function"
-          ? countryPanelUi.getFavoriteStorageKey()
-          : "geo-risk-country-favorites";
-        const favorites = JSON.parse(localStorage.getItem(storageKey) || "[]");
-        const nextFavorites = [code, ...favorites.filter(item => item !== code)].slice(0, 24);
-        localStorage.setItem(storageKey, JSON.stringify(nextFavorites));
-        showToast?.(currentLanguage === "en" ? "Country saved as favorite." : "Pais guardado como favorito.");
-      }
-      return;
-    }
-
-    const quickCompareButton = event.target.closest("[data-quick-compare]");
-    if (quickCompareButton) {
-      addCountryToCompare(quickCompareButton.dataset.quickCompare);
-      if (compareSelection.length >= 2) {
-        openCompareModal();
-      } else {
-        renderComparePanel();
-        showToast?.(currentLanguage === "en" ? "Add one more country to compare." : "Agrega otro pais para comparar.");
-      }
-      return;
-    }
-
-    const timelineFilterButton = event.target.closest("[data-timeline-filter]");
-    if (timelineFilterButton) {
-      currentPanelState.timelineFilter = timelineFilterButton.dataset.timelineFilter || "all";
-      rerenderCurrentPanel();
-      return;
-    }
-
-    const timelineCenturyButton = event.target.closest("[data-timeline-century]");
-    if (timelineCenturyButton) {
-      currentPanelState.timelineCentury = timelineCenturyButton.dataset.timelineCentury || "all";
-      rerenderCurrentPanel();
-      return;
-    }
-
-    const timelineIntensityButton = event.target.closest("[data-timeline-intensity]");
-    if (timelineIntensityButton) {
-      currentPanelState.timelineIntensity = timelineIntensityButton.dataset.timelineIntensity || "all";
-      rerenderCurrentPanel();
-      return;
-    }
-
-    const timelineRelevanceButton = event.target.closest("[data-timeline-relevance]");
-    if (timelineRelevanceButton) {
-      currentPanelState.timelineRelevance = timelineRelevanceButton.dataset.timelineRelevance || "all";
-      rerenderCurrentPanel();
-      return;
-    }
-
-    const timelineModeButton = event.target.closest("[data-timeline-mode]");
-    if (timelineModeButton) {
-      currentPanelState.timelineMode = timelineModeButton.dataset.timelineMode || "full";
-      rerenderCurrentPanel();
-      return;
-    }
-
-    const timelineTrigger = event.target.closest("[data-timeline-key]");
-    if (timelineTrigger) {
-      openTimelineModal(timelineTrigger.dataset.timelineKey);
-      return;
-    }
-
-    const conflictFilterButton = event.target.closest("[data-conflict-filter]");
-    if (conflictFilterButton) {
-      currentPanelState.conflictFilter = conflictFilterButton.dataset.conflictFilter || "all";
-      currentPanelState.conflictVisibleLimit = 0;
-      rerenderCurrentPanel();
-      return;
-    }
-
-    const conflictRegionButton = event.target.closest("[data-conflict-region]");
-    if (conflictRegionButton) {
-      currentPanelState.conflictRegion = conflictRegionButton.dataset.conflictRegion || "all";
-      currentPanelState.conflictVisibleLimit = 0;
-      rerenderCurrentPanel();
-      return;
-    }
-
-    const conflictOutcomeButton = event.target.closest("[data-conflict-outcome]");
-    if (conflictOutcomeButton) {
-      currentPanelState.conflictOutcome = conflictOutcomeButton.dataset.conflictOutcome || "all";
-      currentPanelState.conflictVisibleLimit = 0;
-      rerenderCurrentPanel();
-      return;
-    }
-
-    const conflictSideButton = event.target.closest("[data-conflict-side]");
-    if (conflictSideButton) {
-      currentPanelState.conflictSide = conflictSideButton.dataset.conflictSide || "all";
-      currentPanelState.conflictVisibleLimit = 0;
-      rerenderCurrentPanel();
-      return;
-    }
-
-    const conflictLoadMoreButton = event.target.closest("[data-conflict-load-more]");
-    if (conflictLoadMoreButton) {
-      const step = isMobileLayout() ? 8 : 16;
-      currentPanelState.conflictVisibleLimit = (Number(currentPanelState.conflictVisibleLimit) || step) + step;
-      rerenderCurrentPanel();
-      return;
-    }
-
-    const conflictChildMoreButton = event.target.closest("[data-conflict-expand-children]");
-    if (conflictChildMoreButton) {
-      const groupKey = conflictChildMoreButton.dataset.conflictExpandChildren;
-      const step = isMobileLayout() ? 3 : 5;
-      currentPanelState.conflictChildLimits = {
-        ...(currentPanelState.conflictChildLimits || {}),
-        [groupKey]: (Number(currentPanelState.conflictChildLimits?.[groupKey]) || step) + step
-      };
-      rerenderCurrentPanel();
-      return;
-    }
-
-    const conflictTrigger = event.target.closest("[data-conflict-key]");
-    if (conflictTrigger) {
-      openConflictModal(conflictTrigger.dataset.conflictKey);
-      return;
-    }
-
-    const exportTrigger = event.target.closest("[data-export-target]");
-    if (exportTrigger) {
-      const target = document.getElementById(exportTrigger.dataset.exportTarget);
-      if (exportTrigger.dataset.exportFormat === "pdf") {
-        await exportNodeAsPdf(target, `${exportTrigger.dataset.exportTarget}.pdf`);
-      } else {
-        await exportNodeAsImage(target, `${exportTrigger.dataset.exportTarget}.png`);
-      }
-      return;
-    }
-
-    const shareCountryTrigger = event.target.closest("[data-share-country]");
-    if (shareCountryTrigger) {
-      const code = shareCountryTrigger.dataset.shareCountry;
-      const country = countriesData[code];
-      if (country) {
-        await shareText(
-          country.name,
-          `${country.name}\n${currentLanguage === "en" ? "Official name" : "Nombre oficial"}: ${country.general?.officialName || country.name}\n${currentLanguage === "en" ? "Population" : "Poblacion"}: ${formatNumber(country.general?.population || 0)}\n${currentLanguage === "en" ? "Political system" : "Sistema politico"}: ${country.politics?.system || t("noData")}`
-        );
-      }
-      return;
-    }
-
-    const shareTrigger = event.target.closest("[data-share-target]");
-    if (shareTrigger) {
-      const target = document.getElementById(shareTrigger.dataset.shareTarget);
-      if (target) {
-        await shareText(
-          currentLanguage === "en" ? "GeoRisk comparison" : "Comparacion GeoRisk",
-          target.innerText.trim()
-        );
-      }
-      return;
-    }
-
-    const trigger = event.target.closest("[data-search-query]");
-    if (!trigger) {
-      return;
-    }
-
-    await searchByQuery(trigger.dataset.searchQuery);
+  countryPanel?.addEventListener("click", event => {
+    handleCountryPanelInteraction(event).catch(error => {
+      console.warn("No se pudo procesar la interaccion de la ficha pais:", error);
+    });
   });
 }
 
@@ -14167,7 +14017,7 @@ function setupThemeControls() {
       return;
     }
     setTheme(button.dataset.themePicker || "default");
-    showToast?.(`${currentLanguage === "en" ? "Layer applied" : "Capa aplicada"}: ${getThemeOptionLabel(currentTheme)}`);
+    uiPolish.showToast?.(`${currentLanguage === "en" ? "Layer applied" : "Capa aplicada"}: ${getThemeOptionLabel(currentTheme)}`);
   });
 
   toolbar?.addEventListener("toggle", syncLayersPanelState);
@@ -14757,7 +14607,7 @@ function getExportShareContext() {
     normalizeText,
     escapeHtml,
     loadScriptOnce,
-    showToast: message => showToast?.(message)
+    showToast: message => uiPolish.showToast?.(message)
   };
 }
 
@@ -15096,9 +14946,7 @@ async function init() {
       })
       .catch(error => {
         console.error("No se pudo cargar el dataset principal en segundo plano:", error);
-        if (typeof showToast === "function") {
-          showToast("El globo cargo, pero el dataset completo no pudo hidratarse.");
-        }
+        uiPolish.showToast?.("El globo cargo, pero el dataset completo no pudo hidratarse.");
         return {};
       });
     if (shouldStartCollapsed) {
@@ -15163,7 +15011,10 @@ async function init() {
           }
         };
 
-        await ensureDeferredUiModule("text");
+        await Promise.all([
+          ensureDeferredUiModule("text"),
+          ensureDeferredUiModule("uiPolish")
+        ]);
         safeUiTask("search events", () => setupSearchEvents());
         safeUiTask("theme controls", () => setupThemeControls());
         safeUiTask("map mode control", () => setupMapModeControl());
@@ -15178,7 +15029,6 @@ async function init() {
         safeUiTask("saved views", () => setupSavedViewControls());
         safeUiTask("global shortcuts", () => setupGlobalKeyboardShortcuts());
         safeUiTask("mobile controls", () => setupMobilePanelControls());
-        await ensureDeferredUiModule("uiPolish");
         safeUiTask("ui polish", () => uiPolish.init?.());
         await registerServiceWorker();
         updateAppStatusPanel();

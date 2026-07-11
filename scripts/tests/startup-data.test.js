@@ -29,6 +29,7 @@ const appRankings = await fs.readFile(path.join(projectRoot, "app-rankings.js"),
 const appNews = await fs.readFile(path.join(projectRoot, "app-news-ui.js"), "utf8");
 const appCompare = await fs.readFile(path.join(projectRoot, "app-compare-ui.js"), "utf8");
 const appQuiz = await fs.readFile(path.join(projectRoot, "app-quiz-ui.js"), "utf8");
+const appCountryPanel = await fs.readFile(path.join(projectRoot, "app-country-panel.js"), "utf8");
 const appText = await fs.readFile(path.join(projectRoot, "app-text.js"), "utf8");
 const appConflictRules = await fs.readFile(path.join(projectRoot, "app-conflict-rules.js"), "utf8");
 const perCountryDir = path.join(projectRoot, "data", "countries");
@@ -200,6 +201,8 @@ assert.ok(!/bootHeavyDataEnhancements[\s\S]{0,500}loadRuntimeCuration/.test(scri
 assert.ok(/sectionId === "country-section-history"[\s\S]{0,220}loadRuntimeCuration/.test(script), "curaduria profunda debe activarse al abrir historia o conflictos");
 assert.ok(script.includes("function setupCriticalCountrySearchIndex"), "busqueda de pais debe tener un indice critico liviano");
 assert.ok(/await hydrateCountriesData\(countriesJson\);\s*setupCriticalCountrySearchIndex\(\);/.test(script), "indice critico de paises debe quedar listo al terminar la hidratacion inicial");
+assert.ok(script.includes("function ensureSearchIndexReady"), "busqueda avanzada debe tener garantia de indice bajo demanda");
+assert.ok(/async function searchMap\(\)[\s\S]{0,140}ensureSearchIndexReady\(\)/.test(script), "primera busqueda debe habilitar religiones y categorias aunque la tarea ociosa siga pendiente");
 assert.ok(script.includes("async function openCountryByCode"), "interacciones deben centralizar apertura de ficha por codigo");
 assert.ok(/if \(result\.type === "country"\)[\s\S]{0,180}await openCountryByCode\(countryCode, result\.label\)/.test(script), "busqueda de pais debe abrir ficha aunque la geometria siga cargando");
 assert.ok(/function selectRankedCountry\(country\)[\s\S]{0,180}await openCountryByCode\(code/.test(script), "rankings deben abrir fichas con el mismo flujo que busqueda/mapa");
@@ -215,7 +218,8 @@ assert.ok(script.includes("function getReligionDenominationMatches"), "denominac
 assert.ok(script.includes("function getReligionSelectionNominalPopulation"), "fichas de religion deben calcular familias y denominaciones con la metrica correcta");
 assert.ok(/function getLayersForCountries\(countries\)[\s\S]{0,220}getRankedCountryCode\(country\)/.test(script), "resaltado de grupos no debe depender de identidad exacta de objetos");
 assert.ok(script.includes("function renderSelectableCountryGroup"), "continentes/religiones/filtros deben poder renderizar resultados sin esperar capas");
-assert.ok(/countryPanel\.addEventListener\("click"[\s\S]{0,260}data-open-country[\s\S]{0,180}openCountryByCode/.test(script), "listas grupales deben abrir fichas desde el panel");
+assert.ok(script.includes("handleCountryPanelInteraction(event)"), "panel debe enrutar clics aunque la ficha avanzada siga diferida");
+assert.ok(appCountryPanel.includes('getTrigger("[data-open-country]")') && appCountryPanel.includes("options.openCountryByCode"), "listas grupales deben abrir fichas desde el modulo de panel");
 assert.ok(/function setCountrySelection[\s\S]{0,700}requestMapRenderSafe\("country-selection"\)/.test(script), "seleccion de pais no debe asumir Cesium listo");
 assert.ok(!script.includes("countryCode && countryLayers.has(countryCode) && countriesData[countryCode]"), "busqueda no debe depender de que la capa cartografica ya exista");
 assert.ok(script.includes("./data/countries/${encodeURIComponent(normalizedCode)}.json"), "detalle por pais debe evitar hidratar countries_full");

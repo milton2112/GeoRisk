@@ -55,6 +55,66 @@ assert.ok(qualityHtml.includes("Organizaciones"), "ficha diferida debe conservar
 assert.ok(!qualityHtml.includes("[object Object]"), "procedencia anidada debe mostrarse como texto legible");
 assert.ok(qualityHtml.includes("general: curated"), "procedencia debe resumir estados por seccion");
 
+function createPanelInteractionEvent(selector, dataset = {}, textContent = "") {
+  const trigger = { dataset, textContent };
+  return {
+    target: {
+      closest(candidate) {
+        return candidate === selector ? trigger : null;
+      }
+    }
+  };
+}
+
+let openedCountry = null;
+assert.equal(await countryPanel.handleInteraction(
+  createPanelInteractionEvent("[data-open-country]", { openCountry: "ARG" }, "Argentina"),
+  {
+    openCountryByCode: (code, label) => {
+      openedCountry = { code, label };
+    }
+  }
+), true, "controlador diferido debe reconocer aperturas de pais");
+assert.equal(openedCountry.code, "ARG", "listas de ficha deben abrir el codigo correcto");
+assert.equal(openedCountry.label, "Argentina", "apertura de ficha debe conservar la etiqueta visible");
+
+const timelineState = {};
+let panelRenders = 0;
+await countryPanel.handleInteraction(
+  createPanelInteractionEvent("[data-timeline-century]", { timelineCentury: "XX" }),
+  {
+    getState: () => timelineState,
+    rerenderCurrentPanel: () => { panelRenders += 1; }
+  }
+);
+assert.equal(timelineState.timelineCentury, "XX", "filtros de timeline deben actualizar el estado compartido");
+assert.equal(panelRenders, 1, "filtros de timeline deben refrescar la ficha");
+
+const conflictState = { conflictVisibleLimit: 0 };
+await countryPanel.handleInteraction(
+  createPanelInteractionEvent("[data-conflict-load-more]"),
+  {
+    getState: () => conflictState,
+    isMobileLayout: () => true,
+    rerenderCurrentPanel() {}
+  }
+);
+assert.equal(conflictState.conflictVisibleLimit, 16, "paginacion mobile de conflictos debe avanzar por una tanda controlada");
+
+let savedFavorites = "";
+const brokenStorage = {
+  getItem: () => "{broken-json",
+  setItem: (_key, value) => { savedFavorites = value; }
+};
+await countryPanel.handleInteraction(
+  createPanelInteractionEvent("[data-country-favorite]", { countryFavorite: "ARG" }),
+  {
+    storage: brokenStorage,
+    getCountriesData: () => ({ ARG: { name: "Argentina" } })
+  }
+);
+assert.equal(JSON.parse(savedFavorites)[0], "ARG", "favoritos corruptos deben recuperarse sin bloquear la ficha");
+
 const textWindow = await loadBrowserModule("app-text.js");
 const textUi = textWindow.GeoRiskText;
 const textElements = {
@@ -97,6 +157,7 @@ assert.ok(polishSource.includes("trapFocus"), "ui polish debe exponer trap de fo
 assert.ok(!polishSource.includes("installKeyboardA11y"), "ui polish no debe duplicar el listener principal de foco");
 assert.ok(polishSource.includes("applyCompactLabels"), "ui polish debe soportar controles compactos");
 assert.ok(polishSource.includes("loadPolishStyles"), "ui polish debe cargar estilos visuales bajo demanda");
+assert.ok(polishSource.includes("function showToast"), "ui polish debe exponer avisos accesibles para acciones");
 
 const architecture = await fs.readFile(path.join(projectRoot, "ARCHITECTURE.md"), "utf8");
 for (const token of [

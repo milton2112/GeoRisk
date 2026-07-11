@@ -80,10 +80,17 @@ for (const src of initialLocalScripts) {
 }
 assert.ok(script.includes("window.GeoRiskAppVersion = APP_VERSION"), "script.js debe exponer APP_VERSION a modulos diferidos");
 const deferredModulesBlock = script.match(/const DEFERRED_UI_MODULES = \{([\s\S]*?)\};/)?.[1] || "";
+const setupSearchEventsBlock = script.slice(
+  script.indexOf("function setupSearchEvents"),
+  script.indexOf("function setupThemeControls")
+);
 assert.ok(deferredModulesBlock.includes("APP_VERSION"), "modulos diferidos deben usar APP_VERSION");
 assert.ok(!/release-\d/.test(deferredModulesBlock), "modulos diferidos no deben fijar stamps viejos de release");
 assert.ok(uiPolish.includes("window.GeoRiskAppVersion"), "app-ui-polish debe leer el stamp de version activo");
 assert.ok(uiPolish.includes("style-polish.css?v=${POLISH_VERSION}"), "style-polish.css diferido debe usar el stamp de version activo");
+assert.ok(uiPolish.includes("function showToast"), "polish UI debe centralizar avisos de acciones");
+assert.ok(polishStyle.includes(".app-toast.is-visible"), "aviso de acciones debe tener estado visible diferido");
+assert.ok(!/(^|[^\w.])showToast\?\./m.test(script), "runtime no debe llamar un notifier global inexistente");
 assert.ok(changelog.includes(`## v${packageJson.version}`), "CHANGELOG.md debe documentar la version del paquete");
 assert.ok(packageJson.scripts["build:data"].includes("applyConflictAutofix.js"), "build:data debe reaplicar curaduria de conflictos tras regenerar el dataset");
 assert.ok(packageJson.scripts["build:data"].includes("applyVisibleDataCorrections.js"), "build:data debe reaplicar limpieza visible tras regenerar el dataset");
@@ -235,9 +242,15 @@ assert.ok(appQuiz.includes("function renderFeedback"), "feedback del quiz debe v
 assert.ok(!script.includes("<span class=\"quiz-meta-pill\">"), "markup de meta del quiz no debe volver al runtime critico");
 assert.ok(appCountryPanel.includes("renderDataQuality"), "fuentes y calidad deben renderizarse desde app-country-panel diferido");
 assert.ok(appCountryPanel.includes("formatProvenanceValue"), "procedencia anidada debe tener formateador legible");
+assert.ok(appCountryPanel.includes("async function handleInteraction"), "interacciones de ficha deben vivir en app-country-panel diferido");
+assert.ok(script.includes("async function handleCountryPanelInteraction"), "runtime debe conservar un puente de interaccion bajo demanda");
+assert.ok(setupSearchEventsBlock.includes("handleCountryPanelInteraction(event)"), "panel debe delegar clics al controlador diferido");
+assert.ok(!setupSearchEventsBlock.includes("[data-timeline-filter]"), "filtros de ficha no deben volver al cableado de busqueda");
+assert.ok(!setupSearchEventsBlock.includes("[data-conflict-load-more]"), "paginacion de conflictos no debe volver al runtime critico");
 assert.ok(!script.includes("const DATA_SOURCE_SUMMARY"), "resumen de fuentes no debe volver al runtime critico");
 assert.ok(/function renderDataQuality\(country\)[\s\S]{0,420}countryPanelUi\.renderDataQuality/.test(script), "runtime debe delegar calidad de ficha al modulo diferido");
 assert.ok(deferredModulesBlock.includes('text: `./app-text.js?v=${APP_VERSION}`'), "textos deben declararse como modulo diferido versionado");
+assert.ok(/await Promise\.all\(\[\s*ensureDeferredUiModule\("text"\),\s*ensureDeferredUiModule\("uiPolish"\)/.test(script), "controles no deben activarse antes del modulo de avisos visuales");
 assert.ok(appText.includes("function applyStaticText"), "app-text debe renderizar textos estaticos");
 assert.ok(appText.includes("function applyExtendedStaticText"), "app-text debe renderizar textos extendidos");
 assert.ok(!script.includes("const themeOptionLabels"), "catalogo largo de capas no debe volver al runtime critico");

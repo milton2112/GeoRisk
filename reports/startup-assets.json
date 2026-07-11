@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-11T02:18:43.901Z",
-  "startupBytes": 854259,
-  "startupHuman": "834 KB",
-  "deferredBytes": 1175579,
-  "deferredHuman": "1.12 MB",
+  "generatedAt": "2026-07-11T15:47:15.751Z",
+  "startupBytes": 847689,
+  "startupHuman": "828 KB",
+  "deferredBytes": 1184257,
+  "deferredHuman": "1.13 MB",
   "estimatedRuntimeMemory": {
     "countriesFullBytes": 9142879,
     "countriesFullHuman": "8.72 MB",
@@ -15,8 +15,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 581844,
-      "human": "568 KB",
+      "bytes": 575274,
+      "human": "562 KB",
       "startupCritical": true
     },
     {
@@ -64,8 +64,8 @@
     {
       "path": "style-polish.css",
       "exists": true,
-      "bytes": 30985,
-      "human": "30 KB",
+      "bytes": 31696,
+      "human": "31 KB",
       "startupCritical": false
     },
     {
@@ -83,17 +83,17 @@
       "startupCritical": false
     },
     {
+      "path": "app-country-panel.js",
+      "exists": true,
+      "bytes": 19574,
+      "human": "19 KB",
+      "startupCritical": false
+    },
+    {
       "path": "app-search.js",
       "exists": true,
       "bytes": 14186,
       "human": "14 KB",
-      "startupCritical": false
-    },
-    {
-      "path": "app-quiz-ui.js",
-      "exists": true,
-      "bytes": 12766,
-      "human": "12 KB",
       "startupCritical": false
     }
   ],
@@ -108,8 +108,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 581844,
-      "human": "568 KB",
+      "bytes": 575274,
+      "human": "562 KB",
       "startupCritical": true
     },
     {
@@ -122,8 +122,8 @@
     {
       "path": "style-polish.css",
       "exists": true,
-      "bytes": 30985,
-      "human": "30 KB",
+      "bytes": 31696,
+      "human": "31 KB",
       "startupCritical": false
     },
     {
@@ -150,8 +150,8 @@
     {
       "path": "app-country-panel.js",
       "exists": true,
-      "bytes": 12430,
-      "human": "12 KB",
+      "bytes": 19574,
+      "human": "19 KB",
       "startupCritical": false
     },
     {
@@ -234,8 +234,8 @@
     {
       "path": "app-ui-polish.js",
       "exists": true,
-      "bytes": 5083,
-      "human": "5 KB",
+      "bytes": 5906,
+      "human": "6 KB",
       "startupCritical": false
     },
     {

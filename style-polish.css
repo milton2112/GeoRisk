@@ -1355,6 +1355,33 @@ body.mobile-more-open #toggle-more-panel {
   }
 }
 
+.app-toast {
+  position: fixed;
+  left: 50%;
+  bottom: max(20px, env(safe-area-inset-bottom));
+  z-index: 12000;
+  width: max-content;
+  max-width: min(420px, calc(100vw - 32px));
+  padding: 10px 14px;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border-color));
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--panel-bg) 94%, #000);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.32);
+  color: var(--text-color);
+  font-size: 0.86rem;
+  line-height: 1.35;
+  text-align: center;
+  transform: translate(-50%, 8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.app-toast.is-visible {
+  transform: translate(-50%, 0);
+  opacity: 1;
+}
+
 .conflict-load-more {
   width: min(100%, 360px);
   margin: 12px auto 2px;
