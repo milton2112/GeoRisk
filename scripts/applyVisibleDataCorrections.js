@@ -1,6 +1,7 @@
 import fs from "fs-extra";
 import path from "node:path";
 import { normalizeVisibleValue } from "./lib/visible-data-corrections.js";
+import { areJsonValuesEquivalent } from "./lib/resilient-fs.js";
 
 const projectRoot = path.resolve(process.cwd());
 const fullPath = path.join(projectRoot, "data", "countries_full.json");
@@ -51,7 +52,7 @@ async function writeJsonAtomic(filePath, data, options = {}) {
 async function updateJson(filePath, { spaces = 0 } = {}) {
   const current = await readJsonStable(filePath);
   const updated = normalizeVisibleValue(current);
-  if (JSON.stringify(current) === JSON.stringify(updated)) return false;
+  if (areJsonValuesEquivalent(current, updated)) return false;
   await writeJsonAtomic(filePath, updated, { spaces });
   return true;
 }

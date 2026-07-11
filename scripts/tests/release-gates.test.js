@@ -46,6 +46,9 @@ const maintenanceQuick = await fs.readFile(path.join(projectRoot, "scripts/maint
 const releaseStatus = await fs.readFile(path.join(projectRoot, "scripts/releaseStatus.js"), "utf8");
 const releaseArtifacts = await fs.readFile(path.join(projectRoot, "scripts/auditReleaseArtifacts.js"), "utf8");
 const featureHealth = await fs.readFile(path.join(projectRoot, "scripts/auditFeatureHealth.js"), "utf8");
+const buildDataIndexes = await fs.readFile(path.join(projectRoot, "scripts/buildDataIndexes.js"), "utf8");
+const conflictAutofix = await fs.readFile(path.join(projectRoot, "scripts/applyConflictAutofix.js"), "utf8");
+const resilientFs = await fs.readFile(path.join(projectRoot, "scripts/lib/resilient-fs.js"), "utf8");
 const exportShare = await fs.readFile(path.join(projectRoot, "app-export-share.js"), "utf8");
 const conflictRules = await fs.readFile(path.join(projectRoot, "app-conflict-rules.js"), "utf8");
 const riskRadarUi = await fs.readFile(path.join(projectRoot, "app-risk-radar-ui.js"), "utf8");
@@ -95,6 +98,20 @@ assert.ok(changelog.includes(`## v${packageJson.version}`), "CHANGELOG.md debe d
 assert.ok(packageJson.scripts["build:data"].includes("applyConflictAutofix.js"), "build:data debe reaplicar curaduria de conflictos tras regenerar el dataset");
 assert.ok(packageJson.scripts["build:data"].includes("applyVisibleDataCorrections.js"), "build:data debe reaplicar limpieza visible tras regenerar el dataset");
 assert.ok(packageJson.scripts["build:data"].includes("buildDataIndexes.js"), "build:data debe dejar indices publicos sincronizados");
+const conflictFixScript = packageJson.scripts["fix:conflicts"];
+assert.ok(
+  conflictFixScript.indexOf("applyConflictAutofix.js") < conflictFixScript.indexOf("applyVisibleDataCorrections.js")
+    && conflictFixScript.indexOf("applyVisibleDataCorrections.js") < conflictFixScript.indexOf("buildDataIndexes.js")
+    && conflictFixScript.indexOf("buildDataIndexes.js") < conflictFixScript.indexOf("auditConflicts.js"),
+  "fix:conflicts debe curar, normalizar, regenerar artefactos y auditar en ese orden"
+);
+assert.ok(resilientFs.includes("function areJsonValuesEquivalent"), "escrituras generadas deben comparar JSON semanticamente");
+assert.ok(resilientFs.includes("function writeJsonIfChanged"), "generadores deben poder omitir escrituras identicas");
+assert.ok(buildDataIndexes.includes("writeJsonIfChanged"), "indices deben evitar reescribir shards sin cambios");
+assert.ok(buildDataIndexes.includes("removeStaleJsonFiles"), "indices deben retirar solo shards obsoletos");
+assert.ok(!buildDataIndexes.includes("emptyDir("), "indices no deben vaciar directorios publicos completos");
+assert.ok(conflictAutofix.includes("regenerated-by-buildDataIndexes"), "autofix debe dejar shards compactos al generador publico");
+assert.ok(!conflictAutofix.includes("fs.readdir(countriesDir)"), "autofix no debe enriquecer fichas compactas que luego se regeneran");
 assert.equal(packageJson.scripts["prepush:check"], "node scripts/prepushCheck.js", "debe existir puerta local pre-push");
 assert.equal(packageJson.scripts["clean:storage"], "node scripts/cleanStorage.js", "debe existir limpieza local de almacenamiento");
 assert.equal(packageJson.scripts["release:prepare"], "node scripts/prepareRelease.js", "debe existir preparacion automatica de release");
@@ -137,6 +154,7 @@ assert.ok(performanceSnapshot.includes("simulated-startup-data-batch"), "snapsho
 assert.ok(dataAutomationAudit.includes("englishConflictNames"), "auditoria de datos debe listar conflictos en ingles");
 assert.ok(dataAutomationAudit.includes("redundantReligions"), "auditoria de datos debe listar religiones redundantes");
 assert.ok(dataAutomationAudit.includes("sameCountryDuplicateConflicts"), "auditoria de datos debe separar duplicados accionables");
+assert.ok(dataAutomationAudit.includes("normalizeConflictKey"), "auditoria y autofix deben compartir normalizacion de nombres de conflicto");
 assert.ok(dataAutomationAudit.includes("sharedConflictNames"), "auditoria de datos debe separar conflictos compartidos de duplicados reales");
 assert.ok(dataAutomationAudit.includes("sourceTextMojibake"), "auditoria de datos debe detectar mojibake en fuentes generadoras");
 assert.ok(dataAutomationAudit.includes("baseSectionProfiles"), "auditoria de datos debe separar secciones base de baja confianza real");

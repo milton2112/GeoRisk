@@ -1,10 +1,15 @@
 {
-  "generatedAt": "2026-07-05T20:22:05.656Z",
-  "changedFullCountries": 197,
-  "changedCountryFiles": 180,
+  "generatedAt": "2026-07-11T16:24:17.503Z",
+  "changedFullCountries": 0,
+  "fullPassChanges": [
+    0
+  ],
+  "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
-    "renamed": 2,
-    "enriched": 403
+    "renamed": 0,
+    "enriched": 0,
+    "written": false,
+    "compacted": false
   },
   "safeRenames": {
     "Batalla naval de RÃ¼gen": "Batalla naval de Rugen",
@@ -177,7 +182,7 @@
     "Bombardeos aliados de Amsterdam-Noord",
     "Incursion de abril de 2009 frente a Somalia",
     "Ofensiva de Sirte de 2016",
-    "Conflicto irano-israeli durante la guerra civil siria",
+    "Conflicto Irano-israeli durante la guerra civil siria",
     "Batalla de al-Qaryatayn",
     "Batalla de Saigon",
     "Batalla de Hjorungavagr",
@@ -197,7 +202,6 @@
     "Sitio de Smolensk",
     "Batalla de Swally",
     "Batalla de Gniew",
-    "Sitio de NykÃ¸bing",
     "Batalla de Czarne",
     "Batalla de Dirschau",
     "Batalla de Koscianem (1655)",
@@ -208,12 +212,9 @@
     "Sitio de Zamosc",
     "Batalla de Mon",
     "Sitio de Torun",
-    "Batalla de Martinique",
-    "Batalla de Koge Bay",
+    "Batalla de Martinica",
+    "Batalla de la bahia de Koge",
     "Batalla del banco Dogger (1696)",
-    "Batalla de Gołąb",
-    "Batalla de Møn",
-    "Batalla de Køge Bay",
     "Batalla de Vilnius (1702)",
     "Sitio de Tartu",
     "Batalla de Helsingborg",
@@ -225,7 +226,6 @@
     "Batalla de Iron Works Hill",
     "Batalla de Nassau",
     "Batalla de Machias (1777)",
-    "Batalla naval de RÃ¼gen",
     "Batalla de Saratoga",
     "Batalla de White Marsh",
     "Batalla del cabo Finisterre (1778)",
@@ -437,8 +437,6 @@
     "Campana en Africa del Suroeste",
     "Operacion Dinamo",
     "Incursion del Oceano Indico",
-    "Guerra del Pacifico de la Segunda Guerra Mundial",
-    "Campana en África del Suroeste",
-    "Incursión del Océano Índico"
+    "Guerra del Pacifico de la Segunda Guerra Mundial"
   ]
 }

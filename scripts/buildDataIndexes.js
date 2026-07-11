@@ -1,6 +1,11 @@
 import fs from "fs-extra";
 import path from "node:path";
-import { readJsonWithRetry, statWithRetry, writeJsonWithRetry } from "./lib/resilient-fs.js";
+import {
+  areJsonValuesEquivalent,
+  readJsonWithRetry,
+  statWithRetry,
+  writeJsonIfChanged
+} from "./lib/resilient-fs.js";
 import { buildPublicCountryConflictRecord, buildPublicCountryRecord } from "./lib/public-country-record.js";
 import { normalizeVisibleValue } from "./lib/visible-data-corrections.js";
 
@@ -44,6 +49,33 @@ const INTERNAL_DATA_FILES = [
   "reports/conflict-audit.json",
   "reports/startup-assets.json"
 ];
+
+async function removeStaleJsonFiles(directory, expectedFiles) {
+  await fs.ensureDir(directory);
+  let removed = 0;
+  for (const entry of await fs.readdir(directory, { withFileTypes: true })) {
+    if (!entry.isFile() || !entry.name.endsWith(".json") || expectedFiles.has(entry.name)) continue;
+    await fs.remove(path.join(directory, entry.name));
+    removed += 1;
+  }
+  return removed;
+}
+
+async function preserveGeneratedAtWhenUnchanged(filePath, value) {
+  if (!value?.generatedAt || !(await fs.pathExists(filePath))) return value;
+  const current = await readJsonWithRetry(filePath);
+  if (!current?.generatedAt) return value;
+  const currentComparable = { ...current, generatedAt: null };
+  const nextComparable = { ...value, generatedAt: null };
+  return areJsonValuesEquivalent(currentComparable, nextComparable)
+    ? { ...value, generatedAt: current.generatedAt }
+    : value;
+}
+
+async function writeGeneratedJson(filePath, value, options) {
+  const stableValue = await preserveGeneratedAtWhenUnchanged(filePath, value);
+  return writeJsonIfChanged(filePath, stableValue, options);
+}
 
 function normalizeText(value = "") {
   return String(value || "")
@@ -250,14 +282,16 @@ async function buildConflictDetailShards() {
   }
   const source = await readJsonWithRetry(sourcePath);
   const conflicts = source.conflicts || {};
-  await fs.emptyDir(conflictDetailsDir);
+  await fs.ensureDir(conflictDetailsDir);
+  const expectedFiles = new Set();
   const index = [];
   for (const [name, detail] of Object.entries(conflicts)) {
     const normalizedDetail = normalizeVisibleValue({ name, ...detail });
     const normalizedName = normalizedDetail.name || name;
     const file = `${slugifyConflictName(normalizedName)}.json`;
+    expectedFiles.add(file);
     const relativePath = `data/conflicts/details/${file}`;
-    await writeJsonWithRetry(path.join(conflictDetailsDir, file), normalizedDetail, { spaces: 0 });
+    await writeJsonIfChanged(path.join(conflictDetailsDir, file), normalizedDetail, { spaces: 0 });
     index.push({
       name: normalizedName,
       path: relativePath,
@@ -265,6 +299,7 @@ async function buildConflictDetailShards() {
       source: normalizedDetail.source || normalizedDetail.wikipedia?.source || "Wikipedia"
     });
   }
+  await removeStaleJsonFiles(conflictDetailsDir, expectedFiles);
   return {
     generatedAt: new Date().toISOString(),
     source: source._meta || null,
@@ -335,23 +370,29 @@ async function buildCountryWeights(countries) {
 }
 
 async function writePublicCountryShards(countries) {
-  await fs.emptyDir(perCountryDir);
+  await fs.ensureDir(perCountryDir);
   await fs.ensureDir(perCountryConflictsDir);
+  const expectedCountryFiles = new Set();
+  const expectedConflictFiles = new Set();
   for (const [code, country] of Object.entries(countries)) {
+    expectedCountryFiles.add(`${code}.json`);
     const publicRecord = buildPublicCountryRecord(country, code);
-    await writeJsonWithRetry(
+    await writeJsonIfChanged(
       path.join(perCountryDir, `${code}.json`),
       publicRecord,
       { spaces: 0 }
     );
     if (publicRecord.military?.conflictsShard) {
-      await writeJsonWithRetry(
+      expectedConflictFiles.add(`${code}.json`);
+      await writeJsonIfChanged(
         path.join(perCountryConflictsDir, `${code}.json`),
         buildPublicCountryConflictRecord(country),
         { spaces: 0 }
       );
     }
   }
+  await removeStaleJsonFiles(perCountryDir, expectedCountryFiles);
+  await removeStaleJsonFiles(perCountryConflictsDir, expectedConflictFiles);
 }
 
 function sectionSourceTrace(country = {}) {
@@ -506,13 +547,13 @@ const curationAudit = buildCurationAudit(countries, weights, conflictIndexResult
 const manifest = buildManifest();
 const conflictDetailsIndex = await buildConflictDetailShards();
 
-await writeJsonWithRetry(path.join(dataDir, "conflicts_index.json"), conflictIndex, { spaces: 0 });
-await writeJsonWithRetry(path.join(dataDir, "timeline_index.json"), timelineIndex, { spaces: 0 });
-await writeJsonWithRetry(path.join(dataDir, "search_index.json"), searchIndex, { spaces: 0 });
-await writeJsonWithRetry(path.join(dataDir, "country_weights.json"), weights, { spaces: 0 });
-await writeJsonWithRetry(path.join(dataDir, "data_manifest.json"), manifest, { spaces: 2 });
-await writeJsonWithRetry(path.join(dataDir, "conflicts", "details_index.json"), conflictDetailsIndex, { spaces: 0 });
-await writeJsonWithRetry(path.join(reportsDir, "data-curation-audit.json"), curationAudit, { spaces: 2 });
+await writeJsonIfChanged(path.join(dataDir, "conflicts_index.json"), conflictIndex, { spaces: 0 });
+await writeJsonIfChanged(path.join(dataDir, "timeline_index.json"), timelineIndex, { spaces: 0 });
+await writeJsonIfChanged(path.join(dataDir, "search_index.json"), searchIndex, { spaces: 0 });
+await writeGeneratedJson(path.join(dataDir, "country_weights.json"), weights, { spaces: 0 });
+await writeGeneratedJson(path.join(dataDir, "data_manifest.json"), manifest, { spaces: 2 });
+await writeGeneratedJson(path.join(dataDir, "conflicts", "details_index.json"), conflictDetailsIndex, { spaces: 0 });
+await writeGeneratedJson(path.join(reportsDir, "data-curation-audit.json"), curationAudit, { spaces: 2 });
 
 console.log(`conflicts_index: ${conflictIndex.length} conflictos`);
 console.log(`conflict_date_pending: ${conflictIndexResult.undated.length} conflictos fuera del indice fechable`);

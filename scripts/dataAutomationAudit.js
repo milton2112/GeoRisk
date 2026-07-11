@@ -1,6 +1,7 @@
 import fs from "fs-extra";
 import path from "node:path";
 import { writeJsonWithRetry } from "./lib/resilient-fs.js";
+import { normalizeConflictKey } from "./lib/conflict-cleaning.js";
 
 const projectRoot = path.resolve(process.cwd());
 const reportsDir = path.join(projectRoot, "reports");
@@ -129,7 +130,7 @@ async function collectConflictDetailLocalizationIssues() {
 
 const conflictNameBuckets = new Map();
 for (const conflict of allConflicts) {
-  const key = normalizeText(conflict.name || "");
+  const key = normalizeConflictKey(conflict.name || "");
   if (!key) continue;
   const entry = conflictNameBuckets.get(key) || {
     name: conflict.name,

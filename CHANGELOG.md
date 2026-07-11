@@ -8,7 +8,19 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.48 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.49 antes de cerrar la siguiente version.
+
+## v1.6.49 - 2026-07-11
+
+- Hace idempotente la curaduria: dos ejecuciones consecutivas mantienen el mismo hash de todo `data/` y reportan cero cambios espurios.
+- Evita vaciar y reescribir directorios completos de fichas, shards e indices; los JSON se escriben solo cuando cambia su contenido semantico.
+- Reduce `maintain:quick` de unos 30 segundos a 22-24 segundos y elimina pasos duplicados de normalizacion/regeneracion.
+- Deja las fichas compactas bajo responsabilidad exclusiva de `buildDataIndexes.js`, evitando que el autofix las infle para luego regenerarlas.
+- Canonicaliza renombres de detalles sin reintroducir alias antiguos y consolida `Sitio de Nykobing` / `Sitio de Nykøbing` sin perder contenido.
+- Corrige siete referencias de campana del generico `Teatro Asia-Pacifico` a `Guerra del Pacifico de la Segunda Guerra Mundial`.
+- Unifica la normalizacion de conflictos entre autofix y auditoria, incluyendo transliteracion segura de `ø`, `æ`, `œ`, `ł`, `ð` y `þ`.
+- Agrega pruebas de equivalencia JSON y de escritura fisica condicional para impedir churn por orden de claves.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-11-release-2`.
 
 ## v1.6.48 - 2026-07-11
 

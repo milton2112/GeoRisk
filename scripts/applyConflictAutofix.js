@@ -15,11 +15,16 @@ import {
 } from "./lib/conflict-curation-theater.js";
 import { collectConflictCountryNames, curateConflictDetail, curateConflictEntry } from "./lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "./lib/conflict-cleaning.js";
-import { readJsonWithRetry, writeJsonWithRetry } from "./lib/resilient-fs.js";
+import { normalizeVisibleValue } from "./lib/visible-data-corrections.js";
+import {
+  areJsonValuesEquivalent,
+  readJsonWithRetry,
+  writeJsonIfChanged,
+  writeJsonWithRetry
+} from "./lib/resilient-fs.js";
 
 const projectRoot = path.resolve(process.cwd());
 const fullPath = path.join(projectRoot, "data", "countries_full.json");
-const countriesDir = path.join(projectRoot, "data", "countries");
 const generatedDetailsPath = path.join(projectRoot, "data", "conflict_details.generated.json");
 const reportPath = path.join(projectRoot, "reports", "conflict-autofix-applied.json");
 const curatedConflictDetailFixes = {
@@ -163,7 +168,7 @@ function normalizeConflictEntryWithContext(entry, context) {
     ...(inferredCuration || {}),
     ...curatedDetailFix
   };
-  return curateConflictEntry(curatedEntry, context);
+  return normalizeVisibleValue(curateConflictEntry(curatedEntry, context));
 }
 
 function fixCountryConflicts(country, countriesByConflict) {
@@ -174,19 +179,25 @@ function fixCountryConflicts(country, countriesByConflict) {
     if (!Array.isArray(country[pathKey])) {
       continue;
     }
-    const before = JSON.stringify(country[pathKey]);
-    country[pathKey] = mergeConflictEntries(country[pathKey].map(entry => normalizeConflictEntryWithContext(entry, context)))
-      .sort((a, b) => (a.startYear ?? 99999) - (b.startYear ?? 99999) || String(a.name).localeCompare(String(b.name), "es"));
-    if (JSON.stringify(country[pathKey]) !== before) {
+    const before = country[pathKey];
+    const updated = normalizeVisibleValue(
+      mergeConflictEntries(before.map(entry => normalizeConflictEntryWithContext(entry, context)))
+        .sort((a, b) => (a.startYear ?? 99999) - (b.startYear ?? 99999) || String(a.name).localeCompare(String(b.name), "es"))
+    );
+    if (!areJsonValuesEquivalent(updated, before)) {
+      country[pathKey] = updated;
       changed += 1;
     }
   }
 
   if (Array.isArray(country.military?.conflicts)) {
-    const before = JSON.stringify(country.military.conflicts);
-    country.military.conflicts = mergeConflictEntries(country.military.conflicts.map(entry => normalizeConflictEntryWithContext(entry, context)))
-      .sort((a, b) => (a.startYear ?? 99999) - (b.startYear ?? 99999) || String(a.name).localeCompare(String(b.name), "es"));
-    if (JSON.stringify(country.military.conflicts) !== before) {
+    const before = country.military.conflicts;
+    const updated = normalizeVisibleValue(
+      mergeConflictEntries(before.map(entry => normalizeConflictEntryWithContext(entry, context)))
+        .sort((a, b) => (a.startYear ?? 99999) - (b.startYear ?? 99999) || String(a.name).localeCompare(String(b.name), "es"))
+    );
+    if (!areJsonValuesEquivalent(updated, before)) {
+      country.military.conflicts = updated;
       changed += 1;
     }
   }
@@ -207,7 +218,7 @@ async function fixCountriesFile(filePath, countriesByConflict) {
   }
 
   if (changedCountries) {
-    await writeJsonWithRetry(filePath, data, { spaces: 0 });
+    await writeJsonIfChanged(filePath, data, { spaces: 0 });
   }
 
   return changedCountries;
@@ -215,85 +226,118 @@ async function fixCountriesFile(filePath, countriesByConflict) {
 
 async function fixGeneratedDetails(countriesByConflict) {
   const generated = await readJsonWithRetry(generatedDetailsPath);
+  const currentText = await fs.readFile(generatedDetailsPath, "utf8");
   const conflicts = generated.conflicts || generated;
   let renamed = 0;
   let enriched = 0;
+  let changed = false;
 
   for (const [from, to] of Object.entries(safeConflictRenames)) {
-    if (conflicts[from]) {
-      conflicts[to] = {
+    if (from !== to && conflicts[from]) {
+      const merged = {
         ...(conflicts[from] || {}),
         ...(conflicts[to] || {}),
         pageTitle: to
       };
+      if (!areJsonValuesEquivalent(conflicts[to], merged)) {
+        conflicts[to] = merged;
+      }
       delete conflicts[from];
       renamed += 1;
+      changed = true;
     }
   }
 
-  for (const [name, detail] of Object.entries(curatedConflictDetailFixes)) {
-    conflicts[name] = {
-      ...(conflicts[name] || {}),
+  for (const [rawName, detail] of Object.entries(curatedConflictDetailFixes)) {
+    const name = getContextualConflictName({ name: renameConflictName(rawName), ...detail });
+    const current = conflicts[name] || {};
+    const updated = normalizeVisibleValue({
+      ...current,
       ...detail,
-      source: conflicts[name]?.source || "Curaduria GeoRisk",
-      pageTitle: conflicts[name]?.pageTitle || name
-    };
-    enriched += 1;
+      source: current.source || "Curaduria GeoRisk",
+      pageTitle: name
+    });
+    if (!areJsonValuesEquivalent(current, updated)) {
+      conflicts[name] = updated;
+      enriched += 1;
+      changed = true;
+    }
+    if (rawName !== name && conflicts[rawName]) {
+      delete conflicts[rawName];
+      renamed += 1;
+      changed = true;
+    }
   }
 
   for (const [name, detail] of Object.entries(conflicts)) {
     const curated = curateConflictDetail(name, normalizeParticipantSides(detail), { countriesByConflict });
     const finalName = renameConflictName(curated.name);
-    const normalized = { ...curated, name: undefined };
+    const normalized = normalizeVisibleValue({ ...curated, name: undefined });
     delete normalized.name;
     if (finalName !== name) {
-      conflicts[finalName] = {
+      const updated = normalizeVisibleValue({
         ...(conflicts[finalName] || {}),
         ...normalized,
         pageTitle: finalName
-      };
+      });
+      if (!areJsonValuesEquivalent(conflicts[finalName], updated)) {
+        conflicts[finalName] = updated;
+      }
       delete conflicts[name];
+      renamed += 1;
       enriched += 1;
-    } else if (JSON.stringify(normalized) !== JSON.stringify(detail)) {
+      changed = true;
+    } else if (!areJsonValuesEquivalent(normalized, detail)) {
       conflicts[name] = normalized;
       enriched += 1;
+      changed = true;
     }
   }
 
-  await writeJsonWithRetry(generatedDetailsPath, generated, { spaces: 2 });
-  return { renamed, enriched };
+  const written = changed
+    ? await writeJsonIfChanged(generatedDetailsPath, generated, { spaces: 0 })
+    : false;
+  const compacted = !written && currentText.trimEnd().includes("\n");
+  if (compacted) {
+    await writeJsonWithRetry(generatedDetailsPath, generated, { spaces: 0 });
+  }
+  return written
+    ? { renamed, enriched, written, compacted: false }
+    : { renamed: 0, enriched: 0, written, compacted };
 }
 
 let changedFullCountries = 0;
 let countriesByConflict = new Map();
-for (let pass = 0; pass < 3; pass += 1) {
+const fullPassChanges = [];
+for (let pass = 0; pass < 8; pass += 1) {
   const fullCountries = await readJsonWithRetry(fullPath);
   countriesByConflict = collectConflictCountryNames(fullCountries);
   const changedThisPass = await fixCountriesFile(fullPath, countriesByConflict);
+  fullPassChanges.push(changedThisPass);
   changedFullCountries += changedThisPass;
   if (!changedThisPass) break;
 }
-countriesByConflict = collectConflictCountryNames(await readJsonWithRetry(fullPath));
-let changedCountryFiles = 0;
-for (const file of (await fs.readdir(countriesDir)).filter(item => item.endsWith(".json"))) {
-  changedCountryFiles += await fixCountriesFile(path.join(countriesDir, file), countriesByConflict);
+if (fullPassChanges.at(-1) !== 0) {
+  throw new Error(`La curaduria de countries_full no convergio: ${fullPassChanges.join(", ")}`);
 }
+countriesByConflict = collectConflictCountryNames(await readJsonWithRetry(fullPath));
 const detailStats = await fixGeneratedDetails(countriesByConflict);
 
 const report = {
   generatedAt: new Date().toISOString(),
   changedFullCountries,
-  changedCountryFiles,
+  fullPassChanges,
+  compactCountryFilesStrategy: "regenerated-by-buildDataIndexes",
   detailStats,
   safeRenames: safeConflictRenames,
-  curatedDetails: Object.keys(curatedConflictDetailFixes)
+  curatedDetails: [...new Set(Object.keys(curatedConflictDetailFixes).map(renameConflictName))]
 };
 
 await fs.ensureDir(path.dirname(reportPath));
 await writeJsonWithRetry(reportPath, report, { spaces: 2 });
 
 console.log(`Paises actualizados en countries_full: ${changedFullCountries}`);
-console.log(`Fichas por pais actualizadas: ${changedCountryFiles}`);
+console.log("Fichas compactas: se regeneran una sola vez con build:indexes");
 console.log(`Detalles renombrados: ${detailStats.renamed}`);
 console.log(`Detalles enriquecidos: ${detailStats.enriched}`);
 console.log(`Reporte: ${path.relative(projectRoot, reportPath)}`);

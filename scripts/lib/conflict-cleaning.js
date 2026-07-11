@@ -18,6 +18,18 @@ export function repairConflictMojibake(value) {
 
 export function applyConflictUnicodeCorrections(value) {
   return String(value || "")
+    .replace(/ø/g, "o")
+    .replace(/Ø/g, "O")
+    .replace(/æ/g, "ae")
+    .replace(/Æ/g, "Ae")
+    .replace(/œ/g, "oe")
+    .replace(/Œ/g, "Oe")
+    .replace(/ł/g, "l")
+    .replace(/Ł/g, "L")
+    .replace(/ð/g, "d")
+    .replace(/Ð/g, "D")
+    .replace(/þ/g, "th")
+    .replace(/Þ/g, "Th")
     .replace(/Operaci.{0,2}n/gi, "Operacion")
     .replace(/Campa.{0,2}a/gi, "Campana")
     .replace(/Intervenci.{0,2}n/gi, "Intervencion")
