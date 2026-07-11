@@ -265,6 +265,7 @@ assert.ok(appMapInteractions.includes("shouldDisableLabelsForFps"), "modulo de i
 assert.ok(rankingsWorker.includes("rankings"), "worker de rankings debe preparar rankings fuera del hilo principal");
 assert.ok(searchWorker.includes("aliases"), "worker de busqueda debe preparar aliases fuera del hilo principal");
 assert.ok(appSearch.includes("parseNaturalQuery"), "busqueda debe vivir en modulo con consultas naturales");
+assert.ok(appSearch.includes("parseSemanticFilters"), "filtros semanticos deben vivir en el modulo diferido de busqueda");
 assert.ok(appSearch.includes("groupSuggestions"), "busqueda debe agrupar sugerencias por tipo");
 assert.ok(appRankings.includes("getRiskComponents"), "rankings/radar deben vivir en modulo con componentes explicables");
 assert.ok(appRankings.includes("proxyFields"), "rankings deben separar metricas reales de proxies");

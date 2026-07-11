@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-07-09T21:14:43.456Z",
+  "generatedAt": "2026-07-11T01:46:06.191Z",
   "status": "operativo",
   "startup": {
-    "critical": "867 KB",
-    "criticalBytes": 888002,
-    "deferred": "1.09 MB",
+    "critical": "861 KB",
+    "criticalBytes": 881560,
+    "deferred": "1.10 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 9142879,
       "countriesFullHuman": "8.72 MB",
@@ -16,8 +16,8 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 615578,
-        "human": "601 KB",
+        "bytes": 609145,
+        "human": "595 KB",
         "startupCritical": true
       },
       {
@@ -58,7 +58,7 @@
       {
         "path": "index.html",
         "exists": true,
-        "bytes": 31784,
+        "bytes": 31775,
         "human": "31 KB",
         "startupCritical": true
       },
@@ -77,6 +77,13 @@
         "startupCritical": false
       },
       {
+        "path": "app-search.js",
+        "exists": true,
+        "bytes": 14186,
+        "human": "14 KB",
+        "startupCritical": false
+      },
+      {
         "path": "app-quiz-ui.js",
         "exists": true,
         "bytes": 10054,
@@ -87,13 +94,6 @@
         "path": "app-compare-ui.js",
         "exists": true,
         "bytes": 8670,
-        "human": "8 KB",
-        "startupCritical": false
-      },
-      {
-        "path": "app-search.js",
-        "exists": true,
-        "bytes": 8288,
         "human": "8 KB",
         "startupCritical": false
       }
@@ -809,8 +809,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 615578,
-      "human": "601 KB"
+      "bytes": 609145,
+      "human": "595 KB"
     },
     {
       "path": "style.css",
@@ -821,13 +821,13 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 46824,
+      "bytes": 47440,
       "human": "46 KB"
     },
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 31784,
+      "bytes": 31775,
       "human": "31 KB"
     },
     {
@@ -958,7 +958,7 @@
     }
   ],
   "scriptMetrics": {
-    "functions": 521,
+    "functions": 520,
     "asyncFunctions": 48,
     "consoleWarnings": 18,
     "consoleErrors": 13
@@ -1042,11 +1042,8 @@
     "validate:data"
   ],
   "criticalIssues": [],
-  "warnings": [
-    "script.js sigue siendo el mayor bloque de mantenimiento."
-  ],
+  "warnings": [],
   "nextActions": [
-    "Mantener el arranque critico por debajo de 1 MB en cada release.",
-    "Extraer mas render de ficha, comparador, quiz y auditorias a modulos diferidos."
+    "Mantener el arranque critico por debajo de 1 MB en cada release."
   ]
 }

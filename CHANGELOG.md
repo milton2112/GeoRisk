@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.44 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.45 antes de cerrar la siguiente version.
+
+## v1.6.45 - 2026-07-10
+
+- Mueve el parser completo de filtros semanticos a `app-search.js`, cargado solo al usar la busqueda.
+- Conserva consultas por continente, religion, sistema, organizacion, idioma, conflicto, periodo y poblacion con cobertura automatizada.
+- Reutiliza la lista cacheada de paises en rankings rapidos de busqueda y agrega gates para impedir que el parser pesado vuelva al arranque critico.
+- Corrige `release:prepare` para fechar versiones y caches con el dia local de Buenos Aires, evitando releases adelantadas por UTC.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-10-release-1`.
 
 ## v1.6.44 - 2026-07-09
 

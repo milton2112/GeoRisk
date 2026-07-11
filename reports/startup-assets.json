@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-09T21:14:42.709Z",
-  "startupBytes": 888002,
-  "startupHuman": "867 KB",
-  "deferredBytes": 1144618,
-  "deferredHuman": "1.09 MB",
+  "generatedAt": "2026-07-11T01:46:05.637Z",
+  "startupBytes": 881560,
+  "startupHuman": "861 KB",
+  "deferredBytes": 1150516,
+  "deferredHuman": "1.10 MB",
   "estimatedRuntimeMemory": {
     "countriesFullBytes": 9142879,
     "countriesFullHuman": "8.72 MB",
@@ -15,8 +15,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 615578,
-      "human": "601 KB",
+      "bytes": 609145,
+      "human": "595 KB",
       "startupCritical": true
     },
     {
@@ -57,7 +57,7 @@
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 31784,
+      "bytes": 31775,
       "human": "31 KB",
       "startupCritical": true
     },
@@ -76,6 +76,13 @@
       "startupCritical": false
     },
     {
+      "path": "app-search.js",
+      "exists": true,
+      "bytes": 14186,
+      "human": "14 KB",
+      "startupCritical": false
+    },
+    {
       "path": "app-quiz-ui.js",
       "exists": true,
       "bytes": 10054,
@@ -88,28 +95,21 @@
       "bytes": 8670,
       "human": "8 KB",
       "startupCritical": false
-    },
-    {
-      "path": "app-search.js",
-      "exists": true,
-      "bytes": 8288,
-      "human": "8 KB",
-      "startupCritical": false
     }
   ],
   "assets": [
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 31784,
+      "bytes": 31775,
       "human": "31 KB",
       "startupCritical": true
     },
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 615578,
-      "human": "601 KB",
+      "bytes": 609145,
+      "human": "595 KB",
       "startupCritical": true
     },
     {
@@ -164,8 +164,8 @@
     {
       "path": "app-search.js",
       "exists": true,
-      "bytes": 8288,
-      "human": "8 KB",
+      "bytes": 14186,
+      "human": "14 KB",
       "startupCritical": false
     },
     {

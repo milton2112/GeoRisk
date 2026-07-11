@@ -52,6 +52,34 @@ const natural = search.parseNaturalQuery("paises de Asia con mas conflictos", {
 assert.equal(natural.metric, "conflicts", "debe detectar ranking de conflictos");
 assert.equal(natural.filters.continent, "Asia", "debe detectar continente");
 
+const semanticContext = {
+  continents: [["asia", "Asia"], ["america", "America"]],
+  religions: [["islam", "Islam"], ["cristianismo", "Cristianismo"]],
+  systems: [],
+  organizations: [["otan", "OTAN"]],
+  languages: [["espanol", "Espanol"]],
+  blocs: [],
+  metropoles: [],
+  conflicts: [["guerra civil", "Guerra civil"]],
+  periods: [],
+  historyTypes: [],
+  origins: [],
+  rivals: []
+};
+const semanticReligion = search.parseSemanticFilters("paises islamicos de Asia con mas de 50 millones", semanticContext);
+assert.equal(semanticReligion.continent, "Asia", "filtros semanticos deben resolver continente");
+assert.equal(semanticReligion.religion, "Islam", "filtros semanticos deben resolver religion");
+assert.equal(semanticReligion.minPopulation, 50000000, "filtros semanticos deben resolver poblacion minima");
+
+const semanticSystem = search.parseSemanticFilters("monarquias constitucionales de Asia", semanticContext);
+assert.equal(semanticSystem.system, "Monarquia constitucional", "debe reconocer sistemas politicos naturales");
+
+const semanticHistory = search.parseSemanticFilters("paises de Asia del siglo XXI", semanticContext);
+assert.equal(semanticHistory.period, "Siglo XXI", "debe reconocer periodos historicos");
+
+const semanticConflict = search.parseSemanticFilters("paises de Asia en guerra civil", semanticContext);
+assert.equal(semanticConflict.conflict, "Guerra civil", "debe reconocer conflictos desde aliases diferidos");
+
 const publicConflict = await search.findPublicConflictIndexEntry("Guerra de las Malvinas", {
   appVersion: "test",
   translateConflictName: value => value,

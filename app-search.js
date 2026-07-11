@@ -165,6 +165,155 @@
     };
   }
 
+  function parseSemanticFilters(rawQuery = "", context = {}) {
+    const normalize = typeof context.normalizeText === "function" ? context.normalizeText : normalizeText;
+    const normalized = normalize(rawQuery);
+    const findContextValue = key => findAliasValue(normalized, [{ entries: context[key] || [] }]);
+    const filters = {
+      continent: findContextValue("continents"),
+      religion: "",
+      system: "",
+      organization: "",
+      language: "",
+      bloc: "",
+      metropole: "",
+      conflict: "",
+      period: "",
+      historyType: "",
+      origin: "",
+      rival: "",
+      minPopulation: 0
+    };
+
+    const hasIslam = /\bislam|\bmusulman/.test(normalized);
+    const hasChristian = /\bcristian/.test(normalized);
+    const hasConstitutionalMonarchy = /monarquias? constitucional(?:es)?|constitutional monarch(?:y|ies)?/.test(normalized);
+    const hasPresidentialRepublic = /republicas? presidenciales?|presidential republic/.test(normalized);
+
+    if (hasIslam) {
+      filters.religion = "Islam";
+    } else if (hasChristian) {
+      filters.religion = "Cristianismo";
+    }
+
+    filters.religion = findContextValue("religions") || filters.religion;
+    filters.system = findContextValue("systems");
+    if (!filters.system) {
+      if (hasConstitutionalMonarchy) {
+        filters.system = "Monarquia constitucional";
+      } else if (hasPresidentialRepublic) {
+        filters.system = "Presidencialismo";
+      } else if (/\bmonarquia|\bmonarquias/.test(normalized)) {
+        filters.system = "__monarquia__";
+      } else if (/federal|federales/.test(normalized)) {
+        filters.system = "__federal__";
+      } else if (/semipresid/.test(normalized)) {
+        filters.system = "__semipresidencial__";
+      } else if (/presidencial/.test(normalized)) {
+        filters.system = "__presidencial__";
+      } else if (/parlament/.test(normalized)) {
+        filters.system = "__parlamentario__";
+      }
+    }
+
+    filters.organization = findContextValue("organizations");
+    filters.language = findContextValue("languages");
+    filters.bloc = findContextValue("blocs");
+    filters.metropole = findContextValue("metropoles");
+    filters.conflict = findContextValue("conflicts");
+    filters.period = findContextValue("periods");
+    filters.historyType = findContextValue("historyTypes");
+    filters.origin = findContextValue("origins");
+    if (!filters.origin) {
+      if (/ex colonias? britan|british colonies|imperio britan/.test(normalized)) {
+        filters.origin = "__british__";
+      } else if (/ex colonias? frances|french colonies/.test(normalized)) {
+        filters.origin = "__french__";
+      } else if (/ex colonias? espan|spanish colonies/.test(normalized)) {
+        filters.origin = "__spanish__";
+      } else if (/ex colonias? portugues|portuguese colonies/.test(normalized)) {
+        filters.origin = "__portuguese__";
+      }
+    }
+
+    filters.rival = findContextValue("rivals");
+    if (!filters.organization && /\botan\b|nato/.test(normalized)) {
+      filters.organization = "OTAN";
+      filters.bloc = "OTAN";
+    }
+    if (!filters.rival && /\brusia\b|russia/.test(normalized)) {
+      filters.rival = "Rusia";
+    }
+    if (!filters.organization && /(union europea|ue\b|european union)/.test(normalized)) {
+      filters.organization = "Union Europea";
+      filters.bloc = "Union Europea";
+    }
+    if (!filters.organization && /(mercosur|mercosul)/.test(normalized)) {
+      filters.organization = "Mercosur";
+      filters.bloc = "Mercosur";
+    }
+    if (!filters.organization && /\bbrics\b/.test(normalized)) {
+      filters.organization = "BRICS";
+      filters.bloc = "BRICS";
+    }
+
+    if (!filters.period && /(siglo xxi|21st century|siglo 21)/.test(normalized)) {
+      filters.period = "Siglo XXI";
+    } else if (!filters.period && /(siglo xx|20th century|siglo 20)/.test(normalized)) {
+      filters.period = "Siglo XX";
+    } else if (!filters.period && /(siglo xix|19th century|siglo 19)/.test(normalized)) {
+      filters.period = "Siglo XIX";
+    } else if (!filters.period && /(edad moderna|early modern)/.test(normalized)) {
+      filters.period = "Edad Moderna";
+    } else if (!filters.period && /(edad media|middle ages|medieval)/.test(normalized)) {
+      filters.period = "Edad Media";
+    }
+
+    if (!filters.religion && /(judai|jewish)/.test(normalized)) {
+      filters.religion = "Juda\u00edsmo";
+    }
+    if (!filters.religion && /(hindu|hinduism)/.test(normalized)) {
+      filters.religion = "Hinduismo";
+    }
+
+    const populationMatchers = [
+      { pattern: /mas de 100 millones|more than 100 million/, value: 100000000 },
+      { pattern: /mas de 50 millones|more than 50 million/, value: 50000000 },
+      { pattern: /mas de 20 millones|more than 20 million/, value: 20000000 },
+      { pattern: /mas de 10 millones|more than 10 million/, value: 10000000 },
+      { pattern: /mas de 1 millon|more than 1 million/, value: 1000000 }
+    ];
+    const populationMatch = populationMatchers.find(item => item.pattern.test(normalized));
+    if (populationMatch) {
+      filters.minPopulation = populationMatch.value;
+    }
+
+    const semanticPatterns = [
+      /miembros? de /,
+      /members? of /,
+      /rivales? de /,
+      /rivals? of /,
+      /ex colonias? de /,
+      /former colonies? of /,
+      /paises? .*guerra civil/,
+      /countries? .*civil war/,
+      /con mas conflictos/,
+      /with more conflicts/,
+      /con mas organizaciones/,
+      /with more organizations/,
+      /idioma/,
+      /language/,
+      /guerra|batalla|war|battle/,
+      /siglo|century/,
+      /bloque|bloc|alliance|alianza/,
+      /ex metropoli|former metropole/
+    ];
+    const score = Object.values(filters).filter(Boolean).length;
+    return score >= 2 || (score >= 1 && semanticPatterns.some(pattern => pattern.test(normalized)))
+      ? filters
+      : null;
+  }
+
   function createRecentSearchCache(maxEntries = 16) {
     const cache = new Map();
     return {
@@ -197,6 +346,7 @@
     groupSuggestions,
     findPublicConflictIndexEntry,
     parseNaturalQuery,
+    parseSemanticFilters,
     createRecentSearchCache
   };
 })();

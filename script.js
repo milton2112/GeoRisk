@@ -82,7 +82,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-07-09-release-10";
+const APP_VERSION = "2026-07-10-release-1";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -12090,238 +12090,6 @@ function applyFilters() {
   renderSelectableCountryGroup("Filtros globales", "Paises y territorios filtrados", countries);
 }
 
-function parseSemanticQuery(rawQuery) {
-  const normalized = normalizeText(rawQuery);
-  const filters = {
-    continent: "",
-    religion: "",
-    system: "",
-    organization: "",
-    language: "",
-    bloc: "",
-    metropole: "",
-    conflict: "",
-    period: "",
-    historyType: "",
-    origin: "",
-    rival: "",
-    minPopulation: 0
-  };
-
-  const hasIslam = /\bislam|\bmusulman/.test(normalized);
-  const hasChristian = /\bcristian/.test(normalized);
-  const hasConstitutionalMonarchy = /monarquia constitucional|constitutional monarch/.test(normalized);
-  const hasPresidentialRepublic = /republicas? presidenciales?|presidential republic/.test(normalized);
-
-  for (const [alias, continent] of continentAliases.entries()) {
-    if (normalized.includes(alias)) {
-      filters.continent = continent;
-      break;
-    }
-  }
-
-  if (!filters.religion) {
-    if (hasIslam) {
-      filters.religion = "Islam";
-    } else if (hasChristian) {
-      filters.religion = "Cristianismo";
-    }
-  }
-
-  for (const [alias, religion] of religionAliases.entries()) {
-    if (normalized.includes(alias)) {
-      filters.religion = religion;
-      break;
-    }
-  }
-
-  for (const [alias, system] of systemAliases.entries()) {
-    if (normalized.includes(alias)) {
-      filters.system = system;
-      break;
-    }
-  }
-
-  if (!filters.system) {
-    if (hasConstitutionalMonarchy) {
-      filters.system = "Monarquia constitucional";
-    } else if (hasPresidentialRepublic) {
-      filters.system = "Presidencialismo";
-    } else if (/\bmonarquia|\bmonarquias/.test(normalized)) {
-      filters.system = "__monarquia__";
-    } else if (/federal|federales/.test(normalized)) {
-      filters.system = "__federal__";
-    } else if (/semipresid/.test(normalized)) {
-      filters.system = "__semipresidencial__";
-    } else if (/presidencial/.test(normalized)) {
-      filters.system = "__presidencial__";
-    } else if (/parlament/.test(normalized)) {
-      filters.system = "__parlamentario__";
-    }
-  }
-
-  for (const [alias, organization] of organizationAliases.entries()) {
-    if (normalized.includes(alias)) {
-      filters.organization = organization;
-      break;
-    }
-  }
-
-  for (const [alias, language] of languageAliases.entries()) {
-    if (normalized.includes(alias)) {
-      filters.language = language;
-      break;
-    }
-  }
-
-  for (const [alias, bloc] of blocAliases.entries()) {
-    if (normalized.includes(alias)) {
-      filters.bloc = bloc;
-      break;
-    }
-  }
-
-  for (const [alias, metropole] of metropoleAliases.entries()) {
-    if (normalized.includes(alias)) {
-      filters.metropole = metropole;
-      break;
-    }
-  }
-
-  for (const [alias, conflict] of conflictAliases.entries()) {
-    if (normalized.includes(alias)) {
-      filters.conflict = conflict;
-      break;
-    }
-  }
-
-  for (const [alias, period] of periodAliases.entries()) {
-    if (normalized.includes(alias)) {
-      filters.period = period;
-      break;
-    }
-  }
-
-  for (const [alias, historyType] of historyTypeAliases.entries()) {
-    if (normalized.includes(alias)) {
-      filters.historyType = historyType;
-      break;
-    }
-  }
-
-  for (const [alias, origin] of originAliases.entries()) {
-    if (normalized.includes(alias)) {
-      filters.origin = origin;
-      break;
-    }
-  }
-
-  if (!filters.origin) {
-    if (/ex colonias? britan|british colonies|imperio britan/.test(normalized)) {
-      filters.origin = "__british__";
-    } else if (/ex colonias? frances|french colonies/.test(normalized)) {
-      filters.origin = "__french__";
-    } else if (/ex colonias? espan|spanish colonies/.test(normalized)) {
-      filters.origin = "__spanish__";
-    } else if (/ex colonias? portugues|portuguese colonies/.test(normalized)) {
-      filters.origin = "__portuguese__";
-    }
-  }
-
-  for (const [alias, rival] of rivalAliases.entries()) {
-    if (normalized.includes(alias)) {
-      filters.rival = rival;
-      break;
-    }
-  }
-
-  if (!filters.organization && /\botan\b|nato/.test(normalized)) {
-    filters.organization = "OTAN";
-    filters.bloc = "OTAN";
-  }
-
-  if (!filters.rival && /\brusia\b|russia/.test(normalized)) {
-    filters.rival = "Rusia";
-  }
-
-  if (!filters.organization && /(union europea|ue\b|european union)/.test(normalized)) {
-    filters.organization = "Union Europea";
-    filters.bloc = "Union Europea";
-  }
-
-  if (!filters.organization && /(mercosur|mercosul)/.test(normalized)) {
-    filters.organization = "Mercosur";
-    filters.bloc = "Mercosur";
-  }
-
-  if (!filters.organization && /\bbrics\b/.test(normalized)) {
-    filters.organization = "BRICS";
-    filters.bloc = "BRICS";
-  }
-
-  if (!filters.period && /(siglo xxi|21st century|siglo 21)/.test(normalized)) {
-    filters.period = "Siglo XXI";
-  } else if (!filters.period && /(siglo xx|20th century|siglo 20)/.test(normalized)) {
-    filters.period = "Siglo XX";
-  } else if (!filters.period && /(siglo xix|19th century|siglo 19)/.test(normalized)) {
-    filters.period = "Siglo XIX";
-  } else if (!filters.period && /(edad moderna|early modern)/.test(normalized)) {
-    filters.period = "Edad Moderna";
-  } else if (!filters.period && /(edad media|middle ages|medieval)/.test(normalized)) {
-    filters.period = "Edad Media";
-  }
-
-  if (!filters.religion && /(judai|jewish)/.test(normalized)) {
-    filters.religion = "Juda\u00edsmo";
-  }
-
-  if (!filters.religion && /(hindu|hinduism)/.test(normalized)) {
-    filters.religion = "Hinduismo";
-  }
-
-  const populationMatchers = [
-    { pattern: /mas de 100 millones|more than 100 million/, value: 100000000 },
-    { pattern: /mas de 50 millones|more than 50 million/, value: 50000000 },
-    { pattern: /mas de 20 millones|more than 20 million/, value: 20000000 },
-    { pattern: /mas de 10 millones|more than 10 million/, value: 10000000 },
-    { pattern: /mas de 1 millon|more than 1 million/, value: 1000000 }
-  ];
-
-  const populationMatch = populationMatchers.find(item => item.pattern.test(normalized));
-  if (populationMatch) {
-    filters.minPopulation = populationMatch.value;
-  }
-
-  const semanticPatterns = [
-    /miembros? de /,
-    /members? of /,
-    /rivales? de /,
-    /rivals? of /,
-    /ex colonias? de /,
-    /former colonies? of /,
-    /paises? .*guerra civil/,
-    /countries? .*civil war/,
-    /con mas conflictos/,
-    /with more conflicts/,
-    /con mas organizaciones/,
-    /with more organizations/,
-    /idioma/,
-    /language/,
-    /guerra|batalla|war|battle/,
-    /siglo|century/,
-    /bloque|bloc|alliance|alianza/,
-    /ex metropoli|former metropole/
-  ];
-
-  if (/con mas conflictos|with more conflicts/.test(normalized)) {
-    filters.historyType = filters.historyType || "";
-  }
-
-  const score = Object.values(filters).filter(Boolean).length;
-  return score >= 2 || (score >= 1 && semanticPatterns.some(pattern => pattern.test(normalized)))
-    ? filters
-    : null;
-}
 
 function getOrganizationDisplayName(organization) {
   if (!organization) {
@@ -12774,8 +12542,15 @@ function getSearchAliasContext() {
     religions: [...religionAliases.entries()],
     systems: [...systemAliases.entries()],
     organizations: [...organizationAliases.entries()],
+    languages: [...languageAliases.entries()],
     blocs: [...blocAliases.entries()],
-    rivals: [...rivalAliases.entries()]
+    metropoles: [...metropoleAliases.entries()],
+    conflicts: [...conflictAliases.entries()],
+    periods: [...periodAliases.entries()],
+    historyTypes: [...historyTypeAliases.entries()],
+    origins: [...originAliases.entries()],
+    rivals: [...rivalAliases.entries()],
+    normalizeText
   };
 }
 
@@ -13016,7 +12791,7 @@ async function searchMap() {
   }
 
   if (/con mas conflictos|with more conflicts/.test(query)) {
-    const countries = Object.values(countriesData)
+    const countries = getCountryValues()
       .filter(country => getCountryConflictCount(country) > 0)
       .sort((a, b) => getCountryConflictCount(b) - getCountryConflictCount(a))
       .slice(0, 15);
@@ -13033,7 +12808,7 @@ async function searchMap() {
   }
 
   if (/con mas organizaciones|with more organizations/.test(query)) {
-    const countries = Object.values(countriesData)
+    const countries = getCountryValues()
       .filter(country => getCountryOrganizationCount(country) > 0)
       .sort((a, b) => getCountryOrganizationCount(b) - getCountryOrganizationCount(a))
       .slice(0, 15);
@@ -13049,7 +12824,9 @@ async function searchMap() {
     }
   }
 
-  const semanticFilters = parseSemanticQuery(rawQuery);
+  const semanticFilters = typeof searchCore.parseSemanticFilters === "function"
+    ? searchCore.parseSemanticFilters(rawQuery, getSearchAliasContext())
+    : null;
   if (semanticFilters) {
     document.getElementById("filter-continent-select").value = semanticFilters.continent;
     document.getElementById("filter-religion-select").value = semanticFilters.religion;

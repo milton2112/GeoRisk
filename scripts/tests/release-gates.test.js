@@ -30,10 +30,12 @@ const changelog = await fs.readFile(path.join(projectRoot, "CHANGELOG.md"), "utf
 const uiPolish = await fs.readFile(path.join(projectRoot, "app-ui-polish.js"), "utf8");
 const bootScheduler = await fs.readFile(path.join(projectRoot, "app-boot-scheduler.js"), "utf8");
 const appMap = await fs.readFile(path.join(projectRoot, "app-map.js"), "utf8");
+const appSearch = await fs.readFile(path.join(projectRoot, "app-search.js"), "utf8");
 const timelineConflicts = await fs.readFile(path.join(projectRoot, "app-timeline-conflicts.js"), "utf8");
 const cleanLocal = await fs.readFile(path.join(projectRoot, "scripts/cleanLocal.js"), "utf8");
 const cleanStorage = await fs.readFile(path.join(projectRoot, "scripts/cleanStorage.js"), "utf8");
 const releaseChecklist = await fs.readFile(path.join(projectRoot, "scripts/releaseChecklist.js"), "utf8");
+const prepareRelease = await fs.readFile(path.join(projectRoot, "scripts/prepareRelease.js"), "utf8");
 const performanceSnapshot = await fs.readFile(path.join(projectRoot, "scripts/performanceSnapshot.js"), "utf8");
 const dataAutomationAudit = await fs.readFile(path.join(projectRoot, "scripts/dataAutomationAudit.js"), "utf8");
 const projectDoctor = await fs.readFile(path.join(projectRoot, "scripts/projectDoctor.js"), "utf8");
@@ -86,6 +88,8 @@ assert.ok(packageJson.scripts["build:data"].includes("buildDataIndexes.js"), "bu
 assert.equal(packageJson.scripts["prepush:check"], "node scripts/prepushCheck.js", "debe existir puerta local pre-push");
 assert.equal(packageJson.scripts["clean:storage"], "node scripts/cleanStorage.js", "debe existir limpieza local de almacenamiento");
 assert.equal(packageJson.scripts["release:prepare"], "node scripts/prepareRelease.js", "debe existir preparacion automatica de release");
+assert.ok(!prepareRelease.includes("toISOString().slice(0, 10)"), "release:prepare no debe fechar releases visibles en UTC");
+assert.ok(prepareRelease.includes("date.getFullYear()") && prepareRelease.includes("date.getMonth()") && prepareRelease.includes("date.getDate()"), "release:prepare debe calcular la fecha calendario local");
 assert.equal(packageJson.scripts["release:status"], "node scripts/releaseStatus.js", "debe existir estado resumido de release");
 assert.equal(packageJson.scripts["audit:data"], "node scripts/dataAutomationAudit.js", "debe existir auditoria programable de datos");
 assert.equal(packageJson.scripts["audit:doctor"], "node scripts/projectDoctor.js", "debe existir doctor de producto");
@@ -220,6 +224,8 @@ assert.ok(conflictRules.includes("window.GeoRiskConflictRules"), "modulo diferid
 assert.ok(riskRadarUi.includes("function buildScenarioCards"), "escenarios del radar deben vivir fuera del runtime critico");
 assert.ok(!script.includes("function getRiskMainDriverLabel"), "helper visual del radar no debe volver a script.js");
 assert.ok(!/function buildQuizQuestion\(category\)[\s\S]{0,2400}category === "language"/.test(script), "fallback pesado del quiz no debe volver al runtime critico");
+assert.ok(!script.includes("function parseSemanticQuery"), "parser semantico pesado no debe volver al runtime critico");
+assert.ok(appSearch.includes("parseSemanticFilters"), "parser semantico debe vivir en app-search diferido");
 assert.ok(script.includes("ensureConflictAliasesLoaded"), "runtime debe poder cargar alias de conflictos bajo demanda");
 assert.ok(script.includes("scheduleDetailedOverlayUpgrade"), "GeoJSON detallado debe cargarse por upgrade diferido");
 assert.ok(appMap.includes("world_countries_simplified.geo.json"), "GeoJSON simplificado debe ser default inicial");
