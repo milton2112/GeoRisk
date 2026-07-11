@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-07-11T02:01:48.859Z",
-  "packageVersion": "1.6.46",
+  "generatedAt": "2026-07-11T02:18:47.220Z",
+  "packageVersion": "1.6.47",
   "status": "operativo",
   "summary": {
     "totalFindings": 0,
     "bySeverity": {},
-    "startupBytes": 874955,
-    "scriptBytes": 602540,
+    "startupBytes": 854259,
+    "scriptBytes": 581844,
     "countriesIndexBytes": 144217,
     "conflictAuditIssues": 0,
     "dataCounts": {
@@ -79,6 +79,10 @@
       {
         "key": "rankings",
         "file": "app-rankings.js"
+      },
+      {
+        "key": "text",
+        "file": "app-text.js"
       },
       {
         "key": "exportShare",

@@ -73,6 +73,7 @@ let countryPanelUi = window.GeoRiskCountryPanel || {};
 let timelineConflictUi = window.GeoRiskTimelineConflicts || {};
 let searchCore = window.GeoRiskSearch || {};
 let rankingsCore = window.GeoRiskRankings || {};
+let textUi = window.GeoRiskText || {};
 let helpUi = window.GeoRiskHelpUi || {};
 let exportShareUi = window.GeoRiskExportShare || {};
 const sharedTheme = window.GeoRiskTheme || {};
@@ -82,7 +83,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-07-10-release-2";
+const APP_VERSION = "2026-07-10-release-3";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -105,6 +106,7 @@ const DEFERRED_UI_MODULES = {
   timelineConflicts: `./app-timeline-conflicts.js?v=${APP_VERSION}`,
   search: `./app-search.js?v=${APP_VERSION}`,
   rankings: `./app-rankings.js?v=${APP_VERSION}`,
+  text: `./app-text.js?v=${APP_VERSION}`,
   exportShare: `./app-export-share.js?v=${APP_VERSION}`
 };
 const deferredUiModulePromises = new Map();
@@ -122,6 +124,7 @@ function refreshDeferredUiGlobals() {
   timelineConflictUi = window.GeoRiskTimelineConflicts || timelineConflictUi || {};
   searchCore = window.GeoRiskSearch || searchCore || {};
   rankingsCore = window.GeoRiskRankings || rankingsCore || {};
+  textUi = window.GeoRiskText || textUi || {};
   exportShareUi = window.GeoRiskExportShare || exportShareUi || {};
   if (advancedRankingCache?.isFallback && typeof rankingsCore.createRankingsCache === "function") {
     advancedRankingCache = rankingsCore.createRankingsCache();
@@ -8865,54 +8868,10 @@ function formatNewsDate(value) {
 }
 
 function updateExtendedStaticText() {
-  const introCloseButton = document.getElementById("intro-modal-close");
-  if (introCloseButton) {
-    introCloseButton.innerHTML = "&times;";
+  if (typeof textUi.applyExtendedStaticText !== "function") {
+    return false;
   }
-  const productCloseButton = document.getElementById("product-modal-close");
-  if (productCloseButton) {
-    productCloseButton.innerHTML = "&times;";
-  }
-  const conflictCloseButton = document.getElementById("conflict-modal-close");
-  if (conflictCloseButton) {
-    conflictCloseButton.innerHTML = "&times;";
-  }
-  const timelineCloseButton = document.getElementById("timeline-modal-close");
-  if (timelineCloseButton) {
-    timelineCloseButton.innerHTML = "&times;";
-  }
-  const introModalBody = document.getElementById("intro-modal-body");
-  if (introModalBody) {
-    introModalBody.innerHTML = introModalBody.innerHTML
-          .replace(/campaÃ±as/g, "campañas")
-      .replace(/Ãƒâ€”/g, "&times;");
-  }
-  const semanticHelper = document.getElementById("semantic-helper");
-  if (semanticHelper) {
-    semanticHelper.textContent = currentLanguage === "en"
-      ? "Examples: constitutional monarchies in Asia with an Islamic majority; NATO countries rival to Russia; presidential republics in the Americas; Spanish-speaking countries in South America; Six-Day War; 20th century states."
-      : "Ejemplos: monarquias constitucionales de Asia con islam mayoritario; paises de la OTAN rivales de Rusia; republicas presidenciales de America; paises hispanohablantes de America del Sur; Guerra de los Seis Dias; estados del siglo XX.";
-  }
-  const search = document.getElementById("compare-country-search");
-  if (search) search.placeholder = currentLanguage === "en" ? "Filter countries to compare" : "Filtrar paises para comparar";
-  const quizMode = document.getElementById("quiz-mode");
-  if (quizMode) {
-    quizMode.options[0].textContent = currentLanguage === "en" ? "Classic" : "Clasico";
-    quizMode.options[1].textContent = currentLanguage === "en" ? "Timed" : "Contra reloj";
-  }
-  const topic = document.getElementById("news-topic-select");
-  if (topic) {
-    topic.options[0].textContent = currentLanguage === "en" ? "General overview" : "Panorama general";
-    topic.options[1].textContent = currentLanguage === "en" ? "Politics" : "Politica";
-    topic.options[2].textContent = currentLanguage === "en" ? "Economy" : "Economia";
-    topic.options[3].textContent = currentLanguage === "en" ? "War and security" : "Guerra y seguridad";
-  }
-  updateIntroRuntimeStatus();
-  updateIntroActionText();
-  if (document.getElementById("help-modal")?.hidden === false) {
-    renderHelpModalContent({ force: true });
-  }
-  updateAppStatusPanel();
+  return textUi.applyExtendedStaticText(getStaticTextRuntimeContext());
 }
 
 function startPerformanceMonitor() {
@@ -10090,282 +10049,35 @@ function renderRelationsSummary(country, countryCode) {
   `;
 }
 
-function updateStaticText() {
-  document.getElementById("compare-title").textContent = t("compareTitle");
-  const quizTitle = document.getElementById("quiz-title");
-  if (quizTitle) {
-    quizTitle.textContent = currentLanguage === "en" ? "Learning mode" : "Modo educativo";
-  }
-  const quizStartButton = document.getElementById("quiz-start-button");
-  if (quizStartButton) {
-    quizStartButton.textContent = currentLanguage === "en" ? "Start quiz" : "Iniciar quiz";
-  }
-  const quizDifficulty = document.getElementById("quiz-difficulty");
-  if (quizDifficulty) {
-    quizDifficulty.options[0].textContent = currentLanguage === "en" ? "Easy" : "Facil";
-    quizDifficulty.options[1].textContent = currentLanguage === "en" ? "Medium" : "Media";
-    quizDifficulty.options[2].textContent = currentLanguage === "en" ? "Hard" : "Dificil";
-  }
-  const quizNextButton = document.getElementById("quiz-next-button");
-  if (quizNextButton) {
-    quizNextButton.textContent = currentLanguage === "en" ? "Next" : "Siguiente";
-  }
-  const quizResetButton = document.getElementById("quiz-reset-button");
-  if (quizResetButton) {
-    quizResetButton.textContent = currentLanguage === "en" ? "Reset" : "Reiniciar";
-  }
-  document.getElementById("compare-empty").textContent = t("compareHint");
-  const compareAddButton = document.getElementById("compare-add-button");
-  if (compareAddButton) {
-    compareAddButton.textContent = currentLanguage === "en" ? "Add" : "Agregar";
-  }
-  const compareSelect = document.getElementById("compare-country-select");
-  if (compareSelect?.options?.[0]) {
-    compareSelect.options[0].textContent = currentLanguage === "en" ? "Select country" : "Seleccionar pais";
-  }
-  const openCompareButton = document.getElementById("open-compare-modal-button");
-  if (openCompareButton) {
-    openCompareButton.textContent = currentLanguage === "en" ? "Open comparison" : "Ver comparacion";
-  }
-  const clearCompareButton = document.getElementById("clear-compare-button");
-  if (clearCompareButton) {
-    clearCompareButton.textContent = currentLanguage === "en" ? "Clear" : "Limpiar";
-  }
-  document.getElementById("rankings-summary").textContent = currentLanguage === "en" ? "Global rankings" : "Rankings globales";
-  const compareHubLabel = document.getElementById("compare-hub-label");
-  const quizHubLabel = document.getElementById("quiz-hub-label");
-  const newsHubLabel = document.getElementById("news-hub-label");
-  if (compareHubLabel) compareHubLabel.textContent = currentLanguage === "en" ? "Compare" : "Comparar";
-  if (quizHubLabel) quizHubLabel.textContent = "Quiz";
-  if (newsHubLabel) newsHubLabel.textContent = currentLanguage === "en" ? "News" : "Noticias";
-  document.getElementById("world-population-title").textContent = currentLanguage === "en" ? "World population" : "Poblacion mundial";
-  document.getElementById("top-population-title").textContent = currentLanguage === "en" ? "Top population" : "Top poblacion";
-  document.getElementById("continents-title").textContent = currentLanguage === "en" ? "Continents" : "Continentes";
-  document.getElementById("religions-title").textContent = currentLanguage === "en" ? "Religions" : "Religiones";
-  document.getElementById("gdp-title").textContent = t("topGdp");
-  document.getElementById("inflation-title").textContent = t("topInflation");
-  document.getElementById("systems-title").textContent = t("systems");
-  document.getElementById("gdp-per-capita-title").textContent = currentLanguage === "en" ? "Top GDP per capita" : "Top PBI per capita";
-  document.getElementById("organizations-top-title").textContent = currentLanguage === "en" ? "Top organizations" : "Top organizaciones";
-  document.getElementById("conflicts-top-title").textContent = currentLanguage === "en" ? "Top conflicts" : "Top conflictos";
-  document.getElementById("military-top-title").textContent = currentLanguage === "en" ? "Top active military" : "Top personal militar";
-  document.getElementById("diversity-top-title").textContent = currentLanguage === "en" ? "Top religious diversity" : "Top diversidad religiosa";
-  document.getElementById("organizations-reach-title").textContent = currentLanguage === "en" ? "Most widespread organizations" : "Organizaciones mas extendidas";
-  document.getElementById("rivalries-top-title").textContent = currentLanguage === "en" ? "Most repeated rivalries" : "Rivalidades mas repetidas";
-  document.getElementById("blocs-top-title").textContent = currentLanguage === "en" ? "Most widespread blocs" : "Bloques mas extendidos";
-  document.getElementById("metropoles-top-title").textContent = currentLanguage === "en" ? "Former metropoles" : "Ex metropoles";
-  document.getElementById("history-types-top-title").textContent = currentLanguage === "en" ? "Historical types" : "Tipos historicos";
-  document.getElementById("map-search-input").placeholder =
-    currentLanguage === "en"
-      ? "Search country, conflict, region or organization"
-      : "Buscar pais, conflicto, region u organizacion";
-  document.getElementById("map-search-button").textContent = currentLanguage === "en" ? "Search" : "Buscar";
-  const saveSearchButton = document.getElementById("save-search-button");
-  if (saveSearchButton) {
-    saveSearchButton.title = currentLanguage === "en" ? "Save search" : "Guardar busqueda";
-    saveSearchButton.setAttribute("aria-label", saveSearchButton.title);
-  }
-  const appModeSelect = document.getElementById("app-mode-select");
-  if (appModeSelect) {
-    appModeSelect.options[0].textContent = currentLanguage === "en" ? "Explore" : "Exploracion";
-    appModeSelect.options[1].textContent = currentLanguage === "en" ? "Geopolitical analysis" : "Analisis geopolitico";
-    appModeSelect.options[2].textContent = currentLanguage === "en" ? "Encyclopedia" : "Enciclopedia";
-    appModeSelect.options[3].textContent = currentLanguage === "en" ? "Presentation" : "Presentacion";
-    appModeSelect.value = appMode;
-  }
-  const favoriteViewsSelect = document.getElementById("favorite-views-select");
-  if (favoriteViewsSelect?.options?.[0]) {
-    favoriteViewsSelect.options[0].textContent = currentLanguage === "en" ? "Favorites" : "Favoritos";
-  }
-  const saveFavoriteButton = document.getElementById("save-favorite-button");
-  if (saveFavoriteButton) {
-    saveFavoriteButton.textContent = currentLanguage === "en" ? "Save favorite" : "Guardar favorito";
-  }
-  const openIntroButton = document.getElementById("open-intro-button");
-  if (openIntroButton) {
-    openIntroButton.textContent = currentLanguage === "en" ? "Start" : "Inicio";
-  }
-  const openHealthButton = document.getElementById("open-health-button");
-  if (openHealthButton) {
-    openHealthButton.textContent = currentLanguage === "en" ? "Dataset health" : "Salud dataset";
-  }
-  const openRiskRadarButton = document.getElementById("open-risk-radar-button");
-  if (openRiskRadarButton) {
-    openRiskRadarButton.textContent = currentLanguage === "en" ? "Risk radar" : "Radar riesgo";
-  }
-  const openConflictAuditButton = document.getElementById("open-conflict-audit-button");
-  if (openConflictAuditButton) {
-    openConflictAuditButton.textContent = currentLanguage === "en" ? "Conflict quality" : "Calidad conflictos";
-  }
-  const openProjectAuditButton = document.getElementById("open-project-audit-button");
-  if (openProjectAuditButton) {
-    openProjectAuditButton.textContent = currentLanguage === "en" ? "Project status" : "Estado proyecto";
-  }
-  const openChangelogButton = document.getElementById("open-changelog-button");
-  if (openChangelogButton) {
-    openChangelogButton.textContent = currentLanguage === "en" ? "Changelog" : "Changelog";
-  }
-  const openDocsButton = document.getElementById("open-docs-button");
-  if (openDocsButton) {
-    openDocsButton.textContent = currentLanguage === "en" ? "Docs" : "Documentacion";
-  }
-  const clearLocalCacheButton = document.getElementById("clear-local-cache-button");
-  if (clearLocalCacheButton) {
-    clearLocalCacheButton.textContent = currentLanguage === "en" ? "Clear offline cache" : "Limpiar cache offline";
-  }
-  const searchHistoryTitle = document.getElementById("search-history-title");
-  if (searchHistoryTitle) {
-    searchHistoryTitle.textContent = currentLanguage === "en" ? "Recent" : "Recientes";
-  }
-  const savedSearchTitle = document.getElementById("saved-search-title");
-  if (savedSearchTitle) {
-    savedSearchTitle.textContent = currentLanguage === "en" ? "Saved" : "Guardadas";
-  }
-  document.getElementById("toggle-left-panel").textContent = "Rankings";
-  document.getElementById("toggle-tools-panel").textContent = currentLanguage === "en" ? "Layers" : "Capas";
-  document.getElementById("toggle-country-panel").textContent = currentLanguage === "en" ? "Profile" : "Ficha";
-  const mobileMoreButton = document.getElementById("toggle-more-panel");
-  mobileMoreButton.textContent = currentLanguage === "en" ? "More" : "Mas";
-  mobileMoreButton.setAttribute("aria-label", currentLanguage === "en" ? "Open quick tools" : "Abrir herramientas rapidas");
-  document.getElementById("mobile-compare-label").textContent = currentLanguage === "en" ? "Compare" : "Comparar";
-  document.getElementById("mobile-quiz-label").textContent = "Quiz";
-  document.getElementById("mobile-news-label").textContent = currentLanguage === "en" ? "News" : "Noticias";
-  document.getElementById("mobile-more-menu").setAttribute("aria-label", currentLanguage === "en" ? "Quick tools" : "Herramientas rapidas");
-  syncMobilePanelControlState();
-  const layersSummaryTitle = document.getElementById("layers-summary-title");
-  if (layersSummaryTitle) {
-    layersSummaryTitle.textContent = currentLanguage === "en" ? "Thematic layers" : "Capas tematicas";
-  }
-  const layersPanelTitle = document.getElementById("layers-panel-title");
-  if (layersPanelTitle) {
-    layersPanelTitle.textContent = currentLanguage === "en" ? "Thematic map" : "Mapa tematico";
-  }
-  const layersPanelHint = document.getElementById("layers-panel-hint");
-  if (layersPanelHint) {
-    layersPanelHint.textContent = currentLanguage === "en"
-      ? "Choose which data colors the map. Estimated layers are marked as dataset proxies."
-      : "Elegi que dato colorea el mapa. Las capas estimadas muestran proxies del dataset.";
-  }
-  const themeFilterInput = document.getElementById("theme-filter-input");
-  if (themeFilterInput) {
-    themeFilterInput.placeholder = currentLanguage === "en" ? "Filter layers" : "Filtrar capas";
-  }
-  updateMapModeToggle();
-  const themeSelect = document.getElementById("theme-select");
-  const themeOptionLabels = {
-    default: currentLanguage === "en" ? "Political view" : "Vista politica",
-    continent: currentLanguage === "en" ? "Continents" : "Continentes",
-    religion: currentLanguage === "en" ? "Main religion" : "Religion mayoritaria",
-    politics: currentLanguage === "en" ? "Political system" : "Sistema politico",
-    population: currentLanguage === "en" ? "Population" : "Poblacion",
-    density: currentLanguage === "en" ? "Population density" : "Densidad de poblacion",
-    urbanization: currentLanguage === "en" ? "Urbanization (est.)" : "Urbanizacion (est.)",
-    lifeExpectancy: currentLanguage === "en" ? "Life expectancy (est.)" : "Esperanza de vida (est.)",
-    populationGrowth: currentLanguage === "en" ? "Demographic growth" : "Crecimiento demografico",
-    gdp: "PBI",
-    gdpPerCapita: currentLanguage === "en" ? "GDP per capita" : "PBI per capita",
-    gdpPpp: currentLanguage === "en" ? "GDP PPP (est.)" : "PBI PPC (est.)",
-    inflation: currentLanguage === "en" ? "Inflation" : "Inflacion",
-    inflationHistory: currentLanguage === "en" ? "Inflation history (proxy)" : "Inflacion historica (proxy)",
-    unemployment: currentLanguage === "en" ? "Unemployment (est.)" : "Desempleo (est.)",
-    debt: currentLanguage === "en" ? "Debt (est.)" : "Deuda (est.)",
-    militaryActive: currentLanguage === "en" ? "Active military" : "Personal militar activo",
-    militarySpending: currentLanguage === "en" ? "Military spending (est.)" : "Gasto militar (est.)",
-    formationYear: currentLanguage === "en" ? "Formation year" : "Año de formacion",
-    religionBranch: currentLanguage === "en" ? "Religious branch" : "Rama religiosa dominante",
-    exMetropole: currentLanguage === "en" ? "Former metropole" : "Ex metropoli",
-    bloc: currentLanguage === "en" ? "Blocs and alliances" : "Bloques y alianzas",
-    conflicts: currentLanguage === "en" ? "Conflicts" : "Conflictos",
-    organizations: currentLanguage === "en" ? "Organizations" : "Organizaciones",
-    rivals: currentLanguage === "en" ? "Rivals" : "Rivales",
-    religionDiversity: currentLanguage === "en" ? "Religious diversity" : "Diversidad religiosa",
-    historyType: currentLanguage === "en" ? "Historical type" : "Tipo historico",
-    exportBreadth: currentLanguage === "en" ? "Export diversity" : "Diversidad exportadora",
-    exportVolume: currentLanguage === "en" ? "Export volume (est.)" : "Volumen exportador (est.)",
-    industryBreadth: currentLanguage === "en" ? "Industrial diversity" : "Diversidad industrial",
-    capitalShare: currentLanguage === "en" ? "Capital population share" : "Peso demografico de la capital",
-    naturalResources: currentLanguage === "en" ? "Natural resources" : "Recursos naturales",
-    geopoliticalIndex: currentLanguage === "en" ? "Geopolitical index" : "Indice geopolitico",
-    riskRadar: currentLanguage === "en" ? "Multi-parameter risk radar" : "Radar de riesgo multiparametrico",
-    riskMilitary: currentLanguage === "en" ? "Military risk" : "Riesgo militar",
-    riskEconomic: currentLanguage === "en" ? "Economic risk" : "Riesgo economico",
-    riskDiplomatic: currentLanguage === "en" ? "Diplomatic risk" : "Riesgo diplomatico",
-    riskInternal: currentLanguage === "en" ? "Internal risk" : "Riesgo interno",
-    riskTerritorial: currentLanguage === "en" ? "Territorial risk" : "Riesgo territorial",
-    qualityScore: currentLanguage === "en" ? "Dataset quality" : "Calidad del dataset",
-    languageDiversity: currentLanguage === "en" ? "Language diversity" : "Diversidad linguistica",
-    diplomaticReach: currentLanguage === "en" ? "Diplomatic reach" : "Alcance diplomatico"
+function getStaticTextRuntimeContext() {
+  return {
+    document,
+    currentLanguage,
+    appMode,
+    qualityPreset,
+    labelMode,
+    autoRotateEnabled,
+    translate: t,
+    syncMobilePanelControlState,
+    updateMapModeToggle,
+    renderThemePicker,
+    syncThemeToolbarState,
+    getNewsTopicLabel,
+    updateAppStatusPanel,
+    renderSavedFilters,
+    renderSavedViews,
+    renderSearchMemory,
+    updateIntroRuntimeStatus,
+    updateIntroActionText,
+    renderHelpModalContent
   };
-  themeSelect?.querySelectorAll("option").forEach(option => {
-    option.textContent = themeOptionLabels[option.value] || option.textContent;
-  });
-  renderThemePicker();
-  syncThemeToolbarState();
-  document.querySelector("label[for='theme-select']").textContent = currentLanguage === "en" ? "Layer" : "Capa";
-  document.querySelector("label[for='language-select']").textContent = currentLanguage === "en" ? "Language" : "Idioma";
-  document.querySelector("label[for='quality-preset-select']").textContent = currentLanguage === "en" ? "Render" : "Render";
-  document.querySelector("label[for='label-mode-select']").textContent = currentLanguage === "en" ? "Labels" : "Etiquetas";
-  document.querySelector("label[for='filter-continent-select']").textContent = currentLanguage === "en" ? "Filters" : "Filtros";
-  const qualityPresetSelect = document.getElementById("quality-preset-select");
-  if (qualityPresetSelect) {
-    qualityPresetSelect.options[0].textContent = currentLanguage === "en" ? "Automatic" : "Automatico";
-    qualityPresetSelect.options[1].textContent = currentLanguage === "en" ? "High quality" : "Alta calidad";
-    qualityPresetSelect.options[2].textContent = currentLanguage === "en" ? "Balanced" : "Balanceado";
-    qualityPresetSelect.options[3].textContent = currentLanguage === "en" ? "Performance" : "Rendimiento";
-    qualityPresetSelect.value = qualityPreset;
+}
+
+function updateStaticText() {
+  if (typeof textUi.applyStaticText !== "function") {
+    return false;
   }
-  const labelModeSelect = document.getElementById("label-mode-select");
-  if (labelModeSelect) {
-    labelModeSelect.options[0].textContent = currentLanguage === "en" ? "No labels" : "Sin etiquetas";
-    labelModeSelect.options[1].textContent = currentLanguage === "en" ? "Countries" : "Paises";
-    labelModeSelect.options[2].textContent = currentLanguage === "en" ? "Countries and world" : "Paises y mundo";
-    labelModeSelect.value = labelMode;
-  }
-  document.getElementById("apply-filters-button").textContent = currentLanguage === "en" ? "Apply filters" : "Aplicar filtros";
-  document.getElementById("save-filters-button").textContent = currentLanguage === "en" ? "Save filters" : "Guardar filtros";
-  document.getElementById("reset-view-button").textContent = currentLanguage === "en" ? "Reset view" : "Resetear vista";
-  document.getElementById("world-view-button").textContent = currentLanguage === "en" ? "Back to world" : "Volver al mundo";
-  document.getElementById("auto-rotate-button").textContent = autoRotateEnabled
-    ? (currentLanguage === "en" ? "Stop rotation" : "Detener rotacion")
-    : (currentLanguage === "en" ? "Auto rotation" : "Rotacion automatica");
-  document.querySelector("label[for='saved-views-select']").textContent = currentLanguage === "en" ? "Saved views" : "Vistas guardadas";
-  document.getElementById("save-view-button").textContent = currentLanguage === "en" ? "Save view" : "Guardar vista";
-  document.getElementById("open-help-button").textContent = currentLanguage === "en" ? "Guide" : "Guia";
-  document.getElementById("presentation-mode-button").textContent =
-    document.body.classList.contains("presentation-mode")
-      ? (currentLanguage === "en" ? "Exit presentation" : "Salir de presentacion")
-      : (currentLanguage === "en" ? "Presentation mode" : "Modo presentacion");
-  document.querySelectorAll("[data-export-target][data-export-format='png']").forEach(button => {
-    button.textContent = currentLanguage === "en" ? "Export image" : "Exportar imagen";
-  });
-  document.querySelectorAll("[data-export-target][data-export-format='pdf']").forEach(button => {
-    button.textContent = currentLanguage === "en" ? "Export PDF" : "Exportar PDF";
-  });
-  document.querySelectorAll("[data-share-target], [data-share-country]").forEach(button => {
-    button.textContent = currentLanguage === "en" ? "Share" : "Compartir";
-  });
-  const note = document.getElementById("news-hub-note");
-  if (note) {
-    note.textContent = currentLanguage === "en"
-      ? "Country news hub. Select a country for a preview or open an external search."
-      : "Hub de noticias por pais. Selecciona un pais para vista previa o abri una busqueda externa.";
-  }
-  const newsTopic = document.getElementById("news-topic-select");
-  if (newsTopic) {
-    newsTopic.options[0].textContent = getNewsTopicLabel("general");
-    newsTopic.options[1].textContent = getNewsTopicLabel("politics");
-    newsTopic.options[2].textContent = getNewsTopicLabel("economy");
-    newsTopic.options[3].textContent = getNewsTopicLabel("conflict");
-    if (newsTopic.options[4]) newsTopic.options[4].textContent = getNewsTopicLabel("diplomacy");
-  }
-  const newsFilter = document.getElementById("news-country-filter");
-  if (newsFilter) {
-    newsFilter.placeholder = currentLanguage === "en" ? "Filter country in news" : "Filtrar pais en noticias";
-  }
-  updateAppStatusPanel();
-  renderSavedFilters();
-  renderSavedViews();
-  renderSearchMemory({ reveal: document.activeElement?.id === "map-search-input" });
+  return textUi.applyStaticText(getStaticTextRuntimeContext());
 }
 
 let rerenderCurrentPanelFrame = null;
@@ -15451,6 +15163,7 @@ async function init() {
           }
         };
 
+        await ensureDeferredUiModule("text");
         safeUiTask("search events", () => setupSearchEvents());
         safeUiTask("theme controls", () => setupThemeControls());
         safeUiTask("map mode control", () => setupMapModeControl());

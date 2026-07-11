@@ -55,6 +55,42 @@ assert.ok(qualityHtml.includes("Organizaciones"), "ficha diferida debe conservar
 assert.ok(!qualityHtml.includes("[object Object]"), "procedencia anidada debe mostrarse como texto legible");
 assert.ok(qualityHtml.includes("general: curated"), "procedencia debe resumir estados por seccion");
 
+const textWindow = await loadBrowserModule("app-text.js");
+const textUi = textWindow.GeoRiskText;
+const textElements = {
+  "compare-title": { textContent: "" },
+  "compare-empty": { textContent: "" },
+  "map-search-input": { placeholder: "" },
+  "map-search-button": { textContent: "" },
+  "theme-select": { options: [{ value: "gdpPerCapita", textContent: "" }] },
+  "quiz-mode": { options: Array.from({ length: 5 }, () => ({ textContent: "" })) },
+  "news-topic-select": { options: Array.from({ length: 5 }, () => ({ textContent: "" })) },
+  "semantic-helper": { textContent: "" },
+  "help-modal": { hidden: true }
+};
+const textDocument = {
+  activeElement: null,
+  body: { classList: { contains: () => false } },
+  getElementById: id => textElements[id] || null,
+  querySelector: () => null,
+  querySelectorAll: () => []
+};
+let themePickerRuns = 0;
+assert.equal(textUi.applyStaticText({
+  document: textDocument,
+  currentLanguage: "en",
+  translate: key => ({ compareTitle: "Comparer", compareHint: "Add countries" }[key] || key),
+  renderThemePicker: () => { themePickerRuns += 1; },
+  getNewsTopicLabel: value => value
+}), true, "modulo de textos debe aceptar documentos parciales");
+assert.equal(textElements["compare-title"].textContent, "Comparer", "titulo del comparador debe traducirse");
+assert.equal(textElements["map-search-input"].placeholder, "Search country, conflict, region or organization", "buscador debe traducir placeholder");
+assert.equal(textElements["theme-select"].options[0].textContent, "GDP per capita", "capas deben traducirse desde app-text");
+assert.equal(themePickerRuns, 1, "traduccion debe refrescar selector visual de capas");
+assert.equal(textUi.applyExtendedStaticText({ document: textDocument, currentLanguage: "en" }), true, "textos extendidos deben tolerar DOM parcial");
+assert.equal(textElements["quiz-mode"].options[4].textContent, "Teacher", "modos nuevos del quiz deben traducirse");
+assert.equal(textElements["news-topic-select"].options[4].textContent, "Diplomacy", "tema diplomacia debe traducirse");
+
 const polishSource = await fs.readFile(path.join(projectRoot, "app-ui-polish.js"), "utf8");
 assert.ok(polishSource.includes("TOOLTIP_MAP"), "ui polish debe centralizar tooltips");
 assert.ok(polishSource.includes("trapFocus"), "ui polish debe exponer trap de foco");

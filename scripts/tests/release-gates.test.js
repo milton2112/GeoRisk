@@ -33,6 +33,7 @@ const appMap = await fs.readFile(path.join(projectRoot, "app-map.js"), "utf8");
 const appSearch = await fs.readFile(path.join(projectRoot, "app-search.js"), "utf8");
 const appQuiz = await fs.readFile(path.join(projectRoot, "app-quiz-ui.js"), "utf8");
 const appCountryPanel = await fs.readFile(path.join(projectRoot, "app-country-panel.js"), "utf8");
+const appText = await fs.readFile(path.join(projectRoot, "app-text.js"), "utf8");
 const timelineConflicts = await fs.readFile(path.join(projectRoot, "app-timeline-conflicts.js"), "utf8");
 const cleanLocal = await fs.readFile(path.join(projectRoot, "scripts/cleanLocal.js"), "utf8");
 const cleanStorage = await fs.readFile(path.join(projectRoot, "scripts/cleanStorage.js"), "utf8");
@@ -188,6 +189,7 @@ assert.ok(startupCriticalResources.reduce((sum, resource) => {
 assert.ok(!indexHtml.includes("countries_full.json"), "countries_full no debe cargarse desde HTML inicial");
 assert.ok(!indexHtml.includes("conflict_details.generated.json"), "conflict_details no debe cargarse desde HTML inicial");
 assert.ok(!indexHtml.includes("app-text.js"), "texto/formato debe usar fallback inicial y no bloquear arranque");
+assert.ok(!appShellText.includes("app-text.js"), "textos completos no deben precachearse en APP_SHELL");
 assert.ok(!indexHtml.includes("app-curation.js"), "curation debe ser bajo demanda");
 assert.ok(!indexHtml.includes("app-country-panel.js"), "ficha pais avanzada debe cargarse bajo demanda");
 assert.ok(!indexHtml.includes("app-timeline-conflicts.js"), "timeline/conflictos debe cargarse bajo demanda");
@@ -235,6 +237,11 @@ assert.ok(appCountryPanel.includes("renderDataQuality"), "fuentes y calidad debe
 assert.ok(appCountryPanel.includes("formatProvenanceValue"), "procedencia anidada debe tener formateador legible");
 assert.ok(!script.includes("const DATA_SOURCE_SUMMARY"), "resumen de fuentes no debe volver al runtime critico");
 assert.ok(/function renderDataQuality\(country\)[\s\S]{0,420}countryPanelUi\.renderDataQuality/.test(script), "runtime debe delegar calidad de ficha al modulo diferido");
+assert.ok(deferredModulesBlock.includes('text: `./app-text.js?v=${APP_VERSION}`'), "textos deben declararse como modulo diferido versionado");
+assert.ok(appText.includes("function applyStaticText"), "app-text debe renderizar textos estaticos");
+assert.ok(appText.includes("function applyExtendedStaticText"), "app-text debe renderizar textos extendidos");
+assert.ok(!script.includes("const themeOptionLabels"), "catalogo largo de capas no debe volver al runtime critico");
+assert.ok(/function updateStaticText\(\)[\s\S]{0,260}textUi\.applyStaticText/.test(script), "runtime debe delegar traduccion estatica");
 assert.ok(script.includes("ensureConflictAliasesLoaded"), "runtime debe poder cargar alias de conflictos bajo demanda");
 assert.ok(script.includes("scheduleDetailedOverlayUpgrade"), "GeoJSON detallado debe cargarse por upgrade diferido");
 assert.ok(appMap.includes("world_countries_simplified.geo.json"), "GeoJSON simplificado debe ser default inicial");

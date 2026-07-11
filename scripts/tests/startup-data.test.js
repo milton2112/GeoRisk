@@ -29,6 +29,7 @@ const appRankings = await fs.readFile(path.join(projectRoot, "app-rankings.js"),
 const appNews = await fs.readFile(path.join(projectRoot, "app-news-ui.js"), "utf8");
 const appCompare = await fs.readFile(path.join(projectRoot, "app-compare-ui.js"), "utf8");
 const appQuiz = await fs.readFile(path.join(projectRoot, "app-quiz-ui.js"), "utf8");
+const appText = await fs.readFile(path.join(projectRoot, "app-text.js"), "utf8");
 const appConflictRules = await fs.readFile(path.join(projectRoot, "app-conflict-rules.js"), "utf8");
 const perCountryDir = path.join(projectRoot, "data", "countries");
 const perCountryConflictsDir = path.join(perCountryDir, "conflicts");
@@ -238,6 +239,10 @@ assert.ok(indexHtml.includes("app-map-styles.js"), "estilos de mapa deben vivir 
 assert.ok(indexHtml.includes("app-map-interactions.js"), "interacciones de mapa deben vivir en modulo separado");
 assert.ok(indexHtml.includes("app-store.js"), "estado compartido debe vivir en store central simple");
 assert.ok(!indexHtml.includes("app-text.js"), "texto/formato debe usar fallback inicial");
+assert.ok(!appShellBlock.includes("app-text.js"), "textos completos no deben entrar en APP_SHELL");
+assert.ok(appText.includes("applyStaticText"), "textos estaticos deben vivir en modulo diferido");
+assert.ok(appText.includes("applyExtendedStaticText"), "textos extendidos deben vivir en modulo diferido");
+assert.ok(script.includes('ensureDeferredUiModule("text")'), "modulo de textos debe cargarse despues del mapa inicial");
 assert.ok(!indexHtml.includes("app-ui-polish.js"), "polish UI/accesibilidad debe cargarse diferido");
 assert.ok(script.includes("uiPolish: `./app-ui-polish.js?v=${APP_VERSION}`"), "polish UI/accesibilidad debe vivir en modulo separado versionado");
 assert.ok(sw.includes("./app-map.js"), "modulo de mapa debe estar disponible offline");

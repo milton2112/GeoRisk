@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.46 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.47 antes de cerrar la siguiente version.
+
+## v1.6.47 - 2026-07-10
+
+- Mueve textos estaticos, etiquetas de capas y traducciones extendidas a `app-text.js`, cargado despues del mapa inicial.
+- Reduce `script.js` en mas de 20 KB sin sumar `app-text.js` al HTML ni al `APP_SHELL` critico.
+- Completa traducciones de los modos Practica, Examen y Docente del quiz y mantiene Diplomacia en noticias.
+- Agrega pruebas con DOM parcial y gates para impedir que el catalogo largo de textos vuelva al runtime inicial.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-10-release-3`.
 
 ## v1.6.46 - 2026-07-10
 
