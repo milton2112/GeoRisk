@@ -19,6 +19,42 @@ storeWindow.GeoRiskStore.store.setState({ appMode: "presentation" }, "test");
 assert.equal(storeWindow.GeoRiskStore.store.getState().appMode, "presentation");
 assert.equal(storeWindow.GeoRiskStore.selectUiState().appMode, "presentation");
 
+const countryPanelWindow = await loadBrowserModule("app-country-panel.js");
+const countryPanel = countryPanelWindow.GeoRiskCountryPanel;
+const qualityHtml = countryPanel.renderDataQuality({
+  general: { cities: [{ name: "Buenos Aires" }, { name: "Cordoba" }] },
+  religion: { composition: [{ name: "Cristianismo", percentage: 70 }] },
+  metadata: {
+    updatedAt: "2026-07-10",
+    sources: { general: ["Fuente oficial"] },
+    provenance: {
+      general: { status: "confirmed" },
+      sections: { general: { status: "curated" }, military: { status: "base" } }
+    },
+    quality: {
+      score: 92,
+      estimatedFields: ["economy.inflation"],
+      curatedFields: ["general.cities"],
+      confirmedFields: ["general.population"],
+      missingFields: [],
+      sectionStatus: { general: "curated" }
+    }
+  }
+}, {
+  currentLanguage: "es",
+  organizationCount: 12,
+  conflictCount: 3,
+  formatNumber: value => String(value),
+  escapeHtml: value => String(value),
+  noData: "Sin datos"
+});
+assert.ok(qualityHtml.includes("Puntaje de calidad"), "ficha diferida debe renderizar calidad de datos");
+assert.ok(qualityHtml.includes("92/100"), "ficha diferida debe mostrar score de calidad");
+assert.ok(qualityHtml.includes("Fuente oficial"), "ficha diferida debe mostrar fuentes por seccion");
+assert.ok(qualityHtml.includes("Organizaciones"), "ficha diferida debe conservar metricas de cobertura");
+assert.ok(!qualityHtml.includes("[object Object]"), "procedencia anidada debe mostrarse como texto legible");
+assert.ok(qualityHtml.includes("general: curated"), "procedencia debe resumir estados por seccion");
+
 const polishSource = await fs.readFile(path.join(projectRoot, "app-ui-polish.js"), "utf8");
 assert.ok(polishSource.includes("TOOLTIP_MAP"), "ui polish debe centralizar tooltips");
 assert.ok(polishSource.includes("trapFocus"), "ui polish debe exponer trap de foco");

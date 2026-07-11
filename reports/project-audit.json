@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-07-11T01:46:06.191Z",
+  "generatedAt": "2026-07-11T02:01:46.349Z",
   "status": "operativo",
   "startup": {
-    "critical": "861 KB",
-    "criticalBytes": 881560,
-    "deferred": "1.10 MB",
+    "critical": "854 KB",
+    "criticalBytes": 874955,
+    "deferred": "1.11 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 9142879,
       "countriesFullHuman": "8.72 MB",
@@ -16,8 +16,8 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 609145,
-        "human": "595 KB",
+        "bytes": 602540,
+        "human": "588 KB",
         "startupCritical": true
       },
       {
@@ -86,15 +86,15 @@
       {
         "path": "app-quiz-ui.js",
         "exists": true,
-        "bytes": 10054,
-        "human": "10 KB",
+        "bytes": 12766,
+        "human": "12 KB",
         "startupCritical": false
       },
       {
-        "path": "app-compare-ui.js",
+        "path": "app-country-panel.js",
         "exists": true,
-        "bytes": 8670,
-        "human": "8 KB",
+        "bytes": 12430,
+        "human": "12 KB",
         "startupCritical": false
       }
     ]
@@ -809,8 +809,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 609145,
-      "human": "595 KB"
+      "bytes": 602540,
+      "human": "588 KB"
     },
     {
       "path": "style.css",
@@ -821,8 +821,8 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 47440,
-      "human": "46 KB"
+      "bytes": 48238,
+      "human": "47 KB"
     },
     {
       "path": "index.html",
@@ -849,6 +849,12 @@
       "human": "15 KB"
     },
     {
+      "path": "app-quiz-ui.js",
+      "exists": true,
+      "bytes": 12766,
+      "human": "12 KB"
+    },
+    {
       "path": "TECHNICAL.md",
       "exists": true,
       "bytes": 10619,
@@ -858,12 +864,6 @@
       "path": "app-risk-radar-ui.js",
       "exists": true,
       "bytes": 10251,
-      "human": "10 KB"
-    },
-    {
-      "path": "app-quiz-ui.js",
-      "exists": true,
-      "bytes": 10054,
       "human": "10 KB"
     },
     {

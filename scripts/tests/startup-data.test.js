@@ -273,6 +273,8 @@ assert.ok(appCompare.includes("buildComparisonModel"), "comparador debe tener mo
 assert.ok(appCompare.includes("buildProfessionalSections"), "comparador debe renderizar secciones profesionales desde modulo");
 assert.ok(appQuiz.includes("buildQuestionBank"), "quiz debe generar banco de preguntas desde dataset");
 assert.ok(appQuiz.includes("buildQuestionFromBank"), "quiz debe controlar dificultad y no repeticion");
+assert.ok(appQuiz.includes("renderPanel"), "render del quiz debe vivir en el modulo diferido");
+assert.ok(appQuiz.includes("renderFeedback"), "feedback explicativo del quiz debe vivir en el modulo diferido");
 assert.ok(appQuiz.includes('category: "language"'), "quiz diferido debe conservar preguntas de idiomas");
 assert.ok(appQuiz.includes('category: "bloc"'), "quiz diferido debe conservar preguntas de bloques");
 assert.ok(appQuiz.includes('category: "conflict"'), "quiz diferido debe conservar preguntas de conflictos");

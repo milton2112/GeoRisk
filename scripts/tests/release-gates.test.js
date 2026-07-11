@@ -31,6 +31,8 @@ const uiPolish = await fs.readFile(path.join(projectRoot, "app-ui-polish.js"), "
 const bootScheduler = await fs.readFile(path.join(projectRoot, "app-boot-scheduler.js"), "utf8");
 const appMap = await fs.readFile(path.join(projectRoot, "app-map.js"), "utf8");
 const appSearch = await fs.readFile(path.join(projectRoot, "app-search.js"), "utf8");
+const appQuiz = await fs.readFile(path.join(projectRoot, "app-quiz-ui.js"), "utf8");
+const appCountryPanel = await fs.readFile(path.join(projectRoot, "app-country-panel.js"), "utf8");
 const timelineConflicts = await fs.readFile(path.join(projectRoot, "app-timeline-conflicts.js"), "utf8");
 const cleanLocal = await fs.readFile(path.join(projectRoot, "scripts/cleanLocal.js"), "utf8");
 const cleanStorage = await fs.readFile(path.join(projectRoot, "scripts/cleanStorage.js"), "utf8");
@@ -226,6 +228,13 @@ assert.ok(!script.includes("function getRiskMainDriverLabel"), "helper visual de
 assert.ok(!/function buildQuizQuestion\(category\)[\s\S]{0,2400}category === "language"/.test(script), "fallback pesado del quiz no debe volver al runtime critico");
 assert.ok(!script.includes("function parseSemanticQuery"), "parser semantico pesado no debe volver al runtime critico");
 assert.ok(appSearch.includes("parseSemanticFilters"), "parser semantico debe vivir en app-search diferido");
+assert.ok(appQuiz.includes("function renderPanel"), "render completo del quiz debe vivir en app-quiz-ui diferido");
+assert.ok(appQuiz.includes("function renderFeedback"), "feedback del quiz debe vivir en app-quiz-ui diferido");
+assert.ok(!script.includes("<span class=\"quiz-meta-pill\">"), "markup de meta del quiz no debe volver al runtime critico");
+assert.ok(appCountryPanel.includes("renderDataQuality"), "fuentes y calidad deben renderizarse desde app-country-panel diferido");
+assert.ok(appCountryPanel.includes("formatProvenanceValue"), "procedencia anidada debe tener formateador legible");
+assert.ok(!script.includes("const DATA_SOURCE_SUMMARY"), "resumen de fuentes no debe volver al runtime critico");
+assert.ok(/function renderDataQuality\(country\)[\s\S]{0,420}countryPanelUi\.renderDataQuality/.test(script), "runtime debe delegar calidad de ficha al modulo diferido");
 assert.ok(script.includes("ensureConflictAliasesLoaded"), "runtime debe poder cargar alias de conflictos bajo demanda");
 assert.ok(script.includes("scheduleDetailedOverlayUpgrade"), "GeoJSON detallado debe cargarse por upgrade diferido");
 assert.ok(appMap.includes("world_countries_simplified.geo.json"), "GeoJSON simplificado debe ser default inicial");

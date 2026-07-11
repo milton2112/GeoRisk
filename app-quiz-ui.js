@@ -1,6 +1,11 @@
 (() => {
-  function buildStatusText(quizState) {
-    return quizState.total ? `Puntaje: ${quizState.score}/${quizState.total}` : "Elegi una categoria y empeza el quiz.";
+  function buildStatusText(quizState, currentLanguage = "es") {
+    if (quizState.total) {
+      return `${currentLanguage === "en" ? "Score" : "Puntaje"}: ${quizState.score}/${quizState.total}`;
+    }
+    return currentLanguage === "en"
+      ? "Choose a category and start the quiz."
+      : "Elegi una categoria y empeza el quiz.";
   }
 
   function buildOptionsMarkup(options, escapeHtml) {
@@ -26,6 +31,64 @@
         <p>${escapeHtml(feedback.body)}</p>
       </div>
     `;
+  }
+
+  function renderMeta(options = {}) {
+    const meta = options.document?.getElementById?.("quiz-meta");
+    if (!meta) return false;
+    meta.innerHTML = buildMetaHtml(
+      options.quizState || {},
+      options.currentLanguage || "es",
+      Number(options.best || 0)
+    );
+    return true;
+  }
+
+  function renderFeedback(options = {}) {
+    const feedback = options.document?.getElementById?.("quiz-feedback");
+    if (!feedback) return false;
+    const escapeHtml = options.escapeHtml || (value => String(value || ""));
+    feedback.innerHTML = buildFeedbackHtml(options.feedback, escapeHtml);
+    return true;
+  }
+
+  function renderPanel(options = {}) {
+    const documentRef = options.document;
+    const quizState = options.quizState || {};
+    const currentLanguage = options.currentLanguage || "es";
+    const escapeHtml = options.escapeHtml || (value => String(value || ""));
+    const status = documentRef?.getElementById?.("quiz-status");
+    const question = documentRef?.getElementById?.("quiz-question");
+    const answers = documentRef?.getElementById?.("quiz-options");
+    const nextButton = documentRef?.getElementById?.("quiz-next-button");
+    const resetButton = documentRef?.getElementById?.("quiz-reset-button");
+    const categorySelect = documentRef?.getElementById?.("quiz-category");
+    const difficultySelect = documentRef?.getElementById?.("quiz-difficulty");
+    const modeSelect = documentRef?.getElementById?.("quiz-mode");
+    if (!status || !question || !answers || !nextButton || !resetButton || !categorySelect || !difficultySelect || !modeSelect) {
+      return false;
+    }
+
+    categorySelect.value = quizState.category || "capital";
+    difficultySelect.value = quizState.difficulty || "easy";
+    modeSelect.value = quizState.mode || "classic";
+    status.textContent = buildStatusText(quizState, currentLanguage);
+    renderMeta({ ...options, quizState, currentLanguage });
+    renderFeedback({ ...options, feedback: quizState.feedback, escapeHtml });
+
+    if (!quizState.current) {
+      question.textContent = "";
+      answers.innerHTML = "";
+      nextButton.hidden = true;
+      resetButton.hidden = !quizState.total && !(quizState.asked || []).length;
+      return true;
+    }
+
+    question.textContent = quizState.current.prompt || "";
+    answers.innerHTML = buildOptionsMarkup(quizState.current.options || [], escapeHtml);
+    nextButton.hidden = !quizState.current.answered;
+    resetButton.hidden = false;
+    return true;
   }
 
   function normalizeText(value = "") {
@@ -155,6 +218,9 @@
     buildOptionsMarkup,
     buildMetaHtml,
     buildFeedbackHtml,
+    renderMeta,
+    renderFeedback,
+    renderPanel,
     buildQuestionBank,
     buildQuestionFromBank,
     buildResultsExport

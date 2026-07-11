@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.45 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.46 antes de cerrar la siguiente version.
+
+## v1.6.46 - 2026-07-10
+
+- Mueve el render del panel, metadatos y feedback del quiz a `app-quiz-ui.js`, cargado bajo demanda.
+- Muestra feedback explicativo visible despues de responder y adapta el estado inicial del quiz al idioma activo.
+- Agrega pruebas de render del quiz y un gate para impedir que su markup vuelva a `script.js`.
+- Mueve el bloque completo de fuentes, procedencia y calidad de datos a `app-country-panel.js`, cargado solo al abrir una ficha.
+- Reduce el runtime critico conservando score, cobertura, campos faltantes/estimados y fuentes por seccion con una prueba dedicada.
+- Corrige valores de procedencia anidados que se mostraban como `[object Object]` y los convierte en estados legibles por seccion.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-10-release-2`.
 
 ## v1.6.45 - 2026-07-10
 

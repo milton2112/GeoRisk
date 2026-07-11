@@ -32,6 +32,8 @@ assert.ok(compareSetupBody.includes("compare-benchmark-world"), "comparador debe
 assert.ok(compareSetupBody.includes("compare-benchmark-continent"), "comparador debe conectar benchmark continente");
 assert.ok(quiz.buildQuestionBank, "quiz debe generar banco desde dataset");
 assert.ok(quiz.buildQuestionFromBank, "quiz debe generar preguntas con dificultad");
+assert.ok(quiz.renderPanel, "quiz debe renderizar su panel desde el modulo diferido");
+assert.ok(quiz.renderFeedback, "quiz debe renderizar feedback explicativo desde el modulo diferido");
 
 const countries = {
   ARG: {
@@ -109,5 +111,42 @@ assert.equal(language.options.length, 4, "pregunta de idioma debe tener cuatro o
 const bloc = quiz.buildQuestionFromBank(bank, countries, { category: "bloc", difficulty: "medium", asked: [] });
 assert.equal(bloc?.category, "bloc", "debe generar preguntas de bloques desde el modulo diferido");
 assert.equal(bloc.options.length, 4, "pregunta de bloque debe tener cuatro opciones");
+
+const quizElements = Object.fromEntries([
+  "quiz-status",
+  "quiz-meta",
+  "quiz-question",
+  "quiz-feedback",
+  "quiz-options",
+  "quiz-next-button",
+  "quiz-reset-button",
+  "quiz-category",
+  "quiz-difficulty",
+  "quiz-mode"
+].map(id => [id, { id, value: "", textContent: "", innerHTML: "", hidden: false }]));
+const quizDocument = { getElementById: id => quizElements[id] || null };
+const renderedQuiz = quiz.renderPanel({
+  document: quizDocument,
+  quizState: {
+    category: "capital",
+    difficulty: "easy",
+    mode: "classic",
+    score: 2,
+    total: 3,
+    streak: 2,
+    asked: ["ARG"],
+    feedback: { kind: "ok", title: "Well answered", body: "Buenos Aires is correct." },
+    current: { prompt: "Capital of Argentina?", options: ["Buenos Aires", "Brasilia", "Santiago", "Montevideo"], answered: true }
+  },
+  currentLanguage: "en",
+  best: 4,
+  escapeHtml: value => String(value)
+});
+assert.equal(renderedQuiz, true, "renderer diferido debe completar el panel");
+assert.equal(quizElements["quiz-status"].textContent, "Score: 2/3", "estado del quiz debe respetar idioma");
+assert.ok(quizElements["quiz-meta"].innerHTML.includes("Answered: 3"), "meta debe mostrar respuestas acumuladas");
+assert.ok(quizElements["quiz-feedback"].innerHTML.includes("is-correct"), "feedback correcto debe quedar visible");
+assert.ok(quizElements["quiz-options"].innerHTML.includes("Buenos Aires"), "opciones deben renderizarse desde el modulo");
+assert.equal(quizElements["quiz-next-button"].hidden, false, "pregunta respondida debe habilitar siguiente");
 
 console.log("compare-quiz.test.js ok");

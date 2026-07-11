@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-11T01:46:05.637Z",
-  "startupBytes": 881560,
-  "startupHuman": "861 KB",
-  "deferredBytes": 1150516,
-  "deferredHuman": "1.10 MB",
+  "generatedAt": "2026-07-11T02:01:45.738Z",
+  "startupBytes": 874955,
+  "startupHuman": "854 KB",
+  "deferredBytes": 1160056,
+  "deferredHuman": "1.11 MB",
   "estimatedRuntimeMemory": {
     "countriesFullBytes": 9142879,
     "countriesFullHuman": "8.72 MB",
@@ -15,8 +15,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 609145,
-      "human": "595 KB",
+      "bytes": 602540,
+      "human": "588 KB",
       "startupCritical": true
     },
     {
@@ -85,15 +85,15 @@
     {
       "path": "app-quiz-ui.js",
       "exists": true,
-      "bytes": 10054,
-      "human": "10 KB",
+      "bytes": 12766,
+      "human": "12 KB",
       "startupCritical": false
     },
     {
-      "path": "app-compare-ui.js",
+      "path": "app-country-panel.js",
       "exists": true,
-      "bytes": 8670,
-      "human": "8 KB",
+      "bytes": 12430,
+      "human": "12 KB",
       "startupCritical": false
     }
   ],
@@ -108,8 +108,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 609145,
-      "human": "595 KB",
+      "bytes": 602540,
+      "human": "588 KB",
       "startupCritical": true
     },
     {
@@ -150,8 +150,8 @@
     {
       "path": "app-country-panel.js",
       "exists": true,
-      "bytes": 5602,
-      "human": "5 KB",
+      "bytes": 12430,
+      "human": "12 KB",
       "startupCritical": false
     },
     {
@@ -220,8 +220,8 @@
     {
       "path": "app-quiz-ui.js",
       "exists": true,
-      "bytes": 10054,
-      "human": "10 KB",
+      "bytes": 12766,
+      "human": "12 KB",
       "startupCritical": false
     },
     {

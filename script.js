@@ -82,7 +82,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-07-10-release-1";
+const APP_VERSION = "2026-07-10-release-2";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -1773,19 +1773,6 @@ function installSceneRenderScheduler() {
   viewer.scene.requestRender = requestSceneRender;
   viewer.__geoRiskRenderSchedulerInstalled = true;
 }
-
-const DATA_SOURCE_SUMMARY = {
-  es: [
-    "Dataset geopolitico local curado del proyecto",
-    "Banco Mundial para inflacion",
-    "GeoJSON politico y curaduria historica/manual propia"
-  ],
-  en: [
-    "Local curated geopolitical project dataset",
-    "World Bank for inflation",
-    "Political GeoJSON plus in-project historical/manual curation"
-  ]
-};
 
 const CORE_CONFLICT_NAME_ALIASES = [
   [/^Guerra de Malvinas$/i, "Guerra de las Malvinas"],
@@ -4156,7 +4143,11 @@ function renderDataQualityHighlights(country) {
         ${Object.entries(provenance).map(([key, value]) => `
           <div class="provenance-card">
             <span class="overview-label">${escapeHtml(key)}</span>
-            <strong class="overview-value">${escapeHtml(value?.status || value || t("noData"))}</strong>
+            <strong class="overview-value">${escapeHtml(
+              typeof countryPanelUi.formatProvenanceValue === "function"
+                ? countryPanelUi.formatProvenanceValue(value, currentLanguage)
+                : (value?.status || (typeof value === "object" ? Object.keys(value || {}).join(", ") : value) || t("noData"))
+            )}</strong>
           </div>
         `).join("")}
       </div>
@@ -7032,96 +7023,18 @@ function showFatalError(message) {
 }
 
 function renderDataQuality(country) {
-  const organizationCount = getCountryOrganizationCount(country);
-  const conflictCount = getConflictsSinceFormation(country).length;
-  const religionCount = Array.isArray(country.religion?.composition) ? country.religion.composition.length : 0;
-  const cityCount = Array.isArray(country.general?.cities) ? country.general.cities.length : 0;
-  const sources = country.metadata?.sources || {};
-  const genericSources = DATA_SOURCE_SUMMARY[currentLanguage] || DATA_SOURCE_SUMMARY.es;
-  const estimatedFields = Array.isArray(country.metadata?.quality?.estimatedFields)
-    ? country.metadata.quality.estimatedFields
-    : [];
-  const curatedFields = Array.isArray(country.metadata?.quality?.curatedFields)
-    ? country.metadata.quality.curatedFields
-    : [];
-  const confirmedFields = Array.isArray(country.metadata?.quality?.confirmedFields)
-    ? country.metadata.quality.confirmedFields
-    : [];
-  const missingFields = Array.isArray(country.metadata?.quality?.missingFields)
-    ? country.metadata.quality.missingFields
-    : [];
-  const sectionStatus = country.metadata?.quality?.sectionStatus || {};
-  const provenance = country.metadata?.provenance || {};
-  const qualityScore = Number.isFinite(country.metadata?.quality?.score)
-    ? Math.max(0, Math.round(country.metadata.quality.score))
-    : null;
+  if (typeof countryPanelUi.renderDataQuality !== "function") {
+    return "";
+  }
 
-  const sourceSections = [
-    { key: "general", label: currentLanguage === "en" ? "General" : "General" },
-    { key: "history", label: currentLanguage === "en" ? "History" : "Historia" },
-    { key: "economy", label: currentLanguage === "en" ? "Economy" : "Economia" },
-    { key: "military", label: currentLanguage === "en" ? "Military" : "Militar" },
-    { key: "politics", label: currentLanguage === "en" ? "Politics" : "Politica" },
-    { key: "religion", label: currentLanguage === "en" ? "Religion" : "Religion" },
-    { key: "symbols", label: currentLanguage === "en" ? "Symbols" : "Simbolos" },
-    { key: "relations", label: currentLanguage === "en" ? "Relations" : "Relaciones" }
-  ];
-
-  return `
-    <div class="data-quality-grid">
-      <div class="data-quality-card">
-        <span class="data-quality-label">${currentLanguage === "en" ? "Organizations" : "Organizaciones"}</span>
-        <strong class="data-quality-value">${formatNumber(organizationCount)}</strong>
-      </div>
-      <div class="data-quality-card">
-        <span class="data-quality-label">${currentLanguage === "en" ? "Conflicts" : "Conflictos"}</span>
-        <strong class="data-quality-value">${formatNumber(conflictCount)}</strong>
-      </div>
-      <div class="data-quality-card">
-        <span class="data-quality-label">${currentLanguage === "en" ? "Religious branches" : "Ramas religiosas"}</span>
-        <strong class="data-quality-value">${formatNumber(religionCount)}</strong>
-      </div>
-      <div class="data-quality-card">
-        <span class="data-quality-label">${currentLanguage === "en" ? "Cities loaded" : "Ciudades cargadas"}</span>
-        <strong class="data-quality-value">${formatNumber(cityCount)}</strong>
-      </div>
-      <div class="data-quality-card">
-        <span class="data-quality-label">${currentLanguage === "en" ? "Estimated fields" : "Campos estimados"}</span>
-        <strong class="data-quality-value">${formatNumber(estimatedFields.length)}</strong>
-      </div>
-      <div class="data-quality-card">
-        <span class="data-quality-label">${currentLanguage === "en" ? "Curated fields" : "Campos curados"}</span>
-        <strong class="data-quality-value">${formatNumber(curatedFields.length)}</strong>
-      </div>
-      <div class="data-quality-card">
-        <span class="data-quality-label">${currentLanguage === "en" ? "Confirmed fields" : "Campos confirmados"}</span>
-        <strong class="data-quality-value">${formatNumber(confirmedFields.length)}</strong>
-      </div>
-      <div class="data-quality-card">
-        <span class="data-quality-label">${currentLanguage === "en" ? "Quality score" : "Puntaje de calidad"}</span>
-        <strong class="data-quality-value">${qualityScore !== null ? `${qualityScore}/100` : t("noData")}</strong>
-      </div>
-    </div>
-    <p class="data-source-note"><b>${currentLanguage === "en" ? "Validation" : "Validacion"}:</b> ${currentLanguage === "en" ? "local dataset checks currently pass without reported issues" : "los chequeos locales del dataset estan pasando sin incidencias reportadas"}</p>
-    <p class="data-source-note"><b>${currentLanguage === "en" ? "Dataset updated" : "Dataset actualizado"}:</b> ${escapeHtml(country.metadata?.updatedAt || "2026-04-06")}</p>
-    ${Object.keys(provenance).length ? `<p class="data-source-note"><b>${currentLanguage === "en" ? "Provenance" : "Procedencia"}:</b> ${escapeHtml(Object.entries(provenance).map(([key, value]) => `${key}: ${value?.status || value}`).join(" | "))}</p>` : ""}
-    <p><b>${currentLanguage === "en" ? "Section sources" : "Fuentes por seccion"}:</b></p>
-    <ul class="data-source-list">
-      ${sourceSections.map(section => {
-        const items = Array.isArray(sources[section.key]) && sources[section.key].length
-          ? sources[section.key]
-          : genericSources;
-        const statusLabel = sectionStatus[section.key]
-          ? ` · ${escapeHtml(sectionStatus[section.key])}`
-          : "";
-        return `<li><b>${escapeHtml(section.label)}</b>${statusLabel}: ${items.map(item => escapeHtml(item)).join(", ")}</li>`;
-      }).join("")}
-    </ul>
-    <p><b>${currentLanguage === "en" ? "Missing fields" : "Campos faltantes"}:</b> ${missingFields.length ? escapeHtml(missingFields.join(", ")) : (currentLanguage === "en" ? "none" : "ninguno")}</p>
-    <p><b>${currentLanguage === "en" ? "Estimated fields" : "Campos estimados"}:</b> ${estimatedFields.length ? escapeHtml(estimatedFields.join(", ")) : (currentLanguage === "en" ? "none" : "ninguno")}</p>
-    <p><b>${currentLanguage === "en" ? "Confirmed fields" : "Campos confirmados"}:</b> ${confirmedFields.length ? escapeHtml(confirmedFields.join(", ")) : (currentLanguage === "en" ? "none" : "ninguno")}</p>
-    <p><b>${currentLanguage === "en" ? "Curated fields" : "Campos curados"}:</b> ${curatedFields.length ? escapeHtml(curatedFields.join(", ")) : (currentLanguage === "en" ? "none" : "ninguno")}</p>
-  `;
+  return countryPanelUi.renderDataQuality(country, {
+    currentLanguage,
+    organizationCount: getCountryOrganizationCount(country),
+    conflictCount: getConflictsSinceFormation(country).length,
+    formatNumber,
+    escapeHtml,
+    noData: t("noData")
+  });
 }
 
 function registerCountryAlias(alias, value, overwrite = false) {
@@ -14658,17 +14571,20 @@ function clearQuizTimer() {
 }
 
 function updateQuizMeta() {
-  const meta = document.getElementById("quiz-meta");
-  if (!meta) {
+  const best = Number(localStorage.getItem("geo-risk-quiz-best-streak") || quizState.bestStreak || 0);
+  if (typeof quizUi.renderMeta === "function" && quizUi.renderMeta({
+    document,
+    quizState,
+    currentLanguage,
+    best
+  })) {
     return;
   }
 
-  const best = Number(localStorage.getItem("geo-risk-quiz-best-streak") || quizState.bestStreak || 0);
-  meta.innerHTML = `
-    <span class="quiz-meta-pill">${currentLanguage === "en" ? "Streak" : "Racha"}: ${quizState.streak || 0}</span>
-    <span class="quiz-meta-pill">${currentLanguage === "en" ? "Best streak" : "Mejor racha"}: ${best}</span>
-    <span class="quiz-meta-pill">${quizState.mode === "timed" ? `${currentLanguage === "en" ? "Time" : "Tiempo"}: ${quizState.timeLeft || 0}s` : (currentLanguage === "en" ? "Mode: classic" : "Modo: clasico")}</span>
-  `;
+  const meta = document.getElementById("quiz-meta");
+  if (meta) {
+    meta.textContent = `${currentLanguage === "en" ? "Streak" : "Racha"}: ${quizState.streak || 0} · ${currentLanguage === "en" ? "Best" : "Mejor"}: ${best}`;
+  }
 }
 
 function buildQuizQuestion(category) {
@@ -14715,34 +14631,27 @@ function buildQuizQuestion(category) {
   };
 }
 function renderQuizPanel() {
+  if (typeof quizUi.renderPanel === "function" && quizUi.renderPanel({
+    document,
+    quizState,
+    currentLanguage,
+    best: Number(localStorage.getItem("geo-risk-quiz-best-streak") || quizState.bestStreak || 0),
+    escapeHtml
+  })) {
+    return;
+  }
+
   const status = document.getElementById("quiz-status");
   const question = document.getElementById("quiz-question");
   const options = document.getElementById("quiz-options");
   const nextButton = document.getElementById("quiz-next-button");
   const resetButton = document.getElementById("quiz-reset-button");
-  const categorySelect = document.getElementById("quiz-category");
-  const difficultySelect = document.getElementById("quiz-difficulty");
-  const modeSelect = document.getElementById("quiz-mode");
-  if (!status || !question || !options || !nextButton || !resetButton || !categorySelect || !difficultySelect || !modeSelect) return;
-
-  categorySelect.value = quizState.category;
-  difficultySelect.value = quizState.difficulty;
-  modeSelect.value = quizState.mode || "classic";
-  status.textContent = quizState.total ? `Puntaje: ${quizState.score}/${quizState.total}` : "Elegí una categoría y empezá el quiz.";
-  updateQuizMeta();
-
-  if (!quizState.current) {
-    question.textContent = "";
-    options.innerHTML = "";
-    nextButton.hidden = true;
-    resetButton.hidden = quizState.total === 0 && !quizState.asked.length;
-    return;
-  }
-
-  question.textContent = quizState.current.prompt;
-  options.innerHTML = quizState.current.options.map(option => `<button type="button" class="quiz-option" data-quiz-answer="${escapeHtml(option)}">${escapeHtml(option)}</button>`).join("");
-  nextButton.hidden = !quizState.current.answered;
-  resetButton.hidden = false;
+  if (!status || !question || !options || !nextButton || !resetButton) return;
+  status.textContent = quizState.total ? `${quizState.score}/${quizState.total}` : (currentLanguage === "en" ? "Loading quiz..." : "Cargando quiz...");
+  question.textContent = quizState.current?.prompt || "";
+  options.innerHTML = "";
+  nextButton.hidden = true;
+  resetButton.hidden = !quizState.total;
 }
 
 function startQuizTimer() {
@@ -14830,6 +14739,7 @@ function answerQuiz(answer) {
     title: feedbackTitle,
     body: quizState.current.explanation || `${currentLanguage === "en" ? "Answer" : "Respuesta"}: ${quizState.current.correct}. ${currentLanguage === "en" ? "Category" : "Categoria"}: ${quizState.category}.`
   };
+  quizUi.renderFeedback?.({ document, feedback: quizState.feedback, escapeHtml });
 
   document.querySelectorAll(".quiz-option").forEach(button => {
     const buttonAnswer = button.dataset.quizAnswer || "";
