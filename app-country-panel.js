@@ -223,9 +223,367 @@ async function handleInteraction(event, options = {}) {
   return false;
 }
 
+function renderPanelSection(title, content, isOpen, sectionId, escapeHtml) {
+  const safeId = sectionId ? ` id="${escapeHtml(sectionId)}"` : "";
+  return `
+    <details class="panel-section"${safeId}${isOpen ? " open" : ""}>
+      <summary>${escapeHtml(title)}</summary>
+      <div class="panel-content">${content}</div>
+    </details>
+  `;
+}
+
+function renderQuickNav(items, activeSection, escapeHtml) {
+  const validItems = (items || []).filter(item => item?.id && item?.label);
+  if (!validItems.length) {
+    return "";
+  }
+  const activeId = activeSection || validItems[0].id;
+  return `
+    <div class="country-quick-nav">
+      ${validItems.map(item => `<button type="button" class="country-nav-chip${item.id === activeId ? " is-active" : ""}" data-country-nav="${escapeHtml(item.id)}" aria-pressed="${item.id === activeId ? "true" : "false"}">${escapeHtml(item.label)}</button>`).join("")}
+    </div>
+  `;
+}
+
+function renderProfileOverview(options) {
+  const { country, countryCode, overviewStats, escapeHtml, translateContinentName, noData } = options;
+  return `
+    <div class="country-meta-strip">
+      <span class="country-code-badge">${escapeHtml(countryCode || "---")}</span>
+      <span class="country-meta-pill">${escapeHtml(translateContinentName(country.continent || "Unknown"))}</span>
+      <span class="country-meta-pill">${escapeHtml(country.politics?.system || noData)}</span>
+    </div>
+    <div class="country-overview-grid">
+      ${(overviewStats || []).map(item => `
+        <div class="overview-card">
+          <span class="overview-label">${escapeHtml(item.label)}</span>
+          <strong class="overview-value">${escapeHtml(item.value)}</strong>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+function renderProfileMetaRibbon(country, conflictCount, options) {
+  const { language, formatNumber, escapeHtml, noData } = options;
+  const chips = [
+    { label: language === "en" ? "Population" : "Poblacion", value: formatNumber(country.general?.population || 0) },
+    { label: language === "en" ? "System" : "Sistema", value: country.politics?.system || noData },
+    { label: language === "en" ? "Main religion" : "Religion principal", value: country.religion?.summary || noData },
+    { label: language === "en" ? "Conflicts" : "Conflictos", value: formatNumber(conflictCount || 0) },
+    { label: language === "en" ? "Updated" : "Actualizado", value: country.metadata?.lastUpdated || country.metadata?.updatedAt || noData }
+  ].filter(item => item.value && item.value !== noData);
+
+  return `<div class="country-meta-ribbon">${chips.map(item => `<span class="country-meta-pill"><b>${escapeHtml(item.label)}:</b> ${escapeHtml(String(item.value))}</span>`).join("")}</div>`;
+}
+
+function renderCurationTodo(country, items, actions, options) {
+  const { language, escapeHtml } = options;
+  const qualityScore = Number.isFinite(country?.metadata?.quality?.score)
+    ? Math.max(0, Math.round(country.metadata.quality.score))
+    : null;
+  const healthLabel = qualityScore === null
+    ? (language === "en" ? "pending score" : "puntaje pendiente")
+    : `${qualityScore}/100`;
+
+  return `
+    <aside class="curation-todo-card" aria-label="${language === "en" ? "Curation checklist" : "Checklist de curaduria"}">
+      <div>
+        <span class="curation-todo-kicker">${language === "en" ? "Curation status" : "Estado de curaduria"}</span>
+        <h3>${language === "en" ? "What still needs curation" : "Que falta curar"}</h3>
+      </div>
+      <span class="curation-score-pill">${escapeHtml(healthLabel)}</span>
+      ${(items || []).length
+        ? `<ul class="curation-todo-list">${items.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`
+        : `<p class="curation-todo-complete">${language === "en" ? "This profile is comparatively complete; keep validating sources and symbols." : "Esta ficha esta comparativamente completa; conviene seguir validando fuentes y simbolos."}</p>`}
+      ${(actions || []).length ? `
+        <div class="curation-action-grid">
+          ${actions.map(item => `
+            <div class="curation-action-card">
+              <strong>${escapeHtml(item.section)}</strong>
+              <span>${escapeHtml(item.action)}</span>
+            </div>
+          `).join("")}
+        </div>
+      ` : ""}
+    </aside>
+  `;
+}
+
+function renderDeferredSectionPrompt(sectionId, options) {
+  const { language, escapeHtml } = options;
+  return `
+    <div class="deferred-country-section">
+      <p>${language === "en" ? "This section loads only when opened." : "Esta seccion se carga solo cuando la abris."}</p>
+      <button type="button" class="panel-action-button" data-country-load-section="${escapeHtml(sectionId)}">${language === "en" ? "Load section" : "Cargar seccion"}</button>
+    </div>
+  `;
+}
+
+function renderQualityHighlights(country, options) {
+  const { language, formatNumber, escapeHtml, noData } = options;
+  const quality = country?.metadata?.quality || {};
+  const provenance = country?.metadata?.provenance || {};
+  const qualityScore = Number.isFinite(quality.score) ? Math.max(0, Math.round(quality.score)) : null;
+  const statusEntries = Object.entries(quality.sectionStatus || {});
+  const curatedSections = statusEntries.filter(([, value]) => value === "curated" || value === "confirmed").length;
+  const estimatedFields = Array.isArray(quality.estimatedFields) ? quality.estimatedFields.length : 0;
+  const missingFields = Array.isArray(quality.missingFields) ? quality.missingFields.length : 0;
+
+  return `
+    <div class="source-audit-grid">
+      <div class="overview-card"><span class="overview-label">${language === "en" ? "Quality score" : "Calidad"}</span><strong class="overview-value">${qualityScore !== null ? `${qualityScore}/100` : noData}</strong></div>
+      <div class="overview-card"><span class="overview-label">${language === "en" ? "Updated" : "Actualizado"}</span><strong class="overview-value">${escapeHtml(country?.metadata?.updatedAt || "2026-04-16")}</strong></div>
+      <div class="overview-card"><span class="overview-label">${language === "en" ? "Curated sections" : "Secciones curadas"}</span><strong class="overview-value">${formatNumber(curatedSections)}</strong></div>
+      <div class="overview-card"><span class="overview-label">${language === "en" ? "Estimated fields" : "Campos estimados"}</span><strong class="overview-value">${formatNumber(estimatedFields)}</strong></div>
+      <div class="overview-card"><span class="overview-label">${language === "en" ? "Missing fields" : "Campos faltantes"}</span><strong class="overview-value">${formatNumber(missingFields)}</strong></div>
+    </div>
+    ${Object.keys(provenance).length ? `
+      <div class="provenance-grid">
+        ${Object.entries(provenance).map(([key, value]) => `
+          <div class="provenance-card">
+            <span class="overview-label">${escapeHtml(key)}</span>
+            <strong class="overview-value">${escapeHtml(formatProvenanceValue(value, language) || noData)}</strong>
+          </div>
+        `).join("")}
+      </div>
+    ` : ""}
+  `;
+}
+
+function renderLocalTools(countryCode, savedNotes, qualityItems, options) {
+  if (!countryCode) {
+    return "";
+  }
+  const { language, escapeHtml } = options;
+  const qualityMarkup = (qualityItems || []).length
+    ? `<div class="country-local-quality">${qualityItems.map(item => `
+        <span class="country-meta-pill"><b>${escapeHtml(item.label)}:</b> ${escapeHtml(String(item.value || item.source || ""))}</span>
+      `).join("")}</div>`
+    : "";
+
+  return `
+    <div class="country-local-tools">
+      <h4>${language === "en" ? "Local notes and provenance" : "Notas locales y procedencia"}</h4>
+      ${qualityMarkup}
+      <textarea class="country-notes-input" data-country-notes="${escapeHtml(countryCode)}" rows="4" placeholder="${language === "en" ? "Private notes saved on this device" : "Notas privadas guardadas en este dispositivo"}">${escapeHtml(savedNotes)}</textarea>
+      <small class="country-notes-status" data-country-notes-status aria-live="polite">${savedNotes
+        ? (language === "en" ? "Notes saved on this device." : "Notas guardadas en este dispositivo.")
+        : (language === "en" ? "Saved automatically on this device." : "Se guardan automaticamente en este dispositivo.")}</small>
+      <div class="panel-actions-row">
+        <button class="panel-action-button" type="button" data-quick-compare="${escapeHtml(countryCode)}">${language === "en" ? "Quick compare" : "Comparacion rapida"}</button>
+        <button class="panel-action-button" type="button" data-share-country="${escapeHtml(countryCode)}">${language === "en" ? "Share profile" : "Compartir ficha"}</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderProfile(options = {}) {
+  const country = options.country || {};
+  const countryCode = options.countryCode || "";
+  const fallbackName = options.fallbackName || (options.language === "en" ? "Country" : "Pais");
+  const language = options.language || "es";
+  const escapeHtml = options.escapeHtml || (value => String(value ?? ""));
+  const formatNumber = options.formatNumber || (value => String(value || 0));
+  const translate = options.translate || (key => key);
+  const noData = options.noData || translate("noData");
+  const renderers = options.renderers || {};
+  const call = (name, ...args) => typeof renderers[name] === "function" ? renderers[name](...args) : "";
+  const normalizeList = typeof renderers.uniqueNormalizedList === "function"
+    ? renderers.uniqueNormalizedList
+    : items => [...new Set((items || []).filter(Boolean))];
+  const getOrganizationDisplayName = typeof renderers.getOrganizationDisplayName === "function"
+    ? renderers.getOrganizationDisplayName
+    : item => item?.name || item || "";
+  const translateContinentName = typeof renderers.translateContinentName === "function"
+    ? renderers.translateContinentName
+    : value => value;
+  const general = country.general || {};
+  const economy = country.economy || {};
+  const military = country.military || {};
+  const history = country.history || {};
+  const politics = country.politics || {};
+  const viewMode = options.viewMode || "full";
+  const activeSection = options.activeSection || "country-section-general";
+  const loadedSections = new Set(options.loadedSections || ["country-section-general"]);
+  const compactMode = viewMode === "compact";
+  const teachingMode = viewMode === "teaching";
+  const profileName = country.name || fallbackName;
+  const sharedOptions = { language, formatNumber, escapeHtml, noData };
+  const deferredPrompt = sectionId => renderDeferredSectionPrompt(sectionId, sharedOptions);
+  const section = (title, content, isOpen, sectionId) => renderPanelSection(title, content, isOpen, sectionId, escapeHtml);
+  const relatedTerritories = options.relatedTerritories || [];
+  const conflictGroups = options.conflictGroups || [];
+  const conflicts = options.conflicts || [];
+  const conflictLabel = history.year
+    ? (language === "en" ? "Conflicts since the formation year:" : "Conflictos desde su ano de formacion:")
+    : (language === "en" ? "Recorded conflicts:" : "Conflictos registrados:");
+  const dataQualityHtml = loadedSections.has("country-section-sources")
+    ? window.GeoRiskCountryPanel?.renderDataQuality?.(country, {
+        currentLanguage: language,
+        organizationCount: options.organizationCount || 0,
+        conflictCount: options.qualityConflictCount || 0,
+        formatNumber,
+        escapeHtml,
+        noData
+      }) || ""
+    : "";
+
+  return `
+    <div class="country-profile country-profile-mode-${escapeHtml(viewMode)}">
+      <div class="country-title">
+        ${call("renderFlagVisual", countryCode, profileName, "country-flag", options.symbolAssets?.flagSrc)}
+        <div class="country-heading">
+          <h2 id="country-panel-title">${escapeHtml(profileName)}</h2>
+          <p class="country-official-name">${escapeHtml(general.officialName || profileName)}</p>
+        </div>
+        ${call("renderCoatVisual", countryCode, language === "en" ? `${profileName} coat of arms` : `${profileName} escudo`, options.symbolAssets?.coatSrc)}
+      </div>
+      <div class="panel-actions-row">
+        <button id="add-to-compare-button" class="panel-action-button" type="button" ${countryCode ? "" : "disabled"}>${escapeHtml(translate("addToCompare"))}</button>
+        <button class="panel-action-button" type="button" data-country-favorite="${escapeHtml(countryCode)}">${language === "en" ? "Favorite" : "Favorito"}</button>
+        <button class="panel-action-button" type="button" data-export-target="country-panel" data-export-format="png">${language === "en" ? "Export image" : "Exportar imagen"}</button>
+        <button class="panel-action-button" type="button" data-export-target="country-panel" data-export-format="pdf">${language === "en" ? "Export PDF" : "Exportar PDF"}</button>
+        <button class="panel-action-button" type="button" data-share-country="${escapeHtml(countryCode)}">${language === "en" ? "Share" : "Compartir"}</button>
+      </div>
+      <div class="country-mode-switch" role="group" aria-label="${language === "en" ? "Country profile mode" : "Modo de ficha"}">
+        ${(options.viewModes || []).map(mode => `<button type="button" class="timeline-filter${mode.key === viewMode ? " is-active" : ""}" data-country-view-mode="${escapeHtml(mode.key)}">${escapeHtml(mode.label)}</button>`).join("")}
+      </div>
+      <div class="country-executive-summary">
+        <span>${language === "en" ? "Executive summary" : "Resumen ejecutivo"}</span>
+        <p>${escapeHtml(options.executiveSummary || "")}</p>
+      </div>
+      ${renderProfileOverview({ country, countryCode, overviewStats: options.overviewStats, escapeHtml, translateContinentName, noData })}
+      ${renderProfileMetaRibbon(country, options.conflictCount, sharedOptions)}
+      ${renderCurationTodo(country, options.curationItems, options.curationActions, sharedOptions)}
+      ${renderQuickNav(options.sectionDescriptors, activeSection, escapeHtml)}
+      ${section(
+        translate("general"),
+        `
+          <p><b>${escapeHtml(translate("population"))}:</b> ${formatNumber(general.population)}</p>
+          <p><b>${escapeHtml(translate("continent"))}:</b> ${escapeHtml(translateContinentName(country.continent))}</p>
+          <p><b>${language === "en" ? "Capitals" : "Capitales"}:</b></p>
+          ${call("renderCapitalProfiles", general)}
+          <p><b>${language === "en" ? "Official name" : "Nombre oficial"}:</b> ${escapeHtml(general.officialName || profileName || noData)}</p>
+          <p><b>${language === "en" ? "Official and main languages" : "Idiomas oficiales y principales"}:</b></p>
+          ${call("renderLanguages", general)}
+          <p><b>${language === "en" ? "State structure" : "Estructura del Estado"}:</b> ${escapeHtml(general.stateStructure || noData)}</p>
+          <p><b>${language === "en" ? "Primary subdivisions" : "Subdivisiones principales"}:</b> ${call("renderSubdivisionSummary", general)}</p>
+          <p><b>${language === "en" ? "Historical names" : "Nombres historicos"}:</b></p>
+          ${call("renderRelationChips", general.historicalNames)}
+          <p><b>${language === "en" ? "Symbols" : "Simbolos"}:</b></p>
+          ${call("renderSymbolShowcase", country, countryCode)}
+          <p><b>${escapeHtml(translate("cities"))}:</b></p>
+          ${call("renderCities", general)}
+        `,
+        true,
+        "country-section-general"
+      )}
+      ${section(
+        translate("history"),
+        loadedSections.has("country-section-history") ? `
+          <p><b>${escapeHtml(translate("origin"))}:</b> ${call("translateHistoryText", history.origin)}</p>
+          <p><b>${escapeHtml(translate("type"))}:</b> ${call("translateHistoryText", history.type)}</p>
+          <p><b>${escapeHtml(translate("formationYear"))}:</b> ${history.year || noData}</p>
+          <p><b>${escapeHtml(translate("timeline"))}:</b></p>
+          ${call("renderTimeline", country)}
+        ` : deferredPrompt("country-section-history"),
+        activeSection === "country-section-history",
+        "country-section-history"
+      )}
+      ${section(
+        translate("economy"),
+        loadedSections.has("country-section-economy") ? `
+          <p><b>${escapeHtml(translate("gdp"))}:</b> ${economy.gdp ? `US$ ${formatNumber(Math.round(economy.gdp))}` : noData}</p>
+          <p><b>${escapeHtml(translate("gdpPerCapita"))}:</b> ${economy.gdpPerCapita ? `US$ ${formatNumber(Math.round(economy.gdpPerCapita))}` : noData}</p>
+          <p><b>${escapeHtml(translate("inflation"))}:</b> ${call("formatInflation", economy.inflation)}</p>
+          <p><b>${language === "en" ? "Economic snapshot" : "Pulso economico"}:</b></p>
+          ${call("renderEconomyMiniMetrics", country)}
+          <p><b>${language === "en" ? "Exports" : "Exportaciones"}:</b></p>
+          ${call("renderList", economy.exports)}
+          <p><b>${language === "en" ? "Industries" : "Industrias"}:</b></p>
+          ${call("renderList", economy.industries)}
+        ` : deferredPrompt("country-section-economy"),
+        activeSection === "country-section-economy",
+        "country-section-economy"
+      )}
+      ${compactMode ? "" : section(
+        translate("military"),
+        options.shouldRenderMilitaryDetail ? `
+          <p><b>${escapeHtml(translate("activePersonnel"))}:</b> ${formatNumber(military.active)}</p>
+          <p><b>${escapeHtml(translate("reserve"))}:</b> ${formatNumber(military.reserve)}</p>
+          ${call("renderConflictOverview", conflictGroups, country)}
+          ${call("renderRelatedConflictSummary", conflictGroups)}
+          <p><b>${conflictLabel}</b></p>
+          ${call("renderConflicts", conflicts, conflictGroups)}
+        ` : `
+          <div class="deferred-country-section">
+            <p>${language === "en" ? "Conflict hierarchy and detailed filters load when this section is opened." : "La jerarquia y los filtros de conflictos se cargan al abrir esta seccion."}</p>
+            <button type="button" class="panel-action-button" data-country-load-section="country-section-military">${language === "en" ? "Load military detail" : "Cargar detalle militar"}</button>
+          </div>
+        `,
+        activeSection === "country-section-military",
+        "country-section-military"
+      )}
+      ${compactMode ? "" : section(
+        translate("politics"),
+        loadedSections.has("country-section-politics") ? `
+          <p><b>${escapeHtml(translate("politicalSystem"))}:</b> ${escapeHtml(politics.system || noData)}</p>
+          <p><b>${escapeHtml(translate("organizations"))}:</b></p>
+          ${call("renderOrganizations", politics.organizations)}
+          <p><b>${language === "en" ? "Historical and current rivals" : "Rivales historicos y actuales"}:</b></p>
+          ${call("renderRivals", politics.rivals)}
+        ` : deferredPrompt("country-section-politics"),
+        activeSection === "country-section-politics",
+        "country-section-politics"
+      )}
+      ${compactMode || teachingMode ? "" : section(
+        translate("relations"),
+        loadedSections.has("country-section-relations") ? `
+          ${call("renderRelationsSummary", country, countryCode)}
+          ${call("renderRelationNetwork", country, countryCode)}
+          <div class="relation-group"><p class="relation-title">${language === "en" ? "Former metropole" : "Ex metropoli"}</p>${call("renderRelationChips", country.politics?.relations?.exMetropole ? [country.politics.relations.exMetropole] : [])}</div>
+          <div class="relation-group"><p class="relation-title">${language === "en" ? "Former colonies / linked territories" : "Ex colonias y territorios vinculados"}</p>${call("renderRelationChips", normalizeList([...(country.politics?.relations?.exColonies || []), ...(country.politics?.relations?.associatedTerritories || country.politics?.relations?.linkedTerritories || []), ...relatedTerritories]))}</div>
+          <div class="relation-group"><p class="relation-title">${language === "en" ? "Military blocs" : "Bloques militares"}</p>${call("renderRelationChips", country.politics?.relations?.militaryBlocs)}</div>
+          <div class="relation-group"><p class="relation-title">${language === "en" ? "Economic blocs" : "Bloques economicos"}</p>${call("renderRelationChips", country.politics?.relations?.economicBlocs)}</div>
+          <div class="relation-group"><p class="relation-title">${language === "en" ? "Diplomatic blocs" : "Bloques diplomaticos"}</p>${call("renderRelationChips", country.politics?.relations?.diplomaticBlocs)}</div>
+          <div class="relation-group"><p class="relation-title">${language === "en" ? "Military allies" : "Aliados militares"}</p>${call("renderRelationChips", country.politics?.relations?.militaryAllies)}</div>
+          <div class="relation-group"><p class="relation-title">${language === "en" ? "Economic partners" : "Socios economicos"}</p>${call("renderRelationChips", country.politics?.relations?.economicPartners)}</div>
+          <div class="relation-group"><p class="relation-title">${language === "en" ? "Diplomatic partners" : "Socios diplomaticos"}</p>${call("renderRelationChips", country.politics?.relations?.diplomaticPartners)}</div>
+          <div class="relation-group"><p class="relation-title">${language === "en" ? "Disputes and contested spaces" : "Disputas y espacios disputados"}</p>${call("renderRelationChips", country.politics?.relations?.disputedTerritories || country.politics?.relations?.disputes)}</div>
+          <div class="relation-group"><p class="relation-title">${language === "en" ? "Dependencies and protectorates" : "Dependencias y protectorados"}</p>${call("renderRelationChips", country.politics?.relations?.dependencies || country.politics?.relations?.protectorates)}</div>
+          <div class="relation-group"><p class="relation-title">${escapeHtml(translate("organizations"))}</p>${call("renderRelationChips", (politics.organizations || []).slice(0, 8).map(getOrganizationDisplayName))}</div>
+          <div class="relation-group"><p class="relation-title">${escapeHtml(translate("historicalRivals"))}</p>${call("renderRelationChips", normalizeList([...((politics.rivals || []).filter(rival => (rival.type || "historico") !== "actual").map(rival => rival.name || rival)), ...(country.politics?.relations?.historicalRivals || [])]))}</div>
+          <div class="relation-group"><p class="relation-title">${escapeHtml(translate("currentRivals"))}</p>${call("renderRelationChips", normalizeList([...((politics.rivals || []).filter(rival => rival.type === "actual").map(rival => rival.name || rival)), ...(country.politics?.relations?.currentRivals || [])]))}</div>
+        ` : deferredPrompt("country-section-relations"),
+        activeSection === "country-section-relations",
+        "country-section-relations"
+      )}
+      ${section(
+        translate("religion"),
+        loadedSections.has("country-section-religion")
+          ? `${call("renderReligionMiniMetrics", country.religion)}${call("renderReligion", country.religion)}`
+          : deferredPrompt("country-section-religion"),
+        activeSection === "country-section-religion",
+        "country-section-religion"
+      )}
+      ${section(
+        language === "en" ? "Sources and quality" : "Fuentes y calidad",
+        loadedSections.has("country-section-sources")
+          ? `${renderQualityHighlights(country, sharedOptions)}${dataQualityHtml}${renderLocalTools(countryCode, options.savedNotes || "", options.sectionQualityItems, sharedOptions)}`
+          : deferredPrompt("country-section-sources"),
+        activeSection === "country-section-sources",
+        "country-section-sources"
+      )}
+    </div>
+  `;
+}
+
 window.GeoRiskCountryPanel = {
   formatProvenanceValue,
   handleInteraction,
+  renderProfile,
   getSectionDescriptors(language = "es") {
     return [
       { id: "country-section-general", label: language === "en" ? "General" : "General" },

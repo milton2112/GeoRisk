@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-07-11T16:25:02.277Z",
+  "generatedAt": "2026-07-11T21:04:18.962Z",
   "status": "operativo",
   "startup": {
-    "critical": "828 KB",
-    "criticalBytes": 847689,
-    "deferred": "1.13 MB",
+    "critical": "808 KB",
+    "criticalBytes": 827604,
+    "deferred": "1.15 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 9143093,
       "countriesFullHuman": "8.72 MB",
@@ -14,18 +14,18 @@
     },
     "largestAssets": [
       {
-        "path": "script.js",
-        "exists": true,
-        "bytes": 575274,
-        "human": "562 KB",
-        "startupCritical": true
-      },
-      {
         "path": "data/conflict_details.generated.json",
         "exists": true,
         "bytes": 568398,
         "human": "555 KB",
         "startupCritical": false
+      },
+      {
+        "path": "script.js",
+        "exists": true,
+        "bytes": 555189,
+        "human": "542 KB",
+        "startupCritical": true
       },
       {
         "path": "data/world_countries.geo.json",
@@ -56,6 +56,13 @@
         "startupCritical": true
       },
       {
+        "path": "app-country-panel.js",
+        "exists": true,
+        "bytes": 43308,
+        "human": "42 KB",
+        "startupCritical": false
+      },
+      {
         "path": "index.html",
         "exists": true,
         "bytes": 31775,
@@ -81,13 +88,6 @@
         "exists": true,
         "bytes": 23590,
         "human": "23 KB",
-        "startupCritical": false
-      },
-      {
-        "path": "app-country-panel.js",
-        "exists": true,
-        "bytes": 19574,
-        "human": "19 KB",
         "startupCritical": false
       },
       {
@@ -809,8 +809,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 575274,
-      "human": "562 KB"
+      "bytes": 555189,
+      "human": "542 KB"
     },
     {
       "path": "style.css",
@@ -821,8 +821,8 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 50867,
-      "human": "50 KB"
+      "bytes": 51757,
+      "human": "51 KB"
     },
     {
       "path": "index.html",
@@ -958,7 +958,7 @@
     }
   ],
   "scriptMetrics": {
-    "functions": 523,
+    "functions": 514,
     "asyncFunctions": 49,
     "consoleWarnings": 19,
     "consoleErrors": 13

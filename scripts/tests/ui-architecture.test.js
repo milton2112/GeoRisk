@@ -55,6 +55,86 @@ assert.ok(qualityHtml.includes("Organizaciones"), "ficha diferida debe conservar
 assert.ok(!qualityHtml.includes("[object Object]"), "procedencia anidada debe mostrarse como texto legible");
 assert.ok(qualityHtml.includes("general: curated"), "procedencia debe resumir estados por seccion");
 
+const originalQualityRenderer = countryPanel.renderDataQuality;
+let deferredQualityRenders = 0;
+countryPanel.renderDataQuality = (...args) => {
+  deferredQualityRenders += 1;
+  return originalQualityRenderer(...args);
+};
+const profileHtml = countryPanel.renderProfile({
+  country: {
+    name: "Argentina",
+    continent: "South America",
+    general: {
+      officialName: "Republica Argentina",
+      population: 46000000,
+      capitals: [{ name: "Buenos Aires" }],
+      historicalNames: []
+    },
+    economy: { gdp: 640000000000, gdpPerCapita: 14000, exports: ["Soja"], industries: ["Alimentos"] },
+    politics: { system: "Republica federal", organizations: [], rivals: [] },
+    history: { year: 1816 },
+    religion: {},
+    metadata: { quality: { score: 90 } }
+  },
+  countryCode: "ARG",
+  language: "en",
+  viewMode: "compact",
+  viewModes: [{ key: "compact", label: "Compact" }],
+  executiveSummary: "Argentina overview.",
+  sectionDescriptors: [
+    { id: "country-section-general", label: "General" },
+    { id: "country-section-economy", label: "Economy" }
+  ],
+  activeSection: "country-section-economy",
+  loadedSections: ["country-section-general", "country-section-economy"],
+  overviewStats: [{ label: "Country code", value: "ARG" }],
+  curationItems: [],
+  curationActions: [],
+  conflictCount: 4,
+  formatNumber: value => String(value),
+  escapeHtml: value => String(value ?? ""),
+  translate: key => ({
+    addToCompare: "Add to compare",
+    general: "General",
+    population: "Population",
+    continent: "Continent",
+    cities: "Cities",
+    history: "History",
+    economy: "Economy",
+    gdp: "GDP",
+    gdpPerCapita: "GDP per capita",
+    inflation: "Inflation",
+    military: "Military",
+    politics: "Politics",
+    relations: "Relations",
+    religion: "Religion",
+    noData: "No data"
+  }[key] || key),
+  renderers: {
+    renderFlagVisual: () => '<span data-test="flag"></span>',
+    renderCoatVisual: () => '<span data-test="coat"></span>',
+    translateContinentName: value => value,
+    renderCapitalProfiles: () => "<p>Buenos Aires</p>",
+    renderLanguages: () => "<p>Spanish</p>",
+    renderSubdivisionSummary: () => "23 provinces",
+    renderRelationChips: () => "",
+    renderSymbolShowcase: () => "",
+    renderCities: () => "<p>Cordoba</p>",
+    formatInflation: () => "4%",
+    renderEconomyMiniMetrics: () => "",
+    renderList: values => `<ul>${(values || []).map(value => `<li>${value}</li>`).join("")}</ul>`
+  }
+});
+assert.ok(profileHtml.includes('id="country-panel-title">Argentina'), "modulo diferido debe componer el encabezado completo de ficha");
+assert.ok(profileHtml.includes('data-country-nav="country-section-economy"'), "ficha modular debe conservar navegacion por secciones");
+assert.ok(profileHtml.includes("<b>Exports:</b>"), "ficha inglesa no debe dejar rotulos economicos en espanol");
+assert.ok(!profileHtml.includes("Exportaciones"), "render ingles debe evitar traducciones mixtas");
+assert.ok(profileHtml.includes('id="country-section-history"'), "secciones diferidas deben conservar su contenedor estable");
+assert.ok(profileHtml.includes('data-country-load-section="country-section-history"'), "secciones diferidas deben conservar accion de carga");
+assert.equal(deferredQualityRenders, 0, "calidad no debe renderizarse mientras Fuentes siga cerrada");
+countryPanel.renderDataQuality = originalQualityRenderer;
+
 function createPanelInteractionEvent(selector, dataset = {}, textContent = "") {
   const trigger = { dataset, textContent };
   return {

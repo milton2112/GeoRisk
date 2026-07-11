@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-11T16:25:01.706Z",
-  "startupBytes": 847689,
-  "startupHuman": "828 KB",
-  "deferredBytes": 1181485,
-  "deferredHuman": "1.13 MB",
+  "generatedAt": "2026-07-11T21:04:18.294Z",
+  "startupBytes": 827604,
+  "startupHuman": "808 KB",
+  "deferredBytes": 1205219,
+  "deferredHuman": "1.15 MB",
   "estimatedRuntimeMemory": {
     "countriesFullBytes": 9143093,
     "countriesFullHuman": "8.72 MB",
@@ -13,18 +13,18 @@
   },
   "largestAssets": [
     {
-      "path": "script.js",
-      "exists": true,
-      "bytes": 575274,
-      "human": "562 KB",
-      "startupCritical": true
-    },
-    {
       "path": "data/conflict_details.generated.json",
       "exists": true,
       "bytes": 568398,
       "human": "555 KB",
       "startupCritical": false
+    },
+    {
+      "path": "script.js",
+      "exists": true,
+      "bytes": 555189,
+      "human": "542 KB",
+      "startupCritical": true
     },
     {
       "path": "data/world_countries.geo.json",
@@ -55,6 +55,13 @@
       "startupCritical": true
     },
     {
+      "path": "app-country-panel.js",
+      "exists": true,
+      "bytes": 43308,
+      "human": "42 KB",
+      "startupCritical": false
+    },
+    {
       "path": "index.html",
       "exists": true,
       "bytes": 31775,
@@ -83,13 +90,6 @@
       "startupCritical": false
     },
     {
-      "path": "app-country-panel.js",
-      "exists": true,
-      "bytes": 19574,
-      "human": "19 KB",
-      "startupCritical": false
-    },
-    {
       "path": "app-search.js",
       "exists": true,
       "bytes": 14186,
@@ -108,8 +108,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 575274,
-      "human": "562 KB",
+      "bytes": 555189,
+      "human": "542 KB",
       "startupCritical": true
     },
     {
@@ -150,8 +150,8 @@
     {
       "path": "app-country-panel.js",
       "exists": true,
-      "bytes": 19574,
-      "human": "19 KB",
+      "bytes": 43308,
+      "human": "42 KB",
       "startupCritical": false
     },
     {

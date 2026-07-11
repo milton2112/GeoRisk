@@ -182,8 +182,8 @@ assert.ok(script.includes("async function loadCountryConflictDetail"), "conflict
 assert.ok(script.includes("const detailedCountry = await loadCountryDetail(countryCode)"), "una ficha cacheada debe salir del skeleton al reabrirse");
 assert.ok(script.includes("await loadCountryConflictDetail(currentPanelState.code)"), "seccion militar debe cargar su shard antes de renderizar detalle");
 assert.ok(script.includes("sectionId === \"country-section-military\""), "curaduria profunda debe esperar a una seccion de historia o conflictos");
-assert.ok(script.includes("data-country-load-section=\"country-section-military\""), "arbol militar debe renderizarse solo al abrir su seccion");
-assert.ok(script.includes("const shouldRenderMilitaryDetail = countryLoadedSections.includes(\"country-section-military\")"), "jerarquia militar debe tener compuerta explicita por seccion abierta");
+assert.ok(appCountryPanel.includes("data-country-load-section=\"country-section-military\""), "arbol militar debe renderizarse solo al abrir su seccion");
+assert.ok(/const shouldRenderMilitaryDetail\s*=\s*countryLoadedSections\.includes\("country-section-military"\)/.test(script), "jerarquia militar debe tener compuerta explicita por seccion abierta");
 assert.ok(script.includes("shouldRenderMilitaryDetail ? buildConflictGroups(conflictsSinceFormation) : []"), "arbol de conflictos no debe armarse mientras la seccion militar esta cerrada");
 assert.ok(script.includes("function renderConflicts(conflicts, prebuiltGroups = null)"), "render de conflictos debe poder reutilizar grupos ya calculados");
 assert.ok(script.includes("warParticipationCountCache"), "conteo de participacion belica debe cachearse para rankings/radar");
@@ -191,7 +191,7 @@ assert.ok(/function invalidateCountryDerivedCaches\(\)[\s\S]{0,350}warParticipat
 assert.ok(/mergeImportedConflictDetails\(curatedConflictDetailOverrides\);[\s\S]{0,120}invalidateCountryDerivedCaches\(\)/.test(script), "curaduria diferida debe invalidar caches de rankings y conflictos");
 assert.ok(/function getFilteredCountries[\s\S]{0,120}getCountryValues\(\)\.filter/.test(script), "filtros principales deben reutilizar cache de paises");
 assert.ok(/function generateTopPopulation[\s\S]{0,120}getCountryValues\(\)/.test(script), "rankings basicos deben reutilizar cache de paises");
-assert.ok(script.includes("function renderDeferredCountrySectionPrompt"), "secciones cerradas de ficha no deben renderizar contenido pesado");
+assert.ok(appCountryPanel.includes("function renderDeferredSectionPrompt"), "secciones cerradas de ficha no deben renderizar contenido pesado");
 assert.ok(!script.includes("buildQuizQuestion = function buildQuizQuestion"), "quiz no debe pisar el generador avanzado con fallback legado");
 assert.ok(/function buildQuizQuestion\(category\)[\s\S]{0,500}quizUi\.buildQuestionBank/.test(script), "quiz debe usar banco generado diferido cuando esta disponible");
 assert.ok(!/function buildQuizQuestion\(category\)[\s\S]{0,2400}category === "language"/.test(script), "quiz no debe conservar ramas pesadas de categorias en el runtime critico");
@@ -342,7 +342,7 @@ assert.ok(appConflictRules.includes("window.GeoRiskConflictRules"), "modulo dife
 assert.ok(appConflictRules.includes("CONFLICT_PARENT_RULES.push("), "modulo diferido debe conservar reglas de jerarquia completas");
 assert.ok(script.includes("scheduleConflictAliasesLoad"), "alias pesados de conflictos deben cargarse en idle o bajo demanda");
 assert.ok(script.includes("app-project-audit-ui.js"), "auditoria del proyecto debe tener modulo diferido declarado");
-assert.ok(script.includes("function renderCountryCurationTodo"), "ficha pais debe exponer checklist de curaduria");
+assert.ok(appCountryPanel.includes("function renderCurationTodo"), "ficha pais debe exponer checklist de curaduria desde su modulo diferido");
 assert.ok(script.includes("function getCountryCurationActions"), "ficha pais debe exponer acciones de curaduria por seccion");
 assert.ok(script.includes("function getCountryRiskRadarComponents"), "runtime debe exponer radar de riesgo explicable");
 assert.ok(script.includes("function renderRiskRadarPanel"), "runtime debe exponer panel interno de radar de riesgo");
@@ -352,7 +352,7 @@ assert.ok(script.includes("async function renderProjectAuditPanel"), "runtime de
 assert.ok(script.includes("getConflictLevelLabel(detail.level)"), "modal de conflicto debe mostrar nivel guerra/campana/batalla");
 assert.ok(script.includes("detail.countryRelationship.sideLabels"), "modal de conflicto debe mostrar el bando del pais cuando se pueda inferir");
 assert.ok(!script.includes("function getCountryClickTarget"), "helpers de seleccion de mapa sin uso no deben quedar en runtime critico");
-assert.ok(script.includes("Que falta curar"), "ficha pais debe mostrar que falta curar");
+assert.ok(appCountryPanel.includes("Que falta curar"), "ficha pais debe mostrar que falta curar");
 assert.ok(appRuntime.includes(" - rendimiento"), "perfil runtime debe usar separador ASCII estable");
 assert.ok(!appRuntime.includes("Â"), "app-runtime no debe exponer mojibake visible");
 assert.ok(script.includes("fecha pendiente"), "conflictos sin fecha deben mostrar estado de curaduria pendiente");

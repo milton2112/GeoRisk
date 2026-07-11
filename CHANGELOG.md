@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.49 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.50 antes de cerrar la siguiente version.
+
+## v1.6.50 - 2026-07-11
+
+- Mueve el armado completo de la ficha pais, sus secciones, navegacion, calidad, curaduria y notas a `app-country-panel.js`, cargado bajo demanda.
+- Reduce `script.js` de 575.274 a 555.189 bytes y acorta `renderCountry` para que el runtime critico conserve solo carga, estado y preparacion de datos.
+- Evita calcular fuentes y calidad mientras esa seccion permanezca cerrada, reduciendo trabajo al abrir una ficha por primera vez.
+- Corrige rotulos economicos, politicos y de conflictos que seguian en espanol al usar la interfaz en ingles.
+- Agrega gates para impedir que el markup completo vuelva a `script.js` y pruebas unitarias de secciones diferidas y traduccion.
+- Verifica en navegador Argentina desde busqueda, Economia, Fuentes, calidad, procedencia y agregado al comparador sin errores de consola.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-11-release-3`.
 
 ## v1.6.49 - 2026-07-11
 

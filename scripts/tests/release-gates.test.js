@@ -261,12 +261,16 @@ assert.ok(!script.includes("<span class=\"quiz-meta-pill\">"), "markup de meta d
 assert.ok(appCountryPanel.includes("renderDataQuality"), "fuentes y calidad deben renderizarse desde app-country-panel diferido");
 assert.ok(appCountryPanel.includes("formatProvenanceValue"), "procedencia anidada debe tener formateador legible");
 assert.ok(appCountryPanel.includes("async function handleInteraction"), "interacciones de ficha deben vivir en app-country-panel diferido");
+assert.ok(appCountryPanel.includes("function renderProfile"), "composicion completa de ficha debe vivir en app-country-panel diferido");
+assert.ok(script.includes("countryPanelUi.renderProfile"), "runtime debe delegar la ficha al modulo diferido");
+assert.ok(!script.includes('<div class="country-profile country-profile-mode-'), "markup completo de ficha no debe volver al runtime critico");
+assert.ok(!script.includes("function renderCountryOverview"), "render estatico de ficha no debe volver a script.js");
 assert.ok(script.includes("async function handleCountryPanelInteraction"), "runtime debe conservar un puente de interaccion bajo demanda");
 assert.ok(setupSearchEventsBlock.includes("handleCountryPanelInteraction(event)"), "panel debe delegar clics al controlador diferido");
 assert.ok(!setupSearchEventsBlock.includes("[data-timeline-filter]"), "filtros de ficha no deben volver al cableado de busqueda");
 assert.ok(!setupSearchEventsBlock.includes("[data-conflict-load-more]"), "paginacion de conflictos no debe volver al runtime critico");
 assert.ok(!script.includes("const DATA_SOURCE_SUMMARY"), "resumen de fuentes no debe volver al runtime critico");
-assert.ok(/function renderDataQuality\(country\)[\s\S]{0,420}countryPanelUi\.renderDataQuality/.test(script), "runtime debe delegar calidad de ficha al modulo diferido");
+assert.ok(!script.includes("function renderDataQuality(country)"), "render de calidad no debe duplicarse en el runtime critico");
 assert.ok(deferredModulesBlock.includes('text: `./app-text.js?v=${APP_VERSION}`'), "textos deben declararse como modulo diferido versionado");
 assert.ok(/await Promise\.all\(\[\s*ensureDeferredUiModule\("text"\),\s*ensureDeferredUiModule\("uiPolish"\)/.test(script), "controles no deben activarse antes del modulo de avisos visuales");
 assert.ok(appText.includes("function applyStaticText"), "app-text debe renderizar textos estaticos");
