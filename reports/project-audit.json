@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-11T21:04:18.962Z",
+  "generatedAt": "2026-07-11T21:45:11.461Z",
   "status": "operativo",
   "startup": {
-    "critical": "808 KB",
-    "criticalBytes": 827604,
+    "critical": "805 KB",
+    "criticalBytes": 824424,
     "deferred": "1.15 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 9143093,
@@ -23,8 +23,8 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 555189,
-        "human": "542 KB",
+        "bytes": 552009,
+        "human": "539 KB",
         "startupCritical": true
       },
       {
@@ -93,8 +93,8 @@
       {
         "path": "app-search.js",
         "exists": true,
-        "bytes": 14186,
-        "human": "14 KB",
+        "bytes": 15987,
+        "human": "16 KB",
         "startupCritical": false
       }
     ]
@@ -809,8 +809,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 555189,
-      "human": "542 KB"
+      "bytes": 552009,
+      "human": "539 KB"
     },
     {
       "path": "style.css",
@@ -821,8 +821,8 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 51757,
-      "human": "51 KB"
+      "bytes": 52748,
+      "human": "52 KB"
     },
     {
       "path": "index.html",

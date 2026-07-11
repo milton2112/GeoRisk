@@ -1,5 +1,21 @@
 (() => {
   const TYPE_ORDER = ["country", "continent", "ranking", "religion", "system", "organization", "bloc", "rival", "language", "conflict", "period"];
+  const ALIAS_RESULT_TYPES = [
+    ["country", "countries"],
+    ["continent", "continents"],
+    ["religion", "religions"],
+    ["religion_denomination", "religionDenominations"],
+    ["system", "systems"],
+    ["organization", "organizations"],
+    ["language", "languages"],
+    ["bloc", "blocs"],
+    ["metropole", "metropoles"],
+    ["conflict", "conflicts"],
+    ["period", "periods"],
+    ["history_type", "historyTypes"],
+    ["origin", "origins"],
+    ["rival", "rivals"]
+  ];
   const METRIC_ALIASES = [
     { metric: "conflicts", pattern: /(mas conflictos|more conflicts|conflictivos|guerras|wars)/ },
     { metric: "activeConflicts", pattern: /(conflictos activos|active conflicts|guerras activas)/ },
@@ -83,6 +99,45 @@
       }
     }
     return "";
+  }
+
+  function getExactAliasValue(source, normalized) {
+    if (!source || !normalized) return "";
+    if (typeof source.get === "function") {
+      return source.get(normalized) || "";
+    }
+    for (const [alias, value] of source) {
+      if (normalizeText(alias) === normalized) return value;
+    }
+    return "";
+  }
+
+  function resolveAliasResult(rawQuery = "", context = {}, options = {}) {
+    const normalized = normalizeText(rawQuery);
+    if (!normalized) return null;
+    const allowedTypes = Array.isArray(options.types) && options.types.length
+      ? new Set(options.types)
+      : null;
+
+    for (const [type, contextKey] of ALIAS_RESULT_TYPES) {
+      if (allowedTypes && !allowedTypes.has(type)) continue;
+      const value = getExactAliasValue(context[contextKey], normalized);
+      if (!value) continue;
+
+      if (type === "country") {
+        const country = context.countryNames?.[value];
+        const label = typeof country === "string" ? country : country?.name;
+        if (!label) continue;
+        return { label, type, value };
+      }
+
+      const label = type === "continent" && typeof context.translateContinentName === "function"
+        ? context.translateContinentName(value)
+        : value;
+      return { label, type, value };
+    }
+
+    return null;
   }
 
   function uniqueNormalizedValues(values = []) {
@@ -344,6 +399,7 @@
     buildAliasEntriesFromSearchIndex,
     rankSuggestions,
     groupSuggestions,
+    resolveAliasResult,
     findPublicConflictIndexEntry,
     parseNaturalQuery,
     parseSemanticFilters,

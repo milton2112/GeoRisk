@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.50 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.51 antes de cerrar la siguiente version.
+
+## v1.6.51 - 2026-07-11
+
+- Mueve la resolucion exacta de paises, continentes, religiones, sistemas, organizaciones, idiomas, bloques, conflictos y categorias historicas a `app-search.js`, cargado bajo demanda.
+- Reduce `searchMap` eliminando 184 lineas de ramas repetidas y evita reconstruir dos veces el contexto completo de aliases por consulta.
+- Elimina fallbacks duplicados para rankings naturales de conflictos y organizaciones, usando un unico parser y una unica ruta de render.
+- Corrige Enter en el buscador: ahora ejecuta el texto escrito y solo abre una sugerencia cuando el usuario la selecciona explicitamente con las flechas.
+- Agrega pruebas de resolucion por fases, prioridad de paises, traduccion de continentes, rankings naturales y estado de teclado.
+- Verifica en navegador pais, religion, conflicto, consulta natural y navegacion de sugerencias, en escritorio y a 390 x 844, sin errores de consola.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-11-release-4`.
 
 ## v1.6.50 - 2026-07-11
 

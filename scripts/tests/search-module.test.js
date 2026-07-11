@@ -52,6 +52,40 @@ const natural = search.parseNaturalQuery("paises de Asia con mas conflictos", {
 assert.equal(natural.metric, "conflicts", "debe detectar ranking de conflictos");
 assert.equal(natural.filters.continent, "Asia", "debe detectar continente");
 
+const naturalOrganizations = search.parseNaturalQuery("paises con mas organizaciones", {
+  continents: [],
+  religions: [],
+  systems: [],
+  organizations: [],
+  blocs: [],
+  rivals: []
+});
+assert.equal(naturalOrganizations.metric, "organizations", "debe resolver rankings de organizaciones sin fallback duplicado");
+
+const aliasContext = {
+  countries: new Map([["argentina", "ARG"]]),
+  countryNames: { ARG: { name: "Argentina" } },
+  continents: new Map([["america del sur", "South America"]]),
+  religions: new Map([["cristianismo", "Cristianismo"]]),
+  religionDenominations: new Map([["catolicismo", "Catolicismo"]]),
+  rivals: new Map([["argentina", "Argentina"]]),
+  translateContinentName: value => value === "South America" ? "America del Sur" : value
+};
+const countryAliasResult = search.resolveAliasResult("Argentina", aliasContext);
+assert.equal(countryAliasResult.label, "Argentina", "aliases exactos deben conservar el nombre publico");
+assert.equal(countryAliasResult.type, "country", "aliases exactos deben priorizar paises");
+assert.equal(countryAliasResult.value, "ARG", "aliases exactos deben conservar el codigo de pais");
+const continentAliasResult = search.resolveAliasResult("America del Sur", aliasContext);
+assert.equal(continentAliasResult.label, "America del Sur", "aliases de continente deben usar la traduccion visible");
+assert.equal(continentAliasResult.type, "continent", "aliases de continente deben conservar su tipo");
+assert.equal(continentAliasResult.value, "South America", "aliases de continente deben conservar el valor canonico");
+assert.equal(
+  search.resolveAliasResult("Argentina", aliasContext, { types: ["rival"] }).type,
+  "rival",
+  "resolucion por fases debe respetar los tipos permitidos"
+);
+assert.equal(search.resolveAliasResult("desconocido", aliasContext), null, "alias desconocidos no deben fabricar resultados");
+
 const semanticContext = {
   continents: [["asia", "Asia"], ["america", "America"]],
   religions: [["islam", "Islam"], ["cristianismo", "Cristianismo"]],

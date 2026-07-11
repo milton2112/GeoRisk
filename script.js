@@ -83,7 +83,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-07-11-release-3";
+const APP_VERSION = "2026-07-11-release-4";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -11687,7 +11687,7 @@ function getSuggestions(query) {
     : ranked;
 }
 
-function renderSuggestions(query, activeIndex = 0) {
+function renderSuggestions(query, activeIndex = -1) {
   if (typeof searchCore.rankSuggestions !== "function") {
     ensureDeferredUiModule("search").then(() => {
       ensureSearchIndexReady();
@@ -11845,18 +11845,22 @@ function renderSelectableCountryGroup(title, subtitle, countries, options = {}) 
 
 function getSearchAliasContext() {
   return {
-    continents: [...continentAliases.entries()],
-    religions: [...religionAliases.entries()],
-    systems: [...systemAliases.entries()],
-    organizations: [...organizationAliases.entries()],
-    languages: [...languageAliases.entries()],
-    blocs: [...blocAliases.entries()],
-    metropoles: [...metropoleAliases.entries()],
-    conflicts: [...conflictAliases.entries()],
-    periods: [...periodAliases.entries()],
-    historyTypes: [...historyTypeAliases.entries()],
-    origins: [...originAliases.entries()],
-    rivals: [...rivalAliases.entries()],
+    countries: countryAliases,
+    continents: continentAliases,
+    religions: religionAliases,
+    religionDenominations: religionDenominationAliases,
+    systems: systemAliases,
+    organizations: organizationAliases,
+    languages: languageAliases,
+    blocs: blocAliases,
+    metropoles: metropoleAliases,
+    conflicts: conflictAliases,
+    periods: periodAliases,
+    historyTypes: historyTypeAliases,
+    origins: originAliases,
+    rivals: rivalAliases,
+    countryNames: countriesData,
+    translateContinentName,
     normalizeText
   };
 }
@@ -12091,49 +12095,16 @@ async function searchMap() {
     return;
   }
 
+  const aliasContext = getSearchAliasContext();
   const naturalRankingQuery = typeof searchCore.parseNaturalQuery === "function"
-    ? searchCore.parseNaturalQuery(rawQuery, getSearchAliasContext())
+    ? searchCore.parseNaturalQuery(rawQuery, aliasContext)
     : null;
   if (naturalRankingQuery && renderNaturalRankingSearch(rawQuery, naturalRankingQuery)) {
     return;
   }
 
-  if (/con mas conflictos|with more conflicts/.test(query)) {
-    const countries = getCountryValues()
-      .filter(country => getCountryConflictCount(country) > 0)
-      .sort((a, b) => getCountryConflictCount(b) - getCountryConflictCount(a))
-      .slice(0, 15);
-    if (renderSelectableCountryGroup(
-      currentLanguage === "en" ? "Countries with more conflicts" : "Paises con mas conflictos",
-      currentLanguage === "en" ? "Conflict count ranking" : "Ranking por cantidad de conflictos",
-      countries
-    )) {
-      pushSearchHistory(rawQuery);
-      renderSearchQueryChips({ conflict: currentLanguage === "en" ? "Most conflicts" : "Mas conflictos" });
-      dismissSearchInput();
-      return;
-    }
-  }
-
-  if (/con mas organizaciones|with more organizations/.test(query)) {
-    const countries = getCountryValues()
-      .filter(country => getCountryOrganizationCount(country) > 0)
-      .sort((a, b) => getCountryOrganizationCount(b) - getCountryOrganizationCount(a))
-      .slice(0, 15);
-    if (renderSelectableCountryGroup(
-      currentLanguage === "en" ? "Countries with more organizations" : "Paises con mas organizaciones",
-      currentLanguage === "en" ? "Organization count ranking" : "Ranking por cantidad de organizaciones",
-      countries
-    )) {
-      pushSearchHistory(rawQuery);
-      renderSearchQueryChips({ organization: currentLanguage === "en" ? "Most organizations" : "Mas organizaciones" });
-      dismissSearchInput();
-      return;
-    }
-  }
-
   const semanticFilters = typeof searchCore.parseSemanticFilters === "function"
-    ? searchCore.parseSemanticFilters(rawQuery, getSearchAliasContext())
+    ? searchCore.parseSemanticFilters(rawQuery, aliasContext)
     : null;
   if (semanticFilters) {
     document.getElementById("filter-continent-select").value = semanticFilters.continent;
@@ -12168,105 +12139,13 @@ async function searchMap() {
     return;
   }
 
-  const countryCode = countryAliases.get(query);
-
-  if (countryCode && countriesData[countryCode]) {
-    await selectSearchResult({
-      label: countriesData[countryCode].name,
-      type: "country",
-      value: countryCode
-    });
-    return;
-  }
-
-  const continent = continentAliases.get(query);
-
-  if (continent) {
-    await selectSearchResult({
-      label: translateContinentName(continent),
-      type: "continent",
-      value: continent
-    });
-    return;
-  }
-
-  const religion = religionAliases.get(query);
-  if (religion) {
-    await selectSearchResult({
-      label: religion,
-      type: "religion",
-      value: religion
-    });
-    return;
-  }
-
-  const religionDenomination = religionDenominationAliases.get(query);
-  if (religionDenomination) {
-    await selectSearchResult({
-      label: religionDenomination,
-      type: "religion_denomination",
-      value: religionDenomination
-    });
-    return;
-  }
-
-  const system = systemAliases.get(query);
-  if (system) {
-    await selectSearchResult({
-      label: system,
-      type: "system",
-      value: system
-    });
-    return;
-  }
-
-  const organization = organizationAliases.get(query);
-  if (organization) {
-    await selectSearchResult({
-      label: organization,
-      type: "organization",
-      value: organization
-    });
-    return;
-  }
-
-  const language = languageAliases.get(query);
-  if (language) {
-    await selectSearchResult({
-      label: language,
-      type: "language",
-      value: language
-    });
-    return;
-  }
-
-  const bloc = blocAliases.get(query);
-  if (bloc) {
-    await selectSearchResult({
-      label: bloc,
-      type: "bloc",
-      value: bloc
-    });
-    return;
-  }
-
-  const metropole = metropoleAliases.get(query);
-  if (metropole) {
-    await selectSearchResult({
-      label: metropole,
-      type: "metropole",
-      value: metropole
-    });
-    return;
-  }
-
-  const conflict = conflictAliases.get(query);
-  if (conflict) {
-    await selectSearchResult({
-      label: conflict,
-      type: "conflict",
-      value: conflict
-    });
+  const primaryAliasResult = typeof searchCore.resolveAliasResult === "function"
+    ? searchCore.resolveAliasResult(rawQuery, aliasContext, {
+        types: ["country", "continent", "religion", "religion_denomination", "system", "organization", "language", "bloc", "metropole", "conflict"]
+      })
+    : null;
+  if (primaryAliasResult) {
+    await selectSearchResult(primaryAliasResult);
     return;
   }
 
@@ -12287,43 +12166,13 @@ async function searchMap() {
     return;
   }
 
-  const period = periodAliases.get(query);
-  if (period) {
-    await selectSearchResult({
-      label: period,
-      type: "period",
-      value: period
-    });
-    return;
-  }
-
-  const historyType = historyTypeAliases.get(query);
-  if (historyType) {
-    await selectSearchResult({
-      label: historyType,
-      type: "history_type",
-      value: historyType
-    });
-    return;
-  }
-
-  const origin = originAliases.get(query);
-  if (origin) {
-    await selectSearchResult({
-      label: origin,
-      type: "origin",
-      value: origin
-    });
-    return;
-  }
-
-  const rival = rivalAliases.get(query);
-  if (rival) {
-    await selectSearchResult({
-      label: rival,
-      type: "rival",
-      value: rival
-    });
+  const secondaryAliasResult = typeof searchCore.resolveAliasResult === "function"
+    ? searchCore.resolveAliasResult(rawQuery, aliasContext, {
+        types: ["period", "history_type", "origin", "rival"]
+      })
+    : null;
+  if (secondaryAliasResult) {
+    await selectSearchResult(secondaryAliasResult);
     return;
   }
 
@@ -13402,24 +13251,30 @@ function setupSearchEvents() {
   const timelineModal = document.getElementById("timeline-modal");
   const conflictCloseButton = document.getElementById("conflict-modal-close");
   const timelineCloseButton = document.getElementById("timeline-modal-close");
-  let activeIndex = 0;
+  let activeIndex = -1;
   let currentSuggestions = [];
 
   if (searchMemory) {
     searchMemory.hidden = true;
   }
 
-  button.addEventListener("click", () => searchMap());
+  button.addEventListener("click", () => {
+    hideSuggestions();
+    activeIndex = -1;
+    currentSuggestions = [];
+    searchMap();
+  });
   saveButton?.addEventListener("click", () => {
     saveCurrentSearch(input.value);
   });
 
   input.addEventListener("input", () => {
-    activeIndex = 0;
+    activeIndex = -1;
     currentSuggestions = renderSuggestions(input.value, activeIndex);
   });
 
   input.addEventListener("focus", () => {
+    activeIndex = -1;
     currentSuggestions = renderSuggestions(input.value, activeIndex);
     if (!input.value.trim()) {
       renderSearchMemory();
@@ -13429,32 +13284,39 @@ function setupSearchEvents() {
   input.addEventListener("keydown", async event => {
     if (event.key === "ArrowDown" && currentSuggestions.length) {
       event.preventDefault();
-      activeIndex = (activeIndex + 1) % currentSuggestions.length;
+      activeIndex = activeIndex < 0 ? 0 : (activeIndex + 1) % currentSuggestions.length;
       renderSuggestions(input.value, activeIndex);
       return;
     }
 
     if (event.key === "ArrowUp" && currentSuggestions.length) {
       event.preventDefault();
-      activeIndex = (activeIndex - 1 + currentSuggestions.length) % currentSuggestions.length;
+      activeIndex = activeIndex < 0
+        ? currentSuggestions.length - 1
+        : (activeIndex - 1 + currentSuggestions.length) % currentSuggestions.length;
       renderSuggestions(input.value, activeIndex);
       return;
     }
 
     if (event.key === "Enter") {
       event.preventDefault();
-      if (currentSuggestions.length) {
-        await selectSearchResult(currentSuggestions[activeIndex] || currentSuggestions[0]);
+      if (activeIndex >= 0 && currentSuggestions[activeIndex]) {
+        await selectSearchResult(currentSuggestions[activeIndex]);
+        activeIndex = -1;
         currentSuggestions = [];
         return;
       }
 
+      hideSuggestions();
+      activeIndex = -1;
+      currentSuggestions = [];
       await searchMap();
       return;
     }
 
     if (event.key === "Escape") {
       hideSuggestions();
+      activeIndex = -1;
       currentSuggestions = [];
     }
   });
@@ -13479,12 +13341,14 @@ function setupSearchEvents() {
       type: buttonElement.dataset.type,
       value: buttonElement.dataset.value
     });
+    activeIndex = -1;
     currentSuggestions = [];
   });
 
   document.addEventListener("click", event => {
     if (!event.target.closest("#search-bar")) {
       hideSuggestions();
+      activeIndex = -1;
       currentSuggestions = [];
     }
   });

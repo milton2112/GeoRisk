@@ -81,6 +81,14 @@ assert.ok(
   "busqueda de conflictos debe usar conflicts_index bajo demanda cuando no hay preview inline"
 );
 assert.ok(
+  /searchCore\.resolveAliasResult\(rawQuery, aliasContext,[\s\S]{0,260}selectSearchResult\(primaryAliasResult\)/.test(script),
+  "busqueda exacta debe resolver aliases en el modulo diferido y conservar la seleccion central"
+);
+assert.ok(
+  /let activeIndex = -1;[\s\S]{0,2200}if \(activeIndex >= 0 && currentSuggestions\[activeIndex\]\)[\s\S]{0,420}await searchMap\(\)/.test(script),
+  "Enter debe ejecutar la consulta escrita salvo que el usuario elija una sugerencia con el teclado"
+);
+assert.ok(
   !script.includes("for (const [pattern, replacement] of CONFLICT_NAME_ALIASES)"),
   "runtime no debe depender de la tabla pesada extraida"
 );

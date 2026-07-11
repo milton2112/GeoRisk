@@ -255,6 +255,11 @@ assert.ok(!script.includes("function getRiskMainDriverLabel"), "helper visual de
 assert.ok(!/function buildQuizQuestion\(category\)[\s\S]{0,2400}category === "language"/.test(script), "fallback pesado del quiz no debe volver al runtime critico");
 assert.ok(!script.includes("function parseSemanticQuery"), "parser semantico pesado no debe volver al runtime critico");
 assert.ok(appSearch.includes("parseSemanticFilters"), "parser semantico debe vivir en app-search diferido");
+assert.ok(appSearch.includes("resolveAliasResult"), "resolucion de aliases debe vivir en app-search diferido");
+assert.ok(script.includes("searchCore.resolveAliasResult"), "runtime debe delegar la resolucion exacta de busqueda");
+assert.ok(!script.includes("const religionDenomination = religionDenominationAliases.get(query)"), "cadena repetitiva de aliases no debe volver al runtime critico");
+assert.ok(!script.includes("if (/con mas conflictos|with more conflicts/.test(query))"), "rankings naturales no deben tener un fallback duplicado");
+assert.ok(!script.includes("let activeIndex = 0;\n  let currentSuggestions"), "sugerencias no deben secuestrar Enter sin navegacion explicita");
 assert.ok(appQuiz.includes("function renderPanel"), "render completo del quiz debe vivir en app-quiz-ui diferido");
 assert.ok(appQuiz.includes("function renderFeedback"), "feedback del quiz debe vivir en app-quiz-ui diferido");
 assert.ok(!script.includes("<span class=\"quiz-meta-pill\">"), "markup de meta del quiz no debe volver al runtime critico");
