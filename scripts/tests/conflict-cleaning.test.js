@@ -3,6 +3,7 @@ import {
   canonicalizeConflictNameWithRules,
   cleanConflictLabel,
   inferConflictYearsFromText,
+  isProvisionalConflictHierarchy,
   mergeConflictEntries,
   normalizeConflictKey
 } from "../lib/conflict-cleaning.js";
@@ -20,6 +21,9 @@ assert.equal(cleanConflictLabel("México y Perú"), "Mexico y Peru");
 assert.equal(cleanConflictLabel("Bando 1: Aliados &#8203; ver anexo &&&&&&&099"), "Aliados");
 assert.equal(cleanConflictLabel("Bando 2: Eje mostrar ocultar"), "Eje");
 assert.equal(normalizeConflictKey("Segunda Guerra Mundial"), "segunda guerra mundial");
+assert.equal(isProvisionalConflictHierarchy({ parent: "Conflicto regional de America" }), true);
+assert.equal(isProvisionalConflictHierarchy({ campaign: "Campana vinculada a Conflicto regional de Europa" }), true);
+assert.equal(isProvisionalConflictHierarchy({ parent: "Guerra de Corea", campaign: "Campana de Corea" }), false);
 assert.deepEqual(
   inferConflictYearsFromText("6 de junio-30 de agosto de 1944"),
   { startYear: 1944, endYear: 1944, ongoing: false }

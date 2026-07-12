@@ -158,6 +158,7 @@ assert.ok(dataAutomationAudit.includes("normalizeConflictKey"), "auditoria y aut
 assert.ok(dataAutomationAudit.includes("sharedConflictNames"), "auditoria de datos debe separar conflictos compartidos de duplicados reales");
 assert.ok(dataAutomationAudit.includes("sourceTextMojibake"), "auditoria de datos debe detectar mojibake en fuentes generadoras");
 assert.ok(dataAutomationAudit.includes("baseSectionProfiles"), "auditoria de datos debe separar secciones base de baja confianza real");
+assert.ok(dataAutomationAudit.includes("provisionalConflictHierarchies"), "auditoria debe distinguir padres regionales provisionales de jerarquias verificadas");
 assert.ok(dataAutomationAudit.includes("priorityWeakDataProfiles"), "auditoria de datos debe priorizar fichas publicas debiles sobre territorios especiales");
 assert.ok(projectDoctor.includes("doctor-report.json"), "doctor debe escribir reporte consolidado");
 assert.ok(projectDoctor.includes("topActions"), "doctor debe sugerir acciones concretas");
@@ -256,10 +257,13 @@ assert.ok(!/function buildQuizQuestion\(category\)[\s\S]{0,2400}category === "la
 assert.ok(!script.includes("function parseSemanticQuery"), "parser semantico pesado no debe volver al runtime critico");
 assert.ok(appSearch.includes("parseSemanticFilters"), "parser semantico debe vivir en app-search diferido");
 assert.ok(appSearch.includes("resolveAliasResult"), "resolucion de aliases debe vivir en app-search diferido");
+assert.ok(appSearch.includes("return index >= 0 ? index : TYPE_ORDER.length"), "tipos de sugerencia desconocidos no deben adelantarse a paises");
 assert.ok(script.includes("searchCore.resolveAliasResult"), "runtime debe delegar la resolucion exacta de busqueda");
+assert.ok(script.includes('types: ["country"]'), "busqueda debe priorizar coincidencias exactas de pais antes de filtros semanticos");
 assert.ok(!script.includes("const religionDenomination = religionDenominationAliases.get(query)"), "cadena repetitiva de aliases no debe volver al runtime critico");
 assert.ok(!script.includes("if (/con mas conflictos|with more conflicts/.test(query))"), "rankings naturales no deben tener un fallback duplicado");
 assert.ok(!script.includes("let activeIndex = 0;\n  let currentSuggestions"), "sugerencias no deben secuestrar Enter sin navegacion explicita");
+assert.ok(script.includes("Jerarquia pendiente"), "ficha de conflicto debe avisar cuando la guerra padre es solo provisional");
 assert.ok(appQuiz.includes("function renderPanel"), "render completo del quiz debe vivir en app-quiz-ui diferido");
 assert.ok(appQuiz.includes("function renderFeedback"), "feedback del quiz debe vivir en app-quiz-ui diferido");
 assert.ok(!script.includes("<span class=\"quiz-meta-pill\">"), "markup de meta del quiz no debe volver al runtime critico");

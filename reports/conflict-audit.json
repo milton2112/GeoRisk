@@ -1,7 +1,1215 @@
 {
-  "generatedAt": "2026-07-11T21:45:09.228Z",
+  "generatedAt": "2026-07-12T23:32:53.703Z",
   "scannedConflicts": 2008,
   "issueCount": 0,
-  "summary": {},
-  "topIssues": []
+  "advisoryCount": 833,
+  "reviewCount": 833,
+  "summary": {
+    "provisional_parent": 833
+  },
+  "topIssues": [],
+  "topAdvisories": [
+    {
+      "key": "batalla de ad dawrah",
+      "name": "Batalla de Ad-Dawrah",
+      "countries": [
+        "GBR",
+        "IRQ",
+        "KWT",
+        "USA"
+      ],
+      "startYear": 1991,
+      "endYear": 1991,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de cheonpyeong valley",
+      "name": "Batalla de Cheonpyeong Valley",
+      "countries": [
+        "KOR",
+        "PRK",
+        "USA"
+      ],
+      "startYear": 1951,
+      "endYear": 1951,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de white horse",
+      "name": "Batalla de White Horse",
+      "countries": [
+        "CHN",
+        "KOR",
+        "USA"
+      ],
+      "startYear": 1952,
+      "endYear": 1952,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de gang toi",
+      "name": "Batalla de Gang Toi",
+      "countries": [
+        "AUS",
+        "NZL",
+        "USA"
+      ],
+      "startYear": 1965,
+      "endYear": 1965,
+      "hierarchyLabel": "Conflicto regional de Oceania",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de long tan",
+      "name": "Batalla de Long Tan",
+      "countries": [
+        "AUS",
+        "NZL",
+        "USA"
+      ],
+      "startYear": 1966,
+      "endYear": 1966,
+      "hierarchyLabel": "Conflicto regional de Oceania",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de coral balmoral",
+      "name": "Batalla de Coral–Balmoral",
+      "countries": [
+        "AUS",
+        "NZL",
+        "USA"
+      ],
+      "startYear": 1968,
+      "endYear": 1968,
+      "hierarchyLabel": "Conflicto regional de Oceania",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de bubiyan",
+      "name": "Batalla de Bubiyan",
+      "countries": [
+        "GBR",
+        "IRQ",
+        "USA"
+      ],
+      "startYear": 1991,
+      "endYear": 1991,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de joybar",
+      "name": "Batalla de Joybar",
+      "countries": [
+        "AFG",
+        "FRA",
+        "USA"
+      ],
+      "startYear": 2001,
+      "endYear": 2001,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de alasay",
+      "name": "Batalla de Alasay",
+      "countries": [
+        "AFG",
+        "FRA",
+        "USA"
+      ],
+      "startYear": 2009,
+      "endYear": 2009,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "combate de buenavista",
+      "name": "Combate de Buenavista",
+      "countries": [
+        "CHL",
+        "PER"
+      ],
+      "startYear": 1838,
+      "endYear": 1838,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "combate de el manzano",
+      "name": "Combate de El Manzano",
+      "countries": [
+        "CHL",
+        "PER"
+      ],
+      "startYear": 1838,
+      "endYear": 1838,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "combate de rio grande",
+      "name": "Combate de Río Grande",
+      "countries": [
+        "BOL",
+        "CHL"
+      ],
+      "startYear": 1879,
+      "endYear": 1879,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "combate naval de iquique",
+      "name": "Combate naval de Iquique",
+      "countries": [
+        "CHL",
+        "PER"
+      ],
+      "startYear": 1879,
+      "endYear": 1879,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "segundo combate naval de iquique",
+      "name": "Segundo combate naval de Iquique",
+      "countries": [
+        "CHL",
+        "PER"
+      ],
+      "startYear": 1879,
+      "endYear": 1879,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "combate naval de arica",
+      "name": "Combate naval de Arica",
+      "countries": [
+        "CHL",
+        "PER"
+      ],
+      "startYear": 1880,
+      "endYear": 1880,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "ofensiva de primavera de 1945 en italia",
+      "name": "Ofensiva de primavera de 1945 en Italia",
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 1945,
+      "endYear": 1945,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de chongju",
+      "name": "Batalla de Chongju",
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 1950,
+      "endYear": 1950,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de kujin",
+      "name": "Batalla de Kujin",
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 1950,
+      "endYear": 1950,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de yongju",
+      "name": "Batalla de Yongju",
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 1950,
+      "endYear": 1950,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de chuam ni",
+      "name": "Batalla de Chuam-ni",
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 1951,
+      "endYear": 1951,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de maehwa san",
+      "name": "Batalla de Maehwa-san",
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 1951,
+      "endYear": 1951,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "ofensiva china de primavera",
+      "name": "Ofensiva china de primavera",
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 1951,
+      "endYear": 1951,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de hook",
+      "name": "Batalla de Hook",
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 1953,
+      "endYear": 1953,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de burullus",
+      "name": "Batalla de Burullus",
+      "countries": [
+        "FRA",
+        "GBR"
+      ],
+      "startYear": 1956,
+      "endYear": 1956,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de gurung hill",
+      "name": "Batalla de Gurung Hill",
+      "countries": [
+        "CHN",
+        "IND"
+      ],
+      "startYear": 1962,
+      "endYear": 1962,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de rezang la",
+      "name": "Batalla de Rezang La",
+      "countries": [
+        "CHN",
+        "IND"
+      ],
+      "startYear": 1962,
+      "endYear": 1962,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de walong",
+      "name": "Batalla de Walong",
+      "countries": [
+        "CHN",
+        "IND"
+      ],
+      "startYear": 1962,
+      "endYear": 1962,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de basantar",
+      "name": "Batalla de Basantar",
+      "countries": [
+        "IND",
+        "PAK"
+      ],
+      "startYear": 1971,
+      "endYear": 1971,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de mirbat",
+      "name": "Batalla de Mirbat",
+      "countries": [
+        "GBR",
+        "OMN"
+      ],
+      "startYear": 1972,
+      "endYear": 1972,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de la cota 233",
+      "name": "Batalla de la cota 233",
+      "countries": [
+        "FRA",
+        "TUN"
+      ],
+      "startYear": 1973,
+      "endYear": 1973,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla del aeropuerto de nicosia",
+      "name": "Batalla del Aeropuerto de Nicosia",
+      "countries": [
+        "CYP",
+        "TUR"
+      ],
+      "startYear": 1974,
+      "endYear": 1974,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de ain ben tili enero de 1976",
+      "name": "Batalla de Ain Ben Tili (enero de 1976)",
+      "countries": [
+        "MAR",
+        "MRT"
+      ],
+      "startYear": 1976,
+      "endYear": 1976,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "primera batalla de amgala",
+      "name": "Primera batalla de Amgala",
+      "countries": [
+        "DZA",
+        "MAR"
+      ],
+      "startYear": 1976,
+      "endYear": 1976,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "segunda batalla de amgala",
+      "name": "Segunda batalla de Amgala",
+      "countries": [
+        "DZA",
+        "MAR"
+      ],
+      "startYear": 1976,
+      "endYear": 1976,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de zuerate agosto de 1977",
+      "name": "Batalla de Zuérate (agosto de 1977)",
+      "countries": [
+        "MAR",
+        "MRT"
+      ],
+      "startYear": 1977,
+      "endYear": 1977,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de lukaya",
+      "name": "Batalla de Lukaya",
+      "countries": [
+        "TZA",
+        "UGA"
+      ],
+      "startYear": 1979,
+      "endYear": 1979,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de masaka",
+      "name": "Batalla de Masaka",
+      "countries": [
+        "TZA",
+        "UGA"
+      ],
+      "startYear": 1979,
+      "endYear": 1979,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de fakashan",
+      "name": "Batalla de Fakashan",
+      "countries": [
+        "CHN",
+        "VNM"
+      ],
+      "startYear": 1981,
+      "endYear": 1981,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de pradera del ganso",
+      "name": "Batalla de Pradera del Ganso",
+      "countries": [
+        "ARG",
+        "GBR"
+      ],
+      "startYear": 1982,
+      "endYear": 1982,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de failaka",
+      "name": "Batalla de Failaka",
+      "countries": [
+        "KWT",
+        "USA"
+      ],
+      "startYear": 1991,
+      "endYear": 1991,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de wadi al batin",
+      "name": "Batalla de Wadi Al-Batin",
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 1991,
+      "endYear": 1991,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de mogadiscio",
+      "name": "Batalla de Mogadiscio",
+      "countries": [
+        "SOM",
+        "USA"
+      ],
+      "startYear": 1993,
+      "endYear": 1993,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de kisangani",
+      "name": "Batalla de Kisangani",
+      "countries": [
+        "RWA",
+        "UGA"
+      ],
+      "startYear": 1997,
+      "endYear": 1997,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de qala i jangi",
+      "name": "Batalla de Qala-i-Jangi",
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 2001,
+      "endYear": 2001,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de tora bora",
+      "name": "Batalla de Tora Bora",
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 2001,
+      "endYear": 2001,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "sitio de musa qala",
+      "name": "Sitio de Musa Qala",
+      "countries": [
+        "DNK",
+        "GBR"
+      ],
+      "startYear": 2006,
+      "endYear": 2006,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de musa qala",
+      "name": "Batalla de Musa Qala",
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 2007,
+      "endYear": 2007,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de ras kamboni",
+      "name": "Batalla de Ras Kamboni",
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 2007,
+      "endYear": 2007,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de basra",
+      "name": "Batalla de Basra",
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 2008,
+      "endYear": 2008,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla del desfiladero de liakhvi",
+      "name": "Batalla del desfiladero de Liakhvi",
+      "countries": [
+        "GEO",
+        "RUS"
+      ],
+      "startYear": 2008,
+      "endYear": 2008,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de dahaneh",
+      "name": "Batalla de Dahaneh",
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 2009,
+      "endYear": 2009,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de khaz oruzgan",
+      "name": "Batalla de Khaz Oruzgan",
+      "countries": [
+        "AUS",
+        "USA"
+      ],
+      "startYear": 2010,
+      "endYear": 2010,
+      "hierarchyLabel": "Conflicto regional de Oceania",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de douz",
+      "name": "Batalla de Douz",
+      "countries": [
+        "LBY",
+        "TUN"
+      ],
+      "startYear": 2011,
+      "endYear": 2011,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de faluya",
+      "name": "Batalla de Faluya",
+      "countries": [
+        "IRN",
+        "IRQ"
+      ],
+      "startYear": 2016,
+      "endYear": 2016,
+      "hierarchyLabel": "Conflicto regional de Medio Oriente",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de sana",
+      "name": "Batalla de Saná",
+      "countries": [
+        "ARE",
+        "SAU"
+      ],
+      "startYear": 2017,
+      "endYear": 2017,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de galwan",
+      "name": "Batalla de Galwan",
+      "countries": [
+        "CHN",
+        "IND"
+      ],
+      "startYear": 2020,
+      "endYear": 2020,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de shusha 2020",
+      "name": "Batalla de Shusha (2020)",
+      "countries": [
+        "ARM",
+        "AZE"
+      ],
+      "startYear": 2020,
+      "endYear": 2020,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "combate en el valle del galwan de 2020",
+      "name": "Combate en el valle del Galwan de 2020",
+      "countries": [
+        "CHN",
+        "IND"
+      ],
+      "startYear": 2020,
+      "endYear": 2020,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de kupiansk",
+      "name": "Batalla de Kúpiansk",
+      "countries": [
+        "RUS",
+        "UKR"
+      ],
+      "startYear": 2022,
+      "endYear": 2022,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de brandywine",
+      "name": "Batalla de Brandywine",
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 2026,
+      "endYear": 2026,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de bunker hill",
+      "name": "Batalla de Bunker Hill",
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 2026,
+      "endYear": 2026,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de garmsir",
+      "name": "Batalla de Garmsir",
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 2026,
+      "endYear": 2026,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de holowczyn",
+      "name": "Batalla de Holowczyn",
+      "countries": [
+        "RUS",
+        "SWE"
+      ],
+      "startYear": 2026,
+      "endYear": 2026,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de la isla de las serpientes",
+      "name": "Batalla de la isla de las Serpientes",
+      "countries": [
+        "RUS",
+        "UKR"
+      ],
+      "startYear": 2026,
+      "endYear": 2026,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de long island",
+      "name": "Batalla de Long Island",
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 2026,
+      "endYear": 2026,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de norfolk",
+      "name": "Batalla de Norfolk",
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 2026,
+      "endYear": 2026,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de pakchon",
+      "name": "Batalla de Pakchon",
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 2026,
+      "endYear": 2026,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de pryluky",
+      "name": "Batalla de Pryluky",
+      "countries": [
+        "RUS",
+        "UKR"
+      ],
+      "startYear": 2026,
+      "endYear": 2026,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de rajovka",
+      "name": "Batalla de Rajovka",
+      "countries": [
+        "RUS",
+        "SWE"
+      ],
+      "startYear": 2026,
+      "endYear": 2026,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de samichon river",
+      "name": "Batalla de Samichon River",
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 2026,
+      "endYear": 2026,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de sariwon",
+      "name": "Batalla de Sariwon",
+      "countries": [
+        "GBR",
+        "USA"
+      ],
+      "startYear": 2026,
+      "endYear": 2026,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "primera batalla del puerto de tripoli",
+      "name": "Primera batalla del puerto de Trípoli",
+      "countries": [
+        "SWE",
+        "USA"
+      ],
+      "startYear": 2026,
+      "endYear": 2026,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "asalto de ivangorod",
+      "name": "Asalto de Ivángorod",
+      "countries": [
+        "SWE"
+      ],
+      "startYear": 1496,
+      "endYear": 1496,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "incursion sobre le havre",
+      "name": "Incursion sobre Le Havre",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1759,
+      "endYear": 1759,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "atlantic incursion de junio 1796",
+      "name": "Atlantic incursion de junio 1796",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1796,
+      "endYear": 1796,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "incursion sobre boulogne",
+      "name": "Incursion sobre Boulogne",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1804,
+      "endYear": 1804,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "combate de la junon contra el fox",
+      "name": "Combate de la Junon contra el Fox",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1809,
+      "endYear": 1809,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "combate naval de valparaiso 1814",
+      "name": "Combate naval de Valparaíso (1814)",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1814,
+      "endYear": 1814,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "incursion sobre alejandria",
+      "name": "Incursion sobre Alejandria",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1814,
+      "endYear": 1814,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "combate naval de cabo manglares",
+      "name": "Combate naval de Cabo Manglares",
+      "countries": [
+        "CHL"
+      ],
+      "startYear": 1820,
+      "endYear": 1820,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    }
+  ]
 }

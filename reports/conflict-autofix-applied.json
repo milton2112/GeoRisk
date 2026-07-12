@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-11T16:24:17.503Z",
+  "generatedAt": "2026-07-12T23:18:57.972Z",
   "changedFullCountries": 0,
   "fullPassChanges": [
     0
@@ -11,6 +11,7 @@
     "written": false,
     "compacted": false
   },
+  "generatedHierarchyCandidates": 298,
   "safeRenames": {
     "Batalla naval de RÃ¼gen": "Batalla naval de Rugen",
     "Batalla de Rügen": "Batalla naval de Rugen",

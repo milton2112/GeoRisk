@@ -34,5 +34,6 @@ await fs.writeJson(fixesPath, suggestions, { spaces: 2 });
 
 console.log(`Conflictos escaneados: ${report.scannedConflicts}`);
 console.log(`Conflictos con alertas: ${report.issueCount}`);
+console.log(`Jerarquias provisionales: ${report.advisoryCount || 0}`);
 console.log(`Reporte: ${path.relative(projectRoot, reportPath)}`);
 console.log(`Sugerencias automaticas: ${path.relative(projectRoot, fixesPath)}`);

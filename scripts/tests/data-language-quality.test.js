@@ -713,6 +713,21 @@ assert.deepEqual(
   `No deben convivir ongoing:false con active/status activo: ${JSON.stringify(explicitInactiveConflictsMarkedActive.slice(0, 10))}`
 );
 
+const sourcedHierarchyExpectations = [
+  { name: "Batalla de Triangle Hill", parent: "Guerra de Corea" },
+  { name: "Batalla de Martinica", parent: "Guerras anglo-francesas del Caribe" },
+  { name: "Batalla del río Ch'ongch'on", parent: "Guerra de Corea" }
+];
+for (const expectation of sourcedHierarchyExpectations) {
+  const entries = Object.values(countries).flatMap(country => country.military?.conflicts || [])
+    .filter(conflict => conflict.name === expectation.name);
+  assert.ok(entries.length > 0, `Debe existir ${expectation.name} para validar su jerarquia importada`);
+  assert.ok(
+    entries.every(conflict => conflict.parent === expectation.parent && conflict.war === expectation.parent),
+    `${expectation.name} debe reutilizar la guerra padre respaldada por el detalle importado`
+  );
+}
+
 const invalidConflictYearRanges = Object.entries(countries).flatMap(([code, country]) =>
   (country.military?.conflicts || []).map(conflict => ({ code, ...conflict }))
 ).filter(conflict =>

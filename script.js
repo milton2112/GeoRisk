@@ -83,7 +83,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-07-11-release-4";
+const APP_VERSION = "2026-07-12-release-1";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -4122,6 +4122,9 @@ function getCountryCurationTodoItems(country, conflictGroups = [], conflictCount
   const missingFields = Array.isArray(quality.missingFields) ? quality.missingFields : [];
   const estimatedFields = Array.isArray(quality.estimatedFields) ? quality.estimatedFields : [];
   const conflictCount = getProfileConflictCount(country, conflictGroups, conflictCountOverride);
+  const provisionalHierarchyCount = (country?.military?.conflicts || [])
+    .filter(conflict => hasProvisionalConflictHierarchy(conflict) && !getConflictParentName(conflict))
+    .length;
   const weakSections = Object.entries(sectionStatus)
     .filter(([, status]) => !["curated", "confirmed"].includes(String(status || "").toLowerCase()))
     .map(([section, status]) => `${section}: ${status || "pendiente"}`);
@@ -4138,6 +4141,11 @@ function getCountryCurationTodoItems(country, conflictGroups = [], conflictCount
   }
   if (!conflictCount) {
     items.push(currentLanguage === "en" ? "Military history needs curated conflicts." : "Historia militar necesita conflictos curados.");
+  }
+  if (provisionalHierarchyCount) {
+    items.push(currentLanguage === "en"
+      ? `${provisionalHierarchyCount} conflict hierarchies still need a verified parent war.`
+      : `${provisionalHierarchyCount} jerarquias de conflicto todavia necesitan una guerra padre verificada.`);
   }
   if (!Array.isArray(country?.religion?.composition) || country.religion.composition.length < 2) {
     items.push(currentLanguage === "en" ? "Religious composition needs more denominations." : "Composicion religiosa necesita mas denominaciones.");
@@ -4158,6 +4166,9 @@ function getCountryCurationActions(country, conflictGroups = [], conflictCountOv
   const estimatedFields = new Set(Array.isArray(quality.estimatedFields) ? quality.estimatedFields : []);
   const sectionStatus = quality.sectionStatus || {};
   const conflictCount = getProfileConflictCount(country, conflictGroups, conflictCountOverride);
+  const provisionalHierarchyCount = (country?.military?.conflicts || [])
+    .filter(conflict => hasProvisionalConflictHierarchy(conflict) && !getConflictParentName(conflict))
+    .length;
   const actions = [
     {
       section: currentLanguage === "en" ? "General" : "General",
@@ -4167,7 +4178,7 @@ function getCountryCurationActions(country, conflictGroups = [], conflictCountOv
     {
       section: currentLanguage === "en" ? "Conflicts" : "Conflictos",
       action: currentLanguage === "en" ? "Add parent war, sides, outcome and casualties for weak conflicts." : "Agregar guerra padre, bandos, resultado y bajas en conflictos flojos.",
-      weak: !conflictCount || sectionStatus.military !== "curated"
+      weak: !conflictCount || provisionalHierarchyCount > 0 || sectionStatus.military !== "curated"
     },
     {
       section: currentLanguage === "en" ? "Relations" : "Relaciones",
@@ -4883,7 +4894,8 @@ function normalizeConflictForDisplay(conflict) {
     endYear,
     ongoing: Boolean(conflict.ongoing),
     sourceName: rawName,
-    declaredParent: typeof conflict === "object" ? (conflict.parent || conflict.war || "") : ""
+    declaredParent: typeof conflict === "object" ? (conflict.parent || conflict.war || "") : "",
+    declaredCampaign: typeof conflict === "object" ? (conflict.campaign || "") : ""
   };
 }
 
@@ -4907,12 +4919,21 @@ function sortConflicts(conflicts) {
   });
 }
 
+function isGenericConflictHierarchyLabel(value = "") {
+  return /^(conflicto regional de|campana vinculada a conflicto regional de)\b/.test(normalizeText(value));
+}
+
+function hasProvisionalConflictHierarchy(conflict = {}) {
+  return isGenericConflictHierarchyLabel(conflict?.declaredParent || conflict?.parent || conflict?.war || "")
+    || isGenericConflictHierarchyLabel(conflict?.declaredCampaign || conflict?.campaign || "");
+}
+
 function getConflictParentName(conflict) {
   const conflictName = typeof conflict === "object" ? conflict?.name : conflict;
   const normalized = normalizeText(conflictName);
   const declaredParent = cleanConflictName(translateConflictName(conflict?.declaredParent || conflict?.parent || conflict?.war || ""));
   const normalizedDeclaredParent = normalizeText(declaredParent);
-  const isGenericDeclaredParent = /^(conflicto|guerra|campana) (regional|historico|militar|vinculad)/.test(normalizedDeclaredParent);
+  const isGenericDeclaredParent = isGenericConflictHierarchyLabel(declaredParent);
   if (declaredParent && normalizedDeclaredParent !== normalized && !isGenericDeclaredParent) {
     return declaredParent;
   }
@@ -5027,13 +5048,15 @@ function inferConflictLevel(conflict, detail = {}, parentName = null) {
     return explicit;
   }
 
-  if (!parentName) {
-    return "war";
-  }
-
-  const normalized = normalizeText(conflict?.name || conflict || "");
+  const normalized = normalizeText(`${conflict?.name || conflict || ""} ${detail.type || conflict?.type || ""}`);
   if (CONFLICT_CAMPAIGN_MARKERS.some(marker => normalized.includes(marker))) {
     return "campaign";
+  }
+  if (/batalla|battle|sitio|siege|combate|asalto|raid|incursion|operacion|bombardeo|ataque|emboscada|desembarco|hundimiento/.test(normalized)) {
+    return "battle";
+  }
+  if (!parentName) {
+    return "war";
   }
   return "battle";
 }
@@ -5179,7 +5202,13 @@ function buildConflictGroups(conflicts) {
   cleanedConflicts.forEach(conflict => {
     const parentName = getConflictParentName(conflict);
     if (!parentName) {
-      standalone.push({ ...conflict, level: "war", campaigns: [], battles: [] });
+      const detail = CONFLICT_DETAIL_OVERRIDES[conflict.name] || {};
+      standalone.push({
+        ...conflict,
+        level: inferConflictLevel(conflict, detail, null),
+        campaigns: [],
+        battles: []
+      });
       return;
     }
 
@@ -5345,11 +5374,15 @@ function renderConflictFilters(groups) {
 }
 
 function renderConflictOverview(groups, country) {
-  const wars = groups.length;
-  const battles = groups.reduce((sum, group) => sum + (group.battles?.length || 0), 0);
+  const wars = groups.filter(group => group.level === "war").length;
+  const battles = groups.reduce((sum, group) =>
+    sum
+    + (group.level === "battle" ? 1 : 0)
+    + (group.battles?.length || 0)
+    + (group.campaigns || []).reduce((campaignSum, campaign) => campaignSum + (campaign.battles?.length || 0), 0), 0);
   const ongoing = groups.filter(group => group.ongoing).length;
-  const global = groups.filter(group => inferConflictScope(group, CONFLICT_DETAIL_OVERRIDES[group.name] || {}) === "global").length;
-  const regional = groups.filter(group => inferConflictScope(group, CONFLICT_DETAIL_OVERRIDES[group.name] || {}) === "regional").length;
+  const global = groups.filter(group => group.level === "war" && inferConflictScope(group, CONFLICT_DETAIL_OVERRIDES[group.name] || {}) === "global").length;
+  const regional = groups.filter(group => group.level === "war" && inferConflictScope(group, CONFLICT_DETAIL_OVERRIDES[group.name] || {}) === "regional").length;
   const latestConflict = groups
     .slice()
     .sort((a, b) => Number(b.startYear || b.endYear || 0) - Number(a.startYear || a.endYear || 0))[0];
@@ -5665,7 +5698,10 @@ function getConflictConfidenceLabel(confidence) {
 function renderConflictTrustBadges(detail = {}) {
   const badges = [
     getConflictCurationStatusLabel(detail.curationStatus),
-    getConflictConfidenceLabel(detail.dataConfidence)
+    getConflictConfidenceLabel(detail.dataConfidence),
+    detail.hierarchyProvisional
+      ? (currentLanguage === "en" ? "Hierarchy pending" : "Jerarquia pendiente")
+      : ""
   ].filter(Boolean);
 
   if (!badges.length) {
@@ -5686,6 +5722,7 @@ function getConflictModalContent(conflict, countryName = "") {
   const scope = inferConflictScope(conflict, detail);
   const region = inferConflictRegion(conflict, detail, countryName);
   const parentName = conflict.parentName || getConflictParentName(conflict);
+  const hierarchyProvisional = !parentName && hasProvisionalConflictHierarchy(conflict);
   const level = conflict.level || inferConflictLevel(conflict, detail, parentName);
   const participants = dedupeConflictParticipants(
     (Array.isArray(detail.participants) && detail.participants.length)
@@ -5712,6 +5749,7 @@ function getConflictModalContent(conflict, countryName = "") {
     title: `${conflict.name}${formatConflictPeriod(conflict)}`,
     level,
     parentName,
+    hierarchyProvisional,
     type,
     scope,
     region,
@@ -12100,6 +12138,14 @@ async function searchMap() {
     ? searchCore.parseNaturalQuery(rawQuery, aliasContext)
     : null;
   if (naturalRankingQuery && renderNaturalRankingSearch(rawQuery, naturalRankingQuery)) {
+    return;
+  }
+
+  const exactCountryResult = typeof searchCore.resolveAliasResult === "function"
+    ? searchCore.resolveAliasResult(rawQuery, aliasContext, { types: ["country"] })
+    : null;
+  if (exactCountryResult) {
+    await selectSearchResult(exactCountryResult);
     return;
   }
 

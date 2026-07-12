@@ -1,7 +1,7 @@
 import fs from "fs-extra";
 import path from "node:path";
 import { writeJsonWithRetry } from "./lib/resilient-fs.js";
-import { normalizeConflictKey } from "./lib/conflict-cleaning.js";
+import { isProvisionalConflictHierarchy, normalizeConflictKey } from "./lib/conflict-cleaning.js";
 
 const projectRoot = path.resolve(process.cwd());
 const reportsDir = path.join(projectRoot, "reports");
@@ -160,6 +160,16 @@ const undatedHighLevelConflicts = allConflicts
   )
   .map(conflict => ({ code: conflict.code, name: conflict.name, region: conflict.normalizedRegion || conflict.region || null }));
 
+const provisionalConflictHierarchies = allConflicts
+  .filter(isProvisionalConflictHierarchy)
+  .map(conflict => ({
+    code: conflict.code,
+    name: conflict.name,
+    parent: conflict.parent || conflict.war || null,
+    campaign: conflict.campaign || null,
+    startYear: conflict.startYear ?? null
+  }));
+
 const suspectRegions = allConflicts
   .filter(conflict =>
     suspectRegionNamePattern.test(conflict.name || "") &&
@@ -267,6 +277,7 @@ const sections = {
   englishConflictNames,
   undatedConflicts,
   undatedHighLevelConflicts,
+  provisionalConflictHierarchies,
   suspectRegions,
   duplicateConflictNames: actionableDuplicateConflictNames,
   sameCountryDuplicateConflicts,
@@ -293,6 +304,12 @@ const actionPlan = [
     priority: "media",
     title: "Curar conflictos relevantes sin fecha",
     count: undatedHighLevelConflicts.length,
+    command: "npm run fix:conflicts:batches"
+  },
+  {
+    priority: "media",
+    title: "Reemplazar jerarquias regionales provisionales por guerras verificadas",
+    count: provisionalConflictHierarchies.length,
     command: "npm run fix:conflicts:batches"
   },
   {

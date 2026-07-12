@@ -85,8 +85,24 @@ assert.ok(
   "busqueda exacta debe resolver aliases en el modulo diferido y conservar la seleccion central"
 );
 assert.ok(
+  /const exactCountryResult = [\s\S]{0,260}types: \["country"\][\s\S]{0,220}selectSearchResult\(exactCountryResult\)[\s\S]{0,260}parseSemanticFilters/.test(script),
+  "un pais exacto debe abrir ficha antes de que aliases de origen, rival o metropoli activen filtros semanticos"
+);
+assert.ok(
   /let activeIndex = -1;[\s\S]{0,2200}if \(activeIndex >= 0 && currentSuggestions\[activeIndex\]\)[\s\S]{0,420}await searchMap\(\)/.test(script),
   "Enter debe ejecutar la consulta escrita salvo que el usuario elija una sugerencia con el teclado"
+);
+assert.ok(
+  /function inferConflictLevel[\s\S]{0,520}return "battle";[\s\S]{0,180}if \(!parentName\)/.test(script),
+  "una batalla sin padre verificado debe conservar nivel batalla y mostrar la jerarquia como pendiente"
+);
+assert.ok(
+  /if \(!parentName\) \{[\s\S]{0,260}level: inferConflictLevel\(conflict, detail, null\)/.test(script),
+  "agrupador de conflictos no debe promover acciones huerfanas a guerras"
+);
+assert.ok(
+  /const wars = groups\.filter\(group => group\.level === "war"\)\.length;/.test(script),
+  "resumen militar debe contar como guerras solo los grupos clasificados como guerra"
 );
 assert.ok(
   !script.includes("for (const [pattern, replacement] of CONFLICT_NAME_ALIASES)"),

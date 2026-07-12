@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-07-11T21:45:10.924Z",
-  "startupBytes": 824424,
-  "startupHuman": "805 KB",
-  "deferredBytes": 1207020,
+  "generatedAt": "2026-07-12T23:32:55.512Z",
+  "startupBytes": 826708,
+  "startupHuman": "807 KB",
+  "deferredBytes": 1207588,
   "deferredHuman": "1.15 MB",
   "estimatedRuntimeMemory": {
-    "countriesFullBytes": 9143093,
+    "countriesFullBytes": 9144459,
     "countriesFullHuman": "8.72 MB",
-    "estimatedParsedBytes": 27429279,
+    "estimatedParsedBytes": 27433377,
     "estimatedParsedHuman": "26.16 MB",
     "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
   },
@@ -22,8 +22,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 552009,
-      "human": "539 KB",
+      "bytes": 554293,
+      "human": "541 KB",
       "startupCritical": true
     },
     {
@@ -92,7 +92,7 @@
     {
       "path": "app-search.js",
       "exists": true,
-      "bytes": 15987,
+      "bytes": 16555,
       "human": "16 KB",
       "startupCritical": false
     }
@@ -108,8 +108,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 552009,
-      "human": "539 KB",
+      "bytes": 554293,
+      "human": "541 KB",
       "startupCritical": true
     },
     {
@@ -164,7 +164,7 @@
     {
       "path": "app-search.js",
       "exists": true,
-      "bytes": 15987,
+      "bytes": 16555,
       "human": "16 KB",
       "startupCritical": false
     },

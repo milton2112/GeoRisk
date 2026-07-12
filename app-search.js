@@ -1,5 +1,22 @@
 (() => {
-  const TYPE_ORDER = ["country", "continent", "ranking", "religion", "system", "organization", "bloc", "rival", "language", "conflict", "period"];
+  const TYPE_ORDER = [
+    "country",
+    "continent",
+    "ranking",
+    "religion",
+    "religion_denomination",
+    "system",
+    "organization",
+    "bloc",
+    "rival",
+    "language",
+    "metropole",
+    "conflict",
+    "period",
+    "history_type",
+    "origin",
+    "facet"
+  ];
   const ALIAS_RESULT_TYPES = [
     ["country", "countries"],
     ["continent", "continents"],
@@ -61,6 +78,10 @@
 
   function rankSuggestions(items = [], query = "", options = {}) {
     const limit = options.isMobile ? Math.min(options.limit || 6, 6) : (options.limit || 10);
+    const typeOrder = type => {
+      const index = TYPE_ORDER.indexOf(type);
+      return index >= 0 ? index : TYPE_ORDER.length;
+    };
     return items
       .map(item => {
         const scores = [
@@ -71,7 +92,7 @@
         return { ...item, score: Math.min(...scores) };
       })
       .filter(item => Number.isFinite(item.score))
-      .sort((a, b) => a.score - b.score || TYPE_ORDER.indexOf(a.type) - TYPE_ORDER.indexOf(b.type) || String(a.label).localeCompare(String(b.label), "es"))
+      .sort((a, b) => a.score - b.score || typeOrder(a.type) - typeOrder(b.type) || String(a.label).localeCompare(String(b.label), "es"))
       .slice(0, limit);
   }
 
@@ -81,15 +102,19 @@
       continent: language === "en" ? "Continents" : "Continentes",
       ranking: "Rankings",
       religion: language === "en" ? "Religions" : "Religiones",
+      religion_denomination: language === "en" ? "Denominations" : "Denominaciones",
       system: language === "en" ? "Political systems" : "Sistemas politicos",
       organization: language === "en" ? "Organizations" : "Organizaciones",
       bloc: language === "en" ? "Blocs" : "Bloques",
       rival: language === "en" ? "Rivalries" : "Rivalidades",
       language: language === "en" ? "Languages" : "Idiomas",
+      metropole: language === "en" ? "Former metropoles" : "Ex metropoli",
       conflict: language === "en" ? "Conflicts" : "Conflictos",
-      period: language === "en" ? "Periods" : "Periodos"
+      period: language === "en" ? "Periods" : "Periodos",
+      history_type: language === "en" ? "Historical formation" : "Formacion historica",
+      origin: language === "en" ? "Historical origins" : "Origenes historicos"
     };
-    return items.map(item => ({ ...item, groupLabel: labels[item.type] || labels[item.type === "facet" ? "country" : item.type] || item.type }));
+    return items.map(item => ({ ...item, groupLabel: labels[item.type === "facet" ? "country" : item.type] || item.type }));
   }
 
   function findAliasValue(normalized, aliasEntries = []) {

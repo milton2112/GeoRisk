@@ -1,18 +1,21 @@
 {
-  "generatedAt": "2026-07-11T21:45:13.879Z",
-  "packageVersion": "1.6.51",
-  "status": "operativo",
+  "generatedAt": "2026-07-12T23:32:59.118Z",
+  "packageVersion": "1.6.52",
+  "status": "observacion",
   "summary": {
-    "totalFindings": 0,
-    "bySeverity": {},
-    "startupBytes": 824424,
-    "scriptBytes": 552009,
+    "totalFindings": 1,
+    "bySeverity": {
+      "media": 1
+    },
+    "startupBytes": 826708,
+    "scriptBytes": 554293,
     "countriesIndexBytes": 144217,
     "conflictAuditIssues": 0,
     "dataCounts": {
       "englishConflictNames": 0,
       "undatedConflicts": 699,
       "undatedHighLevelConflicts": 0,
+      "provisionalConflictHierarchies": 915,
       "suspectRegions": 0,
       "duplicateConflictNames": 0,
       "sameCountryDuplicateConflicts": 0,
@@ -28,8 +31,22 @@
       "baseSectionProfiles": 183
     }
   },
-  "topActions": [],
-  "findings": [],
+  "topActions": [
+    {
+      "area": "datos",
+      "title": "Jerarquias de conflicto todavia provisionales",
+      "command": "npm run fix:conflicts:batches"
+    }
+  ],
+  "findings": [
+    {
+      "severity": "media",
+      "area": "datos",
+      "title": "Jerarquias de conflicto todavia provisionales",
+      "detail": "915 acciones usan un padre regional generico y no deben contarse como jerarquias verificadas.",
+      "command": "npm run fix:conflicts:batches"
+    }
+  ],
   "observedContracts": {
     "deferredModules": [
       {
@@ -107,6 +124,12 @@
     ]
   },
   "dataAuditActionPlan": [
+    {
+      "priority": "media",
+      "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
+      "count": 915,
+      "command": "npm run fix:conflicts:batches"
+    },
     {
       "priority": "baja",
       "title": "Planificar curaduria gradual de secciones base",

@@ -14,7 +14,12 @@ import {
   THEATER_SAFE_CONFLICT_RENAMES
 } from "./lib/conflict-curation-theater.js";
 import { collectConflictCountryNames, curateConflictDetail, curateConflictEntry } from "./lib/conflict-batch-curation.js";
-import { cleanConflictLabel, mergeConflictEntries } from "./lib/conflict-cleaning.js";
+import {
+  cleanConflictLabel,
+  isProvisionalConflictHierarchy,
+  mergeConflictEntries,
+  normalizeConflictKey
+} from "./lib/conflict-cleaning.js";
 import { normalizeVisibleValue } from "./lib/visible-data-corrections.js";
 import {
   areJsonValuesEquivalent,
@@ -152,6 +157,39 @@ function normalizeConflictEntry(entry) {
   return normalizeConflictEntryWithContext(entry, {});
 }
 
+function buildGeneratedHierarchyMap(generatedDetails = {}) {
+  const conflicts = generatedDetails.conflicts || generatedDetails;
+  const map = new Map();
+  for (const [rawName, detail] of Object.entries(conflicts || {})) {
+    const parent = detail?.parent || detail?.war || "";
+    const campaign = detail?.campaign || "";
+    const specificParent = parent && !isProvisionalConflictHierarchy({ parent }) ? parent : "";
+    const specificCampaign = campaign && !isProvisionalConflictHierarchy({ campaign }) ? campaign : "";
+    if (!specificParent && !specificCampaign) continue;
+    map.set(normalizeConflictKey(renameConflictName(detail?.pageTitle || rawName)), {
+      ...(specificParent ? { parent: specificParent, war: specificParent } : {}),
+      ...(specificCampaign ? { campaign: specificCampaign } : {})
+    });
+  }
+  return map;
+}
+
+function getGeneratedHierarchyPatch(entry = {}, generatedHierarchyByConflict = new Map()) {
+  const imported = generatedHierarchyByConflict.get(normalizeConflictKey(entry.name));
+  if (!imported) return {};
+  const currentParent = entry.parent || entry.war || "";
+  const currentCampaign = entry.campaign || "";
+  const patch = {};
+  if ((!currentParent || isProvisionalConflictHierarchy({ parent: currentParent })) && imported.parent) {
+    patch.parent = imported.parent;
+    patch.war = imported.war || imported.parent;
+  }
+  if ((!currentCampaign || isProvisionalConflictHierarchy({ campaign: currentCampaign })) && imported.campaign) {
+    patch.campaign = imported.campaign;
+  }
+  return patch;
+}
+
 function normalizeConflictEntryWithContext(entry, context) {
   if (!entry || typeof entry !== "object") {
     return entry;
@@ -162,18 +200,20 @@ function normalizeConflictEntryWithContext(entry, context) {
   };
   renamedEntry.name = getContextualConflictName(renamedEntry);
   const inferredCuration = inferWorldWarBattleCuration(renamedEntry);
+  const importedHierarchy = getGeneratedHierarchyPatch(renamedEntry, context.generatedHierarchyByConflict);
   const curatedDetailFix = curatedConflictDetailFixes[renamedEntry.name] || {};
   const curatedEntry = {
     ...renamedEntry,
     ...(inferredCuration || {}),
+    ...importedHierarchy,
     ...curatedDetailFix
   };
   return normalizeVisibleValue(curateConflictEntry(curatedEntry, context));
 }
 
-function fixCountryConflicts(country, countriesByConflict) {
+function fixCountryConflicts(country, countriesByConflict, generatedHierarchyByConflict) {
   let changed = 0;
-  const context = { country, countriesByConflict };
+  const context = { country, countriesByConflict, generatedHierarchyByConflict };
 
   for (const pathKey of ["conflicts"]) {
     if (!Array.isArray(country[pathKey])) {
@@ -205,15 +245,15 @@ function fixCountryConflicts(country, countriesByConflict) {
   return changed;
 }
 
-async function fixCountriesFile(filePath, countriesByConflict) {
+async function fixCountriesFile(filePath, countriesByConflict, generatedHierarchyByConflict) {
   const data = await readJsonWithRetry(filePath);
   let changedCountries = 0;
 
   if (data.name) {
-    changedCountries += fixCountryConflicts(data, countriesByConflict) ? 1 : 0;
+    changedCountries += fixCountryConflicts(data, countriesByConflict, generatedHierarchyByConflict) ? 1 : 0;
   } else {
     for (const country of Object.values(data)) {
-      changedCountries += fixCountryConflicts(country, countriesByConflict) ? 1 : 0;
+      changedCountries += fixCountryConflicts(country, countriesByConflict, generatedHierarchyByConflict) ? 1 : 0;
     }
   }
 
@@ -308,11 +348,12 @@ async function fixGeneratedDetails(countriesByConflict) {
 
 let changedFullCountries = 0;
 let countriesByConflict = new Map();
+const generatedHierarchyByConflict = buildGeneratedHierarchyMap(await readJsonWithRetry(generatedDetailsPath));
 const fullPassChanges = [];
 for (let pass = 0; pass < 8; pass += 1) {
   const fullCountries = await readJsonWithRetry(fullPath);
   countriesByConflict = collectConflictCountryNames(fullCountries);
-  const changedThisPass = await fixCountriesFile(fullPath, countriesByConflict);
+  const changedThisPass = await fixCountriesFile(fullPath, countriesByConflict, generatedHierarchyByConflict);
   fullPassChanges.push(changedThisPass);
   changedFullCountries += changedThisPass;
   if (!changedThisPass) break;
@@ -329,6 +370,7 @@ const report = {
   fullPassChanges,
   compactCountryFilesStrategy: "regenerated-by-buildDataIndexes",
   detailStats,
+  generatedHierarchyCandidates: generatedHierarchyByConflict.size,
   safeRenames: safeConflictRenames,
   curatedDetails: [...new Set(Object.keys(curatedConflictDetailFixes).map(renameConflictName))]
 };

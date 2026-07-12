@@ -84,6 +84,14 @@ export function normalizeConflictKey(value) {
     .trim();
 }
 
+export function isProvisionalConflictHierarchy(value = {}) {
+  const entry = value && typeof value === "object" ? value : { parent: value };
+  const parent = normalizeConflictKey(entry.parent || entry.war || "");
+  const campaign = normalizeConflictKey(entry.campaign || "");
+  return /^conflicto regional de\b/.test(parent)
+    || /^campana vinculada a conflicto regional de\b/.test(campaign);
+}
+
 export function cleanConflictLabel(value) {
   return stripConflictImportNoise(applyConflictUnicodeCorrections(repairConflictMojibake(value)))
     .replace(/[â€“â€”âˆ’]/g, "-")

@@ -17,6 +17,7 @@
 
   function getIssueLabels(isEnglish) {
     return {
+      provisional_parent: isEnglish ? "Provisional hierarchy" : "Jerarquia provisional",
       battle_without_parent: isEnglish ? "Battles without parent war" : "Batallas sin guerra padre",
       weak_detail: isEnglish ? "Weak detail" : "Detalle flojo",
       generic_side: isEnglish ? "Generic sides" : "Bandos genericos",
@@ -57,9 +58,9 @@
     `).join("");
   }
 
-  function buildTopRows({ isEnglish, report, countriesData = {} }) {
+  function buildTopRows({ isEnglish, report, countriesData = {}, rows = null }) {
     const issueLabels = getIssueLabels(isEnglish);
-    return (report?.topIssues || []).slice(0, 40).map(issue => {
+    return (rows || report?.topIssues || []).slice(0, 40).map(issue => {
       const countryCode = Array.isArray(issue.countries) ? issue.countries.find(code => countriesData?.[code]) : "";
       const issueTags = (issue.issues || []).map(key => `<span class="issue-chip">${escapeHtml(issueLabels[key] || key)}</span>`).join("");
       return `
@@ -78,18 +79,22 @@
     }).join("");
   }
 
-  function renderConflictAuditPanelContent({ language = "es", report, countriesData = {}, issueCards = "", focusRows = "", topRows = "" }) {
+  function renderConflictAuditPanelContent({ language = "es", report, countriesData = {}, issueCards = "", focusRows = "", topRows = "", advisoryRows = "" }) {
     const isEnglish = language === "en";
     const summary = report?.summary || {};
     const scanned = report?.scannedConflicts || 0;
     const issueCount = report?.issueCount || 0;
-    const cleanCount = Math.max(0, scanned - issueCount);
+    const advisoryCount = report?.advisoryCount || 0;
+    const reviewCount = report?.reviewCount ?? Math.min(scanned, issueCount + advisoryCount);
+    const cleanCount = Math.max(0, scanned - reviewCount);
     const cleanPercent = scanned ? Math.max(0, Math.min(100, Math.round((cleanCount / scanned) * 100))) : 0;
     const dominantIssue = Object.entries(summary).sort((a, b) => Number(b[1] || 0) - Number(a[1] || 0))[0];
     const dominantLabel = dominantIssue?.[0] === "weak_detail"
       ? (isEnglish ? "Weak detail dominates" : "Domina el detalle flojo")
       : dominantIssue?.[0] === "battle_without_parent"
         ? (isEnglish ? "Missing parent wars dominate" : "Dominan batallas sin padre")
+        : dominantIssue?.[0] === "provisional_parent"
+          ? (isEnglish ? "Provisional hierarchy dominates" : "Dominan jerarquias provisionales")
         : (isEnglish ? "Mixed cleanup debt" : "Deuda de limpieza mixta");
     const noRowsText = isEnglish
       ? "No urgent rows in the current report. Run the audit again after the next data import."
@@ -97,6 +102,12 @@
     const renderedIssueCards = issueCards || buildIssueCards({ isEnglish, report });
     const renderedFocusRows = focusRows || buildFocusRows({ isEnglish, report });
     const renderedTopRows = topRows || buildTopRows({ isEnglish, report, countriesData });
+    const renderedAdvisoryRows = advisoryRows || buildTopRows({
+      isEnglish,
+      report,
+      countriesData,
+      rows: report?.topAdvisories || []
+    });
     return `
       <div class="product-insight-strip">
         <span>${isEnglish
@@ -106,6 +117,7 @@
       <div class="product-summary-grid">
         <div class="overview-card"><span class="overview-label">${isEnglish ? "Scanned" : "Escaneados"}</span><strong class="overview-value">${scanned}</strong></div>
         <div class="overview-card"><span class="overview-label">${isEnglish ? "With alerts" : "Con alertas"}</span><strong class="overview-value">${issueCount}</strong></div>
+        <div class="overview-card"><span class="overview-label">${isEnglish ? "Provisional hierarchy" : "Jerarquia provisional"}</span><strong class="overview-value">${advisoryCount}</strong></div>
         <div class="overview-card"><span class="overview-label">${isEnglish ? "Weak detail" : "Detalle flojo"}</span><strong class="overview-value">${summary.weak_detail || 0}</strong></div>
         <div class="overview-card"><span class="overview-label">${isEnglish ? "No parent" : "Sin padre"}</span><strong class="overview-value">${summary.battle_without_parent || 0}</strong></div>
       </div>
@@ -116,11 +128,11 @@
         </div>
         <div class="health-progress-track"><i style="width:${cleanPercent}%"></i></div>
         <p>${isEnglish
-          ? `${cleanCount} conflicts without current audit alerts. Prioritize generic sides, missing parent wars and weak detail.`
-          : `${cleanCount} conflictos sin alertas actuales. Prioridad: bandos genericos, batallas sin guerra padre y detalle flojo.`}</p>
+          ? `${cleanCount} conflicts without alerts or editorial advisories. ${advisoryCount} still use provisional hierarchy.`
+          : `${cleanCount} conflictos sin alertas ni avisos editoriales. ${advisoryCount} todavia usan jerarquia provisional.`}</p>
       </div>
       <div class="conflict-priority-strip">
-        <span><b>1</b>${isEnglish ? "Parent battles" : "Parentar batallas"}</span>
+        <span><b>1</b>${isEnglish ? "Verify hierarchy" : "Verificar jerarquia"}</span>
         <span><b>2</b>${isEnglish ? "Clean sides" : "Limpiar bandos"}</span>
         <span><b>3</b>${isEnglish ? "Raise detail" : "Subir detalle"}</span>
       </div>
@@ -138,6 +150,15 @@
         <h3>${isEnglish ? "Issue map" : "Mapa de problemas"}</h3>
         <div class="risk-watch-grid">${renderedIssueCards}</div>
       </div>
+      ${advisoryCount ? `
+        <div class="help-section">
+          <h3>${isEnglish ? "Provisional hierarchies" : "Jerarquias provisionales"}</h3>
+          <p class="compare-note">${isEnglish
+            ? "These are useful grouping placeholders, not verified parent wars."
+            : "Son agrupadores de trabajo, no guerras padre verificadas."}</p>
+          <div class="audit-issue-list">${renderedAdvisoryRows}</div>
+        </div>
+      ` : ""}
       <div class="help-section">
         <h3>${isEnglish ? "Next top issues" : "Proximos casos urgentes"}</h3>
         <div class="audit-issue-list">${renderedTopRows || `<p class="empty-state">${noRowsText}</p>`}</div>

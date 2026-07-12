@@ -41,6 +41,16 @@ const suggestions = search.groupSuggestions(
 assert.equal(suggestions[0].type, "bloc", "debe rankear aliases cercanos");
 assert.ok(suggestions[0].groupLabel, "debe agrupar sugerencias por tipo");
 
+const exactCountryCollision = search.rankSuggestions([
+  { label: "Estados Unidos", type: "origin", value: "Estados Unidos", subtitle: "Origen historico" },
+  { label: "Estados Unidos", type: "country", value: "USA", subtitle: "Pais" },
+  { label: "Estados Unidos", type: "unknown_future_type", value: "future", subtitle: "Otro" }
+], "Estados Unidos", { limit: 5 });
+assert.equal(exactCountryCollision[0].type, "country", "una coincidencia exacta de pais debe ganar ante origenes y tipos auxiliares");
+assert.equal(exactCountryCollision.at(-1).type, "unknown_future_type", "tipos futuros desconocidos deben quedar al final, no antes que paises");
+assert.equal(search.groupSuggestions([{ type: "origin" }], "es")[0].groupLabel, "Origenes historicos", "sugerencias no deben mostrar claves tecnicas de origen");
+assert.equal(search.groupSuggestions([{ type: "metropole" }], "en")[0].groupLabel, "Former metropoles", "metropolis deben tener grupo legible en ingles");
+
 const natural = search.parseNaturalQuery("paises de Asia con mas conflictos", {
   continents: [["asia", "Asia"]],
   religions: [["islam", "Islamismo"]],

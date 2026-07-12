@@ -8,7 +8,18 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.51 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.52 antes de cerrar la siguiente version.
+
+## v1.6.52 - 2026-07-12
+
+- Recupera 23 relaciones de guerra padre y campana en 18 paises reutilizando jerarquias ya respaldadas por los detalles importados.
+- Distingue 833 jerarquias unicas provisionales de los errores reales de conflictos; el doctor deja de informar una completitud falsa y publica una cola editorial acotada.
+- Muestra `Jerarquia pendiente` en conflictos sin padre verificado y agrega el conteo correspondiente al checklist de cada ficha pais.
+- Corrige batallas sin padre que se mostraban como nivel `Guerra` y ajusta los contadores para no sumar acciones tacticas como guerras independientes.
+- Corrige busquedas exactas como `Estados Unidos` o `Corea del Sur`: los paises ahora tienen prioridad sobre origenes historicos, metropoli y tipos auxiliares.
+- Reemplaza claves tecnicas de sugerencias por grupos legibles para denominaciones, metropoli, origenes y formacion historica.
+- Agrega pruebas de jerarquia importada, deuda provisional, clasificacion guerra/campana/batalla y colisiones exactas del buscador.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-12-release-1`.
 
 ## v1.6.51 - 2026-07-11
 

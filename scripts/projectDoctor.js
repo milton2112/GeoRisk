@@ -133,6 +133,16 @@ if ((dataCounts.undatedHighLevelConflicts || 0) > 0) {
     "npm run fix:conflicts:batches"
   );
 }
+if ((dataCounts.provisionalConflictHierarchies || 0) > 0) {
+  addFinding(
+    findings,
+    "media",
+    "datos",
+    "Jerarquias de conflicto todavia provisionales",
+    `${dataCounts.provisionalConflictHierarchies} acciones usan un padre regional generico y no deben contarse como jerarquias verificadas.`,
+    "npm run fix:conflicts:batches"
+  );
+}
 if ((dataCounts.sameCountryDuplicateConflicts || 0) > 0) {
   addFinding(
     findings,

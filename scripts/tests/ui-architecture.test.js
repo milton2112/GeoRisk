@@ -135,6 +135,30 @@ assert.ok(profileHtml.includes('data-country-load-section="country-section-histo
 assert.equal(deferredQualityRenders, 0, "calidad no debe renderizarse mientras Fuentes siga cerrada");
 countryPanel.renderDataQuality = originalQualityRenderer;
 
+const conflictAuditWindow = await loadBrowserModule("app-conflict-audit-ui.js");
+const conflictAuditHtml = conflictAuditWindow.GeoRiskConflictAuditUi.renderConflictAuditPanelContent({
+  language: "es",
+  countriesData: { ARG: { name: "Argentina" } },
+  report: {
+    scannedConflicts: 3,
+    issueCount: 0,
+    advisoryCount: 1,
+    reviewCount: 1,
+    summary: { provisional_parent: 1 },
+    topIssues: [],
+    topAdvisories: [{
+      name: "Batalla con padre regional",
+      countries: ["ARG"],
+      hierarchyLabel: "Conflicto regional de America",
+      issues: ["provisional_parent"],
+      severity: 1
+    }]
+  }
+});
+assert.ok(conflictAuditHtml.includes("Jerarquias provisionales"), "auditoria visual debe separar deuda editorial de errores");
+assert.ok(conflictAuditHtml.includes("no guerras padre verificadas"), "auditoria debe explicar el alcance de agrupadores provisionales");
+assert.ok(conflictAuditHtml.includes("Batalla con padre regional"), "auditoria debe listar casos provisionales accionables");
+
 function createPanelInteractionEvent(selector, dataset = {}, textContent = "") {
   const trigger = { dataset, textContent };
   return {

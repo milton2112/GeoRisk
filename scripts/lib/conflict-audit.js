@@ -18,7 +18,12 @@ const BLOCK_FALSE_POSITIVES = {
   ])
 };
 
-import { cleanConflictLabel, inferConflictYearsFromText, normalizeConflictKey } from "./conflict-cleaning.js";
+import {
+  cleanConflictLabel,
+  inferConflictYearsFromText,
+  isProvisionalConflictHierarchy,
+  normalizeConflictKey
+} from "./conflict-cleaning.js";
 import { CURATED_CONFLICT_DETAIL_FIXES, SAFE_CONFLICT_RENAMES } from "./conflict-autofix-rules.js";
 import { EXTRA_CURATED_CONFLICT_DETAIL_FIXES, EXTRA_SAFE_CONFLICT_RENAMES } from "./conflict-curation-extra.js";
 import { US_REVOLUTION_CONFLICT_DETAIL_FIXES } from "./conflict-curation-us-revolution.js";
@@ -340,7 +345,7 @@ export function buildConflictAuditReport({ countries = {}, generatedDetails = {}
     record.details.push({ name, ...detail });
   }
 
-  const items = [...recordsByKey.values()].map(record => {
+  const analyzedItems = [...recordsByKey.values()].map(record => {
     const names = [...record.names].sort((a, b) => a.localeCompare(b, "es"));
     const representativeName = names.find(name => !getConflictNameIssues(name).includes("english")) || names[0];
     const issues = new Set();
@@ -377,6 +382,17 @@ export function buildConflictAuditReport({ countries = {}, generatedDetails = {}
       issues.delete("weak_detail");
     }
 
+    const parentLabels = allDetails.map(detail => detail?.parent || detail?.war || "").filter(Boolean);
+    const campaignLabels = allDetails.map(detail => detail?.campaign || "").filter(Boolean);
+    const specificParent = parentLabels.find(parent => !isProvisionalConflictHierarchy({ parent })) || "";
+    const provisionalParent = parentLabels.find(parent => isProvisionalConflictHierarchy({ parent })) || "";
+    const specificCampaign = campaignLabels.find(campaign => !isProvisionalConflictHierarchy({ campaign })) || "";
+    const provisionalCampaign = campaignLabels.find(campaign => isProvisionalConflictHierarchy({ campaign })) || "";
+    const provisionalHierarchy = Boolean(
+      (provisionalParent && !specificParent)
+      || (provisionalCampaign && !specificCampaign)
+    );
+
     const years = getConflictYears(allDetails.find(item => item.startYear || item.endYear) || allDetails[0] || {});
     const issueList = [...issues].sort();
 
@@ -388,11 +404,32 @@ export function buildConflictAuditReport({ countries = {}, generatedDetails = {}
       startYear: years.startYear,
       endYear: years.endYear,
       ongoing: years.ongoing,
+      provisionalHierarchy,
+      hierarchyLabel: specificParent || provisionalParent || specificCampaign || provisionalCampaign || "",
       issues: issueList,
       severity: scoreIssueSet(issueList),
       autoFixes: [...autoFixes].sort()
     };
-  }).filter(item => item.issues.length);
+  });
+
+  const items = analyzedItems.filter(item => item.issues.length);
+  const provisionalItems = analyzedItems
+    .filter(item => item.provisionalHierarchy)
+    .map(item => ({
+      key: item.key,
+      name: item.name,
+      countries: item.countries,
+      startYear: item.startYear,
+      endYear: item.endYear,
+      hierarchyLabel: item.hierarchyLabel,
+      issues: ["provisional_parent"],
+      severity: 1
+    }))
+    .sort((a, b) =>
+      (b.countries?.length || 0) - (a.countries?.length || 0)
+      || (a.startYear ?? 9999) - (b.startYear ?? 9999)
+      || a.name.localeCompare(b.name, "es")
+    );
 
   items.sort((a, b) =>
     b.severity - a.severity ||
@@ -406,12 +443,17 @@ export function buildConflictAuditReport({ countries = {}, generatedDetails = {}
     }
     return acc;
   }, {});
+  summary.provisional_parent = provisionalItems.length;
+  const reviewCount = analyzedItems.filter(item => item.issues.length || item.provisionalHierarchy).length;
 
   return {
     generatedAt: new Date().toISOString(),
     scannedConflicts: recordsByKey.size,
     issueCount: items.length,
+    advisoryCount: provisionalItems.length,
+    reviewCount,
     summary,
-    topIssues: items.slice(0, maxItems)
+    topIssues: items.slice(0, maxItems),
+    topAdvisories: provisionalItems.slice(0, Math.min(maxItems, 80))
   };
 }
