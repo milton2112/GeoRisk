@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { filterAuditConflicts, getConflictDetailIssues, getConflictNameIssues, hasUsefulDetail, isConflictAuditFalsePositive } from "../lib/conflict-audit.js";
+import { buildConflictAuditReport, filterAuditConflicts, getConflictDetailIssues, getConflictNameIssues, hasUsefulDetail, isConflictAuditFalsePositive } from "../lib/conflict-audit.js";
 
 assert.equal(isConflictAuditFalsePositive("post2000", "1919 Soviet invasion de Ukraine"), true);
 assert.equal(isConflictAuditFalsePositive("post2000", "Invasion de Irak de 2003"), false);
@@ -29,5 +29,24 @@ assert.equal(hasUsefulDetail({
   cause: "La disputa por el control del corredor fronterizo escalo tras varios incidentes diplomaticos.",
   outcome: "Acuerdo de alto el fuego supervisado por observadores regionales."
 }), true);
+
+const metadataYearReport = buildConflictAuditReport({
+  countries: {
+    TST: {
+      military: {
+        conflicts: [{
+          name: "Batalla sin fecha consolidada",
+          parent: "Conflicto regional de prueba",
+          campaign: "Campa\u00f1a vinculada a conflicto regional de prueba",
+          curationBatch: "safe-structured-conflict-curation-2026-06",
+          curationNote: "Metadatos agregados durante la curaduria de 2026."
+        }]
+      }
+    }
+  }
+});
+const metadataYearAdvisory = metadataYearReport.topAdvisories.find(item => item.name === "Batalla sin fecha consolidada");
+assert.equal(metadataYearAdvisory?.startYear, null, "metadatos tecnicos no deben convertirse en fecha historica");
+assert.equal(metadataYearAdvisory?.endYear, null, "la fecha final tampoco debe inferirse desde la tanda tecnica");
 
 console.log("conflict-audit.test.js ok");

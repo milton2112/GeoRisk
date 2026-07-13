@@ -8,7 +8,19 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.53 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.54 antes de cerrar la siguiente version.
+
+## v1.6.54 - 2026-07-12
+
+- Prepara una nueva version de mantenimiento con mediciones y auditorias actualizadas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-12-release-3`.
+- Corrige la auditoria temporal para que metadatos tecnicos como `curationBatch` no asignen falsamente el ano 2026 a batallas historicas sin fecha.
+- Verifica con fuentes 34 jerarquias visibles adicionales y reduce la cola editorial de 806 a 772 conflictos unicos; las relaciones provisionales por pais bajan de 851 a 783.
+- Completa fechas, guerra padre, campana, region, tipo, escala y fuente en acciones visibles de las guerras de Independencia estadounidense, Corea, Golfo, Afganistan, Ucrania, Sahara Occidental, Malvinas y otros escenarios.
+- Normaliza los nombres duplicados de Galwan, Samichon y el puerto de Tripoli, conservando una ficha canonica en espanol para cada hecho.
+- Agrega regresiones para impedir que notas, enlaces o identificadores de curaduria vuelvan a contaminar las fechas historicas y para exigir fuente y confianza a la nueva tanda.
+- Verifica en navegador que la busqueda de Estados Unidos abre la ficha completa sin errores ni advertencias de consola.
+- Mantiene el arranque critico en 810 KB, `script.js` en 543 KB y el indice inicial en 141 KB; el smoke de rendimiento registra 55 FPS promedio y cero long tasks sobre presupuesto.
 
 ## v1.6.53 - 2026-07-12
 

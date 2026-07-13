@@ -37,6 +37,10 @@ import {
   VISIBLE_MODERN_CONFLICT_DETAIL_FIXES,
   VISIBLE_MODERN_SAFE_CONFLICT_RENAMES
 } from "./conflict-curation-visible-modern.js";
+import {
+  VISIBLE_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  VISIBLE_FOLLOWUP_SAFE_CONFLICT_RENAMES
+} from "./conflict-curation-visible-followup.js";
 import { applyVisibleStringReplacements } from "./visible-data-corrections.js";
 
 const ALL_CURATED_CONFLICT_DETAIL_FIXES = {
@@ -49,7 +53,8 @@ const ALL_CURATED_CONFLICT_DETAIL_FIXES = {
   ...INTERWAR_CONFLICT_DETAIL_FIXES,
   ...WWII_1942_CONFLICT_DETAIL_FIXES,
   ...THEATER_CONFLICT_DETAIL_FIXES,
-  ...VISIBLE_MODERN_CONFLICT_DETAIL_FIXES
+  ...VISIBLE_MODERN_CONFLICT_DETAIL_FIXES,
+  ...VISIBLE_FOLLOWUP_CONFLICT_DETAIL_FIXES
 };
 const ALL_SAFE_CONFLICT_RENAMES = {
   ...SAFE_CONFLICT_RENAMES,
@@ -60,7 +65,8 @@ const ALL_SAFE_CONFLICT_RENAMES = {
   ...INTERWAR_SAFE_CONFLICT_RENAMES,
   ...WWII_1942_SAFE_CONFLICT_RENAMES,
   ...THEATER_SAFE_CONFLICT_RENAMES,
-  ...VISIBLE_MODERN_SAFE_CONFLICT_RENAMES
+  ...VISIBLE_MODERN_SAFE_CONFLICT_RENAMES,
+  ...VISIBLE_FOLLOWUP_SAFE_CONFLICT_RENAMES
 };
 
 const ENGLISH_CONFLICT_MARKERS = [
@@ -215,7 +221,24 @@ function getConflictYears(record) {
   if (explicitStart || explicitEnd) {
     return { startYear: explicitStart, endYear: explicitEnd, ongoing: Boolean(record.ongoing) };
   }
-  return inferConflictYearsFromText(flattenConflictText(record));
+
+  const semanticText = [
+    record.name,
+    record.pageTitle,
+    record.title,
+    record.summary,
+    record.description,
+    record.parent,
+    record.war,
+    record.campaign,
+    record.cause,
+    record.outcome,
+    record.consequences,
+    record.chronology,
+    record.treaties,
+    record.related
+  ];
+  return inferConflictYearsFromText(flattenConflictText(semanticText));
 }
 
 const WEAK_DETAIL_MARKERS = [

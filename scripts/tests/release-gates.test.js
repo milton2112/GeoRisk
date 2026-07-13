@@ -49,6 +49,7 @@ const featureHealth = await fs.readFile(path.join(projectRoot, "scripts/auditFea
 const buildDataIndexes = await fs.readFile(path.join(projectRoot, "scripts/buildDataIndexes.js"), "utf8");
 const conflictAutofix = await fs.readFile(path.join(projectRoot, "scripts/applyConflictAutofix.js"), "utf8");
 const visibleModernCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-visible-modern.js"), "utf8");
+const visibleFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-visible-followup.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
 const resilientFs = await fs.readFile(path.join(projectRoot, "scripts/lib/resilient-fs.js"), "utf8");
 const exportShare = await fs.readFile(path.join(projectRoot, "app-export-share.js"), "utf8");
@@ -115,7 +116,12 @@ assert.ok(!buildDataIndexes.includes("emptyDir("), "indices no deben vaciar dire
 assert.ok(conflictAutofix.includes("regenerated-by-buildDataIndexes"), "autofix debe dejar shards compactos al generador publico");
 assert.ok(!conflictAutofix.includes("fs.readdir(countriesDir)"), "autofix no debe enriquecer fichas compactas que luego se regeneran");
 assert.ok(conflictAutofix.includes("VISIBLE_MODERN_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda visible fuente-respaldada");
+assert.ok(conflictAutofix.includes("VISIBLE_FOLLOWUP_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la segunda tanda visible fuente-respaldada");
 assert.ok(visibleModernCuration.includes("hierarchySources"), "curaduria visible debe conservar trazabilidad por conflicto");
+assert.ok(visibleFollowupCuration.includes("hierarchySources"), "segunda curaduria visible debe conservar trazabilidad por conflicto");
+assert.ok(visibleFollowupCuration.includes('"Batalla de Brandywine"') && visibleFollowupCuration.includes("startYear: 1777"), "Brandywine no debe volver a quedar sin fecha");
+assert.ok(visibleFollowupCuration.includes('"Batalla de Garmsir"') && visibleFollowupCuration.includes("startYear: 2008"), "Garmsir no debe volver a quedar sin fecha");
+assert.ok(visibleFollowupCuration.includes('"Batalla de la isla de las Serpientes"') && visibleFollowupCuration.includes("startYear: 2022"), "isla de las Serpientes no debe volver a quedar sin fecha");
 assert.ok(visibleModernCuration.includes('"Batalla de Joybar"') && visibleModernCuration.includes("startYear: 2011"), "Joybar no debe regresar al ano 2001 incorrecto");
 assert.ok(visibleDataCorrections.includes('"pakistan\\u00ed"'), "normalizacion visible debe distinguir el adjetivo pakistani del nombre del pais");
 assert.equal(packageJson.scripts["prepush:check"], "node scripts/prepushCheck.js", "debe existir puerta local pre-push");

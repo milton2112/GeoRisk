@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-07-13T01:05:32.018Z",
+  "generatedAt": "2026-07-13T01:26:42.109Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 699
+      "count": 673
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 851
+      "count": 783
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 381
+      "count": 380
     },
     "redundantReligions": {
       "count": 0
@@ -260,39 +260,11 @@
     "undatedHighLevelConflicts": [],
     "provisionalConflictHierarchies": [
       {
-        "code": "DZA",
-        "name": "Primera batalla de Amgala",
-        "parent": "Conflicto regional de África",
-        "campaign": "Campaña vinculada a Conflicto regional de África",
-        "startYear": 1976
-      },
-      {
-        "code": "DZA",
-        "name": "Segunda batalla de Amgala",
-        "parent": "Conflicto regional de África",
-        "campaign": "Campaña vinculada a Conflicto regional de África",
-        "startYear": 1976
-      },
-      {
-        "code": "ARG",
-        "name": "Batalla de Pradera del Ganso",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": 1982
-      },
-      {
         "code": "ARG",
         "name": "Batalla de Toldos Viejos",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
-      },
-      {
-        "code": "ARM",
-        "name": "Batalla de Shusha (2020)",
-        "parent": "Conflicto regional de Asia",
-        "campaign": "Campaña vinculada a Conflicto regional de Asia",
-        "startYear": 2020
       },
       {
         "code": "AUS",
@@ -349,13 +321,6 @@
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
-      },
-      {
-        "code": "AZE",
-        "name": "Batalla de Shusha (2020)",
-        "parent": "Conflicto regional de Asia",
-        "campaign": "Campaña vinculada a Conflicto regional de Asia",
-        "startYear": 2020
       },
       {
         "code": "AZE",
@@ -436,20 +401,6 @@
       },
       {
         "code": "CHN",
-        "name": "Batalla de Galwan",
-        "parent": "Conflicto regional de Asia",
-        "campaign": "Campaña vinculada a Conflicto regional de Asia",
-        "startYear": 2020
-      },
-      {
-        "code": "CHN",
-        "name": "Combate en el valle del Galwan de 2020",
-        "parent": "Conflicto regional de Asia",
-        "campaign": "Campaña vinculada a Conflicto regional de Asia",
-        "startYear": 2020
-      },
-      {
-        "code": "CHN",
         "name": "Batalla de las Islas Paracelso",
         "parent": "Conflicto regional de Asia",
         "campaign": "Campaña vinculada a Conflicto regional de Asia",
@@ -475,20 +426,6 @@
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": 1977
-      },
-      {
-        "code": "CYP",
-        "name": "Batalla del Aeropuerto de Nicosia",
-        "parent": "Conflicto regional de Asia",
-        "campaign": "Campaña vinculada a Conflicto regional de Asia",
-        "startYear": 1974
-      },
-      {
-        "code": "DNK",
-        "name": "Sitio de Musa Qala",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": 2006
       },
       {
         "code": "DNK",
@@ -538,6 +475,69 @@
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
+      },
+      {
+        "code": "DNK",
+        "name": "Batalla de Schleswig",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "DNK",
+        "name": "Batalla de Zealand Point",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "DNK",
+        "name": "Batalla del Lago Peipus",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "ETH",
+        "name": "Ofensiva de Amhara de 2024",
+        "parent": "Conflicto regional de África",
+        "campaign": "Campaña vinculada a Conflicto regional de África",
+        "startYear": 2024
+      },
+      {
+        "code": "FIN",
+        "name": "Batalla de Petäjäsaari",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Incursion sobre Le Havre",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": 1759
+      },
+      {
+        "code": "FRA",
+        "name": "Atlantic incursion de junio 1796",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": 1796
+      },
+      {
+        "code": "FRA",
+        "name": "Incursion sobre Boulogne",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": 1804
+      },
+      {
+        "code": "FRA",
+        "name": "Combate de la Junon contra el Fox",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": 1809
       }
     ],
     "suspectRegions": [],
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 851,
+      "count": 783,
       "command": "npm run fix:conflicts:batches"
     },
     {

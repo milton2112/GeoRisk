@@ -6,6 +6,10 @@ import {
   VISIBLE_MODERN_CONFLICT_DETAIL_FIXES,
   VISIBLE_MODERN_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-visible-modern.js";
+import {
+  VISIBLE_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  VISIBLE_FOLLOWUP_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-visible-followup.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
 
@@ -26,6 +30,19 @@ assert.equal(VISIBLE_MODERN_CONFLICT_DETAIL_FIXES["Combate de El Manzano"].paren
 assert.ok(
   Object.values(VISIBLE_MODERN_CONFLICT_DETAIL_FIXES).every(detail => detail.hierarchyConfidence === "alta" && detail.hierarchySources?.[0]?.url),
   "la tanda visible debe conservar fuente y confianza especificas para cada jerarquia"
+);
+assert.equal(VISIBLE_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Brandywine"].startYear, 1777);
+assert.equal(VISIBLE_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Holowczyn"].parent, "Gran Guerra del Norte");
+assert.equal(VISIBLE_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Garmsir"].startYear, 2008);
+assert.equal(VISIBLE_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de la isla de las Serpientes"].startYear, 2022);
+assert.equal(VISIBLE_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Basantar"].parent, "Guerra indo-pakistan\u00ed de 1971");
+assert.equal(VISIBLE_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Samichon River"], "Batalla del r\u00edo Samichon");
+assert.equal(VISIBLE_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Galwan"], "Combate del valle de Galwan de 2020");
+assert.ok(
+  Object.values(VISIBLE_FOLLOWUP_CONFLICT_DETAIL_FIXES).every(detail =>
+    ["alta", "media"].includes(detail.hierarchyConfidence) && detail.hierarchySources?.[0]?.url
+  ),
+  "la segunda tanda visible debe conservar fuente y confianza especificas"
 );
 
 const curatedIntervention = curateConflictEntry({
@@ -78,6 +95,9 @@ const report = buildConflictAuditReport({
           { name: "Batalla de Saigon", startYear: 1955, endYear: 1955 },
           { name: "Batalla de Midway", startYear: 1942, endYear: 1942 },
           { name: "Batalla de Cheonpyeong Valley", startYear: 1951, endYear: 1951 },
+          { name: "Batalla de Brandywine", curationBatch: "safe-structured-conflict-curation-2026-06" },
+          { name: "Batalla de Galwan", startYear: 2020, endYear: 2020 },
+          { name: "Combate en el valle del Galwan de 2020", startYear: 2020, endYear: 2020 },
           { name: "Adriatic Campaign de World War II", startYear: 1939, endYear: 1945 }
         ]
       }
@@ -99,5 +119,10 @@ const cheonpyeong = [...report.topIssues, ...report.topAdvisories].find(item => 
 assert.equal(cheonpyeong?.provisionalHierarchy, false, "Cheonpyeong debe dejar de usar una jerarquia provisional");
 assert.equal(cheonpyeong?.hierarchyLabel, "Guerra de Corea", "Cheonpyeong debe auditarse bajo su guerra padre verificada");
 assert.ok(!report.topAdvisories.some(item => item.name === "Batalla de Cheonpyeong"), "Cheonpyeong no debe seguir en la cola provisional");
+assert.ok(!report.topAdvisories.some(item => item.name === "Batalla de Brandywine"), "Brandywine debe usar su jerarquia verificada");
+assert.ok(
+  ![...report.topIssues, ...report.topAdvisories].some(item => item.name === "Batalla de Galwan" || item.name === "Combate en el valle del Galwan de 2020"),
+  "las dos variantes de Galwan deben converger al nombre canonico"
+);
 
 console.log("conflict-autofix.test.js ok");

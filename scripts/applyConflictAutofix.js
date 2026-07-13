@@ -17,6 +17,10 @@ import {
   VISIBLE_MODERN_CONFLICT_DETAIL_FIXES,
   VISIBLE_MODERN_SAFE_CONFLICT_RENAMES
 } from "./lib/conflict-curation-visible-modern.js";
+import {
+  VISIBLE_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  VISIBLE_FOLLOWUP_SAFE_CONFLICT_RENAMES
+} from "./lib/conflict-curation-visible-followup.js";
 import { collectConflictCountryNames, curateConflictDetail, curateConflictEntry } from "./lib/conflict-batch-curation.js";
 import {
   cleanConflictLabel,
@@ -46,7 +50,8 @@ const curatedConflictDetailFixes = {
   ...INTERWAR_CONFLICT_DETAIL_FIXES,
   ...WWII_1942_CONFLICT_DETAIL_FIXES,
   ...THEATER_CONFLICT_DETAIL_FIXES,
-  ...VISIBLE_MODERN_CONFLICT_DETAIL_FIXES
+  ...VISIBLE_MODERN_CONFLICT_DETAIL_FIXES,
+  ...VISIBLE_FOLLOWUP_CONFLICT_DETAIL_FIXES
 };
 const safeConflictRenames = {
   ...SAFE_CONFLICT_RENAMES,
@@ -57,7 +62,8 @@ const safeConflictRenames = {
   ...INTERWAR_SAFE_CONFLICT_RENAMES,
   ...WWII_1942_SAFE_CONFLICT_RENAMES,
   ...THEATER_SAFE_CONFLICT_RENAMES,
-  ...VISIBLE_MODERN_SAFE_CONFLICT_RENAMES
+  ...VISIBLE_MODERN_SAFE_CONFLICT_RENAMES,
+  ...VISIBLE_FOLLOWUP_SAFE_CONFLICT_RENAMES
 };
 
 function renameConflictName(name) {

@@ -1,6 +1,6 @@
 {
   "name": "geo-risk",
-  "version": "1.6.53",
+  "version": "1.6.54",
   "type": "module",
   "scripts": {
     "build:data": "node scripts/buildDataset.js && node scripts/applyConflictAutofix.js && node scripts/applyVisibleDataCorrections.js && node scripts/buildDataIndexes.js",
