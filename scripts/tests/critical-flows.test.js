@@ -105,6 +105,21 @@ assert.ok(
   "resumen militar debe contar como guerras solo los grupos clasificados como guerra"
 );
 assert.ok(
+  script.includes("Fuentes de la jerarquia")
+    && script.includes("getSafeConflictSourceUrl")
+    && script.includes("hierarchySources"),
+  "ficha de conflicto debe mostrar fuentes verificables y validar sus enlaces"
+);
+assert.ok(
+  /detail\.parentName && normalizeText\(detail\.hierarchyConfidence\) === "alta"/.test(script),
+  "badge de jerarquia verificada debe depender de padre y confianza explicita"
+);
+assert.ok(
+  /function getConflictChronologyText\(item\)[\s\S]{0,180}item\?\.text \|\| item\?\.event \|\| item\?\.description/.test(script)
+    && (script.match(/getConflictChronologyText\(item\)/g) || []).length >= 4,
+  "cronologia de conflicto debe aceptar text, event y description sin renderizar objetos"
+);
+assert.ok(
   !script.includes("for (const [pattern, replacement] of CONFLICT_NAME_ALIASES)"),
   "runtime no debe depender de la tabla pesada extraida"
 );

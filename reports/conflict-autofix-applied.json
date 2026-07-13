@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-12T23:18:57.972Z",
+  "generatedAt": "2026-07-12T23:52:24.436Z",
   "changedFullCountries": 0,
   "fullPassChanges": [
     0
@@ -11,7 +11,7 @@
     "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 298,
+  "generatedHierarchyCandidates": 325,
   "safeRenames": {
     "Batalla naval de RÃ¼gen": "Batalla naval de Rugen",
     "Batalla de Rügen": "Batalla naval de Rugen",
@@ -174,7 +174,13 @@
     "Ogu Air Raid": "Ataque aereo de Ogu",
     "Wake Atoll raid": "Incursion sobre el atolon Wake",
     "Campana en África del Suroeste": "Campana en Africa del Suroeste",
-    "Incursión del Océano Índico": "Incursion del Oceano Indico"
+    "Incursión del Océano Índico": "Incursion del Oceano Indico",
+    "Batalla de Cheonpyeong Valley": "Batalla de Cheonpyeong",
+    "Batalla de Coral-Balmoral": "Batalla de Coral–Balmoral",
+    "Guerra de Malvinas (1982)": "Guerra de las Malvinas",
+    "Guerra indo-Pakistání de 1965": "Guerra indo-pakistaní de 1965",
+    "Guerra indo-Pakistání de 1971": "Guerra indo-pakistaní de 1971",
+    "Guerra afgano-Pakistání de 2026": "Guerra afgano-pakistaní de 2026"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -438,6 +444,33 @@
     "Campana en Africa del Suroeste",
     "Operacion Dinamo",
     "Incursion del Oceano Indico",
-    "Guerra del Pacifico de la Segunda Guerra Mundial"
+    "Guerra del Pacifico de la Segunda Guerra Mundial",
+    "Batalla de Ad-Dawrah",
+    "Batalla de Cheonpyeong",
+    "Batalla de White Horse",
+    "Batalla de Gang Toi",
+    "Batalla de Long Tan",
+    "Batalla de Coral–Balmoral",
+    "Batalla de Bubiyan",
+    "Batalla de Joybar",
+    "Batalla de Alasay",
+    "Combate de Buenavista",
+    "Combate de El Manzano",
+    "Combate de Río Grande",
+    "Combate naval de Iquique",
+    "Segundo combate naval de Iquique",
+    "Combate naval de Arica",
+    "Ofensiva de primavera de 1945 en Italia",
+    "Batalla de Chongju",
+    "Batalla de Kujin",
+    "Batalla de Yongju",
+    "Batalla de Chuam-ni",
+    "Batalla de Maehwa-san",
+    "Ofensiva china de primavera",
+    "Batalla de Hook",
+    "Batalla de Burullus",
+    "Batalla de Gurung Hill",
+    "Batalla de Rezang La",
+    "Batalla de Walong"
   ]
 }

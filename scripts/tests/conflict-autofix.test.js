@@ -2,6 +2,10 @@ import assert from "node:assert/strict";
 import { SAFE_CONFLICT_RENAMES, CURATED_CONFLICT_DETAIL_FIXES } from "../lib/conflict-autofix-rules.js";
 import { WWII_1942_CONFLICT_DETAIL_FIXES, WWII_1942_SAFE_CONFLICT_RENAMES } from "../lib/conflict-curation-1942.js";
 import { getContextualConflictName, THEATER_CONFLICT_DETAIL_FIXES, THEATER_SAFE_CONFLICT_RENAMES } from "../lib/conflict-curation-theater.js";
+import {
+  VISIBLE_MODERN_CONFLICT_DETAIL_FIXES,
+  VISIBLE_MODERN_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-visible-modern.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
 
@@ -12,6 +16,17 @@ assert.equal(WWII_1942_CONFLICT_DETAIL_FIXES["Batalla de Midway"].parent, "Segun
 assert.equal(THEATER_SAFE_CONFLICT_RENAMES["Sullivan Expedition"], "Expedicion de Sullivan");
 assert.equal(getContextualConflictName({ name: "Guerra del Pacifico", startYear: 1941 }), "Guerra del Pacifico de la Segunda Guerra Mundial");
 assert.equal(THEATER_CONFLICT_DETAIL_FIXES["Intervencion en Siberia"].region, "Siberia");
+assert.equal(VISIBLE_MODERN_SAFE_CONFLICT_RENAMES["Batalla de Cheonpyeong Valley"], "Batalla de Cheonpyeong");
+assert.equal(VISIBLE_MODERN_SAFE_CONFLICT_RENAMES["Guerra de Malvinas (1982)"], "Guerra de las Malvinas");
+assert.equal(VISIBLE_MODERN_CONFLICT_DETAIL_FIXES["Batalla de Cheonpyeong"].startYear, 1950);
+assert.equal(VISIBLE_MODERN_CONFLICT_DETAIL_FIXES["Batalla de Cheonpyeong"].parent, "Guerra de Corea");
+assert.equal(VISIBLE_MODERN_CONFLICT_DETAIL_FIXES["Batalla de Joybar"].startYear, 2011);
+assert.equal(VISIBLE_MODERN_CONFLICT_DETAIL_FIXES["Combate de Buenavista"].startYear, 1880);
+assert.equal(VISIBLE_MODERN_CONFLICT_DETAIL_FIXES["Combate de El Manzano"].parent, "Guerra del Pac\u00edfico");
+assert.ok(
+  Object.values(VISIBLE_MODERN_CONFLICT_DETAIL_FIXES).every(detail => detail.hierarchyConfidence === "alta" && detail.hierarchySources?.[0]?.url),
+  "la tanda visible debe conservar fuente y confianza especificas para cada jerarquia"
+);
 
 const curatedIntervention = curateConflictEntry({
   name: "Intervencion en Siberia",
@@ -62,6 +77,7 @@ const report = buildConflictAuditReport({
         conflicts: [
           { name: "Batalla de Saigon", startYear: 1955, endYear: 1955 },
           { name: "Batalla de Midway", startYear: 1942, endYear: 1942 },
+          { name: "Batalla de Cheonpyeong Valley", startYear: 1951, endYear: 1951 },
           { name: "Adriatic Campaign de World War II", startYear: 1939, endYear: 1945 }
         ]
       }
@@ -78,5 +94,10 @@ assert.ok(!adriatic, "Los renombres seguros deben canonicalizarse antes de audit
 
 const midway = report.topIssues.find(item => item.name === "Batalla de Midway");
 assert.ok(!midway?.issues.includes("battle_without_parent"), "Batalla de Midway debe tener padre curado");
+
+const cheonpyeong = [...report.topIssues, ...report.topAdvisories].find(item => item.name === "Batalla de Cheonpyeong");
+assert.equal(cheonpyeong?.provisionalHierarchy, false, "Cheonpyeong debe dejar de usar una jerarquia provisional");
+assert.equal(cheonpyeong?.hierarchyLabel, "Guerra de Corea", "Cheonpyeong debe auditarse bajo su guerra padre verificada");
+assert.ok(!report.topAdvisories.some(item => item.name === "Batalla de Cheonpyeong"), "Cheonpyeong no debe seguir en la cola provisional");
 
 console.log("conflict-autofix.test.js ok");

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-12T23:32:57.015Z",
+  "generatedAt": "2026-07-13T01:05:32.018Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
@@ -11,7 +11,7 @@
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 915
+      "count": 851
     },
     "suspectRegions": {
       "count": 0
@@ -260,20 +260,6 @@
     "undatedHighLevelConflicts": [],
     "provisionalConflictHierarchies": [
       {
-        "code": "AFG",
-        "name": "Batalla de Joybar",
-        "parent": "Conflicto regional de Asia",
-        "campaign": "Campaña vinculada a Conflicto regional de Asia",
-        "startYear": 2001
-      },
-      {
-        "code": "AFG",
-        "name": "Batalla de Alasay",
-        "parent": "Conflicto regional de Asia",
-        "campaign": "Campaña vinculada a Conflicto regional de Asia",
-        "startYear": 2009
-      },
-      {
         "code": "DZA",
         "name": "Primera batalla de Amgala",
         "parent": "Conflicto regional de África",
@@ -307,27 +293,6 @@
         "parent": "Conflicto regional de Asia",
         "campaign": "Campaña vinculada a Conflicto regional de Asia",
         "startYear": 2020
-      },
-      {
-        "code": "AUS",
-        "name": "Batalla de Gang Toi",
-        "parent": "Conflicto regional de Oceania",
-        "campaign": "Campaña vinculada a Conflicto regional de Oceania",
-        "startYear": 1965
-      },
-      {
-        "code": "AUS",
-        "name": "Batalla de Long Tan",
-        "parent": "Conflicto regional de Oceania",
-        "campaign": "Campaña vinculada a Conflicto regional de Oceania",
-        "startYear": 1966
-      },
-      {
-        "code": "AUS",
-        "name": "Batalla de Coral–Balmoral",
-        "parent": "Conflicto regional de Oceania",
-        "campaign": "Campaña vinculada a Conflicto regional de Oceania",
-        "startYear": 1968
       },
       {
         "code": "AUS",
@@ -407,13 +372,6 @@
         "startYear": null
       },
       {
-        "code": "BOL",
-        "name": "Combate de Río Grande",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": 1879
-      },
-      {
         "code": "CMR",
         "name": "Batalla de Kumbo",
         "parent": "Conflicto regional de África",
@@ -450,48 +408,6 @@
       },
       {
         "code": "CHL",
-        "name": "Combate de Buenavista",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": 1838
-      },
-      {
-        "code": "CHL",
-        "name": "Combate de El Manzano",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": 1838
-      },
-      {
-        "code": "CHL",
-        "name": "Combate de Río Grande",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": 1879
-      },
-      {
-        "code": "CHL",
-        "name": "Combate naval de Iquique",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": 1879
-      },
-      {
-        "code": "CHL",
-        "name": "Segundo combate naval de Iquique",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": 1879
-      },
-      {
-        "code": "CHL",
-        "name": "Combate naval de Arica",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": 1880
-      },
-      {
-        "code": "CHL",
         "name": "Combate de Huite",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
@@ -506,38 +422,122 @@
       },
       {
         "code": "CHN",
-        "name": "Batalla de White Horse",
-        "parent": "Conflicto regional de Asia",
-        "campaign": "Campaña vinculada a Conflicto regional de Asia",
-        "startYear": 1952
-      },
-      {
-        "code": "CHN",
-        "name": "Batalla de Gurung Hill",
-        "parent": "Conflicto regional de Asia",
-        "campaign": "Campaña vinculada a Conflicto regional de Asia",
-        "startYear": 1962
-      },
-      {
-        "code": "CHN",
-        "name": "Batalla de Rezang La",
-        "parent": "Conflicto regional de Asia",
-        "campaign": "Campaña vinculada a Conflicto regional de Asia",
-        "startYear": 1962
-      },
-      {
-        "code": "CHN",
-        "name": "Batalla de Walong",
-        "parent": "Conflicto regional de Asia",
-        "campaign": "Campaña vinculada a Conflicto regional de Asia",
-        "startYear": 1962
-      },
-      {
-        "code": "CHN",
         "name": "Segunda batalla de Zhenbao",
         "parent": "Conflicto regional de Asia",
         "campaign": "Campaña vinculada a Conflicto regional de Asia",
         "startYear": 1969
+      },
+      {
+        "code": "CHN",
+        "name": "Batalla de Fakashan",
+        "parent": "Conflicto regional de Asia",
+        "campaign": "Campaña vinculada a Conflicto regional de Asia",
+        "startYear": 1981
+      },
+      {
+        "code": "CHN",
+        "name": "Batalla de Galwan",
+        "parent": "Conflicto regional de Asia",
+        "campaign": "Campaña vinculada a Conflicto regional de Asia",
+        "startYear": 2020
+      },
+      {
+        "code": "CHN",
+        "name": "Combate en el valle del Galwan de 2020",
+        "parent": "Conflicto regional de Asia",
+        "campaign": "Campaña vinculada a Conflicto regional de Asia",
+        "startYear": 2020
+      },
+      {
+        "code": "CHN",
+        "name": "Batalla de las Islas Paracelso",
+        "parent": "Conflicto regional de Asia",
+        "campaign": "Campaña vinculada a Conflicto regional de Asia",
+        "startYear": null
+      },
+      {
+        "code": "CHN",
+        "name": "Primera batalla de Zhenbao",
+        "parent": "Conflicto regional de Asia",
+        "campaign": "Campaña vinculada a Conflicto regional de Asia",
+        "startYear": null
+      },
+      {
+        "code": "CUB",
+        "name": "Batalla de Harar",
+        "parent": "Conflicto regional de América",
+        "campaign": "Campaña vinculada a Conflicto regional de América",
+        "startYear": 1977
+      },
+      {
+        "code": "CUB",
+        "name": "Batalla de Jijiga",
+        "parent": "Conflicto regional de América",
+        "campaign": "Campaña vinculada a Conflicto regional de América",
+        "startYear": 1977
+      },
+      {
+        "code": "CYP",
+        "name": "Batalla del Aeropuerto de Nicosia",
+        "parent": "Conflicto regional de Asia",
+        "campaign": "Campaña vinculada a Conflicto regional de Asia",
+        "startYear": 1974
+      },
+      {
+        "code": "DNK",
+        "name": "Sitio de Musa Qala",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": 2006
+      },
+      {
+        "code": "DNK",
+        "name": "Batalla de Assandun",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "DNK",
+        "name": "Batalla de Bornholm",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "DNK",
+        "name": "Batalla de Bov",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "DNK",
+        "name": "Batalla de Dogger Bank",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "DNK",
+        "name": "Batalla de Fredericia",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "DNK",
+        "name": "Batalla de Heligoland",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "DNK",
+        "name": "Batalla de Isted",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
       }
     ],
     "suspectRegions": [],
@@ -550,15 +550,6 @@
         "countries": [
           "AFG",
           "PAK"
-        ]
-      },
-      {
-        "name": "Batalla de Joybar",
-        "count": 3,
-        "countries": [
-          "AFG",
-          "FRA",
-          "USA"
         ]
       },
       {
@@ -588,7 +579,16 @@
         ]
       },
       {
-        "name": "Guerra afgano-Pakistání de 2026",
+        "name": "Batalla de Joybar",
+        "count": 3,
+        "countries": [
+          "AFG",
+          "FRA",
+          "USA"
+        ]
+      },
+      {
+        "name": "Guerra afgano-pakistaní de 2026",
         "count": 2,
         "countries": [
           "AFG",
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 915,
+      "count": 851,
       "command": "npm run fix:conflicts:batches"
     },
     {

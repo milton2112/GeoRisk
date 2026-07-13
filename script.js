@@ -83,7 +83,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-07-12-release-1";
+const APP_VERSION = "2026-07-12-release-2";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -1903,10 +1903,16 @@ const CONFLICT_DETAIL_OVERRIDES = {
 
 Object.assign(CONFLICT_DETAIL_OVERRIDES, curatedConflictDetailOverrides);
 
+function getConflictChronologyText(item) {
+  return typeof item === "string"
+    ? item
+    : (item?.text || item?.event || item?.description || "");
+}
+
 function mergeConflictChronology(baseItems = [], importedItems = []) {
   const seen = new Set();
   return [...baseItems, ...importedItems].filter(item => {
-    const key = `${item?.year || ""}:${normalizeText(item?.text || item || "")}`;
+    const key = `${item?.year || ""}:${normalizeText(getConflictChronologyText(item))}`;
     if (!key || seen.has(key)) {
       return false;
     }
@@ -2048,8 +2054,8 @@ function normalizeWikipediaConflictDetail(detail = {}) {
   if (Array.isArray(detail.chronology)) {
     normalized.chronology = detail.chronology
       .map(item => ({
-        ...item,
-        text: sanitizeConflictModalText(item?.text || item || "")
+        ...(item && typeof item === "object" ? item : {}),
+        text: sanitizeConflictModalText(getConflictChronologyText(item))
       }))
       .filter(item => item.text)
       .sort((a, b) => {
@@ -5699,6 +5705,9 @@ function renderConflictTrustBadges(detail = {}) {
   const badges = [
     getConflictCurationStatusLabel(detail.curationStatus),
     getConflictConfidenceLabel(detail.dataConfidence),
+    detail.parentName && normalizeText(detail.hierarchyConfidence) === "alta"
+      ? (currentLanguage === "en" ? "Verified hierarchy" : "Jerarquia verificada")
+      : "",
     detail.hierarchyProvisional
       ? (currentLanguage === "en" ? "Hierarchy pending" : "Jerarquia pendiente")
       : ""
@@ -5712,6 +5721,41 @@ function renderConflictTrustBadges(detail = {}) {
   return `
     <div class="conflict-trust-badges" aria-label="${escapeHtml(label)}">
       ${badges.map(item => `<span class="conflict-trust-badge">${escapeHtml(item)}</span>`).join("")}
+    </div>
+  `;
+}
+
+function getSafeConflictSourceUrl(value) {
+  try {
+    const url = new URL(String(value || ""), window.location.href);
+    return ["https:", "http:"].includes(url.protocol) ? url.href : "";
+  } catch {
+    return "";
+  }
+}
+
+function renderConflictHierarchySources(sources = []) {
+  const items = (Array.isArray(sources) ? sources : [])
+    .map(item => typeof item === "string" ? { label: item, url: "" } : item)
+    .map(item => ({
+      label: String(item?.label || item?.url || "").trim(),
+      url: getSafeConflictSourceUrl(item?.url)
+    }))
+    .filter(item => item.label)
+    .filter((item, index, list) => index === list.findIndex(candidate => candidate.label === item.label && candidate.url === item.url));
+
+  if (!items.length) {
+    return "";
+  }
+
+  return `
+    <div class="conflict-modal-section conflict-hierarchy-sources">
+      <h4>${currentLanguage === "en" ? "Hierarchy sources" : "Fuentes de la jerarquia"}</h4>
+      <ul class="data-source-list">
+        ${items.map(item => `<li>${item.url
+          ? `<a class="conflict-source-link" href="${escapeHtml(item.url)}" target="_blank" rel="noreferrer">${escapeHtml(item.label)}</a>`
+          : escapeHtml(item.label)}</li>`).join("")}
+      </ul>
     </div>
   `;
 }
@@ -5735,7 +5779,10 @@ function getConflictModalContent(conflict, countryName = "") {
     : null;
   const countryRelationship = getConflictCountryRelationship({ ...detail, participants }, contextCountry);
   const chronology = (Array.isArray(detail.chronology) && detail.chronology.length ? detail.chronology : buildGenericConflictChronology(conflict))
-    .map(item => ({ ...item, text: sanitizeConflictModalText(item?.text || item || "") }))
+    .map(item => ({
+      ...(item && typeof item === "object" ? item : {}),
+      text: sanitizeConflictModalText(getConflictChronologyText(item))
+    }))
     .filter(item => item.text)
     .sort((a, b) => {
       const yearA = Number.isFinite(Number(a?.year)) ? Number(a.year) : Number.MAX_SAFE_INTEGER;
@@ -5764,6 +5811,8 @@ function getConflictModalContent(conflict, countryName = "") {
     consequences: detail.consequences || buildGenericConflictConsequences(conflict, type, region, countryName),
     curationStatus: detail.curationStatus || conflict.curationStatus || ((detail.curationBatch || conflict.curationBatch) ? "estructural" : ""),
     dataConfidence: detail.dataConfidence || conflict.dataConfidence || "",
+    hierarchyConfidence: detail.hierarchyConfidence || conflict.hierarchyConfidence || "",
+    hierarchySources: detail.hierarchySources || conflict.hierarchySources || [],
     wikipedia: detail.wikipedia || null
   };
 }
@@ -5931,6 +5980,7 @@ function openConflictModal(key, { enhance = true } = {}) {
       ${detail.parentName ? `<div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Parent conflict" : "Conflicto padre"}</span><strong class="overview-value">${escapeHtml(detail.parentName)}</strong></div>` : ""}
       ${detail.countryRelationship?.sideLabels?.length ? `<div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Country side" : "Bando del pais"}</span><strong class="overview-value">${escapeHtml(detail.countryRelationship.sideLabels.join(" / "))}</strong></div>` : ""}
     </div>
+    ${renderConflictHierarchySources(detail.hierarchySources)}
     <div class="conflict-modal-section">
       <h4>${currentLanguage === "en" ? "Why it started" : "Por que estallo"}</h4>
       <p>${escapeHtml(detail.cause)}</p>

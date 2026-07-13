@@ -3237,6 +3237,22 @@ body.presentation-mode #top-controls {
   color: #4da3ff;
 }
 
+.conflict-hierarchy-sources {
+  padding: 10px 12px;
+  border-left: 3px solid rgba(94, 205, 154, 0.74);
+  background: rgba(20, 87, 65, 0.16);
+}
+
+.conflict-source-link {
+  color: #9fe0ff;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.conflict-source-link:is(:hover, :focus-visible) {
+  color: #e2f6ff;
+}
+
 .conflict-modal-side {
   margin-bottom: 10px;
   padding: 11px 12px;

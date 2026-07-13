@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
+import { normalizeVisibleValue } from "../lib/visible-data-corrections.js";
 
 const history = JSON.parse(fs.readFileSync("data/raw/history.json", "utf8"));
 const politics = JSON.parse(fs.readFileSync("data/raw/politics_details.json", "utf8"));
@@ -12,6 +13,9 @@ const englishSignal = /\b(of|the|for|realm|british|cameroon|republic|federation|
 const religionEnglishSignal = /\b(christian|muslim|jewish|buddhist|hindu|folk|unaffiliated|other religions|atheist|agnostic|shinto|sunni|shiite|catholic|orthodox|protestant|evangelical)\b/i;
 const staleReligionTextSignal = /Judaismo|Hindues|Catolicos|Sintoistas|agnosticos|afiliacion|Sin religion|Sin poblacion|alevies/i;
 const mojibakeSignal = /Ã|Â|â€|�/;
+
+assert.equal(normalizeVisibleValue("Guerra indo-Pakistan\u00ed de 1971"), "Guerra indo-pakistan\u00ed de 1971");
+assert.equal(normalizeVisibleValue("Frontera de Pakistan"), "Frontera de Pakist\u00e1n");
 
 function collectJsonFiles(directory) {
   return fs.readdirSync(directory, { withFileTypes: true }).flatMap(entry => {
@@ -727,6 +731,37 @@ for (const expectation of sourcedHierarchyExpectations) {
     `${expectation.name} debe reutilizar la guerra padre respaldada por el detalle importado`
   );
 }
+
+const visibleHierarchyExpectations = [
+  { name: "Batalla de Cheonpyeong", parent: "Guerra de Corea", startYear: 1950 },
+  { name: "Batalla de Joybar", parent: "Guerra de Afganist\u00e1n", startYear: 2011 },
+  { name: "Combate de Buenavista", parent: "Guerra del Pac\u00edfico", startYear: 1880 },
+  { name: "Combate de El Manzano", parent: "Guerra del Pac\u00edfico", startYear: 1880 },
+  { name: "Batalla de Long Tan", parent: "Guerra de Vietnam", startYear: 1966 },
+  { name: "Batalla de Bubiyan", parent: "Guerra del Golfo", startYear: 1991 },
+  { name: "Batalla de Walong", parent: "Guerra sino-india", startYear: 1962 }
+];
+for (const expectation of visibleHierarchyExpectations) {
+  const entries = Object.values(countries).flatMap(country => country.military?.conflicts || [])
+    .filter(conflict => conflict.name === expectation.name);
+  assert.ok(entries.length > 0, `Debe existir ${expectation.name} tras la tanda visible`);
+  assert.ok(
+    entries.every(conflict => conflict.parent === expectation.parent && conflict.startYear === expectation.startYear),
+    `${expectation.name} debe conservar fecha y guerra padre verificadas`
+  );
+  const detail = conflictDetails.conflicts?.[expectation.name];
+  assert.equal(detail?.hierarchyConfidence, "alta", `${expectation.name} debe declarar confianza de jerarquia`);
+  assert.ok(detail?.hierarchySources?.[0]?.url, `${expectation.name} debe publicar la fuente de su jerarquia`);
+}
+
+const staleVisibleConflictNames = Object.values(countries).flatMap(country => country.military?.conflicts || [])
+  .filter(conflict => [
+    "Batalla de Cheonpyeong Valley",
+    "Guerra de Malvinas (1982)",
+    "Guerra indo-Pakist\u00e1n\u00ed de 1965",
+    "Guerra indo-Pakist\u00e1n\u00ed de 1971"
+  ].includes(conflict.name));
+assert.deepEqual(staleVisibleConflictNames, [], "nombres visibles duplicados o con capitalizacion incorrecta deben canonicalizarse");
 
 const invalidConflictYearRanges = Object.entries(countries).flatMap(([code, country]) =>
   (country.military?.conflicts || []).map(conflict => ({ code, ...conflict }))

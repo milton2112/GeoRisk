@@ -1,429 +1,14 @@
 {
-  "generatedAt": "2026-07-12T23:32:53.703Z",
-  "scannedConflicts": 2008,
+  "generatedAt": "2026-07-13T01:05:28.892Z",
+  "scannedConflicts": 2007,
   "issueCount": 0,
-  "advisoryCount": 833,
-  "reviewCount": 833,
+  "advisoryCount": 806,
+  "reviewCount": 806,
   "summary": {
-    "provisional_parent": 833
+    "provisional_parent": 806
   },
   "topIssues": [],
   "topAdvisories": [
-    {
-      "key": "batalla de ad dawrah",
-      "name": "Batalla de Ad-Dawrah",
-      "countries": [
-        "GBR",
-        "IRQ",
-        "KWT",
-        "USA"
-      ],
-      "startYear": 1991,
-      "endYear": 1991,
-      "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de cheonpyeong valley",
-      "name": "Batalla de Cheonpyeong Valley",
-      "countries": [
-        "KOR",
-        "PRK",
-        "USA"
-      ],
-      "startYear": 1951,
-      "endYear": 1951,
-      "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de white horse",
-      "name": "Batalla de White Horse",
-      "countries": [
-        "CHN",
-        "KOR",
-        "USA"
-      ],
-      "startYear": 1952,
-      "endYear": 1952,
-      "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de gang toi",
-      "name": "Batalla de Gang Toi",
-      "countries": [
-        "AUS",
-        "NZL",
-        "USA"
-      ],
-      "startYear": 1965,
-      "endYear": 1965,
-      "hierarchyLabel": "Conflicto regional de Oceania",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de long tan",
-      "name": "Batalla de Long Tan",
-      "countries": [
-        "AUS",
-        "NZL",
-        "USA"
-      ],
-      "startYear": 1966,
-      "endYear": 1966,
-      "hierarchyLabel": "Conflicto regional de Oceania",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de coral balmoral",
-      "name": "Batalla de Coral–Balmoral",
-      "countries": [
-        "AUS",
-        "NZL",
-        "USA"
-      ],
-      "startYear": 1968,
-      "endYear": 1968,
-      "hierarchyLabel": "Conflicto regional de Oceania",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de bubiyan",
-      "name": "Batalla de Bubiyan",
-      "countries": [
-        "GBR",
-        "IRQ",
-        "USA"
-      ],
-      "startYear": 1991,
-      "endYear": 1991,
-      "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de joybar",
-      "name": "Batalla de Joybar",
-      "countries": [
-        "AFG",
-        "FRA",
-        "USA"
-      ],
-      "startYear": 2001,
-      "endYear": 2001,
-      "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de alasay",
-      "name": "Batalla de Alasay",
-      "countries": [
-        "AFG",
-        "FRA",
-        "USA"
-      ],
-      "startYear": 2009,
-      "endYear": 2009,
-      "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "combate de buenavista",
-      "name": "Combate de Buenavista",
-      "countries": [
-        "CHL",
-        "PER"
-      ],
-      "startYear": 1838,
-      "endYear": 1838,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "combate de el manzano",
-      "name": "Combate de El Manzano",
-      "countries": [
-        "CHL",
-        "PER"
-      ],
-      "startYear": 1838,
-      "endYear": 1838,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "combate de rio grande",
-      "name": "Combate de Río Grande",
-      "countries": [
-        "BOL",
-        "CHL"
-      ],
-      "startYear": 1879,
-      "endYear": 1879,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "combate naval de iquique",
-      "name": "Combate naval de Iquique",
-      "countries": [
-        "CHL",
-        "PER"
-      ],
-      "startYear": 1879,
-      "endYear": 1879,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "segundo combate naval de iquique",
-      "name": "Segundo combate naval de Iquique",
-      "countries": [
-        "CHL",
-        "PER"
-      ],
-      "startYear": 1879,
-      "endYear": 1879,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "combate naval de arica",
-      "name": "Combate naval de Arica",
-      "countries": [
-        "CHL",
-        "PER"
-      ],
-      "startYear": 1880,
-      "endYear": 1880,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "ofensiva de primavera de 1945 en italia",
-      "name": "Ofensiva de primavera de 1945 en Italia",
-      "countries": [
-        "GBR",
-        "USA"
-      ],
-      "startYear": 1945,
-      "endYear": 1945,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de chongju",
-      "name": "Batalla de Chongju",
-      "countries": [
-        "GBR",
-        "USA"
-      ],
-      "startYear": 1950,
-      "endYear": 1950,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de kujin",
-      "name": "Batalla de Kujin",
-      "countries": [
-        "GBR",
-        "USA"
-      ],
-      "startYear": 1950,
-      "endYear": 1950,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de yongju",
-      "name": "Batalla de Yongju",
-      "countries": [
-        "GBR",
-        "USA"
-      ],
-      "startYear": 1950,
-      "endYear": 1950,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de chuam ni",
-      "name": "Batalla de Chuam-ni",
-      "countries": [
-        "GBR",
-        "USA"
-      ],
-      "startYear": 1951,
-      "endYear": 1951,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de maehwa san",
-      "name": "Batalla de Maehwa-san",
-      "countries": [
-        "GBR",
-        "USA"
-      ],
-      "startYear": 1951,
-      "endYear": 1951,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "ofensiva china de primavera",
-      "name": "Ofensiva china de primavera",
-      "countries": [
-        "GBR",
-        "USA"
-      ],
-      "startYear": 1951,
-      "endYear": 1951,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de hook",
-      "name": "Batalla de Hook",
-      "countries": [
-        "GBR",
-        "USA"
-      ],
-      "startYear": 1953,
-      "endYear": 1953,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de burullus",
-      "name": "Batalla de Burullus",
-      "countries": [
-        "FRA",
-        "GBR"
-      ],
-      "startYear": 1956,
-      "endYear": 1956,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de gurung hill",
-      "name": "Batalla de Gurung Hill",
-      "countries": [
-        "CHN",
-        "IND"
-      ],
-      "startYear": 1962,
-      "endYear": 1962,
-      "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de rezang la",
-      "name": "Batalla de Rezang La",
-      "countries": [
-        "CHN",
-        "IND"
-      ],
-      "startYear": 1962,
-      "endYear": 1962,
-      "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de walong",
-      "name": "Batalla de Walong",
-      "countries": [
-        "CHN",
-        "IND"
-      ],
-      "startYear": 1962,
-      "endYear": 1962,
-      "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
     {
       "key": "batalla de basantar",
       "name": "Batalla de Basantar",
@@ -1206,6 +791,384 @@
       "startYear": 1820,
       "endYear": 1820,
       "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "ofensiva confederada heartland",
+      "name": "Ofensiva confederada Heartland",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1862,
+      "endYear": 1862,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de csaszarkobanya",
+      "name": "Batalla de Császárkőbanya",
+      "countries": [
+        "AUT"
+      ],
+      "startYear": 1921,
+      "endYear": 1921,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de battle mountain",
+      "name": "Batalla de Battle Mountain",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1950,
+      "endYear": 1950,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de bowling alley",
+      "name": "Batalla de Bowling Alley",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1950,
+      "endYear": 1950,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de chochiwon",
+      "name": "Batalla de Chochiwon",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1950,
+      "endYear": 1950,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de chonan",
+      "name": "Batalla de Chonan",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1950,
+      "endYear": 1950,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de haman",
+      "name": "Batalla de Haman",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1950,
+      "endYear": 1950,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de hwanggan",
+      "name": "Batalla de Hwanggan",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1950,
+      "endYear": 1950,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de ka san",
+      "name": "Batalla de Ka-san",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1950,
+      "endYear": 1950,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de kyongju",
+      "name": "Batalla de Kyongju",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1950,
+      "endYear": 1950,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de masan",
+      "name": "Batalla de Masan",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1950,
+      "endYear": 1950,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de nam river",
+      "name": "Batalla de Nam River",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1950,
+      "endYear": 1950,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de p ohang dong",
+      "name": "Batalla de P'ohang-dong",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1950,
+      "endYear": 1950,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de sangju",
+      "name": "Batalla de Sangju",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1950,
+      "endYear": 1950,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de tabu dong",
+      "name": "Batalla de Tabu-dong",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1950,
+      "endYear": 1950,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de taegu",
+      "name": "Batalla de Taegu",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1950,
+      "endYear": 1950,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de taejon",
+      "name": "Batalla de Taejon",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1950,
+      "endYear": 1950,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de unsan",
+      "name": "Batalla de Unsan",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1950,
+      "endYear": 1950,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de yongdong",
+      "name": "Batalla de Yongdong",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1950,
+      "endYear": 1950,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de yongsan",
+      "name": "Batalla de Yongsan",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1950,
+      "endYear": 1950,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "segunda batalla de seul",
+      "name": "Segunda Batalla de Seúl",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1950,
+      "endYear": 1950,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de chipyong ni",
+      "name": "Batalla de Chipyong-ni",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1951,
+      "endYear": 1951,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de hoengsong",
+      "name": "Batalla de Hoengsong",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1951,
+      "endYear": 1951,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de uijeongbu 1951",
+      "name": "Batalla de Uijeongbu (1951)",
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1951,
+      "endYear": 1951,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de hill eerie",
+      "name": "Batalla de Hill Eerie",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1952,
+      "endYear": 1952,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "segunda batalla de hook",
+      "name": "Segunda batalla de Hook",
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1952,
+      "endYear": 1952,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de oum el achar 1956",
+      "name": "Batalla de Oum El Achar (1956)",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": 1956,
+      "endYear": 1956,
+      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],

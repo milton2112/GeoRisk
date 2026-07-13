@@ -48,6 +48,8 @@ const releaseArtifacts = await fs.readFile(path.join(projectRoot, "scripts/audit
 const featureHealth = await fs.readFile(path.join(projectRoot, "scripts/auditFeatureHealth.js"), "utf8");
 const buildDataIndexes = await fs.readFile(path.join(projectRoot, "scripts/buildDataIndexes.js"), "utf8");
 const conflictAutofix = await fs.readFile(path.join(projectRoot, "scripts/applyConflictAutofix.js"), "utf8");
+const visibleModernCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-visible-modern.js"), "utf8");
+const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
 const resilientFs = await fs.readFile(path.join(projectRoot, "scripts/lib/resilient-fs.js"), "utf8");
 const exportShare = await fs.readFile(path.join(projectRoot, "app-export-share.js"), "utf8");
 const conflictRules = await fs.readFile(path.join(projectRoot, "app-conflict-rules.js"), "utf8");
@@ -112,6 +114,10 @@ assert.ok(buildDataIndexes.includes("removeStaleJsonFiles"), "indices deben reti
 assert.ok(!buildDataIndexes.includes("emptyDir("), "indices no deben vaciar directorios publicos completos");
 assert.ok(conflictAutofix.includes("regenerated-by-buildDataIndexes"), "autofix debe dejar shards compactos al generador publico");
 assert.ok(!conflictAutofix.includes("fs.readdir(countriesDir)"), "autofix no debe enriquecer fichas compactas que luego se regeneran");
+assert.ok(conflictAutofix.includes("VISIBLE_MODERN_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda visible fuente-respaldada");
+assert.ok(visibleModernCuration.includes("hierarchySources"), "curaduria visible debe conservar trazabilidad por conflicto");
+assert.ok(visibleModernCuration.includes('"Batalla de Joybar"') && visibleModernCuration.includes("startYear: 2011"), "Joybar no debe regresar al ano 2001 incorrecto");
+assert.ok(visibleDataCorrections.includes('"pakistan\\u00ed"'), "normalizacion visible debe distinguir el adjetivo pakistani del nombre del pais");
 assert.equal(packageJson.scripts["prepush:check"], "node scripts/prepushCheck.js", "debe existir puerta local pre-push");
 assert.equal(packageJson.scripts["clean:storage"], "node scripts/cleanStorage.js", "debe existir limpieza local de almacenamiento");
 assert.equal(packageJson.scripts["release:prepare"], "node scripts/prepareRelease.js", "debe existir preparacion automatica de release");
@@ -264,6 +270,8 @@ assert.ok(!script.includes("const religionDenomination = religionDenominationAli
 assert.ok(!script.includes("if (/con mas conflictos|with more conflicts/.test(query))"), "rankings naturales no deben tener un fallback duplicado");
 assert.ok(!script.includes("let activeIndex = 0;\n  let currentSuggestions"), "sugerencias no deben secuestrar Enter sin navegacion explicita");
 assert.ok(script.includes("Jerarquia pendiente"), "ficha de conflicto debe avisar cuando la guerra padre es solo provisional");
+assert.ok(script.includes("Jerarquia verificada"), "ficha de conflicto debe distinguir jerarquias con fuente explicita");
+assert.ok(!script.includes("item?.text || item ||"), "modal de conflicto no debe convertir objetos de cronologia en texto implicito");
 assert.ok(appQuiz.includes("function renderPanel"), "render completo del quiz debe vivir en app-quiz-ui diferido");
 assert.ok(appQuiz.includes("function renderFeedback"), "feedback del quiz debe vivir en app-quiz-ui diferido");
 assert.ok(!script.includes("<span class=\"quiz-meta-pill\">"), "markup de meta del quiz no debe volver al runtime critico");

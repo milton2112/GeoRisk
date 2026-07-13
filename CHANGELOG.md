@@ -8,7 +8,18 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.52 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.53 antes de cerrar la siguiente version.
+
+## v1.6.53 - 2026-07-12
+
+- Prepara una nueva version de mantenimiento con mediciones y auditorias actualizadas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-12-release-2`.
+- Verifica con fuentes 27 jerarquias visibles y reduce la cola editorial de 833 a 806 conflictos unicos; las relaciones provisionales por pais bajan de 915 a 851.
+- Corrige fechas historicas visibles: Cheonpyeong pasa de 1951 a 1950, Joybar de 2001 a 2011 y Buenavista/El Manzano de 1838 a 1880.
+- Unifica `Guerra de Malvinas (1982)` con `Guerra de las Malvinas` y normaliza el gentilicio derivado de Pakistan sin alterar el nombre del pais.
+- Agrega el estado `Jerarquia verificada` y enlaces `http/https` validados a las fuentes de cada relacion curada en la ficha de conflicto.
+- Corrige cronologias importadas con campo `event` o `description` que podian mostrarse como `[object Object]`.
+- Agrega regresiones de fechas, fuentes, nombres canonicos, enlaces seguros y render de cronologia; la comprobacion local no registro errores de consola.
 
 ## v1.6.52 - 2026-07-12
 
