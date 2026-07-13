@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-13T23:07:31.961Z",
+  "generatedAt": "2026-07-13T23:42:38.535Z",
   "scannedConflicts": 2003,
   "issueCount": 0,
-  "advisoryCount": 439,
-  "reviewCount": 439,
+  "advisoryCount": 423,
+  "reviewCount": 423,
   "summary": {
-    "provisional_parent": 439
+    "provisional_parent": 423
   },
   "topIssues": [],
   "topAdvisories": [
@@ -284,20 +284,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de bairoko",
-      "name": "Batalla de Bairoko",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],
@@ -1060,20 +1046,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de crucifix hill",
-      "name": "Batalla de Crucifix Hill",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de czortkowem",
       "name": "Batalla de Czortkowem",
       "countries": [
@@ -1120,6 +1092,34 @@
       "name": "Batalla de Danny Boy",
       "countries": [
         "GBR"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de dasman palace",
+      "name": "Batalla de Dasman Palace",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de daugavgriva",
+      "name": "Batalla de Daugavgriva",
+      "countries": [
+        "SWE"
       ],
       "startYear": null,
       "endYear": null,

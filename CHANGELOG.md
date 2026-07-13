@@ -8,7 +8,19 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.63 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.64 antes de cerrar la siguiente version.
+
+## v1.6.64 - 2026-07-13
+
+- Fecha y jerarquiza con fuentes 16 acciones estadounidenses de la Segunda Guerra Mundial en Aleutianas, Indias Orientales, Guadalcanal, Nueva Georgia, Nueva Bretaña, Leyte, Atlántico y Europa.
+- Reduce los conflictos sin fecha auditados de 503 a 487 y las jerarquías provisionales de 439 a 423; el timeline pasa de 2496 a 2512 eventos fechables.
+- Completa campañas, regiones, participantes, causas, resultados y consecuencias de Bairoko, Dutch Harbor, Komandorski, Blackett, Makassar, Surigao, Kula, Sibuyán, Vella Lavella, Tassafaronga, Tenaru, Talasea, Saint-Lô, Saint-Vith, la colina Crucifix y el SS Stephen Hopkins.
+- Normaliza ocho nombres visibles, incluidas mayúsculas geográficas, el acento de Sibuyán, Saint-Vith, la colina Crucifix y el combate naval del SS Stephen Hopkins.
+- Agrega trazabilidad institucional del Ejército, la Marina, el Cuerpo de Marines y la Administración Marítima de Estados Unidos, además de títulos estables para la carga profunda diferida.
+- Respeta listas de tratados explícitamente vacías y retira el falso texto de “acuerdo pendiente” de seis acciones que no tuvieron tratado propio.
+- Agrega regresiones para cantidad, fechas, jerarquía, campañas, participantes, contexto editorial, traducciones, fuentes, tratados y rutas de importación; la regeneración completa converge con cero cambios.
+- Mantiene en cero alertas, duplicados internos, nombres de conflictos en inglés, regiones sospechosas, problemas de codificación e incidencias de validación.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-13-release-7`.
 
 ## v1.6.63 - 2026-07-13
 

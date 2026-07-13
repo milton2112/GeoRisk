@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-07-13T23:07:33.706Z",
+  "generatedAt": "2026-07-13T23:42:40.472Z",
   "startupBytes": 828953,
   "startupHuman": "810 KB",
-  "deferredBytes": 1967400,
-  "deferredHuman": "1.88 MB",
+  "deferredBytes": 1993263,
+  "deferredHuman": "1.90 MB",
   "estimatedRuntimeMemory": {
-    "countriesFullBytes": 9493277,
-    "countriesFullHuman": "9.05 MB",
-    "estimatedParsedBytes": 28479831,
-    "estimatedParsedHuman": "27.16 MB",
+    "countriesFullBytes": 9497889,
+    "countriesFullHuman": "9.06 MB",
+    "estimatedParsedBytes": 28493667,
+    "estimatedParsedHuman": "27.17 MB",
     "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
   },
   "largestAssets": [
     {
       "path": "data/conflict_details.generated.json",
       "exists": true,
-      "bytes": 1328164,
-      "human": "1.27 MB",
+      "bytes": 1354027,
+      "human": "1.29 MB",
       "startupCritical": false
     },
     {
@@ -297,8 +297,8 @@
     {
       "path": "data/conflict_details.generated.json",
       "exists": true,
-      "bytes": 1328164,
-      "human": "1.27 MB",
+      "bytes": 1354027,
+      "human": "1.29 MB",
       "startupCritical": false
     },
     {

@@ -66,6 +66,22 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Batalla naval de St. Charles": "Battle_of_Saint_Charles",
   "Primera batalla de Collierville": "First_Battle_of_Collierville",
   "Segunda batalla de Collierville": "Second_Battle_of_Collierville",
+  "Batalla de Bairoko": "Battle_of_Bairoko",
+  "Batalla de Dutch Harbor": "Battle_of_Dutch_Harbor",
+  "Batalla de las islas Komandorski": "Battle_of_the_Komandorski_Islands",
+  "Batalla del estrecho de Blackett": "Battle_of_Blackett_Strait",
+  "Batalla del estrecho de Makassar": "Battle_of_Makassar_Strait",
+  "Batalla del estrecho de Surigao": "Battle_of_Surigao_Strait",
+  "Batalla del golfo de Kula": "Battle_of_Kula_Gulf",
+  "Batalla del mar de Sibuyán": "Battle_of_the_Sibuyan_Sea",
+  "Batalla naval de Vella Lavella": "Battle_of_Vella_Lavella",
+  "Batalla de Tassafaronga": "Battle_of_Tassafaronga",
+  "Batalla de Tenaru": "Battle_of_the_Tenaru",
+  "Batalla de Talasea": "Battle_of_Talasea",
+  "Combate naval del SS Stephen Hopkins": "SS_Stephen_Hopkins",
+  "Batalla de Saint-Lô": "Battle_of_Saint-Lô",
+  "Batalla de Saint-Vith": "Battle_of_St._Vith",
+  "Batalla de la colina Crucifix": "Battle_of_Crucifix_Hill",
   "Batalla de Long Tan": "Batalla_de_Long_Tan",
   "Batalla de Bubiyan": "Batalla_de_Bubiyan",
   "Batalla de Jutlandia": "Batalla_de_Jutlandia",
@@ -696,7 +712,7 @@ async function resolveWikipediaConflictTitleFromApi(conflictName, apiUrl) {
 export async function resolveWikipediaConflictTitle(conflictName) {
   const direct = CONFLICT_WIKIPEDIA_TITLE_OVERRIDES[conflictName];
   if (direct) {
-    const language = /^(?:Battle|First_Battle|Second_Battle|Siege|Raid|Capture)_/.test(direct) ? "en" : "es";
+    const language = /^(?:Battle|First_Battle|Second_Battle|Siege|Raid|Capture|SS)_/.test(direct) ? "en" : "es";
     return {
       pageTitle: direct,
       apiUrl: language === "en" ? WIKIPEDIA_API_EN : WIKIPEDIA_API_ES,

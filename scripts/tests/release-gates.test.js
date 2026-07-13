@@ -60,7 +60,9 @@ const revolutionFollowupCuration = await fs.readFile(path.join(projectRoot, "scr
 const transition1846Curation = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-1846-1902.js"), "utf8");
 const war1812FollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-war-1812-followup.js"), "utf8");
 const usCivilWarFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-civil-war-followup.js"), "utf8");
+const usWwiiFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-wwii-followup.js"), "utf8");
 const wikipediaConflicts = await fs.readFile(path.join(projectRoot, "scripts/lib/wikipedia-conflicts.js"), "utf8");
+const conflictBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-batch-curation.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
 const resilientFs = await fs.readFile(path.join(projectRoot, "scripts/lib/resilient-fs.js"), "utf8");
 const exportShare = await fs.readFile(path.join(projectRoot, "app-export-share.js"), "utf8");
@@ -492,6 +494,24 @@ assert.ok(
 assert.ok(
   wikipediaConflicts.includes('language === "en" ? WIKIPEDIA_API_EN : WIKIPEDIA_API_ES'),
   "los overrides ingleses deben usar la API inglesa en vez de consultar una pagina inexistente en espanol"
+);
+assert.ok(conflictAutofix.includes("US_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda estadounidense de la Segunda Guerra Mundial");
+assert.ok(usWwiiFollowupCuration.includes("hierarchySources"), "la tanda de la Segunda Guerra Mundial debe conservar trazabilidad");
+assert.ok(
+  usWwiiFollowupCuration.includes('"Batalla del Mar de Sibuyan": "Batalla del mar de Sibuyán"')
+    && usWwiiFollowupCuration.includes('"Batalla de SS Stephen Hopkins": "Combate naval del SS Stephen Hopkins"')
+    && usWwiiFollowupCuration.includes('"Batalla de St. Vith": "Batalla de Saint-Vith"'),
+  "la tanda de la Segunda Guerra Mundial debe normalizar sus nombres visibles"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Batalla del mar de Sibuyán": "Battle_of_the_Sibuyan_Sea"')
+    && wikipediaConflicts.includes('"Combate naval del SS Stephen Hopkins": "SS_Stephen_Hopkins"')
+    && wikipediaConflicts.includes('"Batalla de Saint-Vith": "Battle_of_St._Vith"'),
+  "los nombres normalizados de la Segunda Guerra Mundial deben conservar su pagina de importacion"
+);
+assert.ok(
+  conflictBatchCuration.includes("if (Array.isArray(entry.treaties)) return entry.treaties;"),
+  "la curaduria debe respetar listas de tratados explicitamente vacias"
 );
 
 console.log("release-gates.test.js ok");

@@ -47,6 +47,10 @@ import {
   US_CIVIL_WAR_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   US_CIVIL_WAR_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-us-civil-war-followup.js";
+import {
+  US_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  US_WWII_FOLLOWUP_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-us-wwii-followup.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -267,10 +271,53 @@ assert.ok(
   ),
   "la tanda de la Guerra Civil debe conservar fecha, jerarquia, fuentes y participantes reales"
 );
+
+assert.equal(Object.keys(US_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 16);
+assert.equal(US_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Dutch Harbor"].startYear, 1942);
+assert.equal(US_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Bairoko"].campaign, "Campaña de Nueva Georgia");
+assert.equal(US_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla del estrecho de Surigao"].type, "batalla naval");
+assert.equal(US_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Saint-Vith"].campaign, "Ofensiva de las Ardenas");
+assert.equal(US_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES["Combate naval del SS Stephen Hopkins"].participants[1].members[0], "Alemania");
+assert.equal(US_WWII_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla del Mar de Sibuyan"], "Batalla del mar de Sibuyán");
+assert.equal(US_WWII_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de St. Vith"], "Batalla de Saint-Vith");
+assert.equal(US_WWII_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de SS Stephen Hopkins"], "Combate naval del SS Stephen Hopkins");
+assert.ok(
+  Object.values(US_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent === "Segunda Guerra Mundial"
+      && detail.parent === detail.war
+      && detail.campaign
+      && detail.cause
+      && detail.outcome
+      && detail.consequences
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.[0]?.url
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties)
+      && detail.treaties.length === 0
+  ),
+  "la tanda de la Segunda Guerra Mundial debe conservar jerarquia, fuentes y contexto editorial"
+);
+const explicitBattleWithoutTreaty = curateConflictEntry({
+  name: "Batalla de prueba sin tratado",
+  startYear: 1944,
+  endYear: 1944,
+  parent: "Segunda Guerra Mundial",
+  campaign: "Campaña de prueba",
+  type: "batalla",
+  treaties: []
+});
+assert.deepEqual(explicitBattleWithoutTreaty.treaties, [], "una lista vacia curada no debe convertirse en un tratado ficticio");
 const englishWikipediaOverride = await resolveWikipediaConflictTitle("Segunda batalla de Fort McAllister");
 assert.equal(englishWikipediaOverride.language, "en");
 assert.match(englishWikipediaOverride.apiUrl, /^https:\/\/en\.wikipedia\.org\//);
 assert.equal(englishWikipediaOverride.pageTitle, "Second_Battle_of_Fort_McAllister");
+const stephenHopkinsWikipediaOverride = await resolveWikipediaConflictTitle("Combate naval del SS Stephen Hopkins");
+assert.equal(stephenHopkinsWikipediaOverride.language, "en");
+assert.match(stephenHopkinsWikipediaOverride.apiUrl, /^https:\/\/en\.wikipedia\.org\//);
+assert.equal(stephenHopkinsWikipediaOverride.pageTitle, "SS_Stephen_Hopkins");
 const spanishWikipediaOverride = await resolveWikipediaConflictTitle("Guerra de Corea");
 assert.equal(spanishWikipediaOverride.language, "es");
 assert.match(spanishWikipediaOverride.apiUrl, /^https:\/\/es\.wikipedia\.org\//);

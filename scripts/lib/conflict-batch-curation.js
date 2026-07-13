@@ -362,7 +362,7 @@ function chronologyFor(entry = {}) {
 }
 
 function closeAgreementsFor(entry = {}) {
-  if (Array.isArray(entry.treaties) && entry.treaties.length) return entry.treaties;
+  if (Array.isArray(entry.treaties)) return entry.treaties;
   if (entry.closeAgreement) return [entry.closeAgreement];
   const year = getEndYear(entry);
   if (!year || isOpenConflict(entry)) return [];

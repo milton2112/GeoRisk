@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-07-13T23:01:57.836Z",
+  "generatedAt": "2026-07-13T23:39:48.067Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 9493277,
+    "fullBytes": 9497889,
     "duplicatedCountryFilesBytes": 1466890,
-    "countryConflictShardBytes": 371781,
+    "countryConflictShardBytes": 372152,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 23822,
-        "inlineBytes": 2952183,
+        "inlineBytes": 2958499,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -54,16 +54,16 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 206667,
-          "conflictShardBytes": 206668,
-          "averageConflictBytes": 224
+          "conflictsBytes": 207038,
+          "conflictShardBytes": 207039,
+          "averageConflictBytes": 225
         }
       },
       {
         "code": "GBR",
         "name": "Reino Unido",
         "bytes": 20661,
-        "inlineBytes": 847707,
+        "inlineBytes": 847281,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -114,7 +114,7 @@
         "code": "AUS",
         "name": "Australia",
         "bytes": 19631,
-        "inlineBytes": 177658,
+        "inlineBytes": 177516,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -165,7 +165,7 @@
         "code": "FRA",
         "name": "Francia",
         "bytes": 18131,
-        "inlineBytes": 658769,
+        "inlineBytes": 658627,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 502,
+    "pendingCount": 486,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15369,19 +15369,6 @@
         ],
         "regions": [
           "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Bairoko",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"
@@ -16091,19 +16078,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Crucifix Hill",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Czortkowem",
         "countries": [
           "POL"
@@ -16396,19 +16370,6 @@
         ],
         "regions": [
           "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Dutch Harbor",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"
@@ -17163,6 +17124,45 @@
         ],
         "regions": [
           "Asia"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Jumunjin",
+        "countries": [
+          "GBR"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Jupiter Inlet",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Kaipiais",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
         ],
         "types": [
           "interestatal"

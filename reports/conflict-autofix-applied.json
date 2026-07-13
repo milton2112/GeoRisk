@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-13T23:02:15.758Z",
+  "generatedAt": "2026-07-13T23:40:06.179Z",
   "changedFullCountries": 0,
   "fullPassChanges": [
     0
@@ -11,7 +11,7 @@
     "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 687,
+  "generatedHierarchyCandidates": 703,
   "countryConflictAdditions": {
     "Estados Unidos": [
       "Batalla de Manila (1945)"
@@ -254,7 +254,15 @@
     "Batalla de Head de Passes": "Batalla de Head of Passes",
     "Batalla de Memphis": "Batalla naval de Memphis",
     "Batalla de Spotsylvania": "Batalla de Spotsylvania Court House",
-    "Batalla de St. Charles": "Batalla naval de St. Charles"
+    "Batalla de St. Charles": "Batalla naval de St. Charles",
+    "Batalla de las Islas Komandorski": "Batalla de las islas Komandorski",
+    "Batalla de Crucifix Hill": "Batalla de la colina Crucifix",
+    "Batalla de SS Stephen Hopkins": "Combate naval del SS Stephen Hopkins",
+    "Batalla de St. Vith": "Batalla de Saint-Vith",
+    "Batalla del Estrecho de Blackett": "Batalla del estrecho de Blackett",
+    "Batalla del Estrecho de Makassar": "Batalla del estrecho de Makassar",
+    "Batalla del Golfo de Kula": "Batalla del golfo de Kula",
+    "Batalla del Mar de Sibuyan": "Batalla del mar de Sibuyán"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -908,6 +916,22 @@
     "Batalla naval de St. Charles",
     "Primera batalla de Collierville",
     "Segunda batalla de Collierville",
-    "Batalla de Fredericksburg"
+    "Batalla de Fredericksburg",
+    "Batalla de Bairoko",
+    "Batalla de Dutch Harbor",
+    "Batalla de las islas Komandorski",
+    "Batalla del estrecho de Blackett",
+    "Batalla del estrecho de Makassar",
+    "Batalla del estrecho de Surigao",
+    "Batalla del golfo de Kula",
+    "Batalla del mar de Sibuyán",
+    "Batalla naval de Vella Lavella",
+    "Batalla de Tassafaronga",
+    "Batalla de Tenaru",
+    "Batalla de Talasea",
+    "Combate naval del SS Stephen Hopkins",
+    "Batalla de Saint-Lô",
+    "Batalla de Saint-Vith",
+    "Batalla de la colina Crucifix"
   ]
 }
