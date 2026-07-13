@@ -41,6 +41,10 @@ import {
   UNDATED_AMERICAS_CONFLICT_DETAIL_FIXES,
   UNDATED_AMERICAS_SAFE_CONFLICT_RENAMES
 } from "./lib/conflict-curation-undated-americas.js";
+import {
+  REVOLUTION_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  REVOLUTION_FOLLOWUP_SAFE_CONFLICT_RENAMES
+} from "./lib/conflict-curation-revolution-followup.js";
 import { collectConflictCountryNames, curateConflictDetail, curateConflictEntry } from "./lib/conflict-batch-curation.js";
 import {
   cleanConflictLabel,
@@ -76,7 +80,8 @@ const curatedConflictDetailFixes = {
   ...HISTORICAL_VIETNAM_CONFLICT_DETAIL_FIXES,
   ...POSTWAR_1970_1991_CONFLICT_DETAIL_FIXES,
   ...MODERN_1992_2021_CONFLICT_DETAIL_FIXES,
-  ...UNDATED_AMERICAS_CONFLICT_DETAIL_FIXES
+  ...UNDATED_AMERICAS_CONFLICT_DETAIL_FIXES,
+  ...REVOLUTION_FOLLOWUP_CONFLICT_DETAIL_FIXES
 };
 const safeConflictRenames = {
   ...SAFE_CONFLICT_RENAMES,
@@ -93,7 +98,8 @@ const safeConflictRenames = {
   ...HISTORICAL_VIETNAM_SAFE_CONFLICT_RENAMES,
   ...POSTWAR_1970_1991_SAFE_CONFLICT_RENAMES,
   ...MODERN_1992_2021_SAFE_CONFLICT_RENAMES,
-  ...UNDATED_AMERICAS_SAFE_CONFLICT_RENAMES
+  ...UNDATED_AMERICAS_SAFE_CONFLICT_RENAMES,
+  ...REVOLUTION_FOLLOWUP_SAFE_CONFLICT_RENAMES
 };
 
 function renameConflictName(name) {

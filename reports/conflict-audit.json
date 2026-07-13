@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-13T21:39:39.301Z",
-  "scannedConflicts": 2004,
+  "generatedAt": "2026-07-13T21:58:45.506Z",
+  "scannedConflicts": 2002,
   "issueCount": 0,
-  "advisoryCount": 569,
-  "reviewCount": 569,
+  "advisoryCount": 525,
+  "reviewCount": 525,
   "summary": {
-    "provisional_parent": 569
+    "provisional_parent": 525
   },
   "topIssues": [],
   "topAdvisories": [
@@ -990,20 +990,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de charlotte",
-      "name": "Batalla de Charlotte",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de chef de caux",
       "name": "Batalla de Chef-de-Caux",
       "countries": [
@@ -1118,6 +1104,20 @@
     {
       "key": "batalla de claremore mound",
       "name": "Batalla de Claremore Mound",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de clouds",
+      "name": "Batalla de Clouds",
       "countries": [
         "USA"
       ],

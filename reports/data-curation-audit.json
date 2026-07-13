@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-07-13T21:12:32.093Z",
+  "generatedAt": "2026-07-13T21:56:17.028Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 9365223,
-    "duplicatedCountryFilesBytes": 1466510,
-    "countryConflictShardBytes": 367586,
+    "fullBytes": 9417031,
+    "duplicatedCountryFilesBytes": 1466890,
+    "countryConflictShardBytes": 369050,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "USA",
         "name": "Estados Unidos",
-        "bytes": 23442,
-        "inlineBytes": 2821617,
+        "bytes": 23822,
+        "inlineBytes": 2873425,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,13 +21,13 @@
           "religionGroups": 7,
           "organizations": 55,
           "rivals": 85,
-          "conflicts": 924,
+          "conflicts": 922,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
             "politics": 9973,
-            "military": 9497,
+            "military": 9877,
             "metadata": 1951,
             "general": 978,
             "history": 394,
@@ -43,7 +43,7 @@
             },
             {
               "section": "military",
-              "bytes": 9497
+              "bytes": 9877
             },
             {
               "section": "metadata",
@@ -54,9 +54,9 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 202472,
-          "conflictShardBytes": 202473,
-          "averageConflictBytes": 219
+          "conflictsBytes": 203936,
+          "conflictShardBytes": 203937,
+          "averageConflictBytes": 221
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 632,
+    "pendingCount": 588,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -16026,19 +16026,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Charlotte",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Chef-de-Caux",
         "countries": [
           "FRA"
@@ -16169,19 +16156,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Cobleskill",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Cockle Creek",
         "countries": [
           "USA"
@@ -16222,19 +16196,6 @@
       },
       {
         "name": "Batalla de Columbus",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Connecticut Farms",
         "countries": [
           "USA"
         ],
@@ -16422,19 +16383,6 @@
         ],
         "regions": [
           "África"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Delaware Bay",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"
@@ -16793,19 +16741,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Fishdam Ford",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Flint Creek",
         "countries": [
           "USA"
@@ -16936,33 +16871,7 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Fort St. George",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Fort Wayne",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Forts Clinton y Montgomery",
         "countries": [
           "USA"
         ],
@@ -17066,19 +16975,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Gloucester",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Golymin",
         "countries": [
           "FRA"
@@ -17157,12 +17053,116 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Great Bridge",
+        "name": "Batalla de Grenada",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Grengam",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Groix",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Grönvikssund",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Guerrero",
         "countries": [
           "USA"
         ],
         "regions": [
           "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Gyanafalva",
+        "countries": [
+          "AUT"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Hamel",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Hampden",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Happo",
+        "countries": [
+          "JPN"
+        ],
+        "regions": [
+          "Asia"
         ],
         "types": [
           "interestatal"

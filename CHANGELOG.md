@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.59 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.60 antes de cerrar la siguiente version.
+
+## v1.6.60 - 2026-07-13
+
+- Fecha y jerarquiza 43 batallas residuales de la guerra de Independencia de Estados Unidos entre 1775 y 1782, con campana, region y fuente oficial por ficha.
+- Reduce los conflictos sin fecha auditados de 633 a 589 y las jerarquias provisionales de 569 a 525; el timeline pasa de 2368 a 2410 eventos fechables.
+- Fusiona `Batalla de Delaware Bay` y `Batalla de Delaware Capes` en `Batalla de la bahia de Delaware`, e integra el registro tecnico de inteligencia en la batalla canonica de Princeton.
+- Normaliza en espanol los nombres de la batalla de la isla de Sullivan y de los fuertes Clinton y Montgomery.
+- Reduce los conflictos unicos escaneados de 2004 a 2002 sin perder hechos historicos y mantiene en cero duplicados, alertas, nombres ingleses e incidencias de validacion.
+- Agrega regresiones para cantidad, fechas, guerras padre, campanas, fuentes, fusiones semanticas y estabilidad del reporte; la regeneracion completa converge con cero cambios.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-13-release-3`.
 
 ## v1.6.59 - 2026-07-13
 

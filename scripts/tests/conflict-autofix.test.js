@@ -30,6 +30,10 @@ import {
   UNDATED_AMERICAS_CONFLICT_DETAIL_FIXES,
   UNDATED_AMERICAS_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-undated-americas.js";
+import {
+  REVOLUTION_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  REVOLUTION_FOLLOWUP_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-revolution-followup.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
 
@@ -145,6 +149,29 @@ assert.ok(
   "la tanda americana sin fecha debe conservar anos, jerarquia especifica, fuente y confianza"
 );
 
+assert.equal(Object.keys(REVOLUTION_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 43);
+assert.equal(REVOLUTION_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de White Plains"].startYear, 1776);
+assert.equal(REVOLUTION_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Princeton"].campaign, "Campaña de Nueva Jersey de 1776-1777");
+assert.equal(REVOLUTION_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de la bahía de Delaware"].type, "batalla naval");
+assert.equal(REVOLUTION_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Lindley's Mill"].startYear, 1781);
+assert.equal(REVOLUTION_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Delaware Bay"], "Batalla de la bahía de Delaware");
+assert.equal(REVOLUTION_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Delaware Capes"], "Batalla de la bahía de Delaware");
+assert.equal(REVOLUTION_FOLLOWUP_SAFE_CONFLICT_RENAMES["Inteligencia en la batalla de Princeton"], "Batalla de Princeton");
+assert.equal(REVOLUTION_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Sullivan's Island"], "Batalla de la isla de Sullivan");
+assert.ok(
+  Object.values(REVOLUTION_FOLLOWUP_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && ["alta", "media"].includes(detail.hierarchyConfidence)
+      && detail.hierarchySources?.[0]?.url
+      && detail.parent === "Guerra de Independencia de Estados Unidos"
+      && detail.parent === detail.war
+      && detail.campaign
+      && !/^Conflicto regional de /i.test(detail.parent)
+  ),
+  "la segunda tanda revolucionaria debe conservar fecha, jerarquia especifica y fuente"
+);
+
 const curatedIntervention = curateConflictEntry({
   name: "Intervencion en Siberia",
   startYear: 1918,
@@ -232,7 +259,8 @@ const report = buildConflictAuditReport({
       }
     }
   },
-  generatedDetails: { conflicts: {} }
+  generatedDetails: { conflicts: {} },
+  maxItems: 10000
 });
 
 const saigon = report.topIssues.find(item => item.name === "Batalla de Saigon");

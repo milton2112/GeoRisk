@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-13T21:13:25.750Z",
+  "generatedAt": "2026-07-13T21:56:59.061Z",
   "changedFullCountries": 0,
   "fullPassChanges": [
     0
@@ -11,7 +11,7 @@
     "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 559,
+  "generatedHierarchyCandidates": 601,
   "safeRenames": {
     "Batalla naval de RÃ¼gen": "Batalla naval de Rugen",
     "Batalla de Rügen": "Batalla naval de Rugen",
@@ -218,7 +218,12 @@
     "Batalla de Al Qaim": "Batalla de Al-Qaim",
     "Batalla de Haifa Street": "Batalla de la calle Haifa",
     "Batalla de Dikwa (2 mar 2015)": "Batalla de Dikwa (2 de marzo de 2015)",
-    "Batalla de Ch-teauguay": "Batalla de Châteauguay"
+    "Batalla de Ch-teauguay": "Batalla de Châteauguay",
+    "Batalla de Delaware Bay": "Batalla de la bahía de Delaware",
+    "Batalla de Delaware Capes": "Batalla de la bahía de Delaware",
+    "Inteligencia en la batalla de Princeton": "Batalla de Princeton",
+    "Batalla de Forts Clinton y Montgomery": "Batalla de los fuertes Clinton y Montgomery",
+    "Batalla de Sullivan's Island": "Batalla de la isla de Sullivan"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -280,7 +285,7 @@
     "Batalla de Ibiza",
     "Batalla de Ushant (1781)",
     "Batalla de Yorktown",
-    "Batalla de Delaware Capes",
+    "Batalla de la bahía de Delaware",
     "Batalla de Trincomalee",
     "Batalla de Ushant (1782)",
     "Batalla de Cuddalore (1783)",
@@ -743,6 +748,48 @@
     "Batalla de North Point",
     "Batalla de Chippawa",
     "Batalla de Cook's Mills",
-    "Batalla de Nueva Orleans"
+    "Batalla de Nueva Orleans",
+    "Batalla de Great Bridge",
+    "Batalla de la isla de Sullivan",
+    "Batalla de Pell's Point",
+    "Batalla de White Plains",
+    "Batalla de Millstone",
+    "Batalla de Princeton",
+    "Batalla de Short Hills",
+    "Batalla de Gloucester",
+    "Batalla de Matson's Ford",
+    "Batalla de Paoli",
+    "Batalla de Red Bank",
+    "Batalla de Hubbardton",
+    "Batalla de Oriskany",
+    "Batalla de los fuertes Clinton y Montgomery",
+    "Batalla de Ridgefield",
+    "Batalla de Setauket",
+    "Batalla de Quinton's Bridge",
+    "Batalla de Rhode Island",
+    "Batalla de Cobleskill",
+    "Batalla de Paulus Hook",
+    "Batalla de Newtown",
+    "Batalla de Stony Point",
+    "Batalla de Young's House",
+    "Batalla de Connecticut Farms",
+    "Batalla de Fort St. George",
+    "Batalla de Klock's Field",
+    "Batalla de Johnstown",
+    "Batalla de Groton Heights",
+    "Batalla de Thomas Creek",
+    "Batalla de Stono Ferry",
+    "Batalla de Charlotte",
+    "Batalla de Fishdam Ford",
+    "Batalla de Hanging Rock",
+    "Batalla de Lenud's Ferry",
+    "Batalla de Monck's Corner",
+    "Batalla de Musgrove Mill",
+    "Batalla de Ramsour's Mill",
+    "Batalla de Rocky Mount",
+    "Batalla de Waxhaws",
+    "Batalla de Lindley's Mill",
+    "Batalla de Green Spring",
+    "Batalla de Spencer's Ordinary"
   ]
 }

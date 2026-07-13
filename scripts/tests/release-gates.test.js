@@ -56,6 +56,7 @@ const historicalVietnamCuration = await fs.readFile(path.join(projectRoot, "scri
 const postwar1970Curation = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-1970-1991.js"), "utf8");
 const modern1992Curation = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-1992-2021.js"), "utf8");
 const undatedAmericasCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-undated-americas.js"), "utf8");
+const revolutionFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-revolution-followup.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
 const resilientFs = await fs.readFile(path.join(projectRoot, "scripts/lib/resilient-fs.js"), "utf8");
 const exportShare = await fs.readFile(path.join(projectRoot, "app-export-share.js"), "utf8");
@@ -421,6 +422,22 @@ assert.ok(
   undatedAmericasCuration.includes('"Batalla de Nueva Orleans"')
     && undatedAmericasCuration.includes('parent: "Guerra de 1812"'),
   "Nueva Orleans debe conservar su guerra padre y fecha historica"
+);
+assert.ok(conflictAutofix.includes("REVOLUTION_FOLLOWUP_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la segunda tanda revolucionaria");
+assert.ok(revolutionFollowupCuration.includes("hierarchySources"), "segunda tanda revolucionaria debe conservar trazabilidad");
+assert.ok(
+  revolutionFollowupCuration.includes('"Batalla de Delaware Bay": "Batalla de la bahía de Delaware"')
+    && revolutionFollowupCuration.includes('"Batalla de Delaware Capes": "Batalla de la bahía de Delaware"'),
+  "las variantes de la batalla de Delaware deben converger a un solo nombre en espanol"
+);
+assert.ok(
+  revolutionFollowupCuration.includes('"Inteligencia en la batalla de Princeton": "Batalla de Princeton"'),
+  "el registro tecnico de inteligencia debe integrarse en la batalla de Princeton"
+);
+assert.ok(
+  revolutionFollowupCuration.includes('"Batalla de White Plains"')
+    && revolutionFollowupCuration.includes('"Batalla de Lindley\'s Mill"'),
+  "la segunda tanda debe conservar sus extremos cronologicos verificados"
 );
 
 console.log("release-gates.test.js ok");
