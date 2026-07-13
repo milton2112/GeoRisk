@@ -57,6 +57,8 @@ const postwar1970Curation = await fs.readFile(path.join(projectRoot, "scripts/li
 const modern1992Curation = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-1992-2021.js"), "utf8");
 const undatedAmericasCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-undated-americas.js"), "utf8");
 const revolutionFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-revolution-followup.js"), "utf8");
+const transition1846Curation = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-1846-1902.js"), "utf8");
+const wikipediaConflicts = await fs.readFile(path.join(projectRoot, "scripts/lib/wikipedia-conflicts.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
 const resilientFs = await fs.readFile(path.join(projectRoot, "scripts/lib/resilient-fs.js"), "utf8");
 const exportShare = await fs.readFile(path.join(projectRoot, "app-export-share.js"), "utf8");
@@ -438,6 +440,24 @@ assert.ok(
   revolutionFollowupCuration.includes('"Batalla de White Plains"')
     && revolutionFollowupCuration.includes('"Batalla de Lindley\'s Mill"'),
   "la segunda tanda debe conservar sus extremos cronologicos verificados"
+);
+assert.ok(conflictAutofix.includes("TRANSITION_1846_1902_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda 1846-1902");
+assert.ok(transition1846Curation.includes("hierarchySources"), "la tanda 1846-1902 debe conservar trazabilidad");
+assert.ok(
+  transition1846Curation.includes('"Batalla de Monterey": "Batalla de Monterrey"')
+    && transition1846Curation.includes('"Batalla de Marilao River": "Batalla del río Marilao"'),
+  "los nombres mixtos de la tanda deben converger a español"
+);
+assert.ok(
+  transition1846Curation.includes('"Batalla de Manila (1899)"')
+    && transition1846Curation.includes('"Batalla de Manila (1945)"'),
+  "Manila debe conservar registros separados para 1899 y 1945"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Batalla de Manila (1899)": "Batalla_de_Manila_(1899)"')
+    && wikipediaConflicts.includes('"Batalla de Manila (1945)": "Batalla_de_Manila_(1945)"')
+    && !wikipediaConflicts.includes('"Batalla de Manila": "Batalla_de_Manila_(1945)"'),
+  "la importacion no debe volver a mezclar las dos batallas de Manila"
 );
 
 console.log("release-gates.test.js ok");

@@ -47,6 +47,9 @@ export function getContextualConflictName(entry = {}) {
   if (key === "guerra del pacifico" && year >= 1941 && year <= 1945) {
     return "Guerra del Pacifico de la Segunda Guerra Mundial";
   }
+  if (key === "batalla de manila") {
+    return year === 1945 ? "Batalla de Manila (1945)" : "Batalla de Manila (1899)";
+  }
   return THEATER_NAME_BY_KEY.get(key) || name;
 }
 

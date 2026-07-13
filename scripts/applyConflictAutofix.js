@@ -45,6 +45,11 @@ import {
   REVOLUTION_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   REVOLUTION_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "./lib/conflict-curation-revolution-followup.js";
+import {
+  TRANSITION_1846_1902_COUNTRY_CONFLICT_ADDITIONS,
+  TRANSITION_1846_1902_CONFLICT_DETAIL_FIXES,
+  TRANSITION_1846_1902_SAFE_CONFLICT_RENAMES
+} from "./lib/conflict-curation-1846-1902.js";
 import { collectConflictCountryNames, curateConflictDetail, curateConflictEntry } from "./lib/conflict-batch-curation.js";
 import {
   cleanConflictLabel,
@@ -81,7 +86,8 @@ const curatedConflictDetailFixes = {
   ...POSTWAR_1970_1991_CONFLICT_DETAIL_FIXES,
   ...MODERN_1992_2021_CONFLICT_DETAIL_FIXES,
   ...UNDATED_AMERICAS_CONFLICT_DETAIL_FIXES,
-  ...REVOLUTION_FOLLOWUP_CONFLICT_DETAIL_FIXES
+  ...REVOLUTION_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  ...TRANSITION_1846_1902_CONFLICT_DETAIL_FIXES
 };
 const safeConflictRenames = {
   ...SAFE_CONFLICT_RENAMES,
@@ -99,7 +105,8 @@ const safeConflictRenames = {
   ...POSTWAR_1970_1991_SAFE_CONFLICT_RENAMES,
   ...MODERN_1992_2021_SAFE_CONFLICT_RENAMES,
   ...UNDATED_AMERICAS_SAFE_CONFLICT_RENAMES,
-  ...REVOLUTION_FOLLOWUP_SAFE_CONFLICT_RENAMES
+  ...REVOLUTION_FOLLOWUP_SAFE_CONFLICT_RENAMES,
+  ...TRANSITION_1846_1902_SAFE_CONFLICT_RENAMES
 };
 
 function renameConflictName(name) {
@@ -259,9 +266,15 @@ function normalizeConflictEntryWithContext(entry, context) {
   return normalizeVisibleValue(curateConflictEntry(curatedEntry, context));
 }
 
+function getCountryConflictAdditions(country) {
+  return (TRANSITION_1846_1902_COUNTRY_CONFLICT_ADDITIONS[country?.name] || [])
+    .map(name => ({ name, ...(curatedConflictDetailFixes[name] || {}) }));
+}
+
 function fixCountryConflicts(country, countriesByConflict, generatedHierarchyByConflict) {
   let changed = 0;
   const context = { country, countriesByConflict, generatedHierarchyByConflict };
+  const additions = getCountryConflictAdditions(country);
 
   for (const pathKey of ["conflicts"]) {
     if (!Array.isArray(country[pathKey])) {
@@ -269,7 +282,7 @@ function fixCountryConflicts(country, countriesByConflict, generatedHierarchyByC
     }
     const before = country[pathKey];
     const updated = normalizeVisibleValue(
-      mergeConflictEntries(before.map(entry => normalizeConflictEntryWithContext(entry, context)))
+      mergeConflictEntries([...before, ...additions].map(entry => normalizeConflictEntryWithContext(entry, context)))
         .sort((a, b) => (a.startYear ?? 99999) - (b.startYear ?? 99999) || String(a.name).localeCompare(String(b.name), "es"))
     );
     if (!areJsonValuesEquivalent(updated, before)) {
@@ -281,7 +294,7 @@ function fixCountryConflicts(country, countriesByConflict, generatedHierarchyByC
   if (Array.isArray(country.military?.conflicts)) {
     const before = country.military.conflicts;
     const updated = normalizeVisibleValue(
-      mergeConflictEntries(before.map(entry => normalizeConflictEntryWithContext(entry, context)))
+      mergeConflictEntries([...before, ...additions].map(entry => normalizeConflictEntryWithContext(entry, context)))
         .sort((a, b) => (a.startYear ?? 99999) - (b.startYear ?? 99999) || String(a.name).localeCompare(String(b.name), "es"))
     );
     if (!areJsonValuesEquivalent(updated, before)) {
@@ -419,6 +432,7 @@ const report = {
   compactCountryFilesStrategy: "regenerated-by-buildDataIndexes",
   detailStats,
   generatedHierarchyCandidates: generatedHierarchyByConflict.size,
+  countryConflictAdditions: TRANSITION_1846_1902_COUNTRY_CONFLICT_ADDITIONS,
   safeRenames: safeConflictRenames,
   curatedDetails: [...new Set(Object.keys(curatedConflictDetailFixes).map(renameConflictName))]
 };

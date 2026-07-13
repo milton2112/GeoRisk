@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-13T21:56:59.061Z",
+  "generatedAt": "2026-07-13T22:21:46.236Z",
   "changedFullCountries": 0,
   "fullPassChanges": [
     0
@@ -11,7 +11,12 @@
     "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 601,
+  "generatedHierarchyCandidates": 642,
+  "countryConflictAdditions": {
+    "Estados Unidos": [
+      "Batalla de Manila (1945)"
+    ]
+  },
   "safeRenames": {
     "Batalla naval de RÃ¼gen": "Batalla naval de Rugen",
     "Batalla de Rügen": "Batalla naval de Rugen",
@@ -223,7 +228,16 @@
     "Batalla de Delaware Capes": "Batalla de la bahía de Delaware",
     "Inteligencia en la batalla de Princeton": "Batalla de Princeton",
     "Batalla de Forts Clinton y Montgomery": "Batalla de los fuertes Clinton y Montgomery",
-    "Batalla de Sullivan's Island": "Batalla de la isla de Sullivan"
+    "Batalla de Sullivan's Island": "Batalla de la isla de Sullivan",
+    "Batalla de Monterey": "Batalla de Monterrey",
+    "Batalla de Mora": "Primera batalla de Mora",
+    "Batalla de Mulege": "Batalla de Mulegé",
+    "Batalla de Tuxpan": "Primera batalla de Tuxpan",
+    "Batalla de Agusan Hill": "Batalla de la colina de Agusan",
+    "Batalla de Caloocan": "Primera batalla de Caloocan",
+    "Batalla de Makahambus Hill": "Batalla de la colina de Makahambus",
+    "Batalla de Marilao River": "Batalla del río Marilao",
+    "Batalla de Zapote River": "Batalla del río Zapote"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -790,6 +804,48 @@
     "Batalla de Waxhaws",
     "Batalla de Lindley's Mill",
     "Batalla de Green Spring",
-    "Batalla de Spencer's Ordinary"
+    "Batalla de Spencer's Ordinary",
+    "Batalla de Cerro Gordo",
+    "Batalla de Churubusco",
+    "Batalla de Padierna",
+    "Batalla del Molino del Rey",
+    "Batalla de Huamantla",
+    "Batalla de El Brazito",
+    "Batalla de Sacramento",
+    "Batalla de la Cañada",
+    "Batalla del Paso de Embudo",
+    "Primera batalla de Mora",
+    "Segunda batalla de Mora",
+    "Batalla de La Mesa",
+    "Batalla de Santa Clara",
+    "Batalla de Natividad",
+    "Batalla del Rancho Domínguez",
+    "Batalla de Mulegé",
+    "Batalla de Santa Cruz de Rosales",
+    "Primera batalla de Tuxpan",
+    "Segunda batalla de Tuxpan",
+    "Tercera batalla de Tuxpan",
+    "Batalla de Aguadores",
+    "Batalla de El Caney",
+    "Batalla de las Colinas de San Juan",
+    "Batalla de Cavite",
+    "Batalla de la bahía de Nipe",
+    "Primera batalla de Cárdenas",
+    "Batalla de Tayacoba",
+    "Batalla de Manila (1899)",
+    "Primera batalla de Caloocan",
+    "Batalla de San Fernando",
+    "Batalla del río Zapote",
+    "Batalla de Paete",
+    "Batalla de Pagsanjan",
+    "Batalla del río Marilao",
+    "Batalla de Quingua",
+    "Batalla de Santo Tomás",
+    "Batalla de Cagayan de Misamis",
+    "Batalla de la colina de Makahambus",
+    "Batalla de la colina de Agusan",
+    "Batalla del paso de Tirad",
+    "Batalla de Lonoy",
+    "Batalla de Manila (1945)"
   ]
 }

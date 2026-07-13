@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-07-13T21:56:17.028Z",
+  "generatedAt": "2026-07-13T22:21:30.749Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 9417031,
+    "fullBytes": 9449167,
     "duplicatedCountryFilesBytes": 1466890,
-    "countryConflictShardBytes": 369050,
+    "countryConflictShardBytes": 370220,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 23822,
-        "inlineBytes": 2873425,
+        "inlineBytes": 2908073,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -54,16 +54,16 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 203936,
-          "conflictShardBytes": 203937,
-          "averageConflictBytes": 221
+          "conflictsBytes": 205106,
+          "conflictShardBytes": 205107,
+          "averageConflictBytes": 222
         }
       },
       {
         "code": "GBR",
         "name": "Reino Unido",
         "bytes": 20661,
-        "inlineBytes": 848127,
+        "inlineBytes": 847707,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -114,7 +114,7 @@
         "code": "AUS",
         "name": "Australia",
         "bytes": 19631,
-        "inlineBytes": 177758,
+        "inlineBytes": 177658,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -165,7 +165,7 @@
         "code": "FRA",
         "name": "Francia",
         "bytes": 18131,
-        "inlineBytes": 658835,
+        "inlineBytes": 658769,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -216,7 +216,7 @@
         "code": "CAN",
         "name": "Canadá",
         "bytes": 17307,
-        "inlineBytes": 110594,
+        "inlineBytes": 110502,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -267,7 +267,7 @@
         "code": "DNK",
         "name": "Dinamarca",
         "bytes": 16188,
-        "inlineBytes": 133492,
+        "inlineBytes": 133486,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -318,7 +318,7 @@
         "code": "RUS",
         "name": "Rusia",
         "bytes": 15275,
-        "inlineBytes": 132769,
+        "inlineBytes": 132643,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -369,7 +369,7 @@
         "code": "MAR",
         "name": "Marruecos",
         "bytes": 15153,
-        "inlineBytes": 172754,
+        "inlineBytes": 172210,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -420,7 +420,7 @@
         "code": "POL",
         "name": "Polonia",
         "bytes": 14824,
-        "inlineBytes": 75663,
+        "inlineBytes": 75645,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -471,7 +471,7 @@
         "code": "ITA",
         "name": "Italia",
         "bytes": 14358,
-        "inlineBytes": 45992,
+        "inlineBytes": 45972,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -522,7 +522,7 @@
         "code": "SWE",
         "name": "Suecia",
         "bytes": 14338,
-        "inlineBytes": 424065,
+        "inlineBytes": 424045,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 588,
+    "pendingCount": 547,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15200,32 +15200,6 @@
         ],
         "regions": [
           "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Aguadores",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Agusan Hill",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"
@@ -15818,19 +15792,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Cagayan de Misamis",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Calabria",
         "countries": [
           "GBR"
@@ -15845,19 +15806,6 @@
       },
       {
         "name": "Batalla de Calebee Creek",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Caloocan",
         "countries": [
           "USA"
         ],
@@ -15948,19 +15896,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Cavite",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Cedar Creek",
         "countries": [
           "USA"
@@ -15977,19 +15912,6 @@
         "name": "Batalla de Cerro del Gallo",
         "countries": [
           "MEX"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Cerro Gordo",
-        "countries": [
-          "USA"
         ],
         "regions": [
           "América"
@@ -16071,19 +15993,6 @@
         ],
         "regions": [
           "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Churubusco",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"
@@ -16604,32 +16513,6 @@
         ],
         "regions": [
           "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de El Brazito",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de El Caney",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"
@@ -17163,6 +17046,123 @@
         ],
         "regions": [
           "Asia"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Havana",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Head de Passes",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Heilsberg",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Hekihazu",
+        "countries": [
+          "JPN"
+        ],
+        "regions": [
+          "Asia"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Helena",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Helgeå",
+        "countries": [
+          "NOR"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Heligoland",
+        "countries": [
+          "DNK"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Heraklion",
+        "countries": [
+          "GBR"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Hiddensee",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
         ],
         "types": [
           "interestatal"

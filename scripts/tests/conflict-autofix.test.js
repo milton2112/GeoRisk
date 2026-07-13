@@ -34,7 +34,13 @@ import {
   REVOLUTION_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   REVOLUTION_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-revolution-followup.js";
+import {
+  TRANSITION_1846_1902_COUNTRY_CONFLICT_ADDITIONS,
+  TRANSITION_1846_1902_CONFLICT_DETAIL_FIXES,
+  TRANSITION_1846_1902_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-1846-1902.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
+import { mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
 
 assert.equal(SAFE_CONFLICT_RENAMES["Adriatic Campaign de World War II"], "Campana del Adriatico en la Segunda Guerra Mundial");
@@ -43,6 +49,15 @@ assert.equal(WWII_1942_SAFE_CONFLICT_RENAMES["Batalla de la BahÃƒÂ­a de Miln
 assert.equal(WWII_1942_CONFLICT_DETAIL_FIXES["Batalla de Midway"].parent, "Segunda Guerra Mundial");
 assert.equal(THEATER_SAFE_CONFLICT_RENAMES["Sullivan Expedition"], "Expedicion de Sullivan");
 assert.equal(getContextualConflictName({ name: "Guerra del Pacifico", startYear: 1941 }), "Guerra del Pacifico de la Segunda Guerra Mundial");
+assert.equal(getContextualConflictName({ name: "Batalla de Manila", startYear: 1899 }), "Batalla de Manila (1899)");
+assert.equal(getContextualConflictName({ name: "Batalla de Manila", startYear: 1945 }), "Batalla de Manila (1945)");
+assert.equal(getContextualConflictName({ name: "Batalla de Manila" }), "Batalla de Manila (1899)");
+const disambiguatedManilaBattles = mergeConflictEntries([
+  { name: "Batalla de Manila", startYear: 1899, endYear: 1899 },
+  { name: "Batalla de Manila", startYear: 1945, endYear: 1945 }
+].map(entry => ({ ...entry, name: getContextualConflictName(entry) })));
+assert.equal(disambiguatedManilaBattles.length, 2, "Manila 1899 y Manila 1945 no deben volver a fusionarse");
+assert.deepEqual(disambiguatedManilaBattles.map(item => item.startYear), [1899, 1945]);
 assert.equal(THEATER_CONFLICT_DETAIL_FIXES["Intervencion en Siberia"].region, "Siberia");
 assert.equal(VISIBLE_MODERN_SAFE_CONFLICT_RENAMES["Batalla de Cheonpyeong Valley"], "Batalla de Cheonpyeong");
 assert.equal(VISIBLE_MODERN_SAFE_CONFLICT_RENAMES["Guerra de Malvinas (1982)"], "Guerra de las Malvinas");
@@ -172,6 +187,32 @@ assert.ok(
   "la segunda tanda revolucionaria debe conservar fecha, jerarquia especifica y fuente"
 );
 
+assert.equal(Object.keys(TRANSITION_1846_1902_CONFLICT_DETAIL_FIXES).length, 43);
+assert.equal(TRANSITION_1846_1902_CONFLICT_DETAIL_FIXES["Batalla de Monterrey"].startYear, 1846);
+assert.equal(TRANSITION_1846_1902_CONFLICT_DETAIL_FIXES["Batalla de Santa Cruz de Rosales"].startYear, 1848);
+assert.equal(TRANSITION_1846_1902_CONFLICT_DETAIL_FIXES["Primera batalla de Cárdenas"].type, "batalla naval");
+assert.equal(TRANSITION_1846_1902_CONFLICT_DETAIL_FIXES["Batalla del río Zapote"].parent, "Guerra filipino-estadounidense");
+assert.equal(TRANSITION_1846_1902_CONFLICT_DETAIL_FIXES["Batalla de Manila (1899)"].endYear, 1899);
+assert.equal(TRANSITION_1846_1902_CONFLICT_DETAIL_FIXES["Batalla de Manila (1945)"].parent, "Segunda Guerra Mundial");
+assert.deepEqual(TRANSITION_1846_1902_COUNTRY_CONFLICT_ADDITIONS["Estados Unidos"], ["Batalla de Manila (1945)"]);
+assert.equal(TRANSITION_1846_1902_SAFE_CONFLICT_RENAMES["Batalla de Monterey"], "Batalla de Monterrey");
+assert.equal(TRANSITION_1846_1902_SAFE_CONFLICT_RENAMES["Batalla de Mora"], "Primera batalla de Mora");
+assert.equal(TRANSITION_1846_1902_SAFE_CONFLICT_RENAMES["Batalla de Marilao River"], "Batalla del río Marilao");
+assert.ok(
+  Object.values(TRANSITION_1846_1902_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && ["alta", "media"].includes(detail.hierarchyConfidence)
+      && detail.hierarchySources?.[0]?.url
+      && detail.parent === detail.war
+      && detail.campaign
+      && !/^Conflicto regional de /i.test(detail.parent)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+  ),
+  "la tanda 1846-1902 debe conservar fecha, jerarquia, fuentes y participantes reales"
+);
+
 const curatedIntervention = curateConflictEntry({
   name: "Intervencion en Siberia",
   startYear: 1918,
@@ -181,6 +222,17 @@ const curatedIntervention = curateConflictEntry({
 assert.equal(curatedIntervention.conflictType, "intervencion", "la curaduria no debe pisar tipos explicitos");
 assert.equal(curatedIntervention.curationStatus, "estructural");
 assert.equal(curatedIntervention.dataConfidence, "parcial");
+
+const sourceBackedConflict = curateConflictEntry({
+  name: "Batalla respaldada por fuentes",
+  startYear: 1900,
+  endYear: 1900,
+  type: "batalla",
+  curationPriority: "media",
+  curationBatch: "source-backed-test"
+});
+assert.equal(sourceBackedConflict.curationPriority, "media", "la prioridad explicita debe conservarse");
+assert.equal(sourceBackedConflict.curationBatch, "source-backed-test", "la procedencia de curaduria no debe reemplazarse");
 
 const structuralBattle = curateConflictEntry({
   name: "Batalla de Prueba",
@@ -254,6 +306,10 @@ const report = buildConflictAuditReport({
           { name: "Batalla del valle de Ia Drang", startYear: 1965, endYear: 1965 },
           { name: "Sitio de Khe Sanh", startYear: 1968, endYear: 1968 },
           { name: "Batalla de Lima Site 85", startYear: 1968, endYear: 1968 },
+          { name: "Batalla de Monterey" },
+          { name: "Batalla de Marilao River" },
+          { name: "Batalla de Manila (1899)", startYear: 1899, endYear: 1899 },
+          { name: "Batalla de Manila (1945)", startYear: 1945, endYear: 1945 },
           { name: "Adriatic Campaign de World War II", startYear: 1939, endYear: 1945 }
         ]
       }
@@ -292,5 +348,8 @@ assert.equal(junonFox?.startYear, 1778, "el combate Junon-Fox debe reemplazar el
 assert.ok(!report.topAdvisories.some(item => item.name === "Batalla del valle de Ia Drang"), "Ia Drang debe usar Guerra de Vietnam");
 assert.ok(!report.topAdvisories.some(item => item.name === "Sitio de Khe Sanh"), "Khe Sanh debe usar su campaña verificada");
 assert.ok(!report.topAdvisories.some(item => item.name === "Batalla de Lima Site 85"), "Lima Site 85 debe usar la guerra civil de Laos");
+assert.ok(!report.topAdvisories.some(item => item.name === "Batalla de Monterrey"), "Monterey debe converger a Monterrey y conservar su guerra padre");
+assert.ok(!report.topAdvisories.some(item => item.name === "Batalla del río Marilao"), "Marilao debe quedar traducida y bajo su guerra padre");
+assert.ok(!report.topIssues.some(item => item.name === "Batalla de Manila"), "el nombre ambiguo de Manila no debe reaparecer en la auditoria");
 
 console.log("conflict-autofix.test.js ok");

@@ -572,8 +572,8 @@ export function curateConflictEntry(entry = {}, context = {}) {
     participants: buildParticipants(baseEntry, context.countriesByConflict, context.country),
     chronology: chronologyFor(baseEntry),
     treaties: closeAgreementsFor(baseEntry),
-    curationPriority: isBattleLike(baseEntry) || countryCount >= 3 || active ? "alta" : "media",
-    curationBatch: "safe-structured-conflict-curation-2026-06",
+    curationPriority: baseEntry.curationPriority || (isBattleLike(baseEntry) || countryCount >= 3 || active ? "alta" : "media"),
+    curationBatch: baseEntry.curationBatch || "safe-structured-conflict-curation-2026-06",
     curationStatus: baseEntry.curationStatus || "estructural",
     dataConfidence: baseEntry.dataConfidence || "parcial",
     curationNote: baseEntry.curationNote || "Metadatos estructurales agregados por tanda segura; bajas, tratados y resultados finos no se inventan si no habia fuente especifica."

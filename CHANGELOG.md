@@ -8,7 +8,18 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.60 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.61 antes de cerrar la siguiente version.
+
+## v1.6.61 - 2026-07-13
+
+- Fecha, jerarquiza y documenta con fuentes 43 batallas de 1846-1902 vinculadas a la guerra mexicano-estadounidense, la guerra hispano-estadounidense y la guerra filipino-estadounidense, ademas de Manila 1945.
+- Reduce los conflictos sin fecha auditados de 589 a 548 y las jerarquias provisionales de 525 a 484; el timeline pasa de 2410 a 2451 eventos fechables.
+- Normaliza nueve nombres visibles, incluidos Monterrey, Mulegé, Mora, Tuxpan y las batallas de las colinas o rios filipinos, sin dejar variantes antiguas en las fichas.
+- Separa `Batalla de Manila (1899)` de `Batalla de Manila (1945)`, restaura la segunda en la ficha de Estados Unidos y evita que vuelvan a fusionarse en un rango falso de 1899-1945.
+- Conserva la etiqueta de procedencia de las tandas respaldadas por fuentes en vez de reemplazarla por la curaduria estructural generica; actualiza 423 detalles distribuidos en 55 fichas.
+- Agrega regresiones para fechas, guerras padre, campanas, participantes, fuentes, nombres contextuales, recuperacion de registros y procedencia; la regeneracion completa converge con cero cambios.
+- Mantiene en cero alertas, duplicados internos, nombres de conflictos en ingles, religiones redundantes, problemas de codificacion e incidencias de validacion.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-13-release-4`.
 
 ## v1.6.60 - 2026-07-13
 

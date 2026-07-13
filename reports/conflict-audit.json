@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-13T21:58:45.506Z",
-  "scannedConflicts": 2002,
+  "generatedAt": "2026-07-13T22:24:39.777Z",
+  "scannedConflicts": 2003,
   "issueCount": 0,
-  "advisoryCount": 525,
-  "reviewCount": 525,
+  "advisoryCount": 484,
+  "reviewCount": 484,
   "summary": {
-    "provisional_parent": 525
+    "provisional_parent": 484
   },
   "topIssues": [],
   "topAdvisories": [
@@ -102,34 +102,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de aguadores",
-      "name": "Batalla de Aguadores",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de agusan hill",
-      "name": "Batalla de Agusan Hill",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],
@@ -766,20 +738,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de cagayan de misamis",
-      "name": "Batalla de Cagayan de Misamis",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de calabria",
       "name": "Batalla de Calabria",
       "countries": [
@@ -796,20 +754,6 @@
     {
       "key": "batalla de calebee creek",
       "name": "Batalla de Calebee Creek",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de caloocan",
-      "name": "Batalla de Caloocan",
       "countries": [
         "USA"
       ],
@@ -906,20 +850,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de cavite",
-      "name": "Batalla de Cavite",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de cedar creek",
       "name": "Batalla de Cedar Creek",
       "countries": [
@@ -938,20 +868,6 @@
       "name": "Batalla de Cerro del Gallo",
       "countries": [
         "MEX"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de cerro gordo",
-      "name": "Batalla de Cerro Gordo",
-      "countries": [
-        "USA"
       ],
       "startYear": null,
       "endYear": null,
@@ -1046,20 +962,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de churubusco",
-      "name": "Batalla de Churubusco",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de cibecue creek",
       "name": "Batalla de Cibecue Creek",
       "countries": [
@@ -1118,6 +1020,104 @@
     {
       "key": "batalla de clouds",
       "name": "Batalla de Clouds",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de cockle creek",
+      "name": "Batalla de Cockle Creek",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de colberger heide",
+      "name": "Batalla de Colberger Heide",
+      "countries": [
+        "SWE"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de colson s mill",
+      "name": "Batalla de Colson's Mill",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de columbus",
+      "name": "Batalla de Columbus",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de cooke s spring",
+      "name": "Batalla de Cooke's Spring",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de cookes canyon",
+      "name": "Batalla de Cookes Canyon",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de corrick s ford",
+      "name": "Batalla de Corrick's Ford",
       "countries": [
         "USA"
       ],
