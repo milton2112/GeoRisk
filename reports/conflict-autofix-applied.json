@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-13T02:17:53.856Z",
+  "generatedAt": "2026-07-13T02:39:51.575Z",
   "changedFullCountries": 0,
   "fullPassChanges": [
     0
@@ -11,7 +11,7 @@
     "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 437,
+  "generatedHierarchyCandidates": 480,
   "safeRenames": {
     "Batalla naval de RÃ¼gen": "Batalla naval de Rugen",
     "Batalla de Rügen": "Batalla naval de Rugen",
@@ -207,7 +207,8 @@
     "Batalla de Hill 488": "Batalla de la colina 488",
     "Batalla de Hill 881": "Batallas de las colinas 881",
     "Batalla de Fire Support Base Ripcord": "Batalla de la base Ripcord",
-    "Batalla de la Colina de la Hamburguesa": "Batalla de la colina de la Hamburguesa"
+    "Batalla de la Colina de la Hamburguesa": "Batalla de la colina de la Hamburguesa",
+    "Ofensiva Esmara-Tifariti": "Ofensiva de Esmara-Tifariti"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -610,6 +611,49 @@
     "Batalla de Loc Ninh",
     "Segunda batalla de Quảng Trị",
     "Batalla de Cửa Việt",
-    "Batalla de Lima Site 85"
+    "Batalla de Lima Site 85",
+    "Batalla del Bogside",
+    "Segunda batalla de Zhenbao",
+    "Batalla de Amán",
+    "Batalla de St Matthew's",
+    "Ofensiva de Ajlun",
+    "Batalla de Springmartin",
+    "Batalla de Aileu",
+    "Batalla de Baucau",
+    "Batalla de Lospalos",
+    "Batalla de Harar",
+    "Batalla de Jijiga",
+    "Sitio de Abadán",
+    "Sitio de Alepo (1980-1981)",
+    "Batalla del monte Kent",
+    "Batalla de Khafji",
+    "Batalla de Qurah y Umm al Maradim",
+    "Batalla de Bucraa (1977)",
+    "Batalla de Al Mahbes (1979)",
+    "Batalla de Bucraa (1979)",
+    "Batalla de Tan-Tan",
+    "Batalla de Tichla (1979)",
+    "Sitio de Zag",
+    "Batalla de Akka",
+    "Batalla de Guelta Zemmur (1980)",
+    "Batalla de Ras el-Khanfra (1980)",
+    "Batalla de Esmara (1981)",
+    "Batalla de Guelta Zemmur (marzo de 1981)",
+    "Batalla de Guelta Zemmur (octubre de 1981)",
+    "Batalla de Ras el-Khanfra (1982)",
+    "Batalla de Esmara (1983)",
+    "Batalla de Lemseied",
+    "Ofensiva de Ain-Lahchich",
+    "Ofensiva de Esmara-Tifariti",
+    "Batalla de Hausa (1984)",
+    "Batalla de Al Mahbes (1985)",
+    "Batalla de Farsia (1987)",
+    "Batalla de Tichla (1987)",
+    "Batalla de Hausa (1988)",
+    "Batalla de Oum Dreyga (septiembre de 1988)",
+    "Batalla de Amgala (1989)",
+    "Batalla de Guelta Zemmur (1989)",
+    "Batalla de Hausa (1989)",
+    "Ofensiva de Tifariti de 1991"
   ]
 }

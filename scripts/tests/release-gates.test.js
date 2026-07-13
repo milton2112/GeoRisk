@@ -53,6 +53,7 @@ const visibleModernCuration = await fs.readFile(path.join(projectRoot, "scripts/
 const visibleFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-visible-followup.js"), "utf8");
 const koreaModernCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-korea-modern.js"), "utf8");
 const historicalVietnamCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-historical-vietnam.js"), "utf8");
+const postwar1970Curation = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-1970-1991.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
 const resilientFs = await fs.readFile(path.join(projectRoot, "scripts/lib/resilient-fs.js"), "utf8");
 const exportShare = await fs.readFile(path.join(projectRoot, "app-export-share.js"), "utf8");
@@ -384,5 +385,18 @@ assert.ok(!manifestPaths.includes("data/conflict_details.generated.json"), "buil
 assert.ok(!manifestPaths.includes("data/conflict_dyadic_summary.json"), "build publico debe excluir datos tecnicos diadicos");
 assert.ok(manifestPaths.includes("data/conflicts/details_index.json"), "build publico debe incluir el indice granular de conflictos");
 assert.ok(manifestPaths.some(file => file.startsWith("data/conflicts/details/")), "build publico debe incluir shards de conflictos");
+
+assert.ok(conflictAutofix.includes("POSTWAR_1970_1991_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda fuente-respaldada de 1970-1991");
+assert.ok(postwar1970Curation.includes("hierarchySources"), "curaduria de 1970-1991 debe conservar trazabilidad");
+assert.ok(
+  postwar1970Curation.includes('"Sitio de Alepo (1980-1981)"')
+    && postwar1970Curation.includes('parent: "Insurrección islamista en Siria (1976-1982)"'),
+  "Alepo 1980 no debe mezclarse con la guerra civil siria de 2011"
+);
+assert.ok(
+  postwar1970Curation.includes('"Batalla de Guelta Zemmur (1989)"')
+    && postwar1970Curation.includes('parent: "Guerra del Sahara Occidental"'),
+  "las batallas saharauis deben conservar su guerra padre"
+);
 
 console.log("release-gates.test.js ok");

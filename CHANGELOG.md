@@ -8,7 +8,19 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.56 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.57 antes de cerrar la siguiente version.
+
+## v1.6.57 - 2026-07-12
+
+- Prepara una nueva version de mantenimiento con mediciones y auditorias actualizadas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-12-release-6`.
+- Verifica con fuentes 43 jerarquias adicionales y reduce la cola editorial de 692 a 649 conflictos unicos, sin introducir alertas ni duplicados.
+- Integra las batallas del Bogside, St Matthew's y Springmartin en el conflicto de Irlanda del Norte, y los combates de Aman y Ajlun en el conflicto jordano-palestino de 1970-1971.
+- Agrupa Aileu, Baucau y Lospalos en la invasion indonesia de Timor Oriental; Harar y Jijiga en la guerra de Ogaden; y Abadan, Alepo, monte Kent y Khafji en sus guerras y campanas correctas.
+- Estructura 27 acciones del Sahara Occidental entre 1977 y 1991 bajo una guerra padre comun, con fases, regiones, tipos y trazabilidad de Naciones Unidas.
+- Agrega pruebas que impiden mezclar el sitio de Alepo de 1980 con la guerra civil siria de 2011 y que preservan las jerarquias del Sahara Occidental, Malvinas y Ogaden.
+- Comprueba que la regeneracion sea idempotente y valida la busqueda, la apertura de fichas y el timeline relacionado en escritorio y a 390 px.
+- Mantiene el arranque critico en 810 KB, `script.js` en 543 KB y el indice inicial en 141 KB; el smoke registra 55 FPS promedio y cero long tasks sobre presupuesto.
 
 ## v1.6.56 - 2026-07-12
 

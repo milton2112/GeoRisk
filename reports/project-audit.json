@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-07-13T02:26:29.914Z",
+  "generatedAt": "2026-07-13T02:45:12.606Z",
   "status": "operativo",
   "startup": {
     "critical": "810 KB",
     "criticalBytes": 828953,
-    "deferred": "1.41 MB",
+    "deferred": "1.49 MB",
     "estimatedRuntimeMemory": {
-      "countriesFullBytes": 9266653,
-      "countriesFullHuman": "8.84 MB",
-      "estimatedParsedBytes": 27799959,
-      "estimatedParsedHuman": "26.51 MB",
+      "countriesFullBytes": 9295411,
+      "countriesFullHuman": "8.86 MB",
+      "estimatedParsedBytes": 27886233,
+      "estimatedParsedHuman": "26.59 MB",
       "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
     },
     "largestAssets": [
       {
         "path": "data/conflict_details.generated.json",
         "exists": true,
-        "bytes": 834245,
-        "human": "815 KB",
+        "bytes": 919480,
+        "human": "898 KB",
         "startupCritical": false
       },
       {
@@ -103,7 +103,7 @@
     "scanned": 2005,
     "issueCount": 0,
     "summary": {
-      "provisional_parent": 692
+      "provisional_parent": 649
     },
     "eraFocus": []
   },
@@ -112,14 +112,14 @@
       {
         "path": "data/timeline_index.json",
         "exists": true,
-        "bytes": 294666,
+        "bytes": 294669,
         "human": "288 KB"
       },
       {
         "path": "data/conflicts_index.json",
         "exists": true,
-        "bytes": 240750,
-        "human": "235 KB"
+        "bytes": 241673,
+        "human": "236 KB"
       },
       {
         "path": "data/search_index.json",
@@ -142,22 +142,22 @@
       {
         "path": "data/conflicts/details_index.json",
         "exists": true,
-        "bytes": 70017,
-        "human": "68 KB"
+        "bytes": 76292,
+        "human": "75 KB"
       }
     ],
     "countryWeights": {
       "totalCountries": 183,
-      "fullBytes": 9266653,
-      "duplicatedCountryFilesBytes": 1463651,
-      "countryConflictShardBytes": 366103,
+      "fullBytes": 9295411,
+      "duplicatedCountryFilesBytes": 1464090,
+      "countryConflictShardBytes": 366466,
       "tooLargeCount": 0,
       "largest": [
         {
           "code": "USA",
           "name": "Estados Unidos",
           "bytes": 20839,
-          "inlineBytes": 2763935,
+          "inlineBytes": 2765293,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -199,8 +199,8 @@
                 "bytes": 978
               }
             ],
-            "conflictsBytes": 201343,
-            "conflictShardBytes": 201344,
+            "conflictsBytes": 201335,
+            "conflictShardBytes": 201336,
             "averageConflictBytes": 218
           }
         },
@@ -208,7 +208,7 @@
           "code": "GBR",
           "name": "Reino Unido",
           "bytes": 20661,
-          "inlineBytes": 845101,
+          "inlineBytes": 847681,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -250,8 +250,8 @@
                 "bytes": 1018
               }
             ],
-            "conflictsBytes": 57594,
-            "conflictShardBytes": 57595,
+            "conflictsBytes": 57691,
+            "conflictShardBytes": 57692,
             "averageConflictBytes": 209
           }
         },
@@ -513,8 +513,8 @@
         {
           "code": "MAR",
           "name": "Marruecos",
-          "bytes": 14925,
-          "inlineBytes": 154470,
+          "bytes": 15153,
+          "inlineBytes": 171574,
           "tooLarge": false,
           "counts": {
             "cities": 4,
@@ -528,7 +528,7 @@
           },
           "metrics": {
             "sectionBytes": {
-              "military": 8333,
+              "military": 8561,
               "politics": 3519,
               "metadata": 1913,
               "general": 724,
@@ -541,7 +541,7 @@
             "largestSections": [
               {
                 "section": "military",
-                "bytes": 8333
+                "bytes": 8561
               },
               {
                 "section": "politics",
@@ -556,9 +556,9 @@
                 "bytes": 724
               }
             ],
-            "conflictsBytes": 10647,
-            "conflictShardBytes": 10648,
-            "averageConflictBytes": 217
+            "conflictsBytes": 10921,
+            "conflictShardBytes": 10922,
+            "averageConflictBytes": 223
           }
         },
         {
@@ -790,7 +790,7 @@
     },
     "curationGaps": {},
     "conflictDataConsistency": {
-      "checked": 3175,
+      "checked": 3218,
       "closedMarkedActiveCount": 0,
       "inactiveMarkedActiveCount": 0,
       "nullNarrativeTextCount": 0,
@@ -823,8 +823,8 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 58931,
-      "human": "58 KB"
+      "bytes": 60268,
+      "human": "59 KB"
     },
     {
       "path": "index.html",

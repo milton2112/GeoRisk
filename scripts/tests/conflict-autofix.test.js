@@ -18,6 +18,10 @@ import {
   HISTORICAL_VIETNAM_CONFLICT_DETAIL_FIXES,
   HISTORICAL_VIETNAM_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-historical-vietnam.js";
+import {
+  POSTWAR_1970_1991_CONFLICT_DETAIL_FIXES,
+  POSTWAR_1970_1991_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-1970-1991.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
 
@@ -80,6 +84,20 @@ assert.ok(
     ["alta", "media"].includes(detail.hierarchyConfidence) && detail.hierarchySources?.[0]?.url
   ),
   "la tanda histórica y de Vietnam debe conservar fuente y confianza"
+);
+
+assert.equal(POSTWAR_1970_1991_CONFLICT_DETAIL_FIXES["Batalla del Bogside"].parent, "Conflicto de Irlanda del Norte");
+assert.equal(POSTWAR_1970_1991_CONFLICT_DETAIL_FIXES["Batalla de Jijiga"].parent, "Guerra de Ogadén");
+assert.equal(POSTWAR_1970_1991_CONFLICT_DETAIL_FIXES["Sitio de Alepo (1980-1981)"].startYear, 1980);
+assert.notEqual(POSTWAR_1970_1991_CONFLICT_DETAIL_FIXES["Sitio de Alepo (1980-1981)"].parent, "Guerra civil siria");
+assert.equal(POSTWAR_1970_1991_CONFLICT_DETAIL_FIXES["Batalla de Guelta Zemmur (1989)"].parent, "Guerra del Sahara Occidental");
+assert.equal(POSTWAR_1970_1991_CONFLICT_DETAIL_FIXES["Batalla del monte Kent"].parent, "Guerra de las Malvinas");
+assert.equal(POSTWAR_1970_1991_SAFE_CONFLICT_RENAMES["Ofensiva Esmara-Tifariti"], "Ofensiva de Esmara-Tifariti");
+assert.ok(
+  Object.values(POSTWAR_1970_1991_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.hierarchyConfidence === "alta" && detail.hierarchySources?.[0]?.url
+  ),
+  "la tanda 1970-1991 debe conservar fuente y confianza"
 );
 
 const curatedIntervention = curateConflictEntry({

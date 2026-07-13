@@ -29,6 +29,10 @@ import {
   HISTORICAL_VIETNAM_CONFLICT_DETAIL_FIXES,
   HISTORICAL_VIETNAM_SAFE_CONFLICT_RENAMES
 } from "./lib/conflict-curation-historical-vietnam.js";
+import {
+  POSTWAR_1970_1991_CONFLICT_DETAIL_FIXES,
+  POSTWAR_1970_1991_SAFE_CONFLICT_RENAMES
+} from "./lib/conflict-curation-1970-1991.js";
 import { collectConflictCountryNames, curateConflictDetail, curateConflictEntry } from "./lib/conflict-batch-curation.js";
 import {
   cleanConflictLabel,
@@ -61,7 +65,8 @@ const curatedConflictDetailFixes = {
   ...VISIBLE_MODERN_CONFLICT_DETAIL_FIXES,
   ...VISIBLE_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   ...KOREA_MODERN_CONFLICT_DETAIL_FIXES,
-  ...HISTORICAL_VIETNAM_CONFLICT_DETAIL_FIXES
+  ...HISTORICAL_VIETNAM_CONFLICT_DETAIL_FIXES,
+  ...POSTWAR_1970_1991_CONFLICT_DETAIL_FIXES
 };
 const safeConflictRenames = {
   ...SAFE_CONFLICT_RENAMES,
@@ -75,7 +80,8 @@ const safeConflictRenames = {
   ...VISIBLE_MODERN_SAFE_CONFLICT_RENAMES,
   ...VISIBLE_FOLLOWUP_SAFE_CONFLICT_RENAMES,
   ...KOREA_MODERN_SAFE_CONFLICT_RENAMES,
-  ...HISTORICAL_VIETNAM_SAFE_CONFLICT_RENAMES
+  ...HISTORICAL_VIETNAM_SAFE_CONFLICT_RENAMES,
+  ...POSTWAR_1970_1991_SAFE_CONFLICT_RENAMES
 };
 
 function renameConflictName(name) {

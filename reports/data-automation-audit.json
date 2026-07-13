@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-13T02:26:30.728Z",
+  "generatedAt": "2026-07-13T02:45:13.378Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
@@ -11,7 +11,7 @@
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 692
+      "count": 649
     },
     "suspectRegions": {
       "count": 0
@@ -366,13 +366,6 @@
       },
       {
         "code": "CHN",
-        "name": "Segunda batalla de Zhenbao",
-        "parent": "Conflicto regional de Asia",
-        "campaign": "Campaña vinculada a Conflicto regional de Asia",
-        "startYear": 1969
-      },
-      {
-        "code": "CHN",
         "name": "Batalla de las Islas Paracelso",
         "parent": "Conflicto regional de Asia",
         "campaign": "Campaña vinculada a Conflicto regional de Asia",
@@ -384,20 +377,6 @@
         "parent": "Conflicto regional de Asia",
         "campaign": "Campaña vinculada a Conflicto regional de Asia",
         "startYear": null
-      },
-      {
-        "code": "CUB",
-        "name": "Batalla de Harar",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": 1977
-      },
-      {
-        "code": "CUB",
-        "name": "Batalla de Jijiga",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": 1977
       },
       {
         "code": "DNK",
@@ -535,6 +514,27 @@
       {
         "code": "FRA",
         "name": "Batalla de Craonne",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Fundy Bay",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Golymin",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Grado",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 692,
+      "count": 649,
       "command": "npm run fix:conflicts:batches"
     },
     {
