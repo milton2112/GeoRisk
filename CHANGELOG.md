@@ -8,7 +8,18 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.57 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.58 antes de cerrar la siguiente version.
+
+## v1.6.58 - 2026-07-13
+
+- Verifica con fuentes 39 jerarquias modernas y fusiona un duplicado, reduciendo la cola editorial de 649 a 609 conflictos unicos y el total escaneado de 2005 a 2004.
+- Integra siete acciones de la guerra de Abjasia, tres de la primera guerra chechena y la batalla de Karamaji en la invasion de Daguestan.
+- Estructura Tetovo, Radusa y Takur Ghar bajo sus conflictos y campanas correctos, con regiones concretas y trazabilidad institucional.
+- Ordena 17 acciones de la guerra de Irak entre 2003 y 2007, y ubica Mosul 2016-2017 dentro de la guerra contra el Estado Islamico.
+- Corrige las jerarquias de Chora, Kandahar, Dikwa, Karlivka, Al-Shadaddah y las ofensivas de Alepo de 2013 y 2016.
+- Normaliza nombres visibles de Karbala, Al-Qaim, la calle Haifa, las ofensivas de Abjasia y la fecha de Dikwa; unifica los dos nombres de la batalla de los puentes de Nasiriya.
+- Agrega regresiones de cantidad, fuente, guerra padre, campana e integracion con auditoria; la regeneracion completa converge sin cambios en una segunda pasada.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-13-release-1`.
 
 ## v1.6.57 - 2026-07-12
 

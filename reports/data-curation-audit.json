@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-07-13T02:39:16.099Z",
+  "generatedAt": "2026-07-13T20:48:05.267Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 9295411,
-    "duplicatedCountryFilesBytes": 1464090,
-    "countryConflictShardBytes": 366466,
+    "fullBytes": 9316141,
+    "duplicatedCountryFilesBytes": 1463907,
+    "countryConflictShardBytes": 366359,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 20839,
-        "inlineBytes": 2765293,
+        "inlineBytes": 2776595,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -54,8 +54,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 201335,
-          "conflictShardBytes": 201336,
+          "conflictsBytes": 201245,
+          "conflictShardBytes": 201246,
           "averageConflictBytes": 218
         }
       },
@@ -63,7 +63,7 @@
         "code": "GBR",
         "name": "Reino Unido",
         "bytes": 20661,
-        "inlineBytes": 847681,
+        "inlineBytes": 848143,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 57691,
-          "conflictShardBytes": 57692,
+          "conflictsBytes": 57667,
+          "conflictShardBytes": 57668,
           "averageConflictBytes": 209
         }
       },
@@ -317,8 +317,8 @@
       {
         "code": "RUS",
         "name": "Rusia",
-        "bytes": 15268,
-        "inlineBytes": 129933,
+        "bytes": 15275,
+        "inlineBytes": 132455,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -332,7 +332,7 @@
         },
         "metrics": {
           "sectionBytes": {
-            "military": 6466,
+            "military": 6473,
             "politics": 4980,
             "metadata": 1926,
             "general": 965,
@@ -345,7 +345,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 6466
+              "bytes": 6473
             },
             {
               "section": "politics",
@@ -360,8 +360,8 @@
               "bytes": 965
             }
           ],
-          "conflictsBytes": 7025,
-          "conflictShardBytes": 7026,
+          "conflictsBytes": 7032,
+          "conflictShardBytes": 7033,
           "averageConflictBytes": 176
         }
       },
@@ -470,8 +470,8 @@
       {
         "code": "ITA",
         "name": "Italia",
-        "bytes": 14583,
-        "inlineBytes": 48346,
+        "bytes": 14358,
+        "inlineBytes": 45982,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -480,14 +480,14 @@
           "religionGroups": 5,
           "organizations": 77,
           "rivals": 45,
-          "conflicts": 11,
+          "conflicts": 10,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
             "politics": 8689,
-            "military": 2158,
             "metadata": 1936,
+            "military": 1933,
             "general": 828,
             "history": 448,
             "religion": 305,
@@ -501,21 +501,21 @@
               "bytes": 8689
             },
             {
-              "section": "military",
-              "bytes": 2158
-            },
-            {
               "section": "metadata",
               "bytes": 1936
+            },
+            {
+              "section": "military",
+              "bytes": 1933
             },
             {
               "section": "general",
               "bytes": 828
             }
           ],
-          "conflictsBytes": 2041,
+          "conflictsBytes": 1816,
           "conflictShardBytes": 0,
-          "averageConflictBytes": 186
+          "averageConflictBytes": 182
         }
       },
       {

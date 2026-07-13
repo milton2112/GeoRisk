@@ -1,574 +1,14 @@
 {
-  "generatedAt": "2026-07-13T02:45:10.244Z",
-  "scannedConflicts": 2005,
+  "generatedAt": "2026-07-13T20:50:51.462Z",
+  "scannedConflicts": 2004,
   "issueCount": 0,
-  "advisoryCount": 649,
-  "reviewCount": 649,
+  "advisoryCount": 609,
+  "reviewCount": 609,
   "summary": {
-    "provisional_parent": 649
+    "provisional_parent": 609
   },
   "topIssues": [],
   "topAdvisories": [
-    {
-      "key": "batalla de gagra",
-      "name": "Batalla de Gagra",
-      "countries": [
-        "GEO"
-      ],
-      "startYear": 1992,
-      "endYear": 1992,
-      "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de sujumi 1992",
-      "name": "Batalla de Sujumi (1992)",
-      "countries": [
-        "GEO"
-      ],
-      "startYear": 1992,
-      "endYear": 1992,
-      "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "sitio de tkvarcheli",
-      "name": "Sitio de Tkvarcheli",
-      "countries": [
-        "GEO"
-      ],
-      "startYear": 1992,
-      "endYear": 1993,
-      "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de sujumi 1993",
-      "name": "Batalla de Sujumi (1993)",
-      "countries": [
-        "GEO"
-      ],
-      "startYear": 1993,
-      "endYear": 1993,
-      "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "ofensiva de enero guerra de abjasia",
-      "name": "Ofensiva de enero (guerra de Abjasia)",
-      "countries": [
-        "GEO"
-      ],
-      "startYear": 1993,
-      "endYear": 1993,
-      "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "ofensiva de julio guerra de abjasia",
-      "name": "Ofensiva de julio (guerra de Abjasia)",
-      "countries": [
-        "GEO"
-      ],
-      "startYear": 1993,
-      "endYear": 1993,
-      "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "ofensiva de marzo guerra de abjasia",
-      "name": "Ofensiva de marzo (guerra de Abjasia)",
-      "countries": [
-        "GEO"
-      ],
-      "startYear": 1993,
-      "endYear": 1993,
-      "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "asalto del palacio presidencial de grozni",
-      "name": "Asalto del palacio presidencial de Grozni",
-      "countries": [
-        "RUS"
-      ],
-      "startYear": 1994,
-      "endYear": 1995,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de dolinskoye",
-      "name": "Batalla de Dolinskoye",
-      "countries": [
-        "RUS"
-      ],
-      "startYear": 1994,
-      "endYear": 1994,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de gudermes",
-      "name": "Batalla de Gudermés",
-      "countries": [
-        "RUS"
-      ],
-      "startYear": 1995,
-      "endYear": 1995,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de karamaji",
-      "name": "Batalla de Karamaji",
-      "countries": [
-        "RUS"
-      ],
-      "startYear": 1999,
-      "endYear": 1999,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de radusa",
-      "name": "Batalla de Raduša",
-      "countries": [
-        "MKD"
-      ],
-      "startYear": 2001,
-      "endYear": 2001,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de tetovo",
-      "name": "Batalla de Tetovo",
-      "countries": [
-        "MKD"
-      ],
-      "startYear": 2001,
-      "endYear": 2001,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de takur ghar",
-      "name": "Batalla de Takur Ghar",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 2002,
-      "endYear": 2002,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de basora",
-      "name": "Batalla de Basora",
-      "countries": [
-        "GBR"
-      ],
-      "startYear": 2003,
-      "endYear": 2003,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de hilla",
-      "name": "Batalla de Hilla",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 2003,
-      "endYear": 2003,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de kerbala de 2003",
-      "name": "Batalla de Kerbala de 2003",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 2003,
-      "endYear": 2003,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de nasiriya",
-      "name": "Batalla de Nasiriya",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 2003,
-      "endYear": 2003,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla del paso de debecka",
-      "name": "Batalla del paso de Debecka",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 2003,
-      "endYear": 2003,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de los puentes",
-      "name": "Batalla de los puentes",
-      "countries": [
-        "ITA"
-      ],
-      "startYear": 2004,
-      "endYear": 2004,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de los puentes de nasiriya",
-      "name": "Batalla de los puentes de Nasiriya",
-      "countries": [
-        "ITA"
-      ],
-      "startYear": 2004,
-      "endYear": 2004,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de mosul 2004",
-      "name": "Batalla de Mosul (2004)",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 2004,
-      "endYear": 2004,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de nayaf",
-      "name": "Batalla de Nayaf",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 2004,
-      "endYear": 2004,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de samarra",
-      "name": "Batalla de Samarra",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 2004,
-      "endYear": 2004,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "primera batalla de faluya",
-      "name": "Primera batalla de Faluya",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 2004,
-      "endYear": 2004,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "segunda batalla de faluya",
-      "name": "Segunda batalla de Faluya",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 2004,
-      "endYear": 2004,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de al qaim",
-      "name": "Batalla de Al Qaim",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 2005,
-      "endYear": 2005,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de haditha",
-      "name": "Batalla de Haditha",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 2005,
-      "endYear": 2005,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de tal afar",
-      "name": "Batalla de Tal Afar",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 2005,
-      "endYear": 2005,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de baquba",
-      "name": "Batalla de Baquba",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 2007,
-      "endYear": 2007,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de chora",
-      "name": "Batalla de Chora",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 2007,
-      "endYear": 2007,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de donkey island",
-      "name": "Batalla de Donkey Island",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 2007,
-      "endYear": 2007,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de haifa street",
-      "name": "Batalla de Haifa Street",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 2007,
-      "endYear": 2007,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "ofensiva de alepo de 2013",
-      "name": "Ofensiva de Alepo de 2013",
-      "countries": [
-        "SYR"
-      ],
-      "startYear": 2013,
-      "endYear": 2013,
-      "hierarchyLabel": "Conflicto regional de Medio Oriente",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de karlivka",
-      "name": "Batalla de Karlivka",
-      "countries": [
-        "UKR"
-      ],
-      "startYear": 2014,
-      "endYear": 2014,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de dikwa 2 mar 2015",
-      "name": "Batalla de Dikwa (2 mar 2015)",
-      "countries": [
-        "TCD"
-      ],
-      "startYear": 2015,
-      "endYear": 2015,
-      "hierarchyLabel": "Conflicto regional de África",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de mosul 2016 2017",
-      "name": "Batalla de Mosul (2016-2017)",
-      "countries": [
-        "IRQ"
-      ],
-      "startYear": 2016,
-      "endYear": 2017,
-      "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "ofensiva de al shadaddah",
-      "name": "Ofensiva de Al-Shadaddah",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 2016,
-      "endYear": 2016,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "ofensiva de alepo de abril de 2016",
-      "name": "Ofensiva de Alepo de abril de 2016",
-      "countries": [
-        "SYR"
-      ],
-      "startYear": 2016,
-      "endYear": 2016,
-      "hierarchyLabel": "Conflicto regional de Medio Oriente",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de kandahar 2021",
-      "name": "Batalla de Kandahar (2021)",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 2021,
-      "endYear": 2021,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
     {
       "key": "batalla de ras kamboni 2024",
       "name": "Batalla de Ras Kamboni (2024)",
@@ -1118,6 +558,566 @@
     {
       "key": "batalla de bemis heights",
       "name": "Batalla de Bemis Heights",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de bennington",
+      "name": "Batalla de Bennington",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de biap",
+      "name": "Batalla de BIAP",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de big dry wash",
+      "name": "Batalla de Big Dry Wash",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de big hole",
+      "name": "Batalla de Big Hole",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de big mound",
+      "name": "Batalla de Big Mound",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de bir enzaran",
+      "name": "Batalla de Bir Enzarán",
+      "countries": [
+        "MAR"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de blackstock s farm",
+      "name": "Batalla de Blackstock's Farm",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de bladensburg",
+      "name": "Batalla de Bladensburg",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de blanco canyon",
+      "name": "Batalla de Blanco Canyon",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de blandford",
+      "name": "Batalla de Blandford",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de blue licks",
+      "name": "Batalla de Blue Licks",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de boca teacapan",
+      "name": "Batalla de Boca Teacapan",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de bockholmssund",
+      "name": "Batalla de Bockholmssund",
+      "countries": [
+        "SWE"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de bolshie ozerki",
+      "name": "Batalla de Bolshie Ozerki",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de bomarsund",
+      "name": "Batalla de Bomarsund",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de bornholm",
+      "name": "Batalla de Bornholm",
+      "countries": [
+        "DNK"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de bound brook",
+      "name": "Batalla de Bound Brook",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de bov",
+      "name": "Batalla de Bov",
+      "countries": [
+        "DNK"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de breville",
+      "name": "Batalla de Bréville",
+      "countries": [
+        "GBR"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de brice s cross roads",
+      "name": "Batalla de Brice's Cross Roads",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de britain day",
+      "name": "Batalla de Britain Day",
+      "countries": [
+        "GBR"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de broodseinde",
+      "name": "Batalla de Broodseinde",
+      "countries": [
+        "AUS"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Oceania",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de brownstown",
+      "name": "Batalla de Brownstown",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de buffalo",
+      "name": "Batalla de Buffalo",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de burnt corn",
+      "name": "Batalla de Burnt Corn",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de busan",
+      "name": "Batalla de Busan",
+      "countries": [
+        "JPN"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de cabo bojador",
+      "name": "Batalla de Cabo Bojador",
+      "countries": [
+        "MAR"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de cabo norte",
+      "name": "Batalla de Cabo Norte",
+      "countries": [
+        "GBR"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de cabo rachado",
+      "name": "Batalla de Cabo Rachado",
+      "countries": [
+        "PRT"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de cabo teulada",
+      "name": "Batalla de Cabo Teulada",
+      "countries": [
+        "GBR"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de cagayan de misamis",
+      "name": "Batalla de Cagayan de Misamis",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de calabria",
+      "name": "Batalla de Calabria",
+      "countries": [
+        "GBR"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de calebee creek",
+      "name": "Batalla de Calebee Creek",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de caloocan",
+      "name": "Batalla de Caloocan",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de camaret",
+      "name": "Batalla de Camaret",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de camas creek",
+      "name": "Batalla de Camas Creek",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de camden",
+      "name": "Batalla de Camden",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de campeche",
+      "name": "Batalla de Campeche",
+      "countries": [
+        "MEX"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de cantigny",
+      "name": "Batalla de Cantigny",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de canyon creek",
+      "name": "Batalla de Canyon Creek",
       "countries": [
         "USA"
       ],

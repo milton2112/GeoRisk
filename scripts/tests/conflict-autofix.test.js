@@ -22,6 +22,10 @@ import {
   POSTWAR_1970_1991_CONFLICT_DETAIL_FIXES,
   POSTWAR_1970_1991_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-1970-1991.js";
+import {
+  MODERN_1992_2021_CONFLICT_DETAIL_FIXES,
+  MODERN_1992_2021_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-1992-2021.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
 
@@ -98,6 +102,24 @@ assert.ok(
     detail.hierarchyConfidence === "alta" && detail.hierarchySources?.[0]?.url
   ),
   "la tanda 1970-1991 debe conservar fuente y confianza"
+);
+
+assert.equal(Object.keys(MODERN_1992_2021_CONFLICT_DETAIL_FIXES).length, 39);
+assert.equal(MODERN_1992_2021_CONFLICT_DETAIL_FIXES["Batalla de Gagra"].parent, "Guerra de Abjasia");
+assert.equal(MODERN_1992_2021_CONFLICT_DETAIL_FIXES["Batalla de Takur Ghar"].campaign, "Operación Anaconda");
+assert.equal(MODERN_1992_2021_CONFLICT_DETAIL_FIXES["Batalla de Nasiriya"].parent, "Guerra de Irak");
+assert.equal(MODERN_1992_2021_CONFLICT_DETAIL_FIXES["Batalla de Mosul (2016-2017)"].parent, "Guerra contra el Estado Islámico");
+assert.equal(MODERN_1992_2021_SAFE_CONFLICT_RENAMES["Batalla de los puentes"], "Batalla de los puentes de Nasiriya");
+assert.equal(MODERN_1992_2021_SAFE_CONFLICT_RENAMES["Batalla de Haifa Street"], "Batalla de la calle Haifa");
+assert.ok(
+  Object.values(MODERN_1992_2021_CONFLICT_DETAIL_FIXES).every(detail =>
+    ["alta", "media"].includes(detail.hierarchyConfidence)
+      && detail.hierarchySources?.[0]?.url
+      && detail.parent === detail.war
+      && detail.campaign
+      && !/^Conflicto regional de /i.test(detail.parent)
+  ),
+  "la tanda 1992-2021 debe conservar jerarquia especifica, fuente y confianza"
 );
 
 const curatedIntervention = curateConflictEntry({

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-13T02:39:51.575Z",
+  "generatedAt": "2026-07-13T20:48:29.060Z",
   "changedFullCountries": 0,
   "fullPassChanges": [
     0
@@ -11,7 +11,7 @@
     "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 480,
+  "generatedHierarchyCandidates": 519,
   "safeRenames": {
     "Batalla naval de RÃ¼gen": "Batalla naval de Rugen",
     "Batalla de Rügen": "Batalla naval de Rugen",
@@ -208,7 +208,16 @@
     "Batalla de Hill 881": "Batallas de las colinas 881",
     "Batalla de Fire Support Base Ripcord": "Batalla de la base Ripcord",
     "Batalla de la Colina de la Hamburguesa": "Batalla de la colina de la Hamburguesa",
-    "Ofensiva Esmara-Tifariti": "Ofensiva de Esmara-Tifariti"
+    "Ofensiva Esmara-Tifariti": "Ofensiva de Esmara-Tifariti",
+    "Ofensiva de enero (guerra de Abjasia)": "Ofensiva de enero de 1993 en Abjasia",
+    "Ofensiva de marzo (guerra de Abjasia)": "Ofensiva de marzo de 1993 en Abjasia",
+    "Ofensiva de julio (guerra de Abjasia)": "Ofensiva de julio de 1993 en Abjasia",
+    "Asalto del palacio presidencial de Grozni": "Asalto al palacio presidencial de Grozni",
+    "Batalla de Kerbala de 2003": "Batalla de Karbala de 2003",
+    "Batalla de los puentes": "Batalla de los puentes de Nasiriya",
+    "Batalla de Al Qaim": "Batalla de Al-Qaim",
+    "Batalla de Haifa Street": "Batalla de la calle Haifa",
+    "Batalla de Dikwa (2 mar 2015)": "Batalla de Dikwa (2 de marzo de 2015)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -654,6 +663,45 @@
     "Batalla de Amgala (1989)",
     "Batalla de Guelta Zemmur (1989)",
     "Batalla de Hausa (1989)",
-    "Ofensiva de Tifariti de 1991"
+    "Ofensiva de Tifariti de 1991",
+    "Batalla de Gagra",
+    "Batalla de Sujumi (1992)",
+    "Sitio de Tkvarcheli",
+    "Batalla de Sujumi (1993)",
+    "Ofensiva de enero de 1993 en Abjasia",
+    "Ofensiva de marzo de 1993 en Abjasia",
+    "Ofensiva de julio de 1993 en Abjasia",
+    "Asalto al palacio presidencial de Grozni",
+    "Batalla de Dolinskoye",
+    "Batalla de Gudermés",
+    "Batalla de Karamaji",
+    "Batalla de Raduša",
+    "Batalla de Tetovo",
+    "Batalla de Takur Ghar",
+    "Batalla de Chora",
+    "Batalla de Kandahar (2021)",
+    "Batalla de Basora",
+    "Batalla de Hilla",
+    "Batalla de Karbala de 2003",
+    "Batalla de Nasiriya",
+    "Batalla del paso de Debecka",
+    "Batalla de los puentes de Nasiriya",
+    "Batalla de Mosul (2004)",
+    "Batalla de Nayaf",
+    "Batalla de Samarra",
+    "Primera batalla de Faluya",
+    "Segunda batalla de Faluya",
+    "Batalla de Al-Qaim",
+    "Batalla de Haditha",
+    "Batalla de Tal Afar",
+    "Batalla de Baquba",
+    "Batalla de Donkey Island",
+    "Batalla de la calle Haifa",
+    "Ofensiva de Alepo de 2013",
+    "Batalla de Karlivka",
+    "Batalla de Dikwa (2 de marzo de 2015)",
+    "Ofensiva de Al-Shadaddah",
+    "Ofensiva de Alepo de abril de 2016",
+    "Batalla de Mosul (2016-2017)"
   ]
 }

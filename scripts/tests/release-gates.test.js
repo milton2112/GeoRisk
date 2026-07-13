@@ -54,6 +54,7 @@ const visibleFollowupCuration = await fs.readFile(path.join(projectRoot, "script
 const koreaModernCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-korea-modern.js"), "utf8");
 const historicalVietnamCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-historical-vietnam.js"), "utf8");
 const postwar1970Curation = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-1970-1991.js"), "utf8");
+const modern1992Curation = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-1992-2021.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
 const resilientFs = await fs.readFile(path.join(projectRoot, "scripts/lib/resilient-fs.js"), "utf8");
 const exportShare = await fs.readFile(path.join(projectRoot, "app-export-share.js"), "utf8");
@@ -397,6 +398,17 @@ assert.ok(
   postwar1970Curation.includes('"Batalla de Guelta Zemmur (1989)"')
     && postwar1970Curation.includes('parent: "Guerra del Sahara Occidental"'),
   "las batallas saharauis deben conservar su guerra padre"
+);
+assert.ok(conflictAutofix.includes("MODERN_1992_2021_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda fuente-respaldada de 1992-2021");
+assert.ok(modern1992Curation.includes("hierarchySources"), "curaduria de 1992-2021 debe conservar trazabilidad");
+assert.ok(
+  modern1992Curation.includes('"Batalla de los puentes": "Batalla de los puentes de Nasiriya"'),
+  "Nasiriya no debe volver a exponer dos nombres para la misma batalla de 2004"
+);
+assert.ok(
+  modern1992Curation.includes('"Batalla de Mosul (2016-2017)"')
+    && modern1992Curation.includes('parent: "Guerra contra el Estado Islámico"'),
+  "Mosul 2016-2017 debe conservar su guerra padre"
 );
 
 console.log("release-gates.test.js ok");

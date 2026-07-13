@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-13T02:45:13.378Z",
+  "generatedAt": "2026-07-13T20:50:55.750Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
@@ -11,7 +11,7 @@
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 649
+      "count": 609
     },
     "suspectRegions": {
       "count": 0
@@ -344,13 +344,6 @@
         "startYear": null
       },
       {
-        "code": "TCD",
-        "name": "Batalla de Dikwa (2 mar 2015)",
-        "parent": "Conflicto regional de África",
-        "campaign": "Campaña vinculada a Conflicto regional de África",
-        "startYear": 2015
-      },
-      {
         "code": "CHL",
         "name": "Combate de Huite",
         "parent": "Conflicto regional de América",
@@ -535,6 +528,13 @@
       {
         "code": "FRA",
         "name": "Batalla de Grado",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Grenada",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 649,
+      "count": 609,
       "command": "npm run fix:conflicts:batches"
     },
     {
