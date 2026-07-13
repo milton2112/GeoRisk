@@ -97,8 +97,10 @@ async function collectConflictDetailLocalizationIssues() {
   function visit(file, name, value, pathParts = []) {
     if (issues.length >= 80) return;
     if (typeof value === "string") {
+      const fieldName = pathParts.at(-1);
       if (
-        pathParts.at(-1) !== "language" &&
+        fieldName !== "language" &&
+        fieldName !== "url" &&
         !pathParts.includes("commanders") &&
         (conflictDetailLocalizationPattern.test(value) || conflictDetailCoordinatePattern.test(value))
       ) {

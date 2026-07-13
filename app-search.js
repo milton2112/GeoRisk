@@ -390,7 +390,8 @@
       /ex metropoli|former metropole/
     ];
     const score = Object.values(filters).filter(Boolean).length;
-    return score >= 2 || (score >= 1 && semanticPatterns.some(pattern => pattern.test(normalized)))
+    const hasCountryCollectionIntent = /\b(paises?|countries)\b/.test(normalized);
+    return score >= 2 || (score >= 1 && (hasCountryCollectionIntent || semanticPatterns.some(pattern => pattern.test(normalized))))
       ? filters
       : null;
   }

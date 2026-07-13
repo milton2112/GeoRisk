@@ -52,6 +52,7 @@ const conflictAutofix = await fs.readFile(path.join(projectRoot, "scripts/applyC
 const visibleModernCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-visible-modern.js"), "utf8");
 const visibleFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-visible-followup.js"), "utf8");
 const koreaModernCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-korea-modern.js"), "utf8");
+const historicalVietnamCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-historical-vietnam.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
 const resilientFs = await fs.readFile(path.join(projectRoot, "scripts/lib/resilient-fs.js"), "utf8");
 const exportShare = await fs.readFile(path.join(projectRoot, "app-export-share.js"), "utf8");
@@ -120,14 +121,21 @@ assert.ok(!conflictAutofix.includes("fs.readdir(countriesDir)"), "autofix no deb
 assert.ok(conflictAutofix.includes("VISIBLE_MODERN_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda visible fuente-respaldada");
 assert.ok(conflictAutofix.includes("VISIBLE_FOLLOWUP_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la segunda tanda visible fuente-respaldada");
 assert.ok(conflictAutofix.includes("KOREA_MODERN_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda de Corea y conflictos modernos");
+assert.ok(conflictAutofix.includes("HISTORICAL_VIETNAM_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda histórica y de Vietnam");
 assert.ok(visibleModernCuration.includes("hierarchySources"), "curaduria visible debe conservar trazabilidad por conflicto");
 assert.ok(visibleFollowupCuration.includes("hierarchySources"), "segunda curaduria visible debe conservar trazabilidad por conflicto");
 assert.ok(koreaModernCuration.includes("hierarchySources"), "curaduria de Corea y conflictos modernos debe conservar trazabilidad");
+assert.ok(historicalVietnamCuration.includes("hierarchySources"), "curaduria histórica y de Vietnam debe conservar trazabilidad");
 assert.ok(koreaModernCuration.includes('"Batalla de Khaz Oruzgan"') && koreaModernCuration.includes("startYear: 2008"), "Khaz Oruzgan no debe volver al ano 2010 incorrecto");
 assert.ok(koreaModernCuration.includes('"Batalla de la borne 233"') && koreaModernCuration.includes("startYear: 1961"), "la borne 233 no debe volver al ano 1973 incorrecto");
 assert.ok(buildDataset.includes('"Batalla de la cota 233": { startYear: 1961, endYear: 1961 }'), "el generador base debe conservar 1961 para la borne 233");
+assert.ok(historicalVietnamCuration.includes('"Combate naval de la Junon contra la Fox (1778)"') && historicalVietnamCuration.includes("startYear: 1778"), "Junon-Fox debe conservar su fecha histórica de 1778");
+assert.ok(buildDataset.includes('"Combate de la Junon contra el Fox": { startYear: 1778, endYear: 1778 }'), "el generador base no debe restaurar 1809 para Junon-Fox");
+assert.ok(historicalVietnamCuration.includes('"Sitio de Khe Sanh"') && historicalVietnamCuration.includes('"Campaña de Khe Sanh"'), "Khe Sanh debe conservar su jerarquía verificada");
+assert.ok(historicalVietnamCuration.includes('"Batalla de Lima Site 85"') && historicalVietnamCuration.includes('parent: "Guerra civil de Laos"'), "Lima Site 85 no debe clasificarse como una batalla genérica de Vietnam");
 assert.ok(koreaModernCuration.includes('"Batalla de Battle Mountain"') && koreaModernCuration.includes('"Guerra de Corea"'), "las batallas coreanas deben conservar su guerra padre");
 assert.ok(appSearch.includes("normalized.length >= 4"), "busqueda diferida de conflictos debe aceptar nombres sin prefijo de guerra o batalla");
+assert.ok(appSearch.includes("hasCountryCollectionIntent"), "busqueda natural debe aceptar consultas simples por continente o religion");
 assert.ok(visibleFollowupCuration.includes('"Batalla de Brandywine"') && visibleFollowupCuration.includes("startYear: 1777"), "Brandywine no debe volver a quedar sin fecha");
 assert.ok(visibleFollowupCuration.includes('"Batalla de Garmsir"') && visibleFollowupCuration.includes("startYear: 2008"), "Garmsir no debe volver a quedar sin fecha");
 assert.ok(visibleFollowupCuration.includes('"Batalla de la isla de las Serpientes"') && visibleFollowupCuration.includes("startYear: 2022"), "isla de las Serpientes no debe volver a quedar sin fecha");
@@ -178,6 +186,7 @@ assert.ok(dataAutomationAudit.includes("sameCountryDuplicateConflicts"), "audito
 assert.ok(dataAutomationAudit.includes("normalizeConflictKey"), "auditoria y autofix deben compartir normalizacion de nombres de conflicto");
 assert.ok(dataAutomationAudit.includes("sharedConflictNames"), "auditoria de datos debe separar conflictos compartidos de duplicados reales");
 assert.ok(dataAutomationAudit.includes("sourceTextMojibake"), "auditoria de datos debe detectar mojibake en fuentes generadoras");
+assert.ok(dataAutomationAudit.includes('fieldName !== "url"'), "auditoria de idioma no debe interpretar URLs de fuentes como texto visible");
 assert.ok(dataAutomationAudit.includes("baseSectionProfiles"), "auditoria de datos debe separar secciones base de baja confianza real");
 assert.ok(dataAutomationAudit.includes("provisionalConflictHierarchies"), "auditoria debe distinguir padres regionales provisionales de jerarquias verificadas");
 assert.ok(dataAutomationAudit.includes("priorityWeakDataProfiles"), "auditoria de datos debe priorizar fichas publicas debiles sobre territorios especiales");

@@ -1,546 +1,14 @@
 {
-  "generatedAt": "2026-07-13T01:53:30.716Z",
+  "generatedAt": "2026-07-13T02:26:27.482Z",
   "scannedConflicts": 2005,
   "issueCount": 0,
-  "advisoryCount": 737,
-  "reviewCount": 737,
+  "advisoryCount": 692,
+  "reviewCount": 692,
   "summary": {
-    "provisional_parent": 737
+    "provisional_parent": 692
   },
   "topIssues": [],
   "topAdvisories": [
-    {
-      "key": "asalto de ivangorod",
-      "name": "Asalto de Ivángorod",
-      "countries": [
-        "SWE"
-      ],
-      "startYear": 1496,
-      "endYear": 1496,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "incursion sobre le havre",
-      "name": "Incursion sobre Le Havre",
-      "countries": [
-        "FRA"
-      ],
-      "startYear": 1759,
-      "endYear": 1759,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "atlantic incursion de junio 1796",
-      "name": "Atlantic incursion de junio 1796",
-      "countries": [
-        "FRA"
-      ],
-      "startYear": 1796,
-      "endYear": 1796,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "incursion sobre boulogne",
-      "name": "Incursion sobre Boulogne",
-      "countries": [
-        "FRA"
-      ],
-      "startYear": 1804,
-      "endYear": 1804,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "combate de la junon contra el fox",
-      "name": "Combate de la Junon contra el Fox",
-      "countries": [
-        "FRA"
-      ],
-      "startYear": 1809,
-      "endYear": 1809,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "combate naval de valparaiso 1814",
-      "name": "Combate naval de Valparaíso (1814)",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1814,
-      "endYear": 1814,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "incursion sobre alejandria",
-      "name": "Incursion sobre Alejandria",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1814,
-      "endYear": 1814,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "combate naval de cabo manglares",
-      "name": "Combate naval de Cabo Manglares",
-      "countries": [
-        "CHL"
-      ],
-      "startYear": 1820,
-      "endYear": 1820,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "ofensiva confederada heartland",
-      "name": "Ofensiva confederada Heartland",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1862,
-      "endYear": 1862,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de csaszarkobanya",
-      "name": "Batalla de Császárkőbanya",
-      "countries": [
-        "AUT"
-      ],
-      "startYear": 1921,
-      "endYear": 1921,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de oum el achar 1956",
-      "name": "Batalla de Oum El Achar (1956)",
-      "countries": [
-        "FRA"
-      ],
-      "startYear": 1956,
-      "endYear": 1956,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de oum el achar 1957",
-      "name": "Batalla de Oum El Achar (1957)",
-      "countries": [
-        "FRA"
-      ],
-      "startYear": 1957,
-      "endYear": 1957,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de an lao",
-      "name": "Batalla de An Lao",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1964,
-      "endYear": 1964,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de binh gia",
-      "name": "Batalla de Binh Gia",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1964,
-      "endYear": 1965,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de nam dong",
-      "name": "Batalla de Nam Dong",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1964,
-      "endYear": 1964,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de ba gia",
-      "name": "Batalla de Ba Gia",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1965,
-      "endYear": 1965,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de dong xoai",
-      "name": "Batalla de Dong Xoai",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1965,
-      "endYear": 1965,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de song be",
-      "name": "Batalla de Song Be",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1965,
-      "endYear": 1965,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla del valle de ia drang",
-      "name": "Batalla del valle de Ia Drang",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1965,
-      "endYear": 1965,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de a shau",
-      "name": "Batalla de A Shau",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1966,
-      "endYear": 1966,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de bong son",
-      "name": "Batalla de Bong Son",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1966,
-      "endYear": 1966,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de hill 488",
-      "name": "Batalla de Hill 488",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1966,
-      "endYear": 1966,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de suoi bong trang",
-      "name": "Batalla de Suoi Bong Trang",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1966,
-      "endYear": 1966,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de xa cam my",
-      "name": "Batalla de Xa Cam My",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1966,
-      "endYear": 1966,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de ap bau bang ii",
-      "name": "Batalla de Ap Bau Bang II",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1967,
-      "endYear": 1967,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de dak to",
-      "name": "Batalla de Dak To",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1967,
-      "endYear": 1967,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de hill 881",
-      "name": "Batalla de Hill 881",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1967,
-      "endYear": 1967,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de tra vinh dong",
-      "name": "Batalla de Tra Vinh Dong",
-      "countries": [
-        "KOR"
-      ],
-      "startYear": 1967,
-      "endYear": 1967,
-      "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "primera batalla de loc ninh",
-      "name": "Primera batalla de Loc Ninh",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1967,
-      "endYear": 1967,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de duc lap",
-      "name": "Batalla de Duc Lap",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1968,
-      "endYear": 1968,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de hat dich",
-      "name": "Batalla de Hat Dich",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1968,
-      "endYear": 1969,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de hue",
-      "name": "Batalla de Huế",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1968,
-      "endYear": 1968,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de kham duc",
-      "name": "Batalla de Kham Duc",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1968,
-      "endYear": 1968,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de lang vei",
-      "name": "Batalla de Lang Vei",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1968,
-      "endYear": 1968,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de lima site 85",
-      "name": "Batalla de Lima Site 85",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1968,
-      "endYear": 1968,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de quang tri",
-      "name": "Batalla de Quang Tri",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1968,
-      "endYear": 1968,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "sitio de khe sanh",
-      "name": "Sitio de Khe Sanh",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1968,
-      "endYear": 1968,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de la colina de la hamburguesa",
-      "name": "Batalla de la Colina de la Hamburguesa",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1969,
-      "endYear": 1969,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
     {
       "key": "batalla del bogside",
       "name": "Batalla del Bogside",
@@ -584,20 +52,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de fire support base ripcord",
-      "name": "Batalla de Fire Support Base Ripcord",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1970,
-      "endYear": 1970,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de st matthew s",
       "name": "Batalla de St Matthew's",
       "countries": [
@@ -606,20 +60,6 @@
       "startYear": 1970,
       "endYear": 1970,
       "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de long khanh",
-      "name": "Batalla de Long Khanh",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1971,
-      "endYear": 1971,
-      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],
@@ -640,48 +80,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de an loc",
-      "name": "Batalla de An Lộc",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1972,
-      "endYear": 1972,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de kontum",
-      "name": "Batalla de Kontum",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1972,
-      "endYear": 1972,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de loc ninh",
-      "name": "Batalla de Loc Ninh",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1972,
-      "endYear": 1972,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de springmartin",
       "name": "Batalla de Springmartin",
       "countries": [
@@ -690,34 +88,6 @@
       "startYear": 1972,
       "endYear": 1972,
       "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "segunda batalla de quang tri",
-      "name": "Segunda batalla de Quảng Trị",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1972,
-      "endYear": 1972,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de cua viet",
-      "name": "Batalla de Cửa Việt",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1973,
-      "endYear": 1973,
-      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],
@@ -1124,6 +494,636 @@
       "startYear": 1987,
       "endYear": 1987,
       "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de hausa 1988",
+      "name": "Batalla de Hausa (1988)",
+      "countries": [
+        "MAR"
+      ],
+      "startYear": 1988,
+      "endYear": 1988,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de oum dreyga septiembre de 1988",
+      "name": "Batalla de Oum Dreyga (septiembre de 1988)",
+      "countries": [
+        "MAR"
+      ],
+      "startYear": 1988,
+      "endYear": 1988,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de amgala 1989",
+      "name": "Batalla de Amgala (1989)",
+      "countries": [
+        "MAR"
+      ],
+      "startYear": 1989,
+      "endYear": 1989,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de guelta zemmur 1989",
+      "name": "Batalla de Guelta Zemmur (1989)",
+      "countries": [
+        "MAR"
+      ],
+      "startYear": 1989,
+      "endYear": 1989,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de hausa 1989",
+      "name": "Batalla de Hausa (1989)",
+      "countries": [
+        "MAR"
+      ],
+      "startYear": 1989,
+      "endYear": 1989,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de khafji",
+      "name": "Batalla de Khafji",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1991,
+      "endYear": 1991,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de qurah y umm al maradim",
+      "name": "Batalla de Qurah y Umm al Maradim",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1991,
+      "endYear": 1991,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "ofensiva de tifariti de 1991",
+      "name": "Ofensiva de Tifariti de 1991",
+      "countries": [
+        "MAR"
+      ],
+      "startYear": 1991,
+      "endYear": 1991,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de gagra",
+      "name": "Batalla de Gagra",
+      "countries": [
+        "GEO"
+      ],
+      "startYear": 1992,
+      "endYear": 1992,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de sujumi 1992",
+      "name": "Batalla de Sujumi (1992)",
+      "countries": [
+        "GEO"
+      ],
+      "startYear": 1992,
+      "endYear": 1992,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "sitio de tkvarcheli",
+      "name": "Sitio de Tkvarcheli",
+      "countries": [
+        "GEO"
+      ],
+      "startYear": 1992,
+      "endYear": 1993,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de sujumi 1993",
+      "name": "Batalla de Sujumi (1993)",
+      "countries": [
+        "GEO"
+      ],
+      "startYear": 1993,
+      "endYear": 1993,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "ofensiva de enero guerra de abjasia",
+      "name": "Ofensiva de enero (guerra de Abjasia)",
+      "countries": [
+        "GEO"
+      ],
+      "startYear": 1993,
+      "endYear": 1993,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "ofensiva de julio guerra de abjasia",
+      "name": "Ofensiva de julio (guerra de Abjasia)",
+      "countries": [
+        "GEO"
+      ],
+      "startYear": 1993,
+      "endYear": 1993,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "ofensiva de marzo guerra de abjasia",
+      "name": "Ofensiva de marzo (guerra de Abjasia)",
+      "countries": [
+        "GEO"
+      ],
+      "startYear": 1993,
+      "endYear": 1993,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "asalto del palacio presidencial de grozni",
+      "name": "Asalto del palacio presidencial de Grozni",
+      "countries": [
+        "RUS"
+      ],
+      "startYear": 1994,
+      "endYear": 1995,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de dolinskoye",
+      "name": "Batalla de Dolinskoye",
+      "countries": [
+        "RUS"
+      ],
+      "startYear": 1994,
+      "endYear": 1994,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de gudermes",
+      "name": "Batalla de Gudermés",
+      "countries": [
+        "RUS"
+      ],
+      "startYear": 1995,
+      "endYear": 1995,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de karamaji",
+      "name": "Batalla de Karamaji",
+      "countries": [
+        "RUS"
+      ],
+      "startYear": 1999,
+      "endYear": 1999,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de radusa",
+      "name": "Batalla de Raduša",
+      "countries": [
+        "MKD"
+      ],
+      "startYear": 2001,
+      "endYear": 2001,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de tetovo",
+      "name": "Batalla de Tetovo",
+      "countries": [
+        "MKD"
+      ],
+      "startYear": 2001,
+      "endYear": 2001,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de takur ghar",
+      "name": "Batalla de Takur Ghar",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2002,
+      "endYear": 2002,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de basora",
+      "name": "Batalla de Basora",
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 2003,
+      "endYear": 2003,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de hilla",
+      "name": "Batalla de Hilla",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2003,
+      "endYear": 2003,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de kerbala de 2003",
+      "name": "Batalla de Kerbala de 2003",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2003,
+      "endYear": 2003,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de nasiriya",
+      "name": "Batalla de Nasiriya",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2003,
+      "endYear": 2003,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla del paso de debecka",
+      "name": "Batalla del paso de Debecka",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2003,
+      "endYear": 2003,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de los puentes",
+      "name": "Batalla de los puentes",
+      "countries": [
+        "ITA"
+      ],
+      "startYear": 2004,
+      "endYear": 2004,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de los puentes de nasiriya",
+      "name": "Batalla de los puentes de Nasiriya",
+      "countries": [
+        "ITA"
+      ],
+      "startYear": 2004,
+      "endYear": 2004,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de mosul 2004",
+      "name": "Batalla de Mosul (2004)",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2004,
+      "endYear": 2004,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de nayaf",
+      "name": "Batalla de Nayaf",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2004,
+      "endYear": 2004,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de samarra",
+      "name": "Batalla de Samarra",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2004,
+      "endYear": 2004,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "primera batalla de faluya",
+      "name": "Primera batalla de Faluya",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2004,
+      "endYear": 2004,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "segunda batalla de faluya",
+      "name": "Segunda batalla de Faluya",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2004,
+      "endYear": 2004,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de al qaim",
+      "name": "Batalla de Al Qaim",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2005,
+      "endYear": 2005,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de haditha",
+      "name": "Batalla de Haditha",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2005,
+      "endYear": 2005,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de tal afar",
+      "name": "Batalla de Tal Afar",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2005,
+      "endYear": 2005,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de baquba",
+      "name": "Batalla de Baquba",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2007,
+      "endYear": 2007,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de chora",
+      "name": "Batalla de Chora",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2007,
+      "endYear": 2007,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de donkey island",
+      "name": "Batalla de Donkey Island",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2007,
+      "endYear": 2007,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de haifa street",
+      "name": "Batalla de Haifa Street",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 2007,
+      "endYear": 2007,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "ofensiva de alepo de 2013",
+      "name": "Ofensiva de Alepo de 2013",
+      "countries": [
+        "SYR"
+      ],
+      "startYear": 2013,
+      "endYear": 2013,
+      "hierarchyLabel": "Conflicto regional de Medio Oriente",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de karlivka",
+      "name": "Batalla de Karlivka",
+      "countries": [
+        "UKR"
+      ],
+      "startYear": 2014,
+      "endYear": 2014,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de dikwa 2 mar 2015",
+      "name": "Batalla de Dikwa (2 mar 2015)",
+      "countries": [
+        "TCD"
+      ],
+      "startYear": 2015,
+      "endYear": 2015,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de mosul 2016 2017",
+      "name": "Batalla de Mosul (2016-2017)",
+      "countries": [
+        "IRQ"
+      ],
+      "startYear": 2016,
+      "endYear": 2017,
+      "hierarchyLabel": "Conflicto regional de Asia",
       "issues": [
         "provisional_parent"
       ],

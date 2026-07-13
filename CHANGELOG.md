@@ -8,7 +8,20 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.55 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.56 antes de cerrar la siguiente version.
+
+## v1.6.56 - 2026-07-12
+
+- Prepara una nueva version de mantenimiento con mediciones y auditorias actualizadas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-12-release-5`.
+- Verifica con fuentes 45 jerarquias adicionales y reduce la cola editorial de 737 a 692 conflictos unicos sin crear alertas nuevas.
+- Asigna guerra padre, campana, region, tipo y escala a 33 acciones de la guerra de Vietnam entre 1964 y 1973, y clasifica Lima Site 85 dentro de la guerra civil de Laos.
+- Corrige el combate de la fragata `Junon` contra la `Fox` de 1809 a 1778 tanto en el dataset servido como en el generador base.
+- Normaliza nombres visibles en espanol para incursiones navales, Oum El Achar, Heartland, Csaszar kobanya, colinas 488/881 y la base Ripcord.
+- Hace que consultas naturales simples como `paises de Asia` y `paises islamicos` abran y destaquen el grupo correspondiente.
+- Evita que las auditorias de idioma interpreten palabras inglesas dentro de URLs de fuentes como texto visible defectuoso.
+- Verifica en navegador ambos grupos semanticos y la apertura de Indonesia desde sus resultados, sin errores ni advertencias de consola.
+- Mantiene el arranque critico en 810 KB, `script.js` en 543 KB y el indice inicial en 141 KB; el smoke registra 55 FPS promedio y cero long tasks sobre presupuesto.
 
 ## v1.6.55 - 2026-07-12
 

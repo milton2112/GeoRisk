@@ -14,6 +14,10 @@ import {
   KOREA_MODERN_CONFLICT_DETAIL_FIXES,
   KOREA_MODERN_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-korea-modern.js";
+import {
+  HISTORICAL_VIETNAM_CONFLICT_DETAIL_FIXES,
+  HISTORICAL_VIETNAM_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-historical-vietnam.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
 
@@ -61,6 +65,21 @@ assert.ok(
     ["alta", "media"].includes(detail.hierarchyConfidence) && detail.hierarchySources?.[0]?.url
   ),
   "la tanda de Corea y conflictos modernos debe conservar fuente y confianza"
+);
+assert.equal(
+  HISTORICAL_VIETNAM_SAFE_CONFLICT_RENAMES["Combate de la Junon contra el Fox"],
+  "Combate naval de la Junon contra la Fox (1778)"
+);
+assert.equal(HISTORICAL_VIETNAM_CONFLICT_DETAIL_FIXES["Combate naval de la Junon contra la Fox (1778)"].startYear, 1778);
+assert.equal(HISTORICAL_VIETNAM_CONFLICT_DETAIL_FIXES["Asalto de Ivángorod"].parent, "Guerra ruso-sueca de 1495-1497");
+assert.equal(HISTORICAL_VIETNAM_CONFLICT_DETAIL_FIXES["Batalla del valle de Ia Drang"].parent, "Guerra de Vietnam");
+assert.equal(HISTORICAL_VIETNAM_CONFLICT_DETAIL_FIXES["Sitio de Khe Sanh"].campaign, "Campaña de Khe Sanh");
+assert.equal(HISTORICAL_VIETNAM_CONFLICT_DETAIL_FIXES["Batalla de Lima Site 85"].parent, "Guerra civil de Laos");
+assert.ok(
+  Object.values(HISTORICAL_VIETNAM_CONFLICT_DETAIL_FIXES).every(detail =>
+    ["alta", "media"].includes(detail.hierarchyConfidence) && detail.hierarchySources?.[0]?.url
+  ),
+  "la tanda histórica y de Vietnam debe conservar fuente y confianza"
 );
 
 const curatedIntervention = curateConflictEntry({
@@ -120,6 +139,10 @@ const report = buildConflictAuditReport({
           { name: "Batalla de la cota 233", startYear: 1973, endYear: 1973 },
           { name: "Batalla de Battle Mountain", startYear: 1950, endYear: 1950 },
           { name: "Batalla de Douz", startYear: 2011, endYear: 2011 },
+          { name: "Combate de la Junon contra el Fox", startYear: 1809, endYear: 1809 },
+          { name: "Batalla del valle de Ia Drang", startYear: 1965, endYear: 1965 },
+          { name: "Sitio de Khe Sanh", startYear: 1968, endYear: 1968 },
+          { name: "Batalla de Lima Site 85", startYear: 1968, endYear: 1968 },
           { name: "Adriatic Campaign de World War II", startYear: 1939, endYear: 1945 }
         ]
       }
@@ -152,5 +175,10 @@ const khazOruzgan = [...report.topIssues, ...report.topAdvisories].find(item => 
 assert.equal(khazOruzgan?.startYear, 2008, "Khaz Oruzgan debe conservar su fecha historica de 2008");
 const marker233 = [...report.topIssues, ...report.topAdvisories].find(item => item.name === "Batalla de la borne 233");
 assert.equal(marker233?.startYear, 1961, "la batalla de la borne 233 debe reemplazar la fecha incorrecta de 1973");
+const junonFox = [...report.topIssues, ...report.topAdvisories].find(item => item.name === "Combate naval de la Junon contra la Fox (1778)");
+assert.equal(junonFox?.startYear, 1778, "el combate Junon-Fox debe reemplazar el año incorrecto de 1809");
+assert.ok(!report.topAdvisories.some(item => item.name === "Batalla del valle de Ia Drang"), "Ia Drang debe usar Guerra de Vietnam");
+assert.ok(!report.topAdvisories.some(item => item.name === "Sitio de Khe Sanh"), "Khe Sanh debe usar su campaña verificada");
+assert.ok(!report.topAdvisories.some(item => item.name === "Batalla de Lima Site 85"), "Lima Site 85 debe usar la guerra civil de Laos");
 
 console.log("conflict-autofix.test.js ok");

@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-07-13T01:43:54.742Z",
+  "generatedAt": "2026-07-13T02:17:33.163Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 9235461,
-    "duplicatedCountryFilesBytes": 1463501,
-    "countryConflictShardBytes": 365696,
+    "fullBytes": 9266653,
+    "duplicatedCountryFilesBytes": 1463651,
+    "countryConflictShardBytes": 366103,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 20839,
-        "inlineBytes": 2740467,
+        "inlineBytes": 2763935,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -54,8 +54,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 201275,
-          "conflictShardBytes": 201276,
+          "conflictsBytes": 201343,
+          "conflictShardBytes": 201344,
           "averageConflictBytes": 218
         }
       },
@@ -164,8 +164,8 @@
       {
         "code": "FRA",
         "name": "Francia",
-        "bytes": 18080,
-        "inlineBytes": 653325,
+        "bytes": 18131,
+        "inlineBytes": 658211,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -180,7 +180,7 @@
         "metrics": {
           "sectionBytes": {
             "politics": 7898,
-            "military": 6400,
+            "military": 6451,
             "metadata": 1952,
             "general": 933,
             "history": 390,
@@ -196,7 +196,7 @@
             },
             {
               "section": "military",
-              "bytes": 6400
+              "bytes": 6451
             },
             {
               "section": "metadata",
@@ -207,9 +207,9 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 40694,
-          "conflictShardBytes": 40695,
-          "averageConflictBytes": 178
+          "conflictsBytes": 41021,
+          "conflictShardBytes": 41022,
+          "averageConflictBytes": 180
         }
       },
       {
@@ -521,8 +521,8 @@
       {
         "code": "SWE",
         "name": "Suecia",
-        "bytes": 14326,
-        "inlineBytes": 423357,
+        "bytes": 14338,
+        "inlineBytes": 423959,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -536,7 +536,7 @@
         },
         "metrics": {
           "sectionBytes": {
-            "military": 6630,
+            "military": 6642,
             "politics": 4479,
             "metadata": 1914,
             "general": 777,
@@ -549,7 +549,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 6630
+              "bytes": 6642
             },
             {
               "section": "politics",
@@ -564,8 +564,8 @@
               "bytes": 777
             }
           ],
-          "conflictsBytes": 28673,
-          "conflictShardBytes": 28674,
+          "conflictsBytes": 28685,
+          "conflictShardBytes": 28686,
           "averageConflictBytes": 191
         }
       },

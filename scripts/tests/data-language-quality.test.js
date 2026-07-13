@@ -884,8 +884,10 @@ const conflictDetailShardIssues = collectJsonFiles("data/conflicts/details").fla
   const coordinateSignal = /\d+°\d+|\/\s*-?\d{1,3}\.\d{3,}/;
   function visit(value, pathParts = []) {
     if (typeof value === "string") {
+      const fieldName = pathParts.at(-1);
       if (
-        pathParts.at(-1) !== "language" &&
+        fieldName !== "language" &&
+        fieldName !== "url" &&
         !pathParts.includes("commanders") &&
         (detailSignal.test(value) || coordinateSignal.test(value))
       ) {

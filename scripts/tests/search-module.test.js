@@ -115,6 +115,12 @@ assert.equal(semanticReligion.continent, "Asia", "filtros semanticos deben resol
 assert.equal(semanticReligion.religion, "Islam", "filtros semanticos deben resolver religion");
 assert.equal(semanticReligion.minPopulation, 50000000, "filtros semanticos deben resolver poblacion minima");
 
+const semanticContinentOnly = search.parseSemanticFilters("paises de Asia", semanticContext);
+assert.equal(semanticContinentOnly.continent, "Asia", "una consulta simple por continente debe abrir el grupo de paises");
+
+const semanticReligionOnly = search.parseSemanticFilters("paises islamicos", semanticContext);
+assert.equal(semanticReligionOnly.religion, "Islam", "una consulta simple por religion debe abrir el grupo de paises");
+
 const semanticSystem = search.parseSemanticFilters("monarquias constitucionales de Asia", semanticContext);
 assert.equal(semanticSystem.system, "Monarquia constitucional", "debe reconocer sistemas politicos naturales");
 

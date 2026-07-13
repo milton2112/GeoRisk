@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-13T01:53:33.635Z",
+  "generatedAt": "2026-07-13T02:26:30.728Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
@@ -11,7 +11,7 @@
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 737
+      "count": 692
     },
     "suspectRegions": {
       "count": 0
@@ -296,13 +296,6 @@
       },
       {
         "code": "AUT",
-        "name": "Batalla de Császárkőbanya",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": 1921
-      },
-      {
-        "code": "AUT",
         "name": "Batalla de Gyanafalva",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
@@ -356,13 +349,6 @@
         "parent": "Conflicto regional de África",
         "campaign": "Campaña vinculada a Conflicto regional de África",
         "startYear": 2015
-      },
-      {
-        "code": "CHL",
-        "name": "Combate naval de Cabo Manglares",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": 1820
       },
       {
         "code": "CHL",
@@ -499,45 +485,59 @@
       },
       {
         "code": "FRA",
-        "name": "Incursion sobre Le Havre",
+        "name": "Batalla de Antivari",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": 1759
+        "startYear": null
       },
       {
         "code": "FRA",
-        "name": "Atlantic incursion de junio 1796",
+        "name": "Batalla de Bantry Bay",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": 1796
+        "startYear": null
       },
       {
         "code": "FRA",
-        "name": "Incursion sobre Boulogne",
+        "name": "Batalla de Bomarsund",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": 1804
+        "startYear": null
       },
       {
         "code": "FRA",
-        "name": "Combate de la Junon contra el Fox",
+        "name": "Batalla de Camaret",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": 1809
+        "startYear": null
       },
       {
         "code": "FRA",
-        "name": "Batalla de Oum El Achar (1956)",
+        "name": "Batalla de Cap-Français",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": 1956
+        "startYear": null
       },
       {
         "code": "FRA",
-        "name": "Batalla de Oum El Achar (1957)",
+        "name": "Batalla de Chandannagar",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": 1957
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Chef-de-Caux",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Craonne",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
       }
     ],
     "suspectRegions": [],
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 737,
+      "count": 692,
       "command": "npm run fix:conflicts:batches"
     },
     {
