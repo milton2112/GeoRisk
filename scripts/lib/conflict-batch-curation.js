@@ -157,7 +157,7 @@ const WAR_RULES = [
   { name: "Segunda Guerra Mundial", start: 1939, end: 1945, scale: "mundial", type: "interestatal", region: "Europa, Asia-Pacifico, Africa y Atlantico" },
   { name: "Guerra de Independencia de Estados Unidos", start: 1775, end: 1783, scale: "internacional", type: "independencia", region: "America del Norte y Atlantico" },
   { name: "Guerras napoleonicas", start: 1803, end: 1815, scale: "internacional", type: "interestatal", region: "Europa y teatros coloniales" },
-  { name: "Guerra de 1812", start: 1812, end: 1815, scale: "regional", type: "interestatal", region: "America del Norte" },
+  { name: "Guerra anglo-estadounidense de 1812", aliases: ["Guerra de 1812"], start: 1812, end: 1815, scale: "regional", type: "interestatal", region: "America del Norte" },
   { name: "Cruzada Livonia", start: 1198, end: 1290, scale: "regional", type: "colonial", region: "Baltico oriental" },
   { name: "Guerra de la Independencia de Chile", start: 1810, end: 1826, scale: "regional", type: "independencia", region: "America del Sur" },
   { name: "Guerra mexicano-estadounidense", start: 1846, end: 1848, scale: "regional", type: "interestatal", region: "America del Norte" },
@@ -273,12 +273,14 @@ function isBattleLike(entry = {}) {
 
 function inferWarRule(entry = {}) {
   const nameText = normalizeConflictKey(entry.name);
-  const nameRule = WAR_RULES.find(rule => nameText.includes(normalizeConflictKey(rule.name)));
+  const labelsFor = rule => [rule.name, ...(rule.aliases || [])];
+  const matchesRule = (text, rule) => labelsFor(rule).some(label => text.includes(normalizeConflictKey(label)));
+  const nameRule = WAR_RULES.find(rule => matchesRule(nameText, rule));
   if (nameRule) return nameRule;
   const text = normalizeConflictKey(
     [entry.parent, entry.war, entry.campaign].filter(Boolean).join(" ")
   );
-  const directRule = WAR_RULES.find(rule => text.includes(normalizeConflictKey(rule.name)));
+  const directRule = WAR_RULES.find(rule => matchesRule(text, rule));
   if (directRule) return directRule;
   return null;
 }
@@ -519,7 +521,18 @@ export function curateConflictEntry(entry = {}, context = {}) {
     delete baseEntry.type;
   }
   const warRule = inferWarRule(baseEntry);
-  const isTopLevelWar = Boolean(warRule && normalizeConflictKey(name) === normalizeConflictKey(warRule.name));
+  const matchingWarLabels = warRule ? [warRule.name, ...(warRule.aliases || [])] : [];
+  const hierarchyMatchesAlias = [baseEntry.parent, baseEntry.war]
+    .filter(Boolean)
+    .some(value => (warRule?.aliases || []).some(alias => normalizeConflictKey(value) === normalizeConflictKey(alias)));
+  if (warRule && hierarchyMatchesAlias) {
+    baseEntry.parent = warRule.name;
+    baseEntry.war = warRule.name;
+  }
+  const canonicalInheritedParent = baseEntry.parent || baseEntry.war || inheritedParent;
+  const isTopLevelWar = Boolean(
+    warRule && matchingWarLabels.some(label => normalizeConflictKey(name) === normalizeConflictKey(label))
+  );
   if (isFiniteHistoricalAction(baseEntry) && !Number.isFinite(baseEntry.endYear)) {
     baseEntry.endYear = getYear(baseEntry);
     baseEntry.ongoing = false;
@@ -536,7 +549,7 @@ export function curateConflictEntry(entry = {}, context = {}) {
       baseEntry.ongoing = false;
     }
   }
-  if (isTopLevelWar || normalizeConflictKey(inheritedParent) === normalizeConflictKey(name) || hasObsoleteGenericParent) {
+  if (isTopLevelWar || normalizeConflictKey(canonicalInheritedParent) === normalizeConflictKey(name) || hasObsoleteGenericParent) {
     delete baseEntry.parent;
     delete baseEntry.war;
     if (isTopLevelWar || /^Campana vinculada a\b/i.test(baseEntry.campaign || "")) {

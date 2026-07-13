@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-07-13T22:21:30.749Z",
+  "generatedAt": "2026-07-13T22:43:08.060Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 9449167,
+    "fullBytes": 9474605,
     "duplicatedCountryFilesBytes": 1466890,
-    "countryConflictShardBytes": 370220,
+    "countryConflictShardBytes": 371252,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 23822,
-        "inlineBytes": 2908073,
+        "inlineBytes": 2933511,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -54,9 +54,9 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 205106,
-          "conflictShardBytes": 205107,
-          "averageConflictBytes": 222
+          "conflictsBytes": 206138,
+          "conflictShardBytes": 206139,
+          "averageConflictBytes": 224
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 547,
+    "pendingCount": 522,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15798,19 +15798,6 @@
         ],
         "regions": [
           "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Calebee Creek",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"
@@ -16689,33 +16676,7 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Fort Dearborn",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Fort McAllister",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Fort Oswego",
         "countries": [
           "USA"
         ],
@@ -16754,19 +16715,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Fort Wayne",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Fredericia",
         "countries": [
           "DNK"
@@ -16781,19 +16729,6 @@
       },
       {
         "name": "Batalla de Fredericksburg",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Frenchman's Creek",
         "countries": [
           "USA"
         ],
@@ -17027,19 +16962,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Hampden",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Happo",
         "countries": [
           "JPN"
@@ -17163,6 +17085,84 @@
         ],
         "regions": [
           "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Hiep Hoa",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Hill 282",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Hogland",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Honsinger Bluff",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Hrebionka",
+        "countries": [
+          "RUS"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Husaybah",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
         ],
         "types": [
           "interestatal"

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-13T22:21:46.236Z",
+  "generatedAt": "2026-07-13T22:43:29.147Z",
   "changedFullCountries": 0,
   "fullPassChanges": [
     0
@@ -11,7 +11,7 @@
     "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 642,
+  "generatedHierarchyCandidates": 667,
   "countryConflictAdditions": {
     "Estados Unidos": [
       "Batalla de Manila (1945)"
@@ -237,7 +237,16 @@
     "Batalla de Caloocan": "Primera batalla de Caloocan",
     "Batalla de Makahambus Hill": "Batalla de la colina de Makahambus",
     "Batalla de Marilao River": "Batalla del río Marilao",
-    "Batalla de Zapote River": "Batalla del río Zapote"
+    "Batalla de Zapote River": "Batalla del río Zapote",
+    "Guerra de 1812": "Guerra anglo-estadounidense de 1812",
+    "Batalla de Fort Wayne": "Sitio de Fort Wayne",
+    "Batalla de River Canard": "Batalla del río Canard",
+    "Batalla de Queenston Heights": "Batalla de las alturas de Queenston",
+    "Incursion sobre Black Rock": "Incursión sobre Black Rock",
+    "Incursion sobre Havre de Grace": "Incursión sobre Havre de Grace",
+    "Combate de la Shannon y de la Chesapeake": "Combate naval entre el HMS Shannon y el USS Chesapeake",
+    "Batalla de St. Michaels": "Batalla de Saint Michaels",
+    "Batalla del rio Eel en la Guerra de 1812": "Batalla del río Eel"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -846,6 +855,31 @@
     "Batalla de la colina de Agusan",
     "Batalla del paso de Tirad",
     "Batalla de Lonoy",
-    "Batalla de Manila (1945)"
+    "Batalla de Manila (1945)",
+    "Batalla de Fort Dearborn",
+    "Sitio de Fort Wayne",
+    "Batalla de Maguaga",
+    "Batalla del río Canard",
+    "Batalla de las alturas de Queenston",
+    "Batalla de Frenchman's Creek",
+    "Batalla de Ogdensburg",
+    "Batalla de York",
+    "Batalla de Stoney Creek",
+    "Batalla del Támesis",
+    "Incursión sobre Black Rock",
+    "Incursión sobre Havre de Grace",
+    "Batalla de Saint Michaels",
+    "Combate naval entre el HMS Shannon y el USS Chesapeake",
+    "Batalla de Fort Oswego",
+    "Batalla de Lacolle Mills",
+    "Batalla de Longwoods",
+    "Batalla de Lundy's Lane",
+    "Batalla de Malcolm's Mills",
+    "Batalla de Hampden",
+    "Batalla de Tallushatchee",
+    "Batalla de Talladega",
+    "Batalla de Holy Ground",
+    "Batalla de Calebee Creek",
+    "Batalla de Horseshoe Bend"
   ]
 }

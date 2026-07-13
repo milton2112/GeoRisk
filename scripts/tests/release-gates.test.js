@@ -58,6 +58,7 @@ const modern1992Curation = await fs.readFile(path.join(projectRoot, "scripts/lib
 const undatedAmericasCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-undated-americas.js"), "utf8");
 const revolutionFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-revolution-followup.js"), "utf8");
 const transition1846Curation = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-1846-1902.js"), "utf8");
+const war1812FollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-war-1812-followup.js"), "utf8");
 const wikipediaConflicts = await fs.readFile(path.join(projectRoot, "scripts/lib/wikipedia-conflicts.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
 const resilientFs = await fs.readFile(path.join(projectRoot, "scripts/lib/resilient-fs.js"), "utf8");
@@ -458,6 +459,20 @@ assert.ok(
     && wikipediaConflicts.includes('"Batalla de Manila (1945)": "Batalla_de_Manila_(1945)"')
     && !wikipediaConflicts.includes('"Batalla de Manila": "Batalla_de_Manila_(1945)"'),
   "la importacion no debe volver a mezclar las dos batallas de Manila"
+);
+assert.ok(conflictAutofix.includes("WAR_1812_FOLLOWUP_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda final de 1812");
+assert.ok(war1812FollowupCuration.includes("hierarchySources"), "la tanda de 1812 debe conservar trazabilidad");
+assert.ok(
+  war1812FollowupCuration.includes('"Guerra de 1812": "Guerra anglo-estadounidense de 1812"')
+    && war1812FollowupCuration.includes('"Batalla de Fort Wayne": "Sitio de Fort Wayne"')
+    && war1812FollowupCuration.includes('"Batalla de River Canard": "Batalla del río Canard"'),
+  "la tanda de 1812 debe unificar guerra padre y nombres visibles"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Sitio de Fort Wayne": "Siege_of_Fort_Wayne"')
+    && wikipediaConflicts.includes('"Batalla de las alturas de Queenston": "Battle_of_Queenston_Heights"')
+    && wikipediaConflicts.includes('"Combate naval entre el HMS Shannon y el USS Chesapeake": "Capture_of_USS_Chesapeake"'),
+  "los nombres traducidos de 1812 deben conservar su pagina de importacion"
 );
 
 console.log("release-gates.test.js ok");

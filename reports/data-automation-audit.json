@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-07-13T22:24:43.005Z",
+  "generatedAt": "2026-07-13T22:44:23.222Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 548
+      "count": 523
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 484
+      "count": 459
     },
     "suspectRegions": {
       "count": 0
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 484,
+      "count": 459,
       "command": "npm run fix:conflicts:batches"
     },
     {

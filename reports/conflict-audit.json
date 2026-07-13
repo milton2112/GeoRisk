@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-13T22:24:39.777Z",
+  "generatedAt": "2026-07-13T22:44:20.123Z",
   "scannedConflicts": 2003,
   "issueCount": 0,
-  "advisoryCount": 484,
-  "reviewCount": 484,
+  "advisoryCount": 459,
+  "reviewCount": 459,
   "summary": {
-    "provisional_parent": 484
+    "provisional_parent": 459
   },
   "topIssues": [],
   "topAdvisories": [
@@ -752,20 +752,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de calebee creek",
-      "name": "Batalla de Calebee Creek",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de camaret",
       "name": "Batalla de Camaret",
       "countries": [
@@ -1124,6 +1110,20 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de craonne",
+      "name": "Batalla de Craonne",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],

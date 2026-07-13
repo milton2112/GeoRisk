@@ -39,6 +39,10 @@ import {
   TRANSITION_1846_1902_CONFLICT_DETAIL_FIXES,
   TRANSITION_1846_1902_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-1846-1902.js";
+import {
+  WAR_1812_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  WAR_1812_FOLLOWUP_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-war-1812-followup.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -213,6 +217,29 @@ assert.ok(
   "la tanda 1846-1902 debe conservar fecha, jerarquia, fuentes y participantes reales"
 );
 
+assert.equal(Object.keys(WAR_1812_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 25);
+assert.equal(WAR_1812_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Fort Dearborn"].startYear, 1812);
+assert.equal(WAR_1812_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Stoney Creek"].campaign, "Campaña del Niágara de 1813");
+assert.equal(WAR_1812_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Hampden"].startYear, 1814);
+assert.equal(WAR_1812_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Horseshoe Bend"].parent, "Guerra Creek");
+assert.equal(WAR_1812_FOLLOWUP_SAFE_CONFLICT_RENAMES["Guerra de 1812"], "Guerra anglo-estadounidense de 1812");
+assert.equal(WAR_1812_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Fort Wayne"], "Sitio de Fort Wayne");
+assert.equal(WAR_1812_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de River Canard"], "Batalla del río Canard");
+assert.ok(
+  Object.values(WAR_1812_FOLLOWUP_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.[0]?.url
+      && detail.parent === detail.war
+      && detail.campaign
+      && !/^Conflicto regional de /i.test(detail.parent)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+  ),
+  "la tanda de 1812 debe conservar fecha, jerarquia, fuentes y participantes reales"
+);
+
 const curatedIntervention = curateConflictEntry({
   name: "Intervencion en Siberia",
   startYear: 1918,
@@ -233,6 +260,28 @@ const sourceBackedConflict = curateConflictEntry({
 });
 assert.equal(sourceBackedConflict.curationPriority, "media", "la prioridad explicita debe conservarse");
 assert.equal(sourceBackedConflict.curationBatch, "source-backed-test", "la procedencia de curaduria no debe reemplazarse");
+
+const canonicalWarOf1812Parent = curateConflictEntry({
+  name: "Batalla de prueba de 1812",
+  startYear: 1812,
+  endYear: 1812,
+  type: "batalla",
+  parent: "Guerra de 1812",
+  war: "Guerra de 1812"
+});
+assert.equal(canonicalWarOf1812Parent.parent, "Guerra anglo-estadounidense de 1812");
+assert.equal(canonicalWarOf1812Parent.war, "Guerra anglo-estadounidense de 1812");
+
+const accentedCanonicalParent = curateConflictEntry({
+  name: "Incursión naval de prueba",
+  startYear: 1804,
+  endYear: 1804,
+  type: "incursión naval",
+  parent: "Guerras napoleónicas",
+  war: "Guerras napoleónicas"
+});
+assert.equal(accentedCanonicalParent.parent, "Guerras napoleónicas", "una jerarquia bien escrita no debe perder acentos");
+assert.equal(accentedCanonicalParent.war, "Guerras napoleónicas", "la guerra canonica debe conservar su ortografia visible");
 
 const structuralBattle = curateConflictEntry({
   name: "Batalla de Prueba",
@@ -310,6 +359,9 @@ const report = buildConflictAuditReport({
           { name: "Batalla de Marilao River" },
           { name: "Batalla de Manila (1899)", startYear: 1899, endYear: 1899 },
           { name: "Batalla de Manila (1945)", startYear: 1945, endYear: 1945 },
+          { name: "Batalla de Fort Wayne" },
+          { name: "Batalla de River Canard" },
+          { name: "Batalla de Horseshoe Bend" },
           { name: "Adriatic Campaign de World War II", startYear: 1939, endYear: 1945 }
         ]
       }
@@ -351,5 +403,8 @@ assert.ok(!report.topAdvisories.some(item => item.name === "Batalla de Lima Site
 assert.ok(!report.topAdvisories.some(item => item.name === "Batalla de Monterrey"), "Monterey debe converger a Monterrey y conservar su guerra padre");
 assert.ok(!report.topAdvisories.some(item => item.name === "Batalla del río Marilao"), "Marilao debe quedar traducida y bajo su guerra padre");
 assert.ok(!report.topIssues.some(item => item.name === "Batalla de Manila"), "el nombre ambiguo de Manila no debe reaparecer en la auditoria");
+assert.ok(!report.topAdvisories.some(item => item.name === "Sitio de Fort Wayne"), "Fort Wayne debe usar la guerra de 1812");
+assert.ok(!report.topAdvisories.some(item => item.name === "Batalla del río Canard"), "River Canard debe quedar traducida y jerarquizada");
+assert.ok(!report.topAdvisories.some(item => item.name === "Batalla de Horseshoe Bend"), "Horseshoe Bend debe usar Guerra Creek");
 
 console.log("conflict-autofix.test.js ok");

@@ -8,7 +8,18 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.61 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.62 antes de cerrar la siguiente version.
+
+## v1.6.62 - 2026-07-13
+
+- Fecha y jerarquiza con fuentes 25 acciones pendientes: veinte de la guerra anglo-estadounidense de 1812 y cinco de la guerra Creek de 1813-1814.
+- Reduce los conflictos sin fecha auditados de 548 a 523 y las jerarquias provisionales de 484 a 459; el timeline pasa de 2451 a 2476 eventos fechables.
+- Unifica 17 acciones ya curadas que todavia usaban `Guerra de 1812` bajo el nombre canonico `Guerra anglo-estadounidense de 1812`, evitando que timeline, busqueda y relaciones la interpreten como dos guerras distintas.
+- Normaliza ocho nombres visibles, incluidos el sitio de Fort Wayne, el rio Canard, las alturas de Queenston, Saint Michaels y el combate naval entre el HMS Shannon y el USS Chesapeake.
+- Asigna campana, region y participantes reales a cada accion, con trazabilidad del Centro de Historia Militar del Ejercito, patrimonio naval, Parques Nacionales y el Gobierno de Maine.
+- Agrega regresiones para alias de guerra padre, fechas, campanas, traducciones, participantes, fuentes y rutas de importacion; la segunda regeneracion completa converge con cero cambios.
+- Mantiene en cero alertas, duplicados internos, nombres de conflictos en ingles, regiones sospechosas, problemas de codificacion e incidencias de validacion.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-13-release-5`.
 
 ## v1.6.61 - 2026-07-13
 
