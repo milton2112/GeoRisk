@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.58 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.59 antes de cerrar la siguiente version.
+
+## v1.6.59 - 2026-07-13
+
+- Fecha y jerarquiza 40 batallas de Estados Unidos que estaban sin resolver: 24 acciones de la guerra de Independencia y 16 de la guerra de 1812.
+- Asigna a cada accion una campana, region concreta, tipo, escala y fuente institucional trazable del Centro de Historia Militar del Ejercito de Estados Unidos.
+- Reduce tanto los conflictos sin fecha auditados como las jerarquias provisionales de 673/609 a 633/569, y suma 40 eventos fechables al timeline.
+- Corrige `Batalla de Ch-teauguay` a `Batalla de Châteauguay` y evita que una `â` legitima se detecte como texto roto.
+- Regenera textos narrativos obsoletos en 606 detalles de 49 paises cuando todavia aludian a una fecha o jerarquia provisional ya resuelta, sin reemplazar contenido editorial especifico.
+- Agrega regresiones de cantidad, fecha, guerra padre, campana, fuentes, mojibake valido y renovacion de textos generados; la segunda regeneracion converge con cero cambios.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-13-release-2`.
 
 ## v1.6.58 - 2026-07-13
 

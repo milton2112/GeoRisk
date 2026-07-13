@@ -225,7 +225,12 @@ const GENERATED_PLACEHOLDER_MARKERS = [
   "requiere ampliacion historiografica",
   "disputa militar o politica asociada",
   "impacto militar y politico localizado",
-  "resultado pendiente"
+  "resultado pendiente",
+  "accion militar de fecha no consolidada vinculada a conflicto regional",
+  "desenlace tactico registrado dentro de conflicto regional",
+  "contribuyo a la evolucion operacional de conflicto regional",
+  "confrontacion armada de fecha no consolidada",
+  "cierre historico registrado para fecha no consolidada"
 ];
 
 function getYear(entry = {}) {

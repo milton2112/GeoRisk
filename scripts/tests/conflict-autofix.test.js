@@ -26,6 +26,10 @@ import {
   MODERN_1992_2021_CONFLICT_DETAIL_FIXES,
   MODERN_1992_2021_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-1992-2021.js";
+import {
+  UNDATED_AMERICAS_CONFLICT_DETAIL_FIXES,
+  UNDATED_AMERICAS_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-undated-americas.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
 
@@ -122,6 +126,25 @@ assert.ok(
   "la tanda 1992-2021 debe conservar jerarquia especifica, fuente y confianza"
 );
 
+assert.equal(Object.keys(UNDATED_AMERICAS_CONFLICT_DETAIL_FIXES).length, 40);
+assert.equal(UNDATED_AMERICAS_CONFLICT_DETAIL_FIXES["Batalla de Bemis Heights"].startYear, 1777);
+assert.equal(UNDATED_AMERICAS_CONFLICT_DETAIL_FIXES["Batalla de Camden"].parent, "Guerra de Independencia de Estados Unidos");
+assert.equal(UNDATED_AMERICAS_CONFLICT_DETAIL_FIXES["Batalla de Brownstown"].campaign, "Campaña del noroeste de 1812");
+assert.equal(UNDATED_AMERICAS_CONFLICT_DETAIL_FIXES["Batalla de Nueva Orleans"].startYear, 1815);
+assert.equal(UNDATED_AMERICAS_SAFE_CONFLICT_RENAMES["Batalla de Ch-teauguay"], "Batalla de Châteauguay");
+assert.ok(
+  Object.values(UNDATED_AMERICAS_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && Number.isInteger(detail.endYear)
+      && ["alta", "media"].includes(detail.hierarchyConfidence)
+      && detail.hierarchySources?.[0]?.url
+      && detail.parent === detail.war
+      && detail.campaign
+      && !/^Conflicto regional de /i.test(detail.parent)
+  ),
+  "la tanda americana sin fecha debe conservar anos, jerarquia especifica, fuente y confianza"
+);
+
 const curatedIntervention = curateConflictEntry({
   name: "Intervencion en Siberia",
   startYear: 1918,
@@ -154,6 +177,27 @@ assert.ok(!/resultado pendiente|requiere ampliacion|disputa militar o politica/i
   refreshedPlaceholder.outcome,
   refreshedPlaceholder.consequences
 ].join(" ")));
+
+const refreshedRegionalPlaceholder = curateConflictEntry({
+  name: "Batalla de Prueba Actualizada",
+  startYear: 1777,
+  endYear: 1777,
+  type: "batalla",
+  parent: "Guerra de Independencia de Estados Unidos",
+  war: "Guerra de Independencia de Estados Unidos",
+  campaign: "Campana de prueba de 1777",
+  region: "Nueva York, Estados Unidos",
+  cause: "Accion militar de fecha no consolidada vinculada a Conflicto regional de America, centrada en control territorial.",
+  outcome: "Desenlace tactico registrado dentro de Conflicto regional de America; las cifras especificas no estan consolidadas.",
+  consequences: "Contribuyo a la evolucion operacional de Conflicto regional de America y a la lectura territorial de America."
+});
+assert.match(refreshedRegionalPlaceholder.cause, /Accion militar de 1777/);
+assert.match(refreshedRegionalPlaceholder.cause, /Guerra de Independencia de Estados Unidos/);
+assert.doesNotMatch([
+  refreshedRegionalPlaceholder.cause,
+  refreshedRegionalPlaceholder.outcome,
+  refreshedRegionalPlaceholder.consequences
+].join(" "), /Conflicto regional de America|fecha no consolidada/i);
 
 const accentMatchedSpecialMetadata = curateConflictEntry({
   name: "Operaciones Temeraria y Persecución",

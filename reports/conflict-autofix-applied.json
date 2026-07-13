@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-13T20:48:29.060Z",
+  "generatedAt": "2026-07-13T21:13:25.750Z",
   "changedFullCountries": 0,
   "fullPassChanges": [
     0
@@ -11,7 +11,7 @@
     "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 519,
+  "generatedHierarchyCandidates": 559,
   "safeRenames": {
     "Batalla naval de RÃ¼gen": "Batalla naval de Rugen",
     "Batalla de Rügen": "Batalla naval de Rugen",
@@ -217,7 +217,8 @@
     "Batalla de los puentes": "Batalla de los puentes de Nasiriya",
     "Batalla de Al Qaim": "Batalla de Al-Qaim",
     "Batalla de Haifa Street": "Batalla de la calle Haifa",
-    "Batalla de Dikwa (2 mar 2015)": "Batalla de Dikwa (2 de marzo de 2015)"
+    "Batalla de Dikwa (2 mar 2015)": "Batalla de Dikwa (2 de marzo de 2015)",
+    "Batalla de Ch-teauguay": "Batalla de Châteauguay"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -702,6 +703,46 @@
     "Batalla de Dikwa (2 de marzo de 2015)",
     "Ofensiva de Al-Shadaddah",
     "Ofensiva de Alepo de abril de 2016",
-    "Batalla de Mosul (2016-2017)"
+    "Batalla de Mosul (2016-2017)",
+    "Batalla de Chelsea Creek",
+    "Batalla de Fort Washington",
+    "Batalla de Harlem Heights",
+    "Batalla de Assunpink Creek",
+    "Batalla de Bound Brook",
+    "Batalla de Cooch's Bridge",
+    "Batalla de Germantown",
+    "Batalla de Bemis Heights",
+    "Batalla de Bennington",
+    "Batalla de Fort Anne",
+    "Batalla de Freeman's Farm",
+    "Batalla de Barren Hill",
+    "Batalla de Crooked Billet",
+    "Batalla de Monmouth",
+    "Batalla de Chestnut Neck",
+    "Batalla de Alligator Bridge",
+    "Batalla de Beaufort",
+    "Batalla de Blackstock's Farm",
+    "Batalla de Camden",
+    "Batalla de Kettle Creek",
+    "Batalla de Blandford",
+    "Batalla de Blue Licks",
+    "Batalla de Eutaw Springs",
+    "Batalla de Guilford Court House",
+    "Batalla de Brownstown",
+    "Batalla de Frenchtown",
+    "Batalla de Beaver Dams",
+    "Batalla de Buffalo",
+    "Batalla de Châteauguay",
+    "Batalla de Crysler's Farm",
+    "Batalla de Fort Stephenson",
+    "Batalla de Burnt Corn",
+    "Batalla de Baltimore",
+    "Batalla de Bladensburg",
+    "Batalla de Caulk's Field",
+    "Batalla de Craney Island",
+    "Batalla de North Point",
+    "Batalla de Chippawa",
+    "Batalla de Cook's Mills",
+    "Batalla de Nueva Orleans"
   ]
 }

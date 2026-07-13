@@ -15,6 +15,7 @@ assert.deepEqual(getConflictNameIssues("Battle of Mosul"), ["english"]);
 assert.deepEqual(getConflictNameIssues("6000-Mark War"), ["english"]);
 assert.deepEqual(getConflictNameIssues("Q31199061"), ["technical_identifier"]);
 assert.deepEqual(getConflictNameIssues("Guerra contra el narcotrÃ¡fico en MÃ©xico"), ["mojibake"]);
+assert.deepEqual(getConflictNameIssues("Batalla de Châteauguay"), []);
 assert.deepEqual(getConflictNameIssues("2022 Invasion of Ukraine"), ["english", "leading_year"]);
 assert.deepEqual(
   getConflictDetailIssues({

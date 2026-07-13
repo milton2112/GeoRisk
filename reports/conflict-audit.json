@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-13T20:50:51.462Z",
+  "generatedAt": "2026-07-13T21:39:39.301Z",
   "scannedConflicts": 2004,
   "issueCount": 0,
-  "advisoryCount": 609,
-  "reviewCount": 609,
+  "advisoryCount": 569,
+  "reviewCount": 569,
   "summary": {
-    "provisional_parent": 609
+    "provisional_parent": 569
   },
   "topIssues": [],
   "topAdvisories": [
@@ -178,20 +178,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de alligator bridge",
-      "name": "Batalla de Alligator Bridge",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de altamaha bridge",
       "name": "Batalla de Altamaha Bridge",
       "countries": [
@@ -332,20 +318,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de assunpink creek",
-      "name": "Batalla de Assunpink Creek",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de athens",
       "name": "Batalla de Athens",
       "countries": [
@@ -362,20 +334,6 @@
     {
       "key": "batalla de bairoko",
       "name": "Batalla de Bairoko",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de baltimore",
-      "name": "Batalla de Baltimore",
       "countries": [
         "USA"
       ],
@@ -444,20 +402,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de barren hill",
-      "name": "Batalla de Barren Hill",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de bau",
       "name": "Batalla de Bau",
       "countries": [
@@ -500,34 +444,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de beaufort",
-      "name": "Batalla de Beaufort",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de beaver dams",
-      "name": "Batalla de Beaver Dams",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de beicang",
       "name": "Batalla de Beicang",
       "countries": [
@@ -544,34 +460,6 @@
     {
       "key": "batalla de beitang",
       "name": "Batalla de Beitang",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de bemis heights",
-      "name": "Batalla de Bemis Heights",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de bennington",
-      "name": "Batalla de Bennington",
       "countries": [
         "USA"
       ],
@@ -654,64 +542,8 @@
       "severity": 1
     },
     {
-      "key": "batalla de blackstock s farm",
-      "name": "Batalla de Blackstock's Farm",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de bladensburg",
-      "name": "Batalla de Bladensburg",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de blanco canyon",
       "name": "Batalla de Blanco Canyon",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de blandford",
-      "name": "Batalla de Blandford",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de blue licks",
-      "name": "Batalla de Blue Licks",
       "countries": [
         "USA"
       ],
@@ -794,20 +626,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de bound brook",
-      "name": "Batalla de Bound Brook",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de bov",
       "name": "Batalla de Bov",
       "countries": [
@@ -872,48 +690,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Oceania",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de brownstown",
-      "name": "Batalla de Brownstown",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de buffalo",
-      "name": "Batalla de Buffalo",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de burnt corn",
-      "name": "Batalla de Burnt Corn",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],
@@ -1074,20 +850,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de camden",
-      "name": "Batalla de Camden",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de campeche",
       "name": "Batalla de Campeche",
       "countries": [
@@ -1118,6 +880,244 @@
     {
       "key": "batalla de canyon creek",
       "name": "Batalla de Canyon Creek",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de cap francais",
+      "name": "Batalla de Cap-Français",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de cavite",
+      "name": "Batalla de Cavite",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de cedar creek",
+      "name": "Batalla de Cedar Creek",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de cerro del gallo",
+      "name": "Batalla de Cerro del Gallo",
+      "countries": [
+        "MEX"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de cerro gordo",
+      "name": "Batalla de Cerro Gordo",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de ch teau thierry",
+      "name": "Batalla de Ch-teau-Thierry",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de chandannagar",
+      "name": "Batalla de Chandannagar",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de charlotte",
+      "name": "Batalla de Charlotte",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de chef de caux",
+      "name": "Batalla de Chef-de-Caux",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de chillicothe",
+      "name": "Batalla de Chillicothe",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de chobayashiura",
+      "name": "Batalla de Chobayashiura",
+      "countries": [
+        "JPN"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de chojnice",
+      "name": "Batalla de Chojnice",
+      "countries": [
+        "SWE"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de churubusco",
+      "name": "Batalla de Churubusco",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de cibecue creek",
+      "name": "Batalla de Cibecue Creek",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de cieneguilla",
+      "name": "Batalla de Cieneguilla",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de cigno convoy",
+      "name": "Batalla de Cigno Convoy",
+      "countries": [
+        "GBR"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de claremore mound",
+      "name": "Batalla de Claremore Mound",
       "countries": [
         "USA"
       ],

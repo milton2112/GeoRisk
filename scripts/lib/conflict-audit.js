@@ -24,6 +24,7 @@ import {
   isProvisionalConflictHierarchy,
   normalizeConflictKey
 } from "./conflict-cleaning.js";
+import { repairMojibake } from "./text-normalization.js";
 import { CURATED_CONFLICT_DETAIL_FIXES, SAFE_CONFLICT_RENAMES } from "./conflict-autofix-rules.js";
 import { EXTRA_CURATED_CONFLICT_DETAIL_FIXES, EXTRA_SAFE_CONFLICT_RENAMES } from "./conflict-curation-extra.js";
 import { US_REVOLUTION_CONFLICT_DETAIL_FIXES } from "./conflict-curation-us-revolution.js";
@@ -57,6 +58,10 @@ import {
   MODERN_1992_2021_CONFLICT_DETAIL_FIXES,
   MODERN_1992_2021_SAFE_CONFLICT_RENAMES
 } from "./conflict-curation-1992-2021.js";
+import {
+  UNDATED_AMERICAS_CONFLICT_DETAIL_FIXES,
+  UNDATED_AMERICAS_SAFE_CONFLICT_RENAMES
+} from "./conflict-curation-undated-americas.js";
 import { applyVisibleStringReplacements } from "./visible-data-corrections.js";
 
 const ALL_CURATED_CONFLICT_DETAIL_FIXES = {
@@ -74,7 +79,8 @@ const ALL_CURATED_CONFLICT_DETAIL_FIXES = {
   ...KOREA_MODERN_CONFLICT_DETAIL_FIXES,
   ...HISTORICAL_VIETNAM_CONFLICT_DETAIL_FIXES,
   ...POSTWAR_1970_1991_CONFLICT_DETAIL_FIXES,
-  ...MODERN_1992_2021_CONFLICT_DETAIL_FIXES
+  ...MODERN_1992_2021_CONFLICT_DETAIL_FIXES,
+  ...UNDATED_AMERICAS_CONFLICT_DETAIL_FIXES
 };
 const ALL_SAFE_CONFLICT_RENAMES = {
   ...SAFE_CONFLICT_RENAMES,
@@ -90,7 +96,8 @@ const ALL_SAFE_CONFLICT_RENAMES = {
   ...KOREA_MODERN_SAFE_CONFLICT_RENAMES,
   ...HISTORICAL_VIETNAM_SAFE_CONFLICT_RENAMES,
   ...POSTWAR_1970_1991_SAFE_CONFLICT_RENAMES,
-  ...MODERN_1992_2021_SAFE_CONFLICT_RENAMES
+  ...MODERN_1992_2021_SAFE_CONFLICT_RENAMES,
+  ...UNDATED_AMERICAS_SAFE_CONFLICT_RENAMES
 };
 
 const ENGLISH_CONFLICT_MARKERS = [
@@ -131,11 +138,7 @@ export function getConflictNameIssues(name) {
     issues.push("technical_identifier");
   }
 
-  if (/[ÃÂ]/.test(text)) {
-    issues.push("mojibake");
-  }
-
-  if (/[ÃÂâ€]/.test(text)) {
+  if (repairMojibake(text) !== text) {
     issues.push("mojibake");
   }
   if (!ENGLISH_NAME_EXCEPTIONS.has(text) && ENGLISH_CONFLICT_MARKERS.some(marker => normalized.includes(marker))) {

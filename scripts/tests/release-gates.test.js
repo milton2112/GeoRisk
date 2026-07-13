@@ -55,6 +55,7 @@ const koreaModernCuration = await fs.readFile(path.join(projectRoot, "scripts/li
 const historicalVietnamCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-historical-vietnam.js"), "utf8");
 const postwar1970Curation = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-1970-1991.js"), "utf8");
 const modern1992Curation = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-1992-2021.js"), "utf8");
+const undatedAmericasCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-undated-americas.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
 const resilientFs = await fs.readFile(path.join(projectRoot, "scripts/lib/resilient-fs.js"), "utf8");
 const exportShare = await fs.readFile(path.join(projectRoot, "app-export-share.js"), "utf8");
@@ -409,6 +410,17 @@ assert.ok(
   modern1992Curation.includes('"Batalla de Mosul (2016-2017)"')
     && modern1992Curation.includes('parent: "Guerra contra el Estado Islámico"'),
   "Mosul 2016-2017 debe conservar su guerra padre"
+);
+assert.ok(conflictAutofix.includes("UNDATED_AMERICAS_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda americana sin fecha");
+assert.ok(undatedAmericasCuration.includes("hierarchySources"), "curaduria americana sin fecha debe conservar trazabilidad");
+assert.ok(
+  undatedAmericasCuration.includes('"Batalla de Ch-teauguay": "Batalla de Châteauguay"'),
+  "Chateauguay no debe volver a mostrar el nombre mutilado"
+);
+assert.ok(
+  undatedAmericasCuration.includes('"Batalla de Nueva Orleans"')
+    && undatedAmericasCuration.includes('parent: "Guerra de 1812"'),
+  "Nueva Orleans debe conservar su guerra padre y fecha historica"
 );
 
 console.log("release-gates.test.js ok");

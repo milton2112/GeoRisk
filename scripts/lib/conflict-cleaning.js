@@ -1,19 +1,11 @@
+import { repairMojibake } from "./text-normalization.js";
+
 export function repairConflictMojibake(value) {
   const text = String(value || "");
   if (!text) {
     return "";
   }
-
-  if (!/[ÃƒÃ‚Ã¢â‚¬]/.test(text)) {
-    return text;
-  }
-
-  try {
-    const repaired = Buffer.from(text, "latin1").toString("utf8");
-    return /\uFFFD/.test(repaired) ? text : repaired;
-  } catch {
-    return text;
-  }
+  return repairMojibake(text);
 }
 
 export function applyConflictUnicodeCorrections(value) {
@@ -94,9 +86,9 @@ export function isProvisionalConflictHierarchy(value = {}) {
 
 export function cleanConflictLabel(value) {
   return stripConflictImportNoise(applyConflictUnicodeCorrections(repairConflictMojibake(value)))
-    .replace(/[â€“â€”âˆ’]/g, "-")
-    .replace(/[â€œâ€]/g, "\"")
-    .replace(/[â€˜â€™]/g, "'")
+    .replace(/(?:â€“|â€”|âˆ’)/g, "-")
+    .replace(/(?:â€œ|â€)/g, "\"")
+    .replace(/(?:â€˜|â€™)/g, "'")
     .replace(/\s+/g, " ")
     .trim();
 }
