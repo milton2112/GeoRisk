@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-13T01:20:33.598Z",
+  "generatedAt": "2026-07-13T01:44:11.493Z",
   "changedFullCountries": 0,
   "fullPassChanges": [
     0
@@ -11,7 +11,7 @@
     "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 357,
+  "generatedHierarchyCandidates": 392,
   "safeRenames": {
     "Batalla naval de RÃ¼gen": "Batalla naval de Rugen",
     "Batalla de Rügen": "Batalla naval de Rugen",
@@ -184,7 +184,17 @@
     "Batalla de Galwan": "Combate del valle de Galwan de 2020",
     "Combate en el valle del Galwan de 2020": "Combate del valle de Galwan de 2020",
     "Batalla de Samichon River": "Batalla del río Samichon",
-    "Batalla del puerto de Tripoli": "Primera batalla del puerto de Trípoli"
+    "Batalla del puerto de Tripoli": "Primera batalla del puerto de Trípoli",
+    "Batalla de la cota 233": "Batalla de la borne 233",
+    "Batalla de Nam River": "Batalla del río Nam",
+    "Batalla de Hill Eerie": "Batalla de la colina Eerie",
+    "Segunda Batalla de Seúl": "Segunda batalla de Seúl",
+    "Segunda batalla de Hook": "Segunda batalla de The Hook",
+    "Batalla de Kisangani": "Batalla de Kisangani de 1997",
+    "Batalla del desfiladero de Liakhvi": "Combates del desfiladero de Liakhvi",
+    "Batalla de Douz": "Escaramuza de Douz de 2011",
+    "Batalla de Faluya": "Batalla de Faluya de 2016",
+    "Batalla de Saná": "Batalla de Saná de 2017"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -507,6 +517,41 @@
     "Batalla de Pradera del Ganso",
     "Batalla de Mogadiscio",
     "Combate del valle de Galwan de 2020",
-    "Batalla de Shusha (2020)"
+    "Batalla de Shusha (2020)",
+    "Batalla de Chochiwon",
+    "Batalla de Chonan",
+    "Batalla de Hwanggan",
+    "Batalla de Sangju",
+    "Batalla de Taejon",
+    "Batalla de Yongdong",
+    "Batalla de Battle Mountain",
+    "Batalla de Bowling Alley",
+    "Batalla de Haman",
+    "Batalla de Ka-san",
+    "Batalla de Kyongju",
+    "Batalla de Masan",
+    "Batalla del río Nam",
+    "Batalla de P'ohang-dong",
+    "Batalla de Tabu-dong",
+    "Batalla de Taegu",
+    "Batalla de Yongsan",
+    "Segunda batalla de Seúl",
+    "Batalla de Unsan",
+    "Batalla de Uijeongbu (1951)",
+    "Batalla de Hoengsong",
+    "Batalla de Chipyong-ni",
+    "Batalla de la colina Eerie",
+    "Segunda batalla de The Hook",
+    "Batalla de la borne 233",
+    "Batalla de Fakashan",
+    "Batalla de Kisangani de 1997",
+    "Batalla de Ras Kamboni",
+    "Batalla de Basra",
+    "Combates del desfiladero de Liakhvi",
+    "Batalla de Dahaneh",
+    "Batalla de Khaz Oruzgan",
+    "Escaramuza de Douz de 2011",
+    "Batalla de Faluya de 2016",
+    "Batalla de Saná de 2017"
   ]
 }

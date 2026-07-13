@@ -181,7 +181,8 @@
   }
 
   function shouldSearchPublicConflictIndex(query = "") {
-    return /\b(guerra|batalla|conflicto|crisis|asedio|invasion|intifada|war|battle|conflict|siege|campaign|offensive)\b/.test(normalizeText(query));
+    const normalized = normalizeText(query);
+    return normalized.length >= 4;
   }
 
   async function fetchPublicConflictsIndex(url, fetchResourceCached) {

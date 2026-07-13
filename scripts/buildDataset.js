@@ -804,7 +804,7 @@ const CONFLICT_YEAR_HINTS = {
   "Batalla naval cerca de Majdal": { startYear: 1948, endYear: 1948 },
   "Batalla de Burullus": { startYear: 1956, endYear: 1956 },
   "Batalla de Flamborough Head": { startYear: 1779, endYear: 1779 },
-  "Batalla de la cota 233": { startYear: 1973, endYear: 1973 },
+  "Batalla de la cota 233": { startYear: 1961, endYear: 1961 },
   "Enfrentamiento entre el USS Constellation y L'Insurgente": { startYear: 1799, endYear: 1799 },
   "Incursiones en Boulogne": { startYear: 1804, endYear: 1805 },
   "Löwendalsfejden": { startYear: 1789, endYear: 1790 },

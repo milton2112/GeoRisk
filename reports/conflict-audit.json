@@ -1,179 +1,14 @@
 {
-  "generatedAt": "2026-07-13T01:26:38.930Z",
+  "generatedAt": "2026-07-13T01:53:30.716Z",
   "scannedConflicts": 2005,
   "issueCount": 0,
-  "advisoryCount": 772,
-  "reviewCount": 772,
+  "advisoryCount": 737,
+  "reviewCount": 737,
   "summary": {
-    "provisional_parent": 772
+    "provisional_parent": 737
   },
   "topIssues": [],
   "topAdvisories": [
-    {
-      "key": "batalla de la cota 233",
-      "name": "Batalla de la cota 233",
-      "countries": [
-        "FRA",
-        "TUN"
-      ],
-      "startYear": 1973,
-      "endYear": 1973,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de fakashan",
-      "name": "Batalla de Fakashan",
-      "countries": [
-        "CHN",
-        "VNM"
-      ],
-      "startYear": 1981,
-      "endYear": 1981,
-      "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de kisangani",
-      "name": "Batalla de Kisangani",
-      "countries": [
-        "RWA",
-        "UGA"
-      ],
-      "startYear": 1997,
-      "endYear": 1997,
-      "hierarchyLabel": "Conflicto regional de África",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de ras kamboni",
-      "name": "Batalla de Ras Kamboni",
-      "countries": [
-        "GBR",
-        "USA"
-      ],
-      "startYear": 2007,
-      "endYear": 2007,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de basra",
-      "name": "Batalla de Basra",
-      "countries": [
-        "GBR",
-        "USA"
-      ],
-      "startYear": 2008,
-      "endYear": 2008,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla del desfiladero de liakhvi",
-      "name": "Batalla del desfiladero de Liakhvi",
-      "countries": [
-        "GEO",
-        "RUS"
-      ],
-      "startYear": 2008,
-      "endYear": 2008,
-      "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de dahaneh",
-      "name": "Batalla de Dahaneh",
-      "countries": [
-        "GBR",
-        "USA"
-      ],
-      "startYear": 2009,
-      "endYear": 2009,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de khaz oruzgan",
-      "name": "Batalla de Khaz Oruzgan",
-      "countries": [
-        "AUS",
-        "USA"
-      ],
-      "startYear": 2010,
-      "endYear": 2010,
-      "hierarchyLabel": "Conflicto regional de Oceania",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de douz",
-      "name": "Batalla de Douz",
-      "countries": [
-        "LBY",
-        "TUN"
-      ],
-      "startYear": 2011,
-      "endYear": 2011,
-      "hierarchyLabel": "Conflicto regional de África",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de faluya",
-      "name": "Batalla de Faluya",
-      "countries": [
-        "IRN",
-        "IRQ"
-      ],
-      "startYear": 2016,
-      "endYear": 2016,
-      "hierarchyLabel": "Conflicto regional de Medio Oriente",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de sana",
-      "name": "Batalla de Saná",
-      "countries": [
-        "ARE",
-        "SAU"
-      ],
-      "startYear": 2017,
-      "endYear": 2017,
-      "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
     {
       "key": "asalto de ivangorod",
       "name": "Asalto de Ivángorod",
@@ -308,342 +143,6 @@
       ],
       "startYear": 1921,
       "endYear": 1921,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de battle mountain",
-      "name": "Batalla de Battle Mountain",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1950,
-      "endYear": 1950,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de bowling alley",
-      "name": "Batalla de Bowling Alley",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1950,
-      "endYear": 1950,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de chochiwon",
-      "name": "Batalla de Chochiwon",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1950,
-      "endYear": 1950,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de chonan",
-      "name": "Batalla de Chonan",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1950,
-      "endYear": 1950,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de haman",
-      "name": "Batalla de Haman",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1950,
-      "endYear": 1950,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de hwanggan",
-      "name": "Batalla de Hwanggan",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1950,
-      "endYear": 1950,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de ka san",
-      "name": "Batalla de Ka-san",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1950,
-      "endYear": 1950,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de kyongju",
-      "name": "Batalla de Kyongju",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1950,
-      "endYear": 1950,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de masan",
-      "name": "Batalla de Masan",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1950,
-      "endYear": 1950,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de nam river",
-      "name": "Batalla de Nam River",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1950,
-      "endYear": 1950,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de p ohang dong",
-      "name": "Batalla de P'ohang-dong",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1950,
-      "endYear": 1950,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de sangju",
-      "name": "Batalla de Sangju",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1950,
-      "endYear": 1950,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de tabu dong",
-      "name": "Batalla de Tabu-dong",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1950,
-      "endYear": 1950,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de taegu",
-      "name": "Batalla de Taegu",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1950,
-      "endYear": 1950,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de taejon",
-      "name": "Batalla de Taejon",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1950,
-      "endYear": 1950,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de unsan",
-      "name": "Batalla de Unsan",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1950,
-      "endYear": 1950,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de yongdong",
-      "name": "Batalla de Yongdong",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1950,
-      "endYear": 1950,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de yongsan",
-      "name": "Batalla de Yongsan",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1950,
-      "endYear": 1950,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "segunda batalla de seul",
-      "name": "Segunda Batalla de Seúl",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1950,
-      "endYear": 1950,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de chipyong ni",
-      "name": "Batalla de Chipyong-ni",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1951,
-      "endYear": 1951,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de hoengsong",
-      "name": "Batalla de Hoengsong",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1951,
-      "endYear": 1951,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de uijeongbu 1951",
-      "name": "Batalla de Uijeongbu (1951)",
-      "countries": [
-        "GBR"
-      ],
-      "startYear": 1951,
-      "endYear": 1951,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de hill eerie",
-      "name": "Batalla de Hill Eerie",
-      "countries": [
-        "USA"
-      ],
-      "startYear": 1952,
-      "endYear": 1952,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "segunda batalla de hook",
-      "name": "Segunda batalla de Hook",
-      "countries": [
-        "GBR"
-      ],
-      "startYear": 1952,
-      "endYear": 1952,
       "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
@@ -1135,6 +634,496 @@
       "startYear": 1971,
       "endYear": 1971,
       "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de an loc",
+      "name": "Batalla de An Lộc",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1972,
+      "endYear": 1972,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de kontum",
+      "name": "Batalla de Kontum",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1972,
+      "endYear": 1972,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de loc ninh",
+      "name": "Batalla de Loc Ninh",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1972,
+      "endYear": 1972,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de springmartin",
+      "name": "Batalla de Springmartin",
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1972,
+      "endYear": 1972,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "segunda batalla de quang tri",
+      "name": "Segunda batalla de Quảng Trị",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1972,
+      "endYear": 1972,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de cua viet",
+      "name": "Batalla de Cửa Việt",
+      "countries": [
+        "USA"
+      ],
+      "startYear": 1973,
+      "endYear": 1973,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de aileu",
+      "name": "Batalla de Aileu",
+      "countries": [
+        "IDN"
+      ],
+      "startYear": 1975,
+      "endYear": 1975,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de baucau",
+      "name": "Batalla de Baucau",
+      "countries": [
+        "IDN"
+      ],
+      "startYear": 1975,
+      "endYear": 1975,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de lospalos",
+      "name": "Batalla de Lospalos",
+      "countries": [
+        "IDN"
+      ],
+      "startYear": 1976,
+      "endYear": 1976,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de bucraa 1977",
+      "name": "Batalla de Bucraa (1977)",
+      "countries": [
+        "MAR"
+      ],
+      "startYear": 1977,
+      "endYear": 1977,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de harar",
+      "name": "Batalla de Harar",
+      "countries": [
+        "CUB"
+      ],
+      "startYear": 1977,
+      "endYear": 1978,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de jijiga",
+      "name": "Batalla de Jijiga",
+      "countries": [
+        "CUB"
+      ],
+      "startYear": 1977,
+      "endYear": 1978,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de al mahbes 1979",
+      "name": "Batalla de Al Mahbes (1979)",
+      "countries": [
+        "MAR"
+      ],
+      "startYear": 1979,
+      "endYear": 1979,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de bucraa 1979",
+      "name": "Batalla de Bucraa (1979)",
+      "countries": [
+        "MAR"
+      ],
+      "startYear": 1979,
+      "endYear": 1979,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de tan tan",
+      "name": "Batalla de Tan-Tan",
+      "countries": [
+        "MAR"
+      ],
+      "startYear": 1979,
+      "endYear": 1979,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de tichla 1979",
+      "name": "Batalla de Tichla (1979)",
+      "countries": [
+        "MRT"
+      ],
+      "startYear": 1979,
+      "endYear": 1979,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "sitio de zag",
+      "name": "Sitio de Zag",
+      "countries": [
+        "MAR"
+      ],
+      "startYear": 1979,
+      "endYear": 1980,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de akka",
+      "name": "Batalla de Akka",
+      "countries": [
+        "MAR"
+      ],
+      "startYear": 1980,
+      "endYear": 1980,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de guelta zemmur 1980",
+      "name": "Batalla de Guelta Zemmur (1980)",
+      "countries": [
+        "MAR"
+      ],
+      "startYear": 1980,
+      "endYear": 1980,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de ras el khanfra 1980",
+      "name": "Batalla de Ras el-Khanfra (1980)",
+      "countries": [
+        "MAR"
+      ],
+      "startYear": 1980,
+      "endYear": 1981,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "sitio de abadan",
+      "name": "Sitio de Abadán",
+      "countries": [
+        "IRN"
+      ],
+      "startYear": 1980,
+      "endYear": 1981,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "sitio de alepo 1980 1981",
+      "name": "Sitio de Alepo (1980-1981)",
+      "countries": [
+        "SYR"
+      ],
+      "startYear": 1980,
+      "endYear": 1981,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de esmara 1981",
+      "name": "Batalla de Esmara (1981)",
+      "countries": [
+        "MAR"
+      ],
+      "startYear": 1981,
+      "endYear": 1981,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de guelta zemmur marzo de 1981",
+      "name": "Batalla de Guelta Zemmur (marzo de 1981)",
+      "countries": [
+        "MAR"
+      ],
+      "startYear": 1981,
+      "endYear": 1981,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de guelta zemmur octubre de 1981",
+      "name": "Batalla de Guelta Zemmur (octubre de 1981)",
+      "countries": [
+        "MAR"
+      ],
+      "startYear": 1981,
+      "endYear": 1981,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de ras el khanfra 1982",
+      "name": "Batalla de Ras el-Khanfra (1982)",
+      "countries": [
+        "MAR"
+      ],
+      "startYear": 1982,
+      "endYear": 1982,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla del monte kent",
+      "name": "Batalla del monte Kent",
+      "countries": [
+        "GBR"
+      ],
+      "startYear": 1982,
+      "endYear": 1982,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de esmara 1983",
+      "name": "Batalla de Esmara (1983)",
+      "countries": [
+        "MAR"
+      ],
+      "startYear": 1983,
+      "endYear": 1983,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de lemseied",
+      "name": "Batalla de Lemseied",
+      "countries": [
+        "MAR"
+      ],
+      "startYear": 1983,
+      "endYear": 1983,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "ofensiva de ain lahchich",
+      "name": "Ofensiva de Ain-Lahchich",
+      "countries": [
+        "MAR"
+      ],
+      "startYear": 1983,
+      "endYear": 1984,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "ofensiva esmara tifariti",
+      "name": "Ofensiva Esmara-Tifariti",
+      "countries": [
+        "MAR"
+      ],
+      "startYear": 1983,
+      "endYear": 1983,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de hausa 1984",
+      "name": "Batalla de Hausa (1984)",
+      "countries": [
+        "MAR"
+      ],
+      "startYear": 1984,
+      "endYear": 1984,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de al mahbes 1985",
+      "name": "Batalla de Al Mahbes (1985)",
+      "countries": [
+        "MAR"
+      ],
+      "startYear": 1985,
+      "endYear": 1985,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de farsia 1987",
+      "name": "Batalla de Farsia (1987)",
+      "countries": [
+        "MAR"
+      ],
+      "startYear": 1987,
+      "endYear": 1987,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de tichla 1987",
+      "name": "Batalla de Tichla (1987)",
+      "countries": [
+        "MAR"
+      ],
+      "startYear": 1987,
+      "endYear": 1987,
+      "hierarchyLabel": "Conflicto regional de África",
       "issues": [
         "provisional_parent"
       ],

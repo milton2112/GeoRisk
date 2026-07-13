@@ -41,6 +41,10 @@ import {
   VISIBLE_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   VISIBLE_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "./conflict-curation-visible-followup.js";
+import {
+  KOREA_MODERN_CONFLICT_DETAIL_FIXES,
+  KOREA_MODERN_SAFE_CONFLICT_RENAMES
+} from "./conflict-curation-korea-modern.js";
 import { applyVisibleStringReplacements } from "./visible-data-corrections.js";
 
 const ALL_CURATED_CONFLICT_DETAIL_FIXES = {
@@ -54,7 +58,8 @@ const ALL_CURATED_CONFLICT_DETAIL_FIXES = {
   ...WWII_1942_CONFLICT_DETAIL_FIXES,
   ...THEATER_CONFLICT_DETAIL_FIXES,
   ...VISIBLE_MODERN_CONFLICT_DETAIL_FIXES,
-  ...VISIBLE_FOLLOWUP_CONFLICT_DETAIL_FIXES
+  ...VISIBLE_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  ...KOREA_MODERN_CONFLICT_DETAIL_FIXES
 };
 const ALL_SAFE_CONFLICT_RENAMES = {
   ...SAFE_CONFLICT_RENAMES,
@@ -66,7 +71,8 @@ const ALL_SAFE_CONFLICT_RENAMES = {
   ...WWII_1942_SAFE_CONFLICT_RENAMES,
   ...THEATER_SAFE_CONFLICT_RENAMES,
   ...VISIBLE_MODERN_SAFE_CONFLICT_RENAMES,
-  ...VISIBLE_FOLLOWUP_SAFE_CONFLICT_RENAMES
+  ...VISIBLE_FOLLOWUP_SAFE_CONFLICT_RENAMES,
+  ...KOREA_MODERN_SAFE_CONFLICT_RENAMES
 };
 
 const ENGLISH_CONFLICT_MARKERS = [
@@ -422,7 +428,13 @@ export function buildConflictAuditReport({ countries = {}, generatedDetails = {}
       || (provisionalCampaign && !specificCampaign)
     );
 
-    const years = getConflictYears(allDetails.find(item => item.startYear || item.endYear) || allDetails[0] || {});
+    const yearSource = record.details.find(item =>
+      item?.hierarchySources?.length && (Number.isFinite(item.startYear) || Number.isFinite(item.endYear))
+    ) || record.details.find(item => Number.isFinite(item.startYear) || Number.isFinite(item.endYear))
+      || record.entries.find(item => Number.isFinite(item.startYear) || Number.isFinite(item.endYear))
+      || allDetails[0]
+      || {};
+    const years = getConflictYears(yearSource);
     const issueList = [...issues].sort();
 
     return {

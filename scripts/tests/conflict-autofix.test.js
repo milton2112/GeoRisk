@@ -10,6 +10,10 @@ import {
   VISIBLE_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   VISIBLE_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-visible-followup.js";
+import {
+  KOREA_MODERN_CONFLICT_DETAIL_FIXES,
+  KOREA_MODERN_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-korea-modern.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
 
@@ -43,6 +47,20 @@ assert.ok(
     ["alta", "media"].includes(detail.hierarchyConfidence) && detail.hierarchySources?.[0]?.url
   ),
   "la segunda tanda visible debe conservar fuente y confianza especificas"
+);
+assert.equal(KOREA_MODERN_CONFLICT_DETAIL_FIXES["Batalla de Battle Mountain"].parent, "Guerra de Corea");
+assert.equal(KOREA_MODERN_CONFLICT_DETAIL_FIXES["Batalla de Chipyong-ni"].startYear, 1951);
+assert.equal(KOREA_MODERN_CONFLICT_DETAIL_FIXES["Batalla de Khaz Oruzgan"].startYear, 2008);
+assert.equal(KOREA_MODERN_CONFLICT_DETAIL_FIXES["Batalla de la borne 233"].startYear, 1961);
+assert.equal(KOREA_MODERN_CONFLICT_DETAIL_FIXES["Batalla de Basra"].campaign, "Operación Carga de los Caballeros");
+assert.equal(KOREA_MODERN_SAFE_CONFLICT_RENAMES["Batalla de la cota 233"], "Batalla de la borne 233");
+assert.equal(KOREA_MODERN_SAFE_CONFLICT_RENAMES["Batalla de Kisangani"], "Batalla de Kisangani de 1997");
+assert.equal(KOREA_MODERN_SAFE_CONFLICT_RENAMES["Batalla de Douz"], "Escaramuza de Douz de 2011");
+assert.ok(
+  Object.values(KOREA_MODERN_CONFLICT_DETAIL_FIXES).every(detail =>
+    ["alta", "media"].includes(detail.hierarchyConfidence) && detail.hierarchySources?.[0]?.url
+  ),
+  "la tanda de Corea y conflictos modernos debe conservar fuente y confianza"
 );
 
 const curatedIntervention = curateConflictEntry({
@@ -98,6 +116,10 @@ const report = buildConflictAuditReport({
           { name: "Batalla de Brandywine", curationBatch: "safe-structured-conflict-curation-2026-06" },
           { name: "Batalla de Galwan", startYear: 2020, endYear: 2020 },
           { name: "Combate en el valle del Galwan de 2020", startYear: 2020, endYear: 2020 },
+          { name: "Batalla de Khaz Oruzgan", startYear: 2010, endYear: 2010 },
+          { name: "Batalla de la cota 233", startYear: 1973, endYear: 1973 },
+          { name: "Batalla de Battle Mountain", startYear: 1950, endYear: 1950 },
+          { name: "Batalla de Douz", startYear: 2011, endYear: 2011 },
           { name: "Adriatic Campaign de World War II", startYear: 1939, endYear: 1945 }
         ]
       }
@@ -124,5 +146,11 @@ assert.ok(
   ![...report.topIssues, ...report.topAdvisories].some(item => item.name === "Batalla de Galwan" || item.name === "Combate en el valle del Galwan de 2020"),
   "las dos variantes de Galwan deben converger al nombre canonico"
 );
+assert.ok(!report.topAdvisories.some(item => item.name === "Batalla de Battle Mountain"), "Battle Mountain debe usar Guerra de Corea");
+assert.ok(!report.topAdvisories.some(item => item.name === "Escaramuza de Douz de 2011"), "Douz debe usar una jerarquia verificada");
+const khazOruzgan = [...report.topIssues, ...report.topAdvisories].find(item => item.name === "Batalla de Khaz Oruzgan");
+assert.equal(khazOruzgan?.startYear, 2008, "Khaz Oruzgan debe conservar su fecha historica de 2008");
+const marker233 = [...report.topIssues, ...report.topAdvisories].find(item => item.name === "Batalla de la borne 233");
+assert.equal(marker233?.startYear, 1961, "la batalla de la borne 233 debe reemplazar la fecha incorrecta de 1973");
 
 console.log("conflict-autofix.test.js ok");

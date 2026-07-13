@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-07-13T01:20:02.950Z",
+  "generatedAt": "2026-07-13T01:43:54.742Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 9208159,
-    "duplicatedCountryFilesBytes": 1463278,
-    "countryConflictShardBytes": 366234,
+    "fullBytes": 9235461,
+    "duplicatedCountryFilesBytes": 1463501,
+    "countryConflictShardBytes": 365696,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 20839,
-        "inlineBytes": 2727007,
+        "inlineBytes": 2740467,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -54,8 +54,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 201815,
-          "conflictShardBytes": 201816,
+          "conflictsBytes": 201275,
+          "conflictShardBytes": 201276,
           "averageConflictBytes": 218
         }
       },
@@ -63,7 +63,7 @@
         "code": "GBR",
         "name": "Reino Unido",
         "bytes": 20661,
-        "inlineBytes": 842137,
+        "inlineBytes": 845101,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 57612,
-          "conflictShardBytes": 57613,
+          "conflictsBytes": 57594,
+          "conflictShardBytes": 57595,
           "averageConflictBytes": 209
         }
       },
@@ -114,7 +114,7 @@
         "code": "AUS",
         "name": "Australia",
         "bytes": 19631,
-        "inlineBytes": 177396,
+        "inlineBytes": 177860,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -156,8 +156,8 @@
               "bytes": 973
             }
           ],
-          "conflictsBytes": 11522,
-          "conflictShardBytes": 11523,
+          "conflictsBytes": 11500,
+          "conflictShardBytes": 11501,
           "averageConflictBytes": 213
         }
       },
@@ -165,7 +165,7 @@
         "code": "FRA",
         "name": "Francia",
         "bytes": 18080,
-        "inlineBytes": 652667,
+        "inlineBytes": 653325,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -207,8 +207,8 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 40666,
-          "conflictShardBytes": 40667,
+          "conflictsBytes": 40694,
+          "conflictShardBytes": 40695,
           "averageConflictBytes": 178
         }
       },
@@ -317,8 +317,8 @@
       {
         "code": "RUS",
         "name": "Rusia",
-        "bytes": 15254,
-        "inlineBytes": 129301,
+        "bytes": 15268,
+        "inlineBytes": 129933,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -332,7 +332,7 @@
         },
         "metrics": {
           "sectionBytes": {
-            "military": 6452,
+            "military": 6466,
             "politics": 4980,
             "metadata": 1926,
             "general": 965,
@@ -345,7 +345,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 6452
+              "bytes": 6466
             },
             {
               "section": "politics",
@@ -360,9 +360,9 @@
               "bytes": 965
             }
           ],
-          "conflictsBytes": 7011,
-          "conflictShardBytes": 7012,
-          "averageConflictBytes": 175
+          "conflictsBytes": 7025,
+          "conflictShardBytes": 7026,
+          "averageConflictBytes": 176
         }
       },
       {

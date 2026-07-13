@@ -8,7 +8,21 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.54 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.55 antes de cerrar la siguiente version.
+
+## v1.6.55 - 2026-07-12
+
+- Prepara una nueva version de mantenimiento con mediciones y auditorias actualizadas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-12-release-4`.
+- Verifica con fuentes 35 jerarquias adicionales y reduce la cola editorial de 772 a 737 conflictos unicos; las relaciones provisionales por pais bajan de 783 a 737.
+- Asigna guerra padre y campana a 24 acciones de la guerra de Corea y a conflictos modernos de China-Vietnam, Congo, Somalia, Irak, Georgia, Afganistan, Libia y Yemen.
+- Corrige `Batalla de Khaz Oruzgan` de 2010 a 2008 a partir del Australian War Memorial.
+- Reemplaza la ambigua `Batalla de la cota 233` de 1973 por `Batalla de la borne 233` de 1961 y corrige tambien el ano base del generador.
+- Normaliza nombres visibles de Kisangani, Liakhvi, Douz, Faluya, Sana, rio Nam, colina Eerie, Seul y The Hook.
+- Hace que el buscador diferido encuentre conflictos por su nombre propio aunque la consulta no incluya prefijos como `batalla` o `guerra`.
+- Prioriza fechas fuente-respaldadas sobre anos importados obsoletos en la auditoria de conflictos.
+- Verifica en navegador la busqueda `Khaz Oruzgan`, la lista de paises relacionados y la apertura de la ficha de Australia sin errores de consola.
+- Mantiene el arranque critico en 810 KB, `script.js` en 543 KB y el indice inicial en 141 KB, con cero long tasks simuladas sobre presupuesto.
 
 ## v1.6.54 - 2026-07-12
 

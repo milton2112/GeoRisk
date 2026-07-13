@@ -131,10 +131,23 @@ const publicConflict = await search.findPublicConflictIndexEntry("Guerra de las 
     assert.ok(url.includes("data/conflicts_index.json"), "debe cargar indice publico de conflictos");
     assert.equal(type, "json", "debe pedir el indice como json");
     return [
-      { name: "Guerra de las Malvinas", countries: ["ARG", "GBR", "FLK"] }
+      { name: "Guerra de las Malvinas", countries: ["ARG", "GBR", "FLK"] },
+      { name: "Batalla de Khaz Oruzgan", countries: ["AUS", "USA"] }
     ];
   }
 });
 assert.deepEqual(publicConflict.countries, ["ARG", "GBR", "FLK"], "debe resolver paises desde conflicts_index bajo demanda");
+
+const partialConflict = await search.findPublicConflictIndexEntry("Khaz Oruzgan", {
+  appVersion: "test",
+  translateConflictName: value => value,
+  fetchResourceCached: async () => []
+});
+assert.equal(partialConflict.name, "Batalla de Khaz Oruzgan", "debe resolver un conflicto sin exigir que la consulta incluya 'batalla'");
+assert.equal(
+  await search.findPublicConflictIndexEntry("x", { fetchResourceCached: async () => [] }),
+  null,
+  "consultas demasiado cortas no deben cargar el indice diferido"
+);
 
 console.log("search-module.test.js ok");
