@@ -59,6 +59,7 @@ const undatedAmericasCuration = await fs.readFile(path.join(projectRoot, "script
 const revolutionFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-revolution-followup.js"), "utf8");
 const transition1846Curation = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-1846-1902.js"), "utf8");
 const war1812FollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-war-1812-followup.js"), "utf8");
+const usCivilWarFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-civil-war-followup.js"), "utf8");
 const wikipediaConflicts = await fs.readFile(path.join(projectRoot, "scripts/lib/wikipedia-conflicts.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
 const resilientFs = await fs.readFile(path.join(projectRoot, "scripts/lib/resilient-fs.js"), "utf8");
@@ -473,6 +474,24 @@ assert.ok(
     && wikipediaConflicts.includes('"Batalla de las alturas de Queenston": "Battle_of_Queenston_Heights"')
     && wikipediaConflicts.includes('"Combate naval entre el HMS Shannon y el USS Chesapeake": "Capture_of_USS_Chesapeake"'),
   "los nombres traducidos de 1812 deben conservar su pagina de importacion"
+);
+assert.ok(conflictAutofix.includes("US_CIVIL_WAR_FOLLOWUP_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda de la Guerra Civil estadounidense");
+assert.ok(usCivilWarFollowupCuration.includes("hierarchySources"), "la tanda de la Guerra Civil debe conservar trazabilidad");
+assert.ok(
+  usCivilWarFollowupCuration.includes('"Batalla de Fort McAllister": "Segunda batalla de Fort McAllister"')
+    && usCivilWarFollowupCuration.includes('"Batalla de Galveston Harbor": "Batalla del puerto de Galveston de 1862"')
+    && usCivilWarFollowupCuration.includes('"Batalla de Head de Passes": "Batalla de Head of Passes"'),
+  "la tanda de la Guerra Civil debe desambiguar y normalizar sus nombres visibles"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Segunda batalla de Fort McAllister": "Second_Battle_of_Fort_McAllister"')
+    && wikipediaConflicts.includes('"Batalla naval de Memphis": "First_Battle_of_Memphis"')
+    && wikipediaConflicts.includes('"Batalla de Spotsylvania Court House": "Battle_of_Spotsylvania_Court_House"'),
+  "los nombres normalizados de la Guerra Civil deben conservar su pagina de importacion"
+);
+assert.ok(
+  wikipediaConflicts.includes('language === "en" ? WIKIPEDIA_API_EN : WIKIPEDIA_API_ES'),
+  "los overrides ingleses deben usar la API inglesa en vez de consultar una pagina inexistente en espanol"
 );
 
 console.log("release-gates.test.js ok");

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-13T22:43:29.147Z",
+  "generatedAt": "2026-07-13T23:02:15.758Z",
   "changedFullCountries": 0,
   "fullPassChanges": [
     0
@@ -11,7 +11,7 @@
     "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 667,
+  "generatedHierarchyCandidates": 687,
   "countryConflictAdditions": {
     "Estados Unidos": [
       "Batalla de Manila (1945)"
@@ -246,7 +246,15 @@
     "Incursion sobre Havre de Grace": "Incursión sobre Havre de Grace",
     "Combate de la Shannon y de la Chesapeake": "Combate naval entre el HMS Shannon y el USS Chesapeake",
     "Batalla de St. Michaels": "Batalla de Saint Michaels",
-    "Batalla del rio Eel en la Guerra de 1812": "Batalla del río Eel"
+    "Batalla del rio Eel en la Guerra de 1812": "Batalla del río Eel",
+    "Batalla de Altamaha Bridge": "Batalla del puente del Altamaha",
+    "Batalla de Columbus": "Batalla de Columbus de 1865",
+    "Batalla de Fort McAllister": "Segunda batalla de Fort McAllister",
+    "Batalla de Galveston Harbor": "Batalla del puerto de Galveston de 1862",
+    "Batalla de Head de Passes": "Batalla de Head of Passes",
+    "Batalla de Memphis": "Batalla naval de Memphis",
+    "Batalla de Spotsylvania": "Batalla de Spotsylvania Court House",
+    "Batalla de St. Charles": "Batalla naval de St. Charles"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -880,6 +888,26 @@
     "Batalla de Talladega",
     "Batalla de Holy Ground",
     "Batalla de Calebee Creek",
-    "Batalla de Horseshoe Bend"
+    "Batalla de Horseshoe Bend",
+    "Batalla de Spotsylvania Court House",
+    "Batalla de Cedar Creek",
+    "Batalla de Brice's Cross Roads",
+    "Batalla de Mansfield",
+    "Batalla de Pleasant Hill",
+    "Batalla del puente del Altamaha",
+    "Batalla de Corrick's Ford",
+    "Batalla de Devil's Backbone",
+    "Segunda batalla de Fort McAllister",
+    "Batalla de Columbus de 1865",
+    "Batalla del puerto de Galveston de 1862",
+    "Batalla naval de Memphis",
+    "Batalla de Head of Passes",
+    "Batalla de Helena",
+    "Batalla de Lexington, Tennessee",
+    "Batalla de Selma",
+    "Batalla naval de St. Charles",
+    "Primera batalla de Collierville",
+    "Segunda batalla de Collierville",
+    "Batalla de Fredericksburg"
   ]
 }

@@ -46,6 +46,26 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Incursión sobre Havre de Grace": "Raid_on_Havre_de_Grace",
   "Combate naval entre el HMS Shannon y el USS Chesapeake": "Capture_of_USS_Chesapeake",
   "Batalla de Saint Michaels": "Battle_of_St._Michaels",
+  "Batalla del puente del Altamaha": "Battle_of_Altamaha_Bridge",
+  "Batalla de Brice's Cross Roads": "Battle_of_Brice's_Cross_Roads",
+  "Batalla de Cedar Creek": "Battle_of_Cedar_Creek",
+  "Batalla de Columbus de 1865": "Battle_of_Columbus_(1865)",
+  "Batalla de Corrick's Ford": "Battle_of_Corrick's_Ford",
+  "Batalla de Devil's Backbone": "Battle_of_Devil's_Backbone",
+  "Segunda batalla de Fort McAllister": "Second_Battle_of_Fort_McAllister",
+  "Batalla de Fredericksburg": "Battle_of_Fredericksburg",
+  "Batalla del puerto de Galveston de 1862": "Battle_of_Galveston_Harbor_(1862)",
+  "Batalla de Head of Passes": "Battle_of_the_Head_of_Passes",
+  "Batalla de Helena": "Battle_of_Helena",
+  "Batalla de Lexington, Tennessee": "Battle_of_Lexington,_Tennessee",
+  "Batalla de Mansfield": "Battle_of_Mansfield",
+  "Batalla naval de Memphis": "First_Battle_of_Memphis",
+  "Batalla de Pleasant Hill": "Battle_of_Pleasant_Hill",
+  "Batalla de Selma": "Battle_of_Selma",
+  "Batalla de Spotsylvania Court House": "Battle_of_Spotsylvania_Court_House",
+  "Batalla naval de St. Charles": "Battle_of_Saint_Charles",
+  "Primera batalla de Collierville": "First_Battle_of_Collierville",
+  "Segunda batalla de Collierville": "Second_Battle_of_Collierville",
   "Batalla de Long Tan": "Batalla_de_Long_Tan",
   "Batalla de Bubiyan": "Batalla_de_Bubiyan",
   "Batalla de Jutlandia": "Batalla_de_Jutlandia",
@@ -659,11 +679,6 @@ export function sanitizeWikipediaConflictDetail(detail = {}) {
 }
 
 async function resolveWikipediaConflictTitleFromApi(conflictName, apiUrl) {
-  const direct = CONFLICT_WIKIPEDIA_TITLE_OVERRIDES[conflictName];
-  if (direct && apiUrl === WIKIPEDIA_API_ES) {
-    return direct;
-  }
-
   const url = new URL(apiUrl);
   url.searchParams.set("action", "query");
   url.searchParams.set("list", "search");
@@ -679,6 +694,16 @@ async function resolveWikipediaConflictTitleFromApi(conflictName, apiUrl) {
 }
 
 export async function resolveWikipediaConflictTitle(conflictName) {
+  const direct = CONFLICT_WIKIPEDIA_TITLE_OVERRIDES[conflictName];
+  if (direct) {
+    const language = /^(?:Battle|First_Battle|Second_Battle|Siege|Raid|Capture)_/.test(direct) ? "en" : "es";
+    return {
+      pageTitle: direct,
+      apiUrl: language === "en" ? WIKIPEDIA_API_EN : WIKIPEDIA_API_ES,
+      language
+    };
+  }
+
   const spanishTitle = await resolveWikipediaConflictTitleFromApi(conflictName, WIKIPEDIA_API_ES);
   if (spanishTitle) {
     return { pageTitle: spanishTitle, apiUrl: WIKIPEDIA_API_ES, language: "es" };

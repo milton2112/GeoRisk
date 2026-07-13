@@ -43,9 +43,14 @@ import {
   WAR_1812_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   WAR_1812_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-war-1812-followup.js";
+import {
+  US_CIVIL_WAR_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  US_CIVIL_WAR_FOLLOWUP_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-us-civil-war-followup.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
+import { resolveWikipediaConflictTitle } from "../lib/wikipedia-conflicts.js";
 
 assert.equal(SAFE_CONFLICT_RENAMES["Adriatic Campaign de World War II"], "Campana del Adriatico en la Segunda Guerra Mundial");
 assert.equal(CURATED_CONFLICT_DETAIL_FIXES["Batalla de Saigon"].parent, "Guerra de Vietnam");
@@ -239,6 +244,36 @@ assert.ok(
   ),
   "la tanda de 1812 debe conservar fecha, jerarquia, fuentes y participantes reales"
 );
+
+assert.equal(Object.keys(US_CIVIL_WAR_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 20);
+assert.equal(US_CIVIL_WAR_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Fredericksburg"].startYear, 1862);
+assert.equal(US_CIVIL_WAR_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Cedar Creek"].campaign, "Campaña del valle de Shenandoah de 1864");
+assert.equal(US_CIVIL_WAR_FOLLOWUP_CONFLICT_DETAIL_FIXES["Segunda batalla de Fort McAllister"].startYear, 1864);
+assert.equal(US_CIVIL_WAR_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla naval de Memphis"].type, "batalla naval");
+assert.equal(US_CIVIL_WAR_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Fort McAllister"], "Segunda batalla de Fort McAllister");
+assert.equal(US_CIVIL_WAR_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Galveston Harbor"], "Batalla del puerto de Galveston de 1862");
+assert.equal(US_CIVIL_WAR_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Head de Passes"], "Batalla de Head of Passes");
+assert.ok(
+  Object.values(US_CIVIL_WAR_FOLLOWUP_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && ["alta", "media"].includes(detail.hierarchyConfidence)
+      && detail.hierarchySources?.[0]?.url
+      && detail.parent === "Guerra Civil estadounidense"
+      && detail.parent === detail.war
+      && detail.campaign
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+  ),
+  "la tanda de la Guerra Civil debe conservar fecha, jerarquia, fuentes y participantes reales"
+);
+const englishWikipediaOverride = await resolveWikipediaConflictTitle("Segunda batalla de Fort McAllister");
+assert.equal(englishWikipediaOverride.language, "en");
+assert.match(englishWikipediaOverride.apiUrl, /^https:\/\/en\.wikipedia\.org\//);
+assert.equal(englishWikipediaOverride.pageTitle, "Second_Battle_of_Fort_McAllister");
+const spanishWikipediaOverride = await resolveWikipediaConflictTitle("Guerra de Corea");
+assert.equal(spanishWikipediaOverride.language, "es");
+assert.match(spanishWikipediaOverride.apiUrl, /^https:\/\/es\.wikipedia\.org\//);
 
 const curatedIntervention = curateConflictEntry({
   name: "Intervencion en Siberia",

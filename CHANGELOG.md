@@ -8,7 +8,20 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.62 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.63 antes de cerrar la siguiente version.
+
+## v1.6.63 - 2026-07-13
+
+- Fecha y jerarquiza con fuentes 20 acciones de la Guerra Civil estadounidense entre 1861 y 1865.
+- Reduce los conflictos sin fecha auditados de 523 a 503 y las jerarquias provisionales de 459 a 439; el timeline pasa de 2476 a 2496 eventos fechables.
+- Asigna campanas concretas de Virginia Occidental, Misisipi, Fredericksburg, Tennessee Occidental, rio Rojo, Overland, Shenandoah, la marcha hacia el mar y la incursion de Wilson.
+- Desambigua la segunda batalla de Fort McAllister, Columbus de 1865, Galveston de 1862 y Spotsylvania Court House; normaliza ademas Altamaha, Head of Passes, Memphis y St. Charles.
+- Clasifica correctamente como navales las acciones de Head of Passes, Galveston, Memphis y St. Charles.
+- Agrega trazabilidad institucional de Parques Nacionales, Centro de Historia Militar del Ejercito, Patrimonio Naval, Ejercito de EE. UU., Sociedad Historica de Georgia y el municipio de Collierville.
+- Corrige el importador diferido para dirigir los titulos explicitos en ingles a la API inglesa de Wikipedia y evita fichas profundas vacias por consultar el idioma equivocado.
+- Agrega regresiones para cantidad, fechas, guerra padre, campanas, participantes, traducciones, fuentes y rutas de importacion; la regeneracion completa converge con cero cambios.
+- Mantiene en cero alertas, duplicados internos, nombres de conflictos en ingles, regiones sospechosas, problemas de codificacion e incidencias de validacion.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-13-release-6`.
 
 ## v1.6.62 - 2026-07-13
 

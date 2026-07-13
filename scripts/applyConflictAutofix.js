@@ -54,6 +54,10 @@ import {
   WAR_1812_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   WAR_1812_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "./lib/conflict-curation-war-1812-followup.js";
+import {
+  US_CIVIL_WAR_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  US_CIVIL_WAR_FOLLOWUP_SAFE_CONFLICT_RENAMES
+} from "./lib/conflict-curation-us-civil-war-followup.js";
 import { collectConflictCountryNames, curateConflictDetail, curateConflictEntry } from "./lib/conflict-batch-curation.js";
 import {
   cleanConflictLabel,
@@ -92,7 +96,8 @@ const curatedConflictDetailFixes = {
   ...UNDATED_AMERICAS_CONFLICT_DETAIL_FIXES,
   ...REVOLUTION_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   ...TRANSITION_1846_1902_CONFLICT_DETAIL_FIXES,
-  ...WAR_1812_FOLLOWUP_CONFLICT_DETAIL_FIXES
+  ...WAR_1812_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  ...US_CIVIL_WAR_FOLLOWUP_CONFLICT_DETAIL_FIXES
 };
 const safeConflictRenames = {
   ...SAFE_CONFLICT_RENAMES,
@@ -112,7 +117,8 @@ const safeConflictRenames = {
   ...UNDATED_AMERICAS_SAFE_CONFLICT_RENAMES,
   ...REVOLUTION_FOLLOWUP_SAFE_CONFLICT_RENAMES,
   ...TRANSITION_1846_1902_SAFE_CONFLICT_RENAMES,
-  ...WAR_1812_FOLLOWUP_SAFE_CONFLICT_RENAMES
+  ...WAR_1812_FOLLOWUP_SAFE_CONFLICT_RENAMES,
+  ...US_CIVIL_WAR_FOLLOWUP_SAFE_CONFLICT_RENAMES
 };
 
 function renameConflictName(name) {

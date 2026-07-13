@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-13T22:44:20.123Z",
+  "generatedAt": "2026-07-13T23:07:31.961Z",
   "scannedConflicts": 2003,
   "issueCount": 0,
-  "advisoryCount": 459,
-  "reviewCount": 459,
+  "advisoryCount": 439,
+  "reviewCount": 439,
   "summary": {
-    "provisional_parent": 459
+    "provisional_parent": 439
   },
   "topIssues": [],
   "topAdvisories": [
@@ -140,20 +140,6 @@
       "name": "Batalla de Alegre",
       "countries": [
         "PRY"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de altamaha bridge",
-      "name": "Batalla de Altamaha Bridge",
-      "countries": [
-        "USA"
       ],
       "startYear": null,
       "endYear": null,
@@ -626,20 +612,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de brice s cross roads",
-      "name": "Batalla de Brice's Cross Roads",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de britain day",
       "name": "Batalla de Britain Day",
       "countries": [
@@ -830,20 +802,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de cedar creek",
-      "name": "Batalla de Cedar Creek",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],
@@ -1060,20 +1018,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de columbus",
-      "name": "Batalla de Columbus",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de cooke s spring",
       "name": "Batalla de Cooke's Spring",
       "countries": [
@@ -1102,8 +1046,22 @@
       "severity": 1
     },
     {
-      "key": "batalla de corrick s ford",
-      "name": "Batalla de Corrick's Ford",
+      "key": "batalla de craonne",
+      "name": "Batalla de Craonne",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de crucifix hill",
+      "name": "Batalla de Crucifix Hill",
       "countries": [
         "USA"
       ],
@@ -1116,10 +1074,52 @@
       "severity": 1
     },
     {
-      "key": "batalla de craonne",
-      "name": "Batalla de Craonne",
+      "key": "batalla de czortkowem",
+      "name": "Batalla de Czortkowem",
       "countries": [
-        "FRA"
+        "POL"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de danghangpo",
+      "name": "Batalla de Danghangpo",
+      "countries": [
+        "JPN"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de dangpo",
+      "name": "Batalla de Dangpo",
+      "countries": [
+        "JPN"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de danny boy",
+      "name": "Batalla de Danny Boy",
+      "countries": [
+        "GBR"
       ],
       "startYear": null,
       "endYear": null,
