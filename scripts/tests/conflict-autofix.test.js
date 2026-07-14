@@ -55,6 +55,10 @@ import {
   US_INDIAN_WARS_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   US_INDIAN_WARS_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-us-indian-wars-followup.js";
+import {
+  BRITISH_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  BRITISH_WWII_FOLLOWUP_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-british-wwii-followup.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -332,6 +336,37 @@ assert.ok(
   ),
   "la tanda de guerras indígenas debe conservar jerarquia, fuentes, participantes y cierre editorial explícito"
 );
+assert.equal(Object.keys(BRITISH_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 26);
+assert.equal(Object.keys(BRITISH_WWII_FOLLOWUP_SAFE_CONFLICT_RENAMES).length, 18);
+assert.equal(BRITISH_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Abbeville"].campaign, "Batalla de Francia");
+assert.equal(BRITISH_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Heraclión"].campaign, "Batalla de Creta");
+assert.equal(BRITISH_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla del mar de Barents"].type, "batalla naval");
+assert.equal(BRITISH_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Ptolemaida"].startYear, 1941);
+assert.equal(BRITISH_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla del mar de Liguria"].startYear, 1945);
+assert.equal(BRITISH_WWII_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Britain Day"], "Día de la Batalla de Inglaterra");
+assert.equal(BRITISH_WWII_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Bay de Biscay"], "Batalla del golfo de Vizcaya");
+assert.equal(BRITISH_WWII_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Merville Gun Battery"], "Batalla de la batería de Merville");
+assert.ok(
+  Object.values(BRITISH_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent === "Segunda Guerra Mundial"
+      && detail.parent === detail.war
+      && detail.campaign
+      && detail.region
+      && detail.cause
+      && detail.outcome
+      && detail.consequences
+      && detail.chronology?.[0]?.event
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.[0]?.url
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties)
+      && detail.treaties.length === 0
+  ),
+  "la tanda británica de la Segunda Guerra Mundial debe conservar fechas, jerarquia, fuentes y contexto editorial"
+);
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",
   startYear: 1944,
@@ -354,6 +389,10 @@ const littleBighornWikipediaOverride = await resolveWikipediaConflictTitle("Bata
 assert.equal(littleBighornWikipediaOverride.language, "en");
 assert.match(littleBighornWikipediaOverride.apiUrl, /^https:\/\/en\.wikipedia\.org\//);
 assert.equal(littleBighornWikipediaOverride.pageTitle, "Battle_of_the_Little_Bighorn");
+const barentsWikipediaOverride = await resolveWikipediaConflictTitle("Batalla del mar de Barents");
+assert.equal(barentsWikipediaOverride.language, "en");
+assert.match(barentsWikipediaOverride.apiUrl, /^https:\/\/en\.wikipedia\.org\//);
+assert.equal(barentsWikipediaOverride.pageTitle, "Battle_of_the_Barents_Sea");
 const spanishWikipediaOverride = await resolveWikipediaConflictTitle("Guerra de Corea");
 assert.equal(spanishWikipediaOverride.language, "es");
 assert.match(spanishWikipediaOverride.apiUrl, /^https:\/\/es\.wikipedia\.org\//);

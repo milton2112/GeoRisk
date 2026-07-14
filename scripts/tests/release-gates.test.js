@@ -62,6 +62,7 @@ const war1812FollowupCuration = await fs.readFile(path.join(projectRoot, "script
 const usCivilWarFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-civil-war-followup.js"), "utf8");
 const usWwiiFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-wwii-followup.js"), "utf8");
 const usIndianWarsFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-indian-wars-followup.js"), "utf8");
+const britishWwiiFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-british-wwii-followup.js"), "utf8");
 const wikipediaConflicts = await fs.readFile(path.join(projectRoot, "scripts/lib/wikipedia-conflicts.js"), "utf8");
 const conflictBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-batch-curation.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
@@ -530,6 +531,28 @@ assert.ok(
     && usIndianWarsFollowupCuration.includes("nps.gov")
     && usIndianWarsFollowupCuration.includes("thc.texas.gov"),
   "la tanda de guerras indígenas debe apoyarse en fuentes institucionales"
+);
+assert.ok(conflictAutofix.includes("BRITISH_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda británica de la Segunda Guerra Mundial");
+assert.ok(britishWwiiFollowupCuration.includes("hierarchySources"), "la tanda británica debe conservar trazabilidad");
+assert.ok(britishWwiiFollowupCuration.includes('curationBatch: "source-backed-british-wwii-followup-2026-07"'), "la tanda británica debe quedar identificada");
+assert.ok(
+  britishWwiiFollowupCuration.includes('"Batalla de Britain Day": "Día de la Batalla de Inglaterra"')
+    && britishWwiiFollowupCuration.includes('"Batalla de Bay de Biscay": "Batalla del golfo de Vizcaya"')
+    && britishWwiiFollowupCuration.includes('"Batalla de Merville Gun Battery": "Batalla de la batería de Merville"'),
+  "la tanda británica debe traducir y normalizar sus nombres visibles"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Batalla del mar de Barents": "Battle_of_the_Barents_Sea"')
+    && wikipediaConflicts.includes('"Batalla de la estación de radar de Douvres": "Battle_of_Douvres_Radar_Station"')
+    && wikipediaConflicts.includes('"Batalla del convoy Tarigo": "Battle_of_the_Tarigo_Convoy"'),
+  "los nombres británicos normalizados deben conservar su pagina de importacion"
+);
+assert.ok(
+  britishWwiiFollowupCuration.includes("royalnavy.mod.uk")
+    && britishWwiiFollowupCuration.includes("raf.mod.uk")
+    && britishWwiiFollowupCuration.includes("awm.gov.au")
+    && britishWwiiFollowupCuration.includes("iwm.org.uk"),
+  "la tanda británica debe apoyarse en fuentes institucionales por teatro"
 );
 assert.ok(
   conflictBatchCuration.includes("if (Array.isArray(entry.treaties)) return entry.treaties;"),

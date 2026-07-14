@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-14T00:02:04.550Z",
+  "generatedAt": "2026-07-14T01:37:37.066Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 9516245,
-    "duplicatedCountryFilesBytes": 1466890,
-    "countryConflictShardBytes": 372622,
+    "fullBytes": 9531645,
+    "duplicatedCountryFilesBytes": 1467487,
+    "countryConflictShardBytes": 373279,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -62,8 +62,8 @@
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 20661,
-        "inlineBytes": 847281,
+        "bytes": 21258,
+        "inlineBytes": 862681,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -78,7 +78,7 @@
         "metrics": {
           "sectionBytes": {
             "politics": 9502,
-            "military": 7237,
+            "military": 7834,
             "metadata": 1952,
             "general": 1018,
             "history": 395,
@@ -94,7 +94,7 @@
             },
             {
               "section": "military",
-              "bytes": 7237
+              "bytes": 7834
             },
             {
               "section": "metadata",
@@ -105,9 +105,9 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 57667,
-          "conflictShardBytes": 57668,
-          "averageConflictBytes": 209
+          "conflictsBytes": 58324,
+          "conflictShardBytes": 58325,
+          "averageConflictBytes": 211
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 459,
+    "pendingCount": 433,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15194,19 +15194,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Abbeville",
-        "countries": [
-          "GBR"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Aidabasalala",
         "countries": [
           "AUS"
@@ -15298,19 +15285,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Arras",
-        "countries": [
-          "GBR"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Ash Hollow",
         "countries": [
           "USA"
@@ -15340,19 +15314,6 @@
         "name": "Batalla de Assandun",
         "countries": [
           "DNK"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Athens",
-        "countries": [
-          "GBR"
         ],
         "regions": [
           "Europa"
@@ -15402,33 +15363,7 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Barents Sea",
-        "countries": [
-          "GBR"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Bau",
-        "countries": [
-          "GBR"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Bay de Biscay",
         "countries": [
           "GBR"
         ],
@@ -15610,32 +15545,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Bréville",
-        "countries": [
-          "GBR"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Britain Day",
-        "countries": [
-          "GBR"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Broodseinde",
         "countries": [
           "AUS"
@@ -15675,48 +15584,9 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Cabo Norte",
-        "countries": [
-          "GBR"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Cabo Rachado",
         "countries": [
           "PRT"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Cabo Teulada",
-        "countries": [
-          "GBR"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Calabria",
-        "countries": [
-          "GBR"
         ],
         "regions": [
           "Europa"
@@ -15889,19 +15759,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Cigno Convoy",
-        "countries": [
-          "GBR"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
@@ -16234,19 +16091,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Douvres Radar Station",
-        "countries": [
-          "GBR"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Drohiczyn",
         "countries": [
           "POL"
@@ -16276,19 +16120,6 @@
         "name": "Batalla de Dschask",
         "countries": [
           "PRT"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Duisburg Convoy",
-        "countries": [
-          "GBR"
         ],
         "regions": [
           "Europa"
@@ -16624,19 +16455,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Graveney Marsh",
-        "countries": [
-          "GBR"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Grenada",
         "countries": [
           "FRA"
@@ -16796,19 +16614,6 @@
         "name": "Batalla de Heligoland",
         "countries": [
           "DNK"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Heraklion",
-        "countries": [
-          "GBR"
         ],
         "regions": [
           "Europa"
@@ -17163,6 +16968,201 @@
         ],
         "regions": [
           "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Kemp's Landing",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Kenapacomaqua",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Kimito Strait",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Kircholm",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Kirchschlag",
+        "countries": [
+          "AUT"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Klecko",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Kliszów",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Kokenhausen",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Kousséri",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Kozienice",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Kringen",
+        "countries": [
+          "NOR"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Kroppenhof",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Krosno",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Kumbo",
+        "countries": [
+          "CMR"
+        ],
+        "regions": [
+          "África"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Kuwait International Airport",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "Golfo Pérsico"
         ],
         "types": [
           "interestatal"

@@ -8,7 +8,19 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.65 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.66 antes de cerrar la siguiente version.
+
+## v1.6.66 - 2026-07-13
+
+- Fecha, jerarquiza y documenta con fuentes 26 acciones britanicas de la Segunda Guerra Mundial en Francia, Grecia, Creta, Malaya, Normandia, el Atlantico, el Artico y el Mediterraneo.
+- Normaliza 18 nombres visibles que mezclaban espanol e ingles, incluidos Atenas, el golfo de Vizcaya, el mar de Barents, la bateria de Merville y los convoyes Cigno, Duisburg y Tarigo.
+- Reduce los conflictos sin fecha auditados de 460 a 434 y las jerarquias provisionales de 396 a 370; el timeline pasa de 2539 a 2565 eventos fechables.
+- Regenera el indice liviano de conflictos de 1542 a 1568 entradas y los detalles diferidos de 779 a 805 shards; la segunda ejecucion converge con cero cambios.
+- Conserva trazabilidad institucional del Royal Navy Historical Branch, RAF, Imperial War Museums, Australian War Memorial, National Army Museum y archivos patrimoniales oficiales.
+- Agrega regresiones para cantidad, fechas, jerarquia, campanas, participantes, traducciones, fuentes, tratados vacios y rutas de importacion profunda.
+- Mantiene en cero alertas de conflictos, incidencias y advertencias de validacion, duplicados, nombres ingleses, regiones sospechosas y problemas de localizacion.
+- Mantiene el arranque critico en 810 KB, `script.js` en 543 KB y `countries_index.json` en 141 KB, sin long tasks simuladas por encima del presupuesto.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-13-release-9`.
 
 ## v1.6.65 - 2026-07-13
 

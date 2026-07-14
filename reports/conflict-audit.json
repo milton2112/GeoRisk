@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-14T00:05:00.075Z",
+  "generatedAt": "2026-07-14T01:40:34.729Z",
   "scannedConflicts": 2003,
   "issueCount": 0,
-  "advisoryCount": 396,
-  "reviewCount": 396,
+  "advisoryCount": 370,
+  "reviewCount": 370,
   "summary": {
-    "provisional_parent": 396
+    "provisional_parent": 370
   },
   "topIssues": [],
   "topAdvisories": [
@@ -88,20 +88,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de abbeville",
-      "name": "Batalla de Abbeville",
-      "countries": [
-        "GBR"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],
@@ -206,20 +192,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de arras",
-      "name": "Batalla de Arras",
-      "countries": [
-        "GBR"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de ash hollow",
       "name": "Batalla de Ash Hollow",
       "countries": [
@@ -252,20 +224,6 @@
       "name": "Batalla de Assandun",
       "countries": [
         "DNK"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de athens",
-      "name": "Batalla de Athens",
-      "countries": [
-        "GBR"
       ],
       "startYear": null,
       "endYear": null,
@@ -318,36 +276,8 @@
       "severity": 1
     },
     {
-      "key": "batalla de barents sea",
-      "name": "Batalla de Barents Sea",
-      "countries": [
-        "GBR"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de bau",
       "name": "Batalla de Bau",
-      "countries": [
-        "GBR"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de bay de biscay",
-      "name": "Batalla de Bay de Biscay",
       "countries": [
         "GBR"
       ],
@@ -542,34 +472,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de breville",
-      "name": "Batalla de Bréville",
-      "countries": [
-        "GBR"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de britain day",
-      "name": "Batalla de Britain Day",
-      "countries": [
-        "GBR"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de broodseinde",
       "name": "Batalla de Broodseinde",
       "countries": [
@@ -612,52 +514,10 @@
       "severity": 1
     },
     {
-      "key": "batalla de cabo norte",
-      "name": "Batalla de Cabo Norte",
-      "countries": [
-        "GBR"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de cabo rachado",
       "name": "Batalla de Cabo Rachado",
       "countries": [
         "PRT"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de cabo teulada",
-      "name": "Batalla de Cabo Teulada",
-      "countries": [
-        "GBR"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de calabria",
-      "name": "Batalla de Calabria",
-      "countries": [
-        "GBR"
       ],
       "startYear": null,
       "endYear": null,
@@ -844,20 +704,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de cigno convoy",
-      "name": "Batalla de Cigno Convoy",
-      "countries": [
-        "GBR"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],
@@ -1118,6 +964,160 @@
     {
       "key": "batalla de diablo mountains",
       "name": "Batalla de Diablo Mountains",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de dieppe",
+      "name": "Batalla de Dieppe",
+      "countries": [
+        "CAN"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de diu",
+      "name": "Batalla de Diu",
+      "countries": [
+        "PRT"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de do ab",
+      "name": "Batalla de Do Ab",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de dogger bank",
+      "name": "Batalla de Dogger Bank",
+      "countries": [
+        "DNK"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de dolores river",
+      "name": "Batalla de Dolores River",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de doro passage",
+      "name": "Batalla de Doro Passage",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de drohiczyn",
+      "name": "Batalla de Drohiczyn",
+      "countries": [
+        "POL"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de dry lake",
+      "name": "Batalla de Dry Lake",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de dschask",
+      "name": "Batalla de Dschask",
+      "countries": [
+        "PRT"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de dynekilen",
+      "name": "Batalla de Dynekilen",
+      "countries": [
+        "SWE"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de el carrizal",
+      "name": "Batalla de El Carrizal",
       "countries": [
         "USA"
       ],

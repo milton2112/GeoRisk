@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-14T00:02:24.889Z",
+  "generatedAt": "2026-07-14T01:38:40.700Z",
   "changedFullCountries": 0,
   "fullPassChanges": [
     0
@@ -11,7 +11,7 @@
     "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 730,
+  "generatedHierarchyCandidates": 756,
   "countryConflictAdditions": {
     "Estados Unidos": [
       "Batalla de Manila (1945)"
@@ -278,7 +278,25 @@
     "Batalla de Stony Lake": "Batalla del lago Stony",
     "Batalla de Toppenish Creek": "Batalla del arroyo Toppenish",
     "Batalla de Warbonnet Creek": "Escaramuza del arroyo Warbonnet",
-    "Batalla de White Bird Canyon": "Batalla del cañón White Bird"
+    "Batalla de White Bird Canyon": "Batalla del cañón White Bird",
+    "Batalla de Athens": "Batalla aérea de Atenas",
+    "Batalla de Barents Sea": "Batalla del mar de Barents",
+    "Batalla de Bay de Biscay": "Batalla del golfo de Vizcaya",
+    "Batalla de Britain Day": "Día de la Batalla de Inglaterra",
+    "Batalla de Cabo Norte": "Batalla del cabo Norte",
+    "Batalla de Cabo Teulada": "Batalla del cabo Teulada",
+    "Batalla de Cigno Convoy": "Batalla del convoy Cigno",
+    "Batalla de Douvres Radar Station": "Batalla de la estación de radar de Douvres",
+    "Batalla de Duisburg Convoy": "Batalla del convoy Duisburg",
+    "Batalla de Graveney Marsh": "Combate de Graveney Marsh",
+    "Batalla de Heraklion": "Batalla de Heraclión",
+    "Batalla de Ligurian Sea": "Batalla del mar de Liguria",
+    "Batalla de Merville Gun Battery": "Batalla de la batería de Merville",
+    "Batalla de River Forth": "Batalla del estuario de Forth",
+    "Batalla de Skerki Bank": "Batalla del banco de Skerki",
+    "Batalla de Tarigo Convoy": "Batalla del convoy Tarigo",
+    "Batalla de Tempi": "Batalla del desfiladero de Tempe",
+    "Batalla del Estrecho de Dinamarca": "Batalla del estrecho de Dinamarca"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -975,6 +993,32 @@
     "Batalla del cañón de Palo Duro",
     "Batalla de Tippecanoe",
     "Batalla de Lost River",
-    "Batalla del arroyo Toppenish"
+    "Batalla del arroyo Toppenish",
+    "Batalla de Abbeville",
+    "Batalla de Arras",
+    "Batalla aérea de Atenas",
+    "Batalla del mar de Barents",
+    "Batalla del golfo de Vizcaya",
+    "Batalla de Bréville",
+    "Día de la Batalla de Inglaterra",
+    "Batalla del cabo Norte",
+    "Batalla del cabo Teulada",
+    "Batalla de Calabria",
+    "Batalla del convoy Cigno",
+    "Batalla de la estación de radar de Douvres",
+    "Batalla del convoy Duisburg",
+    "Combate de Graveney Marsh",
+    "Batalla de Heraclión",
+    "Batalla de Kuala Lumpur",
+    "Batalla del mar de Liguria",
+    "Batalla de la batería de Merville",
+    "Batalla de Ptolemaida",
+    "Batalla del estuario de Forth",
+    "Batalla del banco de Skerki",
+    "Batalla del convoy Tarigo",
+    "Batalla del desfiladero de Tempe",
+    "Batalla de Villers-Bocage",
+    "Batalla del estrecho de Dinamarca",
+    "Segunda batalla de Sirte"
   ]
 }
