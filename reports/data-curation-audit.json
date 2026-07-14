@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-07-14T01:37:37.066Z",
+  "generatedAt": "2026-07-14T02:19:56.531Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 9531645,
+    "fullBytes": 9547459,
     "duplicatedCountryFilesBytes": 1467487,
-    "countryConflictShardBytes": 373279,
+    "countryConflictShardBytes": 373840,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 23822,
-        "inlineBytes": 2976855,
+        "inlineBytes": 2992669,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -54,9 +54,9 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 207508,
-          "conflictShardBytes": 207509,
-          "averageConflictBytes": 225
+          "conflictsBytes": 208069,
+          "conflictShardBytes": 208070,
+          "averageConflictBytes": 226
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 433,
+    "pendingCount": 411,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15207,19 +15207,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Al Busayyah",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Alegre",
         "countries": [
           "PRY"
@@ -15239,19 +15226,6 @@
         ],
         "regions": [
           "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Ap Bac",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"
@@ -15389,33 +15363,7 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Beicang",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Beitang",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de BIAP",
         "countries": [
           "USA"
         ],
@@ -15486,19 +15434,6 @@
         ],
         "regions": [
           "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Bolshie Ozerki",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"
@@ -15623,19 +15558,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Cantigny",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Cap-Français",
         "countries": [
           "FRA"
@@ -15652,19 +15574,6 @@
         "name": "Batalla de Cerro del Gallo",
         "countries": [
           "MEX"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Ch-teau-Thierry",
-        "countries": [
-          "USA"
         ],
         "regions": [
           "América"
@@ -16039,19 +15948,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Do Ab",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Dogger Bank",
         "countries": [
           "DNK"
@@ -16144,19 +16040,6 @@
       },
       {
         "name": "Batalla de El Carrizal",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de El Guettar",
         "countries": [
           "USA"
         ],
@@ -16351,38 +16234,12 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de FSB Mary Ann",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Fundy Bay",
         "countries": [
           "FRA"
         ],
         "regions": [
           "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Ganjgal",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"
@@ -16637,19 +16494,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Hiep Hoa",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Hill 282",
         "countries": [
           "USA"
@@ -16695,19 +16539,6 @@
         ],
         "regions": [
           "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Husaybah",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"
@@ -17163,6 +16994,175 @@
         ],
         "regions": [
           "Golfo Pérsico"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de la Bahía de Chesapeake",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de la bahía de Heligoland",
+        "countries": [
+          "GBR"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de la Bahía de Hudson",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de la Boca del Tigre",
+        "countries": [
+          "PRT"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de la Haya",
+        "countries": [
+          "NLD"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de la línea Bullet",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de la Montaña Roja",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de La Paz Centro",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Lagos",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Largs",
+        "countries": [
+          "NOR"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Las Cruces",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de las Islas Paracelso",
+        "countries": [
+          "CHN"
+        ],
+        "regions": [
+          "Asia"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de las Marismas",
+        "countries": [
+          "IRN"
+        ],
+        "regions": [
+          "Asia"
         ],
         "types": [
           "interestatal"

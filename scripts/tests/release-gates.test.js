@@ -63,6 +63,7 @@ const usCivilWarFollowupCuration = await fs.readFile(path.join(projectRoot, "scr
 const usWwiiFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-wwii-followup.js"), "utf8");
 const usIndianWarsFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-indian-wars-followup.js"), "utf8");
 const britishWwiiFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-british-wwii-followup.js"), "utf8");
+const usOverseasFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-overseas-followup.js"), "utf8");
 const wikipediaConflicts = await fs.readFile(path.join(projectRoot, "scripts/lib/wikipedia-conflicts.js"), "utf8");
 const conflictBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-batch-curation.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
@@ -553,6 +554,35 @@ assert.ok(
     && britishWwiiFollowupCuration.includes("awm.gov.au")
     && britishWwiiFollowupCuration.includes("iwm.org.uk"),
   "la tanda británica debe apoyarse en fuentes institucionales por teatro"
+);
+assert.ok(conflictAutofix.includes("US_OVERSEAS_FOLLOWUP_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda ultramarina estadounidense");
+assert.ok(usOverseasFollowupCuration.includes("hierarchySources"), "la tanda ultramarina debe conservar trazabilidad");
+assert.ok(usOverseasFollowupCuration.includes('curationBatch: "source-backed-us-overseas-followup-2026-07"'), "la tanda ultramarina debe quedar identificada");
+assert.ok(
+  usOverseasFollowupCuration.includes('"Batalla de Ch-teau-Thierry": "Batalla de Château-Thierry"')
+    && usOverseasFollowupCuration.includes('"Batalla de BIAP": "Batalla del Aeropuerto Internacional de Bagdad"')
+    && usOverseasFollowupCuration.includes('"Batalla de Shok Valley": "Batalla del valle de Shok"'),
+  "la tanda ultramarina debe corregir nombres dañados, siglas opacas y topónimos mixtos"
+);
+assert.ok(
+  usOverseasFollowupCuration.includes('startYear: 2004')
+    && usOverseasFollowupCuration.includes('campaign: "Levantamiento del Ejército del Mahdi de 2004"')
+    && usOverseasFollowupCuration.includes("transportation.army.mil/history/studies/april_uprising.html"),
+  "BIAP debe conservar el combate de 2004 y no mezclarse con la toma del aeropuerto de 2003"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Ataque al campamento de Hiep Hoa": "Battle_of_Hiep_Hoa"')
+    && wikipediaConflicts.includes('"Batalla del Aeropuerto Internacional de Bagdad": "Battle_of_Baghdad_International_Airport"')
+    && wikipediaConflicts.includes('"Batalla de Do Ab": "Battle_of_Do_Ab"'),
+  "los nombres ultramarinos normalizados deben conservar su pagina de importacion"
+);
+assert.ok(
+  usOverseasFollowupCuration.includes("history.army.mil")
+    && usOverseasFollowupCuration.includes("dafhistory.af.mil")
+    && usOverseasFollowupCuration.includes("transportation.army.mil")
+    && usOverseasFollowupCuration.includes("marines.mil")
+    && usOverseasFollowupCuration.includes("army.mil"),
+  "la tanda ultramarina debe apoyarse en fuentes institucionales para cada teatro"
 );
 assert.ok(
   conflictBatchCuration.includes("if (Array.isArray(entry.treaties)) return entry.treaties;"),

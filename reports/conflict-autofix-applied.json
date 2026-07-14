@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-14T01:38:40.700Z",
+  "generatedAt": "2026-07-14T02:20:14.854Z",
   "changedFullCountries": 0,
   "fullPassChanges": [
     0
@@ -11,7 +11,7 @@
     "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 756,
+  "generatedHierarchyCandidates": 778,
   "countryConflictAdditions": {
     "Estados Unidos": [
       "Batalla de Manila (1945)"
@@ -296,7 +296,15 @@
     "Batalla de Skerki Bank": "Batalla del banco de Skerki",
     "Batalla de Tarigo Convoy": "Batalla del convoy Tarigo",
     "Batalla de Tempi": "Batalla del desfiladero de Tempe",
-    "Batalla del Estrecho de Dinamarca": "Batalla del estrecho de Dinamarca"
+    "Batalla del Estrecho de Dinamarca": "Batalla del estrecho de Dinamarca",
+    "Batalla de Ch-teau-Thierry": "Batalla de Château-Thierry",
+    "Batalla de Suwon Airfield": "Combate aéreo del aeródromo de Suwon",
+    "Batalla de Hiep Hoa": "Ataque al campamento de Hiep Hoa",
+    "Batalla de FSB Mary Ann": "Batalla de la base de fuego Mary Ann",
+    "Batalla de Medina Ridge": "Batalla de la cresta de Medina",
+    "Batalla por Jalibah Airfield": "Batalla del aeródromo de Jalibah",
+    "Batalla de BIAP": "Batalla del Aeropuerto Internacional de Bagdad",
+    "Batalla de Shok Valley": "Batalla del valle de Shok"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1019,6 +1027,28 @@
     "Batalla del desfiladero de Tempe",
     "Batalla de Villers-Bocage",
     "Batalla del estrecho de Dinamarca",
-    "Segunda batalla de Sirte"
+    "Segunda batalla de Sirte",
+    "Batalla de Beicang",
+    "Batalla de Yangcun",
+    "Batalla de Bolshie Ozerki",
+    "Batalla de Ust-Padenga",
+    "Batalla de Cantigny",
+    "Batalla de Château-Thierry",
+    "Batalla de El Guettar",
+    "Batalla de Pyongtaek",
+    "Combate aéreo del aeródromo de Suwon",
+    "Batalla de Ap Bac",
+    "Ataque al campamento de Hiep Hoa",
+    "Batalla de Ong Thanh",
+    "Batalla de la base de fuego Mary Ann",
+    "Batalla de Snuol",
+    "Batalla de Al Busayyah",
+    "Batalla de la cresta de Medina",
+    "Batalla del aeródromo de Jalibah",
+    "Batalla del Aeropuerto Internacional de Bagdad",
+    "Batalla de Husaybah",
+    "Batalla de Ganjgal",
+    "Batalla del valle de Shok",
+    "Batalla de Do Ab"
   ]
 }

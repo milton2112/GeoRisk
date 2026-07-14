@@ -8,7 +8,21 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.66 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.67 antes de cerrar la siguiente version.
+
+## v1.6.67 - 2026-07-13
+
+- Fecha, jerarquiza y documenta con fuentes 22 acciones estadounidenses en China, Rusia, las guerras mundiales, Corea, Vietnam, el Golfo, Irak y Afganistan.
+- Completa guerra padre, campana, region, participantes, causa, resultado, consecuencias y cronologia de cada accion, sin inventar tratados de cierre.
+- Normaliza ocho nombres visibles, incluidos Chateau-Thierry, el aerodromo de Suwon, la base Mary Ann, la cresta de Medina, Jalibah y el valle de Shok.
+- Corrige `Batalla de BIAP`: corresponde al combate del Aeropuerto Internacional de Bagdad del 11 de abril de 2004 contra el Ejercito del Mahdi, no a la toma del aeropuerto en 2003.
+- Reduce los conflictos sin fecha auditados de 434 a 412 y las jerarquias provisionales de 370 a 348; el timeline pasa de 2565 a 2587 eventos fechables.
+- Regenera el indice liviano de conflictos de 1568 a 1590 entradas y los detalles diferidos de 805 a 827 shards; la segunda ejecucion converge con cero cambios.
+- Conserva trazabilidad institucional del U.S. Army Center of Military History, Air Force Historical Research Agency, Army Transportation Corps, Marine Corps y archivos oficiales del Ejercito.
+- Agrega regresiones para cantidad, fechas, jerarquia, campanas, participantes, traducciones, fuentes, tratados vacios, BIAP y rutas de importacion profunda.
+- Mantiene en cero alertas de conflictos, incidencias y advertencias de validacion, nombres ingleses, duplicados, regiones sospechosas, religiones redundantes y problemas de localizacion.
+- Mantiene el arranque critico en 810 KB, `script.js` en 543 KB y `countries_index.json` en 141 KB, con 0 long tasks simuladas sobre el presupuesto y 55 FPS medios en el smoke.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-13-release-10`.
 
 ## v1.6.66 - 2026-07-13
 

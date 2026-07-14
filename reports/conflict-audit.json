@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-14T01:40:34.729Z",
+  "generatedAt": "2026-07-14T02:22:39.831Z",
   "scannedConflicts": 2003,
   "issueCount": 0,
-  "advisoryCount": 370,
-  "reviewCount": 370,
+  "advisoryCount": 348,
+  "reviewCount": 348,
   "summary": {
-    "provisional_parent": 370
+    "provisional_parent": 348
   },
   "topIssues": [],
   "topAdvisories": [
@@ -108,20 +108,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de al busayyah",
-      "name": "Batalla de Al Busayyah",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de alegre",
       "name": "Batalla de Alegre",
       "countries": [
@@ -144,20 +130,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de ap bac",
-      "name": "Batalla de Ap Bac",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],
@@ -304,36 +276,8 @@
       "severity": 1
     },
     {
-      "key": "batalla de beicang",
-      "name": "Batalla de Beicang",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de beitang",
       "name": "Batalla de Beitang",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de biap",
-      "name": "Batalla de BIAP",
       "countries": [
         "USA"
       ],
@@ -410,20 +354,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de bolshie ozerki",
-      "name": "Batalla de Bolshie Ozerki",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],
@@ -556,20 +486,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de cantigny",
-      "name": "Batalla de Cantigny",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de cap francais",
       "name": "Batalla de Cap-Français",
       "countries": [
@@ -588,20 +504,6 @@
       "name": "Batalla de Cerro del Gallo",
       "countries": [
         "MEX"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de ch teau thierry",
-      "name": "Batalla de Ch-teau-Thierry",
-      "countries": [
-        "USA"
       ],
       "startYear": null,
       "endYear": null,
@@ -1004,20 +906,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de do ab",
-      "name": "Batalla de Do Ab",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de dogger bank",
       "name": "Batalla de Dogger Bank",
       "countries": [
@@ -1118,6 +1006,118 @@
     {
       "key": "batalla de el carrizal",
       "name": "Batalla de El Carrizal",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de el sauce",
+      "name": "Batalla de El Sauce",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de eoranpo",
+      "name": "Batalla de Eoranpo",
+      "countries": [
+        "JPN"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de fayetteville",
+      "name": "Batalla de Fayetteville",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de fehmarn",
+      "name": "Batalla de Fehmarn",
+      "countries": [
+        "SWE"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de filipow",
+      "name": "Batalla de Filipów",
+      "countries": [
+        "SWE"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de flint creek",
+      "name": "Batalla de Flint Creek",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de florida mountains",
+      "name": "Batalla de Florida Mountains",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de fort apache",
+      "name": "Batalla de Fort Apache",
       "countries": [
         "USA"
       ],

@@ -70,6 +70,10 @@ import {
   BRITISH_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   BRITISH_WWII_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "./lib/conflict-curation-british-wwii-followup.js";
+import {
+  US_OVERSEAS_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  US_OVERSEAS_FOLLOWUP_SAFE_CONFLICT_RENAMES
+} from "./lib/conflict-curation-us-overseas-followup.js";
 import { collectConflictCountryNames, curateConflictDetail, curateConflictEntry } from "./lib/conflict-batch-curation.js";
 import {
   cleanConflictLabel,
@@ -112,7 +116,8 @@ const curatedConflictDetailFixes = {
   ...US_CIVIL_WAR_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   ...US_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   ...US_INDIAN_WARS_FOLLOWUP_CONFLICT_DETAIL_FIXES,
-  ...BRITISH_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES
+  ...BRITISH_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  ...US_OVERSEAS_FOLLOWUP_CONFLICT_DETAIL_FIXES
 };
 const safeConflictRenames = {
   ...SAFE_CONFLICT_RENAMES,
@@ -136,7 +141,8 @@ const safeConflictRenames = {
   ...US_CIVIL_WAR_FOLLOWUP_SAFE_CONFLICT_RENAMES,
   ...US_WWII_FOLLOWUP_SAFE_CONFLICT_RENAMES,
   ...US_INDIAN_WARS_FOLLOWUP_SAFE_CONFLICT_RENAMES,
-  ...BRITISH_WWII_FOLLOWUP_SAFE_CONFLICT_RENAMES
+  ...BRITISH_WWII_FOLLOWUP_SAFE_CONFLICT_RENAMES,
+  ...US_OVERSEAS_FOLLOWUP_SAFE_CONFLICT_RENAMES
 };
 
 function renameConflictName(name) {

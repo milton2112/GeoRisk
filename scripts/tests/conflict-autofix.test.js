@@ -59,6 +59,10 @@ import {
   BRITISH_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   BRITISH_WWII_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-british-wwii-followup.js";
+import {
+  US_OVERSEAS_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  US_OVERSEAS_FOLLOWUP_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-us-overseas-followup.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -367,6 +371,42 @@ assert.ok(
   ),
   "la tanda británica de la Segunda Guerra Mundial debe conservar fechas, jerarquia, fuentes y contexto editorial"
 );
+assert.equal(Object.keys(US_OVERSEAS_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 22);
+assert.equal(Object.keys(US_OVERSEAS_FOLLOWUP_SAFE_CONFLICT_RENAMES).length, 8);
+assert.equal(US_OVERSEAS_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Beicang"].parent, "Rebelion de los Boxers");
+assert.equal(US_OVERSEAS_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Ust-Padenga"].campaign, "Intervencion aliada en el norte de Rusia");
+assert.equal(US_OVERSEAS_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Cantigny"].startYear, 1918);
+assert.equal(US_OVERSEAS_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de El Guettar"].parent, "Segunda Guerra Mundial");
+assert.equal(US_OVERSEAS_FOLLOWUP_CONFLICT_DETAIL_FIXES["Combate aéreo del aeródromo de Suwon"].type, "combate aéreo");
+assert.equal(US_OVERSEAS_FOLLOWUP_CONFLICT_DETAIL_FIXES["Ataque al campamento de Hiep Hoa"].conflictType, "insurgencia");
+assert.equal(US_OVERSEAS_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla del Aeropuerto Internacional de Bagdad"].startYear, 2004);
+assert.equal(US_OVERSEAS_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla del Aeropuerto Internacional de Bagdad"].campaign, "Levantamiento del Ejército del Mahdi de 2004");
+assert.equal(US_OVERSEAS_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Do Ab"].parent, "Guerra de Afganistán");
+assert.equal(US_OVERSEAS_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Ch-teau-Thierry"], "Batalla de Château-Thierry");
+assert.equal(US_OVERSEAS_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de BIAP"], "Batalla del Aeropuerto Internacional de Bagdad");
+assert.equal(US_OVERSEAS_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Shok Valley"], "Batalla del valle de Shok");
+assert.ok(
+  Object.values(US_OVERSEAS_FOLLOWUP_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent
+      && detail.parent === detail.war
+      && detail.campaign
+      && detail.region
+      && detail.cause
+      && detail.outcome
+      && detail.consequences
+      && detail.chronology?.[0]?.year === detail.startYear
+      && detail.chronology?.[0]?.event
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.[0]?.url
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties)
+      && detail.treaties.length === 0
+  ),
+  "la tanda ultramarina estadounidense debe conservar fechas, jerarquia, fuentes, participantes y contexto editorial"
+);
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",
   startYear: 1944,
@@ -393,6 +433,15 @@ const barentsWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de
 assert.equal(barentsWikipediaOverride.language, "en");
 assert.match(barentsWikipediaOverride.apiUrl, /^https:\/\/en\.wikipedia\.org\//);
 assert.equal(barentsWikipediaOverride.pageTitle, "Battle_of_the_Barents_Sea");
+const hiepHoaWikipediaOverride = await resolveWikipediaConflictTitle("Ataque al campamento de Hiep Hoa");
+assert.equal(hiepHoaWikipediaOverride.language, "en");
+assert.equal(hiepHoaWikipediaOverride.pageTitle, "Battle_of_Hiep_Hoa");
+const biapWikipediaOverride = await resolveWikipediaConflictTitle("Batalla del Aeropuerto Internacional de Bagdad");
+assert.equal(biapWikipediaOverride.language, "en");
+assert.equal(biapWikipediaOverride.pageTitle, "Battle_of_Baghdad_International_Airport");
+const doAbWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Do Ab");
+assert.equal(doAbWikipediaOverride.language, "en");
+assert.equal(doAbWikipediaOverride.pageTitle, "Battle_of_Do_Ab");
 const spanishWikipediaOverride = await resolveWikipediaConflictTitle("Guerra de Corea");
 assert.equal(spanishWikipediaOverride.language, "es");
 assert.match(spanishWikipediaOverride.apiUrl, /^https:\/\/es\.wikipedia\.org\//);
