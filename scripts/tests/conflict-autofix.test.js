@@ -63,6 +63,10 @@ import {
   US_OVERSEAS_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   US_OVERSEAS_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-us-overseas-followup.js";
+import {
+  ACTIVE_AFRICA_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  ACTIVE_AFRICA_FOLLOWUP_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-active-africa-followup.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -407,6 +411,39 @@ assert.ok(
   ),
   "la tanda ultramarina estadounidense debe conservar fechas, jerarquia, fuentes, participantes y contexto editorial"
 );
+assert.equal(Object.keys(ACTIVE_AFRICA_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 4);
+assert.equal(Object.keys(ACTIVE_AFRICA_FOLLOWUP_SAFE_CONFLICT_RENAMES).length, 1);
+assert.equal(ACTIVE_AFRICA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Ras Kamboni (2024)"].parent, "Crisis de Jubalandia de 2024");
+assert.equal(ACTIVE_AFRICA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Tinzawatène (2024)"].parent, "Guerra de Malí");
+assert.equal(ACTIVE_AFRICA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Ofensiva de Fano en Amhara de 2024"].type, "ofensiva");
+assert.equal(ACTIVE_AFRICA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Boulikessi (2025)"].conflictType, "insurgencia");
+assert.equal(
+  ACTIVE_AFRICA_FOLLOWUP_SAFE_CONFLICT_RENAMES["Ofensiva de Amhara de 2024"],
+  "Ofensiva de Fano en Amhara de 2024"
+);
+assert.ok(
+  Object.values(ACTIVE_AFRICA_FOLLOWUP_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent
+      && detail.parent === detail.war
+      && detail.campaign
+      && detail.region
+      && detail.cause
+      && detail.outcome
+      && detail.consequences
+      && detail.chronology?.length >= 2
+      && detail.chronology.every(event => event.year === detail.startYear && event.event)
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 2
+      && detail.hierarchySources.every(source => source.label && source.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties)
+      && detail.treaties.length === 0
+  ),
+  "la tanda africana reciente debe conservar jerarquia, cautelas editoriales, dos fuentes y participantes reales"
+);
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",
   startYear: 1944,
@@ -442,6 +479,18 @@ assert.equal(biapWikipediaOverride.pageTitle, "Battle_of_Baghdad_International_A
 const doAbWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Do Ab");
 assert.equal(doAbWikipediaOverride.language, "en");
 assert.equal(doAbWikipediaOverride.pageTitle, "Battle_of_Do_Ab");
+const rasKamboniWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Ras Kamboni (2024)");
+assert.equal(rasKamboniWikipediaOverride.language, "en");
+assert.equal(rasKamboniWikipediaOverride.pageTitle, "Battle_of_Ras_Kamboni_(2024)");
+const tinzawateneWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Tinzawatène (2024)");
+assert.equal(tinzawateneWikipediaOverride.language, "es");
+assert.equal(tinzawateneWikipediaOverride.pageTitle, "Batalla_de_Tinzawatène_(2024)");
+const amharaWikipediaOverride = await resolveWikipediaConflictTitle("Ofensiva de Fano en Amhara de 2024");
+assert.equal(amharaWikipediaOverride.language, "en");
+assert.equal(amharaWikipediaOverride.pageTitle, "Amhara_offensive");
+const boulikessiWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Boulikessi (2025)");
+assert.equal(boulikessiWikipediaOverride.language, "en");
+assert.equal(boulikessiWikipediaOverride.pageTitle, "Battle_of_Boulikessi_(2025)");
 const spanishWikipediaOverride = await resolveWikipediaConflictTitle("Guerra de Corea");
 assert.equal(spanishWikipediaOverride.language, "es");
 assert.match(spanishWikipediaOverride.apiUrl, /^https:\/\/es\.wikipedia\.org\//);

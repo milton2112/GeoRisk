@@ -8,7 +8,21 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.67 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.68 antes de cerrar la siguiente version.
+
+## v1.6.68 - 2026-07-13
+
+- Reemplaza las ultimas cuatro jerarquias genericas con fecha conocida: Ras Kamboni, Tinzawatene, la ofensiva de Fano en Amhara y Boulikessi.
+- Asigna padres y campanas especificos para la crisis de Jubalandia, la guerra de Mali y el conflicto armado de Amhara, con participantes y regiones reales.
+- Renombra `Ofensiva de Amhara de 2024` como `Ofensiva de Fano en Amhara de 2024` para identificar al actor ofensivo y evitar una lectura ambigua.
+- Triangula dos fuentes por conflicto, incluidas Naciones Unidas, Reuters, Associated Press, PISM, Critical Threats Project y el Gobierno del Reino Unido.
+- Mantiene sin consolidar las bajas disputadas y documenta la participacion controvertida de JNIM en Tinzawatene en vez de presentar estimaciones partidarias como hechos.
+- Reduce las jerarquias provisionales de 348 a 344 y deja en cero los padres genericos entre conflictos con fecha; los 344 pendientes restantes son historicos sin fecha.
+- Regenera cuatro detalles diferidos, de 827 a 831 shards, y converge con cero cambios en la segunda ejecucion.
+- Agrega regresiones para padres, campanas, participantes, fuentes multiples, cautelas editoriales, renombre de Amhara e idioma de importacion profunda.
+- Mantiene 0 alertas, incidencias, advertencias, nombres ingleses, duplicados, regiones sospechosas, religiones redundantes y problemas de localizacion.
+- Mantiene el arranque critico en 810 KB, `script.js` en 543 KB y `countries_index.json` en 141 KB, con 0 long tasks simuladas sobre presupuesto y 55 FPS medios.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-13-release-11`.
 
 ## v1.6.67 - 2026-07-13
 

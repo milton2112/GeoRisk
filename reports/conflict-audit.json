@@ -1,70 +1,14 @@
 {
-  "generatedAt": "2026-07-14T02:22:39.831Z",
+  "generatedAt": "2026-07-14T02:36:45.642Z",
   "scannedConflicts": 2003,
   "issueCount": 0,
-  "advisoryCount": 348,
-  "reviewCount": 348,
+  "advisoryCount": 344,
+  "reviewCount": 344,
   "summary": {
-    "provisional_parent": 348
+    "provisional_parent": 344
   },
   "topIssues": [],
   "topAdvisories": [
-    {
-      "key": "batalla de ras kamboni 2024",
-      "name": "Batalla de Ras Kamboni (2024)",
-      "countries": [
-        "SOM"
-      ],
-      "startYear": 2024,
-      "endYear": 2024,
-      "hierarchyLabel": "Conflicto regional de África",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de tinzawatene 2024",
-      "name": "Batalla de Tinzawatène (2024)",
-      "countries": [
-        "MLI"
-      ],
-      "startYear": 2024,
-      "endYear": 2024,
-      "hierarchyLabel": "Conflicto regional de África",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "ofensiva de amhara de 2024",
-      "name": "Ofensiva de Amhara de 2024",
-      "countries": [
-        "ETH"
-      ],
-      "startYear": 2024,
-      "endYear": 2024,
-      "hierarchyLabel": "Conflicto regional de África",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de boulikessi 2025",
-      "name": "Batalla de Boulikessi (2025)",
-      "countries": [
-        "MLI"
-      ],
-      "startYear": 2025,
-      "endYear": 2025,
-      "hierarchyLabel": "Conflicto regional de África",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
     {
       "key": "asalto a los acorazados cabral y lima barros",
       "name": "Asalto a los acorazados Cabral y Lima Barros",
@@ -1118,6 +1062,62 @@
     {
       "key": "batalla de fort apache",
       "name": "Batalla de Fort Apache",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de fort buchanan",
+      "name": "Batalla de Fort Buchanan",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de fort carillon",
+      "name": "Batalla de Fort Carillon",
+      "countries": [
+        "GBR"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de fort riviere",
+      "name": "Batalla de Fort Riviere",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de fort slongo",
+      "name": "Batalla de Fort Slongo",
       "countries": [
         "USA"
       ],

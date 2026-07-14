@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-14T02:20:14.854Z",
+  "generatedAt": "2026-07-14T02:34:25.244Z",
   "changedFullCountries": 0,
   "fullPassChanges": [
     0
@@ -11,7 +11,7 @@
     "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 778,
+  "generatedHierarchyCandidates": 782,
   "countryConflictAdditions": {
     "Estados Unidos": [
       "Batalla de Manila (1945)"
@@ -304,7 +304,8 @@
     "Batalla de Medina Ridge": "Batalla de la cresta de Medina",
     "Batalla por Jalibah Airfield": "Batalla del aeródromo de Jalibah",
     "Batalla de BIAP": "Batalla del Aeropuerto Internacional de Bagdad",
-    "Batalla de Shok Valley": "Batalla del valle de Shok"
+    "Batalla de Shok Valley": "Batalla del valle de Shok",
+    "Ofensiva de Amhara de 2024": "Ofensiva de Fano en Amhara de 2024"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1049,6 +1050,10 @@
     "Batalla de Husaybah",
     "Batalla de Ganjgal",
     "Batalla del valle de Shok",
-    "Batalla de Do Ab"
+    "Batalla de Do Ab",
+    "Batalla de Ras Kamboni (2024)",
+    "Batalla de Tinzawatène (2024)",
+    "Ofensiva de Fano en Amhara de 2024",
+    "Batalla de Boulikessi (2025)"
   ]
 }

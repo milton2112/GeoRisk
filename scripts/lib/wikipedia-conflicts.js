@@ -155,6 +155,10 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Batalla de Ganjgal": "Battle_of_Ganjgal",
   "Batalla del valle de Shok": "Battle_of_Shok_Valley",
   "Batalla de Do Ab": "Battle_of_Do_Ab",
+  "Batalla de Ras Kamboni (2024)": "Battle_of_Ras_Kamboni_(2024)",
+  "Batalla de Tinzawatène (2024)": "Batalla_de_Tinzawatène_(2024)",
+  "Ofensiva de Fano en Amhara de 2024": "Amhara_offensive",
+  "Batalla de Boulikessi (2025)": "Battle_of_Boulikessi_(2025)",
   "Batalla de la colina Crucifix": "Battle_of_Crucifix_Hill",
   "Batalla de Long Tan": "Batalla_de_Long_Tan",
   "Batalla de Bubiyan": "Batalla_de_Bubiyan",
@@ -163,6 +167,8 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Batalla de Kapyong": "Batalla_de_Kapyong",
   "Batalla de Kisangani": "Batalla_de_Kisangani"
 };
+
+const ENGLISH_WIKIPEDIA_TITLE_EXCEPTIONS = new Set(["Amhara_offensive"]);
 
 const FIELD_ALIASES = {
   fecha: "date",
@@ -786,7 +792,10 @@ async function resolveWikipediaConflictTitleFromApi(conflictName, apiUrl) {
 export async function resolveWikipediaConflictTitle(conflictName) {
   const direct = CONFLICT_WIKIPEDIA_TITLE_OVERRIDES[conflictName];
   if (direct) {
-    const language = /^(?:Battle|First_Battle|Second_Battle|Siege|Raid|Capture|SS)_/.test(direct) ? "en" : "es";
+    const language = /^(?:Battle|First_Battle|Second_Battle|Siege|Raid|Capture|SS)_/.test(direct)
+      || ENGLISH_WIKIPEDIA_TITLE_EXCEPTIONS.has(direct)
+      ? "en"
+      : "es";
     return {
       pageTitle: direct,
       apiUrl: language === "en" ? WIKIPEDIA_API_EN : WIKIPEDIA_API_ES,

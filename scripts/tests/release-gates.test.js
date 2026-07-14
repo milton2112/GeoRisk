@@ -64,6 +64,7 @@ const usWwiiFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts
 const usIndianWarsFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-indian-wars-followup.js"), "utf8");
 const britishWwiiFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-british-wwii-followup.js"), "utf8");
 const usOverseasFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-overseas-followup.js"), "utf8");
+const activeAfricaFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-active-africa-followup.js"), "utf8");
 const wikipediaConflicts = await fs.readFile(path.join(projectRoot, "scripts/lib/wikipedia-conflicts.js"), "utf8");
 const conflictBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-batch-curation.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
@@ -583,6 +584,35 @@ assert.ok(
     && usOverseasFollowupCuration.includes("marines.mil")
     && usOverseasFollowupCuration.includes("army.mil"),
   "la tanda ultramarina debe apoyarse en fuentes institucionales para cada teatro"
+);
+assert.ok(conflictAutofix.includes("ACTIVE_AFRICA_FOLLOWUP_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda africana reciente");
+assert.ok(activeAfricaFollowupCuration.includes("hierarchySources"), "la tanda africana reciente debe conservar trazabilidad múltiple");
+assert.ok(activeAfricaFollowupCuration.includes('curationBatch: "source-backed-active-africa-followup-2026-07"'), "la tanda africana reciente debe quedar identificada");
+assert.ok(
+  activeAfricaFollowupCuration.includes('"Ofensiva de Amhara de 2024": "Ofensiva de Fano en Amhara de 2024"')
+    && activeAfricaFollowupCuration.includes('parent: "Crisis de Jubalandia de 2024"')
+    && activeAfricaFollowupCuration.includes('parent: "Guerra de Malí"'),
+  "la tanda africana reciente debe normalizar el actor de Amhara y usar padres específicos"
+);
+assert.ok(
+  activeAfricaFollowupCuration.includes("digitallibrary.un.org")
+    && activeAfricaFollowupCuration.includes("criticalthreats.org")
+    && activeAfricaFollowupCuration.includes("gov.uk")
+    && activeAfricaFollowupCuration.includes("apnews.com")
+    && activeAfricaFollowupCuration.includes("pism.pl"),
+  "la tanda africana reciente debe triangular fuentes institucionales e independientes"
+);
+assert.ok(
+  activeAfricaFollowupCuration.includes("Las cifras de bajas disputadas se mantienen sin consolidar")
+    && activeAfricaFollowupCuration.includes("algo disputado por el CSP-DPA"),
+  "la tanda africana reciente debe conservar cautelas sobre bajas y actores discutidos"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Batalla de Ras Kamboni (2024)": "Battle_of_Ras_Kamboni_(2024)"')
+    && wikipediaConflicts.includes('"Ofensiva de Fano en Amhara de 2024": "Amhara_offensive"')
+    && wikipediaConflicts.includes('"Batalla de Boulikessi (2025)": "Battle_of_Boulikessi_(2025)"')
+    && wikipediaConflicts.includes('ENGLISH_WIKIPEDIA_TITLE_EXCEPTIONS.has(direct)'),
+  "los nombres africanos recientes deben conservar su importación profunda y el idioma correcto"
 );
 assert.ok(
   conflictBatchCuration.includes("if (Array.isArray(entry.treaties)) return entry.treaties;"),
