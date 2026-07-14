@@ -51,6 +51,10 @@ import {
   US_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   US_WWII_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-us-wwii-followup.js";
+import {
+  US_INDIAN_WARS_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  US_INDIAN_WARS_FOLLOWUP_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-us-indian-wars-followup.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -300,6 +304,34 @@ assert.ok(
   ),
   "la tanda de la Segunda Guerra Mundial debe conservar jerarquia, fuentes y contexto editorial"
 );
+assert.equal(Object.keys(US_INDIAN_WARS_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 27);
+assert.equal(US_INDIAN_WARS_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla del cañón White Bird"].parent, "Guerra de los Nez Perce");
+assert.equal(US_INDIAN_WARS_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Little Bighorn"].startYear, 1876);
+assert.equal(US_INDIAN_WARS_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla del lago Stony"].campaign, "Expedición de Sibley de 1863");
+assert.equal(US_INDIAN_WARS_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Withlacoochee"].parent, "Segunda Guerra Seminola");
+assert.equal(US_INDIAN_WARS_FOLLOWUP_CONFLICT_DETAIL_FIXES["Escaramuza del arroyo Warbonnet"].type, "escaramuza");
+assert.equal(US_INDIAN_WARS_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Little Big Horn"], "Batalla de Little Bighorn");
+assert.equal(US_INDIAN_WARS_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Ouithlacoochie"], "Batalla de Withlacoochee");
+assert.equal(US_INDIAN_WARS_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Lake Okeechobee"], "Batalla del lago Okeechobee");
+assert.ok(
+  Object.values(US_INDIAN_WARS_FOLLOWUP_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent
+      && detail.parent === detail.war
+      && detail.campaign
+      && detail.cause
+      && detail.outcome
+      && detail.consequences
+      && ["alta", "media"].includes(detail.hierarchyConfidence)
+      && detail.hierarchySources?.[0]?.url
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties)
+      && detail.treaties.length === 0
+  ),
+  "la tanda de guerras indígenas debe conservar jerarquia, fuentes, participantes y cierre editorial explícito"
+);
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",
   startYear: 1944,
@@ -318,6 +350,10 @@ const stephenHopkinsWikipediaOverride = await resolveWikipediaConflictTitle("Com
 assert.equal(stephenHopkinsWikipediaOverride.language, "en");
 assert.match(stephenHopkinsWikipediaOverride.apiUrl, /^https:\/\/en\.wikipedia\.org\//);
 assert.equal(stephenHopkinsWikipediaOverride.pageTitle, "SS_Stephen_Hopkins");
+const littleBighornWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Little Bighorn");
+assert.equal(littleBighornWikipediaOverride.language, "en");
+assert.match(littleBighornWikipediaOverride.apiUrl, /^https:\/\/en\.wikipedia\.org\//);
+assert.equal(littleBighornWikipediaOverride.pageTitle, "Battle_of_the_Little_Bighorn");
 const spanishWikipediaOverride = await resolveWikipediaConflictTitle("Guerra de Corea");
 assert.equal(spanishWikipediaOverride.language, "es");
 assert.match(spanishWikipediaOverride.apiUrl, /^https:\/\/es\.wikipedia\.org\//);

@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-13T23:42:38.535Z",
+  "generatedAt": "2026-07-14T00:05:00.075Z",
   "scannedConflicts": 2003,
   "issueCount": 0,
-  "advisoryCount": 423,
-  "reviewCount": 423,
+  "advisoryCount": 396,
+  "reviewCount": 396,
   "summary": {
-    "provisional_parent": 423
+    "provisional_parent": 396
   },
   "topIssues": [],
   "topAdvisories": [
@@ -180,20 +180,6 @@
     {
       "key": "batalla de apache pass",
       "name": "Batalla de Apache Pass",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de apple river fort",
-      "name": "Batalla de Apple River Fort",
       "countries": [
         "USA"
       ],
@@ -432,34 +418,6 @@
     {
       "key": "batalla de big dry wash",
       "name": "Batalla de Big Dry Wash",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de big hole",
-      "name": "Batalla de Big Hole",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de big mound",
-      "name": "Batalla de Big Mound",
       "countries": [
         "USA"
       ],
@@ -724,20 +682,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de camas creek",
-      "name": "Batalla de Camas Creek",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de campeche",
       "name": "Batalla de Campeche",
       "countries": [
@@ -754,20 +698,6 @@
     {
       "key": "batalla de cantigny",
       "name": "Batalla de Cantigny",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de canyon creek",
-      "name": "Batalla de Canyon Creek",
       "countries": [
         "USA"
       ],
@@ -1124,6 +1054,76 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de debrecen",
+      "name": "Batalla de Debrecen",
+      "countries": [
+        "HUN"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de deglebat leglia",
+      "name": "Batalla de Deglebat-Leglia",
+      "countries": [
+        "MRT"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de devil s creek",
+      "name": "Batalla de Devil's Creek",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de devil s river",
+      "name": "Batalla de Devil's River",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de diablo mountains",
+      "name": "Batalla de Diablo Mountains",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],

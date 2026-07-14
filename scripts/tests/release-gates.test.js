@@ -61,6 +61,7 @@ const transition1846Curation = await fs.readFile(path.join(projectRoot, "scripts
 const war1812FollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-war-1812-followup.js"), "utf8");
 const usCivilWarFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-civil-war-followup.js"), "utf8");
 const usWwiiFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-wwii-followup.js"), "utf8");
+const usIndianWarsFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-indian-wars-followup.js"), "utf8");
 const wikipediaConflicts = await fs.readFile(path.join(projectRoot, "scripts/lib/wikipedia-conflicts.js"), "utf8");
 const conflictBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-batch-curation.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
@@ -508,6 +509,27 @@ assert.ok(
     && wikipediaConflicts.includes('"Combate naval del SS Stephen Hopkins": "SS_Stephen_Hopkins"')
     && wikipediaConflicts.includes('"Batalla de Saint-Vith": "Battle_of_St._Vith"'),
   "los nombres normalizados de la Segunda Guerra Mundial deben conservar su pagina de importacion"
+);
+assert.ok(conflictAutofix.includes("US_INDIAN_WARS_FOLLOWUP_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda estadounidense de guerras indígenas");
+assert.ok(usIndianWarsFollowupCuration.includes("hierarchySources"), "la tanda de guerras indígenas debe conservar trazabilidad");
+assert.ok(usIndianWarsFollowupCuration.includes('curationBatch: "source-backed-us-indian-wars-followup-2026-07"'), "la tanda de guerras indígenas debe quedar identificada");
+assert.ok(
+  usIndianWarsFollowupCuration.includes('"Batalla de Little Big Horn": "Batalla de Little Bighorn"')
+    && usIndianWarsFollowupCuration.includes('"Batalla de Ouithlacoochie": "Batalla de Withlacoochee"')
+    && usIndianWarsFollowupCuration.includes('"Batalla de Lake Okeechobee": "Batalla del lago Okeechobee"'),
+  "la tanda de guerras indígenas debe corregir ortografía y nombres visibles mixtos"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Batalla de Little Bighorn": "Battle_of_the_Little_Bighorn"')
+    && wikipediaConflicts.includes('"Batalla de Withlacoochee": "Battle_of_Withlacoochee"')
+    && wikipediaConflicts.includes('"Batalla del cañón de Palo Duro": "Battle_of_Palo_Duro_Canyon"'),
+  "los nombres normalizados de guerras indígenas deben conservar su pagina de importacion"
+);
+assert.ok(
+  usIndianWarsFollowupCuration.includes("history.army.mil")
+    && usIndianWarsFollowupCuration.includes("nps.gov")
+    && usIndianWarsFollowupCuration.includes("thc.texas.gov"),
+  "la tanda de guerras indígenas debe apoyarse en fuentes institucionales"
 );
 assert.ok(
   conflictBatchCuration.includes("if (Array.isArray(entry.treaties)) return entry.treaties;"),

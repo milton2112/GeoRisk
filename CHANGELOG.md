@@ -8,7 +8,19 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.64 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.65 antes de cerrar la siguiente version.
+
+## v1.6.65 - 2026-07-13
+
+- Fecha, jerarquiza y documenta con fuentes 27 acciones de las guerras de Black Hawk, Nez Perce, Sioux, Seminola, Comanche, Río Rojo, Tecumseh, Modoc y Yakama.
+- Reduce los conflictos sin fecha auditados de 487 a 460 y las jerarquías provisionales de 423 a 396; el timeline pasa de 2512 a 2539 eventos fechables.
+- Completa guerra padre, campaña, región, participantes, causa, resultado y consecuencias de cada acción, sin inventar tratados de cierre donde no existieron.
+- Corrige 13 nombres visibles, incluidos Little Bighorn, el lago Okeechobee, el cañón White Bird, el río Powder, Palo Duro y el error ortográfico `Ouithlacoochie`; fusiona además tres alias ingleses.
+- Agrega trazabilidad institucional del Ejército y el Servicio de Parques Nacionales de Estados Unidos, archivos de Florida, comisiones históricas de Illinois, Wisconsin, Nebraska y Texas, y Army University Press.
+- Regenera el índice de conflictos de 1515 a 1542 entradas y los detalles diferidos de 752 a 779 shards; la segunda ejecución converge con cero cambios.
+- Agrega regresiones para cantidad, fechas, jerarquía, campañas, participantes, traducciones, fuentes, tratados vacíos y rutas de importación profunda.
+- Mantiene en cero alertas, incidencias de validación, duplicados internos, nombres ingleses, regiones sospechosas y problemas de localización o codificación.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-13-release-8`.
 
 ## v1.6.64 - 2026-07-13
 

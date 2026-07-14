@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-13T23:40:06.179Z",
+  "generatedAt": "2026-07-14T00:02:24.889Z",
   "changedFullCountries": 0,
   "fullPassChanges": [
     0
@@ -11,7 +11,7 @@
     "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 703,
+  "generatedHierarchyCandidates": 730,
   "countryConflictAdditions": {
     "Estados Unidos": [
       "Batalla de Manila (1945)"
@@ -262,7 +262,23 @@
     "Batalla del Estrecho de Blackett": "Batalla del estrecho de Blackett",
     "Batalla del Estrecho de Makassar": "Batalla del estrecho de Makassar",
     "Batalla del Golfo de Kula": "Batalla del golfo de Kula",
-    "Batalla del Mar de Sibuyan": "Batalla del mar de Sibuyán"
+    "Batalla del Mar de Sibuyan": "Batalla del mar de Sibuyán",
+    "Batalla de Apple River Fort": "Batalla del fuerte Apple River",
+    "Battle of the Big Hole": "Batalla de Big Hole",
+    "Batalla de Camas Creek": "Batalla de Camas Meadows",
+    "Batalla de Dead Buffalo Lake": "Batalla del lago Dead Buffalo",
+    "Batalla de Lake Okeechobee": "Batalla del lago Okeechobee",
+    "Batalla de Little Big Horn": "Batalla de Little Bighorn",
+    "Battle of the North Fork of the Red River": "Batalla del brazo norte del río Red",
+    "Batalla de North Fork de Red River": "Batalla del brazo norte del río Red",
+    "Batalla de Ouithlacoochie": "Batalla de Withlacoochee",
+    "Batalla de Palo Duro Canyon": "Batalla del cañón de Palo Duro",
+    "Batalla de Powder River": "Batalla del río Powder",
+    "Battle of the Rosebud": "Batalla de Rosebud",
+    "Batalla de Stony Lake": "Batalla del lago Stony",
+    "Batalla de Toppenish Creek": "Batalla del arroyo Toppenish",
+    "Batalla de Warbonnet Creek": "Escaramuza del arroyo Warbonnet",
+    "Batalla de White Bird Canyon": "Batalla del cañón White Bird"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -932,6 +948,33 @@
     "Combate naval del SS Stephen Hopkins",
     "Batalla de Saint-Lô",
     "Batalla de Saint-Vith",
-    "Batalla de la colina Crucifix"
+    "Batalla de la colina Crucifix",
+    "Batalla de Stillman's Run",
+    "Batalla del fuerte Apple River",
+    "Batalla de Kellogg's Grove",
+    "Batalla de Wisconsin Heights",
+    "Batalla del cañón White Bird",
+    "Batalla de Big Hole",
+    "Batalla de Camas Meadows",
+    "Batalla de Canyon Creek",
+    "Batalla del río Powder",
+    "Batalla de Rosebud",
+    "Batalla de Little Bighorn",
+    "Escaramuza del arroyo Warbonnet",
+    "Batalla de Wolf Mountain",
+    "Batalla de Big Mound",
+    "Batalla del lago Dead Buffalo",
+    "Batalla del lago Stony",
+    "Batalla de Withlacoochee",
+    "Batalla de San Felasco Hammock",
+    "Batalla del lago Okeechobee",
+    "Batalla de Pine Island Ridge",
+    "Batalla del Caloosahatchee",
+    "Batalla del brazo norte del río Red",
+    "Segunda batalla de Adobe Walls",
+    "Batalla del cañón de Palo Duro",
+    "Batalla de Tippecanoe",
+    "Batalla de Lost River",
+    "Batalla del arroyo Toppenish"
   ]
 }
