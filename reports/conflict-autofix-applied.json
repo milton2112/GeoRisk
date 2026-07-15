@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-15T01:22:11.310Z",
+  "generatedAt": "2026-07-15T01:52:58.733Z",
   "changedFullCountries": 0,
   "fullPassChanges": [
     0
@@ -11,7 +11,7 @@
     "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 806,
+  "generatedHierarchyCandidates": 817,
   "countryConflictAdditions": {
     "Estados Unidos": [
       "Batalla de Manila (1945)"
@@ -31,6 +31,19 @@
     "República Dominicana": [
       "Incursión naval de Puerto Plata (1800)",
       "Batalla de Puerto Plata (1916)"
+    ],
+    "Timor Oriental": [
+      "Batalla de Aidabasalala"
+    ],
+    "Bélgica": [
+      "Batalla de Broodseinde"
+    ],
+    "Francia": [
+      "Primera batalla de Dernancourt"
+    ],
+    "Alemania": [
+      "Batalla de Schleswig (1848)",
+      "Batalla de Isted"
     ]
   },
   "safeRenames": {
@@ -307,6 +320,10 @@
     "Batalla de Las Cruces": "Segunda batalla de Las Cruces (1928)",
     "Batalla de Puerto Plata": "Batalla de Puerto Plata (1916)",
     "Batalla del puerto de Puerto Plata": "Incursión naval de Puerto Plata (1800)",
+    "Batalla entre el HMAS Sydney y el Kormoran": "Combate naval entre el HMAS Sydney y el Kormoran (1941)",
+    "Batalla de Schleswig": "Batalla de Schleswig (1848)",
+    "Invasion indonesia de Timor Oriental": "Invasion indonesia de Timor Oriental (1975)",
+    "Crisis de Timor Oriental": "Crisis de Timor Oriental de 2006",
     "Batalla de Athens": "Batalla aérea de Atenas",
     "Batalla de Barents Sea": "Batalla del mar de Barents",
     "Batalla de Bay de Biscay": "Batalla del golfo de Vizcaya",
@@ -1055,6 +1072,17 @@
     "Batalla de Fort Rivière",
     "Incursión naval de Puerto Plata (1800)",
     "Batalla de Puerto Plata (1916)",
+    "Batalla de Aidabasalala",
+    "Batalla de Broodseinde",
+    "Combate naval entre el HMAS Sydney y el Kormoran (1941)",
+    "Primera batalla de Dernancourt",
+    "Batalla de Bov",
+    "Batalla de Schleswig (1848)",
+    "Batalla de Fredericia",
+    "Batalla de Isted",
+    "Invasion indonesia de Timor Oriental (1975)",
+    "Ocupacion indonesia de Timor Oriental",
+    "Crisis de Timor Oriental de 2006",
     "Batalla de Abbeville",
     "Batalla de Arras",
     "Batalla aérea de Atenas",

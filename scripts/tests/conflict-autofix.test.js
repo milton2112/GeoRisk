@@ -65,6 +65,11 @@ import {
   US_CARIBBEAN_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-us-caribbean-followup.js";
 import {
+  AUSTRALIA_DENMARK_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  AUSTRALIA_DENMARK_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
+  AUSTRALIA_DENMARK_FOLLOWUP_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-australia-denmark-followup.js";
+import {
   BRITISH_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   BRITISH_WWII_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-british-wwii-followup.js";
@@ -77,7 +82,7 @@ import {
   ACTIVE_AFRICA_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-active-africa-followup.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
-import { mergeConflictEntries } from "../lib/conflict-cleaning.js";
+import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
 import { resolveWikipediaConflictTitle } from "../lib/wikipedia-conflicts.js";
 
@@ -427,6 +432,50 @@ assert.ok(
       && Array.isArray(detail.treaties)
   ),
   "la tanda de Nicaragua y Caribe debe conservar fecha, jerarquia, fuentes, participantes y contexto editorial"
+);
+assert.equal(Object.keys(AUSTRALIA_DENMARK_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 11);
+assert.equal(Object.keys(AUSTRALIA_DENMARK_FOLLOWUP_SAFE_CONFLICT_RENAMES).length, 4);
+assert.deepEqual(AUSTRALIA_DENMARK_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS["Timor Oriental"], ["Batalla de Aidabasalala"]);
+assert.deepEqual(AUSTRALIA_DENMARK_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS.Alemania, ["Batalla de Schleswig (1848)", "Batalla de Isted"]);
+assert.equal(AUSTRALIA_DENMARK_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Aidabasalala"].startYear, 1999);
+assert.equal(AUSTRALIA_DENMARK_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Broodseinde"].parent, "Primera Guerra Mundial");
+assert.equal(AUSTRALIA_DENMARK_FOLLOWUP_CONFLICT_DETAIL_FIXES["Primera batalla de Dernancourt"].startYear, 1918);
+assert.equal(AUSTRALIA_DENMARK_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Isted"].parent, "Primera Guerra de Schleswig");
+assert.equal(AUSTRALIA_DENMARK_FOLLOWUP_CONFLICT_DETAIL_FIXES["Ocupacion indonesia de Timor Oriental"].endYear, 1999);
+assert.equal(cleanConflictLabel("Ocupación indonesia de Timor Oriental"), "Ocupacion indonesia de Timor Oriental");
+assert.ok(AUSTRALIA_DENMARK_FOLLOWUP_CONFLICT_DETAIL_FIXES[cleanConflictLabel("Ocupación indonesia de Timor Oriental")]);
+assert.equal(
+  AUSTRALIA_DENMARK_FOLLOWUP_SAFE_CONFLICT_RENAMES[cleanConflictLabel("Invasión indonesia de Timor Oriental")],
+  "Invasion indonesia de Timor Oriental (1975)"
+);
+assert.equal(AUSTRALIA_DENMARK_FOLLOWUP_CONFLICT_DETAIL_FIXES["Crisis de Timor Oriental de 2006"].startYear, 2006);
+assert.notEqual(AUSTRALIA_DENMARK_FOLLOWUP_CONFLICT_DETAIL_FIXES["Invasion indonesia de Timor Oriental (1975)"].parent, "Segunda Guerra Mundial");
+assert.notEqual(AUSTRALIA_DENMARK_FOLLOWUP_CONFLICT_DETAIL_FIXES["Crisis de Timor Oriental de 2006"].campaign, "Guerra del Pacífico de la Segunda Guerra Mundial");
+assert.equal(
+  AUSTRALIA_DENMARK_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla entre el HMAS Sydney y el Kormoran"],
+  "Combate naval entre el HMAS Sydney y el Kormoran (1941)"
+);
+assert.ok(
+  Object.values(AUSTRALIA_DENMARK_FOLLOWUP_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && Number.isInteger(detail.endYear)
+      && detail.parent
+      && detail.parent === detail.war
+      && detail.campaign
+      && detail.region
+      && detail.cause
+      && detail.outcome
+      && detail.consequences
+      && detail.chronology?.length >= 1
+      && detail.chronology.every(item => Number.isInteger(item.year) && item.event)
+      && ["alta", "media"].includes(detail.hierarchyConfidence)
+      && detail.hierarchySources?.length >= 1
+      && detail.hierarchySources.every(source => source.label && source.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties)
+  ),
+  "la tanda de Australia, Dinamarca y Timor debe conservar fecha, jerarquia, fuentes, participantes y contexto editorial"
 );
 assert.equal(Object.keys(BRITISH_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 26);
 assert.equal(Object.keys(BRITISH_WWII_FOLLOWUP_SAFE_CONFLICT_RENAMES).length, 18);

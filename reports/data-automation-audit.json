@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-07-15T01:25:00.686Z",
+  "generatedAt": "2026-07-15T01:56:02.384Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 388
+      "count": 380
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 320
+      "count": 312
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 390
+      "count": 395
     },
     "redundantReligions": {
       "count": 0
@@ -60,26 +60,6 @@
         "code": "ARG",
         "name": "Batalla de Toldos Viejos",
         "region": "América"
-      },
-      {
-        "code": "AUS",
-        "name": "Batalla de Aidabasalala",
-        "region": "Oceania"
-      },
-      {
-        "code": "AUS",
-        "name": "Batalla de Broodseinde",
-        "region": "Oceania"
-      },
-      {
-        "code": "AUS",
-        "name": "Batalla entre el HMAS Sydney y el Kormoran",
-        "region": "Oceania"
-      },
-      {
-        "code": "AUS",
-        "name": "Primera batalla de Dernancourt",
-        "region": "Oceania"
       },
       {
         "code": "AUT",
@@ -178,32 +158,12 @@
       },
       {
         "code": "DNK",
-        "name": "Batalla de Bov",
-        "region": "Europa"
-      },
-      {
-        "code": "DNK",
         "name": "Batalla de Dogger Bank",
         "region": "Europa"
       },
       {
         "code": "DNK",
-        "name": "Batalla de Fredericia",
-        "region": "Europa"
-      },
-      {
-        "code": "DNK",
         "name": "Batalla de Heligoland",
-        "region": "Europa"
-      },
-      {
-        "code": "DNK",
-        "name": "Batalla de Isted",
-        "region": "Europa"
-      },
-      {
-        "code": "DNK",
-        "name": "Batalla de Schleswig",
         "region": "Europa"
       },
       {
@@ -255,6 +215,46 @@
         "code": "FRA",
         "name": "Batalla de Chef-de-Caux",
         "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Craonne",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Fundy Bay",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Golymin",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Grado",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Grenada",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Groix",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Havana",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Heilsberg",
+        "region": "Europa"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -264,34 +264,6 @@
         "name": "Batalla de Toldos Viejos",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
-      {
-        "code": "AUS",
-        "name": "Batalla de Aidabasalala",
-        "parent": "Conflicto regional de Oceania",
-        "campaign": "Campaña vinculada a Conflicto regional de Oceania",
-        "startYear": null
-      },
-      {
-        "code": "AUS",
-        "name": "Batalla de Broodseinde",
-        "parent": "Conflicto regional de Oceania",
-        "campaign": "Campaña vinculada a Conflicto regional de Oceania",
-        "startYear": null
-      },
-      {
-        "code": "AUS",
-        "name": "Batalla entre el HMAS Sydney y el Kormoran",
-        "parent": "Conflicto regional de Oceania",
-        "campaign": "Campaña vinculada a Conflicto regional de Oceania",
-        "startYear": null
-      },
-      {
-        "code": "AUS",
-        "name": "Primera batalla de Dernancourt",
-        "parent": "Conflicto regional de Oceania",
-        "campaign": "Campaña vinculada a Conflicto regional de Oceania",
         "startYear": null
       },
       {
@@ -387,13 +359,6 @@
       },
       {
         "code": "DNK",
-        "name": "Batalla de Bov",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "DNK",
         "name": "Batalla de Dogger Bank",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
@@ -401,28 +366,7 @@
       },
       {
         "code": "DNK",
-        "name": "Batalla de Fredericia",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "DNK",
         "name": "Batalla de Heligoland",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "DNK",
-        "name": "Batalla de Isted",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "DNK",
-        "name": "Batalla de Schleswig",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -535,6 +479,62 @@
       {
         "code": "FRA",
         "name": "Batalla de Groix",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Havana",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Heilsberg",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Hiddensee",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Hyères Islands",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Île Ronde",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Îles Saint-Marcouf",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Kousséri",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de la Bahía de Chesapeake",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 320,
+      "count": 312,
       "command": "npm run fix:conflicts:batches"
     },
     {

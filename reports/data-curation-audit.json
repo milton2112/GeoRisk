@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-15T01:21:25.981Z",
+  "generatedAt": "2026-07-15T01:52:41.232Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 9618667,
-    "duplicatedCountryFilesBytes": 1470286,
-    "countryConflictShardBytes": 374526,
+    "fullBytes": 9651787,
+    "duplicatedCountryFilesBytes": 1472087,
+    "countryConflictShardBytes": 375091,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -113,8 +113,8 @@
       {
         "code": "AUS",
         "name": "Australia",
-        "bytes": 19631,
-        "inlineBytes": 177516,
+        "bytes": 20076,
+        "inlineBytes": 182386,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -128,7 +128,7 @@
         },
         "metrics": {
           "sectionBytes": {
-            "military": 8098,
+            "military": 8543,
             "politics": 7905,
             "metadata": 1913,
             "general": 973,
@@ -141,7 +141,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 8098
+              "bytes": 8543
             },
             {
               "section": "politics",
@@ -156,16 +156,16 @@
               "bytes": 973
             }
           ],
-          "conflictsBytes": 11500,
-          "conflictShardBytes": 11501,
-          "averageConflictBytes": 213
+          "conflictsBytes": 11687,
+          "conflictShardBytes": 11688,
+          "averageConflictBytes": 216
         }
       },
       {
         "code": "FRA",
         "name": "Francia",
         "bytes": 18131,
-        "inlineBytes": 658627,
+        "inlineBytes": 662275,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -174,7 +174,7 @@
           "religionGroups": 5,
           "organizations": 54,
           "rivals": 50,
-          "conflicts": 228,
+          "conflicts": 229,
           "timelineEvents": 4
         },
         "metrics": {
@@ -207,8 +207,8 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 41021,
-          "conflictShardBytes": 41022,
+          "conflictsBytes": 41279,
+          "conflictShardBytes": 41280,
           "averageConflictBytes": 180
         }
       },
@@ -266,8 +266,8 @@
       {
         "code": "DNK",
         "name": "Dinamarca",
-        "bytes": 16188,
-        "inlineBytes": 133486,
+        "bytes": 16310,
+        "inlineBytes": 137414,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -281,7 +281,7 @@
         },
         "metrics": {
           "sectionBytes": {
-            "military": 6830,
+            "military": 6952,
             "politics": 6232,
             "metadata": 1913,
             "general": 677,
@@ -294,7 +294,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 6830
+              "bytes": 6952
             },
             {
               "section": "politics",
@@ -309,9 +309,9 @@
               "bytes": 677
             }
           ],
-          "conflictsBytes": 8280,
-          "conflictShardBytes": 8281,
-          "averageConflictBytes": 193
+          "conflictsBytes": 8400,
+          "conflictShardBytes": 8401,
+          "averageConflictBytes": 195
         }
       },
       {
@@ -570,54 +570,54 @@
         }
       },
       {
-        "code": "NOR",
-        "name": "Noruega",
-        "bytes": 13853,
-        "inlineBytes": 68131,
+        "code": "DEU",
+        "name": "Alemania",
+        "bytes": 14064,
+        "inlineBytes": 48527,
         "tooLarge": false,
         "counts": {
-          "cities": 3,
+          "cities": 5,
           "capitals": 1,
-          "languages": 1,
-          "religionGroups": 4,
-          "organizations": 49,
-          "rivals": 49,
-          "conflicts": 19,
-          "timelineEvents": 0
+          "languages": 5,
+          "religionGroups": 5,
+          "organizations": 79,
+          "rivals": 21,
+          "conflicts": 11,
+          "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "politics": 7233,
-            "military": 3541,
-            "metadata": 1914,
-            "general": 641,
-            "religion": 231,
+            "politics": 8058,
+            "military": 2190,
+            "metadata": 1952,
+            "general": 992,
+            "history": 349,
+            "religion": 300,
             "economy": 101,
-            "history": 71,
-            "name": 9,
+            "name": 10,
             "continent": 8
           },
           "largestSections": [
             {
               "section": "politics",
-              "bytes": 7233
+              "bytes": 8058
             },
             {
               "section": "military",
-              "bytes": 3541
+              "bytes": 2190
             },
             {
               "section": "metadata",
-              "bytes": 1914
+              "bytes": 1952
             },
             {
               "section": "general",
-              "bytes": 641
+              "bytes": 992
             }
           ],
-          "conflictsBytes": 3456,
+          "conflictsBytes": 2073,
           "conflictShardBytes": 0,
-          "averageConflictBytes": 182
+          "averageConflictBytes": 188
         }
       }
     ]
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 387,
+    "pendingCount": 379,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15187,19 +15187,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Aidabasalala",
-        "countries": [
-          "AUS"
-        ],
-        "regions": [
-          "Oceania"
         ],
         "types": [
           "interestatal"
@@ -15408,32 +15395,6 @@
         ],
         "regions": [
           "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Bov",
-        "countries": [
-          "DNK"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Broodseinde",
-        "countries": [
-          "AUS"
-        ],
-        "regions": [
-          "Oceania"
         ],
         "types": [
           "interestatal"
@@ -16104,19 +16065,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Fredericia",
-        "countries": [
-          "DNK"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Fundy Bay",
         "countries": [
           "FRA"
@@ -16484,19 +16432,6 @@
         "name": "Batalla de Imbros",
         "countries": [
           "GRC"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Isted",
-        "countries": [
-          "DNK"
         ],
         "regions": [
           "Europa"
@@ -17163,6 +17098,71 @@
         ],
         "regions": [
           "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Mani-Mani",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Matamoros",
+        "countries": [
+          "MEX"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Mimbres River",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Mobley's Meeting House",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Mocímboa da Praia",
+        "countries": [
+          "MOZ"
+        ],
+        "regions": [
+          "África"
         ],
         "types": [
           "interestatal"

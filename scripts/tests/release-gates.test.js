@@ -64,6 +64,7 @@ const usWwiiFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts
 const usIndianWarsFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-indian-wars-followup.js"), "utf8");
 const usFrontierFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-frontier-followup.js"), "utf8");
 const usCaribbeanFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-caribbean-followup.js"), "utf8");
+const australiaDenmarkFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-australia-denmark-followup.js"), "utf8");
 const britishWwiiFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-british-wwii-followup.js"), "utf8");
 const usOverseasFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-overseas-followup.js"), "utf8");
 const activeAfricaFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-active-africa-followup.js"), "utf8");
@@ -592,6 +593,39 @@ assert.ok(
     && usCaribbeanFollowupCuration.includes("history.navy.mil")
     && usCaribbeanFollowupCuration.includes("history.state.gov"),
   "la tanda de Nicaragua y Caribe debe apoyarse en fuentes institucionales diversas"
+);
+assert.ok(conflictAutofix.includes("AUSTRALIA_DENMARK_FOLLOWUP_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda de Australia y Dinamarca");
+assert.ok(conflictAutofix.includes("AUSTRALIA_DENMARK_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS"), "autofix debe vincular las acciones con los paises donde ocurrieron");
+assert.ok(australiaDenmarkFollowupCuration.includes('curationBatch: "source-backed-australia-denmark-followup-2026-07"'), "la nueva tanda debe quedar identificada");
+assert.ok(
+  australiaDenmarkFollowupCuration.includes('"Timor Oriental": ["Batalla de Aidabasalala"]')
+    && australiaDenmarkFollowupCuration.includes('"Bélgica": ["Batalla de Broodseinde"]')
+    && australiaDenmarkFollowupCuration.includes('Francia: ["Primera batalla de Dernancourt"]')
+    && australiaDenmarkFollowupCuration.includes('Alemania: ["Batalla de Schleswig (1848)", "Batalla de Isted"]'),
+  "las acciones deben quedar asociadas con sus paises anfitriones"
+);
+assert.ok(
+  australiaDenmarkFollowupCuration.includes('"Batalla de Schleswig": "Batalla de Schleswig (1848)"')
+    && australiaDenmarkFollowupCuration.includes('"Invasion indonesia de Timor Oriental": "Invasion indonesia de Timor Oriental (1975)"')
+    && australiaDenmarkFollowupCuration.includes('"Crisis de Timor Oriental": "Crisis de Timor Oriental de 2006"')
+    && australiaDenmarkFollowupCuration.includes("elimina la relación automática e históricamente imposible con la Segunda Guerra Mundial")
+    && australiaDenmarkFollowupCuration.includes("sustituye la campaña del Pacífico de 1941-1945"),
+  "la tanda debe desambiguar nombres y reparar las jerarquias imposibles de Timor Oriental"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Batalla de Aidabasalala": "Battle_of_Aidabasalala"')
+    && wikipediaConflicts.includes('"Combate naval entre el HMAS Sydney y el Kormoran (1941)"')
+    && wikipediaConflicts.includes('"Batalla de Schleswig (1848)": "Battle_of_Schleswig"')
+    && wikipediaConflicts.includes('"Crisis de Timor Oriental de 2006": "2006_East_Timorese_crisis"'),
+  "los nombres normalizados deben conservar paginas de importacion profunda"
+);
+assert.ok(
+  australiaDenmarkFollowupCuration.includes("awm.gov.au")
+    && australiaDenmarkFollowupCuration.includes("army.gov.au")
+    && australiaDenmarkFollowupCuration.includes("danmarkshistorien.dk")
+    && australiaDenmarkFollowupCuration.includes("natmus.dk")
+    && australiaDenmarkFollowupCuration.includes("peacekeeping.un.org"),
+  "la tanda debe apoyarse en fuentes institucionales australianas, danesas y de Naciones Unidas"
 );
 assert.ok(conflictAutofix.includes("BRITISH_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda británica de la Segunda Guerra Mundial");
 assert.ok(britishWwiiFollowupCuration.includes("hierarchySources"), "la tanda británica debe conservar trazabilidad");

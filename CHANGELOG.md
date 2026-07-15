@@ -8,7 +8,22 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.70 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.71 antes de cerrar la siguiente version.
+
+## v1.6.71 - 2026-07-14
+
+- Fecha, jerarquiza y documenta con fuentes ocho acciones de Australia y Dinamarca: Aidabasalala, Broodseinde, el combate Sydney-Kormoran, la primera batalla de Dernancourt, Bov, Schleswig, Fredericia e Isted.
+- Completa guerra padre, campana, region, participantes, causa, resultado, consecuencias, cronologia y cautelas editoriales con fuentes del Australian War Memorial, Ejercito Australiano, Universidad de Aarhus y Museo Nacional de Dinamarca.
+- Corrige una asociacion historicamente imposible en la ficha de Timor Oriental: la invasion y ocupacion indonesias y la crisis de 2006 dejan de heredar la Segunda Guerra Mundial y la campana del Pacifico.
+- Separa la invasion indonesia de 1975 de la ocupacion de 1975-1999, documenta el cierre mediante la consulta popular y la transicion de Naciones Unidas, y estructura la crisis interna de 2006 con su despliegue internacional posterior.
+- Vincula Aidabasalala con Timor Oriental, Broodseinde con Belgica, Dernancourt con Francia y Schleswig e Isted con Alemania, sin duplicar acciones dentro de cada ficha.
+- Desambigua `Batalla de Schleswig (1848)`, identifica el `Combate naval entre el HMAS Sydney y el Kormoran (1941)` y agrega el ano a la invasion indonesia y la crisis timorense.
+- Reduce los conflictos sin fecha auditados de 388 a 380 y las jerarquias provisionales de 320 a 312; el timeline pasa de 2621 a 2634 eventos fechables.
+- Regenera el indice liviano de conflictos de 1614 a 1622 entradas y los detalles diferidos de 855 a 866 shards; la segunda ejecucion converge con cero cambios.
+- Agrega regresiones sobre normalizacion interna, asociaciones con paises anfitriones, nombres canonicos, paginas de importacion y la prohibicion explicita de que Timor vuelva a heredar la Segunda Guerra Mundial.
+- Mantiene 0 alertas, incidencias, advertencias, nombres ingleses, duplicados, regiones sospechosas, religiones redundantes, mojibake y problemas de localizacion.
+- Mantiene el arranque critico en 810 KB, `script.js` en 543 KB y `countries_index.json` en 141 KB, con 0 long tasks simuladas sobre presupuesto y 55 FPS medios.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-14-release-3`.
 
 ## v1.6.70 - 2026-07-14
 

@@ -17,6 +17,24 @@ const mojibakeSignal = /Ã|Â|â€|�/;
 assert.equal(normalizeVisibleValue("Guerra indo-Pakistan\u00ed de 1971"), "Guerra indo-pakistan\u00ed de 1971");
 assert.equal(normalizeVisibleValue("Frontera de Pakistan"), "Frontera de Pakist\u00e1n");
 
+const timorConflicts = countries.TLS.military.conflicts;
+for (const name of [
+  "Invasión indonesia de Timor Oriental (1975)",
+  "Ocupación indonesia de Timor Oriental",
+  "Crisis de Timor Oriental de 2006",
+  "Batalla de Aidabasalala"
+]) {
+  assert.equal(timorConflicts.filter(entry => entry.name === name).length, 1, `${name} debe aparecer una sola vez en Timor Oriental`);
+}
+for (const entry of timorConflicts.filter(item => /Timor Oriental|Aidabasalala/.test(item.name))) {
+  assert.notEqual(entry.parent, "Segunda Guerra Mundial", `${entry.name} no debe heredar la Segunda Guerra Mundial`);
+  assert.notEqual(entry.campaign, "Guerra del Pacífico de la Segunda Guerra Mundial", `${entry.name} no debe heredar la campaña del Pacífico`);
+}
+assert.ok(countries.BEL.military.conflicts.some(entry => entry.name === "Batalla de Broodseinde"), "Bélgica debe vincular Broodseinde");
+assert.ok(countries.FRA.military.conflicts.some(entry => entry.name === "Primera batalla de Dernancourt"), "Francia debe vincular Dernancourt");
+assert.ok(countries.DEU.military.conflicts.some(entry => entry.name === "Batalla de Schleswig (1848)"), "Alemania debe vincular Schleswig de 1848");
+assert.ok(countries.DEU.military.conflicts.some(entry => entry.name === "Batalla de Isted"), "Alemania debe vincular Isted");
+
 function collectJsonFiles(directory) {
   return fs.readdirSync(directory, { withFileTypes: true }).flatMap(entry => {
     const fullPath = `${directory}/${entry.name}`;

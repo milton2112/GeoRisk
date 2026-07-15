@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-15T01:24:56.926Z",
+  "generatedAt": "2026-07-15T01:55:59.038Z",
   "scannedConflicts": 2003,
   "issueCount": 0,
-  "advisoryCount": 320,
-  "reviewCount": 320,
+  "advisoryCount": 312,
+  "reviewCount": 312,
   "summary": {
-    "provisional_parent": 320
+    "provisional_parent": 312
   },
   "topIssues": [],
   "topAdvisories": [
@@ -32,20 +32,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de aidabasalala",
-      "name": "Batalla de Aidabasalala",
-      "countries": [
-        "AUS"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Oceania",
       "issues": [
         "provisional_parent"
       ],
@@ -270,34 +256,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de bov",
-      "name": "Batalla de Bov",
-      "countries": [
-        "DNK"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de broodseinde",
-      "name": "Batalla de Broodseinde",
-      "countries": [
-        "AUS"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Oceania",
       "issues": [
         "provisional_parent"
       ],
@@ -1004,20 +962,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de fredericia",
-      "name": "Batalla de Fredericia",
-      "countries": [
-        "DNK"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de fundy bay",
       "name": "Batalla de Fundy Bay",
       "countries": [
@@ -1120,6 +1064,62 @@
       "name": "Batalla de Grengam",
       "countries": [
         "SWE"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de groix",
+      "name": "Batalla de Groix",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de gronvikssund",
+      "name": "Batalla de Grönvikssund",
+      "countries": [
+        "SWE"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de guerrero",
+      "name": "Batalla de Guerrero",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de gyanafalva",
+      "name": "Batalla de Gyanafalva",
+      "countries": [
+        "AUT"
       ],
       "startYear": null,
       "endYear": null,

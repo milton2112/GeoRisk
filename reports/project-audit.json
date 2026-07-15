@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-07-15T01:24:59.774Z",
+  "generatedAt": "2026-07-15T01:56:01.482Z",
   "status": "operativo",
   "startup": {
     "critical": "810 KB",
-    "criticalBytes": 828954,
-    "deferred": "2.08 MB",
+    "criticalBytes": 828955,
+    "deferred": "2.10 MB",
     "estimatedRuntimeMemory": {
-      "countriesFullBytes": 9618667,
-      "countriesFullHuman": "9.17 MB",
-      "estimatedParsedBytes": 28856001,
-      "estimatedParsedHuman": "27.52 MB",
+      "countriesFullBytes": 9651787,
+      "countriesFullHuman": "9.20 MB",
+      "estimatedParsedBytes": 28955361,
+      "estimatedParsedHuman": "27.61 MB",
       "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
     },
     "largestAssets": [
       {
         "path": "data/conflict_details.generated.json",
         "exists": true,
-        "bytes": 1543112,
-        "human": "1.47 MB",
+        "bytes": 1565718,
+        "human": "1.49 MB",
         "startupCritical": false
       },
       {
@@ -44,7 +44,7 @@
       {
         "path": "data/countries_index.json",
         "exists": true,
-        "bytes": 144218,
+        "bytes": 144219,
         "human": "141 KB",
         "startupCritical": true
       },
@@ -103,7 +103,7 @@
     "scanned": 2003,
     "issueCount": 0,
     "summary": {
-      "provisional_parent": 320
+      "provisional_parent": 312
     },
     "eraFocus": []
   },
@@ -112,45 +112,45 @@
       {
         "path": "data/timeline_index.json",
         "exists": true,
-        "bytes": 332441,
-        "human": "325 KB"
+        "bytes": 334154,
+        "human": "326 KB"
       },
       {
         "path": "data/conflicts_index.json",
         "exists": true,
-        "bytes": 298496,
-        "human": "292 KB"
+        "bytes": 300100,
+        "human": "293 KB"
       },
       {
         "path": "data/search_index.json",
         "exists": true,
-        "bytes": 190766,
+        "bytes": 190767,
         "human": "186 KB"
       },
       {
         "path": "data/countries_index.json",
         "exists": true,
-        "bytes": 144218,
+        "bytes": 144219,
         "human": "141 KB"
       },
       {
         "path": "data/conflicts/details_index.json",
         "exists": true,
-        "bytes": 124355,
-        "human": "121 KB"
+        "bytes": 126080,
+        "human": "123 KB"
       },
       {
         "path": "data/country_weights.json",
         "exists": true,
-        "bytes": 118164,
+        "bytes": 118171,
         "human": "115 KB"
       }
     ],
     "countryWeights": {
       "totalCountries": 183,
-      "fullBytes": 9618667,
-      "duplicatedCountryFilesBytes": 1470286,
-      "countryConflictShardBytes": 374526,
+      "fullBytes": 9651787,
+      "duplicatedCountryFilesBytes": 1472087,
+      "countryConflictShardBytes": 375091,
       "tooLargeCount": 0,
       "largest": [
         {
@@ -258,8 +258,8 @@
         {
           "code": "AUS",
           "name": "Australia",
-          "bytes": 19631,
-          "inlineBytes": 177516,
+          "bytes": 20076,
+          "inlineBytes": 182386,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -273,7 +273,7 @@
           },
           "metrics": {
             "sectionBytes": {
-              "military": 8098,
+              "military": 8543,
               "politics": 7905,
               "metadata": 1913,
               "general": 973,
@@ -286,7 +286,7 @@
             "largestSections": [
               {
                 "section": "military",
-                "bytes": 8098
+                "bytes": 8543
               },
               {
                 "section": "politics",
@@ -301,16 +301,16 @@
                 "bytes": 973
               }
             ],
-            "conflictsBytes": 11500,
-            "conflictShardBytes": 11501,
-            "averageConflictBytes": 213
+            "conflictsBytes": 11687,
+            "conflictShardBytes": 11688,
+            "averageConflictBytes": 216
           }
         },
         {
           "code": "FRA",
           "name": "Francia",
           "bytes": 18131,
-          "inlineBytes": 658627,
+          "inlineBytes": 662275,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -319,7 +319,7 @@
             "religionGroups": 5,
             "organizations": 54,
             "rivals": 50,
-            "conflicts": 228,
+            "conflicts": 229,
             "timelineEvents": 4
           },
           "metrics": {
@@ -352,8 +352,8 @@
                 "bytes": 933
               }
             ],
-            "conflictsBytes": 41021,
-            "conflictShardBytes": 41022,
+            "conflictsBytes": 41279,
+            "conflictShardBytes": 41280,
             "averageConflictBytes": 180
           }
         },
@@ -411,8 +411,8 @@
         {
           "code": "DNK",
           "name": "Dinamarca",
-          "bytes": 16188,
-          "inlineBytes": 133486,
+          "bytes": 16310,
+          "inlineBytes": 137414,
           "tooLarge": false,
           "counts": {
             "cities": 4,
@@ -426,7 +426,7 @@
           },
           "metrics": {
             "sectionBytes": {
-              "military": 6830,
+              "military": 6952,
               "politics": 6232,
               "metadata": 1913,
               "general": 677,
@@ -439,7 +439,7 @@
             "largestSections": [
               {
                 "section": "military",
-                "bytes": 6830
+                "bytes": 6952
               },
               {
                 "section": "politics",
@@ -454,9 +454,9 @@
                 "bytes": 677
               }
             ],
-            "conflictsBytes": 8280,
-            "conflictShardBytes": 8281,
-            "averageConflictBytes": 193
+            "conflictsBytes": 8400,
+            "conflictShardBytes": 8401,
+            "averageConflictBytes": 195
           }
         },
         {
@@ -715,54 +715,54 @@
           }
         },
         {
-          "code": "NOR",
-          "name": "Noruega",
-          "bytes": 13853,
-          "inlineBytes": 68131,
+          "code": "DEU",
+          "name": "Alemania",
+          "bytes": 14064,
+          "inlineBytes": 48527,
           "tooLarge": false,
           "counts": {
-            "cities": 3,
+            "cities": 5,
             "capitals": 1,
-            "languages": 1,
-            "religionGroups": 4,
-            "organizations": 49,
-            "rivals": 49,
-            "conflicts": 19,
-            "timelineEvents": 0
+            "languages": 5,
+            "religionGroups": 5,
+            "organizations": 79,
+            "rivals": 21,
+            "conflicts": 11,
+            "timelineEvents": 4
           },
           "metrics": {
             "sectionBytes": {
-              "politics": 7233,
-              "military": 3541,
-              "metadata": 1914,
-              "general": 641,
-              "religion": 231,
+              "politics": 8058,
+              "military": 2190,
+              "metadata": 1952,
+              "general": 992,
+              "history": 349,
+              "religion": 300,
               "economy": 101,
-              "history": 71,
-              "name": 9,
+              "name": 10,
               "continent": 8
             },
             "largestSections": [
               {
                 "section": "politics",
-                "bytes": 7233
+                "bytes": 8058
               },
               {
                 "section": "military",
-                "bytes": 3541
+                "bytes": 2190
               },
               {
                 "section": "metadata",
-                "bytes": 1914
+                "bytes": 1952
               },
               {
                 "section": "general",
-                "bytes": 641
+                "bytes": 992
               }
             ],
-            "conflictsBytes": 3456,
+            "conflictsBytes": 2073,
             "conflictShardBytes": 0,
-            "averageConflictBytes": 182
+            "averageConflictBytes": 188
           }
         }
       ]
@@ -790,7 +790,7 @@
     },
     "curationGaps": {},
     "conflictDataConsistency": {
-      "checked": 3551,
+      "checked": 3567,
       "closedMarkedActiveCount": 0,
       "inactiveMarkedActiveCount": 0,
       "nullNarrativeTextCount": 0,
@@ -815,16 +815,16 @@
       "human": "543 KB"
     },
     {
+      "path": "CHANGELOG.md",
+      "exists": true,
+      "bytes": 81869,
+      "human": "80 KB"
+    },
+    {
       "path": "style.css",
       "exists": true,
       "bytes": 80406,
       "human": "79 KB"
-    },
-    {
-      "path": "CHANGELOG.md",
-      "exists": true,
-      "bytes": 79680,
-      "human": "78 KB"
     },
     {
       "path": "index.html",
