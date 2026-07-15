@@ -60,6 +60,11 @@ import {
   US_FRONTIER_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-us-frontier-followup.js";
 import {
+  US_CARIBBEAN_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  US_CARIBBEAN_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
+  US_CARIBBEAN_FOLLOWUP_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-us-caribbean-followup.js";
+import {
   BRITISH_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   BRITISH_WWII_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-british-wwii-followup.js";
@@ -380,6 +385,48 @@ assert.ok(
       && Array.isArray(detail.treaties)
   ),
   "la segunda tanda fronteriza debe conservar fecha, jerarquia, fuentes, participantes y contexto editorial"
+);
+assert.equal(Object.keys(US_CARIBBEAN_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 10);
+assert.equal(Object.keys(US_CARIBBEAN_FOLLOWUP_SAFE_CONFLICT_RENAMES).length, 4);
+assert.deepEqual(US_CARIBBEAN_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS.Nicaragua, [
+  "Batalla de Masaya",
+  "Batalla de La Paz Centro",
+  "Batalla de Ocotal",
+  "Batalla de Telpaneca",
+  "Batalla de Sapotillal",
+  "Segunda batalla de Las Cruces (1928)",
+  "Batalla de El Sauce"
+]);
+assert.equal(US_CARIBBEAN_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS["Haití"][0], "Batalla de Fort Rivière");
+assert.equal(US_CARIBBEAN_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Masaya"].startYear, 1912);
+assert.equal(US_CARIBBEAN_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Ocotal"].parent, "Guerra de Sandino");
+assert.equal(US_CARIBBEAN_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Telpaneca"].conflictType, "insurgencia");
+assert.equal(US_CARIBBEAN_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Fort Rivière"].startYear, 1915);
+assert.equal(US_CARIBBEAN_FOLLOWUP_CONFLICT_DETAIL_FIXES["Incursión naval de Puerto Plata (1800)"].parent, "Cuasi-Guerra");
+assert.equal(US_CARIBBEAN_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Puerto Plata (1916)"].region, "Puerto Plata, República Dominicana");
+assert.equal(US_CARIBBEAN_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Las Cruces"], "Segunda batalla de Las Cruces (1928)");
+assert.equal(US_CARIBBEAN_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Fort Riviere"], "Batalla de Fort Rivière");
+assert.ok(
+  Object.values(US_CARIBBEAN_FOLLOWUP_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent
+      && detail.parent === detail.war
+      && detail.campaign
+      && detail.region
+      && detail.cause
+      && detail.outcome
+      && detail.consequences
+      && detail.chronology?.[0]?.year === detail.startYear
+      && detail.chronology?.[0]?.event
+      && ["alta", "media"].includes(detail.hierarchyConfidence)
+      && detail.hierarchySources?.length >= 1
+      && detail.hierarchySources.every(source => source.label && source.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties)
+  ),
+  "la tanda de Nicaragua y Caribe debe conservar fecha, jerarquia, fuentes, participantes y contexto editorial"
 );
 assert.equal(Object.keys(BRITISH_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 26);
 assert.equal(Object.keys(BRITISH_WWII_FOLLOWUP_SAFE_CONFLICT_RENAMES).length, 18);

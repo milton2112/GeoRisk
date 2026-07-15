@@ -63,6 +63,7 @@ const usCivilWarFollowupCuration = await fs.readFile(path.join(projectRoot, "scr
 const usWwiiFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-wwii-followup.js"), "utf8");
 const usIndianWarsFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-indian-wars-followup.js"), "utf8");
 const usFrontierFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-frontier-followup.js"), "utf8");
+const usCaribbeanFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-caribbean-followup.js"), "utf8");
 const britishWwiiFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-british-wwii-followup.js"), "utf8");
 const usOverseasFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-overseas-followup.js"), "utf8");
 const activeAfricaFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-active-africa-followup.js"), "utf8");
@@ -562,6 +563,35 @@ assert.ok(
   usFrontierFollowupCuration.includes("El Ejército identificó entonces a las víctimas como tonto apache")
     && usFrontierFollowupCuration.includes("Se omite la afirmación tradicional de que Peta Nocona murió allí"),
   "la segunda tanda fronteriza debe conservar las cautelas historiográficas"
+);
+assert.ok(conflictAutofix.includes("US_CARIBBEAN_FOLLOWUP_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda de Nicaragua y Caribe");
+assert.ok(conflictAutofix.includes("US_CARIBBEAN_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS"), "autofix debe vincular las acciones con sus paises anfitriones");
+assert.ok(usCaribbeanFollowupCuration.includes("hierarchySources"), "la tanda de Nicaragua y Caribe debe conservar trazabilidad");
+assert.ok(usCaribbeanFollowupCuration.includes('curationBatch: "source-backed-us-caribbean-followup-2026-07"'), "la tanda de Nicaragua y Caribe debe quedar identificada");
+assert.ok(
+  usCaribbeanFollowupCuration.includes('"Haití": ["Batalla de Fort Rivière"]')
+    && usCaribbeanFollowupCuration.includes('"República Dominicana"')
+    && usCaribbeanFollowupCuration.includes("US_CARIBBEAN_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS"),
+  "las acciones del Caribe deben quedar vinculadas con el pais donde ocurrieron"
+);
+assert.ok(
+  usCaribbeanFollowupCuration.includes('"Batalla de Fort Riviere": "Batalla de Fort Rivière"')
+    && usCaribbeanFollowupCuration.includes('"Batalla de Las Cruces": "Segunda batalla de Las Cruces (1928)"')
+    && usCaribbeanFollowupCuration.includes('"Batalla del puerto de Puerto Plata": "Incursión naval de Puerto Plata (1800)"'),
+  "la tanda de Nicaragua y Caribe debe corregir acentos y desambiguar acciones homonimas"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Segunda batalla de Las Cruces (1928)": "Battle_of_Las_Cruces_(1928)"')
+    && wikipediaConflicts.includes('"Batalla de Fort Rivière": "Battle_of_Fort_Rivière"')
+    && wikipediaConflicts.includes('"Incursión naval de Puerto Plata (1800)": "Battle_of_Puerto_Plata_Harbor"'),
+  "los nombres caribenos normalizados deben conservar su pagina de importacion"
+);
+assert.ok(
+  usCaribbeanFollowupCuration.includes("usmcu.edu")
+    && usCaribbeanFollowupCuration.includes("marines.mil")
+    && usCaribbeanFollowupCuration.includes("history.navy.mil")
+    && usCaribbeanFollowupCuration.includes("history.state.gov"),
+  "la tanda de Nicaragua y Caribe debe apoyarse en fuentes institucionales diversas"
 );
 assert.ok(conflictAutofix.includes("BRITISH_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda británica de la Segunda Guerra Mundial");
 assert.ok(britishWwiiFollowupCuration.includes("hierarchySources"), "la tanda británica debe conservar trazabilidad");

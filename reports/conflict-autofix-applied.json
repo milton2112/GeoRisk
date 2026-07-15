@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-15T00:40:16.571Z",
+  "generatedAt": "2026-07-15T01:22:11.310Z",
   "changedFullCountries": 0,
   "fullPassChanges": [
     0
@@ -11,10 +11,26 @@
     "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 796,
+  "generatedHierarchyCandidates": 806,
   "countryConflictAdditions": {
     "Estados Unidos": [
       "Batalla de Manila (1945)"
+    ],
+    "Nicaragua": [
+      "Batalla de Masaya",
+      "Batalla de La Paz Centro",
+      "Batalla de Ocotal",
+      "Batalla de Telpaneca",
+      "Batalla de Sapotillal",
+      "Segunda batalla de Las Cruces (1928)",
+      "Batalla de El Sauce"
+    ],
+    "Haití": [
+      "Batalla de Fort Rivière"
+    ],
+    "República Dominicana": [
+      "Incursión naval de Puerto Plata (1800)",
+      "Batalla de Puerto Plata (1916)"
     ]
   },
   "safeRenames": {
@@ -287,6 +303,10 @@
     "Batalla de Blanco Canyon": "Batalla del cañón Blanco",
     "Batalla de Pease River": "Batalla del río Pease",
     "Batalla de Salt River Canyon": "Masacre de Skeleton Cave",
+    "Batalla de Fort Riviere": "Batalla de Fort Rivière",
+    "Batalla de Las Cruces": "Segunda batalla de Las Cruces (1928)",
+    "Batalla de Puerto Plata": "Batalla de Puerto Plata (1916)",
+    "Batalla del puerto de Puerto Plata": "Incursión naval de Puerto Plata (1800)",
     "Batalla de Athens": "Batalla aérea de Atenas",
     "Batalla de Barents Sea": "Batalla del mar de Barents",
     "Batalla de Bay de Biscay": "Batalla del golfo de Vizcaya",
@@ -1025,6 +1045,16 @@
     "Batalla de Piqua",
     "Batalla de Quebec",
     "Batalla de Cieneguilla",
+    "Batalla de Masaya",
+    "Batalla de La Paz Centro",
+    "Batalla de Ocotal",
+    "Batalla de Telpaneca",
+    "Batalla de Sapotillal",
+    "Segunda batalla de Las Cruces (1928)",
+    "Batalla de El Sauce",
+    "Batalla de Fort Rivière",
+    "Incursión naval de Puerto Plata (1800)",
+    "Batalla de Puerto Plata (1916)",
     "Batalla de Abbeville",
     "Batalla de Arras",
     "Batalla aérea de Atenas",

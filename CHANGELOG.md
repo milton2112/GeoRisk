@@ -8,7 +8,23 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.69 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.70 antes de cerrar la siguiente version.
+
+## v1.6.70 - 2026-07-14
+
+- Fecha, jerarquiza y documenta con fuentes 10 acciones de Nicaragua y el Caribe entre 1800 y 1932.
+- Completa guerra padre, campana, region, participantes, causa, resultado, consecuencias y cronologia para Masaya, La Paz Centro, Ocotal, Telpaneca, Sapotillal, Las Cruces, El Sauce, Fort Riviere y dos acciones distintas de Puerto Plata.
+- Vincula las acciones tambien con el pais donde ocurrieron: siete pasan a la ficha de Nicaragua, Fort Riviere a Haiti y las dos de Puerto Plata a Republica Dominicana, sin duplicarlas dentro de cada ficha.
+- Corrige y desambigua cuatro rotulos: `Batalla de Fort Rivière`, `Segunda batalla de Las Cruces (1928)`, `Incursión naval de Puerto Plata (1800)` y `Batalla de Puerto Plata (1916)`.
+- Distingue la intervencion de 1912 de la Guerra de Sandino y separa la incursión naval de la Cuasi-Guerra de la ocupacion dominicana de 1916.
+- Mantiene cautelas explicitas para bajas informadas por una parte beligerante, variantes de Sapotillal y el alcance historico del cierre de Fort Riviere.
+- Reduce los conflictos sin fecha auditados de 398 a 388 y las jerarquias provisionales de 330 a 320; el timeline pasa de 2601 a 2621 eventos fechables.
+- Regenera el indice liviano de conflictos de 1604 a 1614 entradas y los detalles diferidos de 845 a 855 shards; la segunda ejecucion converge con cero cambios.
+- Conserva trazabilidad del Cuerpo de Marines, Naval History and Heritage Command, Departamento de Estado, Departamento de Defensa e informes de combate digitalizados.
+- Agrega regresiones para fechas, padres, campanas, participantes, fuentes, renombres, paginas de importacion y asociaciones con Nicaragua, Haiti y Republica Dominicana.
+- Mantiene 0 alertas, incidencias, advertencias, nombres ingleses, duplicados, regiones sospechosas, religiones redundantes, mojibake y problemas de localizacion.
+- Mantiene el arranque critico en 810 KB, `script.js` en 543 KB y `countries_index.json` en 141 KB, con 0 long tasks simuladas sobre presupuesto y 55 FPS medios.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-14-release-2`.
 
 ## v1.6.69 - 2026-07-14
 

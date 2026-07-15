@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-15T00:41:04.146Z",
+  "generatedAt": "2026-07-15T01:24:56.926Z",
   "scannedConflicts": 2003,
   "issueCount": 0,
-  "advisoryCount": 330,
-  "reviewCount": 330,
+  "advisoryCount": 320,
+  "reviewCount": 320,
   "summary": {
-    "provisional_parent": 330
+    "provisional_parent": 320
   },
   "topIssues": [],
   "topAdvisories": [
@@ -878,20 +878,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de el sauce",
-      "name": "Batalla de El Sauce",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de eoranpo",
       "name": "Batalla de Eoranpo",
       "countries": [
@@ -1004,20 +990,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de fort riviere",
-      "name": "Batalla de Fort Riviere",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de fort slongo",
       "name": "Batalla de Fort Slongo",
       "countries": [
@@ -1120,6 +1092,34 @@
       "name": "Batalla de Grado",
       "countries": [
         "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de grenada",
+      "name": "Batalla de Grenada",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de grengam",
+      "name": "Batalla de Grengam",
+      "countries": [
+        "SWE"
       ],
       "startYear": null,
       "endYear": null,

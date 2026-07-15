@@ -71,6 +71,11 @@ import {
   US_FRONTIER_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "./lib/conflict-curation-us-frontier-followup.js";
 import {
+  US_CARIBBEAN_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  US_CARIBBEAN_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
+  US_CARIBBEAN_FOLLOWUP_SAFE_CONFLICT_RENAMES
+} from "./lib/conflict-curation-us-caribbean-followup.js";
+import {
   BRITISH_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   BRITISH_WWII_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "./lib/conflict-curation-british-wwii-followup.js";
@@ -125,6 +130,7 @@ const curatedConflictDetailFixes = {
   ...US_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   ...US_INDIAN_WARS_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   ...US_FRONTIER_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  ...US_CARIBBEAN_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   ...BRITISH_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   ...US_OVERSEAS_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   ...ACTIVE_AFRICA_FOLLOWUP_CONFLICT_DETAIL_FIXES
@@ -152,9 +158,14 @@ const safeConflictRenames = {
   ...US_WWII_FOLLOWUP_SAFE_CONFLICT_RENAMES,
   ...US_INDIAN_WARS_FOLLOWUP_SAFE_CONFLICT_RENAMES,
   ...US_FRONTIER_FOLLOWUP_SAFE_CONFLICT_RENAMES,
+  ...US_CARIBBEAN_FOLLOWUP_SAFE_CONFLICT_RENAMES,
   ...BRITISH_WWII_FOLLOWUP_SAFE_CONFLICT_RENAMES,
   ...US_OVERSEAS_FOLLOWUP_SAFE_CONFLICT_RENAMES,
   ...ACTIVE_AFRICA_FOLLOWUP_SAFE_CONFLICT_RENAMES
+};
+const countryConflictAdditions = {
+  ...TRANSITION_1846_1902_COUNTRY_CONFLICT_ADDITIONS,
+  ...US_CARIBBEAN_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS
 };
 
 function renameConflictName(name) {
@@ -315,7 +326,7 @@ function normalizeConflictEntryWithContext(entry, context) {
 }
 
 function getCountryConflictAdditions(country) {
-  return (TRANSITION_1846_1902_COUNTRY_CONFLICT_ADDITIONS[country?.name] || [])
+  return (countryConflictAdditions[country?.name] || [])
     .map(name => ({ name, ...(curatedConflictDetailFixes[name] || {}) }));
 }
 
@@ -480,7 +491,7 @@ const report = {
   compactCountryFilesStrategy: "regenerated-by-buildDataIndexes",
   detailStats,
   generatedHierarchyCandidates: generatedHierarchyByConflict.size,
-  countryConflictAdditions: TRANSITION_1846_1902_COUNTRY_CONFLICT_ADDITIONS,
+  countryConflictAdditions,
   safeRenames: safeConflictRenames,
   curatedDetails: [...new Set(Object.keys(curatedConflictDetailFixes).map(renameConflictName))]
 };
