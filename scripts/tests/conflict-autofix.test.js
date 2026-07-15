@@ -56,6 +56,10 @@ import {
   US_INDIAN_WARS_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-us-indian-wars-followup.js";
 import {
+  US_FRONTIER_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  US_FRONTIER_FOLLOWUP_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-us-frontier-followup.js";
+import {
   BRITISH_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   BRITISH_WWII_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-british-wwii-followup.js";
@@ -343,6 +347,39 @@ assert.ok(
       && detail.treaties.length === 0
   ),
   "la tanda de guerras indígenas debe conservar jerarquia, fuentes, participantes y cierre editorial explícito"
+);
+assert.equal(Object.keys(US_FRONTIER_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 14);
+assert.equal(Object.keys(US_FRONTIER_FOLLOWUP_SAFE_CONFLICT_RENAMES).length, 8);
+assert.equal(US_FRONTIER_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla del paso Apache"].startYear, 1862);
+assert.equal(US_FRONTIER_FOLLOWUP_CONFLICT_DETAIL_FIXES["Ataque a Fort Apache"].campaign, "Crisis de Cibecue y Fort Apache de 1881");
+assert.equal(US_FRONTIER_FOLLOWUP_CONFLICT_DETAIL_FIXES["Ataque a Fort Apache"].type, "ataque");
+assert.equal(US_FRONTIER_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla del río Tongue"].parent, "Guerras de las llanuras");
+assert.equal(US_FRONTIER_FOLLOWUP_CONFLICT_DETAIL_FIXES["Masacre de Skeleton Cave"].type, "masacre");
+assert.equal(US_FRONTIER_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de los Árboles Caídos"].treaties[0], "Tratado de Greenville (1795)");
+assert.equal(US_FRONTIER_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Cieneguilla"].participants[0].casualties, "22 muertos y 23 heridos");
+assert.equal(US_FRONTIER_FOLLOWUP_SAFE_CONFLICT_RENAMES["Battle of the Tongue River"], "Batalla del río Tongue");
+assert.equal(US_FRONTIER_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Salt River Canyon"], "Masacre de Skeleton Cave");
+assert.ok(
+  Object.values(US_FRONTIER_FOLLOWUP_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent
+      && detail.parent === detail.war
+      && detail.campaign
+      && detail.region
+      && detail.cause
+      && detail.outcome
+      && detail.consequences
+      && detail.chronology?.[0]?.year === detail.startYear
+      && detail.chronology?.[0]?.event
+      && ["alta", "media"].includes(detail.hierarchyConfidence)
+      && detail.hierarchySources?.length >= 1
+      && detail.hierarchySources.every(source => source.label && source.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties)
+  ),
+  "la segunda tanda fronteriza debe conservar fecha, jerarquia, fuentes, participantes y contexto editorial"
 );
 assert.equal(Object.keys(BRITISH_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 26);
 assert.equal(Object.keys(BRITISH_WWII_FOLLOWUP_SAFE_CONFLICT_RENAMES).length, 18);

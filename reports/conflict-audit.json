@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-14T02:36:45.642Z",
+  "generatedAt": "2026-07-15T00:41:04.146Z",
   "scannedConflicts": 2003,
   "issueCount": 0,
-  "advisoryCount": 344,
-  "reviewCount": 344,
+  "advisoryCount": 330,
+  "reviewCount": 330,
   "summary": {
-    "provisional_parent": 344
+    "provisional_parent": 330
   },
   "topIssues": [],
   "topAdvisories": [
@@ -80,36 +80,8 @@
       "severity": 1
     },
     {
-      "key": "batalla de apache pass",
-      "name": "Batalla de Apache Pass",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de aranas",
       "name": "Batalla de Aranas",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de ash hollow",
-      "name": "Batalla de Ash Hollow",
       "countries": [
         "USA"
       ],
@@ -234,20 +206,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de big dry wash",
-      "name": "Batalla de Big Dry Wash",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de bir enzaran",
       "name": "Batalla de Bir Enzarán",
       "countries": [
@@ -256,20 +214,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de África",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de blanco canyon",
-      "name": "Batalla de Blanco Canyon",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],
@@ -522,34 +466,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de cibecue creek",
-      "name": "Batalla de Cibecue Creek",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de cieneguilla",
-      "name": "Batalla de Cieneguilla",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],
@@ -1060,20 +976,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de fort apache",
-      "name": "Batalla de Fort Apache",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de fort buchanan",
       "name": "Batalla de Fort Buchanan",
       "countries": [
@@ -1124,6 +1026,104 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de fredericia",
+      "name": "Batalla de Fredericia",
+      "countries": [
+        "DNK"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de fundy bay",
+      "name": "Batalla de Fundy Bay",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de golymin",
+      "name": "Batalla de Golymin",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de gonzalez",
+      "name": "Batalla de González",
+      "countries": [
+        "MEX"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de gorzno",
+      "name": "Batalla de Górzno",
+      "countries": [
+        "SWE"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de gotska sandon",
+      "name": "Batalla de Gotska Sandön",
+      "countries": [
+        "SWE"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de grado",
+      "name": "Batalla de Grado",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],

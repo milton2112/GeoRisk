@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-14T02:34:25.244Z",
+  "generatedAt": "2026-07-15T00:40:16.571Z",
   "changedFullCountries": 0,
   "fullPassChanges": [
     0
@@ -11,7 +11,7 @@
     "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 782,
+  "generatedHierarchyCandidates": 796,
   "countryConflictAdditions": {
     "Estados Unidos": [
       "Batalla de Manila (1945)"
@@ -279,6 +279,14 @@
     "Batalla de Toppenish Creek": "Batalla del arroyo Toppenish",
     "Batalla de Warbonnet Creek": "Escaramuza del arroyo Warbonnet",
     "Batalla de White Bird Canyon": "Batalla del cañón White Bird",
+    "Batalla de Apache Pass": "Batalla del paso Apache",
+    "Batalla de Cibecue Creek": "Batalla del arroyo Cibecue",
+    "Batalla de Fort Apache": "Ataque a Fort Apache",
+    "Battle of the Tongue River": "Batalla del río Tongue",
+    "Batalla de Tongue River": "Batalla del río Tongue",
+    "Batalla de Blanco Canyon": "Batalla del cañón Blanco",
+    "Batalla de Pease River": "Batalla del río Pease",
+    "Batalla de Salt River Canyon": "Masacre de Skeleton Cave",
     "Batalla de Athens": "Batalla aérea de Atenas",
     "Batalla de Barents Sea": "Batalla del mar de Barents",
     "Batalla de Bay de Biscay": "Batalla del golfo de Vizcaya",
@@ -1003,6 +1011,20 @@
     "Batalla de Tippecanoe",
     "Batalla de Lost River",
     "Batalla del arroyo Toppenish",
+    "Batalla del paso Apache",
+    "Batalla del arroyo Cibecue",
+    "Ataque a Fort Apache",
+    "Batalla de Big Dry Wash",
+    "Batalla de Ash Hollow",
+    "Batalla del río Tongue",
+    "Batalla del cañón Blanco",
+    "Batalla del río Pease",
+    "Batalla de Summit Springs",
+    "Masacre de Skeleton Cave",
+    "Batalla de los Árboles Caídos",
+    "Batalla de Piqua",
+    "Batalla de Quebec",
+    "Batalla de Cieneguilla",
     "Batalla de Abbeville",
     "Batalla de Arras",
     "Batalla aérea de Atenas",

@@ -8,7 +8,22 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.68 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.69 antes de cerrar la siguiente version.
+
+## v1.6.69 - 2026-07-14
+
+- Fecha, jerarquiza y documenta con fuentes 14 acciones de las guerras fronterizas y campanas norteamericanas entre 1775 y 1882.
+- Completa guerra padre, campana, region, participantes, causa, resultado, consecuencias y cronologia para Quebec, Piqua, Fallen Timbers, Cieneguilla, Ash Hollow, Pease, Apache Pass, Tongue River, Summit Springs, Blanco Canyon, Skeleton Cave, Cibecue, Fort Apache y Big Dry Wash.
+- Normaliza ocho rotulos visibles mezclados con ingles y reclasifica `Batalla de Salt River Canyon` como `Masacre de Skeleton Cave` de acuerdo con la denominacion actual del NPS.
+- Corrige dos simplificaciones historicas: Pease River ya no afirma como hecho la muerte discutida de Peta Nocona y Skeleton Cave conserva tanto la atribucion yavapai como la identificacion tonto apache del Ejercito.
+- Agrega bajas solo cuando existe respaldo institucional: Cieneguilla, Big Dry Wash y Skeleton Cave mantienen cifras y cautelas de alcance explicitas.
+- Reduce los conflictos sin fecha auditados de 412 a 398 y las jerarquias provisionales de 344 a 330; el timeline pasa de 2587 a 2601 eventos fechables.
+- Regenera 14 detalles diferidos, de 831 a 845 shards, y converge con cero cambios en la segunda ejecucion.
+- Conserva trazabilidad del NPS, Army University Press, Centro de Historia Militar, Comision Historica de Texas, Ohio History Connection y Biblioteca de Virginia.
+- Agrega regresiones para cantidad, fechas, jerarquias, participantes, fuentes, tratados, bajas, cautelas historiograficas, renombres e idioma de importacion profunda.
+- Mantiene 0 alertas, incidencias, advertencias, nombres ingleses, duplicados, regiones sospechosas, religiones redundantes, mojibake y problemas de localizacion.
+- Mantiene el arranque critico en 810 KB, `script.js` en 543 KB y `countries_index.json` en 141 KB, con 0 long tasks simuladas sobre presupuesto y 55 FPS medios.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-14-release-1`.
 
 ## v1.6.68 - 2026-07-13
 

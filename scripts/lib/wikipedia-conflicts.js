@@ -108,6 +108,20 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Batalla de Tippecanoe": "Battle_of_Tippecanoe",
   "Batalla de Lost River": "Battle_of_Lost_River",
   "Batalla del arroyo Toppenish": "Battle_of_Toppenish_Creek",
+  "Batalla del paso Apache": "Battle_of_Apache_Pass",
+  "Batalla del arroyo Cibecue": "Battle_of_Cibecue_Creek",
+  "Ataque a Fort Apache": "Battle_of_Fort_Apache",
+  "Batalla de Big Dry Wash": "Battle_of_Big_Dry_Wash",
+  "Batalla de Ash Hollow": "Battle_of_Ash_Hollow",
+  "Batalla del río Tongue": "Battle_of_the_Tongue_River",
+  "Batalla del cañón Blanco": "Battle_of_Blanco_Canyon",
+  "Batalla del río Pease": "Battle_of_Pease_River",
+  "Batalla de Summit Springs": "Battle_of_Summit_Springs",
+  "Masacre de Skeleton Cave": "Skeleton_Cave_(Arizona)",
+  "Batalla de los Árboles Caídos": "Battle_of_Fallen_Timbers",
+  "Batalla de Piqua": "Battle_of_Piqua",
+  "Batalla de Quebec": "Battle_of_Quebec_(1775)",
+  "Batalla de Cieneguilla": "Battle_of_Cieneguilla",
   "Batalla de Abbeville": "Battle_of_Abbeville",
   "Batalla de Arras": "Battle_of_Arras_(1940)",
   "Batalla aérea de Atenas": "Battle_of_Athens_(1941)",
@@ -168,7 +182,7 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Batalla de Kisangani": "Batalla_de_Kisangani"
 };
 
-const ENGLISH_WIKIPEDIA_TITLE_EXCEPTIONS = new Set(["Amhara_offensive"]);
+const ENGLISH_WIKIPEDIA_TITLE_EXCEPTIONS = new Set(["Amhara_offensive", "Skeleton_Cave_(Arizona)"]);
 
 const FIELD_ALIASES = {
   fecha: "date",

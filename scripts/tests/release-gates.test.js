@@ -62,6 +62,7 @@ const war1812FollowupCuration = await fs.readFile(path.join(projectRoot, "script
 const usCivilWarFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-civil-war-followup.js"), "utf8");
 const usWwiiFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-wwii-followup.js"), "utf8");
 const usIndianWarsFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-indian-wars-followup.js"), "utf8");
+const usFrontierFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-frontier-followup.js"), "utf8");
 const britishWwiiFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-british-wwii-followup.js"), "utf8");
 const usOverseasFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-overseas-followup.js"), "utf8");
 const activeAfricaFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-active-africa-followup.js"), "utf8");
@@ -533,6 +534,34 @@ assert.ok(
     && usIndianWarsFollowupCuration.includes("nps.gov")
     && usIndianWarsFollowupCuration.includes("thc.texas.gov"),
   "la tanda de guerras indígenas debe apoyarse en fuentes institucionales"
+);
+assert.ok(conflictAutofix.includes("US_FRONTIER_FOLLOWUP_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la segunda tanda fronteriza estadounidense");
+assert.ok(usFrontierFollowupCuration.includes("hierarchySources"), "la segunda tanda fronteriza debe conservar trazabilidad");
+assert.ok(usFrontierFollowupCuration.includes('curationBatch: "source-backed-us-frontier-followup-2026-07"'), "la segunda tanda fronteriza debe quedar identificada");
+assert.ok(
+  usFrontierFollowupCuration.includes('"Batalla de Apache Pass": "Batalla del paso Apache"')
+    && usFrontierFollowupCuration.includes('"Battle of the Tongue River": "Batalla del río Tongue"')
+    && usFrontierFollowupCuration.includes('"Batalla de Salt River Canyon": "Masacre de Skeleton Cave"'),
+  "la segunda tanda fronteriza debe traducir topónimos y reclasificar Skeleton Cave"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Batalla del paso Apache": "Battle_of_Apache_Pass"')
+    && wikipediaConflicts.includes('"Masacre de Skeleton Cave": "Skeleton_Cave_(Arizona)"')
+    && wikipediaConflicts.includes('"Batalla de los Árboles Caídos": "Battle_of_Fallen_Timbers"'),
+  "los nombres fronterizos normalizados deben conservar su página de importación"
+);
+assert.ok(
+  usFrontierFollowupCuration.includes("nps.gov")
+    && usFrontierFollowupCuration.includes("armyupress.army.mil")
+    && usFrontierFollowupCuration.includes("thc.texas.gov")
+    && usFrontierFollowupCuration.includes("ohiohistory.org")
+    && usFrontierFollowupCuration.includes("virginia.gov"),
+  "la segunda tanda fronteriza debe apoyarse en fuentes institucionales diversas"
+);
+assert.ok(
+  usFrontierFollowupCuration.includes("El Ejército identificó entonces a las víctimas como tonto apache")
+    && usFrontierFollowupCuration.includes("Se omite la afirmación tradicional de que Peta Nocona murió allí"),
+  "la segunda tanda fronteriza debe conservar las cautelas historiográficas"
 );
 assert.ok(conflictAutofix.includes("BRITISH_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda británica de la Segunda Guerra Mundial");
 assert.ok(britishWwiiFollowupCuration.includes("hierarchySources"), "la tanda británica debe conservar trazabilidad");
