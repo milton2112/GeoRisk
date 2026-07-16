@@ -65,6 +65,7 @@ const usIndianWarsFollowupCuration = await fs.readFile(path.join(projectRoot, "s
 const usFrontierFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-frontier-followup.js"), "utf8");
 const usCaribbeanFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-caribbean-followup.js"), "utf8");
 const australiaDenmarkFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-australia-denmark-followup.js"), "utf8");
+const usIndigenousFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-indigenous-followup.js"), "utf8");
 const britishWwiiFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-british-wwii-followup.js"), "utf8");
 const usOverseasFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-overseas-followup.js"), "utf8");
 const activeAfricaFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-active-africa-followup.js"), "utf8");
@@ -626,6 +627,31 @@ assert.ok(
     && australiaDenmarkFollowupCuration.includes("natmus.dk")
     && australiaDenmarkFollowupCuration.includes("peacekeeping.un.org"),
   "la tanda debe apoyarse en fuentes institucionales australianas, danesas y de Naciones Unidas"
+);
+assert.ok(conflictAutofix.includes("US_INDIGENOUS_FOLLOWUP_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda indígena estadounidense");
+assert.ok(conflictAutofix.includes("US_INDIGENOUS_FOLLOWUP_SAFE_CONFLICT_RENAMES"), "autofix debe aplicar nombres curados y fusionar alias de la tanda indígena");
+assert.ok(usIndigenousFollowupCuration.includes('curationBatch: "source-backed-us-indigenous-followup-2026-07"'), "la tanda indígena debe quedar identificada");
+assert.ok(
+  usIndigenousFollowupCuration.includes('"Batalla de Dry Lake": "Batalla de Dry Lake (1873)"')
+    && usIndigenousFollowupCuration.includes('"Batalla de Sand Butte": "Batalla de Dry Lake (1873)"')
+    && usIndigenousFollowupCuration.includes('"Batalla de Turner\'s Falls": "Masacre de Peskeompskut (1676)"')
+    && usIndigenousFollowupCuration.includes('"Batalla de Kelley Creek": "Masacre de Kelley Creek (1911)"'),
+  "la tanda debe fusionar Dry Lake, recuperar Peskeompskut y reclasificar Kelley Creek"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Masacre de Peskeompskut (1676)": "Battle_of_Turner\'s_Falls"')
+    && wikipediaConflicts.includes('"Batalla del cañón de Ojo Caliente (1854)"')
+    && wikipediaConflicts.includes('"Masacre de Kelley Creek (1911)"')
+    && wikipediaConflicts.includes('"Combate de Bear Valley (1918)"'),
+  "los nombres curados de la tanda indígena deben conservar páginas de importación profunda"
+);
+assert.ok(
+  usIndigenousFollowupCuration.includes("nps.gov")
+    && usIndigenousFollowupCuration.includes("army.mil")
+    && usIndigenousFollowupCuration.includes("mnhs.org")
+    && usIndigenousFollowupCuration.includes("loc.gov")
+    && usIndigenousFollowupCuration.includes("sudbury.ma.us"),
+  "la tanda indígena debe apoyarse en fuentes federales, estatales y municipales diversas"
 );
 assert.ok(conflictAutofix.includes("BRITISH_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda británica de la Segunda Guerra Mundial");
 assert.ok(britishWwiiFollowupCuration.includes("hierarchySources"), "la tanda británica debe conservar trazabilidad");

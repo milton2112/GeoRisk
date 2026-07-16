@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-07-15T01:52:41.232Z",
+  "generatedAt": "2026-07-16T20:26:07.041Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 9651787,
-    "duplicatedCountryFilesBytes": 1472087,
-    "countryConflictShardBytes": 375091,
+    "fullBytes": 9664459,
+    "duplicatedCountryFilesBytes": 1472136,
+    "countryConflictShardBytes": 375363,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "USA",
         "name": "Estados Unidos",
-        "bytes": 23805,
-        "inlineBytes": 3017737,
+        "bytes": 23854,
+        "inlineBytes": 3030409,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,13 +21,13 @@
           "religionGroups": 7,
           "organizations": 55,
           "rivals": 85,
-          "conflicts": 922,
+          "conflicts": 921,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
             "politics": 9973,
-            "military": 9860,
+            "military": 9909,
             "metadata": 1951,
             "general": 978,
             "history": 394,
@@ -43,7 +43,7 @@
             },
             {
               "section": "military",
-              "bytes": 9860
+              "bytes": 9909
             },
             {
               "section": "metadata",
@@ -54,9 +54,9 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 208755,
-          "conflictShardBytes": 208756,
-          "averageConflictBytes": 226
+          "conflictsBytes": 209027,
+          "conflictShardBytes": 209028,
+          "averageConflictBytes": 227
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 379,
+    "pendingCount": 369,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15304,19 +15304,6 @@
         ],
         "regions": [
           "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Bear Valley",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"
@@ -15883,19 +15870,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Dry Lake",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Dschask",
         "countries": [
           "PRT"
@@ -16014,19 +15988,6 @@
       },
       {
         "name": "Batalla de Florida Mountains",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Fort Buchanan",
         "countries": [
           "USA"
         ],
@@ -16611,19 +16572,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Kelley Creek",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Kemp's Landing",
         "countries": [
           "USA"
@@ -17163,6 +17111,58 @@
         ],
         "regions": [
           "África"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Mona Passage",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Monday's Hollow",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Monongahela",
+        "countries": [
+          "GBR"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Mount Gray",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
         ],
         "types": [
           "interestatal"

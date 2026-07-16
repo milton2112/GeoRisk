@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-15T01:52:58.733Z",
+  "generatedAt": "2026-07-16T20:26:27.049Z",
   "changedFullCountries": 0,
   "fullPassChanges": [
     0
@@ -11,7 +11,7 @@
     "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 817,
+  "generatedHierarchyCandidates": 826,
   "countryConflictAdditions": {
     "Estados Unidos": [
       "Batalla de Manila (1945)"
@@ -324,6 +324,16 @@
     "Batalla de Schleswig": "Batalla de Schleswig (1848)",
     "Invasion indonesia de Timor Oriental": "Invasion indonesia de Timor Oriental (1975)",
     "Crisis de Timor Oriental": "Crisis de Timor Oriental de 2006",
+    "Batalla de Turner's Falls": "Masacre de Peskeompskut (1676)",
+    "Batalla de Sudbury": "Combate de Sudbury (1676)",
+    "Batalla de Ojo Caliente Canyon": "Batalla del cañón de Ojo Caliente (1854)",
+    "Batalla de Fort Buchanan": "Ataque a Fort Buchanan (1865)",
+    "Batalla de Dry Lake": "Batalla de Dry Lake (1873)",
+    "Batalla de Sand Butte": "Batalla de Dry Lake (1873)",
+    "Batalla de Turret Peak": "Batalla de Turret Peak (1873)",
+    "Batalla de Sugar Point": "Combate de Sugar Point (1898)",
+    "Batalla de Kelley Creek": "Masacre de Kelley Creek (1911)",
+    "Batalla de Bear Valley": "Combate de Bear Valley (1918)",
     "Batalla de Athens": "Batalla aérea de Atenas",
     "Batalla de Barents Sea": "Batalla del mar de Barents",
     "Batalla de Bay de Biscay": "Batalla del golfo de Vizcaya",
@@ -1083,6 +1093,15 @@
     "Invasion indonesia de Timor Oriental (1975)",
     "Ocupacion indonesia de Timor Oriental",
     "Crisis de Timor Oriental de 2006",
+    "Masacre de Peskeompskut (1676)",
+    "Combate de Sudbury (1676)",
+    "Batalla del cañón de Ojo Caliente (1854)",
+    "Ataque a Fort Buchanan (1865)",
+    "Batalla de Dry Lake (1873)",
+    "Batalla de Turret Peak (1873)",
+    "Combate de Sugar Point (1898)",
+    "Masacre de Kelley Creek (1911)",
+    "Combate de Bear Valley (1918)",
     "Batalla de Abbeville",
     "Batalla de Arras",
     "Batalla aérea de Atenas",

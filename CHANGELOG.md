@@ -8,7 +8,22 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.71 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.72 antes de cerrar la siguiente version.
+
+## v1.6.72 - 2026-07-16
+
+- Fecha, jerarquiza y documenta con fuentes nueve conflictos indigenas de Estados Unidos entre 1676 y 1918: Peskeompskut, Sudbury, Ojo Caliente, Fort Buchanan, Dry Lake, Turret Peak, Sugar Point, Kelley Creek y Bear Valley.
+- Completa guerra padre, campana, region, participantes, causa, resultado, consecuencias, cronologia y cautelas editoriales con fuentes del NPS, Ejercito estadounidense, Biblioteca del Congreso y archivos historicos estatales y municipales.
+- Fusiona `Batalla de Dry Lake` y `Batalla de Sand Butte`, dos nombres de la misma accion de la Guerra modoc que el importador trataba como conflictos separados.
+- Reemplaza `Batalla de Turner's Falls` por `Masacre de Peskeompskut (1676)`, recupera el toponimo indigena y distingue la matanza de civiles del combate durante la retirada colonial.
+- Reclasifica Kelley Creek como persecucion policial y masacre de una familia shoshone, no como guerra interestatal, y documenta la incertidumbre sobre la atribucion de los homicidios que iniciaron la persecucion.
+- Traduce y desambigua el canon de Ojo Caliente de 1854, separa el ataque a Fort Buchanan de una batalla campal y contextualiza Sugar Point, Turret Peak y Bear Valley sin consolidar cifras discutidas.
+- Reduce los conflictos sin fecha auditados de 380 a 370 y las jerarquias provisionales de 312 a 302; el timeline pasa de 2634 a 2643 eventos fechables.
+- Regenera el indice liviano de conflictos de 1622 a 1631 entradas y los detalles diferidos de 866 a 875 shards; la segunda ejecucion converge con cero cambios.
+- Agrega regresiones para nombres canonicos, fechas, padres, campanas, fuentes, participantes, clasificaciones, paginas de importacion y la ausencia de los diez rotulos antiguos en los datos servidos.
+- Mantiene 0 alertas, incidencias, advertencias, nombres ingleses, duplicados, regiones sospechosas, religiones redundantes, mojibake y problemas de localizacion.
+- Mantiene el arranque critico en 810 KB, `script.js` en 543 KB y `countries_index.json` en 141 KB, con 0 long tasks simuladas sobre presupuesto y 55 FPS medios.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-16-release-1`.
 
 ## v1.6.71 - 2026-07-14
 

@@ -70,6 +70,10 @@ import {
   AUSTRALIA_DENMARK_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-australia-denmark-followup.js";
 import {
+  US_INDIGENOUS_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  US_INDIGENOUS_FOLLOWUP_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-us-indigenous-followup.js";
+import {
   BRITISH_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   BRITISH_WWII_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-british-wwii-followup.js";
@@ -476,6 +480,39 @@ assert.ok(
       && Array.isArray(detail.treaties)
   ),
   "la tanda de Australia, Dinamarca y Timor debe conservar fecha, jerarquia, fuentes, participantes y contexto editorial"
+);
+assert.equal(Object.keys(US_INDIGENOUS_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 9);
+assert.equal(Object.keys(US_INDIGENOUS_FOLLOWUP_SAFE_CONFLICT_RENAMES).length, 10);
+assert.equal(US_INDIGENOUS_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Dry Lake"], "Batalla de Dry Lake (1873)");
+assert.equal(US_INDIGENOUS_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Sand Butte"], "Batalla de Dry Lake (1873)");
+assert.equal(US_INDIGENOUS_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Turner's Falls"], "Masacre de Peskeompskut (1676)");
+assert.equal(US_INDIGENOUS_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Kelley Creek"], "Masacre de Kelley Creek (1911)");
+assert.equal(US_INDIGENOUS_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla del cañón de Ojo Caliente (1854)"].parent, "Guerra jicarilla");
+assert.equal(US_INDIGENOUS_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Dry Lake (1873)"].parent, "Guerra modoc");
+assert.equal(US_INDIGENOUS_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Turret Peak (1873)"].parent, "Guerra tonto");
+assert.equal(US_INDIGENOUS_FOLLOWUP_CONFLICT_DETAIL_FIXES["Combate de Bear Valley (1918)"].conflictType, "frontera");
+assert.match(US_INDIGENOUS_FOLLOWUP_CONFLICT_DETAIL_FIXES["Masacre de Kelley Creek (1911)"].curationNote, /persecución policial/i);
+assert.ok(
+  Object.values(US_INDIGENOUS_FOLLOWUP_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.endYear === detail.startYear
+      && detail.parent
+      && detail.parent === detail.war
+      && detail.campaign
+      && detail.region
+      && detail.cause
+      && detail.outcome
+      && detail.consequences
+      && detail.chronology?.length >= 1
+      && detail.chronology.every(item => Number.isInteger(item.year) && item.event)
+      && ["alta", "media"].includes(detail.hierarchyConfidence)
+      && detail.hierarchySources?.length >= 1
+      && detail.hierarchySources.every(source => source.label && source.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties)
+  ),
+  "la tanda indígena estadounidense debe conservar jerarquia, fuentes, participantes y cautelas editoriales"
 );
 assert.equal(Object.keys(BRITISH_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 26);
 assert.equal(Object.keys(BRITISH_WWII_FOLLOWUP_SAFE_CONFLICT_RENAMES).length, 18);

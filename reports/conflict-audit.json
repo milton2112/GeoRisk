@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-15T01:55:59.038Z",
-  "scannedConflicts": 2003,
+  "generatedAt": "2026-07-16T20:27:25.827Z",
+  "scannedConflicts": 2002,
   "issueCount": 0,
-  "advisoryCount": 312,
-  "reviewCount": 312,
+  "advisoryCount": 302,
+  "reviewCount": 302,
   "summary": {
-    "provisional_parent": 312
+    "provisional_parent": 302
   },
   "topIssues": [],
   "topAdvisories": [
@@ -158,20 +158,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de bear valley",
-      "name": "Batalla de Bear Valley",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],
@@ -780,20 +766,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de dry lake",
-      "name": "Batalla de Dry Lake",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de dschask",
       "name": "Batalla de Dschask",
       "countries": [
@@ -908,20 +880,6 @@
     {
       "key": "batalla de florida mountains",
       "name": "Batalla de Florida Mountains",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de fort buchanan",
-      "name": "Batalla de Fort Buchanan",
       "countries": [
         "USA"
       ],
@@ -1120,6 +1078,48 @@
       "name": "Batalla de Gyanafalva",
       "countries": [
         "AUT"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de hamel",
+      "name": "Batalla de Hamel",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de happo",
+      "name": "Batalla de Happo",
+      "countries": [
+        "JPN"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de havana",
+      "name": "Batalla de Havana",
+      "countries": [
+        "FRA"
       ],
       "startYear": null,
       "endYear": null,

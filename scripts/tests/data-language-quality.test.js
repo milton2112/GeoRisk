@@ -35,6 +35,40 @@ assert.ok(countries.FRA.military.conflicts.some(entry => entry.name === "Primera
 assert.ok(countries.DEU.military.conflicts.some(entry => entry.name === "Batalla de Schleswig (1848)"), "Alemania debe vincular Schleswig de 1848");
 assert.ok(countries.DEU.military.conflicts.some(entry => entry.name === "Batalla de Isted"), "Alemania debe vincular Isted");
 
+const usaConflicts = countries.USA.military.conflicts;
+const curatedUsIndigenousNames = [
+  "Masacre de Peskeompskut (1676)",
+  "Combate de Sudbury (1676)",
+  "Batalla del cañón de Ojo Caliente (1854)",
+  "Ataque a Fort Buchanan (1865)",
+  "Batalla de Dry Lake (1873)",
+  "Batalla de Turret Peak (1873)",
+  "Combate de Sugar Point (1898)",
+  "Masacre de Kelley Creek (1911)",
+  "Combate de Bear Valley (1918)"
+];
+for (const name of curatedUsIndigenousNames) {
+  const matches = usaConflicts.filter(entry => entry.name === name);
+  assert.equal(matches.length, 1, `${name} debe aparecer una sola vez en Estados Unidos`);
+  assert.ok(Number.isInteger(matches[0].startYear), `${name} debe conservar una fecha estructurada`);
+  assert.ok(matches[0].hierarchySources?.length >= 1, `${name} debe exponer fuentes de jerarquía`);
+  assert.doesNotMatch(matches[0].parent || "", /^Conflicto regional de /, `${name} no debe conservar jerarquía provisional`);
+}
+for (const oldName of [
+  "Batalla de Turner's Falls",
+  "Batalla de Sudbury",
+  "Batalla de Ojo Caliente Canyon",
+  "Batalla de Fort Buchanan",
+  "Batalla de Dry Lake",
+  "Batalla de Sand Butte",
+  "Batalla de Turret Peak",
+  "Batalla de Sugar Point",
+  "Batalla de Kelley Creek",
+  "Batalla de Bear Valley"
+]) {
+  assert.equal(usaConflicts.some(entry => entry.name === oldName), false, `${oldName} no debe reaparecer después de la curaduría`);
+}
+
 function collectJsonFiles(directory) {
   return fs.readdirSync(directory, { withFileTypes: true }).flatMap(entry => {
     const fullPath = `${directory}/${entry.name}`;
