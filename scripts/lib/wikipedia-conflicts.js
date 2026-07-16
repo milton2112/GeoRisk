@@ -231,10 +231,26 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Batalla de Jutlandia": "Batalla_de_Jutlandia",
   "Batalla de Faluya": "Primera_batalla_de_Faluya",
   "Batalla de Kapyong": "Batalla_de_Kapyong",
-  "Batalla de Kisangani": "Batalla_de_Kisangani"
+  "Batalla de Kisangani": "Batalla_de_Kisangani",
+  "Acción naval de Happo (1592)": "Battle_of_Happo",
+  "Ataque al fondeadero de Jeokjinpo (1592)": "Battle_of_Jeokjinpo",
+  "Batalla naval de Sacheon (1592)": "Battle_of_Sacheon_(1592)",
+  "Batalla naval de Dangpo (1592)": "Battle_of_Dangpo_(1592)",
+  "Primera batalla naval de Danghangpo (1592)": "Battle_of_Danghangpo",
+  "Batalla naval de Yulpo (1592)": "List_of_naval_battles_during_the_Imjin_War",
+  "Acción naval de Hwajungumi (1592)": "List_of_naval_battles_during_the_Imjin_War",
+  "Batalla naval de Busan (1592)": "Battle_of_Busan",
+  "Escaramuza naval de Eoranpo (1597)": "List_of_naval_battles_during_the_Imjin_War",
+  "Batalla naval de Myeongnyang (1597)": "Battle_of_Myeongnyang",
+  "Batalla naval de Jeolido (1598)": "List_of_naval_battles_during_the_Imjin_War",
+  "Batalla naval de Noryang (1598)": "Battle_of_Noryang"
 };
 
-const ENGLISH_WIKIPEDIA_TITLE_EXCEPTIONS = new Set(["Amhara_offensive", "Skeleton_Cave_(Arizona)"]);
+const ENGLISH_WIKIPEDIA_TITLE_EXCEPTIONS = new Set([
+  "Amhara_offensive",
+  "Skeleton_Cave_(Arizona)",
+  "List_of_naval_battles_during_the_Imjin_War"
+]);
 
 const FIELD_ALIASES = {
   fecha: "date",

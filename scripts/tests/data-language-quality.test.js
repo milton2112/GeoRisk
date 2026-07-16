@@ -850,6 +850,83 @@ for (const expectation of visibleHierarchyExpectations) {
   assert.ok(detail?.hierarchySources?.[0]?.url, `${expectation.name} debe publicar la fuente de su jerarquia`);
 }
 
+const japanKoreaNavalExpectations = [
+  { name: "Acción naval de Happo (1592)", startYear: 1592, type: "acción naval" },
+  { name: "Ataque al fondeadero de Jeokjinpo (1592)", startYear: 1592, type: "ataque a fondeadero" },
+  { name: "Batalla naval de Sacheon (1592)", startYear: 1592, type: "batalla naval" },
+  { name: "Batalla naval de Dangpo (1592)", startYear: 1592, type: "batalla naval" },
+  { name: "Primera batalla naval de Danghangpo (1592)", startYear: 1592, type: "batalla naval" },
+  { name: "Batalla naval de Yulpo (1592)", startYear: 1592, type: "batalla naval" },
+  { name: "Acción naval de Hwajungumi (1592)", startYear: 1592, type: "acción naval" },
+  { name: "Batalla naval de Busan (1592)", startYear: 1592, type: "batalla naval" },
+  { name: "Escaramuza naval de Eoranpo (1597)", startYear: 1597, type: "escaramuza naval" },
+  { name: "Batalla naval de Myeongnyang (1597)", startYear: 1597, type: "batalla naval" },
+  { name: "Batalla naval de Jeolido (1598)", startYear: 1598, type: "batalla naval" },
+  { name: "Batalla naval de Noryang (1598)", startYear: 1598, type: "batalla naval" }
+];
+const getConflictDetailByVisibleName = name => Object.entries(conflictDetails.conflicts || {})
+  .find(([key, detail]) => normalizeDataLabel(detail?.pageTitle || key) === normalizeDataLabel(name))?.[1];
+for (const expectation of japanKoreaNavalExpectations) {
+  const entries = Object.values(countries).flatMap(country => country.military?.conflicts || [])
+    .filter(conflict => conflict.name === expectation.name);
+  assert.ok(entries.length >= 2, `${expectation.name} debe vincularse al menos con Japón y Corea del Sur`);
+  assert.ok(
+    entries.every(conflict =>
+      conflict.parent === "Invasiones japonesas de Corea (1592-1598)"
+        && conflict.war === conflict.parent
+        && conflict.startYear === expectation.startYear
+        && conflict.endYear === expectation.startYear
+        && conflict.type === expectation.type
+    ),
+    `${expectation.name} debe conservar fecha, tipo y guerra padre documentados`
+  );
+  const detail = getConflictDetailByVisibleName(expectation.name);
+  assert.equal(
+    detail?.curationBatch,
+    "source-backed-japan-korea-naval-followup-2026-07",
+    `${expectation.name} debe conservar el lote editorial`
+  );
+  assert.equal(detail?.hierarchyConfidence, "alta", `${expectation.name} debe declarar confianza de jerarquia`);
+  assert.ok(detail?.hierarchySources?.length >= 2, `${expectation.name} debe publicar fuentes múltiples`);
+  assert.ok(detail?.curationNote, `${expectation.name} debe explicar la decisión editorial`);
+  assert.equal(detail?.pageTitle, expectation.name, `${expectation.name} debe conservar su ortografía pública canónica`);
+}
+const koreanConflictNames = new Set(countries.KOR.military.conflicts.map(conflict => conflict.name));
+assert.ok(
+  japanKoreaNavalExpectations.every(expectation => koreanConflictNames.has(expectation.name)),
+  "Corea del Sur debe exponer las doce acciones navales de Imjin"
+);
+assert.ok(
+  countries.CHN.military.conflicts.some(conflict => conflict.name === "Batalla naval de Noryang (1598)"),
+  "China debe vincular Noryang por la intervención de la flota Ming"
+);
+assert.deepEqual(
+  getConflictDetailByVisibleName("Batalla naval de Noryang (1598)")?.participants?.[0]?.members,
+  ["Reino de Joseon", "Imperio Ming"],
+  "Noryang debe conservar a Joseon y Ming en el bando aliado"
+);
+assert.equal(
+  getConflictDetailByVisibleName("Batalla naval de Busan (1592)")?.sourceDispute,
+  true,
+  "Busan debe advertir que las cifras y el alcance estratégico están discutidos"
+);
+const staleJapanKoreaNavalNames = Object.values(countries).flatMap(country => country.military?.conflicts || [])
+  .filter(conflict => [
+    "Batalla de Happo",
+    "Batalla de Jeokjinpo",
+    "Batalla de Sacheon",
+    "Batalla de Dangpo",
+    "Batalla de Danghangpo",
+    "Batalla de Yulpo",
+    "Batalla de Hwajungumi",
+    "Batalla de Busan",
+    "Batalla de Eoranpo",
+    "Batalla de Myeongnyang",
+    "Batalla de Jeolido",
+    "Batalla de Noryang"
+  ].includes(conflict.name));
+assert.deepEqual(staleJapanKoreaNavalNames, [], "los nombres navales ambiguos o sin año no deben reaparecer");
+
 const frontierSecondFollowupExpectations = [
   { name: "Ataque a Kenapacomaqua (1791)", parent: "Guerra indígena del Noroeste", startYear: 1791 },
   { name: "Masacre de Claremore Mound (1817)", parent: "Conflicto osage-cheroqui", startYear: 1817 },

@@ -93,6 +93,11 @@ import {
   ACTIVE_AFRICA_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   ACTIVE_AFRICA_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-active-africa-followup.js";
+import {
+  JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  JAPAN_KOREA_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
+  JAPAN_KOREA_FOLLOWUP_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-japan-korea-followup.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -720,6 +725,58 @@ assert.ok(
   ),
   "la tanda africana reciente debe conservar jerarquia, cautelas editoriales, dos fuentes y participantes reales"
 );
+assert.equal(Object.keys(JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 12);
+assert.equal(Object.keys(JAPAN_KOREA_FOLLOWUP_SAFE_CONFLICT_RENAMES).length, 12);
+assert.equal(JAPAN_KOREA_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS["Corea del Sur"].length, 12);
+assert.deepEqual(
+  JAPAN_KOREA_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS["República Popular China"],
+  ["Batalla naval de Noryang (1598)"]
+);
+assert.equal(JAPAN_KOREA_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Happo"], "Acción naval de Happo (1592)");
+assert.equal(
+  JAPAN_KOREA_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Danghangpo"],
+  "Primera batalla naval de Danghangpo (1592)"
+);
+assert.equal(JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Acción naval de Happo (1592)"].type, "acción naval");
+assert.equal(
+  JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Ataque al fondeadero de Jeokjinpo (1592)"].type,
+  "ataque a fondeadero"
+);
+assert.equal(
+  JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Escaramuza naval de Eoranpo (1597)"].type,
+  "escaramuza naval"
+);
+assert.equal(JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla naval de Busan (1592)"].sourceDispute, true);
+assert.equal(JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla naval de Jeolido (1598)"].sourceDispute, true);
+assert.deepEqual(
+  JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla naval de Noryang (1598)"].participants[0].members,
+  ["Reino de Joseon", "Imperio Ming"]
+);
+assert.ok(
+  Object.values(JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent === "Invasiones japonesas de Corea (1592-1598)"
+      && detail.war === detail.parent
+      && detail.campaign
+      && detail.region
+      && detail.normalizedRegion === detail.region
+      && detail.cause
+      && detail.outcome
+      && detail.consequences
+      && detail.chronology?.length >= 1
+      && detail.chronology.every(event => event.year === detail.startYear && event.event)
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 2
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties)
+      && detail.curationBatch === "source-backed-japan-korea-naval-followup-2026-07"
+      && detail.curationNote
+  ),
+  "la tanda naval de Imjin debe conservar fechas, jerarquia, fuentes, participantes y cautelas editoriales"
+);
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",
   startYear: 1944,
@@ -770,6 +827,12 @@ assert.equal(amharaWikipediaOverride.pageTitle, "Amhara_offensive");
 const boulikessiWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Boulikessi (2025)");
 assert.equal(boulikessiWikipediaOverride.language, "en");
 assert.equal(boulikessiWikipediaOverride.pageTitle, "Battle_of_Boulikessi_(2025)");
+const happoWikipediaOverride = await resolveWikipediaConflictTitle("Acción naval de Happo (1592)");
+assert.equal(happoWikipediaOverride.language, "en");
+assert.equal(happoWikipediaOverride.pageTitle, "Battle_of_Happo");
+const yulpoWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval de Yulpo (1592)");
+assert.equal(yulpoWikipediaOverride.language, "en");
+assert.equal(yulpoWikipediaOverride.pageTitle, "List_of_naval_battles_during_the_Imjin_War");
 const spanishWikipediaOverride = await resolveWikipediaConflictTitle("Guerra de Corea");
 assert.equal(spanishWikipediaOverride.language, "es");
 assert.match(spanishWikipediaOverride.apiUrl, /^https:\/\/es\.wikipedia\.org\//);
@@ -898,6 +961,7 @@ const report = buildConflictAuditReport({
           { name: "Batalla de Horseshoe Bend" },
           { name: "Batalla de Norwalk" },
           { name: "Batalla de Fort Slongo" },
+          { name: "Batalla de Happo" },
           { name: "Adriatic Campaign de World War II", startYear: 1939, endYear: 1945 }
         ]
       }
@@ -944,5 +1008,6 @@ assert.ok(!report.topIssues.some(item => item.name === "Batalla de Manila"), "el
 assert.ok(!report.topAdvisories.some(item => item.name === "Sitio de Fort Wayne"), "Fort Wayne debe usar la guerra de 1812");
 assert.ok(!report.topAdvisories.some(item => item.name === "Batalla del río Canard"), "River Canard debe quedar traducida y jerarquizada");
 assert.ok(!report.topAdvisories.some(item => item.name === "Batalla de Horseshoe Bend"), "Horseshoe Bend debe usar Guerra Creek");
+assert.ok(!report.topAdvisories.some(item => item.name === "Acción naval de Happo (1592)"), "Happo debe usar la guerra de Imjin verificada");
 
 console.log("conflict-autofix.test.js ok");

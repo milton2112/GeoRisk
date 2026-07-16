@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-07-16T22:36:30.537Z",
+  "generatedAt": "2026-07-16T23:21:17.611Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 9696341,
-    "duplicatedCountryFilesBytes": 1472259,
+    "fullBytes": 9778805,
+    "duplicatedCountryFilesBytes": 1477630,
     "countryConflictShardBytes": 376710,
     "tooLargeCount": 0,
     "largest": [
@@ -261,6 +261,57 @@
           "conflictsBytes": 7043,
           "conflictShardBytes": 0,
           "averageConflictBytes": 220
+        }
+      },
+      {
+        "code": "KOR",
+        "name": "Corea del Sur",
+        "bytes": 16985,
+        "inlineBytes": 116984,
+        "tooLarge": false,
+        "counts": {
+          "cities": 5,
+          "capitals": 1,
+          "languages": 1,
+          "religionGroups": 5,
+          "organizations": 31,
+          "rivals": 51,
+          "conflicts": 28,
+          "timelineEvents": 3
+        },
+        "metrics": {
+          "sectionBytes": {
+            "military": 7120,
+            "politics": 6254,
+            "metadata": 1927,
+            "general": 866,
+            "history": 306,
+            "religion": 288,
+            "economy": 99,
+            "name": 15,
+            "continent": 6
+          },
+          "largestSections": [
+            {
+              "section": "military",
+              "bytes": 7120
+            },
+            {
+              "section": "politics",
+              "bytes": 6254
+            },
+            {
+              "section": "metadata",
+              "bytes": 1927
+            },
+            {
+              "section": "general",
+              "bytes": 866
+            }
+          ],
+          "conflictsBytes": 7001,
+          "conflictShardBytes": 0,
+          "averageConflictBytes": 250
         }
       },
       {
@@ -567,57 +618,6 @@
           "conflictsBytes": 28685,
           "conflictShardBytes": 28686,
           "averageConflictBytes": 191
-        }
-      },
-      {
-        "code": "DEU",
-        "name": "Alemania",
-        "bytes": 14064,
-        "inlineBytes": 48527,
-        "tooLarge": false,
-        "counts": {
-          "cities": 5,
-          "capitals": 1,
-          "languages": 5,
-          "religionGroups": 5,
-          "organizations": 79,
-          "rivals": 21,
-          "conflicts": 11,
-          "timelineEvents": 4
-        },
-        "metrics": {
-          "sectionBytes": {
-            "politics": 8058,
-            "military": 2190,
-            "metadata": 1952,
-            "general": 992,
-            "history": 349,
-            "religion": 300,
-            "economy": 101,
-            "name": 10,
-            "continent": 8
-          },
-          "largestSections": [
-            {
-              "section": "politics",
-              "bytes": 8058
-            },
-            {
-              "section": "military",
-              "bytes": 2190
-            },
-            {
-              "section": "metadata",
-              "bytes": 1952
-            },
-            {
-              "section": "general",
-              "bytes": 992
-            }
-          ],
-          "conflictsBytes": 2073,
-          "conflictShardBytes": 0,
-          "averageConflictBytes": 188
         }
       }
     ]
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 349,
+    "pendingCount": 337,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15376,19 +15376,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Busan",
-        "countries": [
-          "JPN"
-        ],
-        "regions": [
-          "Asia"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Cabo Bojador",
         "countries": [
           "MAR"
@@ -15623,32 +15610,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Danghangpo",
-        "countries": [
-          "JPN"
-        ],
-        "regions": [
-          "Asia"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Dangpo",
-        "countries": [
-          "JPN"
-        ],
-        "regions": [
-          "Asia"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Danny Boy",
         "countries": [
           "GBR"
@@ -15850,19 +15811,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Eoranpo",
-        "countries": [
-          "JPN"
-        ],
-        "regions": [
-          "Asia"
         ],
         "types": [
           "interestatal"
@@ -16130,19 +16078,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Happo",
-        "countries": [
-          "JPN"
-        ],
-        "regions": [
-          "Asia"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Havana",
         "countries": [
           "FRA"
@@ -16260,19 +16195,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Hwajungumi",
-        "countries": [
-          "JPN"
-        ],
-        "regions": [
-          "Asia"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Hyères Islands",
         "countries": [
           "FRA"
@@ -16357,32 +16279,6 @@
         ],
         "regions": [
           "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Jeokjinpo",
-        "countries": [
-          "JPN"
-        ],
-        "regions": [
-          "Asia"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Jeolido",
-        "countries": [
-          "JPN"
-        ],
-        "regions": [
-          "Asia"
         ],
         "types": [
           "interestatal"
@@ -17027,19 +16923,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Myeongnyang",
-        "countries": [
-          "JPN"
-        ],
-        "regions": [
-          "Asia"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Napue",
         "countries": [
           "SWE"
@@ -17118,19 +17001,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Noryang",
-        "countries": [
-          "JPN"
-        ],
-        "regions": [
-          "Asia"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Notch",
         "countries": [
           "USA"
@@ -17160,6 +17030,136 @@
         "name": "Batalla de Nur Shams",
         "countries": [
           "GBR"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Ochamchira",
+        "countries": [
+          "GEO"
+        ],
+        "regions": [
+          "Asia"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Oliwa",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Omdurmán",
+        "countries": [
+          "GBR"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Orford Ness",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Ösel Island",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Ostróda",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Palikao",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Paye",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Pecos River",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Petäjäsaari",
+        "countries": [
+          "FIN"
         ],
         "regions": [
           "Europa"

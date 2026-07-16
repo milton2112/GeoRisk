@@ -8,7 +8,23 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.74 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.75 antes de cerrar la siguiente version.
+
+## v1.6.75 - 2026-07-16
+
+- Fecha, jerarquiza y documenta con fuentes doce acciones navales de las invasiones japonesas de Corea entre 1592 y 1598: Happo, Jeokjinpo, Sacheon, Dangpo, Danghangpo, Yulpo, Hwajungumi, Busan, Eoranpo, Myeongnyang, Jeolido y Noryang.
+- Completa guerra padre, campana, region, participantes, causa, resultado, consecuencias, cronologia, acuerdos de cierre y cautelas editoriales con fuentes historicas oficiales coreanas, estudios academicos y el expediente UNESCO del `Nanjung Ilgi`.
+- Reclasifica Happo como accion contra buques abandonados, Jeokjinpo como ataque a un fondeadero y Eoranpo como escaramuza y persecucion, evitando presentarlas como batallas campales.
+- Distingue la batalla naval de Sacheon de 1592 de la terrestre de 1598, Dangpo de la accion homonima de 1604 y la primera batalla de Danghangpo de la segunda accion de 1594.
+- Separa en Busan el exito tactico de la falta de conquista del puerto y conserva como disputadas las cifras de Jeokjinpo, Myeongnyang, Jeolido y Noryang y la localizacion reconstruida de Hwajungumi.
+- Vincula las doce acciones con Corea del Sur y Noryang con China por la participacion de la flota Ming, sin duplicarlas dentro de las fichas nacionales.
+- Mantiene `Batalla de Chobayashiura` y `Batalla de Hekihazu` en revision provisional: no se les asigna una identidad historica sin respaldo verificable.
+- Reduce los conflictos sin fecha auditados de 350 a 338 y las jerarquias provisionales de 282 a 270; el timeline pasa de 2663 a 2688 eventos fechables.
+- Regenera el indice liviano de conflictos de 1651 a 1663 entradas y los detalles diferidos de 895 a 907 shards; la segunda ejecucion converge con cero cambios.
+- Agrega regresiones para nombres canonicos, fechas, tipos, jerarquia, asociaciones nacionales, fuentes, notas de confianza, paginas de contexto y ausencia de los doce rotulos ambiguos anteriores.
+- Mantiene 0 alertas, nombres ingleses, duplicados, regiones sospechosas, religiones redundantes, mojibake y problemas de localizacion.
+- Mantiene el arranque critico en 810 KB, `script.js` en 543 KB y `countries_index.json` en 141 KB, con 0 long tasks simuladas sobre presupuesto y 55 FPS medios.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-16-release-4`.
 
 ## v1.6.74 - 2026-07-16
 

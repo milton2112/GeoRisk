@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-16T22:37:05.290Z",
+  "generatedAt": "2026-07-16T23:24:17.530Z",
   "changedFullCountries": 0,
   "fullPassChanges": [
     0
@@ -11,7 +11,7 @@
     "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 846,
+  "generatedHierarchyCandidates": 858,
   "countryConflictAdditions": {
     "Estados Unidos": [
       "Batalla de Manila (1945)"
@@ -44,6 +44,23 @@
     "Alemania": [
       "Batalla de Schleswig (1848)",
       "Batalla de Isted"
+    ],
+    "Corea del Sur": [
+      "Acción naval de Happo (1592)",
+      "Ataque al fondeadero de Jeokjinpo (1592)",
+      "Batalla naval de Sacheon (1592)",
+      "Batalla naval de Dangpo (1592)",
+      "Primera batalla naval de Danghangpo (1592)",
+      "Batalla naval de Yulpo (1592)",
+      "Acción naval de Hwajungumi (1592)",
+      "Batalla naval de Busan (1592)",
+      "Escaramuza naval de Eoranpo (1597)",
+      "Batalla naval de Myeongnyang (1597)",
+      "Batalla naval de Jeolido (1598)",
+      "Batalla naval de Noryang (1598)"
+    ],
+    "República Popular China": [
+      "Batalla naval de Noryang (1598)"
     ]
   },
   "safeRenames": {
@@ -380,7 +397,19 @@
     "Batalla por Jalibah Airfield": "Batalla del aeródromo de Jalibah",
     "Batalla de BIAP": "Batalla del Aeropuerto Internacional de Bagdad",
     "Batalla de Shok Valley": "Batalla del valle de Shok",
-    "Ofensiva de Amhara de 2024": "Ofensiva de Fano en Amhara de 2024"
+    "Ofensiva de Amhara de 2024": "Ofensiva de Fano en Amhara de 2024",
+    "Batalla de Happo": "Acción naval de Happo (1592)",
+    "Batalla de Jeokjinpo": "Ataque al fondeadero de Jeokjinpo (1592)",
+    "Batalla de Sacheon": "Batalla naval de Sacheon (1592)",
+    "Batalla de Dangpo": "Batalla naval de Dangpo (1592)",
+    "Batalla de Danghangpo": "Primera batalla naval de Danghangpo (1592)",
+    "Batalla de Yulpo": "Batalla naval de Yulpo (1592)",
+    "Batalla de Hwajungumi": "Acción naval de Hwajungumi (1592)",
+    "Batalla de Busan": "Batalla naval de Busan (1592)",
+    "Batalla de Eoranpo": "Escaramuza naval de Eoranpo (1597)",
+    "Batalla de Myeongnyang": "Batalla naval de Myeongnyang (1597)",
+    "Batalla de Jeolido": "Batalla naval de Jeolido (1598)",
+    "Batalla de Noryang": "Batalla naval de Noryang (1598)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1193,6 +1222,18 @@
     "Batalla de Ras Kamboni (2024)",
     "Batalla de Tinzawatène (2024)",
     "Ofensiva de Fano en Amhara de 2024",
-    "Batalla de Boulikessi (2025)"
+    "Batalla de Boulikessi (2025)",
+    "Accion naval de Happo (1592)",
+    "Ataque al fondeadero de Jeokjinpo (1592)",
+    "Batalla naval de Sacheon (1592)",
+    "Batalla naval de Dangpo (1592)",
+    "Primera batalla naval de Danghangpo (1592)",
+    "Batalla naval de Yulpo (1592)",
+    "Accion naval de Hwajungumi (1592)",
+    "Batalla naval de Busan (1592)",
+    "Escaramuza naval de Eoranpo (1597)",
+    "Batalla naval de Myeongnyang (1597)",
+    "Batalla naval de Jeolido (1598)",
+    "Batalla naval de Noryang (1598)"
   ]
 }

@@ -71,6 +71,7 @@ const usRevolutionThirdFollowupCuration = await fs.readFile(path.join(projectRoo
 const britishWwiiFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-british-wwii-followup.js"), "utf8");
 const usOverseasFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-overseas-followup.js"), "utf8");
 const activeAfricaFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-active-africa-followup.js"), "utf8");
+const japanKoreaFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-japan-korea-followup.js"), "utf8");
 const wikipediaConflicts = await fs.readFile(path.join(projectRoot, "scripts/lib/wikipedia-conflicts.js"), "utf8");
 const conflictBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-batch-curation.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
@@ -801,6 +802,41 @@ assert.ok(
     && wikipediaConflicts.includes('"Batalla de Boulikessi (2025)": "Battle_of_Boulikessi_(2025)"')
     && wikipediaConflicts.includes('ENGLISH_WIKIPEDIA_TITLE_EXCEPTIONS.has(direct)'),
   "los nombres africanos recientes deben conservar su importación profunda y el idioma correcto"
+);
+assert.ok(conflictAutofix.includes("JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda naval Japón-Corea");
+assert.ok(conflictAutofix.includes("JAPAN_KOREA_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS"), "autofix debe asociar las acciones con Corea y China");
+assert.ok(japanKoreaFollowupCuration.includes("hierarchySources"), "la tanda naval de Imjin debe conservar trazabilidad múltiple");
+assert.ok(
+  japanKoreaFollowupCuration.includes('curationBatch: "source-backed-japan-korea-naval-followup-2026-07"'),
+  "la tanda naval de Imjin debe quedar identificada"
+);
+assert.ok(
+  japanKoreaFollowupCuration.includes('"Batalla de Happo": "Acción naval de Happo (1592)"')
+    && japanKoreaFollowupCuration.includes('"Batalla de Danghangpo": "Primera batalla naval de Danghangpo (1592)"')
+    && japanKoreaFollowupCuration.includes('"Batalla de Eoranpo": "Escaramuza naval de Eoranpo (1597)"')
+    && japanKoreaFollowupCuration.includes('"Batalla de Noryang": "Batalla naval de Noryang (1598)"'),
+  "la tanda naval debe desambiguar año y clase operacional"
+);
+assert.ok(
+  japanKoreaFollowupCuration.includes("history.go.kr")
+    && japanKoreaFollowupCuration.includes("encykorea.aks.ac.kr")
+    && japanKoreaFollowupCuration.includes("kci.go.kr")
+    && japanKoreaFollowupCuration.includes("knst.kr")
+    && japanKoreaFollowupCuration.includes("unesco.org"),
+  "la tanda naval debe apoyarse en fuentes históricas oficiales y académicas"
+);
+assert.ok(
+  japanKoreaFollowupCuration.includes("difieren entre once y trece buques")
+    && japanKoreaFollowupCuration.includes("evita una precisión geográfica mayor")
+    && japanKoreaFollowupCuration.includes("sin presentarla como una aniquilación total"),
+  "la tanda naval debe conservar cautelas sobre cifras, ubicación y alcance estratégico"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Acción naval de Happo (1592)": "Battle_of_Happo"')
+    && wikipediaConflicts.includes('"Batalla naval de Yulpo (1592)": "List_of_naval_battles_during_the_Imjin_War"')
+    && wikipediaConflicts.includes('"Batalla naval de Noryang (1598)": "Battle_of_Noryang"')
+    && wikipediaConflicts.includes('"List_of_naval_battles_during_the_Imjin_War"'),
+  "los nombres navales de Imjin deben resolver artículos o el índice inglés correcto"
 );
 assert.ok(
   conflictBatchCuration.includes("if (Array.isArray(entry.treaties)) return entry.treaties;"),
