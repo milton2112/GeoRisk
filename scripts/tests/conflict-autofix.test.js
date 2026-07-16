@@ -74,6 +74,10 @@ import {
   US_INDIGENOUS_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-us-indigenous-followup.js";
 import {
+  US_REVOLUTION_THIRD_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  US_REVOLUTION_THIRD_FOLLOWUP_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-us-revolution-third-followup.js";
+import {
   BRITISH_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   BRITISH_WWII_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-british-wwii-followup.js";
@@ -514,6 +518,54 @@ assert.ok(
   ),
   "la tanda indígena estadounidense debe conservar jerarquia, fuentes, participantes y cautelas editoriales"
 );
+assert.equal(Object.keys(US_REVOLUTION_THIRD_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 10);
+assert.equal(Object.keys(US_REVOLUTION_THIRD_FOLLOWUP_SAFE_CONFLICT_RENAMES).length, 10);
+assert.equal(
+  US_REVOLUTION_THIRD_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Norwalk"],
+  "Incursión de Norwalk (1779)"
+);
+assert.equal(
+  US_REVOLUTION_THIRD_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Wetzell's Mill"],
+  "Escaramuza de Wetzell's Mill (1781)"
+);
+assert.equal(
+  US_REVOLUTION_THIRD_FOLLOWUP_CONFLICT_DETAIL_FIXES["Ataque a Lindley's Fort (1776)"].parent,
+  "Guerra cheroqui de 1776"
+);
+assert.equal(
+  US_REVOLUTION_THIRD_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Saint-Pierre (1776)"].campaign,
+  "Invasión de Quebec de 1775-1776"
+);
+assert.equal(
+  US_REVOLUTION_THIRD_FOLLOWUP_CONFLICT_DETAIL_FIXES["Escaramuza de Wetzell's Mill (1781)"].type,
+  "escaramuza"
+);
+assert.match(
+  US_REVOLUTION_THIRD_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de San Luis (1780)"].curationNote,
+  /naciones indígenas/i
+);
+assert.ok(
+  Object.values(US_REVOLUTION_THIRD_FOLLOWUP_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.endYear === detail.startYear
+      && detail.parent
+      && detail.parent === detail.war
+      && detail.campaign
+      && detail.region
+      && detail.cause
+      && detail.outcome
+      && detail.consequences
+      && detail.chronology?.length >= 1
+      && detail.chronology.every(item => Number.isInteger(item.year) && item.event)
+      && ["alta", "media"].includes(detail.hierarchyConfidence)
+      && detail.hierarchySources?.length >= 1
+      && detail.hierarchySources.every(source => source.label && source.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties)
+  ),
+  "la tercera tanda revolucionaria debe conservar fecha, jerarquia, fuentes, participantes y contexto editorial"
+);
 assert.equal(Object.keys(BRITISH_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 26);
 assert.equal(Object.keys(BRITISH_WWII_FOLLOWUP_SAFE_CONFLICT_RENAMES).length, 18);
 assert.equal(BRITISH_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Abbeville"].campaign, "Batalla de Francia");
@@ -636,6 +688,9 @@ const littleBighornWikipediaOverride = await resolveWikipediaConflictTitle("Bata
 assert.equal(littleBighornWikipediaOverride.language, "en");
 assert.match(littleBighornWikipediaOverride.apiUrl, /^https:\/\/en\.wikipedia\.org\//);
 assert.equal(littleBighornWikipediaOverride.pageTitle, "Battle_of_the_Little_Bighorn");
+const fortSlongoWikipediaOverride = await resolveWikipediaConflictTitle("Asalto a Fort Slongo (1781)");
+assert.equal(fortSlongoWikipediaOverride.language, "en");
+assert.equal(fortSlongoWikipediaOverride.pageTitle, "Battle_of_Fort_Slongo");
 const barentsWikipediaOverride = await resolveWikipediaConflictTitle("Batalla del mar de Barents");
 assert.equal(barentsWikipediaOverride.language, "en");
 assert.match(barentsWikipediaOverride.apiUrl, /^https:\/\/en\.wikipedia\.org\//);
@@ -787,6 +842,8 @@ const report = buildConflictAuditReport({
           { name: "Batalla de Fort Wayne" },
           { name: "Batalla de River Canard" },
           { name: "Batalla de Horseshoe Bend" },
+          { name: "Batalla de Norwalk" },
+          { name: "Batalla de Fort Slongo" },
           { name: "Adriatic Campaign de World War II", startYear: 1939, endYear: 1945 }
         ]
       }
@@ -827,6 +884,8 @@ assert.ok(!report.topAdvisories.some(item => item.name === "Sitio de Khe Sanh"),
 assert.ok(!report.topAdvisories.some(item => item.name === "Batalla de Lima Site 85"), "Lima Site 85 debe usar la guerra civil de Laos");
 assert.ok(!report.topAdvisories.some(item => item.name === "Batalla de Monterrey"), "Monterey debe converger a Monterrey y conservar su guerra padre");
 assert.ok(!report.topAdvisories.some(item => item.name === "Batalla del río Marilao"), "Marilao debe quedar traducida y bajo su guerra padre");
+assert.ok(!report.topAdvisories.some(item => item.name === "Incursión de Norwalk (1779)"), "Norwalk debe usar su campaña verificada de 1779");
+assert.ok(!report.topAdvisories.some(item => item.name === "Asalto a Fort Slongo (1781)"), "Fort Slongo debe usar su jerarquía verificada de 1781");
 assert.ok(!report.topIssues.some(item => item.name === "Batalla de Manila"), "el nombre ambiguo de Manila no debe reaparecer en la auditoria");
 assert.ok(!report.topAdvisories.some(item => item.name === "Sitio de Fort Wayne"), "Fort Wayne debe usar la guerra de 1812");
 assert.ok(!report.topAdvisories.some(item => item.name === "Batalla del río Canard"), "River Canard debe quedar traducida y jerarquizada");

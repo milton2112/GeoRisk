@@ -66,6 +66,7 @@ const usFrontierFollowupCuration = await fs.readFile(path.join(projectRoot, "scr
 const usCaribbeanFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-caribbean-followup.js"), "utf8");
 const australiaDenmarkFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-australia-denmark-followup.js"), "utf8");
 const usIndigenousFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-indigenous-followup.js"), "utf8");
+const usRevolutionThirdFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-revolution-third-followup.js"), "utf8");
 const britishWwiiFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-british-wwii-followup.js"), "utf8");
 const usOverseasFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-overseas-followup.js"), "utf8");
 const activeAfricaFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-active-africa-followup.js"), "utf8");
@@ -652,6 +653,36 @@ assert.ok(
     && usIndigenousFollowupCuration.includes("loc.gov")
     && usIndigenousFollowupCuration.includes("sudbury.ma.us"),
   "la tanda indígena debe apoyarse en fuentes federales, estatales y municipales diversas"
+);
+assert.ok(
+  conflictAutofix.includes("US_REVOLUTION_THIRD_FOLLOWUP_CONFLICT_DETAIL_FIXES")
+    && conflictAutofix.includes("US_REVOLUTION_THIRD_FOLLOWUP_SAFE_CONFLICT_RENAMES"),
+  "autofix debe incorporar la tercera tanda de la Revolución estadounidense"
+);
+assert.ok(
+  usRevolutionThirdFollowupCuration.includes('curationBatch: "source-backed-us-revolution-third-followup-2026-07"'),
+  "la tercera tanda revolucionaria debe quedar identificada"
+);
+assert.ok(
+  usRevolutionThirdFollowupCuration.includes('"Batalla de Norwalk": "Incursión de Norwalk (1779)"')
+    && usRevolutionThirdFollowupCuration.includes('"Batalla de Wetzell\'s Mill": "Escaramuza de Wetzell\'s Mill (1781)"')
+    && usRevolutionThirdFollowupCuration.includes('"Batalla de Fort Slongo": "Asalto a Fort Slongo (1781)"'),
+  "la tanda debe reclasificar incursiones, escaramuzas y asaltos con su fecha"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Batalla de Kemp\'s Landing (1775)": "Battle_of_Kemp\'s_Landing"')
+    && wikipediaConflicts.includes('"Batalla de Saint-Pierre (1776)": "Battle_of_Saint-Pierre"')
+    && wikipediaConflicts.includes('"Batalla de San Luis (1780)": "Battle_of_St._Louis"')
+    && wikipediaConflicts.includes('"Asalto a Fort Slongo (1781)": "Battle_of_Fort_Slongo"'),
+  "los nombres de la tercera tanda revolucionaria deben conservar páginas de importación profunda"
+);
+assert.ok(
+  usRevolutionThirdFollowupCuration.includes("dhr.es.virginia.gov")
+    && usRevolutionThirdFollowupCuration.includes("nationalregister.sc.gov")
+    && usRevolutionThirdFollowupCuration.includes("canada.ca")
+    && usRevolutionThirdFollowupCuration.includes("america250.nc.gov")
+    && usRevolutionThirdFollowupCuration.includes("founders.archives.gov"),
+  "la tercera tanda revolucionaria debe apoyarse en archivos y organismos institucionales"
 );
 assert.ok(conflictAutofix.includes("BRITISH_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda británica de la Segunda Guerra Mundial");
 assert.ok(britishWwiiFollowupCuration.includes("hierarchySources"), "la tanda británica debe conservar trazabilidad");

@@ -69,6 +69,50 @@ for (const oldName of [
   assert.equal(usaConflicts.some(entry => entry.name === oldName), false, `${oldName} no debe reaparecer después de la curaduría`);
 }
 
+const curatedUsRevolutionThirdNames = [
+  "Batalla de Kemp's Landing (1775)",
+  "Ataque a Lindley's Fort (1776)",
+  "Batalla de Longue-Pointe (1775)",
+  "Batalla de Saint-Pierre (1776)",
+  "Incursión de Norwalk (1779)",
+  "Batalla de San Luis (1780)",
+  "Combate de Mobley's Meeting House (1780)",
+  "Batalla de Shallow Ford (1780)",
+  "Escaramuza de Wetzell's Mill (1781)",
+  "Asalto a Fort Slongo (1781)"
+];
+for (const name of curatedUsRevolutionThirdNames) {
+  const matches = usaConflicts.filter(entry => entry.name === name);
+  assert.equal(matches.length, 1, `${name} debe aparecer una sola vez en Estados Unidos`);
+  assert.ok(Number.isInteger(matches[0].startYear), `${name} debe conservar una fecha estructurada`);
+  assert.ok(matches[0].hierarchySources?.length >= 1, `${name} debe exponer fuentes de jerarquía`);
+  assert.doesNotMatch(matches[0].parent || "", /^Conflicto regional de /, `${name} no debe conservar jerarquía provisional`);
+}
+for (const oldName of [
+  "Batalla de Kemp's Landing",
+  "Batalla de Lindley's Fort",
+  "Batalla de Longue-Pointe",
+  "Batalla de Saint-Pierre",
+  "Batalla de Norwalk",
+  "Batalla de San Luis",
+  "Batalla de Mobley's Meeting House",
+  "Batalla de Shallow Ford",
+  "Batalla de Wetzell's Mill",
+  "Batalla de Fort Slongo"
+]) {
+  assert.equal(usaConflicts.some(entry => entry.name === oldName), false, `${oldName} no debe reaparecer después de la tercera tanda revolucionaria`);
+}
+assert.equal(
+  usaConflicts.find(entry => entry.name === "Incursión de Norwalk (1779)")?.type,
+  "incursión y quema",
+  "Norwalk debe mostrarse como incursión destructiva"
+);
+assert.equal(
+  usaConflicts.find(entry => entry.name === "Escaramuza de Wetzell's Mill (1781)")?.type,
+  "escaramuza",
+  "Wetzell's Mill debe mostrarse como escaramuza"
+);
+
 function collectJsonFiles(directory) {
   return fs.readdirSync(directory, { withFileTypes: true }).flatMap(entry => {
     const fullPath = `${directory}/${entry.name}`;

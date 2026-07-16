@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-16T20:26:27.049Z",
+  "generatedAt": "2026-07-16T20:43:58.072Z",
   "changedFullCountries": 0,
   "fullPassChanges": [
     0
@@ -11,7 +11,7 @@
     "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 826,
+  "generatedHierarchyCandidates": 836,
   "countryConflictAdditions": {
     "Estados Unidos": [
       "Batalla de Manila (1945)"
@@ -334,6 +334,16 @@
     "Batalla de Sugar Point": "Combate de Sugar Point (1898)",
     "Batalla de Kelley Creek": "Masacre de Kelley Creek (1911)",
     "Batalla de Bear Valley": "Combate de Bear Valley (1918)",
+    "Batalla de Kemp's Landing": "Batalla de Kemp's Landing (1775)",
+    "Batalla de Lindley's Fort": "Ataque a Lindley's Fort (1776)",
+    "Batalla de Longue-Pointe": "Batalla de Longue-Pointe (1775)",
+    "Batalla de Saint-Pierre": "Batalla de Saint-Pierre (1776)",
+    "Batalla de Norwalk": "Incursión de Norwalk (1779)",
+    "Batalla de San Luis": "Batalla de San Luis (1780)",
+    "Batalla de Mobley's Meeting House": "Combate de Mobley's Meeting House (1780)",
+    "Batalla de Shallow Ford": "Batalla de Shallow Ford (1780)",
+    "Batalla de Wetzell's Mill": "Escaramuza de Wetzell's Mill (1781)",
+    "Batalla de Fort Slongo": "Asalto a Fort Slongo (1781)",
     "Batalla de Athens": "Batalla aérea de Atenas",
     "Batalla de Barents Sea": "Batalla del mar de Barents",
     "Batalla de Bay de Biscay": "Batalla del golfo de Vizcaya",
@@ -1102,6 +1112,16 @@
     "Combate de Sugar Point (1898)",
     "Masacre de Kelley Creek (1911)",
     "Combate de Bear Valley (1918)",
+    "Batalla de Kemp's Landing (1775)",
+    "Ataque a Lindley's Fort (1776)",
+    "Batalla de Longue-Pointe (1775)",
+    "Batalla de Saint-Pierre (1776)",
+    "Incursión de Norwalk (1779)",
+    "Batalla de San Luis (1780)",
+    "Combate de Mobley's Meeting House (1780)",
+    "Batalla de Shallow Ford (1780)",
+    "Escaramuza de Wetzell's Mill (1781)",
+    "Asalto a Fort Slongo (1781)",
     "Batalla de Abbeville",
     "Batalla de Arras",
     "Batalla aérea de Atenas",

@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-07-16T20:26:07.041Z",
+  "generatedAt": "2026-07-16T20:43:36.312Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 9664459,
-    "duplicatedCountryFilesBytes": 1472136,
-    "countryConflictShardBytes": 375363,
+    "fullBytes": 9682395,
+    "duplicatedCountryFilesBytes": 1472259,
+    "countryConflictShardBytes": 376092,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "USA",
         "name": "Estados Unidos",
-        "bytes": 23854,
-        "inlineBytes": 3030409,
+        "bytes": 23977,
+        "inlineBytes": 3048345,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -26,8 +26,8 @@
         },
         "metrics": {
           "sectionBytes": {
+            "military": 10032,
             "politics": 9973,
-            "military": 9909,
             "metadata": 1951,
             "general": 978,
             "history": 394,
@@ -38,12 +38,12 @@
           },
           "largestSections": [
             {
-              "section": "politics",
-              "bytes": 9973
+              "section": "military",
+              "bytes": 10032
             },
             {
-              "section": "military",
-              "bytes": 9909
+              "section": "politics",
+              "bytes": 9973
             },
             {
               "section": "metadata",
@@ -54,9 +54,9 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 209027,
-          "conflictShardBytes": 209028,
-          "averageConflictBytes": 227
+          "conflictsBytes": 209756,
+          "conflictShardBytes": 209757,
+          "averageConflictBytes": 228
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 369,
+    "pendingCount": 359,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -16013,19 +16013,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Fort Slongo",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Fundy Bay",
         "countries": [
           "FRA"
@@ -16572,19 +16559,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Kemp's Landing",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Kenapacomaqua",
         "countries": [
           "USA"
@@ -16923,19 +16897,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Lindley's Fort",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Lissa",
         "countries": [
           "FRA"
@@ -16981,19 +16942,6 @@
         ],
         "regions": [
           "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Longue-Pointe",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"
@@ -17092,19 +17040,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Mobley's Meeting House",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Mocímboa da Praia",
         "countries": [
           "MOZ"
@@ -17163,6 +17098,71 @@
         ],
         "regions": [
           "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Myeongnyang",
+        "countries": [
+          "JPN"
+        ],
+        "regions": [
+          "Asia"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Napue",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Negapatam",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Neuville",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Newry Road",
+        "countries": [
+          "GBR"
+        ],
+        "regions": [
+          "Europa"
         ],
         "types": [
           "interestatal"

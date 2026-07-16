@@ -8,7 +8,22 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.72 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.73 antes de cerrar la siguiente version.
+
+## v1.6.73 - 2026-07-16
+
+- Fecha, jerarquiza y documenta con fuentes diez acciones de la Revolucion estadounidense entre 1775 y 1781: Kemp's Landing, Lindley's Fort, Longue-Pointe, Saint-Pierre, Norwalk, San Luis, Mobley's Meeting House, Shallow Ford, Wetzell's Mill y Fort Slongo.
+- Completa guerra padre, campana, region, participantes, causa, resultado, consecuencias, cronologia, acuerdos de cierre y cautelas editoriales con fuentes de Virginia, las Carolinas, Canada, el NPS, Founders Online y el Museo Militar de Nueva York.
+- Reclasifica Norwalk como incursion y quema, Wetzell's Mill como escaramuza, Fort Slongo como asalto y Lindley's Fort como ataque a una fortificacion dentro de la guerra cheroqui de 1776.
+- Distingue en Saint-Pierre a las milicias francocanadienses de lealtades opuestas y evita presentar la accion como un choque binario entre estadounidenses y britanicos.
+- Conserva la diversidad de la coalicion atacante de San Luis, separa sus naciones indigenas y evita consolidar bajas que la fuente institucional no fija.
+- Documenta la violencia contra cautivos tras Shallow Ford y el resultado mixto de Wetzell's Mill para no convertir victorias tacticas en relatos simplificados.
+- Reduce los conflictos sin fecha auditados de 370 a 360 y las jerarquias provisionales de 302 a 292; el timeline pasa de 2643 a 2653 eventos fechables.
+- Regenera el indice liviano de conflictos de 1631 a 1641 entradas y los detalles diferidos de 875 a 885 shards; la segunda ejecucion converge con cero cambios.
+- Agrega regresiones para nombres canonicos, fechas, padres, campanas, tipos, fuentes, paginas de importacion y la ausencia de los diez rotulos antiguos en los datos servidos.
+- Mantiene 0 alertas, incidencias, advertencias, nombres ingleses, duplicados, regiones sospechosas, religiones redundantes, mojibake y problemas de localizacion.
+- Mantiene el arranque critico en 810 KB, `script.js` en 543 KB y `countries_index.json` en 141 KB, con 0 long tasks simuladas sobre presupuesto y 55 FPS medios.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-16-release-2`.
 
 ## v1.6.72 - 2026-07-16
 

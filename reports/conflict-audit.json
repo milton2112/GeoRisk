@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-16T20:27:25.827Z",
+  "generatedAt": "2026-07-16T20:46:00.308Z",
   "scannedConflicts": 2002,
   "issueCount": 0,
-  "advisoryCount": 302,
-  "reviewCount": 302,
+  "advisoryCount": 292,
+  "reviewCount": 292,
   "summary": {
-    "provisional_parent": 302
+    "provisional_parent": 292
   },
   "topIssues": [],
   "topAdvisories": [
@@ -906,20 +906,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de fort slongo",
-      "name": "Batalla de Fort Slongo",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de fundy bay",
       "name": "Batalla de Fundy Bay",
       "countries": [
@@ -1118,6 +1104,20 @@
     {
       "key": "batalla de havana",
       "name": "Batalla de Havana",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de heilsberg",
+      "name": "Batalla de Heilsberg",
       "countries": [
         "FRA"
       ],
