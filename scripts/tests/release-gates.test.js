@@ -63,6 +63,7 @@ const usCivilWarFollowupCuration = await fs.readFile(path.join(projectRoot, "scr
 const usWwiiFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-wwii-followup.js"), "utf8");
 const usIndianWarsFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-indian-wars-followup.js"), "utf8");
 const usFrontierFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-frontier-followup.js"), "utf8");
+const usFrontierSecondFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-frontier-second-followup.js"), "utf8");
 const usCaribbeanFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-caribbean-followup.js"), "utf8");
 const australiaDenmarkFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-australia-denmark-followup.js"), "utf8");
 const usIndigenousFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-indigenous-followup.js"), "utf8");
@@ -566,6 +567,43 @@ assert.ok(
   usFrontierFollowupCuration.includes("El Ejército identificó entonces a las víctimas como tonto apache")
     && usFrontierFollowupCuration.includes("Se omite la afirmación tradicional de que Peta Nocona murió allí"),
   "la segunda tanda fronteriza debe conservar las cautelas historiográficas"
+);
+assert.ok(
+  conflictAutofix.includes("US_FRONTIER_SECOND_FOLLOWUP_CONFLICT_DETAIL_FIXES")
+    && conflictAutofix.includes("US_FRONTIER_SECOND_FOLLOWUP_SAFE_CONFLICT_RENAMES"),
+  "autofix debe incorporar la nueva tanda fronteriza estadounidense"
+);
+assert.ok(
+  usFrontierSecondFollowupCuration.includes("hierarchySources")
+    && usFrontierSecondFollowupCuration.includes('curationBatch: "source-backed-us-frontier-second-followup-2026-07"'),
+  "la nueva tanda fronteriza debe declarar trazabilidad y lote"
+);
+assert.ok(
+  usFrontierSecondFollowupCuration.includes('"Batalla de Claremore Mound": "Masacre de Claremore Mound (1817)"')
+    && usFrontierSecondFollowupCuration.includes('"Batalla de Devil\'s River": "Combate del río Devils (1857)"')
+    && usFrontierSecondFollowupCuration.includes('"Batalla de Owyhee River": "Batalla del río Owyhee (1866)"'),
+  "la nueva tanda fronteriza debe reclasificar acciones y normalizar topónimos"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Ataque a Kenapacomaqua (1791)": "Battle_of_Kenapacomaqua"')
+    && wikipediaConflicts.includes('"Batalla de Pima Butte (1857)": "Battle_of_Pima_Butte"')
+    && wikipediaConflicts.includes('"Combate de Honsinger Bluff (1873)": "Battle_of_Honsinger_Bluff"'),
+  "los nombres normalizados de la nueva tanda deben conservar su página de importación"
+);
+assert.ok(
+  usFrontierSecondFollowupCuration.includes("in.gov")
+    && usFrontierSecondFollowupCuration.includes("okhistory.org")
+    && usFrontierSecondFollowupCuration.includes("uapress.arizona.edu")
+    && usFrontierSecondFollowupCuration.includes("nps.gov")
+    && usFrontierSecondFollowupCuration.includes("thc.state.tx.us")
+    && usFrontierSecondFollowupCuration.includes("history.idaho.gov"),
+  "la nueva tanda fronteriza debe apoyarse en fuentes institucionales y académicas diversas"
+);
+assert.ok(
+  usFrontierSecondFollowupCuration.includes("no encontró informe militar, memoria contemporánea ni noticia de prensa")
+    && usFrontierSecondFollowupCuration.includes("La asociación con Estados Unidos es únicamente geográfica")
+    && usFrontierSecondFollowupCuration.includes("difieren de forma importante sobre las bajas indígenas"),
+  "la nueva tanda fronteriza debe publicar dudas documentales y evitar falsa precisión"
 );
 assert.ok(conflictAutofix.includes("US_CARIBBEAN_FOLLOWUP_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda de Nicaragua y Caribe");
 assert.ok(conflictAutofix.includes("US_CARIBBEAN_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS"), "autofix debe vincular las acciones con sus paises anfitriones");

@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-16T20:46:00.308Z",
+  "generatedAt": "2026-07-16T22:37:56.065Z",
   "scannedConflicts": 2002,
   "issueCount": 0,
-  "advisoryCount": 292,
-  "reviewCount": 292,
+  "advisoryCount": 282,
+  "reviewCount": 282,
   "summary": {
-    "provisional_parent": 292
+    "provisional_parent": 282
   },
   "topIssues": [],
   "topAdvisories": [
@@ -102,20 +102,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de bandera pass",
-      "name": "Batalla de Bandera Pass",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],
@@ -416,20 +402,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de claremore mound",
-      "name": "Batalla de Claremore Mound",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de clouds",
       "name": "Batalla de Clouds",
       "countries": [
@@ -474,20 +446,6 @@
     {
       "key": "batalla de colson s mill",
       "name": "Batalla de Colson's Mill",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de cooke s spring",
-      "name": "Batalla de Cooke's Spring",
       "countries": [
         "USA"
       ],
@@ -642,20 +600,6 @@
     {
       "key": "batalla de devil s creek",
       "name": "Batalla de Devil's Creek",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de devil s river",
-      "name": "Batalla de Devil's River",
       "countries": [
         "USA"
       ],
@@ -1118,6 +1062,62 @@
     {
       "key": "batalla de heilsberg",
       "name": "Batalla de Heilsberg",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de hekihazu",
+      "name": "Batalla de Hekihazu",
+      "countries": [
+        "JPN"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de helgea",
+      "name": "Batalla de Helgeå",
+      "countries": [
+        "NOR"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de heligoland",
+      "name": "Batalla de Heligoland",
+      "countries": [
+        "DNK"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de hiddensee",
+      "name": "Batalla de Hiddensee",
       "countries": [
         "FRA"
       ],

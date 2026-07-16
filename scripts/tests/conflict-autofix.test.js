@@ -60,6 +60,10 @@ import {
   US_FRONTIER_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-us-frontier-followup.js";
 import {
+  US_FRONTIER_SECOND_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  US_FRONTIER_SECOND_FOLLOWUP_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-us-frontier-second-followup.js";
+import {
   US_CARIBBEAN_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   US_CARIBBEAN_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
   US_CARIBBEAN_FOLLOWUP_SAFE_CONFLICT_RENAMES
@@ -398,6 +402,56 @@ assert.ok(
       && Array.isArray(detail.treaties)
   ),
   "la segunda tanda fronteriza debe conservar fecha, jerarquia, fuentes, participantes y contexto editorial"
+);
+assert.equal(Object.keys(US_FRONTIER_SECOND_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 10);
+assert.equal(Object.keys(US_FRONTIER_SECOND_FOLLOWUP_SAFE_CONFLICT_RENAMES).length, 10);
+assert.equal(
+  US_FRONTIER_SECOND_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Kenapacomaqua"],
+  "Ataque a Kenapacomaqua (1791)"
+);
+assert.equal(
+  US_FRONTIER_SECOND_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Devil's River"],
+  "Combate del río Devils (1857)"
+);
+assert.equal(US_FRONTIER_SECOND_FOLLOWUP_CONFLICT_DETAIL_FIXES["Masacre de Claremore Mound (1817)"].type, "ataque y masacre");
+assert.equal(US_FRONTIER_SECOND_FOLLOWUP_CONFLICT_DETAIL_FIXES["Combate de Sink Hole (1815)"].treaties[0], "Tratado de Gante (1814)");
+assert.equal(US_FRONTIER_SECOND_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Pima Butte (1857)"].type, "batalla intertribal");
+assert.match(
+  US_FRONTIER_SECOND_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Pima Butte (1857)"].curationNote,
+  /únicamente geográfica/i
+);
+assert.equal(US_FRONTIER_SECOND_FOLLOWUP_CONFLICT_DETAIL_FIXES["Combate atribuido de Bandera Pass (c. 1842)"].hierarchyConfidence, "media");
+assert.equal(US_FRONTIER_SECOND_FOLLOWUP_CONFLICT_DETAIL_FIXES["Combate atribuido de Bandera Pass (c. 1842)"].sourceDispute, true);
+assert.equal(
+  US_FRONTIER_SECOND_FOLLOWUP_CONFLICT_DETAIL_FIXES["Combate atribuido de Bandera Pass (c. 1842)"].datePrecision,
+  "aproximada y disputada"
+);
+assert.match(
+  US_FRONTIER_SECOND_FOLLOWUP_CONFLICT_DETAIL_FIXES["Combate del río Devils (1857)"].curationNote,
+  /difieren.*bajas indígenas/i
+);
+assert.ok(
+  Object.values(US_FRONTIER_SECOND_FOLLOWUP_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent
+      && detail.parent === detail.war
+      && detail.campaign
+      && detail.region
+      && detail.cause
+      && detail.outcome
+      && detail.consequences
+      && detail.chronology?.[0]?.year === detail.startYear
+      && detail.chronology?.[0]?.event
+      && ["alta", "media"].includes(detail.hierarchyConfidence)
+      && detail.hierarchySources?.length >= 1
+      && detail.hierarchySources.every(source => source.label && source.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties)
+      && detail.curationNote
+  ),
+  "la nueva tanda fronteriza debe conservar fecha, jerarquia, fuentes, participantes y cautelas historiograficas"
 );
 assert.equal(Object.keys(US_CARIBBEAN_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 10);
 assert.equal(Object.keys(US_CARIBBEAN_FOLLOWUP_SAFE_CONFLICT_RENAMES).length, 4);

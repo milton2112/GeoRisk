@@ -8,7 +8,22 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.73 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.74 antes de cerrar la siguiente version.
+
+## v1.6.74 - 2026-07-16
+
+- Fecha, jerarquiza y documenta con fuentes diez acciones fronterizas de Estados Unidos entre 1791 y 1873: Kenapacomaqua, Claremore Mound, Sink Hole, Bandera Pass, Cooke's Spring, Pima Butte, rio Devils, rio Owyhee, Prairie Dog Creek y Honsinger Bluff.
+- Completa guerra padre, campana, region, participantes, causa, resultado, consecuencias, cronologia, tratados y cautelas editoriales con fuentes institucionales, academicas y archivos historicos estatales.
+- Reclasifica Kenapacomaqua como ataque a un poblado y Claremore Mound como masacre, en lugar de conservar etiquetas genericas de batalla que ocultaban la violencia contra civiles.
+- Presenta Bandera Pass como un combate atribuido y discutido: no existe una fuente contemporanea que confirme su fecha, ubicacion, participantes o escala.
+- Aclara que Pima Butte fue una batalla entre fuerzas indigenas y que su asociacion con Estados Unidos es solo geografica, sin participacion militar estadounidense.
+- Evita falsa precision en Cooke's Spring, Sink Hole, rio Devils, rio Owyhee y Honsinger Bluff: conserva discrepancias de fecha, bajas, secuencia o perspectiva cuando las fuentes no coinciden.
+- Reduce los conflictos sin fecha auditados de 360 a 350 y las jerarquias provisionales de 292 a 282; el timeline pasa de 2653 a 2663 eventos fechables.
+- Regenera el indice liviano de conflictos de 1641 a 1651 entradas y los detalles diferidos de 885 a 895 shards; la segunda ejecucion converge con cero cambios.
+- Agrega regresiones para nombres canonicos, fechas, padres, campanas, tipos, fuentes, paginas de importacion, notas de confianza y ausencia de los diez rotulos antiguos.
+- Mantiene 0 alertas, nombres ingleses, duplicados, regiones sospechosas, religiones redundantes, mojibake y problemas de localizacion.
+- Mantiene el arranque critico en 810 KB, `script.js` en 543 KB y `countries_index.json` en 141 KB, con 0 long tasks simuladas sobre presupuesto y 55 FPS medios.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-16-release-3`.
 
 ## v1.6.73 - 2026-07-16
 

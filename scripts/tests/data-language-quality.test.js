@@ -850,6 +850,68 @@ for (const expectation of visibleHierarchyExpectations) {
   assert.ok(detail?.hierarchySources?.[0]?.url, `${expectation.name} debe publicar la fuente de su jerarquia`);
 }
 
+const frontierSecondFollowupExpectations = [
+  { name: "Ataque a Kenapacomaqua (1791)", parent: "Guerra indígena del Noroeste", startYear: 1791 },
+  { name: "Masacre de Claremore Mound (1817)", parent: "Conflicto osage-cheroqui", startYear: 1817 },
+  { name: "Combate de Sink Hole (1815)", parent: "Guerra anglo-estadounidense de 1812", startYear: 1815 },
+  { name: "Combate atribuido de Bandera Pass (c. 1842)", parent: "Guerras comanches", startYear: 1842 },
+  { name: "Escaramuza de Cooke's Spring (1857)", parent: "Guerras apaches", startYear: 1857 },
+  { name: "Batalla de Pima Butte (1857)", parent: "Conflicto quechan-maricopa", startYear: 1857 },
+  { name: "Combate del río Devils (1857)", parent: "Guerras comanches", startYear: 1857 },
+  { name: "Batalla del río Owyhee (1866)", parent: "Guerra Snake", startYear: 1866 },
+  { name: "Combate de Prairie Dog Creek (1867)", parent: "Guerra de Hancock", startYear: 1867 },
+  { name: "Combate de Honsinger Bluff (1873)", parent: "Guerras sioux", startYear: 1873 }
+];
+for (const expectation of frontierSecondFollowupExpectations) {
+  const entries = Object.values(countries).flatMap(country => country.military?.conflicts || [])
+    .filter(conflict => conflict.name === expectation.name);
+  assert.ok(entries.length > 0, `Debe existir ${expectation.name} tras la nueva tanda fronteriza`);
+  assert.ok(
+    entries.every(conflict =>
+      conflict.parent === expectation.parent
+        && conflict.war === expectation.parent
+        && conflict.startYear === expectation.startYear
+        && conflict.endYear === expectation.startYear
+    ),
+    `${expectation.name} debe conservar fecha y jerarquia documentadas`
+  );
+  const detail = conflictDetails.conflicts?.[expectation.name];
+  assert.equal(
+    detail?.curationBatch,
+    "source-backed-us-frontier-second-followup-2026-07",
+    `${expectation.name} debe conservar el lote editorial`
+  );
+  assert.ok(detail?.hierarchySources?.[0]?.url, `${expectation.name} debe publicar al menos una fuente`);
+}
+assert.equal(
+  conflictDetails.conflicts?.["Combate atribuido de Bandera Pass (c. 1842)"]?.sourceDispute,
+  true,
+  "Bandera Pass debe advertir que su historicidad está discutida"
+);
+assert.match(
+  conflictDetails.conflicts?.["Batalla de Pima Butte (1857)"]?.curationNote || "",
+  /únicamente geográfica/i,
+  "Pima Butte debe aclarar que Estados Unidos es una asociación geográfica"
+);
+const staleFrontierSecondFollowupNames = Object.values(countries).flatMap(country => country.military?.conflicts || [])
+  .filter(conflict => [
+    "Batalla de Kenapacomaqua",
+    "Batalla de Claremore Mound",
+    "Batalla de Sink Hole",
+    "Batalla de Bandera Pass",
+    "Batalla de Cooke's Spring",
+    "Batalla de Pima Butte",
+    "Batalla de Devil's River",
+    "Batalla de Owyhee River",
+    "Batalla de Prairie Dog Creek",
+    "Batalla de Honsinger Bluff"
+  ].includes(conflict.name));
+assert.deepEqual(
+  staleFrontierSecondFollowupNames,
+  [],
+  "los nombres fronterizos reemplazados no deben reaparecer en los datos servidos"
+);
+
 const staleVisibleConflictNames = Object.values(countries).flatMap(country => country.military?.conflicts || [])
   .filter(conflict => [
     "Batalla de Cheonpyeong Valley",

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-16T20:43:58.072Z",
+  "generatedAt": "2026-07-16T22:37:05.290Z",
   "changedFullCountries": 0,
   "fullPassChanges": [
     0
@@ -11,7 +11,7 @@
     "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 836,
+  "generatedHierarchyCandidates": 846,
   "countryConflictAdditions": {
     "Estados Unidos": [
       "Batalla de Manila (1945)"
@@ -316,6 +316,16 @@
     "Batalla de Blanco Canyon": "Batalla del cañón Blanco",
     "Batalla de Pease River": "Batalla del río Pease",
     "Batalla de Salt River Canyon": "Masacre de Skeleton Cave",
+    "Batalla de Kenapacomaqua": "Ataque a Kenapacomaqua (1791)",
+    "Batalla de Claremore Mound": "Masacre de Claremore Mound (1817)",
+    "Batalla de Sink Hole": "Combate de Sink Hole (1815)",
+    "Batalla de Bandera Pass": "Combate atribuido de Bandera Pass (c. 1842)",
+    "Batalla de Cooke's Spring": "Escaramuza de Cooke's Spring (1857)",
+    "Batalla de Pima Butte": "Batalla de Pima Butte (1857)",
+    "Batalla de Devil's River": "Combate del río Devils (1857)",
+    "Batalla de Owyhee River": "Batalla del río Owyhee (1866)",
+    "Batalla de Prairie Dog Creek": "Combate de Prairie Dog Creek (1867)",
+    "Batalla de Honsinger Bluff": "Combate de Honsinger Bluff (1873)",
     "Batalla de Fort Riviere": "Batalla de Fort Rivière",
     "Batalla de Las Cruces": "Segunda batalla de Las Cruces (1928)",
     "Batalla de Puerto Plata": "Batalla de Puerto Plata (1916)",
@@ -1082,6 +1092,16 @@
     "Batalla de Piqua",
     "Batalla de Quebec",
     "Batalla de Cieneguilla",
+    "Ataque a Kenapacomaqua (1791)",
+    "Masacre de Claremore Mound (1817)",
+    "Combate de Sink Hole (1815)",
+    "Combate atribuido de Bandera Pass (c. 1842)",
+    "Escaramuza de Cooke's Spring (1857)",
+    "Batalla de Pima Butte (1857)",
+    "Combate del río Devils (1857)",
+    "Batalla del río Owyhee (1866)",
+    "Combate de Prairie Dog Creek (1867)",
+    "Combate de Honsinger Bluff (1873)",
     "Batalla de Masaya",
     "Batalla de La Paz Centro",
     "Batalla de Ocotal",
