@@ -1,14 +1,15 @@
 {
-  "generatedAt": "2026-07-17T16:11:08.956Z",
-  "changedFullCountries": 0,
+  "generatedAt": "2026-07-17T18:20:54.055Z",
+  "changedFullCountries": 11,
   "fullPassChanges": [
+    11,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 0,
-    "written": false,
+    "enriched": 113,
+    "written": true,
     "compacted": false
   },
   "generatedHierarchyCandidates": 887,
@@ -56,7 +57,10 @@
       "Batalla de Craonne (1814)",
       "Batalla de Heilsberg (1807)",
       "Batalla de Hamel (1918)",
-      "Batalla de la bahía de Heligoland (1914)"
+      "Batalla de la bahía de Heligoland (1914)",
+      "Batalla de Dieppe (1942)",
+      "Batalla de la Haya (1940)",
+      "Batalla de Heligoland (1864)"
     ],
     "Corea del Sur": [
       "Acción naval de Happo (1592)",
@@ -90,7 +94,10 @@
       "Batalla de Hamel (1918)",
       "Batalla de la colina 282 (1950)",
       "Combate naval del lago Pontchartrain (1779)",
-      "Bombardeo multinacional de Shimonoseki (1864)"
+      "Bombardeo multinacional de Shimonoseki (1864)",
+      "Batalla de Dieppe (1942)",
+      "Batalla de la Bahía de Hudson (1697)",
+      "Batalla de Solebay (1672)"
     ],
     "Irlanda": [
       "Batalla naval de la bahía de Bantry (1689)"
@@ -105,7 +112,8 @@
       "Batalla de Heilsberg (1807)"
     ],
     "Reino de los Países Bajos": [
-      "Batalla de Camaret (1694)"
+      "Batalla de Camaret (1694)",
+      "Batalla de Solebay (1672)"
     ],
     "India": [
       "Asedio y captura de Chandannagar (1757)"
@@ -133,6 +141,15 @@
     ],
     "España": [
       "Bombardeo de San Juan de Puerto Rico (1898)"
+    ],
+    "Austria": [
+      "Batalla de Heligoland (1864)"
+    ],
+    "Brasil": [
+      "Asalto a los acorazados Cabral y Lima Barros (1868)"
+    ],
+    "Irak": [
+      "Batalla de Rumaila (1991)"
     ]
   },
   "safeRenames": {
@@ -513,7 +530,14 @@
     "Batalla de Jumunjin": "Batalla naval de Jumunjin (1950)",
     "Batalla de la bahia de Heligoland": "Batalla de la bahía de Heligoland (1914)",
     "Batalla de la bahía de Heligoland": "Batalla de la bahía de Heligoland (1914)",
-    "Primera Batalla de Maryang San": "Primera batalla de Maryang San (1951)"
+    "Primera Batalla de Maryang San": "Primera batalla de Maryang San (1951)",
+    "Asalto a los acorazados Cabral y Lima Barros": "Asalto a los acorazados Cabral y Lima Barros (1868)",
+    "Batalla de Dieppe": "Batalla de Dieppe (1942)",
+    "Batalla de Heligoland": "Batalla de Heligoland (1864)",
+    "Batalla de la Bahía de Hudson": "Batalla de la Bahía de Hudson (1697)",
+    "Batalla de la Haya": "Batalla de la Haya (1940)",
+    "Batalla de Rumaila": "Batalla de Rumaila (1991)",
+    "Batalla de Solebay": "Batalla de Solebay (1672)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1367,6 +1391,13 @@
     "Batalla de Qurna (1914)",
     "Batalla naval de Jumunjin (1950)",
     "Batalla de la bahía de Heligoland (1914)",
-    "Primera batalla de Maryang San (1951)"
+    "Primera batalla de Maryang San (1951)",
+    "Asalto a los acorazados Cabral y Lima Barros (1868)",
+    "Batalla de Dieppe (1942)",
+    "Batalla de Heligoland (1864)",
+    "Batalla de la Bahía de Hudson (1697)",
+    "Batalla de la Haya (1940)",
+    "Batalla de Rumaila (1991)",
+    "Batalla de Solebay (1672)"
   ]
 }

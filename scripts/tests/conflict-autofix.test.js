@@ -113,6 +113,11 @@ import {
   BRITISH_GLOBAL_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
   BRITISH_GLOBAL_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-british-global-followup.js";
+import {
+  PROVISIONAL_FOUNDATION_CONFLICT_DETAIL_FIXES,
+  PROVISIONAL_FOUNDATION_COUNTRY_CONFLICT_ADDITIONS,
+  PROVISIONAL_FOUNDATION_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-provisional-foundation.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -939,6 +944,48 @@ assert.ok(
   ),
   "la tanda britanica global debe conservar fecha, jerarquia, fuentes, participantes, narrativa y notas editoriales"
 );
+assert.equal(Object.keys(PROVISIONAL_FOUNDATION_CONFLICT_DETAIL_FIXES).length, 7);
+assert.equal(Object.keys(PROVISIONAL_FOUNDATION_SAFE_CONFLICT_RENAMES).length, 7);
+assert.deepEqual(PROVISIONAL_FOUNDATION_COUNTRY_CONFLICT_ADDITIONS.Brasil, [
+  "Asalto a los acorazados Cabral y Lima Barros (1868)"
+]);
+assert.equal(
+  PROVISIONAL_FOUNDATION_SAFE_CONFLICT_RENAMES["Batalla de Heligoland"],
+  "Batalla de Heligoland (1864)"
+);
+assert.equal(
+  PROVISIONAL_FOUNDATION_SAFE_CONFLICT_RENAMES["Batalla de Solebay"],
+  "Batalla de Solebay (1672)"
+);
+assert.equal(PROVISIONAL_FOUNDATION_CONFLICT_DETAIL_FIXES["Batalla de Dieppe (1942)"].parent, "Segunda Guerra Mundial");
+assert.equal(PROVISIONAL_FOUNDATION_CONFLICT_DETAIL_FIXES["Batalla de Heligoland (1864)"].type, "batalla naval");
+assert.equal(PROVISIONAL_FOUNDATION_CONFLICT_DETAIL_FIXES["Batalla de Rumaila (1991)"].sourceDispute, true);
+assert.ok(
+  Object.values(PROVISIONAL_FOUNDATION_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent
+      && detail.war === detail.parent
+      && !/^Conflicto regional de /i.test(detail.parent)
+      && detail.campaign
+      && detail.region
+      && detail.normalizedRegion === detail.region
+      && detail.cause
+      && detail.outcome
+      && detail.consequences
+      && detail.chronology?.length >= 2
+      && detail.chronology.every(event => event.year === detail.startYear && event.event)
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 2
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties)
+      && detail.curationBatch === "source-backed-provisional-foundation-2026-07"
+      && detail.curationNote
+  ),
+  "la tanda provisional debe conservar fecha, jerarquia, fuentes, participantes, narrativa y cautelas editoriales"
+);
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",
   startYear: 1944,
@@ -989,6 +1036,15 @@ assert.equal(amharaWikipediaOverride.pageTitle, "Amhara_offensive");
 const boulikessiWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Boulikessi (2025)");
 assert.equal(boulikessiWikipediaOverride.language, "en");
 assert.equal(boulikessiWikipediaOverride.pageTitle, "Battle_of_Boulikessi_(2025)");
+const dieppeWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Dieppe (1942)");
+assert.equal(dieppeWikipediaOverride.language, "en");
+assert.equal(dieppeWikipediaOverride.pageTitle, "Battle_of_Dieppe");
+const cabralWikipediaOverride = await resolveWikipediaConflictTitle("Asalto a los acorazados Cabral y Lima Barros (1868)");
+assert.equal(cabralWikipediaOverride.language, "es");
+assert.equal(cabralWikipediaOverride.pageTitle, "Asalto_a_los_acorazados_Cabral_y_Lima_Barros");
+const solebayWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Solebay (1672)");
+assert.equal(solebayWikipediaOverride.language, "en");
+assert.equal(solebayWikipediaOverride.pageTitle, "Battle_of_Solebay");
 const happoWikipediaOverride = await resolveWikipediaConflictTitle("Acción naval de Happo (1592)");
 assert.equal(happoWikipediaOverride.language, "en");
 assert.equal(happoWikipediaOverride.pageTitle, "Battle_of_Happo");

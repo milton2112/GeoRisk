@@ -1,5 +1,6 @@
 node_modules/
 dist/
 reports/release-status.json
+reports/provisional-conflict-candidates.json
 .env
 .DS_Store

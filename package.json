@@ -1,6 +1,6 @@
 {
   "name": "geo-risk",
-  "version": "1.6.78",
+  "version": "1.6.79",
   "type": "module",
   "scripts": {
     "build:data": "node scripts/buildDataset.js && node scripts/applyConflictAutofix.js && node scripts/applyVisibleDataCorrections.js && node scripts/buildDataIndexes.js",
@@ -9,6 +9,7 @@
     "import:conflicts:dyadic": "powershell -ExecutionPolicy Bypass -File scripts/importDyadicSupplement.ps1",
     "smoke:server": "node scripts/localSmokeServer.js",
     "audit:conflicts": "node scripts/auditConflicts.js",
+    "audit:conflicts:provisional": "node scripts/auditProvisionalConflictCandidates.js",
     "audit:project": "node scripts/projectAudit.js",
     "fix:data-visible": "node scripts/applyVisibleDataCorrections.js",
     "fix:source-text": "node scripts/fixSourceText.js",
@@ -39,6 +40,7 @@
     "test:conflicts": "node scripts/tests/conflict-cleaning.test.js",
     "test:conflict-audit": "node scripts/tests/conflict-audit.test.js",
     "test:conflict-audit-report": "node scripts/tests/conflict-audit-report.test.js",
+    "test:provisional-candidates": "node scripts/tests/provisional-conflict-candidates.test.js",
     "test:conflict-autofix": "node scripts/tests/conflict-autofix.test.js",
     "test:data-language": "node scripts/tests/data-language-quality.test.js",
     "test:logic": "node scripts/tests/logic.test.js",
@@ -56,7 +58,7 @@
     "test:country-matching": "node scripts/tests/country-matching.test.js",
     "test:modal-render": "node scripts/tests/modal-render.test.js",
     "test:map-coverage": "node scripts/tests/map-coverage.test.js",
-    "test": "npm run check:startup-budget && npm run build:prod && npm run test:text-normalization && npm run test:normalization && npm run test:conflicts && npm run test:conflict-audit && npm run test:conflict-audit-report && npm run test:conflict-autofix && npm run test:data-language && npm run test:logic && npm run test:search && npm run test:rankings && npm run test:news && npm run test:ui-architecture && npm run test:release-gates && npm run test:critical-flows && npm run test:browser-visual && npm run test:compare-quiz && npm run test:startup && npm run test:visual-hygiene && npm run test:smoke-server && npm run test:country-matching && npm run test:modal-render && npm run test:map-coverage && npm run validate:data"
+    "test": "npm run check:startup-budget && npm run build:prod && npm run test:text-normalization && npm run test:normalization && npm run test:conflicts && npm run test:conflict-audit && npm run test:conflict-audit-report && npm run test:provisional-candidates && npm run test:conflict-autofix && npm run test:data-language && npm run test:logic && npm run test:search && npm run test:rankings && npm run test:news && npm run test:ui-architecture && npm run test:release-gates && npm run test:critical-flows && npm run test:browser-visual && npm run test:compare-quiz && npm run test:startup && npm run test:visual-hygiene && npm run test:smoke-server && npm run test:country-matching && npm run test:modal-render && npm run test:map-coverage && npm run validate:data"
   },
   "dependencies": {
     "csv-parser": "^3.0.0",

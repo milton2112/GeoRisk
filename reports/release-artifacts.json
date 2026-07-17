@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-07-17T16:39:59.802Z",
-  "packageVersion": "1.6.78",
+  "generatedAt": "2026-07-17T18:23:57.598Z",
+  "packageVersion": "1.6.79",
   "status": "operativo",
   "summary": {
     "totalChecks": 10,
@@ -16,7 +16,7 @@
     {
       "key": "release_status_not_tracked",
       "ok": true,
-      "detail": "reports/release-status.json no debe estar trackeado por Git.",
+      "detail": "No se pudo consultar Git; este check se valida en CI o terminal normal.",
       "action": "git rm --cached reports/release-status.json"
     },
     {

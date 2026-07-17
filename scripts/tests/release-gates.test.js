@@ -85,6 +85,7 @@ const japanKoreaFollowupCuration = await fs.readFile(path.join(projectRoot, "scr
 const franceFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-france-followup.js"), "utf8");
 const usGlobalFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-global-followup.js"), "utf8");
 const britishGlobalFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-british-global-followup.js"), "utf8");
+const provisionalFoundationCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-provisional-foundation.js"), "utf8");
 const wikipediaConflicts = await fs.readFile(path.join(projectRoot, "scripts/lib/wikipedia-conflicts.js"), "utf8");
 const conflictBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-batch-curation.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
@@ -182,6 +183,7 @@ assert.ok(!prepareRelease.includes("toISOString().slice(0, 10)"), "release:prepa
 assert.ok(prepareRelease.includes("date.getFullYear()") && prepareRelease.includes("date.getMonth()") && prepareRelease.includes("date.getDate()"), "release:prepare debe calcular la fecha calendario local");
 assert.equal(packageJson.scripts["release:status"], "node scripts/releaseStatus.js", "debe existir estado resumido de release");
 assert.equal(packageJson.scripts["audit:data"], "node scripts/dataAutomationAudit.js", "debe existir auditoria programable de datos");
+assert.equal(packageJson.scripts["audit:conflicts:provisional"], "node scripts/auditProvisionalConflictCandidates.js", "debe existir auditoria de candidatos para jerarquias provisionales");
 assert.equal(packageJson.scripts["audit:doctor"], "node scripts/projectDoctor.js", "debe existir doctor de producto");
 assert.equal(packageJson.scripts["audit:release-artifacts"], "node scripts/auditReleaseArtifacts.js", "debe existir auditoria de artefactos de release");
 assert.equal(packageJson.scripts["audit:features"], "node scripts/auditFeatureHealth.js", "debe existir auditoria de salud funcional");
@@ -201,6 +203,8 @@ for (const [name, source] of [
 }
 assert.equal(packageJson.scripts["fix:source-text"], "node scripts/fixSourceText.js", "debe existir normalizacion segura de fuentes de datos");
 assert.equal(packageJson.scripts["test:text-normalization"], "node scripts/tests/text-normalization.test.js", "debe existir test especifico de mojibake");
+assert.equal(packageJson.scripts["test:provisional-candidates"], "node scripts/tests/provisional-conflict-candidates.test.js", "debe existir test de candidatos provisionales");
+assert.ok(packageJson.scripts.test.includes("test:provisional-candidates"), "npm test debe validar candidatos provisionales");
 assert.equal(packageJson.scripts["test:critical-flows"], "node scripts/tests/critical-flows.test.js", "debe existir QA automatizado de flujos criticos");
 assert.ok(packageJson.scripts.test.includes("test:critical-flows"), "npm test debe incluir flujos criticos");
 assert.ok(prePushHook.includes("npm run prepush:check"), "hook pre-push debe correr puerta liviana local");
@@ -214,6 +218,9 @@ assert.ok(releaseWorkflow.includes("npm ci"), "GitHub Actions debe instalar con 
 assert.ok(releaseWorkflow.includes("npm run release:check"), "GitHub Actions debe correr release:check");
 assert.ok(releaseWorkflow.includes("npm run validate:data"), "GitHub Actions debe correr validate:data de forma explicita");
 assert.ok(releaseWorkflow.includes("npm run audit:conflicts"), "GitHub Actions debe auditar conflictos");
+assert.ok(wikipediaConflicts.includes("AbortController"), "importador de Wikipedia debe tener timeout por solicitud");
+assert.ok(wikipediaConflicts.includes("retry-after"), "importador de Wikipedia debe respetar pausas de la API");
+assert.ok(wikipediaConflicts.includes('"part of": "partOf"'), "importador debe conservar la jerarquia Part of para revision editorial");
 assert.ok(releaseWorkflow.includes("npm run check:startup-budget"), "GitHub Actions debe correr presupuesto de arranque de forma explicita");
 assert.ok(releaseWorkflow.includes("npm run test:browser-visual"), "GitHub Actions debe correr smoke visual");
 assert.ok(releaseWorkflow.includes("npm run audit:doctor"), "GitHub Actions debe publicar doctor de producto");
@@ -955,6 +962,8 @@ assert.ok(
 );
 assert.ok(conflictAutofix.includes("BRITISH_GLOBAL_FOLLOWUP_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda britanica global");
 assert.ok(conflictAutofix.includes("BRITISH_GLOBAL_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS"), "autofix debe asociar la tanda britanica con participantes directos");
+assert.ok(conflictAutofix.includes("PROVISIONAL_FOUNDATION_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda de jerarquias provisionales verificadas");
+assert.ok(conflictAutofix.includes("PROVISIONAL_FOUNDATION_COUNTRY_CONFLICT_ADDITIONS"), "autofix debe asociar los participantes directos de la tanda provisional");
 assert.ok(
   britishGlobalFollowupCuration.includes('curationBatch: "source-backed-british-global-followup-2026-07"')
     && britishGlobalFollowupCuration.includes("hierarchySources"),
@@ -992,6 +1001,42 @@ assert.ok(
     && wikipediaConflicts.includes('"Batalla naval de Jumunjin (1950)": "Battle_of_Chumonchin_Chan"')
     && wikipediaConflicts.includes('"Primera batalla de Maryang San (1951)": "First_Battle_of_Maryang_San"'),
   "los nombres britanicos globales deben conservar paginas de importacion profunda e idioma ingles"
+);
+assert.ok(
+  provisionalFoundationCuration.includes('curationBatch: "source-backed-provisional-foundation-2026-07"')
+    && provisionalFoundationCuration.includes("hierarchySources"),
+  "la tanda provisional debe quedar identificada y conservar trazabilidad multiple"
+);
+assert.ok(
+  provisionalFoundationCuration.includes('"Batalla de Dieppe": "Batalla de Dieppe (1942)"')
+    && provisionalFoundationCuration.includes('"Batalla de Heligoland": "Batalla de Heligoland (1864)"')
+    && provisionalFoundationCuration.includes('"Batalla de Solebay": "Batalla de Solebay (1672)"'),
+  "la tanda provisional debe fechar y desambiguar acciones historicas"
+);
+assert.ok(
+  [
+    "bdlb.bn.gov.br",
+    "canada.ca",
+    "fregatten-jylland.dk",
+    "parks.canada.ca",
+    "nimh.nl",
+    "history.army.mil",
+    "rmg.co.uk"
+  ].every(domain => provisionalFoundationCuration.includes(domain)),
+  "la tanda provisional debe apoyarse en bibliotecas, museos y archivos institucionales"
+);
+assert.ok(
+  provisionalFoundationCuration.includes("no convierte a Canada moderno en beligerante")
+    && provisionalFoundationCuration.includes("no debe confundirse con Heligoland de 1914")
+    && provisionalFoundationCuration.includes("varian entre cronologias")
+    && provisionalFoundationCuration.includes("no se fuerza una victoria absoluta"),
+  "la tanda provisional debe conservar cautelas sobre continuidad estatal, homonimos y resultados discutidos"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Batalla de Dieppe (1942)": "Battle_of_Dieppe"')
+    && wikipediaConflicts.includes('"Batalla de Heligoland (1864)": "Battle_of_Heligoland_(1864)"')
+    && wikipediaConflicts.includes('"Batalla de Solebay (1672)": "Battle_of_Solebay"'),
+  "los nombres provisionales curados deben conservar paginas de importacion profunda"
 );
 assert.ok(
   conflictBatchCuration.includes("if (Array.isArray(entry.treaties)) return entry.treaties;"),

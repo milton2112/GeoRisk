@@ -1339,6 +1339,41 @@ const expectedServedConflictCuration = [
     name: "Ofensiva de Sirte de 2016",
     parent: "Segunda guerra civil libia",
     region: "Sirte, Libia"
+  },
+  {
+    name: "Asalto a los acorazados Cabral y Lima Barros (1868)",
+    parent: "Guerra de la Triple Alianza",
+    region: "Rio Paraguay, cerca de Humaita, Paraguay"
+  },
+  {
+    name: "Batalla de Dieppe (1942)",
+    parent: "Segunda Guerra Mundial",
+    region: "Dieppe, Sena Maritimo, Francia ocupada"
+  },
+  {
+    name: "Batalla de Heligoland (1864)",
+    parent: "Segunda guerra de Schleswig (1864)",
+    region: "Mar del Norte, frente a Heligoland"
+  },
+  {
+    name: "Batalla de la Bahía de Hudson (1697)",
+    parent: "Guerra de los Nueve Anos (1688-1697)",
+    region: "Bahia de Hudson, America del Norte"
+  },
+  {
+    name: "Batalla de la Haya (1940)",
+    parent: "Segunda Guerra Mundial",
+    region: "La Haya y los aerodromos de Valkenburg, Ypenburg y Ockenburg, Paises Bajos"
+  },
+  {
+    name: "Batalla de Rumaila (1991)",
+    parent: "Guerra del Golfo",
+    region: "Campo petrolero de Rumaila, sur de Irak"
+  },
+  {
+    name: "Batalla de Solebay (1672)",
+    parent: "Tercera guerra anglo-neerlandesa (1672-1674)",
+    region: "Solebay, costa de Suffolk, mar del Norte"
   }
 ];
 const servedConflictsByName = new Map();

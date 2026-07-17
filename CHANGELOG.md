@@ -8,7 +8,19 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.78 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.79 antes de cerrar la siguiente version.
+
+## v1.6.79 - 2026-07-17
+
+- Fecha, jerarquiza y documenta siete acciones historicas que seguian con padre provisional: Cabral y Lima Barros, Dieppe, Heligoland de 1864, bahia de Hudson, La Haya, Rumaila y Solebay.
+- Completa guerra padre, campana, region, participantes, causa, resultado, consecuencias, cronologia, acuerdos de cierre y dos fuentes de trazabilidad por ficha.
+- Distingue Heligoland de 1864 de la batalla de 1914, conserva la ambiguedad de calendario y resultado de Solebay, y marca cautelas sobre la cronologia de Rumaila y el resultado local de La Haya.
+- Vincula las acciones con los paises participantes directos para que las fichas, el mapa, los filtros y los rankings mantengan la misma referencia.
+- Reduce los conflictos fuera del indice fechable de 310 a 302 y las jerarquias provisionales de 242 a 235; el timeline pasa de 2763 a 2780 eventos fechables, el indice de conflictos de 1690 a 1697 y los detalles diferidos de 935 a 942 shards.
+- Agrega una auditoria recuperable de candidatos provisionales basada en la API de Wikipedia, con lectura de campo "parte de", timeouts, reintentos ante limite de tasa y una regresion para evitar publicar el texto literal "null".
+- Mantiene el reporte de candidatos como artefacto local, fuera del versionado y del deploy, para que la curaduria automatizada nunca se confunda con una fuente ya aprobada.
+- Agrega regresiones de jerarquia, nombres canonicos, asociaciones nacionales, aliases de importacion, calidad de datos y puertas de release.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-17-release-4`.
 
 ## v1.6.78 - 2026-07-17
 

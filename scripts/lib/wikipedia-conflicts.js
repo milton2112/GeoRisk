@@ -272,7 +272,14 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Batalla de Qurna (1914)": "Battle_of_Qurna",
   "Batalla naval de Jumunjin (1950)": "Battle_of_Chumonchin_Chan",
   "Batalla de la bahía de Heligoland (1914)": "Battle_of_Heligoland_Bight_(1914)",
-  "Primera batalla de Maryang San (1951)": "First_Battle_of_Maryang_San"
+  "Primera batalla de Maryang San (1951)": "First_Battle_of_Maryang_San",
+  "Asalto a los acorazados Cabral y Lima Barros (1868)": "Asalto_a_los_acorazados_Cabral_y_Lima_Barros",
+  "Batalla de Dieppe (1942)": "Battle_of_Dieppe",
+  "Batalla de Heligoland (1864)": "Battle_of_Heligoland_(1864)",
+  "Batalla de la Bahía de Hudson (1697)": "Battle_of_Hudson's_Bay",
+  "Batalla de la Haya (1940)": "Battle_for_The_Hague",
+  "Batalla de Rumaila (1991)": "Battle_of_Rumaila",
+  "Batalla de Solebay (1672)": "Battle_of_Solebay"
 };
 
 const ENGLISH_WIKIPEDIA_TITLE_EXCEPTIONS = new Set([
@@ -291,6 +298,8 @@ const FIELD_ALIASES = {
   resultado: "result",
   consecuencias: "consequences",
   "cambios territoriales": "territorialChanges",
+  "parte de": "partOf",
+  "parte del": "partOf",
   beligerantes: "belligerents",
   comandantes: "commanders",
   "figuras politicas": "commanders",
@@ -306,6 +315,7 @@ const FIELD_ALIASES = {
   casualties: "casualties",
   losses: "casualties",
   "territorial changes": "territorialChanges",
+  "part of": "partOf",
   cause: "casusBelli"
 };
 
@@ -314,15 +324,34 @@ const WIKIPEDIA_HEADERS = {
   "User-Agent": "GeoRiskConflictImporter/1.0 (educational dataset curation)",
   Accept: "application/json"
 };
+const WIKIPEDIA_REQUEST_TIMEOUT_MS = 15_000;
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 async function fetchWikipediaJson(url, attempt = 1) {
-  const response = await fetch(url, { headers: WIKIPEDIA_HEADERS });
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), WIKIPEDIA_REQUEST_TIMEOUT_MS);
+  let response;
+
+  try {
+    response = await fetch(url, { headers: WIKIPEDIA_HEADERS, signal: controller.signal });
+  } catch (error) {
+    if (error?.name === "AbortError") {
+      throw new Error(`Wikipedia request excedio ${WIKIPEDIA_REQUEST_TIMEOUT_MS}ms`);
+    }
+    throw error;
+  } finally {
+    clearTimeout(timeout);
+  }
+
   if (response.status === 429 && attempt < 4) {
-    await sleep(600 * attempt);
+    const retryAfterSeconds = Number(response.headers.get("retry-after"));
+    const delayMs = Number.isFinite(retryAfterSeconds) && retryAfterSeconds > 0
+      ? retryAfterSeconds * 1000
+      : 1_500 * attempt;
+    await sleep(delayMs);
     return fetchWikipediaJson(url, attempt + 1);
   }
   if (!response.ok) {
@@ -816,6 +845,7 @@ function toGeoRiskConflictDetail(parsed, pageTitle) {
     participants: buildParticipantsFromInfobox(parsed),
     outcome: parsed.result || null,
     consequences: flattenStructuredText(parsed.consequences || parsed.territorialChanges || []),
+    partOf: parsed.partOf || null,
     chronology: buildChronologyFromInfobox(parsed),
     related: [],
     region: parsed.place || null
@@ -873,6 +903,7 @@ export function sanitizeWikipediaConflictDetail(detail = {}) {
     cause: normalizeStructuredWikipediaValue(detail.cause),
     outcome: normalizeStructuredWikipediaValue(detail.outcome),
     consequences: normalizeStructuredWikipediaValue(detail.consequences),
+    partOf: normalizeStructuredWikipediaValue(detail.partOf),
     region: normalizeStructuredWikipediaValue(detail.region),
     chronology: Array.isArray(detail.chronology)
       ? detail.chronology

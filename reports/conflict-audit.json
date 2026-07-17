@@ -1,28 +1,14 @@
 {
-  "generatedAt": "2026-07-17T16:39:54.715Z",
+  "generatedAt": "2026-07-17T18:22:55.859Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 242,
-  "reviewCount": 242,
+  "advisoryCount": 235,
+  "reviewCount": 235,
   "summary": {
-    "provisional_parent": 242
+    "provisional_parent": 235
   },
   "topIssues": [],
   "topAdvisories": [
-    {
-      "key": "asalto a los acorazados cabral y lima barros",
-      "name": "Asalto a los acorazados Cabral y Lima Barros",
-      "countries": [
-        "PRY"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
     {
       "key": "batalla aerea de samurra",
       "name": "Batalla Aérea de Samurra",
@@ -500,20 +486,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de dieppe",
-      "name": "Batalla de Dieppe",
-      "countries": [
-        "CAN"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de diu",
       "name": "Batalla de Diu",
       "countries": [
@@ -850,20 +822,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de heligoland",
-      "name": "Batalla de Heligoland",
-      "countries": [
-        "DNK"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de hiddensee",
       "name": "Batalla de Hiddensee",
       "countries": [
@@ -1118,6 +1076,48 @@
     {
       "key": "batalla de kircholm",
       "name": "Batalla de Kircholm",
+      "countries": [
+        "SWE"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de kirchschlag",
+      "name": "Batalla de Kirchschlag",
+      "countries": [
+        "AUT"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de klecko",
+      "name": "Batalla de Klecko",
+      "countries": [
+        "SWE"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de kliszow",
+      "name": "Batalla de Kliszów",
       "countries": [
         "SWE"
       ],
