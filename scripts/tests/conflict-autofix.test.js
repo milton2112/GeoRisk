@@ -98,6 +98,11 @@ import {
   JAPAN_KOREA_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
   JAPAN_KOREA_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-japan-korea-followup.js";
+import {
+  FRANCE_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  FRANCE_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
+  FRANCE_FOLLOWUP_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-france-followup.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -777,6 +782,54 @@ assert.ok(
   ),
   "la tanda naval de Imjin debe conservar fechas, jerarquia, fuentes, participantes y cautelas editoriales"
 );
+assert.equal(Object.keys(FRANCE_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 12);
+assert.equal(Object.keys(FRANCE_FOLLOWUP_SAFE_CONFLICT_RENAMES).length, 12);
+assert.equal(FRANCE_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS["Reino Unido"].length, 9);
+assert.deepEqual(FRANCE_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS.Rusia, [
+  "Sitio de Bomarsund (1854)",
+  "Batalla de Craonne (1814)",
+  "Batalla de Golymin (1806)",
+  "Batalla de Heilsberg (1807)"
+]);
+assert.equal(
+  FRANCE_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Bantry Bay"],
+  "Batalla naval de la bahía de Bantry (1689)"
+);
+assert.equal(
+  FRANCE_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Chandannagar"],
+  "Asedio y captura de Chandannagar (1757)"
+);
+assert.equal(FRANCE_FOLLOWUP_CONFLICT_DETAIL_FIXES["Sitio de Bomarsund (1854)"].type, "sitio y operación anfibia");
+assert.equal(FRANCE_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Camaret (1694)"].type, "asalto anfibio");
+assert.equal(FRANCE_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla naval de la bahía de Bantry (1689)"].sourceDispute, true);
+assert.equal(FRANCE_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Heilsberg (1807)"].sourceDispute, true);
+assert.equal(FRANCE_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla naval de la bahía de Chesapeake (1781)"].sourceDispute, true);
+assert.ok(
+  Object.values(FRANCE_FOLLOWUP_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent
+      && detail.war === detail.parent
+      && !/^Conflicto regional de /i.test(detail.parent)
+      && detail.campaign
+      && detail.region
+      && detail.normalizedRegion === detail.region
+      && detail.cause
+      && detail.outcome
+      && detail.consequences
+      && detail.chronology?.length >= 2
+      && detail.chronology.every(event => event.year === detail.startYear && event.event)
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 2
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties)
+      && detail.curationBatch === "source-backed-france-followup-2026-07"
+      && detail.curationNote
+  ),
+  "la tanda francesa debe conservar fecha, jerarquia, fuentes, participantes, narrativa y cautelas editoriales"
+);
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",
   startYear: 1944,
@@ -833,6 +886,15 @@ assert.equal(happoWikipediaOverride.pageTitle, "Battle_of_Happo");
 const yulpoWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval de Yulpo (1592)");
 assert.equal(yulpoWikipediaOverride.language, "en");
 assert.equal(yulpoWikipediaOverride.pageTitle, "List_of_naval_battles_during_the_Imjin_War");
+const bantryWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval de la bahía de Bantry (1689)");
+assert.equal(bantryWikipediaOverride.language, "en");
+assert.equal(bantryWikipediaOverride.pageTitle, "Battle_of_Bantry_Bay");
+const chandannagarWikipediaOverride = await resolveWikipediaConflictTitle("Asedio y captura de Chandannagar (1757)");
+assert.equal(chandannagarWikipediaOverride.language, "en");
+assert.equal(chandannagarWikipediaOverride.pageTitle, "Battle_of_Chandannagar");
+const chesapeakeWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval de la bahía de Chesapeake (1781)");
+assert.equal(chesapeakeWikipediaOverride.language, "en");
+assert.equal(chesapeakeWikipediaOverride.pageTitle, "Battle_of_the_Chesapeake");
 const spanishWikipediaOverride = await resolveWikipediaConflictTitle("Guerra de Corea");
 assert.equal(spanishWikipediaOverride.language, "es");
 assert.match(spanishWikipediaOverride.apiUrl, /^https:\/\/es\.wikipedia\.org\//);
@@ -962,6 +1024,7 @@ const report = buildConflictAuditReport({
           { name: "Batalla de Norwalk" },
           { name: "Batalla de Fort Slongo" },
           { name: "Batalla de Happo" },
+          { name: "Batalla de Bantry Bay" },
           { name: "Adriatic Campaign de World War II", startYear: 1939, endYear: 1945 }
         ]
       }
@@ -1004,6 +1067,10 @@ assert.ok(!report.topAdvisories.some(item => item.name === "Batalla de Monterrey
 assert.ok(!report.topAdvisories.some(item => item.name === "Batalla del río Marilao"), "Marilao debe quedar traducida y bajo su guerra padre");
 assert.ok(!report.topAdvisories.some(item => item.name === "Incursión de Norwalk (1779)"), "Norwalk debe usar su campaña verificada de 1779");
 assert.ok(!report.topAdvisories.some(item => item.name === "Asalto a Fort Slongo (1781)"), "Fort Slongo debe usar su jerarquía verificada de 1781");
+assert.ok(
+  !report.topAdvisories.some(item => item.name === "Batalla naval de la bahía de Bantry (1689)"),
+  "Bantry debe usar su fecha y jerarquía verificadas"
+);
 assert.ok(!report.topIssues.some(item => item.name === "Batalla de Manila"), "el nombre ambiguo de Manila no debe reaparecer en la auditoria");
 assert.ok(!report.topAdvisories.some(item => item.name === "Sitio de Fort Wayne"), "Fort Wayne debe usar la guerra de 1812");
 assert.ok(!report.topAdvisories.some(item => item.name === "Batalla del río Canard"), "River Canard debe quedar traducida y jerarquizada");

@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-16T23:26:12.908Z",
+  "generatedAt": "2026-07-17T15:21:38.589Z",
   "scannedConflicts": 2002,
   "issueCount": 0,
-  "advisoryCount": 270,
-  "reviewCount": 270,
+  "advisoryCount": 258,
+  "reviewCount": 258,
   "summary": {
-    "provisional_parent": 270
+    "provisional_parent": 258
   },
   "topIssues": [],
   "topAdvisories": [
@@ -108,20 +108,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de bantry bay",
-      "name": "Batalla de Bantry Bay",
-      "countries": [
-        "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de barbados",
       "name": "Batalla de Barbados",
       "countries": [
@@ -206,20 +192,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de bomarsund",
-      "name": "Batalla de Bomarsund",
-      "countries": [
-        "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de bornholm",
       "name": "Batalla de Bornholm",
       "countries": [
@@ -262,20 +234,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de camaret",
-      "name": "Batalla de Camaret",
-      "countries": [
-        "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de campeche",
       "name": "Batalla de Campeche",
       "countries": [
@@ -290,20 +248,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de cap francais",
-      "name": "Batalla de Cap-Français",
-      "countries": [
-        "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de cerro del gallo",
       "name": "Batalla de Cerro del Gallo",
       "countries": [
@@ -312,20 +256,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de chandannagar",
-      "name": "Batalla de Chandannagar",
-      "countries": [
-        "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],
@@ -452,20 +382,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de craonne",
-      "name": "Batalla de Craonne",
-      "countries": [
-        "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],
@@ -808,20 +724,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de golymin",
-      "name": "Batalla de Golymin",
-      "countries": [
-        "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de gonzalez",
       "name": "Batalla de González",
       "countries": [
@@ -878,38 +780,10 @@
       "severity": 1
     },
     {
-      "key": "batalla de grenada",
-      "name": "Batalla de Grenada",
-      "countries": [
-        "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de grengam",
       "name": "Batalla de Grengam",
       "countries": [
         "SWE"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de groix",
-      "name": "Batalla de Groix",
-      "countries": [
-        "FRA"
       ],
       "startYear": null,
       "endYear": null,
@@ -978,20 +852,6 @@
     {
       "key": "batalla de havana",
       "name": "Batalla de Havana",
-      "countries": [
-        "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de heilsberg",
-      "name": "Batalla de Heilsberg",
       "countries": [
         "FRA"
       ],
@@ -1124,6 +984,146 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de iles saint marcouf",
+      "name": "Batalla de Îles Saint-Marcouf",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de imbros",
+      "name": "Batalla de Imbros",
+      "countries": [
+        "GRC"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de jabrayil",
+      "name": "Batalla de Jabrayil",
+      "countries": [
+        "AZE"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de jackson",
+      "name": "Batalla de jackson",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de jaroslaw",
+      "name": "Batalla de Jaroslaw",
+      "countries": [
+        "SWE"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de jumunjin",
+      "name": "Batalla de Jumunjin",
+      "countries": [
+        "GBR"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de jupiter inlet",
+      "name": "Batalla de Jupiter Inlet",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de kaipiais",
+      "name": "Batalla de Kaipiais",
+      "countries": [
+        "SWE"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de kalyazin",
+      "name": "Batalla de Kalyazin",
+      "countries": [
+        "SWE"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de kamani",
+      "name": "Batalla de Kamani",
+      "countries": [
+        "GEO"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Asia",
       "issues": [
         "provisional_parent"
       ],

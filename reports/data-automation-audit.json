@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-07-16T23:26:16.259Z",
+  "generatedAt": "2026-07-17T15:21:43.063Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 338
+      "count": 326
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 270
+      "count": 258
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 407
+      "count": 419
     },
     "redundantReligions": {
       "count": 0
@@ -188,37 +188,7 @@
       },
       {
         "code": "FRA",
-        "name": "Batalla de Bantry Bay",
-        "region": "Europa"
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Bomarsund",
-        "region": "Europa"
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Camaret",
-        "region": "Europa"
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Cap-Français",
-        "region": "Europa"
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Chandannagar",
-        "region": "Europa"
-      },
-      {
-        "code": "FRA",
         "name": "Batalla de Chef-de-Caux",
-        "region": "Europa"
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Craonne",
         "region": "Europa"
       },
       {
@@ -228,22 +198,7 @@
       },
       {
         "code": "FRA",
-        "name": "Batalla de Golymin",
-        "region": "Europa"
-      },
-      {
-        "code": "FRA",
         "name": "Batalla de Grado",
-        "region": "Europa"
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Grenada",
-        "region": "Europa"
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Groix",
         "region": "Europa"
       },
       {
@@ -253,7 +208,52 @@
       },
       {
         "code": "FRA",
-        "name": "Batalla de Heilsberg",
+        "name": "Batalla de Hiddensee",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Hyères Islands",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Île Ronde",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Îles Saint-Marcouf",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Kousséri",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de la Bahía de Hudson",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Lagos",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Lissa",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Mahé",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Mona Passage",
         "region": "Europa"
       }
     ],
@@ -401,49 +401,7 @@
       },
       {
         "code": "FRA",
-        "name": "Batalla de Bantry Bay",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Bomarsund",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Camaret",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Cap-Français",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Chandannagar",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
         "name": "Batalla de Chef-de-Caux",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Craonne",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -457,13 +415,6 @@
       },
       {
         "code": "FRA",
-        "name": "Batalla de Golymin",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
         "name": "Batalla de Grado",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
@@ -471,28 +422,7 @@
       },
       {
         "code": "FRA",
-        "name": "Batalla de Grenada",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Groix",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
         "name": "Batalla de Havana",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Heilsberg",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -534,7 +464,77 @@
       },
       {
         "code": "FRA",
-        "name": "Batalla de la Bahía de Chesapeake",
+        "name": "Batalla de la Bahía de Hudson",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Lagos",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Lissa",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Mahé",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Mona Passage",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Negapatam",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Neuville",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Palikao",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Pondicherry",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Port Louis",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Procida Canal",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 270,
+      "count": 258,
       "command": "npm run fix:conflicts:batches"
     },
     {

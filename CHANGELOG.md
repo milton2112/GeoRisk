@@ -8,7 +8,22 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.75 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.76 antes de cerrar la siguiente version.
+
+## v1.6.76 - 2026-07-17
+
+- Fecha, traduce, reclasifica y jerarquiza doce acciones historicas vinculadas con Francia: Bantry, Bomarsund, Camaret, Cap-Francais, Chandannagar, Craonne, Golymin, Granada, Groix, Heilsberg, Chesapeake y Quiberon.
+- Completa guerra padre, campana, region, participantes, causa, resultado, consecuencias, cronologia, tratados y trazabilidad con dos fuentes institucionales por registro.
+- Reclasifica Bomarsund como sitio y operacion anfibia, Camaret como asalto anfibio y Chandannagar como asedio y asalto fluvial; traduce Bantry Bay, Grenada y Quiberon Bay y agrega anos para evitar nombres ambiguos.
+- Distingue la batalla de Groix del 23 de junio de 1795 de la retirada de Cornwallis, y separa en Chesapeake el resultado tactico no concluyente de su efecto estrategico decisivo sobre Yorktown.
+- Conserva cautelas explicitas sobre los calendarios y el resultado de Bantry, el desenlace no decisivo de Heilsberg, la accion no concluyente de Cap-Francais y las cifras de bajas no consolidadas.
+- Vincula las acciones con Reino Unido, Irlanda, Finlandia, Rusia, Paises Bajos, Haiti, India, Alemania, Polonia y Estados Unidos cuando la participacion o la ubicacion historica lo justifican, sin inventar participacion militar del Estado moderno.
+- Reduce los conflictos sin fecha auditados de 338 a 326 y las jerarquias provisionales de 270 a 258; el timeline pasa de 2688 a 2723 eventos fechables.
+- Regenera el indice liviano de conflictos de 1663 a 1675 entradas y los detalles diferidos de 907 a 919 shards; la segunda ejecucion converge con cero cambios.
+- Agrega regresiones para nombres canonicos, fechas, tipos, jerarquias, asociaciones nacionales, fuentes, disputas editoriales, paginas de contexto y ausencia de los doce nombres anteriores.
+- Mantiene 0 alertas, nombres ingleses, duplicados, regiones sospechosas, religiones redundantes, mojibake y problemas de localizacion.
+- Mantiene el arranque critico en 810 KB, `script.js` en 543 KB y `countries_index.json` en 141 KB, con 0 long tasks simuladas sobre presupuesto y 55 FPS medios.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-17-release-1`.
 
 ## v1.6.75 - 2026-07-16
 

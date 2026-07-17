@@ -927,6 +927,102 @@ const staleJapanKoreaNavalNames = Object.values(countries).flatMap(country => co
   ].includes(conflict.name));
 assert.deepEqual(staleJapanKoreaNavalNames, [], "los nombres navales ambiguos o sin año no deben reaparecer");
 
+const franceFollowupExpectations = [
+  { name: "Batalla naval de la bahía de Bantry (1689)", parent: "Guerra de los Nueve Años", startYear: 1689, type: "batalla naval" },
+  { name: "Sitio de Bomarsund (1854)", parent: "Guerra de Crimea", startYear: 1854, type: "sitio y operación anfibia" },
+  { name: "Batalla de Camaret (1694)", parent: "Guerra de los Nueve Años", startYear: 1694, type: "asalto anfibio" },
+  { name: "Batalla naval de Cap-Français (1757)", parent: "Guerra de los Siete Años", startYear: 1757, type: "batalla naval" },
+  { name: "Asedio y captura de Chandannagar (1757)", parent: "Guerra de los Siete Años", startYear: 1757, type: "asedio y asalto fluvial" },
+  { name: "Batalla de Craonne (1814)", parent: "Guerra de la Sexta Coalición (1813-1814)", startYear: 1814, type: "batalla" },
+  { name: "Batalla de Golymin (1806)", parent: "Guerra de la Cuarta Coalición (1806-1807)", startYear: 1806, type: "batalla" },
+  { name: "Batalla naval de la isla de Granada (1779)", parent: "Guerra de Independencia de Estados Unidos", startYear: 1779, type: "batalla naval" },
+  { name: "Batalla naval de Groix (1795)", parent: "Guerras revolucionarias francesas", startYear: 1795, type: "batalla naval" },
+  { name: "Batalla de Heilsberg (1807)", parent: "Guerra de la Cuarta Coalición (1806-1807)", startYear: 1807, type: "batalla" },
+  { name: "Batalla naval de la bahía de Chesapeake (1781)", parent: "Guerra de Independencia de Estados Unidos", startYear: 1781, type: "batalla naval" },
+  { name: "Batalla naval de la bahía de Quiberon (1759)", parent: "Guerra de los Siete Años", startYear: 1759, type: "batalla naval" }
+];
+for (const expectation of franceFollowupExpectations) {
+  const entries = Object.values(countries).flatMap(country => country.military?.conflicts || [])
+    .filter(conflict => conflict.name === expectation.name);
+  assert.ok(entries.length >= 2, `${expectation.name} debe vincularse con Francia y al menos otro país pertinente`);
+  assert.ok(
+    entries.every(conflict =>
+      conflict.parent === expectation.parent
+        && conflict.war === expectation.parent
+        && conflict.startYear === expectation.startYear
+        && conflict.endYear === expectation.startYear
+        && conflict.type === expectation.type
+    ),
+    `${expectation.name} debe conservar fecha, tipo y guerra padre documentados`
+  );
+  const detail = getConflictDetailByVisibleName(expectation.name);
+  assert.equal(
+    detail?.curationBatch,
+    "source-backed-france-followup-2026-07",
+    `${expectation.name} debe conservar el lote editorial`
+  );
+  assert.equal(detail?.hierarchyConfidence, "alta", `${expectation.name} debe declarar confianza de jerarquía`);
+  assert.ok(detail?.hierarchySources?.length >= 2, `${expectation.name} debe publicar fuentes múltiples`);
+  assert.ok(detail?.curationNote, `${expectation.name} debe explicar la decisión editorial`);
+  assert.equal(detail?.pageTitle, expectation.name, `${expectation.name} debe conservar su nombre público canónico`);
+}
+const franceConflictNames = new Set(countries.FRA.military.conflicts.map(conflict => conflict.name));
+assert.ok(
+  franceFollowupExpectations.every(expectation => franceConflictNames.has(expectation.name)),
+  "Francia debe conservar las doce acciones curadas"
+);
+const countryConflictsByName = countryName => Object.values(countries)
+  .find(country => country.name === countryName)?.military?.conflicts || [];
+assert.ok(
+  countryConflictsByName("Reino Unido").filter(conflict => franceFollowupExpectations.some(item => item.name === conflict.name)).length >= 9,
+  "Reino Unido debe vincular las nueve acciones franco-británicas pertinentes"
+);
+assert.ok(
+  countryConflictsByName("Rusia").filter(conflict => [
+    "Sitio de Bomarsund (1854)",
+    "Batalla de Craonne (1814)",
+    "Batalla de Golymin (1806)",
+    "Batalla de Heilsberg (1807)"
+  ].includes(conflict.name)).length === 4,
+  "Rusia debe vincular las cuatro acciones en las que participó"
+);
+assert.ok(
+  countryConflictsByName("Estados Unidos").some(conflict => conflict.name === "Batalla naval de la bahía de Chesapeake (1781)"),
+  "Estados Unidos debe vincular Chesapeake por ubicación y consecuencia histórica"
+);
+for (const name of [
+  "Batalla naval de la bahía de Bantry (1689)",
+  "Batalla de Heilsberg (1807)",
+  "Batalla naval de la bahía de Chesapeake (1781)"
+]) {
+  assert.equal(getConflictDetailByVisibleName(name)?.sourceDispute, true, `${name} debe publicar la cautela editorial`);
+}
+assert.match(
+  getConflictDetailByVisibleName("Batalla naval de Groix (1795)")?.curationNote || "",
+  /Cornwallis/,
+  "Groix debe distinguir la batalla del 23 de junio de la retirada previa"
+);
+const staleFranceFollowupNames = new Set([
+  "Batalla de Bantry Bay",
+  "Batalla de Bomarsund",
+  "Batalla de Camaret",
+  "Batalla de Cap-Français",
+  "Batalla de Chandannagar",
+  "Batalla de Craonne",
+  "Batalla de Golymin",
+  "Batalla de Grenada",
+  "Batalla de Groix",
+  "Batalla de Heilsberg",
+  "Batalla de la Bahía de Chesapeake",
+  "Batalla de Quiberon Bay"
+]);
+assert.deepEqual(
+  Object.values(countries).flatMap(country => country.military?.conflicts || [])
+    .filter(conflict => staleFranceFollowupNames.has(conflict.name)),
+  [],
+  "los nombres franceses ambiguos, sin año o parcialmente ingleses no deben reaparecer"
+);
+
 const frontierSecondFollowupExpectations = [
   { name: "Ataque a Kenapacomaqua (1791)", parent: "Guerra indígena del Noroeste", startYear: 1791 },
   { name: "Masacre de Claremore Mound (1817)", parent: "Conflicto osage-cheroqui", startYear: 1817 },

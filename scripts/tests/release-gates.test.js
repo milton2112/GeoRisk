@@ -72,6 +72,7 @@ const britishWwiiFollowupCuration = await fs.readFile(path.join(projectRoot, "sc
 const usOverseasFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-overseas-followup.js"), "utf8");
 const activeAfricaFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-active-africa-followup.js"), "utf8");
 const japanKoreaFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-japan-korea-followup.js"), "utf8");
+const franceFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-france-followup.js"), "utf8");
 const wikipediaConflicts = await fs.readFile(path.join(projectRoot, "scripts/lib/wikipedia-conflicts.js"), "utf8");
 const conflictBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-batch-curation.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
@@ -837,6 +838,53 @@ assert.ok(
     && wikipediaConflicts.includes('"Batalla naval de Noryang (1598)": "Battle_of_Noryang"')
     && wikipediaConflicts.includes('"List_of_naval_battles_during_the_Imjin_War"'),
   "los nombres navales de Imjin deben resolver artículos o el índice inglés correcto"
+);
+assert.ok(conflictAutofix.includes("FRANCE_FOLLOWUP_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda histórica francesa");
+assert.ok(conflictAutofix.includes("FRANCE_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS"), "autofix debe asociar las acciones francesas con los territorios y participantes pertinentes");
+assert.ok(
+  franceFollowupCuration.includes('curationBatch: "source-backed-france-followup-2026-07"')
+    && franceFollowupCuration.includes("hierarchySources"),
+  "la tanda francesa debe quedar identificada y conservar trazabilidad múltiple"
+);
+assert.ok(
+  franceFollowupCuration.includes('"Batalla de Bantry Bay": "Batalla naval de la bahía de Bantry (1689)"')
+    && franceFollowupCuration.includes('"Batalla de Bomarsund": "Sitio de Bomarsund (1854)"')
+    && franceFollowupCuration.includes('"Batalla de Chandannagar": "Asedio y captura de Chandannagar (1757)"')
+    && franceFollowupCuration.includes('"Batalla de Quiberon Bay": "Batalla naval de la bahía de Quiberon (1759)"'),
+  "la tanda francesa debe traducir, fechar y reclasificar los nombres visibles"
+);
+assert.ok(
+  [
+    "sources.nli.ie",
+    "ustc.ac.uk",
+    "visitaland.com",
+    "um.fi",
+    "sites-vauban.org",
+    "rmg.co.uk",
+    "nam.ac.uk",
+    "heritage.bnf.fr",
+    "napoleon.org",
+    "founders.archives.gov",
+    "artcollection.dcms.gov.uk",
+    "nps.gov",
+    "history.navy.mil"
+  ].every(domain => franceFollowupCuration.includes(domain)),
+  "la tanda francesa debe apoyarse en archivos, museos y organismos históricos institucionales"
+);
+assert.ok(
+  franceFollowupCuration.includes("calendario gregoriano")
+    && franceFollowupCuration.includes("sin presentarla como consecuencia exclusiva")
+    && franceFollowupCuration.includes("se la separa de la retirada de Cornwallis")
+    && franceFollowupCuration.includes("resultado no decisivo")
+    && franceFollowupCuration.includes("intercambio tácticamente no concluyente"),
+  "la tanda francesa debe conservar cautelas sobre calendarios, causalidad y resultados discutidos"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Batalla naval de la bahía de Bantry (1689)": "Battle_of_Bantry_Bay"')
+    && wikipediaConflicts.includes('"Asedio y captura de Chandannagar (1757)": "Battle_of_Chandannagar"')
+    && wikipediaConflicts.includes('"Batalla naval de la bahía de Chesapeake (1781)": "Battle_of_the_Chesapeake"')
+    && wikipediaConflicts.includes('"Batalla naval de la bahía de Quiberon (1759)": "Battle_of_Quiberon_Bay"'),
+  "los nombres franceses normalizados deben conservar sus páginas de importación profunda"
 );
 assert.ok(
   conflictBatchCuration.includes("if (Array.isArray(entry.treaties)) return entry.treaties;"),

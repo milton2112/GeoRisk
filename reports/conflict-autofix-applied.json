@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-16T23:24:17.530Z",
+  "generatedAt": "2026-07-17T15:19:16.619Z",
   "changedFullCountries": 0,
   "fullPassChanges": [
     0
@@ -11,10 +11,10 @@
     "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 858,
+  "generatedHierarchyCandidates": 870,
   "countryConflictAdditions": {
     "Estados Unidos": [
-      "Batalla de Manila (1945)"
+      "Batalla naval de la bahía de Chesapeake (1781)"
     ],
     "Nicaragua": [
       "Batalla de Masaya",
@@ -26,7 +26,7 @@
       "Batalla de El Sauce"
     ],
     "Haití": [
-      "Batalla de Fort Rivière"
+      "Batalla naval de Cap-Français (1757)"
     ],
     "República Dominicana": [
       "Incursión naval de Puerto Plata (1800)",
@@ -42,8 +42,8 @@
       "Primera batalla de Dernancourt"
     ],
     "Alemania": [
-      "Batalla de Schleswig (1848)",
-      "Batalla de Isted"
+      "Batalla de Craonne (1814)",
+      "Batalla de Heilsberg (1807)"
     ],
     "Corea del Sur": [
       "Acción naval de Happo (1592)",
@@ -61,6 +61,39 @@
     ],
     "República Popular China": [
       "Batalla naval de Noryang (1598)"
+    ],
+    "Reino Unido": [
+      "Batalla naval de la bahía de Bantry (1689)",
+      "Sitio de Bomarsund (1854)",
+      "Batalla de Camaret (1694)",
+      "Batalla naval de Cap-Français (1757)",
+      "Asedio y captura de Chandannagar (1757)",
+      "Batalla naval de la isla de Granada (1779)",
+      "Batalla naval de Groix (1795)",
+      "Batalla naval de la bahía de Chesapeake (1781)",
+      "Batalla naval de la bahía de Quiberon (1759)"
+    ],
+    "Irlanda": [
+      "Batalla naval de la bahía de Bantry (1689)"
+    ],
+    "Finlandia": [
+      "Sitio de Bomarsund (1854)"
+    ],
+    "Rusia": [
+      "Sitio de Bomarsund (1854)",
+      "Batalla de Craonne (1814)",
+      "Batalla de Golymin (1806)",
+      "Batalla de Heilsberg (1807)"
+    ],
+    "Reino de los Países Bajos": [
+      "Batalla de Camaret (1694)"
+    ],
+    "India": [
+      "Asedio y captura de Chandannagar (1757)"
+    ],
+    "Polonia": [
+      "Batalla de Golymin (1806)",
+      "Batalla de Heilsberg (1807)"
     ]
   },
   "safeRenames": {
@@ -409,7 +442,19 @@
     "Batalla de Eoranpo": "Escaramuza naval de Eoranpo (1597)",
     "Batalla de Myeongnyang": "Batalla naval de Myeongnyang (1597)",
     "Batalla de Jeolido": "Batalla naval de Jeolido (1598)",
-    "Batalla de Noryang": "Batalla naval de Noryang (1598)"
+    "Batalla de Noryang": "Batalla naval de Noryang (1598)",
+    "Batalla de Bantry Bay": "Batalla naval de la bahía de Bantry (1689)",
+    "Batalla de Bomarsund": "Sitio de Bomarsund (1854)",
+    "Batalla de Camaret": "Batalla de Camaret (1694)",
+    "Batalla de Cap-Français": "Batalla naval de Cap-Français (1757)",
+    "Batalla de Chandannagar": "Asedio y captura de Chandannagar (1757)",
+    "Batalla de Craonne": "Batalla de Craonne (1814)",
+    "Batalla de Golymin": "Batalla de Golymin (1806)",
+    "Batalla de Grenada": "Batalla naval de la isla de Granada (1779)",
+    "Batalla de Groix": "Batalla naval de Groix (1795)",
+    "Batalla de Heilsberg": "Batalla de Heilsberg (1807)",
+    "Batalla de la Bahía de Chesapeake": "Batalla naval de la bahía de Chesapeake (1781)",
+    "Batalla de Quiberon Bay": "Batalla naval de la bahía de Quiberon (1759)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1234,6 +1279,18 @@
     "Escaramuza naval de Eoranpo (1597)",
     "Batalla naval de Myeongnyang (1597)",
     "Batalla naval de Jeolido (1598)",
-    "Batalla naval de Noryang (1598)"
+    "Batalla naval de Noryang (1598)",
+    "Batalla naval de la bahía de Bantry (1689)",
+    "Sitio de Bomarsund (1854)",
+    "Batalla de Camaret (1694)",
+    "Batalla naval de Cap-Français (1757)",
+    "Asedio y captura de Chandannagar (1757)",
+    "Batalla de Craonne (1814)",
+    "Batalla de Golymin (1806)",
+    "Batalla naval de la isla de Granada (1779)",
+    "Batalla naval de Groix (1795)",
+    "Batalla de Heilsberg (1807)",
+    "Batalla naval de la bahía de Chesapeake (1781)",
+    "Batalla naval de la bahía de Quiberon (1759)"
   ]
 }

@@ -243,7 +243,19 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Escaramuza naval de Eoranpo (1597)": "List_of_naval_battles_during_the_Imjin_War",
   "Batalla naval de Myeongnyang (1597)": "Battle_of_Myeongnyang",
   "Batalla naval de Jeolido (1598)": "List_of_naval_battles_during_the_Imjin_War",
-  "Batalla naval de Noryang (1598)": "Battle_of_Noryang"
+  "Batalla naval de Noryang (1598)": "Battle_of_Noryang",
+  "Batalla naval de la bahía de Bantry (1689)": "Battle_of_Bantry_Bay",
+  "Sitio de Bomarsund (1854)": "Battle_of_Bomarsund",
+  "Batalla de Camaret (1694)": "Battle_of_Camaret",
+  "Batalla naval de Cap-Français (1757)": "Battle_of_Cap-Français",
+  "Asedio y captura de Chandannagar (1757)": "Battle_of_Chandannagar",
+  "Batalla de Craonne (1814)": "Battle_of_Craonne",
+  "Batalla de Golymin (1806)": "Battle_of_Golymin",
+  "Batalla naval de la isla de Granada (1779)": "Battle_of_Grenada",
+  "Batalla naval de Groix (1795)": "Battle_of_Groix",
+  "Batalla de Heilsberg (1807)": "Battle_of_Heilsberg",
+  "Batalla naval de la bahía de Chesapeake (1781)": "Battle_of_the_Chesapeake",
+  "Batalla naval de la bahía de Quiberon (1759)": "Battle_of_Quiberon_Bay"
 };
 
 const ENGLISH_WIKIPEDIA_TITLE_EXCEPTIONS = new Set([
