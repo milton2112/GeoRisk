@@ -1,7 +1,7 @@
-import { spawn } from "node:child_process";
 import fs from "fs-extra";
 import path from "node:path";
 import { readFileWithRetry, writeFileWithRetry, writeJsonWithRetry } from "./lib/resilient-fs.js";
+import { runNpmStep } from "./lib/npm-runner.js";
 
 const projectRoot = path.resolve(process.cwd());
 const args = process.argv.slice(2);
@@ -95,18 +95,8 @@ function updateChangelog(source, version, versionStamp, date) {
   return withoutCurrentRelease.replace(match[0], `${unpublished}\n\n${releaseSection}\n`);
 }
 
-function runStep(label, command, stepArgs) {
-  return new Promise((resolve, reject) => {
-    console.log(`\n== ${label} ==`);
-    const child = spawn(command, stepArgs, { cwd: projectRoot, stdio: "inherit", shell: true });
-    child.on("exit", code => {
-      if (code === 0) {
-        resolve();
-      } else {
-        reject(new Error(`${label} fallo con codigo ${code}`));
-      }
-    });
-  });
+function runStep(label, _command, stepArgs) {
+  return runNpmStep(label, stepArgs, { cwd: projectRoot });
 }
 
 const packagePath = path.join(projectRoot, "package.json");

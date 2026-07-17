@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-17T15:41:29.789Z",
+  "generatedAt": "2026-07-17T16:39:54.715Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 250,
-  "reviewCount": 250,
+  "advisoryCount": 242,
+  "reviewCount": 242,
   "summary": {
-    "provisional_parent": 250
+    "provisional_parent": 242
   },
   "topIssues": [],
   "topAdvisories": [
@@ -682,20 +682,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de fort carillon",
-      "name": "Batalla de Fort Carillon",
-      "countries": [
-        "GBR"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de fundy bay",
       "name": "Batalla de Fundy Bay",
       "countries": [
@@ -1018,20 +1004,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de jumunjin",
-      "name": "Batalla de Jumunjin",
-      "countries": [
-        "GBR"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de jupiter inlet",
       "name": "Batalla de Jupiter Inlet",
       "countries": [
@@ -1118,6 +1090,34 @@
     {
       "key": "batalla de kcynia",
       "name": "Batalla de Kcynia",
+      "countries": [
+        "SWE"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de kimito strait",
+      "name": "Batalla de Kimito Strait",
+      "countries": [
+        "SWE"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de kircholm",
+      "name": "Batalla de Kircholm",
       "countries": [
         "SWE"
       ],

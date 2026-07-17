@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-07-17T15:38:06.329Z",
+  "generatedAt": "2026-07-17T16:10:45.069Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 9990261,
-    "duplicatedCountryFilesBytes": 1485413,
-    "countryConflictShardBytes": 384204,
+    "fullBytes": 10044923,
+    "duplicatedCountryFilesBytes": 1487200,
+    "countryConflictShardBytes": 386027,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 23977,
-        "inlineBytes": 3081015,
+        "inlineBytes": 3085659,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,7 +21,7 @@
           "religionGroups": 7,
           "organizations": 55,
           "rivals": 85,
-          "conflicts": 921,
+          "conflicts": 922,
           "timelineEvents": 4
         },
         "metrics": {
@@ -54,16 +54,16 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 211210,
-          "conflictShardBytes": 211211,
+          "conflictsBytes": 211497,
+          "conflictShardBytes": 211498,
           "averageConflictBytes": 229
         }
       },
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 22341,
-        "inlineBytes": 920557,
+        "bytes": 22498,
+        "inlineBytes": 934339,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -78,7 +78,7 @@
         "metrics": {
           "sectionBytes": {
             "politics": 9502,
-            "military": 8917,
+            "military": 9074,
             "metadata": 1952,
             "general": 1018,
             "history": 395,
@@ -94,7 +94,7 @@
             },
             {
               "section": "military",
-              "bytes": 8917
+              "bytes": 9074
             },
             {
               "section": "metadata",
@@ -105,16 +105,16 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 62245,
-          "conflictShardBytes": 62246,
-          "averageConflictBytes": 215
+          "conflictsBytes": 62645,
+          "conflictShardBytes": 62646,
+          "averageConflictBytes": 217
         }
       },
       {
         "code": "AUS",
         "name": "Australia",
         "bytes": 20069,
-        "inlineBytes": 186646,
+        "inlineBytes": 191170,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -123,7 +123,7 @@
           "religionGroups": 8,
           "organizations": 49,
           "rivals": 58,
-          "conflicts": 55,
+          "conflicts": 56,
           "timelineEvents": 0
         },
         "metrics": {
@@ -156,16 +156,16 @@
               "bytes": 973
             }
           ],
-          "conflictsBytes": 11925,
-          "conflictShardBytes": 11926,
-          "averageConflictBytes": 217
+          "conflictsBytes": 12209,
+          "conflictShardBytes": 12210,
+          "averageConflictBytes": 218
         }
       },
       {
         "code": "FRA",
         "name": "Francia",
-        "bytes": 18865,
-        "inlineBytes": 691723,
+        "bytes": 19349,
+        "inlineBytes": 705457,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -174,13 +174,13 @@
           "religionGroups": 5,
           "organizations": 54,
           "rivals": 50,
-          "conflicts": 231,
+          "conflicts": 234,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
             "politics": 7898,
-            "military": 7185,
+            "military": 7669,
             "metadata": 1952,
             "general": 933,
             "history": 390,
@@ -196,7 +196,7 @@
             },
             {
               "section": "military",
-              "bytes": 7185
+              "bytes": 7669
             },
             {
               "section": "metadata",
@@ -207,9 +207,9 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 42675,
-          "conflictShardBytes": 42676,
-          "averageConflictBytes": 185
+          "conflictsBytes": 43527,
+          "conflictShardBytes": 43528,
+          "averageConflictBytes": 186
         }
       },
       {
@@ -519,6 +519,57 @@
         }
       },
       {
+        "code": "DEU",
+        "name": "Alemania",
+        "bytes": 15142,
+        "inlineBytes": 65879,
+        "tooLarge": false,
+        "counts": {
+          "cities": 5,
+          "capitals": 1,
+          "languages": 5,
+          "religionGroups": 5,
+          "organizations": 79,
+          "rivals": 21,
+          "conflicts": 15,
+          "timelineEvents": 4
+        },
+        "metrics": {
+          "sectionBytes": {
+            "politics": 8058,
+            "military": 3268,
+            "metadata": 1952,
+            "general": 992,
+            "history": 349,
+            "religion": 300,
+            "economy": 101,
+            "name": 10,
+            "continent": 8
+          },
+          "largestSections": [
+            {
+              "section": "politics",
+              "bytes": 8058
+            },
+            {
+              "section": "military",
+              "bytes": 3268
+            },
+            {
+              "section": "metadata",
+              "bytes": 1952
+            },
+            {
+              "section": "general",
+              "bytes": 992
+            }
+          ],
+          "conflictsBytes": 3151,
+          "conflictShardBytes": 0,
+          "averageConflictBytes": 210
+        }
+      },
+      {
         "code": "JPN",
         "name": "Japón",
         "bytes": 14885,
@@ -567,57 +618,6 @@
           "conflictsBytes": 5485,
           "conflictShardBytes": 0,
           "averageConflictBytes": 274
-        }
-      },
-      {
-        "code": "DEU",
-        "name": "Alemania",
-        "bytes": 14851,
-        "inlineBytes": 61593,
-        "tooLarge": false,
-        "counts": {
-          "cities": 5,
-          "capitals": 1,
-          "languages": 5,
-          "religionGroups": 5,
-          "organizations": 79,
-          "rivals": 21,
-          "conflicts": 14,
-          "timelineEvents": 4
-        },
-        "metrics": {
-          "sectionBytes": {
-            "politics": 8058,
-            "military": 2977,
-            "metadata": 1952,
-            "general": 992,
-            "history": 349,
-            "religion": 300,
-            "economy": 101,
-            "name": 10,
-            "continent": 8
-          },
-          "largestSections": [
-            {
-              "section": "politics",
-              "bytes": 8058
-            },
-            {
-              "section": "military",
-              "bytes": 2977
-            },
-            {
-              "section": "metadata",
-              "bytes": 1952
-            },
-            {
-              "section": "general",
-              "bytes": 992
-            }
-          ],
-          "conflictsBytes": 2860,
-          "conflictShardBytes": 0,
-          "averageConflictBytes": 204
         }
       }
     ]
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 317,
+    "pendingCount": 309,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15805,19 +15805,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Fort Carillon",
-        "countries": [
-          "GBR"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Fundy Bay",
         "countries": [
           "FRA"
@@ -16117,19 +16104,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Jumunjin",
-        "countries": [
-          "GBR"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Jupiter Inlet",
         "countries": [
           "USA"
@@ -16383,19 +16357,6 @@
         ],
         "regions": [
           "Golfo Pérsico"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de la bahía de Heligoland",
-        "countries": [
-          "GBR"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
@@ -16715,19 +16676,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Monongahela",
-        "countries": [
-          "GBR"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Mount Gray",
         "countries": [
           "USA"
@@ -16861,19 +16809,6 @@
         "name": "Batalla de Oliwa",
         "countries": [
           "SWE"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Omdurmán",
-        "countries": [
-          "GBR"
         ],
         "regions": [
           "Europa"
@@ -17163,6 +17098,71 @@
         ],
         "regions": [
           "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Rabosée",
+        "countries": [
+          "BEL"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Rakvere",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Ramth-al-Lbane",
+        "countries": [
+          "MAR"
+        ],
+        "regions": [
+          "África"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Re'im",
+        "countries": [
+          "ISR"
+        ],
+        "regions": [
+          "Asia"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Remada",
+        "countries": [
+          "TUN"
+        ],
+        "regions": [
+          "África"
         ],
         "types": [
           "interestatal"

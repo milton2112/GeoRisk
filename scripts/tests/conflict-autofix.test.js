@@ -108,6 +108,11 @@ import {
   US_GLOBAL_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
   US_GLOBAL_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-us-global-followup.js";
+import {
+  BRITISH_GLOBAL_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  BRITISH_GLOBAL_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
+  BRITISH_GLOBAL_FOLLOWUP_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-british-global-followup.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -889,6 +894,51 @@ assert.ok(
   ),
   "la tanda estadounidense global debe conservar fecha, jerarquia, fuentes, participantes, narrativa y cautelas editoriales"
 );
+assert.equal(Object.keys(BRITISH_GLOBAL_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 8);
+assert.equal(Object.keys(BRITISH_GLOBAL_FOLLOWUP_SAFE_CONFLICT_RENAMES).length, 10);
+assert.deepEqual(BRITISH_GLOBAL_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS.Francia, [
+  "Batalla de Carillon (1758)",
+  "Batalla de Monongahela (1755)",
+  "Batalla de Wandiwash (1760)"
+]);
+assert.equal(
+  BRITISH_GLOBAL_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de la bahía de Heligoland"],
+  "Batalla de la bahía de Heligoland (1914)"
+);
+assert.equal(
+  BRITISH_GLOBAL_FOLLOWUP_SAFE_CONFLICT_RENAMES["Primera Batalla de Maryang San"],
+  "Primera batalla de Maryang San (1951)"
+);
+assert.equal(BRITISH_GLOBAL_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Carillon (1758)"].type, "asalto a fortificacion");
+assert.equal(BRITISH_GLOBAL_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Qurna (1914)"].type, "batalla fluvial");
+assert.equal(BRITISH_GLOBAL_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla naval de Jumunjin (1950)"].type, "batalla naval");
+assert.equal(BRITISH_GLOBAL_FOLLOWUP_CONFLICT_DETAIL_FIXES["Primera batalla de Maryang San (1951)"].parent, "Guerra de Corea");
+assert.ok(
+  Object.values(BRITISH_GLOBAL_FOLLOWUP_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent
+      && detail.war === detail.parent
+      && !/^Conflicto regional de /i.test(detail.parent)
+      && detail.campaign
+      && detail.region
+      && detail.normalizedRegion === detail.region
+      && detail.cause
+      && detail.outcome
+      && detail.consequences
+      && detail.chronology?.length >= 2
+      && detail.chronology.every(event => event.year === detail.startYear && event.event)
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 2
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties)
+      && detail.curationBatch === "source-backed-british-global-followup-2026-07"
+      && detail.curationNote
+  ),
+  "la tanda britanica global debe conservar fecha, jerarquia, fuentes, participantes, narrativa y notas editoriales"
+);
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",
   startYear: 1944,
@@ -966,6 +1016,18 @@ assert.equal(shimonosekiWikipediaOverride.pageTitle, "Battle_of_Shimonoseki_Stra
 const sanJuanWikipediaOverride = await resolveWikipediaConflictTitle("Bombardeo de San Juan de Puerto Rico (1898)");
 assert.equal(sanJuanWikipediaOverride.language, "en");
 assert.equal(sanJuanWikipediaOverride.pageTitle, "Bombardment_of_San_Juan");
+const carillonWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Carillon (1758)");
+assert.equal(carillonWikipediaOverride.language, "en");
+assert.equal(carillonWikipediaOverride.pageTitle, "Battle_of_Carillon");
+const qurnaWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Qurna (1914)");
+assert.equal(qurnaWikipediaOverride.language, "en");
+assert.equal(qurnaWikipediaOverride.pageTitle, "Battle_of_Qurna");
+const jumunjinWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval de Jumunjin (1950)");
+assert.equal(jumunjinWikipediaOverride.language, "en");
+assert.equal(jumunjinWikipediaOverride.pageTitle, "Battle_of_Chumonchin_Chan");
+const maryangWikipediaOverride = await resolveWikipediaConflictTitle("Primera batalla de Maryang San (1951)");
+assert.equal(maryangWikipediaOverride.language, "en");
+assert.equal(maryangWikipediaOverride.pageTitle, "First_Battle_of_Maryang_San");
 const spanishWikipediaOverride = await resolveWikipediaConflictTitle("Guerra de Corea");
 assert.equal(spanishWikipediaOverride.language, "es");
 assert.match(spanishWikipediaOverride.apiUrl, /^https:\/\/es\.wikipedia\.org\//);

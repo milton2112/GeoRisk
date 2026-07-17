@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-17T15:39:41.056Z",
+  "generatedAt": "2026-07-17T16:11:08.956Z",
   "changedFullCountries": 0,
   "fullPassChanges": [
     0
@@ -11,11 +11,12 @@
     "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 879,
+  "generatedHierarchyCandidates": 887,
   "countryConflictAdditions": {
     "Estados Unidos": [
       "Batalla de Manila (1945)",
-      "Batalla naval de la bahía de Chesapeake (1781)"
+      "Batalla naval de la bahía de Chesapeake (1781)",
+      "Batalla naval de Jumunjin (1950)"
     ],
     "Nicaragua": [
       "Batalla de Masaya",
@@ -44,14 +45,18 @@
     "Francia": [
       "Primera batalla de Dernancourt",
       "Batalla de Hamel (1918)",
-      "Bombardeo multinacional de Shimonoseki (1864)"
+      "Bombardeo multinacional de Shimonoseki (1864)",
+      "Batalla de Carillon (1758)",
+      "Batalla de Monongahela (1755)",
+      "Batalla de Wandiwash (1760)"
     ],
     "Alemania": [
       "Batalla de Schleswig (1848)",
       "Batalla de Isted",
       "Batalla de Craonne (1814)",
       "Batalla de Heilsberg (1807)",
-      "Batalla de Hamel (1918)"
+      "Batalla de Hamel (1918)",
+      "Batalla de la bahía de Heligoland (1914)"
     ],
     "Corea del Sur": [
       "Acción naval de Happo (1592)",
@@ -69,7 +74,8 @@
       "Batalla de la colina 282 (1950)"
     ],
     "República Popular China": [
-      "Batalla naval de Noryang (1598)"
+      "Batalla naval de Noryang (1598)",
+      "Primera batalla de Maryang San (1951)"
     ],
     "Reino Unido": [
       "Batalla naval de la bahía de Bantry (1689)",
@@ -113,10 +119,13 @@
       "Batalla de Ambos Nogales (1918)"
     ],
     "Australia": [
-      "Batalla de Hamel (1918)"
+      "Batalla de Hamel (1918)",
+      "Primera batalla de Maryang San (1951)"
     ],
     "Corea del Norte": [
-      "Batalla de la colina 282 (1950)"
+      "Batalla de la colina 282 (1950)",
+      "Batalla naval de Jumunjin (1950)",
+      "Primera batalla de Maryang San (1951)"
     ],
     "Japón": [
       "Batalla naval del estrecho de Shimonoseki (1863)",
@@ -494,7 +503,17 @@
     "Batalla de Shimonoseki Straits": "Batalla naval del estrecho de Shimonoseki (1863)",
     "Bombardeo de Shimonoseki": "Bombardeo multinacional de Shimonoseki (1864)",
     "Segunda batalla de San Juan": "Bombardeo de San Juan de Puerto Rico (1898)",
-    "Bombardeo de San Juan": "Bombardeo de San Juan de Puerto Rico (1898)"
+    "Bombardeo de San Juan": "Bombardeo de San Juan de Puerto Rico (1898)",
+    "Batalla de Fort Carillon": "Batalla de Carillon (1758)",
+    "Batalla de Monongahela": "Batalla de Monongahela (1755)",
+    "Batalla de Wandiwash": "Batalla de Wandiwash (1760)",
+    "Batalla de Omdurman": "Batalla de Omdurmán (1898)",
+    "Batalla de Omdurmán": "Batalla de Omdurmán (1898)",
+    "Batalla de Qurna": "Batalla de Qurna (1914)",
+    "Batalla de Jumunjin": "Batalla naval de Jumunjin (1950)",
+    "Batalla de la bahia de Heligoland": "Batalla de la bahía de Heligoland (1914)",
+    "Batalla de la bahía de Heligoland": "Batalla de la bahía de Heligoland (1914)",
+    "Primera Batalla de Maryang San": "Primera batalla de Maryang San (1951)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1340,6 +1359,14 @@
     "Batalla de Puerto Príncipe (1919)",
     "Batalla naval del estrecho de Shimonoseki (1863)",
     "Bombardeo multinacional de Shimonoseki (1864)",
-    "Bombardeo de San Juan de Puerto Rico (1898)"
+    "Bombardeo de San Juan de Puerto Rico (1898)",
+    "Batalla de Carillon (1758)",
+    "Batalla de Monongahela (1755)",
+    "Batalla de Wandiwash (1760)",
+    "Batalla de Omdurmán (1898)",
+    "Batalla de Qurna (1914)",
+    "Batalla naval de Jumunjin (1950)",
+    "Batalla de la bahía de Heligoland (1914)",
+    "Primera batalla de Maryang San (1951)"
   ]
 }

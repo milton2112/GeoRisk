@@ -264,7 +264,15 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Batalla de Puerto Príncipe (1919)": "Battle_of_Port-au-Prince_(1919)",
   "Batalla naval del estrecho de Shimonoseki (1863)": "Battle_of_Shimonoseki_Straits",
   "Bombardeo multinacional de Shimonoseki (1864)": "Bombardment_of_Shimonoseki",
-  "Bombardeo de San Juan de Puerto Rico (1898)": "Bombardment_of_San_Juan"
+  "Bombardeo de San Juan de Puerto Rico (1898)": "Bombardment_of_San_Juan",
+  "Batalla de Carillon (1758)": "Battle_of_Carillon",
+  "Batalla de Monongahela (1755)": "Battle_of_the_Monongahela",
+  "Batalla de Wandiwash (1760)": "Battle_of_Wandiwash",
+  "Batalla de Omdurmán (1898)": "Battle_of_Omdurman",
+  "Batalla de Qurna (1914)": "Battle_of_Qurna",
+  "Batalla naval de Jumunjin (1950)": "Battle_of_Chumonchin_Chan",
+  "Batalla de la bahía de Heligoland (1914)": "Battle_of_Heligoland_Bight_(1914)",
+  "Primera batalla de Maryang San (1951)": "First_Battle_of_Maryang_San"
 };
 
 const ENGLISH_WIKIPEDIA_TITLE_EXCEPTIONS = new Set([

@@ -8,7 +8,23 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.77 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.78 antes de cerrar la siguiente version.
+
+## v1.6.78 - 2026-07-17
+
+- Fecha, traduce, reclasifica y jerarquiza ocho acciones britanicas o multinacionales: Carillon, Monongahela, Wandiwash, Omdurman, Qurna, Jumunjin, la bahia de Heligoland y Maryang San.
+- Completa guerra padre, campana, region, participantes, causa, resultado, consecuencias, cronologia, acuerdos de cierre y trazabilidad con fuentes de parques nacionales, museos militares, archivos navales y colecciones historicas.
+- Situa Carillon y Monongahela en la guerra franco-india, Wandiwash en la tercera guerra carnática y la guerra de los Siete Anos, Omdurman en la guerra mahdista, Qurna y Heligoland en la Primera Guerra Mundial, y Jumunjin y Maryang San en la Guerra de Corea.
+- Reclasifica Carillon como asalto a fortificacion, Qurna como batalla fluvial, Jumunjin y Heligoland como batallas navales y Maryang San como combate por una altura; agrega anos a todos los nombres para evitar homonimos.
+- Vincula las acciones con Francia, Alemania, Australia, Estados Unidos, Corea del Norte y Republica Popular China cuando existe participacion directa documentada, y corrige una clave acentuada para que Maryang San tambien aparezca en la ficha china.
+- Conserva cautelas sobre el caracter colonial de las acciones norteamericanas del siglo XVIII, la continuidad institucional de Irak y Turquia en Qurna, las denominaciones de Chumonchin/Jumunjin y las dos batallas de Maryang San de 1951.
+- Reduce los conflictos sin fecha auditados de 318 a 310 y las jerarquias provisionales de 250 a 242; el timeline pasa de 2746 a 2763 eventos fechables.
+- Regenera el indice liviano de conflictos de 1682 a 1690 entradas y los detalles diferidos de 927 a 935 shards; la segunda ejecucion converge con cero cambios.
+- Agrega regresiones para nombres canonicos, tipos, padres, fechas, asociaciones nacionales, fuentes, aliases de Wikipedia, cautelas editoriales y ausencia de los rotulos antiguos.
+- Endurece las automatizaciones de pre-push, mantenimiento, preparacion y release: ejecutan npm sin shells anidados y cada paso informa un limite de tiempo en vez de quedar suspendido en Windows.
+- Mantiene 0 alertas, nombres ingleses, duplicados, regiones sospechosas, religiones redundantes, mojibake y problemas de localizacion.
+- Mantiene el arranque critico en 810 KB, `script.js` en 543 KB y `countries_index.json` en 141 KB, con 0 long tasks simuladas sobre presupuesto y 55 FPS medios.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-17-release-3`.
 
 ## v1.6.77 - 2026-07-17
 

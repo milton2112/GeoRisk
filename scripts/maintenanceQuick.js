@@ -1,4 +1,4 @@
-import { spawn } from "node:child_process";
+import { runNpmStep } from "./lib/npm-runner.js";
 
 const steps = [
   ["normalizacion de fuentes", "npm", ["run", "fix:source-text"]],
@@ -13,18 +13,8 @@ const steps = [
   ["puerta local", "npm", ["run", "prepush:check"]]
 ];
 
-function runStep([label, command, args]) {
-  return new Promise((resolve, reject) => {
-    console.log(`\n== ${label} ==`);
-    const child = spawn(command, args, { stdio: "inherit", shell: true });
-    child.on("exit", code => {
-      if (code === 0) {
-        resolve();
-      } else {
-        reject(new Error(`${label} fallo con codigo ${code}`));
-      }
-    });
-  });
+function runStep([label, _command, args]) {
+  return runNpmStep(label, args, { timeoutMs: 300_000 });
 }
 
 for (const step of steps) {

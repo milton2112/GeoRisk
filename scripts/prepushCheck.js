@@ -1,4 +1,4 @@
-import { spawn } from "node:child_process";
+import { runNpmStep } from "./lib/npm-runner.js";
 
 const steps = [
   ["startup budget", "npm", ["run", "check:startup-budget"]],
@@ -7,18 +7,8 @@ const steps = [
   ["dataset validation", "npm", ["run", "validate:data"]]
 ];
 
-function runStep([label, command, args]) {
-  return new Promise((resolve, reject) => {
-    console.log(`\n== ${label} ==`);
-    const child = spawn(command, args, { stdio: "inherit", shell: true });
-    child.on("exit", code => {
-      if (code === 0) {
-        resolve();
-      } else {
-        reject(new Error(`${label} fallo con codigo ${code}`));
-      }
-    });
-  });
+function runStep([label, _command, args]) {
+  return runNpmStep(label, args);
 }
 
 for (const step of steps) {

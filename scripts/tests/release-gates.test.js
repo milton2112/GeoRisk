@@ -5,6 +5,7 @@ import fs from "fs-extra";
 import path from "node:path";
 import vm from "node:vm";
 import { retryFileOperation } from "../lib/resilient-fs.js";
+import { resolveNpmInvocation } from "../lib/npm-runner.js";
 
 const projectRoot = process.cwd();
 let transientAttempts = 0;
@@ -19,6 +20,13 @@ const recoveredFileOperation = await retryFileOperation(() => {
 }, { attempts: 3, delayMs: 10 });
 assert.equal(recoveredFileOperation, "ok", "operaciones de release deben tolerar bloqueos transitorios");
 assert.equal(transientAttempts, 3, "reintento debe detenerse al recuperarse");
+
+const npmInvocation = resolveNpmInvocation({
+  npmExecPath: path.join(projectRoot, "package.json"),
+  nodePath: process.execPath
+});
+assert.equal(npmInvocation.command, process.execPath, "automatizaciones deben invocar npm desde el binario Node activo");
+assert.deepEqual(npmInvocation.argsPrefix, [path.join(projectRoot, "package.json")], "automatizaciones deben resolver un cli de npm explicito");
 
 const indexHtml = await fs.readFile(path.join(projectRoot, "index.html"), "utf8");
 const script = await fs.readFile(path.join(projectRoot, "script.js"), "utf8");
@@ -37,7 +45,9 @@ const appText = await fs.readFile(path.join(projectRoot, "app-text.js"), "utf8")
 const timelineConflicts = await fs.readFile(path.join(projectRoot, "app-timeline-conflicts.js"), "utf8");
 const cleanLocal = await fs.readFile(path.join(projectRoot, "scripts/cleanLocal.js"), "utf8");
 const cleanStorage = await fs.readFile(path.join(projectRoot, "scripts/cleanStorage.js"), "utf8");
+const npmRunner = await fs.readFile(path.join(projectRoot, "scripts/lib/npm-runner.js"), "utf8");
 const releaseChecklist = await fs.readFile(path.join(projectRoot, "scripts/releaseChecklist.js"), "utf8");
+const prepushCheck = await fs.readFile(path.join(projectRoot, "scripts/prepushCheck.js"), "utf8");
 const prepareRelease = await fs.readFile(path.join(projectRoot, "scripts/prepareRelease.js"), "utf8");
 const performanceSnapshot = await fs.readFile(path.join(projectRoot, "scripts/performanceSnapshot.js"), "utf8");
 const dataAutomationAudit = await fs.readFile(path.join(projectRoot, "scripts/dataAutomationAudit.js"), "utf8");
@@ -74,6 +84,7 @@ const activeAfricaFollowupCuration = await fs.readFile(path.join(projectRoot, "s
 const japanKoreaFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-japan-korea-followup.js"), "utf8");
 const franceFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-france-followup.js"), "utf8");
 const usGlobalFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-global-followup.js"), "utf8");
+const britishGlobalFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-british-global-followup.js"), "utf8");
 const wikipediaConflicts = await fs.readFile(path.join(projectRoot, "scripts/lib/wikipedia-conflicts.js"), "utf8");
 const conflictBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-batch-curation.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
@@ -176,6 +187,18 @@ assert.equal(packageJson.scripts["audit:release-artifacts"], "node scripts/audit
 assert.equal(packageJson.scripts["audit:features"], "node scripts/auditFeatureHealth.js", "debe existir auditoria de salud funcional");
 assert.equal(packageJson.scripts["performance:snapshot"], "node scripts/performanceSnapshot.js", "debe existir snapshot de performance por release");
 assert.equal(packageJson.scripts["maintain:quick"], "node scripts/maintenanceQuick.js", "debe existir mantenimiento rapido automatizado");
+assert.ok(npmRunner.includes("shell: false"), "automatizaciones deben evitar shell para no dejar procesos cmd huerfanos");
+assert.ok(npmRunner.includes("DEFAULT_STEP_TIMEOUT_MS"), "automatizaciones deben tener un limite de tiempo por paso");
+assert.ok(releaseChecklist.includes("runNpmStep"), "release:check debe usar el ejecutor comun sin shell");
+assert.ok(!releaseChecklist.includes("shell: true"), "release:check no debe crear shells anidados en Windows");
+for (const [name, source] of [
+  ["prepush", prepushCheck],
+  ["maintenance", maintenanceQuick],
+  ["prepare", prepareRelease]
+]) {
+  assert.ok(source.includes("runNpmStep"), `${name} debe usar el ejecutor comun sin shell`);
+  assert.ok(!source.includes("shell: true"), `${name} no debe crear shells anidados en Windows`);
+}
 assert.equal(packageJson.scripts["fix:source-text"], "node scripts/fixSourceText.js", "debe existir normalizacion segura de fuentes de datos");
 assert.equal(packageJson.scripts["test:text-normalization"], "node scripts/tests/text-normalization.test.js", "debe existir test especifico de mojibake");
 assert.equal(packageJson.scripts["test:critical-flows"], "node scripts/tests/critical-flows.test.js", "debe existir QA automatizado de flujos criticos");
@@ -929,6 +952,46 @@ assert.ok(
     && wikipediaConflicts.includes('"Bombardeo de San Juan de Puerto Rico (1898)": "Bombardment_of_San_Juan"')
     && wikipediaConflicts.includes('"Bombardment_of_San_Juan"'),
   "los nombres estadounidenses normalizados deben conservar páginas de importación profunda e idioma inglés"
+);
+assert.ok(conflictAutofix.includes("BRITISH_GLOBAL_FOLLOWUP_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda britanica global");
+assert.ok(conflictAutofix.includes("BRITISH_GLOBAL_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS"), "autofix debe asociar la tanda britanica con participantes directos");
+assert.ok(
+  britishGlobalFollowupCuration.includes('curationBatch: "source-backed-british-global-followup-2026-07"')
+    && britishGlobalFollowupCuration.includes("hierarchySources"),
+  "la tanda britanica global debe quedar identificada y conservar trazabilidad multiple"
+);
+assert.ok(
+  britishGlobalFollowupCuration.includes('"Batalla de Fort Carillon": "Batalla de Carillon (1758)"')
+    && britishGlobalFollowupCuration.includes('"Batalla de Jumunjin": "Batalla naval de Jumunjin (1950)"')
+    && britishGlobalFollowupCuration.includes('"Batalla de la bahía de Heligoland": "Batalla de la bahía de Heligoland (1914)"')
+    && britishGlobalFollowupCuration.includes('"Primera Batalla de Maryang San": "Primera batalla de Maryang San (1951)"'),
+  "la tanda britanica global debe fechar, reclasificar y desambiguar los nombres visibles"
+);
+assert.ok(
+  [
+    "nps.gov",
+    "nam.ac.uk",
+    "rct.uk",
+    "iwm.org.uk",
+    "awm.gov.au",
+    "history.navy.mil"
+  ].every(domain => britishGlobalFollowupCuration.includes(domain)),
+  "la tanda britanica global debe apoyarse en archivos, museos y organismos historicos institucionales"
+);
+assert.ok(
+  britishGlobalFollowupCuration.includes("no convierte a Estados Unidos en beligerante")
+    && britishGlobalFollowupCuration.includes("no se proyecta la categoria estatal estadounidense")
+    && britishGlobalFollowupCuration.includes("sin tratar a Irak o Turquia actuales como beligerantes directos")
+    && britishGlobalFollowupCuration.includes("no una batalla terrestre")
+    && britishGlobalFollowupCuration.includes("distinguir esta batalla naval de 1914"),
+  "la tanda britanica global debe conservar cautelas sobre continuidad estatal, geografias modernas y homonimos"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Batalla de Carillon (1758)": "Battle_of_Carillon"')
+    && wikipediaConflicts.includes('"Batalla de Qurna (1914)": "Battle_of_Qurna"')
+    && wikipediaConflicts.includes('"Batalla naval de Jumunjin (1950)": "Battle_of_Chumonchin_Chan"')
+    && wikipediaConflicts.includes('"Primera batalla de Maryang San (1951)": "First_Battle_of_Maryang_San"'),
+  "los nombres britanicos globales deben conservar paginas de importacion profunda e idioma ingles"
 );
 assert.ok(
   conflictBatchCuration.includes("if (Array.isArray(entry.treaties)) return entry.treaties;"),

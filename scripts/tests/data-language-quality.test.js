@@ -1125,6 +1125,78 @@ assert.deepEqual(
   "los rótulos estadounidenses ambiguos, duplicados o parcialmente ingleses no deben reaparecer"
 );
 
+const britishGlobalFollowupExpectations = [
+  { name: "Batalla de Carillon (1758)", parent: "Guerra franco-india (1754-1763)", startYear: 1758, type: "asalto a fortificacion" },
+  { name: "Batalla de Monongahela (1755)", parent: "Guerra franco-india (1754-1763)", startYear: 1755, type: "batalla" },
+  { name: "Batalla de Wandiwash (1760)", parent: "Guerra de los Siete Anos", startYear: 1760, type: "batalla campal" },
+  { name: "Batalla de Omdurmán (1898)", parent: "Guerra mahdista (1881-1899)", startYear: 1898, type: "batalla" },
+  { name: "Batalla de Qurna (1914)", parent: "Primera Guerra Mundial", startYear: 1914, type: "batalla fluvial" },
+  { name: "Batalla naval de Jumunjin (1950)", parent: "Guerra de Corea", startYear: 1950, type: "batalla naval" },
+  { name: "Batalla de la bahía de Heligoland (1914)", parent: "Primera Guerra Mundial", startYear: 1914, type: "batalla naval" },
+  { name: "Primera batalla de Maryang San (1951)", parent: "Guerra de Corea", startYear: 1951, type: "batalla por una altura" }
+];
+for (const expectation of britishGlobalFollowupExpectations) {
+  const entries = Object.values(countries).flatMap(country => country.military?.conflicts || [])
+    .filter(conflict => conflict.name === expectation.name);
+  assert.ok(entries.length >= 1, `${expectation.name} debe conservarse en al menos una ficha nacional`);
+  assert.ok(
+    entries.every(conflict =>
+      conflict.parent === expectation.parent
+        && conflict.war === expectation.parent
+        && conflict.startYear === expectation.startYear
+        && conflict.endYear === expectation.startYear
+        && conflict.type === expectation.type
+    ),
+    `${expectation.name} debe conservar fecha, tipo y guerra padre documentados`
+  );
+  const detail = getConflictDetailByVisibleName(expectation.name);
+  assert.equal(
+    detail?.curationBatch,
+    "source-backed-british-global-followup-2026-07",
+    `${expectation.name} debe conservar el lote editorial`
+  );
+  assert.equal(detail?.hierarchyConfidence, "alta", `${expectation.name} debe declarar confianza de jerarquia`);
+  assert.ok(detail?.hierarchySources?.length >= 2, `${expectation.name} debe publicar fuentes multiples`);
+  assert.ok(detail?.curationNote, `${expectation.name} debe explicar la decision editorial`);
+  assert.equal(detail?.pageTitle, expectation.name, `${expectation.name} debe conservar su nombre publico canonico`);
+}
+const unitedKingdomGlobalConflicts = new Set(countries.GBR.military.conflicts.map(conflict => conflict.name));
+assert.ok(
+  britishGlobalFollowupExpectations.every(expectation => unitedKingdomGlobalConflicts.has(expectation.name)),
+  "Reino Unido debe conservar las ocho acciones globales curadas"
+);
+assert.deepEqual(
+  countryConflictsByName("Francia").filter(conflict => [
+    "Batalla de Carillon (1758)",
+    "Batalla de Monongahela (1755)",
+    "Batalla de Wandiwash (1760)"
+  ].includes(conflict.name)).map(conflict => conflict.name).sort(),
+  ["Batalla de Carillon (1758)", "Batalla de Monongahela (1755)", "Batalla de Wandiwash (1760)"],
+  "Francia debe vincular sus tres participaciones historicas documentadas"
+);
+assert.ok(
+  countryConflictsByName("República Popular China").some(conflict => conflict.name === "Primera batalla de Maryang San (1951)"),
+  "Republica Popular China debe vincular la primera batalla de Maryang San"
+);
+const staleBritishGlobalFollowupNames = new Set([
+  "Batalla de Fort Carillon",
+  "Batalla de Monongahela",
+  "Batalla de Wandiwash",
+  "Batalla de Omdurman",
+  "Batalla de Omdurmán",
+  "Batalla de Qurna",
+  "Batalla de Jumunjin",
+  "Batalla de la bahia de Heligoland",
+  "Batalla de la bahía de Heligoland",
+  "Primera Batalla de Maryang San"
+]);
+assert.deepEqual(
+  Object.values(countries).flatMap(country => country.military?.conflicts || [])
+    .filter(conflict => staleBritishGlobalFollowupNames.has(conflict.name)),
+  [],
+  "los rotulos britanicos sin fecha o con jerarquia provisional no deben reaparecer"
+);
+
 const frontierSecondFollowupExpectations = [
   { name: "Ataque a Kenapacomaqua (1791)", parent: "Guerra indígena del Noroeste", startYear: 1791 },
   { name: "Masacre de Claremore Mound (1817)", parent: "Conflicto osage-cheroqui", startYear: 1817 },
