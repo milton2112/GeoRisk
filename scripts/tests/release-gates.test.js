@@ -73,6 +73,7 @@ const usOverseasFollowupCuration = await fs.readFile(path.join(projectRoot, "scr
 const activeAfricaFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-active-africa-followup.js"), "utf8");
 const japanKoreaFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-japan-korea-followup.js"), "utf8");
 const franceFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-france-followup.js"), "utf8");
+const usGlobalFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-global-followup.js"), "utf8");
 const wikipediaConflicts = await fs.readFile(path.join(projectRoot, "scripts/lib/wikipedia-conflicts.js"), "utf8");
 const conflictBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-batch-curation.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
@@ -885,6 +886,49 @@ assert.ok(
     && wikipediaConflicts.includes('"Batalla naval de la bahía de Chesapeake (1781)": "Battle_of_the_Chesapeake"')
     && wikipediaConflicts.includes('"Batalla naval de la bahía de Quiberon (1759)": "Battle_of_Quiberon_Bay"'),
   "los nombres franceses normalizados deben conservar sus páginas de importación profunda"
+);
+assert.ok(conflictAutofix.includes("US_GLOBAL_FOLLOWUP_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda estadounidense global");
+assert.ok(conflictAutofix.includes("countryConflictAdditionBatches"), "las asociaciones nacionales de las tandas deben acumularse sin sobrescribirse");
+assert.ok(
+  usGlobalFollowupCuration.includes('curationBatch: "source-backed-us-global-followup-2026-07"')
+    && usGlobalFollowupCuration.includes("hierarchySources"),
+  "la tanda estadounidense global debe quedar identificada y conservar trazabilidad múltiple"
+);
+assert.ok(
+  usGlobalFollowupCuration.includes('"Batalla de El Carrizal": "Combate de Carrizal (1916)"')
+    && usGlobalFollowupCuration.includes('"Batalla de Shimonoseki Straits": "Batalla naval del estrecho de Shimonoseki (1863)"')
+    && usGlobalFollowupCuration.includes('"Bombardeo de Shimonoseki": "Bombardeo multinacional de Shimonoseki (1864)"')
+    && usGlobalFollowupCuration.includes('"Segunda batalla de San Juan": "Bombardeo de San Juan de Puerto Rico (1898)"'),
+  "la tanda estadounidense global debe traducir, fechar y desambiguar acciones históricas"
+);
+assert.ok(
+  [
+    "history.army.mil",
+    "awm.gov.au",
+    "iwm.org.uk",
+    "korea.net",
+    "nps.gov",
+    "history.navy.mil",
+    "founders.archives.gov",
+    "usmcu.edu"
+  ].every(domain => usGlobalFollowupCuration.includes(domain)),
+  "la tanda estadounidense global debe apoyarse en archivos militares, museos y organismos históricos"
+);
+assert.ok(
+  usGlobalFollowupCuration.includes("ataque aéreo estadounidense erróneo")
+    && usGlobalFollowupCuration.includes("Las versiones sobre asesores extranjeros")
+    && usGlobalFollowupCuration.includes("fuentes disponibles discrepan")
+    && usGlobalFollowupCuration.includes("entre el 6 y el 7")
+    && usGlobalFollowupCuration.includes("se separa del bombardeo multinacional")
+    && usGlobalFollowupCuration.includes("No se confunde esta acción naval con las colinas de San Juan"),
+  "la tanda estadounidense global debe conservar cautelas sobre fuego amigo, fuentes y acciones homónimas"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Combate de Carrizal (1916)": "Battle_of_Carrizal"')
+    && wikipediaConflicts.includes('"Batalla naval del estrecho de Shimonoseki (1863)": "Battle_of_Shimonoseki_Straits"')
+    && wikipediaConflicts.includes('"Bombardeo de San Juan de Puerto Rico (1898)": "Bombardment_of_San_Juan"')
+    && wikipediaConflicts.includes('"Bombardment_of_San_Juan"'),
+  "los nombres estadounidenses normalizados deben conservar páginas de importación profunda e idioma inglés"
 );
 assert.ok(
   conflictBatchCuration.includes("if (Array.isArray(entry.treaties)) return entry.treaties;"),

@@ -8,7 +8,21 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.76 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.77 antes de cerrar la siguiente version.
+
+## v1.6.77 - 2026-07-17
+
+- Fecha, traduce, reclasifica y jerarquiza nueve acciones historicas de alcance estadounidense o multinacional: Carrizal, Hamel, colina 282, Ambos Nogales, lago Pontchartrain, Puerto Principe, los dos bombardeos de Shimonoseki y San Juan de Puerto Rico.
+- Completa guerra padre, campana, region, participantes, causa, resultado, consecuencias, cronologia, acuerdos de cierre y trazabilidad con fuentes institucionales o archivisticas para cada registro.
+- Separa la accion naval estadounidense de Shimonoseki de 1863 del bombardeo multinacional de 1864, y fusiona las dos etiquetas heredadas de San Juan en un unico bombardeo naval de 1898 dentro de la guerra hispano-estadounidense.
+- Mantiene cautelas visibles sobre el fuego amigo de la colina 282, las versiones sobre Nogales, la fecha de Puerto Principe y las cifras de tripulacion y bajas en el lago Pontchartrain.
+- Corrige la combinacion de tandas de asociaciones nacionales: los conflictos agregados por cada lote ahora se acumulan y deduplican, en vez de que un lote posterior borre los enlaces ya curados para el mismo pais.
+- Reduce los conflictos sin fecha auditados de 326 a 318 y las jerarquias provisionales de 258 a 250; el timeline pasa de 2723 a 2746 eventos fechables.
+- Regenera el indice liviano de conflictos de 1675 a 1682 entradas y los detalles diferidos de 919 a 927 shards; la segunda ejecucion converge con cero cambios.
+- Agrega regresiones para nombres canonicos, fechas, tipos, jerarquias, asociaciones nacionales, fuentes, cautelas editoriales, paginas de contexto y ausencia de los rotulos heredados.
+- Mantiene 0 alertas, nombres ingleses, duplicados, regiones sospechosas, religiones redundantes, mojibake y problemas de localizacion.
+- Mantiene el arranque critico en 810 KB, `script.js` en 543 KB y `countries_index.json` en 141 KB, con 0 long tasks simuladas sobre presupuesto y 55 FPS medios.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-07-17-release-2`.
 
 ## v1.6.76 - 2026-07-17
 

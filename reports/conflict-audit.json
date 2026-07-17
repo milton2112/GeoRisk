@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-17T15:21:38.589Z",
-  "scannedConflicts": 2002,
+  "generatedAt": "2026-07-17T15:41:29.789Z",
+  "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 258,
-  "reviewCount": 258,
+  "advisoryCount": 250,
+  "reviewCount": 250,
   "summary": {
-    "provisional_parent": 258
+    "provisional_parent": 250
   },
   "topIssues": [],
   "topAdvisories": [
@@ -612,20 +612,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de el carrizal",
-      "name": "Batalla de El Carrizal",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de fayetteville",
       "name": "Batalla de Fayetteville",
       "countries": [
@@ -836,20 +822,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de hamel",
-      "name": "Batalla de Hamel",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de havana",
       "name": "Batalla de Havana",
       "countries": [
@@ -914,20 +886,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de hill 282",
-      "name": "Batalla de Hill 282",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],
@@ -1124,6 +1082,48 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de karksi",
+      "name": "Batalla de Karksi",
+      "countries": [
+        "SWE"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de kasumi",
+      "name": "Batalla de Kasumi",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de kcynia",
+      "name": "Batalla de Kcynia",
+      "countries": [
+        "SWE"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],

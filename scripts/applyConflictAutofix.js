@@ -114,6 +114,11 @@ import {
   FRANCE_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
   FRANCE_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "./lib/conflict-curation-france-followup.js";
+import {
+  US_GLOBAL_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  US_GLOBAL_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
+  US_GLOBAL_FOLLOWUP_SAFE_CONFLICT_RENAMES
+} from "./lib/conflict-curation-us-global-followup.js";
 import { collectConflictCountryNames, curateConflictDetail, curateConflictEntry } from "./lib/conflict-batch-curation.js";
 import {
   cleanConflictLabel,
@@ -166,7 +171,8 @@ const curatedConflictDetailFixes = {
   ...US_OVERSEAS_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   ...ACTIVE_AFRICA_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   ...JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES,
-  ...FRANCE_FOLLOWUP_CONFLICT_DETAIL_FIXES
+  ...FRANCE_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  ...US_GLOBAL_FOLLOWUP_CONFLICT_DETAIL_FIXES
 };
 const safeConflictRenames = {
   ...SAFE_CONFLICT_RENAMES,
@@ -200,15 +206,23 @@ const safeConflictRenames = {
   ...US_OVERSEAS_FOLLOWUP_SAFE_CONFLICT_RENAMES,
   ...ACTIVE_AFRICA_FOLLOWUP_SAFE_CONFLICT_RENAMES,
   ...JAPAN_KOREA_FOLLOWUP_SAFE_CONFLICT_RENAMES,
-  ...FRANCE_FOLLOWUP_SAFE_CONFLICT_RENAMES
+  ...FRANCE_FOLLOWUP_SAFE_CONFLICT_RENAMES,
+  ...US_GLOBAL_FOLLOWUP_SAFE_CONFLICT_RENAMES
 };
-const countryConflictAdditions = {
-  ...TRANSITION_1846_1902_COUNTRY_CONFLICT_ADDITIONS,
-  ...US_CARIBBEAN_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
-  ...AUSTRALIA_DENMARK_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
-  ...JAPAN_KOREA_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
-  ...FRANCE_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS
-};
+const countryConflictAdditionBatches = [
+  TRANSITION_1846_1902_COUNTRY_CONFLICT_ADDITIONS,
+  US_CARIBBEAN_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
+  AUSTRALIA_DENMARK_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
+  JAPAN_KOREA_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
+  FRANCE_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
+  US_GLOBAL_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS
+];
+const countryConflictAdditions = countryConflictAdditionBatches.reduce((merged, batch) => {
+  for (const [countryName, conflictNames] of Object.entries(batch)) {
+    merged[countryName] = [...new Set([...(merged[countryName] || []), ...conflictNames])];
+  }
+  return merged;
+}, {});
 
 function renameConflictName(name) {
   const cleanName = cleanConflictLabel(name);

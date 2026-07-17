@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-17T15:19:16.619Z",
+  "generatedAt": "2026-07-17T15:39:41.056Z",
   "changedFullCountries": 0,
   "fullPassChanges": [
     0
@@ -11,9 +11,10 @@
     "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 870,
+  "generatedHierarchyCandidates": 879,
   "countryConflictAdditions": {
     "Estados Unidos": [
+      "Batalla de Manila (1945)",
       "Batalla naval de la bahía de Chesapeake (1781)"
     ],
     "Nicaragua": [
@@ -26,7 +27,9 @@
       "Batalla de El Sauce"
     ],
     "Haití": [
-      "Batalla naval de Cap-Français (1757)"
+      "Batalla de Fort Rivière",
+      "Batalla naval de Cap-Français (1757)",
+      "Batalla de Puerto Príncipe (1919)"
     ],
     "República Dominicana": [
       "Incursión naval de Puerto Plata (1800)",
@@ -39,11 +42,16 @@
       "Batalla de Broodseinde"
     ],
     "Francia": [
-      "Primera batalla de Dernancourt"
+      "Primera batalla de Dernancourt",
+      "Batalla de Hamel (1918)",
+      "Bombardeo multinacional de Shimonoseki (1864)"
     ],
     "Alemania": [
+      "Batalla de Schleswig (1848)",
+      "Batalla de Isted",
       "Batalla de Craonne (1814)",
-      "Batalla de Heilsberg (1807)"
+      "Batalla de Heilsberg (1807)",
+      "Batalla de Hamel (1918)"
     ],
     "Corea del Sur": [
       "Acción naval de Happo (1592)",
@@ -57,7 +65,8 @@
       "Escaramuza naval de Eoranpo (1597)",
       "Batalla naval de Myeongnyang (1597)",
       "Batalla naval de Jeolido (1598)",
-      "Batalla naval de Noryang (1598)"
+      "Batalla naval de Noryang (1598)",
+      "Batalla de la colina 282 (1950)"
     ],
     "República Popular China": [
       "Batalla naval de Noryang (1598)"
@@ -71,7 +80,11 @@
       "Batalla naval de la isla de Granada (1779)",
       "Batalla naval de Groix (1795)",
       "Batalla naval de la bahía de Chesapeake (1781)",
-      "Batalla naval de la bahía de Quiberon (1759)"
+      "Batalla naval de la bahía de Quiberon (1759)",
+      "Batalla de Hamel (1918)",
+      "Batalla de la colina 282 (1950)",
+      "Combate naval del lago Pontchartrain (1779)",
+      "Bombardeo multinacional de Shimonoseki (1864)"
     ],
     "Irlanda": [
       "Batalla naval de la bahía de Bantry (1689)"
@@ -94,6 +107,23 @@
     "Polonia": [
       "Batalla de Golymin (1806)",
       "Batalla de Heilsberg (1807)"
+    ],
+    "México": [
+      "Combate de Carrizal (1916)",
+      "Batalla de Ambos Nogales (1918)"
+    ],
+    "Australia": [
+      "Batalla de Hamel (1918)"
+    ],
+    "Corea del Norte": [
+      "Batalla de la colina 282 (1950)"
+    ],
+    "Japón": [
+      "Batalla naval del estrecho de Shimonoseki (1863)",
+      "Bombardeo multinacional de Shimonoseki (1864)"
+    ],
+    "España": [
+      "Bombardeo de San Juan de Puerto Rico (1898)"
     ]
   },
   "safeRenames": {
@@ -454,7 +484,17 @@
     "Batalla de Groix": "Batalla naval de Groix (1795)",
     "Batalla de Heilsberg": "Batalla de Heilsberg (1807)",
     "Batalla de la Bahía de Chesapeake": "Batalla naval de la bahía de Chesapeake (1781)",
-    "Batalla de Quiberon Bay": "Batalla naval de la bahía de Quiberon (1759)"
+    "Batalla de Quiberon Bay": "Batalla naval de la bahía de Quiberon (1759)",
+    "Batalla de El Carrizal": "Combate de Carrizal (1916)",
+    "Batalla de Hamel": "Batalla de Hamel (1918)",
+    "Batalla de Hill 282": "Batalla de la colina 282 (1950)",
+    "Batalla de Nogales": "Batalla de Ambos Nogales (1918)",
+    "Batalla del Lago Pontchartrain": "Combate naval del lago Pontchartrain (1779)",
+    "Batalla de Port-au-Prince": "Batalla de Puerto Príncipe (1919)",
+    "Batalla de Shimonoseki Straits": "Batalla naval del estrecho de Shimonoseki (1863)",
+    "Bombardeo de Shimonoseki": "Bombardeo multinacional de Shimonoseki (1864)",
+    "Segunda batalla de San Juan": "Bombardeo de San Juan de Puerto Rico (1898)",
+    "Bombardeo de San Juan": "Bombardeo de San Juan de Puerto Rico (1898)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1291,6 +1331,15 @@
     "Batalla naval de Groix (1795)",
     "Batalla de Heilsberg (1807)",
     "Batalla naval de la bahía de Chesapeake (1781)",
-    "Batalla naval de la bahía de Quiberon (1759)"
+    "Batalla naval de la bahía de Quiberon (1759)",
+    "Combate de Carrizal (1916)",
+    "Batalla de Hamel (1918)",
+    "Batalla de la colina 282 (1950)",
+    "Batalla de Ambos Nogales (1918)",
+    "Combate naval del lago Pontchartrain (1779)",
+    "Batalla de Puerto Príncipe (1919)",
+    "Batalla naval del estrecho de Shimonoseki (1863)",
+    "Bombardeo multinacional de Shimonoseki (1864)",
+    "Bombardeo de San Juan de Puerto Rico (1898)"
   ]
 }

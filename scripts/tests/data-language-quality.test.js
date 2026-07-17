@@ -1023,6 +1023,108 @@ assert.deepEqual(
   "los nombres franceses ambiguos, sin año o parcialmente ingleses no deben reaparecer"
 );
 
+const usGlobalFollowupExpectations = [
+  { name: "Combate de Carrizal (1916)", parent: "Expedición punitiva estadounidense en México (1916-1917)", startYear: 1916, type: "combate fronterizo" },
+  { name: "Batalla de Hamel (1918)", parent: "Primera Guerra Mundial", startYear: 1918, type: "batalla" },
+  { name: "Batalla de la colina 282 (1950)", parent: "Guerra de Corea", startYear: 1950, type: "batalla por una altura" },
+  { name: "Batalla de Ambos Nogales (1918)", parent: "Revolución mexicana", startYear: 1918, type: "combate fronterizo" },
+  { name: "Combate naval del lago Pontchartrain (1779)", parent: "Guerra de Independencia de Estados Unidos", startYear: 1779, type: "combate naval" },
+  { name: "Batalla de Puerto Príncipe (1919)", parent: "Ocupación estadounidense de Haití (1915-1934)", startYear: 1919, type: "ataque urbano" },
+  { name: "Batalla naval del estrecho de Shimonoseki (1863)", parent: "Crisis de Shimonoseki (1863-1864)", startYear: 1863, type: "batalla naval" },
+  { name: "Bombardeo multinacional de Shimonoseki (1864)", parent: "Crisis de Shimonoseki (1863-1864)", startYear: 1864, type: "bombardeo naval" },
+  { name: "Bombardeo de San Juan de Puerto Rico (1898)", parent: "Guerra hispano-estadounidense", startYear: 1898, type: "bombardeo naval" }
+];
+for (const expectation of usGlobalFollowupExpectations) {
+  const entries = Object.values(countries).flatMap(country => country.military?.conflicts || [])
+    .filter(conflict => conflict.name === expectation.name);
+  assert.ok(entries.length >= 2, `${expectation.name} debe vincularse con Estados Unidos y al menos otro país pertinente`);
+  assert.ok(
+    entries.every(conflict =>
+      conflict.parent === expectation.parent
+        && conflict.war === expectation.parent
+        && conflict.startYear === expectation.startYear
+        && conflict.endYear === expectation.startYear
+        && conflict.type === expectation.type
+    ),
+    `${expectation.name} debe conservar fecha, tipo y guerra padre documentados`
+  );
+  const detail = getConflictDetailByVisibleName(expectation.name);
+  assert.equal(
+    detail?.curationBatch,
+    "source-backed-us-global-followup-2026-07",
+    `${expectation.name} debe conservar el lote editorial`
+  );
+  assert.equal(detail?.hierarchyConfidence, "alta", `${expectation.name} debe declarar confianza de jerarquía`);
+  assert.ok(detail?.hierarchySources?.length >= 2, `${expectation.name} debe publicar fuentes múltiples`);
+  assert.ok(detail?.curationNote, `${expectation.name} debe explicar la decisión editorial`);
+  assert.equal(detail?.pageTitle, expectation.name, `${expectation.name} debe conservar su nombre público canónico`);
+}
+const usaGlobalConflictNames = new Set(countries.USA.military.conflicts.map(conflict => conflict.name));
+assert.ok(
+  usGlobalFollowupExpectations.every(expectation => usaGlobalConflictNames.has(expectation.name)),
+  "Estados Unidos debe conservar las nueve acciones globales curadas"
+);
+assert.deepEqual(
+  countryConflictsByName("México").filter(conflict => [
+    "Combate de Carrizal (1916)",
+    "Batalla de Ambos Nogales (1918)"
+  ].includes(conflict.name)).map(conflict => conflict.name).sort(),
+  ["Batalla de Ambos Nogales (1918)", "Combate de Carrizal (1916)"],
+  "México debe vincular los dos combates fronterizos documentados"
+);
+assert.ok(
+  countryConflictsByName("Reino Unido").filter(conflict => [
+    "Batalla de Hamel (1918)",
+    "Batalla de la colina 282 (1950)",
+    "Combate naval del lago Pontchartrain (1779)",
+    "Bombardeo multinacional de Shimonoseki (1864)"
+  ].includes(conflict.name)).length === 4,
+  "Reino Unido debe acumular las asociaciones nuevas sin perder las tandas previas"
+);
+assert.ok(
+  countryConflictsByName("Haití").some(conflict => conflict.name === "Batalla de Puerto Príncipe (1919)"),
+  "Haití debe vincular el ataque de Puerto Príncipe de 1919"
+);
+assert.ok(
+  countryConflictsByName("Japón").filter(conflict => /Shimonoseki/.test(conflict.name)).length >= 2,
+  "Japón debe distinguir las acciones de Shimonoseki de 1863 y 1864"
+);
+assert.equal(
+  countries.USA.military.conflicts.filter(conflict => conflict.name === "Bombardeo de San Juan de Puerto Rico (1898)").length,
+  1,
+  "San Juan debe unificar sus dos rótulos navales de 1898 sin duplicarse en Estados Unidos"
+);
+for (const name of [
+  "Batalla de la colina 282 (1950)",
+  "Batalla de Ambos Nogales (1918)",
+  "Batalla de Puerto Príncipe (1919)"
+]) {
+  assert.equal(getConflictDetailByVisibleName(name)?.sourceDispute, true, `${name} debe publicar la cautela editorial`);
+}
+assert.match(
+  getConflictDetailByVisibleName("Bombardeo de San Juan de Puerto Rico (1898)")?.curationNote || "",
+  /colinas de San Juan/i,
+  "San Juan debe distinguir el bombardeo naval de las colinas de Cuba"
+);
+const staleUsGlobalFollowupNames = new Set([
+  "Batalla de El Carrizal",
+  "Batalla de Hamel",
+  "Batalla de Hill 282",
+  "Batalla de Nogales",
+  "Batalla del Lago Pontchartrain",
+  "Batalla de Port-au-Prince",
+  "Batalla de Shimonoseki Straits",
+  "Bombardeo de Shimonoseki",
+  "Segunda batalla de San Juan",
+  "Bombardeo de San Juan"
+]);
+assert.deepEqual(
+  Object.values(countries).flatMap(country => country.military?.conflicts || [])
+    .filter(conflict => staleUsGlobalFollowupNames.has(conflict.name)),
+  [],
+  "los rótulos estadounidenses ambiguos, duplicados o parcialmente ingleses no deben reaparecer"
+);
+
 const frontierSecondFollowupExpectations = [
   { name: "Ataque a Kenapacomaqua (1791)", parent: "Guerra indígena del Noroeste", startYear: 1791 },
   { name: "Masacre de Claremore Mound (1817)", parent: "Conflicto osage-cheroqui", startYear: 1817 },

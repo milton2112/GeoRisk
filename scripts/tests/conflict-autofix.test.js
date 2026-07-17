@@ -103,6 +103,11 @@ import {
   FRANCE_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
   FRANCE_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-france-followup.js";
+import {
+  US_GLOBAL_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  US_GLOBAL_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
+  US_GLOBAL_FOLLOWUP_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-us-global-followup.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -830,6 +835,60 @@ assert.ok(
   ),
   "la tanda francesa debe conservar fecha, jerarquia, fuentes, participantes, narrativa y cautelas editoriales"
 );
+assert.equal(Object.keys(US_GLOBAL_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 9);
+assert.equal(Object.keys(US_GLOBAL_FOLLOWUP_SAFE_CONFLICT_RENAMES).length, 10);
+assert.deepEqual(US_GLOBAL_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS.México, [
+  "Combate de Carrizal (1916)",
+  "Batalla de Ambos Nogales (1918)"
+]);
+assert.equal(
+  US_GLOBAL_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Shimonoseki Straits"],
+  "Batalla naval del estrecho de Shimonoseki (1863)"
+);
+assert.equal(
+  US_GLOBAL_FOLLOWUP_SAFE_CONFLICT_RENAMES["Bombardeo de Shimonoseki"],
+  "Bombardeo multinacional de Shimonoseki (1864)"
+);
+assert.equal(
+  US_GLOBAL_FOLLOWUP_SAFE_CONFLICT_RENAMES["Segunda batalla de San Juan"],
+  "Bombardeo de San Juan de Puerto Rico (1898)"
+);
+assert.equal(
+  US_GLOBAL_FOLLOWUP_SAFE_CONFLICT_RENAMES["Bombardeo de San Juan"],
+  "Bombardeo de San Juan de Puerto Rico (1898)"
+);
+assert.equal(US_GLOBAL_FOLLOWUP_CONFLICT_DETAIL_FIXES["Combate de Carrizal (1916)"].type, "combate fronterizo");
+assert.equal(US_GLOBAL_FOLLOWUP_CONFLICT_DETAIL_FIXES["Combate naval del lago Pontchartrain (1779)"].type, "combate naval");
+assert.equal(US_GLOBAL_FOLLOWUP_CONFLICT_DETAIL_FIXES["Bombardeo de San Juan de Puerto Rico (1898)"].type, "bombardeo naval");
+assert.equal(US_GLOBAL_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de la colina 282 (1950)"].sourceDispute, true);
+assert.equal(US_GLOBAL_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Ambos Nogales (1918)"].sourceDispute, true);
+assert.equal(US_GLOBAL_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Puerto Príncipe (1919)"].sourceDispute, true);
+assert.ok(
+  Object.values(US_GLOBAL_FOLLOWUP_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent
+      && detail.war === detail.parent
+      && !/^Conflicto regional de /i.test(detail.parent)
+      && detail.campaign
+      && detail.region
+      && detail.normalizedRegion === detail.region
+      && detail.cause
+      && detail.outcome
+      && detail.consequences
+      && detail.chronology?.length >= 2
+      && detail.chronology.every(event => event.year === detail.startYear && event.event)
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 2
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties)
+      && detail.curationBatch === "source-backed-us-global-followup-2026-07"
+      && detail.curationNote
+  ),
+  "la tanda estadounidense global debe conservar fecha, jerarquia, fuentes, participantes, narrativa y cautelas editoriales"
+);
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",
   startYear: 1944,
@@ -895,6 +954,18 @@ assert.equal(chandannagarWikipediaOverride.pageTitle, "Battle_of_Chandannagar");
 const chesapeakeWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval de la bahía de Chesapeake (1781)");
 assert.equal(chesapeakeWikipediaOverride.language, "en");
 assert.equal(chesapeakeWikipediaOverride.pageTitle, "Battle_of_the_Chesapeake");
+const carrizalWikipediaOverride = await resolveWikipediaConflictTitle("Combate de Carrizal (1916)");
+assert.equal(carrizalWikipediaOverride.language, "en");
+assert.equal(carrizalWikipediaOverride.pageTitle, "Battle_of_Carrizal");
+const hill282WikipediaOverride = await resolveWikipediaConflictTitle("Batalla de la colina 282 (1950)");
+assert.equal(hill282WikipediaOverride.language, "en");
+assert.equal(hill282WikipediaOverride.pageTitle, "Battle_of_Hill_282");
+const shimonosekiWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval del estrecho de Shimonoseki (1863)");
+assert.equal(shimonosekiWikipediaOverride.language, "en");
+assert.equal(shimonosekiWikipediaOverride.pageTitle, "Battle_of_Shimonoseki_Straits");
+const sanJuanWikipediaOverride = await resolveWikipediaConflictTitle("Bombardeo de San Juan de Puerto Rico (1898)");
+assert.equal(sanJuanWikipediaOverride.language, "en");
+assert.equal(sanJuanWikipediaOverride.pageTitle, "Bombardment_of_San_Juan");
 const spanishWikipediaOverride = await resolveWikipediaConflictTitle("Guerra de Corea");
 assert.equal(spanishWikipediaOverride.language, "es");
 assert.match(spanishWikipediaOverride.apiUrl, /^https:\/\/es\.wikipedia\.org\//);
@@ -1025,6 +1096,8 @@ const report = buildConflictAuditReport({
           { name: "Batalla de Fort Slongo" },
           { name: "Batalla de Happo" },
           { name: "Batalla de Bantry Bay" },
+          { name: "Batalla de El Carrizal" },
+          { name: "Segunda batalla de San Juan" },
           { name: "Adriatic Campaign de World War II", startYear: 1939, endYear: 1945 }
         ]
       }
@@ -1070,6 +1143,14 @@ assert.ok(!report.topAdvisories.some(item => item.name === "Asalto a Fort Slongo
 assert.ok(
   !report.topAdvisories.some(item => item.name === "Batalla naval de la bahía de Bantry (1689)"),
   "Bantry debe usar su fecha y jerarquía verificadas"
+);
+assert.ok(
+  !report.topAdvisories.some(item => item.name === "Combate de Carrizal (1916)"),
+  "Carrizal debe usar su fecha y jerarquía verificadas"
+);
+assert.ok(
+  !report.topAdvisories.some(item => item.name === "Bombardeo de San Juan de Puerto Rico (1898)"),
+  "San Juan debe usar su fecha y jerarquía verificadas"
 );
 assert.ok(!report.topIssues.some(item => item.name === "Batalla de Manila"), "el nombre ambiguo de Manila no debe reaparecer en la auditoria");
 assert.ok(!report.topAdvisories.some(item => item.name === "Sitio de Fort Wayne"), "Fort Wayne debe usar la guerra de 1812");

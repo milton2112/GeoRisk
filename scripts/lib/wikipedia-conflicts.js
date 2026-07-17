@@ -255,13 +255,24 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Batalla naval de Groix (1795)": "Battle_of_Groix",
   "Batalla de Heilsberg (1807)": "Battle_of_Heilsberg",
   "Batalla naval de la bahía de Chesapeake (1781)": "Battle_of_the_Chesapeake",
-  "Batalla naval de la bahía de Quiberon (1759)": "Battle_of_Quiberon_Bay"
+  "Batalla naval de la bahía de Quiberon (1759)": "Battle_of_Quiberon_Bay",
+  "Combate de Carrizal (1916)": "Battle_of_Carrizal",
+  "Batalla de Hamel (1918)": "Battle_of_Hamel",
+  "Batalla de la colina 282 (1950)": "Battle_of_Hill_282",
+  "Batalla de Ambos Nogales (1918)": "Battle_of_Ambos_Nogales",
+  "Combate naval del lago Pontchartrain (1779)": "Battle_of_Lake_Pontchartrain",
+  "Batalla de Puerto Príncipe (1919)": "Battle_of_Port-au-Prince_(1919)",
+  "Batalla naval del estrecho de Shimonoseki (1863)": "Battle_of_Shimonoseki_Straits",
+  "Bombardeo multinacional de Shimonoseki (1864)": "Bombardment_of_Shimonoseki",
+  "Bombardeo de San Juan de Puerto Rico (1898)": "Bombardment_of_San_Juan"
 };
 
 const ENGLISH_WIKIPEDIA_TITLE_EXCEPTIONS = new Set([
   "Amhara_offensive",
   "Skeleton_Cave_(Arizona)",
-  "List_of_naval_battles_during_the_Imjin_War"
+  "List_of_naval_battles_during_the_Imjin_War",
+  "Bombardment_of_Shimonoseki",
+  "Bombardment_of_San_Juan"
 ]);
 
 const FIELD_ALIASES = {
