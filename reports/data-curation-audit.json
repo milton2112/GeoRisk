@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-12T17:28:14.779Z",
+  "generatedAt": "2026-08-12T18:31:08.058Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 10282209,
-    "duplicatedCountryFilesBytes": 1496221,
-    "countryConflictShardBytes": 400642,
+    "fullBytes": 10319559,
+    "duplicatedCountryFilesBytes": 1496985,
+    "countryConflictShardBytes": 402787,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -111,6 +111,57 @@
         }
       },
       {
+        "code": "POL",
+        "name": "Polonia",
+        "bytes": 20199,
+        "inlineBytes": 205573,
+        "tooLarge": false,
+        "counts": {
+          "cities": 4,
+          "capitals": 1,
+          "languages": 4,
+          "religionGroups": 5,
+          "organizations": 43,
+          "rivals": 50,
+          "conflicts": 50,
+          "timelineEvents": 0
+        },
+        "metrics": {
+          "sectionBytes": {
+            "military": 9608,
+            "politics": 7383,
+            "metadata": 1913,
+            "general": 684,
+            "religion": 297,
+            "economy": 100,
+            "history": 93,
+            "name": 9,
+            "continent": 8
+          },
+          "largestSections": [
+            {
+              "section": "military",
+              "bytes": 9608
+            },
+            {
+              "section": "politics",
+              "bytes": 7383
+            },
+            {
+              "section": "metadata",
+              "bytes": 1913
+            },
+            {
+              "section": "general",
+              "bytes": 684
+            }
+          ],
+          "conflictsBytes": 12346,
+          "conflictShardBytes": 12347,
+          "averageConflictBytes": 247
+        }
+      },
+      {
         "code": "AUS",
         "name": "Australia",
         "bytes": 20069,
@@ -159,57 +210,6 @@
           "conflictsBytes": 12209,
           "conflictShardBytes": 12210,
           "averageConflictBytes": 218
-        }
-      },
-      {
-        "code": "POL",
-        "name": "Polonia",
-        "bytes": 19706,
-        "inlineBytes": 178747,
-        "tooLarge": false,
-        "counts": {
-          "cities": 4,
-          "capitals": 1,
-          "languages": 4,
-          "religionGroups": 5,
-          "organizations": 43,
-          "rivals": 50,
-          "conflicts": 44,
-          "timelineEvents": 0
-        },
-        "metrics": {
-          "sectionBytes": {
-            "military": 9115,
-            "politics": 7383,
-            "metadata": 1913,
-            "general": 684,
-            "religion": 297,
-            "economy": 100,
-            "history": 93,
-            "name": 9,
-            "continent": 8
-          },
-          "largestSections": [
-            {
-              "section": "military",
-              "bytes": 9115
-            },
-            {
-              "section": "politics",
-              "bytes": 7383
-            },
-            {
-              "section": "metadata",
-              "bytes": 1913
-            },
-            {
-              "section": "general",
-              "bytes": 684
-            }
-          ],
-          "conflictsBytes": 10597,
-          "conflictShardBytes": 10598,
-          "averageConflictBytes": 241
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 276,
+    "pendingCount": 270,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15512,19 +15512,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Daugavgriva",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
@@ -16000,19 +15987,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Karksi",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Kasumi",
         "countries": [
           "USA"
@@ -16068,19 +16042,6 @@
         "name": "Batalla de Kringen",
         "countries": [
           "NOR"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Kroppenhof",
-        "countries": [
-          "SWE"
         ],
         "regions": [
           "Europa"
@@ -16832,19 +16793,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Reval",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Rio Grande City",
         "countries": [
           "USA"
@@ -17160,6 +17108,58 @@
         "name": "Batalla de Tafilah",
         "countries": [
           "GBR"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Tamsui",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Taraca",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Tellicherry",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Texel",
+        "countries": [
+          "FRA"
         ],
         "regions": [
           "Europa"

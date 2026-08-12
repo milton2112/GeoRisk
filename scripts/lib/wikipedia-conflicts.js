@@ -305,7 +305,13 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Batalla de Klecko (1656)": "Battle_of_K\u0142ecko",
   "Batalla de Lowicz (1656)": "Battle_of_\u0141owicz",
   "Batalla de Nisko (1656)": "Battle_of_Nisko",
-  "Batalla de Tykocin (1656)": "Battle_of_Tykocin"
+  "Batalla de Tykocin (1656)": "Battle_of_Tykocin",
+  "Batalla de Karksi (1600)": "Battle_of_Karksi_(1600)",
+  "Batalla de Daugavgriva (1609)": "Battle_of_Daugavgr\u012bva_(1609)",
+  "Batalla de Weissenstein (1604)": "Battle_of_Weissenstein",
+  "Batalla de Reval (1602)": "Battle_of_Reval_(1602)",
+  "Batalla de Kroppenhof (1621)": "Battle_of_Kroppenhof",
+  "Batalla de Wallhof (1626)": "Battle_of_Wallhof"
 };
 
 const ENGLISH_WIKIPEDIA_TITLE_EXCEPTIONS = new Set([

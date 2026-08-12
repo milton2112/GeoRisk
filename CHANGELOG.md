@@ -8,7 +8,19 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.83 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.84 antes de cerrar la siguiente version.
+
+## v1.6.84 - 2026-08-12
+
+- Fecha, desambigua, jerarquiza y documenta seis acciones sueco-polaco-lituanas de Livonia y Curlandia que seguian bajo una guerra padre regional provisional: Karksi, Daugavgriva, Weissenstein, Reval, Kroppenhof y Wallhof.
+- Situa Karksi, Daugavgriva, Weissenstein y Reval en la guerra polaco-sueca de 1600-1611; Kroppenhof en la fase de 1621-1625; y Wallhof en la guerra de 1626-1629.
+- Completa campana, region historica, tipo de accion, participantes, causa, resultado, consecuencias, cronologia, acuerdo de cierre y dos fuentes de trazabilidad por ficha.
+- Vincula las seis acciones con Polonia y Suecia para que ficha, mapa, filtros, ranking, comparador, busqueda, timeline e importacion profunda compartan el mismo registro.
+- Conserva cautelas para variantes toponimicas, calendarios, fuerzas y bajas; distingue el Reval terrestre de 1602 de la batalla naval de 1790 y no proyecta Estados contemporaneos sobre la Mancomunidad.
+- Reduce las jerarquias provisionales de 209 a 203 y los conflictos fuera del indice fechable de 276 a 270; el indice de conflictos pasa de 1723 a 1729 entradas, el timeline de 2836 a 2848 eventos y los detalles diferidos de 968 a 974 shards.
+- Agrega regresiones para nombre canonico, fecha, padre, tipo, region, asociaciones nacionales, fuentes, notas de cautela, alias de importacion profunda y carga diferida.
+- Mantiene cero incidencias y advertencias de validacion, conflictos en ingles, duplicados, regiones sospechosas, religiones redundantes, ciudades en mayusculas, mojibake y fallos de localizacion en detalles.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-12-release-5`.
 
 ## v1.6.83 - 2026-08-12
 

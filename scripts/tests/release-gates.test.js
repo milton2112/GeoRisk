@@ -90,6 +90,7 @@ const nordicBalticFollowupCuration = await fs.readFile(path.join(projectRoot, "s
 const polishSwedishFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-polish-swedish-followup.js"), "utf8");
 const polishDelugeFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-polish-deluge-followup.js"), "utf8");
 const polishDelugeSwedishOperationsCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-polish-deluge-swedish-operations.js"), "utf8");
+const swedishLivonianOperationsCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-swedish-livonian-operations.js"), "utf8");
 const wikipediaConflicts = await fs.readFile(path.join(projectRoot, "scripts/lib/wikipedia-conflicts.js"), "utf8");
 const conflictBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-batch-curation.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
@@ -1204,6 +1205,47 @@ assert.ok(
     && wikipediaConflicts.includes('"Batalla de Nisko (1656)": "Battle_of_Nisko"')
     && wikipediaConflicts.includes('"Batalla de Tykocin (1656)": "Battle_of_Tykocin"'),
   "los nombres operativos del Diluvio deben conservar paginas de importacion profunda"
+);
+assert.ok(conflictAutofix.includes("SWEDISH_LIVONIAN_OPERATIONS_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda sueco-livonia");
+assert.ok(conflictAutofix.includes("SWEDISH_LIVONIAN_OPERATIONS_COUNTRY_CONFLICT_ADDITIONS"), "autofix debe asociar Polonia en la tanda sueco-livonia");
+assert.ok(
+  swedishLivonianOperationsCuration.includes('curationBatch: "source-backed-swedish-livonian-operations-2026-08"')
+    && swedishLivonianOperationsCuration.includes("hierarchySources"),
+  "la tanda sueco-livonia debe conservar trazabilidad multiple"
+);
+assert.ok(
+  swedishLivonianOperationsCuration.includes('"Batalla de Karksi": "Batalla de Karksi (1600)"')
+    && swedishLivonianOperationsCuration.includes('"Batalla de Reval": "Batalla de Reval (1602)"')
+    && swedishLivonianOperationsCuration.includes('"Batalla de Wallhof": "Batalla de Wallhof (1626)"'),
+  "la tanda sueco-livonia debe fechar y desambiguar las acciones balticas"
+);
+assert.ok(
+  [
+    "twojahistoria.pl",
+    "muzeumwp.pl",
+    "czasopisma.upjp2.edu.pl",
+    "teejuht.esap.ee",
+    "zpe.gov.pl",
+    "portal.amelica.org",
+    "st-andrews.ac.uk",
+    "digital.ub.umu.se",
+    "ne.se",
+    "bazawiedzy.uksw.edu.pl"
+  ].every(domain => swedishLivonianOperationsCuration.includes(domain)),
+  "la tanda sueco-livonia debe apoyarse en museos, universidades, plataformas educativas y estudios historicos"
+);
+assert.ok(
+  swedishLivonianOperationsCuration.includes("Karksi aparece tambien como Karkhus o Karkus")
+    && swedishLivonianOperationsCuration.includes("Daugavgriva tambien aparece como Dunamunde")
+    && swedishLivonianOperationsCuration.includes("Esta ficha corresponde al combate terrestre de Reval de 1602")
+    && swedishLivonianOperationsCuration.includes("Las fuentes suecas pueden datarlo el 7 de enero"),
+  "la tanda sueco-livonia debe conservar cautelas sobre nombres, calendarios y homonimos"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Batalla de Karksi (1600)": "Battle_of_Karksi_(1600)"')
+    && wikipediaConflicts.includes('"Batalla de Reval (1602)": "Battle_of_Reval_(1602)"')
+    && wikipediaConflicts.includes('"Batalla de Wallhof (1626)": "Battle_of_Wallhof"'),
+  "los nombres sueco-livonios curados deben conservar paginas de importacion profunda"
 );
 assert.ok(
   conflictBatchCuration.includes("if (Array.isArray(entry.treaties)) return entry.treaties;"),

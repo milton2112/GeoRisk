@@ -1504,6 +1504,36 @@ const expectedServedConflictCuration = [
     name: "Batalla de Tykocin (1656)",
     parent: "Segunda Guerra N\u00f3rdica",
     region: "Tykocin, valle del rio Narew, Podlaquia, actual Polonia"
+  },
+  {
+    name: "Batalla de Karksi (1600)",
+    parent: "Guerra polaco-sueca de 1600-1611",
+    region: "Karksi, Livonia historica, actual Estonia"
+  },
+  {
+    name: "Batalla de Daugavgriva (1609)",
+    parent: "Guerra polaco-sueca de 1600-1611",
+    region: "Fortaleza de Daugavgriva o Dunamunde, desembocadura del Daugava, Livonia, actual Letonia"
+  },
+  {
+    name: "Batalla de Weissenstein (1604)",
+    parent: "Guerra polaco-sueca de 1600-1611",
+    region: "Weissenstein o Bialy Kamien, actual Paide, Estonia"
+  },
+  {
+    name: "Batalla de Reval (1602)",
+    parent: "Guerra polaco-sueca de 1600-1611",
+    region: "Reval, actual Tallinn, Estonia"
+  },
+  {
+    name: "Batalla de Kroppenhof (1621)",
+    parent: "Guerra polaco-sueca de 1621-1625",
+    region: "Kroppenhof o Kropimojza, Livonia central, actual Letonia"
+  },
+  {
+    name: "Batalla de Wallhof (1626)",
+    parent: "Guerra polaco-sueca de 1626-1629",
+    region: "Wallhof o Valle, Curlandia, actual Letonia"
   }
 ];
 const servedConflictsByName = new Map();

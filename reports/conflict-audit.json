@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-12T17:32:11.216Z",
+  "generatedAt": "2026-08-12T18:34:45.052Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 209,
-  "reviewCount": 209,
+  "advisoryCount": 203,
+  "reviewCount": 203,
   "summary": {
-    "provisional_parent": 209
+    "provisional_parent": 203
   },
   "topIssues": [],
   "topAdvisories": [
@@ -382,20 +382,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de daugavgriva",
-      "name": "Batalla de Daugavgriva",
-      "countries": [
-        "SWE"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],
@@ -892,20 +878,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de karksi",
-      "name": "Batalla de Karksi",
-      "countries": [
-        "SWE"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de kasumi",
       "name": "Batalla de Kasumi",
       "countries": [
@@ -966,20 +938,6 @@
       "name": "Batalla de Kringen",
       "countries": [
         "NOR"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de kroppenhof",
-      "name": "Batalla de Kroppenhof",
-      "countries": [
-        "SWE"
       ],
       "startYear": null,
       "endYear": null,
@@ -1120,6 +1078,48 @@
       "name": "Batalla de Lissa",
       "countries": [
         "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de little dry creek",
+      "name": "Batalla de Little Dry Creek",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de little mountain",
+      "name": "Batalla de Little Mountain",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de long jawai",
+      "name": "Batalla de Long Jawai",
+      "countries": [
+        "GBR"
       ],
       "startYear": null,
       "endYear": null,

@@ -138,6 +138,11 @@ import {
   POLISH_DELUGE_SWEDISH_OPERATIONS_COUNTRY_CONFLICT_ADDITIONS,
   POLISH_DELUGE_SWEDISH_OPERATIONS_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-polish-deluge-swedish-operations.js";
+import {
+  SWEDISH_LIVONIAN_OPERATIONS_CONFLICT_DETAIL_FIXES,
+  SWEDISH_LIVONIAN_OPERATIONS_COUNTRY_CONFLICT_ADDITIONS,
+  SWEDISH_LIVONIAN_OPERATIONS_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-swedish-livonian-operations.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -1207,6 +1212,58 @@ assert.ok(
   ),
   "la tanda operativa sueco-polaca del Diluvio debe conservar fecha, jerarquia, fuentes, participantes, narrativa y cautelas editoriales"
 );
+assert.equal(Object.keys(SWEDISH_LIVONIAN_OPERATIONS_CONFLICT_DETAIL_FIXES).length, 6);
+assert.equal(Object.keys(SWEDISH_LIVONIAN_OPERATIONS_SAFE_CONFLICT_RENAMES).length, 6);
+assert.deepEqual(SWEDISH_LIVONIAN_OPERATIONS_COUNTRY_CONFLICT_ADDITIONS.Polonia, [
+  "Batalla de Karksi (1600)",
+  "Batalla de Daugavgriva (1609)",
+  "Batalla de Weissenstein (1604)",
+  "Batalla de Reval (1602)",
+  "Batalla de Kroppenhof (1621)",
+  "Batalla de Wallhof (1626)"
+]);
+assert.equal(
+  SWEDISH_LIVONIAN_OPERATIONS_SAFE_CONFLICT_RENAMES["Batalla de Reval"],
+  "Batalla de Reval (1602)"
+);
+assert.equal(
+  SWEDISH_LIVONIAN_OPERATIONS_CONFLICT_DETAIL_FIXES["Batalla de Karksi (1600)"].parent,
+  "Guerra polaco-sueca de 1600-1611"
+);
+assert.equal(
+  SWEDISH_LIVONIAN_OPERATIONS_CONFLICT_DETAIL_FIXES["Batalla de Wallhof (1626)"].type,
+  "emboscada"
+);
+assert.equal(
+  SWEDISH_LIVONIAN_OPERATIONS_CONFLICT_DETAIL_FIXES["Batalla de Daugavgriva (1609)"].sourceDispute,
+  true
+);
+assert.ok(
+  Object.values(SWEDISH_LIVONIAN_OPERATIONS_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent
+      && detail.war === detail.parent
+      && !/^Conflicto regional de /i.test(detail.parent)
+      && detail.campaign
+      && detail.region
+      && detail.normalizedRegion === detail.region
+      && detail.cause
+      && detail.outcome
+      && detail.consequences
+      && detail.chronology?.length >= 2
+      && detail.chronology.every(event => event.year === detail.startYear && event.event)
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 2
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties)
+      && detail.curationBatch === "source-backed-swedish-livonian-operations-2026-08"
+      && detail.curationNote
+  ),
+  "la tanda sueco-livonia debe conservar fecha, jerarquia, fuentes, participantes, narrativa y cautelas editoriales"
+);
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",
   startYear: 1944,
@@ -1290,6 +1347,18 @@ assert.equal(chojniceWikipediaOverride.pageTitle, "Battle_of_Chojnice_(1656)");
 const tykocinWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Tykocin (1656)");
 assert.equal(tykocinWikipediaOverride.language, "en");
 assert.equal(tykocinWikipediaOverride.pageTitle, "Battle_of_Tykocin");
+const karksiWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Karksi (1600)");
+assert.equal(karksiWikipediaOverride.language, "en");
+assert.equal(karksiWikipediaOverride.pageTitle, "Battle_of_Karksi_(1600)");
+const daugavgrivaWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Daugavgriva (1609)");
+assert.equal(daugavgrivaWikipediaOverride.language, "en");
+assert.equal(daugavgrivaWikipediaOverride.pageTitle, "Battle_of_Daugavgr\u012bva_(1609)");
+const revalWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Reval (1602)");
+assert.equal(revalWikipediaOverride.language, "en");
+assert.equal(revalWikipediaOverride.pageTitle, "Battle_of_Reval_(1602)");
+const wallhofWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Wallhof (1626)");
+assert.equal(wallhofWikipediaOverride.language, "en");
+assert.equal(wallhofWikipediaOverride.pageTitle, "Battle_of_Wallhof");
 const happoWikipediaOverride = await resolveWikipediaConflictTitle("Acción naval de Happo (1592)");
 assert.equal(happoWikipediaOverride.language, "en");
 assert.equal(happoWikipediaOverride.pageTitle, "Battle_of_Happo");
