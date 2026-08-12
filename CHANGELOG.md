@@ -8,7 +8,20 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.81 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.82 antes de cerrar la siguiente version.
+
+## v1.6.82 - 2026-08-12
+
+- Fecha, desambigua, jerarquiza y documenta seis acciones polaco-suecas del Diluvio que seguian bajo una guerra padre regional provisional: Zarnow, Krosno, Jaroslaw, Kozienice, Kcynia y Lubrze.
+- Situa las seis fichas dentro de la Segunda Guerra Nordica, con campanas de la invasion sueca de 1655, la retirada de 1656 y la resistencia polaco-lituana, segun el contexto de cada accion.
+- Completa region historica, tipo de accion, participantes, causa, resultado, consecuencias, cronologia, acuerdo de cierre y dos fuentes de trazabilidad por registro.
+- Vincula cada conflicto con Polonia y Suecia para que ficha, mapa, filtros, ranking, comparador, busqueda, timeline e importacion profunda consuman una referencia comun.
+- Conserva cautelas visibles para las cifras de fuerzas y bajas no consolidadas, los calendarios y fechas locales, las lealtades internas de Krosno y la denominacion historica de la coalicion sueco-brandeburguesa de Lubrze.
+- Alinea el nombre canonico de Jaroslaw con la normalizacion de etiquetas ya usada por la aplicacion, sin perder la grafia historica en regiones, fuentes y textos curados.
+- Reduce las jerarquias provisionales de 221 a 215 y los conflictos fuera del indice fechable de 288 a 282; el indice de conflictos pasa de 1711 a 1717 entradas, el timeline de 2812 a 2824 eventos y los detalles diferidos de 956 a 962 shards.
+- Agrega regresiones de nombres canonicos, padre, tipo, fecha, region, asociaciones nacionales, fuentes, notas de cautela, aliases de Wikipedia y carga diferida para la nueva tanda.
+- Mantiene cero incidencias y advertencias de validacion, nombres de conflicto en ingles, duplicados, regiones sospechosas, religiones redundantes, ciudades en mayusculas, mojibake y fallos de localizacion en detalles.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-12-release-3`.
 
 ## v1.6.81 - 2026-08-12
 

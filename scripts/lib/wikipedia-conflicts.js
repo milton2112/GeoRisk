@@ -293,7 +293,13 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Batalla de Trzciana (1629)": "Battle_of_Trzciana",
   "Batalla de Wojnicz (1655)": "Battle_of_Wojnicz",
   "Batalla de Warka (1656)": "Battle_of_Warka",
-  "Batalla de Prostki (1656)": "Battle_of_Prostki"
+  "Batalla de Prostki (1656)": "Battle_of_Prostki",
+  "Batalla de \u017barn\u00f3w (1655)": "Battle_of_\u017barn\u00f3w",
+  "Batalla de Krosno (1655)": "Battle_of_Krosno",
+  "Batalla de Jaroslaw (1656)": "Battle_of_Jaros\u0142aw_(1656)",
+  "Batalla de Kozienice (1656)": "Battle_of_Kozienice",
+  "Batalla de Kcynia (1656)": "Battle_of_Kcynia",
+  "Batalla de Lubrze (1656)": "Battle_of_Lubrze"
 };
 
 const ENGLISH_WIKIPEDIA_TITLE_EXCEPTIONS = new Set([

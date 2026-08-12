@@ -1444,6 +1444,36 @@ const expectedServedConflictCuration = [
     name: "Batalla de Prostki (1656)",
     parent: "Segunda Guerra N\u00f3rdica",
     region: "Prostki, Prusia Ducal, actual Polonia"
+  },
+  {
+    name: "Batalla de \u017barn\u00f3w (1655)",
+    parent: "Segunda Guerra N\u00f3rdica",
+    region: "\u017barn\u00f3w, Peque\u00f1a Polonia, actual Polonia"
+  },
+  {
+    name: "Batalla de Krosno (1655)",
+    parent: "Segunda Guerra N\u00f3rdica",
+    region: "Krosno, Peque\u00f1a Polonia, actual Polonia"
+  },
+  {
+    name: "Batalla de Jaroslaw (1656)",
+    parent: "Segunda Guerra N\u00f3rdica",
+    region: "Jaros\u0142aw, ribera oriental del rio San, actual Polonia"
+  },
+  {
+    name: "Batalla de Kozienice (1656)",
+    parent: "Segunda Guerra N\u00f3rdica",
+    region: "Kozienice, Peque\u00f1a Polonia historica, actual voivodato de Mazovia, Polonia"
+  },
+  {
+    name: "Batalla de Kcynia (1656)",
+    parent: "Segunda Guerra N\u00f3rdica",
+    region: "Kcynia, Gran Polonia, actual Polonia"
+  },
+  {
+    name: "Batalla de Lubrze (1656)",
+    parent: "Segunda Guerra N\u00f3rdica",
+    region: "Lubrze, cerca de \u015arem y \u015aroda Wielkopolska, Gran Polonia, actual Polonia"
   }
 ];
 const servedConflictsByName = new Map();

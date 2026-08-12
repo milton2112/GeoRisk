@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-12T16:40:38.898Z",
+  "generatedAt": "2026-08-12T17:01:14.470Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 221,
-  "reviewCount": 221,
+  "advisoryCount": 215,
+  "reviewCount": 215,
   "summary": {
-    "provisional_parent": 221
+    "provisional_parent": 215
   },
   "topIssues": [],
   "topAdvisories": [
@@ -864,20 +864,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de jaroslaw",
-      "name": "Batalla de Jaroslaw",
-      "countries": [
-        "SWE"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de jupiter inlet",
       "name": "Batalla de Jupiter Inlet",
       "countries": [
@@ -962,20 +948,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de kcynia",
-      "name": "Batalla de Kcynia",
-      "countries": [
-        "SWE"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de kimito strait",
       "name": "Batalla de Kimito Strait",
       "countries": [
@@ -1032,20 +1004,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de kozienice",
-      "name": "Batalla de Kozienice",
-      "countries": [
-        "SWE"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de kringen",
       "name": "Batalla de Kringen",
       "countries": [
@@ -1062,20 +1020,6 @@
     {
       "key": "batalla de kroppenhof",
       "name": "Batalla de Kroppenhof",
-      "countries": [
-        "SWE"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de krosno",
-      "name": "Batalla de Krosno",
       "countries": [
         "SWE"
       ],
@@ -1124,6 +1068,62 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de la montana roja",
+      "name": "Batalla de la Montaña Roja",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de lagos",
+      "name": "Batalla de Lagos",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de largs",
+      "name": "Batalla de Largs",
+      "countries": [
+        "NOR"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de las islas paracelso",
+      "name": "Batalla de las Islas Paracelso",
+      "countries": [
+        "CHN"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Asia",
       "issues": [
         "provisional_parent"
       ],

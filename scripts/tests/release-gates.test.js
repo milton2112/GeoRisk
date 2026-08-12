@@ -88,6 +88,7 @@ const britishGlobalFollowupCuration = await fs.readFile(path.join(projectRoot, "
 const provisionalFoundationCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-provisional-foundation.js"), "utf8");
 const nordicBalticFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-nordic-baltic-followup.js"), "utf8");
 const polishSwedishFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-polish-swedish-followup.js"), "utf8");
+const polishDelugeFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-polish-deluge-followup.js"), "utf8");
 const wikipediaConflicts = await fs.readFile(path.join(projectRoot, "scripts/lib/wikipedia-conflicts.js"), "utf8");
 const conflictBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-batch-curation.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
@@ -1117,6 +1118,48 @@ assert.ok(
     && wikipediaConflicts.includes('"Batalla naval de Oliwa (1627)": "Battle_of_Oliwa"')
     && wikipediaConflicts.includes('"Batalla de Prostki (1656)": "Battle_of_Prostki"'),
   "los nombres polaco-suecos curados deben conservar paginas de importacion profunda"
+);
+assert.ok(conflictAutofix.includes("POLISH_DELUGE_FOLLOWUP_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda del Diluvio");
+assert.ok(conflictAutofix.includes("POLISH_DELUGE_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS"), "autofix debe asociar los participantes directos de la tanda del Diluvio");
+assert.ok(
+  polishDelugeFollowupCuration.includes('curationBatch: "source-backed-polish-deluge-followup-2026-08"')
+    && polishDelugeFollowupCuration.includes("hierarchySources"),
+  "la tanda del Diluvio debe quedar identificada y conservar trazabilidad multiple"
+);
+assert.ok(
+  polishDelugeFollowupCuration.includes('"Batalla de Krosno": "Batalla de Krosno (1655)"')
+    && polishDelugeFollowupCuration.includes('"Batalla de Kcynia": "Batalla de Kcynia (1656)"')
+    && polishDelugeFollowupCuration.includes('"Batalla de Lubrze": "Batalla de Lubrze (1656)"'),
+  "la tanda del Diluvio debe fechar y desambiguar acciones historicas"
+);
+assert.ok(
+  [
+    "muzeumwp.pl",
+    "zarnow.eu",
+    "etnocentrum.pl",
+    "muzeum-jaroslaw.pl",
+    "cbw.wp.mil.pl",
+    "muzeum-kozienice.pl",
+    "kozienice.pl",
+    "szukajwarchiwach.gov.pl",
+    "kujawsko-pomorskie.pl",
+    "wbc.poznan.pl",
+    "twojahistoria.pl"
+  ].every(domain => polishDelugeFollowupCuration.includes(domain)),
+  "la tanda del Diluvio debe apoyarse en museos, archivos, bibliotecas y referencias historicas"
+);
+assert.ok(
+  polishDelugeFollowupCuration.includes("sin presentar cifras de bajas como consolidadas")
+    && polishDelugeFollowupCuration.includes("no convierte la resistencia local en un Estado contemporaneo")
+    && polishDelugeFollowupCuration.includes("sin transformar una accion de hostigamiento")
+    && polishDelugeFollowupCuration.includes("evita proyectar Alemania contemporanea"),
+  "la tanda del Diluvio debe conservar cautelas sobre cifras, escalas locales y Estados historicos"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Batalla de Krosno (1655)": "Battle_of_Krosno"')
+    && wikipediaConflicts.includes('"Batalla de Kcynia (1656)": "Battle_of_Kcynia"')
+    && wikipediaConflicts.includes('"Batalla de Lubrze (1656)": "Battle_of_Lubrze"'),
+  "los nombres del Diluvio curados deben conservar paginas de importacion profunda"
 );
 assert.ok(
   conflictBatchCuration.includes("if (Array.isArray(entry.treaties)) return entry.treaties;"),
