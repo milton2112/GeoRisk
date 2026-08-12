@@ -118,6 +118,11 @@ import {
   PROVISIONAL_FOUNDATION_COUNTRY_CONFLICT_ADDITIONS,
   PROVISIONAL_FOUNDATION_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-provisional-foundation.js";
+import {
+  NORDIC_BALTIC_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  NORDIC_BALTIC_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
+  NORDIC_BALTIC_FOLLOWUP_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-nordic-baltic-followup.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -986,6 +991,51 @@ assert.ok(
   ),
   "la tanda provisional debe conservar fecha, jerarquia, fuentes, participantes, narrativa y cautelas editoriales"
 );
+assert.equal(Object.keys(NORDIC_BALTIC_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 8);
+assert.equal(Object.keys(NORDIC_BALTIC_FOLLOWUP_SAFE_CONFLICT_RENAMES).length, 8);
+assert.deepEqual(NORDIC_BALTIC_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS.Dinamarca, [
+  "Batalla de Colberger Heide (1644)",
+  "Batalla de Fehmarn (1644)",
+  "Batalla de Dynekilen (1716)"
+]);
+assert.equal(
+  NORDIC_BALTIC_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Klisz\u00f3w"],
+  "Batalla de Klisz\u00f3w (1702)"
+);
+assert.equal(
+  NORDIC_BALTIC_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de G\u00f3rzno (1629)"].parent,
+  "Guerra polaco-sueca de 1626-1629"
+);
+assert.equal(
+  NORDIC_BALTIC_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Hogland (1788)"].sourceDispute,
+  true
+);
+assert.ok(
+  Object.values(NORDIC_BALTIC_FOLLOWUP_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent
+      && detail.war === detail.parent
+      && !/^Conflicto regional de /i.test(detail.parent)
+      && detail.campaign
+      && detail.region
+      && detail.normalizedRegion === detail.region
+      && detail.cause
+      && detail.outcome
+      && detail.consequences
+      && detail.chronology?.length >= 2
+      && detail.chronology.every(event => event.year === detail.startYear && event.event)
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 2
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties)
+      && detail.curationBatch === "source-backed-nordic-baltic-followup-2026-08"
+      && detail.curationNote
+  ),
+  "la tanda nordica y baltica debe conservar fecha, jerarquia, fuentes, participantes, narrativa y cautelas editoriales"
+);
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",
   startYear: 1944,
@@ -1045,6 +1095,12 @@ assert.equal(cabralWikipediaOverride.pageTitle, "Asalto_a_los_acorazados_Cabral_
 const solebayWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Solebay (1672)");
 assert.equal(solebayWikipediaOverride.language, "en");
 assert.equal(solebayWikipediaOverride.pageTitle, "Battle_of_Solebay");
+const dynekilenWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Dynekilen (1716)");
+assert.equal(dynekilenWikipediaOverride.language, "en");
+assert.equal(dynekilenWikipediaOverride.pageTitle, "Battle_of_Dynekilen");
+const kircholmWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Kircholm (1605)");
+assert.equal(kircholmWikipediaOverride.language, "en");
+assert.equal(kircholmWikipediaOverride.pageTitle, "Battle_of_Kircholm");
 const happoWikipediaOverride = await resolveWikipediaConflictTitle("Acción naval de Happo (1592)");
 assert.equal(happoWikipediaOverride.language, "en");
 assert.equal(happoWikipediaOverride.pageTitle, "Battle_of_Happo");

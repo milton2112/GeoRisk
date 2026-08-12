@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-17T18:21:02.847Z",
+  "generatedAt": "2026-08-12T16:20:08.702Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 10103115,
-    "duplicatedCountryFilesBytes": 1490097,
-    "countryConflictShardBytes": 387187,
+    "fullBytes": 10167599,
+    "duplicatedCountryFilesBytes": 1492668,
+    "countryConflictShardBytes": 388978,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -317,8 +317,8 @@
       {
         "code": "DNK",
         "name": "Dinamarca",
-        "bytes": 16470,
-        "inlineBytes": 139202,
+        "bytes": 16842,
+        "inlineBytes": 152426,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -327,12 +327,12 @@
           "religionGroups": 4,
           "organizations": 37,
           "rivals": 47,
-          "conflicts": 43,
+          "conflicts": 46,
           "timelineEvents": 0
         },
         "metrics": {
           "sectionBytes": {
-            "military": 7112,
+            "military": 7484,
             "politics": 6232,
             "metadata": 1913,
             "general": 677,
@@ -345,7 +345,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 7112
+              "bytes": 7484
             },
             {
               "section": "politics",
@@ -360,9 +360,60 @@
               "bytes": 677
             }
           ],
-          "conflictsBytes": 8472,
-          "conflictShardBytes": 8473,
-          "averageConflictBytes": 197
+          "conflictsBytes": 9325,
+          "conflictShardBytes": 9326,
+          "averageConflictBytes": 203
+        }
+      },
+      {
+        "code": "POL",
+        "name": "Polonia",
+        "bytes": 16175,
+        "inlineBytes": 97015,
+        "tooLarge": false,
+        "counts": {
+          "cities": 4,
+          "capitals": 1,
+          "languages": 4,
+          "religionGroups": 5,
+          "organizations": 43,
+          "rivals": 50,
+          "conflicts": 26,
+          "timelineEvents": 0
+        },
+        "metrics": {
+          "sectionBytes": {
+            "politics": 7383,
+            "military": 5583,
+            "metadata": 1914,
+            "general": 684,
+            "religion": 297,
+            "economy": 100,
+            "history": 93,
+            "name": 9,
+            "continent": 8
+          },
+          "largestSections": [
+            {
+              "section": "politics",
+              "bytes": 7383
+            },
+            {
+              "section": "military",
+              "bytes": 5583
+            },
+            {
+              "section": "metadata",
+              "bytes": 1914
+            },
+            {
+              "section": "general",
+              "bytes": 684
+            }
+          ],
+          "conflictsBytes": 5498,
+          "conflictShardBytes": 0,
+          "averageConflictBytes": 211
         }
       },
       {
@@ -419,8 +470,8 @@
       {
         "code": "RUS",
         "name": "Rusia",
-        "bytes": 15835,
-        "inlineBytes": 149985,
+        "bytes": 15864,
+        "inlineBytes": 158559,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -429,12 +480,12 @@
           "religionGroups": 4,
           "organizations": 41,
           "rivals": 19,
-          "conflicts": 44,
+          "conflicts": 46,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 7033,
+            "military": 7062,
             "politics": 4980,
             "metadata": 1926,
             "general": 965,
@@ -447,7 +498,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 7033
+              "bytes": 7062
             },
             {
               "section": "politics",
@@ -462,60 +513,9 @@
               "bytes": 965
             }
           ],
-          "conflictsBytes": 8135,
-          "conflictShardBytes": 8136,
-          "averageConflictBytes": 185
-        }
-      },
-      {
-        "code": "POL",
-        "name": "Polonia",
-        "bytes": 15380,
-        "inlineBytes": 84579,
-        "tooLarge": false,
-        "counts": {
-          "cities": 4,
-          "capitals": 1,
-          "languages": 4,
-          "religionGroups": 5,
-          "organizations": 43,
-          "rivals": 50,
-          "conflicts": 23,
-          "timelineEvents": 0
-        },
-        "metrics": {
-          "sectionBytes": {
-            "politics": 7383,
-            "military": 4788,
-            "metadata": 1914,
-            "general": 684,
-            "religion": 297,
-            "economy": 100,
-            "history": 93,
-            "name": 9,
-            "continent": 8
-          },
-          "largestSections": [
-            {
-              "section": "politics",
-              "bytes": 7383
-            },
-            {
-              "section": "military",
-              "bytes": 4788
-            },
-            {
-              "section": "metadata",
-              "bytes": 1914
-            },
-            {
-              "section": "general",
-              "bytes": 684
-            }
-          ],
-          "conflictsBytes": 4703,
-          "conflictShardBytes": 0,
-          "averageConflictBytes": 204
+          "conflictsBytes": 8682,
+          "conflictShardBytes": 8683,
+          "averageConflictBytes": 189
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 302,
+    "pendingCount": 294,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15467,19 +15467,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Colberger Heide",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Colson's Mill",
         "countries": [
           "USA"
@@ -15688,38 +15675,12 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Dynekilen",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Fayetteville",
         "countries": [
           "USA"
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Fehmarn",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
@@ -15805,19 +15766,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Górzno",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Gotska Sandön",
         "countries": [
           "SWE"
@@ -15834,19 +15782,6 @@
         "name": "Batalla de Grado",
         "countries": [
           "FRA"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Grengam",
-        "countries": [
-          "SWE"
         ],
         "regions": [
           "Europa"
@@ -15938,19 +15873,6 @@
         "name": "Batalla de Hiddensee",
         "countries": [
           "FRA"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Hogland",
-        "countries": [
-          "SWE"
         ],
         "regions": [
           "Europa"
@@ -16169,19 +16091,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Kircholm",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Kirchschlag",
         "countries": [
           "AUT"
@@ -16196,19 +16105,6 @@
       },
       {
         "name": "Batalla de Klecko",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Kliszów",
         "countries": [
           "SWE"
         ],
@@ -17158,6 +17054,110 @@
       },
       {
         "name": "Batalla de Saint-Louis-du-Sud",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Sambre",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de San Domingo",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de San Jacinto",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Sejny",
+        "countries": [
+          "LTU"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Shanhaiguan",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Shewan",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Sideling Hill",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Signal Hill",
         "countries": [
           "FRA"
         ],

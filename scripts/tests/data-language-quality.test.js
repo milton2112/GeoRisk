@@ -1374,6 +1374,46 @@ const expectedServedConflictCuration = [
     name: "Batalla de Solebay (1672)",
     parent: "Tercera guerra anglo-neerlandesa (1672-1674)",
     region: "Solebay, costa de Suffolk, mar del Norte"
+  },
+  {
+    name: "Batalla de Colberger Heide (1644)",
+    parent: "Guerra de Torstenson (1643-1645)",
+    region: "Mar Baltico occidental, frente a Kiel"
+  },
+  {
+    name: "Batalla de Fehmarn (1644)",
+    parent: "Guerra de Torstenson (1643-1645)",
+    region: "Cinturon de Fehmarn, mar Baltico occidental"
+  },
+  {
+    name: "Batalla de Dynekilen (1716)",
+    parent: "Gran Guerra del Norte",
+    region: "Fiordo de Dynekilen, Bohusl\u00e4n, costa noruega"
+  },
+  {
+    name: "Batalla de Grengam (1720)",
+    parent: "Gran Guerra del Norte",
+    region: "Estrecho de Ledsund, islas Aland"
+  },
+  {
+    name: "Batalla de Hogland (1788)",
+    parent: "Guerra ruso-sueca (1788-1790)",
+    region: "Golfo de Finlandia, cerca de Hogland"
+  },
+  {
+    name: "Batalla de Kircholm (1605)",
+    parent: "Guerra polaco-sueca de 1600-1611",
+    region: "Kircholm, Livonia, actual Salaspils (Letonia)"
+  },
+  {
+    name: "Batalla de Klisz\u00f3w (1702)",
+    parent: "Gran Guerra del Norte",
+    region: "Kliszow, Peque\u00f1a Polonia"
+  },
+  {
+    name: "Batalla de G\u00f3rzno (1629)",
+    parent: "Guerra polaco-sueca de 1626-1629",
+    region: "Gorzno, Prusia Real, actual Polonia"
   }
 ];
 const servedConflictsByName = new Map();

@@ -8,7 +8,19 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.79 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.80 antes de cerrar la siguiente version.
+
+## v1.6.80 - 2026-08-12
+
+- Fecha, desambigua, jerarquiza y documenta ocho acciones nordicas y balticas que seguian con una guerra padre provisional: Colberger Heide, Fehmarn de 1644, Dynekilen, Grengam, Hogland, Kircholm, Kliszow y Gorzno.
+- Completa guerra padre, campana, region, participantes historicos, causa, resultado, consecuencias, cronologia, acuerdos de cierre y dos fuentes de trazabilidad por ficha.
+- Situa Colberger Heide y Fehmarn en la Guerra de Torstenson; Dynekilen, Grengam y Kliszow en la Gran Guerra del Norte; Hogland en la guerra ruso-sueca de 1788-1790; y Kircholm y Gorzno en sus respectivas guerras polaco-suecas.
+- Mantiene cautelas explicitas sobre calendarios, resultados tacticos no decisivos, continuidad de Dinamarca-Noruega y la Mancomunidad Polaco-Lituana, y evita proyectar Estados contemporaneos como beligerantes historicos.
+- Vincula las fichas con Dinamarca, Noruega, Reino de los Paises Bajos, Rusia y Polonia cuando existe participacion historica directa documentada, para que mapa, ranking, filtros y comparador compartan el mismo registro.
+- Reduce las jerarquias provisionales de 235 a 227 y los conflictos fuera del indice fechable de 302 a 294; el indice de conflictos pasa de 1697 a 1705 entradas, el timeline a 2800 eventos y los detalles diferidos a 950 shards.
+- Agrega aliases de importacion profunda, regresiones de nombres, fechas, jerarquias, participantes, fuentes, asociaciones nacionales y notas de cautela para la nueva tanda.
+- Mantiene cero alertas de validacion, conflictos en ingles, duplicados, regiones sospechosas, religiones redundantes, ciudades en mayusculas y mojibake.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-12-release-1`.
 
 ## v1.6.79 - 2026-07-17
 

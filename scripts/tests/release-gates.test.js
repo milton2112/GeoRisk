@@ -86,6 +86,7 @@ const franceFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts
 const usGlobalFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-us-global-followup.js"), "utf8");
 const britishGlobalFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-british-global-followup.js"), "utf8");
 const provisionalFoundationCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-provisional-foundation.js"), "utf8");
+const nordicBalticFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-nordic-baltic-followup.js"), "utf8");
 const wikipediaConflicts = await fs.readFile(path.join(projectRoot, "scripts/lib/wikipedia-conflicts.js"), "utf8");
 const conflictBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-batch-curation.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
@@ -1037,6 +1038,46 @@ assert.ok(
     && wikipediaConflicts.includes('"Batalla de Heligoland (1864)": "Battle_of_Heligoland_(1864)"')
     && wikipediaConflicts.includes('"Batalla de Solebay (1672)": "Battle_of_Solebay"'),
   "los nombres provisionales curados deben conservar paginas de importacion profunda"
+);
+assert.ok(conflictAutofix.includes("NORDIC_BALTIC_FOLLOWUP_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda nordica y baltica");
+assert.ok(conflictAutofix.includes("NORDIC_BALTIC_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS"), "autofix debe asociar los participantes directos de la tanda nordica y baltica");
+assert.ok(
+  nordicBalticFollowupCuration.includes('curationBatch: "source-backed-nordic-baltic-followup-2026-08"')
+    && nordicBalticFollowupCuration.includes("hierarchySources"),
+  "la tanda nordica y baltica debe quedar identificada y conservar trazabilidad multiple"
+);
+assert.ok(
+  nordicBalticFollowupCuration.includes('"Batalla de Colberger Heide": "Batalla de Colberger Heide (1644)"')
+    && nordicBalticFollowupCuration.includes('"Batalla de Fehmarn": "Batalla de Fehmarn (1644)"')
+    && nordicBalticFollowupCuration.includes('"Batalla de Dynekilen": "Batalla de Dynekilen (1716)"'),
+  "la tanda nordica y baltica debe fechar y desambiguar acciones historicas"
+);
+assert.ok(
+  [
+    "samlinger.natmus.dk",
+    "vikingeskibsmuseet.dk",
+    "svmm.se",
+    "snl.no",
+    "rusmuseumvrm.ru",
+    "navalmuseum.ru",
+    "gov.pl",
+    "muzeumwp.pl",
+    "bibliotekanauki.pl"
+  ].every(domain => nordicBalticFollowupCuration.includes(domain)),
+  "la tanda nordica y baltica debe apoyarse en museos, archivos y organismos historicos"
+);
+assert.ok(
+  nordicBalticFollowupCuration.includes("monarquia compuesta")
+    && nordicBalticFollowupCuration.includes("segun el calendario empleado")
+    && nordicBalticFollowupCuration.includes("no atribuye el combate al Estado polaco contemporaneo")
+    && nordicBalticFollowupCuration.includes("no decisivo"),
+  "la tanda nordica y baltica debe conservar cautelas sobre calendarios, continuidad estatal y resultados discutidos"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Batalla de Colberger Heide (1644)": "Battle_of_Colberger_Heide"')
+    && wikipediaConflicts.includes('"Batalla de Dynekilen (1716)": "Battle_of_Dynekilen"')
+    && wikipediaConflicts.includes('"Batalla de Kircholm (1605)": "Battle_of_Kircholm"'),
+  "los nombres nordicos y balticos deben conservar paginas de importacion profunda"
 );
 assert.ok(
   conflictBatchCuration.includes("if (Array.isArray(entry.treaties)) return entry.treaties;"),

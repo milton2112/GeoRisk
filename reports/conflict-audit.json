@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-17T18:22:55.859Z",
+  "generatedAt": "2026-08-12T16:22:06.289Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 235,
-  "reviewCount": 235,
+  "advisoryCount": 227,
+  "reviewCount": 227,
   "summary": {
-    "provisional_parent": 235
+    "provisional_parent": 227
   },
   "topIssues": [],
   "topAdvisories": [
@@ -332,20 +332,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de colberger heide",
-      "name": "Batalla de Colberger Heide",
-      "countries": [
-        "SWE"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de colson s mill",
       "name": "Batalla de Colson's Mill",
       "countries": [
@@ -570,20 +556,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de dynekilen",
-      "name": "Batalla de Dynekilen",
-      "countries": [
-        "SWE"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de fayetteville",
       "name": "Batalla de Fayetteville",
       "countries": [
@@ -592,20 +564,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de fehmarn",
-      "name": "Batalla de Fehmarn",
-      "countries": [
-        "SWE"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],
@@ -682,20 +640,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de gorzno",
-      "name": "Batalla de Górzno",
-      "countries": [
-        "SWE"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de gotska sandon",
       "name": "Batalla de Gotska Sandön",
       "countries": [
@@ -714,20 +658,6 @@
       "name": "Batalla de Grado",
       "countries": [
         "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de grengam",
-      "name": "Batalla de Grengam",
-      "countries": [
-        "SWE"
       ],
       "startYear": null,
       "endYear": null,
@@ -826,20 +756,6 @@
       "name": "Batalla de Hiddensee",
       "countries": [
         "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de hogland",
-      "name": "Batalla de Hogland",
-      "countries": [
-        "SWE"
       ],
       "startYear": null,
       "endYear": null,
@@ -1074,20 +990,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de kircholm",
-      "name": "Batalla de Kircholm",
-      "countries": [
-        "SWE"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de kirchschlag",
       "name": "Batalla de Kirchschlag",
       "countries": [
@@ -1116,10 +1018,108 @@
       "severity": 1
     },
     {
-      "key": "batalla de kliszow",
-      "name": "Batalla de Kliszów",
+      "key": "batalla de kokenhausen",
+      "name": "Batalla de Kokenhausen",
       "countries": [
         "SWE"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de kousseri",
+      "name": "Batalla de Kousséri",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de kozienice",
+      "name": "Batalla de Kozienice",
+      "countries": [
+        "SWE"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de kringen",
+      "name": "Batalla de Kringen",
+      "countries": [
+        "NOR"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de kroppenhof",
+      "name": "Batalla de Kroppenhof",
+      "countries": [
+        "SWE"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de krosno",
+      "name": "Batalla de Krosno",
+      "countries": [
+        "SWE"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de kumbo",
+      "name": "Batalla de Kumbo",
+      "countries": [
+        "CMR"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de la boca del tigre",
+      "name": "Batalla de la Boca del Tigre",
+      "countries": [
+        "PRT"
       ],
       "startYear": null,
       "endYear": null,

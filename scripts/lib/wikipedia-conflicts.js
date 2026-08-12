@@ -279,7 +279,15 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Batalla de la Bahía de Hudson (1697)": "Battle_of_Hudson's_Bay",
   "Batalla de la Haya (1940)": "Battle_for_The_Hague",
   "Batalla de Rumaila (1991)": "Battle_of_Rumaila",
-  "Batalla de Solebay (1672)": "Battle_of_Solebay"
+  "Batalla de Solebay (1672)": "Battle_of_Solebay",
+  "Batalla de Colberger Heide (1644)": "Battle_of_Colberger_Heide",
+  "Batalla de Fehmarn (1644)": "Battle_of_Fehmarn_(1644)",
+  "Batalla de Dynekilen (1716)": "Battle_of_Dynekilen",
+  "Batalla de Grengam (1720)": "Battle_of_Grengam",
+  "Batalla de Hogland (1788)": "Battle_of_Hogland",
+  "Batalla de Kircholm (1605)": "Battle_of_Kircholm",
+  "Batalla de Klisz\u00f3w (1702)": "Battle_of_Klisz\u00f3w",
+  "Batalla de G\u00f3rzno (1629)": "Battle_of_G\u00f3rzno"
 };
 
 const ENGLISH_WIKIPEDIA_TITLE_EXCEPTIONS = new Set([

@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-07-17T18:20:54.055Z",
-  "changedFullCountries": 11,
+  "generatedAt": "2026-08-12T16:20:03.138Z",
+  "changedFullCountries": 6,
   "fullPassChanges": [
-    11,
+    6,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 113,
+    "enriched": 114,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 887,
+  "generatedHierarchyCandidates": 894,
   "countryConflictAdditions": {
     "Estados Unidos": [
       "Batalla de Manila (1945)",
@@ -109,18 +109,24 @@
       "Sitio de Bomarsund (1854)",
       "Batalla de Craonne (1814)",
       "Batalla de Golymin (1806)",
-      "Batalla de Heilsberg (1807)"
+      "Batalla de Heilsberg (1807)",
+      "Batalla de Grengam (1720)",
+      "Batalla de Hogland (1788)"
     ],
     "Reino de los Países Bajos": [
       "Batalla de Camaret (1694)",
-      "Batalla de Solebay (1672)"
+      "Batalla de Solebay (1672)",
+      "Batalla de Fehmarn (1644)"
     ],
     "India": [
       "Asedio y captura de Chandannagar (1757)"
     ],
     "Polonia": [
       "Batalla de Golymin (1806)",
-      "Batalla de Heilsberg (1807)"
+      "Batalla de Heilsberg (1807)",
+      "Batalla de Kircholm (1605)",
+      "Batalla de Kliszów (1702)",
+      "Batalla de Górzno (1629)"
     ],
     "México": [
       "Combate de Carrizal (1916)",
@@ -150,6 +156,16 @@
     ],
     "Irak": [
       "Batalla de Rumaila (1991)"
+    ],
+    "Dinamarca": [
+      "Batalla de Colberger Heide (1644)",
+      "Batalla de Fehmarn (1644)",
+      "Batalla de Dynekilen (1716)"
+    ],
+    "Noruega": [
+      "Batalla de Colberger Heide (1644)",
+      "Batalla de Fehmarn (1644)",
+      "Batalla de Dynekilen (1716)"
     ]
   },
   "safeRenames": {
@@ -537,7 +553,15 @@
     "Batalla de la Bahía de Hudson": "Batalla de la Bahía de Hudson (1697)",
     "Batalla de la Haya": "Batalla de la Haya (1940)",
     "Batalla de Rumaila": "Batalla de Rumaila (1991)",
-    "Batalla de Solebay": "Batalla de Solebay (1672)"
+    "Batalla de Solebay": "Batalla de Solebay (1672)",
+    "Batalla de Colberger Heide": "Batalla de Colberger Heide (1644)",
+    "Batalla de Fehmarn": "Batalla de Fehmarn (1644)",
+    "Batalla de Dynekilen": "Batalla de Dynekilen (1716)",
+    "Batalla de Grengam": "Batalla de Grengam (1720)",
+    "Batalla de Hogland": "Batalla de Hogland (1788)",
+    "Batalla de Kircholm": "Batalla de Kircholm (1605)",
+    "Batalla de Kliszów": "Batalla de Kliszów (1702)",
+    "Batalla de Górzno": "Batalla de Górzno (1629)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1398,6 +1422,14 @@
     "Batalla de la Bahía de Hudson (1697)",
     "Batalla de la Haya (1940)",
     "Batalla de Rumaila (1991)",
-    "Batalla de Solebay (1672)"
+    "Batalla de Solebay (1672)",
+    "Batalla de Colberger Heide (1644)",
+    "Batalla de Fehmarn (1644)",
+    "Batalla de Dynekilen (1716)",
+    "Batalla de Grengam (1720)",
+    "Batalla de Hogland (1788)",
+    "Batalla de Kircholm (1605)",
+    "Batalla de Kliszów (1702)",
+    "Batalla de Górzno (1629)"
   ]
 }
