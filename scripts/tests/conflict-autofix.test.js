@@ -133,6 +133,11 @@ import {
   POLISH_DELUGE_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
   POLISH_DELUGE_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-polish-deluge-followup.js";
+import {
+  POLISH_DELUGE_SWEDISH_OPERATIONS_CONFLICT_DETAIL_FIXES,
+  POLISH_DELUGE_SWEDISH_OPERATIONS_COUNTRY_CONFLICT_ADDITIONS,
+  POLISH_DELUGE_SWEDISH_OPERATIONS_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-polish-deluge-swedish-operations.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -1150,6 +1155,58 @@ assert.ok(
   ),
   "la tanda del Diluvio debe conservar fecha, jerarquia, fuentes, participantes, narrativa y cautelas editoriales"
 );
+assert.equal(Object.keys(POLISH_DELUGE_SWEDISH_OPERATIONS_CONFLICT_DETAIL_FIXES).length, 6);
+assert.equal(Object.keys(POLISH_DELUGE_SWEDISH_OPERATIONS_SAFE_CONFLICT_RENAMES).length, 6);
+assert.deepEqual(POLISH_DELUGE_SWEDISH_OPERATIONS_COUNTRY_CONFLICT_ADDITIONS.Polonia, [
+  "Batalla de Chojnice (1657)",
+  "Batalla de Filip\u00f3w (1656)",
+  "Batalla de Klecko (1656)",
+  "Batalla de Lowicz (1656)",
+  "Batalla de Nisko (1656)",
+  "Batalla de Tykocin (1656)"
+]);
+assert.equal(
+  POLISH_DELUGE_SWEDISH_OPERATIONS_SAFE_CONFLICT_RENAMES["Batalla de Klecko"],
+  "Batalla de Klecko (1656)"
+);
+assert.equal(
+  POLISH_DELUGE_SWEDISH_OPERATIONS_CONFLICT_DETAIL_FIXES["Batalla de Chojnice (1657)"].parent,
+  "Segunda Guerra N\u00f3rdica"
+);
+assert.equal(
+  POLISH_DELUGE_SWEDISH_OPERATIONS_CONFLICT_DETAIL_FIXES["Batalla de Tykocin (1656)"].type,
+  "batalla de socorro"
+);
+assert.equal(
+  POLISH_DELUGE_SWEDISH_OPERATIONS_CONFLICT_DETAIL_FIXES["Batalla de Nisko (1656)"].sourceDispute,
+  true
+);
+assert.ok(
+  Object.values(POLISH_DELUGE_SWEDISH_OPERATIONS_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent
+      && detail.war === detail.parent
+      && !/^Conflicto regional de /i.test(detail.parent)
+      && detail.campaign
+      && detail.region
+      && detail.normalizedRegion === detail.region
+      && detail.cause
+      && detail.outcome
+      && detail.consequences
+      && detail.chronology?.length >= 2
+      && detail.chronology.every(event => event.year === detail.startYear && event.event)
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 2
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties)
+      && detail.curationBatch === "source-backed-polish-deluge-swedish-operations-2026-08"
+      && detail.curationNote
+  ),
+  "la tanda operativa sueco-polaca del Diluvio debe conservar fecha, jerarquia, fuentes, participantes, narrativa y cautelas editoriales"
+);
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",
   startYear: 1944,
@@ -1227,6 +1284,12 @@ assert.equal(kcyniaWikipediaOverride.pageTitle, "Battle_of_Kcynia");
 const lubrzeWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Lubrze (1656)");
 assert.equal(lubrzeWikipediaOverride.language, "en");
 assert.equal(lubrzeWikipediaOverride.pageTitle, "Battle_of_Lubrze");
+const chojniceWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Chojnice (1657)");
+assert.equal(chojniceWikipediaOverride.language, "en");
+assert.equal(chojniceWikipediaOverride.pageTitle, "Battle_of_Chojnice_(1656)");
+const tykocinWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Tykocin (1656)");
+assert.equal(tykocinWikipediaOverride.language, "en");
+assert.equal(tykocinWikipediaOverride.pageTitle, "Battle_of_Tykocin");
 const happoWikipediaOverride = await resolveWikipediaConflictTitle("Acción naval de Happo (1592)");
 assert.equal(happoWikipediaOverride.language, "en");
 assert.equal(happoWikipediaOverride.pageTitle, "Battle_of_Happo");

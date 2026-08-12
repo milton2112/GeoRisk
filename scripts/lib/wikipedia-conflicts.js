@@ -299,7 +299,13 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Batalla de Jaroslaw (1656)": "Battle_of_Jaros\u0142aw_(1656)",
   "Batalla de Kozienice (1656)": "Battle_of_Kozienice",
   "Batalla de Kcynia (1656)": "Battle_of_Kcynia",
-  "Batalla de Lubrze (1656)": "Battle_of_Lubrze"
+  "Batalla de Lubrze (1656)": "Battle_of_Lubrze",
+  "Batalla de Chojnice (1657)": "Battle_of_Chojnice_(1656)",
+  "Batalla de Filip\u00f3w (1656)": "Battle_of_Filip\u00f3w",
+  "Batalla de Klecko (1656)": "Battle_of_K\u0142ecko",
+  "Batalla de Lowicz (1656)": "Battle_of_\u0141owicz",
+  "Batalla de Nisko (1656)": "Battle_of_Nisko",
+  "Batalla de Tykocin (1656)": "Battle_of_Tykocin"
 };
 
 const ENGLISH_WIKIPEDIA_TITLE_EXCEPTIONS = new Set([

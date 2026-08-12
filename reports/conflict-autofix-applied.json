@@ -1,14 +1,15 @@
 {
-  "generatedAt": "2026-08-12T16:58:16.869Z",
-  "changedFullCountries": 0,
+  "generatedAt": "2026-08-12T17:28:08.715Z",
+  "changedFullCountries": 2,
   "fullPassChanges": [
+    2,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 0,
-    "written": false,
+    "enriched": 112,
+    "written": true,
     "compacted": false
   },
   "generatedHierarchyCandidates": 914,
@@ -137,7 +138,13 @@
       "Batalla de Jaroslaw (1656)",
       "Batalla de Kozienice (1656)",
       "Batalla de Kcynia (1656)",
-      "Batalla de Lubrze (1656)"
+      "Batalla de Lubrze (1656)",
+      "Batalla de Chojnice (1657)",
+      "Batalla de Filipów (1656)",
+      "Batalla de Klecko (1656)",
+      "Batalla de Lowicz (1656)",
+      "Batalla de Nisko (1656)",
+      "Batalla de Tykocin (1656)"
     ],
     "México": [
       "Combate de Carrizal (1916)",
@@ -584,7 +591,13 @@
     "Batalla de Jaroslaw": "Batalla de Jaroslaw (1656)",
     "Batalla de Kozienice": "Batalla de Kozienice (1656)",
     "Batalla de Kcynia": "Batalla de Kcynia (1656)",
-    "Batalla de Lubrze": "Batalla de Lubrze (1656)"
+    "Batalla de Lubrze": "Batalla de Lubrze (1656)",
+    "Batalla de Chojnice": "Batalla de Chojnice (1657)",
+    "Batalla de Filipów": "Batalla de Filipów (1656)",
+    "Batalla de Klecko": "Batalla de Klecko (1656)",
+    "Batalla de Lowicz": "Batalla de Lowicz (1656)",
+    "Batalla de Nisko": "Batalla de Nisko (1656)",
+    "Batalla de Tykocin": "Batalla de Tykocin (1656)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1465,6 +1478,12 @@
     "Batalla de Jaroslaw (1656)",
     "Batalla de Kozienice (1656)",
     "Batalla de Kcynia (1656)",
-    "Batalla de Lubrze (1656)"
+    "Batalla de Lubrze (1656)",
+    "Batalla de Chojnice (1657)",
+    "Batalla de Filipów (1656)",
+    "Batalla de Klecko (1656)",
+    "Batalla de Lowicz (1656)",
+    "Batalla de Nisko (1656)",
+    "Batalla de Tykocin (1656)"
   ]
 }

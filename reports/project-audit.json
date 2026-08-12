@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-08-12T17:01:17.002Z",
+  "generatedAt": "2026-08-12T17:32:17.069Z",
   "status": "operativo",
   "startup": {
     "critical": "810 KB",
     "criticalBytes": 828956,
-    "deferred": "2.31 MB",
+    "deferred": "2.33 MB",
     "estimatedRuntimeMemory": {
-      "countriesFullBytes": 10242117,
-      "countriesFullHuman": "9.77 MB",
-      "estimatedParsedBytes": 30726351,
-      "estimatedParsedHuman": "29.30 MB",
+      "countriesFullBytes": 10282209,
+      "countriesFullHuman": "9.81 MB",
+      "estimatedParsedBytes": 30846627,
+      "estimatedParsedHuman": "29.42 MB",
       "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
     },
     "largestAssets": [
       {
         "path": "data/conflict_details.generated.json",
         "exists": true,
-        "bytes": 1787459,
-        "human": "1.70 MB",
+        "bytes": 1801922,
+        "human": "1.72 MB",
         "startupCritical": false
       },
       {
@@ -103,7 +103,7 @@
     "scanned": 2001,
     "issueCount": 0,
     "summary": {
-      "provisional_parent": 215
+      "provisional_parent": 209
     },
     "eraFocus": []
   },
@@ -112,14 +112,14 @@
       {
         "path": "data/timeline_index.json",
         "exists": true,
-        "bytes": 360031,
-        "human": "352 KB"
+        "bytes": 361587,
+        "human": "353 KB"
       },
       {
         "path": "data/conflicts_index.json",
         "exists": true,
-        "bytes": 321103,
-        "human": "314 KB"
+        "bytes": 322420,
+        "human": "315 KB"
       },
       {
         "path": "data/search_index.json",
@@ -136,21 +136,21 @@
       {
         "path": "data/conflicts/details_index.json",
         "exists": true,
-        "bytes": 141333,
-        "human": "138 KB"
+        "bytes": 142210,
+        "human": "139 KB"
       },
       {
         "path": "data/country_weights.json",
         "exists": true,
-        "bytes": 118198,
+        "bytes": 118202,
         "human": "115 KB"
       }
     ],
     "countryWeights": {
       "totalCountries": 183,
-      "fullBytes": 10242117,
-      "duplicatedCountryFilesBytes": 1495663,
-      "countryConflictShardBytes": 398530,
+      "fullBytes": 10282209,
+      "duplicatedCountryFilesBytes": 1496221,
+      "countryConflictShardBytes": 400642,
       "tooLargeCount": 0,
       "largest": [
         {
@@ -307,6 +307,57 @@
           }
         },
         {
+          "code": "POL",
+          "name": "Polonia",
+          "bytes": 19706,
+          "inlineBytes": 178747,
+          "tooLarge": false,
+          "counts": {
+            "cities": 4,
+            "capitals": 1,
+            "languages": 4,
+            "religionGroups": 5,
+            "organizations": 43,
+            "rivals": 50,
+            "conflicts": 44,
+            "timelineEvents": 0
+          },
+          "metrics": {
+            "sectionBytes": {
+              "military": 9115,
+              "politics": 7383,
+              "metadata": 1913,
+              "general": 684,
+              "religion": 297,
+              "economy": 100,
+              "history": 93,
+              "name": 9,
+              "continent": 8
+            },
+            "largestSections": [
+              {
+                "section": "military",
+                "bytes": 9115
+              },
+              {
+                "section": "politics",
+                "bytes": 7383
+              },
+              {
+                "section": "metadata",
+                "bytes": 1913
+              },
+              {
+                "section": "general",
+                "bytes": 684
+              }
+            ],
+            "conflictsBytes": 10597,
+            "conflictShardBytes": 10598,
+            "averageConflictBytes": 241
+          }
+        },
+        {
           "code": "FRA",
           "name": "Francia",
           "bytes": 19526,
@@ -355,57 +406,6 @@
             "conflictsBytes": 43676,
             "conflictShardBytes": 43677,
             "averageConflictBytes": 187
-          }
-        },
-        {
-          "code": "POL",
-          "name": "Polonia",
-          "bytes": 19148,
-          "inlineBytes": 150561,
-          "tooLarge": false,
-          "counts": {
-            "cities": 4,
-            "capitals": 1,
-            "languages": 4,
-            "religionGroups": 5,
-            "organizations": 43,
-            "rivals": 50,
-            "conflicts": 38,
-            "timelineEvents": 0
-          },
-          "metrics": {
-            "sectionBytes": {
-              "military": 8557,
-              "politics": 7383,
-              "metadata": 1913,
-              "general": 684,
-              "religion": 297,
-              "economy": 100,
-              "history": 93,
-              "name": 9,
-              "continent": 8
-            },
-            "largestSections": [
-              {
-                "section": "military",
-                "bytes": 8557
-              },
-              {
-                "section": "politics",
-                "bytes": 7383
-              },
-              {
-                "section": "metadata",
-                "bytes": 1913
-              },
-              {
-                "section": "general",
-                "bytes": 684
-              }
-            ],
-            "conflictsBytes": 8870,
-            "conflictShardBytes": 8871,
-            "averageConflictBytes": 233
           }
         },
         {
@@ -790,7 +790,7 @@
     },
     "curationGaps": {},
     "conflictDataConsistency": {
-      "checked": 3756,
+      "checked": 3768,
       "closedMarkedActiveCount": 0,
       "inactiveMarkedActiveCount": 0,
       "nullNarrativeTextCount": 0,
@@ -817,8 +817,8 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 103818,
-      "human": "101 KB"
+      "bytes": 105506,
+      "human": "103 KB"
     },
     {
       "path": "style.css",

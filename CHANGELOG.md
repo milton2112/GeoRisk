@@ -8,7 +8,19 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.82 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.83 antes de cerrar la siguiente version.
+
+## v1.6.83 - 2026-08-12
+
+- Fecha, desambigua, jerarquiza y documenta seis acciones sueco-polacas del Diluvio que seguian bajo una guerra padre regional provisional: Chojnice, Filipow, Klecko, Lowicz, Nisko y Tykocin.
+- Situa las seis fichas dentro de la Segunda Guerra Nordica y sus campanas respectivas en Pomerelia, Prusia Ducal, Gran Polonia, Mazovia, la ribera del San y Podlaquia.
+- Completa region historica, tipo de accion, participantes, causa, resultado, consecuencias, cronologia, acuerdo de cierre y dos fuentes de trazabilidad por registro.
+- Vincula cada accion con Polonia y Suecia para que ficha, mapa, filtros, ranking, comparador, busqueda, timeline e importacion profunda compartan la misma referencia.
+- Conserva grafias historicas en los nombres canonicos y cautelas sobre bajas, fechas locales, calendarios y lealtades de epoca; distingue Chojnice de 1657 de la batalla medieval de 1454 y el socorro de Tykocin de julio de 1656 del asalto al castillo de enero de 1657.
+- Reduce las jerarquias provisionales de 215 a 209 y los conflictos fuera del indice fechable de 282 a 276; el indice de conflictos pasa de 1717 a 1723 entradas, el timeline de 2824 a 2836 eventos y los detalles diferidos de 962 a 968 shards.
+- Agrega regresiones para nombres canonicos, fecha, padre, tipo, region, asociaciones nacionales, fuentes, notas de cautela, aliases de importacion profunda y carga diferida.
+- Mantiene cero incidencias y advertencias de validacion, conflictos en ingles, duplicados, regiones sospechosas, religiones redundantes, ciudades en mayusculas, mojibake y fallos de localizacion en detalles.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-12-release-4`.
 
 ## v1.6.82 - 2026-08-12
 

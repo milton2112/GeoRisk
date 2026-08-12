@@ -89,6 +89,7 @@ const provisionalFoundationCuration = await fs.readFile(path.join(projectRoot, "
 const nordicBalticFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-nordic-baltic-followup.js"), "utf8");
 const polishSwedishFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-polish-swedish-followup.js"), "utf8");
 const polishDelugeFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-polish-deluge-followup.js"), "utf8");
+const polishDelugeSwedishOperationsCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-polish-deluge-swedish-operations.js"), "utf8");
 const wikipediaConflicts = await fs.readFile(path.join(projectRoot, "scripts/lib/wikipedia-conflicts.js"), "utf8");
 const conflictBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-batch-curation.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
@@ -1160,6 +1161,49 @@ assert.ok(
     && wikipediaConflicts.includes('"Batalla de Kcynia (1656)": "Battle_of_Kcynia"')
     && wikipediaConflicts.includes('"Batalla de Lubrze (1656)": "Battle_of_Lubrze"'),
   "los nombres del Diluvio curados deben conservar paginas de importacion profunda"
+);
+assert.ok(conflictAutofix.includes("POLISH_DELUGE_SWEDISH_OPERATIONS_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda operativa sueco-polaca del Diluvio");
+assert.ok(conflictAutofix.includes("POLISH_DELUGE_SWEDISH_OPERATIONS_COUNTRY_CONFLICT_ADDITIONS"), "autofix debe asociar Polonia en la tanda operativa del Diluvio");
+assert.ok(
+  polishDelugeSwedishOperationsCuration.includes('curationBatch: "source-backed-polish-deluge-swedish-operations-2026-08"')
+    && polishDelugeSwedishOperationsCuration.includes("hierarchySources"),
+  "la tanda operativa del Diluvio debe conservar trazabilidad multiple"
+);
+assert.ok(
+  polishDelugeSwedishOperationsCuration.includes('"Batalla de Chojnice": "Batalla de Chojnice (1657)"')
+    && polishDelugeSwedishOperationsCuration.includes('"Batalla de Klecko": "Batalla de Klecko (1656)"')
+    && polishDelugeSwedishOperationsCuration.includes('"Batalla de Tykocin": "Batalla de Tykocin (1656)"'),
+  "la tanda operativa debe fechar y desambiguar las acciones sueco-polacas"
+);
+assert.ok(
+  [
+    "ckziumragowo.pl",
+    "chojniczanin.pl",
+    "edd.nid.pl",
+    "twojahistoria.pl",
+    "zpe.gov.pl",
+    "repozytorium.biblos.pk.edu.pl",
+    "muzeumwp.pl",
+    "pbc.biaman.pl",
+    "archiwalna.nisko.pl",
+    "zbrojownia.cbw.wp.mil.pl",
+    "umtykocin.pl",
+    "madzelan.cba.pl"
+  ].every(domain => polishDelugeSwedishOperationsCuration.includes(domain)),
+  "la tanda operativa del Diluvio debe apoyarse en instituciones, bibliotecas y estudios historicos"
+);
+assert.ok(
+  polishDelugeSwedishOperationsCuration.includes("evita confundirla con la batalla medieval de Chojnice de 1454")
+    && polishDelugeSwedishOperationsCuration.includes("sin convertir recuentos parciales en cifras consolidadas")
+    && polishDelugeSwedishOperationsCuration.includes("Las fuentes discrepan sobre el dia concreto")
+    && polishDelugeSwedishOperationsCuration.includes("no el asalto polaco-lituano al castillo de enero de 1657"),
+  "la tanda operativa debe conservar cautelas sobre homonimos, cifras, fechas y acciones distintas"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Batalla de Chojnice (1657)": "Battle_of_Chojnice_(1656)"')
+    && wikipediaConflicts.includes('"Batalla de Nisko (1656)": "Battle_of_Nisko"')
+    && wikipediaConflicts.includes('"Batalla de Tykocin (1656)": "Battle_of_Tykocin"'),
+  "los nombres operativos del Diluvio deben conservar paginas de importacion profunda"
 );
 assert.ok(
   conflictBatchCuration.includes("if (Array.isArray(entry.treaties)) return entry.treaties;"),

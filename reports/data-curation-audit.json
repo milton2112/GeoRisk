@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-12T16:54:00.162Z",
+  "generatedAt": "2026-08-12T17:28:14.779Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 10242117,
-    "duplicatedCountryFilesBytes": 1495663,
-    "countryConflictShardBytes": 398530,
+    "fullBytes": 10282209,
+    "duplicatedCountryFilesBytes": 1496221,
+    "countryConflictShardBytes": 400642,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -162,6 +162,57 @@
         }
       },
       {
+        "code": "POL",
+        "name": "Polonia",
+        "bytes": 19706,
+        "inlineBytes": 178747,
+        "tooLarge": false,
+        "counts": {
+          "cities": 4,
+          "capitals": 1,
+          "languages": 4,
+          "religionGroups": 5,
+          "organizations": 43,
+          "rivals": 50,
+          "conflicts": 44,
+          "timelineEvents": 0
+        },
+        "metrics": {
+          "sectionBytes": {
+            "military": 9115,
+            "politics": 7383,
+            "metadata": 1913,
+            "general": 684,
+            "religion": 297,
+            "economy": 100,
+            "history": 93,
+            "name": 9,
+            "continent": 8
+          },
+          "largestSections": [
+            {
+              "section": "military",
+              "bytes": 9115
+            },
+            {
+              "section": "politics",
+              "bytes": 7383
+            },
+            {
+              "section": "metadata",
+              "bytes": 1913
+            },
+            {
+              "section": "general",
+              "bytes": 684
+            }
+          ],
+          "conflictsBytes": 10597,
+          "conflictShardBytes": 10598,
+          "averageConflictBytes": 241
+        }
+      },
+      {
         "code": "FRA",
         "name": "Francia",
         "bytes": 19526,
@@ -210,57 +261,6 @@
           "conflictsBytes": 43676,
           "conflictShardBytes": 43677,
           "averageConflictBytes": 187
-        }
-      },
-      {
-        "code": "POL",
-        "name": "Polonia",
-        "bytes": 19148,
-        "inlineBytes": 150561,
-        "tooLarge": false,
-        "counts": {
-          "cities": 4,
-          "capitals": 1,
-          "languages": 4,
-          "religionGroups": 5,
-          "organizations": 43,
-          "rivals": 50,
-          "conflicts": 38,
-          "timelineEvents": 0
-        },
-        "metrics": {
-          "sectionBytes": {
-            "military": 8557,
-            "politics": 7383,
-            "metadata": 1913,
-            "general": 684,
-            "religion": 297,
-            "economy": 100,
-            "history": 93,
-            "name": 9,
-            "continent": 8
-          },
-          "largestSections": [
-            {
-              "section": "military",
-              "bytes": 8557
-            },
-            {
-              "section": "politics",
-              "bytes": 7383
-            },
-            {
-              "section": "metadata",
-              "bytes": 1913
-            },
-            {
-              "section": "general",
-              "bytes": 684
-            }
-          ],
-          "conflictsBytes": 8870,
-          "conflictShardBytes": 8871,
-          "averageConflictBytes": 233
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 282,
+    "pendingCount": 276,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15428,19 +15428,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Chojnice",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Clouds",
         "countries": [
           "USA"
@@ -15681,19 +15668,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Filipów",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
@@ -16078,19 +16052,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Klecko",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Kousséri",
         "countries": [
           "FRA"
@@ -16325,19 +16286,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Lowicz",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Mahé",
         "countries": [
           "FRA"
@@ -16484,19 +16432,6 @@
         "name": "Batalla de Newry Road",
         "countries": [
           "GBR"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Nisko",
-        "countries": [
-          "SWE"
         ],
         "regions": [
           "Europa"
@@ -17163,6 +17098,71 @@
         ],
         "regions": [
           "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Stegeborg",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Sunset Pass",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Suoi Chau Pha",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Świecino",
+        "countries": [
+          "POL"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Tafilah",
+        "countries": [
+          "GBR"
+        ],
+        "regions": [
+          "Europa"
         ],
         "types": [
           "interestatal"

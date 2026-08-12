@@ -1474,6 +1474,36 @@ const expectedServedConflictCuration = [
     name: "Batalla de Lubrze (1656)",
     parent: "Segunda Guerra N\u00f3rdica",
     region: "Lubrze, cerca de \u015arem y \u015aroda Wielkopolska, Gran Polonia, actual Polonia"
+  },
+  {
+    name: "Batalla de Chojnice (1657)",
+    parent: "Segunda Guerra N\u00f3rdica",
+    region: "Chojnice y ruta hacia Gdansk, Pomerelia, actual Polonia"
+  },
+  {
+    name: "Batalla de Filip\u00f3w (1656)",
+    parent: "Segunda Guerra N\u00f3rdica",
+    region: "Filipow y Mieruniszki, Suwalszczyzna, actual Polonia"
+  },
+  {
+    name: "Batalla de Klecko (1656)",
+    parent: "Segunda Guerra N\u00f3rdica",
+    region: "Klecko, cerca de Gniezno, Gran Polonia, actual Polonia"
+  },
+  {
+    name: "Batalla de Lowicz (1656)",
+    parent: "Segunda Guerra N\u00f3rdica",
+    region: "Lowicz, Mazovia historica, actual Polonia"
+  },
+  {
+    name: "Batalla de Nisko (1656)",
+    parent: "Segunda Guerra N\u00f3rdica",
+    region: "Nisko y Raclawice, ribera del rio San, actual Polonia"
+  },
+  {
+    name: "Batalla de Tykocin (1656)",
+    parent: "Segunda Guerra N\u00f3rdica",
+    region: "Tykocin, valle del rio Narew, Podlaquia, actual Polonia"
   }
 ];
 const servedConflictsByName = new Map();

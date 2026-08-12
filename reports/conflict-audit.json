@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-12T17:01:14.470Z",
+  "generatedAt": "2026-08-12T17:32:11.216Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 215,
-  "reviewCount": 215,
+  "advisoryCount": 209,
+  "reviewCount": 209,
   "summary": {
-    "provisional_parent": 215
+    "provisional_parent": 209
   },
   "topIssues": [],
   "topAdvisories": [
@@ -290,20 +290,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de chojnice",
-      "name": "Batalla de Chojnice",
-      "countries": [
-        "SWE"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de clouds",
       "name": "Batalla de Clouds",
       "countries": [
@@ -564,20 +550,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de filipow",
-      "name": "Batalla de Filipów",
-      "countries": [
-        "SWE"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],
@@ -976,20 +948,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de klecko",
-      "name": "Batalla de Klecko",
-      "countries": [
-        "SWE"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de kousseri",
       "name": "Batalla de Kousséri",
       "countries": [
@@ -1124,6 +1082,48 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de las marismas",
+      "name": "Batalla de las Marismas",
+      "countries": [
+        "IRN"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de lebouirate",
+      "name": "Batalla de Lebouirate",
+      "countries": [
+        "MAR"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de lissa",
+      "name": "Batalla de Lissa",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],
