@@ -287,7 +287,13 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Batalla de Hogland (1788)": "Battle_of_Hogland",
   "Batalla de Kircholm (1605)": "Battle_of_Kircholm",
   "Batalla de Klisz\u00f3w (1702)": "Battle_of_Klisz\u00f3w",
-  "Batalla de G\u00f3rzno (1629)": "Battle_of_G\u00f3rzno"
+  "Batalla de G\u00f3rzno (1629)": "Battle_of_G\u00f3rzno",
+  "Batalla de Kokenhausen (1601)": "Battle_of_Kokenhausen",
+  "Batalla naval de Oliwa (1627)": "Battle_of_Oliwa",
+  "Batalla de Trzciana (1629)": "Battle_of_Trzciana",
+  "Batalla de Wojnicz (1655)": "Battle_of_Wojnicz",
+  "Batalla de Warka (1656)": "Battle_of_Warka",
+  "Batalla de Prostki (1656)": "Battle_of_Prostki"
 };
 
 const ENGLISH_WIKIPEDIA_TITLE_EXCEPTIONS = new Set([

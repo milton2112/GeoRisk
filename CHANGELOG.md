@@ -8,7 +8,19 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.80 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.81 antes de cerrar la siguiente version.
+
+## v1.6.81 - 2026-08-12
+
+- Fecha, desambigua, jerarquiza y documenta seis acciones polaco-suecas que seguian con una guerra padre provisional: Kokenhausen, Oliwa, Trzciana, Wojnicz, Warka y Prostki.
+- Situa Kokenhausen en la guerra polaco-sueca de 1600-1611; Oliwa y Trzciana en la guerra de 1626-1629; y Wojnicz, Warka y Prostki en la Segunda Guerra Nordica.
+- Completa campana, region historica normalizada, tipo de accion, participantes, causa, resultado, consecuencias, cronologia, acuerdos de cierre y dos fuentes de trazabilidad por ficha.
+- Corrige Prostken a Prostki, agrega el caracter naval de Oliwa y vincula los seis registros con Polonia y Suecia para que ficha, mapa, filtros, ranking y comparador consuman la misma referencia.
+- Mantiene cautelas editoriales sobre calendarios juliano y gregoriano, continuidad de la Mancomunidad Polaco-Lituana, Prusia Ducal y la imposibilidad de consolidar cifras discutidas de efectivos o bajas.
+- Reduce las jerarquias provisionales de 227 a 221 y los conflictos fuera del indice fechable de 294 a 288; el indice de conflictos pasa de 1705 a 1711 entradas, el timeline de 2800 a 2812 eventos y los detalles diferidos de 950 a 956 shards.
+- Agrega regresiones para nombres canonicos, padres, fechas, regiones, asociaciones nacionales, fuentes, notas de cautela, carga diferida y aliases de importacion profunda.
+- Mantiene cero incidencias y advertencias de validacion, nombres de conflicto en ingles, duplicados, regiones sospechosas, religiones redundantes, ciudades en mayusculas, mojibake y fallos de localizacion en detalles.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-12-release-2`.
 
 ## v1.6.80 - 2026-08-12
 

@@ -87,6 +87,7 @@ const usGlobalFollowupCuration = await fs.readFile(path.join(projectRoot, "scrip
 const britishGlobalFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-british-global-followup.js"), "utf8");
 const provisionalFoundationCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-provisional-foundation.js"), "utf8");
 const nordicBalticFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-nordic-baltic-followup.js"), "utf8");
+const polishSwedishFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-polish-swedish-followup.js"), "utf8");
 const wikipediaConflicts = await fs.readFile(path.join(projectRoot, "scripts/lib/wikipedia-conflicts.js"), "utf8");
 const conflictBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-batch-curation.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
@@ -1078,6 +1079,44 @@ assert.ok(
     && wikipediaConflicts.includes('"Batalla de Dynekilen (1716)": "Battle_of_Dynekilen"')
     && wikipediaConflicts.includes('"Batalla de Kircholm (1605)": "Battle_of_Kircholm"'),
   "los nombres nordicos y balticos deben conservar paginas de importacion profunda"
+);
+assert.ok(conflictAutofix.includes("POLISH_SWEDISH_FOLLOWUP_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda polaco-sueca");
+assert.ok(conflictAutofix.includes("POLISH_SWEDISH_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS"), "autofix debe asociar los participantes directos de la tanda polaco-sueca");
+assert.ok(
+  polishSwedishFollowupCuration.includes('curationBatch: "source-backed-polish-swedish-followup-2026-08"')
+    && polishSwedishFollowupCuration.includes("hierarchySources"),
+  "la tanda polaco-sueca debe quedar identificada y conservar trazabilidad multiple"
+);
+assert.ok(
+  polishSwedishFollowupCuration.includes('"Batalla de Kokenhausen": "Batalla de Kokenhausen (1601)"')
+    && polishSwedishFollowupCuration.includes('"Batalla de Oliwa": "Batalla naval de Oliwa (1627)"')
+    && polishSwedishFollowupCuration.includes('"Batalla de Prostken": "Batalla de Prostki (1656)"'),
+  "la tanda polaco-sueca debe fechar, normalizar y desambiguar acciones historicas"
+);
+assert.ok(
+  [
+    "muzeumwp.pl",
+    "zpe.gov.pl",
+    "muzeummw.pl",
+    "nmm.pl",
+    "muzhp.pl",
+    "wilanow-palac.pl",
+    "warmia.mazury.pl"
+  ].every(domain => polishSwedishFollowupCuration.includes(domain)),
+  "la tanda polaco-sueca debe apoyarse en museos, plataformas educativas y archivos historicos"
+);
+assert.ok(
+  polishSwedishFollowupCuration.includes("no atribuye la batalla a Polonia o Letonia contemporaneas")
+    && polishSwedishFollowupCuration.includes("calendario y la tradicion historiografica")
+    && polishSwedishFollowupCuration.includes("calendario juliano")
+    && polishSwedishFollowupCuration.includes("evita proyectar Alemania contemporanea"),
+  "la tanda polaco-sueca debe conservar cautelas sobre continuidad estatal, calendarios y nombres historicos"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Batalla de Kokenhausen (1601)": "Battle_of_Kokenhausen"')
+    && wikipediaConflicts.includes('"Batalla naval de Oliwa (1627)": "Battle_of_Oliwa"')
+    && wikipediaConflicts.includes('"Batalla de Prostki (1656)": "Battle_of_Prostki"'),
+  "los nombres polaco-suecos curados deben conservar paginas de importacion profunda"
 );
 assert.ok(
   conflictBatchCuration.includes("if (Array.isArray(entry.treaties)) return entry.treaties;"),

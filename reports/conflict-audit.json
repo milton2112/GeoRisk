@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-12T16:22:06.289Z",
+  "generatedAt": "2026-08-12T16:40:38.898Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 227,
-  "reviewCount": 227,
+  "advisoryCount": 221,
+  "reviewCount": 221,
   "summary": {
-    "provisional_parent": 227
+    "provisional_parent": 221
   },
   "topIssues": [],
   "topAdvisories": [
@@ -1018,20 +1018,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de kokenhausen",
-      "name": "Batalla de Kokenhausen",
-      "countries": [
-        "SWE"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de kousseri",
       "name": "Batalla de Kousséri",
       "countries": [
@@ -1124,6 +1110,20 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de la linea bullet",
+      "name": "Batalla de la línea Bullet",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],

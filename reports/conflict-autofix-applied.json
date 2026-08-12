@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-12T16:20:03.138Z",
-  "changedFullCountries": 6,
+  "generatedAt": "2026-08-12T16:38:23.586Z",
+  "changedFullCountries": 2,
   "fullPassChanges": [
-    6,
+    2,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 114,
+    "enriched": 112,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 894,
+  "generatedHierarchyCandidates": 902,
   "countryConflictAdditions": {
     "Estados Unidos": [
       "Batalla de Manila (1945)",
@@ -126,7 +126,13 @@
       "Batalla de Heilsberg (1807)",
       "Batalla de Kircholm (1605)",
       "Batalla de Kliszów (1702)",
-      "Batalla de Górzno (1629)"
+      "Batalla de Górzno (1629)",
+      "Batalla de Kokenhausen (1601)",
+      "Batalla naval de Oliwa (1627)",
+      "Batalla de Trzciana (1629)",
+      "Batalla de Wojnicz (1655)",
+      "Batalla de Warka (1656)",
+      "Batalla de Prostki (1656)"
     ],
     "México": [
       "Combate de Carrizal (1916)",
@@ -561,7 +567,13 @@
     "Batalla de Hogland": "Batalla de Hogland (1788)",
     "Batalla de Kircholm": "Batalla de Kircholm (1605)",
     "Batalla de Kliszów": "Batalla de Kliszów (1702)",
-    "Batalla de Górzno": "Batalla de Górzno (1629)"
+    "Batalla de Górzno": "Batalla de Górzno (1629)",
+    "Batalla de Kokenhausen": "Batalla de Kokenhausen (1601)",
+    "Batalla de Oliwa": "Batalla naval de Oliwa (1627)",
+    "Batalla de Trzciana": "Batalla de Trzciana (1629)",
+    "Batalla de Wojnicz": "Batalla de Wojnicz (1655)",
+    "Batalla de Warka": "Batalla de Warka (1656)",
+    "Batalla de Prostken": "Batalla de Prostki (1656)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1430,6 +1442,12 @@
     "Batalla de Hogland (1788)",
     "Batalla de Kircholm (1605)",
     "Batalla de Kliszów (1702)",
-    "Batalla de Górzno (1629)"
+    "Batalla de Górzno (1629)",
+    "Batalla de Kokenhausen (1601)",
+    "Batalla naval de Oliwa (1627)",
+    "Batalla de Trzciana (1629)",
+    "Batalla de Wojnicz (1655)",
+    "Batalla de Warka (1656)",
+    "Batalla de Prostki (1656)"
   ]
 }

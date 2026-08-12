@@ -1414,6 +1414,36 @@ const expectedServedConflictCuration = [
     name: "Batalla de G\u00f3rzno (1629)",
     parent: "Guerra polaco-sueca de 1626-1629",
     region: "Gorzno, Prusia Real, actual Polonia"
+  },
+  {
+    name: "Batalla de Kokenhausen (1601)",
+    parent: "Guerra polaco-sueca de 1600-1611",
+    region: "Kokenhausen, Livonia, actual Koknese (Letonia)"
+  },
+  {
+    name: "Batalla naval de Oliwa (1627)",
+    parent: "Guerra polaco-sueca de 1626-1629",
+    region: "Bah\u00eda de Gdansk, frente a Oliwa"
+  },
+  {
+    name: "Batalla de Trzciana (1629)",
+    parent: "Guerra polaco-sueca de 1626-1629",
+    region: "Trzciana y Stuhm, Prusia Real, actual Polonia"
+  },
+  {
+    name: "Batalla de Wojnicz (1655)",
+    parent: "Segunda Guerra N\u00f3rdica",
+    region: "Wojnicz, Peque\u00f1a Polonia"
+  },
+  {
+    name: "Batalla de Warka (1656)",
+    parent: "Segunda Guerra N\u00f3rdica",
+    region: "Warka y rio Pilica, Mazovia"
+  },
+  {
+    name: "Batalla de Prostki (1656)",
+    parent: "Segunda Guerra N\u00f3rdica",
+    region: "Prostki, Prusia Ducal, actual Polonia"
   }
 ];
 const servedConflictsByName = new Map();

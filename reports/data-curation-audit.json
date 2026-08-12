@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-12T16:20:08.702Z",
+  "generatedAt": "2026-08-12T16:38:29.181Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 10167599,
-    "duplicatedCountryFilesBytes": 1492668,
-    "countryConflictShardBytes": 388978,
+    "fullBytes": 10202851,
+    "duplicatedCountryFilesBytes": 1494325,
+    "countryConflictShardBytes": 389267,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -213,6 +213,57 @@
         }
       },
       {
+        "code": "POL",
+        "name": "Polonia",
+        "bytes": 17810,
+        "inlineBytes": 122785,
+        "tooLarge": false,
+        "counts": {
+          "cities": 4,
+          "capitals": 1,
+          "languages": 4,
+          "religionGroups": 5,
+          "organizations": 43,
+          "rivals": 50,
+          "conflicts": 32,
+          "timelineEvents": 0
+        },
+        "metrics": {
+          "sectionBytes": {
+            "politics": 7383,
+            "military": 7218,
+            "metadata": 1914,
+            "general": 684,
+            "religion": 297,
+            "economy": 100,
+            "history": 93,
+            "name": 9,
+            "continent": 8
+          },
+          "largestSections": [
+            {
+              "section": "politics",
+              "bytes": 7383
+            },
+            {
+              "section": "military",
+              "bytes": 7218
+            },
+            {
+              "section": "metadata",
+              "bytes": 1914
+            },
+            {
+              "section": "general",
+              "bytes": 684
+            }
+          ],
+          "conflictsBytes": 7133,
+          "conflictShardBytes": 0,
+          "averageConflictBytes": 223
+        }
+      },
+      {
         "code": "CAN",
         "name": "Canadá",
         "bytes": 17341,
@@ -363,57 +414,6 @@
           "conflictsBytes": 9325,
           "conflictShardBytes": 9326,
           "averageConflictBytes": 203
-        }
-      },
-      {
-        "code": "POL",
-        "name": "Polonia",
-        "bytes": 16175,
-        "inlineBytes": 97015,
-        "tooLarge": false,
-        "counts": {
-          "cities": 4,
-          "capitals": 1,
-          "languages": 4,
-          "religionGroups": 5,
-          "organizations": 43,
-          "rivals": 50,
-          "conflicts": 26,
-          "timelineEvents": 0
-        },
-        "metrics": {
-          "sectionBytes": {
-            "politics": 7383,
-            "military": 5583,
-            "metadata": 1914,
-            "general": 684,
-            "religion": 297,
-            "economy": 100,
-            "history": 93,
-            "name": 9,
-            "continent": 8
-          },
-          "largestSections": [
-            {
-              "section": "politics",
-              "bytes": 7383
-            },
-            {
-              "section": "military",
-              "bytes": 5583
-            },
-            {
-              "section": "metadata",
-              "bytes": 1914
-            },
-            {
-              "section": "general",
-              "bytes": 684
-            }
-          ],
-          "conflictsBytes": 5498,
-          "conflictShardBytes": 0,
-          "averageConflictBytes": 211
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 294,
+    "pendingCount": 288,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -16117,19 +16117,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Kokenhausen",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Kousséri",
         "countries": [
           "FRA"
@@ -16637,19 +16624,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Oliwa",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Orford Ness",
         "countries": [
           "SWE"
@@ -16848,19 +16822,6 @@
         "name": "Batalla de Procida Canal",
         "countries": [
           "FRA"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Prostken",
-        "countries": [
-          "SWE"
         ],
         "regions": [
           "Europa"
@@ -17163,6 +17124,45 @@
         ],
         "regions": [
           "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Siikajoki",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Siracusa",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de SIranaya",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
         ],
         "types": [
           "interestatal"

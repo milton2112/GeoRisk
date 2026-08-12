@@ -123,6 +123,11 @@ import {
   NORDIC_BALTIC_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
   NORDIC_BALTIC_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-nordic-baltic-followup.js";
+import {
+  POLISH_SWEDISH_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  POLISH_SWEDISH_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
+  POLISH_SWEDISH_FOLLOWUP_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-polish-swedish-followup.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -1036,6 +1041,58 @@ assert.ok(
   ),
   "la tanda nordica y baltica debe conservar fecha, jerarquia, fuentes, participantes, narrativa y cautelas editoriales"
 );
+assert.equal(Object.keys(POLISH_SWEDISH_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 6);
+assert.equal(Object.keys(POLISH_SWEDISH_FOLLOWUP_SAFE_CONFLICT_RENAMES).length, 6);
+assert.deepEqual(POLISH_SWEDISH_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS.Polonia, [
+  "Batalla de Kokenhausen (1601)",
+  "Batalla naval de Oliwa (1627)",
+  "Batalla de Trzciana (1629)",
+  "Batalla de Wojnicz (1655)",
+  "Batalla de Warka (1656)",
+  "Batalla de Prostki (1656)"
+]);
+assert.equal(
+  POLISH_SWEDISH_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Prostken"],
+  "Batalla de Prostki (1656)"
+);
+assert.equal(
+  POLISH_SWEDISH_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla naval de Oliwa (1627)"].type,
+  "batalla naval"
+);
+assert.equal(
+  POLISH_SWEDISH_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Wojnicz (1655)"].parent,
+  "Segunda Guerra N\u00f3rdica"
+);
+assert.equal(
+  POLISH_SWEDISH_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Prostki (1656)"].sourceDispute,
+  true
+);
+assert.ok(
+  Object.values(POLISH_SWEDISH_FOLLOWUP_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent
+      && detail.war === detail.parent
+      && !/^Conflicto regional de /i.test(detail.parent)
+      && detail.campaign
+      && detail.region
+      && detail.normalizedRegion === detail.region
+      && detail.cause
+      && detail.outcome
+      && detail.consequences
+      && detail.chronology?.length >= 2
+      && detail.chronology.every(event => event.year === detail.startYear && event.event)
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 2
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties)
+      && detail.curationBatch === "source-backed-polish-swedish-followup-2026-08"
+      && detail.curationNote
+  ),
+  "la tanda polaco-sueca debe conservar fecha, jerarquia, fuentes, participantes, narrativa y cautelas editoriales"
+);
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",
   startYear: 1944,
@@ -1101,6 +1158,12 @@ assert.equal(dynekilenWikipediaOverride.pageTitle, "Battle_of_Dynekilen");
 const kircholmWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Kircholm (1605)");
 assert.equal(kircholmWikipediaOverride.language, "en");
 assert.equal(kircholmWikipediaOverride.pageTitle, "Battle_of_Kircholm");
+const oliwaWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval de Oliwa (1627)");
+assert.equal(oliwaWikipediaOverride.language, "en");
+assert.equal(oliwaWikipediaOverride.pageTitle, "Battle_of_Oliwa");
+const prostkiWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Prostki (1656)");
+assert.equal(prostkiWikipediaOverride.language, "en");
+assert.equal(prostkiWikipediaOverride.pageTitle, "Battle_of_Prostki");
 const happoWikipediaOverride = await resolveWikipediaConflictTitle("Acción naval de Happo (1592)");
 assert.equal(happoWikipediaOverride.language, "en");
 assert.equal(happoWikipediaOverride.pageTitle, "Battle_of_Happo");
