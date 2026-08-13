@@ -148,6 +148,11 @@ import {
   FINNISH_THEATER_OPERATIONS_COUNTRY_CONFLICT_ADDITIONS,
   FINNISH_THEATER_OPERATIONS_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-finnish-theater-operations.js";
+import {
+  NORDIC_SOVEREIGNTY_CONFLICT_DETAIL_FIXES,
+  NORDIC_SOVEREIGNTY_COUNTRY_CONFLICT_ADDITIONS,
+  NORDIC_SOVEREIGNTY_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-nordic-sovereignty.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -1336,6 +1341,61 @@ assert.equal(
   (await resolveWikipediaConflictTitle("Batalla de Napue (1714)")).pageTitle,
   "Battle_of_Napue"
 );
+assert.equal(Object.keys(NORDIC_SOVEREIGNTY_CONFLICT_DETAIL_FIXES).length, 5);
+assert.equal(Object.keys(NORDIC_SOVEREIGNTY_SAFE_CONFLICT_RENAMES).length, 5);
+assert.deepEqual(NORDIC_SOVEREIGNTY_COUNTRY_CONFLICT_ADDITIONS.Dinamarca, [
+  "Batalla de Assandun (1016)",
+  "Batalla de Helge\u00e5 (1026)",
+  "Batalla de Kringen (1612)",
+  "Rebeli\u00f3n de Bornholm (1658)"
+]);
+assert.equal(
+  NORDIC_SOVEREIGNTY_SAFE_CONFLICT_RENAMES["Batalla de Bornholm"],
+  "Rebeli\u00f3n de Bornholm (1658)"
+);
+assert.equal(
+  NORDIC_SOVEREIGNTY_CONFLICT_DETAIL_FIXES["Batalla de Kringen (1612)"].parent,
+  "Guerra de Kalmar (1611-1613)"
+);
+assert.equal(
+  NORDIC_SOVEREIGNTY_CONFLICT_DETAIL_FIXES["Batalla de Helge\u00e5 (1026)"].sourceDispute,
+  true
+);
+assert.ok(
+  Object.values(NORDIC_SOVEREIGNTY_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent
+      && detail.war === detail.parent
+      && !/^Conflicto regional de /i.test(detail.parent)
+      && detail.campaign
+      && detail.region
+      && detail.normalizedRegion === detail.region
+      && detail.cause
+      && detail.outcome
+      && detail.consequences
+      && detail.chronology?.length >= 2
+      && detail.chronology.every(event => event.year === detail.startYear && event.event)
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 2
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties)
+      && detail.curationBatch === "source-backed-nordic-sovereignty-2026-08"
+      && detail.curationNote
+  ),
+  "la tanda nordica de soberania debe conservar fecha, jerarquia, fuentes, participantes, narrativa y cautelas editoriales"
+);
+for (const [name, pageTitle] of [
+  ["Batalla de Assandun (1016)", "Battle_of_Assandun"],
+  ["Batalla de Helge\u00e5 (1026)", "Battle_of_Helge\u00e5"],
+  ["Batalla de Largs (1263)", "Battle_of_Largs"],
+  ["Batalla de Kringen (1612)", "Battle_of_Kringen"],
+  ["Rebeli\u00f3n de Bornholm (1658)", "Bornholm_uprising"]
+]) {
+  assert.equal((await resolveWikipediaConflictTitle(name)).pageTitle, pageTitle);
+}
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",
   startYear: 1944,

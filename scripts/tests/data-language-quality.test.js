@@ -1559,6 +1559,31 @@ const expectedServedConflictCuration = [
     name: "Batalla de Napue (1714)",
     parent: "Gran Guerra del Norte",
     region: "Napue o Storkyro, Isokyro, Ostrobotnia, actual Finlandia"
+  },
+  {
+    name: "Batalla de Assandun (1016)",
+    parent: "Invasion danesa de Inglaterra (1013-1016)",
+    region: "Assandun o Ashingdon/Ashdon, Essex, actual Reino Unido"
+  },
+  {
+    name: "Batalla de Helge\u00e5 (1026)",
+    parent: "Conflicto escandinavo de Canuto el Grande (1025-1026)",
+    region: "Helge\u00e5, localizacion debatida entre Escania y Uppland, actual Suecia"
+  },
+  {
+    name: "Batalla de Largs (1263)",
+    parent: "Expedicion noruega a Escocia occidental (1263)",
+    region: "Largs, fiordo de Clyde, actual Reino Unido"
+  },
+  {
+    name: "Batalla de Kringen (1612)",
+    parent: "Guerra de Kalmar (1611-1613)",
+    region: "Kringen, Gudbrandsdalen, actual Noruega"
+  },
+  {
+    name: "Rebeli\u00f3n de Bornholm (1658)",
+    parent: "Guerra danesa-sueca de 1658-1660",
+    region: "Bornholm, actual Dinamarca"
   }
 ];
 const servedConflictsByName = new Map();

@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-13T11:52:57.759Z",
+  "generatedAt": "2026-08-13T12:13:22.747Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 10372067,
-    "duplicatedCountryFilesBytes": 1499136,
-    "countryConflictShardBytes": 404857,
+    "fullBytes": 10416457,
+    "duplicatedCountryFilesBytes": 1500637,
+    "countryConflictShardBytes": 407357,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -62,8 +62,8 @@
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 22765,
-        "inlineBytes": 947849,
+        "bytes": 23127,
+        "inlineBytes": 961189,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -72,13 +72,13 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 292,
+          "conflicts": 295,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
+            "military": 9703,
             "politics": 9502,
-            "military": 9341,
             "metadata": 1952,
             "general": 1018,
             "history": 395,
@@ -89,12 +89,12 @@
           },
           "largestSections": [
             {
-              "section": "politics",
-              "bytes": 9502
+              "section": "military",
+              "bytes": 9703
             },
             {
-              "section": "military",
-              "bytes": 9341
+              "section": "politics",
+              "bytes": 9502
             },
             {
               "section": "metadata",
@@ -105,8 +105,8 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 63517,
-          "conflictShardBytes": 63518,
+          "conflictsBytes": 64379,
+          "conflictShardBytes": 64380,
           "averageConflictBytes": 218
         }
       },
@@ -264,6 +264,57 @@
         }
       },
       {
+        "code": "DNK",
+        "name": "Dinamarca",
+        "bytes": 17412,
+        "inlineBytes": 164846,
+        "tooLarge": false,
+        "counts": {
+          "cities": 4,
+          "capitals": 1,
+          "languages": 1,
+          "religionGroups": 4,
+          "organizations": 37,
+          "rivals": 47,
+          "conflicts": 48,
+          "timelineEvents": 0
+        },
+        "metrics": {
+          "sectionBytes": {
+            "military": 8054,
+            "politics": 6232,
+            "metadata": 1913,
+            "general": 677,
+            "religion": 231,
+            "economy": 101,
+            "history": 81,
+            "name": 11,
+            "continent": 8
+          },
+          "largestSections": [
+            {
+              "section": "military",
+              "bytes": 8054
+            },
+            {
+              "section": "politics",
+              "bytes": 6232
+            },
+            {
+              "section": "metadata",
+              "bytes": 1913
+            },
+            {
+              "section": "general",
+              "bytes": 677
+            }
+          ],
+          "conflictsBytes": 10064,
+          "conflictShardBytes": 10065,
+          "averageConflictBytes": 210
+        }
+      },
+      {
         "code": "CAN",
         "name": "Canadá",
         "bytes": 17341,
@@ -363,57 +414,6 @@
           "conflictsBytes": 7293,
           "conflictShardBytes": 0,
           "averageConflictBytes": 251
-        }
-      },
-      {
-        "code": "DNK",
-        "name": "Dinamarca",
-        "bytes": 16842,
-        "inlineBytes": 152426,
-        "tooLarge": false,
-        "counts": {
-          "cities": 4,
-          "capitals": 1,
-          "languages": 1,
-          "religionGroups": 4,
-          "organizations": 37,
-          "rivals": 47,
-          "conflicts": 46,
-          "timelineEvents": 0
-        },
-        "metrics": {
-          "sectionBytes": {
-            "military": 7484,
-            "politics": 6232,
-            "metadata": 1913,
-            "general": 677,
-            "religion": 231,
-            "economy": 101,
-            "history": 81,
-            "name": 11,
-            "continent": 8
-          },
-          "largestSections": [
-            {
-              "section": "military",
-              "bytes": 7484
-            },
-            {
-              "section": "politics",
-              "bytes": 6232
-            },
-            {
-              "section": "metadata",
-              "bytes": 1913
-            },
-            {
-              "section": "general",
-              "bytes": 677
-            }
-          ],
-          "conflictsBytes": 9325,
-          "conflictShardBytes": 9326,
-          "averageConflictBytes": 203
         }
       },
       {
@@ -519,6 +519,57 @@
         }
       },
       {
+        "code": "SWE",
+        "name": "Suecia",
+        "bytes": 15198,
+        "inlineBytes": 501759,
+        "tooLarge": false,
+        "counts": {
+          "cities": 5,
+          "capitals": 1,
+          "languages": 1,
+          "religionGroups": 4,
+          "organizations": 50,
+          "rivals": 7,
+          "conflicts": 153,
+          "timelineEvents": 0
+        },
+        "metrics": {
+          "sectionBytes": {
+            "military": 7502,
+            "politics": 4479,
+            "metadata": 1914,
+            "general": 777,
+            "religion": 229,
+            "economy": 101,
+            "history": 76,
+            "name": 8,
+            "continent": 8
+          },
+          "largestSections": [
+            {
+              "section": "military",
+              "bytes": 7502
+            },
+            {
+              "section": "politics",
+              "bytes": 4479
+            },
+            {
+              "section": "metadata",
+              "bytes": 1914
+            },
+            {
+              "section": "general",
+              "bytes": 777
+            }
+          ],
+          "conflictsBytes": 31903,
+          "conflictShardBytes": 31904,
+          "averageConflictBytes": 209
+        }
+      },
+      {
         "code": "MAR",
         "name": "Marruecos",
         "bytes": 15153,
@@ -567,57 +618,6 @@
           "conflictsBytes": 10921,
           "conflictShardBytes": 10922,
           "averageConflictBytes": 223
-        }
-      },
-      {
-        "code": "JPN",
-        "name": "Japón",
-        "bytes": 14885,
-        "inlineBytes": 93060,
-        "tooLarge": false,
-        "counts": {
-          "cities": 4,
-          "capitals": 1,
-          "languages": 3,
-          "religionGroups": 4,
-          "organizations": 33,
-          "rivals": 40,
-          "conflicts": 20,
-          "timelineEvents": 2
-        },
-        "metrics": {
-          "sectionBytes": {
-            "politics": 5836,
-            "military": 5570,
-            "metadata": 1936,
-            "general": 835,
-            "history": 256,
-            "religion": 233,
-            "economy": 101,
-            "name": 8,
-            "continent": 6
-          },
-          "largestSections": [
-            {
-              "section": "politics",
-              "bytes": 5836
-            },
-            {
-              "section": "military",
-              "bytes": 5570
-            },
-            {
-              "section": "metadata",
-              "bytes": 1936
-            },
-            {
-              "section": "general",
-              "bytes": 835
-            }
-          ],
-          "conflictsBytes": 5485,
-          "conflictShardBytes": 0,
-          "averageConflictBytes": 274
         }
       }
     ]
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 265,
+    "pendingCount": 260,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15233,19 +15233,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Assandun",
-        "countries": [
-          "DNK"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Barbados",
         "countries": [
           "USA"
@@ -15304,19 +15291,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Bornholm",
-        "countries": [
-          "DNK"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
@@ -15792,19 +15766,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Helgeå",
-        "countries": [
-          "NOR"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Hiddensee",
         "countries": [
           "FRA"
@@ -16000,19 +15961,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Kringen",
-        "countries": [
-          "NOR"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Kumbo",
         "countries": [
           "CMR"
@@ -16081,19 +16029,6 @@
         "name": "Batalla de Lagos",
         "countries": [
           "FRA"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Largs",
-        "countries": [
-          "NOR"
         ],
         "regions": [
           "Europa"
@@ -17160,6 +17095,71 @@
         "name": "Batalla de Treiden",
         "countries": [
           "SWE"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Ty-ho Bay",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Vinh",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Vizagapatam",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Vízakna",
+        "countries": [
+          "HUN"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Vlotho",
+        "countries": [
+          "GBR"
         ],
         "regions": [
           "Europa"

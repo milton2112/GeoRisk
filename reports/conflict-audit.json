@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-13T11:54:53.854Z",
+  "generatedAt": "2026-08-13T12:14:21.003Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 198,
-  "reviewCount": 198,
+  "advisoryCount": 193,
+  "reviewCount": 193,
   "summary": {
-    "provisional_parent": 198
+    "provisional_parent": 193
   },
   "topIssues": [],
   "topAdvisories": [
@@ -80,20 +80,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de assandun",
-      "name": "Batalla de Assandun",
-      "countries": [
-        "DNK"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de barbados",
       "name": "Batalla de Barbados",
       "countries": [
@@ -158,20 +144,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de bornholm",
-      "name": "Batalla de Bornholm",
-      "countries": [
-        "DNK"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],
@@ -668,20 +640,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de helgea",
-      "name": "Batalla de Helgeå",
-      "countries": [
-        "NOR"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de hiddensee",
       "name": "Batalla de Hiddensee",
       "countries": [
@@ -892,20 +850,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de kringen",
-      "name": "Batalla de Kringen",
-      "countries": [
-        "NOR"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de kumbo",
       "name": "Batalla de Kumbo",
       "countries": [
@@ -966,20 +910,6 @@
       "name": "Batalla de Lagos",
       "countries": [
         "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de largs",
-      "name": "Batalla de Largs",
-      "countries": [
-        "NOR"
       ],
       "startYear": null,
       "endYear": null,
@@ -1118,6 +1048,76 @@
     {
       "key": "batalla de mani mani",
       "name": "Batalla de Mani-Mani",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de matamoros",
+      "name": "Batalla de Matamoros",
+      "countries": [
+        "MEX"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de mimbres river",
+      "name": "Batalla de Mimbres River",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de mocimboa da praia",
+      "name": "Batalla de Mocímboa da Praia",
+      "countries": [
+        "MOZ"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de mona passage",
+      "name": "Batalla de Mona Passage",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de monday s hollow",
+      "name": "Batalla de Monday's Hollow",
       "countries": [
         "USA"
       ],

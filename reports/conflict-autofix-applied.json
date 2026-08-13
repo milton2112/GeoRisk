@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-13T11:52:51.480Z",
+  "generatedAt": "2026-08-13T12:13:16.762Z",
   "changedFullCountries": 3,
   "fullPassChanges": [
     3,
@@ -8,11 +8,11 @@
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 111,
+    "enriched": 107,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 926,
+  "generatedHierarchyCandidates": 936,
   "countryConflictAdditions": {
     "Estados Unidos": [
       "Batalla de Manila (1945)",
@@ -97,7 +97,10 @@
       "Bombardeo multinacional de Shimonoseki (1864)",
       "Batalla de Dieppe (1942)",
       "Batalla de la Bahía de Hudson (1697)",
-      "Batalla de Solebay (1672)"
+      "Batalla de Solebay (1672)",
+      "Batalla de Assandun (1016)",
+      "Batalla de Largs (1263)",
+      "Batalla de Kringen (1612)"
     ],
     "Irlanda": [
       "Batalla naval de la bahía de Bantry (1689)"
@@ -194,12 +197,24 @@
     "Dinamarca": [
       "Batalla de Colberger Heide (1644)",
       "Batalla de Fehmarn (1644)",
-      "Batalla de Dynekilen (1716)"
+      "Batalla de Dynekilen (1716)",
+      "Batalla de Assandun (1016)",
+      "Batalla de Helgeå (1026)",
+      "Batalla de Kringen (1612)",
+      "Rebelión de Bornholm (1658)"
     ],
     "Noruega": [
       "Batalla de Colberger Heide (1644)",
       "Batalla de Fehmarn (1644)",
-      "Batalla de Dynekilen (1716)"
+      "Batalla de Dynekilen (1716)",
+      "Batalla de Helgeå (1026)",
+      "Batalla de Largs (1263)",
+      "Batalla de Kringen (1612)"
+    ],
+    "Suecia": [
+      "Batalla de Helgeå (1026)",
+      "Batalla de Kringen (1612)",
+      "Rebelión de Bornholm (1658)"
     ]
   },
   "safeRenames": {
@@ -624,7 +639,12 @@
     "Batalla de Grönvikssund": "Batalla de Grönvikssund (1808)",
     "Batalla de Kimito Strait": "Batalla del estrecho de Kimito (1808)",
     "Batalla de Siikajoki": "Batalla de Siikajoki (1808)",
-    "Batalla de Napue": "Batalla de Napue (1714)"
+    "Batalla de Napue": "Batalla de Napue (1714)",
+    "Batalla de Assandun": "Batalla de Assandun (1016)",
+    "Batalla de Helgeå": "Batalla de Helgeå (1026)",
+    "Batalla de Largs": "Batalla de Largs (1263)",
+    "Batalla de Kringen": "Batalla de Kringen (1612)",
+    "Batalla de Bornholm": "Rebelión de Bornholm (1658)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1522,6 +1542,11 @@
     "Batalla de Grönvikssund (1808)",
     "Batalla del estrecho de Kimito (1808)",
     "Batalla de Siikajoki (1808)",
-    "Batalla de Napue (1714)"
+    "Batalla de Napue (1714)",
+    "Batalla de Assandun (1016)",
+    "Batalla de Helgeå (1026)",
+    "Batalla de Largs (1263)",
+    "Batalla de Kringen (1612)",
+    "Rebelion de Bornholm (1658)"
   ]
 }

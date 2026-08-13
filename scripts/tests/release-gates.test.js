@@ -92,6 +92,7 @@ const polishDelugeFollowupCuration = await fs.readFile(path.join(projectRoot, "s
 const polishDelugeSwedishOperationsCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-polish-deluge-swedish-operations.js"), "utf8");
 const swedishLivonianOperationsCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-swedish-livonian-operations.js"), "utf8");
 const finnishTheaterOperationsCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-finnish-theater-operations.js"), "utf8");
+const nordicSovereigntyCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-nordic-sovereignty.js"), "utf8");
 const wikipediaConflicts = await fs.readFile(path.join(projectRoot, "scripts/lib/wikipedia-conflicts.js"), "utf8");
 const conflictBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-batch-curation.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
@@ -1280,6 +1281,45 @@ assert.ok(
     && wikipediaConflicts.includes('"Batalla de Siikajoki (1808)": "Battle_of_Siikajoki"')
     && wikipediaConflicts.includes('"Batalla de Napue (1714)": "Battle_of_Napue"'),
   "los nombres finlandeses curados con pagina exacta deben conservar importacion profunda"
+);
+assert.ok(conflictAutofix.includes("NORDIC_SOVEREIGNTY_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda nordica de soberania");
+assert.ok(conflictAutofix.includes("NORDIC_SOVEREIGNTY_COUNTRY_CONFLICT_ADDITIONS"), "autofix debe asociar participantes de la tanda nordica de soberania");
+assert.ok(
+  nordicSovereigntyCuration.includes('curationBatch: "source-backed-nordic-sovereignty-2026-08"')
+    && nordicSovereigntyCuration.includes("hierarchySources"),
+  "la tanda nordica de soberania debe conservar trazabilidad multiple"
+);
+assert.ok(
+  nordicSovereigntyCuration.includes('"Batalla de Assandun": "Batalla de Assandun (1016)"')
+    && nordicSovereigntyCuration.includes('"Batalla de Bornholm": "Rebeli\\u00f3n de Bornholm (1658)"'),
+  "la tanda nordica debe fechar y corregir la etiqueta de la rebelion de Bornholm"
+);
+assert.ok(
+  [
+    "heritagegateway.org.uk",
+    "english-heritage.org.uk",
+    "lex.dk",
+    "roskildemuseum.dk",
+    "historicenvironment.scot",
+    "nasjonalarkivet.no",
+    "dhm.de",
+    "naturstyrelsen.dk",
+    "visitdenmark.com"
+  ].every(domain => nordicSovereigntyCuration.includes(domain)),
+  "la tanda nordica debe apoyarse en patrimonio, archivos nacionales y museos"
+);
+assert.ok(
+  nordicSovereigntyCuration.includes("lugar exacto sigue debatido")
+    && nordicSovereigntyCuration.includes("La fecha puede figurar 1025 o 1026")
+    && nordicSovereigntyCuration.includes("resultado tactico discutido")
+    && nordicSovereigntyCuration.includes("no una guerra entre los Estados contemporaneos"),
+  "la tanda nordica debe conservar cautelas sobre sitios, cronologias, resultados y continuidad estatal"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Batalla de Assandun (1016)": "Battle_of_Assandun"')
+    && wikipediaConflicts.includes('"Batalla de Largs (1263)": "Battle_of_Largs"')
+    && wikipediaConflicts.includes('"Rebeli\\u00f3n de Bornholm (1658)": "Bornholm_uprising"'),
+  "los nombres nordicos curados deben conservar paginas de importacion profunda"
 );
 assert.ok(
   conflictBatchCuration.includes("if (Array.isArray(entry.treaties)) return entry.treaties;"),

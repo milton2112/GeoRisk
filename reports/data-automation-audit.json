@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-13T11:54:56.893Z",
+  "generatedAt": "2026-08-13T12:14:24.357Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 266
+      "count": 261
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 198
+      "count": 193
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 477
+      "count": 482
     },
     "redundantReligions": {
       "count": 0
@@ -143,16 +143,6 @@
       },
       {
         "code": "DNK",
-        "name": "Batalla de Assandun",
-        "region": "Europa"
-      },
-      {
-        "code": "DNK",
-        "name": "Batalla de Bornholm",
-        "region": "Europa"
-      },
-      {
-        "code": "DNK",
         "name": "Batalla de Dogger Bank",
         "region": "Europa"
       },
@@ -255,6 +245,16 @@
         "code": "FRA",
         "name": "Batalla de Palikao",
         "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Pondicherry",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Port Louis",
+        "region": "Europa"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -334,20 +334,6 @@
         "name": "Primera batalla de Zhenbao",
         "parent": "Conflicto regional de Asia",
         "campaign": "Campaña vinculada a Conflicto regional de Asia",
-        "startYear": null
-      },
-      {
-        "code": "DNK",
-        "name": "Batalla de Assandun",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "DNK",
-        "name": "Batalla de Bornholm",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
       },
       {
@@ -535,6 +521,20 @@
       {
         "code": "FRA",
         "name": "Batalla de Putziger Wiek",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Sadras",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Saint-Louis-du-Sud",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 198,
+      "count": 193,
       "command": "npm run fix:conflicts:batches"
     },
     {

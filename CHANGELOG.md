@@ -8,7 +8,14 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.85 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.86 antes de cerrar la siguiente version.
+
+## v1.6.86 - 2026-08-13
+
+- Fecha, jerarquiza y documenta Assandun, Helgea, Largs, Kringen y la Rebelion de Bornholm con fuentes de patrimonio, museos y archivos nacionales.
+- Reemplaza la etiqueta imprecisa "Batalla de Bornholm" por la Rebelion de Bornholm de 1658; agrega nombres canonicos, participantes historicos, campanas, resultados, consecuencias y asociaciones de navegacion para Dinamarca, Noruega, Suecia y Reino Unido.
+- Conserva cautelas visibles para ubicaciones discutidas, cronologias medievales, resultados tacticos y continuidad estatal; agrega aliases de importacion profunda y regresiones de datos.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-13-release-2`.
 
 ## v1.6.85 - 2026-08-13
 
