@@ -42,6 +42,11 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Batalla de Largs (1263)": "Battle_of_Largs",
   "Batalla de Kringen (1612)": "Battle_of_Kringen",
   "Rebeli\u00f3n de Bornholm (1658)": "Bornholm_uprising",
+  "Batalla a\u00e9rea de Samurra (1991)": "Samurra_Air_Battle",
+  "Batalla de Danny Boy (2004)": "Battle_of_Danny_Boy",
+  "Batalla de Tafilah (1918)": "Battle_of_Tafilah",
+  "Combate de Top Malo House (1982)": "Skirmish_at_Top_Malo_House",
+  "Batalla de Pichincha (1822)": "Battle_of_Pichincha",
   "Batalla de Manila (1899)": "Batalla_de_Manila_(1899)",
   "Batalla de Manila (1945)": "Batalla_de_Manila_(1945)",
   "Sitio de Fort Wayne": "Siege_of_Fort_Wayne",
@@ -327,7 +332,9 @@ const ENGLISH_WIKIPEDIA_TITLE_EXCEPTIONS = new Set([
   "Skeleton_Cave_(Arizona)",
   "List_of_naval_battles_during_the_Imjin_War",
   "Bombardment_of_Shimonoseki",
-  "Bombardment_of_San_Juan"
+  "Bombardment_of_San_Juan",
+  "Samurra_Air_Battle",
+  "Skirmish_at_Top_Malo_House"
 ]);
 
 const FIELD_ALIASES = {

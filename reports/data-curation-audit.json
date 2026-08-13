@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-13T12:13:22.747Z",
+  "generatedAt": "2026-08-13T12:32:37.354Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 10416457,
-    "duplicatedCountryFilesBytes": 1500637,
-    "countryConflictShardBytes": 407357,
+    "fullBytes": 10448463,
+    "duplicatedCountryFilesBytes": 1502225,
+    "countryConflictShardBytes": 407648,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 23977,
-        "inlineBytes": 3087547,
+        "inlineBytes": 3089331,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -54,16 +54,16 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 211564,
-          "conflictShardBytes": 211565,
-          "averageConflictBytes": 229
+          "conflictsBytes": 211631,
+          "conflictShardBytes": 211632,
+          "averageConflictBytes": 230
         }
       },
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 23127,
-        "inlineBytes": 961189,
+        "bytes": 23128,
+        "inlineBytes": 966575,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -77,7 +77,7 @@
         },
         "metrics": {
           "sectionBytes": {
-            "military": 9703,
+            "military": 9704,
             "politics": 9502,
             "metadata": 1952,
             "general": 1018,
@@ -90,7 +90,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 9703
+              "bytes": 9704
             },
             {
               "section": "politics",
@@ -105,9 +105,9 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 64379,
-          "conflictShardBytes": 64380,
-          "averageConflictBytes": 218
+          "conflictsBytes": 64603,
+          "conflictShardBytes": 64604,
+          "averageConflictBytes": 219
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 260,
+    "pendingCount": 255,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15156,19 +15156,6 @@
       },
       {
         "name": "Ataque aéreo de Ogu",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla Aérea de Samurra",
         "countries": [
           "USA"
         ],
@@ -15444,19 +15431,6 @@
         "name": "Batalla de Czortkowem",
         "countries": [
           "POL"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Danny Boy",
-        "countries": [
-          "GBR"
         ],
         "regions": [
           "Europa"
@@ -16442,19 +16416,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Pichincha",
-        "countries": [
-          "PER"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Pierres Noires",
         "countries": [
           "CAN"
@@ -16975,19 +16936,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Tafilah",
-        "countries": [
-          "GBR"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Tamsui",
         "countries": [
           "FRA"
@@ -17163,6 +17111,58 @@
         ],
         "regions": [
           "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Waddams Grove",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Wenden",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Westtief",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Wild Cat Creek",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
         ],
         "types": [
           "interestatal"

@@ -93,6 +93,7 @@ const polishDelugeSwedishOperationsCuration = await fs.readFile(path.join(projec
 const swedishLivonianOperationsCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-swedish-livonian-operations.js"), "utf8");
 const finnishTheaterOperationsCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-finnish-theater-operations.js"), "utf8");
 const nordicSovereigntyCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-nordic-sovereignty.js"), "utf8");
+const globalLandmarksCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-global-landmarks.js"), "utf8");
 const wikipediaConflicts = await fs.readFile(path.join(projectRoot, "scripts/lib/wikipedia-conflicts.js"), "utf8");
 const conflictBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-batch-curation.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
@@ -1320,6 +1321,45 @@ assert.ok(
     && wikipediaConflicts.includes('"Batalla de Largs (1263)": "Battle_of_Largs"')
     && wikipediaConflicts.includes('"Rebeli\\u00f3n de Bornholm (1658)": "Bornholm_uprising"'),
   "los nombres nordicos curados deben conservar paginas de importacion profunda"
+);
+assert.ok(conflictAutofix.includes("GLOBAL_LANDMARKS_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda global de hitos");
+assert.ok(conflictAutofix.includes("GLOBAL_LANDMARKS_COUNTRY_CONFLICT_ADDITIONS"), "autofix debe asociar paises de la tanda global");
+assert.ok(
+  globalLandmarksCuration.includes('curationBatch: "source-backed-global-landmarks-2026-08"')
+    && globalLandmarksCuration.includes("hierarchySources"),
+  "la tanda global debe conservar trazabilidad multiple"
+);
+assert.ok(
+  globalLandmarksCuration.includes('"Batalla A\\u00e9rea de Samurra": "Batalla a\\u00e9rea de Samurra (1991)"')
+    && globalLandmarksCuration.includes('"Combate de Top Malo House": "Combate de Top Malo House (1982)"'),
+  "la tanda global debe fechar y conservar los nombres canonicos"
+);
+assert.ok(
+  [
+    "afhistory.af.mil",
+    "history.army.mil",
+    "gov.uk",
+    "nationalarchives.gov.uk",
+    "jaf.mil.jo",
+    "1914-1918-online.net",
+    "royalmarineshistory.com",
+    "naval-history.net",
+    "ejercitoecuatoriano.mil.ec",
+    "patrimoniocultural.gob.ec"
+  ].every(domain => globalLandmarksCuration.includes(domain)),
+  "la tanda global debe apoyarse en fuentes militares, archivisticas y patrimoniales"
+);
+assert.ok(
+  globalLandmarksCuration.includes("Las reclamaciones de derribo se contradicen")
+    && globalLandmarksCuration.includes("doble toponimia isla Soledad / East Falkland")
+    && globalLandmarksCuration.includes("no se presenta al Estado jordano contempor\\u00e1neo"),
+  "la tanda global debe conservar cautelas sobre versiones tacticas, toponimia y continuidad estatal"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Batalla a\\u00e9rea de Samurra (1991)": "Samurra_Air_Battle"')
+    && wikipediaConflicts.includes('"Combate de Top Malo House (1982)": "Skirmish_at_Top_Malo_House"')
+    && wikipediaConflicts.includes('"Batalla de Pichincha (1822)": "Battle_of_Pichincha"'),
+  "los hitos globales curados deben conservar paginas de importacion profunda"
 );
 assert.ok(
   conflictBatchCuration.includes("if (Array.isArray(entry.treaties)) return entry.treaties;"),

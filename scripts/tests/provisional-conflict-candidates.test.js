@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import {
+  DEFAULT_PROVISIONAL_CANDIDATE_LIMIT,
   classifyWikipediaCandidate,
   extractCandidateYears,
   toWikipediaPageUrl
@@ -11,6 +12,7 @@ assert.deepEqual(extractCandidateYears("14 de febrero de 1719 - 8 de marzo de 17
   endYear: 1720
 });
 assert.deepEqual(extractCandidateYears("fecha no consolidada"), { startYear: null, endYear: null });
+assert.equal(DEFAULT_PROVISIONAL_CANDIDATE_LIMIT, 10, "la auditoria por defecto debe revisar una tanda acotada");
 assert.equal(
   toWikipediaPageUrl("Battle of Example", "en"),
   "https://en.wikipedia.org/wiki/Battle_of_Example"

@@ -8,6 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const projectRoot = path.resolve(path.dirname(__filename), "..");
 const countriesPath = path.join(projectRoot, "data", "countries_full.json");
 const reportPath = path.join(projectRoot, "reports", "provisional-conflict-candidates.json");
+export const DEFAULT_PROVISIONAL_CANDIDATE_LIMIT = 10;
 
 function readArg(name, fallback = "") {
   const direct = process.argv.find(arg => arg.startsWith(`--${name}=`));
@@ -108,7 +109,7 @@ export function collectProvisionalConflictCandidates(countries, countryFilter = 
     .sort((a, b) => a.name.localeCompare(b.name, "es"));
 }
 
-function buildReport(records, requestedCount) {
+function buildReport(records, requestedCount, availableCount) {
   const summary = records.reduce((result, record) => {
     result[record.status] = (result[record.status] || 0) + 1;
     return result;
@@ -118,6 +119,7 @@ function buildReport(records, requestedCount) {
     generatedAt: new Date().toISOString(),
     source: "Wikipedia MediaWiki API; candidates require editorial validation before publication.",
     requestedCount,
+    availableCount,
     summary,
     candidates: records
   };
@@ -127,9 +129,14 @@ async function main() {
   const countries = await fs.readJson(countriesPath);
   const countryFilter = readListArg("country");
   const requested = collectProvisionalConflictCandidates(countries, countryFilter);
-  const rawLimit = Number(readArg("limit", "0"));
+  const rawLimit = Number(readArg("limit", String(DEFAULT_PROVISIONAL_CANDIDATE_LIMIT)));
   const delayMs = Math.max(0, Number(readArg("delay", "120")) || 0);
-  const limit = Number.isFinite(rawLimit) && rawLimit > 0 ? rawLimit : requested.length;
+  const auditAll = process.argv.includes("--all") || rawLimit === 0;
+  const limit = auditAll
+    ? requested.length
+    : Number.isFinite(rawLimit) && rawLimit > 0
+      ? rawLimit
+      : DEFAULT_PROVISIONAL_CANDIDATE_LIMIT;
   const candidates = requested.slice(0, limit);
   const records = [];
 
@@ -151,14 +158,14 @@ async function main() {
     });
 
     if ((index + 1) % 10 === 0 || index + 1 === candidates.length) {
-      await fs.outputJson(reportPath, buildReport(records, candidates.length), { spaces: 2 });
+      await fs.outputJson(reportPath, buildReport(records, candidates.length, requested.length), { spaces: 2 });
     }
     if (delayMs && index + 1 < candidates.length) {
       await new Promise(resolve => setTimeout(resolve, delayMs));
     }
   }
 
-  const report = buildReport(records, candidates.length);
+  const report = buildReport(records, candidates.length, requested.length);
   await fs.outputJson(reportPath, report, { spaces: 2 });
   console.log(`Candidatos listos para revision: ${report.summary.listo_para_revision || 0}`);
   console.log(`Reporte: ${path.relative(projectRoot, reportPath)}`);

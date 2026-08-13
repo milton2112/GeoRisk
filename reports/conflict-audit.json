@@ -1,28 +1,14 @@
 {
-  "generatedAt": "2026-08-13T12:14:21.003Z",
+  "generatedAt": "2026-08-13T12:35:01.980Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 193,
-  "reviewCount": 193,
+  "advisoryCount": 188,
+  "reviewCount": 188,
   "summary": {
-    "provisional_parent": 193
+    "provisional_parent": 188
   },
   "topIssues": [],
   "topAdvisories": [
-    {
-      "key": "batalla aerea de samurra",
-      "name": "Batalla Aérea de Samurra",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
     {
       "key": "batalla de alegre",
       "name": "Batalla de Alegre",
@@ -308,20 +294,6 @@
       "name": "Batalla de Czortkowem",
       "countries": [
         "POL"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de danny boy",
-      "name": "Batalla de Danny Boy",
-      "countries": [
-        "GBR"
       ],
       "startYear": null,
       "endYear": null,
@@ -1124,6 +1096,34 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de mount gray",
+      "name": "Batalla de Mount Gray",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de negapatam",
+      "name": "Batalla de Negapatam",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],

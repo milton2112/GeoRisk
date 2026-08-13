@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.86 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.87 antes de cerrar la siguiente version.
+
+## v1.6.87 - 2026-08-13
+
+- Fecha, jerarquiza y documenta cinco acciones visibles que seguian bajo padres regionales genericos: Samurra, Danny Boy, Tafilah, Top Malo House y Pichincha.
+- Vincula los registros con Irak, Argentina, Ecuador y Jordania cuando corresponde a la geografia actual o a la navegacion historica, conservando actores de epoca y cautelas de continuidad estatal.
+- Agrega fuentes militares, archivisticas y patrimoniales; explicita las versiones tacticas discutidas de Samurra, las cifras no consolidadas de Top Malo House y la toponimia dual de las islas.
+- Hace que `audit:conflicts:provisional` revise una tanda de diez casos por defecto; `--all` o `--limit=0` conserva la auditoria exhaustiva.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-13-release-3`.
 
 ## v1.6.86 - 2026-08-13
 

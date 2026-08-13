@@ -1584,6 +1584,31 @@ const expectedServedConflictCuration = [
     name: "Rebeli\u00f3n de Bornholm (1658)",
     parent: "Guerra danesa-sueca de 1658-1660",
     region: "Bornholm, actual Dinamarca"
+  },
+  {
+    name: "Batalla a\u00e9rea de Samurra (1991)",
+    parent: "Guerra del Golfo (1990-1991)",
+    region: "Khan Bani Saad, gobernaci\u00f3n de Diyala, Irak"
+  },
+  {
+    name: "Batalla de Danny Boy (2004)",
+    parent: "Guerra de Irak (2003-2011)",
+    region: "Cerca de Al Majar al-Kabir y la ruta 6, gobernaci\u00f3n de Maysan, Irak"
+  },
+  {
+    name: "Batalla de Tafilah (1918)",
+    parent: "Revuelta \u00c1rabe (1916-1918)",
+    region: "Hadd al-Daqiq, cerca de Al-Tafilah, actual Jordania"
+  },
+  {
+    name: "Combate de Top Malo House (1982)",
+    parent: "Guerra de las Malvinas (1982)",
+    region: "Monte Sim\u00f3n, isla Soledad / East Falkland, Atl\u00e1ntico Sur"
+  },
+  {
+    name: "Batalla de Pichincha (1822)",
+    parent: "Guerra de independencia de Quito (1820-1822)",
+    region: "Laderas del volc\u00e1n Pichincha, cerca de Quito, actual Ecuador"
   }
 ];
 const servedConflictsByName = new Map();

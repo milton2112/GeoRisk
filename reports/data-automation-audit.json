@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-13T12:14:24.357Z",
+  "generatedAt": "2026-08-13T12:35:04.892Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 261
+      "count": 256
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 193
+      "count": 188
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 482
+      "count": 487
     },
     "redundantReligions": {
       "count": 0
@@ -878,6 +878,14 @@
         ]
       },
       {
+        "name": "Combate de Top Malo House (1982)",
+        "count": 2,
+        "countries": [
+          "ARG",
+          "GBR"
+        ]
+      },
+      {
         "name": "Combate del puente Murrell",
         "count": 2,
         "countries": [
@@ -928,14 +936,6 @@
       },
       {
         "name": "Batalla de Shusha (2020)",
-        "count": 2,
-        "countries": [
-          "ARM",
-          "AZE"
-        ]
-      },
-      {
-        "name": "Captura de Lachin",
         "count": 2,
         "countries": [
           "ARM",
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 193,
+      "count": 188,
       "command": "npm run fix:conflicts:batches"
     },
     {

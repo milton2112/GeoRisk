@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-13T12:13:16.762Z",
-  "changedFullCountries": 3,
+  "generatedAt": "2026-08-13T12:32:31.497Z",
+  "changedFullCountries": 7,
   "fullPassChanges": [
-    3,
+    7,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 107,
+    "enriched": 111,
     "written": true,
     "compacted": false
   },
@@ -192,7 +192,9 @@
       "Asalto a los acorazados Cabral y Lima Barros (1868)"
     ],
     "Irak": [
-      "Batalla de Rumaila (1991)"
+      "Batalla de Rumaila (1991)",
+      "Batalla aérea de Samurra (1991)",
+      "Batalla de Danny Boy (2004)"
     ],
     "Dinamarca": [
       "Batalla de Colberger Heide (1644)",
@@ -215,6 +217,15 @@
       "Batalla de Helgeå (1026)",
       "Batalla de Kringen (1612)",
       "Rebelión de Bornholm (1658)"
+    ],
+    "Argentina": [
+      "Combate de Top Malo House (1982)"
+    ],
+    "Ecuador": [
+      "Batalla de Pichincha (1822)"
+    ],
+    "Jordania": [
+      "Batalla de Tafilah (1918)"
     ]
   },
   "safeRenames": {
@@ -644,7 +655,12 @@
     "Batalla de Helgeå": "Batalla de Helgeå (1026)",
     "Batalla de Largs": "Batalla de Largs (1263)",
     "Batalla de Kringen": "Batalla de Kringen (1612)",
-    "Batalla de Bornholm": "Rebelión de Bornholm (1658)"
+    "Batalla de Bornholm": "Rebelión de Bornholm (1658)",
+    "Batalla Aérea de Samurra": "Batalla aérea de Samurra (1991)",
+    "Batalla de Danny Boy": "Batalla de Danny Boy (2004)",
+    "Batalla de Tafilah": "Batalla de Tafilah (1918)",
+    "Combate de Top Malo House": "Combate de Top Malo House (1982)",
+    "Batalla de Pichincha": "Batalla de Pichincha (1822)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1547,6 +1563,11 @@
     "Batalla de Helgeå (1026)",
     "Batalla de Largs (1263)",
     "Batalla de Kringen (1612)",
-    "Rebelion de Bornholm (1658)"
+    "Rebelion de Bornholm (1658)",
+    "Batalla aérea de Samurra (1991)",
+    "Batalla de Danny Boy (2004)",
+    "Batalla de Tafilah (1918)",
+    "Combate de Top Malo House (1982)",
+    "Batalla de Pichincha (1822)"
   ]
 }

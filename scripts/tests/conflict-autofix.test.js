@@ -153,6 +153,11 @@ import {
   NORDIC_SOVEREIGNTY_COUNTRY_CONFLICT_ADDITIONS,
   NORDIC_SOVEREIGNTY_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-nordic-sovereignty.js";
+import {
+  GLOBAL_LANDMARKS_CONFLICT_DETAIL_FIXES,
+  GLOBAL_LANDMARKS_COUNTRY_CONFLICT_ADDITIONS,
+  GLOBAL_LANDMARKS_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-global-landmarks.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -1393,6 +1398,59 @@ for (const [name, pageTitle] of [
   ["Batalla de Largs (1263)", "Battle_of_Largs"],
   ["Batalla de Kringen (1612)", "Battle_of_Kringen"],
   ["Rebeli\u00f3n de Bornholm (1658)", "Bornholm_uprising"]
+]) {
+  assert.equal((await resolveWikipediaConflictTitle(name)).pageTitle, pageTitle);
+}
+assert.equal(Object.keys(GLOBAL_LANDMARKS_CONFLICT_DETAIL_FIXES).length, 5);
+assert.equal(Object.keys(GLOBAL_LANDMARKS_SAFE_CONFLICT_RENAMES).length, 5);
+assert.deepEqual(GLOBAL_LANDMARKS_COUNTRY_CONFLICT_ADDITIONS.Irak, [
+  "Batalla a\u00e9rea de Samurra (1991)",
+  "Batalla de Danny Boy (2004)"
+]);
+assert.equal(
+  GLOBAL_LANDMARKS_SAFE_CONFLICT_RENAMES["Combate de Top Malo House"],
+  "Combate de Top Malo House (1982)"
+);
+assert.equal(
+  GLOBAL_LANDMARKS_CONFLICT_DETAIL_FIXES["Batalla de Pichincha (1822)"].parent,
+  "Guerra de independencia de Quito (1820-1822)"
+);
+assert.equal(
+  GLOBAL_LANDMARKS_CONFLICT_DETAIL_FIXES["Batalla a\u00e9rea de Samurra (1991)"].sourceDispute,
+  true
+);
+assert.ok(
+  Object.values(GLOBAL_LANDMARKS_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent
+      && detail.war === detail.parent
+      && !/^Conflicto regional de /i.test(detail.parent)
+      && detail.campaign
+      && detail.region
+      && detail.normalizedRegion === detail.region
+      && detail.cause
+      && detail.outcome
+      && detail.consequences
+      && detail.chronology?.length >= 2
+      && detail.chronology.every(event => event.year === detail.startYear && event.event)
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 2
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties)
+      && detail.curationBatch === "source-backed-global-landmarks-2026-08"
+      && detail.curationNote
+  ),
+  "la tanda global debe conservar fecha, jerarquia, fuentes, participantes, narrativa y cautelas editoriales"
+);
+for (const [name, pageTitle] of [
+  ["Batalla a\u00e9rea de Samurra (1991)", "Samurra_Air_Battle"],
+  ["Batalla de Danny Boy (2004)", "Battle_of_Danny_Boy"],
+  ["Batalla de Tafilah (1918)", "Battle_of_Tafilah"],
+  ["Combate de Top Malo House (1982)", "Skirmish_at_Top_Malo_House"],
+  ["Batalla de Pichincha (1822)", "Battle_of_Pichincha"]
 ]) {
   assert.equal((await resolveWikipediaConflictTitle(name)).pageTitle, pageTitle);
 }
