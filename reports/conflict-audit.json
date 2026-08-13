@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-12T18:34:45.052Z",
+  "generatedAt": "2026-08-13T11:54:53.854Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 203,
-  "reviewCount": 203,
+  "advisoryCount": 198,
+  "reviewCount": 198,
   "summary": {
-    "provisional_parent": 203
+    "provisional_parent": 198
   },
   "topIssues": [],
   "topAdvisories": [
@@ -158,20 +158,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de bockholmssund",
-      "name": "Batalla de Bockholmssund",
-      "countries": [
-        "SWE"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],
@@ -626,20 +612,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de gronvikssund",
-      "name": "Batalla de Grönvikssund",
-      "countries": [
-        "SWE"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de guerrero",
       "name": "Batalla de Guerrero",
       "countries": [
@@ -892,20 +864,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de kimito strait",
-      "name": "Batalla de Kimito Strait",
-      "countries": [
-        "SWE"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de kirchschlag",
       "name": "Batalla de Kirchschlag",
       "countries": [
@@ -1124,6 +1082,48 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de los tuneles gemelos",
+      "name": "Batalla de los Túneles Gemelos",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de mahe",
+      "name": "Batalla de Mahé",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de mani mani",
+      "name": "Batalla de Mani-Mani",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],

@@ -311,7 +311,10 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Batalla de Weissenstein (1604)": "Battle_of_Weissenstein",
   "Batalla de Reval (1602)": "Battle_of_Reval_(1602)",
   "Batalla de Kroppenhof (1621)": "Battle_of_Kroppenhof",
-  "Batalla de Wallhof (1626)": "Battle_of_Wallhof"
+  "Batalla de Wallhof (1626)": "Battle_of_Wallhof",
+  "Batalla de Gr\u00f6nvikssund (1808)": "Battle_of_Gr\u00f6nvikssund",
+  "Batalla de Siikajoki (1808)": "Battle_of_Siikajoki",
+  "Batalla de Napue (1714)": "Battle_of_Napue"
 };
 
 const ENGLISH_WIKIPEDIA_TITLE_EXCEPTIONS = new Set([

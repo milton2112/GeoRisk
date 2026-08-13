@@ -1534,6 +1534,31 @@ const expectedServedConflictCuration = [
     name: "Batalla de Wallhof (1626)",
     parent: "Guerra polaco-sueca de 1626-1629",
     region: "Wallhof o Valle, Curlandia, actual Letonia"
+  },
+  {
+    name: "Batalla de Bockholmssund (1808)",
+    parent: "Guerra de Finlandia (1808-1809)",
+    region: "Bockholmssund o Farskinnsholmarna, archipielago de \u00c5bo, actual Finlandia"
+  },
+  {
+    name: "Batalla de Gr\u00f6nvikssund (1808)",
+    parent: "Guerra de Finlandia (1808-1809)",
+    region: "Gr\u00f6nvikssund o Isoluoto, cerca de Kustavi, archipielago de \u00c5bo, actual Finlandia"
+  },
+  {
+    name: "Batalla del estrecho de Kimito (1808)",
+    parent: "Guerra de Finlandia (1808-1809)",
+    region: "Estrecho de Kimito, archipielago de \u00c5bo, actual Finlandia"
+  },
+  {
+    name: "Batalla de Siikajoki (1808)",
+    parent: "Guerra de Finlandia (1808-1809)",
+    region: "Siikajoki, Ostrobotnia, actual Finlandia"
+  },
+  {
+    name: "Batalla de Napue (1714)",
+    parent: "Gran Guerra del Norte",
+    region: "Napue o Storkyro, Isokyro, Ostrobotnia, actual Finlandia"
   }
 ];
 const servedConflictsByName = new Map();

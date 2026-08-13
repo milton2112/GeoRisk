@@ -91,6 +91,7 @@ const polishSwedishFollowupCuration = await fs.readFile(path.join(projectRoot, "
 const polishDelugeFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-polish-deluge-followup.js"), "utf8");
 const polishDelugeSwedishOperationsCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-polish-deluge-swedish-operations.js"), "utf8");
 const swedishLivonianOperationsCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-swedish-livonian-operations.js"), "utf8");
+const finnishTheaterOperationsCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-finnish-theater-operations.js"), "utf8");
 const wikipediaConflicts = await fs.readFile(path.join(projectRoot, "scripts/lib/wikipedia-conflicts.js"), "utf8");
 const conflictBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-batch-curation.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
@@ -1246,6 +1247,39 @@ assert.ok(
     && wikipediaConflicts.includes('"Batalla de Reval (1602)": "Battle_of_Reval_(1602)"')
     && wikipediaConflicts.includes('"Batalla de Wallhof (1626)": "Battle_of_Wallhof"'),
   "los nombres sueco-livonios curados deben conservar paginas de importacion profunda"
+);
+assert.ok(conflictAutofix.includes("FINNISH_THEATER_OPERATIONS_CONFLICT_DETAIL_FIXES"), "autofix debe incorporar la tanda del teatro finlandes");
+assert.ok(conflictAutofix.includes("FINNISH_THEATER_OPERATIONS_COUNTRY_CONFLICT_ADDITIONS"), "autofix debe asociar Finlandia y Rusia en la tanda del teatro finlandes");
+assert.ok(
+  finnishTheaterOperationsCuration.includes('curationBatch: "source-backed-finnish-theater-operations-2026-08"')
+    && finnishTheaterOperationsCuration.includes("hierarchySources"),
+  "la tanda del teatro finlandes debe conservar trazabilidad multiple"
+);
+assert.ok(
+  finnishTheaterOperationsCuration.includes('"Batalla de Kimito Strait": "Batalla del estrecho de Kimito (1808)"')
+    && finnishTheaterOperationsCuration.includes('"Batalla de Napue": "Batalla de Napue (1714)"'),
+  "la tanda del teatro finlandes debe fechar y traducir los nombres pendientes"
+);
+assert.ok(
+  [
+    "svmm.se",
+    "visitfinland.com",
+    "museiportalosterbotten.fi"
+  ].every(domain => finnishTheaterOperationsCuration.includes(domain)),
+  "la tanda del teatro finlandes debe apoyarse en memoriales y fuentes locales institucionales"
+);
+assert.ok(
+  finnishTheaterOperationsCuration.includes("Bockholmssund aparece tambien como Farskinnsholmarna")
+    && finnishTheaterOperationsCuration.includes("El registro se traduce de Kimito Strait")
+    && finnishTheaterOperationsCuration.includes("Las fuentes describen a las tropas como sueco-finlandesas")
+    && finnishTheaterOperationsCuration.includes("Napue tambien aparece como Storkyro"),
+  "la tanda del teatro finlandes debe conservar cautelas sobre nombres, idioma y continuidad estatal"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Batalla de Gr\\u00f6nvikssund (1808)": "Battle_of_Gr\\u00f6nvikssund"')
+    && wikipediaConflicts.includes('"Batalla de Siikajoki (1808)": "Battle_of_Siikajoki"')
+    && wikipediaConflicts.includes('"Batalla de Napue (1714)": "Battle_of_Napue"'),
+  "los nombres finlandeses curados con pagina exacta deben conservar importacion profunda"
 );
 assert.ok(
   conflictBatchCuration.includes("if (Array.isArray(entry.treaties)) return entry.treaties;"),

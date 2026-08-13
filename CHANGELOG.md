@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.84 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.85 antes de cerrar la siguiente version.
+
+## v1.6.85 - 2026-08-13
+
+- Fecha, jerarquiza y documenta cinco acciones suecas y ruso-suecas del teatro finlandes: Bockholmssund, Gronvikssund, el estrecho de Kimito, Siikajoki y Napue.
+- Situa Bockholmssund, Gronvikssund, Kimito y Siikajoki en la Guerra de Finlandia de 1808-1809, y Napue en la Gran Guerra del Norte.
+- Traduce el rotulo ingles "Kimito Strait", agrega nombres canonicos con ano, participantes historicos, causas, resultados, consecuencias, cronologias, tratados y dos fuentes trazables por ficha.
+- Vincula las cinco acciones con Finlandia y Rusia como acceso geografico e historico, sin proyectar una Finlandia independiente sobre los beligerantes de 1714 o 1808.
+- Conserva cautelas sobre toponimos, fechas por calendario, continuidad estatal y cifras no consolidadas; agrega aliases de importacion profunda y regresiones de datos.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-13-release-1`.
 
 ## v1.6.84 - 2026-08-12
 

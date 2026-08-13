@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-12T18:31:01.940Z",
-  "changedFullCountries": 2,
+  "generatedAt": "2026-08-13T11:52:51.480Z",
+  "changedFullCountries": 3,
   "fullPassChanges": [
-    2,
+    3,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 112,
+    "enriched": 111,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 920,
+  "generatedHierarchyCandidates": 926,
   "countryConflictAdditions": {
     "Estados Unidos": [
       "Batalla de Manila (1945)",
@@ -103,7 +103,12 @@
       "Batalla naval de la bahía de Bantry (1689)"
     ],
     "Finlandia": [
-      "Sitio de Bomarsund (1854)"
+      "Sitio de Bomarsund (1854)",
+      "Batalla de Bockholmssund (1808)",
+      "Batalla de Grönvikssund (1808)",
+      "Batalla del estrecho de Kimito (1808)",
+      "Batalla de Siikajoki (1808)",
+      "Batalla de Napue (1714)"
     ],
     "Rusia": [
       "Sitio de Bomarsund (1854)",
@@ -111,7 +116,12 @@
       "Batalla de Golymin (1806)",
       "Batalla de Heilsberg (1807)",
       "Batalla de Grengam (1720)",
-      "Batalla de Hogland (1788)"
+      "Batalla de Hogland (1788)",
+      "Batalla de Bockholmssund (1808)",
+      "Batalla de Grönvikssund (1808)",
+      "Batalla del estrecho de Kimito (1808)",
+      "Batalla de Siikajoki (1808)",
+      "Batalla de Napue (1714)"
     ],
     "Reino de los Países Bajos": [
       "Batalla de Camaret (1694)",
@@ -609,7 +619,12 @@
     "Batalla de Weissenstein": "Batalla de Weissenstein (1604)",
     "Batalla de Reval": "Batalla de Reval (1602)",
     "Batalla de Kroppenhof": "Batalla de Kroppenhof (1621)",
-    "Batalla de Wallhof": "Batalla de Wallhof (1626)"
+    "Batalla de Wallhof": "Batalla de Wallhof (1626)",
+    "Batalla de Bockholmssund": "Batalla de Bockholmssund (1808)",
+    "Batalla de Grönvikssund": "Batalla de Grönvikssund (1808)",
+    "Batalla de Kimito Strait": "Batalla del estrecho de Kimito (1808)",
+    "Batalla de Siikajoki": "Batalla de Siikajoki (1808)",
+    "Batalla de Napue": "Batalla de Napue (1714)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1502,6 +1517,11 @@
     "Batalla de Weissenstein (1604)",
     "Batalla de Reval (1602)",
     "Batalla de Kroppenhof (1621)",
-    "Batalla de Wallhof (1626)"
+    "Batalla de Wallhof (1626)",
+    "Batalla de Bockholmssund (1808)",
+    "Batalla de Grönvikssund (1808)",
+    "Batalla del estrecho de Kimito (1808)",
+    "Batalla de Siikajoki (1808)",
+    "Batalla de Napue (1714)"
   ]
 }

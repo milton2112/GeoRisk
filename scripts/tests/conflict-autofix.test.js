@@ -143,6 +143,11 @@ import {
   SWEDISH_LIVONIAN_OPERATIONS_COUNTRY_CONFLICT_ADDITIONS,
   SWEDISH_LIVONIAN_OPERATIONS_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-swedish-livonian-operations.js";
+import {
+  FINNISH_THEATER_OPERATIONS_CONFLICT_DETAIL_FIXES,
+  FINNISH_THEATER_OPERATIONS_COUNTRY_CONFLICT_ADDITIONS,
+  FINNISH_THEATER_OPERATIONS_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-finnish-theater-operations.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -1263,6 +1268,73 @@ assert.ok(
       && detail.curationNote
   ),
   "la tanda sueco-livonia debe conservar fecha, jerarquia, fuentes, participantes, narrativa y cautelas editoriales"
+);
+assert.equal(Object.keys(FINNISH_THEATER_OPERATIONS_CONFLICT_DETAIL_FIXES).length, 5);
+assert.equal(Object.keys(FINNISH_THEATER_OPERATIONS_SAFE_CONFLICT_RENAMES).length, 5);
+assert.deepEqual(FINNISH_THEATER_OPERATIONS_COUNTRY_CONFLICT_ADDITIONS.Finlandia, [
+  "Batalla de Bockholmssund (1808)",
+  "Batalla de Gr\u00f6nvikssund (1808)",
+  "Batalla del estrecho de Kimito (1808)",
+  "Batalla de Siikajoki (1808)",
+  "Batalla de Napue (1714)"
+]);
+assert.deepEqual(
+  FINNISH_THEATER_OPERATIONS_COUNTRY_CONFLICT_ADDITIONS.Rusia,
+  FINNISH_THEATER_OPERATIONS_COUNTRY_CONFLICT_ADDITIONS.Finlandia
+);
+assert.equal(
+  FINNISH_THEATER_OPERATIONS_SAFE_CONFLICT_RENAMES["Batalla de Kimito Strait"],
+  "Batalla del estrecho de Kimito (1808)"
+);
+assert.equal(
+  FINNISH_THEATER_OPERATIONS_CONFLICT_DETAIL_FIXES["Batalla de Siikajoki (1808)"].parent,
+  "Guerra de Finlandia (1808-1809)"
+);
+assert.equal(
+  FINNISH_THEATER_OPERATIONS_CONFLICT_DETAIL_FIXES["Batalla de Napue (1714)"].parent,
+  "Gran Guerra del Norte"
+);
+assert.equal(
+  FINNISH_THEATER_OPERATIONS_CONFLICT_DETAIL_FIXES["Batalla de Napue (1714)"].sourceDispute,
+  true
+);
+assert.ok(
+  Object.values(FINNISH_THEATER_OPERATIONS_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent
+      && detail.war === detail.parent
+      && !/^Conflicto regional de /i.test(detail.parent)
+      && detail.campaign
+      && detail.region
+      && detail.normalizedRegion === detail.region
+      && detail.cause
+      && detail.outcome
+      && detail.consequences
+      && detail.chronology?.length >= 2
+      && detail.chronology.every(event => event.year === detail.startYear && event.event)
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 2
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties)
+      && detail.curationBatch === "source-backed-finnish-theater-operations-2026-08"
+      && detail.curationNote
+  ),
+  "la tanda del teatro finlandes debe conservar fecha, jerarquia, fuentes, participantes, narrativa y cautelas editoriales"
+);
+assert.equal(
+  (await resolveWikipediaConflictTitle("Batalla de Gr\u00f6nvikssund (1808)")).pageTitle,
+  "Battle_of_Gr\u00f6nvikssund"
+);
+assert.equal(
+  (await resolveWikipediaConflictTitle("Batalla de Siikajoki (1808)")).pageTitle,
+  "Battle_of_Siikajoki"
+);
+assert.equal(
+  (await resolveWikipediaConflictTitle("Batalla de Napue (1714)")).pageTitle,
+  "Battle_of_Napue"
 );
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",

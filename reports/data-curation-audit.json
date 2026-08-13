@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-12T18:31:08.058Z",
+  "generatedAt": "2026-08-13T11:52:57.759Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 10319559,
-    "duplicatedCountryFilesBytes": 1496985,
-    "countryConflictShardBytes": 402787,
+    "fullBytes": 10372067,
+    "duplicatedCountryFilesBytes": 1499136,
+    "countryConflictShardBytes": 404857,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -417,6 +417,57 @@
         }
       },
       {
+        "code": "RUS",
+        "name": "Rusia",
+        "bytes": 16411,
+        "inlineBytes": 180597,
+        "tooLarge": false,
+        "counts": {
+          "cities": 5,
+          "capitals": 1,
+          "languages": 5,
+          "religionGroups": 4,
+          "organizations": 41,
+          "rivals": 19,
+          "conflicts": 51,
+          "timelineEvents": 4
+        },
+        "metrics": {
+          "sectionBytes": {
+            "military": 7609,
+            "politics": 4980,
+            "metadata": 1926,
+            "general": 965,
+            "history": 445,
+            "religion": 266,
+            "economy": 101,
+            "continent": 8,
+            "name": 7
+          },
+          "largestSections": [
+            {
+              "section": "military",
+              "bytes": 7609
+            },
+            {
+              "section": "politics",
+              "bytes": 4980
+            },
+            {
+              "section": "metadata",
+              "bytes": 1926
+            },
+            {
+              "section": "general",
+              "bytes": 965
+            }
+          ],
+          "conflictsBytes": 10286,
+          "conflictShardBytes": 10287,
+          "averageConflictBytes": 202
+        }
+      },
+      {
         "code": "DEU",
         "name": "Alemania",
         "bytes": 16031,
@@ -465,57 +516,6 @@
           "conflictsBytes": 4040,
           "conflictShardBytes": 0,
           "averageConflictBytes": 224
-        }
-      },
-      {
-        "code": "RUS",
-        "name": "Rusia",
-        "bytes": 15864,
-        "inlineBytes": 158559,
-        "tooLarge": false,
-        "counts": {
-          "cities": 5,
-          "capitals": 1,
-          "languages": 5,
-          "religionGroups": 4,
-          "organizations": 41,
-          "rivals": 19,
-          "conflicts": 46,
-          "timelineEvents": 4
-        },
-        "metrics": {
-          "sectionBytes": {
-            "military": 7062,
-            "politics": 4980,
-            "metadata": 1926,
-            "general": 965,
-            "history": 445,
-            "religion": 266,
-            "economy": 101,
-            "continent": 8,
-            "name": 7
-          },
-          "largestSections": [
-            {
-              "section": "military",
-              "bytes": 7062
-            },
-            {
-              "section": "politics",
-              "bytes": 4980
-            },
-            {
-              "section": "metadata",
-              "bytes": 1926
-            },
-            {
-              "section": "general",
-              "bytes": 965
-            }
-          ],
-          "conflictsBytes": 8682,
-          "conflictShardBytes": 8683,
-          "averageConflictBytes": 189
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 270,
+    "pendingCount": 265,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15304,19 +15304,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Bockholmssund",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
@@ -15753,19 +15740,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Grönvikssund",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Guerrero",
         "countries": [
           "USA"
@@ -15993,19 +15967,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Kimito Strait",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
@@ -16344,19 +16305,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Napue",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
@@ -16949,19 +16897,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Siikajoki",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Siracusa",
         "countries": [
           "FRA"
@@ -17160,6 +17095,71 @@
         "name": "Batalla de Texel",
         "countries": [
           "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Thuận An",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Tizi Ouzou",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Toldos Viejos",
+        "countries": [
+          "ARG"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Tory Island",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Treiden",
+        "countries": [
+          "SWE"
         ],
         "regions": [
           "Europa"
