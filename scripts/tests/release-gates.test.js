@@ -95,6 +95,7 @@ const finnishTheaterOperationsCuration = await fs.readFile(path.join(projectRoot
 const nordicSovereigntyCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-nordic-sovereignty.js"), "utf8");
 const globalLandmarksCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-global-landmarks.js"), "utf8");
 const globalHistoricalOperationsCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-global-historical-operations.js"), "utf8");
+const globalSourceFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-global-source-followup.js"), "utf8");
 const wikipediaConflicts = await fs.readFile(path.join(projectRoot, "scripts/lib/wikipedia-conflicts.js"), "utf8");
 const conflictBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-batch-curation.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
@@ -1407,6 +1408,48 @@ assert.ok(
     && wikipediaConflicts.includes('"Batalla de Tamsui (1884)": "Battle_of_Tamsui"')
     && wikipediaConflicts.includes('"Segunda batalla de Schooneveld (1673)": "Battle_of_Schooneveld"'),
   "las operaciones historicas globales deben conservar paginas de importacion profunda"
+);
+assert.ok(
+  conflictAutofix.includes("GLOBAL_SOURCE_FOLLOWUP_CONFLICT_DETAIL_FIXES"),
+  "autofix debe incorporar la tanda global de seguimiento"
+);
+assert.ok(
+  conflictAutofix.includes("GLOBAL_SOURCE_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS"),
+  "autofix debe asociar los paises de la tanda global de seguimiento"
+);
+assert.ok(
+  globalSourceFollowupCuration.includes('curationBatch: "source-backed-global-source-followup-2026-08"')
+    && globalSourceFollowupCuration.includes("hierarchySources"),
+  "la tanda global de seguimiento debe conservar trazabilidad multiple"
+);
+assert.ok(
+  globalSourceFollowupCuration.includes('"Batalla de Gonz\\u00e1lez": "Batalla de Gonzales (1835)"')
+    && globalSourceFollowupCuration.includes('"Batalla de Pulo Aura": "Batalla de Pulo Aura (1804)"'),
+  "la tanda global de seguimiento debe fechar y normalizar nombres historicos"
+);
+assert.ok(
+  [
+    "thc.texas.gov",
+    "history.army.mil",
+    "armyupress.army.mil",
+    "rmg.co.uk",
+    "royalnavyresearcharchive.org.uk",
+    "rct.uk"
+  ].every(domain => globalSourceFollowupCuration.includes(domain)),
+  "la tanda global de seguimiento debe apoyarse en patrimonio, archivos y fuentes militares"
+);
+assert.ok(
+  globalSourceFollowupCuration.includes("Gonzales se conserva sin acento")
+    && globalSourceFollowupCuration.includes("separa la emboscada de patrulla")
+    && globalSourceFollowupCuration.includes("no una guerra entre India y Francia contempor\\u00e1neas")
+    && globalSourceFollowupCuration.includes("no una escuadra regular de la Royal Navy"),
+  "la tanda global de seguimiento debe conservar cautelas sobre toponimia, cronologia y continuidad estatal"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Batalla de Gonzales (1835)": "Battle_of_Gonzales"')
+    && wikipediaConflicts.includes('"Batalla de los T\\u00faneles Gemelos (1951)": "Battle_of_the_Twin_Tunnels"')
+    && wikipediaConflicts.includes('"Batalla de Pulo Aura (1804)": "Battle_of_Pulo_Aura"'),
+  "la tanda global de seguimiento debe conservar paginas de importacion profunda"
 );
 assert.ok(
   conflictBatchCuration.includes("if (Array.isArray(entry.treaties)) return entry.treaties;"),

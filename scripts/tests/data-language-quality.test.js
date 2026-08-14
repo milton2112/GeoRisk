@@ -1634,6 +1634,36 @@ const expectedServedConflictCuration = [
     name: "Segunda batalla de Schooneveld (1673)",
     parent: "Tercera guerra anglo-neerlandesa (1672-1674)",
     region: "Banco de Schooneveld, desembocadura del Escalda, mar del Norte, actual Reino de los Pa\u00edses Bajos"
+  },
+  {
+    name: "Batalla de Gonzales (1835)",
+    parent: "Revoluci\u00f3n de Texas (1835-1836)",
+    region: "R\u00edo Guadalupe, cerca de Gonzales, Coahuila y Tejas, Rep\u00fablica Mexicana de la \u00e9poca, actual Estados Unidos"
+  },
+  {
+    name: "Batalla de los T\u00faneles Gemelos (1951)",
+    parent: "Guerra de Corea",
+    region: "T\u00faneles ferroviarios al sudeste de Chipyong-ni, condado de Yangpyeong, Corea del Sur"
+  },
+  {
+    name: "Batalla de Sadras (1782)",
+    parent: "Guerra anglo-francesa (1778-1783)",
+    region: "Frente a Sadras, costa de Coromandel, actual Tamil Nadu, India"
+  },
+  {
+    name: "Batalla de Providien (1782)",
+    parent: "Guerra anglo-francesa (1778-1783)",
+    region: "Frente a la costa oriental de Ceil\u00e1n, al sur de Trincomalee, actual Sri Lanka"
+  },
+  {
+    name: "Batalla de Negapatam (1782)",
+    parent: "Guerra anglo-francesa (1778-1783)",
+    region: "Frente a Negapatam, golfo de Bengala, actual Tamil Nadu, India"
+  },
+  {
+    name: "Batalla de Pulo Aura (1804)",
+    parent: "Guerras napole\u00f3nicas (1803-1815)",
+    region: "Estrecho de Malaca, frente a Pulau Aur o Pulo Aura, actual Johor, Malasia"
   }
 ];
 const servedConflictsByName = new Map();

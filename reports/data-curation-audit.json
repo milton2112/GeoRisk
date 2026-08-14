@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-14T09:39:44.456Z",
+  "generatedAt": "2026-08-14T09:55:26.097Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 10497763,
-    "duplicatedCountryFilesBytes": 1504488,
-    "countryConflictShardBytes": 408770,
+    "fullBytes": 10576927,
+    "duplicatedCountryFilesBytes": 1507246,
+    "countryConflictShardBytes": 411511,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 23977,
-        "inlineBytes": 3091381,
+        "inlineBytes": 3099039,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,7 +21,7 @@
           "religionGroups": 7,
           "organizations": 55,
           "rivals": 85,
-          "conflicts": 922,
+          "conflicts": 923,
           "timelineEvents": 4
         },
         "metrics": {
@@ -54,16 +54,16 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 211724,
-          "conflictShardBytes": 211725,
+          "conflictsBytes": 212201,
+          "conflictShardBytes": 212202,
           "averageConflictBytes": 230
         }
       },
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 23287,
-        "inlineBytes": 976463,
+        "bytes": 23795,
+        "inlineBytes": 997725,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -72,12 +72,12 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 297,
+          "conflicts": 301,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 9863,
+            "military": 10371,
             "politics": 9502,
             "metadata": 1952,
             "general": 1018,
@@ -90,7 +90,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 9863
+              "bytes": 10371
             },
             {
               "section": "politics",
@@ -105,9 +105,9 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 65303,
-          "conflictShardBytes": 65304,
-          "averageConflictBytes": 220
+          "conflictsBytes": 66706,
+          "conflictShardBytes": 66707,
+          "averageConflictBytes": 222
         }
       },
       {
@@ -216,7 +216,7 @@
         "code": "FRA",
         "name": "Francia",
         "bytes": 19602,
-        "inlineBytes": 715299,
+        "inlineBytes": 731137,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -225,7 +225,7 @@
           "religionGroups": 5,
           "organizations": 54,
           "rivals": 50,
-          "conflicts": 234,
+          "conflicts": 235,
           "timelineEvents": 4
         },
         "metrics": {
@@ -258,9 +258,60 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 44005,
-          "conflictShardBytes": 44006,
-          "averageConflictBytes": 188
+          "conflictsBytes": 44866,
+          "conflictShardBytes": 44867,
+          "averageConflictBytes": 191
+        }
+      },
+      {
+        "code": "KOR",
+        "name": "Corea del Sur",
+        "bytes": 17636,
+        "inlineBytes": 126974,
+        "tooLarge": false,
+        "counts": {
+          "cities": 5,
+          "capitals": 1,
+          "languages": 1,
+          "religionGroups": 5,
+          "organizations": 31,
+          "rivals": 51,
+          "conflicts": 30,
+          "timelineEvents": 3
+        },
+        "metrics": {
+          "sectionBytes": {
+            "military": 7771,
+            "politics": 6254,
+            "metadata": 1927,
+            "general": 866,
+            "history": 306,
+            "religion": 288,
+            "economy": 99,
+            "name": 15,
+            "continent": 6
+          },
+          "largestSections": [
+            {
+              "section": "military",
+              "bytes": 7771
+            },
+            {
+              "section": "politics",
+              "bytes": 6254
+            },
+            {
+              "section": "metadata",
+              "bytes": 1927
+            },
+            {
+              "section": "general",
+              "bytes": 866
+            }
+          ],
+          "conflictsBytes": 7652,
+          "conflictShardBytes": 0,
+          "averageConflictBytes": 255
         }
       },
       {
@@ -366,57 +417,6 @@
         }
       },
       {
-        "code": "KOR",
-        "name": "Corea del Sur",
-        "bytes": 17277,
-        "inlineBytes": 121524,
-        "tooLarge": false,
-        "counts": {
-          "cities": 5,
-          "capitals": 1,
-          "languages": 1,
-          "religionGroups": 5,
-          "organizations": 31,
-          "rivals": 51,
-          "conflicts": 29,
-          "timelineEvents": 3
-        },
-        "metrics": {
-          "sectionBytes": {
-            "military": 7412,
-            "politics": 6254,
-            "metadata": 1927,
-            "general": 866,
-            "history": 306,
-            "religion": 288,
-            "economy": 99,
-            "name": 15,
-            "continent": 6
-          },
-          "largestSections": [
-            {
-              "section": "military",
-              "bytes": 7412
-            },
-            {
-              "section": "politics",
-              "bytes": 6254
-            },
-            {
-              "section": "metadata",
-              "bytes": 1927
-            },
-            {
-              "section": "general",
-              "bytes": 866
-            }
-          ],
-          "conflictsBytes": 7293,
-          "conflictShardBytes": 0,
-          "averageConflictBytes": 251
-        }
-      },
-      {
         "code": "RUS",
         "name": "Rusia",
         "bytes": 16411,
@@ -519,6 +519,57 @@
         }
       },
       {
+        "code": "CHN",
+        "name": "República Popular China",
+        "bytes": 15451,
+        "inlineBytes": 116006,
+        "tooLarge": false,
+        "counts": {
+          "cities": 5,
+          "capitals": 1,
+          "languages": 5,
+          "religionGroups": 6,
+          "organizations": 33,
+          "rivals": 29,
+          "conflicts": 31,
+          "timelineEvents": 4
+        },
+        "metrics": {
+          "sectionBytes": {
+            "military": 6422,
+            "politics": 5084,
+            "metadata": 1951,
+            "general": 988,
+            "history": 415,
+            "religion": 354,
+            "economy": 101,
+            "name": 26,
+            "continent": 6
+          },
+          "largestSections": [
+            {
+              "section": "military",
+              "bytes": 6422
+            },
+            {
+              "section": "politics",
+              "bytes": 5084
+            },
+            {
+              "section": "metadata",
+              "bytes": 1951
+            },
+            {
+              "section": "general",
+              "bytes": 988
+            }
+          ],
+          "conflictsBytes": 6303,
+          "conflictShardBytes": 0,
+          "averageConflictBytes": 203
+        }
+      },
+      {
         "code": "SWE",
         "name": "Suecia",
         "bytes": 15198,
@@ -567,57 +618,6 @@
           "conflictsBytes": 31903,
           "conflictShardBytes": 31904,
           "averageConflictBytes": 209
-        }
-      },
-      {
-        "code": "MAR",
-        "name": "Marruecos",
-        "bytes": 15153,
-        "inlineBytes": 172210,
-        "tooLarge": false,
-        "counts": {
-          "cities": 4,
-          "capitals": 1,
-          "languages": 2,
-          "religionGroups": 2,
-          "organizations": 32,
-          "rivals": 11,
-          "conflicts": 49,
-          "timelineEvents": 0
-        },
-        "metrics": {
-          "sectionBytes": {
-            "military": 8561,
-            "politics": 3519,
-            "metadata": 1913,
-            "general": 724,
-            "religion": 121,
-            "economy": 98,
-            "history": 94,
-            "name": 11,
-            "continent": 8
-          },
-          "largestSections": [
-            {
-              "section": "military",
-              "bytes": 8561
-            },
-            {
-              "section": "politics",
-              "bytes": 3519
-            },
-            {
-              "section": "metadata",
-              "bytes": 1913
-            },
-            {
-              "section": "general",
-              "bytes": 724
-            }
-          ],
-          "conflictsBytes": 10921,
-          "conflictShardBytes": 10922,
-          "averageConflictBytes": 223
         }
       }
     ]
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 250,
+    "pendingCount": 244,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15636,19 +15636,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de González",
-        "countries": [
-          "MEX"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Gotska Sandön",
         "countries": [
           "SWE"
@@ -16091,19 +16078,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de los Túneles Gemelos",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Mahé",
         "countries": [
           "FRA"
@@ -16201,19 +16175,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Negapatam",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
@@ -16481,35 +16442,9 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Providien",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Prużany",
         "countries": [
           "RUS"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Pulo Aura",
-        "countries": [
-          "FRA"
         ],
         "regions": [
           "Europa"
@@ -16630,19 +16565,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Sadras",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
@@ -17160,6 +17082,84 @@
         "name": "Batalla de Zealand Point",
         "countries": [
           "DNK"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla del 27 de agosto",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla del cabo de Gata",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla del cabo de la Roca",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla del cabo Henry",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla del cabo Lizard",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla del Cabo Ortegal",
+        "countries": [
+          "FRA"
         ],
         "regions": [
           "Europa"

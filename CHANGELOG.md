@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.88 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.89 antes de cerrar la siguiente version.
+
+## v1.6.89 - 2026-08-14
+
+- Fecha, jerarquiza y documenta Gonzales, los Tuneles Gemelos, Sadras, Providien, Negapatam y Pulo Aura con fuentes patrimoniales, militares y archivisticas.
+- Reemplaza seis padres regionales genericos por la Revolucion de Texas, la Guerra de Corea, la guerra anglo-francesa de 1778-1783 y las Guerras napoleonicas.
+- Normaliza el toponimo oficial Gonzales, agrega anios canonicos, paises de navegacion, aliases de importacion profunda y fichas diferidas para cada accion.
+- Conserva actores de epoca, distingue la emboscada de patrulla de Twin Tunnels de la batalla principal y evita presentar resultados o bajas discutidos como cerrados.
+- Reduce las jerarquias provisionales de 183 a 177 y los conflictos fuera del indice fechable de 250 a 244; mantiene cero alertas de auditoria y cero incidencias de validacion.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-14-release-2`.
 
 ## v1.6.88 - 2026-08-14
 

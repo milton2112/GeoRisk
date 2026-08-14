@@ -163,6 +163,11 @@ import {
   GLOBAL_HISTORICAL_OPERATIONS_COUNTRY_CONFLICT_ADDITIONS,
   GLOBAL_HISTORICAL_OPERATIONS_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-global-historical-operations.js";
+import {
+  GLOBAL_SOURCE_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  GLOBAL_SOURCE_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
+  GLOBAL_SOURCE_FOLLOWUP_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-global-source-followup.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -1509,6 +1514,56 @@ for (const [name, pageTitle] of [
   ["Batalla de Tamsui (1884)", "Battle_of_Tamsui"],
   ["Batalla de San Jacinto (1836)", "Battle_of_San_Jacinto"],
   ["Segunda batalla de Schooneveld (1673)", "Battle_of_Schooneveld"]
+]) {
+  assert.equal((await resolveWikipediaConflictTitle(name)).pageTitle, pageTitle);
+}
+assert.equal(Object.keys(GLOBAL_SOURCE_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 6);
+assert.equal(Object.keys(GLOBAL_SOURCE_FOLLOWUP_SAFE_CONFLICT_RENAMES).length, 6);
+assert.deepEqual(GLOBAL_SOURCE_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS.India, [
+  "Batalla de Sadras (1782)",
+  "Batalla de Negapatam (1782)"
+]);
+assert.equal(
+  GLOBAL_SOURCE_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Gonz\u00e1lez"],
+  "Batalla de Gonzales (1835)"
+);
+assert.equal(
+  GLOBAL_SOURCE_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de los T\u00faneles Gemelos (1951)"].parent,
+  "Guerra de Corea"
+);
+assert.ok(
+  Object.values(GLOBAL_SOURCE_FOLLOWUP_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent
+      && detail.war === detail.parent
+      && !/^Conflicto regional de /i.test(detail.parent)
+      && detail.campaign
+      && detail.region
+      && detail.normalizedRegion === detail.region
+      && detail.cause
+      && detail.outcome
+      && detail.consequences
+      && detail.chronology?.length >= 2
+      && detail.chronology.every(event => event.year === detail.startYear && event.event)
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 2
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties)
+      && detail.curationBatch === "source-backed-global-source-followup-2026-08"
+      && detail.curationNote
+  ),
+  "la tanda global de seguimiento debe conservar fecha, jerarquia, fuentes, participantes, narrativa y cautelas editoriales"
+);
+for (const [name, pageTitle] of [
+  ["Batalla de Gonzales (1835)", "Battle_of_Gonzales"],
+  ["Batalla de los T\u00faneles Gemelos (1951)", "Battle_of_the_Twin_Tunnels"],
+  ["Batalla de Sadras (1782)", "Battle_of_Sadras"],
+  ["Batalla de Providien (1782)", "Battle_of_Providien"],
+  ["Batalla de Negapatam (1782)", "Battle_of_Negapatam_(1782)"],
+  ["Batalla de Pulo Aura (1804)", "Battle_of_Pulo_Aura"]
 ]) {
   assert.equal((await resolveWikipediaConflictTitle(name)).pageTitle, pageTitle);
 }

@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-14T09:41:06.903Z",
+  "generatedAt": "2026-08-14T09:56:53.620Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 251
+      "count": 245
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 183
+      "count": 177
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 492
+      "count": 498
     },
     "redundantReligions": {
       "count": 0
@@ -233,11 +233,6 @@
       },
       {
         "code": "FRA",
-        "name": "Batalla de Negapatam",
-        "region": "Europa"
-      },
-      {
-        "code": "FRA",
         "name": "Batalla de Neuville",
         "region": "Europa"
       },
@@ -254,6 +249,11 @@
       {
         "code": "FRA",
         "name": "Batalla de Procida Canal",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Putziger Wiek",
         "region": "Europa"
       }
     ],
@@ -464,13 +464,6 @@
       },
       {
         "code": "FRA",
-        "name": "Batalla de Negapatam",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
         "name": "Batalla de Neuville",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
@@ -499,28 +492,7 @@
       },
       {
         "code": "FRA",
-        "name": "Batalla de Providien",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Pulo Aura",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
         "name": "Batalla de Putziger Wiek",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Sadras",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -535,6 +507,34 @@
       {
         "code": "FRA",
         "name": "Batalla de San Domingo",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Signal Hill",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Siracusa",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de St. Lucia",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Tellicherry",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 183,
+      "count": 177,
       "command": "npm run fix:conflicts:batches"
     },
     {

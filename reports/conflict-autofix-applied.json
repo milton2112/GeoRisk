@@ -1,23 +1,24 @@
 {
-  "generatedAt": "2026-08-14T09:39:38.571Z",
-  "changedFullCountries": 9,
+  "generatedAt": "2026-08-14T09:55:20.375Z",
+  "changedFullCountries": 0,
   "fullPassChanges": [
-    9,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 111,
-    "written": true,
+    "enriched": 0,
+    "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 946,
+  "generatedHierarchyCandidates": 952,
   "countryConflictAdditions": {
     "Estados Unidos": [
       "Batalla de Manila (1945)",
       "Batalla naval de la bahía de Chesapeake (1781)",
-      "Batalla naval de Jumunjin (1950)"
+      "Batalla naval de Jumunjin (1950)",
+      "Batalla de Gonzales (1835)",
+      "Batalla de los Túneles Gemelos (1951)"
     ],
     "Nicaragua": [
       "Batalla de Masaya",
@@ -49,7 +50,8 @@
       "Bombardeo multinacional de Shimonoseki (1864)",
       "Batalla de Carillon (1758)",
       "Batalla de Monongahela (1755)",
-      "Batalla de Wandiwash (1760)"
+      "Batalla de Wandiwash (1760)",
+      "Batalla de los Túneles Gemelos (1951)"
     ],
     "Alemania": [
       "Batalla de Schleswig (1848)",
@@ -75,13 +77,15 @@
       "Batalla naval de Myeongnyang (1597)",
       "Batalla naval de Jeolido (1598)",
       "Batalla naval de Noryang (1598)",
-      "Batalla de la colina 282 (1950)"
+      "Batalla de la colina 282 (1950)",
+      "Batalla de los Túneles Gemelos (1951)"
     ],
     "República Popular China": [
       "Batalla naval de Noryang (1598)",
       "Primera batalla de Maryang San (1951)",
       "Batalla de Palikao (1860)",
-      "Batalla de Tamsui (1884)"
+      "Batalla de Tamsui (1884)",
+      "Batalla de los Túneles Gemelos (1951)"
     ],
     "Reino Unido": [
       "Batalla naval de la bahía de Bantry (1689)",
@@ -104,7 +108,11 @@
       "Batalla de Largs (1263)",
       "Batalla de Kringen (1612)",
       "Batalla de Palikao (1860)",
-      "Segunda batalla de Schooneveld (1673)"
+      "Segunda batalla de Schooneveld (1673)",
+      "Batalla de Sadras (1782)",
+      "Batalla de Providien (1782)",
+      "Batalla de Negapatam (1782)",
+      "Batalla de Pulo Aura (1804)"
     ],
     "Irlanda": [
       "Batalla naval de la bahía de Bantry (1689)"
@@ -138,7 +146,9 @@
     ],
     "India": [
       "Asedio y captura de Chandannagar (1757)",
-      "Batalla de Diu (1509)"
+      "Batalla de Diu (1509)",
+      "Batalla de Sadras (1782)",
+      "Batalla de Negapatam (1782)"
     ],
     "Polonia": [
       "Batalla de Golymin (1806)",
@@ -236,6 +246,12 @@
     ],
     "Egipto": [
       "Batalla de Diu (1509)"
+    ],
+    "Sri Lanka": [
+      "Batalla de Providien (1782)"
+    ],
+    "Malasia": [
+      "Batalla de Pulo Aura (1804)"
     ]
   },
   "safeRenames": {
@@ -675,7 +691,13 @@
     "Batalla de Palikao": "Batalla de Palikao (1860)",
     "Batalla de Tamsui": "Batalla de Tamsui (1884)",
     "Batalla de San Jacinto": "Batalla de San Jacinto (1836)",
-    "Segunda batalla de Schooneveld": "Segunda batalla de Schooneveld (1673)"
+    "Segunda batalla de Schooneveld": "Segunda batalla de Schooneveld (1673)",
+    "Batalla de González": "Batalla de Gonzales (1835)",
+    "Batalla de los Túneles Gemelos": "Batalla de los Túneles Gemelos (1951)",
+    "Batalla de Sadras": "Batalla de Sadras (1782)",
+    "Batalla de Providien": "Batalla de Providien (1782)",
+    "Batalla de Negapatam": "Batalla de Negapatam (1782)",
+    "Batalla de Pulo Aura": "Batalla de Pulo Aura (1804)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1588,6 +1610,12 @@
     "Batalla de Palikao (1860)",
     "Batalla de Tamsui (1884)",
     "Batalla de San Jacinto (1836)",
-    "Segunda batalla de Schooneveld (1673)"
+    "Segunda batalla de Schooneveld (1673)",
+    "Batalla de Gonzales (1835)",
+    "Batalla de los Túneles Gemelos (1951)",
+    "Batalla de Sadras (1782)",
+    "Batalla de Providien (1782)",
+    "Batalla de Negapatam (1782)",
+    "Batalla de Pulo Aura (1804)"
   ]
 }
