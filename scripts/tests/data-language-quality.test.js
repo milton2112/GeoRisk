@@ -1609,6 +1609,31 @@ const expectedServedConflictCuration = [
     name: "Batalla de Pichincha (1822)",
     parent: "Guerra de independencia de Quito (1820-1822)",
     region: "Laderas del volc\u00e1n Pichincha, cerca de Quito, actual Ecuador"
+  },
+  {
+    name: "Batalla de Diu (1509)",
+    parent: "Guerra naval luso-mameluca en el oc\u00e9ano \u00cdndico",
+    region: "Puerto de Diu, golfo de Khambhat, actual India"
+  },
+  {
+    name: "Batalla de Palikao (1860)",
+    parent: "Segunda Guerra del Opio (1856-1860)",
+    region: "Puente de Baliqiao o Palikao, al este de Pek\u00edn, actual Rep\u00fablica Popular China"
+  },
+  {
+    name: "Batalla de Tamsui (1884)",
+    parent: "Guerra franco-china (1884-1885)",
+    region: "Tamsui o Hobe, norte de Taiw\u00e1n bajo administraci\u00f3n Qing, actual Taiw\u00e1n"
+  },
+  {
+    name: "Batalla de San Jacinto (1836)",
+    parent: "Revoluci\u00f3n de Texas (1835-1836)",
+    region: "R\u00edo San Jacinto, cerca de las actuales La Porte y Deer Park, Texas, Estados Unidos"
+  },
+  {
+    name: "Segunda batalla de Schooneveld (1673)",
+    parent: "Tercera guerra anglo-neerlandesa (1672-1674)",
+    region: "Banco de Schooneveld, desembocadura del Escalda, mar del Norte, actual Reino de los Pa\u00edses Bajos"
   }
 ];
 const servedConflictsByName = new Map();

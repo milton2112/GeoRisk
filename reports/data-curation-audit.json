@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-13T12:32:37.354Z",
+  "generatedAt": "2026-08-14T09:39:44.456Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 10448463,
-    "duplicatedCountryFilesBytes": 1502225,
-    "countryConflictShardBytes": 407648,
+    "fullBytes": 10497763,
+    "duplicatedCountryFilesBytes": 1504488,
+    "countryConflictShardBytes": 408770,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 23977,
-        "inlineBytes": 3089331,
+        "inlineBytes": 3091381,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -54,16 +54,16 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 211631,
-          "conflictShardBytes": 211632,
+          "conflictsBytes": 211724,
+          "conflictShardBytes": 211725,
           "averageConflictBytes": 230
         }
       },
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 23128,
-        "inlineBytes": 966575,
+        "bytes": 23287,
+        "inlineBytes": 976463,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -72,12 +72,12 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 295,
+          "conflicts": 297,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 9704,
+            "military": 9863,
             "politics": 9502,
             "metadata": 1952,
             "general": 1018,
@@ -90,7 +90,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 9704
+              "bytes": 9863
             },
             {
               "section": "politics",
@@ -105,9 +105,9 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 64603,
-          "conflictShardBytes": 64604,
-          "averageConflictBytes": 219
+          "conflictsBytes": 65303,
+          "conflictShardBytes": 65304,
+          "averageConflictBytes": 220
         }
       },
       {
@@ -215,8 +215,8 @@
       {
         "code": "FRA",
         "name": "Francia",
-        "bytes": 19526,
-        "inlineBytes": 708983,
+        "bytes": 19602,
+        "inlineBytes": 715299,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -230,8 +230,8 @@
         },
         "metrics": {
           "sectionBytes": {
+            "military": 7922,
             "politics": 7898,
-            "military": 7846,
             "metadata": 1952,
             "general": 933,
             "history": 390,
@@ -242,12 +242,12 @@
           },
           "largestSections": [
             {
-              "section": "politics",
-              "bytes": 7898
+              "section": "military",
+              "bytes": 7922
             },
             {
-              "section": "military",
-              "bytes": 7846
+              "section": "politics",
+              "bytes": 7898
             },
             {
               "section": "metadata",
@@ -258,9 +258,9 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 43676,
-          "conflictShardBytes": 43677,
-          "averageConflictBytes": 187
+          "conflictsBytes": 44005,
+          "conflictShardBytes": 44006,
+          "averageConflictBytes": 188
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 255,
+    "pendingCount": 250,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15499,19 +15499,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Diu",
-        "countries": [
-          "PRT"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
@@ -16351,19 +16338,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Palikao",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Paye",
         "countries": [
           "USA"
@@ -16715,19 +16689,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de San Jacinto",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Sejny",
         "countries": [
           "LTU"
@@ -16926,19 +16887,6 @@
         "name": "Batalla de Świecino",
         "countries": [
           "POL"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Tamsui",
-        "countries": [
-          "FRA"
         ],
         "regions": [
           "Europa"
@@ -17163,6 +17111,58 @@
         ],
         "regions": [
           "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Yerba Buena",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Z'Moul NIran",
+        "countries": [
+          "MAR"
+        ],
+        "regions": [
+          "África"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Zawichost",
+        "countries": [
+          "POL"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla de Zealand Point",
+        "countries": [
+          "DNK"
+        ],
+        "regions": [
+          "Europa"
         ],
         "types": [
           "interestatal"

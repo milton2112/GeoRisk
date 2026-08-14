@@ -94,6 +94,7 @@ const swedishLivonianOperationsCuration = await fs.readFile(path.join(projectRoo
 const finnishTheaterOperationsCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-finnish-theater-operations.js"), "utf8");
 const nordicSovereigntyCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-nordic-sovereignty.js"), "utf8");
 const globalLandmarksCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-global-landmarks.js"), "utf8");
+const globalHistoricalOperationsCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-global-historical-operations.js"), "utf8");
 const wikipediaConflicts = await fs.readFile(path.join(projectRoot, "scripts/lib/wikipedia-conflicts.js"), "utf8");
 const conflictBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-batch-curation.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
@@ -1360,6 +1361,52 @@ assert.ok(
     && wikipediaConflicts.includes('"Combate de Top Malo House (1982)": "Skirmish_at_Top_Malo_House"')
     && wikipediaConflicts.includes('"Batalla de Pichincha (1822)": "Battle_of_Pichincha"'),
   "los hitos globales curados deben conservar paginas de importacion profunda"
+);
+assert.ok(
+  conflictAutofix.includes("GLOBAL_HISTORICAL_OPERATIONS_CONFLICT_DETAIL_FIXES"),
+  "autofix debe incorporar la tanda de operaciones historicas globales"
+);
+assert.ok(
+  conflictAutofix.includes("GLOBAL_HISTORICAL_OPERATIONS_COUNTRY_CONFLICT_ADDITIONS"),
+  "autofix debe asociar paises de la tanda de operaciones historicas globales"
+);
+assert.ok(
+  globalHistoricalOperationsCuration.includes('curationBatch: "source-backed-global-historical-operations-2026-08"')
+    && globalHistoricalOperationsCuration.includes("hierarchySources"),
+  "la tanda de operaciones historicas globales debe conservar trazabilidad multiple"
+);
+assert.ok(
+  globalHistoricalOperationsCuration.includes('"Batalla de Diu": "Batalla de Diu (1509)"')
+    && globalHistoricalOperationsCuration.includes('"Segunda batalla de Schooneveld": "Segunda batalla de Schooneveld (1673)"'),
+  "la tanda de operaciones historicas globales debe fechar y conservar nombres canonicos"
+);
+assert.ok(
+  [
+    "marinha.pt",
+    "loc.gov",
+    "nam.ac.uk",
+    "historynet.com",
+    "tamsui.ntpc.gov.tw",
+    "nmth.gov.tw",
+    "thc.texas.gov",
+    "tsl.texas.gov",
+    "rmg.co.uk",
+    "historyofwar.org"
+  ].every(domain => globalHistoricalOperationsCuration.includes(domain)),
+  "la tanda de operaciones historicas globales debe apoyarse en fuentes navales, museos, patrimonio y archivos"
+);
+assert.ok(
+  globalHistoricalOperationsCuration.includes("no fija el d")
+    && globalHistoricalOperationsCuration.includes("no fueron ratificados por M")
+    && globalHistoricalOperationsCuration.includes("calendario juliano")
+    && globalHistoricalOperationsCuration.includes("no se presenta a ninguna"),
+  "la tanda de operaciones historicas globales debe conservar cautelas sobre fechas, tratados y continuidad estatal"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Batalla de Diu (1509)": "Battle_of_Diu"')
+    && wikipediaConflicts.includes('"Batalla de Tamsui (1884)": "Battle_of_Tamsui"')
+    && wikipediaConflicts.includes('"Segunda batalla de Schooneveld (1673)": "Battle_of_Schooneveld"'),
+  "las operaciones historicas globales deben conservar paginas de importacion profunda"
 );
 assert.ok(
   conflictBatchCuration.includes("if (Array.isArray(entry.treaties)) return entry.treaties;"),

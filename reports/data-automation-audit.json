@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-13T12:35:04.892Z",
+  "generatedAt": "2026-08-14T09:41:06.903Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 256
+      "count": 251
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 188
+      "count": 183
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 487
+      "count": 492
     },
     "redundantReligions": {
       "count": 0
@@ -243,17 +243,17 @@
       },
       {
         "code": "FRA",
-        "name": "Batalla de Palikao",
-        "region": "Europa"
-      },
-      {
-        "code": "FRA",
         "name": "Batalla de Pondicherry",
         "region": "Europa"
       },
       {
         "code": "FRA",
         "name": "Batalla de Port Louis",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Procida Canal",
         "region": "Europa"
       }
     ],
@@ -478,13 +478,6 @@
       },
       {
         "code": "FRA",
-        "name": "Batalla de Palikao",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
         "name": "Batalla de Pondicherry",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
@@ -535,6 +528,13 @@
       {
         "code": "FRA",
         "name": "Batalla de Saint-Louis-du-Sud",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de San Domingo",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 188,
+      "count": 183,
       "command": "npm run fix:conflicts:batches"
     },
     {

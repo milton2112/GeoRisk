@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-13T12:35:01.980Z",
+  "generatedAt": "2026-08-14T09:41:03.891Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 188,
-  "reviewCount": 188,
+  "advisoryCount": 183,
+  "reviewCount": 183,
   "summary": {
-    "provisional_parent": 188
+    "provisional_parent": 183
   },
   "topIssues": [],
   "topAdvisories": [
@@ -368,20 +368,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de diu",
-      "name": "Batalla de Diu",
-      "countries": [
-        "PRT"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],
@@ -1118,6 +1104,20 @@
     {
       "key": "batalla de negapatam",
       "name": "Batalla de Negapatam",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de neuville",
+      "name": "Batalla de Neuville",
       "countries": [
         "FRA"
       ],

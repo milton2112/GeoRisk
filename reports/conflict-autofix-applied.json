@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-13T12:32:31.497Z",
-  "changedFullCountries": 7,
+  "generatedAt": "2026-08-14T09:39:38.571Z",
+  "changedFullCountries": 9,
   "fullPassChanges": [
-    7,
+    9,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
@@ -12,7 +12,7 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 936,
+  "generatedHierarchyCandidates": 946,
   "countryConflictAdditions": {
     "Estados Unidos": [
       "Batalla de Manila (1945)",
@@ -79,7 +79,9 @@
     ],
     "República Popular China": [
       "Batalla naval de Noryang (1598)",
-      "Primera batalla de Maryang San (1951)"
+      "Primera batalla de Maryang San (1951)",
+      "Batalla de Palikao (1860)",
+      "Batalla de Tamsui (1884)"
     ],
     "Reino Unido": [
       "Batalla naval de la bahía de Bantry (1689)",
@@ -100,7 +102,9 @@
       "Batalla de Solebay (1672)",
       "Batalla de Assandun (1016)",
       "Batalla de Largs (1263)",
-      "Batalla de Kringen (1612)"
+      "Batalla de Kringen (1612)",
+      "Batalla de Palikao (1860)",
+      "Segunda batalla de Schooneveld (1673)"
     ],
     "Irlanda": [
       "Batalla naval de la bahía de Bantry (1689)"
@@ -129,10 +133,12 @@
     "Reino de los Países Bajos": [
       "Batalla de Camaret (1694)",
       "Batalla de Solebay (1672)",
-      "Batalla de Fehmarn (1644)"
+      "Batalla de Fehmarn (1644)",
+      "Segunda batalla de Schooneveld (1673)"
     ],
     "India": [
-      "Asedio y captura de Chandannagar (1757)"
+      "Asedio y captura de Chandannagar (1757)",
+      "Batalla de Diu (1509)"
     ],
     "Polonia": [
       "Batalla de Golymin (1806)",
@@ -167,7 +173,8 @@
     ],
     "México": [
       "Combate de Carrizal (1916)",
-      "Batalla de Ambos Nogales (1918)"
+      "Batalla de Ambos Nogales (1918)",
+      "Batalla de San Jacinto (1836)"
     ],
     "Australia": [
       "Batalla de Hamel (1918)",
@@ -226,6 +233,9 @@
     ],
     "Jordania": [
       "Batalla de Tafilah (1918)"
+    ],
+    "Egipto": [
+      "Batalla de Diu (1509)"
     ]
   },
   "safeRenames": {
@@ -660,7 +670,12 @@
     "Batalla de Danny Boy": "Batalla de Danny Boy (2004)",
     "Batalla de Tafilah": "Batalla de Tafilah (1918)",
     "Combate de Top Malo House": "Combate de Top Malo House (1982)",
-    "Batalla de Pichincha": "Batalla de Pichincha (1822)"
+    "Batalla de Pichincha": "Batalla de Pichincha (1822)",
+    "Batalla de Diu": "Batalla de Diu (1509)",
+    "Batalla de Palikao": "Batalla de Palikao (1860)",
+    "Batalla de Tamsui": "Batalla de Tamsui (1884)",
+    "Batalla de San Jacinto": "Batalla de San Jacinto (1836)",
+    "Segunda batalla de Schooneveld": "Segunda batalla de Schooneveld (1673)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1568,6 +1583,11 @@
     "Batalla de Danny Boy (2004)",
     "Batalla de Tafilah (1918)",
     "Combate de Top Malo House (1982)",
-    "Batalla de Pichincha (1822)"
+    "Batalla de Pichincha (1822)",
+    "Batalla de Diu (1509)",
+    "Batalla de Palikao (1860)",
+    "Batalla de Tamsui (1884)",
+    "Batalla de San Jacinto (1836)",
+    "Segunda batalla de Schooneveld (1673)"
   ]
 }

@@ -158,6 +158,11 @@ import {
   GLOBAL_LANDMARKS_COUNTRY_CONFLICT_ADDITIONS,
   GLOBAL_LANDMARKS_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-global-landmarks.js";
+import {
+  GLOBAL_HISTORICAL_OPERATIONS_CONFLICT_DETAIL_FIXES,
+  GLOBAL_HISTORICAL_OPERATIONS_COUNTRY_CONFLICT_ADDITIONS,
+  GLOBAL_HISTORICAL_OPERATIONS_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-global-historical-operations.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -1451,6 +1456,59 @@ for (const [name, pageTitle] of [
   ["Batalla de Tafilah (1918)", "Battle_of_Tafilah"],
   ["Combate de Top Malo House (1982)", "Skirmish_at_Top_Malo_House"],
   ["Batalla de Pichincha (1822)", "Battle_of_Pichincha"]
+]) {
+  assert.equal((await resolveWikipediaConflictTitle(name)).pageTitle, pageTitle);
+}
+assert.equal(Object.keys(GLOBAL_HISTORICAL_OPERATIONS_CONFLICT_DETAIL_FIXES).length, 5);
+assert.equal(Object.keys(GLOBAL_HISTORICAL_OPERATIONS_SAFE_CONFLICT_RENAMES).length, 5);
+assert.deepEqual(GLOBAL_HISTORICAL_OPERATIONS_COUNTRY_CONFLICT_ADDITIONS["Rep\u00fablica Popular China"], [
+  "Batalla de Palikao (1860)",
+  "Batalla de Tamsui (1884)"
+]);
+assert.equal(
+  GLOBAL_HISTORICAL_OPERATIONS_SAFE_CONFLICT_RENAMES["Batalla de Diu"],
+  "Batalla de Diu (1509)"
+);
+assert.equal(
+  GLOBAL_HISTORICAL_OPERATIONS_CONFLICT_DETAIL_FIXES["Batalla de San Jacinto (1836)"].parent,
+  "Revoluci\u00f3n de Texas (1835-1836)"
+);
+assert.equal(
+  GLOBAL_HISTORICAL_OPERATIONS_CONFLICT_DETAIL_FIXES["Batalla de Diu (1509)"].sourceDispute,
+  true
+);
+assert.ok(
+  Object.values(GLOBAL_HISTORICAL_OPERATIONS_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent
+      && detail.war === detail.parent
+      && !/^Conflicto regional de /i.test(detail.parent)
+      && detail.campaign
+      && detail.region
+      && detail.normalizedRegion === detail.region
+      && detail.cause
+      && detail.outcome
+      && detail.consequences
+      && detail.chronology?.length >= 2
+      && detail.chronology.every(event => event.year === detail.startYear && event.event)
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 2
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties)
+      && detail.curationBatch === "source-backed-global-historical-operations-2026-08"
+      && detail.curationNote
+  ),
+  "la tanda global historica debe conservar fecha, jerarquia, fuentes, participantes, narrativa y cautelas editoriales"
+);
+for (const [name, pageTitle] of [
+  ["Batalla de Diu (1509)", "Battle_of_Diu"],
+  ["Batalla de Palikao (1860)", "Battle_of_Palikao"],
+  ["Batalla de Tamsui (1884)", "Battle_of_Tamsui"],
+  ["Batalla de San Jacinto (1836)", "Battle_of_San_Jacinto"],
+  ["Segunda batalla de Schooneveld (1673)", "Battle_of_Schooneveld"]
 ]) {
   assert.equal((await resolveWikipediaConflictTitle(name)).pageTitle, pageTitle);
 }

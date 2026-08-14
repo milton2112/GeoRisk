@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
+- Se documentaran aca los cambios posteriores a v1.6.88 antes de cerrar la siguiente version.
+
+## v1.6.88 - 2026-08-14
+
 - Se documentaran aca los cambios posteriores a v1.6.87 antes de cerrar la siguiente version.
+- Fecha, jerarquiza y documenta Diu, Palikao, Tamsui, San Jacinto y la segunda batalla de Schooneveld con fuentes navales, museos, patrimonio y archivos.
+- Reemplaza cinco padres regionales genericos por guerras y campanas historicas, agrega asociaciones de navegacion con India, Egipto, Republica Popular China, Reino Unido, Mexico y Reino de los Paises Bajos.
+- Conserva actores de epoca y cautelas sobre cifras, calendarios, tratados no ratificados y continuidad estatal; incluye aliases de importacion profunda y regresiones de datos.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-14-release-1`.
 
 ## v1.6.87 - 2026-08-13
 
