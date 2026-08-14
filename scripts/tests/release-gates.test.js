@@ -97,6 +97,7 @@ const globalLandmarksCuration = await fs.readFile(path.join(projectRoot, "script
 const globalHistoricalOperationsCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-global-historical-operations.js"), "utf8");
 const globalSourceFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-global-source-followup.js"), "utf8");
 const nordicAsiaSourceBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-nordic-asia-source-batch.js"), "utf8");
+const asiaAfricaHistoricalFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-asia-africa-historical-followup.js"), "utf8");
 const wikipediaConflicts = await fs.readFile(path.join(projectRoot, "scripts/lib/wikipedia-conflicts.js"), "utf8");
 const conflictBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-batch-curation.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
@@ -1495,6 +1496,50 @@ assert.ok(
     && wikipediaConflicts.includes('"Batalla de Nui Le (1971)": "Battle_of_Nui_Le"')
     && wikipediaConflicts.includes('"Batalla de Long Jawai (1963)": "Battle_of_Long_Jawai"'),
   "la tanda nordica y asiatica debe conservar paginas de importacion profunda"
+);
+assert.ok(
+  conflictAutofix.includes("ASIA_AFRICA_HISTORICAL_FOLLOWUP_CONFLICT_DETAIL_FIXES"),
+  "autofix debe incorporar la tanda asiatica y africana con fuentes"
+);
+assert.ok(
+  conflictAutofix.includes("ASIA_AFRICA_HISTORICAL_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS"),
+  "autofix debe asociar paises de navegacion para la tanda asiatica y africana"
+);
+assert.ok(
+  asiaAfricaHistoricalFollowupCuration.includes('curationBatch: "source-backed-asia-africa-historical-followup-2026-08"')
+    && asiaAfricaHistoricalFollowupCuration.includes("hierarchySources"),
+  "la tanda asiatica y africana debe conservar trazabilidad multiple"
+);
+assert.ok(
+  asiaAfricaHistoricalFollowupCuration.includes('"Batalla de Suoi Chau Pha": "Batalla de Suoi Chau Pha (1967)"')
+    && asiaAfricaHistoricalFollowupCuration.includes('"Batalla de Kouss\\u00e9ri": "Batalla de Kouss\\u00e9ri (1900)"'),
+  "la tanda asiatica y africana debe fechar y normalizar nombres historicos"
+);
+assert.ok(
+  [
+    "awm.gov.au",
+    "govinfo.gov",
+    "cna.org",
+    "servicehistorique.sga.defense.gouv.fr",
+    "ccfr.bnf.fr",
+    "vietnam.vn",
+    "khamphahue.com.vn"
+  ].every(domain => asiaAfricaHistoricalFollowupCuration.includes(domain)),
+  "la tanda asiatica y africana debe apoyarse en fuentes militares, archivisticas, bibliotecarias y locales"
+);
+assert.ok(
+  asiaAfricaHistoricalFollowupCuration.includes("no se fija una cifra unica")
+    && asiaAfricaHistoricalFollowupCuration.includes("no adopta una afirmacion contemporanea de soberania")
+    && asiaAfricaHistoricalFollowupCuration.includes("no como participantes estatales de 1900")
+    && asiaAfricaHistoricalFollowupCuration.includes("sin atribuir una aceptacion voluntaria"),
+  "la tanda asiatica y africana debe conservar cautelas sobre bajas, soberania, continuidad estatal y coercion colonial"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Batalla de Suoi Chau Pha (1967)": "Battle_of_Suoi_Chau_Pha"')
+    && wikipediaConflicts.includes('"Primera batalla de Zhenbao (1969)": "Conflicto_fronterizo_sino-sovi\\u00e9tico"')
+    && wikipediaConflicts.includes('"Batalla de Kouss\\u00e9ri (1900)": "Battle_of_Kouss\\u00e9ri"')
+    && wikipediaConflicts.includes('"Batalla de Thu\\u1eadn An (1883)": "Battle_of_Thu\\u1eadn_An"'),
+  "la tanda asiatica y africana debe conservar paginas de importacion profunda"
 );
 assert.ok(
   conflictBatchCuration.includes("if (Array.isArray(entry.treaties)) return entry.treaties;"),

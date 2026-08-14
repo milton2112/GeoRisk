@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-14T10:17:05.841Z",
+  "generatedAt": "2026-08-14T10:37:56.412Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 240
+      "count": 236
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 172
+      "count": 168
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 503
+      "count": 509
     },
     "redundantReligions": {
       "count": 0
@@ -137,11 +137,6 @@
         "region": "Asia"
       },
       {
-        "code": "CHN",
-        "name": "Primera batalla de Zhenbao",
-        "region": "Asia"
-      },
-      {
         "code": "DNK",
         "name": "Batalla de Dogger Bank",
         "region": "Europa"
@@ -203,11 +198,6 @@
       },
       {
         "code": "FRA",
-        "name": "Batalla de Kousséri",
-        "region": "Europa"
-      },
-      {
-        "code": "FRA",
         "name": "Batalla de Lagos",
         "region": "Europa"
       },
@@ -254,6 +244,16 @@
       {
         "code": "FRA",
         "name": "Batalla de Saint-Louis-du-Sud",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de San Domingo",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Signal Hill",
         "region": "Europa"
       }
     ],
@@ -330,13 +330,6 @@
         "startYear": null
       },
       {
-        "code": "CHN",
-        "name": "Primera batalla de Zhenbao",
-        "parent": "Conflicto regional de Asia",
-        "campaign": "Campaña vinculada a Conflicto regional de Asia",
-        "startYear": null
-      },
-      {
         "code": "DNK",
         "name": "Batalla de Dogger Bank",
         "parent": "Conflicto regional de Europa",
@@ -416,13 +409,6 @@
       {
         "code": "FRA",
         "name": "Batalla de Îles Saint-Marcouf",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Kousséri",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -535,6 +521,20 @@
       {
         "code": "FRA",
         "name": "Batalla de Texel",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Tizi Ouzou",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Tory Island",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 172,
+      "count": 168,
       "command": "npm run fix:conflicts:batches"
     },
     {

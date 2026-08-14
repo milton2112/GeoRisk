@@ -1780,4 +1780,47 @@ for (const expected of nordicAsiaExpectedConflicts) {
   }
 }
 
+const asiaAfricaHistoricalExpectedConflicts = [
+  {
+    name: "Conflicto fronterizo sino-sovi\u00e9tico",
+    parent: "Ruptura sino-sovi\u00e9tica",
+    codes: ["CHN", "RUS"]
+  },
+  {
+    name: "Batalla de Suoi Chau Pha (1967)",
+    parent: "Guerra de Vietnam",
+    codes: ["USA", "AUS", "VNM"]
+  },
+  {
+    name: "Primera batalla de Zhenbao (1969)",
+    parent: "Conflicto fronterizo sino-sovi\u00e9tico",
+    codes: ["CHN", "RUS"]
+  },
+  {
+    name: "Segunda batalla de Zhenbao (1969)",
+    parent: "Conflicto fronterizo sino-sovi\u00e9tico",
+    codes: ["CHN", "RUS"]
+  },
+  {
+    name: "Batalla de Kouss\u00e9ri (1900)",
+    parent: "Conquista francesa de Chad (1899-1900)",
+    codes: ["FRA", "CMR", "TCD"]
+  },
+  {
+    name: "Batalla de Thu\u1eadn An (1883)",
+    parent: "Campa\u00f1a de Tonkin (1883-1886)",
+    codes: ["FRA", "VNM"]
+  }
+];
+for (const expected of asiaAfricaHistoricalExpectedConflicts) {
+  for (const code of expected.codes) {
+    const entries = countries[code]?.military?.conflicts?.filter(item => item.name === expected.name) || [];
+    assert.equal(entries.length, 1, expected.name + " debe aparecer una sola vez en " + code);
+    assert.equal(entries[0].parent, expected.parent, expected.name + " debe conservar padre curado en " + code);
+    assert.ok(Number.isInteger(entries[0].startYear), expected.name + " debe conservar fecha estructurada en " + code);
+    assert.ok(entries[0].hierarchySources?.length >= 2, expected.name + " debe mostrar fuentes en " + code);
+    assert.doesNotMatch(entries[0].parent || "", /^Conflicto regional de /, expected.name + " no debe conservar padre provisional en " + code);
+  }
+}
+
 console.log("data-language-quality.test.js ok");

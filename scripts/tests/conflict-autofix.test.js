@@ -173,6 +173,11 @@ import {
   NORDIC_ASIA_SOURCE_BATCH_COUNTRY_CONFLICT_ADDITIONS,
   NORDIC_ASIA_SOURCE_BATCH_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-nordic-asia-source-batch.js";
+import {
+  ASIA_AFRICA_HISTORICAL_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  ASIA_AFRICA_HISTORICAL_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
+  ASIA_AFRICA_HISTORICAL_FOLLOWUP_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-asia-africa-historical-followup.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -1618,6 +1623,60 @@ for (const [name, pageTitle] of [
   ["Batalla de Fredrikshamn (1790)", "Battle_of_Fredrikshamn"],
   ["Batalla de Nui Le (1971)", "Battle_of_Nui_Le"],
   ["Batalla de Long Jawai (1963)", "Battle_of_Long_Jawai"]
+]) {
+  assert.equal((await resolveWikipediaConflictTitle(name)).pageTitle, pageTitle);
+}
+assert.equal(Object.keys(ASIA_AFRICA_HISTORICAL_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 6);
+assert.equal(Object.keys(ASIA_AFRICA_HISTORICAL_FOLLOWUP_SAFE_CONFLICT_RENAMES).length, 5);
+assert.deepEqual(ASIA_AFRICA_HISTORICAL_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS.Rusia, [
+  "Conflicto fronterizo sino-sovi\u00e9tico",
+  "Primera batalla de Zhenbao (1969)",
+  "Segunda batalla de Zhenbao (1969)"
+]);
+assert.equal(
+  ASIA_AFRICA_HISTORICAL_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Kouss\u00e9ri"],
+  "Batalla de Kouss\u00e9ri (1900)"
+);
+assert.equal(
+  ASIA_AFRICA_HISTORICAL_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Thu\u1eadn An (1883)"].parent,
+  "Campa\u00f1a de Tonkin (1883-1886)"
+);
+assert.equal(
+  ASIA_AFRICA_HISTORICAL_FOLLOWUP_CONFLICT_DETAIL_FIXES["Conflicto fronterizo sino-sovi\u00e9tico"].parent,
+  "Ruptura sino-sovi\u00e9tica"
+);
+assert.ok(
+  Object.values(ASIA_AFRICA_HISTORICAL_FOLLOWUP_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent
+      && detail.war === detail.parent
+      && !/^Conflicto regional de /i.test(detail.parent)
+      && detail.campaign
+      && detail.region
+      && detail.normalizedRegion === detail.region
+      && detail.cause
+      && detail.outcome
+      && detail.consequences
+      && detail.chronology?.length >= 2
+      && detail.chronology.every(event => event.year === detail.startYear && event.event)
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 2
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties)
+      && detail.curationBatch === "source-backed-asia-africa-historical-followup-2026-08"
+      && detail.curationNote
+  ),
+  "la tanda asiatica y africana debe conservar fecha, jerarquia, fuentes, participantes, narrativa y cautelas editoriales"
+);
+for (const [name, pageTitle] of [
+  ["Batalla de Suoi Chau Pha (1967)", "Battle_of_Suoi_Chau_Pha"],
+  ["Primera batalla de Zhenbao (1969)", "Conflicto_fronterizo_sino-sovi\u00e9tico"],
+  ["Segunda batalla de Zhenbao (1969)", "Conflicto_fronterizo_sino-sovi\u00e9tico"],
+  ["Batalla de Kouss\u00e9ri (1900)", "Battle_of_Kouss\u00e9ri"],
+  ["Batalla de Thu\u1eadn An (1883)", "Battle_of_Thu\u1eadn_An"]
 ]) {
   assert.equal((await resolveWikipediaConflictTitle(name)).pageTitle, pageTitle);
 }

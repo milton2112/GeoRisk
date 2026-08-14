@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-14T10:17:02.942Z",
+  "generatedAt": "2026-08-14T10:37:52.997Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 172,
-  "reviewCount": 172,
+  "advisoryCount": 168,
+  "reviewCount": 168,
   "summary": {
-    "provisional_parent": 172
+    "provisional_parent": 168
   },
   "topIssues": [],
   "topAdvisories": [
@@ -780,20 +780,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de kousseri",
-      "name": "Batalla de Kousséri",
-      "countries": [
-        "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de kumbo",
       "name": "Batalla de Kumbo",
       "countries": [
@@ -1124,6 +1110,20 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de orford ness",
+      "name": "Batalla de Orford Ness",
+      "countries": [
+        "SWE"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],

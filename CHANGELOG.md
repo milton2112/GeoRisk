@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.90 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.91 antes de cerrar la siguiente version.
+
+## v1.6.91 - 2026-08-14
+
+- Fecha, jerarquiza y documenta Suoi Chau Pha, las dos acciones de Zhenbao, Kousséri y Thuận An con fuentes militares, archivísticas, bibliotecarias y locales.
+- Reemplaza cuatro padres regionales provisionales por la Guerra de Vietnam, el conflicto fronterizo sino-soviético, la conquista francesa de Chad y la Campaña de Tonkín; también completa y fecha el conflicto padre sino-soviético y su segunda acción de Zhenbao.
+- Vincula las acciones con Australia, Vietnam, Rusia, Camerún y Chad para que ficha, mapa, búsqueda, timeline y comparador compartan las referencias de navegación correctas.
+- Conserva cautelas sobre bajas, denominaciones y soberanía de Zhenbao/Damanski, actores de época y expansión colonial en Kousséri y Thuận An.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-14-release-4`.
 
 ## v1.6.90 - 2026-08-14
 
