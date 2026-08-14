@@ -96,6 +96,7 @@ const nordicSovereigntyCuration = await fs.readFile(path.join(projectRoot, "scri
 const globalLandmarksCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-global-landmarks.js"), "utf8");
 const globalHistoricalOperationsCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-global-historical-operations.js"), "utf8");
 const globalSourceFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-global-source-followup.js"), "utf8");
+const nordicAsiaSourceBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-nordic-asia-source-batch.js"), "utf8");
 const wikipediaConflicts = await fs.readFile(path.join(projectRoot, "scripts/lib/wikipedia-conflicts.js"), "utf8");
 const conflictBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-batch-curation.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
@@ -1450,6 +1451,50 @@ assert.ok(
     && wikipediaConflicts.includes('"Batalla de los T\\u00faneles Gemelos (1951)": "Battle_of_the_Twin_Tunnels"')
     && wikipediaConflicts.includes('"Batalla de Pulo Aura (1804)": "Battle_of_Pulo_Aura"'),
   "la tanda global de seguimiento debe conservar paginas de importacion profunda"
+);
+assert.ok(
+  conflictAutofix.includes("NORDIC_ASIA_SOURCE_BATCH_CONFLICT_DETAIL_FIXES"),
+  "autofix debe incorporar la tanda nordica y asiatica con fuentes"
+);
+assert.ok(
+  conflictAutofix.includes("NORDIC_ASIA_SOURCE_BATCH_COUNTRY_CONFLICT_ADDITIONS"),
+  "autofix debe asociar paises de navegacion para la tanda nordica y asiatica"
+);
+assert.ok(
+  nordicAsiaSourceBatchCuration.includes('curationBatch: "source-backed-nordic-asia-followup-2026-08"')
+    && nordicAsiaSourceBatchCuration.includes("hierarchySources"),
+  "la tanda nordica y asiatica debe conservar trazabilidad multiple"
+);
+assert.ok(
+  nordicAsiaSourceBatchCuration.includes('"Segunda batalla de Fredrikshamn": "Batalla de Fredrikshamn (1790)"')
+    && nordicAsiaSourceBatchCuration.includes('"Batalla de Nui Le": "Batalla de Nui Le (1971)"'),
+  "la tanda nordica y asiatica debe fechar y normalizar nombres historicos"
+);
+assert.ok(
+  [
+    "rct.uk",
+    "riksarkivet.se",
+    "svmm.se",
+    "samlingar.shm.se",
+    "yle.fi",
+    "sotahistoriallisetkohteet.fi",
+    "awm.gov.au",
+    "anzacportal.dva.gov.au",
+    "nmbvaa.org.au"
+  ].every(domain => nordicAsiaSourceBatchCuration.includes(domain)),
+  "la tanda nordica y asiatica debe apoyarse en archivos, museos, patrimonio y fuentes veteranas"
+);
+assert.ok(
+  nordicAsiaSourceBatchCuration.includes("calendario juliano")
+    && nordicAsiaSourceBatchCuration.includes("no a\u00f1ade a Australia como beligerante")
+    && nordicAsiaSourceBatchCuration.includes("no fija una cifra unica"),
+  "la tanda nordica y asiatica debe conservar cautelas sobre calendarios, beligerantes y bajas"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Primera batalla de Svensksund (1789)": "Battle_of_Svensksund_(1789)"')
+    && wikipediaConflicts.includes('"Batalla de Nui Le (1971)": "Battle_of_Nui_Le"')
+    && wikipediaConflicts.includes('"Batalla de Long Jawai (1963)": "Battle_of_Long_Jawai"'),
+  "la tanda nordica y asiatica debe conservar paginas de importacion profunda"
 );
 assert.ok(
   conflictBatchCuration.includes("if (Array.isArray(entry.treaties)) return entry.treaties;"),

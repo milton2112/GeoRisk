@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.89 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.90 antes de cerrar la siguiente version.
+
+## v1.6.90 - 2026-08-14
+
+- Fecha, jerarquiza y documenta la primera batalla de Svensksund, Fredrikshamn, Petajasaari, Nui Le y Long Jawai con fuentes archivisticas, museisticas, militares y de patrimonio.
+- Corrige el falso ordinal de "Segunda batalla de Fredrikshamn", agrega anos canonicos, guerras y campanas, participantes de epoca, cronologias, acuerdos de cierre y cinco fichas de conflicto bajo demanda.
+- Vincula cada accion con los paises relevantes para ficha, mapa, busqueda, timeline y comparador: Finlandia, Rusia, Suecia, Australia, Nueva Zelanda, Vietnam, Indonesia, Malasia y Reino Unido.
+- Conserva cautelas editoriales para las fechas de calendario de Svensksund, las bajas de Petajasaari y Nui Le, y el resultado tactico de Long Jawai; no proyecta actores contemporaneos sobre conflictos historicos.
+- Reduce las jerarquias provisionales de 177 a 172 y los conflictos fuera del indice fechable de 244 a 239; el indice de conflictos pasa a 1760 entradas, el timeline a 2932 eventos y los detalles diferidos a 1005 shards.
+- Agrega regresiones de importacion profunda, datos publicados, fuentes, jerarquias, fechas y asociaciones nacionales para impedir que la tanda vuelva a degradarse.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-14-release-3`.
 
 ## v1.6.89 - 2026-08-14
 

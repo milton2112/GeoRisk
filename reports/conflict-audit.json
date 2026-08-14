@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-14T09:56:50.661Z",
+  "generatedAt": "2026-08-14T10:17:02.942Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 177,
-  "reviewCount": 177,
+  "advisoryCount": 172,
+  "reviewCount": 172,
   "summary": {
-    "provisional_parent": 177
+    "provisional_parent": 172
   },
   "topIssues": [],
   "topAdvisories": [
@@ -948,20 +948,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de long jawai",
-      "name": "Batalla de Long Jawai",
-      "countries": [
-        "GBR"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de mahe",
       "name": "Batalla de Mahé",
       "countries": [
@@ -1116,14 +1102,28 @@
       "severity": 1
     },
     {
-      "key": "batalla de nui le",
-      "name": "Batalla de Nui Le",
+      "key": "batalla de nur shams",
+      "name": "Batalla de Nur Shams",
       "countries": [
-        "USA"
+        "GBR"
       ],
       "startYear": null,
       "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de ochamchira",
+      "name": "Batalla de Ochamchira",
+      "countries": [
+        "GEO"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Asia",
       "issues": [
         "provisional_parent"
       ],

@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-14T09:56:53.620Z",
+  "generatedAt": "2026-08-14T10:17:05.841Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 245
+      "count": 240
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 177
+      "count": 172
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 498
+      "count": 503
     },
     "redundantReligions": {
       "count": 0
@@ -157,11 +157,6 @@
         "region": "Europa"
       },
       {
-        "code": "FIN",
-        "name": "Batalla de Petäjäsaari",
-        "region": "Europa"
-      },
-      {
         "code": "FRA",
         "name": "Batalla de Antivari",
         "region": "Europa"
@@ -254,6 +249,11 @@
       {
         "code": "FRA",
         "name": "Batalla de Putziger Wiek",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Saint-Louis-du-Sud",
         "region": "Europa"
       }
     ],
@@ -353,13 +353,6 @@
       {
         "code": "DNK",
         "name": "Batalla del Lago Peipus",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FIN",
-        "name": "Batalla de Petäjäsaari",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -535,6 +528,13 @@
       {
         "code": "FRA",
         "name": "Batalla de Tellicherry",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Texel",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 177,
+      "count": 172,
       "command": "npm run fix:conflicts:batches"
     },
     {

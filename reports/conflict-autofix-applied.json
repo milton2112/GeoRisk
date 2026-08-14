@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-14T09:55:20.375Z",
+  "generatedAt": "2026-08-14T10:14:47.527Z",
   "changedFullCountries": 0,
   "fullPassChanges": [
     0
@@ -11,7 +11,7 @@
     "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 952,
+  "generatedHierarchyCandidates": 957,
   "countryConflictAdditions": {
     "Estados Unidos": [
       "Batalla de Manila (1945)",
@@ -112,7 +112,8 @@
       "Batalla de Sadras (1782)",
       "Batalla de Providien (1782)",
       "Batalla de Negapatam (1782)",
-      "Batalla de Pulo Aura (1804)"
+      "Batalla de Pulo Aura (1804)",
+      "Batalla de Long Jawai (1963)"
     ],
     "Irlanda": [
       "Batalla naval de la bahía de Bantry (1689)"
@@ -123,7 +124,10 @@
       "Batalla de Grönvikssund (1808)",
       "Batalla del estrecho de Kimito (1808)",
       "Batalla de Siikajoki (1808)",
-      "Batalla de Napue (1714)"
+      "Batalla de Napue (1714)",
+      "Primera batalla de Svensksund (1789)",
+      "Batalla de Fredrikshamn (1790)",
+      "Batalla de Petäjäsaari (1940)"
     ],
     "Rusia": [
       "Sitio de Bomarsund (1854)",
@@ -136,7 +140,10 @@
       "Batalla de Grönvikssund (1808)",
       "Batalla del estrecho de Kimito (1808)",
       "Batalla de Siikajoki (1808)",
-      "Batalla de Napue (1714)"
+      "Batalla de Napue (1714)",
+      "Primera batalla de Svensksund (1789)",
+      "Batalla de Fredrikshamn (1790)",
+      "Batalla de Petäjäsaari (1940)"
     ],
     "Reino de los Países Bajos": [
       "Batalla de Camaret (1694)",
@@ -188,7 +195,8 @@
     ],
     "Australia": [
       "Batalla de Hamel (1918)",
-      "Primera batalla de Maryang San (1951)"
+      "Primera batalla de Maryang San (1951)",
+      "Batalla de Nui Le (1971)"
     ],
     "Corea del Norte": [
       "Batalla de la colina 282 (1950)",
@@ -233,7 +241,9 @@
     "Suecia": [
       "Batalla de Helgeå (1026)",
       "Batalla de Kringen (1612)",
-      "Rebelión de Bornholm (1658)"
+      "Rebelión de Bornholm (1658)",
+      "Primera batalla de Svensksund (1789)",
+      "Batalla de Fredrikshamn (1790)"
     ],
     "Argentina": [
       "Combate de Top Malo House (1982)"
@@ -251,7 +261,17 @@
       "Batalla de Providien (1782)"
     ],
     "Malasia": [
-      "Batalla de Pulo Aura (1804)"
+      "Batalla de Pulo Aura (1804)",
+      "Batalla de Long Jawai (1963)"
+    ],
+    "Nueva Zelanda": [
+      "Batalla de Nui Le (1971)"
+    ],
+    "Vietnam": [
+      "Batalla de Nui Le (1971)"
+    ],
+    "Indonesia": [
+      "Batalla de Long Jawai (1963)"
     ]
   },
   "safeRenames": {
@@ -697,7 +717,12 @@
     "Batalla de Sadras": "Batalla de Sadras (1782)",
     "Batalla de Providien": "Batalla de Providien (1782)",
     "Batalla de Negapatam": "Batalla de Negapatam (1782)",
-    "Batalla de Pulo Aura": "Batalla de Pulo Aura (1804)"
+    "Batalla de Pulo Aura": "Batalla de Pulo Aura (1804)",
+    "Primera batalla de Svensksund": "Primera batalla de Svensksund (1789)",
+    "Segunda batalla de Fredrikshamn": "Batalla de Fredrikshamn (1790)",
+    "Batalla de Petäjäsaari": "Batalla de Petäjäsaari (1940)",
+    "Batalla de Nui Le": "Batalla de Nui Le (1971)",
+    "Batalla de Long Jawai": "Batalla de Long Jawai (1963)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1616,6 +1641,11 @@
     "Batalla de Sadras (1782)",
     "Batalla de Providien (1782)",
     "Batalla de Negapatam (1782)",
-    "Batalla de Pulo Aura (1804)"
+    "Batalla de Pulo Aura (1804)",
+    "Primera batalla de Svensksund (1789)",
+    "Batalla de Fredrikshamn (1790)",
+    "Batalla de Petäjäsaari (1940)",
+    "Batalla de Nui Le (1971)",
+    "Batalla de Long Jawai (1963)"
   ]
 }

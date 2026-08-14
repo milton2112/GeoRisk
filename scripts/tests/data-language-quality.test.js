@@ -1742,4 +1742,42 @@ assert.deepEqual(
   `Los shards de detalle no deben conservar campos importados en ingles o coordenadas crudas: ${JSON.stringify(conflictDetailShardIssues.slice(0, 10))}`
 );
 
+const nordicAsiaExpectedConflicts = [
+  {
+    name: "Primera batalla de Svensksund (1789)",
+    parent: "Guerra ruso-sueca (1788-1790)",
+    codes: ["SWE", "RUS", "FIN"]
+  },
+  {
+    name: "Batalla de Fredrikshamn (1790)",
+    parent: "Guerra ruso-sueca (1788-1790)",
+    codes: ["SWE", "RUS", "FIN"]
+  },
+  {
+    name: "Batalla de Pet\u00e4j\u00e4saari (1940)",
+    parent: "Guerra de Invierno",
+    codes: ["FIN", "RUS"]
+  },
+  {
+    name: "Batalla de Nui Le (1971)",
+    parent: "Guerra de Vietnam",
+    codes: ["AUS", "NZL", "VNM"]
+  },
+  {
+    name: "Batalla de Long Jawai (1963)",
+    parent: "Confrontaci\u00f3n Indonesia-Malasia (1962-1966)",
+    codes: ["IDN", "MYS", "GBR"]
+  }
+];
+for (const expected of nordicAsiaExpectedConflicts) {
+  for (const code of expected.codes) {
+    const entries = countries[code]?.military?.conflicts?.filter(item => item.name === expected.name) || [];
+    assert.equal(entries.length, 1, expected.name + " debe aparecer una sola vez en " + code);
+    assert.equal(entries[0].parent, expected.parent, expected.name + " debe conservar padre curado en " + code);
+    assert.ok(Number.isInteger(entries[0].startYear), expected.name + " debe conservar fecha estructurada en " + code);
+    assert.ok(entries[0].hierarchySources?.length >= 2, expected.name + " debe mostrar fuentes en " + code);
+    assert.doesNotMatch(entries[0].parent || "", /^Conflicto regional de /, expected.name + " no debe conservar padre provisional en " + code);
+  }
+}
+
 console.log("data-language-quality.test.js ok");

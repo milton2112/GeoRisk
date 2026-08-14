@@ -168,6 +168,11 @@ import {
   GLOBAL_SOURCE_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
   GLOBAL_SOURCE_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-global-source-followup.js";
+import {
+  NORDIC_ASIA_SOURCE_BATCH_CONFLICT_DETAIL_FIXES,
+  NORDIC_ASIA_SOURCE_BATCH_COUNTRY_CONFLICT_ADDITIONS,
+  NORDIC_ASIA_SOURCE_BATCH_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-nordic-asia-source-batch.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -1564,6 +1569,55 @@ for (const [name, pageTitle] of [
   ["Batalla de Providien (1782)", "Battle_of_Providien"],
   ["Batalla de Negapatam (1782)", "Battle_of_Negapatam_(1782)"],
   ["Batalla de Pulo Aura (1804)", "Battle_of_Pulo_Aura"]
+]) {
+  assert.equal((await resolveWikipediaConflictTitle(name)).pageTitle, pageTitle);
+}
+assert.equal(Object.keys(NORDIC_ASIA_SOURCE_BATCH_CONFLICT_DETAIL_FIXES).length, 5);
+assert.equal(Object.keys(NORDIC_ASIA_SOURCE_BATCH_SAFE_CONFLICT_RENAMES).length, 5);
+assert.deepEqual(NORDIC_ASIA_SOURCE_BATCH_COUNTRY_CONFLICT_ADDITIONS.Finlandia, [
+  "Primera batalla de Svensksund (1789)",
+  "Batalla de Fredrikshamn (1790)",
+  "Batalla de Pet\u00e4j\u00e4saari (1940)"
+]);
+assert.equal(
+  NORDIC_ASIA_SOURCE_BATCH_SAFE_CONFLICT_RENAMES["Segunda batalla de Fredrikshamn"],
+  "Batalla de Fredrikshamn (1790)"
+);
+assert.equal(
+  NORDIC_ASIA_SOURCE_BATCH_CONFLICT_DETAIL_FIXES["Batalla de Pet\u00e4j\u00e4saari (1940)"].parent,
+  "Guerra de Invierno"
+);
+assert.ok(
+  Object.values(NORDIC_ASIA_SOURCE_BATCH_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent
+      && detail.war === detail.parent
+      && !/^Conflicto regional de /i.test(detail.parent)
+      && detail.campaign
+      && detail.region
+      && detail.normalizedRegion === detail.region
+      && detail.cause
+      && detail.outcome
+      && detail.consequences
+      && detail.chronology?.length >= 2
+      && detail.chronology.every(event => event.year === detail.startYear && event.event)
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 2
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties)
+      && detail.curationBatch === "source-backed-nordic-asia-followup-2026-08"
+      && detail.curationNote
+  ),
+  "la tanda nordica y asiatica debe conservar fecha, jerarquia, fuentes, participantes, narrativa y cautelas editoriales"
+);
+for (const [name, pageTitle] of [
+  ["Primera batalla de Svensksund (1789)", "Battle_of_Svensksund_(1789)"],
+  ["Batalla de Fredrikshamn (1790)", "Battle_of_Fredrikshamn"],
+  ["Batalla de Nui Le (1971)", "Battle_of_Nui_Le"],
+  ["Batalla de Long Jawai (1963)", "Battle_of_Long_Jawai"]
 ]) {
   assert.equal((await resolveWikipediaConflictTitle(name)).pageTitle, pageTitle);
 }
