@@ -61,6 +61,7 @@ const buildDataset = await fs.readFile(path.join(projectRoot, "scripts/buildData
 const conflictAutofix = await fs.readFile(path.join(projectRoot, "scripts/applyConflictAutofix.js"), "utf8");
 const criticalBrowserE2E = await fs.readFile(path.join(projectRoot, "scripts/tests/critical-browser-e2e.test.js"), "utf8");
 const debrecen1944Curation = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-debrecen-1944.js"), "utf8");
+const prioritySafeBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-priority-safe-batch.js"), "utf8");
 const visibleModernCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-visible-modern.js"), "utf8");
 const visibleFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-visible-followup.js"), "utf8");
 const koreaModernCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-korea-modern.js"), "utf8");
@@ -1612,6 +1613,17 @@ assert.ok(
   debrecen1944Curation.includes('"Batalla de Debrecen": "Batalla de Debrecen (1944)"')
     && debrecen1944Curation.includes("source-backed-debrecen-1944-2026-08"),
   "la curation de Debrecen debe conservar fecha explicita y trazabilidad de tanda"
+);
+assert.ok(
+  conflictAutofix.includes("PRIORITY_SAFE_BATCH_CONFLICT_DETAIL_FIXES")
+    && conflictAutofix.includes("PRIORITY_SAFE_BATCH_COUNTRY_CONFLICT_ADDITIONS"),
+  "autofix debe incorporar la tanda prioritaria de jerarquias verificadas"
+);
+assert.ok(
+  prioritySafeBatchCuration.includes('"Batalla de las Islas Paracelso": "Batalla de las Islas Paracelso (1974)"')
+    && prioritySafeBatchCuration.includes('"Batalla de St\\u00e4ket": "Batalla de St\\u00e4ket (1719)"')
+    && prioritySafeBatchCuration.includes("source-backed-priority-safe-batch-2026-08"),
+  "la tanda prioritaria debe conservar fecha explicita y trazabilidad de fuentes"
 );
 assert.ok(
   conflictAutofix.includes("MARITIME_AMERICAS_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS"),

@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-15T17:51:04.371Z",
+  "generatedAt": "2026-08-15T18:22:51.826Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 159,
-  "reviewCount": 159,
+  "advisoryCount": 156,
+  "reviewCount": 156,
   "summary": {
-    "provisional_parent": 159
+    "provisional_parent": 156
   },
   "topIssues": [],
   "topAdvisories": [
@@ -836,20 +836,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de las islas paracelso",
-      "name": "Batalla de las Islas Paracelso",
-      "countries": [
-        "CHN"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de las marismas",
       "name": "Batalla de las Marismas",
       "countries": [
@@ -1118,6 +1104,20 @@
     {
       "key": "batalla de osel island",
       "name": "Batalla de Ösel Island",
+      "countries": [
+        "SWE"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de ostroda",
+      "name": "Batalla de Ostróda",
       "countries": [
         "SWE"
       ],

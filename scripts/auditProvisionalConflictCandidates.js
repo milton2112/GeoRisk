@@ -10,6 +10,26 @@ const countriesPath = path.join(projectRoot, "data", "countries_full.json");
 const reportPath = path.join(projectRoot, "reports", "provisional-conflict-candidates.json");
 export const DEFAULT_PROVISIONAL_CANDIDATE_LIMIT = 10;
 
+export function selectProvisionalCandidateBatch(requested = [], { offset = 0, limit = DEFAULT_PROVISIONAL_CANDIDATE_LIMIT } = {}) {
+  const total = requested.length;
+  const parsedOffset = Number(offset);
+  const safeOffset = Number.isFinite(parsedOffset)
+    ? Math.max(0, Math.min(Math.floor(parsedOffset), total))
+    : 0;
+  const parsedLimit = Number(limit);
+  const safeLimit = limit === Infinity
+    ? total - safeOffset
+    : Number.isFinite(parsedLimit)
+      ? Math.max(0, Math.floor(parsedLimit))
+      : DEFAULT_PROVISIONAL_CANDIDATE_LIMIT;
+  const candidates = requested.slice(safeOffset, safeOffset + safeLimit);
+  const nextOffset = safeOffset + candidates.length < total
+    ? safeOffset + candidates.length
+    : null;
+
+  return { candidates, offset: safeOffset, total, nextOffset };
+}
+
 function readArg(name, fallback = "") {
   const direct = process.argv.find(arg => arg.startsWith(`--${name}=`));
   return direct ? direct.slice(name.length + 3) : fallback;
@@ -109,7 +129,7 @@ export function collectProvisionalConflictCandidates(countries, countryFilter = 
     .sort((a, b) => a.name.localeCompare(b.name, "es"));
 }
 
-function buildReport(records, requestedCount, availableCount) {
+function buildReport(records, requestedCount, availableCount, batch = {}) {
   const summary = records.reduce((result, record) => {
     result[record.status] = (result[record.status] || 0) + 1;
     return result;
@@ -120,6 +140,11 @@ function buildReport(records, requestedCount, availableCount) {
     source: "Wikipedia MediaWiki API; candidates require editorial validation before publication.",
     requestedCount,
     availableCount,
+    batch: {
+      offset: batch.offset || 0,
+      nextOffset: batch.nextOffset ?? null,
+      total: batch.total || availableCount
+    },
     summary,
     candidates: records
   };
@@ -130,17 +155,19 @@ async function main() {
   const countryFilter = readListArg("country");
   const requested = collectProvisionalConflictCandidates(countries, countryFilter);
   const rawLimit = Number(readArg("limit", String(DEFAULT_PROVISIONAL_CANDIDATE_LIMIT)));
+  const rawOffset = Number(readArg("offset", "0"));
   const delayMs = Math.max(0, Number(readArg("delay", "120")) || 0);
   const auditAll = process.argv.includes("--all") || rawLimit === 0;
   const limit = auditAll
-    ? requested.length
+    ? Infinity
     : Number.isFinite(rawLimit) && rawLimit > 0
       ? rawLimit
       : DEFAULT_PROVISIONAL_CANDIDATE_LIMIT;
-  const candidates = requested.slice(0, limit);
+  const batch = selectProvisionalCandidateBatch(requested, { offset: rawOffset, limit });
+  const candidates = batch.candidates;
   const records = [];
 
-  console.log(`Jerarquias provisionales seleccionadas: ${candidates.length}/${requested.length}`);
+  console.log(`Jerarquias provisionales seleccionadas: ${candidates.length}/${requested.length} (offset ${batch.offset})`);
 
   for (const [index, candidate] of candidates.entries()) {
     let detail = null;
@@ -157,17 +184,23 @@ async function main() {
       ...(error ? { error } : {})
     });
 
+    const absoluteIndex = batch.offset + index + 1;
+    console.log(`[${absoluteIndex}/${requested.length}] ${candidate.name}: ${resolved.status}`);
+
     if ((index + 1) % 10 === 0 || index + 1 === candidates.length) {
-      await fs.outputJson(reportPath, buildReport(records, candidates.length, requested.length), { spaces: 2 });
+      await fs.outputJson(reportPath, buildReport(records, candidates.length, requested.length, batch), { spaces: 2 });
     }
     if (delayMs && index + 1 < candidates.length) {
       await new Promise(resolve => setTimeout(resolve, delayMs));
     }
   }
 
-  const report = buildReport(records, candidates.length, requested.length);
+  const report = buildReport(records, candidates.length, requested.length, batch);
   await fs.outputJson(reportPath, report, { spaces: 2 });
   console.log(`Candidatos listos para revision: ${report.summary.listo_para_revision || 0}`);
+  if (batch.nextOffset !== null) {
+    console.log(`Siguiente tanda sugerida: --offset=${batch.nextOffset}`);
+  }
   console.log(`Reporte: ${path.relative(projectRoot, reportPath)}`);
 }
 

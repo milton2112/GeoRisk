@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-15T17:51:07.665Z",
-  "packageVersion": "1.6.95",
-  "appVersion": "2026-08-15-release-4",
-  "cacheVersion": "2026-08-15-release-4",
+  "generatedAt": "2026-08-15T18:22:55.192Z",
+  "packageVersion": "1.6.97",
+  "appVersion": "2026-08-15-release-6",
+  "cacheVersion": "2026-08-15-release-6",
   "thresholds": {
     "scriptJsBytes": 700000,
     "countriesIndexBytes": 240000,
@@ -13,7 +13,7 @@
     "scriptJs": {
       "path": "script.js",
       "exists": true,
-      "bytes": 556968,
+      "bytes": 557142,
       "human": "544 KB"
     },
     "countriesIndex": {
@@ -23,13 +23,13 @@
       "human": "141 KB"
     },
     "startupCritical": {
-      "bytes": 829713,
+      "bytes": 829887,
       "human": "810 KB"
     },
     "buildTotal": {
-      "bytes": 7732158,
-      "human": "7.37 MB",
-      "assetCount": 1277
+      "bytes": 7746309,
+      "human": "7.39 MB",
+      "assetCount": 1280
     }
   },
   "longTasks": {

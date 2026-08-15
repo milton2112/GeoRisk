@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.95 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.97 antes de cerrar la siguiente version.
+
+## v1.6.97 - 2026-08-15
+
+- Fecha y jerarquiza tres conflictos historicos: las Islas Paracelso (1974), Staket (1719) y Castillo Itter (1945), con notas explicitas para disputas de soberania, resultados no concluyentes y bajas no consolidadas.
+- Conecta las fichas de China, Vietnam, Suecia, Rusia, Estados Unidos, Alemania, Austria y Francia con las acciones historicas correspondientes, sin sustituir participantes de epoca por Estados actuales.
+- Reduce las jerarquias provisionales de 159 a 156 y los conflictos fuera del indice fechable de 226 a 223.
+- Hace reanudable la auditoria de jerarquias provisionales mediante `--offset`, progreso por candidato y reporte de la siguiente tanda sugerida.
+- Agrega regresiones para nombres fechados, fuentes, fichas diferidas, asociaciones por pais y reanudacion segura de auditorias.
+- Estabiliza el render de la vista global 3D con una solicitud de render asentada y refuerza la E2E para verificar el mismo `pick`/`drillPick` que usa el clic real.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-15-release-6`.
 
 ## v1.6.95 - 2026-08-15
 

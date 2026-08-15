@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-15T17:45:54.233Z",
-  "changedFullCountries": 4,
+  "generatedAt": "2026-08-15T18:13:37.280Z",
+  "changedFullCountries": 8,
   "fullPassChanges": [
-    4,
+    8,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 109,
+    "enriched": 111,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 970,
+  "generatedHierarchyCandidates": 971,
   "countryConflictAdditions": {
     "Estados Unidos": [
       "Batalla de Manila (1945)",
@@ -20,7 +20,8 @@
       "Batalla naval de Jumunjin (1950)",
       "Batalla de Gonzales (1835)",
       "Batalla de los Túneles Gemelos (1951)",
-      "Batalla del cabo Henry (1781)"
+      "Batalla del cabo Henry (1781)",
+      "Batalla por el Castillo Itter (1945)"
     ],
     "Nicaragua": [
       "Batalla de Masaya",
@@ -53,7 +54,8 @@
       "Batalla de Carillon (1758)",
       "Batalla de Monongahela (1755)",
       "Batalla de Wandiwash (1760)",
-      "Batalla de los Túneles Gemelos (1951)"
+      "Batalla de los Túneles Gemelos (1951)",
+      "Batalla por el Castillo Itter (1945)"
     ],
     "Alemania": [
       "Batalla de Schleswig (1848)",
@@ -66,7 +68,8 @@
       "Batalla de la Haya (1940)",
       "Batalla de Heligoland (1864)",
       "Batalla de Vlotho (1638)",
-      "Batalla de Debrecen (1944)"
+      "Batalla de Debrecen (1944)",
+      "Batalla por el Castillo Itter (1945)"
     ],
     "Corea del Sur": [
       "Acción naval de Happo (1592)",
@@ -89,7 +92,8 @@
       "Primera batalla de Maryang San (1951)",
       "Batalla de Palikao (1860)",
       "Batalla de Tamsui (1884)",
-      "Batalla de los Túneles Gemelos (1951)"
+      "Batalla de los Túneles Gemelos (1951)",
+      "Batalla de las Islas Paracelso (1974)"
     ],
     "Reino Unido": [
       "Batalla naval de la bahía de Bantry (1689)",
@@ -155,7 +159,8 @@
       "Conflicto fronterizo sino-soviético",
       "Primera batalla de Zhenbao (1969)",
       "Segunda batalla de Zhenbao (1969)",
-      "Batalla de Debrecen (1944)"
+      "Batalla de Debrecen (1944)",
+      "Batalla de Stäket (1719)"
     ],
     "Reino de los Países Bajos": [
       "Batalla de Camaret (1694)",
@@ -227,7 +232,8 @@
       "Batalla del cabo Ortegal (1805)"
     ],
     "Austria": [
-      "Batalla de Heligoland (1864)"
+      "Batalla de Heligoland (1864)",
+      "Batalla por el Castillo Itter (1945)"
     ],
     "Brasil": [
       "Asalto a los acorazados Cabral y Lima Barros (1868)"
@@ -259,7 +265,8 @@
       "Batalla de Kringen (1612)",
       "Rebelión de Bornholm (1658)",
       "Primera batalla de Svensksund (1789)",
-      "Batalla de Fredrikshamn (1790)"
+      "Batalla de Fredrikshamn (1790)",
+      "Batalla de Stäket (1719)"
     ],
     "Argentina": [
       "Combate de Top Malo House (1982)"
@@ -286,7 +293,8 @@
     "Vietnam": [
       "Batalla de Nui Le (1971)",
       "Batalla de Suoi Chau Pha (1967)",
-      "Batalla de Thuận An (1883)"
+      "Batalla de Thuận An (1883)",
+      "Batalla de las Islas Paracelso (1974)"
     ],
     "Indonesia": [
       "Batalla de Long Jawai (1963)"
@@ -763,7 +771,10 @@
     "Batalla de Tory Island": "Batalla de Tory Island (1798)",
     "Batalla del Cabo Ortegal": "Batalla del cabo Ortegal (1805)",
     "Primera batalla de Agua Prieta": "Primera batalla de Agua Prieta (1911)",
-    "Batalla de Debrecen": "Batalla de Debrecen (1944)"
+    "Batalla de Debrecen": "Batalla de Debrecen (1944)",
+    "Batalla de las Islas Paracelso": "Batalla de las Islas Paracelso (1974)",
+    "Batalla de Stäket": "Batalla de Stäket (1719)",
+    "Batalla por el Castillo Itter": "Batalla por el Castillo Itter (1945)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1701,6 +1712,9 @@
     "Batalla de Tory Island (1798)",
     "Batalla del cabo Ortegal (1805)",
     "Primera batalla de Agua Prieta (1911)",
-    "Batalla de Debrecen (1944)"
+    "Batalla de Debrecen (1944)",
+    "Batalla de las Islas Paracelso (1974)",
+    "Batalla de Stäket (1719)",
+    "Batalla por el Castillo Itter (1945)"
   ]
 }

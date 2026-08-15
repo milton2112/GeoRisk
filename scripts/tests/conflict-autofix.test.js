@@ -193,6 +193,11 @@ import {
   DEBRECEN_1944_COUNTRY_CONFLICT_ADDITIONS,
   DEBRECEN_1944_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-debrecen-1944.js";
+import {
+  PRIORITY_SAFE_BATCH_CONFLICT_DETAIL_FIXES,
+  PRIORITY_SAFE_BATCH_COUNTRY_CONFLICT_ADDITIONS,
+  PRIORITY_SAFE_BATCH_CONFLICT_RENAMES
+} from "../lib/conflict-curation-priority-safe-batch.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -1816,6 +1821,40 @@ assert.ok(
   "Debrecen debe conservar fuentes y cautela sobre su resultado operacional"
 );
 assert.equal((await resolveWikipediaConflictTitle("Batalla de Debrecen (1944)")).pageTitle, "Batalla_de_Debrecen");
+assert.equal(Object.keys(PRIORITY_SAFE_BATCH_CONFLICT_DETAIL_FIXES).length, 3);
+assert.equal(
+  PRIORITY_SAFE_BATCH_CONFLICT_RENAMES["Batalla de las Islas Paracelso"],
+  "Batalla de las Islas Paracelso (1974)"
+);
+assert.deepEqual(PRIORITY_SAFE_BATCH_COUNTRY_CONFLICT_ADDITIONS.Rusia, ["Batalla de St\u00e4ket (1719)"]);
+assert.equal(
+  PRIORITY_SAFE_BATCH_CONFLICT_DETAIL_FIXES["Batalla de St\u00e4ket (1719)"].parent,
+  "Gran Guerra del Norte"
+);
+assert.equal(
+  PRIORITY_SAFE_BATCH_CONFLICT_DETAIL_FIXES["Batalla por el Castillo Itter (1945)"].parent,
+  "Segunda Guerra Mundial"
+);
+assert.ok(
+  Object.values(PRIORITY_SAFE_BATCH_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent === detail.war
+      && detail.campaign
+      && detail.hierarchySources?.length >= 1
+      && detail.participants?.length === 2
+      && detail.chronology?.length >= 2
+      && detail.sourceDispute
+  ),
+  "la tanda prioritaria debe conservar fecha, jerarquia, fuentes, participantes y cautelas"
+);
+for (const [name, pageTitle] of [
+  ["Batalla de las Islas Paracelso (1974)", "Battle_of_the_Paracel_Islands"],
+  ["Batalla de St\u00e4ket (1719)", "Battle_of_St\u00e4ket"],
+  ["Batalla por el Castillo Itter (1945)", "Battle_for_Castle_Itter"]
+]) {
+  assert.equal((await resolveWikipediaConflictTitle(name)).pageTitle, pageTitle);
+}
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",
   startYear: 1944,

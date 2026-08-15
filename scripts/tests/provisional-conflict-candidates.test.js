@@ -3,6 +3,7 @@ import {
   DEFAULT_PROVISIONAL_CANDIDATE_LIMIT,
   classifyWikipediaCandidate,
   extractCandidateYears,
+  selectProvisionalCandidateBatch,
   toWikipediaPageUrl
 } from "../auditProvisionalConflictCandidates.js";
 import { sanitizeWikipediaConflictDetail } from "../lib/wikipedia-conflicts.js";
@@ -13,6 +14,16 @@ assert.deepEqual(extractCandidateYears("14 de febrero de 1719 - 8 de marzo de 17
 });
 assert.deepEqual(extractCandidateYears("fecha no consolidada"), { startYear: null, endYear: null });
 assert.equal(DEFAULT_PROVISIONAL_CANDIDATE_LIMIT, 10, "la auditoria por defecto debe revisar una tanda acotada");
+assert.deepEqual(
+  selectProvisionalCandidateBatch(["a", "b", "c", "d"], { offset: 1, limit: 2 }),
+  { candidates: ["b", "c"], offset: 1, total: 4, nextOffset: 3 },
+  "la auditoria debe poder retomar una tanda desde un offset seguro"
+);
+assert.deepEqual(
+  selectProvisionalCandidateBatch(["a", "b"], { offset: 9, limit: 10 }),
+  { candidates: [], offset: 2, total: 2, nextOffset: null },
+  "un offset fuera de rango debe terminar la auditoria sin volver a consultar candidatos"
+);
 assert.equal(
   toWikipediaPageUrl("Battle of Example", "en"),
   "https://en.wikipedia.org/wiki/Battle_of_Example"

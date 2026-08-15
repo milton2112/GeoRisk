@@ -83,7 +83,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-08-15-release-4";
+const APP_VERSION = "2026-08-15-release-6";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -2406,7 +2406,7 @@ function fitWorldView() {
       destination: Cesium.Rectangle.fromDegrees(-180, -70, 180, 85),
       duration: 0
     });
-    viewer.scene.requestRender();
+    requestMapRenderSafe("world-view-2d");
     return;
   }
   const earthRadius = Cesium.Ellipsoid.WGS84.maximumRadius;
@@ -2418,7 +2418,13 @@ function fitWorldView() {
       duration: 0
     }
   );
-  viewer.scene.requestRender();
+  requestMapRenderSafe("world-view-3d");
+  const activeViewer = viewer;
+  setTimeout(() => {
+    if (viewer === activeViewer) {
+      requestMapRenderSafe("world-view-3d-settled");
+    }
+  }, 80);
 }
 
 function updateMapInteractionTuning() {

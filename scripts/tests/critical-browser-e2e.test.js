@@ -110,7 +110,11 @@ async function getCountryScreenPoint(page, code, attempts = 20) {
       if (!rawPoint || !bounds.width || !bounds.height) {
         return null;
       }
-      const picked = viewer.scene.drillPick(rawPoint, 8);
+      viewer.scene.requestRender();
+      const picked = [
+        viewer.scene.pick(rawPoint),
+        ...(viewer.scene.drillPick(rawPoint, 8) || [])
+      ].filter(Boolean);
       const pickedEntity = picked
         .map(item => item?.id || item?.primitive?.id || item?.collection?.owner || item?.primitive?._owner)
         .find(item => item?.countryCode === countryCode);
@@ -144,7 +148,7 @@ async function clickCountryOnMap(page, code) {
 
 async function clickFirstVisibleCountryOnMap(page, codes) {
   for (const code of codes) {
-    const point = await getCountryScreenPoint(page, code, 6);
+    const point = await getCountryScreenPoint(page, code, 12);
     if (!point) {
       continue;
     }
@@ -155,6 +159,15 @@ async function clickFirstVisibleCountryOnMap(page, codes) {
     return code;
   }
   assert.fail("la vista global 3D debe exponer al menos un pais clickeable");
+}
+
+async function settle3dWorldView(page) {
+  await page.evaluate(async () => {
+    viewer?.scene?.requestRender?.();
+    await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    viewer?.scene?.requestRender?.();
+  });
+  await page.waitForTimeout(280);
 }
 
 async function waitForCountryPanel(page, countryName) {
@@ -190,6 +203,7 @@ async function runDesktopCriticalFlow(page) {
   await setMapMode(page, "3d");
   await page.locator("#map-toolbar > summary").click();
   await page.locator("#world-view-button").click();
+  await settle3dWorldView(page);
   const clicked3dCode = await clickFirstVisibleCountryOnMap(page, ["ESP", "ARG", "BRA", "USA", "CHN", "ZAF", "AUS"]);
   const clicked3dName = await page.evaluate(code => countriesData[code]?.name || code, clicked3dCode);
   await waitForCountryPanel(page, clicked3dName);

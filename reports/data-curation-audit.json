@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-15T17:45:59.962Z",
+  "generatedAt": "2026-08-15T18:13:43.382Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 10788381,
-    "duplicatedCountryFilesBytes": 1516069,
-    "countryConflictShardBytes": 418212,
+    "fullBytes": 10825489,
+    "duplicatedCountryFilesBytes": 1517393,
+    "countryConflictShardBytes": 418917,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 23977,
-        "inlineBytes": 3112127,
+        "inlineBytes": 3115273,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 212933,
-          "conflictShardBytes": 212934,
+          "conflictsBytes": 212980,
+          "conflictShardBytes": 212981,
           "averageConflictBytes": 230
         }
       },
@@ -216,7 +216,7 @@
         "code": "FRA",
         "name": "Francia",
         "bytes": 19602,
-        "inlineBytes": 744889,
+        "inlineBytes": 750827,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -225,7 +225,7 @@
           "religionGroups": 5,
           "organizations": 54,
           "rivals": 50,
-          "conflicts": 235,
+          "conflicts": 236,
           "timelineEvents": 4
         },
         "metrics": {
@@ -258,16 +258,16 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 45580,
-          "conflictShardBytes": 45581,
+          "conflictsBytes": 45868,
+          "conflictShardBytes": 45869,
           "averageConflictBytes": 194
         }
       },
       {
         "code": "RUS",
         "name": "Rusia",
-        "bytes": 17755,
-        "inlineBytes": 217071,
+        "bytes": 17935,
+        "inlineBytes": 221897,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -276,12 +276,12 @@
           "religionGroups": 4,
           "organizations": 41,
           "rivals": 19,
-          "conflicts": 58,
+          "conflicts": 59,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 8953,
+            "military": 9133,
             "politics": 4980,
             "metadata": 1926,
             "general": 965,
@@ -294,7 +294,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 8953
+              "bytes": 9133
             },
             {
               "section": "politics",
@@ -309,9 +309,9 @@
               "bytes": 965
             }
           ],
-          "conflictsBytes": 12702,
-          "conflictShardBytes": 12703,
-          "averageConflictBytes": 219
+          "conflictsBytes": 12999,
+          "conflictShardBytes": 13000,
+          "averageConflictBytes": 220
         }
       },
       {
@@ -470,8 +470,8 @@
       {
         "code": "DEU",
         "name": "Alemania",
-        "bytes": 16711,
-        "inlineBytes": 91407,
+        "bytes": 16999,
+        "inlineBytes": 97345,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -480,13 +480,13 @@
           "religionGroups": 5,
           "organizations": 79,
           "rivals": 21,
-          "conflicts": 20,
+          "conflicts": 21,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
             "politics": 8058,
-            "military": 4837,
+            "military": 5125,
             "metadata": 1952,
             "general": 992,
             "history": 349,
@@ -502,7 +502,7 @@
             },
             {
               "section": "military",
-              "bytes": 4837
+              "bytes": 5125
             },
             {
               "section": "metadata",
@@ -513,16 +513,16 @@
               "bytes": 992
             }
           ],
-          "conflictsBytes": 4720,
+          "conflictsBytes": 5008,
           "conflictShardBytes": 0,
-          "averageConflictBytes": 236
+          "averageConflictBytes": 238
         }
       },
       {
         "code": "CHN",
         "name": "República Popular China",
-        "bytes": 15791,
-        "inlineBytes": 121918,
+        "bytes": 15960,
+        "inlineBytes": 125156,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -536,7 +536,7 @@
         },
         "metrics": {
           "sectionBytes": {
-            "military": 6762,
+            "military": 6931,
             "politics": 5084,
             "metadata": 1951,
             "general": 988,
@@ -549,7 +549,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 6762
+              "bytes": 6931
             },
             {
               "section": "politics",
@@ -564,16 +564,16 @@
               "bytes": 988
             }
           ],
-          "conflictsBytes": 6643,
+          "conflictsBytes": 6812,
           "conflictShardBytes": 0,
-          "averageConflictBytes": 214
+          "averageConflictBytes": 220
         }
       },
       {
         "code": "SWE",
         "name": "Suecia",
         "bytes": 15198,
-        "inlineBytes": 506101,
+        "inlineBytes": 508213,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -615,8 +615,8 @@
               "bytes": 777
             }
           ],
-          "conflictsBytes": 32114,
-          "conflictShardBytes": 32115,
+          "conflictsBytes": 32187,
+          "conflictShardBytes": 32188,
           "averageConflictBytes": 210
         }
       }
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 226,
+    "pendingCount": 223,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15961,19 +15961,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de las Islas Paracelso",
-        "countries": [
-          "CHN"
-        ],
-        "regions": [
-          "Asia"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de las Marismas",
         "countries": [
           "IRN"
@@ -16663,19 +16650,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Stäket",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Steen's Mountain",
         "countries": [
           "USA"
@@ -17105,19 +17079,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla por el Castillo Itter",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batallas de Farsia y Oum Dreyga",
         "countries": [
           "MAR"
@@ -17163,6 +17124,45 @@
         ],
         "regions": [
           "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Bombardeo atómico de Hiroshima",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Bombardeo atómico de Nagasaki",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Bombardeo de Belfast",
+        "countries": [
+          "GBR"
+        ],
+        "regions": [
+          "Europa"
         ],
         "types": [
           "interestatal"
