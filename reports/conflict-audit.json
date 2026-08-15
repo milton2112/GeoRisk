@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-15T12:45:04.510Z",
+  "generatedAt": "2026-08-15T17:51:04.371Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 160,
-  "reviewCount": 160,
+  "advisoryCount": 159,
+  "reviewCount": 159,
   "summary": {
-    "provisional_parent": 160
+    "provisional_parent": 159
   },
   "topIssues": [],
   "topAdvisories": [
@@ -312,20 +312,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de debrecen",
-      "name": "Batalla de Debrecen",
-      "countries": [
-        "HUN"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],
@@ -1118,6 +1104,20 @@
     {
       "key": "batalla de orford ness",
       "name": "Batalla de Orford Ness",
+      "countries": [
+        "SWE"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de osel island",
+      "name": "Batalla de Ösel Island",
       "countries": [
         "SWE"
       ],

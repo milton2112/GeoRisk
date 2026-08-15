@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-15T12:00:04.598Z",
+  "generatedAt": "2026-08-15T17:45:59.962Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 10765869,
-    "duplicatedCountryFilesBytes": 1515044,
-    "countryConflictShardBytes": 417870,
+    "fullBytes": 10788381,
+    "duplicatedCountryFilesBytes": 1516069,
+    "countryConflictShardBytes": 418212,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -264,6 +264,57 @@
         }
       },
       {
+        "code": "RUS",
+        "name": "Rusia",
+        "bytes": 17755,
+        "inlineBytes": 217071,
+        "tooLarge": false,
+        "counts": {
+          "cities": 5,
+          "capitals": 1,
+          "languages": 5,
+          "religionGroups": 4,
+          "organizations": 41,
+          "rivals": 19,
+          "conflicts": 58,
+          "timelineEvents": 4
+        },
+        "metrics": {
+          "sectionBytes": {
+            "military": 8953,
+            "politics": 4980,
+            "metadata": 1926,
+            "general": 965,
+            "history": 445,
+            "religion": 266,
+            "economy": 101,
+            "continent": 8,
+            "name": 7
+          },
+          "largestSections": [
+            {
+              "section": "military",
+              "bytes": 8953
+            },
+            {
+              "section": "politics",
+              "bytes": 4980
+            },
+            {
+              "section": "metadata",
+              "bytes": 1926
+            },
+            {
+              "section": "general",
+              "bytes": 965
+            }
+          ],
+          "conflictsBytes": 12702,
+          "conflictShardBytes": 12703,
+          "averageConflictBytes": 219
+        }
+      },
+      {
         "code": "KOR",
         "name": "Corea del Sur",
         "bytes": 17636,
@@ -312,57 +363,6 @@
           "conflictsBytes": 7652,
           "conflictShardBytes": 0,
           "averageConflictBytes": 255
-        }
-      },
-      {
-        "code": "RUS",
-        "name": "Rusia",
-        "bytes": 17531,
-        "inlineBytes": 210763,
-        "tooLarge": false,
-        "counts": {
-          "cities": 5,
-          "capitals": 1,
-          "languages": 5,
-          "religionGroups": 4,
-          "organizations": 41,
-          "rivals": 19,
-          "conflicts": 57,
-          "timelineEvents": 4
-        },
-        "metrics": {
-          "sectionBytes": {
-            "military": 8729,
-            "politics": 4980,
-            "metadata": 1926,
-            "general": 965,
-            "history": 445,
-            "religion": 266,
-            "economy": 101,
-            "continent": 8,
-            "name": 7
-          },
-          "largestSections": [
-            {
-              "section": "military",
-              "bytes": 8729
-            },
-            {
-              "section": "politics",
-              "bytes": 4980
-            },
-            {
-              "section": "metadata",
-              "bytes": 1926
-            },
-            {
-              "section": "general",
-              "bytes": 965
-            }
-          ],
-          "conflictsBytes": 12360,
-          "conflictShardBytes": 12361,
-          "averageConflictBytes": 217
         }
       },
       {
@@ -470,8 +470,8 @@
       {
         "code": "DEU",
         "name": "Alemania",
-        "bytes": 16369,
-        "inlineBytes": 85099,
+        "bytes": 16711,
+        "inlineBytes": 91407,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -480,13 +480,13 @@
           "religionGroups": 5,
           "organizations": 79,
           "rivals": 21,
-          "conflicts": 19,
+          "conflicts": 20,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
             "politics": 8058,
-            "military": 4495,
+            "military": 4837,
             "metadata": 1952,
             "general": 992,
             "history": 349,
@@ -502,7 +502,7 @@
             },
             {
               "section": "military",
-              "bytes": 4495
+              "bytes": 4837
             },
             {
               "section": "metadata",
@@ -513,9 +513,9 @@
               "bytes": 992
             }
           ],
-          "conflictsBytes": 4378,
+          "conflictsBytes": 4720,
           "conflictShardBytes": 0,
-          "averageConflictBytes": 230
+          "averageConflictBytes": 236
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 227,
+    "pendingCount": 226,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15447,19 +15447,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Debrecen",
-        "countries": [
-          "HUN"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
@@ -17163,6 +17150,19 @@
         ],
         "regions": [
           "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Bloqueo de Veracruz",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
         ],
         "types": [
           "interestatal"

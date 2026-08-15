@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-15T11:59:58.706Z",
-  "changedFullCountries": 6,
+  "generatedAt": "2026-08-15T17:45:54.233Z",
+  "changedFullCountries": 4,
   "fullPassChanges": [
-    6,
+    4,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 112,
+    "enriched": 109,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 966,
+  "generatedHierarchyCandidates": 970,
   "countryConflictAdditions": {
     "Estados Unidos": [
       "Batalla de Manila (1945)",
@@ -65,7 +65,8 @@
       "Batalla de Dieppe (1942)",
       "Batalla de la Haya (1940)",
       "Batalla de Heligoland (1864)",
-      "Batalla de Vlotho (1638)"
+      "Batalla de Vlotho (1638)",
+      "Batalla de Debrecen (1944)"
     ],
     "Corea del Sur": [
       "Acción naval de Happo (1592)",
@@ -153,7 +154,8 @@
       "Batalla de Petäjäsaari (1940)",
       "Conflicto fronterizo sino-soviético",
       "Primera batalla de Zhenbao (1969)",
-      "Segunda batalla de Zhenbao (1969)"
+      "Segunda batalla de Zhenbao (1969)",
+      "Batalla de Debrecen (1944)"
     ],
     "Reino de los Países Bajos": [
       "Batalla de Camaret (1694)",
@@ -294,6 +296,9 @@
     ],
     "Chad": [
       "Batalla de Kousséri (1900)"
+    ],
+    "Rumania": [
+      "Batalla de Debrecen (1944)"
     ]
   },
   "safeRenames": {
@@ -757,7 +762,8 @@
     "Batalla del cabo Henry": "Batalla del cabo Henry (1781)",
     "Batalla de Tory Island": "Batalla de Tory Island (1798)",
     "Batalla del Cabo Ortegal": "Batalla del cabo Ortegal (1805)",
-    "Primera batalla de Agua Prieta": "Primera batalla de Agua Prieta (1911)"
+    "Primera batalla de Agua Prieta": "Primera batalla de Agua Prieta (1911)",
+    "Batalla de Debrecen": "Batalla de Debrecen (1944)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1694,6 +1700,7 @@
     "Batalla del cabo Henry (1781)",
     "Batalla de Tory Island (1798)",
     "Batalla del cabo Ortegal (1805)",
-    "Primera batalla de Agua Prieta (1911)"
+    "Primera batalla de Agua Prieta (1911)",
+    "Batalla de Debrecen (1944)"
   ]
 }

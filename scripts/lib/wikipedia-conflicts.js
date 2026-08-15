@@ -75,6 +75,7 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Batalla de Tory Island (1798)": "Battle_of_Tory_Island",
   "Batalla del cabo Ortegal (1805)": "Battle_of_Cape_Ortegal",
   "Primera batalla de Agua Prieta (1911)": "First_Battle_of_Agua_Prieta",
+  "Batalla de Debrecen (1944)": "Batalla_de_Debrecen",
   "Batalla de Manila (1899)": "Batalla_de_Manila_(1899)",
   "Batalla de Manila (1945)": "Batalla_de_Manila_(1945)",
   "Sitio de Fort Wayne": "Siege_of_Fort_Wayne",

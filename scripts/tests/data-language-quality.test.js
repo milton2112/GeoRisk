@@ -9,6 +9,7 @@ const rawReligion = JSON.parse(fs.readFileSync("data/raw/religion.json", "utf8")
 const rawReligionDetails = JSON.parse(fs.readFileSync("data/raw/religion_details.json", "utf8"));
 const countries = JSON.parse(fs.readFileSync("data/countries_full.json", "utf8"));
 const conflictDetails = JSON.parse(fs.readFileSync("data/conflict_details.generated.json", "utf8"));
+const conflictDetailsIndex = JSON.parse(fs.readFileSync("data/conflicts/details_index.json", "utf8"));
 const englishSignal = /\b(of|the|for|realm|british|cameroon|republic|federation|strategic|capability|commission)\b/i;
 const religionEnglishSignal = /\b(christian|muslim|jewish|buddhist|hindu|folk|unaffiliated|other religions|atheist|agnostic|shinto|sunni|shiite|catholic|orthodox|protestant|evangelical)\b/i;
 const staleReligionTextSignal = /Judaismo|Hindues|Catolicos|Sintoistas|agnosticos|afiliacion|Sin religion|Sin poblacion|alevies/i;
@@ -1888,5 +1889,27 @@ for (const expected of maritimeAmericasExpectedConflicts) {
     assert.doesNotMatch(entries[0].parent || "", /^Conflicto regional de /, expected.name + " no debe conservar padre provisional en " + code);
   }
 }
+
+const debrecen1944Expected = {
+  name: "Batalla de Debrecen (1944)",
+  parent: "Segunda Guerra Mundial",
+  codes: ["HUN", "RUS", "ROU", "DEU"]
+};
+for (const code of debrecen1944Expected.codes) {
+  const entries = countries[code]?.military?.conflicts?.filter(item => item.name === debrecen1944Expected.name) || [];
+  assert.equal(entries.length, 1, debrecen1944Expected.name + " debe aparecer una sola vez en " + code);
+  assert.equal(entries[0].parent, debrecen1944Expected.parent, debrecen1944Expected.name + " debe conservar padre curado en " + code);
+  assert.equal(entries[0].startYear, 1944, debrecen1944Expected.name + " debe conservar la fecha desambiguada en " + code);
+  assert.ok(entries[0].hierarchySources?.length >= 2, debrecen1944Expected.name + " debe mostrar fuentes en " + code);
+  assert.doesNotMatch(entries[0].parent || "", /^Conflicto regional de /, debrecen1944Expected.name + " no debe conservar padre provisional en " + code);
+}
+const debrecen1944DetailIndex = (conflictDetailsIndex.conflicts || []).find(entry => entry.name === debrecen1944Expected.name);
+assert.ok(debrecen1944DetailIndex?.path, "Debrecen debe conservar una ficha diferida indexada");
+const debrecen1944Detail = JSON.parse(fs.readFileSync(debrecen1944DetailIndex.path, "utf8"));
+assert.equal(debrecen1944Detail.parent, debrecen1944Expected.parent, "la ficha diferida de Debrecen debe conservar su guerra padre");
+assert.equal(debrecen1944Detail.startYear, 1944, "la ficha diferida de Debrecen debe conservar su fecha desambiguada");
+assert.ok(debrecen1944Detail.participants?.length >= 2, "la ficha diferida de Debrecen debe conservar participantes");
+assert.ok(debrecen1944Detail.chronology?.length >= 3, "la ficha diferida de Debrecen debe conservar cronologia");
+assert.ok(debrecen1944Detail.hierarchySources?.length >= 2, "la ficha diferida de Debrecen debe conservar fuentes");
 
 console.log("data-language-quality.test.js ok");

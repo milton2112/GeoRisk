@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.94 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.95 antes de cerrar la siguiente version.
+
+## v1.6.95 - 2026-08-15
+
+- Desambigua, fecha y jerarquiza la Batalla de Debrecen de 1944 dentro de la Segunda Guerra Mundial, con cronologia, participantes y fuentes historicas.
+- Vincula Alemania, Rumania y Rusia para la navegacion historica sin confundir esos enlaces con las formaciones participantes de epoca.
+- Reduce las jerarquias provisionales de conflictos de 160 a 159 y los conflictos pendientes de fecha de 227 a 226.
+- Agrega regresiones para preservar el alias de importacion, la fecha, las fuentes y la ficha diferida del conflicto.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-15-release-4`.
 
 ## v1.6.94 - 2026-08-15
 

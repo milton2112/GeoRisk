@@ -188,6 +188,11 @@ import {
   MARITIME_AMERICAS_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
   MARITIME_AMERICAS_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-maritime-americas-followup.js";
+import {
+  DEBRECEN_1944_CONFLICT_DETAIL_FIXES,
+  DEBRECEN_1944_COUNTRY_CONFLICT_ADDITIONS,
+  DEBRECEN_1944_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-debrecen-1944.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -1801,6 +1806,16 @@ for (const [name, pageTitle] of [
 ]) {
   assert.equal((await resolveWikipediaConflictTitle(name)).pageTitle, pageTitle);
 }
+assert.equal(Object.keys(DEBRECEN_1944_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(DEBRECEN_1944_SAFE_CONFLICT_RENAMES["Batalla de Debrecen"], "Batalla de Debrecen (1944)");
+assert.deepEqual(DEBRECEN_1944_COUNTRY_CONFLICT_ADDITIONS.Rusia, ["Batalla de Debrecen (1944)"]);
+assert.equal(DEBRECEN_1944_CONFLICT_DETAIL_FIXES["Batalla de Debrecen (1944)"].parent, "Segunda Guerra Mundial");
+assert.ok(
+  DEBRECEN_1944_CONFLICT_DETAIL_FIXES["Batalla de Debrecen (1944)"].hierarchySources?.length >= 2
+    && DEBRECEN_1944_CONFLICT_DETAIL_FIXES["Batalla de Debrecen (1944)"].sourceDispute,
+  "Debrecen debe conservar fuentes y cautela sobre su resultado operacional"
+);
+assert.equal((await resolveWikipediaConflictTitle("Batalla de Debrecen (1944)")).pageTitle, "Batalla_de_Debrecen");
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",
   startYear: 1944,
