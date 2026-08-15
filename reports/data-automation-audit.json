@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-15T11:44:11.357Z",
+  "generatedAt": "2026-08-15T12:01:52.036Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 232
+      "count": 228
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 164
+      "count": 160
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 511
+      "count": 515
     },
     "redundantReligions": {
       "count": 0
@@ -534,7 +534,7 @@
       },
       {
         "code": "FRA",
-        "name": "Batalla de Tory Island",
+        "name": "Batalla de Vinh",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 164,
+      "count": 160,
       "command": "npm run fix:conflicts:batches"
     },
     {

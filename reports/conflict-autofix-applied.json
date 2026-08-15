@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-15T11:39:48.825Z",
-  "changedFullCountries": 4,
+  "generatedAt": "2026-08-15T11:59:58.706Z",
+  "changedFullCountries": 6,
   "fullPassChanges": [
-    4,
+    6,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
@@ -12,14 +12,15 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 962,
+  "generatedHierarchyCandidates": 966,
   "countryConflictAdditions": {
     "Estados Unidos": [
       "Batalla de Manila (1945)",
       "Batalla naval de la bahía de Chesapeake (1781)",
       "Batalla naval de Jumunjin (1950)",
       "Batalla de Gonzales (1835)",
-      "Batalla de los Túneles Gemelos (1951)"
+      "Batalla de los Túneles Gemelos (1951)",
+      "Batalla del cabo Henry (1781)"
     ],
     "Nicaragua": [
       "Batalla de Masaya",
@@ -115,10 +116,14 @@
       "Batalla de Providien (1782)",
       "Batalla de Negapatam (1782)",
       "Batalla de Pulo Aura (1804)",
-      "Batalla de Long Jawai (1963)"
+      "Batalla de Long Jawai (1963)",
+      "Batalla del cabo Henry (1781)",
+      "Batalla de Tory Island (1798)",
+      "Batalla del cabo Ortegal (1805)"
     ],
     "Irlanda": [
-      "Batalla naval de la bahía de Bantry (1689)"
+      "Batalla naval de la bahía de Bantry (1689)",
+      "Batalla de Tory Island (1798)"
     ],
     "Finlandia": [
       "Sitio de Bomarsund (1854)",
@@ -197,7 +202,8 @@
     "México": [
       "Combate de Carrizal (1916)",
       "Batalla de Ambos Nogales (1918)",
-      "Batalla de San Jacinto (1836)"
+      "Batalla de San Jacinto (1836)",
+      "Primera batalla de Agua Prieta (1911)"
     ],
     "Australia": [
       "Batalla de Hamel (1918)",
@@ -215,7 +221,8 @@
       "Bombardeo multinacional de Shimonoseki (1864)"
     ],
     "España": [
-      "Bombardeo de San Juan de Puerto Rico (1898)"
+      "Bombardeo de San Juan de Puerto Rico (1898)",
+      "Batalla del cabo Ortegal (1805)"
     ],
     "Austria": [
       "Batalla de Heligoland (1864)"
@@ -746,7 +753,11 @@
     "Batalla de Sejny": "Batalla de Sejny (1920)",
     "Batalla de Świecino": "Batalla de Świecino (1462)",
     "Batalla de Vlotho": "Batalla de Vlotho (1638)",
-    "Batalla de Zawichost": "Batalla de Zawichost (1205)"
+    "Batalla de Zawichost": "Batalla de Zawichost (1205)",
+    "Batalla del cabo Henry": "Batalla del cabo Henry (1781)",
+    "Batalla de Tory Island": "Batalla de Tory Island (1798)",
+    "Batalla del Cabo Ortegal": "Batalla del cabo Ortegal (1805)",
+    "Primera batalla de Agua Prieta": "Primera batalla de Agua Prieta (1911)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1679,6 +1690,10 @@
     "Batalla de Sejny (1920)",
     "Batalla de Świecino (1462)",
     "Batalla de Vlotho (1638)",
-    "Batalla de Zawichost (1205)"
+    "Batalla de Zawichost (1205)",
+    "Batalla del cabo Henry (1781)",
+    "Batalla de Tory Island (1798)",
+    "Batalla del cabo Ortegal (1805)",
+    "Primera batalla de Agua Prieta (1911)"
   ]
 }

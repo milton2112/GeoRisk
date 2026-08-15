@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.92 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.93 antes de cerrar la siguiente version.
+
+## v1.6.93 - 2026-08-15
+
+- Fecha, jerarquiza y documenta las acciones de cabo Henry, Tory Island, cabo Ortegal y Agua Prieta con fuentes archivisticas, museisticas, historicas y diplomaticas.
+- Reemplaza cuatro padres regionales provisionales por guerras, campanas, participantes de epoca y cronologias verificables; crea sus fichas diferidas y relaciones para mapa, busqueda y timeline.
+- Anade referencias de navegacion para Reino Unido, Estados Unidos, Irlanda, Espana y Mexico sin presentar Estados actuales como beligerantes de epocas anteriores.
+- Conserva cautelas sobre la valoracion tactica de cabo Henry, las denominaciones de Tory Island, la geografia espanola de Ortegal y la secuencia fronteriza de Agua Prieta.
+- Agrega regresiones de importacion profunda, fuentes, fechas, jerarquias y asociaciones nacionales para mantener la curaduria.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-15-release-2`.
 
 ## v1.6.92 - 2026-08-15
 

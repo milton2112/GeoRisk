@@ -183,6 +183,11 @@ import {
   EUROPEAN_HISTORICAL_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
   EUROPEAN_HISTORICAL_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-european-historical-followup.js";
+import {
+  MARITIME_AMERICAS_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  MARITIME_AMERICAS_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
+  MARITIME_AMERICAS_FOLLOWUP_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-maritime-americas-followup.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -1736,6 +1741,63 @@ for (const [name, pageTitle] of [
   ["Batalla de \u015awiecino (1462)", "Battle_of_\u015awiecino"],
   ["Batalla de Vlotho (1638)", "Battle_of_Vlotho"],
   ["Batalla de Zawichost (1205)", "Battle_of_Zawichost"]
+]) {
+  assert.equal((await resolveWikipediaConflictTitle(name)).pageTitle, pageTitle);
+}
+assert.equal(Object.keys(MARITIME_AMERICAS_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 4);
+assert.equal(Object.keys(MARITIME_AMERICAS_FOLLOWUP_SAFE_CONFLICT_RENAMES).length, 4);
+assert.deepEqual(MARITIME_AMERICAS_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS["Reino Unido"], [
+  "Batalla del cabo Henry (1781)",
+  "Batalla de Tory Island (1798)",
+  "Batalla del cabo Ortegal (1805)"
+]);
+assert.deepEqual(MARITIME_AMERICAS_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS["M\u00e9xico"], [
+  "Primera batalla de Agua Prieta (1911)"
+]);
+assert.equal(
+  MARITIME_AMERICAS_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla del Cabo Ortegal"],
+  "Batalla del cabo Ortegal (1805)"
+);
+assert.equal(
+  MARITIME_AMERICAS_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Tory Island (1798)"].parent,
+  "Guerras revolucionarias francesas (1792-1802)"
+);
+assert.equal(
+  MARITIME_AMERICAS_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla del cabo Ortegal (1805)"].treaties.length,
+  0
+);
+assert.ok(
+  Object.values(MARITIME_AMERICAS_FOLLOWUP_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent
+      && detail.war === detail.parent
+      && !/^Conflicto regional de /i.test(detail.parent)
+      && detail.campaign
+      && detail.region
+      && detail.normalizedRegion === detail.region
+      && detail.cause
+      && detail.outcome
+      && detail.consequences
+      && detail.chronology?.length >= 2
+      && detail.chronology.every(event => event.year === detail.startYear && event.event)
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 2
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties)
+      && detail.curationBatch === "source-backed-maritime-americas-followup-2026-08"
+      && detail.curationNote
+      && detail.sourceDispute
+  ),
+  "la tanda maritima y americana debe conservar fecha, jerarquia, fuentes, participantes, narrativa y cautelas editoriales"
+);
+for (const [name, pageTitle] of [
+  ["Batalla del cabo Henry (1781)", "Battle_of_Cape_Henry"],
+  ["Batalla de Tory Island (1798)", "Battle_of_Tory_Island"],
+  ["Batalla del cabo Ortegal (1805)", "Battle_of_Cape_Ortegal"],
+  ["Primera batalla de Agua Prieta (1911)", "First_Battle_of_Agua_Prieta"]
 ]) {
   assert.equal((await resolveWikipediaConflictTitle(name)).pageTitle, pageTitle);
 }

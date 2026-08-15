@@ -1856,4 +1856,37 @@ for (const expected of europeanHistoricalExpectedConflicts) {
   }
 }
 
+const maritimeAmericasExpectedConflicts = [
+  {
+    name: "Batalla del cabo Henry (1781)",
+    parent: "Guerra de Independencia de los Estados Unidos (1775-1783)",
+    codes: ["FRA", "GBR", "USA"]
+  },
+  {
+    name: "Batalla de Tory Island (1798)",
+    parent: "Guerras revolucionarias francesas (1792-1802)",
+    codes: ["FRA", "GBR", "IRL"]
+  },
+  {
+    name: "Batalla del cabo Ortegal (1805)",
+    parent: "Guerra de la Tercera Coalici\u00f3n (1805)",
+    codes: ["FRA", "GBR", "ESP"]
+  },
+  {
+    name: "Primera batalla de Agua Prieta (1911)",
+    parent: "Revoluci\u00f3n mexicana (1910-1920)",
+    codes: ["USA", "MEX"]
+  }
+];
+for (const expected of maritimeAmericasExpectedConflicts) {
+  for (const code of expected.codes) {
+    const entries = countries[code]?.military?.conflicts?.filter(item => item.name === expected.name) || [];
+    assert.equal(entries.length, 1, expected.name + " debe aparecer una sola vez en " + code);
+    assert.equal(entries[0].parent, expected.parent, expected.name + " debe conservar padre curado en " + code);
+    assert.ok(Number.isInteger(entries[0].startYear), expected.name + " debe conservar fecha estructurada en " + code);
+    assert.ok(entries[0].hierarchySources?.length >= 2, expected.name + " debe mostrar fuentes en " + code);
+    assert.doesNotMatch(entries[0].parent || "", /^Conflicto regional de /, expected.name + " no debe conservar padre provisional en " + code);
+  }
+}
+
 console.log("data-language-quality.test.js ok");

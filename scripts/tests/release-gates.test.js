@@ -99,6 +99,7 @@ const globalSourceFollowupCuration = await fs.readFile(path.join(projectRoot, "s
 const nordicAsiaSourceBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-nordic-asia-source-batch.js"), "utf8");
 const asiaAfricaHistoricalFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-asia-africa-historical-followup.js"), "utf8");
 const europeanHistoricalFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-european-historical-followup.js"), "utf8");
+const maritimeAmericasFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-maritime-americas-followup.js"), "utf8");
 const wikipediaConflicts = await fs.readFile(path.join(projectRoot, "scripts/lib/wikipedia-conflicts.js"), "utf8");
 const conflictBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-batch-curation.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
@@ -1584,6 +1585,49 @@ assert.ok(
     && wikipediaConflicts.includes('"Batalla de Vlotho (1638)": "Battle_of_Vlotho"')
     && wikipediaConflicts.includes('"Batalla de Zawichost (1205)": "Battle_of_Zawichost"'),
   "la tanda europea debe conservar paginas de importacion profunda"
+);
+assert.ok(
+  conflictAutofix.includes("MARITIME_AMERICAS_FOLLOWUP_CONFLICT_DETAIL_FIXES"),
+  "autofix debe incorporar la tanda maritima y americana con fuentes"
+);
+assert.ok(
+  conflictAutofix.includes("MARITIME_AMERICAS_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS"),
+  "autofix debe asociar paises de navegacion para la tanda maritima y americana"
+);
+assert.ok(
+  maritimeAmericasFollowupCuration.includes('curationBatch: "source-backed-maritime-americas-followup-2026-08"')
+    && maritimeAmericasFollowupCuration.includes("hierarchySources"),
+  "la tanda maritima y americana debe conservar trazabilidad multiple"
+);
+assert.ok(
+  maritimeAmericasFollowupCuration.includes('"Batalla del cabo Henry": "Batalla del cabo Henry (1781)"')
+    && maritimeAmericasFollowupCuration.includes('"Primera batalla de Agua Prieta": "Primera batalla de Agua Prieta (1911)"'),
+  "la tanda maritima y americana debe fechar y normalizar nombres historicos"
+);
+assert.ok(
+  [
+    "founders.archives.gov",
+    "militarymaps.rct.uk",
+    "centreculturelirlandais.com",
+    "rmg.co.uk",
+    "thegazette.co.uk",
+    "history.state.gov",
+    "cochisecountyhistoricalsociety.org"
+  ].every(domain => maritimeAmericasFollowupCuration.includes(domain)),
+  "la tanda maritima y americana debe apoyarse en fuentes archivisticas, museisticas, historicas y diplomaticas"
+);
+assert.ok(
+  maritimeAmericasFollowupCuration.includes("no como participante directo de esta accion naval")
+    && maritimeAmericasFollowupCuration.includes("no se presenta a la Republica de Irlanda actual como beligerante")
+    && maritimeAmericasFollowupCuration.includes("no como un tercer bando nacional de la batalla"),
+  "la tanda maritima y americana debe conservar cautelas sobre actores contemporaneos y efectos fronterizos"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Batalla del cabo Henry (1781)": "Battle_of_Cape_Henry"')
+    && wikipediaConflicts.includes('"Batalla de Tory Island (1798)": "Battle_of_Tory_Island"')
+    && wikipediaConflicts.includes('"Batalla del cabo Ortegal (1805)": "Battle_of_Cape_Ortegal"')
+    && wikipediaConflicts.includes('"Primera batalla de Agua Prieta (1911)": "First_Battle_of_Agua_Prieta"'),
+  "la tanda maritima y americana debe conservar paginas de importacion profunda"
 );
 assert.ok(
   conflictBatchCuration.includes("if (Array.isArray(entry.treaties)) return entry.treaties;"),
