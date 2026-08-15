@@ -1947,6 +1947,49 @@ for (const expected of prioritySafeBatchExpected) {
   assert.ok(detail.chronology?.length >= 2, expected.name + " debe conservar cronologia en su ficha diferida");
   assert.ok(detail.hierarchySources?.length >= 2, expected.name + " debe conservar fuentes en su ficha diferida");
   assert.equal(detail.sourceDispute, true, expected.name + " debe preservar su cautela editorial");
+  if (expected.name === "Combate naval de Casma (1839)") {
+    assert.ok(
+      detail.hierarchySources.some(source => /confederaci%6Fn-peru-boliviana/.test(source.url || "")),
+      "Casma debe conservar la URL oficial sin normalizacion linguistica"
+    );
+  }
+}
+
+const provisionalSourceBatchExpected = [
+  {
+    name: "Combate naval de Casma (1839)",
+    parent: "Guerra contra la Confederaci\u00f3n Per\u00fa-Boliviana (1836-1839)",
+    codes: ["CHL", "PER", "BOL"]
+  },
+  {
+    name: "Batalla del paso de Predeal (1916)",
+    parent: "Primera Guerra Mundial",
+    codes: ["HUN", "ROU", "DEU", "AUT"]
+  },
+  {
+    name: "Batalla de Rabos\u00e9e (1914)",
+    parent: "Primera Guerra Mundial",
+    codes: ["BEL", "DEU"]
+  }
+];
+for (const expected of provisionalSourceBatchExpected) {
+  for (const code of expected.codes) {
+    const entries = countries[code]?.military?.conflicts?.filter(item => item.name === expected.name) || [];
+    assert.equal(entries.length, 1, expected.name + " debe aparecer una sola vez en " + code);
+    assert.equal(entries[0].parent, expected.parent, expected.name + " debe conservar padre curado en " + code);
+    assert.equal(entries[0].war, expected.parent, expected.name + " debe conservar guerra curada en " + code);
+    assert.ok(Number.isInteger(entries[0].startYear), expected.name + " debe conservar fecha estructurada en " + code);
+    assert.ok(entries[0].hierarchySources?.length >= 2, expected.name + " debe mostrar fuentes en " + code);
+    assert.doesNotMatch(entries[0].parent || "", /^Conflicto regional de /, expected.name + " no debe conservar padre provisional en " + code);
+  }
+  const detailIndex = (conflictDetailsIndex.conflicts || []).find(entry => entry.name === expected.name);
+  assert.ok(detailIndex?.path, expected.name + " debe conservar una ficha diferida indexada");
+  const detail = JSON.parse(fs.readFileSync(detailIndex.path, "utf8"));
+  assert.equal(detail.parent, expected.parent, expected.name + " debe conservar padre en su ficha diferida");
+  assert.ok(detail.participants?.length >= 2, expected.name + " debe conservar participantes en su ficha diferida");
+  assert.ok(detail.chronology?.length >= 2, expected.name + " debe conservar cronologia en su ficha diferida");
+  assert.ok(detail.hierarchySources?.length >= 2, expected.name + " debe conservar fuentes en su ficha diferida");
+  assert.equal(detail.sourceDispute, true, expected.name + " debe preservar su cautela editorial");
 }
 
 console.log("data-language-quality.test.js ok");

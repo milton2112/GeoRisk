@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.97 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.98 antes de cerrar la siguiente version.
+
+## v1.6.98 - 2026-08-15
+
+- Fecha, traduce y jerarquiza tres acciones que seguian bajo padres regionales genericos: el combate naval de Casma (1839), la batalla del paso de Predeal (1916) y Rabosee (1914).
+- Vincula Casma con Chile, Peru y Bolivia; Predeal con Rumania, Alemania, Austria y Hungria; y Rabosee con Belgica y Alemania, manteniendo en cada caso participantes y Estados de epoca sin proyectarlos como bandos contemporaneos.
+- Agrega fichas de conflicto diferidas, cronologias, fuentes navales, academicas y locales, aliases de importacion profunda cuando existe una pagina inequívoca y cautelas explicitas para resultados, bajas y fronteras historicas.
+- Reduce las jerarquias provisionales de 156 a 153, mantiene cero alertas de conflictos y eleva el indice de conflictos a 1779 entradas, el timeline a 2982 eventos y los detalles diferidos a 1025 shards.
+- Agrega regresiones para fechas, nombres canonicos, fuentes, fichas diferidas, asociaciones por pais y ausencia de padres provisionales en la nueva tanda.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-15-release-7`.
 
 ## v1.6.97 - 2026-08-15
 

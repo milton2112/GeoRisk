@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-15T18:22:54.897Z",
+  "generatedAt": "2026-08-15T18:41:27.576Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 224
+      "count": 221
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 156
+      "count": 153
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 519
+      "count": 522
     },
     "redundantReligions": {
       "count": 0
@@ -97,11 +97,6 @@
         "region": "Asia"
       },
       {
-        "code": "BEL",
-        "name": "Batalla de Rabosée",
-        "region": "Europa"
-      },
-      {
         "code": "CMR",
         "name": "Batalla de Kumbo",
         "region": "África"
@@ -119,11 +114,6 @@
       {
         "code": "CHL",
         "name": "Combate de Huite",
-        "region": "América"
-      },
-      {
-        "code": "CHL",
-        "name": "Combate naval de Casma",
         "region": "América"
       },
       {
@@ -255,6 +245,16 @@
         "code": "FRA",
         "name": "Batalla de Siracusa",
         "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de St. Lucia",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Tellicherry",
+        "region": "Europa"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -288,13 +288,6 @@
         "startYear": null
       },
       {
-        "code": "BEL",
-        "name": "Batalla de Rabosée",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
         "code": "CMR",
         "name": "Batalla de Kumbo",
         "parent": "Conflicto regional de África",
@@ -311,13 +304,6 @@
       {
         "code": "CHL",
         "name": "Combate de Huite",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
-      {
-        "code": "CHL",
-        "name": "Combate naval de Casma",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
@@ -535,6 +521,20 @@
       {
         "code": "FRA",
         "name": "Batalla de Vizagapatam",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla del cabo de la Roca",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla del cabo Lizard",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 156,
+      "count": 153,
       "command": "npm run fix:conflicts:batches"
     },
     {

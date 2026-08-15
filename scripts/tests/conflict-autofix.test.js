@@ -198,6 +198,11 @@ import {
   PRIORITY_SAFE_BATCH_COUNTRY_CONFLICT_ADDITIONS,
   PRIORITY_SAFE_BATCH_CONFLICT_RENAMES
 } from "../lib/conflict-curation-priority-safe-batch.js";
+import {
+  PROVISIONAL_SOURCE_BATCH_CONFLICT_DETAIL_FIXES,
+  PROVISIONAL_SOURCE_BATCH_COUNTRY_CONFLICT_ADDITIONS,
+  PROVISIONAL_SOURCE_BATCH_CONFLICT_RENAMES
+} from "../lib/conflict-curation-provisional-source-batch.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -1852,6 +1857,47 @@ for (const [name, pageTitle] of [
   ["Batalla de las Islas Paracelso (1974)", "Battle_of_the_Paracel_Islands"],
   ["Batalla de St\u00e4ket (1719)", "Battle_of_St\u00e4ket"],
   ["Batalla por el Castillo Itter (1945)", "Battle_for_Castle_Itter"]
+]) {
+  assert.equal((await resolveWikipediaConflictTitle(name)).pageTitle, pageTitle);
+}
+assert.equal(Object.keys(PROVISIONAL_SOURCE_BATCH_CONFLICT_DETAIL_FIXES).length, 3);
+assert.equal(
+  PROVISIONAL_SOURCE_BATCH_CONFLICT_RENAMES["Combate naval de Casma"],
+  "Combate naval de Casma (1839)"
+);
+assert.equal(
+  PROVISIONAL_SOURCE_BATCH_CONFLICT_RENAMES["Batalla de Predeal Pass"],
+  "Batalla del paso de Predeal (1916)"
+);
+assert.deepEqual(
+  PROVISIONAL_SOURCE_BATCH_COUNTRY_CONFLICT_ADDITIONS["Per\u00fa"],
+  ["Combate naval de Casma (1839)"]
+);
+assert.equal(
+  PROVISIONAL_SOURCE_BATCH_CONFLICT_DETAIL_FIXES["Batalla de Rabos\u00e9e (1914)"].parent,
+  "Primera Guerra Mundial"
+);
+assert.match(
+  PROVISIONAL_SOURCE_BATCH_CONFLICT_DETAIL_FIXES["Combate naval de Casma (1839)"].hierarchySources[0].url,
+  /confederaci%6Fn-peru-boliviana/,
+  "las URLs de fuente no deben ser alteradas por la normalizacion visible"
+);
+assert.ok(
+  Object.values(PROVISIONAL_SOURCE_BATCH_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent === detail.war
+      && detail.campaign
+      && detail.hierarchySources?.length >= 2
+      && detail.participants?.length === 2
+      && detail.chronology?.length >= 2
+      && detail.sourceDispute
+  ),
+  "la tanda de fuentes provisionales debe conservar fecha, jerarquia, fuentes, participantes y cautelas"
+);
+for (const [name, pageTitle] of [
+  ["Combate naval de Casma (1839)", "Combate_naval_de_Casma"],
+  ["Batalla del paso de Predeal (1916)", "Battle_of_Predeal_Pass"]
 ]) {
   assert.equal((await resolveWikipediaConflictTitle(name)).pageTitle, pageTitle);
 }

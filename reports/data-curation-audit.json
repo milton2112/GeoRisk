@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-08-15T18:13:43.382Z",
+  "generatedAt": "2026-08-15T18:40:07.629Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 10825489,
-    "duplicatedCountryFilesBytes": 1517393,
+    "fullBytes": 10871375,
+    "duplicatedCountryFilesBytes": 1519601,
     "countryConflictShardBytes": 418917,
     "tooLargeCount": 0,
     "largest": [
@@ -366,6 +366,57 @@
         }
       },
       {
+        "code": "DEU",
+        "name": "Alemania",
+        "bytes": 17607,
+        "inlineBytes": 109171,
+        "tooLarge": false,
+        "counts": {
+          "cities": 5,
+          "capitals": 1,
+          "languages": 5,
+          "religionGroups": 5,
+          "organizations": 79,
+          "rivals": 21,
+          "conflicts": 23,
+          "timelineEvents": 4
+        },
+        "metrics": {
+          "sectionBytes": {
+            "politics": 8058,
+            "military": 5733,
+            "metadata": 1952,
+            "general": 992,
+            "history": 349,
+            "religion": 300,
+            "economy": 101,
+            "name": 10,
+            "continent": 8
+          },
+          "largestSections": [
+            {
+              "section": "politics",
+              "bytes": 8058
+            },
+            {
+              "section": "military",
+              "bytes": 5733
+            },
+            {
+              "section": "metadata",
+              "bytes": 1952
+            },
+            {
+              "section": "general",
+              "bytes": 992
+            }
+          ],
+          "conflictsBytes": 5616,
+          "conflictShardBytes": 0,
+          "averageConflictBytes": 244
+        }
+      },
+      {
         "code": "DNK",
         "name": "Dinamarca",
         "bytes": 17412,
@@ -465,57 +516,6 @@
           "conflictsBytes": 7077,
           "conflictShardBytes": 0,
           "averageConflictBytes": 221
-        }
-      },
-      {
-        "code": "DEU",
-        "name": "Alemania",
-        "bytes": 16999,
-        "inlineBytes": 97345,
-        "tooLarge": false,
-        "counts": {
-          "cities": 5,
-          "capitals": 1,
-          "languages": 5,
-          "religionGroups": 5,
-          "organizations": 79,
-          "rivals": 21,
-          "conflicts": 21,
-          "timelineEvents": 4
-        },
-        "metrics": {
-          "sectionBytes": {
-            "politics": 8058,
-            "military": 5125,
-            "metadata": 1952,
-            "general": 992,
-            "history": 349,
-            "religion": 300,
-            "economy": 101,
-            "name": 10,
-            "continent": 8
-          },
-          "largestSections": [
-            {
-              "section": "politics",
-              "bytes": 8058
-            },
-            {
-              "section": "military",
-              "bytes": 5125
-            },
-            {
-              "section": "metadata",
-              "bytes": 1952
-            },
-            {
-              "section": "general",
-              "bytes": 992
-            }
-          ],
-          "conflictsBytes": 5008,
-          "conflictShardBytes": 0,
-          "averageConflictBytes": 238
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 223,
+    "pendingCount": 220,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -16338,19 +16338,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Predeal Pass",
-        "countries": [
-          "HUN"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Procida Canal",
         "countries": [
           "FRA"
@@ -16393,19 +16380,6 @@
         "name": "Batalla de Putziger Wiek",
         "countries": [
           "FRA"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Rabosée",
-        "countries": [
-          "BEL"
         ],
         "regions": [
           "Europa"
@@ -17160,6 +17134,32 @@
         "name": "Bombardeo de Belfast",
         "countries": [
           "GBR"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Bombardeo de Colonia en la Segunda Guerra Mundial",
+        "countries": [
+          "GBR"
+        ],
+        "regions": [
+          "Europa, Asia-Pacífico, África y Atlántico"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Bombardeo de la estación de tren de Kramatorsk",
+        "countries": [
+          "RUS"
         ],
         "regions": [
           "Europa"

@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-15T18:13:37.280Z",
-  "changedFullCountries": 8,
+  "generatedAt": "2026-08-15T18:40:01.641Z",
+  "changedFullCountries": 3,
   "fullPassChanges": [
-    8,
+    3,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 111,
+    "enriched": 109,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 971,
+  "generatedHierarchyCandidates": 977,
   "countryConflictAdditions": {
     "Estados Unidos": [
       "Batalla de Manila (1945)",
@@ -69,7 +69,9 @@
       "Batalla de Heligoland (1864)",
       "Batalla de Vlotho (1638)",
       "Batalla de Debrecen (1944)",
-      "Batalla por el Castillo Itter (1945)"
+      "Batalla por el Castillo Itter (1945)",
+      "Batalla del paso de Predeal (1916)",
+      "Batalla de Rabosée (1914)"
     ],
     "Corea del Sur": [
       "Acción naval de Happo (1592)",
@@ -233,7 +235,8 @@
     ],
     "Austria": [
       "Batalla de Heligoland (1864)",
-      "Batalla por el Castillo Itter (1945)"
+      "Batalla por el Castillo Itter (1945)",
+      "Batalla del paso de Predeal (1916)"
     ],
     "Brasil": [
       "Asalto a los acorazados Cabral y Lima Barros (1868)"
@@ -306,7 +309,14 @@
       "Batalla de Kousséri (1900)"
     ],
     "Rumania": [
-      "Batalla de Debrecen (1944)"
+      "Batalla de Debrecen (1944)",
+      "Batalla del paso de Predeal (1916)"
+    ],
+    "Bolivia": [
+      "Combate naval de Casma (1839)"
+    ],
+    "Perú": [
+      "Combate naval de Casma (1839)"
     ]
   },
   "safeRenames": {
@@ -774,7 +784,10 @@
     "Batalla de Debrecen": "Batalla de Debrecen (1944)",
     "Batalla de las Islas Paracelso": "Batalla de las Islas Paracelso (1974)",
     "Batalla de Stäket": "Batalla de Stäket (1719)",
-    "Batalla por el Castillo Itter": "Batalla por el Castillo Itter (1945)"
+    "Batalla por el Castillo Itter": "Batalla por el Castillo Itter (1945)",
+    "Combate naval de Casma": "Combate naval de Casma (1839)",
+    "Batalla de Predeal Pass": "Batalla del paso de Predeal (1916)",
+    "Batalla de Rabosée": "Batalla de Rabosée (1914)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1715,6 +1728,9 @@
     "Batalla de Debrecen (1944)",
     "Batalla de las Islas Paracelso (1974)",
     "Batalla de Stäket (1719)",
-    "Batalla por el Castillo Itter (1945)"
+    "Batalla por el Castillo Itter (1945)",
+    "Combate naval de Casma (1839)",
+    "Batalla del paso de Predeal (1916)",
+    "Batalla de Rabosée (1914)"
   ]
 }

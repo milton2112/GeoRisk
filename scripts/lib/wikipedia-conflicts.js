@@ -76,6 +76,8 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Batalla del cabo Ortegal (1805)": "Battle_of_Cape_Ortegal",
   "Primera batalla de Agua Prieta (1911)": "First_Battle_of_Agua_Prieta",
   "Batalla de Debrecen (1944)": "Batalla_de_Debrecen",
+  "Combate naval de Casma (1839)": "Combate_naval_de_Casma",
+  "Batalla del paso de Predeal (1916)": "Battle_of_Predeal_Pass",
   "Batalla de las Islas Paracelso (1974)": "Battle_of_the_Paracel_Islands",
   "Batalla de St\u00e4ket (1719)": "Battle_of_St\u00e4ket",
   "Batalla por el Castillo Itter (1945)": "Battle_for_Castle_Itter",
