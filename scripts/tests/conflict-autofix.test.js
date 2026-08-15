@@ -178,6 +178,11 @@ import {
   ASIA_AFRICA_HISTORICAL_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
   ASIA_AFRICA_HISTORICAL_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-asia-africa-historical-followup.js";
+import {
+  EUROPEAN_HISTORICAL_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  EUROPEAN_HISTORICAL_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
+  EUROPEAN_HISTORICAL_FOLLOWUP_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-european-historical-followup.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -1677,6 +1682,60 @@ for (const [name, pageTitle] of [
   ["Segunda batalla de Zhenbao (1969)", "Conflicto_fronterizo_sino-sovi\u00e9tico"],
   ["Batalla de Kouss\u00e9ri (1900)", "Battle_of_Kouss\u00e9ri"],
   ["Batalla de Thu\u1eadn An (1883)", "Battle_of_Thu\u1eadn_An"]
+]) {
+  assert.equal((await resolveWikipediaConflictTitle(name)).pageTitle, pageTitle);
+}
+assert.equal(Object.keys(EUROPEAN_HISTORICAL_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 4);
+assert.equal(Object.keys(EUROPEAN_HISTORICAL_FOLLOWUP_SAFE_CONFLICT_RENAMES).length, 4);
+assert.deepEqual(EUROPEAN_HISTORICAL_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS.Polonia, [
+  "Batalla de Sejny (1920)"
+]);
+assert.deepEqual(EUROPEAN_HISTORICAL_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS.Alemania, [
+  "Batalla de Vlotho (1638)"
+]);
+assert.equal(
+  EUROPEAN_HISTORICAL_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Sejny"],
+  "Batalla de Sejny (1920)"
+);
+assert.equal(
+  EUROPEAN_HISTORICAL_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de \u015awiecino (1462)"].parent,
+  "Guerra de los Trece A\u00f1os polaco-teut\u00f3nica (1454-1466)"
+);
+assert.equal(
+  EUROPEAN_HISTORICAL_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Zawichost (1205)"].treaties.length,
+  0
+);
+assert.ok(
+  Object.values(EUROPEAN_HISTORICAL_FOLLOWUP_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent
+      && detail.war === detail.parent
+      && !/^Conflicto regional de /i.test(detail.parent)
+      && detail.campaign
+      && detail.region
+      && detail.normalizedRegion === detail.region
+      && detail.cause
+      && detail.outcome
+      && detail.consequences
+      && detail.chronology?.length >= 2
+      && detail.chronology.every(event => event.year === detail.startYear && event.event)
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 2
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties)
+      && detail.curationBatch === "source-backed-european-historical-followup-2026-08"
+      && detail.curationNote
+  ),
+  "la tanda europea debe conservar fecha, jerarquia, fuentes, participantes, narrativa y cautelas editoriales"
+);
+for (const [name, pageTitle] of [
+  ["Batalla de Sejny (1920)", "Battle_of_Sejny"],
+  ["Batalla de \u015awiecino (1462)", "Battle_of_\u015awiecino"],
+  ["Batalla de Vlotho (1638)", "Battle_of_Vlotho"],
+  ["Batalla de Zawichost (1205)", "Battle_of_Zawichost"]
 ]) {
   assert.equal((await resolveWikipediaConflictTitle(name)).pageTitle, pageTitle);
 }

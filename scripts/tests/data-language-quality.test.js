@@ -1710,7 +1710,7 @@ assert.deepEqual(
 const conflictDetailShardIssues = collectJsonFiles("data/conflicts/details").flatMap(file => {
   const detail = JSON.parse(fs.readFileSync(file, "utf8"));
   const issues = [];
-  const detailSignal = /\b(Date\s+\d|January|February|March|April|May|June|July|August|September|October|November|December|Beqaa Valley|off Endau|20 miles|Sirte District|Japanese victory|Franco-German victory|GNA victory|At least \d+ (?:killed|injured)|Government of National Accord|United Kingdom Special Forces|Libyan Army|Somali pirates)\b/i;
+  const detailSignal = /\b(Date\s+\d|January|February|March|April|May|June|July|(?<![\p{L}])August(?![\p{L}])|September|October|November|December|Beqaa Valley|off Endau|20 miles|Sirte District|Japanese victory|Franco-German victory|GNA victory|At least \d+ (?:killed|injured)|Government of National Accord|United Kingdom Special Forces|Libyan Army|Somali pirates)\b/iu;
   const coordinateSignal = /\d+°\d+|\/\s*-?\d{1,3}\.\d{3,}/;
   function visit(value, pathParts = []) {
     if (typeof value === "string") {
@@ -1813,6 +1813,39 @@ const asiaAfricaHistoricalExpectedConflicts = [
   }
 ];
 for (const expected of asiaAfricaHistoricalExpectedConflicts) {
+  for (const code of expected.codes) {
+    const entries = countries[code]?.military?.conflicts?.filter(item => item.name === expected.name) || [];
+    assert.equal(entries.length, 1, expected.name + " debe aparecer una sola vez en " + code);
+    assert.equal(entries[0].parent, expected.parent, expected.name + " debe conservar padre curado en " + code);
+    assert.ok(Number.isInteger(entries[0].startYear), expected.name + " debe conservar fecha estructurada en " + code);
+    assert.ok(entries[0].hierarchySources?.length >= 2, expected.name + " debe mostrar fuentes en " + code);
+    assert.doesNotMatch(entries[0].parent || "", /^Conflicto regional de /, expected.name + " no debe conservar padre provisional en " + code);
+  }
+}
+
+const europeanHistoricalExpectedConflicts = [
+  {
+    name: "Batalla de Sejny (1920)",
+    parent: "Guerra polaco-lituana (1919-1920)",
+    codes: ["LTU", "POL"]
+  },
+  {
+    name: "Batalla de \u015awiecino (1462)",
+    parent: "Guerra de los Trece A\u00f1os polaco-teut\u00f3nica (1454-1466)",
+    codes: ["POL"]
+  },
+  {
+    name: "Batalla de Vlotho (1638)",
+    parent: "Guerra de los Treinta A\u00f1os",
+    codes: ["GBR", "DEU"]
+  },
+  {
+    name: "Batalla de Zawichost (1205)",
+    parent: "Conflicto polaco-ruteno de 1205",
+    codes: ["POL"]
+  }
+];
+for (const expected of europeanHistoricalExpectedConflicts) {
   for (const code of expected.codes) {
     const entries = countries[code]?.military?.conflicts?.filter(item => item.name === expected.name) || [];
     assert.equal(entries.length, 1, expected.name + " debe aparecer una sola vez en " + code);

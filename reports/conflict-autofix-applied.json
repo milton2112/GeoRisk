@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-14T10:34:23.664Z",
-  "changedFullCountries": 2,
+  "generatedAt": "2026-08-15T11:39:48.825Z",
+  "changedFullCountries": 4,
   "fullPassChanges": [
-    2,
+    4,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 109,
+    "enriched": 112,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 961,
+  "generatedHierarchyCandidates": 962,
   "countryConflictAdditions": {
     "Estados Unidos": [
       "Batalla de Manila (1945)",
@@ -63,7 +63,8 @@
       "Batalla de la bahía de Heligoland (1914)",
       "Batalla de Dieppe (1942)",
       "Batalla de la Haya (1940)",
-      "Batalla de Heligoland (1864)"
+      "Batalla de Heligoland (1864)",
+      "Batalla de Vlotho (1638)"
     ],
     "Corea del Sur": [
       "Acción naval de Happo (1592)",
@@ -190,7 +191,8 @@
       "Batalla de Weissenstein (1604)",
       "Batalla de Reval (1602)",
       "Batalla de Kroppenhof (1621)",
-      "Batalla de Wallhof (1626)"
+      "Batalla de Wallhof (1626)",
+      "Batalla de Sejny (1920)"
     ],
     "México": [
       "Combate de Carrizal (1916)",
@@ -740,7 +742,11 @@
     "Primera batalla de Zhenbao": "Primera batalla de Zhenbao (1969)",
     "Segunda batalla de Zhenbao": "Segunda batalla de Zhenbao (1969)",
     "Batalla de Kousséri": "Batalla de Kousséri (1900)",
-    "Batalla de Thuận An": "Batalla de Thuận An (1883)"
+    "Batalla de Thuận An": "Batalla de Thuận An (1883)",
+    "Batalla de Sejny": "Batalla de Sejny (1920)",
+    "Batalla de Świecino": "Batalla de Świecino (1462)",
+    "Batalla de Vlotho": "Batalla de Vlotho (1638)",
+    "Batalla de Zawichost": "Batalla de Zawichost (1205)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1669,6 +1675,10 @@
     "Batalla de Suoi Chau Pha (1967)",
     "Primera batalla de Zhenbao (1969)",
     "Batalla de Kousséri (1900)",
-    "Batalla de Thuận An (1883)"
+    "Batalla de Thuận An (1883)",
+    "Batalla de Sejny (1920)",
+    "Batalla de Świecino (1462)",
+    "Batalla de Vlotho (1638)",
+    "Batalla de Zawichost (1205)"
   ]
 }

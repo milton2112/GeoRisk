@@ -1,13 +1,64 @@
 {
-  "generatedAt": "2026-08-14T10:34:30.159Z",
+  "generatedAt": "2026-08-15T11:40:04.947Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 10694999,
-    "duplicatedCountryFilesBytes": 1512451,
-    "countryConflictShardBytes": 415141,
+    "fullBytes": 10716461,
+    "duplicatedCountryFilesBytes": 1513586,
+    "countryConflictShardBytes": 415869,
     "tooLargeCount": 0,
     "largest": [
+      {
+        "code": "GBR",
+        "name": "Reino Unido",
+        "bytes": 24007,
+        "inlineBytes": 1003183,
+        "tooLarge": false,
+        "counts": {
+          "cities": 5,
+          "capitals": 1,
+          "languages": 5,
+          "religionGroups": 6,
+          "organizations": 51,
+          "rivals": 78,
+          "conflicts": 301,
+          "timelineEvents": 4
+        },
+        "metrics": {
+          "sectionBytes": {
+            "military": 10583,
+            "politics": 9502,
+            "metadata": 1952,
+            "general": 1018,
+            "history": 395,
+            "religion": 331,
+            "economy": 101,
+            "name": 13,
+            "continent": 8
+          },
+          "largestSections": [
+            {
+              "section": "military",
+              "bytes": 10583
+            },
+            {
+              "section": "politics",
+              "bytes": 9502
+            },
+            {
+              "section": "metadata",
+              "bytes": 1952
+            },
+            {
+              "section": "general",
+              "bytes": 1018
+            }
+          ],
+          "conflictsBytes": 66962,
+          "conflictShardBytes": 66963,
+          "averageConflictBytes": 222
+        }
+      },
       {
         "code": "USA",
         "name": "Estados Unidos",
@@ -60,61 +111,10 @@
         }
       },
       {
-        "code": "GBR",
-        "name": "Reino Unido",
-        "bytes": 23795,
-        "inlineBytes": 1000649,
-        "tooLarge": false,
-        "counts": {
-          "cities": 5,
-          "capitals": 1,
-          "languages": 5,
-          "religionGroups": 6,
-          "organizations": 51,
-          "rivals": 78,
-          "conflicts": 301,
-          "timelineEvents": 4
-        },
-        "metrics": {
-          "sectionBytes": {
-            "military": 10371,
-            "politics": 9502,
-            "metadata": 1952,
-            "general": 1018,
-            "history": 395,
-            "religion": 331,
-            "economy": 101,
-            "name": 13,
-            "continent": 8
-          },
-          "largestSections": [
-            {
-              "section": "military",
-              "bytes": 10371
-            },
-            {
-              "section": "politics",
-              "bytes": 9502
-            },
-            {
-              "section": "metadata",
-              "bytes": 1952
-            },
-            {
-              "section": "general",
-              "bytes": 1018
-            }
-          ],
-          "conflictsBytes": 66847,
-          "conflictShardBytes": 66848,
-          "averageConflictBytes": 222
-        }
-      },
-      {
         "code": "POL",
         "name": "Polonia",
-        "bytes": 20199,
-        "inlineBytes": 205573,
+        "bytes": 20658,
+        "inlineBytes": 216511,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -123,12 +123,12 @@
           "religionGroups": 5,
           "organizations": 43,
           "rivals": 50,
-          "conflicts": 50,
+          "conflicts": 51,
           "timelineEvents": 0
         },
         "metrics": {
           "sectionBytes": {
-            "military": 9608,
+            "military": 10067,
             "politics": 7383,
             "metadata": 1913,
             "general": 684,
@@ -141,7 +141,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 9608
+              "bytes": 10067
             },
             {
               "section": "politics",
@@ -156,9 +156,9 @@
               "bytes": 684
             }
           ],
-          "conflictsBytes": 12346,
-          "conflictShardBytes": 12347,
-          "averageConflictBytes": 247
+          "conflictsBytes": 12959,
+          "conflictShardBytes": 12960,
+          "averageConflictBytes": 254
         }
       },
       {
@@ -470,8 +470,8 @@
       {
         "code": "DEU",
         "name": "Alemania",
-        "bytes": 16031,
-        "inlineBytes": 79843,
+        "bytes": 16369,
+        "inlineBytes": 85099,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -480,13 +480,13 @@
           "religionGroups": 5,
           "organizations": 79,
           "rivals": 21,
-          "conflicts": 18,
+          "conflicts": 19,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
             "politics": 8058,
-            "military": 4157,
+            "military": 4495,
             "metadata": 1952,
             "general": 992,
             "history": 349,
@@ -502,7 +502,7 @@
             },
             {
               "section": "military",
-              "bytes": 4157
+              "bytes": 4495
             },
             {
               "section": "metadata",
@@ -513,9 +513,9 @@
               "bytes": 992
             }
           ],
-          "conflictsBytes": 4040,
+          "conflictsBytes": 4378,
           "conflictShardBytes": 0,
-          "averageConflictBytes": 224
+          "averageConflictBytes": 230
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 235,
+    "pendingCount": 231,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -16559,19 +16559,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Sejny",
-        "countries": [
-          "LTU"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Shanhaiguan",
         "countries": [
           "USA"
@@ -16741,19 +16728,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Świecino",
-        "countries": [
-          "POL"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Taraca",
         "countries": [
           "USA"
@@ -16897,19 +16871,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Vlotho",
-        "countries": [
-          "GBR"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Waddams Grove",
         "countries": [
           "USA"
@@ -16981,19 +16942,6 @@
         ],
         "regions": [
           "África"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Zawichost",
-        "countries": [
-          "POL"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
@@ -17158,6 +17106,58 @@
       },
       {
         "name": "Batalla naval de Halifax",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla naval de Saint-Martin-de-Re",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla naval de St. John",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla naval de Tatamagouche",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Batalla por el Castillo Itter",
         "countries": [
           "USA"
         ],

@@ -98,6 +98,7 @@ const globalHistoricalOperationsCuration = await fs.readFile(path.join(projectRo
 const globalSourceFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-global-source-followup.js"), "utf8");
 const nordicAsiaSourceBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-nordic-asia-source-batch.js"), "utf8");
 const asiaAfricaHistoricalFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-asia-africa-historical-followup.js"), "utf8");
+const europeanHistoricalFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-european-historical-followup.js"), "utf8");
 const wikipediaConflicts = await fs.readFile(path.join(projectRoot, "scripts/lib/wikipedia-conflicts.js"), "utf8");
 const conflictBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-batch-curation.js"), "utf8");
 const visibleDataCorrections = await fs.readFile(path.join(projectRoot, "scripts/lib/visible-data-corrections.js"), "utf8");
@@ -252,6 +253,7 @@ assert.ok(dataAutomationAudit.includes("normalizeConflictKey"), "auditoria y aut
 assert.ok(dataAutomationAudit.includes("sharedConflictNames"), "auditoria de datos debe separar conflictos compartidos de duplicados reales");
 assert.ok(dataAutomationAudit.includes("sourceTextMojibake"), "auditoria de datos debe detectar mojibake en fuentes generadoras");
 assert.ok(dataAutomationAudit.includes('fieldName !== "url"'), "auditoria de idioma no debe interpretar URLs de fuentes como texto visible");
+assert.ok(dataAutomationAudit.includes("(?<![\\p{L}])August(?![\\p{L}])"), "auditoria de idioma debe respetar toponimos Unicode como Augustow");
 assert.ok(dataAutomationAudit.includes("baseSectionProfiles"), "auditoria de datos debe separar secciones base de baja confianza real");
 assert.ok(dataAutomationAudit.includes("provisionalConflictHierarchies"), "auditoria debe distinguir padres regionales provisionales de jerarquias verificadas");
 assert.ok(dataAutomationAudit.includes("priorityWeakDataProfiles"), "auditoria de datos debe priorizar fichas publicas debiles sobre territorios especiales");
@@ -1540,6 +1542,48 @@ assert.ok(
     && wikipediaConflicts.includes('"Batalla de Kouss\\u00e9ri (1900)": "Battle_of_Kouss\\u00e9ri"')
     && wikipediaConflicts.includes('"Batalla de Thu\\u1eadn An (1883)": "Battle_of_Thu\\u1eadn_An"'),
   "la tanda asiatica y africana debe conservar paginas de importacion profunda"
+);
+assert.ok(
+  conflictAutofix.includes("EUROPEAN_HISTORICAL_FOLLOWUP_CONFLICT_DETAIL_FIXES"),
+  "autofix debe incorporar la tanda europea con fuentes"
+);
+assert.ok(
+  conflictAutofix.includes("EUROPEAN_HISTORICAL_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS"),
+  "autofix debe asociar paises de navegacion para la tanda europea"
+);
+assert.ok(
+  europeanHistoricalFollowupCuration.includes('curationBatch: "source-backed-european-historical-followup-2026-08"')
+    && europeanHistoricalFollowupCuration.includes("hierarchySources"),
+  "la tanda europea debe conservar trazabilidad multiple"
+);
+assert.ok(
+  europeanHistoricalFollowupCuration.includes('"Batalla de Sejny": "Batalla de Sejny (1920)"')
+    && europeanHistoricalFollowupCuration.includes('"Batalla de Zawichost": "Batalla de Zawichost (1205)"'),
+  "la tanda europea debe fechar y normalizar nombres historicos"
+);
+assert.ok(
+  [
+    "akademia.mil.pl",
+    "ipn.gov.pl",
+    "zpe.gov.pl",
+    "lwl.org",
+    "uni-muenster.de",
+    "upsl.edu.pl",
+    "pnu.edu.ua"
+  ].every(domain => europeanHistoricalFollowupCuration.includes(domain)),
+  "la tanda europea debe apoyarse en fuentes militares, educativas, regionales y academicas"
+);
+assert.ok(
+  europeanHistoricalFollowupCuration.includes("distingue la batalla de 1920 de la insurreccion de Sejny de 1919")
+    && europeanHistoricalFollowupCuration.includes("no se sustituye por Alemania contemporanea")
+    && europeanHistoricalFollowupCuration.includes("no equipara el Principado de Galitzia-Volinia con un Estado contemporaneo"),
+  "la tanda europea debe conservar cautelas sobre homonimos, actores historicos y continuidad estatal"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Batalla de Sejny (1920)": "Battle_of_Sejny"')
+    && wikipediaConflicts.includes('"Batalla de Vlotho (1638)": "Battle_of_Vlotho"')
+    && wikipediaConflicts.includes('"Batalla de Zawichost (1205)": "Battle_of_Zawichost"'),
+  "la tanda europea debe conservar paginas de importacion profunda"
 );
 assert.ok(
   conflictBatchCuration.includes("if (Array.isArray(entry.treaties)) return entry.treaties;"),

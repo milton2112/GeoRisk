@@ -52,7 +52,7 @@ const mojibakePattern = /[\u00c2\u00c3\uFFFD]|Ã|â€™|â€œ|â€|�|\u00
 const suspectRegionNamePattern = /Afganist|Irak|Estado Isl|Siria|Kivu|Kosovo|Vietnam|Corea|Sa(?:'|\u2019)?dah|Pakist|Cachemira|Gaza|Israel|Iran|Irano|Kachin|Laos|Tailandia|Camerun|Camer\u00fan/i;
 const suspectRegionPattern = /Oceania|America del Sur|Europa occidental|Africa occidental|Europa$|America$/i;
 const sourceMojibakePattern = /Ã|Â|â€|�|ï¿½/;
-const conflictDetailLocalizationPattern = /\b(Date\s+\d|January|February|March|April|May|June|July|August|September|October|November|December|Beqaa Valley|off Endau|20 miles|Sirte District|Japanese victory|Franco-German victory|GNA victory|At least \d+ (?:killed|injured)|Government of National Accord|United Kingdom Special Forces|Libyan Army|Somali pirates)\b/i;
+const conflictDetailLocalizationPattern = /\b(Date\s+\d|January|February|March|April|May|June|July|(?<![\p{L}])August(?![\p{L}])|September|October|November|December|Beqaa Valley|off Endau|20 miles|Sirte District|Japanese victory|Franco-German victory|GNA victory|At least \d+ (?:killed|injured)|Government of National Accord|United Kingdom Special Forces|Libyan Army|Somali pirates)\b/iu;
 const conflictDetailCoordinatePattern = /\d+°\d+|\/\s*-?\d{1,3}\.\d{3,}/;
 const redundantReligionBranches = new Set([
   "cristianos protestantes",

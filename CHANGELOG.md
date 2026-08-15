@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.91 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.92 antes de cerrar la siguiente version.
+
+## v1.6.92 - 2026-08-15
+
+- Fecha, jerarquiza y documenta Sejny, Świecino, Vlotho y Zawichost con fuentes militares, educativas, regionales y académicas.
+- Sustituye cuatro padres regionales provisionales por jerarquías históricas específicas, con campañas, participantes de época, consecuencias, cronologías, acuerdos de cierre cuando corresponden y fichas diferidas.
+- Vincula Sejny con Polonia y Vlotho con Alemania como referencias de navegación, sin convertir territorios o Estados contemporáneos en beligerantes de épocas anteriores.
+- Distingue la batalla de Sejny de 1920 de la insurrección homónima de 1919, preserva a la Orden Teutónica y a Galitzia-Volinia como actores históricos, y evita inventar bajas, tratados o resultados cerrados donde las fuentes no los sostienen.
+- Agrega regresiones de importación profunda, fuentes, jerarquías, fechas y asociaciones nacionales para impedir que la tanda vuelva a degradarse.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-15-release-1`.
 
 ## v1.6.91 - 2026-08-14
 

@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-14T10:37:52.997Z",
+  "generatedAt": "2026-08-15T11:44:08.107Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 168,
-  "reviewCount": 168,
+  "advisoryCount": 164,
+  "reviewCount": 164,
   "summary": {
-    "provisional_parent": 168
+    "provisional_parent": 164
   },
   "topIssues": [],
   "topAdvisories": [
