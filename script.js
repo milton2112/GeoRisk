@@ -83,7 +83,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-08-15-release-2";
+const APP_VERSION = "2026-08-15-release-3";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -1478,26 +1478,47 @@ function simplifyCoordinatesForMode(coordinates, precision = 3, step = 1) {
   return decimateCoordinateRing(coordinates, precision, step);
 }
 
+function getPreparedGeoJsonFeatureCode(feature) {
+  const candidates = [
+    feature?.properties?.ISO_A3,
+    feature?.properties?.iso_a3,
+    feature?.properties?.ADM0_A3,
+    feature?.properties?.ADM0_A3_US,
+    feature?.properties?.WB_A3,
+    feature?.properties?.BRK_A3,
+    feature?.properties?.SOV_A3,
+    feature?.properties?.GU_A3,
+    feature?.id
+  ];
+  return candidates
+    .map(value => String(value || "").trim().toUpperCase())
+    .find(value => /^[A-Z]{3}$/.test(value)) || "";
+}
+
 function buildPreparedGeoJsonFor2D(rawGeoJson) {
   const profile = getPerformancePreset();
   const precision = profile.geoJsonPrecision || 3;
   const step = profile.geoJsonCoordinateStep || 1;
   return {
     type: rawGeoJson.type,
-    features: (rawGeoJson.features || []).map(feature => ({
-      type: feature.type,
-      properties: {
-        ISO_A3: feature.properties?.ISO_A3 || feature.properties?.iso_a3 || feature.properties?.ADM0_A3 || "",
-        ADM0_A3: feature.properties?.ADM0_A3 || feature.properties?.ISO_A3 || feature.properties?.iso_a3 || "",
-        name: feature.properties?.name || feature.properties?.NAME || ""
-      },
-      geometry: feature.geometry
-        ? {
-            type: feature.geometry.type,
-            coordinates: simplifyCoordinatesForMode(feature.geometry.coordinates, precision, step)
-          }
-        : null
-    }))
+    features: (rawGeoJson.features || []).map(feature => {
+      const code = getPreparedGeoJsonFeatureCode(feature);
+      return {
+        type: feature.type,
+        id: feature.id || code || undefined,
+        properties: {
+          ISO_A3: code,
+          ADM0_A3: code,
+          name: feature.properties?.name || feature.properties?.NAME || ""
+        },
+        geometry: feature.geometry
+          ? {
+              type: feature.geometry.type,
+              coordinates: simplifyCoordinatesForMode(feature.geometry.coordinates, precision, step)
+            }
+          : null
+      };
+    })
   };
 }
 
@@ -1505,25 +1526,29 @@ function buildPreparedGeoJsonFor3D(rawGeoJson) {
   const precision = isMobileLayout() ? 5 : 6;
   return {
     type: rawGeoJson.type,
-    features: (rawGeoJson.features || []).map(feature => ({
-      type: feature.type,
-      properties: {
-        ISO_A3: feature.properties?.ISO_A3 || feature.properties?.iso_a3 || feature.properties?.ADM0_A3 || "",
-        ADM0_A3: feature.properties?.ADM0_A3 || feature.properties?.ISO_A3 || feature.properties?.iso_a3 || "",
-        ADM0_A3_US: feature.properties?.ADM0_A3_US || "",
-        WB_A3: feature.properties?.WB_A3 || "",
-        BRK_A3: feature.properties?.BRK_A3 || "",
-        SOV_A3: feature.properties?.SOV_A3 || "",
-        GU_A3: feature.properties?.GU_A3 || "",
-        name: feature.properties?.name || feature.properties?.NAME || feature.properties?.ADMIN || ""
-      },
-      geometry: feature.geometry
-        ? {
-            type: feature.geometry.type,
-            coordinates: simplifyCoordinatesForMode(feature.geometry.coordinates, precision, 1)
-          }
-        : null
-    }))
+    features: (rawGeoJson.features || []).map(feature => {
+      const code = getPreparedGeoJsonFeatureCode(feature);
+      return {
+        type: feature.type,
+        id: feature.id || code || undefined,
+        properties: {
+          ISO_A3: code,
+          ADM0_A3: code,
+          ADM0_A3_US: feature.properties?.ADM0_A3_US || "",
+          WB_A3: feature.properties?.WB_A3 || "",
+          BRK_A3: feature.properties?.BRK_A3 || "",
+          SOV_A3: feature.properties?.SOV_A3 || "",
+          GU_A3: feature.properties?.GU_A3 || "",
+          name: feature.properties?.name || feature.properties?.NAME || feature.properties?.ADMIN || ""
+        },
+        geometry: feature.geometry
+          ? {
+              type: feature.geometry.type,
+              coordinates: simplifyCoordinatesForMode(feature.geometry.coordinates, precision, 1)
+            }
+          : null
+      };
+    })
   };
 }
 
@@ -12938,6 +12963,20 @@ function getPickedCountryEntity(picked) {
   return candidates.find(candidate => candidate?.countryCode || candidate?.countryName) || null;
 }
 
+function getPickedCountryEntityAt(position) {
+  if (!viewer?.scene || !position) {
+    return null;
+  }
+
+  const direct = getPickedCountryEntity(viewer.scene.pick(position));
+  if (direct) {
+    return direct;
+  }
+
+  const stacked = viewer.scene.drillPick?.(position, 8) || [];
+  return stacked.map(getPickedCountryEntity).find(Boolean) || null;
+}
+
 async function loadMap(bootPhase = false) {
   const requestedMode = currentMapMode;
   const geoJsonPath = getGeoJsonPathForCurrentMode(bootPhase);
@@ -13062,8 +13101,7 @@ async function loadMap(bootPhase = false) {
 
     clickHandler.setInputAction(async movement => {
     emitMapEvent("click");
-    const picked = viewer.scene.pick(movement.position);
-    const pickedEntity = getPickedCountryEntity(picked);
+    const pickedEntity = getPickedCountryEntityAt(movement.position);
     const rawCode = pickedEntity?.countryCode;
     const featureName = pickedEntity?.countryName;
     const code = resolveCountryCode(rawCode, featureName) || rawCode;

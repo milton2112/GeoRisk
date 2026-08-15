@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.93 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.94 antes de cerrar la siguiente version.
+
+## v1.6.94 - 2026-08-15
+
+- Agrega una prueba end-to-end critica con Chromium que valida clics reales en el mapa 2D/3D, fichas desde rankings y busquedas de pais, continente y religion en escritorio y movil.
+- Corrige la conservacion del identificador ISO al preparar el GeoJSON: las capas vuelven a indexarse por pais, en lugar de por identificadores internos de Cesium.
+- Hace el picking de pais robusto cuando una etiqueta 3D queda encima de la geometria, buscando la entidad de pais visible bajo el punto pulsado.
+- Integra la prueba en `npm test` y GitHub Actions; CI instala Chromium de forma efimera y el entorno local reutiliza Chrome cuando esta disponible.
+- Agrega regresiones de configuracion para que la E2E, el navegador requerido y los flujos esenciales no desaparezcan silenciosamente de la puerta de release.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-15-release-3`.
 
 ## v1.6.93 - 2026-08-15
 

@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-08-15T12:01:51.387Z",
+  "generatedAt": "2026-08-15T12:45:06.791Z",
   "status": "operativo",
   "startup": {
     "critical": "810 KB",
-    "criticalBytes": 828958,
+    "criticalBytes": 829713,
     "deferred": "2.45 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 10765869,
@@ -23,8 +23,8 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 556213,
-        "human": "543 KB",
+        "bytes": 556968,
+        "human": "544 KB",
         "startupCritical": true
       },
       {
@@ -811,13 +811,13 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 556213,
-      "human": "543 KB"
+      "bytes": 556968,
+      "human": "544 KB"
     },
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 115274,
+      "bytes": 116024,
       "human": "113 KB"
     },
     {
@@ -907,7 +907,7 @@
     {
       "path": "package.json",
       "exists": true,
-      "bytes": 4884,
+      "bytes": 5051,
       "human": "5 KB"
     },
     {
@@ -960,7 +960,7 @@
     }
   ],
   "scriptMetrics": {
-    "functions": 519,
+    "functions": 521,
     "asyncFunctions": 49,
     "consoleWarnings": 19,
     "consoleErrors": 13
@@ -1029,6 +1029,7 @@
     "test:country-matching",
     "test:critical-flows",
     "test:data-language",
+    "test:e2e:critical",
     "test:logic",
     "test:map-coverage",
     "test:modal-render",

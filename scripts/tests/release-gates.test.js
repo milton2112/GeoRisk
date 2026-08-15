@@ -59,6 +59,7 @@ const featureHealth = await fs.readFile(path.join(projectRoot, "scripts/auditFea
 const buildDataIndexes = await fs.readFile(path.join(projectRoot, "scripts/buildDataIndexes.js"), "utf8");
 const buildDataset = await fs.readFile(path.join(projectRoot, "scripts/buildDataset.js"), "utf8");
 const conflictAutofix = await fs.readFile(path.join(projectRoot, "scripts/applyConflictAutofix.js"), "utf8");
+const criticalBrowserE2E = await fs.readFile(path.join(projectRoot, "scripts/tests/critical-browser-e2e.test.js"), "utf8");
 const visibleModernCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-visible-modern.js"), "utf8");
 const visibleFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-visible-followup.js"), "utf8");
 const koreaModernCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-korea-modern.js"), "utf8");
@@ -221,6 +222,15 @@ assert.equal(packageJson.scripts["test:provisional-candidates"], "node scripts/t
 assert.ok(packageJson.scripts.test.includes("test:provisional-candidates"), "npm test debe validar candidatos provisionales");
 assert.equal(packageJson.scripts["test:critical-flows"], "node scripts/tests/critical-flows.test.js", "debe existir QA automatizado de flujos criticos");
 assert.ok(packageJson.scripts.test.includes("test:critical-flows"), "npm test debe incluir flujos criticos");
+assert.equal(packageJson.scripts["test:e2e:critical"], "node scripts/tests/critical-browser-e2e.test.js", "debe existir una prueba E2E de interacciones criticas");
+assert.ok(packageJson.scripts.test.includes("test:e2e:critical"), "npm test debe incluir la prueba E2E critica");
+assert.ok(
+  criticalBrowserE2E.includes('from "@playwright/test"')
+    && criticalBrowserE2E.includes("#map-mode-toggle")
+    && criticalBrowserE2E.includes("#top-population .rank-link")
+    && criticalBrowserE2E.includes("Cristianismo"),
+  "la E2E critica debe ejercitar mapa, rankings y busqueda semantica real"
+);
 assert.ok(prePushHook.includes("npm run prepush:check"), "hook pre-push debe correr puerta liviana local");
 assert.ok(releaseChecklist.includes("performance:snapshot"), "release:check debe guardar snapshot de performance");
 assert.ok(releaseChecklist.includes("audit:data"), "release:check debe guardar auditoria programable de datos");
@@ -237,6 +247,8 @@ assert.ok(wikipediaConflicts.includes("retry-after"), "importador de Wikipedia d
 assert.ok(wikipediaConflicts.includes('"part of": "partOf"'), "importador debe conservar la jerarquia Part of para revision editorial");
 assert.ok(releaseWorkflow.includes("npm run check:startup-budget"), "GitHub Actions debe correr presupuesto de arranque de forma explicita");
 assert.ok(releaseWorkflow.includes("npm run test:browser-visual"), "GitHub Actions debe correr smoke visual");
+assert.ok(releaseWorkflow.includes("npx playwright install --with-deps chromium"), "GitHub Actions debe instalar Chromium para la E2E critica");
+assert.ok(releaseWorkflow.includes("npm run test:e2e:critical"), "GitHub Actions debe ejecutar la E2E critica");
 assert.ok(releaseWorkflow.includes("npm run audit:doctor"), "GitHub Actions debe publicar doctor de producto");
 assert.ok(releaseWorkflow.includes("npm run audit:release-artifacts"), "GitHub Actions debe auditar artefactos de release");
 assert.ok(releaseWorkflow.includes("npm run audit:features"), "GitHub Actions debe auditar salud funcional");

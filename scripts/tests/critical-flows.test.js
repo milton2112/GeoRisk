@@ -41,6 +41,16 @@ assert.ok(
   "apertura central de pais debe marcar mapa antes de renderizar ficha"
 );
 assert.ok(
+  /function getPreparedGeoJsonFeatureCode[\s\S]{0,620}feature\?\.id/.test(script)
+    && script.includes("ISO_A3: code")
+    && script.includes("ADM0_A3: code"),
+  "preparacion GeoJSON debe conservar el ISO del feature para indexar y seleccionar capas del mapa"
+);
+assert.ok(
+  /function getPickedCountryEntityAt[\s\S]{0,360}viewer\.scene\.drillPick\?\.\(position, 8\)/.test(script),
+  "clic de mapa debe resolver un pais aunque una etiqueta 3D quede por encima"
+);
+assert.ok(
   script.includes("handleCountryPanelInteraction(event)")
     && countryPanelUi.includes('getTrigger("[data-open-country]")')
     && countryPanelUi.includes("options.openCountryByCode"),
