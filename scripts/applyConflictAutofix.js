@@ -224,6 +224,12 @@ import {
   CAMPECHE_ANTIVARI_COUNTRY_CONFLICT_ADDITIONS,
   CAMPECHE_ANTIVARI_CONFLICT_RENAMES
 } from "./lib/conflict-curation-campeche-antivari.js";
+import {
+  FLINT_DOGGER_CONFLICT_DETAIL_FIXES,
+  FLINT_DOGGER_COUNTRY_CONFLICT_ADDITIONS,
+  FLINT_DOGGER_COUNTRY_CONFLICT_EXCLUSIONS,
+  FLINT_DOGGER_CONFLICT_RENAMES
+} from "./lib/conflict-curation-flint-dogger.js";
 import { collectConflictCountryNames, curateConflictDetail, curateConflictEntry } from "./lib/conflict-batch-curation.js";
 import {
   cleanConflictLabel,
@@ -298,7 +304,8 @@ const curatedConflictDetailFixes = {
   ...PRIORITY_SAFE_BATCH_CONFLICT_DETAIL_FIXES,
   ...PROVISIONAL_SOURCE_BATCH_CONFLICT_DETAIL_FIXES,
   ...NORTH_ATLANTIC_PROVISIONAL_CONFLICT_DETAIL_FIXES,
-  ...CAMPECHE_ANTIVARI_CONFLICT_DETAIL_FIXES
+  ...CAMPECHE_ANTIVARI_CONFLICT_DETAIL_FIXES,
+  ...FLINT_DOGGER_CONFLICT_DETAIL_FIXES
 };
 const safeConflictRenames = {
   ...SAFE_CONFLICT_RENAMES,
@@ -354,7 +361,8 @@ const safeConflictRenames = {
   ...PRIORITY_SAFE_BATCH_CONFLICT_RENAMES,
   ...PROVISIONAL_SOURCE_BATCH_CONFLICT_RENAMES,
   ...NORTH_ATLANTIC_PROVISIONAL_CONFLICT_RENAMES,
-  ...CAMPECHE_ANTIVARI_CONFLICT_RENAMES
+  ...CAMPECHE_ANTIVARI_CONFLICT_RENAMES,
+  ...FLINT_DOGGER_CONFLICT_RENAMES
 };
 const countryConflictAdditionBatches = [
   TRANSITION_1846_1902_COUNTRY_CONFLICT_ADDITIONS,
@@ -383,9 +391,19 @@ const countryConflictAdditionBatches = [
   PRIORITY_SAFE_BATCH_COUNTRY_CONFLICT_ADDITIONS,
   PROVISIONAL_SOURCE_BATCH_COUNTRY_CONFLICT_ADDITIONS,
   NORTH_ATLANTIC_PROVISIONAL_COUNTRY_CONFLICT_ADDITIONS,
-  CAMPECHE_ANTIVARI_COUNTRY_CONFLICT_ADDITIONS
+  CAMPECHE_ANTIVARI_COUNTRY_CONFLICT_ADDITIONS,
+  FLINT_DOGGER_COUNTRY_CONFLICT_ADDITIONS
 ];
 const countryConflictAdditions = countryConflictAdditionBatches.reduce((merged, batch) => {
+  for (const [countryName, conflictNames] of Object.entries(batch)) {
+    merged[countryName] = [...new Set([...(merged[countryName] || []), ...conflictNames])];
+  }
+  return merged;
+}, {});
+const countryConflictExclusionBatches = [
+  FLINT_DOGGER_COUNTRY_CONFLICT_EXCLUSIONS
+];
+const countryConflictExclusions = countryConflictExclusionBatches.reduce((merged, batch) => {
   for (const [countryName, conflictNames] of Object.entries(batch)) {
     merged[countryName] = [...new Set([...(merged[countryName] || []), ...conflictNames])];
   }
@@ -554,10 +572,23 @@ function getCountryConflictAdditions(country) {
     .map(name => ({ name, ...(curatedConflictDetailFixes[name] || {}) }));
 }
 
+function getCountryConflictExclusions(country) {
+  return new Set(
+    (countryConflictExclusions[country?.name] || [])
+      .map(name => renameConflictName(name))
+  );
+}
+
+function isExcludedCountryConflict(entry, exclusions) {
+  const name = typeof entry === "string" ? entry : entry?.name;
+  return exclusions.has(renameConflictName(name));
+}
+
 function fixCountryConflicts(country, countriesByConflict, generatedHierarchyByConflict) {
   let changed = 0;
   const context = { country, countriesByConflict, generatedHierarchyByConflict };
   const additions = getCountryConflictAdditions(country);
+  const exclusions = getCountryConflictExclusions(country);
 
   for (const pathKey of ["conflicts"]) {
     if (!Array.isArray(country[pathKey])) {
@@ -565,7 +596,9 @@ function fixCountryConflicts(country, countriesByConflict, generatedHierarchyByC
     }
     const before = country[pathKey];
     const updated = normalizeVisibleValue(
-      mergeConflictEntries([...before, ...additions].map(entry => normalizeConflictEntryWithContext(entry, context)))
+      mergeConflictEntries([...before, ...additions]
+        .filter(entry => !isExcludedCountryConflict(entry, exclusions))
+        .map(entry => normalizeConflictEntryWithContext(entry, context)))
         .sort((a, b) => (a.startYear ?? 99999) - (b.startYear ?? 99999) || String(a.name).localeCompare(String(b.name), "es"))
     );
     if (!areJsonValuesEquivalent(updated, before)) {
@@ -577,7 +610,9 @@ function fixCountryConflicts(country, countriesByConflict, generatedHierarchyByC
   if (Array.isArray(country.military?.conflicts)) {
     const before = country.military.conflicts;
     const updated = normalizeVisibleValue(
-      mergeConflictEntries([...before, ...additions].map(entry => normalizeConflictEntryWithContext(entry, context)))
+      mergeConflictEntries([...before, ...additions]
+        .filter(entry => !isExcludedCountryConflict(entry, exclusions))
+        .map(entry => normalizeConflictEntryWithContext(entry, context)))
         .sort((a, b) => (a.startYear ?? 99999) - (b.startYear ?? 99999) || String(a.name).localeCompare(String(b.name), "es"))
     );
     if (!areJsonValuesEquivalent(updated, before)) {
@@ -716,6 +751,7 @@ const report = {
   detailStats,
   generatedHierarchyCandidates: generatedHierarchyByConflict.size,
   countryConflictAdditions,
+  countryConflictExclusions,
   safeRenames: safeConflictRenames,
   curatedDetails: [...new Set(Object.keys(curatedConflictDetailFixes).map(renameConflictName))]
 };

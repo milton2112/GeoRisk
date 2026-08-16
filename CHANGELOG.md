@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.100 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.101 antes de cerrar la siguiente version.
+
+## v1.6.101 - 2026-08-16
+
+- Fecha, normaliza y jerarquiza Flint Creek (1789) y Dogger Bank (1781), antes registrados bajo padres regionales provisionales o sin fecha.
+- Vincula Dogger Bank con Reino Unido y Reino de los Paises Bajos, y elimina la asociacion incorrecta con Dinamarca; Flint Creek mantiene Estados Unidos solo como enlace geografico contemporaneo.
+- Agrega fichas diferidas, cronologias, participantes de epoca, fuentes militares y archivisticas, aliases de importacion profunda y cautelas explicitas sobre bajas, actores historicos y la valoracion tactica.
+- Incorpora exclusiones verificadas por pais al autofix para que una asociacion historica incorrecta pueda corregirse de forma declarativa, reproducible y cubierta por regresiones.
+- Reduce las jerarquias provisionales de 149 a 147, mantiene cero alertas de conflictos y eleva el indice de conflictos a 1785 entradas, el timeline a 2998 eventos y los detalles diferidos a 1031 shards.
+- Agrega regresiones para los nombres canonicos, fuentes, fechas, jerarquias, asociaciones correctas, exclusiones y fichas bajo demanda de ambos conflictos.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-16-release-3`.
 
 ## v1.6.100 - 2026-08-16
 

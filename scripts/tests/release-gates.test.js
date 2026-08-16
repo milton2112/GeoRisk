@@ -65,6 +65,7 @@ const prioritySafeBatchCuration = await fs.readFile(path.join(projectRoot, "scri
 const provisionalSourceBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-provisional-source-batch.js"), "utf8");
 const northAtlanticProvisionalCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-north-atlantic-provisional.js"), "utf8");
 const campecheAntivariCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-campeche-antivari.js"), "utf8");
+const flintDoggerCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-flint-dogger.js"), "utf8");
 const visibleModernCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-visible-modern.js"), "utf8");
 const visibleFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-visible-followup.js"), "utf8");
 const koreaModernCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-korea-modern.js"), "utf8");
@@ -1693,6 +1694,28 @@ assert.ok(
   wikipediaConflicts.includes('"Batalla naval de Campeche (1843)": "Naval_Battle_of_Campeche"')
     && wikipediaConflicts.includes('"Batalla de Antivari (1914)": "Battle_of_Antivari"'),
   "la tanda Campeche-Antivari debe conservar paginas de importacion profunda"
+);
+assert.ok(
+  conflictAutofix.includes("FLINT_DOGGER_CONFLICT_DETAIL_FIXES")
+    && conflictAutofix.includes("FLINT_DOGGER_COUNTRY_CONFLICT_EXCLUSIONS"),
+  "autofix debe incorporar la tanda Flint-Dogger y sus exclusiones de pais"
+);
+assert.ok(
+  flintDoggerCuration.includes('"Batalla de Flint Creek": "Batalla de Flint Creek (1789)"')
+    && flintDoggerCuration.includes('"Batalla de Dogger Bank": "Batalla de Dogger Bank (1781)"')
+    && flintDoggerCuration.includes("source-backed-flint-dogger-2026-08"),
+  "la tanda Flint-Dogger debe fechar, normalizar y trazar sus conflictos"
+);
+assert.ok(
+  ["benning.army.mil", "gahistoricnewspapers.galileo.usg.edu", "armyupress.army.mil", "history.navy.mil"].every(domain =>
+    flintDoggerCuration.includes(domain)
+  ),
+  "la tanda Flint-Dogger debe apoyarse en fuentes militares y archivisticas"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Batalla de Flint Creek (1789)": "Battle_of_Flint_Creek"')
+    && wikipediaConflicts.includes('"Batalla de Dogger Bank (1781)": "Battle_of_Dogger_Bank_(1781)"'),
+  "la tanda Flint-Dogger debe conservar paginas de importacion profunda"
 );
 assert.ok(
   conflictAutofix.includes("MARITIME_AMERICAS_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS"),

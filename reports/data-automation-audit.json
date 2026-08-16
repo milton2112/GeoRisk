@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-16T13:06:23.626Z",
+  "generatedAt": "2026-08-16T13:23:55.335Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 217
+      "count": 215
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 149
+      "count": 147
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 526
+      "count": 527
     },
     "redundantReligions": {
       "count": 0
@@ -120,11 +120,6 @@
         "code": "CHN",
         "name": "Incidente fronterizo de Terekti",
         "region": "Asia"
-      },
-      {
-        "code": "DNK",
-        "name": "Batalla de Dogger Bank",
-        "region": "Europa"
       },
       {
         "code": "DNK",
@@ -255,6 +250,11 @@
         "code": "FRA",
         "name": "Batalla de Vinh",
         "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Vizagapatam",
+        "region": "Europa"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -306,13 +306,6 @@
         "name": "Combate de Huite",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
-      {
-        "code": "DNK",
-        "name": "Batalla de Dogger Bank",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
       },
       {
@@ -535,6 +528,13 @@
       {
         "code": "FRA",
         "name": "Batalla naval de St. John",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla naval de Tatamagouche",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 149,
+      "count": 147,
       "command": "npm run fix:conflicts:batches"
     },
     {

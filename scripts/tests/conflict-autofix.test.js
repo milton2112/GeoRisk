@@ -213,6 +213,12 @@ import {
   CAMPECHE_ANTIVARI_COUNTRY_CONFLICT_ADDITIONS,
   CAMPECHE_ANTIVARI_CONFLICT_RENAMES
 } from "../lib/conflict-curation-campeche-antivari.js";
+import {
+  FLINT_DOGGER_CONFLICT_DETAIL_FIXES,
+  FLINT_DOGGER_COUNTRY_CONFLICT_ADDITIONS,
+  FLINT_DOGGER_COUNTRY_CONFLICT_EXCLUSIONS,
+  FLINT_DOGGER_CONFLICT_RENAMES
+} from "../lib/conflict-curation-flint-dogger.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -1988,6 +1994,50 @@ assert.ok(
 for (const [name, pageTitle] of [
   ["Batalla naval de Campeche (1843)", "Naval_Battle_of_Campeche"],
   ["Batalla de Antivari (1914)", "Battle_of_Antivari"]
+]) {
+  assert.equal((await resolveWikipediaConflictTitle(name)).pageTitle, pageTitle);
+}
+assert.equal(Object.keys(FLINT_DOGGER_CONFLICT_DETAIL_FIXES).length, 2);
+assert.equal(
+  FLINT_DOGGER_CONFLICT_RENAMES["Batalla de Flint Creek"],
+  "Batalla de Flint Creek (1789)"
+);
+assert.equal(
+  FLINT_DOGGER_CONFLICT_RENAMES["Batalla de Dogger Bank"],
+  "Batalla de Dogger Bank (1781)"
+);
+assert.deepEqual(
+  FLINT_DOGGER_COUNTRY_CONFLICT_ADDITIONS["Reino de los Pa\u00edses Bajos"],
+  ["Batalla de Dogger Bank (1781)"]
+);
+assert.deepEqual(
+  FLINT_DOGGER_COUNTRY_CONFLICT_EXCLUSIONS.Dinamarca,
+  ["Batalla de Dogger Bank", "Batalla de Dogger Bank (1781)"]
+);
+assert.equal(
+  FLINT_DOGGER_CONFLICT_DETAIL_FIXES["Batalla de Flint Creek (1789)"].parent,
+  "Guerras cheroqui-estadounidenses (1776-1794)"
+);
+assert.equal(
+  FLINT_DOGGER_CONFLICT_DETAIL_FIXES["Batalla de Dogger Bank (1781)"].parent,
+  "Cuarta guerra anglo-neerlandesa (1780-1784)"
+);
+assert.ok(
+  Object.values(FLINT_DOGGER_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent === detail.war
+      && detail.campaign
+      && detail.hierarchySources?.length >= 2
+      && detail.participants?.length === 2
+      && detail.chronology?.length >= 2
+      && detail.sourceDispute
+  ),
+  "la tanda Flint-Dogger debe conservar fecha, jerarquia, fuentes, participantes y cautelas"
+);
+for (const [name, pageTitle] of [
+  ["Batalla de Flint Creek (1789)", "Battle_of_Flint_Creek"],
+  ["Batalla de Dogger Bank (1781)", "Battle_of_Dogger_Bank_(1781)"]
 ]) {
   assert.equal((await resolveWikipediaConflictTitle(name)).pageTitle, pageTitle);
 }

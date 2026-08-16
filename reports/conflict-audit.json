@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-16T13:06:20.564Z",
+  "generatedAt": "2026-08-16T13:23:52.075Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 149,
-  "reviewCount": 149,
+  "advisoryCount": 147,
+  "reviewCount": 147,
   "summary": {
-    "provisional_parent": 149
+    "provisional_parent": 147
   },
   "topIssues": [],
   "topAdvisories": [
@@ -332,20 +332,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de dogger bank",
-      "name": "Batalla de Dogger Bank",
-      "countries": [
-        "DNK"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de dolores river",
       "name": "Batalla de Dolores River",
       "countries": [
@@ -404,20 +390,6 @@
     {
       "key": "batalla de fayetteville",
       "name": "Batalla de Fayetteville",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de flint creek",
-      "name": "Batalla de Flint Creek",
       "countries": [
         "USA"
       ],
@@ -1120,6 +1092,34 @@
       "name": "Batalla de Pecos River",
       "countries": [
         "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de petaling",
+      "name": "Batalla de Petaling",
+      "countries": [
+        "IDN"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de pierres noires",
+      "name": "Batalla de Pierres Noires",
+      "countries": [
+        "CAN"
       ],
       "startYear": null,
       "endYear": null,

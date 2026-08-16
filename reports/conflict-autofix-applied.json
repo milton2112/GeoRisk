@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-16T13:04:30.721Z",
-  "changedFullCountries": 7,
+  "generatedAt": "2026-08-16T13:22:35.855Z",
+  "changedFullCountries": 2,
   "fullPassChanges": [
-    7,
+    2,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 110,
+    "enriched": 109,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 979,
+  "generatedHierarchyCandidates": 983,
   "countryConflictAdditions": {
     "Estados Unidos": [
       "Batalla de Manila (1945)",
@@ -130,7 +130,8 @@
       "Batalla del cabo Ortegal (1805)",
       "Batalla de Signal Hill (1762)",
       "Batalla de Sjaellands Odde (1808)",
-      "Batalla de Antivari (1914)"
+      "Batalla de Antivari (1914)",
+      "Batalla de Dogger Bank (1781)"
     ],
     "Irlanda": [
       "Batalla naval de la bahía de Bantry (1689)",
@@ -172,7 +173,8 @@
       "Batalla de Camaret (1694)",
       "Batalla de Solebay (1672)",
       "Batalla de Fehmarn (1644)",
-      "Segunda batalla de Schooneveld (1673)"
+      "Segunda batalla de Schooneveld (1673)",
+      "Batalla de Dogger Bank (1781)"
     ],
     "India": [
       "Asedio y captura de Chandannagar (1757)",
@@ -332,6 +334,12 @@
     ],
     "Montenegro": [
       "Batalla de Antivari (1914)"
+    ]
+  },
+  "countryConflictExclusions": {
+    "Dinamarca": [
+      "Batalla de Dogger Bank",
+      "Batalla de Dogger Bank (1781)"
     ]
   },
   "safeRenames": {
@@ -806,7 +814,9 @@
     "Batalla de Signal Hill": "Batalla de Signal Hill (1762)",
     "Batalla de Zealand Point": "Batalla de Sjaellands Odde (1808)",
     "Batalla de Campeche": "Batalla naval de Campeche (1843)",
-    "Batalla de Antivari": "Batalla de Antivari (1914)"
+    "Batalla de Antivari": "Batalla de Antivari (1914)",
+    "Batalla de Flint Creek": "Batalla de Flint Creek (1789)",
+    "Batalla de Dogger Bank": "Batalla de Dogger Bank (1781)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1754,6 +1764,8 @@
     "Batalla de Signal Hill (1762)",
     "Batalla de Sjaellands Odde (1808)",
     "Batalla naval de Campeche (1843)",
-    "Batalla de Antivari (1914)"
+    "Batalla de Antivari (1914)",
+    "Batalla de Flint Creek (1789)",
+    "Batalla de Dogger Bank (1781)"
   ]
 }
