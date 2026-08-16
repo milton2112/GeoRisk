@@ -203,6 +203,11 @@ import {
   PROVISIONAL_SOURCE_BATCH_COUNTRY_CONFLICT_ADDITIONS,
   PROVISIONAL_SOURCE_BATCH_CONFLICT_RENAMES
 } from "../lib/conflict-curation-provisional-source-batch.js";
+import {
+  NORTH_ATLANTIC_PROVISIONAL_CONFLICT_DETAIL_FIXES,
+  NORTH_ATLANTIC_PROVISIONAL_COUNTRY_CONFLICT_ADDITIONS,
+  NORTH_ATLANTIC_PROVISIONAL_CONFLICT_RENAMES
+} from "../lib/conflict-curation-north-atlantic-provisional.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -1898,6 +1903,46 @@ assert.ok(
 for (const [name, pageTitle] of [
   ["Combate naval de Casma (1839)", "Combate_naval_de_Casma"],
   ["Batalla del paso de Predeal (1916)", "Battle_of_Predeal_Pass"]
+]) {
+  assert.equal((await resolveWikipediaConflictTitle(name)).pageTitle, pageTitle);
+}
+assert.equal(Object.keys(NORTH_ATLANTIC_PROVISIONAL_CONFLICT_DETAIL_FIXES).length, 2);
+assert.equal(
+  NORTH_ATLANTIC_PROVISIONAL_CONFLICT_RENAMES["Batalla de Signal Hill"],
+  "Batalla de Signal Hill (1762)"
+);
+assert.equal(
+  NORTH_ATLANTIC_PROVISIONAL_CONFLICT_RENAMES["Batalla de Zealand Point"],
+  "Batalla de Sjaellands Odde (1808)"
+);
+assert.deepEqual(
+  NORTH_ATLANTIC_PROVISIONAL_COUNTRY_CONFLICT_ADDITIONS["Reino Unido"],
+  ["Batalla de Signal Hill (1762)", "Batalla de Sjaellands Odde (1808)"]
+);
+assert.equal(
+  NORTH_ATLANTIC_PROVISIONAL_CONFLICT_DETAIL_FIXES["Batalla de Signal Hill (1762)"].parent,
+  "Guerra de los Siete A\u00f1os (1756-1763)"
+);
+assert.equal(
+  NORTH_ATLANTIC_PROVISIONAL_CONFLICT_DETAIL_FIXES["Batalla de Sjaellands Odde (1808)"].parent,
+  "Guerra de las Ca\u00f1oneras (1807-1814)"
+);
+assert.ok(
+  Object.values(NORTH_ATLANTIC_PROVISIONAL_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent === detail.war
+      && detail.campaign
+      && detail.hierarchySources?.length >= 2
+      && detail.participants?.length === 2
+      && detail.chronology?.length >= 2
+      && detail.sourceDispute
+  ),
+  "la tanda del Atlantico norte debe conservar fecha, jerarquia, fuentes, participantes y cautelas"
+);
+for (const [name, pageTitle] of [
+  ["Batalla de Signal Hill (1762)", "Battle_of_Signal_Hill"],
+  ["Batalla de Sjaellands Odde (1808)", "Battle_of_Zealand_Point"]
 ]) {
   assert.equal((await resolveWikipediaConflictTitle(name)).pageTitle, pageTitle);
 }

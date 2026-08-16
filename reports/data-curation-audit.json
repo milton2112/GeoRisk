@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-15T18:40:07.629Z",
+  "generatedAt": "2026-08-16T12:29:25.014Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 10871375,
-    "duplicatedCountryFilesBytes": 1519601,
-    "countryConflictShardBytes": 418917,
+    "fullBytes": 10902405,
+    "duplicatedCountryFilesBytes": 1520666,
+    "countryConflictShardBytes": 419715,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 24413,
-        "inlineBytes": 1019557,
+        "bytes": 24642,
+        "inlineBytes": 1031719,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,12 +21,12 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 304,
+          "conflicts": 306,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 10989,
+            "military": 11218,
             "politics": 9502,
             "metadata": 1952,
             "general": 1018,
@@ -39,7 +39,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 10989
+              "bytes": 11218
             },
             {
               "section": "politics",
@@ -54,8 +54,8 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 68045,
-          "conflictShardBytes": 68046,
+          "conflictsBytes": 68673,
+          "conflictShardBytes": 68674,
           "averageConflictBytes": 224
         }
       },
@@ -215,8 +215,8 @@
       {
         "code": "FRA",
         "name": "Francia",
-        "bytes": 19602,
-        "inlineBytes": 750827,
+        "bytes": 19798,
+        "inlineBytes": 754171,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -230,7 +230,7 @@
         },
         "metrics": {
           "sectionBytes": {
-            "military": 7922,
+            "military": 8118,
             "politics": 7898,
             "metadata": 1952,
             "general": 933,
@@ -243,7 +243,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 7922
+              "bytes": 8118
             },
             {
               "section": "politics",
@@ -258,9 +258,9 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 45868,
-          "conflictShardBytes": 45869,
-          "averageConflictBytes": 194
+          "conflictsBytes": 45957,
+          "conflictShardBytes": 45958,
+          "averageConflictBytes": 195
         }
       },
       {
@@ -312,6 +312,57 @@
           "conflictsBytes": 12999,
           "conflictShardBytes": 13000,
           "averageConflictBytes": 220
+        }
+      },
+      {
+        "code": "CAN",
+        "name": "Canadá",
+        "bytes": 17658,
+        "inlineBytes": 118344,
+        "tooLarge": false,
+        "counts": {
+          "cities": 4,
+          "capitals": 1,
+          "languages": 2,
+          "religionGroups": 8,
+          "organizations": 48,
+          "rivals": 38,
+          "conflicts": 33,
+          "timelineEvents": 3
+        },
+        "metrics": {
+          "sectionBytes": {
+            "military": 7510,
+            "politics": 6435,
+            "metadata": 1936,
+            "general": 796,
+            "religion": 413,
+            "history": 345,
+            "economy": 101,
+            "name": 9,
+            "continent": 9
+          },
+          "largestSections": [
+            {
+              "section": "military",
+              "bytes": 7510
+            },
+            {
+              "section": "politics",
+              "bytes": 6435
+            },
+            {
+              "section": "metadata",
+              "bytes": 1936
+            },
+            {
+              "section": "general",
+              "bytes": 796
+            }
+          ],
+          "conflictsBytes": 7394,
+          "conflictShardBytes": 0,
+          "averageConflictBytes": 224
         }
       },
       {
@@ -419,8 +470,8 @@
       {
         "code": "DNK",
         "name": "Dinamarca",
-        "bytes": 17412,
-        "inlineBytes": 164846,
+        "bytes": 17424,
+        "inlineBytes": 168208,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -434,7 +485,7 @@
         },
         "metrics": {
           "sectionBytes": {
-            "military": 8054,
+            "military": 8066,
             "politics": 6232,
             "metadata": 1913,
             "general": 677,
@@ -447,7 +498,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 8054
+              "bytes": 8066
             },
             {
               "section": "politics",
@@ -462,60 +513,9 @@
               "bytes": 677
             }
           ],
-          "conflictsBytes": 10064,
-          "conflictShardBytes": 10065,
-          "averageConflictBytes": 210
-        }
-      },
-      {
-        "code": "CAN",
-        "name": "Canadá",
-        "bytes": 17341,
-        "inlineBytes": 112276,
-        "tooLarge": false,
-        "counts": {
-          "cities": 4,
-          "capitals": 1,
-          "languages": 2,
-          "religionGroups": 8,
-          "organizations": 48,
-          "rivals": 38,
-          "conflicts": 32,
-          "timelineEvents": 3
-        },
-        "metrics": {
-          "sectionBytes": {
-            "military": 7193,
-            "politics": 6435,
-            "metadata": 1936,
-            "general": 796,
-            "religion": 413,
-            "history": 345,
-            "economy": 101,
-            "name": 9,
-            "continent": 9
-          },
-          "largestSections": [
-            {
-              "section": "military",
-              "bytes": 7193
-            },
-            {
-              "section": "politics",
-              "bytes": 6435
-            },
-            {
-              "section": "metadata",
-              "bytes": 1936
-            },
-            {
-              "section": "general",
-              "bytes": 796
-            }
-          ],
-          "conflictsBytes": 7077,
-          "conflictShardBytes": 0,
-          "averageConflictBytes": 221
+          "conflictsBytes": 10145,
+          "conflictShardBytes": 10146,
+          "averageConflictBytes": 211
         }
       },
       {
@@ -570,41 +570,41 @@
         }
       },
       {
-        "code": "SWE",
-        "name": "Suecia",
-        "bytes": 15198,
-        "inlineBytes": 508213,
+        "code": "NOR",
+        "name": "Noruega",
+        "bytes": 15253,
+        "inlineBytes": 92697,
         "tooLarge": false,
         "counts": {
-          "cities": 5,
+          "cities": 3,
           "capitals": 1,
           "languages": 1,
           "religionGroups": 4,
-          "organizations": 50,
-          "rivals": 7,
-          "conflicts": 153,
+          "organizations": 49,
+          "rivals": 49,
+          "conflicts": 23,
           "timelineEvents": 0
         },
         "metrics": {
           "sectionBytes": {
-            "military": 7502,
-            "politics": 4479,
+            "politics": 7233,
+            "military": 4941,
             "metadata": 1914,
-            "general": 777,
-            "religion": 229,
+            "general": 641,
+            "religion": 231,
             "economy": 101,
-            "history": 76,
-            "name": 8,
+            "history": 71,
+            "name": 9,
             "continent": 8
           },
           "largestSections": [
             {
-              "section": "military",
-              "bytes": 7502
+              "section": "politics",
+              "bytes": 7233
             },
             {
-              "section": "politics",
-              "bytes": 4479
+              "section": "military",
+              "bytes": 4941
             },
             {
               "section": "metadata",
@@ -612,12 +612,12 @@
             },
             {
               "section": "general",
-              "bytes": 777
+              "bytes": 641
             }
           ],
-          "conflictsBytes": 32187,
-          "conflictShardBytes": 32188,
-          "averageConflictBytes": 210
+          "conflictsBytes": 4856,
+          "conflictShardBytes": 0,
+          "averageConflictBytes": 211
         }
       }
     ]
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 220,
+    "pendingCount": 218,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -16546,19 +16546,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Signal Hill",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Siracusa",
         "countries": [
           "FRA"
@@ -16871,19 +16858,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Zealand Point",
-        "countries": [
-          "DNK"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla del 27 de agosto",
         "countries": [
           "USA"
@@ -17163,6 +17137,32 @@
         ],
         "regions": [
           "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Bombardeo de Samsun",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Bombardeo de Shayrat",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
         ],
         "types": [
           "interestatal"

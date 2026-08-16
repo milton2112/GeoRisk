@@ -1,18 +1,17 @@
 {
-  "generatedAt": "2026-08-15T18:40:01.641Z",
-  "changedFullCountries": 3,
+  "generatedAt": "2026-08-16T12:31:05.694Z",
+  "changedFullCountries": 0,
   "fullPassChanges": [
-    3,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 109,
-    "written": true,
+    "enriched": 0,
+    "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 977,
+  "generatedHierarchyCandidates": 979,
   "countryConflictAdditions": {
     "Estados Unidos": [
       "Batalla de Manila (1945)",
@@ -126,7 +125,9 @@
       "Batalla de Long Jawai (1963)",
       "Batalla del cabo Henry (1781)",
       "Batalla de Tory Island (1798)",
-      "Batalla del cabo Ortegal (1805)"
+      "Batalla del cabo Ortegal (1805)",
+      "Batalla de Signal Hill (1762)",
+      "Batalla de Sjaellands Odde (1808)"
     ],
     "Irlanda": [
       "Batalla naval de la bahía de Bantry (1689)",
@@ -261,7 +262,8 @@
       "Batalla de Dynekilen (1716)",
       "Batalla de Helgeå (1026)",
       "Batalla de Largs (1263)",
-      "Batalla de Kringen (1612)"
+      "Batalla de Kringen (1612)",
+      "Batalla de Sjaellands Odde (1808)"
     ],
     "Suecia": [
       "Batalla de Helgeå (1026)",
@@ -317,6 +319,9 @@
     ],
     "Perú": [
       "Combate naval de Casma (1839)"
+    ],
+    "Canadá": [
+      "Batalla de Signal Hill (1762)"
     ]
   },
   "safeRenames": {
@@ -787,7 +792,9 @@
     "Batalla por el Castillo Itter": "Batalla por el Castillo Itter (1945)",
     "Combate naval de Casma": "Combate naval de Casma (1839)",
     "Batalla de Predeal Pass": "Batalla del paso de Predeal (1916)",
-    "Batalla de Rabosée": "Batalla de Rabosée (1914)"
+    "Batalla de Rabosée": "Batalla de Rabosée (1914)",
+    "Batalla de Signal Hill": "Batalla de Signal Hill (1762)",
+    "Batalla de Zealand Point": "Batalla de Sjaellands Odde (1808)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1731,6 +1738,8 @@
     "Batalla por el Castillo Itter (1945)",
     "Combate naval de Casma (1839)",
     "Batalla del paso de Predeal (1916)",
-    "Batalla de Rabosée (1914)"
+    "Batalla de Rabosée (1914)",
+    "Batalla de Signal Hill (1762)",
+    "Batalla de Sjaellands Odde (1808)"
   ]
 }

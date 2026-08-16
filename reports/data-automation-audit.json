@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-15T18:41:27.576Z",
+  "generatedAt": "2026-08-16T12:32:56.563Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 221
+      "count": 219
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 153
+      "count": 151
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 522
+      "count": 524
     },
     "redundantReligions": {
       "count": 0
@@ -128,11 +128,6 @@
       },
       {
         "code": "DNK",
-        "name": "Batalla de Zealand Point",
-        "region": "Europa"
-      },
-      {
-        "code": "DNK",
         "name": "Batalla del Lago Peipus",
         "region": "Europa"
       },
@@ -238,11 +233,6 @@
       },
       {
         "code": "FRA",
-        "name": "Batalla de Signal Hill",
-        "region": "Europa"
-      },
-      {
-        "code": "FRA",
         "name": "Batalla de Siracusa",
         "region": "Europa"
       },
@@ -254,6 +244,16 @@
       {
         "code": "FRA",
         "name": "Batalla de Tellicherry",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Texel",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla de Tizi Ouzou",
         "region": "Europa"
       }
     ],
@@ -317,13 +317,6 @@
       },
       {
         "code": "DNK",
-        "name": "Batalla de Zealand Point",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "DNK",
         "name": "Batalla del Lago Peipus",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
@@ -471,13 +464,6 @@
       },
       {
         "code": "FRA",
-        "name": "Batalla de Signal Hill",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
         "name": "Batalla de Siracusa",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
@@ -535,6 +521,20 @@
       {
         "code": "FRA",
         "name": "Batalla del cabo Lizard",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla del Convoy de Malta",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla naval de Saint-Martin-de-Re",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 153,
+      "count": 151,
       "command": "npm run fix:conflicts:batches"
     },
     {

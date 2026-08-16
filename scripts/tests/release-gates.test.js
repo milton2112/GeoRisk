@@ -63,6 +63,7 @@ const criticalBrowserE2E = await fs.readFile(path.join(projectRoot, "scripts/tes
 const debrecen1944Curation = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-debrecen-1944.js"), "utf8");
 const prioritySafeBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-priority-safe-batch.js"), "utf8");
 const provisionalSourceBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-provisional-source-batch.js"), "utf8");
+const northAtlanticProvisionalCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-north-atlantic-provisional.js"), "utf8");
 const visibleModernCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-visible-modern.js"), "utf8");
 const visibleFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-visible-followup.js"), "utf8");
 const koreaModernCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-korea-modern.js"), "utf8");
@@ -1647,6 +1648,28 @@ assert.ok(
   wikipediaConflicts.includes('"Combate naval de Casma (1839)": "Combate_naval_de_Casma"')
     && wikipediaConflicts.includes('"Batalla del paso de Predeal (1916)": "Battle_of_Predeal_Pass"'),
   "la tanda provisional debe conservar paginas de importacion profunda cuando existe una pagina inequívoca"
+);
+assert.ok(
+  conflictAutofix.includes("NORTH_ATLANTIC_PROVISIONAL_CONFLICT_DETAIL_FIXES")
+    && conflictAutofix.includes("NORTH_ATLANTIC_PROVISIONAL_COUNTRY_CONFLICT_ADDITIONS"),
+  "autofix debe incorporar la tanda provisional del Atlantico norte"
+);
+assert.ok(
+  northAtlanticProvisionalCuration.includes('"Batalla de Signal Hill": "Batalla de Signal Hill (1762)"')
+    && northAtlanticProvisionalCuration.includes('"Batalla de Zealand Point": "Batalla de Sjaellands Odde (1808)"')
+    && northAtlanticProvisionalCuration.includes("source-backed-north-atlantic-provisional-2026-08"),
+  "la tanda del Atlantico norte debe fechar, normalizar y trazar sus conflictos"
+);
+assert.ok(
+  ["parks.canada.ca", "canada.ca", "forsvaret.dk", "marinehist.dk"].every(domain =>
+    northAtlanticProvisionalCuration.includes(domain)
+  ),
+  "la tanda del Atlantico norte debe apoyarse en fuentes oficiales y museisticas"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Batalla de Signal Hill (1762)": "Battle_of_Signal_Hill"')
+    && wikipediaConflicts.includes('"Batalla de Sjaellands Odde (1808)": "Battle_of_Zealand_Point"'),
+  "la tanda del Atlantico norte debe conservar paginas de importacion profunda"
 );
 assert.ok(
   conflictAutofix.includes("MARITIME_AMERICAS_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS"),

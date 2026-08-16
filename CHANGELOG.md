@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.98 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.99 antes de cerrar la siguiente version.
+
+## v1.6.99 - 2026-08-16
+
+- Fecha, normaliza y jerarquiza la batalla de Signal Hill (1762) y la batalla de Sjaellands Odde (1808), antes registradas con padres regionales provisionales.
+- Vincula Signal Hill con Canada, Francia y Reino Unido, y Sjaellands Odde con Dinamarca, Noruega y Reino Unido, sin convertir enlaces contemporaneos en bandos historicos.
+- Agrega fichas diferidas, cronologias, participantes de epoca, fuentes oficiales canadienses, danesas y museisticas, aliases de importacion profunda y cautelas explicitas para bajas y continuidad estatal.
+- Reduce las jerarquias provisionales de 153 a 151, mantiene cero alertas de conflictos y eleva el indice de conflictos a 1781 entradas, el timeline a 2988 eventos y los detalles diferidos a 1027 shards.
+- Agrega regresiones para claves canonicas, fuentes, fechas, jerarquias, asociaciones por pais y fichas bajo demanda de los dos conflictos.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-16-release-1`.
 
 ## v1.6.98 - 2026-08-15
 
