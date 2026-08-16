@@ -64,6 +64,7 @@ const debrecen1944Curation = await fs.readFile(path.join(projectRoot, "scripts/l
 const prioritySafeBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-priority-safe-batch.js"), "utf8");
 const provisionalSourceBatchCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-provisional-source-batch.js"), "utf8");
 const northAtlanticProvisionalCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-north-atlantic-provisional.js"), "utf8");
+const campecheAntivariCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-campeche-antivari.js"), "utf8");
 const visibleModernCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-visible-modern.js"), "utf8");
 const visibleFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-visible-followup.js"), "utf8");
 const koreaModernCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-korea-modern.js"), "utf8");
@@ -1670,6 +1671,28 @@ assert.ok(
   wikipediaConflicts.includes('"Batalla de Signal Hill (1762)": "Battle_of_Signal_Hill"')
     && wikipediaConflicts.includes('"Batalla de Sjaellands Odde (1808)": "Battle_of_Zealand_Point"'),
   "la tanda del Atlantico norte debe conservar paginas de importacion profunda"
+);
+assert.ok(
+  conflictAutofix.includes("CAMPECHE_ANTIVARI_CONFLICT_DETAIL_FIXES")
+    && conflictAutofix.includes("CAMPECHE_ANTIVARI_COUNTRY_CONFLICT_ADDITIONS"),
+  "autofix debe incorporar la tanda curada de Campeche y Antivari"
+);
+assert.ok(
+  campecheAntivariCuration.includes('"Batalla de Campeche": "Batalla naval de Campeche (1843)"')
+    && campecheAntivariCuration.includes('"Batalla de Antivari": "Batalla de Antivari (1914)"')
+    && campecheAntivariCuration.includes("source-backed-campeche-antivari-2026-08"),
+  "la tanda Campeche-Antivari debe fechar, normalizar y trazar sus conflictos"
+);
+assert.ok(
+  ["history.navy.mil", "semar.gob.mx", "naval-history.net", "epa.oszk.hu"].every(domain =>
+    campecheAntivariCuration.includes(domain)
+  ),
+  "la tanda Campeche-Antivari debe apoyarse en fuentes navales y archivisticas"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Batalla naval de Campeche (1843)": "Naval_Battle_of_Campeche"')
+    && wikipediaConflicts.includes('"Batalla de Antivari (1914)": "Battle_of_Antivari"'),
+  "la tanda Campeche-Antivari debe conservar paginas de importacion profunda"
 );
 assert.ok(
   conflictAutofix.includes("MARITIME_AMERICAS_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS"),

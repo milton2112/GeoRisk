@@ -1,14 +1,15 @@
 {
-  "generatedAt": "2026-08-16T12:31:05.694Z",
-  "changedFullCountries": 0,
+  "generatedAt": "2026-08-16T13:04:30.721Z",
+  "changedFullCountries": 7,
   "fullPassChanges": [
+    7,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 0,
-    "written": false,
+    "enriched": 110,
+    "written": true,
     "compacted": false
   },
   "generatedHierarchyCandidates": 979,
@@ -20,7 +21,8 @@
       "Batalla de Gonzales (1835)",
       "Batalla de los Túneles Gemelos (1951)",
       "Batalla del cabo Henry (1781)",
-      "Batalla por el Castillo Itter (1945)"
+      "Batalla por el Castillo Itter (1945)",
+      "Batalla naval de Campeche (1843)"
     ],
     "Nicaragua": [
       "Batalla de Masaya",
@@ -127,7 +129,8 @@
       "Batalla de Tory Island (1798)",
       "Batalla del cabo Ortegal (1805)",
       "Batalla de Signal Hill (1762)",
-      "Batalla de Sjaellands Odde (1808)"
+      "Batalla de Sjaellands Odde (1808)",
+      "Batalla de Antivari (1914)"
     ],
     "Irlanda": [
       "Batalla naval de la bahía de Bantry (1689)",
@@ -237,7 +240,8 @@
     "Austria": [
       "Batalla de Heligoland (1864)",
       "Batalla por el Castillo Itter (1945)",
-      "Batalla del paso de Predeal (1916)"
+      "Batalla del paso de Predeal (1916)",
+      "Batalla de Antivari (1914)"
     ],
     "Brasil": [
       "Asalto a los acorazados Cabral y Lima Barros (1868)"
@@ -322,6 +326,12 @@
     ],
     "Canadá": [
       "Batalla de Signal Hill (1762)"
+    ],
+    "Hungría": [
+      "Batalla de Antivari (1914)"
+    ],
+    "Montenegro": [
+      "Batalla de Antivari (1914)"
     ]
   },
   "safeRenames": {
@@ -794,7 +804,9 @@
     "Batalla de Predeal Pass": "Batalla del paso de Predeal (1916)",
     "Batalla de Rabosée": "Batalla de Rabosée (1914)",
     "Batalla de Signal Hill": "Batalla de Signal Hill (1762)",
-    "Batalla de Zealand Point": "Batalla de Sjaellands Odde (1808)"
+    "Batalla de Zealand Point": "Batalla de Sjaellands Odde (1808)",
+    "Batalla de Campeche": "Batalla naval de Campeche (1843)",
+    "Batalla de Antivari": "Batalla de Antivari (1914)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1740,6 +1752,8 @@
     "Batalla del paso de Predeal (1916)",
     "Batalla de Rabosée (1914)",
     "Batalla de Signal Hill (1762)",
-    "Batalla de Sjaellands Odde (1808)"
+    "Batalla de Sjaellands Odde (1808)",
+    "Batalla naval de Campeche (1843)",
+    "Batalla de Antivari (1914)"
   ]
 }

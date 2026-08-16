@@ -208,6 +208,11 @@ import {
   NORTH_ATLANTIC_PROVISIONAL_COUNTRY_CONFLICT_ADDITIONS,
   NORTH_ATLANTIC_PROVISIONAL_CONFLICT_RENAMES
 } from "../lib/conflict-curation-north-atlantic-provisional.js";
+import {
+  CAMPECHE_ANTIVARI_CONFLICT_DETAIL_FIXES,
+  CAMPECHE_ANTIVARI_COUNTRY_CONFLICT_ADDITIONS,
+  CAMPECHE_ANTIVARI_CONFLICT_RENAMES
+} from "../lib/conflict-curation-campeche-antivari.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -1943,6 +1948,46 @@ assert.ok(
 for (const [name, pageTitle] of [
   ["Batalla de Signal Hill (1762)", "Battle_of_Signal_Hill"],
   ["Batalla de Sjaellands Odde (1808)", "Battle_of_Zealand_Point"]
+]) {
+  assert.equal((await resolveWikipediaConflictTitle(name)).pageTitle, pageTitle);
+}
+assert.equal(Object.keys(CAMPECHE_ANTIVARI_CONFLICT_DETAIL_FIXES).length, 2);
+assert.equal(
+  CAMPECHE_ANTIVARI_CONFLICT_RENAMES["Batalla de Campeche"],
+  "Batalla naval de Campeche (1843)"
+);
+assert.equal(
+  CAMPECHE_ANTIVARI_CONFLICT_RENAMES["Batalla de Antivari"],
+  "Batalla de Antivari (1914)"
+);
+assert.deepEqual(
+  CAMPECHE_ANTIVARI_COUNTRY_CONFLICT_ADDITIONS["Reino Unido"],
+  ["Batalla de Antivari (1914)"]
+);
+assert.equal(
+  CAMPECHE_ANTIVARI_CONFLICT_DETAIL_FIXES["Batalla naval de Campeche (1843)"].parent,
+  "Conflicto entre el gobierno central de M\u00e9xico y Yucat\u00e1n"
+);
+assert.equal(
+  CAMPECHE_ANTIVARI_CONFLICT_DETAIL_FIXES["Batalla de Antivari (1914)"].parent,
+  "Primera Guerra Mundial"
+);
+assert.ok(
+  Object.values(CAMPECHE_ANTIVARI_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent === detail.war
+      && detail.campaign
+      && detail.hierarchySources?.length >= 2
+      && detail.participants?.length === 2
+      && detail.chronology?.length >= 2
+      && detail.sourceDispute
+  ),
+  "la tanda Campeche-Antivari debe conservar fecha, jerarquia, fuentes, participantes y cautelas"
+);
+for (const [name, pageTitle] of [
+  ["Batalla naval de Campeche (1843)", "Naval_Battle_of_Campeche"],
+  ["Batalla de Antivari (1914)", "Battle_of_Antivari"]
 ]) {
   assert.equal((await resolveWikipediaConflictTitle(name)).pageTitle, pageTitle);
 }

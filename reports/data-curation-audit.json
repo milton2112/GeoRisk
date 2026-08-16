@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-16T12:29:25.014Z",
+  "generatedAt": "2026-08-16T13:04:36.724Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 10902405,
-    "duplicatedCountryFilesBytes": 1520666,
-    "countryConflictShardBytes": 419715,
+    "fullBytes": 10939645,
+    "duplicatedCountryFilesBytes": 1521763,
+    "countryConflictShardBytes": 420475,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
         "bytes": 24642,
-        "inlineBytes": 1031719,
+        "inlineBytes": 1037811,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,7 +21,7 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 306,
+          "conflicts": 307,
           "timelineEvents": 4
         },
         "metrics": {
@@ -54,16 +54,16 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 68673,
-          "conflictShardBytes": 68674,
-          "averageConflictBytes": 224
+          "conflictsBytes": 69016,
+          "conflictShardBytes": 69017,
+          "averageConflictBytes": 225
         }
       },
       {
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 23977,
-        "inlineBytes": 3115273,
+        "inlineBytes": 3121401,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -72,7 +72,7 @@
           "religionGroups": 7,
           "organizations": 55,
           "rivals": 85,
-          "conflicts": 924,
+          "conflicts": 925,
           "timelineEvents": 4
         },
         "metrics": {
@@ -105,9 +105,9 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 212980,
-          "conflictShardBytes": 212981,
-          "averageConflictBytes": 230
+          "conflictsBytes": 213279,
+          "conflictShardBytes": 213280,
+          "averageConflictBytes": 231
         }
       },
       {
@@ -216,7 +216,7 @@
         "code": "FRA",
         "name": "Francia",
         "bytes": 19798,
-        "inlineBytes": 754171,
+        "inlineBytes": 757545,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -258,8 +258,8 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 45957,
-          "conflictShardBytes": 45958,
+          "conflictsBytes": 46075,
+          "conflictShardBytes": 46076,
           "averageConflictBytes": 195
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 218,
+    "pendingCount": 216,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15174,19 +15174,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Antivari",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
@@ -15304,19 +15291,6 @@
         ],
         "regions": [
           "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Campeche",
-        "countries": [
-          "MEX"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"
@@ -17160,6 +17134,32 @@
         "name": "Bombardeo de Shayrat",
         "countries": [
           "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Bombardeo de Tourane",
+        "countries": [
+          "FRA"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Captura de buques de la Confederación",
+        "countries": [
+          "CHL"
         ],
         "regions": [
           "América"

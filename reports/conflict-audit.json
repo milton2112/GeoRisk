@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-16T12:32:53.508Z",
+  "generatedAt": "2026-08-16T13:06:20.564Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 151,
-  "reviewCount": 151,
+  "advisoryCount": 149,
+  "reviewCount": 149,
   "summary": {
-    "provisional_parent": 151
+    "provisional_parent": 149
   },
   "topIssues": [],
   "topAdvisories": [
@@ -18,20 +18,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de antivari",
-      "name": "Batalla de Antivari",
-      "countries": [
-        "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],
@@ -158,20 +144,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de campeche",
-      "name": "Batalla de Campeche",
-      "countries": [
-        "MEX"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],
@@ -1124,6 +1096,34 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de paye",
+      "name": "Batalla de Paye",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de pecos river",
+      "name": "Batalla de Pecos River",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],

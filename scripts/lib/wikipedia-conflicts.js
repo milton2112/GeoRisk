@@ -80,6 +80,8 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Batalla del paso de Predeal (1916)": "Battle_of_Predeal_Pass",
   "Batalla de Signal Hill (1762)": "Battle_of_Signal_Hill",
   "Batalla de Sjaellands Odde (1808)": "Battle_of_Zealand_Point",
+  "Batalla naval de Campeche (1843)": "Naval_Battle_of_Campeche",
+  "Batalla de Antivari (1914)": "Battle_of_Antivari",
   "Batalla de las Islas Paracelso (1974)": "Battle_of_the_Paracel_Islands",
   "Batalla de St\u00e4ket (1719)": "Battle_of_St\u00e4ket",
   "Batalla por el Castillo Itter (1945)": "Battle_for_Castle_Itter",

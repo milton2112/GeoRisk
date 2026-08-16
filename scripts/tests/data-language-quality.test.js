@@ -2024,4 +2024,36 @@ for (const expected of northAtlanticProvisionalExpected) {
   assert.equal(detail.sourceDispute, true, expected.name + " debe preservar su cautela editorial");
 }
 
+const campecheAntivariExpected = [
+  {
+    name: "Batalla naval de Campeche (1843)",
+    parent: "Conflicto entre el gobierno central de M\u00e9xico y Yucat\u00e1n",
+    codes: ["MEX", "USA"]
+  },
+  {
+    name: "Batalla de Antivari (1914)",
+    parent: "Primera Guerra Mundial",
+    codes: ["FRA", "GBR", "AUT", "HUN", "MNE"]
+  }
+];
+for (const expected of campecheAntivariExpected) {
+  for (const code of expected.codes) {
+    const entries = countries[code]?.military?.conflicts?.filter(item => item.name === expected.name) || [];
+    assert.equal(entries.length, 1, expected.name + " debe aparecer una sola vez en " + code);
+    assert.equal(entries[0].parent, expected.parent, expected.name + " debe conservar padre curado en " + code);
+    assert.equal(entries[0].war, expected.parent, expected.name + " debe conservar guerra curada en " + code);
+    assert.ok(Number.isInteger(entries[0].startYear), expected.name + " debe conservar fecha estructurada en " + code);
+    assert.ok(entries[0].hierarchySources?.length >= 2, expected.name + " debe mostrar fuentes en " + code);
+    assert.doesNotMatch(entries[0].parent || "", /^Conflicto regional de /, expected.name + " no debe conservar padre provisional en " + code);
+  }
+  const detailIndex = (conflictDetailsIndex.conflicts || []).find(entry => entry.name === expected.name);
+  assert.ok(detailIndex?.path, expected.name + " debe conservar una ficha diferida indexada");
+  const detail = JSON.parse(fs.readFileSync(detailIndex.path, "utf8"));
+  assert.equal(detail.parent, expected.parent, expected.name + " debe conservar padre en su ficha diferida");
+  assert.ok(detail.participants?.length >= 2, expected.name + " debe conservar participantes en su ficha diferida");
+  assert.ok(detail.chronology?.length >= 2, expected.name + " debe conservar cronologia en su ficha diferida");
+  assert.ok(detail.hierarchySources?.length >= 2, expected.name + " debe conservar fuentes en su ficha diferida");
+  assert.equal(detail.sourceDispute, true, expected.name + " debe preservar su cautela editorial");
+}
+
 console.log("data-language-quality.test.js ok");

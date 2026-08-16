@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.99 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.100 antes de cerrar la siguiente version.
+
+## v1.6.100 - 2026-08-16
+
+- Fecha, normaliza y jerarquiza la batalla naval de Campeche (1843) y la batalla de Antivari (1914), antes registradas bajo padres regionales provisionales.
+- Vincula Campeche con Mexico y Estados Unidos como referencia de navegacion de la Republica de Texas, y Antivari con Francia, Reino Unido, Austria, Hungria y Montenegro sin convertir los enlaces contemporaneos en bandos de epoca.
+- Agrega fichas diferidas, cronologias, participantes, fuentes navales mexicanas, estadounidenses y europeas, aliases de importacion profunda y cautelas explicitas para la valoracion tactica y las bajas discutidas.
+- Reduce las jerarquias provisionales de 151 a 149, mantiene cero alertas de conflictos y eleva el indice de conflictos a 1783 entradas, el timeline a 2995 eventos y los detalles diferidos a 1029 shards.
+- Agrega regresiones para claves canonicas, fuentes, fechas, jerarquias, asociaciones por pais y fichas bajo demanda de los dos conflictos.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-16-release-2`.
 
 ## v1.6.99 - 2026-08-16
 
