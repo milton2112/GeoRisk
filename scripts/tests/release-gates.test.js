@@ -68,6 +68,7 @@ const campecheAntivariCuration = await fs.readFile(path.join(projectRoot, "scrip
 const flintDoggerCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-flint-dogger.js"), "utf8");
 const dasmanRachadoCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-dasman-rachado.js"), "utf8");
 const beitangTeacapanCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-beitang-teacapan.js"), "utf8");
+const oselVaileleCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-osel-vailele.js"), "utf8");
 const visibleModernCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-visible-modern.js"), "utf8");
 const visibleFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-visible-followup.js"), "utf8");
 const koreaModernCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-korea-modern.js"), "utf8");
@@ -1762,6 +1763,28 @@ assert.ok(
   wikipediaConflicts.includes('"Batalla de Beitang (1900)": "Battle_of_Beitang"')
     && wikipediaConflicts.includes('"Batalla de Boca Teacapan (1870)": "Battle_of_Boca_Teacapan"'),
   "la tanda Beitang-Teacapan debe conservar paginas de importacion profunda"
+);
+assert.ok(
+  conflictAutofix.includes("OSEL_VAILELE_CONFLICT_DETAIL_FIXES")
+    && conflictAutofix.includes("OSEL_VAILELE_COUNTRY_CONFLICT_EXCLUSIONS"),
+  "autofix debe incorporar la tanda Osel-Vailele y sus exclusiones de pais"
+);
+assert.ok(
+  oselVaileleCuration.includes('"Batalla de \\u00d6sel Island": "Batalla de \\u00d6sel (1719)"')
+    && oselVaileleCuration.includes('"Primera batalla de Vailele": "Primera batalla de Vailele (1888)"')
+    && oselVaileleCuration.includes("source-backed-osel-vailele-2026-08"),
+  "la tanda Osel-Vailele debe fechar, normalizar y trazar sus conflictos"
+);
+assert.ok(
+  ["navalmuseum.ru", "1719.se", "en.wikisource.org", "history.navy.mil", "natlib.govt.nz"].every(domain =>
+    oselVaileleCuration.includes(domain)
+  ),
+  "la tanda Osel-Vailele debe apoyarse en fuentes navales, historicas y archivisticas"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Batalla de \\u00d6sel (1719)": "Battle_of_\\u00d6sel_Island"')
+    && wikipediaConflicts.includes('"Primera batalla de Vailele (1888)": "First_Battle_of_Vailele"'),
+  "la tanda Osel-Vailele debe conservar paginas de importacion profunda"
 );
 assert.ok(
   conflictAutofix.includes("MARITIME_AMERICAS_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS"),

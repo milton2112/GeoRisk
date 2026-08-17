@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-17T10:26:15.087Z",
-  "changedFullCountries": 6,
+  "generatedAt": "2026-08-17T10:57:44.945Z",
+  "changedFullCountries": 4,
   "fullPassChanges": [
-    6,
+    4,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
@@ -12,7 +12,7 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 985,
+  "generatedHierarchyCandidates": 989,
   "countryConflictAdditions": {
     "Estados Unidos": [
       "Batalla de Manila (1945)",
@@ -74,7 +74,8 @@
       "Batalla por el Castillo Itter (1945)",
       "Batalla del paso de Predeal (1916)",
       "Batalla de Rabosée (1914)",
-      "Batalla de Beitang (1900)"
+      "Batalla de Beitang (1900)",
+      "Primera batalla de Vailele (1888)"
     ],
     "Corea del Sur": [
       "Acción naval de Happo (1592)",
@@ -171,7 +172,8 @@
       "Segunda batalla de Zhenbao (1969)",
       "Batalla de Debrecen (1944)",
       "Batalla de Stäket (1719)",
-      "Batalla de Beitang (1900)"
+      "Batalla de Beitang (1900)",
+      "Batalla de Ösel (1719)"
     ],
     "Reino de los Países Bajos": [
       "Batalla de Camaret (1694)",
@@ -344,6 +346,9 @@
     ],
     "Kuwait": [
       "Batalla del palacio Dasman (1990)"
+    ],
+    "Estonia": [
+      "Batalla de Ösel (1719)"
     ]
   },
   "countryConflictExclusions": {
@@ -355,7 +360,9 @@
       "Batalla de Dasman Palace",
       "Batalla del palacio Dasman (1990)",
       "Batalla de Beitang",
-      "Batalla de Beitang (1900)"
+      "Batalla de Beitang (1900)",
+      "Primera batalla de Vailele",
+      "Primera batalla de Vailele (1888)"
     ]
   },
   "safeRenames": {
@@ -836,7 +843,9 @@
     "Batalla de Dasman Palace": "Batalla del palacio Dasman (1990)",
     "Batalla de Cabo Rachado": "Batalla de Cabo Rachado (1606)",
     "Batalla de Beitang": "Batalla de Beitang (1900)",
-    "Batalla de Boca Teacapan": "Batalla de Boca Teacapan (1870)"
+    "Batalla de Boca Teacapan": "Batalla de Boca Teacapan (1870)",
+    "Batalla de Ösel Island": "Batalla de Ösel (1719)",
+    "Primera batalla de Vailele": "Primera batalla de Vailele (1888)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1790,6 +1799,8 @@
     "Batalla del palacio Dasman (1990)",
     "Batalla de Cabo Rachado (1606)",
     "Batalla de Beitang (1900)",
-    "Batalla de Boca Teacapan (1870)"
+    "Batalla de Boca Teacapan (1870)",
+    "Batalla de Ösel (1719)",
+    "Primera batalla de Vailele (1888)"
   ]
 }

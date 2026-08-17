@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.103 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.104 antes de cerrar la siguiente version.
+
+## v1.6.104 - 2026-08-17
+
+- Traduce, fecha y jerarquiza la batalla naval de Osel (1719) y la primera batalla de Vailele (1888), que seguian bajo padres regionales provisionales y con asociaciones nacionales incompletas o incorrectas.
+- Situa Osel en la Gran Guerra del Norte, incorpora Rusia y Estonia como referencias de navegacion junto con Suecia, y explica la equivalencia entre las fechas juliana y gregoriana sin consolidar bajas discutidas.
+- Situa Vailele en la Primera guerra civil de Samoa, agrega Alemania como enlace historico y elimina Estados Unidos, que participo en la crisis posterior pero no en la accion de 1888.
+- Agrega fichas diferidas, cronologias, participantes de epoca, acuerdos de cierre, fuentes navales, archivisticas e historicas, aliases de importacion profunda y cautelas visibles sobre actores contemporaneos, secuencias y bajas.
+- Reduce las jerarquias provisionales de 143 a 141, mantiene cero alertas de conflictos y eleva el indice a 1.791 conflictos, 3.012 eventos de timeline y 1.037 detalles bajo demanda.
+- Agrega regresiones para nombres canonicos, fechas, fuentes, jerarquias, enlaces por pais, exclusiones y fichas bajo demanda de ambos conflictos.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-17-release-3`.
 
 ## v1.6.103 - 2026-08-17
 

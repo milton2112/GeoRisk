@@ -231,6 +231,12 @@ import {
   BEITANG_TEACAPAN_COUNTRY_CONFLICT_EXCLUSIONS,
   BEITANG_TEACAPAN_CONFLICT_RENAMES
 } from "../lib/conflict-curation-beitang-teacapan.js";
+import {
+  OSEL_VAILELE_CONFLICT_DETAIL_FIXES,
+  OSEL_VAILELE_COUNTRY_CONFLICT_ADDITIONS,
+  OSEL_VAILELE_COUNTRY_CONFLICT_EXCLUSIONS,
+  OSEL_VAILELE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-osel-vailele.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -2146,6 +2152,54 @@ assert.ok(
 for (const [name, pageTitle] of [
   ["Batalla de Beitang (1900)", "Battle_of_Beitang"],
   ["Batalla de Boca Teacapan (1870)", "Battle_of_Boca_Teacapan"]
+]) {
+  assert.equal((await resolveWikipediaConflictTitle(name)).pageTitle, pageTitle);
+}
+assert.equal(Object.keys(OSEL_VAILELE_CONFLICT_DETAIL_FIXES).length, 2);
+assert.equal(
+  OSEL_VAILELE_CONFLICT_RENAMES["Batalla de \u00d6sel Island"],
+  "Batalla de \u00d6sel (1719)"
+);
+assert.equal(
+  OSEL_VAILELE_CONFLICT_RENAMES["Primera batalla de Vailele"],
+  "Primera batalla de Vailele (1888)"
+);
+assert.deepEqual(
+  OSEL_VAILELE_COUNTRY_CONFLICT_ADDITIONS.Rusia,
+  ["Batalla de \u00d6sel (1719)"]
+);
+assert.deepEqual(
+  OSEL_VAILELE_COUNTRY_CONFLICT_ADDITIONS.Alemania,
+  ["Primera batalla de Vailele (1888)"]
+);
+assert.deepEqual(
+  OSEL_VAILELE_COUNTRY_CONFLICT_EXCLUSIONS["Estados Unidos"],
+  ["Primera batalla de Vailele", "Primera batalla de Vailele (1888)"]
+);
+assert.equal(
+  OSEL_VAILELE_CONFLICT_DETAIL_FIXES["Batalla de \u00d6sel (1719)"].parent,
+  "Gran Guerra del Norte"
+);
+assert.equal(
+  OSEL_VAILELE_CONFLICT_DETAIL_FIXES["Primera batalla de Vailele (1888)"].parent,
+  "Primera guerra civil de Samoa"
+);
+assert.ok(
+  Object.values(OSEL_VAILELE_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent === detail.war
+      && detail.campaign
+      && detail.hierarchySources?.length >= 2
+      && detail.participants?.length === 2
+      && detail.chronology?.length >= 2
+      && detail.sourceDispute
+  ),
+  "la tanda Osel-Vailele debe conservar fecha, jerarquia, fuentes, participantes y cautelas"
+);
+for (const [name, pageTitle] of [
+  ["Batalla de \u00d6sel (1719)", "Battle_of_\u00d6sel_Island"],
+  ["Primera batalla de Vailele (1888)", "First_Battle_of_Vailele"]
 ]) {
   assert.equal((await resolveWikipediaConflictTitle(name)).pageTitle, pageTitle);
 }

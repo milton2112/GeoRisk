@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-17T10:26:20.940Z",
+  "generatedAt": "2026-08-17T10:57:50.759Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11004985,
-    "duplicatedCountryFilesBytes": 1524317,
-    "countryConflictShardBytes": 420939,
+    "fullBytes": 11025629,
+    "duplicatedCountryFilesBytes": 1524972,
+    "countryConflictShardBytes": 421058,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 23977,
-        "inlineBytes": 3122777,
+        "inlineBytes": 3119991,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -72,7 +72,7 @@
           "religionGroups": 7,
           "organizations": 55,
           "rivals": 85,
-          "conflicts": 923,
+          "conflicts": 922,
           "timelineEvents": 4
         },
         "metrics": {
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 213013,
-          "conflictShardBytes": 213014,
+          "conflictsBytes": 212775,
+          "conflictShardBytes": 212776,
           "averageConflictBytes": 231
         }
       },
@@ -264,61 +264,10 @@
         }
       },
       {
-        "code": "RUS",
-        "name": "Rusia",
-        "bytes": 18016,
-        "inlineBytes": 228317,
-        "tooLarge": false,
-        "counts": {
-          "cities": 5,
-          "capitals": 1,
-          "languages": 5,
-          "religionGroups": 4,
-          "organizations": 41,
-          "rivals": 19,
-          "conflicts": 60,
-          "timelineEvents": 4
-        },
-        "metrics": {
-          "sectionBytes": {
-            "military": 9214,
-            "politics": 4980,
-            "metadata": 1926,
-            "general": 965,
-            "history": 445,
-            "religion": 266,
-            "economy": 101,
-            "continent": 8,
-            "name": 7
-          },
-          "largestSections": [
-            {
-              "section": "military",
-              "bytes": 9214
-            },
-            {
-              "section": "politics",
-              "bytes": 4980
-            },
-            {
-              "section": "metadata",
-              "bytes": 1926
-            },
-            {
-              "section": "general",
-              "bytes": 965
-            }
-          ],
-          "conflictsBytes": 13329,
-          "conflictShardBytes": 13330,
-          "averageConflictBytes": 222
-        }
-      },
-      {
         "code": "DEU",
         "name": "Alemania",
-        "bytes": 17937,
-        "inlineBytes": 115591,
+        "bytes": 18257,
+        "inlineBytes": 122995,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -327,13 +276,13 @@
           "religionGroups": 5,
           "organizations": 79,
           "rivals": 21,
-          "conflicts": 24,
+          "conflicts": 25,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
             "politics": 8058,
-            "military": 6063,
+            "military": 6383,
             "metadata": 1952,
             "general": 992,
             "history": 349,
@@ -349,7 +298,7 @@
             },
             {
               "section": "military",
-              "bytes": 6063
+              "bytes": 6383
             },
             {
               "section": "metadata",
@@ -360,9 +309,60 @@
               "bytes": 992
             }
           ],
-          "conflictsBytes": 5946,
+          "conflictsBytes": 6266,
           "conflictShardBytes": 0,
-          "averageConflictBytes": 248
+          "averageConflictBytes": 251
+        }
+      },
+      {
+        "code": "RUS",
+        "name": "Rusia",
+        "bytes": 18058,
+        "inlineBytes": 234567,
+        "tooLarge": false,
+        "counts": {
+          "cities": 5,
+          "capitals": 1,
+          "languages": 5,
+          "religionGroups": 4,
+          "organizations": 41,
+          "rivals": 19,
+          "conflicts": 61,
+          "timelineEvents": 4
+        },
+        "metrics": {
+          "sectionBytes": {
+            "military": 9256,
+            "politics": 4980,
+            "metadata": 1926,
+            "general": 965,
+            "history": 445,
+            "religion": 266,
+            "economy": 101,
+            "continent": 8,
+            "name": 7
+          },
+          "largestSections": [
+            {
+              "section": "military",
+              "bytes": 9256
+            },
+            {
+              "section": "politics",
+              "bytes": 4980
+            },
+            {
+              "section": "metadata",
+              "bytes": 1926
+            },
+            {
+              "section": "general",
+              "bytes": 965
+            }
+          ],
+          "conflictsBytes": 13622,
+          "conflictShardBytes": 13623,
+          "averageConflictBytes": 223
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 210,
+    "pendingCount": 208,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -16092,19 +16092,6 @@
       },
       {
         "name": "Batalla de Orford Ness",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Ösel Island",
         "countries": [
           "SWE"
         ],
@@ -17163,6 +17150,19 @@
         ],
         "regions": [
           "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Captura del Betsey",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
         ],
         "types": [
           "interestatal"

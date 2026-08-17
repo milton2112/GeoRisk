@@ -242,6 +242,12 @@ import {
   BEITANG_TEACAPAN_COUNTRY_CONFLICT_EXCLUSIONS,
   BEITANG_TEACAPAN_CONFLICT_RENAMES
 } from "./lib/conflict-curation-beitang-teacapan.js";
+import {
+  OSEL_VAILELE_CONFLICT_DETAIL_FIXES,
+  OSEL_VAILELE_COUNTRY_CONFLICT_ADDITIONS,
+  OSEL_VAILELE_COUNTRY_CONFLICT_EXCLUSIONS,
+  OSEL_VAILELE_CONFLICT_RENAMES
+} from "./lib/conflict-curation-osel-vailele.js";
 import { collectConflictCountryNames, curateConflictDetail, curateConflictEntry } from "./lib/conflict-batch-curation.js";
 import {
   cleanConflictLabel,
@@ -319,7 +325,8 @@ const curatedConflictDetailFixes = {
   ...CAMPECHE_ANTIVARI_CONFLICT_DETAIL_FIXES,
   ...FLINT_DOGGER_CONFLICT_DETAIL_FIXES,
   ...DASMAN_RACHADO_CONFLICT_DETAIL_FIXES,
-  ...BEITANG_TEACAPAN_CONFLICT_DETAIL_FIXES
+  ...BEITANG_TEACAPAN_CONFLICT_DETAIL_FIXES,
+  ...OSEL_VAILELE_CONFLICT_DETAIL_FIXES
 };
 const safeConflictRenames = {
   ...SAFE_CONFLICT_RENAMES,
@@ -378,7 +385,8 @@ const safeConflictRenames = {
   ...CAMPECHE_ANTIVARI_CONFLICT_RENAMES,
   ...FLINT_DOGGER_CONFLICT_RENAMES,
   ...DASMAN_RACHADO_CONFLICT_RENAMES,
-  ...BEITANG_TEACAPAN_CONFLICT_RENAMES
+  ...BEITANG_TEACAPAN_CONFLICT_RENAMES,
+  ...OSEL_VAILELE_CONFLICT_RENAMES
 };
 const countryConflictAdditionBatches = [
   TRANSITION_1846_1902_COUNTRY_CONFLICT_ADDITIONS,
@@ -410,7 +418,8 @@ const countryConflictAdditionBatches = [
   CAMPECHE_ANTIVARI_COUNTRY_CONFLICT_ADDITIONS,
   FLINT_DOGGER_COUNTRY_CONFLICT_ADDITIONS,
   DASMAN_RACHADO_COUNTRY_CONFLICT_ADDITIONS,
-  BEITANG_TEACAPAN_COUNTRY_CONFLICT_ADDITIONS
+  BEITANG_TEACAPAN_COUNTRY_CONFLICT_ADDITIONS,
+  OSEL_VAILELE_COUNTRY_CONFLICT_ADDITIONS
 ];
 const countryConflictAdditions = countryConflictAdditionBatches.reduce((merged, batch) => {
   for (const [countryName, conflictNames] of Object.entries(batch)) {
@@ -421,7 +430,8 @@ const countryConflictAdditions = countryConflictAdditionBatches.reduce((merged, 
 const countryConflictExclusionBatches = [
   FLINT_DOGGER_COUNTRY_CONFLICT_EXCLUSIONS,
   DASMAN_RACHADO_COUNTRY_CONFLICT_EXCLUSIONS,
-  BEITANG_TEACAPAN_COUNTRY_CONFLICT_EXCLUSIONS
+  BEITANG_TEACAPAN_COUNTRY_CONFLICT_EXCLUSIONS,
+  OSEL_VAILELE_COUNTRY_CONFLICT_EXCLUSIONS
 ];
 const countryConflictExclusions = countryConflictExclusionBatches.reduce((merged, batch) => {
   for (const [countryName, conflictNames] of Object.entries(batch)) {

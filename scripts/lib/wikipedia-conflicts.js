@@ -88,6 +88,8 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Batalla de Cabo Rachado (1606)": "Battle_of_Cape_Rachado",
   "Batalla de Beitang (1900)": "Battle_of_Beitang",
   "Batalla de Boca Teacapan (1870)": "Battle_of_Boca_Teacapan",
+  "Batalla de \u00d6sel (1719)": "Battle_of_\u00d6sel_Island",
+  "Primera batalla de Vailele (1888)": "First_Battle_of_Vailele",
   "Batalla de las Islas Paracelso (1974)": "Battle_of_the_Paracel_Islands",
   "Batalla de St\u00e4ket (1719)": "Battle_of_St\u00e4ket",
   "Batalla por el Castillo Itter (1945)": "Battle_for_Castle_Itter",

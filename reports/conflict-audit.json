@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-17T10:28:33.919Z",
+  "generatedAt": "2026-08-17T10:59:30.541Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 143,
-  "reviewCount": 143,
+  "advisoryCount": 141,
+  "reviewCount": 141,
   "summary": {
-    "provisional_parent": 143
+    "provisional_parent": 141
   },
   "topIssues": [],
   "topAdvisories": [
@@ -990,20 +990,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de osel island",
-      "name": "Batalla de Ösel Island",
-      "countries": [
-        "SWE"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de ostroda",
       "name": "Batalla de Ostróda",
       "countries": [
@@ -1118,6 +1104,20 @@
     {
       "key": "batalla de port louis",
       "name": "Batalla de Port Louis",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de procida canal",
+      "name": "Batalla de Procida Canal",
       "countries": [
         "FRA"
       ],
