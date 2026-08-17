@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.101 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.102 antes de cerrar la siguiente version.
+
+## v1.6.102 - 2026-08-17
+
+- Fecha, traduce y jerarquiza la batalla del palacio Dasman (1990) y la batalla de Cabo Rachado (1606), antes asociadas a un pais incorrecto o bajo un padre regional provisional.
+- Corrige los enlaces de pais: Dasman queda en Irak y Kuwait y se elimina de Estados Unidos; Cabo Rachado conecta Portugal y Reino de los Paises Bajos sin convertir esos enlaces contemporaneos en bandos de epoca.
+- Agrega fichas diferidas, cronologias, participantes historicos, fuentes institucionales y academicas, aliases de importacion profunda y cautelas explicitas sobre bajas, secuencias tacticas y valoraciones de resultado.
+- Pulsa la redaccion visible de ambas fichas con denominaciones en espanol, tildes y referencias geografico-historicas consistentes.
+- Reduce las jerarquias provisionales de 147 a 145, mantiene cero alertas de conflictos y sostiene 1.787 conflictos indexados, 3.002 eventos de timeline y 1.033 detalles bajo demanda.
+- Agrega regresiones para nombres canonicos, fuentes, fechas, jerarquias, asociaciones correctas, exclusiones y fichas bajo demanda de ambos conflictos.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-17-release-1`.
 
 ## v1.6.101 - 2026-08-16
 

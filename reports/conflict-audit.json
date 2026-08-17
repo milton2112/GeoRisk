@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-16T13:23:52.075Z",
+  "generatedAt": "2026-08-17T10:14:38.116Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 147,
-  "reviewCount": 147,
+  "advisoryCount": 145,
+  "reviewCount": 145,
   "summary": {
-    "provisional_parent": 147
+    "provisional_parent": 145
   },
   "topIssues": [],
   "topAdvisories": [
@@ -136,20 +136,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de cabo rachado",
-      "name": "Batalla de Cabo Rachado",
-      "countries": [
-        "PRT"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de cerro del gallo",
       "name": "Batalla de Cerro del Gallo",
       "countries": [
@@ -270,20 +256,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de dasman palace",
-      "name": "Batalla de Dasman Palace",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],
@@ -1124,6 +1096,34 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de pine creek",
+      "name": "Batalla de Pine Creek",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de pirde",
+      "name": "Batalla de Pirde",
+      "countries": [
+        "IRQ"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Asia",
       "issues": [
         "provisional_parent"
       ],

@@ -219,6 +219,12 @@ import {
   FLINT_DOGGER_COUNTRY_CONFLICT_EXCLUSIONS,
   FLINT_DOGGER_CONFLICT_RENAMES
 } from "../lib/conflict-curation-flint-dogger.js";
+import {
+  DASMAN_RACHADO_CONFLICT_DETAIL_FIXES,
+  DASMAN_RACHADO_COUNTRY_CONFLICT_ADDITIONS,
+  DASMAN_RACHADO_COUNTRY_CONFLICT_EXCLUSIONS,
+  DASMAN_RACHADO_CONFLICT_RENAMES
+} from "../lib/conflict-curation-dasman-rachado.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -2038,6 +2044,54 @@ assert.ok(
 for (const [name, pageTitle] of [
   ["Batalla de Flint Creek (1789)", "Battle_of_Flint_Creek"],
   ["Batalla de Dogger Bank (1781)", "Battle_of_Dogger_Bank_(1781)"]
+]) {
+  assert.equal((await resolveWikipediaConflictTitle(name)).pageTitle, pageTitle);
+}
+assert.equal(Object.keys(DASMAN_RACHADO_CONFLICT_DETAIL_FIXES).length, 2);
+assert.equal(
+  DASMAN_RACHADO_CONFLICT_RENAMES["Batalla de Dasman Palace"],
+  "Batalla del palacio Dasman (1990)"
+);
+assert.equal(
+  DASMAN_RACHADO_CONFLICT_RENAMES["Batalla de Cabo Rachado"],
+  "Batalla de Cabo Rachado (1606)"
+);
+assert.deepEqual(
+  DASMAN_RACHADO_COUNTRY_CONFLICT_ADDITIONS.Irak,
+  ["Batalla del palacio Dasman (1990)"]
+);
+assert.deepEqual(
+  DASMAN_RACHADO_COUNTRY_CONFLICT_ADDITIONS["Reino de los Pa\u00edses Bajos"],
+  ["Batalla de Cabo Rachado (1606)"]
+);
+assert.deepEqual(
+  DASMAN_RACHADO_COUNTRY_CONFLICT_EXCLUSIONS["Estados Unidos"],
+  ["Batalla de Dasman Palace", "Batalla del palacio Dasman (1990)"]
+);
+assert.equal(
+  DASMAN_RACHADO_CONFLICT_DETAIL_FIXES["Batalla del palacio Dasman (1990)"].parent,
+  "Invasi\u00f3n iraqu\u00ed de Kuwait (1990)"
+);
+assert.equal(
+  DASMAN_RACHADO_CONFLICT_DETAIL_FIXES["Batalla de Cabo Rachado (1606)"].parent,
+  "Guerra luso-neerlandesa (1602-1663)"
+);
+assert.ok(
+  Object.values(DASMAN_RACHADO_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent === detail.war
+      && detail.campaign
+      && detail.hierarchySources?.length >= 2
+      && detail.participants?.length === 2
+      && detail.chronology?.length >= 2
+      && detail.sourceDispute
+  ),
+  "la tanda Dasman-Rachado debe conservar fecha, jerarquia, fuentes, participantes y cautelas"
+);
+for (const [name, pageTitle] of [
+  ["Batalla del palacio Dasman (1990)", "Battle_of_Dasman_Palace"],
+  ["Batalla de Cabo Rachado (1606)", "Battle_of_Cape_Rachado"]
 ]) {
   assert.equal((await resolveWikipediaConflictTitle(name)).pageTitle, pageTitle);
 }

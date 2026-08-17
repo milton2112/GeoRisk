@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-16T13:22:35.855Z",
-  "changedFullCountries": 2,
+  "generatedAt": "2026-08-17T10:12:57.014Z",
+  "changedFullCountries": 4,
   "fullPassChanges": [
-    2,
+    4,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 109,
+    "enriched": 110,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 983,
+  "generatedHierarchyCandidates": 985,
   "countryConflictAdditions": {
     "Estados Unidos": [
       "Batalla de Manila (1945)",
@@ -174,7 +174,8 @@
       "Batalla de Solebay (1672)",
       "Batalla de Fehmarn (1644)",
       "Segunda batalla de Schooneveld (1673)",
-      "Batalla de Dogger Bank (1781)"
+      "Batalla de Dogger Bank (1781)",
+      "Batalla de Cabo Rachado (1606)"
     ],
     "India": [
       "Asedio y captura de Chandannagar (1757)",
@@ -251,7 +252,8 @@
     "Irak": [
       "Batalla de Rumaila (1991)",
       "Batalla aérea de Samurra (1991)",
-      "Batalla de Danny Boy (2004)"
+      "Batalla de Danny Boy (2004)",
+      "Batalla del palacio Dasman (1990)"
     ],
     "Dinamarca": [
       "Batalla de Colberger Heide (1644)",
@@ -334,12 +336,19 @@
     ],
     "Montenegro": [
       "Batalla de Antivari (1914)"
+    ],
+    "Kuwait": [
+      "Batalla del palacio Dasman (1990)"
     ]
   },
   "countryConflictExclusions": {
     "Dinamarca": [
       "Batalla de Dogger Bank",
       "Batalla de Dogger Bank (1781)"
+    ],
+    "Estados Unidos": [
+      "Batalla de Dasman Palace",
+      "Batalla del palacio Dasman (1990)"
     ]
   },
   "safeRenames": {
@@ -816,7 +825,9 @@
     "Batalla de Campeche": "Batalla naval de Campeche (1843)",
     "Batalla de Antivari": "Batalla de Antivari (1914)",
     "Batalla de Flint Creek": "Batalla de Flint Creek (1789)",
-    "Batalla de Dogger Bank": "Batalla de Dogger Bank (1781)"
+    "Batalla de Dogger Bank": "Batalla de Dogger Bank (1781)",
+    "Batalla de Dasman Palace": "Batalla del palacio Dasman (1990)",
+    "Batalla de Cabo Rachado": "Batalla de Cabo Rachado (1606)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1766,6 +1777,8 @@
     "Batalla naval de Campeche (1843)",
     "Batalla de Antivari (1914)",
     "Batalla de Flint Creek (1789)",
-    "Batalla de Dogger Bank (1781)"
+    "Batalla de Dogger Bank (1781)",
+    "Batalla del palacio Dasman (1990)",
+    "Batalla de Cabo Rachado (1606)"
   ]
 }

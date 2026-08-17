@@ -66,6 +66,7 @@ const provisionalSourceBatchCuration = await fs.readFile(path.join(projectRoot, 
 const northAtlanticProvisionalCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-north-atlantic-provisional.js"), "utf8");
 const campecheAntivariCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-campeche-antivari.js"), "utf8");
 const flintDoggerCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-flint-dogger.js"), "utf8");
+const dasmanRachadoCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-dasman-rachado.js"), "utf8");
 const visibleModernCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-visible-modern.js"), "utf8");
 const visibleFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-visible-followup.js"), "utf8");
 const koreaModernCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-korea-modern.js"), "utf8");
@@ -1716,6 +1717,28 @@ assert.ok(
   wikipediaConflicts.includes('"Batalla de Flint Creek (1789)": "Battle_of_Flint_Creek"')
     && wikipediaConflicts.includes('"Batalla de Dogger Bank (1781)": "Battle_of_Dogger_Bank_(1781)"'),
   "la tanda Flint-Dogger debe conservar paginas de importacion profunda"
+);
+assert.ok(
+  conflictAutofix.includes("DASMAN_RACHADO_CONFLICT_DETAIL_FIXES")
+    && conflictAutofix.includes("DASMAN_RACHADO_COUNTRY_CONFLICT_EXCLUSIONS"),
+  "autofix debe incorporar la tanda Dasman-Rachado y sus exclusiones de pais"
+);
+assert.ok(
+  dasmanRachadoCuration.includes('"Batalla de Dasman Palace": "Batalla del palacio Dasman (1990)"')
+    && dasmanRachadoCuration.includes('"Batalla de Cabo Rachado": "Batalla de Cabo Rachado (1606)"')
+    && dasmanRachadoCuration.includes("source-backed-dasman-rachado-2026-08"),
+  "la tanda Dasman-Rachado debe fechar, normalizar y trazar sus conflictos"
+);
+assert.ok(
+  ["kuna.net.kw", "e.gov.kw", "journals.lib.washington.edu", "onlinelibrary.wiley.com"].every(domain =>
+    dasmanRachadoCuration.includes(domain)
+  ),
+  "la tanda Dasman-Rachado debe apoyarse en fuentes institucionales y academicas"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Batalla del palacio Dasman (1990)": "Battle_of_Dasman_Palace"')
+    && wikipediaConflicts.includes('"Batalla de Cabo Rachado (1606)": "Battle_of_Cape_Rachado"'),
+  "la tanda Dasman-Rachado debe conservar paginas de importacion profunda"
 );
 assert.ok(
   conflictAutofix.includes("MARITIME_AMERICAS_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS"),
