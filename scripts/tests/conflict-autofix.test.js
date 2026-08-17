@@ -225,6 +225,12 @@ import {
   DASMAN_RACHADO_COUNTRY_CONFLICT_EXCLUSIONS,
   DASMAN_RACHADO_CONFLICT_RENAMES
 } from "../lib/conflict-curation-dasman-rachado.js";
+import {
+  BEITANG_TEACAPAN_CONFLICT_DETAIL_FIXES,
+  BEITANG_TEACAPAN_COUNTRY_CONFLICT_ADDITIONS,
+  BEITANG_TEACAPAN_COUNTRY_CONFLICT_EXCLUSIONS,
+  BEITANG_TEACAPAN_CONFLICT_RENAMES
+} from "../lib/conflict-curation-beitang-teacapan.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
@@ -2092,6 +2098,54 @@ assert.ok(
 for (const [name, pageTitle] of [
   ["Batalla del palacio Dasman (1990)", "Battle_of_Dasman_Palace"],
   ["Batalla de Cabo Rachado (1606)", "Battle_of_Cape_Rachado"]
+]) {
+  assert.equal((await resolveWikipediaConflictTitle(name)).pageTitle, pageTitle);
+}
+assert.equal(Object.keys(BEITANG_TEACAPAN_CONFLICT_DETAIL_FIXES).length, 2);
+assert.equal(
+  BEITANG_TEACAPAN_CONFLICT_RENAMES["Batalla de Beitang"],
+  "Batalla de Beitang (1900)"
+);
+assert.equal(
+  BEITANG_TEACAPAN_CONFLICT_RENAMES["Batalla de Boca Teacapan"],
+  "Batalla de Boca Teacapan (1870)"
+);
+assert.deepEqual(
+  BEITANG_TEACAPAN_COUNTRY_CONFLICT_ADDITIONS["Rep\u00fablica Popular China"],
+  ["Batalla de Beitang (1900)"]
+);
+assert.deepEqual(
+  BEITANG_TEACAPAN_COUNTRY_CONFLICT_ADDITIONS["M\u00e9xico"],
+  ["Batalla de Boca Teacapan (1870)"]
+);
+assert.deepEqual(
+  BEITANG_TEACAPAN_COUNTRY_CONFLICT_EXCLUSIONS["Estados Unidos"],
+  ["Batalla de Beitang", "Batalla de Beitang (1900)"]
+);
+assert.equal(
+  BEITANG_TEACAPAN_CONFLICT_DETAIL_FIXES["Batalla de Beitang (1900)"].parent,
+  "Rebelion de los Boxers"
+);
+assert.equal(
+  BEITANG_TEACAPAN_CONFLICT_DETAIL_FIXES["Batalla de Boca Teacapan (1870)"].parent,
+  "Pirater\u00eda en Am\u00e9rica del Norte"
+);
+assert.ok(
+  Object.values(BEITANG_TEACAPAN_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent === detail.war
+      && detail.campaign
+      && detail.hierarchySources?.length >= 2
+      && detail.participants?.length === 2
+      && detail.chronology?.length >= 2
+      && detail.sourceDispute
+  ),
+  "la tanda Beitang-Teacapan debe conservar fecha, jerarquia, fuentes, participantes y cautelas"
+);
+for (const [name, pageTitle] of [
+  ["Batalla de Beitang (1900)", "Battle_of_Beitang"],
+  ["Batalla de Boca Teacapan (1870)", "Battle_of_Boca_Teacapan"]
 ]) {
   assert.equal((await resolveWikipediaConflictTitle(name)).pageTitle, pageTitle);
 }

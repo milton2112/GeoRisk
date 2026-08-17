@@ -86,6 +86,8 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Batalla de Dogger Bank (1781)": "Battle_of_Dogger_Bank_(1781)",
   "Batalla del palacio Dasman (1990)": "Battle_of_Dasman_Palace",
   "Batalla de Cabo Rachado (1606)": "Battle_of_Cape_Rachado",
+  "Batalla de Beitang (1900)": "Battle_of_Beitang",
+  "Batalla de Boca Teacapan (1870)": "Battle_of_Boca_Teacapan",
   "Batalla de las Islas Paracelso (1974)": "Battle_of_the_Paracel_Islands",
   "Batalla de St\u00e4ket (1719)": "Battle_of_St\u00e4ket",
   "Batalla por el Castillo Itter (1945)": "Battle_for_Castle_Itter",

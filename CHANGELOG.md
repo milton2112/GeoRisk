@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.102 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.103 antes de cerrar la siguiente version.
+
+## v1.6.103 - 2026-08-17
+
+- Desambigua, fecha y jerarquiza la batalla de Beitang (1900) y la batalla de Boca Teacapan (1870), antes registradas bajo padres regionales provisionales y asociaciones nacionales incompletas o incorrectas.
+- Situa Beitang en la Rebelion de los Boxers y sus operaciones aliadas de septiembre de 1900; elimina el enlace estadounidense incorrecto y conecta China, Rusia, Alemania y Francia solo como referencias de navegacion contemporanea.
+- Clasifica Boca Teacapan como una expedicion naval estadounidense contra pirateria en Sinaloa: Mexico queda como enlace geografico, sin presentarlo como beligerante formal de una guerra bilateral.
+- Agrega fichas diferidas, participantes de epoca, cronologias, fuentes historicas, academicas y navales, aliases de importacion profunda y cautelas explicitas para bajas, fuerzas y resultados discutidos.
+- Reduce las jerarquias provisionales de 145 a 143, mantiene cero alertas de conflictos y eleva el indice a 1.789 conflictos, 3.008 eventos de timeline y 1.035 detalles bajo demanda.
+- Agrega regresiones para nombres canonicos, fechas, fuentes, jerarquias, asociaciones correctas, exclusiones y fichas bajo demanda de ambos conflictos.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-17-release-2`.
 
 ## v1.6.102 - 2026-08-17
 

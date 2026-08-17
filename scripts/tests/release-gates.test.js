@@ -67,6 +67,7 @@ const northAtlanticProvisionalCuration = await fs.readFile(path.join(projectRoot
 const campecheAntivariCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-campeche-antivari.js"), "utf8");
 const flintDoggerCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-flint-dogger.js"), "utf8");
 const dasmanRachadoCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-dasman-rachado.js"), "utf8");
+const beitangTeacapanCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-beitang-teacapan.js"), "utf8");
 const visibleModernCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-visible-modern.js"), "utf8");
 const visibleFollowupCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-visible-followup.js"), "utf8");
 const koreaModernCuration = await fs.readFile(path.join(projectRoot, "scripts/lib/conflict-curation-korea-modern.js"), "utf8");
@@ -1739,6 +1740,28 @@ assert.ok(
   wikipediaConflicts.includes('"Batalla del palacio Dasman (1990)": "Battle_of_Dasman_Palace"')
     && wikipediaConflicts.includes('"Batalla de Cabo Rachado (1606)": "Battle_of_Cape_Rachado"'),
   "la tanda Dasman-Rachado debe conservar paginas de importacion profunda"
+);
+assert.ok(
+  conflictAutofix.includes("BEITANG_TEACAPAN_CONFLICT_DETAIL_FIXES")
+    && conflictAutofix.includes("BEITANG_TEACAPAN_COUNTRY_CONFLICT_EXCLUSIONS"),
+  "autofix debe incorporar la tanda Beitang-Teacapan y sus exclusiones de pais"
+);
+assert.ok(
+  beitangTeacapanCuration.includes('"Batalla de Beitang": "Batalla de Beitang (1900)"')
+    && beitangTeacapanCuration.includes('"Batalla de Boca Teacapan": "Batalla de Boca Teacapan (1870)"')
+    && beitangTeacapanCuration.includes("source-backed-beitang-teacapan-2026-08"),
+  "la tanda Beitang-Teacapan debe fechar, normalizar y trazar sus conflictos"
+);
+assert.ok(
+  ["vostlit.info", "ru.wikisource.org", "bpb-us-e1.wpmucdn.com", "history.navy.mil"].every(domain =>
+    beitangTeacapanCuration.includes(domain)
+  ),
+  "la tanda Beitang-Teacapan debe apoyarse en fuentes historicas, academicas y navales"
+);
+assert.ok(
+  wikipediaConflicts.includes('"Batalla de Beitang (1900)": "Battle_of_Beitang"')
+    && wikipediaConflicts.includes('"Batalla de Boca Teacapan (1870)": "Battle_of_Boca_Teacapan"'),
+  "la tanda Beitang-Teacapan debe conservar paginas de importacion profunda"
 );
 assert.ok(
   conflictAutofix.includes("MARITIME_AMERICAS_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS"),

@@ -236,6 +236,12 @@ import {
   DASMAN_RACHADO_COUNTRY_CONFLICT_EXCLUSIONS,
   DASMAN_RACHADO_CONFLICT_RENAMES
 } from "./lib/conflict-curation-dasman-rachado.js";
+import {
+  BEITANG_TEACAPAN_CONFLICT_DETAIL_FIXES,
+  BEITANG_TEACAPAN_COUNTRY_CONFLICT_ADDITIONS,
+  BEITANG_TEACAPAN_COUNTRY_CONFLICT_EXCLUSIONS,
+  BEITANG_TEACAPAN_CONFLICT_RENAMES
+} from "./lib/conflict-curation-beitang-teacapan.js";
 import { collectConflictCountryNames, curateConflictDetail, curateConflictEntry } from "./lib/conflict-batch-curation.js";
 import {
   cleanConflictLabel,
@@ -312,7 +318,8 @@ const curatedConflictDetailFixes = {
   ...NORTH_ATLANTIC_PROVISIONAL_CONFLICT_DETAIL_FIXES,
   ...CAMPECHE_ANTIVARI_CONFLICT_DETAIL_FIXES,
   ...FLINT_DOGGER_CONFLICT_DETAIL_FIXES,
-  ...DASMAN_RACHADO_CONFLICT_DETAIL_FIXES
+  ...DASMAN_RACHADO_CONFLICT_DETAIL_FIXES,
+  ...BEITANG_TEACAPAN_CONFLICT_DETAIL_FIXES
 };
 const safeConflictRenames = {
   ...SAFE_CONFLICT_RENAMES,
@@ -370,7 +377,8 @@ const safeConflictRenames = {
   ...NORTH_ATLANTIC_PROVISIONAL_CONFLICT_RENAMES,
   ...CAMPECHE_ANTIVARI_CONFLICT_RENAMES,
   ...FLINT_DOGGER_CONFLICT_RENAMES,
-  ...DASMAN_RACHADO_CONFLICT_RENAMES
+  ...DASMAN_RACHADO_CONFLICT_RENAMES,
+  ...BEITANG_TEACAPAN_CONFLICT_RENAMES
 };
 const countryConflictAdditionBatches = [
   TRANSITION_1846_1902_COUNTRY_CONFLICT_ADDITIONS,
@@ -401,7 +409,8 @@ const countryConflictAdditionBatches = [
   NORTH_ATLANTIC_PROVISIONAL_COUNTRY_CONFLICT_ADDITIONS,
   CAMPECHE_ANTIVARI_COUNTRY_CONFLICT_ADDITIONS,
   FLINT_DOGGER_COUNTRY_CONFLICT_ADDITIONS,
-  DASMAN_RACHADO_COUNTRY_CONFLICT_ADDITIONS
+  DASMAN_RACHADO_COUNTRY_CONFLICT_ADDITIONS,
+  BEITANG_TEACAPAN_COUNTRY_CONFLICT_ADDITIONS
 ];
 const countryConflictAdditions = countryConflictAdditionBatches.reduce((merged, batch) => {
   for (const [countryName, conflictNames] of Object.entries(batch)) {
@@ -411,7 +420,8 @@ const countryConflictAdditions = countryConflictAdditionBatches.reduce((merged, 
 }, {});
 const countryConflictExclusionBatches = [
   FLINT_DOGGER_COUNTRY_CONFLICT_EXCLUSIONS,
-  DASMAN_RACHADO_COUNTRY_CONFLICT_EXCLUSIONS
+  DASMAN_RACHADO_COUNTRY_CONFLICT_EXCLUSIONS,
+  BEITANG_TEACAPAN_COUNTRY_CONFLICT_EXCLUSIONS
 ];
 const countryConflictExclusions = countryConflictExclusionBatches.reduce((merged, batch) => {
   for (const [countryName, conflictNames] of Object.entries(batch)) {

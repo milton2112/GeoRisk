@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-17T10:12:57.014Z",
-  "changedFullCountries": 4,
+  "generatedAt": "2026-08-17T10:26:15.087Z",
+  "changedFullCountries": 6,
   "fullPassChanges": [
-    4,
+    6,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
@@ -56,7 +56,8 @@
       "Batalla de Monongahela (1755)",
       "Batalla de Wandiwash (1760)",
       "Batalla de los Túneles Gemelos (1951)",
-      "Batalla por el Castillo Itter (1945)"
+      "Batalla por el Castillo Itter (1945)",
+      "Batalla de Beitang (1900)"
     ],
     "Alemania": [
       "Batalla de Schleswig (1848)",
@@ -72,7 +73,8 @@
       "Batalla de Debrecen (1944)",
       "Batalla por el Castillo Itter (1945)",
       "Batalla del paso de Predeal (1916)",
-      "Batalla de Rabosée (1914)"
+      "Batalla de Rabosée (1914)",
+      "Batalla de Beitang (1900)"
     ],
     "Corea del Sur": [
       "Acción naval de Happo (1592)",
@@ -96,7 +98,8 @@
       "Batalla de Palikao (1860)",
       "Batalla de Tamsui (1884)",
       "Batalla de los Túneles Gemelos (1951)",
-      "Batalla de las Islas Paracelso (1974)"
+      "Batalla de las Islas Paracelso (1974)",
+      "Batalla de Beitang (1900)"
     ],
     "Reino Unido": [
       "Batalla naval de la bahía de Bantry (1689)",
@@ -167,7 +170,8 @@
       "Primera batalla de Zhenbao (1969)",
       "Segunda batalla de Zhenbao (1969)",
       "Batalla de Debrecen (1944)",
-      "Batalla de Stäket (1719)"
+      "Batalla de Stäket (1719)",
+      "Batalla de Beitang (1900)"
     ],
     "Reino de los Países Bajos": [
       "Batalla de Camaret (1694)",
@@ -219,7 +223,8 @@
       "Combate de Carrizal (1916)",
       "Batalla de Ambos Nogales (1918)",
       "Batalla de San Jacinto (1836)",
-      "Primera batalla de Agua Prieta (1911)"
+      "Primera batalla de Agua Prieta (1911)",
+      "Batalla de Boca Teacapan (1870)"
     ],
     "Australia": [
       "Batalla de Hamel (1918)",
@@ -348,7 +353,9 @@
     ],
     "Estados Unidos": [
       "Batalla de Dasman Palace",
-      "Batalla del palacio Dasman (1990)"
+      "Batalla del palacio Dasman (1990)",
+      "Batalla de Beitang",
+      "Batalla de Beitang (1900)"
     ]
   },
   "safeRenames": {
@@ -827,7 +834,9 @@
     "Batalla de Flint Creek": "Batalla de Flint Creek (1789)",
     "Batalla de Dogger Bank": "Batalla de Dogger Bank (1781)",
     "Batalla de Dasman Palace": "Batalla del palacio Dasman (1990)",
-    "Batalla de Cabo Rachado": "Batalla de Cabo Rachado (1606)"
+    "Batalla de Cabo Rachado": "Batalla de Cabo Rachado (1606)",
+    "Batalla de Beitang": "Batalla de Beitang (1900)",
+    "Batalla de Boca Teacapan": "Batalla de Boca Teacapan (1870)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1779,6 +1788,8 @@
     "Batalla de Flint Creek (1789)",
     "Batalla de Dogger Bank (1781)",
     "Batalla del palacio Dasman (1990)",
-    "Batalla de Cabo Rachado (1606)"
+    "Batalla de Cabo Rachado (1606)",
+    "Batalla de Beitang (1900)",
+    "Batalla de Boca Teacapan (1870)"
   ]
 }

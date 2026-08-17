@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-17T10:14:38.116Z",
+  "generatedAt": "2026-08-17T10:28:33.919Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 145,
-  "reviewCount": 145,
+  "advisoryCount": 143,
+  "reviewCount": 143,
   "summary": {
-    "provisional_parent": 145
+    "provisional_parent": 143
   },
   "topIssues": [],
   "topAdvisories": [
@@ -80,20 +80,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de beitang",
-      "name": "Batalla de Beitang",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de bir enzaran",
       "name": "Batalla de Bir Enzarán",
       "countries": [
@@ -102,20 +88,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de África",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de boca teacapan",
-      "name": "Batalla de Boca Teacapan",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],
@@ -1124,6 +1096,34 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de pondicherry",
+      "name": "Batalla de Pondicherry",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de port louis",
+      "name": "Batalla de Port Louis",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],
