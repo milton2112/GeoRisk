@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-08-17T10:59:32.911Z",
+  "generatedAt": "2026-08-20T13:11:45.846Z",
   "status": "operativo",
   "startup": {
-    "critical": "810 KB",
-    "criticalBytes": 829887,
+    "critical": "811 KB",
+    "criticalBytes": 830817,
     "deferred": "2.51 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 11025629,
@@ -23,7 +23,7 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 557142,
+        "bytes": 557470,
         "human": "544 KB",
         "startupCritical": true
       },
@@ -51,7 +51,7 @@
       {
         "path": "style.css",
         "exists": true,
-        "bytes": 80406,
+        "bytes": 81017,
         "human": "79 KB",
         "startupCritical": true
       },
@@ -63,18 +63,18 @@
         "startupCritical": false
       },
       {
-        "path": "index.html",
-        "exists": true,
-        "bytes": 31775,
-        "human": "31 KB",
-        "startupCritical": true
-      },
-      {
         "path": "style-polish.css",
         "exists": true,
-        "bytes": 31696,
-        "human": "31 KB",
+        "bytes": 32518,
+        "human": "32 KB",
         "startupCritical": false
+      },
+      {
+        "path": "index.html",
+        "exists": true,
+        "bytes": 31766,
+        "human": "31 KB",
+        "startupCritical": true
       },
       {
         "path": "app-conflict-aliases.js",
@@ -86,7 +86,7 @@
       {
         "path": "app-text.js",
         "exists": true,
-        "bytes": 23590,
+        "bytes": 23554,
         "human": "23 KB",
         "startupCritical": false
       },
@@ -811,31 +811,31 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 557142,
+      "bytes": 557470,
       "human": "544 KB"
     },
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 125877,
-      "human": "123 KB"
+      "bytes": 126976,
+      "human": "124 KB"
     },
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 80406,
+      "bytes": 81017,
       "human": "79 KB"
-    },
-    {
-      "path": "index.html",
-      "exists": true,
-      "bytes": 31775,
-      "human": "31 KB"
     },
     {
       "path": "style-polish.css",
       "exists": true,
-      "bytes": 31696,
+      "bytes": 32518,
+      "human": "32 KB"
+    },
+    {
+      "path": "index.html",
+      "exists": true,
+      "bytes": 31766,
       "human": "31 KB"
     },
     {
@@ -847,7 +847,7 @@
     {
       "path": "app-text.js",
       "exists": true,
-      "bytes": 23590,
+      "bytes": 23554,
       "human": "23 KB"
     },
     {
@@ -960,7 +960,7 @@
     }
   ],
   "scriptMetrics": {
-    "functions": 521,
+    "functions": 522,
     "asyncFunctions": 49,
     "consoleWarnings": 19,
     "consoleErrors": 13

@@ -377,8 +377,8 @@
 
     const layersHint = documentRef.getElementById("layers-panel-hint");
     if (layersHint) layersHint.textContent = en
-      ? "Choose which data colors the map. Estimated layers are marked as dataset proxies."
-      : "Elegi que dato colorea el mapa. Las capas estimadas muestran proxies del dataset.";
+      ? "Choose the data that colors the map. Proxies are marked."
+      : "Eleg\u00ed el dato que colorea el mapa. Los proxies aparecen marcados.";
     const themeFilterInput = documentRef.getElementById("theme-filter-input");
     if (themeFilterInput) themeFilterInput.placeholder = en ? "Filter layers" : "Filtrar capas";
     options.updateMapModeToggle?.();

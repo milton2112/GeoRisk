@@ -137,10 +137,34 @@ async function getCountryScreenPoint(page, code, attempts = 20) {
   return null;
 }
 
+async function focusCountryFor3dPick(page, code) {
+  const focused = await page.evaluate(countryCode => {
+    const layer = countryLayers.get(countryCode);
+    const rectangle = layer?.computeRectangle?.();
+    if (!layer || !rectangle || !viewer || !window.Cesium) {
+      return false;
+    }
+    viewer.camera.setView({ destination: rectangle });
+    viewer.scene.requestRender();
+    return true;
+  }, code);
+  if (focused) {
+    await page.waitForTimeout(420);
+  }
+  return focused;
+}
+
+async function clickMapPoint(page, point) {
+  await page.mouse.move(point.x, point.y);
+  await page.mouse.down();
+  await page.waitForTimeout(70);
+  await page.mouse.up();
+}
+
 async function clickCountryOnMap(page, code) {
   const point = await getCountryScreenPoint(page, code);
   assert.ok(point, "el pais " + code + " debe estar visible y ser clickeable en el canvas");
-  await page.mouse.click(point.x, point.y);
+  await clickMapPoint(page, point);
   await page.waitForFunction(countryCode => {
     return selectedLayers.some(layer => layer.code === countryCode);
   }, code, { timeout: APP_TIMEOUT_MS });
@@ -148,11 +172,14 @@ async function clickCountryOnMap(page, code) {
 
 async function clickFirstVisibleCountryOnMap(page, codes) {
   for (const code of codes) {
-    const point = await getCountryScreenPoint(page, code, 12);
+    let point = await getCountryScreenPoint(page, code, 12);
+    if (!point && await focusCountryFor3dPick(page, code)) {
+      point = await getCountryScreenPoint(page, code, 16);
+    }
     if (!point) {
       continue;
     }
-    await page.mouse.click(point.x, point.y);
+    await clickMapPoint(page, point);
     await page.waitForFunction(countryCode => {
       return selectedLayers.some(layer => layer.code === countryCode);
     }, code, { timeout: APP_TIMEOUT_MS });
@@ -191,6 +218,41 @@ async function submitSearch(page, query) {
   await page.locator("#map-search-button").click();
 }
 
+async function assertMobileLayersWorkspace(page) {
+  await page.locator("#toggle-tools-panel").click();
+  await page.waitForFunction(() => {
+    const toolbar = document.getElementById("map-toolbar");
+    return document.body.classList.contains("mobile-tools-open") && toolbar?.open;
+  }, undefined, { timeout: APP_TIMEOUT_MS });
+  await page.waitForFunction(() => {
+    const mapMode = document.getElementById("map-mode-toggle");
+    const style = getComputedStyle(mapMode);
+    return style.pointerEvents === "none" && Number(style.opacity) < 0.01;
+  }, undefined, { timeout: APP_TIMEOUT_MS });
+
+  const geometry = await page.evaluate(() => {
+    const rect = id => {
+      const element = document.getElementById(id);
+      const box = element.getBoundingClientRect();
+      return { left: box.left, right: box.right, top: box.top, bottom: box.bottom, width: box.width };
+    };
+    const mapMode = document.getElementById("map-mode-toggle");
+    const mapModeStyle = getComputedStyle(mapMode);
+    return {
+      toolbar: rect("map-toolbar"),
+      controls: rect("mobile-panel-controls"),
+      mapModeHidden: mapModeStyle.pointerEvents === "none" && Number(mapModeStyle.opacity) === 0
+    };
+  });
+
+  assert.ok(geometry.toolbar.width >= 350, "capas mobile debe aprovechar el ancho disponible");
+  assert.ok(geometry.toolbar.bottom <= geometry.controls.top - 6, "capas mobile no debe invadir la navegacion inferior");
+  assert.ok(geometry.mapModeHidden, "el cambio 2D/3D no debe competir con las capas abiertas");
+
+  await page.locator("#toggle-tools-panel").click();
+  await page.waitForFunction(() => !document.body.classList.contains("mobile-tools-open"), undefined, { timeout: APP_TIMEOUT_MS });
+}
+
 async function runDesktopCriticalFlow(page) {
   await waitForAppReady(page);
 
@@ -203,6 +265,8 @@ async function runDesktopCriticalFlow(page) {
   await setMapMode(page, "3d");
   await page.locator("#map-toolbar > summary").click();
   await page.locator("#world-view-button").click();
+  await page.locator("#map-toolbar > summary").click();
+  await page.waitForTimeout(220);
   await settle3dWorldView(page);
   const clicked3dCode = await clickFirstVisibleCountryOnMap(page, ["ESP", "ARG", "BRA", "USA", "CHN", "ZAF", "AUS"]);
   const clicked3dName = await page.evaluate(code => countriesData[code]?.name || code, clicked3dCode);
@@ -238,6 +302,7 @@ async function runDesktopCriticalFlow(page) {
 
 async function runMobileCriticalFlow(page) {
   await waitForAppReady(page);
+  await assertMobileLayersWorkspace(page);
   await page.locator("#toggle-left-panel").click();
   const rankingItem = page.locator("#top-population .rank-link").first();
   await rankingItem.waitFor({ state: "visible", timeout: APP_TIMEOUT_MS });

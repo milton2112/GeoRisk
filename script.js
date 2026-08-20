@@ -83,7 +83,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-08-17-release-3";
+const APP_VERSION = "2026-08-20-release-2";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -1699,6 +1699,13 @@ function setStartupStatus(text, title = null) {
   }
   if (textElement && text) {
     textElement.textContent = text;
+  }
+}
+
+function hideStartupStatus() {
+  const status = document.getElementById("startup-status");
+  if (status) {
+    status.hidden = true;
   }
 }
 
@@ -14584,6 +14591,10 @@ async function init() {
   try {
     bootMetrics.startedAt = performance.now();
     startLongTaskObserver();
+    const startupStatus = document.getElementById("startup-status");
+    if (startupStatus) {
+      startupStatus.hidden = false;
+    }
     document.body.classList.add("globe-loading");
     setStartupStatus(
       currentLanguage === "en" ? "Creating the lightweight map view." : "Creando la vista liviana del mapa.",
@@ -14647,6 +14658,7 @@ async function init() {
     updateMapInteractionTuning();
     setTimeout(() => {
       document.body.classList.remove("globe-loading");
+      hideStartupStatus();
       completeBootMetrics();
       updateAppStatusPanel();
       if (window.GEORISK_DEBUG_BOOT === true || localStorage.getItem("georisk.debugBoot") === "true") {
@@ -14733,6 +14745,7 @@ async function init() {
 
   } catch (error) {
     document.body.classList.remove("globe-loading");
+    hideStartupStatus();
     console.error("Error al inicializar GeoRisk 3D:", error);
     const status = document.getElementById("offline-status");
     if (status) {

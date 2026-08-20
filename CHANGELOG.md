@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.104 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.106 antes de cerrar la siguiente version.
+
+## v1.6.106 - 2026-08-20
+
+- Alinea la ayuda breve de Capas con el modulo de textos diferido, evitando que vuelva a aparecer una explicacion mas larga despues de iniciar la aplicacion.
+- Reordena el espacio de trabajo movil de Capas: ahora ocupa el ancho disponible, mantiene scroll propio, reserva espacio antes de la navegacion inferior y evita que el selector 2D/3D se superponga a la exploracion.
+- Mejora la legibilidad tactil de las capas con objetivos mas altos, jerarquia de grupos mas limpia y una explicacion breve de los datos proxy.
+- Unifica el lenguaje visual de paneles principales, hubs y modales con superficies mas compactas y radios consistentes.
+- Retira el estado de carga del arbol accesible al terminar el arranque, para que no siga anunciandose una vez que la aplicacion ya es interactiva.
+- Agrega una regresion E2E que verifica ancho, separacion y prioridad de los controles del panel de Capas en celular.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-20-release-2`.
 
 ## v1.6.104 - 2026-08-17
 

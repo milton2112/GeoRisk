@@ -34,6 +34,7 @@ body {
   --accent-soft: #a6ead7;
   --text-soft: rgba(235, 246, 242, 0.76);
   --text-muted: rgba(235, 246, 242, 0.62);
+  --shell-radius: 8px;
 }
 
 body.modal-open {
@@ -99,7 +100,7 @@ body.globe-loading #map-mode-toggle {
   z-index: 4000;
   padding: 12px 14px;
   border: 1px solid rgba(255, 120, 120, 0.45);
-  border-radius: 14px;
+  border-radius: var(--shell-radius);
   background: rgba(82, 12, 20, 0.94);
   color: #fff1f1;
   box-shadow: 0 18px 42px rgba(0, 0, 0, 0.28);
@@ -379,7 +380,7 @@ body.globe-loading #startup-status {
   max-height: calc(100dvh - 28px);
   overflow: hidden;
   border: 1px solid var(--panel-border);
-  border-radius: 14px;
+  border-radius: var(--shell-radius);
   background: var(--panel-bg);
   box-shadow: var(--panel-shadow-soft);
   backdrop-filter: blur(14px);
@@ -1806,7 +1807,7 @@ body.layers-panel-open #news-hub-panel {
   color: white;
   padding: 0;
   z-index: 1000;
-  border-radius: 20px;
+  border-radius: var(--shell-radius);
   box-shadow: 0 24px 48px rgba(0, 0, 0, 0.24);
   overscroll-behavior: contain;
   border: 1px solid rgba(106, 180, 255, 0.14);
@@ -1820,7 +1821,7 @@ body.layers-panel-open #news-hub-panel {
   width: 58px;
   height: 58px;
   border: 1px solid var(--panel-border-strong);
-  border-radius: 18px;
+  border-radius: var(--shell-radius);
   background: var(--panel-bg);
   color: var(--accent);
   font: inherit;
@@ -1843,7 +1844,7 @@ body.layers-panel-open #news-hub-panel {
   max-height: calc(100vh - 32px);
   overflow: hidden;
   border: 1px solid var(--panel-border);
-  border-radius: 18px;
+  border-radius: var(--shell-radius);
   background: var(--panel-bg);
   box-shadow: var(--panel-shadow);
   backdrop-filter: blur(16px);
@@ -2021,7 +2022,7 @@ body[data-app-mode="encyclopedia"] #country-modal #country-panel {
   width: min(1020px, calc(100vw - 34px));
   max-height: min(88vh, 920px);
   overflow-y: auto;
-  border-radius: 12px;
+  border-radius: var(--shell-radius);
   padding: 22px 22px 18px;
   background: linear-gradient(180deg, rgba(10, 26, 47, 0.985), rgba(7, 19, 32, 0.97));
   border: 1px solid rgba(106, 180, 255, 0.18);
@@ -2068,7 +2069,7 @@ body[data-app-mode="encyclopedia"] #country-modal #country-panel {
   max-width: min(360px, calc(100vw - 32px));
   z-index: 1000;
   border: 1px solid var(--panel-border);
-  border-radius: 12px;
+  border-radius: var(--shell-radius);
   background: var(--panel-bg);
   box-shadow: 0 22px 42px rgba(0, 0, 0, 0.26);
   overflow: hidden;
@@ -2716,7 +2717,7 @@ body[data-app-mode="encyclopedia"] #country-modal #country-panel {
   width: min(860px, calc(100vw - 28px));
   max-height: min(88vh, 860px);
   overflow-y: auto;
-  border-radius: 12px;
+  border-radius: var(--shell-radius);
   padding: 22px 22px 18px;
   background:
     radial-gradient(circle at top left, rgba(115, 195, 255, 0.14), transparent 42%),
@@ -2734,7 +2735,7 @@ body[data-app-mode="encyclopedia"] #country-modal #country-panel {
   width: min(760px, calc(100vw - 28px));
   max-height: min(86vh, 820px);
   overflow-y: auto;
-  border-radius: 12px;
+  border-radius: var(--shell-radius);
   padding: 20px 20px 18px;
   background: linear-gradient(180deg, rgba(10, 26, 47, 0.985), rgba(7, 19, 32, 0.97));
   color: #eef5ff;
@@ -3746,10 +3747,13 @@ p {
 
   #map-toolbar {
     position: fixed;
-    top: 12px;
-    left: auto;
-    right: 12px;
-    width: min(220px, calc(100vw - 32px));
+    top: 64px;
+    right: 10px;
+    bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+    left: 10px;
+    width: auto;
+    max-height: calc(100dvh - 144px);
+    z-index: 1240;
     transform: translateY(calc(-100% - 18px));
     transition: transform 0.24s ease, opacity 0.24s ease;
     opacity: 0;
@@ -3766,8 +3770,9 @@ p {
     padding: 10px 12px;
   }
 
-  .toolbar-content {
+  #map-toolbar .toolbar-content {
     padding: 0 11px 11px;
+    max-height: calc(100dvh - 206px);
   }
 
   #mobile-panel-controls,
@@ -3777,12 +3782,12 @@ p {
     right: 10px;
     bottom: calc(10px + env(safe-area-inset-bottom, 0px));
     top: auto;
-    z-index: 1250;
+    z-index: 1300;
     display: grid;
     gap: 5px;
     padding: 5px;
     border: 1px solid rgba(106, 180, 255, 0.24);
-    border-radius: 14px;
+    border-radius: var(--shell-radius);
     background: rgba(7, 20, 35, 0.94);
     box-shadow: 0 16px 36px rgba(0, 0, 0, 0.34);
     backdrop-filter: blur(16px);
@@ -3804,10 +3809,14 @@ p {
     bottom: 82px;
     width: 54px;
     height: 54px;
-    border-radius: 16px;
+    border-radius: var(--shell-radius);
+    z-index: 1260;
   }
 
-  body.mobile-more-open #map-mode-toggle {
+  body.mobile-more-open #map-mode-toggle,
+  body.mobile-left-open #map-mode-toggle,
+  body.mobile-tools-open #map-mode-toggle,
+  body.mobile-country-open #map-mode-toggle {
     opacity: 0;
     pointer-events: none;
   }
@@ -3820,7 +3829,7 @@ p {
     min-height: 46px;
     padding: 8px 6px;
     border: 0;
-    border-radius: 9px;
+    border-radius: var(--shell-radius);
     background: transparent;
     color: white;
     font: inherit;
@@ -3861,7 +3870,7 @@ p {
     height: auto;
     max-height: none;
     margin: 0;
-    border-radius: 20px;
+    border-radius: var(--shell-radius);
     transition: transform 0.24s ease, opacity 0.24s ease;
     -webkit-overflow-scrolling: touch;
   }
@@ -3968,7 +3977,7 @@ p {
     width: min(94vw, 700px);
     max-height: min(82vh, 760px);
     padding: 18px 16px 16px;
-    border-radius: 18px;
+    border-radius: var(--shell-radius);
   }
 
   #country-modal #country-panel {
@@ -4004,7 +4013,7 @@ p {
     width: min(94vw, 680px);
     max-height: min(82vh, 760px);
     padding: 18px 16px 16px;
-    border-radius: 18px;
+    border-radius: var(--shell-radius);
   }
 
   .panel-section summary,
@@ -4016,15 +4025,17 @@ p {
 
   #map-toolbar {
     top: 64px;
-    left: 10px;
-    right: 10px;
-    padding: 11px;
-    max-height: calc(100dvh - 86px);
+    right: 8px;
+    bottom: calc(74px + env(safe-area-inset-bottom, 0px));
+    left: 8px;
+    width: auto;
+    padding: 0;
+    max-height: calc(100dvh - 142px);
     overflow: hidden;
   }
 
   #map-toolbar .toolbar-content {
-    max-height: calc(100dvh - 148px);
+    max-height: calc(100dvh - 206px);
   }
 
   h2 {

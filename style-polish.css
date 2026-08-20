@@ -525,10 +525,7 @@
 .toolbar-lead {
   display: grid;
   gap: 3px;
-  padding: 10px 11px;
-  border: 1px solid rgba(95, 211, 177, 0.18);
-  border-radius: var(--ui-radius);
-  background: rgba(255, 255, 255, 0.035);
+  padding: 4px 2px 8px;
 }
 
 .toolbar-lead strong {
@@ -596,6 +593,65 @@
   box-shadow: 0 0 0 3px rgba(114, 222, 192, 0.14);
 }
 
+@media (max-width: 820px) {
+  .toolbar-lead {
+    gap: 2px;
+    padding: 2px 1px 8px;
+  }
+
+  .toolbar-lead strong {
+    font-size: 0.9rem;
+  }
+
+  .toolbar-lead span {
+    font-size: 0.74rem;
+    line-height: 1.35;
+  }
+
+  #theme-quick-grid {
+    gap: 10px;
+    padding-bottom: 4px;
+  }
+
+  .theme-picker-group {
+    gap: 7px;
+  }
+
+  .theme-picker-buttons {
+    gap: 8px;
+  }
+
+  .theme-picker-button {
+    min-height: 72px;
+    align-content: start;
+    padding: 9px;
+  }
+
+  .theme-picker-button span {
+    line-height: 1.18;
+  }
+
+  .theme-picker-button small {
+    min-height: 1.2em;
+    line-height: 1.28;
+  }
+
+  .theme-picker-button i {
+    justify-self: start;
+    margin-top: 2px;
+  }
+}
+
+@media (max-width: 400px) {
+  .theme-picker-button span {
+    font-size: 0.74rem;
+  }
+
+  .theme-picker-button small {
+    font-size: 0.65rem;
+  }
+}
+
 .toolbar-state-card,
 .ranking-active-summary {
   display: grid;
@@ -614,6 +670,13 @@
 
 .toolbar-state-card {
   margin-top: 0;
+}
+
+@media (max-width: 820px) {
+  .toolbar-state-card {
+    margin: 2px 0 8px;
+    padding: 7px 9px;
+  }
 }
 
 .ranking-active-summary.has-active {

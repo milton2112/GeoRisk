@@ -60,6 +60,7 @@ assert.ok(polishCss.includes(".product-start-card"), "portada debe exponer acces
 assert.ok(polishCss.includes(".product-trust-strip"), "portada debe mostrar confianza de datos sin cargar mas CSS critico");
 assert.ok(polishCss.includes(".rank-link.is-active"), "rankings deben mostrar seleccion activa");
 assert.ok(polishCss.includes(".theme-picker-button.is-active"), "capas tematicas deben mostrar seleccion activa");
+assert.ok(polishCss.includes("min-height: 72px"), "capas mobile deben conservar etiquetas legibles y objetivos tactiles amplios");
 assert.ok(polishCss.includes(".rank-empty-state"), "rankings deben mostrar estado vacio no interactivo");
 assert.ok(polishCss.includes(".country-title > .coat-visual"), "cabecera de ficha debe reservar espacio al escudo");
 assert.ok(polishCss.includes(".conflict-trust-badge"), "modal de conflicto debe mostrar calidad de dato sin ocupar una seccion completa");
@@ -74,9 +75,11 @@ const performanceUi = await fs.readFile(path.join(projectRoot, "app-performance-
 const uiPolish = await fs.readFile(path.join(projectRoot, "app-ui-polish.js"), "utf8");
 const countryPanelUi = await fs.readFile(path.join(projectRoot, "app-country-panel.js"), "utf8");
 const riskRadarUi = await fs.readFile(path.join(projectRoot, "app-risk-radar-ui.js"), "utf8");
+const textUi = await fs.readFile(path.join(projectRoot, "app-text.js"), "utf8");
 assert.ok(performanceUi.includes("Recomendacion automatica"), "rendimiento debe explicar la recomendacion en espanol");
 assert.ok(performanceUi.includes("Arranque sano"), "rendimiento debe distinguir estado sano");
 assert.ok(performanceUi.includes("Degradaciones automaticas de render"), "rendimiento debe mostrar degradaciones automaticas");
+assert.ok(textUi.includes("Los proxies aparecen marcados"), "capas debe conservar una ayuda breve despues de cargar los textos diferidos");
 
 const indexHtml = await fs.readFile(path.join(projectRoot, "index.html"), "utf8");
 const script = await fs.readFile(path.join(projectRoot, "script.js"), "utf8");
@@ -108,11 +111,14 @@ assert.ok(indexHtml.includes('id="theme-quick-grid"'), "panel de capas debe expo
 assert.ok(css.includes("body.modal-open #top-controls"), "los modales deben reducir distracciones del shell");
 assert.ok(css.includes("body.layers-panel-open #compare-hub-panel"), "panel de capas abierto debe ocultar hubs inferiores para evitar superposicion");
 assert.ok(css.includes("body.layers-panel-open #news-hub-panel"), "panel de capas abierto debe ocultar noticias para evitar superposicion");
+assert.ok(css.includes("body.mobile-tools-open #map-mode-toggle"), "capas mobile debe ocultar el cambio 2D/3D mientras el panel ocupa la superficie");
+assert.ok(css.includes("max-height: calc(100dvh - 144px)"), "capas mobile debe reservar espacio estable para la navegacion inferior");
 assert.ok(css.includes(".country-profile > .panel-actions-row"), "acciones de ficha deben usar una grilla compacta y estable");
 assert.ok(css.includes(".country-title .coat-visual"), "encabezado mobile debe evitar que el escudo se superponga al cierre");
 assert.ok(css.includes(".panel-section[open] summary::after"), "secciones desplegables deben indicar su estado");
 assert.ok(script.includes("constrainedInitialDevice ? \"none\" : \"countries\""), "mobile debe arrancar con etiquetas reducidas");
 assert.ok(script.includes("function setStartupStatus"), "arranque debe informar fases sin bloquear la UI");
+assert.ok(script.includes("function hideStartupStatus"), "estado de arranque debe salir del arbol accesible al completar la carga");
 assert.ok(script.includes("function runIntroAction"), "portada debe convertir acciones guiadas en flujo real");
 assert.ok(script.includes('help: `./app-help-ui.js?v=${APP_VERSION}`'), "guia rapida debe cargarse como modulo diferido versionado");
 assert.ok(script.includes("renderHelpModalContent"), "guia rapida debe renderizarse bajo demanda");
