@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-22T13:43:50.207Z",
+  "generatedAt": "2026-08-22T14:01:36.700Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11048611,
-    "duplicatedCountryFilesBytes": 1525726,
-    "countryConflictShardBytes": 421242,
+    "fullBytes": 11065403,
+    "duplicatedCountryFilesBytes": 1526061,
+    "countryConflictShardBytes": 421668,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 24685,
-        "inlineBytes": 1044357,
+        "bytes": 24691,
+        "inlineBytes": 1050865,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,12 +21,12 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 308,
+          "conflicts": 309,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 11261,
+            "military": 11267,
             "politics": 9502,
             "metadata": 1952,
             "general": 1018,
@@ -39,7 +39,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 11261
+              "bytes": 11267
             },
             {
               "section": "politics",
@@ -54,8 +54,8 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 69314,
-          "conflictShardBytes": 69315,
+          "conflictsBytes": 69643,
+          "conflictShardBytes": 69644,
           "averageConflictBytes": 225
         }
       },
@@ -216,7 +216,7 @@
         "code": "FRA",
         "name": "Francia",
         "bytes": 19798,
-        "inlineBytes": 763965,
+        "inlineBytes": 767741,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -258,8 +258,8 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 46405,
-          "conflictShardBytes": 46406,
+          "conflictsBytes": 46502,
+          "conflictShardBytes": 46503,
           "averageConflictBytes": 196
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 205,
+    "pendingCount": 204,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15600,19 +15600,6 @@
         "name": "Batalla de Hrebionka",
         "countries": [
           "RUS"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Hyères Islands",
-        "countries": [
-          "FRA"
         ],
         "regions": [
           "Europa"
@@ -17160,6 +17147,19 @@
         "name": "Combate de Huite",
         "countries": [
           "CHL"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Combate del Callao",
+        "countries": [
+          "PER"
         ],
         "regions": [
           "América"

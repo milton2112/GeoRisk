@@ -8,7 +8,19 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.108 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.109 antes de cerrar la siguiente version.
+
+## v1.6.109 - 2026-08-22
+
+- Normaliza, fecha y jerarquiza la Batalla de las islas Hyères (1795), que figuraba como "Batalla de Hyères Islands" bajo un padre regional genérico y con texto parcialmente en inglés.
+- La sitúa en la Guerra de la Primera Coalición y en la campaña naval mediterránea de 1793-1796, con participantes de época, cronología, procedencia y una ficha diferida bajo demanda.
+- Vincula Francia, Reino Unido e Italia con transparencia histórica: Italia funciona como referencia contemporánea del Reino de Nápoles, sin presentarla como el Estado beligerante de 1795.
+- Conserva la cautela sobre el desenlace: identifica una ventaja táctica anglo-napolitana, pero no consolida bajas ni presenta la acción como una decisión estratégica definitiva.
+- Añade fuentes del Service historique de la Défense y Royal Museums Greenwich, un alias de importación inglesa y regresiones de jerarquía, idioma, fuentes y enlaces por país.
+- Reduce las jerarquías provisionales de 138 a 137, mantiene cero alertas estructurales y actualiza los índices a 1.795 conflictos, 3.020 eventos y 1.041 fichas diferidas.
+- La búsqueda de una guerra o batalla conserva los países vinculados en el mapa y ofrece acceso directo a su ficha diferida, sin obligar a recorrer listas largas de una ficha nacional.
+- Estabiliza el smoke crítico del globo 3D: espera el final de la transición de cámara y repite un clic de selección breve antes de declarar una regresión de interacción.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-22-release-3`.
 
 ## v1.6.108 - 2026-08-22
 

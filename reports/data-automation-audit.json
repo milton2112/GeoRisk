@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-22T13:47:24.261Z",
+  "generatedAt": "2026-08-22T14:20:50.624Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 206
+      "count": 205
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 138
+      "count": 137
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 534
+      "count": 535
     },
     "redundantReligions": {
       "count": 0
@@ -153,11 +153,6 @@
       },
       {
         "code": "FRA",
-        "name": "Batalla de Hyères Islands",
-        "region": "Europa"
-      },
-      {
-        "code": "FRA",
         "name": "Batalla de Île Ronde",
         "region": "Europa"
       },
@@ -255,6 +250,11 @@
         "code": "FRA",
         "name": "Batalla de Vizagapatam",
         "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla del cabo de la Roca",
+        "region": "Europa"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -346,13 +346,6 @@
       {
         "code": "FRA",
         "name": "Batalla de Hiddensee",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Hyères Islands",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -537,6 +530,13 @@
         "name": "Batalla naval de Tatamagouche",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "GEO",
+        "name": "Batalla de Kamani",
+        "parent": "Conflicto regional de Asia",
+        "campaign": "Campaña vinculada a Conflicto regional de Asia",
         "startYear": null
       }
     ],
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 138,
+      "count": 137,
       "command": "npm run fix:conflicts:batches"
     },
     {

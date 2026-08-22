@@ -3,6 +3,7 @@ import { chromium } from "@playwright/test";
 import { createLocalSmokeServer } from "../localSmokeServer.js";
 
 const APP_TIMEOUT_MS = Number(process.env.GEORISK_E2E_TIMEOUT_MS || 45000);
+const MAP_PICK_TIMEOUT_MS = Math.min(APP_TIMEOUT_MS, 8000);
 const DESKTOP_VIEWPORT = { width: 1440, height: 920 };
 const MOBILE_VIEWPORT = { width: 390, height: 844 };
 
@@ -161,6 +162,12 @@ async function clickMapPoint(page, point) {
   await page.mouse.up();
 }
 
+async function waitForStable3dMap(page) {
+  await page.waitForFunction(() => {
+    return Boolean(viewer?.scene?.canvas) && !isCameraNavigating && !loadMapPromise;
+  }, undefined, { timeout: APP_TIMEOUT_MS });
+}
+
 async function clickCountryOnMap(page, code) {
   const point = await getCountryScreenPoint(page, code);
   assert.ok(point, "el pais " + code + " debe estar visible y ser clickeable en el canvas");
@@ -171,6 +178,7 @@ async function clickCountryOnMap(page, code) {
 }
 
 async function clickFirstVisibleCountryOnMap(page, codes) {
+  await waitForStable3dMap(page);
   for (const code of codes) {
     let point = await getCountryScreenPoint(page, code, 12);
     if (!point && await focusCountryFor3dPick(page, code)) {
@@ -179,11 +187,21 @@ async function clickFirstVisibleCountryOnMap(page, codes) {
     if (!point) {
       continue;
     }
-    await clickMapPoint(page, point);
-    await page.waitForFunction(countryCode => {
-      return selectedLayers.some(layer => layer.code === countryCode);
-    }, code, { timeout: APP_TIMEOUT_MS });
-    return code;
+    for (let attempt = 0; attempt < 2; attempt += 1) {
+      await waitForStable3dMap(page);
+      await clickMapPoint(page, point);
+      try {
+        await page.waitForFunction(countryCode => {
+          return selectedLayers.some(layer => layer.code === countryCode);
+        }, code, { timeout: MAP_PICK_TIMEOUT_MS });
+        return code;
+      } catch {
+        if (attempt === 0) {
+          await page.waitForTimeout(260);
+          point = await getCountryScreenPoint(page, code, 10) || point;
+        }
+      }
+    }
   }
   assert.fail("la vista global 3D debe exponer al menos un pais clickeable");
 }

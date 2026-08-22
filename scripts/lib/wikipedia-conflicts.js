@@ -84,6 +84,8 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Batalla de Antivari (1914)": "Battle_of_Antivari",
   "Batalla de Flint Creek (1789)": "Battle_of_Flint_Creek",
   "Batalla de Dogger Bank (1781)": "Battle_of_Dogger_Bank_(1781)",
+  "Batalla de las islas Hyères (1795)": "Battle_of_the_Hyères_Islands",
+  "Batalla de las islas Hyeres (1795)": "Battle_of_the_Hyères_Islands",
   "Batalla del palacio Dasman (1990)": "Battle_of_Dasman_Palace",
   "Batalla de Cabo Rachado (1606)": "Battle_of_Cape_Rachado",
   "Batalla de Beitang (1900)": "Battle_of_Beitang",

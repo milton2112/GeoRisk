@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-22T13:47:20.897Z",
+  "generatedAt": "2026-08-22T14:20:47.591Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 138,
-  "reviewCount": 138,
+  "advisoryCount": 137,
+  "reviewCount": 137,
   "summary": {
-    "provisional_parent": 138
+    "provisional_parent": 137
   },
   "topIssues": [],
   "topAdvisories": [
@@ -462,20 +462,6 @@
       "name": "Batalla de Hrebionka",
       "countries": [
         "RUS"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de hyeres islands",
-      "name": "Batalla de Hyères Islands",
-      "countries": [
-        "FRA"
       ],
       "startYear": null,
       "endYear": null,
@@ -1124,6 +1110,20 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de punk hill",
+      "name": "Batalla de Punk Hill",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],

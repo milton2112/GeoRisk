@@ -91,6 +91,16 @@ assert.ok(
   "busqueda de conflictos debe usar conflicts_index bajo demanda cuando no hay preview inline"
 );
 assert.ok(
+  /function registerSearchConflictModal\(result = \{\}\)[\s\S]{0,2000}registerConflictModal\(conflict\)/.test(script)
+    && /const conflictModalKey = registerSearchConflictModal\(result\);[\s\S]{0,360}\{ conflictModalKey \}/.test(script)
+    && /function renderGroupSelection\(title, descriptor, countries, options = \{\}\)[\s\S]{0,8000}data-conflict-key=[\s\S]{0,220}Abrir ficha del conflicto/.test(script),
+  "un resultado de conflicto debe ofrecer apertura directa y conservar la carga diferida de su ficha"
+);
+assert.ok(
+  /renderGroupSelection\(currentPanelState\.title, currentPanelState\.descriptor, currentPanelState\.countries, \{[\s\S]{0,200}conflictModalKey: currentPanelState\.conflictModalKey/.test(script),
+  "la accion directa de un conflicto debe sobrevivir al rerender del grupo"
+);
+assert.ok(
   /searchCore\.resolveAliasResult\(rawQuery, aliasContext,[\s\S]{0,260}selectSearchResult\(primaryAliasResult\)/.test(script),
   "busqueda exacta debe resolver aliases en el modulo diferido y conservar la seleccion central"
 );

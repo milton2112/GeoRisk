@@ -248,6 +248,11 @@ import {
   GUERRERO_COUNTRY_CONFLICT_ADDITIONS,
   GUERRERO_CONFLICT_RENAMES
 } from "../lib/conflict-curation-guerrero.js";
+import {
+  HYERES_CONFLICT_DETAIL_FIXES,
+  HYERES_COUNTRY_CONFLICT_ADDITIONS,
+  HYERES_CONFLICT_RENAMES
+} from "../lib/conflict-curation-hyeres.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import {
@@ -2304,6 +2309,42 @@ assert.ok(
   "la curaduria de Guerrero debe conservar jerarquia, fuentes y cautela sobre el resultado"
 );
 assert.equal((await resolveWikipediaConflictTitle("Batalla de Guerrero (1916)")).pageTitle, "Batalla de Guerrero");
+assert.equal(Object.keys(HYERES_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  HYERES_CONFLICT_RENAMES["Batalla de Hyeres Islands"],
+  "Batalla de las islas Hyères (1795)"
+);
+assert.deepEqual(
+  HYERES_COUNTRY_CONFLICT_ADDITIONS["Reino Unido"],
+  ["Batalla de las islas Hyères (1795)"]
+);
+assert.deepEqual(
+  HYERES_COUNTRY_CONFLICT_ADDITIONS.Italia,
+  ["Batalla de las islas Hyères (1795)"]
+);
+assert.equal(
+  HYERES_CONFLICT_DETAIL_FIXES["Batalla de las islas Hyères (1795)"].parent,
+  "Guerra de la Primera Coalición (1792-1797)"
+);
+assert.ok(
+  Object.values(HYERES_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 1795
+      && detail.startYear === detail.endYear
+      && detail.parent === detail.war
+      && detail.campaign
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 3
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && detail.sourceDispute
+      && /ventaja t.ctica/i.test(detail.outcome)
+  ),
+  "la curaduria de Hyeres debe conservar fecha, jerarquia, fuentes, participantes y cautela sobre el desenlace"
+);
+const hyeresWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de las islas Hyères (1795)");
+assert.equal(hyeresWikipediaOverride.language, "en");
+assert.equal(hyeresWikipediaOverride.pageTitle, "Battle_of_the_Hyères_Islands");
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",
   startYear: 1944,

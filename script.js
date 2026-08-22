@@ -83,7 +83,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-08-22-release-2";
+const APP_VERSION = "2026-08-22-release-3";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -9114,7 +9114,11 @@ function renderThemePicker() {
   syncThemeToolbarState();
 }
 
-function renderGroupSelection(title, descriptor, countries) {
+function renderGroupSelection(title, descriptor, countries, options = {}) {
+  const conflictModalKey = String(
+    options.conflictModalKey
+      || (currentPanelState.type === "group" && currentPanelState.title === title ? currentPanelState.conflictModalKey || "" : "")
+  );
   const timelineFilter =
     currentPanelState.type === "group" && currentPanelState.title === title
       ? (currentPanelState.timelineFilter || "all")
@@ -9135,7 +9139,18 @@ function renderGroupSelection(title, descriptor, countries) {
     currentPanelState.type === "group" && currentPanelState.title === title
       ? (currentPanelState.timelineMode || "full")
       : "full";
-  currentPanelState = { type: "group", title, descriptor, countries, timelineFilter, timelineCentury, timelineIntensity, timelineRelevance, timelineMode };
+  currentPanelState = {
+    type: "group",
+    title,
+    descriptor,
+    countries,
+    conflictModalKey,
+    timelineFilter,
+    timelineCentury,
+    timelineIntensity,
+    timelineRelevance,
+    timelineMode
+  };
   const totalPopulation = countries.reduce((sum, country) => sum + (country.general?.population || 0), 0);
   const avgGdpPerCapita = countries.length
     ? countries.reduce((sum, country) => sum + (country.economy?.gdpPerCapita || 0), 0) / countries.length
@@ -9166,6 +9181,7 @@ function renderGroupSelection(title, descriptor, countries) {
     <p><b>${currentLanguage === "en" ? "Shown total population" : "Poblacion total mostrada"}:</b> ${formatNumber(totalPopulation)}</p>
     <p><b>${currentLanguage === "en" ? "Countries and territories found" : "Paises y territorios encontrados"}:</b> ${countries.length}</p>
     <p><b>${descriptor}:</b></p>
+    ${conflictModalKey ? `<div class="panel-actions-row group-selection-action"><button type="button" class="panel-action-button" data-conflict-key="${escapeHtml(conflictModalKey)}">${currentLanguage === "en" ? "Open conflict profile" : "Abrir ficha del conflicto"}</button></div>` : ""}
     ${renderCountryActionList(countries, country => country.continent ? translateContinentName(country.continent) : "")}
     <p><b>${currentLanguage === "en" ? "Shared timeline" : "Timeline compartido"}:</b></p>
     ${renderTimelineCollection(aggregateTimeline)}
@@ -9971,7 +9987,9 @@ function rerenderCurrentPanel() {
     }
 
     if (currentPanelState.type === "group") {
-      renderGroupSelection(currentPanelState.title, currentPanelState.descriptor, currentPanelState.countries);
+      renderGroupSelection(currentPanelState.title, currentPanelState.descriptor, currentPanelState.countries, {
+        conflictModalKey: currentPanelState.conflictModalKey
+      });
       return;
     }
 
@@ -12037,8 +12055,31 @@ function renderSelectableCountryGroup(title, subtitle, countries, options = {}) 
     return false;
   }
   selectCountryGroupLayers(cleanCountries, options);
-  renderGroupSelection(title, subtitle, cleanCountries);
+  renderGroupSelection(title, subtitle, cleanCountries, options);
   return true;
+}
+
+function registerSearchConflictModal(result = {}) {
+  const name = translateConflictName(result.value || result.label || "");
+  if (!name) {
+    return "";
+  }
+
+  const startYear = Number(result.startYear);
+  const endYear = Number(result.endYear);
+  const region = Array.isArray(result.regions) ? result.regions.find(Boolean) : result.region;
+  const conflictType = Array.isArray(result.types)
+    ? result.types.find(Boolean)
+    : (result.conflictType || result.conflict_type || result.category);
+  const conflict = {
+    name,
+    ...(Number.isFinite(startYear) && startYear > 0 ? { startYear } : {}),
+    ...(Number.isFinite(endYear) && endYear > 0 ? { endYear } : {}),
+    ...(region ? { region, normalizedRegion: region } : {}),
+    ...(conflictType ? { type: conflictType, conflictType } : {}),
+    ...(typeof result.ongoing === "boolean" ? { ongoing: result.ongoing, active: result.ongoing } : {})
+  };
+  return registerConflictModal(conflict);
 }
 
 function getSearchAliasContext() {
@@ -12255,10 +12296,12 @@ async function selectSearchResult(result) {
       ? result.countries.map(code => countriesData[code]).filter(Boolean)
       : [];
     const countries = indexedCountries.length ? indexedCountries : getCountriesByConflict(result.value);
+    const conflictModalKey = registerSearchConflictModal(result);
     if (renderSelectableCountryGroup(
       result.label,
       currentLanguage === "en" ? "Countries linked to this war or battle" : "Paises ligados a esta guerra o batalla",
-      countries
+      countries,
+      { conflictModalKey }
     )) {
       return;
     }
@@ -12367,7 +12410,12 @@ async function searchMap() {
       label: indexedConflict.name,
       type: "conflict",
       value: indexedConflict.name,
-      countries: indexedConflict.countries || []
+      countries: indexedConflict.countries || [],
+      startYear: indexedConflict.startYear,
+      endYear: indexedConflict.endYear,
+      ongoing: indexedConflict.ongoing,
+      regions: indexedConflict.regions || [],
+      types: indexedConflict.types || []
     });
     return;
   }
