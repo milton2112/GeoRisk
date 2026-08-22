@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-22T13:34:05.063Z",
+  "generatedAt": "2026-08-22T13:47:20.897Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 139,
-  "reviewCount": 139,
+  "advisoryCount": 138,
+  "reviewCount": 138,
   "summary": {
-    "provisional_parent": 139
+    "provisional_parent": 138
   },
   "topIssues": [],
   "topAdvisories": [
@@ -396,20 +396,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de guerrero",
-      "name": "Batalla de Guerrero",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],
@@ -1120,6 +1106,20 @@
       "name": "Batalla de Procida Canal",
       "countries": [
         "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de pruzany",
+      "name": "Batalla de Prużany",
+      "countries": [
+        "RUS"
       ],
       "startYear": null,
       "endYear": null,

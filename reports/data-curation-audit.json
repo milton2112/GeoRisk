@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-22T12:40:08.470Z",
+  "generatedAt": "2026-08-22T13:43:50.207Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11037699,
-    "duplicatedCountryFilesBytes": 1525409,
-    "countryConflictShardBytes": 421156,
+    "fullBytes": 11048611,
+    "duplicatedCountryFilesBytes": 1525726,
+    "countryConflictShardBytes": 421242,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 23977,
-        "inlineBytes": 3117213,
+        "inlineBytes": 3121283,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 212541,
-          "conflictShardBytes": 212542,
+          "conflictsBytes": 212627,
+          "conflictShardBytes": 212628,
           "averageConflictBytes": 231
         }
       },
@@ -570,54 +570,54 @@
         }
       },
       {
-        "code": "NOR",
-        "name": "Noruega",
-        "bytes": 15253,
-        "inlineBytes": 92697,
+        "code": "MEX",
+        "name": "México",
+        "bytes": 15436,
+        "inlineBytes": 114339,
         "tooLarge": false,
         "counts": {
-          "cities": 3,
+          "cities": 4,
           "capitals": 1,
-          "languages": 1,
+          "languages": 5,
           "religionGroups": 4,
-          "organizations": 49,
-          "rivals": 49,
-          "conflicts": 23,
-          "timelineEvents": 0
+          "organizations": 50,
+          "rivals": 8,
+          "conflicts": 29,
+          "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "politics": 7233,
-            "military": 4941,
-            "metadata": 1914,
-            "general": 641,
-            "religion": 231,
+            "military": 6944,
+            "politics": 4817,
+            "metadata": 1936,
+            "general": 870,
+            "history": 398,
+            "religion": 248,
             "economy": 101,
-            "history": 71,
             "name": 9,
-            "continent": 8
+            "continent": 9
           },
           "largestSections": [
             {
-              "section": "politics",
-              "bytes": 7233
+              "section": "military",
+              "bytes": 6944
             },
             {
-              "section": "military",
-              "bytes": 4941
+              "section": "politics",
+              "bytes": 4817
             },
             {
               "section": "metadata",
-              "bytes": 1914
+              "bytes": 1936
             },
             {
               "section": "general",
-              "bytes": 641
+              "bytes": 870
             }
           ],
-          "conflictsBytes": 4856,
+          "conflictsBytes": 6827,
           "conflictShardBytes": 0,
-          "averageConflictBytes": 211
+          "averageConflictBytes": 235
         }
       }
     ]
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 206,
+    "pendingCount": 205,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15538,19 +15538,6 @@
         ],
         "regions": [
           "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Guerrero",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"
@@ -17163,6 +17150,19 @@
         ],
         "regions": [
           "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Combate de Huite",
+        "countries": [
+          "CHL"
+        ],
+        "regions": [
+          "América"
         ],
         "types": [
           "interestatal"

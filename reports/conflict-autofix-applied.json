@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-08-22T12:40:02.728Z",
-  "changedFullCountries": 1,
+  "generatedAt": "2026-08-22T13:43:43.897Z",
+  "changedFullCountries": 2,
   "fullPassChanges": [
-    1,
+    2,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 0,
-    "written": false,
+    "enriched": 109,
+    "written": true,
     "compacted": false
   },
   "generatedHierarchyCandidates": 991,
@@ -228,7 +228,8 @@
       "Batalla de Ambos Nogales (1918)",
       "Batalla de San Jacinto (1836)",
       "Primera batalla de Agua Prieta (1911)",
-      "Batalla de Boca Teacapan (1870)"
+      "Batalla de Boca Teacapan (1870)",
+      "Batalla de Guerrero (1916)"
     ],
     "australia": [
       "Batalla de Hamel (1918)",
@@ -851,7 +852,8 @@
     "Batalla de Ösel Island": "Batalla de Ösel (1719)",
     "Primera batalla de Vailele": "Primera batalla de Vailele (1888)",
     "Batalla del Neva": "Batalla del Neva (1240)",
-    "Batalla de Shanhaiguan": "Campana de Shanhaiguan-Rehe (1924)"
+    "Batalla de Shanhaiguan": "Campana de Shanhaiguan-Rehe (1924)",
+    "Batalla de Guerrero": "Batalla de Guerrero (1916)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1809,6 +1811,7 @@
     "Batalla de Ösel (1719)",
     "Primera batalla de Vailele (1888)",
     "Batalla del Neva (1240)",
-    "Campana de Shanhaiguan-Rehe (1924)"
+    "Campana de Shanhaiguan-Rehe (1924)",
+    "Batalla de Guerrero (1916)"
   ]
 }

@@ -243,6 +243,11 @@ import {
   NEVA_SHANHAIGUAN_COUNTRY_CONFLICT_EXCLUSIONS,
   NEVA_SHANHAIGUAN_CONFLICT_RENAMES
 } from "../lib/conflict-curation-neva-shanhaiguan.js";
+import {
+  GUERRERO_CONFLICT_DETAIL_FIXES,
+  GUERRERO_COUNTRY_CONFLICT_ADDITIONS,
+  GUERRERO_CONFLICT_RENAMES
+} from "../lib/conflict-curation-guerrero.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import {
@@ -2269,6 +2274,36 @@ assert.ok(
   ),
   "la tanda Neva-Shanhaiguan debe conservar fecha, jerarquia, fuentes y participantes"
 );
+assert.equal(Object.keys(GUERRERO_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  GUERRERO_CONFLICT_RENAMES["Batalla de Guerrero"],
+  "Batalla de Guerrero (1916)"
+);
+assert.deepEqual(
+  GUERRERO_COUNTRY_CONFLICT_ADDITIONS.Mexico,
+  ["Batalla de Guerrero (1916)"]
+);
+assert.equal(
+  GUERRERO_CONFLICT_DETAIL_FIXES["Batalla de Guerrero (1916)"].parent,
+  "Expedicion punitiva estadounidense en Mexico (1916-1917)"
+);
+assert.ok(
+  Object.values(GUERRERO_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent === detail.war
+      && detail.campaign
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 3
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && detail.sourceDispute
+      && /no permiten fijar una victoria tactica unica/i.test(detail.outcome)
+  ),
+  "la curaduria de Guerrero debe conservar jerarquia, fuentes y cautela sobre el resultado"
+);
+assert.equal((await resolveWikipediaConflictTitle("Batalla de Guerrero (1916)")).pageTitle, "Batalla de Guerrero");
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",
   startYear: 1944,

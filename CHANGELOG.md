@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.107 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.108 antes de cerrar la siguiente version.
+
+## v1.6.108 - 2026-08-22
+
+- Fecha, jerarquiza y documenta la Batalla de Guerrero (1916), antes bajo un padre regional provisional y sin fecha, participantes ni procedencia suficiente.
+- La sitúa en la Expedición punitiva estadounidense en México (1916-1917), distingue al destacamento de George A. Dodd de las fuerzas villistas y agrega México solo como referencia geográfica contemporánea.
+- Sustituye el desenlace automático de victoria estadounidense por un relato cauteloso: hubo sorpresa y persecución, Villa escapó y las fuentes no permiten consolidar vencedor táctico ni bajas.
+- Incorpora fuentes del Centro de Historia Militar del Ejército de EE. UU., Office of the Historian y el INAH, una ficha diferida y regresiones de jerarquía, fuentes y enlaces por país.
+- Reduce las jerarquías provisionales de 139 a 138, mantiene cero alertas estructurales y actualiza los índices a 1.794 conflictos, 3.017 eventos y 1.040 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-22-release-2`.
 
 ## v1.6.107 - 2026-08-22
 

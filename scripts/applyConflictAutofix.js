@@ -254,6 +254,11 @@ import {
   NEVA_SHANHAIGUAN_COUNTRY_CONFLICT_EXCLUSIONS,
   NEVA_SHANHAIGUAN_CONFLICT_RENAMES
 } from "./lib/conflict-curation-neva-shanhaiguan.js";
+import {
+  GUERRERO_CONFLICT_DETAIL_FIXES,
+  GUERRERO_COUNTRY_CONFLICT_ADDITIONS,
+  GUERRERO_CONFLICT_RENAMES
+} from "./lib/conflict-curation-guerrero.js";
 import { collectConflictCountryNames, curateConflictDetail, curateConflictEntry } from "./lib/conflict-batch-curation.js";
 import {
   cleanConflictLabel,
@@ -334,7 +339,8 @@ const curatedConflictDetailFixes = {
   ...DASMAN_RACHADO_CONFLICT_DETAIL_FIXES,
   ...BEITANG_TEACAPAN_CONFLICT_DETAIL_FIXES,
   ...OSEL_VAILELE_CONFLICT_DETAIL_FIXES,
-  ...NEVA_SHANHAIGUAN_CONFLICT_DETAIL_FIXES
+  ...NEVA_SHANHAIGUAN_CONFLICT_DETAIL_FIXES,
+  ...GUERRERO_CONFLICT_DETAIL_FIXES
 };
 const safeConflictRenames = {
   ...SAFE_CONFLICT_RENAMES,
@@ -395,7 +401,8 @@ const safeConflictRenames = {
   ...DASMAN_RACHADO_CONFLICT_RENAMES,
   ...BEITANG_TEACAPAN_CONFLICT_RENAMES,
   ...OSEL_VAILELE_CONFLICT_RENAMES,
-  ...NEVA_SHANHAIGUAN_CONFLICT_RENAMES
+  ...NEVA_SHANHAIGUAN_CONFLICT_RENAMES,
+  ...GUERRERO_CONFLICT_RENAMES
 };
 const countryConflictAdditionBatches = [
   TRANSITION_1846_1902_COUNTRY_CONFLICT_ADDITIONS,
@@ -429,7 +436,8 @@ const countryConflictAdditionBatches = [
   DASMAN_RACHADO_COUNTRY_CONFLICT_ADDITIONS,
   BEITANG_TEACAPAN_COUNTRY_CONFLICT_ADDITIONS,
   OSEL_VAILELE_COUNTRY_CONFLICT_ADDITIONS,
-  NEVA_SHANHAIGUAN_COUNTRY_CONFLICT_ADDITIONS
+  NEVA_SHANHAIGUAN_COUNTRY_CONFLICT_ADDITIONS,
+  GUERRERO_COUNTRY_CONFLICT_ADDITIONS
 ];
 const countryConflictAdditions = mergeCountryConflictBatches(countryConflictAdditionBatches);
 const countryConflictExclusionBatches = [
