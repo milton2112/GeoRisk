@@ -237,8 +237,19 @@ import {
   OSEL_VAILELE_COUNTRY_CONFLICT_EXCLUSIONS,
   OSEL_VAILELE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-osel-vailele.js";
+import {
+  NEVA_SHANHAIGUAN_CONFLICT_DETAIL_FIXES,
+  NEVA_SHANHAIGUAN_COUNTRY_CONFLICT_ADDITIONS,
+  NEVA_SHANHAIGUAN_COUNTRY_CONFLICT_EXCLUSIONS,
+  NEVA_SHANHAIGUAN_CONFLICT_RENAMES
+} from "../lib/conflict-curation-neva-shanhaiguan.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
+import {
+  getCountryConflictNames,
+  mergeCountryConflictBatches,
+  normalizeCountryConflictKey
+} from "../lib/conflict-country-targeting.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
 import { resolveWikipediaConflictTitle } from "../lib/wikipedia-conflicts.js";
 
@@ -2203,6 +2214,61 @@ for (const [name, pageTitle] of [
 ]) {
   assert.equal((await resolveWikipediaConflictTitle(name)).pageTitle, pageTitle);
 }
+assert.equal(Object.keys(NEVA_SHANHAIGUAN_CONFLICT_DETAIL_FIXES).length, 2);
+assert.equal(
+  NEVA_SHANHAIGUAN_CONFLICT_RENAMES["Batalla del Neva"],
+  "Batalla del Neva (1240)"
+);
+assert.equal(
+  NEVA_SHANHAIGUAN_CONFLICT_RENAMES["Batalla de Shanhaiguan"],
+  "Campana de Shanhaiguan-Rehe (1924)"
+);
+assert.deepEqual(
+  NEVA_SHANHAIGUAN_COUNTRY_CONFLICT_ADDITIONS.Rusia,
+  ["Batalla del Neva (1240)"]
+);
+assert.deepEqual(
+  NEVA_SHANHAIGUAN_COUNTRY_CONFLICT_ADDITIONS["Republica Popular China"],
+  ["Campana de Shanhaiguan-Rehe (1924)"]
+);
+assert.equal(
+  normalizeCountryConflictKey("Rep\u00fablica Popular China"),
+  "republica popular china"
+);
+const accentInsensitiveCountryTargets = mergeCountryConflictBatches([
+  NEVA_SHANHAIGUAN_COUNTRY_CONFLICT_ADDITIONS
+]);
+assert.deepEqual(
+  getCountryConflictNames(accentInsensitiveCountryTargets, "Rep\u00fablica Popular China"),
+  ["Campana de Shanhaiguan-Rehe (1924)"],
+  "las tandas de pais deben seguir aplicandose aunque la ficha use tildes"
+);
+assert.deepEqual(
+  NEVA_SHANHAIGUAN_COUNTRY_CONFLICT_EXCLUSIONS["Estados Unidos"],
+  ["Batalla de Shanhaiguan", "Campana de Shanhaiguan-Rehe (1924)"]
+);
+assert.equal(
+  NEVA_SHANHAIGUAN_CONFLICT_DETAIL_FIXES["Batalla del Neva (1240)"].parent,
+  "Guerras sueco-novgorodenses"
+);
+assert.equal(
+  NEVA_SHANHAIGUAN_CONFLICT_DETAIL_FIXES["Campana de Shanhaiguan-Rehe (1924)"].parent,
+  "Segunda guerra Zhili-Fengtian"
+);
+assert.ok(
+  Object.values(NEVA_SHANHAIGUAN_CONFLICT_DETAIL_FIXES).every(detail =>
+    Number.isInteger(detail.startYear)
+      && detail.startYear === detail.endYear
+      && detail.parent === detail.war
+      && detail.campaign
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 2
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+  ),
+  "la tanda Neva-Shanhaiguan debe conservar fecha, jerarquia, fuentes y participantes"
+);
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",
   startYear: 1944,

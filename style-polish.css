@@ -1485,6 +1485,41 @@ body.mobile-more-open #toggle-more-panel {
   text-overflow: ellipsis;
 }
 
+.conflict-hierarchy-notice {
+  margin: 0 0 12px;
+  padding: 9px 10px;
+  border-left: 3px solid color-mix(in srgb, #e6b35a 78%, var(--border-color));
+  border-radius: 4px;
+  background: color-mix(in srgb, #e6b35a 10%, var(--panel-bg));
+  color: var(--muted-text);
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.conflict-hierarchy-marker {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 6px;
+  padding: 2px 5px;
+  border: 1px solid color-mix(in srgb, #e6b35a 52%, var(--border-color));
+  border-radius: 4px;
+  background: color-mix(in srgb, #e6b35a 10%, transparent);
+  color: color-mix(in srgb, #f2c56e 88%, var(--text-color));
+  font-size: 0.66rem;
+  font-weight: 700;
+  line-height: 1.2;
+  vertical-align: middle;
+}
+
+.conflict-hierarchy-context {
+  display: block;
+  margin-top: 5px;
+  color: var(--muted-text);
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
 .deferred-country-section {
   display: grid;
   justify-items: start;

@@ -64,6 +64,8 @@ assert.ok(polishCss.includes("min-height: 72px"), "capas mobile deben conservar 
 assert.ok(polishCss.includes(".rank-empty-state"), "rankings deben mostrar estado vacio no interactivo");
 assert.ok(polishCss.includes(".country-title > .coat-visual"), "cabecera de ficha debe reservar espacio al escudo");
 assert.ok(polishCss.includes(".conflict-trust-badge"), "modal de conflicto debe mostrar calidad de dato sin ocupar una seccion completa");
+assert.ok(polishCss.includes(".conflict-hierarchy-notice"), "conflictos con padre provisional deben explicar su estado de revision");
+assert.ok(polishCss.includes(".conflict-hierarchy-marker"), "acciones con asociacion pendiente deben marcarse sin confundirlas con jerarquias verificadas");
 assert.ok(polishCss.includes("#offline-status.offline-state-inline"), "estado offline debe tener tratamiento visual diferido");
 assert.ok(polishCss.includes("--ui-surface-raised"), "pulido diferido debe definir una superficie elevada reutilizable");
 assert.ok(polishCss.includes(".panel-section[open]"), "secciones abiertas deben ganar jerarquia visual");

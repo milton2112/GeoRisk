@@ -83,7 +83,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-08-20-release-2";
+const APP_VERSION = "2026-08-22-release-1";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -4972,6 +4972,20 @@ function hasProvisionalConflictHierarchy(conflict = {}) {
     || isGenericConflictHierarchyLabel(conflict?.declaredCampaign || conflict?.campaign || "");
 }
 
+function getConflictHierarchyState(conflict = {}, detail = {}, parentName = "") {
+  const hierarchyConfidence = normalizeText(detail?.hierarchyConfidence || conflict?.hierarchyConfidence || "");
+  const explicitParent = detail?.parent || detail?.war || conflict?.parent || conflict?.war || "";
+  const hierarchyVerified = Boolean(parentName)
+    && !isGenericConflictHierarchyLabel(explicitParent)
+    && hierarchyConfidence === "alta";
+  const hierarchyProvisional = hasProvisionalConflictHierarchy(conflict) && !hierarchyVerified;
+  return {
+    hierarchyProvisional,
+    hierarchySuggested: Boolean(parentName) && hierarchyProvisional,
+    hierarchyVerified
+  };
+}
+
 function getConflictParentName(conflict) {
   const conflictName = typeof conflict === "object" ? conflict?.name : conflict;
   const normalized = normalizeText(conflictName);
@@ -5247,9 +5261,11 @@ function buildConflictGroups(conflicts) {
     const parentName = getConflictParentName(conflict);
     if (!parentName) {
       const detail = CONFLICT_DETAIL_OVERRIDES[conflict.name] || {};
+      const hierarchy = getConflictHierarchyState(conflict, detail, parentName);
       standalone.push({
         ...conflict,
         level: inferConflictLevel(conflict, detail, null),
+        hierarchyProvisional: hierarchy.hierarchyProvisional,
         campaigns: [],
         battles: []
       });
@@ -5271,7 +5287,14 @@ function buildConflictGroups(conflicts) {
     if (normalizeText(conflict.name) !== normalizeText(parentName)) {
       const detail = CONFLICT_DETAIL_OVERRIDES[conflict.name] || {};
       const level = inferConflictLevel(conflict, detail, parentName);
-      const enriched = { ...conflict, level, battles: [], parentName };
+      const hierarchy = getConflictHierarchyState(conflict, detail, parentName);
+      const enriched = {
+        ...conflict,
+        level,
+        battles: [],
+        parentName,
+        hierarchyProvisional: hierarchy.hierarchyProvisional
+      };
       if (level === "campaign") {
         group.campaigns.push(enriched);
       } else {
@@ -5465,7 +5488,11 @@ function renderRelatedConflictSummary(groups) {
 }
 
 function buildGenericConflictCause(conflict, type, scope, region, countryName = "") {
-  const parentLabel = conflict?.parentName ? ` dentro de ${conflict.parentName}` : "";
+  const parentLabel = conflict?.parentName
+    ? (isConflictHierarchyProvisionalForDisplay(conflict)
+      ? ` con una asociacion provisional a ${conflict.parentName}`
+      : ` dentro de ${conflict.parentName}`)
+    : "";
   const locationLabel = region && region !== "Region indeterminada" ? ` en ${region}` : "";
   const actorLabel = countryName ? ` para ${countryName}` : "";
 
@@ -5743,10 +5770,12 @@ function renderConflictTrustBadges(detail = {}) {
   const badges = [
     getConflictCurationStatusLabel(detail.curationStatus),
     getConflictConfidenceLabel(detail.dataConfidence),
-    detail.parentName && normalizeText(detail.hierarchyConfidence) === "alta"
+    detail.hierarchyVerified
       ? (currentLanguage === "en" ? "Verified hierarchy" : "Jerarquia verificada")
       : "",
-    detail.hierarchyProvisional
+    detail.hierarchySuggested
+      ? (currentLanguage === "en" ? "Parent link pending" : "Asociacion pendiente")
+      : detail.hierarchyProvisional
       ? (currentLanguage === "en" ? "Hierarchy pending" : "Jerarquia pendiente")
       : ""
   ].filter(Boolean);
@@ -5804,7 +5833,8 @@ function getConflictModalContent(conflict, countryName = "") {
   const scope = inferConflictScope(conflict, detail);
   const region = inferConflictRegion(conflict, detail, countryName);
   const parentName = conflict.parentName || getConflictParentName(conflict);
-  const hierarchyProvisional = !parentName && hasProvisionalConflictHierarchy(conflict);
+  const hierarchy = getConflictHierarchyState(conflict, detail, parentName);
+  const hierarchyProvisional = hierarchy.hierarchyProvisional;
   const level = conflict.level || inferConflictLevel(conflict, detail, parentName);
   const participants = dedupeConflictParticipants(
     (Array.isArray(detail.participants) && detail.participants.length)
@@ -5835,6 +5865,8 @@ function getConflictModalContent(conflict, countryName = "") {
     level,
     parentName,
     hierarchyProvisional,
+    hierarchySuggested: hierarchy.hierarchySuggested,
+    hierarchyVerified: hierarchy.hierarchyVerified,
     type,
     scope,
     region,
@@ -5889,6 +5921,46 @@ function registerConflictModal(conflict, countryName = "") {
   return key;
 }
 
+function isConflictHierarchyProvisionalForDisplay(conflict = {}) {
+  if (typeof conflict?.hierarchyProvisional === "boolean") {
+    return conflict.hierarchyProvisional;
+  }
+  const detail = CONFLICT_DETAIL_OVERRIDES[conflict?.name] || {};
+  const parentName = conflict?.parentName || getConflictParentName(conflict);
+  return getConflictHierarchyState(conflict, detail, parentName).hierarchyProvisional;
+}
+
+function countProvisionalConflictEntries(groups = []) {
+  return groups.reduce((count, group) => {
+    const campaignCount = (group?.campaigns || []).reduce((sum, campaign) =>
+      sum + Number(isConflictHierarchyProvisionalForDisplay(campaign))
+        + (campaign?.battles || []).filter(isConflictHierarchyProvisionalForDisplay).length, 0);
+    return count
+      + Number(isConflictHierarchyProvisionalForDisplay(group))
+      + (group?.battles || []).filter(isConflictHierarchyProvisionalForDisplay).length
+      + campaignCount;
+  }, 0);
+}
+
+function renderConflictHierarchyNotice(groups = []) {
+  const count = countProvisionalConflictEntries(groups);
+  if (!count) {
+    return "";
+  }
+  const message = currentLanguage === "en"
+    ? `${formatNumber(count)} linked action${count === 1 ? "" : "s"} still use a suggested parent while its historical source is reviewed.`
+    : `${formatNumber(count)} ${count === 1 ? "accion vinculada aun usa" : "acciones vinculadas aun usan"} una guerra sugerida mientras se verifica la fuente historica.`;
+  return `<p class="conflict-hierarchy-notice" role="note">${escapeHtml(message)}</p>`;
+}
+
+function renderConflictHierarchyMarker(conflict = {}) {
+  if (!isConflictHierarchyProvisionalForDisplay(conflict)) {
+    return "";
+  }
+  const label = currentLanguage === "en" ? "Pending source" : "Fuente pendiente";
+  return `<span class="conflict-hierarchy-marker" data-conflict-hierarchy="pending">${escapeHtml(label)}</span>`;
+}
+
 function renderConflicts(conflicts, prebuiltGroups = null) {
   if (!conflicts || !conflicts.length) {
     return "<p>Sin datos</p>";
@@ -5908,7 +5980,7 @@ function renderConflicts(conflicts, prebuiltGroups = null) {
     return "<p>Sin datos</p>";
   }
 
-  return `${renderConflictFilters(groupedConflicts)}<ul class="conflict-tree">${visibleConflicts
+  return `${renderConflictFilters(groupedConflicts)}${renderConflictHierarchyNotice(filteredConflicts)}<ul class="conflict-tree">${visibleConflicts
     .map(conflict => {
       const modalKey = registerConflictModal(conflict, currentPanelState?.code ? countriesData[currentPanelState.code]?.name : "");
       const groupKey = normalizeText(conflict.name);
@@ -5927,7 +5999,7 @@ function renderConflicts(conflicts, prebuiltGroups = null) {
           <button type="button" class="conflict-trigger conflict-trigger-main" data-conflict-key="${modalKey}">
             <span class="conflict-trigger-copy">
               <span class="conflict-trigger-meta">${escapeHtml(type)} · ${escapeHtml(scope)} · ${escapeHtml(region)}</span>
-              <span class="conflict-trigger-title">${escapeHtml(conflict.name)}</span>
+              <span class="conflict-trigger-title">${escapeHtml(conflict.name)}${renderConflictHierarchyMarker(conflict)}</span>
             </span>
             <span class="conflict-trigger-period">${formatConflictPeriod(conflict).trim()}</span>
           </button>
@@ -5937,19 +6009,19 @@ function renderConflicts(conflicts, prebuiltGroups = null) {
             const campaignBattles = allCampaignBattles.slice(0, childLimit);
             return `<li>
               <button type="button" class="conflict-trigger conflict-trigger-campaign" data-conflict-key="${campaignKey}">
-                <span class="conflict-trigger-title">${escapeHtml(campaign.name)}</span>
+                <span class="conflict-trigger-title">${escapeHtml(campaign.name)}${renderConflictHierarchyMarker(campaign)}</span>
                 <span class="conflict-trigger-period">${formatConflictPeriod(campaign).trim()}</span>
               </button>
               ${campaignBattles.length ? `<ul class="conflict-battles">${campaignBattles.map(battle => {
                 const battleKey = registerConflictModal(battle, currentPanelState?.code ? countriesData[currentPanelState.code]?.name : "");
-                return `<li><button type="button" class="conflict-trigger conflict-trigger-battle" data-conflict-key="${battleKey}"><span class="conflict-trigger-title">${escapeHtml(battle.name)}</span><span class="conflict-trigger-period">${formatConflictPeriod(battle).trim()}</span></button></li>`;
+                return `<li><button type="button" class="conflict-trigger conflict-trigger-battle" data-conflict-key="${battleKey}"><span class="conflict-trigger-title">${escapeHtml(battle.name)}${renderConflictHierarchyMarker(battle)}</span><span class="conflict-trigger-period">${formatConflictPeriod(battle).trim()}</span></button></li>`;
               }).join("")}</ul>` : ""}
               ${allCampaignBattles.length > campaignBattles.length ? `<p class="compare-note">+${formatNumber(allCampaignBattles.length - campaignBattles.length)} ${currentLanguage === "en" ? "battles in this campaign" : "batallas en esta campana"}</p>` : ""}
             </li>`;
           }).join("")}</ul>` : ""}
           ${battles.length ? `<ul class="conflict-battles">${battles.map(battle => {
             const battleKey = registerConflictModal(battle, currentPanelState?.code ? countriesData[currentPanelState.code]?.name : "");
-            return `<li><button type="button" class="conflict-trigger conflict-trigger-battle" data-conflict-key="${battleKey}"><span class="conflict-trigger-title">${escapeHtml(battle.name)}</span><span class="conflict-trigger-period">${formatConflictPeriod(battle).trim()}</span></button></li>`;
+            return `<li><button type="button" class="conflict-trigger conflict-trigger-battle" data-conflict-key="${battleKey}"><span class="conflict-trigger-title">${escapeHtml(battle.name)}${renderConflictHierarchyMarker(battle)}</span><span class="conflict-trigger-period">${formatConflictPeriod(battle).trim()}</span></button></li>`;
           }).join("")}</ul>` : ""}
           ${(allCampaigns.length > campaigns.length || allBattles.length > battles.length) ? `
             <button type="button" class="conflict-child-more" data-conflict-expand-children="${escapeHtml(groupKey)}">
@@ -6015,7 +6087,7 @@ function openConflictModal(key, { enhance = true } = {}) {
       <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Type" : "Tipo"}</span><strong class="overview-value">${escapeHtml(getConflictTypeLabel(detail.type))}</strong></div>
       <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Scope" : "Escala"}</span><strong class="overview-value">${escapeHtml(getConflictScopeLabel(detail.scope))}</strong></div>
       <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Region" : "Region"}</span><strong class="overview-value">${escapeHtml(detail.region || "Sin datos")}</strong></div>
-      ${detail.parentName ? `<div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Parent conflict" : "Conflicto padre"}</span><strong class="overview-value">${escapeHtml(detail.parentName)}</strong></div>` : ""}
+      ${detail.parentName ? `<div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Parent conflict" : "Conflicto padre"}</span><strong class="overview-value">${escapeHtml(detail.parentName)}</strong>${detail.hierarchySuggested ? `<small class="conflict-hierarchy-context">${currentLanguage === "en" ? "Suggested link pending source review" : "Asociacion sugerida pendiente de fuente"}</small>` : ""}</div>` : ""}
       ${detail.countryRelationship?.sideLabels?.length ? `<div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Country side" : "Bando del pais"}</span><strong class="overview-value">${escapeHtml(detail.countryRelationship.sideLabels.join(" / "))}</strong></div>` : ""}
     </div>
     ${renderConflictHierarchySources(detail.hierarchySources)}

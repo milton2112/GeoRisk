@@ -1,20 +1,20 @@
 {
-  "generatedAt": "2026-08-17T10:57:44.945Z",
-  "changedFullCountries": 4,
+  "generatedAt": "2026-08-22T12:40:02.728Z",
+  "changedFullCountries": 1,
   "fullPassChanges": [
-    4,
+    1,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 110,
-    "written": true,
+    "enriched": 0,
+    "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 989,
+  "generatedHierarchyCandidates": 991,
   "countryConflictAdditions": {
-    "Estados Unidos": [
+    "estados unidos": [
       "Batalla de Manila (1945)",
       "Batalla naval de la bahía de Chesapeake (1781)",
       "Batalla naval de Jumunjin (1950)",
@@ -24,7 +24,7 @@
       "Batalla por el Castillo Itter (1945)",
       "Batalla naval de Campeche (1843)"
     ],
-    "Nicaragua": [
+    "nicaragua": [
       "Batalla de Masaya",
       "Batalla de La Paz Centro",
       "Batalla de Ocotal",
@@ -33,22 +33,22 @@
       "Segunda batalla de Las Cruces (1928)",
       "Batalla de El Sauce"
     ],
-    "Haití": [
+    "haiti": [
       "Batalla de Fort Rivière",
       "Batalla naval de Cap-Français (1757)",
       "Batalla de Puerto Príncipe (1919)"
     ],
-    "República Dominicana": [
+    "republica dominicana": [
       "Incursión naval de Puerto Plata (1800)",
       "Batalla de Puerto Plata (1916)"
     ],
-    "Timor Oriental": [
+    "timor oriental": [
       "Batalla de Aidabasalala"
     ],
-    "Bélgica": [
+    "belgica": [
       "Batalla de Broodseinde"
     ],
-    "Francia": [
+    "francia": [
       "Primera batalla de Dernancourt",
       "Batalla de Hamel (1918)",
       "Bombardeo multinacional de Shimonoseki (1864)",
@@ -59,7 +59,7 @@
       "Batalla por el Castillo Itter (1945)",
       "Batalla de Beitang (1900)"
     ],
-    "Alemania": [
+    "alemania": [
       "Batalla de Schleswig (1848)",
       "Batalla de Isted",
       "Batalla de Craonne (1814)",
@@ -77,7 +77,7 @@
       "Batalla de Beitang (1900)",
       "Primera batalla de Vailele (1888)"
     ],
-    "Corea del Sur": [
+    "corea del sur": [
       "Acción naval de Happo (1592)",
       "Ataque al fondeadero de Jeokjinpo (1592)",
       "Batalla naval de Sacheon (1592)",
@@ -93,16 +93,17 @@
       "Batalla de la colina 282 (1950)",
       "Batalla de los Túneles Gemelos (1951)"
     ],
-    "República Popular China": [
+    "republica popular china": [
       "Batalla naval de Noryang (1598)",
       "Primera batalla de Maryang San (1951)",
       "Batalla de Palikao (1860)",
       "Batalla de Tamsui (1884)",
       "Batalla de los Túneles Gemelos (1951)",
       "Batalla de las Islas Paracelso (1974)",
-      "Batalla de Beitang (1900)"
+      "Batalla de Beitang (1900)",
+      "Campana de Shanhaiguan-Rehe (1924)"
     ],
-    "Reino Unido": [
+    "reino unido": [
       "Batalla naval de la bahía de Bantry (1689)",
       "Sitio de Bomarsund (1854)",
       "Batalla de Camaret (1694)",
@@ -137,11 +138,11 @@
       "Batalla de Antivari (1914)",
       "Batalla de Dogger Bank (1781)"
     ],
-    "Irlanda": [
+    "irlanda": [
       "Batalla naval de la bahía de Bantry (1689)",
       "Batalla de Tory Island (1798)"
     ],
-    "Finlandia": [
+    "finlandia": [
       "Sitio de Bomarsund (1854)",
       "Batalla de Bockholmssund (1808)",
       "Batalla de Grönvikssund (1808)",
@@ -152,7 +153,7 @@
       "Batalla de Fredrikshamn (1790)",
       "Batalla de Petäjäsaari (1940)"
     ],
-    "Rusia": [
+    "rusia": [
       "Sitio de Bomarsund (1854)",
       "Batalla de Craonne (1814)",
       "Batalla de Golymin (1806)",
@@ -173,9 +174,10 @@
       "Batalla de Debrecen (1944)",
       "Batalla de Stäket (1719)",
       "Batalla de Beitang (1900)",
-      "Batalla de Ösel (1719)"
+      "Batalla de Ösel (1719)",
+      "Batalla del Neva (1240)"
     ],
-    "Reino de los Países Bajos": [
+    "reino de los paises bajos": [
       "Batalla de Camaret (1694)",
       "Batalla de Solebay (1672)",
       "Batalla de Fehmarn (1644)",
@@ -183,13 +185,13 @@
       "Batalla de Dogger Bank (1781)",
       "Batalla de Cabo Rachado (1606)"
     ],
-    "India": [
+    "india": [
       "Asedio y captura de Chandannagar (1757)",
       "Batalla de Diu (1509)",
       "Batalla de Sadras (1782)",
       "Batalla de Negapatam (1782)"
     ],
-    "Polonia": [
+    "polonia": [
       "Batalla de Golymin (1806)",
       "Batalla de Heilsberg (1807)",
       "Batalla de Kircholm (1605)",
@@ -221,48 +223,48 @@
       "Batalla de Wallhof (1626)",
       "Batalla de Sejny (1920)"
     ],
-    "México": [
+    "mexico": [
       "Combate de Carrizal (1916)",
       "Batalla de Ambos Nogales (1918)",
       "Batalla de San Jacinto (1836)",
       "Primera batalla de Agua Prieta (1911)",
       "Batalla de Boca Teacapan (1870)"
     ],
-    "Australia": [
+    "australia": [
       "Batalla de Hamel (1918)",
       "Primera batalla de Maryang San (1951)",
       "Batalla de Nui Le (1971)",
       "Batalla de Suoi Chau Pha (1967)"
     ],
-    "Corea del Norte": [
+    "corea del norte": [
       "Batalla de la colina 282 (1950)",
       "Batalla naval de Jumunjin (1950)",
       "Primera batalla de Maryang San (1951)"
     ],
-    "Japón": [
+    "japon": [
       "Batalla naval del estrecho de Shimonoseki (1863)",
       "Bombardeo multinacional de Shimonoseki (1864)"
     ],
-    "España": [
+    "espana": [
       "Bombardeo de San Juan de Puerto Rico (1898)",
       "Batalla del cabo Ortegal (1805)"
     ],
-    "Austria": [
+    "austria": [
       "Batalla de Heligoland (1864)",
       "Batalla por el Castillo Itter (1945)",
       "Batalla del paso de Predeal (1916)",
       "Batalla de Antivari (1914)"
     ],
-    "Brasil": [
+    "brasil": [
       "Asalto a los acorazados Cabral y Lima Barros (1868)"
     ],
-    "Irak": [
+    "irak": [
       "Batalla de Rumaila (1991)",
       "Batalla aérea de Samurra (1991)",
       "Batalla de Danny Boy (2004)",
       "Batalla del palacio Dasman (1990)"
     ],
-    "Dinamarca": [
+    "dinamarca": [
       "Batalla de Colberger Heide (1644)",
       "Batalla de Fehmarn (1644)",
       "Batalla de Dynekilen (1716)",
@@ -271,7 +273,7 @@
       "Batalla de Kringen (1612)",
       "Rebelión de Bornholm (1658)"
     ],
-    "Noruega": [
+    "noruega": [
       "Batalla de Colberger Heide (1644)",
       "Batalla de Fehmarn (1644)",
       "Batalla de Dynekilen (1716)",
@@ -280,7 +282,7 @@
       "Batalla de Kringen (1612)",
       "Batalla de Sjaellands Odde (1808)"
     ],
-    "Suecia": [
+    "suecia": [
       "Batalla de Helgeå (1026)",
       "Batalla de Kringen (1612)",
       "Rebelión de Bornholm (1658)",
@@ -288,81 +290,83 @@
       "Batalla de Fredrikshamn (1790)",
       "Batalla de Stäket (1719)"
     ],
-    "Argentina": [
+    "argentina": [
       "Combate de Top Malo House (1982)"
     ],
-    "Ecuador": [
+    "ecuador": [
       "Batalla de Pichincha (1822)"
     ],
-    "Jordania": [
+    "jordania": [
       "Batalla de Tafilah (1918)"
     ],
-    "Egipto": [
+    "egipto": [
       "Batalla de Diu (1509)"
     ],
-    "Sri Lanka": [
+    "sri lanka": [
       "Batalla de Providien (1782)"
     ],
-    "Malasia": [
+    "malasia": [
       "Batalla de Pulo Aura (1804)",
       "Batalla de Long Jawai (1963)"
     ],
-    "Nueva Zelanda": [
+    "nueva zelanda": [
       "Batalla de Nui Le (1971)"
     ],
-    "Vietnam": [
+    "vietnam": [
       "Batalla de Nui Le (1971)",
       "Batalla de Suoi Chau Pha (1967)",
       "Batalla de Thuận An (1883)",
       "Batalla de las Islas Paracelso (1974)"
     ],
-    "Indonesia": [
+    "indonesia": [
       "Batalla de Long Jawai (1963)"
     ],
-    "Camerún": [
+    "camerun": [
       "Batalla de Kousséri (1900)"
     ],
-    "Chad": [
+    "chad": [
       "Batalla de Kousséri (1900)"
     ],
-    "Rumania": [
+    "rumania": [
       "Batalla de Debrecen (1944)",
       "Batalla del paso de Predeal (1916)"
     ],
-    "Bolivia": [
+    "bolivia": [
       "Combate naval de Casma (1839)"
     ],
-    "Perú": [
+    "peru": [
       "Combate naval de Casma (1839)"
     ],
-    "Canadá": [
+    "canada": [
       "Batalla de Signal Hill (1762)"
     ],
-    "Hungría": [
+    "hungria": [
       "Batalla de Antivari (1914)"
     ],
-    "Montenegro": [
+    "montenegro": [
       "Batalla de Antivari (1914)"
     ],
-    "Kuwait": [
+    "kuwait": [
       "Batalla del palacio Dasman (1990)"
     ],
-    "Estonia": [
+    "estonia": [
       "Batalla de Ösel (1719)"
     ]
   },
   "countryConflictExclusions": {
-    "Dinamarca": [
+    "dinamarca": [
       "Batalla de Dogger Bank",
       "Batalla de Dogger Bank (1781)"
     ],
-    "Estados Unidos": [
+    "estados unidos": [
       "Batalla de Dasman Palace",
       "Batalla del palacio Dasman (1990)",
       "Batalla de Beitang",
       "Batalla de Beitang (1900)",
       "Primera batalla de Vailele",
-      "Primera batalla de Vailele (1888)"
+      "Primera batalla de Vailele (1888)",
+      "Batalla de Shanhaiguan",
+      "Campana de Shanhaiguan-Rehe (1924)"
     ]
   },
   "safeRenames": {
@@ -845,7 +849,9 @@
     "Batalla de Beitang": "Batalla de Beitang (1900)",
     "Batalla de Boca Teacapan": "Batalla de Boca Teacapan (1870)",
     "Batalla de Ösel Island": "Batalla de Ösel (1719)",
-    "Primera batalla de Vailele": "Primera batalla de Vailele (1888)"
+    "Primera batalla de Vailele": "Primera batalla de Vailele (1888)",
+    "Batalla del Neva": "Batalla del Neva (1240)",
+    "Batalla de Shanhaiguan": "Campana de Shanhaiguan-Rehe (1924)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1801,6 +1807,8 @@
     "Batalla de Beitang (1900)",
     "Batalla de Boca Teacapan (1870)",
     "Batalla de Ösel (1719)",
-    "Primera batalla de Vailele (1888)"
+    "Primera batalla de Vailele (1888)",
+    "Batalla del Neva (1240)",
+    "Campana de Shanhaiguan-Rehe (1924)"
   ]
 }

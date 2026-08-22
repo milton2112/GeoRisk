@@ -248,6 +248,12 @@ import {
   OSEL_VAILELE_COUNTRY_CONFLICT_EXCLUSIONS,
   OSEL_VAILELE_CONFLICT_RENAMES
 } from "./lib/conflict-curation-osel-vailele.js";
+import {
+  NEVA_SHANHAIGUAN_CONFLICT_DETAIL_FIXES,
+  NEVA_SHANHAIGUAN_COUNTRY_CONFLICT_ADDITIONS,
+  NEVA_SHANHAIGUAN_COUNTRY_CONFLICT_EXCLUSIONS,
+  NEVA_SHANHAIGUAN_CONFLICT_RENAMES
+} from "./lib/conflict-curation-neva-shanhaiguan.js";
 import { collectConflictCountryNames, curateConflictDetail, curateConflictEntry } from "./lib/conflict-batch-curation.js";
 import {
   cleanConflictLabel,
@@ -255,6 +261,7 @@ import {
   mergeConflictEntries,
   normalizeConflictKey
 } from "./lib/conflict-cleaning.js";
+import { getCountryConflictNames, mergeCountryConflictBatches } from "./lib/conflict-country-targeting.js";
 import { normalizeVisibleValue } from "./lib/visible-data-corrections.js";
 import {
   areJsonValuesEquivalent,
@@ -326,7 +333,8 @@ const curatedConflictDetailFixes = {
   ...FLINT_DOGGER_CONFLICT_DETAIL_FIXES,
   ...DASMAN_RACHADO_CONFLICT_DETAIL_FIXES,
   ...BEITANG_TEACAPAN_CONFLICT_DETAIL_FIXES,
-  ...OSEL_VAILELE_CONFLICT_DETAIL_FIXES
+  ...OSEL_VAILELE_CONFLICT_DETAIL_FIXES,
+  ...NEVA_SHANHAIGUAN_CONFLICT_DETAIL_FIXES
 };
 const safeConflictRenames = {
   ...SAFE_CONFLICT_RENAMES,
@@ -386,7 +394,8 @@ const safeConflictRenames = {
   ...FLINT_DOGGER_CONFLICT_RENAMES,
   ...DASMAN_RACHADO_CONFLICT_RENAMES,
   ...BEITANG_TEACAPAN_CONFLICT_RENAMES,
-  ...OSEL_VAILELE_CONFLICT_RENAMES
+  ...OSEL_VAILELE_CONFLICT_RENAMES,
+  ...NEVA_SHANHAIGUAN_CONFLICT_RENAMES
 };
 const countryConflictAdditionBatches = [
   TRANSITION_1846_1902_COUNTRY_CONFLICT_ADDITIONS,
@@ -419,26 +428,18 @@ const countryConflictAdditionBatches = [
   FLINT_DOGGER_COUNTRY_CONFLICT_ADDITIONS,
   DASMAN_RACHADO_COUNTRY_CONFLICT_ADDITIONS,
   BEITANG_TEACAPAN_COUNTRY_CONFLICT_ADDITIONS,
-  OSEL_VAILELE_COUNTRY_CONFLICT_ADDITIONS
+  OSEL_VAILELE_COUNTRY_CONFLICT_ADDITIONS,
+  NEVA_SHANHAIGUAN_COUNTRY_CONFLICT_ADDITIONS
 ];
-const countryConflictAdditions = countryConflictAdditionBatches.reduce((merged, batch) => {
-  for (const [countryName, conflictNames] of Object.entries(batch)) {
-    merged[countryName] = [...new Set([...(merged[countryName] || []), ...conflictNames])];
-  }
-  return merged;
-}, {});
+const countryConflictAdditions = mergeCountryConflictBatches(countryConflictAdditionBatches);
 const countryConflictExclusionBatches = [
   FLINT_DOGGER_COUNTRY_CONFLICT_EXCLUSIONS,
   DASMAN_RACHADO_COUNTRY_CONFLICT_EXCLUSIONS,
   BEITANG_TEACAPAN_COUNTRY_CONFLICT_EXCLUSIONS,
-  OSEL_VAILELE_COUNTRY_CONFLICT_EXCLUSIONS
+  OSEL_VAILELE_COUNTRY_CONFLICT_EXCLUSIONS,
+  NEVA_SHANHAIGUAN_COUNTRY_CONFLICT_EXCLUSIONS
 ];
-const countryConflictExclusions = countryConflictExclusionBatches.reduce((merged, batch) => {
-  for (const [countryName, conflictNames] of Object.entries(batch)) {
-    merged[countryName] = [...new Set([...(merged[countryName] || []), ...conflictNames])];
-  }
-  return merged;
-}, {});
+const countryConflictExclusions = mergeCountryConflictBatches(countryConflictExclusionBatches);
 
 function renameConflictName(name) {
   const cleanName = cleanConflictLabel(name);
@@ -598,13 +599,13 @@ function normalizeConflictEntryWithContext(entry, context) {
 }
 
 function getCountryConflictAdditions(country) {
-  return (countryConflictAdditions[country?.name] || [])
+  return getCountryConflictNames(countryConflictAdditions, country?.name)
     .map(name => ({ name, ...(curatedConflictDetailFixes[name] || {}) }));
 }
 
 function getCountryConflictExclusions(country) {
   return new Set(
-    (countryConflictExclusions[country?.name] || [])
+    getCountryConflictNames(countryConflictExclusions, country?.name)
       .map(name => renameConflictName(name))
   );
 }

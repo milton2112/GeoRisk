@@ -121,8 +121,16 @@ assert.ok(
   "ficha de conflicto debe mostrar fuentes verificables y validar sus enlaces"
 );
 assert.ok(
-  /detail\.parentName && normalizeText\(detail\.hierarchyConfidence\) === "alta"/.test(script),
-  "badge de jerarquia verificada debe depender de padre y confianza explicita"
+  script.includes("function getConflictHierarchyState")
+    && script.includes("hierarchySuggested")
+    && script.includes("hierarchyVerified"),
+  "una asociacion inferida desde un padre provisional debe conservar un estado de revision distinto de una jerarquia verificada"
+);
+assert.ok(
+  script.includes("renderConflictHierarchyNotice")
+    && script.includes('data-conflict-hierarchy="pending"')
+    && script.includes("Asociacion sugerida pendiente de fuente"),
+  "la ficha debe avisar cuando una guerra padre sea una asociacion orientativa pendiente de fuente"
 );
 assert.ok(
   /function getConflictChronologyText\(item\)[\s\S]{0,180}item\?\.text \|\| item\?\.event \|\| item\?\.description/.test(script)

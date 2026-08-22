@@ -8,7 +8,18 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.106 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.107 antes de cerrar la siguiente version.
+
+## v1.6.107 - 2026-08-22
+
+- Corrige y documenta la Batalla del Neva (1240) y la Campana de Shanhaiguan-Rehe (1924) con fecha, jerarquia, participantes de epoca, cronologia y fuentes historicas o academicas.
+- Situa el Neva dentro de las guerras sueco-novgorodenses y Shanhaiguan-Rehe dentro de la Segunda guerra Zhili-Fengtian; la ficha conserva las cautelas sobre cronicas unilaterales, escala, bandos y bajas no consolidadas.
+- Elimina la asociacion incorrecta de Shanhaiguan con Estados Unidos y la incorpora como referencia geografica contemporanea en la ficha de la Republica Popular China.
+- Normaliza los destinos de las tandas de conflicto sin distinguir tildes, para que una ficha como República Popular China no pierda una corrección declarada por diferencias de acentuación.
+- Reduce las jerarquias provisionales de 141 a 139, mantiene cero alertas estructurales y actualiza los indices a 1.793 conflictos, 3.015 eventos y 1.039 fichas diferidas.
+- Distingue en las fichas de conflicto una jerarquia verificada de una asociacion sugerida pendiente de fuente; las acciones pendientes ahora se marcan en la lista y el modal explica su estado sin presentarlo como dato confirmado.
+- Agrega regresiones para las dos fichas curadas, el enlace correcto por pais, la normalizacion de destinos con tildes y la transparencia visual de jerarquias provisionales.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-22-release-1`.
 
 ## v1.6.106 - 2026-08-20
 
