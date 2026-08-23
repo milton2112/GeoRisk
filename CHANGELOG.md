@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.110 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.111 antes de cerrar la siguiente version.
+
+## v1.6.111 - 2026-08-23
+
+- Normaliza, fecha y jerarquiza el combate naval frente a Barbados de 1778, que figuraba como una batalla genérica sin fecha, campaña ni padre verificable.
+- Lo sitúa dentro de la Guerra de Independencia de Estados Unidos y de las operaciones de la fragata continental Randolph en el Caribe; conserva a Reino Unido como referencia contemporánea de la Royal Navy y no presenta a Barbados como beligerante.
+- Documenta los buques, participantes, cronología y las 311 muertes verificables de la Randolph, sin atribuir una causa definitiva a la explosión de su santabárbara cuando los relatos no coinciden en la secuencia táctica.
+- Incorpora tres referencias del Comando de Historia y Patrimonio Naval de EE. UU., un alias de importación inglesa y regresiones para nombre, jerarquía, fuentes, participantes, bajas y vínculo con Reino Unido.
+- Reduce las jerarquías provisionales de 136 a 135, mantiene cero alertas estructurales y actualiza los índices a 1.797 conflictos, 3.023 eventos y 1.043 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-23-release-2`.
 
 ## v1.6.110 - 2026-08-23
 

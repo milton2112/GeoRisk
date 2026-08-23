@@ -116,6 +116,8 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Ofensiva de Mocímboa da Praia (agosto de 2020)": "Mocímboa_da_Praia_offensive",
   "Batalla de Mocímboa da Praia": "Mocímboa_da_Praia_offensive",
   "Batalla de Mocimboa da Praia": "Mocímboa_da_Praia_offensive",
+  "Combate naval frente a Barbados (1778)": "Battle_off_Barbados",
+  "Batalla de Barbados": "Battle_off_Barbados",
   "Batalla del palacio Dasman (1990)": "Battle_of_Dasman_Palace",
   "Batalla de Cabo Rachado (1606)": "Battle_of_Cape_Rachado",
   "Batalla de Beitang (1900)": "Battle_of_Beitang",
@@ -407,6 +409,7 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
 
 const ENGLISH_WIKIPEDIA_TITLE_EXCEPTIONS = new Set([
   "Amhara_offensive",
+  "Battle_off_Barbados",
   "Mocímboa_da_Praia_offensive",
   "Skeleton_Cave_(Arizona)",
   "List_of_naval_battles_during_the_Imjin_War",

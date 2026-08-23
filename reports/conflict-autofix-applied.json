@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-23T13:31:16.654Z",
-  "changedFullCountries": 1,
+  "generatedAt": "2026-08-23T13:39:39.124Z",
+  "changedFullCountries": 2,
   "fullPassChanges": [
-    1,
+    2,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
@@ -137,7 +137,8 @@
       "Batalla de Sjaellands Odde (1808)",
       "Batalla de Antivari (1914)",
       "Batalla de Dogger Bank (1781)",
-      "Batalla de las islas Hyères (1795)"
+      "Batalla de las islas Hyères (1795)",
+      "Combate naval frente a Barbados (1778)"
     ],
     "irlanda": [
       "Batalla naval de la bahía de Bantry (1689)",
@@ -862,7 +863,9 @@
     "Batalla de Hyères Islands": "Batalla de las islas Hyères (1795)",
     "Batalla de las islas Hyeres (1795)": "Batalla de las islas Hyères (1795)",
     "Batalla de Mocímboa da Praia": "Ofensiva de Mocímboa da Praia (agosto de 2020)",
-    "Batalla de Mocimboa da Praia": "Ofensiva de Mocímboa da Praia (agosto de 2020)"
+    "Batalla de Mocimboa da Praia": "Ofensiva de Mocímboa da Praia (agosto de 2020)",
+    "Batalla de Barbados": "Combate naval frente a Barbados (1778)",
+    "Battle off Barbados": "Combate naval frente a Barbados (1778)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1823,6 +1826,7 @@
     "Campana de Shanhaiguan-Rehe (1924)",
     "Batalla de Guerrero (1916)",
     "Batalla de las islas Hyères (1795)",
-    "Ofensiva de Mocímboa da Praia (agosto de 2020)"
+    "Ofensiva de Mocímboa da Praia (agosto de 2020)",
+    "Combate naval frente a Barbados (1778)"
   ]
 }

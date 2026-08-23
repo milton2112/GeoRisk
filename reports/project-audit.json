@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-08-23T13:33:35.596Z",
+  "generatedAt": "2026-08-23T13:42:08.268Z",
   "status": "operativo",
   "startup": {
     "critical": "817 KB",
     "criticalBytes": 836374,
-    "deferred": "2.52 MB",
+    "deferred": "2.53 MB",
     "estimatedRuntimeMemory": {
-      "countriesFullBytes": 11068991,
-      "countriesFullHuman": "10.56 MB",
-      "estimatedParsedBytes": 33206973,
-      "estimatedParsedHuman": "31.67 MB",
+      "countriesFullBytes": 11081143,
+      "countriesFullHuman": "10.57 MB",
+      "estimatedParsedBytes": 33243429,
+      "estimatedParsedHuman": "31.70 MB",
       "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
     },
     "largestAssets": [
       {
         "path": "data/conflict_details.generated.json",
         "exists": true,
-        "bytes": 2003905,
+        "bytes": 2007711,
         "human": "1.91 MB",
         "startupCritical": false
       },
@@ -103,7 +103,7 @@
     "scanned": 2001,
     "issueCount": 0,
     "summary": {
-      "provisional_parent": 136
+      "provisional_parent": 135
     },
     "eraFocus": []
   },
@@ -112,13 +112,13 @@
       {
         "path": "data/timeline_index.json",
         "exists": true,
-        "bytes": 386356,
-        "human": "377 KB"
+        "bytes": 386642,
+        "human": "378 KB"
       },
       {
         "path": "data/conflicts_index.json",
         "exists": true,
-        "bytes": 340020,
+        "bytes": 340233,
         "human": "332 KB"
       },
       {
@@ -130,7 +130,7 @@
       {
         "path": "data/conflicts/details_index.json",
         "exists": true,
-        "bytes": 153673,
+        "bytes": 153846,
         "human": "150 KB"
       },
       {
@@ -148,16 +148,16 @@
     ],
     "countryWeights": {
       "totalCountries": 183,
-      "fullBytes": 11068991,
-      "duplicatedCountryFilesBytes": 1526177,
-      "countryConflictShardBytes": 421668,
+      "fullBytes": 11081143,
+      "duplicatedCountryFilesBytes": 1526157,
+      "countryConflictShardBytes": 422049,
       "tooLargeCount": 0,
       "largest": [
         {
           "code": "GBR",
           "name": "Reino Unido",
-          "bytes": 24691,
-          "inlineBytes": 1050865,
+          "bytes": 24671,
+          "inlineBytes": 1058327,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -166,12 +166,12 @@
             "religionGroups": 6,
             "organizations": 51,
             "rivals": 78,
-            "conflicts": 309,
+            "conflicts": 310,
             "timelineEvents": 4
           },
           "metrics": {
             "sectionBytes": {
-              "military": 11267,
+              "military": 11247,
               "politics": 9502,
               "metadata": 1952,
               "general": 1018,
@@ -184,7 +184,7 @@
             "largestSections": [
               {
                 "section": "military",
-                "bytes": 11267
+                "bytes": 11247
               },
               {
                 "section": "politics",
@@ -199,16 +199,16 @@
                 "bytes": 1018
               }
             ],
-            "conflictsBytes": 69643,
-            "conflictShardBytes": 69644,
-            "averageConflictBytes": 225
+            "conflictsBytes": 69949,
+            "conflictShardBytes": 69950,
+            "averageConflictBytes": 226
           }
         },
         {
           "code": "USA",
           "name": "Estados Unidos",
           "bytes": 23977,
-          "inlineBytes": 3121283,
+          "inlineBytes": 3125973,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -250,8 +250,8 @@
                 "bytes": 978
               }
             ],
-            "conflictsBytes": 212627,
-            "conflictShardBytes": 212628,
+            "conflictsBytes": 212702,
+            "conflictShardBytes": 212703,
             "averageConflictBytes": 231
           }
         },
@@ -790,7 +790,7 @@
     },
     "curationGaps": {},
     "conflictDataConsistency": {
-      "checked": 3954,
+      "checked": 3956,
       "closedMarkedActiveCount": 0,
       "inactiveMarkedActiveCount": 0,
       "nullNarrativeTextCount": 0,
@@ -817,8 +817,8 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 132128,
-      "human": "129 KB"
+      "bytes": 133248,
+      "human": "130 KB"
     },
     {
       "path": "style.css",

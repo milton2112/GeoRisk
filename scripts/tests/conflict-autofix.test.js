@@ -257,6 +257,11 @@ import {
   MOCIMBOA_CONFLICT_DETAIL_FIXES,
   MOCIMBOA_CONFLICT_RENAMES
 } from "../lib/conflict-curation-mocimboa.js";
+import {
+  BARBADOS_CONFLICT_DETAIL_FIXES,
+  BARBADOS_COUNTRY_CONFLICT_ADDITIONS,
+  BARBADOS_CONFLICT_RENAMES
+} from "../lib/conflict-curation-barbados.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import {
@@ -2383,6 +2388,36 @@ assert.equal(
   true,
   "la validacion temporal debe reconocer meses equivalentes entre espanol e ingles"
 );
+assert.equal(Object.keys(BARBADOS_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  BARBADOS_CONFLICT_RENAMES["Batalla de Barbados"],
+  "Combate naval frente a Barbados (1778)"
+);
+assert.deepEqual(
+  BARBADOS_COUNTRY_CONFLICT_ADDITIONS["Reino Unido"],
+  ["Combate naval frente a Barbados (1778)"]
+);
+assert.ok(
+  Object.values(BARBADOS_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 1778
+      && detail.startYear === detail.endYear
+      && detail.parent === "Guerra de Independencia de Estados Unidos"
+      && detail.campaign
+      && detail.type === "combate naval"
+      && detail.conflictType === "independencia"
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 3
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && detail.sourceDispute
+      && /311 muertos/i.test(detail.outcome)
+  ),
+  "la curaduria de Barbados debe conservar fecha, jerarquia, fuentes, participantes y bajas verificables"
+);
+const barbadosWikipediaOverride = await resolveWikipediaConflictTitle("Combate naval frente a Barbados (1778)");
+assert.equal(barbadosWikipediaOverride.language, "en");
+assert.equal(barbadosWikipediaOverride.pageTitle, "Battle_off_Barbados");
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",
   startYear: 1944,

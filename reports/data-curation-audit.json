@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-23T13:31:22.437Z",
+  "generatedAt": "2026-08-23T13:39:45.374Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11068991,
-    "duplicatedCountryFilesBytes": 1526177,
-    "countryConflictShardBytes": 421668,
+    "fullBytes": 11081143,
+    "duplicatedCountryFilesBytes": 1526157,
+    "countryConflictShardBytes": 422049,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 24691,
-        "inlineBytes": 1050865,
+        "bytes": 24671,
+        "inlineBytes": 1058327,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,12 +21,12 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 309,
+          "conflicts": 310,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 11267,
+            "military": 11247,
             "politics": 9502,
             "metadata": 1952,
             "general": 1018,
@@ -39,7 +39,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 11267
+              "bytes": 11247
             },
             {
               "section": "politics",
@@ -54,16 +54,16 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 69643,
-          "conflictShardBytes": 69644,
-          "averageConflictBytes": 225
+          "conflictsBytes": 69949,
+          "conflictShardBytes": 69950,
+          "averageConflictBytes": 226
         }
       },
       {
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 23977,
-        "inlineBytes": 3121283,
+        "inlineBytes": 3125973,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 212627,
-          "conflictShardBytes": 212628,
+          "conflictsBytes": 212702,
+          "conflictShardBytes": 212703,
           "averageConflictBytes": 231
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 203,
+    "pendingCount": 202,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15200,19 +15200,6 @@
         ],
         "regions": [
           "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Barbados",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"
@@ -17160,6 +17147,19 @@
         "name": "Combate frente a la costa de Florida",
         "countries": [
           "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Combate naval del Callao",
+        "countries": [
+          "PER"
         ],
         "regions": [
           "América"
