@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-22T14:20:47.591Z",
+  "generatedAt": "2026-08-23T13:33:33.140Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 137,
-  "reviewCount": 137,
+  "advisoryCount": 136,
+  "reviewCount": 136,
   "summary": {
-    "provisional_parent": 137
+    "provisional_parent": 136
   },
   "topIssues": [],
   "topAdvisories": [
@@ -822,20 +822,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de mocimboa da praia",
-      "name": "Batalla de Mocímboa da Praia",
-      "countries": [
-        "MOZ"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de África",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de mona passage",
       "name": "Batalla de Mona Passage",
       "countries": [
@@ -1124,6 +1110,20 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de putziger wiek",
+      "name": "Batalla de Putziger Wiek",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],

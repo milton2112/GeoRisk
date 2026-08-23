@@ -253,6 +253,10 @@ import {
   HYERES_COUNTRY_CONFLICT_ADDITIONS,
   HYERES_CONFLICT_RENAMES
 } from "../lib/conflict-curation-hyeres.js";
+import {
+  MOCIMBOA_CONFLICT_DETAIL_FIXES,
+  MOCIMBOA_CONFLICT_RENAMES
+} from "../lib/conflict-curation-mocimboa.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import {
@@ -261,7 +265,7 @@ import {
   normalizeCountryConflictKey
 } from "../lib/conflict-country-targeting.js";
 import { buildConflictAuditReport } from "../lib/conflict-audit.js";
-import { resolveWikipediaConflictTitle } from "../lib/wikipedia-conflicts.js";
+import { hasReasonableTemporalMatch, resolveWikipediaConflictTitle } from "../lib/wikipedia-conflicts.js";
 
 assert.equal(SAFE_CONFLICT_RENAMES["Adriatic Campaign de World War II"], "Campana del Adriatico en la Segunda Guerra Mundial");
 assert.equal(CURATED_CONFLICT_DETAIL_FIXES["Batalla de Saigon"].parent, "Guerra de Vietnam");
@@ -2345,6 +2349,40 @@ assert.ok(
 const hyeresWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de las islas Hyères (1795)");
 assert.equal(hyeresWikipediaOverride.language, "en");
 assert.equal(hyeresWikipediaOverride.pageTitle, "Battle_of_the_Hyères_Islands");
+assert.equal(Object.keys(MOCIMBOA_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  MOCIMBOA_CONFLICT_RENAMES["Batalla de Mocímboa da Praia"],
+  "Ofensiva de Mocímboa da Praia (agosto de 2020)"
+);
+assert.ok(
+  Object.values(MOCIMBOA_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 2020
+      && detail.startYear === detail.endYear
+      && detail.parent === detail.war
+      && detail.campaign
+      && detail.conflictType === "insurgencia"
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 3
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && detail.sourceDispute
+      && /no se consolidan bajas/i.test(detail.outcome)
+  ),
+  "la curaduria de Mocimboa debe conservar fecha, jerarquia, fuentes, participantes y cautela sobre bajas"
+);
+const mocimboaWikipediaOverride = await resolveWikipediaConflictTitle("Ofensiva de Mocímboa da Praia (agosto de 2020)");
+assert.equal(mocimboaWikipediaOverride.language, "en");
+assert.equal(mocimboaWikipediaOverride.pageTitle, "Mocímboa_da_Praia_offensive");
+assert.equal(
+  hasReasonableTemporalMatch(
+    "Ofensiva de Mocímboa da Praia (agosto de 2020)",
+    "Mocímboa da Praia offensive",
+    "5-11 August 2020"
+  ),
+  true,
+  "la validacion temporal debe reconocer meses equivalentes entre espanol e ingles"
+);
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",
   startYear: 1944,

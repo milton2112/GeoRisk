@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.109 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.110 antes de cerrar la siguiente version.
+
+## v1.6.110 - 2026-08-23
+
+- Normaliza, fecha y jerarquiza la ofensiva de Mocímboa da Praia de agosto de 2020, que figuraba como una batalla sin padre verificable.
+- La sitúa dentro de la Insurgencia de Cabo Delgado, con una campaña específica, participantes cautelosos, cronología, procedencia y una ficha diferida bajo demanda.
+- Distingue la ofensiva de la insurgencia completa, conserva como atribución la denominación ISIS-Mozambique usada por el Departamento de Estado de EE.UU. y evita consolidar bajas o efectivos cuando las fuentes no coinciden.
+- Incorpora fuentes del Departamento de Estado de EE.UU., ACLED Cabo Ligado y Naciones Unidas, junto con un alias de importación y regresiones de jerarquía, idioma, fuentes y fechas.
+- Corrige la equivalencia de meses entre español e inglés en la validación de detalles diferidos, de modo que una fecha como agosto de 2020 pueda enlazar de forma segura una fuente titulada en inglés como August 2020.
+- Reduce las jerarquías provisionales de 137 a 136, mantiene cero alertas estructurales y actualiza los índices a 1.796 conflictos, 3.021 eventos y 1.042 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-23-release-1`.
 
 ## v1.6.109 - 2026-08-22
 

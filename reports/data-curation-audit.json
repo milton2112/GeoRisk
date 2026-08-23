@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-08-22T14:01:36.700Z",
+  "generatedAt": "2026-08-23T13:31:22.437Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11065403,
-    "duplicatedCountryFilesBytes": 1526061,
+    "fullBytes": 11068991,
+    "duplicatedCountryFilesBytes": 1526177,
     "countryConflictShardBytes": 421668,
     "tooLargeCount": 0,
     "largest": [
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 204,
+    "pendingCount": 203,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15941,19 +15941,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Mocímboa da Praia",
-        "countries": [
-          "MOZ"
-        ],
-        "regions": [
-          "África"
         ],
         "types": [
           "interestatal"
@@ -17160,6 +17147,19 @@
         "name": "Combate del Callao",
         "countries": [
           "PER"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Combate frente a la costa de Florida",
+        "countries": [
+          "USA"
         ],
         "regions": [
           "América"

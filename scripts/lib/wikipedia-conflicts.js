@@ -3,6 +3,33 @@ import fs from "fs-extra";
 
 const WIKIPEDIA_API_ES = "https://es.wikipedia.org/w/api.php";
 const WIKIPEDIA_API_EN = "https://en.wikipedia.org/w/api.php";
+const TEMPORAL_MONTH_ALIASES = {
+  enero: "01",
+  january: "01",
+  febrero: "02",
+  february: "02",
+  marzo: "03",
+  march: "03",
+  abril: "04",
+  april: "04",
+  mayo: "05",
+  may: "05",
+  junio: "06",
+  june: "06",
+  julio: "07",
+  july: "07",
+  agosto: "08",
+  august: "08",
+  septiembre: "09",
+  setiembre: "09",
+  september: "09",
+  octubre: "10",
+  october: "10",
+  noviembre: "11",
+  november: "11",
+  diciembre: "12",
+  december: "12"
+};
 
 export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Primera Guerra Mundial": "Primera_Guerra_Mundial",
@@ -86,6 +113,9 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Batalla de Dogger Bank (1781)": "Battle_of_Dogger_Bank_(1781)",
   "Batalla de las islas Hyères (1795)": "Battle_of_the_Hyères_Islands",
   "Batalla de las islas Hyeres (1795)": "Battle_of_the_Hyères_Islands",
+  "Ofensiva de Mocímboa da Praia (agosto de 2020)": "Mocímboa_da_Praia_offensive",
+  "Batalla de Mocímboa da Praia": "Mocímboa_da_Praia_offensive",
+  "Batalla de Mocimboa da Praia": "Mocímboa_da_Praia_offensive",
   "Batalla del palacio Dasman (1990)": "Battle_of_Dasman_Palace",
   "Batalla de Cabo Rachado (1606)": "Battle_of_Cape_Rachado",
   "Batalla de Beitang (1900)": "Battle_of_Beitang",
@@ -377,6 +407,7 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
 
 const ENGLISH_WIKIPEDIA_TITLE_EXCEPTIONS = new Set([
   "Amhara_offensive",
+  "Mocímboa_da_Praia_offensive",
   "Skeleton_Cave_(Arizona)",
   "List_of_naval_battles_during_the_Imjin_War",
   "Bombardment_of_Shimonoseki",
@@ -638,15 +669,14 @@ function extractTemporalHints(value = "") {
 
   const years = normalized.match(/\b(1[6-9]\d{2}|20\d{2})\b/g) || [];
   const days = normalized.match(/\b([12]?\d|3[01])\b/g) || [];
-  const monthNames = [
-    "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "setiembre", "octubre", "noviembre", "diciembre",
-    "january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"
-  ].filter(month => normalized.includes(month));
+  const months = Object.entries(TEMPORAL_MONTH_ALIASES)
+    .filter(([month]) => new RegExp(`\\b${month}\\b`, "i").test(normalized))
+    .map(([, number]) => number);
 
   return {
     years: [...new Set(years)],
     days: [...new Set(days.map(String))],
-    months: [...new Set(monthNames)]
+    months: [...new Set(months)]
   };
 }
 
@@ -668,7 +698,7 @@ function hasReasonableTitleMatch(conflictName, pageTitle) {
   return overlap >= Math.max(1, Math.ceil(conflictTokens.length * 0.35));
 }
 
-function hasReasonableTemporalMatch(conflictName, pageTitle = "", infoboxDate = "") {
+export function hasReasonableTemporalMatch(conflictName, pageTitle = "", infoboxDate = "") {
   const conflictHints = extractTemporalHints(conflictName);
   if (!conflictHints.years.length && !conflictHints.months.length && !conflictHints.days.length) {
     return true;
