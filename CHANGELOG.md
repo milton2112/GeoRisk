@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.111 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.112 antes de cerrar la siguiente version.
+
+## v1.6.112 - 2026-08-24
+
+- Normaliza, fecha y jerarquiza la batalla naval de Chef-de-Caux de 1417, que figuraba sin fecha, campaña ni padre verificable bajo un conflicto regional genérico.
+- La sitúa dentro de la Guerra de los Cien Años y de la conquista inglesa de Normandía, con Francia y Reino Unido como enlaces contemporáneos y participantes históricos conservados como Reino de Francia y Reino de Inglaterra.
+- Incorpora cronología, procedencia y una ficha diferida; muestra solamente el año porque las fuentes no coinciden en el día exacto, ni permite consolidar bajas o capturas como si fueran cifras verificadas.
+- Añade referencias de Historic England, el Ministerio de Cultura de Francia y el Gobierno del Reino Unido, junto con regresiones para nombre, jerarquía, fuentes, cautelas y vínculo con Reino Unido.
+- Reduce las jerarquías provisionales de 135 a 134, mantiene cero alertas estructurales y actualiza los índices a 1.798 conflictos, 3.025 eventos y 1.044 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-24-release-1`.
 
 ## v1.6.111 - 2026-08-23
 

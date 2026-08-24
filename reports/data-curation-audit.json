@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-23T13:39:45.374Z",
+  "generatedAt": "2026-08-24T13:15:03.824Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11081143,
-    "duplicatedCountryFilesBytes": 1526157,
-    "countryConflictShardBytes": 422049,
+    "fullBytes": 11092393,
+    "duplicatedCountryFilesBytes": 1526406,
+    "countryConflictShardBytes": 422482,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 24671,
-        "inlineBytes": 1058327,
+        "bytes": 24714,
+        "inlineBytes": 1065315,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,12 +21,12 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 310,
+          "conflicts": 311,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 11247,
+            "military": 11290,
             "politics": 9502,
             "metadata": 1952,
             "general": 1018,
@@ -39,7 +39,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 11247
+              "bytes": 11290
             },
             {
               "section": "politics",
@@ -54,8 +54,8 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 69949,
-          "conflictShardBytes": 69950,
+          "conflictsBytes": 70280,
+          "conflictShardBytes": 70281,
           "averageConflictBytes": 226
         }
       },
@@ -215,8 +215,8 @@
       {
         "code": "FRA",
         "name": "Francia",
-        "bytes": 19798,
-        "inlineBytes": 767741,
+        "bytes": 20004,
+        "inlineBytes": 772003,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -230,7 +230,7 @@
         },
         "metrics": {
           "sectionBytes": {
-            "military": 8118,
+            "military": 8324,
             "politics": 7898,
             "metadata": 1952,
             "general": 933,
@@ -243,7 +243,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 8118
+              "bytes": 8324
             },
             {
               "section": "politics",
@@ -258,9 +258,9 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 46502,
-          "conflictShardBytes": 46503,
-          "averageConflictBytes": 196
+          "conflictsBytes": 46604,
+          "conflictShardBytes": 46605,
+          "averageConflictBytes": 197
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 202,
+    "pendingCount": 201,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15252,19 +15252,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Chef-de-Caux",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
@@ -17160,6 +17147,19 @@
         "name": "Combate naval del Callao",
         "countries": [
           "PER"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Desembarco en Kip's Bay",
+        "countries": [
+          "USA"
         ],
         "regions": [
           "América"

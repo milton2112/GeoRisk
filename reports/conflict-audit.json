@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-23T13:42:05.690Z",
+  "generatedAt": "2026-08-24T13:17:09.499Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 135,
-  "reviewCount": 135,
+  "advisoryCount": 134,
+  "reviewCount": 134,
   "summary": {
-    "provisional_parent": 135
+    "provisional_parent": 134
   },
   "topIssues": [],
   "topAdvisories": [
@@ -102,20 +102,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de chef de caux",
-      "name": "Batalla de Chef-de-Caux",
-      "countries": [
-        "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],
@@ -1124,6 +1110,20 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de ramth al lbane",
+      "name": "Batalla de Ramth-al-Lbane",
+      "countries": [
+        "MAR"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de África",
       "issues": [
         "provisional_parent"
       ],

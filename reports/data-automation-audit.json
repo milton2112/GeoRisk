@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-23T13:42:08.998Z",
+  "generatedAt": "2026-08-24T13:17:13.040Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 203
+      "count": 202
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 135
+      "count": 134
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 536
+      "count": 537
     },
     "redundantReligions": {
       "count": 0
@@ -124,11 +124,6 @@
       {
         "code": "DNK",
         "name": "Batalla del Lago Peipus",
-        "region": "Europa"
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Chef-de-Caux",
         "region": "Europa"
       },
       {
@@ -255,6 +250,11 @@
         "code": "FRA",
         "name": "Batalla del cabo de la Roca",
         "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla del cabo Lizard",
+        "region": "Europa"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -311,13 +311,6 @@
       {
         "code": "DNK",
         "name": "Batalla del Lago Peipus",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Chef-de-Caux",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -535,6 +528,13 @@
       {
         "code": "GEO",
         "name": "Batalla de Kamani",
+        "parent": "Conflicto regional de Asia",
+        "campaign": "Campaña vinculada a Conflicto regional de Asia",
+        "startYear": null
+      },
+      {
+        "code": "GEO",
+        "name": "Batalla de Ochamchira",
         "parent": "Conflicto regional de Asia",
         "campaign": "Campaña vinculada a Conflicto regional de Asia",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 135,
+      "count": 134,
       "command": "npm run fix:conflicts:batches"
     },
     {

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-23T13:39:39.124Z",
+  "generatedAt": "2026-08-24T13:14:44.017Z",
   "changedFullCountries": 2,
   "fullPassChanges": [
     2,
@@ -12,7 +12,7 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 994,
+  "generatedHierarchyCandidates": 995,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -138,7 +138,8 @@
       "Batalla de Antivari (1914)",
       "Batalla de Dogger Bank (1781)",
       "Batalla de las islas Hyères (1795)",
-      "Combate naval frente a Barbados (1778)"
+      "Combate naval frente a Barbados (1778)",
+      "Batalla naval de Chef-de-Caux (1417)"
     ],
     "irlanda": [
       "Batalla naval de la bahía de Bantry (1689)",
@@ -865,7 +866,9 @@
     "Batalla de Mocímboa da Praia": "Ofensiva de Mocímboa da Praia (agosto de 2020)",
     "Batalla de Mocimboa da Praia": "Ofensiva de Mocímboa da Praia (agosto de 2020)",
     "Batalla de Barbados": "Combate naval frente a Barbados (1778)",
-    "Battle off Barbados": "Combate naval frente a Barbados (1778)"
+    "Battle off Barbados": "Combate naval frente a Barbados (1778)",
+    "Batalla de Chef-de-Caux": "Batalla naval de Chef-de-Caux (1417)",
+    "Batalla de Chef de Caux": "Batalla naval de Chef-de-Caux (1417)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1827,6 +1830,7 @@
     "Batalla de Guerrero (1916)",
     "Batalla de las islas Hyères (1795)",
     "Ofensiva de Mocímboa da Praia (agosto de 2020)",
-    "Combate naval frente a Barbados (1778)"
+    "Combate naval frente a Barbados (1778)",
+    "Batalla naval de Chef-de-Caux (1417)"
   ]
 }

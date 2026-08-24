@@ -273,6 +273,11 @@ import {
   BARBADOS_COUNTRY_CONFLICT_ADDITIONS,
   BARBADOS_CONFLICT_RENAMES
 } from "./lib/conflict-curation-barbados.js";
+import {
+  CHEF_DE_CAUX_CONFLICT_DETAIL_FIXES,
+  CHEF_DE_CAUX_COUNTRY_CONFLICT_ADDITIONS,
+  CHEF_DE_CAUX_CONFLICT_RENAMES
+} from "./lib/conflict-curation-chef-de-caux.js";
 import { collectConflictCountryNames, curateConflictDetail, curateConflictEntry } from "./lib/conflict-batch-curation.js";
 import {
   cleanConflictLabel,
@@ -357,7 +362,8 @@ const curatedConflictDetailFixes = {
   ...GUERRERO_CONFLICT_DETAIL_FIXES,
   ...HYERES_CONFLICT_DETAIL_FIXES,
   ...MOCIMBOA_CONFLICT_DETAIL_FIXES,
-  ...BARBADOS_CONFLICT_DETAIL_FIXES
+  ...BARBADOS_CONFLICT_DETAIL_FIXES,
+  ...CHEF_DE_CAUX_CONFLICT_DETAIL_FIXES
 };
 const safeConflictRenames = {
   ...SAFE_CONFLICT_RENAMES,
@@ -422,7 +428,8 @@ const safeConflictRenames = {
   ...GUERRERO_CONFLICT_RENAMES,
   ...HYERES_CONFLICT_RENAMES,
   ...MOCIMBOA_CONFLICT_RENAMES,
-  ...BARBADOS_CONFLICT_RENAMES
+  ...BARBADOS_CONFLICT_RENAMES,
+  ...CHEF_DE_CAUX_CONFLICT_RENAMES
 };
 const countryConflictAdditionBatches = [
   TRANSITION_1846_1902_COUNTRY_CONFLICT_ADDITIONS,
@@ -459,7 +466,8 @@ const countryConflictAdditionBatches = [
   NEVA_SHANHAIGUAN_COUNTRY_CONFLICT_ADDITIONS,
   GUERRERO_COUNTRY_CONFLICT_ADDITIONS,
   HYERES_COUNTRY_CONFLICT_ADDITIONS,
-  BARBADOS_COUNTRY_CONFLICT_ADDITIONS
+  BARBADOS_COUNTRY_CONFLICT_ADDITIONS,
+  CHEF_DE_CAUX_COUNTRY_CONFLICT_ADDITIONS
 ];
 const countryConflictAdditions = mergeCountryConflictBatches(countryConflictAdditionBatches);
 const countryConflictExclusionBatches = [

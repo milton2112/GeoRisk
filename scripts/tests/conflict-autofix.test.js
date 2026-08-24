@@ -262,6 +262,11 @@ import {
   BARBADOS_COUNTRY_CONFLICT_ADDITIONS,
   BARBADOS_CONFLICT_RENAMES
 } from "../lib/conflict-curation-barbados.js";
+import {
+  CHEF_DE_CAUX_CONFLICT_DETAIL_FIXES,
+  CHEF_DE_CAUX_COUNTRY_CONFLICT_ADDITIONS,
+  CHEF_DE_CAUX_CONFLICT_RENAMES
+} from "../lib/conflict-curation-chef-de-caux.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import {
@@ -2418,6 +2423,33 @@ assert.ok(
 const barbadosWikipediaOverride = await resolveWikipediaConflictTitle("Combate naval frente a Barbados (1778)");
 assert.equal(barbadosWikipediaOverride.language, "en");
 assert.equal(barbadosWikipediaOverride.pageTitle, "Battle_off_Barbados");
+assert.equal(Object.keys(CHEF_DE_CAUX_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  CHEF_DE_CAUX_CONFLICT_RENAMES["Batalla de Chef-de-Caux"],
+  "Batalla naval de Chef-de-Caux (1417)"
+);
+assert.deepEqual(
+  CHEF_DE_CAUX_COUNTRY_CONFLICT_ADDITIONS["Reino Unido"],
+  ["Batalla naval de Chef-de-Caux (1417)"]
+);
+assert.ok(
+  Object.values(CHEF_DE_CAUX_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 1417
+      && detail.startYear === detail.endYear
+      && detail.parent === "Guerra de los Cien Años (1337-1453)"
+      && detail.campaign
+      && detail.type === "batalla naval"
+      && detail.conflictType === "interestatal"
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 3
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && detail.sourceDispute
+      && /no permiten consolidar/i.test(detail.outcome)
+  ),
+  "la curaduria de Chef-de-Caux debe conservar fecha anual, jerarquia, fuentes, participantes y cautela sobre detalles discutidos"
+);
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",
   startYear: 1944,
