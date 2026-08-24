@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.114 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.115 antes de cerrar la siguiente version.
+
+## v1.6.115 - 2026-08-24
+
+- Normaliza la entrada provisional "Batalla de Clouds" como Batalla de las Nubes (1777), con alias de importacion en español e ingles y una resolucion de Wikipedia estable para la ficha complementaria.
+- La ubica en la Guerra de Independencia de Estados Unidos y en la Campaña de Filadelfia de 1777, cerca de White Horse Tavern, con participantes, cronologia, escala, tipo y region normalizada.
+- Conserva el resultado con cautela: fuentes del Servicio de Parques Nacionales y del Ejercito de EE. UU. documentan que una tormenta tropical interrumpio el encuentro antes de una batalla decisiva; la ficha no inventa bajas ni adjudica una victoria tactica.
+- Agrega cuatro referencias institucionales, una ficha diferida de bajo peso y regresiones para la jerarquia, los alias, los participantes, la cautela del desenlace y el enlace a la fuente complementaria.
+- Reduce las jerarquias provisionales de 132 a 131, mantiene cero alertas estructurales y actualiza los indices a 1.801 conflictos, 3.029 eventos y 1.047 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-24-release-4`.
 
 ## v1.6.114 - 2026-08-24
 

@@ -276,6 +276,10 @@ import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
+import {
+  CLOUDS_CONFLICT_DETAIL_FIXES,
+  CLOUDS_CONFLICT_RENAMES
+} from "../lib/conflict-curation-clouds.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import {
@@ -2520,6 +2524,32 @@ assert.ok(
 const cockleCreekWikipediaOverride = await resolveWikipediaConflictTitle("Acción naval de Chincoteague Inlet (1861)");
 assert.equal(cockleCreekWikipediaOverride.language, "en");
 assert.equal(cockleCreekWikipediaOverride.pageTitle, "Battle_of_Cockle_Creek");
+assert.equal(Object.keys(CLOUDS_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  CLOUDS_CONFLICT_RENAMES["Batalla de Clouds"],
+  "Batalla de las Nubes (1777)"
+);
+assert.ok(
+  Object.values(CLOUDS_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 1777
+      && detail.startYear === detail.endYear
+      && detail.parent === "Guerra de Independencia de Estados Unidos"
+      && detail.campaign === "Campaña de Filadelfia de 1777"
+      && detail.type === "batalla"
+      && detail.conflictType === "independencia"
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 4
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && detail.sourceDispute
+      && /no atribuye una victoria táctica/i.test(detail.outcome)
+  ),
+  "la curaduria de la Batalla de las Nubes debe conservar jerarquia, fuentes, participantes y cautela sobre bajas y resultado"
+);
+const cloudsWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de las Nubes (1777)");
+assert.equal(cloudsWikipediaOverride.language, "en");
+assert.equal(cloudsWikipediaOverride.pageTitle, "Battle_of_the_Clouds");
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",
   startYear: 1944,

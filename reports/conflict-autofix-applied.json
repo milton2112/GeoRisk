@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-24T13:39:37.500Z",
+  "generatedAt": "2026-08-24T13:51:01.174Z",
   "changedFullCountries": 1,
   "fullPassChanges": [
     1,
@@ -7,8 +7,8 @@
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
-    "renamed": 1,
-    "enriched": 108,
+    "renamed": 0,
+    "enriched": 109,
     "written": true,
     "compacted": false
   },
@@ -876,7 +876,10 @@
     "Batalla de Bir Enzarán": "Batalla de Bir Enzaran (1979)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
-    "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)"
+    "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
+    "Batalla de Clouds": "Batalla de las Nubes (1777)",
+    "Battle of the Clouds": "Batalla de las Nubes (1777)",
+    "Batalla de las Nubes": "Batalla de las Nubes (1777)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1841,6 +1844,7 @@
     "Combate naval frente a Barbados (1778)",
     "Batalla naval de Chef-de-Caux (1417)",
     "Batalla de Bir Enzaran (1979)",
-    "Acción naval de Chincoteague Inlet (1861)"
+    "Acción naval de Chincoteague Inlet (1861)",
+    "Batalla de las Nubes (1777)"
   ]
 }

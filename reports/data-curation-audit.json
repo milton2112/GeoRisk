@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-24T13:39:43.622Z",
+  "generatedAt": "2026-08-24T13:51:07.669Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11108279,
-    "duplicatedCountryFilesBytes": 1526658,
-    "countryConflictShardBytes": 422631,
+    "fullBytes": 11113395,
+    "duplicatedCountryFilesBytes": 1526713,
+    "countryConflictShardBytes": 422725,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -62,8 +62,8 @@
       {
         "code": "USA",
         "name": "Estados Unidos",
-        "bytes": 23977,
-        "inlineBytes": 3130565,
+        "bytes": 24032,
+        "inlineBytes": 3135681,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -77,7 +77,7 @@
         },
         "metrics": {
           "sectionBytes": {
-            "military": 10032,
+            "military": 10087,
             "politics": 9973,
             "metadata": 1951,
             "general": 978,
@@ -90,7 +90,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 10032
+              "bytes": 10087
             },
             {
               "section": "politics",
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 212814,
-          "conflictShardBytes": 212815,
+          "conflictsBytes": 212908,
+          "conflictShardBytes": 212909,
           "averageConflictBytes": 231
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 199,
+    "pendingCount": 198,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15265,19 +15265,6 @@
         ],
         "regions": [
           "Asia"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Clouds",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"
@@ -17158,6 +17145,19 @@
       },
       {
         "name": "Escaramuza de Mosonbánfalva",
+        "countries": [
+          "AUT"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Escaramuza de Pinkafő",
         "countries": [
           "AUT"
         ],
