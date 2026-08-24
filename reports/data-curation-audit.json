@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-24T13:25:06.754Z",
+  "generatedAt": "2026-08-24T13:39:43.622Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11103687,
+    "fullBytes": 11108279,
     "duplicatedCountryFilesBytes": 1526658,
-    "countryConflictShardBytes": 422519,
+    "countryConflictShardBytes": 422631,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 23977,
-        "inlineBytes": 3125973,
+        "inlineBytes": 3130565,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 212702,
-          "conflictShardBytes": 212703,
+          "conflictsBytes": 212814,
+          "conflictShardBytes": 212815,
           "averageConflictBytes": 231
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 200,
+    "pendingCount": 199,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15273,19 +15273,6 @@
       },
       {
         "name": "Batalla de Clouds",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Cockle Creek",
         "countries": [
           "USA"
         ],
@@ -17158,6 +17145,19 @@
       },
       {
         "name": "Escaramuza de Felsőőr",
+        "countries": [
+          "AUT"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Escaramuza de Mosonbánfalva",
         "countries": [
           "AUT"
         ],

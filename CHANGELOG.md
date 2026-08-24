@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.113 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.114 antes de cerrar la siguiente version.
+
+## v1.6.114 - 2026-08-24
+
+- Normaliza la Batalla de Cockle Creek como Acción naval de Chincoteague Inlet (1861), antes bajo un padre regional genérico, sin fecha, campaña ni participantes verificables.
+- La sitúa en la Guerra Civil estadounidense y en las operaciones del Escuadrón de Bloqueo del Atlántico Norte en Virginia, con el USS Louisiana, Alexander Murray y la goleta confederada en preparación como corsario como participantes documentados.
+- Conserva solamente el año: la historia naval de EE. UU. fecha la acción el 5 de octubre y una cronología impresa conservada por la Biblioteca del Congreso el 4. Tampoco consolida bajas, fuerzas ni resultados más allá de la destrucción de la goleta.
+- Incorpora fuentes del Comando de Historia y Patrimonio Naval de EE. UU. y de la Biblioteca del Congreso, una ficha diferida y un alias estable entre la forma con y sin tilde para que una regeneración no degrade la curaduría publicada.
+- Reduce las jerarquías provisionales de 133 a 132, mantiene cero alertas estructurales y actualiza los índices a 1.800 conflictos, 3.028 eventos y 1.046 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-24-release-3`.
 
 ## v1.6.113 - 2026-08-24
 

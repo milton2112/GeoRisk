@@ -272,6 +272,10 @@ import {
   BIR_ENZARAN_COUNTRY_CONFLICT_ADDITIONS,
   BIR_ENZARAN_CONFLICT_RENAMES
 } from "../lib/conflict-curation-bir-enzaran.js";
+import {
+  COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
+  COCKLE_CREEK_CONFLICT_RENAMES
+} from "../lib/conflict-curation-cockle-creek.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import {
@@ -2485,6 +2489,37 @@ assert.ok(
 const birEnzaranWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Bir Enzaran (1979)");
 assert.equal(birEnzaranWikipediaOverride.language, "en");
 assert.equal(birEnzaranWikipediaOverride.pageTitle, "Battle_of_Bir_Anzarane_(1979)");
+assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],
+  "Acción naval de Chincoteague Inlet (1861)"
+);
+assert.equal(
+  COCKLE_CREEK_CONFLICT_RENAMES["Accion naval de Chincoteague Inlet (1861)"],
+  "Acción naval de Chincoteague Inlet (1861)",
+  "la variante sin tilde debe mantener la ficha curada al regenerar"
+);
+assert.ok(
+  Object.values(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 1861
+      && detail.startYear === detail.endYear
+      && detail.parent === "Guerra Civil estadounidense"
+      && detail.campaign
+      && detail.type === "acción naval"
+      && detail.conflictType === "civil"
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 3
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && detail.sourceDispute
+      && /no consolida cifras/i.test(detail.outcome)
+  ),
+  "la curaduria de Chincoteague Inlet debe conservar jerarquia, fuentes, participantes y cautela sobre fecha y bajas"
+);
+const cockleCreekWikipediaOverride = await resolveWikipediaConflictTitle("Acción naval de Chincoteague Inlet (1861)");
+assert.equal(cockleCreekWikipediaOverride.language, "en");
+assert.equal(cockleCreekWikipediaOverride.pageTitle, "Battle_of_Cockle_Creek");
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",
   startYear: 1944,

@@ -283,6 +283,10 @@ import {
   BIR_ENZARAN_COUNTRY_CONFLICT_ADDITIONS,
   BIR_ENZARAN_CONFLICT_RENAMES
 } from "./lib/conflict-curation-bir-enzaran.js";
+import {
+  COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
+  COCKLE_CREEK_CONFLICT_RENAMES
+} from "./lib/conflict-curation-cockle-creek.js";
 import { collectConflictCountryNames, curateConflictDetail, curateConflictEntry } from "./lib/conflict-batch-curation.js";
 import {
   cleanConflictLabel,
@@ -369,7 +373,8 @@ const curatedConflictDetailFixes = {
   ...MOCIMBOA_CONFLICT_DETAIL_FIXES,
   ...BARBADOS_CONFLICT_DETAIL_FIXES,
   ...CHEF_DE_CAUX_CONFLICT_DETAIL_FIXES,
-  ...BIR_ENZARAN_CONFLICT_DETAIL_FIXES
+  ...BIR_ENZARAN_CONFLICT_DETAIL_FIXES,
+  ...COCKLE_CREEK_CONFLICT_DETAIL_FIXES
 };
 const safeConflictRenames = {
   ...SAFE_CONFLICT_RENAMES,
@@ -436,7 +441,8 @@ const safeConflictRenames = {
   ...MOCIMBOA_CONFLICT_RENAMES,
   ...BARBADOS_CONFLICT_RENAMES,
   ...CHEF_DE_CAUX_CONFLICT_RENAMES,
-  ...BIR_ENZARAN_CONFLICT_RENAMES
+  ...BIR_ENZARAN_CONFLICT_RENAMES,
+  ...COCKLE_CREEK_CONFLICT_RENAMES
 };
 const countryConflictAdditionBatches = [
   TRANSITION_1846_1902_COUNTRY_CONFLICT_ADDITIONS,

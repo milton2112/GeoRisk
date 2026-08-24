@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-24T13:27:03.957Z",
+  "generatedAt": "2026-08-24T13:41:33.489Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 133,
-  "reviewCount": 133,
+  "advisoryCount": 132,
+  "reviewCount": 132,
   "summary": {
-    "provisional_parent": 133
+    "provisional_parent": 132
   },
   "topIssues": [],
   "topAdvisories": [
@@ -124,20 +124,6 @@
     {
       "key": "batalla de clouds",
       "name": "Batalla de Clouds",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de cockle creek",
-      "name": "Batalla de Cockle Creek",
       "countries": [
         "USA"
       ],
@@ -1124,6 +1110,20 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de remada",
+      "name": "Batalla de Remada",
+      "countries": [
+        "TUN"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de África",
       "issues": [
         "provisional_parent"
       ],

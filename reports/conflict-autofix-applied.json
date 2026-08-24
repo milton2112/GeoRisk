@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-24T13:25:00.698Z",
-  "changedFullCountries": 2,
+  "generatedAt": "2026-08-24T13:39:37.500Z",
+  "changedFullCountries": 1,
   "fullPassChanges": [
-    2,
+    1,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
-    "renamed": 0,
-    "enriched": 109,
+    "renamed": 1,
+    "enriched": 108,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 996,
+  "generatedHierarchyCandidates": 998,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -873,7 +873,10 @@
     "Batalla de Chef-de-Caux": "Batalla naval de Chef-de-Caux (1417)",
     "Batalla de Chef de Caux": "Batalla naval de Chef-de-Caux (1417)",
     "Batalla de Bir Enzaran": "Batalla de Bir Enzaran (1979)",
-    "Batalla de Bir Enzarán": "Batalla de Bir Enzaran (1979)"
+    "Batalla de Bir Enzarán": "Batalla de Bir Enzaran (1979)",
+    "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
+    "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
+    "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1837,6 +1840,7 @@
     "Ofensiva de Mocímboa da Praia (agosto de 2020)",
     "Combate naval frente a Barbados (1778)",
     "Batalla naval de Chef-de-Caux (1417)",
-    "Batalla de Bir Enzaran (1979)"
+    "Batalla de Bir Enzaran (1979)",
+    "Acción naval de Chincoteague Inlet (1861)"
   ]
 }
