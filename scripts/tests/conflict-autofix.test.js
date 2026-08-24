@@ -284,6 +284,10 @@ import {
   COLSONS_MILL_CONFLICT_DETAIL_FIXES,
   COLSONS_MILL_CONFLICT_RENAMES
 } from "../lib/conflict-curation-colsons-mill.js";
+import {
+  CHILLICOTHE_CONFLICT_DETAIL_FIXES,
+  CHILLICOTHE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-chillicothe.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import {
@@ -2577,6 +2581,32 @@ assert.ok(
   ),
   "la curaduria de Colson's Mill debe conservar jerarquia, fuentes, bajas atribuidas y la correccion del mando lealista"
 );
+assert.equal(Object.keys(CHILLICOTHE_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  CHILLICOTHE_CONFLICT_RENAMES["Batalla de Chillicothe"],
+  "Batalla de Chillicothe (1779)"
+);
+assert.ok(
+  Object.values(CHILLICOTHE_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 1779
+      && detail.startYear === detail.endYear
+      && detail.parent === "Guerra de Independencia de Estados Unidos"
+      && detail.campaign === "Expedición de Bowman contra Chillicothe de 1779"
+      && detail.type === "incursión y combate"
+      && detail.conflictType === "frontera"
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 3
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && detail.sourceDispute
+      && /no consolida bajas/i.test(detail.curationNote)
+  ),
+  "la curaduria de Chillicothe debe conservar fecha anual, jerarquia, fuentes y cautela sobre bajas y resultado"
+);
+const chillicotheWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Chillicothe (1779)");
+assert.equal(chillicotheWikipediaOverride.language, "en");
+assert.equal(chillicotheWikipediaOverride.pageTitle, "Battle_of_Chillicothe");
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",
   startYear: 1944,

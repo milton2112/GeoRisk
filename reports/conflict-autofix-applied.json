@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-24T13:59:28.649Z",
+  "generatedAt": "2026-08-24T14:06:09.057Z",
   "changedFullCountries": 1,
   "fullPassChanges": [
     1,
@@ -12,7 +12,7 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 999,
+  "generatedHierarchyCandidates": 1000,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -882,7 +882,10 @@
     "Batalla de las Nubes": "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill": "Batalla de Colson's Mill (1780)",
     "Battle of Colson's Mill": "Batalla de Colson's Mill (1780)",
-    "Fight at Colson's": "Batalla de Colson's Mill (1780)"
+    "Fight at Colson's": "Batalla de Colson's Mill (1780)",
+    "Batalla de Chillicothe": "Batalla de Chillicothe (1779)",
+    "Battle of Chillicothe": "Batalla de Chillicothe (1779)",
+    "Expedición de Bowman contra Chillicothe": "Batalla de Chillicothe (1779)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1849,6 +1852,7 @@
     "Batalla de Bir Enzaran (1979)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
-    "Batalla de Colson's Mill (1780)"
+    "Batalla de Colson's Mill (1780)",
+    "Batalla de Chillicothe (1779)"
   ]
 }

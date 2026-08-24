@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.116 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.117 antes de cerrar la siguiente version.
+
+## v1.6.117 - 2026-08-24
+
+- Normaliza la Batalla de Chillicothe como Batalla de Chillicothe (1779), con nombre estable, fecha anual, región, campaña y jerarquía dentro de la Guerra de Independencia de Estados Unidos.
+- La reclasifica como incursión y combate fronterizo: separa la milicia del Kentucky County de Virginia de los defensores shawnee de Old Chillicothe y evita reducir una comunidad indígena a un único mando individual.
+- Corrige una ambigüedad de procedencia: un volumen del Centro de Historia Militar del Ejército de EE. UU. contiene fechas incompatibles en dos mapas; la historia militar de Kentucky y la fuente histórica de Ohio sitúan la acción en mayo de 1779. La ficha muestra solo el año y explica la discrepancia.
+- Añade tres fuentes, una ficha diferida y regresiones para el alias, la campaña, la clasificación fronteriza, la cautela sobre bajas y el enlace complementario.
+- Reduce las jerarquías provisionales de 130 a 129, mantiene cero alertas estructurales y actualiza los índices a 1.803 conflictos, 3.031 eventos y 1.049 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-24-release-6`.
 
 ## v1.6.116 - 2026-08-24
 

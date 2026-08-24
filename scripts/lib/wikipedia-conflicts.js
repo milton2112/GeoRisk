@@ -127,6 +127,8 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Batalla de las Nubes (1777)": "Battle_of_the_Clouds",
   "Batalla de las Nubes": "Battle_of_the_Clouds",
   "Batalla de Clouds": "Battle_of_the_Clouds",
+  "Batalla de Chillicothe (1779)": "Battle_of_Chillicothe",
+  "Batalla de Chillicothe": "Battle_of_Chillicothe",
   "Batalla del palacio Dasman (1990)": "Battle_of_Dasman_Palace",
   "Batalla de Cabo Rachado (1606)": "Battle_of_Cape_Rachado",
   "Batalla de Beitang (1900)": "Battle_of_Beitang",

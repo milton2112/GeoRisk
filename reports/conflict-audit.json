@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-24T14:01:31.356Z",
+  "generatedAt": "2026-08-24T14:07:55.336Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 130,
-  "reviewCount": 130,
+  "advisoryCount": 129,
+  "reviewCount": 129,
   "summary": {
-    "provisional_parent": 130
+    "provisional_parent": 129
   },
   "topIssues": [],
   "topAdvisories": [
@@ -84,20 +84,6 @@
       "name": "Batalla de Cerro del Gallo",
       "countries": [
         "MEX"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de chillicothe",
-      "name": "Batalla de Chillicothe",
-      "countries": [
-        "USA"
       ],
       "startYear": null,
       "endYear": null,
@@ -1124,6 +1110,20 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de saint louis du sud",
+      "name": "Batalla de Saint-Louis-du-Sud",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],

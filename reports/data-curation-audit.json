@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-24T13:59:34.810Z",
+  "generatedAt": "2026-08-24T14:06:15.028Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11118431,
+    "fullBytes": 11123217,
     "duplicatedCountryFilesBytes": 1526713,
-    "countryConflictShardBytes": 422820,
+    "countryConflictShardBytes": 422945,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24032,
-        "inlineBytes": 3140717,
+        "inlineBytes": 3145503,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 213003,
-          "conflictShardBytes": 213004,
+          "conflictsBytes": 213128,
+          "conflictShardBytes": 213129,
           "averageConflictBytes": 231
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 197,
+    "pendingCount": 196,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15236,19 +15236,6 @@
         "name": "Batalla de Cerro del Gallo",
         "countries": [
           "MEX"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Chillicothe",
-        "countries": [
-          "USA"
         ],
         "regions": [
           "América"
@@ -17163,6 +17150,19 @@
         ],
         "regions": [
           "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Escaramuza en Andemose",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
         ],
         "types": [
           "interestatal"

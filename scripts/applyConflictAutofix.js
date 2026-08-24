@@ -295,6 +295,10 @@ import {
   COLSONS_MILL_CONFLICT_DETAIL_FIXES,
   COLSONS_MILL_CONFLICT_RENAMES
 } from "./lib/conflict-curation-colsons-mill.js";
+import {
+  CHILLICOTHE_CONFLICT_DETAIL_FIXES,
+  CHILLICOTHE_CONFLICT_RENAMES
+} from "./lib/conflict-curation-chillicothe.js";
 import { collectConflictCountryNames, curateConflictDetail, curateConflictEntry } from "./lib/conflict-batch-curation.js";
 import {
   cleanConflictLabel,
@@ -384,7 +388,8 @@ const curatedConflictDetailFixes = {
   ...BIR_ENZARAN_CONFLICT_DETAIL_FIXES,
   ...COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   ...CLOUDS_CONFLICT_DETAIL_FIXES,
-  ...COLSONS_MILL_CONFLICT_DETAIL_FIXES
+  ...COLSONS_MILL_CONFLICT_DETAIL_FIXES,
+  ...CHILLICOTHE_CONFLICT_DETAIL_FIXES
 };
 const safeConflictRenames = {
   ...SAFE_CONFLICT_RENAMES,
@@ -454,7 +459,8 @@ const safeConflictRenames = {
   ...BIR_ENZARAN_CONFLICT_RENAMES,
   ...COCKLE_CREEK_CONFLICT_RENAMES,
   ...CLOUDS_CONFLICT_RENAMES,
-  ...COLSONS_MILL_CONFLICT_RENAMES
+  ...COLSONS_MILL_CONFLICT_RENAMES,
+  ...CHILLICOTHE_CONFLICT_RENAMES
 };
 const countryConflictAdditionBatches = [
   TRANSITION_1846_1902_COUNTRY_CONFLICT_ADDITIONS,
