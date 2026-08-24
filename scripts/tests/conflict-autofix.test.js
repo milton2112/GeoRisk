@@ -267,6 +267,11 @@ import {
   CHEF_DE_CAUX_COUNTRY_CONFLICT_ADDITIONS,
   CHEF_DE_CAUX_CONFLICT_RENAMES
 } from "../lib/conflict-curation-chef-de-caux.js";
+import {
+  BIR_ENZARAN_CONFLICT_DETAIL_FIXES,
+  BIR_ENZARAN_COUNTRY_CONFLICT_ADDITIONS,
+  BIR_ENZARAN_CONFLICT_RENAMES
+} from "../lib/conflict-curation-bir-enzaran.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import {
@@ -2450,6 +2455,36 @@ assert.ok(
   ),
   "la curaduria de Chef-de-Caux debe conservar fecha anual, jerarquia, fuentes, participantes y cautela sobre detalles discutidos"
 );
+assert.equal(Object.keys(BIR_ENZARAN_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  BIR_ENZARAN_CONFLICT_RENAMES["Batalla de Bir Enzarán"],
+  "Batalla de Bir Enzaran (1979)"
+);
+assert.deepEqual(
+  BIR_ENZARAN_COUNTRY_CONFLICT_ADDITIONS["Sahara Occidental"],
+  ["Batalla de Bir Enzaran (1979)"]
+);
+assert.ok(
+  Object.values(BIR_ENZARAN_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 1979
+      && detail.startYear === detail.endYear
+      && detail.parent === "Guerra del Sahara Occidental"
+      && detail.campaign === "Ofensivas del Frente Polisario de 1979"
+      && detail.type === "batalla"
+      && detail.conflictType === "independencia"
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 3
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && detail.sourceDispute
+      && /no atribuye una victoria tactica/i.test(detail.outcome)
+  ),
+  "la curaduria de Bir Enzaran debe conservar fecha anual, jerarquia, fuentes, participantes y cautela sobre bajas y resultado"
+);
+const birEnzaranWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Bir Enzaran (1979)");
+assert.equal(birEnzaranWikipediaOverride.language, "en");
+assert.equal(birEnzaranWikipediaOverride.pageTitle, "Battle_of_Bir_Anzarane_(1979)");
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",
   startYear: 1944,

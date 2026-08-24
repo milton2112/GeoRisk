@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.112 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.113 antes de cerrar la siguiente version.
+
+## v1.6.113 - 2026-08-24
+
+- Normaliza, fecha y jerarquiza la Batalla de Bir Enzaran (1979), que seguia bajo un conflicto regional generico sin una guerra padre, una campana ni participantes utiles para explorarla.
+- La sitúa en la Guerra del Sahara Occidental y en las ofensivas del Frente Polisario de 1979; enlaza Marruecos y Sahara Occidental como referencias de navegacion, con una nota explicita de que el segundo enlace es geografico y no adjudica soberania.
+- Incorpora cronologia, participantes y tres fuentes periodisticas contemporaneas. Conserva el 11 de agosto de 1979 como fecha de la accion, pero no consolida bajas, efectivos, capturas ni victoria tactica porque los balances de las partes son incompatibles y la verificacion posterior no los confirmo.
+- Agrega una ficha diferida, alias de importacion profunda y regresiones para el nombre canonico, la jerarquia, los enlaces por pais, las fuentes, los participantes y la cautela sobre el desenlace.
+- Reduce las jerarquias provisionales de 134 a 133, mantiene cero alertas estructurales y actualiza los indices a 1.799 conflictos, 3.027 eventos y 1.045 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-24-release-2`.
 
 ## v1.6.112 - 2026-08-24
 

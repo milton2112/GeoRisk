@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-24T13:15:03.824Z",
+  "generatedAt": "2026-08-24T13:25:06.754Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11092393,
-    "duplicatedCountryFilesBytes": 1526406,
-    "countryConflictShardBytes": 422482,
+    "fullBytes": 11103687,
+    "duplicatedCountryFilesBytes": 1526658,
+    "countryConflictShardBytes": 422519,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 201,
+    "pendingCount": 200,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15213,19 +15213,6 @@
         ],
         "regions": [
           "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Bir Enzarán",
-        "countries": [
-          "MAR"
-        ],
-        "regions": [
-          "África"
         ],
         "types": [
           "interestatal"
@@ -17163,6 +17150,19 @@
         ],
         "regions": [
           "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Escaramuza de Felsőőr",
+        "countries": [
+          "AUT"
+        ],
+        "regions": [
+          "Europa"
         ],
         "types": [
           "interestatal"

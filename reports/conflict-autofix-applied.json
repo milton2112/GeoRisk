@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-24T13:14:44.017Z",
+  "generatedAt": "2026-08-24T13:25:00.698Z",
   "changedFullCountries": 2,
   "fullPassChanges": [
     2,
@@ -12,7 +12,7 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 995,
+  "generatedHierarchyCandidates": 996,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -358,6 +358,9 @@
     ],
     "italia": [
       "Batalla de las islas Hyères (1795)"
+    ],
+    "sahara occidental": [
+      "Batalla de Bir Enzaran (1979)"
     ]
   },
   "countryConflictExclusions": {
@@ -868,7 +871,9 @@
     "Batalla de Barbados": "Combate naval frente a Barbados (1778)",
     "Battle off Barbados": "Combate naval frente a Barbados (1778)",
     "Batalla de Chef-de-Caux": "Batalla naval de Chef-de-Caux (1417)",
-    "Batalla de Chef de Caux": "Batalla naval de Chef-de-Caux (1417)"
+    "Batalla de Chef de Caux": "Batalla naval de Chef-de-Caux (1417)",
+    "Batalla de Bir Enzaran": "Batalla de Bir Enzaran (1979)",
+    "Batalla de Bir Enzarán": "Batalla de Bir Enzaran (1979)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1831,6 +1836,7 @@
     "Batalla de las islas Hyères (1795)",
     "Ofensiva de Mocímboa da Praia (agosto de 2020)",
     "Combate naval frente a Barbados (1778)",
-    "Batalla naval de Chef-de-Caux (1417)"
+    "Batalla naval de Chef-de-Caux (1417)",
+    "Batalla de Bir Enzaran (1979)"
   ]
 }
