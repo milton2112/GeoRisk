@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-24T13:51:07.669Z",
+  "generatedAt": "2026-08-24T13:59:34.810Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11113395,
+    "fullBytes": 11118431,
     "duplicatedCountryFilesBytes": 1526713,
-    "countryConflictShardBytes": 422725,
+    "countryConflictShardBytes": 422820,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24032,
-        "inlineBytes": 3135681,
+        "inlineBytes": 3140717,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 212908,
-          "conflictShardBytes": 212909,
+          "conflictsBytes": 213003,
+          "conflictShardBytes": 213004,
           "averageConflictBytes": 231
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 198,
+    "pendingCount": 197,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15265,19 +15265,6 @@
         ],
         "regions": [
           "Asia"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Colson's Mill",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"
@@ -17163,6 +17150,19 @@
         ],
         "regions": [
           "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Escaramuza de Todos Santos",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
         ],
         "types": [
           "interestatal"

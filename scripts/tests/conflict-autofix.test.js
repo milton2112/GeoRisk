@@ -280,6 +280,10 @@ import {
   CLOUDS_CONFLICT_DETAIL_FIXES,
   CLOUDS_CONFLICT_RENAMES
 } from "../lib/conflict-curation-clouds.js";
+import {
+  COLSONS_MILL_CONFLICT_DETAIL_FIXES,
+  COLSONS_MILL_CONFLICT_RENAMES
+} from "../lib/conflict-curation-colsons-mill.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import {
@@ -2550,6 +2554,29 @@ assert.ok(
 const cloudsWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de las Nubes (1777)");
 assert.equal(cloudsWikipediaOverride.language, "en");
 assert.equal(cloudsWikipediaOverride.pageTitle, "Battle_of_the_Clouds");
+assert.equal(Object.keys(COLSONS_MILL_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  COLSONS_MILL_CONFLICT_RENAMES["Batalla de Colson's Mill"],
+  "Batalla de Colson's Mill (1780)"
+);
+assert.ok(
+  Object.values(COLSONS_MILL_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 1780
+      && detail.startYear === detail.endYear
+      && detail.parent === "Guerra de Independencia de Estados Unidos"
+      && detail.campaign === "Campaña del sur de 1780"
+      && detail.type === "batalla"
+      && detail.conflictType === "independencia"
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 2
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length && side.casualties)
+      && detail.sourceDispute
+      && /no le adjudica ese mando/i.test(detail.curationNote)
+  ),
+  "la curaduria de Colson's Mill debe conservar jerarquia, fuentes, bajas atribuidas y la correccion del mando lealista"
+);
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",
   startYear: 1944,

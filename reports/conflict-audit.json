@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-24T13:53:35.086Z",
+  "generatedAt": "2026-08-24T14:01:31.356Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 131,
-  "reviewCount": 131,
+  "advisoryCount": 130,
+  "reviewCount": 130,
   "summary": {
-    "provisional_parent": 131
+    "provisional_parent": 130
   },
   "topIssues": [],
   "topAdvisories": [
@@ -116,20 +116,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de colson s mill",
-      "name": "Batalla de Colson's Mill",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],
@@ -1118,6 +1104,20 @@
     {
       "key": "batalla de rio grande city",
       "name": "Batalla de Rio Grande City",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de romanovka",
+      "name": "Batalla de Romanovka",
       "countries": [
         "USA"
       ],

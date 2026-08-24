@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.115 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.116 antes de cerrar la siguiente version.
+
+## v1.6.116 - 2026-08-24
+
+- Normaliza "Batalla de Colson's Mill" como Batalla de Colson's Mill (1780), con fecha, región, escala, campaña y jerarquía verificables dentro de la Guerra de Independencia de Estados Unidos.
+- La sitúa en la Campaña del sur de 1780, distingue a la milicia patriota de William Lee Davidson de la fuerza lealista y agrega cronología, consecuencias, cierre de la guerra y una ficha diferida de bajo peso.
+- Corrige un error histórico del marcador antiguo: la investigación actual del Departamento de Recursos Naturales y Culturales de Carolina del Norte señala que Samuel Bryan no estuvo al mando de los lealistas en la acción. La ficha no le atribuye ese mando y documenta la discrepancia de procedencia.
+- Incorpora las bajas conservadas por la síntesis estatal con su atribución explícita, sin tratarlas como un parte independiente completo, junto con referencias del Gobierno y de la Biblioteca de Carolina del Norte y regresiones de jerarquía, alias y cautela.
+- Reduce las jerarquías provisionales de 131 a 130, mantiene cero alertas estructurales y actualiza los índices a 1.802 conflictos, 3.030 eventos y 1.048 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-24-release-5`.
 
 ## v1.6.115 - 2026-08-24
 

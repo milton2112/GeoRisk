@@ -291,6 +291,10 @@ import {
   CLOUDS_CONFLICT_DETAIL_FIXES,
   CLOUDS_CONFLICT_RENAMES
 } from "./lib/conflict-curation-clouds.js";
+import {
+  COLSONS_MILL_CONFLICT_DETAIL_FIXES,
+  COLSONS_MILL_CONFLICT_RENAMES
+} from "./lib/conflict-curation-colsons-mill.js";
 import { collectConflictCountryNames, curateConflictDetail, curateConflictEntry } from "./lib/conflict-batch-curation.js";
 import {
   cleanConflictLabel,
@@ -379,7 +383,8 @@ const curatedConflictDetailFixes = {
   ...CHEF_DE_CAUX_CONFLICT_DETAIL_FIXES,
   ...BIR_ENZARAN_CONFLICT_DETAIL_FIXES,
   ...COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
-  ...CLOUDS_CONFLICT_DETAIL_FIXES
+  ...CLOUDS_CONFLICT_DETAIL_FIXES,
+  ...COLSONS_MILL_CONFLICT_DETAIL_FIXES
 };
 const safeConflictRenames = {
   ...SAFE_CONFLICT_RENAMES,
@@ -448,7 +453,8 @@ const safeConflictRenames = {
   ...CHEF_DE_CAUX_CONFLICT_RENAMES,
   ...BIR_ENZARAN_CONFLICT_RENAMES,
   ...COCKLE_CREEK_CONFLICT_RENAMES,
-  ...CLOUDS_CONFLICT_RENAMES
+  ...CLOUDS_CONFLICT_RENAMES,
+  ...COLSONS_MILL_CONFLICT_RENAMES
 };
 const countryConflictAdditionBatches = [
   TRANSITION_1846_1902_COUNTRY_CONFLICT_ADDITIONS,
