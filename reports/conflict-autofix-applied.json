@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-25T14:32:49.309Z",
-  "changedFullCountries": 3,
+  "generatedAt": "2026-08-25T14:43:53.234Z",
+  "changedFullCountries": 2,
   "fullPassChanges": [
-    3,
+    2,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 112,
+    "enriched": 114,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1002,
+  "generatedHierarchyCandidates": 1003,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -363,6 +363,9 @@
     ],
     "sahara occidental": [
       "Batalla de Bir Enzaran (1979)"
+    ],
+    "afganistan": [
+      "Batalla de Aranas (2007)"
     ]
   },
   "countryConflictExclusions": {
@@ -894,7 +897,9 @@
     "Batalla de Bau": "Batalla de Bau (1965)",
     "Battle of Bau": "Batalla de Bau (1965)",
     "Battle of Gunong Tepoi": "Batalla de Bau (1965)",
-    "Batalla de Gunong Tepoi": "Batalla de Bau (1965)"
+    "Batalla de Gunong Tepoi": "Batalla de Bau (1965)",
+    "Batalla de Aranas": "Batalla de Aranas (2007)",
+    "Battle of Aranas": "Batalla de Aranas (2007)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1864,6 +1869,7 @@
     "Batalla de Colson's Mill (1780)",
     "Batalla de Chillicothe (1779)",
     "Batalla naval de Asinara (1409)",
-    "Batalla de Bau (1965)"
+    "Batalla de Bau (1965)",
+    "Batalla de Aranas (2007)"
   ]
 }

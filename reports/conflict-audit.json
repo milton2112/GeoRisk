@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-25T14:35:04.331Z",
+  "generatedAt": "2026-08-25T14:45:57.308Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 127,
-  "reviewCount": 127,
+  "advisoryCount": 126,
+  "reviewCount": 126,
   "summary": {
-    "provisional_parent": 127
+    "provisional_parent": 126
   },
   "topIssues": [],
   "topAdvisories": [
@@ -14,20 +14,6 @@
       "name": "Batalla de Alegre",
       "countries": [
         "PRY"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de aranas",
-      "name": "Batalla de Aranas",
-      "countries": [
-        "USA"
       ],
       "startYear": null,
       "endYear": null,
@@ -1124,6 +1110,20 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de shewan",
+      "name": "Batalla de Shewan",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],

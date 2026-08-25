@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-25T14:32:55.237Z",
+  "generatedAt": "2026-08-25T14:43:59.243Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11149579,
-    "duplicatedCountryFilesBytes": 1527456,
-    "countryConflictShardBytes": 423040,
+    "fullBytes": 11164723,
+    "duplicatedCountryFilesBytes": 1527762,
+    "countryConflictShardBytes": 423117,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24032,
-        "inlineBytes": 3145503,
+        "inlineBytes": 3151691,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 213128,
-          "conflictShardBytes": 213129,
+          "conflictsBytes": 213205,
+          "conflictShardBytes": 213206,
           "averageConflictBytes": 231
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 194,
+    "pendingCount": 193,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15171,19 +15171,6 @@
         "name": "Batalla de Alegre",
         "countries": [
           "PRY"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Aranas",
-        "countries": [
-          "USA"
         ],
         "regions": [
           "América"
@@ -17160,6 +17147,19 @@
         "name": "Escaramuza en la península de Chukotka",
         "countries": [
           "SWE"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Hundimiento del HMS Prince de Wales y del HMS Repulse",
+        "countries": [
+          "GBR"
         ],
         "regions": [
           "Europa"

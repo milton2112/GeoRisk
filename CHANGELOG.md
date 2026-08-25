@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.119 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.120 antes de cerrar la siguiente version.
+
+## v1.6.120 - 2026-08-25
+
+- Normaliza la entrada provisional "Batalla de Aranas" como Batalla de Aranas (2007), con alias en español e inglés, ficha diferida y resolución estable para la fuente complementaria.
+- La sitúa en la Guerra de Afganistán y en las operaciones de Nuristán, con una nota transparente que aclara que esta última es una categoría operativa de GeoRisk y no una campaña oficial nombrada por las fuentes.
+- Vincula la acción con Afganistán y Estados Unidos: distingue al 1.er Pelotón de la Compañía Chosen, al Ejército Nacional Afgano y a la fuerza insurgente sin atribuirle una organización, unidad o bajas que las fuentes institucionales no confirman.
+- Incorpora procedencia del Ejército de Estados Unidos y Army University Press. Conserva el 9 de noviembre de 2007, las seis muertes estadounidenses y la evacuación posterior, pero no consolida bajas insurgentes ni adjudica una victoria táctica.
+- Añade regresiones para el alias, la fecha, la jerarquía, los participantes, la cautela del resultado, las fuentes, el vínculo afgano y la resolución complementaria.
+- Reduce las jerarquías provisionales de 127 a 126, mantiene cero alertas estructurales y actualiza los índices a 1.806 conflictos, 3.037 eventos y 1.052 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-25-release-3`.
 
 ## v1.6.119 - 2026-08-25
 

@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-25T14:35:08.024Z",
+  "generatedAt": "2026-08-25T14:46:00.706Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 195
+      "count": 194
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 127
+      "count": 126
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 539
+      "count": 540
     },
     "redundantReligions": {
       "count": 0
@@ -561,6 +561,14 @@
         ]
       },
       {
+        "name": "Batalla de Aranas (2007)",
+        "count": 2,
+        "countries": [
+          "AFG",
+          "USA"
+        ]
+      },
+      {
         "name": "Emboscada de Uzbin",
         "count": 3,
         "countries": [
@@ -928,14 +936,6 @@
       },
       {
         "name": "Conflicto de Nagorno-Karabaj de 2016",
-        "count": 2,
-        "countries": [
-          "ARM",
-          "AZE"
-        ]
-      },
-      {
-        "name": "Batalla de Shusha (2020)",
         "count": 2,
         "countries": [
           "ARM",
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 127,
+      "count": 126,
       "command": "npm run fix:conflicts:batches"
     },
     {

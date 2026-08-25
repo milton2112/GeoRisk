@@ -297,6 +297,11 @@ import {
   BAU_COUNTRY_CONFLICT_ADDITIONS,
   BAU_CONFLICT_RENAMES
 } from "../lib/conflict-curation-bau.js";
+import {
+  ARANAS_CONFLICT_DETAIL_FIXES,
+  ARANAS_COUNTRY_CONFLICT_ADDITIONS,
+  ARANAS_CONFLICT_RENAMES
+} from "../lib/conflict-curation-aranas.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import {
@@ -2673,6 +2678,36 @@ assert.ok(
 const bauWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Bau (1965)");
 assert.equal(bauWikipediaOverride.language, "en");
 assert.equal(bauWikipediaOverride.pageTitle, "Battle_of_Bau");
+assert.equal(Object.keys(ARANAS_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  ARANAS_CONFLICT_RENAMES["Batalla de Aranas"],
+  "Batalla de Aranas (2007)"
+);
+assert.deepEqual(
+  ARANAS_COUNTRY_CONFLICT_ADDITIONS["Afganistán"],
+  ["Batalla de Aranas (2007)"]
+);
+assert.ok(
+  Object.values(ARANAS_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 2007
+      && detail.startYear === detail.endYear
+      && detail.parent === "Guerra de Afganistán"
+      && detail.campaign === "Operaciones en Nuristán"
+      && detail.type === "batalla"
+      && detail.conflictType === "insurgencia"
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 3
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties) && detail.treaties.length === 0
+      && /no se adjudica una victoria táctica/i.test(detail.curationNote)
+  ),
+  "la curaduria de Aranas debe conservar fecha, jerarquia, fuentes, participantes y cautela sobre bajas y resultado"
+);
+const aranasWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Aranas (2007)");
+assert.equal(aranasWikipediaOverride.language, "en");
+assert.equal(aranasWikipediaOverride.pageTitle, "Battle_of_Aranas");
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",
   startYear: 1944,
