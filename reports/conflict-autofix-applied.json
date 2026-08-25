@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-25T14:43:53.234Z",
+  "generatedAt": "2026-08-25T15:11:04.078Z",
   "changedFullCountries": 2,
   "fullPassChanges": [
     2,
@@ -8,11 +8,11 @@
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 114,
+    "enriched": 116,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1003,
+  "generatedHierarchyCandidates": 1004,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -260,7 +260,8 @@
       "Batalla de Antivari (1914)"
     ],
     "brasil": [
-      "Asalto a los acorazados Cabral y Lima Barros (1868)"
+      "Asalto a los acorazados Cabral y Lima Barros (1868)",
+      "Combate naval de Alegre (1867)"
     ],
     "irak": [
       "Batalla de Rumaila (1991)",
@@ -899,7 +900,10 @@
     "Battle of Gunong Tepoi": "Batalla de Bau (1965)",
     "Batalla de Gunong Tepoi": "Batalla de Bau (1965)",
     "Batalla de Aranas": "Batalla de Aranas (2007)",
-    "Battle of Aranas": "Batalla de Aranas (2007)"
+    "Battle of Aranas": "Batalla de Aranas (2007)",
+    "Batalla de Alegre": "Combate naval de Alegre (1867)",
+    "Combate do Alegre": "Combate naval de Alegre (1867)",
+    "Battle of Alegre": "Combate naval de Alegre (1867)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1870,6 +1874,7 @@
     "Batalla de Chillicothe (1779)",
     "Batalla naval de Asinara (1409)",
     "Batalla de Bau (1965)",
-    "Batalla de Aranas (2007)"
+    "Batalla de Aranas (2007)",
+    "Combate naval de Alegre (1867)"
   ]
 }

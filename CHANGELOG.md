@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.120 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.121 antes de cerrar la siguiente version.
+
+## v1.6.121 - 2026-08-25
+
+- Normaliza la entrada provisional "Batalla de Alegre" como Combate naval de Alegre (1867), con alias en español, portugués e inglés, ficha diferida y resolución complementaria estable.
+- La sitúa en la Guerra de la Triple Alianza y en las operaciones de la retomada de Corumbá, explicando que este último nombre es una categoría operativa de GeoRisk y no una campaña oficial citada por las fuentes.
+- Enlaza el combate con Brasil y Paraguay, identifica los vapores Antônio João, Jauru y Salto del Guairá, y diferencia la fuerza imperial brasileña de la paraguaya sin convertir el relato brasileño en un balance completo de la acción.
+- Incorpora procedencia de la Marinha do Brasil, la Câmara Municipal de Cuiabá y el registro documental de UNESCO. Conserva el 11 de julio de 1867, la recuperación del Jauru y la captura de sus ocupantes, sin consolidar bajas paraguayas ni totales de ambos bandos.
+- Añade regresiones para alias, fecha, jerarquía, tipo naval, participantes, cautela sobre bajas, vínculo brasileño y resolución complementaria.
+- Reduce las jerarquías provisionales de 126 a 125, mantiene cero alertas estructurales y actualiza los índices a 1.807 conflictos, 3.039 eventos y 1.053 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-25-release-4`.
 
 ## v1.6.120 - 2026-08-25
 

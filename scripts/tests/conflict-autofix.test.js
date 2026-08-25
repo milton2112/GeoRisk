@@ -302,6 +302,11 @@ import {
   ARANAS_COUNTRY_CONFLICT_ADDITIONS,
   ARANAS_CONFLICT_RENAMES
 } from "../lib/conflict-curation-aranas.js";
+import {
+  ALEGRE_CONFLICT_DETAIL_FIXES,
+  ALEGRE_COUNTRY_CONFLICT_ADDITIONS,
+  ALEGRE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-alegre.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import {
@@ -2708,6 +2713,36 @@ assert.ok(
 const aranasWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Aranas (2007)");
 assert.equal(aranasWikipediaOverride.language, "en");
 assert.equal(aranasWikipediaOverride.pageTitle, "Battle_of_Aranas");
+assert.equal(Object.keys(ALEGRE_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  ALEGRE_CONFLICT_RENAMES["Batalla de Alegre"],
+  "Combate naval de Alegre (1867)"
+);
+assert.deepEqual(
+  ALEGRE_COUNTRY_CONFLICT_ADDITIONS.Brasil,
+  ["Combate naval de Alegre (1867)"]
+);
+assert.ok(
+  Object.values(ALEGRE_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 1867
+      && detail.startYear === detail.endYear
+      && detail.parent === "Guerra de la Triple Alianza"
+      && detail.campaign === "Operaciones de la retomada de Corumbá (1867)"
+      && detail.type === "combate naval"
+      && detail.conflictType === "interestatal"
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 3
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties) && detail.treaties.length === 0
+      && /no consolida un total de bajas/i.test(detail.curationNote)
+  ),
+  "la curaduria de Alegre debe conservar fecha, jerarquia, fuentes, participantes y cautela sobre bajas"
+);
+const alegreWikipediaOverride = await resolveWikipediaConflictTitle("Combate naval de Alegre (1867)");
+assert.equal(alegreWikipediaOverride.language, "en");
+assert.equal(alegreWikipediaOverride.pageTitle, "Battle_of_Alegre");
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",
   startYear: 1944,

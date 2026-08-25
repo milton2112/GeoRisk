@@ -134,6 +134,8 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Batalla de Gunong Tepoi": "Battle_of_Bau",
   "Batalla de Aranas (2007)": "Battle_of_Aranas",
   "Batalla de Aranas": "Battle_of_Aranas",
+  "Combate naval de Alegre (1867)": "Battle_of_Alegre",
+  "Batalla de Alegre": "Battle_of_Alegre",
   "Batalla del palacio Dasman (1990)": "Battle_of_Dasman_Palace",
   "Batalla de Cabo Rachado (1606)": "Battle_of_Cape_Rachado",
   "Batalla de Beitang (1900)": "Battle_of_Beitang",
