@@ -292,6 +292,11 @@ import {
   ASINARA_CONFLICT_DETAIL_FIXES,
   ASINARA_CONFLICT_RENAMES
 } from "../lib/conflict-curation-asinara.js";
+import {
+  BAU_CONFLICT_DETAIL_FIXES,
+  BAU_COUNTRY_CONFLICT_ADDITIONS,
+  BAU_CONFLICT_RENAMES
+} from "../lib/conflict-curation-bau.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import {
@@ -2634,6 +2639,40 @@ assert.ok(
   ),
   "la curaduria de Asinara debe conservar fecha anual, jerarquia, fuentes, participantes y cautela sobre bajas y mandos"
 );
+assert.equal(Object.keys(BAU_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  BAU_CONFLICT_RENAMES["Batalla de Bau"],
+  "Batalla de Bau (1965)"
+);
+assert.deepEqual(
+  BAU_COUNTRY_CONFLICT_ADDITIONS.Indonesia,
+  ["Batalla de Bau (1965)"]
+);
+assert.deepEqual(
+  BAU_COUNTRY_CONFLICT_ADDITIONS.Malasia,
+  ["Batalla de Bau (1965)"]
+);
+assert.ok(
+  Object.values(BAU_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 1965
+      && detail.startYear === detail.endYear
+      && detail.parent === "Confrontación Indonesia-Malasia"
+      && detail.campaign === "Operaciones Claret en Borneo (1965)"
+      && detail.type === "combate de selva"
+      && detail.conflictType === "interestatal"
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 3
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties) && detail.treaties.length === 0
+      && /no consolida esas cifras/i.test(detail.curationNote)
+  ),
+  "la curaduria de Bau debe conservar fecha, jerarquia, fuentes, paises vinculados y cautela sobre bajas y resultado"
+);
+const bauWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Bau (1965)");
+assert.equal(bauWikipediaOverride.language, "en");
+assert.equal(bauWikipediaOverride.pageTitle, "Battle_of_Bau");
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",
   startYear: 1944,

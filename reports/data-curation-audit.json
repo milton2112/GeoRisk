@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-25T14:23:40.313Z",
+  "generatedAt": "2026-08-25T14:32:55.237Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11127617,
-    "duplicatedCountryFilesBytes": 1526826,
-    "countryConflictShardBytes": 422945,
+    "fullBytes": 11149579,
+    "duplicatedCountryFilesBytes": 1527456,
+    "countryConflictShardBytes": 423040,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
         "bytes": 24714,
-        "inlineBytes": 1065315,
+        "inlineBytes": 1070825,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -54,8 +54,8 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 70280,
-          "conflictShardBytes": 70281,
+          "conflictsBytes": 70375,
+          "conflictShardBytes": 70376,
           "averageConflictBytes": 226
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 195,
+    "pendingCount": 194,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15187,19 +15187,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Bau",
-        "countries": [
-          "GBR"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
@@ -17163,6 +17150,19 @@
         ],
         "regions": [
           "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Escaramuza en la península de Chukotka",
+        "countries": [
+          "SWE"
+        ],
+        "regions": [
+          "Europa"
         ],
         "types": [
           "interestatal"

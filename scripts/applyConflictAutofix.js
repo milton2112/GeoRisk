@@ -303,6 +303,11 @@ import {
   ASINARA_CONFLICT_DETAIL_FIXES,
   ASINARA_CONFLICT_RENAMES
 } from "./lib/conflict-curation-asinara.js";
+import {
+  BAU_CONFLICT_DETAIL_FIXES,
+  BAU_COUNTRY_CONFLICT_ADDITIONS,
+  BAU_CONFLICT_RENAMES
+} from "./lib/conflict-curation-bau.js";
 import { collectConflictCountryNames, curateConflictDetail, curateConflictEntry } from "./lib/conflict-batch-curation.js";
 import {
   cleanConflictLabel,
@@ -394,7 +399,8 @@ const curatedConflictDetailFixes = {
   ...CLOUDS_CONFLICT_DETAIL_FIXES,
   ...COLSONS_MILL_CONFLICT_DETAIL_FIXES,
   ...CHILLICOTHE_CONFLICT_DETAIL_FIXES,
-  ...ASINARA_CONFLICT_DETAIL_FIXES
+  ...ASINARA_CONFLICT_DETAIL_FIXES,
+  ...BAU_CONFLICT_DETAIL_FIXES
 };
 const safeConflictRenames = {
   ...SAFE_CONFLICT_RENAMES,
@@ -466,7 +472,8 @@ const safeConflictRenames = {
   ...CLOUDS_CONFLICT_RENAMES,
   ...COLSONS_MILL_CONFLICT_RENAMES,
   ...CHILLICOTHE_CONFLICT_RENAMES,
-  ...ASINARA_CONFLICT_RENAMES
+  ...ASINARA_CONFLICT_RENAMES,
+  ...BAU_CONFLICT_RENAMES
 };
 const countryConflictAdditionBatches = [
   TRANSITION_1846_1902_COUNTRY_CONFLICT_ADDITIONS,
@@ -505,7 +512,8 @@ const countryConflictAdditionBatches = [
   HYERES_COUNTRY_CONFLICT_ADDITIONS,
   BARBADOS_COUNTRY_CONFLICT_ADDITIONS,
   CHEF_DE_CAUX_COUNTRY_CONFLICT_ADDITIONS,
-  BIR_ENZARAN_COUNTRY_CONFLICT_ADDITIONS
+  BIR_ENZARAN_COUNTRY_CONFLICT_ADDITIONS,
+  BAU_COUNTRY_CONFLICT_ADDITIONS
 ];
 const countryConflictAdditions = mergeCountryConflictBatches(countryConflictAdditionBatches);
 const countryConflictExclusionBatches = [

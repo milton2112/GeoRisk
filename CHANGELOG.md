@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.118 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.119 antes de cerrar la siguiente version.
+
+## v1.6.119 - 2026-08-25
+
+- Normaliza la entrada provisional "Batalla de Bau" como Batalla de Bau (1965), con alias en español e inglés, una ficha diferida y una resolución estable para la fuente complementaria.
+- La sitúa en la Confrontación Indonesia-Malasia y en las operaciones Claret de Borneo. Distingue a la compañía gurkha británica del 2.º Batallón de 10th Princess Mary's Own Gurkha Rifles de la fuerza indonesia atrincherada.
+- Vincula el conflicto con Reino Unido, Indonesia y Malasia de forma explícita: Indonesia representa la fuerza opuesta y Malasia el frente geográfico-político de Sarawak, sin inventar una unidad malasia participante.
+- Incorpora la cita de la Cruz Victoria publicada en The London Gazette, una reproducción institucional del Departamento de Asuntos de Veteranos de Australia y el contexto del Gurkha Museum. No consolida bajas, unidad indonesia ni una victoria global que esas fuentes no sostienen.
+- Añade regresiones para alias, fuentes, fecha, participantes, jerarquía, enlaces por país, ausencia de tratados ficticios y búsqueda complementaria.
+- Reduce las jerarquías provisionales de 128 a 127, mantiene cero alertas estructurales y actualiza los índices a 1.805 conflictos, 3.035 eventos y 1.051 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-25-release-2`.
 
 ## v1.6.118 - 2026-08-25
 

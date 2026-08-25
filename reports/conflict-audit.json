@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-25T14:25:27.581Z",
+  "generatedAt": "2026-08-25T14:35:04.331Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 128,
-  "reviewCount": 128,
+  "advisoryCount": 127,
+  "reviewCount": 127,
   "summary": {
-    "provisional_parent": 128
+    "provisional_parent": 127
   },
   "topIssues": [],
   "topAdvisories": [
@@ -32,20 +32,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de bau",
-      "name": "Batalla de Bau",
-      "countries": [
-        "GBR"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],
@@ -1124,6 +1110,20 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de san domingo",
+      "name": "Batalla de San Domingo",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],
