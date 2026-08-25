@@ -318,6 +318,9 @@ import {
   ALEGRE_COUNTRY_CONFLICT_ADDITIONS,
   ALEGRE_CONFLICT_RENAMES
 } from "./lib/conflict-curation-alegre.js";
+import {
+  CABO_BOJADOR_COUNTRY_CONFLICT_EXCLUSIONS
+} from "./lib/conflict-curation-cabo-bojador.js";
 import { collectConflictCountryNames, curateConflictDetail, curateConflictEntry } from "./lib/conflict-batch-curation.js";
 import {
   cleanConflictLabel,
@@ -537,7 +540,8 @@ const countryConflictExclusionBatches = [
   DASMAN_RACHADO_COUNTRY_CONFLICT_EXCLUSIONS,
   BEITANG_TEACAPAN_COUNTRY_CONFLICT_EXCLUSIONS,
   OSEL_VAILELE_COUNTRY_CONFLICT_EXCLUSIONS,
-  NEVA_SHANHAIGUAN_COUNTRY_CONFLICT_EXCLUSIONS
+  NEVA_SHANHAIGUAN_COUNTRY_CONFLICT_EXCLUSIONS,
+  CABO_BOJADOR_COUNTRY_CONFLICT_EXCLUSIONS
 ];
 const countryConflictExclusions = mergeCountryConflictBatches(countryConflictExclusionBatches);
 

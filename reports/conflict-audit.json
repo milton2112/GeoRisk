@@ -1,28 +1,14 @@
 {
-  "generatedAt": "2026-08-25T15:12:44.451Z",
-  "scannedConflicts": 2001,
+  "generatedAt": "2026-08-25T15:24:20.622Z",
+  "scannedConflicts": 2000,
   "issueCount": 0,
-  "advisoryCount": 125,
-  "reviewCount": 125,
+  "advisoryCount": 124,
+  "reviewCount": 124,
   "summary": {
-    "provisional_parent": 125
+    "provisional_parent": 124
   },
   "topIssues": [],
   "topAdvisories": [
-    {
-      "key": "batalla de cabo bojador",
-      "name": "Batalla de Cabo Bojador",
-      "countries": [
-        "MAR"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de África",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
     {
       "key": "batalla de cerro del gallo",
       "name": "Batalla de Cerro del Gallo",
@@ -1124,6 +1110,20 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de siracusa",
+      "name": "Batalla de Siracusa",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],

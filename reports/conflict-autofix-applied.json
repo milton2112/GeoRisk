@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-25T15:11:04.078Z",
-  "changedFullCountries": 2,
+  "generatedAt": "2026-08-25T15:22:22.447Z",
+  "changedFullCountries": 1,
   "fullPassChanges": [
-    2,
+    1,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 116,
-    "written": true,
+    "enriched": 0,
+    "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1004,
+  "generatedHierarchyCandidates": 1005,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -383,6 +383,9 @@
       "Primera batalla de Vailele (1888)",
       "Batalla de Shanhaiguan",
       "Campana de Shanhaiguan-Rehe (1924)"
+    ],
+    "marruecos": [
+      "Batalla de Cabo Bojador"
     ]
   },
   "safeRenames": {

@@ -307,6 +307,10 @@ import {
   ALEGRE_COUNTRY_CONFLICT_ADDITIONS,
   ALEGRE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-alegre.js";
+import {
+  CABO_BOJADOR_COUNTRY_CONFLICT_EXCLUSIONS,
+  CABO_BOJADOR_CURATORIAL_NOTES
+} from "../lib/conflict-curation-cabo-bojador.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import {
@@ -2743,6 +2747,16 @@ assert.ok(
 const alegreWikipediaOverride = await resolveWikipediaConflictTitle("Combate naval de Alegre (1867)");
 assert.equal(alegreWikipediaOverride.language, "en");
 assert.equal(alegreWikipediaOverride.pageTitle, "Battle_of_Alegre");
+assert.deepEqual(
+  CABO_BOJADOR_COUNTRY_CONFLICT_EXCLUSIONS.Marruecos,
+  ["Batalla de Cabo Bojador"]
+);
+assert.equal(CABO_BOJADOR_CURATORIAL_NOTES["Batalla de Cabo Bojador"].action, "eliminar");
+assert.ok(
+  CABO_BOJADOR_CURATORIAL_NOTES["Batalla de Cabo Bojador"].sources.length >= 2
+    && /no documentan una batalla/i.test(CABO_BOJADOR_CURATORIAL_NOTES["Batalla de Cabo Bojador"].reason),
+  "la exclusion de Cabo Bojador debe conservar la razon y fuentes que evitan convertir una exploracion en conflicto"
+);
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",
   startYear: 1944,

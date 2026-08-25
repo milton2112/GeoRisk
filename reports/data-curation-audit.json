@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-25T15:11:10.315Z",
+  "generatedAt": "2026-08-25T15:22:29.515Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11180971,
+    "fullBytes": 11178221,
     "duplicatedCountryFilesBytes": 1528211,
-    "countryConflictShardBytes": 423117,
+    "countryConflictShardBytes": 422885,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 192,
+    "pendingCount": 191,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15161,19 +15161,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Cabo Bojador",
-        "countries": [
-          "MAR"
-        ],
-        "regions": [
-          "África"
         ],
         "types": [
           "interestatal"
@@ -17158,6 +17145,19 @@
       },
       {
         "name": "Incidente de Bahía",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Incidente de fuego amigo en Sangin",
         "countries": [
           "USA"
         ],

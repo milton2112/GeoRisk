@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.121 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.122 antes de cerrar la siguiente version.
+
+## v1.6.122 - 2026-08-25
+
+- Elimina la entrada provisional "Batalla de Cabo Bojador" de Marruecos tras verificar que no corresponde a un conflicto armado documentable.
+- La Marinha de Portugal y la Academia de Marinha registran el cabo Bojador como un hito geográfico de la expedición de Gil Eanes de 1434, no como una batalla con fecha, bandos o desenlace verificables.
+- Añade una regla de exclusión con procedencia y una regresión que evita que una exploración marítima vuelva a entrar al dataset como conflicto.
+- Reduce los conflictos escaneados de 2.001 a 2.000 y las jerarquías provisionales de 125 a 124, sin alertas estructurales; conserva 1.807 conflictos indexados, 3.039 eventos y 1.053 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-25-release-5`.
 
 ## v1.6.121 - 2026-08-25
 
