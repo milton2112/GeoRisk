@@ -288,6 +288,10 @@ import {
   CHILLICOTHE_CONFLICT_DETAIL_FIXES,
   CHILLICOTHE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-chillicothe.js";
+import {
+  ASINARA_CONFLICT_DETAIL_FIXES,
+  ASINARA_CONFLICT_RENAMES
+} from "../lib/conflict-curation-asinara.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import {
@@ -2607,6 +2611,29 @@ assert.ok(
 const chillicotheWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Chillicothe (1779)");
 assert.equal(chillicotheWikipediaOverride.language, "en");
 assert.equal(chillicotheWikipediaOverride.pageTitle, "Battle_of_Chillicothe");
+assert.equal(Object.keys(ASINARA_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  ASINARA_CONFLICT_RENAMES["Batalla de Asinara"],
+  "Batalla naval de Asinara (1409)"
+);
+assert.ok(
+  Object.values(ASINARA_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 1409
+      && detail.startYear === detail.endYear
+      && detail.parent === "Expedición de Martín el Joven en Cerdeña (1408-1410)"
+      && detail.campaign === "Operaciones navales del norte de Cerdeña (1409)"
+      && detail.type === "batalla naval"
+      && detail.conflictType === "sucesion"
+      && detail.hierarchyConfidence === "media"
+      && detail.hierarchySources?.length >= 2
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && Array.isArray(detail.treaties) && detail.treaties.length === 0
+      && /no identifica mandos individuales/i.test(detail.curationNote)
+  ),
+  "la curaduria de Asinara debe conservar fecha anual, jerarquia, fuentes, participantes y cautela sobre bajas y mandos"
+);
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",
   startYear: 1944,

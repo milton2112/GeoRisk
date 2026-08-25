@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-24T14:06:09.057Z",
+  "generatedAt": "2026-08-25T14:23:34.227Z",
   "changedFullCountries": 1,
   "fullPassChanges": [
     1,
@@ -8,11 +8,11 @@
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 109,
+    "enriched": 110,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1000,
+  "generatedHierarchyCandidates": 1002,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -885,7 +885,10 @@
     "Fight at Colson's": "Batalla de Colson's Mill (1780)",
     "Batalla de Chillicothe": "Batalla de Chillicothe (1779)",
     "Battle of Chillicothe": "Batalla de Chillicothe (1779)",
-    "Expedición de Bowman contra Chillicothe": "Batalla de Chillicothe (1779)"
+    "Expedición de Bowman contra Chillicothe": "Batalla de Chillicothe (1779)",
+    "Batalla de Asinara": "Batalla naval de Asinara (1409)",
+    "Battaglia dell'Asinara": "Batalla naval de Asinara (1409)",
+    "Battle of Asinara": "Batalla naval de Asinara (1409)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1853,6 +1856,7 @@
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",
-    "Batalla de Chillicothe (1779)"
+    "Batalla de Chillicothe (1779)",
+    "Batalla naval de Asinara (1409)"
   ]
 }

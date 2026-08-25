@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-24T14:07:55.336Z",
+  "generatedAt": "2026-08-25T14:25:27.581Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 129,
-  "reviewCount": 129,
+  "advisoryCount": 128,
+  "reviewCount": 128,
   "summary": {
-    "provisional_parent": 129
+    "provisional_parent": 128
   },
   "topIssues": [],
   "topAdvisories": [
@@ -32,20 +32,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de asinara",
-      "name": "Batalla de Asinara",
-      "countries": [
-        "ITA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],
@@ -1124,6 +1110,20 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de sambre",
+      "name": "Batalla de Sambre",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],

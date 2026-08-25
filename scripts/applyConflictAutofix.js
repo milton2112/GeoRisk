@@ -299,6 +299,10 @@ import {
   CHILLICOTHE_CONFLICT_DETAIL_FIXES,
   CHILLICOTHE_CONFLICT_RENAMES
 } from "./lib/conflict-curation-chillicothe.js";
+import {
+  ASINARA_CONFLICT_DETAIL_FIXES,
+  ASINARA_CONFLICT_RENAMES
+} from "./lib/conflict-curation-asinara.js";
 import { collectConflictCountryNames, curateConflictDetail, curateConflictEntry } from "./lib/conflict-batch-curation.js";
 import {
   cleanConflictLabel,
@@ -389,7 +393,8 @@ const curatedConflictDetailFixes = {
   ...COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   ...CLOUDS_CONFLICT_DETAIL_FIXES,
   ...COLSONS_MILL_CONFLICT_DETAIL_FIXES,
-  ...CHILLICOTHE_CONFLICT_DETAIL_FIXES
+  ...CHILLICOTHE_CONFLICT_DETAIL_FIXES,
+  ...ASINARA_CONFLICT_DETAIL_FIXES
 };
 const safeConflictRenames = {
   ...SAFE_CONFLICT_RENAMES,
@@ -460,7 +465,8 @@ const safeConflictRenames = {
   ...COCKLE_CREEK_CONFLICT_RENAMES,
   ...CLOUDS_CONFLICT_RENAMES,
   ...COLSONS_MILL_CONFLICT_RENAMES,
-  ...CHILLICOTHE_CONFLICT_RENAMES
+  ...CHILLICOTHE_CONFLICT_RENAMES,
+  ...ASINARA_CONFLICT_RENAMES
 };
 const countryConflictAdditionBatches = [
   TRANSITION_1846_1902_COUNTRY_CONFLICT_ADDITIONS,

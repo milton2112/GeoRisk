@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.117 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.118 antes de cerrar la siguiente version.
+
+## v1.6.118 - 2026-08-25
+
+- Normaliza la entrada provisional "Batalla de Asinara" como Batalla naval de Asinara (1409), con alias en español, italiano e inglés y una ficha diferida de bajo peso.
+- La sitúa en la expedición de Martín el Joven en Cerdeña y en sus operaciones navales septentrionales de 1409. Distingue la escuadra siciliana aliada de la Corona de Aragón de las seis naves genovesas favorables a Brancaleone Doria.
+- Incorpora procedencia del Parco Nazionale dell'Asinara y de Treccani. Mantiene solo el año, no inventa mandos, día, ubicación precisa ni bajas, y no presenta la acción naval como el cierre definitivo de la disputa por el Juzgado de Arborea.
+- Añade regresiones para el alias, la jerarquía, los participantes, el tipo naval, las fuentes, las tildes visibles y la ausencia de tratados ficticios.
+- Reduce las jerarquías provisionales de 129 a 128, mantiene cero alertas estructurales y actualiza los índices a 1.804 conflictos, 3.032 eventos y 1.050 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-25-release-1`.
 
 ## v1.6.117 - 2026-08-24
 
