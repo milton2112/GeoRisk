@@ -30,6 +30,14 @@ const SOURCES = {
   nanjungIlgi: source(
     "UNESCO Memoria del Mundo: expediente internacional del Nanjung Ilgi",
     "https://media.unesco.org/sites/default/files/webform/mow001/republic_of_korea_nanjung_ilgi.pdf"
+  ),
+  jangnimpo: source(
+    "Gobierno del distrito de Saha, Busan: el Chungmugong jeonseo registra seis naves japonesas atacadas por la armada de Joseon frente a Jangnimpo",
+    "https://m.saha.go.kr/portal/contents.do?mId=0602030500"
+  ),
+  fourthCampaign: source(
+    "Korean Citation Index: cuadro de las acciones de la cuarta campaña naval de 1592, que incluye Jangnimpo y seis naves japonesas",
+    "https://journal.kci.go.kr/imhc/archive/articlePdf?artiId=ART002966218"
   )
 };
 
@@ -100,6 +108,7 @@ export const JAPAN_KOREA_FOLLOWUP_SAFE_CONFLICT_RENAMES = {
   "Batalla de Danghangpo": "Primera batalla naval de Danghangpo (1592)",
   "Batalla de Yulpo": "Batalla naval de Yulpo (1592)",
   "Batalla de Hwajungumi": "Acción naval de Hwajungumi (1592)",
+  "Batalla de Chobayashiura": "Acción naval de Jangnimpo (1592)",
   "Batalla de Busan": "Batalla naval de Busan (1592)",
   "Batalla de Eoranpo": "Escaramuza naval de Eoranpo (1597)",
   "Batalla de Myeongnyang": "Batalla naval de Myeongnyang (1597)",
@@ -115,6 +124,7 @@ const KOREAN_PROFILE_ACTIONS = [
   "Primera batalla naval de Danghangpo (1592)",
   "Batalla naval de Yulpo (1592)",
   "Acción naval de Hwajungumi (1592)",
+  "Acción naval de Jangnimpo (1592)",
   "Batalla naval de Busan (1592)",
   "Escaramuza naval de Eoranpo (1597)",
   "Batalla naval de Myeongnyang (1597)",
@@ -209,6 +219,33 @@ export const JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES = {
     consequences: "La acción formó parte de una cadena de ataques que culminó ese mismo ciclo operacional en la batalla naval de Busan.",
     sourceDispute: true,
     curationNote: "El topónimo aparece en el Nanjung Ilgi y en los partes de guerra, pero su ubicación moderna requirió reconstrucción académica; por eso se evita una precisión geográfica mayor."
+  }),
+  "Acción naval de Jangnimpo (1592)": navalFix({
+    campaign: "Cuarta campaña naval de Yi Sun-sin de 1592",
+    region: "Jangnimpo, actual Jangnim-dong, distrito de Saha, Busan, Corea del Sur",
+    hierarchySources: [SOURCES.campaigns1592, SOURCES.jangnimpo, SOURCES.fourthCampaign],
+    startYear: 1592,
+    type: "acción naval",
+    participants: [
+      {
+        side: "Armada del reino de Joseon",
+        members: ["Reino de Joseon", "Flota de Joseon dirigida por Yi Sun-sin"]
+      },
+      {
+        side: "Fuerzas navales japonesas",
+        members: ["Japón", "Seis embarcaciones japonesas registradas en Jangnimpo"]
+      }
+    ],
+    cause: "Durante la cuarta salida naval de 1592, la flota de Joseon avanzó por los fondeaderos occidentales de Busan para golpear los buques japoneses que sostenían la invasión y su red costera.",
+    outcome: "La documentación local de Saha, basada en el Chungmugong jeonseo, registra que la flota de Joseon localizó seis naves japonesas frente a Jangnimpo y las destruyó. No se consolidan bajas humanas ni mandos secundarios porque las fuentes usadas no publican un parte comparable.",
+    consequences: "La acción abrió la secuencia local de la cuarta campaña naval y precedió los ataques de Hwajungumi, Dadaepo, Seopyeongpo, Jeolyeong y Busan. No resolvió por sí sola la guerra ni eliminó la base japonesa de Busan.",
+    chronology: [
+      { year: 1592, event: "La cuarta campaña naval de Yi Sun-sin avanzó hacia los fondeaderos occidentales de Busan." },
+      { year: 1592, event: "La flota de Joseon atacó seis naves japonesas registradas frente a Jangnimpo." },
+      { year: 1592, event: "La campaña continuó con acciones costeras antes del ataque naval a Busan." }
+    ],
+    related: ["Acción naval de Hwajungumi (1592)", "Batalla naval de Busan (1592)", "Jangnimpo", "장림포해전"],
+    curationNote: "La etiqueta de entrada Chobayashiura se sustituye por la romanización coreana Jangnimpo, que permite vincular el registro con 장림포해전 y con la historia local de Busan. Las fuentes usan calendarios y ciclos de campaña distintos; GeoRisk conserva únicamente el año comprobado y no inventa un día, mandos secundarios ni bajas humanas."
   }),
   "Batalla naval de Busan (1592)": navalFix({
     campaign: "Cuarta campaña naval de Yi Sun-sin de 1592",

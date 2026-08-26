@@ -947,9 +947,9 @@ assert.ok(
   ),
   "la tanda africana reciente debe conservar jerarquia, cautelas editoriales, dos fuentes y participantes reales"
 );
-assert.equal(Object.keys(JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 12);
-assert.equal(Object.keys(JAPAN_KOREA_FOLLOWUP_SAFE_CONFLICT_RENAMES).length, 12);
-assert.equal(JAPAN_KOREA_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS["Corea del Sur"].length, 12);
+assert.equal(Object.keys(JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 13);
+assert.equal(Object.keys(JAPAN_KOREA_FOLLOWUP_SAFE_CONFLICT_RENAMES).length, 13);
+assert.equal(JAPAN_KOREA_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS["Corea del Sur"].length, 13);
 assert.deepEqual(
   JAPAN_KOREA_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS["República Popular China"],
   ["Batalla naval de Noryang (1598)"]
@@ -959,10 +959,18 @@ assert.equal(
   JAPAN_KOREA_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Danghangpo"],
   "Primera batalla naval de Danghangpo (1592)"
 );
+assert.equal(
+  JAPAN_KOREA_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Chobayashiura"],
+  "Acción naval de Jangnimpo (1592)"
+);
 assert.equal(JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Acción naval de Happo (1592)"].type, "acción naval");
 assert.equal(
   JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Ataque al fondeadero de Jeokjinpo (1592)"].type,
   "ataque a fondeadero"
+);
+assert.equal(
+  JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Acción naval de Jangnimpo (1592)"].type,
+  "acción naval"
 );
 assert.equal(
   JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Escaramuza naval de Eoranpo (1597)"].type,
@@ -2873,6 +2881,9 @@ assert.equal(happoWikipediaOverride.pageTitle, "Battle_of_Happo");
 const yulpoWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval de Yulpo (1592)");
 assert.equal(yulpoWikipediaOverride.language, "en");
 assert.equal(yulpoWikipediaOverride.pageTitle, "List_of_naval_battles_during_the_Imjin_War");
+const jangnimpoWikipediaOverride = await resolveWikipediaConflictTitle("Acción naval de Jangnimpo (1592)");
+assert.equal(jangnimpoWikipediaOverride.language, "en");
+assert.equal(jangnimpoWikipediaOverride.pageTitle, "List_of_naval_battles_during_the_Imjin_War");
 const bantryWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval de la bahía de Bantry (1689)");
 assert.equal(bantryWikipediaOverride.language, "en");
 assert.equal(bantryWikipediaOverride.pageTitle, "Battle_of_Bantry_Bay");

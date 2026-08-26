@@ -881,6 +881,7 @@ assert.ok(
 assert.ok(
   japanKoreaFollowupCuration.includes('"Batalla de Happo": "Acción naval de Happo (1592)"')
     && japanKoreaFollowupCuration.includes('"Batalla de Danghangpo": "Primera batalla naval de Danghangpo (1592)"')
+    && japanKoreaFollowupCuration.includes('"Batalla de Chobayashiura": "Acción naval de Jangnimpo (1592)"')
     && japanKoreaFollowupCuration.includes('"Batalla de Eoranpo": "Escaramuza naval de Eoranpo (1597)"')
     && japanKoreaFollowupCuration.includes('"Batalla de Noryang": "Batalla naval de Noryang (1598)"'),
   "la tanda naval debe desambiguar año y clase operacional"
@@ -889,6 +890,7 @@ assert.ok(
   japanKoreaFollowupCuration.includes("history.go.kr")
     && japanKoreaFollowupCuration.includes("encykorea.aks.ac.kr")
     && japanKoreaFollowupCuration.includes("kci.go.kr")
+    && japanKoreaFollowupCuration.includes("saha.go.kr")
     && japanKoreaFollowupCuration.includes("knst.kr")
     && japanKoreaFollowupCuration.includes("unesco.org"),
   "la tanda naval debe apoyarse en fuentes históricas oficiales y académicas"
@@ -902,6 +904,7 @@ assert.ok(
 assert.ok(
   wikipediaConflicts.includes('"Acción naval de Happo (1592)": "Battle_of_Happo"')
     && wikipediaConflicts.includes('"Batalla naval de Yulpo (1592)": "List_of_naval_battles_during_the_Imjin_War"')
+    && wikipediaConflicts.includes('"Acción naval de Jangnimpo (1592)": "List_of_naval_battles_during_the_Imjin_War"')
     && wikipediaConflicts.includes('"Batalla naval de Noryang (1598)": "Battle_of_Noryang"')
     && wikipediaConflicts.includes('"List_of_naval_battles_during_the_Imjin_War"'),
   "los nombres navales de Imjin deben resolver artículos o el índice inglés correcto"

@@ -859,6 +859,7 @@ const japanKoreaNavalExpectations = [
   { name: "Primera batalla naval de Danghangpo (1592)", startYear: 1592, type: "batalla naval" },
   { name: "Batalla naval de Yulpo (1592)", startYear: 1592, type: "batalla naval" },
   { name: "Acción naval de Hwajungumi (1592)", startYear: 1592, type: "acción naval" },
+  { name: "Acción naval de Jangnimpo (1592)", startYear: 1592, type: "acción naval" },
   { name: "Batalla naval de Busan (1592)", startYear: 1592, type: "batalla naval" },
   { name: "Escaramuza naval de Eoranpo (1597)", startYear: 1597, type: "escaramuza naval" },
   { name: "Batalla naval de Myeongnyang (1597)", startYear: 1597, type: "batalla naval" },
@@ -895,7 +896,7 @@ for (const expectation of japanKoreaNavalExpectations) {
 const koreanConflictNames = new Set(countries.KOR.military.conflicts.map(conflict => conflict.name));
 assert.ok(
   japanKoreaNavalExpectations.every(expectation => koreanConflictNames.has(expectation.name)),
-  "Corea del Sur debe exponer las doce acciones navales de Imjin"
+  "Corea del Sur debe exponer las trece acciones navales de Imjin"
 );
 assert.ok(
   countries.CHN.military.conflicts.some(conflict => conflict.name === "Batalla naval de Noryang (1598)"),
@@ -920,6 +921,7 @@ const staleJapanKoreaNavalNames = Object.values(countries).flatMap(country => co
     "Batalla de Danghangpo",
     "Batalla de Yulpo",
     "Batalla de Hwajungumi",
+    "Batalla de Chobayashiura",
     "Batalla de Busan",
     "Batalla de Eoranpo",
     "Batalla de Myeongnyang",

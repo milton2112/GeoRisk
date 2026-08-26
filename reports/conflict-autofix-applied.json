@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-08-26T15:06:15.405Z",
-  "changedFullCountries": 1,
+  "generatedAt": "2026-08-26T15:18:33.302Z",
+  "changedFullCountries": 2,
   "fullPassChanges": [
-    1,
+    2,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 0,
-    "written": false,
+    "enriched": 117,
+    "written": true,
     "compacted": false
   },
   "generatedHierarchyCandidates": 1005,
@@ -85,6 +85,7 @@
       "Primera batalla naval de Danghangpo (1592)",
       "Batalla naval de Yulpo (1592)",
       "Acción naval de Hwajungumi (1592)",
+      "Acción naval de Jangnimpo (1592)",
       "Batalla naval de Busan (1592)",
       "Escaramuza naval de Eoranpo (1597)",
       "Batalla naval de Myeongnyang (1597)",
@@ -733,6 +734,7 @@
     "Batalla de Danghangpo": "Primera batalla naval de Danghangpo (1592)",
     "Batalla de Yulpo": "Batalla naval de Yulpo (1592)",
     "Batalla de Hwajungumi": "Acción naval de Hwajungumi (1592)",
+    "Batalla de Chobayashiura": "Acción naval de Jangnimpo (1592)",
     "Batalla de Busan": "Batalla naval de Busan (1592)",
     "Batalla de Eoranpo": "Escaramuza naval de Eoranpo (1597)",
     "Batalla de Myeongnyang": "Batalla naval de Myeongnyang (1597)",
@@ -1730,6 +1732,7 @@
     "Primera batalla naval de Danghangpo (1592)",
     "Batalla naval de Yulpo (1592)",
     "Accion naval de Hwajungumi (1592)",
+    "Accion naval de Jangnimpo (1592)",
     "Batalla naval de Busan (1592)",
     "Escaramuza naval de Eoranpo (1597)",
     "Batalla naval de Myeongnyang (1597)",

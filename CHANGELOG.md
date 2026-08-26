@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.123 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.124 antes de cerrar la siguiente version.
+
+## v1.6.124 - 2026-08-26
+
+- Normaliza la entrada provisional "Batalla de Chobayashiura" como Acción naval de Jangnimpo (1592), con nombre público buscable, año y ficha diferida trazable.
+- La sitúa en las Invasiones japonesas de Corea (1592-1598), dentro de la cuarta campaña naval de Yi Sun-sin, y la enlaza tanto con Japón como con Corea del Sur.
+- Incorpora procedencia del Instituto Nacional de Historia de Corea, del Gobierno del distrito de Saha en Busan y del Korean Citation Index. Conserva la destrucción registrada de seis naves japonesas, pero no inventa día, bajas humanas ni mandos secundarios ante las diferencias de calendario y detalle de las fuentes.
+- Añade regresiones de nombre, búsqueda, ficha, enlaces por país y ausencia del rótulo antiguo; actualiza la resolución complementaria al índice histórico en inglés.
+- Reduce las jerarquías provisionales de 123 a 122, mantiene cero alertas estructurales y actualiza los índices a 1.808 conflictos, 3.041 eventos y 1.054 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-26-release-2`.
 
 ## v1.6.123 - 2026-08-26
 

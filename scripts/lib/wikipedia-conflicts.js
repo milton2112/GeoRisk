@@ -347,6 +347,7 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Primera batalla naval de Danghangpo (1592)": "Battle_of_Danghangpo",
   "Batalla naval de Yulpo (1592)": "List_of_naval_battles_during_the_Imjin_War",
   "Acción naval de Hwajungumi (1592)": "List_of_naval_battles_during_the_Imjin_War",
+  "Acción naval de Jangnimpo (1592)": "List_of_naval_battles_during_the_Imjin_War",
   "Batalla naval de Busan (1592)": "Battle_of_Busan",
   "Escaramuza naval de Eoranpo (1597)": "List_of_naval_battles_during_the_Imjin_War",
   "Batalla naval de Myeongnyang (1597)": "Battle_of_Myeongnyang",

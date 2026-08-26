@@ -1,28 +1,14 @@
 {
-  "generatedAt": "2026-08-26T15:09:34.973Z",
+  "generatedAt": "2026-08-26T15:21:46.999Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 123,
-  "reviewCount": 123,
+  "advisoryCount": 122,
+  "reviewCount": 122,
   "summary": {
-    "provisional_parent": 123
+    "provisional_parent": 122
   },
   "topIssues": [],
   "topAdvisories": [
-    {
-      "key": "batalla de chobayashiura",
-      "name": "Batalla de Chobayashiura",
-      "countries": [
-        "JPN"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
     {
       "key": "batalla de cookes canyon",
       "name": "Batalla de Cookes Canyon",
@@ -1124,6 +1110,20 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de sobota",
+      "name": "Batalla de Sobota",
+      "countries": [
+        "SWE"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],

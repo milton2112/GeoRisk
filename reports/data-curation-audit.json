@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-08-26T15:06:22.219Z",
+  "generatedAt": "2026-08-26T15:18:40.130Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11175449,
-    "duplicatedCountryFilesBytes": 1527973,
+    "fullBytes": 11185699,
+    "duplicatedCountryFilesBytes": 1528421,
     "countryConflictShardBytes": 422885,
     "tooLargeCount": 0,
     "largest": [
@@ -366,6 +366,57 @@
         }
       },
       {
+        "code": "KOR",
+        "name": "Corea del Sur",
+        "bytes": 17972,
+        "inlineBytes": 133442,
+        "tooLarge": false,
+        "counts": {
+          "cities": 5,
+          "capitals": 1,
+          "languages": 1,
+          "religionGroups": 5,
+          "organizations": 31,
+          "rivals": 51,
+          "conflicts": 31,
+          "timelineEvents": 3
+        },
+        "metrics": {
+          "sectionBytes": {
+            "military": 8107,
+            "politics": 6254,
+            "metadata": 1927,
+            "general": 866,
+            "history": 306,
+            "religion": 288,
+            "economy": 99,
+            "name": 15,
+            "continent": 6
+          },
+          "largestSections": [
+            {
+              "section": "military",
+              "bytes": 8107
+            },
+            {
+              "section": "politics",
+              "bytes": 6254
+            },
+            {
+              "section": "metadata",
+              "bytes": 1927
+            },
+            {
+              "section": "general",
+              "bytes": 866
+            }
+          ],
+          "conflictsBytes": 7988,
+          "conflictShardBytes": 0,
+          "averageConflictBytes": 258
+        }
+      },
+      {
         "code": "CAN",
         "name": "Canadá",
         "bytes": 17658,
@@ -414,57 +465,6 @@
           "conflictsBytes": 7394,
           "conflictShardBytes": 0,
           "averageConflictBytes": 224
-        }
-      },
-      {
-        "code": "KOR",
-        "name": "Corea del Sur",
-        "bytes": 17636,
-        "inlineBytes": 126974,
-        "tooLarge": false,
-        "counts": {
-          "cities": 5,
-          "capitals": 1,
-          "languages": 1,
-          "religionGroups": 5,
-          "organizations": 31,
-          "rivals": 51,
-          "conflicts": 30,
-          "timelineEvents": 3
-        },
-        "metrics": {
-          "sectionBytes": {
-            "military": 7771,
-            "politics": 6254,
-            "metadata": 1927,
-            "general": 866,
-            "history": 306,
-            "religion": 288,
-            "economy": 99,
-            "name": 15,
-            "continent": 6
-          },
-          "largestSections": [
-            {
-              "section": "military",
-              "bytes": 7771
-            },
-            {
-              "section": "politics",
-              "bytes": 6254
-            },
-            {
-              "section": "metadata",
-              "bytes": 1927
-            },
-            {
-              "section": "general",
-              "bytes": 866
-            }
-          ],
-          "conflictsBytes": 7652,
-          "conflictShardBytes": 0,
-          "averageConflictBytes": 255
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 190,
+    "pendingCount": 189,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15161,19 +15161,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Chobayashiura",
-        "countries": [
-          "JPN"
-        ],
-        "regions": [
-          "Asia"
         ],
         "types": [
           "interestatal"
@@ -17163,6 +17150,19 @@
         ],
         "regions": [
           "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Incidente del Altmark",
+        "countries": [
+          "GBR"
+        ],
+        "regions": [
+          "Europa"
         ],
         "types": [
           "interestatal"
