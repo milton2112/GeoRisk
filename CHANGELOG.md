@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.124 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.125 antes de cerrar la siguiente version.
+
+## v1.6.125 - 2026-08-26
+
+- Normaliza la entrada provisional "Batalla de Cookes Canyon" como Combate de Cooke's Canyon (1861), con alias en español e inglés, año estable, ficha diferida y resolución complementaria en inglés.
+- La sitúa en las Guerras apaches, dentro de las operaciones de Cooke's Canyon de 1861, y vincula la ficha de Estados Unidos con el índice de conflictos, el timeline y la búsqueda.
+- Distingue el convoy Ake y su escolta civil de los combatientes apache chiricahua; evita presentar a una comunidad indígena como un actor genérico y no inventa mandos individuales.
+- Incorpora trazabilidad de la monografía de Donald H. Couchman publicada por la Oficina de Administración de Tierras de EE. UU. y del contexto histórico del Servicio de Parques Nacionales. Conserva agosto de 1861, pero declara que el día, las bajas y el liderazgo no están consolidados entre los relatos.
+- Añade regresiones para el alias, la fecha, la clasificación colonial, los participantes, las fuentes, la cautela editorial y la resolución complementaria.
+- Reduce las jerarquías provisionales de 122 a 121, mantiene cero alertas estructurales y actualiza los índices a 1.809 conflictos, 3.042 eventos y 1.055 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-26-release-3`.
 
 ## v1.6.124 - 2026-08-26
 

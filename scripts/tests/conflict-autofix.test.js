@@ -308,6 +308,10 @@ import {
   ALEGRE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-alegre.js";
 import {
+  COOKES_CANYON_CONFLICT_DETAIL_FIXES,
+  COOKES_CANYON_CONFLICT_RENAMES
+} from "../lib/conflict-curation-cookes-canyon.js";
+import {
   CABO_BOJADOR_COUNTRY_CONFLICT_EXCLUSIONS,
   CABO_BOJADOR_CURATORIAL_NOTES
 } from "../lib/conflict-curation-cabo-bojador.js";
@@ -963,6 +967,19 @@ assert.equal(
   JAPAN_KOREA_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Chobayashiura"],
   "Acción naval de Jangnimpo (1592)"
 );
+assert.equal(
+  COOKES_CANYON_CONFLICT_RENAMES["Batalla de Cookes Canyon"],
+  "Combate de Cooke's Canyon (1861)"
+);
+const cookesCanyonDetail = COOKES_CANYON_CONFLICT_DETAIL_FIXES["Combate de Cooke's Canyon (1861)"];
+assert.equal(cookesCanyonDetail.parent, "Guerras apaches");
+assert.equal(cookesCanyonDetail.startYear, 1861);
+assert.equal(cookesCanyonDetail.endYear, 1861);
+assert.equal(cookesCanyonDetail.conflictType, "colonial");
+assert.equal(cookesCanyonDetail.participants[1].members[0], "Apache chiricahua");
+assert.equal(cookesCanyonDetail.sourceDispute, true);
+assert.equal(cookesCanyonDetail.hierarchyConfidence, "media");
+assert.equal(cookesCanyonDetail.hierarchySources.length, 2);
 assert.equal(JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Acción naval de Happo (1592)"].type, "acción naval");
 assert.equal(
   JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Ataque al fondeadero de Jeokjinpo (1592)"].type,
@@ -2884,6 +2901,9 @@ assert.equal(yulpoWikipediaOverride.pageTitle, "List_of_naval_battles_during_the
 const jangnimpoWikipediaOverride = await resolveWikipediaConflictTitle("Acción naval de Jangnimpo (1592)");
 assert.equal(jangnimpoWikipediaOverride.language, "en");
 assert.equal(jangnimpoWikipediaOverride.pageTitle, "List_of_naval_battles_during_the_Imjin_War");
+const cookesCanyonWikipediaOverride = await resolveWikipediaConflictTitle("Combate de Cooke's Canyon (1861)");
+assert.equal(cookesCanyonWikipediaOverride.language, "en");
+assert.equal(cookesCanyonWikipediaOverride.pageTitle, "Battle_of_Cookes_Canyon");
 const bantryWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval de la bahía de Bantry (1689)");
 assert.equal(bantryWikipediaOverride.language, "en");
 assert.equal(bantryWikipediaOverride.pageTitle, "Battle_of_Bantry_Bay");

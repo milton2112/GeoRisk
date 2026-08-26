@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-26T15:18:40.130Z",
+  "generatedAt": "2026-08-26T16:51:14.258Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11185699,
+    "fullBytes": 11189761,
     "duplicatedCountryFilesBytes": 1528421,
-    "countryConflictShardBytes": 422885,
+    "countryConflictShardBytes": 422961,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24032,
-        "inlineBytes": 3151691,
+        "inlineBytes": 3155753,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,9 +105,9 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 213205,
-          "conflictShardBytes": 213206,
-          "averageConflictBytes": 231
+          "conflictsBytes": 213281,
+          "conflictShardBytes": 213282,
+          "averageConflictBytes": 232
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 189,
+    "pendingCount": 188,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15156,19 +15156,6 @@
       },
       {
         "name": "Ataque aéreo de Ogu",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Cookes Canyon",
         "countries": [
           "USA"
         ],
@@ -17166,6 +17153,19 @@
         ],
         "types": [
           "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Incidente fronterizo de Terekti",
+        "countries": [
+          "CHN"
+        ],
+        "regions": [
+          "Asia"
+        ],
+        "types": [
+          "frontera"
         ],
         "reason": "sin startYear consolidado en fuentes internas"
       }

@@ -319,6 +319,10 @@ import {
   ALEGRE_CONFLICT_RENAMES
 } from "./lib/conflict-curation-alegre.js";
 import {
+  COOKES_CANYON_CONFLICT_DETAIL_FIXES,
+  COOKES_CANYON_CONFLICT_RENAMES
+} from "./lib/conflict-curation-cookes-canyon.js";
+import {
   CABO_BOJADOR_COUNTRY_CONFLICT_EXCLUSIONS
 } from "./lib/conflict-curation-cabo-bojador.js";
 import {
@@ -418,7 +422,8 @@ const curatedConflictDetailFixes = {
   ...ASINARA_CONFLICT_DETAIL_FIXES,
   ...BAU_CONFLICT_DETAIL_FIXES,
   ...ARANAS_CONFLICT_DETAIL_FIXES,
-  ...ALEGRE_CONFLICT_DETAIL_FIXES
+  ...ALEGRE_CONFLICT_DETAIL_FIXES,
+  ...COOKES_CANYON_CONFLICT_DETAIL_FIXES
 };
 const safeConflictRenames = {
   ...SAFE_CONFLICT_RENAMES,
@@ -493,7 +498,8 @@ const safeConflictRenames = {
   ...ASINARA_CONFLICT_RENAMES,
   ...BAU_CONFLICT_RENAMES,
   ...ARANAS_CONFLICT_RENAMES,
-  ...ALEGRE_CONFLICT_RENAMES
+  ...ALEGRE_CONFLICT_RENAMES,
+  ...COOKES_CANYON_CONFLICT_RENAMES
 };
 const countryConflictAdditionBatches = [
   TRANSITION_1846_1902_COUNTRY_CONFLICT_ADDITIONS,

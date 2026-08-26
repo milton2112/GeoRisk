@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-26T15:18:33.302Z",
-  "changedFullCountries": 2,
+  "generatedAt": "2026-08-26T16:51:08.217Z",
+  "changedFullCountries": 1,
   "fullPassChanges": [
-    2,
+    1,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
@@ -12,7 +12,7 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1005,
+  "generatedHierarchyCandidates": 1007,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -911,7 +911,11 @@
     "Battle of Aranas": "Batalla de Aranas (2007)",
     "Batalla de Alegre": "Combate naval de Alegre (1867)",
     "Combate do Alegre": "Combate naval de Alegre (1867)",
-    "Battle of Alegre": "Combate naval de Alegre (1867)"
+    "Battle of Alegre": "Combate naval de Alegre (1867)",
+    "Batalla de Cookes Canyon": "Combate de Cooke's Canyon (1861)",
+    "Batalla de Cooke's Canyon": "Combate de Cooke's Canyon (1861)",
+    "Battle of Cookes Canyon": "Combate de Cooke's Canyon (1861)",
+    "Battle of Cooke's Canyon": "Combate de Cooke's Canyon (1861)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1884,6 +1888,7 @@
     "Batalla naval de Asinara (1409)",
     "Batalla de Bau (1965)",
     "Batalla de Aranas (2007)",
-    "Combate naval de Alegre (1867)"
+    "Combate naval de Alegre (1867)",
+    "Combate de Cooke's Canyon (1861)"
   ]
 }

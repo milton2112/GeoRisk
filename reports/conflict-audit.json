@@ -1,28 +1,14 @@
 {
-  "generatedAt": "2026-08-26T15:21:46.999Z",
+  "generatedAt": "2026-08-26T16:55:04.591Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 122,
-  "reviewCount": 122,
+  "advisoryCount": 121,
+  "reviewCount": 121,
   "summary": {
-    "provisional_parent": 122
+    "provisional_parent": 121
   },
   "topIssues": [],
   "topAdvisories": [
-    {
-      "key": "batalla de cookes canyon",
-      "name": "Batalla de Cookes Canyon",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
     {
       "key": "batalla de czortkowem",
       "name": "Batalla de Czortkowem",
@@ -1124,6 +1110,20 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de springfield",
+      "name": "Batalla de Springfield",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],
