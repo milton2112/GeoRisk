@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.126 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.127 antes de cerrar la siguiente version.
+
+## v1.6.127 - 2026-08-26
+
+- Normaliza la entrada provisional "Batalla de Deglebat-Leglia" como Combate de Deglebat-Leglia (1977), con alias en espanol, frances e ingles, fecha estable y ficha diferida trazable.
+- La sitúa en la Guerra del Sahara Occidental, dentro de una categoria operativa descriptiva de GeoRisk para las acciones del Frente Polisario contra Mauritania de agosto-septiembre de 1977. Tambien la enlaza con Mauritania y con Sahara Occidental como referencia geografica, sin adjudicar soberania.
+- Incorpora procedencia contemporanea de *Le Monde* y *El Pais*, junto con un informe de Naciones Unidas. Conserva el 31 de agosto de 1977, pero no consolida bajas, prisioneros, danos materiales ni una victoria tactica porque los comunicados de las partes discrepan.
+- Añade regresiones para el alias, fecha, jerarquia, participantes, referencia territorial disputada, fuentes y cautela sobre el balance.
+- Reduce las jerarquias provisionales de 120 a 119, mantiene cero alertas estructurales y actualiza los indices a 1.811 conflictos, 3.046 eventos y 1.057 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-26-release-5`.
 
 ## v1.6.126 - 2026-08-26
 

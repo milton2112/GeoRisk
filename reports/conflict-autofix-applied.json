@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-26T17:04:30.975Z",
+  "generatedAt": "2026-08-26T17:14:33.843Z",
   "changedFullCountries": 2,
   "fullPassChanges": [
     2,
@@ -12,7 +12,7 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1007,
+  "generatedHierarchyCandidates": 1008,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -364,7 +364,8 @@
       "Batalla de las islas Hyères (1795)"
     ],
     "sahara occidental": [
-      "Batalla de Bir Enzaran (1979)"
+      "Batalla de Bir Enzaran (1979)",
+      "Combate de Deglebat-Leglia (1977)"
     ],
     "afganistan": [
       "Batalla de Aranas (2007)"
@@ -926,7 +927,12 @@
     "Battle of Czortkowem": "Batalla de Czortków (1919)",
     "Battle of Czortkow": "Batalla de Czortków (1919)",
     "Battle of Chortkiv": "Batalla de Czortków (1919)",
-    "Bitwa pod Czortkowem": "Batalla de Czortków (1919)"
+    "Bitwa pod Czortkowem": "Batalla de Czortków (1919)",
+    "Batalla de Deglebat-Leglia": "Combate de Deglebat-Leglia (1977)",
+    "Batalla de Deglebat Leglia": "Combate de Deglebat-Leglia (1977)",
+    "Combate de Deglebat-Leglia": "Combate de Deglebat-Leglia (1977)",
+    "Combat de Deglebat-Leglia": "Combate de Deglebat-Leglia (1977)",
+    "Battle of Deglebat-Leglia": "Combate de Deglebat-Leglia (1977)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1901,6 +1907,7 @@
     "Batalla de Aranas (2007)",
     "Combate naval de Alegre (1867)",
     "Combate de Cooke's Canyon (1861)",
-    "Batalla de Czortków (1919)"
+    "Batalla de Czortków (1919)",
+    "Combate de Deglebat-Leglia (1977)"
   ]
 }

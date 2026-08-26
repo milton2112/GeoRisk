@@ -1,28 +1,14 @@
 {
-  "generatedAt": "2026-08-26T17:08:27.052Z",
+  "generatedAt": "2026-08-26T17:18:41.196Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 120,
-  "reviewCount": 120,
+  "advisoryCount": 119,
+  "reviewCount": 119,
   "summary": {
-    "provisional_parent": 120
+    "provisional_parent": 119
   },
   "topIssues": [],
   "topAdvisories": [
-    {
-      "key": "batalla de deglebat leglia",
-      "name": "Batalla de Deglebat-Leglia",
-      "countries": [
-        "MRT"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de África",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
     {
       "key": "batalla de devil s creek",
       "name": "Batalla de Devil's Creek",
@@ -1124,6 +1110,20 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de steen s mountain",
+      "name": "Batalla de Steen's Mountain",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],

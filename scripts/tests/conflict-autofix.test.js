@@ -317,6 +317,11 @@ import {
   CZORTKOW_CONFLICT_RENAMES
 } from "../lib/conflict-curation-czortkow.js";
 import {
+  DEGLEBAT_LEGLIA_CONFLICT_DETAIL_FIXES,
+  DEGLEBAT_LEGLIA_COUNTRY_CONFLICT_ADDITIONS,
+  DEGLEBAT_LEGLIA_CONFLICT_RENAMES
+} from "../lib/conflict-curation-deglebat-leglia.js";
+import {
   CABO_BOJADOR_COUNTRY_CONFLICT_EXCLUSIONS,
   CABO_BOJADOR_CURATORIAL_NOTES
 } from "../lib/conflict-curation-cabo-bojador.js";
@@ -995,6 +1000,27 @@ assert.equal(czortkowDetail.endYear, 1919);
 assert.equal(czortkowDetail.participants[1].members[0], "Rep\u00fablica Popular de Ucrania Occidental");
 assert.equal(czortkowDetail.sourceDispute, true);
 assert.equal(czortkowDetail.hierarchySources.length, 3);
+assert.equal(
+  DEGLEBAT_LEGLIA_CONFLICT_RENAMES["Batalla de Deglebat-Leglia"],
+  "Combate de Deglebat-Leglia (1977)"
+);
+assert.deepEqual(
+  DEGLEBAT_LEGLIA_COUNTRY_CONFLICT_ADDITIONS["Sahara Occidental"],
+  ["Combate de Deglebat-Leglia (1977)"]
+);
+const deglebatLegliaDetail = DEGLEBAT_LEGLIA_CONFLICT_DETAIL_FIXES["Combate de Deglebat-Leglia (1977)"];
+assert.equal(deglebatLegliaDetail.parent, "Guerra del Sahara Occidental");
+assert.equal(deglebatLegliaDetail.campaign, "Operaciones del Frente Polisario contra Mauritania de agosto-septiembre de 1977");
+assert.equal(deglebatLegliaDetail.startYear, 1977);
+assert.equal(deglebatLegliaDetail.endYear, 1977);
+assert.equal(deglebatLegliaDetail.conflictType, "independencia");
+assert.equal(deglebatLegliaDetail.participants[0].members[0], "Mauritania");
+assert.equal(deglebatLegliaDetail.participants[1].members[0], "Frente Polisario");
+assert.equal(deglebatLegliaDetail.sourceDispute, true);
+assert.equal(deglebatLegliaDetail.hierarchyConfidence, "media");
+assert.equal(deglebatLegliaDetail.hierarchySources.length, 3);
+assert.match(deglebatLegliaDetail.outcome, /no consolida bajas/i);
+assert.match(deglebatLegliaDetail.curationNote, /no adjudica soberania/i);
 assert.equal(JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Acción naval de Happo (1592)"].type, "acción naval");
 assert.equal(
   JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Ataque al fondeadero de Jeokjinpo (1592)"].type,
