@@ -312,6 +312,11 @@ import {
   COOKES_CANYON_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cookes-canyon.js";
 import {
+  CZORTKOW_CONFLICT_DETAIL_FIXES,
+  CZORTKOW_COUNTRY_CONFLICT_ADDITIONS,
+  CZORTKOW_CONFLICT_RENAMES
+} from "../lib/conflict-curation-czortkow.js";
+import {
   CABO_BOJADOR_COUNTRY_CONFLICT_EXCLUSIONS,
   CABO_BOJADOR_CURATORIAL_NOTES
 } from "../lib/conflict-curation-cabo-bojador.js";
@@ -980,6 +985,16 @@ assert.equal(cookesCanyonDetail.participants[1].members[0], "Apache chiricahua")
 assert.equal(cookesCanyonDetail.sourceDispute, true);
 assert.equal(cookesCanyonDetail.hierarchyConfidence, "media");
 assert.equal(cookesCanyonDetail.hierarchySources.length, 2);
+assert.equal(CZORTKOW_CONFLICT_RENAMES["Batalla de Czortkowem"], "Batalla de Czortk\u00f3w (1919)");
+assert.deepEqual(CZORTKOW_COUNTRY_CONFLICT_ADDITIONS.Ucrania, ["Batalla de Czortk\u00f3w (1919)"]);
+const czortkowDetail = CZORTKOW_CONFLICT_DETAIL_FIXES["Batalla de Czortk\u00f3w (1919)"];
+assert.equal(czortkowDetail.parent, "Guerra polaco-ucraniana (1918-1919)");
+assert.equal(czortkowDetail.campaign, "Ofensiva de Chortkiv (junio de 1919)");
+assert.equal(czortkowDetail.startYear, 1919);
+assert.equal(czortkowDetail.endYear, 1919);
+assert.equal(czortkowDetail.participants[1].members[0], "Rep\u00fablica Popular de Ucrania Occidental");
+assert.equal(czortkowDetail.sourceDispute, true);
+assert.equal(czortkowDetail.hierarchySources.length, 3);
 assert.equal(JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Acción naval de Happo (1592)"].type, "acción naval");
 assert.equal(
   JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Ataque al fondeadero de Jeokjinpo (1592)"].type,
@@ -2904,6 +2919,9 @@ assert.equal(jangnimpoWikipediaOverride.pageTitle, "List_of_naval_battles_during
 const cookesCanyonWikipediaOverride = await resolveWikipediaConflictTitle("Combate de Cooke's Canyon (1861)");
 assert.equal(cookesCanyonWikipediaOverride.language, "en");
 assert.equal(cookesCanyonWikipediaOverride.pageTitle, "Battle_of_Cookes_Canyon");
+const czortkowWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Czortk\u00f3w (1919)");
+assert.equal(czortkowWikipediaOverride.language, "es");
+assert.equal(czortkowWikipediaOverride.pageTitle, "Chortkiv_offensive");
 const bantryWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval de la bahía de Bantry (1689)");
 assert.equal(bantryWikipediaOverride.language, "en");
 assert.equal(bantryWikipediaOverride.pageTitle, "Battle_of_Bantry_Bay");

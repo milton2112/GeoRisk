@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-26T16:51:14.258Z",
+  "generatedAt": "2026-08-26T17:04:37.051Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11189761,
-    "duplicatedCountryFilesBytes": 1528421,
-    "countryConflictShardBytes": 422961,
+    "fullBytes": 11202511,
+    "duplicatedCountryFilesBytes": 1528917,
+    "countryConflictShardBytes": 423068,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -113,8 +113,8 @@
       {
         "code": "POL",
         "name": "Polonia",
-        "bytes": 20658,
-        "inlineBytes": 216511,
+        "bytes": 20820,
+        "inlineBytes": 221525,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -128,7 +128,7 @@
         },
         "metrics": {
           "sectionBytes": {
-            "military": 10067,
+            "military": 10229,
             "politics": 7383,
             "metadata": 1913,
             "general": 684,
@@ -141,7 +141,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 10067
+              "bytes": 10229
             },
             {
               "section": "politics",
@@ -156,9 +156,9 @@
               "bytes": 684
             }
           ],
-          "conflictsBytes": 12959,
-          "conflictShardBytes": 12960,
-          "averageConflictBytes": 254
+          "conflictsBytes": 13066,
+          "conflictShardBytes": 13067,
+          "averageConflictBytes": 256
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 188,
+    "pendingCount": 187,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15161,19 +15161,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Czortkowem",
-        "countries": [
-          "POL"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
@@ -17166,6 +17153,19 @@
         ],
         "types": [
           "frontera"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Incursion sobre el atolon Wake",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "Asia-Pacífico"
+        ],
+        "types": [
+          "interestatal"
         ],
         "reason": "sin startYear consolidado en fuentes internas"
       }

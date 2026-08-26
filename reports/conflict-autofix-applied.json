@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-26T16:51:08.217Z",
-  "changedFullCountries": 1,
+  "generatedAt": "2026-08-26T17:04:30.975Z",
+  "changedFullCountries": 2,
   "fullPassChanges": [
-    1,
+    2,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
@@ -368,6 +368,9 @@
     ],
     "afganistan": [
       "Batalla de Aranas (2007)"
+    ],
+    "ucrania": [
+      "Batalla de Czortków (1919)"
     ]
   },
   "countryConflictExclusions": {
@@ -915,7 +918,15 @@
     "Batalla de Cookes Canyon": "Combate de Cooke's Canyon (1861)",
     "Batalla de Cooke's Canyon": "Combate de Cooke's Canyon (1861)",
     "Battle of Cookes Canyon": "Combate de Cooke's Canyon (1861)",
-    "Battle of Cooke's Canyon": "Combate de Cooke's Canyon (1861)"
+    "Battle of Cooke's Canyon": "Combate de Cooke's Canyon (1861)",
+    "Batalla de Czortkowem": "Batalla de Czortków (1919)",
+    "Batalla de Czortkow": "Batalla de Czortków (1919)",
+    "Batalla de Czortków": "Batalla de Czortków (1919)",
+    "Batalla de Chortkiv": "Batalla de Czortków (1919)",
+    "Battle of Czortkowem": "Batalla de Czortków (1919)",
+    "Battle of Czortkow": "Batalla de Czortków (1919)",
+    "Battle of Chortkiv": "Batalla de Czortków (1919)",
+    "Bitwa pod Czortkowem": "Batalla de Czortków (1919)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1889,6 +1900,7 @@
     "Batalla de Bau (1965)",
     "Batalla de Aranas (2007)",
     "Combate naval de Alegre (1867)",
-    "Combate de Cooke's Canyon (1861)"
+    "Combate de Cooke's Canyon (1861)",
+    "Batalla de Czortków (1919)"
   ]
 }

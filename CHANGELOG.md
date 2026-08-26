@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.125 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.126 antes de cerrar la siguiente version.
+
+## v1.6.126 - 2026-08-26
+
+- Normaliza la entrada provisional "Batalla de Czortkowem" como Batalla de Czortków (1919), con alias polacos, ingleses y de la actual Chortkiv, año estable, ficha diferida y resolución complementaria.
+- La sitúa en la Guerra polaco-ucraniana (1918-1919), dentro de la Ofensiva de Chortkiv, y la enlaza con Polonia y Ucrania sin equiparar a la República Popular de Ucrania Occidental con el Estado contemporáneo.
+- Incorpora procedencia del léxico académico *Bitwy polskie*, del Instituto Ucraniano de la Memoria Nacional y de *Encyclopedia 1914-1918 Online*. Distingue el combate local del 6 al 9 de junio de la ofensiva amplia iniciada el 7, y no consolida bajas ni un desenlace nacional a partir del resultado de la ciudad.
+- Añade regresiones para alias, fecha, jerarquía, participantes, fuentes, vínculo ucraniano y prevención explícita contra la confusión con los choques de la invasión soviética de 1939.
+- Reduce las jerarquías provisionales de 121 a 120, mantiene cero alertas estructurales y actualiza los índices a 1.810 conflictos, 3.044 eventos y 1.056 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-26-release-4`.
 
 ## v1.6.125 - 2026-08-26
 

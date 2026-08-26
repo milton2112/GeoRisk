@@ -349,6 +349,7 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Acción naval de Hwajungumi (1592)": "List_of_naval_battles_during_the_Imjin_War",
   "Acción naval de Jangnimpo (1592)": "List_of_naval_battles_during_the_Imjin_War",
   "Combate de Cooke's Canyon (1861)": "Battle_of_Cookes_Canyon",
+  "Batalla de Czortk\u00f3w (1919)": "Chortkiv_offensive",
   "Batalla naval de Busan (1592)": "Battle_of_Busan",
   "Escaramuza naval de Eoranpo (1597)": "List_of_naval_battles_during_the_Imjin_War",
   "Batalla naval de Myeongnyang (1597)": "Battle_of_Myeongnyang",

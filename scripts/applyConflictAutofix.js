@@ -323,6 +323,11 @@ import {
   COOKES_CANYON_CONFLICT_RENAMES
 } from "./lib/conflict-curation-cookes-canyon.js";
 import {
+  CZORTKOW_CONFLICT_DETAIL_FIXES,
+  CZORTKOW_COUNTRY_CONFLICT_ADDITIONS,
+  CZORTKOW_CONFLICT_RENAMES
+} from "./lib/conflict-curation-czortkow.js";
+import {
   CABO_BOJADOR_COUNTRY_CONFLICT_EXCLUSIONS
 } from "./lib/conflict-curation-cabo-bojador.js";
 import {
@@ -423,7 +428,8 @@ const curatedConflictDetailFixes = {
   ...BAU_CONFLICT_DETAIL_FIXES,
   ...ARANAS_CONFLICT_DETAIL_FIXES,
   ...ALEGRE_CONFLICT_DETAIL_FIXES,
-  ...COOKES_CANYON_CONFLICT_DETAIL_FIXES
+  ...COOKES_CANYON_CONFLICT_DETAIL_FIXES,
+  ...CZORTKOW_CONFLICT_DETAIL_FIXES
 };
 const safeConflictRenames = {
   ...SAFE_CONFLICT_RENAMES,
@@ -499,7 +505,8 @@ const safeConflictRenames = {
   ...BAU_CONFLICT_RENAMES,
   ...ARANAS_CONFLICT_RENAMES,
   ...ALEGRE_CONFLICT_RENAMES,
-  ...COOKES_CANYON_CONFLICT_RENAMES
+  ...COOKES_CANYON_CONFLICT_RENAMES,
+  ...CZORTKOW_CONFLICT_RENAMES
 };
 const countryConflictAdditionBatches = [
   TRANSITION_1846_1902_COUNTRY_CONFLICT_ADDITIONS,
@@ -541,7 +548,8 @@ const countryConflictAdditionBatches = [
   BIR_ENZARAN_COUNTRY_CONFLICT_ADDITIONS,
   BAU_COUNTRY_CONFLICT_ADDITIONS,
   ARANAS_COUNTRY_CONFLICT_ADDITIONS,
-  ALEGRE_COUNTRY_CONFLICT_ADDITIONS
+  ALEGRE_COUNTRY_CONFLICT_ADDITIONS,
+  CZORTKOW_COUNTRY_CONFLICT_ADDITIONS
 ];
 const countryConflictAdditions = mergeCountryConflictBatches(countryConflictAdditionBatches);
 const countryConflictExclusionBatches = [

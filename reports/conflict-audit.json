@@ -1,28 +1,14 @@
 {
-  "generatedAt": "2026-08-26T16:55:04.591Z",
+  "generatedAt": "2026-08-26T17:08:27.052Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 121,
-  "reviewCount": 121,
+  "advisoryCount": 120,
+  "reviewCount": 120,
   "summary": {
-    "provisional_parent": 121
+    "provisional_parent": 120
   },
   "topIssues": [],
   "topAdvisories": [
-    {
-      "key": "batalla de czortkowem",
-      "name": "Batalla de Czortkowem",
-      "countries": [
-        "POL"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
     {
       "key": "batalla de deglebat leglia",
       "name": "Batalla de Deglebat-Leglia",
@@ -1124,6 +1110,20 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de st lucia",
+      "name": "Batalla de St. Lucia",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],
