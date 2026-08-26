@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.122 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.123 antes de cerrar la siguiente version.
+
+## v1.6.123 - 2026-08-26
+
+- Retira la entrada provisional "Batalla de Cerro del Gallo" de México: la traza de auditoría del registro apuntaba en realidad a la Batalla de Cerro Grande, librada en La Serena, Chile, en 1859.
+- Evita convertir una coincidencia parcial de toponimia en un conflicto mexicano: la entrada no tenía fecha, ubicación, bandos ni fuente propia, por lo que se excluye en lugar de asignarle arbitrariamente una guerra o cronología.
+- Añade una regla de exclusión con procedencia del Ejército de Chile y de la Municipalidad de La Serena, más una regresión que impide que la fuente chilena vuelva a contaminar el historial de México.
+- Reduce los conflictos escaneados de 2.000 a 1.999 y las jerarquías provisionales de 124 a 123, sin alertas estructurales; conserva 1.807 conflictos indexados, 3.039 eventos y 1.053 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-26-release-1`.
 
 ## v1.6.122 - 2026-08-25
 

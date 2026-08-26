@@ -1,28 +1,14 @@
 {
-  "generatedAt": "2026-08-25T15:24:20.622Z",
-  "scannedConflicts": 2000,
+  "generatedAt": "2026-08-26T15:09:34.973Z",
+  "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 124,
-  "reviewCount": 124,
+  "advisoryCount": 123,
+  "reviewCount": 123,
   "summary": {
-    "provisional_parent": 124
+    "provisional_parent": 123
   },
   "topIssues": [],
   "topAdvisories": [
-    {
-      "key": "batalla de cerro del gallo",
-      "name": "Batalla de Cerro del Gallo",
-      "countries": [
-        "MEX"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
     {
       "key": "batalla de chobayashiura",
       "name": "Batalla de Chobayashiura",
@@ -1124,6 +1110,20 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de siranaya",
+      "name": "Batalla de SIranaya",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],

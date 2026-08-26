@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-08-25T15:22:29.515Z",
+  "generatedAt": "2026-08-26T15:06:22.219Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11178221,
-    "duplicatedCountryFilesBytes": 1528211,
+    "fullBytes": 11175449,
+    "duplicatedCountryFilesBytes": 1527973,
     "countryConflictShardBytes": 422885,
     "tooLargeCount": 0,
     "largest": [
@@ -570,54 +570,54 @@
         }
       },
       {
-        "code": "MEX",
-        "name": "México",
-        "bytes": 15436,
-        "inlineBytes": 114339,
+        "code": "NOR",
+        "name": "Noruega",
+        "bytes": 15253,
+        "inlineBytes": 92697,
         "tooLarge": false,
         "counts": {
-          "cities": 4,
+          "cities": 3,
           "capitals": 1,
-          "languages": 5,
+          "languages": 1,
           "religionGroups": 4,
-          "organizations": 50,
-          "rivals": 8,
-          "conflicts": 29,
-          "timelineEvents": 4
+          "organizations": 49,
+          "rivals": 49,
+          "conflicts": 23,
+          "timelineEvents": 0
         },
         "metrics": {
           "sectionBytes": {
-            "military": 6944,
-            "politics": 4817,
-            "metadata": 1936,
-            "general": 870,
-            "history": 398,
-            "religion": 248,
+            "politics": 7233,
+            "military": 4941,
+            "metadata": 1914,
+            "general": 641,
+            "religion": 231,
             "economy": 101,
+            "history": 71,
             "name": 9,
-            "continent": 9
+            "continent": 8
           },
           "largestSections": [
             {
-              "section": "military",
-              "bytes": 6944
+              "section": "politics",
+              "bytes": 7233
             },
             {
-              "section": "politics",
-              "bytes": 4817
+              "section": "military",
+              "bytes": 4941
             },
             {
               "section": "metadata",
-              "bytes": 1936
+              "bytes": 1914
             },
             {
               "section": "general",
-              "bytes": 870
+              "bytes": 641
             }
           ],
-          "conflictsBytes": 6827,
+          "conflictsBytes": 4856,
           "conflictShardBytes": 0,
-          "averageConflictBytes": 235
+          "averageConflictBytes": 211
         }
       }
     ]
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 191,
+    "pendingCount": 190,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15158,19 +15158,6 @@
         "name": "Ataque aéreo de Ogu",
         "countries": [
           "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Cerro del Gallo",
-        "countries": [
-          "MEX"
         ],
         "regions": [
           "América"
@@ -17158,6 +17145,19 @@
       },
       {
         "name": "Incidente de fuego amigo en Sangin",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Incidente de Thornton",
         "countries": [
           "USA"
         ],

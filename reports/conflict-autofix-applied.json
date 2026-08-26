@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-25T15:22:22.447Z",
+  "generatedAt": "2026-08-26T15:06:15.405Z",
   "changedFullCountries": 1,
   "fullPassChanges": [
     1,
@@ -386,6 +386,9 @@
     ],
     "marruecos": [
       "Batalla de Cabo Bojador"
+    ],
+    "mexico": [
+      "Batalla de Cerro del Gallo"
     ]
   },
   "safeRenames": {

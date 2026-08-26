@@ -311,6 +311,10 @@ import {
   CABO_BOJADOR_COUNTRY_CONFLICT_EXCLUSIONS,
   CABO_BOJADOR_CURATORIAL_NOTES
 } from "../lib/conflict-curation-cabo-bojador.js";
+import {
+  CERRO_DEL_GALLO_COUNTRY_CONFLICT_EXCLUSIONS,
+  CERRO_DEL_GALLO_CURATORIAL_NOTES
+} from "../lib/conflict-curation-cerro-del-gallo.js";
 import { curateConflictEntry } from "../lib/conflict-batch-curation.js";
 import { cleanConflictLabel, mergeConflictEntries } from "../lib/conflict-cleaning.js";
 import {
@@ -2756,6 +2760,17 @@ assert.ok(
   CABO_BOJADOR_CURATORIAL_NOTES["Batalla de Cabo Bojador"].sources.length >= 2
     && /no documentan una batalla/i.test(CABO_BOJADOR_CURATORIAL_NOTES["Batalla de Cabo Bojador"].reason),
   "la exclusion de Cabo Bojador debe conservar la razon y fuentes que evitan convertir una exploracion en conflicto"
+);
+assert.deepEqual(
+  CERRO_DEL_GALLO_COUNTRY_CONFLICT_EXCLUSIONS["México"],
+  ["Batalla de Cerro del Gallo"]
+);
+assert.equal(CERRO_DEL_GALLO_CURATORIAL_NOTES["Batalla de Cerro del Gallo"].action, "eliminar");
+assert.ok(
+  CERRO_DEL_GALLO_CURATORIAL_NOTES["Batalla de Cerro del Gallo"].sources.length >= 2
+    && /Batalla de Cerro Grande/i.test(CERRO_DEL_GALLO_CURATORIAL_NOTES["Batalla de Cerro del Gallo"].reason)
+    && /Chile/i.test(CERRO_DEL_GALLO_CURATORIAL_NOTES["Batalla de Cerro del Gallo"].reason),
+  "la exclusion debe impedir que la fuente chilena de Cerro Grande contamine el historial de Mexico"
 );
 const explicitBattleWithoutTreaty = curateConflictEntry({
   name: "Batalla de prueba sin tratado",

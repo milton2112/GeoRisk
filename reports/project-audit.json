@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-08-25T15:24:23.649Z",
+  "generatedAt": "2026-08-26T15:09:37.744Z",
   "status": "operativo",
   "startup": {
     "critical": "817 KB",
     "criticalBytes": 836374,
     "deferred": "2.56 MB",
     "estimatedRuntimeMemory": {
-      "countriesFullBytes": 11178221,
+      "countriesFullBytes": 11175449,
       "countriesFullHuman": "10.66 MB",
-      "estimatedParsedBytes": 33534663,
-      "estimatedParsedHuman": "31.98 MB",
+      "estimatedParsedBytes": 33526347,
+      "estimatedParsedHuman": "31.97 MB",
       "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
     },
     "largestAssets": [
@@ -100,10 +100,10 @@
     ]
   },
   "conflicts": {
-    "scanned": 2000,
+    "scanned": 1999,
     "issueCount": 0,
     "summary": {
-      "provisional_parent": 124
+      "provisional_parent": 123
     },
     "eraFocus": []
   },
@@ -142,14 +142,14 @@
       {
         "path": "data/country_weights.json",
         "exists": true,
-        "bytes": 118247,
+        "bytes": 118246,
         "human": "115 KB"
       }
     ],
     "countryWeights": {
       "totalCountries": 183,
-      "fullBytes": 11178221,
-      "duplicatedCountryFilesBytes": 1528211,
+      "fullBytes": 11175449,
+      "duplicatedCountryFilesBytes": 1527973,
       "countryConflictShardBytes": 422885,
       "tooLargeCount": 0,
       "largest": [
@@ -715,54 +715,54 @@
           }
         },
         {
-          "code": "MEX",
-          "name": "México",
-          "bytes": 15436,
-          "inlineBytes": 114339,
+          "code": "NOR",
+          "name": "Noruega",
+          "bytes": 15253,
+          "inlineBytes": 92697,
           "tooLarge": false,
           "counts": {
-            "cities": 4,
+            "cities": 3,
             "capitals": 1,
-            "languages": 5,
+            "languages": 1,
             "religionGroups": 4,
-            "organizations": 50,
-            "rivals": 8,
-            "conflicts": 29,
-            "timelineEvents": 4
+            "organizations": 49,
+            "rivals": 49,
+            "conflicts": 23,
+            "timelineEvents": 0
           },
           "metrics": {
             "sectionBytes": {
-              "military": 6944,
-              "politics": 4817,
-              "metadata": 1936,
-              "general": 870,
-              "history": 398,
-              "religion": 248,
+              "politics": 7233,
+              "military": 4941,
+              "metadata": 1914,
+              "general": 641,
+              "religion": 231,
               "economy": 101,
+              "history": 71,
               "name": 9,
-              "continent": 9
+              "continent": 8
             },
             "largestSections": [
               {
-                "section": "military",
-                "bytes": 6944
+                "section": "politics",
+                "bytes": 7233
               },
               {
-                "section": "politics",
-                "bytes": 4817
+                "section": "military",
+                "bytes": 4941
               },
               {
                 "section": "metadata",
-                "bytes": 1936
+                "bytes": 1914
               },
               {
                 "section": "general",
-                "bytes": 870
+                "bytes": 641
               }
             ],
-            "conflictsBytes": 6827,
+            "conflictsBytes": 4856,
             "conflictShardBytes": 0,
-            "averageConflictBytes": 235
+            "averageConflictBytes": 211
           }
         }
       ]
@@ -790,7 +790,7 @@
     },
     "curationGaps": {},
     "conflictDataConsistency": {
-      "checked": 3971,
+      "checked": 3970,
       "closedMarkedActiveCount": 0,
       "inactiveMarkedActiveCount": 0,
       "nullNarrativeTextCount": 0,
@@ -817,8 +817,8 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 146197,
-      "human": "143 KB"
+      "bytes": 147133,
+      "human": "144 KB"
     },
     {
       "path": "style.css",
