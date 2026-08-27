@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.127 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.128 antes de cerrar la siguiente version.
+
+## v1.6.128 - 2026-08-27
+
+- Normaliza la entrada provisional "Batalla de Devil's Creek" como Combate de Devil's Creek (1885), con aliases en espanol e ingles, fecha estable, ficha diferida y resolucion complementaria.
+- La situa en las Guerras apaches, dentro de la Campana de Geronimo de 1885-1886, como un combate colonial local cerca de Alma, Nuevo Mexico.
+- Diferencia la columna del Ejercito de Estados Unidos y sus exploradores apaches aliados de la partida chiricahua. Conserva el parte militar de tres heridos y dos caballos muertos en la columna, sin inventar bajas chiricahuas ni adjudicar el mando local a Geronimo.
+- Incorpora trazabilidad del Ejercito de EE. UU. en Fort Huachuca y del National Park Service. La campana se presenta como contexto, pero el resultado del combate no se describe como decisivo.
+- Anade regresiones para alias, fecha, jerarquia, tipo colonial, participantes, fuentes, cautela del resultado y resolucion complementaria.
+- Reduce las jerarquias provisionales de 119 a 118, mantiene cero alertas estructurales y actualiza los indices a 1.812 conflictos, 3.047 eventos y 1.058 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-27-release-1`.
 
 ## v1.6.127 - 2026-08-26
 

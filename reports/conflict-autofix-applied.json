@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-26T17:14:33.843Z",
-  "changedFullCountries": 2,
+  "generatedAt": "2026-08-27T14:10:33.197Z",
+  "changedFullCountries": 1,
   "fullPassChanges": [
-    2,
+    1,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
@@ -12,7 +12,7 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1008,
+  "generatedHierarchyCandidates": 1009,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -932,7 +932,12 @@
     "Batalla de Deglebat Leglia": "Combate de Deglebat-Leglia (1977)",
     "Combate de Deglebat-Leglia": "Combate de Deglebat-Leglia (1977)",
     "Combat de Deglebat-Leglia": "Combate de Deglebat-Leglia (1977)",
-    "Battle of Deglebat-Leglia": "Combate de Deglebat-Leglia (1977)"
+    "Battle of Deglebat-Leglia": "Combate de Deglebat-Leglia (1977)",
+    "Batalla de Devil's Creek": "Combate de Devil's Creek (1885)",
+    "Batalla de Devils Creek": "Combate de Devil's Creek (1885)",
+    "Combate de Devil's Creek": "Combate de Devil's Creek (1885)",
+    "Battle of Devil's Creek": "Combate de Devil's Creek (1885)",
+    "Devil's Creek Battle": "Combate de Devil's Creek (1885)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1908,6 +1913,7 @@
     "Combate naval de Alegre (1867)",
     "Combate de Cooke's Canyon (1861)",
     "Batalla de Czortków (1919)",
-    "Combate de Deglebat-Leglia (1977)"
+    "Combate de Deglebat-Leglia (1977)",
+    "Combate de Devil's Creek (1885)"
   ]
 }

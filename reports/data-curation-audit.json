@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-26T17:14:39.908Z",
+  "generatedAt": "2026-08-27T14:10:50.976Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11215341,
+    "fullBytes": 11219827,
     "duplicatedCountryFilesBytes": 1529394,
-    "countryConflictShardBytes": 423068,
+    "countryConflictShardBytes": 423126,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24032,
-        "inlineBytes": 3155753,
+        "inlineBytes": 3160239,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 213281,
-          "conflictShardBytes": 213282,
+          "conflictsBytes": 213339,
+          "conflictShardBytes": 213340,
           "averageConflictBytes": 232
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 186,
+    "pendingCount": 185,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15156,19 +15156,6 @@
       },
       {
         "name": "Ataque aéreo de Ogu",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Devil's Creek",
         "countries": [
           "USA"
         ],
@@ -17163,6 +17150,19 @@
         ],
         "regions": [
           "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Masacre de Baylor",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
         ],
         "types": [
           "interestatal"

@@ -160,6 +160,7 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Batalla de Columbus de 1865": "Battle_of_Columbus_(1865)",
   "Batalla de Corrick's Ford": "Battle_of_Corrick's_Ford",
   "Batalla de Devil's Backbone": "Battle_of_Devil's_Backbone",
+  "Combate de Devil's Creek (1885)": "Battle_of_Devil's_Creek",
   "Segunda batalla de Fort McAllister": "Second_Battle_of_Fort_McAllister",
   "Batalla de Fredericksburg": "Battle_of_Fredericksburg",
   "Batalla del puerto de Galveston de 1862": "Battle_of_Galveston_Harbor_(1862)",

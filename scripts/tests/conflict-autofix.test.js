@@ -322,6 +322,10 @@ import {
   DEGLEBAT_LEGLIA_CONFLICT_RENAMES
 } from "../lib/conflict-curation-deglebat-leglia.js";
 import {
+  DEVILS_CREEK_CONFLICT_DETAIL_FIXES,
+  DEVILS_CREEK_CONFLICT_RENAMES
+} from "../lib/conflict-curation-devils-creek.js";
+import {
   CABO_BOJADOR_COUNTRY_CONFLICT_EXCLUSIONS,
   CABO_BOJADOR_CURATORIAL_NOTES
 } from "../lib/conflict-curation-cabo-bojador.js";
@@ -1021,6 +1025,24 @@ assert.equal(deglebatLegliaDetail.hierarchyConfidence, "media");
 assert.equal(deglebatLegliaDetail.hierarchySources.length, 3);
 assert.match(deglebatLegliaDetail.outcome, /no consolida bajas/i);
 assert.match(deglebatLegliaDetail.curationNote, /no adjudica soberania/i);
+assert.equal(
+  DEVILS_CREEK_CONFLICT_RENAMES["Batalla de Devil's Creek"],
+  "Combate de Devil's Creek (1885)"
+);
+const devilsCreekDetail = DEVILS_CREEK_CONFLICT_DETAIL_FIXES["Combate de Devil's Creek (1885)"];
+assert.equal(devilsCreekDetail.parent, "Guerras apaches");
+assert.equal(devilsCreekDetail.campaign, "Campa\u00f1a de Ger\u00f3nimo de 1885-1886");
+assert.equal(devilsCreekDetail.startYear, 1885);
+assert.equal(devilsCreekDetail.endYear, 1885);
+assert.equal(devilsCreekDetail.conflictType, "colonial");
+assert.equal(devilsCreekDetail.participants[0].members[0], "Estados Unidos");
+assert.equal(devilsCreekDetail.participants[0].members[2], "Exploradores apaches");
+assert.equal(devilsCreekDetail.participants[1].members[0], "Chiricahua Apache");
+assert.equal(devilsCreekDetail.sourceDispute, true);
+assert.equal(devilsCreekDetail.hierarchyConfidence, "alta");
+assert.equal(devilsCreekDetail.hierarchySources.length, 3);
+assert.match(devilsCreekDetail.outcome, /no permite consolidar bajas chiricahuas/i);
+assert.match(devilsCreekDetail.curationNote, /no permiten fijar a Geronimo/i);
 assert.equal(JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Acción naval de Happo (1592)"].type, "acción naval");
 assert.equal(
   JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Ataque al fondeadero de Jeokjinpo (1592)"].type,
@@ -2945,6 +2967,9 @@ assert.equal(jangnimpoWikipediaOverride.pageTitle, "List_of_naval_battles_during
 const cookesCanyonWikipediaOverride = await resolveWikipediaConflictTitle("Combate de Cooke's Canyon (1861)");
 assert.equal(cookesCanyonWikipediaOverride.language, "en");
 assert.equal(cookesCanyonWikipediaOverride.pageTitle, "Battle_of_Cookes_Canyon");
+const devilsCreekWikipediaOverride = await resolveWikipediaConflictTitle("Combate de Devil's Creek (1885)");
+assert.equal(devilsCreekWikipediaOverride.language, "en");
+assert.equal(devilsCreekWikipediaOverride.pageTitle, "Battle_of_Devil's_Creek");
 const czortkowWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Czortk\u00f3w (1919)");
 assert.equal(czortkowWikipediaOverride.language, "es");
 assert.equal(czortkowWikipediaOverride.pageTitle, "Chortkiv_offensive");
