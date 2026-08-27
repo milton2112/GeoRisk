@@ -1,28 +1,14 @@
 {
-  "generatedAt": "2026-08-27T14:27:34.061Z",
+  "generatedAt": "2026-08-27T14:46:57.096Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 116,
-  "reviewCount": 116,
+  "advisoryCount": 115,
+  "reviewCount": 115,
   "summary": {
-    "provisional_parent": 116
+    "provisional_parent": 115
   },
   "topIssues": [],
   "topAdvisories": [
-    {
-      "key": "batalla de doro passage",
-      "name": "Batalla de Doro Passage",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
     {
       "key": "batalla de drohiczyn",
       "name": "Batalla de Drohiczyn",
@@ -1124,6 +1110,20 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de tellicherry",
+      "name": "Batalla de Tellicherry",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],

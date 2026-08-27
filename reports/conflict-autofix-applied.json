@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-27T14:25:51.114Z",
-  "changedFullCountries": 2,
+  "generatedAt": "2026-08-27T14:36:46.679Z",
+  "changedFullCountries": 3,
   "fullPassChanges": [
-    2,
+    3,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
@@ -12,7 +12,7 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1011,
+  "generatedHierarchyCandidates": 1012,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -140,7 +140,8 @@
       "Batalla de Dogger Bank (1781)",
       "Batalla de las islas Hyères (1795)",
       "Combate naval frente a Barbados (1778)",
-      "Batalla naval de Chef-de-Caux (1417)"
+      "Batalla naval de Chef-de-Caux (1417)",
+      "Accion naval del paso de Doro (1827)"
     ],
     "irlanda": [
       "Batalla naval de la bahía de Bantry (1689)",
@@ -375,6 +376,9 @@
     ],
     "filipinas": [
       "Combate del rio Dolores (1904)"
+    ],
+    "grecia": [
+      "Accion naval del paso de Doro (1827)"
     ]
   },
   "countryConflictExclusions": {
@@ -950,7 +954,12 @@
     "Batalla del rio Dolores": "Combate del rio Dolores (1904)",
     "Batalla de Dolores": "Combate del rio Dolores (1904)",
     "Battle of Dolores River": "Combate del rio Dolores (1904)",
-    "Battle of the Dolores River": "Combate del rio Dolores (1904)"
+    "Battle of the Dolores River": "Combate del rio Dolores (1904)",
+    "Batalla de Doro Passage": "Accion naval del paso de Doro (1827)",
+    "Batalla del paso de Doro": "Accion naval del paso de Doro (1827)",
+    "Accion del paso de Doro": "Accion naval del paso de Doro (1827)",
+    "Battle of Doro Passage": "Accion naval del paso de Doro (1827)",
+    "Battle of the Doro Passage": "Accion naval del paso de Doro (1827)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1929,6 +1938,7 @@
     "Combate de Deglebat-Leglia (1977)",
     "Combate de Devil's Creek (1885)",
     "Combate de Sierra Diablo (1854)",
-    "Combate del rio Dolores (1904)"
+    "Combate del rio Dolores (1904)",
+    "Accion naval del paso de Doro (1827)"
   ]
 }

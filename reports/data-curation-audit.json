@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-27T14:25:57.238Z",
+  "generatedAt": "2026-08-27T14:36:52.559Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11238045,
-    "duplicatedCountryFilesBytes": 1529710,
-    "countryConflictShardBytes": 423290,
+    "fullBytes": 11265301,
+    "duplicatedCountryFilesBytes": 1530072,
+    "countryConflictShardBytes": 423779,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
         "bytes": 24714,
-        "inlineBytes": 1070825,
+        "inlineBytes": 1080837,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,7 +21,7 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 311,
+          "conflicts": 312,
           "timelineEvents": 4
         },
         "metrics": {
@@ -54,16 +54,16 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 70375,
-          "conflictShardBytes": 70376,
-          "averageConflictBytes": 226
+          "conflictsBytes": 70737,
+          "conflictShardBytes": 70738,
+          "averageConflictBytes": 227
         }
       },
       {
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24032,
-        "inlineBytes": 3170091,
+        "inlineBytes": 3177323,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 213503,
-          "conflictShardBytes": 213504,
+          "conflictsBytes": 213630,
+          "conflictShardBytes": 213631,
           "averageConflictBytes": 232
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 183,
+    "pendingCount": 182,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15156,19 +15156,6 @@
       },
       {
         "name": "Ataque aéreo de Ogu",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Doro Passage",
         "countries": [
           "USA"
         ],
@@ -17158,6 +17145,19 @@
       },
       {
         "name": "Masacre de Cherry Valley",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Masacre de Gorla",
         "countries": [
           "USA"
         ],

@@ -335,6 +335,11 @@ import {
   DOLORES_RIVER_CONFLICT_RENAMES
 } from "../lib/conflict-curation-dolores-river.js";
 import {
+  DORO_PASSAGE_CONFLICT_DETAIL_FIXES,
+  DORO_PASSAGE_COUNTRY_CONFLICT_ADDITIONS,
+  DORO_PASSAGE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-doro-passage.js";
+import {
   CABO_BOJADOR_COUNTRY_CONFLICT_EXCLUSIONS,
   CABO_BOJADOR_CURATORIAL_NOTES
 } from "../lib/conflict-curation-cabo-bojador.js";
@@ -1093,6 +1098,33 @@ assert.equal(doloresRiverDetail.hierarchyConfidence, "alta");
 assert.equal(doloresRiverDetail.hierarchySources.length, 3);
 assert.match(doloresRiverDetail.datePrecision, /diciembre de 1904/i);
 assert.match(doloresRiverDetail.curationNote, /no en America continental/i);
+assert.equal(
+  DORO_PASSAGE_CONFLICT_RENAMES["Batalla de Doro Passage"],
+  "Accion naval del paso de Doro (1827)"
+);
+assert.deepEqual(
+  DORO_PASSAGE_COUNTRY_CONFLICT_ADDITIONS.Grecia,
+  ["Accion naval del paso de Doro (1827)"]
+);
+assert.deepEqual(
+  DORO_PASSAGE_COUNTRY_CONFLICT_ADDITIONS["Reino Unido"],
+  ["Accion naval del paso de Doro (1827)"]
+);
+const doroPassageDetail = DORO_PASSAGE_CONFLICT_DETAIL_FIXES["Accion naval del paso de Doro (1827)"];
+assert.equal(doroPassageDetail.parent, "Operaciones antipirateria estadounidenses en el mar Egeo");
+assert.equal(doroPassageDetail.campaign, "Escolta del convoy de la USS Porpoise entre Esmirna y Malta (1827)");
+assert.equal(doroPassageDetail.startYear, 1827);
+assert.equal(doroPassageDetail.endYear, 1827);
+assert.equal(doroPassageDetail.conflictType, "intervencion");
+assert.match(doroPassageDetail.region, /mar Egeo/);
+assert.equal(doroPassageDetail.participants[0].members[0], "Estados Unidos");
+assert.equal(doroPassageDetail.participants[1].members[0], "Piratas griegos");
+assert.equal(doroPassageDetail.participants[2].members[0], "Reino Unido");
+assert.equal(doroPassageDetail.sourceDispute, true);
+assert.equal(doroPassageDetail.hierarchyConfidence, "alta");
+assert.equal(doroPassageDetail.hierarchySources.length, 3);
+assert.match(doroPassageDetail.datePrecision, /15 al 16 de octubre de 1827/i);
+assert.match(doroPassageDetail.curationNote, /erronea en America/i);
 assert.equal(JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Acción naval de Happo (1592)"].type, "acción naval");
 assert.equal(
   JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Ataque al fondeadero de Jeokjinpo (1592)"].type,
@@ -3026,6 +3058,9 @@ assert.equal(diabloMountainsWikipediaOverride.pageTitle, "Battle_of_the_Diablo_M
 const doloresRiverWikipediaOverride = await resolveWikipediaConflictTitle("Combate del rio Dolores (1904)");
 assert.equal(doloresRiverWikipediaOverride.language, "en");
 assert.equal(doloresRiverWikipediaOverride.pageTitle, "Battle_of_Dolores_River");
+const doroPassageWikipediaOverride = await resolveWikipediaConflictTitle("Accion naval del paso de Doro (1827)");
+assert.equal(doroPassageWikipediaOverride.language, "en");
+assert.equal(doroPassageWikipediaOverride.pageTitle, "Battle_of_Doro_Passage");
 const czortkowWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Czortk\u00f3w (1919)");
 assert.equal(czortkowWikipediaOverride.language, "es");
 assert.equal(czortkowWikipediaOverride.pageTitle, "Chortkiv_offensive");

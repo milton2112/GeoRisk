@@ -8,7 +8,18 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.130 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.131 antes de cerrar la siguiente version.
+
+## v1.6.131 - 2026-08-27
+
+- Normaliza la entrada provisional "Batalla de Doro Passage" como Accion naval del paso de Doro (1827), con aliases en espanol e ingles, ficha diferida y resolucion complementaria.
+- Corrige la geografia: la accion ocurrio en el paso de Doro, mar Egeo, Grecia, no en America. Vincula de forma explicita a Grecia por ubicacion y actores piratas, a Estados Unidos por el destacamento de la USS Porpoise y al Reino Unido por el bergantin mercante Comet.
+- La situa dentro de las operaciones antipirateria estadounidenses en el mar Egeo y la escolta de la USS Porpoise. Registra la recuperacion del Comet, pero no convierte a Grecia ni a su guerra de independencia en un bando estatal ni adopta un total dudoso de bajas piratas.
+- Conserva la diferencia entre el informe contemporaneo, que fecha la accion en la noche del 15 de octubre, y las sintesis que la registran el 16; por eso usa la precision "noche del 15 al 16 de octubre de 1827".
+- Incorpora trazabilidad del registro del Senado de Estados Unidos de 1828 y de Naval History and Heritage Command, junto con regresiones para aliases, paises vinculados, jerarquia, participantes, cautela editorial y resolucion complementaria.
+- Reduce las jerarquias provisionales de 116 a 115, mantiene cero alertas estructurales y actualiza los indices a 1.815 conflictos, 3.053 eventos y 1.061 fichas diferidas.
+- Hace resistente la auditoria de candidatas provisionales: cada consulta de Wikipedia recibe cancelacion a los 8 segundos y el reporte se persiste despues de cada candidata, para que una API lenta no deje una cola desactualizada.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-27-release-4`.
 
 ## v1.6.130 - 2026-08-27
 

@@ -1,8 +1,11 @@
 import assert from "node:assert/strict";
 import {
   DEFAULT_PROVISIONAL_CANDIDATE_LIMIT,
+  DEFAULT_PROVISIONAL_CANDIDATE_TIMEOUT_MS,
   classifyWikipediaCandidate,
   extractCandidateYears,
+  fetchProvisionalCandidateDetail,
+  normalizeCandidateTimeout,
   selectProvisionalCandidateBatch,
   toWikipediaPageUrl
 } from "../auditProvisionalConflictCandidates.js";
@@ -14,6 +17,8 @@ assert.deepEqual(extractCandidateYears("14 de febrero de 1719 - 8 de marzo de 17
 });
 assert.deepEqual(extractCandidateYears("fecha no consolidada"), { startYear: null, endYear: null });
 assert.equal(DEFAULT_PROVISIONAL_CANDIDATE_LIMIT, 10, "la auditoria por defecto debe revisar una tanda acotada");
+assert.equal(DEFAULT_PROVISIONAL_CANDIDATE_TIMEOUT_MS, 8000, "cada candidata debe tener un limite de red acotado");
+assert.equal(normalizeCandidateTimeout("invalido", 3456), 3456, "un timeout invalido debe recuperar un valor seguro");
 assert.deepEqual(
   selectProvisionalCandidateBatch(["a", "b", "c", "d"], { offset: 1, limit: 2 }),
   { candidates: ["b", "c"], offset: 1, total: 4, nextOffset: 3 },
@@ -57,5 +62,20 @@ assert.equal(
   "revisar_padre",
   "un valor literal null no debe aprobar una jerarquia"
 );
+
+let receivedAbortSignal = false;
+await assert.rejects(
+  fetchProvisionalCandidateDetail("Candidata lenta", {
+    timeoutMs: 10,
+    fetchDetail: async (_, { signal }) => {
+      receivedAbortSignal = Boolean(signal);
+      return new Promise((resolve, reject) => {
+        signal.addEventListener("abort", () => reject(signal.reason), { once: true });
+      });
+    }
+  }),
+  /excedio 10ms/
+);
+assert.equal(receivedAbortSignal, true, "la auditoria debe propagar cancelacion a la consulta activa");
 
 console.log("provisional-conflict-candidates.test.js ok");

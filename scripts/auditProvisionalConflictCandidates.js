@@ -9,6 +9,38 @@ const projectRoot = path.resolve(path.dirname(__filename), "..");
 const countriesPath = path.join(projectRoot, "data", "countries_full.json");
 const reportPath = path.join(projectRoot, "reports", "provisional-conflict-candidates.json");
 export const DEFAULT_PROVISIONAL_CANDIDATE_LIMIT = 10;
+export const DEFAULT_PROVISIONAL_CANDIDATE_TIMEOUT_MS = 8_000;
+
+export function normalizeCandidateTimeout(timeoutMs, fallback = DEFAULT_PROVISIONAL_CANDIDATE_TIMEOUT_MS) {
+  const parsed = Number(timeoutMs);
+  return Number.isFinite(parsed) && parsed > 0
+    ? Math.floor(parsed)
+    : fallback;
+}
+
+export async function fetchProvisionalCandidateDetail(conflictName, {
+  fetchDetail = fetchWikipediaConflictDetail,
+  timeoutMs = DEFAULT_PROVISIONAL_CANDIDATE_TIMEOUT_MS
+} = {}) {
+  const safeTimeoutMs = normalizeCandidateTimeout(timeoutMs);
+  const controller = new AbortController();
+  const timeout = setTimeout(() => {
+    controller.abort(new Error(`La consulta de candidata excedio ${safeTimeoutMs}ms`));
+  }, safeTimeoutMs);
+
+  try {
+    return await fetchDetail(conflictName, { signal: controller.signal });
+  } catch (error) {
+    if (controller.signal.aborted) {
+      throw controller.signal.reason instanceof Error
+        ? controller.signal.reason
+        : new Error(`La consulta de candidata excedio ${safeTimeoutMs}ms`);
+    }
+    throw error;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
 
 export function selectProvisionalCandidateBatch(requested = [], { offset = 0, limit = DEFAULT_PROVISIONAL_CANDIDATE_LIMIT } = {}) {
   const total = requested.length;
@@ -157,6 +189,7 @@ async function main() {
   const rawLimit = Number(readArg("limit", String(DEFAULT_PROVISIONAL_CANDIDATE_LIMIT)));
   const rawOffset = Number(readArg("offset", "0"));
   const delayMs = Math.max(0, Number(readArg("delay", "120")) || 0);
+  const candidateTimeoutMs = normalizeCandidateTimeout(readArg("timeout", String(DEFAULT_PROVISIONAL_CANDIDATE_TIMEOUT_MS)));
   const auditAll = process.argv.includes("--all") || rawLimit === 0;
   const limit = auditAll
     ? Infinity
@@ -173,7 +206,7 @@ async function main() {
     let detail = null;
     let error = "";
     try {
-      detail = await fetchWikipediaConflictDetail(candidate.name);
+      detail = await fetchProvisionalCandidateDetail(candidate.name, { timeoutMs: candidateTimeoutMs });
     } catch (reason) {
       error = reason instanceof Error ? reason.message : String(reason);
     }
@@ -187,9 +220,7 @@ async function main() {
     const absoluteIndex = batch.offset + index + 1;
     console.log(`[${absoluteIndex}/${requested.length}] ${candidate.name}: ${resolved.status}`);
 
-    if ((index + 1) % 10 === 0 || index + 1 === candidates.length) {
-      await fs.outputJson(reportPath, buildReport(records, candidates.length, requested.length, batch), { spaces: 2 });
-    }
+    await fs.outputJson(reportPath, buildReport(records, candidates.length, requested.length, batch), { spaces: 2 });
     if (delayMs && index + 1 < candidates.length) {
       await new Promise(resolve => setTimeout(resolve, delayMs));
     }

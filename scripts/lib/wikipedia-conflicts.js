@@ -163,6 +163,7 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Combate de Devil's Creek (1885)": "Battle_of_Devil's_Creek",
   "Combate de Sierra Diablo (1854)": "Battle_of_the_Diablo_Mountains",
   "Combate del rio Dolores (1904)": "Battle_of_Dolores_River",
+  "Accion naval del paso de Doro (1827)": "Battle_of_Doro_Passage",
   "Segunda batalla de Fort McAllister": "Second_Battle_of_Fort_McAllister",
   "Batalla de Fredericksburg": "Battle_of_Fredericksburg",
   "Batalla del puerto de Galveston de 1862": "Battle_of_Galveston_Harbor_(1862)",
@@ -483,16 +484,32 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function fetchWikipediaJson(url, attempt = 1) {
+function normalizeWikipediaRequestTimeout(timeoutMs) {
+  const parsed = Number(timeoutMs);
+  return Number.isFinite(parsed) && parsed > 0
+    ? Math.floor(parsed)
+    : WIKIPEDIA_REQUEST_TIMEOUT_MS;
+}
+
+async function fetchWikipediaJson(url, attempt = 1, { signal, timeoutMs } = {}) {
+  const requestTimeoutMs = normalizeWikipediaRequestTimeout(timeoutMs);
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), WIKIPEDIA_REQUEST_TIMEOUT_MS);
+  const timeout = setTimeout(() => controller.abort(), requestTimeoutMs);
+  const requestSignal = signal
+    ? AbortSignal.any([controller.signal, signal])
+    : controller.signal;
   let response;
 
   try {
-    response = await fetch(url, { headers: WIKIPEDIA_HEADERS, signal: controller.signal });
+    response = await fetch(url, { headers: WIKIPEDIA_HEADERS, signal: requestSignal });
   } catch (error) {
-    if (error?.name === "AbortError") {
-      throw new Error(`Wikipedia request excedio ${WIKIPEDIA_REQUEST_TIMEOUT_MS}ms`);
+    if (signal?.aborted) {
+      throw signal.reason instanceof Error
+        ? signal.reason
+        : new Error("Wikipedia request cancelado");
+    }
+    if (controller.signal.aborted || error?.name === "AbortError") {
+      throw new Error(`Wikipedia request excedio ${requestTimeoutMs}ms`);
     }
     throw error;
   } finally {
@@ -505,7 +522,7 @@ async function fetchWikipediaJson(url, attempt = 1) {
       ? retryAfterSeconds * 1000
       : 1_500 * attempt;
     await sleep(delayMs);
-    return fetchWikipediaJson(url, attempt + 1);
+    return fetchWikipediaJson(url, attempt + 1, { signal, timeoutMs: requestTimeoutMs });
   }
   if (!response.ok) {
     throw new Error(`Wikipedia request fallo con ${response.status}`);
@@ -1070,7 +1087,7 @@ export function sanitizeWikipediaConflictDetail(detail = {}) {
   };
 }
 
-async function resolveWikipediaConflictTitleFromApi(conflictName, apiUrl) {
+async function resolveWikipediaConflictTitleFromApi(conflictName, apiUrl, options = {}) {
   const url = new URL(apiUrl);
   url.searchParams.set("action", "query");
   url.searchParams.set("list", "search");
@@ -1079,13 +1096,13 @@ async function resolveWikipediaConflictTitleFromApi(conflictName, apiUrl) {
   url.searchParams.set("format", "json");
   url.searchParams.set("origin", "*");
 
-  const json = await fetchWikipediaJson(url);
+  const json = await fetchWikipediaJson(url, 1, options);
   const results = json?.query?.search || [];
   const best = results.find(entry => hasReasonableTitleMatch(conflictName, entry.title));
   return best?.title || null;
 }
 
-export async function resolveWikipediaConflictTitle(conflictName) {
+export async function resolveWikipediaConflictTitle(conflictName, options = {}) {
   const direct = CONFLICT_WIKIPEDIA_TITLE_OVERRIDES[conflictName];
   if (direct) {
     const language = /^(?:Battle|First_Battle|Second_Battle|Siege|Raid|Capture|SS)_/.test(direct)
@@ -1099,19 +1116,19 @@ export async function resolveWikipediaConflictTitle(conflictName) {
     };
   }
 
-  const spanishTitle = await resolveWikipediaConflictTitleFromApi(conflictName, WIKIPEDIA_API_ES);
+  const spanishTitle = await resolveWikipediaConflictTitleFromApi(conflictName, WIKIPEDIA_API_ES, options);
   if (spanishTitle) {
     return { pageTitle: spanishTitle, apiUrl: WIKIPEDIA_API_ES, language: "es" };
   }
-  const englishTitle = await resolveWikipediaConflictTitleFromApi(conflictName, WIKIPEDIA_API_EN);
+  const englishTitle = await resolveWikipediaConflictTitleFromApi(conflictName, WIKIPEDIA_API_EN, options);
   if (englishTitle) {
     return { pageTitle: englishTitle, apiUrl: WIKIPEDIA_API_EN, language: "en" };
   }
   return null;
 }
 
-export async function fetchWikipediaConflictDetail(conflictName) {
-  const resolved = await resolveWikipediaConflictTitle(conflictName);
+export async function fetchWikipediaConflictDetail(conflictName, options = {}) {
+  const resolved = await resolveWikipediaConflictTitle(conflictName, options);
   if (!resolved?.pageTitle) {
     return null;
   }
@@ -1123,7 +1140,7 @@ export async function fetchWikipediaConflictDetail(conflictName) {
   url.searchParams.set("format", "json");
   url.searchParams.set("origin", "*");
 
-  const json = await fetchWikipediaJson(url);
+  const json = await fetchWikipediaJson(url, 1, options);
   const html = json?.parse?.text?.["*"] || "";
   const tableHtml = extractFirstInfoboxTable(html);
   if (!tableHtml) {
