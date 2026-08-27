@@ -330,6 +330,11 @@ import {
   DIABLO_MOUNTAINS_CONFLICT_RENAMES
 } from "../lib/conflict-curation-diablo-mountains.js";
 import {
+  DOLORES_RIVER_CONFLICT_DETAIL_FIXES,
+  DOLORES_RIVER_COUNTRY_CONFLICT_ADDITIONS,
+  DOLORES_RIVER_CONFLICT_RENAMES
+} from "../lib/conflict-curation-dolores-river.js";
+import {
   CABO_BOJADOR_COUNTRY_CONFLICT_EXCLUSIONS,
   CABO_BOJADOR_CURATORIAL_NOTES
 } from "../lib/conflict-curation-cabo-bojador.js";
@@ -1065,6 +1070,29 @@ assert.equal(diabloMountainsDetail.hierarchyConfidence, "media");
 assert.equal(diabloMountainsDetail.hierarchySources.length, 3);
 assert.match(diabloMountainsDetail.outcome, /no consolida una victoria tactica/i);
 assert.match(diabloMountainsDetail.curationNote, /no asigna la accion a la Guerra jicarilla/i);
+assert.equal(
+  DOLORES_RIVER_CONFLICT_RENAMES["Batalla de Dolores River"],
+  "Combate del rio Dolores (1904)"
+);
+assert.deepEqual(
+  DOLORES_RIVER_COUNTRY_CONFLICT_ADDITIONS.Filipinas,
+  ["Combate del rio Dolores (1904)"]
+);
+const doloresRiverDetail = DOLORES_RIVER_CONFLICT_DETAIL_FIXES["Combate del rio Dolores (1904)"];
+assert.equal(doloresRiverDetail.parent, "Insurgencia pulahan en Samar (1904-1911)");
+assert.equal(doloresRiverDetail.campaign, "Operaciones de la Constabularia Filipina en Samar oriental de 1904");
+assert.equal(doloresRiverDetail.startYear, 1904);
+assert.equal(doloresRiverDetail.endYear, 1904);
+assert.equal(doloresRiverDetail.conflictType, "insurgencia");
+assert.match(doloresRiverDetail.region, /Samar oriental/);
+assert.equal(doloresRiverDetail.participants[0].members[0], "Filipinas");
+assert.equal(doloresRiverDetail.participants[0].members[2], "Estados Unidos");
+assert.equal(doloresRiverDetail.participants[1].members[0], "Pulahanes");
+assert.equal(doloresRiverDetail.sourceDispute, true);
+assert.equal(doloresRiverDetail.hierarchyConfidence, "alta");
+assert.equal(doloresRiverDetail.hierarchySources.length, 3);
+assert.match(doloresRiverDetail.datePrecision, /diciembre de 1904/i);
+assert.match(doloresRiverDetail.curationNote, /no en America continental/i);
 assert.equal(JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Acción naval de Happo (1592)"].type, "acción naval");
 assert.equal(
   JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Ataque al fondeadero de Jeokjinpo (1592)"].type,
@@ -2995,6 +3023,9 @@ assert.equal(devilsCreekWikipediaOverride.pageTitle, "Battle_of_Devil's_Creek");
 const diabloMountainsWikipediaOverride = await resolveWikipediaConflictTitle("Combate de Sierra Diablo (1854)");
 assert.equal(diabloMountainsWikipediaOverride.language, "en");
 assert.equal(diabloMountainsWikipediaOverride.pageTitle, "Battle_of_the_Diablo_Mountains");
+const doloresRiverWikipediaOverride = await resolveWikipediaConflictTitle("Combate del rio Dolores (1904)");
+assert.equal(doloresRiverWikipediaOverride.language, "en");
+assert.equal(doloresRiverWikipediaOverride.pageTitle, "Battle_of_Dolores_River");
 const czortkowWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Czortk\u00f3w (1919)");
 assert.equal(czortkowWikipediaOverride.language, "es");
 assert.equal(czortkowWikipediaOverride.pageTitle, "Chortkiv_offensive");

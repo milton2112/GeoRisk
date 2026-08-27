@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-27T14:19:06.806Z",
-  "changedFullCountries": 1,
+  "generatedAt": "2026-08-27T14:25:51.114Z",
+  "changedFullCountries": 2,
   "fullPassChanges": [
-    1,
+    2,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
@@ -12,7 +12,7 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1010,
+  "generatedHierarchyCandidates": 1011,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -372,6 +372,9 @@
     ],
     "ucrania": [
       "Batalla de Czortków (1919)"
+    ],
+    "filipinas": [
+      "Combate del rio Dolores (1904)"
     ]
   },
   "countryConflictExclusions": {
@@ -942,7 +945,12 @@
     "Batalla de las montanas Diablo": "Combate de Sierra Diablo (1854)",
     "Batalla de Sierra Diablo": "Combate de Sierra Diablo (1854)",
     "Battle of the Diablo Mountains": "Combate de Sierra Diablo (1854)",
-    "Battle of Diablo Mountains": "Combate de Sierra Diablo (1854)"
+    "Battle of Diablo Mountains": "Combate de Sierra Diablo (1854)",
+    "Batalla de Dolores River": "Combate del rio Dolores (1904)",
+    "Batalla del rio Dolores": "Combate del rio Dolores (1904)",
+    "Batalla de Dolores": "Combate del rio Dolores (1904)",
+    "Battle of Dolores River": "Combate del rio Dolores (1904)",
+    "Battle of the Dolores River": "Combate del rio Dolores (1904)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1920,6 +1928,7 @@
     "Batalla de Czortków (1919)",
     "Combate de Deglebat-Leglia (1977)",
     "Combate de Devil's Creek (1885)",
-    "Combate de Sierra Diablo (1854)"
+    "Combate de Sierra Diablo (1854)",
+    "Combate del rio Dolores (1904)"
   ]
 }

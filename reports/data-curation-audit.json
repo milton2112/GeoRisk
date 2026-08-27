@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-27T14:19:12.748Z",
+  "generatedAt": "2026-08-27T14:25:57.238Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11224095,
-    "duplicatedCountryFilesBytes": 1529394,
-    "countryConflictShardBytes": 423210,
+    "fullBytes": 11238045,
+    "duplicatedCountryFilesBytes": 1529710,
+    "countryConflictShardBytes": 423290,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24032,
-        "inlineBytes": 3164507,
+        "inlineBytes": 3170091,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 213423,
-          "conflictShardBytes": 213424,
+          "conflictsBytes": 213503,
+          "conflictShardBytes": 213504,
           "averageConflictBytes": 232
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 184,
+    "pendingCount": 183,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15156,19 +15156,6 @@
       },
       {
         "name": "Ataque aéreo de Ogu",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Dolores River",
         "countries": [
           "USA"
         ],
@@ -17158,6 +17145,19 @@
       },
       {
         "name": "Masacre de Big Bottom",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Masacre de Cherry Valley",
         "countries": [
           "USA"
         ],

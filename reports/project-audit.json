@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-08-27T14:21:02.182Z",
+  "generatedAt": "2026-08-27T14:27:36.694Z",
   "status": "operativo",
   "startup": {
     "critical": "817 KB",
     "criticalBytes": 836374,
-    "deferred": "2.58 MB",
+    "deferred": "2.59 MB",
     "estimatedRuntimeMemory": {
-      "countriesFullBytes": 11224095,
-      "countriesFullHuman": "10.70 MB",
-      "estimatedParsedBytes": 33672285,
-      "estimatedParsedHuman": "32.11 MB",
+      "countriesFullBytes": 11238045,
+      "countriesFullHuman": "10.72 MB",
+      "estimatedParsedBytes": 33714135,
+      "estimatedParsedHuman": "32.15 MB",
       "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
     },
     "largestAssets": [
       {
         "path": "data/conflict_details.generated.json",
         "exists": true,
-        "bytes": 2069595,
-        "human": "1.97 MB",
+        "bytes": 2073845,
+        "human": "1.98 MB",
         "startupCritical": false
       },
       {
@@ -103,7 +103,7 @@
     "scanned": 1999,
     "issueCount": 0,
     "summary": {
-      "provisional_parent": 117
+      "provisional_parent": 116
     },
     "eraFocus": []
   },
@@ -112,13 +112,13 @@
       {
         "path": "data/timeline_index.json",
         "exists": true,
-        "bytes": 390008,
+        "bytes": 390278,
         "human": "381 KB"
       },
       {
         "path": "data/conflicts_index.json",
         "exists": true,
-        "bytes": 344162,
+        "bytes": 344372,
         "human": "336 KB"
       },
       {
@@ -130,7 +130,7 @@
       {
         "path": "data/conflicts/details_index.json",
         "exists": true,
-        "bytes": 156369,
+        "bytes": 156526,
         "human": "153 KB"
       },
       {
@@ -142,15 +142,15 @@
       {
         "path": "data/country_weights.json",
         "exists": true,
-        "bytes": 118246,
+        "bytes": 118247,
         "human": "115 KB"
       }
     ],
     "countryWeights": {
       "totalCountries": 183,
-      "fullBytes": 11224095,
-      "duplicatedCountryFilesBytes": 1529394,
-      "countryConflictShardBytes": 423210,
+      "fullBytes": 11238045,
+      "duplicatedCountryFilesBytes": 1529710,
+      "countryConflictShardBytes": 423290,
       "tooLargeCount": 0,
       "largest": [
         {
@@ -208,7 +208,7 @@
           "code": "USA",
           "name": "Estados Unidos",
           "bytes": 24032,
-          "inlineBytes": 3164507,
+          "inlineBytes": 3170091,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -250,8 +250,8 @@
                 "bytes": 978
               }
             ],
-            "conflictsBytes": 213423,
-            "conflictShardBytes": 213424,
+            "conflictsBytes": 213503,
+            "conflictShardBytes": 213504,
             "averageConflictBytes": 232
           }
         },
@@ -790,7 +790,7 @@
     },
     "curationGaps": {},
     "conflictDataConsistency": {
-      "checked": 3979,
+      "checked": 3981,
       "closedMarkedActiveCount": 0,
       "inactiveMarkedActiveCount": 0,
       "nullNarrativeTextCount": 0,
@@ -817,8 +817,8 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 154446,
-      "human": "151 KB"
+      "bytes": 155856,
+      "human": "152 KB"
     },
     {
       "path": "style.css",

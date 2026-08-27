@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.129 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.130 antes de cerrar la siguiente version.
+
+## v1.6.130 - 2026-08-27
+
+- Normaliza la entrada provisional "Batalla de Dolores River" como Combate del rio Dolores (1904), con aliases en espanol e ingles, ficha diferida y resolucion complementaria.
+- Corrige su geografia: la accion ocurrio en Samar oriental, Filipinas, no en America continental. Mantiene el vinculo con Estados Unidos por la administracion colonial de la Constabularia Filipina y agrega correctamente la ficha de Filipinas.
+- La situa en la Insurgencia pulahan en Samar (1904-1911), como combate insurgente regional. Conserva la destruccion de la compania de Stephen K. Hayt cerca de Dolores, pero no fija un dia de diciembre, cifras de fuerzas, bajas pulahanes, sobrevivientes ni armas capturadas porque las fuentes secundarias discrepan.
+- Incorpora trazabilidad de Texas A&M University, Philippine EJournals y el Gobierno de Filipinas. Evita reducir el movimiento pulahan a bandidaje o prolongar sin matices la Guerra filipino-estadounidense formal mas alla de 1902.
+- Anade regresiones para alias, fecha parcial, jerarquia, participantes filipinos y estadounidenses, vinculo por pais, fuentes, cautela editorial y resolucion complementaria.
+- Reduce las jerarquias provisionales de 117 a 116, mantiene cero alertas estructurales y actualiza los indices a 1.814 conflictos, 3.050 eventos y 1.060 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-27-release-3`.
 
 ## v1.6.129 - 2026-08-27
 
