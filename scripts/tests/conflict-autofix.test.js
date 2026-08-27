@@ -326,6 +326,10 @@ import {
   DEVILS_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-devils-creek.js";
 import {
+  DIABLO_MOUNTAINS_CONFLICT_DETAIL_FIXES,
+  DIABLO_MOUNTAINS_CONFLICT_RENAMES
+} from "../lib/conflict-curation-diablo-mountains.js";
+import {
   CABO_BOJADOR_COUNTRY_CONFLICT_EXCLUSIONS,
   CABO_BOJADOR_CURATORIAL_NOTES
 } from "../lib/conflict-curation-cabo-bojador.js";
@@ -1043,6 +1047,24 @@ assert.equal(devilsCreekDetail.hierarchyConfidence, "alta");
 assert.equal(devilsCreekDetail.hierarchySources.length, 3);
 assert.match(devilsCreekDetail.outcome, /no permite consolidar bajas chiricahuas/i);
 assert.match(devilsCreekDetail.curationNote, /no permiten fijar a Geronimo/i);
+assert.equal(
+  DIABLO_MOUNTAINS_CONFLICT_RENAMES["Batalla de Diablo Mountains"],
+  "Combate de Sierra Diablo (1854)"
+);
+const diabloMountainsDetail = DIABLO_MOUNTAINS_CONFLICT_DETAIL_FIXES["Combate de Sierra Diablo (1854)"];
+assert.equal(diabloMountainsDetail.parent, "Guerras apaches");
+assert.equal(diabloMountainsDetail.campaign, "Operaciones fronterizas estadounidenses en el oeste de Texas de 1854");
+assert.equal(diabloMountainsDetail.startYear, 1854);
+assert.equal(diabloMountainsDetail.endYear, 1854);
+assert.equal(diabloMountainsDetail.conflictType, "colonial");
+assert.match(diabloMountainsDetail.region, /Sierra Diablo/);
+assert.equal(diabloMountainsDetail.participants[0].members[0], "Estados Unidos");
+assert.equal(diabloMountainsDetail.participants[1].members[0], "Apache");
+assert.equal(diabloMountainsDetail.sourceDispute, true);
+assert.equal(diabloMountainsDetail.hierarchyConfidence, "media");
+assert.equal(diabloMountainsDetail.hierarchySources.length, 3);
+assert.match(diabloMountainsDetail.outcome, /no consolida una victoria tactica/i);
+assert.match(diabloMountainsDetail.curationNote, /no asigna la accion a la Guerra jicarilla/i);
 assert.equal(JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Acción naval de Happo (1592)"].type, "acción naval");
 assert.equal(
   JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Ataque al fondeadero de Jeokjinpo (1592)"].type,
@@ -2970,6 +2992,9 @@ assert.equal(cookesCanyonWikipediaOverride.pageTitle, "Battle_of_Cookes_Canyon")
 const devilsCreekWikipediaOverride = await resolveWikipediaConflictTitle("Combate de Devil's Creek (1885)");
 assert.equal(devilsCreekWikipediaOverride.language, "en");
 assert.equal(devilsCreekWikipediaOverride.pageTitle, "Battle_of_Devil's_Creek");
+const diabloMountainsWikipediaOverride = await resolveWikipediaConflictTitle("Combate de Sierra Diablo (1854)");
+assert.equal(diabloMountainsWikipediaOverride.language, "en");
+assert.equal(diabloMountainsWikipediaOverride.pageTitle, "Battle_of_the_Diablo_Mountains");
 const czortkowWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Czortk\u00f3w (1919)");
 assert.equal(czortkowWikipediaOverride.language, "es");
 assert.equal(czortkowWikipediaOverride.pageTitle, "Chortkiv_offensive");

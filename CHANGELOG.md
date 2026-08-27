@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.128 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.129 antes de cerrar la siguiente version.
+
+## v1.6.129 - 2026-08-27
+
+- Normaliza la entrada provisional "Batalla de Diablo Mountains" como Combate de Sierra Diablo (1854), con aliases en espanol e ingles, fecha estable, ficha diferida y resolucion complementaria.
+- La situa bajo el paraguas verificable de las Guerras apaches, dentro de una categoria operativa descriptiva para las operaciones fronterizas estadounidenses de 1854 en el oeste de Texas.
+- Distingue una patrulla estadounidense de Fusileros Montados de los combatientes apache. Conserva que Eugene A. Carr resulto herido en la fuente biografica detallada, pero no inventa una victoria, cifras de fuerzas, bajas generales, una banda lipan concreta ni una adscripcion a la Guerra jicarilla.
+- Incorpora trazabilidad de National Archives/SNAC, Portal a la Historia de Texas y Texas Almanac. Mantiene Sierra Diablo y Limpia Creek como referencias en tension y evita fusionar la accion de 1854 con los enfrentamientos posteriores de 1880-1881.
+- Anade regresiones para alias, fecha, jerarquia, tipo colonial, participantes, fuentes, cautela editorial y resolucion complementaria.
+- Reduce las jerarquias provisionales de 118 a 117, mantiene cero alertas estructurales y actualiza los indices a 1.813 conflictos, 3.048 eventos y 1.059 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-27-release-2`.
 
 ## v1.6.128 - 2026-08-27
 

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-27T14:10:33.197Z",
+  "generatedAt": "2026-08-27T14:19:06.806Z",
   "changedFullCountries": 1,
   "fullPassChanges": [
     1,
@@ -12,7 +12,7 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1009,
+  "generatedHierarchyCandidates": 1010,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -937,7 +937,12 @@
     "Batalla de Devils Creek": "Combate de Devil's Creek (1885)",
     "Combate de Devil's Creek": "Combate de Devil's Creek (1885)",
     "Battle of Devil's Creek": "Combate de Devil's Creek (1885)",
-    "Devil's Creek Battle": "Combate de Devil's Creek (1885)"
+    "Devil's Creek Battle": "Combate de Devil's Creek (1885)",
+    "Batalla de Diablo Mountains": "Combate de Sierra Diablo (1854)",
+    "Batalla de las montanas Diablo": "Combate de Sierra Diablo (1854)",
+    "Batalla de Sierra Diablo": "Combate de Sierra Diablo (1854)",
+    "Battle of the Diablo Mountains": "Combate de Sierra Diablo (1854)",
+    "Battle of Diablo Mountains": "Combate de Sierra Diablo (1854)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1914,6 +1919,7 @@
     "Combate de Cooke's Canyon (1861)",
     "Batalla de Czortków (1919)",
     "Combate de Deglebat-Leglia (1977)",
-    "Combate de Devil's Creek (1885)"
+    "Combate de Devil's Creek (1885)",
+    "Combate de Sierra Diablo (1854)"
   ]
 }
