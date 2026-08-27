@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.131 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.132 antes de cerrar la siguiente version.
+
+## v1.6.132 - 2026-08-27
+
+- Normaliza la entrada provisional "Batalla de Drohiczyn" como Combate de Drohiczyn (1192), con aliases en espanol e ingles, ficha diferida y resolucion complementaria.
+- La ubica en Drohiczyn, Podlaquia, Polonia actual, dentro de la expedicion de Casimiro II contra Drohiczyn y los yotvingios. La clasifica como combate fronterizo local, en lugar de conservar el conflicto regional europeo generico.
+- Evita fusionarla con la batalla de 1238 contra la Orden de Dobrzyn y con los combates de 1831 y 1920 del mismo toponimo. Mantiene la incertidumbre entre 1192 y las sintesis que registran 1194, sin inventar dia, bajas, efectivos, una jefatura rusina definitiva ni una nacionalidad moderna para participantes medievales no polacos.
+- Incorpora trazabilidad del Archivo Municipal de Bransk, una enciclopedia polaca y un estudio sobre los yotvingios; anade regresiones para aliases, fecha, jerarquia, participantes, cautela editorial y resolucion complementaria.
+- Reduce las jerarquias provisionales de 115 a 114, mantiene cero alertas estructurales y actualiza los indices a 1.816 conflictos, 3.054 eventos y 1.062 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-27-release-5`.
 
 ## v1.6.131 - 2026-08-27
 

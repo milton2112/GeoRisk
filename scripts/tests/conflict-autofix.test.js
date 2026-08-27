@@ -340,6 +340,10 @@ import {
   DORO_PASSAGE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-doro-passage.js";
 import {
+  DROHICZYN_CONFLICT_DETAIL_FIXES,
+  DROHICZYN_CONFLICT_RENAMES
+} from "../lib/conflict-curation-drohiczyn.js";
+import {
   CABO_BOJADOR_COUNTRY_CONFLICT_EXCLUSIONS,
   CABO_BOJADOR_CURATORIAL_NOTES
 } from "../lib/conflict-curation-cabo-bojador.js";
@@ -1125,6 +1129,24 @@ assert.equal(doroPassageDetail.hierarchyConfidence, "alta");
 assert.equal(doroPassageDetail.hierarchySources.length, 3);
 assert.match(doroPassageDetail.datePrecision, /15 al 16 de octubre de 1827/i);
 assert.match(doroPassageDetail.curationNote, /erronea en America/i);
+assert.equal(
+  DROHICZYN_CONFLICT_RENAMES["Batalla de Drohiczyn"],
+  "Combate de Drohiczyn (1192)"
+);
+const drohiczynDetail = DROHICZYN_CONFLICT_DETAIL_FIXES["Combate de Drohiczyn (1192)"];
+assert.equal(drohiczynDetail.parent, "Expedicion de Casimiro II contra Drohiczyn y los yotvingios (1192)");
+assert.equal(drohiczynDetail.campaign, "Operaciones por el control de Drohiczyn en Podlaquia (1192)");
+assert.equal(drohiczynDetail.startYear, 1192);
+assert.equal(drohiczynDetail.endYear, 1192);
+assert.equal(drohiczynDetail.conflictType, "frontera");
+assert.match(drohiczynDetail.region, /Podlaquia/);
+assert.equal(drohiczynDetail.participants[0].members[0], "Polonia");
+assert.equal(drohiczynDetail.participants[1].members[0], "Yotvingios");
+assert.equal(drohiczynDetail.sourceDispute, true);
+assert.equal(drohiczynDetail.hierarchyConfidence, "alta");
+assert.equal(drohiczynDetail.hierarchySources.length, 3);
+assert.match(drohiczynDetail.datePrecision, /1194/i);
+assert.match(drohiczynDetail.curationNote, /1238/i);
 assert.equal(JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Acción naval de Happo (1592)"].type, "acción naval");
 assert.equal(
   JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Ataque al fondeadero de Jeokjinpo (1592)"].type,
@@ -3061,6 +3083,9 @@ assert.equal(doloresRiverWikipediaOverride.pageTitle, "Battle_of_Dolores_River")
 const doroPassageWikipediaOverride = await resolveWikipediaConflictTitle("Accion naval del paso de Doro (1827)");
 assert.equal(doroPassageWikipediaOverride.language, "en");
 assert.equal(doroPassageWikipediaOverride.pageTitle, "Battle_of_Doro_Passage");
+const drohiczynWikipediaOverride = await resolveWikipediaConflictTitle("Combate de Drohiczyn (1192)");
+assert.equal(drohiczynWikipediaOverride.language, "en");
+assert.equal(drohiczynWikipediaOverride.pageTitle, "Battle_of_Drohiczyn");
 const czortkowWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Czortk\u00f3w (1919)");
 assert.equal(czortkowWikipediaOverride.language, "es");
 assert.equal(czortkowWikipediaOverride.pageTitle, "Chortkiv_offensive");

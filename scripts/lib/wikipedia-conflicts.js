@@ -164,6 +164,7 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Combate de Sierra Diablo (1854)": "Battle_of_the_Diablo_Mountains",
   "Combate del rio Dolores (1904)": "Battle_of_Dolores_River",
   "Accion naval del paso de Doro (1827)": "Battle_of_Doro_Passage",
+  "Combate de Drohiczyn (1192)": "Battle_of_Drohiczyn",
   "Segunda batalla de Fort McAllister": "Second_Battle_of_Fort_McAllister",
   "Batalla de Fredericksburg": "Battle_of_Fredericksburg",
   "Batalla del puerto de Galveston de 1862": "Battle_of_Galveston_Harbor_(1862)",

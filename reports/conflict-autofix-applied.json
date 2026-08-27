@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-27T14:36:46.679Z",
-  "changedFullCountries": 3,
+  "generatedAt": "2026-08-27T14:55:46.306Z",
+  "changedFullCountries": 1,
   "fullPassChanges": [
-    3,
+    1,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
@@ -12,7 +12,7 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1012,
+  "generatedHierarchyCandidates": 1013,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -959,7 +959,13 @@
     "Batalla del paso de Doro": "Accion naval del paso de Doro (1827)",
     "Accion del paso de Doro": "Accion naval del paso de Doro (1827)",
     "Battle of Doro Passage": "Accion naval del paso de Doro (1827)",
-    "Battle of the Doro Passage": "Accion naval del paso de Doro (1827)"
+    "Battle of the Doro Passage": "Accion naval del paso de Doro (1827)",
+    "Batalla de Drohiczyn": "Combate de Drohiczyn (1192)",
+    "Batalla de Drohiczyn (1192)": "Combate de Drohiczyn (1192)",
+    "Batalla de Drohiczyn (1194)": "Combate de Drohiczyn (1192)",
+    "Batalla de Dorohychyn": "Combate de Drohiczyn (1192)",
+    "Battle of Drohiczyn": "Combate de Drohiczyn (1192)",
+    "Battle of Drohiczyn (1192)": "Combate de Drohiczyn (1192)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1939,6 +1945,7 @@
     "Combate de Devil's Creek (1885)",
     "Combate de Sierra Diablo (1854)",
     "Combate del rio Dolores (1904)",
-    "Accion naval del paso de Doro (1827)"
+    "Accion naval del paso de Doro (1827)",
+    "Combate de Drohiczyn (1192)"
   ]
 }
