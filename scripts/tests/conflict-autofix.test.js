@@ -344,6 +344,11 @@ import {
   DROHICZYN_CONFLICT_RENAMES
 } from "../lib/conflict-curation-drohiczyn.js";
 import {
+  JASK_CONFLICT_DETAIL_FIXES,
+  JASK_COUNTRY_CONFLICT_ADDITIONS,
+  JASK_CONFLICT_RENAMES
+} from "../lib/conflict-curation-jask.js";
+import {
   CABO_BOJADOR_COUNTRY_CONFLICT_EXCLUSIONS,
   CABO_BOJADOR_CURATORIAL_NOTES
 } from "../lib/conflict-curation-cabo-bojador.js";
@@ -1147,6 +1152,23 @@ assert.equal(drohiczynDetail.hierarchyConfidence, "alta");
 assert.equal(drohiczynDetail.hierarchySources.length, 3);
 assert.match(drohiczynDetail.datePrecision, /1194/i);
 assert.match(drohiczynDetail.curationNote, /1238/i);
+assert.equal(JASK_CONFLICT_RENAMES["Batalla de Dschask"], "Combate naval de Jask (1620)");
+const jaskDetail = JASK_CONFLICT_DETAIL_FIXES["Combate naval de Jask (1620)"];
+assert.equal(jaskDetail.parent, "Rivalidad anglo-portuguesa por el comercio del golfo Persico (1616-1622)");
+assert.equal(jaskDetail.campaign, "Operaciones navales frente a Jask y acceso ingles a Persia (1620)");
+assert.equal(jaskDetail.startYear, 1620);
+assert.equal(jaskDetail.endYear, 1620);
+assert.equal(jaskDetail.conflictType, "colonial");
+assert.match(jaskDetail.region, /Jask/);
+assert.equal(jaskDetail.participants[0].members[0], "Reino de Inglaterra");
+assert.equal(jaskDetail.participants[1].members[0], "Portugal");
+assert.equal(jaskDetail.sourceDispute, true);
+assert.equal(jaskDetail.hierarchyConfidence, "alta");
+assert.equal(jaskDetail.hierarchySources.length, 3);
+assert.match(jaskDetail.datePrecision, /diciembre/i);
+assert.match(jaskDetail.curationNote, /Iran/);
+assert.deepEqual(JASK_COUNTRY_CONFLICT_ADDITIONS.Iran, ["Combate naval de Jask (1620)"]);
+assert.deepEqual(JASK_COUNTRY_CONFLICT_ADDITIONS["Reino Unido"], ["Combate naval de Jask (1620)"]);
 assert.equal(JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Acción naval de Happo (1592)"].type, "acción naval");
 assert.equal(
   JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Ataque al fondeadero de Jeokjinpo (1592)"].type,
@@ -3086,6 +3108,9 @@ assert.equal(doroPassageWikipediaOverride.pageTitle, "Battle_of_Doro_Passage");
 const drohiczynWikipediaOverride = await resolveWikipediaConflictTitle("Combate de Drohiczyn (1192)");
 assert.equal(drohiczynWikipediaOverride.language, "en");
 assert.equal(drohiczynWikipediaOverride.pageTitle, "Battle_of_Drohiczyn");
+const jaskWikipediaOverride = await resolveWikipediaConflictTitle("Combate naval de Jask (1620)");
+assert.equal(jaskWikipediaOverride.language, "en");
+assert.equal(jaskWikipediaOverride.pageTitle, "Battle_off_Jask");
 const czortkowWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Czortk\u00f3w (1919)");
 assert.equal(czortkowWikipediaOverride.language, "es");
 assert.equal(czortkowWikipediaOverride.pageTitle, "Chortkiv_offensive");

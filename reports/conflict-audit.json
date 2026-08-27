@@ -1,28 +1,14 @@
 {
-  "generatedAt": "2026-08-27T14:58:10.551Z",
+  "generatedAt": "2026-08-27T15:09:39.419Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 114,
-  "reviewCount": 114,
+  "advisoryCount": 113,
+  "reviewCount": 113,
   "summary": {
-    "provisional_parent": 114
+    "provisional_parent": 113
   },
   "topIssues": [],
   "topAdvisories": [
-    {
-      "key": "batalla de dschask",
-      "name": "Batalla de Dschask",
-      "countries": [
-        "PRT"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
     {
       "key": "batalla de fayetteville",
       "name": "Batalla de Fayetteville",
@@ -1118,6 +1104,20 @@
     {
       "key": "batalla de texel",
       "name": "Batalla de Texel",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de tizi ouzou",
+      "name": "Batalla de Tizi Ouzou",
       "countries": [
         "FRA"
       ],

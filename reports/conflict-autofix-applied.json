@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-27T14:55:46.306Z",
-  "changedFullCountries": 1,
+  "generatedAt": "2026-08-27T15:07:15.586Z",
+  "changedFullCountries": 3,
   "fullPassChanges": [
-    1,
+    3,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
@@ -12,7 +12,7 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1013,
+  "generatedHierarchyCandidates": 1014,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -141,7 +141,8 @@
       "Batalla de las islas Hyères (1795)",
       "Combate naval frente a Barbados (1778)",
       "Batalla naval de Chef-de-Caux (1417)",
-      "Accion naval del paso de Doro (1827)"
+      "Accion naval del paso de Doro (1827)",
+      "Combate naval de Jask (1620)"
     ],
     "irlanda": [
       "Batalla naval de la bahía de Bantry (1689)",
@@ -379,6 +380,9 @@
     ],
     "grecia": [
       "Accion naval del paso de Doro (1827)"
+    ],
+    "iran": [
+      "Combate naval de Jask (1620)"
     ]
   },
   "countryConflictExclusions": {
@@ -965,7 +969,14 @@
     "Batalla de Drohiczyn (1194)": "Combate de Drohiczyn (1192)",
     "Batalla de Dorohychyn": "Combate de Drohiczyn (1192)",
     "Battle of Drohiczyn": "Combate de Drohiczyn (1192)",
-    "Battle of Drohiczyn (1192)": "Combate de Drohiczyn (1192)"
+    "Battle of Drohiczyn (1192)": "Combate de Drohiczyn (1192)",
+    "Batalla de Dschask": "Combate naval de Jask (1620)",
+    "Batalla de Jask": "Combate naval de Jask (1620)",
+    "Combate de Jask": "Combate naval de Jask (1620)",
+    "Seegefecht bei Dschask": "Combate naval de Jask (1620)",
+    "Battle of Dschask": "Combate naval de Jask (1620)",
+    "Battle of Jask": "Combate naval de Jask (1620)",
+    "Battle off Jask": "Combate naval de Jask (1620)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1946,6 +1957,7 @@
     "Combate de Sierra Diablo (1854)",
     "Combate del rio Dolores (1904)",
     "Accion naval del paso de Doro (1827)",
-    "Combate de Drohiczyn (1192)"
+    "Combate de Drohiczyn (1192)",
+    "Combate naval de Jask (1620)"
   ]
 }

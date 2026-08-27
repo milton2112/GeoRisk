@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-27T14:55:52.925Z",
+  "generatedAt": "2026-08-27T15:07:21.581Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11271127,
-    "duplicatedCountryFilesBytes": 1530263,
-    "countryConflictShardBytes": 423878,
+    "fullBytes": 11296405,
+    "duplicatedCountryFilesBytes": 1530835,
+    "countryConflictShardBytes": 424247,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 24714,
-        "inlineBytes": 1080837,
+        "bytes": 24772,
+        "inlineBytes": 1090169,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,12 +21,12 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 312,
+          "conflicts": 313,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 11290,
+            "military": 11348,
             "politics": 9502,
             "metadata": 1952,
             "general": 1018,
@@ -39,7 +39,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 11290
+              "bytes": 11348
             },
             {
               "section": "politics",
@@ -54,8 +54,8 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 70737,
-          "conflictShardBytes": 70738,
+          "conflictsBytes": 71106,
+          "conflictShardBytes": 71107,
           "averageConflictBytes": 227
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 181,
+    "pendingCount": 180,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15161,19 +15161,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Dschask",
-        "countries": [
-          "PRT"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
@@ -17158,6 +17145,19 @@
       },
       {
         "name": "Masacre de Grattan",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Masacre del Fuerte Mims",
         "countries": [
           "USA"
         ],

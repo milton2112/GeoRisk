@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.132 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.133 antes de cerrar la siguiente version.
+
+## v1.6.133 - 2026-08-27
+
+- Normaliza la entrada provisional "Batalla de Dschask" como Combate naval de Jask (1620), con aliases en espanol, aleman e ingles, ficha diferida y resolucion complementaria.
+- Corrige la geografia: la accion ocurrio frente a Jask, en la costa de Makran y el golfo de Oman, en el actual Iran, no en Europa. Conserva el vinculo con Portugal por la escuadra del Estado da India y agrega Reino Unido e Iran como enlaces contemporaneos de navegacion.
+- La situa en la rivalidad anglo-portuguesa por el comercio del golfo Persico, sin presentar a Iran como beligerante naval moderno. Distingue el combate de diciembre de 1620 de la posterior toma anglo-persa de Hormuz de 1622 y evita fijar un dia, efectivos, bajas generales o una transferencia territorial que las fuentes no consolidan.
+- Incorpora trazabilidad de Encyclopaedia Iranica, la historia documentada de la factoria inglesa de Surat y la Encyclopaedia of Portuguese Expansion; anade regresiones para aliases, fecha, jerarquia, participantes, paises vinculados, cautela editorial y resolucion complementaria.
+- Reduce las jerarquias provisionales de 114 a 113, mantiene cero alertas estructurales y actualiza los indices a 1.817 conflictos, 3.057 eventos y 1.063 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-27-release-6`.
 
 ## v1.6.132 - 2026-08-27
 
