@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-27T15:07:21.581Z",
+  "generatedAt": "2026-08-28T10:27:53.545Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11296405,
-    "duplicatedCountryFilesBytes": 1530835,
-    "countryConflictShardBytes": 424247,
+    "fullBytes": 11309053,
+    "duplicatedCountryFilesBytes": 1531026,
+    "countryConflictShardBytes": 424690,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -470,8 +470,8 @@
       {
         "code": "DNK",
         "name": "Dinamarca",
-        "bytes": 17424,
-        "inlineBytes": 165480,
+        "bytes": 17520,
+        "inlineBytes": 173168,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -480,12 +480,12 @@
           "religionGroups": 4,
           "organizations": 37,
           "rivals": 47,
-          "conflicts": 47,
+          "conflicts": 48,
           "timelineEvents": 0
         },
         "metrics": {
           "sectionBytes": {
-            "military": 8066,
+            "military": 8162,
             "politics": 6232,
             "metadata": 1913,
             "general": 677,
@@ -498,7 +498,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 8066
+              "bytes": 8162
             },
             {
               "section": "politics",
@@ -513,9 +513,9 @@
               "bytes": 677
             }
           ],
-          "conflictsBytes": 9917,
-          "conflictShardBytes": 9918,
-          "averageConflictBytes": 211
+          "conflictsBytes": 10254,
+          "conflictShardBytes": 10255,
+          "averageConflictBytes": 214
         }
       },
       {
@@ -570,41 +570,41 @@
         }
       },
       {
-        "code": "NOR",
-        "name": "Noruega",
-        "bytes": 15253,
-        "inlineBytes": 92697,
+        "code": "SWE",
+        "name": "Suecia",
+        "bytes": 15292,
+        "inlineBytes": 519609,
         "tooLarge": false,
         "counts": {
-          "cities": 3,
+          "cities": 5,
           "capitals": 1,
           "languages": 1,
           "religionGroups": 4,
-          "organizations": 49,
-          "rivals": 49,
-          "conflicts": 23,
+          "organizations": 50,
+          "rivals": 7,
+          "conflicts": 153,
           "timelineEvents": 0
         },
         "metrics": {
           "sectionBytes": {
-            "politics": 7233,
-            "military": 4941,
+            "military": 7596,
+            "politics": 4479,
             "metadata": 1914,
-            "general": 641,
-            "religion": 231,
+            "general": 777,
+            "religion": 229,
             "economy": 101,
-            "history": 71,
-            "name": 9,
+            "history": 76,
+            "name": 8,
             "continent": 8
           },
           "largestSections": [
             {
-              "section": "politics",
-              "bytes": 7233
+              "section": "military",
+              "bytes": 7596
             },
             {
-              "section": "military",
-              "bytes": 4941
+              "section": "politics",
+              "bytes": 4479
             },
             {
               "section": "metadata",
@@ -612,12 +612,12 @@
             },
             {
               "section": "general",
-              "bytes": 641
+              "bytes": 777
             }
           ],
-          "conflictsBytes": 4856,
-          "conflictShardBytes": 0,
-          "averageConflictBytes": 211
+          "conflictsBytes": 32412,
+          "conflictShardBytes": 32413,
+          "averageConflictBytes": 212
         }
       }
     ]
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 180,
+    "pendingCount": 179,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15210,19 +15210,6 @@
         "name": "Batalla de Fundy Bay",
         "countries": [
           "FRA"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Gotska Sandön",
-        "countries": [
-          "SWE"
         ],
         "regions": [
           "Europa"
@@ -17163,6 +17150,19 @@
         ],
         "regions": [
           "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Operación Batalla por la Restauración de la Dignidad",
+        "countries": [
+          "SYR"
+        ],
+        "regions": [
+          "Asia"
         ],
         "types": [
           "interestatal"

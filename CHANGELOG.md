@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.133 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.134 antes de cerrar la siguiente version.
+
+## v1.6.134 - 2026-08-28
+
+- Normaliza la entrada provisional "Batalla de Gotska Sandön" como Batalla naval de Gotska Sandön (1563), con alias en español, inglés y sueco, ficha diferida e índices renovados.
+- La sitúa frente a Gotska Sandön, en el Báltico central, dentro de la Guerra Nórdica de los Siete Años y de sus operaciones navales de 1563. Vincula Suecia y Dinamarca para la navegación contemporánea, mientras conserva Reino de Suecia y Dinamarca-Noruega como participantes históricos.
+- Registra un resultado táctico no decisivo, la participación documentada de Jacob Bagge y la fecha de septiembre de 1563, sin convertir en cifras cerradas los buques, efectivos o bajas que las fuentes revisadas no reconcilian.
+- Incorpora trazabilidad de Brill, DiVA y Sjöhistoriska samfundet, junto con regresiones de alias, fecha, jerarquía, participantes, fuentes, prudencia editorial y país vinculado.
+- Reduce las jerarquías provisionales de 113 a 112, mantiene cero alertas estructurales y actualiza los índices a 1.818 conflictos, 3.059 eventos y 1.064 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-28-release-1`.
 
 ## v1.6.133 - 2026-08-27
 

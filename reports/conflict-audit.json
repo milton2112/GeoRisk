@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-27T15:09:39.419Z",
+  "generatedAt": "2026-08-28T10:30:42.354Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 113,
-  "reviewCount": 113,
+  "advisoryCount": 112,
+  "reviewCount": 112,
   "summary": {
-    "provisional_parent": 113
+    "provisional_parent": 112
   },
   "topIssues": [],
   "topAdvisories": [
@@ -42,20 +42,6 @@
       "name": "Batalla de Fundy Bay",
       "countries": [
         "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de gotska sandon",
-      "name": "Batalla de Gotska Sandön",
-      "countries": [
-        "SWE"
       ],
       "startYear": null,
       "endYear": null,
@@ -1124,6 +1110,20 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de toldos viejos",
+      "name": "Batalla de Toldos Viejos",
+      "countries": [
+        "ARG"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],

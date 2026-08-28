@@ -360,6 +360,11 @@ import {
   JASK_CONFLICT_RENAMES
 } from "./lib/conflict-curation-jask.js";
 import {
+  GOTSKA_SANDON_CONFLICT_DETAIL_FIXES,
+  GOTSKA_SANDON_COUNTRY_CONFLICT_ADDITIONS,
+  GOTSKA_SANDON_CONFLICT_RENAMES
+} from "./lib/conflict-curation-gotska-sandon.js";
+import {
   CABO_BOJADOR_COUNTRY_CONFLICT_EXCLUSIONS
 } from "./lib/conflict-curation-cabo-bojador.js";
 import {
@@ -468,7 +473,8 @@ const curatedConflictDetailFixes = {
   ...DOLORES_RIVER_CONFLICT_DETAIL_FIXES,
   ...DORO_PASSAGE_CONFLICT_DETAIL_FIXES,
   ...DROHICZYN_CONFLICT_DETAIL_FIXES,
-  ...JASK_CONFLICT_DETAIL_FIXES
+  ...JASK_CONFLICT_DETAIL_FIXES,
+  ...GOTSKA_SANDON_CONFLICT_DETAIL_FIXES
 };
 const safeConflictRenames = {
   ...SAFE_CONFLICT_RENAMES,
@@ -552,7 +558,8 @@ const safeConflictRenames = {
   ...DOLORES_RIVER_CONFLICT_RENAMES,
   ...DORO_PASSAGE_CONFLICT_RENAMES,
   ...DROHICZYN_CONFLICT_RENAMES,
-  ...JASK_CONFLICT_RENAMES
+  ...JASK_CONFLICT_RENAMES,
+  ...GOTSKA_SANDON_CONFLICT_RENAMES
 };
 const countryConflictAdditionBatches = [
   TRANSITION_1846_1902_COUNTRY_CONFLICT_ADDITIONS,
@@ -599,7 +606,8 @@ const countryConflictAdditionBatches = [
   DEGLEBAT_LEGLIA_COUNTRY_CONFLICT_ADDITIONS,
   DOLORES_RIVER_COUNTRY_CONFLICT_ADDITIONS,
   DORO_PASSAGE_COUNTRY_CONFLICT_ADDITIONS,
-  JASK_COUNTRY_CONFLICT_ADDITIONS
+  JASK_COUNTRY_CONFLICT_ADDITIONS,
+  GOTSKA_SANDON_COUNTRY_CONFLICT_ADDITIONS
 ];
 const countryConflictAdditions = mergeCountryConflictBatches(countryConflictAdditionBatches);
 const countryConflictExclusionBatches = [

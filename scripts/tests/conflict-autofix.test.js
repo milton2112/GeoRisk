@@ -349,6 +349,11 @@ import {
   JASK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-jask.js";
 import {
+  GOTSKA_SANDON_CONFLICT_DETAIL_FIXES,
+  GOTSKA_SANDON_COUNTRY_CONFLICT_ADDITIONS,
+  GOTSKA_SANDON_CONFLICT_RENAMES
+} from "../lib/conflict-curation-gotska-sandon.js";
+import {
   CABO_BOJADOR_COUNTRY_CONFLICT_EXCLUSIONS,
   CABO_BOJADOR_CURATORIAL_NOTES
 } from "../lib/conflict-curation-cabo-bojador.js";
@@ -1169,6 +1174,28 @@ assert.match(jaskDetail.datePrecision, /diciembre/i);
 assert.match(jaskDetail.curationNote, /Iran/);
 assert.deepEqual(JASK_COUNTRY_CONFLICT_ADDITIONS.Iran, ["Combate naval de Jask (1620)"]);
 assert.deepEqual(JASK_COUNTRY_CONFLICT_ADDITIONS["Reino Unido"], ["Combate naval de Jask (1620)"]);
+assert.equal(
+  GOTSKA_SANDON_CONFLICT_RENAMES["Batalla de Gotska Sand\u00f6n"],
+  "Batalla naval de Gotska Sand\u00f6n (1563)"
+);
+const gotskaSandonDetail = GOTSKA_SANDON_CONFLICT_DETAIL_FIXES["Batalla naval de Gotska Sand\u00f6n (1563)"];
+assert.equal(gotskaSandonDetail.parent, "Guerra N\u00f3rdica de los Siete A\u00f1os (1563-1570)");
+assert.equal(gotskaSandonDetail.campaign, "Operaciones navales del B\u00e1ltico central de 1563");
+assert.equal(gotskaSandonDetail.startYear, 1563);
+assert.equal(gotskaSandonDetail.endYear, 1563);
+assert.equal(gotskaSandonDetail.conflictType, "interestatal");
+assert.match(gotskaSandonDetail.region, /Gotska Sand\u00f6n/);
+assert.equal(gotskaSandonDetail.participants[0].members[0], "Reino de Suecia");
+assert.equal(gotskaSandonDetail.participants[1].members[0], "Dinamarca-Noruega");
+assert.equal(gotskaSandonDetail.sourceDispute, true);
+assert.equal(gotskaSandonDetail.hierarchyConfidence, "alta");
+assert.equal(gotskaSandonDetail.hierarchySources.length, 3);
+assert.match(gotskaSandonDetail.datePrecision, /septiembre de 1563/i);
+assert.match(gotskaSandonDetail.curationNote, /L\u00fcbeck/i);
+assert.deepEqual(
+  GOTSKA_SANDON_COUNTRY_CONFLICT_ADDITIONS.Dinamarca,
+  ["Batalla naval de Gotska Sand\u00f6n (1563)"]
+);
 assert.equal(JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Acción naval de Happo (1592)"].type, "acción naval");
 assert.equal(
   JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Ataque al fondeadero de Jeokjinpo (1592)"].type,

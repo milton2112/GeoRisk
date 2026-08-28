@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-27T15:07:15.586Z",
-  "changedFullCountries": 3,
+  "generatedAt": "2026-08-28T10:27:47.509Z",
+  "changedFullCountries": 2,
   "fullPassChanges": [
-    3,
+    2,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
@@ -12,7 +12,7 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1014,
+  "generatedHierarchyCandidates": 1016,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -279,7 +279,8 @@
       "Batalla de Assandun (1016)",
       "Batalla de Helgeå (1026)",
       "Batalla de Kringen (1612)",
-      "Rebelión de Bornholm (1658)"
+      "Rebelión de Bornholm (1658)",
+      "Batalla naval de Gotska Sandön (1563)"
     ],
     "noruega": [
       "Batalla de Colberger Heide (1644)",
@@ -976,7 +977,13 @@
     "Seegefecht bei Dschask": "Combate naval de Jask (1620)",
     "Battle of Dschask": "Combate naval de Jask (1620)",
     "Battle of Jask": "Combate naval de Jask (1620)",
-    "Battle off Jask": "Combate naval de Jask (1620)"
+    "Battle off Jask": "Combate naval de Jask (1620)",
+    "Batalla de Gotska Sandön": "Batalla naval de Gotska Sandön (1563)",
+    "Batalla de Gotska Sandon": "Batalla naval de Gotska Sandön (1563)",
+    "Batalla de Gotska Sandön (1563)": "Batalla naval de Gotska Sandön (1563)",
+    "Batalla naval de Gotska Sandön": "Batalla naval de Gotska Sandön (1563)",
+    "Battle of Gotska Sandön": "Batalla naval de Gotska Sandön (1563)",
+    "Slaget vid Gotska Sandön": "Batalla naval de Gotska Sandön (1563)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -1958,6 +1965,7 @@
     "Combate del rio Dolores (1904)",
     "Accion naval del paso de Doro (1827)",
     "Combate de Drohiczyn (1192)",
-    "Combate naval de Jask (1620)"
+    "Combate naval de Jask (1620)",
+    "Batalla naval de Gotska Sandön (1563)"
   ]
 }
