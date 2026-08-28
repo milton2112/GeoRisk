@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-28T13:13:48.541Z",
+  "generatedAt": "2026-08-28T13:24:51.950Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 102,
-  "reviewCount": 102,
+  "advisoryCount": 101,
+  "reviewCount": 101,
   "summary": {
-    "provisional_parent": 102
+    "provisional_parent": 101
   },
   "topIssues": [],
   "topAdvisories": [
@@ -96,20 +96,6 @@
     {
       "key": "batalla de ile ronde",
       "name": "Batalla de Île Ronde",
-      "countries": [
-        "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de iles saint marcouf",
-      "name": "Batalla de Îles Saint-Marcouf",
       "countries": [
         "FRA"
       ],
@@ -1124,6 +1110,20 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de z moul niran",
+      "name": "Batalla de Z'Moul NIran",
+      "countries": [
+        "MAR"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de África",
       "issues": [
         "provisional_parent"
       ],

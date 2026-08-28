@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-28T13:11:42.048Z",
-  "changedFullCountries": 3,
+  "generatedAt": "2026-08-28T13:22:28.810Z",
+  "changedFullCountries": 2,
   "fullPassChanges": [
-    3,
+    2,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
@@ -12,7 +12,7 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1025,
+  "generatedHierarchyCandidates": 1026,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -58,7 +58,8 @@
       "Batalla de Wandiwash (1760)",
       "Batalla de los Túneles Gemelos (1951)",
       "Batalla por el Castillo Itter (1945)",
-      "Batalla de Beitang (1900)"
+      "Batalla de Beitang (1900)",
+      "Batalla de las islas Saint-Marcouf (1798)"
     ],
     "alemania": [
       "Batalla de Schleswig (1848)",
@@ -147,6 +148,7 @@
       "Batalla naval de Santo Domingo (1806)",
       "Batalla naval de Santa Lucía (1778)",
       "Batalla naval de Lissa (1811)",
+      "Batalla de las islas Saint-Marcouf (1798)",
       "Accion naval del paso de Doro (1827)",
       "Combate naval de Jask (1620)",
       "Batalla naval de Pirano (1812)"
@@ -987,6 +989,13 @@
     "Batalla de Vizakna": "Batalla de Vízakna (1849)",
     "Battle of Vízakna": "Batalla de Vízakna (1849)",
     "Battle of Vizakna": "Batalla de Vízakna (1849)",
+    "Batalla de Îles Saint-Marcouf": "Batalla de las islas Saint-Marcouf (1798)",
+    "Batalla de Islas Saint-Marcouf": "Batalla de las islas Saint-Marcouf (1798)",
+    "Batalla de las islas Saint-Marcouf": "Batalla de las islas Saint-Marcouf (1798)",
+    "Batalla de Saint-Marcouf": "Batalla de las islas Saint-Marcouf (1798)",
+    "Battle of the Îles Saint-Marcouf": "Batalla de las islas Saint-Marcouf (1798)",
+    "Battle of the Isles Saint-Marcouf": "Batalla de las islas Saint-Marcouf (1798)",
+    "Bataille des îles Saint-Marcouf": "Batalla de las islas Saint-Marcouf (1798)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2049,6 +2058,7 @@
     "Operaciones de Jabrayil (2020)",
     "Batalla naval de Lissa (1811)",
     "Batalla de Vízakna (1849)",
+    "Batalla de las islas Saint-Marcouf (1798)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

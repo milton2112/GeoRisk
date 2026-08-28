@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-28T13:13:51.888Z",
+  "generatedAt": "2026-08-28T13:24:55.417Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 170
+      "count": 169
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 102
+      "count": 101
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 558
+      "count": 559
     },
     "redundantReligions": {
       "count": 0
@@ -129,11 +129,6 @@
       {
         "code": "FRA",
         "name": "Batalla de Île Ronde",
-        "region": "Europa"
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Îles Saint-Marcouf",
         "region": "Europa"
       },
       {
@@ -255,6 +250,11 @@
         "code": "FRA",
         "name": "Captura de Jeune Richard",
         "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Captura de Montserrat",
+        "region": "Europa"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -318,13 +318,6 @@
       {
         "code": "FRA",
         "name": "Batalla de Île Ronde",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Îles Saint-Marcouf",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -537,6 +530,13 @@
         "name": "Batalla de Matamoros",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
+        "startYear": null
+      },
+      {
+        "code": "MAR",
+        "name": "Batalla de Ramth-al-Lbane",
+        "parent": "Conflicto regional de África",
+        "campaign": "Campaña vinculada a Conflicto regional de África",
         "startYear": null
       }
     ],
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 102,
+      "count": 101,
       "command": "npm run fix:conflicts:batches"
     },
     {

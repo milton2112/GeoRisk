@@ -318,6 +318,11 @@ import {
   VIZAKNA_CONFLICT_RENAMES
 } from "../lib/conflict-curation-vizakna.js";
 import {
+  SAINT_MARCOUF_CONFLICT_DETAIL_FIXES,
+  SAINT_MARCOUF_COUNTRY_CONFLICT_ADDITIONS,
+  SAINT_MARCOUF_CONFLICT_RENAMES
+} from "../lib/conflict-curation-saint-marcouf.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -3174,6 +3179,46 @@ assert.ok(
 const vizaknaWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de V\u00edzakna (1849)");
 assert.equal(vizaknaWikipediaOverride.language, "en");
 assert.equal(vizaknaWikipediaOverride.pageTitle, "Battle_of_V\u00edzakna");
+assert.equal(Object.keys(SAINT_MARCOUF_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  SAINT_MARCOUF_CONFLICT_RENAMES["Battle of the \u00celes Saint-Marcouf"],
+  "Batalla de las islas Saint-Marcouf (1798)"
+);
+assert.equal(
+  SAINT_MARCOUF_CONFLICT_RENAMES["Batalla de \u00celes Saint-Marcouf"],
+  "Batalla de las islas Saint-Marcouf (1798)",
+  "la variante hibrida previa debe llegar a la ficha curada"
+);
+assert.deepEqual(
+  SAINT_MARCOUF_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    Francia: ["Batalla de las islas Saint-Marcouf (1798)"],
+    "Reino Unido": ["Batalla de las islas Saint-Marcouf (1798)"]
+  }
+);
+assert.ok(
+  Object.values(SAINT_MARCOUF_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 1798
+      && detail.startYear === detail.endYear
+      && detail.datePrecision === "7 de mayo de 1798"
+      && detail.parent === "Guerras revolucionarias francesas (1792-1802)"
+      && detail.campaign === "Operaciones navales anglo-francesas en el canal de la Mancha (1798)"
+      && detail.type === "asalto anfibio y combate naval"
+      && detail.conflictType === "interestatal"
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 3
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && /Victoria brit\u00e1nica/i.test(detail.outcome)
+      && /no fija un balance \u00fanico/i.test(detail.outcome)
+      && /no convierte los datos de un solo relato/i.test(detail.sourceDispute)
+  ),
+  "la curaduria de Saint-Marcouf debe conservar fecha, jerarquia, fuentes, participantes y cautela sobre bajas"
+);
+const saintMarcoufWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de las islas Saint-Marcouf (1798)");
+assert.equal(saintMarcoufWikipediaOverride.language, "en");
+assert.equal(saintMarcoufWikipediaOverride.pageTitle, "Battle_of_the_\u00celes_Saint-Marcouf");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

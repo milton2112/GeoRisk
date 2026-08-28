@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-28T13:11:48.024Z",
+  "generatedAt": "2026-08-28T13:22:36.068Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11510973,
-    "duplicatedCountryFilesBytes": 1534914,
-    "countryConflictShardBytes": 427247,
+    "fullBytes": 11526013,
+    "duplicatedCountryFilesBytes": 1535178,
+    "countryConflictShardBytes": 427811,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 24774,
-        "inlineBytes": 1122313,
+        "bytes": 25038,
+        "inlineBytes": 1131203,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,12 +21,12 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 317,
+          "conflicts": 318,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 11350,
+            "military": 11614,
             "politics": 9502,
             "metadata": 1952,
             "general": 1018,
@@ -39,7 +39,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 11350
+              "bytes": 11614
             },
             {
               "section": "politics",
@@ -54,9 +54,9 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 72388,
-          "conflictShardBytes": 72389,
-          "averageConflictBytes": 228
+          "conflictsBytes": 72788,
+          "conflictShardBytes": 72789,
+          "averageConflictBytes": 229
         }
       },
       {
@@ -216,7 +216,7 @@
         "code": "FRA",
         "name": "Francia",
         "bytes": 20021,
-        "inlineBytes": 805809,
+        "inlineBytes": 811959,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -258,9 +258,9 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 47176,
-          "conflictShardBytes": 47177,
-          "averageConflictBytes": 199
+          "conflictsBytes": 47340,
+          "conflictShardBytes": 47341,
+          "averageConflictBytes": 200
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 169,
+    "pendingCount": 168,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15260,19 +15260,6 @@
       },
       {
         "name": "Batalla de Île Ronde",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Îles Saint-Marcouf",
         "countries": [
           "FRA"
         ],
@@ -17158,6 +17145,19 @@
       },
       {
         "name": "Operación Speedy Express",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Operación Starlite",
         "countries": [
           "USA"
         ],

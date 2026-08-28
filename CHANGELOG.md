@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.144 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.145 antes de cerrar la siguiente version.
+
+## v1.6.145 - 2026-08-28
+
+- Normaliza la entrada provisional "Battle of the \u00celes Saint-Marcouf" como **Batalla de las islas Saint-Marcouf (1798)**, con aliases en espa\u00f1ol, ingl\u00e9s y franc\u00e9s, ficha diferida, b\u00fasqueda, \u00edndices y timeline regenerados.
+- La sit\u00faa el 7 de mayo de 1798 dentro de las Guerras revolucionarias francesas y de las operaciones navales anglo-francesas del canal de la Mancha, reemplazando la jerarqu\u00eda europea gen\u00e9rica.
+- Registra la defensa brit\u00e1nica de la guarnici\u00f3n de Charles Price frente a una flotilla francesa de desembarco, sin fijar un orden de batalla, n\u00famero de embarcaciones o total de bajas cuando los relatos impresos divergen.
+- Vincula Francia y Reino Unido por sus fuerzas hist\u00f3ricas, respeta la denominaci\u00f3n Reino de Gran Breta\u00f1a para 1798 y evita confundir esta acci\u00f3n con los enfrentamientos navales posteriores del mismo mes.
+- Incorpora trazabilidad de Royal Museums Greenwich, FranceArchives y la Historia naval de Gran Breta\u00f1a de William James, con una nota expl\u00edcita sobre los l\u00edmites de las cifras disponibles.
+- Reduce las jerarqu\u00edas provisionales de 102 a 101 y mantiene cero alertas estructurales, con 1.829 conflictos, 3.088 eventos y 1.075 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-28-release-12`.
 
 ## v1.6.144 - 2026-08-28
 

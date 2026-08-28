@@ -172,6 +172,7 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Batalla naval de Santa Luc\u00eda (1778)": "Battle_of_St._Lucia",
   "Batalla naval de Lissa (1811)": "Battle_of_Lissa_(1811)",
   "Batalla de V\u00edzakna (1849)": "Battle_of_V\u00edzakna",
+  "Batalla de las islas Saint-Marcouf (1798)": "Battle_of_the_\u00celes_Saint-Marcouf",
   "Combate naval frente a La Habana (1870)": "Battle_of_Havana_(1870)",
   "Segunda batalla de Fort McAllister": "Second_Battle_of_Fort_McAllister",
   "Batalla de Fredericksburg": "Battle_of_Fredericksburg",
