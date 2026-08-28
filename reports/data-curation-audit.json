@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-08-28T12:58:19.294Z",
+  "generatedAt": "2026-08-28T13:11:48.024Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11485571,
-    "duplicatedCountryFilesBytes": 1534230,
+    "fullBytes": 11510973,
+    "duplicatedCountryFilesBytes": 1534914,
     "countryConflictShardBytes": 427247,
     "tooLargeCount": 0,
     "largest": [
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 170,
+    "pendingCount": 169,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -16169,19 +16169,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Vízakna",
-        "countries": [
-          "HUN"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Waddams Grove",
         "countries": [
           "USA"
@@ -17158,6 +17145,19 @@
       },
       {
         "name": "Operación Plymouth Rock",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Operación Speedy Express",
         "countries": [
           "USA"
         ],

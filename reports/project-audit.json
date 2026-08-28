@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-08-28T12:59:55.256Z",
+  "generatedAt": "2026-08-28T13:13:51.099Z",
   "status": "operativo",
   "startup": {
     "critical": "817 KB",
     "criticalBytes": 836384,
-    "deferred": "2.64 MB",
+    "deferred": "2.65 MB",
     "estimatedRuntimeMemory": {
-      "countriesFullBytes": 11485571,
-      "countriesFullHuman": "10.95 MB",
-      "estimatedParsedBytes": 34456713,
-      "estimatedParsedHuman": "32.86 MB",
+      "countriesFullBytes": 11510973,
+      "countriesFullHuman": "10.98 MB",
+      "estimatedParsedBytes": 34532919,
+      "estimatedParsedHuman": "32.93 MB",
       "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
     },
     "largestAssets": [
       {
         "path": "data/conflict_details.generated.json",
         "exists": true,
-        "bytes": 2130599,
-        "human": "2.03 MB",
+        "bytes": 2135349,
+        "human": "2.04 MB",
         "startupCritical": false
       },
       {
@@ -103,7 +103,7 @@
     "scanned": 1999,
     "issueCount": 0,
     "summary": {
-      "provisional_parent": 103
+      "provisional_parent": 102
     },
     "eraFocus": []
   },
@@ -112,14 +112,14 @@
       {
         "path": "data/timeline_index.json",
         "exists": true,
-        "bytes": 394806,
+        "bytes": 395199,
         "human": "386 KB"
       },
       {
         "path": "data/conflicts_index.json",
         "exists": true,
-        "bytes": 347474,
-        "human": "339 KB"
+        "bytes": 347703,
+        "human": "340 KB"
       },
       {
         "path": "data/search_index.json",
@@ -130,7 +130,7 @@
       {
         "path": "data/conflicts/details_index.json",
         "exists": true,
-        "bytes": 158628,
+        "bytes": 158776,
         "human": "155 KB"
       },
       {
@@ -148,8 +148,8 @@
     ],
     "countryWeights": {
       "totalCountries": 183,
-      "fullBytes": 11485571,
-      "duplicatedCountryFilesBytes": 1534230,
+      "fullBytes": 11510973,
+      "duplicatedCountryFilesBytes": 1534914,
       "countryConflictShardBytes": 427247,
       "tooLargeCount": 0,
       "largest": [
@@ -790,7 +790,7 @@
     },
     "curationGaps": {},
     "conflictDataConsistency": {
-      "checked": 4014,
+      "checked": 4017,
       "closedMarkedActiveCount": 0,
       "inactiveMarkedActiveCount": 0,
       "nullNarrativeTextCount": 0,
@@ -817,8 +817,8 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 171324,
-      "human": "167 KB"
+      "bytes": 172741,
+      "human": "169 KB"
     },
     {
       "path": "style.css",

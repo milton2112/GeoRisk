@@ -313,6 +313,11 @@ import {
   LISSA_CONFLICT_RENAMES
 } from "../lib/conflict-curation-lissa.js";
 import {
+  VIZAKNA_CONFLICT_DETAIL_FIXES,
+  VIZAKNA_COUNTRY_CONFLICT_ADDITIONS,
+  VIZAKNA_CONFLICT_RENAMES
+} from "../lib/conflict-curation-vizakna.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -3130,6 +3135,45 @@ assert.ok(
 const lissaWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval de Lissa (1811)");
 assert.equal(lissaWikipediaOverride.language, "en");
 assert.equal(lissaWikipediaOverride.pageTitle, "Battle_of_Lissa_(1811)");
+assert.equal(Object.keys(VIZAKNA_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  VIZAKNA_CONFLICT_RENAMES["Batalla de V\u00edzakna"],
+  "Batalla de V\u00edzakna (1849)"
+);
+assert.equal(
+  VIZAKNA_CONFLICT_RENAMES["Battle of Vizakna"],
+  "Batalla de V\u00edzakna (1849)",
+  "la variante inglesa sin tilde debe llegar a la ficha curada"
+);
+assert.deepEqual(
+  VIZAKNA_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    Austria: ["Batalla de V\u00edzakna (1849)"],
+    Rumania: ["Batalla de V\u00edzakna (1849)"]
+  }
+);
+assert.ok(
+  Object.values(VIZAKNA_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 1849
+      && detail.startYear === detail.endYear
+      && detail.datePrecision === "4 de febrero de 1849"
+      && detail.parent === "Revoluci\u00f3n h\u00fangara de 1848-1849"
+      && detail.campaign === "Campa\u00f1a de Transilvania de 1848-1849"
+      && detail.type === "batalla terrestre"
+      && detail.conflictType === "independencia"
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 3
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && /Victoria imperial/i.test(detail.outcome)
+      && /no se registra como beligerante/i.test(detail.sourceDispute)
+  ),
+  "la curaduria de Vizakna debe conservar fecha, jerarquia, fuentes, participantes y cautela sobre Rusia y bajas"
+);
+const vizaknaWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de V\u00edzakna (1849)");
+assert.equal(vizaknaWikipediaOverride.language, "en");
+assert.equal(vizaknaWikipediaOverride.pageTitle, "Battle_of_V\u00edzakna");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-28T12:59:56.053Z",
+  "generatedAt": "2026-08-28T13:13:51.888Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 171
+      "count": 170
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 103
+      "count": 102
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 557
+      "count": 558
     },
     "redundantReligions": {
       "count": 0
@@ -498,13 +498,6 @@
         "startYear": null
       },
       {
-        "code": "HUN",
-        "name": "Batalla de Vízakna",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
         "code": "IDN",
         "name": "Batalla de Petaling",
         "parent": "Conflicto regional de Asia",
@@ -537,6 +530,13 @@
         "name": "Batalla de Hekihazu",
         "parent": "Conflicto regional de Asia",
         "campaign": "Campaña vinculada a Conflicto regional de Asia",
+        "startYear": null
+      },
+      {
+        "code": "MEX",
+        "name": "Batalla de Matamoros",
+        "parent": "Conflicto regional de América",
+        "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
       }
     ],
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 103,
+      "count": 102,
       "command": "npm run fix:conflicts:batches"
     },
     {

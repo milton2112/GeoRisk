@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-28T12:58:13.337Z",
-  "changedFullCountries": 4,
+  "generatedAt": "2026-08-28T13:11:42.048Z",
+  "changedFullCountries": 3,
   "fullPassChanges": [
-    4,
+    3,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
@@ -269,7 +269,8 @@
       "Batalla de Heligoland (1864)",
       "Batalla por el Castillo Itter (1945)",
       "Batalla del paso de Predeal (1916)",
-      "Batalla de Antivari (1914)"
+      "Batalla de Antivari (1914)",
+      "Batalla de Vízakna (1849)"
     ],
     "brasil": [
       "Asalto a los acorazados Cabral y Lima Barros (1868)",
@@ -349,7 +350,8 @@
     ],
     "rumania": [
       "Batalla de Debrecen (1944)",
-      "Batalla del paso de Predeal (1916)"
+      "Batalla del paso de Predeal (1916)",
+      "Batalla de Vízakna (1849)"
     ],
     "bolivia": [
       "Combate naval de Casma (1839)"
@@ -981,6 +983,10 @@
     "Battle of Vis": "Batalla naval de Lissa (1811)",
     "Bataille de Lissa": "Batalla naval de Lissa (1811)",
     "Bitka kod Visa": "Batalla naval de Lissa (1811)",
+    "Batalla de Vízakna": "Batalla de Vízakna (1849)",
+    "Batalla de Vizakna": "Batalla de Vízakna (1849)",
+    "Battle of Vízakna": "Batalla de Vízakna (1849)",
+    "Battle of Vizakna": "Batalla de Vízakna (1849)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2042,6 +2048,7 @@
     "Combate naval frente a La Habana (1870)",
     "Operaciones de Jabrayil (2020)",
     "Batalla naval de Lissa (1811)",
+    "Batalla de Vízakna (1849)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

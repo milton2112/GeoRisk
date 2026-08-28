@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-28T12:59:52.685Z",
+  "generatedAt": "2026-08-28T13:13:48.541Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 103,
-  "reviewCount": 103,
+  "advisoryCount": 102,
+  "reviewCount": 102,
   "summary": {
-    "provisional_parent": 103
+    "provisional_parent": 102
   },
   "topIssues": [],
   "topAdvisories": [
@@ -1060,20 +1060,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de vizakna",
-      "name": "Batalla de Vízakna",
-      "countries": [
-        "HUN"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de waddams grove",
       "name": "Batalla de Waddams Grove",
       "countries": [
@@ -1118,6 +1104,20 @@
     {
       "key": "batalla de wild cat creek",
       "name": "Batalla de Wild Cat Creek",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de yerba buena",
+      "name": "Batalla de Yerba Buena",
       "countries": [
         "USA"
       ],

@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.143 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.144 antes de cerrar la siguiente version.
+
+## v1.6.144 - 2026-08-28
+
+- Normaliza la entrada provisional "Battle of V\u00edzakna" como **Batalla de V\u00edzakna (1849)**, con aliases en espa\u00f1ol e ingl\u00e9s, ficha diferida, b\u00fasqueda, \u00edndices y timeline regenerados.
+- La sit\u00faa el 4 de febrero de 1849 dentro de la Revoluci\u00f3n h\u00fangara de 1848-1849 y de la Campa\u00f1a de Transilvania, con una jerarqu\u00eda verificable y sin la etiqueta regional gen\u00e9rica anterior.
+- Registra la victoria imperial de Anton Puchner sobre las fuerzas de J\u00f3zef Bem, las bajas atribuidas por fuentes institucionales y la p\u00e9rdida de artiller\u00eda, sin convertir las estimaciones en una cifra definitiva universal.
+- Vincula Hungr\u00eda y Austria por los ej\u00e9rcitos hist\u00f3ricos; Rumania se a\u00f1ade como ubicaci\u00f3n contempor\u00e1nea y referencia de milicias transilvanas, no como Estado beligerante. Rusia y Polonia no se infieren como combatientes.
+- Incorpora trazabilidad del Instituto de Investigaci\u00f3n H\u00fangara, del Instituto y Museo de Historia Militar de Hungr\u00eda y de la Biblioteca Electr\u00f3nica H\u00fangara, dejando visible la cautela sobre el apoyo ruso indirecto.
+- Reduce las jerarqu\u00edas provisionales de 103 a 102 y mantiene cero alertas estructurales, con 1.828 conflictos, 3.086 eventos y 1.074 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-28-release-11`.
 
 ## v1.6.143 - 2026-08-28
 
