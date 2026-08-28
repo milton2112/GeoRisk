@@ -308,6 +308,11 @@ import {
   JABRAYIL_CONFLICT_RENAMES
 } from "../lib/conflict-curation-jabrayil.js";
 import {
+  LISSA_CONFLICT_DETAIL_FIXES,
+  LISSA_COUNTRY_CONFLICT_ADDITIONS,
+  LISSA_CONFLICT_RENAMES
+} from "../lib/conflict-curation-lissa.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -3085,6 +3090,46 @@ assert.ok(
   ),
   "la curaduria de Jabrayil debe conservar fecha, jerarquia, fuentes, participantes y la controversia sobre el anuncio inicial"
 );
+assert.equal(Object.keys(LISSA_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  LISSA_CONFLICT_RENAMES["Batalla de Lissa"],
+  "Batalla naval de Lissa (1811)"
+);
+assert.equal(
+  LISSA_CONFLICT_RENAMES["Battle of Lissa (1811)"],
+  "Batalla naval de Lissa (1811)"
+);
+assert.deepEqual(
+  LISSA_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Reino Unido": ["Batalla naval de Lissa (1811)"],
+    Italia: ["Batalla naval de Lissa (1811)"],
+    Croacia: ["Batalla naval de Lissa (1811)"]
+  }
+);
+assert.ok(
+  Object.values(LISSA_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 1811
+      && detail.startYear === detail.endYear
+      && detail.datePrecision === "13 de marzo de 1811"
+      && detail.parent === "Guerras napole\u00f3nicas (1803-1815)"
+      && detail.campaign === "Campa\u00f1a del Adri\u00e1tico (1807-1814)"
+      && detail.type === "batalla naval"
+      && detail.conflictType === "interestatal"
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 3
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && /Victoria brit\u00e1nica/i.test(detail.outcome)
+      && /no fija un total/i.test(detail.outcome)
+      && /no publica un total cerrado/i.test(detail.sourceDispute)
+  ),
+  "la curaduria de Lissa debe conservar fecha, jerarquia, fuentes, participantes y cautela sobre bajas"
+);
+const lissaWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval de Lissa (1811)");
+assert.equal(lissaWikipediaOverride.language, "en");
+assert.equal(lissaWikipediaOverride.pageTitle, "Battle_of_Lissa_(1811)");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

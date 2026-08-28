@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-28T12:48:53.815Z",
+  "generatedAt": "2026-08-28T12:58:19.294Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11453067,
-    "duplicatedCountryFilesBytes": 1533624,
-    "countryConflictShardBytes": 426863,
+    "fullBytes": 11485571,
+    "duplicatedCountryFilesBytes": 1534230,
+    "countryConflictShardBytes": 427247,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
         "bytes": 24774,
-        "inlineBytes": 1113509,
+        "inlineBytes": 1122313,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,7 +21,7 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 316,
+          "conflicts": 317,
           "timelineEvents": 4
         },
         "metrics": {
@@ -54,8 +54,8 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 72085,
-          "conflictShardBytes": 72086,
+          "conflictsBytes": 72388,
+          "conflictShardBytes": 72389,
           "averageConflictBytes": 228
         }
       },
@@ -216,7 +216,7 @@
         "code": "FRA",
         "name": "Francia",
         "bytes": 20021,
-        "inlineBytes": 799717,
+        "inlineBytes": 805809,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -258,8 +258,8 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 47095,
-          "conflictShardBytes": 47096,
+          "conflictsBytes": 47176,
+          "conflictShardBytes": 47177,
           "averageConflictBytes": 199
         }
       },
@@ -570,54 +570,54 @@
         }
       },
       {
-        "code": "SWE",
-        "name": "Suecia",
-        "bytes": 15292,
-        "inlineBytes": 524693,
+        "code": "ITA",
+        "name": "Italia",
+        "bytes": 15428,
+        "inlineBytes": 73546,
         "tooLarge": false,
         "counts": {
-          "cities": 5,
+          "cities": 4,
           "capitals": 1,
-          "languages": 1,
-          "religionGroups": 4,
-          "organizations": 50,
-          "rivals": 7,
-          "conflicts": 153,
-          "timelineEvents": 0
+          "languages": 5,
+          "religionGroups": 5,
+          "organizations": 77,
+          "rivals": 45,
+          "conflicts": 13,
+          "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 7596,
-            "politics": 4479,
-            "metadata": 1914,
-            "general": 777,
-            "religion": 229,
-            "economy": 101,
-            "history": 76,
+            "politics": 8689,
+            "military": 3003,
+            "metadata": 1936,
+            "general": 828,
+            "history": 448,
+            "religion": 305,
+            "economy": 99,
             "name": 8,
             "continent": 8
           },
           "largestSections": [
             {
-              "section": "military",
-              "bytes": 7596
+              "section": "politics",
+              "bytes": 8689
             },
             {
-              "section": "politics",
-              "bytes": 4479
+              "section": "military",
+              "bytes": 3003
             },
             {
               "section": "metadata",
-              "bytes": 1914
+              "bytes": 1936
             },
             {
               "section": "general",
-              "bytes": 777
+              "bytes": 828
             }
           ],
-          "conflictsBytes": 32465,
-          "conflictShardBytes": 32466,
-          "averageConflictBytes": 212
+          "conflictsBytes": 2886,
+          "conflictShardBytes": 0,
+          "averageConflictBytes": 222
         }
       }
     ]
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 171,
+    "pendingCount": 170,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15460,19 +15460,6 @@
         ],
         "regions": [
           "Asia"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Lissa",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
@@ -17163,6 +17150,19 @@
         ],
         "regions": [
           "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Operación Plymouth Rock",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
         ],
         "types": [
           "interestatal"

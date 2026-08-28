@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.142 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.143 antes de cerrar la siguiente version.
+
+## v1.6.143 - 2026-08-28
+
+- Normaliza la entrada provisional "Batalla de Lissa" como **Batalla naval de Lissa (1811)**, con aliases en español, inglés, francés y croata, ficha diferida, índices, búsqueda y timeline regenerados.
+- La sitúa el 13 de marzo de 1811 frente a Lissa o Vis, en la Campaña del Adriático de las Guerras napoleónicas, y evita confundirla con la batalla de 1866.
+- Registra la victoria británica, la destrucción de Favorite y la captura de Bellona y Corona; preserva la incertidumbre sobre el orden de batalla completo y las bajas.
+- Vincula Francia, Reino Unido e Italia por sus fuerzas históricas; Croacia se añade exclusivamente como referencia geográfica contemporánea de Vis, no como beligerante.
+- Incorpora trazabilidad de Royal Museums Greenwich y de un estudio académico de Povijesni prilozi, con las etiquetas visibles de fuente ya localizadas al español.
+- Reduce las jerarquías provisionales de 104 a 103 y mantiene cero alertas estructurales, con 1.827 conflictos, 3.083 eventos y 1.073 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-28-release-10`.
 
 ## v1.6.142 - 2026-08-28
 
