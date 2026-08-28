@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-28T12:14:38.478Z",
+  "generatedAt": "2026-08-28T12:29:33.021Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11403463,
-    "duplicatedCountryFilesBytes": 1532510,
-    "countryConflictShardBytes": 426675,
+    "fullBytes": 11418823,
+    "duplicatedCountryFilesBytes": 1532833,
+    "countryConflictShardBytes": 426772,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -216,7 +216,7 @@
         "code": "FRA",
         "name": "Francia",
         "bytes": 20021,
-        "inlineBytes": 787187,
+        "inlineBytes": 793507,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -258,16 +258,16 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 46907,
-          "conflictShardBytes": 46908,
+          "conflictsBytes": 47004,
+          "conflictShardBytes": 47005,
           "averageConflictBytes": 198
         }
       },
       {
         "code": "DEU",
         "name": "Alemania",
-        "bytes": 18257,
-        "inlineBytes": 122995,
+        "bytes": 18580,
+        "inlineBytes": 132035,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -276,13 +276,13 @@
           "religionGroups": 5,
           "organizations": 79,
           "rivals": 21,
-          "conflicts": 25,
+          "conflicts": 26,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
             "politics": 8058,
-            "military": 6383,
+            "military": 6706,
             "metadata": 1952,
             "general": 992,
             "history": 349,
@@ -298,7 +298,7 @@
             },
             {
               "section": "military",
-              "bytes": 6383
+              "bytes": 6706
             },
             {
               "section": "metadata",
@@ -309,9 +309,9 @@
               "bytes": 992
             }
           ],
-          "conflictsBytes": 6266,
+          "conflictsBytes": 6589,
           "conflictShardBytes": 0,
-          "averageConflictBytes": 251
+          "averageConflictBytes": 253
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 174,
+    "pendingCount": 173,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15252,19 +15252,6 @@
         ],
         "regions": [
           "Asia"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Hiddensee",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
@@ -17158,6 +17145,19 @@
       },
       {
         "name": "Operación Crimp",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Operación Dewey Canyon",
         "countries": [
           "USA"
         ],

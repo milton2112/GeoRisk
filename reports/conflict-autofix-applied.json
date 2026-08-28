@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-28T12:14:32.104Z",
+  "generatedAt": "2026-08-28T12:29:26.782Z",
   "changedFullCountries": 2,
   "fullPassChanges": [
     2,
@@ -12,7 +12,7 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1020,
+  "generatedHierarchyCandidates": 1022,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -76,7 +76,8 @@
       "Batalla del paso de Predeal (1916)",
       "Batalla de Rabosée (1914)",
       "Batalla de Beitang (1900)",
-      "Primera batalla de Vailele (1888)"
+      "Primera batalla de Vailele (1888)",
+      "Combate naval frente a Hiddensee (1870)"
     ],
     "corea del sur": [
       "Acción naval de Happo (1592)",
@@ -941,6 +942,12 @@
     "Battle of Saint Lucia": "Batalla naval de Santa Lucía (1778)",
     "Barrington's Action at St Lucia": "Batalla naval de Santa Lucía (1778)",
     "Action at St Lucia": "Batalla naval de Santa Lucía (1778)",
+    "Batalla de Hiddensee": "Combate naval frente a Hiddensee (1870)",
+    "Combate de Hiddensee": "Combate naval frente a Hiddensee (1870)",
+    "Combate naval de Hiddensee": "Combate naval frente a Hiddensee (1870)",
+    "Combate naval frente a Hiddensee": "Combate naval frente a Hiddensee (1870)",
+    "Seegefecht vor Hiddensee": "Combate naval frente a Hiddensee (1870)",
+    "Sea battle off Hiddensee": "Combate naval frente a Hiddensee (1870)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -1998,6 +2005,7 @@
     "Combate de Kalyazin (1609)",
     "Batalla naval de Santo Domingo (1806)",
     "Batalla naval de Santa Lucía (1778)",
+    "Combate naval frente a Hiddensee (1870)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

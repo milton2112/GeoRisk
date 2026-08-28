@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-28T12:16:32.104Z",
+  "generatedAt": "2026-08-28T12:31:34.277Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 107,
-  "reviewCount": 107,
+  "advisoryCount": 106,
+  "reviewCount": 106,
   "summary": {
-    "provisional_parent": 107
+    "provisional_parent": 106
   },
   "topIssues": [],
   "topAdvisories": [
@@ -88,20 +88,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de hiddensee",
-      "name": "Batalla de Hiddensee",
-      "countries": [
-        "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],
@@ -1124,6 +1110,20 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de waddams grove",
+      "name": "Batalla de Waddams Grove",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],

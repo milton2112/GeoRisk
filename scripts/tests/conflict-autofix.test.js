@@ -293,6 +293,11 @@ import {
   SANTA_LUCIA_CONFLICT_RENAMES
 } from "../lib/conflict-curation-santa-lucia.js";
 import {
+  HIDDENSEE_CONFLICT_DETAIL_FIXES,
+  HIDDENSEE_COUNTRY_CONFLICT_ADDITIONS,
+  HIDDENSEE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-hiddensee.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -2961,6 +2966,43 @@ assert.ok(
 const santaLuciaWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval de Santa Luc\u00eda (1778)");
 assert.equal(santaLuciaWikipediaOverride.language, "en");
 assert.equal(santaLuciaWikipediaOverride.pageTitle, "Battle_of_St._Lucia");
+assert.equal(Object.keys(HIDDENSEE_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  HIDDENSEE_CONFLICT_RENAMES["Batalla de Hiddensee"],
+  "Combate naval frente a Hiddensee (1870)"
+);
+assert.equal(
+  HIDDENSEE_CONFLICT_RENAMES["Seegefecht vor Hiddensee"],
+  "Combate naval frente a Hiddensee (1870)"
+);
+assert.deepEqual(
+  HIDDENSEE_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    Alemania: ["Combate naval frente a Hiddensee (1870)"]
+  }
+);
+assert.ok(
+  Object.values(HIDDENSEE_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 1870
+      && detail.startYear === detail.endYear
+      && detail.datePrecision === "17 de agosto de 1870"
+      && detail.parent === "Guerra franco-prusiana (1870-1871)"
+      && detail.campaign === "Operaciones navales del B\u00e1ltico de 1870"
+      && detail.type === "combate naval"
+      && detail.conflictType === "interestatal"
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 3
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && detail.participants[0].members.includes("Ca\u00f1onera Blitz")
+      && !detail.participants.flatMap(side => side.members).includes("Bombardeos a\u00e9reos sobre el Reino Unido")
+      && /inconcluso/i.test(detail.outcome)
+      && /no registran impactos, bajas ni da\u00f1os/i.test(detail.outcome)
+      && /no coinciden por completo/i.test(detail.sourceDispute)
+  ),
+  "la curaduria de Hiddensee debe conservar fecha, jerarquia, fuentes, participantes y cautela sobre el orden de batalla"
+);
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

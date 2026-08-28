@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.139 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.140 antes de cerrar la siguiente version.
+
+## v1.6.140 - 2026-08-28
+
+- Normaliza la entrada provisional "Batalla de Hiddensee" como **Combate naval frente a Hiddensee (1870)**, con aliases en español, alemán e inglés, ficha diferida, índices y búsqueda regenerados.
+- La sitúa el 17 de agosto de 1870 frente a Hiddensee y Dornbusch, dentro de la Guerra franco-prusiana y de las operaciones navales del Báltico de 1870.
+- Registra un combate inconcluso entre la flotilla de la Confederación Alemana del Norte y la escuadra francesa del Báltico, sin impactos, bajas ni daños confirmados; no fuerza una lista cerrada de los buques franceses cuando los relatos divergen.
+- Vincula Francia y Alemania mediante los participantes históricos, conserva Hiddensee como ubicación y protege el nombre de la cañonera Blitz frente a normalizaciones ajenas.
+- Incorpora trazabilidad de Deutsche Digitale Bibliothek/Bayerische Staatsbibliothek y DBNL.
+- Reduce las jerarquías provisionales de 107 a 106 y mantiene cero alertas estructurales, con 1.824 conflictos, 3.075 eventos y 1.070 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-28-release-7`.
 
 ## v1.6.139 - 2026-08-28
 
