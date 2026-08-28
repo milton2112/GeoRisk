@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-28T20:01:49.652Z",
+  "generatedAt": "2026-08-28T22:11:07.389Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11615563,
-    "duplicatedCountryFilesBytes": 1536770,
-    "countryConflictShardBytes": 428885,
+    "fullBytes": 11651699,
+    "duplicatedCountryFilesBytes": 1537491,
+    "countryConflictShardBytes": 429355,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 25054,
-        "inlineBytes": 1151579,
+        "bytes": 25039,
+        "inlineBytes": 1161291,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,12 +21,12 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 320,
+          "conflicts": 321,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 11630,
+            "military": 11615,
             "politics": 9502,
             "metadata": 1952,
             "general": 1018,
@@ -39,7 +39,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 11630
+              "bytes": 11615
             },
             {
               "section": "politics",
@@ -54,8 +54,8 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 73496,
-          "conflictShardBytes": 73497,
+          "conflictsBytes": 73842,
+          "conflictShardBytes": 73843,
           "averageConflictBytes": 230
         }
       },
@@ -162,6 +162,57 @@
         }
       },
       {
+        "code": "FRA",
+        "name": "Francia",
+        "bytes": 20112,
+        "inlineBytes": 833903,
+        "tooLarge": false,
+        "counts": {
+          "cities": 5,
+          "capitals": 1,
+          "languages": 5,
+          "religionGroups": 5,
+          "organizations": 54,
+          "rivals": 50,
+          "conflicts": 237,
+          "timelineEvents": 4
+        },
+        "metrics": {
+          "sectionBytes": {
+            "military": 8432,
+            "politics": 7898,
+            "metadata": 1952,
+            "general": 933,
+            "history": 390,
+            "religion": 287,
+            "economy": 99,
+            "name": 9,
+            "continent": 8
+          },
+          "largestSections": [
+            {
+              "section": "military",
+              "bytes": 8432
+            },
+            {
+              "section": "politics",
+              "bytes": 7898
+            },
+            {
+              "section": "metadata",
+              "bytes": 1952
+            },
+            {
+              "section": "general",
+              "bytes": 933
+            }
+          ],
+          "conflictsBytes": 47724,
+          "conflictShardBytes": 47725,
+          "averageConflictBytes": 201
+        }
+      },
+      {
         "code": "AUS",
         "name": "Australia",
         "bytes": 20069,
@@ -210,57 +261,6 @@
           "conflictsBytes": 12885,
           "conflictShardBytes": 12886,
           "averageConflictBytes": 222
-        }
-      },
-      {
-        "code": "FRA",
-        "name": "Francia",
-        "bytes": 20068,
-        "inlineBytes": 826903,
-        "tooLarge": false,
-        "counts": {
-          "cities": 5,
-          "capitals": 1,
-          "languages": 5,
-          "religionGroups": 5,
-          "organizations": 54,
-          "rivals": 50,
-          "conflicts": 237,
-          "timelineEvents": 4
-        },
-        "metrics": {
-          "sectionBytes": {
-            "military": 8388,
-            "politics": 7898,
-            "metadata": 1952,
-            "general": 933,
-            "history": 390,
-            "religion": 287,
-            "economy": 99,
-            "name": 9,
-            "continent": 8
-          },
-          "largestSections": [
-            {
-              "section": "military",
-              "bytes": 8388
-            },
-            {
-              "section": "politics",
-              "bytes": 7898
-            },
-            {
-              "section": "metadata",
-              "bytes": 1952
-            },
-            {
-              "section": "general",
-              "bytes": 933
-            }
-          ],
-          "conflictsBytes": 47600,
-          "conflictShardBytes": 47601,
-          "averageConflictBytes": 201
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 163,
+    "pendingCount": 162,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15369,19 +15369,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Lagos",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
@@ -17165,6 +17152,19 @@
         ],
         "regions": [
           "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Primera batalla de Tamao",
+        "countries": [
+          "PRT"
+        ],
+        "regions": [
+          "Europa"
         ],
         "types": [
           "interestatal"

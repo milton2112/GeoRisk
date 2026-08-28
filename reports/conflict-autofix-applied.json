@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-28T20:01:40.112Z",
-  "changedFullCountries": 3,
+  "generatedAt": "2026-08-28T22:11:01.087Z",
+  "changedFullCountries": 4,
   "fullPassChanges": [
-    3,
+    4,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
@@ -12,7 +12,7 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1031,
+  "generatedHierarchyCandidates": 1032,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -62,7 +62,8 @@
       "Batalla de Beitang (1900)",
       "Batalla de las islas Saint-Marcouf (1798)",
       "Combate naval de Mahé (1801)",
-      "Combate naval de la bahía de Fundy (1696)"
+      "Combate naval de la bahía de Fundy (1696)",
+      "Batalla naval de Lagos (1693)"
     ],
     "alemania": [
       "Batalla de Schleswig (1848)",
@@ -154,6 +155,7 @@
       "Batalla de las islas Saint-Marcouf (1798)",
       "Combate naval de Mahé (1801)",
       "Combate naval de la bahía de Fundy (1696)",
+      "Batalla naval de Lagos (1693)",
       "Accion naval del paso de Doro (1827)",
       "Combate naval de Jask (1620)",
       "Batalla naval de Pirano (1812)"
@@ -204,7 +206,8 @@
       "Batalla de Fehmarn (1644)",
       "Segunda batalla de Schooneveld (1673)",
       "Batalla de Dogger Bank (1781)",
-      "Batalla de Cabo Rachado (1606)"
+      "Batalla de Cabo Rachado (1606)",
+      "Batalla naval de Lagos (1693)"
     ],
     "india": [
       "Asedio y captura de Chandannagar (1757)",
@@ -401,6 +404,9 @@
     ],
     "croacia": [
       "Batalla naval de Lissa (1811)"
+    ],
+    "portugal": [
+      "Batalla naval de Lagos (1693)"
     ],
     "afganistan": [
       "Batalla de Aranas (2007)"
@@ -1042,6 +1048,15 @@
     "Batalla de la bahía de Fundy": "Combate naval de la bahía de Fundy (1696)",
     "Combate naval de la bahía de Fundy": "Combate naval de la bahía de Fundy (1696)",
     "Bataille de la baie de Fundy": "Combate naval de la bahía de Fundy (1696)",
+    "Batalla de Lagos": "Batalla naval de Lagos (1693)",
+    "Batalla de Lagos (1693)": "Batalla naval de Lagos (1693)",
+    "Batalla de Lagos de 1693": "Batalla naval de Lagos (1693)",
+    "Batalla naval de Lagos": "Batalla naval de Lagos (1693)",
+    "Battle of Lagos (1693)": "Batalla naval de Lagos (1693)",
+    "Battle of the Smyrna Convoy (1693)": "Batalla naval de Lagos (1693)",
+    "Desastre del convoy de Esmirna": "Batalla naval de Lagos (1693)",
+    "Combat naval de Lagos (1693)": "Batalla naval de Lagos (1693)",
+    "Combat naval de Lagos ou de Cadiz (1693)": "Batalla naval de Lagos (1693)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2110,6 +2125,7 @@
     "Combate de Kirchschlag (1921)",
     "Combate naval de Mahé (1801)",
     "Combate naval de la bahía de Fundy (1696)",
+    "Batalla naval de Lagos (1693)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

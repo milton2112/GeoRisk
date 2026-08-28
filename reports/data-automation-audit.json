@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-28T20:05:01.318Z",
+  "generatedAt": "2026-08-28T22:12:40.518Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 164
+      "count": 163
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 96
+      "count": 95
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 563
+      "count": 564
     },
     "redundantReligions": {
       "count": 0
@@ -114,11 +114,6 @@
       {
         "code": "FRA",
         "name": "Batalla de Île Ronde",
-        "region": "Europa"
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Lagos",
         "region": "Europa"
       },
       {
@@ -255,6 +250,11 @@
         "code": "GRC",
         "name": "Batalla de Imbros",
         "region": "Europa"
+      },
+      {
+        "code": "IDN",
+        "name": "Batalla de Petaling",
+        "region": "Asia"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -297,13 +297,6 @@
       {
         "code": "FRA",
         "name": "Batalla de Île Ronde",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Lagos",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -535,6 +528,13 @@
       {
         "code": "PRT",
         "name": "Batalla de la Boca del Tigre",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "PRT",
+        "name": "Primera batalla de Tamao",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 96,
+      "count": 95,
       "command": "npm run fix:conflicts:batches"
     },
     {

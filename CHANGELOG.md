@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.150 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.151 antes de cerrar la siguiente version.
+
+## v1.6.151 - 2026-08-29
+
+- Normaliza la entrada provisional "Batalla de Lagos" como **Batalla naval de Lagos (1693)**, con aliases fechados, ficha diferida, búsqueda, índices y timeline regenerados.
+- La sitúa el 27 de junio de 1693 frente al Algarve dentro de la Guerra de los Nueve Años y de las operaciones contra el convoy de Esmirna.
+- Distingue la batalla de 1693 de la acción naval de Lagos de 1759, vincula Francia, Reino Unido y Países Bajos por sus fuerzas históricas y deja a Portugal como ubicación contemporánea, no como beligerante.
+- Conserva la victoria operativa francesa y las pérdidas de aproximadamente 90 mercantes, 40 de ellos capturados, sin convertir esos datos navales en bajas humanas ni fijar un orden de batalla no respaldado.
+- Incorpora trazabilidad de Royal Museums Greenwich y de la Agencia del Patrimonio Cultural de los Países Bajos, con prueba de regresión para nombre, fecha, jerarquía, participantes y cautela de fuentes.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-29-release-1`.
 
 ## v1.6.150 - 2026-08-28
 
