@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-28T17:58:43.390Z",
+  "generatedAt": "2026-08-28T18:10:02.949Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 100,
-  "reviewCount": 100,
+  "advisoryCount": 99,
+  "reviewCount": 99,
   "summary": {
-    "provisional_parent": 100
+    "provisional_parent": 99
   },
   "topIssues": [],
   "topAdvisories": [
@@ -110,20 +110,6 @@
     {
       "key": "batalla de jackson",
       "name": "Batalla de jackson",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de jupiter inlet",
-      "name": "Batalla de Jupiter Inlet",
       "countries": [
         "USA"
       ],
@@ -1118,6 +1104,20 @@
     {
       "key": "batalla del 27 de agosto",
       "name": "Batalla del 27 de agosto",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla del cabo de gata",
+      "name": "Batalla del cabo de Gata",
       "countries": [
         "USA"
       ],

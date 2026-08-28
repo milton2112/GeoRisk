@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.146 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.147 antes de cerrar la siguiente version.
+
+## v1.6.147 - 2026-08-28
+
+- Normaliza la entrada provisional "Battle of Jupiter Inlet" como **Primera batalla de Loxahatchee (1838)**, con aliases históricos, ficha diferida, búsqueda, índices y timeline regenerados.
+- La sitúa el 15 de enero de 1838 dentro de la Segunda Guerra Seminola y de las operaciones de Loxahatchee, separándola de la batalla de Jesup del 24 de enero.
+- Explica el contexto de expulsión forzada en Florida, identifica la expedición estadounidense y las fuerzas seminolas y miccosukee sin convertir a estos pueblos en países actuales.
+- Conserva "Jupiter Inlet" como denominación histórica de búsqueda, pero usa el nombre de preservación actual; deja visibles las diferencias de nomenclatura, composición de la fuerza y cifras para no inventar bajas.
+- Incorpora trazabilidad del informe de Registro Nacional del Condado de Palm Beach, la Biblioteca del Congreso y el Servicio de Parques Nacionales de EE. UU.
+- Reduce las jerarquías provisionales de 100 a 99 y mantiene cero alertas estructurales, con 1.831 conflictos, 3.091 eventos y 1.077 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-28-release-14`.
 
 ## v1.6.146 - 2026-08-28
 

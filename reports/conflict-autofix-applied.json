@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-28T17:56:30.197Z",
-  "changedFullCountries": 2,
+  "generatedAt": "2026-08-28T18:07:55.801Z",
+  "changedFullCountries": 1,
   "fullPassChanges": [
-    2,
+    1,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
@@ -12,7 +12,7 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1027,
+  "generatedHierarchyCandidates": 1028,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -22,7 +22,8 @@
       "Batalla de los Túneles Gemelos (1951)",
       "Batalla del cabo Henry (1781)",
       "Batalla por el Castillo Itter (1945)",
-      "Batalla naval de Campeche (1843)"
+      "Batalla naval de Campeche (1843)",
+      "Primera batalla de Loxahatchee (1838)"
     ],
     "nicaragua": [
       "Batalla de Masaya",
@@ -1004,6 +1005,16 @@
     "Battle of Gyanafalva": "Combates de Gyanafalva (1921)",
     "Gyanafalva battle": "Combates de Gyanafalva (1921)",
     "Combates de Jennersdorf": "Combates de Gyanafalva (1921)",
+    "Batalla de Jupiter Inlet": "Primera batalla de Loxahatchee (1838)",
+    "Batalla de Jupiter Inlet (1838)": "Primera batalla de Loxahatchee (1838)",
+    "Battle of Jupiter Inlet": "Primera batalla de Loxahatchee (1838)",
+    "Battle at Jupiter Inlet": "Primera batalla de Loxahatchee (1838)",
+    "Battle near Jupiter Inlet": "Primera batalla de Loxahatchee (1838)",
+    "Powell's Battle": "Primera batalla de Loxahatchee (1838)",
+    "Batalla de Powell": "Primera batalla de Loxahatchee (1838)",
+    "Primera batalla del Loxahatchee": "Primera batalla de Loxahatchee (1838)",
+    "First Battle of the Loxahatchee": "Primera batalla de Loxahatchee (1838)",
+    "First Battle of Loxahatchee": "Primera batalla de Loxahatchee (1838)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2068,6 +2079,7 @@
     "Batalla de Vízakna (1849)",
     "Batalla de las islas Saint-Marcouf (1798)",
     "Combates de Gyanafalva (1921)",
+    "Primera batalla de Loxahatchee (1838)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

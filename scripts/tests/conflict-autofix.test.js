@@ -328,6 +328,11 @@ import {
   GYANAFALVA_CONFLICT_RENAMES
 } from "../lib/conflict-curation-gyanafalva.js";
 import {
+  JUPITER_INLET_CONFLICT_DETAIL_FIXES,
+  JUPITER_INLET_COUNTRY_CONFLICT_ADDITIONS,
+  JUPITER_INLET_CONFLICT_RENAMES
+} from "../lib/conflict-curation-jupiter-inlet.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -3259,6 +3264,41 @@ assert.ok(
       && /nombre plural/i.test(detail.sourceDispute)
   ),
   "la curaduria de Gyanafalva debe conservar jerarquia, fuentes y cautela sobre fechas, actores y bajas"
+);
+assert.equal(Object.keys(JUPITER_INLET_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  JUPITER_INLET_CONFLICT_RENAMES["Battle of Jupiter Inlet"],
+  "Primera batalla de Loxahatchee (1838)"
+);
+assert.equal(
+  JUPITER_INLET_CONFLICT_RENAMES["Powell's Battle"],
+  "Primera batalla de Loxahatchee (1838)",
+  "el alias historico de Powell debe llegar a la ficha curada"
+);
+assert.deepEqual(
+  JUPITER_INLET_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Estados Unidos": ["Primera batalla de Loxahatchee (1838)"]
+  }
+);
+assert.ok(
+  Object.values(JUPITER_INLET_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 1838
+      && detail.startYear === detail.endYear
+      && detail.datePrecision === "15 de enero de 1838"
+      && detail.parent === "Segunda Guerra Seminola (1835-1842)"
+      && detail.campaign === "Operaciones de Loxahatchee de enero de 1838"
+      && detail.type === "emboscada y combate en humedal"
+      && detail.conflictType === "colonial"
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 4
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && /Ventaja t\u00e1ctica/i.test(detail.outcome)
+      && /denominaci\u00f3n heredada no es uniforme/i.test(detail.sourceDispute)
+  ),
+  "la curaduria de Jupiter Inlet debe preservar fecha, jerarquia, actores y cautela sobre nombres y cifras"
 );
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
