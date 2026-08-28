@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-28T22:11:07.389Z",
+  "generatedAt": "2026-08-28T22:24:29.955Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11651699,
-    "duplicatedCountryFilesBytes": 1537491,
-    "countryConflictShardBytes": 429355,
+    "fullBytes": 11654355,
+    "duplicatedCountryFilesBytes": 1537735,
+    "countryConflictShardBytes": 429477,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 25039,
-        "inlineBytes": 1161291,
+        "bytes": 25100,
+        "inlineBytes": 1161955,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -26,7 +26,7 @@
         },
         "metrics": {
           "sectionBytes": {
-            "military": 11615,
+            "military": 11676,
             "politics": 9502,
             "metadata": 1952,
             "general": 1018,
@@ -39,7 +39,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 11615
+              "bytes": 11676
             },
             {
               "section": "politics",
@@ -54,8 +54,8 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 73842,
-          "conflictShardBytes": 73843,
+          "conflictsBytes": 73903,
+          "conflictShardBytes": 73904,
           "averageConflictBytes": 230
         }
       },
@@ -164,8 +164,8 @@
       {
         "code": "FRA",
         "name": "Francia",
-        "bytes": 20112,
-        "inlineBytes": 833903,
+        "bytes": 20173,
+        "inlineBytes": 834567,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -179,7 +179,7 @@
         },
         "metrics": {
           "sectionBytes": {
-            "military": 8432,
+            "military": 8493,
             "politics": 7898,
             "metadata": 1952,
             "general": 933,
@@ -192,7 +192,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 8432
+              "bytes": 8493
             },
             {
               "section": "politics",
@@ -207,9 +207,9 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 47724,
-          "conflictShardBytes": 47725,
-          "averageConflictBytes": 201
+          "conflictsBytes": 47785,
+          "conflictShardBytes": 47786,
+          "averageConflictBytes": 202
         }
       },
       {

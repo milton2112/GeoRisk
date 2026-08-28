@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.151 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.152 antes de cerrar la siguiente version.
+
+## v1.6.152 - 2026-08-29
+
+- Corrige la asociación publicada de la entrada genérica "Batalla de Lagos": la ficha de 1693 se reemplaza por **Batalla naval de Lagos (1759)**, que es la identidad resuelta por el título español y respaldada por Royal Museums Greenwich.
+- La sitúa entre el 18 y el 19 de agosto de 1759 dentro de la Guerra de los Siete Años, con la escuadra británica de Edward Boscawen y la francesa de Jean-François de La Clue-Sabran.
+- Registra cinco navíos franceses capturados o incendiados sin inventar bajas humanas ni convertir la cronología de dos días en dos batallas distintas.
+- Vincula Francia y Reino Unido por sus fuerzas históricas, y España y Portugal solamente como referencias geográficas contemporáneas.
+- Elimina la ficha, índices y enlaces derivados de la asociación incorrecta de 1693, y añade una prueba de regresión que protege la identidad corregida.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-29-release-2`.
 
 ## v1.6.151 - 2026-08-29
 

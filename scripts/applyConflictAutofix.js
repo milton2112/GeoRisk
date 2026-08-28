@@ -359,10 +359,12 @@ import {
   FUNDY_BAY_CONFLICT_RENAMES
 } from "./lib/conflict-curation-fundy-bay.js";
 import {
-  LAGOS_1693_CONFLICT_DETAIL_FIXES,
-  LAGOS_1693_COUNTRY_CONFLICT_ADDITIONS,
-  LAGOS_1693_CONFLICT_RENAMES
-} from "./lib/conflict-curation-lagos-1693.js";
+  LAGOS_1759_CONFLICT_DETAIL_FIXES,
+  LAGOS_1759_COUNTRY_CONFLICT_ADDITIONS,
+  LAGOS_1759_COUNTRY_CONFLICT_EXCLUSIONS,
+  LAGOS_1759_GENERATED_DETAIL_EXCLUSIONS,
+  LAGOS_1759_CONFLICT_RENAMES
+} from "./lib/conflict-curation-lagos-1759.js";
 import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
@@ -557,7 +559,7 @@ const curatedConflictDetailFixes = {
   ...KIRCHSCHLAG_CONFLICT_DETAIL_FIXES,
   ...MAHE_CONFLICT_DETAIL_FIXES,
   ...FUNDY_BAY_CONFLICT_DETAIL_FIXES,
-  ...LAGOS_1693_CONFLICT_DETAIL_FIXES,
+  ...LAGOS_1759_CONFLICT_DETAIL_FIXES,
   ...COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   ...CLOUDS_CONFLICT_DETAIL_FIXES,
   ...COLSONS_MILL_CONFLICT_DETAIL_FIXES,
@@ -578,6 +580,13 @@ const curatedConflictDetailFixes = {
   ...GOTSKA_SANDON_CONFLICT_DETAIL_FIXES,
   ...PIRANO_GRADO_CONFLICT_DETAIL_FIXES
 };
+
+const generatedConflictDetailExclusionNames = [
+  ...LAGOS_1759_GENERATED_DETAIL_EXCLUSIONS
+];
+const generatedConflictDetailExclusions = new Set(
+  generatedConflictDetailExclusionNames.map(normalizeConflictKey)
+);
 const safeConflictRenames = {
   ...SAFE_CONFLICT_RENAMES,
   ...EXTRA_SAFE_CONFLICT_RENAMES,
@@ -659,7 +668,7 @@ const safeConflictRenames = {
   ...KIRCHSCHLAG_CONFLICT_RENAMES,
   ...MAHE_CONFLICT_RENAMES,
   ...FUNDY_BAY_CONFLICT_RENAMES,
-  ...LAGOS_1693_CONFLICT_RENAMES,
+  ...LAGOS_1759_CONFLICT_RENAMES,
   ...COCKLE_CREEK_CONFLICT_RENAMES,
   ...CLOUDS_CONFLICT_RENAMES,
   ...COLSONS_MILL_CONFLICT_RENAMES,
@@ -733,7 +742,7 @@ const countryConflictAdditionBatches = [
   KIRCHSCHLAG_COUNTRY_CONFLICT_ADDITIONS,
   MAHE_COUNTRY_CONFLICT_ADDITIONS,
   FUNDY_BAY_COUNTRY_CONFLICT_ADDITIONS,
-  LAGOS_1693_COUNTRY_CONFLICT_ADDITIONS,
+  LAGOS_1759_COUNTRY_CONFLICT_ADDITIONS,
   BAU_COUNTRY_CONFLICT_ADDITIONS,
   ARANAS_COUNTRY_CONFLICT_ADDITIONS,
   ALEGRE_COUNTRY_CONFLICT_ADDITIONS,
@@ -753,7 +762,8 @@ const countryConflictExclusionBatches = [
   OSEL_VAILELE_COUNTRY_CONFLICT_EXCLUSIONS,
   NEVA_SHANHAIGUAN_COUNTRY_CONFLICT_EXCLUSIONS,
   CABO_BOJADOR_COUNTRY_CONFLICT_EXCLUSIONS,
-  CERRO_DEL_GALLO_COUNTRY_CONFLICT_EXCLUSIONS
+  CERRO_DEL_GALLO_COUNTRY_CONFLICT_EXCLUSIONS,
+  LAGOS_1759_COUNTRY_CONFLICT_EXCLUSIONS
 ];
 const countryConflictExclusions = mergeCountryConflictBatches(countryConflictExclusionBatches);
 
@@ -996,7 +1006,17 @@ async function fixGeneratedDetails(countriesByConflict) {
   const conflicts = generated.conflicts || generated;
   let renamed = 0;
   let enriched = 0;
+  let retired = 0;
   let changed = false;
+
+  for (const name of Object.keys(conflicts)) {
+    if (!generatedConflictDetailExclusions.has(normalizeConflictKey(name))) {
+      continue;
+    }
+    delete conflicts[name];
+    retired += 1;
+    changed = true;
+  }
 
   for (const [from, to] of Object.entries(safeConflictRenames)) {
     if (from !== to && conflicts[from]) {
@@ -1068,8 +1088,8 @@ async function fixGeneratedDetails(countriesByConflict) {
     await writeJsonWithRetry(generatedDetailsPath, generated, { spaces: 0 });
   }
   return written
-    ? { renamed, enriched, written, compacted: false }
-    : { renamed: 0, enriched: 0, written, compacted };
+    ? { renamed, enriched, retired, written, compacted: false }
+    : { renamed: 0, enriched: 0, retired: 0, written, compacted };
 }
 
 let changedFullCountries = 0;
@@ -1099,6 +1119,7 @@ const report = {
   generatedHierarchyCandidates: generatedHierarchyByConflict.size,
   countryConflictAdditions,
   countryConflictExclusions,
+  generatedConflictDetailExclusions: generatedConflictDetailExclusionNames,
   safeRenames: safeConflictRenames,
   curatedDetails: [...new Set(Object.keys(curatedConflictDetailFixes).map(renameConflictName))]
 };
@@ -1110,4 +1131,5 @@ console.log(`Paises actualizados en countries_full: ${changedFullCountries}`);
 console.log("Fichas compactas: se regeneran una sola vez con build:indexes");
 console.log(`Detalles renombrados: ${detailStats.renamed}`);
 console.log(`Detalles enriquecidos: ${detailStats.enriched}`);
+console.log(`Detalles retirados: ${detailStats.retired}`);
 console.log(`Reporte: ${path.relative(projectRoot, reportPath)}`);

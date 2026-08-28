@@ -348,10 +348,12 @@ import {
   FUNDY_BAY_CONFLICT_RENAMES
 } from "../lib/conflict-curation-fundy-bay.js";
 import {
-  LAGOS_1693_CONFLICT_DETAIL_FIXES,
-  LAGOS_1693_COUNTRY_CONFLICT_ADDITIONS,
-  LAGOS_1693_CONFLICT_RENAMES
-} from "../lib/conflict-curation-lagos-1693.js";
+  LAGOS_1759_CONFLICT_DETAIL_FIXES,
+  LAGOS_1759_COUNTRY_CONFLICT_ADDITIONS,
+  LAGOS_1759_COUNTRY_CONFLICT_EXCLUSIONS,
+  LAGOS_1759_GENERATED_DETAIL_EXCLUSIONS,
+  LAGOS_1759_CONFLICT_RENAMES
+} from "../lib/conflict-curation-lagos-1759.js";
 import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
@@ -3429,43 +3431,58 @@ assert.ok(
   ),
   "la curaduria de Fundy Bay debe preservar fecha, jerarquia, fuentes, participantes y cautela sobre bajas"
 );
-assert.equal(Object.keys(LAGOS_1693_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(Object.keys(LAGOS_1759_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
-  LAGOS_1693_CONFLICT_RENAMES["Batalla de Lagos"],
-  "Batalla naval de Lagos (1693)"
+  LAGOS_1759_CONFLICT_RENAMES["Batalla de Lagos"],
+  "Batalla naval de Lagos (1759)"
 );
 assert.equal(
-  LAGOS_1693_CONFLICT_RENAMES["Battle of Lagos (1693)"],
-  "Batalla naval de Lagos (1693)",
+  LAGOS_1759_CONFLICT_RENAMES["Battle of Lagos (1759)"],
+  "Batalla naval de Lagos (1759)",
   "el alias ingles fechado debe llegar a la ficha curada"
 );
 assert.deepEqual(
-  LAGOS_1693_COUNTRY_CONFLICT_ADDITIONS,
+  LAGOS_1759_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Espa\u00f1a": ["Batalla naval de Lagos (1759)"],
+    Francia: ["Batalla naval de Lagos (1759)"],
+    Portugal: ["Batalla naval de Lagos (1759)"],
+    "Reino Unido": ["Batalla naval de Lagos (1759)"]
+  }
+);
+assert.deepEqual(
+  LAGOS_1759_COUNTRY_CONFLICT_EXCLUSIONS,
   {
     Francia: ["Batalla naval de Lagos (1693)"],
     Portugal: ["Batalla naval de Lagos (1693)"],
     "Reino Unido": ["Batalla naval de Lagos (1693)"],
     "Reino de los Pa\u00edses Bajos": ["Batalla naval de Lagos (1693)"]
-  }
+  },
+  "la correccion de Lagos debe retirar los enlaces de paises derivados de la asociacion de 1693"
+);
+assert.deepEqual(
+  LAGOS_1759_GENERATED_DETAIL_EXCLUSIONS,
+  ["Batalla naval de Lagos (1693)"],
+  "la correccion de Lagos debe retirar la ficha generada con la identidad equivocada"
 );
 assert.ok(
-  Object.values(LAGOS_1693_CONFLICT_DETAIL_FIXES).every(detail =>
-    detail.startYear === 1693
+  Object.values(LAGOS_1759_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 1759
       && detail.startYear === detail.endYear
-      && detail.datePrecision === "27 de junio de 1693"
-      && detail.parent === "Guerra de los Nueve A\u00f1os (1688-1697)"
-      && detail.campaign === "Operaciones navales contra el convoy de Esmirna (1693)"
+      && detail.datePrecision === "18-19 de agosto de 1759"
+      && detail.parent === "Guerra de los Siete A\u00f1os (1756-1763)"
+      && detail.campaign === "Operaciones navales franco-brit\u00e1nicas en el Mediterr\u00e1neo occidental (1759)"
       && detail.type === "batalla naval"
       && detail.conflictType === "interestatal"
       && detail.hierarchyConfidence === "alta"
-      && detail.hierarchySources?.length >= 3
+      && detail.hierarchySources?.length >= 4
       && detail.hierarchySources.every(item => item.label && item.url)
       && detail.participants?.length === 2
       && detail.participants.every(side => side.side && side.members?.length)
-      && /Victoria operativa francesa/i.test(detail.outcome)
-      && /no adopta totales de personal/i.test(detail.sourceDispute)
+      && /Victoria brit\u00e1nica/i.test(detail.outcome)
+      && /secuencia naval de dos d\u00edas/i.test(detail.sourceDispute)
   ),
-  "la curaduria de Lagos debe preservar fecha, jerarquia, fuentes, participantes y cautela sobre bajas"
+  "la correccion de Lagos debe preservar fecha, jerarquia, fuentes, participantes y cautela sobre bajas"
 );
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
