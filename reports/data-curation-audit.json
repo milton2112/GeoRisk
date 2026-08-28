@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-28T10:45:46.670Z",
+  "generatedAt": "2026-08-28T11:04:56.722Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11337789,
-    "duplicatedCountryFilesBytes": 1531676,
-    "countryConflictShardBytes": 425118,
+    "fullBytes": 11349683,
+    "duplicatedCountryFilesBytes": 1532052,
+    "countryConflictShardBytes": 425212,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 178,
+    "pendingCount": 177,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15512,19 +15512,6 @@
         ],
         "regions": [
           "Asia"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Lebouirate",
-        "countries": [
-          "MAR"
-        ],
-        "regions": [
-          "África"
         ],
         "types": [
           "interestatal"
@@ -17158,6 +17145,19 @@
       },
       {
         "name": "Operación Bodenplatte",
+        "countries": [
+          "GBR"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Operación Castaña",
         "countries": [
           "GBR"
         ],

@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-28T10:49:13.525Z",
+  "generatedAt": "2026-08-28T11:07:42.711Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 111,
-  "reviewCount": 111,
+  "advisoryCount": 110,
+  "reviewCount": 110,
   "summary": {
-    "provisional_parent": 111
+    "provisional_parent": 110
   },
   "topIssues": [],
   "topAdvisories": [
@@ -354,20 +354,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de lebouirate",
-      "name": "Batalla de Lebouirate",
-      "countries": [
-        "MAR"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de África",
       "issues": [
         "provisional_parent"
       ],
@@ -1124,6 +1110,20 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de ty ho bay",
+      "name": "Batalla de Ty-ho Bay",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],

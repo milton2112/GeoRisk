@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.135 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.136 antes de cerrar la siguiente version.
+
+## v1.6.136 - 2026-08-28
+
+- Normaliza la entrada provisional "Batalla de Lebouirate" como **Ataque a Lebouirate (1979)**, con aliases en espanol, ingles y frances, ficha diferida, indices y busqueda regenerados.
+- La situa dentro de la Guerra del Sahara Occidental y de las Ofensivas del Frente Polisario de 1979. Vincula Marruecos y Sahara Occidental para la navegacion contemporanea, preserva los participantes historicos y no formula una adjudicacion de soberania.
+- Incorpora trazabilidad de El Pais, Le Monde y Naciones Unidas. Confirma la fecha del 24 de agosto de 1979 y el ataque a la guarnicion, pero conserva como disputados el control final, las bajas, los prisioneros y el equipo capturado.
+- Corrige el resolvedor de Wikipedia para reconocer `Attack_on_Lebouirate` como titulo ingles, evitando que una URL en ingles se consulte mediante la API espanola.
+- Reduce las jerarquias provisionales de 111 a 110 y mantiene cero alertas estructurales, con 1.820 conflictos, 3.065 eventos y 1.066 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-28-release-3`.
 
 ## v1.6.135 - 2026-08-28
 

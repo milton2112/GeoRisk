@@ -121,6 +121,7 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Batalla de Bir Enzaran (1979)": "Battle_of_Bir_Anzarane_(1979)",
   "Batalla de Bir Enzarán (1979)": "Battle_of_Bir_Anzarane_(1979)",
   "Batalla de Bir Enzarán": "Battle_of_Bir_Anzarane_(1979)",
+  "Ataque a Lebouirate (1979)": "Attack_on_Lebouirate",
   "Accion naval de Chincoteague Inlet (1861)": "Battle_of_Cockle_Creek",
   "Acción naval de Chincoteague Inlet (1861)": "Battle_of_Cockle_Creek",
   "Batalla de Cockle Creek": "Battle_of_Cockle_Creek",
@@ -437,6 +438,7 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
 
 const ENGLISH_WIKIPEDIA_TITLE_EXCEPTIONS = new Set([
   "Amhara_offensive",
+  "Attack_on_Lebouirate",
   "Battle_off_Barbados",
   "Mocímboa_da_Praia_offensive",
   "Skeleton_Cave_(Arizona)",

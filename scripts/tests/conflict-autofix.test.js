@@ -273,6 +273,11 @@ import {
   BIR_ENZARAN_CONFLICT_RENAMES
 } from "../lib/conflict-curation-bir-enzaran.js";
 import {
+  LEBOUIRATE_CONFLICT_DETAIL_FIXES,
+  LEBOUIRATE_COUNTRY_CONFLICT_ADDITIONS,
+  LEBOUIRATE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-lebouirate.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -2809,6 +2814,36 @@ assert.ok(
 const birEnzaranWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Bir Enzaran (1979)");
 assert.equal(birEnzaranWikipediaOverride.language, "en");
 assert.equal(birEnzaranWikipediaOverride.pageTitle, "Battle_of_Bir_Anzarane_(1979)");
+assert.equal(Object.keys(LEBOUIRATE_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  LEBOUIRATE_CONFLICT_RENAMES["Batalla de Lebouirate"],
+  "Ataque a Lebouirate (1979)"
+);
+assert.deepEqual(
+  LEBOUIRATE_COUNTRY_CONFLICT_ADDITIONS["Sahara Occidental"],
+  ["Ataque a Lebouirate (1979)"]
+);
+assert.ok(
+  Object.values(LEBOUIRATE_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 1979
+      && detail.startYear === detail.endYear
+      && detail.parent === "Guerra del Sahara Occidental"
+      && detail.campaign === "Ofensivas del Frente Polisario de 1979"
+      && detail.type === "ataque a guarnicion"
+      && detail.conflictType === "independencia"
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 3
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && detail.sourceDispute
+      && /no permiten consolidar/i.test(detail.outcome)
+  ),
+  "la curaduria de Lebouirate debe conservar fecha, jerarquia, fuentes, participantes y cautela sobre el control y las bajas"
+);
+const lebouirateWikipediaOverride = await resolveWikipediaConflictTitle("Ataque a Lebouirate (1979)");
+assert.equal(lebouirateWikipediaOverride.language, "en");
+assert.equal(lebouirateWikipediaOverride.pageTitle, "Attack_on_Lebouirate");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-28T10:45:40.593Z",
-  "changedFullCountries": 6,
+  "generatedAt": "2026-08-28T11:04:45.245Z",
+  "changedFullCountries": 2,
   "fullPassChanges": [
-    6,
+    2,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
-    "renamed": 2,
-    "enriched": 116,
+    "renamed": 0,
+    "enriched": 117,
     "written": true,
     "compacted": false
   },
@@ -370,6 +370,7 @@
     ],
     "sahara occidental": [
       "Batalla de Bir Enzaran (1979)",
+      "Ataque a Lebouirate (1979)",
       "Combate de Deglebat-Leglia (1977)"
     ],
     "afganistan": [
@@ -910,6 +911,10 @@
     "Batalla de Chef de Caux": "Batalla naval de Chef-de-Caux (1417)",
     "Batalla de Bir Enzaran": "Batalla de Bir Enzaran (1979)",
     "Batalla de Bir Enzarán": "Batalla de Bir Enzaran (1979)",
+    "Batalla de Lebouirate": "Ataque a Lebouirate (1979)",
+    "Batalla de Lebuirate": "Ataque a Lebouirate (1979)",
+    "Attack on Lebouirate": "Ataque a Lebouirate (1979)",
+    "Attaque de Lebouirate": "Ataque a Lebouirate (1979)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -1963,6 +1968,7 @@
     "Combate naval frente a Barbados (1778)",
     "Batalla naval de Chef-de-Caux (1417)",
     "Batalla de Bir Enzaran (1979)",
+    "Ataque a Lebouirate (1979)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",
