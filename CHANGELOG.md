@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.136 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.137 antes de cerrar la siguiente version.
+
+## v1.6.137 - 2026-08-28
+
+- Normaliza la entrada provisional "Batalla de Kalyazin" como **Combate de Kalyazin (1609)**, con aliases, ficha diferida, indices y busqueda regenerados.
+- Corrige su modelo historico: la accion se ubica en el Periodo Tumultuoso de Rusia, no como una guerra interestatal simple. Distingue las fuerzas de Vasili IV y el contingente sueco de las tropas de Dmitri II con sus componentes mercenarios polaco-lituanos.
+- Vincula Rusia, Polonia y Suecia para navegacion, pero evita presentar a una fuerza regular polaca como bando estatal oficial. Mantiene el episodio en agosto de 1609 y no fija un dia, bajas, efectivos ni una victoria decisiva donde las fuentes no coinciden.
+- Incorpora trazabilidad del Polski Slownik Biograficzny, Echa Przeszlosci y documentacion institucional rusa sobre el apoyo sueco de 1609.
+- Reduce las jerarquias provisionales de 110 a 109 y mantiene cero alertas estructurales, con 1.821 conflictos, 3.068 eventos y 1.067 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-28-release-4`.
 
 ## v1.6.136 - 2026-08-28
 

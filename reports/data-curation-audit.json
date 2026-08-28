@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-28T11:04:56.722Z",
+  "generatedAt": "2026-08-28T11:13:13.177Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11349683,
-    "duplicatedCountryFilesBytes": 1532052,
-    "countryConflictShardBytes": 425212,
+    "fullBytes": 11370367,
+    "duplicatedCountryFilesBytes": 1532164,
+    "countryConflictShardBytes": 425821,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -113,8 +113,8 @@
       {
         "code": "POL",
         "name": "Polonia",
-        "bytes": 21011,
-        "inlineBytes": 227351,
+        "bytes": 21085,
+        "inlineBytes": 235151,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -123,12 +123,12 @@
           "religionGroups": 5,
           "organizations": 43,
           "rivals": 50,
-          "conflicts": 51,
+          "conflicts": 52,
           "timelineEvents": 0
         },
         "metrics": {
           "sectionBytes": {
-            "military": 10420,
+            "military": 10494,
             "politics": 7383,
             "metadata": 1913,
             "general": 684,
@@ -141,7 +141,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 10420
+              "bytes": 10494
             },
             {
               "section": "politics",
@@ -156,9 +156,9 @@
               "bytes": 684
             }
           ],
-          "conflictsBytes": 13165,
-          "conflictShardBytes": 13166,
-          "averageConflictBytes": 258
+          "conflictsBytes": 13443,
+          "conflictShardBytes": 13444,
+          "averageConflictBytes": 259
         }
       },
       {
@@ -317,8 +317,8 @@
       {
         "code": "RUS",
         "name": "Rusia",
-        "bytes": 18202,
-        "inlineBytes": 240187,
+        "bytes": 18240,
+        "inlineBytes": 247987,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -327,12 +327,12 @@
           "religionGroups": 4,
           "organizations": 41,
           "rivals": 19,
-          "conflicts": 62,
+          "conflicts": 63,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 9400,
+            "military": 9438,
             "politics": 4980,
             "metadata": 1926,
             "general": 965,
@@ -345,7 +345,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 9400
+              "bytes": 9438
             },
             {
               "section": "politics",
@@ -360,9 +360,9 @@
               "bytes": 965
             }
           ],
-          "conflictsBytes": 13899,
-          "conflictShardBytes": 13900,
-          "averageConflictBytes": 224
+          "conflictsBytes": 14177,
+          "conflictShardBytes": 14178,
+          "averageConflictBytes": 225
         }
       },
       {
@@ -573,7 +573,7 @@
         "code": "SWE",
         "name": "Suecia",
         "bytes": 15292,
-        "inlineBytes": 519609,
+        "inlineBytes": 524693,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -615,8 +615,8 @@
               "bytes": 777
             }
           ],
-          "conflictsBytes": 32412,
-          "conflictShardBytes": 32413,
+          "conflictsBytes": 32465,
+          "conflictShardBytes": 32466,
           "averageConflictBytes": 212
         }
       }
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 177,
+    "pendingCount": 176,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15364,19 +15364,6 @@
       },
       {
         "name": "Batalla de Kaipiais",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Kalyazin",
         "countries": [
           "SWE"
         ],
@@ -17163,6 +17150,19 @@
         ],
         "regions": [
           "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Operación Costa de Marfil",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
         ],
         "types": [
           "interestatal"

@@ -278,6 +278,11 @@ import {
   LEBOUIRATE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-lebouirate.js";
 import {
+  KALYAZIN_CONFLICT_DETAIL_FIXES,
+  KALYAZIN_COUNTRY_CONFLICT_ADDITIONS,
+  KALYAZIN_CONFLICT_RENAMES
+} from "../lib/conflict-curation-kalyazin.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -2844,6 +2849,37 @@ assert.ok(
 const lebouirateWikipediaOverride = await resolveWikipediaConflictTitle("Ataque a Lebouirate (1979)");
 assert.equal(lebouirateWikipediaOverride.language, "en");
 assert.equal(lebouirateWikipediaOverride.pageTitle, "Attack_on_Lebouirate");
+assert.equal(Object.keys(KALYAZIN_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  KALYAZIN_CONFLICT_RENAMES["Batalla de Kalyazin"],
+  "Combate de Kalyazin (1609)"
+);
+assert.deepEqual(
+  KALYAZIN_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Polonia": ["Combate de Kalyazin (1609)"],
+    "Rusia": ["Combate de Kalyazin (1609)"]
+  }
+);
+assert.ok(
+  Object.values(KALYAZIN_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 1609
+      && detail.startYear === detail.endYear
+      && detail.datePrecision === "agosto de 1609"
+      && detail.parent === "Periodo Tumultuoso de Rusia"
+      && detail.campaign === "Operaciones de Kalyazin de 1609"
+      && detail.type === "combate"
+      && detail.conflictType === "civil"
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 4
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && detail.sourceDispute
+      && /no permiten fijar un dia unico/i.test(detail.outcome)
+  ),
+  "la curaduria de Kalyazin debe conservar fecha mensual, jerarquia, fuentes, participantes y cautela sobre el resultado"
+);
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

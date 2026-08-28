@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-28T11:04:45.245Z",
-  "changedFullCountries": 2,
+  "generatedAt": "2026-08-28T11:13:05.321Z",
+  "changedFullCountries": 3,
   "fullPassChanges": [
-    2,
+    3,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
@@ -12,7 +12,7 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1017,
+  "generatedHierarchyCandidates": 1018,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -182,7 +182,8 @@
       "Batalla de Stäket (1719)",
       "Batalla de Beitang (1900)",
       "Batalla de Ösel (1719)",
-      "Batalla del Neva (1240)"
+      "Batalla del Neva (1240)",
+      "Combate de Kalyazin (1609)"
     ],
     "reino de los paises bajos": [
       "Batalla de Camaret (1694)",
@@ -228,7 +229,8 @@
       "Batalla de Reval (1602)",
       "Batalla de Kroppenhof (1621)",
       "Batalla de Wallhof (1626)",
-      "Batalla de Sejny (1920)"
+      "Batalla de Sejny (1920)",
+      "Combate de Kalyazin (1609)"
     ],
     "mexico": [
       "Combate de Carrizal (1916)",
@@ -915,6 +917,11 @@
     "Batalla de Lebuirate": "Ataque a Lebouirate (1979)",
     "Attack on Lebouirate": "Ataque a Lebouirate (1979)",
     "Attaque de Lebouirate": "Ataque a Lebouirate (1979)",
+    "Batalla de Kalyazin": "Combate de Kalyazin (1609)",
+    "Batalla de Kaljazin": "Combate de Kalyazin (1609)",
+    "Battle of Kalyazin": "Combate de Kalyazin (1609)",
+    "Battle of Kaljazin": "Combate de Kalyazin (1609)",
+    "Bitwa pod Kalazinem": "Combate de Kalyazin (1609)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -1969,6 +1976,7 @@
     "Batalla naval de Chef-de-Caux (1417)",
     "Batalla de Bir Enzaran (1979)",
     "Ataque a Lebouirate (1979)",
+    "Combate de Kalyazin (1609)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",
