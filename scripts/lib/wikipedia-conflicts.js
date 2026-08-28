@@ -170,6 +170,7 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Batalla naval de Pirano (1812)": "Battle_of_Pirano",
   "Batalla naval de Santo Domingo (1806)": "Battle_of_San_Domingo",
   "Batalla naval de Santa Luc\u00eda (1778)": "Battle_of_St._Lucia",
+  "Combate naval frente a La Habana (1870)": "Battle_of_Havana_(1870)",
   "Segunda batalla de Fort McAllister": "Second_Battle_of_Fort_McAllister",
   "Batalla de Fredericksburg": "Battle_of_Fredericksburg",
   "Batalla del puerto de Galveston de 1862": "Battle_of_Galveston_Harbor_(1862)",

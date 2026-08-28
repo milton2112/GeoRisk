@@ -298,6 +298,11 @@ import {
   HIDDENSEE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-hiddensee.js";
 import {
+  HAVANA_CONFLICT_DETAIL_FIXES,
+  HAVANA_COUNTRY_CONFLICT_ADDITIONS,
+  HAVANA_CONFLICT_RENAMES
+} from "../lib/conflict-curation-havana.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -3003,6 +3008,44 @@ assert.ok(
   ),
   "la curaduria de Hiddensee debe conservar fecha, jerarquia, fuentes, participantes y cautela sobre el orden de batalla"
 );
+assert.equal(Object.keys(HAVANA_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  HAVANA_CONFLICT_RENAMES["Batalla de Havana"],
+  "Combate naval frente a La Habana (1870)"
+);
+assert.equal(
+  HAVANA_CONFLICT_RENAMES["Battle of Havana (1870)"],
+  "Combate naval frente a La Habana (1870)"
+);
+assert.deepEqual(
+  HAVANA_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    Alemania: ["Combate naval frente a La Habana (1870)"]
+  }
+);
+assert.ok(
+  Object.values(HAVANA_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 1870
+      && detail.startYear === detail.endYear
+      && detail.datePrecision === "9 de noviembre de 1870"
+      && detail.parent === "Guerra franco-prusiana (1870-1871)"
+      && detail.campaign === "Operaciones navales transatl\u00e1nticas de 1870"
+      && detail.type === "combate naval"
+      && detail.conflictType === "interestatal"
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 3
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && /inconcluso/i.test(detail.outcome)
+      && /no consolida bajas/i.test(detail.outcome)
+      && /difieren/i.test(detail.sourceDispute)
+  ),
+  "la curaduria de La Habana debe conservar fecha, jerarquia, fuentes, participantes y cautela sobre bajas y resultado"
+);
+const havanaWikipediaOverride = await resolveWikipediaConflictTitle("Combate naval frente a La Habana (1870)");
+assert.equal(havanaWikipediaOverride.language, "en");
+assert.equal(havanaWikipediaOverride.pageTitle, "Battle_of_Havana_(1870)");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

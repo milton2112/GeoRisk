@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-28T12:29:33.021Z",
+  "generatedAt": "2026-08-28T12:38:56.545Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11418823,
-    "duplicatedCountryFilesBytes": 1532833,
-    "countryConflictShardBytes": 426772,
+    "fullBytes": 11433957,
+    "duplicatedCountryFilesBytes": 1533147,
+    "countryConflictShardBytes": 426863,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -216,7 +216,7 @@
         "code": "FRA",
         "name": "Francia",
         "bytes": 20021,
-        "inlineBytes": 793507,
+        "inlineBytes": 799717,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -258,16 +258,16 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 47004,
-          "conflictShardBytes": 47005,
-          "averageConflictBytes": 198
+          "conflictsBytes": 47095,
+          "conflictShardBytes": 47096,
+          "averageConflictBytes": 199
         }
       },
       {
         "code": "DEU",
         "name": "Alemania",
-        "bytes": 18580,
-        "inlineBytes": 132035,
+        "bytes": 18894,
+        "inlineBytes": 140959,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -276,13 +276,13 @@
           "religionGroups": 5,
           "organizations": 79,
           "rivals": 21,
-          "conflicts": 26,
+          "conflicts": 27,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
             "politics": 8058,
-            "military": 6706,
+            "military": 7020,
             "metadata": 1952,
             "general": 992,
             "history": 349,
@@ -298,7 +298,7 @@
             },
             {
               "section": "military",
-              "bytes": 6706
+              "bytes": 7020
             },
             {
               "section": "metadata",
@@ -309,9 +309,9 @@
               "bytes": 992
             }
           ],
-          "conflictsBytes": 6589,
+          "conflictsBytes": 6903,
           "conflictShardBytes": 0,
-          "averageConflictBytes": 253
+          "averageConflictBytes": 256
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 173,
+    "pendingCount": 172,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15223,19 +15223,6 @@
         "name": "Batalla de Gyanafalva",
         "countries": [
           "AUT"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Havana",
-        "countries": [
-          "FRA"
         ],
         "regions": [
           "Europa"
@@ -17158,6 +17145,19 @@
       },
       {
         "name": "Operación Dewey Canyon",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Operación Francis Marion",
         "countries": [
           "USA"
         ],

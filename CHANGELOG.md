@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.140 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.141 antes de cerrar la siguiente version.
+
+## v1.6.141 - 2026-08-28
+
+- Normaliza la entrada provisional "Batalla de Havana" como **Combate naval frente a La Habana (1870)**, con aliases en español e inglés, ficha diferida, índices y búsqueda regenerados.
+- La sitúa el 9 de noviembre de 1870 frente a La Habana, dentro de la Guerra franco-prusiana y de las operaciones navales transatlánticas de 1870.
+- Registra un combate inconcluso entre SMS Meteor y Bouvet; distingue el intento de espolonazo y el regreso a aguas españolas de una victoria, y no fija bajas ni daños cerrados porque las fuentes discrepan.
+- Vincula Francia y Alemania mediante las fuerzas históricas; Cuba y España quedan como referencia territorial y potencia neutral, no como beligerantes contemporáneos.
+- Incorpora trazabilidad de Papers Past, DBNL y Deutsche Digitale Bibliothek/Bayerische Staatsbibliothek.
+- Reduce las jerarquías provisionales de 106 a 105 y mantiene cero alertas estructurales, con 1.825 conflictos, 3.077 eventos y 1.071 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-28-release-8`.
 
 ## v1.6.140 - 2026-08-28
 

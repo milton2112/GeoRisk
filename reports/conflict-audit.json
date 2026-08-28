@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-28T12:31:34.277Z",
+  "generatedAt": "2026-08-28T12:41:23.220Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 106,
-  "reviewCount": 106,
+  "advisoryCount": 105,
+  "reviewCount": 105,
   "summary": {
-    "provisional_parent": 106
+    "provisional_parent": 105
   },
   "topIssues": [],
   "topAdvisories": [
@@ -56,20 +56,6 @@
       "name": "Batalla de Gyanafalva",
       "countries": [
         "AUT"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de havana",
-      "name": "Batalla de Havana",
-      "countries": [
-        "FRA"
       ],
       "startYear": null,
       "endYear": null,
@@ -1124,6 +1110,20 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de wenden",
+      "name": "Batalla de Wenden",
+      "countries": [
+        "SWE"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],
