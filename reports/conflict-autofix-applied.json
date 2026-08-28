@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-28T13:22:28.810Z",
+  "generatedAt": "2026-08-28T17:56:30.197Z",
   "changedFullCountries": 2,
   "fullPassChanges": [
     2,
@@ -12,7 +12,7 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1026,
+  "generatedHierarchyCandidates": 1027,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -272,7 +272,8 @@
       "Batalla por el Castillo Itter (1945)",
       "Batalla del paso de Predeal (1916)",
       "Batalla de Antivari (1914)",
-      "Batalla de Vízakna (1849)"
+      "Batalla de Vízakna (1849)",
+      "Combates de Gyanafalva (1921)"
     ],
     "brasil": [
       "Asalto a los acorazados Cabral y Lima Barros (1868)",
@@ -365,7 +366,8 @@
       "Batalla de Signal Hill (1762)"
     ],
     "hungria": [
-      "Batalla de Antivari (1914)"
+      "Batalla de Antivari (1914)",
+      "Combates de Gyanafalva (1921)"
     ],
     "montenegro": [
       "Batalla de Antivari (1914)"
@@ -996,6 +998,12 @@
     "Battle of the Îles Saint-Marcouf": "Batalla de las islas Saint-Marcouf (1798)",
     "Battle of the Isles Saint-Marcouf": "Batalla de las islas Saint-Marcouf (1798)",
     "Bataille des îles Saint-Marcouf": "Batalla de las islas Saint-Marcouf (1798)",
+    "Batalla de Gyanafalva": "Combates de Gyanafalva (1921)",
+    "Batalla de Gyanafalva (1921)": "Combates de Gyanafalva (1921)",
+    "Combate de Gyanafalva": "Combates de Gyanafalva (1921)",
+    "Battle of Gyanafalva": "Combates de Gyanafalva (1921)",
+    "Gyanafalva battle": "Combates de Gyanafalva (1921)",
+    "Combates de Jennersdorf": "Combates de Gyanafalva (1921)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2059,6 +2067,7 @@
     "Batalla naval de Lissa (1811)",
     "Batalla de Vízakna (1849)",
     "Batalla de las islas Saint-Marcouf (1798)",
+    "Combates de Gyanafalva (1921)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

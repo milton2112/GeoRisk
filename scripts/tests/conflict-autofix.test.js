@@ -323,6 +323,11 @@ import {
   SAINT_MARCOUF_CONFLICT_RENAMES
 } from "../lib/conflict-curation-saint-marcouf.js";
 import {
+  GYANAFALVA_CONFLICT_DETAIL_FIXES,
+  GYANAFALVA_COUNTRY_CONFLICT_ADDITIONS,
+  GYANAFALVA_CONFLICT_RENAMES
+} from "../lib/conflict-curation-gyanafalva.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -3219,6 +3224,42 @@ assert.ok(
 const saintMarcoufWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de las islas Saint-Marcouf (1798)");
 assert.equal(saintMarcoufWikipediaOverride.language, "en");
 assert.equal(saintMarcoufWikipediaOverride.pageTitle, "Battle_of_the_\u00celes_Saint-Marcouf");
+assert.equal(Object.keys(GYANAFALVA_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  GYANAFALVA_CONFLICT_RENAMES["Battle of Gyanafalva"],
+  "Combates de Gyanafalva (1921)"
+);
+assert.equal(
+  GYANAFALVA_CONFLICT_RENAMES["Batalla de Gyanafalva"],
+  "Combates de Gyanafalva (1921)",
+  "la variante traducida debe llegar a la ficha curada"
+);
+assert.deepEqual(
+  GYANAFALVA_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    Austria: ["Combates de Gyanafalva (1921)"],
+    Hungr\u00eda: ["Combates de Gyanafalva (1921)"]
+  }
+);
+assert.ok(
+  Object.values(GYANAFALVA_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 1921
+      && detail.startYear === detail.endYear
+      && detail.datePrecision === "Finales de agosto y comienzos de septiembre de 1921"
+      && detail.parent === "Levantamiento de Hungr\u00eda occidental de 1921"
+      && detail.campaign === "Operaciones de la frontera occidental de Hungr\u00eda (agosto-septiembre de 1921)"
+      && detail.type === "combate fronterizo e insurrecci\u00f3n"
+      && detail.conflictType === "frontera"
+      && detail.hierarchyConfidence === "media"
+      && detail.hierarchySources?.length >= 3
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && /Ventaja t\u00e1ctica local/i.test(detail.outcome)
+      && /nombre plural/i.test(detail.sourceDispute)
+  ),
+  "la curaduria de Gyanafalva debe conservar jerarquia, fuentes y cautela sobre fechas, actores y bajas"
+);
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

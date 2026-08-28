@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.145 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.146 antes de cerrar la siguiente version.
+
+## v1.6.146 - 2026-08-28
+
+- Normaliza la entrada provisional "Battle of Gyanafalva" como **Combates de Gyanafalva (1921)**, con alias en espa\u00f1ol e ingl\u00e9s, ficha diferida, b\u00fasqueda, \u00edndices y timeline regenerados.
+- La sit\u00faa dentro del Levantamiento de Hungr\u00eda occidental de 1921 y de las operaciones fronterizas de agosto-septiembre, reemplazando la clasificaci\u00f3n incorrecta como batalla interestatal convencional.
+- Distingue una ventaja t\u00e1ctica local de los grupos irregulares h\u00fangaros de una victoria estrat\u00e9gica: conserva una ventana de fechas porque la prensa contempor\u00e1nea y la reconstrucci\u00f3n retrospectiva no coinciden en el d\u00eda exacto.
+- Vincula Austria y Hungr\u00eda, identifica gendarmer\u00eda, Volkswehr y fuerzas irregulares sin tratarlas como ej\u00e9rcitos regulares homog\u00e9neos, y no inventa bajas ni una delimitaci\u00f3n artificial frente a incidentes vecinos.
+- Incorpora trazabilidad del Archivo Nacional de Hungr\u00eda, la hemeroteca EPA de la Biblioteca Nacional Sz\u00e9ch\u00e9nyi y una reconstrucci\u00f3n digitalizada, dejando expl\u00edcitos sus l\u00edmites y sesgos de procedencia.
+- Reduce las jerarqu\u00edas provisionales de 101 a 100 y mantiene cero alertas estructurales, con 1.830 conflictos, 3.090 eventos y 1.076 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-28-release-13`.
 
 ## v1.6.145 - 2026-08-28
 

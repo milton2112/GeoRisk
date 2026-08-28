@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-28T13:24:51.950Z",
+  "generatedAt": "2026-08-28T17:58:43.390Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 101,
-  "reviewCount": 101,
+  "advisoryCount": 100,
+  "reviewCount": 100,
   "summary": {
-    "provisional_parent": 101
+    "provisional_parent": 100
   },
   "topIssues": [],
   "topAdvisories": [
@@ -42,20 +42,6 @@
       "name": "Batalla de Fundy Bay",
       "countries": [
         "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de gyanafalva",
-      "name": "Batalla de Gyanafalva",
-      "countries": [
-        "AUT"
       ],
       "startYear": null,
       "endYear": null,
@@ -1124,6 +1110,20 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de África",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla del 27 de agosto",
+      "name": "Batalla del 27 de agosto",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],

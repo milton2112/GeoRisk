@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-08-28T13:22:36.068Z",
+  "generatedAt": "2026-08-28T17:56:46.963Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11526013,
-    "duplicatedCountryFilesBytes": 1535178,
+    "fullBytes": 11543727,
+    "duplicatedCountryFilesBytes": 1535759,
     "countryConflictShardBytes": 427811,
     "tooLargeCount": 0,
     "largest": [
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 168,
+    "pendingCount": 167,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15210,19 +15210,6 @@
         "name": "Batalla de Fundy Bay",
         "countries": [
           "FRA"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Gyanafalva",
-        "countries": [
-          "AUT"
         ],
         "regions": [
           "Europa"
@@ -17158,6 +17145,19 @@
       },
       {
         "name": "Operación Starlite",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Operación Ten-Gō",
         "countries": [
           "USA"
         ],
