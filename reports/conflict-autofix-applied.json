@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-28T11:13:05.321Z",
+  "generatedAt": "2026-08-28T11:28:29.414Z",
   "changedFullCountries": 3,
   "fullPassChanges": [
     3,
@@ -12,7 +12,7 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1018,
+  "generatedHierarchyCandidates": 1020,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -40,7 +40,8 @@
     ],
     "republica dominicana": [
       "Incursión naval de Puerto Plata (1800)",
-      "Batalla de Puerto Plata (1916)"
+      "Batalla de Puerto Plata (1916)",
+      "Batalla naval de Santo Domingo (1806)"
     ],
     "timor oriental": [
       "Batalla de Aidabasalala"
@@ -141,6 +142,7 @@
       "Batalla de las islas Hyères (1795)",
       "Combate naval frente a Barbados (1778)",
       "Batalla naval de Chef-de-Caux (1417)",
+      "Batalla naval de Santo Domingo (1806)",
       "Accion naval del paso de Doro (1827)",
       "Combate naval de Jask (1620)",
       "Batalla naval de Pirano (1812)"
@@ -922,6 +924,13 @@
     "Battle of Kalyazin": "Combate de Kalyazin (1609)",
     "Battle of Kaljazin": "Combate de Kalyazin (1609)",
     "Bitwa pod Kalazinem": "Combate de Kalyazin (1609)",
+    "Batalla de San Domingo": "Batalla naval de Santo Domingo (1806)",
+    "Batalla de Santo Domingo": "Batalla naval de Santo Domingo (1806)",
+    "Batalla de Santo Domingo (1806)": "Batalla naval de Santo Domingo (1806)",
+    "Batalla naval de San Domingo": "Batalla naval de Santo Domingo (1806)",
+    "Battle of San Domingo": "Batalla naval de Santo Domingo (1806)",
+    "Duckworth's Action off San Domingo": "Batalla naval de Santo Domingo (1806)",
+    "Bataille de Saint-Domingue": "Batalla naval de Santo Domingo (1806)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -1977,6 +1986,7 @@
     "Batalla de Bir Enzaran (1979)",
     "Ataque a Lebouirate (1979)",
     "Combate de Kalyazin (1609)",
+    "Batalla naval de Santo Domingo (1806)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

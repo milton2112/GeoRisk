@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.137 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.138 antes de cerrar la siguiente version.
+
+## v1.6.138 - 2026-08-28
+
+- Normaliza la entrada provisional "Batalla de San Domingo" como **Batalla naval de Santo Domingo (1806)**, con aliases en español, inglés y francés, ficha diferida, índices y búsqueda regenerados.
+- La sitúa el 6 de febrero de 1806 frente a Santo Domingo, en las Guerras napoleónicas y la Campaña atlántica de 1806. Corrige la jerarquía genérica previa y registra la victoria británica sin cerrar una cifra única de bajas.
+- Vincula Francia y Reino Unido por las escuadras históricas; República Dominicana queda solo como referencia geográfica contemporánea. No presenta a los Estados contemporáneos, España o Haití como beligerantes de la acción.
+- Incorpora trazabilidad de Royal Museums Greenwich, Royal Collection Trust y la Gaceta de Madrid de 1806.
+- Reduce las jerarquías provisionales de 109 a 108 y mantiene cero alertas estructurales, con 1.822 conflictos, 3.071 eventos y 1.068 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-28-release-5`.
 
 ## v1.6.137 - 2026-08-28
 

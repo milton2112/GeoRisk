@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-28T11:13:13.177Z",
+  "generatedAt": "2026-08-28T11:28:35.525Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11370367,
-    "duplicatedCountryFilesBytes": 1532164,
-    "countryConflictShardBytes": 425821,
+    "fullBytes": 11390395,
+    "duplicatedCountryFilesBytes": 1532491,
+    "countryConflictShardBytes": 426247,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
         "bytes": 24772,
-        "inlineBytes": 1098031,
+        "inlineBytes": 1105615,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,7 +21,7 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 314,
+          "conflicts": 315,
           "timelineEvents": 4
         },
         "metrics": {
@@ -54,9 +54,9 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 71431,
-          "conflictShardBytes": 71432,
-          "averageConflictBytes": 227
+          "conflictsBytes": 71758,
+          "conflictShardBytes": 71759,
+          "averageConflictBytes": 228
         }
       },
       {
@@ -216,7 +216,7 @@
         "code": "FRA",
         "name": "Francia",
         "bytes": 20004,
-        "inlineBytes": 777153,
+        "inlineBytes": 782013,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -258,8 +258,8 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 46707,
-          "conflictShardBytes": 46708,
+          "conflictsBytes": 46806,
+          "conflictShardBytes": 46807,
           "averageConflictBytes": 197
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 176,
+    "pendingCount": 175,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15980,19 +15980,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de San Domingo",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
@@ -17158,6 +17145,19 @@
       },
       {
         "name": "Operación Costa de Marfil",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Operación cowboy",
         "countries": [
           "USA"
         ],

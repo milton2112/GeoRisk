@@ -283,6 +283,11 @@ import {
   KALYAZIN_CONFLICT_RENAMES
 } from "../lib/conflict-curation-kalyazin.js";
 import {
+  SANTO_DOMINGO_CONFLICT_DETAIL_FIXES,
+  SANTO_DOMINGO_COUNTRY_CONFLICT_ADDITIONS,
+  SANTO_DOMINGO_CONFLICT_RENAMES
+} from "../lib/conflict-curation-santo-domingo.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -2880,6 +2885,40 @@ assert.ok(
   ),
   "la curaduria de Kalyazin debe conservar fecha mensual, jerarquia, fuentes, participantes y cautela sobre el resultado"
 );
+assert.equal(Object.keys(SANTO_DOMINGO_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  SANTO_DOMINGO_CONFLICT_RENAMES["Batalla de San Domingo"],
+  "Batalla naval de Santo Domingo (1806)"
+);
+assert.deepEqual(
+  SANTO_DOMINGO_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Reino Unido": ["Batalla naval de Santo Domingo (1806)"],
+    "República Dominicana": ["Batalla naval de Santo Domingo (1806)"]
+  }
+);
+assert.ok(
+  Object.values(SANTO_DOMINGO_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 1806
+      && detail.startYear === detail.endYear
+      && detail.datePrecision === "6 de febrero de 1806"
+      && detail.parent === "Guerras napole\u00f3nicas (1803-1815)"
+      && detail.campaign === "Campa\u00f1a atl\u00e1ntica de 1806"
+      && detail.type === "batalla naval"
+      && detail.conflictType === "interestatal"
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 3
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && /Victoria brit\u00e1nica/i.test(detail.outcome)
+      && /no consolida una cifra \u00fanica/i.test(detail.outcome)
+  ),
+  "la curaduria de Santo Domingo debe conservar fecha, jerarquia, fuentes, participantes y cautela sobre las bajas"
+);
+const santoDomingoWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval de Santo Domingo (1806)");
+assert.equal(santoDomingoWikipediaOverride.language, "en");
+assert.equal(santoDomingoWikipediaOverride.pageTitle, "Battle_of_San_Domingo");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

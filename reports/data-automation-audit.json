@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-28T11:15:05.382Z",
+  "generatedAt": "2026-08-28T11:30:34.843Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 177
+      "count": 176
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 109
+      "count": 108
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 551
+      "count": 552
     },
     "redundantReligions": {
       "count": 0
@@ -203,11 +203,6 @@
       },
       {
         "code": "FRA",
-        "name": "Batalla de San Domingo",
-        "region": "Europa"
-      },
-      {
-        "code": "FRA",
         "name": "Batalla de Siracusa",
         "region": "Europa"
       },
@@ -254,6 +249,11 @@
       {
         "code": "FRA",
         "name": "Batalla del Convoy de Malta",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla naval de Saint-Martin-de-Re",
         "region": "Europa"
       }
     ],
@@ -422,13 +422,6 @@
       },
       {
         "code": "FRA",
-        "name": "Batalla de San Domingo",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
         "name": "Batalla de Siracusa",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
@@ -535,6 +528,13 @@
       {
         "code": "GRC",
         "name": "Batalla de Imbros",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "HUN",
+        "name": "Batalla de Vízakna",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 109,
+      "count": 108,
       "command": "npm run fix:conflicts:batches"
     },
     {
