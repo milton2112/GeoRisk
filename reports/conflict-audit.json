@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-28T11:30:31.246Z",
+  "generatedAt": "2026-08-28T12:16:32.104Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 108,
-  "reviewCount": 108,
+  "advisoryCount": 107,
+  "reviewCount": 107,
   "summary": {
-    "provisional_parent": 108
+    "provisional_parent": 107
   },
   "topIssues": [],
   "topAdvisories": [
@@ -948,20 +948,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de st lucia",
-      "name": "Batalla de St. Lucia",
-      "countries": [
-        "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de steen s mountain",
       "name": "Batalla de Steen's Mountain",
       "countries": [
@@ -1120,6 +1106,20 @@
       "name": "Batalla de Vizagapatam",
       "countries": [
         "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de vizakna",
+      "name": "Batalla de Vízakna",
+      "countries": [
+        "HUN"
       ],
       "startYear": null,
       "endYear": null,

@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-28T11:30:34.843Z",
+  "generatedAt": "2026-08-28T12:16:35.708Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 176
+      "count": 175
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 108
+      "count": 107
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 552
+      "count": 553
     },
     "redundantReligions": {
       "count": 0
@@ -208,11 +208,6 @@
       },
       {
         "code": "FRA",
-        "name": "Batalla de St. Lucia",
-        "region": "Europa"
-      },
-      {
-        "code": "FRA",
         "name": "Batalla de Tellicherry",
         "region": "Europa"
       },
@@ -254,6 +249,11 @@
       {
         "code": "FRA",
         "name": "Batalla naval de Saint-Martin-de-Re",
+        "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla naval de St. John",
         "region": "Europa"
       }
     ],
@@ -429,13 +429,6 @@
       },
       {
         "code": "FRA",
-        "name": "Batalla de St. Lucia",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
         "name": "Batalla de Tellicherry",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
@@ -537,6 +530,13 @@
         "name": "Batalla de Vízakna",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "IDN",
+        "name": "Batalla de Petaling",
+        "parent": "Conflicto regional de Asia",
+        "campaign": "Campaña vinculada a Conflicto regional de Asia",
         "startYear": null
       }
     ],
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 108,
+      "count": 107,
       "command": "npm run fix:conflicts:batches"
     },
     {

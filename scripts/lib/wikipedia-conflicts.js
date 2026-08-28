@@ -169,6 +169,7 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Combate naval de Jask (1620)": "Battle_off_Jask",
   "Batalla naval de Pirano (1812)": "Battle_of_Pirano",
   "Batalla naval de Santo Domingo (1806)": "Battle_of_San_Domingo",
+  "Batalla naval de Santa Luc\u00eda (1778)": "Battle_of_St._Lucia",
   "Segunda batalla de Fort McAllister": "Second_Battle_of_Fort_McAllister",
   "Batalla de Fredericksburg": "Battle_of_Fredericksburg",
   "Batalla del puerto de Galveston de 1862": "Battle_of_Galveston_Harbor_(1862)",

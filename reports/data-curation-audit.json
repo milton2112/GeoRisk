@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-28T11:28:35.525Z",
+  "generatedAt": "2026-08-28T12:14:38.478Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11390395,
-    "duplicatedCountryFilesBytes": 1532491,
-    "countryConflictShardBytes": 426247,
+    "fullBytes": 11403463,
+    "duplicatedCountryFilesBytes": 1532510,
+    "countryConflictShardBytes": 426675,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 24772,
-        "inlineBytes": 1105615,
+        "bytes": 24774,
+        "inlineBytes": 1113509,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,12 +21,12 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 315,
+          "conflicts": 316,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 11348,
+            "military": 11350,
             "politics": 9502,
             "metadata": 1952,
             "general": 1018,
@@ -39,7 +39,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 11348
+              "bytes": 11350
             },
             {
               "section": "politics",
@@ -54,8 +54,8 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 71758,
-          "conflictShardBytes": 71759,
+          "conflictsBytes": 72085,
+          "conflictShardBytes": 72086,
           "averageConflictBytes": 228
         }
       },
@@ -215,8 +215,8 @@
       {
         "code": "FRA",
         "name": "Francia",
-        "bytes": 20004,
-        "inlineBytes": 782013,
+        "bytes": 20021,
+        "inlineBytes": 787187,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -230,7 +230,7 @@
         },
         "metrics": {
           "sectionBytes": {
-            "military": 8324,
+            "military": 8341,
             "politics": 7898,
             "metadata": 1952,
             "general": 933,
@@ -243,7 +243,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 8324
+              "bytes": 8341
             },
             {
               "section": "politics",
@@ -258,9 +258,9 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 46806,
-          "conflictShardBytes": 46807,
-          "averageConflictBytes": 197
+          "conflictsBytes": 46907,
+          "conflictShardBytes": 46908,
+          "averageConflictBytes": 198
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 175,
+    "pendingCount": 174,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -16058,19 +16058,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de St. Lucia",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
@@ -17158,6 +17145,19 @@
       },
       {
         "name": "Operación cowboy",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Operación Crimp",
         "countries": [
           "USA"
         ],

@@ -288,6 +288,11 @@ import {
   SANTO_DOMINGO_CONFLICT_RENAMES
 } from "../lib/conflict-curation-santo-domingo.js";
 import {
+  SANTA_LUCIA_CONFLICT_DETAIL_FIXES,
+  SANTA_LUCIA_COUNTRY_CONFLICT_ADDITIONS,
+  SANTA_LUCIA_CONFLICT_RENAMES
+} from "../lib/conflict-curation-santa-lucia.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -2919,6 +2924,43 @@ assert.ok(
 const santoDomingoWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval de Santo Domingo (1806)");
 assert.equal(santoDomingoWikipediaOverride.language, "en");
 assert.equal(santoDomingoWikipediaOverride.pageTitle, "Battle_of_San_Domingo");
+assert.equal(Object.keys(SANTA_LUCIA_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  SANTA_LUCIA_CONFLICT_RENAMES["Batalla de St. Lucia"],
+  "Batalla naval de Santa Luc\u00eda (1778)"
+);
+assert.equal(
+  SANTA_LUCIA_CONFLICT_RENAMES["Battle of Saint Lucia"],
+  "Batalla naval de Santa Luc\u00eda (1778)"
+);
+assert.deepEqual(
+  SANTA_LUCIA_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Reino Unido": ["Batalla naval de Santa Luc\u00eda (1778)"]
+  }
+);
+assert.ok(
+  Object.values(SANTA_LUCIA_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 1778
+      && detail.startYear === detail.endYear
+      && detail.datePrecision === "15 de diciembre de 1778"
+      && detail.parent === "Guerra de Independencia de Estados Unidos"
+      && detail.campaign === "Campa\u00f1a de las Antillas de 1778-1783"
+      && detail.type === "batalla naval"
+      && detail.conflictType === "independencia"
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 3
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && /\u00c9xito defensivo brit\u00e1nico/i.test(detail.outcome)
+      && /no resolvi\u00f3 por s\u00ed sola/i.test(detail.outcome)
+  ),
+  "la curaduria de Santa Lucia debe conservar fecha, jerarquia, fuentes, participantes y distinguir el combate naval de la rendicion posterior"
+);
+const santaLuciaWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval de Santa Luc\u00eda (1778)");
+assert.equal(santaLuciaWikipediaOverride.language, "en");
+assert.equal(santaLuciaWikipediaOverride.pageTitle, "Battle_of_St._Lucia");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

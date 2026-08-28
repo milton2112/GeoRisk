@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.138 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.139 antes de cerrar la siguiente version.
+
+## v1.6.139 - 2026-08-28
+
+- Normaliza la entrada provisional "Batalla de St. Lucia" como **Batalla naval de Santa Lucía (1778)**, con aliases en español e inglés, ficha diferida, índices y búsqueda regenerados.
+- La sitúa el 15 de diciembre de 1778 en Grand Cul de Sac, dentro de la Guerra de Independencia de Estados Unidos y de la Campaña de las Antillas de 1778-1783.
+- Distingue el éxito defensivo británico del combate naval de la capitulación francesa posterior: no presenta la captura de la isla como resultado de una sola maniobra ni fija bajas sin series consistentes.
+- Vincula Francia y Reino Unido mediante las fuerzas históricas, y conserva Santa Lucía como ubicación de la acción, no como Estado contemporáneo beligerante.
+- Incorpora trazabilidad de Royal Museums Greenwich y Naval History and Heritage Command.
+- Reduce las jerarquías provisionales de 108 a 107 y mantiene cero alertas estructurales, con 1.823 conflictos, 3.073 eventos y 1.069 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-28-release-6`.
 
 ## v1.6.138 - 2026-08-28
 
