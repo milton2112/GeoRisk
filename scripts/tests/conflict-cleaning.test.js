@@ -18,6 +18,8 @@ assert.equal(canonicalizeConflictNameWithRules("World War II", rules), "Segunda 
 assert.equal(canonicalizeConflictNameWithRules("Battle of Mosul", rules), "Batalla de Mosul");
 assert.equal(cleanConflictLabel("Operación Black Buck"), "Operacion Black Buck");
 assert.equal(cleanConflictLabel("México y Perú"), "Mexico y Peru");
+assert.equal(cleanConflictLabel("Irán e Irak"), "Iran e Irak");
+assert.equal(cleanConflictLabel("Batalla naval de Pirano (1812)"), "Batalla naval de Pirano (1812)");
 assert.equal(cleanConflictLabel("Batalla de Châteauguay"), "Batalla de Châteauguay");
 assert.equal(cleanConflictLabel("Guerra contra el narcotrÃ¡fico"), "Guerra contra el narcotráfico");
 assert.equal(cleanConflictLabel("Bando 1: Aliados &#8203; ver anexo &&&&&&&099"), "Aliados");

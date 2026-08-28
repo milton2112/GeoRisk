@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-28T10:27:53.545Z",
+  "generatedAt": "2026-08-28T10:45:46.670Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11309053,
-    "duplicatedCountryFilesBytes": 1531026,
-    "countryConflictShardBytes": 424690,
+    "fullBytes": 11337789,
+    "duplicatedCountryFilesBytes": 1531676,
+    "countryConflictShardBytes": 425118,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
         "bytes": 24772,
-        "inlineBytes": 1090169,
+        "inlineBytes": 1098031,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,7 +21,7 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 313,
+          "conflicts": 314,
           "timelineEvents": 4
         },
         "metrics": {
@@ -54,8 +54,8 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 71106,
-          "conflictShardBytes": 71107,
+          "conflictsBytes": 71431,
+          "conflictShardBytes": 71432,
           "averageConflictBytes": 227
         }
       },
@@ -216,7 +216,7 @@
         "code": "FRA",
         "name": "Francia",
         "bytes": 20004,
-        "inlineBytes": 772003,
+        "inlineBytes": 777153,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -258,8 +258,8 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 46604,
-          "conflictShardBytes": 46605,
+          "conflictsBytes": 46707,
+          "conflictShardBytes": 46708,
           "averageConflictBytes": 197
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 179,
+    "pendingCount": 178,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15208,19 +15208,6 @@
       },
       {
         "name": "Batalla de Fundy Bay",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Grado",
         "countries": [
           "FRA"
         ],
@@ -17163,6 +17150,19 @@
         ],
         "regions": [
           "Asia"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Operación Bodenplatte",
+        "countries": [
+          "GBR"
+        ],
+        "regions": [
+          "Europa"
         ],
         "types": [
           "interestatal"

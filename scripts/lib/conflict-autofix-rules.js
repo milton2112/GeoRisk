@@ -15,6 +15,7 @@ export const SAFE_CONFLICT_RENAMES = {
   "Raid on Havre de Grace": "Incursion sobre Havre de Grace",
   "Iran–Israel conflict during Syrian civil war": "Conflicto irano-israeli durante la guerra civil siria",
   "Iran-Israel conflict during Syrian civil war": "Conflicto irano-israeli durante la guerra civil siria",
+  "Conflicto Irano-israeli durante la guerra civil siria": "Conflicto irano-israeli durante la guerra civil siria",
   "1952 Clash de Ismailia": "Choque de Ismailia de 1952",
   "1957 Honduras-Nicaragua border conflict": "Conflicto fronterizo Honduras-Nicaragua de 1957",
   "2024 Beqaa Valley airstrikes": "Ataques aereos del valle de la Becaa de 2024",

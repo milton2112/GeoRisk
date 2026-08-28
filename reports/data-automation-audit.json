@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-28T10:30:45.785Z",
+  "generatedAt": "2026-08-28T10:49:17.090Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 180
+      "count": 179
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 112
+      "count": 111
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 548
+      "count": 549
     },
     "redundantReligions": {
       "count": 0
@@ -129,11 +129,6 @@
       {
         "code": "FRA",
         "name": "Batalla de Fundy Bay",
-        "region": "Europa"
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Grado",
         "region": "Europa"
       },
       {
@@ -255,6 +250,11 @@
         "code": "FRA",
         "name": "Batalla del cabo Lizard",
         "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Batalla del Convoy de Malta",
+        "region": "Europa"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -318,13 +318,6 @@
       {
         "code": "FRA",
         "name": "Batalla de Fundy Bay",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Grado",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -537,6 +530,13 @@
         "name": "Batalla de Ochamchira",
         "parent": "Conflicto regional de Asia",
         "campaign": "Campaña vinculada a Conflicto regional de Asia",
+        "startYear": null
+      },
+      {
+        "code": "GRC",
+        "name": "Batalla de Imbros",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
       }
     ],
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 112,
+      "count": 111,
       "command": "npm run fix:conflicts:batches"
     },
     {

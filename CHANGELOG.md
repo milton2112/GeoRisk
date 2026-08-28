@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.134 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.135 antes de cerrar la siguiente version.
+
+## v1.6.135 - 2026-08-28
+
+- Corrige un defecto del normalizador que podia transformar el toponimo Pirano en "PIrano" al procesar la regla de Iran. La regla ahora reconoce exclusivamente el pais completo y una regresion protege ambos casos.
+- Normaliza y consolida la entrada de Grado como **Batalla naval de Pirano (1812)**, con aliases en espanol, ingles e italiano, ficha diferida, indices y busqueda regenerados.
+- Situa el combate en el Adriatico septentrional entre Pirano y Grado, dentro de las Guerras napoleonicas y la Campana del Adriatico. Conserva los reinos y escuadras historicos como participantes, y solo usa Reino Unido, Italia y Eslovenia como enlaces contemporaneos de navegacion.
+- Incorpora trazabilidad del Museo Nacional de Arqueologia del Mar de Caorle, la Universidad Ca' Foscari de Venecia y un estudio arqueologico naval. No fija una cifra unica de bajas ni una causa tecnica definitiva de la perdida del Mercurio cuando las fuentes no son uniformes.
+- Elimina ademas un duplicado de capitalizacion de "Conflicto irano-israeli durante la guerra civil siria". La auditoria queda en cero alertas estructurales, con 1.819 conflictos, 3.063 eventos, 1.065 fichas diferidas y 111 jerarquias provisionales pendientes de curaduria.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-28-release-2`.
 
 ## v1.6.134 - 2026-08-28
 

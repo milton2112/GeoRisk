@@ -166,6 +166,7 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Accion naval del paso de Doro (1827)": "Battle_of_Doro_Passage",
   "Combate de Drohiczyn (1192)": "Battle_of_Drohiczyn",
   "Combate naval de Jask (1620)": "Battle_off_Jask",
+  "Batalla naval de Pirano (1812)": "Battle_of_Pirano",
   "Segunda batalla de Fort McAllister": "Second_Battle_of_Fort_McAllister",
   "Batalla de Fredericksburg": "Battle_of_Fredericksburg",
   "Batalla del puerto de Galveston de 1862": "Battle_of_Galveston_Harbor_(1862)",

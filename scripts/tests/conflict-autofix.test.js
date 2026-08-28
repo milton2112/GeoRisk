@@ -354,6 +354,11 @@ import {
   GOTSKA_SANDON_CONFLICT_RENAMES
 } from "../lib/conflict-curation-gotska-sandon.js";
 import {
+  PIRANO_GRADO_CONFLICT_DETAIL_FIXES,
+  PIRANO_GRADO_COUNTRY_CONFLICT_ADDITIONS,
+  PIRANO_GRADO_CONFLICT_RENAMES
+} from "../lib/conflict-curation-pirano-grado.js";
+import {
   CABO_BOJADOR_COUNTRY_CONFLICT_EXCLUSIONS,
   CABO_BOJADOR_CURATORIAL_NOTES
 } from "../lib/conflict-curation-cabo-bojador.js";
@@ -372,6 +377,10 @@ import { buildConflictAuditReport } from "../lib/conflict-audit.js";
 import { hasReasonableTemporalMatch, resolveWikipediaConflictTitle } from "../lib/wikipedia-conflicts.js";
 
 assert.equal(SAFE_CONFLICT_RENAMES["Adriatic Campaign de World War II"], "Campana del Adriatico en la Segunda Guerra Mundial");
+assert.equal(
+  SAFE_CONFLICT_RENAMES["Conflicto Irano-israeli durante la guerra civil siria"],
+  "Conflicto irano-israeli durante la guerra civil siria"
+);
 assert.equal(CURATED_CONFLICT_DETAIL_FIXES["Batalla de Saigon"].parent, "Guerra de Vietnam");
 assert.equal(WWII_1942_SAFE_CONFLICT_RENAMES["Batalla de la BahÃƒÂ­a de Milne"], "Batalla de la Bahia de Milne");
 assert.equal(WWII_1942_CONFLICT_DETAIL_FIXES["Batalla de Midway"].parent, "Segunda Guerra Mundial");
@@ -1196,6 +1205,37 @@ assert.deepEqual(
   GOTSKA_SANDON_COUNTRY_CONFLICT_ADDITIONS.Dinamarca,
   ["Batalla naval de Gotska Sand\u00f6n (1563)"]
 );
+assert.equal(PIRANO_GRADO_CONFLICT_RENAMES["Batalla de Grado"], "Batalla naval de Pirano (1812)");
+assert.equal(PIRANO_GRADO_CONFLICT_RENAMES["Batalla naval de PIrano (1812)"], "Batalla naval de Pirano (1812)");
+const piranoGradoDetail = PIRANO_GRADO_CONFLICT_DETAIL_FIXES["Batalla naval de Pirano (1812)"];
+assert.equal(piranoGradoDetail.parent, "Guerras napole\u00f3nicas (1803-1815)");
+assert.equal(piranoGradoDetail.campaign, "Campa\u00f1a del Adri\u00e1tico (1807-1814)");
+assert.equal(piranoGradoDetail.startYear, 1812);
+assert.equal(piranoGradoDetail.endYear, 1812);
+assert.equal(piranoGradoDetail.conflictType, "interestatal");
+assert.match(piranoGradoDetail.region, /Pirano/);
+assert.equal(piranoGradoDetail.participants[0].members[0], "Reino Unido de Gran Breta\u00f1a e Irlanda");
+assert.equal(piranoGradoDetail.participants[1].members[0], "Primer Imperio franc\u00e9s");
+assert.equal(piranoGradoDetail.sourceDispute, true);
+assert.equal(piranoGradoDetail.hierarchyConfidence, "alta");
+assert.equal(piranoGradoDetail.hierarchySources.length, 3);
+assert.match(piranoGradoDetail.datePrecision, /22 de febrero de 1812/i);
+assert.match(piranoGradoDetail.curationNote, /Eslovenia/i);
+assert.deepEqual(
+  PIRANO_GRADO_COUNTRY_CONFLICT_ADDITIONS.Italia,
+  ["Batalla naval de Pirano (1812)"]
+);
+assert.deepEqual(
+  PIRANO_GRADO_COUNTRY_CONFLICT_ADDITIONS.Eslovenia,
+  ["Batalla naval de Pirano (1812)"]
+);
+const curatedPiranoName = curateConflictEntry({
+  name: "Batalla naval de Pirano (1812)",
+  startYear: 1812,
+  endYear: 1812,
+  type: "batalla naval"
+});
+assert.equal(curatedPiranoName.name, "Batalla naval de Pirano (1812)");
 assert.equal(JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Acción naval de Happo (1592)"].type, "acción naval");
 assert.equal(
   JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Ataque al fondeadero de Jeokjinpo (1592)"].type,
@@ -3138,6 +3178,9 @@ assert.equal(drohiczynWikipediaOverride.pageTitle, "Battle_of_Drohiczyn");
 const jaskWikipediaOverride = await resolveWikipediaConflictTitle("Combate naval de Jask (1620)");
 assert.equal(jaskWikipediaOverride.language, "en");
 assert.equal(jaskWikipediaOverride.pageTitle, "Battle_off_Jask");
+const piranoWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval de Pirano (1812)");
+assert.equal(piranoWikipediaOverride.language, "en");
+assert.equal(piranoWikipediaOverride.pageTitle, "Battle_of_Pirano");
 const czortkowWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Czortk\u00f3w (1919)");
 assert.equal(czortkowWikipediaOverride.language, "es");
 assert.equal(czortkowWikipediaOverride.pageTitle, "Chortkiv_offensive");

@@ -36,7 +36,7 @@ export function applyConflictUnicodeCorrections(value) {
     .replace(/Per[uú]/gi, "Peru")
     .replace(/Pakist[aá]n/gi, "Pakistan")
     .replace(/Afganist[aá]n/gi, "Afganistan")
-    .replace(/Ir[aá]n/gi, "Iran")
+    .replace(/(?<![\p{L}\p{M}])Ir[a\u00e1]n(?![\p{L}\p{M}])/giu, "Iran")
     .replace(/Jerusal[eé]n/gi, "Jerusalen")
     .replace(/Luxembourg/gi, "Luxemburgo");
 }

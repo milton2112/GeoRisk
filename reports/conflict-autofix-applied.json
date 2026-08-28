@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-28T10:27:47.509Z",
-  "changedFullCountries": 2,
+  "generatedAt": "2026-08-28T10:45:40.593Z",
+  "changedFullCountries": 6,
   "fullPassChanges": [
-    2,
+    6,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
-    "renamed": 0,
-    "enriched": 117,
+    "renamed": 2,
+    "enriched": 116,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1016,
+  "generatedHierarchyCandidates": 1017,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -142,7 +142,8 @@
       "Combate naval frente a Barbados (1778)",
       "Batalla naval de Chef-de-Caux (1417)",
       "Accion naval del paso de Doro (1827)",
-      "Combate naval de Jask (1620)"
+      "Combate naval de Jask (1620)",
+      "Batalla naval de Pirano (1812)"
     ],
     "irlanda": [
       "Batalla naval de la bahía de Bantry (1689)",
@@ -364,7 +365,8 @@
       "Batalla de Ösel (1719)"
     ],
     "italia": [
-      "Batalla de las islas Hyères (1795)"
+      "Batalla de las islas Hyères (1795)",
+      "Batalla naval de Pirano (1812)"
     ],
     "sahara occidental": [
       "Batalla de Bir Enzaran (1979)",
@@ -384,6 +386,9 @@
     ],
     "iran": [
       "Combate naval de Jask (1620)"
+    ],
+    "eslovenia": [
+      "Batalla naval de Pirano (1812)"
     ]
   },
   "countryConflictExclusions": {
@@ -425,6 +430,7 @@
     "Raid on Havre de Grace": "Incursion sobre Havre de Grace",
     "Iran–Israel conflict during Syrian civil war": "Conflicto irano-israeli durante la guerra civil siria",
     "Iran-Israel conflict during Syrian civil war": "Conflicto irano-israeli durante la guerra civil siria",
+    "Conflicto Irano-israeli durante la guerra civil siria": "Conflicto irano-israeli durante la guerra civil siria",
     "1952 Clash de Ismailia": "Choque de Ismailia de 1952",
     "1957 Honduras-Nicaragua border conflict": "Conflicto fronterizo Honduras-Nicaragua de 1957",
     "2024 Beqaa Valley airstrikes": "Ataques aereos del valle de la Becaa de 2024",
@@ -983,7 +989,15 @@
     "Batalla de Gotska Sandön (1563)": "Batalla naval de Gotska Sandön (1563)",
     "Batalla naval de Gotska Sandön": "Batalla naval de Gotska Sandön (1563)",
     "Battle of Gotska Sandön": "Batalla naval de Gotska Sandön (1563)",
-    "Slaget vid Gotska Sandön": "Batalla naval de Gotska Sandön (1563)"
+    "Slaget vid Gotska Sandön": "Batalla naval de Gotska Sandön (1563)",
+    "Batalla de Grado": "Batalla naval de Pirano (1812)",
+    "Batalla naval de Grado": "Batalla naval de Pirano (1812)",
+    "Batalla naval de PIrano (1812)": "Batalla naval de Pirano (1812)",
+    "Batalla de Pirano": "Batalla naval de Pirano (1812)",
+    "Battle of Grado": "Batalla naval de Pirano (1812)",
+    "Battle of Pirano": "Batalla naval de Pirano (1812)",
+    "Battaglia di Grado": "Batalla naval de Pirano (1812)",
+    "Battaglia di Pirano": "Batalla naval de Pirano (1812)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -992,7 +1006,7 @@
     "Bombardeos aliados de Amsterdam-Noord",
     "Incursion de abril de 2009 frente a Somalia",
     "Ofensiva de Sirte de 2016",
-    "Conflicto Irano-israeli durante la guerra civil siria",
+    "Conflicto irano-israeli durante la guerra civil siria",
     "Batalla de al-Qaryatayn",
     "Batalla de Saigon",
     "Batalla de Hjorungavagr",
@@ -1966,6 +1980,7 @@
     "Accion naval del paso de Doro (1827)",
     "Combate de Drohiczyn (1192)",
     "Combate naval de Jask (1620)",
-    "Batalla naval de Gotska Sandön (1563)"
+    "Batalla naval de Gotska Sandön (1563)",
+    "Batalla naval de Pirano (1812)"
   ]
 }
