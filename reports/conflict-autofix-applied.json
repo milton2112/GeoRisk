@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-28T12:38:50.457Z",
+  "generatedAt": "2026-08-28T12:48:47.748Z",
   "changedFullCountries": 2,
   "fullPassChanges": [
     2,
@@ -8,11 +8,11 @@
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 117,
+    "enriched": 118,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1022,
+  "generatedHierarchyCandidates": 1023,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -379,6 +379,9 @@
       "Batalla de Bir Enzaran (1979)",
       "Ataque a Lebouirate (1979)",
       "Combate de Deglebat-Leglia (1977)"
+    ],
+    "armenia": [
+      "Operaciones de Jabrayil (2020)"
     ],
     "afganistan": [
       "Batalla de Aranas (2007)"
@@ -957,6 +960,13 @@
     "Battle of Havana": "Combate naval frente a La Habana (1870)",
     "Battle of Havana (1870)": "Combate naval frente a La Habana (1870)",
     "Battle between Meteor and Bouvet": "Combate naval frente a La Habana (1870)",
+    "Batalla de Jabrayil": "Operaciones de Jabrayil (2020)",
+    "Batalla de Jabrayil (2020)": "Operaciones de Jabrayil (2020)",
+    "Combates de Jabrayil": "Operaciones de Jabrayil (2020)",
+    "Captura de Jabrayil": "Operaciones de Jabrayil (2020)",
+    "Battle of Jabrayil": "Operaciones de Jabrayil (2020)",
+    "Battle of Jabrayil (2020)": "Operaciones de Jabrayil (2020)",
+    "Jabrayil offensive": "Operaciones de Jabrayil (2020)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2016,6 +2026,7 @@
     "Batalla naval de Santa Lucía (1778)",
     "Combate naval frente a Hiddensee (1870)",
     "Combate naval frente a La Habana (1870)",
+    "Operaciones de Jabrayil (2020)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.141 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.142 antes de cerrar la siguiente version.
+
+## v1.6.142 - 2026-08-28
+
+- Normaliza la entrada provisional "Batalla de Jabrayil" como **Operaciones de Jabrayil (2020)**, con aliases en español e inglés, ficha diferida, índices, búsqueda y timeline regenerados.
+- La sitúa en octubre de 2020 dentro de la Segunda guerra de Nagorno-Karabaj y su ofensiva meridional, con fecha, región y jerarquía verificables.
+- Vincula Armenia y Azerbaiyán, conserva a Artsaj como actor de facto y no como Estado reconocido, y registra la declaración trilateral de 9 de noviembre de 2020 como cierre de la fase bélica.
+- Distingue el anuncio estatal azerbaiyano del 4 de octubre de la controversia inicial y del control territorial posterior documentado; no fija bajas, unidades ni un parte táctico cerrado.
+- Incorpora trazabilidad del Congressional Research Service, Human Rights Watch, el informe de país neerlandés y la cronología estatal azerbaiyana, identificada como tal.
+- Reduce las jerarquías provisionales de 105 a 104 y mantiene cero alertas estructurales, con 1.826 conflictos, 3.079 eventos y 1.072 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-28-release-9`.
 
 ## v1.6.141 - 2026-08-28
 

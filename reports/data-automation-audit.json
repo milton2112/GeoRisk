@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-28T12:41:26.695Z",
+  "generatedAt": "2026-08-28T12:51:06.311Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 173
+      "count": 172
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 105
+      "count": 104
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 555
+      "count": 556
     },
     "redundantReligions": {
       "count": 0
@@ -90,11 +90,6 @@
         "code": "AUT",
         "name": "Primera escaramuza de Ágfalva",
         "region": "Europa"
-      },
-      {
-        "code": "AZE",
-        "name": "Batalla de Jabrayil",
-        "region": "Asia"
       },
       {
         "code": "CMR",
@@ -255,6 +250,11 @@
         "code": "FRA",
         "name": "Bombardeo de Tourane",
         "region": "Europa"
+      },
+      {
+        "code": "FRA",
+        "name": "Captura de Demerara y Essequibo",
+        "region": "Europa"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -278,13 +278,6 @@
         "name": "Batalla de Kirchschlag",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "AZE",
-        "name": "Batalla de Jabrayil",
-        "parent": "Conflicto regional de Asia",
-        "campaign": "Campaña vinculada a Conflicto regional de Asia",
         "startYear": null
       },
       {
@@ -535,6 +528,13 @@
       {
         "code": "IRQ",
         "name": "Batalla de Pirde",
+        "parent": "Conflicto regional de Asia",
+        "campaign": "Campaña vinculada a Conflicto regional de Asia",
+        "startYear": null
+      },
+      {
+        "code": "ISR",
+        "name": "Batalla de Re'im",
         "parent": "Conflicto regional de Asia",
         "campaign": "Campaña vinculada a Conflicto regional de Asia",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 105,
+      "count": 104,
       "command": "npm run fix:conflicts:batches"
     },
     {

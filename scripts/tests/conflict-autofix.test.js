@@ -303,6 +303,11 @@ import {
   HAVANA_CONFLICT_RENAMES
 } from "../lib/conflict-curation-havana.js";
 import {
+  JABRAYIL_CONFLICT_DETAIL_FIXES,
+  JABRAYIL_COUNTRY_CONFLICT_ADDITIONS,
+  JABRAYIL_CONFLICT_RENAMES
+} from "../lib/conflict-curation-jabrayil.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -3046,6 +3051,40 @@ assert.ok(
 const havanaWikipediaOverride = await resolveWikipediaConflictTitle("Combate naval frente a La Habana (1870)");
 assert.equal(havanaWikipediaOverride.language, "en");
 assert.equal(havanaWikipediaOverride.pageTitle, "Battle_of_Havana_(1870)");
+assert.equal(Object.keys(JABRAYIL_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  JABRAYIL_CONFLICT_RENAMES["Batalla de Jabrayil"],
+  "Operaciones de Jabrayil (2020)"
+);
+assert.equal(
+  JABRAYIL_CONFLICT_RENAMES["Battle of Jabrayil (2020)"],
+  "Operaciones de Jabrayil (2020)"
+);
+assert.deepEqual(
+  JABRAYIL_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    Armenia: ["Operaciones de Jabrayil (2020)"]
+  }
+);
+assert.ok(
+  Object.values(JABRAYIL_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 2020
+      && detail.startYear === detail.endYear
+      && detail.parent === "Segunda guerra de Nagorno-Karabaj"
+      && detail.campaign === "Ofensiva meridional de Nagorno-Karabaj de 2020"
+      && detail.type === "ofensiva"
+      && detail.conflictType === "interestatal"
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 4
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && detail.treaties?.some(item => /9 de noviembre de 2020/i.test(item))
+      && /impugnado/i.test(detail.outcome)
+      && /no fija bajas/i.test(detail.sourceDispute)
+  ),
+  "la curaduria de Jabrayil debe conservar fecha, jerarquia, fuentes, participantes y la controversia sobre el anuncio inicial"
+);
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

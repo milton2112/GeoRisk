@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-28T12:41:23.220Z",
+  "generatedAt": "2026-08-28T12:51:02.827Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 105,
-  "reviewCount": 105,
+  "advisoryCount": 104,
+  "reviewCount": 104,
   "summary": {
-    "provisional_parent": 105
+    "provisional_parent": 104
   },
   "topIssues": [],
   "topAdvisories": [
@@ -130,20 +130,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de jabrayil",
-      "name": "Batalla de Jabrayil",
-      "countries": [
-        "AZE"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Asia",
       "issues": [
         "provisional_parent"
       ],
@@ -1118,6 +1104,20 @@
     {
       "key": "batalla de wenden",
       "name": "Batalla de Wenden",
+      "countries": [
+        "SWE"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla de westtief",
+      "name": "Batalla de Westtief",
       "countries": [
         "SWE"
       ],
