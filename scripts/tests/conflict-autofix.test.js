@@ -343,6 +343,11 @@ import {
   MAHE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-mahe.js";
 import {
+  FUNDY_BAY_CONFLICT_DETAIL_FIXES,
+  FUNDY_BAY_COUNTRY_CONFLICT_ADDITIONS,
+  FUNDY_BAY_CONFLICT_RENAMES
+} from "../lib/conflict-curation-fundy-bay.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -3381,6 +3386,43 @@ assert.ok(
       && /evidencia directa disponible procede principalmente de colecciones mar\u00edtimas brit\u00e1nicas/i.test(detail.sourceDispute)
   ),
   "la curaduria de Mahe debe preservar fecha, jerarquia, fuentes, participantes y cautela sobre bajas"
+);
+assert.equal(Object.keys(FUNDY_BAY_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  FUNDY_BAY_CONFLICT_RENAMES["Batalla de Fundy Bay"],
+  "Combate naval de la bah\u00eda de Fundy (1696)"
+);
+assert.equal(
+  FUNDY_BAY_CONFLICT_RENAMES["Battle of the Bay of Fundy"],
+  "Combate naval de la bah\u00eda de Fundy (1696)",
+  "el alias ingles debe llegar a la ficha curada"
+);
+assert.deepEqual(
+  FUNDY_BAY_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Canad\u00e1": ["Combate naval de la bah\u00eda de Fundy (1696)"],
+    Francia: ["Combate naval de la bah\u00eda de Fundy (1696)"],
+    "Reino Unido": ["Combate naval de la bah\u00eda de Fundy (1696)"]
+  }
+);
+assert.ok(
+  Object.values(FUNDY_BAY_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 1696
+      && detail.startYear === detail.endYear
+      && detail.datePrecision === "14 de julio de 1696"
+      && detail.parent === "Guerra de los Nueve A\u00f1os (1688-1697)"
+      && detail.campaign === "Operaciones franco-inglesas en Acadia y Pemaquid (1696)"
+      && detail.type === "combate naval"
+      && detail.conflictType === "colonial"
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 3
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && /capturaron la fragata inglesa Newport/i.test(detail.outcome)
+      && /sit\u00faan expl\u00edcitamente la captura de Newport el 14 de julio/i.test(detail.sourceDispute)
+  ),
+  "la curaduria de Fundy Bay debe preservar fecha, jerarquia, fuentes, participantes y cautela sobre bajas"
 );
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(

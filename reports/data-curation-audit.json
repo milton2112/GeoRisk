@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-28T19:41:55.627Z",
+  "generatedAt": "2026-08-28T20:01:49.652Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11587209,
-    "duplicatedCountryFilesBytes": 1536309,
-    "countryConflictShardBytes": 428363,
+    "fullBytes": 11615563,
+    "duplicatedCountryFilesBytes": 1536770,
+    "countryConflictShardBytes": 428885,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 25014,
-        "inlineBytes": 1141221,
+        "bytes": 25054,
+        "inlineBytes": 1151579,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,12 +21,12 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 319,
+          "conflicts": 320,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 11590,
+            "military": 11630,
             "politics": 9502,
             "metadata": 1952,
             "general": 1018,
@@ -39,7 +39,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 11590
+              "bytes": 11630
             },
             {
               "section": "politics",
@@ -54,9 +54,9 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 73122,
-          "conflictShardBytes": 73123,
-          "averageConflictBytes": 229
+          "conflictsBytes": 73496,
+          "conflictShardBytes": 73497,
+          "averageConflictBytes": 230
         }
       },
       {
@@ -215,8 +215,8 @@
       {
         "code": "FRA",
         "name": "Francia",
-        "bytes": 20021,
-        "inlineBytes": 819265,
+        "bytes": 20068,
+        "inlineBytes": 826903,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -230,7 +230,7 @@
         },
         "metrics": {
           "sectionBytes": {
-            "military": 8341,
+            "military": 8388,
             "politics": 7898,
             "metadata": 1952,
             "general": 933,
@@ -243,7 +243,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 8341
+              "bytes": 8388
             },
             {
               "section": "politics",
@@ -258,9 +258,9 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 47452,
-          "conflictShardBytes": 47453,
-          "averageConflictBytes": 200
+          "conflictsBytes": 47600,
+          "conflictShardBytes": 47601,
+          "averageConflictBytes": 201
         }
       },
       {
@@ -366,6 +366,57 @@
         }
       },
       {
+        "code": "CAN",
+        "name": "Canadá",
+        "bytes": 18032,
+        "inlineBytes": 128702,
+        "tooLarge": false,
+        "counts": {
+          "cities": 4,
+          "capitals": 1,
+          "languages": 2,
+          "religionGroups": 8,
+          "organizations": 48,
+          "rivals": 38,
+          "conflicts": 34,
+          "timelineEvents": 3
+        },
+        "metrics": {
+          "sectionBytes": {
+            "military": 7884,
+            "politics": 6435,
+            "metadata": 1936,
+            "general": 796,
+            "religion": 413,
+            "history": 345,
+            "economy": 101,
+            "name": 9,
+            "continent": 9
+          },
+          "largestSections": [
+            {
+              "section": "military",
+              "bytes": 7884
+            },
+            {
+              "section": "politics",
+              "bytes": 6435
+            },
+            {
+              "section": "metadata",
+              "bytes": 1936
+            },
+            {
+              "section": "general",
+              "bytes": 796
+            }
+          ],
+          "conflictsBytes": 7768,
+          "conflictShardBytes": 0,
+          "averageConflictBytes": 228
+        }
+      },
+      {
         "code": "KOR",
         "name": "Corea del Sur",
         "bytes": 17972,
@@ -414,57 +465,6 @@
           "conflictsBytes": 7988,
           "conflictShardBytes": 0,
           "averageConflictBytes": 258
-        }
-      },
-      {
-        "code": "CAN",
-        "name": "Canadá",
-        "bytes": 17658,
-        "inlineBytes": 118344,
-        "tooLarge": false,
-        "counts": {
-          "cities": 4,
-          "capitals": 1,
-          "languages": 2,
-          "religionGroups": 8,
-          "organizations": 48,
-          "rivals": 38,
-          "conflicts": 33,
-          "timelineEvents": 3
-        },
-        "metrics": {
-          "sectionBytes": {
-            "military": 7510,
-            "politics": 6435,
-            "metadata": 1936,
-            "general": 796,
-            "religion": 413,
-            "history": 345,
-            "economy": 101,
-            "name": 9,
-            "continent": 9
-          },
-          "largestSections": [
-            {
-              "section": "military",
-              "bytes": 7510
-            },
-            {
-              "section": "politics",
-              "bytes": 6435
-            },
-            {
-              "section": "metadata",
-              "bytes": 1936
-            },
-            {
-              "section": "general",
-              "bytes": 796
-            }
-          ],
-          "conflictsBytes": 7394,
-          "conflictShardBytes": 0,
-          "averageConflictBytes": 224
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 164,
+    "pendingCount": 163,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15200,19 +15200,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Fundy Bay",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
@@ -17165,6 +17152,19 @@
         ],
         "regions": [
           "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Primera batalla de Dragoon Springs",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "América"
         ],
         "types": [
           "interestatal"

@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-28T19:44:02.023Z",
+  "generatedAt": "2026-08-28T20:04:54.992Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 97,
-  "reviewCount": 97,
+  "advisoryCount": 96,
+  "reviewCount": 96,
   "summary": {
-    "provisional_parent": 97
+    "provisional_parent": 96
   },
   "topIssues": [],
   "topAdvisories": [
@@ -32,20 +32,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de fundy bay",
-      "name": "Batalla de Fundy Bay",
-      "countries": [
-        "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],
@@ -1118,6 +1104,20 @@
     {
       "key": "batalla del cabo lizard",
       "name": "Batalla del cabo Lizard",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla del convoy de malta",
+      "name": "Batalla del Convoy de Malta",
       "countries": [
         "FRA"
       ],

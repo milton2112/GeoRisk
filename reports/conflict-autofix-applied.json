@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-28T19:41:49.262Z",
-  "changedFullCountries": 2,
+  "generatedAt": "2026-08-28T20:01:40.112Z",
+  "changedFullCountries": 3,
   "fullPassChanges": [
-    2,
+    3,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
@@ -12,7 +12,7 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1030,
+  "generatedHierarchyCandidates": 1031,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -61,7 +61,8 @@
       "Batalla por el Castillo Itter (1945)",
       "Batalla de Beitang (1900)",
       "Batalla de las islas Saint-Marcouf (1798)",
-      "Combate naval de Mahé (1801)"
+      "Combate naval de Mahé (1801)",
+      "Combate naval de la bahía de Fundy (1696)"
     ],
     "alemania": [
       "Batalla de Schleswig (1848)",
@@ -152,6 +153,7 @@
       "Batalla naval de Lissa (1811)",
       "Batalla de las islas Saint-Marcouf (1798)",
       "Combate naval de Mahé (1801)",
+      "Combate naval de la bahía de Fundy (1696)",
       "Accion naval del paso de Doro (1827)",
       "Combate naval de Jask (1620)",
       "Batalla naval de Pirano (1812)"
@@ -367,7 +369,8 @@
       "Combate naval de Casma (1839)"
     ],
     "canada": [
-      "Batalla de Signal Hill (1762)"
+      "Batalla de Signal Hill (1762)",
+      "Combate naval de la bahía de Fundy (1696)"
     ],
     "hungria": [
       "Batalla de Antivari (1914)",
@@ -1033,6 +1036,12 @@
     "Action at Mahé": "Combate naval de Mahé (1801)",
     "Action at Mahe": "Combate naval de Mahé (1801)",
     "Bataille de Mahé": "Combate naval de Mahé (1801)",
+    "Batalla de Fundy Bay": "Combate naval de la bahía de Fundy (1696)",
+    "Battle of Fundy Bay": "Combate naval de la bahía de Fundy (1696)",
+    "Battle of the Bay of Fundy": "Combate naval de la bahía de Fundy (1696)",
+    "Batalla de la bahía de Fundy": "Combate naval de la bahía de Fundy (1696)",
+    "Combate naval de la bahía de Fundy": "Combate naval de la bahía de Fundy (1696)",
+    "Bataille de la baie de Fundy": "Combate naval de la bahía de Fundy (1696)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2100,6 +2109,7 @@
     "Primera batalla de Loxahatchee (1838)",
     "Combate de Kirchschlag (1921)",
     "Combate naval de Mahé (1801)",
+    "Combate naval de la bahía de Fundy (1696)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

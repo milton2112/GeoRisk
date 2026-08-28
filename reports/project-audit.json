@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-08-28T19:44:04.696Z",
+  "generatedAt": "2026-08-28T20:04:59.587Z",
   "status": "operativo",
   "startup": {
     "critical": "817 KB",
     "criticalBytes": 836385,
-    "deferred": "2.67 MB",
+    "deferred": "2.68 MB",
     "estimatedRuntimeMemory": {
-      "countriesFullBytes": 11587209,
-      "countriesFullHuman": "11.05 MB",
-      "estimatedParsedBytes": 34761627,
-      "estimatedParsedHuman": "33.15 MB",
+      "countriesFullBytes": 11615563,
+      "countriesFullHuman": "11.08 MB",
+      "estimatedParsedBytes": 34846689,
+      "estimatedParsedHuman": "33.23 MB",
       "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
     },
     "largestAssets": [
       {
         "path": "data/conflict_details.generated.json",
         "exists": true,
-        "bytes": 2160663,
-        "human": "2.06 MB",
+        "bytes": 2165921,
+        "human": "2.07 MB",
         "startupCritical": false
       },
       {
@@ -103,7 +103,7 @@
     "scanned": 1999,
     "issueCount": 0,
     "summary": {
-      "provisional_parent": 97
+      "provisional_parent": 96
     },
     "eraFocus": []
   },
@@ -112,13 +112,13 @@
       {
         "path": "data/timeline_index.json",
         "exists": true,
-        "bytes": 396437,
-        "human": "387 KB"
+        "bytes": 396878,
+        "human": "388 KB"
       },
       {
         "path": "data/conflicts_index.json",
         "exists": true,
-        "bytes": 348922,
+        "bytes": 349204,
         "human": "341 KB"
       },
       {
@@ -130,7 +130,7 @@
       {
         "path": "data/conflicts/details_index.json",
         "exists": true,
-        "bytes": 159590,
+        "bytes": 159770,
         "human": "156 KB"
       },
       {
@@ -148,16 +148,16 @@
     ],
     "countryWeights": {
       "totalCountries": 183,
-      "fullBytes": 11587209,
-      "duplicatedCountryFilesBytes": 1536309,
-      "countryConflictShardBytes": 428363,
+      "fullBytes": 11615563,
+      "duplicatedCountryFilesBytes": 1536770,
+      "countryConflictShardBytes": 428885,
       "tooLargeCount": 0,
       "largest": [
         {
           "code": "GBR",
           "name": "Reino Unido",
-          "bytes": 25014,
-          "inlineBytes": 1141221,
+          "bytes": 25054,
+          "inlineBytes": 1151579,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -166,12 +166,12 @@
             "religionGroups": 6,
             "organizations": 51,
             "rivals": 78,
-            "conflicts": 319,
+            "conflicts": 320,
             "timelineEvents": 4
           },
           "metrics": {
             "sectionBytes": {
-              "military": 11590,
+              "military": 11630,
               "politics": 9502,
               "metadata": 1952,
               "general": 1018,
@@ -184,7 +184,7 @@
             "largestSections": [
               {
                 "section": "military",
-                "bytes": 11590
+                "bytes": 11630
               },
               {
                 "section": "politics",
@@ -199,9 +199,9 @@
                 "bytes": 1018
               }
             ],
-            "conflictsBytes": 73122,
-            "conflictShardBytes": 73123,
-            "averageConflictBytes": 229
+            "conflictsBytes": 73496,
+            "conflictShardBytes": 73497,
+            "averageConflictBytes": 230
           }
         },
         {
@@ -360,8 +360,8 @@
         {
           "code": "FRA",
           "name": "Francia",
-          "bytes": 20021,
-          "inlineBytes": 819265,
+          "bytes": 20068,
+          "inlineBytes": 826903,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -375,7 +375,7 @@
           },
           "metrics": {
             "sectionBytes": {
-              "military": 8341,
+              "military": 8388,
               "politics": 7898,
               "metadata": 1952,
               "general": 933,
@@ -388,7 +388,7 @@
             "largestSections": [
               {
                 "section": "military",
-                "bytes": 8341
+                "bytes": 8388
               },
               {
                 "section": "politics",
@@ -403,9 +403,9 @@
                 "bytes": 933
               }
             ],
-            "conflictsBytes": 47452,
-            "conflictShardBytes": 47453,
-            "averageConflictBytes": 200
+            "conflictsBytes": 47600,
+            "conflictShardBytes": 47601,
+            "averageConflictBytes": 201
           }
         },
         {
@@ -511,6 +511,57 @@
           }
         },
         {
+          "code": "CAN",
+          "name": "Canadá",
+          "bytes": 18032,
+          "inlineBytes": 128702,
+          "tooLarge": false,
+          "counts": {
+            "cities": 4,
+            "capitals": 1,
+            "languages": 2,
+            "religionGroups": 8,
+            "organizations": 48,
+            "rivals": 38,
+            "conflicts": 34,
+            "timelineEvents": 3
+          },
+          "metrics": {
+            "sectionBytes": {
+              "military": 7884,
+              "politics": 6435,
+              "metadata": 1936,
+              "general": 796,
+              "religion": 413,
+              "history": 345,
+              "economy": 101,
+              "name": 9,
+              "continent": 9
+            },
+            "largestSections": [
+              {
+                "section": "military",
+                "bytes": 7884
+              },
+              {
+                "section": "politics",
+                "bytes": 6435
+              },
+              {
+                "section": "metadata",
+                "bytes": 1936
+              },
+              {
+                "section": "general",
+                "bytes": 796
+              }
+            ],
+            "conflictsBytes": 7768,
+            "conflictShardBytes": 0,
+            "averageConflictBytes": 228
+          }
+        },
+        {
           "code": "KOR",
           "name": "Corea del Sur",
           "bytes": 17972,
@@ -559,57 +610,6 @@
             "conflictsBytes": 7988,
             "conflictShardBytes": 0,
             "averageConflictBytes": 258
-          }
-        },
-        {
-          "code": "CAN",
-          "name": "Canadá",
-          "bytes": 17658,
-          "inlineBytes": 118344,
-          "tooLarge": false,
-          "counts": {
-            "cities": 4,
-            "capitals": 1,
-            "languages": 2,
-            "religionGroups": 8,
-            "organizations": 48,
-            "rivals": 38,
-            "conflicts": 33,
-            "timelineEvents": 3
-          },
-          "metrics": {
-            "sectionBytes": {
-              "military": 7510,
-              "politics": 6435,
-              "metadata": 1936,
-              "general": 796,
-              "religion": 413,
-              "history": 345,
-              "economy": 101,
-              "name": 9,
-              "continent": 9
-            },
-            "largestSections": [
-              {
-                "section": "military",
-                "bytes": 7510
-              },
-              {
-                "section": "politics",
-                "bytes": 6435
-              },
-              {
-                "section": "metadata",
-                "bytes": 1936
-              },
-              {
-                "section": "general",
-                "bytes": 796
-              }
-            ],
-            "conflictsBytes": 7394,
-            "conflictShardBytes": 0,
-            "averageConflictBytes": 224
           }
         },
         {
@@ -790,7 +790,7 @@
     },
     "curationGaps": {},
     "conflictDataConsistency": {
-      "checked": 4026,
+      "checked": 4029,
       "closedMarkedActiveCount": 0,
       "inactiveMarkedActiveCount": 0,
       "nullNarrativeTextCount": 0,
@@ -817,8 +817,8 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 179654,
-      "human": "175 KB"
+      "bytes": 180705,
+      "human": "176 KB"
     },
     {
       "path": "style.css",

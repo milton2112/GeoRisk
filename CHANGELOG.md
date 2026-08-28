@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.149 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.150 antes de cerrar la siguiente version.
+
+## v1.6.150 - 2026-08-28
+
+- Normaliza la entrada provisional "Batalla de Fundy Bay" como **Combate naval de la bahía de Fundy (1696)**, con aliases en español, inglés y francés, ficha diferida, búsqueda, índices y timeline regenerados.
+- La sitúa el 14 de julio de 1696 cerca de la desembocadura del río Saint John, dentro de la Guerra de los Nueve Años y de las operaciones franco-inglesas en Acadia y Pemaquid.
+- Distingue a Nueva Francia, las fuerzas francesas de Acadia y los guerreros mi'kmaq de los buques ingleses que bloqueaban la zona; no transforma a Canadá actual en un beligerante.
+- Registra la captura de la fragata inglesa Newport y la retirada de otros dos buques, sin fijar efectivos, duración o bajas que las fuentes no sostienen de forma bilateral.
+- Incorpora trazabilidad del Archivo de Nueva Escocia y del Diccionario Biográfico de Canadá, con una prueba de regresión para nombre, fecha, jerarquía, participantes y discrepancia cronológica.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-28-release-17`.
 
 ## v1.6.149 - 2026-08-28
 
