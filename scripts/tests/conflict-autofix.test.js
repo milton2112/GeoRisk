@@ -333,6 +333,11 @@ import {
   JUPITER_INLET_CONFLICT_RENAMES
 } from "../lib/conflict-curation-jupiter-inlet.js";
 import {
+  KIRCHSCHLAG_CONFLICT_DETAIL_FIXES,
+  KIRCHSCHLAG_COUNTRY_CONFLICT_ADDITIONS,
+  KIRCHSCHLAG_CONFLICT_RENAMES
+} from "../lib/conflict-curation-kirchschlag.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -3299,6 +3304,42 @@ assert.ok(
       && /denominaci\u00f3n heredada no es uniforme/i.test(detail.sourceDispute)
   ),
   "la curaduria de Jupiter Inlet debe preservar fecha, jerarquia, actores y cautela sobre nombres y cifras"
+);
+assert.equal(Object.keys(KIRCHSCHLAG_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  KIRCHSCHLAG_CONFLICT_RENAMES["Battle of Kirchschlag"],
+  "Combate de Kirchschlag (1921)"
+);
+assert.equal(
+  KIRCHSCHLAG_CONFLICT_RENAMES["Gefecht von Kirchschlag"],
+  "Combate de Kirchschlag (1921)",
+  "el alias aleman debe llegar a la ficha curada"
+);
+assert.deepEqual(
+  KIRCHSCHLAG_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    Austria: ["Combate de Kirchschlag (1921)"],
+    "Hungr\u00eda": ["Combate de Kirchschlag (1921)"]
+  }
+);
+assert.ok(
+  Object.values(KIRCHSCHLAG_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 1921
+      && detail.startYear === detail.endYear
+      && detail.datePrecision === "5 de septiembre de 1921"
+      && detail.parent === "Levantamiento de Hungr\u00eda occidental de 1921"
+      && detail.campaign === "Operaciones de la frontera occidental de Hungr\u00eda (agosto-septiembre de 1921)"
+      && detail.type === "combate fronterizo e insurrecci\u00f3n"
+      && detail.conflictType === "frontera"
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 4
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && /Defensa austr\u00edaca/i.test(detail.outcome)
+      && /procedencia es predominantemente institucional austr\u00edaca/i.test(detail.sourceDispute)
+  ),
+  "la curaduria de Kirchschlag debe preservar fecha, jerarquia, fuentes, participantes y cautela sobre bajas"
 );
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(

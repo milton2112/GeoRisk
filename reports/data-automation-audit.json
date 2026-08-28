@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-28T18:10:06.376Z",
+  "generatedAt": "2026-08-28T19:33:44.458Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 167
+      "count": 166
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 99
+      "count": 98
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 560
+      "count": 561
     },
     "redundantReligions": {
       "count": 0
@@ -60,11 +60,6 @@
         "code": "ARG",
         "name": "Batalla de Toldos Viejos",
         "region": "América"
-      },
-      {
-        "code": "AUT",
-        "name": "Batalla de Kirchschlag",
-        "region": "Europa"
       },
       {
         "code": "AUT",
@@ -255,6 +250,11 @@
         "code": "GEO",
         "name": "Batalla de Kamani",
         "region": "Asia"
+      },
+      {
+        "code": "GEO",
+        "name": "Batalla de Ochamchira",
+        "region": "Asia"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -264,13 +264,6 @@
         "name": "Batalla de Toldos Viejos",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
-      {
-        "code": "AUT",
-        "name": "Batalla de Kirchschlag",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
       },
       {
@@ -537,6 +530,13 @@
         "name": "Batalla de Z'Moul NIran",
         "parent": "Conflicto regional de África",
         "campaign": "Campaña vinculada a Conflicto regional de África",
+        "startYear": null
+      },
+      {
+        "code": "PER",
+        "name": "Combate del Callao",
+        "parent": "Conflicto regional de América",
+        "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
       }
     ],
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 99,
+      "count": 98,
       "command": "npm run fix:conflicts:batches"
     },
     {

@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-28T18:07:55.801Z",
-  "changedFullCountries": 1,
+  "generatedAt": "2026-08-28T18:22:56.911Z",
+  "changedFullCountries": 2,
   "fullPassChanges": [
-    1,
+    2,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
@@ -12,7 +12,7 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1028,
+  "generatedHierarchyCandidates": 1029,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -274,7 +274,8 @@
       "Batalla del paso de Predeal (1916)",
       "Batalla de Antivari (1914)",
       "Batalla de Vízakna (1849)",
-      "Combates de Gyanafalva (1921)"
+      "Combates de Gyanafalva (1921)",
+      "Combate de Kirchschlag (1921)"
     ],
     "brasil": [
       "Asalto a los acorazados Cabral y Lima Barros (1868)",
@@ -368,7 +369,8 @@
     ],
     "hungria": [
       "Batalla de Antivari (1914)",
-      "Combates de Gyanafalva (1921)"
+      "Combates de Gyanafalva (1921)",
+      "Combate de Kirchschlag (1921)"
     ],
     "montenegro": [
       "Batalla de Antivari (1914)"
@@ -1015,6 +1017,11 @@
     "Primera batalla del Loxahatchee": "Primera batalla de Loxahatchee (1838)",
     "First Battle of the Loxahatchee": "Primera batalla de Loxahatchee (1838)",
     "First Battle of Loxahatchee": "Primera batalla de Loxahatchee (1838)",
+    "Batalla de Kirchschlag": "Combate de Kirchschlag (1921)",
+    "Batalla de Kirchschlag (1921)": "Combate de Kirchschlag (1921)",
+    "Battle of Kirchschlag": "Combate de Kirchschlag (1921)",
+    "Gefecht von Kirchschlag": "Combate de Kirchschlag (1921)",
+    "Combate de Kirchschlag": "Combate de Kirchschlag (1921)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2080,6 +2087,7 @@
     "Batalla de las islas Saint-Marcouf (1798)",
     "Combates de Gyanafalva (1921)",
     "Primera batalla de Loxahatchee (1838)",
+    "Combate de Kirchschlag (1921)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

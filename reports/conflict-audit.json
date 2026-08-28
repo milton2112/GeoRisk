@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-28T18:10:02.949Z",
+  "generatedAt": "2026-08-28T19:33:40.947Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 99,
-  "reviewCount": 99,
+  "advisoryCount": 98,
+  "reviewCount": 98,
   "summary": {
-    "provisional_parent": 99
+    "provisional_parent": 98
   },
   "topIssues": [],
   "topAdvisories": [
@@ -158,20 +158,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de kirchschlag",
-      "name": "Batalla de Kirchschlag",
-      "countries": [
-        "AUT"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],
@@ -1124,6 +1110,20 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla del cabo de la roca",
+      "name": "Batalla del cabo de la Roca",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],

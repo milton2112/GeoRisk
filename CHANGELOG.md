@@ -8,7 +8,18 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.147 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.148 antes de cerrar la siguiente version.
+
+## v1.6.148 - 2026-08-28
+
+- Normaliza la entrada provisional "Battle of Kirchschlag" como **Combate de Kirchschlag (1921)**, con alias en español, alemán e inglés, ficha diferida, búsqueda, índices y timeline regenerados.
+- La sitúa el 5 de septiembre de 1921 dentro del Levantamiento de Hungría occidental y de las operaciones fronterizas de agosto-septiembre, con una jerarquía compartida y verificable junto a otros episodios de la crisis.
+- Distingue la defensa austríaca de Kirchschlag de una victoria estratégica total: identifica Bundesheer, Gendarmería y grupos irregulares húngaros, sin inventar efectivos ni un balance definitivo de bajas.
+- Conserva como dato atribuido el mínimo de siete muertos húngaros que registra una reconstrucción militar, y deja visible que las fuentes consultadas tienen una procedencia institucional predominantemente austríaca.
+- Vincula Austria y Hungría por las fuerzas históricas que participaron, sin confundir la situación fronteriza de 1921 con fronteras o actores estatales posteriores.
+- Incorpora trazabilidad de la Academia Militar Austriaca, ORF, el Ministerio del Interior y Truppendienst, y añade una prueba de regresión para nombre, fecha, jerarquía, participantes y cautela de fuentes.
+- Reduce las jerarquías provisionales de 99 a 98 y mantiene cero alertas estructurales, con 1.832 conflictos, 3.093 eventos y 1.078 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-28-release-15`.
 
 ## v1.6.147 - 2026-08-28
 

@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-08-28T18:08:01.965Z",
+  "generatedAt": "2026-08-28T18:23:03.687Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11550885,
-    "duplicatedCountryFilesBytes": 1535759,
+    "fullBytes": 11569885,
+    "duplicatedCountryFilesBytes": 1536333,
     "countryConflictShardBytes": 427917,
     "tooLargeCount": 0,
     "largest": [
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 166,
+    "pendingCount": 165,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15317,19 +15317,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Kirchschlag",
-        "countries": [
-          "AUT"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
@@ -17164,6 +17151,19 @@
         ],
         "regions": [
           "Europa",
+          "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Operación Tomahawk",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
           "América"
         ],
         "types": [
