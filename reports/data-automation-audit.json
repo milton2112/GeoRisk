@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-28T19:33:44.458Z",
+  "generatedAt": "2026-08-28T19:44:05.531Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 166
+      "count": 165
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 98
+      "count": 97
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 561
+      "count": 562
     },
     "redundantReligions": {
       "count": 0
@@ -124,11 +124,6 @@
       {
         "code": "FRA",
         "name": "Batalla de Lagos",
-        "region": "Europa"
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Mahé",
         "region": "Europa"
       },
       {
@@ -255,6 +250,11 @@
         "code": "GEO",
         "name": "Batalla de Ochamchira",
         "region": "Asia"
+      },
+      {
+        "code": "DEU",
+        "name": "Asedio de Niemcza",
+        "region": "Europa"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -311,13 +311,6 @@
       {
         "code": "FRA",
         "name": "Batalla de Lagos",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Mahé",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -535,6 +528,13 @@
       {
         "code": "PER",
         "name": "Combate del Callao",
+        "parent": "Conflicto regional de América",
+        "campaign": "Campaña vinculada a Conflicto regional de América",
+        "startYear": null
+      },
+      {
+        "code": "PER",
+        "name": "Combate naval del Callao",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 98,
+      "count": 97,
       "command": "npm run fix:conflicts:batches"
     },
     {

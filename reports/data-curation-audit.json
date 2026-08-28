@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-28T18:23:03.687Z",
+  "generatedAt": "2026-08-28T19:41:55.627Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11569885,
-    "duplicatedCountryFilesBytes": 1536333,
-    "countryConflictShardBytes": 427917,
+    "fullBytes": 11587209,
+    "duplicatedCountryFilesBytes": 1536309,
+    "countryConflictShardBytes": 428363,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 25038,
-        "inlineBytes": 1131203,
+        "bytes": 25014,
+        "inlineBytes": 1141221,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,12 +21,12 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 318,
+          "conflicts": 319,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 11614,
+            "military": 11590,
             "politics": 9502,
             "metadata": 1952,
             "general": 1018,
@@ -39,7 +39,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 11614
+              "bytes": 11590
             },
             {
               "section": "politics",
@@ -54,8 +54,8 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 72788,
-          "conflictShardBytes": 72789,
+          "conflictsBytes": 73122,
+          "conflictShardBytes": 73123,
           "averageConflictBytes": 229
         }
       },
@@ -216,7 +216,7 @@
         "code": "FRA",
         "name": "Francia",
         "bytes": 20021,
-        "inlineBytes": 811959,
+        "inlineBytes": 819265,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -258,8 +258,8 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 47340,
-          "conflictShardBytes": 47341,
+          "conflictsBytes": 47452,
+          "conflictShardBytes": 47453,
           "averageConflictBytes": 200
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 165,
+    "pendingCount": 164,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15434,19 +15434,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Mahé",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
@@ -17165,6 +17152,19 @@
         ],
         "regions": [
           "América"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Operación Wikinger",
+        "countries": [
+          "GBR"
+        ],
+        "regions": [
+          "Europa"
         ],
         "types": [
           "interestatal"

@@ -8,7 +8,18 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.148 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.149 antes de cerrar la siguiente version.
+
+## v1.6.149 - 2026-08-28
+
+- Normaliza la entrada provisional "Batalla de Mahé" como **Combate naval de Mahé (1801)**, con aliases en español, inglés y francés, ficha diferida, búsqueda, índices y timeline regenerados.
+- La sitúa el 19 de agosto de 1801 en la rada de Mahé, Seychelles, dentro de las Guerras revolucionarias francesas y de las operaciones navales anglo-francesas del océano Índico.
+- Identifica a HMS Sybille de Charles Adam y a la fragata francesa Chiffonne, y presenta la captura británica como resultado táctico sin convertir relatos posteriores en un orden de batalla cerrado.
+- Conserva la relación contemporánea de bajas de Sybille como evidencia atribuida, pero no fija duración, efectivos ni totales de pérdidas porque no existe una serie equivalente y completa para ambos bandos en las fuentes consultadas.
+- Vincula Francia y Reino Unido por las fuerzas históricas y deja a Seychelles como ubicación contemporánea, sin convertirla artificialmente en beligerante ni forzar un enlace nacional inexistente.
+- Incorpora trazabilidad de Royal Museums Greenwich y la Dunfermline Historical Society, junto con una prueba de regresión para nombre, fecha, jerarquía, participantes y cautela de fuentes.
+- Reduce las jerarquías provisionales de 98 a 97 y mantiene cero alertas estructurales, con 1.833 conflictos, 3.095 eventos y 1.079 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-28-release-16`.
 
 ## v1.6.148 - 2026-08-28
 

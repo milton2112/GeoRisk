@@ -338,6 +338,11 @@ import {
   KIRCHSCHLAG_CONFLICT_RENAMES
 } from "../lib/conflict-curation-kirchschlag.js";
 import {
+  MAHE_CONFLICT_DETAIL_FIXES,
+  MAHE_COUNTRY_CONFLICT_ADDITIONS,
+  MAHE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-mahe.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -3340,6 +3345,42 @@ assert.ok(
       && /procedencia es predominantemente institucional austr\u00edaca/i.test(detail.sourceDispute)
   ),
   "la curaduria de Kirchschlag debe preservar fecha, jerarquia, fuentes, participantes y cautela sobre bajas"
+);
+assert.equal(Object.keys(MAHE_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  MAHE_CONFLICT_RENAMES["Batalla de Mah\u00e9"],
+  "Combate naval de Mah\u00e9 (1801)"
+);
+assert.equal(
+  MAHE_CONFLICT_RENAMES["Action at Mahe"],
+  "Combate naval de Mah\u00e9 (1801)",
+  "el alias ingles sin tilde debe llegar a la ficha curada"
+);
+assert.deepEqual(
+  MAHE_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    Francia: ["Combate naval de Mah\u00e9 (1801)"],
+    "Reino Unido": ["Combate naval de Mah\u00e9 (1801)"]
+  }
+);
+assert.ok(
+  Object.values(MAHE_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 1801
+      && detail.startYear === detail.endYear
+      && detail.datePrecision === "19 de agosto de 1801"
+      && detail.parent === "Guerras revolucionarias francesas (1792-1802)"
+      && detail.campaign === "Operaciones navales anglo-francesas en el oc\u00e9ano \u00cdndico (1801)"
+      && detail.type === "combate naval"
+      && detail.conflictType === "interestatal"
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 3
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && /Victoria t\u00e1ctica brit\u00e1nica/i.test(detail.outcome)
+      && /evidencia directa disponible procede principalmente de colecciones mar\u00edtimas brit\u00e1nicas/i.test(detail.sourceDispute)
+  ),
+  "la curaduria de Mahe debe preservar fecha, jerarquia, fuentes, participantes y cautela sobre bajas"
 );
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
