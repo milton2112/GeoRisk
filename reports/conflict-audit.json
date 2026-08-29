@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-28T22:26:37.054Z",
+  "generatedAt": "2026-08-29T11:59:54.247Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 95,
-  "reviewCount": 95,
+  "advisoryCount": 93,
+  "reviewCount": 93,
   "summary": {
-    "provisional_parent": 95
+    "provisional_parent": 93
   },
   "topIssues": [],
   "topAdvisories": [
@@ -108,20 +108,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de kaipiais",
-      "name": "Batalla de Kaipiais",
-      "countries": [
-        "SWE"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de kamani",
       "name": "Batalla de Kamani",
       "countries": [
@@ -158,20 +144,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de África",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de la boca del tigre",
-      "name": "Batalla de la Boca del Tigre",
-      "countries": [
-        "PRT"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],
@@ -1120,6 +1092,34 @@
       "name": "Batalla del Lago Peipus",
       "countries": [
         "DNK"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla del rio malalag",
+      "name": "Batalla del río Malalag",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla en la desembocadura del neva",
+      "name": "Batalla en la desembocadura del Neva",
+      "countries": [
+        "SWE"
       ],
       "startYear": null,
       "endYear": null,

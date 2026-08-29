@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.152 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.153 antes de cerrar la siguiente version.
+
+## v1.6.153 - 2026-08-29
+
+- Normaliza la entrada provisional "Batalla de Kaipiais" como **Batalla de Kaipiais (1789)**, situada el 15 de julio dentro de la Guerra ruso-sueca y de las operaciones terrestres en Finlandia.
+- Vincula Suecia y Rusia por las fuerzas históricas de Lars Fredrik von Kaulbars y Fedor Denisov, y Finlandia exclusivamente como ubicación contemporánea, sin inventar bajas ni cifras de efectivos.
+- Corrige la entrada provisional "Batalla de la Boca del Tigre", que estaba sin fecha, situada en Europa y vinculada solo a Portugal, como **Combates navales de la Boca del Tigre (1809-1810)**.
+- La convierte en una serie naval antipiratería trazable en el delta del río de las Perlas, enlazada a China y Portugal, con Macao, la Flota de la Bandera Roja, Zhang Baozai y José Pinto Alcoforado como actores históricos contextualizados.
+- Añade cronología, acuerdo de guardia costera de 1809, participantes, fuentes de Macao, archivo portugués y relato primario digitalizado, sin consolidar cifras de flotas, armamento o bajas que las fuentes no permiten reconciliar.
+- Reduce las jerarquías provisionales de 95 a 93 y mantiene cero alertas estructurales, con 1.837 conflictos, 3.107 eventos y 1.083 fichas diferidas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-29-release-3`.
 
 ## v1.6.152 - 2026-08-29
 

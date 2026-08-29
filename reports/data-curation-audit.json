@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-28T22:24:29.955Z",
+  "generatedAt": "2026-08-29T11:58:55.535Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11654355,
-    "duplicatedCountryFilesBytes": 1537735,
-    "countryConflictShardBytes": 429477,
+    "fullBytes": 11697507,
+    "duplicatedCountryFilesBytes": 1538960,
+    "countryConflictShardBytes": 429984,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -317,8 +317,8 @@
       {
         "code": "RUS",
         "name": "Rusia",
-        "bytes": 18240,
-        "inlineBytes": 247987,
+        "bytes": 18331,
+        "inlineBytes": 256157,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -327,12 +327,12 @@
           "religionGroups": 4,
           "organizations": 41,
           "rivals": 19,
-          "conflicts": 63,
+          "conflicts": 64,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 9438,
+            "military": 9529,
             "politics": 4980,
             "metadata": 1926,
             "general": 965,
@@ -345,7 +345,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 9438
+              "bytes": 9529
             },
             {
               "section": "politics",
@@ -360,9 +360,9 @@
               "bytes": 965
             }
           ],
-          "conflictsBytes": 14177,
-          "conflictShardBytes": 14178,
-          "averageConflictBytes": 225
+          "conflictsBytes": 14543,
+          "conflictShardBytes": 14544,
+          "averageConflictBytes": 227
         }
       },
       {
@@ -521,8 +521,8 @@
       {
         "code": "CHN",
         "name": "República Popular China",
-        "bytes": 16584,
-        "inlineBytes": 137894,
+        "bytes": 17085,
+        "inlineBytes": 149942,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -531,12 +531,12 @@
           "religionGroups": 6,
           "organizations": 33,
           "rivals": 29,
-          "conflicts": 33,
+          "conflicts": 34,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 7555,
+            "military": 8056,
             "politics": 5084,
             "metadata": 1951,
             "general": 988,
@@ -549,7 +549,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 7555
+              "bytes": 8056
             },
             {
               "section": "politics",
@@ -564,9 +564,9 @@
               "bytes": 988
             }
           ],
-          "conflictsBytes": 7436,
+          "conflictsBytes": 7937,
           "conflictShardBytes": 0,
-          "averageConflictBytes": 225
+          "averageConflictBytes": 233
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 162,
+    "pendingCount": 160,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15272,19 +15272,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Kaipiais",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Kamani",
         "countries": [
           "GEO"
@@ -15330,19 +15317,6 @@
         ],
         "regions": [
           "Golfo Pérsico"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de la Boca del Tigre",
-        "countries": [
-          "PRT"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
@@ -17165,6 +17139,32 @@
         ],
         "regions": [
           "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Primera escaramuza de Ágfalva",
+        "countries": [
+          "AUT"
+        ],
+        "regions": [
+          "Europa"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
+      {
+        "name": "Segunda batalla de Ramadi",
+        "countries": [
+          "USA"
+        ],
+        "regions": [
+          "Oriente Medio"
         ],
         "types": [
           "interestatal"

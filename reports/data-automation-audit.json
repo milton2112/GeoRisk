@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-28T22:26:40.595Z",
+  "generatedAt": "2026-08-29T11:59:57.654Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 163
+      "count": 161
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 95
+      "count": 93
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 564
+      "count": 566
     },
     "redundantReligions": {
       "count": 0
@@ -527,14 +527,14 @@
       },
       {
         "code": "PRT",
-        "name": "Batalla de la Boca del Tigre",
+        "name": "Primera batalla de Tamao",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
       },
       {
-        "code": "PRT",
-        "name": "Primera batalla de Tamao",
+        "code": "RUS",
+        "name": "Batalla de Hrebionka",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 95,
+      "count": 93,
       "command": "npm run fix:conflicts:batches"
     },
     {

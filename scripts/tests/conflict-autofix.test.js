@@ -355,6 +355,16 @@ import {
   LAGOS_1759_CONFLICT_RENAMES
 } from "../lib/conflict-curation-lagos-1759.js";
 import {
+  KAIPIAIS_1789_CONFLICT_DETAIL_FIXES,
+  KAIPIAIS_1789_COUNTRY_CONFLICT_ADDITIONS,
+  KAIPIAIS_1789_SAFE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-kaipiais-1789.js";
+import {
+  TIGER_MOUTH_1809_CONFLICT_DETAIL_FIXES,
+  TIGER_MOUTH_1809_COUNTRY_CONFLICT_ADDITIONS,
+  TIGER_MOUTH_1809_CONFLICT_RENAMES
+} from "../lib/conflict-curation-tiger-mouth-1809.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -3483,6 +3493,79 @@ assert.ok(
       && /secuencia naval de dos d\u00edas/i.test(detail.sourceDispute)
   ),
   "la correccion de Lagos debe preservar fecha, jerarquia, fuentes, participantes y cautela sobre bajas"
+);
+assert.equal(Object.keys(KAIPIAIS_1789_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  KAIPIAIS_1789_SAFE_CONFLICT_RENAMES["Batalla de Kaipiais"],
+  "Batalla de Kaipiais (1789)"
+);
+assert.equal(
+  KAIPIAIS_1789_SAFE_CONFLICT_RENAMES["Battle of Kaipiais"],
+  "Batalla de Kaipiais (1789)",
+  "el alias ingles de Kaipiais debe llegar a la ficha curada"
+);
+assert.deepEqual(
+  KAIPIAIS_1789_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    Finlandia: ["Batalla de Kaipiais (1789)"],
+    Rusia: ["Batalla de Kaipiais (1789)"],
+    Suecia: ["Batalla de Kaipiais (1789)"]
+  }
+);
+assert.ok(
+  Object.values(KAIPIAIS_1789_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 1789
+      && detail.startYear === detail.endYear
+      && detail.datePrecision === "15 de julio de 1789"
+      && detail.parent === "Guerra ruso-sueca (1788-1790)"
+      && detail.campaign === "Operaciones terrestres en Finlandia durante la guerra ruso-sueca (1789)"
+      && detail.type === "batalla terrestre"
+      && detail.conflictType === "interestatal"
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 3
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length)
+      && /fue rechazada/i.test(detail.outcome)
+      && /no fija efectivos exactos/i.test(detail.sourceDispute)
+  ),
+  "la curaduria de Kaipiais debe preservar fecha, jerarquia, fuentes, participantes y cautela sobre bajas"
+);
+assert.equal(Object.keys(TIGER_MOUTH_1809_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  TIGER_MOUTH_1809_CONFLICT_RENAMES["Batalla de la Boca del Tigre"],
+  "Combates navales de la Boca del Tigre (1809-1810)"
+);
+assert.equal(
+  TIGER_MOUTH_1809_CONFLICT_RENAMES["Battle of the Tiger's Mouth"],
+  "Combates navales de la Boca del Tigre (1809-1810)",
+  "el alias ingles debe llegar a la ficha curada de la Boca del Tigre"
+);
+assert.deepEqual(
+  TIGER_MOUTH_1809_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Rep\u00fablica Popular China": ["Combates navales de la Boca del Tigre (1809-1810)"],
+    Portugal: ["Combates navales de la Boca del Tigre (1809-1810)"]
+  }
+);
+assert.ok(
+  Object.values(TIGER_MOUTH_1809_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 1809
+      && detail.endYear === 1810
+      && /15 de septiembre de 1809/i.test(detail.datePrecision)
+      && detail.parent === "Pirater\u00eda de la Flota de la Bandera Roja en el delta del r\u00edo de las Perlas (1809-1810)"
+      && detail.campaign === "Operaciones de Macao y la Boca del Tigre (septiembre de 1809-febrero de 1810)"
+      && detail.type === "serie de combates navales antipirater\u00eda"
+      && detail.conflictType === "pirateria"
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 3
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length && side.casualties)
+      && /capitulaci\u00f3n/i.test(detail.outcome)
+      && /no consolida esas cifras/i.test(detail.sourceDispute)
+  ),
+  "la curaduria de la Boca del Tigre debe preservar serie, fuentes, participantes y cautela sobre cifras de flota y bajas"
 );
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
