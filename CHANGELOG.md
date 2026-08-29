@@ -8,7 +8,18 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.158 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.159 antes de cerrar la siguiente version.
+
+## v1.6.159 - 2026-08-30
+
+- Normaliza la entrada provisional "Batalla de Hrebionka" como **Carga de Hrebionka (1920)**, fechada el 9 de julio durante la ofensiva soviética de julio de 1920.
+- Crea la jerarquía navegable **Guerra polaco-soviética (1919-1921)**, con la distinción entre las operaciones principales de 1920, el armisticio y el Tratado de Riga de marzo de 1921.
+- Vincula Polonia y Rusia por las fuerzas históricas de 1920, y Bielorrusia únicamente como ubicación contemporánea de Hrebionka; no presenta a los Estados actuales como entidades intercambiables con los beligerantes de la época.
+- Completa causa, resultado, consecuencias, cronología, participantes, campaña y fuentes de la Biblioteca Militar Central de Polonia, Polska Zbrojna, el Instituto de la Memoria Nacional y la International Encyclopedia of the First World War.
+- Conserva una nota de discrepancia: algunas bases secundarias indican otra fecha o repiten partes regimentalistas, por lo que no fija bajas ni convierte una carga táctica en la destrucción confirmada de regimientos completos.
+- Regenera ficha diferida, búsqueda, índices y timeline; reduce las jerarquías provisionales de 88 a 87 y los conflictos fuera del índice fechable de 155 a 154, manteniendo cero alertas estructurales, con 1.844 conflictos, 3.124 eventos y 1.091 fichas diferidas.
+- Agrega pruebas de regresión para aliases, periodo de la guerra, Tratado de Riga, campaña, fecha, países enlazados, participantes, fuentes y cautela sobre las cifras.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-30-release-3`.
 
 ## v1.6.158 - 2026-08-30
 

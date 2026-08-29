@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-29T22:14:52.001Z",
-  "scannedConflicts": 1999,
+  "generatedAt": "2026-08-29T22:24:09.495Z",
+  "scannedConflicts": 2000,
   "issueCount": 0,
-  "advisoryCount": 88,
-  "reviewCount": 88,
+  "advisoryCount": 87,
+  "reviewCount": 87,
   "summary": {
-    "provisional_parent": 88
+    "provisional_parent": 87
   },
   "topIssues": [],
   "topAdvisories": [
@@ -46,20 +46,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de hrebionka",
-      "name": "Batalla de Hrebionka",
-      "countries": [
-        "RUS"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],
@@ -1124,6 +1110,20 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "combate de huite",
+      "name": "Combate de Huite",
+      "countries": [
+        "CHL"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],

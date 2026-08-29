@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-29T22:12:01.436Z",
+  "generatedAt": "2026-08-29T22:21:56.377Z",
   "changedFullCountries": 3,
   "fullPassChanges": [
     3,
@@ -8,12 +8,12 @@
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 119,
+    "enriched": 120,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1039,
+  "generatedHierarchyCandidates": 1040,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -203,7 +203,8 @@
       "Batalla de Ösel (1719)",
       "Batalla del Neva (1240)",
       "Combate de Kalyazin (1609)",
-      "Batalla de Kaipiais (1789)"
+      "Batalla de Kaipiais (1789)",
+      "Guerra polaco-sovietica (1919-1921)"
     ],
     "reino de los paises bajos": [
       "Batalla de Camaret (1694)",
@@ -253,7 +254,9 @@
       "Combate de Kalyazin (1609)",
       "Guerra contra Segismundo",
       "Batalla de Stegeborg (1598)",
-      "Batalla de Rakvere (1603)"
+      "Batalla de Rakvere (1603)",
+      "Guerra polaco-sovietica (1919-1921)",
+      "Carga de Hrebionka (1920)"
     ],
     "mexico": [
       "Combate de Carrizal (1916)",
@@ -426,6 +429,9 @@
     "filipinas": [
       "Batalla de Pulang Lupa (1900)",
       "Combate del rio Dolores (1904)"
+    ],
+    "bielorrusia": [
+      "Carga de Hrebionka (1920)"
     ],
     "afganistan": [
       "Batalla de Aranas (2007)"
@@ -1123,6 +1129,13 @@
     "Battle of Rakvere (1603)": "Batalla de Rakvere (1603)",
     "Batalla de Wesenberg (1603)": "Batalla de Rakvere (1603)",
     "Battle of Wesenberg (1603)": "Batalla de Rakvere (1603)",
+    "Batalla de Hrebionka": "Carga de Hrebionka (1920)",
+    "Carga de Hrebionka": "Carga de Hrebionka (1920)",
+    "Carga de Hrebionka (1920)": "Carga de Hrebionka (1920)",
+    "Battle of Hrebionka": "Carga de Hrebionka (1920)",
+    "Charge of Hrebionka": "Carga de Hrebionka (1920)",
+    "Szarza pod Hrebionka": "Carga de Hrebionka (1920)",
+    "Szarza pod Hrebionka (1920)": "Carga de Hrebionka (1920)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2200,6 +2213,8 @@
     "Guerra contra Segismundo",
     "Batalla de Stegeborg (1598)",
     "Batalla de Rakvere (1603)",
+    "Guerra polaco-sovietica (1919-1921)",
+    "Carga de Hrebionka (1920)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

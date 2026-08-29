@@ -391,6 +391,11 @@ import {
   RAKVERE_1603_CONFLICT_RENAMES
 } from "../lib/conflict-curation-rakvere-1603.js";
 import {
+  HREBIONKA_1920_CONFLICT_DETAIL_FIXES,
+  HREBIONKA_1920_COUNTRY_CONFLICT_ADDITIONS,
+  HREBIONKA_1920_CONFLICT_RENAMES
+} from "../lib/conflict-curation-hrebionka-1920.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -3801,6 +3806,56 @@ assert.ok(
 const rakvereWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Rakvere");
 assert.equal(rakvereWikipediaOverride.language, "en");
 assert.equal(rakvereWikipediaOverride.pageTitle, "Battle_of_Rakvere_(1603)");
+assert.equal(Object.keys(HREBIONKA_1920_CONFLICT_DETAIL_FIXES).length, 2);
+assert.equal(
+  HREBIONKA_1920_CONFLICT_RENAMES["Batalla de Hrebionka"],
+  "Carga de Hrebionka (1920)"
+);
+assert.equal(
+  HREBIONKA_1920_CONFLICT_RENAMES["Battle of Hrebionka"],
+  "Carga de Hrebionka (1920)",
+  "el alias ingles de Hrebionka debe llegar a la ficha curada"
+);
+assert.deepEqual(
+  HREBIONKA_1920_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    Polonia: ["Guerra polaco-sovietica (1919-1921)", "Carga de Hrebionka (1920)"],
+    Rusia: ["Guerra polaco-sovietica (1919-1921)"],
+    Bielorrusia: ["Carga de Hrebionka (1920)"]
+  }
+);
+const polishSovietWarDetail = HREBIONKA_1920_CONFLICT_DETAIL_FIXES["Guerra polaco-sovietica (1919-1921)"];
+assert.ok(
+  polishSovietWarDetail
+    && polishSovietWarDetail.startYear === 1919
+    && polishSovietWarDetail.endYear === 1921
+    && polishSovietWarDetail.conflictType === "interestatal"
+    && polishSovietWarDetail.hierarchyConfidence === "alta"
+    && polishSovietWarDetail.hierarchySources?.length >= 3
+    && polishSovietWarDetail.participants?.length === 2
+    && /Tratado de Riga/i.test(polishSovietWarDetail.outcome)
+    && /1919-1921/i.test(polishSovietWarDetail.sourceDispute),
+  "la guerra polaco-sovietica debe conservar su alcance temporal, fuentes y cierre diplomatico"
+);
+const hrebionkaBattleDetail = HREBIONKA_1920_CONFLICT_DETAIL_FIXES["Carga de Hrebionka (1920)"];
+assert.ok(
+  hrebionkaBattleDetail
+    && hrebionkaBattleDetail.startYear === 1920
+    && hrebionkaBattleDetail.startYear === hrebionkaBattleDetail.endYear
+    && hrebionkaBattleDetail.datePrecision === "9 de julio de 1920"
+    && hrebionkaBattleDetail.parent === "Guerra polaco-sovietica (1919-1921)"
+    && hrebionkaBattleDetail.campaign === "Ofensiva sovietica de julio de 1920"
+    && hrebionkaBattleDetail.type === "carga de caballeria"
+    && hrebionkaBattleDetail.conflictType === "interestatal"
+    && hrebionkaBattleDetail.hierarchyConfidence === "alta"
+    && hrebionkaBattleDetail.hierarchySources?.length >= 4
+    && hrebionkaBattleDetail.hierarchySources.every(item => item.label && item.url)
+    && hrebionkaBattleDetail.participants?.length === 2
+    && hrebionkaBattleDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /Victoria tactica polaca/i.test(hrebionkaBattleDetail.outcome)
+    && /2 de julio/i.test(hrebionkaBattleDetail.sourceDispute),
+  "la curaduria de Hrebionka debe preservar fecha, jerarquia, fuentes, participantes y cautela sobre relatos regimentalistas"
+);
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

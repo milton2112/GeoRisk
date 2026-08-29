@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-29T22:12:07.523Z",
+  "generatedAt": "2026-08-29T22:22:02.569Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11811853,
-    "duplicatedCountryFilesBytes": 1540160,
-    "countryConflictShardBytes": 431503,
+    "fullBytes": 11858629,
+    "duplicatedCountryFilesBytes": 1540758,
+    "countryConflictShardBytes": 432373,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -114,7 +114,7 @@
         "code": "POL",
         "name": "Polonia",
         "bytes": 21079,
-        "inlineBytes": 265167,
+        "inlineBytes": 284663,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -123,7 +123,7 @@
           "religionGroups": 5,
           "organizations": 43,
           "rivals": 50,
-          "conflicts": 55,
+          "conflicts": 57,
           "timelineEvents": 0
         },
         "metrics": {
@@ -156,9 +156,9 @@
               "bytes": 684
             }
           ],
-          "conflictsBytes": 14272,
-          "conflictShardBytes": 14273,
-          "averageConflictBytes": 259
+          "conflictsBytes": 14820,
+          "conflictShardBytes": 14821,
+          "averageConflictBytes": 260
         }
       },
       {
@@ -317,8 +317,8 @@
       {
         "code": "RUS",
         "name": "Rusia",
-        "bytes": 18331,
-        "inlineBytes": 256157,
+        "bytes": 18619,
+        "inlineBytes": 272937,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -327,12 +327,12 @@
           "religionGroups": 4,
           "organizations": 41,
           "rivals": 19,
-          "conflicts": 64,
+          "conflicts": 65,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 9529,
+            "military": 9817,
             "politics": 4980,
             "metadata": 1926,
             "general": 965,
@@ -345,7 +345,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 9529
+              "bytes": 9817
             },
             {
               "section": "politics",
@@ -360,9 +360,9 @@
               "bytes": 965
             }
           ],
-          "conflictsBytes": 14543,
-          "conflictShardBytes": 14544,
-          "averageConflictBytes": 227
+          "conflictsBytes": 14865,
+          "conflictShardBytes": 14866,
+          "averageConflictBytes": 229
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 155,
+    "pendingCount": 154,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15213,19 +15213,6 @@
         ],
         "regions": [
           "Asia"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Hrebionka",
-        "countries": [
-          "RUS"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"

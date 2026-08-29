@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-29T22:14:55.351Z",
+  "generatedAt": "2026-08-29T22:24:13.045Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 156
+      "count": 155
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 88
+      "count": 87
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 572
+      "count": 574
     },
     "redundantReligions": {
       "count": 0
@@ -520,13 +520,6 @@
       },
       {
         "code": "RUS",
-        "name": "Batalla de Hrebionka",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "RUS",
         "name": "Batalla de Prużany",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
@@ -535,6 +528,13 @@
       {
         "code": "SWE",
         "name": "Batalla de Orford Ness",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "SWE",
+        "name": "Batalla de Ostróda",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 88,
+      "count": 87,
       "command": "npm run fix:conflicts:batches"
     },
     {
