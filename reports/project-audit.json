@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-08-29T13:14:53.747Z",
+  "generatedAt": "2026-08-29T22:04:15.999Z",
   "status": "operativo",
   "startup": {
     "critical": "817 KB",
     "criticalBytes": 836375,
-    "deferred": "2.71 MB",
+    "deferred": "2.72 MB",
     "estimatedRuntimeMemory": {
-      "countriesFullBytes": 11750165,
-      "countriesFullHuman": "11.21 MB",
-      "estimatedParsedBytes": 35250495,
-      "estimatedParsedHuman": "33.62 MB",
+      "countriesFullBytes": 11784747,
+      "countriesFullHuman": "11.24 MB",
+      "estimatedParsedBytes": 35354241,
+      "estimatedParsedHuman": "33.72 MB",
       "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
     },
     "largestAssets": [
       {
         "path": "data/conflict_details.generated.json",
         "exists": true,
-        "bytes": 2196819,
+        "bytes": 2206982,
         "human": "2.10 MB",
         "startupCritical": false
       },
@@ -103,7 +103,7 @@
     "scanned": 1999,
     "issueCount": 0,
     "summary": {
-      "provisional_parent": 90
+      "provisional_parent": 89
     },
     "eraFocus": []
   },
@@ -112,13 +112,13 @@
       {
         "path": "data/timeline_index.json",
         "exists": true,
-        "bytes": 398923,
+        "bytes": 399316,
         "human": "390 KB"
       },
       {
         "path": "data/conflicts_index.json",
         "exists": true,
-        "bytes": 350790,
+        "bytes": 351083,
         "human": "343 KB"
       },
       {
@@ -130,7 +130,7 @@
       {
         "path": "data/conflicts/details_index.json",
         "exists": true,
-        "bytes": 160738,
+        "bytes": 161036,
         "human": "157 KB"
       },
       {
@@ -142,15 +142,15 @@
       {
         "path": "data/country_weights.json",
         "exists": true,
-        "bytes": 118263,
+        "bytes": 118269,
         "human": "115 KB"
       }
     ],
     "countryWeights": {
       "totalCountries": 183,
-      "fullBytes": 11750165,
-      "duplicatedCountryFilesBytes": 1539758,
-      "countryConflictShardBytes": 430429,
+      "fullBytes": 11784747,
+      "duplicatedCountryFilesBytes": 1539762,
+      "countryConflictShardBytes": 431143,
       "tooLargeCount": 0,
       "largest": [
         {
@@ -258,8 +258,8 @@
         {
           "code": "POL",
           "name": "Polonia",
-          "bytes": 21085,
-          "inlineBytes": 235151,
+          "bytes": 20940,
+          "inlineBytes": 255227,
           "tooLarge": false,
           "counts": {
             "cities": 4,
@@ -268,12 +268,12 @@
             "religionGroups": 5,
             "organizations": 43,
             "rivals": 50,
-            "conflicts": 52,
+            "conflicts": 54,
             "timelineEvents": 0
           },
           "metrics": {
             "sectionBytes": {
-              "military": 10494,
+              "military": 10349,
               "politics": 7383,
               "metadata": 1913,
               "general": 684,
@@ -286,7 +286,7 @@
             "largestSections": [
               {
                 "section": "military",
-                "bytes": 10494
+                "bytes": 10349
               },
               {
                 "section": "politics",
@@ -301,8 +301,8 @@
                 "bytes": 684
               }
             ],
-            "conflictsBytes": 13443,
-            "conflictShardBytes": 13444,
+            "conflictsBytes": 13980,
+            "conflictShardBytes": 13981,
             "averageConflictBytes": 259
           }
         },
@@ -715,54 +715,54 @@
           }
         },
         {
-          "code": "ITA",
-          "name": "Italia",
-          "bytes": 15428,
-          "inlineBytes": 73546,
+          "code": "SWE",
+          "name": "Suecia",
+          "bytes": 15441,
+          "inlineBytes": 544653,
           "tooLarge": false,
           "counts": {
-            "cities": 4,
+            "cities": 5,
             "capitals": 1,
-            "languages": 5,
-            "religionGroups": 5,
-            "organizations": 77,
-            "rivals": 45,
-            "conflicts": 13,
-            "timelineEvents": 4
+            "languages": 1,
+            "religionGroups": 4,
+            "organizations": 50,
+            "rivals": 7,
+            "conflicts": 153,
+            "timelineEvents": 0
           },
           "metrics": {
             "sectionBytes": {
-              "politics": 8689,
-              "military": 3003,
-              "metadata": 1936,
-              "general": 828,
-              "history": 448,
-              "religion": 305,
-              "economy": 99,
+              "military": 7745,
+              "politics": 4479,
+              "metadata": 1914,
+              "general": 777,
+              "religion": 229,
+              "economy": 101,
+              "history": 76,
               "name": 8,
               "continent": 8
             },
             "largestSections": [
               {
-                "section": "politics",
-                "bytes": 8689
+                "section": "military",
+                "bytes": 7745
               },
               {
-                "section": "military",
-                "bytes": 3003
+                "section": "politics",
+                "bytes": 4479
               },
               {
                 "section": "metadata",
-                "bytes": 1936
+                "bytes": 1914
               },
               {
                 "section": "general",
-                "bytes": 828
+                "bytes": 777
               }
             ],
-            "conflictsBytes": 2886,
-            "conflictShardBytes": 0,
-            "averageConflictBytes": 222
+            "conflictsBytes": 32783,
+            "conflictShardBytes": 32784,
+            "averageConflictBytes": 214
           }
         }
       ]
@@ -790,7 +790,7 @@
     },
     "curationGaps": {},
     "conflictDataConsistency": {
-      "checked": 4044,
+      "checked": 4048,
       "closedMarkedActiveCount": 0,
       "inactiveMarkedActiveCount": 0,
       "nullNarrativeTextCount": 0,
@@ -817,8 +817,8 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 187927,
-      "human": "184 KB"
+      "bytes": 189430,
+      "human": "185 KB"
     },
     {
       "path": "style.css",

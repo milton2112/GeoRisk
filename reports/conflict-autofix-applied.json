@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-29T13:12:23.495Z",
+  "generatedAt": "2026-08-29T22:02:04.432Z",
   "changedFullCountries": 2,
   "fullPassChanges": [
     2,
@@ -8,12 +8,12 @@
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 119,
+    "enriched": 120,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1037,
+  "generatedHierarchyCandidates": 1038,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -250,7 +250,9 @@
       "Batalla de Kroppenhof (1621)",
       "Batalla de Wallhof (1626)",
       "Batalla de Sejny (1920)",
-      "Combate de Kalyazin (1609)"
+      "Combate de Kalyazin (1609)",
+      "Guerra contra Segismundo",
+      "Batalla de Stegeborg (1598)"
     ],
     "mexico": [
       "Combate de Carrizal (1916)",
@@ -1109,6 +1111,11 @@
     "Battle of the Marshes (1984)": "Batalla de las marismas (1984)",
     "Battle of Marshes": "Batalla de las marismas (1984)",
     "Batalla de los pantanos": "Batalla de las marismas (1984)",
+    "Batalla de Stegeborg": "Batalla de Stegeborg (1598)",
+    "Batalla de Stegeborg (1598)": "Batalla de Stegeborg (1598)",
+    "Battle of Stegeborg": "Batalla de Stegeborg (1598)",
+    "Slaget vid Stegeborg": "Batalla de Stegeborg (1598)",
+    "Batalla de Skallvik": "Batalla de Stegeborg (1598)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2183,6 +2190,8 @@
     "Batalla naval de Imbros (1918)",
     "Batalla de Pulang Lupa (1900)",
     "Batalla de las marismas (1984)",
+    "Guerra contra Segismundo",
+    "Batalla de Stegeborg (1598)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

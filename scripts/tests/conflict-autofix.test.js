@@ -381,6 +381,11 @@ import {
   MARSHES_1984_CONFLICT_RENAMES
 } from "../lib/conflict-curation-marshes-1984.js";
 import {
+  STEGEBORG_1598_CONFLICT_DETAIL_FIXES,
+  STEGEBORG_1598_COUNTRY_CONFLICT_ADDITIONS,
+  STEGEBORG_1598_CONFLICT_RENAMES
+} from "../lib/conflict-curation-stegeborg-1598.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -3702,6 +3707,56 @@ assert.ok(
 const marshesWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de las Marismas");
 assert.equal(marshesWikipediaOverride.language, "en");
 assert.equal(marshesWikipediaOverride.pageTitle, "Battle_of_the_Marshes");
+assert.equal(Object.keys(STEGEBORG_1598_CONFLICT_DETAIL_FIXES).length, 2);
+assert.equal(
+  STEGEBORG_1598_CONFLICT_RENAMES["Batalla de Stegeborg"],
+  "Batalla de Stegeborg (1598)"
+);
+assert.equal(
+  STEGEBORG_1598_CONFLICT_RENAMES["Slaget vid Stegeborg"],
+  "Batalla de Stegeborg (1598)",
+  "el alias sueco de Stegeborg debe llegar a la ficha curada"
+);
+assert.deepEqual(
+  STEGEBORG_1598_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    Polonia: ["Guerra contra Segismundo", "Batalla de Stegeborg (1598)"]
+  }
+);
+const stegeborgWarDetail = STEGEBORG_1598_CONFLICT_DETAIL_FIXES["Guerra contra Segismundo"];
+assert.ok(
+  stegeborgWarDetail
+    && stegeborgWarDetail.startYear === 1598
+    && stegeborgWarDetail.endYear === 1599
+    && stegeborgWarDetail.conflictType === "civil"
+    && stegeborgWarDetail.hierarchyConfidence === "alta"
+    && stegeborgWarDetail.hierarchySources?.length >= 4
+    && stegeborgWarDetail.participants?.length === 2
+    && /union personal polaco-sueca/i.test(stegeborgWarDetail.outcome)
+    && /1597-1599 o como su fase armada principal/i.test(stegeborgWarDetail.sourceDispute),
+  "la guerra contra Segismundo debe conservar sus fuentes y su contexto dinastico"
+);
+const stegeborgBattleDetail = STEGEBORG_1598_CONFLICT_DETAIL_FIXES["Batalla de Stegeborg (1598)"];
+assert.ok(
+  stegeborgBattleDetail
+    && stegeborgBattleDetail.startYear === 1598
+    && stegeborgBattleDetail.startYear === stegeborgBattleDetail.endYear
+    && stegeborgBattleDetail.parent === "Guerra contra Segismundo"
+    && stegeborgBattleDetail.campaign === "Campa\u00f1a de Segismundo en Suecia (1598)"
+    && stegeborgBattleDetail.type === "batalla terrestre"
+    && stegeborgBattleDetail.conflictType === "civil"
+    && stegeborgBattleDetail.hierarchyConfidence === "alta"
+    && stegeborgBattleDetail.hierarchySources?.length >= 4
+    && stegeborgBattleDetail.hierarchySources.every(item => item.label && item.url)
+    && stegeborgBattleDetail.participants?.length === 2
+    && stegeborgBattleDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /Victoria tactica de los partidarios de Segismundo/i.test(stegeborgBattleDetail.outcome)
+    && /calendario juliano[\s\S]*calendario gregoriano/i.test(stegeborgBattleDetail.sourceDispute),
+  "la curaduria de Stegeborg debe preservar fecha, jerarquia, fuentes, participantes y cautela de calendario"
+);
+const stegeborgWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Stegeborg");
+assert.equal(stegeborgWikipediaOverride.language, "en");
+assert.equal(stegeborgWikipediaOverride.pageTitle, "Battle_of_Stegeborg");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

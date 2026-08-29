@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-29T13:14:50.707Z",
+  "generatedAt": "2026-08-29T22:04:12.916Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 90,
-  "reviewCount": 90,
+  "advisoryCount": 89,
+  "reviewCount": 89,
   "summary": {
-    "provisional_parent": 90
+    "provisional_parent": 89
   },
   "topIssues": [],
   "topAdvisories": [
@@ -738,20 +738,6 @@
       "severity": 1
     },
     {
-      "key": "batalla de stegeborg",
-      "name": "Batalla de Stegeborg",
-      "countries": [
-        "SWE"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla de sunset pass",
       "name": "Batalla de Sunset Pass",
       "countries": [
@@ -1118,6 +1104,20 @@
     {
       "key": "batalla naval de st john",
       "name": "Batalla naval de St. John",
+      "countries": [
+        "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "batalla naval de tatamagouche",
+      "name": "Batalla naval de Tatamagouche",
       "countries": [
         "FRA"
       ],

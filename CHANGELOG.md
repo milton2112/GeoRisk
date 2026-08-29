@@ -8,7 +8,18 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.156 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.157 antes de cerrar la siguiente version.
+
+## v1.6.157 - 2026-08-30
+
+- Completa **Guerra contra Segismundo (1598-1599)** como conflicto dinastico y civil, con causas, participantes, cronologia, consecuencias, fuentes y una distincion clara entre el conflicto de 1598-1599 y las rivalidades polaco-suecas posteriores.
+- Normaliza la entrada provisional "Batalla de Stegeborg" como **Batalla de Stegeborg (1598)**, dentro de la campana de Segismundo en Suecia, y corrige su jerarquia europea generica.
+- Vincula Suecia y Polonia como referencias contemporaneas de navegacion por las fuerzas y la union dinastica historicas, sin tratarlas como Estados beligerantes intercambiables con las entidades de 1598.
+- Conserva la fecha como 8 de septiembre juliano y 18 de septiembre gregoriano, registra la victoria tactica de Segismundo y su posterior reverso en Stangebro, y no inventa bajas ni presenta el resultado inicial como decisivo.
+- Incorpora fuentes de los municipios suecos de Soderkoping y Linkoping, el Archivo Nacional de Suecia y una digitalizacion historica de Proyecto Runeberg.
+- Regenera ficha diferida, busqueda, indices y timeline, reduce las jerarquias provisionales de 90 a 89 y mantiene cero alertas estructurales, con 1.841 conflictos, 3.116 eventos y 1.088 fichas diferidas.
+- Agrega pruebas de regresion para la guerra, aliases, calendario, participantes y fuentes, y una resolucion local de Wikipedia para evitar dependencias de red durante la auditoria.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-30-release-1`.
 
 ## v1.6.156 - 2026-08-29
 
