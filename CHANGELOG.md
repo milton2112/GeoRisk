@@ -8,7 +8,18 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.161 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.162 antes de cerrar la siguiente version.
+
+## v1.6.162 - 2026-08-30
+
+- Normaliza la entrada provisional "Batalla de Mani-Mani" como **Batalla de Mani-Mani (1898)**, fechada el 23 de julio en la desembocadura del río Mani-Mani, al oeste de Bahía Honda, Pinar del Río.
+- Revisa y completa la **Guerra hispano-estadounidense**: reemplaza una ficha genérica por una explicación del conflicto declarado entre Estados Unidos y España, sus dimensiones cubanas y filipinas, el protocolo de paz de agosto y el Tratado de París de diciembre.
+- Enlaza el combate y su guerra padre desde Estados Unidos, España y Cuba. La ficha deja claro que el enlace cubano representa territorio y fuerzas independentistas de 1898, no una equivalencia entre la República posterior y un Estado firmante del tratado.
+- Completa causa, resultado, consecuencias, cronología, participantes, fuentes y procedencia con el Departamento de Estado de EE. UU., la Biblioteca del Congreso, la Congressional Medal of Honor Society y un archivo histórico cubano; evita cifras cerradas para fuerza y bajas locales donde las fuentes no son homogéneas.
+- Conserva la incertidumbre sobre la toponimia Mani-Mani/Manimani, el alcance del desembarco y la composición de la expedición; registra la valoración de victoria española solo como resultado táctico local.
+- Regenera ficha diferida, búsqueda, índices y timeline; reduce las jerarquías provisionales de 85 a 84 y los conflictos fuera del índice fechable de 152 a 151, manteniendo cero alertas estructurales, con 1.848 conflictos, 3.132 eventos y 1.097 fichas diferidas.
+- Añade pruebas de regresión para aliases, fecha, guerra padre, campaña, enlaces de país, participantes, acentos visibles, fuentes y cautela sobre resultados y bajas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-30-release-6`.
 
 ## v1.6.161 - 2026-08-30
 

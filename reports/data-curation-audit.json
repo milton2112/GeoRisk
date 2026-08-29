@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-29T22:46:11.312Z",
+  "generatedAt": "2026-08-29T23:02:48.266Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11896489,
-    "duplicatedCountryFilesBytes": 1540889,
-    "countryConflictShardBytes": 432712,
+    "fullBytes": 11954479,
+    "duplicatedCountryFilesBytes": 1541939,
+    "countryConflictShardBytes": 432859,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24032,
-        "inlineBytes": 3207835,
+        "inlineBytes": 3223405,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 214088,
-          "conflictShardBytes": 214089,
+          "conflictsBytes": 214235,
+          "conflictShardBytes": 214236,
           "averageConflictBytes": 232
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 152,
+    "pendingCount": 151,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15299,19 +15299,6 @@
       },
       {
         "name": "Batalla de Little Dry Creek",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Mani-Mani",
         "countries": [
           "USA"
         ],

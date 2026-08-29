@@ -405,6 +405,11 @@ import {
   CEDAR_MOUNTAIN_1862_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cedar-mountain-1862.js";
 import {
+  MANI_MANI_1898_CONFLICT_DETAIL_FIXES,
+  MANI_MANI_1898_COUNTRY_CONFLICT_ADDITIONS,
+  MANI_MANI_1898_CONFLICT_RENAMES
+} from "../lib/conflict-curation-mani-mani-1898.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -3964,6 +3969,64 @@ assert.ok(
 const cedarMountainWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Little Mountain");
 assert.equal(cedarMountainWikipediaOverride.language, "es");
 assert.equal(cedarMountainWikipediaOverride.pageTitle, "Batalla de Cedar Mountain");
+assert.equal(Object.keys(MANI_MANI_1898_CONFLICT_DETAIL_FIXES).length, 2);
+assert.equal(
+  MANI_MANI_1898_CONFLICT_RENAMES["Batalla de Mani-Mani"],
+  "Batalla de Mani-Mani (1898)"
+);
+assert.equal(
+  MANI_MANI_1898_CONFLICT_RENAMES["Battle of Manimani"],
+  "Batalla de Mani-Mani (1898)",
+  "el alias ingles de Mani-Mani debe llegar a la ficha curada"
+);
+assert.deepEqual(
+  MANI_MANI_1898_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Estados Unidos": ["Guerra hispano-estadounidense", "Batalla de Mani-Mani (1898)"],
+    "Espa\u00f1a": ["Guerra hispano-estadounidense", "Batalla de Mani-Mani (1898)"],
+    Cuba: ["Guerra hispano-estadounidense", "Batalla de Mani-Mani (1898)"]
+  }
+);
+const spanishAmericanWarDetail = MANI_MANI_1898_CONFLICT_DETAIL_FIXES["Guerra hispano-estadounidense"];
+assert.ok(
+  spanishAmericanWarDetail
+    && spanishAmericanWarDetail.startYear === 1898
+    && spanishAmericanWarDetail.endYear === 1898
+    && spanishAmericanWarDetail.type === "guerra interestatal"
+    && spanishAmericanWarDetail.conflictType === "interestatal"
+    && spanishAmericanWarDetail.hierarchyConfidence === "alta"
+    && spanishAmericanWarDetail.hierarchySources?.length >= 3
+    && spanishAmericanWarDetail.hierarchySources.every(item => item.label && item.url)
+    && spanishAmericanWarDetail.participants?.length === 3
+    && spanishAmericanWarDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /Tratado de Paris/i.test(spanishAmericanWarDetail.outcome)
+    && /Espa\u00f1a/i.test(spanishAmericanWarDetail.outcome)
+    && /clasificaci\u00f3n interestatal/i.test(spanishAmericanWarDetail.sourceDispute),
+  "la Guerra hispano-estadounidense debe conservar alcance, fuentes, bandos y el matiz colonial e independentista"
+);
+const maniManiDetail = MANI_MANI_1898_CONFLICT_DETAIL_FIXES["Batalla de Mani-Mani (1898)"];
+assert.ok(
+  maniManiDetail
+    && maniManiDetail.startYear === 1898
+    && maniManiDetail.startYear === maniManiDetail.endYear
+    && maniManiDetail.datePrecision === "23 de julio de 1898"
+    && maniManiDetail.parent === "Guerra hispano-estadounidense"
+    && maniManiDetail.campaign === "Operaciones en el occidente de Cuba de julio de 1898"
+    && maniManiDetail.type === "combate de desembarco"
+    && maniManiDetail.conflictType === "interestatal"
+    && maniManiDetail.hierarchyConfidence === "alta"
+    && maniManiDetail.hierarchySources?.length >= 3
+    && maniManiDetail.hierarchySources.every(item => item.label && item.url)
+    && maniManiDetail.participants?.length === 2
+    && maniManiDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /Wanderer qued\u00f3 averiado/i.test(maniManiDetail.outcome)
+    && /espa\u00f1ola/i.test(maniManiDetail.outcome)
+    && /no fija cifras cerradas/i.test(maniManiDetail.sourceDispute),
+  "la curaduria de Mani-Mani debe preservar fecha, jerarquia, fuentes, participantes y cautela sobre lugar, desembarco y bajas"
+);
+const maniManiWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Mani-Mani");
+assert.equal(maniManiWikipediaOverride.language, "es");
+assert.equal(maniManiWikipediaOverride.pageTitle, "Batalla de Mani-Mani");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

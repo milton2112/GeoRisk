@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-29T22:49:33.095Z",
+  "generatedAt": "2026-08-29T23:04:34.422Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 85,
-  "reviewCount": 85,
+  "advisoryCount": 84,
+  "reviewCount": 84,
   "summary": {
-    "provisional_parent": 85
+    "provisional_parent": 84
   },
   "topIssues": [],
   "topAdvisories": [
@@ -124,20 +124,6 @@
     {
       "key": "batalla de little dry creek",
       "name": "Batalla de Little Dry Creek",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de mani mani",
-      "name": "Batalla de Mani-Mani",
       "countries": [
         "USA"
       ],
@@ -1120,6 +1106,20 @@
       "name": "Combate frente a la costa de Florida",
       "countries": [
         "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "combate naval del callao",
+      "name": "Combate naval del Callao",
+      "countries": [
+        "PER"
       ],
       "startYear": null,
       "endYear": null,
