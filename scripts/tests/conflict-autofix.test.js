@@ -376,6 +376,11 @@ import {
   PULANG_LUPA_1900_CONFLICT_RENAMES
 } from "../lib/conflict-curation-pulang-lupa-1900.js";
 import {
+  MARSHES_1984_CONFLICT_DETAIL_FIXES,
+  MARSHES_1984_COUNTRY_CONFLICT_ADDITIONS,
+  MARSHES_1984_CONFLICT_RENAMES
+} from "../lib/conflict-curation-marshes-1984.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -3659,6 +3664,44 @@ assert.ok(
 const pulangLupaWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de la Monta\u00f1a Roja");
 assert.equal(pulangLupaWikipediaOverride.language, "en");
 assert.equal(pulangLupaWikipediaOverride.pageTitle, "Battle_of_Pulang_Lupa");
+assert.equal(Object.keys(MARSHES_1984_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  MARSHES_1984_CONFLICT_RENAMES["Batalla de las Marismas"],
+  "Batalla de las marismas (1984)"
+);
+assert.equal(
+  MARSHES_1984_CONFLICT_RENAMES["Battle of the Marshes"],
+  "Batalla de las marismas (1984)",
+  "el alias ingles de las marismas debe llegar a la ficha curada"
+);
+assert.deepEqual(
+  MARSHES_1984_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    Irak: ["Batalla de las marismas (1984)"]
+  }
+);
+assert.ok(
+  Object.values(MARSHES_1984_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 1984
+      && detail.startYear === detail.endYear
+      && detail.datePrecision === "febrero y marzo de 1984"
+      && detail.parent === "Guerra entre Iran e Irak"
+      && detail.campaign === "Operacion Kheibar (1984)"
+      && detail.type === "batalla terrestre"
+      && detail.conflictType === "interestatal"
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 3
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length && side.casualties)
+      && /Resultado operacional mixto/i.test(detail.outcome)
+      && /no se fija un ganador absoluto/i.test(detail.sourceDispute)
+  ),
+  "la curaduria de las marismas debe preservar fecha, jerarquia, fuentes, participantes y cautela sobre resultado y bajas"
+);
+const marshesWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de las Marismas");
+assert.equal(marshesWikipediaOverride.language, "en");
+assert.equal(marshesWikipediaOverride.pageTitle, "Battle_of_the_Marshes");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

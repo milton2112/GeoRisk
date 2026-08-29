@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.155 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.156 antes de cerrar la siguiente version.
+
+## v1.6.156 - 2026-08-29
+
+- Normaliza la entrada provisional "Batalla de las Marismas" como **Batalla de las marismas (1984)**, situada en las marismas de Hawizeh y las islas Majnoon durante la Guerra entre Iran e Irak.
+- La conecta con Iran e Irak, incorpora la Operacion Kheibar como campana de ordenamiento y completa fecha, participantes, cronologia, region y fuentes sin presentar a un pais contemporaneo como actor adicional.
+- Registra un resultado operacional mixto: las fuentes coinciden en una ganancia iraniana limitada en Majnoon y en que las lineas estrategicas iraquies no fueron quebradas; no fija un vencedor absoluto ni suma bajas incompatibles.
+- Incorpora trazabilidad de la Biblioteca del Congreso de Estados Unidos, un informe de la Biblioteca Presidencial Ronald Reagan y una tesis de la Universidad de Pittsburgh.
+- Regenera ficha diferida, busqueda, indices y timeline, reduce las jerarquias provisionales de 91 a 90 y mantiene cero alertas estructurales, con 1.840 conflictos, 3.113 eventos y 1.086 fichas diferidas.
+- Agrega una prueba de regresion para aliases, jerarquia, fuente y cautela de resultados, y hace determinista la resolucion local de Wikipedia para evitar esperas externas en la auditoria.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-29-release-6`.
 
 ## v1.6.155 - 2026-08-29
 

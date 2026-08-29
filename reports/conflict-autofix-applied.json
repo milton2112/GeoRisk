@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-29T12:59:47.452Z",
+  "generatedAt": "2026-08-29T13:12:23.495Z",
   "changedFullCountries": 2,
   "fullPassChanges": [
     2,
@@ -13,7 +13,7 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1036,
+  "generatedHierarchyCandidates": 1037,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -297,7 +297,8 @@
       "Batalla de Rumaila (1991)",
       "Batalla aérea de Samurra (1991)",
       "Batalla de Danny Boy (2004)",
-      "Batalla del palacio Dasman (1990)"
+      "Batalla del palacio Dasman (1990)",
+      "Batalla de las marismas (1984)"
     ],
     "dinamarca": [
       "Batalla de Colberger Heide (1644)",
@@ -1101,6 +1102,13 @@
     "Battle of Pulang Lupa": "Batalla de Pulang Lupa (1900)",
     "Battle of Red Mountain": "Batalla de Pulang Lupa (1900)",
     "Batalla de Tierra Roja": "Batalla de Pulang Lupa (1900)",
+    "Batalla de las Marismas": "Batalla de las marismas (1984)",
+    "Batalla de las marismas": "Batalla de las marismas (1984)",
+    "Batalla de las marismas (1984)": "Batalla de las marismas (1984)",
+    "Battle of the Marshes": "Batalla de las marismas (1984)",
+    "Battle of the Marshes (1984)": "Batalla de las marismas (1984)",
+    "Battle of Marshes": "Batalla de las marismas (1984)",
+    "Batalla de los pantanos": "Batalla de las marismas (1984)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2174,6 +2182,7 @@
     "Combates navales de la Boca del Tigre (1809-1810)",
     "Batalla naval de Imbros (1918)",
     "Batalla de Pulang Lupa (1900)",
+    "Batalla de las marismas (1984)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

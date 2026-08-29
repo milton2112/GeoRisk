@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-29T13:02:03.657Z",
+  "generatedAt": "2026-08-29T13:14:54.716Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 159
+      "count": 158
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 91
+      "count": 90
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 568
+      "count": 569
     },
     "redundantReligions": {
       "count": 0
@@ -252,8 +252,8 @@
         "region": "Asia"
       },
       {
-        "code": "IRN",
-        "name": "Batalla de las Marismas",
+        "code": "IRQ",
+        "name": "Batalla de Pirde",
         "region": "Asia"
       }
     ],
@@ -456,13 +456,6 @@
         "startYear": null
       },
       {
-        "code": "IRN",
-        "name": "Batalla de las Marismas",
-        "parent": "Conflicto regional de Asia",
-        "campaign": "Campaña vinculada a Conflicto regional de Asia",
-        "startYear": null
-      },
-      {
         "code": "IRQ",
         "name": "Batalla de Pirde",
         "parent": "Conflicto regional de Asia",
@@ -535,6 +528,13 @@
       {
         "code": "RUS",
         "name": "Batalla de Prużany",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "SWE",
+        "name": "Batalla de Orford Ness",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 91,
+      "count": 90,
       "command": "npm run fix:conflicts:batches"
     },
     {
