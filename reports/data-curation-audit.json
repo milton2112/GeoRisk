@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-29T11:58:55.535Z",
+  "generatedAt": "2026-08-29T12:11:13.743Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11697507,
-    "duplicatedCountryFilesBytes": 1538960,
-    "countryConflictShardBytes": 429984,
+    "fullBytes": 11716027,
+    "duplicatedCountryFilesBytes": 1539094,
+    "countryConflictShardBytes": 430341,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
         "bytes": 25100,
-        "inlineBytes": 1161955,
+        "inlineBytes": 1172571,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,7 +21,7 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 321,
+          "conflicts": 322,
           "timelineEvents": 4
         },
         "metrics": {
@@ -54,9 +54,9 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 73903,
-          "conflictShardBytes": 73904,
-          "averageConflictBytes": 230
+          "conflictsBytes": 74260,
+          "conflictShardBytes": 74261,
+          "averageConflictBytes": 231
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 160,
+    "pendingCount": 159,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15236,19 +15236,6 @@
         "name": "Batalla de Île Ronde",
         "countries": [
           "FRA"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Imbros",
-        "countries": [
-          "GRC"
         ],
         "regions": [
           "Europa"

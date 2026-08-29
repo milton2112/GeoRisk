@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.153 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.154 antes de cerrar la siguiente version.
+
+## v1.6.154 - 2026-08-29
+
+- Normaliza la entrada provisional "Batalla de Imbros" como **Batalla naval de Imbros (1918)**, fechada el 20 de enero dentro de la Primera Guerra Mundial y de las operaciones navales en los Dardanelos y el Egeo.
+- Corrige su asociacion nacional: retira Grecia, que se habia inferido por el toponimo, y vincula Turquia como ubicacion contemporanea y Reino Unido por la fuerza naval britanica, sin convertir los antiguos nombres alemanes de los buques en un enlace nacional automatico.
+- Incorpora participantes, cronologia, consecuencias y fuentes trazables del Australian War Memorial, la Universidad Jaguelonica y Belleten; conserva la incertidumbre sobre la secuencia fina de impactos, minas y bajas humanas.
+- Regenera ficha diferida, busqueda, indices y timeline, reduce las jerarquias provisionales de 93 a 92 y mantiene cero alertas estructurales, con 1.838 conflictos, 3.109 eventos y 1.084 fichas diferidas.
+- Agrega una prueba de regresion para aliases, fecha, jerarquia, participantes, enlaces de pais y etiquetas de fuentes en espanol.
+- Hace determinista la comprobacion de la Batalla de Guerrero (1916) mediante su alias local de Wikipedia, evitando que un timeout externo vuelva inestable la puerta de release.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-29-release-4`.
 
 ## v1.6.153 - 2026-08-29
 

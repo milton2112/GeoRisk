@@ -365,6 +365,12 @@ import {
   TIGER_MOUTH_1809_CONFLICT_RENAMES
 } from "../lib/conflict-curation-tiger-mouth-1809.js";
 import {
+  IMBROS_1918_CONFLICT_DETAIL_FIXES,
+  IMBROS_1918_COUNTRY_CONFLICT_ADDITIONS,
+  IMBROS_1918_COUNTRY_CONFLICT_EXCLUSIONS,
+  IMBROS_1918_CONFLICT_RENAMES
+} from "../lib/conflict-curation-imbros-1918.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -3566,6 +3572,49 @@ assert.ok(
       && /no consolida esas cifras/i.test(detail.sourceDispute)
   ),
   "la curaduria de la Boca del Tigre debe preservar serie, fuentes, participantes y cautela sobre cifras de flota y bajas"
+);
+assert.equal(Object.keys(IMBROS_1918_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  IMBROS_1918_CONFLICT_RENAMES["Batalla de Imbros"],
+  "Batalla naval de Imbros (1918)"
+);
+assert.equal(
+  IMBROS_1918_CONFLICT_RENAMES["Battle of Imbros (1918)"],
+  "Batalla naval de Imbros (1918)",
+  "el alias ingles de Imbros debe llegar a la ficha curada"
+);
+assert.deepEqual(
+  IMBROS_1918_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Reino Unido": ["Batalla naval de Imbros (1918)"],
+    "Turqu\u00eda": ["Batalla naval de Imbros (1918)"]
+  }
+);
+assert.deepEqual(
+  IMBROS_1918_COUNTRY_CONFLICT_EXCLUSIONS,
+  {
+    Grecia: ["Batalla naval de Imbros (1918)"]
+  },
+  "la correccion de Imbros debe retirar el enlace griego heredado de una ubicacion mal interpretada"
+);
+assert.ok(
+  Object.values(IMBROS_1918_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 1918
+      && detail.startYear === detail.endYear
+      && detail.datePrecision === "20 de enero de 1918"
+      && detail.parent === "Primera Guerra Mundial"
+      && detail.campaign === "Operaciones navales en los Dardanelos y el Egeo (1918)"
+      && detail.type === "batalla naval"
+      && detail.conflictType === "interestatal"
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 3
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length && side.casualties)
+      && /HMS Raglan y HMS M28 fueron hundidos/i.test(detail.outcome)
+      && /no consolida cifras personales/i.test(detail.sourceDispute)
+  ),
+  "la curaduria de Imbros debe preservar fecha, jerarquia, fuentes, participantes y cautela sobre bajas"
 );
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
