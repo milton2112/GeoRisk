@@ -400,6 +400,11 @@ import {
   KAMANI_1993_CONFLICT_RENAMES
 } from "../lib/conflict-curation-kamani-1993.js";
 import {
+  CEDAR_MOUNTAIN_1862_CONFLICT_DETAIL_FIXES,
+  CEDAR_MOUNTAIN_1862_COUNTRY_CONFLICT_ADDITIONS,
+  CEDAR_MOUNTAIN_1862_CONFLICT_RENAMES
+} from "../lib/conflict-curation-cedar-mountain-1862.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -3905,6 +3910,60 @@ assert.ok(
     && /precision mensual/i.test(kamaniBattleDetail.sourceDispute),
   "la curaduria de Kamani debe preservar fecha mensual, jerarquia, fuentes, participantes y cautela sobre bajas"
 );
+assert.equal(Object.keys(CEDAR_MOUNTAIN_1862_CONFLICT_DETAIL_FIXES).length, 2);
+assert.equal(
+  CEDAR_MOUNTAIN_1862_CONFLICT_RENAMES["Batalla de Little Mountain"],
+  "Batalla de Cedar Mountain (1862)"
+);
+assert.equal(
+  CEDAR_MOUNTAIN_1862_CONFLICT_RENAMES["Battle of Cedar Mountain"],
+  "Batalla de Cedar Mountain (1862)",
+  "el alias ingles de Cedar Mountain debe llegar a la ficha curada"
+);
+assert.deepEqual(
+  CEDAR_MOUNTAIN_1862_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Estados Unidos": ["Guerra Civil estadounidense", "Batalla de Cedar Mountain (1862)"]
+  }
+);
+const usCivilWarDetail = CEDAR_MOUNTAIN_1862_CONFLICT_DETAIL_FIXES["Guerra Civil estadounidense"];
+assert.ok(
+  usCivilWarDetail
+    && usCivilWarDetail.startYear === 1861
+    && usCivilWarDetail.endYear === 1865
+    && usCivilWarDetail.type === "guerra civil"
+    && usCivilWarDetail.conflictType === "civil"
+    && usCivilWarDetail.hierarchyConfidence === "alta"
+    && usCivilWarDetail.hierarchySources?.length >= 3
+    && usCivilWarDetail.hierarchySources.every(item => item.label && item.url)
+    && usCivilWarDetail.participants?.length === 2
+    && usCivilWarDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /Appomattox/i.test(usCivilWarDetail.outcome)
+    && /cifras de muertos/i.test(usCivilWarDetail.sourceDispute),
+  "la Guerra Civil estadounidense debe quedar navegable con alcance, fuentes, bandos y cautela sobre cierres y bajas"
+);
+const cedarMountainDetail = CEDAR_MOUNTAIN_1862_CONFLICT_DETAIL_FIXES["Batalla de Cedar Mountain (1862)"];
+assert.ok(
+  cedarMountainDetail
+    && cedarMountainDetail.startYear === 1862
+    && cedarMountainDetail.startYear === cedarMountainDetail.endYear
+    && cedarMountainDetail.datePrecision === "9 de agosto de 1862"
+    && cedarMountainDetail.parent === "Guerra Civil estadounidense"
+    && cedarMountainDetail.campaign === "Campa\u00f1a de Virginia del Norte de 1862"
+    && cedarMountainDetail.type === "batalla terrestre"
+    && cedarMountainDetail.conflictType === "civil"
+    && cedarMountainDetail.hierarchyConfidence === "alta"
+    && cedarMountainDetail.hierarchySources?.length >= 3
+    && cedarMountainDetail.hierarchySources.every(item => item.label && item.url)
+    && cedarMountainDetail.participants?.length === 2
+    && cedarMountainDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /Victoria tactica confederada/i.test(cedarMountainDetail.outcome)
+    && /Little Mountain era ambigua/i.test(cedarMountainDetail.sourceDispute),
+  "la curaduria de Cedar Mountain debe preservar fecha, jerarquia, fuentes, participantes y cautela sobre alias y bajas"
+);
+const cedarMountainWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Little Mountain");
+assert.equal(cedarMountainWikipediaOverride.language, "es");
+assert.equal(cedarMountainWikipediaOverride.pageTitle, "Batalla de Cedar Mountain");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

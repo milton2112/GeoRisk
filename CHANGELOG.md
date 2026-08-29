@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.160 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.161 antes de cerrar la siguiente version.
+
+## v1.6.161 - 2026-08-30
+
+- Normaliza la entrada provisional "Batalla de Little Mountain" como **Batalla de Cedar Mountain (1862)**, ocurrida el 9 de agosto en el condado de Culpeper, Virginia, dentro de la **Campaña de Virginia del Norte de 1862**.
+- Crea la ficha navegable de la **Guerra Civil estadounidense (1861-1865)**, que ya era padre de numerosas batallas del dataset pero no existía como conflicto propio, y enlaza ambas fichas a Estados Unidos sin presentar a los Estados Confederados como un Estado contemporáneo.
+- Completa causa, resultado, consecuencias, cronología, bandos, región y trazabilidad mediante el Servicio de Parques Nacionales, la Biblioteca del Congreso, el Centro de Historia Militar del Ejército de EE. UU. y American Battlefield Trust.
+- Conserva la incertidumbre donde corresponde: Cedar Mountain tiene alias históricos y estimaciones de efectivos y bajas divergentes; la ficha no fija totales sin una serie homogénea ni presenta la batalla como explicación única de la campaña.
+- Regenera ficha diferida, búsqueda, índices y timeline; reduce las jerarquías provisionales de 86 a 85 y los conflictos fuera del índice fechable de 153 a 152, manteniendo cero alertas estructurales, con 1.847 conflictos, 3.127 eventos y 1.095 fichas diferidas.
+- Añade pruebas de regresión para el alias importado, el padre histórico, periodo, campaña, fecha, bandos, fuentes y cautela sobre los cierres y las bajas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-30-release-5`.
 
 ## v1.6.160 - 2026-08-30
 

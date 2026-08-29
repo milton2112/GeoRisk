@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-29T22:35:23.335Z",
-  "scannedConflicts": 2000,
+  "generatedAt": "2026-08-29T22:49:33.095Z",
+  "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 86,
-  "reviewCount": 86,
+  "advisoryCount": 85,
+  "reviewCount": 85,
   "summary": {
-    "provisional_parent": 86
+    "provisional_parent": 85
   },
   "topIssues": [],
   "topAdvisories": [
@@ -124,20 +124,6 @@
     {
       "key": "batalla de little dry creek",
       "name": "Batalla de Little Dry Creek",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de little mountain",
-      "name": "Batalla de Little Mountain",
       "countries": [
         "USA"
       ],
@@ -1120,6 +1106,20 @@
       "name": "Combate del Callao",
       "countries": [
         "PER"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "combate frente a la costa de florida",
+      "name": "Combate frente a la costa de Florida",
+      "countries": [
+        "USA"
       ],
       "startYear": null,
       "endYear": null,

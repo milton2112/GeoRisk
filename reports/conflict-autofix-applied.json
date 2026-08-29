@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-08-29T22:33:17.277Z",
-  "changedFullCountries": 2,
+  "generatedAt": "2026-08-29T22:46:04.484Z",
+  "changedFullCountries": 1,
   "fullPassChanges": [
-    2,
+    1,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 120,
+    "enriched": 121,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1041,
+  "generatedHierarchyCandidates": 1042,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -24,7 +24,9 @@
       "Batalla del cabo Henry (1781)",
       "Batalla por el Castillo Itter (1945)",
       "Batalla naval de Campeche (1843)",
-      "Primera batalla de Loxahatchee (1838)"
+      "Primera batalla de Loxahatchee (1838)",
+      "Guerra Civil estadounidense",
+      "Batalla de Cedar Mountain (1862)"
     ],
     "nicaragua": [
       "Batalla de Masaya",
@@ -1140,6 +1142,15 @@
     "Batalla de Kamani (1993)": "Batalla de Kamani (1993)",
     "Battle of Kamani": "Batalla de Kamani (1993)",
     "Battle of Kamani (1993)": "Batalla de Kamani (1993)",
+    "Batalla de Little Mountain": "Batalla de Cedar Mountain (1862)",
+    "Batalla de Cedar Mountain": "Batalla de Cedar Mountain (1862)",
+    "Batalla de Cedar Mountain (1862)": "Batalla de Cedar Mountain (1862)",
+    "Batalla de Cedar Run": "Batalla de Cedar Mountain (1862)",
+    "Batalla de Slaughter's Mountain": "Batalla de Cedar Mountain (1862)",
+    "Battle of Cedar Mountain": "Batalla de Cedar Mountain (1862)",
+    "Battle of Cedar Mountain (1862)": "Batalla de Cedar Mountain (1862)",
+    "Battle of Cedar Run": "Batalla de Cedar Mountain (1862)",
+    "Battle of Slaughter's Mountain": "Batalla de Cedar Mountain (1862)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2221,6 +2232,8 @@
     "Carga de Hrebionka (1920)",
     "Guerra de Abjasia",
     "Batalla de Kamani (1993)",
+    "Guerra Civil estadounidense",
+    "Batalla de Cedar Mountain (1862)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

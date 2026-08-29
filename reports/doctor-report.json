@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-29T22:35:28.469Z",
-  "packageVersion": "1.6.160",
+  "generatedAt": "2026-08-29T22:49:38.855Z",
+  "packageVersion": "1.6.161",
   "status": "observacion",
   "summary": {
     "totalFindings": 1,
@@ -13,9 +13,9 @@
     "conflictAuditIssues": 0,
     "dataCounts": {
       "englishConflictNames": 0,
-      "undatedConflicts": 154,
+      "undatedConflicts": 153,
       "undatedHighLevelConflicts": 0,
-      "provisionalConflictHierarchies": 86,
+      "provisionalConflictHierarchies": 85,
       "suspectRegions": 0,
       "duplicateConflictNames": 0,
       "sameCountryDuplicateConflicts": 0,
@@ -43,7 +43,7 @@
       "severity": "media",
       "area": "datos",
       "title": "Jerarquias de conflicto todavia provisionales",
-      "detail": "86 acciones usan un padre regional generico y no deben contarse como jerarquias verificadas.",
+      "detail": "85 acciones usan un padre regional generico y no deben contarse como jerarquias verificadas.",
       "command": "npm run fix:conflicts:batches"
     }
   ],
@@ -127,7 +127,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 86,
+      "count": 85,
       "command": "npm run fix:conflicts:batches"
     },
     {
