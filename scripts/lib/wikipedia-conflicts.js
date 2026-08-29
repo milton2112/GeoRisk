@@ -68,6 +68,7 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Batalla de la Monta\u00f1a Roja": "Battle_of_Pulang_Lupa",
   "Batalla de las Marismas": "Battle_of_the_Marshes",
   "Batalla de Stegeborg": "Battle_of_Stegeborg",
+  "Batalla de Rakvere": "Battle_of_Rakvere_(1603)",
   "Batalla de Assandun (1016)": "Battle_of_Assandun",
   "Batalla de Helge\u00e5 (1026)": "Battle_of_Helge\u00e5",
   "Batalla de Largs (1263)": "Battle_of_Largs",

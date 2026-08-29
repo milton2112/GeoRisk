@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-08-29T22:02:04.432Z",
-  "changedFullCountries": 2,
+  "generatedAt": "2026-08-29T22:12:01.436Z",
+  "changedFullCountries": 3,
   "fullPassChanges": [
-    2,
+    3,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 120,
+    "enriched": 119,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1038,
+  "generatedHierarchyCandidates": 1039,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -252,7 +252,8 @@
       "Batalla de Sejny (1920)",
       "Combate de Kalyazin (1609)",
       "Guerra contra Segismundo",
-      "Batalla de Stegeborg (1598)"
+      "Batalla de Stegeborg (1598)",
+      "Batalla de Rakvere (1603)"
     ],
     "mexico": [
       "Combate de Carrizal (1916)",
@@ -396,7 +397,8 @@
       "Batalla del palacio Dasman (1990)"
     ],
     "estonia": [
-      "Batalla de Ösel (1719)"
+      "Batalla de Ösel (1719)",
+      "Batalla de Rakvere (1603)"
     ],
     "italia": [
       "Batalla de las islas Hyères (1795)",
@@ -1116,6 +1118,11 @@
     "Battle of Stegeborg": "Batalla de Stegeborg (1598)",
     "Slaget vid Stegeborg": "Batalla de Stegeborg (1598)",
     "Batalla de Skallvik": "Batalla de Stegeborg (1598)",
+    "Batalla de Rakvere": "Batalla de Rakvere (1603)",
+    "Batalla de Rakvere (1603)": "Batalla de Rakvere (1603)",
+    "Battle of Rakvere (1603)": "Batalla de Rakvere (1603)",
+    "Batalla de Wesenberg (1603)": "Batalla de Rakvere (1603)",
+    "Battle of Wesenberg (1603)": "Batalla de Rakvere (1603)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2192,6 +2199,7 @@
     "Batalla de las marismas (1984)",
     "Guerra contra Segismundo",
     "Batalla de Stegeborg (1598)",
+    "Batalla de Rakvere (1603)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

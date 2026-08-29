@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-29T22:04:12.916Z",
+  "generatedAt": "2026-08-29T22:14:52.001Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 89,
-  "reviewCount": 89,
+  "advisoryCount": 88,
+  "reviewCount": 88,
   "summary": {
-    "provisional_parent": 89
+    "provisional_parent": 88
   },
   "topIssues": [],
   "topAdvisories": [
@@ -518,20 +518,6 @@
       "name": "Batalla de Putziger Wiek",
       "countries": [
         "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de rakvere",
-      "name": "Batalla de Rakvere",
-      "countries": [
-        "SWE"
       ],
       "startYear": null,
       "endYear": null,
@@ -1120,6 +1106,20 @@
       "name": "Batalla naval de Tatamagouche",
       "countries": [
         "FRA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "combate de caleta foca",
+      "name": "Combate de Caleta Foca",
+      "countries": [
+        "GBR"
       ],
       "startYear": null,
       "endYear": null,

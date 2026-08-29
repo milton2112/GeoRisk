@@ -386,6 +386,11 @@ import {
   STEGEBORG_1598_CONFLICT_RENAMES
 } from "../lib/conflict-curation-stegeborg-1598.js";
 import {
+  RAKVERE_1603_CONFLICT_DETAIL_FIXES,
+  RAKVERE_1603_COUNTRY_CONFLICT_ADDITIONS,
+  RAKVERE_1603_CONFLICT_RENAMES
+} from "../lib/conflict-curation-rakvere-1603.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -3757,6 +3762,45 @@ assert.ok(
 const stegeborgWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Stegeborg");
 assert.equal(stegeborgWikipediaOverride.language, "en");
 assert.equal(stegeborgWikipediaOverride.pageTitle, "Battle_of_Stegeborg");
+assert.equal(Object.keys(RAKVERE_1603_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  RAKVERE_1603_CONFLICT_RENAMES["Batalla de Rakvere"],
+  "Batalla de Rakvere (1603)"
+);
+assert.equal(
+  RAKVERE_1603_CONFLICT_RENAMES["Battle of Rakvere (1603)"],
+  "Batalla de Rakvere (1603)",
+  "el alias ingles fechado de Rakvere debe llegar a la ficha curada"
+);
+assert.deepEqual(
+  RAKVERE_1603_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    Polonia: ["Batalla de Rakvere (1603)"],
+    Estonia: ["Batalla de Rakvere (1603)"]
+  }
+);
+const rakvereBattleDetail = RAKVERE_1603_CONFLICT_DETAIL_FIXES["Batalla de Rakvere (1603)"];
+assert.ok(
+  rakvereBattleDetail
+    && rakvereBattleDetail.startYear === 1603
+    && rakvereBattleDetail.startYear === rakvereBattleDetail.endYear
+    && rakvereBattleDetail.datePrecision === "5 de marzo de 1603"
+    && rakvereBattleDetail.parent === "Guerra polaco-sueca de 1600-1611"
+    && rakvereBattleDetail.campaign === "Campa\u00f1a de Livonia de 1603"
+    && rakvereBattleDetail.type === "batalla terrestre"
+    && rakvereBattleDetail.conflictType === "interestatal"
+    && rakvereBattleDetail.hierarchyConfidence === "alta"
+    && rakvereBattleDetail.hierarchySources?.length >= 4
+    && rakvereBattleDetail.hierarchySources.every(item => item.label && item.url)
+    && rakvereBattleDetail.participants?.length === 2
+    && rakvereBattleDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /Victoria polaco-lituana/i.test(rakvereBattleDetail.outcome)
+    && /batalla medieval de 1268/i.test(rakvereBattleDetail.sourceDispute),
+  "la curaduria de Rakvere debe preservar fecha, jerarquia, fuentes, participantes y el control del homonimo medieval"
+);
+const rakvereWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Rakvere");
+assert.equal(rakvereWikipediaOverride.language, "en");
+assert.equal(rakvereWikipediaOverride.pageTitle, "Battle_of_Rakvere_(1603)");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-29T22:02:21.925Z",
+  "generatedAt": "2026-08-29T22:12:07.523Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11784747,
-    "duplicatedCountryFilesBytes": 1539762,
-    "countryConflictShardBytes": 431143,
+    "fullBytes": 11811853,
+    "duplicatedCountryFilesBytes": 1540160,
+    "countryConflictShardBytes": 431503,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -113,8 +113,8 @@
       {
         "code": "POL",
         "name": "Polonia",
-        "bytes": 20940,
-        "inlineBytes": 255227,
+        "bytes": 21079,
+        "inlineBytes": 265167,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -123,12 +123,12 @@
           "religionGroups": 5,
           "organizations": 43,
           "rivals": 50,
-          "conflicts": 54,
+          "conflicts": 55,
           "timelineEvents": 0
         },
         "metrics": {
           "sectionBytes": {
-            "military": 10349,
+            "military": 10488,
             "politics": 7383,
             "metadata": 1913,
             "general": 684,
@@ -141,7 +141,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 10349
+              "bytes": 10488
             },
             {
               "section": "politics",
@@ -156,8 +156,8 @@
               "bytes": 684
             }
           ],
-          "conflictsBytes": 13980,
-          "conflictShardBytes": 13981,
+          "conflictsBytes": 14272,
+          "conflictShardBytes": 14273,
           "averageConflictBytes": 259
         }
       },
@@ -570,54 +570,54 @@
         }
       },
       {
-        "code": "SWE",
-        "name": "Suecia",
-        "bytes": 15441,
-        "inlineBytes": 544653,
+        "code": "ITA",
+        "name": "Italia",
+        "bytes": 15428,
+        "inlineBytes": 73546,
         "tooLarge": false,
         "counts": {
-          "cities": 5,
+          "cities": 4,
           "capitals": 1,
-          "languages": 1,
-          "religionGroups": 4,
-          "organizations": 50,
-          "rivals": 7,
-          "conflicts": 153,
-          "timelineEvents": 0
+          "languages": 5,
+          "religionGroups": 5,
+          "organizations": 77,
+          "rivals": 45,
+          "conflicts": 13,
+          "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 7745,
-            "politics": 4479,
-            "metadata": 1914,
-            "general": 777,
-            "religion": 229,
-            "economy": 101,
-            "history": 76,
+            "politics": 8689,
+            "military": 3003,
+            "metadata": 1936,
+            "general": 828,
+            "history": 448,
+            "religion": 305,
+            "economy": 99,
             "name": 8,
             "continent": 8
           },
           "largestSections": [
             {
-              "section": "military",
-              "bytes": 7745
+              "section": "politics",
+              "bytes": 8689
             },
             {
-              "section": "politics",
-              "bytes": 4479
+              "section": "military",
+              "bytes": 3003
             },
             {
               "section": "metadata",
-              "bytes": 1914
+              "bytes": 1936
             },
             {
               "section": "general",
-              "bytes": 777
+              "bytes": 828
             }
           ],
-          "conflictsBytes": 32783,
-          "conflictShardBytes": 32784,
-          "averageConflictBytes": 214
+          "conflictsBytes": 2886,
+          "conflictShardBytes": 0,
+          "averageConflictBytes": 222
         }
       }
     ]
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 156,
+    "pendingCount": 155,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15665,19 +15665,6 @@
         "name": "Batalla de Putziger Wiek",
         "countries": [
           "FRA"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Rakvere",
-        "countries": [
-          "SWE"
         ],
         "regions": [
           "Europa"

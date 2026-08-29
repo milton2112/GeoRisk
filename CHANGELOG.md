@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.157 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.158 antes de cerrar la siguiente version.
+
+## v1.6.158 - 2026-08-30
+
+- Normaliza la entrada provisional "Batalla de Rakvere" como **Batalla de Rakvere (1603)**, fechada el 5 de marzo dentro de la Guerra polaco-sueca de 1600-1611 y de la Campaña de Livonia de 1603.
+- Distingue explícitamente esta acción de la batalla medieval homónima de 1268, evita aliases de Wesenberg sin año y conserva la cautela sobre efectivos, bajas y la fecha exacta de la capitulación de Dorpat.
+- Vincula Suecia por la fuerza participante, Polonia como referencia contemporánea de la Mancomunidad Polaco-Lituana y Estonia por la ubicación actual de Rakvere, sin tratarlos como entidades históricas intercambiables.
+- Completa causas, resultado, consecuencias, cronología, participantes, campaña, región, fuentes y procedencia con trazabilidad de la Universidad Jaguelónica, la Universidad de Tartu, la Biblioteca Militar Central de Polonia y ERR.
+- Regenera ficha diferida, búsqueda, índices y timeline; reduce las jerarquías provisionales de 89 a 88 y mantiene cero alertas estructurales, con 1.842 conflictos, 3.119 eventos y 1.089 fichas diferidas.
+- Agrega una prueba de regresión para aliases fechados, fecha, jerarquía, países enlazados, participantes, fuentes y el control del homónimo, junto con una resolución local de Wikipedia para evitar una dependencia de red durante la auditoría.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-30-release-2`.
 
 ## v1.6.157 - 2026-08-30
 
