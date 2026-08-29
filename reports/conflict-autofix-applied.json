@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-29T12:11:05.242Z",
+  "generatedAt": "2026-08-29T12:59:47.452Z",
   "changedFullCountries": 2,
   "fullPassChanges": [
     2,
@@ -418,14 +418,15 @@
     "turquia": [
       "Batalla naval de Imbros (1918)"
     ],
+    "filipinas": [
+      "Batalla de Pulang Lupa (1900)",
+      "Combate del rio Dolores (1904)"
+    ],
     "afganistan": [
       "Batalla de Aranas (2007)"
     ],
     "ucrania": [
       "Batalla de Czortków (1919)"
-    ],
-    "filipinas": [
-      "Combate del rio Dolores (1904)"
     ],
     "grecia": [
       "Accion naval del paso de Doro (1827)"
@@ -1095,6 +1096,11 @@
     "Battle of Imbros": "Batalla naval de Imbros (1918)",
     "Battle of Imbros (1918)": "Batalla naval de Imbros (1918)",
     "Batalha de Imbros": "Batalla naval de Imbros (1918)",
+    "Batalla de la Montaña Roja": "Batalla de Pulang Lupa (1900)",
+    "Batalla de Pulang Lupa": "Batalla de Pulang Lupa (1900)",
+    "Battle of Pulang Lupa": "Batalla de Pulang Lupa (1900)",
+    "Battle of Red Mountain": "Batalla de Pulang Lupa (1900)",
+    "Batalla de Tierra Roja": "Batalla de Pulang Lupa (1900)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2167,6 +2173,7 @@
     "Batalla de Kaipiais (1789)",
     "Combates navales de la Boca del Tigre (1809-1810)",
     "Batalla naval de Imbros (1918)",
+    "Batalla de Pulang Lupa (1900)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

@@ -371,6 +371,11 @@ import {
   IMBROS_1918_CONFLICT_RENAMES
 } from "../lib/conflict-curation-imbros-1918.js";
 import {
+  PULANG_LUPA_1900_CONFLICT_DETAIL_FIXES,
+  PULANG_LUPA_1900_COUNTRY_CONFLICT_ADDITIONS,
+  PULANG_LUPA_1900_CONFLICT_RENAMES
+} from "../lib/conflict-curation-pulang-lupa-1900.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -3616,6 +3621,44 @@ assert.ok(
   ),
   "la curaduria de Imbros debe preservar fecha, jerarquia, fuentes, participantes y cautela sobre bajas"
 );
+assert.equal(Object.keys(PULANG_LUPA_1900_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  PULANG_LUPA_1900_CONFLICT_RENAMES["Batalla de la Monta\u00f1a Roja"],
+  "Batalla de Pulang Lupa (1900)"
+);
+assert.equal(
+  PULANG_LUPA_1900_CONFLICT_RENAMES["Battle of Pulang Lupa"],
+  "Batalla de Pulang Lupa (1900)",
+  "el alias ingles de Pulang Lupa debe llegar a la ficha curada"
+);
+assert.deepEqual(
+  PULANG_LUPA_1900_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    Filipinas: ["Batalla de Pulang Lupa (1900)"]
+  }
+);
+assert.ok(
+  Object.values(PULANG_LUPA_1900_CONFLICT_DETAIL_FIXES).every(detail =>
+    detail.startYear === 1900
+      && detail.startYear === detail.endYear
+      && detail.datePrecision === "13 de septiembre de 1900"
+      && detail.parent === "Guerra filipino-estadounidense"
+      && detail.campaign === "Operaciones de Marinduque (1900)"
+      && detail.type === "batalla terrestre"
+      && detail.conflictType === "independencia"
+      && detail.hierarchyConfidence === "alta"
+      && detail.hierarchySources?.length >= 3
+      && detail.hierarchySources.every(item => item.label && item.url)
+      && detail.participants?.length === 2
+      && detail.participants.every(side => side.side && side.members?.length && side.casualties)
+      && /M\u00e1ximo Abad derrot\u00f3/i.test(detail.outcome)
+      && /no aportan una tabla bilateral verificable/i.test(detail.sourceDispute)
+  ),
+  "la curaduria de Pulang Lupa debe preservar fecha, jerarquia, fuentes, participantes y cautela sobre bajas"
+);
+const pulangLupaWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de la Monta\u00f1a Roja");
+assert.equal(pulangLupaWikipediaOverride.language, "en");
+assert.equal(pulangLupaWikipediaOverride.pageTitle, "Battle_of_Pulang_Lupa");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

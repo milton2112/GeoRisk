@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.154 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.155 antes de cerrar la siguiente version.
+
+## v1.6.155 - 2026-08-29
+
+- Normaliza la entrada provisional "Batalla de la Montana Roja" como **Batalla de Pulang Lupa (1900)**, ocurrida el 13 de septiembre en Torrijos, Marinduque, durante la Guerra filipino-estadounidense.
+- Añade la campaña editorial **Operaciones de Marinduque (1900)**, vincula Filipinas y Estados Unidos por las fuerzas participantes, e incorpora a Maximo Abad y Devereux Shields sin transformar la ubicacion contemporanea en un beligerante adicional.
+- Registra la victoria local filipina, su continuidad hasta la rendicion de abril de 1901 y fuentes trazables del National Historical Commission of the Philippines, el Gobierno Provincial de Marinduque y Republic Act No. 6702; no inventa un total bilateral de bajas donde las fuentes no lo consolidan.
+- Regenera ficha diferida, busqueda, indices y timeline, reduce las jerarquias provisionales de 92 a 91 y mantiene cero alertas estructurales, con 1.839 conflictos, 3.111 eventos y 1.085 fichas diferidas.
+- Agrega una prueba de regresion para aliases, fecha, jerarquia, participantes, paises enlazados y fuente, y hace determinista la resolucion local hacia la pagina historica correspondiente de Wikipedia.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-29-release-5`.
 
 ## v1.6.154 - 2026-08-29
 

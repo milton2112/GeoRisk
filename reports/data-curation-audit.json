@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-29T12:11:13.743Z",
+  "generatedAt": "2026-08-29T12:59:53.651Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11716027,
-    "duplicatedCountryFilesBytes": 1539094,
-    "countryConflictShardBytes": 430341,
+    "fullBytes": 11734271,
+    "duplicatedCountryFilesBytes": 1539421,
+    "countryConflictShardBytes": 430429,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24032,
-        "inlineBytes": 3184481,
+        "inlineBytes": 3192209,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 213736,
-          "conflictShardBytes": 213737,
+          "conflictsBytes": 213824,
+          "conflictShardBytes": 213825,
           "averageConflictBytes": 232
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 159,
+    "pendingCount": 158,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15312,19 +15312,6 @@
       },
       {
         "name": "Batalla de la línea Bullet",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de la Montaña Roja",
         "countries": [
           "USA"
         ],

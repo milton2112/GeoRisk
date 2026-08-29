@@ -65,6 +65,7 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Guerra en el noroeste de Pakistán": "Guerra_en_el_noroeste_de_Pakistán",
   "Batalla de Amiens": "Batalla_de_Amiens_(1918)",
   "Batalla de Guerrero (1916)": "Batalla de Guerrero",
+  "Batalla de la Monta\u00f1a Roja": "Battle_of_Pulang_Lupa",
   "Batalla de Assandun (1016)": "Battle_of_Assandun",
   "Batalla de Helge\u00e5 (1026)": "Battle_of_Helge\u00e5",
   "Batalla de Largs (1263)": "Battle_of_Largs",
