@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.159 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.160 antes de cerrar la siguiente version.
+
+## v1.6.160 - 2026-08-30
+
+- Normaliza la entrada provisional "Batalla de Kamani" como **Batalla de Kamani (1993)** y la ubica en julio de 1993, dentro de las **Ofensivas abjasias sobre Sujumi de 1993** y de la **Guerra de Abjasia**.
+- Completa la ficha local con ubicación, bandos, causa, resultado, consecuencias, cronología, fuentes y referencias de navegación, sin fijar un día ni bajas totales cuando las fuentes verificables no permiten una reconstrucción homogénea.
+- Revisa la **Guerra de Abjasia**: sustituye la clasificación interestatal genérica y las regiones contradictorias por una descripción secesionista y civil, con cronología desde agosto de 1992 hasta la ofensiva de septiembre de 1993, el alto el fuego de Sochi y una distinción explícita entre los bandos principales y el papel complejo de actores externos.
+- Añade trazabilidad de Naciones Unidas, Human Rights Watch y una investigación académica de la Universidad de Maryland; mantiene una nota visible sobre el estatus disputado de Abjasia, atribución de responsabilidades y límites de las cifras.
+- Regenera ficha diferida, búsqueda, índices y timeline; reduce las jerarquías provisionales de 87 a 86 y los conflictos fuera del índice fechable de 154 a 153, manteniendo cero alertas estructurales, con 1.845 conflictos, 3.125 eventos y 1.093 fichas diferidas.
+- Agrega pruebas de regresión para alias, periodo, clasificación, campaña, fecha mensual, participantes, fuentes, resultado y cautela sobre bajas y responsabilidades.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-30-release-4`.
 
 ## v1.6.159 - 2026-08-30
 

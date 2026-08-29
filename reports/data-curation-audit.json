@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-29T22:22:02.569Z",
+  "generatedAt": "2026-08-29T22:33:23.524Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11858629,
-    "duplicatedCountryFilesBytes": 1540758,
-    "countryConflictShardBytes": 432373,
+    "fullBytes": 11880863,
+    "duplicatedCountryFilesBytes": 1540889,
+    "countryConflictShardBytes": 432448,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -318,7 +318,7 @@
         "code": "RUS",
         "name": "Rusia",
         "bytes": 18619,
-        "inlineBytes": 272937,
+        "inlineBytes": 280547,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -360,9 +360,9 @@
               "bytes": 965
             }
           ],
-          "conflictsBytes": 14865,
-          "conflictShardBytes": 14866,
-          "averageConflictBytes": 229
+          "conflictsBytes": 14940,
+          "conflictShardBytes": 14941,
+          "averageConflictBytes": 230
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 154,
+    "pendingCount": 153,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15239,19 +15239,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Kamani",
-        "countries": [
-          "GEO"
-        ],
-        "regions": [
-          "Asia"
         ],
         "types": [
           "interestatal"

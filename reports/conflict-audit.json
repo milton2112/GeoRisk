@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-29T22:24:09.495Z",
+  "generatedAt": "2026-08-29T22:35:23.335Z",
   "scannedConflicts": 2000,
   "issueCount": 0,
-  "advisoryCount": 87,
-  "reviewCount": 87,
+  "advisoryCount": 86,
+  "reviewCount": 86,
   "summary": {
-    "provisional_parent": 87
+    "provisional_parent": 86
   },
   "topIssues": [],
   "topAdvisories": [
@@ -74,20 +74,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de kamani",
-      "name": "Batalla de Kamani",
-      "countries": [
-        "GEO"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Asia",
       "issues": [
         "provisional_parent"
       ],
@@ -1120,6 +1106,20 @@
       "name": "Combate de Huite",
       "countries": [
         "CHL"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "combate del callao",
+      "name": "Combate del Callao",
+      "countries": [
+        "PER"
       ],
       "startYear": null,
       "endYear": null,

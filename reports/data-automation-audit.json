@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-29T22:24:13.045Z",
+  "generatedAt": "2026-08-29T22:35:27.066Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 155
+      "count": 154
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 87
+      "count": 86
     },
     "suspectRegions": {
       "count": 0
@@ -233,11 +233,6 @@
       },
       {
         "code": "GEO",
-        "name": "Batalla de Kamani",
-        "region": "Asia"
-      },
-      {
-        "code": "GEO",
         "name": "Batalla de Ochamchira",
         "region": "Asia"
       },
@@ -254,6 +249,11 @@
       {
         "code": "IRQ",
         "name": "Batalla de Pirde",
+        "region": "Asia"
+      },
+      {
+        "code": "ISR",
+        "name": "Batalla de Re'im",
         "region": "Asia"
       }
     ],
@@ -436,13 +436,6 @@
       },
       {
         "code": "GEO",
-        "name": "Batalla de Kamani",
-        "parent": "Conflicto regional de Asia",
-        "campaign": "Campaña vinculada a Conflicto regional de Asia",
-        "startYear": null
-      },
-      {
-        "code": "GEO",
         "name": "Batalla de Ochamchira",
         "parent": "Conflicto regional de Asia",
         "campaign": "Campaña vinculada a Conflicto regional de Asia",
@@ -535,6 +528,13 @@
       {
         "code": "SWE",
         "name": "Batalla de Ostróda",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "SWE",
+        "name": "Batalla de Sobota",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 87,
+      "count": 86,
       "command": "npm run fix:conflicts:batches"
     },
     {

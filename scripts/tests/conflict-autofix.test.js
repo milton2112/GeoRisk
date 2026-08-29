@@ -396,6 +396,10 @@ import {
   HREBIONKA_1920_CONFLICT_RENAMES
 } from "../lib/conflict-curation-hrebionka-1920.js";
 import {
+  KAMANI_1993_CONFLICT_DETAIL_FIXES,
+  KAMANI_1993_CONFLICT_RENAMES
+} from "../lib/conflict-curation-kamani-1993.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -3855,6 +3859,51 @@ assert.ok(
     && /Victoria tactica polaca/i.test(hrebionkaBattleDetail.outcome)
     && /2 de julio/i.test(hrebionkaBattleDetail.sourceDispute),
   "la curaduria de Hrebionka debe preservar fecha, jerarquia, fuentes, participantes y cautela sobre relatos regimentalistas"
+);
+assert.equal(Object.keys(KAMANI_1993_CONFLICT_DETAIL_FIXES).length, 2);
+assert.equal(
+  KAMANI_1993_CONFLICT_RENAMES["Batalla de Kamani"],
+  "Batalla de Kamani (1993)"
+);
+assert.equal(
+  KAMANI_1993_CONFLICT_RENAMES["Battle of Kamani"],
+  "Batalla de Kamani (1993)",
+  "el alias ingles de Kamani debe llegar a la ficha curada"
+);
+const abkhaziaWarDetail = KAMANI_1993_CONFLICT_DETAIL_FIXES["Guerra de Abjasia"];
+assert.ok(
+  abkhaziaWarDetail
+    && abkhaziaWarDetail.startYear === 1992
+    && abkhaziaWarDetail.endYear === 1993
+    && abkhaziaWarDetail.type === "guerra secesionista"
+    && abkhaziaWarDetail.conflictType === "civil"
+    && abkhaziaWarDetail.hierarchyConfidence === "alta"
+    && abkhaziaWarDetail.hierarchySources?.length >= 3
+    && abkhaziaWarDetail.hierarchySources.every(item => item.label && item.url)
+    && abkhaziaWarDetail.participants?.length === 2
+    && abkhaziaWarDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /Sujumi/i.test(abkhaziaWarDetail.outcome)
+    && /estatus de Abjasia/i.test(abkhaziaWarDetail.sourceDispute),
+  "la Guerra de Abjasia debe conservar alcance, fuentes, bandos y cautela sobre estatus y actores externos"
+);
+const kamaniBattleDetail = KAMANI_1993_CONFLICT_DETAIL_FIXES["Batalla de Kamani (1993)"];
+assert.ok(
+  kamaniBattleDetail
+    && kamaniBattleDetail.startYear === 1993
+    && kamaniBattleDetail.startYear === kamaniBattleDetail.endYear
+    && kamaniBattleDetail.datePrecision === "julio de 1993"
+    && kamaniBattleDetail.parent === "Guerra de Abjasia"
+    && kamaniBattleDetail.campaign === "Ofensivas abjasias sobre Sujumi de 1993"
+    && kamaniBattleDetail.type === "combate por localidad"
+    && kamaniBattleDetail.conflictType === "civil"
+    && kamaniBattleDetail.hierarchyConfidence === "alta"
+    && kamaniBattleDetail.hierarchySources?.length >= 3
+    && kamaniBattleDetail.hierarchySources.every(item => item.label && item.url)
+    && kamaniBattleDetail.participants?.length === 2
+    && kamaniBattleDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /aseguraron Kamani/i.test(kamaniBattleDetail.outcome)
+    && /precision mensual/i.test(kamaniBattleDetail.sourceDispute),
+  "la curaduria de Kamani debe preservar fecha mensual, jerarquia, fuentes, participantes y cautela sobre bajas"
 );
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
