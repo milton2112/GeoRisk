@@ -8,7 +8,18 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.165 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.166 antes de cerrar la siguiente version.
+
+## v1.6.166 - 2026-08-30
+
+- Normaliza la entrada provisional "Batalla de Île Ronde" como **Batalla naval de Île Ronde (1794)**, fechada el 22 de octubre frente a Île de France, actual Mauricio, dentro de las operaciones navales del océano Índico.
+- Crea la ficha navegable **Guerras revolucionarias francesas (1792-1802)** y conecta la batalla con esa guerra, su campaña índica, Francia y Reino Unido; reemplaza la jerarquía europea genérica y la clasificación local incompleta.
+- Completa causa, resultado, consecuencias, cronología, participantes, región y trazabilidad con Royal Collection Trust, la historia naval de William James y un repertorio cronológico especializado de batallas navales.
+- Conserva la incertidumbre histórica: el resultado se expresa como tácticamente no concluyente con alivio operativo francés del bloqueo; no fija totales de bajas ni un orden de batalla definitivo donde las síntesis difieren.
+- Unifica las referencias heredadas de "Guerras revolucionarias francesas" bajo el nombre periodizado en fichas, `parent`, `war`, campañas, relaciones y aliases de búsqueda; evita que el mismo ciclo histórico se abra por dos rutas distintas.
+- Regenera ficha diferida, búsqueda, índices y timeline; reduce las jerarquías provisionales de 81 a 80, reduce los conflictos indexados duplicados de 1.853 a 1.852 y mantiene cero alertas estructurales.
+- Añade pruebas de regresión para nombre canónico, aliases con y sin acento, fecha, jerarquía, fuentes, bandos, discrepancias de fuentes, unificación de referencias y búsqueda del nombre inglés.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-30-release-10`.
 
 ## v1.6.165 - 2026-08-30
 

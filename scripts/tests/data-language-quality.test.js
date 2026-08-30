@@ -939,7 +939,7 @@ const franceFollowupExpectations = [
   { name: "Batalla de Craonne (1814)", parent: "Guerra de la Sexta Coalición (1813-1814)", startYear: 1814, type: "batalla" },
   { name: "Batalla de Golymin (1806)", parent: "Guerra de la Cuarta Coalición (1806-1807)", startYear: 1806, type: "batalla" },
   { name: "Batalla naval de la isla de Granada (1779)", parent: "Guerra de Independencia de Estados Unidos", startYear: 1779, type: "batalla naval" },
-  { name: "Batalla naval de Groix (1795)", parent: "Guerras revolucionarias francesas", startYear: 1795, type: "batalla naval" },
+  { name: "Batalla naval de Groix (1795)", parent: "Guerras revolucionarias francesas (1792-1802)", startYear: 1795, type: "batalla naval" },
   { name: "Batalla de Heilsberg (1807)", parent: "Guerra de la Cuarta Coalición (1806-1807)", startYear: 1807, type: "batalla" },
   { name: "Batalla naval de la bahía de Chesapeake (1781)", parent: "Guerra de Independencia de Estados Unidos", startYear: 1781, type: "batalla naval" },
   { name: "Batalla naval de la bahía de Quiberon (1759)", parent: "Guerra de los Siete Años", startYear: 1759, type: "batalla naval" }

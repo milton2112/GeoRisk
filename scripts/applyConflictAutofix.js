@@ -436,6 +436,12 @@ import {
   FLORIDA_MOUNTAINS_1861_CONFLICT_RENAMES
 } from "./lib/conflict-curation-florida-mountains-1861.js";
 import {
+  ILE_RONDE_1794_CONFLICT_DETAIL_FIXES,
+  ILE_RONDE_1794_COUNTRY_CONFLICT_ADDITIONS,
+  ILE_RONDE_1794_CONFLICT_RENAMES,
+  ILE_RONDE_1794_CONFLICT_REFERENCE_RENAMES
+} from "./lib/conflict-curation-ile-ronde-1794.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "./lib/conflict-curation-cockle-creek.js";
@@ -644,6 +650,7 @@ const curatedConflictDetailFixes = {
   ...MOUNT_GRAY_1864_CONFLICT_DETAIL_FIXES,
   ...MIMBRES_RIVER_1860_CONFLICT_DETAIL_FIXES,
   ...FLORIDA_MOUNTAINS_1861_CONFLICT_DETAIL_FIXES,
+  ...ILE_RONDE_1794_CONFLICT_DETAIL_FIXES,
   ...COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   ...CLOUDS_CONFLICT_DETAIL_FIXES,
   ...COLSONS_MILL_CONFLICT_DETAIL_FIXES,
@@ -767,6 +774,7 @@ const safeConflictRenames = {
   ...MOUNT_GRAY_1864_CONFLICT_RENAMES,
   ...MIMBRES_RIVER_1860_CONFLICT_RENAMES,
   ...FLORIDA_MOUNTAINS_1861_CONFLICT_RENAMES,
+  ...ILE_RONDE_1794_CONFLICT_RENAMES,
   ...COCKLE_CREEK_CONFLICT_RENAMES,
   ...CLOUDS_CONFLICT_RENAMES,
   ...COLSONS_MILL_CONFLICT_RENAMES,
@@ -786,6 +794,9 @@ const safeConflictRenames = {
   ...JASK_CONFLICT_RENAMES,
   ...GOTSKA_SANDON_CONFLICT_RENAMES,
   ...PIRANO_GRADO_CONFLICT_RENAMES
+};
+const conflictReferenceRenames = {
+  ...ILE_RONDE_1794_CONFLICT_REFERENCE_RENAMES
 };
 const countryConflictAdditionBatches = [
   TRANSITION_1846_1902_COUNTRY_CONFLICT_ADDITIONS,
@@ -854,6 +865,7 @@ const countryConflictAdditionBatches = [
   MOUNT_GRAY_1864_COUNTRY_CONFLICT_ADDITIONS,
   MIMBRES_RIVER_1860_COUNTRY_CONFLICT_ADDITIONS,
   FLORIDA_MOUNTAINS_1861_COUNTRY_CONFLICT_ADDITIONS,
+  ILE_RONDE_1794_COUNTRY_CONFLICT_ADDITIONS,
   BAU_COUNTRY_CONFLICT_ADDITIONS,
   ARANAS_COUNTRY_CONFLICT_ADDITIONS,
   ALEGRE_COUNTRY_CONFLICT_ADDITIONS,
@@ -882,6 +894,31 @@ const countryConflictExclusions = mergeCountryConflictBatches(countryConflictExc
 function renameConflictName(name) {
   const cleanName = cleanConflictLabel(name);
   return safeConflictRenames[cleanName] || safeConflictRenames[name] || cleanName;
+}
+
+function normalizeConflictReference(value) {
+  if (typeof value !== "string") {
+    return value;
+  }
+  const cleanValue = cleanConflictLabel(value);
+  return conflictReferenceRenames[cleanValue] || conflictReferenceRenames[value] || value;
+}
+
+function normalizeConflictReferences(entry) {
+  if (!entry || typeof entry !== "object") {
+    return entry;
+  }
+
+  const normalized = { ...entry };
+  for (const field of ["parent", "war", "campaign"]) {
+    if (typeof entry[field] === "string") {
+      normalized[field] = normalizeConflictReference(entry[field]);
+    }
+  }
+  if (Array.isArray(entry.related)) {
+    normalized.related = entry.related.map(normalizeConflictReference);
+  }
+  return normalized;
 }
 
 function isBattleLike(entry) {
@@ -986,8 +1023,8 @@ function buildGeneratedHierarchyMap(generatedDetails = {}) {
   const conflicts = generatedDetails.conflicts || generatedDetails;
   const map = new Map();
   for (const [rawName, detail] of Object.entries(conflicts || {})) {
-    const parent = detail?.parent || detail?.war || "";
-    const campaign = detail?.campaign || "";
+    const parent = normalizeConflictReference(detail?.parent || detail?.war || "");
+    const campaign = normalizeConflictReference(detail?.campaign || "");
     const specificParent = parent && !isProvisionalConflictHierarchy({ parent }) ? parent : "";
     const specificCampaign = campaign && !isProvisionalConflictHierarchy({ campaign }) ? campaign : "";
     if (!specificParent && !specificCampaign) continue;
@@ -1019,10 +1056,10 @@ function normalizeConflictEntryWithContext(entry, context) {
   if (!entry || typeof entry !== "object") {
     return entry;
   }
-  const renamedEntry = {
+  const renamedEntry = normalizeConflictReferences({
     ...entry,
     name: renameConflictName(entry.name)
-  };
+  });
   renamedEntry.name = getContextualConflictName(renamedEntry);
   const inferredCuration = inferWorldWarBattleCuration(renamedEntry);
   const importedHierarchy = getGeneratedHierarchyPatch(renamedEntry, context.generatedHierarchyByConflict);
@@ -1033,7 +1070,9 @@ function normalizeConflictEntryWithContext(entry, context) {
     ...importedHierarchy,
     ...curatedDetailFix
   };
-  return normalizeVisibleValue(curateConflictEntry(curatedEntry, context));
+  return normalizeVisibleValue(
+    curateConflictEntry(normalizeConflictReferences(curatedEntry), context)
+  );
 }
 
 function getCountryConflictAdditions(country) {
@@ -1168,7 +1207,9 @@ async function fixGeneratedDetails(countriesByConflict) {
   }
 
   for (const [name, detail] of Object.entries(conflicts)) {
-    const curated = curateConflictDetail(name, normalizeParticipantSides(detail), { countriesByConflict });
+    const curated = normalizeConflictReferences(
+      curateConflictDetail(name, normalizeParticipantSides(detail), { countriesByConflict })
+    );
     const finalName = renameConflictName(curated.name);
     const normalized = normalizeVisibleValue({ ...curated, name: undefined });
     delete normalized.name;

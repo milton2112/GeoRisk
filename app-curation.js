@@ -5347,7 +5347,7 @@ Object.assign(EXTRA_CONFLICT_DETAIL_OVERRIDES, {
       { year: 1813, text: "Leipzig marca la derrota de Napoleon frente a una gran coalicion." },
       { year: 1815, text: "Waterloo cierra el ciclo napoleonico." }
     ],
-    related: ["Guerras revolucionarias francesas", "Congreso de Viena"],
+    related: ["Guerras revolucionarias francesas (1792-1802)", "Congreso de Viena"],
     participants: [
       { side: "Francia napoleonica y aliados", members: ["Francia", "estados satelites y aliados"], organizations: [], troops: "millones movilizados", casualties: "muy elevadas" },
       { side: "Coaliciones europeas", members: ["Reino Unido", "Rusia", "Austria", "Prusia", "Espana", "Portugal y otros"], organizations: [], troops: "millones movilizados", casualties: "muy elevadas" }
@@ -5355,7 +5355,7 @@ Object.assign(EXTRA_CONFLICT_DETAIL_OVERRIDES, {
     outcome: "Derrota final de Napoleon y restauracion del equilibrio europeo.",
     consequences: "Redibujo el mapa europeo, impulso reformas estatales y dio origen al sistema diplomatico del Congreso de Viena."
   },
-  "Guerras revolucionarias francesas": {
+  "Guerras revolucionarias francesas (1792-1802)": {
     cause: "Estallaron por la radicalizacion de la Revolucion francesa y la reaccion de monarquias europeas contra el nuevo orden republicano.",
     type: "guerra interestatal",
     scope: "regional",

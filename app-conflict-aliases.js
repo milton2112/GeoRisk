@@ -275,7 +275,7 @@
   
   CONFLICT_NAME_ALIASES.push(
     [/^Napoleonic Wars$/i, "Guerras napoleonicas"],
-    [/^French Revolutionary Wars$/i, "Guerras revolucionarias francesas"],
+    [/^French Revolutionary Wars$/i, "Guerras revolucionarias francesas (1792-1802)"],
     [/^Hundred Years'? War$/i, "Guerra de los Cien Anos"],
     [/^Second Hundred Years'? War$/i, "Segunda Guerra de los Cien Anos"],
     [/^Thirty Years'? War$/i, "Guerra de los Treinta Anos"],

@@ -1,18 +1,19 @@
 {
-  "generatedAt": "2026-08-30T12:12:04.947Z",
-  "changedFullCountries": 0,
+  "generatedAt": "2026-08-30T12:41:48.265Z",
+  "changedFullCountries": 3,
   "fullPassChanges": [
+    3,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
-    "renamed": 1,
-    "enriched": 122,
+    "renamed": 0,
+    "enriched": 0,
     "retired": 0,
-    "written": true,
+    "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1047,
+  "generatedHierarchyCandidates": 1048,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -71,7 +72,9 @@
       "Batalla de las islas Saint-Marcouf (1798)",
       "Combate naval de Mahé (1801)",
       "Combate naval de la bahía de Fundy (1696)",
-      "Batalla naval de Lagos (1759)"
+      "Batalla naval de Lagos (1759)",
+      "Guerras revolucionarias francesas (1792-1802)",
+      "Batalla naval de Île Ronde (1794)"
     ],
     "alemania": [
       "Batalla de Schleswig (1848)",
@@ -166,6 +169,8 @@
       "Combate naval de la bahía de Fundy (1696)",
       "Batalla naval de Lagos (1759)",
       "Batalla naval de Imbros (1918)",
+      "Guerras revolucionarias francesas (1792-1802)",
+      "Batalla naval de Île Ronde (1794)",
       "Accion naval del paso de Doro (1827)",
       "Combate naval de Jask (1620)",
       "Batalla naval de Pirano (1812)"
@@ -1188,6 +1193,16 @@
     "Combate de las montanas Florida (1861)": "Combate de las montañas Florida (1861)",
     "Combate de las montañas Florida": "Combate de las montañas Florida (1861)",
     "Combate de las montañas Florida (1861)": "Combate de las montañas Florida (1861)",
+    "Guerras revolucionarias francesas": "Guerras revolucionarias francesas (1792-1802)",
+    "Batalla de Île Ronde": "Batalla naval de Île Ronde (1794)",
+    "Batalla de Ile Ronde": "Batalla naval de Île Ronde (1794)",
+    "Batalla naval de Île Ronde": "Batalla naval de Île Ronde (1794)",
+    "Batalla naval de Ile Ronde": "Batalla naval de Île Ronde (1794)",
+    "Batalla naval de Ile Ronde (1794)": "Batalla naval de Île Ronde (1794)",
+    "Battle of Île Ronde": "Batalla naval de Île Ronde (1794)",
+    "Battle of Ile Ronde": "Batalla naval de Île Ronde (1794)",
+    "Bataille de l'Île Ronde": "Batalla naval de Île Ronde (1794)",
+    "Bataille de l'Ile Ronde": "Batalla naval de Île Ronde (1794)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2277,6 +2292,8 @@
     "Batalla de Mount Gray (1864)",
     "Ataque del rio Mimbres (1860)",
     "Combate de las montañas Florida (1861)",
+    "Guerras revolucionarias francesas (1792-1802)",
+    "Batalla naval de Île Ronde (1794)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

@@ -425,6 +425,12 @@ import {
   FLORIDA_MOUNTAINS_1861_CONFLICT_RENAMES
 } from "../lib/conflict-curation-florida-mountains-1861.js";
 import {
+  ILE_RONDE_1794_CONFLICT_DETAIL_FIXES,
+  ILE_RONDE_1794_COUNTRY_CONFLICT_ADDITIONS,
+  ILE_RONDE_1794_CONFLICT_RENAMES,
+  ILE_RONDE_1794_CONFLICT_REFERENCE_RENAMES
+} from "../lib/conflict-curation-ile-ronde-1794.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -4178,6 +4184,68 @@ assert.ok(
 const floridaMountainsWikipediaOverride = await resolveWikipediaConflictTitle("Combate de las monta\u00f1as Florida (1861)");
 assert.equal(floridaMountainsWikipediaOverride.language, "en");
 assert.equal(floridaMountainsWikipediaOverride.pageTitle, "Battle_of_the_Florida_Mountains");
+assert.equal(Object.keys(ILE_RONDE_1794_CONFLICT_DETAIL_FIXES).length, 2);
+assert.equal(
+  ILE_RONDE_1794_CONFLICT_RENAMES["Batalla de \u00cele Ronde"],
+  "Batalla naval de \u00cele Ronde (1794)"
+);
+assert.equal(
+  ILE_RONDE_1794_CONFLICT_RENAMES["Guerras revolucionarias francesas"],
+  "Guerras revolucionarias francesas (1792-1802)",
+  "la ficha padre breve debe migrar al nombre periodizado"
+);
+assert.equal(
+  ILE_RONDE_1794_CONFLICT_REFERENCE_RENAMES["Guerras revolucionarias francesas"],
+  "Guerras revolucionarias francesas (1792-1802)",
+  "las referencias hijas deben usar la misma ficha padre periodizada"
+);
+assert.equal(
+  ILE_RONDE_1794_CONFLICT_RENAMES["Batalla naval de Ile Ronde (1794)"],
+  "Batalla naval de \u00cele Ronde (1794)",
+  "la variante sin acento debe llegar a la ficha curada de Ile Ronde"
+);
+assert.deepEqual(
+  ILE_RONDE_1794_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    Francia: ["Guerras revolucionarias francesas (1792-1802)", "Batalla naval de \u00cele Ronde (1794)"],
+    "Reino Unido": ["Guerras revolucionarias francesas (1792-1802)", "Batalla naval de \u00cele Ronde (1794)"]
+  }
+);
+const frenchRevolutionaryWarsDetail = ILE_RONDE_1794_CONFLICT_DETAIL_FIXES["Guerras revolucionarias francesas (1792-1802)"];
+assert.ok(
+  frenchRevolutionaryWarsDetail
+    && frenchRevolutionaryWarsDetail.startYear === 1792
+    && frenchRevolutionaryWarsDetail.endYear === 1802
+    && frenchRevolutionaryWarsDetail.type === "guerra"
+    && frenchRevolutionaryWarsDetail.conflictType === "interestatal"
+    && frenchRevolutionaryWarsDetail.hierarchySources?.length >= 2
+    && frenchRevolutionaryWarsDetail.hierarchySources.every(item => item.label && item.url)
+    && frenchRevolutionaryWarsDetail.participants?.length === 2
+    && /periodizaci\u00f3n no es \u00fanica/i.test(frenchRevolutionaryWarsDetail.sourceDispute),
+  "la guerra padre debe poder abrirse con periodo, fuentes, bandos y limites de la periodizacion"
+);
+const ileRondeDetail = ILE_RONDE_1794_CONFLICT_DETAIL_FIXES["Batalla naval de \u00cele Ronde (1794)"];
+assert.ok(
+  ileRondeDetail
+    && ileRondeDetail.startYear === 1794
+    && ileRondeDetail.startYear === ileRondeDetail.endYear
+    && ileRondeDetail.datePrecision === "22 de octubre de 1794"
+    && ileRondeDetail.parent === "Guerras revolucionarias francesas (1792-1802)"
+    && ileRondeDetail.campaign === "Operaciones navales anglo-francesas en el oc\u00e9ano \u00cdndico (1794)"
+    && ileRondeDetail.type === "batalla naval"
+    && ileRondeDetail.conflictType === "interestatal"
+    && ileRondeDetail.hierarchyConfidence === "alta"
+    && ileRondeDetail.hierarchySources?.length >= 3
+    && ileRondeDetail.hierarchySources.every(item => item.label && item.url)
+    && ileRondeDetail.participants?.length === 2
+    && ileRondeDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /no concluyente/i.test(ileRondeDetail.outcome)
+    && /no coinciden por completo/i.test(ileRondeDetail.sourceDispute),
+  "la curaduria de Ile Ronde debe preservar fecha, jerarquia, fuentes, bandos y cautela sobre resultado y bajas"
+);
+const ileRondeWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval de \u00cele Ronde (1794)");
+assert.equal(ileRondeWikipediaOverride.language, "en");
+assert.equal(ileRondeWikipediaOverride.pageTitle, "Battle_of_\u00cele_Ronde");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],
