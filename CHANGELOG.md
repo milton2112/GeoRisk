@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.169 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.170 antes de cerrar la siguiente version.
+
+## v1.6.170 - 2026-08-30
+
+- Normaliza la entrada provisional "Batalla de Mona Passage" como **Batalla del canal de la Mona (1782)**, fechada el 19 de abril de 1782 en el canal entre La Española y Puerto Rico, en el mar Caribe.
+- La integra a la **Guerra de Independencia de Estados Unidos** y a la **Persecución británica en el canal de la Mona (1782)**; reemplaza la jerarquía europea genérica por una batalla naval internacional conectada a Francia y Reino Unido.
+- Completa causa, resultado, consecuencias, cronología, participantes, región y aliases en español e inglés con apoyo del National Maritime Museum de Greenwich y del U.S. Army Center of Military History.
+- Mantiene los límites documentales visibles: registra la captura verificada de *Caton* y *Jason*, pero no fija bajas, efectivos ni un total de presas donde las fuentes revisadas no ofrecen una serie homogénea.
+- Regenera ficha diferida, búsqueda, índices y timeline; reduce las jerarquías provisionales de 77 a 76 y los conflictos fuera del índice fechable de 144 a 143, manteniendo cero incidencias de validación e idioma.
+- Añade pruebas de regresión para el nombre canónico, aliases, fecha, jerarquía, participantes, prudencia sobre cifras y resolución de Wikipedia.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-30-release-14`.
 
 ## v1.6.169 - 2026-08-30
 

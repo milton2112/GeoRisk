@@ -446,6 +446,11 @@ import {
   FAYETTEVILLE_1863_CONFLICT_RENAMES
 } from "../lib/conflict-curation-fayetteville-1863.js";
 import {
+  MONA_PASSAGE_1782_CONFLICT_DETAIL_FIXES,
+  MONA_PASSAGE_1782_COUNTRY_CONFLICT_ADDITIONS,
+  MONA_PASSAGE_1782_CONFLICT_RENAMES
+} from "../lib/conflict-curation-mona-passage-1782.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -4375,6 +4380,43 @@ assert.ok(
 const fayettevilleWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Fayetteville (Arkansas, 1863)");
 assert.equal(fayettevilleWikipediaOverride.language, "en");
 assert.equal(fayettevilleWikipediaOverride.pageTitle, "Battle_of_Fayetteville_(1863)");
+assert.equal(Object.keys(MONA_PASSAGE_1782_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  MONA_PASSAGE_1782_CONFLICT_RENAMES["Batalla de Mona Passage"],
+  "Batalla del canal de la Mona (1782)"
+);
+assert.equal(
+  MONA_PASSAGE_1782_CONFLICT_RENAMES["Battle of the Mona Passage"],
+  "Batalla del canal de la Mona (1782)",
+  "el alias ingles debe llegar a la ficha curada del canal de la Mona"
+);
+assert.deepEqual(
+  MONA_PASSAGE_1782_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    Francia: ["Guerra de Independencia de Estados Unidos", "Batalla del canal de la Mona (1782)"],
+    "Reino Unido": ["Guerra de Independencia de Estados Unidos", "Batalla del canal de la Mona (1782)"]
+  }
+);
+const monaPassageDetail = MONA_PASSAGE_1782_CONFLICT_DETAIL_FIXES["Batalla del canal de la Mona (1782)"];
+assert.ok(
+  monaPassageDetail
+    && monaPassageDetail.startYear === 1782
+    && monaPassageDetail.startYear === monaPassageDetail.endYear
+    && monaPassageDetail.parent === "Guerra de Independencia de Estados Unidos"
+    && monaPassageDetail.campaign === "Persecucion britanica en el canal de la Mona (1782)"
+    && monaPassageDetail.type === "batalla naval"
+    && monaPassageDetail.conflictType === "interestatal"
+    && monaPassageDetail.scale === "internacional"
+    && monaPassageDetail.hierarchySources?.length >= 2
+    && monaPassageDetail.participants?.length === 2
+    && monaPassageDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /Caton y Jason/i.test(monaPassageDetail.outcome)
+    && /no fija efectivos, bajas ni un total/i.test(monaPassageDetail.sourceDispute),
+  "la curaduria del canal de la Mona debe fijar fecha, jerarquia y capturas verificadas sin inventar bajas"
+);
+const monaPassageWikipediaOverride = await resolveWikipediaConflictTitle("Batalla del canal de la Mona (1782)");
+assert.equal(monaPassageWikipediaOverride.language, "en");
+assert.equal(monaPassageWikipediaOverride.pageTitle, "Battle_of_the_Mona_Passage");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

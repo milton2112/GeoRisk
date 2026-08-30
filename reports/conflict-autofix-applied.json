@@ -1,19 +1,20 @@
 {
-  "generatedAt": "2026-08-30T20:41:32.585Z",
-  "changedFullCountries": 1,
+  "generatedAt": "2026-08-30T20:55:22.314Z",
+  "changedFullCountries": 4,
   "fullPassChanges": [
-    1,
+    2,
+    2,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 142,
+    "enriched": 144,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1050,
+  "generatedHierarchyCandidates": 1051,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -77,7 +78,9 @@
       "Combate naval de la bahía de Fundy (1696)",
       "Batalla naval de Lagos (1759)",
       "Guerras revolucionarias francesas (1792-1802)",
-      "Batalla naval de Île Ronde (1794)"
+      "Batalla naval de Île Ronde (1794)",
+      "Guerra de Independencia de Estados Unidos",
+      "Batalla del canal de la Mona (1782)"
     ],
     "alemania": [
       "Batalla de Schleswig (1848)",
@@ -174,6 +177,8 @@
       "Batalla naval de Imbros (1918)",
       "Guerras revolucionarias francesas (1792-1802)",
       "Batalla naval de Île Ronde (1794)",
+      "Guerra de Independencia de Estados Unidos",
+      "Batalla del canal de la Mona (1782)",
       "Accion naval del paso de Doro (1827)",
       "Combate naval de Jask (1620)",
       "Batalla naval de Pirano (1812)"
@@ -1227,6 +1232,12 @@
     "Action at Fayetteville": "Batalla de Fayetteville (Arkansas, 1863)",
     "Battle of Fayetteville": "Batalla de Fayetteville (Arkansas, 1863)",
     "Battle of Fayetteville (1863)": "Batalla de Fayetteville (Arkansas, 1863)",
+    "Batalla de Mona Passage": "Batalla del canal de la Mona (1782)",
+    "Batalla del canal de la Mona": "Batalla del canal de la Mona (1782)",
+    "Batalla de la Mona": "Batalla del canal de la Mona (1782)",
+    "Battle of Mona Passage": "Batalla del canal de la Mona (1782)",
+    "Battle of the Mona Passage": "Batalla del canal de la Mona (1782)",
+    "Bataille du canal de la Mona": "Batalla del canal de la Mona (1782)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2321,6 +2332,7 @@
     "Primera batalla de Dragoon Springs (1862)",
     "Combate de Little Dry Creek (1885)",
     "Batalla de Fayetteville (Arkansas, 1863)",
+    "Batalla del canal de la Mona (1782)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

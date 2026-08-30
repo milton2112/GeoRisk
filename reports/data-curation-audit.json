@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-30T20:41:38.749Z",
+  "generatedAt": "2026-08-30T20:55:28.792Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12048627,
-    "duplicatedCountryFilesBytes": 1541840,
-    "countryConflictShardBytes": 434681,
+    "fullBytes": 12071497,
+    "duplicatedCountryFilesBytes": 1541718,
+    "countryConflictShardBytes": 435506,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 25001,
-        "inlineBytes": 1190799,
+        "bytes": 24814,
+        "inlineBytes": 1203601,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,12 +21,12 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 324,
+          "conflicts": 326,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 11577,
+            "military": 11390,
             "politics": 9502,
             "metadata": 1952,
             "general": 1018,
@@ -39,7 +39,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 11577
+              "bytes": 11390
             },
             {
               "section": "politics",
@@ -54,8 +54,8 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 74882,
-          "conflictShardBytes": 74883,
+          "conflictsBytes": 75409,
+          "conflictShardBytes": 75410,
           "averageConflictBytes": 231
         }
       },
@@ -164,8 +164,8 @@
       {
         "code": "FRA",
         "name": "Francia",
-        "bytes": 20173,
-        "inlineBytes": 850337,
+        "bytes": 20238,
+        "inlineBytes": 860405,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -174,12 +174,12 @@
           "religionGroups": 5,
           "organizations": 54,
           "rivals": 50,
-          "conflicts": 238,
+          "conflicts": 239,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 8493,
+            "military": 8558,
             "politics": 7898,
             "metadata": 1952,
             "general": 933,
@@ -192,7 +192,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 8493
+              "bytes": 8558
             },
             {
               "section": "politics",
@@ -207,8 +207,8 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 48240,
-          "conflictShardBytes": 48241,
+          "conflictsBytes": 48538,
+          "conflictShardBytes": 48539,
           "averageConflictBytes": 203
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 144,
+    "pendingCount": 143,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15265,19 +15265,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Mona Passage",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
