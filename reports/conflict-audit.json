@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-30T12:44:28.999Z",
+  "generatedAt": "2026-08-30T20:08:16.245Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 80,
-  "reviewCount": 80,
+  "advisoryCount": 79,
+  "reviewCount": 79,
   "summary": {
-    "provisional_parent": 80
+    "provisional_parent": 79
   },
   "topIssues": [],
   "topAdvisories": [
@@ -1096,20 +1096,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "primera batalla de dragoon springs",
-      "name": "Primera batalla de Dragoon Springs",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],

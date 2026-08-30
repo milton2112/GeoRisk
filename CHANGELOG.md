@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.166 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.167 antes de cerrar la siguiente version.
+
+## v1.6.167 - 2026-08-30
+
+- Normaliza la entrada provisional "Primera batalla de Dragoon Springs" como **Primera batalla de Dragoon Springs (1862)**, fechada el 5 de mayo en las montanas Dragoon, actual condado de Cochise, Arizona.
+- Sustituye la jerarquia generica de America y la clasificacion interestatal por un **combate de frontera** dentro de las **Guerras apaches**; conserva la Guerra Civil estadounidense como contexto relacionado, sin presentar a los pueblos apaches como una faccion subordinada de la guerra entre Union y Confederacion.
+- Completa causa, desenlace, consecuencias, cronologia, participantes, region, aliases en espanol e ingles y fuentes. Distingue la primera accion de la respuesta del 9 de mayo y no fusiona ambos episodios.
+- Hace visible la incertidumbre documental: no fija efectivos, bajas, ganado, liderazgo apache ni una victoria absoluta donde las fuentes difieren; registra tambien la controversia sobre una supuesta retirada confederada de Tucson y la superposicion con tumbas anteriores de la ruta postal.
+- Regenera ficha diferida, busqueda, indices y timeline; reduce las jerarquias provisionales de 80 a 79 y mantiene cero incidencias de validacion, alertas de idioma y alertas estructurales.
+- Agrega pruebas de regresion para el nombre canonico, aliases, fecha, jerarquia, fuentes, participantes, limites de interpretacion y resolucion de Wikipedia.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-30-release-11`.
 
 ## v1.6.166 - 2026-08-30
 

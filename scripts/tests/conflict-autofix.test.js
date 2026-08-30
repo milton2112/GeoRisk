@@ -431,6 +431,11 @@ import {
   ILE_RONDE_1794_CONFLICT_REFERENCE_RENAMES
 } from "../lib/conflict-curation-ile-ronde-1794.js";
 import {
+  DRAGOON_SPRINGS_1862_CONFLICT_DETAIL_FIXES,
+  DRAGOON_SPRINGS_1862_COUNTRY_CONFLICT_ADDITIONS,
+  DRAGOON_SPRINGS_1862_CONFLICT_RENAMES
+} from "../lib/conflict-curation-dragoon-springs-1862.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -4246,6 +4251,44 @@ assert.ok(
 const ileRondeWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval de \u00cele Ronde (1794)");
 assert.equal(ileRondeWikipediaOverride.language, "en");
 assert.equal(ileRondeWikipediaOverride.pageTitle, "Battle_of_\u00cele_Ronde");
+assert.equal(Object.keys(DRAGOON_SPRINGS_1862_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  DRAGOON_SPRINGS_1862_CONFLICT_RENAMES["Primera batalla de Dragoon Springs"],
+  "Primera batalla de Dragoon Springs (1862)"
+);
+assert.equal(
+  DRAGOON_SPRINGS_1862_CONFLICT_RENAMES["First Battle of Dragoon Springs"],
+  "Primera batalla de Dragoon Springs (1862)",
+  "el alias ingles debe llegar a la ficha curada de Dragoon Springs"
+);
+assert.deepEqual(
+  DRAGOON_SPRINGS_1862_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Estados Unidos": ["Guerras apaches", "Primera batalla de Dragoon Springs (1862)"]
+  }
+);
+const dragoonSpringsDetail = DRAGOON_SPRINGS_1862_CONFLICT_DETAIL_FIXES["Primera batalla de Dragoon Springs (1862)"];
+assert.ok(
+  dragoonSpringsDetail
+    && dragoonSpringsDetail.startYear === 1862
+    && dragoonSpringsDetail.startYear === dragoonSpringsDetail.endYear
+    && dragoonSpringsDetail.datePrecision === "5 de mayo de 1862"
+    && dragoonSpringsDetail.parent === "Guerras apaches"
+    && dragoonSpringsDetail.campaign === "Operaciones confederadas y apaches en Dragoon Springs (1862)"
+    && dragoonSpringsDetail.type === "combate de frontera"
+    && dragoonSpringsDetail.conflictType === "frontera"
+    && dragoonSpringsDetail.hierarchyConfidence === "media"
+    && dragoonSpringsDetail.hierarchySources?.length >= 3
+    && dragoonSpringsDetail.hierarchySources.every(item => item.label && item.url)
+    && dragoonSpringsDetail.participants?.length === 2
+    && dragoonSpringsDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /ventaja tactica apache/i.test(dragoonSpringsDetail.outcome)
+    && /difieren sobre si la partida estaba en retirada/i.test(dragoonSpringsDetail.sourceDispute),
+  "la curaduria de Dragoon Springs debe separar la accion apache de la jerarquia generica, con fecha, fuentes y limites claros"
+);
+const dragoonSpringsWikipediaOverride = await resolveWikipediaConflictTitle("Primera batalla de Dragoon Springs (1862)");
+assert.equal(dragoonSpringsWikipediaOverride.language, "en");
+assert.equal(dragoonSpringsWikipediaOverride.pageTitle, "First_Battle_of_Dragoon_Springs");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-30T12:41:59.306Z",
+  "generatedAt": "2026-08-30T20:06:01.876Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12022973,
+    "fullBytes": 12031315,
     "duplicatedCountryFilesBytes": 1541840,
-    "countryConflictShardBytes": 434377,
+    "countryConflictShardBytes": 434500,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24032,
-        "inlineBytes": 3257877,
+        "inlineBytes": 3266219,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 214676,
-          "conflictShardBytes": 214677,
+          "conflictsBytes": 214799,
+          "conflictShardBytes": 214800,
           "averageConflictBytes": 233
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 147,
+    "pendingCount": 146,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -16944,19 +16944,6 @@
         ],
         "regions": [
           "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Primera batalla de Dragoon Springs",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"

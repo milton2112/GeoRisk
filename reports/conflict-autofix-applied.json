@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-08-30T12:41:48.265Z",
-  "changedFullCountries": 3,
+  "generatedAt": "2026-08-30T20:05:43.391Z",
+  "changedFullCountries": 1,
   "fullPassChanges": [
-    3,
+    1,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 0,
+    "enriched": 138,
     "retired": 0,
-    "written": false,
+    "written": true,
     "compacted": false
   },
   "generatedHierarchyCandidates": 1048,
@@ -32,7 +32,8 @@
       "Guerras apaches",
       "Batalla de Mount Gray (1864)",
       "Ataque del rio Mimbres (1860)",
-      "Combate de las montañas Florida (1861)"
+      "Combate de las montañas Florida (1861)",
+      "Primera batalla de Dragoon Springs (1862)"
     ],
     "nicaragua": [
       "Batalla de Masaya",
@@ -1203,6 +1204,13 @@
     "Battle of Ile Ronde": "Batalla naval de Île Ronde (1794)",
     "Bataille de l'Île Ronde": "Batalla naval de Île Ronde (1794)",
     "Bataille de l'Ile Ronde": "Batalla naval de Île Ronde (1794)",
+    "Primera batalla de Dragoon Springs": "Primera batalla de Dragoon Springs (1862)",
+    "Primera batalla de Dragoon Spring": "Primera batalla de Dragoon Springs (1862)",
+    "Primera batalla de Dragoon Springs (1862)": "Primera batalla de Dragoon Springs (1862)",
+    "First Battle of Dragoon Springs": "Primera batalla de Dragoon Springs (1862)",
+    "First Battle of Dragoon Springs (1862)": "Primera batalla de Dragoon Springs (1862)",
+    "Batalla de Dragoon Springs": "Primera batalla de Dragoon Springs (1862)",
+    "Batalla de Dragoon Springs (1862)": "Primera batalla de Dragoon Springs (1862)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2294,6 +2302,7 @@
     "Combate de las montañas Florida (1861)",
     "Guerras revolucionarias francesas (1792-1802)",
     "Batalla naval de Île Ronde (1794)",
+    "Primera batalla de Dragoon Springs (1862)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",
