@@ -1,31 +1,17 @@
 {
-  "generatedAt": "2026-08-30T12:03:16.764Z",
+  "generatedAt": "2026-08-30T12:13:57.766Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 82,
-  "reviewCount": 82,
+  "advisoryCount": 81,
+  "reviewCount": 81,
   "summary": {
-    "provisional_parent": 82
+    "provisional_parent": 81
   },
   "topIssues": [],
   "topAdvisories": [
     {
       "key": "batalla de fayetteville",
       "name": "Batalla de Fayetteville",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de florida mountains",
-      "name": "Batalla de Florida Mountains",
       "countries": [
         "USA"
       ],
@@ -1124,6 +1110,20 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Asia",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "primera batalla de dragoon springs",
+      "name": "Primera batalla de Dragoon Springs",
+      "countries": [
+        "USA"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],

@@ -420,6 +420,11 @@ import {
   MIMBRES_RIVER_1860_CONFLICT_RENAMES
 } from "../lib/conflict-curation-mimbres-river-1860.js";
 import {
+  FLORIDA_MOUNTAINS_1861_CONFLICT_DETAIL_FIXES,
+  FLORIDA_MOUNTAINS_1861_COUNTRY_CONFLICT_ADDITIONS,
+  FLORIDA_MOUNTAINS_1861_CONFLICT_RENAMES
+} from "../lib/conflict-curation-florida-mountains-1861.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -4130,6 +4135,49 @@ assert.ok(
 const mimbresRiverWikipediaOverride = await resolveWikipediaConflictTitle("Ataque del rio Mimbres (1860)");
 assert.equal(mimbresRiverWikipediaOverride.language, "en");
 assert.equal(mimbresRiverWikipediaOverride.pageTitle, "Battle_of_the_Mimbres_River");
+assert.equal(Object.keys(FLORIDA_MOUNTAINS_1861_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  FLORIDA_MOUNTAINS_1861_CONFLICT_RENAMES["Batalla de Florida Mountains"],
+  "Combate de las monta\u00f1as Florida (1861)"
+);
+assert.equal(
+  FLORIDA_MOUNTAINS_1861_CONFLICT_RENAMES["Battle of the Florida Mountains"],
+  "Combate de las monta\u00f1as Florida (1861)",
+  "el alias ingles de Florida Mountains debe llegar a la ficha curada"
+);
+assert.equal(
+  FLORIDA_MOUNTAINS_1861_CONFLICT_RENAMES["Combate de las montanas Florida (1861)"],
+  "Combate de las monta\u00f1as Florida (1861)",
+  "la variante ASCII previa debe fusionarse con el nombre visible acentuado"
+);
+assert.deepEqual(
+  FLORIDA_MOUNTAINS_1861_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Estados Unidos": ["Guerras apaches", "Combate de las monta\u00f1as Florida (1861)"]
+  }
+);
+const floridaMountainsDetail = FLORIDA_MOUNTAINS_1861_CONFLICT_DETAIL_FIXES["Combate de las monta\u00f1as Florida (1861)"];
+assert.ok(
+  floridaMountainsDetail
+    && floridaMountainsDetail.startYear === 1861
+    && floridaMountainsDetail.startYear === floridaMountainsDetail.endYear
+    && floridaMountainsDetail.datePrecision === "agosto de 1861; el dia exacto no esta consolidado"
+    && floridaMountainsDetail.parent === "Guerras apaches"
+    && floridaMountainsDetail.campaign === "Operaciones de Cooke's Canyon de 1861"
+    && floridaMountainsDetail.type === "combate de frontera"
+    && floridaMountainsDetail.conflictType === "frontera"
+    && floridaMountainsDetail.hierarchyConfidence === "media"
+    && floridaMountainsDetail.hierarchySources?.length >= 3
+    && floridaMountainsDetail.hierarchySources.every(item => item.label && item.url)
+    && floridaMountainsDetail.participants?.length === 2
+    && floridaMountainsDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /Smith afirmo/i.test(floridaMountainsDetail.outcome)
+    && /dia exacto no esta consolidado/i.test(floridaMountainsDetail.sourceDispute),
+  "la curaduria de Florida Mountains debe preservar fecha mensual, jerarquia, fuentes, bandos y cautela sobre bajas"
+);
+const floridaMountainsWikipediaOverride = await resolveWikipediaConflictTitle("Combate de las monta\u00f1as Florida (1861)");
+assert.equal(floridaMountainsWikipediaOverride.language, "en");
+assert.equal(floridaMountainsWikipediaOverride.pageTitle, "Battle_of_the_Florida_Mountains");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

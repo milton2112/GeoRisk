@@ -1,0 +1,105 @@
+function source(label, url, confidence = "alta") {
+  return { label, url, confidence };
+}
+
+const CANONICAL = "Combate de las monta\u00f1as Florida (1861)";
+const PARENT = "Guerras apaches";
+const CAMPAIGN = "Operaciones de Cooke's Canyon de 1861";
+
+const SOURCES = {
+  blmMonograph: source(
+    "Oficina de Administracion de Tierras de EE. UU., Donald H. Couchman, Cooke's Peak - Pasaron Por Aqui: reconstruye la salida de los Arizona Guards desde Pinos Altos, la intercepcion en las monta\u00f1as Florida y deja la cifra de ocho muertes como afirmacion de Smith",
+    "https://online.flipbuilder.com/mxzm/ecpp/files/basic-html/page159.html"
+  ),
+  collegeOfNewMexico: source(
+    "Central New Mexico Community College, Apache Wars and the Border: contexto territorial de los chihenne en torno al Mimbres y las monta\u00f1as Florida",
+    "https://mytext.cnm.edu/lesson/apache-wars-the-border/"
+  ),
+  nationalParkServiceApacheWars: source(
+    "Servicio de Parques Nacionales de EE. UU., Chiricahua National Monument: contexto de las guerras apaches y de la resistencia apache frente a la expansion estadounidense en el suroeste",
+    "https://www.nps.gov/chir/learn/historyculture/apache-wars-cochise.htm"
+  )
+};
+
+function floridaMountainsFix() {
+  const hierarchySources = [
+    SOURCES.blmMonograph,
+    SOURCES.collegeOfNewMexico,
+    SOURCES.nationalParkServiceApacheWars
+  ];
+
+  return {
+    parent: PARENT,
+    war: PARENT,
+    campaign: CAMPAIGN,
+    type: "combate de frontera",
+    conflictType: "frontera",
+    scale: "local",
+    status: "historico",
+    active: false,
+    ongoing: false,
+    startYear: 1861,
+    endYear: 1861,
+    region: "Monta\u00f1as Florida, actual condado de Luna, Nuevo Mexico, Estados Unidos",
+    normalizedRegion: "Monta\u00f1as Florida, actual condado de Luna, Nuevo Mexico, Estados Unidos",
+    cause: "Tras el ataque al convoy Ake en Cooke's Canyon, una parte de los Arizona Guards salio desde Pinos Altos para buscar el ganado tomado. Segun la monografia de la Oficina de Administracion de Tierras, Smith y Helm supusieron que el grupo apache se dirigiria por las monta\u00f1as Florida y prepararon una intercepcion.",
+    outcome: "La fuente principal describe un breve tiroteo de intercepcion y atribuye a Smith la recuperacion de aproximadamente la mitad del ganado. Smith afirmo haber causado ocho muertes, pero la ficha conserva esa cifra como un reclamo del relato y no como un balance independiente ni como una victoria decisiva.",
+    consequences: "El destacamento llevo el ganado recuperado de vuelta hacia Cooke's Canyon y continuo encontrando escaramuzas en el corredor. El episodio muestra la disputa por movilidad, rutas y recursos en el sur de Nuevo Mexico; no resolvio el conflicto apache ni la presion sobre los territorios de las comunidades locales.",
+    chronology: [
+      {
+        year: 1861,
+        event: "En agosto, tras auxiliar a sobrevivientes del convoy Ake, un destacamento de Arizona Guards de Pinos Altos se separo cerca del Mimbres para intentar interceptar a quienes llevaban ganado por las monta\u00f1as Florida."
+      },
+      {
+        year: 1861,
+        event: "Al dia siguiente de la separacion, la monografia de Couchman registra un breve tiroteo; Smith afirmo que recuperaron aproximadamente la mitad del ganado y causaron ocho muertes."
+      },
+      {
+        year: 1861,
+        event: "La columna regreso con el ganado hacia Cooke's Canyon y siguio encontrando escaramuzas durante el paso por el corredor."
+      }
+    ],
+    treaties: [],
+    related: [PARENT, CAMPAIGN, "Combate de Cooke's Canyon (1861)", "Pinos Altos"],
+    participants: [
+      {
+        side: "Destacamento de Arizona Guards de Pinos Altos",
+        members: ["Arizona Guards", "voluntarios y milicia local vinculados a la ocupacion confederada", "Hank Smith", "Thomas Jefferson Helm"],
+        casualties: "No consolidadas: la monografia no ofrece una serie independiente de bajas del destacamento."
+      },
+      {
+        side: "Grupo apache interceptado en las monta\u00f1as Florida",
+        members: ["grupo apache asociado al desplazamiento de ganado por la ruta", "personas presentes en la intercepcion"],
+        casualties: "Smith afirmo haber causado ocho muertes; no hay en las fuentes consultadas un parte apache equivalente ni una verificacion independiente para fijar esa cifra."
+      }
+    ],
+    hierarchyConfidence: "media",
+    hierarchySources: hierarchySources.map(item => ({ label: item.label, url: item.url })),
+    datePrecision: "agosto de 1861; el dia exacto no esta consolidado",
+    sourceDispute: "Los relatos posteriores usan batalla, escaramuza o intercepcion y difieren sobre la fuerza, los mandos apache y las bajas. La ficha usa combate como termino descriptivo y conserva agosto de 1861: el dia exacto no esta consolidado. Atribuye expresamente a Smith la cifra de ocho muertes. La ubicacion contemporanea no convierte al actual Estado de Nuevo Mexico en un beligerante de 1861.",
+    curationPriority: "alta",
+    curationBatch: "source-backed-florida-mountains-1861-2026-08",
+    curationStatus: "estructural",
+    dataConfidence: "parcial",
+    curationNote: "La entrada previa carecia de fecha y aparecia bajo Conflicto regional de America como batalla interestatal. Se traduce el nombre, se incorpora a las Guerras apaches y se vincula a las operaciones ya curadas de Cooke's Canyon. La ficha no usa la etiqueta de victoria confederada como resultado cerrado porque el detalle local depende de un reclamo de fuente secundaria."
+  };
+}
+
+export const FLORIDA_MOUNTAINS_1861_CONFLICT_RENAMES = {
+  "Batalla de Florida Mountains": CANONICAL,
+  "Batalla de las Florida Mountains": CANONICAL,
+  "Batalla de las monta\u00f1as Florida": CANONICAL,
+  "Battle of Florida Mountains": CANONICAL,
+  "Battle of the Florida Mountains": CANONICAL,
+  "Combate de las montanas Florida (1861)": CANONICAL,
+  "Combate de las monta\u00f1as Florida": CANONICAL,
+  "Combate de las monta\u00f1as Florida (1861)": CANONICAL
+};
+
+export const FLORIDA_MOUNTAINS_1861_COUNTRY_CONFLICT_ADDITIONS = {
+  "Estados Unidos": [PARENT, CANONICAL]
+};
+
+export const FLORIDA_MOUNTAINS_1861_CONFLICT_DETAIL_FIXES = {
+  [CANONICAL]: floridaMountainsFix()
+};

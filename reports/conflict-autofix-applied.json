@@ -1,19 +1,18 @@
 {
-  "generatedAt": "2026-08-30T12:00:47.837Z",
-  "changedFullCountries": 1,
+  "generatedAt": "2026-08-30T12:12:04.947Z",
+  "changedFullCountries": 0,
   "fullPassChanges": [
-    1,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
-    "renamed": 0,
-    "enriched": 123,
+    "renamed": 1,
+    "enriched": 122,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1045,
+  "generatedHierarchyCandidates": 1047,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -31,7 +30,8 @@
       "Batalla de Mani-Mani (1898)",
       "Guerras apaches",
       "Batalla de Mount Gray (1864)",
-      "Ataque del rio Mimbres (1860)"
+      "Ataque del rio Mimbres (1860)",
+      "Combate de las montañas Florida (1861)"
     ],
     "nicaragua": [
       "Batalla de Masaya",
@@ -1180,6 +1180,14 @@
     "Battle of Mimbres River": "Ataque del rio Mimbres (1860)",
     "Ataque del rio Mimbres": "Ataque del rio Mimbres (1860)",
     "Ataque del rio Mimbres (1860)": "Ataque del rio Mimbres (1860)",
+    "Batalla de Florida Mountains": "Combate de las montañas Florida (1861)",
+    "Batalla de las Florida Mountains": "Combate de las montañas Florida (1861)",
+    "Batalla de las montañas Florida": "Combate de las montañas Florida (1861)",
+    "Battle of Florida Mountains": "Combate de las montañas Florida (1861)",
+    "Battle of the Florida Mountains": "Combate de las montañas Florida (1861)",
+    "Combate de las montanas Florida (1861)": "Combate de las montañas Florida (1861)",
+    "Combate de las montañas Florida": "Combate de las montañas Florida (1861)",
+    "Combate de las montañas Florida (1861)": "Combate de las montañas Florida (1861)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2268,6 +2276,7 @@
     "Guerras apaches",
     "Batalla de Mount Gray (1864)",
     "Ataque del rio Mimbres (1860)",
+    "Combate de las montañas Florida (1861)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

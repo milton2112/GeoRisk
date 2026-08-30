@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.164 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.165 antes de cerrar la siguiente version.
+
+## v1.6.165 - 2026-08-30
+
+- Normaliza la entrada provisional "Batalla de Florida Mountains" como **Combate de las montañas Florida (1861)**, fechada en agosto de 1861 y ubicada en las actuales montañas Florida del condado de Luna, Nuevo México.
+- La integra a las **Guerras apaches** y a las **Operaciones de Cooke's Canyon de 1861**; reemplaza la jerarquía genérica de América y la clasificación interestatal errónea por un combate de frontera navegable.
+- Completa causa, resultado, consecuencias, cronología, participantes, región y fuentes a partir de la monografía de la Oficina de Administración de Tierras de EE. UU., el contexto territorial de CNM y el Servicio de Parques Nacionales de EE. UU.
+- Mantiene la incertidumbre histórica: no inventa día, mandos apache ni bajas; la cifra de ocho muertes queda atribuida explícitamente al reclamo de Smith, no como un recuento independiente ni como victoria decisiva.
+- Corrige una migración de ficha diferida: conserva el alias ASCII previo y fusiona automáticamente la variante sin `ñ` con el nombre visible, evitando duplicados de detalle e índices inconsistentes.
+- Regenera ficha diferida, búsqueda, índices y timeline; reduce las jerarquías provisionales de 82 a 81, conserva cero alertas estructurales y añade pruebas de regresión para aliases heredados, Unicode visible, fecha mensual, jerarquía, fuentes, bandos y cautela sobre bajas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-30-release-9`.
 
 ## v1.6.164 - 2026-08-30
 

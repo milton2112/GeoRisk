@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-30T12:00:54.509Z",
+  "generatedAt": "2026-08-30T12:10:40.136Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11976903,
+    "fullBytes": 11983639,
     "duplicatedCountryFilesBytes": 1541939,
-    "countryConflictShardBytes": 433149,
+    "countryConflictShardBytes": 433220,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24032,
-        "inlineBytes": 3245829,
+        "inlineBytes": 3252565,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 214525,
-          "conflictShardBytes": 214526,
+          "conflictsBytes": 214596,
+          "conflictShardBytes": 214597,
           "averageConflictBytes": 233
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 149,
+    "pendingCount": 148,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15187,19 +15187,6 @@
         ],
         "regions": [
           "Asia central"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Florida Mountains",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"
