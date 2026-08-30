@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-30T20:08:16.245Z",
+  "generatedAt": "2026-08-30T20:18:12.912Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 79,
-  "reviewCount": 79,
+  "advisoryCount": 78,
+  "reviewCount": 78,
   "summary": {
-    "provisional_parent": 79
+    "provisional_parent": 78
   },
   "topIssues": [],
   "topAdvisories": [
@@ -82,20 +82,6 @@
     {
       "key": "batalla de la linea bullet",
       "name": "Batalla de la línea Bullet",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de little dry creek",
-      "name": "Batalla de Little Dry Creek",
       "countries": [
         "USA"
       ],

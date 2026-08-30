@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.167 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.168 antes de cerrar la siguiente version.
+
+## v1.6.168 - 2026-08-30
+
+- Normaliza la entrada provisional "Batalla de Little Dry Creek" como **Combate de Little Dry Creek (1885)**, fechado el 19 de diciembre cerca de Pleasanton y del rancho Siggins, en el actual suroeste de Nuevo Mexico.
+- La integra a las **Guerras apaches** y a la **Campana de Geronimo de 1885-1886**; sustituye la jerarquia generica de America y la clasificacion interestatal por un combate de frontera navegable.
+- Completa causa, resultado, consecuencias, cronologia, participantes, region, fuentes y aliases en espanol e ingles, usando el informe contemporaneo de Samuel W. Fountain conservado por Fort Huachuca, el Informe Anual del Secretario de Guerra de 1886 y el contexto del Servicio de Parques Nacionales.
+- Conserva limites documentales visibles: el parte de Fountain describe la perspectiva de la columna estadounidense; no fija un total de bajas, una fuerza apache, una identidad de mando ni una victoria absoluta donde las fuentes posteriores discrepan.
+- Regenera ficha diferida, busqueda, indices y timeline; reduce las jerarquias provisionales de 79 a 78, reduce los conflictos fuera del indice fechable de 146 a 145 y mantiene cero incidencias de validacion, idioma y estructura.
+- Agrega pruebas de regresion para nombre canonico, aliases, fecha, jerarquia, fuentes, participantes, disputa documental y resolucion de Wikipedia.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-30-release-12`.
 
 ## v1.6.167 - 2026-08-30
 

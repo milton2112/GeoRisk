@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-30T20:05:43.391Z",
+  "generatedAt": "2026-08-30T20:15:48.469Z",
   "changedFullCountries": 1,
   "fullPassChanges": [
     1,
@@ -8,12 +8,12 @@
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 138,
+    "enriched": 140,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1048,
+  "generatedHierarchyCandidates": 1049,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -33,7 +33,8 @@
       "Batalla de Mount Gray (1864)",
       "Ataque del rio Mimbres (1860)",
       "Combate de las montañas Florida (1861)",
-      "Primera batalla de Dragoon Springs (1862)"
+      "Primera batalla de Dragoon Springs (1862)",
+      "Combate de Little Dry Creek (1885)"
     ],
     "nicaragua": [
       "Batalla de Masaya",
@@ -1211,6 +1212,12 @@
     "First Battle of Dragoon Springs (1862)": "Primera batalla de Dragoon Springs (1862)",
     "Batalla de Dragoon Springs": "Primera batalla de Dragoon Springs (1862)",
     "Batalla de Dragoon Springs (1862)": "Primera batalla de Dragoon Springs (1862)",
+    "Batalla de Little Dry Creek": "Combate de Little Dry Creek (1885)",
+    "Batalla de Little Dry Creek (1885)": "Combate de Little Dry Creek (1885)",
+    "Combate de Little Dry Creek": "Combate de Little Dry Creek (1885)",
+    "Battle of Little Dry Creek": "Combate de Little Dry Creek (1885)",
+    "Battle of Little Dry Creek (1885)": "Combate de Little Dry Creek (1885)",
+    "Little Dry Creek Battle": "Combate de Little Dry Creek (1885)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2303,6 +2310,7 @@
     "Guerras revolucionarias francesas (1792-1802)",
     "Batalla naval de Île Ronde (1794)",
     "Primera batalla de Dragoon Springs (1862)",
+    "Combate de Little Dry Creek (1885)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

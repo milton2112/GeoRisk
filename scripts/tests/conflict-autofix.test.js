@@ -436,6 +436,11 @@ import {
   DRAGOON_SPRINGS_1862_CONFLICT_RENAMES
 } from "../lib/conflict-curation-dragoon-springs-1862.js";
 import {
+  LITTLE_DRY_CREEK_1885_CONFLICT_DETAIL_FIXES,
+  LITTLE_DRY_CREEK_1885_COUNTRY_CONFLICT_ADDITIONS,
+  LITTLE_DRY_CREEK_1885_CONFLICT_RENAMES
+} from "../lib/conflict-curation-little-dry-creek-1885.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -4289,6 +4294,44 @@ assert.ok(
 const dragoonSpringsWikipediaOverride = await resolveWikipediaConflictTitle("Primera batalla de Dragoon Springs (1862)");
 assert.equal(dragoonSpringsWikipediaOverride.language, "en");
 assert.equal(dragoonSpringsWikipediaOverride.pageTitle, "First_Battle_of_Dragoon_Springs");
+assert.equal(Object.keys(LITTLE_DRY_CREEK_1885_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  LITTLE_DRY_CREEK_1885_CONFLICT_RENAMES["Batalla de Little Dry Creek"],
+  "Combate de Little Dry Creek (1885)"
+);
+assert.equal(
+  LITTLE_DRY_CREEK_1885_CONFLICT_RENAMES["Battle of Little Dry Creek"],
+  "Combate de Little Dry Creek (1885)",
+  "el alias ingles debe llegar a la ficha curada de Little Dry Creek"
+);
+assert.deepEqual(
+  LITTLE_DRY_CREEK_1885_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Estados Unidos": ["Guerras apaches", "Combate de Little Dry Creek (1885)"]
+  }
+);
+const littleDryCreekDetail = LITTLE_DRY_CREEK_1885_CONFLICT_DETAIL_FIXES["Combate de Little Dry Creek (1885)"];
+assert.ok(
+  littleDryCreekDetail
+    && littleDryCreekDetail.startYear === 1885
+    && littleDryCreekDetail.startYear === littleDryCreekDetail.endYear
+    && littleDryCreekDetail.datePrecision === "19 de diciembre de 1885"
+    && littleDryCreekDetail.parent === "Guerras apaches"
+    && littleDryCreekDetail.campaign === "Campa\u00f1a de Ger\u00f3nimo de 1885-1886"
+    && littleDryCreekDetail.type === "combate de frontera"
+    && littleDryCreekDetail.conflictType === "colonial"
+    && littleDryCreekDetail.hierarchyConfidence === "alta"
+    && littleDryCreekDetail.hierarchySources?.length >= 3
+    && littleDryCreekDetail.hierarchySources.every(item => item.label && item.url)
+    && littleDryCreekDetail.participants?.length === 2
+    && littleDryCreekDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /emboscada eficaz/i.test(littleDryCreekDetail.outcome)
+    && /perspectiva de la columna estadounidense/i.test(littleDryCreekDetail.sourceDispute),
+  "la curaduria de Little Dry Creek debe fijar fecha, jerarquia y fuentes sin convertir los partes militares en cifras cerradas"
+);
+const littleDryCreekWikipediaOverride = await resolveWikipediaConflictTitle("Combate de Little Dry Creek (1885)");
+assert.equal(littleDryCreekWikipediaOverride.language, "en");
+assert.equal(littleDryCreekWikipediaOverride.pageTitle, "Battle_of_Little_Dry_Creek");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],
