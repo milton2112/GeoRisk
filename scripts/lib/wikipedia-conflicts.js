@@ -130,6 +130,8 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Accion naval de Chincoteague Inlet (1861)": "Battle_of_Cockle_Creek",
   "Acción naval de Chincoteague Inlet (1861)": "Battle_of_Cockle_Creek",
   "Batalla de Cockle Creek": "Battle_of_Cockle_Creek",
+  "Batalla de Mount Gray": "Battle_of_Mount_Gray",
+  "Batalla de Mount Gray (1864)": "Battle_of_Mount_Gray",
   "Batalla de las Nubes (1777)": "Battle_of_the_Clouds",
   "Batalla de las Nubes": "Battle_of_the_Clouds",
   "Batalla de Clouds": "Battle_of_the_Clouds",

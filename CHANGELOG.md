@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.162 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.163 antes de cerrar la siguiente version.
+
+## v1.6.163 - 2026-08-30
+
+- Normaliza la entrada provisional "Batalla de Mount Gray" como **Batalla de Mount Gray (1864)**, fechada el 7 de abril y situada en Mount Gray o Sierra Bonita, cerca del actual condado de Hidalgo, Nuevo México.
+- La incorpora a las **Guerras apaches** y a las **Operaciones de la Columna de California en el suroeste de 1864**; reemplaza la jerarquía genérica de América y la clasificación interestatal errónea por una lectura de conflicto de frontera.
+- Revisa la ficha padre **Guerras apaches (1849-1924)** con cronología, fuentes, participantes y una explicación explícita de que es una etiqueta paraguas para conflictos heterogéneos, no una guerra estatal única.
+- Corrige el resolvedor de Wikipedia: la búsqueda de Mount Gray ya no puede confundirse con Mount Longdon y se fija de forma determinista en `Battle_of_Mount_Gray`.
+- Conserva la asimetría documental: atribuye los datos tácticos al parte federal de James H. Whitlock, no fija una cifra apache definitiva y evita convertir identidades históricas apache en un Estado moderno.
+- Regenera ficha diferida, búsqueda, índices y timeline; reduce las jerarquías provisionales de 84 a 83, mantiene cero alertas estructurales y añade pruebas de regresión para aliases, fecha, jerarquía, fuentes, participantes y resolución de Wikipedia.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-30-release-7`.
 
 ## v1.6.162 - 2026-08-30
 

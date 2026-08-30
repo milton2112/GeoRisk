@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-29T23:04:34.422Z",
+  "generatedAt": "2026-08-30T11:37:23.527Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 84,
-  "reviewCount": 84,
+  "advisoryCount": 83,
+  "reviewCount": 83,
   "summary": {
-    "provisional_parent": 84
+    "provisional_parent": 83
   },
   "topIssues": [],
   "topAdvisories": [
@@ -180,20 +180,6 @@
     {
       "key": "batalla de monday s hollow",
       "name": "Batalla de Monday's Hollow",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de mount gray",
-      "name": "Batalla de Mount Gray",
       "countries": [
         "USA"
       ],
@@ -1124,6 +1110,20 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
+      "issues": [
+        "provisional_parent"
+      ],
+      "severity": 1
+    },
+    {
+      "key": "incursion sobre santorini",
+      "name": "Incursion sobre Santorini",
+      "countries": [
+        "GBR"
+      ],
+      "startYear": null,
+      "endYear": null,
+      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],

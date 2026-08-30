@@ -410,6 +410,11 @@ import {
   MANI_MANI_1898_CONFLICT_RENAMES
 } from "../lib/conflict-curation-mani-mani-1898.js";
 import {
+  MOUNT_GRAY_1864_CONFLICT_DETAIL_FIXES,
+  MOUNT_GRAY_1864_COUNTRY_CONFLICT_ADDITIONS,
+  MOUNT_GRAY_1864_CONFLICT_RENAMES
+} from "../lib/conflict-curation-mount-gray-1864.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -4027,6 +4032,61 @@ assert.ok(
 const maniManiWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Mani-Mani");
 assert.equal(maniManiWikipediaOverride.language, "es");
 assert.equal(maniManiWikipediaOverride.pageTitle, "Batalla de Mani-Mani");
+assert.equal(Object.keys(MOUNT_GRAY_1864_CONFLICT_DETAIL_FIXES).length, 2);
+assert.equal(
+  MOUNT_GRAY_1864_CONFLICT_RENAMES["Batalla de Mount Gray"],
+  "Batalla de Mount Gray (1864)"
+);
+assert.equal(
+  MOUNT_GRAY_1864_CONFLICT_RENAMES["Battle of Mount Gray"],
+  "Batalla de Mount Gray (1864)",
+  "el alias ingles de Mount Gray debe llegar a la ficha curada"
+);
+assert.deepEqual(
+  MOUNT_GRAY_1864_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Estados Unidos": ["Guerras apaches", "Batalla de Mount Gray (1864)"]
+  }
+);
+const apacheWarsDetail = MOUNT_GRAY_1864_CONFLICT_DETAIL_FIXES["Guerras apaches"];
+assert.ok(
+  apacheWarsDetail
+    && apacheWarsDetail.startYear === 1849
+    && apacheWarsDetail.endYear === 1924
+    && apacheWarsDetail.type === "guerras y campa\u00f1as de frontera"
+    && apacheWarsDetail.conflictType === "frontera"
+    && apacheWarsDetail.hierarchyConfidence === "alta"
+    && apacheWarsDetail.hierarchySources?.length >= 3
+    && apacheWarsDetail.hierarchySources.every(item => item.label && item.url)
+    && apacheWarsDetail.participants?.length === 2
+    && apacheWarsDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /no existe un unico desenlace/i.test(apacheWarsDetail.outcome)
+    && /etiqueta paraguas/i.test(apacheWarsDetail.sourceDispute),
+  "las Guerras apaches deben distinguir su alcance heterogeneo, fuentes y actores sin tratarlos como una guerra estatal unica"
+);
+const mountGrayDetail = MOUNT_GRAY_1864_CONFLICT_DETAIL_FIXES["Batalla de Mount Gray (1864)"];
+assert.ok(
+  mountGrayDetail
+    && mountGrayDetail.startYear === 1864
+    && mountGrayDetail.startYear === mountGrayDetail.endYear
+    && mountGrayDetail.datePrecision === "7 de abril de 1864"
+    && mountGrayDetail.parent === "Guerras apaches"
+    && mountGrayDetail.campaign === "Operaciones de la Columna de California en el suroeste de 1864"
+    && mountGrayDetail.type === "combate de frontera"
+    && mountGrayDetail.conflictType === "frontera"
+    && mountGrayDetail.hierarchyConfidence === "alta"
+    && mountGrayDetail.hierarchySources?.length >= 3
+    && mountGrayDetail.hierarchySources.every(item => item.label && item.url)
+    && mountGrayDetail.participants?.length === 2
+    && mountGrayDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /45 caballos y mulas/i.test(mountGrayDetail.outcome)
+    && /parte federal/i.test(mountGrayDetail.sourceDispute)
+    && /no hay en las fuentes consultadas un parte apache equivalente/i.test(mountGrayDetail.participants[1].casualties),
+  "la curaduria de Mount Gray debe preservar fecha, jerarquia, fuentes y cautela sobre la asimetria documental"
+);
+const mountGrayWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Mount Gray (1864)");
+assert.equal(mountGrayWikipediaOverride.language, "en");
+assert.equal(mountGrayWikipediaOverride.pageTitle, "Battle_of_Mount_Gray");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-29T23:02:41.613Z",
-  "changedFullCountries": 3,
+  "generatedAt": "2026-08-30T11:34:27.985Z",
+  "changedFullCountries": 1,
   "fullPassChanges": [
-    3,
+    1,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 123,
+    "enriched": 124,
     "retired": 0,
     "written": true,
     "compacted": false
@@ -28,7 +28,9 @@
       "Guerra Civil estadounidense",
       "Batalla de Cedar Mountain (1862)",
       "Guerra hispano-estadounidense",
-      "Batalla de Mani-Mani (1898)"
+      "Batalla de Mani-Mani (1898)",
+      "Guerras apaches",
+      "Batalla de Mount Gray (1864)"
     ],
     "nicaragua": [
       "Batalla de Masaya",
@@ -1167,6 +1169,9 @@
     "Battle of Mani-Mani": "Batalla de Mani-Mani (1898)",
     "Battle of Manimani": "Batalla de Mani-Mani (1898)",
     "Battle of Rio Manimani": "Batalla de Mani-Mani (1898)",
+    "Batalla de Mount Gray": "Batalla de Mount Gray (1864)",
+    "Batalla de Mount Gray (1864)": "Batalla de Mount Gray (1864)",
+    "Battle of Mount Gray": "Batalla de Mount Gray (1864)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2252,6 +2257,8 @@
     "Batalla de Cedar Mountain (1862)",
     "Guerra hispano-estadounidense",
     "Batalla de Mani-Mani (1898)",
+    "Guerras apaches",
+    "Batalla de Mount Gray (1864)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",
