@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.163 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.164 antes de cerrar la siguiente version.
+
+## v1.6.164 - 2026-08-30
+
+- Normaliza la entrada provisional "Batalla de Mimbres River" como **Ataque del rio Mimbres (1860)**, con fecha del 4 de diciembre de 1860 y ubicacion en la ribera occidental del rio Mimbres, en el actual suroeste de Nuevo Mexico.
+- La integra a las **Guerras apaches** y a la categoria organizativa **Conflictos mineros y de frontera en el Mimbres (1860)**; reemplaza la jerarquia generica de America y la clasificacion interestatal erronea por una lectura de ataque de frontera.
+- Completa causa, resultado, consecuencias, cronologia, participantes, trazabilidad y procedencia usando una publicacion de la New Mexico Geological Society y el contexto del Servicio de Parques Nacionales de EE. UU.
+- Hace visible la incertidumbre: no fija bajas, capturas, liderazgos ni denominaciones de grupo donde la bibliografia secundaria discrepa, y no presenta a los mimbrenos como un Estado o ejercito homogeneo.
+- Corrige la resolucion de Wikipedia para mantener el alias historico en `Battle_of_the_Mimbres_River` y evitar dependencias de red ambiguas durante auditorias.
+- Regenera ficha diferida, busqueda, indices y timeline; reduce las jerarquias provisionales de 83 a 82, conserva cero alertas estructurales y agrega pruebas de regresion para aliases, fecha, jerarquia, fuentes, bandos y cautela historica.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-30-release-8`.
 
 ## v1.6.163 - 2026-08-30
 

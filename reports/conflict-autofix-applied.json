@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-30T11:34:27.985Z",
+  "generatedAt": "2026-08-30T12:00:47.837Z",
   "changedFullCountries": 1,
   "fullPassChanges": [
     1,
@@ -8,12 +8,12 @@
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 124,
+    "enriched": 123,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1044,
+  "generatedHierarchyCandidates": 1045,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -30,7 +30,8 @@
       "Guerra hispano-estadounidense",
       "Batalla de Mani-Mani (1898)",
       "Guerras apaches",
-      "Batalla de Mount Gray (1864)"
+      "Batalla de Mount Gray (1864)",
+      "Ataque del rio Mimbres (1860)"
     ],
     "nicaragua": [
       "Batalla de Masaya",
@@ -1172,6 +1173,13 @@
     "Batalla de Mount Gray": "Batalla de Mount Gray (1864)",
     "Batalla de Mount Gray (1864)": "Batalla de Mount Gray (1864)",
     "Battle of Mount Gray": "Batalla de Mount Gray (1864)",
+    "Batalla de Mimbres River": "Ataque del rio Mimbres (1860)",
+    "Batalla del rio Mimbres": "Ataque del rio Mimbres (1860)",
+    "Batalla del Rio Mimbres": "Ataque del rio Mimbres (1860)",
+    "Battle of the Mimbres River": "Ataque del rio Mimbres (1860)",
+    "Battle of Mimbres River": "Ataque del rio Mimbres (1860)",
+    "Ataque del rio Mimbres": "Ataque del rio Mimbres (1860)",
+    "Ataque del rio Mimbres (1860)": "Ataque del rio Mimbres (1860)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2259,6 +2267,7 @@
     "Batalla de Mani-Mani (1898)",
     "Guerras apaches",
     "Batalla de Mount Gray (1864)",
+    "Ataque del rio Mimbres (1860)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

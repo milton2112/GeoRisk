@@ -415,6 +415,11 @@ import {
   MOUNT_GRAY_1864_CONFLICT_RENAMES
 } from "../lib/conflict-curation-mount-gray-1864.js";
 import {
+  MIMBRES_RIVER_1860_CONFLICT_DETAIL_FIXES,
+  MIMBRES_RIVER_1860_COUNTRY_CONFLICT_ADDITIONS,
+  MIMBRES_RIVER_1860_CONFLICT_RENAMES
+} from "../lib/conflict-curation-mimbres-river-1860.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -4087,6 +4092,44 @@ assert.ok(
 const mountGrayWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Mount Gray (1864)");
 assert.equal(mountGrayWikipediaOverride.language, "en");
 assert.equal(mountGrayWikipediaOverride.pageTitle, "Battle_of_Mount_Gray");
+assert.equal(Object.keys(MIMBRES_RIVER_1860_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  MIMBRES_RIVER_1860_CONFLICT_RENAMES["Batalla de Mimbres River"],
+  "Ataque del rio Mimbres (1860)"
+);
+assert.equal(
+  MIMBRES_RIVER_1860_CONFLICT_RENAMES["Battle of the Mimbres River"],
+  "Ataque del rio Mimbres (1860)",
+  "el alias ingles de Mimbres debe llegar a la ficha curada"
+);
+assert.deepEqual(
+  MIMBRES_RIVER_1860_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Estados Unidos": ["Guerras apaches", "Ataque del rio Mimbres (1860)"]
+  }
+);
+const mimbresRiverDetail = MIMBRES_RIVER_1860_CONFLICT_DETAIL_FIXES["Ataque del rio Mimbres (1860)"];
+assert.ok(
+  mimbresRiverDetail
+    && mimbresRiverDetail.startYear === 1860
+    && mimbresRiverDetail.startYear === mimbresRiverDetail.endYear
+    && mimbresRiverDetail.datePrecision === "4 de diciembre de 1860"
+    && mimbresRiverDetail.parent === "Guerras apaches"
+    && mimbresRiverDetail.campaign === "Conflictos mineros y de frontera en el Mimbres (1860)"
+    && mimbresRiverDetail.type === "ataque de frontera"
+    && mimbresRiverDetail.conflictType === "frontera"
+    && mimbresRiverDetail.hierarchyConfidence === "alta"
+    && mimbresRiverDetail.hierarchySources?.length >= 3
+    && mimbresRiverDetail.hierarchySources.every(item => item.label && item.url)
+    && mimbresRiverDetail.participants?.length === 2
+    && mimbresRiverDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /28 mineros/i.test(mimbresRiverDetail.chronology[0].event)
+    && /bibliografia secundaria no coincide/i.test(mimbresRiverDetail.sourceDispute),
+  "la curaduria del rio Mimbres debe preservar fecha, jerarquia, fuentes, bandos y cautela sobre las discrepancias"
+);
+const mimbresRiverWikipediaOverride = await resolveWikipediaConflictTitle("Ataque del rio Mimbres (1860)");
+assert.equal(mimbresRiverWikipediaOverride.language, "en");
+assert.equal(mimbresRiverWikipediaOverride.pageTitle, "Battle_of_the_Mimbres_River");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

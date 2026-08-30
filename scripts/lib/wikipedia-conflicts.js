@@ -132,6 +132,8 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Batalla de Cockle Creek": "Battle_of_Cockle_Creek",
   "Batalla de Mount Gray": "Battle_of_Mount_Gray",
   "Batalla de Mount Gray (1864)": "Battle_of_Mount_Gray",
+  "Batalla de Mimbres River": "Battle_of_the_Mimbres_River",
+  "Ataque del rio Mimbres (1860)": "Battle_of_the_Mimbres_River",
   "Batalla de las Nubes (1777)": "Battle_of_the_Clouds",
   "Batalla de las Nubes": "Battle_of_the_Clouds",
   "Batalla de Clouds": "Battle_of_the_Clouds",

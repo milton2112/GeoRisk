@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-30T11:34:35.648Z",
+  "generatedAt": "2026-08-30T12:00:54.509Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 11970241,
+    "fullBytes": 11976903,
     "duplicatedCountryFilesBytes": 1541939,
-    "countryConflictShardBytes": 433058,
+    "countryConflictShardBytes": 433149,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24032,
-        "inlineBytes": 3239167,
+        "inlineBytes": 3245829,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 214434,
-          "conflictShardBytes": 214435,
+          "conflictsBytes": 214525,
+          "conflictShardBytes": 214526,
           "averageConflictBytes": 233
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 150,
+    "pendingCount": 149,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15314,19 +15314,6 @@
         "name": "Batalla de Matamoros",
         "countries": [
           "MEX"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Mimbres River",
-        "countries": [
-          "USA"
         ],
         "regions": [
           "América"
