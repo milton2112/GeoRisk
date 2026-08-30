@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-08-30T21:51:45.683Z",
-  "startupBytes": 836386,
+  "generatedAt": "2026-08-30T22:05:50.217Z",
+  "startupBytes": 836376,
   "startupHuman": "817 KB",
-  "deferredBytes": 2949996,
-  "deferredHuman": "2.81 MB",
+  "deferredBytes": 2955645,
+  "deferredHuman": "2.82 MB",
   "estimatedRuntimeMemory": {
-    "countriesFullBytes": 12088697,
-    "countriesFullHuman": "11.53 MB",
-    "estimatedParsedBytes": 36266091,
-    "estimatedParsedHuman": "34.59 MB",
+    "countriesFullBytes": 12119495,
+    "countriesFullHuman": "11.56 MB",
+    "estimatedParsedBytes": 36358485,
+    "estimatedParsedHuman": "34.67 MB",
     "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
   },
   "largestAssets": [
     {
       "path": "data/conflict_details.generated.json",
       "exists": true,
-      "bytes": 2309070,
-      "human": "2.20 MB",
+      "bytes": 2314719,
+      "human": "2.21 MB",
       "startupCritical": false
     },
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 563028,
+      "bytes": 563027,
       "human": "550 KB",
       "startupCritical": true
     },
@@ -71,7 +71,7 @@
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 31775,
+      "bytes": 31766,
       "human": "31 KB",
       "startupCritical": true
     },
@@ -101,14 +101,14 @@
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 31775,
+      "bytes": 31766,
       "human": "31 KB",
       "startupCritical": true
     },
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 563028,
+      "bytes": 563027,
       "human": "550 KB",
       "startupCritical": true
     },
@@ -297,8 +297,8 @@
     {
       "path": "data/conflict_details.generated.json",
       "exists": true,
-      "bytes": 2309070,
-      "human": "2.20 MB",
+      "bytes": 2314719,
+      "human": "2.21 MB",
       "startupCritical": false
     },
     {

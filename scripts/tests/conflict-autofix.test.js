@@ -456,6 +456,12 @@ import {
   MONA_PASSAGE_1782_CONFLICT_RENAMES
 } from "../lib/conflict-curation-mona-passage-1782.js";
 import {
+  NEUVILLE_1760_CONFLICT_DETAIL_FIXES,
+  NEUVILLE_1760_COUNTRY_CONFLICT_ADDITIONS,
+  NEUVILLE_1760_COUNTRY_CONFLICT_EXCLUSIONS,
+  NEUVILLE_1760_CONFLICT_RENAMES
+} from "../lib/conflict-curation-neuville-1760.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -4458,6 +4464,53 @@ assert.ok(
 const monaPassageWikipediaOverride = await resolveWikipediaConflictTitle("Batalla del canal de la Mona (1782)");
 assert.equal(monaPassageWikipediaOverride.language, "en");
 assert.equal(monaPassageWikipediaOverride.pageTitle, "Battle_of_the_Mona_Passage");
+assert.equal(Object.keys(NEUVILLE_1760_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  NEUVILLE_1760_CONFLICT_RENAMES["Batalla de Neuville"],
+  "Batalla de Neuville (1760)"
+);
+assert.equal(
+  NEUVILLE_1760_CONFLICT_RENAMES["Battle of Pointe-aux-Trembles"],
+  "Batalla de Neuville (1760)",
+  "el alias ingles debe resolver la batalla naval de Neuville"
+);
+assert.deepEqual(
+  NEUVILLE_1760_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Canadá": ["Batalla de Neuville (1760)"],
+    Francia: ["Batalla de Neuville (1760)"],
+    "Reino Unido": ["Batalla de Neuville (1760)"]
+  }
+);
+assert.deepEqual(
+  NEUVILLE_1760_COUNTRY_CONFLICT_EXCLUSIONS,
+  {
+    "Canadá": ["Guerra franco-india (1754-1763)"],
+    Francia: ["Guerra franco-india (1754-1763)"],
+    "Reino Unido": ["Guerra franco-india (1754-1763)"]
+  },
+  "el padre sin ficha completa no debe exponerse como entrada de país"
+);
+const neuvilleDetail = NEUVILLE_1760_CONFLICT_DETAIL_FIXES["Batalla de Neuville (1760)"];
+assert.ok(
+  neuvilleDetail
+    && neuvilleDetail.startYear === 1760
+    && neuvilleDetail.startYear === neuvilleDetail.endYear
+    && neuvilleDetail.parent === "Guerra franco-india (1754-1763)"
+    && neuvilleDetail.campaign === "Socorro naval británico y levantamiento del asedio de Quebec (mayo de 1760)"
+    && neuvilleDetail.type === "batalla naval"
+    && neuvilleDetail.conflictType === "colonial"
+    && neuvilleDetail.scale === "internacional"
+    && neuvilleDetail.hierarchySources?.length >= 2
+    && neuvilleDetail.participants?.length === 2
+    && neuvilleDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /Atalante termino encallada/i.test(neuvilleDetail.outcome)
+    && /no fija bajas ni convierte el episodio/i.test(neuvilleDetail.sourceDispute),
+  "la curaduria de Neuville debe fijar fecha, jerarquia y encallamiento de Atalante sin inventar bajas"
+);
+const neuvilleWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Neuville (1760)");
+assert.equal(neuvilleWikipediaOverride.language, "en");
+assert.equal(neuvilleWikipediaOverride.pageTitle, "Battle_of_Pointe-aux-Trembles");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

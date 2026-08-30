@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-30T21:49:26.536Z",
+  "generatedAt": "2026-08-30T22:03:37.247Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12088697,
-    "duplicatedCountryFilesBytes": 1541762,
-    "countryConflictShardBytes": 435949,
+    "fullBytes": 12119495,
+    "duplicatedCountryFilesBytes": 1542444,
+    "countryConflictShardBytes": 436452,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 24814,
-        "inlineBytes": 1203865,
+        "bytes": 24953,
+        "inlineBytes": 1215037,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,12 +21,12 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 326,
+          "conflicts": 327,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 11390,
+            "military": 11529,
             "politics": 9502,
             "metadata": 1952,
             "general": 1018,
@@ -39,7 +39,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 11390
+              "bytes": 11529
             },
             {
               "section": "politics",
@@ -54,9 +54,9 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 75409,
-          "conflictShardBytes": 75410,
-          "averageConflictBytes": 231
+          "conflictsBytes": 75773,
+          "conflictShardBytes": 75774,
+          "averageConflictBytes": 232
         }
       },
       {
@@ -164,8 +164,8 @@
       {
         "code": "FRA",
         "name": "Francia",
-        "bytes": 20238,
-        "inlineBytes": 860669,
+        "bytes": 20417,
+        "inlineBytes": 869123,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -179,7 +179,7 @@
         },
         "metrics": {
           "sectionBytes": {
-            "military": 8558,
+            "military": 8737,
             "politics": 7898,
             "metadata": 1952,
             "general": 933,
@@ -192,7 +192,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 8558
+              "bytes": 8737
             },
             {
               "section": "politics",
@@ -207,9 +207,9 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 48538,
-          "conflictShardBytes": 48539,
-          "averageConflictBytes": 203
+          "conflictsBytes": 48677,
+          "conflictShardBytes": 48678,
+          "averageConflictBytes": 204
         }
       },
       {
@@ -368,8 +368,8 @@
       {
         "code": "CAN",
         "name": "Canadá",
-        "bytes": 18032,
-        "inlineBytes": 128702,
+        "bytes": 18396,
+        "inlineBytes": 139874,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -378,12 +378,12 @@
           "religionGroups": 8,
           "organizations": 48,
           "rivals": 38,
-          "conflicts": 34,
+          "conflicts": 35,
           "timelineEvents": 3
         },
         "metrics": {
           "sectionBytes": {
-            "military": 7884,
+            "military": 8248,
             "politics": 6435,
             "metadata": 1936,
             "general": 796,
@@ -396,7 +396,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 7884
+              "bytes": 8248
             },
             {
               "section": "politics",
@@ -411,9 +411,9 @@
               "bytes": 796
             }
           ],
-          "conflictsBytes": 7768,
+          "conflictsBytes": 8132,
           "conflictShardBytes": 0,
-          "averageConflictBytes": 228
+          "averageConflictBytes": 232
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 142,
+    "pendingCount": 141,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15278,19 +15278,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Neuville",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"

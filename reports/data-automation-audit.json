@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-30T21:51:46.894Z",
+  "generatedAt": "2026-08-30T22:05:51.493Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 143
+      "count": 142
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 75
+      "count": 74
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 581
+      "count": 582
     },
     "redundantReligions": {
       "count": 0
@@ -109,11 +109,6 @@
       {
         "code": "DNK",
         "name": "Batalla del Lago Peipus",
-        "region": "Europa"
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Neuville",
         "region": "Europa"
       },
       {
@@ -255,6 +250,11 @@
         "code": "MEX",
         "name": "Batalla de Matamoros",
         "region": "América"
+      },
+      {
+        "code": "MAR",
+        "name": "Batalla de Ramth-al-Lbane",
+        "region": "África"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -290,13 +290,6 @@
       {
         "code": "DNK",
         "name": "Batalla del Lago Peipus",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Neuville",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -535,6 +528,13 @@
       {
         "code": "SWE",
         "name": "Batalla de Westtief",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "SWE",
+        "name": "Batalla en la desembocadura del Neva",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 75,
+      "count": 74,
       "command": "npm run fix:conflicts:batches"
     },
     {

@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-08-30T21:49:19.778Z",
-  "changedFullCountries": 4,
+  "generatedAt": "2026-08-30T22:03:31.033Z",
+  "changedFullCountries": 3,
   "fullPassChanges": [
-    4,
+    3,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 146,
+    "enriched": 0,
     "retired": 0,
-    "written": true,
+    "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1052,
+  "generatedHierarchyCandidates": 1054,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -79,7 +79,8 @@
       "Guerras revolucionarias francesas (1792-1802)",
       "Batalla naval de Île Ronde (1794)",
       "Guerra de Independencia de Estados Unidos",
-      "Batalla del canal de la Mona (1782)"
+      "Batalla del canal de la Mona (1782)",
+      "Batalla de Neuville (1760)"
     ],
     "alemania": [
       "Batalla de Schleswig (1848)",
@@ -178,6 +179,7 @@
       "Batalla naval de Île Ronde (1794)",
       "Guerra de Independencia de Estados Unidos",
       "Batalla del canal de la Mona (1782)",
+      "Batalla de Neuville (1760)",
       "Accion naval del paso de Doro (1827)",
       "Combate naval de Jask (1620)",
       "Batalla naval de Pirano (1812)"
@@ -408,7 +410,8 @@
     ],
     "canada": [
       "Batalla de Signal Hill (1762)",
-      "Combate naval de la bahía de Fundy (1696)"
+      "Combate naval de la bahía de Fundy (1696)",
+      "Batalla de Neuville (1760)"
     ],
     "hungria": [
       "Batalla de Antivari (1914)",
@@ -497,19 +500,24 @@
       "Batalla de Cerro del Gallo"
     ],
     "francia": [
-      "Batalla naval de Lagos (1693)"
+      "Batalla naval de Lagos (1693)",
+      "Guerra franco-india (1754-1763)"
     ],
     "portugal": [
       "Batalla naval de Lagos (1693)"
     ],
     "reino unido": [
-      "Batalla naval de Lagos (1693)"
+      "Batalla naval de Lagos (1693)",
+      "Guerra franco-india (1754-1763)"
     ],
     "reino de los paises bajos": [
       "Batalla naval de Lagos (1693)"
     ],
     "grecia": [
       "Batalla naval de Imbros (1918)"
+    ],
+    "canada": [
+      "Guerra franco-india (1754-1763)"
     ]
   },
   "generatedConflictDetailExclusions": [
@@ -1245,6 +1253,15 @@
     "Battle of Mona Passage": "Batalla del canal de la Mona (1782)",
     "Battle of the Mona Passage": "Batalla del canal de la Mona (1782)",
     "Bataille du canal de la Mona": "Batalla del canal de la Mona (1782)",
+    "Batalla de Neuville": "Batalla de Neuville (1760)",
+    "Batalla de Neuville (1760)": "Batalla de Neuville (1760)",
+    "Batalla de Pointe-aux-Trembles": "Batalla de Neuville (1760)",
+    "Batalla de Pointe-aux-Trembles (1760)": "Batalla de Neuville (1760)",
+    "Bataille de Neuville": "Batalla de Neuville (1760)",
+    "Bataille de Pointe-aux-Trembles": "Batalla de Neuville (1760)",
+    "Battle of Neuville": "Batalla de Neuville (1760)",
+    "Battle of Pointe-aux-Trembles": "Batalla de Neuville (1760)",
+    "Battle of Pointe aux Trembles": "Batalla de Neuville (1760)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2341,6 +2358,7 @@
     "Batalla de Fayetteville (Arkansas, 1863)",
     "Batalla de Ostróda (1628)",
     "Batalla del canal de la Mona (1782)",
+    "Batalla de Neuville (1760)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

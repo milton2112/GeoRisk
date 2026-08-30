@@ -8,7 +8,18 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.171 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.172 antes de cerrar la siguiente version.
+
+## v1.6.172 - 2026-08-31
+
+- Normaliza la entrada provisional "Batalla de Neuville" como **Batalla de Neuville (1760)**, también localizable por el nombre histórico alternativo Pointe-aux-Trembles, en el río San Lorenzo frente a la actual Neuville, Quebec.
+- La integra a la **Guerra franco-india (1754-1763)** y al **Socorro naval británico y levantamiento del asedio de Quebec (mayo de 1760)** como etiqueta organizativa de GeoRisk; sustituye la jerarquía europea genérica por un combate naval colonial fechado y localizable.
+- Completa causa, resultado, consecuencias, cronología, participantes, región, aliases en español, francés e inglés y trazabilidad a partir de las biografías de Jean Vauquelin y Robert Swanton del Diccionario Biográfico de Canadá.
+- Mantiene límites documentales visibles: registra el encallamiento y destrucción posterior de *Atalante*, la captura de Vauquelin y el levantamiento del asedio, pero no fija efectivos ni bajas sin una tabla bilateral homogénea.
+- Conecta la ficha con Francia, Reino Unido y Canadá como referencia geográfica actual sin presentar a Canadá como beligerante estatal de 1760; elimina las entradas padre mínimas que habrían dejado tres conflictos sin año.
+- Regenera ficha diferida, búsqueda, índices y timeline; reduce las jerarquías provisionales de 75 a 74 y los conflictos fuera del índice fechable de 142 a 141, con cero incidencias, advertencias e incidencias de idioma.
+- Añade pruebas de regresión para nombre canónico, aliases, países, exclusión de padres incompletos, fecha, jerarquía, participantes, prudencia sobre cifras y resolución de Wikipedia.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-31-release-1`.
 
 ## v1.6.171 - 2026-08-30
 
