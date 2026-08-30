@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.170 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.171 antes de cerrar la siguiente version.
+
+## v1.6.171 - 2026-08-30
+
+- Normaliza la entrada provisional "Batalla de Ostróda" como **Batalla de Ostróda (1628)**, fechada el 23 de octubre de 1628 cerca de la actual Ostróda, en el voivodato polaco de Varmia y Masuria.
+- La integra a la **Guerra polaco-sueca de 1626-1629** y a las **Operaciones de Prusia de 1628** como etiqueta organizativa de GeoRisk; reemplaza la jerarquía europea genérica y vincula la ficha con Suecia y Polonia.
+- Completa causa, resultado, consecuencias, cronología, participantes, región y aliases en español e inglés usando la edición documental *Acta Nuntiaturae Polonae* y la Plataforma Educativa Integrada de Polonia.
+- Mantiene la cautela documental: registra la captura verificable de Wulf Heinrich von Baudissin como victoria táctica polaco-lituana, sin fijar efectivos, bajas ni presentar el episodio como decisivo para una guerra que siguió hasta Altmark.
+- Regenera ficha diferida, búsqueda, índices y timeline; reduce las jerarquías provisionales de 76 a 75 y los conflictos fuera del índice fechable de 143 a 142, manteniendo cero incidencias de validación e idioma.
+- Añade pruebas de regresión para nombre canónico, aliases con y sin diacríticos, fecha, jerarquía, participantes, prudencia sobre cifras y resolución de Wikipedia.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-30-release-15`.
 
 ## v1.6.170 - 2026-08-30
 

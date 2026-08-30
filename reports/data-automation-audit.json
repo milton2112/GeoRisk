@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-30T20:58:53.339Z",
+  "generatedAt": "2026-08-30T21:51:46.894Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 144
+      "count": 143
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 76
+      "count": 75
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 580
+      "count": 581
     },
     "redundantReligions": {
       "count": 0
@@ -513,13 +513,6 @@
       },
       {
         "code": "SWE",
-        "name": "Batalla de Ostróda",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "SWE",
         "name": "Batalla de Sobota",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
@@ -535,6 +528,13 @@
       {
         "code": "SWE",
         "name": "Batalla de Wenden",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "SWE",
+        "name": "Batalla de Westtief",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 76,
+      "count": 75,
       "command": "npm run fix:conflicts:batches"
     },
     {

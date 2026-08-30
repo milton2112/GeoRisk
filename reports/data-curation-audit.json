@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-30T20:55:28.792Z",
+  "generatedAt": "2026-08-30T21:49:26.536Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12071497,
-    "duplicatedCountryFilesBytes": 1541718,
-    "countryConflictShardBytes": 435506,
+    "fullBytes": 12088697,
+    "duplicatedCountryFilesBytes": 1541762,
+    "countryConflictShardBytes": 435949,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
         "bytes": 24814,
-        "inlineBytes": 1203601,
+        "inlineBytes": 1203865,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -113,8 +113,8 @@
       {
         "code": "POL",
         "name": "Polonia",
-        "bytes": 21079,
-        "inlineBytes": 284663,
+        "bytes": 21123,
+        "inlineBytes": 294357,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -123,12 +123,12 @@
           "religionGroups": 5,
           "organizations": 43,
           "rivals": 50,
-          "conflicts": 57,
+          "conflicts": 58,
           "timelineEvents": 0
         },
         "metrics": {
           "sectionBytes": {
-            "military": 10488,
+            "military": 10532,
             "politics": 7383,
             "metadata": 1913,
             "general": 684,
@@ -141,7 +141,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 10488
+              "bytes": 10532
             },
             {
               "section": "politics",
@@ -156,16 +156,16 @@
               "bytes": 684
             }
           ],
-          "conflictsBytes": 14820,
-          "conflictShardBytes": 14821,
-          "averageConflictBytes": 260
+          "conflictsBytes": 15154,
+          "conflictShardBytes": 15155,
+          "averageConflictBytes": 261
         }
       },
       {
         "code": "FRA",
         "name": "Francia",
         "bytes": 20238,
-        "inlineBytes": 860405,
+        "inlineBytes": 860669,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 143,
+    "pendingCount": 142,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15351,19 +15351,6 @@
       },
       {
         "name": "Batalla de Orford Ness",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Ostróda",
         "countries": [
           "SWE"
         ],

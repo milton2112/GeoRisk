@@ -1,20 +1,19 @@
 {
-  "generatedAt": "2026-08-30T20:55:22.314Z",
+  "generatedAt": "2026-08-30T21:49:19.778Z",
   "changedFullCountries": 4,
   "fullPassChanges": [
-    2,
-    2,
+    4,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 144,
+    "enriched": 146,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1051,
+  "generatedHierarchyCandidates": 1052,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -276,7 +275,8 @@
       "Batalla de Stegeborg (1598)",
       "Batalla de Rakvere (1603)",
       "Guerra polaco-sovietica (1919-1921)",
-      "Carga de Hrebionka (1920)"
+      "Carga de Hrebionka (1920)",
+      "Batalla de Ostróda (1628)"
     ],
     "mexico": [
       "Combate de Carrizal (1916)",
@@ -1232,6 +1232,13 @@
     "Action at Fayetteville": "Batalla de Fayetteville (Arkansas, 1863)",
     "Battle of Fayetteville": "Batalla de Fayetteville (Arkansas, 1863)",
     "Battle of Fayetteville (1863)": "Batalla de Fayetteville (Arkansas, 1863)",
+    "Batalla de Ostróda": "Batalla de Ostróda (1628)",
+    "Batalla de Ostroda": "Batalla de Ostróda (1628)",
+    "Batalla de Ostróda (1628)": "Batalla de Ostróda (1628)",
+    "Battle of Ostróda": "Batalla de Ostróda (1628)",
+    "Battle of Ostroda": "Batalla de Ostróda (1628)",
+    "Battle of Osterode (1628)": "Batalla de Ostróda (1628)",
+    "Bitwa pod Ostroda": "Batalla de Ostróda (1628)",
     "Batalla de Mona Passage": "Batalla del canal de la Mona (1782)",
     "Batalla del canal de la Mona": "Batalla del canal de la Mona (1782)",
     "Batalla de la Mona": "Batalla del canal de la Mona (1782)",
@@ -2332,6 +2339,7 @@
     "Primera batalla de Dragoon Springs (1862)",
     "Combate de Little Dry Creek (1885)",
     "Batalla de Fayetteville (Arkansas, 1863)",
+    "Batalla de Ostróda (1628)",
     "Batalla del canal de la Mona (1782)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",

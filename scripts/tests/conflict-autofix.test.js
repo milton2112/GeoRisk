@@ -446,6 +446,11 @@ import {
   FAYETTEVILLE_1863_CONFLICT_RENAMES
 } from "../lib/conflict-curation-fayetteville-1863.js";
 import {
+  OSTRODA_1628_CONFLICT_DETAIL_FIXES,
+  OSTRODA_1628_COUNTRY_CONFLICT_ADDITIONS,
+  OSTRODA_1628_CONFLICT_RENAMES
+} from "../lib/conflict-curation-ostroda-1628.js";
+import {
   MONA_PASSAGE_1782_CONFLICT_DETAIL_FIXES,
   MONA_PASSAGE_1782_COUNTRY_CONFLICT_ADDITIONS,
   MONA_PASSAGE_1782_CONFLICT_RENAMES
@@ -4380,6 +4385,42 @@ assert.ok(
 const fayettevilleWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Fayetteville (Arkansas, 1863)");
 assert.equal(fayettevilleWikipediaOverride.language, "en");
 assert.equal(fayettevilleWikipediaOverride.pageTitle, "Battle_of_Fayetteville_(1863)");
+assert.equal(Object.keys(OSTRODA_1628_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  OSTRODA_1628_CONFLICT_RENAMES["Batalla de Ostróda"],
+  "Batalla de Ostróda (1628)"
+);
+assert.equal(
+  OSTRODA_1628_CONFLICT_RENAMES["Battle of Ostroda"],
+  "Batalla de Ostróda (1628)",
+  "el alias sin diacriticos debe llegar a la ficha curada de Ostroda"
+);
+assert.deepEqual(
+  OSTRODA_1628_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    Polonia: ["Batalla de Ostróda (1628)"]
+  }
+);
+const ostrodaDetail = OSTRODA_1628_CONFLICT_DETAIL_FIXES["Batalla de Ostróda (1628)"];
+assert.ok(
+  ostrodaDetail
+    && ostrodaDetail.startYear === 1628
+    && ostrodaDetail.startYear === ostrodaDetail.endYear
+    && ostrodaDetail.parent === "Guerra polaco-sueca de 1626-1629"
+    && ostrodaDetail.campaign === "Operaciones de Prusia de 1628"
+    && ostrodaDetail.type === "batalla terrestre"
+    && ostrodaDetail.conflictType === "interestatal"
+    && ostrodaDetail.scale === "regional"
+    && ostrodaDetail.hierarchySources?.length >= 2
+    && ostrodaDetail.participants?.length === 2
+    && ostrodaDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /Baudissin fue capturado/i.test(ostrodaDetail.outcome)
+    && /no fija bajas ni interpreta el episodio/i.test(ostrodaDetail.sourceDispute),
+  "la curaduria de Ostroda debe fijar fecha, jerarquia y captura sin inventar bajas"
+);
+const ostrodaWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Ostróda (1628)");
+assert.equal(ostrodaWikipediaOverride.language, "en");
+assert.equal(ostrodaWikipediaOverride.pageTitle, "Battle_of_Ostróda");
 assert.equal(Object.keys(MONA_PASSAGE_1782_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   MONA_PASSAGE_1782_CONFLICT_RENAMES["Batalla de Mona Passage"],
