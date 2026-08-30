@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.168 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.169 antes de cerrar la siguiente version.
+
+## v1.6.169 - 2026-08-30
+
+- Normaliza la entrada provisional "Batalla de Fayetteville" como **Batalla de Fayetteville (Arkansas, 1863)**, fechada el 18 de abril de 1863 en Fayetteville, condado de Washington, Arkansas.
+- La integra a la **Guerra Civil estadounidense** y a las **Operaciones de Arkansas noroccidental de 1863** como etiqueta organizativa de GeoRisk; sustituye la jerarquía genérica de América y la clasificación interestatal por un combate civil localizable.
+- Completa causa, resultado, consecuencias, cronología, participantes, región, aliases en español e inglés y fuentes a partir de los partes reunidos en los *Official Records*, Encyclopedia of Arkansas y el registro histórico de Headquarters House.
+- Mantiene la incertidumbre visible: no fija bajas donde las síntesis difieren y distingue la retirada confederada del 18 de abril del abandono federal posterior, sin presentar esa secuencia como una victoria estratégica inequívoca.
+- Regenera ficha diferida, búsqueda, índices y timeline; reduce las jerarquías provisionales de 78 a 77 y los conflictos fuera del índice fechable de 145 a 144, manteniendo cero incidencias de validación e idioma.
+- Añade pruebas de regresión para nombre canónico, aliases, fecha, jerarquía, fuentes, participantes, límites interpretativos y resolución de Wikipedia.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-30-release-13`.
 
 ## v1.6.168 - 2026-08-30
 

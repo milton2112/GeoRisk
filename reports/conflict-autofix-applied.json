@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-30T20:15:48.469Z",
+  "generatedAt": "2026-08-30T20:41:32.585Z",
   "changedFullCountries": 1,
   "fullPassChanges": [
     1,
@@ -8,12 +8,12 @@
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 140,
+    "enriched": 142,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1049,
+  "generatedHierarchyCandidates": 1050,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -34,7 +34,8 @@
       "Ataque del rio Mimbres (1860)",
       "Combate de las montañas Florida (1861)",
       "Primera batalla de Dragoon Springs (1862)",
-      "Combate de Little Dry Creek (1885)"
+      "Combate de Little Dry Creek (1885)",
+      "Batalla de Fayetteville (Arkansas, 1863)"
     ],
     "nicaragua": [
       "Batalla de Masaya",
@@ -1218,6 +1219,14 @@
     "Battle of Little Dry Creek": "Combate de Little Dry Creek (1885)",
     "Battle of Little Dry Creek (1885)": "Combate de Little Dry Creek (1885)",
     "Little Dry Creek Battle": "Combate de Little Dry Creek (1885)",
+    "Batalla de Fayetteville": "Batalla de Fayetteville (Arkansas, 1863)",
+    "Batalla de Fayetteville (1863)": "Batalla de Fayetteville (Arkansas, 1863)",
+    "Batalla de Fayetteville, Arkansas": "Batalla de Fayetteville (Arkansas, 1863)",
+    "Acción de Fayetteville": "Batalla de Fayetteville (Arkansas, 1863)",
+    "Accion de Fayetteville": "Batalla de Fayetteville (Arkansas, 1863)",
+    "Action at Fayetteville": "Batalla de Fayetteville (Arkansas, 1863)",
+    "Battle of Fayetteville": "Batalla de Fayetteville (Arkansas, 1863)",
+    "Battle of Fayetteville (1863)": "Batalla de Fayetteville (Arkansas, 1863)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2311,6 +2320,7 @@
     "Batalla naval de Île Ronde (1794)",
     "Primera batalla de Dragoon Springs (1862)",
     "Combate de Little Dry Creek (1885)",
+    "Batalla de Fayetteville (Arkansas, 1863)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

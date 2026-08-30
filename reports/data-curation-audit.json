@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-30T20:15:54.962Z",
+  "generatedAt": "2026-08-30T20:41:38.749Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12040117,
+    "fullBytes": 12048627,
     "duplicatedCountryFilesBytes": 1541840,
-    "countryConflictShardBytes": 434600,
+    "countryConflictShardBytes": 434681,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24032,
-        "inlineBytes": 3275021,
+        "inlineBytes": 3283531,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 214899,
-          "conflictShardBytes": 214900,
+          "conflictsBytes": 214980,
+          "conflictShardBytes": 214981,
           "averageConflictBytes": 233
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 145,
+    "pendingCount": 144,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15156,19 +15156,6 @@
       },
       {
         "name": "Ataque aéreo de Ogu",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Fayetteville",
         "countries": [
           "USA"
         ],

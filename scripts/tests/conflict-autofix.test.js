@@ -441,6 +441,11 @@ import {
   LITTLE_DRY_CREEK_1885_CONFLICT_RENAMES
 } from "../lib/conflict-curation-little-dry-creek-1885.js";
 import {
+  FAYETTEVILLE_1863_CONFLICT_DETAIL_FIXES,
+  FAYETTEVILLE_1863_COUNTRY_CONFLICT_ADDITIONS,
+  FAYETTEVILLE_1863_CONFLICT_RENAMES
+} from "../lib/conflict-curation-fayetteville-1863.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -4332,6 +4337,44 @@ assert.ok(
 const littleDryCreekWikipediaOverride = await resolveWikipediaConflictTitle("Combate de Little Dry Creek (1885)");
 assert.equal(littleDryCreekWikipediaOverride.language, "en");
 assert.equal(littleDryCreekWikipediaOverride.pageTitle, "Battle_of_Little_Dry_Creek");
+assert.equal(Object.keys(FAYETTEVILLE_1863_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  FAYETTEVILLE_1863_CONFLICT_RENAMES["Batalla de Fayetteville"],
+  "Batalla de Fayetteville (Arkansas, 1863)"
+);
+assert.equal(
+  FAYETTEVILLE_1863_CONFLICT_RENAMES["Action at Fayetteville"],
+  "Batalla de Fayetteville (Arkansas, 1863)",
+  "el alias historico Action at Fayetteville debe llegar a la ficha curada"
+);
+assert.deepEqual(
+  FAYETTEVILLE_1863_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Estados Unidos": ["Guerra Civil estadounidense", "Batalla de Fayetteville (Arkansas, 1863)"]
+  }
+);
+const fayettevilleDetail = FAYETTEVILLE_1863_CONFLICT_DETAIL_FIXES["Batalla de Fayetteville (Arkansas, 1863)"];
+assert.ok(
+  fayettevilleDetail
+    && fayettevilleDetail.startYear === 1863
+    && fayettevilleDetail.startYear === fayettevilleDetail.endYear
+    && fayettevilleDetail.datePrecision === "18 de abril de 1863"
+    && fayettevilleDetail.parent === "Guerra Civil estadounidense"
+    && fayettevilleDetail.campaign === "Operaciones de Arkansas noroccidental de 1863"
+    && fayettevilleDetail.type === "batalla terrestre"
+    && fayettevilleDetail.conflictType === "civil"
+    && fayettevilleDetail.hierarchyConfidence === "alta"
+    && fayettevilleDetail.hierarchySources?.length >= 3
+    && fayettevilleDetail.hierarchySources.every(item => item.label && item.url)
+    && fayettevilleDetail.participants?.length === 2
+    && fayettevilleDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /no reduce esa secuencia a una victoria unica/i.test(fayettevilleDetail.outcome)
+    && /distingue la retirada del 18 de abril/i.test(fayettevilleDetail.sourceDispute),
+  "la curaduria de Fayetteville debe distinguir la accion de 1863, su jerarquia civil y los resultados que las fuentes discuten"
+);
+const fayettevilleWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Fayetteville (Arkansas, 1863)");
+assert.equal(fayettevilleWikipediaOverride.language, "en");
+assert.equal(fayettevilleWikipediaOverride.pageTitle, "Battle_of_Fayetteville_(1863)");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],
