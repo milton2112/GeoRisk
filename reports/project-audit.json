@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-08-31T12:27:38.199Z",
+  "generatedAt": "2026-08-31T13:11:05.543Z",
   "status": "operativo",
   "startup": {
     "critical": "817 KB",
     "criticalBytes": 836376,
-    "deferred": "2.82 MB",
+    "deferred": "2.83 MB",
     "estimatedRuntimeMemory": {
-      "countriesFullBytes": 12138801,
+      "countriesFullBytes": 12147285,
       "countriesFullHuman": "11.58 MB",
-      "estimatedParsedBytes": 36416403,
-      "estimatedParsedHuman": "34.73 MB",
+      "estimatedParsedBytes": 36441855,
+      "estimatedParsedHuman": "34.75 MB",
       "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
     },
     "largestAssets": [
       {
         "path": "data/conflict_details.generated.json",
         "exists": true,
-        "bytes": 2320298,
-        "human": "2.21 MB",
+        "bytes": 2325970,
+        "human": "2.22 MB",
         "startupCritical": false
       },
       {
@@ -103,7 +103,7 @@
     "scanned": 2002,
     "issueCount": 0,
     "summary": {
-      "provisional_parent": 73
+      "provisional_parent": 72
     },
     "eraFocus": []
   },
@@ -112,14 +112,14 @@
       {
         "path": "data/timeline_index.json",
         "exists": true,
-        "bytes": 404376,
+        "bytes": 404509,
         "human": "395 KB"
       },
       {
         "path": "data/conflicts_index.json",
         "exists": true,
-        "bytes": 355816,
-        "human": "347 KB"
+        "bytes": 356052,
+        "human": "348 KB"
       },
       {
         "path": "data/search_index.json",
@@ -130,7 +130,7 @@
       {
         "path": "data/conflicts/details_index.json",
         "exists": true,
-        "bytes": 164510,
+        "bytes": 164663,
         "human": "161 KB"
       },
       {
@@ -148,16 +148,16 @@
     ],
     "countryWeights": {
       "totalCountries": 183,
-      "fullBytes": 12138801,
+      "fullBytes": 12147285,
       "duplicatedCountryFilesBytes": 1542462,
-      "countryConflictShardBytes": 436944,
+      "countryConflictShardBytes": 437062,
       "tooLargeCount": 0,
       "largest": [
         {
           "code": "GBR",
           "name": "Reino Unido",
           "bytes": 24971,
-          "inlineBytes": 1226051,
+          "inlineBytes": 1234535,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -199,8 +199,8 @@
                 "bytes": 1018
               }
             ],
-            "conflictsBytes": 76133,
-            "conflictShardBytes": 76134,
+            "conflictsBytes": 76251,
+            "conflictShardBytes": 76252,
             "averageConflictBytes": 232
           }
         },
@@ -790,7 +790,7 @@
     },
     "curationGaps": {},
     "conflictDataConsistency": {
-      "checked": 4091,
+      "checked": 4092,
       "closedMarkedActiveCount": 0,
       "inactiveMarkedActiveCount": 0,
       "nullNarrativeTextCount": 0,
@@ -817,8 +817,8 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 213573,
-      "human": "209 KB"
+      "bytes": 215014,
+      "human": "210 KB"
     },
     {
       "path": "style.css",

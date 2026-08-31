@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-31T12:27:35.354Z",
+  "generatedAt": "2026-08-31T13:11:02.889Z",
   "scannedConflicts": 2002,
   "issueCount": 0,
-  "advisoryCount": 73,
-  "reviewCount": 73,
+  "advisoryCount": 72,
+  "reviewCount": 72,
   "summary": {
-    "provisional_parent": 73
+    "provisional_parent": 72
   },
   "topIssues": [],
   "topAdvisories": [
@@ -102,20 +102,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de newry road",
-      "name": "Batalla de Newry Road",
-      "countries": [
-        "GBR"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],

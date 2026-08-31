@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-31T12:24:48.178Z",
+  "generatedAt": "2026-08-31T13:09:50.548Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12138801,
+    "fullBytes": 12147285,
     "duplicatedCountryFilesBytes": 1542462,
-    "countryConflictShardBytes": 436944,
+    "countryConflictShardBytes": 437062,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
         "bytes": 24971,
-        "inlineBytes": 1226051,
+        "inlineBytes": 1234535,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -54,8 +54,8 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 76133,
-          "conflictShardBytes": 76134,
+          "conflictsBytes": 76251,
+          "conflictShardBytes": 76252,
           "averageConflictBytes": 232
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 140,
+    "pendingCount": 139,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15278,19 +15278,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Newry Road",
-        "countries": [
-          "GBR"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"

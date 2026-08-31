@@ -467,6 +467,10 @@ import {
   ORFORD_NESS_1704_CONFLICT_RENAMES
 } from "../lib/conflict-curation-orford-ness-1704.js";
 import {
+  NEWRY_ROAD_1993_CONFLICT_DETAIL_FIXES,
+  NEWRY_ROAD_1993_CONFLICT_RENAMES
+} from "../lib/conflict-curation-newry-road-1993.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -4552,6 +4556,34 @@ assert.ok(
 const orfordNessWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval de Orford Ness (1704)");
 assert.equal(orfordNessWikipediaOverride.language, "en");
 assert.equal(orfordNessWikipediaOverride.pageTitle, "Battle_of_Orford_Ness_(1704)");
+assert.equal(Object.keys(NEWRY_ROAD_1993_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  NEWRY_ROAD_1993_CONFLICT_RENAMES["Battle of Newry Road"],
+  "Batalla de Newry Road (1993)",
+  "el alias en ingles debe resolver la ficha curada de Newry Road"
+);
+const newryRoadDetail = NEWRY_ROAD_1993_CONFLICT_DETAIL_FIXES["Batalla de Newry Road (1993)"];
+assert.ok(
+  newryRoadDetail
+    && newryRoadDetail.startYear === 1993
+    && newryRoadDetail.startYear === newryRoadDetail.endYear
+    && newryRoadDetail.parent === "Conflicto de Irlanda del Norte"
+    && newryRoadDetail.campaign === "Operacion Banner: operaciones aereas en South Armagh (1993)"
+    && newryRoadDetail.type === "combate aereo-terrestre"
+    && newryRoadDetail.conflictType === "insurgencia"
+    && newryRoadDetail.scale === "local"
+    && newryRoadDetail.hierarchySources?.length >= 4
+    && newryRoadDetail.hierarchySources.some(source => /An Phoblacht/i.test(source.label))
+    && newryRoadDetail.participants?.length === 2
+    && newryRoadDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /Sin resultado tactico concluyente/i.test(newryRoadDetail.outcome)
+    && /CAIN contextualiza/i.test(newryRoadDetail.sourceDispute)
+    && newryRoadDetail.datePrecision === "23 de septiembre de 1993",
+  "la curaduria de Newry Road debe reemplazar la jerarquia interestatal generica por una ficha fechada, localizada y prudente"
+);
+const newryRoadWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Newry Road (1993)");
+assert.equal(newryRoadWikipediaOverride.language, "es");
+assert.equal(newryRoadWikipediaOverride.pageTitle, "Batalla_de_Newry_Road");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

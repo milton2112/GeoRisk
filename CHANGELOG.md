@@ -8,7 +8,18 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.173 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.174 antes de cerrar la siguiente version.
+
+## v1.6.174 - 2026-08-31
+
+- Normaliza la entrada provisional "Batalla de Newry Road" como **Batalla de Newry Road (1993)**, situada al este de Crossmaglen, en South Armagh, Irlanda del Norte.
+- Sustituye su jerarquia interestatal europea generica por el **Conflicto de Irlanda del Norte** y por **Operacion Banner: operaciones aereas en South Armagh (1993)** como etiqueta organizativa de GeoRisk.
+- Completa fecha, localizacion, causa, resultado, consecuencias, cronologia, participantes y aliases en espanol e ingles, sin crear una asociacion artificial con la Republica de Irlanda.
+- Registra la accion como combate aereo-terrestre de insurgencia y mantiene el resultado tactico como no concluyente: conserva los danos informados a aeronaves y la recuperacion de armas, pero no inventa bajas personales ni cifras de fuego.
+- Expone la discrepancia entre relatos britanicos y republicanos sobre armas, duracion, volumen de fuego y danos; CAIN queda expresamente como contexto del dia, no como una ficha independiente del incidente.
+- Anade trazabilidad con CAIN de Ulster University y estudios de Toby Harnden y Nick van der Bijl, mas una referencia separada a la version republicana usada solo para contraste.
+- Anade pruebas de regresion para nombre canonico, alias ingles, fecha, jerarquia, participantes, cautela de fuentes y resolucion determinista de Wikipedia.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-31-release-3`.
 
 ## v1.6.173 - 2026-08-31
 

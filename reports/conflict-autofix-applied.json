@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-08-31T12:24:30.036Z",
-  "changedFullCountries": 2,
+  "generatedAt": "2026-08-31T13:09:43.986Z",
+  "changedFullCountries": 1,
   "fullPassChanges": [
-    2,
+    1,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 150,
+    "enriched": 152,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1054,
+  "generatedHierarchyCandidates": 1056,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -1270,6 +1270,10 @@
     "Battle of Orford Ness (1704)": "Batalla naval de Orford Ness (1704)",
     "Slaget vid Orford Ness": "Batalla naval de Orford Ness (1704)",
     "Slaget vid Orfordness": "Batalla naval de Orford Ness (1704)",
+    "Batalla de Newry Road": "Batalla de Newry Road (1993)",
+    "Batalla de Newry Road (1993)": "Batalla de Newry Road (1993)",
+    "Battle of Newry Road": "Batalla de Newry Road (1993)",
+    "Battle of Newry Road (1993)": "Batalla de Newry Road (1993)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2368,6 +2372,7 @@
     "Batalla del canal de la Mona (1782)",
     "Batalla de Neuville (1760)",
     "Batalla naval de Orford Ness (1704)",
+    "Batalla de Newry Road (1993)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",
