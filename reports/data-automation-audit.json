@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-31T18:29:35.805Z",
+  "generatedAt": "2026-08-31T18:39:56.778Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 133
+      "count": 132
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 65
+      "count": 64
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 589
+      "count": 590
     },
     "redundantReligions": {
       "count": 0
@@ -227,11 +227,6 @@
         "region": "Asia"
       },
       {
-        "code": "MEX",
-        "name": "Batalla de Matamoros",
-        "region": "América"
-      },
-      {
         "code": "MAR",
         "name": "Batalla de Ramth-al-Lbane",
         "region": "África"
@@ -254,6 +249,11 @@
       {
         "code": "PRT",
         "name": "Primera batalla de Tamao",
+        "region": "Europa"
+      },
+      {
+        "code": "RUS",
+        "name": "Batalla de Prużany",
         "region": "Europa"
       }
     ],
@@ -421,13 +421,6 @@
         "startYear": null
       },
       {
-        "code": "MEX",
-        "name": "Batalla de Matamoros",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
-      {
         "code": "MAR",
         "name": "Batalla de Ramth-al-Lbane",
         "parent": "Conflicto regional de África",
@@ -535,6 +528,13 @@
       {
         "code": "USA",
         "name": "Batalla de Kasumi",
+        "parent": "Conflicto regional de América",
+        "campaign": "Campaña vinculada a Conflicto regional de América",
+        "startYear": null
+      },
+      {
+        "code": "USA",
+        "name": "Batalla de la línea Bullet",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 65,
+      "count": 64,
       "command": "npm run fix:conflicts:batches"
     },
     {

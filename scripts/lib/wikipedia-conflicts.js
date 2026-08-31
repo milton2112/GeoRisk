@@ -207,6 +207,14 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Battle of Pondicherry": "Battle_of_Pondicherry",
   "Action off Pondicherry": "Battle_of_Pondicherry",
   "Bataille de Pondichery": "Battle_of_Pondicherry",
+  "Batalla de Matamoros": "Action_of_April_3,_1836",
+  "Batalla de Matamoros (1836)": "Action_of_April_3,_1836",
+  "Acci\u00f3n naval de Matamoros": "Action_of_April_3,_1836",
+  "Accion naval de Matamoros": "Action_of_April_3,_1836",
+  "Acci\u00f3n naval de Matamoros (3 de abril de 1836)": "Action_of_April_3,_1836",
+  "Accion naval de Matamoros (3 de abril de 1836)": "Action_of_April_3,_1836",
+  "Action of April 3, 1836": "Action_of_April_3,_1836",
+  "Battle of Matamoros": "Action_of_April_3,_1836",
   "Batalla de Orford Ness": "Battle_of_Orford_Ness_(1704)",
   "Batalla naval de Orford Ness": "Battle_of_Orford_Ness_(1704)",
   "Batalla naval de Orford Ness (1704)": "Battle_of_Orford_Ness_(1704)",
@@ -536,6 +544,7 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
 
 const ENGLISH_WIKIPEDIA_TITLE_EXCEPTIONS = new Set([
   "Amhara_offensive",
+  "Action_of_April_3,_1836",
   "Attack_on_Lebouirate",
   "Battle_off_Barbados",
   "Mocímboa_da_Praia_offensive",

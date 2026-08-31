@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-31T18:29:32.112Z",
+  "generatedAt": "2026-08-31T18:39:53.263Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 65,
-  "reviewCount": 65,
+  "advisoryCount": 64,
+  "reviewCount": 64,
   "summary": {
-    "provisional_parent": 65
+    "provisional_parent": 64
   },
   "topIssues": [],
   "topAdvisories": [
@@ -70,20 +70,6 @@
       "name": "Batalla de la línea Bullet",
       "countries": [
         "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de matamoros",
-      "name": "Batalla de Matamoros",
-      "countries": [
-        "MEX"
       ],
       "startYear": null,
       "endYear": null,

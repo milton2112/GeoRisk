@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-31T18:23:34.627Z",
-  "changedFullCountries": 3,
+  "generatedAt": "2026-08-31T18:37:34.127Z",
+  "changedFullCountries": 2,
   "fullPassChanges": [
-    3,
+    2,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 164,
+    "enriched": 166,
     "retired": 0,
     "written": true,
     "compacted": false
@@ -35,7 +35,8 @@
       "Combate de las montañas Florida (1861)",
       "Primera batalla de Dragoon Springs (1862)",
       "Combate de Little Dry Creek (1885)",
-      "Batalla de Fayetteville (Arkansas, 1863)"
+      "Batalla de Fayetteville (Arkansas, 1863)",
+      "Acción naval de Matamoros (3 de abril de 1836)"
     ],
     "nicaragua": [
       "Batalla de Masaya",
@@ -1327,6 +1328,14 @@
     "Battle of Pondicherry": "Batalla naval de Pondicherry (1759)",
     "Action off Pondicherry": "Batalla naval de Pondicherry (1759)",
     "Bataille de Pondichery": "Batalla naval de Pondicherry (1759)",
+    "Batalla de Matamoros": "Acción naval de Matamoros (3 de abril de 1836)",
+    "Batalla de Matamoros (1836)": "Acción naval de Matamoros (3 de abril de 1836)",
+    "Acción naval de Matamoros": "Acción naval de Matamoros (3 de abril de 1836)",
+    "Accion naval de Matamoros": "Acción naval de Matamoros (3 de abril de 1836)",
+    "Acción naval de Matamoros (3 de abril de 1836)": "Acción naval de Matamoros (3 de abril de 1836)",
+    "Accion naval de Matamoros (3 de abril de 1836)": "Acción naval de Matamoros (3 de abril de 1836)",
+    "Action of April 3, 1836": "Acción naval de Matamoros (3 de abril de 1836)",
+    "Battle of Matamoros": "Acción naval de Matamoros (3 de abril de 1836)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2432,6 +2441,7 @@
     "Captura de Yerba Buena (1846)",
     "Batalla naval del cabo Lizard (1707)",
     "Batalla naval de Pondicherry (1759)",
+    "Acción naval de Matamoros (3 de abril de 1836)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

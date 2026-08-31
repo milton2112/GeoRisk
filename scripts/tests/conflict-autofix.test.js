@@ -502,6 +502,11 @@ import {
   PONDICHERRY_1759_CONFLICT_RENAMES
 } from "../lib/conflict-curation-pondicherry-1759.js";
 import {
+  MATAMOROS_1836_CONFLICT_DETAIL_FIXES,
+  MATAMOROS_1836_COUNTRY_CONFLICT_ADDITIONS,
+  MATAMOROS_1836_CONFLICT_RENAMES
+} from "../lib/conflict-curation-matamoros-1836.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -4838,6 +4843,41 @@ assert.ok(
 const pondicherryWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval de Pondicherry (1759)");
 assert.equal(pondicherryWikipediaOverride.language, "en");
 assert.equal(pondicherryWikipediaOverride.pageTitle, "Battle_of_Pondicherry");
+assert.equal(Object.keys(MATAMOROS_1836_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  MATAMOROS_1836_CONFLICT_RENAMES["Batalla de Matamoros"],
+  "Acci\u00f3n naval de Matamoros (3 de abril de 1836)",
+  "el nombre generico de Matamoros debe resolver la accion naval curada"
+);
+assert.deepEqual(
+  MATAMOROS_1836_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Estados Unidos": ["Acci\u00f3n naval de Matamoros (3 de abril de 1836)"]
+  }
+);
+const matamorosDetail = MATAMOROS_1836_CONFLICT_DETAIL_FIXES["Acci\u00f3n naval de Matamoros (3 de abril de 1836)"];
+assert.ok(
+  matamorosDetail
+    && matamorosDetail.startYear === 1836
+    && matamorosDetail.startYear === matamorosDetail.endYear
+    && matamorosDetail.parent === "Revoluci\u00f3n de Texas (1835-1836)"
+    && matamorosDetail.war === "Revoluci\u00f3n de Texas (1835-1836)"
+    && matamorosDetail.campaign === "Operaciones navales texanas en el golfo de M\u00e9xico (1836)"
+    && matamorosDetail.type === "acci\u00f3n naval"
+    && matamorosDetail.conflictType === "independencia"
+    && matamorosDetail.scale === "regional"
+    && matamorosDetail.hierarchyConfidence === "alta"
+    && matamorosDetail.hierarchySources?.length === 2
+    && matamorosDetail.participants?.length === 2
+    && matamorosDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /3 de abril de 1836/i.test(matamorosDetail.datePrecision)
+    && /Pocket/i.test(matamorosDetail.sourceDispute)
+    && /varo/i.test(matamorosDetail.outcome),
+  "la curaduria de Matamoros debe separar el combate naval de la captura posterior del Pocket y conservar su jerarquia verificable"
+);
+const matamorosWikipediaOverride = await resolveWikipediaConflictTitle("Acci\u00f3n naval de Matamoros (3 de abril de 1836)");
+assert.equal(matamorosWikipediaOverride.language, "en");
+assert.equal(matamorosWikipediaOverride.pageTitle, "Action_of_April_3,_1836");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

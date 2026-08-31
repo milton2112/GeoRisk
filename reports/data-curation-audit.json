@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-31T18:23:41.114Z",
+  "generatedAt": "2026-08-31T18:37:40.667Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12284517,
-    "duplicatedCountryFilesBytes": 1544649,
-    "countryConflictShardBytes": 438799,
+    "fullBytes": 12304977,
+    "duplicatedCountryFilesBytes": 1544842,
+    "countryConflictShardBytes": 439224,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24032,
-        "inlineBytes": 3292749,
+        "inlineBytes": 3304359,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -72,7 +72,7 @@
           "religionGroups": 7,
           "organizations": 55,
           "rivals": 85,
-          "conflicts": 922,
+          "conflicts": 923,
           "timelineEvents": 4
         },
         "metrics": {
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 215091,
-          "conflictShardBytes": 215092,
+          "conflictsBytes": 215516,
+          "conflictShardBytes": 215517,
           "averageConflictBytes": 233
         }
       },
@@ -572,8 +572,8 @@
       {
         "code": "MEX",
         "name": "México",
-        "bytes": 15543,
-        "inlineBytes": 123563,
+        "bytes": 15736,
+        "inlineBytes": 132413,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -587,7 +587,7 @@
         },
         "metrics": {
           "sectionBytes": {
-            "military": 7051,
+            "military": 7244,
             "politics": 4817,
             "metadata": 1936,
             "general": 870,
@@ -600,7 +600,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 7051
+              "bytes": 7244
             },
             {
               "section": "politics",
@@ -615,9 +615,9 @@
               "bytes": 870
             }
           ],
-          "conflictsBytes": 6934,
+          "conflictsBytes": 7127,
           "conflictShardBytes": 0,
-          "averageConflictBytes": 239
+          "averageConflictBytes": 246
         }
       }
     ]
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 132,
+    "pendingCount": 131,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15249,19 +15249,6 @@
         "name": "Batalla de la línea Bullet",
         "countries": [
           "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Matamoros",
-        "countries": [
-          "MEX"
         ],
         "regions": [
           "América"

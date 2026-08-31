@@ -8,7 +8,14 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.180 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.181 antes de cerrar la siguiente version.
+
+## v1.6.181 - 2026-08-31
+
+- Normaliza la generica "Batalla de Matamoros" como **Accion naval de Matamoros (3 de abril de 1836)**, con jerarquia, lugar, bandos, fecha precisa, aliases y fuentes institucionales.
+- Separa el combate entre Invincible y Montezuma de la captura posterior del Pocket, evita afirmar un hundimiento o bajas sin respaldo y agrega la referencia geografica actual de Texas para el mapa.
+- Agrega regresiones para la ficha, sus referencias de navegacion y la resolucion de Wikipedia.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-31-release-10`.
 
 ## v1.6.180 - 2026-08-31
 
