@@ -462,6 +462,11 @@ import {
   NEUVILLE_1760_CONFLICT_RENAMES
 } from "../lib/conflict-curation-neuville-1760.js";
 import {
+  ORFORD_NESS_1704_CONFLICT_DETAIL_FIXES,
+  ORFORD_NESS_1704_COUNTRY_CONFLICT_ADDITIONS,
+  ORFORD_NESS_1704_CONFLICT_RENAMES
+} from "../lib/conflict-curation-orford-ness-1704.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -4511,6 +4516,42 @@ assert.ok(
 const neuvilleWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Neuville (1760)");
 assert.equal(neuvilleWikipediaOverride.language, "en");
 assert.equal(neuvilleWikipediaOverride.pageTitle, "Battle_of_Pointe-aux-Trembles");
+assert.equal(Object.keys(ORFORD_NESS_1704_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  ORFORD_NESS_1704_CONFLICT_RENAMES["Batalla de Orford Ness"],
+  "Batalla naval de Orford Ness (1704)"
+);
+assert.equal(
+  ORFORD_NESS_1704_CONFLICT_RENAMES["Slaget vid Orford Ness"],
+  "Batalla naval de Orford Ness (1704)",
+  "el alias sueco debe resolver la ficha naval de Orford Ness"
+);
+assert.deepEqual(
+  ORFORD_NESS_1704_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Reino Unido": ["Batalla naval de Orford Ness (1704)"]
+  }
+);
+const orfordNessDetail = ORFORD_NESS_1704_CONFLICT_DETAIL_FIXES["Batalla naval de Orford Ness (1704)"];
+assert.ok(
+  orfordNessDetail
+    && orfordNessDetail.startYear === 1704
+    && orfordNessDetail.startYear === orfordNessDetail.endYear
+    && orfordNessDetail.parent === "Incidente naval anglo-sueco de Orford Ness (1704)"
+    && orfordNessDetail.campaign === "Escolta sueca del convoy hacia Europa occidental (1704)"
+    && orfordNessDetail.type === "batalla naval"
+    && orfordNessDetail.conflictType === "interestatal"
+    && orfordNessDetail.scale === "internacional"
+    && orfordNessDetail.hierarchySources?.length >= 2
+    && orfordNessDetail.participants?.length === 2
+    && orfordNessDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /cuatro horas de combate/i.test(orfordNessDetail.outcome)
+    && /no coloca el combate bajo la Gran Guerra del Norte/i.test(orfordNessDetail.sourceDispute),
+  "la curaduria de Orford Ness debe conservar calendarios y neutralidad bilateral sin forzar una guerra mayor"
+);
+const orfordNessWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval de Orford Ness (1704)");
+assert.equal(orfordNessWikipediaOverride.language, "en");
+assert.equal(orfordNessWikipediaOverride.pageTitle, "Battle_of_Orford_Ness_(1704)");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

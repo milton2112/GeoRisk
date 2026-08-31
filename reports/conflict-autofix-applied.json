@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-08-30T22:03:31.033Z",
-  "changedFullCountries": 3,
+  "generatedAt": "2026-08-31T12:24:30.036Z",
+  "changedFullCountries": 2,
   "fullPassChanges": [
-    3,
+    2,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 0,
+    "enriched": 150,
     "retired": 0,
-    "written": false,
+    "written": true,
     "compacted": false
   },
   "generatedHierarchyCandidates": 1054,
@@ -180,6 +180,7 @@
       "Guerra de Independencia de Estados Unidos",
       "Batalla del canal de la Mona (1782)",
       "Batalla de Neuville (1760)",
+      "Batalla naval de Orford Ness (1704)",
       "Accion naval del paso de Doro (1827)",
       "Combate naval de Jask (1620)",
       "Batalla naval de Pirano (1812)"
@@ -1262,6 +1263,13 @@
     "Battle of Neuville": "Batalla de Neuville (1760)",
     "Battle of Pointe-aux-Trembles": "Batalla de Neuville (1760)",
     "Battle of Pointe aux Trembles": "Batalla de Neuville (1760)",
+    "Batalla de Orford Ness": "Batalla naval de Orford Ness (1704)",
+    "Batalla naval de Orford Ness": "Batalla naval de Orford Ness (1704)",
+    "Batalla naval de Orford Ness (1704)": "Batalla naval de Orford Ness (1704)",
+    "Battle of Orford Ness": "Batalla naval de Orford Ness (1704)",
+    "Battle of Orford Ness (1704)": "Batalla naval de Orford Ness (1704)",
+    "Slaget vid Orford Ness": "Batalla naval de Orford Ness (1704)",
+    "Slaget vid Orfordness": "Batalla naval de Orford Ness (1704)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2359,6 +2367,7 @@
     "Batalla de Ostróda (1628)",
     "Batalla del canal de la Mona (1782)",
     "Batalla de Neuville (1760)",
+    "Batalla naval de Orford Ness (1704)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

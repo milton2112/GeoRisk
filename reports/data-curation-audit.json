@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-30T22:03:37.247Z",
+  "generatedAt": "2026-08-31T12:24:48.178Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12119495,
-    "duplicatedCountryFilesBytes": 1542444,
-    "countryConflictShardBytes": 436452,
+    "fullBytes": 12138801,
+    "duplicatedCountryFilesBytes": 1542462,
+    "countryConflictShardBytes": 436944,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 24953,
-        "inlineBytes": 1215037,
+        "bytes": 24971,
+        "inlineBytes": 1226051,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,12 +21,12 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 327,
+          "conflicts": 328,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 11529,
+            "military": 11547,
             "politics": 9502,
             "metadata": 1952,
             "general": 1018,
@@ -39,7 +39,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 11529
+              "bytes": 11547
             },
             {
               "section": "politics",
@@ -54,8 +54,8 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 75773,
-          "conflictShardBytes": 75774,
+          "conflictsBytes": 76133,
+          "conflictShardBytes": 76134,
           "averageConflictBytes": 232
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 141,
+    "pendingCount": 140,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15330,19 +15330,6 @@
         ],
         "regions": [
           "Asia"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Orford Ness",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"

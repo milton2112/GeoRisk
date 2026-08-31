@@ -8,7 +8,18 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.172 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.173 antes de cerrar la siguiente version.
+
+## v1.6.173 - 2026-08-31
+
+- Normaliza la entrada provisional "Batalla de Orford Ness" como **Batalla naval de Orford Ness (1704)**, frente a Suffolk, en el mar del Norte meridional.
+- Sustituye la jerarquía europea genérica por el **Incidente naval anglo-sueco de Orford Ness (1704)** y la **Escolta sueca del convoy hacia Europa occidental (1704)** como etiqueta organizativa de GeoRisk.
+- Completa causa, resultado, consecuencias, cronología, participantes, región, aliases en español, inglés y sueco, y trazabilidad con Historic England y el Svenskt Biografiskt Lexikon de Riksarkivet.
+- Hace visible la cautela histórica: conserva las tres fechas equivalentes según calendarios inglés, sueco y gregoriano, y no atribuye el combate a una guerra mayor cuando Inglaterra y Suecia no estaban en guerra entre sí.
+- Conecta la acción con Suecia y Reino Unido para navegación contemporánea, sin crear una entrada padre incompleta ni identificar al Reino Unido con la constitución inglesa de 1704.
+- Regenera ficha diferida, búsqueda, índices y timeline; reduce las jerarquías provisionales de 74 a 73 y los conflictos fuera del índice fechable de 141 a 140, con cero incidencias, advertencias e incidencias de idioma.
+- Añade pruebas de regresión para nombre canónico, alias sueco, países, fecha, jerarquía, participantes, calendarios, neutralidad bilateral y resolución de Wikipedia.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-31-release-2`.
 
 ## v1.6.172 - 2026-08-31
 

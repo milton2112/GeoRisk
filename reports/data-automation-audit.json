@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-30T22:05:51.493Z",
+  "generatedAt": "2026-08-31T12:27:39.123Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 142
+      "count": 141
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 74
+      "count": 73
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 582
+      "count": 583
     },
     "redundantReligions": {
       "count": 0
@@ -499,13 +499,6 @@
       },
       {
         "code": "SWE",
-        "name": "Batalla de Orford Ness",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "SWE",
         "name": "Batalla de Sobota",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
@@ -537,6 +530,13 @@
         "name": "Batalla en la desembocadura del Neva",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "SYR",
+        "name": "Operación Batalla por la Restauración de la Dignidad",
+        "parent": "Conflicto regional de Asia",
+        "campaign": "Campaña vinculada a Conflicto regional de Asia",
         "startYear": null
       }
     ],
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 74,
+      "count": 73,
       "command": "npm run fix:conflicts:batches"
     },
     {

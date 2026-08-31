@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-30T22:05:48.033Z",
+  "generatedAt": "2026-08-31T12:27:35.354Z",
   "scannedConflicts": 2002,
   "issueCount": 0,
-  "advisoryCount": 74,
-  "reviewCount": 74,
+  "advisoryCount": 73,
+  "reviewCount": 73,
   "summary": {
-    "provisional_parent": 74
+    "provisional_parent": 73
   },
   "topIssues": [],
   "topAdvisories": [
@@ -158,20 +158,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de orford ness",
-      "name": "Batalla de Orford Ness",
-      "countries": [
-        "SWE"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],
