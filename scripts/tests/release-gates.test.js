@@ -205,6 +205,10 @@ assert.equal(packageJson.scripts["clean:storage"], "node scripts/cleanStorage.js
 assert.equal(packageJson.scripts["release:prepare"], "node scripts/prepareRelease.js", "debe existir preparacion automatica de release");
 assert.ok(!prepareRelease.includes("toISOString().slice(0, 10)"), "release:prepare no debe fechar releases visibles en UTC");
 assert.ok(prepareRelease.includes("date.getFullYear()") && prepareRelease.includes("date.getMonth()") && prepareRelease.includes("date.getDate()"), "release:prepare debe calcular la fecha calendario local");
+assert.ok(
+  prepareRelease.includes(".replace(/^- Se documentaran aca los cambios posteriores a v[\\d.]+ antes de cerrar la siguiente version\\.$/gm, \"\")"),
+  "release:prepare debe excluir el marcador de borrador del historial de una version cerrada"
+);
 assert.equal(packageJson.scripts["release:status"], "node scripts/releaseStatus.js", "debe existir estado resumido de release");
 assert.equal(packageJson.scripts["audit:data"], "node scripts/dataAutomationAudit.js", "debe existir auditoria programable de datos");
 assert.equal(packageJson.scripts["audit:conflicts:provisional"], "node scripts/auditProvisionalConflictCandidates.js", "debe existir auditoria de candidatos para jerarquias provisionales");

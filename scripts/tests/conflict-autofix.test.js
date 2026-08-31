@@ -497,6 +497,11 @@ import {
   CAPE_LIZARD_1707_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cape-lizard-1707.js";
 import {
+  PONDICHERRY_1759_CONFLICT_DETAIL_FIXES,
+  PONDICHERRY_1759_COUNTRY_CONFLICT_ADDITIONS,
+  PONDICHERRY_1759_CONFLICT_RENAMES
+} from "../lib/conflict-curation-pondicherry-1759.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -4797,6 +4802,42 @@ assert.equal(capeLizardSpanishWikipediaOverride.pageTitle, "Batalla_del_cabo_Liz
 const capeLizardEnglishWikipediaOverride = await resolveWikipediaConflictTitle("Battle at The Lizard");
 assert.equal(capeLizardEnglishWikipediaOverride.language, "en");
 assert.equal(capeLizardEnglishWikipediaOverride.pageTitle, "Battle_at_the_Lizard");
+assert.equal(Object.keys(PONDICHERRY_1759_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  PONDICHERRY_1759_CONFLICT_RENAMES["Batalla de Pondicherry"],
+  "Batalla naval de Pondicherry (1759)",
+  "el nombre generico de Pondicherry debe resolver la ficha naval curada"
+);
+assert.deepEqual(
+  PONDICHERRY_1759_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Reino Unido": ["Batalla naval de Pondicherry (1759)"],
+    India: ["Batalla naval de Pondicherry (1759)"]
+  }
+);
+const pondicherryDetail = PONDICHERRY_1759_CONFLICT_DETAIL_FIXES["Batalla naval de Pondicherry (1759)"];
+assert.ok(
+  pondicherryDetail
+    && pondicherryDetail.startYear === 1759
+    && pondicherryDetail.startYear === pondicherryDetail.endYear
+    && pondicherryDetail.parent === "Guerra de los Siete A\u00f1os (1756-1763)"
+    && pondicherryDetail.war === "Guerra de los Siete A\u00f1os (1756-1763)"
+    && pondicherryDetail.campaign === "Operaciones navales franco-brit\u00e1nicas en la costa de Coromandel (1759)"
+    && pondicherryDetail.type === "batalla naval"
+    && pondicherryDetail.conflictType === "colonial"
+    && pondicherryDetail.scale === "internacional"
+    && pondicherryDetail.hierarchyConfidence === "alta"
+    && pondicherryDetail.hierarchySources?.length === 3
+    && pondicherryDetail.participants?.length === 2
+    && pondicherryDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /10 de septiembre de 1759/i.test(pondicherryDetail.datePrecision)
+    && /Tranquebar/i.test(pondicherryDetail.sourceDispute)
+    && /no decisivo/i.test(pondicherryDetail.outcome),
+  "la curaduria de Pondicherry debe sustituir un conflicto europeo generico por una accion naval colonial fechada y trazable"
+);
+const pondicherryWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval de Pondicherry (1759)");
+assert.equal(pondicherryWikipediaOverride.language, "en");
+assert.equal(pondicherryWikipediaOverride.pageTitle, "Battle_of_Pondicherry");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

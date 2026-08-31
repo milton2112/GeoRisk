@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-08-31T18:10:49.137Z",
-  "changedFullCountries": 2,
+  "generatedAt": "2026-08-31T18:23:34.627Z",
+  "changedFullCountries": 3,
   "fullPassChanges": [
-    2,
+    3,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 162,
+    "enriched": 164,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1061,
+  "generatedHierarchyCandidates": 1062,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -183,6 +183,7 @@
       "Batalla naval de Orford Ness (1704)",
       "Batalla naval de Vizagapatam (1804)",
       "Batalla naval del cabo Lizard (1707)",
+      "Batalla naval de Pondicherry (1759)",
       "Accion naval del paso de Doro (1827)",
       "Combate naval de Jask (1620)",
       "Batalla naval de Pirano (1812)"
@@ -244,7 +245,8 @@
       "Batalla de Diu (1509)",
       "Batalla de Sadras (1782)",
       "Batalla de Negapatam (1782)",
-      "Batalla naval de Vizagapatam (1804)"
+      "Batalla naval de Vizagapatam (1804)",
+      "Batalla naval de Pondicherry (1759)"
     ],
     "polonia": [
       "Batalla de Golymin (1806)",
@@ -1318,6 +1320,13 @@
     "Battle at The Lizard": "Batalla naval del cabo Lizard (1707)",
     "Battle of Cape Lizard": "Batalla naval del cabo Lizard (1707)",
     "Combat du Cap Lezard": "Batalla naval del cabo Lizard (1707)",
+    "Batalla de Pondicherry": "Batalla naval de Pondicherry (1759)",
+    "Batalla naval de Pondicherry": "Batalla naval de Pondicherry (1759)",
+    "Batalla naval de Pondicherry (1759)": "Batalla naval de Pondicherry (1759)",
+    "Batalla de Pondichery": "Batalla naval de Pondicherry (1759)",
+    "Battle of Pondicherry": "Batalla naval de Pondicherry (1759)",
+    "Action off Pondicherry": "Batalla naval de Pondicherry (1759)",
+    "Bataille de Pondichery": "Batalla naval de Pondicherry (1759)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2422,6 +2431,7 @@
     "Batalla naval de Vizagapatam (1804)",
     "Captura de Yerba Buena (1846)",
     "Batalla naval del cabo Lizard (1707)",
+    "Batalla naval de Pondicherry (1759)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-31T18:13:20.698Z",
+  "generatedAt": "2026-08-31T18:29:35.805Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 134
+      "count": 133
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 66
+      "count": 65
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 588
+      "count": 589
     },
     "redundantReligions": {
       "count": 0
@@ -105,11 +105,6 @@
         "code": "CHN",
         "name": "Incidente fronterizo de Terekti",
         "region": "Asia"
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Pondicherry",
-        "region": "Europa"
       },
       {
         "code": "FRA",
@@ -255,6 +250,11 @@
         "code": "PRT",
         "name": "Captura de Virgin de Cape",
         "region": "Europa"
+      },
+      {
+        "code": "PRT",
+        "name": "Primera batalla de Tamao",
+        "region": "Europa"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -285,13 +285,6 @@
         "name": "Combate de Huite",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Pondicherry",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
       },
       {
@@ -535,6 +528,13 @@
       {
         "code": "USA",
         "name": "Batalla de jackson",
+        "parent": "Conflicto regional de América",
+        "campaign": "Campaña vinculada a Conflicto regional de América",
+        "startYear": null
+      },
+      {
+        "code": "USA",
+        "name": "Batalla de Kasumi",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 66,
+      "count": 65,
       "command": "npm run fix:conflicts:batches"
     },
     {

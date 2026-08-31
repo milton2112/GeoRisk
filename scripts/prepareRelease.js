@@ -69,9 +69,11 @@ function buildDefaultReleaseNotes(versionStamp) {
 
 function getUnpublishedNotes(source, versionStamp) {
   const match = source.match(/## Sin publicar\n\n([\s\S]*?)(?=\n## v|$)/);
-  const notes = match?.[1]?.trim() || "";
-  const isPlaceholder = /^- Se documentaran aca los cambios posteriores a v[\d.]+ antes de cerrar la siguiente version\.$/.test(notes);
-  if (!notes || isPlaceholder) {
+  const notes = (match?.[1] || "")
+    .replace(/^- Se documentaran aca los cambios posteriores a v[\d.]+ antes de cerrar la siguiente version\.$/gm, "")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+  if (!notes) {
     return buildDefaultReleaseNotes(versionStamp);
   }
 

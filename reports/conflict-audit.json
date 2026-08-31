@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-31T18:13:16.934Z",
+  "generatedAt": "2026-08-31T18:29:32.112Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 66,
-  "reviewCount": 66,
+  "advisoryCount": 65,
+  "reviewCount": 65,
   "summary": {
-    "provisional_parent": 66
+    "provisional_parent": 65
   },
   "topIssues": [],
   "topAdvisories": [
@@ -228,20 +228,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de pondicherry",
-      "name": "Batalla de Pondicherry",
-      "countries": [
-        "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],

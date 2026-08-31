@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-31T18:10:55.546Z",
+  "generatedAt": "2026-08-31T18:23:41.114Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12250929,
-    "duplicatedCountryFilesBytes": 1544219,
-    "countryConflictShardBytes": 438289,
+    "fullBytes": 12284517,
+    "duplicatedCountryFilesBytes": 1544649,
+    "countryConflictShardBytes": 438799,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 24992,
-        "inlineBytes": 1256087,
+        "bytes": 25001,
+        "inlineBytes": 1268191,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,12 +21,12 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 330,
+          "conflicts": 331,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 11568,
+            "military": 11577,
             "politics": 9502,
             "metadata": 1952,
             "general": 1018,
@@ -39,7 +39,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 11568
+              "bytes": 11577
             },
             {
               "section": "politics",
@@ -54,9 +54,9 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 76966,
-          "conflictShardBytes": 76967,
-          "averageConflictBytes": 233
+          "conflictsBytes": 77335,
+          "conflictShardBytes": 77336,
+          "averageConflictBytes": 234
         }
       },
       {
@@ -164,8 +164,8 @@
       {
         "code": "FRA",
         "name": "Francia",
-        "bytes": 20659,
-        "inlineBytes": 885225,
+        "bytes": 20711,
+        "inlineBytes": 894605,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -179,7 +179,7 @@
         },
         "metrics": {
           "sectionBytes": {
-            "military": 8979,
+            "military": 9031,
             "politics": 7898,
             "metadata": 1952,
             "general": 933,
@@ -192,7 +192,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 8979
+              "bytes": 9031
             },
             {
               "section": "politics",
@@ -207,8 +207,8 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 48935,
-          "conflictShardBytes": 48936,
+          "conflictsBytes": 49076,
+          "conflictShardBytes": 49077,
           "averageConflictBytes": 205
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 133,
+    "pendingCount": 132,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15395,19 +15395,6 @@
         ],
         "regions": [
           "Asia"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Pondicherry",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
