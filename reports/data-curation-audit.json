@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-31T13:20:56.683Z",
+  "generatedAt": "2026-08-31T14:10:08.239Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12161533,
-    "duplicatedCountryFilesBytes": 1542646,
-    "countryConflictShardBytes": 437062,
+    "fullBytes": 12181187,
+    "duplicatedCountryFilesBytes": 1543258,
+    "countryConflictShardBytes": 437205,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -317,8 +317,8 @@
       {
         "code": "RUS",
         "name": "Rusia",
-        "bytes": 18619,
-        "inlineBytes": 280547,
+        "bytes": 18859,
+        "inlineBytes": 291739,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -327,12 +327,12 @@
           "religionGroups": 4,
           "organizations": 41,
           "rivals": 19,
-          "conflicts": 65,
+          "conflicts": 66,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 9817,
+            "military": 10057,
             "politics": 4980,
             "metadata": 1926,
             "general": 965,
@@ -345,7 +345,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 9817
+              "bytes": 10057
             },
             {
               "section": "politics",
@@ -360,9 +360,9 @@
               "bytes": 965
             }
           ],
-          "conflictsBytes": 14940,
-          "conflictShardBytes": 14941,
-          "averageConflictBytes": 230
+          "conflictsBytes": 15312,
+          "conflictShardBytes": 15313,
+          "averageConflictBytes": 232
         }
       },
       {
@@ -471,7 +471,7 @@
         "code": "DNK",
         "name": "Dinamarca",
         "bytes": 17520,
-        "inlineBytes": 173168,
+        "inlineBytes": 170438,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -480,7 +480,7 @@
           "religionGroups": 4,
           "organizations": 37,
           "rivals": 47,
-          "conflicts": 48,
+          "conflicts": 47,
           "timelineEvents": 0
         },
         "metrics": {
@@ -513,9 +513,9 @@
               "bytes": 677
             }
           ],
-          "conflictsBytes": 10254,
-          "conflictShardBytes": 10255,
-          "averageConflictBytes": 214
+          "conflictsBytes": 10025,
+          "conflictShardBytes": 10026,
+          "averageConflictBytes": 213
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 137,
+    "pendingCount": 136,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15925,19 +15925,6 @@
         "name": "Batalla del Convoy de Malta",
         "countries": [
           "FRA"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla del Lago Peipus",
-        "countries": [
-          "DNK"
         ],
         "regions": [
           "Europa"

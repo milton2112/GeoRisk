@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.175 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.176 antes de cerrar la siguiente version.
+
+## v1.6.176 - 2026-08-31
+
+- Normaliza "Batalla del Lago Peipus" como **Batalla del lago Peipus (1242)** y elimina su jerarquia europea generica.
+- Conecta el combate con las Cruzadas del Norte, la contraofensiva de Pskov y referencias actuales de Rusia y Estonia.
+- Retira la asociacion de Dinamarca como beligerante estatal y documenta esa decision de alcance historico.
+- Completa fecha, ubicacion, causa, resultado, consecuencias, cronologia, participantes, aliases y fuentes.
+- Conserva de forma visible la incertidumbre sobre bajas, escala y el relato tardio del hundimiento masivo bajo el hielo.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-31-release-5`.
 
 ## v1.6.175 - 2026-08-31
 

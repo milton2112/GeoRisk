@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-31T13:20:50.433Z",
+  "generatedAt": "2026-08-31T14:10:02.013Z",
   "changedFullCountries": 2,
   "fullPassChanges": [
     2,
@@ -8,12 +8,12 @@
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 154,
+    "enriched": 156,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1056,
+  "generatedHierarchyCandidates": 1058,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -226,7 +226,8 @@
       "Batalla del Neva (1240)",
       "Combate de Kalyazin (1609)",
       "Batalla de Kaipiais (1789)",
-      "Guerra polaco-sovietica (1919-1921)"
+      "Guerra polaco-sovietica (1919-1921)",
+      "Batalla del lago Peipus (1242)"
     ],
     "reino de los paises bajos": [
       "Batalla de Camaret (1694)",
@@ -428,7 +429,8 @@
     ],
     "estonia": [
       "Batalla de Ösel (1719)",
-      "Batalla de Rakvere (1603)"
+      "Batalla de Rakvere (1603)",
+      "Batalla del lago Peipus (1242)"
     ],
     "italia": [
       "Batalla de las islas Hyères (1795)",
@@ -483,7 +485,8 @@
   "countryConflictExclusions": {
     "dinamarca": [
       "Batalla de Dogger Bank",
-      "Batalla de Dogger Bank (1781)"
+      "Batalla de Dogger Bank (1781)",
+      "Batalla del lago Peipus (1242)"
     ],
     "estados unidos": [
       "Batalla de Dasman Palace",
@@ -1283,6 +1286,12 @@
     "Batalla del Callao": "Combate del Callao (1866)",
     "Bombardeo del Callao": "Combate del Callao (1866)",
     "Battle of Callao": "Combate del Callao (1866)",
+    "Batalla del Lago Peipus": "Batalla del lago Peipus (1242)",
+    "Batalla del lago Peipus": "Batalla del lago Peipus (1242)",
+    "Batalla del Lago Peipus (1242)": "Batalla del lago Peipus (1242)",
+    "Batalla del lago Peipus (1242)": "Batalla del lago Peipus (1242)",
+    "Battle of Lake Peipus": "Batalla del lago Peipus (1242)",
+    "Battle on the Ice": "Batalla del lago Peipus (1242)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2383,6 +2392,7 @@
     "Batalla naval de Orford Ness (1704)",
     "Batalla de Newry Road (1993)",
     "Combate del Callao (1866)",
+    "Batalla del lago Peipus (1242)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

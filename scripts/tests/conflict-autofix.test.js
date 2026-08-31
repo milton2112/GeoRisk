@@ -476,6 +476,12 @@ import {
   CALLAO_1866_CONFLICT_RENAMES
 } from "../lib/conflict-curation-callao-1866.js";
 import {
+  LAKE_PEI_PUS_1242_CONFLICT_DETAIL_FIXES,
+  LAKE_PEI_PUS_1242_COUNTRY_CONFLICT_ADDITIONS,
+  LAKE_PEI_PUS_1242_COUNTRY_CONFLICT_EXCLUSIONS,
+  LAKE_PEI_PUS_1242_CONFLICT_RENAMES
+} from "../lib/conflict-curation-lake-peipus-1242.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -4623,6 +4629,48 @@ assert.ok(
 const callaoWikipediaOverride = await resolveWikipediaConflictTitle("Combate del Callao (1866)");
 assert.equal(callaoWikipediaOverride.language, "es");
 assert.equal(callaoWikipediaOverride.pageTitle, "Combate_del_Callao");
+assert.equal(Object.keys(LAKE_PEI_PUS_1242_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  LAKE_PEI_PUS_1242_CONFLICT_RENAMES["Battle on the Ice"],
+  "Batalla del lago Peipus (1242)",
+  "el alias en ingles debe resolver la ficha curada del lago Peipus"
+);
+assert.deepEqual(
+  LAKE_PEI_PUS_1242_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    Rusia: ["Batalla del lago Peipus (1242)"],
+    Estonia: ["Batalla del lago Peipus (1242)"]
+  }
+);
+assert.deepEqual(
+  LAKE_PEI_PUS_1242_COUNTRY_CONFLICT_EXCLUSIONS,
+  {
+    Dinamarca: ["Batalla del lago Peipus (1242)"]
+  }
+);
+const lakePeipusDetail = LAKE_PEI_PUS_1242_CONFLICT_DETAIL_FIXES["Batalla del lago Peipus (1242)"];
+assert.ok(
+  lakePeipusDetail
+    && lakePeipusDetail.startYear === 1242
+    && lakePeipusDetail.startYear === lakePeipusDetail.endYear
+    && lakePeipusDetail.parent === "Guerra fronteriza entre Novgorod y la Orden Livona (1240-1242)"
+    && lakePeipusDetail.war === "Guerra fronteriza entre Novgorod y la Orden Livona (1240-1242)"
+    && lakePeipusDetail.campaign === "Contraofensiva de Pskov y el lago Peipus (1242)"
+    && lakePeipusDetail.conflictType === "frontera"
+    && lakePeipusDetail.scale === "regional"
+    && lakePeipusDetail.hierarchyConfidence === "alta"
+    && lakePeipusDetail.hierarchySources?.length >= 3
+    && lakePeipusDetail.participants?.length === 2
+    && lakePeipusDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /no fija un total de bajas/i.test(lakePeipusDetail.outcome)
+    && /hundimiento masivo bajo el hielo/i.test(lakePeipusDetail.sourceDispute)
+    && /Rusia y Estonia se usan solo como referencias/i.test(lakePeipusDetail.sourceDispute)
+    && lakePeipusDetail.datePrecision === "5 de abril de 1242, fecha indicada por la Cronica de Novgorod",
+  "la curaduria del lago Peipus debe reemplazar la ficha danesa generica por una jerarquia fechada y prudente"
+);
+const lakePeipusWikipediaOverride = await resolveWikipediaConflictTitle("Batalla del lago Peipus (1242)");
+assert.equal(lakePeipusWikipediaOverride.language, "es");
+assert.equal(lakePeipusWikipediaOverride.pageTitle, "Batalla_del_Lago_Peipus");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

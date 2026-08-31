@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-31T13:23:51.351Z",
+  "generatedAt": "2026-08-31T14:12:15.552Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 70,
-  "reviewCount": 70,
+  "advisoryCount": 69,
+  "reviewCount": 69,
   "summary": {
-    "provisional_parent": 70
+    "provisional_parent": 69
   },
   "topIssues": [],
   "topAdvisories": [
@@ -798,20 +798,6 @@
       "name": "Batalla del Convoy de Malta",
       "countries": [
         "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla del lago peipus",
-      "name": "Batalla del Lago Peipus",
-      "countries": [
-        "DNK"
       ],
       "startYear": null,
       "endYear": null,

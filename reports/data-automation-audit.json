@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-31T13:23:54.759Z",
+  "generatedAt": "2026-08-31T14:12:18.915Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 138
+      "count": 137
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 70
+      "count": 69
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 584
+      "count": 585
     },
     "redundantReligions": {
       "count": 0
@@ -105,11 +105,6 @@
         "code": "CHN",
         "name": "Incidente fronterizo de Terekti",
         "region": "Asia"
-      },
-      {
-        "code": "DNK",
-        "name": "Batalla del Lago Peipus",
-        "region": "Europa"
       },
       {
         "code": "FRA",
@@ -255,6 +250,11 @@
         "code": "MAR",
         "name": "Batalla de Ramth-al-Lbane",
         "region": "África"
+      },
+      {
+        "code": "MAR",
+        "name": "Batalla de Z'Moul NIran",
+        "region": "África"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -285,13 +285,6 @@
         "name": "Combate de Huite",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
-      {
-        "code": "DNK",
-        "name": "Batalla del Lago Peipus",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
       },
       {
@@ -535,6 +528,13 @@
       {
         "code": "GBR",
         "name": "Batalla de Nur Shams",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "GBR",
+        "name": "Combate de Caleta Foca",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 70,
+      "count": 69,
       "command": "npm run fix:conflicts:batches"
     },
     {
