@@ -507,6 +507,11 @@ import {
   MATAMOROS_1836_CONFLICT_RENAMES
 } from "../lib/conflict-curation-matamoros-1836.js";
 import {
+  HUITE_1866_CONFLICT_DETAIL_FIXES,
+  HUITE_1866_COUNTRY_CONFLICT_ADDITIONS,
+  HUITE_1866_CONFLICT_RENAMES
+} from "../lib/conflict-curation-huite-1866.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -4878,6 +4883,42 @@ assert.ok(
 const matamorosWikipediaOverride = await resolveWikipediaConflictTitle("Acci\u00f3n naval de Matamoros (3 de abril de 1836)");
 assert.equal(matamorosWikipediaOverride.language, "en");
 assert.equal(matamorosWikipediaOverride.pageTitle, "Action_of_April_3,_1836");
+assert.equal(Object.keys(HUITE_1866_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  HUITE_1866_CONFLICT_RENAMES["Combate de Huite"],
+  "Combate de Huite (2 de marzo de 1866)",
+  "el nombre de Huite debe resolver el combate costero curado"
+);
+assert.deepEqual(
+  HUITE_1866_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Espa\u00f1a": ["Combate de Huite (2 de marzo de 1866)"]
+  }
+);
+const huiteDetail = HUITE_1866_CONFLICT_DETAIL_FIXES["Combate de Huite (2 de marzo de 1866)"];
+assert.ok(
+  huiteDetail
+    && huiteDetail.startYear === 1866
+    && huiteDetail.startYear === huiteDetail.endYear
+    && huiteDetail.parent === "Guerra hispano-sudamericana"
+    && huiteDetail.war === "Guerra hispano-sudamericana"
+    && huiteDetail.campaign === "Segunda expedici\u00f3n a Chilo\u00e9 (1866)"
+    && huiteDetail.type === "combate naval y costero"
+    && huiteDetail.conflictType === "interestatal"
+    && huiteDetail.scale === "internacional"
+    && huiteDetail.hierarchyConfidence === "alta"
+    && huiteDetail.hierarchySources?.length === 4
+    && huiteDetail.participants?.length === 2
+    && huiteDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /2 de marzo de 1866/i.test(huiteDetail.datePrecision)
+    && /Huito/i.test(huiteDetail.sourceDispute)
+    && /Tubildad/i.test(huiteDetail.sourceDispute)
+    && /sin resultado estrategico decisivo/i.test(huiteDetail.outcome),
+  "la curaduria de Huite debe distinguir los top\u00f3nimos, los bandos y las bajas incompatibles dentro de la Guerra hispano-sudamericana"
+);
+const huiteWikipediaOverride = await resolveWikipediaConflictTitle("Combate de Huite (2 de marzo de 1866)");
+assert.equal(huiteWikipediaOverride.language, "es");
+assert.equal(huiteWikipediaOverride.pageTitle, "Combate_de_Huite");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

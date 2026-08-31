@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-31T18:37:34.127Z",
+  "generatedAt": "2026-08-31T18:48:30.467Z",
   "changedFullCountries": 2,
   "fullPassChanges": [
     2,
@@ -8,12 +8,12 @@
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 166,
+    "enriched": 168,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1062,
+  "generatedHierarchyCandidates": 1063,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -318,7 +318,8 @@
       "Batalla naval de Lagos (1759)",
       "Guerra hispano-estadounidense",
       "Batalla de Mani-Mani (1898)",
-      "Combate del Callao (1866)"
+      "Combate del Callao (1866)",
+      "Combate de Huite (2 de marzo de 1866)"
     ],
     "austria": [
       "Batalla de Heligoland (1864)",
@@ -1336,6 +1337,13 @@
     "Accion naval de Matamoros (3 de abril de 1836)": "Acción naval de Matamoros (3 de abril de 1836)",
     "Action of April 3, 1836": "Acción naval de Matamoros (3 de abril de 1836)",
     "Battle of Matamoros": "Acción naval de Matamoros (3 de abril de 1836)",
+    "Combate de Huite": "Combate de Huite (2 de marzo de 1866)",
+    "Combate de Huite (1866)": "Combate de Huite (2 de marzo de 1866)",
+    "Combate de Huite (2 de marzo de 1866)": "Combate de Huite (2 de marzo de 1866)",
+    "Acción de Tubildad": "Combate de Huite (2 de marzo de 1866)",
+    "Accion de Tubildad": "Combate de Huite (2 de marzo de 1866)",
+    "Tiroteo de Tubildad": "Combate de Huite (2 de marzo de 1866)",
+    "Battle of Huite": "Combate de Huite (2 de marzo de 1866)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2442,6 +2450,7 @@
     "Batalla naval del cabo Lizard (1707)",
     "Batalla naval de Pondicherry (1759)",
     "Acción naval de Matamoros (3 de abril de 1836)",
+    "Combate de Huite (2 de marzo de 1866)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

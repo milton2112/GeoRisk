@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-31T18:39:56.778Z",
+  "generatedAt": "2026-08-31T18:50:53.114Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 132
+      "count": 131
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 64
+      "count": 63
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 590
+      "count": 591
     },
     "redundantReligions": {
       "count": 0
@@ -94,11 +94,6 @@
       {
         "code": "CHL",
         "name": "Captura de buques de la Confederación",
-        "region": "América"
-      },
-      {
-        "code": "CHL",
-        "name": "Combate de Huite",
         "region": "América"
       },
       {
@@ -255,6 +250,11 @@
         "code": "RUS",
         "name": "Batalla de Prużany",
         "region": "Europa"
+      },
+      {
+        "code": "RUS",
+        "name": "Bombardeo de la estación de tren de Kramatorsk",
+        "region": "Europa"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -276,13 +276,6 @@
       {
         "code": "CAN",
         "name": "Batalla de Pierres Noires",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
-      {
-        "code": "CHL",
-        "name": "Combate de Huite",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
@@ -535,6 +528,13 @@
       {
         "code": "USA",
         "name": "Batalla de la línea Bullet",
+        "parent": "Conflicto regional de América",
+        "campaign": "Campaña vinculada a Conflicto regional de América",
+        "startYear": null
+      },
+      {
+        "code": "USA",
+        "name": "Batalla de Monday's Hollow",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 64,
+      "count": 63,
       "command": "npm run fix:conflicts:batches"
     },
     {

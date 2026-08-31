@@ -8,7 +8,14 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.181 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.182 antes de cerrar la siguiente version.
+
+## v1.6.182 - 2026-08-31
+
+- Normaliza el generico "Combate de Huite" como **Combate de Huite (2 de marzo de 1866)**, con fecha, guerra, participantes, fuentes institucionales y referencia navegable a Espana.
+- Distingue Huite de Huito, mantiene los aliases de Tubildad y evita resolver como hechos cerrados las versiones incompatibles sobre bajas y resultado.
+- Agrega regresiones para la ficha, la contraparte y la resolucion de Wikipedia.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-31-release-11`.
 
 ## v1.6.181 - 2026-08-31
 

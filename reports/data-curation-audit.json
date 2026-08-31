@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-08-31T18:37:40.667Z",
+  "generatedAt": "2026-08-31T18:48:37.099Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12304977,
-    "duplicatedCountryFilesBytes": 1544842,
+    "fullBytes": 12328421,
+    "duplicatedCountryFilesBytes": 1545302,
     "countryConflictShardBytes": 439224,
     "tooLargeCount": 0,
     "largest": [
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 131,
+    "pendingCount": 130,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -16227,19 +16227,6 @@
         ],
         "regions": [
           "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Combate de Huite",
-        "countries": [
-          "CHL"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"
