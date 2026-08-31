@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-08-31T18:48:37.099Z",
+  "generatedAt": "2026-08-31T19:00:16.212Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12328421,
-    "duplicatedCountryFilesBytes": 1545302,
+    "fullBytes": 12351243,
+    "duplicatedCountryFilesBytes": 1545812,
     "countryConflictShardBytes": 439224,
     "tooLargeCount": 0,
     "largest": [
@@ -521,8 +521,8 @@
       {
         "code": "CHN",
         "name": "República Popular China",
-        "bytes": 17085,
-        "inlineBytes": 149942,
+        "bytes": 17455,
+        "inlineBytes": 162718,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -531,12 +531,12 @@
           "religionGroups": 6,
           "organizations": 33,
           "rivals": 29,
-          "conflicts": 34,
+          "conflicts": 35,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 8056,
+            "military": 8426,
             "politics": 5084,
             "metadata": 1951,
             "general": 988,
@@ -549,7 +549,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 8056
+              "bytes": 8426
             },
             {
               "section": "politics",
@@ -564,9 +564,9 @@
               "bytes": 988
             }
           ],
-          "conflictsBytes": 7937,
+          "conflictsBytes": 8307,
           "conflictShardBytes": 0,
-          "averageConflictBytes": 233
+          "averageConflictBytes": 237
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 130,
+    "pendingCount": 129,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -16733,19 +16733,6 @@
         "name": "Operación Wikinger",
         "countries": [
           "GBR"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Primera batalla de Tamao",
-        "countries": [
-          "PRT"
         ],
         "regions": [
           "Europa"

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-31T18:48:30.467Z",
+  "generatedAt": "2026-08-31T19:00:09.878Z",
   "changedFullCountries": 2,
   "fullPassChanges": [
     2,
@@ -8,12 +8,12 @@
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 168,
+    "enriched": 170,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1063,
+  "generatedHierarchyCandidates": 1064,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -129,7 +129,8 @@
       "Batalla de las Islas Paracelso (1974)",
       "Batalla de Beitang (1900)",
       "Campana de Shanhaiguan-Rehe (1924)",
-      "Combates navales de la Boca del Tigre (1809-1810)"
+      "Combates navales de la Boca del Tigre (1809-1810)",
+      "Primera batalla de Tamão (1521)"
     ],
     "reino unido": [
       "Batalla naval de la bahía de Bantry (1689)",
@@ -1344,6 +1345,18 @@
     "Accion de Tubildad": "Combate de Huite (2 de marzo de 1866)",
     "Tiroteo de Tubildad": "Combate de Huite (2 de marzo de 1866)",
     "Battle of Huite": "Combate de Huite (2 de marzo de 1866)",
+    "Primera batalla de Tamao": "Primera batalla de Tamão (1521)",
+    "Primera batalla de Tamão": "Primera batalla de Tamão (1521)",
+    "Primera batalla de Tamao (1521)": "Primera batalla de Tamão (1521)",
+    "Primera batalla de Tamão (1521)": "Primera batalla de Tamão (1521)",
+    "Batalla de Tamao": "Primera batalla de Tamão (1521)",
+    "Batalla de Tamão": "Primera batalla de Tamão (1521)",
+    "Batalla de Tunmen": "Primera batalla de Tamão (1521)",
+    "Batalla de Tuen Mun": "Primera batalla de Tamão (1521)",
+    "First Battle of Tamao": "Primera batalla de Tamão (1521)",
+    "First Battle of Tamão": "Primera batalla de Tamão (1521)",
+    "Battle of Tunmen": "Primera batalla de Tamão (1521)",
+    "Battle of Tuen Mun": "Primera batalla de Tamão (1521)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2451,6 +2464,7 @@
     "Batalla naval de Pondicherry (1759)",
     "Acción naval de Matamoros (3 de abril de 1836)",
     "Combate de Huite (2 de marzo de 1866)",
+    "Primera batalla de Tamão (1521)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

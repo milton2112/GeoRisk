@@ -8,7 +8,14 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.182 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.183 antes de cerrar la siguiente version.
+
+## v1.6.183 - 2026-08-31
+
+- Normaliza la generica "Primera batalla de Tamao" como **Primera batalla de Tamão (1521)** y corrige su ubicacion desde Europa al estuario del Rio Perla, China.
+- La integra en los choques sino-portugueses de 1521-1522, agrega la referencia de mapa para China actual y separa explicitamente la batalla de 1521 de la fase distinta de 1522.
+- Completa fecha aproximada, bandos, lugar, resultado cauteloso, consecuencias, cronologia, aliases, fuentes y regresiones de datos y Wikipedia.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-31-release-12`.
 
 ## v1.6.182 - 2026-08-31
 

@@ -512,6 +512,11 @@ import {
   HUITE_1866_CONFLICT_RENAMES
 } from "../lib/conflict-curation-huite-1866.js";
 import {
+  TAMAO_1521_CONFLICT_DETAIL_FIXES,
+  TAMAO_1521_COUNTRY_CONFLICT_ADDITIONS,
+  TAMAO_1521_CONFLICT_RENAMES
+} from "../lib/conflict-curation-tamao-1521.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -4919,6 +4924,41 @@ assert.ok(
 const huiteWikipediaOverride = await resolveWikipediaConflictTitle("Combate de Huite (2 de marzo de 1866)");
 assert.equal(huiteWikipediaOverride.language, "es");
 assert.equal(huiteWikipediaOverride.pageTitle, "Combate_de_Huite");
+assert.equal(Object.keys(TAMAO_1521_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  TAMAO_1521_CONFLICT_RENAMES["Primera batalla de Tamao"],
+  "Primera batalla de Tam\u00e3o (1521)",
+  "el nombre generico de Tamao debe resolver la ficha naval curada"
+);
+assert.deepEqual(
+  TAMAO_1521_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Rep\u00fablica Popular China": ["Primera batalla de Tam\u00e3o (1521)"]
+  }
+);
+const tamaoDetail = TAMAO_1521_CONFLICT_DETAIL_FIXES["Primera batalla de Tam\u00e3o (1521)"];
+assert.ok(
+  tamaoDetail
+    && tamaoDetail.startYear === 1521
+    && tamaoDetail.startYear === tamaoDetail.endYear
+    && tamaoDetail.parent === "Conflictos sino-portugueses (1521-1522)"
+    && tamaoDetail.war === "Conflictos sino-portugueses (1521-1522)"
+    && tamaoDetail.campaign === "Operaciones navales de Tam\u00e3o/Tunmen (1521)"
+    && tamaoDetail.type === "batalla naval"
+    && tamaoDetail.conflictType === "colonial"
+    && tamaoDetail.scale === "internacional"
+    && tamaoDetail.hierarchyConfidence === "alta"
+    && tamaoDetail.hierarchySources?.length === 3
+    && tamaoDetail.participants?.length === 2
+    && tamaoDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /mayo-septiembre de 1521/i.test(tamaoDetail.datePrecision)
+    && /1522/i.test(tamaoDetail.sourceDispute)
+    && /cuatro de las cinco/i.test(tamaoDetail.outcome),
+  "la curaduria de Tamao debe corregir la geografia, separar 1521 de 1522 y conservar la disputa sobre la salida portuguesa"
+);
+const tamaoWikipediaOverride = await resolveWikipediaConflictTitle("Primera batalla de Tam\u00e3o (1521)");
+assert.equal(tamaoWikipediaOverride.language, "en");
+assert.equal(tamaoWikipediaOverride.pageTitle, "Battle_of_Tunmen");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

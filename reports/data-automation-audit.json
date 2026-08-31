@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-31T18:50:53.114Z",
+  "generatedAt": "2026-08-31T19:03:27.937Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 131
+      "count": 130
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 63
+      "count": 62
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 591
+      "count": 592
     },
     "redundantReligions": {
       "count": 0
@@ -242,11 +242,6 @@
         "region": "Europa"
       },
       {
-        "code": "PRT",
-        "name": "Primera batalla de Tamao",
-        "region": "Europa"
-      },
-      {
         "code": "RUS",
         "name": "Batalla de Prużany",
         "region": "Europa"
@@ -254,6 +249,11 @@
       {
         "code": "RUS",
         "name": "Bombardeo de la estación de tren de Kramatorsk",
+        "region": "Europa"
+      },
+      {
+        "code": "SWE",
+        "name": "Ataque a Åbo",
         "region": "Europa"
       }
     ],
@@ -428,13 +428,6 @@
         "startYear": null
       },
       {
-        "code": "PRT",
-        "name": "Primera batalla de Tamao",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
         "code": "RUS",
         "name": "Batalla de Prużany",
         "parent": "Conflicto regional de Europa",
@@ -535,6 +528,13 @@
       {
         "code": "USA",
         "name": "Batalla de Monday's Hollow",
+        "parent": "Conflicto regional de América",
+        "campaign": "Campaña vinculada a Conflicto regional de América",
+        "startYear": null
+      },
+      {
+        "code": "USA",
+        "name": "Batalla de Notch",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 63,
+      "count": 62,
       "command": "npm run fix:conflicts:batches"
     },
     {

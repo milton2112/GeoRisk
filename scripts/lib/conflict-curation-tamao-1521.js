@@ -1,0 +1,126 @@
+function source(label, url, confidence = "alta") {
+  return { label, url, confidence };
+}
+
+const CANONICAL = "Primera batalla de Tam\u00e3o (1521)";
+const PARENT = "Conflictos sino-portugueses (1521-1522)";
+const CAMPAIGN = "Operaciones navales de Tam\u00e3o/Tunmen (1521)";
+
+const SOURCES = {
+  springerNature: source(
+    "Springer Nature, The Battle of Tam\u00e3o: estudio de acceso abierto que reconstruye la cronologia de mayo a septiembre de 1521, la captura de naves portuguesas por autoridades de Guangdong y los relatos distintos sobre la salida de Diogo Calvo",
+    "https://link.springer.com/chapter/10.1007/978-981-95-2701-4_14"
+  ),
+  encyclopediaChina: source(
+    "Enciclopedia de China: entrada sobre la batalla naval de Tunmen de 1521 entre fuerzas Ming y portugueses en Guangdong",
+    "https://www.zgbk.com/ecph/words?ID=516189&SiteID=1&SubID=765&Type=bkztb"
+  ),
+  tonioAndrade: source(
+    "Tonio Andrade, Journal of Early Modern History: estudio de los choques sino-portugueses de 1521-1522 que diferencia la accion de 1521 de los combates posteriores de 1522",
+    "https://www.tonioandrade.com/_files/ugd/88be10_cc079a49c8a444cc938bbe0336eb95c5.pdf"
+  )
+};
+
+function tamao1521Fix() {
+  const hierarchySources = [
+    SOURCES.springerNature,
+    SOURCES.encyclopediaChina,
+    SOURCES.tonioAndrade
+  ];
+
+  return {
+    parent: PARENT,
+    war: PARENT,
+    campaign: CAMPAIGN,
+    type: "batalla naval",
+    conflictType: "colonial",
+    scale: "internacional",
+    status: "historico",
+    active: false,
+    ongoing: false,
+    startYear: 1521,
+    endYear: 1521,
+    region: "Tam\u00e3o o Tunmen, estuario del Rio Perla, litoral de Guangdong; actual area de Hong Kong y Guangdong, China",
+    normalizedRegion: "Tunmen, estuario del Rio Perla, China",
+    cause: "La llegada de naves portuguesas a Tam\u00e3o/Tunmen ocurrio en un contexto de comercio y contactos no autorizados en el litoral de Guangdong. Tras una orden de salida dirigida a Diogo Calvo, las autoridades locales detuvieron a comerciantes portugueses y la confrontacion escalo entre las fuerzas provinciales Ming y las naves restantes. La ficha evita presentar el episodio como una declaracion de guerra formal de los Estados modernos.",
+    outcome: "Ventaja operativa de las autoridades Ming: el funcionario Wang Hong capturo cuatro de las cinco naves portuguesas fondeadas y se preparo un bloqueo contra las restantes. La campana termino con la salida portuguesa de Tam\u00e3o, pero los relatos difieren sobre como ocurrio: Duarte Coelho atribuye una fuga de septiembre a un temporal, mientras que la investigacion consultada recoge instrucciones posteriores de la corte Ming para resolver el caso y permitir la partida. GeoRisk no lo reduce a la destruccion total de una escuadra ni fija bajas no comparables.",
+    consequences: "La accion restringio temporalmente la presencia portuguesa en Tam\u00e3o y forma parte de los choques sino-portugueses de 1521-1522. No resolvio por si sola las relaciones comerciales posteriores ni debe fusionarse con los enfrentamientos de 1522, una fase distinta en la que las condiciones tacticas y el papel de la artilleria fueron diferentes.",
+    chronology: [
+      {
+        year: 1521,
+        event: "Tras la muerte del emperador Zhengde, la administracion de Guangdong trato el caso de Diogo Calvo y de los comerciantes portugueses presentes en Tam\u00e3o."
+      },
+      {
+        year: 1521,
+        event: "Entre mayo y septiembre, Wang Hong dirigio acciones contra las naves portuguesas: cuatro de las cinco que estaban fondeadas fueron capturadas y se preparo un bloqueo de las restantes."
+      },
+      {
+        year: 1521,
+        event: "Las fuentes portuguesas conservan una salida o fuga en septiembre, mientras que la investigacion reciente tambien identifica instrucciones de la corte Ming para resolver el caso; la ficha no decide entre ambos mecanismos como si fueran una sola evidencia."
+      },
+      {
+        year: 1522,
+        event: "Los enfrentamientos posteriores de 1522 fueron una fase distinta de los choques sino-portugueses y no se agregan al resultado, bajas ni cronologia tactica de la batalla de 1521."
+      }
+    ],
+    treaties: [],
+    related: [
+      PARENT,
+      CAMPAIGN,
+      "Tam\u00e3o",
+      "Tunmen",
+      "Tuen Mun",
+      "Guangdong",
+      "estuario del Rio Perla",
+      "Dinastia Ming",
+      "Diogo Calvo",
+      "Wang Hong",
+      "Jorge Alvares",
+      "Segunda batalla de Tam\u00e3o (1522)"
+    ],
+    participants: [
+      {
+        side: "Fuerzas Ming de Guangdong",
+        members: ["Dinastia Ming", "autoridades de Guangdong", "armada Ming", "Wang Hong"],
+        casualties: "Las fuentes consultadas documentan la captura de naves y el bloqueo, pero no ofrecen una tabla bilateral comparable de muertos y heridos. GeoRisk no convierte las perdidas de buques ni estimaciones aisladas en un total de bajas Ming."
+      },
+      {
+        side: "Naves y comerciantes portugueses en Tam\u00e3o",
+        members: ["Portugal", "naves portuguesas", "comerciantes portugueses", "Diogo Calvo", "Jorge Alvares"],
+        casualties: "La captura de cuatro de las cinco naves fondeadas no permite deducir un total verificable de bajas. Los relatos disponibles no proporcionan una tabla portuguesa coherente, por lo que GeoRisk conserva la ausencia de cifra cerrada."
+      }
+    ],
+    hierarchyConfidence: "alta",
+    hierarchySources: hierarchySources.map(item => ({ label: item.label, url: item.url })),
+    datePrecision: "Mayo-septiembre de 1521 (cronologia debatida)",
+    sourceDispute: "Tam\u00e3o, Tunmen y Tuen Mun son variantes empleadas para el teatro historico del estuario del Rio Perla. La Enciclopedia de China identifica una batalla naval de Tunmen en 1521 entre fuerzas Ming y portugueses; el estudio de Springer reconstruye una campana de varios meses y conserva explicaciones distintas para la salida portuguesa. El estudio de Tonio Andrade separa los choques de 1521 de los de 1522, por lo que GeoRisk no transfiere a la primera batalla el resultado ni la artilleria de la segunda. La Republica Popular China se agrega solo como referencia geografica contemporanea de la costa de Guangdong, no como una afirmacion de que ese Estado moderno fuese beligerante en 1521.",
+    curationPriority: "alta",
+    curationBatch: "source-backed-tamao-1521-2026-08",
+    curationStatus: "estructural",
+    dataConfidence: "parcial",
+    curationNote: "La entrada anterior figuraba solo en Portugal y la ubicaba bajo un conflicto regional de Europa, sin fecha, contraparte, lugar, jerarquia, resultado ni fuentes. Se normaliza como Primera batalla de Tam\u00e3o (1521), se localiza en el estuario del Rio Perla y se organiza bajo Conflictos sino-portugueses (1521-1522), una etiqueta editorial de GeoRisk y no el nombre de un tratado contemporaneo. Se agrega la Republica Popular China para navegacion del mapa actual, mientras que los participantes conservan la Dinastia Ming y las naves portuguesas de la epoca. La correccion mantiene visibles las discrepancias de cronologia y salida, evita fusionar 1521 con 1522 y no inventa bajas."
+  };
+}
+
+export const TAMAO_1521_CONFLICT_RENAMES = {
+  "Primera batalla de Tamao": CANONICAL,
+  "Primera batalla de Tam\u00e3o": CANONICAL,
+  "Primera batalla de Tamao (1521)": CANONICAL,
+  "Primera batalla de Tam\u00e3o (1521)": CANONICAL,
+  "Batalla de Tamao": CANONICAL,
+  "Batalla de Tam\u00e3o": CANONICAL,
+  "Batalla de Tunmen": CANONICAL,
+  "Batalla de Tuen Mun": CANONICAL,
+  "First Battle of Tamao": CANONICAL,
+  "First Battle of Tam\u00e3o": CANONICAL,
+  "Battle of Tunmen": CANONICAL,
+  "Battle of Tuen Mun": CANONICAL
+};
+
+export const TAMAO_1521_COUNTRY_CONFLICT_ADDITIONS = {
+  "Rep\u00fablica Popular China": [CANONICAL]
+};
+
+export const TAMAO_1521_CONFLICT_DETAIL_FIXES = {
+  [CANONICAL]: tamao1521Fix()
+};

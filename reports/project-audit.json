@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-08-31T18:50:52.274Z",
+  "generatedAt": "2026-08-31T19:03:27.103Z",
   "status": "operativo",
   "startup": {
     "critical": "817 KB",
     "criticalBytes": 836386,
-    "deferred": "2.87 MB",
+    "deferred": "2.88 MB",
     "estimatedRuntimeMemory": {
-      "countriesFullBytes": 12328421,
-      "countriesFullHuman": "11.76 MB",
-      "estimatedParsedBytes": 36985263,
-      "estimatedParsedHuman": "35.27 MB",
+      "countriesFullBytes": 12351243,
+      "countriesFullHuman": "11.78 MB",
+      "estimatedParsedBytes": 37053729,
+      "estimatedParsedHuman": "35.34 MB",
       "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
     },
     "largestAssets": [
       {
         "path": "data/conflict_details.generated.json",
         "exists": true,
-        "bytes": 2372256,
-        "human": "2.26 MB",
+        "bytes": 2378713,
+        "human": "2.27 MB",
         "startupCritical": false
       },
       {
@@ -103,7 +103,7 @@
     "scanned": 2001,
     "issueCount": 0,
     "summary": {
-      "provisional_parent": 63
+      "provisional_parent": 62
     },
     "eraFocus": []
   },
@@ -112,13 +112,13 @@
       {
         "path": "data/timeline_index.json",
         "exists": true,
-        "bytes": 407017,
-        "human": "397 KB"
+        "bytes": 407291,
+        "human": "398 KB"
       },
       {
         "path": "data/conflicts_index.json",
         "exists": true,
-        "bytes": 358139,
+        "bytes": 358416,
         "human": "350 KB"
       },
       {
@@ -130,7 +130,7 @@
       {
         "path": "data/conflicts/details_index.json",
         "exists": true,
-        "bytes": 165985,
+        "bytes": 166145,
         "human": "162 KB"
       },
       {
@@ -148,8 +148,8 @@
     ],
     "countryWeights": {
       "totalCountries": 183,
-      "fullBytes": 12328421,
-      "duplicatedCountryFilesBytes": 1545302,
+      "fullBytes": 12351243,
+      "duplicatedCountryFilesBytes": 1545812,
       "countryConflictShardBytes": 439224,
       "tooLargeCount": 0,
       "largest": [
@@ -666,8 +666,8 @@
         {
           "code": "CHN",
           "name": "República Popular China",
-          "bytes": 17085,
-          "inlineBytes": 149942,
+          "bytes": 17455,
+          "inlineBytes": 162718,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -676,12 +676,12 @@
             "religionGroups": 6,
             "organizations": 33,
             "rivals": 29,
-            "conflicts": 34,
+            "conflicts": 35,
             "timelineEvents": 4
           },
           "metrics": {
             "sectionBytes": {
-              "military": 8056,
+              "military": 8426,
               "politics": 5084,
               "metadata": 1951,
               "general": 988,
@@ -694,7 +694,7 @@
             "largestSections": [
               {
                 "section": "military",
-                "bytes": 8056
+                "bytes": 8426
               },
               {
                 "section": "politics",
@@ -709,9 +709,9 @@
                 "bytes": 988
               }
             ],
-            "conflictsBytes": 7937,
+            "conflictsBytes": 8307,
             "conflictShardBytes": 0,
-            "averageConflictBytes": 233
+            "averageConflictBytes": 237
           }
         },
         {
@@ -790,7 +790,7 @@
     },
     "curationGaps": {},
     "conflictDataConsistency": {
-      "checked": 4109,
+      "checked": 4111,
       "closedMarkedActiveCount": 0,
       "inactiveMarkedActiveCount": 0,
       "nullNarrativeTextCount": 0,
@@ -817,8 +817,8 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 220605,
-      "human": "215 KB"
+      "bytes": 221189,
+      "human": "216 KB"
     },
     {
       "path": "style.css",
