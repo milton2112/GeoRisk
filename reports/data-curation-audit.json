@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-08-31T13:09:50.548Z",
+  "generatedAt": "2026-08-31T13:20:56.683Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12147285,
-    "duplicatedCountryFilesBytes": 1542462,
+    "fullBytes": 12161533,
+    "duplicatedCountryFilesBytes": 1542646,
     "countryConflictShardBytes": 437062,
     "tooLargeCount": 0,
     "largest": [
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 139,
+    "pendingCount": 137,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -16325,35 +16325,9 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Combate del Callao",
-        "countries": [
-          "PER"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Combate frente a la costa de Florida",
         "countries": [
           "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Combate naval del Callao",
-        "countries": [
-          "PER"
         ],
         "regions": [
           "América"

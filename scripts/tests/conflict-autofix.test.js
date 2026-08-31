@@ -471,6 +471,11 @@ import {
   NEWRY_ROAD_1993_CONFLICT_RENAMES
 } from "../lib/conflict-curation-newry-road-1993.js";
 import {
+  CALLAO_1866_CONFLICT_DETAIL_FIXES,
+  CALLAO_1866_COUNTRY_CONFLICT_ADDITIONS,
+  CALLAO_1866_CONFLICT_RENAMES
+} from "../lib/conflict-curation-callao-1866.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -4584,6 +4589,40 @@ assert.ok(
 const newryRoadWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Newry Road (1993)");
 assert.equal(newryRoadWikipediaOverride.language, "es");
 assert.equal(newryRoadWikipediaOverride.pageTitle, "Batalla_de_Newry_Road");
+assert.equal(Object.keys(CALLAO_1866_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  CALLAO_1866_CONFLICT_RENAMES["Combate naval del Callao"],
+  "Combate del Callao (1866)",
+  "los aliases del Callao deben consolidarse en una sola ficha fechada"
+);
+assert.deepEqual(
+  CALLAO_1866_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Espa\u00f1a": ["Combate del Callao (1866)"]
+  }
+);
+const callaoDetail = CALLAO_1866_CONFLICT_DETAIL_FIXES["Combate del Callao (1866)"];
+assert.ok(
+  callaoDetail
+    && callaoDetail.startYear === 1866
+    && callaoDetail.startYear === callaoDetail.endYear
+    && callaoDetail.parent === "Guerra hispano-sudamericana"
+    && callaoDetail.campaign === "Operaciones navales de la Escuadra del Pacifico (1865-1866)"
+    && callaoDetail.type === "combate naval y costero"
+    && callaoDetail.conflictType === "interestatal"
+    && callaoDetail.scale === "internacional"
+    && callaoDetail.hierarchyConfidence === "alta"
+    && callaoDetail.hierarchySources?.length >= 3
+    && callaoDetail.participants?.length === 2
+    && callaoDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /Resultado tactico y politico discutido/i.test(callaoDetail.outcome)
+    && /nombres del mismo hecho/i.test(callaoDetail.sourceDispute)
+    && callaoDetail.datePrecision === "2 de mayo de 1866",
+  "la curaduria del Callao debe fusionar aliases y conservar una jerarquia, fuentes y resultado historicamente prudente"
+);
+const callaoWikipediaOverride = await resolveWikipediaConflictTitle("Combate del Callao (1866)");
+assert.equal(callaoWikipediaOverride.language, "es");
+assert.equal(callaoWikipediaOverride.pageTitle, "Combate_del_Callao");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

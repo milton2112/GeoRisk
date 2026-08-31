@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-31T13:11:06.368Z",
+  "generatedAt": "2026-08-31T13:23:54.759Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 140
+      "count": 138
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 72
+      "count": 70
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 583
+      "count": 584
     },
     "redundantReligions": {
       "count": 0
@@ -470,20 +470,6 @@
         "startYear": null
       },
       {
-        "code": "PER",
-        "name": "Combate del Callao",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
-      {
-        "code": "PER",
-        "name": "Combate naval del Callao",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
-      {
         "code": "PRT",
         "name": "Primera batalla de Tamao",
         "parent": "Conflicto regional de Europa",
@@ -537,6 +523,20 @@
         "name": "Operación Batalla por la Restauración de la Dignidad",
         "parent": "Conflicto regional de Asia",
         "campaign": "Campaña vinculada a Conflicto regional de Asia",
+        "startYear": null
+      },
+      {
+        "code": "TUN",
+        "name": "Batalla de Remada",
+        "parent": "Conflicto regional de África",
+        "campaign": "Campaña vinculada a Conflicto regional de África",
+        "startYear": null
+      },
+      {
+        "code": "GBR",
+        "name": "Batalla de Nur Shams",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
       }
     ],
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 72,
+      "count": 70,
       "command": "npm run fix:conflicts:batches"
     },
     {

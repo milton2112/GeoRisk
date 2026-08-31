@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-31T13:09:43.986Z",
-  "changedFullCountries": 1,
+  "generatedAt": "2026-08-31T13:20:50.433Z",
+  "changedFullCountries": 2,
   "fullPassChanges": [
-    1,
+    2,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 152,
+    "enriched": 154,
     "retired": 0,
     "written": true,
     "compacted": false
@@ -309,7 +309,8 @@
       "Batalla del cabo Ortegal (1805)",
       "Batalla naval de Lagos (1759)",
       "Guerra hispano-estadounidense",
-      "Batalla de Mani-Mani (1898)"
+      "Batalla de Mani-Mani (1898)",
+      "Combate del Callao (1866)"
     ],
     "austria": [
       "Batalla de Heligoland (1864)",
@@ -1274,6 +1275,14 @@
     "Batalla de Newry Road (1993)": "Batalla de Newry Road (1993)",
     "Battle of Newry Road": "Batalla de Newry Road (1993)",
     "Battle of Newry Road (1993)": "Batalla de Newry Road (1993)",
+    "Combate del Callao": "Combate del Callao (1866)",
+    "Combate naval del Callao": "Combate del Callao (1866)",
+    "Combate del Callao (1866)": "Combate del Callao (1866)",
+    "Combate del 2 de mayo": "Combate del Callao (1866)",
+    "Combate del 2 de Mayo": "Combate del Callao (1866)",
+    "Batalla del Callao": "Combate del Callao (1866)",
+    "Bombardeo del Callao": "Combate del Callao (1866)",
+    "Battle of Callao": "Combate del Callao (1866)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2373,6 +2382,7 @@
     "Batalla de Neuville (1760)",
     "Batalla naval de Orford Ness (1704)",
     "Batalla de Newry Road (1993)",
+    "Combate del Callao (1866)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

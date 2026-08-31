@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.174 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.175 antes de cerrar la siguiente version.
+
+## v1.6.175 - 2026-08-31
+
+- Consolida las entradas provisionales "Combate del Callao" y "Combate naval del Callao" como **Combate del Callao (1866)**.
+- Vincula la ficha con la Guerra hispano-sudamericana, las operaciones de la Escuadra del Pacifico y Espana como participante navegable.
+- Completa fecha, ubicacion, causa, consecuencias, cronologia, participantes, aliases y fuentes institucionales peruanas y espanolas.
+- Conserva el resultado como discutido, sin inventar una victoria unilateral ni sumar bajas heterogeneas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-31-release-4`.
 
 ## v1.6.174 - 2026-08-31
 
