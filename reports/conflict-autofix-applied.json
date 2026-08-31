@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-08-31T17:50:26.213Z",
-  "changedFullCountries": 3,
+  "generatedAt": "2026-08-31T17:58:59.909Z",
+  "changedFullCountries": 2,
   "fullPassChanges": [
-    3,
+    2,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 158,
+    "enriched": 160,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1058,
+  "generatedHierarchyCandidates": 1059,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -290,7 +290,8 @@
       "Batalla de San Jacinto (1836)",
       "Primera batalla de Agua Prieta (1911)",
       "Batalla de Boca Teacapan (1870)",
-      "Batalla de Guerrero (1916)"
+      "Batalla de Guerrero (1916)",
+      "Captura de Yerba Buena (1846)"
     ],
     "australia": [
       "Batalla de Hamel (1918)",
@@ -1301,6 +1302,13 @@
     "Battle of Vizagapatam": "Batalla naval de Vizagapatam (1804)",
     "Battle of Visakhapatnam": "Batalla naval de Vizagapatam (1804)",
     "Action in Vizagapatam Roads": "Batalla naval de Vizagapatam (1804)",
+    "Batalla de Yerba Buena": "Captura de Yerba Buena (1846)",
+    "Batalla de Yerba Buena (1846)": "Captura de Yerba Buena (1846)",
+    "Captura de Yerba Buena": "Captura de Yerba Buena (1846)",
+    "Captura de Yerba Buena (1846)": "Captura de Yerba Buena (1846)",
+    "Toma de Yerba Buena": "Captura de Yerba Buena (1846)",
+    "Battle of Yerba Buena": "Captura de Yerba Buena (1846)",
+    "Capture of Yerba Buena": "Captura de Yerba Buena (1846)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2403,6 +2411,7 @@
     "Combate del Callao (1866)",
     "Batalla del lago Peipus (1242)",
     "Batalla naval de Vizagapatam (1804)",
+    "Captura de Yerba Buena (1846)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

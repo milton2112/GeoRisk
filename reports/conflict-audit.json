@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-31T17:53:05.347Z",
+  "generatedAt": "2026-08-31T18:00:58.600Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 68,
-  "reviewCount": 68,
+  "advisoryCount": 67,
+  "reviewCount": 67,
   "summary": {
-    "provisional_parent": 68
+    "provisional_parent": 67
   },
   "topIssues": [],
   "topAdvisories": [
@@ -684,20 +684,6 @@
     {
       "key": "batalla de wild cat creek",
       "name": "Batalla de Wild Cat Creek",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de yerba buena",
-      "name": "Batalla de Yerba Buena",
       "countries": [
         "USA"
       ],

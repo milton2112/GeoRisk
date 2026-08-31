@@ -487,6 +487,11 @@ import {
   VIZAGAPATAM_1804_CONFLICT_RENAMES
 } from "../lib/conflict-curation-vizagapatam-1804.js";
 import {
+  YERBA_BUENA_1846_CONFLICT_DETAIL_FIXES,
+  YERBA_BUENA_1846_COUNTRY_CONFLICT_ADDITIONS,
+  YERBA_BUENA_1846_CONFLICT_RENAMES
+} from "../lib/conflict-curation-yerba-buena-1846.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -4713,6 +4718,42 @@ assert.ok(
 const vizagapatamWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval de Vizagapatam (1804)");
 assert.equal(vizagapatamWikipediaOverride.language, "en");
 assert.equal(vizagapatamWikipediaOverride.pageTitle, "Battle_of_Visakhapatnam");
+assert.equal(Object.keys(YERBA_BUENA_1846_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  YERBA_BUENA_1846_CONFLICT_RENAMES["Batalla de Yerba Buena"],
+  "Captura de Yerba Buena (1846)",
+  "el nombre historico de batalla debe resolver la captura curada de Yerba Buena"
+);
+assert.deepEqual(
+  YERBA_BUENA_1846_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "M\u00e9xico": ["Captura de Yerba Buena (1846)"]
+  }
+);
+const yerbaBuenaDetail = YERBA_BUENA_1846_CONFLICT_DETAIL_FIXES["Captura de Yerba Buena (1846)"];
+assert.ok(
+  yerbaBuenaDetail
+    && yerbaBuenaDetail.startYear === 1846
+    && yerbaBuenaDetail.startYear === yerbaBuenaDetail.endYear
+    && yerbaBuenaDetail.parent === "Guerra mexicano-estadounidense"
+    && yerbaBuenaDetail.war === "Guerra mexicano-estadounidense"
+    && yerbaBuenaDetail.campaign === "Campa\u00f1a de California de 1846-1847"
+    && yerbaBuenaDetail.type === "ocupacion sin combate"
+    && yerbaBuenaDetail.conflictType === "interestatal"
+    && yerbaBuenaDetail.scale === "regional"
+    && yerbaBuenaDetail.hierarchyConfidence === "alta"
+    && yerbaBuenaDetail.hierarchySources?.length === 5
+    && yerbaBuenaDetail.participants?.length === 2
+    && yerbaBuenaDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /ocupacion sin combate/i.test(yerbaBuenaDetail.outcome)
+    && /discrepancia principal es de nomenclatura/i.test(yerbaBuenaDetail.sourceDispute)
+    && /Mexico se incorpora como soberania/i.test(yerbaBuenaDetail.sourceDispute)
+    && yerbaBuenaDetail.datePrecision === "9 de julio de 1846",
+  "la curaduria de Yerba Buena debe sustituir una batalla generica por una captura fechada y trazable"
+);
+const yerbaBuenaWikipediaOverride = await resolveWikipediaConflictTitle("Captura de Yerba Buena (1846)");
+assert.equal(yerbaBuenaWikipediaOverride.language, "es");
+assert.equal(yerbaBuenaWikipediaOverride.pageTitle, "Batalla_de_Yerba_Buena");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

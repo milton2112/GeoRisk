@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-31T17:50:32.958Z",
+  "generatedAt": "2026-08-31T17:59:06.331Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12211085,
-    "duplicatedCountryFilesBytes": 1543611,
-    "countryConflictShardBytes": 437683,
+    "fullBytes": 12232299,
+    "duplicatedCountryFilesBytes": 1543956,
+    "countryConflictShardBytes": 437794,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24032,
-        "inlineBytes": 3283531,
+        "inlineBytes": 3292749,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 214980,
-          "conflictShardBytes": 214981,
+          "conflictsBytes": 215091,
+          "conflictShardBytes": 215092,
           "averageConflictBytes": 233
         }
       },
@@ -570,41 +570,41 @@
         }
       },
       {
-        "code": "ITA",
-        "name": "Italia",
-        "bytes": 15428,
-        "inlineBytes": 73570,
+        "code": "MEX",
+        "name": "México",
+        "bytes": 15543,
+        "inlineBytes": 123563,
         "tooLarge": false,
         "counts": {
           "cities": 4,
           "capitals": 1,
           "languages": 5,
-          "religionGroups": 5,
-          "organizations": 77,
-          "rivals": 45,
-          "conflicts": 13,
+          "religionGroups": 4,
+          "organizations": 50,
+          "rivals": 8,
+          "conflicts": 29,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "politics": 8689,
-            "military": 3003,
+            "military": 7051,
+            "politics": 4817,
             "metadata": 1936,
-            "general": 828,
-            "history": 448,
-            "religion": 305,
-            "economy": 99,
-            "name": 8,
-            "continent": 8
+            "general": 870,
+            "history": 398,
+            "religion": 248,
+            "economy": 101,
+            "name": 9,
+            "continent": 9
           },
           "largestSections": [
             {
-              "section": "politics",
-              "bytes": 8689
+              "section": "military",
+              "bytes": 7051
             },
             {
-              "section": "military",
-              "bytes": 3003
+              "section": "politics",
+              "bytes": 4817
             },
             {
               "section": "metadata",
@@ -612,12 +612,12 @@
             },
             {
               "section": "general",
-              "bytes": 828
+              "bytes": 870
             }
           ],
-          "conflictsBytes": 2886,
+          "conflictsBytes": 6934,
           "conflictShardBytes": 0,
-          "averageConflictBytes": 222
+          "averageConflictBytes": 239
         }
       }
     ]
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 135,
+    "pendingCount": 134,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15819,19 +15819,6 @@
       },
       {
         "name": "Batalla de Wild Cat Creek",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Yerba Buena",
         "countries": [
           "USA"
         ],

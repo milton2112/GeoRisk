@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-08-31T17:53:08.038Z",
+  "generatedAt": "2026-08-31T18:01:01.363Z",
   "status": "operativo",
   "startup": {
     "critical": "817 KB",
     "criticalBytes": 836376,
-    "deferred": "2.84 MB",
+    "deferred": "2.85 MB",
     "estimatedRuntimeMemory": {
-      "countriesFullBytes": 12211085,
-      "countriesFullHuman": "11.65 MB",
-      "estimatedParsedBytes": 36633255,
-      "estimatedParsedHuman": "34.94 MB",
+      "countriesFullBytes": 12232299,
+      "countriesFullHuman": "11.67 MB",
+      "estimatedParsedBytes": 36696897,
+      "estimatedParsedHuman": "35.00 MB",
       "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
     },
     "largestAssets": [
       {
         "path": "data/conflict_details.generated.json",
         "exists": true,
-        "bytes": 2342145,
-        "human": "2.23 MB",
+        "bytes": 2348209,
+        "human": "2.24 MB",
         "startupCritical": false
       },
       {
@@ -103,7 +103,7 @@
     "scanned": 2001,
     "issueCount": 0,
     "summary": {
-      "provisional_parent": 68
+      "provisional_parent": 67
     },
     "eraFocus": []
   },
@@ -112,14 +112,14 @@
       {
         "path": "data/timeline_index.json",
         "exists": true,
-        "bytes": 405459,
+        "bytes": 405727,
         "human": "396 KB"
       },
       {
         "path": "data/conflicts_index.json",
         "exists": true,
-        "bytes": 356783,
-        "human": "348 KB"
+        "bytes": 357049,
+        "human": "349 KB"
       },
       {
         "path": "data/search_index.json",
@@ -130,7 +130,7 @@
       {
         "path": "data/conflicts/details_index.json",
         "exists": true,
-        "bytes": 165134,
+        "bytes": 165289,
         "human": "161 KB"
       },
       {
@@ -142,15 +142,15 @@
       {
         "path": "data/country_weights.json",
         "exists": true,
-        "bytes": 118272,
+        "bytes": 118274,
         "human": "116 KB"
       }
     ],
     "countryWeights": {
       "totalCountries": 183,
-      "fullBytes": 12211085,
-      "duplicatedCountryFilesBytes": 1543611,
-      "countryConflictShardBytes": 437683,
+      "fullBytes": 12232299,
+      "duplicatedCountryFilesBytes": 1543956,
+      "countryConflictShardBytes": 437794,
       "tooLargeCount": 0,
       "largest": [
         {
@@ -208,7 +208,7 @@
           "code": "USA",
           "name": "Estados Unidos",
           "bytes": 24032,
-          "inlineBytes": 3283531,
+          "inlineBytes": 3292749,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -250,8 +250,8 @@
                 "bytes": 978
               }
             ],
-            "conflictsBytes": 214980,
-            "conflictShardBytes": 214981,
+            "conflictsBytes": 215091,
+            "conflictShardBytes": 215092,
             "averageConflictBytes": 233
           }
         },
@@ -715,41 +715,41 @@
           }
         },
         {
-          "code": "ITA",
-          "name": "Italia",
-          "bytes": 15428,
-          "inlineBytes": 73570,
+          "code": "MEX",
+          "name": "México",
+          "bytes": 15543,
+          "inlineBytes": 123563,
           "tooLarge": false,
           "counts": {
             "cities": 4,
             "capitals": 1,
             "languages": 5,
-            "religionGroups": 5,
-            "organizations": 77,
-            "rivals": 45,
-            "conflicts": 13,
+            "religionGroups": 4,
+            "organizations": 50,
+            "rivals": 8,
+            "conflicts": 29,
             "timelineEvents": 4
           },
           "metrics": {
             "sectionBytes": {
-              "politics": 8689,
-              "military": 3003,
+              "military": 7051,
+              "politics": 4817,
               "metadata": 1936,
-              "general": 828,
-              "history": 448,
-              "religion": 305,
-              "economy": 99,
-              "name": 8,
-              "continent": 8
+              "general": 870,
+              "history": 398,
+              "religion": 248,
+              "economy": 101,
+              "name": 9,
+              "continent": 9
             },
             "largestSections": [
               {
-                "section": "politics",
-                "bytes": 8689
+                "section": "military",
+                "bytes": 7051
               },
               {
-                "section": "military",
-                "bytes": 3003
+                "section": "politics",
+                "bytes": 4817
               },
               {
                 "section": "metadata",
@@ -757,12 +757,12 @@
               },
               {
                 "section": "general",
-                "bytes": 828
+                "bytes": 870
               }
             ],
-            "conflictsBytes": 2886,
+            "conflictsBytes": 6934,
             "conflictShardBytes": 0,
-            "averageConflictBytes": 222
+            "averageConflictBytes": 239
           }
         }
       ]
@@ -790,7 +790,7 @@
     },
     "curationGaps": {},
     "conflictDataConsistency": {
-      "checked": 4098,
+      "checked": 4100,
       "closedMarkedActiveCount": 0,
       "inactiveMarkedActiveCount": 0,
       "nullNarrativeTextCount": 0,
@@ -817,8 +817,8 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 217212,
-      "human": "212 KB"
+      "bytes": 218069,
+      "human": "213 KB"
     },
     {
       "path": "style.css",

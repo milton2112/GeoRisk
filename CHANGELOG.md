@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.177 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.178 antes de cerrar la siguiente version.
+
+## v1.6.178 - 2026-08-31
+
+- Normaliza "Batalla de Yerba Buena" como **Captura de Yerba Buena (1846)** y elimina una clasificacion que la presentaba como batalla convencional.
+- La integra a la Guerra mexicano-estadounidense y a la Campana de California de 1846-1847, con Mexico incorporado como contraparte historica navegable.
+- Completa fecha, ubicacion, causa, resultado, consecuencias, cronologia, participantes, aliases, fuentes institucionales y el tratado de cierre general.
+- Distingue la ocupacion sin combate organizado de una batalla: mantiene el nombre historico para busqueda, pero no inventa bajas ni una victoria tactica convencional.
+- Anade pruebas de regresion para aliases, paises, fecha, jerarquia, tipo, participantes, cautela de fuentes y resolucion de Wikipedia.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-31-release-7`.
 
 ## v1.6.177 - 2026-08-31
 
