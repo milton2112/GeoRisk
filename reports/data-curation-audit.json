@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-31T17:59:06.331Z",
+  "generatedAt": "2026-08-31T18:10:55.546Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12232299,
-    "duplicatedCountryFilesBytes": 1543956,
-    "countryConflictShardBytes": 437794,
+    "fullBytes": 12250929,
+    "duplicatedCountryFilesBytes": 1544219,
+    "countryConflictShardBytes": 438289,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 24971,
-        "inlineBytes": 1245409,
+        "bytes": 24992,
+        "inlineBytes": 1256087,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,12 +21,12 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 329,
+          "conflicts": 330,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 11547,
+            "military": 11568,
             "politics": 9502,
             "metadata": 1952,
             "general": 1018,
@@ -39,7 +39,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 11547
+              "bytes": 11568
             },
             {
               "section": "politics",
@@ -54,8 +54,8 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 76604,
-          "conflictShardBytes": 76605,
+          "conflictsBytes": 76966,
+          "conflictShardBytes": 76967,
           "averageConflictBytes": 233
         }
       },
@@ -164,8 +164,8 @@
       {
         "code": "FRA",
         "name": "Francia",
-        "bytes": 20417,
-        "inlineBytes": 877273,
+        "bytes": 20659,
+        "inlineBytes": 885225,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -179,7 +179,7 @@
         },
         "metrics": {
           "sectionBytes": {
-            "military": 8737,
+            "military": 8979,
             "politics": 7898,
             "metadata": 1952,
             "general": 933,
@@ -192,7 +192,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 8737
+              "bytes": 8979
             },
             {
               "section": "politics",
@@ -207,9 +207,9 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 48802,
-          "conflictShardBytes": 48803,
-          "averageConflictBytes": 204
+          "conflictsBytes": 48935,
+          "conflictShardBytes": 48936,
+          "averageConflictBytes": 205
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 134,
+    "pendingCount": 133,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15871,19 +15871,6 @@
       },
       {
         "name": "Batalla del cabo de la Roca",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla del cabo Lizard",
         "countries": [
           "FRA"
         ],

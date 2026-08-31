@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-31T17:58:59.909Z",
+  "generatedAt": "2026-08-31T18:10:49.137Z",
   "changedFullCountries": 2,
   "fullPassChanges": [
     2,
@@ -8,12 +8,12 @@
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 160,
+    "enriched": 162,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1059,
+  "generatedHierarchyCandidates": 1061,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -182,6 +182,7 @@
       "Batalla de Neuville (1760)",
       "Batalla naval de Orford Ness (1704)",
       "Batalla naval de Vizagapatam (1804)",
+      "Batalla naval del cabo Lizard (1707)",
       "Accion naval del paso de Doro (1827)",
       "Combate naval de Jask (1620)",
       "Batalla naval de Pirano (1812)"
@@ -1309,6 +1310,14 @@
     "Toma de Yerba Buena": "Captura de Yerba Buena (1846)",
     "Battle of Yerba Buena": "Captura de Yerba Buena (1846)",
     "Capture of Yerba Buena": "Captura de Yerba Buena (1846)",
+    "Batalla del cabo Lizard": "Batalla naval del cabo Lizard (1707)",
+    "Batalla del Cabo Lizard": "Batalla naval del cabo Lizard (1707)",
+    "Batalla naval del cabo Lizard": "Batalla naval del cabo Lizard (1707)",
+    "Batalla naval del cabo Lizard (1707)": "Batalla naval del cabo Lizard (1707)",
+    "Batalla de Lizard Point": "Batalla naval del cabo Lizard (1707)",
+    "Battle at The Lizard": "Batalla naval del cabo Lizard (1707)",
+    "Battle of Cape Lizard": "Batalla naval del cabo Lizard (1707)",
+    "Combat du Cap Lezard": "Batalla naval del cabo Lizard (1707)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2412,6 +2421,7 @@
     "Batalla del lago Peipus (1242)",
     "Batalla naval de Vizagapatam (1804)",
     "Captura de Yerba Buena (1846)",
+    "Batalla naval del cabo Lizard (1707)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

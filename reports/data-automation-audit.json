@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-31T18:01:02.199Z",
+  "generatedAt": "2026-08-31T18:13:20.698Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 135
+      "count": 134
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 67
+      "count": 66
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 587
+      "count": 588
     },
     "redundantReligions": {
       "count": 0
@@ -163,11 +163,6 @@
       },
       {
         "code": "FRA",
-        "name": "Batalla del cabo Lizard",
-        "region": "Europa"
-      },
-      {
-        "code": "FRA",
         "name": "Batalla del Convoy de Malta",
         "region": "Europa"
       },
@@ -255,6 +250,11 @@
         "code": "MAR",
         "name": "Batallas de Farsia y Oum Dreyga",
         "region": "África"
+      },
+      {
+        "code": "PRT",
+        "name": "Captura de Virgin de Cape",
+        "region": "Europa"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -360,13 +360,6 @@
       {
         "code": "FRA",
         "name": "Batalla del cabo de la Roca",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla del cabo Lizard",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -537,6 +530,13 @@
         "name": "Incursion sobre Santorini",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "USA",
+        "name": "Batalla de jackson",
+        "parent": "Conflicto regional de América",
+        "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
       }
     ],
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 67,
+      "count": 66,
       "command": "npm run fix:conflicts:batches"
     },
     {

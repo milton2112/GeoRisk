@@ -492,6 +492,11 @@ import {
   YERBA_BUENA_1846_CONFLICT_RENAMES
 } from "../lib/conflict-curation-yerba-buena-1846.js";
 import {
+  CAPE_LIZARD_1707_CONFLICT_DETAIL_FIXES,
+  CAPE_LIZARD_1707_COUNTRY_CONFLICT_ADDITIONS,
+  CAPE_LIZARD_1707_CONFLICT_RENAMES
+} from "../lib/conflict-curation-cape-lizard-1707.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -4754,6 +4759,44 @@ assert.ok(
 const yerbaBuenaWikipediaOverride = await resolveWikipediaConflictTitle("Captura de Yerba Buena (1846)");
 assert.equal(yerbaBuenaWikipediaOverride.language, "es");
 assert.equal(yerbaBuenaWikipediaOverride.pageTitle, "Batalla_de_Yerba_Buena");
+assert.equal(Object.keys(CAPE_LIZARD_1707_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  CAPE_LIZARD_1707_CONFLICT_RENAMES["Batalla del cabo Lizard"],
+  "Batalla naval del cabo Lizard (1707)",
+  "el nombre historico del cabo Lizard debe resolver la ficha naval curada"
+);
+assert.deepEqual(
+  CAPE_LIZARD_1707_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Reino Unido": ["Batalla naval del cabo Lizard (1707)"]
+  }
+);
+const capeLizardDetail = CAPE_LIZARD_1707_CONFLICT_DETAIL_FIXES["Batalla naval del cabo Lizard (1707)"];
+assert.ok(
+  capeLizardDetail
+    && capeLizardDetail.startYear === 1707
+    && capeLizardDetail.startYear === capeLizardDetail.endYear
+    && capeLizardDetail.parent === "Guerra de Sucesi\u00f3n Espa\u00f1ola"
+    && capeLizardDetail.war === "Guerra de Sucesi\u00f3n Espa\u00f1ola"
+    && capeLizardDetail.campaign === "Operaciones francesas contra convoyes ingleses en el canal de la Mancha (1707)"
+    && capeLizardDetail.type === "batalla naval"
+    && capeLizardDetail.conflictType === "interestatal"
+    && capeLizardDetail.scale === "internacional"
+    && capeLizardDetail.hierarchyConfidence === "alta"
+    && capeLizardDetail.hierarchySources?.length === 2
+    && capeLizardDetail.participants?.length === 2
+    && capeLizardDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /21 de octubre de 1707/i.test(capeLizardDetail.datePrecision)
+    && /21 de septiembre/i.test(capeLizardDetail.sourceDispute)
+    && /no fija un total/i.test(capeLizardDetail.outcome),
+  "la curaduria del cabo Lizard debe sustituir un conflicto europeo generico por un combate naval fechado y trazable"
+);
+const capeLizardSpanishWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval del cabo Lizard (1707)");
+assert.equal(capeLizardSpanishWikipediaOverride.language, "es");
+assert.equal(capeLizardSpanishWikipediaOverride.pageTitle, "Batalla_del_cabo_Lizard");
+const capeLizardEnglishWikipediaOverride = await resolveWikipediaConflictTitle("Battle at The Lizard");
+assert.equal(capeLizardEnglishWikipediaOverride.language, "en");
+assert.equal(capeLizardEnglishWikipediaOverride.pageTitle, "Battle_at_the_Lizard");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

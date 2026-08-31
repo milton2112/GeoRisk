@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
+- Se documentaran aca los cambios posteriores a v1.6.179 antes de cerrar la siguiente version.
+
+## v1.6.179 - 2026-08-31
+
 - Se documentaran aca los cambios posteriores a v1.6.178 antes de cerrar la siguiente version.
+- Normaliza "Batalla del cabo Lizard" como **Batalla naval del cabo Lizard (1707)** y elimina una jerarquia europea generica sin fecha ni contraparte.
+- La vincula con la Guerra de Sucesion Espanola, la operacion francesa contra el convoy ingles hacia Portugal y Reino Unido como referencia navegable de la escolta.
+- Completa fecha, ubicacion, causa, resultado, consecuencias, cronologia, participantes, aliases y fuentes museisticas; mantiene visibles la fecha erronea de una estampa y los limites de los recuentos de bajas y mercantes.
+- Agrega regresiones para la ficha curada, su navegacion bilateral y las resoluciones de Wikipedia en espanol e ingles.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-31-release-8`.
 
 ## v1.6.178 - 2026-08-31
 
