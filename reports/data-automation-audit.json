@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-31T14:12:18.915Z",
+  "generatedAt": "2026-08-31T17:53:08.898Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 137
+      "count": 136
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 69
+      "count": 68
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 585
+      "count": 586
     },
     "redundantReligions": {
       "count": 0
@@ -158,11 +158,6 @@
       },
       {
         "code": "FRA",
-        "name": "Batalla de Vizagapatam",
-        "region": "Europa"
-      },
-      {
-        "code": "FRA",
         "name": "Batalla del cabo de la Roca",
         "region": "Europa"
       },
@@ -254,6 +249,11 @@
       {
         "code": "MAR",
         "name": "Batalla de Z'Moul NIran",
+        "region": "África"
+      },
+      {
+        "code": "MAR",
+        "name": "Batallas de Farsia y Oum Dreyga",
         "region": "África"
       }
     ],
@@ -353,13 +353,6 @@
       {
         "code": "FRA",
         "name": "Batalla de Vinh",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Vizagapatam",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -535,6 +528,13 @@
       {
         "code": "GBR",
         "name": "Combate de Caleta Foca",
+        "parent": "Conflicto regional de Europa",
+        "campaign": "Campaña vinculada a Conflicto regional de Europa",
+        "startYear": null
+      },
+      {
+        "code": "GBR",
+        "name": "Incursion sobre Santorini",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 69,
+      "count": 68,
       "command": "npm run fix:conflicts:batches"
     },
     {

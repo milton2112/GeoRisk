@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.176 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.177 antes de cerrar la siguiente version.
+
+## v1.6.177 - 2026-08-31
+
+- Normaliza "Batalla de Vizagapatam" como **Batalla naval de Vizagapatam (1804)** y elimina su jerarquia europea generica.
+- La vincula con las Guerras napoleonicas, la escuadra de Linois y referencias navegables de Reino Unido e India.
+- Completa fecha, ubicacion, causa, resultado tactico dividido, consecuencias, cronologia, participantes, aliases y fuentes museisticas.
+- Hace visible la discrepancia de fecha entre el 15 de septiembre documentado y el 18 grabado en la estampa, identificado como error por Royal Collection Trust.
+- Conserva la captura de *Princess Charlotte* y la supervivencia de *Centurion* sin inventar una victoria unilateral ni cifras agregadas de bajas.
+- Anade pruebas de regresion para nombre canonico, aliases, paises, fecha, jerarquia, participantes, cautela de fuentes y resolucion de Wikipedia.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-08-31-release-6`.
 
 ## v1.6.176 - 2026-08-31
 

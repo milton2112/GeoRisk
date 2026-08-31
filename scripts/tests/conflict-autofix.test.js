@@ -482,6 +482,11 @@ import {
   LAKE_PEI_PUS_1242_CONFLICT_RENAMES
 } from "../lib/conflict-curation-lake-peipus-1242.js";
 import {
+  VIZAGAPATAM_1804_CONFLICT_DETAIL_FIXES,
+  VIZAGAPATAM_1804_COUNTRY_CONFLICT_ADDITIONS,
+  VIZAGAPATAM_1804_CONFLICT_RENAMES
+} from "../lib/conflict-curation-vizagapatam-1804.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -4671,6 +4676,43 @@ assert.ok(
 const lakePeipusWikipediaOverride = await resolveWikipediaConflictTitle("Batalla del lago Peipus (1242)");
 assert.equal(lakePeipusWikipediaOverride.language, "es");
 assert.equal(lakePeipusWikipediaOverride.pageTitle, "Batalla_del_Lago_Peipus");
+assert.equal(Object.keys(VIZAGAPATAM_1804_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  VIZAGAPATAM_1804_CONFLICT_RENAMES["Battle of Visakhapatnam"],
+  "Batalla naval de Vizagapatam (1804)",
+  "el alias ingles debe resolver la ficha curada de Vizagapatam"
+);
+assert.deepEqual(
+  VIZAGAPATAM_1804_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Reino Unido": ["Batalla naval de Vizagapatam (1804)"],
+    India: ["Batalla naval de Vizagapatam (1804)"]
+  }
+);
+const vizagapatamDetail = VIZAGAPATAM_1804_CONFLICT_DETAIL_FIXES["Batalla naval de Vizagapatam (1804)"];
+assert.ok(
+  vizagapatamDetail
+    && vizagapatamDetail.startYear === 1804
+    && vizagapatamDetail.startYear === vizagapatamDetail.endYear
+    && vizagapatamDetail.parent === "Guerras napole\u00f3nicas (1803-1815)"
+    && vizagapatamDetail.war === "Guerras napole\u00f3nicas (1803-1815)"
+    && vizagapatamDetail.campaign === "Operaciones de la escuadra de Linois en el oceano Indico (1804)"
+    && vizagapatamDetail.type === "combate naval"
+    && vizagapatamDetail.conflictType === "interestatal"
+    && vizagapatamDetail.scale === "internacional"
+    && vizagapatamDetail.hierarchyConfidence === "alta"
+    && vizagapatamDetail.hierarchySources?.length === 2
+    && vizagapatamDetail.participants?.length === 2
+    && vizagapatamDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /captura francesa de Princess Charlotte/i.test(vizagapatamDetail.outcome)
+    && /fecha del 18,? grabada/i.test(vizagapatamDetail.sourceDispute)
+    && /India se usa como referencia geografica actual/i.test(vizagapatamDetail.sourceDispute)
+    && /15 de septiembre de 1804/.test(vizagapatamDetail.datePrecision),
+  "la curaduria de Vizagapatam debe reemplazar la ficha francesa generica por un combate naval fechado y trazable"
+);
+const vizagapatamWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval de Vizagapatam (1804)");
+assert.equal(vizagapatamWikipediaOverride.language, "en");
+assert.equal(vizagapatamWikipediaOverride.pageTitle, "Battle_of_Visakhapatnam");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

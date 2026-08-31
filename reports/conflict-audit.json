@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-31T14:12:15.552Z",
+  "generatedAt": "2026-08-31T17:53:05.347Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 69,
-  "reviewCount": 69,
+  "advisoryCount": 68,
+  "reviewCount": 68,
   "summary": {
-    "provisional_parent": 69
+    "provisional_parent": 68
   },
   "topIssues": [],
   "topAdvisories": [
@@ -628,20 +628,6 @@
     {
       "key": "batalla de vinh",
       "name": "Batalla de Vinh",
-      "countries": [
-        "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de vizagapatam",
-      "name": "Batalla de Vizagapatam",
       "countries": [
         "FRA"
       ],

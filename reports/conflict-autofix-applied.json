@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-31T14:10:02.013Z",
-  "changedFullCountries": 2,
+  "generatedAt": "2026-08-31T17:50:26.213Z",
+  "changedFullCountries": 3,
   "fullPassChanges": [
-    2,
+    3,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 156,
+    "enriched": 158,
     "retired": 0,
     "written": true,
     "compacted": false
@@ -181,6 +181,7 @@
       "Batalla del canal de la Mona (1782)",
       "Batalla de Neuville (1760)",
       "Batalla naval de Orford Ness (1704)",
+      "Batalla naval de Vizagapatam (1804)",
       "Accion naval del paso de Doro (1827)",
       "Combate naval de Jask (1620)",
       "Batalla naval de Pirano (1812)"
@@ -241,7 +242,8 @@
       "Asedio y captura de Chandannagar (1757)",
       "Batalla de Diu (1509)",
       "Batalla de Sadras (1782)",
-      "Batalla de Negapatam (1782)"
+      "Batalla de Negapatam (1782)",
+      "Batalla naval de Vizagapatam (1804)"
     ],
     "polonia": [
       "Batalla de Golymin (1806)",
@@ -1292,6 +1294,13 @@
     "Batalla del lago Peipus (1242)": "Batalla del lago Peipus (1242)",
     "Battle of Lake Peipus": "Batalla del lago Peipus (1242)",
     "Battle on the Ice": "Batalla del lago Peipus (1242)",
+    "Batalla de Vizagapatam": "Batalla naval de Vizagapatam (1804)",
+    "Batalla naval de Vizagapatam": "Batalla naval de Vizagapatam (1804)",
+    "Batalla naval de Vizagapatam (1804)": "Batalla naval de Vizagapatam (1804)",
+    "Batalla de Visakhapatnam": "Batalla naval de Vizagapatam (1804)",
+    "Battle of Vizagapatam": "Batalla naval de Vizagapatam (1804)",
+    "Battle of Visakhapatnam": "Batalla naval de Vizagapatam (1804)",
+    "Action in Vizagapatam Roads": "Batalla naval de Vizagapatam (1804)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2393,6 +2402,7 @@
     "Batalla de Newry Road (1993)",
     "Combate del Callao (1866)",
     "Batalla del lago Peipus (1242)",
+    "Batalla naval de Vizagapatam (1804)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

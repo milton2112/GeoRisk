@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-31T14:10:08.239Z",
+  "generatedAt": "2026-08-31T17:50:32.958Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12181187,
-    "duplicatedCountryFilesBytes": 1543258,
-    "countryConflictShardBytes": 437205,
+    "fullBytes": 12211085,
+    "duplicatedCountryFilesBytes": 1543611,
+    "countryConflictShardBytes": 437683,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
         "bytes": 24971,
-        "inlineBytes": 1234535,
+        "inlineBytes": 1245409,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,7 +21,7 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 328,
+          "conflicts": 329,
           "timelineEvents": 4
         },
         "metrics": {
@@ -54,9 +54,9 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 76251,
-          "conflictShardBytes": 76252,
-          "averageConflictBytes": 232
+          "conflictsBytes": 76604,
+          "conflictShardBytes": 76605,
+          "averageConflictBytes": 233
         }
       },
       {
@@ -165,7 +165,7 @@
         "code": "FRA",
         "name": "Francia",
         "bytes": 20417,
-        "inlineBytes": 869123,
+        "inlineBytes": 877273,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -207,8 +207,8 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 48677,
-          "conflictShardBytes": 48678,
+          "conflictsBytes": 48802,
+          "conflictShardBytes": 48803,
           "averageConflictBytes": 204
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 136,
+    "pendingCount": 135,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15767,19 +15767,6 @@
       },
       {
         "name": "Batalla de Vinh",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Vizagapatam",
         "countries": [
           "FRA"
         ],
