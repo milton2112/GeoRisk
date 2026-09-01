@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-01T17:01:21.222Z",
+  "generatedAt": "2026-09-01T17:11:58.175Z",
   "scannedConflicts": 2000,
   "issueCount": 0,
-  "advisoryCount": 52,
-  "reviewCount": 52,
+  "advisoryCount": 51,
+  "reviewCount": 51,
   "summary": {
-    "provisional_parent": 52
+    "provisional_parent": 51
   },
   "topIssues": [],
   "topAdvisories": [
@@ -200,20 +200,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de procida canal",
-      "name": "Batalla de Procida Canal",
-      "countries": [
-        "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],

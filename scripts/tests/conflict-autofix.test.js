@@ -566,6 +566,11 @@ import {
   WESTTIEF_1712_CONFLICT_RENAMES
 } from "../lib/conflict-curation-westtief-1712.js";
 import {
+  PROCIDA_CANAL_1809_CONFLICT_DETAIL_FIXES,
+  PROCIDA_CANAL_1809_COUNTRY_CONFLICT_ADDITIONS,
+  PROCIDA_CANAL_1809_CONFLICT_RENAMES
+} from "../lib/conflict-curation-procida-canal-1809.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -5364,6 +5369,44 @@ assert.ok(
     && /fines de julio/i.test(westtief1712Detail.datePrecision)
     && /no se fusiona/i.test(westtief1712Detail.curationNote),
   "la curaduria de Westtief debe consolidar duplicados sin absorber la accion distinta frente a Rugen"
+);
+assert.equal(Object.keys(PROCIDA_CANAL_1809_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  PROCIDA_CANAL_1809_CONFLICT_RENAMES["Battle of the Procida Canal"],
+  "Batalla naval del canal de Procida (26 de junio de 1809)",
+  "la entrada inglesa de Procida debe llegar a la ficha naval curada"
+);
+assert.equal(
+  PROCIDA_CANAL_1809_CONFLICT_RENAMES["Batalla de Procida Canal"],
+  "Batalla naval del canal de Procida (26 de junio de 1809)",
+  "la variante traducida sin fecha debe resolver el episodio de 1809"
+);
+assert.deepEqual(
+  PROCIDA_CANAL_1809_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Reino Unido": ["Batalla naval del canal de Procida (26 de junio de 1809)"],
+    Italia: ["Batalla naval del canal de Procida (26 de junio de 1809)"]
+  }
+);
+const procidaCanal1809Detail = PROCIDA_CANAL_1809_CONFLICT_DETAIL_FIXES["Batalla naval del canal de Procida (26 de junio de 1809)"];
+assert.ok(
+  procidaCanal1809Detail
+    && procidaCanal1809Detail.startYear === 1809
+    && procidaCanal1809Detail.startYear === procidaCanal1809Detail.endYear
+    && procidaCanal1809Detail.parent === "Guerra de la Quinta Coalici\u00f3n (1809)"
+    && procidaCanal1809Detail.war === "Guerra de la Quinta Coalici\u00f3n (1809)"
+    && procidaCanal1809Detail.campaign === "Expedici\u00f3n anglo-siciliana a Ischia y Procida (junio-julio de 1809)"
+    && procidaCanal1809Detail.type === "combate naval"
+    && procidaCanal1809Detail.conflictType === "interestatal"
+    && procidaCanal1809Detail.scale === "regional"
+    && procidaCanal1809Detail.hierarchyConfidence === "alta"
+    && procidaCanal1809Detail.hierarchySources?.length === 3
+    && procidaCanal1809Detail.participants?.length === 2
+    && procidaCanal1809Detail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /26 de junio de 1809/i.test(procidaCanal1809Detail.datePrecision)
+    && /1799/i.test(procidaCanal1809Detail.sourceDispute)
+    && /No se absorbe la batalla de 1799/i.test(procidaCanal1809Detail.curationNote),
+  "la curaduria de Procida debe fijar el episodio de 1809 sin mezclar la accion distinta de 1799"
 );
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(

@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-09-01T16:59:03.912Z",
+  "generatedAt": "2026-09-01T17:09:52.512Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12616891,
-    "duplicatedCountryFilesBytes": 1549270,
-    "countryConflictShardBytes": 443490,
+    "fullBytes": 12648771,
+    "duplicatedCountryFilesBytes": 1549666,
+    "countryConflictShardBytes": 444052,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
         "bytes": 25046,
-        "inlineBytes": 1304993,
+        "inlineBytes": 1316529,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,7 +21,7 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 334,
+          "conflicts": 335,
           "timelineEvents": 4
         },
         "metrics": {
@@ -54,9 +54,9 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 78501,
-          "conflictShardBytes": 78502,
-          "averageConflictBytes": 235
+          "conflictsBytes": 78897,
+          "conflictShardBytes": 78898,
+          "averageConflictBytes": 236
         }
       },
       {
@@ -114,7 +114,7 @@
         "code": "FRA",
         "name": "Francia",
         "bytes": 21209,
-        "inlineBytes": 968135,
+        "inlineBytes": 976943,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -156,9 +156,9 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 50572,
-          "conflictShardBytes": 50573,
-          "averageConflictBytes": 210
+          "conflictsBytes": 50738,
+          "conflictShardBytes": 50739,
+          "averageConflictBytes": 211
         }
       },
       {
@@ -570,41 +570,41 @@
         }
       },
       {
-        "code": "MEX",
-        "name": "México",
-        "bytes": 15736,
-        "inlineBytes": 132413,
+        "code": "ITA",
+        "name": "Italia",
+        "bytes": 15824,
+        "inlineBytes": 85106,
         "tooLarge": false,
         "counts": {
           "cities": 4,
           "capitals": 1,
           "languages": 5,
-          "religionGroups": 4,
-          "organizations": 50,
-          "rivals": 8,
-          "conflicts": 29,
+          "religionGroups": 5,
+          "organizations": 77,
+          "rivals": 45,
+          "conflicts": 14,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 7244,
-            "politics": 4817,
+            "politics": 8689,
+            "military": 3399,
             "metadata": 1936,
-            "general": 870,
-            "history": 398,
-            "religion": 248,
-            "economy": 101,
-            "name": 9,
-            "continent": 9
+            "general": 828,
+            "history": 448,
+            "religion": 305,
+            "economy": 99,
+            "name": 8,
+            "continent": 8
           },
           "largestSections": [
             {
-              "section": "military",
-              "bytes": 7244
+              "section": "politics",
+              "bytes": 8689
             },
             {
-              "section": "politics",
-              "bytes": 4817
+              "section": "military",
+              "bytes": 3399
             },
             {
               "section": "metadata",
@@ -612,12 +612,12 @@
             },
             {
               "section": "general",
-              "bytes": 870
+              "bytes": 828
             }
           ],
-          "conflictsBytes": 7127,
+          "conflictsBytes": 3282,
           "conflictShardBytes": 0,
-          "averageConflictBytes": 246
+          "averageConflictBytes": 234
         }
       }
     ]
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 119,
+    "pendingCount": 118,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15369,19 +15369,6 @@
         ],
         "regions": [
           "Asia"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Procida Canal",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"

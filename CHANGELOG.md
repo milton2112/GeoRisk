@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.193 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.194 antes de cerrar la siguiente version.
+
+## v1.6.194 - 2026-09-01
+
+- Normaliza **Battle of the Procida Canal** como **Batalla naval del canal de Procida (26 de junio de 1809)**, corrigiendo idioma, fecha, lugar, bandos y jerarquia dentro de la Guerra de la Quinta Coalicion.
+- Vincula la ficha desde Francia, Reino Unido e Italia, separa los estados historicos reales de los paises actuales de navegacion y agrega fuentes navales sobre la expedicion anglo-siciliana.
+- Distingue el intento de paso del 26 de junio de las acciones navales vecinas del 25 al 27 de junio de 1809 y de la batalla distinta de 1799, sin mezclar mandos ni bajas.
+- Reduce las jerarquias provisionales de conflictos de 52 a 51 y los conflictos sin fecha de 120 a 119, con una regresion de integridad para los aliases y la desambiguacion.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-01-release-11`.
 
 ## v1.6.193 - 2026-09-01
 

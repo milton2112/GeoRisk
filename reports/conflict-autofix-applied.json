@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-01T16:58:57.399Z",
+  "generatedAt": "2026-09-01T17:09:45.919Z",
   "changedFullCountries": 3,
   "fullPassChanges": [
     3,
@@ -8,12 +8,12 @@
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 190,
+    "enriched": 192,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1074,
+  "generatedHierarchyCandidates": 1075,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -195,6 +195,7 @@
       "Batalla naval de Port Louis (11 de diciembre de 1799)",
       "Acción naval de Saint-Louis-du-Sud (marzo de 1748)",
       "Combate naval de Tellicherry (1791)",
+      "Batalla naval del canal de Procida (26 de junio de 1809)",
       "Accion naval del paso de Doro (1827)",
       "Combate naval de Jask (1620)",
       "Batalla naval de Pirano (1812)"
@@ -459,6 +460,7 @@
     "italia": [
       "Batalla de las islas Hyères (1795)",
       "Batalla naval de Lissa (1811)",
+      "Batalla naval del canal de Procida (26 de junio de 1809)",
       "Batalla naval de Pirano (1812)"
     ],
     "sahara occidental": [
@@ -1441,6 +1443,14 @@
     "Naval battles of the Greifswalder Bodden": "Combates navales de Westtief y el Greifswalder Bodden (julio-agosto de 1712)",
     "Batallas navales en Greifswalder Bodden": "Combates navales de Westtief y el Greifswalder Bodden (julio-agosto de 1712)",
     "Seegefechte im Greifswalder Bodden (1712)": "Combates navales de Westtief y el Greifswalder Bodden (julio-agosto de 1712)",
+    "Battle of the Procida Canal": "Batalla naval del canal de Procida (26 de junio de 1809)",
+    "Battle of Procida Canal": "Batalla naval del canal de Procida (26 de junio de 1809)",
+    "Batalla de Procida Canal": "Batalla naval del canal de Procida (26 de junio de 1809)",
+    "Batalla del canal de Procida": "Batalla naval del canal de Procida (26 de junio de 1809)",
+    "Battaglia del Canale di Procida": "Batalla naval del canal de Procida (26 de junio de 1809)",
+    "Battaglia del Canale di Procida (1809)": "Batalla naval del canal de Procida (26 de junio de 1809)",
+    "Bataille navale de Procida": "Batalla naval del canal de Procida (26 de junio de 1809)",
+    "Bataille navale de Procida (1809)": "Batalla naval del canal de Procida (26 de junio de 1809)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2559,6 +2569,7 @@
     "Batalla de Treiden (1628)",
     "Combate naval de Tellicherry (1791)",
     "Combates navales de Westtief y el Greifswalder Bodden (julio-agosto de 1712)",
+    "Batalla naval del canal de Procida (26 de junio de 1809)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",
