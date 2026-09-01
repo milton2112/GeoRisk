@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-01T10:15:05.897Z",
+  "generatedAt": "2026-09-01T10:22:22.637Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12408991,
-    "duplicatedCountryFilesBytes": 1546410,
-    "countryConflictShardBytes": 440376,
+    "fullBytes": 12418425,
+    "duplicatedCountryFilesBytes": 1546667,
+    "countryConflictShardBytes": 440512,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -164,8 +164,8 @@
       {
         "code": "FRA",
         "name": "Francia",
-        "bytes": 20830,
-        "inlineBytes": 914293,
+        "bytes": 21087,
+        "inlineBytes": 923727,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -179,7 +179,7 @@
         },
         "metrics": {
           "sectionBytes": {
-            "military": 9150,
+            "military": 9407,
             "politics": 7898,
             "metadata": 1952,
             "general": 933,
@@ -192,7 +192,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 9150
+              "bytes": 9407
             },
             {
               "section": "politics",
@@ -207,8 +207,8 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 49421,
-          "conflictShardBytes": 49422,
+          "conflictsBytes": 49557,
+          "conflictShardBytes": 49558,
           "averageConflictBytes": 207
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 127,
+    "pendingCount": 126,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15889,19 +15889,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla naval de Saint-Martin-de-Re",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"

@@ -527,6 +527,10 @@ import {
   PORT_LOUIS_1799_CONFLICT_RENAMES
 } from "../lib/conflict-curation-port-louis-1799.js";
 import {
+  SAINT_MARTIN_RE_1622_CONFLICT_DETAIL_FIXES,
+  SAINT_MARTIN_RE_1622_CONFLICT_RENAMES
+} from "../lib/conflict-curation-saint-martin-re-1622.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -5041,6 +5045,35 @@ assert.ok(
 const portLouisWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval de Port Louis (11 de diciembre de 1799)");
 assert.equal(portLouisWikipediaOverride.language, "en");
 assert.equal(portLouisWikipediaOverride.pageTitle, "Battle_of_Port_Louis");
+assert.equal(Object.keys(SAINT_MARTIN_RE_1622_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  SAINT_MARTIN_RE_1622_CONFLICT_RENAMES["Naval Batalla de Saint-Martin-de-Re"],
+  "Batalla naval de Saint-Martin-de-R\u00e9 (26-27 de octubre de 1622)",
+  "el nombre mixto de Saint-Martin-de-Re debe resolver la ficha naval curada"
+);
+const saintMartinReDetail = SAINT_MARTIN_RE_1622_CONFLICT_DETAIL_FIXES["Batalla naval de Saint-Martin-de-R\u00e9 (26-27 de octubre de 1622)"];
+assert.ok(
+  saintMartinReDetail
+    && saintMartinReDetail.startYear === 1622
+    && saintMartinReDetail.startYear === saintMartinReDetail.endYear
+    && saintMartinReDetail.parent === "Primera rebeli\u00f3n hugonote (1621-1622)"
+    && saintMartinReDetail.war === "Primera rebeli\u00f3n hugonote (1621-1622)"
+    && saintMartinReDetail.campaign === "Operaciones navales de La Rochelle e isla de R\u00e9 (octubre de 1622)"
+    && saintMartinReDetail.type === "batalla naval"
+    && saintMartinReDetail.conflictType === "civil"
+    && saintMartinReDetail.scale === "regional"
+    && saintMartinReDetail.hierarchyConfidence === "alta"
+    && saintMartinReDetail.hierarchySources?.length === 3
+    && saintMartinReDetail.participants?.length === 2
+    && saintMartinReDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /26-27 de octubre de 1622/i.test(saintMartinReDetail.datePrecision)
+    && /inconcluso/i.test(saintMartinReDetail.sourceDispute)
+    && /Ventaja tactica real/i.test(saintMartinReDetail.outcome),
+  "la curaduria de Saint-Martin-de-Re debe corregir fecha, guerra, bandos y cautela sobre resultado y bajas"
+);
+const saintMartinReWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval de Saint-Martin-de-R\u00e9 (26-27 de octubre de 1622)");
+assert.equal(saintMartinReWikipediaOverride.language, "en");
+assert.equal(saintMartinReWikipediaOverride.pageTitle, "Naval_battle_of_Saint-Martin-de-R\u00e9");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

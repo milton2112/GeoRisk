@@ -8,7 +8,14 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.185 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.186 antes de cerrar la siguiente version.
+
+## v1.6.186 - 2026-09-01
+
+- Normaliza el nombre mixto "Naval Batalla de Saint-Martin-de-Ré" como **Batalla naval de Saint-Martin-de-Ré (26-27 de octubre de 1622)**, corrigiendo fecha, geografía, guerra y el tipo de interestatal a civil.
+- Conserva la discrepancia entre "victoria real" y "combate inconcluso", evita cifras de bajas no comparables y distingue la Corona francesa de la comunidad protestante de La Rochelle.
+- Agrega fuentes locales de La Rochelle y de historia marítima, aliases, detalle histórico, índice de búsqueda y regresiones.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-01-release-3`.
 
 ## v1.6.185 - 2026-09-01
 

@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-09-01T10:14:59.384Z",
-  "changedFullCountries": 2,
+  "generatedAt": "2026-09-01T10:22:16.304Z",
+  "changedFullCountries": 1,
   "fullPassChanges": [
-    2,
+    1,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 174,
+    "enriched": 176,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1066,
+  "generatedHierarchyCandidates": 1067,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -697,8 +697,8 @@
     "Chinese Invasion de Taiwan": "Invasion china de Taiwan",
     "Action off Galveston Light": "Accion frente al faro de Galveston",
     "Battles de Wenden": "Batallas de Wenden",
-    "Naval Batalla de Saint-Martin-de-Re": "Batalla naval de Saint-Martin-de-Re",
-    "Naval Batalla de Saint-Martin-de-Ré": "Batalla naval de Saint-Martin-de-Re",
+    "Naval Batalla de Saint-Martin-de-Re": "Batalla naval de Saint-Martin-de-Ré (26-27 de octubre de 1622)",
+    "Naval Batalla de Saint-Martin-de-Ré": "Batalla naval de Saint-Martin-de-Ré (26-27 de octubre de 1622)",
     "Naval battles on Lake Ladoga": "Batallas navales del lago Ladoga",
     "Ogu Air Raid": "Ataque aereo de Ogu",
     "Wake Atoll raid": "Incursion sobre el atolon Wake",
@@ -1379,6 +1379,13 @@
     "Acción naval de Port Louis (11 de diciembre de 1799)": "Batalla naval de Port Louis (11 de diciembre de 1799)",
     "Battle of Port Louis (1799)": "Batalla naval de Port Louis (11 de diciembre de 1799)",
     "Action of 11 December 1799": "Batalla naval de Port Louis (11 de diciembre de 1799)",
+    "Batalla naval de Saint-Martin-de-Re": "Batalla naval de Saint-Martin-de-Ré (26-27 de octubre de 1622)",
+    "Batalla naval de Saint-Martin-de-Ré": "Batalla naval de Saint-Martin-de-Ré (26-27 de octubre de 1622)",
+    "Batalla naval de Saint-Martin-de-Re (1622)": "Batalla naval de Saint-Martin-de-Ré (26-27 de octubre de 1622)",
+    "Batalla naval de Saint-Martin-de-Ré (1622)": "Batalla naval de Saint-Martin-de-Ré (26-27 de octubre de 1622)",
+    "Naval battle of Saint-Martin-de-Re": "Batalla naval de Saint-Martin-de-Ré (26-27 de octubre de 1622)",
+    "Naval battle of Saint-Martin-de-Ré": "Batalla naval de Saint-Martin-de-Ré (26-27 de octubre de 1622)",
+    "Bataille navale de Saint-Martin-de-Ré (1622)": "Batalla naval de Saint-Martin-de-Ré (26-27 de octubre de 1622)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2489,6 +2496,7 @@
     "Primera batalla de Tamão (1521)",
     "Acción naval de Tatamagouche (15 de junio de 1745)",
     "Batalla naval de Port Louis (11 de diciembre de 1799)",
+    "Batalla naval de Saint-Martin-de-Ré (26-27 de octubre de 1622)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",
