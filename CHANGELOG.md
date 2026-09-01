@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.194 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.195 antes de cerrar la siguiente version.
+
+## v1.6.195 - 2026-09-01
+
+- Normaliza **Batalla de Nur Shams** como **Batalla de Anabta (Nur Shams, 21 de junio de 1936)**, corrigiendo fecha, lugar, tipo, bandos y jerarquia dentro de la Revuelta arabe en Palestina.
+- Conserva los nombres Anabta, Nur Shams y Nur-el-Shems como aliases, y agrega la navegacion geografica desde Cisjordania sin sustituir el Mandato britanico de Palestina ni los bandos historicos.
+- Documenta el episodio con un parte contemporaneo, archivo palestino, archivo de la British Library y un estudio academico; mantiene las discrepancias de bajas y separa este combate del tiroteo distinto de Anabta del 15 de abril de 1936.
+- Reduce las jerarquias provisionales de conflictos de 51 a 50, agrega una regresion de integridad y genera la ficha diferida e indices de busqueda correspondientes.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-01-release-12`.
 
 ## v1.6.194 - 2026-09-01
 

@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-09-01T17:09:45.919Z",
-  "changedFullCountries": 3,
+  "generatedAt": "2026-09-01T17:20:43.835Z",
+  "changedFullCountries": 2,
   "fullPassChanges": [
-    3,
+    2,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 192,
+    "enriched": 194,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1075,
+  "generatedHierarchyCandidates": 1076,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -494,6 +494,9 @@
     ],
     "letonia": [
       "Batalla de Treiden (1628)"
+    ],
+    "cisjordania": [
+      "Batalla de Anabta (Nur Shams, 21 de junio de 1936)"
     ],
     "afganistan": [
       "Batalla de Aranas (2007)"
@@ -1451,6 +1454,13 @@
     "Battaglia del Canale di Procida (1809)": "Batalla naval del canal de Procida (26 de junio de 1809)",
     "Bataille navale de Procida": "Batalla naval del canal de Procida (26 de junio de 1809)",
     "Bataille navale de Procida (1809)": "Batalla naval del canal de Procida (26 de junio de 1809)",
+    "Batalla de Nur Shams": "Batalla de Anabta (Nur Shams, 21 de junio de 1936)",
+    "Battle of Nur Shams": "Batalla de Anabta (Nur Shams, 21 de junio de 1936)",
+    "Battle of Nur-el-Shems": "Batalla de Anabta (Nur Shams, 21 de junio de 1936)",
+    "Batalla de Anabta": "Batalla de Anabta (Nur Shams, 21 de junio de 1936)",
+    "Battle of Anabta": "Batalla de Anabta (Nur Shams, 21 de junio de 1936)",
+    "Batalla de Anbata": "Batalla de Anabta (Nur Shams, 21 de junio de 1936)",
+    "Battle of Anbata": "Batalla de Anabta (Nur Shams, 21 de junio de 1936)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2570,6 +2580,7 @@
     "Combate naval de Tellicherry (1791)",
     "Combates navales de Westtief y el Greifswalder Bodden (julio-agosto de 1712)",
     "Batalla naval del canal de Procida (26 de junio de 1809)",
+    "Batalla de Anabta (Nur Shams, 21 de junio de 1936)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

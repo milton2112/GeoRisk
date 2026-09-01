@@ -571,6 +571,11 @@ import {
   PROCIDA_CANAL_1809_CONFLICT_RENAMES
 } from "../lib/conflict-curation-procida-canal-1809.js";
 import {
+  ANABTA_NUR_SHAMS_1936_CONFLICT_DETAIL_FIXES,
+  ANABTA_NUR_SHAMS_1936_COUNTRY_CONFLICT_ADDITIONS,
+  ANABTA_NUR_SHAMS_1936_CONFLICT_RENAMES
+} from "../lib/conflict-curation-anabta-nur-shams-1936.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -5407,6 +5412,43 @@ assert.ok(
     && /1799/i.test(procidaCanal1809Detail.sourceDispute)
     && /No se absorbe la batalla de 1799/i.test(procidaCanal1809Detail.curationNote),
   "la curaduria de Procida debe fijar el episodio de 1809 sin mezclar la accion distinta de 1799"
+);
+assert.equal(Object.keys(ANABTA_NUR_SHAMS_1936_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  ANABTA_NUR_SHAMS_1936_CONFLICT_RENAMES["Batalla de Nur Shams"],
+  "Batalla de Anabta (Nur Shams, 21 de junio de 1936)",
+  "la entrada de Nur Shams debe llegar a la ficha curada de Anabta"
+);
+assert.equal(
+  ANABTA_NUR_SHAMS_1936_CONFLICT_RENAMES["Battle of Anabta"],
+  "Batalla de Anabta (Nur Shams, 21 de junio de 1936)",
+  "el alias ingles de Anabta debe resolver la ficha curada"
+);
+assert.deepEqual(
+  ANABTA_NUR_SHAMS_1936_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    Cisjordania: ["Batalla de Anabta (Nur Shams, 21 de junio de 1936)"]
+  }
+);
+const anabtaNurShams1936Detail = ANABTA_NUR_SHAMS_1936_CONFLICT_DETAIL_FIXES["Batalla de Anabta (Nur Shams, 21 de junio de 1936)"];
+assert.ok(
+  anabtaNurShams1936Detail
+    && anabtaNurShams1936Detail.startYear === 1936
+    && anabtaNurShams1936Detail.startYear === anabtaNurShams1936Detail.endYear
+    && anabtaNurShams1936Detail.parent === "Revuelta \u00e1rabe en Palestina (1936-1939)"
+    && anabtaNurShams1936Detail.war === "Revuelta \u00e1rabe en Palestina (1936-1939)"
+    && anabtaNurShams1936Detail.campaign === "Fase inicial de la Revuelta \u00e1rabe en Palestina (abril-junio de 1936)"
+    && anabtaNurShams1936Detail.type === "emboscada y combate terrestre"
+    && anabtaNurShams1936Detail.conflictType === "insurgencia"
+    && anabtaNurShams1936Detail.scale === "local"
+    && anabtaNurShams1936Detail.hierarchyConfidence === "alta"
+    && anabtaNurShams1936Detail.hierarchySources?.length === 4
+    && anabtaNurShams1936Detail.participants?.length === 2
+    && anabtaNurShams1936Detail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /21 de junio de 1936/i.test(anabtaNurShams1936Detail.datePrecision)
+    && /15 de abril/i.test(anabtaNurShams1936Detail.sourceDispute)
+    && /no sustituye/i.test(anabtaNurShams1936Detail.curationNote),
+  "la curaduria de Anabta/Nur Shams debe conservar los nombres, la fecha y las incertidumbres sin mezclar el episodio de abril"
 );
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(

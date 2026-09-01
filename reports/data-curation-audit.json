@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-09-01T17:09:52.512Z",
+  "generatedAt": "2026-09-01T17:20:50.341Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12648771,
-    "duplicatedCountryFilesBytes": 1549666,
-    "countryConflictShardBytes": 444052,
+    "fullBytes": 12670603,
+    "duplicatedCountryFilesBytes": 1550096,
+    "countryConflictShardBytes": 444256,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
         "bytes": 25046,
-        "inlineBytes": 1316529,
+        "inlineBytes": 1326081,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -54,8 +54,8 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 78897,
-          "conflictShardBytes": 78898,
+          "conflictsBytes": 79101,
+          "conflictShardBytes": 79102,
           "averageConflictBytes": 236
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 118,
+    "pendingCount": 117,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15278,19 +15278,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Nur Shams",
-        "countries": [
-          "GBR"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
