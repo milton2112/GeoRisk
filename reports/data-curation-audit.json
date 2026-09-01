@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-01T10:41:59.849Z",
+  "generatedAt": "2026-09-01T10:52:38.427Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12487161,
-    "duplicatedCountryFilesBytes": 1547756,
-    "countryConflictShardBytes": 441440,
+    "fullBytes": 12506963,
+    "duplicatedCountryFilesBytes": 1547808,
+    "countryConflictShardBytes": 441994,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -368,8 +368,8 @@
       {
         "code": "RUS",
         "name": "Rusia",
-        "bytes": 18859,
-        "inlineBytes": 291739,
+        "bytes": 18911,
+        "inlineBytes": 303015,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -378,12 +378,12 @@
           "religionGroups": 4,
           "organizations": 41,
           "rivals": 19,
-          "conflicts": 66,
+          "conflicts": 67,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 10057,
+            "military": 10109,
             "politics": 4980,
             "metadata": 1926,
             "general": 965,
@@ -396,7 +396,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 10057
+              "bytes": 10109
             },
             {
               "section": "politics",
@@ -411,9 +411,9 @@
               "bytes": 965
             }
           ],
-          "conflictsBytes": 15312,
-          "conflictShardBytes": 15313,
-          "averageConflictBytes": 232
+          "conflictsBytes": 15710,
+          "conflictShardBytes": 15711,
+          "averageConflictBytes": 234
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 124,
+    "pendingCount": 123,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15837,19 +15837,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla en la desembocadura del Neva",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"

@@ -541,6 +541,11 @@ import {
   PIERRES_NOIRES_1944_CONFLICT_RENAMES
 } from "../lib/conflict-curation-pierres-noires-1944.js";
 import {
+  NEVA_MOUTH_1703_CONFLICT_DETAIL_FIXES,
+  NEVA_MOUTH_1703_COUNTRY_CONFLICT_ADDITIONS,
+  NEVA_MOUTH_1703_CONFLICT_RENAMES
+} from "../lib/conflict-curation-neva-mouth-1703.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -5159,6 +5164,39 @@ assert.ok(
 const pierresNoiresWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval de Pierres Noires (5-6 de julio de 1944)");
 assert.equal(pierresNoiresWikipediaOverride.language, "en");
 assert.equal(pierresNoiresWikipediaOverride.pageTitle, "Battle_of_Pierres_Noires");
+assert.equal(Object.keys(NEVA_MOUTH_1703_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  NEVA_MOUTH_1703_CONFLICT_RENAMES["Battle at the Mouth of the Neva"],
+  "Combate naval en la desembocadura del Neva (7/18 de mayo de 1703)",
+  "la entrada inglesa del combate del Neva de 1703 debe separar fecha, idioma y periodo del combate medieval"
+);
+assert.deepEqual(
+  NEVA_MOUTH_1703_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    Rusia: ["Combate naval en la desembocadura del Neva (7/18 de mayo de 1703)"]
+  }
+);
+const nevaMouth1703Detail = NEVA_MOUTH_1703_CONFLICT_DETAIL_FIXES["Combate naval en la desembocadura del Neva (7/18 de mayo de 1703)"];
+assert.ok(
+  nevaMouth1703Detail
+    && nevaMouth1703Detail.startYear === 1703
+    && nevaMouth1703Detail.startYear === nevaMouth1703Detail.endYear
+    && nevaMouth1703Detail.parent === "Gran Guerra del Norte"
+    && nevaMouth1703Detail.war === "Gran Guerra del Norte"
+    && nevaMouth1703Detail.campaign === "Operaciones rusas en la desembocadura del Neva (mayo de 1703)"
+    && nevaMouth1703Detail.type === "combate naval de abordaje"
+    && nevaMouth1703Detail.conflictType === "interestatal"
+    && nevaMouth1703Detail.scale === "regional"
+    && nevaMouth1703Detail.hierarchyConfidence === "alta"
+    && nevaMouth1703Detail.hierarchySources?.length === 3
+    && nevaMouth1703Detail.participants?.length === 2
+    && nevaMouth1703Detail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /7\/18 de mayo de 1703/i.test(nevaMouth1703Detail.datePrecision)
+    && /calendario juliano/i.test(nevaMouth1703Detail.sourceDispute)
+    && /Victoria t\u00e1ctica rusa/i.test(nevaMouth1703Detail.outcome)
+    && /Batalla del Neva de 1240/i.test(nevaMouth1703Detail.curationNote),
+  "la curaduria del combate del Neva de 1703 debe corregir fecha, guerra, bandos, lugar y distincion frente a 1240"
+);
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

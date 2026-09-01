@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-09-01T10:43:12.114Z",
+  "generatedAt": "2026-09-01T16:13:08.223Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 125
+      "count": 124
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 57
+      "count": 56
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 596
+      "count": 597
     },
     "redundantReligions": {
       "count": 0
@@ -253,7 +253,7 @@
       },
       {
         "code": "SWE",
-        "name": "Batalla en la desembocadura del Neva",
+        "name": "Batallas de Wenden",
         "region": "Europa"
       }
     ],
@@ -428,13 +428,6 @@
         "startYear": null
       },
       {
-        "code": "SWE",
-        "name": "Batalla en la desembocadura del Neva",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
         "code": "SYR",
         "name": "Operación Batalla por la Restauración de la Dignidad",
         "parent": "Conflicto regional de Asia",
@@ -535,6 +528,13 @@
       {
         "code": "USA",
         "name": "Batalla de Rio Grande City",
+        "parent": "Conflicto regional de América",
+        "campaign": "Campaña vinculada a Conflicto regional de América",
+        "startYear": null
+      },
+      {
+        "code": "USA",
+        "name": "Batalla de Romanovka",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 57,
+      "count": 56,
       "command": "npm run fix:conflicts:batches"
     },
     {

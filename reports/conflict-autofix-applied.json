@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-01T10:41:53.607Z",
-  "changedFullCountries": 3,
+  "generatedAt": "2026-09-01T10:52:31.805Z",
+  "changedFullCountries": 2,
   "fullPassChanges": [
-    3,
+    2,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 180,
+    "enriched": 182,
     "retired": 0,
     "written": true,
     "compacted": false
@@ -238,7 +238,8 @@
       "Combate de Kalyazin (1609)",
       "Batalla de Kaipiais (1789)",
       "Guerra polaco-sovietica (1919-1921)",
-      "Batalla del lago Peipus (1242)"
+      "Batalla del lago Peipus (1242)",
+      "Combate naval en la desembocadura del Neva (7/18 de mayo de 1703)"
     ],
     "reino de los paises bajos": [
       "Batalla de Camaret (1694)",
@@ -1404,6 +1405,11 @@
     "Batalla naval de Pierres Noires": "Batalla naval de Pierres Noires (5-6 de julio de 1944)",
     "Batalla naval de Pierres Noires (1944)": "Batalla naval de Pierres Noires (5-6 de julio de 1944)",
     "Bataille de Pierres Noires": "Batalla naval de Pierres Noires (5-6 de julio de 1944)",
+    "Battle at the Mouth of the Neva": "Combate naval en la desembocadura del Neva (7/18 de mayo de 1703)",
+    "Battle at the mouth of the Neva": "Combate naval en la desembocadura del Neva (7/18 de mayo de 1703)",
+    "Batalla en la desembocadura del Neva": "Combate naval en la desembocadura del Neva (7/18 de mayo de 1703)",
+    "Combate naval en la desembocadura del Neva": "Combate naval en la desembocadura del Neva (7/18 de mayo de 1703)",
+    "Seegefecht an der Mündung der Newa": "Combate naval en la desembocadura del Neva (7/18 de mayo de 1703)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2517,6 +2523,7 @@
     "Batalla naval de Saint-Martin-de-Ré (26-27 de octubre de 1622)",
     "Acción naval de Saint-Louis-du-Sud (marzo de 1748)",
     "Batalla naval de Pierres Noires (5-6 de julio de 1944)",
+    "Combate naval en la desembocadura del Neva (7/18 de mayo de 1703)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

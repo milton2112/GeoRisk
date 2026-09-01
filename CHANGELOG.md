@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.188 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.189 antes de cerrar la siguiente version.
+
+## v1.6.189 - 2026-09-01
+
+- Normaliza **Battle at the Mouth of the Neva** como **Combate naval en la desembocadura del Neva (7/18 de mayo de 1703)**, distinguiendolo de la batalla medieval del Neva de 1240.
+- Corrige fecha de doble calendario, idioma, ubicacion, guerra, campana, bandos historicos y navegacion contemporanea desde Rusia y Suecia.
+- Documenta la captura de Gedan y Astrild con dos estudios universitarios y una coleccion historica sueca, sin inventar bajas o efectivos donde las fuentes no consolidan una cifra.
+- Reduce las jerarquias provisionales de conflictos de 57 a 56, agrega detalle bajo demanda, indices y una regresion que protege la separacion historica.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-01-release-6`.
 
 ## v1.6.188 - 2026-09-01
 

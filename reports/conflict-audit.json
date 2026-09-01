@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-01T10:43:08.749Z",
+  "generatedAt": "2026-09-01T16:13:04.490Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 57,
-  "reviewCount": 57,
+  "advisoryCount": 56,
+  "reviewCount": 56,
   "summary": {
-    "provisional_parent": 57
+    "provisional_parent": 56
   },
   "topIssues": [],
   "topAdvisories": [
@@ -704,20 +704,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla en la desembocadura del neva",
-      "name": "Batalla en la desembocadura del Neva",
-      "countries": [
-        "SWE"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],
