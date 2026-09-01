@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-01T16:45:43.079Z",
+  "generatedAt": "2026-09-01T16:58:57.399Z",
   "changedFullCountries": 3,
   "fullPassChanges": [
     3,
@@ -8,12 +8,12 @@
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 188,
+    "enriched": 190,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1073,
+  "generatedHierarchyCandidates": 1074,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -106,7 +106,8 @@
       "Primera batalla de Vailele (1888)",
       "Combate naval frente a Hiddensee (1870)",
       "Combate naval frente a La Habana (1870)",
-      "Batalla naval de Pierres Noires (5-6 de julio de 1944)"
+      "Batalla naval de Pierres Noires (5-6 de julio de 1944)",
+      "Combates navales de Westtief y el Greifswalder Bodden (julio-agosto de 1712)"
     ],
     "corea del sur": [
       "Acción naval de Happo (1592)",
@@ -361,6 +362,7 @@
       "Batalla de Helgeå (1026)",
       "Batalla de Kringen (1612)",
       "Rebelión de Bornholm (1658)",
+      "Combates navales de Westtief y el Greifswalder Bodden (julio-agosto de 1712)",
       "Batalla naval de Gotska Sandön (1563)"
     ],
     "noruega": [
@@ -379,7 +381,8 @@
       "Primera batalla de Svensksund (1789)",
       "Batalla de Fredrikshamn (1790)",
       "Batalla de Stäket (1719)",
-      "Batalla de Kaipiais (1789)"
+      "Batalla de Kaipiais (1789)",
+      "Combates navales de Westtief y el Greifswalder Bodden (julio-agosto de 1712)"
     ],
     "argentina": [
       "Combate de Top Malo House (1982)"
@@ -1431,6 +1434,13 @@
     "Combate naval de Tellicherry": "Combate naval de Tellicherry (1791)",
     "Battle of Tellicherry": "Combate naval de Tellicherry (1791)",
     "Tellicherry naval battle": "Combate naval de Tellicherry (1791)",
+    "Battle of Westtief": "Combates navales de Westtief y el Greifswalder Bodden (julio-agosto de 1712)",
+    "Batalla de Westtief": "Combates navales de Westtief y el Greifswalder Bodden (julio-agosto de 1712)",
+    "Slaget i Westtief": "Combates navales de Westtief y el Greifswalder Bodden (julio-agosto de 1712)",
+    "Naval battles in the Greifswalder Bodden": "Combates navales de Westtief y el Greifswalder Bodden (julio-agosto de 1712)",
+    "Naval battles of the Greifswalder Bodden": "Combates navales de Westtief y el Greifswalder Bodden (julio-agosto de 1712)",
+    "Batallas navales en Greifswalder Bodden": "Combates navales de Westtief y el Greifswalder Bodden (julio-agosto de 1712)",
+    "Seegefechte im Greifswalder Bodden (1712)": "Combates navales de Westtief y el Greifswalder Bodden (julio-agosto de 1712)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2548,6 +2558,7 @@
     "Batalla de Remada (mayo de 1958)",
     "Batalla de Treiden (1628)",
     "Combate naval de Tellicherry (1791)",
+    "Combates navales de Westtief y el Greifswalder Bodden (julio-agosto de 1712)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

@@ -561,6 +561,11 @@ import {
   TELLICHERRY_1791_CONFLICT_RENAMES
 } from "../lib/conflict-curation-tellicherry-1791.js";
 import {
+  WESTTIEF_1712_CONFLICT_DETAIL_FIXES,
+  WESTTIEF_1712_COUNTRY_CONFLICT_ADDITIONS,
+  WESTTIEF_1712_CONFLICT_RENAMES
+} from "../lib/conflict-curation-westtief-1712.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -5322,6 +5327,44 @@ assert.ok(
 const tellicherryWikipediaOverride = await resolveWikipediaConflictTitle("Combate naval de Tellicherry (1791)");
 assert.equal(tellicherryWikipediaOverride.language, "en");
 assert.equal(tellicherryWikipediaOverride.pageTitle, "Battle_of_Tellicherry");
+assert.equal(Object.keys(WESTTIEF_1712_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  WESTTIEF_1712_CONFLICT_RENAMES["Battle of Westtief"],
+  "Combates navales de Westtief y el Greifswalder Bodden (julio-agosto de 1712)",
+  "la variante inglesa de Westtief debe llegar a la ficha naval curada"
+);
+assert.equal(
+  WESTTIEF_1712_CONFLICT_RENAMES["Batallas navales en Greifswalder Bodden"],
+  "Combates navales de Westtief y el Greifswalder Bodden (julio-agosto de 1712)",
+  "la variante duplicada del Bodden debe consolidarse con Westtief"
+);
+assert.deepEqual(
+  WESTTIEF_1712_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    Dinamarca: ["Combates navales de Westtief y el Greifswalder Bodden (julio-agosto de 1712)"],
+    Suecia: ["Combates navales de Westtief y el Greifswalder Bodden (julio-agosto de 1712)"],
+    Alemania: ["Combates navales de Westtief y el Greifswalder Bodden (julio-agosto de 1712)"]
+  }
+);
+const westtief1712Detail = WESTTIEF_1712_CONFLICT_DETAIL_FIXES["Combates navales de Westtief y el Greifswalder Bodden (julio-agosto de 1712)"];
+assert.ok(
+  westtief1712Detail
+    && westtief1712Detail.startYear === 1712
+    && westtief1712Detail.startYear === westtief1712Detail.endYear
+    && westtief1712Detail.parent === "Gran Guerra del Norte"
+    && westtief1712Detail.war === "Gran Guerra del Norte"
+    && westtief1712Detail.campaign === "Operaciones danesas contra Stralsund y R\u00fcgen (1712)"
+    && westtief1712Detail.type === "combates navales"
+    && westtief1712Detail.conflictType === "interestatal"
+    && westtief1712Detail.scale === "regional"
+    && westtief1712Detail.hierarchyConfidence === "alta"
+    && westtief1712Detail.hierarchySources?.length === 3
+    && westtief1712Detail.participants?.length === 2
+    && westtief1712Detail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /fines de julio/i.test(westtief1712Detail.datePrecision)
+    && /no se fusiona/i.test(westtief1712Detail.curationNote),
+  "la curaduria de Westtief debe consolidar duplicados sin absorber la accion distinta frente a Rugen"
+);
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

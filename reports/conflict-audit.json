@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-01T16:47:35.302Z",
-  "scannedConflicts": 2001,
+  "generatedAt": "2026-09-01T17:01:21.222Z",
+  "scannedConflicts": 2000,
   "issueCount": 0,
-  "advisoryCount": 53,
-  "reviewCount": 53,
+  "advisoryCount": 52,
+  "reviewCount": 52,
   "summary": {
-    "provisional_parent": 53
+    "provisional_parent": 52
   },
   "topIssues": [],
   "topAdvisories": [
@@ -544,20 +544,6 @@
     {
       "key": "batalla de wenden",
       "name": "Batalla de Wenden",
-      "countries": [
-        "SWE"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de westtief",
-      "name": "Batalla de Westtief",
       "countries": [
         "SWE"
       ],

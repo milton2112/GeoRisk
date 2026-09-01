@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-01T16:45:49.388Z",
+  "generatedAt": "2026-09-01T16:59:03.912Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12592471,
-    "duplicatedCountryFilesBytes": 1548632,
-    "countryConflictShardBytes": 443211,
+    "fullBytes": 12616891,
+    "duplicatedCountryFilesBytes": 1549270,
+    "countryConflictShardBytes": 443490,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -266,8 +266,8 @@
       {
         "code": "DEU",
         "name": "Alemania",
-        "bytes": 19279,
-        "inlineBytes": 153459,
+        "bytes": 19665,
+        "inlineBytes": 164329,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -276,13 +276,13 @@
           "religionGroups": 5,
           "organizations": 79,
           "rivals": 21,
-          "conflicts": 28,
+          "conflicts": 29,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
             "politics": 8058,
-            "military": 7405,
+            "military": 7791,
             "metadata": 1952,
             "general": 992,
             "history": 349,
@@ -298,7 +298,7 @@
             },
             {
               "section": "military",
-              "bytes": 7405
+              "bytes": 7791
             },
             {
               "section": "metadata",
@@ -309,9 +309,9 @@
               "bytes": 992
             }
           ],
-          "conflictsBytes": 7288,
+          "conflictsBytes": 7674,
           "conflictShardBytes": 0,
-          "averageConflictBytes": 260
+          "averageConflictBytes": 265
         }
       },
       {
@@ -470,8 +470,8 @@
       {
         "code": "DNK",
         "name": "Dinamarca",
-        "bytes": 17520,
-        "inlineBytes": 170438,
+        "bytes": 17772,
+        "inlineBytes": 178568,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -485,7 +485,7 @@
         },
         "metrics": {
           "sectionBytes": {
-            "military": 8162,
+            "military": 8414,
             "politics": 6232,
             "metadata": 1913,
             "general": 677,
@@ -498,7 +498,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 8162
+              "bytes": 8414
             },
             {
               "section": "politics",
@@ -513,9 +513,9 @@
               "bytes": 677
             }
           ],
-          "conflictsBytes": 10025,
-          "conflictShardBytes": 10026,
-          "averageConflictBytes": 213
+          "conflictsBytes": 10277,
+          "conflictShardBytes": 10278,
+          "averageConflictBytes": 219
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 120,
+    "pendingCount": 119,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15689,19 +15689,6 @@
       },
       {
         "name": "Batalla de Wenden",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Westtief",
         "countries": [
           "SWE"
         ],

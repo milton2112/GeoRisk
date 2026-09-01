@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.192 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.193 antes de cerrar la siguiente version.
+
+## v1.6.193 - 2026-09-01
+
+- Consolida **Battle of Westtief** y **Naval battles in the Greifswalder Bodden** como **Combates navales de Westtief y el Greifswalder Bodden (julio-agosto de 1712)**.
+- Corrige idioma, fecha, lugar, bandos, guerra y campana; la ficha queda dentro de la Gran Guerra del Norte con fuentes navales danesas y navegacion desde Dinamarca, Suecia y Alemania.
+- Mantiene separada la posible accion distinta **Naval battle off Rugen** hasta contar con una curaduria historica independiente, en lugar de fusionar eventos solo por cercania geografica.
+- Elimina el duplicado de Westtief/Bodden y reduce las jerarquias provisionales de conflictos de 53 a 52, con prueba de regresion para aliases, fuentes y consolidacion.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-01-release-10`.
 
 ## v1.6.192 - 2026-09-01
 
