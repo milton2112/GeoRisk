@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-01T10:52:38.427Z",
+  "generatedAt": "2026-09-01T16:21:22.368Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12506963,
-    "duplicatedCountryFilesBytes": 1547808,
-    "countryConflictShardBytes": 441994,
+    "fullBytes": 12529839,
+    "duplicatedCountryFilesBytes": 1547933,
+    "countryConflictShardBytes": 442345,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -114,7 +114,7 @@
         "code": "FRA",
         "name": "Francia",
         "bytes": 21209,
-        "inlineBytes": 945737,
+        "inlineBytes": 958541,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -123,7 +123,7 @@
           "religionGroups": 5,
           "organizations": 54,
           "rivals": 50,
-          "conflicts": 240,
+          "conflicts": 241,
           "timelineEvents": 4
         },
         "metrics": {
@@ -156,8 +156,8 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 50096,
-          "conflictShardBytes": 50097,
+          "conflictsBytes": 50447,
+          "conflictShardBytes": 50448,
           "averageConflictBytes": 209
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 123,
+    "pendingCount": 122,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15447,19 +15447,6 @@
         ],
         "regions": [
           "Asia"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Remada",
-        "countries": [
-          "TUN"
-        ],
-        "regions": [
-          "África"
         ],
         "types": [
           "interestatal"

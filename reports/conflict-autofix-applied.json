@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-01T10:52:31.805Z",
+  "generatedAt": "2026-09-01T16:21:15.889Z",
   "changedFullCountries": 2,
   "fullPassChanges": [
     2,
@@ -8,12 +8,12 @@
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 182,
+    "enriched": 184,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1070,
+  "generatedHierarchyCandidates": 1071,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -84,7 +84,8 @@
       "Guerra de Independencia de Estados Unidos",
       "Batalla del canal de la Mona (1782)",
       "Batalla de Neuville (1760)",
-      "Batalla naval de Pierres Noires (5-6 de julio de 1944)"
+      "Batalla naval de Pierres Noires (5-6 de julio de 1944)",
+      "Batalla de Remada (mayo de 1958)"
     ],
     "alemania": [
       "Batalla de Schleswig (1848)",
@@ -1410,6 +1411,10 @@
     "Batalla en la desembocadura del Neva": "Combate naval en la desembocadura del Neva (7/18 de mayo de 1703)",
     "Combate naval en la desembocadura del Neva": "Combate naval en la desembocadura del Neva (7/18 de mayo de 1703)",
     "Seegefecht an der Mündung der Newa": "Combate naval en la desembocadura del Neva (7/18 de mayo de 1703)",
+    "batalla de Remada": "Batalla de Remada (mayo de 1958)",
+    "Batalla de Remada": "Batalla de Remada (mayo de 1958)",
+    "Battle of Remada": "Batalla de Remada (mayo de 1958)",
+    "Bataille de Remada": "Batalla de Remada (mayo de 1958)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2524,6 +2529,7 @@
     "Acción naval de Saint-Louis-du-Sud (marzo de 1748)",
     "Batalla naval de Pierres Noires (5-6 de julio de 1944)",
     "Combate naval en la desembocadura del Neva (7/18 de mayo de 1703)",
+    "Batalla de Remada (mayo de 1958)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-01T16:13:04.490Z",
+  "generatedAt": "2026-09-01T16:23:03.731Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 56,
-  "reviewCount": 56,
+  "advisoryCount": 55,
+  "reviewCount": 55,
   "summary": {
-    "provisional_parent": 56
+    "provisional_parent": 55
   },
   "topIssues": [],
   "topAdvisories": [
@@ -284,20 +284,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de remada",
-      "name": "Batalla de Remada",
-      "countries": [
-        "TUN"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de África",
       "issues": [
         "provisional_parent"
       ],

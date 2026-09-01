@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.189 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.190 antes de cerrar la siguiente version.
+
+## v1.6.190 - 2026-09-01
+
+- Normaliza **Batalla de Remada** como **Batalla de Remada (mayo de 1958)**, corrigiendo fecha, idioma, lugar, contraparte y jerarquia dentro de la crisis franco-tunecina de 1958.
+- Vincula la ficha desde Tunez y Francia, conecta los combates de Remada, Bir Amir y Oued Dekouk, y documenta el acuerdo de evacuacion franco-tunecino de junio de 1958.
+- Preserva las versiones diplomaticas contrapuestas sobre el origen de los choques y el empleo de la aviacion; evita adjudicar un ganador absoluto, el primer disparo o bajas cerradas sin respaldo neutral.
+- Reduce las jerarquias provisionales de conflictos de 56 a 55, agrega detalle bajo demanda, aliases de busqueda, indices y una regresion de integridad.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-01-release-7`.
 
 ## v1.6.189 - 2026-09-01
 

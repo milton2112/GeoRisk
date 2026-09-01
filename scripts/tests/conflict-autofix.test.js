@@ -546,6 +546,11 @@ import {
   NEVA_MOUTH_1703_CONFLICT_RENAMES
 } from "../lib/conflict-curation-neva-mouth-1703.js";
 import {
+  REMADA_1958_CONFLICT_DETAIL_FIXES,
+  REMADA_1958_COUNTRY_CONFLICT_ADDITIONS,
+  REMADA_1958_CONFLICT_RENAMES
+} from "../lib/conflict-curation-remada-1958.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -5197,6 +5202,42 @@ assert.ok(
     && /Batalla del Neva de 1240/i.test(nevaMouth1703Detail.curationNote),
   "la curaduria del combate del Neva de 1703 debe corregir fecha, guerra, bandos, lugar y distincion frente a 1240"
 );
+assert.equal(Object.keys(REMADA_1958_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  REMADA_1958_CONFLICT_RENAMES["batalla de Remada"],
+  "Batalla de Remada (mayo de 1958)",
+  "la entrada en minusculas de Remada debe llegar a la ficha curada"
+);
+assert.deepEqual(
+  REMADA_1958_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    Francia: ["Batalla de Remada (mayo de 1958)"]
+  }
+);
+const remada1958Detail = REMADA_1958_CONFLICT_DETAIL_FIXES["Batalla de Remada (mayo de 1958)"];
+assert.ok(
+  remada1958Detail
+    && remada1958Detail.startYear === 1958
+    && remada1958Detail.startYear === remada1958Detail.endYear
+    && remada1958Detail.parent === "Crisis franco-tunecina de mayo de 1958"
+    && remada1958Detail.war === "Crisis franco-tunecina de mayo de 1958"
+    && remada1958Detail.campaign === "Enfrentamientos de Remada, Bir Amir y Oued Dekouk (mayo de 1958)"
+    && remada1958Detail.type === "combates terrestres y de guarnici\u00f3n"
+    && remada1958Detail.conflictType === "interestatal"
+    && remada1958Detail.scale === "regional"
+    && remada1958Detail.hierarchyConfidence === "alta"
+    && remada1958Detail.hierarchySources?.length === 4
+    && remada1958Detail.participants?.length === 2
+    && remada1958Detail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /18-29 de mayo de 1958/i.test(remada1958Detail.datePrecision)
+    && /denuncias diplom\u00e1ticas opuestas/i.test(remada1958Detail.sourceDispute)
+    && /Resultado t\u00e1ctico disputado/i.test(remada1958Detail.outcome)
+    && /No se anexa Argelia como beligerante/i.test(remada1958Detail.curationNote),
+  "la curaduria de Remada debe corregir fecha, crisis, bandos, resultado y prudencia sobre Argelia y bajas"
+);
+const remadaWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Remada (mayo de 1958)");
+assert.equal(remadaWikipediaOverride.language, "en");
+assert.equal(remadaWikipediaOverride.pageTitle, "Battle_of_Remada");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

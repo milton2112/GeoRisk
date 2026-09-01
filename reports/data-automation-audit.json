@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-09-01T16:13:08.223Z",
+  "generatedAt": "2026-09-01T16:23:07.171Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 124
+      "count": 123
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 56
+      "count": 55
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 597
+      "count": 598
     },
     "redundantReligions": {
       "count": 0
@@ -435,13 +435,6 @@
         "startYear": null
       },
       {
-        "code": "TUN",
-        "name": "Batalla de Remada",
-        "parent": "Conflicto regional de África",
-        "campaign": "Campaña vinculada a Conflicto regional de África",
-        "startYear": null
-      },
-      {
         "code": "GBR",
         "name": "Batalla de Nur Shams",
         "parent": "Conflicto regional de Europa",
@@ -535,6 +528,13 @@
       {
         "code": "USA",
         "name": "Batalla de Romanovka",
+        "parent": "Conflicto regional de América",
+        "campaign": "Campaña vinculada a Conflicto regional de América",
+        "startYear": null
+      },
+      {
+        "code": "USA",
+        "name": "Batalla de Sambre",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 56,
+      "count": 55,
       "command": "npm run fix:conflicts:batches"
     },
     {
