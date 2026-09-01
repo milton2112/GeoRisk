@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-09-01T16:23:07.171Z",
+  "generatedAt": "2026-09-01T16:34:21.216Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 123
+      "count": 122
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 55
+      "count": 54
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 598
+      "count": 599
     },
     "redundantReligions": {
       "count": 0
@@ -238,11 +238,6 @@
       },
       {
         "code": "SWE",
-        "name": "Batalla de Treiden",
-        "region": "Europa"
-      },
-      {
-        "code": "SWE",
         "name": "Batalla de Wenden",
         "region": "Europa"
       },
@@ -254,6 +249,11 @@
       {
         "code": "SWE",
         "name": "Batallas de Wenden",
+        "region": "Europa"
+      },
+      {
+        "code": "SWE",
+        "name": "Batallas navales del lago Ladoga",
         "region": "Europa"
       }
     ],
@@ -408,13 +408,6 @@
       },
       {
         "code": "SWE",
-        "name": "Batalla de Treiden",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "SWE",
         "name": "Batalla de Wenden",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
@@ -535,6 +528,13 @@
       {
         "code": "USA",
         "name": "Batalla de Sambre",
+        "parent": "Conflicto regional de América",
+        "campaign": "Campaña vinculada a Conflicto regional de América",
+        "startYear": null
+      },
+      {
+        "code": "USA",
+        "name": "Batalla de Shewan",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 55,
+      "count": 54,
       "command": "npm run fix:conflicts:batches"
     },
     {

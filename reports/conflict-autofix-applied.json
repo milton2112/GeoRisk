@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-09-01T16:21:15.889Z",
-  "changedFullCountries": 2,
+  "generatedAt": "2026-09-01T16:31:39.153Z",
+  "changedFullCountries": 3,
   "fullPassChanges": [
-    2,
+    3,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 184,
+    "enriched": 186,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1071,
+  "generatedHierarchyCandidates": 1072,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -295,7 +295,8 @@
       "Batalla de Rakvere (1603)",
       "Guerra polaco-sovietica (1919-1921)",
       "Carga de Hrebionka (1920)",
-      "Batalla de Ostróda (1628)"
+      "Batalla de Ostróda (1628)",
+      "Batalla de Treiden (1628)"
     ],
     "mexico": [
       "Combate de Carrizal (1916)",
@@ -483,6 +484,9 @@
     "cuba": [
       "Guerra hispano-estadounidense",
       "Batalla de Mani-Mani (1898)"
+    ],
+    "letonia": [
+      "Batalla de Treiden (1628)"
     ],
     "afganistan": [
       "Batalla de Aranas (2007)"
@@ -1415,6 +1419,11 @@
     "Batalla de Remada": "Batalla de Remada (mayo de 1958)",
     "Battle of Remada": "Batalla de Remada (mayo de 1958)",
     "Bataille de Remada": "Batalla de Remada (mayo de 1958)",
+    "Battle of Treiden": "Batalla de Treiden (1628)",
+    "Battle of Treiden (1628)": "Batalla de Treiden (1628)",
+    "Batalla de Treiden": "Batalla de Treiden (1628)",
+    "Batalla de Turaida": "Batalla de Treiden (1628)",
+    "Batalla de Turaida (1628)": "Batalla de Treiden (1628)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2530,6 +2539,7 @@
     "Batalla naval de Pierres Noires (5-6 de julio de 1944)",
     "Combate naval en la desembocadura del Neva (7/18 de mayo de 1703)",
     "Batalla de Remada (mayo de 1958)",
+    "Batalla de Treiden (1628)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

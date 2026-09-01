@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-01T16:21:22.368Z",
+  "generatedAt": "2026-09-01T16:31:45.523Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12529839,
-    "duplicatedCountryFilesBytes": 1547933,
-    "countryConflictShardBytes": 442345,
+    "fullBytes": 12558241,
+    "duplicatedCountryFilesBytes": 1548279,
+    "countryConflictShardBytes": 442733,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -164,8 +164,8 @@
       {
         "code": "POL",
         "name": "Polonia",
-        "bytes": 21123,
-        "inlineBytes": 294357,
+        "bytes": 21163,
+        "inlineBytes": 304729,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -174,12 +174,12 @@
           "religionGroups": 5,
           "organizations": 43,
           "rivals": 50,
-          "conflicts": 58,
+          "conflicts": 59,
           "timelineEvents": 0
         },
         "metrics": {
           "sectionBytes": {
-            "military": 10532,
+            "military": 10572,
             "politics": 7383,
             "metadata": 1913,
             "general": 684,
@@ -192,7 +192,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 10532
+              "bytes": 10572
             },
             {
               "section": "politics",
@@ -207,9 +207,9 @@
               "bytes": 684
             }
           ],
-          "conflictsBytes": 15154,
-          "conflictShardBytes": 15155,
-          "averageConflictBytes": 261
+          "conflictsBytes": 15460,
+          "conflictShardBytes": 15461,
+          "averageConflictBytes": 262
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 122,
+    "pendingCount": 121,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15655,19 +15655,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Treiden",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"

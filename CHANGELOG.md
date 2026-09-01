@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.190 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.191 antes de cerrar la siguiente version.
+
+## v1.6.191 - 2026-09-01
+
+- Normaliza **Battle of Treiden** como **Batalla de Treiden (1628)**, corrigiendo idioma, ano, frente de Livonia, jerarquia dentro de la guerra polaco-sueca de 1626-1629 y tipo de conflicto.
+- Vincula la ficha desde Suecia, Polonia y Letonia, conserva los bandos historicos y agrega aliases de Treiden/Turaida para busqueda, detalle bajo demanda e indices.
+- Documenta el combate con un estudio de la Universidad de Bialystok, una coleccion de la Biblioteca Nacional de Letonia y la Enciclopedia Nacional de Letonia.
+- Conserva la incertidumbre de las fuentes sobre el dia exacto y el mando polaco-lituano; evita convertir estimaciones discutidas de efectivos o bajas en datos cerrados.
+- Reduce las jerarquias provisionales de conflictos de 55 a 54 y agrega una regresion de integridad para la ficha curada.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-01-release-8`.
 
 ## v1.6.190 - 2026-09-01
 

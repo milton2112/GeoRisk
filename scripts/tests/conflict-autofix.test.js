@@ -551,6 +551,11 @@ import {
   REMADA_1958_CONFLICT_RENAMES
 } from "../lib/conflict-curation-remada-1958.js";
 import {
+  TREIDEN_1628_CONFLICT_DETAIL_FIXES,
+  TREIDEN_1628_COUNTRY_CONFLICT_ADDITIONS,
+  TREIDEN_1628_CONFLICT_RENAMES
+} from "../lib/conflict-curation-treiden-1628.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -5238,6 +5243,43 @@ assert.ok(
 const remadaWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Remada (mayo de 1958)");
 assert.equal(remadaWikipediaOverride.language, "en");
 assert.equal(remadaWikipediaOverride.pageTitle, "Battle_of_Remada");
+assert.equal(Object.keys(TREIDEN_1628_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  TREIDEN_1628_CONFLICT_RENAMES["Battle of Treiden"],
+  "Batalla de Treiden (1628)",
+  "la entrada inglesa de Treiden debe llegar a la ficha curada"
+);
+assert.deepEqual(
+  TREIDEN_1628_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    Polonia: ["Batalla de Treiden (1628)"],
+    Letonia: ["Batalla de Treiden (1628)"]
+  }
+);
+const treiden1628Detail = TREIDEN_1628_CONFLICT_DETAIL_FIXES["Batalla de Treiden (1628)"];
+assert.ok(
+  treiden1628Detail
+    && treiden1628Detail.startYear === 1628
+    && treiden1628Detail.startYear === treiden1628Detail.endYear
+    && treiden1628Detail.parent === "Guerra polaco-sueca de 1626-1629"
+    && treiden1628Detail.war === "Guerra polaco-sueca de 1626-1629"
+    && treiden1628Detail.campaign === "Operaciones de Livonia en el invierno de 1628"
+    && treiden1628Detail.type === "batalla terrestre"
+    && treiden1628Detail.conflictType === "interestatal"
+    && treiden1628Detail.scale === "regional"
+    && treiden1628Detail.hierarchyConfidence === "alta"
+    && treiden1628Detail.hierarchySources?.length === 3
+    && treiden1628Detail.participants?.length === 2
+    && treiden1628Detail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /Finales de enero o inicios de febrero de 1628/i.test(treiden1628Detail.datePrecision)
+    && /22 de enero\/2 de febrero/i.test(treiden1628Detail.sourceDispute)
+    && /Victoria polaco-lituana local/i.test(treiden1628Detail.outcome)
+    && /sin fecha, contraparte, jerarqu\u00eda ni fuentes/i.test(treiden1628Detail.curationNote),
+  "la curaduria de Treiden debe corregir idioma, guerra, bandos, lugar y la incertidumbre de fecha y mando"
+);
+const treidenWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Treiden (1628)");
+assert.equal(treidenWikipediaOverride.language, "en");
+assert.equal(treidenWikipediaOverride.pageTitle, "Battle_of_Treiden_(1628)");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],
