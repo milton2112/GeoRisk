@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-09-01T10:22:16.304Z",
-  "changedFullCountries": 1,
+  "generatedAt": "2026-09-01T10:31:14.024Z",
+  "changedFullCountries": 3,
   "fullPassChanges": [
-    1,
+    3,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 176,
+    "enriched": 178,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1067,
+  "generatedHierarchyCandidates": 1068,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -51,7 +51,8 @@
     "haiti": [
       "Batalla de Fort Rivière",
       "Batalla naval de Cap-Français (1757)",
-      "Batalla de Puerto Príncipe (1919)"
+      "Batalla de Puerto Príncipe (1919)",
+      "Acción naval de Saint-Louis-du-Sud (marzo de 1748)"
     ],
     "republica dominicana": [
       "Incursión naval de Puerto Plata (1800)",
@@ -188,6 +189,7 @@
       "Batalla naval del cabo Lizard (1707)",
       "Batalla naval de Pondicherry (1759)",
       "Batalla naval de Port Louis (11 de diciembre de 1799)",
+      "Acción naval de Saint-Louis-du-Sud (marzo de 1748)",
       "Accion naval del paso de Doro (1827)",
       "Combate naval de Jask (1620)",
       "Batalla naval de Pirano (1812)"
@@ -1386,6 +1388,14 @@
     "Naval battle of Saint-Martin-de-Re": "Batalla naval de Saint-Martin-de-Ré (26-27 de octubre de 1622)",
     "Naval battle of Saint-Martin-de-Ré": "Batalla naval de Saint-Martin-de-Ré (26-27 de octubre de 1622)",
     "Bataille navale de Saint-Martin-de-Ré (1622)": "Batalla naval de Saint-Martin-de-Ré (26-27 de octubre de 1622)",
+    "Batalla de Saint-Louis-du-Sud": "Acción naval de Saint-Louis-du-Sud (marzo de 1748)",
+    "Batalla de Saint Louis du Sud": "Acción naval de Saint-Louis-du-Sud (marzo de 1748)",
+    "Accion naval de Saint-Louis-du-Sud": "Acción naval de Saint-Louis-du-Sud (marzo de 1748)",
+    "Acción naval de Saint-Louis-du-Sud": "Acción naval de Saint-Louis-du-Sud (marzo de 1748)",
+    "Accion naval de Saint-Louis-du-Sud (marzo de 1748)": "Acción naval de Saint-Louis-du-Sud (marzo de 1748)",
+    "Acción naval de Saint-Louis-du-Sud (marzo de 1748)": "Acción naval de Saint-Louis-du-Sud (marzo de 1748)",
+    "Battle of Saint-Louis-du-Sud": "Acción naval de Saint-Louis-du-Sud (marzo de 1748)",
+    "Battle of Port Louis (1748)": "Acción naval de Saint-Louis-du-Sud (marzo de 1748)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2497,6 +2507,7 @@
     "Acción naval de Tatamagouche (15 de junio de 1745)",
     "Batalla naval de Port Louis (11 de diciembre de 1799)",
     "Batalla naval de Saint-Martin-de-Ré (26-27 de octubre de 1622)",
+    "Acción naval de Saint-Louis-du-Sud (marzo de 1748)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

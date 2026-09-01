@@ -531,6 +531,11 @@ import {
   SAINT_MARTIN_RE_1622_CONFLICT_RENAMES
 } from "../lib/conflict-curation-saint-martin-re-1622.js";
 import {
+  SAINT_LOUIS_DU_SUD_1748_CONFLICT_DETAIL_FIXES,
+  SAINT_LOUIS_DU_SUD_1748_COUNTRY_CONFLICT_ADDITIONS,
+  SAINT_LOUIS_DU_SUD_1748_CONFLICT_RENAMES
+} from "../lib/conflict-curation-saint-louis-du-sud-1748.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -5074,6 +5079,43 @@ assert.ok(
 const saintMartinReWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval de Saint-Martin-de-R\u00e9 (26-27 de octubre de 1622)");
 assert.equal(saintMartinReWikipediaOverride.language, "en");
 assert.equal(saintMartinReWikipediaOverride.pageTitle, "Naval_battle_of_Saint-Martin-de-R\u00e9");
+assert.equal(Object.keys(SAINT_LOUIS_DU_SUD_1748_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  SAINT_LOUIS_DU_SUD_1748_CONFLICT_RENAMES["Batalla de Saint-Louis-du-Sud"],
+  "Acci\u00f3n naval de Saint-Louis-du-Sud (marzo de 1748)",
+  "la entrada de Saint-Louis-du-Sud debe mantener una fecha cauta y separada de Port Louis de 1799"
+);
+assert.deepEqual(
+  SAINT_LOUIS_DU_SUD_1748_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Hait\u00ed": ["Acci\u00f3n naval de Saint-Louis-du-Sud (marzo de 1748)"],
+    "Reino Unido": ["Acci\u00f3n naval de Saint-Louis-du-Sud (marzo de 1748)"]
+  }
+);
+const saintLouisDuSudDetail = SAINT_LOUIS_DU_SUD_1748_CONFLICT_DETAIL_FIXES["Acci\u00f3n naval de Saint-Louis-du-Sud (marzo de 1748)"];
+assert.ok(
+  saintLouisDuSudDetail
+    && saintLouisDuSudDetail.startYear === 1748
+    && saintLouisDuSudDetail.startYear === saintLouisDuSudDetail.endYear
+    && saintLouisDuSudDetail.parent === "Guerra de Sucesi\u00f3n Austriaca (1740-1748)"
+    && saintLouisDuSudDetail.war === "Guerra de Sucesi\u00f3n Austriaca (1740-1748)"
+    && saintLouisDuSudDetail.campaign === "Campa\u00f1a de Charles Knowles en el Caribe (marzo-abril de 1748)"
+    && saintLouisDuSudDetail.type === "accion naval y costera"
+    && saintLouisDuSudDetail.conflictType === "colonial"
+    && saintLouisDuSudDetail.scale === "internacional"
+    && saintLouisDuSudDetail.hierarchyConfidence === "alta"
+    && saintLouisDuSudDetail.hierarchySources?.length === 3
+    && saintLouisDuSudDetail.participants?.length === 2
+    && saintLouisDuSudDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /marzo de 1748/i.test(saintLouisDuSudDetail.datePrecision)
+    && /19.*22/i.test(saintLouisDuSudDetail.sourceDispute)
+    && /Port Louis de 1799/i.test(saintLouisDuSudDetail.sourceDispute)
+    && /Exito tactico britanico/i.test(saintLouisDuSudDetail.outcome),
+  "la curaduria de Saint-Louis-du-Sud debe corregir jerarquia, fecha cauta, bandos y desambiguacion frente a Port Louis de 1799"
+);
+const saintLouisDuSudWikipediaOverride = await resolveWikipediaConflictTitle("Acci\u00f3n naval de Saint-Louis-du-Sud (marzo de 1748)");
+assert.equal(saintLouisDuSudWikipediaOverride.language, "en");
+assert.equal(saintLouisDuSudWikipediaOverride.pageTitle, "Battle_of_Saint-Louis-du-Sud");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

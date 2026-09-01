@@ -8,7 +8,14 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.186 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.187 antes de cerrar la siguiente version.
+
+## v1.6.187 - 2026-09-01
+
+- Normaliza **Batalla de Saint-Louis-du-Sud** como **Acción naval de Saint-Louis-du-Sud (marzo de 1748)**, corrigiendo su geografía, contraparte, jerarquía y clasificación colonial dentro de la Guerra de Sucesión Austriaca.
+- Separa expresamente este episodio caribeño de la acción distinta de Port Louis de 1799, enlaza la ficha desde Francia, Haití y Reino Unido, y agrega fuentes de patrimonio haitiano y estudios académicos.
+- Conserva la discrepancia documental entre el 19 y el 22 de marzo de 1748, evita cifras de bajas, buques y mando francés que no son consistentes, y añade aliases, detalle bajo demanda, índices y regresiones.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-01-release-4`.
 
 ## v1.6.186 - 2026-09-01
 

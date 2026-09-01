@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-09-01T10:24:01.359Z",
-  "packageVersion": "1.6.186",
-  "appVersion": "2026-09-01-release-3",
-  "cacheVersion": "2026-09-01-release-3",
+  "generatedAt": "2026-09-01T10:33:18.704Z",
+  "packageVersion": "1.6.187",
+  "appVersion": "2026-09-01-release-4",
+  "cacheVersion": "2026-09-01-release-4",
   "thresholds": {
     "scriptJsBytes": 700000,
     "countriesIndexBytes": 240000,
@@ -27,9 +27,9 @@
       "human": "817 KB"
     },
     "buildTotal": {
-      "bytes": 8437548,
+      "bytes": 8445988,
       "human": "8.05 MB",
-      "assetCount": 1381
+      "assetCount": 1382
     }
   },
   "longTasks": {

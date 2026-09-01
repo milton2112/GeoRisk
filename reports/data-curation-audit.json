@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-09-01T10:22:22.637Z",
+  "generatedAt": "2026-09-01T10:31:20.401Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12418425,
-    "duplicatedCountryFilesBytes": 1546667,
-    "countryConflictShardBytes": 440512,
+    "fullBytes": 12452431,
+    "duplicatedCountryFilesBytes": 1547223,
+    "countryConflictShardBytes": 441055,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 25001,
-        "inlineBytes": 1280427,
+        "bytes": 25046,
+        "inlineBytes": 1292675,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,12 +21,12 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 332,
+          "conflicts": 333,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 11577,
+            "military": 11622,
             "politics": 9502,
             "metadata": 1952,
             "general": 1018,
@@ -39,7 +39,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 11577
+              "bytes": 11622
             },
             {
               "section": "politics",
@@ -54,9 +54,9 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 77759,
-          "conflictShardBytes": 77760,
-          "averageConflictBytes": 234
+          "conflictsBytes": 78148,
+          "conflictShardBytes": 78149,
+          "averageConflictBytes": 235
         }
       },
       {
@@ -111,6 +111,57 @@
         }
       },
       {
+        "code": "FRA",
+        "name": "Francia",
+        "bytes": 21209,
+        "inlineBytes": 933237,
+        "tooLarge": false,
+        "counts": {
+          "cities": 5,
+          "capitals": 1,
+          "languages": 5,
+          "religionGroups": 5,
+          "organizations": 54,
+          "rivals": 50,
+          "conflicts": 239,
+          "timelineEvents": 4
+        },
+        "metrics": {
+          "sectionBytes": {
+            "military": 9529,
+            "politics": 7898,
+            "metadata": 1952,
+            "general": 933,
+            "history": 390,
+            "religion": 287,
+            "economy": 99,
+            "name": 9,
+            "continent": 8
+          },
+          "largestSections": [
+            {
+              "section": "military",
+              "bytes": 9529
+            },
+            {
+              "section": "politics",
+              "bytes": 7898
+            },
+            {
+              "section": "metadata",
+              "bytes": 1952
+            },
+            {
+              "section": "general",
+              "bytes": 933
+            }
+          ],
+          "conflictsBytes": 49711,
+          "conflictShardBytes": 49712,
+          "averageConflictBytes": 208
+        }
+      },
+      {
         "code": "POL",
         "name": "Polonia",
         "bytes": 21123,
@@ -159,57 +210,6 @@
           "conflictsBytes": 15154,
           "conflictShardBytes": 15155,
           "averageConflictBytes": 261
-        }
-      },
-      {
-        "code": "FRA",
-        "name": "Francia",
-        "bytes": 21087,
-        "inlineBytes": 923727,
-        "tooLarge": false,
-        "counts": {
-          "cities": 5,
-          "capitals": 1,
-          "languages": 5,
-          "religionGroups": 5,
-          "organizations": 54,
-          "rivals": 50,
-          "conflicts": 239,
-          "timelineEvents": 4
-        },
-        "metrics": {
-          "sectionBytes": {
-            "military": 9407,
-            "politics": 7898,
-            "metadata": 1952,
-            "general": 933,
-            "history": 390,
-            "religion": 287,
-            "economy": 99,
-            "name": 9,
-            "continent": 8
-          },
-          "largestSections": [
-            {
-              "section": "military",
-              "bytes": 9407
-            },
-            {
-              "section": "politics",
-              "bytes": 7898
-            },
-            {
-              "section": "metadata",
-              "bytes": 1952
-            },
-            {
-              "section": "general",
-              "bytes": 933
-            }
-          ],
-          "conflictsBytes": 49557,
-          "conflictShardBytes": 49558,
-          "averageConflictBytes": 207
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 126,
+    "pendingCount": 125,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15499,19 +15499,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Saint-Louis-du-Sud",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"

@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-01T10:23:57.360Z",
+  "generatedAt": "2026-09-01T10:33:14.892Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 59,
-  "reviewCount": 59,
+  "advisoryCount": 58,
+  "reviewCount": 58,
   "summary": {
-    "provisional_parent": 59
+    "provisional_parent": 58
   },
   "topIssues": [],
   "topAdvisories": [
@@ -340,20 +340,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de saint louis du sud",
-      "name": "Batalla de Saint-Louis-du-Sud",
-      "countries": [
-        "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],
