@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-09-01T10:01:32.557Z",
+  "generatedAt": "2026-09-01T10:15:05.897Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12387241,
+    "fullBytes": 12408991,
     "duplicatedCountryFilesBytes": 1546410,
-    "countryConflictShardBytes": 439755,
+    "countryConflictShardBytes": 440376,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
         "bytes": 25001,
-        "inlineBytes": 1268191,
+        "inlineBytes": 1280427,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,7 +21,7 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 331,
+          "conflicts": 332,
           "timelineEvents": 4
         },
         "metrics": {
@@ -54,8 +54,8 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 77335,
-          "conflictShardBytes": 77336,
+          "conflictsBytes": 77759,
+          "conflictShardBytes": 77760,
           "averageConflictBytes": 234
         }
       },
@@ -165,7 +165,7 @@
         "code": "FRA",
         "name": "Francia",
         "bytes": 20830,
-        "inlineBytes": 904779,
+        "inlineBytes": 914293,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -207,9 +207,9 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 49224,
-          "conflictShardBytes": 49225,
-          "averageConflictBytes": 206
+          "conflictsBytes": 49421,
+          "conflictShardBytes": 49422,
+          "averageConflictBytes": 207
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 128,
+    "pendingCount": 127,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15382,19 +15382,6 @@
         ],
         "regions": [
           "Asia"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Port Louis",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"

@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-01T10:04:56.251Z",
+  "generatedAt": "2026-09-01T10:16:51.873Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 61,
-  "reviewCount": 61,
+  "advisoryCount": 60,
+  "reviewCount": 60,
   "summary": {
-    "provisional_parent": 61
+    "provisional_parent": 60
   },
   "topIssues": [],
   "topAdvisories": [
@@ -214,20 +214,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de port louis",
-      "name": "Batalla de Port Louis",
-      "countries": [
-        "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],

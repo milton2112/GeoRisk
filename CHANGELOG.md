@@ -8,7 +8,14 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.184 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.185 antes de cerrar la siguiente version.
+
+## v1.6.185 - 2026-09-01
+
+- Normaliza la ambigua "Batalla de Port Louis" como **Batalla naval de Port Louis (11 de diciembre de 1799)**, corrigiendo Europa por la bahía de Tombeau, Mauricio, y vinculándola a las Guerras revolucionarias francesas.
+- La separa de la acción distinta de Saint-Louis-du-Sud de 1748, añade Reino Unido como referencia navegable y conserva la incertidumbre sobre la secuencia final y las bajas de la fragata Preneuse.
+- Agrega fuentes de archivos de Mauricio y Francia, Royal Museums Greenwich, aliases, detalle histórico, índice de búsqueda y regresiones.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-01-release-2`.
 
 ## v1.6.184 - 2026-09-01
 

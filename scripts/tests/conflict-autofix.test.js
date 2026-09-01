@@ -522,6 +522,11 @@ import {
   TATAMAGOUCHE_1745_CONFLICT_RENAMES
 } from "../lib/conflict-curation-tatamagouche-1745.js";
 import {
+  PORT_LOUIS_1799_CONFLICT_DETAIL_FIXES,
+  PORT_LOUIS_1799_COUNTRY_CONFLICT_ADDITIONS,
+  PORT_LOUIS_1799_CONFLICT_RENAMES
+} from "../lib/conflict-curation-port-louis-1799.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -5001,6 +5006,41 @@ assert.ok(
 const tatamagoucheWikipediaOverride = await resolveWikipediaConflictTitle("Acci\u00f3n naval de Tatamagouche (15 de junio de 1745)");
 assert.equal(tatamagoucheWikipediaOverride.language, "en");
 assert.equal(tatamagoucheWikipediaOverride.pageTitle, "Naval_battle_off_Tatamagouche");
+assert.equal(Object.keys(PORT_LOUIS_1799_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  PORT_LOUIS_1799_CONFLICT_RENAMES["Batalla de Port Louis"],
+  "Batalla naval de Port Louis (11 de diciembre de 1799)",
+  "la entrada ambigua de Port Louis debe resolver la accion naval de 1799"
+);
+assert.deepEqual(
+  PORT_LOUIS_1799_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Reino Unido": ["Batalla naval de Port Louis (11 de diciembre de 1799)"]
+  }
+);
+const portLouisDetail = PORT_LOUIS_1799_CONFLICT_DETAIL_FIXES["Batalla naval de Port Louis (11 de diciembre de 1799)"];
+assert.ok(
+  portLouisDetail
+    && portLouisDetail.startYear === 1799
+    && portLouisDetail.startYear === portLouisDetail.endYear
+    && portLouisDetail.parent === "Guerras revolucionarias francesas (1792-1802)"
+    && portLouisDetail.war === "Guerras revolucionarias francesas (1792-1802)"
+    && portLouisDetail.campaign === "Teatro de las Indias Orientales de las Guerras revolucionarias francesas (1793-1801)"
+    && portLouisDetail.type === "accion naval"
+    && portLouisDetail.conflictType === "interestatal"
+    && portLouisDetail.scale === "internacional"
+    && portLouisDetail.hierarchyConfidence === "alta"
+    && portLouisDetail.hierarchySources?.length === 3
+    && portLouisDetail.participants?.length === 2
+    && portLouisDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /11 de diciembre de 1799/i.test(portLouisDetail.datePrecision)
+    && /Saint-Louis-du-Sud de 1748/i.test(portLouisDetail.sourceDispute)
+    && /Victoria tactica britanica/i.test(portLouisDetail.outcome),
+  "la curaduria de Port Louis debe distinguir 1799 de 1748 y conservar fecha, jerarquia, bandos y cautela sobre bajas"
+);
+const portLouisWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval de Port Louis (11 de diciembre de 1799)");
+assert.equal(portLouisWikipediaOverride.language, "en");
+assert.equal(portLouisWikipediaOverride.pageTitle, "Battle_of_Port_Louis");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-09-01T10:01:25.819Z",
-  "changedFullCountries": 3,
+  "generatedAt": "2026-09-01T10:14:59.384Z",
+  "changedFullCountries": 2,
   "fullPassChanges": [
-    3,
+    2,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 172,
+    "enriched": 174,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1065,
+  "generatedHierarchyCandidates": 1066,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -187,6 +187,7 @@
       "Batalla naval de Vizagapatam (1804)",
       "Batalla naval del cabo Lizard (1707)",
       "Batalla naval de Pondicherry (1759)",
+      "Batalla naval de Port Louis (11 de diciembre de 1799)",
       "Accion naval del paso de Doro (1827)",
       "Combate naval de Jask (1620)",
       "Batalla naval de Pirano (1812)"
@@ -1370,6 +1371,14 @@
     "Batalla de Famme Goose Bay": "Acción naval de Tatamagouche (15 de junio de 1745)",
     "Battle of Famme Goose Bay": "Acción naval de Tatamagouche (15 de junio de 1745)",
     "Tatamagouche Naval Encounter": "Acción naval de Tatamagouche (15 de junio de 1745)",
+    "Batalla de Port Louis": "Batalla naval de Port Louis (11 de diciembre de 1799)",
+    "Batalla de Port-Louis": "Batalla naval de Port Louis (11 de diciembre de 1799)",
+    "Batalla naval de Port Louis": "Batalla naval de Port Louis (11 de diciembre de 1799)",
+    "Batalla naval de Port-Louis": "Batalla naval de Port Louis (11 de diciembre de 1799)",
+    "Accion naval de Port Louis (11 de diciembre de 1799)": "Batalla naval de Port Louis (11 de diciembre de 1799)",
+    "Acción naval de Port Louis (11 de diciembre de 1799)": "Batalla naval de Port Louis (11 de diciembre de 1799)",
+    "Battle of Port Louis (1799)": "Batalla naval de Port Louis (11 de diciembre de 1799)",
+    "Action of 11 December 1799": "Batalla naval de Port Louis (11 de diciembre de 1799)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2479,6 +2488,7 @@
     "Combate de Huite (2 de marzo de 1866)",
     "Primera batalla de Tamão (1521)",
     "Acción naval de Tatamagouche (15 de junio de 1745)",
+    "Batalla naval de Port Louis (11 de diciembre de 1799)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",
