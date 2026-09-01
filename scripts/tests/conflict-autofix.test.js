@@ -556,6 +556,11 @@ import {
   TREIDEN_1628_CONFLICT_RENAMES
 } from "../lib/conflict-curation-treiden-1628.js";
 import {
+  TELLICHERRY_1791_CONFLICT_DETAIL_FIXES,
+  TELLICHERRY_1791_COUNTRY_CONFLICT_ADDITIONS,
+  TELLICHERRY_1791_CONFLICT_RENAMES
+} from "../lib/conflict-curation-tellicherry-1791.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -5280,6 +5285,43 @@ assert.ok(
 const treidenWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Treiden (1628)");
 assert.equal(treidenWikipediaOverride.language, "en");
 assert.equal(treidenWikipediaOverride.pageTitle, "Battle_of_Treiden_(1628)");
+assert.equal(Object.keys(TELLICHERRY_1791_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  TELLICHERRY_1791_CONFLICT_RENAMES["Batalla de Tellicherry"],
+  "Combate naval de Tellicherry (1791)",
+  "la entrada de Tellicherry debe llegar a la ficha naval curada"
+);
+assert.deepEqual(
+  TELLICHERRY_1791_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Reino Unido": ["Combate naval de Tellicherry (1791)"],
+    India: ["Combate naval de Tellicherry (1791)"]
+  }
+);
+const tellicherry1791Detail = TELLICHERRY_1791_CONFLICT_DETAIL_FIXES["Combate naval de Tellicherry (1791)"];
+assert.ok(
+  tellicherry1791Detail
+    && tellicherry1791Detail.startYear === 1791
+    && tellicherry1791Detail.startYear === tellicherry1791Detail.endYear
+    && tellicherry1791Detail.parent === "Tercera guerra anglo-mysore (1790-1792)"
+    && tellicherry1791Detail.war === "Tercera guerra anglo-mysore (1790-1792)"
+    && tellicherry1791Detail.campaign === "Operaciones navales de interdiccion frente a Malabar (1791)"
+    && tellicherry1791Detail.type === "combate naval"
+    && tellicherry1791Detail.conflictType === "interestatal"
+    && tellicherry1791Detail.scale === "regional"
+    && tellicherry1791Detail.hierarchyConfidence === "alta"
+    && tellicherry1791Detail.hierarchySources?.length === 3
+    && tellicherry1791Detail.participants?.length === 2
+    && tellicherry1791Detail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /^Noviembre de 1791/i.test(tellicherry1791Detail.datePrecision)
+    && /no permiten fijar un dia unico/i.test(tellicherry1791Detail.datePrecision)
+    && /no hallo contrabando/i.test(tellicherry1791Detail.sourceDispute)
+    && /no como combatiente directo/i.test(tellicherry1791Detail.curationNote),
+  "la curaduria de Tellicherry debe corregir lugar, guerra, bandos y la incertidumbre de fecha, bajas y contrabando"
+);
+const tellicherryWikipediaOverride = await resolveWikipediaConflictTitle("Combate naval de Tellicherry (1791)");
+assert.equal(tellicherryWikipediaOverride.language, "en");
+assert.equal(tellicherryWikipediaOverride.pageTitle, "Battle_of_Tellicherry");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

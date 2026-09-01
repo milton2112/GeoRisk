@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-01T16:34:17.604Z",
+  "generatedAt": "2026-09-01T16:47:35.302Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 54,
-  "reviewCount": 54,
+  "advisoryCount": 53,
+  "reviewCount": 53,
   "summary": {
-    "provisional_parent": 54
+    "provisional_parent": 53
   },
   "topIssues": [],
   "topAdvisories": [
@@ -452,20 +452,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de tellicherry",
-      "name": "Batalla de Tellicherry",
-      "countries": [
-        "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],

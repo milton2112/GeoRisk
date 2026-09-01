@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-01T16:31:39.153Z",
+  "generatedAt": "2026-09-01T16:45:43.079Z",
   "changedFullCountries": 3,
   "fullPassChanges": [
     3,
@@ -8,12 +8,12 @@
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 186,
+    "enriched": 188,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1072,
+  "generatedHierarchyCandidates": 1073,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -193,6 +193,7 @@
       "Batalla naval de Pondicherry (1759)",
       "Batalla naval de Port Louis (11 de diciembre de 1799)",
       "Acción naval de Saint-Louis-du-Sud (marzo de 1748)",
+      "Combate naval de Tellicherry (1791)",
       "Accion naval del paso de Doro (1827)",
       "Combate naval de Jask (1620)",
       "Batalla naval de Pirano (1812)"
@@ -256,7 +257,8 @@
       "Batalla de Sadras (1782)",
       "Batalla de Negapatam (1782)",
       "Batalla naval de Vizagapatam (1804)",
-      "Batalla naval de Pondicherry (1759)"
+      "Batalla naval de Pondicherry (1759)",
+      "Combate naval de Tellicherry (1791)"
     ],
     "polonia": [
       "Batalla de Golymin (1806)",
@@ -1424,6 +1426,11 @@
     "Batalla de Treiden": "Batalla de Treiden (1628)",
     "Batalla de Turaida": "Batalla de Treiden (1628)",
     "Batalla de Turaida (1628)": "Batalla de Treiden (1628)",
+    "Batalla de Tellicherry": "Combate naval de Tellicherry (1791)",
+    "Batalla naval de Tellicherry": "Combate naval de Tellicherry (1791)",
+    "Combate naval de Tellicherry": "Combate naval de Tellicherry (1791)",
+    "Battle of Tellicherry": "Combate naval de Tellicherry (1791)",
+    "Tellicherry naval battle": "Combate naval de Tellicherry (1791)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2540,6 +2547,7 @@
     "Combate naval en la desembocadura del Neva (7/18 de mayo de 1703)",
     "Batalla de Remada (mayo de 1958)",
     "Batalla de Treiden (1628)",
+    "Combate naval de Tellicherry (1791)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

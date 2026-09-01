@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.191 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.192 antes de cerrar la siguiente version.
+
+## v1.6.192 - 2026-09-01
+
+- Normaliza **Batalla de Tellicherry** como **Combate naval de Tellicherry (1791)**, corrigiendo idioma, ano, ubicacion y jerarquia dentro de la Tercera guerra anglo-mysore.
+- Corrige la clasificacion desde un conflicto regional de Europa hacia la costa de Malabar, con navegacion desde Francia, Reino Unido e India.
+- Agrega fuentes navales tempranas y contemporaneas, aliases de busqueda, detalle bajo demanda e indices para el combate.
+- Conserva las diferencias de las fuentes sobre el dia de noviembre y las bajas francesas; no trata la sospecha britanica de contrabando como prueba ni a Mysore como beligerante directo.
+- Reduce las jerarquias provisionales de conflictos de 54 a 53 y agrega una regresion de integridad para la ficha curada.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-01-release-9`.
 
 ## v1.6.191 - 2026-09-01
 

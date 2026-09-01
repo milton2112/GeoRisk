@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-09-01T16:31:45.523Z",
+  "generatedAt": "2026-09-01T16:45:49.388Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12558241,
-    "duplicatedCountryFilesBytes": 1548279,
-    "countryConflictShardBytes": 442733,
+    "fullBytes": 12592471,
+    "duplicatedCountryFilesBytes": 1548632,
+    "countryConflictShardBytes": 443211,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
         "bytes": 25046,
-        "inlineBytes": 1292675,
+        "inlineBytes": 1304993,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,7 +21,7 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 333,
+          "conflicts": 334,
           "timelineEvents": 4
         },
         "metrics": {
@@ -54,8 +54,8 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 78148,
-          "conflictShardBytes": 78149,
+          "conflictsBytes": 78501,
+          "conflictShardBytes": 78502,
           "averageConflictBytes": 235
         }
       },
@@ -114,7 +114,7 @@
         "code": "FRA",
         "name": "Francia",
         "bytes": 21209,
-        "inlineBytes": 958541,
+        "inlineBytes": 968135,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -156,9 +156,9 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 50447,
-          "conflictShardBytes": 50448,
-          "averageConflictBytes": 209
+          "conflictsBytes": 50572,
+          "conflictShardBytes": 50573,
+          "averageConflictBytes": 210
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 121,
+    "pendingCount": 120,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15603,19 +15603,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Tellicherry",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
