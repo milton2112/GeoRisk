@@ -517,6 +517,11 @@ import {
   TAMAO_1521_CONFLICT_RENAMES
 } from "../lib/conflict-curation-tamao-1521.js";
 import {
+  TATAMAGOUCHE_1745_CONFLICT_DETAIL_FIXES,
+  TATAMAGOUCHE_1745_COUNTRY_CONFLICT_ADDITIONS,
+  TATAMAGOUCHE_1745_CONFLICT_RENAMES
+} from "../lib/conflict-curation-tatamagouche-1745.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -4959,6 +4964,43 @@ assert.ok(
 const tamaoWikipediaOverride = await resolveWikipediaConflictTitle("Primera batalla de Tam\u00e3o (1521)");
 assert.equal(tamaoWikipediaOverride.language, "en");
 assert.equal(tamaoWikipediaOverride.pageTitle, "Battle_of_Tunmen");
+assert.equal(Object.keys(TATAMAGOUCHE_1745_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  TATAMAGOUCHE_1745_CONFLICT_RENAMES["Batalla naval de Tatamagouche"],
+  "Acci\u00f3n naval de Tatamagouche (15 de junio de 1745)",
+  "el nombre generico de Tatamagouche debe resolver la accion naval curada"
+);
+assert.deepEqual(
+  TATAMAGOUCHE_1745_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Canad\u00e1": ["Acci\u00f3n naval de Tatamagouche (15 de junio de 1745)"],
+    "Estados Unidos": ["Acci\u00f3n naval de Tatamagouche (15 de junio de 1745)"]
+  }
+);
+const tatamagoucheDetail = TATAMAGOUCHE_1745_CONFLICT_DETAIL_FIXES["Acci\u00f3n naval de Tatamagouche (15 de junio de 1745)"];
+assert.ok(
+  tatamagoucheDetail
+    && tatamagoucheDetail.startYear === 1745
+    && tatamagoucheDetail.startYear === tatamagoucheDetail.endYear
+    && tatamagoucheDetail.parent === "Guerra del rey Jorge (1744-1748)"
+    && tatamagoucheDetail.war === "Guerra del rey Jorge (1744-1748)"
+    && tatamagoucheDetail.campaign === "Operaciones de socorro de Louisbourg desde Acadia (junio de 1745)"
+    && tatamagoucheDetail.type === "accion naval y costera"
+    && tatamagoucheDetail.conflictType === "colonial"
+    && tatamagoucheDetail.scale === "regional"
+    && tatamagoucheDetail.hierarchyConfidence === "alta"
+    && tatamagoucheDetail.hierarchySources?.length === 3
+    && tatamagoucheDetail.participants?.length === 2
+    && tatamagoucheDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /15 de junio de 1745/i.test(tatamagoucheDetail.datePrecision)
+    && /Fones/i.test(tatamagoucheDetail.sourceDispute)
+    && /Mi'kmaq/i.test(tatamagoucheDetail.sourceDispute)
+    && /Exito operativo anglo-americano/i.test(tatamagoucheDetail.outcome),
+  "la curaduria de Tatamagouche debe corregir lugar, jerarquia, bandos y limites de bajas con fuentes verificables"
+);
+const tatamagoucheWikipediaOverride = await resolveWikipediaConflictTitle("Acci\u00f3n naval de Tatamagouche (15 de junio de 1745)");
+assert.equal(tatamagoucheWikipediaOverride.language, "en");
+assert.equal(tatamagoucheWikipediaOverride.pageTitle, "Naval_battle_off_Tatamagouche");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

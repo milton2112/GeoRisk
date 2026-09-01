@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-31T19:03:24.334Z",
+  "generatedAt": "2026-09-01T10:04:56.251Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 62,
-  "reviewCount": 62,
+  "advisoryCount": 61,
+  "reviewCount": 61,
   "summary": {
-    "provisional_parent": 62
+    "provisional_parent": 61
   },
   "topIssues": [],
   "topAdvisories": [
@@ -796,20 +796,6 @@
     {
       "key": "batalla naval de st john",
       "name": "Batalla naval de St. John",
-      "countries": [
-        "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla naval de tatamagouche",
-      "name": "Batalla naval de Tatamagouche",
       "countries": [
         "FRA"
       ],

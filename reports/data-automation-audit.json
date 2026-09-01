@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-08-31T19:03:27.937Z",
+  "generatedAt": "2026-09-01T10:04:59.656Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 130
+      "count": 129
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 62
+      "count": 61
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 592
+      "count": 593
     },
     "redundantReligions": {
       "count": 0
@@ -168,11 +168,6 @@
       },
       {
         "code": "FRA",
-        "name": "Batalla naval de Tatamagouche",
-        "region": "Europa"
-      },
-      {
-        "code": "FRA",
         "name": "Bombardeo de Tourane",
         "region": "Europa"
       },
@@ -254,6 +249,11 @@
       {
         "code": "SWE",
         "name": "Ataque a Åbo",
+        "region": "Europa"
+      },
+      {
+        "code": "SWE",
+        "name": "Batalla de Sobota",
         "region": "Europa"
       }
     ],
@@ -367,13 +367,6 @@
       {
         "code": "FRA",
         "name": "Batalla naval de St. John",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla naval de Tatamagouche",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -535,6 +528,13 @@
       {
         "code": "USA",
         "name": "Batalla de Notch",
+        "parent": "Conflicto regional de América",
+        "campaign": "Campaña vinculada a Conflicto regional de América",
+        "startYear": null
+      },
+      {
+        "code": "USA",
+        "name": "Batalla de Paye",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 62,
+      "count": 61,
       "command": "npm run fix:conflicts:batches"
     },
     {

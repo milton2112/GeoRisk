@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-08-31T19:00:09.878Z",
-  "changedFullCountries": 2,
+  "generatedAt": "2026-09-01T10:01:25.819Z",
+  "changedFullCountries": 3,
   "fullPassChanges": [
-    2,
+    3,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 170,
+    "enriched": 172,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1064,
+  "generatedHierarchyCandidates": 1065,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -36,7 +36,8 @@
       "Primera batalla de Dragoon Springs (1862)",
       "Combate de Little Dry Creek (1885)",
       "Batalla de Fayetteville (Arkansas, 1863)",
-      "Acción naval de Matamoros (3 de abril de 1836)"
+      "Acción naval de Matamoros (3 de abril de 1836)",
+      "Acción naval de Tatamagouche (15 de junio de 1745)"
     ],
     "nicaragua": [
       "Batalla de Masaya",
@@ -423,7 +424,8 @@
     "canada": [
       "Batalla de Signal Hill (1762)",
       "Combate naval de la bahía de Fundy (1696)",
-      "Batalla de Neuville (1760)"
+      "Batalla de Neuville (1760)",
+      "Acción naval de Tatamagouche (15 de junio de 1745)"
     ],
     "hungria": [
       "Batalla de Antivari (1914)",
@@ -1357,6 +1359,17 @@
     "First Battle of Tamão": "Primera batalla de Tamão (1521)",
     "Battle of Tunmen": "Primera batalla de Tamão (1521)",
     "Battle of Tuen Mun": "Primera batalla de Tamão (1521)",
+    "Batalla naval de Tatamagouche": "Acción naval de Tatamagouche (15 de junio de 1745)",
+    "Accion naval de Tatamagouche": "Acción naval de Tatamagouche (15 de junio de 1745)",
+    "Acción naval de Tatamagouche": "Acción naval de Tatamagouche (15 de junio de 1745)",
+    "Accion naval de Tatamagouche (15 de junio de 1745)": "Acción naval de Tatamagouche (15 de junio de 1745)",
+    "Acción naval de Tatamagouche (15 de junio de 1745)": "Acción naval de Tatamagouche (15 de junio de 1745)",
+    "Naval battle off Tatamagouche": "Acción naval de Tatamagouche (15 de junio de 1745)",
+    "Naval Battle off Tatamagouche": "Acción naval de Tatamagouche (15 de junio de 1745)",
+    "Battle of Tatamagouche": "Acción naval de Tatamagouche (15 de junio de 1745)",
+    "Batalla de Famme Goose Bay": "Acción naval de Tatamagouche (15 de junio de 1745)",
+    "Battle of Famme Goose Bay": "Acción naval de Tatamagouche (15 de junio de 1745)",
+    "Tatamagouche Naval Encounter": "Acción naval de Tatamagouche (15 de junio de 1745)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2465,6 +2478,7 @@
     "Acción naval de Matamoros (3 de abril de 1836)",
     "Combate de Huite (2 de marzo de 1866)",
     "Primera batalla de Tamão (1521)",
+    "Acción naval de Tatamagouche (15 de junio de 1745)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

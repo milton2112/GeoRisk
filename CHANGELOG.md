@@ -8,7 +8,14 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.183 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.184 antes de cerrar la siguiente version.
+
+## v1.6.184 - 2026-09-01
+
+- Normaliza la genérica "Batalla naval de Tatamagouche" como **Acción naval de Tatamagouche (15 de junio de 1745)**, corrigiendo su ubicación desde Europa hacia Nueva Escocia y su jerarquía hacia la Guerra del rey Jorge.
+- Conserva a la alianza Mi'kmaq y de las Primeras Naciones con agencia histórica propia, añade Canadá y Estados Unidos solo como referencias de navegación contemporánea y deja explícitas las divergencias sobre mando y bajas.
+- Agrega fuentes canadienses, aliases, detalle histórico, índice de búsqueda y regresiones de datos y Wikipedia.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-01-release-1`.
 
 ## v1.6.183 - 2026-08-31
 
