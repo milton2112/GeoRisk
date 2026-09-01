@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-01T10:33:14.892Z",
+  "generatedAt": "2026-09-01T10:43:08.749Z",
   "scannedConflicts": 2001,
   "issueCount": 0,
-  "advisoryCount": 58,
-  "reviewCount": 58,
+  "advisoryCount": 57,
+  "reviewCount": 57,
   "summary": {
-    "provisional_parent": 58
+    "provisional_parent": 57
   },
   "topIssues": [],
   "topAdvisories": [
@@ -172,20 +172,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de pierres noires",
-      "name": "Batalla de Pierres Noires",
-      "countries": [
-        "CAN"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],

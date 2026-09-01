@@ -8,7 +8,14 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.187 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.188 antes de cerrar la siguiente version.
+
+## v1.6.188 - 2026-09-01
+
+- Normaliza **Battle of Pierres Noires** como **Batalla naval de Pierres Noires (5-6 de julio de 1944)**, corrigiendo fecha, idioma, geografía, bandos y jerarquía dentro de la Segunda Guerra Mundial.
+- Vincula la ficha desde Canadá, Francia y Alemania, documenta Operation Dredger con fuentes navales canadienses y conserva la diferencia entre el daño a los escoltas y la fuga de los submarinos.
+- Evita una falsa victoria decisiva o bajas inventadas, añade aliases, detalle bajo demanda, índices y una regresión que protege la importación profunda.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-01-release-5`.
 
 ## v1.6.187 - 2026-09-01
 

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-01T10:31:14.024Z",
+  "generatedAt": "2026-09-01T10:41:53.607Z",
   "changedFullCountries": 3,
   "fullPassChanges": [
     3,
@@ -8,12 +8,12 @@
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 178,
+    "enriched": 180,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1068,
+  "generatedHierarchyCandidates": 1070,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -83,7 +83,8 @@
       "Batalla naval de Île Ronde (1794)",
       "Guerra de Independencia de Estados Unidos",
       "Batalla del canal de la Mona (1782)",
-      "Batalla de Neuville (1760)"
+      "Batalla de Neuville (1760)",
+      "Batalla naval de Pierres Noires (5-6 de julio de 1944)"
     ],
     "alemania": [
       "Batalla de Schleswig (1848)",
@@ -103,7 +104,8 @@
       "Batalla de Beitang (1900)",
       "Primera batalla de Vailele (1888)",
       "Combate naval frente a Hiddensee (1870)",
-      "Combate naval frente a La Habana (1870)"
+      "Combate naval frente a La Habana (1870)",
+      "Batalla naval de Pierres Noires (5-6 de julio de 1944)"
     ],
     "corea del sur": [
       "Acción naval de Happo (1592)",
@@ -1396,6 +1398,12 @@
     "Acción naval de Saint-Louis-du-Sud (marzo de 1748)": "Acción naval de Saint-Louis-du-Sud (marzo de 1748)",
     "Battle of Saint-Louis-du-Sud": "Acción naval de Saint-Louis-du-Sud (marzo de 1748)",
     "Battle of Port Louis (1748)": "Acción naval de Saint-Louis-du-Sud (marzo de 1748)",
+    "Battle of Pierres Noires": "Batalla naval de Pierres Noires (5-6 de julio de 1944)",
+    "Battle of the Pierres Noires": "Batalla naval de Pierres Noires (5-6 de julio de 1944)",
+    "Batalla de Pierres Noires": "Batalla naval de Pierres Noires (5-6 de julio de 1944)",
+    "Batalla naval de Pierres Noires": "Batalla naval de Pierres Noires (5-6 de julio de 1944)",
+    "Batalla naval de Pierres Noires (1944)": "Batalla naval de Pierres Noires (5-6 de julio de 1944)",
+    "Bataille de Pierres Noires": "Batalla naval de Pierres Noires (5-6 de julio de 1944)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2508,6 +2516,7 @@
     "Batalla naval de Port Louis (11 de diciembre de 1799)",
     "Batalla naval de Saint-Martin-de-Ré (26-27 de octubre de 1622)",
     "Acción naval de Saint-Louis-du-Sud (marzo de 1748)",
+    "Batalla naval de Pierres Noires (5-6 de julio de 1944)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

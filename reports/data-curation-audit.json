@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-01T10:31:20.401Z",
+  "generatedAt": "2026-09-01T10:41:59.849Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12452431,
-    "duplicatedCountryFilesBytes": 1547223,
-    "countryConflictShardBytes": 441055,
+    "fullBytes": 12487161,
+    "duplicatedCountryFilesBytes": 1547756,
+    "countryConflictShardBytes": 441440,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -114,7 +114,7 @@
         "code": "FRA",
         "name": "Francia",
         "bytes": 21209,
-        "inlineBytes": 933237,
+        "inlineBytes": 945737,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -123,7 +123,7 @@
           "religionGroups": 5,
           "organizations": 54,
           "rivals": 50,
-          "conflicts": 239,
+          "conflicts": 240,
           "timelineEvents": 4
         },
         "metrics": {
@@ -156,9 +156,9 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 49711,
-          "conflictShardBytes": 49712,
-          "averageConflictBytes": 208
+          "conflictsBytes": 50096,
+          "conflictShardBytes": 50097,
+          "averageConflictBytes": 209
         }
       },
       {
@@ -266,8 +266,8 @@
       {
         "code": "DEU",
         "name": "Alemania",
-        "bytes": 18894,
-        "inlineBytes": 140959,
+        "bytes": 19279,
+        "inlineBytes": 153459,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -276,13 +276,13 @@
           "religionGroups": 5,
           "organizations": 79,
           "rivals": 21,
-          "conflicts": 27,
+          "conflicts": 28,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
             "politics": 8058,
-            "military": 7020,
+            "military": 7405,
             "metadata": 1952,
             "general": 992,
             "history": 349,
@@ -298,7 +298,7 @@
             },
             {
               "section": "military",
-              "bytes": 7020
+              "bytes": 7405
             },
             {
               "section": "metadata",
@@ -309,9 +309,60 @@
               "bytes": 992
             }
           ],
-          "conflictsBytes": 6903,
+          "conflictsBytes": 7288,
           "conflictShardBytes": 0,
-          "averageConflictBytes": 256
+          "averageConflictBytes": 260
+        }
+      },
+      {
+        "code": "CAN",
+        "name": "Canadá",
+        "bytes": 18927,
+        "inlineBytes": 162516,
+        "tooLarge": false,
+        "counts": {
+          "cities": 4,
+          "capitals": 1,
+          "languages": 2,
+          "religionGroups": 8,
+          "organizations": 48,
+          "rivals": 38,
+          "conflicts": 36,
+          "timelineEvents": 3
+        },
+        "metrics": {
+          "sectionBytes": {
+            "military": 8779,
+            "politics": 6435,
+            "metadata": 1936,
+            "general": 796,
+            "religion": 413,
+            "history": 345,
+            "economy": 101,
+            "name": 9,
+            "continent": 9
+          },
+          "largestSections": [
+            {
+              "section": "military",
+              "bytes": 8779
+            },
+            {
+              "section": "politics",
+              "bytes": 6435
+            },
+            {
+              "section": "metadata",
+              "bytes": 1936
+            },
+            {
+              "section": "general",
+              "bytes": 796
+            }
+          ],
+          "conflictsBytes": 8663,
+          "conflictShardBytes": 0,
+          "averageConflictBytes": 241
         }
       },
       {
@@ -363,57 +414,6 @@
           "conflictsBytes": 15312,
           "conflictShardBytes": 15313,
           "averageConflictBytes": 232
-        }
-      },
-      {
-        "code": "CAN",
-        "name": "Canadá",
-        "bytes": 18779,
-        "inlineBytes": 152786,
-        "tooLarge": false,
-        "counts": {
-          "cities": 4,
-          "capitals": 1,
-          "languages": 2,
-          "religionGroups": 8,
-          "organizations": 48,
-          "rivals": 38,
-          "conflicts": 36,
-          "timelineEvents": 3
-        },
-        "metrics": {
-          "sectionBytes": {
-            "military": 8631,
-            "politics": 6435,
-            "metadata": 1936,
-            "general": 796,
-            "religion": 413,
-            "history": 345,
-            "economy": 101,
-            "name": 9,
-            "continent": 9
-          },
-          "largestSections": [
-            {
-              "section": "military",
-              "bytes": 8631
-            },
-            {
-              "section": "politics",
-              "bytes": 6435
-            },
-            {
-              "section": "metadata",
-              "bytes": 1936
-            },
-            {
-              "section": "general",
-              "bytes": 796
-            }
-          ],
-          "conflictsBytes": 8515,
-          "conflictShardBytes": 0,
-          "averageConflictBytes": 237
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 125,
+    "pendingCount": 124,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15343,19 +15343,6 @@
         ],
         "regions": [
           "Asia"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Pierres Noires",
-        "countries": [
-          "CAN"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"

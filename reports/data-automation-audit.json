@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-09-01T10:33:18.325Z",
+  "generatedAt": "2026-09-01T10:43:12.114Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 126
+      "count": 125
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 58
+      "count": 57
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 595
+      "count": 596
     },
     "redundantReligions": {
       "count": 0
@@ -85,11 +85,6 @@
         "code": "CMR",
         "name": "Batalla de Kumbo",
         "region": "África"
-      },
-      {
-        "code": "CAN",
-        "name": "Batalla de Pierres Noires",
-        "region": "América"
       },
       {
         "code": "CHL",
@@ -255,6 +250,11 @@
         "code": "SWE",
         "name": "Batalla de Westtief",
         "region": "Europa"
+      },
+      {
+        "code": "SWE",
+        "name": "Batalla en la desembocadura del Neva",
+        "region": "Europa"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -271,13 +271,6 @@
         "name": "Batalla de Kumbo",
         "parent": "Conflicto regional de África",
         "campaign": "Campaña vinculada a Conflicto regional de África",
-        "startYear": null
-      },
-      {
-        "code": "CAN",
-        "name": "Batalla de Pierres Noires",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
       },
       {
@@ -535,6 +528,13 @@
       {
         "code": "USA",
         "name": "Batalla de Punk Hill",
+        "parent": "Conflicto regional de América",
+        "campaign": "Campaña vinculada a Conflicto regional de América",
+        "startYear": null
+      },
+      {
+        "code": "USA",
+        "name": "Batalla de Rio Grande City",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 58,
+      "count": 57,
       "command": "npm run fix:conflicts:batches"
     },
     {

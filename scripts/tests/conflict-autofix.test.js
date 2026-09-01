@@ -536,6 +536,11 @@ import {
   SAINT_LOUIS_DU_SUD_1748_CONFLICT_RENAMES
 } from "../lib/conflict-curation-saint-louis-du-sud-1748.js";
 import {
+  PIERRES_NOIRES_1944_CONFLICT_DETAIL_FIXES,
+  PIERRES_NOIRES_1944_COUNTRY_CONFLICT_ADDITIONS,
+  PIERRES_NOIRES_1944_CONFLICT_RENAMES
+} from "../lib/conflict-curation-pierres-noires-1944.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -5116,6 +5121,44 @@ assert.ok(
 const saintLouisDuSudWikipediaOverride = await resolveWikipediaConflictTitle("Acci\u00f3n naval de Saint-Louis-du-Sud (marzo de 1748)");
 assert.equal(saintLouisDuSudWikipediaOverride.language, "en");
 assert.equal(saintLouisDuSudWikipediaOverride.pageTitle, "Battle_of_Saint-Louis-du-Sud");
+assert.equal(Object.keys(PIERRES_NOIRES_1944_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  PIERRES_NOIRES_1944_CONFLICT_RENAMES["Battle of Pierres Noires"],
+  "Batalla naval de Pierres Noires (5-6 de julio de 1944)",
+  "la entrada inglesa de Pierres Noires debe conservar fecha, idioma y distincion de Dredger"
+);
+assert.deepEqual(
+  PIERRES_NOIRES_1944_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    Alemania: ["Batalla naval de Pierres Noires (5-6 de julio de 1944)"],
+    Francia: ["Batalla naval de Pierres Noires (5-6 de julio de 1944)"]
+  }
+);
+const pierresNoiresDetail = PIERRES_NOIRES_1944_CONFLICT_DETAIL_FIXES["Batalla naval de Pierres Noires (5-6 de julio de 1944)"];
+assert.ok(
+  pierresNoiresDetail
+    && pierresNoiresDetail.startYear === 1944
+    && pierresNoiresDetail.startYear === pierresNoiresDetail.endYear
+    && pierresNoiresDetail.parent === "Segunda Guerra Mundial"
+    && pierresNoiresDetail.war === "Segunda Guerra Mundial"
+    && pierresNoiresDetail.campaign === "Operacion Dredger en los accesos de Brest (5-6 de julio de 1944)"
+    && pierresNoiresDetail.type === "batalla naval"
+    && pierresNoiresDetail.conflictType === "interestatal"
+    && pierresNoiresDetail.scale === "mundial"
+    && pierresNoiresDetail.hierarchyConfidence === "alta"
+    && pierresNoiresDetail.hierarchySources?.length === 3
+    && pierresNoiresDetail.participants?.length === 2
+    && pierresNoiresDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /5 al 6 de julio de 1944/i.test(pierresNoiresDetail.datePrecision)
+    && /exito tactico limitado/i.test(pierresNoiresDetail.sourceDispute)
+    && /submarinos escaparon/i.test(pierresNoiresDetail.sourceDispute)
+    && /Exito tactico canadiense limitado/i.test(pierresNoiresDetail.outcome)
+    && /Grupo de Escolta 12/i.test(pierresNoiresDetail.participants?.[0]?.side || ""),
+  "la curaduria de Pierres Noires debe corregir fecha, jerarquia, paises y resultado limitado de Operation Dredger"
+);
+const pierresNoiresWikipediaOverride = await resolveWikipediaConflictTitle("Batalla naval de Pierres Noires (5-6 de julio de 1944)");
+assert.equal(pierresNoiresWikipediaOverride.language, "en");
+assert.equal(pierresNoiresWikipediaOverride.pageTitle, "Battle_of_Pierres_Noires");
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],
