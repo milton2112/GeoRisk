@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-09-02T13:03:59.055Z",
+  "generatedAt": "2026-09-02T17:18:48.307Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12727195,
-    "duplicatedCountryFilesBytes": 1550547,
+    "fullBytes": 12735585,
+    "duplicatedCountryFilesBytes": 1550656,
     "countryConflictShardBytes": 444896,
     "tooLargeCount": 0,
     "largest": [
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 113,
+    "pendingCount": 112,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15369,19 +15369,6 @@
         ],
         "regions": [
           "África"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Re'im",
-        "countries": [
-          "ISR"
-        ],
-        "regions": [
-          "Asia"
         ],
         "types": [
           "interestatal"

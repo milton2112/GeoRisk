@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-02T13:03:52.602Z",
+  "generatedAt": "2026-09-02T17:18:41.965Z",
   "changedFullCountries": 1,
   "fullPassChanges": [
     1,
@@ -13,7 +13,7 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1081,
+  "generatedHierarchyCandidates": 1082,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -502,6 +502,9 @@
     ],
     "cisjordania": [
       "Batalla de Anabta (Nur Shams, 21 de junio de 1936)"
+    ],
+    "israel": [
+      "Batalla por la base de Re'im (7 de octubre de 2023)"
     ],
     "afganistan": [
       "Batalla de Aranas (2007)"
@@ -1487,6 +1490,11 @@
     "batalla de Kumbo": "Batalla de Kumbo (10 de abril de 2024)",
     "Batalla de Kumbo": "Batalla de Kumbo (10 de abril de 2024)",
     "Battle of Kumbo": "Batalla de Kumbo (10 de abril de 2024)",
+    "batalla de Re'im": "Batalla por la base de Re'im (7 de octubre de 2023)",
+    "Batalla de Re'im": "Batalla por la base de Re'im (7 de octubre de 2023)",
+    "Battle of Re'im": "Batalla por la base de Re'im (7 de octubre de 2023)",
+    "Battle of Reim": "Batalla por la base de Re'im (7 de octubre de 2023)",
+    "Battle of Gaza Division HQ": "Batalla por la base de Re'im (7 de octubre de 2023)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2611,6 +2619,7 @@
     "Batalla de Jackson (Misisipi, 14 de mayo de 1863)",
     "Segunda batalla de Springfield (Misuri, 8 de enero de 1863)",
     "Batalla de Kumbo (10 de abril de 2024)",
+    "Batalla por la base de Re'im (7 de octubre de 2023)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

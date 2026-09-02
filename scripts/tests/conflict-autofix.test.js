@@ -596,6 +596,11 @@ import {
   KUMBO_2024_CONFLICT_RENAMES
 } from "../lib/conflict-curation-kumbo-2024.js";
 import {
+  REIM_2023_CONFLICT_DETAIL_FIXES,
+  REIM_2023_COUNTRY_CONFLICT_ADDITIONS,
+  REIM_2023_CONFLICT_RENAMES
+} from "../lib/conflict-curation-reim-2023.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -5618,6 +5623,43 @@ assert.ok(
     && /versi\u00f3n de autoridades/i.test(kumbo2024Detail.sourceDispute)
     && /categor\u00eda organizativa de GeoRisk/i.test(kumbo2024Detail.curationNote),
   "la curaduria de Kumbo debe fijar su fecha y jerarquia sin cerrar como hechos las bajas o una victoria disputadas"
+);
+assert.equal(Object.keys(REIM_2023_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  REIM_2023_CONFLICT_RENAMES["batalla de Re'im"],
+  "Batalla por la base de Re'im (7 de octubre de 2023)",
+  "la entrada de Re'im debe llegar a la ficha de la base de la Division de Gaza"
+);
+assert.equal(
+  REIM_2023_CONFLICT_RENAMES["Battle of Gaza Division HQ"],
+  "Batalla por la base de Re'im (7 de octubre de 2023)",
+  "el alias de la sede de la Division de Gaza debe mantener la ficha curada"
+);
+assert.deepEqual(
+  REIM_2023_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    Israel: ["Batalla por la base de Re'im (7 de octubre de 2023)"]
+  }
+);
+const reim2023Detail = REIM_2023_CONFLICT_DETAIL_FIXES["Batalla por la base de Re'im (7 de octubre de 2023)"];
+assert.ok(
+  reim2023Detail
+    && reim2023Detail.startYear === 2023
+    && reim2023Detail.startYear === reim2023Detail.endYear
+    && reim2023Detail.parent === "Guerra de Gaza"
+    && reim2023Detail.war === "Guerra de Gaza"
+    && reim2023Detail.campaign === "Ataques del 7 de octubre de 2023 en Israel"
+    && reim2023Detail.type === "asalto a base militar"
+    && reim2023Detail.conflictType === "insurgencia"
+    && reim2023Detail.scale === "local"
+    && reim2023Detail.hierarchyConfidence === "alta"
+    && reim2023Detail.hierarchySources?.length === 4
+    && reim2023Detail.participants?.length === 2
+    && reim2023Detail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /7 de octubre de 2023/i.test(reim2023Detail.datePrecision)
+    && /kibutz y el \u00e1rea cercana al festival Nova/i.test(reim2023Detail.sourceDispute)
+    && /no sustituye ni fusiona/i.test(reim2023Detail.curationNote),
+  "la curaduria de Re'im debe fijar la base, la fecha y la guerra sin absorber las victimas civiles de sitios cercanos"
 );
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(

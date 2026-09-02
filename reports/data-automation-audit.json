@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-09-02T13:06:27.923Z",
+  "generatedAt": "2026-09-02T17:20:35.375Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 114
+      "count": 113
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 46
+      "count": 45
     },
     "suspectRegions": {
       "count": 0
@@ -167,11 +167,6 @@
         "region": "Asia"
       },
       {
-        "code": "ISR",
-        "name": "Batalla de Re'im",
-        "region": "Asia"
-      },
-      {
         "code": "JPN",
         "name": "Batalla de Hekihazu",
         "region": "Asia"
@@ -255,6 +250,11 @@
         "code": "SYR",
         "name": "Operación Batalla por la Restauración de la Dignidad",
         "region": "Asia"
+      },
+      {
+        "code": "GBR",
+        "name": "Bombardeo de Belfast",
+        "region": "Europa"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -332,13 +332,6 @@
       {
         "code": "IRQ",
         "name": "Batalla de Pirde",
-        "parent": "Conflicto regional de Asia",
-        "campaign": "Campaña vinculada a Conflicto regional de Asia",
-        "startYear": null
-      },
-      {
-        "code": "ISR",
-        "name": "Batalla de Re'im",
         "parent": "Conflicto regional de Asia",
         "campaign": "Campaña vinculada a Conflicto regional de Asia",
         "startYear": null
@@ -535,6 +528,13 @@
       {
         "code": "USA",
         "name": "Batalla de Waddams Grove",
+        "parent": "Conflicto regional de América",
+        "campaign": "Campaña vinculada a Conflicto regional de América",
+        "startYear": null
+      },
+      {
+        "code": "USA",
+        "name": "Batalla de Wild Cat Creek",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 46,
+      "count": 45,
       "command": "npm run fix:conflicts:batches"
     },
     {

@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.200 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.201 antes de cerrar la siguiente version.
+
+## v1.6.201 - 2026-09-02
+
+- Normaliza **batalla de Re'im** como **Batalla por la base de Re'im (7 de octubre de 2023)**, corrigiendo fecha, ubicación, idioma, actores y jerarquía dentro de la **Guerra de Gaza**.
+- La ubica dentro de los ataques del 7 de octubre de 2023 en Israel y documenta la toma temporal y posterior recuperación de la sede de la División de Gaza.
+- Separa de forma explícita el combate militar de los ataques contra el kibutz Re'im, el festival Nova, los refugios y las rutas cercanas; no agrega al combate cifras civiles de esos otros sitios.
+- Incorpora fuentes del Ministerio de Relaciones Exteriores de Israel, The Times of Israel, la Comisión de Investigación de la ONU y Amnesty International, y conserva las bajas como no consolidadas.
+- Reduce las jerarquías provisionales de conflictos de 46 a 45 y los conflictos sin fecha del índice de 113 a 112, con regresión de aliases, alcance geográfico y trazabilidad de fuentes.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-02-release-6`.
 
 ## v1.6.200 - 2026-09-02
 
