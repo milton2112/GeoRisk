@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.201 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.202 antes de cerrar la siguiente version.
+
+## v1.6.202 - 2026-09-02
+
+- Normaliza **Batalla de Rio Grande City** como **Batalla de Río Grande City (27 de diciembre de 1859)**, corrigiendo su fecha, ubicación, idioma, tipo, actores y jerarquía dentro de la **Primera guerra de Cortina (1859-1860)**.
+- La separa de la guerra entre México y Estados Unidos de 1846-1848, de La Bolsa de 1860 y de los incidentes fronterizos de la Guerra Civil estadounidense; conserva una categoría organizativa local para las operaciones del bajo Río Grande de diciembre de 1859.
+- Incorpora fuentes de University of Texas Rio Grande Valley, Texas Historical Commission, Texas State Historical Association y Texas History for Teachers, con trazabilidad directa de fecha, sitio y participantes.
+- Mantiene las bajas como no conciliadas: una fuente registra sesenta bajas cortinistas, mientras que el marcador estatal no ofrece un total comparable, por lo que no se publica un balance cerrado.
+- Reduce las jerarquías provisionales de conflictos de 45 a 44 y los conflictos sin fecha del índice de 112 a 111, con regresión para aliases, alcance, guerra padre y desambiguación.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-02-release-7`.
 
 ## v1.6.201 - 2026-09-02
 

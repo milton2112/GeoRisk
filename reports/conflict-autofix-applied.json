@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-02T17:18:41.965Z",
+  "generatedAt": "2026-09-02T17:28:32.775Z",
   "changedFullCountries": 1,
   "fullPassChanges": [
     1,
@@ -39,7 +39,8 @@
       "Acción naval de Matamoros (3 de abril de 1836)",
       "Acción naval de Tatamagouche (15 de junio de 1745)",
       "Batalla de Jackson (Misisipi, 14 de mayo de 1863)",
-      "Segunda batalla de Springfield (Misuri, 8 de enero de 1863)"
+      "Segunda batalla de Springfield (Misuri, 8 de enero de 1863)",
+      "Batalla de Río Grande City (27 de diciembre de 1859)"
     ],
     "nicaragua": [
       "Batalla de Masaya",
@@ -1495,6 +1496,11 @@
     "Battle of Re'im": "Batalla por la base de Re'im (7 de octubre de 2023)",
     "Battle of Reim": "Batalla por la base de Re'im (7 de octubre de 2023)",
     "Battle of Gaza Division HQ": "Batalla por la base de Re'im (7 de octubre de 2023)",
+    "Batalla de Rio Grande City": "Batalla de Río Grande City (27 de diciembre de 1859)",
+    "Batalla de Río Grande City": "Batalla de Río Grande City (27 de diciembre de 1859)",
+    "Battle of Rio Grande City": "Batalla de Río Grande City (27 de diciembre de 1859)",
+    "Battle of Rio Grande City (1859)": "Batalla de Río Grande City (27 de diciembre de 1859)",
+    "Cortina Battle at Rio Grande City": "Batalla de Río Grande City (27 de diciembre de 1859)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2620,6 +2626,7 @@
     "Segunda batalla de Springfield (Misuri, 8 de enero de 1863)",
     "Batalla de Kumbo (10 de abril de 2024)",
     "Batalla por la base de Re'im (7 de octubre de 2023)",
+    "Batalla de Río Grande City (27 de diciembre de 1859)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

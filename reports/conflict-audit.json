@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-02T17:20:31.811Z",
+  "generatedAt": "2026-09-02T17:30:36.405Z",
   "scannedConflicts": 2000,
   "issueCount": 0,
-  "advisoryCount": 45,
-  "reviewCount": 45,
+  "advisoryCount": 44,
+  "reviewCount": 44,
   "summary": {
-    "provisional_parent": 45
+    "provisional_parent": 44
   },
   "topIssues": [],
   "topAdvisories": [
@@ -200,20 +200,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de África",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de rio grande city",
-      "name": "Batalla de Rio Grande City",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],

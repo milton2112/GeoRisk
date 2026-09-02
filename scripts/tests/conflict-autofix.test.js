@@ -601,6 +601,11 @@ import {
   REIM_2023_CONFLICT_RENAMES
 } from "../lib/conflict-curation-reim-2023.js";
 import {
+  RIO_GRANDE_CITY_1859_CONFLICT_DETAIL_FIXES,
+  RIO_GRANDE_CITY_1859_COUNTRY_CONFLICT_ADDITIONS,
+  RIO_GRANDE_CITY_1859_CONFLICT_RENAMES
+} from "../lib/conflict-curation-rio-grande-city-1859.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -5660,6 +5665,43 @@ assert.ok(
     && /kibutz y el \u00e1rea cercana al festival Nova/i.test(reim2023Detail.sourceDispute)
     && /no sustituye ni fusiona/i.test(reim2023Detail.curationNote),
   "la curaduria de Re'im debe fijar la base, la fecha y la guerra sin absorber las victimas civiles de sitios cercanos"
+);
+assert.equal(Object.keys(RIO_GRANDE_CITY_1859_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  RIO_GRANDE_CITY_1859_CONFLICT_RENAMES["Batalla de Rio Grande City"],
+  "Batalla de R\u00edo Grande City (27 de diciembre de 1859)",
+  "la entrada de Rio Grande City debe llegar a la ficha curada de 1859"
+);
+assert.equal(
+  RIO_GRANDE_CITY_1859_CONFLICT_RENAMES["Battle of Rio Grande City (1859)"],
+  "Batalla de R\u00edo Grande City (27 de diciembre de 1859)",
+  "el alias ingles debe mantener la ficha historica curada"
+);
+assert.deepEqual(
+  RIO_GRANDE_CITY_1859_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Estados Unidos": ["Batalla de R\u00edo Grande City (27 de diciembre de 1859)"]
+  }
+);
+const rioGrandeCity1859Detail = RIO_GRANDE_CITY_1859_CONFLICT_DETAIL_FIXES["Batalla de R\u00edo Grande City (27 de diciembre de 1859)"];
+assert.ok(
+  rioGrandeCity1859Detail
+    && rioGrandeCity1859Detail.startYear === 1859
+    && rioGrandeCity1859Detail.startYear === rioGrandeCity1859Detail.endYear
+    && rioGrandeCity1859Detail.parent === "Primera guerra de Cortina (1859-1860)"
+    && rioGrandeCity1859Detail.war === "Primera guerra de Cortina (1859-1860)"
+    && rioGrandeCity1859Detail.campaign === "Operaciones del bajo R\u00edo Grande de diciembre de 1859"
+    && rioGrandeCity1859Detail.type === "batalla terrestre"
+    && rioGrandeCity1859Detail.conflictType === "insurgencia"
+    && rioGrandeCity1859Detail.scale === "local"
+    && rioGrandeCity1859Detail.hierarchyConfidence === "alta"
+    && rioGrandeCity1859Detail.hierarchySources?.length === 4
+    && rioGrandeCity1859Detail.participants?.length === 2
+    && rioGrandeCity1859Detail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /27 de diciembre de 1859/i.test(rioGrandeCity1859Detail.datePrecision)
+    && /Guerra entre M\u00e9xico y Estados Unidos/i.test(rioGrandeCity1859Detail.sourceDispute)
+    && /no mezcla La Bolsa/i.test(rioGrandeCity1859Detail.curationNote),
+  "la curaduria de Rio Grande City debe fijar su fecha y jerarquia sin mezclar guerras fronterizas ni cerrar bajas contradictorias"
 );
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(

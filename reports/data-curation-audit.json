@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-02T17:18:48.307Z",
+  "generatedAt": "2026-09-02T17:28:39.245Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12735585,
+    "fullBytes": 12745723,
     "duplicatedCountryFilesBytes": 1550656,
-    "countryConflictShardBytes": 444896,
+    "countryConflictShardBytes": 445080,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24128,
-        "inlineBytes": 3334749,
+        "inlineBytes": 3344887,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 216065,
-          "conflictShardBytes": 216066,
+          "conflictsBytes": 216249,
+          "conflictShardBytes": 216250,
           "averageConflictBytes": 234
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 112,
+    "pendingCount": 111,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15369,19 +15369,6 @@
         ],
         "regions": [
           "África"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Rio Grande City",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"
