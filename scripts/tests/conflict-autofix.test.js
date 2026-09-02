@@ -611,6 +611,10 @@ import {
   MALTA_CONVOY_1800_CONFLICT_RENAMES
 } from "../lib/conflict-curation-malta-convoy-1800.js";
 import {
+  WADDAMS_GROVE_1832_CONFLICT_DETAIL_FIXES,
+  WADDAMS_GROVE_1832_CONFLICT_RENAMES
+} from "../lib/conflict-curation-waddams-grove-1832.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -5745,6 +5749,37 @@ assert.ok(
     && /Operaci\u00f3n Pedestal/i.test(maltaConvoy1800Detail.sourceDispute)
     && /no mezcla esta acci\u00f3n de 1800/i.test(maltaConvoy1800Detail.curationNote),
   "la curaduria del convoy de Malta debe fijar la fecha y jerarquia sin fusionarlo con los convoyes de la Segunda Guerra Mundial"
+);
+assert.equal(Object.keys(WADDAMS_GROVE_1832_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  WADDAMS_GROVE_1832_CONFLICT_RENAMES["Batalla de Waddams Grove"],
+  "Combate de Yellow Creek (Waddams Grove, 18 de junio de 1832)",
+  "la entrada de Waddams Grove debe llegar a la ficha curada de Yellow Creek"
+);
+assert.equal(
+  WADDAMS_GROVE_1832_CONFLICT_RENAMES["Captain Stephenson's Fight"],
+  "Combate de Yellow Creek (Waddams Grove, 18 de junio de 1832)",
+  "el alias historico de Stephenson debe conservar la ficha de Yellow Creek"
+);
+const waddamsGrove1832Detail = WADDAMS_GROVE_1832_CONFLICT_DETAIL_FIXES["Combate de Yellow Creek (Waddams Grove, 18 de junio de 1832)"];
+assert.ok(
+  waddamsGrove1832Detail
+    && waddamsGrove1832Detail.startYear === 1832
+    && waddamsGrove1832Detail.startYear === waddamsGrove1832Detail.endYear
+    && waddamsGrove1832Detail.parent === "Guerra de Black Hawk"
+    && waddamsGrove1832Detail.war === "Guerra de Black Hawk"
+    && waddamsGrove1832Detail.campaign === "Operaciones de Yellow Creek y Apple River de junio de 1832"
+    && waddamsGrove1832Detail.type === "combate terrestre"
+    && waddamsGrove1832Detail.conflictType === "colonial"
+    && waddamsGrove1832Detail.scale === "local"
+    && waddamsGrove1832Detail.hierarchyConfidence === "alta"
+    && waddamsGrove1832Detail.hierarchySources?.length === 4
+    && waddamsGrove1832Detail.participants?.length === 2
+    && waddamsGrove1832Detail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /18 de junio de 1832/i.test(waddamsGrove1832Detail.datePrecision)
+    && /referencia geogr\u00e1fica retrospectiva/i.test(waddamsGrove1832Detail.sourceDispute)
+    && /no mezcla este choque con la primera o segunda batalla de Kellogg's Grove/i.test(waddamsGrove1832Detail.curationNote),
+  "la curaduria de Waddams Grove debe fijar fecha, jerarquia y alias sin confundir el nombre posterior del sitio con una denominacion contemporanea"
 );
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(

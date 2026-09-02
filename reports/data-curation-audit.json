@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-02T17:40:46.210Z",
+  "generatedAt": "2026-09-02T18:19:36.057Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12775167,
+    "fullBytes": 12784865,
     "duplicatedCountryFilesBytes": 1551001,
-    "countryConflictShardBytes": 445537,
+    "countryConflictShardBytes": 445695,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24128,
-        "inlineBytes": 3344887,
+        "inlineBytes": 3354585,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 216249,
-          "conflictShardBytes": 216250,
+          "conflictsBytes": 216407,
+          "conflictShardBytes": 216408,
           "averageConflictBytes": 234
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 110,
+    "pendingCount": 109,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15564,19 +15564,6 @@
         ],
         "regions": [
           "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Waddams Grove",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"

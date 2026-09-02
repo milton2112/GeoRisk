@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.203 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.204 antes de cerrar la siguiente version.
+
+## v1.6.204 - 2026-09-02
+
+- Normaliza **Batalla de Waddams Grove** como **Combate de Yellow Creek (Waddams Grove, 18 de junio de 1832)**, corrigiendo fecha, lugar, idioma, tipo y jerarquia dentro de la **Guerra de Black Hawk**.
+- Conserva Waddams Grove, Yellow Creek y los nombres historicos de James W. Stephenson como aliases, y explica que Waddams Grove es una referencia geografica posterior al combate, no una denominacion contemporanea precisa.
+- Agrega trazabilidad desde Illinois Department of Natural Resources, University of Illinois Library y Wisconsin Historical Society; mantiene bajas y resultado tactico como no consolidados cuando los relatos no coinciden.
+- Reduce las jerarquias provisionales de conflictos de 43 a 42 y los conflictos sin fecha del indice de 110 a 109, con regresion de aliases, jerarquia, tipologia y desambiguacion.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-02-release-9`.
 
 ## v1.6.203 - 2026-09-02
 

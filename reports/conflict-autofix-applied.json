@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-09-02T17:40:39.186Z",
-  "changedFullCountries": 3,
+  "generatedAt": "2026-09-02T18:19:29.332Z",
+  "changedFullCountries": 1,
   "fullPassChanges": [
-    3,
+    1,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
@@ -1510,6 +1510,13 @@
     "Battle of the Malta Convoy": "Batalla del convoy de Malta (18 de febrero de 1800)",
     "Malta Convoy Battle": "Batalla del convoy de Malta (18 de febrero de 1800)",
     "Battle of Malta Convoy": "Batalla del convoy de Malta (18 de febrero de 1800)",
+    "Batalla de Waddams Grove": "Combate de Yellow Creek (Waddams Grove, 18 de junio de 1832)",
+    "Battle of Waddams Grove": "Combate de Yellow Creek (Waddams Grove, 18 de junio de 1832)",
+    "Batalla de Yellow Creek": "Combate de Yellow Creek (Waddams Grove, 18 de junio de 1832)",
+    "Battle of Yellow Creek": "Combate de Yellow Creek (Waddams Grove, 18 de junio de 1832)",
+    "Captain Stephenson's Battle": "Combate de Yellow Creek (Waddams Grove, 18 de junio de 1832)",
+    "Captain Stephenson's Fight": "Combate de Yellow Creek (Waddams Grove, 18 de junio de 1832)",
+    "Stephenson's Fight": "Combate de Yellow Creek (Waddams Grove, 18 de junio de 1832)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2637,6 +2644,7 @@
     "Batalla por la base de Re'im (7 de octubre de 2023)",
     "Batalla de Río Grande City (27 de diciembre de 1859)",
     "Batalla del convoy de Malta (18 de febrero de 1800)",
+    "Combate de Yellow Creek (Waddams Grove, 18 de junio de 1832)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

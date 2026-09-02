@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-09-02T17:43:28.772Z",
+  "generatedAt": "2026-09-02T18:21:44.666Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 111
+      "count": 110
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 43
+      "count": 42
     },
     "suspectRegions": {
       "count": 0
@@ -513,13 +513,6 @@
       },
       {
         "code": "USA",
-        "name": "Batalla de Waddams Grove",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
-      {
-        "code": "USA",
         "name": "Batalla de Wild Cat Creek",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
@@ -535,6 +528,13 @@
       {
         "code": "USA",
         "name": "Batalla del cabo de Gata",
+        "parent": "Conflicto regional de América",
+        "campaign": "Campaña vinculada a Conflicto regional de América",
+        "startYear": null
+      },
+      {
+        "code": "USA",
+        "name": "Batalla del río Malalag",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 43,
+      "count": 42,
       "command": "npm run fix:conflicts:batches"
     },
     {
