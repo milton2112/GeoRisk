@@ -169,12 +169,27 @@ async function waitForStable3dMap(page) {
 }
 
 async function clickCountryOnMap(page, code) {
-  const point = await getCountryScreenPoint(page, code);
+  let point = await getCountryScreenPoint(page, code);
   assert.ok(point, "el pais " + code + " debe estar visible y ser clickeable en el canvas");
-  await clickMapPoint(page, point);
-  await page.waitForFunction(countryCode => {
-    return selectedLayers.some(layer => layer.code === countryCode);
-  }, code, { timeout: APP_TIMEOUT_MS });
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    await page.evaluate(() => {
+      viewer?.scene?.requestRender?.();
+    });
+    await page.waitForTimeout(120);
+    point = await getCountryScreenPoint(page, code, 8) || point;
+    await clickMapPoint(page, point);
+    try {
+      await page.waitForFunction(countryCode => {
+        return selectedLayers.some(layer => layer.code === countryCode);
+      }, code, { timeout: MAP_PICK_TIMEOUT_MS });
+      return;
+    } catch {
+      if (attempt === 0) {
+        await page.waitForTimeout(260);
+      }
+    }
+  }
+  assert.fail("el clic 2D debe seleccionar el pais " + code + " despues de estabilizar el render");
 }
 
 async function clickFirstVisibleCountryOnMap(page, codes) {

@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-09-02T11:27:39.744Z",
+  "generatedAt": "2026-09-02T11:44:22.328Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 117
+      "count": 116
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 49
+      "count": 48
     },
     "suspectRegions": {
       "count": 0
@@ -415,13 +415,6 @@
       },
       {
         "code": "USA",
-        "name": "Batalla de jackson",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
-      {
-        "code": "USA",
         "name": "Batalla de Kasumi",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
@@ -535,6 +528,13 @@
       {
         "code": "USA",
         "name": "Batalla de Sunset Pass",
+        "parent": "Conflicto regional de América",
+        "campaign": "Campaña vinculada a Conflicto regional de América",
+        "startYear": null
+      },
+      {
+        "code": "USA",
+        "name": "Batalla de Taraca",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 49,
+      "count": 48,
       "command": "npm run fix:conflicts:batches"
     },
     {

@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-02T11:25:19.253Z",
+  "generatedAt": "2026-09-02T11:37:23.964Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12702267,
+    "fullBytes": 12711367,
     "duplicatedCountryFilesBytes": 1550448,
-    "countryConflictShardBytes": 444730,
+    "countryConflictShardBytes": 444802,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24128,
-        "inlineBytes": 3317271,
+        "inlineBytes": 3326371,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 215899,
-          "conflictShardBytes": 215900,
+          "conflictsBytes": 215971,
+          "conflictShardBytes": 215972,
           "averageConflictBytes": 234
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 116,
+    "pendingCount": 115,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15187,19 +15187,6 @@
         ],
         "regions": [
           "Asia"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de jackson",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"

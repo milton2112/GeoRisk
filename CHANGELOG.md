@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.196 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.197 antes de cerrar la siguiente version.
+
+## v1.6.197 - 2026-09-02
+
+- Normaliza **Batalla de jackson** como **Batalla de Jackson (Misisipi, 14 de mayo de 1863)**, corrigiendo mayúsculas, fecha, ubicación, tipo, bandos y jerarquía dentro de la Guerra Civil estadounidense.
+- La vincula con la **Campaña de Vicksburg de 1863**, incorpora aliases de búsqueda en español e inglés, y agrega la ficha diferida para Estados Unidos con cronología, causas, consecuencias y participantes históricos.
+- Documenta la toma de Jackson con fuentes del National Park Service, el Centro de Historia Militar del Ejército de EE. UU. y la Biblioteca del Congreso.
+- Conserva la discrepancia entre los recuentos oficiales de bajas y la etiqueta de fecha de una estampa de época, en lugar de publicar una cifra o fecha secundaria como definitivas.
+- Reduce las jerarquías provisionales de conflictos de 49 a 48 y los conflictos sin fecha de 116 a 115, con regresión de integridad para aliases, campaña, fuentes y navegación.
+- Estabiliza la prueba crítica de clic 2D: solicita un render, recalcula el punto de selección y reintenta una vez, sin aprobar el flujo si el país no queda realmente seleccionado.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-02-release-2`.
 
 ## v1.6.196 - 2026-09-02
 

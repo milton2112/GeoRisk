@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-09-02T11:25:00.972Z",
-  "changedFullCountries": 3,
+  "generatedAt": "2026-09-02T11:37:17.471Z",
+  "changedFullCountries": 1,
   "fullPassChanges": [
-    3,
+    1,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 196,
+    "enriched": 197,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1077,
+  "generatedHierarchyCandidates": 1078,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -37,7 +37,8 @@
       "Combate de Little Dry Creek (1885)",
       "Batalla de Fayetteville (Arkansas, 1863)",
       "Acción naval de Matamoros (3 de abril de 1836)",
-      "Acción naval de Tatamagouche (15 de junio de 1745)"
+      "Acción naval de Tatamagouche (15 de junio de 1745)",
+      "Batalla de Jackson (Misisipi, 14 de mayo de 1863)"
     ],
     "nicaragua": [
       "Batalla de Masaya",
@@ -1469,6 +1470,12 @@
     "Seegefecht in der Putziger Wiek": "Combate naval en Putziger Wiek (23 de agosto de 1870)",
     "Sea fight in Putziger Wiek": "Combate naval en Putziger Wiek (23 de agosto de 1870)",
     "Putziger Wiek naval action": "Combate naval en Putziger Wiek (23 de agosto de 1870)",
+    "Batalla de jackson": "Batalla de Jackson (Misisipi, 14 de mayo de 1863)",
+    "Batalla de Jackson": "Batalla de Jackson (Misisipi, 14 de mayo de 1863)",
+    "Battle of Jackson": "Batalla de Jackson (Misisipi, 14 de mayo de 1863)",
+    "Battle of Jackson, Mississippi": "Batalla de Jackson (Misisipi, 14 de mayo de 1863)",
+    "Battle of Jackson (May 14)": "Batalla de Jackson (Misisipi, 14 de mayo de 1863)",
+    "Jackson, Mississippi (1863)": "Batalla de Jackson (Misisipi, 14 de mayo de 1863)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2590,6 +2597,7 @@
     "Batalla naval del canal de Procida (26 de junio de 1809)",
     "Batalla de Anabta (Nur Shams, 21 de junio de 1936)",
     "Combate naval en Putziger Wiek (23 de agosto de 1870)",
+    "Batalla de Jackson (Misisipi, 14 de mayo de 1863)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

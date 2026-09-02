@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-02T11:27:36.038Z",
+  "generatedAt": "2026-09-02T11:44:18.713Z",
   "scannedConflicts": 2000,
   "issueCount": 0,
-  "advisoryCount": 49,
-  "reviewCount": 49,
+  "advisoryCount": 48,
+  "reviewCount": 48,
   "summary": {
-    "provisional_parent": 49
+    "provisional_parent": 48
   },
   "topIssues": [],
   "topAdvisories": [
@@ -18,20 +18,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de jackson",
-      "name": "Batalla de jackson",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],

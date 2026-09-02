@@ -581,6 +581,11 @@ import {
   PUTZIGER_WIEK_1870_CONFLICT_RENAMES
 } from "../lib/conflict-curation-putziger-wiek-1870.js";
 import {
+  JACKSON_1863_CONFLICT_DETAIL_FIXES,
+  JACKSON_1863_COUNTRY_CONFLICT_ADDITIONS,
+  JACKSON_1863_CONFLICT_RENAMES
+} from "../lib/conflict-curation-jackson-1863.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -5492,6 +5497,43 @@ assert.ok(
     && /dieciocho/i.test(putzigerWiek1870Detail.sourceDispute)
     && /no mezcla este episodio con el combate de Hiddensee/i.test(putzigerWiek1870Detail.curationNote),
   "la curaduria de Putziger Wiek debe fijar 1870 sin inventar bajas ni mezclar Hiddensee"
+);
+assert.equal(Object.keys(JACKSON_1863_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  JACKSON_1863_CONFLICT_RENAMES["Batalla de jackson"],
+  "Batalla de Jackson (Misisipi, 14 de mayo de 1863)",
+  "la entrada ambigua de Jackson debe llegar a la ficha curada de Misisipi"
+);
+assert.equal(
+  JACKSON_1863_CONFLICT_RENAMES["Battle of Jackson, Mississippi"],
+  "Batalla de Jackson (Misisipi, 14 de mayo de 1863)",
+  "el alias ingles de Jackson debe llegar a la ficha curada"
+);
+assert.deepEqual(
+  JACKSON_1863_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Estados Unidos": ["Batalla de Jackson (Misisipi, 14 de mayo de 1863)"]
+  }
+);
+const jackson1863Detail = JACKSON_1863_CONFLICT_DETAIL_FIXES["Batalla de Jackson (Misisipi, 14 de mayo de 1863)"];
+assert.ok(
+  jackson1863Detail
+    && jackson1863Detail.startYear === 1863
+    && jackson1863Detail.startYear === jackson1863Detail.endYear
+    && jackson1863Detail.parent === "Guerra Civil estadounidense"
+    && jackson1863Detail.war === "Guerra Civil estadounidense"
+    && jackson1863Detail.campaign === "Campa\u00f1a de Vicksburg de 1863"
+    && jackson1863Detail.type === "batalla terrestre"
+    && jackson1863Detail.conflictType === "civil"
+    && jackson1863Detail.scale === "regional"
+    && jackson1863Detail.hierarchyConfidence === "alta"
+    && jackson1863Detail.hierarchySources?.length >= 4
+    && jackson1863Detail.participants?.length === 2
+    && jackson1863Detail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /14 de mayo de 1863/i.test(jackson1863Detail.datePrecision)
+    && /286 bajas federales y 850 confederadas/i.test(jackson1863Detail.sourceDispute)
+    && /otras acciones denominadas Jackson/i.test(jackson1863Detail.curationNote),
+  "la curaduria de Jackson debe fijar fecha, campana, fuentes y cautela ante las cifras divergentes"
 );
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
