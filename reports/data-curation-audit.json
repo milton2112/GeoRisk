@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-02T18:19:36.057Z",
+  "generatedAt": "2026-09-02T19:09:27.958Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12784865,
-    "duplicatedCountryFilesBytes": 1551001,
-    "countryConflictShardBytes": 445695,
+    "fullBytes": 12794567,
+    "duplicatedCountryFilesBytes": 1551139,
+    "countryConflictShardBytes": 445882,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -62,8 +62,8 @@
       {
         "code": "USA",
         "name": "Estados Unidos",
-        "bytes": 24128,
-        "inlineBytes": 3354585,
+        "bytes": 24266,
+        "inlineBytes": 3364287,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -77,7 +77,7 @@
         },
         "metrics": {
           "sectionBytes": {
-            "military": 10183,
+            "military": 10321,
             "politics": 9973,
             "metadata": 1951,
             "general": 978,
@@ -90,7 +90,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 10183
+              "bytes": 10321
             },
             {
               "section": "politics",
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 216407,
-          "conflictShardBytes": 216408,
+          "conflictsBytes": 216594,
+          "conflictShardBytes": 216595,
           "averageConflictBytes": 234
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 109,
+    "pendingCount": 108,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15403,19 +15403,6 @@
       },
       {
         "name": "Batalla de Shewan",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Sideling Hill",
         "countries": [
           "USA"
         ],

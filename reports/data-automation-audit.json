@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-09-02T18:21:44.666Z",
+  "generatedAt": "2026-09-02T19:11:02.758Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 110
+      "count": 109
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 42
+      "count": 41
     },
     "suspectRegions": {
       "count": 0
@@ -471,13 +471,6 @@
       },
       {
         "code": "USA",
-        "name": "Batalla de Sideling Hill",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
-      {
-        "code": "USA",
         "name": "Batalla de SIranaya",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
@@ -535,6 +528,13 @@
       {
         "code": "USA",
         "name": "Batalla del río Malalag",
+        "parent": "Conflicto regional de América",
+        "campaign": "Campaña vinculada a Conflicto regional de América",
+        "startYear": null
+      },
+      {
+        "code": "USA",
+        "name": "Batalla naval de Halifax",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 42,
+      "count": 41,
       "command": "npm run fix:conflicts:batches"
     },
     {

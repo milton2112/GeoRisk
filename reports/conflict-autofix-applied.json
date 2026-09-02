@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-02T18:19:29.332Z",
+  "generatedAt": "2026-09-02T19:09:20.783Z",
   "changedFullCountries": 1,
   "fullPassChanges": [
     1,
@@ -13,7 +13,7 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1084,
+  "generatedHierarchyCandidates": 1086,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -1517,6 +1517,12 @@
     "Captain Stephenson's Battle": "Combate de Yellow Creek (Waddams Grove, 18 de junio de 1832)",
     "Captain Stephenson's Fight": "Combate de Yellow Creek (Waddams Grove, 18 de junio de 1832)",
     "Stephenson's Fight": "Combate de Yellow Creek (Waddams Grove, 18 de junio de 1832)",
+    "Batalla de Sideling Hill": "Batalla de Sideling Hill (abril de 1756)",
+    "Batalla de Sidling Hill": "Batalla de Sideling Hill (abril de 1756)",
+    "Battle of Sideling Hill": "Batalla de Sideling Hill (abril de 1756)",
+    "Battle of Sidling Hill": "Batalla de Sideling Hill (abril de 1756)",
+    "Sideling Hill, Battle of, Pa., 1756": "Batalla de Sideling Hill (abril de 1756)",
+    "Sideling Hill (Md. and Pa.), Battle of, 1756": "Batalla de Sideling Hill (abril de 1756)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2645,6 +2651,7 @@
     "Batalla de Río Grande City (27 de diciembre de 1859)",
     "Batalla del convoy de Malta (18 de febrero de 1800)",
     "Combate de Yellow Creek (Waddams Grove, 18 de junio de 1832)",
+    "Batalla de Sideling Hill (abril de 1756)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

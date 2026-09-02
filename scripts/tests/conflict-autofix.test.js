@@ -615,6 +615,10 @@ import {
   WADDAMS_GROVE_1832_CONFLICT_RENAMES
 } from "../lib/conflict-curation-waddams-grove-1832.js";
 import {
+  SIDELING_HILL_1756_CONFLICT_DETAIL_FIXES,
+  SIDELING_HILL_1756_CONFLICT_RENAMES
+} from "../lib/conflict-curation-sideling-hill-1756.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -5780,6 +5784,38 @@ assert.ok(
     && /referencia geogr\u00e1fica retrospectiva/i.test(waddamsGrove1832Detail.sourceDispute)
     && /no mezcla este choque con la primera o segunda batalla de Kellogg's Grove/i.test(waddamsGrove1832Detail.curationNote),
   "la curaduria de Waddams Grove debe fijar fecha, jerarquia y alias sin confundir el nombre posterior del sitio con una denominacion contemporanea"
+);
+assert.equal(Object.keys(SIDELING_HILL_1756_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  SIDELING_HILL_1756_CONFLICT_RENAMES["Batalla de Sideling Hill"],
+  "Batalla de Sideling Hill (abril de 1756)",
+  "la entrada de Sideling Hill debe llegar a la ficha curada de 1756"
+);
+assert.equal(
+  SIDELING_HILL_1756_CONFLICT_RENAMES["Battle of Sidling Hill"],
+  "Batalla de Sideling Hill (abril de 1756)",
+  "la variante historica Sidling debe conservar la ficha curada"
+);
+const sidelingHill1756Detail = SIDELING_HILL_1756_CONFLICT_DETAIL_FIXES["Batalla de Sideling Hill (abril de 1756)"];
+assert.ok(
+  sidelingHill1756Detail
+    && sidelingHill1756Detail.startYear === 1756
+    && sidelingHill1756Detail.startYear === sidelingHill1756Detail.endYear
+    && sidelingHill1756Detail.parent === "Guerra franco-india (1754-1763)"
+    && sidelingHill1756Detail.war === "Guerra franco-india (1754-1763)"
+    && sidelingHill1756Detail.campaign === "Guerra de frontera de Pensilvania de 1756"
+    && sidelingHill1756Detail.type === "combate terrestre"
+    && sidelingHill1756Detail.conflictType === "colonial"
+    && sidelingHill1756Detail.scale === "local"
+    && sidelingHill1756Detail.hierarchyConfidence === "alta"
+    && sidelingHill1756Detail.hierarchySources?.length === 4
+    && sidelingHill1756Detail.participants?.length === 2
+    && sidelingHill1756Detail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /Abril de 1756/i.test(sidelingHill1756Detail.datePrecision)
+    && /no fija un d\u00eda definitivo/i.test(sidelingHill1756Detail.datePrecision)
+    && /La fecha y el lugar fino, sin embargo, siguen discutidos/i.test(sidelingHill1756Detail.sourceDispute)
+    && /no confunde este combate con el ataque al fuerte McCord/i.test(sidelingHill1756Detail.curationNote),
+  "la curaduria de Sideling Hill debe fijar jerarquia y mes sin presentar como cerrados el lugar, la fecha diaria o las bajas"
 );
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(

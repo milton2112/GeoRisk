@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.204 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.205 antes de cerrar la siguiente version.
+
+## v1.6.205 - 2026-09-02
+
+- Normaliza **Batalla de Sideling Hill** como **Batalla de Sideling Hill (abril de 1756)**, corrigiendo jerarquia, idioma, tipo y contexto dentro de la **Guerra franco-india (1754-1763)**.
+- Conserva las variantes Sideling/Sidling Hill como aliases y deja visible que la fecha diaria, el emplazamiento preciso, los mandos y las bajas siguen siendo materia de fuentes divergentes.
+- Agrega fuentes de Library of Congress, Oxford Text Archive, Susquehanna River Basin Commission y Pennsylvania Archives, con regresion para aliases, jerarquia, tipologia y cautela de datos.
+- Reduce las jerarquias provisionales de conflictos de 42 a 41 y los conflictos sin fecha del indice de 109 a 108.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-02-release-10`.
 
 ## v1.6.204 - 2026-09-02
 

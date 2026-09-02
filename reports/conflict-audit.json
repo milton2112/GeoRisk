@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-02T18:21:41.134Z",
+  "generatedAt": "2026-09-02T19:10:58.912Z",
   "scannedConflicts": 2000,
   "issueCount": 0,
-  "advisoryCount": 42,
-  "reviewCount": 42,
+  "advisoryCount": 41,
+  "reviewCount": 41,
   "summary": {
-    "provisional_parent": 42
+    "provisional_parent": 41
   },
   "topIssues": [],
   "topAdvisories": [
@@ -236,20 +236,6 @@
     {
       "key": "batalla de shewan",
       "name": "Batalla de Shewan",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de sideling hill",
-      "name": "Batalla de Sideling Hill",
       "countries": [
         "USA"
       ],
