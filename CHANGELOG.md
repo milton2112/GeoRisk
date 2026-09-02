@@ -8,7 +8,14 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.198 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.199 antes de cerrar la siguiente version.
+
+## v1.6.199 - 2026-09-02
+
+- Endurece la auditoria de candidatos con jerarquia provisional: una sugerencia de Wikipedia solo puede avanzar si comparte todos los terminos identificadores del titulo, no un unico lugar o palabra comun.
+- Muestra las sugerencias insuficientes como `coincidencia_debil` con su pagina de origen para revision humana, en lugar de tratarlas como fichas candidatas validas.
+- Agrega regresion para impedir que **Batalla de Pine Creek** vuelva a asociarse automaticamente con la escaramuza distinta de Terre Noire Creek, sin romper aliases que ya fueron aprobados de forma explicita.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-02-release-4`.
 
 ## v1.6.198 - 2026-09-02
 

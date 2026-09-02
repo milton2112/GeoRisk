@@ -10,6 +10,46 @@ const countriesPath = path.join(projectRoot, "data", "countries_full.json");
 const reportPath = path.join(projectRoot, "reports", "provisional-conflict-candidates.json");
 export const DEFAULT_PROVISIONAL_CANDIDATE_LIMIT = 10;
 export const DEFAULT_PROVISIONAL_CANDIDATE_TIMEOUT_MS = 8_000;
+const CANDIDATE_TITLE_STOP_WORDS = new Set([
+  "accion",
+  "action",
+  "at",
+  "battle",
+  "batalla",
+  "combate",
+  "de",
+  "del",
+  "el",
+  "en",
+  "enfrentamiento",
+  "guerra",
+  "in",
+  "la",
+  "las",
+  "los",
+  "of",
+  "on",
+  "operacion",
+  "operation",
+  "por",
+  "skirmish",
+  "the",
+  "war",
+  "y"
+]);
+
+export function tokenizeCandidateTitle(value = "") {
+  return normalizeConflictKey(value)
+    .split(" ")
+    .filter(token => token && !CANDIDATE_TITLE_STOP_WORDS.has(token));
+}
+
+export function hasStrongCandidateTitleMatch(conflictName, pageTitle = "") {
+  const requestedTokens = tokenizeCandidateTitle(conflictName);
+  const candidateTokens = new Set(tokenizeCandidateTitle(pageTitle));
+  return requestedTokens.length > 0
+    && requestedTokens.every(token => candidateTokens.has(token));
+}
 
 export function normalizeCandidateTimeout(timeoutMs, fallback = DEFAULT_PROVISIONAL_CANDIDATE_TIMEOUT_MS) {
   const parsed = Number(timeoutMs);
@@ -101,19 +141,22 @@ export function toWikipediaPageUrl(pageTitle, language = "es") {
   return `https://${normalizedLanguage}.wikipedia.org/wiki/${encodeURIComponent(pageTitle.replace(/ /g, "_"))}`;
 }
 
-export function classifyWikipediaCandidate(detail = {}) {
+export function classifyWikipediaCandidate(detail = {}, conflictName = "") {
   const partOf = asText(detail.partOf || detail.wikipedia?.partOf);
   const date = asText(detail.wikipedia?.date);
   const { startYear, endYear } = extractCandidateYears(date);
   const pageTitle = asText(detail.pageTitle);
   const language = detail.wikipedia?.language === "en" ? "en" : "es";
+  const hasStrongTitleMatch = !conflictName || hasStrongCandidateTitleMatch(conflictName, pageTitle);
   const status = !pageTitle
     ? "sin_ficha"
-    : !partOf
-      ? "revisar_padre"
-      : !startYear
-        ? "revisar_fecha"
-        : "listo_para_revision";
+    : !hasStrongTitleMatch
+      ? "coincidencia_debil"
+      : !partOf
+        ? "revisar_padre"
+        : !startYear
+          ? "revisar_fecha"
+          : "listo_para_revision";
 
   return {
     status,
@@ -125,7 +168,8 @@ export function classifyWikipediaCandidate(detail = {}) {
     startYear,
     endYear,
     region: asText(detail.region),
-    outcome: asText(detail.outcome)
+    outcome: asText(detail.outcome),
+    ...(conflictName ? { titleMatch: hasStrongTitleMatch ? "fuerte" : "debil" } : {})
   };
 }
 
@@ -169,7 +213,7 @@ function buildReport(records, requestedCount, availableCount, batch = {}) {
 
   return {
     generatedAt: new Date().toISOString(),
-    source: "Wikipedia MediaWiki API; candidates require editorial validation before publication.",
+    source: "Wikipedia MediaWiki API; automatic resolution requires a strong title match and every candidate requires editorial validation before publication.",
     requestedCount,
     availableCount,
     batch: {
@@ -210,7 +254,7 @@ async function main() {
     } catch (reason) {
       error = reason instanceof Error ? reason.message : String(reason);
     }
-    const resolved = classifyWikipediaCandidate(detail || {});
+    const resolved = classifyWikipediaCandidate(detail || {}, candidate.name);
     records.push({
       ...candidate,
       ...resolved,

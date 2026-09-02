@@ -5,6 +5,7 @@ import {
   classifyWikipediaCandidate,
   extractCandidateYears,
   fetchProvisionalCandidateDetail,
+  hasStrongCandidateTitleMatch,
   normalizeCandidateTimeout,
   selectProvisionalCandidateBatch,
   toWikipediaPageUrl
@@ -33,6 +34,21 @@ assert.equal(
   toWikipediaPageUrl("Battle of Example", "en"),
   "https://en.wikipedia.org/wiki/Battle_of_Example"
 );
+assert.equal(
+  hasStrongCandidateTitleMatch("Batalla de Pine Creek", "Escaramuza en Terre Noire Creek"),
+  false,
+  "un solo termino geografico compartido no debe asociar dos conflictos distintos"
+);
+assert.equal(
+  hasStrongCandidateTitleMatch("Batalla de Pine Creek", "Battle of Pine Creek (1864)"),
+  true,
+  "una coincidencia de todos los terminos identificadores debe conservarse"
+);
+assert.equal(
+  hasStrongCandidateTitleMatch("Batalla de Hekihazu", "Battle of Hekihazu (1564)"),
+  true,
+  "los nombres univocos de una sola localidad deben seguir siendo candidatos validos"
+);
 
 const sanitized = sanitizeWikipediaConflictDetail({
   pageTitle: "Battle of Example",
@@ -57,6 +73,15 @@ assert.deepEqual(
   }
 );
 assert.equal(classifyWikipediaCandidate({ pageTitle: "Sin padre", wikipedia: { date: "1719" } }).status, "revisar_padre");
+assert.equal(
+  classifyWikipediaCandidate({
+    pageTitle: "Escaramuza en Terre Noire Creek",
+    partOf: "Expedicion de Camden",
+    wikipedia: { date: "1864" }
+  }, "Batalla de Pine Creek").status,
+  "coincidencia_debil",
+  "la auditoria debe conservar el resultado sugerido pero marcarlo como no verificable"
+);
 assert.equal(
   classifyWikipediaCandidate({ pageTitle: "Padre vacio", partOf: "null", wikipedia: { date: "1719" } }).status,
   "revisar_padre",
