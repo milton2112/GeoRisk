@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-09-01T17:20:43.835Z",
-  "changedFullCountries": 2,
+  "generatedAt": "2026-09-02T11:25:00.972Z",
+  "changedFullCountries": 3,
   "fullPassChanges": [
-    2,
+    3,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 194,
+    "enriched": 196,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1076,
+  "generatedHierarchyCandidates": 1077,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -107,7 +107,8 @@
       "Combate naval frente a Hiddensee (1870)",
       "Combate naval frente a La Habana (1870)",
       "Batalla naval de Pierres Noires (5-6 de julio de 1944)",
-      "Combates navales de Westtief y el Greifswalder Bodden (julio-agosto de 1712)"
+      "Combates navales de Westtief y el Greifswalder Bodden (julio-agosto de 1712)",
+      "Combate naval en Putziger Wiek (23 de agosto de 1870)"
     ],
     "corea del sur": [
       "Acción naval de Happo (1592)",
@@ -300,7 +301,8 @@
       "Guerra polaco-sovietica (1919-1921)",
       "Carga de Hrebionka (1920)",
       "Batalla de Ostróda (1628)",
-      "Batalla de Treiden (1628)"
+      "Batalla de Treiden (1628)",
+      "Combate naval en Putziger Wiek (23 de agosto de 1870)"
     ],
     "mexico": [
       "Combate de Carrizal (1916)",
@@ -1461,6 +1463,12 @@
     "Battle of Anabta": "Batalla de Anabta (Nur Shams, 21 de junio de 1936)",
     "Batalla de Anbata": "Batalla de Anabta (Nur Shams, 21 de junio de 1936)",
     "Battle of Anbata": "Batalla de Anabta (Nur Shams, 21 de junio de 1936)",
+    "Battle of Putziger Wiek": "Combate naval en Putziger Wiek (23 de agosto de 1870)",
+    "Batalla de Putziger Wiek": "Combate naval en Putziger Wiek (23 de agosto de 1870)",
+    "Combate naval de Putziger Wiek": "Combate naval en Putziger Wiek (23 de agosto de 1870)",
+    "Seegefecht in der Putziger Wiek": "Combate naval en Putziger Wiek (23 de agosto de 1870)",
+    "Sea fight in Putziger Wiek": "Combate naval en Putziger Wiek (23 de agosto de 1870)",
+    "Putziger Wiek naval action": "Combate naval en Putziger Wiek (23 de agosto de 1870)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2581,6 +2589,7 @@
     "Combates navales de Westtief y el Greifswalder Bodden (julio-agosto de 1712)",
     "Batalla naval del canal de Procida (26 de junio de 1809)",
     "Batalla de Anabta (Nur Shams, 21 de junio de 1936)",
+    "Combate naval en Putziger Wiek (23 de agosto de 1870)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

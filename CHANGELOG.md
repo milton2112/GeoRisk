@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.195 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.196 antes de cerrar la siguiente version.
+
+## v1.6.196 - 2026-09-02
+
+- Normaliza **Battle of Putziger Wiek** como **Combate naval en Putziger Wiek (23 de agosto de 1870)**, corrigiendo idioma, fecha, lugar, bandos y jerarquia dentro de la Guerra franco-prusiana.
+- Vincula el episodio con Francia, Alemania y Polonia, conserva las entidades historicas de los bandos y agrega aliases de busqueda en ingles, espanol y aleman.
+- Documenta la salida nocturna de SMS Nymphe ante la escuadra francesa con fuentes de la Bayerische Staatsbibliothek, Darmstadt y Hamburg; conserva la diferencia entre la fecha editorial del informe y la accion de madrugada.
+- Evita adjudicar una victoria decisiva o bajas cerradas: las fuentes no concilian todos los buques franceses ni la noticia posterior de dieciocho muertos.
+- Reduce las jerarquias provisionales de conflictos de 50 a 49 y los conflictos sin fecha de 117 a 116, con una regresion de integridad y detalle bajo demanda.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-02-release-1`.
 
 ## v1.6.195 - 2026-09-01
 

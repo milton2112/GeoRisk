@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-01T17:23:42.195Z",
+  "generatedAt": "2026-09-02T11:27:36.038Z",
   "scannedConflicts": 2000,
   "issueCount": 0,
-  "advisoryCount": 50,
-  "reviewCount": 50,
+  "advisoryCount": 49,
+  "reviewCount": 49,
   "summary": {
-    "provisional_parent": 50
+    "provisional_parent": 49
   },
   "topIssues": [],
   "topAdvisories": [
@@ -214,20 +214,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de putziger wiek",
-      "name": "Batalla de Putziger Wiek",
-      "countries": [
-        "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],

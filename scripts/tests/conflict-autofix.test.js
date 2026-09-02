@@ -576,6 +576,11 @@ import {
   ANABTA_NUR_SHAMS_1936_CONFLICT_RENAMES
 } from "../lib/conflict-curation-anabta-nur-shams-1936.js";
 import {
+  PUTZIGER_WIEK_1870_CONFLICT_DETAIL_FIXES,
+  PUTZIGER_WIEK_1870_COUNTRY_CONFLICT_ADDITIONS,
+  PUTZIGER_WIEK_1870_CONFLICT_RENAMES
+} from "../lib/conflict-curation-putziger-wiek-1870.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -5449,6 +5454,44 @@ assert.ok(
     && /15 de abril/i.test(anabtaNurShams1936Detail.sourceDispute)
     && /no sustituye/i.test(anabtaNurShams1936Detail.curationNote),
   "la curaduria de Anabta/Nur Shams debe conservar los nombres, la fecha y las incertidumbres sin mezclar el episodio de abril"
+);
+assert.equal(Object.keys(PUTZIGER_WIEK_1870_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  PUTZIGER_WIEK_1870_CONFLICT_RENAMES["Battle of Putziger Wiek"],
+  "Combate naval en Putziger Wiek (23 de agosto de 1870)",
+  "la entrada inglesa de Putziger Wiek debe llegar a la ficha naval curada"
+);
+assert.equal(
+  PUTZIGER_WIEK_1870_CONFLICT_RENAMES["Seegefecht in der Putziger Wiek"],
+  "Combate naval en Putziger Wiek (23 de agosto de 1870)",
+  "el alias aleman debe resolver el combate naval curado"
+);
+assert.deepEqual(
+  PUTZIGER_WIEK_1870_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    Alemania: ["Combate naval en Putziger Wiek (23 de agosto de 1870)"],
+    Polonia: ["Combate naval en Putziger Wiek (23 de agosto de 1870)"]
+  }
+);
+const putzigerWiek1870Detail = PUTZIGER_WIEK_1870_CONFLICT_DETAIL_FIXES["Combate naval en Putziger Wiek (23 de agosto de 1870)"];
+assert.ok(
+  putzigerWiek1870Detail
+    && putzigerWiek1870Detail.startYear === 1870
+    && putzigerWiek1870Detail.startYear === putzigerWiek1870Detail.endYear
+    && putzigerWiek1870Detail.parent === "Guerra franco-prusiana (1870-1871)"
+    && putzigerWiek1870Detail.war === "Guerra franco-prusiana (1870-1871)"
+    && putzigerWiek1870Detail.campaign === "Operaciones navales del B\u00e1ltico de 1870"
+    && putzigerWiek1870Detail.type === "combate naval"
+    && putzigerWiek1870Detail.conflictType === "interestatal"
+    && putzigerWiek1870Detail.scale === "regional"
+    && putzigerWiek1870Detail.hierarchyConfidence === "alta"
+    && putzigerWiek1870Detail.hierarchySources?.length === 3
+    && putzigerWiek1870Detail.participants?.length === 2
+    && putzigerWiek1870Detail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /23 de agosto de 1870/i.test(putzigerWiek1870Detail.datePrecision)
+    && /dieciocho/i.test(putzigerWiek1870Detail.sourceDispute)
+    && /no mezcla este episodio con el combate de Hiddensee/i.test(putzigerWiek1870Detail.curationNote),
+  "la curaduria de Putziger Wiek debe fijar 1870 sin inventar bajas ni mezclar Hiddensee"
 );
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(

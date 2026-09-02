@@ -1,29 +1,29 @@
 {
-  "generatedAt": "2026-09-01T17:23:44.923Z",
+  "generatedAt": "2026-09-02T11:27:38.879Z",
   "status": "operativo",
   "startup": {
     "critical": "817 KB",
-    "criticalBytes": 836386,
+    "criticalBytes": 836376,
     "deferred": "2.95 MB",
     "estimatedRuntimeMemory": {
-      "countriesFullBytes": 12670603,
-      "countriesFullHuman": "12.08 MB",
-      "estimatedParsedBytes": 38011809,
-      "estimatedParsedHuman": "36.25 MB",
+      "countriesFullBytes": 12702267,
+      "countriesFullHuman": "12.11 MB",
+      "estimatedParsedBytes": 38106801,
+      "estimatedParsedHuman": "36.34 MB",
       "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
     },
     "largestAssets": [
       {
         "path": "data/conflict_details.generated.json",
         "exists": true,
-        "bytes": 2451518,
+        "bytes": 2457340,
         "human": "2.34 MB",
         "startupCritical": false
       },
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 563028,
+        "bytes": 563027,
         "human": "550 KB",
         "startupCritical": true
       },
@@ -72,7 +72,7 @@
       {
         "path": "index.html",
         "exists": true,
-        "bytes": 31775,
+        "bytes": 31766,
         "human": "31 KB",
         "startupCritical": true
       },
@@ -103,7 +103,7 @@
     "scanned": 2000,
     "issueCount": 0,
     "summary": {
-      "provisional_parent": 50
+      "provisional_parent": 49
     },
     "eraFocus": []
   },
@@ -112,13 +112,13 @@
       {
         "path": "data/timeline_index.json",
         "exists": true,
-        "bytes": 411660,
+        "bytes": 412134,
         "human": "402 KB"
       },
       {
         "path": "data/conflicts_index.json",
         "exists": true,
-        "bytes": 361523,
+        "bytes": 361801,
         "human": "353 KB"
       },
       {
@@ -130,7 +130,7 @@
       {
         "path": "data/conflicts/details_index.json",
         "exists": true,
-        "bytes": 168527,
+        "bytes": 168730,
         "human": "165 KB"
       },
       {
@@ -148,9 +148,9 @@
     ],
     "countryWeights": {
       "totalCountries": 183,
-      "fullBytes": 12670603,
-      "duplicatedCountryFilesBytes": 1550096,
-      "countryConflictShardBytes": 444256,
+      "fullBytes": 12702267,
+      "duplicatedCountryFilesBytes": 1550448,
+      "countryConflictShardBytes": 444730,
       "tooLargeCount": 0,
       "largest": [
         {
@@ -259,7 +259,7 @@
           "code": "FRA",
           "name": "Francia",
           "bytes": 21209,
-          "inlineBytes": 976943,
+          "inlineBytes": 985679,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -301,8 +301,8 @@
                 "bytes": 933
               }
             ],
-            "conflictsBytes": 50738,
-            "conflictShardBytes": 50739,
+            "conflictsBytes": 50860,
+            "conflictShardBytes": 50861,
             "averageConflictBytes": 211
           }
         },
@@ -310,7 +310,7 @@
           "code": "POL",
           "name": "Polonia",
           "bytes": 21163,
-          "inlineBytes": 304729,
+          "inlineBytes": 316193,
           "tooLarge": false,
           "counts": {
             "cities": 4,
@@ -319,7 +319,7 @@
             "religionGroups": 5,
             "organizations": 43,
             "rivals": 50,
-            "conflicts": 59,
+            "conflicts": 60,
             "timelineEvents": 0
           },
           "metrics": {
@@ -352,9 +352,9 @@
                 "bytes": 684
               }
             ],
-            "conflictsBytes": 15460,
-            "conflictShardBytes": 15461,
-            "averageConflictBytes": 262
+            "conflictsBytes": 15812,
+            "conflictShardBytes": 15813,
+            "averageConflictBytes": 264
           }
         },
         {
@@ -411,8 +411,8 @@
         {
           "code": "DEU",
           "name": "Alemania",
-          "bytes": 19665,
-          "inlineBytes": 164329,
+          "bytes": 20017,
+          "inlineBytes": 175793,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -421,13 +421,13 @@
             "religionGroups": 5,
             "organizations": 79,
             "rivals": 21,
-            "conflicts": 29,
+            "conflicts": 30,
             "timelineEvents": 4
           },
           "metrics": {
             "sectionBytes": {
+              "military": 8143,
               "politics": 8058,
-              "military": 7791,
               "metadata": 1952,
               "general": 992,
               "history": 349,
@@ -438,12 +438,12 @@
             },
             "largestSections": [
               {
-                "section": "politics",
-                "bytes": 8058
+                "section": "military",
+                "bytes": 8143
               },
               {
-                "section": "military",
-                "bytes": 7791
+                "section": "politics",
+                "bytes": 8058
               },
               {
                 "section": "metadata",
@@ -454,9 +454,9 @@
                 "bytes": 992
               }
             ],
-            "conflictsBytes": 7674,
+            "conflictsBytes": 8026,
             "conflictShardBytes": 0,
-            "averageConflictBytes": 265
+            "averageConflictBytes": 268
           }
         },
         {
@@ -790,7 +790,7 @@
     },
     "curationGaps": {},
     "conflictDataConsistency": {
-      "checked": 4139,
+      "checked": 4142,
       "closedMarkedActiveCount": 0,
       "inactiveMarkedActiveCount": 0,
       "nullNarrativeTextCount": 0,
@@ -811,14 +811,14 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 563028,
+      "bytes": 563027,
       "human": "550 KB"
     },
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 230400,
-      "human": "225 KB"
+      "bytes": 231393,
+      "human": "226 KB"
     },
     {
       "path": "style.css",
@@ -835,7 +835,7 @@
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 31775,
+      "bytes": 31766,
       "human": "31 KB"
     },
     {

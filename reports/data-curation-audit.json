@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-01T17:20:50.341Z",
+  "generatedAt": "2026-09-02T11:25:19.253Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12670603,
-    "duplicatedCountryFilesBytes": 1550096,
-    "countryConflictShardBytes": 444256,
+    "fullBytes": 12702267,
+    "duplicatedCountryFilesBytes": 1550448,
+    "countryConflictShardBytes": 444730,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -114,7 +114,7 @@
         "code": "FRA",
         "name": "Francia",
         "bytes": 21209,
-        "inlineBytes": 976943,
+        "inlineBytes": 985679,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -156,8 +156,8 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 50738,
-          "conflictShardBytes": 50739,
+          "conflictsBytes": 50860,
+          "conflictShardBytes": 50861,
           "averageConflictBytes": 211
         }
       },
@@ -165,7 +165,7 @@
         "code": "POL",
         "name": "Polonia",
         "bytes": 21163,
-        "inlineBytes": 304729,
+        "inlineBytes": 316193,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -174,7 +174,7 @@
           "religionGroups": 5,
           "organizations": 43,
           "rivals": 50,
-          "conflicts": 59,
+          "conflicts": 60,
           "timelineEvents": 0
         },
         "metrics": {
@@ -207,9 +207,9 @@
               "bytes": 684
             }
           ],
-          "conflictsBytes": 15460,
-          "conflictShardBytes": 15461,
-          "averageConflictBytes": 262
+          "conflictsBytes": 15812,
+          "conflictShardBytes": 15813,
+          "averageConflictBytes": 264
         }
       },
       {
@@ -266,8 +266,8 @@
       {
         "code": "DEU",
         "name": "Alemania",
-        "bytes": 19665,
-        "inlineBytes": 164329,
+        "bytes": 20017,
+        "inlineBytes": 175793,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -276,13 +276,13 @@
           "religionGroups": 5,
           "organizations": 79,
           "rivals": 21,
-          "conflicts": 29,
+          "conflicts": 30,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
+            "military": 8143,
             "politics": 8058,
-            "military": 7791,
             "metadata": 1952,
             "general": 992,
             "history": 349,
@@ -293,12 +293,12 @@
           },
           "largestSections": [
             {
-              "section": "politics",
-              "bytes": 8058
+              "section": "military",
+              "bytes": 8143
             },
             {
-              "section": "military",
-              "bytes": 7791
+              "section": "politics",
+              "bytes": 8058
             },
             {
               "section": "metadata",
@@ -309,9 +309,9 @@
               "bytes": 992
             }
           ],
-          "conflictsBytes": 7674,
+          "conflictsBytes": 8026,
           "conflictShardBytes": 0,
-          "averageConflictBytes": 265
+          "averageConflictBytes": 268
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 117,
+    "pendingCount": 116,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15382,19 +15382,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Putziger Wiek",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
