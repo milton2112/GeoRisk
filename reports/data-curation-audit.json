@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-09-02T17:28:39.245Z",
+  "generatedAt": "2026-09-02T17:40:46.210Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12745723,
-    "duplicatedCountryFilesBytes": 1550656,
-    "countryConflictShardBytes": 445080,
+    "fullBytes": 12775167,
+    "duplicatedCountryFilesBytes": 1551001,
+    "countryConflictShardBytes": 445537,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
         "bytes": 25046,
-        "inlineBytes": 1326081,
+        "inlineBytes": 1336807,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,7 +21,7 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 335,
+          "conflicts": 336,
           "timelineEvents": 4
         },
         "metrics": {
@@ -54,8 +54,8 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 79101,
-          "conflictShardBytes": 79102,
+          "conflictsBytes": 79446,
+          "conflictShardBytes": 79447,
           "averageConflictBytes": 236
         }
       },
@@ -114,7 +114,7 @@
         "code": "FRA",
         "name": "Francia",
         "bytes": 21209,
-        "inlineBytes": 985679,
+        "inlineBytes": 993671,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -156,9 +156,9 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 50860,
-          "conflictShardBytes": 50861,
-          "averageConflictBytes": 211
+          "conflictsBytes": 50972,
+          "conflictShardBytes": 50973,
+          "averageConflictBytes": 212
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 111,
+    "pendingCount": 110,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15650,19 +15650,6 @@
       },
       {
         "name": "Batalla del cabo de la Roca",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla del Convoy de Malta",
         "countries": [
           "FRA"
         ],

@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-09-02T17:28:32.775Z",
-  "changedFullCountries": 1,
+  "generatedAt": "2026-09-02T17:40:39.186Z",
+  "changedFullCountries": 3,
   "fullPassChanges": [
-    1,
+    3,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
@@ -13,7 +13,7 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1082,
+  "generatedHierarchyCandidates": 1084,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -200,6 +200,7 @@
       "Acción naval de Saint-Louis-du-Sud (marzo de 1748)",
       "Combate naval de Tellicherry (1791)",
       "Batalla naval del canal de Procida (26 de junio de 1809)",
+      "Batalla del convoy de Malta (18 de febrero de 1800)",
       "Accion naval del paso de Doro (1827)",
       "Combate naval de Jask (1620)",
       "Batalla naval de Pirano (1812)"
@@ -506,6 +507,9 @@
     ],
     "israel": [
       "Batalla por la base de Re'im (7 de octubre de 2023)"
+    ],
+    "malta": [
+      "Batalla del convoy de Malta (18 de febrero de 1800)"
     ],
     "afganistan": [
       "Batalla de Aranas (2007)"
@@ -1501,6 +1505,11 @@
     "Battle of Rio Grande City": "Batalla de Río Grande City (27 de diciembre de 1859)",
     "Battle of Rio Grande City (1859)": "Batalla de Río Grande City (27 de diciembre de 1859)",
     "Cortina Battle at Rio Grande City": "Batalla de Río Grande City (27 de diciembre de 1859)",
+    "Batalla del Convoy de Malta": "Batalla del convoy de Malta (18 de febrero de 1800)",
+    "Batalla del convoy de Malta": "Batalla del convoy de Malta (18 de febrero de 1800)",
+    "Battle of the Malta Convoy": "Batalla del convoy de Malta (18 de febrero de 1800)",
+    "Malta Convoy Battle": "Batalla del convoy de Malta (18 de febrero de 1800)",
+    "Battle of Malta Convoy": "Batalla del convoy de Malta (18 de febrero de 1800)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2627,6 +2636,7 @@
     "Batalla de Kumbo (10 de abril de 2024)",
     "Batalla por la base de Re'im (7 de octubre de 2023)",
     "Batalla de Río Grande City (27 de diciembre de 1859)",
+    "Batalla del convoy de Malta (18 de febrero de 1800)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

@@ -606,6 +606,11 @@ import {
   RIO_GRANDE_CITY_1859_CONFLICT_RENAMES
 } from "../lib/conflict-curation-rio-grande-city-1859.js";
 import {
+  MALTA_CONVOY_1800_CONFLICT_DETAIL_FIXES,
+  MALTA_CONVOY_1800_COUNTRY_CONFLICT_ADDITIONS,
+  MALTA_CONVOY_1800_CONFLICT_RENAMES
+} from "../lib/conflict-curation-malta-convoy-1800.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -5702,6 +5707,44 @@ assert.ok(
     && /Guerra entre M\u00e9xico y Estados Unidos/i.test(rioGrandeCity1859Detail.sourceDispute)
     && /no mezcla La Bolsa/i.test(rioGrandeCity1859Detail.curationNote),
   "la curaduria de Rio Grande City debe fijar su fecha y jerarquia sin mezclar guerras fronterizas ni cerrar bajas contradictorias"
+);
+assert.equal(Object.keys(MALTA_CONVOY_1800_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  MALTA_CONVOY_1800_CONFLICT_RENAMES["Batalla del Convoy de Malta"],
+  "Batalla del convoy de Malta (18 de febrero de 1800)",
+  "la entrada del convoy de Malta debe llegar a la ficha naval curada de 1800"
+);
+assert.equal(
+  MALTA_CONVOY_1800_CONFLICT_RENAMES["Battle of the Malta Convoy"],
+  "Batalla del convoy de Malta (18 de febrero de 1800)",
+  "el alias ingles debe conservar la ficha naval curada"
+);
+assert.deepEqual(
+  MALTA_CONVOY_1800_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Reino Unido": ["Batalla del convoy de Malta (18 de febrero de 1800)"],
+    Malta: ["Batalla del convoy de Malta (18 de febrero de 1800)"]
+  }
+);
+const maltaConvoy1800Detail = MALTA_CONVOY_1800_CONFLICT_DETAIL_FIXES["Batalla del convoy de Malta (18 de febrero de 1800)"];
+assert.ok(
+  maltaConvoy1800Detail
+    && maltaConvoy1800Detail.startYear === 1800
+    && maltaConvoy1800Detail.startYear === maltaConvoy1800Detail.endYear
+    && maltaConvoy1800Detail.parent === "Guerra de la Segunda Coalici\u00f3n (1798-1802)"
+    && maltaConvoy1800Detail.war === "Guerra de la Segunda Coalici\u00f3n (1798-1802)"
+    && maltaConvoy1800Detail.campaign === "Operaciones navales del sitio de Malta (febrero de 1800)"
+    && maltaConvoy1800Detail.type === "combate naval"
+    && maltaConvoy1800Detail.conflictType === "interestatal"
+    && maltaConvoy1800Detail.scale === "regional"
+    && maltaConvoy1800Detail.hierarchyConfidence === "alta"
+    && maltaConvoy1800Detail.hierarchySources?.length === 3
+    && maltaConvoy1800Detail.participants?.length === 2
+    && maltaConvoy1800Detail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /18 de febrero de 1800/i.test(maltaConvoy1800Detail.datePrecision)
+    && /Operaci\u00f3n Pedestal/i.test(maltaConvoy1800Detail.sourceDispute)
+    && /no mezcla esta acci\u00f3n de 1800/i.test(maltaConvoy1800Detail.curationNote),
+  "la curaduria del convoy de Malta debe fijar la fecha y jerarquia sin fusionarlo con los convoyes de la Segunda Guerra Mundial"
 );
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(

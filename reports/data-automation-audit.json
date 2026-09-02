@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-09-02T17:30:39.821Z",
+  "generatedAt": "2026-09-02T17:43:28.772Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 112
+      "count": 111
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 44
+      "count": 43
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 603
+      "count": 604
     },
     "redundantReligions": {
       "count": 0
@@ -114,11 +114,6 @@
       {
         "code": "FRA",
         "name": "Batalla del cabo de la Roca",
-        "region": "Europa"
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla del Convoy de Malta",
         "region": "Europa"
       },
       {
@@ -255,6 +250,11 @@
         "code": "GBR",
         "name": "Bombardeo de Belfast",
         "region": "Europa"
+      },
+      {
+        "code": "GBR",
+        "name": "Bombardeo de Colonia en la Segunda Guerra Mundial",
+        "region": "Europa, Asia-Pacífico, África y Atlántico"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -297,13 +297,6 @@
       {
         "code": "FRA",
         "name": "Batalla del cabo de la Roca",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla del Convoy de Malta",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -535,6 +528,13 @@
       {
         "code": "USA",
         "name": "Batalla del 27 de agosto",
+        "parent": "Conflicto regional de América",
+        "campaign": "Campaña vinculada a Conflicto regional de América",
+        "startYear": null
+      },
+      {
+        "code": "USA",
+        "name": "Batalla del cabo de Gata",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 44,
+      "count": 43,
       "command": "npm run fix:conflicts:batches"
     },
     {

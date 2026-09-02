@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.202 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.203 antes de cerrar la siguiente version.
+
+## v1.6.203 - 2026-09-02
+
+- Normaliza **Batalla del Convoy de Malta** como **Batalla del convoy de Malta (18 de febrero de 1800)**, corrigiendo fecha, lugar, idioma, tipo, actores y jerarquía dentro de la **Guerra de la Segunda Coalición (1798-1802)**.
+- La vincula con el sitio de Malta de 1798-1800 y habilita su navegación desde Francia, Reino Unido y Malta sin confundir el lugar con un beligerante estatal.
+- Separa de forma explícita esta acción naval de 1800 de la Operación Pedestal, de los convoyes de Malta de la Segunda Guerra Mundial y de la acción distinta del 31 de marzo de 1800.
+- Incorpora fuentes de Heritage Malta y University of Malta; conserva como no consolidadas las bajas, efectivos y composición exacta del convoy cuando los registros no coinciden.
+- Reduce las jerarquías provisionales de conflictos de 44 a 43 y los conflictos sin fecha del índice de 111 a 110, con regresión para aliases, países relacionados, jerarquía y desambiguación.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-02-release-8`.
 
 ## v1.6.202 - 2026-09-02
 

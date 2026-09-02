@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-09-02T17:30:39.025Z",
+  "generatedAt": "2026-09-02T17:43:27.775Z",
   "status": "operativo",
   "startup": {
     "critical": "817 KB",
     "criticalBytes": 836376,
-    "deferred": "2.98 MB",
+    "deferred": "2.99 MB",
     "estimatedRuntimeMemory": {
-      "countriesFullBytes": 12745723,
-      "countriesFullHuman": "12.16 MB",
-      "estimatedParsedBytes": 38237169,
-      "estimatedParsedHuman": "36.47 MB",
+      "countriesFullBytes": 12775167,
+      "countriesFullHuman": "12.18 MB",
+      "estimatedParsedBytes": 38325501,
+      "estimatedParsedHuman": "36.55 MB",
       "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
     },
     "largestAssets": [
       {
         "path": "data/conflict_details.generated.json",
         "exists": true,
-        "bytes": 2486372,
-        "human": "2.37 MB",
+        "bytes": 2491823,
+        "human": "2.38 MB",
         "startupCritical": false
       },
       {
@@ -103,7 +103,7 @@
     "scanned": 2000,
     "issueCount": 0,
     "summary": {
-      "provisional_parent": 44
+      "provisional_parent": 43
     },
     "eraFocus": []
   },
@@ -112,13 +112,13 @@
       {
         "path": "data/timeline_index.json",
         "exists": true,
-        "bytes": 412909,
-        "human": "403 KB"
+        "bytes": 413377,
+        "human": "404 KB"
       },
       {
         "path": "data/conflicts_index.json",
         "exists": true,
-        "bytes": 363088,
+        "bytes": 363334,
         "human": "355 KB"
       },
       {
@@ -130,7 +130,7 @@
       {
         "path": "data/conflicts/details_index.json",
         "exists": true,
-        "bytes": 169711,
+        "bytes": 169910,
         "human": "166 KB"
       },
       {
@@ -142,22 +142,22 @@
       {
         "path": "data/country_weights.json",
         "exists": true,
-        "bytes": 118273,
+        "bytes": 118274,
         "human": "116 KB"
       }
     ],
     "countryWeights": {
       "totalCountries": 183,
-      "fullBytes": 12745723,
-      "duplicatedCountryFilesBytes": 1550656,
-      "countryConflictShardBytes": 445080,
+      "fullBytes": 12775167,
+      "duplicatedCountryFilesBytes": 1551001,
+      "countryConflictShardBytes": 445537,
       "tooLargeCount": 0,
       "largest": [
         {
           "code": "GBR",
           "name": "Reino Unido",
           "bytes": 25046,
-          "inlineBytes": 1326081,
+          "inlineBytes": 1336807,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -166,7 +166,7 @@
             "religionGroups": 6,
             "organizations": 51,
             "rivals": 78,
-            "conflicts": 335,
+            "conflicts": 336,
             "timelineEvents": 4
           },
           "metrics": {
@@ -199,8 +199,8 @@
                 "bytes": 1018
               }
             ],
-            "conflictsBytes": 79101,
-            "conflictShardBytes": 79102,
+            "conflictsBytes": 79446,
+            "conflictShardBytes": 79447,
             "averageConflictBytes": 236
           }
         },
@@ -259,7 +259,7 @@
           "code": "FRA",
           "name": "Francia",
           "bytes": 21209,
-          "inlineBytes": 985679,
+          "inlineBytes": 993671,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -301,9 +301,9 @@
                 "bytes": 933
               }
             ],
-            "conflictsBytes": 50860,
-            "conflictShardBytes": 50861,
-            "averageConflictBytes": 211
+            "conflictsBytes": 50972,
+            "conflictShardBytes": 50973,
+            "averageConflictBytes": 212
           }
         },
         {
@@ -790,7 +790,7 @@
     },
     "curationGaps": {},
     "conflictDataConsistency": {
-      "checked": 4147,
+      "checked": 4150,
       "closedMarkedActiveCount": 0,
       "inactiveMarkedActiveCount": 0,
       "nullNarrativeTextCount": 0,
@@ -817,8 +817,8 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 237594,
-      "human": "232 KB"
+      "bytes": 238645,
+      "human": "233 KB"
     },
     {
       "path": "style.css",
