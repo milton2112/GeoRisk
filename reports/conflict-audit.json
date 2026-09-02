@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-02T12:12:27.533Z",
+  "generatedAt": "2026-09-02T13:06:24.486Z",
   "scannedConflicts": 2000,
   "issueCount": 0,
-  "advisoryCount": 47,
-  "reviewCount": 47,
+  "advisoryCount": 46,
+  "reviewCount": 46,
   "summary": {
-    "provisional_parent": 47
+    "provisional_parent": 46
   },
   "topIssues": [],
   "topAdvisories": [
@@ -32,20 +32,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de kumbo",
-      "name": "Batalla de Kumbo",
-      "countries": [
-        "CMR"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de África",
       "issues": [
         "provisional_parent"
       ],

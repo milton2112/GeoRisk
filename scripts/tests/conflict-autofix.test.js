@@ -591,6 +591,11 @@ import {
   SPRINGFIELD_1863_CONFLICT_RENAMES
 } from "../lib/conflict-curation-springfield-1863.js";
 import {
+  KUMBO_2024_CONFLICT_DETAIL_FIXES,
+  KUMBO_2024_COUNTRY_CONFLICT_ADDITIONS,
+  KUMBO_2024_CONFLICT_RENAMES
+} from "../lib/conflict-curation-kumbo-2024.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -5576,6 +5581,43 @@ assert.ok(
     && /Nueva Jersey de 1780/i.test(springfield1863Detail.sourceDispute)
     && /Wilson's Creek/i.test(springfield1863Detail.curationNote),
   "la curaduria de Springfield debe fijar la fecha, la incursion y la desambiguacion historica"
+);
+assert.equal(Object.keys(KUMBO_2024_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  KUMBO_2024_CONFLICT_RENAMES["batalla de Kumbo"],
+  "Batalla de Kumbo (10 de abril de 2024)",
+  "la entrada de Kumbo debe llegar a la ficha curada con fecha"
+);
+assert.equal(
+  KUMBO_2024_CONFLICT_RENAMES["Battle of Kumbo"],
+  "Batalla de Kumbo (10 de abril de 2024)",
+  "el alias ingles de Kumbo debe llegar a la ficha curada"
+);
+assert.deepEqual(
+  KUMBO_2024_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Camer\u00fan": ["Batalla de Kumbo (10 de abril de 2024)"]
+  }
+);
+const kumbo2024Detail = KUMBO_2024_CONFLICT_DETAIL_FIXES["Batalla de Kumbo (10 de abril de 2024)"];
+assert.ok(
+  kumbo2024Detail
+    && kumbo2024Detail.startYear === 2024
+    && kumbo2024Detail.startYear === kumbo2024Detail.endYear
+    && kumbo2024Detail.parent === "Crisis angl\u00f3fona de Camer\u00fan"
+    && kumbo2024Detail.war === "Crisis angl\u00f3fona de Camer\u00fan"
+    && kumbo2024Detail.campaign === "Operaciones en Bui de 2024"
+    && kumbo2024Detail.type === "ataque a base y combate urbano"
+    && kumbo2024Detail.conflictType === "insurgencia"
+    && kumbo2024Detail.scale === "local"
+    && kumbo2024Detail.hierarchyConfidence === "media"
+    && kumbo2024Detail.hierarchySources?.length === 4
+    && kumbo2024Detail.participants?.length === 2
+    && kumbo2024Detail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /10 de abril de 2024/i.test(kumbo2024Detail.datePrecision)
+    && /versi\u00f3n de autoridades/i.test(kumbo2024Detail.sourceDispute)
+    && /categor\u00eda organizativa de GeoRisk/i.test(kumbo2024Detail.curationNote),
+  "la curaduria de Kumbo debe fijar su fecha y jerarquia sin cerrar como hechos las bajas o una victoria disputadas"
 );
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(

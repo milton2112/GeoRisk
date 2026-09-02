@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.199 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.200 antes de cerrar la siguiente version.
+
+## v1.6.200 - 2026-09-02
+
+- Normaliza **batalla de Kumbo** como **Batalla de Kumbo (10 de abril de 2024)**, corrigiendo fecha, ubicación, idioma, actores y jerarquía dentro de la **Crisis anglófona de Camerún**.
+- La vincula con las operaciones de Bui de 2024 como categoría organizativa interna, sin confundirla con la Operación Bui Clean de 2021 ni con otros incidentes de Kumbo.
+- Incorpora ficha diferida para Camerún con causas, cronología, participantes, fuentes locales y contexto de International Crisis Group.
+- Conserva las discrepancias entre fuentes sobre bajas, daños civiles y resultado táctico; no presenta reclamaciones de autoridades o separatistas como cifras verificadas.
+- Reduce las jerarquías provisionales de conflictos de 47 a 46 y los conflictos sin fecha del índice de 114 a 113, con regresión de aliases, jerarquía y cautela de fuentes.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-02-release-5`.
 
 ## v1.6.199 - 2026-09-02
 

@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-09-02T12:12:31.802Z",
+  "generatedAt": "2026-09-02T13:06:27.923Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 115
+      "count": 114
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 47
+      "count": 46
     },
     "suspectRegions": {
       "count": 0
@@ -80,11 +80,6 @@
         "code": "AUT",
         "name": "Primera escaramuza de Ágfalva",
         "region": "Europa"
-      },
-      {
-        "code": "CMR",
-        "name": "Batalla de Kumbo",
-        "region": "África"
       },
       {
         "code": "CHL",
@@ -255,6 +250,11 @@
         "code": "SWE",
         "name": "Escaramuza en la península de Chukotka",
         "region": "Europa"
+      },
+      {
+        "code": "SYR",
+        "name": "Operación Batalla por la Restauración de la Dignidad",
+        "region": "Asia"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -264,13 +264,6 @@
         "name": "Batalla de Toldos Viejos",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
-      {
-        "code": "CMR",
-        "name": "Batalla de Kumbo",
-        "parent": "Conflicto regional de África",
-        "campaign": "Campaña vinculada a Conflicto regional de África",
         "startYear": null
       },
       {
@@ -535,6 +528,13 @@
       {
         "code": "USA",
         "name": "Batalla de Ty-ho Bay",
+        "parent": "Conflicto regional de América",
+        "campaign": "Campaña vinculada a Conflicto regional de América",
+        "startYear": null
+      },
+      {
+        "code": "USA",
+        "name": "Batalla de Waddams Grove",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 47,
+      "count": 46,
       "command": "npm run fix:conflicts:batches"
     },
     {

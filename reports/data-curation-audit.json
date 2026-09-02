@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-09-02T11:51:23.888Z",
+  "generatedAt": "2026-09-02T13:03:59.055Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12719745,
-    "duplicatedCountryFilesBytes": 1550448,
+    "fullBytes": 12727195,
+    "duplicatedCountryFilesBytes": 1550547,
     "countryConflictShardBytes": 444896,
     "tooLargeCount": 0,
     "largest": [
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 114,
+    "pendingCount": 113,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15200,19 +15200,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Kumbo",
-        "countries": [
-          "CMR"
-        ],
-        "regions": [
-          "África"
         ],
         "types": [
           "interestatal"
