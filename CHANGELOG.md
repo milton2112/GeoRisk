@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.197 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.198 antes de cerrar la siguiente version.
+
+## v1.6.198 - 2026-09-02
+
+- Normaliza **Batalla de Springfield** como **Segunda batalla de Springfield (Misuri, 8 de enero de 1863)**, corrigiendo fecha, ubicación, tipo, bandos y jerarquía dentro de la Guerra Civil estadounidense.
+- La vincula con la **Incursión de Marmaduke en Misuri (1862-1863)**, incorpora aliases de búsqueda y agrega la ficha diferida para Estados Unidos con causas, consecuencias, cronología y participantes históricos.
+- Documenta el episodio con los registros oficiales de la Guerra de Secesión, el Departamento de Recursos Naturales de Misuri, Missouri State University y la historia municipal de Springfield.
+- Separa expresamente la batalla de la acción distinta de Springfield de 1861, Wilson’s Creek y Springfield, Nueva Jersey, de 1780; conserva la incertidumbre de las bajas en lugar de fijar un total no homologado.
+- Reduce las jerarquías provisionales de conflictos de 48 a 47 y los conflictos sin fecha de 115 a 114, con regresión de integridad para aliases, campaña, fuentes y desambiguación.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-02-release-3`.
 
 ## v1.6.197 - 2026-09-02
 

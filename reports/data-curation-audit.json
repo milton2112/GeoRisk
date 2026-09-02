@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-02T11:37:23.964Z",
+  "generatedAt": "2026-09-02T11:51:23.888Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12711367,
+    "fullBytes": 12719745,
     "duplicatedCountryFilesBytes": 1550448,
-    "countryConflictShardBytes": 444802,
+    "countryConflictShardBytes": 444896,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24128,
-        "inlineBytes": 3326371,
+        "inlineBytes": 3334749,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 215971,
-          "conflictShardBytes": 215972,
+          "conflictsBytes": 216065,
+          "conflictShardBytes": 216066,
           "averageConflictBytes": 234
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 115,
+    "pendingCount": 114,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15499,19 +15499,6 @@
         ],
         "regions": [
           "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Springfield",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"

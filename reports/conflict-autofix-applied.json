@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-02T11:37:17.471Z",
+  "generatedAt": "2026-09-02T11:51:16.971Z",
   "changedFullCountries": 1,
   "fullPassChanges": [
     1,
@@ -13,7 +13,7 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1078,
+  "generatedHierarchyCandidates": 1079,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -38,7 +38,8 @@
       "Batalla de Fayetteville (Arkansas, 1863)",
       "Acción naval de Matamoros (3 de abril de 1836)",
       "Acción naval de Tatamagouche (15 de junio de 1745)",
-      "Batalla de Jackson (Misisipi, 14 de mayo de 1863)"
+      "Batalla de Jackson (Misisipi, 14 de mayo de 1863)",
+      "Segunda batalla de Springfield (Misuri, 8 de enero de 1863)"
     ],
     "nicaragua": [
       "Batalla de Masaya",
@@ -1476,6 +1477,12 @@
     "Battle of Jackson, Mississippi": "Batalla de Jackson (Misisipi, 14 de mayo de 1863)",
     "Battle of Jackson (May 14)": "Batalla de Jackson (Misisipi, 14 de mayo de 1863)",
     "Jackson, Mississippi (1863)": "Batalla de Jackson (Misisipi, 14 de mayo de 1863)",
+    "Batalla de Springfield": "Segunda batalla de Springfield (Misuri, 8 de enero de 1863)",
+    "Battle of Springfield": "Segunda batalla de Springfield (Misuri, 8 de enero de 1863)",
+    "Second Battle of Springfield": "Segunda batalla de Springfield (Misuri, 8 de enero de 1863)",
+    "Second Battle of Springfield (1863)": "Segunda batalla de Springfield (Misuri, 8 de enero de 1863)",
+    "Battle of Springfield, Missouri": "Segunda batalla de Springfield (Misuri, 8 de enero de 1863)",
+    "Battle of Springfield (Missouri, 1863)": "Segunda batalla de Springfield (Misuri, 8 de enero de 1863)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2598,6 +2605,7 @@
     "Batalla de Anabta (Nur Shams, 21 de junio de 1936)",
     "Combate naval en Putziger Wiek (23 de agosto de 1870)",
     "Batalla de Jackson (Misisipi, 14 de mayo de 1863)",
+    "Segunda batalla de Springfield (Misuri, 8 de enero de 1863)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

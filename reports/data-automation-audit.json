@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-09-02T11:44:22.328Z",
+  "generatedAt": "2026-09-02T11:53:24.115Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 116
+      "count": 115
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 48
+      "count": 47
     },
     "suspectRegions": {
       "count": 0
@@ -513,13 +513,6 @@
       },
       {
         "code": "USA",
-        "name": "Batalla de Springfield",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
-      {
-        "code": "USA",
         "name": "Batalla de Steen's Mountain",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
@@ -535,6 +528,13 @@
       {
         "code": "USA",
         "name": "Batalla de Taraca",
+        "parent": "Conflicto regional de América",
+        "campaign": "Campaña vinculada a Conflicto regional de América",
+        "startYear": null
+      },
+      {
+        "code": "USA",
+        "name": "Batalla de Ty-ho Bay",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 48,
+      "count": 47,
       "command": "npm run fix:conflicts:batches"
     },
     {

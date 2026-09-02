@@ -586,6 +586,11 @@ import {
   JACKSON_1863_CONFLICT_RENAMES
 } from "../lib/conflict-curation-jackson-1863.js";
 import {
+  SPRINGFIELD_1863_CONFLICT_DETAIL_FIXES,
+  SPRINGFIELD_1863_COUNTRY_CONFLICT_ADDITIONS,
+  SPRINGFIELD_1863_CONFLICT_RENAMES
+} from "../lib/conflict-curation-springfield-1863.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -5534,6 +5539,43 @@ assert.ok(
     && /286 bajas federales y 850 confederadas/i.test(jackson1863Detail.sourceDispute)
     && /otras acciones denominadas Jackson/i.test(jackson1863Detail.curationNote),
   "la curaduria de Jackson debe fijar fecha, campana, fuentes y cautela ante las cifras divergentes"
+);
+assert.equal(Object.keys(SPRINGFIELD_1863_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  SPRINGFIELD_1863_CONFLICT_RENAMES["Batalla de Springfield"],
+  "Segunda batalla de Springfield (Misuri, 8 de enero de 1863)",
+  "la entrada generica de Springfield debe llegar a la segunda batalla de Misuri"
+);
+assert.equal(
+  SPRINGFIELD_1863_CONFLICT_RENAMES["Second Battle of Springfield"],
+  "Segunda batalla de Springfield (Misuri, 8 de enero de 1863)",
+  "el alias ingles de Springfield debe llegar a la ficha curada"
+);
+assert.deepEqual(
+  SPRINGFIELD_1863_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    "Estados Unidos": ["Segunda batalla de Springfield (Misuri, 8 de enero de 1863)"]
+  }
+);
+const springfield1863Detail = SPRINGFIELD_1863_CONFLICT_DETAIL_FIXES["Segunda batalla de Springfield (Misuri, 8 de enero de 1863)"];
+assert.ok(
+  springfield1863Detail
+    && springfield1863Detail.startYear === 1863
+    && springfield1863Detail.startYear === springfield1863Detail.endYear
+    && springfield1863Detail.parent === "Guerra Civil estadounidense"
+    && springfield1863Detail.war === "Guerra Civil estadounidense"
+    && springfield1863Detail.campaign === "Incursi\u00f3n de Marmaduke en Misuri (1862-1863)"
+    && springfield1863Detail.type === "batalla urbana"
+    && springfield1863Detail.conflictType === "civil"
+    && springfield1863Detail.scale === "regional"
+    && springfield1863Detail.hierarchyConfidence === "alta"
+    && springfield1863Detail.hierarchySources?.length >= 4
+    && springfield1863Detail.participants?.length === 2
+    && springfield1863Detail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /8 de enero de 1863/i.test(springfield1863Detail.datePrecision)
+    && /Nueva Jersey de 1780/i.test(springfield1863Detail.sourceDispute)
+    && /Wilson's Creek/i.test(springfield1863Detail.curationNote),
+  "la curaduria de Springfield debe fijar la fecha, la incursion y la desambiguacion historica"
 );
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
