@@ -619,6 +619,11 @@ import {
   SIDELING_HILL_1756_CONFLICT_RENAMES
 } from "../lib/conflict-curation-sideling-hill-1756.js";
 import {
+  ROMANOVKA_1919_CONFLICT_DETAIL_FIXES,
+  ROMANOVKA_1919_COUNTRY_CONFLICT_ADDITIONS,
+  ROMANOVKA_1919_CONFLICT_RENAMES
+} from "../lib/conflict-curation-romanovka-1919.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -5816,6 +5821,44 @@ assert.ok(
     && /La fecha y el lugar fino, sin embargo, siguen discutidos/i.test(sidelingHill1756Detail.sourceDispute)
     && /no confunde este combate con el ataque al fuerte McCord/i.test(sidelingHill1756Detail.curationNote),
   "la curaduria de Sideling Hill debe fijar jerarquia y mes sin presentar como cerrados el lugar, la fecha diaria o las bajas"
+);
+assert.equal(Object.keys(ROMANOVKA_1919_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  ROMANOVKA_1919_CONFLICT_RENAMES["Batalla de Romanovka"],
+  "Batalla de Romanovka (25 de junio de 1919)",
+  "la entrada de Romanovka debe llegar a la ficha curada de 1919"
+);
+assert.equal(
+  ROMANOVKA_1919_CONFLICT_RENAMES["Romanovka Battle"],
+  "Batalla de Romanovka (25 de junio de 1919)",
+  "el alias ingles de Romanovka debe conservar la ficha curada"
+);
+assert.deepEqual(
+  ROMANOVKA_1919_COUNTRY_CONFLICT_ADDITIONS,
+  {
+    Rusia: ["Batalla de Romanovka (25 de junio de 1919)"]
+  },
+  "Romanovka debe poder explorarse desde la ubicacion rusa actual sin atribuir el bando a la Rusia contemporanea"
+);
+const romanovka1919Detail = ROMANOVKA_1919_CONFLICT_DETAIL_FIXES["Batalla de Romanovka (25 de junio de 1919)"];
+assert.ok(
+  romanovka1919Detail
+    && romanovka1919Detail.startYear === 1919
+    && romanovka1919Detail.startYear === romanovka1919Detail.endYear
+    && romanovka1919Detail.parent === "Guerra civil rusa"
+    && romanovka1919Detail.war === "Guerra civil rusa"
+    && romanovka1919Detail.campaign === "Intervenci\u00f3n aliada en Siberia"
+    && romanovka1919Detail.type === "combate terrestre"
+    && romanovka1919Detail.conflictType === "intervencion"
+    && romanovka1919Detail.scale === "regional"
+    && romanovka1919Detail.hierarchyConfidence === "alta"
+    && romanovka1919Detail.hierarchySources?.length === 4
+    && romanovka1919Detail.participants?.length === 2
+    && romanovka1919Detail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /25 de junio de 1919/i.test(romanovka1919Detail.datePrecision)
+    && /no son id\u00e9nticas/i.test(romanovka1919Detail.sourceDispute)
+    && /no la presenta como una guerra declarada bilateral/i.test(romanovka1919Detail.curationNote),
+  "la curaduria de Romanovka debe fijar fecha y jerarquia sin cerrar cifras de bajas o convertir el hecho en una guerra bilateral"
 );
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(

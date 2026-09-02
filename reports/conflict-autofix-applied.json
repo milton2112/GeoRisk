@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-09-02T19:09:20.783Z",
-  "changedFullCountries": 1,
+  "generatedAt": "2026-09-02T19:22:05.274Z",
+  "changedFullCountries": 2,
   "fullPassChanges": [
-    1,
+    2,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
@@ -248,7 +248,8 @@
       "Batalla de Kaipiais (1789)",
       "Guerra polaco-sovietica (1919-1921)",
       "Batalla del lago Peipus (1242)",
-      "Combate naval en la desembocadura del Neva (7/18 de mayo de 1703)"
+      "Combate naval en la desembocadura del Neva (7/18 de mayo de 1703)",
+      "Batalla de Romanovka (25 de junio de 1919)"
     ],
     "reino de los paises bajos": [
       "Batalla de Camaret (1694)",
@@ -1523,6 +1524,10 @@
     "Battle of Sidling Hill": "Batalla de Sideling Hill (abril de 1756)",
     "Sideling Hill, Battle of, Pa., 1756": "Batalla de Sideling Hill (abril de 1756)",
     "Sideling Hill (Md. and Pa.), Battle of, 1756": "Batalla de Sideling Hill (abril de 1756)",
+    "Batalla de Romanovka": "Batalla de Romanovka (25 de junio de 1919)",
+    "Battle of Romanovka": "Batalla de Romanovka (25 de junio de 1919)",
+    "Romanovka Battle": "Batalla de Romanovka (25 de junio de 1919)",
+    "Battle of Romanovka (1919)": "Batalla de Romanovka (25 de junio de 1919)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2652,6 +2657,7 @@
     "Batalla del convoy de Malta (18 de febrero de 1800)",
     "Combate de Yellow Creek (Waddams Grove, 18 de junio de 1832)",
     "Batalla de Sideling Hill (abril de 1756)",
+    "Batalla de Romanovka (25 de junio de 1919)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

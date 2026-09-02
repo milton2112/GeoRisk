@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.205 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.206 antes de cerrar la siguiente version.
+
+## v1.6.206 - 2026-09-02
+
+- Normaliza **Batalla de Romanovka** como **Batalla de Romanovka (25 de junio de 1919)**, con jerarquia dentro de la **Guerra civil rusa** y la **Intervencion aliada en Siberia**.
+- Corrige su fecha, region, tipologia y navegacion desde Rusia, sin atribuir el combate a la Rusia contemporanea como beligerante.
+- Documenta fuentes institucionales estadounidenses, conserva aliases y explica la divergencia entre las series de efectivos y bajas en vez de inventar una cifra cerrada.
+- Agrega regresion automatica de aliases, jerarquia, tipologia, procedencia y enlazado territorial.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-02-release-11`.
 
 ## v1.6.205 - 2026-09-02
 

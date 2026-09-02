@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-09-02T19:11:02.758Z",
+  "generatedAt": "2026-09-02T19:24:17.258Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 109
+      "count": 108
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 41
+      "count": 40
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 604
+      "count": 605
     },
     "redundantReligions": {
       "count": 0
@@ -450,13 +450,6 @@
       },
       {
         "code": "USA",
-        "name": "Batalla de Romanovka",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
-      {
-        "code": "USA",
         "name": "Batalla de Sambre",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
@@ -535,6 +528,13 @@
       {
         "code": "USA",
         "name": "Batalla naval de Halifax",
+        "parent": "Conflicto regional de América",
+        "campaign": "Campaña vinculada a Conflicto regional de América",
+        "startYear": null
+      },
+      {
+        "code": "USA",
+        "name": "Combate frente a la costa de Florida",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
@@ -1542,7 +1542,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 41,
+      "count": 40,
       "command": "npm run fix:conflicts:batches"
     },
     {

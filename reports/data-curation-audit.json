@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-02T19:09:27.958Z",
+  "generatedAt": "2026-09-02T19:22:12.411Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12794567,
-    "duplicatedCountryFilesBytes": 1551139,
-    "countryConflictShardBytes": 445882,
+    "fullBytes": 12817813,
+    "duplicatedCountryFilesBytes": 1551128,
+    "countryConflictShardBytes": 446320,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24266,
-        "inlineBytes": 3364287,
+        "inlineBytes": 3374523,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,9 +105,9 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 216594,
-          "conflictShardBytes": 216595,
-          "averageConflictBytes": 234
+          "conflictsBytes": 216697,
+          "conflictShardBytes": 216698,
+          "averageConflictBytes": 235
         }
       },
       {
@@ -368,8 +368,8 @@
       {
         "code": "RUS",
         "name": "Rusia",
-        "bytes": 18911,
-        "inlineBytes": 303015,
+        "bytes": 18900,
+        "inlineBytes": 316025,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -378,12 +378,12 @@
           "religionGroups": 4,
           "organizations": 41,
           "rivals": 19,
-          "conflicts": 67,
+          "conflicts": 68,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 10109,
+            "military": 10098,
             "politics": 4980,
             "metadata": 1926,
             "general": 965,
@@ -396,7 +396,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 10109
+              "bytes": 10098
             },
             {
               "section": "politics",
@@ -411,9 +411,9 @@
               "bytes": 965
             }
           ],
-          "conflictsBytes": 15710,
-          "conflictShardBytes": 15711,
-          "averageConflictBytes": 234
+          "conflictsBytes": 16045,
+          "conflictShardBytes": 16046,
+          "averageConflictBytes": 236
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 108,
+    "pendingCount": 107,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15369,19 +15369,6 @@
         ],
         "regions": [
           "África"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Romanovka",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"
