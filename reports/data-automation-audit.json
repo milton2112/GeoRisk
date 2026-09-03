@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-09-02T19:24:17.258Z",
+  "generatedAt": "2026-09-03T09:06:17.244Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 108
+      "count": 107
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 40
+      "count": 39
     },
     "suspectRegions": {
       "count": 0
@@ -56,11 +56,6 @@
   "samples": {
     "englishConflictNames": [],
     "undatedConflicts": [
-      {
-        "code": "ARG",
-        "name": "Batalla de Toldos Viejos",
-        "region": "América"
-      },
       {
         "code": "AUT",
         "name": "Escaramuza de Felsőőr",
@@ -255,17 +250,15 @@
         "code": "GBR",
         "name": "Bombardeo de Colonia en la Segunda Guerra Mundial",
         "region": "Europa, Asia-Pacífico, África y Atlántico"
+      },
+      {
+        "code": "GBR",
+        "name": "Combate de Caleta Foca",
+        "region": "Europa"
       }
     ],
     "undatedHighLevelConflicts": [],
     "provisionalConflictHierarchies": [
-      {
-        "code": "ARG",
-        "name": "Batalla de Toldos Viejos",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
       {
         "code": "FRA",
         "name": "Batalla de Siracusa",
@@ -1542,7 +1535,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 40,
+      "count": 39,
       "command": "npm run fix:conflicts:batches"
     },
     {

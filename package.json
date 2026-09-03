@@ -1,6 +1,6 @@
 {
   "name": "geo-risk",
-  "version": "1.6.206",
+  "version": "1.6.207",
   "type": "module",
   "scripts": {
     "build:data": "node scripts/buildDataset.js && node scripts/applyConflictAutofix.js && node scripts/applyVisibleDataCorrections.js && node scripts/buildDataIndexes.js",
@@ -13,7 +13,7 @@
     "audit:project": "node scripts/projectAudit.js",
     "fix:data-visible": "node scripts/applyVisibleDataCorrections.js",
     "fix:source-text": "node scripts/fixSourceText.js",
-    "fix:conflicts": "node scripts/applyConflictAutofix.js && node scripts/applyVisibleDataCorrections.js && node scripts/buildDataIndexes.js && node scripts/auditConflicts.js",
+    "fix:conflicts": "node scripts/applyConflictAutofix.js && node scripts/applyVisibleDataCorrections.js && node scripts/buildDataIndexes.js && node scripts/dataAutomationAudit.js && node scripts/auditConflicts.js",
     "fix:conflicts:batches": "npm run fix:conflicts",
     "compact:index": "node scripts/compactStartupIndex.js",
     "build:indexes": "node scripts/buildDataIndexes.js",

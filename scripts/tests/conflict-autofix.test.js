@@ -624,6 +624,10 @@ import {
   ROMANOVKA_1919_CONFLICT_RENAMES
 } from "../lib/conflict-curation-romanovka-1919.js";
 import {
+  TOLDOS_VIEJOS_1826_CONFLICT_DETAIL_FIXES,
+  TOLDOS_VIEJOS_1826_CONFLICT_RENAMES
+} from "../lib/conflict-curation-toldos-viejos-1826.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -5859,6 +5863,38 @@ assert.ok(
     && /no son id\u00e9nticas/i.test(romanovka1919Detail.sourceDispute)
     && /no la presenta como una guerra declarada bilateral/i.test(romanovka1919Detail.curationNote),
   "la curaduria de Romanovka debe fijar fecha y jerarquia sin cerrar cifras de bajas o convertir el hecho en una guerra bilateral"
+);
+assert.equal(Object.keys(TOLDOS_VIEJOS_1826_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  TOLDOS_VIEJOS_1826_CONFLICT_RENAMES["Batalla de Toldos Viejos"],
+  "Combate de Toldos Viejos (11 de septiembre de 1826)",
+  "la entrada de Toldos Viejos debe llegar a la ficha curada de 1826"
+);
+assert.equal(
+  TOLDOS_VIEJOS_1826_CONFLICT_RENAMES["Battle of Toldos Viejos"],
+  "Combate de Toldos Viejos (11 de septiembre de 1826)",
+  "el alias ingles de Toldos Viejos debe conservar la ficha curada"
+);
+const toldosViejos1826Detail = TOLDOS_VIEJOS_1826_CONFLICT_DETAIL_FIXES["Combate de Toldos Viejos (11 de septiembre de 1826)"];
+assert.ok(
+  toldosViejos1826Detail
+    && toldosViejos1826Detail.startYear === 1826
+    && toldosViejos1826Detail.startYear === toldosViejos1826Detail.endYear
+    && toldosViejos1826Detail.parent === "Conflictos de frontera del sur bonaerense (1820-1829)"
+    && toldosViejos1826Detail.war === "Conflictos de frontera del sur bonaerense (1820-1829)"
+    && toldosViejos1826Detail.campaign === "Violencia de frontera y operaciones de 1826 en el sur bonaerense"
+    && toldosViejos1826Detail.type === "combate terrestre"
+    && toldosViejos1826Detail.conflictType === "frontera"
+    && toldosViejos1826Detail.scale === "regional"
+    && toldosViejos1826Detail.hierarchyConfidence === "alta"
+    && toldosViejos1826Detail.hierarchySources?.length === 4
+    && toldosViejos1826Detail.participants?.length === 2
+    && toldosViejos1826Detail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /11 de septiembre de 1826/i.test(toldosViejos1826Detail.datePrecision)
+    && /no reduce esas redes a dos bloques nacionales homogeneos/i.test(toldosViejos1826Detail.cause)
+    && /no para atribuir el bando de 1826 a un Estado argentino moderno/i.test(toldosViejos1826Detail.sourceDispute)
+    && /no describe los territorios indigenas como un vacio/i.test(toldosViejos1826Detail.curationNote),
+  "la curaduria de Toldos Viejos debe fijar jerarquia y fecha sin convertir la frontera de 1826 en una guerra entre Estados modernos"
 );
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(

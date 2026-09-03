@@ -1,19 +1,18 @@
 {
-  "generatedAt": "2026-09-02T19:22:05.274Z",
-  "changedFullCountries": 2,
+  "generatedAt": "2026-09-03T09:04:19.610Z",
+  "changedFullCountries": 0,
   "fullPassChanges": [
-    2,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 197,
+    "enriched": 0,
     "retired": 0,
-    "written": true,
+    "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1086,
+  "generatedHierarchyCandidates": 1088,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -1528,6 +1527,11 @@
     "Battle of Romanovka": "Batalla de Romanovka (25 de junio de 1919)",
     "Romanovka Battle": "Batalla de Romanovka (25 de junio de 1919)",
     "Battle of Romanovka (1919)": "Batalla de Romanovka (25 de junio de 1919)",
+    "Batalla de Toldos Viejos": "Combate de Toldos Viejos (11 de septiembre de 1826)",
+    "Batalla de los Toldos Viejos": "Combate de Toldos Viejos (11 de septiembre de 1826)",
+    "Combate de Toldos Viejos": "Combate de Toldos Viejos (11 de septiembre de 1826)",
+    "Combate de los Toldos Viejos": "Combate de Toldos Viejos (11 de septiembre de 1826)",
+    "Battle of Toldos Viejos": "Combate de Toldos Viejos (11 de septiembre de 1826)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2658,6 +2662,7 @@
     "Combate de Yellow Creek (Waddams Grove, 18 de junio de 1832)",
     "Batalla de Sideling Hill (abril de 1756)",
     "Batalla de Romanovka (25 de junio de 1919)",
+    "Combate de Toldos Viejos (11 de septiembre de 1826)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

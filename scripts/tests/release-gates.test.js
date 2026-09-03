@@ -211,6 +211,10 @@ assert.ok(
 );
 assert.equal(packageJson.scripts["release:status"], "node scripts/releaseStatus.js", "debe existir estado resumido de release");
 assert.equal(packageJson.scripts["audit:data"], "node scripts/dataAutomationAudit.js", "debe existir auditoria programable de datos");
+assert.ok(
+  packageJson.scripts["fix:conflicts"].includes("node scripts/dataAutomationAudit.js"),
+  "fix:conflicts debe refrescar la auditoria de datos antes de que el doctor consolide el estado"
+);
 assert.equal(packageJson.scripts["audit:conflicts:provisional"], "node scripts/auditProvisionalConflictCandidates.js", "debe existir auditoria de candidatos para jerarquias provisionales");
 assert.equal(packageJson.scripts["audit:doctor"], "node scripts/projectDoctor.js", "debe existir doctor de producto");
 assert.equal(packageJson.scripts["audit:release-artifacts"], "node scripts/auditReleaseArtifacts.js", "debe existir auditoria de artefactos de release");

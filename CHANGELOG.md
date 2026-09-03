@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.206 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.207 antes de cerrar la siguiente version.
+
+## v1.6.207 - 2026-09-03
+
+- Normaliza **Batalla de Toldos Viejos** como **Combate de Toldos Viejos (11 de septiembre de 1826)**, con fecha, región, jerarquía de frontera y aliases en español e inglés.
+- Reemplaza la clasificación genérica e interestatal por un combate de frontera entre fuerzas provinciales/entrerrianas y redes indígenas y pincheirinas, sin proyectar Estados contemporáneos sobre los bandos de 1826.
+- Incorpora trazabilidad desde Argentina.gob.ar, SEDICI-UNLP, FADARA y un estudio histórico digitalizado; deja sin cerrar las bajas, el tamaño total de las fuerzas y la ubicación fina cuando las fuentes no los concilian.
+- Agrega regresiones automatizadas de nombre, fecha, jerarquía, tipología, procedencia, aliases y lenguaje histórico cauteloso.
+- Sincroniza `fix:conflicts` con la auditoría de datos para que el doctor del producto no publique conteos de curaduría desactualizados.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-03-release-1`.
 
 ## v1.6.206 - 2026-09-02
 
