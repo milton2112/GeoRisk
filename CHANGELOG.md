@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.213 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.214 antes de cerrar la siguiente version.
+
+## v1.6.214 - 2026-09-04
+
+- Normaliza **Batalla de Sambre** como **Batalla del Sabis (tradicionalmente Sambre, 57 a. C.)**, corrigiendo una asociacion erronea con Estados Unidos y America, su fecha, jerarquia, participantes y region.
+- Distingue la batalla de 57 a. C. del asedio de 54 a. C. al campamento de Quinto Tulio Ciceron, conserva Sambre como alias de busqueda y enlaza Francia solo como ubicacion geografica contemporanea.
+- Incorpora fuentes del Australian War Memorial, el texto de *La guerra de las Galias* en University of Chicago y Livius; no publica cifras de bajas como totales cerrados cuando dependen de la narracion vencedora.
+- Muestra fechas anteriores a nuestra era como `57 a. C.` o `57 BCE` en periodos de conflicto, cronologias y vistas temporales, en vez de exponer anos negativos al usuario.
+- Agrega regresiones para aliases, fecha antigua estructurada, jerarquia, paises relacionados, exclusion de Estados Unidos y formato visual de anos historicos.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-04-release-6`.
 
 ## v1.6.213 - 2026-09-04
 

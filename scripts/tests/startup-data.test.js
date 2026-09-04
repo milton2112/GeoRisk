@@ -356,6 +356,8 @@ assert.ok(appCountryPanel.includes("Que falta curar"), "ficha pais debe mostrar 
 assert.ok(appRuntime.includes(" - rendimiento"), "perfil runtime debe usar separador ASCII estable");
 assert.ok(!appRuntime.includes("Â"), "app-runtime no debe exponer mojibake visible");
 assert.ok(script.includes("fecha pendiente"), "conflictos sin fecha deben mostrar estado de curaduria pendiente");
+assert.ok(script.includes("function formatHistoricalYear(value)"), "fechas antiguas deben formatearse sin mostrar anos negativos crudos");
+assert.ok(script.includes("a. C."), "la interfaz debe identificar anos anteriores a nuestra era en espanol");
 
 for (const country of Object.values(index)) {
   const relations = country.politics?.relations || {};

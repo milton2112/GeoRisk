@@ -656,6 +656,12 @@ import {
   SHEWAN_2008_CONFLICT_RENAMES
 } from "../lib/conflict-curation-shewan-2008.js";
 import {
+  SABIS_57_BCE_CONFLICT_DETAIL_FIXES,
+  SABIS_57_BCE_COUNTRY_CONFLICT_ADDITIONS,
+  SABIS_57_BCE_COUNTRY_CONFLICT_EXCLUSIONS,
+  SABIS_57_BCE_CONFLICT_RENAMES
+} from "../lib/conflict-curation-sabis-57-bce.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -6165,6 +6171,46 @@ assert.ok(
 assert.ok(
   SHEWAN_2008_COUNTRY_CONFLICT_ADDITIONS["Afganist\u00e1n"]?.includes("Batalla de Shewan (8 de agosto de 2008)"),
   "Shewan debe poder navegarse desde Afganistan por participacion directa"
+);
+assert.equal(Object.keys(SABIS_57_BCE_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  SABIS_57_BCE_CONFLICT_RENAMES["Batalla de Sambre"],
+  "Batalla del Sabis (tradicionalmente Sambre, 57 a. C.)",
+  "Sambre debe llegar a la ficha curada del Sabis"
+);
+assert.equal(
+  SABIS_57_BCE_CONFLICT_RENAMES["Batalla del r\u00edo Sambre (54 a. C.)"],
+  "Batalla del Sabis (tradicionalmente Sambre, 57 a. C.)",
+  "la variante importada con la fecha erronea de 54 a. C. debe corregirse hacia el combate de 57 a. C."
+);
+const sabis57BceDetail = SABIS_57_BCE_CONFLICT_DETAIL_FIXES["Batalla del Sabis (tradicionalmente Sambre, 57 a. C.)"];
+assert.ok(
+  sabis57BceDetail
+    && sabis57BceDetail.startYear === -57
+    && sabis57BceDetail.startYear === sabis57BceDetail.endYear
+    && sabis57BceDetail.parent === "Guerras de las Galias (58-50 a. C.)"
+    && sabis57BceDetail.war === sabis57BceDetail.parent
+    && sabis57BceDetail.campaign === "Campa\u00f1a romana contra los belgas (57 a. C.)"
+    && sabis57BceDetail.type === "batalla campal"
+    && sabis57BceDetail.conflictType === "colonial"
+    && sabis57BceDetail.scale === "regional"
+    && sabis57BceDetail.hierarchyConfidence === "alta"
+    && sabis57BceDetail.hierarchySources?.length === 3
+    && sabis57BceDetail.participants?.length === 2
+    && sabis57BceDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /57 a\. C\./i.test(sabis57BceDetail.datePrecision)
+    && /Sambre/i.test(sabis57BceDetail.region)
+    && /54 a\. C\./i.test(sabis57BceDetail.sourceDispute)
+    && /Estados Unidos/i.test(sabis57BceDetail.curationNote),
+  "Sambre debe dejar de ser una batalla estadounidense y conservar la fecha, el contexto romano y los limites de evidencia"
+);
+assert.ok(
+  SABIS_57_BCE_COUNTRY_CONFLICT_ADDITIONS.Francia?.includes("Batalla del Sabis (tradicionalmente Sambre, 57 a. C.)"),
+  "Sabis debe poder navegarse desde Francia como ubicacion geografica contemporanea"
+);
+assert.ok(
+  SABIS_57_BCE_COUNTRY_CONFLICT_EXCLUSIONS["Estados Unidos"]?.includes("Batalla del Sabis (tradicionalmente Sambre, 57 a. C.)"),
+  "Sabis debe retirarse de Estados Unidos"
 );
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(

@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-09-04T12:32:50.711Z",
+  "generatedAt": "2026-09-04T15:51:27.004Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 100
+      "count": 99
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 33
+      "count": 32
     },
     "suspectRegions": {
       "count": 0
@@ -416,13 +416,6 @@
       {
         "code": "USA",
         "name": "Batalla de Punk Hill",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
-      {
-        "code": "USA",
-        "name": "Batalla de Sambre",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
@@ -1493,7 +1486,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 33,
+      "count": 32,
       "command": "npm run fix:conflicts:batches"
     },
     {

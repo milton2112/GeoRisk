@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-04T12:32:47.234Z",
+  "generatedAt": "2026-09-04T15:51:23.428Z",
   "scannedConflicts": 2000,
   "issueCount": 0,
-  "advisoryCount": 33,
-  "reviewCount": 33,
+  "advisoryCount": 32,
+  "reviewCount": 32,
   "summary": {
-    "provisional_parent": 33
+    "provisional_parent": 32
   },
   "topIssues": [],
   "topAdvisories": [
@@ -172,20 +172,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de África",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de sambre",
-      "name": "Batalla de Sambre",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],

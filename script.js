@@ -83,7 +83,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-09-04-release-5";
+const APP_VERSION = "2026-09-04-release-6";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -4255,6 +4255,17 @@ function getTimelineCentury(year) {
   return currentLanguage === "en" ? `${century}th c.` : `Siglo ${century}`;
 }
 
+function formatHistoricalYear(value) {
+  const year = Number(value);
+  if (!Number.isFinite(year)) {
+    return "";
+  }
+  if (year < 0) {
+    return currentLanguage === "en" ? `${Math.abs(year)} BCE` : `${Math.abs(year)} a. C.`;
+  }
+  return String(year);
+}
+
 function getTimelineIntensity(event) {
   const explicit = normalizeText(event.intensity || "");
   if (explicit) {
@@ -4351,7 +4362,7 @@ function getTimelineDetailContent(item, contextLabel = "") {
   const override = TIMELINE_DETAIL_OVERRIDES[item.reference] || TIMELINE_DETAIL_OVERRIDES[item.text] || {};
   return {
     title: override.title || item.reference || item.text,
-    year: item.year,
+    year: formatHistoricalYear(item.year),
     category: getTimelineCategoryLabel(item.categoryKey, item.category),
     century: getTimelineCentury(item.year),
     intensity: getTimelineIntensityLabel(item.intensity || getTimelineIntensity(item)),
@@ -4855,21 +4866,22 @@ function conflictDedupKey(conflict) {
 }
 
 function formatConflictPeriod(conflict) {
-  if (!conflict?.startYear) {
+  const startYear = Number(conflict?.startYear);
+  if (!Number.isFinite(startYear)) {
     return currentLanguage === "en" ? " (date pending)" : " (fecha pendiente)";
   }
 
   if (conflict.ongoing) {
-    return ` (${conflict.startYear}-actualidad)`;
+    return ` (${formatHistoricalYear(startYear)}-actualidad)`;
   }
 
-  const endYear = conflict.endYear ?? conflict.startYear;
+  const endYear = Number(conflict.endYear ?? startYear);
 
-  if (endYear === conflict.startYear) {
-    return ` (${conflict.startYear})`;
+  if (!Number.isFinite(endYear) || endYear === startYear) {
+    return ` (${formatHistoricalYear(startYear)})`;
   }
 
-  return ` (${conflict.startYear}-${endYear})`;
+  return ` (${formatHistoricalYear(startYear)}-${formatHistoricalYear(endYear)})`;
 }
 
 function extractYearsFromText(value) {
@@ -5463,7 +5475,7 @@ function renderConflictOverview(groups, country) {
         <div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Regional wars" : "Guerras regionales"}</span><strong class="overview-value">${formatNumber(regional)}</strong></div>
       </div>
       <p class="data-source-note"><b>${currentLanguage === "en" ? "Regional focus" : "Foco regional"}:</b> ${escapeHtml(translateContinentName(country?.continent || "Unknown"))}</p>
-      ${latestConflict ? `<p class="data-source-note"><b>${currentLanguage === "en" ? "Most linked conflict" : "Conflicto mas vinculado"}:</b> ${escapeHtml(latestConflict.name)}${latestConflict.startYear ? ` (${escapeHtml(String(latestConflict.startYear))})` : ""}</p>` : ""}
+      ${latestConflict ? `<p class="data-source-note"><b>${currentLanguage === "en" ? "Most linked conflict" : "Conflicto mas vinculado"}:</b> ${escapeHtml(latestConflict.name)}${Number.isFinite(Number(latestConflict.startYear)) ? ` (${escapeHtml(formatHistoricalYear(latestConflict.startYear))})` : ""}</p>` : ""}
     `;
 }
 
@@ -6126,7 +6138,7 @@ function openConflictModal(key, { enhance = true } = {}) {
         <h4>${currentLanguage === "en" ? "Internal chronology" : "Cronologia interna"}</h4>
         <ul class="data-source-list">
           ${detail.chronology.map(item => {
-            const yearLabel = item?.year ? `<b>${escapeHtml(String(item.year))}</b> · ` : "";
+            const yearLabel = Number.isFinite(Number(item?.year)) ? `<b>${escapeHtml(formatHistoricalYear(item.year))}</b> · ` : "";
             return `<li>${yearLabel}${escapeHtml(item.text || item)}</li>`;
           }).join("")}
         </ul>
@@ -9559,7 +9571,7 @@ function renderTimelineCollection(items, contextCountry = null) {
         : "";
       return `
         <button class="timeline-item network-link" type="button" data-timeline-key="${modalKey}" style="--accent:${getTimelineCategoryAccent(item.categoryKey)};">
-          <span class="timeline-year">${item.year}</span>
+          <span class="timeline-year">${escapeHtml(formatHistoricalYear(item.year))}</span>
           <span class="timeline-copy">
             <span class="timeline-kicker">${escapeHtml(item.category || (currentLanguage === "en" ? "Event" : "Evento"))} · ${escapeHtml(item.century || "")} · ${escapeHtml(getTimelineIntensityLabel(item.intensity))} · ${escapeHtml(getTimelineRelevanceLabel(item.relevance || getTimelineRelevance(item)))}${escapeHtml(groupedLabel)}${escapeHtml(refsLabel)}</span>
             <span>${escapeHtml(item.text)}</span>
@@ -9597,7 +9609,7 @@ function buildCompareTimelineSummary(compareCodes) {
           <span>${currentLanguage === "en" ? "High-impact milestones" : "Hitos de mayor impacto"}: ${formatNumber(topEvents.length)}</span>
           <span>${currentLanguage === "en" ? "Conflicts in profile" : "Conflictos en perfil"}: ${formatNumber(conflictCount)}</span>
           <div class="compare-mini-list">
-            ${topEvents.map(item => `<span>${escapeHtml(`${item.year}: ${item.reference || item.text}`)}</span>`).join("")}
+            ${topEvents.map(item => `<span>${escapeHtml(`${formatHistoricalYear(item.year)}: ${item.reference || item.text}`)}</span>`).join("")}
           </div>
         </div>
       `;

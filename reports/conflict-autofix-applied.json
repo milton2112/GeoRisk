@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T11:47:57.290Z",
+  "generatedAt": "2026-09-04T15:48:51.593Z",
   "changedFullCountries": 2,
   "fullPassChanges": [
     2,
@@ -8,12 +8,12 @@
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 197,
+    "enriched": 198,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1094,
+  "generatedHierarchyCandidates": 1095,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -88,7 +88,8 @@
       "Batalla del canal de la Mona (1782)",
       "Batalla de Neuville (1760)",
       "Batalla naval de Pierres Noires (5-6 de julio de 1944)",
-      "Batalla de Remada (mayo de 1958)"
+      "Batalla de Remada (mayo de 1958)",
+      "Batalla del Sabis (tradicionalmente Sambre, 57 a. C.)"
     ],
     "alemania": [
       "Batalla de Schleswig (1848)",
@@ -554,7 +555,8 @@
       "Primera batalla de Vailele",
       "Primera batalla de Vailele (1888)",
       "Batalla de Shanhaiguan",
-      "Campana de Shanhaiguan-Rehe (1924)"
+      "Campana de Shanhaiguan-Rehe (1924)",
+      "Batalla del Sabis (tradicionalmente Sambre, 57 a. C.)"
     ],
     "marruecos": [
       "Batalla de Cabo Bojador"
@@ -1593,6 +1595,16 @@
     "Batalla de Shewan": "Batalla de Shewan (8 de agosto de 2008)",
     "Battle of Shewan": "Batalla de Shewan (8 de agosto de 2008)",
     "Shewan": "Batalla de Shewan (8 de agosto de 2008)",
+    "Batalla de Sambre": "Batalla del Sabis (tradicionalmente Sambre, 57 a. C.)",
+    "Batalla del Sabis": "Batalla del Sabis (tradicionalmente Sambre, 57 a. C.)",
+    "Batalla del rio Sambre": "Batalla del Sabis (tradicionalmente Sambre, 57 a. C.)",
+    "Batalla del río Sambre": "Batalla del Sabis (tradicionalmente Sambre, 57 a. C.)",
+    "Batalla del rio Sambre (54 a. C.)": "Batalla del Sabis (tradicionalmente Sambre, 57 a. C.)",
+    "Batalla del río Sambre (54 a. C.)": "Batalla del Sabis (tradicionalmente Sambre, 57 a. C.)",
+    "Battle of Sambre": "Batalla del Sabis (tradicionalmente Sambre, 57 a. C.)",
+    "Battle of the Sambre": "Batalla del Sabis (tradicionalmente Sambre, 57 a. C.)",
+    "Battle of the Sabis": "Batalla del Sabis (tradicionalmente Sambre, 57 a. C.)",
+    "Battle of the Sabis (57 BC)": "Batalla del Sabis (tradicionalmente Sambre, 57 a. C.)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2731,6 +2743,7 @@
     "Batalla de la línea Bullet (26 de febrero de 1991)",
     "Combate de Wet Glaze (Monday's Hollow, 13 de octubre de 1861)",
     "Batalla de Shewan (8 de agosto de 2008)",
+    "Batalla del Sabis (tradicionalmente Sambre, 57 a. C.)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",
