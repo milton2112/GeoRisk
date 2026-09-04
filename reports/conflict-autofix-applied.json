@@ -1,18 +1,19 @@
 {
-  "generatedAt": "2026-09-03T09:04:19.610Z",
-  "changedFullCountries": 0,
+  "generatedAt": "2026-09-03T09:19:34.121Z",
+  "changedFullCountries": 1,
   "fullPassChanges": [
+    1,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 0,
+    "enriched": 197,
     "retired": 0,
-    "written": false,
+    "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1088,
+  "generatedHierarchyCandidates": 1089,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -1532,6 +1533,14 @@
     "Combate de Toldos Viejos": "Combate de Toldos Viejos (11 de septiembre de 1826)",
     "Combate de los Toldos Viejos": "Combate de Toldos Viejos (11 de septiembre de 1826)",
     "Battle of Toldos Viejos": "Combate de Toldos Viejos (11 de septiembre de 1826)",
+    "Batalla de Wild Cat Creek": "Combate de Wildcat Creek (Spur's Defeat, 22 de noviembre de 1812)",
+    "Batalla de Wildcat Creek": "Combate de Wildcat Creek (Spur's Defeat, 22 de noviembre de 1812)",
+    "Battle of Wild Cat Creek": "Combate de Wildcat Creek (Spur's Defeat, 22 de noviembre de 1812)",
+    "Battle of Wildcat Creek": "Combate de Wildcat Creek (Spur's Defeat, 22 de noviembre de 1812)",
+    "Spur's Defeat": "Combate de Wildcat Creek (Spur's Defeat, 22 de noviembre de 1812)",
+    "Spurs Defeat": "Combate de Wildcat Creek (Spur's Defeat, 22 de noviembre de 1812)",
+    "Second Battle of Tippecanoe": "Combate de Wildcat Creek (Spur's Defeat, 22 de noviembre de 1812)",
+    "Segunda batalla de Tippecanoe": "Combate de Wildcat Creek (Spur's Defeat, 22 de noviembre de 1812)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2663,6 +2672,7 @@
     "Batalla de Sideling Hill (abril de 1756)",
     "Batalla de Romanovka (25 de junio de 1919)",
     "Combate de Toldos Viejos (11 de septiembre de 1826)",
+    "Combate de Wildcat Creek (Spur's Defeat, 22 de noviembre de 1812)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

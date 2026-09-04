@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-02T20:06:53.230Z",
+  "generatedAt": "2026-09-03T09:19:40.948Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12828811,
+    "fullBytes": 12839785,
     "duplicatedCountryFilesBytes": 1551389,
-    "countryConflictShardBytes": 446320,
+    "countryConflictShardBytes": 446543,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24266,
-        "inlineBytes": 3374523,
+        "inlineBytes": 3385497,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 216697,
-          "conflictShardBytes": 216698,
+          "conflictsBytes": 216920,
+          "conflictShardBytes": 216921,
           "averageConflictBytes": 235
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 106,
+    "pendingCount": 105,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15538,19 +15538,6 @@
         ],
         "regions": [
           "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Wild Cat Creek",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"

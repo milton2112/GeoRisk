@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-09-03T09:06:17.244Z",
+  "generatedAt": "2026-09-03T09:22:41.412Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 107
+      "count": 106
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 39
+      "count": 38
     },
     "suspectRegions": {
       "count": 0
@@ -486,13 +486,6 @@
       {
         "code": "USA",
         "name": "Batalla de Ty-ho Bay",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
-      {
-        "code": "USA",
-        "name": "Batalla de Wild Cat Creek",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
@@ -1535,7 +1528,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 39,
+      "count": 38,
       "command": "npm run fix:conflicts:batches"
     },
     {

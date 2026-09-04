@@ -628,6 +628,10 @@ import {
   TOLDOS_VIEJOS_1826_CONFLICT_RENAMES
 } from "../lib/conflict-curation-toldos-viejos-1826.js";
 import {
+  WILDCAT_CREEK_1812_CONFLICT_DETAIL_FIXES,
+  WILDCAT_CREEK_1812_CONFLICT_RENAMES
+} from "../lib/conflict-curation-wildcat-creek-1812.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -5895,6 +5899,38 @@ assert.ok(
     && /no para atribuir el bando de 1826 a un Estado argentino moderno/i.test(toldosViejos1826Detail.sourceDispute)
     && /no describe los territorios indigenas como un vacio/i.test(toldosViejos1826Detail.curationNote),
   "la curaduria de Toldos Viejos debe fijar jerarquia y fecha sin convertir la frontera de 1826 en una guerra entre Estados modernos"
+);
+assert.equal(Object.keys(WILDCAT_CREEK_1812_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  WILDCAT_CREEK_1812_CONFLICT_RENAMES["Batalla de Wild Cat Creek"],
+  "Combate de Wildcat Creek (Spur's Defeat, 22 de noviembre de 1812)",
+  "la entrada de Wild Cat Creek debe llegar a la ficha curada de 1812"
+);
+assert.equal(
+  WILDCAT_CREEK_1812_CONFLICT_RENAMES["Spur's Defeat"],
+  "Combate de Wildcat Creek (Spur's Defeat, 22 de noviembre de 1812)",
+  "el alias historico Spur's Defeat debe conservar la ficha curada"
+);
+const wildcatCreek1812Detail = WILDCAT_CREEK_1812_CONFLICT_DETAIL_FIXES["Combate de Wildcat Creek (Spur's Defeat, 22 de noviembre de 1812)"];
+assert.ok(
+  wildcatCreek1812Detail
+    && wildcatCreek1812Detail.startYear === 1812
+    && wildcatCreek1812Detail.startYear === wildcatCreek1812Detail.endYear
+    && wildcatCreek1812Detail.parent === "Guerra anglo-estadounidense de 1812"
+    && wildcatCreek1812Detail.war === "Guerra anglo-estadounidense de 1812"
+    && wildcatCreek1812Detail.campaign === "Expedicion de Samuel Hopkins a Prophetstown (noviembre de 1812)"
+    && wildcatCreek1812Detail.type === "combate terrestre"
+    && wildcatCreek1812Detail.conflictType === "colonial"
+    && wildcatCreek1812Detail.scale === "local"
+    && wildcatCreek1812Detail.hierarchyConfidence === "alta"
+    && wildcatCreek1812Detail.hierarchySources?.length === 4
+    && wildcatCreek1812Detail.participants?.length === 2
+    && wildcatCreek1812Detail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /22 de noviembre de 1812/i.test(wildcatCreek1812Detail.datePrecision)
+    && /no reduce a los participantes indigenas a un unico bloque nacional/i.test(wildcatCreek1812Detail.cause)
+    && /no se le asigna como beligerante directo/i.test(wildcatCreek1812Detail.sourceDispute)
+    && /no confunde este combate con la batalla de Tippecanoe de 1811/i.test(wildcatCreek1812Detail.curationNote),
+  "la curaduria de Wildcat Creek debe fijar fecha y jerarquia sin cerrar el lugar, las bajas o los bandos indigenas como un bloque unico"
 );
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(

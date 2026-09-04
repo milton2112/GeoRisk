@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.207 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.208 antes de cerrar la siguiente version.
+
+## v1.6.208 - 2026-09-03
+
+- Normaliza **Batalla de Wild Cat Creek** como **Combate de Wildcat Creek (Spur's Defeat, 22 de noviembre de 1812)**, con fecha, aliases y jerarquia dentro de la **Guerra de 1812**.
+- Corrige su clasificacion generica por un combate de frontera colonial, documenta la retirada del destacamento de Hopkins y no atribuye una unidad britanica directa sin fuente.
+- Incorpora fuentes de la Guardia Nacional de Kentucky, el U.S. Army Center of Military History, el U.S. Government Publishing Office y la Kentucky Historical Society; mantiene abiertas las bajas, el lugar fino y la composicion exacta de los combatientes indigenas.
+- Agrega regresiones de alias, fecha, jerarquia, tipo, procedencia y cautela sobre participantes y resultado.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-03-release-2`.
 
 ## v1.6.207 - 2026-09-03
 
