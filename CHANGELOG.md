@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.210 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.211 antes de cerrar la siguiente version.
+
+## v1.6.211 - 2026-09-04
+
+- Normaliza **Batalla de la linea Bullet** como **Batalla de la linea Bullet (26 de febrero de 1991)**, corrigiendo su ubicacion erronea en America hacia el sur de Irak durante la Guerra del Golfo.
+- Incorpora fecha, jerarquia, aliases, geografia, participantes y navegacion directa entre Estados Unidos e Irak, manteniendo la accion separada de 73 Easting, Objective Norfolk y Medina Ridge.
+- Agrega fuentes del U.S. Army NCO Journal, U.S. Army Armor Magazine y U.S. Government Publishing Office; evita inventar coordenadas, bajas totales o atribuir la destruccion completa de la Division Tawakalna a un unico combate.
+- Suma regresiones para nombres, pais, fecha, jerarquia, lenguaje visible y la separacion historica de las acciones acorazadas del 26 de febrero de 1991.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-04-release-3`.
 
 ## v1.6.210 - 2026-09-04
 

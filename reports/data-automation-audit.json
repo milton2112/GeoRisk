@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-09-04T11:17:49.772Z",
+  "generatedAt": "2026-09-04T11:29:03.593Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 103
+      "count": 102
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 36
+      "count": 35
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 608
+      "count": 609
     },
     "redundantReligions": {
       "count": 0
@@ -381,13 +381,6 @@
       {
         "code": "USA",
         "name": "Batalla de Kasumi",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
-      {
-        "code": "USA",
-        "name": "Batalla de la línea Bullet",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
@@ -1514,7 +1507,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 36,
+      "count": 35,
       "command": "npm run fix:conflicts:batches"
     },
     {

@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-09-04T11:10:12.335Z",
-  "changedFullCountries": 9,
+  "generatedAt": "2026-09-04T11:26:43.300Z",
+  "changedFullCountries": 2,
   "fullPassChanges": [
-    9,
+    2,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 202,
+    "enriched": 197,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1092,
+  "generatedHierarchyCandidates": 1093,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -366,7 +366,8 @@
       "Batalla aérea de Samurra (1991)",
       "Batalla de Danny Boy (2004)",
       "Batalla del palacio Dasman (1990)",
-      "Batalla de las marismas (1984)"
+      "Batalla de las marismas (1984)",
+      "Batalla de la línea Bullet (26 de febrero de 1991)"
     ],
     "dinamarca": [
       "Batalla de Colberger Heide (1644)",
@@ -1564,6 +1565,12 @@
     "Battle of Wenden": "Batalla de Wenden (21-22 de octubre de 1578)",
     "Batalla de Wenden (1578)": "Batalla de Wenden (21-22 de octubre de 1578)",
     "Battle of Wenden (1578)": "Batalla de Wenden (21-22 de octubre de 1578)",
+    "Batalla de la linea Bullet": "Batalla de la línea Bullet (26 de febrero de 1991)",
+    "Batalla de la línea Bullet": "Batalla de la línea Bullet (26 de febrero de 1991)",
+    "Batalla de Phase Line Bullet": "Batalla de la línea Bullet (26 de febrero de 1991)",
+    "Battle of Phase Line Bullet": "Batalla de la línea Bullet (26 de febrero de 1991)",
+    "Battle of the Phase Line Bullet": "Batalla de la línea Bullet (26 de febrero de 1991)",
+    "Phase Line Bullet": "Batalla de la línea Bullet (26 de febrero de 1991)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2699,6 +2706,7 @@
     "Batalla de Ty-ho Bay (4 de agosto de 1855)",
     "Batallas de Wenden (1577-1578)",
     "Batalla de Wenden (21-22 de octubre de 1578)",
+    "Batalla de la línea Bullet (26 de febrero de 1991)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

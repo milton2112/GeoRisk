@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-04T11:10:18.836Z",
+  "generatedAt": "2026-09-04T11:26:49.930Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12941077,
-    "duplicatedCountryFilesBytes": 1553115,
-    "countryConflictShardBytes": 448994,
+    "fullBytes": 12961977,
+    "duplicatedCountryFilesBytes": 1553505,
+    "countryConflictShardBytes": 449145,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24266,
-        "inlineBytes": 3393559,
+        "inlineBytes": 3402615,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 217184,
-          "conflictShardBytes": 217185,
+          "conflictsBytes": 217335,
+          "conflictShardBytes": 217336,
           "averageConflictBytes": 235
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 102,
+    "pendingCount": 101,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15213,19 +15213,6 @@
         ],
         "regions": [
           "Golfo Pérsico"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de la línea Bullet",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"

@@ -642,6 +642,11 @@ import {
   WENDEN_1577_1578_CONFLICT_RENAMES
 } from "../lib/conflict-curation-wenden-1577-1578.js";
 import {
+  PHASE_LINE_BULLET_1991_CONFLICT_DETAIL_FIXES,
+  PHASE_LINE_BULLET_1991_COUNTRY_CONFLICT_ADDITIONS,
+  PHASE_LINE_BULLET_1991_CONFLICT_RENAMES
+} from "../lib/conflict-curation-phase-line-bullet-1991.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -6045,6 +6050,44 @@ assert.ok(
       && WENDEN_1577_1578_COUNTRY_CONFLICT_ADDITIONS[country]?.includes("Batalla de Wenden (21-22 de octubre de 1578)")
   ),
   "Wenden debe poder navegarse desde los paises contemporaneos enlazados sin convertirlos en bandos historicos automaticos"
+);
+assert.equal(Object.keys(PHASE_LINE_BULLET_1991_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  PHASE_LINE_BULLET_1991_CONFLICT_RENAMES["Batalla de la l\u00ednea Bullet"],
+  "Batalla de la l\u00ednea Bullet (26 de febrero de 1991)",
+  "la variante visible en espanol debe llegar a la ficha curada de Phase Line Bullet"
+);
+assert.equal(
+  PHASE_LINE_BULLET_1991_CONFLICT_RENAMES["Battle of Phase Line Bullet"],
+  "Batalla de la l\u00ednea Bullet (26 de febrero de 1991)",
+  "el alias ingles debe llegar a la ficha curada de Phase Line Bullet"
+);
+const phaseLineBullet1991Detail = PHASE_LINE_BULLET_1991_CONFLICT_DETAIL_FIXES["Batalla de la l\u00ednea Bullet (26 de febrero de 1991)"];
+assert.ok(
+  phaseLineBullet1991Detail
+    && phaseLineBullet1991Detail.startYear === 1991
+    && phaseLineBullet1991Detail.startYear === phaseLineBullet1991Detail.endYear
+    && phaseLineBullet1991Detail.parent === "Guerra del Golfo"
+    && phaseLineBullet1991Detail.war === phaseLineBullet1991Detail.parent
+    && phaseLineBullet1991Detail.campaign === "Ofensiva terrestre de la Operaci\u00f3n Tormenta del Desierto (febrero de 1991)"
+    && phaseLineBullet1991Detail.type === "batalla terrestre acorazada"
+    && phaseLineBullet1991Detail.conflictType === "interestatal"
+    && phaseLineBullet1991Detail.scale === "internacional"
+    && phaseLineBullet1991Detail.hierarchyConfidence === "alta"
+    && phaseLineBullet1991Detail.hierarchySources?.length === 3
+    && phaseLineBullet1991Detail.participants?.length === 2
+    && phaseLineBullet1991Detail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && phaseLineBullet1991Detail.participants[0].side === "3.\u00aa Divisi\u00f3n Acorazada de Estados Unidos"
+    && phaseLineBullet1991Detail.participants[1].side === "Fuerzas iraqu\u00edes de la Guardia Republicana"
+    && /26 de febrero de 1991/i.test(phaseLineBullet1991Detail.datePrecision)
+    && /sur de Irak/i.test(phaseLineBullet1991Detail.region)
+    && /no mezcla sus bajas ni resultado con los de esas acciones vecinas/i.test(phaseLineBullet1991Detail.sourceDispute)
+    && /no una localidad que permita fijar coordenadas exactas/i.test(phaseLineBullet1991Detail.curationNote),
+  "Phase Line Bullet debe salir de America y quedar como combate acorazado de la Guerra del Golfo sin fusionarse con 73 Easting u Objective Norfolk"
+);
+assert.ok(
+  PHASE_LINE_BULLET_1991_COUNTRY_CONFLICT_ADDITIONS.Irak?.includes("Batalla de la l\u00ednea Bullet (26 de febrero de 1991)"),
+  "Phase Line Bullet debe poder navegarse desde Irak por participacion directa"
 );
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
