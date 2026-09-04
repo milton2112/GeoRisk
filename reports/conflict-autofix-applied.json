@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-09-04T16:42:59.368Z",
-  "changedFullCountries": 4,
+  "generatedAt": "2026-09-04T17:19:00.079Z",
+  "changedFullCountries": 2,
   "fullPassChanges": [
-    4,
+    2,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 204,
+    "enriched": 205,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1098,
+  "generatedHierarchyCandidates": 1099,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -317,7 +317,8 @@
       "Batalla de Treiden (1628)",
       "Combate naval en Putziger Wiek (23 de agosto de 1870)",
       "Batallas de Wenden (1577-1578)",
-      "Batalla de Wenden (21-22 de octubre de 1578)"
+      "Batalla de Wenden (21-22 de octubre de 1578)",
+      "Combate de Sobota (1655)"
     ],
     "mexico": [
       "Combate de Carrizal (1916)",
@@ -404,7 +405,8 @@
       "Batalla de Kaipiais (1789)",
       "Combates navales de Westtief y el Greifswalder Bodden (julio-agosto de 1712)",
       "Batallas de Wenden (1577-1578)",
-      "Batalla de Wenden (21-22 de octubre de 1578)"
+      "Batalla de Wenden (21-22 de octubre de 1578)",
+      "Combate de Sobota (1655)"
     ],
     "argentina": [
       "Combate de Top Malo House (1982)"
@@ -1636,6 +1638,11 @@
     "Battle of Pruzhany": "Combate de Prużany (29 de julio / 10 de agosto de 1812)",
     "Battle of Pruzany": "Combate de Prużany (29 de julio / 10 de agosto de 1812)",
     "Gefecht bei Pruzana": "Combate de Prużany (29 de julio / 10 de agosto de 1812)",
+    "Batalla de Sobota": "Combate de Sobota (1655)",
+    "Combate de Sobota": "Combate de Sobota (1655)",
+    "Battle of Sobota": "Combate de Sobota (1655)",
+    "Bitwa pod Sobotą": "Combate de Sobota (1655)",
+    "Slaget vid Sobota": "Combate de Sobota (1655)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2778,6 +2785,7 @@
     "Batalla naval de Texel (29 de junio de 1694)",
     "Batalla de Tohotonimme (Pine Creek, 17 de mayo de 1858)",
     "Combate de Prużany (29 de julio / 10 de agosto de 1812)",
+    "Combate de Sobota (1655)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

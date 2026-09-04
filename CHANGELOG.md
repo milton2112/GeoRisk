@@ -8,7 +8,14 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.218 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.219 antes de cerrar la siguiente version.
+
+## v1.6.219 - 2026-09-04
+
+- Normaliza **Batalla de Sobota** como **Combate de Sobota (1655)** dentro de la Segunda Guerra N\u00f3rdica, con una ficha cautelosa que conserva las fechas sueca y polaca sin fabricar una equivalencia diaria.
+- Agrega guerra padre, campa\u00f1a, participantes, fuentes, resultado operativo, consecuencias, aliases y navegaci\u00f3n desde Suecia y Polonia.
+- Incorpora regresiones para impedir que Sobota vuelva a quedar sin fecha, guerra padre, fuentes o trazabilidad de calendario.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-04-release-11`.
 
 ## v1.6.218 - 2026-09-04
 

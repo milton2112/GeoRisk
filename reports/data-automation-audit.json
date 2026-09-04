@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-09-04T16:45:38.292Z",
+  "generatedAt": "2026-09-04T17:21:48.595Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 95
+      "count": 94
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 28
+      "count": 27
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 612
+      "count": 613
     },
     "redundantReligions": {
       "count": 0
@@ -183,11 +183,6 @@
       },
       {
         "code": "SWE",
-        "name": "Batalla de Sobota",
-        "region": "Europa"
-      },
-      {
-        "code": "SWE",
         "name": "Batallas navales del lago Ladoga",
         "region": "Europa"
       },
@@ -254,6 +249,11 @@
       {
         "code": "GBR",
         "name": "Operación Castaña",
+        "region": "Europa"
+      },
+      {
+        "code": "GBR",
+        "name": "Operación Garlic",
         "region": "Europa"
       }
     ],
@@ -327,13 +327,6 @@
         "name": "Batalla de Z'Moul NIran",
         "parent": "Conflicto regional de África",
         "campaign": "Campaña vinculada a Conflicto regional de África",
-        "startYear": null
-      },
-      {
-        "code": "SWE",
-        "name": "Batalla de Sobota",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
       },
       {
@@ -1458,7 +1451,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 28,
+      "count": 27,
       "command": "npm run fix:conflicts:batches"
     },
     {

@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-04T16:43:06.753Z",
+  "generatedAt": "2026-09-04T17:19:06.486Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 13068957,
-    "duplicatedCountryFilesBytes": 1555969,
-    "countryConflictShardBytes": 449933,
+    "fullBytes": 13086901,
+    "duplicatedCountryFilesBytes": 1556084,
+    "countryConflictShardBytes": 450440,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -111,6 +111,57 @@
         }
       },
       {
+        "code": "POL",
+        "name": "Polonia",
+        "bytes": 21397,
+        "inlineBytes": 345689,
+        "tooLarge": false,
+        "counts": {
+          "cities": 4,
+          "capitals": 1,
+          "languages": 4,
+          "religionGroups": 5,
+          "organizations": 43,
+          "rivals": 50,
+          "conflicts": 63,
+          "timelineEvents": 0
+        },
+        "metrics": {
+          "sectionBytes": {
+            "military": 10806,
+            "politics": 7383,
+            "metadata": 1913,
+            "general": 684,
+            "religion": 297,
+            "economy": 100,
+            "history": 93,
+            "name": 9,
+            "continent": 8
+          },
+          "largestSections": [
+            {
+              "section": "military",
+              "bytes": 10806
+            },
+            {
+              "section": "politics",
+              "bytes": 7383
+            },
+            {
+              "section": "metadata",
+              "bytes": 1913
+            },
+            {
+              "section": "general",
+              "bytes": 684
+            }
+          ],
+          "conflictsBytes": 16847,
+          "conflictShardBytes": 16848,
+          "averageConflictBytes": 267
+        }
+      },
+      {
         "code": "FRA",
         "name": "Francia",
         "bytes": 21382,
@@ -159,57 +210,6 @@
           "conflictsBytes": 51345,
           "conflictShardBytes": 51346,
           "averageConflictBytes": 213
-        }
-      },
-      {
-        "code": "POL",
-        "name": "Polonia",
-        "bytes": 21282,
-        "inlineBytes": 335361,
-        "tooLarge": false,
-        "counts": {
-          "cities": 4,
-          "capitals": 1,
-          "languages": 4,
-          "religionGroups": 5,
-          "organizations": 43,
-          "rivals": 50,
-          "conflicts": 62,
-          "timelineEvents": 0
-        },
-        "metrics": {
-          "sectionBytes": {
-            "military": 10691,
-            "politics": 7383,
-            "metadata": 1913,
-            "general": 684,
-            "religion": 297,
-            "economy": 100,
-            "history": 93,
-            "name": 9,
-            "continent": 8
-          },
-          "largestSections": [
-            {
-              "section": "military",
-              "bytes": 10691
-            },
-            {
-              "section": "politics",
-              "bytes": 7383
-            },
-            {
-              "section": "metadata",
-              "bytes": 1913
-            },
-            {
-              "section": "general",
-              "bytes": 684
-            }
-          ],
-          "conflictsBytes": 16482,
-          "conflictShardBytes": 16483,
-          "averageConflictBytes": 266
         }
       },
       {
@@ -573,7 +573,7 @@
         "code": "SWE",
         "name": "Suecia",
         "bytes": 15839,
-        "inlineBytes": 602807,
+        "inlineBytes": 610423,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -615,9 +615,9 @@
               "bytes": 777
             }
           ],
-          "conflictsBytes": 33708,
-          "conflictShardBytes": 33709,
-          "averageConflictBytes": 222
+          "conflictsBytes": 33850,
+          "conflictShardBytes": 33851,
+          "averageConflictBytes": 223
         }
       }
     ]
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 94,
+    "pendingCount": 93,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15343,19 +15343,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Sobota",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"

@@ -676,6 +676,11 @@ import {
   PRUZANY_1812_CONFLICT_RENAMES
 } from "../lib/conflict-curation-pruzany-1812.js";
 import {
+  SOBOTA_1655_CONFLICT_DETAIL_FIXES,
+  SOBOTA_1655_COUNTRY_CONFLICT_ADDITIONS,
+  SOBOTA_1655_CONFLICT_RENAMES
+} from "../lib/conflict-curation-sobota-1655.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -6340,6 +6345,44 @@ assert.ok(
     PRUZANY_1812_COUNTRY_CONFLICT_ADDITIONS[country]?.includes("Combate de Pru\u017cany (29 de julio / 10 de agosto de 1812)")
   ),
   "Pru\u017cany debe navegarse por participantes historicos y por Bielorrusia como ubicacion actual"
+);
+assert.equal(Object.keys(SOBOTA_1655_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  SOBOTA_1655_CONFLICT_RENAMES["Batalla de Sobota"],
+  "Combate de Sobota (1655)",
+  "Sobota debe llegar a la ficha curada con su ano y jerarquia"
+);
+assert.equal(
+  SOBOTA_1655_CONFLICT_RENAMES["Bitwa pod Sobot\u0105"],
+  "Combate de Sobota (1655)",
+  "el alias polaco debe conservar la ficha curada de Sobota"
+);
+const sobota1655Detail = SOBOTA_1655_CONFLICT_DETAIL_FIXES["Combate de Sobota (1655)"];
+assert.ok(
+  sobota1655Detail
+    && sobota1655Detail.startYear === 1655
+    && sobota1655Detail.startYear === sobota1655Detail.endYear
+    && sobota1655Detail.parent === "Segunda Guerra N\u00f3rdica"
+    && sobota1655Detail.war === sobota1655Detail.parent
+    && sobota1655Detail.campaign === "Avance sueco hacia Pi\u0105tek y Varsovia (1655)"
+    && sobota1655Detail.type === "combate de caballeria y demora"
+    && sobota1655Detail.conflictType === "interestatal"
+    && sobota1655Detail.scale === "regional"
+    && sobota1655Detail.hierarchyConfidence === "alta"
+    && sobota1655Detail.hierarchySources?.length === 3
+    && sobota1655Detail.hierarchySources.every(item => item.label && item.url)
+    && sobota1655Detail.participants?.length === 2
+    && sobota1655Detail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /23-24 de agosto de 1655.*2 de septiembre de 1655/i.test(sobota1655Detail.datePrecision)
+    && /no convierte esas referencias en dos batallas/i.test(sobota1655Detail.sourceDispute)
+    && /no Estados contemporaneos literalmente trasladados a 1655/i.test(sobota1655Detail.curationNote),
+  "Sobota debe fijar fecha, jerarquia, participantes y cautela sobre calendarios y bajas"
+);
+assert.ok(
+  ["Suecia", "Polonia"].every(country =>
+    SOBOTA_1655_COUNTRY_CONFLICT_ADDITIONS[country]?.includes("Combate de Sobota (1655)")
+  ),
+  "Sobota debe navegarse desde Suecia y Polonia sin confundir los Estados actuales con los beligerantes historicos"
 );
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(

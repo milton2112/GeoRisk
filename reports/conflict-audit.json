@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-04T16:45:34.157Z",
+  "generatedAt": "2026-09-04T17:21:44.072Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 28,
-  "reviewCount": 28,
+  "advisoryCount": 27,
+  "reviewCount": 27,
   "summary": {
-    "provisional_parent": 28
+    "provisional_parent": 27
   },
   "topIssues": [],
   "topAdvisories": [
@@ -172,20 +172,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de sobota",
-      "name": "Batalla de Sobota",
-      "countries": [
-        "SWE"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],
