@@ -8,7 +8,14 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.212 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.213 antes de cerrar la siguiente version.
+
+## v1.6.213 - 2026-09-04
+
+- Normaliza **Batalla de Shewan** como **Batalla de Shewan (8 de agosto de 2008)** dentro de la **Guerra de Afganistan**, corrigiendo su ubicacion errada en America, la fecha, la jerarquia, la region y la tipologia.
+- Incorpora participacion de la Policia Nacional Afgana, navegacion desde Afganistan, fuentes institucionales del Cuerpo de Marines y cautela explicita sobre estimaciones estadounidenses de fuerza y bajas talibanes.
+- Agrega regresiones de aliases, fecha, jerarquia, paises relacionados, participantes y limites de procedencia.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-04-release-5`.
 
 ## v1.6.212 - 2026-09-04
 

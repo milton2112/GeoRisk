@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-09-04T11:40:02.026Z",
-  "changedFullCountries": 1,
+  "generatedAt": "2026-09-04T11:47:57.290Z",
+  "changedFullCountries": 2,
   "fullPassChanges": [
-    1,
+    2,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
@@ -524,7 +524,8 @@
       "Batalla del convoy de Malta (18 de febrero de 1800)"
     ],
     "afganistan": [
-      "Batalla de Aranas (2007)"
+      "Batalla de Aranas (2007)",
+      "Batalla de Shewan (8 de agosto de 2008)"
     ],
     "ucrania": [
       "Batalla de Czortków (1919)"
@@ -1589,6 +1590,9 @@
     "Henrytown": "Combate de Wet Glaze (Monday's Hollow, 13 de octubre de 1861)",
     "Batalla de Shanghai": "Combate de Wet Glaze (Monday's Hollow, 13 de octubre de 1861)",
     "Battle of Shanghai": "Combate de Wet Glaze (Monday's Hollow, 13 de octubre de 1861)",
+    "Batalla de Shewan": "Batalla de Shewan (8 de agosto de 2008)",
+    "Battle of Shewan": "Batalla de Shewan (8 de agosto de 2008)",
+    "Shewan": "Batalla de Shewan (8 de agosto de 2008)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2726,6 +2730,7 @@
     "Batalla de Wenden (21-22 de octubre de 1578)",
     "Batalla de la línea Bullet (26 de febrero de 1991)",
     "Combate de Wet Glaze (Monday's Hollow, 13 de octubre de 1861)",
+    "Batalla de Shewan (8 de agosto de 2008)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

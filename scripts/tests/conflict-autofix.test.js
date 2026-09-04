@@ -651,6 +651,11 @@ import {
   MONDAYS_HOLLOW_1861_CONFLICT_RENAMES
 } from "../lib/conflict-curation-mondays-hollow-1861.js";
 import {
+  SHEWAN_2008_CONFLICT_DETAIL_FIXES,
+  SHEWAN_2008_COUNTRY_CONFLICT_ADDITIONS,
+  SHEWAN_2008_CONFLICT_RENAMES
+} from "../lib/conflict-curation-shewan-2008.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -6124,6 +6129,42 @@ assert.ok(
     && /no fija coordenadas exactas/i.test(mondaysHollow1861Detail.sourceDispute)
     && /no se equipara autom\u00e1ticamente a todo el Estado Confederado/i.test(mondaysHollow1861Detail.curationNote),
   "Monday's Hollow debe salir de una guerra regional generica y conservar sus aliases y limites de evidencia"
+);
+assert.equal(Object.keys(SHEWAN_2008_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  SHEWAN_2008_CONFLICT_RENAMES["Batalla de Shewan"],
+  "Batalla de Shewan (8 de agosto de 2008)",
+  "Shewan debe llegar a la ficha curada de 2008"
+);
+assert.equal(
+  SHEWAN_2008_CONFLICT_RENAMES["Battle of Shewan"],
+  "Batalla de Shewan (8 de agosto de 2008)",
+  "el alias ingles debe llegar a la ficha curada de Shewan"
+);
+const shewan2008Detail = SHEWAN_2008_CONFLICT_DETAIL_FIXES["Batalla de Shewan (8 de agosto de 2008)"];
+assert.ok(
+  shewan2008Detail
+    && shewan2008Detail.startYear === 2008
+    && shewan2008Detail.startYear === shewan2008Detail.endYear
+    && shewan2008Detail.parent === "Guerra de Afganist\u00e1n"
+    && shewan2008Detail.war === shewan2008Detail.parent
+    && shewan2008Detail.campaign === "Operaciones de contrainsurgencia en Farah (2008)"
+    && shewan2008Detail.type === "batalla"
+    && shewan2008Detail.conflictType === "insurgencia"
+    && shewan2008Detail.scale === "local"
+    && shewan2008Detail.hierarchyConfidence === "alta"
+    && shewan2008Detail.hierarchySources?.length === 2
+    && shewan2008Detail.participants?.length === 2
+    && shewan2008Detail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /8 de agosto de 2008/i.test(shewan2008Detail.datePrecision)
+    && /Farah, Afganist\u00e1n/i.test(shewan2008Detail.region)
+    && /no se presenta como un recuento independiente/i.test(shewan2008Detail.participants[1].casualties)
+    && /no el nombre de una campa\u00f1a oficial/i.test(shewan2008Detail.curationNote),
+  "Shewan debe salir de America, quedar dentro de la Guerra de Afganistan y mantener cautela sobre sus bajas insurgentes"
+);
+assert.ok(
+  SHEWAN_2008_COUNTRY_CONFLICT_ADDITIONS["Afganist\u00e1n"]?.includes("Batalla de Shewan (8 de agosto de 2008)"),
+  "Shewan debe poder navegarse desde Afganistan por participacion directa"
 );
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(

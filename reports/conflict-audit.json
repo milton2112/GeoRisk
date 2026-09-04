@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-04T11:42:21.671Z",
+  "generatedAt": "2026-09-04T12:32:47.234Z",
   "scannedConflicts": 2000,
   "issueCount": 0,
-  "advisoryCount": 34,
-  "reviewCount": 34,
+  "advisoryCount": 33,
+  "reviewCount": 33,
   "summary": {
-    "provisional_parent": 34
+    "provisional_parent": 33
   },
   "topIssues": [],
   "topAdvisories": [
@@ -180,20 +180,6 @@
     {
       "key": "batalla de sambre",
       "name": "Batalla de Sambre",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de shewan",
-      "name": "Batalla de Shewan",
       "countries": [
         "USA"
       ],

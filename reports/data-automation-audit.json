@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-09-04T11:42:26.243Z",
+  "generatedAt": "2026-09-04T12:32:50.711Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 101
+      "count": 100
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 34
+      "count": 33
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 609
+      "count": 610
     },
     "redundantReligions": {
       "count": 0
@@ -429,13 +429,6 @@
       },
       {
         "code": "USA",
-        "name": "Batalla de Shewan",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
-      {
-        "code": "USA",
         "name": "Batalla de SIranaya",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
@@ -520,6 +513,14 @@
       },
       {
         "name": "Batalla de Aranas (2007)",
+        "count": 2,
+        "countries": [
+          "AFG",
+          "USA"
+        ]
+      },
+      {
+        "name": "Batalla de Shewan (8 de agosto de 2008)",
         "count": 2,
         "countries": [
           "AFG",
@@ -890,14 +891,6 @@
         "countries": [
           "ARG",
           "GBR"
-        ]
-      },
-      {
-        "name": "Conflicto de Nagorno-Karabaj de 2016",
-        "count": 2,
-        "countries": [
-          "ARM",
-          "AZE"
         ]
       }
     ],
@@ -1500,7 +1493,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 34,
+      "count": 33,
       "command": "npm run fix:conflicts:batches"
     },
     {
