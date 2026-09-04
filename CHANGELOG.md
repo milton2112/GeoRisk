@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.220 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.221 antes de cerrar la siguiente version.
+
+## v1.6.221 - 2026-09-05
+
+- Corrige la caché offline bajo subcarpetas como `/GeoRisk/`: módulos diferidos, fichas y recursos consultados se guardan con rutas relativas al despliegue.
+- Evita que las variantes de URL con parámetros dupliquen o expulsen archivos esenciales de la caché inicial.
+- Conserva las respuestas de red cuando falla una escritura por falta de almacenamiento y controla los fallos de recursos ausentes sin conexión.
+- Agrega `npm run test:offline` a la puerta de release: prueba Chromium con service worker real en raíz y subcarpeta, recarga offline, cuota agotada simulada y exclusión de datos pesados.
+- Aclara la documentación sobre caché bajo demanda, almacenamiento insuficiente y dependencias remotas del mapa.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-05-release-1`.
 
 ## v1.6.220 - 2026-09-04
 

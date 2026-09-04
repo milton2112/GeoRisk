@@ -324,8 +324,8 @@ assert.ok(!appShellText.includes("USER_GUIDE.md"), "docs internas no deben preca
 assert.ok(!appShellText.includes("TECHNICAL.md"), "docs internas no deben precachearse");
 assert.ok(sw.includes("RUNTIME_CACHEABLE_PATHS"), "service worker debe separar cache runtime");
 assert.ok(sw.includes("HEAVY_RUNTIME_PATHS"), "service worker debe reconocer datasets pesados");
-assert.ok(/if \(isHeavyRuntimeRequest\(url\)\) \{\s*event\.respondWith\(fetch\(event\.request\)\)/.test(sw), "datasets pesados no deben guardarse en CacheStorage");
-assert.ok(sw.includes("caches.match(\"./index.html\""), "offline debe poder abrir shell despues de visita inicial");
+assert.ok(packageJson.scripts["test:offline"]?.includes("service-worker-browser.test.js"), "offline debe validarse con un service worker real");
+assert.ok(packageJson.scripts.test.includes("npm run test:offline"), "release debe verificar cache offline, cuota y exclusion de datasets pesados");
 
 assert.ok((await bytes("script.js")) < 700000, "script.js debe quedar bajo 700 KB");
 assert.ok((await bytes("data/countries_index.json")) < 240000, "countries_index debe quedar bajo 240 KB");

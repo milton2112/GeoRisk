@@ -1,7 +1,8 @@
-const CACHE_VERSION = "2026-09-04-release-12";
+const CACHE_VERSION = "2026-09-05-release-1";
 const APP_CACHE = `geo-risk-app-${CACHE_VERSION}`;
 const TILE_CACHE = `geo-risk-tiles-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `geo-risk-runtime-${CACHE_VERSION}`;
+const APP_BASE_URL = new URL("./", self.location.href);
 const APP_SHELL = [
   "./index.html",
   "./style.css",
@@ -43,7 +44,8 @@ const MAX_RUNTIME_CACHE_ENTRIES = 80;
 const MAX_TILE_CACHE_ENTRIES = 140;
 
 function normalizePathname(url) {
-  return url.pathname.replace(/\/+$/, "") || "/";
+  if (!url.pathname.startsWith(APP_BASE_URL.pathname)) return "";
+  return "/" + url.pathname.slice(APP_BASE_URL.pathname.length).replace(/\/+$/, "");
 }
 
 function isHeavyRuntimeRequest(url) {
@@ -77,10 +79,22 @@ async function putIfOk(cacheName, request, response, maxEntries) {
   if (!response || !response.ok) {
     return response;
   }
-  const cache = await caches.open(cacheName);
-  await cache.put(request, response.clone());
-  trimCache(cacheName, maxEntries).catch(() => null);
+  try {
+    const cache = await caches.open(cacheName);
+    await cache.put(request, response.clone());
+    await trimCache(cacheName, maxEntries);
+  } catch (error) {
+    console.warn("GeoRisk no pudo guardar cache offline:", error);
+  }
   return response;
+}
+
+async function matchCached(cacheName, request) {
+  try {
+    return await (await caches.open(cacheName)).match(request);
+  } catch {
+    return null;
+  }
 }
 
 self.addEventListener("install", event => {
@@ -106,9 +120,8 @@ self.addEventListener("activate", event => {
           .filter(key => key.startsWith("geo-risk-") && ![APP_CACHE, TILE_CACHE, RUNTIME_CACHE].includes(key))
           .map(key => caches.delete(key))
       )
-    )
+    ).then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
 self.addEventListener("message", event => {
@@ -125,26 +138,25 @@ self.addEventListener("fetch", event => {
   const url = new URL(event.request.url);
 
   if (url.origin === self.location.origin) {
-    const isNavigation = event.request.mode === "navigate" || url.pathname === "/" || url.pathname.endsWith("/index.html");
+    const path = normalizePathname(url);
+    if (!path) return;
+    const isNavigation = event.request.mode === "navigate" || path === "/" || path === "/index.html";
+    const isShell = path === "/" || isAppShellRequest(url);
 
     if (isHeavyRuntimeRequest(url)) {
-      event.respondWith(fetch(event.request));
+      event.respondWith(fetch(event.request).catch(() => Response.error()));
       return;
     }
 
-    if (isNavigation || isAppShellRequest(url)) {
+    if (isNavigation || isShell) {
+      // Version/query variants must not evict the installed offline shell.
+      const cacheKey = new URL(path === "/" ? "./index.html" : "." + path, APP_BASE_URL).href;
       event.respondWith(
         fetch(event.request)
-          .then(response => putIfOk(APP_CACHE, event.request, response, APP_SHELL.length + 8))
+          .then(response => isShell ? putIfOk(APP_CACHE, cacheKey, response, APP_SHELL.length) : response)
           .catch(async () => {
-            const cached = await caches.match(event.request, { ignoreSearch: true });
-            if (cached) {
-              return cached;
-            }
-            if (isNavigation) {
-              return caches.match("./index.html", { ignoreSearch: true });
-            }
-            return Response.error();
+            const fallbackKey = isNavigation ? new URL("./index.html", APP_BASE_URL).href : cacheKey;
+            return await matchCached(APP_CACHE, fallbackKey) || Response.error();
           })
       );
       return;
@@ -152,10 +164,10 @@ self.addEventListener("fetch", event => {
 
     if (isRuntimeCacheableRequest(url)) {
       event.respondWith(
-        caches.match(event.request).then(cached =>
+        matchCached(RUNTIME_CACHE, event.request).then(cached =>
           cached ||
           fetch(event.request).then(response => putIfOk(RUNTIME_CACHE, event.request, response, MAX_RUNTIME_CACHE_ENTRIES))
-        )
+        ).catch(() => Response.error())
       );
     }
     return;
@@ -167,15 +179,16 @@ self.addEventListener("fetch", event => {
         const cached = await cache.match(event.request);
         const networkFetch = fetch(event.request)
           .then(response => putIfOk(TILE_CACHE, event.request, response, MAX_TILE_CACHE_ENTRIES))
-          .catch(() => cached);
+          .catch(() => cached || Response.error());
 
+        event.waitUntil(networkFetch);
         return cached || networkFetch;
-      })
+      }).catch(() => fetch(event.request).catch(() => Response.error()))
     );
     return;
   }
 
   if (url.hostname === "cesium.com") {
-    event.respondWith(fetch(event.request));
+    event.respondWith(fetch(event.request).catch(() => Response.error()));
   }
 });

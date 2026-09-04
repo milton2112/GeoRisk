@@ -129,7 +129,6 @@ assert.ok(sw.includes("RUNTIME_CACHEABLE_PATHS"), "service worker debe cachear G
 assert.ok(sw.includes("RUNTIME_CACHE"), "service worker debe separar cache runtime del shell");
 assert.ok(sw.includes("key.startsWith(\"geo-risk-\")"), "service worker debe borrar caches viejos de GeoRisk agresivamente");
 assert.ok(sw.includes("MAX_RUNTIME_CACHE_ENTRIES"), "service worker debe limitar cache runtime");
-assert.ok(/if \(isHeavyRuntimeRequest\(url\)\) \{\s*event\.respondWith\(fetch\(event\.request\)\)/.test(sw), "datasets pesados deben usar red sin guardarse en CacheStorage");
 assert.ok(!sw.includes("https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Cesium.js\""), "Cesium remoto no debe precachearse en install");
 assert.ok(!indexHtml.includes("app-curation.js"), "index.html no debe bloquear el arranque con app-curation");
 assert.ok(!indexHtml.includes("fonts.googleapis.com"), "la fuente web no debe bloquear el primer render");

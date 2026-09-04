@@ -262,7 +262,9 @@ En `Salud dataset` vas a encontrar barras de cobertura para detectar rapido dond
 
 ## Estado offline
 
-GeoRisk usa un modo offline parcial despues de una primera visita correcta. La app guarda el shell inicial, estilos, scripts esenciales, indice liviano de paises, aliases y documentacion. En `Capas tematicas > Proyecto` se muestra el tamano aproximado del cache offline y el boton `Limpiar cache offline` permite reconstruirlo si queda una version vieja.
+GeoRisk usa un modo offline parcial despues de una primera visita correcta. La app guarda el shell inicial, estilos, scripts esenciales, indice liviano de paises y aliases. Los modulos adicionales, fichas, geometria, simbolos y documentacion se guardan al consultarlos, tanto en la raiz del sitio como en una subcarpeta como `/GeoRisk/`. En `Capas tematicas > Proyecto` se muestra el tamano aproximado del cache offline y el boton `Limpiar cache offline` permite reconstruirlo si queda una version vieja.
+
+Si el navegador no dispone de espacio para guardar nuevos recursos, la app sigue entregando los datos disponibles por internet. Esos recursos no quedan disponibles offline hasta que se puedan guardar correctamente.
 
 Funciona offline despues de la visita inicial:
 
@@ -279,6 +281,6 @@ Limitaciones:
 - `conflict_details.generated.json` no se guarda en CacheStorage;
 - fichas profundas no visitadas antes pueden necesitar internet;
 - detalles enriquecidos de conflictos y noticias en vivo dependen de internet;
-- imagenes, tiles y scripts remotos de terceros pueden requerir conectividad en una primera carga.
+- imagenes, tiles y scripts remotos de terceros pueden requerir conectividad, incluso despues de una visita si el navegador los elimino de su cache; abrir el shell local no garantiza disponer del mapa completo.
 
 Si queres ver hacia donde podria crecer GeoRisk con una API propia, mira `BACKEND_PLAN.md` desde la seccion de documentacion.
