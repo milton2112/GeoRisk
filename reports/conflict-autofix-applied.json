@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-09-04T16:10:22.102Z",
-  "changedFullCountries": 1,
+  "generatedAt": "2026-09-04T16:22:12.748Z",
+  "changedFullCountries": 3,
   "fullPassChanges": [
-    1,
+    3,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 202,
+    "enriched": 203,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1097,
+  "generatedHierarchyCandidates": 1098,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -1188,6 +1188,7 @@
     "Batalla de la bahía de Fundy": "Combate naval de la bahía de Fundy (1696)",
     "Combate naval de la bahía de Fundy": "Combate naval de la bahía de Fundy (1696)",
     "Bataille de la baie de Fundy": "Combate naval de la bahía de Fundy (1696)",
+    "Batalla naval de St. John": "Combate naval de la bahía de Fundy (1696)",
     "Batalla de Lagos": "Batalla naval de Lagos (1759)",
     "Batalla de Lagos (1759)": "Batalla naval de Lagos (1759)",
     "Batalla de Lagos de 1759": "Batalla naval de Lagos (1759)",

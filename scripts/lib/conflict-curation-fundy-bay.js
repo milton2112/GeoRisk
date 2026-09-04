@@ -88,7 +88,7 @@ function fundyBayFix() {
     curationBatch: "source-backed-fundy-bay-2026-08",
     curationStatus: "estructural",
     dataConfidence: "parcial",
-    curationNote: "La entrada previa se llamaba Batalla de Fundy Bay, estaba asociada solo a Francia y quedaba bajo una jerarqu\u00eda provisional. Se normaliza como Combate naval de la bah\u00eda de Fundy (1696), dentro de la Guerra de los Nueve A\u00f1os y de las operaciones franco-inglesas en Acadia y Pemaquid. Francia y Reino Unido se vinculan por las fuerzas hist\u00f3ricas; Canad\u00e1 se vincula como ubicaci\u00f3n contempor\u00e1nea del Saint John, sin convertirlo en beligerante. La ficha conserva la participaci\u00f3n mi'kmaq documentada, sin presentarla como un Estado moderno ni fusionarla con las fuerzas francesas."
+    curationNote: "Las entradas previas Batalla de Fundy Bay y Batalla naval de St. John estaban asociadas solo a Francia y quedaban bajo una jerarqu\u00eda provisional. Ambas se absorben como aliases de Combate naval de la bah\u00eda de Fundy (1696): describen la acci\u00f3n del 14 de julio cerca de la desembocadura del r\u00edo Saint John, no dos batallas separadas. Francia y Reino Unido se vinculan por las fuerzas hist\u00f3ricas; Canad\u00e1 se vincula como ubicaci\u00f3n contempor\u00e1nea del Saint John, sin convertirlo en beligerante. La ficha conserva la participaci\u00f3n mi'kmaq documentada, sin presentarla como un Estado moderno ni fusionarla con las fuerzas francesas."
   };
 }
 
@@ -98,7 +98,8 @@ export const FUNDY_BAY_CONFLICT_RENAMES = {
   "Battle of the Bay of Fundy": "Combate naval de la bah\u00eda de Fundy (1696)",
   "Batalla de la bah\u00eda de Fundy": "Combate naval de la bah\u00eda de Fundy (1696)",
   "Combate naval de la bah\u00eda de Fundy": "Combate naval de la bah\u00eda de Fundy (1696)",
-  "Bataille de la baie de Fundy": "Combate naval de la bah\u00eda de Fundy (1696)"
+  "Bataille de la baie de Fundy": "Combate naval de la bah\u00eda de Fundy (1696)",
+  "Batalla naval de St. John": "Combate naval de la bah\u00eda de Fundy (1696)"
 };
 
 export const FUNDY_BAY_COUNTRY_CONFLICT_ADDITIONS = {

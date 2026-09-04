@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-04T16:11:59.058Z",
-  "scannedConflicts": 2000,
+  "generatedAt": "2026-09-04T16:23:52.190Z",
+  "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 30,
-  "reviewCount": 30,
+  "advisoryCount": 29,
+  "reviewCount": 29,
   "summary": {
-    "provisional_parent": 30
+    "provisional_parent": 29
   },
   "topIssues": [],
   "topAdvisories": [
@@ -354,20 +354,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla naval de st john",
-      "name": "Batalla naval de St. John",
-      "countries": [
-        "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],

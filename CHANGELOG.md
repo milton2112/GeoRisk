@@ -8,7 +8,13 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.216 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.217 antes de cerrar la siguiente version.
+
+## v1.6.217 - 2026-09-04
+
+- Fusiona **Batalla naval de St. John** con **Combate naval de la bahía de Fundy (1696)**: ambas etiquetas describen la captura de la fragata inglesa *Newport* por la expedición de Iberville el 14 de julio de 1696, cerca de la desembocadura del río Saint John.
+- Elimina una jerarquía provisional, conserva la ficha con fecha, participantes y fuentes ya verificadas, y agrega una regresión para evitar que el alias vuelva a aparecer como una segunda batalla.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-04-release-9`.
 
 ## v1.6.216 - 2026-09-04
 

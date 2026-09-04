@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-09-04T16:10:29.621Z",
+  "generatedAt": "2026-09-04T16:22:20.268Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 13027279,
+    "fullBytes": 13024855,
     "duplicatedCountryFilesBytes": 1554417,
-    "countryConflictShardBytes": 449969,
+    "countryConflictShardBytes": 449738,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
         "bytes": 25046,
-        "inlineBytes": 1347647,
+        "inlineBytes": 1347749,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -114,7 +114,7 @@
         "code": "FRA",
         "name": "Francia",
         "bytes": 21382,
-        "inlineBytes": 1012799,
+        "inlineBytes": 1010171,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -123,7 +123,7 @@
           "religionGroups": 5,
           "organizations": 54,
           "rivals": 50,
-          "conflicts": 242,
+          "conflicts": 241,
           "timelineEvents": 4
         },
         "metrics": {
@@ -156,8 +156,8 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 51576,
-          "conflictShardBytes": 51577,
+          "conflictsBytes": 51345,
+          "conflictShardBytes": 51346,
           "averageConflictBytes": 213
         }
       },
@@ -318,7 +318,7 @@
         "code": "CAN",
         "name": "Canadá",
         "bytes": 18927,
-        "inlineBytes": 162516,
+        "inlineBytes": 162618,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 96,
+    "pendingCount": 95,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15512,19 +15512,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla naval de St. John",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"

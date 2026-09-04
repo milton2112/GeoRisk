@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-09-04T16:12:02.082Z",
+  "generatedAt": "2026-09-04T16:23:55.398Z",
   "status": "operativo",
   "startup": {
     "critical": "817 KB",
     "criticalBytes": 836928,
     "deferred": "3.07 MB",
     "estimatedRuntimeMemory": {
-      "countriesFullBytes": 13027279,
+      "countriesFullBytes": 13024855,
       "countriesFullHuman": "12.42 MB",
-      "estimatedParsedBytes": 39081837,
-      "estimatedParsedHuman": "37.27 MB",
+      "estimatedParsedBytes": 39074565,
+      "estimatedParsedHuman": "37.26 MB",
       "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
     },
     "largestAssets": [
       {
         "path": "data/conflict_details.generated.json",
         "exists": true,
-        "bytes": 2575435,
+        "bytes": 2575486,
         "human": "2.46 MB",
         "startupCritical": false
       },
@@ -100,10 +100,10 @@
     ]
   },
   "conflicts": {
-    "scanned": 2000,
+    "scanned": 1999,
     "issueCount": 0,
     "summary": {
-      "provisional_parent": 30
+      "provisional_parent": 29
     },
     "eraFocus": []
   },
@@ -148,16 +148,16 @@
     ],
     "countryWeights": {
       "totalCountries": 183,
-      "fullBytes": 13027279,
+      "fullBytes": 13024855,
       "duplicatedCountryFilesBytes": 1554417,
-      "countryConflictShardBytes": 449969,
+      "countryConflictShardBytes": 449738,
       "tooLargeCount": 0,
       "largest": [
         {
           "code": "GBR",
           "name": "Reino Unido",
           "bytes": 25046,
-          "inlineBytes": 1347647,
+          "inlineBytes": 1347749,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -259,7 +259,7 @@
           "code": "FRA",
           "name": "Francia",
           "bytes": 21382,
-          "inlineBytes": 1012799,
+          "inlineBytes": 1010171,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -268,7 +268,7 @@
             "religionGroups": 5,
             "organizations": 54,
             "rivals": 50,
-            "conflicts": 242,
+            "conflicts": 241,
             "timelineEvents": 4
           },
           "metrics": {
@@ -301,8 +301,8 @@
                 "bytes": 933
               }
             ],
-            "conflictsBytes": 51576,
-            "conflictShardBytes": 51577,
+            "conflictsBytes": 51345,
+            "conflictShardBytes": 51346,
             "averageConflictBytes": 213
           }
         },
@@ -463,7 +463,7 @@
           "code": "CAN",
           "name": "Canadá",
           "bytes": 18927,
-          "inlineBytes": 162516,
+          "inlineBytes": 162618,
           "tooLarge": false,
           "counts": {
             "cities": 4,
@@ -790,7 +790,7 @@
     },
     "curationGaps": {},
     "conflictDataConsistency": {
-      "checked": 4176,
+      "checked": 4175,
       "closedMarkedActiveCount": 0,
       "inactiveMarkedActiveCount": 0,
       "nullNarrativeTextCount": 0,
@@ -817,7 +817,7 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 249712,
+      "bytes": 250273,
       "human": "244 KB"
     },
     {

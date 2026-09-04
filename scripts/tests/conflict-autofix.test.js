@@ -3720,6 +3720,11 @@ assert.equal(
   "Combate naval de la bah\u00eda de Fundy (1696)",
   "el alias ingles debe llegar a la ficha curada"
 );
+assert.equal(
+  FUNDY_BAY_CONFLICT_RENAMES["Batalla naval de St. John"],
+  "Combate naval de la bah\u00eda de Fundy (1696)",
+  "la etiqueta de Saint John no debe crear una segunda batalla junto a Fundy"
+);
 assert.deepEqual(
   FUNDY_BAY_COUNTRY_CONFLICT_ADDITIONS,
   {
