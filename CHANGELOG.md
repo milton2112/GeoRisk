@@ -8,7 +8,14 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.217 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.218 antes de cerrar la siguiente version.
+
+## v1.6.218 - 2026-09-04
+
+- Normaliza **Batalla de Prużany** como **Combate de Prużany (29 de julio / 10 de agosto de 1812)** dentro de las Guerras napoleónicas, con fecha doble explícita para no mezclar calendarios juliano y gregoriano.
+- Añade guerra padre, campaña, participantes, fuentes, resultado cauteloso y navegación desde Rusia, Austria, Alemania y Bielorrusia; mantiene la acción separada de la batalla posterior de Gorodechno/Podubnie.
+- Agrega regresiones para aliases, calendario, jerarquía, participantes, fuentes y la desambiguación histórica.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-04-release-10`.
 
 ## v1.6.217 - 2026-09-04
 

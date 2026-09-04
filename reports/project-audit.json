@@ -1,29 +1,29 @@
 {
-  "generatedAt": "2026-09-04T16:23:55.398Z",
+  "generatedAt": "2026-09-04T16:45:37.299Z",
   "status": "operativo",
   "startup": {
     "critical": "817 KB",
-    "criticalBytes": 836928,
+    "criticalBytes": 836938,
     "deferred": "3.07 MB",
     "estimatedRuntimeMemory": {
-      "countriesFullBytes": 13024855,
-      "countriesFullHuman": "12.42 MB",
-      "estimatedParsedBytes": 39074565,
-      "estimatedParsedHuman": "37.26 MB",
+      "countriesFullBytes": 13068957,
+      "countriesFullHuman": "12.46 MB",
+      "estimatedParsedBytes": 39206871,
+      "estimatedParsedHuman": "37.39 MB",
       "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
     },
     "largestAssets": [
       {
         "path": "data/conflict_details.generated.json",
         "exists": true,
-        "bytes": 2575486,
+        "bytes": 2581431,
         "human": "2.46 MB",
         "startupCritical": false
       },
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 563578,
+        "bytes": 563579,
         "human": "550 KB",
         "startupCritical": true
       },
@@ -72,7 +72,7 @@
       {
         "path": "index.html",
         "exists": true,
-        "bytes": 31766,
+        "bytes": 31775,
         "human": "31 KB",
         "startupCritical": true
       },
@@ -103,7 +103,7 @@
     "scanned": 1999,
     "issueCount": 0,
     "summary": {
-      "provisional_parent": 29
+      "provisional_parent": 28
     },
     "eraFocus": []
   },
@@ -112,13 +112,13 @@
       {
         "path": "data/timeline_index.json",
         "exists": true,
-        "bytes": 417264,
-        "human": "407 KB"
+        "bytes": 417908,
+        "human": "408 KB"
       },
       {
         "path": "data/conflicts_index.json",
         "exists": true,
-        "bytes": 367477,
+        "bytes": 367798,
         "human": "359 KB"
       },
       {
@@ -130,7 +130,7 @@
       {
         "path": "data/conflicts/details_index.json",
         "exists": true,
-        "bytes": 172613,
+        "bytes": 172819,
         "human": "169 KB"
       },
       {
@@ -148,9 +148,9 @@
     ],
     "countryWeights": {
       "totalCountries": 183,
-      "fullBytes": 13024855,
-      "duplicatedCountryFilesBytes": 1554417,
-      "countryConflictShardBytes": 449738,
+      "fullBytes": 13068957,
+      "duplicatedCountryFilesBytes": 1555969,
+      "countryConflictShardBytes": 449933,
       "tooLargeCount": 0,
       "largest": [
         {
@@ -358,6 +358,57 @@
           }
         },
         {
+          "code": "DEU",
+          "name": "Alemania",
+          "bytes": 20437,
+          "inlineBytes": 187497,
+          "tooLarge": false,
+          "counts": {
+            "cities": 5,
+            "capitals": 1,
+            "languages": 5,
+            "religionGroups": 5,
+            "organizations": 79,
+            "rivals": 21,
+            "conflicts": 31,
+            "timelineEvents": 4
+          },
+          "metrics": {
+            "sectionBytes": {
+              "military": 8563,
+              "politics": 8058,
+              "metadata": 1952,
+              "general": 992,
+              "history": 349,
+              "religion": 300,
+              "economy": 101,
+              "name": 10,
+              "continent": 8
+            },
+            "largestSections": [
+              {
+                "section": "military",
+                "bytes": 8563
+              },
+              {
+                "section": "politics",
+                "bytes": 8058
+              },
+              {
+                "section": "metadata",
+                "bytes": 1952
+              },
+              {
+                "section": "general",
+                "bytes": 992
+              }
+            ],
+            "conflictsBytes": 8446,
+            "conflictShardBytes": 0,
+            "averageConflictBytes": 272
+          }
+        },
+        {
           "code": "AUS",
           "name": "Australia",
           "bytes": 20069,
@@ -409,54 +460,54 @@
           }
         },
         {
-          "code": "DEU",
-          "name": "Alemania",
-          "bytes": 20017,
-          "inlineBytes": 175793,
+          "code": "RUS",
+          "name": "Rusia",
+          "bytes": 19202,
+          "inlineBytes": 344183,
           "tooLarge": false,
           "counts": {
             "cities": 5,
             "capitals": 1,
             "languages": 5,
-            "religionGroups": 5,
-            "organizations": 79,
-            "rivals": 21,
-            "conflicts": 30,
+            "religionGroups": 4,
+            "organizations": 41,
+            "rivals": 19,
+            "conflicts": 70,
             "timelineEvents": 4
           },
           "metrics": {
             "sectionBytes": {
-              "military": 8143,
-              "politics": 8058,
-              "metadata": 1952,
-              "general": 992,
-              "history": 349,
-              "religion": 300,
+              "military": 10400,
+              "politics": 4980,
+              "metadata": 1926,
+              "general": 965,
+              "history": 445,
+              "religion": 266,
               "economy": 101,
-              "name": 10,
-              "continent": 8
+              "continent": 8,
+              "name": 7
             },
             "largestSections": [
               {
                 "section": "military",
-                "bytes": 8143
+                "bytes": 10400
               },
               {
                 "section": "politics",
-                "bytes": 8058
+                "bytes": 4980
               },
               {
                 "section": "metadata",
-                "bytes": 1952
+                "bytes": 1926
               },
               {
                 "section": "general",
-                "bytes": 992
+                "bytes": 965
               }
             ],
-            "conflictsBytes": 8026,
-            "conflictShardBytes": 0,
-            "averageConflictBytes": 268
+            "conflictsBytes": 16910,
+            "conflictShardBytes": 16911,
+            "averageConflictBytes": 242
           }
         },
         {
@@ -508,57 +559,6 @@
             "conflictsBytes": 8663,
             "conflictShardBytes": 0,
             "averageConflictBytes": 241
-          }
-        },
-        {
-          "code": "RUS",
-          "name": "Rusia",
-          "bytes": 18910,
-          "inlineBytes": 335193,
-          "tooLarge": false,
-          "counts": {
-            "cities": 5,
-            "capitals": 1,
-            "languages": 5,
-            "religionGroups": 4,
-            "organizations": 41,
-            "rivals": 19,
-            "conflicts": 70,
-            "timelineEvents": 4
-          },
-          "metrics": {
-            "sectionBytes": {
-              "military": 10108,
-              "politics": 4980,
-              "metadata": 1926,
-              "general": 965,
-              "history": 445,
-              "religion": 266,
-              "economy": 101,
-              "continent": 8,
-              "name": 7
-            },
-            "largestSections": [
-              {
-                "section": "military",
-                "bytes": 10108
-              },
-              {
-                "section": "politics",
-                "bytes": 4980
-              },
-              {
-                "section": "metadata",
-                "bytes": 1926
-              },
-              {
-                "section": "general",
-                "bytes": 965
-              }
-            ],
-            "conflictsBytes": 16715,
-            "conflictShardBytes": 16716,
-            "averageConflictBytes": 239
           }
         },
         {
@@ -790,7 +790,7 @@
     },
     "curationGaps": {},
     "conflictDataConsistency": {
-      "checked": 4175,
+      "checked": 4179,
       "closedMarkedActiveCount": 0,
       "inactiveMarkedActiveCount": 0,
       "nullNarrativeTextCount": 0,
@@ -811,14 +811,14 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 563578,
+      "bytes": 563579,
       "human": "550 KB"
     },
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 250273,
-      "human": "244 KB"
+      "bytes": 250916,
+      "human": "245 KB"
     },
     {
       "path": "style.css",
@@ -835,7 +835,7 @@
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 31766,
+      "bytes": 31775,
       "human": "31 KB"
     },
     {

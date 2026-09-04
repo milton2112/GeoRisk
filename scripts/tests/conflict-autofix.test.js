@@ -671,6 +671,11 @@ import {
   PINE_CREEK_1858_CONFLICT_RENAMES
 } from "../lib/conflict-curation-pine-creek-1858.js";
 import {
+  PRUZANY_1812_CONFLICT_DETAIL_FIXES,
+  PRUZANY_1812_COUNTRY_CONFLICT_ADDITIONS,
+  PRUZANY_1812_CONFLICT_RENAMES
+} from "../lib/conflict-curation-pruzany-1812.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -6297,6 +6302,44 @@ assert.ok(
     && /no atribuye una cifra/i.test(pineCreek1858Detail.participants[1].casualties)
     && /paises modernos adicionales/i.test(pineCreek1858Detail.curationNote),
   "Pine Creek debe conservar la perspectiva indigena, una jerarquia cautelosa y la separacion de Terre Noire Creek"
+);
+assert.equal(Object.keys(PRUZANY_1812_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  PRUZANY_1812_CONFLICT_RENAMES["Batalla de Pru\u017cany"],
+  "Combate de Pru\u017cany (29 de julio / 10 de agosto de 1812)",
+  "Pru\u017cany debe llegar a la ficha curada con sus dos referencias calendarias"
+);
+assert.equal(
+  PRUZANY_1812_CONFLICT_RENAMES["Gefecht bei Pruzana"],
+  "Combate de Pru\u017cany (29 de julio / 10 de agosto de 1812)",
+  "el alias aleman debe conservar el combate separado de Gorodechno"
+);
+const pruzany1812Detail = PRUZANY_1812_CONFLICT_DETAIL_FIXES["Combate de Pru\u017cany (29 de julio / 10 de agosto de 1812)"];
+assert.ok(
+  pruzany1812Detail
+    && pruzany1812Detail.startYear === 1812
+    && pruzany1812Detail.startYear === pruzany1812Detail.endYear
+    && pruzany1812Detail.parent === "Guerras napole\u00f3nicas (1803-1815)"
+    && pruzany1812Detail.war === pruzany1812Detail.parent
+    && pruzany1812Detail.campaign === "Flanco meridional de la invasi\u00f3n francesa de Rusia (1812)"
+    && pruzany1812Detail.type === "combate de retaguardia"
+    && pruzany1812Detail.conflictType === "interestatal"
+    && pruzany1812Detail.scale === "internacional"
+    && pruzany1812Detail.hierarchyConfidence === "alta"
+    && pruzany1812Detail.hierarchySources?.length === 4
+    && pruzany1812Detail.hierarchySources.every(item => item.label && item.url)
+    && pruzany1812Detail.participants?.length === 2
+    && pruzany1812Detail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /29 de julio de 1812.*10 de agosto de 1812/i.test(pruzany1812Detail.datePrecision)
+    && /no absorbe ambos hechos/i.test(pruzany1812Detail.sourceDispute)
+    && /Bielorrusia se enlaza solo como ubicacion geografica contemporanea/i.test(pruzany1812Detail.curationNote),
+  "Pru\u017cany debe fijar fecha, jerarquia, actores y cautela sobre calendarios, bajas y Gorodechno"
+);
+assert.ok(
+  ["Rusia", "Austria", "Alemania", "Bielorrusia"].every(country =>
+    PRUZANY_1812_COUNTRY_CONFLICT_ADDITIONS[country]?.includes("Combate de Pru\u017cany (29 de julio / 10 de agosto de 1812)")
+  ),
+  "Pru\u017cany debe navegarse por participantes historicos y por Bielorrusia como ubicacion actual"
 );
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(

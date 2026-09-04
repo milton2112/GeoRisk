@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-04T16:22:12.748Z",
-  "changedFullCountries": 3,
+  "generatedAt": "2026-09-04T16:42:59.368Z",
+  "changedFullCountries": 4,
   "fullPassChanges": [
-    3,
+    4,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 203,
+    "enriched": 204,
     "retired": 0,
     "written": true,
     "compacted": false
@@ -112,7 +112,8 @@
       "Combate naval frente a La Habana (1870)",
       "Batalla naval de Pierres Noires (5-6 de julio de 1944)",
       "Combates navales de Westtief y el Greifswalder Bodden (julio-agosto de 1712)",
-      "Combate naval en Putziger Wiek (23 de agosto de 1870)"
+      "Combate naval en Putziger Wiek (23 de agosto de 1870)",
+      "Combate de Prużany (29 de julio / 10 de agosto de 1812)"
     ],
     "corea del sur": [
       "Acción naval de Happo (1592)",
@@ -254,7 +255,8 @@
       "Combate naval en la desembocadura del Neva (7/18 de mayo de 1703)",
       "Batalla de Romanovka (25 de junio de 1919)",
       "Batallas de Wenden (1577-1578)",
-      "Batalla de Wenden (21-22 de octubre de 1578)"
+      "Batalla de Wenden (21-22 de octubre de 1578)",
+      "Combate de Prużany (29 de julio / 10 de agosto de 1812)"
     ],
     "reino de los paises bajos": [
       "Batalla de Camaret (1694)",
@@ -357,7 +359,8 @@
       "Batalla de Antivari (1914)",
       "Batalla de Vízakna (1849)",
       "Combates de Gyanafalva (1921)",
-      "Combate de Kirchschlag (1921)"
+      "Combate de Kirchschlag (1921)",
+      "Combate de Prużany (29 de julio / 10 de agosto de 1812)"
     ],
     "brasil": [
       "Asalto a los acorazados Cabral y Lima Barros (1868)",
@@ -505,7 +508,8 @@
       "Combate del rio Dolores (1904)"
     ],
     "bielorrusia": [
-      "Carga de Hrebionka (1920)"
+      "Carga de Hrebionka (1920)",
+      "Combate de Prużany (29 de julio / 10 de agosto de 1812)"
     ],
     "cuba": [
       "Guerra hispano-estadounidense",
@@ -1624,6 +1628,14 @@
     "Battle of Steptoe": "Batalla de Tohotonimme (Pine Creek, 17 de mayo de 1858)",
     "Steptoe's Defeat": "Batalla de Tohotonimme (Pine Creek, 17 de mayo de 1858)",
     "Steptoe Defeat": "Batalla de Tohotonimme (Pine Creek, 17 de mayo de 1858)",
+    "Batalla de Prużany": "Combate de Prużany (29 de julio / 10 de agosto de 1812)",
+    "Batalla de Pruzhany": "Combate de Prużany (29 de julio / 10 de agosto de 1812)",
+    "Combate de Prużany": "Combate de Prużany (29 de julio / 10 de agosto de 1812)",
+    "Combate de Pruzhany": "Combate de Prużany (29 de julio / 10 de agosto de 1812)",
+    "Battle of Prużany": "Combate de Prużany (29 de julio / 10 de agosto de 1812)",
+    "Battle of Pruzhany": "Combate de Prużany (29 de julio / 10 de agosto de 1812)",
+    "Battle of Pruzany": "Combate de Prużany (29 de julio / 10 de agosto de 1812)",
+    "Gefecht bei Pruzana": "Combate de Prużany (29 de julio / 10 de agosto de 1812)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2765,6 +2777,7 @@
     "Batalla del Sabis (tradicionalmente Sambre, 57 a. C.)",
     "Batalla naval de Texel (29 de junio de 1694)",
     "Batalla de Tohotonimme (Pine Creek, 17 de mayo de 1858)",
+    "Combate de Prużany (29 de julio / 10 de agosto de 1812)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-04T16:22:20.268Z",
+  "generatedAt": "2026-09-04T16:43:06.753Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 13024855,
-    "duplicatedCountryFilesBytes": 1554417,
-    "countryConflictShardBytes": 449738,
+    "fullBytes": 13068957,
+    "duplicatedCountryFilesBytes": 1555969,
+    "countryConflictShardBytes": 449933,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -213,6 +213,57 @@
         }
       },
       {
+        "code": "DEU",
+        "name": "Alemania",
+        "bytes": 20437,
+        "inlineBytes": 187497,
+        "tooLarge": false,
+        "counts": {
+          "cities": 5,
+          "capitals": 1,
+          "languages": 5,
+          "religionGroups": 5,
+          "organizations": 79,
+          "rivals": 21,
+          "conflicts": 31,
+          "timelineEvents": 4
+        },
+        "metrics": {
+          "sectionBytes": {
+            "military": 8563,
+            "politics": 8058,
+            "metadata": 1952,
+            "general": 992,
+            "history": 349,
+            "religion": 300,
+            "economy": 101,
+            "name": 10,
+            "continent": 8
+          },
+          "largestSections": [
+            {
+              "section": "military",
+              "bytes": 8563
+            },
+            {
+              "section": "politics",
+              "bytes": 8058
+            },
+            {
+              "section": "metadata",
+              "bytes": 1952
+            },
+            {
+              "section": "general",
+              "bytes": 992
+            }
+          ],
+          "conflictsBytes": 8446,
+          "conflictShardBytes": 0,
+          "averageConflictBytes": 272
+        }
+      },
+      {
         "code": "AUS",
         "name": "Australia",
         "bytes": 20069,
@@ -264,54 +315,54 @@
         }
       },
       {
-        "code": "DEU",
-        "name": "Alemania",
-        "bytes": 20017,
-        "inlineBytes": 175793,
+        "code": "RUS",
+        "name": "Rusia",
+        "bytes": 19202,
+        "inlineBytes": 344183,
         "tooLarge": false,
         "counts": {
           "cities": 5,
           "capitals": 1,
           "languages": 5,
-          "religionGroups": 5,
-          "organizations": 79,
-          "rivals": 21,
-          "conflicts": 30,
+          "religionGroups": 4,
+          "organizations": 41,
+          "rivals": 19,
+          "conflicts": 70,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 8143,
-            "politics": 8058,
-            "metadata": 1952,
-            "general": 992,
-            "history": 349,
-            "religion": 300,
+            "military": 10400,
+            "politics": 4980,
+            "metadata": 1926,
+            "general": 965,
+            "history": 445,
+            "religion": 266,
             "economy": 101,
-            "name": 10,
-            "continent": 8
+            "continent": 8,
+            "name": 7
           },
           "largestSections": [
             {
               "section": "military",
-              "bytes": 8143
+              "bytes": 10400
             },
             {
               "section": "politics",
-              "bytes": 8058
+              "bytes": 4980
             },
             {
               "section": "metadata",
-              "bytes": 1952
+              "bytes": 1926
             },
             {
               "section": "general",
-              "bytes": 992
+              "bytes": 965
             }
           ],
-          "conflictsBytes": 8026,
-          "conflictShardBytes": 0,
-          "averageConflictBytes": 268
+          "conflictsBytes": 16910,
+          "conflictShardBytes": 16911,
+          "averageConflictBytes": 242
         }
       },
       {
@@ -363,57 +414,6 @@
           "conflictsBytes": 8663,
           "conflictShardBytes": 0,
           "averageConflictBytes": 241
-        }
-      },
-      {
-        "code": "RUS",
-        "name": "Rusia",
-        "bytes": 18910,
-        "inlineBytes": 335193,
-        "tooLarge": false,
-        "counts": {
-          "cities": 5,
-          "capitals": 1,
-          "languages": 5,
-          "religionGroups": 4,
-          "organizations": 41,
-          "rivals": 19,
-          "conflicts": 70,
-          "timelineEvents": 4
-        },
-        "metrics": {
-          "sectionBytes": {
-            "military": 10108,
-            "politics": 4980,
-            "metadata": 1926,
-            "general": 965,
-            "history": 445,
-            "religion": 266,
-            "economy": 101,
-            "continent": 8,
-            "name": 7
-          },
-          "largestSections": [
-            {
-              "section": "military",
-              "bytes": 10108
-            },
-            {
-              "section": "politics",
-              "bytes": 4980
-            },
-            {
-              "section": "metadata",
-              "bytes": 1926
-            },
-            {
-              "section": "general",
-              "bytes": 965
-            }
-          ],
-          "conflictsBytes": 16715,
-          "conflictShardBytes": 16716,
-          "averageConflictBytes": 239
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 95,
+    "pendingCount": 94,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15291,19 +15291,6 @@
         ],
         "regions": [
           "Asia"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Prużany",
-        "countries": [
-          "RUS"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
