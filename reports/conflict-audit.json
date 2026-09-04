@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-04T11:28:59.887Z",
+  "generatedAt": "2026-09-04T11:42:21.671Z",
   "scannedConflicts": 2000,
   "issueCount": 0,
-  "advisoryCount": 35,
-  "reviewCount": 35,
+  "advisoryCount": 34,
+  "reviewCount": 34,
   "summary": {
-    "provisional_parent": 35
+    "provisional_parent": 34
   },
   "topIssues": [],
   "topAdvisories": [
@@ -26,20 +26,6 @@
     {
       "key": "batalla de kasumi",
       "name": "Batalla de Kasumi",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de monday s hollow",
-      "name": "Batalla de Monday's Hollow",
       "countries": [
         "USA"
       ],

@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-09-04T11:26:43.300Z",
-  "changedFullCountries": 2,
+  "generatedAt": "2026-09-04T11:40:02.026Z",
+  "changedFullCountries": 1,
   "fullPassChanges": [
-    2,
+    1,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
@@ -13,7 +13,7 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1093,
+  "generatedHierarchyCandidates": 1094,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -1571,6 +1571,24 @@
     "Battle of Phase Line Bullet": "Batalla de la línea Bullet (26 de febrero de 1991)",
     "Battle of the Phase Line Bullet": "Batalla de la línea Bullet (26 de febrero de 1991)",
     "Phase Line Bullet": "Batalla de la línea Bullet (26 de febrero de 1991)",
+    "Batalla de Monday's Hollow": "Combate de Wet Glaze (Monday's Hollow, 13 de octubre de 1861)",
+    "Battle of Monday's Hollow": "Combate de Wet Glaze (Monday's Hollow, 13 de octubre de 1861)",
+    "Monday's Hollow": "Combate de Wet Glaze (Monday's Hollow, 13 de octubre de 1861)",
+    "Batalla de Wet Glaze": "Combate de Wet Glaze (Monday's Hollow, 13 de octubre de 1861)",
+    "Battle of Wet Glaze": "Combate de Wet Glaze (Monday's Hollow, 13 de octubre de 1861)",
+    "Combate de Wet Glaze": "Combate de Wet Glaze (Monday's Hollow, 13 de octubre de 1861)",
+    "Wet Glaze": "Combate de Wet Glaze (Monday's Hollow, 13 de octubre de 1861)",
+    "Batalla de Wet Auglaize": "Combate de Wet Glaze (Monday's Hollow, 13 de octubre de 1861)",
+    "Battle of Wet Auglaize": "Combate de Wet Glaze (Monday's Hollow, 13 de octubre de 1861)",
+    "Wet Auglaize": "Combate de Wet Glaze (Monday's Hollow, 13 de octubre de 1861)",
+    "Batalla de West Glaze": "Combate de Wet Glaze (Monday's Hollow, 13 de octubre de 1861)",
+    "Battle of West Glaze": "Combate de Wet Glaze (Monday's Hollow, 13 de octubre de 1861)",
+    "West Glaze": "Combate de Wet Glaze (Monday's Hollow, 13 de octubre de 1861)",
+    "Batalla de Henrytown": "Combate de Wet Glaze (Monday's Hollow, 13 de octubre de 1861)",
+    "Battle of Henrytown": "Combate de Wet Glaze (Monday's Hollow, 13 de octubre de 1861)",
+    "Henrytown": "Combate de Wet Glaze (Monday's Hollow, 13 de octubre de 1861)",
+    "Batalla de Shanghai": "Combate de Wet Glaze (Monday's Hollow, 13 de octubre de 1861)",
+    "Battle of Shanghai": "Combate de Wet Glaze (Monday's Hollow, 13 de octubre de 1861)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2707,6 +2725,7 @@
     "Batallas de Wenden (1577-1578)",
     "Batalla de Wenden (21-22 de octubre de 1578)",
     "Batalla de la línea Bullet (26 de febrero de 1991)",
+    "Combate de Wet Glaze (Monday's Hollow, 13 de octubre de 1861)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

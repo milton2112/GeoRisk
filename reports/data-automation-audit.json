@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-09-04T11:29:03.593Z",
+  "generatedAt": "2026-09-04T11:42:26.243Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 102
+      "count": 101
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 35
+      "count": 34
     },
     "suspectRegions": {
       "count": 0
@@ -381,13 +381,6 @@
       {
         "code": "USA",
         "name": "Batalla de Kasumi",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
-      {
-        "code": "USA",
-        "name": "Batalla de Monday's Hollow",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
@@ -1507,7 +1500,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 35,
+      "count": 34,
       "command": "npm run fix:conflicts:batches"
     },
     {

@@ -647,6 +647,10 @@ import {
   PHASE_LINE_BULLET_1991_CONFLICT_RENAMES
 } from "../lib/conflict-curation-phase-line-bullet-1991.js";
 import {
+  MONDAYS_HOLLOW_1861_CONFLICT_DETAIL_FIXES,
+  MONDAYS_HOLLOW_1861_CONFLICT_RENAMES
+} from "../lib/conflict-curation-mondays-hollow-1861.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -6088,6 +6092,38 @@ assert.ok(
 assert.ok(
   PHASE_LINE_BULLET_1991_COUNTRY_CONFLICT_ADDITIONS.Irak?.includes("Batalla de la l\u00ednea Bullet (26 de febrero de 1991)"),
   "Phase Line Bullet debe poder navegarse desde Irak por participacion directa"
+);
+assert.equal(Object.keys(MONDAYS_HOLLOW_1861_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  MONDAYS_HOLLOW_1861_CONFLICT_RENAMES["Batalla de Monday's Hollow"],
+  "Combate de Wet Glaze (Monday's Hollow, 13 de octubre de 1861)",
+  "Monday's Hollow debe llegar a la ficha curada de Wet Glaze"
+);
+assert.equal(
+  MONDAYS_HOLLOW_1861_CONFLICT_RENAMES["Battle of Henrytown"],
+  "Combate de Wet Glaze (Monday's Hollow, 13 de octubre de 1861)",
+  "el alias local Henrytown debe llegar a la ficha curada de Wet Glaze"
+);
+const mondaysHollow1861Detail = MONDAYS_HOLLOW_1861_CONFLICT_DETAIL_FIXES["Combate de Wet Glaze (Monday's Hollow, 13 de octubre de 1861)"];
+assert.ok(
+  mondaysHollow1861Detail
+    && mondaysHollow1861Detail.startYear === 1861
+    && mondaysHollow1861Detail.startYear === mondaysHollow1861Detail.endYear
+    && mondaysHollow1861Detail.parent === "Guerra Civil estadounidense"
+    && mondaysHollow1861Detail.war === mondaysHollow1861Detail.parent
+    && mondaysHollow1861Detail.campaign === "Operaciones federales entre Rolla, Linn Creek y Lebanon (octubre de 1861)"
+    && mondaysHollow1861Detail.type === "escaramuza de caballer\u00eda"
+    && mondaysHollow1861Detail.conflictType === "civil"
+    && mondaysHollow1861Detail.scale === "local"
+    && mondaysHollow1861Detail.hierarchyConfidence === "media"
+    && mondaysHollow1861Detail.hierarchySources?.length === 4
+    && mondaysHollow1861Detail.participants?.length === 2
+    && mondaysHollow1861Detail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /13 de octubre de 1861/i.test(mondaysHollow1861Detail.datePrecision)
+    && /Wet Glaze o Wet Auglaize/i.test(mondaysHollow1861Detail.region)
+    && /no fija coordenadas exactas/i.test(mondaysHollow1861Detail.sourceDispute)
+    && /no se equipara autom\u00e1ticamente a todo el Estado Confederado/i.test(mondaysHollow1861Detail.curationNote),
+  "Monday's Hollow debe salir de una guerra regional generica y conservar sus aliases y limites de evidencia"
 );
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(

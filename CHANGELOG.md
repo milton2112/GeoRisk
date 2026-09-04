@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.211 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.212 antes de cerrar la siguiente version.
+
+## v1.6.212 - 2026-09-04
+
+- Normaliza **Batalla de Monday's Hollow** como **Combate de Wet Glaze (Monday's Hollow, 13 de octubre de 1861)** dentro de la **Guerra Civil estadounidense**.
+- Conserva Wet Glaze, Wet Auglaize, West Glaze, Henrytown y Shanghai como aliases historicos de la misma accion; corrige la guerra padre, fecha, geografia, tipo y participantes sin convertirla en un conflicto interestatal generico.
+- Incorpora trazabilidad desde los registros oficiales digitalizados por Ohio State University, Ozarks Civil War, un indice historico contemporaneo y el Miller County Museum; no publica coordenadas ni totales de bajas cuando los relatos no los concilian.
+- Agrega regresiones de nombre, aliases, fecha, jerarquia, tipologia, procedencia y cautela historica.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-04-release-4`.
 
 ## v1.6.211 - 2026-09-04
 

@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-04T11:26:49.930Z",
+  "generatedAt": "2026-09-04T11:40:14.040Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12961977,
+    "fullBytes": 12970735,
     "duplicatedCountryFilesBytes": 1553505,
-    "countryConflictShardBytes": 449145,
+    "countryConflictShardBytes": 449306,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24266,
-        "inlineBytes": 3402615,
+        "inlineBytes": 3411373,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 217335,
-          "conflictShardBytes": 217336,
+          "conflictsBytes": 217496,
+          "conflictShardBytes": 217497,
           "averageConflictBytes": 235
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 101,
+    "pendingCount": 100,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15213,19 +15213,6 @@
         ],
         "regions": [
           "Golfo Pérsico"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Monday's Hollow",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"
