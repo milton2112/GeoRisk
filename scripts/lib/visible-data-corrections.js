@@ -1,6 +1,7 @@
 import { repairMojibake } from "./text-normalization.js";
 
 const TECHNICAL_IDENTIFIER_RE = /^Q\d+$/i;
+const HTTP_URL_RE = /^https?:\/\//i;
 
 export const visibleStringReplacements = new Map([
   ["estado of Bahrain", "Protectorado británico de Baréin"],
@@ -521,6 +522,9 @@ function normalizeTechnicalNamedObject(value) {
 export function normalizeVisibleValue(value, path = []) {
   if (typeof value === "string") {
     const lastKey = String(path.at(-1) || "");
+    if (lastKey === "url" || HTTP_URL_RE.test(value.trim())) {
+      return value;
+    }
     const replaced = applyVisibleStringReplacements(value, {
       includeWordReplacements: !enumLikeVisibleKeys.has(lastKey)
     });

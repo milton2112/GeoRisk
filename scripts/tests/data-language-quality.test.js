@@ -17,6 +17,17 @@ const mojibakeSignal = /Ã|Â|â€|�/;
 
 assert.equal(normalizeVisibleValue("Guerra indo-Pakistan\u00ed de 1971"), "Guerra indo-pakistan\u00ed de 1971");
 assert.equal(normalizeVisibleValue("Frontera de Pakistan"), "Frontera de Pakist\u00e1n");
+const sourceUrlWithSpanishLookingText = "https://historica.upol.cz/pdfs/hol/2024/01/05.pdf";
+assert.equal(
+  normalizeVisibleValue(sourceUrlWithSpanishLookingText),
+  sourceUrlWithSpanishLookingText,
+  "las URLs HTTP(S) no deben recibir correcciones ortograficas visibles"
+);
+assert.equal(
+  normalizeVisibleValue({ hierarchySources: [{ url: sourceUrlWithSpanishLookingText }] }).hierarchySources[0].url,
+  sourceUrlWithSpanishLookingText,
+  "las URLs de fuentes deben conservarse byte a byte al normalizar objetos"
+);
 
 const timorConflicts = countries.TLS.military.conflicts;
 for (const name of [

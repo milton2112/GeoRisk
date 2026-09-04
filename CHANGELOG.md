@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.209 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.210 antes de cerrar la siguiente version.
+
+## v1.6.210 - 2026-09-04
+
+- Separa la entrada ambigua de **Wenden** en la serie **Batallas de Wenden (1577-1578)** y la **Batalla de Wenden (21-22 de octubre de 1578)**, ambas dentro de la **Guerra de Livonia (1558-1583)**.
+- Corrige fechas, jerarquia, geografia, aliases y navegacion desde Letonia, Polonia, Rusia y Suecia; conserva las entidades historicas de la Mancomunidad Polaco-Lituana, el Reino de Suecia y el Zarato ruso, y no presenta a la Letonia moderna como beligerante.
+- Incorpora trazabilidad desde la Universidad Palacky de Olomouc y fuentes institucionales de Cesis; deja abiertas fuerzas y bajas que las fuentes no concilian, y agrega regresiones para separar la serie del combate de octubre.
+- Evita que la normalizacion de texto visible altere URLs HTTP(S) de las fuentes. La regeneracion repara tambien cuatro fichas anteriores afectadas por ese patron y suma una prueba de regresion para enlaces de procedencia.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-04-release-2`.
 
 ## v1.6.209 - 2026-09-04
 

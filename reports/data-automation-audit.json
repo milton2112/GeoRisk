@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-09-04T10:56:50.312Z",
+  "generatedAt": "2026-09-04T11:17:49.772Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 105
+      "count": 103
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 37
+      "count": 36
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 606
+      "count": 608
     },
     "redundantReligions": {
       "count": 0
@@ -203,16 +203,6 @@
       },
       {
         "code": "SWE",
-        "name": "Batalla de Wenden",
-        "region": "Europa"
-      },
-      {
-        "code": "SWE",
-        "name": "Batallas de Wenden",
-        "region": "Europa"
-      },
-      {
-        "code": "SWE",
         "name": "Batallas navales del lago Ladoga",
         "region": "Europa"
       },
@@ -254,6 +244,16 @@
       {
         "code": "GBR",
         "name": "Combate de Caleta Foca",
+        "region": "Europa"
+      },
+      {
+        "code": "GBR",
+        "name": "Hundimiento del HMS Prince de Wales y del HMS Repulse",
+        "region": "Europa"
+      },
+      {
+        "code": "GBR",
+        "name": "Incidente del Altmark",
         "region": "Europa"
       }
     ],
@@ -353,13 +353,6 @@
       {
         "code": "SWE",
         "name": "Batalla de Sobota",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "SWE",
-        "name": "Batalla de Wenden",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -1521,7 +1514,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 37,
+      "count": 36,
       "command": "npm run fix:conflicts:batches"
     },
     {

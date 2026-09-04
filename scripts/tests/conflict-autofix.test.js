@@ -637,6 +637,11 @@ import {
   TY_HO_BAY_1855_CONFLICT_RENAMES
 } from "../lib/conflict-curation-ty-ho-bay-1855.js";
 import {
+  WENDEN_1577_1578_CONFLICT_DETAIL_FIXES,
+  WENDEN_1577_1578_COUNTRY_CONFLICT_ADDITIONS,
+  WENDEN_1577_1578_CONFLICT_RENAMES
+} from "../lib/conflict-curation-wenden-1577-1578.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -5973,6 +5978,73 @@ assert.ok(
   TY_HO_BAY_1855_COUNTRY_CONFLICT_ADDITIONS["Reino Unido"]?.includes("Batalla de Ty-ho Bay (4 de agosto de 1855)")
     && TY_HO_BAY_1855_COUNTRY_CONFLICT_ADDITIONS["Rep\u00fablica Popular China"]?.includes("Batalla de Ty-ho Bay (4 de agosto de 1855)"),
   "Ty-ho Bay debe aparecer para Reino Unido por participacion y para China como referencia geografica"
+);
+assert.equal(Object.keys(WENDEN_1577_1578_CONFLICT_DETAIL_FIXES).length, 2);
+assert.equal(
+  WENDEN_1577_1578_CONFLICT_RENAMES["Batallas de Wenden"],
+  "Batallas de Wenden (1577-1578)",
+  "la entrada plural debe conservar la serie de asedios y socorro de Wenden"
+);
+assert.equal(
+  WENDEN_1577_1578_CONFLICT_RENAMES["Battles de Wenden"],
+  "Batallas de Wenden (1577-1578)",
+  "el alias hibrido de la serie debe llegar a la ficha curada"
+);
+assert.equal(
+  WENDEN_1577_1578_CONFLICT_RENAMES["Batalla de Wenden"],
+  "Batalla de Wenden (21-22 de octubre de 1578)",
+  "la entrada singular debe conservar el combate de octubre separado de la serie"
+);
+assert.equal(
+  WENDEN_1577_1578_CONFLICT_RENAMES["Battle of Wenden (1578)"],
+  "Batalla de Wenden (21-22 de octubre de 1578)",
+  "el alias ingles de la batalla debe llegar a la ficha curada"
+);
+const wendenSeriesDetail = WENDEN_1577_1578_CONFLICT_DETAIL_FIXES["Batallas de Wenden (1577-1578)"];
+const wendenBattleDetail = WENDEN_1577_1578_CONFLICT_DETAIL_FIXES["Batalla de Wenden (21-22 de octubre de 1578)"];
+assert.ok(
+  wendenSeriesDetail
+    && wendenSeriesDetail.startYear === 1577
+    && wendenSeriesDetail.endYear === 1578
+    && wendenSeriesDetail.parent === "Guerra de Livonia (1558-1583)"
+    && wendenSeriesDetail.war === wendenSeriesDetail.parent
+    && wendenSeriesDetail.campaign === "Operaciones por Wenden/C\u0113sis (1577-1578)"
+    && wendenSeriesDetail.type === "serie de asedios y batalla de socorro"
+    && wendenSeriesDetail.conflictType === "interestatal"
+    && wendenSeriesDetail.scale === "regional"
+    && wendenSeriesDetail.hierarchyConfidence === "alta"
+    && wendenSeriesDetail.hierarchySources?.length === 3
+    && wendenSeriesDetail.participants?.length === 3
+    && wendenSeriesDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /Letonia se enlaza solo como ubicacion geografica contemporanea/i.test(wendenSeriesDetail.curationNote)
+    && /(?:no|ni) nacionaliza a la poblacion local/i.test(wendenSeriesDetail.participants[2].casualties),
+  "la serie de Wenden debe separar los asedios de 1577-1578 y conservar a Letonia solo como referencia geografica actual"
+);
+assert.ok(
+  wendenBattleDetail
+    && wendenBattleDetail.startYear === 1578
+    && wendenBattleDetail.startYear === wendenBattleDetail.endYear
+    && wendenBattleDetail.parent === "Guerra de Livonia (1558-1583)"
+    && wendenBattleDetail.war === wendenBattleDetail.parent
+    && wendenBattleDetail.campaign === "Socorro aliado de Wenden (octubre de 1578)"
+    && wendenBattleDetail.type === "batalla campal y socorro de plaza"
+    && wendenBattleDetail.conflictType === "interestatal"
+    && wendenBattleDetail.scale === "regional"
+    && wendenBattleDetail.hierarchyConfidence === "alta"
+    && wendenBattleDetail.hierarchySources?.length === 2
+    && wendenBattleDetail.participants?.length === 2
+    && wendenBattleDetail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /21 y 22 de octubre de 1578/i.test(wendenBattleDetail.datePrecision)
+    && /no armonizan fuerzas ni bajas/i.test(wendenBattleDetail.participants[1].casualties)
+    && /se distingue de la serie de asedios/i.test(wendenBattleDetail.curationNote),
+  "la batalla de Wenden debe fijar el socorro de octubre sin cerrar cifras que las fuentes historicas no concilian"
+);
+assert.ok(
+  ["Letonia", "Polonia", "Rusia", "Suecia"].every(country =>
+    WENDEN_1577_1578_COUNTRY_CONFLICT_ADDITIONS[country]?.includes("Batallas de Wenden (1577-1578)")
+      && WENDEN_1577_1578_COUNTRY_CONFLICT_ADDITIONS[country]?.includes("Batalla de Wenden (21-22 de octubre de 1578)")
+  ),
+  "Wenden debe poder navegarse desde los paises contemporaneos enlazados sin convertirlos en bandos historicos automaticos"
 );
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(

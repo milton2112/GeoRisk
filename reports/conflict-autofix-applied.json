@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-09-04T10:54:05.450Z",
-  "changedFullCountries": 3,
+  "generatedAt": "2026-09-04T11:10:12.335Z",
+  "changedFullCountries": 9,
   "fullPassChanges": [
-    3,
+    9,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 197,
+    "enriched": 202,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1090,
+  "generatedHierarchyCandidates": 1092,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -251,7 +251,9 @@
       "Guerra polaco-sovietica (1919-1921)",
       "Batalla del lago Peipus (1242)",
       "Combate naval en la desembocadura del Neva (7/18 de mayo de 1703)",
-      "Batalla de Romanovka (25 de junio de 1919)"
+      "Batalla de Romanovka (25 de junio de 1919)",
+      "Batallas de Wenden (1577-1578)",
+      "Batalla de Wenden (21-22 de octubre de 1578)"
     ],
     "reino de los paises bajos": [
       "Batalla de Camaret (1694)",
@@ -309,7 +311,9 @@
       "Carga de Hrebionka (1920)",
       "Batalla de Ostróda (1628)",
       "Batalla de Treiden (1628)",
-      "Combate naval en Putziger Wiek (23 de agosto de 1870)"
+      "Combate naval en Putziger Wiek (23 de agosto de 1870)",
+      "Batallas de Wenden (1577-1578)",
+      "Batalla de Wenden (21-22 de octubre de 1578)"
     ],
     "mexico": [
       "Combate de Carrizal (1916)",
@@ -392,7 +396,9 @@
       "Batalla de Fredrikshamn (1790)",
       "Batalla de Stäket (1719)",
       "Batalla de Kaipiais (1789)",
-      "Combates navales de Westtief y el Greifswalder Bodden (julio-agosto de 1712)"
+      "Combates navales de Westtief y el Greifswalder Bodden (julio-agosto de 1712)",
+      "Batallas de Wenden (1577-1578)",
+      "Batalla de Wenden (21-22 de octubre de 1578)"
     ],
     "argentina": [
       "Combate de Top Malo House (1982)"
@@ -503,7 +509,9 @@
       "Batalla de Mani-Mani (1898)"
     ],
     "letonia": [
-      "Batalla de Treiden (1628)"
+      "Batalla de Treiden (1628)",
+      "Batallas de Wenden (1577-1578)",
+      "Batalla de Wenden (21-22 de octubre de 1578)"
     ],
     "cisjordania": [
       "Batalla de Anabta (Nur Shams, 21 de junio de 1936)"
@@ -732,7 +740,7 @@
     "Aleppo Offensive (April 2016)": "Ofensiva de Alepo de abril de 2016",
     "Chinese Invasion de Taiwan": "Invasion china de Taiwan",
     "Action off Galveston Light": "Accion frente al faro de Galveston",
-    "Battles de Wenden": "Batallas de Wenden",
+    "Battles de Wenden": "Batallas de Wenden (1577-1578)",
     "Naval Batalla de Saint-Martin-de-Re": "Batalla naval de Saint-Martin-de-Ré (26-27 de octubre de 1622)",
     "Naval Batalla de Saint-Martin-de-Ré": "Batalla naval de Saint-Martin-de-Ré (26-27 de octubre de 1622)",
     "Naval battles on Lake Ladoga": "Batallas navales del lago Ladoga",
@@ -1547,6 +1555,15 @@
     "Batalla de Ty Ho Bay": "Batalla de Ty-ho Bay (4 de agosto de 1855)",
     "Battle of Ty-ho Bay": "Batalla de Ty-ho Bay (4 de agosto de 1855)",
     "Battle of Ty Ho Bay": "Batalla de Ty-ho Bay (4 de agosto de 1855)",
+    "Batallas de Wenden": "Batallas de Wenden (1577-1578)",
+    "Battles of Wenden": "Batallas de Wenden (1577-1578)",
+    "Batallas de Wenden (1577-1578)": "Batallas de Wenden (1577-1578)",
+    "Batallas de Wenden (1577–1578)": "Batallas de Wenden (1577-1578)",
+    "Battles of Wenden (1577-1578)": "Batallas de Wenden (1577-1578)",
+    "Batalla de Wenden": "Batalla de Wenden (21-22 de octubre de 1578)",
+    "Battle of Wenden": "Batalla de Wenden (21-22 de octubre de 1578)",
+    "Batalla de Wenden (1578)": "Batalla de Wenden (21-22 de octubre de 1578)",
+    "Battle of Wenden (1578)": "Batalla de Wenden (21-22 de octubre de 1578)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2680,6 +2697,8 @@
     "Combate de Toldos Viejos (11 de septiembre de 1826)",
     "Combate de Wildcat Creek (Spur's Defeat, 22 de noviembre de 1812)",
     "Batalla de Ty-ho Bay (4 de agosto de 1855)",
+    "Batallas de Wenden (1577-1578)",
+    "Batalla de Wenden (21-22 de octubre de 1578)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

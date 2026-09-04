@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-04T10:54:12.029Z",
+  "generatedAt": "2026-09-04T11:10:18.836Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12869531,
-    "duplicatedCountryFilesBytes": 1551885,
-    "countryConflictShardBytes": 447303,
+    "fullBytes": 12941077,
+    "duplicatedCountryFilesBytes": 1553115,
+    "countryConflictShardBytes": 448994,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24266,
-        "inlineBytes": 3393563,
+        "inlineBytes": 3393559,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -108,6 +108,57 @@
           "conflictsBytes": 217184,
           "conflictShardBytes": 217185,
           "averageConflictBytes": 235
+        }
+      },
+      {
+        "code": "POL",
+        "name": "Polonia",
+        "bytes": 21282,
+        "inlineBytes": 335361,
+        "tooLarge": false,
+        "counts": {
+          "cities": 4,
+          "capitals": 1,
+          "languages": 4,
+          "religionGroups": 5,
+          "organizations": 43,
+          "rivals": 50,
+          "conflicts": 62,
+          "timelineEvents": 0
+        },
+        "metrics": {
+          "sectionBytes": {
+            "military": 10691,
+            "politics": 7383,
+            "metadata": 1913,
+            "general": 684,
+            "religion": 297,
+            "economy": 100,
+            "history": 93,
+            "name": 9,
+            "continent": 8
+          },
+          "largestSections": [
+            {
+              "section": "military",
+              "bytes": 10691
+            },
+            {
+              "section": "politics",
+              "bytes": 7383
+            },
+            {
+              "section": "metadata",
+              "bytes": 1913
+            },
+            {
+              "section": "general",
+              "bytes": 684
+            }
+          ],
+          "conflictsBytes": 16482,
+          "conflictShardBytes": 16483,
+          "averageConflictBytes": 266
         }
       },
       {
@@ -159,57 +210,6 @@
           "conflictsBytes": 50972,
           "conflictShardBytes": 50973,
           "averageConflictBytes": 212
-        }
-      },
-      {
-        "code": "POL",
-        "name": "Polonia",
-        "bytes": 21163,
-        "inlineBytes": 316193,
-        "tooLarge": false,
-        "counts": {
-          "cities": 4,
-          "capitals": 1,
-          "languages": 4,
-          "religionGroups": 5,
-          "organizations": 43,
-          "rivals": 50,
-          "conflicts": 60,
-          "timelineEvents": 0
-        },
-        "metrics": {
-          "sectionBytes": {
-            "military": 10572,
-            "politics": 7383,
-            "metadata": 1913,
-            "general": 684,
-            "religion": 297,
-            "economy": 100,
-            "history": 93,
-            "name": 9,
-            "continent": 8
-          },
-          "largestSections": [
-            {
-              "section": "military",
-              "bytes": 10572
-            },
-            {
-              "section": "politics",
-              "bytes": 7383
-            },
-            {
-              "section": "metadata",
-              "bytes": 1913
-            },
-            {
-              "section": "general",
-              "bytes": 684
-            }
-          ],
-          "conflictsBytes": 15812,
-          "conflictShardBytes": 15813,
-          "averageConflictBytes": 264
         }
       },
       {
@@ -368,8 +368,8 @@
       {
         "code": "RUS",
         "name": "Rusia",
-        "bytes": 18900,
-        "inlineBytes": 316025,
+        "bytes": 18910,
+        "inlineBytes": 335193,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -378,12 +378,12 @@
           "religionGroups": 4,
           "organizations": 41,
           "rivals": 19,
-          "conflicts": 68,
+          "conflicts": 70,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 10098,
+            "military": 10108,
             "politics": 4980,
             "metadata": 1926,
             "general": 965,
@@ -396,7 +396,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 10098
+              "bytes": 10108
             },
             {
               "section": "politics",
@@ -411,9 +411,9 @@
               "bytes": 965
             }
           ],
-          "conflictsBytes": 16045,
-          "conflictShardBytes": 16046,
-          "averageConflictBytes": 236
+          "conflictsBytes": 16715,
+          "conflictShardBytes": 16716,
+          "averageConflictBytes": 239
         }
       },
       {
@@ -570,54 +570,54 @@
         }
       },
       {
-        "code": "ITA",
-        "name": "Italia",
-        "bytes": 15824,
-        "inlineBytes": 85106,
+        "code": "SWE",
+        "name": "Suecia",
+        "bytes": 15839,
+        "inlineBytes": 602807,
         "tooLarge": false,
         "counts": {
-          "cities": 4,
+          "cities": 5,
           "capitals": 1,
-          "languages": 5,
-          "religionGroups": 5,
-          "organizations": 77,
-          "rivals": 45,
-          "conflicts": 14,
-          "timelineEvents": 4
+          "languages": 1,
+          "religionGroups": 4,
+          "organizations": 50,
+          "rivals": 7,
+          "conflicts": 152,
+          "timelineEvents": 0
         },
         "metrics": {
           "sectionBytes": {
-            "politics": 8689,
-            "military": 3399,
-            "metadata": 1936,
-            "general": 828,
-            "history": 448,
-            "religion": 305,
-            "economy": 99,
+            "military": 8143,
+            "politics": 4479,
+            "metadata": 1914,
+            "general": 777,
+            "religion": 229,
+            "economy": 101,
+            "history": 76,
             "name": 8,
             "continent": 8
           },
           "largestSections": [
             {
-              "section": "politics",
-              "bytes": 8689
+              "section": "military",
+              "bytes": 8143
             },
             {
-              "section": "military",
-              "bytes": 3399
+              "section": "politics",
+              "bytes": 4479
             },
             {
               "section": "metadata",
-              "bytes": 1936
+              "bytes": 1914
             },
             {
               "section": "general",
-              "bytes": 828
+              "bytes": 777
             }
           ],
-          "conflictsBytes": 3282,
-          "conflictShardBytes": 0,
-          "averageConflictBytes": 234
+          "conflictsBytes": 33708,
+          "conflictShardBytes": 33709,
+          "averageConflictBytes": 222
         }
       }
     ]
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 104,
+    "pendingCount": 102,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15519,19 +15519,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Wenden",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Z'Moul NIran",
         "countries": [
           "MAR"
@@ -15629,19 +15616,6 @@
         ],
         "regions": [
           "África"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batallas de Wenden",
-        "countries": [
-          "SWE"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
