@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-03T09:22:37.878Z",
+  "generatedAt": "2026-09-04T10:56:46.561Z",
   "scannedConflicts": 2000,
   "issueCount": 0,
-  "advisoryCount": 38,
-  "reviewCount": 38,
+  "advisoryCount": 37,
+  "reviewCount": 37,
   "summary": {
-    "provisional_parent": 38
+    "provisional_parent": 37
   },
   "topIssues": [],
   "topAdvisories": [
@@ -340,20 +340,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de ty ho bay",
-      "name": "Batalla de Ty-ho Bay",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],

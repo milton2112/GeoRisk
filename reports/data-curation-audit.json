@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-09-03T09:19:40.948Z",
+  "generatedAt": "2026-09-04T10:54:12.029Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12839785,
-    "duplicatedCountryFilesBytes": 1551389,
-    "countryConflictShardBytes": 446543,
+    "fullBytes": 12869531,
+    "duplicatedCountryFilesBytes": 1551885,
+    "countryConflictShardBytes": 447303,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
         "bytes": 25046,
-        "inlineBytes": 1336807,
+        "inlineBytes": 1347647,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,7 +21,7 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 336,
+          "conflicts": 337,
           "timelineEvents": 4
         },
         "metrics": {
@@ -54,16 +54,16 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 79446,
-          "conflictShardBytes": 79447,
-          "averageConflictBytes": 236
+          "conflictsBytes": 79942,
+          "conflictShardBytes": 79943,
+          "averageConflictBytes": 237
         }
       },
       {
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24266,
-        "inlineBytes": 3385497,
+        "inlineBytes": 3393563,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 216920,
-          "conflictShardBytes": 216921,
+          "conflictsBytes": 217184,
+          "conflictShardBytes": 217185,
           "averageConflictBytes": 235
         }
       },
@@ -468,6 +468,57 @@
         }
       },
       {
+        "code": "CHN",
+        "name": "República Popular China",
+        "bytes": 17951,
+        "inlineBytes": 173558,
+        "tooLarge": false,
+        "counts": {
+          "cities": 5,
+          "capitals": 1,
+          "languages": 5,
+          "religionGroups": 6,
+          "organizations": 33,
+          "rivals": 29,
+          "conflicts": 36,
+          "timelineEvents": 4
+        },
+        "metrics": {
+          "sectionBytes": {
+            "military": 8922,
+            "politics": 5084,
+            "metadata": 1951,
+            "general": 988,
+            "history": 415,
+            "religion": 354,
+            "economy": 101,
+            "name": 26,
+            "continent": 6
+          },
+          "largestSections": [
+            {
+              "section": "military",
+              "bytes": 8922
+            },
+            {
+              "section": "politics",
+              "bytes": 5084
+            },
+            {
+              "section": "metadata",
+              "bytes": 1951
+            },
+            {
+              "section": "general",
+              "bytes": 988
+            }
+          ],
+          "conflictsBytes": 8803,
+          "conflictShardBytes": 0,
+          "averageConflictBytes": 245
+        }
+      },
+      {
         "code": "DNK",
         "name": "Dinamarca",
         "bytes": 17772,
@@ -516,57 +567,6 @@
           "conflictsBytes": 10277,
           "conflictShardBytes": 10278,
           "averageConflictBytes": 219
-        }
-      },
-      {
-        "code": "CHN",
-        "name": "República Popular China",
-        "bytes": 17455,
-        "inlineBytes": 162718,
-        "tooLarge": false,
-        "counts": {
-          "cities": 5,
-          "capitals": 1,
-          "languages": 5,
-          "religionGroups": 6,
-          "organizations": 33,
-          "rivals": 29,
-          "conflicts": 35,
-          "timelineEvents": 4
-        },
-        "metrics": {
-          "sectionBytes": {
-            "military": 8426,
-            "politics": 5084,
-            "metadata": 1951,
-            "general": 988,
-            "history": 415,
-            "religion": 354,
-            "economy": 101,
-            "name": 26,
-            "continent": 6
-          },
-          "largestSections": [
-            {
-              "section": "military",
-              "bytes": 8426
-            },
-            {
-              "section": "politics",
-              "bytes": 5084
-            },
-            {
-              "section": "metadata",
-              "bytes": 1951
-            },
-            {
-              "section": "general",
-              "bytes": 988
-            }
-          ],
-          "conflictsBytes": 8307,
-          "conflictShardBytes": 0,
-          "averageConflictBytes": 237
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 105,
+    "pendingCount": 104,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15499,19 +15499,6 @@
         ],
         "regions": [
           "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Ty-ho Bay",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"

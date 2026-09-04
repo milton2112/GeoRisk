@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-09-03T09:19:34.121Z",
-  "changedFullCountries": 1,
+  "generatedAt": "2026-09-04T10:54:05.450Z",
+  "changedFullCountries": 3,
   "fullPassChanges": [
-    1,
+    3,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
@@ -13,7 +13,7 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1089,
+  "generatedHierarchyCandidates": 1090,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -140,7 +140,8 @@
       "Batalla de Beitang (1900)",
       "Campana de Shanhaiguan-Rehe (1924)",
       "Combates navales de la Boca del Tigre (1809-1810)",
-      "Primera batalla de Tamão (1521)"
+      "Primera batalla de Tamão (1521)",
+      "Batalla de Ty-ho Bay (4 de agosto de 1855)"
     ],
     "reino unido": [
       "Batalla naval de la bahía de Bantry (1689)",
@@ -202,6 +203,7 @@
       "Batalla naval del canal de Procida (26 de junio de 1809)",
       "Batalla del convoy de Malta (18 de febrero de 1800)",
       "Accion naval del paso de Doro (1827)",
+      "Batalla de Ty-ho Bay (4 de agosto de 1855)",
       "Combate naval de Jask (1620)",
       "Batalla naval de Pirano (1812)"
     ],
@@ -1541,6 +1543,10 @@
     "Spurs Defeat": "Combate de Wildcat Creek (Spur's Defeat, 22 de noviembre de 1812)",
     "Second Battle of Tippecanoe": "Combate de Wildcat Creek (Spur's Defeat, 22 de noviembre de 1812)",
     "Segunda batalla de Tippecanoe": "Combate de Wildcat Creek (Spur's Defeat, 22 de noviembre de 1812)",
+    "Batalla de Ty-ho Bay": "Batalla de Ty-ho Bay (4 de agosto de 1855)",
+    "Batalla de Ty Ho Bay": "Batalla de Ty-ho Bay (4 de agosto de 1855)",
+    "Battle of Ty-ho Bay": "Batalla de Ty-ho Bay (4 de agosto de 1855)",
+    "Battle of Ty Ho Bay": "Batalla de Ty-ho Bay (4 de agosto de 1855)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2673,6 +2679,7 @@
     "Batalla de Romanovka (25 de junio de 1919)",
     "Combate de Toldos Viejos (11 de septiembre de 1826)",
     "Combate de Wildcat Creek (Spur's Defeat, 22 de noviembre de 1812)",
+    "Batalla de Ty-ho Bay (4 de agosto de 1855)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

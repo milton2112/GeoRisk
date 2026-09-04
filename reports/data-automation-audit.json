@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-09-03T09:22:41.412Z",
+  "generatedAt": "2026-09-04T10:56:50.312Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 106
+      "count": 105
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 38
+      "count": 37
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 605
+      "count": 606
     },
     "redundantReligions": {
       "count": 0
@@ -479,13 +479,6 @@
       {
         "code": "USA",
         "name": "Batalla de Taraca",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
-      {
-        "code": "USA",
-        "name": "Batalla de Ty-ho Bay",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
@@ -1528,7 +1521,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 38,
+      "count": 37,
       "command": "npm run fix:conflicts:batches"
     },
     {

@@ -632,6 +632,11 @@ import {
   WILDCAT_CREEK_1812_CONFLICT_RENAMES
 } from "../lib/conflict-curation-wildcat-creek-1812.js";
 import {
+  TY_HO_BAY_1855_CONFLICT_DETAIL_FIXES,
+  TY_HO_BAY_1855_COUNTRY_CONFLICT_ADDITIONS,
+  TY_HO_BAY_1855_CONFLICT_RENAMES
+} from "../lib/conflict-curation-ty-ho-bay-1855.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -5931,6 +5936,43 @@ assert.ok(
     && /no se le asigna como beligerante directo/i.test(wildcatCreek1812Detail.sourceDispute)
     && /no confunde este combate con la batalla de Tippecanoe de 1811/i.test(wildcatCreek1812Detail.curationNote),
   "la curaduria de Wildcat Creek debe fijar fecha y jerarquia sin cerrar el lugar, las bajas o los bandos indigenas como un bloque unico"
+);
+assert.equal(Object.keys(TY_HO_BAY_1855_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  TY_HO_BAY_1855_CONFLICT_RENAMES["Batalla de Ty-ho Bay"],
+  "Batalla de Ty-ho Bay (4 de agosto de 1855)",
+  "Ty-ho Bay debe llegar a la ficha curada con su fecha precisa"
+);
+assert.equal(
+  TY_HO_BAY_1855_CONFLICT_RENAMES["Battle of Ty Ho Bay"],
+  "Batalla de Ty-ho Bay (4 de agosto de 1855)",
+  "el alias ingles sin guion debe conservar la ficha curada de Ty-ho Bay"
+);
+const tyHoBay1855Detail = TY_HO_BAY_1855_CONFLICT_DETAIL_FIXES["Batalla de Ty-ho Bay (4 de agosto de 1855)"];
+assert.ok(
+  tyHoBay1855Detail
+    && tyHoBay1855Detail.startYear === 1855
+    && tyHoBay1855Detail.startYear === tyHoBay1855Detail.endYear
+    && tyHoBay1855Detail.parent === "Operaciones antipirater\u00eda anglo-estadounidenses en el mar de China Meridional (1855)"
+    && tyHoBay1855Detail.war === tyHoBay1855Detail.parent
+    && tyHoBay1855Detail.campaign === "Operaci\u00f3n de rescate de mercantes en Ty-ho Bay (agosto de 1855)"
+    && tyHoBay1855Detail.type === "batalla naval antipirater\u00eda"
+    && tyHoBay1855Detail.conflictType === "pirateria"
+    && tyHoBay1855Detail.scale === "internacional"
+    && tyHoBay1855Detail.hierarchyConfidence === "alta"
+    && tyHoBay1855Detail.hierarchySources?.length === 2
+    && tyHoBay1855Detail.participants?.length === 2
+    && tyHoBay1855Detail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /4 de agosto de 1855/i.test(tyHoBay1855Detail.datePrecision)
+    && /no presenta al Estado Qing ni a la poblaci\u00f3n china como un bando homog\u00e9neo/i.test(tyHoBay1855Detail.cause)
+    && /(?:ni|no) atribuye la flota al Estado Qing/i.test(tyHoBay1855Detail.participants[1].casualties)
+    && /solo como referencia geogr\u00e1fica contempor\u00e1nea/i.test(tyHoBay1855Detail.curationNote),
+  "la curaduria de Ty-ho Bay debe corregir fecha, jerarquia y geografia sin transformar la pirateria en una guerra estatal con China"
+);
+assert.ok(
+  TY_HO_BAY_1855_COUNTRY_CONFLICT_ADDITIONS["Reino Unido"]?.includes("Batalla de Ty-ho Bay (4 de agosto de 1855)")
+    && TY_HO_BAY_1855_COUNTRY_CONFLICT_ADDITIONS["Rep\u00fablica Popular China"]?.includes("Batalla de Ty-ho Bay (4 de agosto de 1855)"),
+  "Ty-ho Bay debe aparecer para Reino Unido por participacion y para China como referencia geografica"
 );
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(

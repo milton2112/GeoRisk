@@ -8,7 +8,14 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.208 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.209 antes de cerrar la siguiente version.
+
+## v1.6.209 - 2026-09-04
+
+- Normaliza **Batalla de Ty-ho Bay** como **Batalla de Ty-ho Bay (4 de agosto de 1855)**, corrigiendo fecha, jerarquía, tipología y geografía desde un conflicto regional de América hacia Lantau, actual Hong Kong.
+- La clasifica como acción naval antipiratería de fuerzas británicas y estadounidenses contra una flota pirata, sin convertir al Estado Qing ni a la población china en un bando estatal homogéneo.
+- Incorpora fuentes institucionales de Naval History and Heritage Command y el U.S. Marine Corps, aliases, bajas aproximadas con cautela y navegación hacia Reino Unido y China.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-04-release-1`.
 
 ## v1.6.208 - 2026-09-03
 
