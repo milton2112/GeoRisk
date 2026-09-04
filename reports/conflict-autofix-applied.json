@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-09-04T16:00:39.610Z",
-  "changedFullCountries": 2,
+  "generatedAt": "2026-09-04T16:10:22.102Z",
+  "changedFullCountries": 1,
   "fullPassChanges": [
-    2,
+    1,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 200,
+    "enriched": 202,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1096,
+  "generatedHierarchyCandidates": 1097,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -1612,6 +1612,17 @@
     "Battle of Texel (1694)": "Batalla naval de Texel (29 de junio de 1694)",
     "Battle of the Texel (1694)": "Batalla naval de Texel (29 de junio de 1694)",
     "Bataille du Texel (1694)": "Batalla naval de Texel (29 de junio de 1694)",
+    "Batalla de Pine Creek": "Batalla de Tohotonimme (Pine Creek, 17 de mayo de 1858)",
+    "Batalla de Pine Creek (1858)": "Batalla de Tohotonimme (Pine Creek, 17 de mayo de 1858)",
+    "Batalla de Tohotonimme": "Batalla de Tohotonimme (Pine Creek, 17 de mayo de 1858)",
+    "Batalla de Steptoe": "Batalla de Tohotonimme (Pine Creek, 17 de mayo de 1858)",
+    "Derrota de Steptoe": "Batalla de Tohotonimme (Pine Creek, 17 de mayo de 1858)",
+    "Battle of Pine Creek": "Batalla de Tohotonimme (Pine Creek, 17 de mayo de 1858)",
+    "Battle of Pine Creek (1858)": "Batalla de Tohotonimme (Pine Creek, 17 de mayo de 1858)",
+    "Battle of Tohotonimme": "Batalla de Tohotonimme (Pine Creek, 17 de mayo de 1858)",
+    "Battle of Steptoe": "Batalla de Tohotonimme (Pine Creek, 17 de mayo de 1858)",
+    "Steptoe's Defeat": "Batalla de Tohotonimme (Pine Creek, 17 de mayo de 1858)",
+    "Steptoe Defeat": "Batalla de Tohotonimme (Pine Creek, 17 de mayo de 1858)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2752,6 +2763,7 @@
     "Batalla de Shewan (8 de agosto de 2008)",
     "Batalla del Sabis (tradicionalmente Sambre, 57 a. C.)",
     "Batalla naval de Texel (29 de junio de 1694)",
+    "Batalla de Tohotonimme (Pine Creek, 17 de mayo de 1858)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

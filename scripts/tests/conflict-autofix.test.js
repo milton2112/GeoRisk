@@ -667,6 +667,10 @@ import {
   TEXEL_1694_CONFLICT_RENAMES
 } from "../lib/conflict-curation-texel-1694.js";
 import {
+  PINE_CREEK_1858_CONFLICT_DETAIL_FIXES,
+  PINE_CREEK_1858_CONFLICT_RENAMES
+} from "../lib/conflict-curation-pine-creek-1858.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -6252,6 +6256,42 @@ assert.ok(
 assert.ok(
   TEXEL_1694_COUNTRY_CONFLICT_ADDITIONS["Reino de los Pa\u00edses Bajos"]?.includes("Batalla naval de Texel (29 de junio de 1694)"),
   "Texel debe poder navegarse desde los Paises Bajos como referencia contemporanea de la escuadra neerlandesa"
+);
+assert.equal(Object.keys(PINE_CREEK_1858_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  PINE_CREEK_1858_CONFLICT_RENAMES["Batalla de Pine Creek"],
+  "Batalla de Tohotonimme (Pine Creek, 17 de mayo de 1858)",
+  "Pine Creek debe llegar a la ficha curada de Tohotonimme"
+);
+assert.equal(
+  PINE_CREEK_1858_CONFLICT_RENAMES["Steptoe's Defeat"],
+  "Batalla de Tohotonimme (Pine Creek, 17 de mayo de 1858)",
+  "el alias historico de Steptoe debe conservar la ficha sin confundirla con otro Pine Creek"
+);
+assert.ok(
+  !Object.hasOwn(PINE_CREEK_1858_CONFLICT_RENAMES, "Escaramuza en Terre Noire Creek"),
+  "la curaduria de Pine Creek no debe convertir Terre Noire Creek de 1864 en alias de Tohotonimme"
+);
+const pineCreek1858Detail = PINE_CREEK_1858_CONFLICT_DETAIL_FIXES["Batalla de Tohotonimme (Pine Creek, 17 de mayo de 1858)"];
+assert.ok(
+  pineCreek1858Detail
+    && pineCreek1858Detail.startYear === 1858
+    && pineCreek1858Detail.startYear === pineCreek1858Detail.endYear
+    && pineCreek1858Detail.parent === "Guerra Yakima o Guerra del Plateau (1855-1858)"
+    && pineCreek1858Detail.war === pineCreek1858Detail.parent
+    && pineCreek1858Detail.campaign === "Operaciones de Steptoe y Wright en el Plateau del Columbia (1858)"
+    && pineCreek1858Detail.type === "batalla de frontera"
+    && pineCreek1858Detail.conflictType === "colonial"
+    && pineCreek1858Detail.scale === "regional"
+    && pineCreek1858Detail.hierarchyConfidence === "alta"
+    && pineCreek1858Detail.hierarchySources?.length === 4
+    && pineCreek1858Detail.participants?.length === 2
+    && pineCreek1858Detail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /17 de mayo de 1858/i.test(pineCreek1858Detail.datePrecision)
+    && /Terre Noire Creek/i.test(pineCreek1858Detail.sourceDispute)
+    && /no atribuye una cifra/i.test(pineCreek1858Detail.participants[1].casualties)
+    && /paises modernos adicionales/i.test(pineCreek1858Detail.curationNote),
+  "Pine Creek debe conservar la perspectiva indigena, una jerarquia cautelosa y la separacion de Terre Noire Creek"
 );
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(

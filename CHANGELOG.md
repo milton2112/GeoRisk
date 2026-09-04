@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.215 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.216 antes de cerrar la siguiente version.
+
+## v1.6.216 - 2026-09-04
+
+- Normaliza **Batalla de Pine Creek** como **Batalla de Tohotonimme (Pine Creek, 17 de mayo de 1858)**, con fecha, jerarquía, contexto territorial, participantes, resultado, cronología y fuentes trazables.
+- Conserva Pine Creek, Tohotonimme, Batalla de Steptoe y Steptoe's Defeat como aliases, incorpora la perspectiva y denominación de la tribu Coeur d'Alene y evita reducir a sus pueblos aliados a un Estado moderno único.
+- Distingue explícitamente el hecho de la escaramuza de Terre Noire Creek de 1864, aclara las variantes historiográficas de su guerra padre y no consolida bajas indígenas ni estimaciones divergentes como cifras definitivas.
+- Agrega regresiones para aliases, fecha, jerarquía, participantes, fuentes, perspectiva indígena y la separación de acciones homónimas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-04-release-8`.
 
 ## v1.6.215 - 2026-09-04
 

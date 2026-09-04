@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-09-04T16:02:39.665Z",
+  "generatedAt": "2026-09-04T16:12:02.998Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 98
+      "count": 97
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 31
+      "count": 30
     },
     "suspectRegions": {
       "count": 0
@@ -395,13 +395,6 @@
       {
         "code": "USA",
         "name": "Batalla de Pecos River",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
-      {
-        "code": "USA",
-        "name": "Batalla de Pine Creek",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
@@ -1479,7 +1472,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 31,
+      "count": 30,
       "command": "npm run fix:conflicts:batches"
     },
     {

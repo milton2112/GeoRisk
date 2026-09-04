@@ -1,0 +1,128 @@
+function source(label, url, confidence = "alta") {
+  return { label, url, confidence };
+}
+
+const CANONICAL = "Batalla de Tohotonimme (Pine Creek, 17 de mayo de 1858)";
+const PARENT = "Guerra Yakima o Guerra del Plateau (1855-1858)";
+const CAMPAIGN = "Operaciones de Steptoe y Wright en el Plateau del Columbia (1858)";
+
+const SOURCES = {
+  washingtonStateParks: source(
+    "Washington State Parks: historia del sitio de Steptoe Battlefield que fecha el combate el 17 de mayo de 1858, identifica a la coalicion indigena y a la columna de Edward J. Steptoe, y documenta la retirada estadounidense y la campana posterior de George Wright",
+    "https://parks.wa.gov/about/news-center/field-guide-blog/steptoe-battlefield-state-park-heritage-site-history"
+  ),
+  coeurDAleneTribe: source(
+    "Coeur d'Alene Tribe: cronologia propia que nombra el enfrentamiento Batalla de Tohotonimme, lo fecha el 17 de mayo de 1858 y lo describe como conflicto entre varias tribus y el Ejercito de Estados Unidos de Edward Steptoe",
+    "https://www.cdatribe-nsn.gov/"
+  ),
+  npsNationalRegister: source(
+    "National Park Service, inventario del Registro Nacional de Lugares Historicos: ubica el combate junto a Tohotonimme Creek, actual Pine Creek, documenta la retirada nocturna de la columna de Steptoe y registra siete muertos y trece heridos estadounidenses al regresar a Fort Walla Walla",
+    "https://npgallery.nps.gov/GetAsset/4dbd7fbd-629d-4827-a55c-a2a5103f808a"
+  ),
+  historyLinkContext: source(
+    "HistoryLink, enciclopedia historica de Washington: situa la derrota de Steptoe del 17 de mayo en el ciclo de conflictos del Plateau iniciado tras los tratados de 1855 y describe la campana punitiva posterior",
+    "https://www.historylink.org/File/20853",
+    "media"
+  )
+};
+
+function pineCreek1858Fix() {
+  const hierarchySources = [
+    SOURCES.washingtonStateParks,
+    SOURCES.coeurDAleneTribe,
+    SOURCES.npsNationalRegister,
+    SOURCES.historyLinkContext
+  ];
+
+  return {
+    parent: PARENT,
+    war: PARENT,
+    campaign: CAMPAIGN,
+    type: "batalla de frontera",
+    conflictType: "colonial",
+    scale: "regional",
+    status: "historico",
+    active: false,
+    ongoing: false,
+    startYear: 1858,
+    endYear: 1858,
+    region: "Tohotonimme o Pine Creek, cerca de Rosalia, condado de Whitman, territorio de Washington de entonces, actual Estados Unidos",
+    normalizedRegion: "Tohotonimme o Pine Creek, cerca de Rosalia, condado de Whitman, actual Washington, Estados Unidos",
+    cause: "La columna estadounidense de Edward J. Steptoe atraveso territorios de pueblos del Plateau del Columbia en un contexto de tratados cuestionados, presion de colonos y mineros, y el proyecto de una ruta militar. Diversos pueblos se organizaron para rechazar la incursion y la amenaza sobre sus territorios; la ficha no presenta esa resistencia como un conflicto entre Estados nacionales equivalentes.",
+    outcome: "Victoria tactica de la coalicion indigena. El 17 de mayo, la columna de Steptoe se retiro mientras era hostigada durante horas y quedo cercada en una elevacion sobre Pine Creek; por la noche, con municion muy limitada, abandono suministros y piezas de artilleria y escapo hacia Fort Walla Walla. La ficha no transforma las estimaciones divergentes de efectivos o bajas en un balance cerrado.",
+    consequences: "La derrota estadounidense retraso el proyecto de ruta militar y llevo a una campana punitiva posterior de George Wright. Las fuentes institucionales describen derrotas posteriores de los pueblos aliados y la destruccion de alimentos, caballos y viviendas; GeoRisk no presenta esos hechos como una consecuencia inevitable ni como una solucion pacifica del conflicto territorial.",
+    chronology: [
+      {
+        year: 1855,
+        event: "Los tratados y las disputas territoriales de 1855 profundizaron los conflictos entre el gobierno estadounidense y pueblos del Plateau del Columbia."
+      },
+      {
+        year: 1858,
+        event: "El 6 de mayo, Edward J. Steptoe partio de Fort Walla Walla con una columna militar para avanzar hacia el norte por territorios indigenas."
+      },
+      {
+        year: 1858,
+        event: "El 17 de mayo, una coalicion de guerreros Spokane, Palus, Schitsu'umsh o Coeur d'Alene y otros aliados enfrento a la columna de Steptoe en Tohotonimme, hoy Pine Creek."
+      },
+      {
+        year: 1858,
+        event: "Tras la derrota de Steptoe, la campana de George Wright de agosto y septiembre incluyo los combates de Four Lakes y Spokane Plains y una represion contra comunidades del Plateau."
+      }
+    ],
+    treaties: [],
+    related: [
+      PARENT,
+      CAMPAIGN,
+      "Guerra Coeur d'Alene de 1858",
+      "Edward J. Steptoe",
+      "Kamiakin",
+      "Spokane",
+      "Palus",
+      "Schitsu'umsh",
+      "Coeur d'Alene",
+      "Fort Walla Walla",
+      "Pine Creek",
+      "Batalla de Four Lakes",
+      "Batalla de Spokane Plains"
+    ],
+    participants: [
+      {
+        side: "Columna del Ejercito de Estados Unidos de Edward J. Steptoe",
+        members: ["Estados Unidos", "Ejercito de Estados Unidos", "Edward J. Steptoe", "Fuerte Walla Walla", "guias nez perce aliados"],
+        casualties: "El inventario historico del National Park Service registra siete muertos y trece heridos estadounidenses al regreso de la columna a Fort Walla Walla. Otras narraciones usan totales distintos para la expedicion completa; GeoRisk conserva ese registro documentado sin convertirlo en un balance bilateral definitivo."
+      },
+      {
+        side: "Coalicion indigena del Plateau del Columbia",
+        members: ["Spokane", "Palus o Palouse", "Schitsu'umsh o Coeur d'Alene", "Yakama", "Kamiakin", "otros pueblos aliados del Plateau"],
+        casualties: "Las fuentes consultadas confirman la participacion de varias comunidades y la victoria tactica, pero no proporcionan un parte consensuado de sus muertos, heridos o efectivos. GeoRisk no atribuye una cifra colectiva ni trata a la coalicion como un solo Estado o una organizacion uniforme."
+      }
+    ],
+    hierarchyConfidence: "alta",
+    hierarchySources: hierarchySources.map(item => ({ label: item.label, url: item.url })),
+    datePrecision: "17 de mayo de 1858",
+    sourceDispute: "Las fuentes usan varios nombres para la misma accion: Pine Creek, Tohotonimme, Batalla de Steptoe y Steptoe's Defeat. La fuente de la tribu Coeur d'Alene prioriza Tohotonimme; el inventario del National Park Service identifica Tohotonimme Creek como el actual Pine Creek. La bibliografia tambien la ubica como Guerra Coeur d'Alene, fase final de la Guerra Yakima o Guerra del Plateau. GeoRisk muestra ambos nombres de la guerra padre para no ocultar esa variacion y usa una campana editorial de 1858. No se confunde con la escaramuza de Terre Noire Creek de 1864 ni se presentan los pueblos participantes como un bloque nacional homogeneo.",
+    curationPriority: "alta",
+    curationBatch: "source-backed-pine-creek-1858-2026-09",
+    curationStatus: "estructural",
+    dataConfidence: "parcial",
+    curationNote: "La entrada previa, Batalla de Pine Creek, estaba asociada solo a Estados Unidos y a un conflicto regional generico de America, sin fecha, contexto ni contraparte. Se normaliza como Batalla de Tohotonimme (Pine Creek, 17 de mayo de 1858), conserva Pine Creek como alias y mantiene Estados Unidos por la participacion directa de su ejercito. Las comunidades indigenas se detallan como participantes historicos, no como paises modernos adicionales. Operaciones de Steptoe y Wright en el Plateau del Columbia (1858) es una agrupacion editorial de GeoRisk, no el titulo literal de una campana en las fuentes."
+  };
+}
+
+export const PINE_CREEK_1858_CONFLICT_RENAMES = {
+  "Batalla de Pine Creek": CANONICAL,
+  "Batalla de Pine Creek (1858)": CANONICAL,
+  "Batalla de Tohotonimme": CANONICAL,
+  "Batalla de Steptoe": CANONICAL,
+  "Derrota de Steptoe": CANONICAL,
+  "Battle of Pine Creek": CANONICAL,
+  "Battle of Pine Creek (1858)": CANONICAL,
+  "Battle of Tohotonimme": CANONICAL,
+  "Battle of Steptoe": CANONICAL,
+  "Steptoe's Defeat": CANONICAL,
+  "Steptoe Defeat": CANONICAL
+};
+
+export const PINE_CREEK_1858_CONFLICT_DETAIL_FIXES = {
+  [CANONICAL]: pineCreek1858Fix()
+};

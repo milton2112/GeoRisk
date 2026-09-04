@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-04T16:02:35.551Z",
+  "generatedAt": "2026-09-04T16:11:59.058Z",
   "scannedConflicts": 2000,
   "issueCount": 0,
-  "advisoryCount": 31,
-  "reviewCount": 31,
+  "advisoryCount": 30,
+  "reviewCount": 30,
   "summary": {
-    "provisional_parent": 31
+    "provisional_parent": 30
   },
   "topIssues": [],
   "topAdvisories": [
@@ -102,20 +102,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de pine creek",
-      "name": "Batalla de Pine Creek",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],
