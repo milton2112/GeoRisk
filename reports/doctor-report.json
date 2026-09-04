@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-04T17:21:50.675Z",
-  "packageVersion": "1.6.219",
+  "generatedAt": "2026-09-04T22:21:55.866Z",
+  "packageVersion": "1.6.220",
   "status": "observacion",
   "summary": {
     "totalFindings": 1,
@@ -19,7 +19,7 @@
       "suspectRegions": 0,
       "duplicateConflictNames": 0,
       "sameCountryDuplicateConflicts": 0,
-      "sharedConflictNames": 613,
+      "sharedConflictNames": 614,
       "redundantReligions": 0,
       "uppercaseCities": 0,
       "mojibakeText": 0,

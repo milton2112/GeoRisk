@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T17:19:00.079Z",
+  "generatedAt": "2026-09-04T22:20:31.939Z",
   "changedFullCountries": 2,
   "fullPassChanges": [
     2,
@@ -8,12 +8,12 @@
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 205,
+    "enriched": 206,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1099,
+  "generatedHierarchyCandidates": 1101,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -89,7 +89,9 @@
       "Batalla de Neuville (1760)",
       "Batalla naval de Pierres Noires (5-6 de julio de 1944)",
       "Batalla de Remada (mayo de 1958)",
-      "Batalla del Sabis (tradicionalmente Sambre, 57 a. C.)"
+      "Batalla del Sabis (tradicionalmente Sambre, 57 a. C.)",
+      "Batalla de Vĩnh Yên (13-17 de enero de 1951)",
+      "Batalla de Vinh"
     ],
     "alemania": [
       "Batalla de Schleswig (1848)",
@@ -435,7 +437,8 @@
       "Batalla de Nui Le (1971)",
       "Batalla de Suoi Chau Pha (1967)",
       "Batalla de Thuận An (1883)",
-      "Batalla de las Islas Paracelso (1974)"
+      "Batalla de las Islas Paracelso (1974)",
+      "Batalla de Vĩnh Yên (13-17 de enero de 1951)"
     ],
     "indonesia": [
       "Batalla de Long Jawai (1963)",
@@ -1643,6 +1646,14 @@
     "Battle of Sobota": "Combate de Sobota (1655)",
     "Bitwa pod Sobotą": "Combate de Sobota (1655)",
     "Slaget vid Sobota": "Combate de Sobota (1655)",
+    "Batalla de Vinh Yen": "Batalla de Vĩnh Yên (13-17 de enero de 1951)",
+    "Batalla de Vinh-Yen": "Batalla de Vĩnh Yên (13-17 de enero de 1951)",
+    "Batalla de Vĩnh Yên": "Batalla de Vĩnh Yên (13-17 de enero de 1951)",
+    "Battle of Vinh Yen": "Batalla de Vĩnh Yên (13-17 de enero de 1951)",
+    "Battle of Vĩnh Yên": "Batalla de Vĩnh Yên (13-17 de enero de 1951)",
+    "Bataille de Vinh Yen": "Batalla de Vĩnh Yên (13-17 de enero de 1951)",
+    "Bataille de Vinh-Yen": "Batalla de Vĩnh Yên (13-17 de enero de 1951)",
+    "Bataille de Vĩnh Yên": "Batalla de Vĩnh Yên (13-17 de enero de 1951)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2786,6 +2797,7 @@
     "Batalla de Tohotonimme (Pine Creek, 17 de mayo de 1858)",
     "Combate de Prużany (29 de julio / 10 de agosto de 1812)",
     "Combate de Sobota (1655)",
+    "Batalla de Vĩnh Yên (13-17 de enero de 1951)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

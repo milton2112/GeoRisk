@@ -8,12 +8,20 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.219 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.220 antes de cerrar la siguiente version.
+
+## v1.6.220 - 2026-09-04
+
+- Añade **Batalla de Vĩnh Yên (13-17 de enero de 1951)** dentro de la Primera Guerra de Indochina, con campaña, participantes, fuentes y navegación desde Francia y Vietnam.
+- Conserva **Batalla de Vinh** como entrada pendiente de identificación; impide fusionarla automáticamente con Vĩnh Yên sin documentación que confirme esa equivalencia.
+- Documenta el intervalo histórico 13-17 de enero y el expediente operativo 14-17, sin inventar bajas; identifica al autor de la fuente académica y evita una referencia administrativa actual desactualizada.
+- Corrige escapes Unicode visibles en las notas de versión y agrega regresiones para proteger la desambiguación.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-04-release-12`.
 
 ## v1.6.219 - 2026-09-04
 
-- Normaliza **Batalla de Sobota** como **Combate de Sobota (1655)** dentro de la Segunda Guerra N\u00f3rdica, con una ficha cautelosa que conserva las fechas sueca y polaca sin fabricar una equivalencia diaria.
-- Agrega guerra padre, campa\u00f1a, participantes, fuentes, resultado operativo, consecuencias, aliases y navegaci\u00f3n desde Suecia y Polonia.
+- Normaliza **Batalla de Sobota** como **Combate de Sobota (1655)** dentro de la Segunda Guerra Nórdica, con una ficha cautelosa que conserva las fechas sueca y polaca sin fabricar una equivalencia diaria.
+- Agrega guerra padre, campaña, participantes, fuentes, resultado operativo, consecuencias, aliases y navegación desde Suecia y Polonia.
 - Incorpora regresiones para impedir que Sobota vuelva a quedar sin fecha, guerra padre, fuentes o trazabilidad de calendario.
 - Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-04-release-11`.
 

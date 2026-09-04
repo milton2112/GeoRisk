@@ -681,6 +681,11 @@ import {
   SOBOTA_1655_CONFLICT_RENAMES
 } from "../lib/conflict-curation-sobota-1655.js";
 import {
+  VINH_YEN_1951_CONFLICT_DETAIL_FIXES,
+  VINH_YEN_1951_COUNTRY_CONFLICT_ADDITIONS,
+  VINH_YEN_1951_CONFLICT_RENAMES
+} from "../lib/conflict-curation-vinh-yen-1951.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -6384,6 +6389,50 @@ assert.ok(
   ),
   "Sobota debe navegarse desde Suecia y Polonia sin confundir los Estados actuales con los beligerantes historicos"
 );
+assert.equal(Object.keys(VINH_YEN_1951_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  VINH_YEN_1951_CONFLICT_RENAMES["Batalla de Vinh"],
+  undefined,
+  "el nombre ambiguo Vinh no debe fusionarse sin una fuente que confirme la identidad"
+);
+assert.equal(
+  VINH_YEN_1951_CONFLICT_RENAMES["Bataille de Vinh-Yen"],
+  "Batalla de V\u0129nh Y\u00ean (13-17 de enero de 1951)",
+  "el alias frances debe conservar la ficha curada de Vinh Yen"
+);
+const vinhYen1951Detail = VINH_YEN_1951_CONFLICT_DETAIL_FIXES["Batalla de V\u0129nh Y\u00ean (13-17 de enero de 1951)"];
+assert.ok(
+  vinhYen1951Detail
+    && vinhYen1951Detail.startYear === 1951
+    && vinhYen1951Detail.startYear === vinhYen1951Detail.endYear
+    && vinhYen1951Detail.parent === "Primera Guerra de Indochina (1946-1954)"
+    && vinhYen1951Detail.war === vinhYen1951Detail.parent
+    && vinhYen1951Detail.campaign === "Ofensiva del Viet Minh en el delta del R\u00edo Rojo (enero de 1951)"
+    && vinhYen1951Detail.type === "batalla campal"
+    && vinhYen1951Detail.conflictType === "colonial"
+    && vinhYen1951Detail.scale === "internacional"
+    && vinhYen1951Detail.hierarchyConfidence === "alta"
+    && vinhYen1951Detail.hierarchySources?.length === 3
+    && vinhYen1951Detail.hierarchySources.every(item => item.label && item.url)
+    && vinhYen1951Detail.participants?.length === 2
+    && vinhYen1951Detail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /13 al 17 de enero de 1951/i.test(vinhYen1951Detail.datePrecision)
+    && /14 al 17 de enero de 1951/i.test(vinhYen1951Detail.sourceDispute)
+    && /etiqueta incompleta/i.test(vinhYen1951Detail.curationNote)
+    && /no Estados contempor.neos literalmente proyectados sobre 1951/i.test(vinhYen1951Detail.curationNote),
+  "Vinh Yen debe fijar fecha, jerarquia, participantes y la diferencia entre el expediente operativo y la cronologia de la batalla"
+);
+assert.ok(
+  ["Francia", "Vietnam"].every(country =>
+    VINH_YEN_1951_COUNTRY_CONFLICT_ADDITIONS[country]?.includes("Batalla de V\u0129nh Y\u00ean (13-17 de enero de 1951)")
+  ),
+  "Vinh Yen debe navegarse desde Francia y Vietnam sin trasladar literalmente Estados contemporaneos a 1951"
+);
+assert.ok(
+  VINH_YEN_1951_COUNTRY_CONFLICT_ADDITIONS.Francia.includes("Batalla de Vinh"),
+  "la etiqueta incompleta de origen debe conservarse para revision independiente"
+);
+assert.equal(VINH_YEN_1951_CONFLICT_RENAMES["Batalla de Vinh Long"], undefined);
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(
   COCKLE_CREEK_CONFLICT_RENAMES["Batalla de Cockle Creek"],

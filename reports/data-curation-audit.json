@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-04T17:19:06.486Z",
+  "generatedAt": "2026-09-04T22:20:46.973Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 13086901,
-    "duplicatedCountryFilesBytes": 1556084,
-    "countryConflictShardBytes": 450440,
+    "fullBytes": 13106533,
+    "duplicatedCountryFilesBytes": 1556482,
+    "countryConflictShardBytes": 450838,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -165,7 +165,7 @@
         "code": "FRA",
         "name": "Francia",
         "bytes": 21382,
-        "inlineBytes": 1010171,
+        "inlineBytes": 1019987,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -174,7 +174,7 @@
           "religionGroups": 5,
           "organizations": 54,
           "rivals": 50,
-          "conflicts": 241,
+          "conflicts": 242,
           "timelineEvents": 4
         },
         "metrics": {
@@ -207,9 +207,9 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 51345,
-          "conflictShardBytes": 51346,
-          "averageConflictBytes": 213
+          "conflictsBytes": 51743,
+          "conflictShardBytes": 51744,
+          "averageConflictBytes": 214
         }
       },
       {
