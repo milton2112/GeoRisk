@@ -662,6 +662,11 @@ import {
   SABIS_57_BCE_CONFLICT_RENAMES
 } from "../lib/conflict-curation-sabis-57-bce.js";
 import {
+  TEXEL_1694_CONFLICT_DETAIL_FIXES,
+  TEXEL_1694_COUNTRY_CONFLICT_ADDITIONS,
+  TEXEL_1694_CONFLICT_RENAMES
+} from "../lib/conflict-curation-texel-1694.js";
+import {
   COCKLE_CREEK_CONFLICT_DETAIL_FIXES,
   COCKLE_CREEK_CONFLICT_RENAMES
 } from "../lib/conflict-curation-cockle-creek.js";
@@ -6211,6 +6216,42 @@ assert.ok(
 assert.ok(
   SABIS_57_BCE_COUNTRY_CONFLICT_EXCLUSIONS["Estados Unidos"]?.includes("Batalla del Sabis (tradicionalmente Sambre, 57 a. C.)"),
   "Sabis debe retirarse de Estados Unidos"
+);
+assert.equal(Object.keys(TEXEL_1694_CONFLICT_DETAIL_FIXES).length, 1);
+assert.equal(
+  TEXEL_1694_CONFLICT_RENAMES["Batalla de Texel"],
+  "Batalla naval de Texel (29 de junio de 1694)",
+  "Texel debe llegar a la ficha curada de 1694"
+);
+assert.equal(
+  TEXEL_1694_CONFLICT_RENAMES["Battle of Texel (1694)"],
+  "Batalla naval de Texel (29 de junio de 1694)",
+  "la variante inglesa fechada debe mantener la ficha curada sin mezclarla con Texel de 1673"
+);
+const texel1694Detail = TEXEL_1694_CONFLICT_DETAIL_FIXES["Batalla naval de Texel (29 de junio de 1694)"];
+assert.ok(
+  texel1694Detail
+    && texel1694Detail.startYear === 1694
+    && texel1694Detail.startYear === texel1694Detail.endYear
+    && texel1694Detail.parent === "Guerra de los Nueve A\u00f1os (1688-1697)"
+    && texel1694Detail.war === texel1694Detail.parent
+    && texel1694Detail.campaign === "Operaciones navales francesas para asegurar convoyes de grano en el mar del Norte (1694)"
+    && texel1694Detail.type === "batalla naval"
+    && texel1694Detail.conflictType === "interestatal"
+    && texel1694Detail.scale === "internacional"
+    && texel1694Detail.hierarchyConfidence === "alta"
+    && texel1694Detail.hierarchySources?.length === 3
+    && texel1694Detail.participants?.length === 2
+    && texel1694Detail.participants.every(side => side.side && side.members?.length && side.casualties)
+    && /29 de junio de 1694/i.test(texel1694Detail.datePrecision)
+    && /1673/i.test(texel1694Detail.sourceDispute)
+    && /no intervinieron/i.test(texel1694Detail.sourceDispute)
+    && /Paises Bajos/i.test(texel1694Detail.curationNote),
+  "Texel debe tener fecha, jerarquia, participantes, fuentes y una advertencia explicita para no mezclar la accion de 1694 con la de 1673"
+);
+assert.ok(
+  TEXEL_1694_COUNTRY_CONFLICT_ADDITIONS["Reino de los Pa\u00edses Bajos"]?.includes("Batalla naval de Texel (29 de junio de 1694)"),
+  "Texel debe poder navegarse desde los Paises Bajos como referencia contemporanea de la escuadra neerlandesa"
 );
 assert.equal(Object.keys(COCKLE_CREEK_CONFLICT_DETAIL_FIXES).length, 1);
 assert.equal(

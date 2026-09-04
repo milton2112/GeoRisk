@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.214 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.215 antes de cerrar la siguiente version.
+
+## v1.6.215 - 2026-09-04
+
+- Normaliza **Batalla de Texel** como **Batalla naval de Texel (29 de junio de 1694)** dentro de la **Guerra de los Nueve Años (1688-1697)**, con fecha, jerarquía, participantes, resultado, cronología y fuentes trazables.
+- Corrige la asociación previa con un conflicto europeo genérico y agrega Reino de los Países Bajos como referencia de navegación contemporánea de la escuadra neerlandesa, sin presentar al Estado moderno como beligerante de 1694.
+- Distingue expresamente este combate de la batalla homónima de 1673 y evita cerrar cifras de bajas que proceden de partes de uno de los mandos participantes.
+- Agrega regresiones para aliases, fecha, jerarquía, participantes, fuentes, navegación neerlandesa y la desambiguación histórica.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-04-release-7`.
 
 ## v1.6.214 - 2026-09-04
 

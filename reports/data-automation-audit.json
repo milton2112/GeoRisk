@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-09-04T15:51:27.004Z",
+  "generatedAt": "2026-09-04T16:02:39.665Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 99
+      "count": 98
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 32
+      "count": 31
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 610
+      "count": 611
     },
     "redundantReligions": {
       "count": 0
@@ -89,11 +89,6 @@
       {
         "code": "FRA",
         "name": "Batalla de Siracusa",
-        "region": "Europa"
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Texel",
         "region": "Europa"
       },
       {
@@ -255,6 +250,11 @@
         "code": "GBR",
         "name": "Incidente del Altmark",
         "region": "Europa"
+      },
+      {
+        "code": "GBR",
+        "name": "Incursion sobre Santorini",
+        "region": "Europa"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -262,13 +262,6 @@
       {
         "code": "FRA",
         "name": "Batalla de Siracusa",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Texel",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -1486,7 +1479,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 32,
+      "count": 31,
       "command": "npm run fix:conflicts:batches"
     },
     {

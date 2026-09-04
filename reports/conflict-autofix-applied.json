@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T15:48:51.593Z",
+  "generatedAt": "2026-09-04T16:00:39.610Z",
   "changedFullCountries": 2,
   "fullPassChanges": [
     2,
@@ -8,12 +8,12 @@
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 198,
+    "enriched": 200,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1095,
+  "generatedHierarchyCandidates": 1096,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -262,7 +262,8 @@
       "Batalla de Fehmarn (1644)",
       "Segunda batalla de Schooneveld (1673)",
       "Batalla de Dogger Bank (1781)",
-      "Batalla de Cabo Rachado (1606)"
+      "Batalla de Cabo Rachado (1606)",
+      "Batalla naval de Texel (29 de junio de 1694)"
     ],
     "india": [
       "Asedio y captura de Chandannagar (1757)",
@@ -1605,6 +1606,12 @@
     "Battle of the Sambre": "Batalla del Sabis (tradicionalmente Sambre, 57 a. C.)",
     "Battle of the Sabis": "Batalla del Sabis (tradicionalmente Sambre, 57 a. C.)",
     "Battle of the Sabis (57 BC)": "Batalla del Sabis (tradicionalmente Sambre, 57 a. C.)",
+    "Batalla de Texel": "Batalla naval de Texel (29 de junio de 1694)",
+    "Batalla de Texel (1694)": "Batalla naval de Texel (29 de junio de 1694)",
+    "Batalla naval de Texel": "Batalla naval de Texel (29 de junio de 1694)",
+    "Battle of Texel (1694)": "Batalla naval de Texel (29 de junio de 1694)",
+    "Battle of the Texel (1694)": "Batalla naval de Texel (29 de junio de 1694)",
+    "Bataille du Texel (1694)": "Batalla naval de Texel (29 de junio de 1694)",
     "Batalla de Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Battle of Cockle Creek": "Acción naval de Chincoteague Inlet (1861)",
     "Accion naval de Chincoteague Inlet (1861)": "Acción naval de Chincoteague Inlet (1861)",
@@ -2744,6 +2751,7 @@
     "Combate de Wet Glaze (Monday's Hollow, 13 de octubre de 1861)",
     "Batalla de Shewan (8 de agosto de 2008)",
     "Batalla del Sabis (tradicionalmente Sambre, 57 a. C.)",
+    "Batalla naval de Texel (29 de junio de 1694)",
     "Acción naval de Chincoteague Inlet (1861)",
     "Batalla de las Nubes (1777)",
     "Batalla de Colson's Mill (1780)",

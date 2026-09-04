@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-04T15:48:59.398Z",
+  "generatedAt": "2026-09-04T16:00:47.105Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 12996663,
-    "duplicatedCountryFilesBytes": 1553856,
-    "countryConflictShardBytes": 449559,
+    "fullBytes": 13016367,
+    "duplicatedCountryFilesBytes": 1554417,
+    "countryConflictShardBytes": 449762,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -111,6 +111,57 @@
         }
       },
       {
+        "code": "FRA",
+        "name": "Francia",
+        "bytes": 21382,
+        "inlineBytes": 1012799,
+        "tooLarge": false,
+        "counts": {
+          "cities": 5,
+          "capitals": 1,
+          "languages": 5,
+          "religionGroups": 5,
+          "organizations": 54,
+          "rivals": 50,
+          "conflicts": 242,
+          "timelineEvents": 4
+        },
+        "metrics": {
+          "sectionBytes": {
+            "military": 9702,
+            "politics": 7898,
+            "metadata": 1952,
+            "general": 933,
+            "history": 390,
+            "religion": 287,
+            "economy": 99,
+            "name": 9,
+            "continent": 8
+          },
+          "largestSections": [
+            {
+              "section": "military",
+              "bytes": 9702
+            },
+            {
+              "section": "politics",
+              "bytes": 7898
+            },
+            {
+              "section": "metadata",
+              "bytes": 1952
+            },
+            {
+              "section": "general",
+              "bytes": 933
+            }
+          ],
+          "conflictsBytes": 51576,
+          "conflictShardBytes": 51577,
+          "averageConflictBytes": 213
+        }
+      },
+      {
         "code": "POL",
         "name": "Polonia",
         "bytes": 21282,
@@ -159,57 +210,6 @@
           "conflictsBytes": 16482,
           "conflictShardBytes": 16483,
           "averageConflictBytes": 266
-        }
-      },
-      {
-        "code": "FRA",
-        "name": "Francia",
-        "bytes": 21246,
-        "inlineBytes": 1004303,
-        "tooLarge": false,
-        "counts": {
-          "cities": 5,
-          "capitals": 1,
-          "languages": 5,
-          "religionGroups": 5,
-          "organizations": 54,
-          "rivals": 50,
-          "conflicts": 242,
-          "timelineEvents": 4
-        },
-        "metrics": {
-          "sectionBytes": {
-            "military": 9566,
-            "politics": 7898,
-            "metadata": 1952,
-            "general": 933,
-            "history": 390,
-            "religion": 287,
-            "economy": 99,
-            "name": 9,
-            "continent": 8
-          },
-          "largestSections": [
-            {
-              "section": "military",
-              "bytes": 9566
-            },
-            {
-              "section": "politics",
-              "bytes": 7898
-            },
-            {
-              "section": "metadata",
-              "bytes": 1952
-            },
-            {
-              "section": "general",
-              "bytes": 933
-            }
-          ],
-          "conflictsBytes": 51373,
-          "conflictShardBytes": 51374,
-          "averageConflictBytes": 212
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 98,
+    "pendingCount": 97,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15421,19 +15421,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Texel",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
