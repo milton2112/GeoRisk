@@ -108,6 +108,19 @@ assert.ok(!appShellBlock.includes("reports/"), "reportes internos no deben entra
 assert.ok(!appShellBlock.includes("world_countries_simplified.geo.json"), "GeoJSON no debe entrar en APP_SHELL");
 assert.ok(!appShellBlock.includes("assets/flags"), "banderas no deben entrar en APP_SHELL");
 assert.ok(!appShellBlock.includes("assets/coats"), "escudos no deben entrar en APP_SHELL");
+assert.ok(!appShellBlock.includes("runtime_supplemental.json"), "suplemento debe quedar fuera del shell inicial");
+assert.ok(!script.includes("./data/raw/"), "runtime publico no debe descargar fuentes internas excluidas del deploy");
+assert.ok(!script.includes("function parseWorldBankSeriesChanges"), "crecimiento poblacional debe calcularse durante build");
+const supplemental = await fs.readJson(path.join(projectRoot, "data/runtime_supplemental.json"));
+assert.ok(Buffer.byteLength(JSON.stringify(supplemental)) < 40000, "suplemento publico debe ser compacto");
+assert.ok(Object.keys(supplemental.populationGrowth).length > 150, "suplemento debe conservar cobertura poblacional");
+assert.ok(supplemental.countryNames.some(([name, code]) => name === "Argentina" && code === "ARG"));
+for (const [code, growth] of Object.entries(supplemental.populationGrowth)) {
+  assert.ok(full[code] && Number.isFinite(growth));
+  const [from, to] = supplemental.populationPeriods[code];
+  assert.equal(to - from, 1, `${code}: tasa anual exige observaciones consecutivas`);
+}
+assert.equal(supplemental.inflation.ARG, full.ARG.economy.inflation, "suplemento debe usar datos curados");
 assert.ok(!sw.includes("./data/countries_full.json\""), "countries_full no debe precachearse en el shell inicial");
 assert.ok(!sw.includes("./data/conflict_details.generated.json\""), "conflictos pesados no deben precachearse al inicio");
 assert.ok(!sw.includes("./data/raw/history.json\""), "raw history debe cargarse bajo demanda");

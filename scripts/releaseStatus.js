@@ -1,6 +1,7 @@
 import { execFileSync } from "node:child_process";
 import fs from "node:fs/promises";
 import path from "node:path";
+import { hasCompleteBrowserMeasurement, browserPerformanceWarnings } from "./lib/performance-evidence.js";
 
 const projectRoot = path.resolve(process.cwd());
 const reportsDir = path.join(projectRoot, "reports");
@@ -95,6 +96,7 @@ const checks = {
   startupWithinBudget: startupBytes > 0 && startupBytes < 1024 * 1024,
   scriptWithinBudget: scriptBytes > 0 && scriptBytes < 700000,
   countriesIndexWithinBudget: countriesIndexBytes > 0 && countriesIndexBytes < 240000,
+  browserPerformanceMeasured: hasCompleteBrowserMeasurement(performanceSnapshot.browserPerformance),
   dataAuditClean: [
     "englishConflictNames",
     "mojibakeText",
@@ -118,6 +120,8 @@ if (!checks.changelogHasPackageVersion) blockers.push("CHANGELOG.md no documenta
 if (!checks.startupWithinBudget) blockers.push("El arranque critico esta fuera de presupuesto.");
 if (!checks.scriptWithinBudget) blockers.push("script.js esta fuera de presupuesto.");
 if (!checks.countriesIndexWithinBudget) blockers.push("countries_index.json esta fuera de presupuesto.");
+if (!checks.browserPerformanceMeasured) blockers.push("Falta medicion real completa de rendimiento en navegador.");
+warnings.push(...browserPerformanceWarnings(performanceSnapshot.browserPerformance));
 if (!checks.dataAuditClean) blockers.push("La auditoria de datos conserva problemas visibles.");
 if (!checks.featureHealthClean) blockers.push("La auditoria de salud funcional conserva fallas.");
 if (!checks.doctorHasNoHighSeverity) blockers.push("El doctor de producto tiene hallazgos altos o criticos.");

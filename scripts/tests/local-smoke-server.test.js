@@ -81,4 +81,17 @@ try {
   await new Promise(resolve => server.close(resolve));
 }
 
+const dataServer = createLocalSmokeServer({ root: path.join(process.cwd(), "data") });
+await new Promise(resolve => dataServer.listen(0, "127.0.0.1", resolve));
+try {
+  const baseUrl = `http://127.0.0.1:${dataServer.address().port}`;
+  const response = await fetch(`${baseUrl}/countries_index.json`);
+  assert.equal(response.status, 200, "root debe servir la carpeta solicitada");
+  assert.ok((await response.json()).ARG);
+  assert.equal((await fetch(`${baseUrl}/package.json`)).status, 404, "no debe buscar archivos en la raiz del proyecto");
+  assert.equal((await fetch(`${baseUrl}/%2e%2e%5cpackage.json`)).status, 403, "no debe salir de root mediante rutas codificadas");
+} finally {
+  await new Promise(resolve => dataServer.close(resolve));
+}
+
 console.log("local-smoke-server.test.js ok");

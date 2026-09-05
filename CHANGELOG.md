@@ -8,7 +8,18 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.221 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.222 antes de cerrar la siguiente version.
+
+## v1.6.222 - 2026-09-05
+
+- Corrige cuatro descargas 404 de fuentes internas en producción: genera un suplemento público compacto con política, inflación curada, aliases y crecimiento poblacional con años de referencia.
+- Traslada el procesamiento del CSV poblacional al build y elimina ese parser de `script.js`; evita interpretar intervalos no consecutivos como crecimiento anual y conserva el suplemento offline solo después de consultarlo.
+- Sustituye los FPS y long tasks simulados del snapshot por mediciones reales de Chromium sobre `dist/public`: 60 segundos en escritorio y móvil emulado con CPU limitada.
+- Comprueba renderizado y movimiento del canvas, registra tareas mayores de 200 ms y separa los FPS durante movimiento de la inactividad intencional del mapa.
+- Impide aprobar una medición incompleta, con errores JavaScript, recursos locales ausentes o carga inicial de monolitos pesados; conserva avisos de rendimiento dependientes del equipo y de la red.
+- Corrige la raíz configurable del servidor de pruebas e incluye la ayuda diferida en el build público; agrega regresiones para rutas y presencia de todos los módulos diferidos.
+- Documenta metodología, límites y reutilización explícita de mediciones recientes del mismo build, medidor y equipo.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-05-release-2`.
 
 ## v1.6.221 - 2026-09-05
 

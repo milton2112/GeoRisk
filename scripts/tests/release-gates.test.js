@@ -275,7 +275,9 @@ assert.ok(gitignore.split(/\r?\n/).some(line => line.trim() === "reports/release
 assert.ok(cleanStorage.includes('"node_modules"'), "clean:storage debe poder liberar node_modules");
 assert.ok(cleanStorage.includes("isInsideProject"), "clean:storage debe negarse a borrar fuera del proyecto");
 assert.ok(performanceSnapshot.includes("performance-snapshot.json"), "snapshot debe escribirse en reports/");
-assert.ok(performanceSnapshot.includes("simulated-startup-data-batch"), "snapshot debe simular long tasks del arranque por tandas");
+assert.ok(performanceSnapshot.includes("measureBrowserPerformance(publicRoot)"), "snapshot debe medir el build publico en Chromium");
+assert.ok(!performanceSnapshot.includes("simulateLongTasksAndFps"), "snapshot no debe presentar fixtures como rendimiento medido");
+assert.ok(packageJson.scripts.test.includes("test:performance-metrics"), "npm test debe validar calculos y vigencia de mediciones");
 assert.ok(dataAutomationAudit.includes("englishConflictNames"), "auditoria de datos debe listar conflictos en ingles");
 assert.ok(dataAutomationAudit.includes("redundantReligions"), "auditoria de datos debe listar religiones redundantes");
 assert.ok(dataAutomationAudit.includes("sameCountryDuplicateConflicts"), "auditoria de datos debe separar duplicados accionables");
@@ -473,6 +475,12 @@ assert.ok(manifest.assetCount > 20, "manifest debe listar assets publicos");
 const manifestPaths = manifest.assets.map(asset => asset.path);
 assert.ok(manifestPaths.includes("index.html"), "build debe incluir index.html");
 assert.ok(manifestPaths.includes("script.js"), "build debe incluir script.js");
+assert.ok(manifestPaths.includes("data/runtime_supplemental.json"), "build debe incluir el suplemento publico compacto");
+const deferredPaths = [...script.matchAll(/\w+: `\.\/([^`?]+)\?v=\$\{APP_VERSION\}`/g)].map(match => match[1]);
+assert.ok(deferredPaths.includes("app-help-ui.js"), "el contrato debe detectar la ayuda diferida");
+for (const modulePath of deferredPaths) {
+  assert.ok(manifestPaths.includes(modulePath), `build debe incluir modulo diferido ${modulePath}`);
+}
 assert.ok(!manifestPaths.some(file => file.startsWith("reports/")), "build publico debe excluir reports/");
 assert.ok(!manifestPaths.some(file => file.startsWith("scripts/")), "build publico debe excluir scripts internos");
 assert.ok(!manifestPaths.includes("ARCHITECTURE.md"), "build publico debe excluir docs internas");

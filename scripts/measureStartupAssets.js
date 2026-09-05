@@ -32,6 +32,7 @@ const LOCAL_ASSETS = [
   "app-search-worker.js",
   "data/countries_index.json",
   "data/geo_aliases.json",
+  "data/runtime_supplemental.json",
   "data/world_countries.geo.json",
   "data/world_countries_simplified.geo.json",
   "data/conflict_details.generated.json"

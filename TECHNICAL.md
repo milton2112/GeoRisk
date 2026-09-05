@@ -203,6 +203,18 @@ Comandos utiles:
 - `npm run validate:data`
 - `node scripts/buildDataset.js`
 
+## Medicion real de arranque
+
+`npm run performance:snapshot` reconstruye `dist/public` y mide 60 segundos desde la navegación en Chromium para escritorio y móvil emulado (390 x 844, touch, CPU x4). Usa contextos nuevos, caché HTTP desactivada y service worker bloqueado. Depende de la red para CDN e imágenes remotas. No sustituye una prueba en un teléfono físico ni garantiza rendimiento equivalente en otro equipo.
+
+`reports/performance-snapshot.json` conserva navegador, equipo, método, tiempos de preparación, long tasks reales, tiempo de bloqueo acumulado y errores de recursos. Los FPS corresponden a seis segundos de rotación 3D o desplazamiento 2D programáticos con eventos `postRender` de Cesium; se verifica por píxeles que el canvas no esté vacío y cambie. No se interpreta la inactividad de `requestRenderMode` como congelamiento.
+
+Falla el comando si el arranque o la muestra están incompletos, hay errores JavaScript, faltan recursos locales, el canvas no cambia o se cargan monolitos pesados al iniciar. Las tareas mayores de 200 ms, FPS activos menores de 24 y errores de red se reportan como observaciones para diagnóstico, no como umbrales portables entre equipos. Las pruebas unitarias sintéticas se conservan separadas en `npm run test:performance-metrics`.
+
+La puerta de release permite `--reuse-browser`: reutiliza una muestra completa durante un máximo de seis horas únicamente si coinciden hashes del build, versión, código del medidor y entorno del equipo. Conserva la fecha original e informa explícitamente la reutilización. `--fresh` fuerza una medición nueva; el comando sin opciones también mide de nuevo.
+
+`npm run build:indexes` genera `data/runtime_supplemental.json` a partir del dataset curado y del CSV poblacional interno. El cliente descarga ese suplemento diferido, no `data/raw/**`. Conserva el intervalo de años de cada variación poblacional y omite las tasas anuales cuando faltan observaciones consecutivas. El service worker lo almacena solo tras consultarlo, fuera de `APP_SHELL`.
+
 ## Limites conocidos
 
 - `script.js` sigue siendo grande y todavia concentra orquestacion importante.

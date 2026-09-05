@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-09-04T22:34:02.286Z",
+  "generatedAt": "2026-09-05T13:41:43.159Z",
   "status": "operativo",
   "startup": {
-    "critical": "817 KB",
-    "criticalBytes": 836928,
-    "deferred": "3.08 MB",
+    "critical": "815 KB",
+    "criticalBytes": 834997,
+    "deferred": "3.10 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 13106533,
       "countriesFullHuman": "12.50 MB",
@@ -23,8 +23,8 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 563578,
-        "human": "550 KB",
+        "bytes": 561647,
+        "human": "548 KB",
         "startupCritical": true
       },
       {
@@ -91,10 +91,10 @@
         "startupCritical": false
       },
       {
-        "path": "app-search.js",
+        "path": "data/runtime_supplemental.json",
         "exists": true,
-        "bytes": 16601,
-        "human": "16 KB",
+        "bytes": 21292,
+        "human": "21 KB",
         "startupCritical": false
       }
     ]
@@ -773,6 +773,7 @@
         "data/conflicts_index.json",
         "data/timeline_index.json",
         "data/search_index.json",
+        "data/runtime_supplemental.json",
         "data/country_weights.json",
         "data/conflicts/details_index.json",
         "data/geo_aliases.json",
@@ -811,14 +812,14 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 563578,
-      "human": "550 KB"
+      "bytes": 561647,
+      "human": "548 KB"
     },
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 253080,
-      "human": "247 KB"
+      "bytes": 254434,
+      "human": "248 KB"
     },
     {
       "path": "style.css",
@@ -865,8 +866,8 @@
     {
       "path": "TECHNICAL.md",
       "exists": true,
-      "bytes": 10619,
-      "human": "10 KB"
+      "bytes": 12672,
+      "human": "12 KB"
     },
     {
       "path": "app-risk-radar-ui.js",
@@ -907,7 +908,7 @@
     {
       "path": "package.json",
       "exists": true,
-      "bytes": 5188,
+      "bytes": 5306,
       "human": "5 KB"
     },
     {
@@ -960,7 +961,7 @@
     }
   ],
   "scriptMetrics": {
-    "functions": 529,
+    "functions": 527,
     "asyncFunctions": 49,
     "consoleWarnings": 19,
     "consoleErrors": 13
@@ -1036,6 +1037,7 @@
     "test:news",
     "test:normalization",
     "test:offline",
+    "test:performance-metrics",
     "test:provisional-candidates",
     "test:rankings",
     "test:release-gates",

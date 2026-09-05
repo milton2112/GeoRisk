@@ -8,6 +8,7 @@ import {
 } from "./lib/resilient-fs.js";
 import { buildPublicCountryConflictRecord, buildPublicCountryRecord } from "./lib/public-country-record.js";
 import { normalizeVisibleValue } from "./lib/visible-data-corrections.js";
+import { buildRuntimeSupplemental } from "./lib/runtime-supplemental.js";
 
 const projectRoot = path.resolve(process.cwd());
 const dataDir = path.join(projectRoot, "data");
@@ -22,6 +23,7 @@ const PUBLIC_DATA_FILES = [
   "data/conflicts_index.json",
   "data/timeline_index.json",
   "data/search_index.json",
+  "data/runtime_supplemental.json",
   "data/country_weights.json",
   "data/conflicts/details_index.json",
   "data/geo_aliases.json",
@@ -537,6 +539,8 @@ function buildManifest() {
 
 await fs.ensureDir(reportsDir);
 const countries = await readJsonWithRetry(path.join(dataDir, "countries_full.json"));
+const runtimeSupplemental = await buildRuntimeSupplemental(countries, await fs.readFile(path.join(dataDir, "raw", "population.csv"), "utf8"));
+await writeJsonIfChanged(path.join(dataDir, "runtime_supplemental.json"), runtimeSupplemental, { spaces: 0 });
 const conflictIndexResult = buildConflictIndex(countries);
 const conflictIndex = conflictIndexResult.dated;
 const timelineIndex = buildTimelineIndex(countries);

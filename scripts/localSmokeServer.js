@@ -27,12 +27,12 @@ function send(res, statusCode, body, headers = {}) {
   res.end(body);
 }
 
-function resolveRequestPath(urlPath) {
-  const decodedPath = decodeURIComponent(urlPath === "/" ? "/index.html" : urlPath);
-  const normalizedPath = path.normalize(decodedPath).replace(/^(\.\.[/\\])+/, "");
-  const absolutePath = path.resolve(projectRoot, `.${normalizedPath}`);
+function resolveRequestPath(urlPath, root) {
+  const decodedPath = decodeURIComponent(urlPath === "/" ? "/index.html" : urlPath).replace(/\\/g, "/");
+  const absolutePath = path.resolve(root, `.${decodedPath}`);
+  const relativePath = path.relative(root, absolutePath);
 
-  if (!absolutePath.startsWith(projectRoot)) {
+  if (relativePath === ".." || relativePath.startsWith(`..${path.sep}`) || path.isAbsolute(relativePath)) {
     return null;
   }
 
@@ -40,12 +40,13 @@ function resolveRequestPath(urlPath) {
 }
 
 export function createLocalSmokeServer({ root = projectRoot } = {}) {
+  const resolvedRoot = path.resolve(root);
   return http.createServer(async (req, res) => {
     try {
       const requestUrl = new URL(req.url || "/", "http://127.0.0.1");
-      const filePath = resolveRequestPath(requestUrl.pathname);
+      const filePath = resolveRequestPath(requestUrl.pathname, resolvedRoot);
 
-      if (!filePath || !filePath.startsWith(root)) {
+      if (!filePath) {
         send(res, 403, "Forbidden", { "Content-Type": "text/plain; charset=utf-8" });
         return;
       }

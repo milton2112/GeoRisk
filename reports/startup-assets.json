@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-04T22:34:01.799Z",
-  "startupBytes": 836928,
-  "startupHuman": "817 KB",
-  "deferredBytes": 3232573,
-  "deferredHuman": "3.08 MB",
+  "generatedAt": "2026-09-05T13:44:51.509Z",
+  "startupBytes": 834997,
+  "startupHuman": "815 KB",
+  "deferredBytes": 3253865,
+  "deferredHuman": "3.10 MB",
   "estimatedRuntimeMemory": {
     "countriesFullBytes": 13106533,
     "countriesFullHuman": "12.50 MB",
@@ -22,8 +22,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 563578,
-      "human": "550 KB",
+      "bytes": 561647,
+      "human": "548 KB",
       "startupCritical": true
     },
     {
@@ -90,10 +90,10 @@
       "startupCritical": false
     },
     {
-      "path": "app-search.js",
+      "path": "data/runtime_supplemental.json",
       "exists": true,
-      "bytes": 16601,
-      "human": "16 KB",
+      "bytes": 21292,
+      "human": "21 KB",
       "startupCritical": false
     }
   ],
@@ -108,8 +108,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 563578,
-      "human": "550 KB",
+      "bytes": 561647,
+      "human": "548 KB",
       "startupCritical": true
     },
     {
@@ -279,6 +279,13 @@
       "bytes": 2784,
       "human": "3 KB",
       "startupCritical": true
+    },
+    {
+      "path": "data/runtime_supplemental.json",
+      "exists": true,
+      "bytes": 21292,
+      "human": "21 KB",
+      "startupCritical": false
     },
     {
       "path": "data/world_countries.geo.json",

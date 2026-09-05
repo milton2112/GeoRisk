@@ -1,6 +1,7 @@
 import fs from "fs-extra";
 import path from "node:path";
 import { writeJsonWithRetry } from "./lib/resilient-fs.js";
+import { hasCompleteBrowserMeasurement, browserPerformanceWarnings } from "./lib/performance-evidence.js";
 
 const projectRoot = path.resolve(process.cwd());
 const reportsDir = path.join(projectRoot, "reports");
@@ -112,6 +113,13 @@ if (countriesIndexBytes > 240000) {
 }
 
 const dataSummary = dataAudit.summary || {};
+if (!hasCompleteBrowserMeasurement(performanceSnapshot.browserPerformance)) {
+  addFinding(findings, "alta", "performance", "Falta medicion real completa del navegador", "Se requieren escritorio y movil emulado durante 60 segundos.", "npm run performance:snapshot -- --fresh");
+} else {
+  for (const warning of browserPerformanceWarnings(performanceSnapshot.browserPerformance)) {
+    addFinding(findings, "media", "performance", "Rendimiento real por revisar", warning, "npm run performance:snapshot -- --fresh");
+  }
+}
 const dataCounts = Object.fromEntries(Object.entries(dataSummary).map(([key, value]) => [key, value.count || 0]));
 if (dataCounts.englishConflictNames > 0 || dataCounts.mojibakeText > 0 || dataCounts.sourceTextMojibake > 0 || dataCounts.uppercaseCities > 0) {
   addFinding(

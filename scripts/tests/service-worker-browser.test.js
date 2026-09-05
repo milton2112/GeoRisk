@@ -95,6 +95,7 @@ async function checkOfflineCache(browser, origin, basePath) {
       "app-country-panel.js?v=offline-test",
       "style-polish.css?v=offline-test",
       "data/countries/ARG.json?v=offline-test",
+      "data/runtime_supplemental.json?v=offline-test",
       "data/world_countries_simplified.geo.json?v=offline-test",
       "assets/flags/ARG.svg",
       "assets/coats/ARG.svg"

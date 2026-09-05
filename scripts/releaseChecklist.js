@@ -8,7 +8,7 @@ const steps = [
   ["medicion de arranque", "npm", ["run", "measure:startup"]],
   ["auditoria del proyecto", "npm", ["run", "audit:project"]],
   ["auditoria de datos programable", "npm", ["run", "audit:data"]],
-  ["snapshot de performance", "npm", ["run", "performance:snapshot"]],
+  ["snapshot de performance", "npm", ["run", "performance:snapshot", "--", "--reuse-browser"]],
   ["artefactos de release", "npm", ["run", "audit:release-artifacts"]],
   ["salud funcional", "npm", ["run", "audit:features"]],
   ["doctor de producto", "npm", ["run", "audit:doctor"]],

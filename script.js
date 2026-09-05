@@ -83,7 +83,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-09-05-release-1";
+const APP_VERSION = "2026-09-05-release-2";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -10096,81 +10096,9 @@ function isValidInflationValue(value) {
   return typeof value === "number" && Number.isFinite(value) && value >= 0 && value <= 300;
 }
 
-function parseQuotedCsvLine(line) {
-  return line
-    .trim()
-    .replace(/^"/, "")
-    .replace(/",?$/, "")
-    .split('","');
-}
-
-function parseWorldBankSeriesChanges(csvText) {
-  const lines = csvText.split(/\r?\n/).filter(Boolean);
-  const headerIndex = lines.findIndex(line => line.startsWith("\"Country Name\""));
-  if (headerIndex === -1) {
-    return {};
-  }
-
-  const result = {};
-  for (const line of lines.slice(headerIndex + 1)) {
-    if (!line.startsWith("\"")) {
-      continue;
-    }
-
-    const parts = parseQuotedCsvLine(line);
-    if (parts.length < 8) {
-      continue;
-    }
-
-    const code = parts[1];
-    const values = parts
-      .slice(4)
-      .map(value => {
-        const normalized = String(value || "").replace(/,/g, "").trim();
-        if (!normalized) {
-          return null;
-        }
-        const parsed = Number(normalized);
-        return Number.isFinite(parsed) ? parsed : null;
-      })
-      .filter(value => typeof value === "number");
-
-    if (values.length < 2) {
-      continue;
-    }
-
-    const latest = values.at(-1);
-    const previous = values.at(-2);
-    if (!latest || !previous) {
-      continue;
-    }
-
-    result[code] = Number((((latest - previous) / previous) * 100).toFixed(2));
-  }
-
-  return result;
-}
-
-function parseWorldBankCountryNameMap(csvText) {
-  const lines = csvText.split(/\r?\n/).filter(Boolean);
-  const headerIndex = lines.findIndex(line => line.startsWith("\"Country Name\""));
-  if (headerIndex === -1) {
-    return new Map();
-  }
-
+function buildWorldBankCountryNameMap(entries) {
   const result = new Map();
-  for (const line of lines.slice(headerIndex + 1)) {
-    if (!line.startsWith("\"")) {
-      continue;
-    }
-
-    const parts = parseQuotedCsvLine(line);
-    if (parts.length < 2) {
-      continue;
-    }
-
-    const name = parts[0];
-    const code = parts[1];
+  for (const [name, code] of entries) {
     if (!name || !code || !countriesData[code]) {
       continue;
     }
@@ -12547,22 +12475,17 @@ async function loadSupplementalData() {
   }
 
   loadSupplementalDataPromise = (async () => {
-    const [rawPoliticsJson, rawHistoryJson, rawInflationJson, rawPopulationSeriesText] = await Promise.all([
-      fetchResourceCached(`./data/raw/politics.json?v=${APP_VERSION}`, "json"),
-      fetchResourceCached(`./data/raw/history.json?v=${APP_VERSION}`, "json"),
-      fetchResourceCached(`./data/raw/inflation.json?v=${APP_VERSION}`, "json"),
-      fetchResourceCached(`./data/raw/population.csv?v=${APP_VERSION}`, "text")
-    ]);
-
-    rawPoliticsSystems = rawPoliticsJson;
-    rawHistorySystems = rawHistoryJson;
-    rawInflationByCode = rawInflationJson;
-    populationGrowthByCode = parseWorldBankSeriesChanges(rawPopulationSeriesText);
-    countryCodeByEnglishName = parseWorldBankCountryNameMap(rawPopulationSeriesText);
+    const supplemental = await fetchResourceCached(`./data/runtime_supplemental.json?v=${APP_VERSION}`, "json");
+    rawPoliticsSystems = supplemental.politics || {};
+    rawHistorySystems = supplemental.history || {};
+    rawInflationByCode = supplemental.inflation || {};
+    populationGrowthByCode = supplemental.populationGrowth || {};
+    countryCodeByEnglishName = buildWorldBankCountryNameMap(supplemental.countryNames || []);
     buildInflationFallbacks();
     refreshGlobalStats();
     rerenderCurrentPanel?.();
   })().catch(error => {
+    loadSupplementalDataPromise = null;
     console.warn("No se pudieron cargar datos suplementarios al arranque:", error);
   });
 

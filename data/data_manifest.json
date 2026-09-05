@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-11T15:53:18.814Z",
+  "generatedAt": "2026-09-05T13:36:08.151Z",
   "productionPublic": {
     "description": "Datos livianos aptos para produccion y cache inicial/bajo demanda.",
     "files": [
@@ -7,6 +7,7 @@
       "data/conflicts_index.json",
       "data/timeline_index.json",
       "data/search_index.json",
+      "data/runtime_supplemental.json",
       "data/country_weights.json",
       "data/conflicts/details_index.json",
       "data/geo_aliases.json",
