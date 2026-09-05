@@ -2,7 +2,7 @@ export const BROWSER_MEASUREMENT_SOURCE = "chromium-performance-observer-and-ces
 const MAX_REUSE_AGE_MS = 6 * 60 * 60 * 1000;
 const REQUIRED_CHECKS = [
   "longTasksSupported", "fullWindowObserved", "noDroppedEntries", "activeSampleWithinWindow",
-  "canvasRendered", "canvasChanged", "noPageErrors", "noMissingLocalResources", "noHeavyStartupRequests"
+  "canvasRendered", "canvasChanged", "sceneModeMatches", "noPageErrors", "noMissingLocalResources", "noHeavyStartupRequests"
 ];
 
 export function hasCompleteBrowserMeasurement(measurement) {
@@ -30,8 +30,10 @@ export function browserPerformanceWarnings(measurement) {
     if (profile.longTasks?.overBudgetCount > 0) {
       warnings.push(`${profile.name}: ${profile.longTasks.overBudgetCount} tareas >200 ms; maxima ${Math.round(profile.longTasks.longestDurationMs)} ms.`);
     }
-    if (profile.activeRender?.averageFps != null && profile.activeRender.averageFps < 24) {
-      warnings.push(`${profile.name}: render activo ${profile.activeRender.averageFps.toFixed(1)} FPS.`);
+    const targetFps = profile.activeRender?.targetFps;
+    const minimumFps = Number.isFinite(targetFps) && targetFps > 0 ? targetFps * 0.8 : 24;
+    if (profile.activeRender?.averageFps != null && profile.activeRender.averageFps < minimumFps) {
+      warnings.push(`${profile.name}: render activo ${profile.activeRender.averageFps.toFixed(1)} FPS, umbral ${minimumFps.toFixed(1)}${targetFps ? ` (objetivo ${targetFps})` : ""}.`);
     }
     if (profile.resourceErrors?.length) warnings.push(`${profile.name}: ${profile.resourceErrors.length} recursos con error de red/HTTP.`);
     return warnings;

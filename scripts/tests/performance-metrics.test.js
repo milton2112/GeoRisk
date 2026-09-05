@@ -24,7 +24,7 @@ const measurement = {
     longTasks: tasks, activeRender: { durationMs: 6000, frames: 60, averageFps: 10 },
     checks: {
       longTasksSupported: true, fullWindowObserved: true, noDroppedEntries: true, activeSampleWithinWindow: true,
-      canvasRendered: true, canvasChanged: true, noPageErrors: true, noMissingLocalResources: true, noHeavyStartupRequests: true
+      canvasRendered: true, canvasChanged: true, sceneModeMatches: true, noPageErrors: true, noMissingLocalResources: true, noHeavyStartupRequests: true
     }
   }))
 };
@@ -52,4 +52,11 @@ assert.equal(canReuseBrowserMeasurement(snapshot, "build-a", now + 7 * 3600000),
 assert.equal(canReuseBrowserMeasurement(snapshot, "build-a", now - 1), false);
 assert.equal(canReuseBrowserMeasurement(null, "build-a", now), false);
 assert.equal(browserPerformanceWarnings(measurement).length, 4);
+const capped = { profiles: [{ name: "mobile-emulated", activeRender: { averageFps: 22, targetFps: 22 } }] };
+assert.equal(browserPerformanceWarnings(capped).length, 0, "respetar un limite intencional de FPS no es degradacion");
+capped.profiles[0].activeRender.averageFps = 15;
+assert.equal(browserPerformanceWarnings(capped).length, 1, "caer por debajo del objetivo debe advertirse");
+const wrongMode = structuredClone(measurement);
+wrongMode.profiles[1].checks.sceneModeMatches = false;
+assert.equal(hasCompleteBrowserMeasurement(wrongMode), false, "un modo declarado incorrecto invalida la muestra");
 console.log("performance-metrics.test.js ok");

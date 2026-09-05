@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-05T13:41:43.159Z",
+  "generatedAt": "2026-09-05T18:36:55.222Z",
   "status": "operativo",
   "startup": {
-    "critical": "815 KB",
-    "criticalBytes": 834997,
+    "critical": "817 KB",
+    "criticalBytes": 836315,
     "deferred": "3.10 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 13106533,
@@ -23,8 +23,8 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 561647,
-        "human": "548 KB",
+        "bytes": 562965,
+        "human": "550 KB",
         "startupCritical": true
       },
       {
@@ -812,14 +812,14 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 561647,
-      "human": "548 KB"
+      "bytes": 562965,
+      "human": "550 KB"
     },
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 254434,
-      "human": "248 KB"
+      "bytes": 255489,
+      "human": "250 KB"
     },
     {
       "path": "style.css",
@@ -858,15 +858,15 @@
       "human": "15 KB"
     },
     {
+      "path": "TECHNICAL.md",
+      "exists": true,
+      "bytes": 13276,
+      "human": "13 KB"
+    },
+    {
       "path": "app-quiz-ui.js",
       "exists": true,
       "bytes": 12766,
-      "human": "12 KB"
-    },
-    {
-      "path": "TECHNICAL.md",
-      "exists": true,
-      "bytes": 12672,
       "human": "12 KB"
     },
     {
@@ -908,7 +908,7 @@
     {
       "path": "package.json",
       "exists": true,
-      "bytes": 5306,
+      "bytes": 5389,
       "human": "5 KB"
     },
     {
@@ -964,7 +964,7 @@
     "functions": 527,
     "asyncFunctions": 49,
     "consoleWarnings": 19,
-    "consoleErrors": 13
+    "consoleErrors": 14
   },
   "visualMetrics": {
     "index.html": {
@@ -1013,6 +1013,7 @@
     "import:conflicts:wikipedia",
     "maintain:quick",
     "measure:startup",
+    "performance:profile",
     "performance:snapshot",
     "prepush:check",
     "release:check",

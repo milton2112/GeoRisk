@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-05T13:43:52.732Z",
-  "packageVersion": "1.6.222",
+  "generatedAt": "2026-09-05T18:37:01.935Z",
+  "packageVersion": "1.6.223",
   "status": "observacion",
   "summary": {
     "totalFindings": 4,
     "bySeverity": {
       "media": 4
     },
-    "startupBytes": 834997,
-    "scriptBytes": 561647,
+    "startupBytes": 836315,
+    "scriptBytes": 562965,
     "countriesIndexBytes": 144225,
     "conflictAuditIssues": 0,
     "dataCounts": {
@@ -58,21 +58,21 @@
       "severity": "media",
       "area": "performance",
       "title": "Rendimiento real por revisar",
-      "detail": "desktop: 4 tareas >200 ms; maxima 269 ms.",
+      "detail": "desktop: 7 tareas >200 ms; maxima 216 ms.",
       "command": "npm run performance:snapshot -- --fresh"
     },
     {
       "severity": "media",
       "area": "performance",
       "title": "Rendimiento real por revisar",
-      "detail": "mobile-emulated: 1 tareas >200 ms; maxima 1095 ms.",
+      "detail": "desktop: render activo 21.6 FPS, umbral 27.2 (objetivo 34).",
       "command": "npm run performance:snapshot -- --fresh"
     },
     {
       "severity": "media",
       "area": "performance",
       "title": "Rendimiento real por revisar",
-      "detail": "mobile-emulated: render activo 22.1 FPS.",
+      "detail": "mobile-emulated: 1 tareas >200 ms; maxima 912 ms.",
       "command": "npm run performance:snapshot -- --fresh"
     },
     {

@@ -276,6 +276,8 @@ assert.ok(cleanStorage.includes('"node_modules"'), "clean:storage debe poder lib
 assert.ok(cleanStorage.includes("isInsideProject"), "clean:storage debe negarse a borrar fuera del proyecto");
 assert.ok(performanceSnapshot.includes("performance-snapshot.json"), "snapshot debe escribirse en reports/");
 assert.ok(performanceSnapshot.includes("measureBrowserPerformance(publicRoot)"), "snapshot debe medir el build publico en Chromium");
+assert.equal(packageJson.scripts["performance:profile"], "npm run build:prod && node scripts/profileStartup.js", "diagnostico debe reconstruir produccion antes de perfilar");
+assert.ok(criticalBrowserE2E.includes("viewer.scene.mode === Cesium.SceneMode.SCENE2D"), "la E2E debe comprobar el modo real en mobile");
 assert.ok(!performanceSnapshot.includes("simulateLongTasksAndFps"), "snapshot no debe presentar fixtures como rendimiento medido");
 assert.ok(packageJson.scripts.test.includes("test:performance-metrics"), "npm test debe validar calculos y vigencia de mediciones");
 assert.ok(dataAutomationAudit.includes("englishConflictNames"), "auditoria de datos debe listar conflictos en ingles");

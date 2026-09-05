@@ -26,7 +26,7 @@ export function performanceEnvironment() {
   };
 }
 
-async function launchBrowser() {
+export async function launchPerformanceBrowser() {
   const channel = process.env.PLAYWRIGHT_CHANNEL || (process.env.CI ? "" : "chrome");
   let lastError;
   for (const option of channel ? [{ channel }, {}] : [{}, { channel: "chrome" }]) {
@@ -123,6 +123,8 @@ async function measureProfile(browser, baseUrl, profile) {
       const probe = window.__geoRiskPerformanceProbe;
       probe.readyAt = performance.now();
       probe.mode = currentMapMode;
+      probe.sceneMode = viewer.scene.mode === Cesium.SceneMode.SCENE2D ? "2d" : viewer.scene.mode === Cesium.SceneMode.SCENE3D ? "3d" : "transition";
+      probe.targetFrameRate = viewer.targetFrameRate;
       probe.activeStart = performance.now();
       const scene = viewer.scene;
       const canvas = scene.canvas;
@@ -167,6 +169,8 @@ async function measureProfile(browser, baseUrl, profile) {
         endedAt: probe.endedAt,
         readyAt: probe.readyAt,
         mode: probe.mode,
+        sceneMode: probe.sceneMode,
+        targetFrameRate: probe.targetFrameRate,
         longTasks: probe.longTasks,
         droppedEntries: probe.droppedEntries,
         frameTimes: probe.frameTimes,
@@ -179,6 +183,7 @@ async function measureProfile(browser, baseUrl, profile) {
     });
     const longTasks = summarizeLongTasks(raw.longTasks);
     const activeRender = summarizeRenderFrames(raw.frameTimes, raw.activeStart, raw.activeEnd);
+    activeRender.targetFps = raw.targetFrameRate;
     const checks = {
       longTasksSupported: raw.supported,
       fullWindowObserved: raw.endedAt >= PERFORMANCE_WINDOW_MS,
@@ -186,6 +191,7 @@ async function measureProfile(browser, baseUrl, profile) {
       activeSampleWithinWindow: raw.activeEnd <= raw.endedAt,
       canvasRendered: activeRender.frames > 0 && raw.nonblankCanvas,
       canvasChanged: raw.changingCanvas,
+      sceneModeMatches: raw.mode === raw.sceneMode,
       noPageErrors: pageErrors.length === 0,
       noMissingLocalResources: !resourceErrors.some(item => item.url.startsWith("/")),
       noHeavyStartupRequests: heavyRequests.length === 0
@@ -196,6 +202,7 @@ async function measureProfile(browser, baseUrl, profile) {
       observedWindowMs: raw.endedAt,
       appReadyMs: raw.readyAt,
       initialMapMode: raw.mode,
+      initialSceneMode: raw.sceneMode,
       longTasks,
       activeRender,
       bootSteps: raw.bootSteps,
@@ -218,7 +225,7 @@ export async function measureBrowserPerformance(root) {
   await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
   let browser;
   try {
-    browser = await launchBrowser();
+    browser = await launchPerformanceBrowser();
     const profiles = [];
     const baseUrl = "http://127.0.0.1:" + server.address().port;
     for (const profile of PERFORMANCE_PROFILES) profiles.push(await measureProfile(browser, baseUrl, profile));

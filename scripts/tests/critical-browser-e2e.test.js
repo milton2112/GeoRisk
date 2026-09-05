@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import fs from "node:fs/promises";
 import { chromium } from "@playwright/test";
 import { createLocalSmokeServer } from "../localSmokeServer.js";
 
@@ -76,6 +77,7 @@ async function waitForAppReady(page) {
 async function waitForMapMode(page, expectedMode) {
   await page.waitForFunction(mode => {
     return currentMapMode === mode &&
+      viewer.scene.mode === (mode === "2d" ? Cesium.SceneMode.SCENE2D : Cesium.SceneMode.SCENE3D) &&
       loadMapMode === mode &&
       !loadMapPromise &&
       countryLayers.has("ARG") &&
@@ -288,6 +290,8 @@ async function assertMobileLayersWorkspace(page) {
 
 async function runDesktopCriticalFlow(page) {
   await waitForAppReady(page);
+  assert.equal(await page.evaluate(() => viewer.scene.mode === Cesium.SceneMode.SCENE3D), true, "desktop debe iniciar en una escena 3D real");
+  await page.screenshot({ path: "tmp/map-desktop.png" });
 
   await setMapMode(page, "2d");
   await clickCountryOnMap(page, "ARG");
@@ -335,6 +339,22 @@ async function runDesktopCriticalFlow(page) {
 
 async function runMobileCriticalFlow(page) {
   await waitForAppReady(page);
+  assert.equal(await page.evaluate(() => viewer.scene.mode === Cesium.SceneMode.SCENE2D), true, "mobile debe iniciar en una escena 2D real, no solo declarar el modo");
+  await waitForMapMode(page, "2d");
+  await page.screenshot({ path: "tmp/map-mobile.png" });
+  const worldWidthRatio = await page.evaluate(() => {
+    const frustum = viewer.camera.frustum;
+    return Cesium.Math.TWO_PI * Cesium.Ellipsoid.WGS84.maximumRadius / (frustum.right - frustum.left);
+  });
+  assert.ok(worldWidthRatio > 0.85 && worldWidthRatio < 1.01, "el mapa 2D debe aprovechar el ancho del movil sin recortar el mundo");
+  await clickCountryOnMap(page, "ARG");
+  await waitForCountryPanel(page, "Argentina");
+  await closeCountryPanel(page);
+  await setMapMode(page, "3d");
+  await setMapMode(page, "2d");
+  await page.evaluate(() => { applyMapMode("3d"); applyMapMode("2d"); });
+  await waitForMapMode(page, "2d");
+  assert.equal(await page.evaluate(() => cancelPendingMapTransition), null, "los cambios rapidos deben limpiar la transicion pendiente");
   await assertMobileLayersWorkspace(page);
   await page.locator("#toggle-left-panel").click();
   const rankingItem = page.locator("#top-population .rank-link").first();
@@ -359,6 +379,7 @@ await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
 
 let browser;
 try {
+  await fs.mkdir("tmp", { recursive: true });
   const { port } = server.address();
   const baseUrl = "http://127.0.0.1:" + port;
   browser = await launchCriticalBrowser();

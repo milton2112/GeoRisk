@@ -1,6 +1,8 @@
 node_modules/
 dist/
+/tmp/
 reports/release-status.json
+reports/startup-profile.json
 reports/provisional-conflict-candidates.json
 .env
 .DS_Store

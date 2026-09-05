@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.222 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.223 antes de cerrar la siguiente version.
+
+## v1.6.223 - 2026-09-05
+
+- Corrige el arranque móvil: el modo declarado era 2D pero Cesium construía una escena 3D. Selecciona modo, cámara, imágenes y perfil antes de crear el motor.
+- Corrige el encuadre 2D vertical para aprovechar el ancho disponible y permite pintar el estado de carga antes de construir WebGL.
+- Sincroniza el ajuste de cámara con la finalización real de la transición de Cesium; cancela transiciones pendientes para evitar errores y trabajo obsoleto ante cambios rápidos.
+- Refuerza las pruebas reales con escena inicial, selección de países en móvil, transición 2D/3D y capturas en escritorio y celular emulado.
+- El snapshot registra el modo real de Cesium y el objetivo de FPS; detecta discrepancias de escena y evita marcar como caída el límite móvil intencional de 22 FPS.
+- Agrega `npm run performance:profile` para diagnosticar tareas de arranque con traza y muestreo de CPU; el reporte efímero no se mezcla con la medición de release.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-05-release-3`.
 
 ## v1.6.222 - 2026-09-05
 

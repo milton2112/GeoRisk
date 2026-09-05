@@ -83,7 +83,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-09-05-release-2";
+const APP_VERSION = "2026-09-05-release-3";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -2280,6 +2280,8 @@ function initializeViewer() {
     fallbackBanner.textContent = "";
   }
 
+  currentMapMode = getDefaultMapMode();
+  const preset = getPerformancePreset();
   viewer = new Cesium.Viewer("map", {
     animation: false,
     baseLayer: false,
@@ -2292,6 +2294,7 @@ function initializeViewer() {
     maximumRenderTimeChange: Infinity,
     requestRenderMode: true,
     sceneModePicker: false,
+    sceneMode: currentMapMode === "2d" ? Cesium.SceneMode.SCENE2D : Cesium.SceneMode.SCENE3D,
     scene3DOnly: false,
     selectionIndicator: false,
     terrainProvider: new Cesium.EllipsoidTerrainProvider(),
@@ -2311,7 +2314,6 @@ function initializeViewer() {
   viewer.scene.skyAtmosphere.show = false;
   viewer.scene.sun.show = false;
   viewer.scene.moon.show = false;
-  const preset = getPerformancePreset();
   viewer.targetFrameRate = preset.targetFrameRate;
   viewer.resolutionScale = preset.resolutionScale;
   viewer.scene.globe.enableLighting = false;
@@ -2330,8 +2332,8 @@ function initializeViewer() {
   viewer.scene.screenSpaceCameraController.enableCollisionDetection = false;
   viewer.scene.screenSpaceCameraController.enableTilt = false;
   viewer.scene.screenSpaceCameraController.enableLook = false;
-  viewer.scene.screenSpaceCameraController.minimumZoomDistance = 850000;
-  viewer.scene.screenSpaceCameraController.maximumZoomDistance = getMaxGlobeDistance();
+  viewer.scene.screenSpaceCameraController.minimumZoomDistance = currentMapMode === "2d" ? 1 : 850000;
+  viewer.scene.screenSpaceCameraController.maximumZoomDistance = currentMapMode === "2d" ? Infinity : getMaxGlobeDistance();
   viewer.camera.constrainedAxis = Cesium.Cartesian3.UNIT_Z;
   viewer.cesiumWidget.creditContainer.style.display = "none";
 
@@ -2341,14 +2343,7 @@ function initializeViewer() {
     console.error("No se pudo resetear la camara:", error);
   }
 
-  const earthRadius = Cesium.Ellipsoid.WGS84.maximumRadius;
-  viewer.camera.flyToBoundingSphere(
-    new Cesium.BoundingSphere(Cesium.Cartesian3.ZERO, earthRadius),
-    {
-      offset: new Cesium.HeadingPitchRange(0, -1.03, getInitialGlobeDistance()),
-      duration: 0
-    }
-  );
+  fitWorldView();
 
   viewer.camera.moveStart.addEventListener(() => {
     lastInteractionAt = Date.now();
@@ -2397,7 +2392,6 @@ function initializeViewer() {
     renderMapLabels();
   }, 200);
 
-  currentMapMode = getDefaultMapMode();
   updateMapModeToggle();
 
   return viewer;
@@ -2409,10 +2403,12 @@ function fitWorldView() {
   }
   if (currentMapMode === "2d") {
     viewer.camera.cancelFlight();
-    viewer.camera.flyTo({
-      destination: Cesium.Rectangle.fromDegrees(-180, -70, 180, 85),
-      duration: 0
-    });
+    const destination = viewer.camera.getRectangleCameraCoordinates(Cesium.Rectangle.fromDegrees(-180, -70, 180, 85));
+    if (!destination) return;
+    const frustum = viewer.camera.frustum;
+    // Cesium 1.127 returns the larger frustum dimension; 2D setView expects width.
+    destination.z *= Math.min(1, frustum.right / frustum.top) / 0.94;
+    viewer.camera.setView({ destination, convert: false });
     requestMapRenderSafe("world-view-2d");
     return;
   }
@@ -2499,6 +2495,9 @@ function applyMapMode(mode, animate = true) {
     return;
   }
 
+  cancelPendingMapTransition?.();
+  cancelPendingMapTransition = null;
+
   if (detailedOverlayUpgradeTimer) {
     clearTimeout(detailedOverlayUpgradeTimer);
     detailedOverlayUpgradeTimer = null;
@@ -2513,6 +2512,31 @@ function applyMapMode(mode, animate = true) {
   appStore?.setState({ mapMode: currentMapMode }, "map-mode");
   applyImageryForMode();
 
+  const expectedSceneMode = normalizedMode === "2d" ? Cesium.SceneMode.SCENE2D : Cesium.SceneMode.SCENE3D;
+  let settled = false;
+  let removeMorphListener = null;
+  let settleTimer = null;
+  const cancel = () => {
+    settled = true;
+    removeMorphListener?.();
+    clearTimeout(settleTimer);
+  };
+  const finishTransition = async () => {
+    if (settled || currentMapMode !== normalizedMode || viewer.scene.mode !== expectedSceneMode) return;
+    cancel();
+    if (cancelPendingMapTransition === cancel) cancelPendingMapTransition = null;
+    await loadMap();
+    if (currentMapMode !== normalizedMode || viewer.scene.mode !== expectedSceneMode) return;
+    fitWorldView();
+    lastOverlayBucket = getCurrentOverlayBucket();
+    renderMapLabels();
+    viewer.scene.requestRender();
+    updateAppStatusPanel();
+  };
+  const settle = () => finishTransition().catch(error => console.error("No se pudo completar el cambio de mapa:", error));
+  cancelPendingMapTransition = cancel;
+  removeMorphListener = viewer.scene.morphComplete.addEventListener(settle);
+
   if (normalizedMode === "2d") {
     viewer.scene.morphTo2D(transitionPlan.duration);
   } else {
@@ -2520,14 +2544,7 @@ function applyMapMode(mode, animate = true) {
   }
 
   updateMapInteractionTuning();
-  setTimeout(async () => {
-    await loadMap();
-    fitWorldView();
-    lastOverlayBucket = getCurrentOverlayBucket();
-    renderMapLabels();
-    viewer.scene.requestRender();
-    updateAppStatusPanel();
-  }, transitionPlan.settleMs);
+  if (!settled) settleTimer = setTimeout(settle, transitionPlan.settleMs);
   updateMapModeToggle();
   updateAppStatusPanel();
 }
@@ -2580,6 +2597,7 @@ let continentBoundsLayer = null;
 let worldPopulationTotal = 0;
 let currentTheme = "default";
 let currentMapMode = "3d";
+let cancelPendingMapTransition = null;
 let selectionMode = "country";
 let compareSelection = [];
 const compareDataCache = new Map();
@@ -3471,10 +3489,10 @@ function getCachedRanking(key, buildFn) {
   return rankingCache.get(cacheKey);
 }
 
-function yieldToMainThread() {
+function yieldToMainThread(priority = "background") {
   return new Promise(resolve => {
     if (typeof scheduler !== "undefined" && typeof scheduler.postTask === "function") {
-      scheduler.postTask(resolve, { priority: "background" });
+      scheduler.postTask(resolve, { priority });
       return;
     }
     setTimeout(resolve, 0);
@@ -14666,6 +14684,8 @@ async function init() {
     const shouldStartCollapsed = true;
     currentTheme = "default";
     applyAppMode(appMode, false);
+    // Let the loading state paint before constructing the WebGL scene.
+    await yieldToMainThread("user-visible");
     await measureBootStep("viewerBoot", async () => {
       setStartupStatus(currentLanguage === "en" ? "Starting the map engine." : "Iniciando el motor del mapa.");
       initializeViewer();

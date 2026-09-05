@@ -366,6 +366,10 @@ assert.ok(script.includes("detail.countryRelationship.sideLabels"), "modal de co
 assert.ok(!script.includes("function getCountryClickTarget"), "helpers de seleccion de mapa sin uso no deben quedar en runtime critico");
 assert.ok(appCountryPanel.includes("Que falta curar"), "ficha pais debe mostrar que falta curar");
 assert.ok(appRuntime.includes(" - rendimiento"), "perfil runtime debe usar separador ASCII estable");
+const viewerSetup = script.slice(script.indexOf("function initializeViewer()"), script.indexOf("function fitWorldView()"));
+assert.ok(viewerSetup.indexOf("currentMapMode = getDefaultMapMode()") < viewerSetup.indexOf("new Cesium.Viewer"), "modo inicial debe elegirse antes de crear Cesium");
+assert.ok(viewerSetup.includes('sceneMode: currentMapMode === "2d" ? Cesium.SceneMode.SCENE2D : Cesium.SceneMode.SCENE3D'), "el constructor debe recibir la escena real");
+assert.ok(script.includes('await yieldToMainThread("user-visible")'), "el arranque debe ceder el hilo antes de construir WebGL");
 assert.ok(!appRuntime.includes("Â"), "app-runtime no debe exponer mojibake visible");
 assert.ok(script.includes("fecha pendiente"), "conflictos sin fecha deben mostrar estado de curaduria pendiente");
 assert.ok(script.includes("function formatHistoricalYear(value)"), "fechas antiguas deben formatearse sin mostrar anos negativos crudos");
