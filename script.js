@@ -83,7 +83,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-09-05-release-3";
+const APP_VERSION = "2026-09-06-release-1";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -14773,21 +14773,27 @@ async function init() {
           ensureDeferredUiModule("text"),
           ensureDeferredUiModule("uiPolish")
         ]);
-        safeUiTask("search events", () => setupSearchEvents());
-        safeUiTask("theme controls", () => setupThemeControls());
-        safeUiTask("map mode control", () => setupMapModeControl());
-        safeUiTask("ranking groups", () => setupRankingGroups());
-        safeUiTask("extended static text", () => updateExtendedStaticText());
-        safeUiTask("compare controls", () => setupCompareControls());
-        safeUiTask("quiz controls", () => setupQuizControls());
-        safeUiTask("rankings panel", () => setupRankingsPanel());
-        safeUiTask("compare hub", () => setupCompareHubPanel());
-        safeUiTask("quiz hub", () => setupQuizHubPanel());
-        safeUiTask("news hub", () => setupNewsHubPanel());
-        safeUiTask("saved views", () => setupSavedViewControls());
-        safeUiTask("global shortcuts", () => setupGlobalKeyboardShortcuts());
-        safeUiTask("mobile controls", () => setupMobilePanelControls());
-        safeUiTask("ui polish", () => uiPolish.init?.());
+        const uiTasks = [
+          ["search events", () => setupSearchEvents()],
+          ["theme controls", () => setupThemeControls()],
+          ["map mode control", () => setupMapModeControl()],
+          ["ranking groups", () => setupRankingGroups()],
+          ["extended static text", () => updateExtendedStaticText()],
+          ["compare controls", () => setupCompareControls()],
+          ["quiz controls", () => setupQuizControls()],
+          ["rankings panel", () => setupRankingsPanel()],
+          ["compare hub", () => setupCompareHubPanel()],
+          ["quiz hub", () => setupQuizHubPanel()],
+          ["news hub", () => setupNewsHubPanel()],
+          ["saved views", () => setupSavedViewControls()],
+          ["global shortcuts", () => setupGlobalKeyboardShortcuts()],
+          ["mobile controls", () => setupMobilePanelControls()],
+          ["ui polish", () => uiPolish.init?.()]
+        ];
+        for (const [name, task] of uiTasks) {
+          await yieldToMainThread("user-visible");
+          safeUiTask(name, task);
+        }
         await registerServiceWorker();
         updateAppStatusPanel();
       });

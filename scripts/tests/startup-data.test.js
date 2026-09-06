@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import fs from "fs-extra";
 import path from "path";
+import vm from "node:vm";
 
 const projectRoot = path.resolve(process.cwd());
 const full = await fs.readJson(path.join(projectRoot, "data", "countries_full.json"));
@@ -370,6 +371,26 @@ const viewerSetup = script.slice(script.indexOf("function initializeViewer()"), 
 assert.ok(viewerSetup.indexOf("currentMapMode = getDefaultMapMode()") < viewerSetup.indexOf("new Cesium.Viewer"), "modo inicial debe elegirse antes de crear Cesium");
 assert.ok(viewerSetup.includes('sceneMode: currentMapMode === "2d" ? Cesium.SceneMode.SCENE2D : Cesium.SceneMode.SCENE3D'), "el constructor debe recibir la escena real");
 assert.ok(script.includes('await yieldToMainThread("user-visible")'), "el arranque debe ceder el hilo antes de construir WebGL");
+const uiOrder = [];
+let uiBootPromise;
+const uiContext = {
+  currentLanguage: "es", setStartupStatus() {}, ensureDeferredUiModule: async () => {},
+  measureBootStep(name, task) { uiBootPromise = task(); },
+  yieldToMainThread: async priority => { assert.equal(priority, "user-visible"); uiOrder.push("yield"); },
+  registerServiceWorker: async () => uiOrder.push("offline"), updateAppStatusPanel() {},
+  console: { error() { uiOrder.push("handled-error"); } },
+  uiPolish: { init() { uiOrder.push("uiPolish"); } }
+};
+const uiNames = ["setupSearchEvents", "setupThemeControls", "setupMapModeControl", "setupRankingGroups", "updateExtendedStaticText", "setupCompareControls", "setupQuizControls", "setupRankingsPanel", "setupCompareHubPanel", "setupQuizHubPanel", "setupNewsHubPanel", "setupSavedViewControls", "setupGlobalKeyboardShortcuts", "setupMobilePanelControls"];
+for (const name of uiNames) uiContext[name] = () => {
+  uiOrder.push(name);
+  if (name === "setupThemeControls") throw new Error("simulated control failure");
+};
+const uiBootSource = script.slice(script.indexOf("const bootDeferredUi = () => {"), script.indexOf("const bootHeavyDataEnhancements ="));
+vm.runInNewContext(uiBootSource + "\nbootDeferredUi();", uiContext);
+await uiBootPromise;
+const expectedUiOrder = [...uiNames, "uiPolish"].flatMap(name => ["yield", name, ...(name === "setupThemeControls" ? ["handled-error"] : [])]);
+assert.deepEqual(uiOrder, [...expectedUiOrder, "offline"], "cada grupo de controles debe ceder el hilo y tolerar un fallo aislado");
 assert.ok(!appRuntime.includes("Â"), "app-runtime no debe exponer mojibake visible");
 assert.ok(script.includes("fecha pendiente"), "conflictos sin fecha deben mostrar estado de curaduria pendiente");
 assert.ok(script.includes("function formatHistoricalYear(value)"), "fechas antiguas deben formatearse sin mostrar anos negativos crudos");

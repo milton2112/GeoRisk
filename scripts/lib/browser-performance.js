@@ -39,6 +39,51 @@ export async function launchPerformanceBrowser() {
   throw lastError;
 }
 
+export function verifyCanvasMotion({ windowMs, timeoutMs = 5000 }) {
+  const probe = window.__geoRiskPerformanceProbe;
+  if (!(probe?.endedAt >= windowMs && probe.activeEnd <= probe.endedAt)) {
+    throw new Error("Canvas verification must run after the timing window closes.");
+  }
+  return new Promise(resolve => {
+    const scene = viewer.scene;
+    const canvas = scene.canvas;
+    const gl = canvas.getContext("webgl2") || canvas.getContext("webgl");
+    const result = { startedAt: performance.now(), samples: 0, nonblankCanvas: false, changingCanvas: false };
+    const signatures = new Set();
+    let removeListener;
+    let timer;
+    const finish = () => {
+      clearTimeout(timer);
+      removeListener?.();
+      resolve({ ...result, finishedAt: performance.now() });
+    };
+    if (!gl) { finish(); return; }
+    const pixel = new Uint8Array(4);
+    removeListener = scene.postRender.addEventListener(() => {
+      const colors = [];
+      for (const x of [0.25, 0.4, 0.5, 0.6, 0.75]) {
+        for (const y of [0.3, 0.5, 0.7]) {
+          gl.readPixels(Math.floor(canvas.width * x), Math.floor(canvas.height * y), 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, pixel);
+          colors.push(Array.from(pixel).join(","));
+        }
+      }
+      result.samples += 1;
+      result.nonblankCanvas ||= new Set(colors).size > 1;
+      signatures.add(colors.join(";"));
+      result.changingCanvas = signatures.size > 1;
+      if ((result.nonblankCanvas && result.changingCanvas) || result.samples >= 8) {
+        finish();
+        return;
+      }
+      if (scene.mode === Cesium.SceneMode.SCENE2D) viewer.camera.moveRight(300000);
+      else viewer.camera.rotateRight(0.03);
+      scene.requestRender();
+    });
+    timer = setTimeout(finish, timeoutMs);
+    scene.requestRender();
+  });
+}
+
 async function measureProfile(browser, baseUrl, profile) {
   const context = await browser.newContext({
     viewport: profile.viewport,
@@ -79,8 +124,6 @@ async function measureProfile(browser, baseUrl, profile) {
         droppedEntries: 0,
         supported: PerformanceObserver.supportedEntryTypes.includes("longtask"),
         frameTimes: [],
-        pixelSignatures: [],
-        nonblankCanvas: false,
         endedAt: null
       };
       const collect = entries => {
@@ -127,22 +170,8 @@ async function measureProfile(browser, baseUrl, profile) {
       probe.targetFrameRate = viewer.targetFrameRate;
       probe.activeStart = performance.now();
       const scene = viewer.scene;
-      const canvas = scene.canvas;
-      const gl = canvas.getContext("webgl2") || canvas.getContext("webgl");
       const removeListener = scene.postRender.addEventListener(() => {
         probe.frameTimes.push(performance.now());
-        if (!gl || probe.frameTimes.length % 30 !== 1) return;
-        const colors = [];
-        const pixel = new Uint8Array(4);
-        for (const x of [0.25, 0.4, 0.5, 0.6, 0.75]) {
-          for (const y of [0.3, 0.5, 0.7]) {
-            gl.readPixels(Math.floor(canvas.width * x), Math.floor(canvas.height * y), 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, pixel);
-            colors.push(Array.from(pixel).join(","));
-          }
-        }
-        if (new Set(colors).size > 1) probe.nonblankCanvas = true;
-        const signature = colors.join(";");
-        if (probe.pixelSignatures.length < 2 && !probe.pixelSignatures.includes(signature)) probe.pixelSignatures.push(signature);
       });
       const move = () => {
         if (performance.now() - probe.activeStart >= activeMs) {
@@ -162,6 +191,8 @@ async function measureProfile(browser, baseUrl, profile) {
       return probe.endedAt !== null && Boolean(probe.activeEnd);
     }, undefined, { timeout: PERFORMANCE_WINDOW_MS + 15000 });
 
+    // GPU readback can block the main thread; keep visual QA outside both timing samples.
+    const canvasVerification = await page.evaluate(verifyCanvasMotion, { windowMs: PERFORMANCE_WINDOW_MS });
     const raw = await page.evaluate(() => {
       const probe = window.__geoRiskPerformanceProbe;
       return {
@@ -176,8 +207,6 @@ async function measureProfile(browser, baseUrl, profile) {
         frameTimes: probe.frameTimes,
         activeStart: probe.activeStart,
         activeEnd: probe.activeEnd,
-        nonblankCanvas: probe.nonblankCanvas,
-        changingCanvas: probe.pixelSignatures.length > 1,
         bootSteps: typeof bootMetrics === "undefined" ? {} : Object.fromEntries(Object.entries(bootMetrics.steps).map(([name, step]) => [name, step.duration ?? null]))
       };
     });
@@ -189,8 +218,9 @@ async function measureProfile(browser, baseUrl, profile) {
       fullWindowObserved: raw.endedAt >= PERFORMANCE_WINDOW_MS,
       noDroppedEntries: raw.droppedEntries === 0,
       activeSampleWithinWindow: raw.activeEnd <= raw.endedAt,
-      canvasRendered: activeRender.frames > 0 && raw.nonblankCanvas,
-      canvasChanged: raw.changingCanvas,
+      canvasRendered: activeRender.frames > 0 && canvasVerification.nonblankCanvas,
+      canvasChanged: canvasVerification.changingCanvas,
+      canvasVerificationOutsideWindow: canvasVerification.startedAt >= raw.endedAt && canvasVerification.startedAt >= raw.activeEnd,
       sceneModeMatches: raw.mode === raw.sceneMode,
       noPageErrors: pageErrors.length === 0,
       noMissingLocalResources: !resourceErrors.some(item => item.url.startsWith("/")),
@@ -205,6 +235,7 @@ async function measureProfile(browser, baseUrl, profile) {
       initialSceneMode: raw.sceneMode,
       longTasks,
       activeRender,
+      canvasVerification,
       bootSteps: raw.bootSteps,
       resourceErrors,
       pageErrors,
@@ -238,6 +269,7 @@ export async function measureBrowserPerformance(root) {
         servedFrom: "dist/public",
         windowMs: PERFORMANCE_WINDOW_MS,
         activeRenderMs: ACTIVE_RENDER_MS,
+        canvasVerification: "pixel readback after the 60-second observer and FPS sample have finished; excluded from timing",
         interaction: "programmatic camera rotation in 3D or pan in 2D after map ready",
         intro: "dismissed",
         cache: "fresh context, HTTP cache disabled, service worker blocked",

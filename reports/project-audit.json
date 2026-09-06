@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-05T18:36:55.222Z",
+  "generatedAt": "2026-09-06T11:15:17.224Z",
   "status": "operativo",
   "startup": {
     "critical": "817 KB",
-    "criticalBytes": 836315,
+    "criticalBytes": 836372,
     "deferred": "3.10 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 13106533,
@@ -23,7 +23,7 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 562965,
+        "bytes": 563022,
         "human": "550 KB",
         "startupCritical": true
       },
@@ -812,13 +812,13 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 562965,
+      "bytes": 563022,
       "human": "550 KB"
     },
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 255489,
+      "bytes": 256353,
       "human": "250 KB"
     },
     {
@@ -860,8 +860,8 @@
     {
       "path": "TECHNICAL.md",
       "exists": true,
-      "bytes": 13276,
-      "human": "13 KB"
+      "bytes": 14158,
+      "human": "14 KB"
     },
     {
       "path": "app-quiz-ui.js",

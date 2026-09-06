@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.223 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.224 antes de cerrar la siguiente version.
+
+## v1.6.224 - 2026-09-06
+
+- Reparte la activación de buscador, capas, rankings y controles en tareas separadas, cediendo el hilo entre grupos y conservando el aislamiento de errores.
+- Corrige la instrumentación de rendimiento: la lectura síncrona de píxeles agregaba bloqueos a la propia prueba. La verificación visual ocurre después de cerrar los 60 segundos y la muestra de FPS, con tiempos de verificación separados.
+- Conserva las comprobaciones de canvas visible y en movimiento, falla ante muestras contaminadas y agrega regresiones de canvas vacío, congelado o sin render y continuidad de la inicialización de UI.
+- Invalida la reutilización de mediciones anteriores al cambio de metodología; los FPS y long tasks previos no son directamente comparables con la nueva serie.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-06-release-1`.
 
 ## v1.6.223 - 2026-09-05
 
