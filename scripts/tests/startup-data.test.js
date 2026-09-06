@@ -368,6 +368,11 @@ assert.ok(!script.includes("function getCountryClickTarget"), "helpers de selecc
 assert.ok(appCountryPanel.includes("Que falta curar"), "ficha pais debe mostrar que falta curar");
 assert.ok(appRuntime.includes(" - rendimiento"), "perfil runtime debe usar separador ASCII estable");
 const viewerSetup = script.slice(script.indexOf("function initializeViewer()"), script.indexOf("function fitWorldView()"));
+assert.ok(indexHtml.includes('import(window.CESIUM_BASE_URL + "index.js")'), "el motor debe usar la distribucion ESM fijada");
+assert.ok(!indexHtml.includes('Build/Cesium/Cesium.js"></script>'), "el arranque no debe evaluar el paquete IIFE bloqueante");
+const initSource = script.slice(script.indexOf("async function init()"));
+assert.ok(initSource.includes('await measureBootStep("mapEngine", () => window.GeoRiskMapEngineReady)'), "el arranque debe esperar y medir la carga del motor");
+assert.ok(initSource.indexOf("window.GeoRiskMapEngineReady") < initSource.indexOf("initializeViewer()"), "el arranque debe esperar al motor antes de crear la escena");
 assert.ok(viewerSetup.indexOf("currentMapMode = getDefaultMapMode()") < viewerSetup.indexOf("new Cesium.Viewer"), "modo inicial debe elegirse antes de crear Cesium");
 assert.ok(viewerSetup.includes('sceneMode: currentMapMode === "2d" ? Cesium.SceneMode.SCENE2D : Cesium.SceneMode.SCENE3D'), "el constructor debe recibir la escena real");
 assert.ok(script.includes('await yieldToMainThread("user-visible")'), "el arranque debe ceder el hilo antes de construir WebGL");

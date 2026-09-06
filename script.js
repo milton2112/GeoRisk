@@ -83,7 +83,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-09-06-release-1";
+const APP_VERSION = "2026-09-06-release-2";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -14684,6 +14684,7 @@ async function init() {
     const shouldStartCollapsed = true;
     currentTheme = "default";
     applyAppMode(appMode, false);
+    await measureBootStep("mapEngine", () => window.GeoRiskMapEngineReady);
     // Let the loading state paint before constructing the WebGL scene.
     await yieldToMainThread("user-visible");
     await measureBootStep("viewerBoot", async () => {

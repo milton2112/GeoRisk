@@ -68,6 +68,8 @@ async function waitForAppReady(page) {
       typeof countriesData !== "undefined" &&
       Object.keys(countriesData).length >= 180 &&
       Boolean(window.GeoRiskUiPolish) &&
+      !document.body.classList.contains("globe-loading") &&
+      viewer.scene.globe.tilesLoaded &&
       fatal?.hidden !== false
     );
   }, undefined, { timeout: APP_TIMEOUT_MS });
@@ -291,6 +293,7 @@ async function assertMobileLayersWorkspace(page) {
 async function runDesktopCriticalFlow(page) {
   await waitForAppReady(page);
   assert.equal(await page.evaluate(() => viewer.scene.mode === Cesium.SceneMode.SCENE3D), true, "desktop debe iniciar en una escena 3D real");
+  await waitForMapMode(page, "3d");
   await page.screenshot({ path: "tmp/map-desktop.png" });
 
   await setMapMode(page, "2d");
@@ -374,6 +377,49 @@ function assertHealthyPage(pageErrors, label) {
   assert.deepEqual(getRelevantPageErrors(pageErrors), [], label + " no debe emitir errores no controlados");
 }
 
+async function testMapEngineStartup(browser, baseUrl) {
+  for (const failure of [false, true]) {
+    const context = await browser.newContext({ viewport: MOBILE_VIEWPORT, isMobile: true, hasTouch: true, serviceWorkers: "block" });
+    let releaseEngine;
+    const held = new Promise(resolve => { releaseEngine = resolve; });
+    const pageErrors = [];
+    let engineRequests = 0;
+    let legacyRequests = 0;
+    try {
+      const page = await context.newPage();
+      page.on("pageerror", error => pageErrors.push(error.message));
+      page.on("request", request => { if (request.url().endsWith("/Cesium/Cesium.js")) legacyRequests += 1; });
+      await page.route("**/Build/Cesium/index.js", async route => {
+        engineRequests += 1;
+        await held;
+        if (failure) await route.abort("failed");
+        else await route.continue();
+      });
+      await page.addInitScript(() => localStorage.setItem("geo-risk-intro-seen", "true"));
+      await page.goto(baseUrl + "/index.html", { waitUntil: "domcontentloaded", timeout: APP_TIMEOUT_MS });
+      await page.waitForFunction(() => typeof bootMetrics !== "undefined" && Boolean(bootMetrics.steps.mapEngine));
+      assert.equal(await page.evaluate(() => viewer), null, "no se debe construir el mapa mientras falta el motor");
+      assert.equal(await page.locator("#startup-status").isVisible(), true, "una descarga lenta debe conservar el estado de carga");
+      releaseEngine();
+      if (failure) {
+        await page.locator("#fatal-error-banner").waitFor({ state: "visible" });
+        assert.match(await page.locator("#fatal-error-banner").innerText(), /no pudo terminar de inicializarse/);
+        assert.equal(await page.evaluate(() => viewer), null);
+        assert.equal(await page.locator("#startup-status").isVisible(), false);
+      } else {
+        await waitForAppReady(page);
+        assert.equal(await page.evaluate(() => viewer.scene.mode), await page.evaluate(() => Cesium.SceneMode.SCENE2D));
+      }
+      assert.equal(engineRequests, 1, "el motor no debe descargarse dos veces");
+      assert.equal(legacyRequests, 0, "el paquete anterior no debe cargarse de respaldo silencioso");
+      assertHealthyPage(pageErrors, failure ? "fallo de motor" : "motor lento");
+    } finally {
+      releaseEngine();
+      await context.close();
+    }
+  }
+}
+
 const server = createLocalSmokeServer();
 await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
 
@@ -383,6 +429,7 @@ try {
   const { port } = server.address();
   const baseUrl = "http://127.0.0.1:" + port;
   browser = await launchCriticalBrowser();
+  await testMapEngineStartup(browser, baseUrl);
 
   const desktop = await createTestPage(browser, baseUrl, DESKTOP_VIEWPORT);
   try {

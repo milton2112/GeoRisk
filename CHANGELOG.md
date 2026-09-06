@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.224 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.225 antes de cerrar la siguiente version.
+
+## v1.6.225 - 2026-09-06
+
+- Sustituye el paquete IIFE bloqueante de Cesium por la distribución ESM oficial de la misma versión 1.127, sin reducir funciones ni calidad del mapa.
+- Descarga el motor de forma asíncrona y espera su disponibilidad antes de crear la escena; conserva el estado de carga en conexiones lentas y presenta errores controlados si falla el CDN.
+- Agrega pruebas reales de motor demorado, fallo de descarga, inicialización única y continuidad de los flujos de países, búsqueda, rankings y transiciones 2D/3D.
+- Registra la espera del motor en `bootMetrics.steps.mapEngine`, actualiza el inventario de dependencias externas y añade diagnóstico `performance:profile -- --trace-only` sin muestreo de CPU.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-06-release-2`.
 
 ## v1.6.224 - 2026-09-06
 

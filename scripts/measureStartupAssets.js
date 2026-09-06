@@ -39,7 +39,7 @@ const LOCAL_ASSETS = [
 ];
 
 const CESIUM_ASSETS = [
-  "https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Cesium.js",
+  "https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/index.js",
   "https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Widgets/widgets.css"
 ];
 

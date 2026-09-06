@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-06T11:15:18.870Z",
-  "startupBytes": 836372,
+  "generatedAt": "2026-09-06T16:10:03.654Z",
+  "startupBytes": 836704,
   "startupHuman": "817 KB",
   "deferredBytes": 3253865,
   "deferredHuman": "3.10 MB",
@@ -22,7 +22,7 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 563022,
+      "bytes": 563098,
       "human": "550 KB",
       "startupCritical": true
     },
@@ -71,7 +71,7 @@
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 31766,
+      "bytes": 32022,
       "human": "31 KB",
       "startupCritical": true
     },
@@ -101,14 +101,14 @@
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 31766,
+      "bytes": 32022,
       "human": "31 KB",
       "startupCritical": true
     },
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 563022,
+      "bytes": 563098,
       "human": "550 KB",
       "startupCritical": true
     },
@@ -332,7 +332,7 @@
   ],
   "externalRuntimeAssets": [
     {
-      "url": "https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Cesium.js",
+      "url": "https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/index.js",
       "measuredLocally": false,
       "note": "Se descarga/cachea desde Cesium en runtime."
     },

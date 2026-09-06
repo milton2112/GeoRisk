@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-06T11:15:24.668Z",
-  "packageVersion": "1.6.224",
+  "generatedAt": "2026-09-06T16:12:21.435Z",
+  "packageVersion": "1.6.225",
   "status": "observacion",
   "summary": {
-    "totalFindings": 4,
+    "totalFindings": 5,
     "bySeverity": {
-      "media": 4
+      "media": 5
     },
-    "startupBytes": 836372,
-    "scriptBytes": 563022,
+    "startupBytes": 836704,
+    "scriptBytes": 563098,
     "countriesIndexBytes": 144225,
     "conflictAuditIssues": 0,
     "dataCounts": {
@@ -48,6 +48,11 @@
       "command": "npm run performance:snapshot -- --fresh"
     },
     {
+      "area": "performance",
+      "title": "Rendimiento real por revisar",
+      "command": "npm run performance:snapshot -- --fresh"
+    },
+    {
       "area": "datos",
       "title": "Jerarquias de conflicto todavia provisionales",
       "command": "npm run fix:conflicts:batches"
@@ -58,21 +63,28 @@
       "severity": "media",
       "area": "performance",
       "title": "Rendimiento real por revisar",
-      "detail": "desktop: 2 tareas >200 ms; maxima 212 ms.",
+      "detail": "desktop: 17 tareas >200 ms; maxima 1489 ms.",
       "command": "npm run performance:snapshot -- --fresh"
     },
     {
       "severity": "media",
       "area": "performance",
       "title": "Rendimiento real por revisar",
-      "detail": "desktop: render activo 25.9 FPS, umbral 27.2 (objetivo 34).",
+      "detail": "desktop: render activo 9.8 FPS, umbral 27.2 (objetivo 34).",
       "command": "npm run performance:snapshot -- --fresh"
     },
     {
       "severity": "media",
       "area": "performance",
       "title": "Rendimiento real por revisar",
-      "detail": "mobile-emulated: 1 tareas >200 ms; maxima 963 ms.",
+      "detail": "mobile-emulated: 8 tareas >200 ms; maxima 1106 ms.",
+      "command": "npm run performance:snapshot -- --fresh"
+    },
+    {
+      "severity": "media",
+      "area": "performance",
+      "title": "Rendimiento real por revisar",
+      "detail": "mobile-emulated: render activo 13.6 FPS, umbral 17.6 (objetivo 22).",
       "command": "npm run performance:snapshot -- --fresh"
     },
     {
