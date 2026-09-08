@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.225 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.226 antes de cerrar la siguiente version.
+
+## v1.6.226 - 2026-09-08
+
+- Corrige un ciclo de movimiento permanente: cambiar la resolucion al arrastrar/restaurar redimensionaba el frustum de Cesium y disparaba nuevos movimientos. Mantiene estable el canvas y reduce detalle durante el arrastre sin sobrescribir la resolucion adaptativa.
+- Corrige la deteccion de zoom cercano: el detalle geografico de escritorio se activa bajo demanda; 2D, movil y arranque conservan la geometria simplificada.
+- Mantiene la capa anterior y los clics durante una recarga; conserva seleccion de pais, religion o continente y el encuadre al aplicar detalle.
+- Descarta respuestas obsoletas al cambiar de vista o alejarse, permite reintentar tras errores y reutiliza una capa que ya esta activa.
+- Retira las fuentes reemplazadas, evita callbacks de hover sobre capas retiradas y elimina la precarga de geometria detallada al explorar en 2D.
+- Agrega regresiones de red lenta, errores en preparacion/carga/indexado, carreras de solicitudes, resaltados y continuidad de clics en navegador real.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-08-release-1`.
 
 ## v1.6.225 - 2026-09-06
 

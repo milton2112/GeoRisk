@@ -74,6 +74,17 @@ GeoRisk es una aplicacion frontend orientada a exploracion geopolitica con datas
 9. En el mapa, resuelve clicks del GeoJSON a codigos ISO o especiales.
 10. La ficha modal, timeline, comparador, quiz y noticias consumen datos bajo demanda segun la vista activa.
 
+## Recarga progresiva del mapa
+
+- La navegacion adapta el detalle del globo, no la resolucion del framebuffer. Alternar esa resolucion en `moveStart`/`moveEnd` redimensiona el frustum y puede reiniciar el movimiento indefinidamente. El perfil elegido y el monitor adaptativo siguen controlando la resolucion.
+- El arranque, el modo 2D y los moviles usan siempre `world_countries_simplified.geo.json`. El precalentamiento del modo alternativo tambien usa esa geometria.
+- En escritorio 3D, `get3DZoomBucket()` devuelve `near`, `mid` o `far`; `getCurrentOverlayBucket()` agrega el prefijo de modo solo para estilos y etiquetas.
+- El detalle se solicita con zoom cercano y camara quieta. Se vuelve a verificar modo, zoom y solicitud vigente despues de cada espera asincrona.
+- `loadMap(false, { preserveView: true })` conserva la capa activa durante la descarga y el indexado; solo reemplaza referencias al completar la nueva fuente. Los errores dejan la fuente anterior disponible para reintentar.
+- `activeGeoJsonPath` y `activeGeoJsonMode` describen la fuente instalada, no una descarga pendiente. Una solicitud repetida reutiliza esa fuente, y una respuesta obsoleta no puede retirar la vigente.
+- Al reemplazar, se reconstruyen los resaltados por codigo con la seleccion mas reciente, se retiran la fuente y el handler anteriores y no se mueve la camara.
+- `scripts/tests/map-lifecycle.test.js` cubre el ciclo de carga con esperas controladas y corre dentro de `test:startup`. La E2E critica retrasa la descarga real y verifica encuadre, seleccion y clic sobre el nuevo detalle.
+
 ## Separacion de datos
 
 `data/data_manifest.json` define cuatro grupos:

@@ -83,7 +83,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-09-06-release-2";
+const APP_VERSION = "2026-09-08-release-1";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -1328,6 +1328,8 @@ function getCurrentOverlayBucket() {
 }
 
 let activeGeoJsonDataSource = null;
+let activeGeoJsonMode = "";
+let activeGeoJsonPath = "";
 let activeClickHandler = null;
 let mapSearchAliasesRegistered = false;
 let activeImagerySignature = "";
@@ -1428,7 +1430,11 @@ async function getCachedGeoJson(path) {
     return geoJsonCache.get(path);
   }
 
-  const geoJsonPromise = fetchResourceCached(`${path}${path.includes("?") ? "&" : "?"}v=${APP_VERSION}`, "json");
+  const geoJsonPromise = fetchResourceCached(`${path}${path.includes("?") ? "&" : "?"}v=${APP_VERSION}`, "json")
+    .catch(error => {
+      if (geoJsonCache.get(path) === geoJsonPromise) geoJsonCache.delete(path);
+      throw error;
+    });
 
   geoJsonCache.set(path, geoJsonPromise);
   return geoJsonPromise;
@@ -1603,9 +1609,7 @@ function scheduleGeoJsonWarmup() {
   }
 
   const alternateMode = currentMapMode === "2d" ? "3d" : "2d";
-  const warmPath = alternateMode === "2d"
-    ? "./data/world_countries_simplified.geo.json"
-    : (isMobileLayout() ? "./data/world_countries_simplified.geo.json" : "./data/world_countries.geo.json");
+  const warmPath = "./data/world_countries_simplified.geo.json";
   const warm = () => {
     getPreparedGeoJson(warmPath, alternateMode).catch(error => {
       console.error("No se pudo precalentar el GeoJSON alternativo:", error);
@@ -1631,11 +1635,10 @@ function setNavigationQualityState(isNavigating) {
   }
 
   if (isNavigating) {
+    // Changing resolution here resizes Cesium's frustum and starts another camera movement.
     if (currentMapMode === "2d") {
-      viewer.resolutionScale = Math.max(isMobileLayout() ? 0.42 : 0.62, preset.resolutionScale - 0.1);
       viewer.scene.globe.maximumScreenSpaceError = Math.max(preset.maximumScreenSpaceError, preset.maximumScreenSpaceError + 2.1);
     } else {
-      viewer.resolutionScale = Math.max(isMobileLayout() ? 0.64 : 0.9, preset.resolutionScale - (qualityPreset === "high" ? 0.08 : 0.05));
       viewer.scene.globe.maximumScreenSpaceError = Math.max(preset.maximumScreenSpaceError, preset.maximumScreenSpaceError + 0.95);
       viewer.scene.globe.loadingDescendantLimit = Math.max(6, preset.loadingDescendantLimit - 3);
       viewer.scene.globe.tileCacheSize = Math.max(120, preset.tileCacheSize - 44);
@@ -1646,7 +1649,6 @@ function setNavigationQualityState(isNavigating) {
 
   navigationQualityRestoreTimer = setTimeout(() => {
     const stablePreset = getPerformancePreset();
-    viewer.resolutionScale = stablePreset.resolutionScale;
     viewer.scene.globe.maximumScreenSpaceError = stablePreset.maximumScreenSpaceError;
     viewer.scene.globe.tileCacheSize = stablePreset.tileCacheSize;
     viewer.scene.globe.loadingDescendantLimit = stablePreset.loadingDescendantLimit;
@@ -2365,10 +2367,8 @@ function initializeViewer() {
       lastOverlayBucket = nextBucket;
       lastStyleRefreshSignature = "";
       refreshCountryStyles();
-      if (nextBucket === "near") {
-        scheduleDetailedOverlayUpgrade();
-      }
     }
+    scheduleDetailedOverlayUpgrade();
     renderMapLabels();
   });
 
@@ -12117,10 +12117,10 @@ function getGeoJsonPathForCurrentMode(bootPhase = false) {
       mode: currentMapMode,
       bootPhase,
       isMobile: isMobileLayout(),
-      near: getCurrentOverlayBucket() === "near"
+      near: get3DZoomBucket() === "near"
     });
   }
-  return (bootPhase || isMobileLayout())
+  return (currentMapMode === "2d" || bootPhase || isMobileLayout() || get3DZoomBucket() !== "near")
     ? "./data/world_countries_simplified.geo.json"
     : "./data/world_countries.geo.json";
 }
@@ -13063,7 +13063,7 @@ function getPickedCountryEntityAt(position) {
   return stacked.map(getPickedCountryEntity).find(Boolean) || null;
 }
 
-async function loadMap(bootPhase = false) {
+async function loadMap(bootPhase = false, { preserveView = false } = {}) {
   const requestedMode = currentMapMode;
   const geoJsonPath = getGeoJsonPathForCurrentMode(bootPhase);
   if (loadMapPromise && loadMapMode === requestedMode && loadMapPath === geoJsonPath) {
@@ -13073,32 +13073,24 @@ async function loadMap(bootPhase = false) {
   const loadToken = ++mapOverlayLoadToken;
   loadMapMode = requestedMode;
   loadMapPath = geoJsonPath;
-  countryAreaCache = {};
+  if (activeGeoJsonDataSource && activeGeoJsonMode === requestedMode && activeGeoJsonPath === geoJsonPath) {
+    loadMapPromise = null;
+    return activeGeoJsonDataSource;
+  }
   initializeViewer();
   trimDataCaches();
+  const isObsolete = () => loadToken !== mapOverlayLoadToken || requestedMode !== currentMapMode ||
+    (preserveView && (isCameraNavigating || geoJsonPath !== getGeoJsonPathForCurrentMode()));
 
   loadMapPromise = measureBootStep("loadMapOverlay", async () => {
-    if (activeClickHandler) {
-      activeClickHandler.destroy();
-      activeClickHandler = null;
-    }
-    if (activeGeoJsonDataSource) {
-      try {
-        await viewer.dataSources.remove(activeGeoJsonDataSource, false);
-      } catch (error) {
-        console.error("No se pudo limpiar la capa GeoJSON anterior:", error);
-      }
-      activeGeoJsonDataSource = null;
-    }
-    countryLayers.clear();
-    countryClickTargets.clear();
     markBootStepStart("geoJsonPrepare");
     const geojson = await getPreparedGeoJson(geoJsonPath, requestedMode);
     markBootStepEnd("geoJsonPrepare", { mode: requestedMode });
-    if (loadToken !== mapOverlayLoadToken || requestedMode !== currentMapMode) {
+    if (isObsolete()) {
       return;
     }
     const featureNameByCode = {};
+    const nextCountryLayers = new Map();
     let dataSource = null;
 
     try {
@@ -13107,71 +13099,92 @@ async function loadMap(bootPhase = false) {
         clampToGround: false
       });
       markBootStepEnd("geoJsonCesiumLoad", { mode: requestedMode });
-      if (loadToken !== mapOverlayLoadToken || requestedMode !== currentMapMode) {
+      if (isObsolete()) {
         return;
       }
+
+      markBootStepStart("geoJsonEntityIndex");
+      const entitiesByCode = new Map();
+      dataSource.entities.values.forEach(entity => {
+        const properties = entity.properties;
+        const rawCode =
+          properties?.ISO_A3?.getValue?.() ||
+          properties?.iso_a3?.getValue?.() ||
+          properties?.ADM0_A3?.getValue?.() ||
+          properties?.ADM0_A3_US?.getValue?.() ||
+          properties?.WB_A3?.getValue?.() ||
+          properties?.BRK_A3?.getValue?.() ||
+          properties?.SOV_A3?.getValue?.() ||
+          properties?.GU_A3?.getValue?.() ||
+          entity.id;
+        const featureName =
+          properties?.name?.getValue?.() ||
+          properties?.ADMIN?.getValue?.() ||
+          properties?.NAME?.getValue?.() ||
+          properties?.formal_en?.getValue?.() ||
+          properties?.NAME_EN?.getValue?.() ||
+          rawCode;
+        const code = resolveCountryCode(rawCode, featureName) || rawCode;
+
+        if (!code) {
+          return;
+        }
+
+        registerCountryAlias(featureName, code, true);
+        featureNameByCode[code] = countriesData[code]?.name || featureName;
+        entity.countryCode = code;
+        entity.countryName = countriesData[code]?.name || featureName;
+        if (entity.polygon) {
+          entity.polygon.height = 0;
+          entity.polygon.perPositionHeight = false;
+          entity.polygon.outline = false;
+          entity.polygon.arcType = Cesium.ArcType.GEODESIC;
+          if (requestedMode === "2d") {
+            entity.polygon.granularity = Cesium.Math.RADIANS_PER_DEGREE * 1.2;
+          }
+        }
+        const list = entitiesByCode.get(code) || [];
+        list.push(entity);
+        entitiesByCode.set(code, list);
+      });
+
+      entitiesByCode.forEach((entities, code) => {
+        const layer = new CesiumCountryLayer(code, entities, featureNameByCode[code] || code);
+        layer.setStyle(getCountryThemeStyle(code));
+        nextCountryLayers.set(code, layer);
+      });
+      markBootStepEnd("geoJsonEntityIndex", { entities: dataSource.entities.values.length, countries: entitiesByCode.size });
+      dataSource.show = false;
       await viewer.dataSources.add(dataSource);
-      activeGeoJsonDataSource = dataSource;
+      if (isObsolete()) {
+        viewer.dataSources.remove(dataSource, true);
+        return;
+      }
     } catch (error) {
-      console.error("No se pudo cargar el GeoJSON 3D:", error);
-      fitWorldView();
-      return;
+      if (dataSource) viewer.dataSources.remove(dataSource, true);
+      throw error;
     }
 
-    markBootStepStart("geoJsonEntityIndex");
-    const entitiesByCode = new Map();
-    dataSource.entities.values.forEach(entity => {
-      const properties = entity.properties;
-      const rawCode =
-        properties?.ISO_A3?.getValue?.() ||
-        properties?.iso_a3?.getValue?.() ||
-        properties?.ADM0_A3?.getValue?.() ||
-        properties?.ADM0_A3_US?.getValue?.() ||
-        properties?.WB_A3?.getValue?.() ||
-        properties?.BRK_A3?.getValue?.() ||
-        properties?.SOV_A3?.getValue?.() ||
-        properties?.GU_A3?.getValue?.() ||
-        entity.id;
-      const featureName =
-        properties?.name?.getValue?.() ||
-        properties?.ADMIN?.getValue?.() ||
-        properties?.NAME?.getValue?.() ||
-        properties?.formal_en?.getValue?.() ||
-        properties?.NAME_EN?.getValue?.() ||
-        rawCode;
-      const code = resolveCountryCode(rawCode, featureName) || rawCode;
-
-      if (!code) {
-        return;
-      }
-
-      registerCountryAlias(featureName, code, true);
-      featureNameByCode[code] = countriesData[code]?.name || featureName;
-      entity.countryCode = code;
-      entity.countryName = countriesData[code]?.name || featureName;
-      if (entity.polygon) {
-        entity.polygon.height = 0;
-        entity.polygon.perPositionHeight = false;
-        entity.polygon.outline = false;
-        entity.polygon.arcType = Cesium.ArcType.GEODESIC;
-        if (requestedMode === "2d") {
-          entity.polygon.granularity = Cesium.Math.RADIANS_PER_DEGREE * 1.2;
-        }
-      }
-      const list = entitiesByCode.get(code) || [];
-      list.push(entity);
-      entitiesByCode.set(code, list);
-    });
-
-    entitiesByCode.forEach((entities, code) => {
-      const layer = new CesiumCountryLayer(code, entities, featureNameByCode[code] || code);
-      layer.setStyle(getCountryThemeStyle(code));
-      countryLayers.set(code, layer);
-    });
-    markBootStepEnd("geoJsonEntityIndex", { entities: dataSource.entities.values.length, countries: entitiesByCode.size });
-
+    // Keep the previous map interactive until its replacement is indexed and attached.
+    const previousSource = activeGeoJsonDataSource;
+    const selectionCodes = selectedLayers.map(layer => layer.code);
+    activeClickHandler?.destroy();
     const clickHandler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
     activeClickHandler = clickHandler;
+    activeGeoJsonDataSource = dataSource;
+    activeGeoJsonMode = requestedMode;
+    activeGeoJsonPath = geoJsonPath;
+    countryAreaCache = {};
+    countryLayers.clear();
+    nextCountryLayers.forEach((layer, code) => countryLayers.set(code, layer));
+    countryClickTargets.clear();
+    selectedLayers = selectionCodes.map(code => countryLayers.get(code)).filter(Boolean);
+    selectedLayer = selectionMode === "country" ? (selectedLayers[0] || null) : null;
+    if (continentBoundsLayer) continentBoundsLayer = createLayerGroup(selectedLayers);
+    lastStyleRefreshSignature = "";
+    refreshCountryStyles();
+    dataSource.show = true;
+    if (previousSource) viewer.dataSources.remove(previousSource, true);
     let hoveredLayer = null;
     let hoverFramePending = false;
     let pendingHoverLayer = null;
@@ -13269,6 +13282,7 @@ async function loadMap(bootPhase = false) {
     hoverFramePending = true;
     requestAnimationFrame(() => {
       hoverFramePending = false;
+      if (activeClickHandler !== clickHandler) return;
       const nextLayer = pendingHoverLayer;
 
       if (!nextLayer) {
@@ -13306,11 +13320,11 @@ async function loadMap(bootPhase = false) {
     if (!bootPhase) {
       applyImageryForMode(false);
     }
-    fitWorldView();
+    if (!preserveView) fitWorldView();
     renderMapLabels();
     scheduleGeoJsonWarmup();
   }).finally(() => {
-    if (loadMapMode === requestedMode && loadMapPath === geoJsonPath) {
+    if (loadToken === mapOverlayLoadToken) {
       loadMapPromise = null;
     }
   });
@@ -13385,7 +13399,7 @@ function scheduleDetailedOverlayUpgrade() {
   }
 
   const detailedPath = "./data/world_countries.geo.json";
-  if (loadMapPath === detailedPath) {
+  if (activeGeoJsonPath === detailedPath || (loadMapPromise && loadMapPath === detailedPath)) {
     return;
   }
   if (
@@ -13393,7 +13407,7 @@ function scheduleDetailedOverlayUpgrade() {
     mapCore.shouldDeferDetailedGeometry({
       mode: currentMapMode,
       isMobile: isMobileLayout(),
-      zoomBucket: getCurrentOverlayBucket(),
+      zoomBucket: get3DZoomBucket(),
       bootPhase: false
     })
   ) {
@@ -13402,14 +13416,15 @@ function scheduleDetailedOverlayUpgrade() {
 
   const scheduleUpgrade = () => {
     detailedOverlayUpgradeTimer = null;
-    if (currentMapMode !== "3d") {
+    if (currentMapMode !== "3d" || isMobileLayout() || get3DZoomBucket() !== "near" ||
+        activeGeoJsonPath === detailedPath || (loadMapPromise && loadMapPath === detailedPath)) {
       return;
     }
-    if (Date.now() - lastInteractionAt < 3000) {
+    if (isCameraNavigating || Date.now() - lastInteractionAt < 3000) {
       detailedOverlayUpgradeTimer = setTimeout(scheduleUpgrade, 3000);
       return;
     }
-    loadMap(false)
+    loadMap(false, { preserveView: true })
       .then(() => {
         lastOverlayBucket = getCurrentOverlayBucket();
         renderMapLabels();

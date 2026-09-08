@@ -420,6 +420,76 @@ async function testMapEngineStartup(browser, baseUrl) {
   }
 }
 
+async function testDetailedMapUpgrade(browser, baseUrl) {
+  const { context, page, pageErrors } = await createTestPage(browser, baseUrl, DESKTOP_VIEWPORT);
+  let releaseGeometry;
+  const held = new Promise(resolve => { releaseGeometry = resolve; });
+  let detailRequests = 0;
+  try {
+    await waitForAppReady(page);
+    await waitForMapMode(page, "3d");
+    assert.match(await page.evaluate(() => activeGeoJsonPath), /simplified/, "el arranque no necesita geometria detallada");
+    // Isolate geometry replacement from the independently tested automatic 2D fallback.
+    await page.locator("#map-toolbar > summary").click();
+    await page.locator("#quality-preset-select").selectOption("balanced");
+    await page.locator("#map-toolbar > summary").click();
+    await page.route("**/data/world_countries.geo.json*", async route => {
+      detailRequests += 1;
+      await held;
+      await route.continue();
+    });
+    await page.evaluate(() => {
+      setCountrySelection(countryLayers.get("ESP"));
+      window.__overlayBefore = { source: activeGeoJsonDataSource, handler: activeClickHandler, layer: selectedLayer };
+      window.__cameraMoves = [];
+      for (const eventName of ["moveStart", "moveEnd"]) viewer.camera[eventName].addEventListener(() => {
+        window.__cameraMoves.push({ eventName, at: performance.now(), position: Cesium.Cartesian3.clone(viewer.camera.positionWC), scale: viewer.resolutionScale });
+        window.__cameraMoves = window.__cameraMoves.slice(-12);
+      });
+    });
+    await focusCountryFor3dPick(page, "ESP");
+    await page.waitForFunction(() => Boolean(loadMapPromise) && loadMapPath.endsWith("/world_countries.geo.json"), undefined, { timeout: APP_TIMEOUT_MS });
+    assert.equal(await page.evaluate(() => activeGeoJsonDataSource === window.__overlayBefore.source &&
+      activeClickHandler === window.__overlayBefore.handler && selectedLayer === window.__overlayBefore.layer), true,
+    "la capa anterior y la seleccion deben seguir activas mientras llega el detalle");
+    await page.evaluate(() => {
+      window.__overlayBefore.position = Cesium.Cartesian3.clone(viewer.camera.positionWC);
+      window.__overlayBefore.direction = Cesium.Cartesian3.clone(viewer.camera.directionWC);
+      window.__overlayBefore.sources = viewer.dataSources.length;
+    });
+    releaseGeometry();
+    await page.waitForFunction(() => !loadMapPromise && activeGeoJsonPath.endsWith("/world_countries.geo.json"), undefined, { timeout: APP_TIMEOUT_MS });
+    const result = await page.evaluate(() => ({
+      moved: Cesium.Cartesian3.distance(viewer.camera.positionWC, window.__overlayBefore.position),
+      turned: Cesium.Cartesian3.distance(viewer.camera.directionWC, window.__overlayBefore.direction),
+      selected: selectedLayer === countryLayers.get("ESP") && selectedLayer !== window.__overlayBefore.layer,
+      highlighted: selectedLayer.currentStyleKey.includes(COUNTRY_HIGHLIGHT_STYLE.fillColor),
+      oldRemoved: !viewer.dataSources.contains(window.__overlayBefore.source),
+      oldHandlerDestroyed: window.__overlayBefore.handler.isDestroyed(),
+      sameCount: viewer.dataSources.length === window.__overlayBefore.sources
+    }));
+    assert.ok(result.moved < 1 && result.turned < 0.000001, "la mejora de detalle no debe cambiar encuadre ni orientacion");
+    for (const key of ["selected", "highlighted", "oldRemoved", "oldHandlerDestroyed", "sameCount"]) assert.equal(result[key], true, key);
+    assert.equal(detailRequests, 1, "el detalle debe solicitarse una sola vez y bajo demanda");
+    await page.evaluate(() => { clearSelection(); requestSceneRender(); });
+    await clickCountryOnMap(page, "ESP");
+    await page.waitForFunction(() => currentPanelState?.code === "ESP" && !document.getElementById("country-modal").hidden);
+    await closeCountryPanel(page);
+    await page.screenshot({ path: "tmp/map-detail-desktop.png" });
+    assertHealthyPage(pageErrors, "detalle progresivo");
+  } catch (error) {
+    console.error("Estado de detalle:", await page.evaluate(() => ({
+      mode: currentMapMode, zoom: get3DZoomBucket(), height: viewer?.camera.positionCartographic.height,
+      moving: isCameraNavigating, timer: detailedOverlayUpgradeTimer, path: loadMapPath,
+      activePath: activeGeoJsonPath, loading: Boolean(loadMapPromise), idleMs: Date.now() - lastInteractionAt, moves: window.__cameraMoves
+    })).catch(() => null));
+    throw error;
+  } finally {
+    releaseGeometry();
+    await context.close();
+  }
+}
+
 const server = createLocalSmokeServer();
 await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
 
@@ -429,22 +499,26 @@ try {
   const { port } = server.address();
   const baseUrl = "http://127.0.0.1:" + port;
   browser = await launchCriticalBrowser();
-  await testMapEngineStartup(browser, baseUrl);
+  const detailOnly = process.argv.includes("--detail-only");
+  if (!detailOnly) await testMapEngineStartup(browser, baseUrl);
+  await testDetailedMapUpgrade(browser, baseUrl);
 
-  const desktop = await createTestPage(browser, baseUrl, DESKTOP_VIEWPORT);
-  try {
-    await runDesktopCriticalFlow(desktop.page);
-    assertHealthyPage(desktop.pageErrors, "desktop");
-  } finally {
-    await desktop.context.close();
-  }
+  if (!detailOnly) {
+    const desktop = await createTestPage(browser, baseUrl, DESKTOP_VIEWPORT);
+    try {
+      await runDesktopCriticalFlow(desktop.page);
+      assertHealthyPage(desktop.pageErrors, "desktop");
+    } finally {
+      await desktop.context.close();
+    }
 
-  const mobile = await createTestPage(browser, baseUrl, MOBILE_VIEWPORT);
-  try {
-    await runMobileCriticalFlow(mobile.page);
-    assertHealthyPage(mobile.pageErrors, "mobile");
-  } finally {
-    await mobile.context.close();
+    const mobile = await createTestPage(browser, baseUrl, MOBILE_VIEWPORT);
+    try {
+      await runMobileCriticalFlow(mobile.page);
+      assertHealthyPage(mobile.pageErrors, "mobile");
+    } finally {
+      await mobile.context.close();
+    }
   }
 } finally {
   await browser?.close();

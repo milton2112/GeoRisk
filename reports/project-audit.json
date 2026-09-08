@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-06T16:09:58.106Z",
+  "generatedAt": "2026-09-08T14:42:56.932Z",
   "status": "operativo",
   "startup": {
-    "critical": "817 KB",
-    "criticalBytes": 836704,
+    "critical": "818 KB",
+    "criticalBytes": 837836,
     "deferred": "3.10 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 13106533,
@@ -23,8 +23,8 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 563098,
-        "human": "550 KB",
+        "bytes": 564230,
+        "human": "551 KB",
         "startupCritical": true
       },
       {
@@ -812,14 +812,14 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 563098,
-      "human": "550 KB"
+      "bytes": 564230,
+      "human": "551 KB"
     },
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 257155,
-      "human": "251 KB"
+      "bytes": 258255,
+      "human": "252 KB"
     },
     {
       "path": "style.css",
@@ -852,15 +852,15 @@
       "human": "23 KB"
     },
     {
+      "path": "TECHNICAL.md",
+      "exists": true,
+      "bytes": 16470,
+      "human": "16 KB"
+    },
+    {
       "path": "app-project-audit-ui.js",
       "exists": true,
       "bytes": 15060,
-      "human": "15 KB"
-    },
-    {
-      "path": "TECHNICAL.md",
-      "exists": true,
-      "bytes": 14888,
       "human": "15 KB"
     },
     {
@@ -964,7 +964,7 @@
     "functions": 527,
     "asyncFunctions": 49,
     "consoleWarnings": 19,
-    "consoleErrors": 14
+    "consoleErrors": 12
   },
   "visualMetrics": {
     "index.html": {

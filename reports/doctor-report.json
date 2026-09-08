@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-06T16:12:21.435Z",
-  "packageVersion": "1.6.225",
+  "generatedAt": "2026-09-08T14:43:03.924Z",
+  "packageVersion": "1.6.226",
   "status": "observacion",
   "summary": {
-    "totalFindings": 5,
+    "totalFindings": 4,
     "bySeverity": {
-      "media": 5
+      "media": 4
     },
-    "startupBytes": 836704,
-    "scriptBytes": 563098,
+    "startupBytes": 837836,
+    "scriptBytes": 564230,
     "countriesIndexBytes": 144225,
     "conflictAuditIssues": 0,
     "dataCounts": {
@@ -48,11 +48,6 @@
       "command": "npm run performance:snapshot -- --fresh"
     },
     {
-      "area": "performance",
-      "title": "Rendimiento real por revisar",
-      "command": "npm run performance:snapshot -- --fresh"
-    },
-    {
       "area": "datos",
       "title": "Jerarquias de conflicto todavia provisionales",
       "command": "npm run fix:conflicts:batches"
@@ -63,28 +58,21 @@
       "severity": "media",
       "area": "performance",
       "title": "Rendimiento real por revisar",
-      "detail": "desktop: 17 tareas >200 ms; maxima 1489 ms.",
+      "detail": "desktop: 2 tareas >200 ms; maxima 225 ms.",
       "command": "npm run performance:snapshot -- --fresh"
     },
     {
       "severity": "media",
       "area": "performance",
       "title": "Rendimiento real por revisar",
-      "detail": "desktop: render activo 9.8 FPS, umbral 27.2 (objetivo 34).",
+      "detail": "desktop: render activo 23.2 FPS, umbral 27.2 (objetivo 34).",
       "command": "npm run performance:snapshot -- --fresh"
     },
     {
       "severity": "media",
       "area": "performance",
       "title": "Rendimiento real por revisar",
-      "detail": "mobile-emulated: 8 tareas >200 ms; maxima 1106 ms.",
-      "command": "npm run performance:snapshot -- --fresh"
-    },
-    {
-      "severity": "media",
-      "area": "performance",
-      "title": "Rendimiento real por revisar",
-      "detail": "mobile-emulated: render activo 13.6 FPS, umbral 17.6 (objetivo 22).",
+      "detail": "mobile-emulated: 2 tareas >200 ms; maxima 475 ms.",
       "command": "npm run performance:snapshot -- --fresh"
     },
     {
