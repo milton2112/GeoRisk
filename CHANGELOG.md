@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.226 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.227 antes de cerrar la siguiente version.
+
+## v1.6.227 - 2026-09-08
+
+- Reutiliza las etiquetas normalizadas al deduplicar sugerencias de busqueda, evitando procesar otra vez todo el indice por cada entrada.
+- Fusiona aliases nuevos de sugerencias equivalentes sin duplicar resultados ni perder variantes anteriores; conserva separados tipos y destinos distintos.
+- Reemplaza solo la imagen base propia del mapa, libera la capa anterior y conserva overlays ajenos. Si no puede crear o instalar el reemplazo ni su alternativa, mantiene la imagen vigente y permite reintentar.
+- Agrega pruebas de complejidad de normalizacion, aliases acumulados, reconstruccion de indice, cambios repetidos 2D/3D y liberacion real de imagenes en escritorio y movil emulado.
+- Amplia `performance:profile` con `--observe-ms=35000` para investigar tareas tardias, incluyendo tiempos relativos al mapa listo y lineas de las llamadas de la traza. El diagnostico no reemplaza la medicion de release.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-08-release-2`.
 
 ## v1.6.226 - 2026-09-08
 

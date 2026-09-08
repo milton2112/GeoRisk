@@ -296,7 +296,11 @@ async function runDesktopCriticalFlow(page) {
   await waitForMapMode(page, "3d");
   await page.screenshot({ path: "tmp/map-desktop.png" });
 
+  await page.evaluate(() => { window.__previousBaseImagery = activeBaseImageryLayer; });
   await setMapMode(page, "2d");
+  assert.equal(await page.evaluate(() => window.__previousBaseImagery.isDestroyed() &&
+    viewer.imageryLayers.length === 1 && viewer.imageryLayers.contains(activeBaseImageryLayer)), true,
+  "cambiar de modo debe destruir la imagen anterior y dejar una sola capa base");
   await clickCountryOnMap(page, "ARG");
   await waitForCountryPanel(page, "Argentina");
   assert.deepEqual(await page.evaluate(() => selectedLayers.map(layer => layer.code)), ["ARG"]);
@@ -354,7 +358,10 @@ async function runMobileCriticalFlow(page) {
   await waitForCountryPanel(page, "Argentina");
   await closeCountryPanel(page);
   await setMapMode(page, "3d");
+  await page.evaluate(() => { window.__previousBaseImagery = activeBaseImageryLayer; });
   await setMapMode(page, "2d");
+  assert.equal(await page.evaluate(() => window.__previousBaseImagery.isDestroyed() && viewer.imageryLayers.length === 1), true,
+    "el cambio de modo mobile debe liberar la imagen retirada");
   await page.evaluate(() => { applyMapMode("3d"); applyMapMode("2d"); });
   await waitForMapMode(page, "2d");
   assert.equal(await page.evaluate(() => cancelPendingMapTransition), null, "los cambios rapidos deben limpiar la transicion pendiente");

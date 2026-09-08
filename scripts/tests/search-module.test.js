@@ -156,4 +156,31 @@ assert.equal(
   "consultas demasiado cortas no deben cargar el indice diferido"
 );
 
+const runtime = await fs.readFile(path.join(projectRoot, "script.js"), "utf8");
+const registerSource = runtime.slice(runtime.indexOf("function registerSuggestion("), runtime.indexOf("function getCountryLanguages("));
+let normalizationCalls = 0;
+const registration = {
+  suggestionItems: [],
+  normalizeText: value => {
+    normalizationCalls += 1;
+    return String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().toLowerCase();
+  }
+};
+vm.createContext(registration);
+vm.runInContext(registerSource, registration);
+for (let i = 0; i < 600; i += 1) registration.registerSuggestion(`Country ${i}`, "country", `C${i}`, "Country");
+assert.equal(normalizationCalls, 600, "deduplicar debe reutilizar el texto normalizado, no procesar de nuevo todas las sugerencias");
+registration.registerSuggestion("Espana", "country", "ESP", "Pais", ["Spain"]);
+registration.registerSuggestion("ESPA\u00d1A", "country", "ESP", "Pais", ["Reino de Espana", "Spain", ""]);
+assert.equal(registration.suggestionItems.length, 601, "equivalentes normalizados deben compartir sugerencia");
+const spain = registration.suggestionItems.at(-1);
+assert.deepEqual(Array.from(spain.normalizedAliases), ["spain", "reino de espana"], "duplicados deben agregar aliases nuevos sin repetir ni borrar los anteriores");
+assert.equal(search.rankSuggestions([spain], "reino de espana", { limit: 5 })[0]?.value, "ESP", "el alias agregado debe ser buscable");
+registration.registerSuggestion("Espana", "origin", "ESP", "Origen");
+registration.registerSuggestion("Espana", "country", "OTHER", "Otro");
+assert.equal(registration.suggestionItems.length, 603, "tipos y valores distintos no deben fusionarse");
+registration.suggestionItems.length = 0;
+registration.registerSuggestion("Espana", "country", "ESP", "Pais");
+assert.equal(registration.suggestionItems.length, 1, "reconstruir el indice no debe conservar claves de elementos borrados");
+
 console.log("search-module.test.js ok");

@@ -76,6 +76,7 @@ GeoRisk es una aplicacion frontend orientada a exploracion geopolitica con datas
 
 ## Recarga progresiva del mapa
 
+- La capa de imagen base tiene una referencia propia. Se instala su reemplazo antes de retirar y destruir la anterior, sin borrar otras capas de imagen. Los fallos sincronos al crear o instalar los proveedores mantienen la capa vigente; esto no garantiza disponibilidad de teselas remotas sin conexion.
 - La navegacion adapta el detalle del globo, no la resolucion del framebuffer. Alternar esa resolucion en `moveStart`/`moveEnd` redimensiona el frustum y puede reiniciar el movimiento indefinidamente. El perfil elegido y el monitor adaptativo siguen controlando la resolucion.
 - El arranque, el modo 2D y los moviles usan siempre `world_countries_simplified.geo.json`. El precalentamiento del modo alternativo tambien usa esa geometria.
 - En escritorio 3D, `get3DZoomBucket()` devuelve `near`, `mid` o `far`; `getCurrentOverlayBucket()` agrega el prefijo de modo solo para estilos y etiquetas.
@@ -199,6 +200,8 @@ Se exportan:
 - Los textos importados no deben conservar controles de Wikipedia, anexos, entidades HTML sueltas ni duplicaciones de listas.
 
 ## Tests y validacion
+
+`npm run performance:profile -- --trace-only --observe-ms=35000` extiende la captura despues de que el mapa esta listo. `afterReadyMs` ubica las tareas antes o despues de ese punto; la traza incluye instrumentacion y se usa para diagnosticar, no para comparar presupuestos de release.
 
 Actualmente existen pruebas para:
 

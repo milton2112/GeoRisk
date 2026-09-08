@@ -83,7 +83,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-09-08-release-1";
+const APP_VERSION = "2026-09-08-release-2";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -1333,6 +1333,7 @@ let activeGeoJsonPath = "";
 let activeClickHandler = null;
 let mapSearchAliasesRegistered = false;
 let activeImagerySignature = "";
+let activeBaseImageryLayer = null;
 const resourceCache = new Map();
 const MAX_RESOURCE_CACHE_ENTRIES = 36;
 
@@ -1403,26 +1404,31 @@ function applyImageryForMode(boot = false) {
   }
 
   const signature = `${currentMapMode}:${boot ? "boot" : "full"}`;
-  if (activeImagerySignature === signature && viewer.imageryLayers.length > 0) {
+  if (activeImagerySignature === signature && viewer.imageryLayers.contains(activeBaseImageryLayer)) {
     return;
   }
 
-  viewer.imageryLayers.removeAll(false);
+  let nextLayer;
+  let nextSignature = signature;
   try {
     const provider = currentMapMode === "2d"
       ? createSatelliteImageryProvider(boot ? 4 : 9)
       : createSatelliteImageryProvider(boot ? 3 : null);
-    viewer.imageryLayers.addImageryProvider(provider);
-    activeImagerySignature = signature;
+    nextLayer = viewer.imageryLayers.addImageryProvider(provider, 0);
   } catch (error) {
     console.error("No se pudo aplicar la capa base del mapa:", error);
     try {
-      viewer.imageryLayers.addImageryProvider(createOsmImageryProvider());
-      activeImagerySignature = `${currentMapMode}:osm`;
+      nextLayer = viewer.imageryLayers.addImageryProvider(createOsmImageryProvider(), 0);
+      nextSignature = `${currentMapMode}:osm`;
     } catch (fallbackError) {
       console.error("No se pudo cargar la capa base alternativa:", fallbackError);
+      return;
     }
   }
+  const previousLayer = activeBaseImageryLayer;
+  activeBaseImageryLayer = nextLayer;
+  activeImagerySignature = nextSignature;
+  if (previousLayer) viewer.imageryLayers.remove(previousLayer, true);
 }
 
 async function getCachedGeoJson(path) {
@@ -6979,18 +6985,19 @@ function registerSuggestion(label, type, value, subtitle, aliases = []) {
     return;
   }
 
-  if (
-    suggestionItems.some(
-      item => item.type === type && normalizeText(item.label) === normalizedLabel && item.value === value
-    )
-  ) {
+  const normalizedAliases = aliases.map(normalizeText).filter(Boolean);
+  const existing = suggestionItems.find(
+    item => item.type === type && item.normalizedLabel === normalizedLabel && item.value === value
+  );
+  if (existing) {
+    existing.normalizedAliases = [...new Set([...existing.normalizedAliases, ...normalizedAliases])];
     return;
   }
 
   suggestionItems.push({
     label,
     normalizedLabel,
-    normalizedAliases: aliases.map(normalizeText).filter(Boolean),
+    normalizedAliases: [...new Set(normalizedAliases)],
     type,
     value,
     subtitle

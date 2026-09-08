@@ -243,4 +243,93 @@ for (const mode of ["2d", "3d"]) {
   assert.equal(state.viewer.scene.globe.maximumScreenSpaceError, preset.maximumScreenSpaceError);
 }
 
+function createImageryHarness() {
+  const layers = [];
+  const removed = [];
+  const state = {
+    console: { error() {} }, currentMapMode: "3d", activeImagerySignature: "", activeBaseImageryLayer: null,
+    createSatelliteImageryProvider: maximumLevel => ({ kind: "satellite", maximumLevel }),
+    createOsmImageryProvider: () => ({ kind: "osm" }),
+    viewer: { imageryLayers: {
+      get length() { return layers.length; },
+      contains: layer => layers.includes(layer),
+      addImageryProvider(provider, index = layers.length) {
+        const layer = { provider, destroyed: false };
+        layers.splice(index, 0, layer);
+        return layer;
+      },
+      remove(layer, destroy) {
+        const index = layers.indexOf(layer);
+        if (index < 0) return false;
+        layers.splice(index, 1);
+        if (destroy) layer.destroyed = true;
+        removed.push(layer);
+        return true;
+      },
+      removeAll(destroy) { for (const layer of [...layers]) this.remove(layer, destroy); }
+    } }
+  };
+  vm.createContext(state);
+  vm.runInContext(block("function applyImageryForMode(", "async function getCachedGeoJson("), state);
+  return { state, layers, removed };
+}
+
+{
+  const { state, layers, removed } = createImageryHarness();
+  state.applyImageryForMode(true);
+  const bootLayer = layers[0];
+  state.applyImageryForMode(false);
+  assert.equal(bootLayer.destroyed, true, "reemplazar imagen debe liberar los recursos de la capa anterior");
+  const overlay = { custom: true };
+  layers.push(overlay);
+  for (let i = 0; i < 20; i += 1) {
+    state.currentMapMode = i % 2 ? "3d" : "2d";
+    state.applyImageryForMode(false);
+    state.applyImageryForMode(false);
+    assert.equal(layers.length, 2, "cambiar de modo no debe acumular capas ni borrar overlays ajenos");
+    assert.equal(layers[1], overlay);
+    assert.equal(state.activeBaseImageryLayer, layers[0]);
+  }
+  assert.equal(removed.length, 21, "llamadas repetidas no deben reemplazar una capa compatible");
+  assert.ok(removed.every(layer => layer.destroyed));
+  state.viewer.imageryLayers.remove(state.activeBaseImageryLayer, true);
+  state.applyImageryForMode(false);
+  assert.equal(layers.length, 2, "restaurar una capa retirada externamente aunque la firma coincida");
+}
+
+for (const phase of ["provider", "attach"]) {
+  const { state, layers } = createImageryHarness();
+  state.applyImageryForMode(true);
+  const original = layers[0];
+  const originalFactory = state.createSatelliteImageryProvider;
+  const originalAdd = state.viewer.imageryLayers.addImageryProvider;
+  if (phase === "provider") {
+    state.createSatelliteImageryProvider = () => { throw new Error("satellite unavailable"); };
+    state.createOsmImageryProvider = () => { throw new Error("fallback unavailable"); };
+  } else {
+    state.viewer.imageryLayers.addImageryProvider = () => { throw new Error("cannot attach"); };
+  }
+  state.applyImageryForMode(false);
+  assert.equal(layers[0], original, "si ambos proveedores fallan, conservar la imagen anterior: " + phase);
+  assert.equal(original.destroyed, false);
+  assert.equal(state.activeImagerySignature, "3d:boot", "un fallo no debe marcar el reemplazo como completado");
+  state.createSatelliteImageryProvider = originalFactory;
+  state.viewer.imageryLayers.addImageryProvider = originalAdd;
+  state.applyImageryForMode(false);
+  assert.equal(state.activeImagerySignature, "3d:full", "se debe poder reintentar sin recargar la app");
+  assert.equal(original.destroyed, true);
+}
+
+{
+  const { state, layers } = createImageryHarness();
+  state.applyImageryForMode(true);
+  const original = layers[0];
+  state.createSatelliteImageryProvider = () => { throw new Error("satellite unavailable"); };
+  state.applyImageryForMode(false);
+  assert.equal(layers.length, 1);
+  assert.equal(layers[0].provider.kind, "osm");
+  assert.equal(original.destroyed, true);
+  assert.equal(state.activeImagerySignature, "3d:osm");
+}
+
 console.log("map-lifecycle.test.js ok");
