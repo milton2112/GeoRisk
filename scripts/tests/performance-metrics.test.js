@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import vm from "node:vm";
 import fs from "node:fs/promises";
-import { verifyCanvasMotion } from "../lib/browser-performance.js";
+import { verifyCanvasMotion, readRenderDiagnostics } from "../lib/browser-performance.js";
 import { summarizeLongTasks, summarizeRenderFrames } from "../lib/performance-metrics.js";
 import { BROWSER_MEASUREMENT_SOURCE, hasCompleteBrowserMeasurement, canReuseBrowserMeasurement, browserPerformanceWarnings } from "../lib/performance-evidence.js";
 
@@ -68,6 +68,33 @@ assert.equal(hasCompleteBrowserMeasurement(contaminated), false, "la lectura GPU
 const meterSource = await fs.readFile(new URL("../lib/browser-performance.js", import.meta.url), "utf8");
 const timingSource = meterSource.slice(meterSource.indexOf("async function measureProfile"), meterSource.indexOf("const canvasVerification ="));
 assert.ok(!timingSource.includes("readPixels"), "el muestreo de FPS y long tasks no debe leer la GPU");
+assert.ok(!timingSource.includes("getParameter"), "la consulta del driver tambien debe quedar fuera de la medicion");
+
+{
+  let queries = 0;
+  const gl = { getExtension() { queries += 1; return { UNMASKED_VENDOR_WEBGL: "vendor", UNMASKED_RENDERER_WEBGL: "renderer" }; },
+    getParameter: name => `test-${name}` };
+  const configuration = { resolutionScale: 1.12, msaaSamples: 1, msaaSupported: true, fxaa: true, canvasWidth: 1612, canvasHeight: 1030 };
+  const context = vm.createContext({
+    window: { __geoRiskPerformanceProbe: { endedAt: null, activeEnd: 7000, renderConfiguration: configuration } },
+    viewer: { resolutionScale: 1.12, scene: { msaaSamples: 1, msaaSupported: true,
+      postProcessStages: { fxaa: { enabled: true } }, canvas: { width: 1612, height: 1030, getContext: () => gl } } },
+    performance: { now: () => 60100 }
+  });
+  const read = () => vm.runInContext(`(${readRenderDiagnostics.toString()})()`, context);
+  assert.throws(read, /after the timing window/);
+  assert.equal(queries, 0, "no consultar GPU antes del cierre");
+  context.window.__geoRiskPerformanceProbe.endedAt = 60000;
+  const result = read();
+  assert.deepEqual(JSON.parse(JSON.stringify(result.initial)), configuration);
+  assert.deepEqual(JSON.parse(JSON.stringify(result.final)), configuration);
+  assert.equal(result.gpu.renderer, "test-renderer");
+  assert.equal(result.collectedAt, 60100);
+  gl.getExtension = () => null;
+  assert.equal(read().gpu.renderer, null, "GPU no disponible no equivale a un renderer inventado");
+  gl.getExtension = () => { throw new Error("privacy restriction"); };
+  assert.equal(read().gpu.renderer, null);
+}
 
 async function testCanvasProbe({ endedAt = 60000, activeEnd = 7000, blank = false, frozen = false, rendering = true } = {}) {
   let listener;

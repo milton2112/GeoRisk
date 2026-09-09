@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-09T11:21:37.472Z",
-  "startupBytes": 840472,
+  "generatedAt": "2026-09-09T16:57:43.615Z",
+  "startupBytes": 840809,
   "startupHuman": "821 KB",
   "deferredBytes": 3253865,
   "deferredHuman": "3.10 MB",
@@ -22,7 +22,7 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 564367,
+      "bytes": 564614,
       "human": "551 KB",
       "startupCritical": true
     },
@@ -108,7 +108,7 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 564367,
+      "bytes": 564614,
       "human": "551 KB",
       "startupCritical": true
     },
@@ -129,7 +129,7 @@
     {
       "path": "app-runtime.js",
       "exists": true,
-      "bytes": 2961,
+      "bytes": 3051,
       "human": "3 KB",
       "startupCritical": true
     },

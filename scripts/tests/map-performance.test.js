@@ -6,9 +6,51 @@ const read = name => fs.readFile(new URL(`../../${name}`, import.meta.url), "utf
 const source = await read("script.js");
 const interactions = await read("app-map-interactions.js");
 const scheduler = await read("app-boot-scheduler.js");
+const runtimeSource = await read("app-runtime.js");
 const sandbox = vm.createContext({ window: {} });
 vm.runInContext(interactions, sandbox);
 const { createFpsQualityMonitor } = sandbox.window.GeoRiskMapInteractions;
+
+{
+  const state = { window: {}, navigator: {}, qualityPreset: "auto", currentMapMode: "3d", mobile: false };
+  state.isMobileLayout = () => state.mobile;
+  vm.createContext(state);
+  vm.runInContext(runtimeSource, state);
+  state.runtimeGetDeviceProfile = state.window.GeoRiskRuntime.getDeviceProfile;
+  vm.runInContext(source.slice(source.indexOf("const QUALITY_PRESET_OVERRIDES"), source.indexOf("const MAP_LABEL_SETS")), state);
+  vm.runInContext(source.slice(source.indexOf("function getPerformancePreset"), source.indexOf("function getDeviceTier")), state);
+  for (const memory of [4, 8, 16]) for (const mobile of [false, true]) for (const mode of ["2d", "3d"]) {
+    Object.assign(state, { mobile, currentMapMode: mode });
+    Object.assign(state.navigator, { deviceMemory: memory, hardwareConcurrency: 12 });
+    for (const quality of ["auto", "high", "balanced", "performance"]) {
+      state.qualityPreset = quality;
+      const preset = state.getPerformancePreset();
+      assert.ok([1, 4].includes(preset.msaaSamples));
+      if (quality === "high") {
+        assert.equal(preset.msaaSamples, 4, "alta calidad conserva MSAA");
+        assert.equal(preset.enableFxaa, true);
+      } else if (quality === "performance") {
+        assert.equal(preset.msaaSamples, 1);
+        assert.equal(preset.enableFxaa, false);
+      } else if (preset.enableFxaa) {
+        assert.equal(preset.msaaSamples, 1, "auto/balanceado no duplican el suavizado FXAA con MSAA");
+      } else {
+        assert.equal(preset.msaaSamples, 4, "conservar suavizado si el perfil no usa FXAA");
+      }
+      if (quality === "auto" && mobile) assert.equal(preset.resolutionScale, mode === "2d" ? 0.5 : 0.82);
+      if (quality === "auto" && !mobile && memory === 16 && mode === "3d") assert.equal(preset.resolutionScale, 1.12);
+    }
+  }
+  vm.runInContext(source.slice(0, source.indexOf("const fallbackGetRenderProfileText")), state);
+  for (const mobile of [false, true]) {
+    const fallback = vm.runInContext(`fallbackGetDeviceProfile({ isMobile: ${mobile}, currentMapMode: "3d", deviceMemory: 16, hardwareConcurrency: 12 })`, state);
+    assert.equal(fallback.msaaSamples, fallback.enableFxaa ? 1 : 4, "fallback conserva la politica de suavizado");
+  }
+  const constructor = source.slice(source.indexOf("function initializeViewer()"), source.indexOf("function fitWorldView()"));
+  assert.match(constructor, /msaaSamples: preset\.msaaSamples/, "configurar MSAA antes del primer frame, no despues de crear buffers");
+  const tuning = source.slice(source.indexOf("function updateMapInteractionTuning()"), source.indexOf("function updateMapModeToggle()"));
+  assert.match(tuning, /viewer\.scene\.msaaSamples = preset\.msaaSamples/, "cambios de perfil/modo actualizan MSAA");
+}
 
 function controller(overrides = {}) {
   const monitor = createFpsQualityMonitor();

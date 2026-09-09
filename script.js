@@ -11,6 +11,7 @@ const fallbackGetDeviceProfile = ({ isMobile, currentMapMode, deviceMemory = 4, 
       tileCacheSize: mode2d ? (isMobile ? 28 : 82) : (isMobile ? 76 : 170),
       loadingDescendantLimit: mode2d ? (isMobile ? 3 : 7) : (isMobile ? 8 : 14),
       enableFxaa: false,
+      msaaSamples: 4,
       preloadAncestors: false,
       preloadSiblings: false
     };
@@ -24,6 +25,7 @@ const fallbackGetDeviceProfile = ({ isMobile, currentMapMode, deviceMemory = 4, 
     tileCacheSize: mode2d ? 108 : 220,
     loadingDescendantLimit: mode2d ? 8 : 18,
     enableFxaa: true,
+    msaaSamples: 1,
     preloadAncestors: true,
     preloadSiblings: true
   };
@@ -83,7 +85,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-09-08-release-3";
+const APP_VERSION = "2026-09-09-release-1";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -163,6 +165,7 @@ const QUALITY_PRESET_OVERRIDES = {
     tileCacheSize: { "3d": { desktop: 360, mobile: 160 }, "2d": { desktop: 160, mobile: 54 } },
     loadingDescendantLimit: { "3d": { desktop: 28, mobile: 14 }, "2d": { desktop: 10, mobile: 4 } },
     enableFxaa: true,
+    msaaSamples: 4,
     preloadAncestors: true,
     preloadSiblings: true
   },
@@ -173,6 +176,7 @@ const QUALITY_PRESET_OVERRIDES = {
     tileCacheSize: { "3d": { desktop: 260, mobile: 120 }, "2d": { desktop: 124, mobile: 42 } },
     loadingDescendantLimit: { "3d": { desktop: 20, mobile: 10 }, "2d": { desktop: 8, mobile: 3 } },
     enableFxaa: true,
+    msaaSamples: 1,
     preloadAncestors: true,
     preloadSiblings: true
   },
@@ -183,6 +187,7 @@ const QUALITY_PRESET_OVERRIDES = {
     tileCacheSize: { "3d": { desktop: 180, mobile: 84 }, "2d": { desktop: 84, mobile: 30 } },
     loadingDescendantLimit: { "3d": { desktop: 12, mobile: 6 }, "2d": { desktop: 5, mobile: 2 } },
     enableFxaa: false,
+    msaaSamples: 1,
     preloadAncestors: false,
     preloadSiblings: false
   }
@@ -1272,6 +1277,7 @@ function getPerformancePreset() {
     tileCacheSize: override.tileCacheSize?.[modeBucket]?.[profileBucket] ?? base.tileCacheSize,
     loadingDescendantLimit: override.loadingDescendantLimit?.[modeBucket]?.[profileBucket] ?? base.loadingDescendantLimit,
     enableFxaa: override.enableFxaa ?? base.enableFxaa,
+    msaaSamples: override.msaaSamples ?? base.msaaSamples,
     preloadAncestors: override.preloadAncestors ?? base.preloadAncestors,
     preloadSiblings: override.preloadSiblings ?? base.preloadSiblings
   };
@@ -2300,6 +2306,7 @@ function initializeViewer() {
     infoBox: false,
     navigationHelpButton: false,
     maximumRenderTimeChange: Infinity,
+    msaaSamples: preset.msaaSamples,
     requestRenderMode: true,
     sceneModePicker: false,
     sceneMode: currentMapMode === "2d" ? Cesium.SceneMode.SCENE2D : Cesium.SceneMode.SCENE3D,
@@ -2441,6 +2448,7 @@ function updateMapInteractionTuning() {
     return;
   }
   const preset = getPerformancePreset();
+  viewer.scene.msaaSamples = preset.msaaSamples;
   viewer.targetFrameRate = preset.targetFrameRate;
   viewer.resolutionScale = preset.resolutionScale;
   viewer.scene.globe.maximumScreenSpaceError = preset.maximumScreenSpaceError;

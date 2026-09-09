@@ -295,10 +295,18 @@ async function runDesktopCriticalFlow(page) {
   await waitForAppReady(page);
   assert.equal(await page.evaluate(() => viewer.scene.mode === Cesium.SceneMode.SCENE3D), true, "desktop debe iniciar en una escena 3D real");
   await waitForMapMode(page, "3d");
+  await assertAntialiasingProfile(page);
+  await page.locator("#map-toolbar > summary").click();
+  for (const quality of ["high", "balanced", "performance", "auto"]) {
+    await page.locator("#quality-preset-select").selectOption(quality);
+    await assertAntialiasingProfile(page);
+  }
+  await page.locator("#map-toolbar > summary").click();
   await page.screenshot({ path: "tmp/map-desktop.png" });
 
   await page.evaluate(() => { window.__previousBaseImagery = activeBaseImageryLayer; });
   await setMapMode(page, "2d");
+  await assertAntialiasingProfile(page);
   assert.equal(await page.evaluate(() => window.__previousBaseImagery.isDestroyed() &&
     viewer.imageryLayers.length === 1 && viewer.imageryLayers.contains(activeBaseImageryLayer)), true,
   "cambiar de modo debe destruir la imagen anterior y dejar una sola capa base");
@@ -349,6 +357,7 @@ async function runMobileCriticalFlow(page) {
   await waitForAppReady(page);
   assert.equal(await page.evaluate(() => viewer.scene.mode === Cesium.SceneMode.SCENE2D), true, "mobile debe iniciar en una escena 2D real, no solo declarar el modo");
   await waitForMapMode(page, "2d");
+  await assertAntialiasingProfile(page);
   await page.screenshot({ path: "tmp/map-mobile.png" });
   const worldWidthRatio = await page.evaluate(() => {
     const frustum = viewer.camera.frustum;
@@ -359,6 +368,7 @@ async function runMobileCriticalFlow(page) {
   await waitForCountryPanel(page, "Argentina");
   await closeCountryPanel(page);
   await setMapMode(page, "3d");
+  await assertAntialiasingProfile(page);
   await page.evaluate(() => { window.__previousBaseImagery = activeBaseImageryLayer; });
   await setMapMode(page, "2d");
   assert.equal(await page.evaluate(() => window.__previousBaseImagery.isDestroyed() && viewer.imageryLayers.length === 1), true,
@@ -495,6 +505,20 @@ async function testDetailedMapUpgrade(browser, baseUrl) {
   } finally {
     releaseGeometry();
     await context.close();
+  }
+}
+
+async function assertAntialiasingProfile(page) {
+  const state = await page.evaluate(() => {
+    const preset = getPerformancePreset();
+    return { mode: currentMapMode, quality: qualityPreset, actualMsaa: viewer.scene.msaaSamples,
+      expectedMsaa: preset.msaaSamples, actualFxaa: viewer.scene.postProcessStages.fxaa.enabled,
+      expectedFxaa: preset.enableFxaa };
+  });
+  assert.equal(state.actualMsaa, state.expectedMsaa, `MSAA: ${state.mode}/${state.quality}`);
+  assert.equal(state.actualFxaa, state.expectedFxaa, `FXAA: ${state.mode}/${state.quality}`);
+  if (["auto", "balanced"].includes(state.quality) && state.actualFxaa) {
+    assert.equal(state.actualMsaa, 1, "el perfil automatico/balanceado no duplica suavizado");
   }
 }
 

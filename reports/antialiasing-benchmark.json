@@ -1,0 +1,22 @@
+{
+  "date": "2026-09-09",
+  "baselineVersion": "1.6.228",
+  "baselineCommit": "e6aed07ee0958542edcc8dfe05e63a351f2d7c49",
+  "purpose": "Comparar tecnicas de suavizado antes de cambiar la politica de renderizado.",
+  "method": "Chrome headless, instancia nueva por caso, cache HTTP desactivada, service worker bloqueado, escritorio 1440x920, seis segundos de movimiento tras mapa listo. Variantes interceptadas en memoria sin cambiar resolucion, detalle o objetivo FPS.",
+  "resolutionScale": 1.12,
+  "canvas": { "width": 1612, "height": 1030 },
+  "targetFps": 34,
+  "samplesInExecutionOrder": [
+    { "variant": "baseline", "msaa": 4, "fxaa": true, "readyMs": 2031.4, "activeFps": 22.11, "maximumLongTaskMs": 222 },
+    { "variant": "fxaa-only", "msaa": 1, "fxaa": true, "readyMs": 2074.4, "activeFps": 32.92, "maximumLongTaskMs": 203 },
+    { "variant": "msaa2-only", "msaa": 2, "fxaa": false, "readyMs": 1784.4, "activeFps": 32.15, "maximumLongTaskMs": 211 },
+    { "variant": "baseline", "msaa": 4, "fxaa": true, "readyMs": 1978.4, "activeFps": 24.00, "maximumLongTaskMs": 189 }
+  ],
+  "decision": "Usar solo FXAA donde el perfil automatico ya lo habilitaba; mantener las otras configuraciones automaticas y la opcion explicita de alta calidad.",
+  "limitations": [
+    "Diagnostico corto en un solo equipo; no es el snapshot de release ni una garantia portable de FPS.",
+    "Las capturas se revisaron para comprobar mapa visible, encuadre y controles; no son una prueba de equivalencia exacta de pixeles.",
+    "El bloqueo intermitente de varios segundos del arranque anterior no queda explicado ni resuelto por esta comparacion."
+  ]
+}

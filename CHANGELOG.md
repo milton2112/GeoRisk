@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.228 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.229 antes de cerrar la siguiente version.
+
+## v1.6.229 - 2026-09-09
+
+- Evita combinar MSAA con FXAA en los perfiles automaticos que ya usan FXAA y en Balanceado. Mantiene resolucion, geometria y limites de FPS; el movil automatico sin FXAA conserva MSAA y Alta calidad conserva su configuracion completa.
+- Configura el suavizado desde la creacion de Cesium y lo sincroniza al cambiar perfil o modo 2D/3D. Rendimiento desactiva ambos suavizados de forma explicita.
+- Registra configuracion grafica inicial/final y GPU en el snapshot, consultando el driver despues de terminar las mediciones para no contaminarlas.
+- Agrega regresiones por dispositivo, perfil, modo, fallback, controles reales del navegador y restricciones de acceso a informacion GPU.
+- Conserva una comparacion diagnostica de las alternativas de suavizado; no la presenta como sustituto de la medicion completa ni como solucion definitiva del pico inicial intermitente.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-09-release-1`.
 
 ## v1.6.228 - 2026-09-08
 

@@ -84,6 +84,38 @@ export function verifyCanvasMotion({ windowMs, timeoutMs = 5000 }) {
   });
 }
 
+export function readRenderDiagnostics() {
+  const probe = window.__geoRiskPerformanceProbe;
+  if (!(probe?.endedAt >= 60000 && probe.activeEnd <= probe.endedAt)) {
+    throw new Error("GPU diagnostics must run after the timing window closes.");
+  }
+  const scene = viewer.scene;
+  const gpu = { vendor: null, renderer: null };
+  try {
+    const gl = scene.canvas.getContext("webgl2") || scene.canvas.getContext("webgl");
+    const extension = gl?.getExtension("WEBGL_debug_renderer_info");
+    if (extension) {
+      gpu.vendor = gl.getParameter(extension.UNMASKED_VENDOR_WEBGL);
+      gpu.renderer = gl.getParameter(extension.UNMASKED_RENDERER_WEBGL);
+    }
+  } catch {
+    // Privacy restrictions or a lost context can make GPU identity unavailable.
+  }
+  return {
+    initial: probe.renderConfiguration,
+    final: {
+      resolutionScale: viewer.resolutionScale,
+      msaaSamples: scene.msaaSamples,
+      msaaSupported: scene.msaaSupported,
+      fxaa: scene.postProcessStages.fxaa.enabled,
+      canvasWidth: scene.canvas.width,
+      canvasHeight: scene.canvas.height
+    },
+    gpu,
+    collectedAt: performance.now()
+  };
+}
+
 async function measureProfile(browser, baseUrl, profile) {
   const context = await browser.newContext({
     viewport: profile.viewport,
@@ -168,6 +200,14 @@ async function measureProfile(browser, baseUrl, profile) {
       probe.mode = currentMapMode;
       probe.sceneMode = viewer.scene.mode === Cesium.SceneMode.SCENE2D ? "2d" : viewer.scene.mode === Cesium.SceneMode.SCENE3D ? "3d" : "transition";
       probe.targetFrameRate = viewer.targetFrameRate;
+      probe.renderConfiguration = {
+        resolutionScale: viewer.resolutionScale,
+        msaaSamples: viewer.scene.msaaSamples,
+        msaaSupported: viewer.scene.msaaSupported,
+        fxaa: viewer.scene.postProcessStages.fxaa.enabled,
+        canvasWidth: viewer.scene.canvas.width,
+        canvasHeight: viewer.scene.canvas.height
+      };
       probe.activeStart = performance.now();
       const scene = viewer.scene;
       const removeListener = scene.postRender.addEventListener(() => {
@@ -193,6 +233,7 @@ async function measureProfile(browser, baseUrl, profile) {
 
     // GPU readback can block the main thread; keep visual QA outside both timing samples.
     const canvasVerification = await page.evaluate(verifyCanvasMotion, { windowMs: PERFORMANCE_WINDOW_MS });
+    const renderDiagnostics = await page.evaluate(readRenderDiagnostics);
     const raw = await page.evaluate(() => {
       const probe = window.__geoRiskPerformanceProbe;
       return {
@@ -236,6 +277,7 @@ async function measureProfile(browser, baseUrl, profile) {
       longTasks,
       activeRender,
       canvasVerification,
+      renderDiagnostics,
       bootSteps: raw.bootSteps,
       resourceErrors,
       pageErrors,
