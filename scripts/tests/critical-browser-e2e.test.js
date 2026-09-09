@@ -34,7 +34,7 @@ function getRelevantPageErrors(errors) {
   return errors.filter(message => !/ResizeObserver loop limit exceeded/i.test(message));
 }
 
-async function createTestPage(browser, baseUrl, viewport) {
+async function createTestPage(browser, baseUrl, viewport, beforeNavigate = async () => {}) {
   const isMobile = viewport.width <= 820;
   const context = await browser.newContext({
     viewport,
@@ -49,6 +49,7 @@ async function createTestPage(browser, baseUrl, viewport) {
   await page.addInitScript(() => {
     localStorage.setItem("geo-risk-intro-seen", "true");
   });
+  await beforeNavigate(page);
   await page.goto(baseUrl + "/index.html?critical-e2e=1", {
     waitUntil: "domcontentloaded",
     timeout: APP_TIMEOUT_MS
@@ -56,8 +57,8 @@ async function createTestPage(browser, baseUrl, viewport) {
   return { context, page, pageErrors };
 }
 
-async function waitForAppReady(page) {
-  await page.waitForFunction(() => {
+async function waitForAppReady(page, { requireTiles = true } = {}) {
+  await page.waitForFunction(needsTiles => {
     const fatal = document.getElementById("fatal-error-banner");
     return (
       typeof viewer !== "undefined" &&
@@ -69,10 +70,10 @@ async function waitForAppReady(page) {
       Object.keys(countriesData).length >= 180 &&
       Boolean(window.GeoRiskUiPolish) &&
       !document.body.classList.contains("globe-loading") &&
-      viewer.scene.globe.tilesLoaded &&
+      (!needsTiles || viewer.scene.globe.tilesLoaded) &&
       fatal?.hidden !== false
     );
-  }, undefined, { timeout: APP_TIMEOUT_MS });
+  }, requireTiles, { timeout: APP_TIMEOUT_MS });
   await page.locator("#map canvas").waitFor({ state: "visible", timeout: APP_TIMEOUT_MS });
 }
 
@@ -497,6 +498,45 @@ async function testDetailedMapUpgrade(browser, baseUrl) {
   }
 }
 
+async function testIdleMapPerformance(browser, baseUrl) {
+  let releaseTiles;
+  let requests = 0;
+  const held = new Promise(resolve => { releaseTiles = resolve; });
+  const { context, page, pageErrors } = await createTestPage(browser, baseUrl, DESKTOP_VIEWPORT, async page => {
+    await page.route("https://services.arcgisonline.com/**/tile/**", async route => {
+      requests += 1;
+      await held;
+      await route.continue();
+    });
+  });
+  try {
+    await waitForAppReady(page, { requireTiles: false });
+    await waitForStable3dMap(page);
+    const snapshot = () => page.evaluate(() => ({
+      mode: currentMapMode, samples: startupFpsMetrics.samples,
+      pending: !viewer.scene.globe.tilesLoaded, navigating: isCameraNavigating,
+      degradations: mapDegradationLog.list().filter(item => /FPS/i.test(item.reason)).length
+    }));
+    const before = await snapshot();
+    assert.equal(before.mode, "3d");
+    assert.equal(before.pending, true);
+    await page.waitForTimeout(15000);
+    const after = await snapshot();
+    assert.ok(requests > 0, "la prueba debe retener imagenes reales de Cesium");
+    assert.equal(after.pending, true);
+    assert.equal(after.navigating, false);
+    assert.equal(after.mode, "3d", "esperar imagenes no debe cambiar a 2D");
+    assert.equal(after.samples, before.samples, "un mapa quieto no produce muestras de FPS activos");
+    assert.equal(after.degradations, before.degradations, "la red lenta no reduce calidad por FPS");
+    releaseTiles();
+    await page.waitForFunction(() => viewer.scene.globe.tilesLoaded, undefined, { timeout: APP_TIMEOUT_MS });
+    assertHealthyPage(pageErrors, "mapa quieto con imagenes demoradas");
+  } finally {
+    releaseTiles();
+    await context.close();
+  }
+}
+
 const server = createLocalSmokeServer();
 await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
 
@@ -507,10 +547,12 @@ try {
   const baseUrl = "http://127.0.0.1:" + port;
   browser = await launchCriticalBrowser();
   const detailOnly = process.argv.includes("--detail-only");
-  if (!detailOnly) await testMapEngineStartup(browser, baseUrl);
-  await testDetailedMapUpgrade(browser, baseUrl);
+  const performanceOnly = process.argv.includes("--performance-only");
+  if (!detailOnly) await testIdleMapPerformance(browser, baseUrl);
+  if (!detailOnly && !performanceOnly) await testMapEngineStartup(browser, baseUrl);
+  if (!performanceOnly) await testDetailedMapUpgrade(browser, baseUrl);
 
-  if (!detailOnly) {
+  if (!detailOnly && !performanceOnly) {
     const desktop = await createTestPage(browser, baseUrl, DESKTOP_VIEWPORT);
     try {
       await runDesktopCriticalFlow(desktop.page);

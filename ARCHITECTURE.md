@@ -9,7 +9,7 @@ GeoRisk keeps runtime files in the repository root for now. The project is alrea
 - `script.js`: legacy orchestrator. It wires modules, data loading, map lifecycle and event listeners.
 - `app-store.js`: central UI store for cross-module state snapshots.
 - `app-ui-polish.js`: tooltips, focus helpers, keyboard a11y and compact label metadata.
-- `app-map.js`, `app-map-styles.js`, `app-map-interactions.js`: map renderer decisions, country styling and interaction tuning.
+- `app-map.js`, `app-map-styles.js`, `app-map-interactions.js`: map renderer decisions, country styling, interaction tuning and the pure consecutive-motion FPS controller. The runtime owns Cesium/visibility listeners and quality changes; the boot scheduler owns startup metrics and completion.
 - `app-country-panel.js`: country renderer helpers.
 - `app-timeline-conflicts.js`: timeline and conflict rendering helpers.
 - `app-search.js`, `app-search-worker.js`: search parsing, aliases and worker index work.

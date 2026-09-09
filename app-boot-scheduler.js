@@ -20,7 +20,7 @@ const startupFpsMetrics = {
 let longTaskObserver = null;
 
 function recordStartupFps(fps, elapsedMs) {
-  if (!startupFpsMetrics.active) {
+  if (!startupFpsMetrics.active || !Number.isFinite(fps) || fps < 0) {
     return;
   }
   startupFpsMetrics.samples += 1;
@@ -28,9 +28,13 @@ function recordStartupFps(fps, elapsedMs) {
   startupFpsMetrics.max = startupFpsMetrics.max === null ? fps : Math.max(startupFpsMetrics.max, fps);
   startupFpsMetrics.avg += (fps - startupFpsMetrics.avg) / startupFpsMetrics.samples;
   if (elapsedMs >= startupFpsMetrics.windowMs) {
-    startupFpsMetrics.active = false;
-    startupFpsMetrics.completed = true;
+    finishStartupFps();
   }
+}
+
+function finishStartupFps() {
+  startupFpsMetrics.active = false;
+  startupFpsMetrics.completed = true;
 }
 
 function startLongTaskObserver() {
@@ -94,6 +98,7 @@ function scheduleWhenQuiet(task, {
 }
 
 window.GeoRiskBootScheduler = {
+  finishStartupFps,
   longTaskMetrics,
   recordStartupFps,
   scheduleWhenQuiet,

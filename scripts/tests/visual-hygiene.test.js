@@ -180,7 +180,7 @@ assert.ok(script.includes("rankingsPanel.open = true"), "acceso mobile a ranking
 assert.ok(script.includes('focusedElement?.closest("#search-suggestions")'), "ficha abierta desde busqueda debe devolver foco al buscador");
 assert.ok(appMapInteractions.includes("isMobile || mode === \"2d\""), "hover mobile/2D debe quedar reducido");
 assert.ok(script.includes('applyMapMode("2d", false)'), "FPS critico sostenido debe poder degradar automaticamente a 2D");
-assert.ok(script.includes("sustainedCriticalFpsWindows >= 3"), "degradacion critica debe exigir varias ventanas y evitar falsos positivos");
+assert.ok(appMapInteractions.includes("criticalWindows >= 3"), "degradacion critica debe exigir varias ventanas y evitar falsos positivos");
 assert.ok(script.includes('declaredParent: typeof conflict === "object"'), "jerarquia de conflictos debe conservar padres explicitos curados");
 assert.ok(script.includes("renderConflictTrustBadges"), "modal de conflicto debe exponer confianza y estado de curaduria");
 const conflictParentResolver = script.slice(

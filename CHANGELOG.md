@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.227 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.228 antes de cerrar la siguiente version.
+
+## v1.6.228 - 2026-09-08
+
+- Corrige las decisiones automaticas de calidad: mide solo movimiento continuo visible, sin confundir teselas pendientes, contactos recientes o inactividad del mapa con FPS bajos.
+- Reinicia las rachas al interrumpir el movimiento, ocultar la pestaña o cambiar modo/perfil; exige tres ventanas criticas consecutivas para pasar de 3D a 2D y respeta perfiles manuales.
+- Permite recuperar calidad al alcanzar el 90% del limite configurado, incluidos los perfiles moviles de 20/22 FPS, sin modificar los umbrales de la medicion de release.
+- Evita aumentar cache, resolucion o trabajo de detalle al reducir calidad; corrige el aumento de cache al arrastrar en 3D movil.
+- Cierra el monitor inicial a los 60 segundos aunque no haya movimiento, retira sus listeners y no inventa muestras para un mapa quieto.
+- Agrega pruebas deterministas del monitor y una regresion Chromium con imagenes reales retenidas durante 15 segundos.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-08-release-3`.
 
 ## v1.6.227 - 2026-09-08
 

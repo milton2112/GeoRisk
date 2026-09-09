@@ -3,6 +3,7 @@ import fs from "fs-extra";
 import path from "path";
 import vm from "node:vm";
 import "./map-lifecycle.test.js";
+import "./map-performance.test.js";
 
 const projectRoot = path.resolve(process.cwd());
 const full = await fs.readJson(path.join(projectRoot, "data", "countries_full.json"));

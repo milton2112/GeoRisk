@@ -83,7 +83,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-09-08-release-2";
+const APP_VERSION = "2026-09-08-release-3";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -1646,8 +1646,8 @@ function setNavigationQualityState(isNavigating) {
       viewer.scene.globe.maximumScreenSpaceError = Math.max(preset.maximumScreenSpaceError, preset.maximumScreenSpaceError + 2.1);
     } else {
       viewer.scene.globe.maximumScreenSpaceError = Math.max(preset.maximumScreenSpaceError, preset.maximumScreenSpaceError + 0.95);
-      viewer.scene.globe.loadingDescendantLimit = Math.max(6, preset.loadingDescendantLimit - 3);
-      viewer.scene.globe.tileCacheSize = Math.max(120, preset.tileCacheSize - 44);
+      viewer.scene.globe.loadingDescendantLimit = Math.min(preset.loadingDescendantLimit, Math.max(6, preset.loadingDescendantLimit - 3));
+      viewer.scene.globe.tileCacheSize = Math.min(preset.tileCacheSize, Math.max(120, preset.tileCacheSize - 44));
     }
     viewer.scene.requestRender();
     return;
@@ -2636,9 +2636,6 @@ let lastOverlayBucket = "";
 let lastStyleRefreshSignature = "";
 let reducedPerformanceMode = false;
 let reducedPerformanceReason = "";
-let sustainedLowFpsWindows = 0;
-let sustainedHighFpsWindows = 0;
-let sustainedCriticalFpsWindows = 0;
 let quizState = {
   category: "capital",
   difficulty: "easy",
@@ -8777,56 +8774,55 @@ function updateExtendedStaticText() {
 }
 
 function startPerformanceMonitor() {
-  if (performanceMonitorId || !viewer?.scene?.postRender) return;
-  let frameCount = 0;
-  let lastCheck = performance.now();
-  let rollingFps = getPerformancePreset().targetFrameRate;
+  if (performanceMonitorId || !viewer?.scene?.postRender || !mapInteractionCore.createFpsQualityMonitor) return;
+  const monitor = mapInteractionCore.createFpsQualityMonitor();
   const monitorStartedAt = performance.now();
   const monitorDuration = 60000;
+  const context = () => ({
+    visible: document.visibilityState !== "hidden",
+    navigating: isCameraNavigating,
+    transitioning: Boolean(cancelPendingMapTransition),
+    mode: currentMapMode,
+    qualityPreset,
+    targetFrameRate: viewer.targetFrameRate,
+    isMobile: isMobileLayout(),
+    tier: getDeviceTier()
+  });
+  const reset = () => monitor.reset(context(), performance.now());
+  reset();
+  const removeMoveStart = viewer.camera.moveStart.addEventListener(reset);
+  const removeMoveEnd = viewer.camera.moveEnd.addEventListener(reset);
+  document.addEventListener("visibilitychange", reset);
   const removePostRenderListener = viewer.scene.postRender.addEventListener(() => {
-    frameCount += 1;
+    monitor.recordFrame(context(), performance.now());
   });
 
   const sample = () => {
     const now = performance.now();
-    const elapsed = now - lastCheck;
-    const isActiveWindow = isCameraNavigating
-      || !viewer.scene.globe?.tilesLoaded
-      || Date.now() - lastInteractionAt < 3500;
-
-    if (isActiveWindow) {
-      const fps = (frameCount * 1000) / Math.max(1, elapsed);
-      rollingFps = rollingFps * 0.62 + fps * 0.38;
+    const result = monitor.sample(context(), now);
+    if (result) {
+      const { fps, rollingFps, action } = result;
       bootScheduler.recordStartupFps?.(fps, now - monitorStartedAt);
       const tier = getDeviceTier();
-      const lowFpsThreshold = isMobileLayout() ? 18 : tier === "low" ? 15 : tier === "medium" ? 18 : 20;
-      const highFpsThreshold = isMobileLayout() ? 28 : tier === "low" ? 24 : tier === "medium" ? 30 : 34;
-      const criticalFpsThreshold = isMobileLayout() ? 7 : tier === "low" ? 7 : 9;
-      sustainedLowFpsWindows = rollingFps < lowFpsThreshold ? sustainedLowFpsWindows + 1 : 0;
-      sustainedHighFpsWindows = rollingFps > highFpsThreshold ? sustainedHighFpsWindows + 1 : 0;
-      sustainedCriticalFpsWindows = currentMapMode === "3d" && rollingFps < criticalFpsThreshold
-        ? sustainedCriticalFpsWindows + 1
-        : 0;
-      if (qualityPreset === "auto" && sustainedCriticalFpsWindows >= 3) {
+      if (action === "fallback") {
         clearMapLabels();
         applyMapMode("2d", false);
         recordMapDegradation(
           currentLanguage === "en" ? "3D changed to 2D after critical FPS" : "3D cambiado a 2D por FPS critico",
           { fps: rollingFps }
         );
-        sustainedCriticalFpsWindows = 0;
-        sustainedLowFpsWindows = 0;
-      } else if (qualityPreset === "auto" && sustainedLowFpsWindows >= 2) {
+      } else if (action === "reduce") {
         hoverSuppressedUntil = Date.now() + 3200;
-        viewer.resolutionScale = Math.max(
+        viewer.resolutionScale = Math.min(viewer.resolutionScale, Math.max(
           currentMapMode === "2d"
               ? (isMobileLayout() ? 0.42 : tier === "low" ? 0.58 : 0.68)
               : (isMobileLayout() ? 0.74 : tier === "low" ? 0.86 : 0.94),
             viewer.resolutionScale - (isMobileLayout() ? 0.06 : 0.04)
-          );
-        viewer.scene.globe.maximumScreenSpaceError = Math.min(currentMapMode === "2d" ? 12.5 : 9.2, viewer.scene.globe.maximumScreenSpaceError + 0.45);
-        viewer.scene.globe.loadingDescendantLimit = Math.max(currentMapMode === "2d" ? 2 : 5, viewer.scene.globe.loadingDescendantLimit - 1);
-        viewer.scene.globe.tileCacheSize = Math.max(currentMapMode === "2d" ? 24 : 60, viewer.scene.globe.tileCacheSize - 14);
+          ));
+        const globe = viewer.scene.globe;
+        globe.maximumScreenSpaceError = Math.max(globe.maximumScreenSpaceError, Math.min(currentMapMode === "2d" ? 12.5 : 9.2, globe.maximumScreenSpaceError + 0.45));
+        globe.loadingDescendantLimit = Math.min(globe.loadingDescendantLimit, Math.max(currentMapMode === "2d" ? 2 : 5, globe.loadingDescendantLimit - 1));
+        globe.tileCacheSize = Math.min(globe.tileCacheSize, Math.max(currentMapMode === "2d" ? 24 : 60, globe.tileCacheSize - 14));
         viewer.scene.maximumRenderTimeChange = currentMapMode === "2d" ? 0.09 : 0.4;
         if (
           labelEntities.length &&
@@ -8837,8 +8833,7 @@ function startPerformanceMonitor() {
           recordMapDegradation(currentLanguage === "en" ? "labels disabled by FPS" : "etiquetas desactivadas por FPS", { fps: rollingFps });
         }
         recordMapDegradation(currentLanguage === "en" ? "low sustained FPS" : "FPS bajo sostenido", { fps: rollingFps });
-        sustainedLowFpsWindows = 0;
-      } else if (qualityPreset === "auto" && sustainedHighFpsWindows >= 3) {
+      } else if (action === "recover") {
         const preset = getPerformancePreset();
         viewer.resolutionScale = Math.min(preset.resolutionScale, viewer.resolutionScale + 0.03);
         viewer.scene.globe.maximumScreenSpaceError = Math.max(preset.maximumScreenSpaceError, viewer.scene.globe.maximumScreenSpaceError - 0.2);
@@ -8852,23 +8847,24 @@ function startPerformanceMonitor() {
           reducedPerformanceMode = false;
           reducedPerformanceReason = "";
         }
-        sustainedHighFpsWindows = 0;
       }
       updateAppStatusPanel({ fps: Math.round(rollingFps * 10) / 10 });
     }
-
-    frameCount = 0;
-    lastCheck = now;
   };
 
   performanceMonitorId = window.setInterval(sample, 2500);
   window.setTimeout(() => {
+    sample();
     if (performanceMonitorId) {
       window.clearInterval(performanceMonitorId);
       performanceMonitorId = null;
     }
     removePostRenderListener?.();
-    updateAppStatusPanel({ fps: Math.round(rollingFps * 10) / 10 });
+    removeMoveStart?.();
+    removeMoveEnd?.();
+    document.removeEventListener("visibilitychange", reset);
+    bootScheduler.finishStartupFps?.();
+    updateAppStatusPanel();
   }, monitorDuration);
 }
 

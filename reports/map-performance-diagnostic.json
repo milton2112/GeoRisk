@@ -1,0 +1,40 @@
+{
+  "date": "2026-09-09",
+  "packageVersion": "1.6.228",
+  "baselineVersion": "1.6.227",
+  "baselineCommit": "60ed54eeb8ae8098affe94ec1a6df5bfe51350f2",
+  "purpose": "Investigar una medicion de escritorio mucho mas lenta tras retomar la validacion interrumpida.",
+  "releaseEvidence": {
+    "report": "reports/performance-snapshot.json",
+    "measuredAt": "2026-09-09T11:23:45.814Z",
+    "desktopReadyMs": 7731,
+    "desktopMaximumLongTaskMs": 5640,
+    "desktopActiveFps": 7.0,
+    "mobileMaximumLongTaskMs": 592,
+    "preserved": true
+  },
+  "diagnosticMethod": {
+    "kind": "comparacion corta de arranque y seis segundos de movimiento; no sustituye los 60 segundos del snapshot de release",
+    "viewport": { "width": 1440, "height": 920 },
+    "browser": "Chrome headless, instancia nueva por caso",
+    "httpCacheDisabled": true,
+    "serviceWorkers": "block",
+    "baselineOverride": ["script.js", "app-map-interactions.js", "app-boot-scheduler.js"],
+    "baselineScope": "Intercepta estos tres archivos desde HEAD; el resto del build es comun y no cambia entre ambas versiones.",
+    "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11-32.0.101.7088)",
+    "mode": "3d",
+    "resolutionScale": 1.12,
+    "targetFps": 34
+  },
+  "samplesInExecutionOrder": [
+    { "version": "1.6.228", "readyMs": 2007.4, "activeFps": 22.69, "maximumLongTaskMs": 252 },
+    { "version": "1.6.227", "readyMs": 1952.0, "activeFps": 22.69, "maximumLongTaskMs": 215 },
+    { "version": "1.6.228", "readyMs": 1920.5, "activeFps": 23.66, "maximumLongTaskMs": 236 }
+  ],
+  "conclusion": "El bloqueo de varios segundos no se reprodujo en el diagnostico y ambas versiones dieron resultados similares. La causa del pico sigue sin determinar; esto no prueba una mejora de velocidad ni elimina las advertencias de release.",
+  "limitations": [
+    "Muestra pequena de un solo equipo, con dependencia de red, carga del sistema y estado del controlador grafico.",
+    "La comparacion corta no observa tareas tardias ni equivale a una prueba en celular fisico.",
+    "El ajuste de calidad corregido no resuelve por si solo los bloqueos iniciales de renderizado."
+  ]
+}
