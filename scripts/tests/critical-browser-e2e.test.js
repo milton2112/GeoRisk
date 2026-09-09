@@ -683,6 +683,113 @@ async function testIdleMapPerformance(browser, baseUrl) {
   }
 }
 
+async function testRenderRecovery(browser, baseUrl) {
+  for (const viewport of [DESKTOP_VIEWPORT, MOBILE_VIEWPORT]) {
+    const label = viewport.width > 820 ? "desktop" : "mobile";
+    const { context, page, pageErrors } = await createTestPage(browser, baseUrl, viewport);
+    try {
+      await waitForAppReady(page);
+      await page.waitForFunction(() => !isCameraNavigating);
+      await page.evaluate(() => {
+        setCountrySelection(countryLayers.get("ESP"));
+        window.__renderFixture = {
+          remaining: 1, frames: 0, errors: [],
+          scale: viewer.resolutionScale, detail: viewer.scene.globe.maximumScreenSpaceError,
+          mode: currentMapMode, selection: selectedLayer,
+          position: Cesium.Cartesian3.clone(viewer.camera.position),
+          direction: Cesium.Cartesian3.clone(viewer.camera.direction)
+        };
+        const fixture = window.__renderFixture;
+        viewer.scene.renderError.addEventListener((_scene, error) => {
+          fixture.errors.push({ message: error.message, running: viewer.useDefaultRenderLoop });
+        });
+        viewer.scene.postRender.addEventListener(() => { fixture.frames += 1; });
+        viewer.scene.primitives.add({
+          update() {
+            if (fixture.remaining > 0) {
+              fixture.remaining -= 1;
+              throw new Error("GeoRisk fixture primitive failure");
+            }
+          },
+          isDestroyed() { return false; }, destroy() {}
+        });
+        viewer.scene.requestRender();
+      });
+      await page.waitForFunction(() => viewer.__geoRiskRenderRecovery.getState().phase === "recovered");
+      const result = await page.evaluate(() => ({
+        errors: window.__renderFixture.errors,
+        sameScale: viewer.resolutionScale === window.__renderFixture.scale,
+        sameDetail: viewer.scene.globe.maximumScreenSpaceError === window.__renderFixture.detail,
+        sameMode: currentMapMode === window.__renderFixture.mode,
+        sameSelection: selectedLayer === window.__renderFixture.selection,
+        samePosition: Cesium.Cartesian3.equalsEpsilon(viewer.camera.position, window.__renderFixture.position, 0, 0.01),
+        sameDirection: Cesium.Cartesian3.equalsEpsilon(viewer.camera.direction, window.__renderFixture.direction, 0, 0.00001),
+        state: viewer.__geoRiskRenderRecovery.getState(),
+        log: mapDegradationLog.list().filter(entry => entry.reason === "render-recovery")
+      }));
+      assert.deepEqual(result.errors, [{ message: "GeoRisk fixture primitive failure", running: false }]);
+      assert.equal(result.state.attempts, 1);
+      for (const key of ["sameScale", "sameDetail", "sameMode", "sameSelection", "samePosition", "sameDirection"]) {
+        assert.equal(result[key], true, label + " " + key);
+      }
+      assert.ok(result.log.some(entry => entry.phase === "recovered" && entry.error === "GeoRisk fixture primitive failure"));
+      assert.equal(await page.locator(".cesium-widget-errorPanel").count(), 0);
+      const before = await page.locator("#map canvas").screenshot();
+      const previousFrames = await page.evaluate(() => {
+        const frames = window.__renderFixture.frames;
+        if (currentMapMode === "2d") viewer.camera.moveRight(600000);
+        else viewer.camera.rotateRight(0.2);
+        viewer.scene.requestRender();
+        return frames;
+      });
+      await page.waitForFunction(frames => window.__renderFixture.frames > frames, previousFrames);
+      const after = await page.locator("#map canvas").screenshot({ path: "tmp/map-recovered-" + label + ".png" });
+      assert.equal(before.equals(after), false, label + " debe producir pixeles distintos tras mover la camara recuperada");
+
+      await page.evaluate(() => { window.__renderFixture.remaining = Infinity; viewer.scene.requestRender(); });
+      await page.locator("#fatal-error-banner").waitFor({ state: "visible" });
+      assert.match(await page.locator("#fatal-error-banner").innerText(), /El mapa dejo de dibujarse/);
+      assert.equal(await page.evaluate(() => viewer.__geoRiskRenderRecovery.getState().phase), "failed");
+      const stoppedFrames = await page.evaluate(() => window.__renderFixture.frames);
+      await page.waitForTimeout(1100);
+      assert.equal(await page.evaluate(() => window.__renderFixture.frames), stoppedFrames, "no reintentar indefinidamente un error persistente");
+      assert.equal(await page.evaluate(() => viewer.useDefaultRenderLoop), false);
+      await page.screenshot({ path: "tmp/map-render-failed-" + label + ".png" });
+      await page.locator("#fatal-error-banner a").click();
+      await waitForAppReady(page);
+      assert.equal(await page.evaluate(() => viewer.__geoRiskRenderRecovery.getState().attempts), 0);
+
+      // Exercise the widget's outer catch, which does not emit scene.renderError.
+      await page.evaluate(() => {
+        const widget = viewer.cesiumWidget;
+        const render = widget.render;
+        widget.render = function () { this.render = render; throw new Error("GeoRisk fixture widget failure"); };
+        viewer.scene.requestRender();
+      });
+      await page.waitForFunction(() => viewer.__geoRiskRenderRecovery.getState().phase === "recovered");
+      assert.equal(await page.evaluate(() => mapDegradationLog.list().some(entry => entry.error === "Render loop stopped")), true);
+      await submitSearch(page, "Argentina");
+      await waitForCountryPanel(page, "Argentina");
+      await closeCountryPanel(page);
+      const contextLossSupported = await page.evaluate(() => {
+        const canvas = viewer.scene.canvas;
+        const gl = canvas.getContext("webgl2") || canvas.getContext("webgl");
+        const extension = gl?.getExtension("WEBGL_lose_context");
+        if (!extension) return false;
+        extension.loseContext();
+        return true;
+      });
+      assert.ok(contextLossSupported, "Chromium de prueba debe permitir simular la perdida de contexto");
+      await page.waitForFunction(() => viewer.__geoRiskRenderRecovery.getState().phase === "failed");
+      assert.equal(await page.evaluate(() => viewer.useDefaultRenderLoop), false);
+      assert.equal(await page.locator("#fatal-error-banner a").isVisible(), true);
+      assertHealthyPage(pageErrors, "recuperacion " + label);
+    } finally {
+      await context.close();
+    }
+  }
+}
+
 const server = createLocalSmokeServer();
 await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
 
@@ -695,12 +802,14 @@ try {
   const detailOnly = process.argv.includes("--detail-only");
   const performanceOnly = process.argv.includes("--performance-only");
   const startupOnly = process.argv.includes("--startup-only");
-  if (!detailOnly && !startupOnly) await testIdleMapPerformance(browser, baseUrl);
-  if (!detailOnly && !performanceOnly) await testMapEngineStartup(browser, baseUrl);
-  if (!detailOnly && !performanceOnly) await testControlsStartup(browser, baseUrl);
-  if (!performanceOnly && !startupOnly) await testDetailedMapUpgrade(browser, baseUrl);
+  const recoveryOnly = process.argv.includes("--recovery-only");
+  if (!detailOnly && !startupOnly && !recoveryOnly) await testIdleMapPerformance(browser, baseUrl);
+  if (!detailOnly && !performanceOnly && !recoveryOnly) await testMapEngineStartup(browser, baseUrl);
+  if (!detailOnly && !performanceOnly && !recoveryOnly) await testControlsStartup(browser, baseUrl);
+  if (!performanceOnly && !startupOnly && !recoveryOnly) await testDetailedMapUpgrade(browser, baseUrl);
+  if (!detailOnly && !performanceOnly && !startupOnly) await testRenderRecovery(browser, baseUrl);
 
-  if (!detailOnly && !performanceOnly && !startupOnly) {
+  if (!detailOnly && !performanceOnly && !startupOnly && !recoveryOnly) {
     const desktop = await createTestPage(browser, baseUrl, DESKTOP_VIEWPORT);
     try {
       await runDesktopCriticalFlow(desktop.page);

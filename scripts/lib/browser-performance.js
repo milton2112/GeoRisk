@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import { chromium } from "@playwright/test";
 import { createLocalSmokeServer } from "../localSmokeServer.js";
 import { summarizeLongTasks, summarizeRenderFrames } from "./performance-metrics.js";
-import { BROWSER_MEASUREMENT_SOURCE } from "./performance-evidence.js";
+import { BROWSER_MEASUREMENT_SOURCE, hasHealthyRenderLoop } from "./performance-evidence.js";
 
 export const PERFORMANCE_PROFILES = [
   { name: "desktop", viewport: { width: 1440, height: 920 }, isMobile: false, cpuSlowdown: 1 },
@@ -248,6 +248,11 @@ async function measureProfile(browser, baseUrl, profile) {
         frameTimes: probe.frameTimes,
         activeStart: probe.activeStart,
         activeEnd: probe.activeEnd,
+        renderState: {
+          running: viewer.useDefaultRenderLoop,
+          recovery: viewer.__geoRiskRenderRecovery?.getState() || null,
+          events: typeof mapDegradationLog === "undefined" ? [] : mapDegradationLog.list().filter(entry => entry.reason === "render-recovery")
+        },
         bootSteps: typeof bootMetrics === "undefined" ? {} : Object.fromEntries(Object.entries(bootMetrics.steps).map(([name, step]) => [name, step.duration ?? null]))
       };
     });
@@ -263,6 +268,7 @@ async function measureProfile(browser, baseUrl, profile) {
       canvasChanged: canvasVerification.changingCanvas,
       canvasVerificationOutsideWindow: canvasVerification.startedAt >= raw.endedAt && canvasVerification.startedAt >= raw.activeEnd,
       sceneModeMatches: raw.mode === raw.sceneMode,
+      renderLoopHealthy: hasHealthyRenderLoop(raw.renderState),
       noPageErrors: pageErrors.length === 0,
       noMissingLocalResources: !resourceErrors.some(item => item.url.startsWith("/")),
       noHeavyStartupRequests: heavyRequests.length === 0
@@ -278,6 +284,7 @@ async function measureProfile(browser, baseUrl, profile) {
       activeRender,
       canvasVerification,
       renderDiagnostics,
+      renderState: raw.renderState,
       bootSteps: raw.bootSteps,
       resourceErrors,
       pageErrors,

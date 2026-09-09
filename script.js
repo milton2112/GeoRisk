@@ -85,7 +85,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-09-09-release-2";
+const APP_VERSION = "2026-09-10-release-1";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -2310,6 +2310,7 @@ function initializeViewer() {
     maximumRenderTimeChange: Infinity,
     msaaSamples: preset.msaaSamples,
     requestRenderMode: true,
+    showRenderLoopErrors: false,
     sceneModePicker: false,
     sceneMode: currentMapMode === "2d" ? Cesium.SceneMode.SCENE2D : Cesium.SceneMode.SCENE3D,
     scene3DOnly: false,
@@ -2392,11 +2393,18 @@ function initializeViewer() {
     globeAutoRotateHandlerAttached = true;
   }
 
-  viewer.scene.renderError.addEventListener(error => {
-    console.error("Error de renderizado en Cesium:", error);
-    viewer.resolutionScale = Math.max(0.62, viewer.resolutionScale - 0.08);
-    viewer.scene.globe.maximumScreenSpaceError = Math.min(7, viewer.scene.globe.maximumScreenSpaceError + 0.6);
-    viewer.scene.requestRender();
+  viewer.__geoRiskRenderRecovery = mapInteractionCore.installRenderRecovery({
+    viewer,
+    onStateChange({ phase, attempts, error }) {
+      mapDegradationLog.add("render-recovery", { phase, attempts, mode: currentMapMode,
+        qualityPreset, error: error?.message || String(error || "") });
+      if (phase === "waiting" || phase === "failed") console.error("Error de renderizado en Cesium:", error);
+      if (phase === "failed") {
+        showFatalError(currentLanguage === "en"
+          ? "The map stopped rendering. Reload the page to restart it."
+          : "El mapa dejo de dibujarse. Recarga la pagina para reiniciarlo.");
+      }
+    }
   });
 
   setTimeout(() => {

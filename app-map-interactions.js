@@ -97,7 +97,110 @@
     return { reset, recordFrame, sample };
   }
 
+  function installRenderRecovery({ viewer, onStateChange = () => {}, document = window.document }) {
+    const scene = viewer.scene;
+    const canvas = scene.canvas;
+    let phase = "healthy";
+    let attempts = 0;
+    let disposed = false;
+    let firstFrame = null;
+    let secondFrame = null;
+    let visibleWaitMs = 0;
+    let lastError = null;
+
+    function cancelFrames() {
+      if (firstFrame !== null) cancelAnimationFrame(firstFrame);
+      if (secondFrame !== null) cancelAnimationFrame(secondFrame);
+      firstFrame = secondFrame = null;
+    }
+
+    function dispose() {
+      if (disposed) return;
+      disposed = true;
+      cancelFrames();
+      clearInterval(poll);
+      removeError();
+      removePostRender();
+      canvas.removeEventListener("webglcontextlost", contextLost);
+    }
+
+    function alive() {
+      if (!disposed && viewer.isDestroyed()) dispose();
+      return !disposed;
+    }
+
+    function notify(nextPhase, error = lastError) {
+      phase = nextPhase;
+      try {
+        onStateChange({ phase, attempts, error });
+      } catch (callbackError) {
+        console.error("Render recovery notification failed:", callbackError);
+      }
+    }
+
+    function fail(error) {
+      if (!alive() || phase === "failed") return;
+      lastError = error;
+      cancelFrames();
+      viewer.useDefaultRenderLoop = false;
+      notify("failed");
+      dispose();
+    }
+
+    function handleError(_scene, error) {
+      if (!alive() || phase === "failed") return;
+      lastError = error;
+      if (phase === "waiting") return;
+      if (attempts > 0) {
+        fail(error);
+        return;
+      }
+      attempts += 1;
+      viewer.useDefaultRenderLoop = false;
+      notify("waiting");
+      if (!alive() || phase !== "waiting") return;
+      // Drain the old Cesium animation callback before starting a new loop.
+      firstFrame = requestAnimationFrame(() => {
+        firstFrame = null;
+        if (!alive() || phase !== "waiting") return;
+        secondFrame = requestAnimationFrame(() => {
+          secondFrame = null;
+          if (!alive() || phase !== "waiting") return;
+          visibleWaitMs = 0;
+          notify("retrying");
+          if (!alive() || phase !== "retrying") return;
+          try {
+            viewer.useDefaultRenderLoop = true;
+            scene.requestRender();
+          } catch (restartError) {
+            fail(restartError);
+          }
+        });
+      });
+    }
+
+    const removeError = scene.renderError.addEventListener(handleError);
+    const removePostRender = scene.postRender.addEventListener(() => {
+      if (alive() && phase === "retrying" && viewer.useDefaultRenderLoop) notify("recovered");
+    });
+    const contextLost = () => fail(new Error("WebGL context lost"));
+    canvas.addEventListener("webglcontextlost", contextLost);
+    const poll = setInterval(() => {
+      if (!alive() || document.visibilityState === "hidden" || phase === "failed" || phase === "waiting") return;
+      // Widget resize/clock errors can stop the loop without a scene renderError.
+      if (!viewer.useDefaultRenderLoop) {
+        handleError(scene, new Error("Render loop stopped"));
+      } else if (phase === "retrying") {
+        visibleWaitMs += 1000;
+        if (visibleWaitMs >= 8000) fail(new Error("No rendered frame after retry"));
+      }
+    }, 1000);
+
+    return { dispose, getState: () => ({ phase, attempts }) };
+  }
+
   window.GeoRiskMapInteractions = {
+    installRenderRecovery,
     createFpsQualityMonitor,
     getHoverSampleWindow,
     getNavigationTuning,

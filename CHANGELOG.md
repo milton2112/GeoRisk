@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.230 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.231 antes de cerrar la siguiente version.
+
+## v1.6.231 - 2026-09-10
+
+- Corrige la recuperacion del mapa despues de errores de render: reactiva el bucle de Cesium una sola vez y confirma un frame posterior sin error antes de darlo por recuperado.
+- Retira el ajuste de emergencia que podia aumentar la resolucion y el trabajo de detalle en moviles. El reintento conserva perfil, modo, camara y seleccion.
+- Ofrece una recarga accesible si el error persiste, no llega un frame recuperado o se pierde el contexto WebGL. Detecta tambien el bucle detenido fuera del evento de escena y evita reintentos infinitos.
+- Agrega pruebas de recuperacion, errores persistentes, pestaña oculta y limpieza de listeners, mas fallos inyectados en Chromium 2D/3D. El pico inicial de evaluacion del SDK sigue pendiente.
+- El snapshot registra el estado del bucle y los intentos de recuperacion. La puerta de release rechaza errores de render incluso si el reintento consigue recuperar la pantalla.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-10-release-1`.
 
 ## v1.6.230 - 2026-09-09
 

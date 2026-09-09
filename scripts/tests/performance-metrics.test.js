@@ -3,7 +3,7 @@ import vm from "node:vm";
 import fs from "node:fs/promises";
 import { verifyCanvasMotion, readRenderDiagnostics } from "../lib/browser-performance.js";
 import { summarizeLongTasks, summarizeRenderFrames } from "../lib/performance-metrics.js";
-import { BROWSER_MEASUREMENT_SOURCE, hasCompleteBrowserMeasurement, canReuseBrowserMeasurement, browserPerformanceWarnings } from "../lib/performance-evidence.js";
+import { BROWSER_MEASUREMENT_SOURCE, hasCompleteBrowserMeasurement, canReuseBrowserMeasurement, browserPerformanceWarnings, hasHealthyRenderLoop } from "../lib/performance-evidence.js";
 
 const tasks = summarizeLongTasks([{ duration: 50 }, { duration: 200 }, { duration: 240 }, { duration: NaN }]);
 assert.equal(tasks.count, 3);
@@ -27,11 +27,24 @@ const measurement = {
     longTasks: tasks, activeRender: { durationMs: 6000, frames: 60, averageFps: 10 },
     checks: {
       longTasksSupported: true, fullWindowObserved: true, noDroppedEntries: true, activeSampleWithinWindow: true,
-      canvasRendered: true, canvasChanged: true, canvasVerificationOutsideWindow: true, sceneModeMatches: true, noPageErrors: true, noMissingLocalResources: true, noHeavyStartupRequests: true
+      canvasRendered: true, canvasChanged: true, canvasVerificationOutsideWindow: true, sceneModeMatches: true, noPageErrors: true, noMissingLocalResources: true, noHeavyStartupRequests: true, renderLoopHealthy: true
     }
   }))
 };
 assert.equal(hasCompleteBrowserMeasurement(measurement), true);
+for (const phase of ["healthy", "waiting", "retrying", "recovered", "failed"]) {
+  for (const running of [false, true]) for (const attempts of [0, 1]) {
+    assert.equal(hasHealthyRenderLoop({ running, recovery: { phase, attempts } }), running && phase === "healthy" && attempts === 0,
+      "una recuperacion no debe ocultar un error del render en la puerta de release");
+  }
+}
+assert.equal(hasHealthyRenderLoop(null), false);
+assert.equal(hasHealthyRenderLoop({ running: true }), false);
+const recoveredMeasurement = structuredClone(measurement);
+recoveredMeasurement.profiles[0].checks.renderLoopHealthy = false;
+assert.equal(hasCompleteBrowserMeasurement(recoveredMeasurement), false);
+delete recoveredMeasurement.profiles[0].checks.renderLoopHealthy;
+assert.equal(hasCompleteBrowserMeasurement(recoveredMeasurement), false, "una muestra anterior sin verificar el controlador no se reutiliza");
 assert.equal(hasCompleteBrowserMeasurement({ ...measurement, source: "simulated" }), false);
 assert.equal(hasCompleteBrowserMeasurement({ ...measurement, profiles: measurement.profiles.slice(0, 1) }), false);
 const failed = structuredClone(measurement);

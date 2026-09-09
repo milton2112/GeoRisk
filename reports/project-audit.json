@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-09T17:30:32.897Z",
+  "generatedAt": "2026-09-09T23:05:58.625Z",
   "status": "operativo",
   "startup": {
-    "critical": "824 KB",
-    "criticalBytes": 843939,
+    "critical": "828 KB",
+    "criticalBytes": 847704,
     "deferred": "3.10 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 13106533,
@@ -23,8 +23,8 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 565747,
-        "human": "552 KB",
+        "bytes": 566095,
+        "human": "553 KB",
         "startupCritical": true
       },
       {
@@ -812,14 +812,14 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 565747,
-      "human": "552 KB"
+      "bytes": 566095,
+      "human": "553 KB"
     },
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 262354,
-      "human": "256 KB"
+      "bytes": 263361,
+      "human": "257 KB"
     },
     {
       "path": "style.css",
@@ -854,8 +854,8 @@
     {
       "path": "TECHNICAL.md",
       "exists": true,
-      "bytes": 19557,
-      "human": "19 KB"
+      "bytes": 21111,
+      "human": "21 KB"
     },
     {
       "path": "app-project-audit-ui.js",
@@ -894,6 +894,12 @@
       "human": "8 KB"
     },
     {
+      "path": "app-map-interactions.js",
+      "exists": true,
+      "bytes": 7222,
+      "human": "7 KB"
+    },
+    {
       "path": "app-performance-ui.js",
       "exists": true,
       "bytes": 6074,
@@ -910,12 +916,6 @@
       "exists": true,
       "bytes": 5389,
       "human": "5 KB"
-    },
-    {
-      "path": "app-map-interactions.js",
-      "exists": true,
-      "bytes": 3805,
-      "human": "4 KB"
     },
     {
       "path": "app-runtime.js",

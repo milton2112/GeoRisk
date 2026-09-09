@@ -2,8 +2,12 @@ export const BROWSER_MEASUREMENT_SOURCE = "chromium-performance-observer-and-ces
 const MAX_REUSE_AGE_MS = 6 * 60 * 60 * 1000;
 const REQUIRED_CHECKS = [
   "longTasksSupported", "fullWindowObserved", "noDroppedEntries", "activeSampleWithinWindow",
-  "canvasRendered", "canvasChanged", "canvasVerificationOutsideWindow", "sceneModeMatches", "noPageErrors", "noMissingLocalResources", "noHeavyStartupRequests"
+  "canvasRendered", "canvasChanged", "canvasVerificationOutsideWindow", "sceneModeMatches", "noPageErrors", "noMissingLocalResources", "noHeavyStartupRequests", "renderLoopHealthy"
 ];
+
+export function hasHealthyRenderLoop(state) {
+  return state?.running === true && state.recovery?.phase === "healthy" && state.recovery.attempts === 0;
+}
 
 export function hasCompleteBrowserMeasurement(measurement) {
   return measurement?.source === BROWSER_MEASUREMENT_SOURCE && measurement.complete === true &&
