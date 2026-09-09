@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-09-09T16:57:43.615Z",
-  "startupBytes": 840809,
-  "startupHuman": "821 KB",
-  "deferredBytes": 3253865,
+  "generatedAt": "2026-09-09T17:30:34.632Z",
+  "startupBytes": 843939,
+  "startupHuman": "824 KB",
+  "deferredBytes": 3252116,
   "deferredHuman": "3.10 MB",
   "estimatedRuntimeMemory": {
     "countriesFullBytes": 13106533,
@@ -22,8 +22,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 564614,
-      "human": "551 KB",
+      "bytes": 565747,
+      "human": "552 KB",
       "startupCritical": true
     },
     {
@@ -50,8 +50,8 @@
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 81017,
-      "human": "79 KB",
+      "bytes": 82979,
+      "human": "81 KB",
       "startupCritical": true
     },
     {
@@ -62,18 +62,18 @@
       "startupCritical": false
     },
     {
-      "path": "style-polish.css",
-      "exists": true,
-      "bytes": 33410,
-      "human": "33 KB",
-      "startupCritical": false
-    },
-    {
       "path": "index.html",
       "exists": true,
-      "bytes": 32022,
+      "bytes": 32057,
       "human": "31 KB",
       "startupCritical": true
+    },
+    {
+      "path": "style-polish.css",
+      "exists": true,
+      "bytes": 31661,
+      "human": "31 KB",
+      "startupCritical": false
     },
     {
       "path": "app-conflict-aliases.js",
@@ -101,29 +101,29 @@
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 32022,
+      "bytes": 32057,
       "human": "31 KB",
       "startupCritical": true
     },
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 564614,
-      "human": "551 KB",
+      "bytes": 565747,
+      "human": "552 KB",
       "startupCritical": true
     },
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 81017,
-      "human": "79 KB",
+      "bytes": 82979,
+      "human": "81 KB",
       "startupCritical": true
     },
     {
       "path": "style-polish.css",
       "exists": true,
-      "bytes": 33410,
-      "human": "33 KB",
+      "bytes": 31661,
+      "human": "31 KB",
       "startupCritical": false
     },
     {

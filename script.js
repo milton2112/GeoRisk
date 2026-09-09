@@ -85,7 +85,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-09-09-release-1";
+const APP_VERSION = "2026-09-09-release-2";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -146,14 +146,16 @@ async function ensureDeferredUiModule(moduleName) {
     deferredUiModulePromises.set(
       moduleName,
       import(moduleUrl)
+        .then(() => true)
         .catch(error => {
           console.warn(`No se pudo cargar modulo diferido ${moduleName}:`, error);
+          return false;
         })
         .finally(refreshDeferredUiGlobals)
     );
   }
 
-  await deferredUiModulePromises.get(moduleName);
+  return deferredUiModulePromises.get(moduleName);
 }
 
 const QUALITY_PRESET_OVERRIDES = {
@@ -6944,6 +6946,10 @@ function showFatalError(message) {
 
   banner.hidden = false;
   banner.textContent = message;
+  const reloadLink = document.createElement("a");
+  reloadLink.href = window.location.href;
+  reloadLink.textContent = currentLanguage === "en" ? "Reload" : "Recargar";
+  banner.append(reloadLink);
 }
 
 function registerCountryAlias(alias, value, overwrite = false) {
@@ -13210,6 +13216,7 @@ async function loadMap(bootPhase = false, { preserveView = false } = {}) {
     }
 
     clickHandler.setInputAction(async movement => {
+    if (document.body.classList.contains("globe-loading")) return;
     emitMapEvent("click");
     const pickedEntity = getPickedCountryEntityAt(movement.position);
     const rawCode = pickedEntity?.countryCode;
@@ -14759,17 +14766,6 @@ async function init() {
     startPerformanceMonitor();
     updateMapInteractionTuning();
     setTimeout(() => {
-      document.body.classList.remove("globe-loading");
-      hideStartupStatus();
-      completeBootMetrics();
-      updateAppStatusPanel();
-      if (window.GEORISK_DEBUG_BOOT === true || localStorage.getItem("georisk.debugBoot") === "true") {
-        console.info("GeoRisk boot profile", getBootProfileSummary(), bootMetrics.steps);
-      }
-      updateExtendedStaticText();
-      if (localStorage.getItem(STORAGE_KEYS.introSeen) !== "true") {
-        openIntroModal();
-      }
       scheduleWhenGlobeIsQuiet(() => {
         if (viewer && !isMobileLayout() && activeImagerySignature.includes(":boot")) {
           applyImageryForMode(false);
@@ -14786,20 +14782,25 @@ async function init() {
     }, 120);
 
     const bootDeferredUi = () => {
-      measureBootStep("deferredUi", async () => {
+      return measureBootStep("deferredUi", async () => {
         setStartupStatus(currentLanguage === "en" ? "Activating search, layers and panels." : "Activando buscador, capas y paneles.");
+        const failedTasks = [];
         const safeUiTask = (name, task) => {
           try {
             task();
           } catch (error) {
             console.error(`No se pudo inicializar ${name}:`, error);
+            failedTasks.push(name);
           }
         };
 
-        await Promise.all([
+        const loadedModules = await Promise.all([
           ensureDeferredUiModule("text"),
           ensureDeferredUiModule("uiPolish")
         ]);
+        if (loadedModules.some(loaded => !loaded)) {
+          throw new Error("Required interface module unavailable");
+        }
         const uiTasks = [
           ["search events", () => setupSearchEvents()],
           ["theme controls", () => setupThemeControls()],
@@ -14815,14 +14816,35 @@ async function init() {
           ["saved views", () => setupSavedViewControls()],
           ["global shortcuts", () => setupGlobalKeyboardShortcuts()],
           ["mobile controls", () => setupMobilePanelControls()],
-          ["ui polish", () => uiPolish.init?.()]
+          ["ui polish", () => uiPolish.init()]
         ];
         for (const [name, task] of uiTasks) {
           await yieldToMainThread("user-visible");
           safeUiTask(name, task);
         }
-        await registerServiceWorker();
+        if (failedTasks.length) {
+          throw new Error(`Interface setup failed: ${failedTasks.join(", ")}`);
+        }
+      }).then(() => {
+        document.body.classList.remove("globe-loading");
+        hideStartupStatus();
+        completeBootMetrics();
         updateAppStatusPanel();
+        if (window.GEORISK_DEBUG_BOOT === true || localStorage.getItem("georisk.debugBoot") === "true") {
+          console.info("GeoRisk boot profile", getBootProfileSummary(), bootMetrics.steps);
+        }
+        if (localStorage.getItem(STORAGE_KEYS.introSeen) !== "true") {
+          openIntroModal();
+        }
+        // Offline setup must not delay controls that are already connected.
+        registerServiceWorker().catch(error => console.warn("No se pudo preparar el modo offline:", error));
+      }).catch(error => {
+        document.body.classList.add("globe-loading");
+        hideStartupStatus();
+        console.error("No se pudo activar la interfaz:", error);
+        showFatalError(currentLanguage === "en"
+          ? "The controls could not be loaded. Check your connection and reload."
+          : "No se pudieron cargar los controles. Revisa tu conexion y recarga la pagina.");
       });
     };
 
@@ -14852,7 +14874,6 @@ async function init() {
     });
 
   } catch (error) {
-    document.body.classList.remove("globe-loading");
     hideStartupStatus();
     console.error("Error al inicializar GeoRisk 3D:", error);
     const status = document.getElementById("offline-status");

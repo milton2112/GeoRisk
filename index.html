@@ -8,12 +8,12 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
   <link rel="stylesheet" href="https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Widgets/widgets.css">
-  <link rel="stylesheet" href="style.css?v=2026-09-09-release-1">
+  <link rel="stylesheet" href="style.css?v=2026-09-09-release-2">
 </head>
-<body>
+<body class="globe-loading">
 
 <div id="map"></div>
-<div id="fatal-error-banner" hidden></div>
+<div id="fatal-error-banner" role="alert" hidden></div>
 <div id="startup-status" role="status" aria-live="polite">
   <strong id="startup-status-title">Preparando GeoRisk</strong>
   <span id="startup-status-text">Cargando mapa liviano y controles basicos.</span>
@@ -634,14 +634,14 @@
     clearTimeout(window.__geoRiskCesiumFallbackTimer);
   });
 </script>
-<script src="app-runtime.js?v=2026-09-09-release-1"></script>
-<script src="app-theme.js?v=2026-09-09-release-1"></script>
-<script src="app-boot-scheduler.js?v=2026-09-09-release-1"></script>
-<script src="app-map.js?v=2026-09-09-release-1"></script>
-<script src="app-map-styles.js?v=2026-09-09-release-1"></script>
-<script src="app-map-interactions.js?v=2026-09-09-release-1"></script>
-<script src="app-store.js?v=2026-09-09-release-1"></script>
-<script src="script.js?v=2026-09-09-release-1"></script>
+<script src="app-runtime.js?v=2026-09-09-release-2"></script>
+<script src="app-theme.js?v=2026-09-09-release-2"></script>
+<script src="app-boot-scheduler.js?v=2026-09-09-release-2"></script>
+<script src="app-map.js?v=2026-09-09-release-2"></script>
+<script src="app-map-styles.js?v=2026-09-09-release-2"></script>
+<script src="app-map-interactions.js?v=2026-09-09-release-2"></script>
+<script src="app-store.js?v=2026-09-09-release-2"></script>
+<script src="script.js?v=2026-09-09-release-2"></script>
 
 </body>
 </html>

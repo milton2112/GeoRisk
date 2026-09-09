@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-09T11:44:31.675Z",
+  "generatedAt": "2026-09-09T17:30:32.897Z",
   "status": "operativo",
   "startup": {
-    "critical": "821 KB",
-    "criticalBytes": 840809,
+    "critical": "824 KB",
+    "criticalBytes": 843939,
     "deferred": "3.10 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 13106533,
@@ -23,8 +23,8 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 564614,
-        "human": "551 KB",
+        "bytes": 565747,
+        "human": "552 KB",
         "startupCritical": true
       },
       {
@@ -51,8 +51,8 @@
       {
         "path": "style.css",
         "exists": true,
-        "bytes": 81017,
-        "human": "79 KB",
+        "bytes": 82979,
+        "human": "81 KB",
         "startupCritical": true
       },
       {
@@ -63,18 +63,18 @@
         "startupCritical": false
       },
       {
-        "path": "style-polish.css",
-        "exists": true,
-        "bytes": 33410,
-        "human": "33 KB",
-        "startupCritical": false
-      },
-      {
         "path": "index.html",
         "exists": true,
-        "bytes": 32022,
+        "bytes": 32057,
         "human": "31 KB",
         "startupCritical": true
+      },
+      {
+        "path": "style-polish.css",
+        "exists": true,
+        "bytes": 31661,
+        "human": "31 KB",
+        "startupCritical": false
       },
       {
         "path": "app-conflict-aliases.js",
@@ -812,31 +812,31 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 564614,
-      "human": "551 KB"
+      "bytes": 565747,
+      "human": "552 KB"
     },
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 261246,
-      "human": "255 KB"
+      "bytes": 262354,
+      "human": "256 KB"
     },
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 81017,
-      "human": "79 KB"
-    },
-    {
-      "path": "style-polish.css",
-      "exists": true,
-      "bytes": 33410,
-      "human": "33 KB"
+      "bytes": 82979,
+      "human": "81 KB"
     },
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 32022,
+      "bytes": 32057,
+      "human": "31 KB"
+    },
+    {
+      "path": "style-polish.css",
+      "exists": true,
+      "bytes": 31661,
       "human": "31 KB"
     },
     {
@@ -854,8 +854,8 @@
     {
       "path": "TECHNICAL.md",
       "exists": true,
-      "bytes": 18752,
-      "human": "18 KB"
+      "bytes": 19557,
+      "human": "19 KB"
     },
     {
       "path": "app-project-audit-ui.js",
@@ -963,8 +963,8 @@
   "scriptMetrics": {
     "functions": 527,
     "asyncFunctions": 49,
-    "consoleWarnings": 19,
-    "consoleErrors": 12
+    "consoleWarnings": 20,
+    "consoleErrors": 13
   },
   "visualMetrics": {
     "index.html": {

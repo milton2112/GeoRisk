@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.229 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.230 antes de cerrar la siguiente version.
+
+## v1.6.230 - 2026-09-09
+
+- Muestra el estado de carga desde el HTML inicial y mantiene ocultos los controles hasta conectar sus acciones. El mapa puede seguir moviendose mientras se prepara la interfaz.
+- Abre la bienvenida y completa la medicion de arranque despues de activar buscador, capas y paneles, no antes. La preparacion del cache offline ya no bloquea esta disponibilidad.
+- Detecta modulos de interfaz ausentes y errores de inicializacion: muestra un aviso accesible con enlace para recargar en lugar de dejar botones inactivos o promesas sin gestionar.
+- Corrige los contenedores de bienvenida y producto: ocupan el viewport y se apilan sobre el mapa, como los demas modales.
+- Incluye los estilos basicos de bienvenida en la hoja inicial para evitar texto claro sobre botones blancos mientras se descarga el pulido visual diferido.
+- Agrega regresiones de carga lenta, fallos de modulos/controles y preparacion offline pendiente. El pico de evaluacion inicial del SDK Cesium sigue pendiente; esta correccion no lo elimina.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-09-release-2`.
 
 ## v1.6.229 - 2026-09-09
 

@@ -378,26 +378,65 @@ assert.ok(initSource.indexOf("window.GeoRiskMapEngineReady") < initSource.indexO
 assert.ok(viewerSetup.indexOf("currentMapMode = getDefaultMapMode()") < viewerSetup.indexOf("new Cesium.Viewer"), "modo inicial debe elegirse antes de crear Cesium");
 assert.ok(viewerSetup.includes('sceneMode: currentMapMode === "2d" ? Cesium.SceneMode.SCENE2D : Cesium.SceneMode.SCENE3D'), "el constructor debe recibir la escena real");
 assert.ok(script.includes('await yieldToMainThread("user-visible")'), "el arranque debe ceder el hilo antes de construir WebGL");
-const uiOrder = [];
-let uiBootPromise;
-const uiContext = {
-  currentLanguage: "es", setStartupStatus() {}, ensureDeferredUiModule: async () => {},
-  measureBootStep(name, task) { uiBootPromise = task(); },
-  yieldToMainThread: async priority => { assert.equal(priority, "user-visible"); uiOrder.push("yield"); },
-  registerServiceWorker: async () => uiOrder.push("offline"), updateAppStatusPanel() {},
-  console: { error() { uiOrder.push("handled-error"); } },
-  uiPolish: { init() { uiOrder.push("uiPolish"); } }
-};
+assert.match(indexHtml, /<body class="globe-loading">/, "la carga debe ser visible antes de descargar script.js");
 const uiNames = ["setupSearchEvents", "setupThemeControls", "setupMapModeControl", "setupRankingGroups", "updateExtendedStaticText", "setupCompareControls", "setupQuizControls", "setupRankingsPanel", "setupCompareHubPanel", "setupQuizHubPanel", "setupNewsHubPanel", "setupSavedViewControls", "setupGlobalKeyboardShortcuts", "setupMobilePanelControls"];
-for (const name of uiNames) uiContext[name] = () => {
-  uiOrder.push(name);
-  if (name === "setupThemeControls") throw new Error("simulated control failure");
-};
 const uiBootSource = script.slice(script.indexOf("const bootDeferredUi = () => {"), script.indexOf("const bootHeavyDataEnhancements ="));
-vm.runInNewContext(uiBootSource + "\nbootDeferredUi();", uiContext);
-await uiBootPromise;
-const expectedUiOrder = [...uiNames, "uiPolish"].flatMap(name => ["yield", name, ...(name === "setupThemeControls" ? ["handled-error"] : [])]);
-assert.deepEqual(uiOrder, [...expectedUiOrder, "offline"], "cada grupo de controles debe ceder el hilo y tolerar un fallo aislado");
+function startUiBoot({ modules = async () => true, failedTask = "", offline = async () => {} } = {}) {
+  const order = [];
+  const classes = new Set(["globe-loading"]);
+  const context = {
+    currentLanguage: "es", setStartupStatus() {}, ensureDeferredUiModule: modules,
+    measureBootStep: async (name, task) => task(),
+    yieldToMainThread: async priority => { assert.equal(priority, "user-visible"); order.push("yield"); },
+    registerServiceWorker: () => { order.push("offline"); return offline(); },
+    updateAppStatusPanel() { order.push("status"); },
+    hideStartupStatus() { order.push("hide-loading"); },
+    completeBootMetrics() { order.push("complete"); },
+    openIntroModal() { order.push("intro"); },
+    showFatalError() { order.push("failure"); },
+    document: { body: { classList: { remove: key => classes.delete(key), add: key => classes.add(key) } } },
+    window: {}, localStorage: { getItem: () => null }, STORAGE_KEYS: { introSeen: "seen" },
+    console: { error() { order.push("handled-error"); }, warn() { order.push("offline-warning"); } },
+    uiPolish: { init() { order.push("uiPolish"); } }
+  };
+  for (const name of uiNames) context[name] = () => {
+    order.push(name);
+    if (name === failedTask) throw new Error("simulated control failure");
+  };
+  return { order, classes, done: vm.runInNewContext(uiBootSource + "\nbootDeferredUi();", context) };
+}
+const expectedUiOrder = [...uiNames, "uiPolish"].flatMap(name => ["yield", name]);
+const healthyUi = startUiBoot();
+await healthyUi.done;
+assert.deepEqual(healthyUi.order, [...expectedUiOrder, "hide-loading", "complete", "status", "intro", "offline"], "controles y bienvenida deben activarse antes de preparar offline, cediendo el hilo entre grupos");
+assert.equal(healthyUi.classes.has("globe-loading"), false);
+let releaseUiModule;
+const heldUiModule = new Promise(resolve => { releaseUiModule = resolve; });
+const slowUi = startUiBoot({ modules: () => heldUiModule });
+await Promise.resolve();
+assert.deepEqual(slowUi.order, [], "esperar un modulo no puede exponer controles ni bienvenida");
+assert.equal(slowUi.classes.has("globe-loading"), true);
+releaseUiModule(true);
+await slowUi.done;
+assert.equal(slowUi.classes.has("globe-loading"), false);
+for (const modules of [async () => false, async () => { throw new Error("network failure"); }]) {
+  const failedUi = startUiBoot({ modules });
+  await failedUi.done;
+  assert.equal(failedUi.classes.has("globe-loading"), true);
+  assert.deepEqual(failedUi.order, ["hide-loading", "handled-error", "failure"], "un modulo ausente debe ofrecer recuperacion sin rechazos sin gestionar");
+}
+const partialUi = startUiBoot({ failedTask: "setupThemeControls" });
+await partialUi.done;
+assert.ok(partialUi.order.includes("uiPolish"), "un fallo no debe impedir intentar los demas controles");
+assert.equal(partialUi.classes.has("globe-loading"), true);
+assert.ok(partialUi.order.includes("failure") && !partialUi.order.includes("complete") && !partialUi.order.includes("intro"), "una interfaz incompleta no debe presentarse como lista");
+const offlinePendingUi = startUiBoot({ offline: () => new Promise(() => {}) });
+await offlinePendingUi.done;
+assert.equal(offlinePendingUi.classes.has("globe-loading"), false, "offline pendiente no bloquea la interfaz");
+const offlineFailedUi = startUiBoot({ offline: async () => { throw new Error("offline unavailable"); } });
+await offlineFailedUi.done;
+assert.equal(offlineFailedUi.classes.has("globe-loading"), false);
+assert.ok(offlineFailedUi.order.includes("offline-warning") && !offlineFailedUi.order.includes("failure"));
 assert.ok(!appRuntime.includes("Â"), "app-runtime no debe exponer mojibake visible");
 assert.ok(script.includes("fecha pendiente"), "conflictos sin fecha deben mostrar estado de curaduria pendiente");
 assert.ok(script.includes("function formatHistoricalYear(value)"), "fechas antiguas deben formatearse sin mostrar anos negativos crudos");

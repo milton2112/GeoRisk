@@ -119,6 +119,23 @@ for (const mode of ["country", "religion", "continent"]) {
   assert.equal(calls.loads, 1, "una capa ya activa no debe volver a construirse");
 }
 
+{
+  const { state } = createHarness();
+  await state.loadMap(false);
+  let loading = true;
+  let picks = 0;
+  state.document = { body: { classList: { contains: () => loading } } };
+  state.emitMapEvent = () => {};
+  state.getPickedCountryEntityAt = () => { picks += 1; return null; };
+  state.clearSelection = () => {};
+  const click = state.activeClickHandler.actions.get(state.Cesium.ScreenSpaceEventType.LEFT_CLICK);
+  await click({ position: {} });
+  assert.equal(picks, 0, "no abrir fichas antes de conectar sus controles");
+  loading = false;
+  await click({ position: {} });
+  assert.equal(picks, 1, "los clics deben activarse al completar la interfaz");
+}
+
 for (const phase of ["prepare", "parse", "add", "index"]) {
   const { state, old, oldLayer, sources } = createHarness();
   const fail = () => { throw new Error(`failure-${phase}`); };

@@ -293,6 +293,14 @@ async function assertMobileLayersWorkspace(page) {
 
 async function runDesktopCriticalFlow(page) {
   await waitForAppReady(page);
+  await page.evaluate(() => openIntroModal());
+  await assertModalFrame(page, "intro-modal");
+  await page.screenshot({ path: "tmp/intro-desktop.png" });
+  await page.keyboard.press("Escape");
+  await page.locator("#intro-modal").waitFor({ state: "hidden" });
+  await page.evaluate(() => renderPerformancePanel());
+  await assertModalFrame(page, "product-modal");
+  await page.locator("#product-modal-close").click();
   assert.equal(await page.evaluate(() => viewer.scene.mode === Cesium.SceneMode.SCENE3D), true, "desktop debe iniciar en una escena 3D real");
   await waitForMapMode(page, "3d");
   await assertAntialiasingProfile(page);
@@ -438,6 +446,120 @@ async function testMapEngineStartup(browser, baseUrl) {
   }
 }
 
+async function testControlsStartup(browser, baseUrl) {
+  const context = await browser.newContext({ viewport: MOBILE_VIEWPORT, isMobile: true, hasTouch: true, serviceWorkers: "block" });
+  let releaseMain;
+  let releaseUi;
+  let releaseStyles;
+  const mainHeld = new Promise(resolve => { releaseMain = resolve; });
+  const uiHeld = new Promise(resolve => { releaseUi = resolve; });
+  const stylesHeld = new Promise(resolve => { releaseStyles = resolve; });
+  const pageErrors = [];
+  try {
+    const page = await context.newPage();
+    page.on("pageerror", error => pageErrors.push(error.message));
+    await page.route(/\/script\.js\?/, async route => { await mainHeld; await route.continue(); });
+    await page.route(/\/app-ui-polish\.js\?/, async route => { await uiHeld; await route.continue(); });
+    await page.route(/\/style-polish\.css\?/, async route => { await stylesHeld; await route.continue(); });
+    await page.addInitScript(() => {
+      Object.defineProperty(navigator, "serviceWorker", { configurable: true, value: {
+        getRegistrations() { window.__offlineSetupPending = true; return new Promise(() => {}); }
+      } });
+    });
+    await page.goto(baseUrl + "/index.html", { waitUntil: "commit", timeout: APP_TIMEOUT_MS });
+    await page.waitForFunction(() => {
+      const status = document.getElementById("startup-status");
+      return status && getComputedStyle(status).opacity === "1";
+    });
+    assert.equal(await page.evaluate(() => typeof init), "undefined", "la prueba debe retener el runtime principal");
+    assert.equal(await page.locator("#map-search-input").isVisible(), false, "no mostrar controles sin handlers antes de script.js");
+    await page.screenshot({ path: "tmp/startup-before-runtime-mobile.png" });
+    releaseMain();
+    await page.waitForFunction(() => typeof bootMetrics !== "undefined" && bootMetrics.steps.mapBootReady?.end && bootMetrics.steps.deferredUi?.start);
+    await page.waitForTimeout(350);
+    assert.equal(await page.locator("#startup-status").isVisible(), true);
+    assert.equal(await page.locator("#map-search-input").isVisible(), false, "el mapa listo no implica controles listos");
+    assert.equal(await page.locator("#intro-modal").isVisible(), false, "la bienvenida debe esperar sus acciones");
+    assert.equal(await page.evaluate(() => bootMetrics.completedAt), 0);
+    await page.evaluate(() => { window.__startupCameraPosition = Cesium.Cartesian3.clone(viewer.camera.position); });
+    await page.mouse.move(190, 420);
+    await page.mouse.down();
+    await page.mouse.move(270, 420, { steps: 8 });
+    await page.mouse.up();
+    await page.waitForFunction(() => Cesium.Cartesian3.distance(viewer.camera.position, window.__startupCameraPosition) > 10);
+    await page.screenshot({ path: "tmp/startup-deferred-mobile.png" });
+    releaseUi();
+    await waitForAppReady(page, { requireTiles: false });
+    await page.waitForFunction(() => window.__offlineSetupPending === true);
+    assert.equal(await page.locator("#intro-modal").isVisible(), true, JSON.stringify(await page.evaluate(() => ({
+      seen: localStorage.getItem(STORAGE_KEYS.introSeen), hidden: document.getElementById("intro-modal").hidden,
+      classes: document.body.className, active: activeModalElement?.id, boot: bootMetrics.errors
+    }))));
+    assert.equal(await page.locator("#startup-status").isVisible(), false);
+    assert.equal(await page.evaluate(() => bootMetrics.completedAt >= bootMetrics.steps.deferredUi.end), true);
+    await assertModalFrame(page, "intro-modal");
+    assert.equal(await page.locator(".product-start-card").first().evaluate(element => {
+      const channels = color => color.match(/[\d.]+/g).slice(0, 3).map(Number);
+      return channels(getComputedStyle(element).backgroundColor).every(value => value < 80) &&
+        channels(getComputedStyle(element.querySelector("strong")).color).every(value => value > 200);
+    }), true, "la bienvenida no debe depender del CSS diferido para tener texto claro sobre fondo oscuro");
+    await page.screenshot({ path: "tmp/intro-mobile.png" });
+    releaseStyles();
+    await page.locator('[data-intro-action="search"]').click();
+    await page.waitForFunction(() => document.activeElement?.id === "map-search-input");
+    await submitSearch(page, "Argentina");
+    await waitForCountryPanel(page, "Argentina");
+    assertHealthyPage(pageErrors, "runtime/interfaz lentos y offline pendiente");
+  } finally {
+    releaseMain();
+    releaseUi();
+    releaseStyles();
+    await context.close();
+  }
+
+  for (const moduleName of ["app-text", "app-ui-polish"]) {
+    const pattern = new RegExp("/" + moduleName + "\\.js\\?");
+    const { context, page, pageErrors } = await createTestPage(browser, baseUrl, MOBILE_VIEWPORT,
+      page => page.route(pattern, route => route.abort("failed")));
+    try {
+      await page.locator("#fatal-error-banner").waitFor({ state: "visible" });
+      assert.match(await page.locator("#fatal-error-banner").innerText(), /No se pudieron cargar los controles/);
+      assert.equal(await page.locator("#map-search-input").isVisible(), false);
+      assert.equal(await page.locator("#startup-status").isVisible(), false);
+      assert.equal(await page.evaluate(() => bootMetrics.completedAt), 0);
+      assert.match(await page.evaluate(() => bootMetrics.steps.deferredUi.error), /module unavailable/);
+      await page.screenshot({ path: "tmp/startup-failed-" + moduleName + "-mobile.png" });
+      await page.unroute(pattern);
+      await page.locator("#fatal-error-banner a").click();
+      await waitForAppReady(page, { requireTiles: false });
+      await submitSearch(page, "Argentina");
+      await waitForCountryPanel(page, "Argentina");
+      assertHealthyPage(pageErrors, moduleName + " ausente y recuperado");
+    } finally {
+      await context.close();
+    }
+  }
+}
+
+async function assertModalFrame(page, id) {
+  await page.locator("#" + id).waitFor({ state: "visible" });
+  const state = await page.evaluate(modalId => {
+    const modal = document.getElementById(modalId);
+    const dialog = modal.querySelector('[role="dialog"]');
+    const box = dialog.getBoundingClientRect();
+    const frame = modal.getBoundingClientRect();
+    const topElement = document.elementFromPoint(box.left + box.width / 2, box.top + 20);
+    return {
+      fullViewport: frame.width === innerWidth && frame.height === innerHeight,
+      fits: box.left >= 0 && box.right <= innerWidth && box.top >= 0 && box.bottom <= innerHeight,
+      onTop: modal.contains(topElement), focused: modal.contains(document.activeElement)
+    };
+  }, id);
+  for (const [key, value] of Object.entries(state)) assert.equal(value, true, id + ": " + key);
+  await page.keyboard.press("Tab");
+  assert.equal(await page.evaluate(modalId => document.getElementById(modalId).contains(document.activeElement), id), true);
+}
+
 async function testDetailedMapUpgrade(browser, baseUrl) {
   const { context, page, pageErrors } = await createTestPage(browser, baseUrl, DESKTOP_VIEWPORT);
   let releaseGeometry;
@@ -572,11 +694,13 @@ try {
   browser = await launchCriticalBrowser();
   const detailOnly = process.argv.includes("--detail-only");
   const performanceOnly = process.argv.includes("--performance-only");
-  if (!detailOnly) await testIdleMapPerformance(browser, baseUrl);
+  const startupOnly = process.argv.includes("--startup-only");
+  if (!detailOnly && !startupOnly) await testIdleMapPerformance(browser, baseUrl);
   if (!detailOnly && !performanceOnly) await testMapEngineStartup(browser, baseUrl);
-  if (!performanceOnly) await testDetailedMapUpgrade(browser, baseUrl);
+  if (!detailOnly && !performanceOnly) await testControlsStartup(browser, baseUrl);
+  if (!performanceOnly && !startupOnly) await testDetailedMapUpgrade(browser, baseUrl);
 
-  if (!detailOnly && !performanceOnly) {
+  if (!detailOnly && !performanceOnly && !startupOnly) {
     const desktop = await createTestPage(browser, baseUrl, DESKTOP_VIEWPORT);
     try {
       await runDesktopCriticalFlow(desktop.page);
