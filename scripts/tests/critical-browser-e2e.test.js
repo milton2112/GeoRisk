@@ -790,6 +790,88 @@ async function testRenderRecovery(browser, baseUrl) {
   }
 }
 
+async function testRequiredStartupData(browser, baseUrl) {
+  for (const [name, pattern] of [
+    ["index", /\/data\/countries_index\.json\?/],
+    ["geometry", /\/data\/world_countries_simplified\.geo\.json\?/]
+  ]) {
+    let releaseIndex;
+    const heldIndex = new Promise(resolve => { releaseIndex = resolve; });
+    const slow = await createTestPage(browser, baseUrl, MOBILE_VIEWPORT, async page => {
+      await page.route(pattern, async route => { await heldIndex; await route.continue(); });
+    });
+    try {
+      await slow.page.waitForFunction(() => typeof bootMetrics !== "undefined" && bootMetrics.steps.mapBootReady?.end);
+      await slow.page.waitForTimeout(650);
+      await slow.page.screenshot({ path: "tmp/startup-" + name + "-pending-mobile.png" });
+      assert.equal(await slow.page.locator("#map-search-input").isVisible(), false, "no habilitar controles mientras faltan los paises");
+      assert.equal(await slow.page.locator("#startup-status").isVisible(), true);
+      assert.equal(await slow.page.evaluate(() => bootMetrics.completedAt), 0);
+      await slow.page.evaluate(() => { window.__pendingCamera = Cesium.Cartesian3.clone(viewer.camera.position); });
+      await slow.page.mouse.move(150, 420);
+      await slow.page.mouse.down();
+      await slow.page.mouse.move(240, 420, { steps: 8 });
+      await slow.page.mouse.up();
+      await slow.page.waitForFunction(() => Cesium.Cartesian3.distance(viewer.camera.position, window.__pendingCamera) > 10);
+      releaseIndex();
+      await waitForAppReady(slow.page);
+      await submitSearch(slow.page, "Argentina");
+      await waitForCountryPanel(slow.page, "Argentina");
+      assertHealthyPage(slow.pageErrors, name + " inicial lento");
+    } finally {
+      releaseIndex();
+      await slow.context.close();
+    }
+  }
+
+  const failures = [
+    { name: "index-http", pattern: /\/data\/countries_index\.json\?/, status: 503, body: "{}" },
+    { name: "index-empty", pattern: /\/data\/countries_index\.json\?/, status: 200, body: "{}" },
+    { name: "aliases-http", pattern: /\/data\/geo_aliases\.json\?/, status: 503, body: "{}" },
+    { name: "geometry-http", pattern: /\/data\/world_countries_simplified\.geo\.json\?/, status: 503, body: "{}" },
+    { name: "geometry-empty", pattern: /\/data\/world_countries_simplified\.geo\.json\?/, status: 200, body: '{"type":"FeatureCollection","features":[]}' },
+    { name: "index-timeout", pattern: /\/data\/countries_index\.json\?/, timeout: true }
+  ];
+  for (const fixture of failures) {
+    const requests = [];
+    let releaseLate;
+    const late = new Promise(resolve => { releaseLate = resolve; });
+    const failed = await createTestPage(browser, baseUrl, MOBILE_VIEWPORT, async page => {
+      page.on("request", request => requests.push(request.url()));
+      await page.route(fixture.pattern, async route => {
+        if (fixture.timeout) { await late; await route.continue(); }
+        else await route.fulfill({ status: fixture.status, contentType: "application/json", body: fixture.body });
+      });
+    });
+    try {
+      await failed.page.locator("#fatal-error-banner").waitFor({ state: "visible", timeout: APP_TIMEOUT_MS });
+      assert.equal(await failed.page.locator("#map-search-input").isVisible(), false, fixture.name);
+      assert.equal(await failed.page.locator("#startup-status").isVisible(), false);
+      assert.equal(await failed.page.evaluate(() => bootMetrics.completedAt), 0);
+      assert.doesNotMatch(await failed.page.locator("#fatal-error-banner").innerText(), /\.json|\?v=/, "el aviso debe explicar el fallo sin mostrar rutas internas");
+      assert.equal(await failed.page.locator("#fatal-error-banner").evaluate(element => element.scrollWidth <= element.clientWidth), true);
+      assert.ok(!requests.some(url => /countries_full|conflict_details\.generated/.test(url)), "un fallo no habilita monolitos pesados");
+      await failed.page.screenshot({ path: "tmp/startup-failed-" + fixture.name + "-mobile.png" });
+      if (fixture.timeout) {
+        assert.match(await failed.page.locator("#fatal-error-banner").innerText(), /tardando demasiado/);
+        releaseLate();
+        await failed.page.waitForFunction(() => bootMetrics.steps.loadData?.end);
+        assert.equal(await failed.page.evaluate(() => bootMetrics.completedAt), 0, "una llegada tardia no habilita una interfaz ya fallida");
+        assert.equal(await failed.page.locator("#map-search-input").isVisible(), false);
+      }
+      await failed.page.unroute(fixture.pattern);
+      await failed.page.locator("#fatal-error-banner a").click();
+      await waitForAppReady(failed.page);
+      await submitSearch(failed.page, "Argentina");
+      await waitForCountryPanel(failed.page, "Argentina");
+      assertHealthyPage(failed.pageErrors, fixture.name + " y recarga");
+    } finally {
+      releaseLate();
+      await failed.context.close();
+    }
+  }
+}
+
 async function testFirstWorkerActivation(browser, baseUrl) {
   const context = await browser.newContext({ viewport: MOBILE_VIEWPORT, isMobile: true, hasTouch: true, serviceWorkers: "allow" });
   let releaseWorker;
@@ -875,14 +957,16 @@ try {
   const startupOnly = process.argv.includes("--startup-only");
   const recoveryOnly = process.argv.includes("--recovery-only");
   const offlineOnly = process.argv.includes("--offline-only");
-  if (!detailOnly && !startupOnly && !recoveryOnly && !offlineOnly) await testIdleMapPerformance(browser, baseUrl);
-  if (!detailOnly && !performanceOnly && !recoveryOnly && !offlineOnly) await testMapEngineStartup(browser, baseUrl);
-  if (!detailOnly && !performanceOnly && !recoveryOnly && !offlineOnly) await testControlsStartup(browser, baseUrl);
-  if (!performanceOnly && !startupOnly && !recoveryOnly && !offlineOnly) await testDetailedMapUpgrade(browser, baseUrl);
-  if (!detailOnly && !performanceOnly && !startupOnly && !offlineOnly) await testRenderRecovery(browser, baseUrl);
-  if (!detailOnly && !performanceOnly && !startupOnly && !recoveryOnly) await testFirstWorkerActivation(browser, baseUrl);
+  const dataOnly = process.argv.includes("--data-only");
+  if (!detailOnly && !startupOnly && !recoveryOnly && !offlineOnly && !dataOnly) await testIdleMapPerformance(browser, baseUrl);
+  if (!detailOnly && !performanceOnly && !recoveryOnly && !offlineOnly && !dataOnly) await testMapEngineStartup(browser, baseUrl);
+  if (!detailOnly && !performanceOnly && !recoveryOnly && !offlineOnly && !dataOnly) await testControlsStartup(browser, baseUrl);
+  if (!performanceOnly && !startupOnly && !recoveryOnly && !offlineOnly && !dataOnly) await testDetailedMapUpgrade(browser, baseUrl);
+  if (!detailOnly && !performanceOnly && !startupOnly && !offlineOnly && !dataOnly) await testRenderRecovery(browser, baseUrl);
+  if (!detailOnly && !performanceOnly && !startupOnly && !recoveryOnly && !dataOnly) await testFirstWorkerActivation(browser, baseUrl);
+  if (!detailOnly && !performanceOnly && !startupOnly && !recoveryOnly && !offlineOnly) await testRequiredStartupData(browser, baseUrl);
 
-  if (!detailOnly && !performanceOnly && !startupOnly && !recoveryOnly && !offlineOnly) {
+  if (!detailOnly && !performanceOnly && !startupOnly && !recoveryOnly && !offlineOnly && !dataOnly) {
     const desktop = await createTestPage(browser, baseUrl, DESKTOP_VIEWPORT);
     try {
       await runDesktopCriticalFlow(desktop.page);

@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.232 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.233 antes de cerrar la siguiente version.
+
+## v1.6.233 - 2026-09-10
+
+- Corrige el arranque que habilitaba buscador, rankings y fichas antes de disponer del indice de paises y la geografia. Mantiene los controles ocultos mientras se preparan los recursos esenciales y permite mover el mapa durante la espera.
+- Elimina la descarga de countries_full.json como respaldo de un indice fallido: era pesada en desarrollo e inexistente en produccion. Rechaza indices vacios o invalidos, aliases mal formados y mapas sin limites, conservando los codigos propios de Kosovo y Somalilandia.
+- Muestra errores comprensibles con Recargar y limita a 20 segundos la espera de recursos iniciales despues de crear el visor. No marca el arranque como completado ante fallos ni deja rechazos tardios sin gestionar.
+- Agrega regresiones de recursos lentos, fallos HTTP, datos vacios, recarga funcional y geografia detallada vacia que no debe reemplazar el mapa existente.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-10-release-3`.
 
 ## v1.6.232 - 2026-09-10
 

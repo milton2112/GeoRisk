@@ -262,6 +262,8 @@ En `Salud dataset` vas a encontrar barras de cobertura para detectar rapido dond
 
 ## Estado offline
 
+Si los datos iniciales demoran, GeoRisk mantiene el aviso de carga y oculta los controles hasta disponer de paises y limites. Podes mover el globo mientras espera. Si una descarga falla o tarda mas de 20 segundos despues de crear el mapa, aparece un mensaje con `Recargar`; comproba la conexion antes de reintentar. No se descarga el dataset completo para reemplazar un indice fallido.
+
 GeoRisk usa un modo offline parcial despues de una primera visita correcta. La app guarda el shell inicial, estilos, scripts esenciales, indice liviano de paises y aliases. Los modulos adicionales, fichas, geometria, simbolos y documentacion se guardan al consultarlos, tanto en la raiz del sitio como en una subcarpeta como `/GeoRisk/`. En `Capas tematicas > Proyecto` se muestra el tamano aproximado del cache offline y el boton `Limpiar cache offline` permite reconstruirlo si queda una version vieja.
 
 Si el navegador no dispone de espacio para guardar nuevos recursos, la app sigue entregando los datos disponibles por internet. Esos recursos no quedan disponibles offline hasta que se puedan guardar correctamente.

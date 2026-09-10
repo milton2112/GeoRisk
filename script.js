@@ -85,7 +85,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-09-10-release-2";
+const APP_VERSION = "2026-09-10-release-3";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -1758,6 +1758,22 @@ async function measureBootStep(name, task, extra = {}) {
     bootMetrics.errors.push({ name, message: error?.message || String(error) });
     markBootStepEnd(name, { error: error?.message || String(error), ...extra });
     throw error;
+  }
+}
+
+async function waitForStartupResources(resources, timeoutMs = 20000) {
+  let timer;
+  try {
+    return await Promise.race([
+      Promise.all(resources),
+      new Promise((_, reject) => {
+        timer = setTimeout(() => reject(new Error(currentLanguage === "en"
+          ? "Initial data is taking too long. Check your connection and reload."
+          : "Los datos iniciales estan tardando demasiado. Revisa tu conexion y recarga.")), timeoutMs);
+      })
+    ]);
+  } finally {
+    clearTimeout(timer);
   }
 }
 
@@ -12621,29 +12637,36 @@ async function loadWikipediaConflictDetails(conflictName) {
   return detailPromise;
 }
 
+function validateStartupCountryIndex(data) {
+  const entries = data && typeof data === "object" && !Array.isArray(data) ? Object.entries(data) : [];
+  if (!entries.length || entries.some(([code, country]) => !/^(?:[A-Z]{3}|CS-KM|-99)$/.test(code) ||
+    !country || typeof country !== "object" || Array.isArray(country) ||
+    typeof country.name !== "string" || !country.name.trim() ||
+    !country.general || typeof country.general !== "object" || Array.isArray(country.general))) {
+    throw new Error(currentLanguage === "en" ? "The country index is empty or invalid." : "El indice de paises esta vacio o es invalido.");
+  }
+}
+
 async function loadData() {
   if (loadDataPromise) {
     return loadDataPromise;
   }
 
   loadDataPromise = measureBootStep("loadData", async () => {
-    markBootStepStart("fetchCountriesIndex");
-    const countriesPromise = fetchResourceCached(`./data/countries_index.json?v=${APP_VERSION}`, "json")
-      .then(result => {
-        markBootStepEnd("fetchCountriesIndex");
-        return result;
-      })
-      .catch(async error => {
-        markBootStepEnd("fetchCountriesIndex", { fallback: true });
-        console.warn("No se pudo cargar countries_index.json; usando dataset completo:", error);
-        return fetchResourceCached(`./data/countries_full.json?v=${APP_VERSION}`, "json");
-      });
-    markBootStepStart("fetchGeoAliases");
-    const aliasPromise = fetchResourceCached(`./data/geo_aliases.json?v=${APP_VERSION}`, "json")
-      .then(result => {
-        markBootStepEnd("fetchGeoAliases");
-        return result;
-      });
+    const countriesPromise = measureBootStep("fetchCountriesIndex", async () => {
+      const result = await fetchResourceCached(`./data/countries_index.json?v=${APP_VERSION}`, "json");
+      validateStartupCountryIndex(result);
+      return result;
+    });
+    const aliasPromise = measureBootStep("fetchGeoAliases", async () => {
+      const result = await fetchResourceCached(`./data/geo_aliases.json?v=${APP_VERSION}`, "json");
+      const maps = [result?.mapNameAliases, result?.worldBankNameAliases];
+      if (maps.some(map => !map || typeof map !== "object" || Array.isArray(map) ||
+        Object.values(map).some(value => typeof value !== "string" || !value.trim()))) {
+        throw new Error(currentLanguage === "en" ? "The geographic aliases are invalid." : "Los alias geograficos son invalidos.");
+      }
+      return result;
+    });
 
     const [countriesJson, aliasConfigJson] = await Promise.all([
       countriesPromise,
@@ -12659,6 +12682,9 @@ async function loadData() {
     deferredDataStatus.countryIndex = true;
     refreshLoadedCountryLayers();
     updateAppStatusPanel();
+  }).catch(error => {
+    loadDataPromise = null;
+    throw error;
   });
 
   return loadDataPromise;
@@ -13180,6 +13206,9 @@ async function loadMap(bootPhase = false, { preserveView = false } = {}) {
         layer.setStyle(getCountryThemeStyle(code));
         nextCountryLayers.set(code, layer);
       });
+      if (!nextCountryLayers.size || !dataSource.entities.values.some(entity => entity.polygon)) {
+        throw new Error(currentLanguage === "en" ? "The country boundaries are empty or invalid." : "Los limites de paises estan vacios o son invalidos.");
+      }
       markBootStepEnd("geoJsonEntityIndex", { entities: dataSource.entities.values.length, countries: entitiesByCode.size });
       dataSource.show = false;
       await viewer.dataSources.add(dataSource);
@@ -14833,19 +14862,22 @@ async function init() {
       requestSceneRender();
     });
     setStartupStatus(currentLanguage === "en" ? "Loading simplified geography first." : "Cargando geografia simplificada primero.");
-    const overlayLoadPromise = loadMap(true);
+    const overlayLoadPromise = loadMap(true).catch(error => {
+      throw new Error(currentLanguage === "en"
+        ? "Country boundaries could not be loaded. Check your connection and reload."
+        : "No se pudieron cargar los limites de paises. Revisa tu conexion y recarga.", { cause: error });
+    });
     const bootReadyPromise = measureBootStep("mapBootReady", () => waitForMapBootReady(isMobileLayout() ? 5200 : 4200));
     const dataLoadPromise = loadData()
       .then(() => {
-        setStartupStatus(currentLanguage === "en" ? "Light country index ready." : "Indice liviano de paises listo.");
+        setStartupStatus(currentLanguage === "en" ? "Preparing country boundaries and controls." : "Preparando limites de paises y controles.");
         refreshLoadedCountryLayers();
         updateAppStatusPanel();
         return countriesData;
-      })
-      .catch(error => {
-        console.error("No se pudo cargar el dataset principal en segundo plano:", error);
-        uiPolish.showToast?.("El globo cargo, pero el dataset completo no pudo hidratarse.");
-        return {};
+      }).catch(error => {
+        throw new Error(currentLanguage === "en"
+          ? "Country data could not be loaded. Check your connection and reload."
+          : "No se pudieron cargar los datos de paises. Revisa tu conexion y recarga.", { cause: error });
       });
     if (shouldStartCollapsed) {
       const toolbar = document.getElementById("map-toolbar");
@@ -14857,7 +14889,10 @@ async function init() {
         rankingsPanel.open = false;
       }
     }
-    await bootReadyPromise;
+    setStartupStatus(currentLanguage === "en" ? "Loading country data and boundaries." : "Cargando datos de paises y limites del mapa.");
+    await measureBootStep("startupResources", () => waitForStartupResources([
+      bootReadyPromise, overlayLoadPromise, dataLoadPromise
+    ]));
     setStartupStatus(currentLanguage === "en" ? "Showing the initial map." : "Mostrando el mapa inicial.");
     if (shouldStartCollapsed) {
       const toolbar = document.getElementById("map-toolbar");
@@ -14976,10 +15011,6 @@ async function init() {
       timeout: isMobileLayout() ? 120000 : 90000
     });
 
-    overlayLoadPromise?.catch(error => {
-      console.error("La capa politica no pudo completar su carga inicial:", error);
-    });
-
   } catch (error) {
     hideStartupStatus();
     console.error("Error al inicializar GeoRisk 3D:", error);
@@ -14987,7 +15018,9 @@ async function init() {
     if (status) {
       status.textContent = "La vista 3D no pudo inicializarse por completo.";
     }
-    showFatalError(`GeoRisk no pudo terminar de inicializarse: ${error?.message || error}`);
+    showFatalError(currentLanguage === "en"
+      ? `GeoRisk could not finish starting: ${error?.message || error}`
+      : `GeoRisk no pudo terminar de inicializarse: ${error?.message || error}`);
   }
 }
 

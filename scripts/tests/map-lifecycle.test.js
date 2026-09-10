@@ -33,7 +33,7 @@ function createHarness() {
   const oldLayer = new Layer("ARG", old.entities.values);
   const state = {
     window: {}, console, Map, Set,
-    currentMapMode: "3d", zoom: "near", mobile: false, currentTheme: "default",
+    currentMapMode: "3d", zoom: "near", mobile: false, currentTheme: "default", currentLanguage: "es",
     isMobileLayout: () => state.mobile, get3DZoomBucket: () => state.zoom,
     getCurrentOverlayBucket: () => state.currentMapMode === "2d" ? "2d" : `3d-${state.zoom}`,
     activeGeoJsonDataSource: old, activeGeoJsonPath: SIMPLE, activeGeoJsonMode: "3d",
@@ -212,6 +212,15 @@ for (const phase of ["prepare", "parse", "add"]) {
   const value = await state.getCachedGeoJson(DETAIL);
   assert.equal(await state.getCachedGeoJson(DETAIL), value);
   assert.equal(requests, 2, "reintentar despues de fallar y reutilizar despues de exito");
+}
+
+{
+  const { state, old, oldLayer } = createHarness();
+  state.Cesium.GeoJsonDataSource.load = async () => ({ entities: { values: [] } });
+  await assert.rejects(state.loadMap(false, { preserveView: true }), /limites de paises/);
+  assert.equal(state.activeGeoJsonDataSource, old, "un detalle vacio no reemplaza la geografia util");
+  assert.equal(state.selectedLayer, oldLayer);
+  assert.equal(state.loadMapPromise, null);
 }
 
 for (const stop of ["far", "mobile", "moving", "2d", "loaded"]) {

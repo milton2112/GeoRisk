@@ -6,6 +6,7 @@ import "./map-lifecycle.test.js";
 import "./map-performance.test.js";
 import "./map-render-recovery.test.js";
 import "./service-worker-lifecycle.test.js";
+import "./startup-resources.test.js";
 
 const projectRoot = path.resolve(process.cwd());
 const full = await fs.readJson(path.join(projectRoot, "data", "countries_full.json"));
@@ -194,7 +195,7 @@ assert.ok(!script.includes(".then(() => loadFullCountryData())"), "countries_ful
 assert.ok(!script.includes("scheduleFullCountryDataLoad"), "countries_full no debe precargarse automaticamente por scheduler");
 assert.ok(!script.includes("startFullLoad"), "countries_full no debe tener disparador silencioso de runtime");
 assert.ok(!script.includes("async function loadFullCountryData()"), "countries_full no debe conservar un loader global sin consumidores");
-assert.equal((script.match(/countries_full\.json/g) || []).length, 1, "countries_full solo debe quedar como fallback del indice");
+assert.equal((script.match(/countries_full\.json/g) || []).length, 0, "countries_full no debe descargarse como fallback del arranque");
 assert.ok(script.includes("async function loadCountryDetail"), "fichas deben cargar detalle por pais bajo demanda");
 assert.ok(script.includes("async function loadCountryConflictDetail"), "conflictos completos por pais deben cargar bajo demanda");
 assert.ok(script.includes("const detailedCountry = await loadCountryDetail(countryCode)"), "una ficha cacheada debe salir del skeleton al reabrirse");

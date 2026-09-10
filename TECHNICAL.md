@@ -70,9 +70,11 @@ GeoRisk es una aplicacion frontend orientada a exploracion geopolitica con datas
 5. Si el usuario abre Militar, carga `data/countries/conflicts/<codigo>.json` y reemplaza la muestra inicial por la lista completa.
 6. Carga curaduria profunda solo al abrir Historia o Militar dentro de una ficha.
 7. Carga `data/conflicts/details_index.json` y un shard individual al abrir un conflicto; el monolito tecnico no llega al navegador.
-8. Usa `data/countries_full.json` unicamente como fallback si falla el indice inicial; no existe una precarga ociosa.
+8. No descarga `data/countries_full.json`, tampoco como fallback de un indice fallido: el monolito es interno y no se publica. El arranque espera paises, aliases, geometria y primer render antes de habilitar controles.
 9. En el mapa, resuelve clicks del GeoJSON a codigos ISO o especiales.
 10. La ficha modal, timeline, comparador, quiz y noticias consumen datos bajo demanda segun la vista activa.
+
+El paso `startupResources` espera conjuntamente el indice validado, los aliases, la capa politica y la espera inicial de render; no se confunde la llegada de tiles con la disponibilidad de paises. La espera tiene un limite de 20 segundos desde la creacion del visor, sin bloquear el hilo. Un fallo o timeout mantiene `globe-loading`, deja `completedAt` en cero y ofrece una recarga nativa. Las promesas tardias siguen gestionadas y no habilitan controles despues del fallo. La instalacion offline y los datos profundos no forman parte de esta barrera.
 
 ## Recarga progresiva del mapa
 
