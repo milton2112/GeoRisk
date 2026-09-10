@@ -147,7 +147,7 @@ La estrategia actual combina:
 - caches de recursos y GeoJSON preparado;
 - modulos secundarios (`news`, `compare`, `quiz`) cargados bajo demanda al abrir paneles;
 - cache runtime con limite y reintento limpio de descargas fallidas;
-- service worker con version fechada, precache liviano y tolerante a fallas parciales;
+- service worker con version fechada y precache liviano: todos los recursos esenciales deben descargarse, solo los favicons son opcionales;
 - cache offline parcial: shell inicial en `APP_CACHE`, recursos bajo demanda en `RUNTIME_CACHE` y tiles en `TILE_CACHE`;
 - veto explicito para que `countries_full.json` y `conflict_details.generated.json` no entren en CacheStorage;
 - GeoJSON, banderas y escudos solo se cachean cuando el usuario los pide;
@@ -156,7 +156,7 @@ La estrategia actual combina:
 - supresion temporal de hover cuando la escena cae;
 - limpieza de labels si el rendimiento lo necesita.
 
-El modo offline garantiza apertura de la app, indice liviano, busqueda basica y recursos visitados previamente. No garantiza datos profundos no visitados, noticias en vivo ni recursos remotos que no hayan sido descargados durante una sesion online previa.
+El modo offline guarda el shell local y recursos visitados, pero no garantiza el arranque completo: el motor Cesium remoto sigue requiriendo red o cache HTTP del navegador. Sin motor, mapa y controles pueden no inicializarse. Tampoco garantiza datos profundos no visitados ni noticias en vivo.
 
 ## Dataset metadata
 
@@ -191,7 +191,11 @@ Se exportan:
 ## Offline
 
 - `sw.js` cachea shell, dataset local, docs y assets principales.
-- El shell debe seguir funcionando offline.
+- El shell local se prueba offline por separado del motor remoto; esto no equivale a probar un mapa completamente offline.
+- `registerServiceWorker` no enumera ni desregistra aplicaciones ajenas ni recarga ante la primera activacion. `register` comprueba la actualizacion sin una segunda llamada redundante a `update`.
+- Un worker nuevo espera confirmacion en el aviso de actualizacion; `SKIP_WAITING` se envia solo al pulsar `Actualizar`. `controllerchange` recarga solo la pestaña que lo solicito. Al cerrar todos los clientes, el navegador puede activar la version en espera normalmente.
+- El fallo de un recurso esencial rechaza `install` antes de limpiar caches anteriores en `activate`. Los registros se identifican por scope exacto y ruta de `sw.js` al limpiar; los nombres de CacheStorage aun usan el prefijo compartido `geo-risk-*` por origen.
+- Pruebas reales del worker cubren primera activacion con ficha abierta, descarga incompleta, version en espera, confirmacion y cache bajo raiz/subcarpeta. Las pruebas con documento minimo no certifican funcionamiento offline del motor remoto.
 - Imagenes y noticias remotas siguen dependiendo de conectividad cuando vienen de terceros.
 - La portada consume solo el indice liviano para mostrar diagnostico de cobertura sin bloquear el globo.
 - Las metricas de portada se cachean por firma de dataset/modo para no recorrer todos los paises en cada apertura del modal.

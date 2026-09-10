@@ -85,7 +85,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-09-10-release-1";
+const APP_VERSION = "2026-09-10-release-2";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -1089,13 +1089,15 @@ async function updateOfflineCacheSizeLabel() {
 async function clearLocalGeoRiskCache() {
   const status = document.getElementById("offline-status");
   try {
+    offlineRegistrationEpoch += 1;
+    stopOfflineRegistrationWatch?.();
+    if ("serviceWorker" in navigator) {
+      const registration = await getLocalServiceWorkerRegistration();
+      await registration?.unregister();
+    }
     if ("caches" in window) {
       const keys = await caches.keys();
       await Promise.all(keys.filter(key => key.startsWith("geo-risk-")).map(key => caches.delete(key)));
-    }
-    if ("serviceWorker" in navigator) {
-      const registrations = await navigator.serviceWorker.getRegistrations();
-      await Promise.all(registrations.map(registration => registration.update().catch(() => null)));
     }
     resourceCache.clear();
     geoJsonCache.clear();
@@ -14640,61 +14642,158 @@ function setupCompareControls() {
   };
 }
 
+let offlineRegistrationEpoch = 0;
+let stopOfflineRegistrationWatch = null;
+
+function isLocalServiceWorker(worker) {
+  if (!worker?.scriptURL) return false;
+  const actual = new URL(worker.scriptURL);
+  const expected = new URL("./sw.js", window.location.href);
+  return actual.origin === expected.origin && actual.pathname === expected.pathname;
+}
+
+async function getLocalServiceWorkerRegistration() {
+  const scope = new URL("./", window.location.href).href;
+  const registration = await navigator.serviceWorker.getRegistration(scope);
+  return registration?.scope === scope &&
+    [registration.active, registration.waiting, registration.installing].some(isLocalServiceWorker)
+    ? registration : null;
+}
+
+function watchServiceWorkerRegistration(registration) {
+  const container = navigator.serviceWorker;
+  const notice = document.getElementById("offline-update-notice");
+  const apply = document.getElementById("offline-update-apply");
+  const dismiss = document.getElementById("offline-update-dismiss");
+  const status = document.getElementById("offline-status");
+  const expectedUrl = new URL(`./sw.js?v=${APP_VERSION}`, window.location.href).href;
+  const removers = [];
+  const watched = new Set();
+  const initialController = container.controller;
+  let replacementController = null;
+  let dismissedWorker = null;
+  let requestedWorker = null;
+  let timer = null;
+  const listen = (target, event, handler) => {
+    target.addEventListener(event, handler);
+    removers.push(() => target.removeEventListener(event, handler));
+  };
+  const setStatus = (es, en) => {
+    if (status) status.textContent = currentLanguage === "en" ? en : es;
+    updateAppStatusPanel();
+  };
+  const candidate = () => registration.waiting ||
+    (isLocalServiceWorker(replacementController) && replacementController.scriptURL !== expectedUrl
+      ? replacementController : null);
+  const refresh = () => {
+    const worker = candidate();
+    if (notice) notice.hidden = !worker || worker === dismissedWorker;
+    if (apply) {
+      apply.disabled = Boolean(requestedWorker);
+      apply.textContent = currentLanguage === "en" ? "Update" : "Actualizar";
+      apply.title = currentLanguage === "en" ? "Reload to apply the update" : "Recargar para aplicar la actualizacion";
+    }
+    if (dismiss) dismiss.textContent = currentLanguage === "en" ? "Later" : "Mas tarde";
+    const title = document.getElementById("offline-update-title");
+    if (title) title.textContent = currentLanguage === "en" ? "Update ready" : "Actualizacion lista";
+    if (worker) setStatus("Actualizacion lista. Se aplicara cuando confirmes o vuelvas a abrir la app.", "Update ready. It will apply when you confirm or reopen the app.");
+    else if (registration.active) setStatus("Cache local activo. El mapa puede requerir internet.", "Local cache active. The map may require internet.");
+    else setStatus("Preparando cache local...", "Preparing local cache...");
+  };
+  const cancelRequest = () => {
+    clearTimeout(timer);
+    timer = null;
+    requestedWorker = null;
+  };
+  const updateFailed = () => {
+    cancelRequest();
+    refresh();
+    setStatus("No se pudo actualizar. Se conserva la version anterior; podes reintentar.", "Update failed. The previous version is retained; you can retry.");
+  };
+  const watchInstalling = () => {
+    const worker = registration.installing;
+    if (!worker || watched.has(worker)) return;
+    watched.add(worker);
+    listen(worker, "statechange", () => {
+      if (worker.state === "redundant") {
+        cancelRequest();
+        refresh();
+        setStatus(registration.active ? "Descarga incompleta. Se conserva el cache anterior." : "No se pudo preparar el cache offline.",
+          registration.active ? "Download incomplete. The previous cache is retained." : "Offline cache could not be prepared.");
+      } else {
+        refresh();
+        if (worker.state === "activated") void updateOfflineCacheSizeLabel();
+      }
+    });
+  };
+  listen(registration, "updatefound", () => { watchInstalling(); refresh(); });
+  listen(container, "controllerchange", () => {
+    if (container.controller !== initialController) replacementController = container.controller;
+    // First install and updates accepted in another tab must not discard this view.
+    if (requestedWorker && container.controller?.scriptURL === requestedWorker.scriptURL) {
+      cancelRequest();
+      if (!window.__geoRiskReloadingForSw) {
+        window.__geoRiskReloadingForSw = true;
+        window.location.reload();
+      }
+      return;
+    }
+    refresh();
+  });
+  if (apply) listen(apply, "click", () => {
+    if (requestedWorker) return;
+    const worker = candidate();
+    if (!worker) { refresh(); return; }
+    if (worker === container.controller) {
+      if (!window.__geoRiskReloadingForSw) {
+        window.__geoRiskReloadingForSw = true;
+        window.location.reload();
+      }
+      return;
+    }
+    requestedWorker = worker;
+    refresh();
+    timer = setTimeout(updateFailed, 15000);
+    try { worker.postMessage({ type: "SKIP_WAITING" }); } catch { updateFailed(); }
+  });
+  if (dismiss) listen(dismiss, "click", () => { dismissedWorker = candidate(); refresh(); });
+  watchInstalling();
+  refresh();
+  return () => {
+    cancelRequest();
+    removers.forEach(remove => remove());
+    if (notice) notice.hidden = true;
+  };
+}
+
 async function registerServiceWorker() {
   const status = document.getElementById("offline-status");
 
   if (!("serviceWorker" in navigator)) {
     if (status) {
-      status.textContent = "Cache offline no disponible en este navegador.";
+      status.textContent = currentLanguage === "en" ? "Offline cache is not supported by this browser." : "Cache offline no disponible en este navegador.";
     }
     await updateOfflineCacheSizeLabel();
     return;
   }
 
+  const epoch = ++offlineRegistrationEpoch;
+  stopOfflineRegistrationWatch?.();
   try {
-    const registrations = await navigator.serviceWorker.getRegistrations();
-    await Promise.all(
-      registrations
-        .filter(registration => registration.active?.scriptURL && !registration.active.scriptURL.includes(`v=${APP_VERSION}`))
-        .map(registration => registration.unregister())
-    );
-
-    const registration = await navigator.serviceWorker.register(`./sw.js?v=${APP_VERSION}`);
-    await registration.update();
-    if (registration.waiting) {
-      registration.waiting.postMessage({ type: "SKIP_WAITING" });
-    }
-    navigator.serviceWorker.addEventListener("controllerchange", () => {
-      if (!window.__geoRiskReloadingForSw) {
-        window.__geoRiskReloadingForSw = true;
-        window.location.reload();
-      }
-    }, { once: true });
-    if (status) {
-      status.textContent = currentLanguage === "en"
-        ? "Partial offline mode active."
-        : "Modo offline parcial activo.";
-    }
+    const registration = await navigator.serviceWorker.register(`./sw.js?v=${APP_VERSION}`, { updateViaCache: "none" });
+    if (epoch !== offlineRegistrationEpoch) return;
+    stopOfflineRegistrationWatch = watchServiceWorkerRegistration(registration);
     await updateOfflineCacheSizeLabel();
     updateAppStatusPanel();
   } catch (error) {
-    const hasGeoRiskCache = "caches" in window
-      ? await caches.keys().then(keys => keys.some(key => key.startsWith("geo-risk-"))).catch(() => false)
-      : false;
-    if (navigator.serviceWorker?.controller || hasGeoRiskCache) {
-      if (status) {
-        status.textContent = currentLanguage === "en"
-          ? "Partial offline mode active."
-          : "Modo offline parcial activo.";
-      }
-      await updateOfflineCacheSizeLabel();
-      updateAppStatusPanel();
-      return;
-    }
+    if (epoch !== offlineRegistrationEpoch) return;
+    const previous = await getLocalServiceWorkerRegistration().catch(() => null);
+    if (epoch !== offlineRegistrationEpoch) return;
+    if (previous) stopOfflineRegistrationWatch = watchServiceWorkerRegistration(previous);
     if (status) {
       status.textContent = currentLanguage === "en"
-        ? "Offline cache could not be initialized."
-        : "No se pudo inicializar el cache offline.";
+        ? (previous?.active ? "Update unavailable. The previous local cache is retained." : "Offline cache could not be initialized.")
+        : (previous?.active ? "Actualizacion no disponible. Se conserva el cache local anterior." : "No se pudo inicializar el cache offline.");
     }
     await updateOfflineCacheSizeLabel();
     updateAppStatusPanel();

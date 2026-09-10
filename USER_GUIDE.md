@@ -266,11 +266,10 @@ GeoRisk usa un modo offline parcial despues de una primera visita correcta. La a
 
 Si el navegador no dispone de espacio para guardar nuevos recursos, la app sigue entregando los datos disponibles por internet. Esos recursos no quedan disponibles offline hasta que se puedan guardar correctamente.
 
-Funciona offline despues de la visita inicial:
+Recursos locales disponibles sin red si se guardaron correctamente:
 
-- apertura de la app y portada;
-- busqueda basica con el indice liviano;
-- capas y rankings que usan datos ya cargados;
+- HTML inicial, estilos e indice liviano;
+- busqueda, capas y rankings con datos guardados, siempre que el motor y los modulos necesarios esten disponibles;
 - documentacion y changelog si fueron guardados;
 - fichas por pais que ya se abrieron antes;
 - GeoJSON, banderas, escudos y tiles que ya se descargaron bajo demanda.
@@ -281,6 +280,9 @@ Limitaciones:
 - `conflict_details.generated.json` no se guarda en CacheStorage;
 - fichas profundas no visitadas antes pueden necesitar internet;
 - detalles enriquecidos de conflictos y noticias en vivo dependen de internet;
-- imagenes, tiles y scripts remotos de terceros pueden requerir conectividad, incluso despues de una visita si el navegador los elimino de su cache; abrir el shell local no garantiza disponer del mapa completo.
+- el motor Cesium remoto no se guarda en el cache offline de GeoRisk: una recarga sin internet puede impedir iniciar el mapa y sus controles, aunque el HTML local abra. No se garantiza el arranque completo offline;
+- imagenes, tiles y scripts remotos de terceros pueden requerir conectividad, incluso despues de una visita si el navegador los elimino de su cache.
+
+Cuando hay una actualizacion descargada, aparece `Actualizacion lista`: `Actualizar` recarga la pagina y `Mas tarde` conserva la vista actual. Tambien puede aplicarse al cerrar todas las pestañas del sitio y volver a abrirlo. La primera instalacion del cache no recarga la app. Si falla una descarga esencial, la version nueva no se activa y se conserva el cache anterior. `Limpiar cache offline` retira el registro de esta app; recarga con internet para reconstruirlo.
 
 Si queres ver hacia donde podria crecer GeoRisk con una API propia, mira `BACKEND_PLAN.md` desde la seccion de documentacion.

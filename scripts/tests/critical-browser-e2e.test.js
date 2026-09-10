@@ -463,7 +463,7 @@ async function testControlsStartup(browser, baseUrl) {
     await page.route(/\/style-polish\.css\?/, async route => { await stylesHeld; await route.continue(); });
     await page.addInitScript(() => {
       Object.defineProperty(navigator, "serviceWorker", { configurable: true, value: {
-        getRegistrations() { window.__offlineSetupPending = true; return new Promise(() => {}); }
+        register() { window.__offlineSetupPending = true; return new Promise(() => {}); }
       } });
     });
     await page.goto(baseUrl + "/index.html", { waitUntil: "commit", timeout: APP_TIMEOUT_MS });
@@ -790,7 +790,78 @@ async function testRenderRecovery(browser, baseUrl) {
   }
 }
 
+async function testFirstWorkerActivation(browser, baseUrl) {
+  const context = await browser.newContext({ viewport: MOBILE_VIEWPORT, isMobile: true, hasTouch: true, serviceWorkers: "allow" });
+  let releaseWorker;
+  heldWorkerRequest = new Promise(resolve => { releaseWorker = resolve; });
+  const errors = [];
+  try {
+    const page = await context.newPage();
+    page.on("pageerror", error => errors.push(error.message));
+    await page.addInitScript(() => {
+      localStorage.setItem("geo-risk-intro-seen", "true");
+      sessionStorage.setItem("test-boot-count", String(Number(sessionStorage.getItem("test-boot-count") || 0) + 1));
+    });
+    await page.goto(baseUrl + "/index.html", { waitUntil: "domcontentloaded" });
+    await waitForAppReady(page);
+    await submitSearch(page, "Argentina");
+    await waitForCountryPanel(page, "Argentina");
+    assert.equal(await page.evaluate(() => navigator.serviceWorker.controller), null);
+    releaseWorker();
+    await page.waitForFunction(() => Boolean(navigator.serviceWorker.controller));
+    await page.waitForTimeout(1000);
+    await waitForCountryPanel(page, "Argentina");
+    assert.equal(await page.evaluate(() => sessionStorage.getItem("test-boot-count")), "1", "el worker real no debe reiniciar el mapa ni perder la ficha");
+    assert.equal(await page.locator("#offline-update-notice").isVisible(), false);
+    await closeCountryPanel(page);
+    testWorkerRevision = "fixture-ui-update";
+    await page.evaluate(async () => (await navigator.serviceWorker.getRegistration()).update());
+    await page.locator("#offline-update-notice").waitFor({ state: "visible" });
+    for (const [label, viewport] of [["mobile", MOBILE_VIEWPORT], ["desktop", DESKTOP_VIEWPORT]]) {
+      await page.setViewportSize(viewport);
+      const notice = page.locator("#offline-update-notice");
+      const bounds = await notice.boundingBox();
+      assert.ok(bounds.x >= 0 && bounds.x + bounds.width <= viewport.width && bounds.y + bounds.height <= viewport.height);
+      assert.equal(await notice.evaluate(element => element.scrollWidth <= element.clientWidth), true);
+      for (const selector of ["#map-mode-toggle", "#mobile-panel-controls"]) {
+        const control = page.locator(selector);
+        if (!await control.isVisible()) continue;
+        const target = await control.boundingBox();
+        assert.ok(bounds.x + bounds.width <= target.x || bounds.x >= target.x + target.width ||
+          bounds.y + bounds.height <= target.y || bounds.y >= target.y + target.height,
+          label + " el aviso no debe tapar " + selector);
+      }
+      await page.screenshot({ path: "tmp/offline-update-app-" + label + ".png" });
+    }
+    await page.locator("#offline-update-dismiss").click();
+    assert.equal(await page.locator("#offline-update-notice").isVisible(), false);
+    assert.equal(await page.evaluate(() => sessionStorage.getItem("test-boot-count")), "1");
+    await submitSearch(page, "Argentina");
+    await waitForCountryPanel(page, "Argentina");
+    assertHealthyPage(errors, "primera activacion con service worker real");
+  } finally {
+    releaseWorker();
+    heldWorkerRequest = null;
+    testWorkerRevision = null;
+    await context.close();
+  }
+}
+
+let heldWorkerRequest = null;
+let testWorkerRevision = null;
+const nativeWorkerSource = await fs.readFile("sw.js", "utf8");
 const server = createLocalSmokeServer();
+const staticRequest = server.listeners("request")[0];
+server.removeListener("request", staticRequest);
+server.on("request", async (request, response) => {
+  if (heldWorkerRequest && request.url.startsWith("/sw.js")) await heldWorkerRequest;
+  if (testWorkerRevision && request.url.startsWith("/sw.js")) {
+    response.writeHead(200, { "Content-Type": "text/javascript", "Cache-Control": "no-store" });
+    response.end(nativeWorkerSource.replace(/const CACHE_VERSION = "[^"]+"/, `const CACHE_VERSION = "${testWorkerRevision}"`));
+    return;
+  }
+  void staticRequest(request, response);
+});
 await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
 
 let browser;
@@ -803,13 +874,15 @@ try {
   const performanceOnly = process.argv.includes("--performance-only");
   const startupOnly = process.argv.includes("--startup-only");
   const recoveryOnly = process.argv.includes("--recovery-only");
-  if (!detailOnly && !startupOnly && !recoveryOnly) await testIdleMapPerformance(browser, baseUrl);
-  if (!detailOnly && !performanceOnly && !recoveryOnly) await testMapEngineStartup(browser, baseUrl);
-  if (!detailOnly && !performanceOnly && !recoveryOnly) await testControlsStartup(browser, baseUrl);
-  if (!performanceOnly && !startupOnly && !recoveryOnly) await testDetailedMapUpgrade(browser, baseUrl);
-  if (!detailOnly && !performanceOnly && !startupOnly) await testRenderRecovery(browser, baseUrl);
+  const offlineOnly = process.argv.includes("--offline-only");
+  if (!detailOnly && !startupOnly && !recoveryOnly && !offlineOnly) await testIdleMapPerformance(browser, baseUrl);
+  if (!detailOnly && !performanceOnly && !recoveryOnly && !offlineOnly) await testMapEngineStartup(browser, baseUrl);
+  if (!detailOnly && !performanceOnly && !recoveryOnly && !offlineOnly) await testControlsStartup(browser, baseUrl);
+  if (!performanceOnly && !startupOnly && !recoveryOnly && !offlineOnly) await testDetailedMapUpgrade(browser, baseUrl);
+  if (!detailOnly && !performanceOnly && !startupOnly && !offlineOnly) await testRenderRecovery(browser, baseUrl);
+  if (!detailOnly && !performanceOnly && !startupOnly && !recoveryOnly) await testFirstWorkerActivation(browser, baseUrl);
 
-  if (!detailOnly && !performanceOnly && !startupOnly && !recoveryOnly) {
+  if (!detailOnly && !performanceOnly && !startupOnly && !recoveryOnly && !offlineOnly) {
     const desktop = await createTestPage(browser, baseUrl, DESKTOP_VIEWPORT);
     try {
       await runDesktopCriticalFlow(desktop.page);

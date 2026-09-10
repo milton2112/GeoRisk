@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.231 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.232 antes de cerrar la siguiente version.
+
+## v1.6.232 - 2026-09-10
+
+- Evita recargas inesperadas al instalar el cache o recibir una version nueva. Agrega aviso accesible con Actualizar y Mas tarde; solo la confirmacion solicita activacion y recarga.
+- Deja de enumerar y desregistrar otros service workers del mismo servidor. La limpieza retira solo el registro del scope y script de esta app, sin actualizar aplicaciones ajenas.
+- Rechaza versiones con descargas esenciales incompletas y conserva el cache anterior. Elimina la comprobacion duplicada de actualizaciones y limpia listeners/reintentos al vaciar el cache.
+- Agrega pruebas de ciclo de vida, worker real bajo raiz/subcarpeta y primera activacion con una ficha abierta. Aclara que el cache local no garantiza arrancar el motor remoto sin internet.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-10-release-2`.
 
 ## v1.6.231 - 2026-09-10
 

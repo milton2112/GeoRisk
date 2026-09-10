@@ -1,4 +1,4 @@
-const CACHE_VERSION = "2026-09-10-release-1";
+const CACHE_VERSION = "2026-09-10-release-2";
 const APP_CACHE = `geo-risk-app-${CACHE_VERSION}`;
 const TILE_CACHE = `geo-risk-tiles-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `geo-risk-runtime-${CACHE_VERSION}`;
@@ -100,17 +100,15 @@ async function matchCached(cacheName, request) {
 
 self.addEventListener("install", event => {
   event.waitUntil(
-    caches.open(APP_CACHE).then(cache =>
-      Promise.allSettled(
-        APP_SHELL.map(resource =>
-          cache.add(resource).catch(error => {
-            console.warn("GeoRisk cache inicial omitido:", resource, error);
-          })
-        )
-      )
-    )
+    caches.open(APP_CACHE).then(async cache => {
+      const results = await Promise.allSettled(APP_SHELL.map(resource => cache.add(resource)));
+      const missing = APP_SHELL.filter((resource, index) =>
+        results[index].status === "rejected" && !resource.startsWith("./favicon."));
+      if (missing.length) {
+        throw new Error(`GeoRisk cache inicial incompleto: ${missing.join(", ")}`);
+      }
+    })
   );
-  self.skipWaiting();
 });
 
 self.addEventListener("activate", event => {
@@ -127,7 +125,7 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("message", event => {
   if (event.data?.type === "SKIP_WAITING") {
-    self.skipWaiting();
+    event.waitUntil(self.skipWaiting());
   }
 });
 

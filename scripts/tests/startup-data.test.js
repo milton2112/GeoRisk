@@ -5,6 +5,7 @@ import vm from "node:vm";
 import "./map-lifecycle.test.js";
 import "./map-performance.test.js";
 import "./map-render-recovery.test.js";
+import "./service-worker-lifecycle.test.js";
 
 const projectRoot = path.resolve(process.cwd());
 const full = await fs.readJson(path.join(projectRoot, "data", "countries_full.json"));
@@ -140,7 +141,8 @@ assert.ok(!sw.includes("./app-conflict-rules.js\""), "reglas pesadas de conflict
 assert.ok(!sw.includes("./assets/coats/"), "escudos pesados deben cargarse bajo demanda");
 assert.ok(!sw.includes("./assets/flags/"), "banderas deben cargarse bajo demanda");
 assert.ok(!sw.includes("./data/world_countries_simplified.geo.json\""), "GeoJSON debe cachearse bajo demanda, no durante install");
-assert.ok(sw.includes("Promise.allSettled"), "service worker debe tolerar fallas parciales de precache");
+assert.ok(sw.includes("Promise.allSettled"), "service worker debe comprobar todas las descargas del precache");
+assert.ok(sw.includes("if (missing.length)"), "un shell incompleto no debe activar la nueva version");
 assert.ok(sw.includes("HEAVY_RUNTIME_PATHS"), "service worker debe reconocer datasets pesados bajo demanda");
 assert.ok(sw.includes("RUNTIME_CACHEABLE_PATHS"), "service worker debe cachear GeoJSON, banderas y escudos solo bajo demanda");
 assert.ok(sw.includes("RUNTIME_CACHE"), "service worker debe separar cache runtime del shell");

@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-09T23:05:58.625Z",
+  "generatedAt": "2026-09-10T11:02:55.939Z",
   "status": "operativo",
   "startup": {
-    "critical": "828 KB",
-    "criticalBytes": 847704,
+    "critical": "834 KB",
+    "criticalBytes": 853962,
     "deferred": "3.10 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 13106533,
@@ -23,8 +23,8 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 566095,
-        "human": "553 KB",
+        "bytes": 570871,
+        "human": "557 KB",
         "startupCritical": true
       },
       {
@@ -51,8 +51,8 @@
       {
         "path": "style.css",
         "exists": true,
-        "bytes": 82979,
-        "human": "81 KB",
+        "bytes": 84072,
+        "human": "82 KB",
         "startupCritical": true
       },
       {
@@ -65,8 +65,8 @@
       {
         "path": "index.html",
         "exists": true,
-        "bytes": 32057,
-        "human": "31 KB",
+        "bytes": 32446,
+        "human": "32 KB",
         "startupCritical": true
       },
       {
@@ -812,26 +812,26 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 566095,
-      "human": "553 KB"
+      "bytes": 570871,
+      "human": "557 KB"
     },
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 263361,
-      "human": "257 KB"
+      "bytes": 264200,
+      "human": "258 KB"
     },
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 82979,
-      "human": "81 KB"
+      "bytes": 84072,
+      "human": "82 KB"
     },
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 32057,
-      "human": "31 KB"
+      "bytes": 32446,
+      "human": "32 KB"
     },
     {
       "path": "style-polish.css",
@@ -854,8 +854,8 @@
     {
       "path": "TECHNICAL.md",
       "exists": true,
-      "bytes": 21111,
-      "human": "21 KB"
+      "bytes": 22256,
+      "human": "22 KB"
     },
     {
       "path": "app-project-audit-ui.js",
@@ -882,15 +882,15 @@
       "human": "9 KB"
     },
     {
-      "path": "app-compare-ui.js",
+      "path": "USER_GUIDE.md",
       "exists": true,
-      "bytes": 8670,
+      "bytes": 8689,
       "human": "8 KB"
     },
     {
-      "path": "USER_GUIDE.md",
+      "path": "app-compare-ui.js",
       "exists": true,
-      "bytes": 8006,
+      "bytes": 8670,
       "human": "8 KB"
     },
     {
@@ -961,8 +961,8 @@
     }
   ],
   "scriptMetrics": {
-    "functions": 527,
-    "asyncFunctions": 49,
+    "functions": 530,
+    "asyncFunctions": 50,
     "consoleWarnings": 20,
     "consoleErrors": 13
   },
