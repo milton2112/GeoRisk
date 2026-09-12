@@ -81,6 +81,10 @@ El paso `startupResources` espera conjuntamente el indice validado, los aliases,
 
 `waitForMapBootReady` requiere un `postRender` del visor capturado, con bucle activo y sin recuperacion pendiente/fallida. Su deadline no puede dar por listo un canvas sin dibujar. Si ya hubo render valido, los tiles pendientes no impiden la salida rapida. Tanto el exito como el fallo limpian timers y listeners del visor original. `test:startup` cubre estos estados; `test:e2e:critical -- --startup-only` inyecta tambien un motor lento/fallido/tardio, script principal retenido y render ausente, y verifica la recarga funcional.
 
+Los controles bajo `globe-loading` usan `display: none` ademas del bloqueo visual: no generan cajas de layout mientras se conectan sus handlers y se actualizan sus textos. El mapa y el aviso de carga quedan fuera de esa regla. La interfaz recupera su layout al retirar la clase; los inicializadores no deben depender de dimensiones de controles ocultos.
+
+Para comparar solo el CSS de arranque, construir `dist/public` y ejecutar `node scripts/profileStartup.js --trace-only --baseline-style=<commit> --observe-ms=1000`; sin `--baseline-style` usa el build actual. La traza informa cantidad, total y maximo de eventos Layout antes/despues de la marca de disponibilidad, y exige hilo principal y marca validos. `reports/startup-layout-benchmark.json` conserva seis muestras alternadas contra v1.6.234. El resto de los assets es comun; no es una comparacion de versiones completas ni una prueba en telefono fisico.
+
 ## Recarga progresiva del mapa
 
 - `app-map-interactions.js.installRenderRecovery` distingue error de escena, bucle detenido y contexto WebGL perdido. Cesium 1.127 pone `useDefaultRenderLoop` en `false` incluso con `rethrowRenderErrors: false`; pedir `requestRender` no basta. El controlador espera dos callbacks de animacion antes de reactivar el bucle para no duplicar el callback anterior, permite un solo intento por visor y confirma un `postRender` posterior sin error. [Contrato de CesiumWidget](https://cesium.com/learn/cesiumjs/ref-doc/CesiumWidget.html#useDefaultRenderLoop).

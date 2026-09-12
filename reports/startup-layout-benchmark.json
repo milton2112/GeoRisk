@@ -1,0 +1,41 @@
+{
+  "date": "2026-09-12",
+  "baselineCommit": "6bdbdaf78238ea57cd03c2b9c49c579117f25573",
+  "baselineVersion": "1.6.234",
+  "purpose": "Medir el coste de controles invisibles que conservaban layout durante el arranque.",
+  "candidateChange": "display: none !important en los controles bajo body.globe-loading",
+  "methodology": {
+    "tool": "scripts/profileStartup.js --trace-only --observe-ms=1000",
+    "baselineOption": "--baseline-style=6bdbdaf78238ea57cd03c2b9c49c579117f25573",
+    "comparison": "Solo style.css cambia; todos los demas assets usan el mismo build local.",
+    "profile": "mobile-emulated",
+    "viewport": { "width": 390, "height": 844 },
+    "cpuSlowdown": 4,
+    "freshBrowserPerSample": true,
+    "httpCacheDisabled": true,
+    "serviceWorkers": "block",
+    "introSeen": true,
+    "observeAfterReadyMs": 1000,
+    "instrumentation": "Chrome DevTools timeline; no CPU sampling"
+  },
+  "samplesInExecutionOrder": [
+    { "variant": "baseline", "measuredAt": "2026-09-12T11:42:17.894Z", "layoutBeforeReadyCount": 22, "layoutBeforeReadyTotalMs": 438.696, "layoutBeforeReadyMaximumMs": 233.883, "layoutAfterReadyTotalMs": 11.802, "moduleEvaluationMs": 468.763 },
+    { "variant": "candidate", "measuredAt": "2026-09-12T11:42:23.887Z", "layoutBeforeReadyCount": 13, "layoutBeforeReadyTotalMs": 180.513, "layoutBeforeReadyMaximumMs": 102.129, "layoutAfterReadyTotalMs": 0, "moduleEvaluationMs": 491.998 },
+    { "variant": "candidate", "measuredAt": "2026-09-12T11:42:29.851Z", "layoutBeforeReadyCount": 13, "layoutBeforeReadyTotalMs": 188.653, "layoutBeforeReadyMaximumMs": 110.724, "layoutAfterReadyTotalMs": 0, "moduleEvaluationMs": 464.445 },
+    { "variant": "baseline", "measuredAt": "2026-09-12T11:42:36.001Z", "layoutBeforeReadyCount": 21, "layoutBeforeReadyTotalMs": 381.914, "layoutBeforeReadyMaximumMs": 197.892, "layoutAfterReadyTotalMs": 0, "moduleEvaluationMs": 440.474 },
+    { "variant": "baseline", "measuredAt": "2026-09-12T11:42:41.718Z", "layoutBeforeReadyCount": 22, "layoutBeforeReadyTotalMs": 403.723, "layoutBeforeReadyMaximumMs": 207.351, "layoutAfterReadyTotalMs": 0, "moduleEvaluationMs": 457.24 },
+    { "variant": "candidate", "measuredAt": "2026-09-12T11:42:47.265Z", "layoutBeforeReadyCount": 13, "layoutBeforeReadyTotalMs": 166.144, "layoutBeforeReadyMaximumMs": 100.269, "layoutAfterReadyTotalMs": 0, "moduleEvaluationMs": 439.471 }
+  ],
+  "summary": {
+    "baselineLayoutBeforeReadyMedianMs": 403.723,
+    "candidateLayoutBeforeReadyMedianMs": 180.513,
+    "layoutBeforeReadyMedianReductionPercent": 55.3,
+    "baselineMaximumLayoutMedianMs": 207.351,
+    "candidateMaximumLayoutMedianMs": 102.129
+  },
+  "limitations": [
+    "Diagnostico corto instrumentado en un solo equipo; no sustituye la medicion de release de 60 segundos.",
+    "No prueba un celular real ni aisla efectos de red, cache del sistema operativo o controlador grafico.",
+    "La evaluacion del SDK sigue siendo una tarea larga; no se atribuye su variacion a esta regla CSS."
+  ]
+}

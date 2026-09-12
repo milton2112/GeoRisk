@@ -80,6 +80,7 @@ body.globe-loading #quiz-hub-panel,
 body.globe-loading #news-hub-panel,
 body.globe-loading #toggle-left-panel,
 body.globe-loading #map-mode-toggle {
+  display: none !important;
   opacity: 0;
   pointer-events: none;
   visibility: hidden;

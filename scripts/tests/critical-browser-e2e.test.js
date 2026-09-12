@@ -403,6 +403,22 @@ function assertHealthyPage(pageErrors, label) {
   assert.deepEqual(getRelevantPageErrors(pageErrors), [], label + " no debe emitir errores no controlados");
 }
 
+async function assertStartupControlsHaveNoLayout(page) {
+  const state = await page.evaluate(() => {
+    const ids = ["top-controls", "left-panel", "map-toolbar", "mobile-panel-controls", "map-mode-toggle", "compare-hub-panel", "quiz-hub-panel", "news-hub-panel"];
+    return {
+      loading: document.body.classList.contains("globe-loading"),
+      missing: ids.filter(id => !document.getElementById(id)),
+      layoutBoxes: ids.filter(id => document.getElementById(id)?.getClientRects().length > 0),
+      mapHasLayout: document.getElementById("map").getBoundingClientRect().height > 0
+    };
+  });
+  assert.equal(state.loading, true);
+  assert.deepEqual(state.missing, []);
+  assert.deepEqual(state.layoutBoxes, [], "los controles inactivos no deben generar cajas de layout");
+  assert.equal(state.mapHasLayout, true, "el mapa debe conservar su espacio durante la carga");
+}
+
 async function testMapEngineStartup(browser, baseUrl) {
   for (const scenario of ["slow", "failure", "early-failure", "timeout", "loader-missing", "no-frame"]) {
     const context = await browser.newContext({ viewport: MOBILE_VIEWPORT, isMobile: true, hasTouch: true, serviceWorkers: "block" });
@@ -437,6 +453,7 @@ async function testMapEngineStartup(browser, baseUrl) {
         await page.waitForFunction(() => typeof bootMetrics !== "undefined" && Boolean(bootMetrics.steps.mapEngine));
         assert.equal(await page.evaluate(() => viewer), null, "no construir el mapa mientras falta el motor");
       }
+      await assertStartupControlsHaveNoLayout(page);
       if (scenario === "no-frame") {
         await page.evaluate(() => {
           const initialize = initializeViewer;
@@ -521,6 +538,7 @@ async function testControlsStartup(browser, baseUrl) {
       return status && getComputedStyle(status).opacity === "1";
     });
     assert.equal(await page.evaluate(() => typeof init), "undefined", "la prueba debe retener el runtime principal");
+    await assertStartupControlsHaveNoLayout(page);
     assert.equal(await page.locator("#map-search-input").isVisible(), false, "no mostrar controles sin handlers antes de script.js");
     await page.screenshot({ path: "tmp/startup-before-runtime-mobile.png" });
     releaseMain();
@@ -530,6 +548,7 @@ async function testControlsStartup(browser, baseUrl) {
     assert.equal(await page.locator("#map-search-input").isVisible(), false, "el mapa listo no implica controles listos");
     assert.equal(await page.locator("#intro-modal").isVisible(), false, "la bienvenida debe esperar sus acciones");
     assert.equal(await page.evaluate(() => bootMetrics.completedAt), 0);
+    await assertStartupControlsHaveNoLayout(page);
     await page.evaluate(() => { window.__startupCameraPosition = Cesium.Cartesian3.clone(viewer.camera.position); });
     await page.mouse.move(190, 420);
     await page.mouse.down();

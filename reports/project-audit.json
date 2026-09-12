@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-12T11:32:41.633Z",
+  "generatedAt": "2026-09-12T11:50:39.075Z",
   "status": "operativo",
   "startup": {
     "critical": "839 KB",
-    "criticalBytes": 859008,
+    "criticalBytes": 859036,
     "deferred": "3.10 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 13106533,
@@ -51,7 +51,7 @@
       {
         "path": "style.css",
         "exists": true,
-        "bytes": 84072,
+        "bytes": 84100,
         "human": "82 KB",
         "startupCritical": true
       },
@@ -818,13 +818,13 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 266424,
-      "human": "260 KB"
+      "bytes": 267479,
+      "human": "261 KB"
     },
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 84072,
+      "bytes": 84100,
       "human": "82 KB"
     },
     {
@@ -848,8 +848,8 @@
     {
       "path": "TECHNICAL.md",
       "exists": true,
-      "bytes": 24206,
-      "human": "24 KB"
+      "bytes": 25119,
+      "human": "25 KB"
     },
     {
       "path": "app-text.js",

@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.234 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.235 antes de cerrar la siguiente version.
+
+## v1.6.235 - 2026-09-12
+
+- Evita calcular el layout de buscador, rankings, capas y hubs mientras el arranque mantiene sus controles inactivos. Conserva el mapa y el aviso de carga, y restituye la interfaz al completar su inicializacion.
+- Agrega una regresion real que exige ausencia de cajas de layout antes del runtime, con el motor pendiente y durante la preparacion de controles. Los flujos completos siguen comprobando apertura de fichas, busqueda y seleccion desde rankings.
+- Amplia el diagnostico de arranque con comparacion de style.css contra un commit y totales de layout antes/despues de habilitar la app. Rechaza trazas incompletas para no informar ceros falsos.
+- Documenta seis muestras alternadas de movil emulado: la mediana de layout previo baja de 403.723 a 180.513 ms, sin layout posterior en las muestras candidatas durante el segundo observado. Es un diagnostico instrumentado; no sustituye el snapshot de 60 segundos ni resuelve el pico de evaluacion del SDK.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-12-release-2`.
 
 ## v1.6.234 - 2026-09-12
 

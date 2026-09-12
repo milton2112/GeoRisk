@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-12T11:32:43.207Z",
-  "startupBytes": 859008,
+  "generatedAt": "2026-09-12T16:24:56.498Z",
+  "startupBytes": 859036,
   "startupHuman": "839 KB",
   "deferredBytes": 3252116,
   "deferredHuman": "3.10 MB",
@@ -50,7 +50,7 @@
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 84072,
+      "bytes": 84100,
       "human": "82 KB",
       "startupCritical": true
     },
@@ -115,7 +115,7 @@
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 84072,
+      "bytes": 84100,
       "human": "82 KB",
       "startupCritical": true
     },

@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { execFileSync } from "node:child_process";
 import { createLocalSmokeServer } from "./localSmokeServer.js";
 import { launchPerformanceBrowser, PERFORMANCE_PROFILES } from "./lib/browser-performance.js";
 
@@ -7,6 +8,9 @@ const root = path.resolve("dist/public");
 await fs.access(path.join(root, "index.html"));
 const profile = PERFORMANCE_PROFILES.find(item => item.name === (process.argv.includes("--desktop") ? "desktop" : "mobile-emulated"));
 const sampleCpu = !process.argv.includes("--trace-only");
+const baselineStyleArg = process.argv.find(arg => arg.startsWith("--baseline-style="));
+const baselineStyleRef = baselineStyleArg ? execFileSync("git", ["rev-parse", "--verify", "--end-of-options", `${baselineStyleArg.slice("--baseline-style=".length)}^{commit}`], { encoding: "utf8" }).trim() : null;
+const baselineStyle = baselineStyleRef ? execFileSync("git", ["show", `${baselineStyleRef}:style.css`], { encoding: "utf8" }) : null;
 const observeArg = process.argv.find(arg => arg.startsWith("--observe-ms="));
 const observeMs = observeArg ? Number(observeArg.slice("--observe-ms=".length)) : 5000;
 if (!Number.isInteger(observeMs) || observeMs < 1000 || observeMs > 60000) {
@@ -19,6 +23,9 @@ try {
   browser = await launchPerformanceBrowser();
   const context = await browser.newContext({ viewport: profile.viewport, isMobile: profile.isMobile, hasTouch: profile.isMobile, serviceWorkers: "block" });
   const page = await context.newPage();
+  if (baselineStyle !== null) {
+    await page.route(/\/style\.css\?/, route => route.fulfill({ status: 200, contentType: "text/css", body: baselineStyle }));
+  }
   const cdp = await context.newCDPSession(page);
   const events = [];
   cdp.on("Tracing.dataCollected", ({ value }) => events.push(...value));
@@ -45,6 +52,13 @@ try {
   const localUrl = url => (url || "").replace(baseUrl, "");
   const readyTimestamp = events.find(event => event.name === "georisk-profile-ready")?.ts;
   const thread = events.find(event => event.name === "thread_name" && event.args?.name === "CrRendererMain" && events.some(item => item.pid === event.pid && item.name === "EvaluateScript"));
+  if (!thread || !Number.isFinite(readyTimestamp)) throw new Error("Traza incompleta: falta el hilo principal o la marca de disponibilidad.");
+  const layoutEvents = events.filter(event => event.ph === "X" && event.name === "Layout" && (!thread || (event.pid === thread.pid && event.tid === thread.tid)));
+  const summarizeLayout = items => ({ count: items.length, totalMs: items.reduce((sum, event) => sum + event.dur / 1000, 0), maximumMs: Math.max(0, ...items.map(event => event.dur / 1000)) });
+  const layout = {
+    beforeReady: summarizeLayout(layoutEvents.filter(event => event.ts < readyTimestamp)),
+    afterReady: summarizeLayout(layoutEvents.filter(event => event.ts >= readyTimestamp))
+  };
   const work = events.filter(event => event.ph === "X" && event.dur >= 50000 && (!thread || (event.pid === thread.pid && event.tid === thread.tid)))
     .sort((a, b) => b.dur - a.dur).slice(0, 35)
     .map(event => ({ name: event.name, durationMs: event.dur / 1000, afterReadyMs: readyTimestamp === undefined ? null : (event.ts - readyTimestamp) / 1000, url: localUrl(event.args?.data?.url), line: event.args?.data?.lineNumber ?? null, functionName: event.args?.data?.functionName || null }));
@@ -55,11 +69,11 @@ try {
     name: nodes.get(id)?.callFrame.functionName || "(anonymous)", url: localUrl(nodes.get(id)?.callFrame.url), line: (nodes.get(id)?.callFrame.lineNumber ?? -1) + 1, selfMs
   }));
   const runtime = await page.evaluate(() => ({ declaredMode: currentMapMode, actualMode: viewer.scene.mode, mode2d: Cesium.SceneMode.SCENE2D, mode3d: Cesium.SceneMode.SCENE3D }));
-  const report = { generatedAt: new Date().toISOString(), profile, runtime, observeAfterReadyMs: observeMs, cpuSampling: sampleCpu, methodology: `Diagnostic trace${sampleCpu ? " and CPU sampling" : " without CPU sampling"}; timings include instrumentation overhead, not the release benchmark. afterReadyMs is relative to the map-ready mark.`, work, functions };
+  const report = { generatedAt: new Date().toISOString(), profile, runtime, baselineStyleRef, layout, observeAfterReadyMs: observeMs, cpuSampling: sampleCpu, methodology: `Diagnostic trace${sampleCpu ? " and CPU sampling" : " without CPU sampling"}; timings include instrumentation overhead, not the release benchmark. afterReadyMs is relative to the map-ready mark. A baseline-style override changes only style.css; all other assets use the current build.`, work, functions };
   await fs.mkdir("reports", { recursive: true });
   await fs.writeFile("reports/startup-profile.json", JSON.stringify(report, null, 2) + "\n");
   console.log("Diagnostico: reports/startup-profile.json");
-  console.log(JSON.stringify({ profile: profile.name, runtime, work: work.slice(0, 10), functions: functions.slice(0, 10) }, null, 2));
+  console.log(JSON.stringify({ profile: profile.name, runtime, baselineStyleRef, layout, work: work.slice(0, 10), functions: functions.slice(0, 10) }, null, 2));
 } finally {
   await browser?.close();
   await new Promise(resolve => server.close(resolve));
