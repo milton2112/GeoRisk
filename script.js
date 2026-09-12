@@ -85,7 +85,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-09-12-release-2";
+const APP_VERSION = "2026-09-12-release-3";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -1690,6 +1690,8 @@ let loadDeferredDataEnhancementsPromise = null;
 let loadRuntimeCurationPromise = null;
 const countryDetailPromises = new Map();
 const countryConflictDetailPromises = new Map();
+const failedCountryDataRequests = new Set();
+let countryPanelRenderToken = 0;
 const deferredDataStatus = {
   countryIndex: false,
   runtimeCuration: false,
@@ -4571,6 +4573,7 @@ function openCountryModal() {
 }
 
 function closeCountryModal() {
+  countryPanelRenderToken += 1;
   const modal = document.getElementById("country-modal");
   if (!modal || modal.hidden) {
     return;
@@ -4683,6 +4686,8 @@ async function activateCountrySection(sectionId) {
   if (!sectionId || currentPanelState.type !== "country") {
     return;
   }
+  const countryCode = currentPanelState.code;
+  const renderToken = countryPanelRenderToken;
   const loadedSections = new Set(currentPanelState.countryLoadedSections || ["country-section-general"]);
   loadedSections.add(sectionId);
   currentPanelState.countryLoadedSections = [...loadedSections];
@@ -4691,6 +4696,9 @@ async function activateCountrySection(sectionId) {
   if (sectionId === "country-section-military") {
     await loadCountryConflictDetail(currentPanelState.code);
   }
+
+  if (currentPanelState.code !== countryCode || countryPanelRenderToken !== renderToken
+    || document.getElementById("country-modal")?.hidden) return;
 
   if (
     !deferredDataStatus.runtimeCuration
@@ -6528,10 +6536,12 @@ function dismissSearchInput() {
 }
 
 async function renderCountry(country, fallbackName) {
+  const renderToken = ++countryPanelRenderToken;
   await Promise.all([
     ensureDeferredUiModule("countryPanel"),
     ensureDeferredUiModule("timelineConflicts")
   ]);
+  if (renderToken !== countryPanelRenderToken) return;
   const countryCode = getCountryCodeByObject(country);
   if (countryCode) {
     appStore?.setState({ selectedCode: countryCode }, "country-render");
@@ -6557,17 +6567,16 @@ async function renderCountry(country, fallbackName) {
     };
     const panel = document.getElementById("country-panel");
     if (panel && typeof countryPanelUi.renderSkeleton === "function") {
-      panel.innerHTML = countryPanelUi.renderSkeleton(country, currentLanguage);
+      panel.innerHTML = countryPanelUi.renderSkeleton(country, currentLanguage, escapeHtml);
       openCountryModal();
     }
     const detailedCountry = await loadCountryDetail(countryCode);
-    if (
-      detailedCountry
-      && !detailedCountry.metadata?.isIndex
-      && currentPanelState.type === "country"
-      && currentPanelState.code === countryCode
-    ) {
+    if (renderToken !== countryPanelRenderToken || currentPanelState.type !== "country"
+      || currentPanelState.code !== countryCode || document.getElementById("country-modal")?.hidden) return;
+    if (detailedCountry && !detailedCountry.metadata?.isIndex) {
       await renderCountry(detailedCountry, fallbackName);
+    } else if (panel) {
+      panel.innerHTML = countryPanelUi.renderLoadError(country, currentLanguage, escapeHtml);
     }
     return;
   }
@@ -10035,6 +10044,7 @@ function rerenderCurrentPanel() {
     rerenderCurrentPanelFrame = null;
 
     if (currentPanelState.type === "country" && currentPanelState.code && countriesData[currentPanelState.code]) {
+      if (document.getElementById("country-modal")?.hidden) return;
       renderCountry(countriesData[currentPanelState.code], currentPanelState.fallbackName);
       return;
     }
@@ -12774,6 +12784,35 @@ async function hydrateCountriesData(countriesJson, { refresh = false } = {}) {
   }
 }
 
+async function fetchCountryDataJson(url, validate, timeoutMs = 20000) {
+  const controller = new AbortController();
+  let timer;
+  try {
+    // Race the full body read too: a response can stall after its headers arrive.
+    const data = await Promise.race([
+      fetch(url, { signal: controller.signal, cache: failedCountryDataRequests.has(url) ? "reload" : "default" })
+        .then(response => {
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          return response.json();
+        }),
+      new Promise((_, reject) => {
+        timer = setTimeout(() => {
+          reject(new Error("Country data timeout"));
+          controller.abort();
+        }, timeoutMs);
+      })
+    ]);
+    if (!validate(data)) throw new Error("Invalid country data");
+    failedCountryDataRequests.delete(url);
+    return data;
+  } catch (error) {
+    failedCountryDataRequests.add(url);
+    throw error;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 async function loadCountryDetail(code) {
   const normalizedCode = String(code || "").trim();
   if (!normalizedCode) {
@@ -12786,26 +12825,32 @@ async function loadCountryDetail(code) {
     return countryDetailPromises.get(normalizedCode);
   }
 
-  const promise = fetchResourceCached(`./data/countries/${encodeURIComponent(normalizedCode)}.json?v=${APP_VERSION}`, "json")
-    .then(async country => {
-      if (!country) {
-        return countriesData[normalizedCode] || null;
-      }
+  const url = `./data/countries/${encodeURIComponent(normalizedCode)}.json?v=${APP_VERSION}`;
+  const promise = fetchCountryDataJson(url, country =>
+    country && typeof country.name === "string" && country.name.trim()
+    && country.general && typeof country.general === "object" && !Array.isArray(country.general)
+    && country.military && typeof country.military === "object" && !Array.isArray(country.military)
+    && !country.metadata?.isIndex && country.metadata?.provenance?.code === normalizedCode)
+    .then(country => {
       country.code = normalizedCode;
       country.metadata = {
         ...(country.metadata || {}),
         isIndex: false
       };
+      sanitizeCountryData(country);
       countriesData[normalizedCode] = country;
       invalidateCountryDerivedCaches();
       countryCodeLookup.set(country, normalizedCode);
-      sanitizeCountryData(country);
       refreshLoadedCountryLayers();
       return country;
     })
     .catch(error => {
+      failedCountryDataRequests.add(url);
       console.warn(`No se pudo cargar detalle de ${normalizedCode}:`, error);
       return countriesData[normalizedCode] || null;
+    })
+    .finally(() => {
+      countryDetailPromises.delete(normalizedCode);
     });
 
   countryDetailPromises.set(normalizedCode, promise);
@@ -12838,7 +12883,7 @@ async function loadCountryConflictDetail(code) {
   const country = countriesData[normalizedCode]?.metadata?.isIndex
     ? await loadCountryDetail(normalizedCode)
     : countriesData[normalizedCode];
-  if (!country || hasCompleteCountryConflicts(country)) {
+  if (!country || country.metadata?.isIndex || hasCompleteCountryConflicts(country)) {
     return country || null;
   }
   if (countryConflictDetailPromises.has(normalizedCode)) {
@@ -12850,11 +12895,12 @@ async function loadCountryConflictDetail(code) {
     return country;
   }
 
-  const promise = fetchResourceCached(`${shardPath}${shardPath.includes("?") ? "&" : "?"}v=${APP_VERSION}`, "json")
+  const expectedCount = Number(country.military?.conflictCount || country.metadata?.publicProfile?.conflictCount || 0);
+  const url = `${shardPath}${shardPath.includes("?") ? "&" : "?"}v=${APP_VERSION}`;
+  const promise = fetchCountryDataJson(url, conflicts => Array.isArray(conflicts)
+    && conflicts.length >= expectedCount
+    && conflicts.every(conflict => conflict && typeof conflict.name === "string" && conflict.name.trim()))
     .then(conflicts => {
-      if (!Array.isArray(conflicts)) {
-        return country;
-      }
       country.military = {
         ...(country.military || {}),
         conflicts,
@@ -12878,6 +12924,9 @@ async function loadCountryConflictDetail(code) {
     .catch(error => {
       console.warn(`No se pudo cargar conflictos de ${normalizedCode}:`, error);
       return country;
+    })
+    .finally(() => {
+      countryConflictDetailPromises.delete(normalizedCode);
     });
 
   countryConflictDetailPromises.set(normalizedCode, promise);

@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-12T11:50:39.075Z",
+  "generatedAt": "2026-09-12T19:32:59.512Z",
   "status": "operativo",
   "startup": {
-    "critical": "839 KB",
-    "criticalBytes": 859036,
+    "critical": "842 KB",
+    "criticalBytes": 861804,
     "deferred": "3.10 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 13106533,
@@ -23,8 +23,8 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 573147,
-        "human": "560 KB",
+        "bytes": 575630,
+        "human": "562 KB",
         "startupCritical": true
       },
       {
@@ -51,15 +51,15 @@
       {
         "path": "style.css",
         "exists": true,
-        "bytes": 84100,
+        "bytes": 84385,
         "human": "82 KB",
         "startupCritical": true
       },
       {
         "path": "app-country-panel.js",
         "exists": true,
-        "bytes": 43308,
-        "human": "42 KB",
+        "bytes": 45290,
+        "human": "44 KB",
         "startupCritical": false
       },
       {
@@ -812,19 +812,19 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 573147,
-      "human": "560 KB"
+      "bytes": 575630,
+      "human": "562 KB"
     },
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 267479,
-      "human": "261 KB"
+      "bytes": 268689,
+      "human": "262 KB"
     },
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 84100,
+      "bytes": 84385,
       "human": "82 KB"
     },
     {
@@ -848,8 +848,8 @@
     {
       "path": "TECHNICAL.md",
       "exists": true,
-      "bytes": 25119,
-      "human": "25 KB"
+      "bytes": 26309,
+      "human": "26 KB"
     },
     {
       "path": "app-text.js",
@@ -876,15 +876,15 @@
       "human": "10 KB"
     },
     {
+      "path": "USER_GUIDE.md",
+      "exists": true,
+      "bytes": 9844,
+      "human": "10 KB"
+    },
+    {
       "path": "app-conflict-audit-ui.js",
       "exists": true,
       "bytes": 9392,
-      "human": "9 KB"
-    },
-    {
-      "path": "USER_GUIDE.md",
-      "exists": true,
-      "bytes": 9367,
       "human": "9 KB"
     },
     {
@@ -961,8 +961,8 @@
     }
   ],
   "scriptMetrics": {
-    "functions": 532,
-    "asyncFunctions": 51,
+    "functions": 533,
+    "asyncFunctions": 52,
     "consoleWarnings": 19,
     "consoleErrors": 11
   },

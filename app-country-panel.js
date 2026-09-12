@@ -13,6 +13,12 @@ const COUNTRY_PANEL_DATA_SOURCE_SUMMARY = {
 
 const COUNTRY_FAVORITES_STORAGE_KEY = "geo-risk-country-favorites";
 
+function escapeCountryLoadingText(value) {
+  return String(value ?? "").replace(/[&<>"']/g, character => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  })[character]);
+}
+
 function formatProvenanceValue(value, language = "es", depth = 0) {
   if (value === null || value === undefined || value === "") {
     return language === "en" ? "No data" : "Sin datos";
@@ -55,6 +61,19 @@ async function handleInteraction(event, options = {}) {
   const language = options.getLanguage?.() || "es";
   const getTrigger = selector => getInteractionTrigger(event, selector);
 
+  const retryTrigger = getTrigger("[data-country-retry]");
+  if (retryTrigger) {
+    if (state.type === "country" && !retryTrigger.disabled) {
+      retryTrigger.disabled = true;
+      try {
+        await options.openCountryByCode?.(state.code, state.fallbackName, { focusMap: false });
+      } finally {
+        retryTrigger.disabled = false;
+      }
+    }
+    return true;
+  }
+
   const openCountryTrigger = getTrigger("[data-open-country]");
   if (openCountryTrigger) {
     await options.openCountryByCode?.(
@@ -66,7 +85,13 @@ async function handleInteraction(event, options = {}) {
 
   const deferredSectionTrigger = getTrigger("[data-country-load-section]");
   if (deferredSectionTrigger) {
-    await options.activateCountrySection?.(deferredSectionTrigger.dataset.countryLoadSection);
+    if (deferredSectionTrigger.disabled) return true;
+    deferredSectionTrigger.disabled = true;
+    try {
+      await options.activateCountrySection?.(deferredSectionTrigger.dataset.countryLoadSection);
+    } finally {
+      deferredSectionTrigger.disabled = false;
+    }
     return true;
   }
 
@@ -513,6 +538,10 @@ function renderProfile(options = {}) {
         options.shouldRenderMilitaryDetail ? `
           <p><b>${escapeHtml(translate("activePersonnel"))}:</b> ${formatNumber(military.active)}</p>
           <p><b>${escapeHtml(translate("reserve"))}:</b> ${formatNumber(military.reserve)}</p>
+          ${military.conflictsComplete === false ? `<div class="country-load-error" role="status">
+            <p>${language === "en" ? "The full conflict list could not be loaded. Showing the available preview." : "No se pudo cargar la lista completa de conflictos. Se conserva la vista previa disponible."}</p>
+            <button type="button" class="panel-action-button" data-country-load-section="country-section-military">${language === "en" ? "Retry conflicts" : "Reintentar conflictos"}</button>
+          </div>` : ""}
           ${call("renderConflictOverview", conflictGroups, country)}
           ${call("renderRelatedConflictSummary", conflictGroups)}
           <p><b>${conflictLabel}</b></p>
@@ -660,11 +689,19 @@ window.GeoRiskCountryPanel = {
   getFavoriteStorageKey() {
     return COUNTRY_FAVORITES_STORAGE_KEY;
   },
-  renderSkeleton(country = {}, language = "es") {
+  renderLoadError(country = {}, language = "es", escapeHtml = escapeCountryLoadingText) {
+    const name = country.name || (language === "en" ? "Country profile" : "Ficha pais");
+    return `<div class="country-load-error" aria-busy="false" role="alert">
+      <h2 id="country-panel-title">${escapeHtml(name)}</h2>
+      <p>${language === "en" ? "The profile could not be loaded. Check your connection and try again." : "No se pudo cargar la ficha. Revisa tu conexion y vuelve a intentar."}</p>
+      <button type="button" class="panel-action-button" data-country-retry>${language === "en" ? "Retry" : "Reintentar"}</button>
+    </div>`;
+  },
+  renderSkeleton(country = {}, language = "es", escapeHtml = escapeCountryLoadingText) {
     const name = country.name || (language === "en" ? "Country profile" : "Ficha pais");
     return `
       <div class="country-skeleton" aria-busy="true">
-        <div class="country-skeleton-title">${name}</div>
+        <div class="country-skeleton-title">${escapeHtml(name)}</div>
         <div class="country-skeleton-line"></div>
         <div class="country-skeleton-grid">
           <span></span><span></span><span></span><span></span>

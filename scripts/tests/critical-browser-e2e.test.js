@@ -940,6 +940,94 @@ async function testRequiredStartupData(browser, baseUrl) {
   }
 }
 
+async function testCountryDataRecovery(browser, baseUrl) {
+  for (const [label, viewport] of [["desktop", DESKTOP_VIEWPORT], ["mobile", MOBILE_VIEWPORT]]) {
+    let failArgentina = true;
+    let failSpain = true;
+    let failConflicts = true;
+    let releaseBrazil;
+    const heldBrazil = new Promise(resolve => { releaseBrazil = resolve; });
+    const requests = [];
+    const test = await createTestPage(browser, baseUrl, viewport, async page => {
+      page.on("request", request => requests.push(request.url()));
+      await page.route(/\/data\/countries\/(ARG|ESP|BRA)\.json\?/, async route => {
+        if (route.request().url().includes("/BRA.json")) await heldBrazil;
+        if (failArgentina && route.request().url().includes("/ARG.json")) {
+          await route.fulfill({ status: 503, contentType: "application/json", body: "{}" });
+        } else if (failSpain && route.request().url().includes("/ESP.json")) {
+          await route.fulfill({ status: 200, contentType: "application/json", body: "{}" });
+        } else await route.continue();
+      });
+      await page.route(/\/data\/countries\/conflicts\/AUS\.json\?/, async route => {
+        if (failConflicts) await route.fulfill({ status: 200, contentType: "application/json", body: "[]" });
+        else await route.continue();
+      });
+    });
+    const { page } = test;
+    try {
+      await waitForAppReady(page);
+      await submitSearch(page, "Argentina");
+      const retry = page.locator("[data-country-retry]");
+      await retry.waitFor({ state: "visible" });
+      assert.equal(await page.locator('#country-panel [aria-busy="true"]').count(), 0);
+      assert.equal(await page.evaluate(() => countriesData.ARG.metadata.isIndex), true);
+      assert.equal(await page.evaluate(() => selectedLayers.some(layer => layer.code === "ARG")), true);
+      const error = page.locator("#country-panel .country-load-error");
+      assert.equal(await error.evaluate(element => element.scrollWidth <= element.clientWidth), true);
+      const bounds = await retry.boundingBox();
+      assert.ok(bounds.x >= 0 && bounds.x + bounds.width <= viewport.width && bounds.y + bounds.height <= viewport.height);
+      await page.screenshot({ path: "tmp/country-retry-" + label + ".png" });
+      failArgentina = false;
+      await retry.focus();
+      await retry.press("Enter");
+      await page.locator("#country-panel .country-profile").waitFor();
+      await waitForCountryPanel(page, "Argentina");
+      assert.equal(requests.filter(url => /\/countries\/ARG\.json\?/.test(url)).length, 2);
+      await closeCountryPanel(page);
+
+      await submitSearch(page, "Espana");
+      await retry.waitFor({ state: "visible" });
+      await closeCountryPanel(page);
+      failSpain = false;
+      await submitSearch(page, "Espana");
+      await page.locator("#country-panel .country-profile").waitFor();
+      assert.equal(await page.evaluate(() => countriesData.ESP.metadata.isIndex), false);
+      await closeCountryPanel(page);
+
+      await submitSearch(page, "Brasil");
+      await page.locator('#country-panel [aria-busy="true"]').waitFor();
+      await closeCountryPanel(page);
+      releaseBrazil();
+      await page.waitForFunction(() => countriesData.BRA.metadata.isIndex === false);
+      await page.waitForTimeout(400);
+      assert.equal(await page.locator("#country-modal").isVisible(), false, "una respuesta tardia no reabre el modal cerrado");
+      await submitSearch(page, "Brasil");
+      await page.locator("#country-panel .country-profile").waitFor();
+      assert.equal(requests.filter(url => /\/countries\/BRA\.json\?/.test(url)).length, 1, "la respuesta valida se reutiliza al volver a abrir");
+      await closeCountryPanel(page);
+
+      await submitSearch(page, "Australia");
+      await page.locator("#country-panel .country-profile").waitFor();
+      const preview = await page.evaluate(() => countriesData.AUS.military.conflicts.length);
+      await page.locator('[data-country-nav="country-section-military"]').click();
+      const retryConflicts = page.locator('.country-load-error [data-country-load-section="country-section-military"]');
+      await retryConflicts.waitFor({ state: "visible", timeout: APP_TIMEOUT_MS });
+      assert.equal(await page.evaluate(() => countriesData.AUS.military.conflicts.length), preview);
+      assert.equal(await page.evaluate(() => countriesData.AUS.military.conflictsComplete), false);
+      failConflicts = false;
+      await retryConflicts.click();
+      await page.waitForFunction(() => countriesData.AUS.military.conflictsComplete === true);
+      await retryConflicts.waitFor({ state: "hidden" });
+      assert.ok(await page.evaluate(count => countriesData.AUS.military.conflicts.length > count, preview));
+      assert.ok(!requests.some(url => /countries_full|conflict_details\.generated/.test(url)));
+      assertHealthyPage(test.pageErrors, label + " recuperacion de fichas y conflictos");
+    } finally {
+      releaseBrazil();
+      await test.context.close();
+    }
+  }
+}
+
 async function testFirstWorkerActivation(browser, baseUrl) {
   const context = await browser.newContext({ viewport: MOBILE_VIEWPORT, isMobile: true, hasTouch: true, serviceWorkers: "allow" });
   let releaseWorker;
@@ -1026,15 +1114,17 @@ try {
   const recoveryOnly = process.argv.includes("--recovery-only");
   const offlineOnly = process.argv.includes("--offline-only");
   const dataOnly = process.argv.includes("--data-only");
-  if (!detailOnly && !startupOnly && !recoveryOnly && !offlineOnly && !dataOnly) await testIdleMapPerformance(browser, baseUrl);
-  if (!detailOnly && !performanceOnly && !recoveryOnly && !offlineOnly && !dataOnly) await testMapEngineStartup(browser, baseUrl);
-  if (!detailOnly && !performanceOnly && !recoveryOnly && !offlineOnly && !dataOnly) await testControlsStartup(browser, baseUrl);
-  if (!performanceOnly && !startupOnly && !recoveryOnly && !offlineOnly && !dataOnly) await testDetailedMapUpgrade(browser, baseUrl);
-  if (!detailOnly && !performanceOnly && !startupOnly && !offlineOnly && !dataOnly) await testRenderRecovery(browser, baseUrl);
-  if (!detailOnly && !performanceOnly && !startupOnly && !recoveryOnly && !dataOnly) await testFirstWorkerActivation(browser, baseUrl);
-  if (!detailOnly && !performanceOnly && !startupOnly && !recoveryOnly && !offlineOnly) await testRequiredStartupData(browser, baseUrl);
+  const countryDataOnly = process.argv.includes("--country-data-only");
+  if (!detailOnly && !startupOnly && !recoveryOnly && !offlineOnly && !dataOnly && !countryDataOnly) await testIdleMapPerformance(browser, baseUrl);
+  if (!detailOnly && !performanceOnly && !recoveryOnly && !offlineOnly && !dataOnly && !countryDataOnly) await testMapEngineStartup(browser, baseUrl);
+  if (!detailOnly && !performanceOnly && !recoveryOnly && !offlineOnly && !dataOnly && !countryDataOnly) await testControlsStartup(browser, baseUrl);
+  if (!performanceOnly && !startupOnly && !recoveryOnly && !offlineOnly && !dataOnly && !countryDataOnly) await testDetailedMapUpgrade(browser, baseUrl);
+  if (!detailOnly && !performanceOnly && !startupOnly && !offlineOnly && !dataOnly && !countryDataOnly) await testRenderRecovery(browser, baseUrl);
+  if (!detailOnly && !performanceOnly && !startupOnly && !recoveryOnly && !dataOnly && !countryDataOnly) await testFirstWorkerActivation(browser, baseUrl);
+  if (!detailOnly && !performanceOnly && !startupOnly && !recoveryOnly && !offlineOnly && !countryDataOnly) await testRequiredStartupData(browser, baseUrl);
+  if (!detailOnly && !performanceOnly && !startupOnly && !recoveryOnly && !offlineOnly && !dataOnly) await testCountryDataRecovery(browser, baseUrl);
 
-  if (!detailOnly && !performanceOnly && !startupOnly && !recoveryOnly && !offlineOnly && !dataOnly) {
+  if (!detailOnly && !performanceOnly && !startupOnly && !recoveryOnly && !offlineOnly && !dataOnly && !countryDataOnly) {
     const desktop = await createTestPage(browser, baseUrl, DESKTOP_VIEWPORT);
     try {
       await runDesktopCriticalFlow(desktop.page);

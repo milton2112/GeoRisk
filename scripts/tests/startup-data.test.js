@@ -8,6 +8,7 @@ import "./map-render-recovery.test.js";
 import "./service-worker-lifecycle.test.js";
 import "./startup-resources.test.js";
 import "./map-engine-startup.test.js";
+import "./country-detail-loading.test.js";
 
 const projectRoot = path.resolve(process.cwd());
 const full = await fs.readJson(path.join(projectRoot, "data", "countries_full.json"));

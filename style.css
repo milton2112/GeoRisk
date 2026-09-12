@@ -1436,6 +1436,27 @@ body.layers-panel-open #news-hub-panel {
   line-height: 1.45;
 }
 
+.country-load-error {
+  display: grid;
+  justify-items: start;
+  gap: 12px;
+  padding: 16px 0;
+  overflow-wrap: anywhere;
+}
+
+.country-load-error h2,
+.country-load-error p {
+  margin: 0;
+}
+
+.country-load-error h2 {
+  font-size: 1.2rem;
+}
+
+.country-load-error p {
+  line-height: 1.5;
+}
+
 .country-local-quality {
   display: flex;
   flex-wrap: wrap;

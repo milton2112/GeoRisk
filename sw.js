@@ -1,4 +1,4 @@
-const CACHE_VERSION = "2026-09-12-release-2";
+const CACHE_VERSION = "2026-09-12-release-3";
 const APP_CACHE = `geo-risk-app-${CACHE_VERSION}`;
 const TILE_CACHE = `geo-risk-tiles-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `geo-risk-runtime-${CACHE_VERSION}`;
@@ -163,6 +163,12 @@ self.addEventListener("fetch", event => {
     }
 
     if (isRuntimeCacheableRequest(url)) {
+      if (path.startsWith("/data/countries/") && event.request.cache === "reload") {
+        event.respondWith(fetch(event.request)
+          .then(response => putIfOk(RUNTIME_CACHE, event.request, response, MAX_RUNTIME_CACHE_ENTRIES))
+          .catch(() => Response.error()));
+        return;
+      }
       event.respondWith(
         matchCached(RUNTIME_CACHE, event.request).then(cached =>
           cached ||

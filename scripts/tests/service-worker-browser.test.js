@@ -127,6 +127,15 @@ async function checkOfflineCache(browser, origin, basePath) {
       assert.ok(inventory[runtimeCache].includes(baseUrl + resource), resource + " debe estar en cache");
     }
 
+    const countryUrl = baseUrl + "data/countries/ARG.json?v=offline-test";
+    await page.evaluate(async ({ cacheName, url }) => {
+      await (await caches.open(cacheName)).put(url, new Response("{}", { headers: { "Content-Type": "application/json" } }));
+    }, { cacheName: runtimeCache, url: countryUrl });
+    assert.equal((await readResource(page, countryUrl)).text, "{}", "simula una respuesta corrupta guardada anteriormente");
+    const recoveredBody = await page.evaluate(async url => (await fetch(url, { cache: "reload" })).text(), countryUrl);
+    assert.equal(recoveredBody, expectedBodies.get("data/countries/ARG.json?v=offline-test"));
+    assert.equal((await readResource(page, countryUrl)).text, recoveredBody, "reintentar reemplaza el cache corrupto y conserva el modo offline");
+
     for (let i = 0; i < 25; i += 1) {
       assert.equal((await readResource(page, baseUrl + "script.js?v=query-" + i)).status, 200);
     }

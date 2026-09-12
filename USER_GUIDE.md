@@ -234,6 +234,10 @@ Los nombres de archivo incluyen contexto y fecha para que sea mas facil ordenarl
 
 ## Si algo parece raro
 
+Si una ficha no termina de cargar, la espera se corta a los 20 segundos y aparece `Reintentar`. Revisa la conexion y usa ese boton: no hace falta recargar el mapa ni perder la seleccion. Tambien podes cerrar la ficha y volver a tocar el pais. Una descarga tardia no vuelve a abrir una ficha cerrada.
+
+Si falla la lista completa de conflictos en `Militar`, se conserva la vista previa y aparece `Reintentar conflictos`. Esa muestra no representa todos los conflictos del pais.
+
 Si una ficha abre con menos datos de lo esperado:
 
 - recarga la app;

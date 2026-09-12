@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.235 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.236 antes de cerrar la siguiente version.
+
+## v1.6.236 - 2026-09-12
+
+- Corrige fichas que quedaban cargando para siempre despues de un fallo de red. Ofrece Reintentar sin recargar la app ni perder la seleccion y permite volver a abrir un pais cuyo intento anterior fallo.
+- Limita a 20 segundos cada descarga de ficha o lista de conflictos, incluida la lectura del JSON. Cancela solicitudes vencidas, comparte intentos concurrentes y libera las promesas completadas; las respuestas tardias no pisan un reintento ni reabren fichas cerradas.
+- Valida identidad y estructura de las fichas antes de publicarlas. Rechaza listas de conflictos vacias, truncadas o invalidas sin borrar la vista previa, y permite reintentar desde Militar. No inventa fechas ni modifica el contenido historico.
+- Permite que un reintento evite y reemplace una respuesta corrupta del cache offline. Conserva el acceso bajo demanda y las fichas validas ya guardadas.
+- Agrega regresiones de carga, timeout, concurrencia, cierre, JSON invalido y recuperacion en escritorio/movil emulado, ademas de cache real bajo raiz y subcarpeta. Comprueba el contrato con las 183 fichas publicas y sus shards de conflictos.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-12-release-3`.
 
 ## v1.6.235 - 2026-09-12
 
