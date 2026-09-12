@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-10T20:49:45.009Z",
+  "generatedAt": "2026-09-12T11:32:41.633Z",
   "status": "operativo",
   "startup": {
-    "critical": "836 KB",
-    "criticalBytes": 856041,
+    "critical": "839 KB",
+    "criticalBytes": 859008,
     "deferred": "3.10 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 13106533,
@@ -23,7 +23,7 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 572950,
+        "bytes": 573147,
         "human": "560 KB",
         "startupCritical": true
       },
@@ -65,7 +65,7 @@
       {
         "path": "index.html",
         "exists": true,
-        "bytes": 32446,
+        "bytes": 32953,
         "human": "32 KB",
         "startupCritical": true
       },
@@ -812,14 +812,14 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 572950,
+      "bytes": 573147,
       "human": "560 KB"
     },
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 265179,
-      "human": "259 KB"
+      "bytes": 266424,
+      "human": "260 KB"
     },
     {
       "path": "style.css",
@@ -830,7 +830,7 @@
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 32446,
+      "bytes": 32953,
       "human": "32 KB"
     },
     {
@@ -846,16 +846,16 @@
       "human": "30 KB"
     },
     {
+      "path": "TECHNICAL.md",
+      "exists": true,
+      "bytes": 24206,
+      "human": "24 KB"
+    },
+    {
       "path": "app-text.js",
       "exists": true,
       "bytes": 23554,
       "human": "23 KB"
-    },
-    {
-      "path": "TECHNICAL.md",
-      "exists": true,
-      "bytes": 22910,
-      "human": "22 KB"
     },
     {
       "path": "app-project-audit-ui.js",
@@ -884,7 +884,7 @@
     {
       "path": "USER_GUIDE.md",
       "exists": true,
-      "bytes": 9076,
+      "bytes": 9367,
       "human": "9 KB"
     },
     {

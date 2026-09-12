@@ -225,6 +225,21 @@ assert.ok(npmRunner.includes("shell: false"), "automatizaciones deben evitar she
 assert.ok(npmRunner.includes("DEFAULT_STEP_TIMEOUT_MS"), "automatizaciones deben tener un limite de tiempo por paso");
 assert.ok(releaseChecklist.includes("runNpmStep"), "release:check debe usar el ejecutor comun sin shell");
 assert.ok(!releaseChecklist.includes("shell: true"), "release:check no debe crear shells anidados en Windows");
+const checklistProgram = `(async () => { ${releaseChecklist.replace('import { runNpmStep } from "./lib/npm-runner.js";', "")} })()`;
+const invokedReleaseSteps = [];
+await vm.runInNewContext(checklistProgram, {
+  console: { log() {} },
+  runNpmStep: async (label, args, options) => invokedReleaseSteps.push({ label, args, options })
+});
+assert.deepEqual(Array.from(invokedReleaseSteps[0].args), ["test"]);
+assert.equal(invokedReleaseSteps[0].options.timeoutMs, 600_000, "la suite completa necesita un plazo propio y acotado");
+assert.ok(invokedReleaseSteps.slice(1).every(step => step.options === undefined), "los demas pasos conservan su timeout normal");
+let failedReleaseAttempts = 0;
+await assert.rejects(vm.runInNewContext(checklistProgram, {
+  console: { log() {} },
+  runNpmStep: async () => { failedReleaseAttempts += 1; throw new Error("suite failed"); }
+}), /suite failed/);
+assert.equal(failedReleaseAttempts, 1, "un test fallido debe seguir deteniendo la release");
 for (const [name, source] of [
   ["prepush", prepushCheck],
   ["maintenance", maintenanceQuick],

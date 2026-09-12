@@ -1,7 +1,7 @@
 import { runNpmStep } from "./lib/npm-runner.js";
 
 const steps = [
-  ["tests completos", "npm", ["test"]],
+  ["tests completos", "npm", ["test"], { timeoutMs: 10 * 60_000 }],
   ["build produccion", "npm", ["run", "build:prod"]],
   ["release gates", "npm", ["run", "test:release-gates"]],
   ["auditoria de conflictos", "npm", ["run", "audit:conflicts"]],
@@ -17,8 +17,8 @@ const steps = [
   ["limpieza local", "npm", ["run", "clean:local"]]
 ];
 
-function runStep([label, _command, args]) {
-  return runNpmStep(label, args);
+function runStep([label, _command, args, options]) {
+  return runNpmStep(label, args, options);
 }
 
 for (const step of steps) {

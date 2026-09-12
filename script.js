@@ -85,7 +85,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-09-10-release-3";
+const APP_VERSION = "2026-09-12-release-1";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -2304,16 +2304,6 @@ function initializeViewer() {
   if (viewer) {
     return viewer;
   }
-  if (window.__geoRiskCesiumFallbackTimer) {
-    clearTimeout(window.__geoRiskCesiumFallbackTimer);
-    window.__geoRiskCesiumFallbackTimer = null;
-  }
-  const fallbackBanner = document.getElementById("fatal-error-banner");
-  if (fallbackBanner?.textContent?.includes("Cesium")) {
-    fallbackBanner.hidden = true;
-    fallbackBanner.textContent = "";
-  }
-
   currentMapMode = getDefaultMapMode();
   const preset = getPerformancePreset();
   viewer = new Cesium.Viewer("map", {
@@ -13390,17 +13380,22 @@ async function loadMap(bootPhase = false, { preserveView = false } = {}) {
 }
 
 async function waitForMapBootReady(timeoutMs = 2600) {
-  if (!viewer?.scene) {
-    return;
-  }
+  const initialViewer = viewer;
+  const scene = initialViewer?.scene;
+  const failure = () => new Error(currentLanguage === "en"
+    ? "The map could not be displayed. Reload to try again."
+    : "El mapa no pudo mostrarse. Recarga para reintentar.");
+  if (!scene) throw failure();
 
-  await new Promise(resolve => {
+  await new Promise((resolve, reject) => {
     let settled = false;
     let renderedOnce = false;
-    let tilesReady = Boolean(viewer.scene.globe?.tilesLoaded);
+    let tilesReady = Boolean(scene.globe?.tilesLoaded);
     let timeoutId = null;
     let quickReadyId = null;
 
+    const canRender = () => !initialViewer.isDestroyed?.() && initialViewer.useDefaultRenderLoop !== false &&
+      !["waiting", "retrying", "failed"].includes(initialViewer.__geoRiskRenderRecovery?.getState().phase);
     const finish = () => {
       if (settled) {
         return;
@@ -13412,9 +13407,10 @@ async function waitForMapBootReady(timeoutMs = 2600) {
       if (quickReadyId) {
         clearTimeout(quickReadyId);
       }
-      viewer?.scene?.postRender?.removeEventListener(onPostRender);
-      viewer?.scene?.globe?.tileLoadProgressEvent?.removeEventListener(onTileProgress);
-      resolve();
+      scene.postRender.removeEventListener(onPostRender);
+      scene.globe?.tileLoadProgressEvent?.removeEventListener(onTileProgress);
+      if (renderedOnce && canRender()) resolve();
+      else reject(failure());
     };
 
     const maybeFinish = () => {
@@ -13424,6 +13420,7 @@ async function waitForMapBootReady(timeoutMs = 2600) {
     };
 
     const onPostRender = () => {
+      if (!canRender()) return;
       renderedOnce = true;
       maybeFinish();
     };
@@ -13433,15 +13430,15 @@ async function waitForMapBootReady(timeoutMs = 2600) {
       maybeFinish();
     };
 
-    viewer.scene.postRender.addEventListener(onPostRender);
-    viewer.scene.globe?.tileLoadProgressEvent?.addEventListener(onTileProgress);
+    scene.postRender.addEventListener(onPostRender);
+    scene.globe?.tileLoadProgressEvent?.addEventListener(onTileProgress);
     quickReadyId = setTimeout(() => {
       if (renderedOnce) {
         finish();
       }
     }, Math.min(timeoutMs, isMobileLayout() ? 900 : 650));
     timeoutId = setTimeout(finish, timeoutMs);
-    requestSceneRender();
+    try { requestSceneRender(); } catch { finish(); }
   });
 }
 

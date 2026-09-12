@@ -24,6 +24,7 @@ const PUBLIC_FILES = [
   "app-rankings-worker.js",
   "app-boot-scheduler.js",
   "app-map.js",
+  "app-map-engine.js",
   "app-map-styles.js",
   "app-map-interactions.js",
   "app-store.js",

@@ -404,43 +404,92 @@ function assertHealthyPage(pageErrors, label) {
 }
 
 async function testMapEngineStartup(browser, baseUrl) {
-  for (const failure of [false, true]) {
+  for (const scenario of ["slow", "failure", "early-failure", "timeout", "loader-missing", "no-frame"]) {
     const context = await browser.newContext({ viewport: MOBILE_VIEWPORT, isMobile: true, hasTouch: true, serviceWorkers: "block" });
     let releaseEngine;
     const held = new Promise(resolve => { releaseEngine = resolve; });
     const pageErrors = [];
     let engineRequests = 0;
     let legacyRequests = 0;
+    let recover = false;
+    let releaseMain;
+    const mainHeld = new Promise(resolve => { releaseMain = resolve; });
     try {
       const page = await context.newPage();
       page.on("pageerror", error => pageErrors.push(error.message));
       page.on("request", request => { if (request.url().endsWith("/Cesium/Cesium.js")) legacyRequests += 1; });
+      if (scenario === "early-failure") {
+        await page.route(/\/script\.js\?/, async route => { await mainHeld; await route.continue(); });
+      }
+      if (scenario === "loader-missing") {
+        await page.route(/\/app-map-engine\.js\?/, route => recover ? route.continue() : route.abort("failed"));
+      }
       await page.route("**/Build/Cesium/index.js", async route => {
         engineRequests += 1;
         await held;
-        if (failure) await route.abort("failed");
+        if (!recover && ["failure", "early-failure"].includes(scenario)) await route.abort("failed");
         else await route.continue();
       });
       await page.addInitScript(() => localStorage.setItem("geo-risk-intro-seen", "true"));
-      await page.goto(baseUrl + "/index.html", { waitUntil: "domcontentloaded", timeout: APP_TIMEOUT_MS });
-      await page.waitForFunction(() => typeof bootMetrics !== "undefined" && Boolean(bootMetrics.steps.mapEngine));
-      assert.equal(await page.evaluate(() => viewer), null, "no se debe construir el mapa mientras falta el motor");
-      assert.equal(await page.locator("#startup-status").isVisible(), true, "una descarga lenta debe conservar el estado de carga");
-      releaseEngine();
-      if (failure) {
-        await page.locator("#fatal-error-banner").waitFor({ state: "visible" });
-        assert.match(await page.locator("#fatal-error-banner").innerText(), /no pudo terminar de inicializarse/);
-        assert.equal(await page.evaluate(() => viewer), null);
+      await page.goto(baseUrl + "/index.html", { waitUntil: scenario === "early-failure" ? "commit" : "domcontentloaded", timeout: APP_TIMEOUT_MS });
+      await page.waitForFunction(() => Boolean(window.GeoRiskMapEngineReady));
+      if (scenario !== "early-failure") {
+        await page.waitForFunction(() => typeof bootMetrics !== "undefined" && Boolean(bootMetrics.steps.mapEngine));
+        assert.equal(await page.evaluate(() => viewer), null, "no construir el mapa mientras falta el motor");
+      }
+      if (scenario === "no-frame") {
+        await page.evaluate(() => {
+          const initialize = initializeViewer;
+          initializeViewer = function () {
+            const result = initialize();
+            result.cesiumWidget.render = () => {};
+            return result;
+          };
+        });
+      }
+      if (scenario === "slow") {
+        await page.waitForFunction(() => window.GeoRiskMapEngine.getState().phase === "slow");
+        assert.equal(await page.locator("#fatal-error-banner").isVisible(), false, "descargar lento no es un error fatal");
+        assert.equal(await page.locator("#startup-status").isVisible(), true);
+        await page.screenshot({ path: "tmp/startup-engine-slow-mobile.png" });
+      }
+      if (scenario !== "timeout") releaseEngine();
+      if (scenario !== "slow") {
+        await page.locator("#fatal-error-banner").waitFor({ state: "visible", timeout: APP_TIMEOUT_MS });
         assert.equal(await page.locator("#startup-status").isVisible(), false);
+        assert.equal(await page.locator("#fatal-error-banner a").isVisible(), true);
+        assert.equal(await page.locator("#map-search-input").isVisible(), false);
+        if (scenario === "early-failure") {
+          assert.equal(await page.evaluate(() => typeof init), "undefined", "la recuperacion no debe depender de script.js");
+          releaseMain();
+          await page.waitForFunction(() => typeof bootMetrics !== "undefined" && Boolean(bootMetrics.steps.mapEngine?.error));
+        }
+        assert.equal(await page.evaluate(() => bootMetrics.completedAt), 0);
+        if (scenario === "timeout") {
+          assert.match(await page.locator("#fatal-error-banner").innerText(), /motor del mapa esta tardando demasiado/);
+          releaseEngine();
+          await page.evaluate(() => import(window.CESIUM_BASE_URL + "index.js").then(() => true));
+          assert.equal(await page.evaluate(() => viewer), null, "la respuesta tardia no construye el visor");
+          assert.equal(await page.evaluate(() => typeof window.Cesium), "undefined");
+        }
+        if (scenario === "no-frame") assert.match(await page.locator("#fatal-error-banner").innerText(), /mapa no pudo mostrarse/);
+        assert.equal(engineRequests, scenario === "loader-missing" ? 0 : 1, "un intento no duplica la descarga");
+        await page.screenshot({ path: "tmp/startup-engine-" + scenario + "-mobile.png" });
+        recover = true;
+        await page.locator("#fatal-error-banner a").click();
+        await waitForAppReady(page);
+        await submitSearch(page, "Argentina");
+        await waitForCountryPanel(page, "Argentina");
       } else {
         await waitForAppReady(page);
         assert.equal(await page.evaluate(() => viewer.scene.mode), await page.evaluate(() => Cesium.SceneMode.SCENE2D));
+        assert.equal(engineRequests, 1, "el motor no debe descargarse dos veces");
       }
-      assert.equal(engineRequests, 1, "el motor no debe descargarse dos veces");
       assert.equal(legacyRequests, 0, "el paquete anterior no debe cargarse de respaldo silencioso");
-      assertHealthyPage(pageErrors, failure ? "fallo de motor" : "motor lento");
+      assertHealthyPage(pageErrors, "motor " + scenario);
     } finally {
       releaseEngine();
+      releaseMain();
       await context.close();
     }
   }

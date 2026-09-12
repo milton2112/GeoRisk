@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.233 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.234 antes de cerrar la siguiente version.
+
+## v1.6.234 - 2026-09-12
+
+- Limita a 30 segundos la espera del motor remoto del mapa. Una descarga lenta muestra un aviso de carga a los 7 segundos, sin presentarse como error fatal; un fallo o timeout ofrece Recargar incluso si script.js todavia no termino de cargar.
+- Extrae el cargador a app-map-engine.js, incluido en el build, el shell offline y la medicion de arranque. Comparte un unico intento, valida el motor recibido y no inicia el mapa si la descarga termina despues del timeout.
+- Evita dar por listo un mapa que no dibujo ningun frame o cuyo bucle de render esta detenido. Conserva la salida rapida cuando ya hay una imagen valida, aunque sigan descargandose tiles.
+- Agrega regresiones unitarias y de navegador para descarga lenta, fallo temprano, timeout, respuesta tardia, cargador ausente, mapa sin render y recuperacion con Recargar. Estos cambios no eliminan el pico de evaluacion inicial del SDK ni garantizan iniciar el mapa offline.
+- Corrige el timeout de la puerta de release: la suite completa dispone de 10 minutos en lugar de 3. Mantiene los limites de cada paso restante y el corte ante cualquier test fallido, con regresiones del orquestador.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-12-release-1`.
 
 ## v1.6.233 - 2026-09-10
 

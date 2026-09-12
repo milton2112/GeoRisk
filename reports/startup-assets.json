@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-09-10T20:49:46.754Z",
-  "startupBytes": 856041,
-  "startupHuman": "836 KB",
+  "generatedAt": "2026-09-12T11:32:43.207Z",
+  "startupBytes": 859008,
+  "startupHuman": "839 KB",
   "deferredBytes": 3252116,
   "deferredHuman": "3.10 MB",
   "estimatedRuntimeMemory": {
@@ -22,7 +22,7 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 572950,
+      "bytes": 573147,
       "human": "560 KB",
       "startupCritical": true
     },
@@ -64,7 +64,7 @@
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 32446,
+      "bytes": 32953,
       "human": "32 KB",
       "startupCritical": true
     },
@@ -101,14 +101,14 @@
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 32446,
+      "bytes": 32953,
       "human": "32 KB",
       "startupCritical": true
     },
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 572950,
+      "bytes": 573147,
       "human": "560 KB",
       "startupCritical": true
     },
@@ -186,6 +186,13 @@
       "path": "app-map.js",
       "exists": true,
       "bytes": 2294,
+      "human": "2 KB",
+      "startupCritical": true
+    },
+    {
+      "path": "app-map-engine.js",
+      "exists": true,
+      "bytes": 2263,
       "human": "2 KB",
       "startupCritical": true
     },

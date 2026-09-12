@@ -19,6 +19,7 @@ const LOCAL_ASSETS = [
   "app-rankings.js",
   "app-boot-scheduler.js",
   "app-map.js",
+  "app-map-engine.js",
   "app-map-styles.js",
   "app-map-interactions.js",
   "app-news-ui.js",

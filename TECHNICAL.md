@@ -59,6 +59,7 @@ GeoRisk es una aplicacion frontend orientada a exploracion geopolitica con datas
 - `scripts/measureStartupAssets.js`: mide peso local de shell, modulos, GeoJSON y datos diferidos; escribe `reports/startup-assets.json`.
 - `scripts/projectAudit.js`: genera `reports/project-audit.json` con estado general, arranque, conflictos, archivos pesados, higiene visual y proximas acciones.
 - `scripts/releaseChecklist.js`: corre tests, auditoria de conflictos, medicion, auditoria de proyecto y smoke server antes de release.
+- La suite agregada `npm test` tiene un limite de 10 minutos dentro de `release:check`, porque incluye pruebas de esperas reales. Los demas pasos conservan 3 minutos y cualquier fallo detiene la release; no cambia los deadlines de la app ni los presupuestos de rendimiento.
 - `scripts/localSmokeServer.js`: servidor HTTP local estable para smoke tests sin depender del browser plugin.
 
 ## Flujo de datos
@@ -74,7 +75,11 @@ GeoRisk es una aplicacion frontend orientada a exploracion geopolitica con datas
 9. En el mapa, resuelve clicks del GeoJSON a codigos ISO o especiales.
 10. La ficha modal, timeline, comparador, quiz y noticias consumen datos bajo demanda segun la vista activa.
 
+Antes de crear el visor, `app-map-engine.js` comparte un unico intento de importacion ESM del motor. A los 7 segundos actualiza el aviso normal de carga y a los 30 segundos rechaza la espera con una recarga nativa. El HTML gestiona el fallo incluso antes de cargar script.js. La importacion nativa no se puede cancelar: una respuesta tardia puede evaluar el SDK, pero no publica `window.Cesium` ni reinicia un arranque fallido. El cargador local forma parte del shell; el motor remoto no.
+
 El paso `startupResources` espera conjuntamente el indice validado, los aliases, la capa politica y la espera inicial de render; no se confunde la llegada de tiles con la disponibilidad de paises. La espera tiene un limite de 20 segundos desde la creacion del visor, sin bloquear el hilo. Un fallo o timeout mantiene `globe-loading`, deja `completedAt` en cero y ofrece una recarga nativa. Las promesas tardias siguen gestionadas y no habilitan controles despues del fallo. La instalacion offline y los datos profundos no forman parte de esta barrera.
+
+`waitForMapBootReady` requiere un `postRender` del visor capturado, con bucle activo y sin recuperacion pendiente/fallida. Su deadline no puede dar por listo un canvas sin dibujar. Si ya hubo render valido, los tiles pendientes no impiden la salida rapida. Tanto el exito como el fallo limpian timers y listeners del visor original. `test:startup` cubre estos estados; `test:e2e:critical -- --startup-only` inyecta tambien un motor lento/fallido/tardio, script principal retenido y render ausente, y verifica la recarga funcional.
 
 ## Recarga progresiva del mapa
 

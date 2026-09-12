@@ -7,6 +7,7 @@ import "./map-performance.test.js";
 import "./map-render-recovery.test.js";
 import "./service-worker-lifecycle.test.js";
 import "./startup-resources.test.js";
+import "./map-engine-startup.test.js";
 
 const projectRoot = path.resolve(process.cwd());
 const full = await fs.readJson(path.join(projectRoot, "data", "countries_full.json"));
@@ -374,7 +375,10 @@ assert.ok(!script.includes("function getCountryClickTarget"), "helpers de selecc
 assert.ok(appCountryPanel.includes("Que falta curar"), "ficha pais debe mostrar que falta curar");
 assert.ok(appRuntime.includes(" - rendimiento"), "perfil runtime debe usar separador ASCII estable");
 const viewerSetup = script.slice(script.indexOf("function initializeViewer()"), script.indexOf("function fitWorldView()"));
-assert.ok(indexHtml.includes('import(window.CESIUM_BASE_URL + "index.js")'), "el motor debe usar la distribucion ESM fijada");
+const mapEngine = await fs.readFile(path.join(projectRoot, "app-map-engine.js"), "utf8");
+assert.ok(mapEngine.includes('import(window.CESIUM_BASE_URL + "index.js")'), "el motor debe usar la distribucion ESM fijada");
+assert.ok(indexHtml.includes('src="app-map-engine.js?v='), "el cargador debe estar en el arranque");
+assert.ok(appShellBlock.includes("app-map-engine.js"), "el cargador local debe formar parte del shell");
 assert.ok(!indexHtml.includes('Build/Cesium/Cesium.js"></script>'), "el arranque no debe evaluar el paquete IIFE bloqueante");
 const initSource = script.slice(script.indexOf("async function init()"));
 assert.ok(initSource.includes('await measureBootStep("mapEngine", () => window.GeoRiskMapEngineReady)'), "el arranque debe esperar y medir la carga del motor");
