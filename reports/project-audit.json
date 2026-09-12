@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-12T19:32:59.512Z",
+  "generatedAt": "2026-09-12T22:21:06.384Z",
   "status": "operativo",
   "startup": {
-    "critical": "842 KB",
-    "criticalBytes": 861804,
+    "critical": "843 KB",
+    "criticalBytes": 863557,
     "deferred": "3.10 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 13106533,
@@ -23,7 +23,7 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 575630,
+        "bytes": 575749,
         "human": "562 KB",
         "startupCritical": true
       },
@@ -812,14 +812,14 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 575630,
+      "bytes": 575749,
       "human": "562 KB"
     },
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 268689,
-      "human": "262 KB"
+      "bytes": 269988,
+      "human": "264 KB"
     },
     {
       "path": "style.css",
@@ -848,8 +848,8 @@
     {
       "path": "TECHNICAL.md",
       "exists": true,
-      "bytes": 26309,
-      "human": "26 KB"
+      "bytes": 27423,
+      "human": "27 KB"
     },
     {
       "path": "app-text.js",
@@ -918,6 +918,12 @@
       "human": "5 KB"
     },
     {
+      "path": "app-boot-scheduler.js",
+      "exists": true,
+      "bytes": 4466,
+      "human": "4 KB"
+    },
+    {
       "path": "app-runtime.js",
       "exists": true,
       "bytes": 3051,
@@ -927,12 +933,6 @@
       "path": "app-news-ui.js",
       "exists": true,
       "bytes": 2958,
-      "human": "3 KB"
-    },
-    {
-      "path": "app-boot-scheduler.js",
-      "exists": true,
-      "bytes": 2832,
       "human": "3 KB"
     },
     {
@@ -963,7 +963,7 @@
   "scriptMetrics": {
     "functions": 533,
     "asyncFunctions": 52,
-    "consoleWarnings": 19,
+    "consoleWarnings": 20,
     "consoleErrors": 11
   },
   "visualMetrics": {

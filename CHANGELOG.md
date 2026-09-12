@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.236 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.237 antes de cerrar la siguiente version.
+
+## v1.6.237 - 2026-09-13
+
+- Corrige el scheduler que forzaba tareas opcionales al vencer su plazo aunque el usuario siguiera arrastrando el mapa o la pestana estuviera oculta. La quietud y la visibilidad se comprueban tambien al recibir el callback, con o sin requestIdleCallback.
+- Pausa temporizadores y callbacks pendientes al ocultar la pestana. Al regresar conserva la demora inicial y espera un nuevo intervalo de quietud; limpia listeners al ejecutar o cancelar y gestiona errores sin rechazos sueltos.
+- Impide que las mejoras opcionales compitan con la activacion de controles. Si falta el scheduler, omite ese trabajo en lugar de ejecutarlo mediante un temporizador sin guardas. Las funciones solicitadas directamente por el usuario siguen disponibles.
+- Agrega regresiones de deadlines, arrastre, cambio de visibilidad, cancelacion, callbacks tardios y errores, mas arrastres reales en Chromium de escritorio y movil emulado. La prueba unitaria reproduce el fallo en la version anterior.
+- Mantiene pendiente el pico de evaluacion de Cesium: la traza previa instrumentada registro aproximadamente 464 ms. Esta correccion protege la ejecucion de tareas diferidas, no reduce por si misma la evaluacion inicial del SDK.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-13-release-1`.
 
 ## v1.6.236 - 2026-09-12
 

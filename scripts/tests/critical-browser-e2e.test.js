@@ -940,6 +940,56 @@ async function testRequiredStartupData(browser, baseUrl) {
   }
 }
 
+async function testDeferredWorkDuringDrag(browser, baseUrl) {
+  for (const [label, viewport] of [["desktop", DESKTOP_VIEWPORT], ["mobile", MOBILE_VIEWPORT]]) {
+    const test = await createTestPage(browser, baseUrl, viewport);
+    const { page } = test;
+    try {
+      await waitForAppReady(page);
+      await page.evaluate(() => { window.__originalIdleCallback = window.requestIdleCallback; });
+      for (const idleSupported of [true, false]) {
+        await page.evaluate(supported => {
+          window.requestIdleCallback = supported ? window.__originalIdleCallback : undefined;
+          window.__quietTaskRuns = [];
+        }, idleSupported);
+        const x = viewport.width * 0.52;
+        const y = viewport.height * 0.52;
+        await page.mouse.move(x, y);
+        await page.mouse.down();
+        await page.mouse.move(x + 25, y + 5, { steps: 6 });
+        await page.waitForFunction(() => isCameraNavigating, undefined, { timeout: 3000 });
+        await page.evaluate(() => {
+          window.__cancelQuietProbe = scheduleWhenGlobeIsQuiet(() => {
+            window.__quietTaskRuns.push({ navigating: isCameraNavigating, visibility: document.visibilityState });
+          }, { delay: 0, quietFor: 100, timeout: 100 });
+        });
+        for (let step = 1; step <= 6; step += 1) {
+          await page.mouse.move(x + 25 + step * 12, y + 5 + step * 3, { steps: 4 });
+          await page.waitForTimeout(70);
+          assert.equal(await page.evaluate(() => window.__quietTaskRuns.length), 0, label + " no debe forzar trabajo durante un arrastre mayor al deadline");
+        }
+        await page.mouse.up();
+        await page.waitForFunction(() => window.__quietTaskRuns.length === 1, undefined, { timeout: 8000 });
+        const runs = await page.evaluate(() => window.__quietTaskRuns);
+        assert.deepEqual(runs, [{ navigating: false, visibility: "visible" }]);
+        await page.waitForTimeout(250);
+        assert.equal(await page.evaluate(() => window.__quietTaskRuns.length), 1);
+      }
+      await page.screenshot({ path: "tmp/deferred-drag-" + label + ".png" });
+      await submitSearch(page, "Argentina");
+      await page.locator("#country-panel .country-profile").waitFor();
+      assertHealthyPage(test.pageErrors, label + " scheduler con arrastre real");
+    } finally {
+      await page.mouse.up().catch(() => {});
+      await page.evaluate(() => {
+        window.__cancelQuietProbe?.();
+        window.requestIdleCallback = window.__originalIdleCallback;
+      }).catch(() => {});
+      await test.context.close();
+    }
+  }
+}
+
 async function testCountryDataRecovery(browser, baseUrl) {
   for (const [label, viewport] of [["desktop", DESKTOP_VIEWPORT], ["mobile", MOBILE_VIEWPORT]]) {
     let failArgentina = true;
@@ -1108,23 +1158,23 @@ try {
   const { port } = server.address();
   const baseUrl = "http://127.0.0.1:" + port;
   browser = await launchCriticalBrowser();
-  const detailOnly = process.argv.includes("--detail-only");
-  const performanceOnly = process.argv.includes("--performance-only");
-  const startupOnly = process.argv.includes("--startup-only");
-  const recoveryOnly = process.argv.includes("--recovery-only");
-  const offlineOnly = process.argv.includes("--offline-only");
-  const dataOnly = process.argv.includes("--data-only");
-  const countryDataOnly = process.argv.includes("--country-data-only");
-  if (!detailOnly && !startupOnly && !recoveryOnly && !offlineOnly && !dataOnly && !countryDataOnly) await testIdleMapPerformance(browser, baseUrl);
-  if (!detailOnly && !performanceOnly && !recoveryOnly && !offlineOnly && !dataOnly && !countryDataOnly) await testMapEngineStartup(browser, baseUrl);
-  if (!detailOnly && !performanceOnly && !recoveryOnly && !offlineOnly && !dataOnly && !countryDataOnly) await testControlsStartup(browser, baseUrl);
-  if (!performanceOnly && !startupOnly && !recoveryOnly && !offlineOnly && !dataOnly && !countryDataOnly) await testDetailedMapUpgrade(browser, baseUrl);
-  if (!detailOnly && !performanceOnly && !startupOnly && !offlineOnly && !dataOnly && !countryDataOnly) await testRenderRecovery(browser, baseUrl);
-  if (!detailOnly && !performanceOnly && !startupOnly && !recoveryOnly && !dataOnly && !countryDataOnly) await testFirstWorkerActivation(browser, baseUrl);
-  if (!detailOnly && !performanceOnly && !startupOnly && !recoveryOnly && !offlineOnly && !countryDataOnly) await testRequiredStartupData(browser, baseUrl);
-  if (!detailOnly && !performanceOnly && !startupOnly && !recoveryOnly && !offlineOnly && !dataOnly) await testCountryDataRecovery(browser, baseUrl);
+  const focusedFlows = [
+    ["--performance-only", testIdleMapPerformance],
+    ["--startup-only", testMapEngineStartup],
+    ["--startup-only", testControlsStartup],
+    ["--detail-only", testDetailedMapUpgrade],
+    ["--recovery-only", testRenderRecovery],
+    ["--offline-only", testFirstWorkerActivation],
+    ["--data-only", testRequiredStartupData],
+    ["--country-data-only", testCountryDataRecovery],
+    ["--scheduler-only", testDeferredWorkDuringDrag]
+  ];
+  const focused = focusedFlows.some(([flag]) => process.argv.includes(flag));
+  for (const [flag, run] of focusedFlows) {
+    if (!focused || process.argv.includes(flag)) await run(browser, baseUrl);
+  }
 
-  if (!detailOnly && !performanceOnly && !startupOnly && !recoveryOnly && !offlineOnly && !dataOnly && !countryDataOnly) {
+  if (!focused) {
     const desktop = await createTestPage(browser, baseUrl, DESKTOP_VIEWPORT);
     try {
       await runDesktopCriticalFlow(desktop.page);

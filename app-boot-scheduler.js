@@ -76,25 +76,75 @@ function scheduleWhenQuiet(task, {
   isQuiet = () => true,
   isVisible = () => document.visibilityState !== "hidden"
 } = {}) {
-  const deadline = Date.now() + delay + timeout;
+  let readyAfter = Date.now() + delay;
+  const deadline = readyAfter + timeout;
+  const checkInterval = Math.max(50, Math.min(quietFor, 1500));
+  let timer = null;
+  let idle = null;
+  let generation = 0;
+  let finished = false;
 
-  const runTask = () => {
+  const clearPending = () => {
+    generation += 1;
+    clearTimeout(timer);
+    timer = null;
+    if (idle !== null) window.cancelIdleCallback?.(idle);
+    idle = null;
+  };
+
+  const cancel = () => {
+    finished = true;
+    clearPending();
+    document.removeEventListener("visibilitychange", wake);
+  };
+
+  const queueCheck = wait => {
+    if (!finished && isVisible()) timer = setTimeout(check, wait);
+  };
+
+  const runTask = ticket => {
+    if (finished || ticket !== generation) return;
+    idle = null;
+    // Idle callbacks can arrive after a drag starts, even when their timeout fires.
+    if (!isVisible() || !isQuiet()) {
+      queueCheck(checkInterval);
+      return;
+    }
+    cancel();
+    try {
+      Promise.resolve(task()).catch(error => console.warn("GeoRisk deferred task:", error));
+    } catch (error) {
+      console.warn("GeoRisk deferred task:", error);
+    }
+  };
+
+  function check() {
+    timer = null;
+    if (finished || !isVisible()) return;
+    const remainingDelay = readyAfter - Date.now();
+    if (remainingDelay > 0) { queueCheck(remainingDelay); return; }
+    if (!isQuiet()) { queueCheck(checkInterval); return; }
+    const ticket = ++generation;
     if (window.requestIdleCallback) {
-      window.requestIdleCallback(() => task(), { timeout: 2500 });
-      return;
+      // A deadline limits idle waiting, never the visibility or interaction guards.
+      idle = window.requestIdleCallback(() => runTask(ticket), {
+        timeout: Math.max(1, Math.min(2500, deadline - Date.now()))
+      });
+    } else {
+      timer = setTimeout(() => { timer = null; runTask(ticket); }, 0);
     }
-    setTimeout(task, 0);
-  };
+  }
 
-  const check = () => {
-    if ((isQuiet() && isVisible()) || Date.now() >= deadline) {
-      runTask();
-      return;
-    }
-    setTimeout(check, Math.min(quietFor, 1500));
-  };
+  function wake(event) {
+    if (finished) return;
+    clearPending();
+    if (event && isVisible()) readyAfter = Math.max(readyAfter, Date.now() + quietFor);
+    queueCheck(Math.max(0, readyAfter - Date.now()));
+  }
 
-  setTimeout(check, delay);
+  document.addEventListener("visibilitychange", wake);
+  wake();
+  return cancel;
 }
 
 window.GeoRiskBootScheduler = {

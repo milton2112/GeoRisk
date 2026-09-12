@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-09-12T19:33:01.040Z",
-  "startupBytes": 861804,
-  "startupHuman": "842 KB",
+  "generatedAt": "2026-09-12T22:21:08.110Z",
+  "startupBytes": 863557,
+  "startupHuman": "843 KB",
   "deferredBytes": 3254098,
   "deferredHuman": "3.10 MB",
   "estimatedRuntimeMemory": {
@@ -22,7 +22,7 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 575630,
+      "bytes": 575749,
       "human": "562 KB",
       "startupCritical": true
     },
@@ -108,7 +108,7 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 575630,
+      "bytes": 575749,
       "human": "562 KB",
       "startupCritical": true
     },
@@ -178,8 +178,8 @@
     {
       "path": "app-boot-scheduler.js",
       "exists": true,
-      "bytes": 2832,
-      "human": "3 KB",
+      "bytes": 4466,
+      "human": "4 KB",
       "startupCritical": true
     },
     {
