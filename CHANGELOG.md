@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.237 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.238 antes de cerrar la siguiente version.
+
+## v1.6.238 - 2026-09-13
+
+- Reduce el pico inicial del motor del mapa con un subconjunto ESM de Cesium 1.127: 24 exports usados por GeoRisk, mismo Viewer y funciones 2D/3D, sin reducir calidad grafica ni geometria.
+- Reduce el motor de 4.023.157 a 3.428.390 bytes (14,8 %). En seis trazas alternadas con CPU x4 y movil emulado, la mediana de la mayor evaluacion de modulo antes de disponibilidad baja de 439,8 a 111,0 ms. Es diagnostico instrumentado, no una promesa sobre el tiempo total de carga ni una prueba en celular fisico.
+- Incorpora build reproducible con versiones fijadas, compatibilidad de zip, licencias de dependencias y manifest de hashes. El build publico rechaza un motor desactualizado y las pruebas controlan su API, archivos y exclusiones offline.
+- Versiona la importacion local junto al cargador y conserva subcarpetas, aviso de descarga lenta, timeout, errores tempranos y respuestas tardias. Workers/assets siguen en el CDN 1.127; el motor pesado queda fuera del precache.
+- Explicita en reportes el nucleo de app, el motor y su suma: el presupuesto anterior de 1 MiB no incluia Cesium. Agrega limites separados de 3,5 MB para el motor y 4,5 MB para nucleo mas motor, sin ocultarlo como recurso diferido.
+- Agrega comparacion reproducible de motores con hashes y seis muestras, y mantiene el snapshot de 60 segundos y las pruebas funcionales/visuales como validacion separada.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-13-release-2`.
 
 ## v1.6.237 - 2026-09-13
 

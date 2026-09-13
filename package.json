@@ -1,10 +1,11 @@
 {
   "name": "geo-risk",
-  "version": "1.6.237",
+  "version": "1.6.238",
   "type": "module",
   "scripts": {
     "build:data": "node scripts/buildDataset.js && node scripts/applyConflictAutofix.js && node scripts/applyVisibleDataCorrections.js && node scripts/buildDataIndexes.js",
     "build:prod": "node scripts/buildProduction.js",
+    "build:map-engine": "node scripts/buildMapEngine.js",
     "import:conflicts:wikipedia": "node scripts/importWikipediaConflicts.js",
     "import:conflicts:dyadic": "powershell -ExecutionPolicy Bypass -File scripts/importDyadicSupplement.ps1",
     "smoke:server": "node scripts/localSmokeServer.js",
@@ -70,6 +71,12 @@
     "node-fetch": "^3.3.2"
   },
   "devDependencies": {
+    "@cesium/engine": "15.0.0",
+    "@cesium/widgets": "11.0.0",
+    "esbuild": "0.28.2",
     "@playwright/test": "^1.62.1"
+  },
+  "overrides": {
+    "@zip.js/zip.js": "2.7.57"
   }
 }

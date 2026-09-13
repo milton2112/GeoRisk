@@ -4,6 +4,7 @@ import { readFileWithRetry, statWithRetry, writeJsonWithRetry } from "./lib/resi
 
 const projectRoot = path.resolve(process.cwd());
 const reportPath = path.join(projectRoot, "reports", "startup-assets.json");
+const MAP_ENGINE_PATH = "vendor/cesium/engine.js";
 
 const LOCAL_ASSETS = [
   "index.html",
@@ -40,7 +41,6 @@ const LOCAL_ASSETS = [
 ];
 
 const CESIUM_ASSETS = [
-  "https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/index.js",
   "https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Widgets/widgets.css"
 ];
 
@@ -92,7 +92,7 @@ async function readInitialLocalScripts() {
 const appShell = await readServiceWorkerShell();
 const initialLocalScripts = await readInitialLocalScripts();
 const startupCriticalAssets = new Set([...appShell, ...initialLocalScripts]);
-const localAssetPaths = [...new Set([...LOCAL_ASSETS, ...startupCriticalAssets])];
+const localAssetPaths = [...new Set([...LOCAL_ASSETS, ...startupCriticalAssets, MAP_ENGINE_PATH])];
 const assets = [];
 for (const relativePath of localAssetPaths) {
   const absolutePath = path.join(projectRoot, relativePath);
@@ -106,7 +106,8 @@ for (const relativePath of localAssetPaths) {
     exists: true,
     bytes: stat.size,
     human: formatBytes(stat.size),
-    startupCritical: startupCriticalAssets.has(relativePath)
+    startupCritical: startupCriticalAssets.has(relativePath),
+    category: relativePath === MAP_ENGINE_PATH ? "startup-map-engine" : startupCriticalAssets.has(relativePath) ? "startup-app-core" : "deferred-or-auxiliary"
   });
 }
 
@@ -114,8 +115,10 @@ const startupBytes = assets
   .filter(asset => asset.exists && asset.startupCritical)
   .reduce((sum, asset) => sum + asset.bytes, 0);
 const deferredBytes = assets
-  .filter(asset => asset.exists && !asset.startupCritical)
+  .filter(asset => asset.exists && asset.category === "deferred-or-auxiliary")
   .reduce((sum, asset) => sum + asset.bytes, 0);
+const mapEngine = assets.find(asset => asset.path === MAP_ENGINE_PATH);
+if (!mapEngine?.exists) throw new Error("Missing startup map engine; run npm run build:map-engine.");
 const fullCountriesAsset = assets.find(asset => asset.path === "data/countries_full.json") ||
   (await fs.pathExists(path.join(projectRoot, "data/countries_full.json"))
     ? {
@@ -128,6 +131,11 @@ const report = {
   generatedAt: new Date().toISOString(),
   startupBytes,
   startupHuman: formatBytes(startupBytes),
+  startupScope: "App shell and eager local scripts only; excludes the separately budgeted map engine.",
+  mapEngine: { path: MAP_ENGINE_PATH, bytes: mapEngine.bytes, human: mapEngine.human, precached: false },
+  appCoreAndEngineBytes: startupBytes + mapEngine.bytes,
+  appCoreAndEngineHuman: formatBytes(startupBytes + mapEngine.bytes),
+  excludedStartupCosts: "External CSS, workers, imagery and geographic/data requests are not included in appCoreAndEngineBytes. This is not total network transfer or compressed size.",
   deferredBytes,
   deferredHuman: formatBytes(deferredBytes),
   estimatedRuntimeMemory: {
@@ -148,6 +156,6 @@ const report = {
 await fs.ensureDir(path.dirname(reportPath));
 await writeJsonWithRetry(reportPath, report, { spaces: 2 });
 
-console.log(`Startup critico local: ${report.startupHuman}`);
+console.log(`Nucleo de app: ${report.startupHuman}; motor inicial: ${mapEngine.human}; nucleo + motor: ${report.appCoreAndEngineHuman}`);
 console.log(`Diferido/local auxiliar: ${report.deferredHuman}`);
 console.log(`Reporte: ${path.relative(projectRoot, reportPath)}`);

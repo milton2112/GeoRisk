@@ -4,3 +4,6 @@
 *.js text eol=lf
 *.json text eol=lf
 *.md text eol=lf
+/vendor/cesium/LICENSES.txt text eol=lf
+# Preserve upstream whitespace inside generated GLSL/template strings.
+/vendor/cesium/engine.js -whitespace linguist-generated=true

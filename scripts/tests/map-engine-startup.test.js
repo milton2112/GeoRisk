@@ -23,13 +23,15 @@ function timers() {
 }
 function engineFixture(overrides = {}) {
   const clock = timers();
-  const context = { window: {}, console, localStorage: { getItem: () => "es" }, ...clock, ...overrides };
+  const document = { currentScript: { src: "https://example.test/GeoRisk/app-map-engine.js?v=release-test" }, documentElement: { lang: "es" }, ...overrides.document };
+  const context = { window: {}, console, URL, localStorage: { getItem: () => "es" }, ...clock, ...overrides, document };
   vm.runInNewContext(engineSource, context);
   return { api: context.window.GeoRiskMapEngine, context, clock };
 }
 const validEngine = { Viewer() {}, SceneMode: { SCENE2D: 2, SCENE3D: 3 }, GeoJsonDataSource: {} };
 {
   const { api, context, clock } = engineFixture();
+  assert.equal(api.url, "https://example.test/GeoRisk/vendor/cesium/engine.js?v=release-test", "motor local versionado dentro del deploy, incluso bajo subcarpeta");
   const held = deferred();
   let slow = 0, requests = 0;
   const promise = api.load({ importer: () => { requests += 1; return held.promise; }, onSlow: () => { slow += 1; } });

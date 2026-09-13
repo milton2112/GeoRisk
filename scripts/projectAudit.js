@@ -207,10 +207,10 @@ const conflictEraBuckets = [
 })).filter(bucket => bucket.count > 0);
 
 if ((startup.startupBytes || 0) > 1024 * 1024) {
-  criticalIssues.push("El arranque critico supera 1 MB.");
+  criticalIssues.push("El nucleo de app, sin motor, supera 1 MiB.");
   nextActions.push("Seguir sacando logica de script.js y compactar mas data/countries_index.json.");
 } else {
-  nextActions.push("Mantener el arranque critico por debajo de 1 MB en cada release.");
+  nextActions.push("Mantener el nucleo de app por debajo de 1 MiB y medir el motor por separado en cada release.");
 }
 
 if ((sourceFiles.find(file => file.path === "script.js")?.bytes || 0) > 600 * 1024) {
@@ -255,6 +255,9 @@ const report = {
   startup: {
     critical: startup.startupHuman || "sin medir",
     criticalBytes: startup.startupBytes || 0,
+    scope: startup.startupScope || null,
+    mapEngine: startup.mapEngine || null,
+    appCoreAndEngineBytes: startup.appCoreAndEngineBytes || null,
     deferred: startup.deferredHuman || "sin medir",
     estimatedRuntimeMemory: startup.estimatedRuntimeMemory || null,
     largestAssets: startup.largestAssets || []
@@ -288,6 +291,6 @@ await fs.ensureDir(reportsDir);
 await fs.writeJson(reportPath, report, { spaces: 2 });
 
 console.log(`Auditoria del proyecto: ${report.status}`);
-console.log(`Arranque critico: ${report.startup.critical}`);
+console.log(`Nucleo de app: ${report.startup.critical}; motor: ${report.startup.mapEngine?.human || "sin medir"}`);
 console.log(`Alertas de conflictos: ${report.conflicts.issueCount}`);
 console.log(`Reporte: ${path.relative(projectRoot, reportPath)}`);

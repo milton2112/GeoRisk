@@ -1,9 +1,12 @@
 import crypto from "node:crypto";
 import fs from "fs-extra";
 import path from "node:path";
+import { execFileSync } from "node:child_process";
 
 const projectRoot = process.cwd();
 const outputRoot = path.join(projectRoot, "dist", "public");
+
+execFileSync(process.execPath, ["scripts/buildMapEngine.js", "--check"], { stdio: "inherit" });
 
 const PUBLIC_FILES = [
   "index.html",
@@ -45,6 +48,9 @@ const PUBLIC_FILES = [
   "USER_GUIDE.md",
   "TECHNICAL.md",
   "BACKEND_PLAN.md",
+  "vendor/cesium/engine.js",
+  "vendor/cesium/LICENSES.txt",
+  "vendor/cesium/manifest.json",
   "data/countries_index.json",
   "data/geo_aliases.json",
   "data/conflicts_index.json",

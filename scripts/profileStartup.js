@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import { createLocalSmokeServer } from "./localSmokeServer.js";
 import { launchPerformanceBrowser, PERFORMANCE_PROFILES } from "./lib/browser-performance.js";
 
@@ -8,6 +9,14 @@ const root = path.resolve("dist/public");
 await fs.access(path.join(root, "index.html"));
 const profile = PERFORMANCE_PROFILES.find(item => item.name === (process.argv.includes("--desktop") ? "desktop" : "mobile-emulated"));
 const sampleCpu = !process.argv.includes("--trace-only");
+const engineBundleArg = process.argv.find(arg => arg.startsWith("--engine-bundle="));
+const engineBundlePath = engineBundleArg ? path.resolve(engineBundleArg.slice("--engine-bundle=".length)) : null;
+const engineBundle = engineBundlePath ? await fs.readFile(engineBundlePath) : null;
+const engineOverride = engineBundle ? {
+  path: path.relative(process.cwd(), engineBundlePath).replace(/\\/g, "/"),
+  bytes: engineBundle.length,
+  sha256: createHash("sha256").update(engineBundle).digest("hex")
+} : null;
 const baselineStyleArg = process.argv.find(arg => arg.startsWith("--baseline-style="));
 const baselineStyleRef = baselineStyleArg ? execFileSync("git", ["rev-parse", "--verify", "--end-of-options", `${baselineStyleArg.slice("--baseline-style=".length)}^{commit}`], { encoding: "utf8" }).trim() : null;
 const baselineStyle = baselineStyleRef ? execFileSync("git", ["show", `${baselineStyleRef}:style.css`], { encoding: "utf8" }) : null;
@@ -23,6 +32,13 @@ try {
   browser = await launchPerformanceBrowser();
   const context = await browser.newContext({ viewport: profile.viewport, isMobile: profile.isMobile, hasTouch: profile.isMobile, serviceWorkers: "block" });
   const page = await context.newPage();
+  let engineRequests = 0;
+  if (engineBundle) {
+    await page.route(/\/vendor\/cesium\/engine\.js\?/, route => {
+      engineRequests += 1;
+      return route.fulfill({ status: 200, contentType: "text/javascript", body: engineBundle });
+    });
+  }
   if (baselineStyle !== null) {
     await page.route(/\/style\.css\?/, route => route.fulfill({ status: 200, contentType: "text/css", body: baselineStyle }));
   }
@@ -53,6 +69,9 @@ try {
   const readyTimestamp = events.find(event => event.name === "georisk-profile-ready")?.ts;
   const thread = events.find(event => event.name === "thread_name" && event.args?.name === "CrRendererMain" && events.some(item => item.pid === event.pid && item.name === "EvaluateScript"));
   if (!thread || !Number.isFinite(readyTimestamp)) throw new Error("Traza incompleta: falta el hilo principal o la marca de disponibilidad.");
+  if (engineBundle && engineRequests !== 1) throw new Error(`Engine override matched ${engineRequests} requests; expected exactly one.`);
+  const moduleEvaluations = events.filter(event => event.ph === "X" && event.name === "v8.evaluateModule" && event.pid === thread.pid && event.tid === thread.tid)
+    .map(event => ({ durationMs: event.dur / 1000, afterReadyMs: (event.ts - readyTimestamp) / 1000 }));
   const layoutEvents = events.filter(event => event.ph === "X" && event.name === "Layout" && (!thread || (event.pid === thread.pid && event.tid === thread.tid)));
   const summarizeLayout = items => ({ count: items.length, totalMs: items.reduce((sum, event) => sum + event.dur / 1000, 0), maximumMs: Math.max(0, ...items.map(event => event.dur / 1000)) });
   const layout = {
@@ -69,7 +88,7 @@ try {
     name: nodes.get(id)?.callFrame.functionName || "(anonymous)", url: localUrl(nodes.get(id)?.callFrame.url), line: (nodes.get(id)?.callFrame.lineNumber ?? -1) + 1, selfMs
   }));
   const runtime = await page.evaluate(() => ({ declaredMode: currentMapMode, actualMode: viewer.scene.mode, mode2d: Cesium.SceneMode.SCENE2D, mode3d: Cesium.SceneMode.SCENE3D }));
-  const report = { generatedAt: new Date().toISOString(), profile, runtime, baselineStyleRef, layout, observeAfterReadyMs: observeMs, cpuSampling: sampleCpu, methodology: `Diagnostic trace${sampleCpu ? " and CPU sampling" : " without CPU sampling"}; timings include instrumentation overhead, not the release benchmark. afterReadyMs is relative to the map-ready mark. A baseline-style override changes only style.css; all other assets use the current build.`, work, functions };
+  const report = { generatedAt: new Date().toISOString(), browserVersion: browser.version(), profile, runtime, baselineStyleRef, engineOverride, moduleEvaluations, layout, observeAfterReadyMs: observeMs, cpuSampling: sampleCpu, methodology: `Diagnostic trace${sampleCpu ? " and CPU sampling" : " without CPU sampling"}; timings include instrumentation overhead, not the release benchmark. afterReadyMs is relative to the map-ready mark. Overrides replace only their selected resource; all other assets use the current build.`, work, functions };
   await fs.mkdir("reports", { recursive: true });
   await fs.writeFile("reports/startup-profile.json", JSON.stringify(report, null, 2) + "\n");
   console.log("Diagnostico: reports/startup-profile.json");

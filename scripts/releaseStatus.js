@@ -79,6 +79,8 @@ const gitStatusAvailable = statusShortRaw !== null;
 const statusShort = statusShortRaw || "";
 const dirtyFiles = statusShort.split(/\r?\n/).filter(Boolean);
 const startupBytes = performanceSnapshot.assets?.startupCritical?.bytes || 0;
+const mapEngineBytes = performanceSnapshot.assets?.mapEngine?.bytes || 0;
+const appCoreAndEngineBytes = performanceSnapshot.assets?.appCoreAndEngine?.bytes || 0;
 const scriptBytes = performanceSnapshot.assets?.scriptJs?.bytes || await fileBytes("script.js");
 const countriesIndexBytes = performanceSnapshot.assets?.countriesIndex?.bytes || await fileBytes("data/countries_index.json");
 
@@ -94,6 +96,8 @@ const checks = {
   gitStatusAvailable,
   workingTreeClean: gitStatusAvailable && statusShort.trim().length === 0,
   startupWithinBudget: startupBytes > 0 && startupBytes < 1024 * 1024,
+  mapEngineWithinBudget: mapEngineBytes > 0 && mapEngineBytes < 3500000,
+  appCoreAndEngineWithinBudget: appCoreAndEngineBytes === startupBytes + mapEngineBytes && appCoreAndEngineBytes < 4500000,
   scriptWithinBudget: scriptBytes > 0 && scriptBytes < 700000,
   countriesIndexWithinBudget: countriesIndexBytes > 0 && countriesIndexBytes < 240000,
   browserPerformanceMeasured: hasCompleteBrowserMeasurement(performanceSnapshot.browserPerformance),
@@ -117,7 +121,8 @@ const warnings = [];
 if (!checks.versionAligned) blockers.push("APP_VERSION y CACHE_VERSION no coinciden.");
 if (!checks.indexUsesActiveStamp) blockers.push("index.html no usa el stamp activo en query strings.");
 if (!checks.changelogHasPackageVersion) blockers.push("CHANGELOG.md no documenta la version actual.");
-if (!checks.startupWithinBudget) blockers.push("El arranque critico esta fuera de presupuesto.");
+if (!checks.startupWithinBudget) blockers.push("El nucleo de app, sin motor, esta fuera de presupuesto.");
+if (!checks.mapEngineWithinBudget || !checks.appCoreAndEngineWithinBudget) blockers.push("Falta medir el motor o nucleo mas motor excede su presupuesto.");
 if (!checks.scriptWithinBudget) blockers.push("script.js esta fuera de presupuesto.");
 if (!checks.countriesIndexWithinBudget) blockers.push("countries_index.json esta fuera de presupuesto.");
 if (!checks.browserPerformanceMeasured) blockers.push("Falta medicion real completa de rendimiento en navegador.");
@@ -155,7 +160,9 @@ const report = {
   blockers,
   warnings,
   assets: {
-    startupCritical: { bytes: startupBytes, human: formatBytes(startupBytes) },
+    startupCritical: { bytes: startupBytes, human: formatBytes(startupBytes), scope: performanceSnapshot.assets?.startupCritical?.scope || null },
+    mapEngine: performanceSnapshot.assets?.mapEngine || null,
+    appCoreAndEngine: performanceSnapshot.assets?.appCoreAndEngine || null,
     scriptJs: { bytes: scriptBytes, human: formatBytes(scriptBytes) },
     countriesIndex: { bytes: countriesIndexBytes, human: formatBytes(countriesIndexBytes) },
     buildTotal: performanceSnapshot.assets?.buildTotal || null

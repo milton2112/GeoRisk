@@ -1,0 +1,152 @@
+{
+  "generatedAt": "2026-09-13T15:26:26.883Z",
+  "methodology": "Six sequential ABBAAB samples, fresh browser/context and disabled HTTP cache, CPU x4, mobile emulation, trace-only without CPU sampling. Both variants replace only the engine response on the same build. Largest main-thread module evaluation before readiness, not total startup, FPS, or a physical phone measurement. Instrumented timings are diagnostic; release budgets use performance-snapshot.json.",
+  "baselineSource": "https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/index.js",
+  "baselineSha256": "4eee2ec98c0138f92e0d417c09c9db5f9120fdbc11e69a745739f30d2892771d",
+  "candidateSha256": "08ddbfd7c4370ee48500193e462bd2eb4dec8f716513fe5d5250e1dde5a98a2d",
+  "buildAssetsSha256": "a18c67a2c96ff0a0b9d77ebacef59698ef66dce587ea2602f7b8d9968daaab6a",
+  "profilerSha256": "a70fac53f09448a820a5a5e68735103905be6d0102ff5a8ee79cdb8540a7feb3",
+  "environment": {
+    "platform": "win32",
+    "arch": "x64",
+    "node": "v22.21.0",
+    "logicalCpus": 12,
+    "cpuModel": "11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz",
+    "hostFingerprint": "75a598df2ef8a77d",
+    "totalMemoryGiB": 16,
+    "ci": false,
+    "requestedChannel": "chrome"
+  },
+  "samples": [
+    {
+      "variant": "baseline",
+      "measuredAt": "2026-09-13T15:25:55.971Z",
+      "browserVersion": "153.0.8010.37",
+      "profile": {
+        "name": "mobile-emulated",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "isMobile": true,
+        "cpuSlowdown": 4
+      },
+      "engine": {
+        "path": "tmp/cesium-bundle/baseline.js",
+        "bytes": 4023157,
+        "sha256": "4eee2ec98c0138f92e0d417c09c9db5f9120fdbc11e69a745739f30d2892771d"
+      },
+      "moduleEvaluationMs": 439.802,
+      "maximumTaskMs": 446.425
+    },
+    {
+      "variant": "candidate",
+      "measuredAt": "2026-09-13T15:26:01.660Z",
+      "browserVersion": "153.0.8010.37",
+      "profile": {
+        "name": "mobile-emulated",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "isMobile": true,
+        "cpuSlowdown": 4
+      },
+      "engine": {
+        "path": "vendor/cesium/engine.js",
+        "bytes": 3428390,
+        "sha256": "08ddbfd7c4370ee48500193e462bd2eb4dec8f716513fe5d5250e1dde5a98a2d"
+      },
+      "moduleEvaluationMs": 111.039,
+      "maximumTaskMs": 170.6
+    },
+    {
+      "variant": "candidate",
+      "measuredAt": "2026-09-13T15:26:06.910Z",
+      "browserVersion": "153.0.8010.37",
+      "profile": {
+        "name": "mobile-emulated",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "isMobile": true,
+        "cpuSlowdown": 4
+      },
+      "engine": {
+        "path": "vendor/cesium/engine.js",
+        "bytes": 3428390,
+        "sha256": "08ddbfd7c4370ee48500193e462bd2eb4dec8f716513fe5d5250e1dde5a98a2d"
+      },
+      "moduleEvaluationMs": 111.403,
+      "maximumTaskMs": 168.149
+    },
+    {
+      "variant": "baseline",
+      "measuredAt": "2026-09-13T15:26:14.741Z",
+      "browserVersion": "153.0.8010.37",
+      "profile": {
+        "name": "mobile-emulated",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "isMobile": true,
+        "cpuSlowdown": 4
+      },
+      "engine": {
+        "path": "tmp/cesium-bundle/baseline.js",
+        "bytes": 4023157,
+        "sha256": "4eee2ec98c0138f92e0d417c09c9db5f9120fdbc11e69a745739f30d2892771d"
+      },
+      "moduleEvaluationMs": 457.987,
+      "maximumTaskMs": 1492.885
+    },
+    {
+      "variant": "baseline",
+      "measuredAt": "2026-09-13T15:26:20.551Z",
+      "browserVersion": "153.0.8010.37",
+      "profile": {
+        "name": "mobile-emulated",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "isMobile": true,
+        "cpuSlowdown": 4
+      },
+      "engine": {
+        "path": "tmp/cesium-bundle/baseline.js",
+        "bytes": 4023157,
+        "sha256": "4eee2ec98c0138f92e0d417c09c9db5f9120fdbc11e69a745739f30d2892771d"
+      },
+      "moduleEvaluationMs": 438.056,
+      "maximumTaskMs": 443.86
+    },
+    {
+      "variant": "candidate",
+      "measuredAt": "2026-09-13T15:26:26.249Z",
+      "browserVersion": "153.0.8010.37",
+      "profile": {
+        "name": "mobile-emulated",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "isMobile": true,
+        "cpuSlowdown": 4
+      },
+      "engine": {
+        "path": "vendor/cesium/engine.js",
+        "bytes": 3428390,
+        "sha256": "08ddbfd7c4370ee48500193e462bd2eb4dec8f716513fe5d5250e1dde5a98a2d"
+      },
+      "moduleEvaluationMs": 103.008,
+      "maximumTaskMs": 132.05
+    }
+  ],
+  "medianModuleEvaluationMs": {
+    "baseline": 439.802,
+    "candidate": 111.039
+  }
+}

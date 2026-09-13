@@ -101,7 +101,7 @@ if (packageJson.version && !changelogSource.includes(`## v${packageJson.version}
   addFinding(findings, "media", "release", "CHANGELOG sin la version actual", `v${packageJson.version}`, "npm run release:prepare");
 }
 if (startupBytes > 1024 * 1024) {
-  addFinding(findings, "critica", "performance", "Arranque critico sobre 1 MB", `${startupBytes} bytes`, "npm run measure:startup");
+  addFinding(findings, "critica", "performance", "Nucleo de app, sin motor, sobre 1 MiB", `${startupBytes} bytes`, "npm run measure:startup");
 }
 if (scriptBytes > 700000) {
   addFinding(findings, "critica", "performance", "script.js supera 700 KB", `${scriptBytes} bytes`, "npm run check:startup-budget");

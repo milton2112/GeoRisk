@@ -61,7 +61,7 @@ if (reuse) {
     browserPerformance = { complete: false, error: error.message, profiles: [] };
   }
 }
-const thresholds = { scriptJsBytes: 700000, countriesIndexBytes: 240000, startupCriticalBytes: 1024 * 1024, longTaskBudgetMs: 200 };
+const thresholds = { scriptJsBytes: 700000, countriesIndexBytes: 240000, startupCriticalBytes: 1024 * 1024, mapEngineBytes: 3500000, appCoreAndEngineBytes: 4500000, longTaskBudgetMs: 200 };
 const snapshot = {
   generatedAt: new Date().toISOString(),
   packageVersion: packageJson.version,
@@ -71,7 +71,9 @@ const snapshot = {
   assets: {
     scriptJs,
     countriesIndex,
-    startupCritical: { bytes: startupReport.startupBytes, human: formatBytes(startupReport.startupBytes) },
+    startupCritical: { bytes: startupReport.startupBytes, human: formatBytes(startupReport.startupBytes), scope: startupReport.startupScope },
+    mapEngine: startupReport.mapEngine,
+    appCoreAndEngine: { bytes: startupReport.appCoreAndEngineBytes, human: startupReport.appCoreAndEngineHuman, excludes: startupReport.excludedStartupCosts },
     buildTotal: { bytes: manifest.totalBytes, human: formatBytes(manifest.totalBytes), assetCount: manifest.assetCount }
   },
   browserMeasurementKey,
@@ -82,13 +84,15 @@ const snapshot = {
     scriptJsWithinBudget: scriptJs.bytes < thresholds.scriptJsBytes,
     countriesIndexWithinBudget: countriesIndex.bytes < thresholds.countriesIndexBytes,
     startupWithinBudget: startupReport.startupBytes < thresholds.startupCriticalBytes,
+    mapEngineWithinBudget: startupReport.mapEngine.bytes < thresholds.mapEngineBytes,
+    appCoreAndEngineWithinBudget: startupReport.appCoreAndEngineBytes < thresholds.appCoreAndEngineBytes,
     browserMeasurementComplete: hasCompleteBrowserMeasurement(browserPerformance)
   }
 };
 await fs.ensureDir(reportsDir);
 await writeJsonWithRetry(snapshotPath, snapshot, { spaces: 2 });
 console.log(`Snapshot performance: ${path.relative(projectRoot, snapshotPath)}`);
-console.log(`script.js: ${scriptJs.human}; arranque: ${snapshot.assets.startupCritical.human}; countries_index: ${countriesIndex.human}; build: ${snapshot.assets.buildTotal.human}`);
+console.log(`script.js: ${scriptJs.human}; nucleo: ${snapshot.assets.startupCritical.human}; motor: ${startupReport.mapEngine.human}; nucleo + motor: ${startupReport.appCoreAndEngineHuman}; countries_index: ${countriesIndex.human}; build: ${snapshot.assets.buildTotal.human}`);
 for (const warning of snapshot.warnings) console.warn(warning);
 if (!Object.values(snapshot.status).every(Boolean)) {
   console.error("Snapshot incompleto o fuera de presupuesto. Revisar status y browserPerformance en el reporte.");

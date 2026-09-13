@@ -1,4 +1,7 @@
 (() => {
+  const loaderUrl = new URL(document.currentScript.src);
+  const engineUrl = new URL("./vendor/cesium/engine.js", loaderUrl);
+  engineUrl.search = loaderUrl.search;
   let pending = null;
   let phase = "idle";
 
@@ -11,7 +14,7 @@
   }
 
   function load({
-    importer = () => import(window.CESIUM_BASE_URL + "index.js"),
+    importer = () => import(engineUrl.href),
     onSlow = () => {}, warningMs = 7000, timeoutMs = 30000
   } = {}) {
     if (pending) return pending;
@@ -56,5 +59,5 @@
     return pending;
   }
 
-  window.GeoRiskMapEngine = { load, language, getState: () => ({ phase }) };
+  window.GeoRiskMapEngine = { load, language, url: engineUrl.href, getState: () => ({ phase }) };
 })();

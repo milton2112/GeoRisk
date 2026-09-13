@@ -378,7 +378,7 @@ assert.ok(appCountryPanel.includes("Que falta curar"), "ficha pais debe mostrar 
 assert.ok(appRuntime.includes(" - rendimiento"), "perfil runtime debe usar separador ASCII estable");
 const viewerSetup = script.slice(script.indexOf("function initializeViewer()"), script.indexOf("function fitWorldView()"));
 const mapEngine = await fs.readFile(path.join(projectRoot, "app-map-engine.js"), "utf8");
-assert.ok(mapEngine.includes('import(window.CESIUM_BASE_URL + "index.js")'), "el motor debe usar la distribucion ESM fijada");
+assert.ok(mapEngine.includes('import(engineUrl.href)') && mapEngine.includes('"./vendor/cesium/engine.js"'), "el motor debe usar el subconjunto ESM local verificado");
 assert.ok(indexHtml.includes('src="app-map-engine.js?v='), "el cargador debe estar en el arranque");
 assert.ok(appShellBlock.includes("app-map-engine.js"), "el cargador local debe formar parte del shell");
 assert.ok(!indexHtml.includes('Build/Cesium/Cesium.js"></script>'), "el arranque no debe evaluar el paquete IIFE bloqueante");

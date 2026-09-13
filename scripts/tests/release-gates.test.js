@@ -6,6 +6,7 @@ import path from "node:path";
 import vm from "node:vm";
 import { retryFileOperation } from "../lib/resilient-fs.js";
 import { resolveNpmInvocation } from "../lib/npm-runner.js";
+import "./map-engine-bundle.test.js";
 
 const projectRoot = process.cwd();
 let transientAttempts = 0;
@@ -356,7 +357,7 @@ assert.ok(startupCriticalResources.reduce((sum, resource) => {
   const clean = resource.replace(/^\.\//, "");
   const file = clean === "" ? "index.html" : clean;
   return sum + (nativeFs.existsSync(path.join(projectRoot, file)) ? nativeFs.statSync(path.join(projectRoot, file)).size : 0);
-}, 0) < 1024 * 1024, "arranque critico real debe quedar bajo 1 MiB");
+}, 0) < 1024 * 1024, "nucleo de app, sin motor del mapa, debe quedar bajo 1 MiB");
 
 assert.ok(!indexHtml.includes("countries_full.json"), "countries_full no debe cargarse desde HTML inicial");
 assert.ok(!indexHtml.includes("conflict_details.generated.json"), "conflict_details no debe cargarse desde HTML inicial");

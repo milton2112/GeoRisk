@@ -440,7 +440,7 @@ async function testMapEngineStartup(browser, baseUrl) {
       if (scenario === "loader-missing") {
         await page.route(/\/app-map-engine\.js\?/, route => recover ? route.continue() : route.abort("failed"));
       }
-      await page.route("**/Build/Cesium/index.js", async route => {
+      await page.route(/\/vendor\/cesium\/engine\.js\?/, async route => {
         engineRequests += 1;
         await held;
         if (!recover && ["failure", "early-failure"].includes(scenario)) await route.abort("failed");
@@ -485,7 +485,7 @@ async function testMapEngineStartup(browser, baseUrl) {
         if (scenario === "timeout") {
           assert.match(await page.locator("#fatal-error-banner").innerText(), /motor del mapa esta tardando demasiado/);
           releaseEngine();
-          await page.evaluate(() => import(window.CESIUM_BASE_URL + "index.js").then(() => true));
+          await page.evaluate(() => import(window.GeoRiskMapEngine.url).then(() => true));
           assert.equal(await page.evaluate(() => viewer), null, "la respuesta tardia no construye el visor");
           assert.equal(await page.evaluate(() => typeof window.Cesium), "undefined");
         }

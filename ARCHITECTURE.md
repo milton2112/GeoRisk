@@ -1,6 +1,6 @@
 # GeoRisk Architecture
 
-GeoRisk keeps runtime files in the repository root for now. The project is already split into small browser modules; moving everything into `src/` is deferred until a bundler/build step exists.
+GeoRisk keeps runtime files in the repository root for now. The project is split into small browser modules. Only the Cesium vendor dependency is bundled; this does not require moving the app into `src/`.
 
 ## Runtime Layers
 
@@ -10,6 +10,8 @@ GeoRisk keeps runtime files in the repository root for now. The project is alrea
 - `app-store.js`: central UI store for cross-module state snapshots.
 - `app-ui-polish.js`: tooltips, focus helpers, keyboard a11y and compact label metadata.
 - `app-map.js`, `app-map-styles.js`, `app-map-interactions.js`: map renderer decisions, country styling, interaction tuning and the pure consecutive-motion FPS controller. The runtime owns Cesium/visibility listeners and quality changes; the boot scheduler owns startup metrics and completion.
+- `app-map-engine.js`: single, bounded ESM import of the local Cesium subset. It inherits the loader's release query and deployment subdirectory. Cesium workers/assets still use the pinned external `CESIUM_BASE_URL`.
+- `scripts/map-engine-entry.js` and `scripts/buildMapEngine.js`: explicit Cesium API surface and reproducible vendor build. Generated `vendor/cesium` files are tracked so source previews work; production verifies them against the lockfile-installed packages before copying them. Add new Cesium exports here, regenerate and run map/browser tests. Never edit the minified output manually.
 - `app-country-panel.js`: country renderer helpers.
 - `app-timeline-conflicts.js`: timeline and conflict rendering helpers.
 - `app-search.js`, `app-search-worker.js`: search parsing, aliases and worker index work.
@@ -54,7 +56,7 @@ Use this flow:
 
 ## Migration Plan
 
-Keep the root module layout until a build pipeline exists. If a build step is added, move modules into:
+Keep the root module layout for now. If the app itself is bundled later, consider moving modules into:
 
 - `src/core/`: store, scheduler, pure helpers.
 - `src/data/`: data access and index loaders.

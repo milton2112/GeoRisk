@@ -1,9 +1,17 @@
 {
-  "generatedAt": "2026-09-12T22:21:06.384Z",
+  "generatedAt": "2026-09-13T15:32:18.518Z",
   "status": "operativo",
   "startup": {
     "critical": "843 KB",
-    "criticalBytes": 863557,
+    "criticalBytes": 863722,
+    "scope": "App shell and eager local scripts only; excludes the separately budgeted map engine.",
+    "mapEngine": {
+      "path": "vendor/cesium/engine.js",
+      "bytes": 3428390,
+      "human": "3.27 MB",
+      "precached": false
+    },
+    "appCoreAndEngineBytes": 4292112,
     "deferred": "3.10 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 13106533,
@@ -14,88 +22,100 @@
     },
     "largestAssets": [
       {
+        "path": "vendor/cesium/engine.js",
+        "exists": true,
+        "bytes": 3428390,
+        "human": "3.27 MB",
+        "startupCritical": false,
+        "category": "startup-map-engine"
+      },
+      {
         "path": "data/conflict_details.generated.json",
         "exists": true,
         "bytes": 2591647,
         "human": "2.47 MB",
-        "startupCritical": false
+        "startupCritical": false,
+        "category": "deferred-or-auxiliary"
       },
       {
         "path": "script.js",
         "exists": true,
         "bytes": 575749,
         "human": "562 KB",
-        "startupCritical": true
+        "startupCritical": true,
+        "category": "startup-app-core"
       },
       {
         "path": "data/world_countries.geo.json",
         "exists": true,
         "bytes": 256950,
         "human": "251 KB",
-        "startupCritical": false
+        "startupCritical": false,
+        "category": "deferred-or-auxiliary"
       },
       {
         "path": "data/world_countries_simplified.geo.json",
         "exists": true,
         "bytes": 174321,
         "human": "170 KB",
-        "startupCritical": false
+        "startupCritical": false,
+        "category": "deferred-or-auxiliary"
       },
       {
         "path": "data/countries_index.json",
         "exists": true,
         "bytes": 144225,
         "human": "141 KB",
-        "startupCritical": true
+        "startupCritical": true,
+        "category": "startup-app-core"
       },
       {
         "path": "style.css",
         "exists": true,
         "bytes": 84385,
         "human": "82 KB",
-        "startupCritical": true
+        "startupCritical": true,
+        "category": "startup-app-core"
       },
       {
         "path": "app-country-panel.js",
         "exists": true,
         "bytes": 45290,
         "human": "44 KB",
-        "startupCritical": false
+        "startupCritical": false,
+        "category": "deferred-or-auxiliary"
       },
       {
         "path": "index.html",
         "exists": true,
         "bytes": 32953,
         "human": "32 KB",
-        "startupCritical": true
+        "startupCritical": true,
+        "category": "startup-app-core"
       },
       {
         "path": "style-polish.css",
         "exists": true,
         "bytes": 31661,
         "human": "31 KB",
-        "startupCritical": false
+        "startupCritical": false,
+        "category": "deferred-or-auxiliary"
       },
       {
         "path": "app-conflict-aliases.js",
         "exists": true,
         "bytes": 30406,
         "human": "30 KB",
-        "startupCritical": false
+        "startupCritical": false,
+        "category": "deferred-or-auxiliary"
       },
       {
         "path": "app-text.js",
         "exists": true,
         "bytes": 23554,
         "human": "23 KB",
-        "startupCritical": false
-      },
-      {
-        "path": "data/runtime_supplemental.json",
-        "exists": true,
-        "bytes": 21292,
-        "human": "21 KB",
-        "startupCritical": false
+        "startupCritical": false,
+        "category": "deferred-or-auxiliary"
       }
     ]
   },
@@ -818,8 +838,8 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 269988,
-      "human": "264 KB"
+      "bytes": 271461,
+      "human": "265 KB"
     },
     {
       "path": "style.css",
@@ -848,8 +868,8 @@
     {
       "path": "TECHNICAL.md",
       "exists": true,
-      "bytes": 27423,
-      "human": "27 KB"
+      "bytes": 30098,
+      "human": "29 KB"
     },
     {
       "path": "app-text.js",
@@ -878,7 +898,7 @@
     {
       "path": "USER_GUIDE.md",
       "exists": true,
-      "bytes": 9844,
+      "bytes": 9892,
       "human": "10 KB"
     },
     {
@@ -914,7 +934,7 @@
     {
       "path": "package.json",
       "exists": true,
-      "bytes": 5389,
+      "bytes": 5590,
       "human": "5 KB"
     },
     {
@@ -998,6 +1018,7 @@
     "audit:release-artifacts",
     "build:data",
     "build:indexes",
+    "build:map-engine",
     "build:prod",
     "check:startup-budget",
     "clean:deep",
@@ -1053,6 +1074,6 @@
   "criticalIssues": [],
   "warnings": [],
   "nextActions": [
-    "Mantener el arranque critico por debajo de 1 MB en cada release."
+    "Mantener el nucleo de app por debajo de 1 MiB y medir el motor por separado en cada release."
   ]
 }

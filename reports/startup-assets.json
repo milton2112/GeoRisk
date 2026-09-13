@@ -1,7 +1,17 @@
 {
-  "generatedAt": "2026-09-12T22:21:08.110Z",
-  "startupBytes": 863557,
+  "generatedAt": "2026-09-13T15:32:20.088Z",
+  "startupBytes": 863722,
   "startupHuman": "843 KB",
+  "startupScope": "App shell and eager local scripts only; excludes the separately budgeted map engine.",
+  "mapEngine": {
+    "path": "vendor/cesium/engine.js",
+    "bytes": 3428390,
+    "human": "3.27 MB",
+    "precached": false
+  },
+  "appCoreAndEngineBytes": 4292112,
+  "appCoreAndEngineHuman": "4.09 MB",
+  "excludedStartupCosts": "External CSS, workers, imagery and geographic/data requests are not included in appCoreAndEngineBytes. This is not total network transfer or compressed size.",
   "deferredBytes": 3254098,
   "deferredHuman": "3.10 MB",
   "estimatedRuntimeMemory": {
@@ -13,88 +23,100 @@
   },
   "largestAssets": [
     {
+      "path": "vendor/cesium/engine.js",
+      "exists": true,
+      "bytes": 3428390,
+      "human": "3.27 MB",
+      "startupCritical": false,
+      "category": "startup-map-engine"
+    },
+    {
       "path": "data/conflict_details.generated.json",
       "exists": true,
       "bytes": 2591647,
       "human": "2.47 MB",
-      "startupCritical": false
+      "startupCritical": false,
+      "category": "deferred-or-auxiliary"
     },
     {
       "path": "script.js",
       "exists": true,
       "bytes": 575749,
       "human": "562 KB",
-      "startupCritical": true
+      "startupCritical": true,
+      "category": "startup-app-core"
     },
     {
       "path": "data/world_countries.geo.json",
       "exists": true,
       "bytes": 256950,
       "human": "251 KB",
-      "startupCritical": false
+      "startupCritical": false,
+      "category": "deferred-or-auxiliary"
     },
     {
       "path": "data/world_countries_simplified.geo.json",
       "exists": true,
       "bytes": 174321,
       "human": "170 KB",
-      "startupCritical": false
+      "startupCritical": false,
+      "category": "deferred-or-auxiliary"
     },
     {
       "path": "data/countries_index.json",
       "exists": true,
       "bytes": 144225,
       "human": "141 KB",
-      "startupCritical": true
+      "startupCritical": true,
+      "category": "startup-app-core"
     },
     {
       "path": "style.css",
       "exists": true,
       "bytes": 84385,
       "human": "82 KB",
-      "startupCritical": true
+      "startupCritical": true,
+      "category": "startup-app-core"
     },
     {
       "path": "app-country-panel.js",
       "exists": true,
       "bytes": 45290,
       "human": "44 KB",
-      "startupCritical": false
+      "startupCritical": false,
+      "category": "deferred-or-auxiliary"
     },
     {
       "path": "index.html",
       "exists": true,
       "bytes": 32953,
       "human": "32 KB",
-      "startupCritical": true
+      "startupCritical": true,
+      "category": "startup-app-core"
     },
     {
       "path": "style-polish.css",
       "exists": true,
       "bytes": 31661,
       "human": "31 KB",
-      "startupCritical": false
+      "startupCritical": false,
+      "category": "deferred-or-auxiliary"
     },
     {
       "path": "app-conflict-aliases.js",
       "exists": true,
       "bytes": 30406,
       "human": "30 KB",
-      "startupCritical": false
+      "startupCritical": false,
+      "category": "deferred-or-auxiliary"
     },
     {
       "path": "app-text.js",
       "exists": true,
       "bytes": 23554,
       "human": "23 KB",
-      "startupCritical": false
-    },
-    {
-      "path": "data/runtime_supplemental.json",
-      "exists": true,
-      "bytes": 21292,
-      "human": "21 KB",
-      "startupCritical": false
+      "startupCritical": false,
+      "category": "deferred-or-auxiliary"
     }
   ],
   "assets": [
@@ -103,246 +125,283 @@
       "exists": true,
       "bytes": 32953,
       "human": "32 KB",
-      "startupCritical": true
+      "startupCritical": true,
+      "category": "startup-app-core"
     },
     {
       "path": "script.js",
       "exists": true,
       "bytes": 575749,
       "human": "562 KB",
-      "startupCritical": true
+      "startupCritical": true,
+      "category": "startup-app-core"
     },
     {
       "path": "style.css",
       "exists": true,
       "bytes": 84385,
       "human": "82 KB",
-      "startupCritical": true
+      "startupCritical": true,
+      "category": "startup-app-core"
     },
     {
       "path": "style-polish.css",
       "exists": true,
       "bytes": 31661,
       "human": "31 KB",
-      "startupCritical": false
+      "startupCritical": false,
+      "category": "deferred-or-auxiliary"
     },
     {
       "path": "app-runtime.js",
       "exists": true,
       "bytes": 3051,
       "human": "3 KB",
-      "startupCritical": true
+      "startupCritical": true,
+      "category": "startup-app-core"
     },
     {
       "path": "app-theme.js",
       "exists": true,
       "bytes": 338,
       "human": "338 B",
-      "startupCritical": true
+      "startupCritical": true,
+      "category": "startup-app-core"
     },
     {
       "path": "app-text.js",
       "exists": true,
       "bytes": 23554,
       "human": "23 KB",
-      "startupCritical": false
+      "startupCritical": false,
+      "category": "deferred-or-auxiliary"
     },
     {
       "path": "app-country-panel.js",
       "exists": true,
       "bytes": 45290,
       "human": "44 KB",
-      "startupCritical": false
+      "startupCritical": false,
+      "category": "deferred-or-auxiliary"
     },
     {
       "path": "app-timeline-conflicts.js",
       "exists": true,
       "bytes": 8027,
       "human": "8 KB",
-      "startupCritical": false
+      "startupCritical": false,
+      "category": "deferred-or-auxiliary"
     },
     {
       "path": "app-search.js",
       "exists": true,
       "bytes": 16601,
       "human": "16 KB",
-      "startupCritical": false
+      "startupCritical": false,
+      "category": "deferred-or-auxiliary"
     },
     {
       "path": "app-rankings.js",
       "exists": true,
       "bytes": 6522,
       "human": "6 KB",
-      "startupCritical": false
+      "startupCritical": false,
+      "category": "deferred-or-auxiliary"
     },
     {
       "path": "app-boot-scheduler.js",
       "exists": true,
       "bytes": 4466,
       "human": "4 KB",
-      "startupCritical": true
+      "startupCritical": true,
+      "category": "startup-app-core"
     },
     {
       "path": "app-map.js",
       "exists": true,
       "bytes": 2294,
       "human": "2 KB",
-      "startupCritical": true
+      "startupCritical": true,
+      "category": "startup-app-core"
     },
     {
       "path": "app-map-engine.js",
       "exists": true,
-      "bytes": 2263,
+      "bytes": 2428,
       "human": "2 KB",
-      "startupCritical": true
+      "startupCritical": true,
+      "category": "startup-app-core"
     },
     {
       "path": "app-map-styles.js",
       "exists": true,
       "bytes": 1458,
       "human": "1 KB",
-      "startupCritical": true
+      "startupCritical": true,
+      "category": "startup-app-core"
     },
     {
       "path": "app-map-interactions.js",
       "exists": true,
       "bytes": 7222,
       "human": "7 KB",
-      "startupCritical": true
+      "startupCritical": true,
+      "category": "startup-app-core"
     },
     {
       "path": "app-news-ui.js",
       "exists": true,
       "bytes": 2958,
       "human": "3 KB",
-      "startupCritical": false
+      "startupCritical": false,
+      "category": "deferred-or-auxiliary"
     },
     {
       "path": "app-compare-ui.js",
       "exists": true,
       "bytes": 8670,
       "human": "8 KB",
-      "startupCritical": false
+      "startupCritical": false,
+      "category": "deferred-or-auxiliary"
     },
     {
       "path": "app-quiz-ui.js",
       "exists": true,
       "bytes": 12766,
       "human": "12 KB",
-      "startupCritical": false
+      "startupCritical": false,
+      "category": "deferred-or-auxiliary"
     },
     {
       "path": "app-performance-ui.js",
       "exists": true,
       "bytes": 6074,
       "human": "6 KB",
-      "startupCritical": false
+      "startupCritical": false,
+      "category": "deferred-or-auxiliary"
     },
     {
       "path": "app-ui-polish.js",
       "exists": true,
       "bytes": 5906,
       "human": "6 KB",
-      "startupCritical": false
+      "startupCritical": false,
+      "category": "deferred-or-auxiliary"
     },
     {
       "path": "app-export-share.js",
       "exists": true,
       "bytes": 7947,
       "human": "8 KB",
-      "startupCritical": false
+      "startupCritical": false,
+      "category": "deferred-or-auxiliary"
     },
     {
       "path": "app-conflict-aliases.js",
       "exists": true,
       "bytes": 30406,
       "human": "30 KB",
-      "startupCritical": false
+      "startupCritical": false,
+      "category": "deferred-or-auxiliary"
     },
     {
       "path": "app-rankings-worker.js",
       "exists": true,
       "bytes": 2439,
       "human": "2 KB",
-      "startupCritical": false
+      "startupCritical": false,
+      "category": "deferred-or-auxiliary"
     },
     {
       "path": "app-search-worker.js",
       "exists": true,
       "bytes": 1067,
       "human": "1 KB",
-      "startupCritical": false
+      "startupCritical": false,
+      "category": "deferred-or-auxiliary"
     },
     {
       "path": "data/countries_index.json",
       "exists": true,
       "bytes": 144225,
       "human": "141 KB",
-      "startupCritical": true
+      "startupCritical": true,
+      "category": "startup-app-core"
     },
     {
       "path": "data/geo_aliases.json",
       "exists": true,
       "bytes": 2784,
       "human": "3 KB",
-      "startupCritical": true
+      "startupCritical": true,
+      "category": "startup-app-core"
     },
     {
       "path": "data/runtime_supplemental.json",
       "exists": true,
       "bytes": 21292,
       "human": "21 KB",
-      "startupCritical": false
+      "startupCritical": false,
+      "category": "deferred-or-auxiliary"
     },
     {
       "path": "data/world_countries.geo.json",
       "exists": true,
       "bytes": 256950,
       "human": "251 KB",
-      "startupCritical": false
+      "startupCritical": false,
+      "category": "deferred-or-auxiliary"
     },
     {
       "path": "data/world_countries_simplified.geo.json",
       "exists": true,
       "bytes": 174321,
       "human": "170 KB",
-      "startupCritical": false
+      "startupCritical": false,
+      "category": "deferred-or-auxiliary"
     },
     {
       "path": "data/conflict_details.generated.json",
       "exists": true,
       "bytes": 2591647,
       "human": "2.47 MB",
-      "startupCritical": false
+      "startupCritical": false,
+      "category": "deferred-or-auxiliary"
     },
     {
       "path": "app-store.js",
       "exists": true,
       "bytes": 1298,
       "human": "1 KB",
-      "startupCritical": true
+      "startupCritical": true,
+      "category": "startup-app-core"
     },
     {
       "path": "favicon.ico",
       "exists": true,
       "bytes": 766,
       "human": "766 B",
-      "startupCritical": true
+      "startupCritical": true,
+      "category": "startup-app-core"
     },
     {
       "path": "favicon.svg",
       "exists": true,
       "bytes": 305,
       "human": "305 B",
-      "startupCritical": true
+      "startupCritical": true,
+      "category": "startup-app-core"
+    },
+    {
+      "path": "vendor/cesium/engine.js",
+      "exists": true,
+      "bytes": 3428390,
+      "human": "3.27 MB",
+      "startupCritical": false,
+      "category": "startup-map-engine"
     }
   ],
   "externalRuntimeAssets": [
-    {
-      "url": "https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/index.js",
-      "measuredLocally": false,
-      "note": "Se descarga/cachea desde Cesium en runtime."
-    },
     {
       "url": "https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Widgets/widgets.css",
       "measuredLocally": false,

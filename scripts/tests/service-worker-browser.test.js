@@ -146,12 +146,13 @@ async function checkOfflineCache(browser, origin, basePath) {
     for (const resource of heavyPaths) {
       assert.equal((await readResource(page, baseUrl + "data/" + resource)).status, 200);
     }
+    assert.equal((await readResource(page, baseUrl + "vendor/cesium/engine.js?v=test-release")).status, 200);
     assert.equal((await readResource(page, baseUrl + "data/countries/NOT_A_COUNTRY.json")).status, 404);
     if (basePath !== "/") {
       assert.equal((await readResource(page, origin + "/outside-app/data/countries/ARG.json")).status, 200);
     }
     inventory = await cacheInventory(page);
-    assert.ok(!Object.values(inventory).flat().some(url => /countries_full|conflict_details\.generated|conflict_dyadic_summary|NOT_A_COUNTRY|outside-app/.test(url)), "datos pesados, errores y rutas ajenas no deben cachearse");
+    assert.ok(!Object.values(inventory).flat().some(url => /countries_full|conflict_details\.generated|conflict_dyadic_summary|vendor\/cesium|NOT_A_COUNTRY|outside-app/.test(url)), "motor, datos pesados, errores y rutas ajenas no deben cachearse");
 
     // Simulate full storage without filling the user's disk.
     await worker.evaluate(() => {

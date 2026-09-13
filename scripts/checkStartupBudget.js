@@ -11,6 +11,9 @@ const budgets = {
   "data/geo_aliases.json": 5000,
   "data/world_countries_simplified.geo.json": 190000
 };
+const enginePath = "vendor/cesium/engine.js";
+// The historic 1 MiB app-core budget never included the remote Cesium SDK.
+budgets[enginePath] = 3500000;
 const LONG_TASK_BUDGET_MS = 200;
 
 const forbiddenStartupTokens = [
@@ -39,6 +42,11 @@ for (const [file, maxBytes] of Object.entries(budgets)) {
 const sw = await fs.readFile(path.join(projectRoot, "sw.js"), "utf8");
 const indexHtml = await fs.readFile(path.join(projectRoot, "index.html"), "utf8");
 const bootScheduler = await fs.readFile(path.join(projectRoot, "app-boot-scheduler.js"), "utf8");
+const shell = sw.match(/const APP_SHELL = \[([\s\S]*?)\];/)?.[1] || "";
+if (shell.includes("vendor/")) {
+  failed = true;
+  console.error("The map engine must stay outside APP_SHELL/precache.");
+}
 
 for (const token of forbiddenStartupTokens) {
   if (sw.includes(token) || indexHtml.includes(token)) {
