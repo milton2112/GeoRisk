@@ -85,7 +85,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-09-14-release-3";
+const APP_VERSION = "2026-09-14-release-4";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -1204,6 +1204,7 @@ function updateIntroRuntimeStatus() {
 
 function setAutoRotateState(enabled) {
   autoRotateEnabled = Boolean(enabled);
+  autoRotation.reset();
   localStorage.setItem(STORAGE_KEYS.autoRotate, String(autoRotateEnabled));
   const button = document.getElementById("auto-rotate-button");
   if (button) {
@@ -1216,15 +1217,17 @@ function setAutoRotateState(enabled) {
   viewer?.scene?.requestRender?.();
 }
 
-function handleAutoRotateTick(clock) {
-  if (!viewer || !autoRotateEnabled || currentMapMode !== "3d" || isCameraNavigating) {
-    return;
-  }
-  if (Date.now() - lastInteractionAt < 3200) {
-    return;
-  }
-  const seconds = Math.max(0.016, clock?.deltaSeconds || 0.016);
-  viewer.camera.rotate(Cesium.Cartesian3.UNIT_Z, -seconds * 0.045);
+function handleAutoRotateTick() {
+  if (!viewer) return;
+  const angle = autoRotation.step({
+    now: Date.now(), enabled: autoRotateEnabled, mode: currentMapMode,
+    navigating: isCameraNavigating, interactionAt: lastInteractionAt,
+    visible: document.visibilityState !== "hidden",
+    blocked: viewer.useDefaultRenderLoop === false || Boolean(cancelPendingMapTransition) || Boolean(loadMapPromise) ||
+      document.body.classList.contains("globe-loading") || document.body.classList.contains("modal-open")
+  });
+  if (!angle) return;
+  viewer.camera.rotate(Cesium.Cartesian3.UNIT_Z, angle);
   viewer.scene.requestRender();
 }
 
@@ -2375,7 +2378,7 @@ function initializeViewer() {
   fitWorldView();
 
   viewer.camera.moveStart.addEventListener(() => {
-    lastInteractionAt = Date.now();
+    if (!autoRotation.isRotating()) lastInteractionAt = Date.now();
     isCameraNavigating = true;
     emitMapEvent("dragstart");
     emitMapEvent("zoomstart");
@@ -2386,7 +2389,7 @@ function initializeViewer() {
   });
 
   viewer.camera.moveEnd.addEventListener(() => {
-    lastInteractionAt = Date.now();
+    if (!autoRotation.isRotating()) lastInteractionAt = Date.now();
     isCameraNavigating = false;
     setNavigationQualityState(false);
     const nextBucket = getCurrentOverlayBucket();
@@ -2400,6 +2403,10 @@ function initializeViewer() {
   });
 
   if (!globeAutoRotateHandlerAttached) {
+    viewer.__geoRiskRemoveAutoRotationInput = mapInteractionCore.bindAutoRotationInput({
+      canvas: viewer.scene.canvas, controller: autoRotation,
+      onInteraction() { lastInteractionAt = Date.now(); }
+    });
     viewer.clock.onTick.addEventListener(handleAutoRotateTick);
     globeAutoRotateHandlerAttached = true;
   }
@@ -2656,6 +2663,7 @@ const constrainedInitialDevice =
   (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
 let labelMode = localStorage.getItem("geo-risk-label-mode") || (constrainedInitialDevice ? "none" : "countries");
 let autoRotateEnabled = localStorage.getItem("geo-risk-auto-rotate") === "true";
+const autoRotation = mapInteractionCore.createAutoRotationController();
 let lastInteractionAt = Date.now();
 let isCameraNavigating = false;
 let navigationQualityRestoreTimer = null;
@@ -13980,6 +13988,7 @@ function setupThemeControls() {
 
   autoRotateButton?.addEventListener("click", () => {
     setAutoRotateState(!autoRotateEnabled);
+    if (autoRotateEnabled && currentMapMode === "2d") applyMapMode("3d");
     lastInteractionAt = 0;
   });
 

@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-14T14:22:10.928Z",
+  "generatedAt": "2026-09-14T19:13:44.165Z",
   "status": "operativo",
   "startup": {
-    "critical": "850 KB",
-    "criticalBytes": 869903,
+    "critical": "853 KB",
+    "criticalBytes": 873064,
     "scope": "App shell and eager local scripts only; excludes the separately budgeted map engine.",
     "mapEngine": {
       "path": "vendor/cesium/engine.js",
@@ -11,7 +11,7 @@
       "human": "3.27 MB",
       "precached": false
     },
-    "appCoreAndEngineBytes": 4298293,
+    "appCoreAndEngineBytes": 4301454,
     "deferred": "3.11 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 13141853,
@@ -40,8 +40,8 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 578796,
-        "human": "565 KB",
+        "bytes": 579504,
+        "human": "566 KB",
         "startupCritical": true,
         "category": "startup-app-core"
       },
@@ -832,14 +832,14 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 578796,
-      "human": "565 KB"
+      "bytes": 579504,
+      "human": "566 KB"
     },
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 275596,
-      "human": "269 KB"
+      "bytes": 276792,
+      "human": "270 KB"
     },
     {
       "path": "style.css",
@@ -850,8 +850,8 @@
     {
       "path": "TECHNICAL.md",
       "exists": true,
-      "bytes": 36619,
-      "human": "36 KB"
+      "bytes": 38247,
+      "human": "37 KB"
     },
     {
       "path": "index.html",
@@ -902,6 +902,12 @@
       "human": "10 KB"
     },
     {
+      "path": "app-map-interactions.js",
+      "exists": true,
+      "bytes": 9675,
+      "human": "9 KB"
+    },
+    {
       "path": "app-conflict-audit-ui.js",
       "exists": true,
       "bytes": 9392,
@@ -912,12 +918,6 @@
       "exists": true,
       "bytes": 8670,
       "human": "8 KB"
-    },
-    {
-      "path": "app-map-interactions.js",
-      "exists": true,
-      "bytes": 7222,
-      "human": "7 KB"
     },
     {
       "path": "app-performance-ui.js",

@@ -301,6 +301,14 @@ La puerta de release permite `--reuse-browser`: reutiliza una muestra completa d
 
 `npm run build:indexes` genera `data/runtime_supplemental.json` a partir del dataset curado y del CSV poblacional interno. El cliente descarga ese suplemento diferido, no `data/raw/**`. Conserva el intervalo de años de cada variación poblacional y omite las tasas anuales cuando faltan observaciones consecutivas. El service worker lo almacena solo tras consultarlo, fuera de `APP_SHELL`.
 
+## Rotacion automatica del globo
+
+Desde v1.6.242, `app-map-interactions.js` mantiene un controlador de rotacion separado de `isCameraNavigating`. Los eventos `moveStart`/`moveEnd` siguen notificando movimiento al monitor de FPS, las etiquetas y el scheduler; solo dejan de registrar una nueva interaccion si el controlador conserva la autoria del giro. Los punteros del canvas, rueda y teclado revocan esa autoria. La liberacion se escucha en el documento para cubrir gestos que terminan fuera del mapa; cancelacion, perdida de foco y visibilidad limpian contactos retenidos.
+
+El controlador conserva la pausa de 3,2 segundos tras interaccion y no vence un contacto sostenido. Integra tiempo real a 0,045 radianes por segundo, con paso maximo de 50 ms y reinicio temporal al pausar. No gira en 2D, durante carga/transicion, con modales, pestaña oculta o render detenido. La activacion explicita desde 2D solicita 3D. `map-auto-rotation.test.js` cubre la velocidad a 22/34/60 FPS, prioridades y limpieza; `test:e2e:critical -- --auto-rotation-only` verifica movimiento y pixeles, raton/tacto nativos, pausa y reanudacion en ambos viewports. Forma parte del release check, sin reemplazar pruebas en un telefono fisico.
+
+La traza exploratoria anterior al cambio atribuyo los mayores frames iniciales a Cesium y compilacion de shaders. Aunque `maximumRenderTimeChange` es finito tras ajustar calidad, el reloj de simulacion permanece pausado: ambas muestras de reposo de cinco segundos dieron cero frames y cero solicitudes. Se conserva esa configuracion y no se presenta el arreglo de rotacion como una optimizacion de arranque.
+
 ## Curaduria naval de septiembre de 2026
 
 La v1.6.241 incorpora `scripts/lib/conflict-curation-gata-halifax.js` al autofix existente. El grano es una accion historica unica, compartida por varios enlaces de pais, no un conflicto distinto por cada Estado actual. Gata se publica bajo 1815 y la segunda guerra berberisca; Halifax, bajo 1782 y la independencia estadounidense. Las fuentes y cautelas viajan en los shards profundos, no en el indice inicial. Gata agrega Argelia y Espana; Halifax agrega Canada y Reino Unido. Espana y Canada no se presentan como participantes historicos por esos enlaces.

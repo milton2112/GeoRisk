@@ -589,6 +589,79 @@ async function testCountryOverlayReadiness(browser, baseUrl) {
   }
 }
 
+async function testAutoRotation(browser, baseUrl) {
+  for (const viewport of [DESKTOP_VIEWPORT, MOBILE_VIEWPORT]) {
+    const mobile = viewport === MOBILE_VIEWPORT;
+    const label = mobile ? "mobile" : "desktop";
+    const test = await createTestPage(browser, baseUrl, viewport);
+    const { page } = test;
+    const toolsToggle = page.locator(mobile ? "#toggle-tools-panel" : "#map-toolbar > summary");
+    try {
+      await waitForAppReady(page);
+      await toolsToggle.click();
+      await page.locator("#auto-rotate-button").click();
+      assert.equal(await page.locator("#auto-rotate-button").getAttribute("aria-pressed"), "true");
+      await toolsToggle.click();
+      await waitForMapMode(page, "3d");
+      await page.waitForFunction(() => autoRotation.isRotating(), undefined, { timeout: 12000 });
+      const before = await page.locator("#map canvas").screenshot();
+      const motion = await page.evaluate(() => new Promise(resolve => {
+        const positions = [];
+        let frames = 0;
+        const remove = viewer.scene.postRender.addEventListener(() => frames++);
+        const timer = setInterval(() => positions.push(Cesium.Cartesian3.clone(viewer.camera.positionWC)), 250);
+        setTimeout(() => {
+          clearInterval(timer);
+          remove();
+          resolve({ frames, changes: positions.slice(1).filter((position, index) => Cesium.Cartesian3.distance(position, positions[index]) > 10).length });
+        }, 2250);
+      }));
+      assert.ok(motion.changes >= 5 && motion.frames >= 10, label + ": rotacion continua, no un paso cada cuatro segundos");
+      const after = await page.locator("#map canvas").screenshot();
+      assert.equal(before.equals(after), false, "el canvas cambia durante la rotacion");
+      await page.screenshot({ path: "tmp/auto-rotation-" + label + ".png" });
+
+      const canvas = await page.locator("#map canvas").boundingBox();
+      const point = { x: canvas.x + canvas.width * 0.65, y: canvas.y + canvas.height * 0.55 };
+      const touch = mobile ? await test.context.newCDPSession(page) : null;
+      if (touch) await touch.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [{ ...point, id: 1 }] });
+      else { await page.mouse.move(point.x, point.y); await page.mouse.down(); }
+      await page.waitForFunction(() => !autoRotation.isRotating() && !isCameraNavigating);
+      const held = await page.evaluate(() => Cesium.Cartesian3.clone(viewer.camera.positionWC));
+      await page.waitForTimeout(3400);
+      assert.equal(await page.evaluate(position => Cesium.Cartesian3.distance(position, viewer.camera.positionWC) < 0.01, held), true,
+        "el contacto sostenido no debe reiniciar la rotacion");
+      if (touch) {
+        await touch.send("Input.dispatchTouchEvent", { type: "touchCancel", touchPoints: [] });
+        await touch.detach();
+      } else {
+        await page.mouse.move(10, 10);
+        await page.mouse.up();
+      }
+      await page.waitForFunction(() => autoRotation.isRotating(), undefined, { timeout: 12000 });
+
+      await page.evaluate(() => openIntroModal());
+      await page.waitForFunction(() => !autoRotation.isRotating() && !isCameraNavigating);
+      const paused = await page.evaluate(() => Cesium.Cartesian3.clone(viewer.camera.positionWC));
+      await page.waitForTimeout(500);
+      assert.equal(await page.evaluate(position => Cesium.Cartesian3.distance(position, viewer.camera.positionWC) < 0.01, paused), true);
+      await page.keyboard.press("Escape");
+      await page.waitForFunction(() => autoRotation.isRotating(), undefined, { timeout: 12000 });
+      await toolsToggle.click();
+      await page.locator("#auto-rotate-button").click();
+      assert.equal(await page.locator("#auto-rotate-button").getAttribute("aria-pressed"), "false");
+      await toolsToggle.click();
+      await page.waitForFunction(() => !isCameraNavigating);
+      const stopped = await page.evaluate(() => Cesium.Cartesian3.clone(viewer.camera.positionWC));
+      await page.waitForTimeout(500);
+      assert.equal(await page.evaluate(position => Cesium.Cartesian3.distance(position, viewer.camera.positionWC) < 0.01, stopped), true);
+      assertHealthyPage(test.pageErrors, label + " rotacion automatica");
+    } finally {
+      await test.context.close();
+    }
+  }
+}
+
 async function testConflictCurationAndLateResponse(browser, baseUrl) {
   for (const viewport of [DESKTOP_VIEWPORT, MOBILE_VIEWPORT]) {
     const label = viewport === MOBILE_VIEWPORT ? "mobile" : "desktop";
@@ -1357,6 +1430,7 @@ try {
   browser = await launchCriticalBrowser();
   const focusedFlows = [
     ["--performance-only", testIdleMapPerformance],
+    ["--auto-rotation-only", testAutoRotation],
     ["--startup-only", testMapEngineStartup],
     ["--startup-only", testControlsStartup],
     ["--overlay-ready-only", testCountryOverlayReadiness],

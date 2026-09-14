@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.241 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.242 antes de cerrar la siguiente version.
+
+## v1.6.242 - 2026-09-14
+
+- Corrige la rotacion automatica del globo: los eventos de su propia camara ya no la interrumpen ni reinician la espera de interaccion. Antes de la correccion, una muestra de seis segundos solo registro dos avances.
+- Calcula el giro por tiempo real, independiente de los FPS, y limita cada paso para evitar saltos tras una pausa. Conserva prioridad para arrastre, rueda, teclado, contactos multiples y contactos sostenidos; limpia contactos al cancelar, perder foco o cambiar de visibilidad.
+- Pausa el giro durante carga, transiciones, modales y pestañas ocultas. Activar la rotacion desde 2D cambia a 3D, y detenerla conserva quieta la camara.
+- Agrega pruebas unitarias al gate de arranque y E2E de movimiento continuo, pixeles del canvas, entrada nativa de raton/tactil, pausa, reanudacion y boton de detener en escritorio y movil emulado.
+- Conserva las opciones graficas: la traza ubica costos de arranque en shaders y la medicion en reposo no detecta frames extras. Esta version no atribuye al arreglo del giro una reduccion de las tareas largas iniciales ni modifica los datos historicos.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-14-release-4`.
 
 ## v1.6.241 - 2026-09-14
 

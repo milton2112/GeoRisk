@@ -1,4 +1,61 @@
 (() => {
+  function createAutoRotationController() {
+    const pointers = new Set();
+    let lastTick = null;
+    let rotating = false;
+    function reset() {
+      lastTick = null;
+      rotating = false;
+    }
+    return {
+      reset,
+      isRotating: () => rotating,
+      pointerDown(id) { pointers.add(id); reset(); },
+      pointerUp(id) {
+        if (!pointers.delete(id)) return false;
+        reset();
+        return true;
+      },
+      releasePointers() { pointers.clear(); reset(); },
+      step({ now, enabled, mode, navigating, visible, blocked, interactionAt }) {
+        if (!enabled || mode !== "3d" || !visible || blocked || pointers.size ||
+            (navigating && !rotating) || now - interactionAt < 3200) {
+          reset();
+          return 0;
+        }
+        const seconds = lastTick === null ? 0 : Math.max(0, Math.min(0.05, (now - lastTick) / 1000));
+        lastTick = now;
+        // Camera moveStart also fires for our own rotation; retain its ownership.
+        rotating = seconds > 0 || rotating;
+        return seconds ? -seconds * 0.045 : 0;
+      }
+    };
+  }
+
+  function bindAutoRotationInput({ canvas, controller, onInteraction, document = window.document, host = window }) {
+    const down = event => { controller.pointerDown(event.pointerId); onInteraction(); };
+    const up = event => { if (controller.pointerUp(event.pointerId)) onInteraction(); };
+    const pause = () => { controller.reset(); onInteraction(); };
+    const leave = () => { controller.releasePointers(); onInteraction(); };
+    canvas.addEventListener("pointerdown", down, { passive: true });
+    canvas.addEventListener("wheel", pause, { passive: true });
+    canvas.addEventListener("keydown", pause);
+    document.addEventListener("pointerup", up, { passive: true });
+    document.addEventListener("pointercancel", up, { passive: true });
+    document.addEventListener("visibilitychange", leave);
+    host.addEventListener("blur", leave);
+    return () => {
+      canvas.removeEventListener("pointerdown", down);
+      canvas.removeEventListener("wheel", pause);
+      canvas.removeEventListener("keydown", pause);
+      document.removeEventListener("pointerup", up);
+      document.removeEventListener("pointercancel", up);
+      document.removeEventListener("visibilitychange", leave);
+      host.removeEventListener("blur", leave);
+      controller.releasePointers();
+    };
+  }
+
   function getHoverSampleWindow({ isMobile = false, mode = "3d", reducedMotion = false } = {}) {
     if (isMobile) {
       return reducedMotion ? 140 : 96;
@@ -200,6 +257,8 @@
   }
 
   window.GeoRiskMapInteractions = {
+    createAutoRotationController,
+    bindAutoRotationInput,
     installRenderRecovery,
     createFpsQualityMonitor,
     getHoverSampleWindow,
