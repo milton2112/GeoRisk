@@ -9,6 +9,7 @@ const root = path.resolve("dist/public");
 await fs.access(path.join(root, "index.html"));
 const profile = PERFORMANCE_PROFILES.find(item => item.name === (process.argv.includes("--desktop") ? "desktop" : "mobile-emulated"));
 const sampleCpu = !process.argv.includes("--trace-only");
+const inspectDom = process.argv.includes("--dom-details");
 const engineBundleArg = process.argv.find(arg => arg.startsWith("--engine-bundle="));
 const engineBundlePath = engineBundleArg ? path.resolve(engineBundleArg.slice("--engine-bundle=".length)) : null;
 const engineBundle = engineBundlePath ? await fs.readFile(engineBundlePath) : null;
@@ -33,6 +34,7 @@ try {
   const context = await browser.newContext({ viewport: profile.viewport, isMobile: profile.isMobile, hasTouch: profile.isMobile, serviceWorkers: "block" });
   const page = await context.newPage();
   let engineRequests = 0;
+  let styleRequests = 0;
   if (engineBundle) {
     await page.route(/\/vendor\/cesium\/engine\.js\?/, route => {
       engineRequests += 1;
@@ -40,7 +42,10 @@ try {
     });
   }
   if (baselineStyle !== null) {
-    await page.route(/\/style\.css\?/, route => route.fulfill({ status: 200, contentType: "text/css", body: baselineStyle }));
+    await page.route(/\/style\.css\?/, route => {
+      styleRequests += 1;
+      return route.fulfill({ status: 200, contentType: "text/css", body: baselineStyle });
+    });
   }
   const cdp = await context.newCDPSession(page);
   const events = [];
@@ -52,11 +57,31 @@ try {
     await cdp.send("Profiler.enable");
     await cdp.send("Profiler.start");
   }
-  await cdp.send("Tracing.start", { categories: "devtools.timeline,v8,blink.user_timing,disabled-by-default-devtools.timeline", transferMode: "ReportEvents" });
+  await cdp.send("Tracing.start", { categories: "devtools.timeline,v8,blink.user_timing,disabled-by-default-devtools.timeline" + (inspectDom ? ",blink,renderer.scheduler,loading,disabled-by-default-devtools.timeline.invalidationTracking" : ""), transferMode: "ReportEvents" });
   await page.addInitScript(() => localStorage.setItem("geo-risk-intro-seen", "true"));
   const baseUrl = `http://127.0.0.1:${server.address().port}`;
   await page.goto(baseUrl + "/index.html", { waitUntil: "domcontentloaded", timeout: 45000 });
   await page.waitForFunction(() => typeof countryLayers !== "undefined" && countryLayers.has("ARG") && !document.body.classList.contains("globe-loading"), undefined, { timeout: 45000 });
+  if (inspectDom) await page.evaluate(() => {
+    window.__geoRiskDomTrace = [];
+    const record = value => {
+      window.__geoRiskDomTrace.push({ at: performance.now(), ...value });
+      if (window.__geoRiskDomTrace.length > 2000) window.__geoRiskDomTrace.shift();
+    };
+    window.__geoRiskDomObserver = new MutationObserver(records => records.forEach(item => record({
+      kind: "mutation", target: item.target.id || item.target.nodeName,
+      attribute: item.attributeName, added: item.addedNodes.length, removed: item.removedNodes.length
+    })));
+    window.__geoRiskDomObserver.observe(document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ["hidden", "open", "class", "style"] });
+    for (const name of ["loadDeferredDataEnhancements", "setupSearchIndex", "loadSupplementalData", "refreshGlobalStats", "rerenderCurrentPanel", "renderEmpty", "renderNewsHub"]) {
+      const original = window[name];
+      window[name] = function (...args) {
+        record({ kind: "call", name });
+        try { return original.apply(this, args); }
+        finally { record({ kind: "return", name }); }
+      };
+    }
+  });
   await page.evaluate(ms => {
     performance.mark("georisk-profile-ready");
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -70,6 +95,7 @@ try {
   const thread = events.find(event => event.name === "thread_name" && event.args?.name === "CrRendererMain" && events.some(item => item.pid === event.pid && item.name === "EvaluateScript"));
   if (!thread || !Number.isFinite(readyTimestamp)) throw new Error("Traza incompleta: falta el hilo principal o la marca de disponibilidad.");
   if (engineBundle && engineRequests !== 1) throw new Error(`Engine override matched ${engineRequests} requests; expected exactly one.`);
+  if (baselineStyle !== null && styleRequests !== 1) throw new Error(`Style override matched ${styleRequests} requests; expected exactly one.`);
   const moduleEvaluations = events.filter(event => event.ph === "X" && event.name === "v8.evaluateModule" && event.pid === thread.pid && event.tid === thread.tid)
     .map(event => ({ durationMs: event.dur / 1000, afterReadyMs: (event.ts - readyTimestamp) / 1000 }));
   const layoutEvents = events.filter(event => event.ph === "X" && event.name === "Layout" && (!thread || (event.pid === thread.pid && event.tid === thread.tid)));
@@ -78,6 +104,15 @@ try {
     beforeReady: summarizeLayout(layoutEvents.filter(event => event.ts < readyTimestamp)),
     afterReady: summarizeLayout(layoutEvents.filter(event => event.ts >= readyTimestamp))
   };
+  const domDetails = inspectDom ? {
+    mutations: await page.evaluate(() => { window.__geoRiskDomObserver.disconnect(); return window.__geoRiskDomTrace; }),
+    layouts: layoutEvents.filter(event => event.ts >= readyTimestamp).map(event => ({
+      afterReadyMs: (event.ts - readyTimestamp) / 1000, durationMs: event.dur / 1000, args: event.args,
+      enclosing: events.filter(parent => parent.ph === "X" && parent.pid === event.pid && parent.tid === event.tid && parent.ts <= event.ts && parent.ts + parent.dur >= event.ts + event.dur && parent !== event)
+        .map(parent => ({ name: parent.name, durationMs: parent.dur / 1000, args: parent.args }))
+    })),
+    resources: await page.evaluate(() => performance.getEntriesByType("resource").map(entry => ({ name: entry.name, startTime: entry.startTime, duration: entry.duration })))
+  } : null;
   const work = events.filter(event => event.ph === "X" && event.dur >= 50000 && (!thread || (event.pid === thread.pid && event.tid === thread.tid)))
     .sort((a, b) => b.dur - a.dur).slice(0, 35)
     .map(event => ({ name: event.name, durationMs: event.dur / 1000, afterReadyMs: readyTimestamp === undefined ? null : (event.ts - readyTimestamp) / 1000, url: localUrl(event.args?.data?.url), line: event.args?.data?.lineNumber ?? null, functionName: event.args?.data?.functionName || null }));
@@ -88,7 +123,7 @@ try {
     name: nodes.get(id)?.callFrame.functionName || "(anonymous)", url: localUrl(nodes.get(id)?.callFrame.url), line: (nodes.get(id)?.callFrame.lineNumber ?? -1) + 1, selfMs
   }));
   const runtime = await page.evaluate(() => ({ declaredMode: currentMapMode, actualMode: viewer.scene.mode, mode2d: Cesium.SceneMode.SCENE2D, mode3d: Cesium.SceneMode.SCENE3D }));
-  const report = { generatedAt: new Date().toISOString(), browserVersion: browser.version(), profile, runtime, baselineStyleRef, engineOverride, moduleEvaluations, layout, observeAfterReadyMs: observeMs, cpuSampling: sampleCpu, methodology: `Diagnostic trace${sampleCpu ? " and CPU sampling" : " without CPU sampling"}; timings include instrumentation overhead, not the release benchmark. afterReadyMs is relative to the map-ready mark. Overrides replace only their selected resource; all other assets use the current build.`, work, functions };
+  const report = { generatedAt: new Date().toISOString(), browserVersion: browser.version(), profile, runtime, baselineStyleRef, engineOverride, moduleEvaluations, layout, domDetails, observeAfterReadyMs: observeMs, cpuSampling: sampleCpu, methodology: `Diagnostic trace${sampleCpu ? " and CPU sampling" : " without CPU sampling"}; timings include instrumentation overhead, not the release benchmark. afterReadyMs is relative to the map-ready mark. Overrides replace only their selected resource; all other assets use the current build. DOM details add mutation observation and function wrappers only when requested.`, work, functions };
   await fs.mkdir("reports", { recursive: true });
   await fs.writeFile("reports/startup-profile.json", JSON.stringify(report, null, 2) + "\n");
   console.log("Diagnostico: reports/startup-profile.json");

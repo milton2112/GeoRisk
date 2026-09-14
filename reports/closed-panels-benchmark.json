@@ -1,0 +1,298 @@
+{
+  "generatedAt": "2026-09-13T20:35:54.107Z",
+  "methodology": "Six sequential ABBAAB samples, fresh browser/context, disabled HTTP cache, CPU x4 and mobile emulation. Observe 35 seconds after map readiness with trace-only (no CPU sampling or DOM observer). Only style.css changes; JavaScript and all other build assets are identical. Post-ready layout is diagnostic, not total startup, FPS or a physical phone measurement. Run without competing browser tests. Release budgets use the separate 60-second snapshot.",
+  "baselineRef": "6755539c262a0f8cf6fb3ebd04548f3de99e31c5",
+  "baselineSha256": "14d9c131e4854d85a8681d96e05df162cefc710292cee9d3f5d0373fc905b5e6",
+  "candidateSha256": "7f944296fe52d05bc3a7ca1c2af93c39bfec3950025c76233b93b2e2a46d8549",
+  "buildAssetsSha256": "2d7a95bcd4f58b50250f7ae81107510e078682e64ccbbd9e379264019fb5c2cd",
+  "profilerSha256": "d12bcc560664ad23d285354a06158a9a9ec067a2db385877ded06df520392c00",
+  "environment": {
+    "platform": "win32",
+    "arch": "x64",
+    "node": "v22.21.0",
+    "logicalCpus": 12,
+    "cpuModel": "11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz",
+    "hostFingerprint": "75a598df2ef8a77d",
+    "totalMemoryGiB": 16,
+    "ci": false,
+    "requestedChannel": "chrome"
+  },
+  "samples": [
+    {
+      "variant": "baseline",
+      "measuredAt": "2026-09-13T20:32:17.191Z",
+      "browserVersion": "153.0.8010.37",
+      "profile": {
+        "name": "mobile-emulated",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "isMobile": true,
+        "cpuSlowdown": 4
+      },
+      "runtime": {
+        "declaredMode": "2d",
+        "actualMode": 2,
+        "mode2d": 2,
+        "mode3d": 3
+      },
+      "layout": {
+        "beforeReady": {
+          "count": 13,
+          "totalMs": 172.07399999999996,
+          "maximumMs": 97.964
+        },
+        "afterReady": {
+          "count": 2,
+          "totalMs": 301.272,
+          "maximumMs": 301.049
+        }
+      },
+      "observedLongTasks": [
+        {
+          "durationMs": 336.986,
+          "afterReadyMs": 27709.528
+        },
+        {
+          "durationMs": 161.332,
+          "afterReadyMs": 331.429
+        },
+        {
+          "durationMs": 139.543,
+          "afterReadyMs": 27564.529
+        }
+      ]
+    },
+    {
+      "variant": "candidate",
+      "measuredAt": "2026-09-13T20:32:56.834Z",
+      "browserVersion": "153.0.8010.37",
+      "profile": {
+        "name": "mobile-emulated",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "isMobile": true,
+        "cpuSlowdown": 4
+      },
+      "runtime": {
+        "declaredMode": "2d",
+        "actualMode": 2,
+        "mode2d": 2,
+        "mode3d": 3
+      },
+      "layout": {
+        "beforeReady": {
+          "count": 13,
+          "totalMs": 191.728,
+          "maximumMs": 111.397
+        },
+        "afterReady": {
+          "count": 2,
+          "totalMs": 0.41000000000000003,
+          "maximumMs": 0.22
+        }
+      },
+      "observedLongTasks": [
+        {
+          "durationMs": 792.243,
+          "afterReadyMs": 5001.99
+        },
+        {
+          "durationMs": 96.459,
+          "afterReadyMs": 27499.409
+        }
+      ]
+    },
+    {
+      "variant": "candidate",
+      "measuredAt": "2026-09-13T20:33:37.541Z",
+      "browserVersion": "153.0.8010.37",
+      "profile": {
+        "name": "mobile-emulated",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "isMobile": true,
+        "cpuSlowdown": 4
+      },
+      "runtime": {
+        "declaredMode": "2d",
+        "actualMode": 2,
+        "mode2d": 2,
+        "mode3d": 3
+      },
+      "layout": {
+        "beforeReady": {
+          "count": 13,
+          "totalMs": 192.25699999999998,
+          "maximumMs": 109.222
+        },
+        "afterReady": {
+          "count": 2,
+          "totalMs": 0.41800000000000004,
+          "maximumMs": 0.384
+        }
+      },
+      "observedLongTasks": [
+        {
+          "durationMs": 182.307,
+          "afterReadyMs": 28741.918
+        },
+        {
+          "durationMs": 181.773,
+          "afterReadyMs": 692.615
+        },
+        {
+          "durationMs": 172.103,
+          "afterReadyMs": 28545.383
+        },
+        {
+          "durationMs": 130.875,
+          "afterReadyMs": 29687.771
+        },
+        {
+          "durationMs": 125.713,
+          "afterReadyMs": 27541.966
+        },
+        {
+          "durationMs": 105.902,
+          "afterReadyMs": 29856.865
+        },
+        {
+          "durationMs": 103.872,
+          "afterReadyMs": 29284.148
+        }
+      ]
+    },
+    {
+      "variant": "baseline",
+      "measuredAt": "2026-09-13T20:34:27.958Z",
+      "browserVersion": "153.0.8010.37",
+      "profile": {
+        "name": "mobile-emulated",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "isMobile": true,
+        "cpuSlowdown": 4
+      },
+      "runtime": {
+        "declaredMode": "2d",
+        "actualMode": 2,
+        "mode2d": 2,
+        "mode3d": 3
+      },
+      "layout": {
+        "beforeReady": {
+          "count": 12,
+          "totalMs": 342.808,
+          "maximumMs": 208.481
+        },
+        "afterReady": {
+          "count": 2,
+          "totalMs": 288.45700000000005,
+          "maximumMs": 288.249
+        }
+      },
+      "observedLongTasks": [
+        {
+          "durationMs": 317.104,
+          "afterReadyMs": 27169.469
+        }
+      ]
+    },
+    {
+      "variant": "baseline",
+      "measuredAt": "2026-09-13T20:35:12.894Z",
+      "browserVersion": "153.0.8010.37",
+      "profile": {
+        "name": "mobile-emulated",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "isMobile": true,
+        "cpuSlowdown": 4
+      },
+      "runtime": {
+        "declaredMode": "2d",
+        "actualMode": 2,
+        "mode2d": 2,
+        "mode3d": 3
+      },
+      "layout": {
+        "beforeReady": {
+          "count": 12,
+          "totalMs": 387.56800000000004,
+          "maximumMs": 272.735
+        },
+        "afterReady": {
+          "count": 2,
+          "totalMs": 279.949,
+          "maximumMs": 279.75
+        }
+      },
+      "observedLongTasks": [
+        {
+          "durationMs": 306.083,
+          "afterReadyMs": 26989.798
+        },
+        {
+          "durationMs": 127.079,
+          "afterReadyMs": 26855.643
+        }
+      ]
+    },
+    {
+      "variant": "candidate",
+      "measuredAt": "2026-09-13T20:35:53.531Z",
+      "browserVersion": "153.0.8010.37",
+      "profile": {
+        "name": "mobile-emulated",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "isMobile": true,
+        "cpuSlowdown": 4
+      },
+      "runtime": {
+        "declaredMode": "2d",
+        "actualMode": 2,
+        "mode2d": 2,
+        "mode3d": 3
+      },
+      "layout": {
+        "beforeReady": {
+          "count": 12,
+          "totalMs": 275.697,
+          "maximumMs": 155.476
+        },
+        "afterReady": {
+          "count": 2,
+          "totalMs": 2.201,
+          "maximumMs": 1.801
+        }
+      },
+      "observedLongTasks": [
+        {
+          "durationMs": 168.984,
+          "afterReadyMs": 27284.551
+        },
+        {
+          "durationMs": 52.355,
+          "afterReadyMs": 161.431
+        }
+      ]
+    }
+  ],
+  "medianPostReadyLayoutMs": {
+    "baseline": 288.249,
+    "candidate": 0.384
+  }
+}

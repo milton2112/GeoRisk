@@ -267,6 +267,18 @@ Falla el comando si el arranque o la muestra están incompletos, hay errores Jav
 
 Desde v1.6.238, `app-map-engine.js` importa `vendor/cesium/engine.js` con el mismo query de release que el cargador, incluso bajo subcarpetas. Reemplaza el ESM completo del CDN usado desde v1.6.225. `init` sigue esperando `GeoRiskMapEngineReady`; no hay segundo motor de respaldo ni cambio de version de Cesium. La etapa `bootMetrics.steps.mapEngine` incluye espera de red y evaluacion, no solo CPU.
 
+### Paneles cerrados y refrescos diferidos
+
+Desde v1.6.239, los contenidos directos de Capas, Comparador, Quiz y Noticias tienen `display: none` cuando su `details` no esta abierto, igual que Rankings. No se depende solo del ocultamiento nativo de `details`: en las trazas de Chromium, la finalizacion de una respuesta forzaba el layout de cientos de objetos de controles cerrados alrededor de los 30 segundos. La regla explicita conserva los encabezados y elimina ese trabajo sin cambiar el comportamiento de los paneles abiertos.
+
+`rerenderCurrentPanel` verifica el modal tanto antes de agendar como al recibir el temporizador. Las respuestas de datos no deben reabrir fichas cerradas, incluidas las selecciones por continente, religion y grupo. Rankings actualiza la poblacion mundial al abrirse y omite escrituras si esta cerrado o el texto es identico. `test:startup` cubre las carreras con temporizadores; `test:e2e:critical -- --panels-only` comprueba seleccion, DOM y apertura en ambos viewports.
+
+Para aislar el CSS: `npm run build:prod` y `node scripts/benchmarkClosedPanels.js --baseline=v1.6.238`. Ejecuta seis muestras ABBAAB secuenciales con navegador nuevo, CPU x4 y 35 segundos despues de disponibilidad, sin muestreo de CPU ni observador DOM. Solo cambia `style.css`; el JavaScript y los demas assets son comunes. Guarda hashes, entorno, muestras y mediana en `reports/closed-panels-benchmark.json`, fuera del deploy. No ejecutar otros tests de navegador al mismo tiempo. El snapshot de release mide aparte 60 segundos con movimiento del mapa.
+
+La mediana del mayor layout posterior paso de 288,249 a 0,384 ms en Chrome 153. Las tres muestras candidatas registraron 0,220 / 0,384 / 1,801 ms frente a 301,049 / 288,249 / 279,750 ms del CSS anterior. El reporte conserva un pico no relacionado con layout de 792,243 ms en una muestra candidata: no se afirma que hayan desaparecido todas las tareas largas.
+
+Para investigar una regresion, `npm run performance:profile -- --trace-only --dom-details --observe-ms=35000` agrega observacion de mutaciones, llamadas seleccionadas, recursos y eventos envolventes de cada layout. Este modo agrega instrumentacion y no se usa para los numeros comparativos. La sustitucion de CSS exige exactamente una peticion coincidente para evitar comparaciones falsas.
+
 ### Motor reducido reproducible
 
 `npm ci` instala `@cesium/engine@15.0.0`, `@cesium/widgets@11.0.0` (CesiumJS 1.127) y esbuild fijado. El override `@zip.js/zip.js@2.7.57` conserva los subpaths que importa este motor; 2.8 no es compatible con esos imports. `npm run build:map-engine` genera el ESM con 24 exports, minificacion, tree shaking y eliminacion de bloques de validacion debug igual que el build release de Cesium. Conserva `Viewer`, modos 2D/3D, entidades, etiquetas, GeoJSON y recuperacion de render. No modifica la geometria ni la calidad grafica.

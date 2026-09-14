@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-13T15:32:18.518Z",
+  "generatedAt": "2026-09-14T07:02:57.144Z",
   "status": "operativo",
   "startup": {
-    "critical": "843 KB",
-    "criticalBytes": 863722,
+    "critical": "844 KB",
+    "criticalBytes": 864061,
     "scope": "App shell and eager local scripts only; excludes the separately budgeted map engine.",
     "mapEngine": {
       "path": "vendor/cesium/engine.js",
@@ -11,7 +11,7 @@
       "human": "3.27 MB",
       "precached": false
     },
-    "appCoreAndEngineBytes": 4292112,
+    "appCoreAndEngineBytes": 4292451,
     "deferred": "3.10 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 13106533,
@@ -40,7 +40,7 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 575749,
+        "bytes": 575806,
         "human": "562 KB",
         "startupCritical": true,
         "category": "startup-app-core"
@@ -72,8 +72,8 @@
       {
         "path": "style.css",
         "exists": true,
-        "bytes": 84385,
-        "human": "82 KB",
+        "bytes": 84667,
+        "human": "83 KB",
         "startupCritical": true,
         "category": "startup-app-core"
       },
@@ -832,25 +832,31 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 575749,
+      "bytes": 575806,
       "human": "562 KB"
     },
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 271461,
-      "human": "265 KB"
+      "bytes": 272852,
+      "human": "266 KB"
     },
     {
       "path": "style.css",
       "exists": true,
-      "bytes": 84385,
-      "human": "82 KB"
+      "bytes": 84667,
+      "human": "83 KB"
     },
     {
       "path": "index.html",
       "exists": true,
       "bytes": 32953,
+      "human": "32 KB"
+    },
+    {
+      "path": "TECHNICAL.md",
+      "exists": true,
+      "bytes": 32411,
       "human": "32 KB"
     },
     {
@@ -864,12 +870,6 @@
       "exists": true,
       "bytes": 30406,
       "human": "30 KB"
-    },
-    {
-      "path": "TECHNICAL.md",
-      "exists": true,
-      "bytes": 30098,
-      "human": "29 KB"
     },
     {
       "path": "app-text.js",

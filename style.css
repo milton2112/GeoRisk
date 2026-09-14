@@ -1948,6 +1948,11 @@ body.layers-panel-open #news-hub-panel {
   text-transform: none;
 }
 
+/* Keep closed workspaces out of forced layouts, including browser text capture. */
+#map-toolbar:not([open]) > .toolbar-content,
+#compare-hub-panel:not([open]) > .compare-hub-content,
+#quiz-hub-panel:not([open]) > .quiz-hub-content,
+#news-hub-panel:not([open]) > .news-hub-content,
 #rankings-panel:not([open]) .left-panel-inner {
   display: none;
 }

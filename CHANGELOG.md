@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.238 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.239 antes de cerrar la siguiente version.
+
+## v1.6.239 - 2026-09-14
+
+- Evita que el navegador calcule el layout de los contenidos cerrados de Capas, Comparador, Quiz y Noticias. Mantiene los encabezados accesibles y la apertura nativa de los paneles; no reduce funciones ni calidad del mapa.
+- En seis trazas alternadas, la mediana del mayor layout posterior a la disponibilidad baja de 288,2 a 0,4 ms, con CPU x4 y movil emulado. El reporte conserva otros picos observados: es una mejora puntual, no una promesa de eliminar todas las tareas largas ni de reducir igual el arranque total.
+- Impide que una actualizacion diferida reabra fichas cerradas de continente, religion o grupo. Comprueba visibilidad al programar y al ejecutar, agrupa refrescos y conserva la seleccion actual.
+- Muestra la poblacion mundial al abrir Rankings, sin esperar al trabajo diferido del arranque. No modifica ese contenido con el panel cerrado ni reinserta valores identicos; deja de actualizar el aviso de inicio una vez retirado.
+- Agrega regresiones unitarias y E2E en escritorio/movil emulado de apertura, cierre, refrescos tardios, seleccion y contenidos sin layout. Incorpora una comparacion reproducible de CSS en seis trazas alternadas y diagnostico opcional de mutaciones/ancestros de layout; no sustituye las mediciones de 60 segundos ni la prueba en un telefono fisico.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-14-release-1`.
 
 ## v1.6.238 - 2026-09-13
 

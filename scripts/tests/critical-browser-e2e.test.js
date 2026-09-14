@@ -1078,6 +1078,65 @@ async function testCountryDataRecovery(browser, baseUrl) {
   }
 }
 
+async function testBackgroundPanels(browser, baseUrl) {
+  for (const viewport of [DESKTOP_VIEWPORT, MOBILE_VIEWPORT]) {
+    const label = viewport === MOBILE_VIEWPORT ? "mobile" : "desktop";
+    const test = await createTestPage(browser, baseUrl, viewport);
+    const { page } = test;
+    try {
+      await waitForAppReady(page, { requireTiles: false });
+      const panels = [
+        ["map-toolbar", ".toolbar-content"], ["rankings-panel", ".left-panel-inner"],
+        ["compare-hub-panel", ".compare-hub-content"], ["quiz-hub-panel", ".quiz-hub-content"],
+        ["news-hub-panel", ".news-hub-content"]
+      ];
+      for (const [id, content] of panels) {
+        const hidden = await page.locator(`#${id} > ${content}`).evaluate(element => ({
+          display: getComputedStyle(element).display, rects: element.getClientRects().length
+        }));
+        assert.deepEqual(hidden, { display: "none", rects: 0 }, label + " contenido cerrado sin layout: " + id);
+      }
+      await page.locator(label === "mobile" ? "#toggle-left-panel" : "#rankings-summary").click();
+      await page.waitForFunction(() => document.getElementById("world-population-total").textContent === formatNumber(worldPopulationTotal));
+      assert.ok(await page.locator("#world-population-total").isVisible(), label + " total disponible al abrir Rankings");
+      await page.waitForFunction(() => {
+        const bounds = document.getElementById("rankings-panel").getBoundingClientRect();
+        return bounds.left >= 0 && bounds.right <= innerWidth;
+      });
+      await page.screenshot({ path: "tmp/rankings-ready-" + label + ".png" });
+      await page.locator(label === "mobile" ? "#toggle-left-panel" : "#rankings-summary").click();
+
+      for (const [query, type] of [["Asia", "continent"], ["Cristianismo", "religion"]]) {
+        await submitSearch(page, query);
+        await page.waitForFunction(expected => currentPanelState.type === expected && !document.getElementById("country-modal").hidden, type);
+        await closeCountryPanel(page);
+        const before = await page.evaluate(() => ({ html: document.getElementById("country-panel").innerHTML, selection: selectedLayers.map(layer => layer.code) }));
+        // Deliver the same refresh used by supplemental data after the user closed the card.
+        await page.evaluate(async () => {
+          await loadDeferredDataEnhancements();
+          refreshGlobalStats();
+          rerenderCurrentPanel();
+          await new Promise(resolve => setTimeout(resolve, 50));
+        });
+        assert.equal(await page.locator("#country-modal").isVisible(), false, label + " no reabre " + type);
+        assert.deepEqual(await page.evaluate(() => ({ html: document.getElementById("country-panel").innerHTML, selection: selectedLayers.map(layer => layer.code) })), before);
+      }
+
+      for (const [id, content] of panels) {
+        // Native details state must still expose the existing workspace without CSS overrides.
+        await page.locator(`#${id}`).evaluate(element => { element.open = true; });
+        await page.locator(`#${id} > ${content}`).waitFor({ state: "visible" });
+        assert.ok(await page.locator(`#${id} > ${content}`).evaluate(element => element.getBoundingClientRect().height > 0));
+        await page.locator(`#${id}`).evaluate(element => { element.open = false; });
+        await page.locator(`#${id} > ${content}`).waitFor({ state: "hidden" });
+      }
+      assertHealthyPage(test.pageErrors, label + " paneles en segundo plano");
+    } finally {
+      await test.context.close();
+    }
+  }
+}
+
 async function testFirstWorkerActivation(browser, baseUrl) {
   const context = await browser.newContext({ viewport: MOBILE_VIEWPORT, isMobile: true, hasTouch: true, serviceWorkers: "allow" });
   let releaseWorker;
@@ -1167,7 +1226,8 @@ try {
     ["--offline-only", testFirstWorkerActivation],
     ["--data-only", testRequiredStartupData],
     ["--country-data-only", testCountryDataRecovery],
-    ["--scheduler-only", testDeferredWorkDuringDrag]
+    ["--scheduler-only", testDeferredWorkDuringDrag],
+    ["--panels-only", testBackgroundPanels]
   ];
   const focused = focusedFlows.some(([flag]) => process.argv.includes(flag));
   for (const [flag, run] of focusedFlows) {

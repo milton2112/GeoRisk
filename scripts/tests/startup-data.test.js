@@ -10,6 +10,7 @@ import "./startup-resources.test.js";
 import "./map-engine-startup.test.js";
 import "./country-detail-loading.test.js";
 import "./boot-scheduler.test.js";
+import "./background-panels.test.js";
 
 const projectRoot = path.resolve(process.cwd());
 const full = await fs.readJson(path.join(projectRoot, "data", "countries_full.json"));

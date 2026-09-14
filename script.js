@@ -85,7 +85,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-09-13-release-2";
+const APP_VERSION = "2026-09-14-release-1";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -10040,15 +10040,15 @@ function updateStaticText() {
 let rerenderCurrentPanelFrame = null;
 
 function rerenderCurrentPanel() {
-  if (rerenderCurrentPanelFrame !== null) {
+  if (document.getElementById("country-modal")?.hidden || rerenderCurrentPanelFrame !== null) {
     return;
   }
 
   const flush = () => {
     rerenderCurrentPanelFrame = null;
+    if (document.getElementById("country-modal")?.hidden) return;
 
     if (currentPanelState.type === "country" && currentPanelState.code && countriesData[currentPanelState.code]) {
-      if (document.getElementById("country-modal")?.hidden) return;
       renderCountry(countriesData[currentPanelState.code], currentPanelState.fallbackName);
       return;
     }
@@ -12947,8 +12947,10 @@ function shuffleArray(items) {
 }
 
 function generateWorldPopulation() {
+  if (!isRankingsPanelOpen()) return;
   const target = document.getElementById("world-population-total");
-  target.textContent = formatNumber(worldPopulationTotal);
+  const label = formatNumber(worldPopulationTotal);
+  if (target && target.textContent !== label) target.textContent = label;
 }
 
 function generateTopPopulation() {
@@ -14270,8 +14272,9 @@ function setupRankingsPanel() {
   rankingsPanel.open = false;
   syncRankingActiveSummary("");
   rankingsPanel.addEventListener("toggle", () => {
-    if (rankingsPanel.open && !deferredGlobalStatsReady) {
-      scheduleDeferredGlobalStats(true);
+    if (rankingsPanel.open) {
+      runCriticalGlobalStats();
+      if (!deferredGlobalStatsReady) scheduleDeferredGlobalStats(true);
     }
   });
 }
@@ -15041,7 +15044,6 @@ async function init() {
     };
 
     const bootHeavyDataEnhancements = () => {
-      setStartupStatus(currentLanguage === "en" ? "Heavy details remain on demand." : "Los detalles pesados quedan bajo demanda.");
       dataLoadPromise
         .then(() => loadDeferredDataEnhancements())
         .catch(error => {
