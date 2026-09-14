@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.239 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.240 antes de cerrar la siguiente version.
+
+## v1.6.240 - 2026-09-14
+
+- Corrige la activacion prematura de controles cuando el globo ya tenia un frame pero los paises seguian preparando su geometria. Espera un frame posterior a la disponibilidad real de las entidades antes de habilitar fichas, busqueda, rankings y bienvenida.
+- Agrega la etapa `countryOverlayReady`, con limite de 20 segundos y recarga ante fallo. Comparte esperas concurrentes, conserva el update original de Cesium y limpia listeners y temporizadores al terminar; las respuestas tardias no reactivan un arranque fallido.
+- Agrega pruebas unitarias de estados, concurrencia y limpieza, y E2E de primer clic real sin preseleccion ni reintentos en escritorio y movil emulado, incluida recuperacion despues de timeout.
+- Amplia el perfilador con movimiento de seis segundos, diagnostico WebGL opcional y comparacion explicita de antialias nativo. La prueba exploratoria no justifico desactivarlo y se conserva la calidad actual.
+- El hito de disponibilidad ahora incluye el dibujo de paises; no comparar su duracion con versiones anteriores como una mejora de velocidad. La medicion independiente de 60 segundos conserva los costos de render y tareas largas desde la navegacion. No modifica datos ni sustituye pruebas en un telefono fisico.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-14-release-2`.
 
 ## v1.6.239 - 2026-09-14
 

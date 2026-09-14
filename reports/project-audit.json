@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-14T07:02:57.144Z",
+  "generatedAt": "2026-09-14T13:44:08.555Z",
   "status": "operativo",
   "startup": {
-    "critical": "844 KB",
-    "criticalBytes": 864061,
+    "critical": "847 KB",
+    "criticalBytes": 867525,
     "scope": "App shell and eager local scripts only; excludes the separately budgeted map engine.",
     "mapEngine": {
       "path": "vendor/cesium/engine.js",
@@ -11,7 +11,7 @@
       "human": "3.27 MB",
       "precached": false
     },
-    "appCoreAndEngineBytes": 4292451,
+    "appCoreAndEngineBytes": 4295915,
     "deferred": "3.10 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 13106533,
@@ -40,8 +40,8 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 575806,
-        "human": "562 KB",
+        "bytes": 576418,
+        "human": "563 KB",
         "startupCritical": true,
         "category": "startup-app-core"
       },
@@ -832,14 +832,14 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 575806,
-      "human": "562 KB"
+      "bytes": 576418,
+      "human": "563 KB"
     },
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 272852,
-      "human": "266 KB"
+      "bytes": 274187,
+      "human": "268 KB"
     },
     {
       "path": "style.css",
@@ -848,15 +848,15 @@
       "human": "83 KB"
     },
     {
+      "path": "TECHNICAL.md",
+      "exists": true,
+      "bytes": 34615,
+      "human": "34 KB"
+    },
+    {
       "path": "index.html",
       "exists": true,
       "bytes": 32953,
-      "human": "32 KB"
-    },
-    {
-      "path": "TECHNICAL.md",
-      "exists": true,
-      "bytes": 32411,
       "human": "32 KB"
     },
     {
@@ -938,6 +938,12 @@
       "human": "5 KB"
     },
     {
+      "path": "app-map.js",
+      "exists": true,
+      "bytes": 5146,
+      "human": "5 KB"
+    },
+    {
       "path": "app-boot-scheduler.js",
       "exists": true,
       "bytes": 4466,
@@ -959,12 +965,6 @@
       "path": "app-rankings-worker.js",
       "exists": true,
       "bytes": 2439,
-      "human": "2 KB"
-    },
-    {
-      "path": "app-map.js",
-      "exists": true,
-      "bytes": 2294,
       "human": "2 KB"
     },
     {

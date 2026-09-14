@@ -1,0 +1,52 @@
+{
+  "kind": "exploratory-diagnostic",
+  "baselineVersion": "1.6.239",
+  "baselineCommit": "283b6606a3f8f9d2fcb40f9fc1b9b0654141031a",
+  "methodology": "Six sequential ABBAAB traces on the v1.6.239 production build, mobile emulated with CPU x4. No CPU sampling or WebGL wrappers. Eight seconds after readiness, including six seconds of camera movement. Native canvas antialias is the only overridden setting. maxTaskMs is the largest traced post-ready RunTask; activeFps counts scene postRender events. Instrumented exploratory data, not the 60-second release benchmark or a physical phone test.",
+  "command": "node scripts/profileStartup.js --trace-only --active-map --native-aa=<on|off> --observe-ms=8000",
+  "conclusion": "No consistent benefit from disabling native antialias. Production quality remains unchanged. Readiness semantics change in v1.6.240, so these post-ready samples must not be directly compared with that release.",
+  "samples": [
+  {
+    "nativeAa": "on",
+    "contextAntialias": true,
+    "measuredAt": "2026-09-14T07:43:01.811Z",
+    "maxTaskMs": 181.106,
+    "activeFps": 21.408301110245446
+  },
+  {
+    "nativeAa": "off",
+    "contextAntialias": false,
+    "measuredAt": "2026-09-14T07:43:13.991Z",
+    "maxTaskMs": 122.057,
+    "activeFps": 21.582853253200742
+  },
+  {
+    "nativeAa": "off",
+    "contextAntialias": false,
+    "measuredAt": "2026-09-14T07:43:26.465Z",
+    "maxTaskMs": 195.166,
+    "activeFps": 21.30031784068094
+  },
+  {
+    "nativeAa": "on",
+    "contextAntialias": true,
+    "measuredAt": "2026-09-14T07:43:38.702Z",
+    "maxTaskMs": 217.603,
+    "activeFps": 21.33226671999634
+  },
+  {
+    "nativeAa": "on",
+    "contextAntialias": true,
+    "measuredAt": "2026-09-14T07:43:51.046Z",
+    "maxTaskMs": 179.88,
+    "activeFps": 21.60365600332364
+  },
+  {
+    "nativeAa": "off",
+    "contextAntialias": false,
+    "measuredAt": "2026-09-14T07:44:03.077Z",
+    "maxTaskMs": 192.589,
+    "activeFps": 21.37991613769263
+  }
+  ]
+}

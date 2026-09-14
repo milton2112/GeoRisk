@@ -64,6 +64,74 @@
     return normalizeMapMode(mode) === MODE_2D || isMobile || bootPhase || zoomBucket !== "near";
   }
 
+  const dataSourceFrameWaits = new WeakMap();
+
+  function waitForDataSourceFrame({ viewer, source, isCurrent = () => true, timeoutMs = 20000 }) {
+    const scene = viewer?.scene;
+    const display = viewer?.dataSourceDisplay;
+    if (!source || typeof display?.update !== "function" || !scene?.postRender ||
+        typeof scene.requestRender !== "function" || typeof viewer.dataSources?.contains !== "function") {
+      return Promise.reject(new Error("Country renderer unavailable."));
+    }
+    const pending = dataSourceFrameWaits.get(display);
+    if (pending) return pending.source === source ? pending.promise : Promise.reject(new Error("Another country renderer is pending."));
+    const promise = new Promise((resolve, reject) => {
+      const originalUpdate = display.update;
+      const hadOwnUpdate = Object.hasOwn(display, "update");
+      let ready = false;
+      let settled = false;
+      let timer;
+      // Cesium's .ready stays true after an empty scene. Use the live update result.
+      function trackUpdate(...args) {
+        try {
+          const result = originalUpdate.apply(this, args);
+          if (this === display) ready = result === true;
+          return result;
+        } catch (error) {
+          finish(error);
+          throw error;
+        }
+      }
+      function finish(error) {
+        if (settled) return;
+        settled = true;
+        clearTimeout(timer);
+        scene.postRender.removeEventListener(onFrame);
+        scene.renderError?.removeEventListener(onError);
+        if (display.update === trackUpdate) {
+          if (hadOwnUpdate) display.update = originalUpdate;
+          else delete display.update;
+        }
+        if (error) reject(error);
+        else resolve(source);
+      }
+      function onError(_scene, error) {
+        finish(new Error("Country renderer failed.", { cause: error }));
+      }
+      function onFrame() {
+        try {
+          if (viewer.isDestroyed?.() || viewer.useDefaultRenderLoop === false || !isCurrent() ||
+              source.show === false || !viewer.dataSources.contains(source)) {
+            finish(new Error("Country renderer changed before the first complete frame."));
+            return;
+          }
+          if (ready) finish();
+          else scene.requestRender();
+        } catch (error) {
+          finish(error);
+        }
+      }
+      display.update = trackUpdate;
+      scene.postRender.addEventListener(onFrame);
+      scene.renderError?.addEventListener(onError);
+      timer = setTimeout(() => finish(new Error("Country rendering timed out.")), timeoutMs);
+      try { scene.requestRender(); } catch (error) { finish(error); }
+    });
+    const tracked = promise.finally(() => dataSourceFrameWaits.delete(display));
+    dataSourceFrameWaits.set(display, { source, promise: tracked });
+    return tracked;
+  }
+
   window.GeoRiskMap = {
     MODE_2D,
     MODE_3D,
@@ -72,6 +140,7 @@
     getReducedPerformanceLabel,
     getTransitionPlan,
     normalizeMapMode,
-    shouldDeferDetailedGeometry
+    shouldDeferDetailedGeometry,
+    waitForDataSourceFrame
   };
 })();

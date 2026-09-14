@@ -10,6 +10,11 @@ await fs.access(path.join(root, "index.html"));
 const profile = PERFORMANCE_PROFILES.find(item => item.name === (process.argv.includes("--desktop") ? "desktop" : "mobile-emulated"));
 const sampleCpu = !process.argv.includes("--trace-only");
 const inspectDom = process.argv.includes("--dom-details");
+const activeMap = process.argv.includes("--active-map");
+const inspectWebgl = process.argv.includes("--webgl-details");
+const nativeAaArg = process.argv.find(arg => arg.startsWith("--native-aa="));
+const nativeAa = nativeAaArg ? nativeAaArg.slice("--native-aa=".length) : null;
+if (nativeAa !== null && !["on", "off"].includes(nativeAa)) throw new Error("--native-aa must be on or off.");
 const engineBundleArg = process.argv.find(arg => arg.startsWith("--engine-bundle="));
 const engineBundlePath = engineBundleArg ? path.resolve(engineBundleArg.slice("--engine-bundle=".length)) : null;
 const engineBundle = engineBundlePath ? await fs.readFile(engineBundlePath) : null;
@@ -22,10 +27,11 @@ const baselineStyleArg = process.argv.find(arg => arg.startsWith("--baseline-sty
 const baselineStyleRef = baselineStyleArg ? execFileSync("git", ["rev-parse", "--verify", "--end-of-options", `${baselineStyleArg.slice("--baseline-style=".length)}^{commit}`], { encoding: "utf8" }).trim() : null;
 const baselineStyle = baselineStyleRef ? execFileSync("git", ["show", `${baselineStyleRef}:style.css`], { encoding: "utf8" }) : null;
 const observeArg = process.argv.find(arg => arg.startsWith("--observe-ms="));
-const observeMs = observeArg ? Number(observeArg.slice("--observe-ms=".length)) : 5000;
+const observeMs = observeArg ? Number(observeArg.slice("--observe-ms=".length)) : activeMap ? 8000 : 5000;
 if (!Number.isInteger(observeMs) || observeMs < 1000 || observeMs > 60000) {
   throw new Error("--observe-ms debe ser un entero entre 1000 y 60000.");
 }
+if (activeMap && observeMs < 6500) throw new Error("--active-map requiere --observe-ms de al menos 6500.");
 const server = createLocalSmokeServer({ root });
 await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
 let browser;
@@ -59,6 +65,40 @@ try {
   }
   await cdp.send("Tracing.start", { categories: "devtools.timeline,v8,blink.user_timing,disabled-by-default-devtools.timeline" + (inspectDom ? ",blink,renderer.scheduler,loading,disabled-by-default-devtools.timeline.invalidationTracking" : ""), transferMode: "ReportEvents" });
   await page.addInitScript(() => localStorage.setItem("geo-risk-intro-seen", "true"));
+  if (nativeAa !== null) await page.addInitScript(enabled => {
+    const original = HTMLCanvasElement.prototype.getContext;
+    HTMLCanvasElement.prototype.getContext = function (type, options) {
+      return original.call(this, type, /^(webgl2?|experimental-webgl)$/.test(type) ? { ...options, antialias: enabled } : options);
+    };
+  }, nativeAa === "on");
+  if (inspectWebgl) await page.addInitScript(() => {
+    window.__geoRiskWebglTrace = [];
+    const shaderSources = new WeakMap();
+    const programs = new WeakMap();
+    const prototypes = [window.WebGLRenderingContext?.prototype, window.WebGL2RenderingContext?.prototype].filter(Boolean);
+    for (const proto of prototypes) {
+      for (const name of ["shaderSource", "attachShader", "compileShader", "linkProgram", "getProgramParameter", "texImage2D", "renderbufferStorageMultisample"]) {
+        const original = proto[name];
+        if (typeof original !== "function") continue;
+        proto[name] = function (...args) {
+          const at = performance.now();
+          const value = original.apply(this, args);
+          const durationMs = performance.now() - at;
+          if (args[0] !== null && typeof args[0] === "object") {
+            if (name === "shaderSource") shaderSources.set(args[0], String(args[1]));
+            if (name === "attachShader") programs.set(args[0], [...(programs.get(args[0]) || []), args[1]]);
+          }
+          if (durationMs >= 5 && window.__geoRiskWebglTrace.length < 500) {
+            const sources = programs.has(args[0]) ? programs.get(args[0]).map(shader => shaderSources.get(shader) || "") : [shaderSources.get(args[0]) || ""];
+            window.__geoRiskWebglTrace.push({ name, at, durationMs,
+              defines: [...new Set(sources.flatMap(source => source.match(/^#define .+/gm) || []))],
+              sourceBytes: sources.map(source => source.length) });
+          }
+          return value;
+        };
+      }
+    }
+  });
   const baseUrl = `http://127.0.0.1:${server.address().port}`;
   await page.goto(baseUrl + "/index.html", { waitUntil: "domcontentloaded", timeout: 45000 });
   await page.waitForFunction(() => typeof countryLayers !== "undefined" && countryLayers.has("ARG") && !document.body.classList.contains("globe-loading"), undefined, { timeout: 45000 });
@@ -82,10 +122,27 @@ try {
       };
     }
   });
-  await page.evaluate(ms => {
+  await page.evaluate(({ ms, activeMap }) => {
     performance.mark("georisk-profile-ready");
+    if (activeMap) {
+      const start = performance.now();
+      const frames = [];
+      const removeListener = viewer.scene.postRender.addEventListener(() => frames.push(performance.now()));
+      const move = () => {
+        if (performance.now() - start >= 6000) {
+          removeListener();
+          window.__geoRiskActiveTrace = { start, end: performance.now(), frames: frames.length };
+          return;
+        }
+        if (viewer.scene.mode === Cesium.SceneMode.SCENE2D) viewer.camera.moveRight(60000);
+        else viewer.camera.rotateRight(0.003);
+        viewer.scene.requestRender();
+        requestAnimationFrame(move);
+      };
+      requestAnimationFrame(move);
+    }
     return new Promise(resolve => setTimeout(resolve, ms));
-  }, observeMs);
+  }, { ms: observeMs, activeMap });
   const cpu = sampleCpu ? (await cdp.send("Profiler.stop")).profile : null;
   const tracingComplete = new Promise(resolve => cdp.once("Tracing.tracingComplete", resolve));
   await cdp.send("Tracing.end");
@@ -123,7 +180,14 @@ try {
     name: nodes.get(id)?.callFrame.functionName || "(anonymous)", url: localUrl(nodes.get(id)?.callFrame.url), line: (nodes.get(id)?.callFrame.lineNumber ?? -1) + 1, selfMs
   }));
   const runtime = await page.evaluate(() => ({ declaredMode: currentMapMode, actualMode: viewer.scene.mode, mode2d: Cesium.SceneMode.SCENE2D, mode3d: Cesium.SceneMode.SCENE3D }));
-  const report = { generatedAt: new Date().toISOString(), browserVersion: browser.version(), profile, runtime, baselineStyleRef, engineOverride, moduleEvaluations, layout, domDetails, observeAfterReadyMs: observeMs, cpuSampling: sampleCpu, methodology: `Diagnostic trace${sampleCpu ? " and CPU sampling" : " without CPU sampling"}; timings include instrumentation overhead, not the release benchmark. afterReadyMs is relative to the map-ready mark. Overrides replace only their selected resource; all other assets use the current build. DOM details add mutation observation and function wrappers only when requested.`, work, functions };
+  const webglDetails = inspectWebgl ? await page.evaluate(() => window.__geoRiskWebglTrace) : null;
+  const activeRender = activeMap ? await page.evaluate(() => window.__geoRiskActiveTrace) : null;
+  if (activeMap && !activeRender) throw new Error("La muestra de movimiento no termino; aumentar --observe-ms.");
+  const contextAntialias = await page.evaluate(() => {
+    const canvas = viewer.scene.canvas;
+    return (canvas.getContext("webgl2") || canvas.getContext("webgl"))?.getContextAttributes()?.antialias ?? null;
+  });
+  const report = { generatedAt: new Date().toISOString(), browserVersion: browser.version(), profile, runtime, baselineStyleRef, engineOverride, moduleEvaluations, layout, domDetails, webglDetails, activeMap, activeRender, nativeAaOverride: nativeAa, contextAntialias, observeAfterReadyMs: observeMs, cpuSampling: sampleCpu, methodology: `Diagnostic trace${sampleCpu ? " and CPU sampling" : " without CPU sampling"}; timings include instrumentation overhead, not the release benchmark. afterReadyMs is relative to the map-ready mark. Overrides replace only their selected resource or the explicitly requested native canvas AA setting. DOM/WebGL details add observation and wrappers only when requested; active-map repeats the release camera movement for up to six seconds.`, work, functions };
   await fs.mkdir("reports", { recursive: true });
   await fs.writeFile("reports/startup-profile.json", JSON.stringify(report, null, 2) + "\n");
   console.log("Diagnostico: reports/startup-profile.json");

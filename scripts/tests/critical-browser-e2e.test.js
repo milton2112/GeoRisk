@@ -512,6 +512,83 @@ async function testMapEngineStartup(browser, baseUrl) {
   }
 }
 
+async function testCountryOverlayReadiness(browser, baseUrl) {
+  for (const [viewport, scenario] of [[DESKTOP_VIEWPORT, "release"], [MOBILE_VIEWPORT, "release"], [MOBILE_VIEWPORT, "timeout"]]) {
+    const label = viewport === MOBILE_VIEWPORT ? "mobile" : "desktop";
+    const test = await createTestPage(browser, baseUrl, viewport, async page => {
+      await page.addInitScript(expire => {
+        window.__holdCountryFrame = !sessionStorage.getItem("overlay-recovered");
+        window.__expireCountryFrame = expire && window.__holdCountryFrame;
+        Object.defineProperty(window, "GeoRiskMap", {
+          configurable: true,
+          set(api) {
+            Object.defineProperty(window, "GeoRiskMap", { value: api, configurable: true, writable: true });
+            const wait = api.waitForDataSourceFrame;
+            if (typeof wait !== "function") return;
+            api.waitForDataSourceFrame = options => {
+              const display = options.viewer.dataSourceDisplay;
+              const update = display.update;
+              const controlledUpdate = function (...args) {
+                const ready = update.apply(this, args);
+                window.__countryUpdates = (window.__countryUpdates || 0) + 1;
+                return window.__holdCountryFrame ? false : ready;
+              };
+              display.update = controlledUpdate;
+              window.__countryFrameWaitStarted = true;
+              return wait({ ...options, timeoutMs: window.__expireCountryFrame ? 250 : options.timeoutMs }).finally(() => {
+                if (display.update === controlledUpdate) delete display.update;
+                window.__countryFrameWaitFinished = true;
+              });
+            };
+          }
+        });
+      }, scenario === "timeout");
+    });
+    const { page } = test;
+    try {
+      if (scenario === "timeout") {
+        await page.locator("#fatal-error-banner").waitFor({ state: "visible" });
+        assert.match(await page.locator("#fatal-error-banner").innerText(), /No se pudieron dibujar los limites/);
+        assert.equal(await page.evaluate(() => Object.hasOwn(viewer.dataSourceDisplay, "update")), false);
+        await page.evaluate(() => { window.__holdCountryFrame = false; viewer.scene.requestRender(); });
+        await page.waitForTimeout(350);
+        assert.equal(await page.evaluate(() => document.body.classList.contains("globe-loading")), true, "un resultado tardio no habilita una sesion fallida");
+        await page.screenshot({ path: "tmp/country-overlay-timeout-mobile.png" });
+        await page.evaluate(() => sessionStorage.setItem("overlay-recovered", "true"));
+        await page.locator("#fatal-error-banner a").click();
+      } else {
+        await page.waitForFunction(() => window.__countryFrameWaitStarted && window.__countryUpdates > 3);
+        assert.equal(await page.evaluate(() => document.body.classList.contains("globe-loading")), true);
+        assert.equal(await page.locator("#map-search-input").isVisible(), false, label + " no habilita busqueda con geometria pendiente");
+        assert.equal(await page.locator("#intro-modal").isVisible(), false);
+        await page.screenshot({ path: "tmp/country-overlay-pending-" + label + ".png" });
+        await page.evaluate(() => { window.__holdCountryFrame = false; viewer.scene.requestRender(); });
+      }
+      await waitForAppReady(page, { requireTiles: false });
+      assert.equal(await page.evaluate(() => window.__countryFrameWaitFinished), true);
+      assert.equal(await page.evaluate(() => Object.hasOwn(viewer.dataSourceDisplay, "update")), false);
+      const code = label === "mobile" ? "ARG" : "ESP";
+      const point = await page.evaluate(countryCode => {
+        const rect = countryLayers.get(countryCode).getBounds();
+        const center = Cesium.Rectangle.center(rect);
+        const position = Cesium.Cartesian3.fromRadians(center.longitude, center.latitude);
+        const pixel = viewer.scene.cartesianToCanvasCoordinates(position);
+        const canvas = viewer.scene.canvas.getBoundingClientRect();
+        return { x: canvas.left + pixel.x, y: canvas.top + pixel.y };
+      }, code);
+      // One actual click, without pre-picking or retrying to warm the renderer.
+      if (label === "mobile") await page.touchscreen.tap(point.x, point.y);
+      else await page.mouse.click(point.x, point.y);
+      await page.waitForFunction(expected => selectedLayers.some(layer => layer.code === expected), code, { timeout: MAP_PICK_TIMEOUT_MS });
+      await page.locator("#country-panel .country-profile").waitFor();
+      await page.screenshot({ path: "tmp/country-first-click-" + label + ".png" });
+      assertHealthyPage(test.pageErrors, label + " primer frame completo y primer clic");
+    } finally {
+      await test.context.close();
+    }
+  }
+}
+
 async function testControlsStartup(browser, baseUrl) {
   const context = await browser.newContext({ viewport: MOBILE_VIEWPORT, isMobile: true, hasTouch: true, serviceWorkers: "block" });
   let releaseMain;
@@ -1221,6 +1298,7 @@ try {
     ["--performance-only", testIdleMapPerformance],
     ["--startup-only", testMapEngineStartup],
     ["--startup-only", testControlsStartup],
+    ["--overlay-ready-only", testCountryOverlayReadiness],
     ["--detail-only", testDetailedMapUpgrade],
     ["--recovery-only", testRenderRecovery],
     ["--offline-only", testFirstWorkerActivation],
