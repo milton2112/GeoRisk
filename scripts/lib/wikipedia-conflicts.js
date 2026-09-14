@@ -348,6 +348,8 @@ export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
   "Combate de Drohiczyn (1192)": "Battle_of_Drohiczyn",
   "Combate naval de Jask (1620)": "Battle_off_Jask",
   "Batalla naval de Pirano (1812)": "Battle_of_Pirano",
+  "Batalla del cabo de Gata (1815)": "Battle_off_Cape_Gata",
+  "Batalla naval frente a Halifax (1782)": "Battle_off_Halifax_(1782)",
   "Batalla naval de Santo Domingo (1806)": "Battle_of_San_Domingo",
   "Batalla naval de Santa Luc\u00eda (1778)": "Battle_of_St._Lucia",
   "Batalla naval de Lissa (1811)": "Battle_of_Lissa_(1811)",

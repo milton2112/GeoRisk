@@ -783,6 +783,11 @@ import {
   PIRANO_GRADO_CONFLICT_RENAMES
 } from "./lib/conflict-curation-pirano-grado.js";
 import {
+  GATA_HALIFAX_CONFLICT_DETAIL_FIXES,
+  GATA_HALIFAX_COUNTRY_CONFLICT_ADDITIONS,
+  GATA_HALIFAX_CONFLICT_RENAMES
+} from "./lib/conflict-curation-gata-halifax.js";
+import {
   CABO_BOJADOR_COUNTRY_CONFLICT_EXCLUSIONS
 } from "./lib/conflict-curation-cabo-bojador.js";
 import {
@@ -976,7 +981,8 @@ const curatedConflictDetailFixes = {
   ...DROHICZYN_CONFLICT_DETAIL_FIXES,
   ...JASK_CONFLICT_DETAIL_FIXES,
   ...GOTSKA_SANDON_CONFLICT_DETAIL_FIXES,
-  ...PIRANO_GRADO_CONFLICT_DETAIL_FIXES
+  ...PIRANO_GRADO_CONFLICT_DETAIL_FIXES,
+  ...GATA_HALIFAX_CONFLICT_DETAIL_FIXES
 };
 
 const generatedConflictDetailExclusionNames = [
@@ -1152,7 +1158,8 @@ const safeConflictRenames = {
   ...DROHICZYN_CONFLICT_RENAMES,
   ...JASK_CONFLICT_RENAMES,
   ...GOTSKA_SANDON_CONFLICT_RENAMES,
-  ...PIRANO_GRADO_CONFLICT_RENAMES
+  ...PIRANO_GRADO_CONFLICT_RENAMES,
+  ...GATA_HALIFAX_CONFLICT_RENAMES
 };
 const conflictReferenceRenames = {
   ...ILE_RONDE_1794_CONFLICT_REFERENCE_RENAMES
@@ -1278,7 +1285,8 @@ const countryConflictAdditionBatches = [
   VINH_YEN_1951_COUNTRY_CONFLICT_ADDITIONS,
   JASK_COUNTRY_CONFLICT_ADDITIONS,
   GOTSKA_SANDON_COUNTRY_CONFLICT_ADDITIONS,
-  PIRANO_GRADO_COUNTRY_CONFLICT_ADDITIONS
+  PIRANO_GRADO_COUNTRY_CONFLICT_ADDITIONS,
+  GATA_HALIFAX_COUNTRY_CONFLICT_ADDITIONS
 ];
 const countryConflictAdditions = mergeCountryConflictBatches(countryConflictAdditionBatches);
 const countryConflictExclusionBatches = [

@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-09-14T13:44:09.351Z",
+  "generatedAt": "2026-09-14T14:22:11.715Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 94
+      "count": 92
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 27
+      "count": 25
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 614
+      "count": 616
     },
     "redundantReligions": {
       "count": 0
@@ -422,21 +422,7 @@
       },
       {
         "code": "USA",
-        "name": "Batalla del cabo de Gata",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
-      {
-        "code": "USA",
         "name": "Batalla del río Malalag",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
-      {
-        "code": "USA",
-        "name": "Batalla naval de Halifax",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
@@ -583,6 +569,15 @@
           "SVK",
           "THA",
           "UKR",
+          "USA"
+        ]
+      },
+      {
+        "name": "Batalla del cabo de Gata (1815)",
+        "count": 3,
+        "countries": [
+          "DZA",
+          "ESP",
           "USA"
         ]
       },
@@ -837,14 +832,6 @@
       },
       {
         "name": "Hundimiento del ARA General Belgrano",
-        "count": 2,
-        "countries": [
-          "ARG",
-          "GBR"
-        ]
-      },
-      {
-        "name": "Operación Black Buck",
         "count": 2,
         "countries": [
           "ARG",
@@ -1451,7 +1438,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 27,
+      "count": 25,
       "command": "npm run fix:conflicts:batches"
     },
     {

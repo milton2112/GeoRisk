@@ -301,6 +301,14 @@ La puerta de release permite `--reuse-browser`: reutiliza una muestra completa d
 
 `npm run build:indexes` genera `data/runtime_supplemental.json` a partir del dataset curado y del CSV poblacional interno. El cliente descarga ese suplemento diferido, no `data/raw/**`. Conserva el intervalo de años de cada variación poblacional y omite las tasas anuales cuando faltan observaciones consecutivas. El service worker lo almacena solo tras consultarlo, fuera de `APP_SHELL`.
 
+## Curaduria naval de septiembre de 2026
+
+La v1.6.241 incorpora `scripts/lib/conflict-curation-gata-halifax.js` al autofix existente. El grano es una accion historica unica, compartida por varios enlaces de pais, no un conflicto distinto por cada Estado actual. Gata se publica bajo 1815 y la segunda guerra berberisca; Halifax, bajo 1782 y la independencia estadounidense. Las fuentes y cautelas viajan en los shards profundos, no en el indice inicial. Gata agrega Argelia y Espana; Halifax agrega Canada y Reino Unido. Espana y Canada no se presentan como participantes historicos por esos enlaces.
+
+El catalogo naval y DANFS coinciden en el 17 de junio para Gata, pero otra sintesis del NHHC indica el 18 y DANFS usa una localizacion diferente. Se explicitan esas diferencias. Para Halifax, los relatos reproducidos por la Colonial Society ubican el inicio el 28 de mayo y la rendicion la madrugada del 29; el catalogo NH 56479 registra el 29. No se fusionan recuentos divergentes de duracion o bajas. El total sigue en 2000 conflictos: las jerarquias provisionales pasan de 27 a 25, los no fechados de 94 a 92 y el indice fechable de 1905 a 1907. `gata-halifax-curation.test.js` comprueba nombres, enlaces, fechas, fuentes, ausencia de duplicados y separacion entre perfiles compactos y detalle.
+
+La ficha ahora propaga `datePrecision`, `curationNote` y `treaties`, escapa su texto y no genera secciones vacias. El refresco diferido exige el mismo token de apertura y la misma entrada del registro, ademas del modal visible; cerrar, reabrir o cambiar de conflicto invalida la respuesta anterior. Los eventos del mismo ano conservan el orden editorial. La presentacion respeta metadatos explicitos antes de inferir tipo, escala o region y distingue la preposicion "frente a" de un frente militar. `test:modal-render` prueba estos contratos; `test:e2e:critical -- --conflict-curation-only` retiene una descarga, cambia de conflicto y comprueba notas, fechas, tratados y ancho util en ambos viewports.
+
 ## Limites conocidos
 
 - `script.js` sigue siendo grande y todavia concentra orquestacion importante.

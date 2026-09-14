@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-09-04T22:20:31.939Z",
-  "changedFullCountries": 2,
+  "generatedAt": "2026-09-14T14:16:15.525Z",
+  "changedFullCountries": 5,
   "fullPassChanges": [
-    2,
+    5,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 206,
+    "enriched": 208,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1101,
+  "generatedHierarchyCandidates": 1103,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -40,7 +40,9 @@
       "Acción naval de Tatamagouche (15 de junio de 1745)",
       "Batalla de Jackson (Misisipi, 14 de mayo de 1863)",
       "Segunda batalla de Springfield (Misuri, 8 de enero de 1863)",
-      "Batalla de Río Grande City (27 de diciembre de 1859)"
+      "Batalla de Río Grande City (27 de diciembre de 1859)",
+      "Batalla del cabo de Gata (1815)",
+      "Batalla naval frente a Halifax (1782)"
     ],
     "nicaragua": [
       "Batalla de Masaya",
@@ -209,7 +211,8 @@
       "Accion naval del paso de Doro (1827)",
       "Batalla de Ty-ho Bay (4 de agosto de 1855)",
       "Combate naval de Jask (1620)",
-      "Batalla naval de Pirano (1812)"
+      "Batalla naval de Pirano (1812)",
+      "Batalla naval frente a Halifax (1782)"
     ],
     "irlanda": [
       "Batalla naval de la bahía de Bantry (1689)",
@@ -353,7 +356,8 @@
       "Guerra hispano-estadounidense",
       "Batalla de Mani-Mani (1898)",
       "Combate del Callao (1866)",
-      "Combate de Huite (2 de marzo de 1866)"
+      "Combate de Huite (2 de marzo de 1866)",
+      "Batalla del cabo de Gata (1815)"
     ],
     "austria": [
       "Batalla de Heligoland (1864)",
@@ -466,7 +470,8 @@
       "Batalla de Signal Hill (1762)",
       "Combate naval de la bahía de Fundy (1696)",
       "Batalla de Neuville (1760)",
-      "Acción naval de Tatamagouche (15 de junio de 1745)"
+      "Acción naval de Tatamagouche (15 de junio de 1745)",
+      "Batalla naval frente a Halifax (1782)"
     ],
     "hungria": [
       "Batalla de Antivari (1914)",
@@ -549,6 +554,9 @@
     ],
     "eslovenia": [
       "Batalla naval de Pirano (1812)"
+    ],
+    "argelia": [
+      "Batalla del cabo de Gata (1815)"
     ]
   },
   "countryConflictExclusions": {
@@ -1741,7 +1749,11 @@
     "Battle of Grado": "Batalla naval de Pirano (1812)",
     "Battle of Pirano": "Batalla naval de Pirano (1812)",
     "Battaglia di Grado": "Batalla naval de Pirano (1812)",
-    "Battaglia di Pirano": "Batalla naval de Pirano (1812)"
+    "Battaglia di Pirano": "Batalla naval de Pirano (1812)",
+    "Batalla del cabo de Gata": "Batalla del cabo de Gata (1815)",
+    "Battle off Cape Gata": "Batalla del cabo de Gata (1815)",
+    "Batalla naval de Halifax": "Batalla naval frente a Halifax (1782)",
+    "Battle off Halifax (1782)": "Batalla naval frente a Halifax (1782)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -2816,6 +2828,8 @@
     "Combate de Drohiczyn (1192)",
     "Combate naval de Jask (1620)",
     "Batalla naval de Gotska Sandön (1563)",
-    "Batalla naval de Pirano (1812)"
+    "Batalla naval de Pirano (1812)",
+    "Batalla del cabo de Gata (1815)",
+    "Batalla naval frente a Halifax (1782)"
   ]
 }

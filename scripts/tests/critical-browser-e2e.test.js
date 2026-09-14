@@ -589,6 +589,67 @@ async function testCountryOverlayReadiness(browser, baseUrl) {
   }
 }
 
+async function testConflictCurationAndLateResponse(browser, baseUrl) {
+  for (const viewport of [DESKTOP_VIEWPORT, MOBILE_VIEWPORT]) {
+    const label = viewport === MOBILE_VIEWPORT ? "mobile" : "desktop";
+    let releaseDetail;
+    const pending = new Promise(resolve => { releaseDetail = resolve; });
+    let markRequested;
+    const requested = new Promise(resolve => { markRequested = resolve; });
+    const test = await createTestPage(browser, baseUrl, viewport, async page => {
+      await page.route(/\/data\/conflicts\/details\/batalla-del-cabo-de-gata-1815-/, async route => {
+        markRequested();
+        await pending;
+        await route.continue();
+      });
+    });
+    const { page } = test;
+    try {
+      await waitForAppReady(page, { requireTiles: false });
+      await page.evaluate(async () => {
+        await loadCountryDetail("USA");
+        await loadCountryConflictDetail("USA");
+        const names = ["Batalla del cabo de Gata (1815)", "Batalla naval frente a Halifax (1782)"];
+        window.__curationKeys = names.map(name => registerConflictModal(countriesData.USA.military.conflicts.find(item => item.name === name), "Estados Unidos"));
+        openConflictModal(window.__curationKeys[0]);
+      });
+      await Promise.race([requested, page.waitForTimeout(APP_TIMEOUT_MS).then(() => { throw new Error("No se solicito el detalle de Gata"); })]);
+      await page.evaluate(() => openConflictModal(window.__curationKeys[1]));
+      await page.waitForFunction(() => Boolean(CONFLICT_DETAIL_OVERRIDES["Batalla naval frente a Halifax (1782)"]));
+      const body = page.locator("#conflict-modal-body");
+      assert.match(await body.locator(".overview-card").first().innerText(), /Batalla/i);
+      assert.match(await body.locator(".overview-card").nth(2).innerText(), /Local/);
+      await body.locator(".conflict-curation-notes").waitFor();
+      assert.match(await body.locator(".conflict-curation-notes").innerText(), /28 al 29 de mayo de 1782/);
+      assert.match(await body.locator(".conflict-curation-notes").innerText(), /no un buque de la Marina Continental/);
+      assert.equal(await body.locator(".conflict-treaties").count(), 0);
+      const chronology = body.locator(".conflict-modal-section").filter({ has: page.getByRole("heading", { name: "Cronologia interna", exact: true }) });
+      const items = await chronology.locator("li").allTextContents();
+      assert.match(items[0], /28 de mayo/);
+      assert.match(items[1], /29 de mayo/);
+      releaseDetail();
+      await page.waitForFunction(() => Boolean(CONFLICT_DETAIL_OVERRIDES["Batalla del cabo de Gata (1815)"]));
+      await page.waitForTimeout(150);
+      const title = await page.locator("#conflict-modal-title").innerText();
+      assert.match(title, /Halifax/i);
+      assert.equal((title.match(/1782/g) || []).length, 1, "no duplicar el periodo del titulo");
+      await page.screenshot({ path: "tmp/conflict-curation-" + label + ".png" });
+      assert.equal(await body.evaluate(element => element.scrollWidth <= element.clientWidth), true);
+      await body.locator(".conflict-curation-notes").scrollIntoViewIfNeeded();
+      await page.screenshot({ path: "tmp/conflict-curation-notes-" + label + ".png" });
+      await page.locator("#conflict-modal-close").click();
+      await page.evaluate(() => openConflictModal(window.__curationKeys[0]));
+      assert.match(await body.locator(".conflict-treaties").innerText(), /30 de junio de 1815/);
+      assert.match(await body.locator(".conflict-curation-notes").innerText(), /no como bando/);
+      assert.ok(await body.locator(".conflict-hierarchy-sources a").count() >= 4);
+      assertHealthyPage(test.pageErrors, label + " notas de curaduria y descarga tardia");
+    } finally {
+      releaseDetail();
+      await test.context.close();
+    }
+  }
+}
+
 async function testControlsStartup(browser, baseUrl) {
   const context = await browser.newContext({ viewport: MOBILE_VIEWPORT, isMobile: true, hasTouch: true, serviceWorkers: "block" });
   let releaseMain;
@@ -1299,6 +1360,7 @@ try {
     ["--startup-only", testMapEngineStartup],
     ["--startup-only", testControlsStartup],
     ["--overlay-ready-only", testCountryOverlayReadiness],
+    ["--conflict-curation-only", testConflictCurationAndLateResponse],
     ["--detail-only", testDetailedMapUpgrade],
     ["--recovery-only", testRenderRecovery],
     ["--offline-only", testFirstWorkerActivation],

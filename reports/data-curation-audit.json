@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-09-04T22:20:46.973Z",
+  "generatedAt": "2026-09-14T14:16:22.253Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 13106533,
-    "duplicatedCountryFilesBytes": 1556482,
-    "countryConflictShardBytes": 450838,
+    "fullBytes": 13141853,
+    "duplicatedCountryFilesBytes": 1557339,
+    "countryConflictShardBytes": 460389,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
         "bytes": 25046,
-        "inlineBytes": 1347749,
+        "inlineBytes": 1353915,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,7 +21,7 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 337,
+          "conflicts": 338,
           "timelineEvents": 4
         },
         "metrics": {
@@ -54,16 +54,16 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 79942,
-          "conflictShardBytes": 79943,
-          "averageConflictBytes": 237
+          "conflictsBytes": 80285,
+          "conflictShardBytes": 80286,
+          "averageConflictBytes": 238
         }
       },
       {
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24266,
-        "inlineBytes": 3427165,
+        "inlineBytes": 3435229,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 217555,
-          "conflictShardBytes": 217556,
+          "conflictsBytes": 217756,
+          "conflictShardBytes": 217757,
           "averageConflictBytes": 236
         }
       },
@@ -368,8 +368,8 @@
       {
         "code": "CAN",
         "name": "Canadá",
-        "bytes": 18927,
-        "inlineBytes": 162618,
+        "bytes": 19124,
+        "inlineBytes": 168784,
         "tooLarge": false,
         "counts": {
           "cities": 4,
@@ -378,14 +378,14 @@
           "religionGroups": 8,
           "organizations": 48,
           "rivals": 38,
-          "conflicts": 36,
+          "conflicts": 37,
           "timelineEvents": 3
         },
         "metrics": {
           "sectionBytes": {
-            "military": 8779,
+            "military": 8977,
             "politics": 6435,
-            "metadata": 1936,
+            "metadata": 1935,
             "general": 796,
             "religion": 413,
             "history": 345,
@@ -396,7 +396,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 8779
+              "bytes": 8977
             },
             {
               "section": "politics",
@@ -404,16 +404,16 @@
             },
             {
               "section": "metadata",
-              "bytes": 1936
+              "bytes": 1935
             },
             {
               "section": "general",
               "bytes": 796
             }
           ],
-          "conflictsBytes": 8663,
-          "conflictShardBytes": 0,
-          "averageConflictBytes": 241
+          "conflictsBytes": 9006,
+          "conflictShardBytes": 9007,
+          "averageConflictBytes": 243
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 93,
+    "pendingCount": 91,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15441,19 +15441,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla del cabo de Gata",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla del cabo de la Roca",
         "countries": [
           "FRA"
@@ -15468,19 +15455,6 @@
       },
       {
         "name": "Batalla del río Malalag",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla naval de Halifax",
         "countries": [
           "USA"
         ],

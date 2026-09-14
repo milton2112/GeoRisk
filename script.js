@@ -85,7 +85,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-09-14-release-2";
+const APP_VERSION = "2026-09-14-release-3";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -1680,6 +1680,7 @@ const NEWS_CACHE_TTL_MS = 20 * 60 * 1000;
 const geoJsonCache = new Map();
 const preparedGeoJsonCache = new Map();
 const conflictModalRegistry = new Map();
+let conflictModalRenderToken = 0;
 let conflictModalCounter = 0;
 const timelineModalRegistry = new Map();
 let timelineModalCounter = 0;
@@ -4925,7 +4926,8 @@ function conflictDedupKey(conflict) {
 }
 
 function formatConflictPeriod(conflict) {
-  const startYear = Number(conflict?.startYear);
+  const rawYear = conflict?.startYear;
+  const startYear = rawYear == null || String(rawYear).trim() === "" ? NaN : Number(rawYear);
   if (!Number.isFinite(startYear)) {
     return currentLanguage === "en" ? " (date pending)" : " (fecha pendiente)";
   }
@@ -4941,6 +4943,13 @@ function formatConflictPeriod(conflict) {
   }
 
   return ` (${formatHistoricalYear(startYear)}-${formatHistoricalYear(endYear)})`;
+}
+
+function formatConflictTitle(conflict) {
+  const name = String(conflict?.name || "").trim();
+  const period = formatConflictPeriod(conflict);
+  const normalize = value => value.replace(/[\u2013\u2014]/g, "-").replace(/\s+/g, " ").trim();
+  return normalize(name).endsWith(normalize(period)) ? name : name + period;
 }
 
 function extractYearsFromText(value) {
@@ -5087,7 +5096,7 @@ function getConflictParentName(conflict) {
 }
 
 function inferConflictType(conflict, detail = {}) {
-  const explicit = normalizeText(detail.type || "");
+  const explicit = normalizeText(detail.type || conflict?.type || "");
   if (explicit) {
     return explicit;
   }
@@ -5112,7 +5121,7 @@ function inferConflictType(conflict, detail = {}) {
 }
 
 function inferConflictScope(conflict, detail = {}) {
-  const explicit = normalizeText(detail.scope || "");
+  const explicit = normalizeText(detail.scope || detail.scale || conflict?.scope || conflict?.scale || "");
   if (explicit) {
     return explicit;
   }
@@ -5131,8 +5140,9 @@ function inferConflictScope(conflict, detail = {}) {
 }
 
 function inferConflictRegion(conflict, detail = {}, countryName = "") {
-  if (detail.region) {
-    return detail.region;
+  const explicit = detail.region || detail.normalizedRegion || conflict?.region || conflict?.normalizedRegion;
+  if (explicit) {
+    return explicit;
   }
 
   const normalized = normalizeText(conflict?.name || conflict || "");
@@ -5178,7 +5188,7 @@ function inferConflictLevel(conflict, detail = {}, parentName = null) {
   }
 
   const normalized = normalizeText(`${conflict?.name || conflict || ""} ${detail.type || conflict?.type || ""}`);
-  if (CONFLICT_CAMPAIGN_MARKERS.some(marker => normalized.includes(marker))) {
+  if (CONFLICT_CAMPAIGN_MARKERS.some(marker => marker === "frente" ? normalized.startsWith("frente ") : normalized.includes(marker))) {
     return "campaign";
   }
   if (/batalla|battle|sitio|siege|combate|asalto|raid|incursion|operacion|bombardeo|ataque|emboscada|desembarco|hundimiento/.test(normalized)) {
@@ -5280,6 +5290,9 @@ function getConflictTypeLabel(type) {
 function getConflictScopeLabel(scope) {
   const labels = {
     global: currentLanguage === "en" ? "Global" : "Global",
+    mundial: currentLanguage === "en" ? "Global" : "Mundial",
+    internacional: currentLanguage === "en" ? "International" : "Internacional",
+    local: "Local",
     regional: currentLanguage === "en" ? "Regional" : "Regional",
     nacional: currentLanguage === "en" ? "Domestic" : "Nacional",
     subregional: currentLanguage === "en" ? "Subregional" : "Subregional"
@@ -5929,10 +5942,10 @@ function getConflictModalContent(conflict, countryName = "") {
       if (yearA !== yearB) {
         return yearA - yearB;
       }
-      return String(a?.text || "").localeCompare(String(b?.text || ""), "es");
+      return 0;
     });
   return {
-    title: `${conflict.name}${formatConflictPeriod(conflict)}`,
+    title: formatConflictTitle(conflict),
     level,
     parentName,
     hierarchyProvisional,
@@ -5954,6 +5967,9 @@ function getConflictModalContent(conflict, countryName = "") {
     dataConfidence: detail.dataConfidence || conflict.dataConfidence || "",
     hierarchyConfidence: detail.hierarchyConfidence || conflict.hierarchyConfidence || "",
     hierarchySources: detail.hierarchySources || conflict.hierarchySources || [],
+    datePrecision: detail.datePrecision || conflict.datePrecision || "",
+    curationNote: detail.curationNote || conflict.curationNote || "",
+    treaties: detail.treaties || conflict.treaties || [],
     wikipedia: detail.wikipedia || null
   };
 }
@@ -6120,7 +6136,29 @@ function getConflictModalEntryDetail(entry) {
   return entry;
 }
 
-function maybeEnhanceOpenConflictModal(key, entry) {
+function renderConflictCurationNotes(detail) {
+  const date = typeof detail.datePrecision === "string" ? detail.datePrecision.trim() : "";
+  const note = typeof detail.curationNote === "string" ? detail.curationNote.trim() : "";
+  if (!date && !note) return "";
+  return `<div class="conflict-modal-section conflict-curation-notes">
+    <h4>${currentLanguage === "en" ? "Curation notes" : "Notas de curadur\u00eda"}</h4>
+    ${date ? `<p><b>${currentLanguage === "en" ? "Date precision" : "Precisi\u00f3n de la fecha"}:</b> ${escapeHtml(date)}</p>` : ""}
+    ${note ? `<p>${escapeHtml(note)}</p>` : ""}
+  </div>`;
+}
+
+function renderConflictTreaties(detail) {
+  const treaties = Array.isArray(detail.treaties)
+    ? [...new Set(detail.treaties.filter(item => typeof item === "string").map(item => item.trim()).filter(Boolean))]
+    : [];
+  if (!treaties.length) return "";
+  return `<div class="conflict-modal-section conflict-treaties">
+    <h4>${currentLanguage === "en" ? "Treaties and agreements" : "Tratados y acuerdos"}</h4>
+    <ul class="data-source-list">${treaties.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+  </div>`;
+}
+
+function maybeEnhanceOpenConflictModal(key, entry, renderToken = conflictModalRenderToken) {
   if (!entry?.conflict?.name) {
     return;
   }
@@ -6129,7 +6167,7 @@ function maybeEnhanceOpenConflictModal(key, entry) {
     .then(loadedDetail => {
       const currentEntry = conflictModalRegistry.get(key);
       const modal = document.getElementById("conflict-modal");
-      if (!loadedDetail || !currentEntry || modal?.hidden) {
+      if (!loadedDetail || currentEntry !== entry || modal?.hidden !== false || renderToken !== conflictModalRenderToken) {
         return;
       }
       currentEntry.detail = getConflictModalContent(currentEntry.conflict, currentEntry.countryName || "");
@@ -6149,6 +6187,7 @@ function openConflictModal(key, { enhance = true } = {}) {
     return;
   }
 
+  const renderToken = ++conflictModalRenderToken;
   body.innerHTML = `
     <h3 id="conflict-modal-title">${escapeHtml(detail.title)}</h3>
     <p class="conflict-modal-subtitle">${currentLanguage === "en" ? "Historical conflict summary" : "Resumen historico del conflicto"}</p>
@@ -6162,6 +6201,7 @@ function openConflictModal(key, { enhance = true } = {}) {
       ${detail.countryRelationship?.sideLabels?.length ? `<div class="overview-card"><span class="overview-label">${currentLanguage === "en" ? "Country side" : "Bando del pais"}</span><strong class="overview-value">${escapeHtml(detail.countryRelationship.sideLabels.join(" / "))}</strong></div>` : ""}
     </div>
     ${renderConflictHierarchySources(detail.hierarchySources)}
+    ${renderConflictCurationNotes(detail)}
     <div class="conflict-modal-section">
       <h4>${currentLanguage === "en" ? "Why it started" : "Por que estallo"}</h4>
       <p>${escapeHtml(detail.cause)}</p>
@@ -6171,7 +6211,7 @@ function openConflictModal(key, { enhance = true } = {}) {
       ${detail.participants.map(item => `
         <div class="conflict-modal-side">
           <strong>${escapeHtml(sanitizeConflictModalText(item.side))}</strong>
-          <p><b>${currentLanguage === "en" ? "States" : "Paises"}:</b> ${escapeHtml((item.members || ["Sin datos"]).map(sanitizeConflictModalText).join(", "))}</p>
+          <p><b>${currentLanguage === "en" ? "Members" : "Integrantes"}:</b> ${escapeHtml((item.members || ["Sin datos"]).map(sanitizeConflictModalText).join(", "))}</p>
           ${item.organizations && item.organizations.length ? `<p><b>${currentLanguage === "en" ? "Organizations" : "Organizaciones"}:</b> ${escapeHtml(item.organizations.map(sanitizeConflictModalText).join(", "))}</p>` : ""}
           ${item.troops ? `<p><b>${currentLanguage === "en" ? "Troops" : "Soldados"}:</b> ${escapeHtml(sanitizeConflictModalText(item.troops))}</p>` : ""}
           ${item.casualties ? `<p><b>${currentLanguage === "en" ? "Casualties" : "Bajas"}:</b> ${escapeHtml(sanitizeConflictModalText(item.casualties))}</p>` : ""}
@@ -6231,6 +6271,7 @@ function openConflictModal(key, { enhance = true } = {}) {
       <h4>${currentLanguage === "en" ? "Consequences" : "Que cambio despues"}</h4>
       <p>${escapeHtml(detail.consequences)}</p>
     </div>
+    ${renderConflictTreaties(detail)}
     ${detail.related?.length ? `
       <div class="conflict-modal-section">
         <h4>${currentLanguage === "en" ? "Related conflicts" : "Conflictos relacionados"}</h4>
@@ -6242,11 +6283,12 @@ function openConflictModal(key, { enhance = true } = {}) {
   modal.hidden = false;
   syncModalOpenState();
   if (enhance) {
-    maybeEnhanceOpenConflictModal(key, entry);
+    maybeEnhanceOpenConflictModal(key, entry, renderToken);
   }
 }
 
 function closeConflictModal() {
+  conflictModalRenderToken += 1;
   const modal = document.getElementById("conflict-modal");
   const body = document.getElementById("conflict-modal-body");
   if (!modal || modal.hidden) {

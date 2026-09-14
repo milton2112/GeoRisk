@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.240 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.241 antes de cerrar la siguiente version.
+
+## v1.6.241 - 2026-09-14
+
+- Completa con fuentes la batalla del cabo de Gata (1815) y el combate naval frente a Halifax (1782): fecha, guerra padre, participantes, region, cronologia y resultado. Conserva discrepancias entre fuentes y no inventa bajas; los enlaces a Espana y Canada son geograficos, no nuevos bandos.
+- Reduce las jerarquias provisionales de 27 a 25 y los conflictos sin fecha de 94 a 92. Regenera las fichas e indices, incorpora los detalles bajo demanda y mantiene los 2000 conflictos sin duplicados nuevos.
+- Muestra en las fichas de conflictos las notas de curaduria, precision de fechas y tratados que ya existian en los datos pero quedaban ocultos. Los integrantes de un bando dejan de etiquetarse todos como paises.
+- Impide que una descarga tardia cambie el conflicto abierto o reabra una sesion cerrada. Verifica identidad de entrada y token de apertura antes de refrescar.
+- Evita fechas repetidas en titulos y que una fecha nula se muestre como ano cero. Conserva el orden editorial de eventos del mismo ano, respeta tipo, escala y region explicitos y no interpreta "frente a" Halifax como un frente militar de nivel campana.
+- Agrega regresiones sobre fuentes y propagacion a los datos publicos, seguridad del texto, estados del modal, metadatos y navegador de escritorio/movil emulado con descarga retenida.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-14-release-3`.
 
 ## v1.6.240 - 2026-09-14
 

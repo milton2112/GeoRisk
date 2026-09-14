@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-14T13:44:05.837Z",
+  "generatedAt": "2026-09-14T14:22:08.277Z",
   "scannedConflicts": 2000,
   "issueCount": 0,
-  "advisoryCount": 27,
-  "reviewCount": 27,
+  "advisoryCount": 25,
+  "reviewCount": 25,
   "summary": {
-    "provisional_parent": 27
+    "provisional_parent": 25
   },
   "topIssues": [],
   "topAdvisories": [
@@ -276,20 +276,6 @@
       "severity": 1
     },
     {
-      "key": "batalla del cabo de gata",
-      "name": "Batalla del cabo de Gata",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
       "key": "batalla del cabo de la roca",
       "name": "Batalla del cabo de la Roca",
       "countries": [
@@ -306,20 +292,6 @@
     {
       "key": "batalla del rio malalag",
       "name": "Batalla del río Malalag",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla naval de halifax",
-      "name": "Batalla naval de Halifax",
       "countries": [
         "USA"
       ],

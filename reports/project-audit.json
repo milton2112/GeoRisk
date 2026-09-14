@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-14T13:44:08.555Z",
+  "generatedAt": "2026-09-14T14:22:10.928Z",
   "status": "operativo",
   "startup": {
-    "critical": "847 KB",
-    "criticalBytes": 867525,
+    "critical": "850 KB",
+    "criticalBytes": 869903,
     "scope": "App shell and eager local scripts only; excludes the separately budgeted map engine.",
     "mapEngine": {
       "path": "vendor/cesium/engine.js",
@@ -11,13 +11,13 @@
       "human": "3.27 MB",
       "precached": false
     },
-    "appCoreAndEngineBytes": 4295915,
-    "deferred": "3.10 MB",
+    "appCoreAndEngineBytes": 4298293,
+    "deferred": "3.11 MB",
     "estimatedRuntimeMemory": {
-      "countriesFullBytes": 13106533,
-      "countriesFullHuman": "12.50 MB",
-      "estimatedParsedBytes": 39319599,
-      "estimatedParsedHuman": "37.50 MB",
+      "countriesFullBytes": 13141853,
+      "countriesFullHuman": "12.53 MB",
+      "estimatedParsedBytes": 39425559,
+      "estimatedParsedHuman": "37.60 MB",
       "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
     },
     "largestAssets": [
@@ -32,16 +32,16 @@
       {
         "path": "data/conflict_details.generated.json",
         "exists": true,
-        "bytes": 2591647,
-        "human": "2.47 MB",
+        "bytes": 2598603,
+        "human": "2.48 MB",
         "startupCritical": false,
         "category": "deferred-or-auxiliary"
       },
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 576418,
-        "human": "563 KB",
+        "bytes": 578796,
+        "human": "565 KB",
         "startupCritical": true,
         "category": "startup-app-core"
       },
@@ -123,7 +123,7 @@
     "scanned": 2000,
     "issueCount": 0,
     "summary": {
-      "provisional_parent": 27
+      "provisional_parent": 25
     },
     "eraFocus": []
   },
@@ -132,13 +132,13 @@
       {
         "path": "data/timeline_index.json",
         "exists": true,
-        "bytes": 418468,
+        "bytes": 419302,
         "human": "409 KB"
       },
       {
         "path": "data/conflicts_index.json",
         "exists": true,
-        "bytes": 368356,
+        "bytes": 368867,
         "human": "360 KB"
       },
       {
@@ -150,7 +150,7 @@
       {
         "path": "data/conflicts/details_index.json",
         "exists": true,
-        "bytes": 173151,
+        "bytes": 173479,
         "human": "169 KB"
       },
       {
@@ -162,22 +162,22 @@
       {
         "path": "data/country_weights.json",
         "exists": true,
-        "bytes": 118287,
+        "bytes": 118294,
         "human": "116 KB"
       }
     ],
     "countryWeights": {
       "totalCountries": 183,
-      "fullBytes": 13106533,
-      "duplicatedCountryFilesBytes": 1556482,
-      "countryConflictShardBytes": 450838,
+      "fullBytes": 13141853,
+      "duplicatedCountryFilesBytes": 1557339,
+      "countryConflictShardBytes": 460389,
       "tooLargeCount": 0,
       "largest": [
         {
           "code": "GBR",
           "name": "Reino Unido",
           "bytes": 25046,
-          "inlineBytes": 1347749,
+          "inlineBytes": 1353915,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -186,7 +186,7 @@
             "religionGroups": 6,
             "organizations": 51,
             "rivals": 78,
-            "conflicts": 337,
+            "conflicts": 338,
             "timelineEvents": 4
           },
           "metrics": {
@@ -219,16 +219,16 @@
                 "bytes": 1018
               }
             ],
-            "conflictsBytes": 79942,
-            "conflictShardBytes": 79943,
-            "averageConflictBytes": 237
+            "conflictsBytes": 80285,
+            "conflictShardBytes": 80286,
+            "averageConflictBytes": 238
           }
         },
         {
           "code": "USA",
           "name": "Estados Unidos",
           "bytes": 24266,
-          "inlineBytes": 3427165,
+          "inlineBytes": 3435229,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -270,8 +270,8 @@
                 "bytes": 978
               }
             ],
-            "conflictsBytes": 217555,
-            "conflictShardBytes": 217556,
+            "conflictsBytes": 217756,
+            "conflictShardBytes": 217757,
             "averageConflictBytes": 236
           }
         },
@@ -533,8 +533,8 @@
         {
           "code": "CAN",
           "name": "Canadá",
-          "bytes": 18927,
-          "inlineBytes": 162618,
+          "bytes": 19124,
+          "inlineBytes": 168784,
           "tooLarge": false,
           "counts": {
             "cities": 4,
@@ -543,14 +543,14 @@
             "religionGroups": 8,
             "organizations": 48,
             "rivals": 38,
-            "conflicts": 36,
+            "conflicts": 37,
             "timelineEvents": 3
           },
           "metrics": {
             "sectionBytes": {
-              "military": 8779,
+              "military": 8977,
               "politics": 6435,
-              "metadata": 1936,
+              "metadata": 1935,
               "general": 796,
               "religion": 413,
               "history": 345,
@@ -561,7 +561,7 @@
             "largestSections": [
               {
                 "section": "military",
-                "bytes": 8779
+                "bytes": 8977
               },
               {
                 "section": "politics",
@@ -569,16 +569,16 @@
               },
               {
                 "section": "metadata",
-                "bytes": 1936
+                "bytes": 1935
               },
               {
                 "section": "general",
                 "bytes": 796
               }
             ],
-            "conflictsBytes": 8663,
-            "conflictShardBytes": 0,
-            "averageConflictBytes": 241
+            "conflictsBytes": 9006,
+            "conflictShardBytes": 9007,
+            "averageConflictBytes": 243
           }
         },
         {
@@ -811,7 +811,7 @@
     },
     "curationGaps": {},
     "conflictDataConsistency": {
-      "checked": 4184,
+      "checked": 4190,
       "closedMarkedActiveCount": 0,
       "inactiveMarkedActiveCount": 0,
       "nullNarrativeTextCount": 0,
@@ -832,14 +832,14 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 576418,
-      "human": "563 KB"
+      "bytes": 578796,
+      "human": "565 KB"
     },
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 274187,
-      "human": "268 KB"
+      "bytes": 275596,
+      "human": "269 KB"
     },
     {
       "path": "style.css",
@@ -850,8 +850,8 @@
     {
       "path": "TECHNICAL.md",
       "exists": true,
-      "bytes": 34615,
-      "human": "34 KB"
+      "bytes": 36619,
+      "human": "36 KB"
     },
     {
       "path": "index.html",
@@ -981,7 +981,7 @@
     }
   ],
   "scriptMetrics": {
-    "functions": 533,
+    "functions": 536,
     "asyncFunctions": 52,
     "consoleWarnings": 20,
     "consoleErrors": 11

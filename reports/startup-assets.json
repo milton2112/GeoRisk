@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-09-14T13:44:10.092Z",
-  "startupBytes": 867525,
-  "startupHuman": "847 KB",
+  "generatedAt": "2026-09-14T14:22:12.465Z",
+  "startupBytes": 869903,
+  "startupHuman": "850 KB",
   "startupScope": "App shell and eager local scripts only; excludes the separately budgeted map engine.",
   "mapEngine": {
     "path": "vendor/cesium/engine.js",
@@ -9,16 +9,16 @@
     "human": "3.27 MB",
     "precached": false
   },
-  "appCoreAndEngineBytes": 4295915,
+  "appCoreAndEngineBytes": 4298293,
   "appCoreAndEngineHuman": "4.10 MB",
   "excludedStartupCosts": "External CSS, workers, imagery and geographic/data requests are not included in appCoreAndEngineBytes. This is not total network transfer or compressed size.",
-  "deferredBytes": 3254098,
-  "deferredHuman": "3.10 MB",
+  "deferredBytes": 3261054,
+  "deferredHuman": "3.11 MB",
   "estimatedRuntimeMemory": {
-    "countriesFullBytes": 13106533,
-    "countriesFullHuman": "12.50 MB",
-    "estimatedParsedBytes": 39319599,
-    "estimatedParsedHuman": "37.50 MB",
+    "countriesFullBytes": 13141853,
+    "countriesFullHuman": "12.53 MB",
+    "estimatedParsedBytes": 39425559,
+    "estimatedParsedHuman": "37.60 MB",
     "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
   },
   "largestAssets": [
@@ -33,16 +33,16 @@
     {
       "path": "data/conflict_details.generated.json",
       "exists": true,
-      "bytes": 2591647,
-      "human": "2.47 MB",
+      "bytes": 2598603,
+      "human": "2.48 MB",
       "startupCritical": false,
       "category": "deferred-or-auxiliary"
     },
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 576418,
-      "human": "563 KB",
+      "bytes": 578796,
+      "human": "565 KB",
       "startupCritical": true,
       "category": "startup-app-core"
     },
@@ -131,8 +131,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 576418,
-      "human": "563 KB",
+      "bytes": 578796,
+      "human": "565 KB",
       "startupCritical": true,
       "category": "startup-app-core"
     },
@@ -363,8 +363,8 @@
     {
       "path": "data/conflict_details.generated.json",
       "exists": true,
-      "bytes": 2591647,
-      "human": "2.47 MB",
+      "bytes": 2598603,
+      "human": "2.48 MB",
       "startupCritical": false,
       "category": "deferred-or-auxiliary"
     },

@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import fs from "fs-extra";
 import path from "node:path";
+import vm from "node:vm";
 
 const projectRoot = path.resolve(process.cwd());
 const script = await fs.readFile(path.join(projectRoot, "script.js"), "utf8");
@@ -112,10 +113,15 @@ assert.ok(
   /let activeIndex = -1;[\s\S]{0,2200}if \(activeIndex >= 0 && currentSuggestions\[activeIndex\]\)[\s\S]{0,420}await searchMap\(\)/.test(script),
   "Enter debe ejecutar la consulta escrita salvo que el usuario elija una sugerencia con el teclado"
 );
-assert.ok(
-  /function inferConflictLevel[\s\S]{0,520}return "battle";[\s\S]{0,180}if \(!parentName\)/.test(script),
-  "una batalla sin padre verificado debe conservar nivel batalla y mostrar la jerarquia como pendiente"
-);
+const levelSource = script.slice(script.indexOf("function inferConflictLevel("), script.indexOf("function getConflictLevelLabel("));
+const inferLevel = vm.runInNewContext(`(${levelSource})`, {
+  normalizeText: value => String(value).toLowerCase(),
+  CONFLICT_CAMPAIGN_MARKERS: ["campana", "ofensiva", "frente"]
+});
+assert.equal(inferLevel({ name: "Batalla sin padre" }, {}, null), "battle", "una batalla huerfana no se promueve a guerra");
+assert.equal(inferLevel({ name: "Batalla naval frente a Halifax" }, {}, "Guerra"), "battle");
+assert.equal(inferLevel({ name: "Primera ofensiva" }, {}, "Guerra"), "campaign");
+assert.equal(inferLevel({ name: "Frente oriental" }, {}, "Guerra"), "campaign");
 assert.ok(
   /if \(!parentName\) \{[\s\S]{0,260}level: inferConflictLevel\(conflict, detail, null\)/.test(script),
   "agrupador de conflictos no debe promover acciones huerfanas a guerras"
