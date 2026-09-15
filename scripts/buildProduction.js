@@ -2,9 +2,12 @@ import crypto from "node:crypto";
 import fs from "fs-extra";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
+import { assertPublishableTree, isSensitivePath } from "./lib/security-policy.js";
+import { requireScanner, runSecretScan } from "./lib/secret-scanner.js";
 
 const projectRoot = process.cwd();
 const outputRoot = path.join(projectRoot, "dist", "public");
+const secretScanner = await requireScanner();
 
 execFileSync(process.execPath, ["scripts/buildMapEngine.js", "--check"], { stdio: "inherit" });
 
@@ -95,6 +98,9 @@ async function copyFile(relativePath) {
   if (!(await fs.pathExists(source))) {
     throw new Error(`Falta archivo publico: ${relativePath}`);
   }
+  if (isSensitivePath(relativePath) || !(await fs.lstat(source)).isFile()) {
+    throw new Error(`Archivo publico sensible o no regular: ${relativePath}`);
+  }
   await fs.copy(source, path.join(outputRoot, relativePath));
 }
 
@@ -163,12 +169,19 @@ for (const file of PUBLIC_FILES) {
 for (const directory of PUBLIC_DIRS) {
   const source = path.join(projectRoot, directory);
   if (await fs.pathExists(source)) {
+    await assertPublishableTree(source);
     await fs.copy(source, path.join(outputRoot, directory));
   }
 }
 
 const manifest = await createManifest();
 assertPublicOutput(manifest);
+await assertPublishableTree(outputRoot);
+const secretFindings = await runSecretScan(secretScanner, ["dir", outputRoot]);
+if (secretFindings.length) {
+  console.error(JSON.stringify(secretFindings, null, 2));
+  throw new Error("Posibles secretos en el build. No publicar dist/public.");
+}
 
 console.log(`Build produccion: ${path.relative(projectRoot, outputRoot)}`);
 console.log(`Assets: ${manifest.assetCount}`);

@@ -1,5 +1,8 @@
 name: Release Gate
 
+permissions:
+  contents: read
+
 on:
   push:
     branches:
@@ -19,12 +22,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
+
+      - name: Install verified secret scanner
+        run: node scripts/setupSecretScanner.js
+
+      - name: Scan source and full Git history
+        run: node scripts/checkSecurity.js --history
 
       - name: Install
         run: npm ci
@@ -96,12 +108,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
+
+      - name: Install verified secret scanner
+        run: node scripts/setupSecretScanner.js
+
+      - name: Scan source and full Git history
+        run: node scripts/checkSecurity.js --history
 
       - name: Install
         run: npm ci

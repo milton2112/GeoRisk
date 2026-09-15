@@ -301,6 +301,14 @@ La puerta de release permite `--reuse-browser`: reutiliza una muestra completa d
 
 `npm run build:indexes` genera `data/runtime_supplemental.json` a partir del dataset curado y del CSV poblacional interno. El cliente descarga ese suplemento diferido, no `data/raw/**`. Conserva el intervalo de años de cada variación poblacional y omite las tasas anuales cuando faltan observaciones consecutivas. El service worker lo almacena solo tras consultarlo, fuera de `APP_SHELL`.
 
+## Seguridad de publicacion
+
+Desde v1.6.244, `scripts/lib/security-policy.js` comparte la politica de archivos sensibles entre el build y el servidor local. La copia de directorios publicos se valida antes de copiar y el resultado se vuelve a revisar. El servidor verifica tanto la ruta solicitada como su destino real y mantiene escucha local; no sustituye un hosting de produccion.
+
+`scripts/lib/secret-scanner.js` instala y ejecuta Gitleaks con version/hash fijados, timeout y salida redactada. `checkSecurity.js` revisa una copia temporal de los archivos de Git y usa el modo git del scanner para el historial. El pre-push analiza commits locales no publicados; release/CI recorren el historial completo. El build escanea tambien sus archivos finales. No se omite una comprobacion si el ejecutable falta, Git es superficial o ocurre un error. La politica, excepciones revisadas y limites estan documentados en `SECURITY.md`.
+
+El plugin del motor retira la constante de evaluacion de `Source/Core/Ion.js` durante el build, sin modificar node_modules ni quitar avisos de licencia. Un cambio de la declaracion esperada interrumpe la compilacion hasta revisarlo. GeoRisk no utiliza servicios Ion autenticados; cualquier integracion futura que precise credenciales requiere su propio diseno de seguridad.
+
 ## Etiquetas visibles del mapa
 
 Desde v1.6.243, `renderMapLabels` conserva la seleccion global por prioridad y los limites de cada perfil, pero filtra sus candidatos antes de crear entidades. Para anclas sobre la superficie del elipsoide, el producto escalar de la normal geodesica con el vector hacia la camara descarta el hemisferio oculto. El filtro tambien comparte el limite de distancia con `DistanceDisplayCondition` y comprueba la proyeccion dentro del canvas. Esto evita depender del depth buffer, que las etiquetas ignoran para permanecer legibles sobre los rellenos de paises.

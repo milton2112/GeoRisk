@@ -1,0 +1,15 @@
+title = "GeoRisk secret scanning"
+
+[extend]
+useDefault = true
+
+# Build fingerprint, not an authentication credential. Match only this exact field.
+[[rules]]
+id = "generic-api-key"
+
+[[rules.allowlists]]
+description = "SHA-256 of performance measurement inputs"
+condition = "AND"
+regexTarget = "line"
+paths = ['''(^|[/\\])reports[/\\]performance-snapshot\.json$''']
+regexes = ['''^\s*"browserMeasurementKey"\s*:\s*"[a-f0-9]{64}",?\s*$''']

@@ -2,6 +2,7 @@ import fs from "node:fs/promises";
 import http from "node:http";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { isInternalRequest } from "./lib/security-policy.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, "..");
@@ -21,6 +22,8 @@ const MIME_TYPES = new Map([
 function send(res, statusCode, body, headers = {}) {
   res.writeHead(statusCode, {
     "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
     "Cross-Origin-Resource-Policy": "cross-origin",
     ...headers
   });
@@ -36,6 +39,8 @@ function resolveRequestPath(urlPath, root) {
     return null;
   }
 
+  if (isInternalRequest(relativePath) || decodedPath.includes(":")) return null;
+
   return absolutePath;
 }
 
@@ -43,6 +48,10 @@ export function createLocalSmokeServer({ root = projectRoot } = {}) {
   const resolvedRoot = path.resolve(root);
   return http.createServer(async (req, res) => {
     try {
+      if (!["GET", "HEAD"].includes(req.method)) {
+        send(res, 405, "Method not allowed", { Allow: "GET, HEAD" });
+        return;
+      }
       const requestUrl = new URL(req.url || "/", "http://127.0.0.1");
       const filePath = resolveRequestPath(requestUrl.pathname, resolvedRoot);
 
@@ -51,7 +60,14 @@ export function createLocalSmokeServer({ root = projectRoot } = {}) {
         return;
       }
 
-      const stat = await fs.stat(filePath);
+      const realRoot = await fs.realpath(resolvedRoot);
+      const realFile = await fs.realpath(filePath);
+      const realRelative = path.relative(realRoot, realFile);
+      if (realRelative.startsWith(`..${path.sep}`) || realRelative === ".." || path.isAbsolute(realRelative) || isInternalRequest(realRelative)) {
+        send(res, 403, "Forbidden", { "Content-Type": "text/plain; charset=utf-8" });
+        return;
+      }
+      const stat = await fs.stat(realFile);
       if (!stat.isFile()) {
         send(res, 404, "Not found", { "Content-Type": "text/plain; charset=utf-8" });
         return;
@@ -59,10 +75,10 @@ export function createLocalSmokeServer({ root = projectRoot } = {}) {
 
       const extension = path.extname(filePath).toLowerCase();
       const contentType = MIME_TYPES.get(extension) || "application/octet-stream";
-      const body = await fs.readFile(filePath);
-      send(res, 200, body, { "Content-Type": contentType });
+      const body = req.method === "HEAD" ? "" : await fs.readFile(realFile);
+      send(res, 200, body, { "Content-Type": contentType, ...(req.method === "HEAD" ? { "Content-Length": stat.size } : {}) });
     } catch (error) {
-      const statusCode = error?.code === "ENOENT" ? 404 : 500;
+      const statusCode = error instanceof URIError ? 400 : error?.code === "ENOENT" ? 404 : 500;
       send(res, statusCode, statusCode === 404 ? "Not found" : "Server error", {
         "Content-Type": "text/plain; charset=utf-8"
       });

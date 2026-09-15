@@ -40,6 +40,8 @@ Ejemplos:
 
 ## Scripts útiles
 
+Antes del primer build o test, ejecutar `npm run security:setup` para instalar el scanner de secretos con descarga verificada. Luego `npm run check:security` revisa archivos actuales y `npm run audit:security:history` incluye el historial completo. El pre-push, el build y la puerta de release aplican estos controles. Detalles y limites en `SECURITY.md`.
+
 - `npm run build:data`
   - regenera `data/countries_full.json`
 

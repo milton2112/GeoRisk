@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.243 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.244 antes de cerrar la siguiente version.
+
+## v1.6.244 - 2026-09-15
+
+- Agrega Gitleaks 8.30.1 con descarga oficial y SHA-256 fijado. Revisa archivos actuales, commits locales antes del push, historial completo en release/CI y contenido final del build; falla si falta el scanner o no termina el analisis.
+- El escaneo inicial de 305 commits detecto hashes de medicion y el token publico de evaluacion de Cesium, sin credenciales privadas propias entre los hallazgos. Retira ese token del motor publicado y documenta excepciones estrechas para el hash y su aparicion historica, sin excluir archivos o commits completos.
+- Bloquea archivos sensibles, ocultos y enlaces simbolicos dentro de directorios publicos. Amplia las exclusiones de Git para evitar incorporar archivos de credenciales habituales.
+- Endurece el servidor local: bloquea rutas internas, dotfiles, claves, rutas codificadas sensibles y escapes mediante enlaces; admite solo GET/HEAD y agrega headers de MIME/referrer. Esto no configura automaticamente la seguridad del hosting publico.
+- Integra pruebas con claves ficticias a npm test y usa permisos de lectura sin credenciales persistidas en GitHub Actions. Los diagnosticos del scanner no publican valores de secretos.
+- Documenta comandos, limites del escaneo y respuesta ante exposiciones en SECURITY.md. CSP, auditoria de dependencias y configuracion del hosting quedan para tandas posteriores.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-15-release-2`.
 
 ## v1.6.243 - 2026-09-15
 

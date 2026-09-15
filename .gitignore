@@ -5,4 +5,17 @@ reports/release-status.json
 reports/startup-profile.json
 reports/provisional-conflict-candidates.json
 .env
+.env.*
+.cache/
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+*.jks
+.npmrc
+.netrc
+credentials*.json
+service-account*.json
+service_account*.json
 .DS_Store

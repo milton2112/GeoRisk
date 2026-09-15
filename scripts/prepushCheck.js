@@ -1,6 +1,7 @@
 import { runNpmStep } from "./lib/npm-runner.js";
 
 const steps = [
+  ["secret scanning", "npm", ["run", "check:security", "--", "--outgoing"]],
   ["startup budget", "npm", ["run", "check:startup-budget"]],
   ["data language quality", "npm", ["run", "test:data-language"]],
   ["startup regressions", "npm", ["run", "test:startup"]],

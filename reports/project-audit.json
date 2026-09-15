@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-15T11:27:36.878Z",
+  "generatedAt": "2026-09-15T17:06:11.557Z",
   "status": "operativo",
   "startup": {
     "critical": "854 KB",
@@ -7,11 +7,11 @@
     "scope": "App shell and eager local scripts only; excludes the separately budgeted map engine.",
     "mapEngine": {
       "path": "vendor/cesium/engine.js",
-      "bytes": 3428390,
+      "bytes": 3428231,
       "human": "3.27 MB",
       "precached": false
     },
-    "appCoreAndEngineBytes": 4302623,
+    "appCoreAndEngineBytes": 4302464,
     "deferred": "3.11 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 13141853,
@@ -24,7 +24,7 @@
       {
         "path": "vendor/cesium/engine.js",
         "exists": true,
-        "bytes": 3428390,
+        "bytes": 3428231,
         "human": "3.27 MB",
         "startupCritical": false,
         "category": "startup-map-engine"
@@ -838,8 +838,8 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 277868,
-      "human": "271 KB"
+      "bytes": 279313,
+      "human": "273 KB"
     },
     {
       "path": "style.css",
@@ -850,8 +850,8 @@
     {
       "path": "TECHNICAL.md",
       "exists": true,
-      "bytes": 39748,
-      "human": "39 KB"
+      "bytes": 41053,
+      "human": "40 KB"
     },
     {
       "path": "index.html",
@@ -934,8 +934,8 @@
     {
       "path": "package.json",
       "exists": true,
-      "bytes": 5590,
-      "human": "5 KB"
+      "bytes": 5904,
+      "human": "6 KB"
     },
     {
       "path": "app-map.js",
@@ -1016,10 +1016,12 @@
     "audit:features",
     "audit:project",
     "audit:release-artifacts",
+    "audit:security:history",
     "build:data",
     "build:indexes",
     "build:map-engine",
     "build:prod",
+    "check:security",
     "check:startup-budget",
     "clean:deep",
     "clean:local",
@@ -1037,10 +1039,12 @@
     "performance:profile",
     "performance:snapshot",
     "prepush:check",
+    "pretest",
     "release:check",
     "release:prepare",
     "release:status",
     "release:tag",
+    "security:setup",
     "smoke:server",
     "test",
     "test:browser-visual",
@@ -1064,6 +1068,7 @@
     "test:rankings",
     "test:release-gates",
     "test:search",
+    "test:security",
     "test:smoke-server",
     "test:startup",
     "test:text-normalization",

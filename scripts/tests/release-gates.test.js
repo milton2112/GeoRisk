@@ -202,6 +202,11 @@ assert.ok(visibleFollowupCuration.includes('"Batalla de la isla de las Serpiente
 assert.ok(visibleModernCuration.includes('"Batalla de Joybar"') && visibleModernCuration.includes("startYear: 2011"), "Joybar no debe regresar al ano 2001 incorrecto");
 assert.ok(visibleDataCorrections.includes('"pakistan\\u00ed"'), "normalizacion visible debe distinguir el adjetivo pakistani del nombre del pais");
 assert.equal(packageJson.scripts["prepush:check"], "node scripts/prepushCheck.js", "debe existir puerta local pre-push");
+assert.equal(packageJson.scripts.pretest, "npm run check:security && npm run test:security", "npm test debe comenzar con seguridad");
+assert.equal(packageJson.scripts["audit:security:history"], "node scripts/checkSecurity.js --history");
+assert.ok(prepushCheck.includes('"check:security", "--", "--outgoing"'), "pre-push debe analizar commits no publicados");
+assert.ok(releaseChecklist.includes('"audit:security:history"'), "release debe analizar historial completo");
+assert.ok((await fs.readFile(path.join(projectRoot, "scripts/buildProduction.js"), "utf8")).includes("runSecretScan"), "build publico debe escanear secretos");
 assert.equal(packageJson.scripts["clean:storage"], "node scripts/cleanStorage.js", "debe existir limpieza local de almacenamiento");
 assert.equal(packageJson.scripts["release:prepare"], "node scripts/prepareRelease.js", "debe existir preparacion automatica de release");
 assert.ok(!prepareRelease.includes("toISOString().slice(0, 10)"), "release:prepare no debe fechar releases visibles en UTC");

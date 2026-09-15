@@ -1,8 +1,13 @@
 {
   "name": "geo-risk",
-  "version": "1.6.243",
+  "version": "1.6.244",
   "type": "module",
   "scripts": {
+    "security:setup": "node scripts/setupSecretScanner.js",
+    "check:security": "node scripts/checkSecurity.js",
+    "audit:security:history": "node scripts/checkSecurity.js --history",
+    "test:security": "node scripts/tests/security.test.js",
+    "pretest": "npm run check:security && npm run test:security",
     "build:data": "node scripts/buildDataset.js && node scripts/applyConflictAutofix.js && node scripts/applyVisibleDataCorrections.js && node scripts/buildDataIndexes.js",
     "build:prod": "node scripts/buildProduction.js",
     "build:map-engine": "node scripts/buildMapEngine.js",
