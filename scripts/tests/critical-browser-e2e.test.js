@@ -589,6 +589,150 @@ async function testCountryOverlayReadiness(browser, baseUrl) {
   }
 }
 
+async function testMapLabels(browser, baseUrl) {
+  for (const viewport of [DESKTOP_VIEWPORT, MOBILE_VIEWPORT]) {
+    const mobile = viewport === MOBILE_VIEWPORT;
+    const label = mobile ? "mobile" : "desktop";
+    let releaseIndex;
+    const indexGate = new Promise(resolve => { releaseIndex = resolve; });
+    const test = await createTestPage(browser, baseUrl, viewport, async page => {
+      if (!mobile) await page.route(/\/data\/countries_index\.json(?:\?|$)/, async route => {
+        await indexGate;
+        await route.continue();
+      });
+    });
+    const { page } = test;
+    const toolsToggle = page.locator(mobile ? "#toggle-tools-panel" : "#map-toolbar > summary");
+    const inspect = async () => page.evaluate(() => {
+      const time = viewer.clock.currentTime;
+      return labelEntities.map(entity => {
+        const position = entity.position.getValue(time);
+        const delta = Cesium.Cartesian3.subtract(viewer.camera.positionWC, position, new Cesium.Cartesian3());
+        const normal = viewer.scene.globe.ellipsoid.geodeticSurfaceNormal(position, new Cesium.Cartesian3());
+        const screen = viewer.scene.cartesianToCanvasCoordinates(position);
+        return { id: entity.id, text: entity.label.text.getValue(time), facing: Cesium.Cartesian3.dot(normal, delta) > 0,
+          inRange: Cesium.Cartesian3.magnitude(delta) <= entity.label.distanceDisplayCondition.getValue(time).far,
+          onCanvas: Boolean(screen && screen.x >= 0 && screen.y >= 0 && screen.x <= viewer.scene.canvas.clientWidth && screen.y <= viewer.scene.canvas.clientHeight) };
+      });
+    });
+    const assertVisible = async () => {
+      const labels = await inspect();
+      assert.ok(labels.length > 0, label + ": debe haber nombres en la vista cercana");
+      assert.ok(labels.every(item => item.facing && item.inRange && item.onCanvas), label + ": solo preparar nombres visibles");
+      assert.equal(new Set(labels.map(item => item.id)).size, labels.length);
+      return labels;
+    };
+    try {
+      let preliminary = [];
+      if (!mobile) {
+        await page.waitForFunction(() => typeof labelEntities !== "undefined" && labelEntities.length > 0 && !isCameraNavigating);
+        preliminary = await inspect();
+      }
+      releaseIndex();
+      await waitForAppReady(page);
+      if (mobile) assert.equal(await page.evaluate(() => labelEntities.length), 0, "mobile conserva el inicio sin etiquetas");
+      else {
+        await page.waitForFunction(() => !isCameraNavigating && labelEntities.length > 0);
+        const initial = await assertVisible();
+        assert.ok(initial.length < 88, "no preparar los 88 nombres globales en la vista inicial");
+        const names = await page.evaluate(() => Object.fromEntries(Object.entries(countriesData).map(([code, country]) => ["country-label-" + code, country.name])));
+        assert.ok(preliminary.some(item => names[item.id] && item.text !== names[item.id]), "la prueba debe partir de nombres de la geometria sin traducir");
+        assert.ok(initial.every(item => !names[item.id] || item.text === names[item.id]), "los datos tardios actualizan los nombres sin mover la camara");
+        console.log("map-labels: desktop inicial " + initial.length + " etiquetas");
+      }
+      await setMapMode(page, "3d");
+      await toolsToggle.click();
+      await page.locator("#label-mode-select").selectOption("full");
+      await toolsToggle.click();
+      await page.evaluate(() => focusRectangle(countryLayers.get("BRA").computeRectangle(), { instant: true }));
+      await page.waitForFunction(() => !isCameraNavigating && labelEntities.some(entity => entity.id === "country-label-BRA"));
+      const brazil = await assertVisible();
+      const pixels = await page.evaluate(async () => {
+        const scene = viewer.scene;
+        const entity = viewer.entities.getById("country-label-BRA");
+        const source = activeGeoJsonDataSource;
+        const globeShow = scene.globe.show;
+        const sourceShow = source.show;
+        const originalShow = entity.label.show;
+        const gl = scene.canvas.getContext("webgl2") || scene.canvas.getContext("webgl");
+        const point = scene.cartesianToCanvasCoordinates(entity.position.getValue(viewer.clock.currentTime));
+        const scale = scene.canvas.width / scene.canvas.clientWidth;
+        const width = Math.ceil(90 * scale);
+        const height = Math.ceil(30 * scale);
+        const x = Math.floor(point.x * scale - width / 2);
+        const y = Math.floor(scene.canvas.height - point.y * scale - height / 2);
+        const sample = show => new Promise((resolve, reject) => {
+          entity.label.show = show;
+          let frames = 0;
+          const remove = scene.postRender.addEventListener(() => {
+            if (++frames < 3) { scene.requestRender(); return; }
+            clearTimeout(timer);
+            remove();
+            const result = new Uint8Array(width * height * 4);
+            gl.readPixels(x, y, width, height, gl.RGBA, gl.UNSIGNED_BYTE, result);
+            resolve(result);
+          });
+          const timer = setTimeout(() => { remove(); reject(new Error("No se dibujo la etiqueta de prueba")); }, 5000);
+          scene.requestRender();
+        });
+        // Isolate label pixels from asynchronous imagery and polygon replacements.
+        scene.globe.show = false;
+        source.show = false;
+        let diagnostics;
+        try {
+          for (let attempt = 0; attempt < 8; attempt++) {
+            const hidden = await sample(false);
+            const visible = await sample(true);
+            let changed = 0;
+            let brighter = 0;
+            let maxChannel = 0;
+            for (let i = 0; i < visible.length; i += 4) {
+              if (visible[i] !== hidden[i] || visible[i + 1] !== hidden[i + 1] || visible[i + 2] !== hidden[i + 2]) changed++;
+              if (visible[i] - hidden[i] > 20 && visible[i + 1] - hidden[i + 1] > 20 && visible[i + 2] - hidden[i + 2] > 20) brighter++;
+              maxChannel = Math.max(maxChannel, visible[i], visible[i + 1], visible[i + 2]);
+            }
+            diagnostics = { changed, brighter, maxChannel, sameEntity: viewer.entities.getById(entity.id) === entity, x, y, width, height, error: gl.getError() };
+            if (changed > 2 && brighter > 2) return diagnostics;
+          }
+          return diagnostics;
+        } finally {
+          scene.globe.show = globeShow;
+          source.show = sourceShow;
+          entity.label.show = originalShow;
+          scene.requestRender();
+        }
+      });
+      assert.ok(pixels.changed > 2 && pixels.brighter > 2 && pixels.sameEntity && pixels.error === 0,
+        label + ": el nombre debe producir pixeles de texto, no solo una entidad: " + JSON.stringify(pixels));
+      await page.waitForTimeout(3500);
+      await page.waitForFunction(() => viewer.scene.globe.tilesLoaded && !loadMapPromise && !isCameraNavigating);
+      await page.screenshot({ path: "tmp/map-labels-" + label + ".png" });
+      const before = await page.locator("#map canvas").screenshot();
+      await page.evaluate(() => viewer.camera.flyTo({ destination: Cesium.Cartesian3.fromDegrees(110, 30, 4500000), duration: 1.5 }));
+      await page.waitForFunction(() => isCameraNavigating);
+      await page.evaluate(() => renderMapLabels());
+      assert.equal(await page.evaluate(() => labelEntities.length), 0, "no reconstruir nombres durante el movimiento");
+      await page.waitForFunction(() => !isCameraNavigating && labelEntities.length > 0);
+      const asia = await assertVisible();
+      assert.notDeepEqual(asia.map(item => item.id), brazil.map(item => item.id), "el nuevo hemisferio recupera sus nombres");
+      assert.equal(before.equals(await page.locator("#map canvas").screenshot()), false);
+      await page.setViewportSize(mobile ? { width: 412, height: 915 } : { width: 1200, height: 800 });
+      await page.waitForTimeout(800);
+      await assertVisible();
+      await toolsToggle.click();
+      await page.locator("#label-mode-select").selectOption("none");
+      await toolsToggle.click();
+      assert.equal(await page.evaluate(() => labelEntities.length), 0);
+      await setMapMode(page, "2d");
+      assert.equal(await page.evaluate(() => labelEntities.length), 0);
+      assertHealthyPage(test.pageErrors, label + " etiquetas de mapa");
+    } finally {
+      releaseIndex();
+      await test.context.close();
+    }
+  }
+}
+
 async function testAutoRotation(browser, baseUrl) {
   for (const viewport of [DESKTOP_VIEWPORT, MOBILE_VIEWPORT]) {
     const mobile = viewport === MOBILE_VIEWPORT;
@@ -1431,6 +1575,7 @@ try {
   const focusedFlows = [
     ["--performance-only", testIdleMapPerformance],
     ["--auto-rotation-only", testAutoRotation],
+    ["--map-labels-only", testMapLabels],
     ["--startup-only", testMapEngineStartup],
     ["--startup-only", testControlsStartup],
     ["--overlay-ready-only", testCountryOverlayReadiness],

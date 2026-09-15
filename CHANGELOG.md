@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.242 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.243 antes de cerrar la siguiente version.
+
+## v1.6.243 - 2026-09-15
+
+- Filtra las etiquetas 3D antes de crearlas segun hemisferio visible, distancia y posicion en pantalla. Evita nombres del lado oculto del globo y reduce de 88 a 20 las entidades en la vista inicial de escritorio observada, sin atribuir esa reduccion a una mejora equivalente de FPS o tiempo de arranque.
+- Evita reconstruir etiquetas durante movimiento y transiciones; actualiza los nombres al terminar, redimensionar y recibir datos de paises tardios. Conserva limites, estilos y el inicio movil sin etiquetas.
+- Corrige la prioridad por superficie de paises que cruzan el meridiano 180, usando el ancho geografico de Cesium en vez de la resta absoluta de longitudes.
+- Agrega pruebas unitarias de horizonte, distancia, limites y geometria envuelta, y pruebas de navegador en escritorio/movil emulado con indice retenido, pixeles reales de texto, cambio de hemisferio, resize y modos 2D/3D.
+- No modifica los datos historicos ni sustituye la verificacion en un telefono fisico.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-15-release-1`.
 
 ## v1.6.242 - 2026-09-14
 

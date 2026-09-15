@@ -301,6 +301,14 @@ La puerta de release permite `--reuse-browser`: reutiliza una muestra completa d
 
 `npm run build:indexes` genera `data/runtime_supplemental.json` a partir del dataset curado y del CSV poblacional interno. El cliente descarga ese suplemento diferido, no `data/raw/**`. Conserva el intervalo de años de cada variación poblacional y omite las tasas anuales cuando faltan observaciones consecutivas. El service worker lo almacena solo tras consultarlo, fuera de `APP_SHELL`.
 
+## Etiquetas visibles del mapa
+
+Desde v1.6.243, `renderMapLabels` conserva la seleccion global por prioridad y los limites de cada perfil, pero filtra sus candidatos antes de crear entidades. Para anclas sobre la superficie del elipsoide, el producto escalar de la normal geodesica con el vector hacia la camara descarta el hemisferio oculto. El filtro tambien comparte el limite de distancia con `DistanceDisplayCondition` y comprueba la proyeccion dentro del canvas. Esto evita depender del depth buffer, que las etiquetas ignoran para permanecer legibles sobre los rellenos de paises.
+
+Durante navegacion y transiciones no se reconstruyen etiquetas; el fin del movimiento, el cambio de dimensiones y la llegada de datos de paises las actualizan. Este ultimo refresco reemplaza los nombres iniciales de GeoJSON sin requerir movimiento del usuario. `Rectangle.width` y `Rectangle.height` calculan la prioridad geografica, incluido el cruce del meridiano 180.
+
+La vista inicial de escritorio observada pasa de 88 entidades a 20; no es una medicion de aceleracion total. Se conservan fuentes, transparencia, limites y el inicio movil sin etiquetas. `map-labels.test.js` cubre la geometria con las clases reales de Cesium y se integra al gate de arranque. `test:e2e:critical -- --map-labels-only` verifica datos tardios, visibilidad, pixeles de texto, movimiento, resize y modos en escritorio y movil emulado. Las capturas se guardan temporalmente en `tmp/`; la prueba no reemplaza un telefono fisico.
+
 ## Rotacion automatica del globo
 
 Desde v1.6.242, `app-map-interactions.js` mantiene un controlador de rotacion separado de `isCameraNavigating`. Los eventos `moveStart`/`moveEnd` siguen notificando movimiento al monitor de FPS, las etiquetas y el scheduler; solo dejan de registrar una nueva interaccion si el controlador conserva la autoria del giro. Los punteros del canvas, rueda y teclado revocan esa autoria. La liberacion se escucha en el documento para cubrir gestos que terminan fuera del mapa; cancelacion, perdida de foco y visibilidad limpian contactos retenidos.

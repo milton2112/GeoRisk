@@ -5,6 +5,7 @@ import vm from "node:vm";
 import "./map-lifecycle.test.js";
 import "./map-performance.test.js";
 import "./map-auto-rotation.test.js";
+import "./map-labels.test.js";
 import "./map-render-recovery.test.js";
 import "./service-worker-lifecycle.test.js";
 import "./startup-resources.test.js";

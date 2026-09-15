@@ -85,7 +85,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-09-14-release-4";
+const APP_VERSION = "2026-09-15-release-1";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -685,8 +685,8 @@ function getCountryLabelData() {
         return null;
       }
       const center = Cesium.Rectangle.center(bounds);
-      const width = Math.abs(bounds.east - bounds.west);
-      const height = Math.abs(bounds.north - bounds.south);
+      const width = bounds.width;
+      const height = bounds.height;
       return {
         id: `country-label-${layer.code}`,
         text: countriesData[layer.code]?.name || layer.featureName || layer.code,
@@ -708,14 +708,31 @@ function clearMapLabels() {
   labelEntities = [];
 }
 
-function buildLabelEntityConfig(item, category = "country") {
+function getMapLabelMaxDistance(category) {
+  return category === "country" ? 18000000 : 30000000;
+}
+
+function isMapLabelVisible(position, maximumDistance) {
+  const scene = viewer.scene;
+  const offset = Cesium.Cartesian3.subtract(viewer.camera.positionWC, position, new Cesium.Cartesian3());
+  if (Cesium.Cartesian3.magnitudeSquared(offset) > maximumDistance * maximumDistance) return false;
+  // Surface labels ignore the depth buffer to remain legible over country fills.
+  // Cull the far side explicitly using the ellipsoid's tangent plane.
+  const normal = scene.globe.ellipsoid.geodeticSurfaceNormal(position, new Cesium.Cartesian3());
+  if (Cesium.Cartesian3.dot(normal, offset) <= 0) return false;
+  const point = scene.cartesianToCanvasCoordinates(position);
+  return Boolean(point && point.x >= 0 && point.y >= 0 &&
+    point.x <= scene.canvas.clientWidth && point.y <= scene.canvas.clientHeight);
+}
+
+function buildLabelEntityConfig(item, category = "country", position = Cesium.Cartesian3.fromDegrees(item.lon, item.lat, 0)) {
   const isContext = category !== "country";
   const zoomBucket = get3DZoomBucket();
   const countryFont = zoomBucket === "near" ? "700 14px Segoe UI, sans-serif" : zoomBucket === "mid" ? "600 13px Segoe UI, sans-serif" : "600 12px Segoe UI, sans-serif";
   const contextFont = zoomBucket === "near" ? "700 16px Segoe UI, sans-serif" : zoomBucket === "mid" ? "600 15px Segoe UI, sans-serif" : "600 14px Segoe UI, sans-serif";
   return {
     id: item.id,
-    position: Cesium.Cartesian3.fromDegrees(item.lon, item.lat, 0),
+    position,
     label: {
       text: item.text,
       font: isContext ? contextFont : countryFont,
@@ -732,7 +749,7 @@ function buildLabelEntityConfig(item, category = "country") {
       pixelOffset: new Cesium.Cartesian2(0, 0),
       scaleByDistance: new Cesium.NearFarScalar(1500000, isContext ? 1.0 : 0.92, 24000000, isContext ? 0.62 : 0.45),
       translucencyByDistance: new Cesium.NearFarScalar(2500000, 1, 26000000, 0),
-      distanceDisplayCondition: new Cesium.DistanceDisplayCondition(0, isContext ? 30000000 : 18000000),
+      distanceDisplayCondition: new Cesium.DistanceDisplayCondition(0, getMapLabelMaxDistance(category)),
       horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
       verticalOrigin: Cesium.VerticalOrigin.CENTER,
       disableDepthTestDistance: Number.POSITIVE_INFINITY
@@ -745,7 +762,7 @@ function renderMapLabels() {
     return;
   }
   clearMapLabels();
-  if (labelMode === "none" || currentMapMode !== "3d") {
+  if (labelMode === "none" || currentMapMode !== "3d" || isCameraNavigating || cancelPendingMapTransition) {
     viewer.scene.requestRender();
     return;
   }
@@ -757,13 +774,17 @@ function renderMapLabels() {
     : zoomBucket === "mid"
       ? (isMobileLayout() ? 38 : 88)
       : (isMobileLayout() ? 20 : 52);
-  countries.slice(0, maxCountries).forEach(item => {
-    labelEntities.push(viewer.entities.add(buildLabelEntityConfig(item, "country")));
-  });
+  const addVisibleLabel = (item, category) => {
+    const position = Cesium.Cartesian3.fromDegrees(item.lon, item.lat, 0);
+    if (isMapLabelVisible(position, getMapLabelMaxDistance(category))) {
+      labelEntities.push(viewer.entities.add(buildLabelEntityConfig(item, category, position)));
+    }
+  };
+  countries.slice(0, maxCountries).forEach(item => addVisibleLabel(item, "country"));
 
   if (labelMode === "full" && zoomBucket !== "far") {
     [...MAP_LABEL_SETS.continents, ...MAP_LABEL_SETS.oceans].forEach(item => {
-      labelEntities.push(viewer.entities.add(buildLabelEntityConfig(item, "context")));
+      addVisibleLabel(item, "context");
     });
   }
   viewer.scene.requestRender();
@@ -2597,6 +2618,7 @@ function toggleMapMode() {
 window.addEventListener("resize", () => {
   map.invalidateSize();
   updateMapInteractionTuning();
+  renderMapLabels();
   updateAppStatusPanel();
 });
 
@@ -8124,6 +8146,7 @@ function refreshLoadedCountryLayers() {
       [...countryLayers.entries()].map(([code, layer]) => [code, countriesData[code]?.name || layer.featureName || code])
     )
   );
+  renderMapLabels();
   requestSceneRender();
 }
 
