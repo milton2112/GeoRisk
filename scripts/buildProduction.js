@@ -10,6 +10,7 @@ const outputRoot = path.join(projectRoot, "dist", "public");
 const secretScanner = await requireScanner();
 
 execFileSync(process.execPath, ["scripts/buildMapEngine.js", "--check"], { stdio: "inherit" });
+execFileSync(process.execPath, ["scripts/buildExportLibraries.js", "--check"], { stdio: "inherit" });
 
 const PUBLIC_FILES = [
   "index.html",
@@ -54,6 +55,10 @@ const PUBLIC_FILES = [
   "vendor/cesium/engine.js",
   "vendor/cesium/LICENSES.txt",
   "vendor/cesium/manifest.json",
+  "vendor/exports/manifest.js",
+  "vendor/exports/LICENSES.txt",
+  "vendor/exports/html2canvas-1.4.1.min.js",
+  "vendor/exports/jspdf-4.2.1.umd.min.js",
   "data/countries_index.json",
   "data/geo_aliases.json",
   "data/conflicts_index.json",

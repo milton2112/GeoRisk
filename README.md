@@ -42,6 +42,8 @@ Ejemplos:
 
 Antes del primer build o test, ejecutar `npm run security:setup` para instalar el scanner de secretos con descarga verificada. Luego `npm run check:security` revisa archivos actuales y `npm run audit:security:history` incluye el historial completo. El pre-push, el build y la puerta de release aplican estos controles. Detalles y limites en `SECURITY.md`.
 
+`npm run audit:dependencies` consulta avisos conocidos de todas las dependencias (tambien dev/optional) y bloquea release/CI si encuentra vulnerabilidades o no logra completar la consulta. Las exportaciones usan librerias locales fijadas y verificadas por SRI; `npm run build:export-libs` regenera sus assets tras una actualizacion de versiones. El build verifica esos archivos, sin cargarlos al inicio ni agregarlos al precache.
+
 - `npm run build:data`
   - regenera `data/countries_full.json`
 

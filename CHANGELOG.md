@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.244 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.245 antes de cerrar la siguiente version.
+
+## v1.6.245 - 2026-09-15
+
+- Reemplaza jsPDF 2.5.1 cargado desde CDN por jsPDF 4.2.1 local y fija html2canvas 1.4.1 en npm. Las exportaciones entran en la auditoria de dependencias; no se afirma que el flujo PNG/PDF existente explotara los overloads HTML afectados por el aviso de jsPDF.
+- Genera distribuciones locales, licencias y hashes; el build rechaza cambios o versiones incoherentes y el navegador verifica SRI SHA-384 al cargarlas. Conserva carga bajo demanda, fuera del arranque y precache, con timeout y reintento tras fallos.
+- Agrega auditoria npm de dependencias de produccion, desarrollo y opcionales a release y ambos jobs de CI. Los errores de consulta no equivalen a un resultado limpio y los reportes quedan fuera del build publico.
+- Corrige PNG/PDF recortados por posiciones fijas y limites de scroll del panel, especialmente en movil. La captura conserva secciones abiertas y filtros, retira los botones de exportacion y muestra errores recuperables al fallar la generacion.
+- Agrega pruebas de distribuciones alteradas, version/SRI, timeout/reintento, auditoria incompleta y descargas reales PNG/PDF en escritorio y movil emulado. No modifica datasets ni sustituye una prueba en telefono fisico.
+- Corrige la reanudacion del giro en movil: eventos de movimiento de Cesium sin nuevos gestos reiniciaban continuamente la espera. La pausa observa cambios reales de posicion/orientacion con tolerancia a variaciones minimas, conserva prioridad para contactos/vuelos y agrega regresiones y diagnosticos sin ampliar los plazos de la E2E.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-15-release-3`.
 
 ## v1.6.244 - 2026-09-15
 

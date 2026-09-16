@@ -101,5 +101,37 @@ runtime.modal = true;
 runtime.now += 30;
 runtime.handleAutoRotateTick();
 assert.equal(runtime.renders, 2, "un modal no solicita frames de rotacion");
-assert.equal((script.match(/if \(!autoRotation\.isRotating\(\)\) lastInteractionAt = Date\.now\(\);/g) || []).length, 2);
+assert.equal((script.match(/if \(!autoRotation\.isRotating\(\)\) lastInteractionAt = Date\.now\(\);/g) || []).length, 0,
+  "los eventos sinteticos de Cesium no reinician la espera de interaccion");
+assert.ok(tick.includes("camera: viewer.camera"), "la pausa debe observar la pose real");
+{
+  const controller = createAutoRotationController();
+  const camera = {
+    positionWC: { x: 20000000, y: 0, z: 0 },
+    directionWC: { x: -1, y: 0, z: 0 }, upWC: { x: 0, y: 0, z: 1 }
+  };
+  controller.step({ ...context, camera });
+  controller.step({ ...context, now: 10050, camera });
+  controller.pointerDown(1);
+  controller.step({ ...context, now: 11000, camera, interactionAt: 11000 });
+  controller.pointerUp(1);
+  let angle = 0;
+  for (let frame = 0; frame <= 80; frame++) {
+    camera.positionWC.x += 1e-8;
+    camera.directionWC.y += 1e-15;
+    angle += controller.step({ ...context, camera, now: 15000 + frame * 50, interactionAt: 15000, navigating: frame % 2 === 0 });
+  }
+  assert.ok(angle < 0, "reanuda tras 3,2 s aunque Cesium repita moveStart/moveEnd sin movimiento real");
+  assert.equal(controller.isRotating(), true);
+  controller.reset();
+  camera.positionWC.x += 100;
+  assert.equal(controller.step({ ...context, camera, now: 20000 }), 0, "respetar vuelos y movimiento real incluso sin moveStart");
+  assert.equal(controller.step({ ...context, camera, now: 23100 }), 0);
+  assert.equal(controller.step({ ...context, camera, now: 23200 }), 0);
+  assert.ok(controller.step({ ...context, camera, now: 23250 }) < 0);
+  controller.reset();
+  camera.directionWC.y += 0.001;
+  assert.equal(controller.step({ ...context, camera, now: 24000 }), 0, "tambien detectar cambios de orientacion");
+  assert.equal(controller.step({ ...context, camera, now: 27100 }), 0);
+}
 console.log("map-auto-rotation.test.js ok");

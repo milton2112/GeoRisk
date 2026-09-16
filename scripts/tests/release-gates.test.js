@@ -7,6 +7,7 @@ import vm from "node:vm";
 import { retryFileOperation } from "../lib/resilient-fs.js";
 import { resolveNpmInvocation } from "../lib/npm-runner.js";
 import "./map-engine-bundle.test.js";
+import "./export-security.test.js";
 
 const projectRoot = process.cwd();
 let transientAttempts = 0;
@@ -454,8 +455,8 @@ assert.equal((script.match(/exportNodeAsImage = async function exportNodeAsImage
 assert.equal((script.match(/exportNodeAsPdf = async function exportNodeAsPdf/g) || []).length, 1, "exportacion PDF no debe conservar implementaciones duplicadas");
 assert.equal((script.match(/shareText = async function shareText/g) || []).length, 1, "compartir no debe conservar implementaciones duplicadas");
 assert.ok(exportShare.includes("GeoRiskExportShare"), "modulo diferido debe exponer API global de exportar/compartir");
-assert.ok(exportShare.includes("html2canvas@1.4.1"), "html2canvas debe vivir en modulo diferido");
-assert.ok(exportShare.includes("jspdf@2.5.1"), "jsPDF debe vivir en modulo diferido");
+assert.ok(exportShare.includes('"./vendor/exports/manifest.js"'), "exportaciones deben usar dependencias locales verificadas");
+assert.ok(!exportShare.includes("cdn.jsdelivr.net"), "exportaciones no deben cargar scripts desde el CDN");
 assert.equal((script.match(/setupCompareControls = function setupCompareControls/g) || []).length, 0, "setup incompleto del comparador no debe pisar controles avanzados");
 assert.ok(script.includes("exportNodeAsImage"), "exportacion de imagen debe existir");
 assert.ok(script.includes("exportNodeAsPdf"), "exportacion PDF debe existir");

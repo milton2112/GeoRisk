@@ -20,7 +20,7 @@ GeoRisk es una aplicacion frontend orientada a exploracion geopolitica con datas
 - `app-text.js`: helpers de texto, labels y formateo compartido.
 - `app-news-ui.js`: render auxiliar del hub de noticias.
 - `app-compare-ui.js`: piezas visuales del comparador.
-- `app-export-share.js`: exportacion/compartir diferido; carga `html2canvas` y `jsPDF` solo cuando se usa.
+- `app-export-share.js`: exportacion/compartir diferido; carga `html2canvas` y `jsPDF` locales con SRI solo cuando se usa. `vendor/exports/manifest.js` se genera desde versiones fijadas por `scripts/buildExportLibraries.js` y se verifica en build.
 - `app-quiz-ui.js`: piezas visuales del quiz.
 - `app-country-panel.js`: helpers de ficha del pais.
 - `app-timeline-conflicts.js`: helpers de timeline, filtros y conflictos.
@@ -197,8 +197,8 @@ Esto permite:
 
 La exportacion actual usa:
 
-- `html2canvas` para PNG;
-- `jsPDF` para PDF;
+- `html2canvas@1.4.1` local para PNG;
+- `jsPDF@4.2.1` local para PDF, sin usar el overload HTML de output;
 - nombres de archivo contextuales con fecha, tema y modo.
 
 Se exportan:

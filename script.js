@@ -85,7 +85,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-09-15-release-2";
+const APP_VERSION = "2026-09-15-release-3";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -1242,6 +1242,7 @@ function handleAutoRotateTick() {
   if (!viewer) return;
   const angle = autoRotation.step({
     now: Date.now(), enabled: autoRotateEnabled, mode: currentMapMode,
+    camera: viewer.camera,
     navigating: isCameraNavigating, interactionAt: lastInteractionAt,
     visible: document.visibilityState !== "hidden",
     blocked: viewer.useDefaultRenderLoop === false || Boolean(cancelPendingMapTransition) || Boolean(loadMapPromise) ||
@@ -2399,7 +2400,6 @@ function initializeViewer() {
   fitWorldView();
 
   viewer.camera.moveStart.addEventListener(() => {
-    if (!autoRotation.isRotating()) lastInteractionAt = Date.now();
     isCameraNavigating = true;
     emitMapEvent("dragstart");
     emitMapEvent("zoomstart");
@@ -2410,7 +2410,6 @@ function initializeViewer() {
   });
 
   viewer.camera.moveEnd.addEventListener(() => {
-    if (!autoRotation.isRotating()) lastInteractionAt = Date.now();
     isCameraNavigating = false;
     setNavigationQualityState(false);
     const nextBucket = getCurrentOverlayBucket();

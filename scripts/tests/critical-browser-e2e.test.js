@@ -742,6 +742,26 @@ async function testAutoRotation(browser, baseUrl) {
     const toolsToggle = page.locator(mobile ? "#toggle-tools-panel" : "#map-toolbar > summary");
     try {
       await waitForAppReady(page);
+      await page.evaluate(() => {
+        window.__rotationTrace = [];
+        window.__rotationInputTrace = [];
+        for (const event of ["blur", "focus", "visibilitychange", "pointerdown", "pointerup", "pointercancel", "keydown", "wheel", "resize", "contextmenu"]) {
+          window.addEventListener(event, value => window.__rotationInputTrace.push({
+            event, now: Date.now(), target: value.target?.id || value.target?.nodeName
+          }), true);
+        }
+        const step = autoRotation.step;
+        autoRotation.step = options => {
+          const angle = step(options);
+          const { camera: _camera, ...entry } = options;
+          entry.rotating = autoRotation.isRotating();
+          const last = window.__rotationTrace.at(-1);
+          if (!last || ["interactionAt", "navigating", "blocked", "visible", "rotating"].some(key => last[key] !== entry[key])) {
+            window.__rotationTrace.push(entry);
+          }
+          return angle;
+        };
+      });
       await toolsToggle.click();
       await page.locator("#auto-rotate-button").click();
       assert.equal(await page.locator("#auto-rotate-button").getAttribute("aria-pressed"), "true");
@@ -800,6 +820,16 @@ async function testAutoRotation(browser, baseUrl) {
       await page.waitForTimeout(500);
       assert.equal(await page.evaluate(position => Cesium.Cartesian3.distance(position, viewer.camera.positionWC) < 0.01, stopped), true);
       assertHealthyPage(test.pageErrors, label + " rotacion automatica");
+    } catch (error) {
+      console.error("auto-rotation diagnostic", label, await page.evaluate(() => ({
+        mode: currentMapMode, enabled: autoRotateEnabled, rotating: autoRotation.isRotating(),
+        navigating: isCameraNavigating, sinceInteraction: Date.now() - lastInteractionAt,
+        visible: document.visibilityState, classes: document.body.className,
+        rendering: viewer.useDefaultRenderLoop, transition: Boolean(cancelPendingMapTransition), loading: Boolean(loadMapPromise),
+        modals: MODAL_IDS.filter(id => document.getElementById(id)?.hidden === false),
+        activeElement: document.activeElement?.id, trace: window.__rotationTrace, inputs: window.__rotationInputTrace
+      })).catch(() => null));
+      throw error;
     } finally {
       await test.context.close();
     }
@@ -1492,6 +1522,84 @@ async function testBackgroundPanels(browser, baseUrl) {
   }
 }
 
+async function testSecureExports(browser, baseUrl) {
+  for (const [label, viewport] of [["desktop", DESKTOP_VIEWPORT], ["mobile", MOBILE_VIEWPORT]]) {
+    const requests = [];
+    const test = await createTestPage(browser, baseUrl, viewport, async page => {
+      page.on("request", request => requests.push(request.url()));
+    });
+    const { page } = test;
+    try {
+      await waitForAppReady(page, { requireTiles: false });
+      assert.equal(requests.some(url => /vendor\/exports|html2canvas|jspdf/.test(url)), false, "no export libraries at startup");
+      await page.locator(label === "mobile" ? "#toggle-left-panel" : "#rankings-summary").click();
+      await page.waitForFunction(() => document.querySelectorAll("#top-population li").length > 0);
+      const layout = await page.evaluate(async () => {
+        const tools = await getExportShareTools();
+        const capture = tools.buildReportCaptureNode(document.getElementById("left-panel"), "fixture");
+        const body = capture.querySelector(".export-report-body");
+        const header = capture.querySelector(".export-report-header").getBoundingClientRect();
+        const bounds = body.getBoundingClientRect();
+        const result = {
+          height: bounds.height, belowHeader: bounds.top >= header.bottom,
+          inBounds: bounds.bottom <= capture.getBoundingClientRect().bottom,
+          controls: body.querySelectorAll(".compare-toolbar").length
+        };
+        capture.remove();
+        return result;
+      });
+      assert.ok(layout.height > 300 && layout.belowHeader && layout.inBounds, label + " report body is in flow and unclipped");
+      assert.equal(layout.controls, 0);
+      const imageDownload = page.waitForEvent("download", { timeout: APP_TIMEOUT_MS });
+      await page.locator('[data-export-target="left-panel"][data-export-format="png"]').click();
+      const image = await imageDownload;
+      const png = await fs.readFile(await image.path());
+      assert.equal(png.subarray(0, 8).toString("hex"), "89504e470d0a1a0a");
+      assert.ok(png.length > 20000, label + " export image contains content");
+      await image.saveAs("tmp/export-" + label + ".png");
+      const colors = await page.evaluate(async data => {
+        const bitmap = await createImageBitmap(await (await fetch(data)).blob());
+        const canvas = document.createElement("canvas");
+        canvas.width = 200; canvas.height = 200;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(bitmap, 0, 0, 200, 200);
+        const pixels = ctx.getImageData(0, 0, 200, 200).data;
+        const values = new Set();
+        for (let i = 0; i < pixels.length; i += 4) values.add(`${pixels[i]},${pixels[i + 1]},${pixels[i + 2]}`);
+        bitmap.close();
+        return values.size;
+      }, "data:image/png;base64," + png.toString("base64"));
+      assert.ok(colors > 100, label + " exported canvas is not blank");
+
+      const pdfButton = page.locator('[data-export-target="left-panel"][data-export-format="pdf"]');
+      if (label === "desktop") {
+        await page.route("**/vendor/exports/jspdf-*.js", route => route.fulfill({
+          contentType: "text/javascript", body: "window.unverifiedExportScriptExecuted = true;"
+        }));
+        await pdfButton.click();
+        await page.locator(".app-toast").filter({ hasText: "No se pudieron cargar las herramientas de PDF" }).waitFor({ state: "visible" });
+        assert.equal(await page.evaluate(() => window.unverifiedExportScriptExecuted), undefined, "SRI blocks altered JS before execution");
+        assert.equal(await page.locator('script[data-export-library="jspdf"]').count(), 0, "failed script is removed for retry");
+        await page.unroute("**/vendor/exports/jspdf-*.js");
+      }
+      const pdfDownload = page.waitForEvent("download", { timeout: APP_TIMEOUT_MS });
+      await pdfButton.click();
+      const pdf = await pdfDownload;
+      const pdfBytes = await fs.readFile(await pdf.path());
+      assert.equal(pdfBytes.subarray(0, 5).toString(), "%PDF-");
+      assert.ok(pdfBytes.length > 20000, label + " PDF includes captured image");
+      assert.equal(await page.evaluate(() => window.jspdf.jsPDF.version), "4.2.1");
+      assert.equal(await page.locator(".export-report-shell").count(), 0);
+      assert.equal(await page.locator("script[data-export-library][integrity^='sha384-'][crossorigin='anonymous']").count(), 2);
+      assert.equal(requests.some(url => /cdn.*(?:jspdf|html2canvas)/.test(url)), false);
+      assert.equal(requests.filter(url => /vendor\/exports\/html2canvas.*\.js$/.test(url)).length, 1);
+      assertHealthyPage(test.pageErrors, label + " verified exports");
+    } finally {
+      await test.context.close();
+    }
+  }
+}
+
 async function testFirstWorkerActivation(browser, baseUrl) {
   const context = await browser.newContext({ viewport: MOBILE_VIEWPORT, isMobile: true, hasTouch: true, serviceWorkers: "allow" });
   let releaseWorker;
@@ -1573,6 +1681,7 @@ try {
   const baseUrl = "http://127.0.0.1:" + port;
   browser = await launchCriticalBrowser();
   const focusedFlows = [
+    ["--exports-only", testSecureExports],
     ["--performance-only", testIdleMapPerformance],
     ["--auto-rotation-only", testAutoRotation],
     ["--map-labels-only", testMapLabels],

@@ -3,6 +3,26 @@
     const pointers = new Set();
     let lastTick = null;
     let rotating = false;
+    let lastCameraMotionAt = -Infinity;
+    let hasCameraPose = false;
+    const pose = { positionWC: {}, directionWC: {}, upWC: {} };
+    const poseKeys = Object.keys(pose);
+    const axes = ["x", "y", "z"];
+    function cameraMoved(camera, fallback) {
+      if (!poseKeys.every(key => camera?.[key])) return fallback;
+      let moved = hasCameraPose ? false : fallback;
+      for (const key of poseKeys) {
+        const current = camera[key];
+        const previous = pose[key];
+        const tolerance = key === "positionWC" ? 0.01 : 1e-10;
+        for (const axis of axes) {
+          if (hasCameraPose && Math.abs(current[axis] - previous[axis]) > tolerance) moved = true;
+          previous[axis] = current[axis];
+        }
+      }
+      hasCameraPose = true;
+      return moved;
+    }
     function reset() {
       lastTick = null;
       rotating = false;
@@ -17,9 +37,19 @@
         return true;
       },
       releasePointers() { pointers.clear(); reset(); },
-      step({ now, enabled, mode, navigating, visible, blocked, interactionAt }) {
-        if (!enabled || mode !== "3d" || !visible || blocked || pointers.size ||
-            (navigating && !rotating) || now - interactionAt < 3200) {
+      step({ now, enabled, mode, navigating, visible, blocked, interactionAt, camera }) {
+        if (!enabled || mode !== "3d") {
+          hasCameraPose = false;
+          lastCameraMotionAt = -Infinity;
+          reset();
+          return 0;
+        }
+        // Cesium move events also include frustum changes and sub-pixel numeric drift.
+        // Only real pose changes extend the pause; our own rotation retains ownership.
+        const moving = cameraMoved(camera, navigating);
+        if (moving && !rotating) lastCameraMotionAt = now;
+        if (!visible || blocked || pointers.size ||
+            (moving && !rotating) || now - Math.max(interactionAt, lastCameraMotionAt) < 3200) {
           reset();
           return 0;
         }

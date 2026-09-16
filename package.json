@@ -1,16 +1,18 @@
 {
   "name": "geo-risk",
-  "version": "1.6.244",
+  "version": "1.6.245",
   "type": "module",
   "scripts": {
     "security:setup": "node scripts/setupSecretScanner.js",
     "check:security": "node scripts/checkSecurity.js",
     "audit:security:history": "node scripts/checkSecurity.js --history",
+    "audit:dependencies": "node scripts/auditDependencies.js",
     "test:security": "node scripts/tests/security.test.js",
     "pretest": "npm run check:security && npm run test:security",
     "build:data": "node scripts/buildDataset.js && node scripts/applyConflictAutofix.js && node scripts/applyVisibleDataCorrections.js && node scripts/buildDataIndexes.js",
     "build:prod": "node scripts/buildProduction.js",
     "build:map-engine": "node scripts/buildMapEngine.js",
+    "build:export-libs": "node scripts/buildExportLibraries.js",
     "import:conflicts:wikipedia": "node scripts/importWikipediaConflicts.js",
     "import:conflicts:dyadic": "powershell -ExecutionPolicy Bypass -File scripts/importDyadicSupplement.ps1",
     "smoke:server": "node scripts/localSmokeServer.js",
@@ -78,8 +80,10 @@
   "devDependencies": {
     "@cesium/engine": "15.0.0",
     "@cesium/widgets": "11.0.0",
+    "@playwright/test": "^1.62.1",
     "esbuild": "0.28.2",
-    "@playwright/test": "^1.62.1"
+    "html2canvas": "1.4.1",
+    "jspdf": "4.2.1"
   },
   "overrides": {
     "@zip.js/zip.js": "2.7.57"

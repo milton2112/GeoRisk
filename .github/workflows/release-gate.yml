@@ -41,6 +41,9 @@ jobs:
       - name: Install
         run: npm ci
 
+      - name: Audit all dependencies including browser export libraries
+        run: npm run audit:dependencies
+
       - name: Install Chromium for critical browser E2E
         run: npx playwright install --with-deps chromium
 
@@ -126,6 +129,9 @@ jobs:
 
       - name: Install
         run: npm ci
+
+      - name: Audit all dependencies including browser export libraries
+        run: npm run audit:dependencies
 
       - name: Rebuild generated data
         run: npm run build:data

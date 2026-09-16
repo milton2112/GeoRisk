@@ -1,3 +1,5 @@
+import { exportAssets } from "./vendor/exports/manifest.js";
+
 let exportCanvasLibraryPromise = null;
 let exportPdfLibraryPromise = null;
 
@@ -36,34 +38,40 @@ function getNormalizeText(context = {}) {
   return typeof context.normalizeText === "function" ? context.normalizeText : fallbackNormalizeText;
 }
 
-function localLoadScriptOnce(src, globalFlag) {
-  if (globalFlag && window[globalFlag]) {
-    return Promise.resolve(window[globalFlag]);
-  }
-
-  const existing = document.querySelector(`script[data-dynamic-src="${src}"]`);
-  if (existing?.dataset.loaded === "true") {
-    return Promise.resolve(globalFlag ? window[globalFlag] : true);
-  }
-
+function loadExportLibrary(name, isReady) {
+  const asset = exportAssets[name];
   return new Promise((resolve, reject) => {
-    const script = existing || document.createElement("script");
-    script.src = src;
+    const script = document.createElement("script");
+    script.src = new URL(asset.path, import.meta.url).href;
+    script.integrity = asset.integrity;
+    script.crossOrigin = "anonymous";
     script.async = true;
-    script.dataset.dynamicSrc = src;
-    script.addEventListener("load", () => {
-      script.dataset.loaded = "true";
-      resolve(globalFlag ? window[globalFlag] : true);
-    }, { once: true });
-    script.addEventListener("error", () => reject(new Error(`No se pudo cargar ${src}`)), { once: true });
-    if (!existing) {
-      document.body.appendChild(script);
+    script.dataset.exportLibrary = name;
+    let settled = false;
+    const finish = success => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      script.removeEventListener("load", onLoad);
+      script.removeEventListener("error", onError);
+      if (success) {
+        resolve(true);
+      } else {
+        script.remove();
+        reject(new Error(`No se pudo verificar o cargar ${name}. Reintenta la exportacion.`));
+      }
+    };
+    const onLoad = () => finish(isReady());
+    const onError = () => finish(false);
+    const timer = setTimeout(onError, 15000);
+    script.addEventListener("load", onLoad, { once: true });
+    script.addEventListener("error", onError, { once: true });
+    try {
+      document.head.appendChild(script);
+    } catch {
+      finish(false);
     }
   });
-}
-
-function getScriptLoader(context = {}) {
-  return typeof context.loadScriptOnce === "function" ? context.loadScriptOnce : localLoadScriptOnce;
 }
 
 function notify(context = {}, en, es) {
@@ -96,8 +104,13 @@ function buildReportCaptureNode(node, title, context = {}) {
   wrapper.style.padding = "32px";
   wrapper.style.background = "#071320";
   wrapper.style.color = "#eef5ff";
+  wrapper.style.boxSizing = "border-box";
 
-  const reportTitle = title || (language === "en" ? "GeoRisk report" : "Informe GeoRisk");
+  const reportTitle = {
+    "left-panel": language === "en" ? "Global rankings" : "Rankings globales",
+    "compare-results": language === "en" ? "Country comparison" : "Comparacion de paises",
+    "compare-modal-content": language === "en" ? "Country comparison" : "Comparacion de paises"
+  }[node.id] || title || (language === "en" ? "GeoRisk report" : "Informe GeoRisk");
   const contextLine = [
     context.selectedCountryName || "",
     context.theme && context.theme !== "default" ? context.theme : (language === "en" ? "political view" : "vista politica"),
@@ -117,25 +130,38 @@ function buildReportCaptureNode(node, title, context = {}) {
 
   const clone = node.cloneNode(true);
   clone.classList.add("export-report-body");
+  // Screen panels use fixed positions and scroll limits, which clip report captures.
+  for (const element of [clone, ...clone.querySelectorAll("#rankings-panel, .left-panel-inner")]) {
+    for (const [property, value] of Object.entries({
+      position: "static", inset: "auto", transform: "none", opacity: "1", width: "100%",
+      height: "auto", "max-height": "none", "max-width": "none", overflow: "visible",
+      margin: "0", "box-sizing": "border-box", transition: "none"
+    })) element.style.setProperty(property, value, "important");
+  }
+  clone.querySelectorAll(".compare-toolbar, .ranking-group:not([open])").forEach(element => element.remove());
+  clone.querySelectorAll("summary").forEach(element => element.style.setProperty("position", "static", "important"));
+  const originalSelects = node.querySelectorAll("select");
+  clone.querySelectorAll("select").forEach((select, index) => {
+    const label = document.createElement("span");
+    label.textContent = originalSelects[index]?.selectedOptions[0]?.textContent || "";
+    select.replaceWith(label);
+  });
   wrapper.appendChild(clone);
   document.body.appendChild(wrapper);
   return wrapper;
 }
 
 async function ensureExportLibraries(format = "image", context = {}) {
-  if (typeof html2canvas === "function" && (format !== "pdf" || window.jspdf?.jsPDF)) {
-    return true;
-  }
-
-  const loadScriptOnce = getScriptLoader(context);
-  exportCanvasLibraryPromise ||= loadScriptOnce("https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js", "html2canvas").catch(error => {
+  exportCanvasLibraryPromise ||= loadExportLibrary("html2canvas", () => typeof window.html2canvas === "function").catch(error => {
     exportCanvasLibraryPromise = null;
     throw error;
   });
   await exportCanvasLibraryPromise;
 
   if (format === "pdf") {
-    exportPdfLibraryPromise ||= loadScriptOnce("https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js", "jspdf").catch(error => {
+    exportPdfLibraryPromise ||= loadExportLibrary("jspdf", () =>
+      typeof window.jspdf?.jsPDF === "function" && window.jspdf.jsPDF.version === exportAssets.jspdf.version
+    ).catch(error => {
       exportPdfLibraryPromise = null;
       throw error;
     });
@@ -152,7 +178,7 @@ async function exportNodeAsImage(node, filename, context = {}) {
 
   const ready = await ensureExportLibraries("image", context).catch(error => {
     console.warn("No se pudieron cargar las librerias de exportacion:", error);
-    notify(context, "Export tools could not load.", "No se pudieron cargar las herramientas de exportacion.");
+    notify(context, "Export tools could not load. Check your connection and retry.", "No se pudieron cargar las herramientas de exportacion. Revisa tu conexion y reintenta.");
     return false;
   });
   if (!ready) {
@@ -171,6 +197,9 @@ async function exportNodeAsImage(node, filename, context = {}) {
     link.href = canvas.toDataURL("image/png");
     link.download = `${buildExportFilename(filename?.replace(/\.png$/i, ""), context)}.png`;
     link.click();
+  } catch (error) {
+    console.warn("No se pudo generar la imagen:", error);
+    notify(context, "Could not generate the image. Retry the export.", "No se pudo generar la imagen. Reintenta la exportacion.");
   } finally {
     captureNode.remove();
   }
@@ -183,7 +212,7 @@ async function exportNodeAsPdf(node, filename, context = {}) {
 
   const ready = await ensureExportLibraries("pdf", context).catch(error => {
     console.warn("No se pudieron cargar las librerias de exportacion:", error);
-    notify(context, "PDF tools could not load.", "No se pudieron cargar las herramientas de PDF.");
+    notify(context, "PDF tools could not load. Check your connection and retry.", "No se pudieron cargar las herramientas de PDF. Revisa tu conexion y reintenta.");
     return false;
   });
   if (!ready) {
@@ -206,6 +235,9 @@ async function exportNodeAsPdf(node, filename, context = {}) {
     });
     pdf.addImage(image, "PNG", 0, 0, canvas.width, canvas.height);
     pdf.save(`${buildExportFilename(filename?.replace(/\.pdf$/i, ""), context)}.pdf`);
+  } catch (error) {
+    console.warn("No se pudo generar el PDF:", error);
+    notify(context, "Could not generate the PDF. Retry the export.", "No se pudo generar el PDF. Reintenta la exportacion.");
   } finally {
     captureNode.remove();
   }
