@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.245 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.246 antes de cerrar la siguiente version.
+
+## v1.6.246 - 2026-09-21
+
+- Corrige inyeccion de HTML en el encabezado del comparador: los nombres del dataset se muestran como texto, tambien al abrir el modal.
+- Bloquea contaminacion de prototipos en la mezcla de curaduria, protege objetos heredados y filtra claves especiales en arrays anidados e importacion de conflictos. Los fallos se reprodujeron con datos de prueba; no se afirma que hubiera explotacion real ni una interfaz publica de escritura del dataset.
+- Valida preferencias guardadas por tipo, opciones y tamano antes de usarlas; vistas/historial invalidos dejan de romper el arranque y un registro corrupto no descarta favoritos validos. No borra las preferencias originales ni cambia datasets.
+- Agrega regresiones unitarias a seguridad y pruebas reales de navegador para noticias, notas, historial, favoritos y comparador con entradas maliciosas, en escritorio y movil emulado. Documenta alcance y limites de esta primera revision XSS en SECURITY.md.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-21-release-1`.
 
 ## v1.6.245 - 2026-09-15
 

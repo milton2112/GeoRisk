@@ -24,6 +24,15 @@ GeoRisk es una aplicacion estatica: todo JavaScript, JSON o asset publicado pued
 - El reporte `reports/dependency-audit.json` registra fecha, hash del lock, estado, paquetes y avisos; queda fuera del build publico. Es una consulta al registro npm y requiere internet. Cero avisos conocidos no certifica ausencia de vulnerabilidades; el escaneo tampoco cubre automaticamente servicios remotos ni todo el codigo incorporado dentro de distribuciones de terceros.
 - SRI detecta archivos que no coinciden con el hash esperado; no protege contra un atacante capaz de reemplazar tambien el HTML/manifest. Las pruebas incluyen descargas reales en escritorio y movil emulado, rechazo de JS alterado, reintento, version, captura sin recortes y ausencia de solicitudes al CDN de exportacion.
 
+## Entradas y renderizado desde v1.6.246
+
+- Corrige un sumidero HTML en el encabezado del comparador: los nombres de pais se escapaban en las tarjetas, pero no al abrir el modal. Ahora se representan como texto tambien en ese encabezado. La regresion en navegador inyecta un nombre de prueba y verifica que no se creen elementos ni se ejecute su manejador.
+- La mezcla recursiva de curaduria ignoraba el limite entre propiedades propias y heredadas. Se reprodujo contaminacion de `Object.prototype` con una clave `__proto__` en un JSON de prueba. Ahora excluye `__proto__`, `constructor` y `prototype` en todos los niveles, incluidos arrays, y no modifica objetos heredados. La importacion de conflictos tambien rechaza esos nombres de clave.
+- Estos hallazgos requieren que datos manipulados lleguen a esos recorridos. No se identifico una interfaz publica para escribir el dataset ni evidencia de explotacion real. No equivalen a exponer claves privadas, pero se corrigen antes de ampliar las fuentes de datos.
+- Las preferencias locales se leen con esquema explicito: tipos, opciones permitidas, codigos de pais, limites de listas/textos y un maximo de 131072 caracteres por JSON antes de parsearlo. Un registro incorrecto no invalida otras preferencias; las claves desconocidas no se copian y el almacenamiento original no se borra automaticamente. Las lecturas iniciales de calidad/etiquetas tambien toleran errores del almacenamiento.
+- `test:security` incluye regresiones de datos/prototipos y preferencias. La E2E critica agrega arranque con preferencias corruptas y pruebas de texto/enlaces maliciosos en noticias, notas locales, historial, favoritos y comparador, en escritorio y movil emulado. Puede ejecutarse con `node scripts/tests/critical-browser-e2e.test.js --input-security-only`.
+- Es una revision acotada, no una auditoria XSS integral. No se introduce un sanitizador HTML casero ni se habilita HTML de usuarios; los campos revisados siguen siendo texto escapado y los enlaces de noticias admiten solo HTTP(S).
+
 ## Excepciones revisadas
 
 El escaneo inicial de 305 commits identifico 22 coincidencias del campo `browserMeasurementKey` y una del token de evaluacion publico incluido por Cesium. No se encontraron credenciales privadas propias entre esas coincidencias.
@@ -52,3 +61,5 @@ Quedan separadas para siguientes tandas: revision del resto de recursos/servicio
 - [OWASP: gestion de secretos y respuesta a exposiciones](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html)
 - [jsPDF: aviso de inyeccion HTML y version corregida 4.2.1](https://github.com/parallax/jsPDF/security/advisories/GHSA-wfv2-pwc8-crg5)
 - [jsPDF: releases y correcciones](https://github.com/parallax/jsPDF/releases)
+- [OWASP: prevencion de contaminacion de prototipos](https://cheatsheetseries.owasp.org/cheatsheets/Prototype_Pollution_Prevention_Cheat_Sheet.html)
+- [OWASP: almacenamiento local y entradas no confiables](https://cheatsheetseries.owasp.org/cheatsheets/HTML5_Security_Cheat_Sheet.html)

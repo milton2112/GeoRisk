@@ -1600,6 +1600,68 @@ async function testSecureExports(browser, baseUrl) {
   }
 }
 
+async function testUntrustedInputs(browser, baseUrl) {
+  for (const viewport of [DESKTOP_VIEWPORT, MOBILE_VIEWPORT]) {
+    const test = await createTestPage(browser, baseUrl, viewport, async page => {
+      await page.addInitScript(() => {
+        const payload = '</textarea><img src=x onerror="window.geoRiskInjected=true">';
+        localStorage.setItem("geo-risk-language", "__proto__");
+        localStorage.setItem("geo-risk-quality-preset", "constructor");
+        localStorage.setItem("geo-risk-label-mode", "__proto__");
+        localStorage.setItem("geo-risk-saved-filters", "[");
+        localStorage.setItem("geo-risk-saved-views", "{}");
+        localStorage.setItem("geo-risk-saved-searches", "null");
+        localStorage.setItem("geo-risk-search-history", JSON.stringify([null, payload, 7]));
+        localStorage.setItem("geo-risk-favorite-views", JSON.stringify([null, { name: payload, selectedCode: "ARG", mapMode: {} }]));
+        localStorage.setItem("geo-risk-country-notes:ARG", payload);
+      });
+    });
+    try {
+      const { page } = test;
+      await waitForAppReady(page);
+      assert.deepEqual(await page.evaluate(() => ({
+        views: savedViews.length, filters: savedFilters.length, favorites: favoriteViews.length,
+        history: searchHistory.length, language: currentLanguage, quality: qualityPreset
+      })), { views: 0, filters: 0, favorites: 1, history: 1, language: "es", quality: "auto" });
+      assert.equal(await page.locator("#favorite-views-select option").last().textContent().then(text => text.includes("<img")), true);
+      await submitSearch(page, "Argentina");
+      await waitForCountryPanel(page, "Argentina");
+      await page.evaluate(async () => {
+        await activateCountrySection("country-section-sources");
+        await ensureDeferredUiModule("news");
+        const text = '<img src=x onerror="window.geoRiskInjected=true">';
+        renderNewsArticle({ title: text, summary: text, source: text, url: "javascript:window.geoRiskInjected=true" }, countriesData.ARG, [
+          { title: text, summary: text, source: text, url: "javascript:window.geoRiskInjected=true" },
+          { title: text, source: text, date: text, url: "data:text/html,<script>window.geoRiskInjected=true</script>" }
+        ]);
+      });
+      await page.locator('[data-country-notes="ARG"]').waitFor({ state: "attached" });
+      assert.equal(await page.locator('[data-country-notes="ARG"]').inputValue(), '</textarea><img src=x onerror="window.geoRiskInjected=true">');
+      assert.equal(await page.locator("#news-hub-article img, #news-hub-article script, #search-memory img, .country-local-tools img").count(), 0);
+      for (const href of await page.locator("#news-hub-article a").evaluateAll(links => links.map(link => link.href))) {
+        assert.match(href, /^https?:\/\//, "news must reject active URL schemes");
+      }
+      await page.evaluate(() => {
+        compareSelection = ["ARG", "BRA"];
+        const name = countriesData.ARG.name;
+        try {
+          countriesData.ARG.name = '<img src=x onerror="window.geoRiskInjected=true">';
+          openCompareModal();
+        } finally {
+          countriesData.ARG.name = name;
+        }
+      });
+      assert.equal(await page.locator(".compare-modal-header-summary img").count(), 0, "country names in comparison headers must be text");
+      assert.match(await page.locator(".compare-modal-header-summary").textContent(), /<img/);
+      await page.waitForTimeout(200);
+      assert.equal(await page.evaluate(() => window.geoRiskInjected), undefined);
+      assertHealthyPage(test.pageErrors, "untrusted inputs " + viewport.width);
+    } finally {
+      await test.context.close();
+    }
+  }
+}
+
 async function testFirstWorkerActivation(browser, baseUrl) {
   const context = await browser.newContext({ viewport: MOBILE_VIEWPORT, isMobile: true, hasTouch: true, serviceWorkers: "allow" });
   let releaseWorker;
@@ -1681,6 +1743,7 @@ try {
   const baseUrl = "http://127.0.0.1:" + port;
   browser = await launchCriticalBrowser();
   const focusedFlows = [
+    ["--input-security-only", testUntrustedInputs],
     ["--exports-only", testSecureExports],
     ["--performance-only", testIdleMapPerformance],
     ["--auto-rotation-only", testAutoRotation],

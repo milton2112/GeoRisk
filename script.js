@@ -85,7 +85,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-09-15-release-3";
+const APP_VERSION = "2026-09-21-release-1";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -2181,12 +2181,13 @@ function mergeImportedConflictDetails(importedDetails = {}) {
   }
 
   Object.entries(importedDetails).forEach(([conflictName, importedDetail]) => {
+    if (["__proto__", "constructor", "prototype"].includes(conflictName)) return;
     const normalizedImport = normalizeWikipediaConflictDetail(importedDetail);
     if (!conflictName || !normalizedImport || normalizedImport.error) {
       return;
     }
 
-    const base = CONFLICT_DETAIL_OVERRIDES[conflictName] || {};
+    const base = Object.hasOwn(CONFLICT_DETAIL_OVERRIDES, conflictName) ? CONFLICT_DETAIL_OVERRIDES[conflictName] : {};
     CONFLICT_DETAIL_OVERRIDES[conflictName] = {
       ...normalizedImport,
       ...base,
@@ -2677,13 +2678,15 @@ let activeNewsTopic = "general";
 let appMode = "default";
 let performanceMonitorId = null;
 let labelEntities = [];
-let qualityPreset = localStorage.getItem("geo-risk-quality-preset") || "auto";
+let qualityPreset = ["auto", "high", "balanced", "performance"].includes(readLocalPreference("geo-risk-quality-preset"))
+  ? readLocalPreference("geo-risk-quality-preset") : "auto";
 const constrainedInitialDevice =
   window.matchMedia("(max-width: 920px)").matches ||
   (navigator.deviceMemory && navigator.deviceMemory <= 4) ||
   (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
-let labelMode = localStorage.getItem("geo-risk-label-mode") || (constrainedInitialDevice ? "none" : "countries");
-let autoRotateEnabled = localStorage.getItem("geo-risk-auto-rotate") === "true";
+let labelMode = ["none", "countries", "full"].includes(readLocalPreference("geo-risk-label-mode"))
+  ? readLocalPreference("geo-risk-label-mode") : (constrainedInitialDevice ? "none" : "countries");
+let autoRotateEnabled = readLocalPreference("geo-risk-auto-rotate") === "true";
 const autoRotation = mapInteractionCore.createAutoRotationController();
 let lastInteractionAt = Date.now();
 let isCameraNavigating = false;
@@ -10151,46 +10154,22 @@ function rerenderCurrentPanel() {
   rerenderCurrentPanelFrame = setTimeout(flush, 0);
 }
 
-function loadSavedPreferences() {
+function readLocalPreference(key) {
   try {
-    const storedLanguage = localStorage.getItem(STORAGE_KEYS.language);
-    if (storedLanguage) {
-      currentLanguage = storedLanguage;
-    }
+    return localStorage.getItem(key);
+  } catch { return null; }
+}
 
-    const storedFilters = localStorage.getItem(STORAGE_KEYS.filters);
-    if (storedFilters) {
-      savedFilters = JSON.parse(storedFilters);
-    }
-
-    const storedViews = localStorage.getItem(STORAGE_KEYS.views);
-    if (storedViews) {
-      savedViews = JSON.parse(storedViews);
-    }
-    const storedFavorites = localStorage.getItem(STORAGE_KEYS.favorites);
-    if (storedFavorites) {
-      favoriteViews = JSON.parse(storedFavorites);
-    }
-
-    const storedSearchHistory = localStorage.getItem(STORAGE_KEYS.searchHistory);
-    if (storedSearchHistory) {
-      searchHistory = JSON.parse(storedSearchHistory);
-    }
-
-    const storedSavedSearches = localStorage.getItem(STORAGE_KEYS.savedSearches);
-    if (storedSavedSearches) {
-      savedSearches = JSON.parse(storedSavedSearches);
-    }
-
-    appMode = localStorage.getItem(STORAGE_KEYS.appMode) || (localStorage.getItem(STORAGE_KEYS.presentation) === "true" ? "presentation" : "default");
-    document.body.classList.toggle("presentation-mode", appMode === "presentation");
-  } catch (error) {
-    savedFilters = [];
-    savedViews = [];
-    favoriteViews = [];
-    searchHistory = [];
-    savedSearches = [];
-  }
+function loadSavedPreferences() {
+  const preferences = window.GeoRiskStore.readPreferences(readLocalPreference, STORAGE_KEYS, Object.keys(THEME_STYLES));
+  currentLanguage = preferences.language;
+  appMode = preferences.appMode;
+  savedFilters = preferences.savedFilters;
+  savedViews = preferences.savedViews;
+  favoriteViews = preferences.favoriteViews;
+  searchHistory = preferences.searchHistory;
+  savedSearches = preferences.savedSearches;
+  document.body.classList.toggle("presentation-mode", appMode === "presentation");
 }
 
 function getMedian(values) {
@@ -10935,14 +10914,22 @@ function mergeCountryCuration(target, source) {
     return target;
   }
 
+  if (Array.isArray(source)) {
+    return source.map(item => item && typeof item === "object"
+      ? mergeCountryCuration({}, item)
+      : item);
+  }
+
   Object.entries(source).forEach(([key, value]) => {
+    // JSON keys must never reach prototype setters or inherited merge targets.
+    if (key === "__proto__" || key === "constructor" || key === "prototype") return;
     if (Array.isArray(value)) {
-      target[key] = value.map(item => (item && typeof item === "object" ? { ...item } : item));
+      target[key] = mergeCountryCuration({}, value);
       return;
     }
 
     if (value && typeof value === "object") {
-      target[key] = target[key] && typeof target[key] === "object" && !Array.isArray(target[key])
+      target[key] = Object.hasOwn(target, key) && target[key] && typeof target[key] === "object" && !Array.isArray(target[key])
         ? target[key]
         : {};
       mergeCountryCuration(target[key], value);
@@ -11155,7 +11142,7 @@ function openCompareModal() {
   body.innerHTML = `
     <div class="compare-modal-header-summary">
       <strong>${currentLanguage === "en" ? "Comparison" : "Comparacion"}:</strong>
-      <span>${compareSelection.map(code => countriesData[code]?.name || code).join(" · ")}</span>
+      <span>${escapeHtml(compareSelection.map(code => countriesData[code]?.name || code).join(" · "))}</span>
     </div>
     <div id="compare-modal-content">${modalMarkup}</div>
   `;
