@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.248 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.249 antes de cerrar la siguiente version.
+
+## v1.6.249 - 2026-09-22
+
+- Publicacion de GitHub Pages desde `dist/public`, condicionada al release gate: las PR y auditorias programadas no despliegan, y solo el job de publicacion recibe permisos Pages/OIDC.
+- Valida hashes, archivos faltantes, archivos extra, rutas internas y enlaces en el artefacto antes de subirlo. Verifica despues el HTML de la version, assets esenciales y respuestas 404 para scripts, reportes y datasets internos.
+- Corrige el limite insuficiente del scanner de historial en CI (150 segundos): dispone de 600 segundos, con limite externo compatible y bloqueo si no termina. Mantiene el escaneo completo y las reglas de deteccion.
+- Evita repetir las E2E y mediciones ya incluidas en `release:check`; reconstruye el artefacto despues de la limpieza final. La auditoria programada instala Chromium para sus mediciones.
+- Agrega pruebas estructurales del workflow y regresiones para artefactos alterados, rutas de Pages con subdirectorio y despliegues incompletos.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-22-release-3`.
 
 ## v1.6.248 - 2026-09-22
 

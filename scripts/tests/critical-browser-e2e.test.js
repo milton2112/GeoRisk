@@ -1866,6 +1866,47 @@ async function testFirstWorkerActivation(browser, baseUrl) {
   }
 }
 
+async function testPagesBuild(browser) {
+  const publicServer = createLocalSmokeServer({ root: "dist/public" });
+  const serve = publicServer.listeners("request")[0];
+  publicServer.removeListener("request", serve);
+  publicServer.on("request", (request, response) => {
+    if (!request.url.startsWith("/GeoRisk/")) {
+      response.writeHead(404);
+      response.end();
+      return;
+    }
+    request.url = request.url.slice("/GeoRisk".length);
+    void serve(request, response);
+  });
+  await new Promise(resolve => publicServer.listen(0, "127.0.0.1", resolve));
+  const base = `http://127.0.0.1:${publicServer.address().port}/GeoRisk`;
+  try {
+    for (const viewport of [DESKTOP_VIEWPORT, MOBILE_VIEWPORT]) {
+      const failures = [];
+      const test = await createTestPage(browser, base, viewport, async page => {
+        page.on("response", response => {
+          if (response.url().startsWith(base) && response.status() >= 400) failures.push(response.url());
+        });
+      });
+      try {
+        await waitForAppReady(test.page, { requireTiles: false });
+        await submitSearch(test.page, "Argentina");
+        await waitForCountryPanel(test.page, "Argentina");
+        await test.page.waitForFunction(() => countriesData.ARG.metadata.isIndex !== true);
+        assert.deepEqual(await test.page.evaluate(() => selectedLayers.map(layer => layer.code)), ["ARG"]);
+        assert.deepEqual(failures, [], "El build bajo /GeoRisk/ no debe pedir archivos ausentes");
+        assertHealthyPage(test.pageErrors, "Pages build");
+        await test.page.screenshot({ path: `tmp/pages-${viewport.width}.png` });
+      } finally {
+        await test.context.close();
+      }
+    }
+  } finally {
+    await new Promise(resolve => publicServer.close(resolve));
+  }
+}
+
 let heldWorkerRequest = null;
 let testWorkerRevision = null;
 const nativeWorkerSource = await fs.readFile("sw.js", "utf8");
@@ -1890,6 +1931,7 @@ try {
   const baseUrl = "http://127.0.0.1:" + port;
   browser = await launchCriticalBrowser();
   const focusedFlows = [
+    ["--pages-only", testPagesBuild],
     ["--country-text-only", testCountryTextRendering],
     ["--csp-only", testContentSecurityPolicy],
     ["--input-security-only", testUntrustedInputs],

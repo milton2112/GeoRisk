@@ -9,6 +9,7 @@ import { resolveNpmInvocation } from "../lib/npm-runner.js";
 import { renderStaticHostingHeaders } from "../lib/browser-security-policy.js";
 import "./map-engine-bundle.test.js";
 import "./export-security.test.js";
+import "./pages-deployment.test.js";
 
 const projectRoot = process.cwd();
 assert.equal(await fs.readFile(path.join(projectRoot, "dist/public/_headers"), "utf8"), renderStaticHostingHeaders(), "build must publish the shared browser security headers");
@@ -242,7 +243,8 @@ await vm.runInNewContext(checklistProgram, {
 });
 assert.deepEqual(Array.from(invokedReleaseSteps[0].args), ["test"]);
 assert.equal(invokedReleaseSteps[0].options.timeoutMs, 600_000, "la suite completa necesita un plazo propio y acotado");
-assert.ok(invokedReleaseSteps.slice(1).every(step => step.options === undefined), "los demas pasos conservan su timeout normal");
+assert.equal(invokedReleaseSteps.find(step => step.args.includes("audit:security:history")).options.timeoutMs, 660_000, "el limite externo debe permitir terminar el scanner de historial");
+assert.ok(invokedReleaseSteps.slice(1).filter(step => !step.args.includes("audit:security:history")).every(step => step.options === undefined), "los demas pasos conservan su timeout normal");
 let failedReleaseAttempts = 0;
 await assert.rejects(vm.runInNewContext(checklistProgram, {
   console: { log() {} },
@@ -287,9 +289,9 @@ assert.ok(wikipediaConflicts.includes("AbortController"), "importador de Wikiped
 assert.ok(wikipediaConflicts.includes("retry-after"), "importador de Wikipedia debe respetar pausas de la API");
 assert.ok(wikipediaConflicts.includes('"part of": "partOf"'), "importador debe conservar la jerarquia Part of para revision editorial");
 assert.ok(releaseWorkflow.includes("npm run check:startup-budget"), "GitHub Actions debe correr presupuesto de arranque de forma explicita");
-assert.ok(releaseWorkflow.includes("npm run test:browser-visual"), "GitHub Actions debe correr smoke visual");
+assert.ok(packageJson.scripts.test.includes("npm run test:browser-visual"), "npm test dentro del release gate debe correr smoke visual");
 assert.ok(releaseWorkflow.includes("npx playwright install --with-deps chromium"), "GitHub Actions debe instalar Chromium para la E2E critica");
-assert.ok(releaseWorkflow.includes("npm run test:e2e:critical"), "GitHub Actions debe ejecutar la E2E critica");
+assert.ok(packageJson.scripts.test.includes("npm run test:e2e:critical"), "npm test dentro del release gate debe ejecutar la E2E critica");
 assert.ok(releaseWorkflow.includes("npm run audit:doctor"), "GitHub Actions debe publicar doctor de producto");
 assert.ok(releaseWorkflow.includes("npm run audit:release-artifacts"), "GitHub Actions debe auditar artefactos de release");
 assert.ok(releaseWorkflow.includes("npm run audit:features"), "GitHub Actions debe auditar salud funcional");

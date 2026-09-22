@@ -3,6 +3,10 @@ name: Release Gate
 permissions:
   contents: read
 
+concurrency:
+  group: release-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   push:
     branches:
@@ -18,7 +22,7 @@ jobs:
   release-gate:
     if: github.event_name != 'schedule'
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 45
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -68,32 +72,22 @@ jobs:
       - name: Scheduled data audit report
         run: npm run audit:data
 
-      - name: Visual smoke
-        run: npm run test:browser-visual
-
-      - name: Critical browser E2E
-        run: npm run test:e2e:critical
-
-      - name: Smoke server
-        run: npm run test:smoke-server
-
       - name: Full release check
         run: npm run release:check
 
-      - name: Performance snapshot
-        run: npm run performance:snapshot
+      # release:check includes browser E2E, offline, visual, performance and data audits,
+      # then cleans dist. Rebuild and validate the exact directory uploaded to Pages.
+      - name: Rebuild validated public artifact
+        run: npm run build:prod
 
-      - name: Product doctor
-        run: npm run audit:doctor
+      - name: Validate Pages artifact
+        run: npm run check:pages-artifact
 
-      - name: Release artifact audit
-        run: npm run audit:release-artifacts
-
-      - name: Feature health audit
-        run: npm run audit:features
-
-      - name: Release status
-        run: npm run release:status
+      - name: Upload public site only
+        if: github.repository == 'milton2112/GeoRisk' && github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
+        with:
+          path: dist/public
 
       - name: Upload reports
         if: always()
@@ -103,6 +97,38 @@ jobs:
           path: |
             reports/*.json
           if-no-files-found: ignore
+
+  deploy-pages:
+    needs: release-gate
+    if: github.repository == 'milton2112/GeoRisk' && github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    concurrency:
+      group: github-pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout verification script
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Deploy validated site
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
+      - name: Verify public app and excluded paths
+        env:
+          PAGES_URL: ${{ steps.deployment.outputs.page_url }}
+        run: node scripts/checkDeployment.js --url "$PAGES_URL"
 
   scheduled-data-audit:
     if: github.event_name == 'schedule'
@@ -132,6 +158,9 @@ jobs:
 
       - name: Audit all dependencies including browser export libraries
         run: npm run audit:dependencies
+
+      - name: Install Chromium for performance audit
+        run: npx playwright install --with-deps chromium
 
       - name: Rebuild generated data
         run: npm run build:data

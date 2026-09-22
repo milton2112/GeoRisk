@@ -77,22 +77,27 @@ export function summarizeFindings(findings) {
   return findings.map(item => ({ file: item.File, line: item.StartLine, rule: item.RuleID, commit: item.Commit || null }));
 }
 
+export function scanTimeoutSeconds(args) {
+  return args[0] === "git" ? 600 : 150;
+}
+
 export async function runSecretScan(binary, args, cwd = projectRoot) {
   const temporary = await fs.mkdtemp(path.join(os.tmpdir(), "geo-risk-scan-"));
   const report = path.join(temporary, "findings.json");
+  const timeoutSeconds = scanTimeoutSeconds(args);
   try {
     let status = 0;
     try {
       execFileSync(binary, [...args, "--redact=100", "--no-banner", "--no-color", "--log-level=fatal",
-        "--ignore-gitleaks-allow", "--exit-code=10", "--max-decode-depth=2", "--timeout=150",
+        "--ignore-gitleaks-allow", "--exit-code=10", "--max-decode-depth=2", `--timeout=${timeoutSeconds}`,
         `--gitleaks-ignore-path=${path.join(projectRoot, ".gitleaksignore")}`,
         "--report-format=json", `--report-path=${report}`, `--config=${path.join(projectRoot, ".gitleaks.toml")}`], {
-        cwd, stdio: "pipe", timeout: 160000, maxBuffer: 8 * 1024 * 1024,
+        cwd, stdio: "pipe", timeout: (timeoutSeconds + 10) * 1000, maxBuffer: 8 * 1024 * 1024,
         env: { ...process.env, GITLEAKS_CONFIG: "", GITLEAKS_CONFIG_TOML: "" }
       });
     } catch (error) {
       status = error.status;
-      if (status !== 10) throw new Error(`No se completo el escaneo de secretos (codigo ${status ?? "timeout/error"}).`);
+      if (status !== 10) throw new Error(`No se completo el escaneo de secretos (codigo ${status ?? "timeout/error"}; limite ${timeoutSeconds}s). La publicacion sigue bloqueada.`);
     }
     const findings = summarizeFindings(JSON.parse(await fs.readFile(report, "utf8")));
     if (status === 10 && !findings.length) throw new Error("El scanner fallo sin un reporte de hallazgos valido.");

@@ -3,7 +3,7 @@ import { runNpmStep } from "./lib/npm-runner.js";
 const steps = [
   ["tests completos", "npm", ["test"], { timeoutMs: 10 * 60_000 }],
   ["vulnerabilidades de dependencias", "npm", ["run", "audit:dependencies"]],
-  ["historial de seguridad", "npm", ["run", "audit:security:history"]],
+  ["historial de seguridad", "npm", ["run", "audit:security:history"], { timeoutMs: 11 * 60_000 }],
   ["build produccion", "npm", ["run", "build:prod"]],
   ["release gates", "npm", ["run", "test:release-gates"]],
   ["auditoria de conflictos", "npm", ["run", "audit:conflicts"]],

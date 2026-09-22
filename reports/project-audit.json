@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-22T08:32:30.202Z",
+  "generatedAt": "2026-09-22T14:24:15.603Z",
   "status": "operativo",
   "startup": {
     "critical": "859 KB",
@@ -838,8 +838,8 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 284367,
-      "human": "278 KB"
+      "bytes": 285428,
+      "human": "279 KB"
     },
     {
       "path": "style.css",
@@ -922,7 +922,7 @@
     {
       "path": "package.json",
       "exists": true,
-      "bytes": 6243,
+      "bytes": 6389,
       "human": "6 KB"
     },
     {
@@ -1023,6 +1023,8 @@
     "build:indexes",
     "build:map-engine",
     "build:prod",
+    "check:deployment",
+    "check:pages-artifact",
     "check:security",
     "check:startup-budget",
     "clean:deep",

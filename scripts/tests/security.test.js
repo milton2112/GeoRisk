@@ -5,7 +5,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { assertPublishableTree, isInternalRequest, isSensitivePath } from "../lib/security-policy.js";
-import { requireScanner, runSecretScan, scannerRelease, summarizeFindings, verifyArchive } from "../lib/secret-scanner.js";
+import { requireScanner, runSecretScan, scannerRelease, scanTimeoutSeconds, summarizeFindings, verifyArchive } from "../lib/secret-scanner.js";
 import { checkHistory, checkWorkingTree } from "../checkSecurity.js";
 import { removeCesiumEvaluationToken } from "../lib/cesium-evaluation-token.js";
 import { createLocalSmokeServer } from "../localSmokeServer.js";
@@ -23,6 +23,8 @@ for (const file of ["scripts/buildProduction.js", "reports/doctor-report.json", 
   assert.equal(isInternalRequest(file), true, file);
 }
 assert.throws(() => scannerRelease("unknown", "cpu"), /No se omite/);
+assert.equal(scanTimeoutSeconds(["git", "--log-opts=--all"]), 600);
+assert.equal(scanTimeoutSeconds(["dir", "dist/public"]), 150);
 assert.throws(() => verifyArchive(Buffer.from("changed"), "00".repeat(32)), /SHA-256/);
 verifyArchive(Buffer.from("checked"), createHash("sha256").update("checked").digest("hex"));
 assert.deepEqual(summarizeFindings([{ File: "app.js", StartLine: 2, RuleID: "test", Commit: "abc", Secret: "private", Match: "private" }]),
