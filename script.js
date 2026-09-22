@@ -12832,7 +12832,8 @@ async function hydrateCountriesData(countriesJson, { refresh = false } = {}) {
     countryCodeLookup.set(country, code);
     sanitizeCountryData(country);
     if (index > 0 && index % batchSize === 0) {
-      await yieldToMainThread();
+      // Required startup data must not starve behind rendering and image requests.
+      await yieldToMainThread("user-visible");
     }
   }
   worldPopulationTotal = getCountryValues().reduce(

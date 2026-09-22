@@ -33,6 +33,12 @@ for (const [name, job] of Object.entries(workflow.jobs)) {
     assert.ok(!step["continue-on-error"]);
     if (step.uses?.startsWith("actions/checkout@")) assert.equal(step.with["persist-credentials"], false);
     if (/actions\/(?:upload-pages-artifact|deploy-pages)@/.test(step.uses || "")) assert.match(step.uses, /@[a-f0-9]{40}$/);
+    if (step.uses?.startsWith("actions/upload-artifact@")) {
+      assert.equal(step.if, "always() && steps.security-scan.outcome == 'success'", "No publicar reportes cuando falla el escaneo de secretos");
+      const scan = job.steps.find(candidate => candidate.id === "security-scan");
+      assert.equal(scan?.run, "node scripts/checkSecurity.js --history");
+      assert.ok(job.steps.indexOf(scan) < job.steps.indexOf(step));
+    }
   }
 }
 for (const position of positions) assert.ok(!gate.steps[position].if, "Los controles no deben poder saltarse");

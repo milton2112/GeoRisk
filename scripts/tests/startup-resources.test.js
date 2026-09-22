@@ -35,6 +35,21 @@ function fixture(fetchResource = async url => url.includes("countries_index") ? 
 }
 
 const success = fixture();
+for (const mobile of [false, true]) {
+  const hydration = {
+    countriesData: {}, worldPopulationTotal: 0, countryCodeLookup: new WeakMap(),
+    isMobileLayout: () => mobile, invalidateCountryDerivedCaches() {}, sanitizeCountryData() {},
+    getCountryValues: () => Object.values(hydration.countriesData),
+    yieldToMainThread: priority => priority === "user-visible" ? Promise.resolve() : new Promise(() => {})
+  };
+  vm.createContext(hydration);
+  vm.runInContext(block("async function hydrateCountriesData(", "async function fetchCountryDataJson("), hydration);
+  let completed = false;
+  hydration.hydrateCountriesData(structuredClone(realIndex)).then(() => { completed = true; });
+  for (let i = 0; i < 100; i++) await Promise.resolve();
+  assert.equal(completed, true, "la hidratacion critica no puede esperar la cola background ocupada");
+  assert.equal(hydration.worldPopulationTotal, Object.values(realIndex).reduce((sum, country) => sum + (country.general?.population || 0), 0));
+}
 assert.doesNotThrow(() => success.state.validateStartupCountryIndex(realIndex), "el indice real incluye Kosovo y Somalilandia con codigos propios");
 await success.state.loadData();
 assert.equal(success.state.deferredDataStatus.countryIndex, true);

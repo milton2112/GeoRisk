@@ -40,6 +40,7 @@ jobs:
         run: node scripts/setupSecretScanner.js
 
       - name: Scan source and full Git history
+        id: security-scan
         run: node scripts/checkSecurity.js --history
 
       - name: Install
@@ -90,7 +91,7 @@ jobs:
           path: dist/public
 
       - name: Upload reports
-        if: always()
+        if: always() && steps.security-scan.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
           name: geo-risk-release-reports
@@ -151,6 +152,7 @@ jobs:
         run: node scripts/setupSecretScanner.js
 
       - name: Scan source and full Git history
+        id: security-scan
         run: node scripts/checkSecurity.js --history
 
       - name: Install
@@ -190,7 +192,7 @@ jobs:
         run: npm run release:status
 
       - name: Upload scheduled audit
-        if: always()
+        if: always() && steps.security-scan.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
           name: geo-risk-scheduled-data-audit

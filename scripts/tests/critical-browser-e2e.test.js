@@ -82,7 +82,11 @@ async function waitForAppReady(page, { requireTiles = true } = {}) {
   } catch (error) {
     console.error("App readiness failed:", await page.evaluate(() => ({
       fatal: document.getElementById("fatal-error-banner")?.textContent,
-      engine: window.GeoRiskMapEngine?.getState(), csp: window.__geoRiskCspViolations
+      engine: window.GeoRiskMapEngine?.getState(), csp: window.__geoRiskCspViolations,
+      boot: typeof bootMetrics !== "undefined" ? bootMetrics.steps : null,
+      countryIndex: typeof deferredDataStatus !== "undefined" ? deferredDataStatus.countryIndex : null,
+      countries: typeof countriesData !== "undefined" ? Object.keys(countriesData).length : null,
+      layers: typeof countryLayers !== "undefined" ? countryLayers.size : null
     })).catch(() => null));
     throw error;
   }
@@ -1114,6 +1118,11 @@ async function testIdleMapPerformance(browser, baseUrl) {
   let requests = 0;
   const held = new Promise(resolve => { releaseTiles = resolve; });
   const { context, page, pageErrors } = await createTestPage(browser, baseUrl, DESKTOP_VIEWPORT, async page => {
+    await page.addInitScript(() => {
+      const postTask = scheduler.postTask.bind(scheduler);
+      scheduler.postTask = (callback, options) => options?.priority === "background"
+        ? new Promise(() => {}) : postTask(callback, options);
+    });
     await page.route("https://services.arcgisonline.com/**/tile/**", async route => {
       requests += 1;
       await held;

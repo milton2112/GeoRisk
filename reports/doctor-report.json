@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-22T14:26:28.372Z",
+  "generatedAt": "2026-09-22T20:23:29.206Z",
   "packageVersion": "1.6.249",
   "status": "observacion",
   "summary": {
@@ -7,8 +7,8 @@
     "bySeverity": {
       "media": 1
     },
-    "startupBytes": 879372,
-    "scriptBytes": 580353,
+    "startupBytes": 879470,
+    "scriptBytes": 580451,
     "countriesIndexBytes": 144225,
     "conflictAuditIssues": 0,
     "dataCounts": {
