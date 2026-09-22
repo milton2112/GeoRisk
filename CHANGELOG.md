@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.246 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.247 antes de cerrar la siguiente version.
+
+## v1.6.247 - 2026-09-22
+
+- Agrega CSP al HTML y al servidor local: bloquea scripts inline, manejadores HTML, eval de JavaScript y origenes no autorizados, conservando mapa 2D/3D, workers, noticias y exportaciones bajo demanda.
+- Extrae el arranque a app-bootstrap.js y reemplaza onerror inline de banderas/escudos por eventos externos. El build comprueba la politica y genera _headers para hostings estaticos compatibles; las cabeceras del sitio publico quedan pendientes de verificar en el proveedor real.
+- Ajusta la consulta global de Knockout dentro del bundle de Cesium para usar globalThis, con un reemplazo exacto y verificado durante el build. Permite WebAssembly sin habilitar eval de JavaScript y conserva estilos inline requeridos por el render/captura.
+- Agrega regresiones unitarias y de navegador para bloqueo CSP y compatibilidad, incluida una prueba movil emulada con solo la politica del HTML. Documenta alcances, dependencias externas permitidas y limites del hosting en SECURITY.md. No modifica datasets.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-22-release-1`.
 
 ## v1.6.246 - 2026-09-21
 

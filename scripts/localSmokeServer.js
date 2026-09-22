@@ -3,6 +3,7 @@ import http from "node:http";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { isInternalRequest } from "./lib/security-policy.js";
+import { BROWSER_SECURITY_HEADERS } from "./lib/browser-security-policy.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, "..");
@@ -22,8 +23,7 @@ const MIME_TYPES = new Map([
 function send(res, statusCode, body, headers = {}) {
   res.writeHead(statusCode, {
     "Cache-Control": "no-store",
-    "X-Content-Type-Options": "nosniff",
-    "Referrer-Policy": "strict-origin-when-cross-origin",
+    ...BROWSER_SECURITY_HEADERS,
     "Cross-Origin-Resource-Policy": "cross-origin",
     ...headers
   });

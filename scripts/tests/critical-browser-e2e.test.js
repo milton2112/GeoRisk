@@ -48,6 +48,10 @@ async function createTestPage(browser, baseUrl, viewport, beforeNavigate = async
   page.on("pageerror", error => pageErrors.push(error.message));
   await page.addInitScript(() => {
     localStorage.setItem("geo-risk-intro-seen", "true");
+    window.__geoRiskCspViolations = [];
+    document.addEventListener("securitypolicyviolation", event => {
+      window.__geoRiskCspViolations.push({ directive: event.effectiveDirective, blockedURI: event.blockedURI });
+    });
   });
   await beforeNavigate(page);
   await page.goto(baseUrl + "/index.html?critical-e2e=1", {
@@ -58,22 +62,30 @@ async function createTestPage(browser, baseUrl, viewport, beforeNavigate = async
 }
 
 async function waitForAppReady(page, { requireTiles = true } = {}) {
-  await page.waitForFunction(needsTiles => {
-    const fatal = document.getElementById("fatal-error-banner");
-    return (
-      typeof viewer !== "undefined" &&
-      Boolean(viewer) &&
-      typeof countryLayers !== "undefined" &&
-      countryLayers.has("ARG") &&
-      countryLayers.has("ESP") &&
-      typeof countriesData !== "undefined" &&
-      Object.keys(countriesData).length >= 180 &&
-      Boolean(window.GeoRiskUiPolish) &&
-      !document.body.classList.contains("globe-loading") &&
-      (!needsTiles || viewer.scene.globe.tilesLoaded) &&
-      fatal?.hidden !== false
-    );
-  }, requireTiles, { timeout: APP_TIMEOUT_MS });
+  try {
+    await page.waitForFunction(needsTiles => {
+      const fatal = document.getElementById("fatal-error-banner");
+      return (
+        typeof viewer !== "undefined" &&
+        Boolean(viewer) &&
+        typeof countryLayers !== "undefined" &&
+        countryLayers.has("ARG") &&
+        countryLayers.has("ESP") &&
+        typeof countriesData !== "undefined" &&
+        Object.keys(countriesData).length >= 180 &&
+        Boolean(window.GeoRiskUiPolish) &&
+        !document.body.classList.contains("globe-loading") &&
+        (!needsTiles || viewer.scene.globe.tilesLoaded) &&
+        fatal?.hidden !== false
+      );
+    }, requireTiles, { timeout: APP_TIMEOUT_MS });
+  } catch (error) {
+    console.error("App readiness failed:", await page.evaluate(() => ({
+      fatal: document.getElementById("fatal-error-banner")?.textContent,
+      engine: window.GeoRiskMapEngine?.getState(), csp: window.__geoRiskCspViolations
+    })).catch(() => null));
+    throw error;
+  }
   await page.locator("#map canvas").waitFor({ state: "visible", timeout: APP_TIMEOUT_MS });
 }
 
@@ -1558,7 +1570,9 @@ async function testSecureExports(browser, baseUrl) {
       assert.ok(png.length > 20000, label + " export image contains content");
       await image.saveAs("tmp/export-" + label + ".png");
       const colors = await page.evaluate(async data => {
-        const bitmap = await createImageBitmap(await (await fetch(data)).blob());
+        const bitmap = new Image();
+        bitmap.src = data;
+        await bitmap.decode();
         const canvas = document.createElement("canvas");
         canvas.width = 200; canvas.height = 200;
         const ctx = canvas.getContext("2d");
@@ -1566,7 +1580,6 @@ async function testSecureExports(browser, baseUrl) {
         const pixels = ctx.getImageData(0, 0, 200, 200).data;
         const values = new Set();
         for (let i = 0; i < pixels.length; i += 4) values.add(`${pixels[i]},${pixels[i + 1]},${pixels[i + 2]}`);
-        bitmap.close();
         return values.size;
       }, "data:image/png;base64," + png.toString("base64"));
       assert.ok(colors > 100, label + " exported canvas is not blank");
@@ -1594,6 +1607,98 @@ async function testSecureExports(browser, baseUrl) {
       assert.equal(requests.some(url => /cdn.*(?:jspdf|html2canvas)/.test(url)), false);
       assert.equal(requests.filter(url => /vendor\/exports\/html2canvas.*\.js$/.test(url)).length, 1);
       assertHealthyPage(test.pageErrors, label + " verified exports");
+    } finally {
+      await test.context.close();
+    }
+  }
+}
+
+async function testContentSecurityPolicy(browser, baseUrl) {
+  for (const viewport of [DESKTOP_VIEWPORT, MOBILE_VIEWPORT]) {
+    const metaOnly = viewport === MOBILE_VIEWPORT;
+    let headerRemoved = false;
+    const test = await createTestPage(browser, baseUrl, viewport, async page => {
+      if (!metaOnly) return;
+      await page.route(url => url.pathname.endsWith("/index.html"), async route => {
+        const response = await route.fetch();
+        const headers = response.headers();
+        assert.ok(headers["content-security-policy"]);
+        delete headers["content-security-policy"];
+        headerRemoved = true;
+        await route.fulfill({ response, headers });
+      });
+    });
+    try {
+      const { page } = test;
+      assert.equal(headerRemoved, metaOnly, "mobile must verify CSP supplied by HTML without its HTTP counterpart");
+      await waitForAppReady(page);
+      await submitSearch(page, "Argentina");
+      await waitForCountryPanel(page, "Argentina");
+      await closeCountryPanel(page);
+      await setMapMode(page, "2d");
+      await setMapMode(page, "3d");
+      await page.route("**/csp-missing-image.svg", route => route.fulfill({ status: 404, body: "" }));
+      await page.evaluate(() => {
+        const fixture = document.createElement("div");
+        fixture.id = "csp-image-fixture";
+        fixture.innerHTML = renderFlagVisual("ARG", "Argentina", "country-flag", "./csp-missing-image.svg") +
+          renderCoatVisual("ARG", "Argentina", "./csp-missing-image.svg");
+        document.body.append(fixture);
+      });
+      await page.waitForFunction(() => {
+        const fixture = document.getElementById("csp-image-fixture");
+        return fixture.querySelector(".flag-image").hidden && !fixture.querySelector(".flag-fallback").hidden && fixture.querySelector(".coat-visual").hidden;
+      });
+      const workerResult = await page.evaluate(() => new Promise((resolve, reject) => {
+        const worker = new Worker("./app-search-worker.js");
+        const timer = setTimeout(() => { worker.terminate(); reject(new Error("Local worker timed out")); }, 5000);
+        worker.onmessage = event => { clearTimeout(timer); worker.terminate(); resolve(event.data); };
+        worker.onerror = () => { clearTimeout(timer); worker.terminate(); reject(new Error("Local worker blocked")); };
+        worker.postMessage({ id: "csp", countries: [{ code: "ARG", name: "Argentina" }] });
+      }));
+      assert.equal(workerResult.id, "csp");
+      assert.ok(workerResult.aliases.some(item => item.value === "ARG"));
+      assert.deepEqual(await page.evaluate(() => window.__geoRiskCspViolations), [], "normal 2D/3D, profiles, workers and image fallback must not violate CSP");
+      assertHealthyPage(test.pageErrors, "CSP normal flows");
+
+      let forbiddenRequests = 0;
+      await page.route("https://untrusted.example/**", route => {
+        forbiddenRequests += 1;
+        return route.fulfill({ contentType: "text/javascript", body: "window.cspExecuted = true;" });
+      });
+      // A real, same-origin script exercises eval under CSP, without DevTools' eval bypass.
+      await page.route("**/csp-probe.js", route => route.fulfill({ contentType: "text/javascript", body: `
+        window.cspProbe = {};
+        for (const [name, execute] of [
+          ["evalBlocked", () => eval("window.cspExecuted = true")],
+          ["functionBlocked", () => new Function("window.cspExecuted = true")()]
+        ]) { try { execute(); } catch (error) { cspProbe[name] = error instanceof EvalError; } }
+        const inline = document.createElement("script");
+        inline.textContent = "window.cspExecuted = true";
+        document.body.append(inline);
+        const button = document.createElement("button");
+        button.setAttribute("onclick", "window.cspExecuted = true");
+        document.body.append(button); button.click(); button.remove();
+        const external = document.createElement("script");
+        external.src = "https://untrusted.example/probe.js";
+        external.onerror = () => { cspProbe.externalBlocked = true; };
+        document.body.append(external);
+        fetch("https://untrusted.example/data").catch(() => { cspProbe.connectBlocked = true; });
+      ` }));
+      await page.evaluate(() => new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = "./csp-probe.js";
+        script.onload = resolve; script.onerror = reject;
+        document.body.append(script);
+      }));
+      await page.waitForFunction(() => window.cspProbe?.externalBlocked && window.cspProbe?.connectBlocked);
+      assert.deepEqual(await page.evaluate(() => window.cspProbe), { evalBlocked: true, functionBlocked: true, externalBlocked: true, connectBlocked: true });
+      assert.equal(await page.evaluate(() => window.cspExecuted), undefined);
+      assert.equal(forbiddenRequests, 0, "forbidden origins must be blocked before network access");
+      const violations = await page.evaluate(() => window.__geoRiskCspViolations);
+      for (const directive of ["script-src", "script-src-elem", "script-src-attr", "connect-src"]) {
+        assert.ok(violations.some(item => item.directive === directive), "missing enforced CSP check: " + directive);
+      }
     } finally {
       await test.context.close();
     }
@@ -1743,6 +1848,7 @@ try {
   const baseUrl = "http://127.0.0.1:" + port;
   browser = await launchCriticalBrowser();
   const focusedFlows = [
+    ["--csp-only", testContentSecurityPolicy],
     ["--input-security-only", testUntrustedInputs],
     ["--exports-only", testSecureExports],
     ["--performance-only", testIdleMapPerformance],

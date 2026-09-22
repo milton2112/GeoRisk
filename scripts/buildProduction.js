@@ -4,10 +4,12 @@ import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { assertPublishableTree, isSensitivePath } from "./lib/security-policy.js";
 import { requireScanner, runSecretScan } from "./lib/secret-scanner.js";
+import { assertBrowserSecurityPolicy, renderStaticHostingHeaders } from "./lib/browser-security-policy.js";
 
 const projectRoot = process.cwd();
 const outputRoot = path.join(projectRoot, "dist", "public");
 const secretScanner = await requireScanner();
+assertBrowserSecurityPolicy(await fs.readFile(path.join(projectRoot, "index.html"), "utf8"));
 
 execFileSync(process.execPath, ["scripts/buildMapEngine.js", "--check"], { stdio: "inherit" });
 execFileSync(process.execPath, ["scripts/buildExportLibraries.js", "--check"], { stdio: "inherit" });
@@ -32,6 +34,7 @@ const PUBLIC_FILES = [
   "app-boot-scheduler.js",
   "app-map.js",
   "app-map-engine.js",
+  "app-bootstrap.js",
   "app-map-styles.js",
   "app-map-interactions.js",
   "app-store.js",
@@ -178,6 +181,8 @@ for (const directory of PUBLIC_DIRS) {
     await fs.copy(source, path.join(outputRoot, directory));
   }
 }
+
+await fs.writeFile(path.join(outputRoot, "_headers"), renderStaticHostingHeaders(), "utf8");
 
 const manifest = await createManifest();
 assertPublicOutput(manifest);

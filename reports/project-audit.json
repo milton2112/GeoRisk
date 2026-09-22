@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-09-21T16:54:58.445Z",
+  "generatedAt": "2026-09-22T08:10:21.331Z",
   "status": "operativo",
   "startup": {
-    "critical": "857 KB",
-    "criticalBytes": 877932,
+    "critical": "859 KB",
+    "criticalBytes": 879399,
     "scope": "App shell and eager local scripts only; excludes the separately budgeted map engine.",
     "mapEngine": {
       "path": "vendor/cesium/engine.js",
-      "bytes": 3428231,
+      "bytes": 3428249,
       "human": "3.27 MB",
       "precached": false
     },
-    "appCoreAndEngineBytes": 4306163,
+    "appCoreAndEngineBytes": 4307648,
     "deferred": "3.11 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 13141853,
@@ -24,7 +24,7 @@
       {
         "path": "vendor/cesium/engine.js",
         "exists": true,
-        "bytes": 3428231,
+        "bytes": 3428249,
         "human": "3.27 MB",
         "startupCritical": false,
         "category": "startup-map-engine"
@@ -40,7 +40,7 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 580487,
+        "bytes": 580380,
         "human": "567 KB",
         "startupCritical": true,
         "category": "startup-app-core"
@@ -88,7 +88,7 @@
       {
         "path": "index.html",
         "exists": true,
-        "bytes": 32953,
+        "bytes": 32688,
         "human": "32 KB",
         "startupCritical": true,
         "category": "startup-app-core"
@@ -832,14 +832,14 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 580487,
+      "bytes": 580380,
       "human": "567 KB"
     },
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 281979,
-      "human": "275 KB"
+      "bytes": 283075,
+      "human": "276 KB"
     },
     {
       "path": "style.css",
@@ -856,7 +856,7 @@
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 32953,
+      "bytes": 32688,
       "human": "32 KB"
     },
     {
@@ -922,7 +922,7 @@
     {
       "path": "package.json",
       "exists": true,
-      "bytes": 6135,
+      "bytes": 6189,
       "human": "6 KB"
     },
     {

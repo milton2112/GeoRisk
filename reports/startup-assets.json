@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-09-21T16:55:00.076Z",
-  "startupBytes": 877932,
-  "startupHuman": "857 KB",
+  "generatedAt": "2026-09-22T08:10:22.905Z",
+  "startupBytes": 879399,
+  "startupHuman": "859 KB",
   "startupScope": "App shell and eager local scripts only; excludes the separately budgeted map engine.",
   "mapEngine": {
     "path": "vendor/cesium/engine.js",
-    "bytes": 3428231,
+    "bytes": 3428249,
     "human": "3.27 MB",
     "precached": false
   },
-  "appCoreAndEngineBytes": 4306163,
+  "appCoreAndEngineBytes": 4307648,
   "appCoreAndEngineHuman": "4.11 MB",
   "excludedStartupCosts": "External CSS, workers, imagery and geographic/data requests are not included in appCoreAndEngineBytes. This is not total network transfer or compressed size.",
   "deferredBytes": 3263072,
@@ -25,7 +25,7 @@
     {
       "path": "vendor/cesium/engine.js",
       "exists": true,
-      "bytes": 3428231,
+      "bytes": 3428249,
       "human": "3.27 MB",
       "startupCritical": false,
       "category": "startup-map-engine"
@@ -41,7 +41,7 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 580487,
+      "bytes": 580380,
       "human": "567 KB",
       "startupCritical": true,
       "category": "startup-app-core"
@@ -89,7 +89,7 @@
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 32953,
+      "bytes": 32688,
       "human": "32 KB",
       "startupCritical": true,
       "category": "startup-app-core"
@@ -123,7 +123,7 @@
     {
       "path": "index.html",
       "exists": true,
-      "bytes": 32953,
+      "bytes": 32688,
       "human": "32 KB",
       "startupCritical": true,
       "category": "startup-app-core"
@@ -131,7 +131,7 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 580487,
+      "bytes": 580380,
       "human": "567 KB",
       "startupCritical": true,
       "category": "startup-app-core"
@@ -369,6 +369,14 @@
       "category": "deferred-or-auxiliary"
     },
     {
+      "path": "app-bootstrap.js",
+      "exists": true,
+      "bytes": 1839,
+      "human": "2 KB",
+      "startupCritical": true,
+      "category": "startup-app-core"
+    },
+    {
       "path": "app-store.js",
       "exists": true,
       "bytes": 3930,
@@ -395,7 +403,7 @@
     {
       "path": "vendor/cesium/engine.js",
       "exists": true,
-      "bytes": 3428231,
+      "bytes": 3428249,
       "human": "3.27 MB",
       "startupCritical": false,
       "category": "startup-map-engine"

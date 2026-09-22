@@ -85,7 +85,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-09-21-release-1";
+const APP_VERSION = "2026-09-22-release-1";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -3834,7 +3834,7 @@ function renderFlagVisual(code, label, className = "country-flag", assetSrc = ""
   if (resolvedSrc) {
     return `
       <span class="${className}" role="img" aria-label="${escapeHtml(label || code)}">
-        <img class="flag-image" src="${escapeHtml(resolvedSrc)}" alt="" aria-hidden="true" onerror="this.hidden=true;this.nextElementSibling.hidden=false;">
+        <img class="flag-image" src="${escapeHtml(resolvedSrc)}" alt="" aria-hidden="true">
         <span class="flag-fallback" hidden>${emoji}</span>
       </span>
       `;
@@ -3866,7 +3866,7 @@ function renderCoatVisual(code, label, assetSrc = "") {
 
   return `
     <div class="coat-visual">
-      <img class="coat-image" src="${escapeHtml(resolvedSrc)}" alt="${escapeHtml(label || code)}" onerror="this.parentElement.hidden=true;">
+      <img class="coat-image" src="${escapeHtml(resolvedSrc)}" alt="${escapeHtml(label || code)}">
     </div>
   `;
 }

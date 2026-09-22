@@ -33,6 +33,17 @@ GeoRisk es una aplicacion estatica: todo JavaScript, JSON o asset publicado pued
 - `test:security` incluye regresiones de datos/prototipos y preferencias. La E2E critica agrega arranque con preferencias corruptas y pruebas de texto/enlaces maliciosos en noticias, notas locales, historial, favoritos y comparador, en escritorio y movil emulado. Puede ejecutarse con `node scripts/tests/critical-browser-e2e.test.js --input-security-only`.
 - Es una revision acotada, no una auditoria XSS integral. No se introduce un sanitizador HTML casero ni se habilita HTML de usuarios; los campos revisados siguen siendo texto escapado y los enlaces de noticias admiten solo HTTP(S).
 
+## Politica del navegador desde v1.6.247
+
+- `index.html` declara Content Security Policy (CSP) antes de cargar recursos. Deniega por defecto, permite scripts locales y los workers de la version fijada de Cesium, y limita conexiones a los proveedores usados de mapa/noticias. Bloquea scripts inline, manejadores HTML, `eval`, `new Function`, objetos, formularios y cambios de URL base. No es una auditoria XSS integral ni vuelve secretos los archivos publicos.
+- El arranque vive en `app-bootstrap.js`, tambien incluido en el precache. Los fallbacks de banderas y escudos usan eventos externos, sin atributos `onerror`. El build comprueba que la CSP del HTML coincida con `scripts/lib/browser-security-policy.js` y aparezca antes de scripts/estilos.
+- Cesium necesita `wasm-unsafe-eval` para WebAssembly; no se habilita `unsafe-eval` de JavaScript. El bundle reemplaza exclusivamente la consulta global indirecta por `eval` de Knockout 3.5.1 por `globalThis`, con verificacion del archivo y de una unica coincidencia. No modifica node_modules. Si cambia el upstream, falla el build y requiere revision; habilitar nuevos widgets de Cesium requiere volver a probar su compatibilidad.
+- Se conservan estilos inline porque la app, Cesium y las capturas los necesitan. Los iframes del mismo origen siguen permitidos para html2canvas. No se permiten comodines de origen ni scripts `data:`/`blob:`; los workers tienen una excepcion explicita para blobs y el directorio versionado de Cesium. Los recursos remotos permitidos siguen siendo dependencias de confianza, no contenido verificado por esta politica.
+- El servidor local envia CSP, `nosniff`, referrer limitado, restricciones de permisos y proteccion contra embeber la app desde otro origen (`frame-ancestors 'self'` y `X-Frame-Options: SAMEORIGIN`). Esto permite el iframe del exportador. No se agrega HSTS al servidor HTTP local.
+- El build genera `dist/public/_headers` desde la misma configuracion para despliegues estaticos compatibles, como Netlify o Cloudflare Pages. No entra en APP_SHELL. Publicar esa carpeta en un proveedor compatible aplica las reglas; otros proveedores pueden ignorar el archivo. Las respuestas de funciones/proxies necesitan configuracion propia.
+- **El hosting publico aun requiere verificacion.** La CSP del HTML no depende de `_headers`, pero no puede aplicar `frame-ancestors`, `nosniff`, Permissions Policy ni HSTS. No afirmar que las cabeceras HTTP estan activas sin comprobar la respuesta del sitio desplegado. HTTPS/HSTS y las reglas del proveedor quedan pendientes hasta confirmar el hosting; no se cambia el proveedor ni se realiza un despliegue automaticamente.
+- Las regresiones prueban arranque, busqueda/ficha, mapa 2D/3D, workers y fallback de imagenes sin infracciones, y rechazo real de scripts inline, manejadores, eval y solicitudes a un origen no permitido. El caso movil emulado retira la cabecera CSP para verificar la politica del HTML por separado. Las exportaciones PNG/PDF y el modo offline pasan por sus suites existentes con la politica activa. Comando focalizado: `node scripts/tests/critical-browser-e2e.test.js --csp-only`.
+
 ## Excepciones revisadas
 
 El escaneo inicial de 305 commits identifico 22 coincidencias del campo `browserMeasurementKey` y una del token de evaluacion publico incluido por Cesium. No se encontraron credenciales privadas propias entre esas coincidencias.
@@ -51,7 +62,7 @@ La excepcion del hash se limita a la regla generica, el archivo `reports/perform
 
 Un scanner por patrones puede tener falsos positivos y falsos negativos; no certifica ausencia de secretos ni analiza toda vulnerabilidad. Los hooks locales pueden omitirse y una modificacion de la propia politica requiere revision. La proteccion de ramas, revisiones obligatorias y push protection del proveedor requieren configuracion adicional en GitHub; esta version no cambia esos ajustes.
 
-Quedan separadas para siguientes tandas: revision del resto de recursos/servicios externos, CSP compatible con Cesium y workers, revision integral de inyeccion de HTML y configuracion de headers/HTTPS del hosting real. Esta tanda no agrega cuentas, bases de datos ni un backend innecesario.
+Quedan separadas para siguientes tandas: revision del resto de recursos/servicios externos, revision integral de inyeccion de HTML y verificacion/configuracion de headers y HTTPS del hosting real. Esta tanda no agrega cuentas, bases de datos ni un backend innecesario.
 
 ## Referencias
 
@@ -63,3 +74,7 @@ Quedan separadas para siguientes tandas: revision del resto de recursos/servicio
 - [jsPDF: releases y correcciones](https://github.com/parallax/jsPDF/releases)
 - [OWASP: prevencion de contaminacion de prototipos](https://cheatsheetseries.owasp.org/cheatsheets/Prototype_Pollution_Prevention_Cheat_Sheet.html)
 - [OWASP: almacenamiento local y entradas no confiables](https://cheatsheetseries.owasp.org/cheatsheets/HTML5_Security_Cheat_Sheet.html)
+- [MDN: script-src y WebAssembly sin eval de JavaScript](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/script-src)
+- [MDN: frame-ancestors requiere una cabecera HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/frame-ancestors)
+- [Cloudflare Pages: cabeceras de archivos estaticos](https://developers.cloudflare.com/pages/configuration/headers/)
+- [Netlify: configuracion de cabeceras](https://docs.netlify.com/manage/routing/headers/)

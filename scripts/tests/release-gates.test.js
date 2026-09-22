@@ -6,10 +6,12 @@ import path from "node:path";
 import vm from "node:vm";
 import { retryFileOperation } from "../lib/resilient-fs.js";
 import { resolveNpmInvocation } from "../lib/npm-runner.js";
+import { renderStaticHostingHeaders } from "../lib/browser-security-policy.js";
 import "./map-engine-bundle.test.js";
 import "./export-security.test.js";
 
 const projectRoot = process.cwd();
+assert.equal(await fs.readFile(path.join(projectRoot, "dist/public/_headers"), "utf8"), renderStaticHostingHeaders(), "build must publish the shared browser security headers");
 let transientAttempts = 0;
 const recoveredFileOperation = await retryFileOperation(() => {
   transientAttempts += 1;

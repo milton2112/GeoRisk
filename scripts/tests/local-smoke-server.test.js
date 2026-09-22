@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { createLocalSmokeServer } from "../localSmokeServer.js";
+import { BROWSER_SECURITY_HEADERS } from "../lib/browser-security-policy.js";
 
 const server = createLocalSmokeServer();
 
@@ -14,6 +15,7 @@ try {
   const indexResponse = await fetch(`${baseUrl}/`);
   assert.equal(indexResponse.status, 200);
   assert.ok(indexResponse.headers.get("content-type").includes("text/html"));
+  for (const [header, value] of Object.entries(BROWSER_SECURITY_HEADERS)) assert.equal(indexResponse.headers.get(header), value);
   assert.ok((await indexResponse.text()).includes("GeoRisk"));
 
   const scriptResponse = await fetch(`${baseUrl}/script.js?v=smoke-test`);
@@ -42,6 +44,7 @@ try {
     "/app-help-ui.js",
     "/app-map.js",
     "/app-map-engine.js",
+    "/app-bootstrap.js",
     "/app-map-styles.js",
     "/app-map-interactions.js",
     "/app-store.js",
@@ -67,6 +70,7 @@ try {
     "app-help-ui.js",
     "app-map.js",
     "app-map-engine.js",
+    "app-bootstrap.js",
     "app-map-styles.js",
     "app-map-interactions.js",
     "app-store.js",
