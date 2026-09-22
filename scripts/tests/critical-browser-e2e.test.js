@@ -1705,6 +1705,48 @@ async function testContentSecurityPolicy(browser, baseUrl) {
   }
 }
 
+async function testCountryTextRendering(browser, baseUrl) {
+  for (const viewport of [DESKTOP_VIEWPORT, MOBILE_VIEWPORT]) {
+    const test = await createTestPage(browser, baseUrl, viewport);
+    try {
+      const { page } = test;
+      await waitForAppReady(page);
+      await submitSearch(page, "Argentina");
+      await waitForCountryPanel(page, "Argentina");
+      const payload = '<img data-security-probe src=x onerror="window.geoRiskInjected=true">';
+      const capitalName = 'Port A & B <C> "D"';
+      await page.evaluate(async ({ payload, capitalName }) => {
+        const country = countriesData.ARG;
+        window.__countryTextOriginal = structuredClone(country);
+        country.history = { ...country.history, origin: payload, type: payload, year: payload };
+        country.politics = { ...country.politics, organizations: [payload, { name: payload, abbreviation: payload, startYear: payload, endYear: payload }] };
+        country.religion = { ...country.religion, summary: payload, composition: [{ name: payload, percentage: 100 }] };
+        country.general = { ...country.general, capitals: [{ name: capitalName, role: "nacional" }], languages: [payload], cities: [{ name: payload }] };
+        currentPanelState.countryLoadedSections = ["country-section-general", "country-section-history", "country-section-politics", "country-section-religion"];
+        await renderCountry(country, country.name);
+      }, { payload, capitalName });
+      assert.equal(await page.locator("[data-security-probe]").count(), 0, "country data must not create HTML elements, even when CSP blocks execution");
+      for (const id of ["history", "politics", "religion"]) {
+        assert.ok((await page.locator("#country-section-" + id).textContent()).includes(payload), id + " must preserve literal text");
+      }
+      assert.ok((await page.locator("#country-section-general").textContent()).includes(capitalName), "capital punctuation must render without double encoding");
+      assert.equal(await page.evaluate(() => window.geoRiskInjected), undefined);
+      assert.deepEqual(await page.evaluate(() => window.__geoRiskCspViolations), [], "escaping must prevent injection before CSP is needed");
+      await page.evaluate(async () => {
+        countriesData.ARG = window.__countryTextOriginal;
+        delete window.__countryTextOriginal;
+        await renderCountry(countriesData.ARG, countriesData.ARG.name);
+      });
+      await page.locator('[data-country-nav="country-section-history"]').click();
+      await page.locator("#country-section-history .timeline-item").first().click();
+      await page.locator("#timeline-modal").waitFor({ state: "visible" });
+      assertHealthyPage(test.pageErrors, "country text rendering " + viewport.width);
+    } finally {
+      await test.context.close();
+    }
+  }
+}
+
 async function testUntrustedInputs(browser, baseUrl) {
   for (const viewport of [DESKTOP_VIEWPORT, MOBILE_VIEWPORT]) {
     const test = await createTestPage(browser, baseUrl, viewport, async page => {
@@ -1848,6 +1890,7 @@ try {
   const baseUrl = "http://127.0.0.1:" + port;
   browser = await launchCriticalBrowser();
   const focusedFlows = [
+    ["--country-text-only", testCountryTextRendering],
     ["--csp-only", testContentSecurityPolicy],
     ["--input-security-only", testUntrustedInputs],
     ["--exports-only", testSecureExports],

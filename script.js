@@ -85,7 +85,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-09-22-release-1";
+const APP_VERSION = "2026-09-22-release-2";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -4038,7 +4038,7 @@ function renderCapitalProfiles(general) {
     capitals.map(capital => {
       const roleLabel = translateCapitalRole(capital.role);
       const populationText = capital.population ? ` · ${formatNumber(Math.round(capital.population))} hab.` : "";
-      return `${escapeHtml(normalizeCityDisplayName(capital.name))} (${escapeHtml(roleLabel)})${populationText}`;
+      return `${normalizeCityDisplayName(capital.name)} (${roleLabel})${populationText}`;
     })
   );
 }
@@ -4166,18 +4166,17 @@ function renderOrganizations(organizations) {
       return String(a.name || a).localeCompare(String(b.name || b), "es");
     });
 
-  return `<ul>${deduped
+  return renderList(deduped
     .map(org => {
       if (typeof org === "string") {
-        return `<li>${org}</li>`;
+        return org;
       }
 
       const abbreviation = org.abbreviation ? ` (${org.abbreviation})` : " (sigla no disponible)";
       const start = ` - año de ingreso: ${org.startYear || "sin dato"}`;
       const end = org.endYear ? ` - año de salida: ${org.endYear}` : " - actualidad";
-      return `<li>${org.name}${abbreviation}${start}${end}</li>`;
-    })
-    .join("")}</ul>`;
+      return `${org.name}${abbreviation}${start}${end}`;
+    }));
 }
 
 function renderRivals(rivals) {
@@ -4195,7 +4194,7 @@ function renderRivals(rivals) {
 function renderReligion(religion) {
   const composition = getReligionCompositionForDisplay(religion);
   const summaryLabel = getReligionSummaryLabel(religion);
-  const summary = summaryLabel ? `<p><b>Religion principal:</b> ${summaryLabel}</p>` : "";
+  const summary = summaryLabel ? `<p><b>Religion principal:</b> ${escapeHtml(summaryLabel)}</p>` : "";
 
   if (!summary && !composition.length) {
     return "<p>Sin datos estructurados.</p>";
@@ -4209,7 +4208,7 @@ function renderReligion(religion) {
           const nominal = population && item.percentage
             ? `${formatNumber(Math.round(population * (item.percentage / 100)))} - `
             : "";
-          return `<li>${item.name}: ${nominal}${item.estimated ? "~" : ""}${item.percentage}%</li>`;
+          return `<li>${escapeHtml(item.name)}: ${nominal}${item.estimated ? "~" : ""}${escapeHtml(item.percentage)}%</li>`;
         })
         .join("")}</ul>`
     : "";

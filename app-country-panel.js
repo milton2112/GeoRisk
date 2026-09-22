@@ -358,11 +358,11 @@ function renderQualityHighlights(country, options) {
 
   return `
     <div class="source-audit-grid">
-      <div class="overview-card"><span class="overview-label">${language === "en" ? "Quality score" : "Calidad"}</span><strong class="overview-value">${qualityScore !== null ? `${qualityScore}/100` : noData}</strong></div>
+      <div class="overview-card"><span class="overview-label">${language === "en" ? "Quality score" : "Calidad"}</span><strong class="overview-value">${qualityScore !== null ? `${qualityScore}/100` : escapeHtml(noData)}</strong></div>
       <div class="overview-card"><span class="overview-label">${language === "en" ? "Updated" : "Actualizado"}</span><strong class="overview-value">${escapeHtml(country?.metadata?.updatedAt || "2026-04-16")}</strong></div>
-      <div class="overview-card"><span class="overview-label">${language === "en" ? "Curated sections" : "Secciones curadas"}</span><strong class="overview-value">${formatNumber(curatedSections)}</strong></div>
-      <div class="overview-card"><span class="overview-label">${language === "en" ? "Estimated fields" : "Campos estimados"}</span><strong class="overview-value">${formatNumber(estimatedFields)}</strong></div>
-      <div class="overview-card"><span class="overview-label">${language === "en" ? "Missing fields" : "Campos faltantes"}</span><strong class="overview-value">${formatNumber(missingFields)}</strong></div>
+      <div class="overview-card"><span class="overview-label">${language === "en" ? "Curated sections" : "Secciones curadas"}</span><strong class="overview-value">${escapeHtml(formatNumber(curatedSections))}</strong></div>
+      <div class="overview-card"><span class="overview-label">${language === "en" ? "Estimated fields" : "Campos estimados"}</span><strong class="overview-value">${escapeHtml(formatNumber(estimatedFields))}</strong></div>
+      <div class="overview-card"><span class="overview-label">${language === "en" ? "Missing fields" : "Campos faltantes"}</span><strong class="overview-value">${escapeHtml(formatNumber(missingFields))}</strong></div>
     </div>
     ${Object.keys(provenance).length ? `
       <div class="provenance-grid">
@@ -409,7 +409,7 @@ function renderProfile(options = {}) {
   const countryCode = options.countryCode || "";
   const fallbackName = options.fallbackName || (options.language === "en" ? "Country" : "Pais");
   const language = options.language || "es";
-  const escapeHtml = options.escapeHtml || (value => String(value ?? ""));
+  const escapeHtml = options.escapeHtml || escapeCountryLoadingText;
   const formatNumber = options.formatNumber || (value => String(value || 0));
   const translate = options.translate || (key => key);
   const noData = options.noData || translate("noData");
@@ -486,7 +486,7 @@ function renderProfile(options = {}) {
       ${section(
         translate("general"),
         `
-          <p><b>${escapeHtml(translate("population"))}:</b> ${formatNumber(general.population)}</p>
+          <p><b>${escapeHtml(translate("population"))}:</b> ${escapeHtml(formatNumber(general.population))}</p>
           <p><b>${escapeHtml(translate("continent"))}:</b> ${escapeHtml(translateContinentName(country.continent))}</p>
           <p><b>${language === "en" ? "Capitals" : "Capitales"}:</b></p>
           ${call("renderCapitalProfiles", general)}
@@ -508,9 +508,9 @@ function renderProfile(options = {}) {
       ${section(
         translate("history"),
         loadedSections.has("country-section-history") ? `
-          <p><b>${escapeHtml(translate("origin"))}:</b> ${call("translateHistoryText", history.origin)}</p>
-          <p><b>${escapeHtml(translate("type"))}:</b> ${call("translateHistoryText", history.type)}</p>
-          <p><b>${escapeHtml(translate("formationYear"))}:</b> ${history.year || noData}</p>
+          <p><b>${escapeHtml(translate("origin"))}:</b> ${escapeHtml(call("translateHistoryText", history.origin))}</p>
+          <p><b>${escapeHtml(translate("type"))}:</b> ${escapeHtml(call("translateHistoryText", history.type))}</p>
+          <p><b>${escapeHtml(translate("formationYear"))}:</b> ${escapeHtml(history.year || noData)}</p>
           <p><b>${escapeHtml(translate("timeline"))}:</b></p>
           ${call("renderTimeline", country)}
         ` : deferredPrompt("country-section-history"),
@@ -520,9 +520,9 @@ function renderProfile(options = {}) {
       ${section(
         translate("economy"),
         loadedSections.has("country-section-economy") ? `
-          <p><b>${escapeHtml(translate("gdp"))}:</b> ${economy.gdp ? `US$ ${formatNumber(Math.round(economy.gdp))}` : noData}</p>
-          <p><b>${escapeHtml(translate("gdpPerCapita"))}:</b> ${economy.gdpPerCapita ? `US$ ${formatNumber(Math.round(economy.gdpPerCapita))}` : noData}</p>
-          <p><b>${escapeHtml(translate("inflation"))}:</b> ${call("formatInflation", economy.inflation)}</p>
+          <p><b>${escapeHtml(translate("gdp"))}:</b> ${escapeHtml(economy.gdp ? `US$ ${formatNumber(Math.round(economy.gdp))}` : noData)}</p>
+          <p><b>${escapeHtml(translate("gdpPerCapita"))}:</b> ${escapeHtml(economy.gdpPerCapita ? `US$ ${formatNumber(Math.round(economy.gdpPerCapita))}` : noData)}</p>
+          <p><b>${escapeHtml(translate("inflation"))}:</b> ${escapeHtml(call("formatInflation", economy.inflation))}</p>
           <p><b>${language === "en" ? "Economic snapshot" : "Pulso economico"}:</b></p>
           ${call("renderEconomyMiniMetrics", country)}
           <p><b>${language === "en" ? "Exports" : "Exportaciones"}:</b></p>
@@ -536,8 +536,8 @@ function renderProfile(options = {}) {
       ${compactMode ? "" : section(
         translate("military"),
         options.shouldRenderMilitaryDetail ? `
-          <p><b>${escapeHtml(translate("activePersonnel"))}:</b> ${formatNumber(military.active)}</p>
-          <p><b>${escapeHtml(translate("reserve"))}:</b> ${formatNumber(military.reserve)}</p>
+          <p><b>${escapeHtml(translate("activePersonnel"))}:</b> ${escapeHtml(formatNumber(military.active))}</p>
+          <p><b>${escapeHtml(translate("reserve"))}:</b> ${escapeHtml(formatNumber(military.reserve))}</p>
           ${military.conflictsComplete === false ? `<div class="country-load-error" role="status">
             <p>${language === "en" ? "The full conflict list could not be loaded. Showing the available preview." : "No se pudo cargar la lista completa de conflictos. Se conserva la vista previa disponible."}</p>
             <button type="button" class="panel-action-button" data-country-load-section="country-section-military">${language === "en" ? "Retry conflicts" : "Reintentar conflictos"}</button>
@@ -712,7 +712,7 @@ window.GeoRiskCountryPanel = {
   },
   renderDataQuality(country = {}, options = {}) {
     const currentLanguage = options.currentLanguage || "es";
-    const escapeHtml = options.escapeHtml || (value => String(value || ""));
+    const escapeHtml = options.escapeHtml || escapeCountryLoadingText;
     const formatNumber = options.formatNumber || (value => String(value || 0));
     const organizationCount = Number(options.organizationCount || 0);
     const conflictCount = Number(options.conflictCount || 0);
@@ -753,7 +753,7 @@ window.GeoRiskCountryPanel = {
         ].map(([label, value]) => `
           <div class="data-quality-card">
             <span class="data-quality-label">${label}</span>
-            <strong class="data-quality-value">${formatNumber(value)}</strong>
+            <strong class="data-quality-value">${escapeHtml(formatNumber(value))}</strong>
           </div>
         `).join("")}
         <div class="data-quality-card">

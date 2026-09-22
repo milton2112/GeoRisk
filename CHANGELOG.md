@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.247 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.248 antes de cerrar la siguiente version.
+
+## v1.6.248 - 2026-09-22
+
+- Corrige interpolacion HTML de datos de historia, organizaciones y religion en la ficha pais. Los textos, abreviaturas y fechas se escapan al renderizar, conservando los componentes interactivos.
+- La prueba de navegador reprodujo 10 elementos inyectados mediante datos manipulados; ahora verifica que no se creen elementos ni haya infracciones CSP. No se identifico una interfaz publica de escritura del dataset ni evidencia de explotacion real.
+- Corrige doble escape en nombres y roles de capitales: signos como & y comillas dejan de mostrarse como entidades HTML. Los renderizadores de ficha/fuentes usan un escape seguro por defecto y tratan las salidas de formateadores como texto.
+- Agrega regresiones a test:security y a la E2E de escritorio/movil emulado, incluidas la recuperacion de una ficha normal y la apertura de eventos del timeline. No cambia datasets ni debilita la CSP.
+- Verifica el sitio publico de GitHub Pages: HTTPS/HSTS y CSP en HTML presentes; faltan las cabeceras adicionales y siguen publicandose scripts/reportes/dataset completo fuera del build previsto. Registra las comprobaciones y deja la configuracion remota de publicacion pendiente, sin cambiar el hosting.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-22-release-2`.
 
 ## v1.6.247 - 2026-09-22
 

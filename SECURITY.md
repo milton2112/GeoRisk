@@ -41,8 +41,22 @@ GeoRisk es una aplicacion estatica: todo JavaScript, JSON o asset publicado pued
 - Se conservan estilos inline porque la app, Cesium y las capturas los necesitan. Los iframes del mismo origen siguen permitidos para html2canvas. No se permiten comodines de origen ni scripts `data:`/`blob:`; los workers tienen una excepcion explicita para blobs y el directorio versionado de Cesium. Los recursos remotos permitidos siguen siendo dependencias de confianza, no contenido verificado por esta politica.
 - El servidor local envia CSP, `nosniff`, referrer limitado, restricciones de permisos y proteccion contra embeber la app desde otro origen (`frame-ancestors 'self'` y `X-Frame-Options: SAMEORIGIN`). Esto permite el iframe del exportador. No se agrega HSTS al servidor HTTP local.
 - El build genera `dist/public/_headers` desde la misma configuracion para despliegues estaticos compatibles, como Netlify o Cloudflare Pages. No entra en APP_SHELL. Publicar esa carpeta en un proveedor compatible aplica las reglas; otros proveedores pueden ignorar el archivo. Las respuestas de funciones/proxies necesitan configuracion propia.
-- **El hosting publico aun requiere verificacion.** La CSP del HTML no depende de `_headers`, pero no puede aplicar `frame-ancestors`, `nosniff`, Permissions Policy ni HSTS. No afirmar que las cabeceras HTTP estan activas sin comprobar la respuesta del sitio desplegado. HTTPS/HSTS y las reglas del proveedor quedan pendientes hasta confirmar el hosting; no se cambia el proveedor ni se realiza un despliegue automaticamente.
+- La CSP del HTML no depende de `_headers`, pero no puede aplicar `frame-ancestors`, `nosniff`, Permissions Policy ni HSTS. No afirmar que las cabeceras HTTP estan activas sin comprobar la respuesta del sitio desplegado. Ver el estado observado de GitHub Pages mas abajo; el servidor local no configura el hosting.
 - Las regresiones prueban arranque, busqueda/ficha, mapa 2D/3D, workers y fallback de imagenes sin infracciones, y rechazo real de scripts inline, manejadores, eval y solicitudes a un origen no permitido. El caso movil emulado retira la cabecera CSP para verificar la politica del HTML por separado. Las exportaciones PNG/PDF y el modo offline pasan por sus suites existentes con la politica activa. Comando focalizado: `node scripts/tests/critical-browser-e2e.test.js --csp-only`.
+
+## Datos de ficha como texto desde v1.6.248
+
+- La revision posterior a CSP encontro interpolaciones sin escape en origen/tipo/ano historico, organizaciones (nombre, sigla y fechas) y religion (resumen, denominacion y porcentaje). Una ficha con valores de prueba creaba 10 elementos HTML ajenos al componente. CSP bloqueaba sus manejadores, pero no impedia alterar el DOM: no sustituye el escape de salida.
+- Las organizaciones reutilizan `renderList`, que acepta texto y lo escapa una sola vez. Historia y religion escapan en el punto de insercion. Se conserva el HTML creado por renderizadores internos de componentes; no se habilita HTML procedente de datos ni se introduce un sanitizador casero.
+- Los renderizadores diferidos de ficha y fuentes usan un escape seguro cuando no reciben el helper habitual, y escapan las salidas de formateadores de texto. Corrige ademas el doble escape de capitales al quitar el escape previo a `renderList`.
+- Son recorridos alimentados por datos del proyecto o valores manipulados en esas entradas; no se encontro un endpoint publico que permita escribirlos ni evidencia de un ataque real. La revision sigue siendo acotada y no certifica todos los sumideros de la aplicacion.
+- `test:security` incluye `country-render-security.test.js`. La E2E `--country-text-only` modifica datos exclusivamente en memoria, comprueba que aparezcan como texto sin crear elementos ni activar CSP, verifica capitales sin doble escape y restaura la ficha para abrir un evento de timeline. Se ejecuta en escritorio y movil emulado, tambien dentro de `release:check`.
+
+## Estado observado de GitHub Pages
+
+El 2026-09-22 se comprobo `https://milton2112.github.io/GeoRisk/` sin autenticacion: HTTP 200, version `2026-09-22-release-1`, CSP y referrer en el HTML, y HSTS en la respuesta HTTPS. No devolvio las cabeceras CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy ni Permissions-Policy. El sitio ya es publico en internet: conocer el enlace basta para visitarlo; no estar indexado por un buscador no lo hace privado.
+
+Las solicitudes HEAD a `scripts/buildProduction.js`, `reports/doctor-report.json` y `data/countries_full.json` devolvieron 200; `_headers` devolvio 404. Esto demuestra que las exclusiones de `dist/public` no se estaban aplicando al sitio observado. No se descargaron esos archivos para la comprobacion ni se encontro evidencia de credenciales expuestas. Pendiente: configurar la publicacion del build validado, comprobar los 404 correspondientes y evaluar las cabeceras que el proveedor permita. No se modificaron ajustes remotos ni el proveedor. Excluir archivos del sitio no los vuelve privados si permanecen en un repositorio publico.
 
 ## Excepciones revisadas
 
@@ -62,7 +76,7 @@ La excepcion del hash se limita a la regla generica, el archivo `reports/perform
 
 Un scanner por patrones puede tener falsos positivos y falsos negativos; no certifica ausencia de secretos ni analiza toda vulnerabilidad. Los hooks locales pueden omitirse y una modificacion de la propia politica requiere revision. La proteccion de ramas, revisiones obligatorias y push protection del proveedor requieren configuracion adicional en GitHub; esta version no cambia esos ajustes.
 
-Quedan separadas para siguientes tandas: revision del resto de recursos/servicios externos, revision integral de inyeccion de HTML y verificacion/configuracion de headers y HTTPS del hosting real. Esta tanda no agrega cuentas, bases de datos ni un backend innecesario.
+Quedan separadas para siguientes tandas: revision del resto de recursos/servicios externos, revision integral de inyeccion de HTML y configuracion/verificacion del despliegue publico del build y de las cabeceras pendientes. Esta tanda no agrega cuentas, bases de datos ni un backend innecesario.
 
 ## Referencias
 
@@ -78,3 +92,5 @@ Quedan separadas para siguientes tandas: revision del resto de recursos/servicio
 - [MDN: frame-ancestors requiere una cabecera HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/frame-ancestors)
 - [Cloudflare Pages: cabeceras de archivos estaticos](https://developers.cloudflare.com/pages/configuration/headers/)
 - [Netlify: configuracion de cabeceras](https://docs.netlify.com/manage/routing/headers/)
+- [OWASP: escape de salida por contexto y limites de CSP](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)
+- [GitHub: publicacion y acceso publico de los sitios Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site)
