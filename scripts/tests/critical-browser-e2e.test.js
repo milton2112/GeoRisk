@@ -435,8 +435,21 @@ async function assertStartupControlsHaveNoLayout(page) {
   assert.equal(state.mapHasLayout, true, "el mapa debe conservar su espacio durante la carga");
 }
 
+async function captureStartupState(page, path) {
+  const options = { path, animations: "disabled", timeout: 10000 };
+  try {
+    return await page.screenshot(options);
+  } catch (error) {
+    if (page.isClosed() || !/Protocol error \(Page\.captureScreenshot\): Unable to capture screenshot/.test(error.message)) throw error;
+    console.warn("Chromium no pudo capturar " + path + "; un unico reintento de captura.");
+    await page.waitForTimeout(250);
+    return page.screenshot(options);
+  }
+}
+
 async function testMapEngineStartup(browser, baseUrl) {
   for (const scenario of ["slow", "failure", "early-failure", "timeout", "loader-missing", "no-frame"]) {
+    console.log("map-engine-startup: " + scenario);
     const context = await browser.newContext({ viewport: MOBILE_VIEWPORT, isMobile: true, hasTouch: true, serviceWorkers: "block" });
     let releaseEngine;
     const held = new Promise(resolve => { releaseEngine = resolve; });
@@ -484,7 +497,7 @@ async function testMapEngineStartup(browser, baseUrl) {
         await page.waitForFunction(() => window.GeoRiskMapEngine.getState().phase === "slow");
         assert.equal(await page.locator("#fatal-error-banner").isVisible(), false, "descargar lento no es un error fatal");
         assert.equal(await page.locator("#startup-status").isVisible(), true);
-        await page.screenshot({ path: "tmp/startup-engine-slow-mobile.png" });
+        await captureStartupState(page, "tmp/startup-engine-slow-mobile.png");
       }
       if (scenario !== "timeout") releaseEngine();
       if (scenario !== "slow") {
@@ -507,7 +520,7 @@ async function testMapEngineStartup(browser, baseUrl) {
         }
         if (scenario === "no-frame") assert.match(await page.locator("#fatal-error-banner").innerText(), /mapa no pudo mostrarse/);
         assert.equal(engineRequests, scenario === "loader-missing" ? 0 : 1, "un intento no duplica la descarga");
-        await page.screenshot({ path: "tmp/startup-engine-" + scenario + "-mobile.png" });
+        await captureStartupState(page, "tmp/startup-engine-" + scenario + "-mobile.png");
         recover = true;
         await page.locator("#fatal-error-banner a").click();
         await waitForAppReady(page);
@@ -2005,7 +2018,10 @@ try {
   ];
   const focused = focusedFlows.some(([flag]) => process.argv.includes(flag));
   for (const [flag, run] of focusedFlows) {
-    if (!focused || process.argv.includes(flag)) await run(browser, baseUrl);
+    if (!focused || process.argv.includes(flag)) {
+      console.log("critical-browser-e2e: " + run.name);
+      await run(browser, baseUrl);
+    }
   }
 
   if (!focused) {

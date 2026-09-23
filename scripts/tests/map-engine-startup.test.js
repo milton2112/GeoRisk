@@ -4,6 +4,32 @@ import vm from "node:vm";
 
 const engineSource = await fs.readFile("app-map-engine.js", "utf8");
 const script = await fs.readFile("script.js", "utf8");
+const browserTests = await fs.readFile("scripts/tests/critical-browser-e2e.test.js", "utf8");
+const capture = vm.runInNewContext(browserTests.slice(browserTests.indexOf("async function captureStartupState("),
+  browserTests.indexOf("async function testMapEngineStartup(")) + "\ncaptureStartupState;", { console: { warn() {} } });
+for (const failure of ["none", "transient", "persistent", "other", "closed"]) {
+  let calls = 0;
+  let waits = 0;
+  const buffer = Buffer.from("captured");
+  const page = {
+    isClosed: () => failure === "closed",
+    async waitForTimeout(ms) { assert.equal(ms, 250); waits++; },
+    async screenshot(options) {
+      calls++;
+      assert.equal(options.path, "tmp/test.png");
+      assert.equal(options.timeout, 10000);
+      if (failure === "other") throw new Error("Page crashed");
+      if (failure !== "none" && (failure !== "transient" || calls === 1)) {
+        throw new Error("Protocol error (Page.captureScreenshot): Unable to capture screenshot");
+      }
+      return buffer;
+    }
+  };
+  if (["none", "transient"].includes(failure)) assert.equal(await capture(page, "tmp/test.png"), buffer);
+  else await assert.rejects(capture(page, "tmp/test.png"));
+  assert.equal(calls, ["transient", "persistent"].includes(failure) ? 2 : 1);
+  assert.equal(waits, calls - 1, "no reintentar crashes, paginas cerradas ni fallos persistentes mas de una vez");
+}
 const frameSource = script.slice(script.indexOf("async function waitForMapBootReady("), script.indexOf("function scheduleDetailedOverlayUpgrade("));
 const deferred = () => {
   let resolve, reject;
