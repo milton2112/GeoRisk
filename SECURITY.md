@@ -73,6 +73,7 @@ Las solicitudes HEAD a `scripts/buildProduction.js`, `reports/doctor-report.json
 - En Chromium, las pausas de rotacion se verifican mediante el controlador y la posicion real de la camara (desplazamiento menor a 0,01 m), no mediante `moveStart/moveEnd`, que tambien notifican cambios internos del frustum. Se conservan la pausa por contacto, por modal, la reanudacion y el apagado desde el boton.
 - La E2E identifica cada flujo y escenario en los logs. Para las capturas de estados de arranque permite un solo reintento ante el error exacto `Page.captureScreenshot: Unable to capture screenshot`; no reinicia la pagina ni omite aserciones. Otros errores, paginas cerradas o una segunda captura fallida bloquean el gate. Ese error del protocolo aparecio en CI, pero no se reprodujo en la bateria local completa con Chromium.
 - CI confirmo la recuperacion de la captura del loader ausente y el mismo error antes del runtime principal; ambos recorridos usan la captura acotada. La suite completa dispone de 15 minutos: en el runner consumio casi seis minutos solo hasta los casos de arranque, quedando mas flujos, offline y visuales. No se amplian los limites individuales de arranque, FPS, long tasks ni tamanos.
+- Las capturas tempranas esperan `first-contentful-paint` con un limite de 10 segundos: visibilidad/computed style no demuestra que Chromium ya tenga una superficie dibujada. La prueba sigue reteniendo el runtime; si no hay primer pintado, falla antes de intentar la captura. Se conserva el unico reintento acotado del protocolo.
 
 ## Excepciones revisadas
 

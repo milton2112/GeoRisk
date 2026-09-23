@@ -10,9 +10,19 @@ const capture = vm.runInNewContext(browserTests.slice(browserTests.indexOf("asyn
 for (const failure of ["none", "transient", "persistent", "other", "closed"]) {
   let calls = 0;
   let waits = 0;
+  let paintWaits = 0;
   const buffer = Buffer.from("captured");
   const page = {
     isClosed: () => failure === "closed",
+    async waitForFunction(predicate, argument, options) {
+      assert.equal(options.timeout, 10000);
+      for (const painted of [false, true]) {
+        assert.equal(vm.runInNewContext(`(${predicate})()`, { performance: {
+          getEntriesByName(name) { assert.equal(name, "first-contentful-paint"); return painted ? [{}] : []; }
+        } }), painted);
+      }
+      paintWaits++;
+    },
     async waitForTimeout(ms) { assert.equal(ms, 250); waits++; },
     async screenshot(options) {
       calls++;
@@ -28,7 +38,15 @@ for (const failure of ["none", "transient", "persistent", "other", "closed"]) {
   if (["none", "transient"].includes(failure)) assert.equal(await capture(page, "tmp/test.png"), buffer);
   else await assert.rejects(capture(page, "tmp/test.png"));
   assert.equal(calls, ["transient", "persistent"].includes(failure) ? 2 : 1);
+  assert.equal(paintWaits, 1, "esperar un primer pintado real antes de capturar");
   assert.equal(waits, calls - 1, "no reintentar crashes, paginas cerradas ni fallos persistentes mas de una vez");
+}
+{
+  const error = new Error("No hubo primer pintado");
+  await assert.rejects(capture({
+    async waitForFunction() { throw error; },
+    screenshot() { assert.fail("no intentar capturar una pagina que no se dibujo"); }
+  }, "tmp/test.png"), error);
 }
 const frameSource = script.slice(script.indexOf("async function waitForMapBootReady("), script.indexOf("function scheduleDetailedOverlayUpgrade("));
 const deferred = () => {

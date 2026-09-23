@@ -436,6 +436,9 @@ async function assertStartupControlsHaveNoLayout(page) {
 }
 
 async function captureStartupState(page, path) {
+  // DOM visibility alone does not mean Chromium has a composited surface yet.
+  await page.waitForFunction(() => performance.getEntriesByName("first-contentful-paint").length > 0,
+    undefined, { timeout: 10000 });
   const options = { path, animations: "disabled", timeout: 10000 };
   try {
     return await page.screenshot(options);
