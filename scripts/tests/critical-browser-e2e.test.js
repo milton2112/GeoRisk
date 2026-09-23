@@ -847,7 +847,8 @@ async function testAutoRotation(browser, baseUrl) {
       const touch = mobile ? await test.context.newCDPSession(page) : null;
       if (touch) await touch.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [{ ...point, id: 1 }] });
       else { await page.mouse.move(point.x, point.y); await page.mouse.down(); }
-      await page.waitForFunction(() => !autoRotation.isRotating() && !isCameraNavigating);
+      // Cesium also emits move events for frustum updates; verify the real pose below.
+      await page.waitForFunction(() => !autoRotation.isRotating());
       const held = await page.evaluate(() => Cesium.Cartesian3.clone(viewer.camera.positionWC));
       await page.waitForTimeout(3400);
       assert.equal(await page.evaluate(position => Cesium.Cartesian3.distance(position, viewer.camera.positionWC) < 0.01, held), true,
@@ -862,7 +863,7 @@ async function testAutoRotation(browser, baseUrl) {
       await page.waitForFunction(() => autoRotation.isRotating(), undefined, { timeout: 12000 });
 
       await page.evaluate(() => openIntroModal());
-      await page.waitForFunction(() => !autoRotation.isRotating() && !isCameraNavigating);
+      await page.waitForFunction(() => !autoRotation.isRotating());
       const paused = await page.evaluate(() => Cesium.Cartesian3.clone(viewer.camera.positionWC));
       await page.waitForTimeout(500);
       assert.equal(await page.evaluate(position => Cesium.Cartesian3.distance(position, viewer.camera.positionWC) < 0.01, paused), true);
@@ -872,7 +873,7 @@ async function testAutoRotation(browser, baseUrl) {
       await page.locator("#auto-rotate-button").click();
       assert.equal(await page.locator("#auto-rotate-button").getAttribute("aria-pressed"), "false");
       await toolsToggle.click();
-      await page.waitForFunction(() => !isCameraNavigating);
+      await page.waitForFunction(() => !autoRotation.isRotating());
       const stopped = await page.evaluate(() => Cesium.Cartesian3.clone(viewer.camera.positionWC));
       await page.waitForTimeout(500);
       assert.equal(await page.evaluate(position => Cesium.Cartesian3.distance(position, viewer.camera.positionWC) < 0.01, stopped), true);

@@ -70,6 +70,7 @@ Las solicitudes HEAD a `scripts/buildProduction.js`, `reports/doctor-report.json
 - Los escaneos Git tienen un presupuesto de 600 segundos, frente a 150 para archivos actuales. El limite externo de release permite terminar ese proceso. Si no termina, el gate falla: no hay excepcion ni resultado limpio por timeout.
 - La validacion remota tambien detecto interferencia entre dos pruebas: el fallback automatico por FPS cambiaba a 2D durante la E2E de rotacion. Esa prueba usa el perfil manual Rendimiento y exige movimiento en al menos ocho de nueve intervalos entre diez frames reales, con timeout; no exige velocidad de GPU a un runner virtual. El monitor adaptativo conserva sus pruebas de FPS/fallback y las mediciones de rendimiento siguen usando el perfil real por defecto.
 - La E2E de etiquetas tambien asumia que cualquier escritorio arranca con nombres visibles. Se reprodujo el bloqueo con 4 GB/4 nucleos: la app los omite correctamente en ese perfil. La prueba de dibujo usa una preferencia explicita, conserva el arranque movil sin etiquetas y agrega una matriz de regresiones para memoria, nucleos, viewport y preferencias guardadas.
+- En Chromium, las pausas de rotacion se verifican mediante el controlador y la posicion real de la camara (desplazamiento menor a 0,01 m), no mediante `moveStart/moveEnd`, que tambien notifican cambios internos del frustum. Se conservan la pausa por contacto, por modal, la reanudacion y el apagado desde el boton.
 
 ## Excepciones revisadas
 
