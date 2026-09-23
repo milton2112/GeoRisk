@@ -242,7 +242,7 @@ await vm.runInNewContext(checklistProgram, {
   runNpmStep: async (label, args, options) => invokedReleaseSteps.push({ label, args, options })
 });
 assert.deepEqual(Array.from(invokedReleaseSteps[0].args), ["test"]);
-assert.equal(invokedReleaseSteps[0].options.timeoutMs, 600_000, "la suite completa necesita un plazo propio y acotado");
+assert.equal(invokedReleaseSteps[0].options.timeoutMs, 900_000, "la suite completa necesita un plazo propio y acotado para CI sin GPU dedicada");
 assert.equal(invokedReleaseSteps.find(step => step.args.includes("audit:security:history")).options.timeoutMs, 660_000, "el limite externo debe permitir terminar el scanner de historial");
 assert.ok(invokedReleaseSteps.slice(1).filter(step => !step.args.includes("audit:security:history")).every(step => step.options === undefined), "los demas pasos conservan su timeout normal");
 let failedReleaseAttempts = 0;

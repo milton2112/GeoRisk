@@ -997,7 +997,7 @@ async function testControlsStartup(browser, baseUrl) {
     assert.equal(await page.evaluate(() => typeof init), "undefined", "la prueba debe retener el runtime principal");
     await assertStartupControlsHaveNoLayout(page);
     assert.equal(await page.locator("#map-search-input").isVisible(), false, "no mostrar controles sin handlers antes de script.js");
-    await page.screenshot({ path: "tmp/startup-before-runtime-mobile.png" });
+    await captureStartupState(page, "tmp/startup-before-runtime-mobile.png");
     releaseMain();
     await page.waitForFunction(() => typeof bootMetrics !== "undefined" && bootMetrics.steps.mapBootReady?.end && bootMetrics.steps.deferredUi?.start);
     await page.waitForTimeout(350);
@@ -1012,7 +1012,7 @@ async function testControlsStartup(browser, baseUrl) {
     await page.mouse.move(270, 420, { steps: 8 });
     await page.mouse.up();
     await page.waitForFunction(() => Cesium.Cartesian3.distance(viewer.camera.position, window.__startupCameraPosition) > 10);
-    await page.screenshot({ path: "tmp/startup-deferred-mobile.png" });
+    await captureStartupState(page, "tmp/startup-deferred-mobile.png");
     releaseUi();
     await waitForAppReady(page, { requireTiles: false });
     await page.waitForFunction(() => window.__offlineSetupPending === true);
@@ -1028,7 +1028,7 @@ async function testControlsStartup(browser, baseUrl) {
       return channels(getComputedStyle(element).backgroundColor).every(value => value < 80) &&
         channels(getComputedStyle(element.querySelector("strong")).color).every(value => value > 200);
     }), true, "la bienvenida no debe depender del CSS diferido para tener texto claro sobre fondo oscuro");
-    await page.screenshot({ path: "tmp/intro-mobile.png" });
+    await captureStartupState(page, "tmp/intro-mobile.png");
     releaseStyles();
     await page.locator('[data-intro-action="search"]').click();
     await page.waitForFunction(() => document.activeElement?.id === "map-search-input");
@@ -1053,7 +1053,7 @@ async function testControlsStartup(browser, baseUrl) {
       assert.equal(await page.locator("#startup-status").isVisible(), false);
       assert.equal(await page.evaluate(() => bootMetrics.completedAt), 0);
       assert.match(await page.evaluate(() => bootMetrics.steps.deferredUi.error), /module unavailable/);
-      await page.screenshot({ path: "tmp/startup-failed-" + moduleName + "-mobile.png" });
+      await captureStartupState(page, "tmp/startup-failed-" + moduleName + "-mobile.png");
       await page.unroute(pattern);
       await page.locator("#fatal-error-banner a").click();
       await waitForAppReady(page, { requireTiles: false });
