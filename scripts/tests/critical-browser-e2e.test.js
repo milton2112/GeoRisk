@@ -612,6 +612,13 @@ async function testMapLabels(browser, baseUrl) {
     let releaseIndex;
     const indexGate = new Promise(resolve => { releaseIndex = resolve; });
     const test = await createTestPage(browser, baseUrl, viewport, async page => {
+      await page.addInitScript(isMobile => {
+        Object.defineProperty(navigator, "deviceMemory", { configurable: true, get: () => 4 });
+        Object.defineProperty(navigator, "hardwareConcurrency", { configurable: true, get: () => 4 });
+        // Label rendering must not depend on the runner's hardware defaults or FPS fallback.
+        localStorage.setItem("geo-risk-quality-preset", "performance");
+        if (!isMobile) localStorage.setItem("geo-risk-label-mode", "countries");
+      }, mobile);
       if (!mobile) await page.route(/\/data\/countries_index\.json(?:\?|$)/, async route => {
         await indexGate;
         await route.continue();
@@ -660,45 +667,67 @@ async function testMapLabels(browser, baseUrl) {
       await toolsToggle.click();
       await page.locator("#label-mode-select").selectOption("full");
       await toolsToggle.click();
-      await page.evaluate(() => focusRectangle(countryLayers.get("BRA").computeRectangle(), { instant: true }));
+      await page.evaluate(() => new Promise((resolve, reject) => {
+        const remove = viewer.camera.moveEnd.addEventListener(() => { clearTimeout(timer); remove(); resolve(); });
+        const timer = setTimeout(() => { remove(); reject(new Error("La camara no termino de enfocar Brasil")); }, 15000);
+        focusRectangle(countryLayers.get("BRA").computeRectangle(), { instant: true });
+      }));
       await page.waitForFunction(() => !isCameraNavigating && labelEntities.some(entity => entity.id === "country-label-BRA"));
       const brazil = await assertVisible();
       const pixels = await page.evaluate(async () => {
         const scene = viewer.scene;
-        const entity = viewer.entities.getById("country-label-BRA");
         const source = activeGeoJsonDataSource;
         const globeShow = scene.globe.show;
         const sourceShow = source.show;
-        const originalShow = entity.label.show;
         const gl = scene.canvas.getContext("webgl2") || scene.canvas.getContext("webgl");
-        const point = scene.cartesianToCanvasCoordinates(entity.position.getValue(viewer.clock.currentTime));
-        const scale = scene.canvas.width / scene.canvas.clientWidth;
-        const width = Math.ceil(90 * scale);
-        const height = Math.ceil(30 * scale);
-        const x = Math.floor(point.x * scale - width / 2);
-        const y = Math.floor(scene.canvas.height - point.y * scale - height / 2);
-        const sample = show => new Promise((resolve, reject) => {
-          entity.label.show = show;
+        let entity;
+        let originalShow;
+        const waitForStableLabel = () => new Promise((resolve, reject) => {
           let frames = 0;
+          let previous;
           const remove = scene.postRender.addEventListener(() => {
-            if (++frames < 3) { scene.requestRender(); return; }
+            const current = viewer.entities.getById("country-label-BRA");
+            frames = current && current === previous && !isCameraNavigating ? frames + 1 : 0;
+            previous = current;
+            if (frames < 3) { scene.requestRender(); return; }
             clearTimeout(timer);
             remove();
-            const result = new Uint8Array(width * height * 4);
-            gl.readPixels(x, y, width, height, gl.RGBA, gl.UNSIGNED_BYTE, result);
-            resolve(result);
+            resolve(current);
           });
-          const timer = setTimeout(() => { remove(); reject(new Error("No se dibujo la etiqueta de prueba")); }, 5000);
+          const timer = setTimeout(() => { remove(); reject(new Error("La etiqueta no se estabilizo")); }, 15000);
           scene.requestRender();
         });
-        // Isolate label pixels from asynchronous imagery and polygon replacements.
+        // Hiding the globe can change the frustum and recreate labels on the next frames.
         scene.globe.show = false;
         source.show = false;
         let diagnostics;
         try {
           for (let attempt = 0; attempt < 8; attempt++) {
+            entity = await waitForStableLabel();
+            originalShow = entity.label.show;
+            const point = scene.cartesianToCanvasCoordinates(entity.position.getValue(viewer.clock.currentTime));
+            const scale = scene.canvas.width / scene.canvas.clientWidth;
+            const width = Math.ceil(90 * scale);
+            const height = Math.ceil(30 * scale);
+            const x = Math.floor(point.x * scale - width / 2);
+            const y = Math.floor(scene.canvas.height - point.y * scale - height / 2);
+            const sample = show => new Promise((resolve, reject) => {
+              entity.label.show = show;
+              let frames = 0;
+              const remove = scene.postRender.addEventListener(() => {
+                if (++frames < 3) { scene.requestRender(); return; }
+                clearTimeout(timer);
+                remove();
+                const result = new Uint8Array(width * height * 4);
+                gl.readPixels(x, y, width, height, gl.RGBA, gl.UNSIGNED_BYTE, result);
+                resolve(result);
+              });
+              const timer = setTimeout(() => { remove(); reject(new Error("No se dibujo la etiqueta de prueba")); }, 5000);
+              scene.requestRender();
+            });
             const hidden = await sample(false);
             const visible = await sample(true);
+            entity.label.show = originalShow;
             let changed = 0;
             let brighter = 0;
             let maxChannel = 0;
@@ -708,13 +737,13 @@ async function testMapLabels(browser, baseUrl) {
               maxChannel = Math.max(maxChannel, visible[i], visible[i + 1], visible[i + 2]);
             }
             diagnostics = { changed, brighter, maxChannel, sameEntity: viewer.entities.getById(entity.id) === entity, x, y, width, height, error: gl.getError() };
-            if (changed > 2 && brighter > 2) return diagnostics;
+            if (changed > 2 && brighter > 2 && diagnostics.sameEntity) return diagnostics;
           }
           return diagnostics;
         } finally {
           scene.globe.show = globeShow;
           source.show = sourceShow;
-          entity.label.show = originalShow;
+          if (entity) entity.label.show = originalShow;
           scene.requestRender();
         }
       });
@@ -742,6 +771,14 @@ async function testMapLabels(browser, baseUrl) {
       await setMapMode(page, "2d");
       assert.equal(await page.evaluate(() => labelEntities.length), 0);
       assertHealthyPage(test.pageErrors, label + " etiquetas de mapa");
+    } catch (error) {
+      console.error("Map labels failed:", await page.evaluate(() => ({
+        mode: currentMapMode, labelMode, labels: labelEntities.length, navigating: isCameraNavigating,
+        deviceMemory: navigator.deviceMemory, cores: navigator.hardwareConcurrency,
+        countries: Object.keys(countriesData).length, layers: countryLayers.size,
+        boot: bootMetrics.steps, degradations: mapDegradationLog.list()
+      })).catch(() => null));
+      throw error;
     } finally {
       releaseIndex();
       await test.context.close();

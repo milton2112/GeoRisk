@@ -12,6 +12,7 @@ Este proyecto usa versionado semantico:
 
 ## v1.6.249 - 2026-09-22
 
+- Ajusta las E2E de rotacion y etiquetas para no confundir el fallback automatico o los perfiles limitados de CI con fallos de dibujo. Conserva las verificaciones de movimiento por frame, pixeles de texto y calidad adaptativa, y prueba los valores iniciales de etiquetas por dispositivo/preferencia.
 - El gate remoto bloqueo el primer intento de publicacion por timeout de arranque. Corrige la hidratacion critica de paises: conserva batches chicos pero usa prioridad `user-visible`, sin depender de una cola `background` que puede quedar postergada. Agrega regresiones con esa cola retenida y diagnostico de pasos de arranque en CI.
 - Publicacion de GitHub Pages desde `dist/public`, condicionada al release gate: las PR y auditorias programadas no despliegan, y solo el job de publicacion recibe permisos Pages/OIDC.
 - Valida hashes, archivos faltantes, archivos extra, rutas internas y enlaces en el artefacto antes de subirlo. Verifica despues el HTML de la version, assets esenciales y respuestas 404 para scripts, reportes y datasets internos.

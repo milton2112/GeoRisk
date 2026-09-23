@@ -10,6 +10,22 @@ import NearFarScalar from "@cesium/engine/Source/Core/NearFarScalar.js";
 import DistanceDisplayCondition from "@cesium/engine/Source/Core/DistanceDisplayCondition.js";
 
 const source = await fs.readFile(new URL("../../script.js", import.meta.url), "utf8");
+const initialLabels = source.slice(source.indexOf("const constrainedInitialDevice ="), source.indexOf("let autoRotateEnabled ="));
+for (const smallViewport of [false, true]) {
+  for (const deviceMemory of [undefined, 2, 4, 8]) {
+    for (const hardwareConcurrency of [undefined, 2, 4, 8]) {
+      const fallback = smallViewport || deviceMemory <= 4 || hardwareConcurrency <= 4 ? "none" : "countries";
+      for (const saved of [null, "invalid", "none", "countries", "full"]) {
+        const initial = vm.runInNewContext(initialLabels + "\nlabelMode;", {
+          window: { matchMedia: () => ({ matches: smallViewport }) },
+          navigator: { deviceMemory, hardwareConcurrency }, readLocalPreference: () => saved
+        });
+        assert.equal(initial, ["none", "countries", "full"].includes(saved) ? saved : fallback,
+          "las etiquetas iniciales respetan el dispositivo y la preferencia explicita");
+      }
+    }
+  }
+}
 const radius = Ellipsoid.WGS84.maximumRadius;
 const point = (lon, lat = 0) => Cartesian3.fromDegrees(lon, lat);
 const state = {
