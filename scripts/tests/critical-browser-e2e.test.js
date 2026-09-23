@@ -753,7 +753,10 @@ async function testAutoRotation(browser, baseUrl) {
   for (const viewport of [DESKTOP_VIEWPORT, MOBILE_VIEWPORT]) {
     const mobile = viewport === MOBILE_VIEWPORT;
     const label = mobile ? "mobile" : "desktop";
-    const test = await createTestPage(browser, baseUrl, viewport);
+    // Test rotation independently of the automatic low-FPS switch to 2D.
+    const test = await createTestPage(browser, baseUrl, viewport, page => page.addInitScript(() => {
+      localStorage.setItem("geo-risk-quality-preset", "performance");
+    }));
     const { page } = test;
     const toolsToggle = page.locator(mobile ? "#toggle-tools-panel" : "#map-toolbar > summary");
     try {
@@ -785,18 +788,19 @@ async function testAutoRotation(browser, baseUrl) {
       await waitForMapMode(page, "3d");
       await page.waitForFunction(() => autoRotation.isRotating(), undefined, { timeout: 12000 });
       const before = await page.locator("#map canvas").screenshot();
-      const motion = await page.evaluate(() => new Promise(resolve => {
+      const motion = await page.evaluate(() => new Promise((resolve, reject) => {
         const positions = [];
-        let frames = 0;
-        const remove = viewer.scene.postRender.addEventListener(() => frames++);
-        const timer = setInterval(() => positions.push(Cesium.Cartesian3.clone(viewer.camera.positionWC)), 250);
-        setTimeout(() => {
-          clearInterval(timer);
+        // GPU speed varies on CI; every rendered frame must advance the camera.
+        const timer = setTimeout(() => { remove(); reject(new Error("La rotacion no produjo diez frames")); }, 20000);
+        const remove = viewer.scene.postRender.addEventListener(() => {
+          positions.push(Cesium.Cartesian3.clone(viewer.camera.positionWC));
+          if (positions.length < 10) return;
+          clearTimeout(timer);
           remove();
-          resolve({ frames, changes: positions.slice(1).filter((position, index) => Cesium.Cartesian3.distance(position, positions[index]) > 10).length });
-        }, 2250);
+          resolve({ frames: positions.length, changes: positions.slice(1).filter((position, index) => Cesium.Cartesian3.distance(position, positions[index]) > 10).length });
+        });
       }));
-      assert.ok(motion.changes >= 5 && motion.frames >= 10, label + ": rotacion continua, no un paso cada cuatro segundos");
+      assert.ok(motion.changes >= 8 && motion.frames >= 10, label + ": rotacion continua por frame, no saltos espaciados: " + JSON.stringify(motion));
       const after = await page.locator("#map canvas").screenshot();
       assert.equal(before.equals(after), false, "el canvas cambia durante la rotacion");
       await page.screenshot({ path: "tmp/auto-rotation-" + label + ".png" });
@@ -843,6 +847,7 @@ async function testAutoRotation(browser, baseUrl) {
         visible: document.visibilityState, classes: document.body.className,
         rendering: viewer.useDefaultRenderLoop, transition: Boolean(cancelPendingMapTransition), loading: Boolean(loadMapPromise),
         modals: MODAL_IDS.filter(id => document.getElementById(id)?.hidden === false),
+        degradations: mapDegradationLog.list(),
         activeElement: document.activeElement?.id, trace: window.__rotationTrace, inputs: window.__rotationInputTrace
       })).catch(() => null));
       throw error;

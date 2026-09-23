@@ -68,6 +68,7 @@ Las solicitudes HEAD a `scripts/buildProduction.js`, `reports/doctor-report.json
 - Configuracion requerida en GitHub: Settings > Pages > Build and deployment > Source: GitHub Actions (`build_type: workflow`). Agregar el YAML por si solo no cambia el modo legacy. La CSP del HTML sigue activa; publicar `_headers` no configura cabeceras adicionales en GitHub Pages.
 - El 2026-09-22 se cambio y verifico por API el origen de Pages de `legacy` (`main` + `/`) a `workflow`, conservando URL, dominio y HTTPS. El resultado del despliegue y de los 404 se registra en el job `deploy-pages`; cambiar esta opcion no demuestra por si solo que el nuevo artefacto ya este publicado.
 - Los escaneos Git tienen un presupuesto de 600 segundos, frente a 150 para archivos actuales. El limite externo de release permite terminar ese proceso. Si no termina, el gate falla: no hay excepcion ni resultado limpio por timeout.
+- La validacion remota tambien detecto interferencia entre dos pruebas: el fallback automatico por FPS cambiaba a 2D durante la E2E de rotacion. Esa prueba usa el perfil manual Rendimiento y exige movimiento en al menos ocho de nueve intervalos entre diez frames reales, con timeout; no exige velocidad de GPU a un runner virtual. El monitor adaptativo conserva sus pruebas de FPS/fallback y las mediciones de rendimiento siguen usando el perfil real por defecto.
 
 ## Excepciones revisadas
 
