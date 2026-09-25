@@ -30,13 +30,19 @@ for (const pause of [{ enabled: false }, { mode: "2d" }, { visible: false }, { b
 {
   const controller = createAutoRotationController();
   assert.equal(controller.step({ ...context, navigating: true }), 0, "no tomar una camara movida por el usuario");
+  assert.equal(controller.hasActivePointers(), false);
   controller.pointerDown(1);
   controller.pointerDown(2);
+  assert.equal(controller.hasActivePointers(), true);
+  controller.reset();
+  assert.equal(controller.hasActivePointers(), true, "pausar la rotacion no libera contactos");
   assert.equal(controller.step({ ...context, now: 50000 }), 0, "un contacto sostenido no expira tras 3,2 segundos");
   assert.equal(controller.pointerUp(3), false);
   controller.pointerUp(1);
+  assert.equal(controller.hasActivePointers(), true);
   assert.equal(controller.step({ ...context, now: 60000 }), 0, "el segundo dedo sigue activo");
   controller.releasePointers();
+  assert.equal(controller.hasActivePointers(), false);
   assert.equal(controller.step({ ...context, now: 70000 }), 0);
   assert.ok(controller.step({ ...context, now: 70030 }) < 0);
 }
@@ -60,17 +66,24 @@ function target() {
   document.emit("pointerup", { pointerId: 7 });
   assert.equal(interactions, 0, "no pausar por punteros ajenos al mapa");
   canvas.emit("pointerdown", { pointerId: 1 });
+  assert.equal(controller.hasActivePointers(), true);
   document.emit("pointercancel", { pointerId: 1 });
+  assert.equal(controller.hasActivePointers(), false);
   canvas.emit("wheel");
   canvas.emit("keydown");
   assert.equal(interactions, 4);
   canvas.emit("pointerdown", { pointerId: 2 });
   host.emit("blur");
+  assert.equal(controller.hasActivePointers(), false);
   assert.equal(controller.step(context), 0);
   assert.ok(controller.step({ ...context, now: 10030 }) < 0, "blur libera el contacto perdido fuera del canvas");
+  canvas.emit("pointerdown", { pointerId: 3 });
   document.emit("visibilitychange");
+  assert.equal(controller.hasActivePointers(), false);
   assert.equal(controller.isRotating(), false);
+  canvas.emit("pointerdown", { pointerId: 4 });
   dispose();
+  assert.equal(controller.hasActivePointers(), false);
   for (const item of [canvas, document, host]) {
     assert.ok([...item.listeners.values()].every(list => list.size === 0), "retirar listeners al disponer");
   }

@@ -30,6 +30,7 @@
     return {
       reset,
       isRotating: () => rotating,
+      hasActivePointers: () => pointers.size > 0,
       pointerDown(id) { pointers.add(id); reset(); },
       pointerUp(id) {
         if (!pointers.delete(id)) return false;

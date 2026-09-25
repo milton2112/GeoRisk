@@ -75,6 +75,7 @@ Las solicitudes HEAD a `scripts/buildProduction.js`, `reports/doctor-report.json
 - CI confirmo la recuperacion de la captura del loader ausente y el mismo error antes del runtime principal; ambos recorridos usan la captura acotada. La suite completa dispone de 15 minutos: en el runner consumio casi seis minutos solo hasta los casos de arranque, quedando mas flujos, offline y visuales. No se amplian los limites individuales de arranque, FPS, long tasks ni tamanos.
 - Las capturas tempranas esperan `first-contentful-paint` con un limite de 10 segundos: visibilidad/computed style no demuestra que Chromium ya tenga una superficie dibujada. La prueba sigue reteniendo el runtime; si no hay primer pintado, falla antes de intentar la captura. Se conserva el unico reintento acotado del protocolo.
 - La E2E de datos demorados no retiene la respuesta durante una captura WebGL: comprueba controles bloqueados y arrastre nativo, libera los datos y captura la recuperacion. Registra tiempos por fase y acota las esperas del mapa y movimiento; mantiene la prueba separada del timeout real de 20 segundos, rechazo de respuestas tardias y recarga. No modifica el limite de la app.
+- El siguiente recorrido remoto confirmo esos casos y detecto trabajo opcional durante un contacto sostenido. El scheduler ahora comprueba tambien los punteros activos, no solo eventos de movimiento de Cesium; una regresion determinista reprodujo el fallo antes de corregirlo. Se conserva el bloqueo de publicacion hasta completar todos los recorridos.
 
 ## Excepciones revisadas
 

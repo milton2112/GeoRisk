@@ -1443,9 +1443,13 @@ async function testDeferredWorkDuringDrag(browser, baseUrl) {
         await page.waitForFunction(() => isCameraNavigating, undefined, { timeout: 3000 });
         await page.evaluate(() => {
           window.__cancelQuietProbe = scheduleWhenGlobeIsQuiet(() => {
-            window.__quietTaskRuns.push({ navigating: isCameraNavigating, visibility: document.visibilityState });
+            window.__quietTaskRuns.push({ navigating: isCameraNavigating, visibility: document.visibilityState,
+              pointers: autoRotation.hasActivePointers() });
           }, { delay: 0, quietFor: 100, timeout: 100 });
         });
+        await page.waitForTimeout(1500);
+        assert.equal(await page.evaluate(() => autoRotation.hasActivePointers()), true, "mantener el contacto nativo durante la pausa");
+        assert.equal(await page.evaluate(() => window.__quietTaskRuns.length), 0, "un contacto sostenido no es quietud");
         for (let step = 1; step <= 6; step += 1) {
           await page.mouse.move(x + 25 + step * 12, y + 5 + step * 3, { steps: 4 });
           await page.waitForTimeout(70);
@@ -1454,7 +1458,7 @@ async function testDeferredWorkDuringDrag(browser, baseUrl) {
         await page.mouse.up();
         await page.waitForFunction(() => window.__quietTaskRuns.length === 1, undefined, { timeout: 8000 });
         const runs = await page.evaluate(() => window.__quietTaskRuns);
-        assert.deepEqual(runs, [{ navigating: false, visibility: "visible" }]);
+        assert.deepEqual(runs, [{ navigating: false, visibility: "visible", pointers: false }]);
         await page.waitForTimeout(250);
         assert.equal(await page.evaluate(() => window.__quietTaskRuns.length), 1);
       }

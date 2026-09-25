@@ -85,7 +85,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-09-22-release-3";
+const APP_VERSION = "2026-09-25-release-1";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -3577,7 +3577,8 @@ function scheduleWhenGlobeIsQuiet(task, {
     quietFor,
     timeout,
     isQuiet: () => !document.body.classList.contains("globe-loading")
-      && !isCameraNavigating && Date.now() - lastInteractionAt >= quietFor,
+      && !isCameraNavigating && !autoRotation.hasActivePointers()
+      && Date.now() - lastInteractionAt >= quietFor,
     isVisible: () => document.visibilityState !== "hidden"
   });
 }

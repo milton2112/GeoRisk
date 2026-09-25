@@ -4,6 +4,7 @@ import vm from "node:vm";
 
 const source = await fs.readFile(new URL("../../app-boot-scheduler.js", import.meta.url), "utf8");
 const script = await fs.readFile(new URL("../../script.js", import.meta.url), "utf8");
+const interactions = await fs.readFile(new URL("../../app-map-interactions.js", import.meta.url), "utf8");
 function harness({ idleSupported = true } = {}) {
   let now = 0;
   let nextId = 0;
@@ -29,6 +30,8 @@ function harness({ idleSupported = true } = {}) {
   }
   vm.createContext(state);
   vm.runInContext(source, state);
+  vm.runInContext(interactions, state);
+  state.autoRotation = state.window.GeoRiskMapInteractions.createAutoRotationController();
   const api = state.window.GeoRiskBootScheduler;
   const advance = ms => {
     const until = now + ms;
@@ -174,6 +177,38 @@ for (const task of [() => { throw new Error("sync"); }, async () => { throw new 
   h.state.scheduleWhenGlobeIsQuiet(() => { calls += 1; });
   h.advance(20000);
   assert.equal(calls, 1, "la ausencia del scheduler no fuerza trabajo sin guardas");
+}
+
+for (const idleSupported of [true, false]) {
+  const h = harness({ idleSupported });
+  Object.assign(h.state, {
+    bootScheduler: h.api, isMobileLayout: () => false,
+    isCameraNavigating: false, lastInteractionAt: 0
+  });
+  const start = script.indexOf("function scheduleWhenGlobeIsQuiet");
+  vm.runInContext(script.slice(start, script.indexOf("function compactNumber", start)), h.state);
+  let calls = 0;
+  h.state.autoRotation.pointerDown(1);
+  h.state.autoRotation.pointerDown(2);
+  h.state.scheduleWhenGlobeIsQuiet(() => { calls += 1; }, { quietFor: 100, timeout: 100 });
+  h.advance(2000);
+  h.deliverIdle();
+  assert.equal(calls, 0, "una camara detenida no libera trabajo mientras el usuario mantiene el contacto");
+  h.state.autoRotation.pointerUp(1);
+  h.advance(1000);
+  h.deliverIdle();
+  assert.equal(calls, 0, "el segundo contacto sigue bloqueando el trabajo opcional");
+  h.state.autoRotation.pointerUp(2);
+  h.state.lastInteractionAt = h.state.Date.now();
+  h.advance(99);
+  h.deliverIdle();
+  assert.equal(calls, 0, "soltar el mapa conserva la espera de quietud");
+  h.advance(101);
+  h.deliverIdle();
+  assert.equal(calls, 1);
+  h.advance(1000);
+  h.deliverIdle();
+  assert.equal(calls, 1);
 }
 
 console.log("boot-scheduler.test.js ok");

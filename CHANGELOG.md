@@ -10,8 +10,9 @@ Este proyecto usa versionado semantico:
 
 - Se documentaran aca los cambios posteriores a v1.6.249 antes de cerrar la siguiente version.
 
-## v1.6.249 - 2026-09-22
+## v1.6.249 - 2026-09-25
 
+- Corrige trabajo diferido durante contactos sostenidos sobre el mapa: una pausa de la camara ya no cuenta como quietud mientras quede un puntero presionado. Reutiliza el registro de contactos, respeta multitouch/cancelacion y agrega regresiones con y sin requestIdleCallback.
 - Acota las esperas y agrega tiempos por fase a la E2E de datos iniciales demorados. Libera la respuesta despues de comprobar controles bloqueados y arrastre real, antes de capturar WebGL; conserva el caso independiente del timeout de 20 segundos, las respuestas tardias y la recuperacion por recarga.
 - Ajusta las E2E de rotacion y etiquetas para no confundir el fallback automatico o los perfiles limitados de CI con fallos de dibujo. Conserva las verificaciones de movimiento por frame, pixeles de texto y calidad adaptativa, y prueba los valores iniciales de etiquetas por dispositivo/preferencia.
 - El gate remoto bloqueo el primer intento de publicacion por timeout de arranque. Corrige la hidratacion critica de paises: conserva batches chicos pero usa prioridad `user-visible`, sin depender de una cola `background` que puede quedar postergada. Agrega regresiones con esa cola retenida y diagnostico de pasos de arranque en CI.
@@ -20,7 +21,7 @@ Este proyecto usa versionado semantico:
 - Corrige el limite insuficiente del scanner de historial en CI (150 segundos): dispone de 600 segundos, con limite externo compatible y bloqueo si no termina. Mantiene el escaneo completo y las reglas de deteccion.
 - Evita repetir las E2E y mediciones ya incluidas en `release:check`; reconstruye el artefacto despues de la limpieza final. La auditoria programada instala Chromium para sus mediciones.
 - Agrega pruebas estructurales del workflow y regresiones para artefactos alterados, rutas de Pages con subdirectorio y despliegues incompletos.
-- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-22-release-3`.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-25-release-1`.
 
 ## v1.6.248 - 2026-09-22
 
