@@ -5,6 +5,7 @@ import path from "node:path";
 import { readFileWithRetry, statWithRetry, writeJsonWithRetry } from "./lib/resilient-fs.js";
 import { measureBrowserPerformance, performanceEnvironment } from "./lib/browser-performance.js";
 import { canReuseBrowserMeasurement, hasCompleteBrowserMeasurement, browserPerformanceWarnings } from "./lib/performance-evidence.js";
+import { getPerformanceInputHash } from "./lib/performance-inputs.js";
 
 const projectRoot = path.resolve(process.cwd());
 const reportsDir = path.join(projectRoot, "reports");
@@ -38,9 +39,10 @@ const scriptJs = await statAsset("script.js");
 const countriesIndex = await statAsset("data/countries_index.json");
 const appVersion = scriptSource.match(/const APP_VERSION = "([^"]+)"/)?.[1] || null;
 const cacheVersion = swSource.match(/const CACHE_VERSION = "([^"]+)"/)?.[1] || null;
+const performanceInputHash = await getPerformanceInputHash(projectRoot);
 const measurementHash = createHash("sha256");
 measurementHash.update(JSON.stringify({
-  assets: manifest.assets, packageVersion: packageJson.version,
+  assets: manifest.assets, packageVersion: packageJson.version, performanceInputHash,
   environment: performanceEnvironment()
 }));
 for (const file of ["scripts/lib/browser-performance.js", "scripts/lib/performance-metrics.js", "scripts/lib/performance-evidence.js", "scripts/localSmokeServer.js", "scripts/performanceSnapshot.js"]) {
@@ -67,6 +69,7 @@ const snapshot = {
   packageVersion: packageJson.version,
   appVersion,
   cacheVersion,
+  performanceInputHash,
   thresholds,
   assets: {
     scriptJs,

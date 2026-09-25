@@ -60,6 +60,11 @@ incomplete.profiles[0].observedWindowMs = 60000;
 incomplete.profiles[0].activeRender.durationMs = 5999;
 assert.equal(hasCompleteBrowserMeasurement(incomplete), false);
 assert.equal(hasCompleteBrowserMeasurement(null), false);
+for (const profiles of [null, {}, "invalid", [null]]) {
+  assert.equal(hasCompleteBrowserMeasurement({ ...measurement, profiles }), false);
+  assert.deepEqual(browserPerformanceWarnings({ profiles }), []);
+}
+assert.deepEqual(browserPerformanceWarnings({ profiles: [null, { activeRender: { averageFps: "low" } }] }), []);
 const snapshot = { browserMeasurementKey: "build-a", browserPerformance: measurement };
 const now = Date.parse(measuredAt);
 assert.equal(canReuseBrowserMeasurement(snapshot, "build-a", now + 60000), true);

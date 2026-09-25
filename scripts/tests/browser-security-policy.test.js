@@ -33,7 +33,7 @@ assert.deepEqual(Object.fromEntries(headerLines.map(line => {
   return [line.slice(2, separator), line.slice(separator + 2)];
 })), BROWSER_SECURITY_HEADERS);
 assert.ok(!(await fs.readFile("sw.js", "utf8")).includes('"_headers"'), "deployment configuration must stay outside precache");
-for (const file of ["sw.js", "scripts/buildProduction.js"]) assert.ok((await fs.readFile(file, "utf8")).includes("app-bootstrap.js"));
+for (const file of ["sw.js", "scripts/lib/public-assets.js"]) assert.ok((await fs.readFile(file, "utf8")).includes("app-bootstrap.js"));
 
 const file = "node_modules/@cesium/widgets/Source/ThirdParty/knockout-3.5.1.js";
 const source = 'result = (0,eval)("this");';

@@ -24,6 +24,8 @@ GeoRisk keeps runtime files in the repository root for now. The project is split
 - `app-performance-ui.js`, `app-risk-radar-ui.js`, `app-conflict-audit-ui.js`, `app-project-audit-ui.js`: deferred internal panels.
 - `app-conflict-aliases.js`, `app-conflict-rules.js`, `app-curation.js`: deferred conflict aliases, hierarchy rules and deep curation used by country history/military detail.
 - `sw.js`: offline shell/runtime cache policy.
+- `scripts/lib/public-assets.js`: production file/directory allowlist shared by the build and performance evidence. Internal tooling only; it is not shipped to browsers.
+- `scripts/lib/performance-inputs.js`: deterministic source/dependency/meter fingerprint for `performanceSnapshot.js` and `releaseStatus.js`. The snapshot also keys reuse by built assets and environment; release status checks the current sources even when `dist` is missing or stale.
 
 ## State Direction
 

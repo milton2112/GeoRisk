@@ -11,8 +11,9 @@ export function hasHealthyRenderLoop(state) {
 
 export function hasCompleteBrowserMeasurement(measurement) {
   return measurement?.source === BROWSER_MEASUREMENT_SOURCE && measurement.complete === true &&
+    Array.isArray(measurement.profiles) &&
     ["desktop", "mobile-emulated"].every(name => {
-      const profile = measurement.profiles?.find(item => item.name === name);
+      const profile = measurement.profiles.find(item => item?.name === name);
       return profile?.status === "measured" && profile.observedWindowMs >= 60000 &&
         Number.isInteger(profile.longTasks?.count) && profile.longTasks.count >= 0 &&
         profile.activeRender?.frames > 0 && profile.activeRender.durationMs >= 6000 &&
@@ -29,14 +30,14 @@ export function canReuseBrowserMeasurement(snapshot, key, now = Date.now()) {
 }
 
 export function browserPerformanceWarnings(measurement) {
-  return (measurement?.profiles || []).flatMap(profile => {
+  return (Array.isArray(measurement?.profiles) ? measurement.profiles : []).filter(profile => profile && typeof profile === "object").flatMap(profile => {
     const warnings = [];
     if (profile.longTasks?.overBudgetCount > 0) {
       warnings.push(`${profile.name}: ${profile.longTasks.overBudgetCount} tareas >200 ms; maxima ${Math.round(profile.longTasks.longestDurationMs)} ms.`);
     }
     const targetFps = profile.activeRender?.targetFps;
     const minimumFps = Number.isFinite(targetFps) && targetFps > 0 ? targetFps * 0.8 : 24;
-    if (profile.activeRender?.averageFps != null && profile.activeRender.averageFps < minimumFps) {
+    if (Number.isFinite(profile.activeRender?.averageFps) && profile.activeRender.averageFps < minimumFps) {
       warnings.push(`${profile.name}: render activo ${profile.activeRender.averageFps.toFixed(1)} FPS, umbral ${minimumFps.toFixed(1)}${targetFps ? ` (objetivo ${targetFps})` : ""}.`);
     }
     if (profile.resourceErrors?.length) warnings.push(`${profile.name}: ${profile.resourceErrors.length} recursos con error de red/HTTP.`);

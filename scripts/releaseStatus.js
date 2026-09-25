@@ -2,6 +2,7 @@ import { execFileSync } from "node:child_process";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { hasCompleteBrowserMeasurement, browserPerformanceWarnings } from "./lib/performance-evidence.js";
+import { getPerformanceInputHash } from "./lib/performance-inputs.js";
 
 const projectRoot = path.resolve(process.cwd());
 const reportsDir = path.join(projectRoot, "reports");
@@ -31,7 +32,8 @@ async function readText(relativePath, fallback = "") {
 
 async function readJson(relativePath, fallback = {}) {
   try {
-    return JSON.parse(await readText(relativePath, ""));
+    const value = JSON.parse(await readText(relativePath, ""));
+    return value && typeof value === "object" && !Array.isArray(value) ? value : fallback;
   } catch {
     return fallback;
   }
@@ -53,10 +55,6 @@ function formatBytes(bytes = 0) {
 
 function extractVersion(source, constantName) {
   return source.match(new RegExp(`const ${constantName} = "([^"]+)"`))?.[1] || null;
-}
-
-function reportPackageVersion(report) {
-  return report.packageVersion || report.summary?.packageVersion || null;
 }
 
 const packageJson = await readJson("package.json");
@@ -83,9 +81,29 @@ const mapEngineBytes = performanceSnapshot.assets?.mapEngine?.bytes || 0;
 const appCoreAndEngineBytes = performanceSnapshot.assets?.appCoreAndEngine?.bytes || 0;
 const scriptBytes = performanceSnapshot.assets?.scriptJs?.bytes || await fileBytes("script.js");
 const countriesIndexBytes = performanceSnapshot.assets?.countriesIndex?.bytes || await fileBytes("data/countries_index.json");
+let performanceInputHash = null;
+let performanceInputError = null;
+try {
+  performanceInputHash = await getPerformanceInputHash(projectRoot);
+} catch (error) {
+  performanceInputError = error.message;
+}
+const dataCheckKeys = [
+  "englishConflictNames", "mojibakeText", "sourceTextMojibake",
+  "sameCountryDuplicateConflicts", "redundantReligions", "uppercaseCities"
+];
+const validCount = value => Number.isInteger(value) && value >= 0;
+const dataAuditAvailable = dataCheckKeys.every(key => validCount(dataAudit.summary?.[key]?.count));
+const featureHealthAvailable = ["operativo", "requiere_atencion"].includes(featureHealth.status) &&
+  validCount(featureHealth.summary?.failedFeatures) && validCount(featureHealth.summary?.failedChecks) &&
+  featureHealth.summary?.totalFeatures > 0;
+const doctorAvailable = ["operativo", "observacion", "requiere_atencion"].includes(doctorReport.status) &&
+  validCount(doctorReport.summary?.totalFindings) && doctorReport.summary?.bySeverity != null &&
+  typeof doctorReport.summary.bySeverity === "object" && !Array.isArray(doctorReport.summary.bySeverity) &&
+  Object.values(doctorReport.summary.bySeverity).every(validCount);
 
 const dataCounts = Object.fromEntries(
-  Object.entries(dataAudit.summary || {}).map(([key, value]) => [key, value.count || 0])
+  Object.entries(dataAudit.summary || {}).map(([key, value]) => [key, validCount(value?.count) ? value.count : null])
 );
 
 const checks = {
@@ -101,19 +119,15 @@ const checks = {
   scriptWithinBudget: scriptBytes > 0 && scriptBytes < 700000,
   countriesIndexWithinBudget: countriesIndexBytes > 0 && countriesIndexBytes < 240000,
   browserPerformanceMeasured: hasCompleteBrowserMeasurement(performanceSnapshot.browserPerformance),
-  dataAuditClean: [
-    "englishConflictNames",
-    "mojibakeText",
-    "sourceTextMojibake",
-    "sameCountryDuplicateConflicts",
-    "redundantReligions",
-    "uppercaseCities"
-  ].every(key => (dataCounts[key] || 0) === 0),
-  featureHealthClean: !featureHealth.status || featureHealth.status === "operativo",
-  doctorHasNoHighSeverity: !["critica", "alta"].some(severity => (doctorReport.summary?.bySeverity?.[severity] || 0) > 0),
-  reportVersionsCurrent: [performanceSnapshot, doctorReport]
-    .filter(report => Object.keys(report || {}).length)
-    .every(report => reportPackageVersion(report) === packageVersion)
+  performanceInputsCurrent: Boolean(performanceInputHash && performanceSnapshot.performanceInputHash === performanceInputHash),
+  dataAuditClean: dataAuditAvailable && dataCheckKeys.every(key => dataCounts[key] === 0),
+  featureHealthClean: featureHealthAvailable && featureHealth.status === "operativo" &&
+    featureHealth.summary.failedFeatures === 0 && featureHealth.summary.failedChecks === 0,
+  doctorHasNoHighSeverity: doctorAvailable && doctorReport.status !== "requiere_atencion" &&
+    !["critica", "alta"].some(severity => (doctorReport.summary.bySeverity[severity] || 0) > 0),
+  reportVersionsCurrent: Boolean(packageVersion && appVersion && cacheVersion) &&
+    [performanceSnapshot, doctorReport, featureHealth].every(report => report.packageVersion === packageVersion) &&
+    performanceSnapshot.appVersion === appVersion && performanceSnapshot.cacheVersion === cacheVersion
 };
 
 const blockers = [];
@@ -126,14 +140,15 @@ if (!checks.mapEngineWithinBudget || !checks.appCoreAndEngineWithinBudget) block
 if (!checks.scriptWithinBudget) blockers.push("script.js esta fuera de presupuesto.");
 if (!checks.countriesIndexWithinBudget) blockers.push("countries_index.json esta fuera de presupuesto.");
 if (!checks.browserPerformanceMeasured) blockers.push("Falta medicion real completa de rendimiento en navegador.");
-warnings.push(...browserPerformanceWarnings(performanceSnapshot.browserPerformance));
-if (!checks.dataAuditClean) blockers.push("La auditoria de datos conserva problemas visibles.");
-if (!checks.featureHealthClean) blockers.push("La auditoria de salud funcional conserva fallas.");
-if (!checks.doctorHasNoHighSeverity) blockers.push("El doctor de producto tiene hallazgos altos o criticos.");
+if (!checks.performanceInputsCurrent) blockers.push("La medicion no corresponde a los archivos actuales. Ejecutar npm run performance:snapshot.");
+if (!checks.reportVersionsCurrent) blockers.push("Faltan reportes de la version/cache actual. Ejecutar npm run release:check.");
+if (checks.performanceInputsCurrent && checks.reportVersionsCurrent) warnings.push(...browserPerformanceWarnings(performanceSnapshot.browserPerformance));
+if (!checks.dataAuditClean) blockers.push(dataAuditAvailable ? "La auditoria de datos conserva problemas visibles." : "Falta una auditoria de datos valida. Ejecutar npm run audit:data.");
+if (!checks.featureHealthClean) blockers.push(featureHealthAvailable ? "La auditoria de salud funcional conserva fallas." : "Falta un reporte de salud funcional valido. Ejecutar npm run audit:features.");
+if (!checks.doctorHasNoHighSeverity) blockers.push(doctorAvailable ? "El doctor de producto tiene hallazgos altos o criticos." : "Falta un reporte valido del doctor. Ejecutar npm run audit:doctor.");
 if (!checks.expectedTagAtHead) warnings.push(`El tag ${expectedTag || "(sin version)"} todavia no apunta a HEAD.`);
 if (!checks.gitStatusAvailable) warnings.push("No se pudo leer el estado de Git desde Node; verificar con git status --short.");
 else if (!checks.workingTreeClean) warnings.push("Hay cambios locales pendientes.");
-if (!checks.reportVersionsCurrent) warnings.push("Algunos reportes no corresponden a la version actual.");
 
 const report = {
   generatedAt: new Date().toISOString(),
@@ -157,6 +172,12 @@ const report = {
     dirtySample: gitStatusAvailable ? dirtyFiles.slice(0, 25) : null
   },
   checks,
+  performanceEvidence: {
+    measuredAt: performanceSnapshot.browserPerformance?.measuredAt || null,
+    currentInputHash: performanceInputHash,
+    measuredInputHash: performanceSnapshot.performanceInputHash || null,
+    inputError: performanceInputError
+  },
   blockers,
   warnings,
   assets: {
@@ -187,3 +208,6 @@ console.log(`Version: ${packageVersion} / ${appVersion}`);
 console.log(`Estado: ${report.status}`);
 console.log(`Bloqueos: ${blockers.length}`);
 console.log(`Observaciones: ${warnings.length}`);
+for (const blocker of blockers) console.error(`BLOQUEO: ${blocker}`);
+for (const warning of warnings) console.warn(`AVISO: ${warning}`);
+if (blockers.length) process.exitCode = 1;

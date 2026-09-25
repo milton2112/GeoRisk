@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.249 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.250 antes de cerrar la siguiente version.
+
+## v1.6.250 - 2026-09-25
+
+- Corrige un falso exito de `release:status`: ahora devuelve codigo de error y motivos accionables cuando encuentra bloqueos, deteniendo los procesos que lo invocan.
+- Rechaza auditorias ausentes o danadas y reportes de otra version de paquete/app/cache. Conserva las advertencias de rendimiento separadas de los bloqueos.
+- Vincula las mediciones a una huella SHA-256 de las fuentes publicas, dependencias y medidor. Detecta cambios de contenido del mismo tamano, assets nuevos o eliminados y evita confiar en un manifest viejo de dist. Comparte con el build la lista de archivos publicos, sin ampliar lo publicado.
+- Agrega regresiones ejecutables para los casos anteriores, sin modificar datasets, presupuestos ni comportamiento del mapa. La comprobacion local de reposo en escritorio/3D y movil emulado/2D no reprodujo renders periodicos (0 cuadros en 5 segundos por perfil); no se atribuye una mejora de FPS a este cambio.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-25-release-2`.
 
 ## v1.6.249 - 2026-09-25
 

@@ -38,3 +38,13 @@ For UI-heavy changes, also open the local smoke server and verify:
 - modal focus/close behavior
 - offline/cache labels
 - exported image/PDF button visibility
+
+## Release Evidence
+
+- Run `npm run release:check` before publishing. It refreshes audits and browser measurements, then checks their combined status.
+- `npm run release:status` reads the current evidence without rebuilding or launching a browser. Exit code 1 means a release blocker; read the printed reasons and `reports/release-status.json`.
+- Missing/invalid reports, package/app/cache mismatches and changes since measurement block approval. FPS/long-task observations, an uncreated tag and a dirty working tree remain warnings, not automatic approval or performance guarantees.
+- `npm run performance:snapshot` refreshes the 60-second desktop/mobile-emulated measurements. `--reuse-browser` only reuses complete measurements from the same inputs, build, meter and host within six hours.
+- The snapshot records a SHA-256 fingerprint of current public sources, the dependency lockfile and measurement/build inputs. Release status recalculates it from sources, never from an existing `dist` manifest. Editing those inputs requires remeasurement even when byte counts are unchanged.
+- `scripts/lib/public-assets.js` is the shared production allowlist. Adding a file there affects both the build and measurement validity; do not publish reports or internal scripts.
+- Run `node scripts/tests/release-status.test.js` to test failure/exit behavior with isolated fixtures; it is also included in `npm test` through `test:release-gates`.
