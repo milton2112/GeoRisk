@@ -1431,6 +1431,7 @@ async function testDeferredWorkDuringDrag(browser, baseUrl) {
       await waitForAppReady(page);
       await page.evaluate(() => { window.__originalIdleCallback = window.requestIdleCallback; });
       for (const idleSupported of [true, false]) {
+        console.log("deferred-drag: " + label + " idle=" + idleSupported);
         await page.evaluate(supported => {
           window.requestIdleCallback = supported ? window.__originalIdleCallback : undefined;
           window.__quietTaskRuns = [];
@@ -1439,8 +1440,11 @@ async function testDeferredWorkDuringDrag(browser, baseUrl) {
         const y = viewport.height * 0.52;
         await page.mouse.move(x, y);
         await page.mouse.down();
+        await page.evaluate(() => { window.__dragStartPosition = Cesium.Cartesian3.clone(viewer.camera.position); });
         await page.mouse.move(x + 25, y + 5, { steps: 6 });
-        await page.waitForFunction(() => isCameraNavigating, undefined, { timeout: 3000 });
+        await page.waitForFunction(() => autoRotation.hasActivePointers() &&
+          Cesium.Cartesian3.distance(viewer.camera.position, window.__dragStartPosition) > 10,
+        undefined, { timeout: 3000 });
         await page.evaluate(() => {
           window.__cancelQuietProbe = scheduleWhenGlobeIsQuiet(() => {
             window.__quietTaskRuns.push({ navigating: isCameraNavigating, visibility: document.visibilityState,
@@ -2042,14 +2046,17 @@ try {
     ["--panels-only", testBackgroundPanels]
   ];
   const focused = focusedFlows.some(([flag]) => process.argv.includes(flag));
+  const journeysOnly = process.argv.includes("--journeys-only");
+  assert.ok(!journeysOnly || !focused, "--journeys-only no se combina con otros filtros");
   for (const [flag, run] of focusedFlows) {
-    if (!focused || process.argv.includes(flag)) {
+    if (!journeysOnly && (!focused || process.argv.includes(flag))) {
       console.log("critical-browser-e2e: " + run.name);
       await run(browser, baseUrl);
     }
   }
 
   if (!focused) {
+    console.log("critical-browser-e2e: desktop journey");
     const desktop = await createTestPage(browser, baseUrl, DESKTOP_VIEWPORT);
     try {
       await runDesktopCriticalFlow(desktop.page);
@@ -2058,6 +2065,7 @@ try {
       await desktop.context.close();
     }
 
+    console.log("critical-browser-e2e: mobile journey");
     const mobile = await createTestPage(browser, baseUrl, MOBILE_VIEWPORT);
     try {
       await runMobileCriticalFlow(mobile.page);

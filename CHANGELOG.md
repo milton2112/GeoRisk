@@ -12,6 +12,7 @@ Este proyecto usa versionado semantico:
 
 ## v1.6.249 - 2026-09-25
 
+- La E2E del scheduler verifica desplazamiento real, sin depender de consultar un evento transitorio de movimiento. Agrega un filtro para diagnosticar recorridos finales y ajusta el plazo total de la bateria a 20 minutos segun tiempos de CI, sin ampliar limites individuales de la app ni omitir pruebas.
 - Corrige trabajo diferido durante contactos sostenidos sobre el mapa: una pausa de la camara ya no cuenta como quietud mientras quede un puntero presionado. Reutiliza el registro de contactos, respeta multitouch/cancelacion y agrega regresiones con y sin requestIdleCallback.
 - Acota las esperas y agrega tiempos por fase a la E2E de datos iniciales demorados. Libera la respuesta despues de comprobar controles bloqueados y arrastre real, antes de capturar WebGL; conserva el caso independiente del timeout de 20 segundos, las respuestas tardias y la recuperacion por recarga.
 - Ajusta las E2E de rotacion y etiquetas para no confundir el fallback automatico o los perfiles limitados de CI con fallos de dibujo. Conserva las verificaciones de movimiento por frame, pixeles de texto y calidad adaptativa, y prueba los valores iniciales de etiquetas por dispositivo/preferencia.
