@@ -12,6 +12,7 @@ Este proyecto usa versionado semantico:
 
 ## v1.6.249 - 2026-09-22
 
+- Acota las esperas y agrega tiempos por fase a la E2E de datos iniciales demorados. Libera la respuesta despues de comprobar controles bloqueados y arrastre real, antes de capturar WebGL; conserva el caso independiente del timeout de 20 segundos, las respuestas tardias y la recuperacion por recarga.
 - Ajusta las E2E de rotacion y etiquetas para no confundir el fallback automatico o los perfiles limitados de CI con fallos de dibujo. Conserva las verificaciones de movimiento por frame, pixeles de texto y calidad adaptativa, y prueba los valores iniciales de etiquetas por dispositivo/preferencia.
 - El gate remoto bloqueo el primer intento de publicacion por timeout de arranque. Corrige la hidratacion critica de paises: conserva batches chicos pero usa prioridad `user-visible`, sin depender de una cola `background` que puede quedar postergada. Agrega regresiones con esa cola retenida y diagnostico de pasos de arranque en CI.
 - Publicacion de GitHub Pages desde `dist/public`, condicionada al release gate: las PR y auditorias programadas no despliegan, y solo el job de publicacion recibe permisos Pages/OIDC.

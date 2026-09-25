@@ -1328,29 +1328,46 @@ async function testRequiredStartupData(browser, baseUrl) {
     ["index", /\/data\/countries_index\.json\?/],
     ["geometry", /\/data\/world_countries_simplified\.geo\.json\?/]
   ]) {
+    const startedAt = Date.now();
+    const trace = phase => console.log("required-startup-data: " + name + " " + phase + " " + (Date.now() - startedAt) + "ms");
     let releaseIndex;
     const heldIndex = new Promise(resolve => { releaseIndex = resolve; });
     const slow = await createTestPage(browser, baseUrl, MOBILE_VIEWPORT, async page => {
       await page.route(pattern, async route => { await heldIndex; await route.continue(); });
     });
     try {
-      await slow.page.waitForFunction(() => typeof bootMetrics !== "undefined" && bootMetrics.steps.mapBootReady?.end);
-      await slow.page.waitForTimeout(650);
-      await slow.page.screenshot({ path: "tmp/startup-" + name + "-pending-mobile.png" });
+      trace("domcontentloaded");
+      await slow.page.waitForFunction(() => typeof bootMetrics !== "undefined" && bootMetrics.steps.mapBootReady?.end,
+        undefined, { timeout: 10000 });
+      trace("map-ready");
       assert.equal(await slow.page.locator("#map-search-input").isVisible(), false, "no habilitar controles mientras faltan los paises");
       assert.equal(await slow.page.locator("#startup-status").isVisible(), true);
       assert.equal(await slow.page.evaluate(() => bootMetrics.completedAt), 0);
       await slow.page.evaluate(() => { window.__pendingCamera = Cesium.Cartesian3.clone(viewer.camera.position); });
       await slow.page.mouse.move(150, 420);
       await slow.page.mouse.down();
-      await slow.page.mouse.move(240, 420, { steps: 8 });
+      await slow.page.mouse.move(240, 420);
       await slow.page.mouse.up();
-      await slow.page.waitForFunction(() => Cesium.Cartesian3.distance(viewer.camera.position, window.__pendingCamera) > 10);
+      await slow.page.waitForFunction(() => Cesium.Cartesian3.distance(viewer.camera.position, window.__pendingCamera) > 10,
+        undefined, { timeout: 5000 });
+      trace("dragged");
+      assert.equal(await slow.page.evaluate(() => bootMetrics.completedAt), 0);
+      assert.equal(await slow.page.locator("#fatal-error-banner").isVisible(), false, "el caso lento no debe convertirse en el caso timeout");
+      // Capturing WebGL can be slow in CI; do not include it in the held response.
       releaseIndex();
       await waitForAppReady(slow.page);
+      trace("ready");
+      await captureStartupState(slow.page, "tmp/startup-" + name + "-recovered-mobile.png");
       await submitSearch(slow.page, "Argentina");
       await waitForCountryPanel(slow.page, "Argentina");
       assertHealthyPage(slow.pageErrors, name + " inicial lento");
+    } catch (error) {
+      console.error("Required startup data failed:", name, await slow.page.evaluate(() => ({
+        now: performance.now(), boot: typeof bootMetrics !== "undefined" ? bootMetrics.steps : null,
+        fatal: document.getElementById("fatal-error-banner")?.textContent,
+        engine: window.GeoRiskMapEngine?.getState()
+      })).catch(() => null), slow.pageErrors);
+      throw error;
     } finally {
       releaseIndex();
       await slow.context.close();
@@ -1366,6 +1383,7 @@ async function testRequiredStartupData(browser, baseUrl) {
     { name: "index-timeout", pattern: /\/data\/countries_index\.json\?/, timeout: true }
   ];
   for (const fixture of failures) {
+    console.log("required-startup-data: " + fixture.name);
     const requests = [];
     let releaseLate;
     const late = new Promise(resolve => { releaseLate = resolve; });
