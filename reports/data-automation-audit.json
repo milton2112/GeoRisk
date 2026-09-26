@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-09-25T21:19:31.480Z",
+  "generatedAt": "2026-09-26T11:13:57.633Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 92
+      "count": 90
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 25
+      "count": 23
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 616
+      "count": 618
     },
     "redundantReligions": {
       "count": 0
@@ -359,13 +359,6 @@
       },
       {
         "code": "USA",
-        "name": "Batalla de Notch",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
-      {
-        "code": "USA",
         "name": "Batalla de Paye",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
@@ -374,13 +367,6 @@
       {
         "code": "USA",
         "name": "Batalla de Pecos River",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
-      {
-        "code": "USA",
-        "name": "Batalla de Punk Hill",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
@@ -1438,7 +1424,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 25,
+      "count": 23,
       "command": "npm run fix:conflicts:batches"
     },
     {

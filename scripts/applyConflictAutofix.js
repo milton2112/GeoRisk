@@ -788,6 +788,11 @@ import {
   GATA_HALIFAX_CONFLICT_RENAMES
 } from "./lib/conflict-curation-gata-halifax.js";
 import {
+  NOTCH_PUNK_HILL_CONFLICT_DETAIL_FIXES,
+  NOTCH_PUNK_HILL_COUNTRY_CONFLICT_ADDITIONS,
+  NOTCH_PUNK_HILL_CONFLICT_RENAMES
+} from "./lib/conflict-curation-notch-punk-hill.js";
+import {
   CABO_BOJADOR_COUNTRY_CONFLICT_EXCLUSIONS
 } from "./lib/conflict-curation-cabo-bojador.js";
 import {
@@ -982,7 +987,8 @@ const curatedConflictDetailFixes = {
   ...JASK_CONFLICT_DETAIL_FIXES,
   ...GOTSKA_SANDON_CONFLICT_DETAIL_FIXES,
   ...PIRANO_GRADO_CONFLICT_DETAIL_FIXES,
-  ...GATA_HALIFAX_CONFLICT_DETAIL_FIXES
+  ...GATA_HALIFAX_CONFLICT_DETAIL_FIXES,
+  ...NOTCH_PUNK_HILL_CONFLICT_DETAIL_FIXES
 };
 
 const generatedConflictDetailExclusionNames = [
@@ -1159,7 +1165,8 @@ const safeConflictRenames = {
   ...JASK_CONFLICT_RENAMES,
   ...GOTSKA_SANDON_CONFLICT_RENAMES,
   ...PIRANO_GRADO_CONFLICT_RENAMES,
-  ...GATA_HALIFAX_CONFLICT_RENAMES
+  ...GATA_HALIFAX_CONFLICT_RENAMES,
+  ...NOTCH_PUNK_HILL_CONFLICT_RENAMES
 };
 const conflictReferenceRenames = {
   ...ILE_RONDE_1794_CONFLICT_REFERENCE_RENAMES
@@ -1286,7 +1293,8 @@ const countryConflictAdditionBatches = [
   JASK_COUNTRY_CONFLICT_ADDITIONS,
   GOTSKA_SANDON_COUNTRY_CONFLICT_ADDITIONS,
   PIRANO_GRADO_COUNTRY_CONFLICT_ADDITIONS,
-  GATA_HALIFAX_COUNTRY_CONFLICT_ADDITIONS
+  GATA_HALIFAX_COUNTRY_CONFLICT_ADDITIONS,
+  NOTCH_PUNK_HILL_COUNTRY_CONFLICT_ADDITIONS
 ];
 const countryConflictAdditions = mergeCountryConflictBatches(countryConflictAdditionBatches);
 const countryConflictExclusionBatches = [

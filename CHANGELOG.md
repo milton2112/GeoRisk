@@ -8,7 +8,14 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.250 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.251 antes de cerrar la siguiente version.
+
+## v1.6.251 - 2026-09-25
+
+- Cura Notch (2 de agosto de 1950) y Punk Hill (8 de marzo de 1777) con fuentes historicas identificadas: fecha, guerra, campana, bandos, secuencia y resultado. Notch deja de situarse en America y se enlaza a ambas Coreas; Punk Hill tambien se enlaza al bando britanico.
+- Conserva las limitaciones de las fuentes: las bajas aproximadas de Notch no se presentan como muertos ni se mezclan con combates cercanos; la falta de cifras en Punk Hill no se convierte en cero. Mantiene fuentes profundas bajo demanda.
+- Agrega pruebas de coherencia entre datos completos, indices, fichas publicas y detalles fragmentados, unicidad de nombres y resolucion de aliases. No modifica las otras entradas ambiguas sin evidencia suficiente.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-25-release-3`.
 
 ## v1.6.250 - 2026-09-25
 

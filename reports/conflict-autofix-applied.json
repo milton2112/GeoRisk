@@ -1,19 +1,18 @@
 {
-  "generatedAt": "2026-09-14T14:16:15.525Z",
-  "changedFullCountries": 5,
+  "generatedAt": "2026-09-25T21:34:54.213Z",
+  "changedFullCountries": 0,
   "fullPassChanges": [
-    5,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 208,
+    "enriched": 0,
     "retired": 0,
-    "written": true,
+    "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1103,
+  "generatedHierarchyCandidates": 1105,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -42,7 +41,9 @@
       "Segunda batalla de Springfield (Misuri, 8 de enero de 1863)",
       "Batalla de Río Grande City (27 de diciembre de 1859)",
       "Batalla del cabo de Gata (1815)",
-      "Batalla naval frente a Halifax (1782)"
+      "Batalla naval frente a Halifax (1782)",
+      "Batalla del paso de Chungam-ni (Notch, 1950)",
+      "Combate de Punk Hill (1777)"
     ],
     "nicaragua": [
       "Batalla de Masaya",
@@ -134,7 +135,8 @@
       "Batalla naval de Jeolido (1598)",
       "Batalla naval de Noryang (1598)",
       "Batalla de la colina 282 (1950)",
-      "Batalla de los Túneles Gemelos (1951)"
+      "Batalla de los Túneles Gemelos (1951)",
+      "Batalla del paso de Chungam-ni (Notch, 1950)"
     ],
     "republica popular china": [
       "Batalla naval de Noryang (1598)",
@@ -212,7 +214,8 @@
       "Batalla de Ty-ho Bay (4 de agosto de 1855)",
       "Combate naval de Jask (1620)",
       "Batalla naval de Pirano (1812)",
-      "Batalla naval frente a Halifax (1782)"
+      "Batalla naval frente a Halifax (1782)",
+      "Combate de Punk Hill (1777)"
     ],
     "irlanda": [
       "Batalla naval de la bahía de Bantry (1689)",
@@ -343,7 +346,8 @@
     "corea del norte": [
       "Batalla de la colina 282 (1950)",
       "Batalla naval de Jumunjin (1950)",
-      "Primera batalla de Maryang San (1951)"
+      "Primera batalla de Maryang San (1951)",
+      "Batalla del paso de Chungam-ni (Notch, 1950)"
     ],
     "japon": [
       "Batalla naval del estrecho de Shimonoseki (1863)",
@@ -1753,7 +1757,11 @@
     "Batalla del cabo de Gata": "Batalla del cabo de Gata (1815)",
     "Battle off Cape Gata": "Batalla del cabo de Gata (1815)",
     "Batalla naval de Halifax": "Batalla naval frente a Halifax (1782)",
-    "Battle off Halifax (1782)": "Batalla naval frente a Halifax (1782)"
+    "Battle off Halifax (1782)": "Batalla naval frente a Halifax (1782)",
+    "Batalla de Notch": "Batalla del paso de Chungam-ni (Notch, 1950)",
+    "Battle of the Notch": "Batalla del paso de Chungam-ni (Notch, 1950)",
+    "Batalla de Punk Hill": "Combate de Punk Hill (1777)",
+    "Battle of Punk Hill": "Combate de Punk Hill (1777)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -2830,6 +2838,8 @@
     "Batalla naval de Gotska Sandön (1563)",
     "Batalla naval de Pirano (1812)",
     "Batalla del cabo de Gata (1815)",
-    "Batalla naval frente a Halifax (1782)"
+    "Batalla naval frente a Halifax (1782)",
+    "Batalla del paso de Chungam-ni (Notch, 1950)",
+    "Combate de Punk Hill (1777)"
   ]
 }

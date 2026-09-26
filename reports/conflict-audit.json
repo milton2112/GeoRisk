@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-25T21:19:27.434Z",
+  "generatedAt": "2026-09-26T11:13:53.934Z",
   "scannedConflicts": 2000,
   "issueCount": 0,
-  "advisoryCount": 25,
-  "reviewCount": 25,
+  "advisoryCount": 23,
+  "reviewCount": 23,
   "summary": {
-    "provisional_parent": 25
+    "provisional_parent": 23
   },
   "topIssues": [],
   "topAdvisories": [
@@ -26,20 +26,6 @@
     {
       "key": "batalla de kasumi",
       "name": "Batalla de Kasumi",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de notch",
-      "name": "Batalla de Notch",
       "countries": [
         "USA"
       ],
@@ -116,20 +102,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de punk hill",
-      "name": "Batalla de Punk Hill",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],

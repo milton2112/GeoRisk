@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-09-14T14:16:22.253Z",
+  "generatedAt": "2026-09-25T21:34:20.275Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 13141853,
-    "duplicatedCountryFilesBytes": 1557339,
-    "countryConflictShardBytes": 460389,
+    "fullBytes": 13162247,
+    "duplicatedCountryFilesBytes": 1557932,
+    "countryConflictShardBytes": 460868,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
-        "bytes": 25046,
-        "inlineBytes": 1353915,
+        "bytes": 25037,
+        "inlineBytes": 1359271,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,12 +21,12 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 338,
+          "conflicts": 339,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 11622,
+            "military": 11613,
             "politics": 9502,
             "metadata": 1952,
             "general": 1018,
@@ -39,7 +39,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 11622
+              "bytes": 11613
             },
             {
               "section": "politics",
@@ -54,8 +54,8 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 80285,
-          "conflictShardBytes": 80286,
+          "conflictsBytes": 80604,
+          "conflictShardBytes": 80605,
           "averageConflictBytes": 238
         }
       },
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24266,
-        "inlineBytes": 3435229,
+        "inlineBytes": 3440119,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 217756,
-          "conflictShardBytes": 217757,
+          "conflictsBytes": 217916,
+          "conflictShardBytes": 217917,
           "averageConflictBytes": 236
         }
       },
@@ -419,8 +419,8 @@
       {
         "code": "KOR",
         "name": "Corea del Sur",
-        "bytes": 17972,
-        "inlineBytes": 133442,
+        "bytes": 18273,
+        "inlineBytes": 138516,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -429,12 +429,12 @@
           "religionGroups": 5,
           "organizations": 31,
           "rivals": 51,
-          "conflicts": 31,
+          "conflicts": 32,
           "timelineEvents": 3
         },
         "metrics": {
           "sectionBytes": {
-            "military": 8107,
+            "military": 8408,
             "politics": 6254,
             "metadata": 1927,
             "general": 866,
@@ -447,7 +447,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 8107
+              "bytes": 8408
             },
             {
               "section": "politics",
@@ -462,9 +462,9 @@
               "bytes": 866
             }
           ],
-          "conflictsBytes": 7988,
+          "conflictsBytes": 8289,
           "conflictShardBytes": 0,
-          "averageConflictBytes": 258
+          "averageConflictBytes": 259
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 91,
+    "pendingCount": 89,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15220,19 +15220,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Notch",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Ochamchira",
         "countries": [
           "GEO"
@@ -15291,19 +15278,6 @@
         ],
         "regions": [
           "Asia"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Punk Hill",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"
