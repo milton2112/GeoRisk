@@ -195,6 +195,7 @@
     let secondFrame = null;
     let visibleWaitMs = 0;
     let lastError = null;
+    let poll = null;
 
     function cancelFrames() {
       if (firstFrame !== null) cancelAnimationFrame(firstFrame);
@@ -207,6 +208,8 @@
       disposed = true;
       cancelFrames();
       clearInterval(poll);
+      poll = null;
+      document.removeEventListener("visibilitychange", syncPolling);
       removeError();
       removePostRender();
       canvas.removeEventListener("webglcontextlost", contextLost);
@@ -273,7 +276,7 @@
     });
     const contextLost = () => fail(new Error("WebGL context lost"));
     canvas.addEventListener("webglcontextlost", contextLost);
-    const poll = setInterval(() => {
+    function checkLoop() {
       if (!alive() || document.visibilityState === "hidden" || phase === "failed" || phase === "waiting") return;
       // Widget resize/clock errors can stop the loop without a scene renderError.
       if (!viewer.useDefaultRenderLoop) {
@@ -282,7 +285,15 @@
         visibleWaitMs += 1000;
         if (visibleWaitMs >= 8000) fail(new Error("No rendered frame after retry"));
       }
-    }, 1000);
+    }
+
+    function syncPolling() {
+      clearInterval(poll);
+      poll = null;
+      if (alive() && document.visibilityState !== "hidden") poll = setInterval(checkLoop, 1000);
+    }
+    document.addEventListener("visibilitychange", syncPolling);
+    syncPolling();
 
     return { dispose, getState: () => ({ phase, attempts }) };
   }

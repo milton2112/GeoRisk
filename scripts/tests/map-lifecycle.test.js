@@ -32,7 +32,7 @@ function createHarness() {
   sources.add(old);
   const oldLayer = new Layer("ARG", old.entities.values);
   const state = {
-    window: {}, console, Map, Set,
+    window: {}, console, Map, Set, navigator: { connection: { saveData: false } },
     currentMapMode: "3d", zoom: "near", mobile: false, currentTheme: "default", currentLanguage: "es",
     isMobileLayout: () => state.mobile, get3DZoomBucket: () => state.zoom,
     getCurrentOverlayBucket: () => state.currentMapMode === "2d" ? "2d" : `3d-${state.zoom}`,
@@ -65,7 +65,7 @@ function createHarness() {
       state.countryLayers.forEach(layer => layer.setStyle("base"));
       state.selectedLayers.forEach(layer => layer.setStyle(state.selectionMode));
     },
-    fitWorldView() { calls.fits += 1; }, applyImageryForMode() {}, renderMapLabels() {}, scheduleGeoJsonWarmup() {},
+    fitWorldView() { calls.fits += 1; }, applyImageryForMode() {}, renderMapLabels() {},
     requestSceneRender() {}, detailedOverlayUpgradeTimer: null, lastInteractionAt: 0, isCameraNavigating: false,
     setTimeout(fn) { const id = calls.timers.size + 1; calls.timers.set(id, fn); return id; },
     clearTimeout(id) { calls.timers.delete(id); }
@@ -223,7 +223,7 @@ for (const phase of ["prepare", "parse", "add"]) {
   assert.equal(state.loadMapPromise, null);
 }
 
-for (const stop of ["far", "mobile", "moving", "2d", "loaded"]) {
+for (const stop of ["far", "mobile", "moving", "2d", "loaded", "save-data"]) {
   const { state, calls } = createHarness();
   let upgrades = 0;
   state.loadMap = async (_boot, options) => { assert.equal(options.preserveView, true); upgrades += 1; };
@@ -234,9 +234,26 @@ for (const stop of ["far", "mobile", "moving", "2d", "loaded"]) {
   if (stop === "moving") state.isCameraNavigating = true;
   if (stop === "2d") state.currentMapMode = "2d";
   if (stop === "loaded") state.activeGeoJsonPath = DETAIL;
+  if (stop === "save-data") state.navigator.connection.saveData = true;
   await [...calls.timers.values()][0]();
   await flush();
   assert.equal(upgrades, 0, "no aplicar detalle obsoleto: " + stop);
+}
+
+{
+  const { state, calls } = createHarness();
+  state.navigator.connection.saveData = true;
+  assert.equal(state.getGeoJsonPathForCurrentMode(), SIMPLE, "ahorro de datos conserva geometria liviana incluso cerca en 3D");
+  state.scheduleDetailedOverlayUpgrade();
+  assert.equal(calls.timers.size, 0, "no programar descargas que el usuario pidio ahorrar");
+  const core = state.mapCore;
+  state.mapCore = {};
+  assert.equal(state.getGeoJsonPathForCurrentMode(), SIMPLE, "el fallback respeta ahorro de datos");
+  state.mapCore = core;
+  state.navigator.connection.saveData = false;
+  assert.equal(state.getGeoJsonPathForCurrentMode(), DETAIL, "se puede volver al detalle al desactivar ahorro");
+  delete state.navigator.connection;
+  assert.equal(state.getGeoJsonPathForCurrentMode(), DETAIL, "navegadores sin Network Information API mantienen comportamiento");
 }
 
 {

@@ -40,6 +40,7 @@ Use this flow:
 
 ## Module Dependency Rules
 
+- Apply `GREEN_CODING.md` to resource decisions. Geometry is prepared only for the requested mode; Save-Data keeps simplified borders. FPS polling is limited to visible camera motion within the startup window; the render-recovery watchdog is visibility-bound and disposed on terminal failure.
 - Pure modules should not fetch data or touch global DOM.
 - UI modules may accept escaped strings and return markup, but should not attach global listeners.
 - Workers should own expensive indexing/ranking work.

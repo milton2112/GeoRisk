@@ -1172,6 +1172,65 @@ async function assertAntialiasingProfile(page) {
   }
 }
 
+async function testGreenCoding(browser, baseUrl) {
+  const { context, page, pageErrors } = await createTestPage(browser, baseUrl, DESKTOP_VIEWPORT, async page => {
+    await page.addInitScript(() => {
+      Object.defineProperty(navigator, "connection", { configurable: true, value: { saveData: true } });
+      window.__greenIntervals = new Map();
+      const start = window.setInterval.bind(window);
+      const stop = window.clearInterval.bind(window);
+      window.setInterval = (callback, delay, ...args) => {
+        const id = start(callback, delay, ...args);
+        window.__greenIntervals.set(id, { name: callback.name, delay });
+        return id;
+      };
+      window.clearInterval = id => { window.__greenIntervals.delete(id); stop(id); };
+    });
+  });
+  let detailRequests = 0;
+  page.on("request", request => { if (/\/world_countries\.geo\.json/.test(request.url())) detailRequests += 1; });
+  try {
+    await waitForAppReady(page);
+    await waitForStable3dMap(page);
+    await page.waitForFunction(() => !isCameraNavigating);
+    const polls = name => page.evaluate(name => [...window.__greenIntervals.values()].filter(item => item.name === name).length, name);
+    assert.equal(await polls("sample"), 0, "FPS en reposo no tiene intervalo activo");
+    assert.equal(await polls("checkLoop"), 1, "el watchdog visible conserva deteccion de fallos");
+    const prepared = await page.evaluate(() => [...preparedGeoJsonCache.keys()]);
+    assert.ok(prepared.length > 0);
+    assert.ok(prepared.every(key => key.endsWith("::3d")), "no preparar el modo alternativo no solicitado");
+    await page.evaluate(() => {
+      Object.defineProperty(document, "visibilityState", { configurable: true, value: "hidden" });
+      document.dispatchEvent(new Event("visibilitychange"));
+    });
+    assert.equal(await polls("sample"), 0);
+    assert.equal(await polls("checkLoop"), 0, "segundo plano simulado cancela el watchdog");
+    await page.evaluate(() => {
+      delete document.visibilityState;
+      document.dispatchEvent(new Event("visibilitychange"));
+      document.dispatchEvent(new Event("visibilitychange"));
+    });
+    assert.equal(await polls("checkLoop"), 1, "reanudar no duplica el watchdog");
+    await focusCountryFor3dPick(page, "ESP");
+    await page.waitForFunction(() => get3DZoomBucket() === "near" && !isCameraNavigating);
+    await page.evaluate(() => scheduleDetailedOverlayUpgrade());
+    assert.equal(await page.evaluate(() => detailedOverlayUpgradeTimer), null);
+    assert.match(await page.evaluate(() => activeGeoJsonPath), /simplified/);
+    assert.equal(detailRequests, 0, "Save-Data evita descargar geometria detallada al acercarse");
+    await clickCountryOnMap(page, "ESP");
+    await waitForCountryPanel(page, "Espa");
+    await closeCountryPanel(page);
+    await page.evaluate(() => applyMapMode("2d", false));
+    await waitForMapMode(page, "2d");
+    await page.evaluate(() => applyMapMode("3d", false));
+    await waitForMapMode(page, "3d");
+    assert.equal(detailRequests, 0);
+    assertHealthyPage(pageErrors, "green coding y ahorro de datos");
+  } finally {
+    await context.close();
+  }
+}
+
 async function testIdleMapPerformance(browser, baseUrl) {
   let releaseTiles;
   let requests = 0;
@@ -2031,6 +2090,7 @@ try {
     ["--input-security-only", testUntrustedInputs],
     ["--exports-only", testSecureExports],
     ["--performance-only", testIdleMapPerformance],
+    ["--green-only", testGreenCoding],
     ["--auto-rotation-only", testAutoRotation],
     ["--map-labels-only", testMapLabels],
     ["--startup-only", testMapEngineStartup],

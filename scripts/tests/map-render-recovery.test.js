@@ -11,7 +11,7 @@ function event() {
     fire(...args) { [...listeners].forEach(fn => fn(...args)); }
   };
 }
-function harness() {
+function harness(initialVisibility = "visible") {
   const frames = new Map();
   const intervals = new Map();
   const canvasEvents = new Map();
@@ -21,7 +21,12 @@ function harness() {
   let destroyed = false;
   let restarts = 0;
   let requests = 0;
-  const document = { visibilityState: "visible" };
+  const visibilityListeners = new Set();
+  const document = {
+    visibilityState: initialVisibility,
+    addEventListener(name, fn) { assert.equal(name, "visibilitychange"); visibilityListeners.add(fn); },
+    removeEventListener(_name, fn) { visibilityListeners.delete(fn); }
+  };
   const context = {
     window: { document }, console,
     requestAnimationFrame(fn) { const key = ++id; frames.set(key, fn); return key; },
@@ -49,7 +54,8 @@ function harness() {
   const recovery = context.window.GeoRiskMapInteractions.installRenderRecovery({ viewer,
     onStateChange(change) { changes.push(change); } });
   return {
-    viewer, scene, document, frames, intervals, canvasEvents, changes, recovery,
+    viewer, scene, document, frames, intervals, canvasEvents, changes, recovery, visibilityListeners,
+    visibility(value) { document.visibilityState = value; [...visibilityListeners].forEach(fn => fn()); },
     get restarts() { return restarts; }, get requests() { return requests; },
     frame() { const callbacks = [...frames.values()]; frames.clear(); callbacks.forEach(fn => fn()); },
     tick() { [...intervals.values()].forEach(fn => fn()); },
@@ -104,18 +110,20 @@ function harness() {
 {
   const h = harness();
   h.viewer.useDefaultRenderLoop = false;
-  h.document.visibilityState = "hidden";
+  h.visibility("hidden");
+  assert.equal(h.intervals.size, 0, "ocultar cancela el sondeo, no solo su trabajo");
   for (let i = 0; i < 20; i += 1) h.tick();
   assert.equal(h.changes.length, 0, "no iniciar una recuperacion por sondeo con pestana oculta");
-  h.document.visibilityState = "visible";
+  h.visibility("visible");
+  assert.equal(h.intervals.size, 1);
   h.tick();
   assert.equal(h.changes[0].error.message, "Render loop stopped");
   h.frame(); h.frame();
   for (let i = 0; i < 4; i += 1) h.tick();
-  h.document.visibilityState = "hidden";
+  h.visibility("hidden");
   for (let i = 0; i < 20; i += 1) h.tick();
   assert.equal(h.recovery.getState().phase, "retrying");
-  h.document.visibilityState = "visible";
+  h.visibility("visible");
   for (let i = 0; i < 4; i += 1) h.tick();
   assert.equal(h.recovery.getState().phase, "failed");
   assert.equal(h.changes.at(-1).error.message, "No rendered frame after retry");
@@ -142,6 +150,7 @@ for (const disposedExplicitly of [false, true]) {
   assert.equal(h.frames.size, 0);
   assert.equal(h.intervals.size, 0);
   assert.equal(h.canvasEvents.size, 0);
+  assert.equal(h.visibilityListeners.size, 0);
   assert.equal(h.scene.postRender.listeners.size, 0);
   assert.equal(h.scene.renderError.listeners.size, 1, "no retirar el listener propio de Cesium");
 }
@@ -153,6 +162,20 @@ for (const disposedExplicitly of [false, true]) {
   h.frame();
   assert.equal(h.recovery.getState().phase, "failed");
   assert.equal(h.viewer.useDefaultRenderLoop, false);
+}
+
+{
+  const h = harness("hidden");
+  assert.equal(h.intervals.size, 0, "no sondear al instalar en segundo plano");
+  for (let i = 0; i < 20; i += 1) {
+    h.visibility("visible"); h.visibility("visible");
+    assert.equal(h.intervals.size, 1, "reanudar no duplica temporizadores");
+    h.visibility("hidden");
+    assert.equal(h.intervals.size, 0);
+  }
+  h.recovery.dispose();
+  h.visibility("visible");
+  assert.equal(h.intervals.size, 0, "un monitor retirado no revive");
 }
 
 console.log("map-render-recovery.test.js ok");

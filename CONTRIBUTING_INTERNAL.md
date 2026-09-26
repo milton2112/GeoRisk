@@ -2,6 +2,7 @@
 
 ## Before Editing
 
+- Read `AGENTS.md` and `GREEN_CODING.md`. Resource efficiency, sufficiency and transparent measurement apply to every change, without compromising accessibility, security or data quality.
 - Run `git status --short` and do not overwrite unrelated work.
 - Keep startup assets under the budgets enforced by `npm run check:startup-budget`.
 - Prefer existing modules and helpers before adding new globals to `script.js`.
@@ -24,6 +25,8 @@
 - Do not precache heavy datasets, reports, flags, coats, Cesium, html2canvas or jsPDF.
 
 ## Validation Checklist
+
+For map lifecycle/resource changes, run `npm run test:green-coding` first. It is also included in startup tests and the release gate. Record resource benefits, evidence and tradeoffs in the changelog/PR; do not infer energy or CO2 savings from timing or payload alone.
 
 Run:
 

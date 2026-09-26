@@ -85,7 +85,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-09-25-release-3";
+const APP_VERSION = "2026-09-26-release-1";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -1640,27 +1640,6 @@ function trimDataCaches() {
         resourceCache.delete(key);
       }
     }
-  }
-}
-
-function scheduleGeoJsonWarmup() {
-  const preset = getPerformancePreset();
-  if (preset.tier === "low") {
-    return;
-  }
-
-  const alternateMode = currentMapMode === "2d" ? "3d" : "2d";
-  const warmPath = "./data/world_countries_simplified.geo.json";
-  const warm = () => {
-    getPreparedGeoJson(warmPath, alternateMode).catch(error => {
-      console.error("No se pudo precalentar el GeoJSON alternativo:", error);
-    });
-  };
-
-  if (window.requestIdleCallback) {
-    window.requestIdleCallback(warm, { timeout: 1200 });
-  } else {
-    setTimeout(warm, 320);
   }
 }
 
@@ -8906,8 +8885,13 @@ function startPerformanceMonitor() {
     isMobile: isMobileLayout(),
     tier: getDeviceTier()
   });
-  const reset = () => monitor.reset(context(), performance.now());
-  reset();
+  let poll = null;
+  const reset = () => {
+    const state = context();
+    monitor.reset(state, performance.now());
+    if (poll !== null) window.clearInterval(poll);
+    poll = state.visible && state.navigating ? window.setInterval(sample, 2500) : null;
+  };
   const removeMoveStart = viewer.camera.moveStart.addEventListener(reset);
   const removeMoveEnd = viewer.camera.moveEnd.addEventListener(reset);
   document.addEventListener("visibilitychange", reset);
@@ -8970,13 +8954,11 @@ function startPerformanceMonitor() {
     }
   };
 
-  performanceMonitorId = window.setInterval(sample, 2500);
-  window.setTimeout(() => {
+  performanceMonitorId = window.setTimeout(() => {
     sample();
-    if (performanceMonitorId) {
-      window.clearInterval(performanceMonitorId);
-      performanceMonitorId = null;
-    }
+    if (poll !== null) window.clearInterval(poll);
+    poll = null;
+    performanceMonitorId = null;
     removePostRenderListener?.();
     removeMoveStart?.();
     removeMoveEnd?.();
@@ -8984,6 +8966,7 @@ function startPerformanceMonitor() {
     bootScheduler.finishStartupFps?.();
     updateAppStatusPanel();
   }, monitorDuration);
+  reset();
 }
 
 async function showNewsArticle(countryCode) {
@@ -12218,15 +12201,17 @@ function renderNaturalRankingSearch(rawQuery, naturalQuery) {
 }
 
 function getGeoJsonPathForCurrentMode(bootPhase = false) {
+  const saveData = globalThis.navigator?.connection?.saveData === true;
   if (typeof mapCore.getGeoJsonPathForMode === "function") {
     return mapCore.getGeoJsonPathForMode({
       mode: currentMapMode,
       bootPhase,
+      saveData,
       isMobile: isMobileLayout(),
       near: get3DZoomBucket() === "near"
     });
   }
-  return (currentMapMode === "2d" || bootPhase || isMobileLayout() || get3DZoomBucket() !== "near")
+  return (currentMapMode === "2d" || bootPhase || isMobileLayout() || saveData || get3DZoomBucket() !== "near")
     ? "./data/world_countries_simplified.geo.json"
     : "./data/world_countries.geo.json";
 }
@@ -13484,7 +13469,6 @@ async function loadMap(bootPhase = false, { preserveView = false } = {}) {
     }
     if (!preserveView) fitWorldView();
     renderMapLabels();
-    scheduleGeoJsonWarmup();
   }).finally(() => {
     if (loadToken === mapOverlayLoadToken) {
       loadMapPromise = null;
@@ -13563,7 +13547,7 @@ function scheduleDetailedOverlayUpgrade() {
     detailedOverlayUpgradeTimer = null;
   }
 
-  if (currentMapMode !== "3d" || isMobileLayout()) {
+  if (currentMapMode !== "3d" || isMobileLayout() || globalThis.navigator?.connection?.saveData === true) {
     return;
   }
 
@@ -13585,7 +13569,7 @@ function scheduleDetailedOverlayUpgrade() {
 
   const scheduleUpgrade = () => {
     detailedOverlayUpgradeTimer = null;
-    if (currentMapMode !== "3d" || isMobileLayout() || get3DZoomBucket() !== "near" ||
+    if (currentMapMode !== "3d" || isMobileLayout() || globalThis.navigator?.connection?.saveData === true || get3DZoomBucket() !== "near" ||
         activeGeoJsonPath === detailedPath || (loadMapPromise && loadMapPath === detailedPath)) {
       return;
     }

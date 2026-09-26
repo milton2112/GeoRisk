@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import fs from "fs-extra";
 import path from "path";
 import vm from "node:vm";
+import "./green-coding.test.js";
 import "./map-lifecycle.test.js";
 import "./map-performance.test.js";
 import "./map-auto-rotation.test.js";
@@ -250,12 +251,7 @@ assert.ok(/function setCountrySelection[\s\S]{0,700}requestMapRenderSafe\("count
 assert.ok(!script.includes("countryCode && countryLayers.has(countryCode) && countriesData[countryCode]"), "busqueda no debe depender de que la capa cartografica ya exista");
 assert.ok(script.includes("./data/countries/${encodeURIComponent(normalizedCode)}.json"), "detalle por pais debe evitar hidratar countries_full");
 assert.ok(script.includes("function scheduleWhenGlobeIsQuiet"), "tareas pesadas deben esperar a que el globo este quieto");
-const geoJsonWarmupBody = script.slice(
-  script.indexOf("function scheduleGeoJsonWarmup"),
-  script.indexOf("function setNavigationQualityState")
-);
-assert.ok(!geoJsonWarmupBody.includes("category ==="), "precalentamiento GeoJSON no debe contener ramas del quiz");
-assert.ok(geoJsonWarmupBody.includes("setTimeout(warm, 320)"), "precalentamiento GeoJSON debe tener fallback sin requestIdleCallback");
+assert.ok(!script.includes("scheduleGeoJsonWarmup"), "no preparar modos del mapa que el usuario no solicito");
 assert.ok(script.includes("function maybeEnhanceOpenConflictModal"), "conflictos enriquecidos deben cargarse bajo demanda al abrir modal");
 assert.ok(!script.includes("scheduleWhenGlobeIsQuiet(() => {\r\n      loadWikipediaConflictDetails"), "conflictos enriquecidos no deben cargarse por temporizador de arranque");
 assert.ok(script.includes("startLongTaskObserver"), "runtime debe medir bloqueos largos del hilo principal");

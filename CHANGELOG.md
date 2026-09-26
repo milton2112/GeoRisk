@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.251 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.252 antes de cerrar la siguiente version.
+
+## v1.6.252 - 2026-09-26
+
+- Establece green coding como criterio permanente en AGENTS.md, GREEN_CODING.md, guia de contribucion y plantilla de PR: suficiencia, uso eficiente de recursos, longevidad, accesibilidad y evidencia sin afirmaciones ambientales no medidas.
+- Elimina el precalculo especulativo de geometria del modo alternativo; su primera apertura prepara bajo demanda y las siguientes reutilizan cache. Respeta Save-Data evitando geometria detallada automatica, con el costo explicito de bordes menos precisos a zoom cercano.
+- Cancela sondeos de FPS en reposo/segundo plano y del watchdog de render al ocultar la pagina. Conserva deteccion de cero frames, recuperacion de errores y cierre del monitor inicial a los 60 s; pruebas verifican reanudacion sin duplicados y liberacion de listeners.
+- Agrega test:green-coding a las pruebas de arranque existentes, pre-push y release, sin dependencias nuevas. Los indicadores de bytes, tareas y frames no se presentan como mediciones de energia o CO2.
+- Verificacion focal en Chrome: cero intervalos FPS en reposo, cero watchdogs de render con visibilidad oculta simulada, una sola reanudacion y fichas/2D/3D operativos. Save-Data evita la solicitud adicional del GeoJSON detallado (256950 bytes locales sin comprimir); no se estima ahorro de CO2.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-26-release-1`.
 
 ## v1.6.251 - 2026-09-25
 

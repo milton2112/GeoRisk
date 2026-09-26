@@ -135,7 +135,7 @@ function event() {
 }
 
 function runtime({ mobile = false, mode = "3d" } = {}) {
-  const calls = { now: 0, statuses: [], degradations: [], modes: [], timers: new Map() };
+  const calls = { now: 0, statuses: [], degradations: [], modes: [], timers: new Map(), interval: null };
   const postRender = event();
   const moveStart = event();
   const moveEnd = event();
@@ -147,7 +147,7 @@ function runtime({ mobile = false, mode = "3d" } = {}) {
     window: {
       setInterval(fn) { calls.interval = fn; return 1; },
       clearInterval() { calls.interval = null; },
-      setTimeout(fn) { calls.finish = fn; }
+      setTimeout(fn) { calls.finish = fn; return 2; }
     },
     document: { visibilityState: "visible", addEventListener(_name, fn) { visibility.listeners.add(fn); },
       removeEventListener(_name, fn) { visibility.listeners.delete(fn); } },
@@ -180,7 +180,7 @@ function runtime({ mobile = false, mode = "3d" } = {}) {
       const count = Math.round(fps * 2.5);
       for (let i = 0; i < count; i += 1) { calls.now = start + i * 2500 / count; postRender.emit(); }
       calls.now = start + 2500;
-      calls.interval();
+      calls.interval?.();
     },
     move(active) { state.isCameraNavigating = active; (active ? moveStart : moveEnd).emit(); }
   };
@@ -190,6 +190,7 @@ function runtime({ mobile = false, mode = "3d" } = {}) {
   const test = runtime();
   test.state.startPerformanceMonitor();
   assert.equal(test.postRender.listeners.size, 1, "iniciar dos veces no duplica el monitor");
+  assert.ok(!test.calls.interval, "FPS sin sondeo cuando el mapa esta quieto");
   for (let i = 0; i < 24; i += 1) test.tick();
   assert.equal(test.state.bootScheduler.startupFpsMetrics.samples, 0, "teselas pendientes y contacto reciente no simulan movimiento");
   assert.equal(test.calls.degradations.length, 0);
@@ -208,9 +209,11 @@ function runtime({ mobile = false, mode = "3d" } = {}) {
 {
   const test = runtime();
   test.move(true);
+  assert.equal(typeof test.calls.interval, "function", "movimiento activa medicion incluso sin frames");
   test.tick(4);
   test.state.document.visibilityState = "hidden";
   test.visibility.emit();
+  assert.equal(test.calls.interval, null, "FPS no despierta la pestana oculta");
   for (let i = 0; i < 4; i += 1) test.tick(0);
   test.state.document.visibilityState = "visible";
   test.visibility.emit();
@@ -260,6 +263,20 @@ function runtime({ mobile = false, mode = "3d" } = {}) {
   assert.equal(test.state.bootScheduler.startupFpsMetrics.samples, 0);
   test.state.bootScheduler.recordStartupFps(0, 60000);
   assert.equal(test.state.bootScheduler.startupFpsMetrics.completed, true);
+}
+
+{
+  const test = runtime();
+  test.move(true);
+  test.tick(0);
+  test.tick(0);
+  assert.equal(test.calls.degradations.length, 1, "ahorrar sondeos no oculta un render detenido durante movimiento");
+  test.move(false);
+  assert.equal(test.calls.interval, null, "detener movimiento cancela sondeos");
+  test.calls.finish();
+  test.move(true);
+  test.visibility.emit();
+  assert.equal(test.calls.interval, null, "no reactivar el monitor al cerrar su ventana");
 }
 
 console.log("map-performance.test.js ok");

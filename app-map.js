@@ -6,9 +6,9 @@
     return mode === MODE_2D ? MODE_2D : MODE_3D;
   }
 
-  function getGeoJsonPathForMode({ mode = MODE_3D, bootPhase = false, isMobile = false, near = false } = {}) {
+  function getGeoJsonPathForMode({ mode = MODE_3D, bootPhase = false, isMobile = false, near = false, saveData = false } = {}) {
     const normalizedMode = normalizeMapMode(mode);
-    if (normalizedMode === MODE_2D || bootPhase || isMobile || !near) {
+    if (normalizedMode === MODE_2D || bootPhase || isMobile || saveData || !near) {
       return "./data/world_countries_simplified.geo.json";
     }
     return "./data/world_countries.geo.json";
@@ -60,8 +60,8 @@
     return language === "en" ? `Reduced performance mode${suffix}` : `Modo rendimiento reducido${suffix}`;
   }
 
-  function shouldDeferDetailedGeometry({ mode = MODE_3D, isMobile = false, zoomBucket = "far", bootPhase = false } = {}) {
-    return normalizeMapMode(mode) === MODE_2D || isMobile || bootPhase || zoomBucket !== "near";
+  function shouldDeferDetailedGeometry({ mode = MODE_3D, isMobile = false, zoomBucket = "far", bootPhase = false, saveData = false } = {}) {
+    return normalizeMapMode(mode) === MODE_2D || isMobile || bootPhase || saveData || zoomBucket !== "near";
   }
 
   const dataSourceFrameWaits = new WeakMap();
