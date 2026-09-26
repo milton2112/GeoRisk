@@ -85,7 +85,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-09-26-release-1";
+const APP_VERSION = "2026-09-26-release-2";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -798,7 +798,7 @@ function focusRectangle(bounds, options = {}) {
   const width = Math.abs(bounds.east - bounds.west);
   const height = Math.abs(bounds.north - bounds.south);
   const area = Math.max(width * height, 0.0001);
-  const duration = options.instant
+  const duration = options.instant || mapMotionPreference.matches
     ? 0
     : (currentMapMode === "2d"
         ? (isMobileLayout() ? 0.16 : 0.22)
@@ -1223,10 +1223,10 @@ function updateIntroRuntimeStatus() {
   }
 }
 
-function setAutoRotateState(enabled) {
+function setAutoRotateState(enabled, persist = true) {
   autoRotateEnabled = Boolean(enabled);
   autoRotation.reset();
-  localStorage.setItem(STORAGE_KEYS.autoRotate, String(autoRotateEnabled));
+  if (persist) localStorage.setItem(STORAGE_KEYS.autoRotate, String(autoRotateEnabled));
   const button = document.getElementById("auto-rotate-button");
   if (button) {
     button.classList.toggle("is-active", autoRotateEnabled);
@@ -1236,6 +1236,13 @@ function setAutoRotateState(enabled) {
       : (currentLanguage === "en" ? "Auto rotation" : "Rotacion automatica");
   }
   viewer?.scene?.requestRender?.();
+}
+
+function handleMapMotionPreferenceChange() {
+  if (!mapMotionPreference.matches) return;
+  setAutoRotateState(false, false);
+  viewer?.camera.completeFlight();
+  viewer?.scene.completeMorph();
 }
 
 function handleAutoRotateTick() {
@@ -2530,6 +2537,7 @@ function updateMapModeToggle() {
 }
 
 function applyMapMode(mode, animate = true) {
+  animate = animate && !mapMotionPreference.matches;
   if (!viewer) {
     currentMapMode = mode;
     appStore?.setState({ mapMode: currentMapMode }, "map-mode");
@@ -2665,8 +2673,10 @@ const constrainedInitialDevice =
   (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
 let labelMode = ["none", "countries", "full"].includes(readLocalPreference("geo-risk-label-mode"))
   ? readLocalPreference("geo-risk-label-mode") : (constrainedInitialDevice ? "none" : "countries");
-let autoRotateEnabled = readLocalPreference("geo-risk-auto-rotate") === "true";
+const mapMotionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+let autoRotateEnabled = !mapMotionPreference.matches && readLocalPreference("geo-risk-auto-rotate") === "true";
 const autoRotation = mapInteractionCore.createAutoRotationController();
+mapMotionPreference.addEventListener("change", handleMapMotionPreferenceChange);
 let lastInteractionAt = Date.now();
 let isCameraNavigating = false;
 let navigationQualityRestoreTimer = null;
@@ -13884,7 +13894,7 @@ function setupThemeControls() {
   renderThemePicker();
   syncLayersPanelState();
   updateStaticText();
-  setAutoRotateState(autoRotateEnabled);
+  setAutoRotateState(autoRotateEnabled, false);
 
   const religionOptions = getUniqueDisplayLabels(RELIGION_FAMILY_RULES.map(rule => rule.label));
   religionFilter.innerHTML += religionOptions.map(label => `<option value="${escapeHtml(label)}">${escapeHtml(label)}</option>`).join("");

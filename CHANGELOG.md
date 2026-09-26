@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.252 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.253 antes de cerrar la siguiente version.
+
+## v1.6.253 - 2026-09-26
+
+- El mapa respeta movimiento reducido del sistema: enfocar paises y pasar entre 2D/3D usa duracion cero; cambiar la preferencia durante un vuelo/transicion completa el destino sin perder callbacks ni seleccion.
+- Una rotacion guardada no arranca con movimiento reducido y un cambio del sistema detiene la activa. Conserva el valor guardado y permite activacion explicita desde el boton; quitar la preferencia no reinicia la rotacion por sorpresa.
+- Green coding: evita interpolaciones de camara no deseadas mediante un unico listener de pagina, sin polling, descargas ni dependencias adicionales. Costo de codigo: script.js pasa de 580241 a 580753 bytes (+512); conserva los presupuestos. No cambia el arrastre manual y no se atribuyen ahorros de energia/CO2 sin medicion.
+- Agrega regresiones de preferencia inicial/en vivo, modos 2D/3D, fallback, callbacks, persistencia y control de rotacion. Chrome verifica fichas y canvas interactivo en escritorio y movil emulado; no sustituye una prueba en telefono fisico.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-26-release-2`.
 
 ## v1.6.252 - 2026-09-26
 

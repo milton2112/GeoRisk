@@ -67,6 +67,23 @@ No recolectar ubicacion ni bateria del usuario para fabricar una puntuacion verd
 - Ahorro de datos evita la descarga automatica del GeoJSON detallado. Costo:
   bordes menos precisos a zoom cercano hasta desactivar esa preferencia.
 
+## Movimiento reducido
+
+El mapa consulta `prefers-reduced-motion` al abrir y escucha sus cambios con un
+unico listener durante la vida de la pagina, sin polling. Con esa preferencia,
+enfocar paises y cambiar entre 2D/3D son operaciones instantaneas. Activarla durante
+un vuelo o transicion completa el destino y conserva los callbacks de seleccion.
+Una rotacion guardada no se inicia; activarla explicitamente sigue siendo posible.
+Cambiar la preferencia del sistema detiene la rotacion sin borrar el valor guardado
+y desactivar movimiento reducido no la reinicia por sorpresa.
+
+Beneficio: accesibilidad y ausencia de interpolaciones de camara no solicitadas.
+Costo: un listener y una consulta booleana por accion, sin red ni dependencias nuevas.
+No se altera el arrastre manual ni se afirma una reduccion energetica medida.
+Las regresiones de `test:green-coding` y `--motion-only` en la E2E cubren arranque,
+cambios en vivo, callbacks, rotacion optativa y fichas en escritorio/movil emulado.
+Referencia: [matchMedia y su evento change, MDN](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia).
+
 ## Referencias
 
 - [Web Sustainability Guidelines, W3C](https://www.w3.org/TR/2026/DNOTE-web-sustainability-guidelines-20260924/): borrador de nota de grupo, no certificacion.

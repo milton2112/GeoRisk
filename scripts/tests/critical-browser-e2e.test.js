@@ -1172,6 +1172,94 @@ async function assertAntialiasingProfile(page) {
   }
 }
 
+async function testReducedMapMotion(browser, baseUrl) {
+  for (const viewport of [DESKTOP_VIEWPORT, MOBILE_VIEWPORT]) {
+    const mobile = viewport === MOBILE_VIEWPORT;
+    const label = mobile ? "mobile" : "desktop";
+    const test = await createTestPage(browser, baseUrl, viewport, async page => {
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await page.addInitScript(() => {
+        localStorage.setItem("geo-risk-auto-rotate", "true");
+        localStorage.setItem("geo-risk-quality-preset", "performance");
+      });
+    });
+    const { page } = test;
+    try {
+      await waitForAppReady(page);
+      assert.equal(await page.evaluate(() => autoRotateEnabled), false);
+      assert.equal(await page.locator("#auto-rotate-button").getAttribute("aria-pressed"), "false");
+      assert.equal(await page.evaluate(() => localStorage.getItem("geo-risk-auto-rotate")), "true",
+        "el sistema no borra la preferencia de rotacion guardada");
+      await page.evaluate(() => {
+        window.__motionDurations = [];
+        for (const [target, method] of [[viewer.camera, "flyTo"], [viewer.scene, "morphTo2D"], [viewer.scene, "morphTo3D"]]) {
+          const original = target[method];
+          target[method] = function (...args) {
+            window.__motionDurations.push({ method, duration: method === "flyTo" ? args[0].duration : args[0] });
+            return original.apply(this, args);
+          };
+        }
+      });
+      const initialMode = mobile ? "2d" : "3d";
+      const alternateMode = mobile ? "3d" : "2d";
+      await setMapMode(page, alternateMode);
+      await setMapMode(page, initialMode);
+      const before = await page.locator("#map canvas").screenshot();
+      await page.evaluate(() => {
+        window.__motionCompletions = 0;
+        focusRectangle(countryLayers.get("ESP").computeRectangle(), { onComplete: () => window.__motionCompletions++ });
+      });
+      await page.waitForFunction(() => window.__motionCompletions === 1);
+      const durations = await page.evaluate(() => window.__motionDurations);
+      assert.ok(durations.some(item => item.method === "flyTo"));
+      assert.ok(durations.some(item => item.method === "morphTo2D"));
+      assert.ok(durations.some(item => item.method === "morphTo3D"));
+      assert.ok(durations.every(item => item.duration === 0), "sin animaciones de camara con movimiento reducido");
+      await clickCountryOnMap(page, "ESP");
+      await waitForCountryPanel(page, "Espa");
+      assert.equal(before.equals(await page.locator("#map canvas").screenshot()), false, "el canvas cambia y permite abrir ficha");
+      await page.screenshot({ path: `tmp/reduced-motion-${label}.png` });
+      await closeCountryPanel(page);
+
+      const toggle = page.locator(mobile ? "#toggle-tools-panel" : "#map-toolbar > summary");
+      await toggle.click();
+      await page.locator("#auto-rotate-button").click();
+      await toggle.click();
+      await waitForMapMode(page, "3d");
+      await page.waitForFunction(() => autoRotation.isRotating(), undefined, { timeout: 12000 });
+      await page.emulateMedia({ reducedMotion: "no-preference" });
+      await page.waitForFunction(() => !mapMotionPreference.matches);
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await page.waitForFunction(() => !autoRotateEnabled && !autoRotation.isRotating());
+      assert.equal(await page.locator("#auto-rotate-button").getAttribute("aria-pressed"), "false");
+      await page.emulateMedia({ reducedMotion: "no-preference" });
+      await page.waitForFunction(() => !mapMotionPreference.matches);
+      assert.equal(await page.evaluate(() => autoRotateEnabled), false, "no reanudar sin un clic nuevo");
+      // Use a long flight so changing the OS preference catches an active tween even on CI.
+      await page.evaluate(() => viewer.camera.flyTo({ destination: Cesium.Cartesian3.fromDegrees(110, 30, 4500000),
+        duration: 10, complete: () => window.__motionCompletions++ }));
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await page.waitForFunction(() => window.__motionCompletions === 2);
+      assert.equal(await page.evaluate(() => viewer.camera._currentFlight == null), true);
+      await page.emulateMedia({ reducedMotion: "no-preference" });
+      await page.waitForFunction(() => !mapMotionPreference.matches);
+      await page.evaluate(() => {
+        const morph = viewer.scene.morphTo2D;
+        viewer.scene.morphTo2D = function () { return morph.call(this, 10); };
+        applyMapMode("2d");
+        viewer.scene.morphTo2D = morph;
+      });
+      assert.equal(await page.evaluate(() => viewer.scene.mode === Cesium.SceneMode.MORPHING), true);
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await waitForMapMode(page, "2d");
+      assert.equal(await page.evaluate(() => cancelPendingMapTransition), null);
+      assertHealthyPage(test.pageErrors, label + " movimiento reducido");
+    } finally {
+      await test.context.close();
+    }
+  }
+}
+
 async function testGreenCoding(browser, baseUrl) {
   const { context, page, pageErrors } = await createTestPage(browser, baseUrl, DESKTOP_VIEWPORT, async page => {
     await page.addInitScript(() => {
@@ -2091,6 +2179,7 @@ try {
     ["--exports-only", testSecureExports],
     ["--performance-only", testIdleMapPerformance],
     ["--green-only", testGreenCoding],
+    ["--motion-only", testReducedMapMotion],
     ["--auto-rotation-only", testAutoRotation],
     ["--map-labels-only", testMapLabels],
     ["--startup-only", testMapEngineStartup],
