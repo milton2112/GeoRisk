@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.253 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.254 antes de cerrar la siguiente version.
+
+## v1.6.254 - 2026-09-27
+
+- Cura la expedicion de Taraca (2-11 de abril de 1904) con el parte de Leonard Wood y contexto del U.S. Army Center of Military History: corrige America por Mindanao, enlaza Filipinas y reemplaza el padre regional generico por la rebelion moro. Agrega participantes, cronologia, resultado y consecuencias sin inventar un tratado de cierre.
+- Atribuye las bajas al parte estadounidense y separa muertos en combate, ahogamiento y heridos de la expedicion principal. No presenta los recuentos parciales de defensores como un total ni suma combates posteriores. La ficha declara confianza parcial y el vinculo territorial de Filipinas, no un gobierno independiente beligerante en 1904.
+- La auditoria pasa de 23 a 22 jerarquias provisionales y de 90 a 89 conflictos sin fecha; conserva 2000 conflictos unicos. Paye sigue pendiente: hay episodios distintos con ese nombre y el registro importado no permite identificarlos con seguridad.
+- Agrega regresiones de aliases, fechas, fuentes, unicidad y coherencia entre datos completos, indices, perfiles publicos y detalle fragmentado. Una segunda aplicacion del lote no modifica paises ni detalles; la comparacion con la version anterior confirma cambios historicos solo en Taraca, para Estados Unidos y Filipinas.
+- Green coding: sin codigo de ejecucion, dependencias, precalculos ni descargas iniciales nuevas. script.js (580753 bytes), countries_index.json (144225 bytes) y search_index.json conservan su peso. Costo necesario de datos: detalle bajo demanda de 3890 bytes; indices de conflictos +221, timeline +266 y detalles +152 bytes; perfiles de Filipinas +276 y conflictos de Estados Unidos +47 bytes. Las fuentes se enlazan, no se incluyen sus documentos; no se afirma ahorro energetico o de CO2.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-27-release-1`.
 
 ## v1.6.253 - 2026-09-26
 

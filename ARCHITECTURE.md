@@ -27,6 +27,12 @@ GeoRisk keeps runtime files in the repository root for now. The project is split
 - `scripts/lib/public-assets.js`: production file/directory allowlist shared by the build and performance evidence. Internal tooling only; it is not shipped to browsers.
 - `scripts/lib/performance-inputs.js`: deterministic source/dependency/meter fingerprint for `performanceSnapshot.js` and `releaseStatus.js`. The snapshot also keys reuse by built assets and environment; release status checks the current sources even when `dist` is missing or stale.
 
+## Data Curation
+
+- `scripts/lib/conflict-curation-*.js` holds source-backed correction batches, including Taraca. `scripts/applyConflictAutofix.js` applies their aliases, country links and historical details to internal datasets; these modules are never shipped to the browser.
+- `scripts/buildDataIndexes.js` derives public country profiles, light indexes and per-conflict detail shards. Full sources and curation notes stay in on-demand detail; do not copy source documents into startup assets.
+- Curation regressions run through `scripts/tests/conflict-autofix.test.js` and check dates, hierarchy, source limitations, uniqueness and consistency across generated outputs.
+
 ## State Direction
 
 New code should prefer `window.GeoRiskStore.store` for shared UI state and keep local state private to a module when it does not need cross-module visibility.

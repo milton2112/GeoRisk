@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-25T21:34:20.275Z",
+  "generatedAt": "2026-09-27T10:54:39.797Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 13162247,
-    "duplicatedCountryFilesBytes": 1557932,
-    "countryConflictShardBytes": 460868,
+    "fullBytes": 13174755,
+    "duplicatedCountryFilesBytes": 1558208,
+    "countryConflictShardBytes": 460915,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24266,
-        "inlineBytes": 3440119,
+        "inlineBytes": 3444989,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 217916,
-          "conflictShardBytes": 217917,
+          "conflictsBytes": 217963,
+          "conflictShardBytes": 217964,
           "averageConflictBytes": 236
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 89,
+    "pendingCount": 88,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15338,19 +15338,6 @@
       },
       {
         "name": "Batalla de Sunset Pass",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Taraca",
         "countries": [
           "USA"
         ],
