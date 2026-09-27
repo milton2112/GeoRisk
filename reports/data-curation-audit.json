@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-27T10:54:39.797Z",
+  "generatedAt": "2026-09-27T15:54:18.282Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 13174755,
+    "fullBytes": 13183467,
     "duplicatedCountryFilesBytes": 1558208,
-    "countryConflictShardBytes": 460915,
+    "countryConflictShardBytes": 461011,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24266,
-        "inlineBytes": 3444989,
+        "inlineBytes": 3453701,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 217963,
-          "conflictShardBytes": 217964,
+          "conflictsBytes": 218059,
+          "conflictShardBytes": 218060,
           "averageConflictBytes": 236
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 88,
+    "pendingCount": 86,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15246,19 +15246,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Pecos River",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Petaling",
         "countries": [
           "IDN"
@@ -15325,19 +15312,6 @@
       },
       {
         "name": "Batalla de Steen's Mountain",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Sunset Pass",
         "countries": [
           "USA"
         ],

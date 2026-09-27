@@ -798,6 +798,10 @@ import {
   TARACA_CONFLICT_RENAMES
 } from "./lib/conflict-curation-taraca.js";
 import {
+  PECOS_SUNSET_CONFLICT_DETAIL_FIXES,
+  PECOS_SUNSET_CONFLICT_RENAMES
+} from "./lib/conflict-curation-pecos-sunset.js";
+import {
   CABO_BOJADOR_COUNTRY_CONFLICT_EXCLUSIONS
 } from "./lib/conflict-curation-cabo-bojador.js";
 import {
@@ -994,7 +998,8 @@ const curatedConflictDetailFixes = {
   ...PIRANO_GRADO_CONFLICT_DETAIL_FIXES,
   ...GATA_HALIFAX_CONFLICT_DETAIL_FIXES,
   ...NOTCH_PUNK_HILL_CONFLICT_DETAIL_FIXES,
-  ...TARACA_CONFLICT_DETAIL_FIXES
+  ...TARACA_CONFLICT_DETAIL_FIXES,
+  ...PECOS_SUNSET_CONFLICT_DETAIL_FIXES
 };
 
 const generatedConflictDetailExclusionNames = [
@@ -1173,7 +1178,8 @@ const safeConflictRenames = {
   ...PIRANO_GRADO_CONFLICT_RENAMES,
   ...GATA_HALIFAX_CONFLICT_RENAMES,
   ...NOTCH_PUNK_HILL_CONFLICT_RENAMES,
-  ...TARACA_CONFLICT_RENAMES
+  ...TARACA_CONFLICT_RENAMES,
+  ...PECOS_SUNSET_CONFLICT_RENAMES
 };
 const conflictReferenceRenames = {
   ...ILE_RONDE_1794_CONFLICT_REFERENCE_RENAMES

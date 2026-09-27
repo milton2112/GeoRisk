@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-09-27T11:09:45.142Z",
+  "generatedAt": "2026-09-27T16:06:29.690Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 89
+      "count": 87
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 22
+      "count": 20
     },
     "suspectRegions": {
       "count": 0
@@ -366,13 +366,6 @@
       },
       {
         "code": "USA",
-        "name": "Batalla de Pecos River",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
-      {
-        "code": "USA",
         "name": "Batalla de SIranaya",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
@@ -381,13 +374,6 @@
       {
         "code": "USA",
         "name": "Batalla de Steen's Mountain",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
-      {
-        "code": "USA",
-        "name": "Batalla de Sunset Pass",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
@@ -1417,7 +1403,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 22,
+      "count": 20,
       "command": "npm run fix:conflicts:batches"
     },
     {

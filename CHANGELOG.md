@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.254 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.255 antes de cerrar la siguiente version.
+
+## v1.6.255 - 2026-09-27
+
+- Cura los combates del rio Pecos (1864) y Sunset Pass (1874): reemplaza fechas ausentes y padres regionales genericos por sus guerras navajo/apaches, precisa ubicacion, participantes, cronologia y limites documentales. Normaliza el nombre de Pecos al espanol y conserva aliases de importacion.
+- Pecos usa el 5 de enero documentado en el parte de Wallen del dia 6, no el 4 de algunas sintesis. Separa 40 muertos reportados de una estimacion adicional de 25 muertos o heridos no localizados; no los convierte en 65 muertos confirmados. Incluye los 2 apaches heridos reportados y distingue lesiones por congelacion sin total conocido.
+- Sunset Pass conserva el 1 de noviembre de 1874, la herida grave de King y el rescate de Taylor, sin inventar bajas totales o un vencedor territorial. No confunde el combate con la condecoracion de abril de 1875 ni usa una novela como parte militar. Ambas fichas declaran confianza parcial y la perspectiva estadounidense de sus fuentes.
+- La auditoria pasa de 22 a 20 jerarquias provisionales y de 89 a 87 conflictos sin fecha, conservando 2000 conflictos unicos. Los cambios historicos se limitan a estos dos registros de Estados Unidos, sin modificar datos brutos ni otras guerras.
+- Agrega regresiones de fechas, limites de bajas, aliases locales sin red, unicidad y consistencia entre datos completos, perfiles publicos, timeline, indices y detalles bajo demanda. El lote se verifica tambien por reaplicacion sin cambios de datos.
+- Green coding: sin modulos de navegador, dependencias, precalculos ni solicitudes iniciales nuevas; script.js, countries_index.json y search_index.json conservan su peso. Costo necesario: dos detalles bajo demanda de 3933 y 3345 bytes; indices de conflictos +437, timeline +268 y detalles +308 bytes; fragmento de conflictos de Estados Unidos +96 bytes. Las fuentes se enlazan sin empaquetar documentos. No se atribuye ahorro energetico ni de CO2 a estos indicadores.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-27-release-2`.
 
 ## v1.6.254 - 2026-09-27
 

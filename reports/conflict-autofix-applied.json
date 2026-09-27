@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-27T10:58:23.524Z",
+  "generatedAt": "2026-09-27T15:55:17.863Z",
   "changedFullCountries": 0,
   "fullPassChanges": [
     0
@@ -12,7 +12,7 @@
     "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1106,
+  "generatedHierarchyCandidates": 1108,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -1767,7 +1767,12 @@
     "Batalla de Taraca": "Expedicion de Taraca (1904)",
     "Battle of Taraca": "Expedicion de Taraca (1904)",
     "Expedición de Taraca (1904)": "Expedicion de Taraca (1904)",
-    "Expedición de Taraka (1904)": "Expedicion de Taraca (1904)"
+    "Expedición de Taraka (1904)": "Expedicion de Taraca (1904)",
+    "Batalla de Pecos River": "Combate del río Pecos (1864)",
+    "Battle of Pecos River": "Combate del río Pecos (1864)",
+    "Combate del rio Pecos (1864)": "Combate del río Pecos (1864)",
+    "Batalla de Sunset Pass": "Combate de Sunset Pass (1874)",
+    "Battle of Sunset Pass": "Combate de Sunset Pass (1874)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -2847,6 +2852,8 @@
     "Batalla naval frente a Halifax (1782)",
     "Batalla del paso de Chungam-ni (Notch, 1950)",
     "Combate de Punk Hill (1777)",
-    "Expedicion de Taraca (1904)"
+    "Expedicion de Taraca (1904)",
+    "Combate del río Pecos (1864)",
+    "Combate de Sunset Pass (1874)"
   ]
 }

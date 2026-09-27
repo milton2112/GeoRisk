@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-27T11:09:41.320Z",
+  "generatedAt": "2026-09-27T16:06:25.302Z",
   "scannedConflicts": 2000,
   "issueCount": 0,
-  "advisoryCount": 22,
-  "reviewCount": 22,
+  "advisoryCount": 20,
+  "reviewCount": 20,
   "summary": {
-    "provisional_parent": 22
+    "provisional_parent": 20
   },
   "topIssues": [],
   "topAdvisories": [
@@ -54,20 +54,6 @@
     {
       "key": "batalla de paye",
       "name": "Batalla de Paye",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de pecos river",
-      "name": "Batalla de Pecos River",
       "countries": [
         "USA"
       ],
@@ -152,20 +138,6 @@
     {
       "key": "batalla de steen s mountain",
       "name": "Batalla de Steen's Mountain",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de sunset pass",
-      "name": "Batalla de Sunset Pass",
       "countries": [
         "USA"
       ],
