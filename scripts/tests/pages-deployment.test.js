@@ -4,6 +4,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { parse } from "yaml";
+import "./actions-pinning.test.js";
 import { checkDeployment, deploymentBase } from "../checkDeployment.js";
 import { EXCLUDED_PUBLIC_PATHS, REQUIRED_PUBLIC_PATHS, assertPublicAssetPath, validatePagesArtifact } from "../lib/pages-artifact.js";
 

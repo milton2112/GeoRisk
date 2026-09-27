@@ -7,6 +7,16 @@
 - Keep startup assets under the budgets enforced by `npm run check:startup-budget`.
 - Prefer existing modules and helpers before adding new globals to `script.js`.
 
+## Protected Main
+
+- Work on a `codex/` or other task branch and open a PR into `main`; do not push changes directly to `main`.
+- `main` requires the `release-gate` check from GitHub Actions (app ID 15368), an up-to-date branch and resolved review conversations. Protection also applies to administrators; force pushes and branch deletion are blocked.
+- A PR is required, but zero approving reviewers are required so a solo maintainer can merge after the checks pass. Do not bypass or disable protection to publish a failing change.
+- Create release tags on the integrated commit after successful validation. CI changes can remain under `Sin publicar` without invalidating the app cache just to change repository policy.
+- Every workflow action must use a full upstream commit SHA. Verify the commit in the official action repository; the nearby version comment is informational. New local/Docker action types require an explicit policy and test review.
+- Dependabot proposes grouped GitHub Actions updates weekly, with at most two open update PRs. Review permissions, runtime compatibility and upstream changes; do not automatically merge them. The normal gate still applies.
+- Focused check: `node scripts/tests/actions-pinning.test.js`. It also runs through `test:release-gates` and `npm test`.
+
 ## UI / UX Rules
 
 - Hubs and modals need clear loading, empty and offline states.
