@@ -2029,6 +2029,31 @@ async function testUntrustedInputs(browser, baseUrl) {
       for (const href of await page.locator("#news-hub-article a").evaluateAll(links => links.map(link => link.href))) {
         assert.match(href, /^https?:\/\//, "news must reject active URL schemes");
       }
+      const externalLinks = await page.evaluate(() => {
+        const probe = document.createElement("div");
+        probe.innerHTML = renderConflictHierarchySources([
+          "Referencia bibliografica sin URL", { label: "Sin URL", url: " " },
+          { label: "Ruta relativa", url: "/ruta" },
+          { label: "Credenciales", url: "https://editorial.example@destino.example/" },
+          { label: '<img src=x onerror="window.geoRiskInjected=true">', url: "https://fuente.example/nota?a=1&b=2" }
+        ]);
+        const sourceLinks = [...probe.querySelectorAll("a")].map(link => link.href);
+        const sourceImages = probe.querySelectorAll("img").length;
+        const text = probe.textContent;
+        const fallback = getCountryNewsUrl(countriesData.ARG);
+        const newsLinks = [];
+        for (const url of ["", " ", "/ruta", "//fuente.example/", "https://editorial.example@destino.example/"]) {
+          const item = { title: "Noticia de prueba", summary: "Resumen", source: "Fuente", url };
+          renderNewsArticle(item, countriesData.ARG, [item, item]);
+          newsLinks.push(...[...document.querySelectorAll("#news-hub-article a")].map(link => link.href));
+        }
+        return { sourceLinks, sourceImages, text, fallback, newsLinks };
+      });
+      assert.deepEqual(externalLinks.sourceLinks, ["https://fuente.example/nota?a=1&b=2"]);
+      assert.equal(externalLinks.sourceImages, 0);
+      assert.match(externalLinks.text, /Referencia bibliografica sin URL/);
+      assert.equal(externalLinks.newsLinks.length, 10);
+      assert.ok(externalLinks.newsLinks.every(url => url === externalLinks.fallback), "invalid news links must use the curated search URL");
       await page.evaluate(() => {
         compareSelection = ["ARG", "BRA"];
         const name = countriesData.ARG.name;

@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-27T16:08:48.339Z",
-  "packageVersion": "1.6.255",
+  "generatedAt": "2026-09-28T12:10:55.013Z",
+  "packageVersion": "1.6.256",
   "status": "observacion",
   "summary": {
-    "totalFindings": 3,
+    "totalFindings": 1,
     "bySeverity": {
-      "media": 3
+      "media": 1
     },
-    "startupBytes": 880235,
-    "scriptBytes": 580753,
+    "startupBytes": 880378,
+    "scriptBytes": 580896,
     "countriesIndexBytes": 144225,
     "conflictAuditIssues": 0,
     "dataCounts": {
@@ -33,36 +33,12 @@
   },
   "topActions": [
     {
-      "area": "performance",
-      "title": "Rendimiento real por revisar",
-      "command": "npm run performance:snapshot -- --fresh"
-    },
-    {
-      "area": "performance",
-      "title": "Rendimiento real por revisar",
-      "command": "npm run performance:snapshot -- --fresh"
-    },
-    {
       "area": "datos",
       "title": "Jerarquias de conflicto todavia provisionales",
       "command": "npm run fix:conflicts:batches"
     }
   ],
   "findings": [
-    {
-      "severity": "media",
-      "area": "performance",
-      "title": "Rendimiento real por revisar",
-      "detail": "desktop: 1 tareas >200 ms; maxima 201 ms.",
-      "command": "npm run performance:snapshot -- --fresh"
-    },
-    {
-      "severity": "media",
-      "area": "performance",
-      "title": "Rendimiento real por revisar",
-      "detail": "mobile-emulated: render activo 16.5 FPS, umbral 17.6 (objetivo 22).",
-      "command": "npm run performance:snapshot -- --fresh"
-    },
     {
       "severity": "media",
       "area": "datos",
