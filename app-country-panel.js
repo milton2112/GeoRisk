@@ -116,12 +116,16 @@ async function handleInteraction(event, options = {}) {
     if (country) {
       const favorites = readFavoriteCodes(options.storage);
       const nextFavorites = [code, ...favorites.filter(item => item !== code)].slice(0, 24);
+      let saved = false;
       try {
-        options.storage?.setItem(COUNTRY_FAVORITES_STORAGE_KEY, JSON.stringify(nextFavorites));
+        saved = typeof options.storage?.setItem === "function"
+          && options.storage.setItem(COUNTRY_FAVORITES_STORAGE_KEY, JSON.stringify(nextFavorites)) !== false;
       } catch {
         // Private browsing or a full quota must not block the country profile.
       }
-      options.showToast?.(language === "en" ? "Country saved as favorite." : "Pais guardado como favorito.");
+      options.showToast?.(saved
+        ? (language === "en" ? "Country saved as favorite." : "Pais guardado como favorito.")
+        : (language === "en" ? "Could not save this favorite on this device." : "No se pudo guardar este favorito en el dispositivo."));
     }
     return true;
   }

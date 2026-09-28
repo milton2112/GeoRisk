@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.256 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.257 antes de cerrar la siguiente version.
+
+## v1.6.257 - 2026-09-28
+
+- Corrige interrupciones de busqueda, fichas, bienvenida, ayuda, controles de mapa y quiz cuando el navegador bloquea localStorage o se agota su cuota. Una regresion de navegador reprodujo que buscar Argentina no abria la ficha con escrituras bloqueadas; el historial opcional ya no interrumpe la seleccion.
+- Centraliza las lecturas/escrituras del runtime en accesos protegidos. Las acciones siguen funcionando en la pestana actual aunque no persistan; los guardados explicitos avisan del fallo sin borrar datos previos. Los favoritos de pais ya no muestran una confirmacion de exito si el guardado falla. El quiz conserva la mejor racha de la sesion aunque el registro persistido sea anterior o invalido.
+- Las notas indican si no se pudieron leer o guardar. Un borrador no persistido conserva su texto al renderizar otra seccion del mismo pais y puede volver a guardarse con la siguiente edicion si se recupera el almacenamiento. El aviso pide copiar el texto antes de cerrar la ficha o cambiar de pais; una recarga tampoco conserva ese borrador. No se crea un backup ni un cache silencioso.
+- Agrega regresiones deterministas de acceso denegado, cuota agotada, recuperacion y confirmaciones de favoritos. La E2E prueba arranque, busqueda/ficha, controles, quiz, notas y recuperacion en escritorio y movil emulado; comprueba que el aviso se ajuste al ancho disponible.
+- Green coding: sin dependencias, red, polling, borrado ni reintentos automaticos nuevos. Reutiliza el texto de la ficha abierta, sin coleccion adicional de borradores; intenta persistir solo en las acciones existentes. script.js pasa de 580896 a 582397 bytes (+1501) y el modulo diferido de ficha de 45446 a 45701 (+255). No se infiere ahorro energetico o de CO2.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-28-release-1`.
 
 ## v1.6.256 - 2026-09-27
 

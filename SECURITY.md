@@ -116,6 +116,13 @@ Quedan separadas para siguientes tandas: revision del resto de recursos/servicio
 - La URL se valida antes del escape de atributos. Se conservan consultas, fragmentos, documentos historicos HTTP y rutas validas con asteriscos. El control no certifica reputacion, titularidad o contenido del sitio externo, ni inspecciona sus redirecciones.
 - `runtime-input-security.test.js` reprodujo el fallo antes de la correccion y prueba los casos limite sin red. La E2E `--input-security-only` verifica los enlaces renderizados en escritorio y movil emulado, sin visitar dominios de prueba. Se conserva CSP y el escape de etiquetas sin bibliotecas nuevas.
 
+## Almacenamiento local desde v1.6.257
+
+- La lectura segura de preferencias iniciales no cubria todos los accesos posteriores. Se reprodujo que una cuota agotada interrumpia la busqueda antes de abrir la ficha; el acceso denegado tambien podia interrumpir el cierre del arranque y controles secundarios. Las operaciones del runtime usan ahora lecturas/escrituras protegidas, incluido el acceso al getter de localStorage.
+- Un fallo no borra ni sustituye datos guardados. Los cambios de controles pueden seguir activos en memoria durante la pestana; los guardados explicitos muestran un aviso y los favoritos no confirman un exito falso. El historial automatico no genera avisos repetitivos.
+- Las notas muestran un estado de fallo accesible y mantienen el texto del textarea al cambiar de seccion dentro de la misma ficha. Sin almacenamiento no hay persistencia al cerrar esa ficha, cambiar de pais o recargar; no se promete recuperacion de un borrador perdido. La siguiente edicion puede volver a guardar si el navegador permite escribir, sin sondeos ni reintentos en segundo plano.
+- `storage-resilience.test.js` forma parte de `test:startup` y pre-push. `critical-browser-e2e.test.js --storage-only` prueba bloqueo del getter y cuota agotada en escritorio/movil emulado, navegacion, avisos, texto no guardado y recuperacion. No cifra el almacenamiento ni agrega autenticacion; sigue siendo informacion local accesible al navegador y a codigo del mismo origen.
+
 ## Referencias
 
 - [Gitleaks: comandos y configuracion de la version fijada](https://github.com/gitleaks/gitleaks/blob/v8.30.1/README.md)

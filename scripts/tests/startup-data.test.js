@@ -15,6 +15,7 @@ import "./country-detail-loading.test.js";
 import "./boot-scheduler.test.js";
 import "./background-panels.test.js";
 import "./map-overlay-ready.test.js";
+import "./storage-resilience.test.js";
 
 const projectRoot = path.resolve(process.cwd());
 const full = await fs.readJson(path.join(projectRoot, "data", "countries_full.json"));
@@ -180,7 +181,7 @@ assert.ok(indexHtml.includes("intro-data-grid"), "portada debe mostrar cobertura
 assert.ok(!indexHtml.includes("Como usar GeoRisk"), "guia larga no debe vivir en el HTML critico");
 assert.ok(script.includes("setupIntroModalControls(modal)"), "portada debe conectar sus controles al abrirse");
 assert.ok(script.includes("closeIntroModal?.(false)"), "inicio no debe marcar la portada como vista al cerrarla preventivamente");
-assert.ok(script.includes('localStorage.getItem(STORAGE_KEYS.introSeen) !== "true"'), "portada automatica debe respetar si ya fue vista");
+assert.ok(script.includes('readLocalPreference(STORAGE_KEYS.introSeen) !== "true"'), "portada automatica debe respetar si ya fue vista sin exigir acceso al almacenamiento");
 assert.ok(indexHtml.includes("open-performance-button"), "UI debe exponer panel interno de rendimiento");
 assert.ok(indexHtml.includes("open-risk-radar-button"), "UI debe exponer radar de riesgo multiparametrico");
 assert.ok(indexHtml.includes("open-conflict-audit-button"), "UI debe exponer auditoria interna de conflictos");
@@ -391,7 +392,7 @@ assert.ok(script.includes('await yieldToMainThread("user-visible")'), "el arranq
 assert.match(indexHtml, /<body class="globe-loading">/, "la carga debe ser visible antes de descargar script.js");
 const uiNames = ["setupSearchEvents", "setupThemeControls", "setupMapModeControl", "setupRankingGroups", "updateExtendedStaticText", "setupCompareControls", "setupQuizControls", "setupRankingsPanel", "setupCompareHubPanel", "setupQuizHubPanel", "setupNewsHubPanel", "setupSavedViewControls", "setupGlobalKeyboardShortcuts", "setupMobilePanelControls"];
 const uiBootSource = script.slice(script.indexOf("const bootDeferredUi = () => {"), script.indexOf("const bootHeavyDataEnhancements ="));
-function startUiBoot({ modules = async () => true, failedTask = "", offline = async () => {} } = {}) {
+function startUiBoot({ modules = async () => true, failedTask = "", offline = async () => {}, storage = { getItem: () => null } } = {}) {
   const order = [];
   const classes = new Set(["globe-loading"]);
   const context = {
@@ -405,7 +406,7 @@ function startUiBoot({ modules = async () => true, failedTask = "", offline = as
     openIntroModal() { order.push("intro"); },
     showFatalError() { order.push("failure"); },
     document: { body: { classList: { remove: key => classes.delete(key), add: key => classes.add(key) } } },
-    window: {}, localStorage: { getItem: () => null }, STORAGE_KEYS: { introSeen: "seen" },
+    window: {}, localStorage: storage, STORAGE_KEYS: { introSeen: "seen" },
     console: { error() { order.push("handled-error"); }, warn() { order.push("offline-warning"); } },
     uiPolish: { init() { order.push("uiPolish"); } }
   };
@@ -413,13 +414,17 @@ function startUiBoot({ modules = async () => true, failedTask = "", offline = as
     order.push(name);
     if (name === failedTask) throw new Error("simulated control failure");
   };
-  return { order, classes, done: vm.runInNewContext(uiBootSource + "\nbootDeferredUi();", context) };
+  const storageHelpers = script.slice(script.indexOf("function readLocalPreference("), script.indexOf("function loadSavedPreferences("));
+  return { order, classes, done: vm.runInNewContext(storageHelpers + uiBootSource + "\nbootDeferredUi();", context) };
 }
 const expectedUiOrder = [...uiNames, "uiPolish"].flatMap(name => ["yield", name]);
 const healthyUi = startUiBoot();
 await healthyUi.done;
 assert.deepEqual(healthyUi.order, [...expectedUiOrder, "hide-loading", "complete", "status", "intro", "offline"], "controles y bienvenida deben activarse antes de preparar offline, cediendo el hilo entre grupos");
 assert.equal(healthyUi.classes.has("globe-loading"), false);
+const unavailableStorageUi = startUiBoot({ storage: { getItem() { throw new Error("storage blocked"); } } });
+await unavailableStorageUi.done;
+assert.deepEqual(unavailableStorageUi.order, healthyUi.order, "almacenamiento bloqueado no debe impedir terminar el arranque ni preparar offline");
 let releaseUiModule;
 const heldUiModule = new Promise(resolve => { releaseUiModule = resolve; });
 const slowUi = startUiBoot({ modules: () => heldUiModule });
