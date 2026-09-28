@@ -85,7 +85,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-09-27-release-2";
+const APP_VERSION = "2026-09-27-release-3";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -5898,9 +5898,10 @@ function renderConflictTrustBadges(detail = {}) {
 }
 
 function getSafeConflictSourceUrl(value) {
+  if (typeof value !== "string" || !value.trim()) return "";
   try {
-    const url = new URL(String(value || ""), window.location.href);
-    return ["https:", "http:"].includes(url.protocol) ? url.href : "";
+    const url = new URL(value.trim());
+    return ["https:", "http:"].includes(url.protocol) && !url.username && !url.password ? url.href : "";
   } catch {
     return "";
   }
@@ -8779,9 +8780,10 @@ async function fetchCountryHeadlines(country) {
 }
 
 function getSafeNewsUrl(value, fallbackUrl) {
+  if (typeof value !== "string" || !value.trim()) return fallbackUrl;
   try {
-    const url = new URL(String(value || ""), window.location.href);
-    if (url.protocol === "https:" || url.protocol === "http:") {
+    const url = new URL(value.trim());
+    if ((url.protocol === "https:" || url.protocol === "http:") && !url.username && !url.password) {
       return url.href;
     }
   } catch {

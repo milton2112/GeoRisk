@@ -109,6 +109,13 @@ Quedan separadas para siguientes tandas: revision del resto de recursos/servicio
 - Green coding: cero cambios al JavaScript de la app, sin nuevas dependencias, solicitudes de usuarios, caches ni sondeos. El costo es una prueba local de YAML y propuestas periodicas que ejecutan CI cuando hay cambios. Se conserva la version/cache de la app; estas modificaciones de infraestructura se documentan en `Sin publicar` hasta integrarse.
 - Referencias: [proteccion de ramas](https://docs.github.com/en/rest/branches/branch-protection), [SHA completo en Actions](https://docs.github.com/en/actions/reference/security/secure-use).
 
+## Enlaces externos desde v1.6.256
+
+- Se reprodujo que `new URL(valor, window.location.href)` convertia una fuente sin URL o una noticia vacia en un enlace a GeoRisk. Tambien aceptaba rutas relativas y URLs con usuario/contrasena en la autoridad. No se encontro evidencia de explotacion; es un defecto de navegacion y una superficie de confusion sobre el destino.
+- Los dos recorridos aceptan solo texto no vacio que se pueda interpretar como URL absoluta HTTP(S), sin credenciales. Las fuentes invalidas se muestran como texto; noticias vuelve a la busqueda externa construida por la app. No se cambia la direccion de una fuente para adivinar otra ni se convierten automaticamente HTTP en HTTPS.
+- La URL se valida antes del escape de atributos. Se conservan consultas, fragmentos, documentos historicos HTTP y rutas validas con asteriscos. El control no certifica reputacion, titularidad o contenido del sitio externo, ni inspecciona sus redirecciones.
+- `runtime-input-security.test.js` reprodujo el fallo antes de la correccion y prueba los casos limite sin red. La E2E `--input-security-only` verifica los enlaces renderizados en escritorio y movil emulado, sin visitar dominios de prueba. Se conserva CSP y el escape de etiquetas sin bibliotecas nuevas.
+
 ## Referencias
 
 - [Gitleaks: comandos y configuracion de la version fijada](https://github.com/gitleaks/gitleaks/blob/v8.30.1/README.md)

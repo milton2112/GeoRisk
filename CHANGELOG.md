@@ -8,9 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
+- Se documentaran aca los cambios posteriores a v1.6.256 antes de cerrar la siguiente version.
+
+## v1.6.256 - 2026-09-27
+
 - Seguridad de publicacion: activa y verifica proteccion de `main` con PR obligatorio y `release-gate` de GitHub Actions requerido, tambien para administradores; bloquea force push y borrado. No exige un segundo revisor, para conservar el trabajo del mantenedor unico.
 - Fija por SHA oficial las ocho referencias restantes a Actions con tags modificables y agrega regresiones YAML para todos los workflows. Dependabot propone actualizaciones agrupadas semanales, con hasta dos PRs abiertas, sin fusion automatica ni permisos adicionales.
-- Green coding: cambios de infraestructura, sin JavaScript, dependencias ni solicitudes nuevas para visitantes. Se conserva la version/cache de la app; el costo es una prueba local pequena y CI sobre propuestas de actualizacion. No se atribuye ahorro energetico a estos cambios ni se presenta el gate como una auditoria independiente.
+- Corrige enlaces de fuentes y noticias: URL ausente, vacia o relativa ya no se resuelve contra GeoRisk. Las referencias sin direccion quedan como texto y las noticias invalidas usan la busqueda externa existente.
+- Rechaza protocolos distintos de HTTP(S), valores no textuales y credenciales incrustadas en enlaces externos. Conserva las direcciones absolutas validas, sus parametros y referencias, sin descargarlas ni comprobarlas en red. El escape HTML sigue siendo independiente de la validacion de URL.
+- La regresion reprodujo el enlace incorrecto a la app antes del arreglo. Agrega casos deterministas de esquemas, rutas, vacios, credenciales y escape, ademas de render real de enlaces de fuentes/noticias en escritorio y movil emulado dentro de la E2E de entradas no confiables. No se afirma una auditoria integral de XSS ni de reputacion de destinos externos.
+- Green coding: sin dependencias, precargas ni solicitudes nuevas; dos validaciones acotadas al renderizado. script.js pasa de 580753 a 580896 bytes (+143); countries_index y search_index mantienen su peso. La tanda de infraestructura agrega una prueba YAML pequena y CI sobre propuestas de actualizacion, no codigo de navegador. No se atribuye ahorro energetico a estos cambios. Esta release actualiza la cache por la correccion de runtime, no solo por la configuracion de GitHub.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-09-27-release-3`.
 
 ## v1.6.255 - 2026-09-27
 

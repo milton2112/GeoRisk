@@ -93,4 +93,34 @@ assert.equal(Object.getPrototypeOf(importsContext.CONFLICT_DETAIL_OVERRIDES), Ob
 assert.equal(Object.hasOwn(importsContext.CONFLICT_DETAIL_OVERRIDES, "constructor"), false);
 assert.equal(importsContext.CONFLICT_DETAIL_OVERRIDES.Valid.cause, "valid");
 
-console.log("Runtime input security: prototype pollution and bounded preferences OK.");
+const urlContext = vm.createContext({
+  URL, window: { location: { href: "https://milton2112.github.io/GeoRisk/" } },
+  currentLanguage: "es", repairMojibake: value => value
+});
+vm.runInContext(source.slice(source.indexOf("function escapeHtml("), source.indexOf("function levenshteinDistance(")), urlContext);
+vm.runInContext(source.slice(source.indexOf("function getSafeConflictSourceUrl("), source.indexOf("function getConflictModalContent(")), urlContext);
+vm.runInContext(source.slice(source.indexOf("function getSafeNewsUrl("), source.indexOf("function renderNewsArticle(")), urlContext);
+const fallbackUrl = "https://news.google.com/search?q=Argentina";
+for (const value of [undefined, null, "", " \n\t", 0, {}, "/ruta", "articulo", "#nota", "//fuente.example/",
+  "javascript:alert(1)", "data:text/html,test", "mailto:test@example.org", "ftp://fuente.example/", "https://",
+  "https://editorial.example@destino.example/noticia", "https://user:password@fuente.example/",
+  { toString: () => "https://fuente.example/" }]) {
+  assert.equal(urlContext.getSafeConflictSourceUrl(value), "", "una fuente invalida no debe enlazar a la app");
+  assert.equal(urlContext.getSafeNewsUrl(value, fallbackUrl), fallbackUrl, "noticias invalidas usan la busqueda externa");
+}
+for (const value of ["https://fuente.example/nota?a=1&b=2#seccion", "http://archivo.example/documento.pdf",
+  " HTTPS://FUENTE.EXAMPLE/nota ", "https://fuente.example/2136*.html"]) {
+  assert.equal(urlContext.getSafeConflictSourceUrl(value), new URL(value.trim()).href);
+  assert.equal(urlContext.getSafeNewsUrl(value, fallbackUrl), new URL(value.trim()).href);
+}
+const sourceMarkup = urlContext.renderConflictHierarchySources([
+  "Referencia bibliografica sin URL", { label: "Sin enlace", url: "" },
+  { label: "<img src=x onerror=alert(1)>", url: "https://fuente.example/nota?a=1&b=2" }
+]);
+assert.equal((sourceMarkup.match(/<a /g) || []).length, 1);
+assert.ok(sourceMarkup.includes("Referencia bibliografica sin URL"));
+assert.ok(sourceMarkup.includes("a=1&amp;b=2"));
+assert.ok(sourceMarkup.includes("&lt;img"));
+assert.doesNotMatch(sourceMarkup, /<img|github\.io/);
+
+console.log("Runtime input security: prototypes, bounded preferences and external links OK.");
