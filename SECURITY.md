@@ -94,9 +94,20 @@ La excepcion del hash se limita a la regla generica, el archivo `reports/perform
 
 ## Limites y siguientes capas
 
-Un scanner por patrones puede tener falsos positivos y falsos negativos; no certifica ausencia de secretos ni analiza toda vulnerabilidad. Los hooks locales pueden omitirse y una modificacion de la propia politica requiere revision. La proteccion de ramas, revisiones obligatorias y push protection del proveedor requieren configuracion adicional en GitHub; esta version no cambia esos ajustes.
+Un scanner por patrones puede tener falsos positivos y falsos negativos; no certifica ausencia de secretos ni analiza toda vulnerabilidad. Los hooks locales pueden omitirse y una modificacion de la propia politica requiere revision. La proteccion de `main` se verifica por separado mas abajo; no implica que push protection del proveedor ni la seguridad de la cuenta esten configuradas.
 
 Quedan separadas para siguientes tandas: revision del resto de recursos/servicios externos, revision integral de inyeccion de HTML y configuracion/verificacion del despliegue publico del build y de las cabeceras pendientes. Esta tanda no agrega cuentas, bases de datos ni un backend innecesario.
+
+## Proteccion del repositorio (2026-09-27)
+
+- Se consulto la API de GitHub antes de modificar: `main` no estaba protegida y no habia rulesets. Se activo y se volvio a leer la proteccion: PR obligatorio, `release-gate` de GitHub Actions (app ID 15368) obligatorio, rama actualizada y conversaciones resueltas. Aplica tambien a administradores; no permite force push ni borrar `main`.
+- Se exigen cero aprobaciones de otra persona y no se exige aprobacion del ultimo push: el mantenedor unico puede fusionar su propia PR cuando las comprobaciones pasan. Esto no constituye una revision independiente de seguridad. Un administrador puede cambiar la configuracion del repositorio; sigue siendo necesario proteger su cuenta.
+- El nombre `release-gate` identifica el check obligatorio; no renombrarlo sin actualizar y verificar la politica remota. No se guardan tokens administrativos en CI ni se consulta la configuracion remota en cada visita o test.
+- Las ocho referencias modificables de checkout, setup-node y upload-artifact se sustituyen por los commits oficiales que resolvian sus etiquetas v4 en la fecha de revision. Las dos acciones de Pages ya estaban fijadas. No se cambia de version mayor ni se amplian permisos.
+- `actions-pinning.test.js` inspecciona con el parser YAML existente todos los workflows, incluidos usos de workflows reutilizables. Rechaza tags, ramas, SHAs abreviados y tipos de accion no revisados. No demuestra por si solo la procedencia o seguridad del contenido de un commit ni fija dependencias internas de cada accion.
+- Dependabot propone actualizaciones agrupadas de Actions una vez por semana, con hasta dos PRs abiertas y sin fusion automatica. Se mantienen la revision y la puerta habitual; fijar una version no significa dejar de actualizarla.
+- Green coding: cero cambios al JavaScript de la app, sin nuevas dependencias, solicitudes de usuarios, caches ni sondeos. El costo es una prueba local de YAML y propuestas periodicas que ejecutan CI cuando hay cambios. Se conserva la version/cache de la app; estas modificaciones de infraestructura se documentan en `Sin publicar` hasta integrarse.
+- Referencias: [proteccion de ramas](https://docs.github.com/en/rest/branches/branch-protection), [SHA completo en Actions](https://docs.github.com/en/actions/reference/security/secure-use).
 
 ## Referencias
 

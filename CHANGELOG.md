@@ -8,7 +8,9 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.255 antes de cerrar la siguiente version.
+- Seguridad de publicacion: activa y verifica proteccion de `main` con PR obligatorio y `release-gate` de GitHub Actions requerido, tambien para administradores; bloquea force push y borrado. No exige un segundo revisor, para conservar el trabajo del mantenedor unico.
+- Fija por SHA oficial las ocho referencias restantes a Actions con tags modificables y agrega regresiones YAML para todos los workflows. Dependabot propone actualizaciones agrupadas semanales, con hasta dos PRs abiertas, sin fusion automatica ni permisos adicionales.
+- Green coding: cambios de infraestructura, sin JavaScript, dependencias ni solicitudes nuevas para visitantes. Se conserva la version/cache de la app; el costo es una prueba local pequena y CI sobre propuestas de actualizacion. No se atribuye ahorro energetico a estos cambios ni se presenta el gate como una auditoria independiente.
 
 ## v1.6.255 - 2026-09-27
 
