@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.258 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.259 antes de cerrar la siguiente version.
+
+## v1.6.259 - 2026-10-02
+
+- Corrige Noticias: una respuesta tardia de Argentina reemplazaba la seleccion de Brasil. Captura pais/tema/idioma, cancela la consulta anterior y valida la accion despues de cargar el modulo y los titulares. Un render de fondo del mapa/ficha conserva la seleccion explicita y el resultado de Noticias.
+- El plazo de 2500 ms por intento incluye cabeceras y cuerpo JSON; antes terminaba al llegar las cabeceras y podia quedar esperando indefinidamente. Cierre, pagina oculta, offline y Save-Data cancelan la solicitud, retiran temporizadores/listeners y no reinician descargas al volver. Cerrar/reabrir limpia el indicador de carga; los estados permiten reintento explicito y conservan busqueda externa.
+- Limita la cache de sesion a 16 entradas pais/tema, 4 titulares con campos acotados por entrada y TTL de 20 minutos. Reutiliza resultados al cambiar de tema o idioma, incluidos offline/Save-Data, sin guardar fallos ni entradas canceladas. No es una cache persistente offline ni un limite de bytes de respuesta: la memoria transitoria del JSON completo sigue dependiendo del proveedor.
+- Evita recorrer y ordenar los 183 paises cuando Noticias esta cerrado u oculto. Respeta movimiento reducido al desplazar el panel y anuncia estados con role=status, sin mover el foco. Sin dependencias, polling, precargas ni reintentos automaticos nuevos; agrega listeners de disponibilidad durante la vida de la pagina y comprobaciones acotadas a acciones del usuario.
+- La regresion unitaria reprodujo el reemplazo tardio antes del arreglo. Prueba demoras de modulo/cabeceras/cuerpo, cancelacion, cambios de seleccion/idioma, deduplicacion, expiracion/LRU, limites de campos y errores HTTP/datos invalidos. Chrome verifica controles reales, cache por tema, respuestas tardias, reapertura, teclado, offline/Save-Data y ancho del panel en escritorio y movil emulado; no sustituye un telefono fisico. Los titulares de prueba se simulan sin consultar al proveedor externo.
+- Green coding: script.js pasa de 582532 a 588985 bytes (+6453), necesario para el control de solicitudes/cache/estados; app-news-ui.js agrega 14 bytes de accesibilidad. No modifica datasets ni afirma ahorro energetico o de CO2 a partir de estas pruebas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-10-02-release-2`.
 
 ## v1.6.258 - 2026-10-02
 

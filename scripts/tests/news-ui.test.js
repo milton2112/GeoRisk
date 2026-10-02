@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import path from "node:path";
 import vm from "node:vm";
+import "./news-lifecycle.test.js";
 
 const source = await fs.readFile(path.join(process.cwd(), "app-news-ui.js"), "utf8");
 const context = { window: {} };
@@ -17,6 +18,7 @@ assert.ok(news.buildSelectedCard, "noticias debe exponer tarjeta seleccionada");
 assert.ok(news.buildStateCard, "noticias debe exponer estados de carga/vacio");
 assert.ok(news.buildRelatedList, "noticias debe exponer titulares relacionados");
 assert.ok(news.buildNewsList, "noticias debe exponer lista renderizable");
+assert.ok(news.buildStateCard("Sin conexion", "Sin titulares").includes('role="status"'), "los estados deben anunciarse sin mover el foco");
 
 const country = { name: "Argentina", general: { officialName: "Republica Argentina" } };
 const selected = news.buildSelectedCard(country, "<a>Google News</a>", escapeHtml, { topicLabel: "Diplomacia" });

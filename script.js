@@ -85,7 +85,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-10-02-release-1";
+const APP_VERSION = "2026-10-02-release-2";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -1688,6 +1688,8 @@ let requestSceneRender = () => {};
 let scheduledSceneRenderFrame = null;
 const newsCache = new Map();
 const NEWS_CACHE_TTL_MS = 20 * 60 * 1000;
+const MAX_NEWS_CACHE_ENTRIES = 16;
+let activeNewsRequest = null;
 const geoJsonCache = new Map();
 const preparedGeoJsonCache = new Map();
 const conflictModalRegistry = new Map();
@@ -8679,9 +8681,9 @@ function renderThemeSummary() {
   lastThemeSummarySignature = summarySignature;
 }
 
-function getCountryNewsUrl(country) {
+function getCountryNewsUrl(country, topic = activeNewsTopic) {
   const topicUrls = getCountryNewsTopics(country);
-  return topicUrls[activeNewsTopic] || topicUrls.general;
+  return topicUrls[topic] || topicUrls.general;
 }
 
 function getCountryNewsPortalLinks(country) {
@@ -8695,18 +8697,18 @@ function getCountryNewsPortalLinks(country) {
   ];
 }
 
-function getNewsTopicLabel(topic = activeNewsTopic) {
-  const labels = currentLanguage === "en"
+function getNewsTopicLabel(topic = activeNewsTopic, language = currentLanguage) {
+  const labels = language === "en"
     ? { general: "General view", politics: "Politics", economy: "Economy", conflict: "Conflict and security", diplomacy: "Diplomacy" }
     : { general: "Panorama general", politics: "Politica", economy: "Economia", conflict: "Conflicto y seguridad", diplomacy: "Diplomacia" };
   return labels[topic] || labels.general;
 }
 
-function getNewsCacheKey(country) {
-  return `${country?.code || country?.name || ""}:${activeNewsTopic}`;
+function getNewsCacheKey(country, topic = activeNewsTopic) {
+  return `${country?.code || country?.name || ""}:${topic}`;
 }
 
-function buildNewsQueries(country) {
+function buildNewsQueries(country, topic = activeNewsTopic) {
   const topicTerms = {
     general: "actualidad",
     politics: "politica gobierno elecciones",
@@ -8716,67 +8718,103 @@ function buildNewsQueries(country) {
   };
   const base = country.general?.officialName || country.name;
   const queries = uniqueNormalizedList([
-    `"${base}" ${topicTerms[activeNewsTopic] || topicTerms.general}`,
-    country.name !== base ? `"${country.name}" ${topicTerms[activeNewsTopic] || topicTerms.general}` : ""
+    `"${base}" ${topicTerms[topic] || topicTerms.general}`,
+    country.name !== base ? `"${country.name}" ${topicTerms[topic] || topicTerms.general}` : ""
   ]);
 
   return queries.filter(Boolean);
 }
 
-async function fetchCountryHeadlines(country) {
-  if (!country?.code) {
+function canLoadNewsHeadlines() {
+  return document.getElementById("news-hub-panel")?.open === true
+    && document.visibilityState !== "hidden"
+    && navigator.onLine !== false && navigator.connection?.saveData !== true;
+}
+
+function localizeNewsHeadlines(items, country, topic, language) {
+  return items.map(item => ({
+    ...item,
+    date: item.stamp ? formatNewsDate(item.stamp, language) : "",
+    summary: language === "en"
+      ? `Recent ${getNewsTopicLabel(topic, language).toLowerCase()} coverage linked to ${country.name}.`
+      : `Cobertura reciente de ${getNewsTopicLabel(topic, language).toLowerCase()} vinculada a ${country.name}.`
+  }));
+}
+
+async function fetchNewsJson(url, signal) {
+  if (signal?.aborted) throw new DOMException("Cancelled", "AbortError");
+  const controller = new AbortController();
+  let timer;
+  let abort;
+  const interrupted = new Promise((_, reject) => {
+    abort = () => { controller.abort(); reject(new DOMException("Cancelled", "AbortError")); };
+    signal?.addEventListener("abort", abort, { once: true });
+    timer = setTimeout(() => {
+      controller.abort();
+      reject(new DOMException("News response timed out", "TimeoutError"));
+    }, 2500);
+  });
+  try {
+    // Keep the deadline active through the body read, even if a provider ignores abort.
+    return await Promise.race([
+      (async () => {
+        const response = await fetch(url, { signal: controller.signal });
+        if (!response.ok) { controller.abort(); return {}; }
+        return response.json();
+      })(),
+      interrupted
+    ]);
+  } finally {
+    clearTimeout(timer);
+    signal?.removeEventListener("abort", abort);
+  }
+}
+
+async function fetchCountryHeadlines(country, { topic = activeNewsTopic, language = currentLanguage, signal } = {}) {
+  if (!country?.code || signal?.aborted) {
     return [];
   }
 
-  const cacheKey = getNewsCacheKey(country);
-  const cached = newsCache.get(cacheKey);
-  if (cached && cached.expires > Date.now()) {
-    return cached.items;
+  for (const [key, value] of newsCache) {
+    if (value.expires <= Date.now()) newsCache.delete(key);
   }
+  const cacheKey = getNewsCacheKey(country, topic);
+  const cached = newsCache.get(cacheKey);
+  if (cached) {
+    newsCache.delete(cacheKey);
+    newsCache.set(cacheKey, cached);
+    return localizeNewsHeadlines(cached.items, country, topic, language);
+  }
+  if (!canLoadNewsHeadlines()) return [];
 
-  const fallback = {
-    title: `Cobertura reciente sobre ${country.name}`,
-    source: "Google News",
-    date: "",
-    summary: currentLanguage === "en"
-      ? `Live headlines are unavailable here. Open the external search for current coverage about ${country.name}.`
-      : `No hay titulares en vivo disponibles aqui. Abri la busqueda externa para ver cobertura actual sobre ${country.name}.`,
-    url: getCountryNewsUrl(country)
-  };
   const collected = [];
   const seenUrls = new Set();
 
-  const queries = buildNewsQueries(country);
+  const queries = buildNewsQueries(country, topic);
   for (const query of queries) {
+    if (signal?.aborted || !canLoadNewsHeadlines()) return [];
     try {
       const url = `https://api.gdeltproject.org/api/v2/doc/doc?query=${encodeURIComponent(query)}&mode=ArtList&maxrecords=4&format=json&sort=DateDesc`;
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 2500);
-      const response = await fetch(url, { signal: controller.signal });
-      clearTimeout(timeoutId);
-      if (!response.ok) {
-        continue;
-      }
-
-      const payload = await response.json();
-      const articles = payload?.articles || [];
+      const payload = await fetchNewsJson(url, signal);
+      if (signal?.aborted || !canLoadNewsHeadlines()) return [];
+      const articles = Array.isArray(payload?.articles) ? payload.articles : [];
       if (!articles.length) {
         continue;
       }
 
-      for (const article of articles) {
-        const articleUrl = article.url || fallback.url;
-        if (!articleUrl || seenUrls.has(articleUrl)) {
+      for (const article of articles.slice(0, 4)) {
+        if (!article || typeof article !== "object") continue;
+        const articleUrl = getSafeNewsUrl(article.url, "");
+        if (!articleUrl || articleUrl.length > 2048 || seenUrls.has(articleUrl)
+          || typeof article.title !== "string" || !article.title.trim()) {
           continue;
         }
         seenUrls.add(articleUrl);
         collected.push({
-          title: article.title || fallback.title,
-          source: article.sourceCommonName || article.domain || fallback.source,
-          date: article.seendate ? formatNewsDate(article.seendate) : "",
-          summary: currentLanguage === "en"
-            ? `Recent ${getNewsTopicLabel(activeNewsTopic).toLowerCase()} coverage linked to ${country.name}.`
-            : `Cobertura reciente de ${getNewsTopicLabel(activeNewsTopic).toLowerCase()} vinculada a ${country.name}.`,
+          title: article.title.slice(0, 600),
+          source: typeof (article.sourceCommonName || article.domain) === "string"
+            ? (article.sourceCommonName || article.domain).slice(0, 160) : new URL(articleUrl).hostname,
+          stamp: typeof article.seendate === "string" ? article.seendate.slice(0, 40) : "",
           url: articleUrl
         });
         if (collected.length >= 4) {
@@ -8787,13 +8825,15 @@ async function fetchCountryHeadlines(country) {
         break;
       }
     } catch (error) {
+      if (signal?.aborted || !canLoadNewsHeadlines()) return [];
       console.info(`Noticias en vivo no disponibles para ${country.name}:`, error?.name || error);
     }
   }
 
-  const finalItems = collected.length ? collected : [fallback];
-  newsCache.set(cacheKey, { expires: Date.now() + NEWS_CACHE_TTL_MS, items: finalItems });
-  return finalItems;
+  if (!collected.length) return [];
+  newsCache.set(cacheKey, { expires: Date.now() + NEWS_CACHE_TTL_MS, items: collected });
+  while (newsCache.size > MAX_NEWS_CACHE_ENTRIES) newsCache.delete(newsCache.keys().next().value);
+  return localizeNewsHeadlines(collected, country, topic, language);
 }
 
 function getSafeNewsUrl(value, fallbackUrl) {
@@ -8814,6 +8854,7 @@ function renderNewsArticle(headline, country, headlines = []) {
   if (!articleContainer || !country) {
     return;
   }
+  delete articleContainer.dataset.newsState;
 
   const fallbackUrl = getCountryNewsUrl(country);
   const item = headline || {
@@ -8861,7 +8902,7 @@ function renderNewsArticle(headline, country, headlines = []) {
       `;
 }
 
-function formatNewsDate(value) {
+function formatNewsDate(value, language = currentLanguage) {
   const raw = String(value || "");
   if (!raw) {
     return "";
@@ -8876,7 +8917,7 @@ function formatNewsDate(value) {
     const minute = compact.length >= 12 ? Number(compact.slice(10, 12)) : 0;
     const date = new Date(Date.UTC(year, month, day, hour, minute));
     if (!Number.isNaN(date.getTime())) {
-      return date.toLocaleString(currentLanguage === "en" ? "en-US" : "es-AR", {
+      return date.toLocaleString(language === "en" ? "en-US" : "es-AR", {
         dateStyle: "medium",
         timeStyle: "short"
       });
@@ -8886,7 +8927,7 @@ function formatNewsDate(value) {
   const parsed = new Date(raw);
   return Number.isNaN(parsed.getTime())
     ? raw
-    : parsed.toLocaleString(currentLanguage === "en" ? "en-US" : "es-AR", {
+    : parsed.toLocaleString(language === "en" ? "en-US" : "es-AR", {
       dateStyle: "medium",
       timeStyle: "short"
     });
@@ -8998,38 +9039,83 @@ function startPerformanceMonitor() {
   reset();
 }
 
+function renderNewsState(country, reason = "unavailable") {
+  const articleContainer = document.getElementById("news-hub-article");
+  if (!articleContainer || !country) return;
+  const english = currentLanguage === "en";
+  const title = navigator.onLine === false ? (english ? "Offline" : "Sin conexion")
+    : navigator.connection?.saveData ? (english ? "Data saver active" : "Ahorro de datos activo")
+      : reason === "idle" ? (english ? "News" : "Noticias")
+        : reason === "paused" ? (english ? "Headlines paused" : "Consulta interrumpida")
+        : (english ? "Headlines unavailable" : "Titulares no disponibles");
+  const body = english ? "No live headlines loaded." : "No hay titulares en vivo cargados.";
+  const action = reason === "idle" ? (english ? "Get headlines" : "Ver titulares") : (english ? "Retry" : "Reintentar");
+  const links = `${canLoadNewsHeadlines() ? `<button type="button" class="panel-action-button" data-news-country="${escapeHtml(country.code)}">${action}</button>` : ""}
+    <a class="news-link" href="${escapeHtml(getCountryNewsUrl(country))}" target="_blank" rel="noreferrer">${english ? "External search" : "Busqueda externa"}</a>`;
+  articleContainer.innerHTML = typeof newsUi.buildStateCard === "function"
+    ? newsUi.buildStateCard(title, body, links)
+    : `<div class="news-hub-article-card news-state-card" role="status"><strong>${title}</strong><p>${body}</p>${links}</div>`;
+  articleContainer.dataset.newsState = reason;
+}
+
+function cancelNewsRequest(paused = false) {
+  const request = activeNewsRequest;
+  activeNewsRequest = null;
+  request?.controller.abort();
+  if (paused && request && document.getElementById("news-hub-panel")?.open
+    && activeNewsCountryCode === request.countryCode) {
+    renderNewsState(countriesData[request.countryCode], "paused");
+  }
+  return Boolean(request);
+}
+
 async function showNewsArticle(countryCode) {
-  await ensureDeferredUiModule("news");
-  activeNewsCountryCode = countryCode;
+  const country = countriesData[countryCode];
+  const panel = document.getElementById("news-hub-panel");
   const articleContainer = document.getElementById("news-hub-article");
   const selectedContainer = document.getElementById("news-hub-selected");
-  const panelContent = document.querySelector("#news-hub-panel .news-hub-content");
-  const country = countriesData[countryCode];
-  if (!articleContainer || !selectedContainer || !country) {
-    return;
-  }
+  if (!country?.code || country.code !== countryCode || !panel?.open || !articleContainer
+    || !selectedContainer || document.visibilityState === "hidden") return;
+  const topic = activeNewsTopic;
+  const language = currentLanguage;
+  if (activeNewsRequest?.countryCode === countryCode && activeNewsRequest.topic === topic
+    && activeNewsRequest.language === language) return;
+  cancelNewsRequest();
+  activeNewsCountryCode = countryCode;
+  const request = { countryCode, topic, language, controller: new AbortController() };
+  activeNewsRequest = request;
+  articleContainer.dataset.newsContext = `${countryCode}:${topic}:${language}`;
+  delete articleContainer.dataset.newsState;
+  const isCurrent = () => activeNewsRequest === request && !request.controller.signal.aborted
+    && activeNewsCountryCode === countryCode && activeNewsTopic === topic && currentLanguage === language
+    && panel.open && document.visibilityState !== "hidden";
+  try {
+    const panelContent = document.querySelector("#news-hub-panel .news-hub-content");
 
-  selectedContainer.innerHTML = `
-    <div class="news-hub-selected-card">
-      <strong>${escapeHtml(country.name)}</strong>
-      <div class="news-hub-meta">${escapeHtml(country.general?.officialName || country.name)}</div>
-    </div>
-  `;
-  articleContainer.innerHTML = `
-    <div class="news-hub-article-card">
-      <strong>${currentLanguage === "en" ? "Loading headline..." : "Cargando noticia..."}</strong>
-      <p>${currentLanguage === "en" ? "If live news is not available, the hub will show a direct link to current coverage." : "Si la noticia en vivo no esta disponible, el hub mostrara un enlace directo a la cobertura actual."}</p>
-      <a class="news-link" href="${getCountryNewsUrl(country)}" target="_blank" rel="noreferrer">
-        ${currentLanguage === "en" ? "Open live coverage now" : "Abrir cobertura en vivo ahora"}
-      </a>
-    </div>
-  `;
-  panelContent?.scrollTo({ top: 0, behavior: "smooth" });
-  document.querySelectorAll("#news-hub-list .news-hub-item").forEach(item => {
-    item.classList.toggle("is-active", item.querySelector("[data-news-country]")?.dataset.newsCountry === countryCode);
-  });
-  const headlines = await fetchCountryHeadlines(country);
-  renderNewsArticle(headlines[0], country, headlines);
+    selectedContainer.innerHTML = typeof newsUi.buildSelectedCard === "function"
+      ? newsUi.buildSelectedCard(country, "", escapeHtml, { topicLabel: getNewsTopicLabel(topic, language) })
+      : `<div class="news-hub-selected-card"><strong>${escapeHtml(country.name)}</strong></div>`;
+    articleContainer.innerHTML = `
+      <div class="news-hub-article-card" role="status" aria-busy="true">
+        <strong>${language === "en" ? "Loading headline..." : "Cargando noticia..."}</strong>
+        <a class="news-link" href="${escapeHtml(getCountryNewsUrl(country, topic))}" target="_blank" rel="noreferrer">
+          ${language === "en" ? "External search" : "Busqueda externa"}
+        </a>
+      </div>
+    `;
+    panelContent?.scrollTo({ top: 0, behavior: mapMotionPreference.matches ? "auto" : "smooth" });
+    document.querySelectorAll("#news-hub-list .news-hub-item").forEach(item => {
+      item.classList.toggle("is-active", item.querySelector("[data-news-country]")?.dataset.newsCountry === countryCode);
+    });
+    await ensureDeferredUiModule("news");
+    if (!isCurrent()) return;
+    const headlines = await fetchCountryHeadlines(country, { topic, language, signal: request.controller.signal });
+    if (!isCurrent()) return;
+    if (headlines.length) renderNewsArticle(headlines[0], country, headlines);
+    else renderNewsState(country);
+  } finally {
+    if (activeNewsRequest === request) activeNewsRequest = null;
+  }
 }
 
 function renderNewsHub(selectedCode = "") {
@@ -9039,6 +9125,17 @@ function renderNewsHub(selectedCode = "") {
   const articleContainer = document.getElementById("news-hub-article");
   const filterInput = document.getElementById("news-country-filter");
   if (!panel || !selectedContainer || !listContainer || !articleContainer) {
+    return;
+  }
+  if (!panel.open) {
+    cancelNewsRequest();
+    selectedContainer.innerHTML = "";
+    articleContainer.innerHTML = "";
+    listContainer.innerHTML = "";
+    return;
+  }
+  if (document.visibilityState === "hidden") {
+    cancelNewsRequest(true);
     return;
   }
 
@@ -9054,26 +9151,33 @@ function renderNewsHub(selectedCode = "") {
     })
     .sort((a, b) => a.country.name.localeCompare(b.country.name, "es"));
 
-  const selected = selectedCode && countriesData[selectedCode] ? countriesData[selectedCode] : null;
+  const displayCode = activeNewsCountryCode || selectedCode;
+  const selected = countriesData[displayCode] || null;
+  const context = `${displayCode}:${activeNewsTopic}:${currentLanguage}`;
+  if (articleContainer.dataset.newsContext !== context) {
+    cancelNewsRequest();
+    articleContainer.innerHTML = "";
+    articleContainer.dataset.newsContext = context;
+    delete articleContainer.dataset.newsState;
+  }
 
+  const sourceLinks = selected ? getCountryNewsPortalLinks(selected)
+    .map(link => `<a class="news-link" href="${escapeHtml(link.url)}" target="_blank" rel="noreferrer">${escapeHtml(link.label)}</a>`).join("") : "";
   selectedContainer.innerHTML = selected
-    ? `
+    ? (typeof newsUi.buildSelectedCard === "function"
+      ? newsUi.buildSelectedCard(selected, sourceLinks, escapeHtml, { topicLabel: getNewsTopicLabel() })
+      : `
       <div class="news-hub-selected-card">
         <strong>${escapeHtml(selected.name)}</strong>
         <div class="news-hub-meta">${escapeHtml(selected.general?.officialName || selected.name)}</div>
-        <div class="news-source-links">${getCountryNewsPortalLinks(selected).map(link => `<a class="news-link" href="${link.url}" target="_blank" rel="noreferrer">${escapeHtml(link.label)}</a>`).join("")}</div>
+        <div class="news-source-links">${sourceLinks}</div>
       </div>
-    `
+    `)
     : "";
 
-  if (!panel.open) {
-    articleContainer.innerHTML = "";
-    listContainer.innerHTML = "";
-    return;
-  }
+  if (selected && !articleContainer.innerHTML) renderNewsState(selected, "idle");
 
-  articleContainer.innerHTML = "";
-  const priorityCode = selectedCode || activeNewsCountryCode;
+  const priorityCode = displayCode;
   const prioritizedCountries = priorityCode
     ? [
         ...countries.filter(item => item.code === priorityCode),
@@ -14412,9 +14516,10 @@ function setupNewsHubPanel() {
   panel.open = false;
   topicSelect?.addEventListener("change", () => {
     activeNewsTopic = topicSelect.value || "general";
-    newsCache.clear();
+    cancelNewsRequest();
     if (panel.open) {
       renderNewsHub(currentPanelState.code || "");
+      if (activeNewsCountryCode) showNewsArticle(activeNewsCountryCode);
     }
   });
   filterInput?.addEventListener("input", () => {
@@ -14422,22 +14527,43 @@ function setupNewsHubPanel() {
       clearTimeout(filterTimer);
     }
     filterTimer = setTimeout(() => {
+      filterTimer = null;
       if (panel.open) {
         renderNewsHub(currentPanelState.code || "");
       }
     }, 120);
   });
   panel.addEventListener("toggle", () => {
+    if (!panel.open) {
+      cancelNewsRequest();
+      clearTimeout(filterTimer);
+      filterTimer = null;
+      renderNewsHub();
+      return;
+    }
     if (panel.open) {
       closeMobilePanels();
       const comparePanel = document.getElementById("compare-hub-panel");
       const quizPanel = document.getElementById("quiz-hub-panel");
       if (comparePanel) comparePanel.open = false;
       if (quizPanel) quizPanel.open = false;
-      ensureDeferredUiModule("news").then(() => renderNewsHub(currentPanelState.code || ""));
+      ensureDeferredUiModule("news").then(() => {
+        if (panel.open && document.visibilityState !== "hidden") renderNewsHub(currentPanelState.code || "");
+      });
       renderNewsHub(currentPanelState.code || "");
     }
   });
+  const syncAvailability = () => {
+    const cancelled = !canLoadNewsHeadlines() && cancelNewsRequest(true);
+    const article = document.getElementById("news-hub-article");
+    if (!cancelled && panel.open && document.visibilityState !== "hidden" && article?.dataset.newsState) {
+      renderNewsState(countriesData[activeNewsCountryCode || currentPanelState.code], article.dataset.newsState);
+    }
+  };
+  document.addEventListener("visibilitychange", syncAvailability);
+  window.addEventListener("offline", syncAvailability);
+  window.addEventListener("online", syncAvailability);
+  navigator.connection?.addEventListener?.("change", syncAvailability);
 }
 
 function setupQuizHubPanel() {

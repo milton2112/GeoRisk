@@ -28,7 +28,7 @@
 
   function buildStateCard(title, body, linksMarkup = "") {
     return `
-      <div class="news-hub-article-card news-state-card">
+      <div class="news-hub-article-card news-state-card" role="status">
         <strong>${title}</strong>
         <p>${body}</p>
         ${linksMarkup ? `<div class="news-source-links">${linksMarkup}</div>` : ""}

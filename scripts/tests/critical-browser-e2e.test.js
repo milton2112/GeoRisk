@@ -1737,6 +1737,143 @@ async function testCountryDataRecovery(browser, baseUrl) {
   }
 }
 
+async function testNewsLifecycle(browser, baseUrl) {
+  for (const [label, viewport] of [["desktop", DESKTOP_VIEWPORT], ["mobile", MOBILE_VIEWPORT]]) {
+    const test = await createTestPage(browser, baseUrl, viewport, async page => {
+      await page.addInitScript(() => {
+        const nativeFetch = window.fetch.bind(window);
+        const fixture = window.__newsFixture = { mode: "ok", calls: [] };
+        window.fetch = (url, options = {}) => {
+          if (!String(url).startsWith("https://api.gdeltproject.org/")) return nativeFetch(url, options);
+          const id = fixture.calls.length;
+          const response = () => new Response(JSON.stringify({ articles: fixture.mode === "empty" ? []
+            : Array.from({ length: 4 }, (_, i) => ({
+              title: `Titular de prueba ${id}-${i}`, sourceCommonName: "Fuente de prueba",
+              seendate: "20261002T120000Z", url: `https://example.com/news/${id}/${i}`
+            })) }), { headers: { "Content-Type": "application/json" } });
+          const call = { url: String(url), signal: options.signal, release: null };
+          fixture.calls.push(call);
+          // A late provider deliberately ignores abort so the UI must reject stale results.
+          return fixture.mode === "hold" ? new Promise(resolve => { call.release = () => resolve(response()); })
+            : Promise.resolve(response());
+        };
+      });
+    });
+    const { page } = test;
+    const openHub = async () => {
+      if (label === "mobile") {
+        await page.locator("#toggle-more-panel").click();
+        await page.locator('[data-mobile-hub-target="news-hub-panel"]').click();
+      } else {
+        await page.locator("#news-hub-panel > summary").click();
+      }
+      await page.locator(".news-hub-content").waitFor({ state: "visible" });
+    };
+    const count = () => page.evaluate(() => window.__newsFixture.calls.length);
+    const selectCountry = async (name, code) => {
+      await page.locator("#news-country-filter").fill(name);
+      const row = page.locator(`#news-hub-list [data-news-country="${code}"]`);
+      await row.waitFor({ state: "visible" });
+      await row.click();
+    };
+    try {
+      await waitForAppReady(page, { requireTiles: false });
+      assert.equal(await count(), 0, label + " no headlines at startup");
+      await openHub();
+      await page.waitForFunction(() => typeof newsUi.buildStateCard === "function");
+      assert.equal(await count(), 0, "opening the hub does not download headlines");
+      await page.evaluate(() => { window.__newsFixture.mode = "hold"; });
+      await selectCountry("Argentina", "ARG");
+      await page.waitForFunction(() => window.__newsFixture.calls.length === 1);
+      await page.evaluate(() => { window.__newsFixture.mode = "ok"; });
+      await selectCountry("Brasil", "BRA");
+      await page.waitForFunction(() => document.getElementById("news-hub-article").textContent.includes("Titular de prueba 1-0"));
+      await page.evaluate(() => window.__newsFixture.calls[0].release());
+      assert.equal(await page.evaluate(() => window.__newsFixture.calls[0].signal.aborted), true);
+      await page.evaluate(() => renderNewsHub("ARG"));
+      assert.match(await page.locator("#news-hub-selected").textContent(), /Brasil/);
+      assert.match(await page.locator("#news-hub-article").textContent(), /Titular de prueba 1-0/);
+      assert.equal(await page.evaluate(() => newsCache.has("ARG:general")), false, "no late country cache entry");
+      assert.equal(await count(), 2);
+
+      await page.locator("#news-topic-select").selectOption("economy");
+      await page.waitForFunction(() => document.getElementById("news-hub-article").textContent.includes("Titular de prueba 2-0"));
+      assert.match(await page.locator("#news-hub-article").textContent(), /economia/i);
+      await page.locator("#news-topic-select").selectOption("general");
+      await page.waitForFunction(() => document.getElementById("news-hub-article").textContent.includes("Titular de prueba 1-0"));
+      assert.equal(await count(), 3, "changing back reuses valid topic cache");
+
+      await page.evaluate(() => { window.__newsFixture.mode = "hold"; });
+      await page.locator("#news-topic-select").selectOption("diplomacy");
+      await page.waitForFunction(() => window.__newsFixture.calls.length === 4);
+      await page.locator("#news-hub-panel > summary").click();
+      await page.waitForFunction(() => activeNewsRequest === null && window.__newsFixture.calls[3].signal.aborted);
+      await openHub();
+      await page.locator("#news-hub-article .news-state-card").waitFor({ state: "visible" });
+      assert.equal(await page.locator('#news-hub-article [aria-busy="true"]').count(), 0);
+      assert.equal(await count(), 4, "reopening never resumes a cancelled download");
+      await page.evaluate(() => window.__newsFixture.calls[3].release());
+      assert.ok(!(await page.locator("#news-hub-article").textContent()).includes("Titular de prueba 3-0"));
+
+      await page.evaluate(() => { window.__newsFixture.mode = "empty"; });
+      await page.locator("#news-topic-select").selectOption("conflict");
+      const retry = page.locator('#news-hub-article [data-news-country="BRA"]');
+      await retry.waitFor({ state: "visible" });
+      assert.match(await page.locator("#news-hub-article").textContent(), /Titulares no disponibles/);
+      const failedCount = await count();
+      assert.equal(await page.evaluate(() => newsCache.has("BRA:conflict")), false);
+      await page.evaluate(() => {
+        Object.defineProperty(navigator.connection, "saveData", { configurable: true, value: true });
+        navigator.connection.dispatchEvent(new Event("change"));
+      });
+      await page.locator("#news-topic-select").selectOption("politics");
+      await page.waitForFunction(() => document.getElementById("news-hub-article").textContent.includes("Ahorro de datos activo"));
+      assert.equal(await count(), failedCount);
+      await page.locator("#news-topic-select").selectOption("general");
+      await page.waitForFunction(() => document.getElementById("news-hub-article").textContent.includes("Titular de prueba 1-0"));
+      assert.equal(await count(), failedCount, "Save-Data keeps cached headlines available");
+      await page.locator("#news-topic-select").selectOption("politics");
+      await page.evaluate(() => {
+        Object.defineProperty(navigator.connection, "saveData", { configurable: true, value: false });
+        navigator.connection.dispatchEvent(new Event("change"));
+        window.__newsFixture.mode = "hold";
+      });
+      await retry.waitFor({ state: "visible" });
+      assert.equal(await count(), failedCount, "restoring data availability does not fetch");
+      await retry.focus();
+      await retry.press("Enter");
+      await page.waitForFunction(expected => window.__newsFixture.calls.length === expected + 1, failedCount);
+      await page.evaluate(() => {
+        Object.defineProperty(navigator, "onLine", { configurable: true, value: false });
+        window.dispatchEvent(new Event("offline"));
+      });
+      await page.waitForFunction(() => activeNewsRequest === null && window.__newsFixture.calls.at(-1).signal.aborted);
+      assert.match(await page.locator("#news-hub-article").textContent(), /Sin conexion/);
+      await page.evaluate(() => {
+        Object.defineProperty(navigator, "onLine", { configurable: true, value: true });
+        window.dispatchEvent(new Event("online"));
+        window.__newsFixture.mode = "ok";
+        window.__newsFixture.calls.at(-1).release();
+      });
+      await retry.waitFor({ state: "visible" });
+      assert.equal(await count(), failedCount + 1, "online recovery does not fetch automatically");
+      assert.equal(await page.locator('#news-hub-article [aria-busy="true"]').count(), 0);
+      assert.equal(await page.locator('#news-hub-article [role="status"]').count(), 1);
+      await retry.click();
+      await page.waitForFunction(() => document.querySelector("#news-hub-article .news-headline-list"));
+      const content = page.locator(".news-hub-content");
+      assert.ok(await content.evaluate(element => element.scrollWidth <= element.clientWidth + 1), label + " news fits its panel");
+      await content.screenshot({ path: `tmp/news-ready-${label}.png` });
+      assertHealthyPage(test.pageErrors, label + " news lifecycle");
+    } finally {
+      await page.evaluate(() => {
+        for (const call of window.__newsFixture.calls) call.release?.();
+      }).catch(() => {});
+      await test.context.close();
+    }
+  }
+}
+
 async function testBackgroundPanels(browser, baseUrl) {
   for (const viewport of [DESKTOP_VIEWPORT, MOBILE_VIEWPORT]) {
     const label = viewport === MOBILE_VIEWPORT ? "mobile" : "desktop";
@@ -2312,6 +2449,7 @@ try {
     ["--offline-only", testFirstWorkerActivation],
     ["--data-only", testRequiredStartupData],
     ["--country-data-only", testCountryDataRecovery],
+    ["--news-only", testNewsLifecycle],
     ["--scheduler-only", testDeferredWorkDuringDrag],
     ["--panels-only", testBackgroundPanels]
   ];

@@ -18,7 +18,7 @@ GeoRisk keeps runtime files in the repository root for now. The project is split
 - `app-rankings.js`, `app-rankings-worker.js`: ranking formulas, score components and worker ranking work.
 - `app-compare-ui.js`: comparison model and render helpers.
 - `app-quiz-ui.js`: quiz engine helpers and render helpers.
-- `app-news-ui.js`: news hub render helpers.
+- `app-news-ui.js`: deferred, pure news hub render helpers, including accessible status cards. The orchestrator owns the selected country/topic/language and a single cancellable request; changing selection, closing/hiding, offline or Save-Data invalidates it. Each request attempt has a 2500 ms deadline through body parsing, with timer/listener cleanup. Valid raw headlines use a page-local LRU cache: at most 16 country/topic entries, 4 bounded-field headlines each, 20-minute TTL, expiry on access. Locale changes reuse raw results; errors and cancellations are not cached. Closed/hidden hubs skip country scans, and reopening/reconnecting never resumes optional downloads automatically. JSON response bytes are not independently capped; these limits bound retained cache fields, not peak parsing memory.
 - `app-export-share.js`: deferred export/share helpers and lazy third-party export libraries.
 - `app-help-ui.js`: deferred public help/onboarding copy.
 - `app-performance-ui.js`, `app-risk-radar-ui.js`, `app-conflict-audit-ui.js`, `app-project-audit-ui.js`: deferred internal panels.
