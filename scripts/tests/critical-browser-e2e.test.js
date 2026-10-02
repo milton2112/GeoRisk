@@ -1933,6 +1933,56 @@ async function testBackgroundPanels(browser, baseUrl) {
   }
 }
 
+async function testDeferredUiRecovery(browser, baseUrl) {
+  for (const [label, viewport] of [["desktop", DESKTOP_VIEWPORT], ["mobile", MOBILE_VIEWPORT]]) {
+    let attempts = 0;
+    const test = await createTestPage(browser, baseUrl, viewport, async page => {
+      await page.addInitScript(() => {
+        window.__deferredCopies = [];
+        Object.defineProperty(navigator, "share", { configurable: true, value: undefined });
+        Object.defineProperty(navigator, "clipboard", { configurable: true, value: {
+          async writeText(text) { window.__deferredCopies.push(text); }
+        } });
+      });
+      await page.route("**/app-export-share.js*", async route => {
+        attempts += 1;
+        if (attempts === 1) await route.abort("internetdisconnected");
+        else await route.continue();
+      });
+    });
+    const { page } = test;
+    try {
+      await waitForAppReady(page, { requireTiles: false });
+      assert.equal(attempts, 0, "deferred export/share module is not downloaded at startup");
+      await page.locator(label === "mobile" ? "#toggle-left-panel" : "#rankings-summary").click();
+      const button = page.locator('[data-share-target="left-panel"]');
+      await button.click();
+      const notice = page.locator("#app-toast");
+      await notice.filter({ hasText: "Revisa tu conexion" }).waitFor({ state: "visible" });
+      assert.equal(await notice.getAttribute("role"), "status");
+      assert.equal(attempts, 1, "failed imports do not automatically retry");
+      assert.equal(await page.evaluate(() => window.__deferredCopies.length), 0);
+      assert.equal(await page.evaluate(() => deferredUiModulePromises.has("exportShare")), false);
+      const bounds = await notice.boundingBox();
+      assert.ok(bounds && bounds.x >= 0 && bounds.x + bounds.width <= viewport.width + 1, label + " load failure fits viewport");
+      await notice.screenshot({ path: `tmp/deferred-recovery-${label}.png` });
+
+      await button.focus();
+      await button.press("Enter");
+      const recovered = await page.evaluate(async () => Boolean(await deferredUiModulePromises.get("exportShare")));
+      assert.equal(recovered, true, label + " a real failed import can recover without reloading the page");
+      await page.waitForFunction(() => window.__deferredCopies.length === 1);
+      assert.equal(attempts, 2, "one explicit action makes one retry");
+      await button.click();
+      await page.waitForFunction(() => window.__deferredCopies.length === 2);
+      assert.equal(attempts, 2, "successful imports are reused");
+      assertHealthyPage(test.pageErrors, label + " deferred recovery");
+    } finally {
+      await test.context.close();
+    }
+  }
+}
+
 async function testShareLifecycle(browser, baseUrl) {
   for (const [label, viewport] of [["desktop", DESKTOP_VIEWPORT], ["mobile", MOBILE_VIEWPORT]]) {
     const requests = [];
@@ -2522,6 +2572,7 @@ try {
     ["--storage-only", testStorageFailures],
     ["--exports-only", testSecureExports],
     ["--share-only", testShareLifecycle],
+    ["--deferred-only", testDeferredUiRecovery],
     ["--performance-only", testIdleMapPerformance],
     ["--green-only", testGreenCoding],
     ["--motion-only", testReducedMapMotion],

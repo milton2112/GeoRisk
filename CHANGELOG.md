@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.260 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.261 antes de cerrar la siguiente version.
+
+## v1.6.261 - 2026-10-02
+
+- Corrige la recuperacion de modulos diferidos: una descarga fallida quedaba guardada como false durante toda la sesion, por lo que volver a pulsar Compartir u otra funcion no la recuperaba. Retira la promesa fallida, comparte intentos simultaneos y conserva las cargas exitosas.
+- Chromium tambien retiene la URL de un import fallido. Permite hasta tres intentos por modulo/sesion, con dos variantes de URL acotadas y solo ante errores reconocidos de descarga. No crea bucles, temporizadores, precargas ni un reintento al reconectar; hace falta una nueva solicitud de la funcion. Al agotar intentos pide recargar. Los errores de codigo o no reconocidos piden recarga sin volver a evaluar posibles efectos parciales; solo admite nombres propios del registro de modulos.
+- Reutiliza el aviso accesible existente, en espanol/ingles, en vez de dejar el boton sin respuesta visible. Las regresiones reprodujeron tanto la promesa retenida como el import fallido de Chromium; verifican concurrencia, reutilizacion, aislamiento entre modulos, limite de intentos, errores de codigo y arranque sin el modulo de avisos.
+- Chrome verifica corte/restauracion de la descarga del modulo, boton real de Compartir en Rankings, reintento con teclado, aviso role=status y ancho mobile, sin recargar la pagina. Las solicitudes se interceptan y el portapapeles se simula; no sustituye un celular fisico ni prueba todos los modulos/navegadores. Un fallo transitivo de una dependencia con URL retenida puede requerir recarga aunque el modulo principal se reintente.
+- Green coding: script.js pasa de 588985 a 590397 bytes (+1412), necesarios para recuperacion y feedback; agrega un mapa limitado a los 14 nombres registrados y como maximo dos URL adicionales por modulo fallido. Sin dependencias, polling, descargas de inicio adicionales ni cambios de datos. La cache offline existente conserva su limite de 80 entradas; no se crea almacenamiento nuevo ni se infiere ahorro energetico o de CO2.
+- Referencia y limites del cache de modulos: [import(), MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import).
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-10-02-release-4`.
 
 ## v1.6.260 - 2026-10-02
 

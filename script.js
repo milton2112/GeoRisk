@@ -85,7 +85,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-10-02-release-3";
+const APP_VERSION = "2026-10-02-release-4";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -112,6 +112,7 @@ const DEFERRED_UI_MODULES = {
   exportShare: `./app-export-share.js?v=${APP_VERSION}`
 };
 const deferredUiModulePromises = new Map();
+const deferredUiModuleFailures = new Map();
 
 function refreshDeferredUiGlobals() {
   newsUi = window.GeoRiskNewsUI || newsUi || {};
@@ -137,18 +138,36 @@ function refreshDeferredUiGlobals() {
 }
 
 async function ensureDeferredUiModule(moduleName) {
-  const moduleUrl = DEFERRED_UI_MODULES[moduleName];
+  const moduleUrl = Object.hasOwn(DEFERRED_UI_MODULES, moduleName) ? DEFERRED_UI_MODULES[moduleName] : null;
   if (!moduleUrl) {
     return;
   }
 
   if (!deferredUiModulePromises.has(moduleName)) {
+    const failures = deferredUiModuleFailures.get(moduleName) || 0;
+    if (failures >= 3) {
+      uiPolish.showToast?.(currentLanguage === "en"
+        ? "Could not load this feature. Reload the page to try again."
+        : "No se pudo cargar esta funcion. Recarga la pagina para volver a intentarlo.");
+      return false;
+    }
+    // Chromium retains failed module URLs. Bound retry variants to this session.
+    const loadUrl = failures ? `${moduleUrl}&retry=${failures}` : moduleUrl;
     deferredUiModulePromises.set(
       moduleName,
-      import(moduleUrl)
+      import(loadUrl)
         .then(() => true)
         .catch(error => {
+          deferredUiModulePromises.delete(moduleName);
+          const exhausted = failures >= 2 || error?.name !== "TypeError" ||
+            !/^(Failed to fetch dynamically imported module|error loading dynamically imported module|Importing a module script failed)/i.test(error?.message || "");
+          deferredUiModuleFailures.set(moduleName, exhausted ? 3 : failures + 1);
           console.warn(`No se pudo cargar modulo diferido ${moduleName}:`, error);
+          uiPolish.showToast?.(exhausted
+            ? (currentLanguage === "en" ? "Could not load this feature. Reload the page to try again."
+              : "No se pudo cargar esta funcion. Recarga la pagina para volver a intentarlo.")
+            : (currentLanguage === "en" ? "Could not load this feature. Check your connection and try again."
+              : "No se pudo cargar esta funcion. Revisa tu conexion y vuelve a intentarlo."));
           return false;
         })
         .finally(refreshDeferredUiGlobals)
