@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-02T17:35:08.159Z",
+  "generatedAt": "2026-10-02T18:05:56.461Z",
   "status": "operativo",
   "startup": {
     "critical": "869 KB",
@@ -838,8 +838,8 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 308990,
-      "human": "302 KB"
+      "bytes": 311476,
+      "human": "304 KB"
     },
     {
       "path": "style.css",

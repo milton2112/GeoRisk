@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-02T17:35:09.854Z",
+  "generatedAt": "2026-10-02T18:05:58.211Z",
   "startupBytes": 889879,
   "startupHuman": "869 KB",
   "startupScope": "App shell and eager local scripts only; excludes the separately budgeted map engine.",
@@ -12,7 +12,7 @@
   "appCoreAndEngineBytes": 4319492,
   "appCoreAndEngineHuman": "4.12 MB",
   "excludedStartupCosts": "External CSS, workers, imagery and geographic/data requests are not included in appCoreAndEngineBytes. This is not total network transfer or compressed size.",
-  "deferredBytes": 3280577,
+  "deferredBytes": 3280677,
   "deferredHuman": "3.13 MB",
   "estimatedRuntimeMemory": {
     "countriesFullBytes": 13183467,
@@ -291,7 +291,7 @@
     {
       "path": "app-export-share.js",
       "exists": true,
-      "bytes": 10536,
+      "bytes": 10636,
       "human": "10 KB",
       "startupCritical": false,
       "category": "deferred-or-auxiliary"

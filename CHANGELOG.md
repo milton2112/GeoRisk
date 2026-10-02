@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.261 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.262 antes de cerrar la siguiente version.
+
+## v1.6.262 - 2026-10-02
+
+- Evita exportaciones PNG/PDF simultaneas por clics repetidos, que podian clonar el informe y capturar varios canvas a la vez. Un indicador privado, compartido entre formatos, se activa antes de cargar librerias y se libera en finally. Una accion posterior puede volver a exportar; no encola ni repite automaticamente el formato rechazado y muestra un aviso accesible de exportacion en curso.
+- Comparte el flujo de captura/generacion entre PNG y PDF conservando escala, fondo, orientacion, nombres, SRI y carga bajo demanda. Incluye la construccion del informe dentro del manejo de errores: un fallo al clonar ahora se anuncia y termina sin rechazo no manejado. Errores de librerias, captura, codificacion y guardado tambien liberan el bloqueo y retiran el informe temporal.
+- Pone ancho/alto del canvas transitorio a cero despues de generar el archivo, tambien si falla la codificacion o el PDF. La prueba de navegador conserva un PNG no vacio y un PDF valido y comprueba dimensiones cero tras finalizar. No se mide memoria pico ni se garantiza cuando el navegador devuelve la RAM al sistema.
+- La regresion reprodujo dos llamadas simultaneas al cargador para distintos formatos antes del arreglo, no dos descargas de la misma libreria. Pruebas aisladas verifican una sola captura/descarga, bloqueo durante carga/captura, reintento explicito, limpieza, fallos e idioma. Amplia el recorrido de exportacion existente en Chrome desktop/mobile emulado, sin nuevas paginas: PDF retenido, segundo clic en PNG, aviso role=status que cabe en mobile, una sola captura, dimensiones finales y archivos reales. Mantiene la prueba de SRI alterado; no sustituye un celular fisico.
+- Green coding: app-export-share.js pasa de 10536 a 10636 bytes (+100), solo bajo demanda; script.js y el nucleo inicial conservan 590397 y 889879 bytes. Unifica trabajo duplicado y limita a una exportacion pendiente, sin dependencias, precargas, polling, cache ni temporizadores nuevos de exportacion. Reutiliza el aviso y su temporizador existentes. No cambia datos ni infiere ahorro energetico o de CO2.
+- Limites: una captura que nunca resuelva sigue pendiente hasta recargar; no se agrega un timeout que deje capturas simultaneas en segundo plano. No establece un limite de dimensiones para informes largos ni confirma que el usuario haya guardado el archivo en disco: true indica entrega al mecanismo de descarga.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-10-02-release-5`.
 
 ## v1.6.261 - 2026-10-02
 

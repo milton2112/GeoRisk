@@ -3,6 +3,7 @@ import { exportAssets } from "./vendor/exports/manifest.js";
 let exportCanvasLibraryPromise = null;
 let exportPdfLibraryPromise = null;
 let sharingInProgress = false;
+let exportInProgress = false;
 
 function getLanguage(context = {}) {
   return context.language === "en" ? "en" : "es";
@@ -172,76 +173,69 @@ async function ensureExportLibraries(format = "image", context = {}) {
   return typeof html2canvas === "function" && (format !== "pdf" || Boolean(window.jspdf?.jsPDF));
 }
 
-async function exportNodeAsImage(node, filename, context = {}) {
-  if (!node) {
-    return;
-  }
-
-  const ready = await ensureExportLibraries("image", context).catch(error => {
-    console.warn("No se pudieron cargar las librerias de exportacion:", error);
-    notify(context, "Export tools could not load. Check your connection and retry.", "No se pudieron cargar las herramientas de exportacion. Revisa tu conexion y reintenta.");
+async function exportNode(node, filename, format, context = {}) {
+  if (!node) return false;
+  if (exportInProgress) {
+    notify(context, "An export is already in progress. Wait for it to finish.", "Hay una exportacion en curso. Espera a que termine.");
     return false;
-  });
-  if (!ready) {
-    return;
   }
-
-  const captureNode = buildReportCaptureNode(node, filename?.replace(/\.(png|pdf)$/i, ""), context);
+  exportInProgress = true;
+  let captureNode = null;
+  let canvas = null;
   try {
-    const canvas = await html2canvas(captureNode, {
-      backgroundColor: "#071320",
-      scale: Math.min(window.devicePixelRatio > 1 ? 2 : 1.8, 2.2),
-      useCORS: true
+    const ready = await ensureExportLibraries(format, context).catch(error => {
+      console.warn("No se pudieron cargar las librerias de exportacion:", error);
+      return false;
     });
-
-    const link = document.createElement("a");
-    link.href = canvas.toDataURL("image/png");
-    link.download = `${buildExportFilename(filename?.replace(/\.png$/i, ""), context)}.png`;
-    link.click();
-  } catch (error) {
-    console.warn("No se pudo generar la imagen:", error);
-    notify(context, "Could not generate the image. Retry the export.", "No se pudo generar la imagen. Reintenta la exportacion.");
-  } finally {
-    captureNode.remove();
-  }
-}
-
-async function exportNodeAsPdf(node, filename, context = {}) {
-  if (!node) {
-    return;
-  }
-
-  const ready = await ensureExportLibraries("pdf", context).catch(error => {
-    console.warn("No se pudieron cargar las librerias de exportacion:", error);
-    notify(context, "PDF tools could not load. Check your connection and retry.", "No se pudieron cargar las herramientas de PDF. Revisa tu conexion y reintenta.");
-    return false;
-  });
-  if (!ready) {
-    return;
-  }
-
-  const captureNode = buildReportCaptureNode(node, filename?.replace(/\.(png|pdf)$/i, ""), context);
-  try {
-    const canvas = await html2canvas(captureNode, {
+    if (!ready) {
+      notify(context,
+        format === "pdf" ? "PDF tools could not load. Check your connection and retry." : "Export tools could not load. Check your connection and retry.",
+        format === "pdf" ? "No se pudieron cargar las herramientas de PDF. Revisa tu conexion y reintenta." : "No se pudieron cargar las herramientas de exportacion. Revisa tu conexion y reintenta.");
+      return false;
+    }
+    captureNode = buildReportCaptureNode(node, filename?.replace(/\.(png|pdf)$/i, ""), context);
+    canvas = await html2canvas(captureNode, {
       backgroundColor: "#071320",
-      scale: 2,
+      scale: format === "pdf" ? 2 : Math.min(window.devicePixelRatio > 1 ? 2 : 1.8, 2.2),
       useCORS: true
     });
     const image = canvas.toDataURL("image/png");
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF({
-      orientation: canvas.width > canvas.height ? "landscape" : "portrait",
-      unit: "px",
-      format: [canvas.width, canvas.height]
-    });
-    pdf.addImage(image, "PNG", 0, 0, canvas.width, canvas.height);
-    pdf.save(`${buildExportFilename(filename?.replace(/\.pdf$/i, ""), context)}.pdf`);
+    const base = buildExportFilename(filename?.replace(/\.(png|pdf)$/i, ""), context);
+    if (format === "pdf") {
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF({
+        orientation: canvas.width > canvas.height ? "landscape" : "portrait",
+        unit: "px",
+        format: [canvas.width, canvas.height]
+      });
+      pdf.addImage(image, "PNG", 0, 0, canvas.width, canvas.height);
+      pdf.save(`${base}.pdf`);
+    } else {
+      const link = document.createElement("a");
+      link.href = image;
+      link.download = `${base}.png`;
+      link.click();
+    }
+    return true;
   } catch (error) {
-    console.warn("No se pudo generar el PDF:", error);
-    notify(context, "Could not generate the PDF. Retry the export.", "No se pudo generar el PDF. Reintenta la exportacion.");
+    console.warn("No se pudo generar la exportacion:", error);
+    notify(context,
+      format === "pdf" ? "Could not generate the PDF. Retry the export." : "Could not generate the image. Retry the export.",
+      format === "pdf" ? "No se pudo generar el PDF. Reintenta la exportacion." : "No se pudo generar la imagen. Reintenta la exportacion.");
+    return false;
   } finally {
-    captureNode.remove();
+    exportInProgress = false;
+    if (canvas) { canvas.width = 0; canvas.height = 0; }
+    captureNode?.remove();
   }
+}
+
+async function exportNodeAsImage(node, filename, context = {}) {
+  return exportNode(node, filename, "image", context);
+}
+
+async function exportNodeAsPdf(node, filename, context = {}) {
+  return exportNode(node, filename, "pdf", context);
 }
 
 async function shareText(title, text, context = {}) {
