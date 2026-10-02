@@ -12,6 +12,9 @@ const workflow = parse(await fs.readFile(".github/workflows/release-gate.yml", "
 assert.deepEqual(workflow.permissions, { contents: "read" });
 assert.deepEqual(workflow.on.push.branches, ["main"]);
 assert.ok(!Object.hasOwn(workflow.on, "pull_request_target"));
+assert.equal(workflow.concurrency.group, "release-${{ github.workflow }}-${{ github.ref }}-${{ github.event_name == 'schedule' && 'audit' || 'release' }}",
+  "scheduled audits must not cancel releases; push and manual releases still share a group per ref");
+assert.equal(workflow.concurrency["cancel-in-progress"], true, "superseded runs in the same group must still stop");
 const gate = workflow.jobs["release-gate"];
 const deploy = workflow.jobs["deploy-pages"];
 const upload = gate.steps.find(step => step.uses?.startsWith("actions/upload-pages-artifact@"));

@@ -60,7 +60,7 @@
     },
     {
       "name": "dompurify",
-      "version": "3.4.15",
+      "version": "3.4.16",
       "license": "(MPL-2.0 OR Apache-2.0)"
     },
     {
@@ -132,13 +132,13 @@
   "artifacts": [
     {
       "path": "vendor/cesium/engine.js",
-      "bytes": 3428249,
-      "sha256": "9f413ce5b6a716b1c109a6e4619f43763ae6f5fe0ff2d1b0aeb008b961da37bd"
+      "bytes": 3429613,
+      "sha256": "013c154328155241bc684bbcd75c852d3e3e08cec04547a7d3ae20ae863ca7a2"
     },
     {
       "path": "vendor/cesium/LICENSES.txt",
       "bytes": 97874,
-      "sha256": "9669b0aeae01c5045f8133246ea895887910874014f9ebc6bf2098408623a2b4"
+      "sha256": "d107e5c8cb5fa1d7264f9c5e71a08e5e49158f5d14a03553b26eedca8ed93c58"
     }
   ]
 }

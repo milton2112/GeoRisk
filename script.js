@@ -85,7 +85,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-09-27-release-3";
+const APP_VERSION = "2026-09-28-release-1";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -839,8 +839,8 @@ function applyAppMode(mode = "default", persist = true) {
   document.body.dataset.appMode = appMode;
   document.body.classList.toggle("presentation-mode", appMode === "presentation");
   if (persist) {
-    localStorage.setItem(STORAGE_KEYS.appMode, appMode);
-    localStorage.setItem(STORAGE_KEYS.presentation, String(appMode === "presentation"));
+    writeLocalPreference(STORAGE_KEYS.appMode, appMode);
+    writeLocalPreference(STORAGE_KEYS.presentation, String(appMode === "presentation"), false);
   }
 
   const select = document.getElementById("app-mode-select");
@@ -914,7 +914,7 @@ function closeIntroModal(markSeen = true) {
   }
   modal.hidden = true;
   if (markSeen) {
-    localStorage.setItem(STORAGE_KEYS.introSeen, "true");
+    writeLocalPreference(STORAGE_KEYS.introSeen, "true", false);
   }
   syncModalOpenState();
 }
@@ -1226,7 +1226,7 @@ function updateIntroRuntimeStatus() {
 function setAutoRotateState(enabled, persist = true) {
   autoRotateEnabled = Boolean(enabled);
   autoRotation.reset();
-  if (persist) localStorage.setItem(STORAGE_KEYS.autoRotate, String(autoRotateEnabled));
+  if (persist) writeLocalPreference(STORAGE_KEYS.autoRotate, String(autoRotateEnabled));
   const button = document.getElementById("auto-rotate-button");
   if (button) {
     button.classList.toggle("is-active", autoRotateEnabled);
@@ -6741,7 +6741,10 @@ async function renderCountry(country, fallbackName) {
   const notesKey = typeof countryPanelUi.getNotesStorageKey === "function"
     ? countryPanelUi.getNotesStorageKey(countryCode)
     : `geo-risk-country-notes:${countryCode || "unknown"}`;
-  const savedNotes = countryCode ? (localStorage.getItem(notesKey) || "") : "";
+  const previousNotes = document.querySelector("[data-country-notes]");
+  const hasUnsavedNotes = previousNotes?.dataset.unsaved === "true" && previousNotes.dataset.countryNotes === countryCode;
+  const storedNotes = countryCode ? readLocalPreference(notesKey, false) : "";
+  const savedNotes = hasUnsavedNotes ? previousNotes.value : (storedNotes || "");
   const sectionQualityItems = typeof countryPanelUi.buildSectionQuality === "function"
     ? countryPanelUi.buildSectionQuality(country, currentLanguage)
     : [];
@@ -6822,10 +6825,20 @@ async function renderCountry(country, fallbackName) {
   const notesInput = document.querySelector("[data-country-notes]");
   if (notesInput && countryCode) {
     const notesStatus = document.querySelector("[data-country-notes-status]");
+    const unsavedMessage = currentLanguage === "en"
+      ? "Not saved. Copy your notes before closing this profile or changing country."
+      : "No se guardaron. Copia las notas antes de cerrar esta ficha o cambiar de pais.";
+    notesInput.dataset.unsaved = String(hasUnsavedNotes);
+    if (notesStatus && (hasUnsavedNotes || storedNotes === false)) {
+      notesStatus.textContent = hasUnsavedNotes ? unsavedMessage : (currentLanguage === "en"
+        ? "Saved notes could not be read. They have not been deleted."
+        : "No se pudieron leer las notas guardadas. No se borraron.");
+    }
     notesInput.addEventListener("input", event => {
-      localStorage.setItem(notesKey, event.target.value || "");
+      const saved = writeLocalPreference(notesKey, event.target.value || "", false);
+      notesInput.dataset.unsaved = String(!saved);
       if (notesStatus) {
-        notesStatus.textContent = currentLanguage === "en" ? "Notes saved." : "Notas guardadas.";
+        notesStatus.textContent = saved ? (currentLanguage === "en" ? "Notes saved." : "Notas guardadas.") : unsavedMessage;
       }
     });
   }
@@ -7205,7 +7218,7 @@ function pushSearchHistory(query) {
     return;
   }
   searchHistory = [query.trim(), ...searchHistory.filter(item => normalizeText(item) !== normalized)].slice(0, 10);
-  localStorage.setItem(STORAGE_KEYS.searchHistory, JSON.stringify(searchHistory));
+  writeLocalPreference(STORAGE_KEYS.searchHistory, JSON.stringify(searchHistory), false);
   renderSearchMemory();
 }
 
@@ -7215,7 +7228,7 @@ function saveCurrentSearch(query) {
     return;
   }
   savedSearches = [query.trim(), ...savedSearches.filter(item => normalizeText(item) !== normalized)].slice(0, 12);
-  localStorage.setItem(STORAGE_KEYS.savedSearches, JSON.stringify(savedSearches));
+  writeLocalPreference(STORAGE_KEYS.savedSearches, JSON.stringify(savedSearches));
   renderSearchMemory();
 }
 
@@ -10149,10 +10162,22 @@ function rerenderCurrentPanel() {
   rerenderCurrentPanelFrame = setTimeout(flush, 0);
 }
 
-function readLocalPreference(key) {
+function readLocalPreference(key, fallback = null) {
   try {
     return localStorage.getItem(key);
-  } catch { return null; }
+  } catch { return fallback; }
+}
+
+function writeLocalPreference(key, value, notify = true) {
+  try {
+    localStorage.setItem(key, value);
+    return true;
+  } catch {
+    if (notify) uiPolish.showToast?.(currentLanguage === "en"
+      ? "Could not save on this device. The change only applies to this tab."
+      : "No se pudo guardar en este dispositivo. El cambio solo se mantiene en esta pestana.");
+    return false;
+  }
 }
 
 function loadSavedPreferences() {
@@ -10231,7 +10256,7 @@ function buildWorldBankCountryNameMap(entries) {
 }
 
 function persistSavedFilters() {
-  localStorage.setItem(STORAGE_KEYS.filters, JSON.stringify(savedFilters));
+  writeLocalPreference(STORAGE_KEYS.filters, JSON.stringify(savedFilters));
 }
 
 function renderSavedFilters() {
@@ -10246,11 +10271,11 @@ function renderSavedFilters() {
 }
 
 function persistSavedViews() {
-  localStorage.setItem(STORAGE_KEYS.views, JSON.stringify(savedViews));
+  writeLocalPreference(STORAGE_KEYS.views, JSON.stringify(savedViews));
 }
 
 function persistFavoriteViews() {
-  localStorage.setItem(STORAGE_KEYS.favorites, JSON.stringify(favoriteViews));
+  writeLocalPreference(STORAGE_KEYS.favorites, JSON.stringify(favoriteViews));
 }
 
 function renderSavedViews() {
@@ -10608,7 +10633,7 @@ async function openHelpModal() {
   }
 
   modal.hidden = false;
-  localStorage.setItem(STORAGE_KEYS.helpSeen, "true");
+  writeLocalPreference(STORAGE_KEYS.helpSeen, "true", false);
   syncModalOpenState();
   await renderHelpModalContent();
   syncModalOpenState();
@@ -13611,7 +13636,7 @@ async function handleCountryPanelInteraction(event) {
 
   return countryPanelUi.handleInteraction(event, {
     document,
-    storage: localStorage,
+    storage: { getItem: readLocalPreference, setItem: (key, value) => writeLocalPreference(key, value, false) },
     getState: () => currentPanelState,
     getCountriesData: () => countriesData,
     getCompareSelection: () => compareSelection,
@@ -13956,7 +13981,7 @@ function setupThemeControls() {
   languageSelect.addEventListener("change", event => {
     currentLanguage = event.target.value;
     appStore?.setState({ language: currentLanguage }, "language");
-    localStorage.setItem(STORAGE_KEYS.language, currentLanguage);
+    writeLocalPreference(STORAGE_KEYS.language, currentLanguage);
     updateStaticText();
     updateExtendedStaticText();
     renderSavedViews();
@@ -13973,14 +13998,14 @@ function setupThemeControls() {
 
   qualityPresetSelect?.addEventListener("change", event => {
     qualityPreset = event.target.value || "auto";
-    localStorage.setItem(STORAGE_KEYS.qualityPreset, qualityPreset);
+    writeLocalPreference(STORAGE_KEYS.qualityPreset, qualityPreset);
     updateMapInteractionTuning();
     updateAppStatusPanel();
   });
 
   labelModeSelect?.addEventListener("change", event => {
     labelMode = event.target.value || "none";
-    localStorage.setItem(STORAGE_KEYS.labelMode, labelMode);
+    writeLocalPreference(STORAGE_KEYS.labelMode, labelMode);
     renderMapLabels();
     updateAppStatusPanel();
   });
@@ -14064,8 +14089,13 @@ function clearQuizTimer() {
   }
 }
 
+function getQuizBestStreak() {
+  const saved = Number(readLocalPreference("geo-risk-quiz-best-streak"));
+  return Math.max(Number.isFinite(saved) ? Math.max(0, Math.floor(saved)) : 0, quizState.bestStreak || 0);
+}
+
 function updateQuizMeta() {
-  const best = Number(localStorage.getItem("geo-risk-quiz-best-streak") || quizState.bestStreak || 0);
+  const best = getQuizBestStreak();
   if (typeof quizUi.renderMeta === "function" && quizUi.renderMeta({
     document,
     quizState,
@@ -14129,7 +14159,7 @@ function renderQuizPanel() {
     document,
     quizState,
     currentLanguage,
-    best: Number(localStorage.getItem("geo-risk-quiz-best-streak") || quizState.bestStreak || 0),
+    best: getQuizBestStreak(),
     escapeHtml
   })) {
     return;
@@ -14182,7 +14212,7 @@ async function startQuiz() {
     current: null,
     feedback: null,
     streak: 0,
-    bestStreak: Number(localStorage.getItem("geo-risk-quiz-best-streak") || 0),
+    bestStreak: getQuizBestStreak(),
     mistakes: [],
     achievements: [],
     timeLeft: 0,
@@ -14209,7 +14239,7 @@ function answerQuiz(answer) {
     quizState.score += 1;
     quizState.streak += 1;
     quizState.bestStreak = Math.max(quizState.bestStreak || 0, quizState.streak);
-    localStorage.setItem("geo-risk-quiz-best-streak", String(quizState.bestStreak));
+    writeLocalPreference("geo-risk-quiz-best-streak", String(quizState.bestStreak), false);
     if (quizState.streak === 5) {
       quizState.achievements = [...(quizState.achievements || []), currentLanguage === "en" ? "5-answer streak" : "Racha de 5"];
     }
@@ -14276,7 +14306,7 @@ setupQuizControls = function setupQuizControls() {
       current: null,
       feedback: null,
       streak: 0,
-      bestStreak: Number(localStorage.getItem("geo-risk-quiz-best-streak") || 0),
+      bestStreak: getQuizBestStreak(),
       mistakes: [],
       achievements: [],
       timeLeft: 0,
@@ -15091,10 +15121,10 @@ async function init() {
         hideStartupStatus();
         completeBootMetrics();
         updateAppStatusPanel();
-        if (window.GEORISK_DEBUG_BOOT === true || localStorage.getItem("georisk.debugBoot") === "true") {
+        if (window.GEORISK_DEBUG_BOOT === true || readLocalPreference("georisk.debugBoot") === "true") {
           console.info("GeoRisk boot profile", getBootProfileSummary(), bootMetrics.steps);
         }
-        if (localStorage.getItem(STORAGE_KEYS.introSeen) !== "true") {
+        if (readLocalPreference(STORAGE_KEYS.introSeen) !== "true") {
           openIntroModal();
         }
         // Offline setup must not delay controls that are already connected.

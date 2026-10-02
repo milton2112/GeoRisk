@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-09-28T12:08:40.255Z",
+  "generatedAt": "2026-10-02T11:45:17.052Z",
   "status": "operativo",
   "startup": {
-    "critical": "860 KB",
-    "criticalBytes": 880378,
+    "critical": "861 KB",
+    "criticalBytes": 881879,
     "scope": "App shell and eager local scripts only; excludes the separately budgeted map engine.",
     "mapEngine": {
       "path": "vendor/cesium/engine.js",
-      "bytes": 3428249,
+      "bytes": 3429613,
       "human": "3.27 MB",
       "precached": false
     },
-    "appCoreAndEngineBytes": 4308627,
+    "appCoreAndEngineBytes": 4311492,
     "deferred": "3.13 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 13183467,
@@ -24,7 +24,7 @@
       {
         "path": "vendor/cesium/engine.js",
         "exists": true,
-        "bytes": 3428249,
+        "bytes": 3429613,
         "human": "3.27 MB",
         "startupCritical": false,
         "category": "startup-map-engine"
@@ -40,8 +40,8 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 580896,
-        "human": "567 KB",
+        "bytes": 582397,
+        "human": "569 KB",
         "startupCritical": true,
         "category": "startup-app-core"
       },
@@ -80,8 +80,8 @@
       {
         "path": "app-country-panel.js",
         "exists": true,
-        "bytes": 45446,
-        "human": "44 KB",
+        "bytes": 45701,
+        "human": "45 KB",
         "startupCritical": false,
         "category": "deferred-or-auxiliary"
       },
@@ -832,14 +832,14 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 580896,
-      "human": "567 KB"
+      "bytes": 582397,
+      "human": "569 KB"
     },
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 297146,
-      "human": "290 KB"
+      "bytes": 300850,
+      "human": "294 KB"
     },
     {
       "path": "style.css",
@@ -981,7 +981,7 @@
     }
   ],
   "scriptMetrics": {
-    "functions": 539,
+    "functions": 541,
     "asyncFunctions": 52,
     "consoleWarnings": 20,
     "consoleErrors": 10

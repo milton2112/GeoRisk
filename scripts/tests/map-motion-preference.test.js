@@ -26,7 +26,7 @@ function harness(reduced = false, saved = "true") {
   const state = {
     window: { matchMedia: query => { assert.equal(query, "(prefers-reduced-motion: reduce)"); return media; } },
     readLocalPreference: () => saved,
-    localStorage: { setItem: (...args) => calls.writes.push(args) },
+    writeLocalPreference: (...args) => calls.writes.push(args),
     STORAGE_KEYS: { autoRotate: "geo-risk-auto-rotate" },
     document: { getElementById: () => button }, console,
     currentLanguage: "es", currentMapMode: "3d", mobile: false,

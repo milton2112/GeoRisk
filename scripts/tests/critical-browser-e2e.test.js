@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import { chromium } from "@playwright/test";
 import { createLocalSmokeServer } from "../localSmokeServer.js";
+import { captureLiveElement } from "../lib/browser-screenshot.js";
 
 const APP_TIMEOUT_MS = Number(process.env.GEORISK_E2E_TIMEOUT_MS || 45000);
 const MAP_PICK_TIMEOUT_MS = Math.min(APP_TIMEOUT_MS, 8000);
@@ -47,7 +48,7 @@ async function createTestPage(browser, baseUrl, viewport, beforeNavigate = async
   const pageErrors = [];
   page.on("pageerror", error => pageErrors.push(error.message));
   await page.addInitScript(() => {
-    localStorage.setItem("geo-risk-intro-seen", "true");
+    try { localStorage.setItem("geo-risk-intro-seen", "true"); } catch { /* Storage failure fixtures. */ }
     window.__geoRiskCspViolations = [];
     document.addEventListener("securitypolicyviolation", event => {
       window.__geoRiskCspViolations.push({ directive: event.effectiveDirective, blockedURI: event.blockedURI });
@@ -2075,6 +2076,80 @@ async function testUntrustedInputs(browser, baseUrl) {
   }
 }
 
+async function testStorageFailures(browser, baseUrl) {
+  for (const viewport of [DESKTOP_VIEWPORT, MOBILE_VIEWPORT]) {
+    for (const failure of ["quota", "denied"]) {
+      const test = await createTestPage(browser, baseUrl, viewport, page => page.addInitScript(mode => {
+        const storage = window.localStorage;
+        storage.setItem("geo-risk-intro-seen", "true");
+        storage.setItem("geo-risk-country-notes:ARG", "Nota anterior");
+        const descriptor = Object.getOwnPropertyDescriptor(window, "localStorage");
+        const originalSet = Storage.prototype.setItem;
+        if (mode === "denied") {
+          Object.defineProperty(window, "localStorage", { configurable: true, get() { throw new DOMException("Blocked", "SecurityError"); } });
+        } else {
+          Storage.prototype.setItem = function () { throw new DOMException("Full", "QuotaExceededError"); };
+        }
+        window.__restoreTestStorage = () => {
+          Object.defineProperty(window, "localStorage", descriptor);
+          Storage.prototype.setItem = originalSet;
+        };
+      }, failure));
+      try {
+        const { page } = test;
+        await waitForAppReady(page, { requireTiles: false });
+        if (await page.locator("#intro-modal").isVisible()) {
+          await page.locator("#intro-modal-close").click();
+        }
+        await submitSearch(page, "Argentina");
+        await waitForCountryPanel(page, "Argentina");
+        await page.locator('[data-country-nav="country-section-sources"]').click();
+        const notes = page.locator('[data-country-notes="ARG"]');
+        await notes.waitFor({ state: "visible" });
+        if (failure === "quota") assert.equal(await notes.inputValue(), "Nota anterior");
+        await notes.fill("Borrador no persistido");
+        assert.match(await page.locator("[data-country-notes-status]").textContent(), /No se guardaron/);
+        for (const section of ["country-section-general", "country-section-sources"]) {
+          const previousInput = await notes.elementHandle();
+          try {
+            await page.locator(`[data-country-nav="${section}"]`).click();
+            await page.waitForFunction(element => !element.isConnected, previousInput);
+          } finally {
+            await previousInput.dispose();
+          }
+        }
+        assert.equal(await notes.inputValue(), "Borrador no persistido", "a section rerender must keep the unsaved draft");
+        assert.match(await page.locator("[data-country-notes-status]").textContent(), /No se guardaron/);
+        assert.equal(await page.locator("[data-country-notes-status]").evaluate(element => element.scrollWidth <= element.clientWidth), true, "the failure notice must wrap on mobile");
+        await captureLiveElement(page, page.locator(".country-local-tools"), {
+          path: `tmp/storage-${failure}-${viewport.width}-unsaved.png`, timeout: 10000
+        });
+        assert.equal(await notes.inputValue(), "Borrador no persistido", "capture must not hide a lost draft during a deferred render");
+        assert.match(await page.locator("[data-country-notes-status]").textContent(), /No se guardaron/);
+        assert.equal(await page.locator("[data-country-notes-status]").evaluate(element => element.scrollWidth <= element.clientWidth), true);
+        await page.locator('[data-country-favorite="ARG"]').click();
+        assert.match(await page.locator("#app-toast").textContent(), /No se pudo guardar/);
+        await page.evaluate(() => {
+          setAutoRotateState(true);
+          if (!document.getElementById("auto-rotate-button").classList.contains("is-active")) throw new Error("rotation control did not update");
+          setAutoRotateState(false);
+          saveCurrentSearch("Argentina");
+          renderQuizPanel();
+        });
+        await page.evaluate(() => window.__restoreTestStorage());
+        assert.equal(await page.evaluate(() => localStorage.getItem("geo-risk-country-notes:ARG")), "Nota anterior", "failed writes must not erase the stored note");
+        await notes.fill("Nota recuperada");
+        assert.match(await page.locator("[data-country-notes-status]").textContent(), /Notas guardadas/);
+        assert.equal(await page.evaluate(() => localStorage.getItem("geo-risk-country-notes:ARG")), "Nota recuperada");
+        await page.screenshot({ path: `tmp/storage-${failure}-${viewport.width}.png` });
+        assertHealthyPage(test.pageErrors, `storage ${failure} ${viewport.width}`);
+      } finally {
+        await test.context.close();
+      }
+    }
+  }
+}
+
 async function testFirstWorkerActivation(browser, baseUrl) {
   const context = await browser.newContext({ viewport: MOBILE_VIEWPORT, isMobile: true, hasTouch: true, serviceWorkers: "allow" });
   let releaseWorker;
@@ -2201,6 +2276,7 @@ try {
     ["--country-text-only", testCountryTextRendering],
     ["--csp-only", testContentSecurityPolicy],
     ["--input-security-only", testUntrustedInputs],
+    ["--storage-only", testStorageFailures],
     ["--exports-only", testSecureExports],
     ["--performance-only", testIdleMapPerformance],
     ["--green-only", testGreenCoding],
