@@ -182,7 +182,13 @@ async function exportNode(node, filename, format, context = {}) {
   exportInProgress = true;
   let captureNode = null;
   let canvas = null;
+  const isCurrent = () => {
+    if (typeof context.isCurrent !== "function" || context.isCurrent()) return true;
+    notify(context, "The view changed. Export the current view again.", "La vista cambio. Vuelve a exportar la vista actual.");
+    return false;
+  };
   try {
+    if (!isCurrent()) return false;
     const ready = await ensureExportLibraries(format, context).catch(error => {
       console.warn("No se pudieron cargar las librerias de exportacion:", error);
       return false;
@@ -193,6 +199,7 @@ async function exportNode(node, filename, format, context = {}) {
         format === "pdf" ? "No se pudieron cargar las herramientas de PDF. Revisa tu conexion y reintenta." : "No se pudieron cargar las herramientas de exportacion. Revisa tu conexion y reintenta.");
       return false;
     }
+    if (!isCurrent()) return false;
     captureNode = buildReportCaptureNode(node, filename?.replace(/\.(png|pdf)$/i, ""), context);
     canvas = await html2canvas(captureNode, {
       backgroundColor: "#071320",

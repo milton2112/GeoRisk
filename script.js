@@ -85,7 +85,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-10-02-release-6";
+const APP_VERSION = "2026-10-02-release-7";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -14726,7 +14726,15 @@ function getExportContextLabel() {
   return "georisk";
 }
 
-function getExportShareContext() {
+function getExportViewKey() {
+  return JSON.stringify([
+    currentLanguage, currentTheme, appMode, currentPanelState.type, currentPanelState.code,
+    getExportContextLabel(), compareSelection, compareBenchmarkMode, getRankingsPanelFilters(), activeRankingKey
+  ]);
+}
+
+function getExportShareContext(node) {
+  const viewKey = node ? getExportViewKey() : null;
   return {
     language: currentLanguage,
     contextLabel: getExportContextLabel(),
@@ -14738,6 +14746,7 @@ function getExportShareContext() {
     normalizeText,
     escapeHtml,
     loadScriptOnce,
+    isCurrent: node ? () => node.isConnected && !node.closest("[hidden]") && viewKey === getExportViewKey() : undefined,
     showToast: message => uiPolish.showToast?.(message)
   };
 }
@@ -14759,9 +14768,10 @@ exportNodeAsImage = async function exportNodeAsImage(node, filename) {
   if (!node) {
     return;
   }
+  const context = getExportShareContext(node);
   const tools = await getExportShareTools();
   if (typeof tools.exportNodeAsImage === "function") {
-    await tools.exportNodeAsImage(node, filename, getExportShareContext());
+    return tools.exportNodeAsImage(node, filename, context);
   }
 };
 
@@ -14769,9 +14779,10 @@ exportNodeAsPdf = async function exportNodeAsPdf(node, filename) {
   if (!node) {
     return;
   }
+  const context = getExportShareContext(node);
   const tools = await getExportShareTools();
   if (typeof tools.exportNodeAsPdf === "function") {
-    await tools.exportNodeAsPdf(node, filename, getExportShareContext());
+    return tools.exportNodeAsPdf(node, filename, context);
   }
 };
 

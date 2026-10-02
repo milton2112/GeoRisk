@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.263 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.264 antes de cerrar la siguiente version.
+
+## v1.6.264 - 2026-10-02
+
+- Corrige la consistencia de exportaciones PNG/PDF: toma el contexto al solicitar el informe, antes de esperar el modulo. Valida seleccion, idioma, tema, modo, pais/contexto, comparador, benchmark y filtros/seleccion de rankings antes de cargar librerias y antes de clonar. Si ya no coinciden, o el nodo fue retirado/ocultado mediante hidden, termina con false y un aviso accesible para exportar la vista actual, sin captura, descarga ni reintento automatico.
+- Conserva el informe separado del DOM vivo una vez iniciada la captura: cambiar la interfaz durante html2canvas no invalida ese snapshot ya coherente. No agrega un snapshot temprano que clone informes cuando las herramientas no estan disponibles. Los cambios que vuelven exactamente al mismo contexto antes de capturar siguen siendo validos; no observa todas las mutaciones transitorias ni congela revisiones de datos que mantengan la misma seleccion.
+- La regresion aislada reprodujo una exportacion que seguia adelante tras cambiar la vista. Agrega pruebas de espera de modulo/librerias, ambos formatos, cambio de pais/idioma/tema/modo/filtros/comparador, nodo retirado/oculto, reintento explicito y snapshot iniciado. Compartir texto conserva su contrato y no adquiere guardas de DOM. Amplia el recorrido de exportaciones existente en Chrome desktop/mobile emulado, sin paginas adicionales: retiene modulo y libreria, cambia filtros reales, comprueba cero informes/descargas obsoletos, aviso role=status que cabe en mobile y PNG/PDF reales del nuevo intento. Conserva SRI alterado, limpieza, doble clic y comprobacion de pixeles; no sustituye un celular fisico.
+- Green coding: script.js pasa de 591149 a 591660 bytes (+511) y app-export-share.js de 10636 a 10972 (+336), este ultimo solo bajo demanda. Compara una clave pequena de estado y consulta conexion/ancestros del nodo, sin recorrer paises, forzar layout, copiar informes, observar DOM, agregar dependencias, polling, temporizadores, caches ni solicitudes iniciales nuevas. Si la vista cambio durante el import, evita iniciar las librerias de captura; si ya cargaron, reutiliza las existentes para el nuevo intento.
+- Diagnostico de rendimiento separado de la release: una traza desktop de arranque/movimiento con el profiler existente apunta principalmente a compilacion de shaders de Cesium y no reproduce exactamente los dos picos de 201/202 ms anteriores. Los tiempos incluyen instrumentacion y no son comparables al benchmark de 60 s; no se cambia calidad visual ni se afirma una mejora de FPS, energia o CO2 atribuible a esta correccion.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-10-02-release-7`.
 
 ## v1.6.263 - 2026-10-02
 

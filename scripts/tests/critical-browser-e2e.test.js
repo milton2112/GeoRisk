@@ -2101,8 +2101,15 @@ async function testShareLifecycle(browser, baseUrl) {
 async function testSecureExports(browser, baseUrl) {
   for (const [label, viewport] of [["desktop", DESKTOP_VIEWPORT], ["mobile", MOBILE_VIEWPORT]]) {
     const requests = [];
+    const downloads = [];
+    let releaseModule, releaseLibrary;
+    const moduleHeld = new Promise(resolve => { releaseModule = resolve; });
+    const libraryHeld = new Promise(resolve => { releaseLibrary = resolve; });
     const test = await createTestPage(browser, baseUrl, viewport, async page => {
       page.on("request", request => requests.push(request.url()));
+      page.on("download", download => downloads.push(download));
+      await page.route("**/app-export-share.js*", async route => { await moduleHeld; await route.continue(); });
+      await page.route("**/vendor/exports/html2canvas-*.js", async route => { await libraryHeld; await route.continue(); });
     });
     const { page } = test;
     try {
@@ -2110,6 +2117,44 @@ async function testSecureExports(browser, baseUrl) {
       assert.equal(requests.some(url => /vendor\/exports|html2canvas|jspdf/.test(url)), false, "no export libraries at startup");
       await page.locator(label === "mobile" ? "#toggle-left-panel" : "#rankings-summary").click();
       await page.waitForFunction(() => document.querySelectorAll("#top-population li").length > 0);
+      await page.evaluate(() => {
+        window.__exportViewNotices = 0;
+        const original = uiPolish.showToast;
+        uiPolish.showToast = message => {
+          if (message.startsWith("La vista cambio")) window.__exportViewNotices += 1;
+          return original(message);
+        };
+      });
+      const pngButton = page.locator('[data-export-target="left-panel"][data-export-format="png"]');
+      const filter = page.locator("#rankings-continent-filter");
+      const filterValues = await filter.evaluate(element => [...element.options].map(option => option.value).filter(Boolean));
+      assert.ok(filterValues.length >= 2);
+      const moduleRequest = page.waitForRequest("**/app-export-share.js*", { timeout: APP_TIMEOUT_MS });
+      await pngButton.focus();
+      await pngButton.press("Enter");
+      await moduleRequest;
+      await filter.selectOption(filterValues[0]);
+      releaseModule();
+      await page.waitForFunction(() => window.__exportViewNotices === 1);
+      assert.equal(requests.some(url => /vendor\/exports\/(?:html2canvas|jspdf)/.test(url)), false, "a view changed during module loading must not download capture libraries");
+      assert.equal(await page.locator(".export-report-shell").count(), 0);
+      assert.equal(downloads.length, 0);
+
+      const libraryRequest = page.waitForRequest("**/vendor/exports/html2canvas-*.js", { timeout: APP_TIMEOUT_MS });
+      await pngButton.click();
+      await libraryRequest;
+      await filter.selectOption(filterValues[1]);
+      releaseLibrary();
+      await page.waitForFunction(() => window.__exportViewNotices === 2);
+      const staleNotice = page.locator("#app-toast").filter({ hasText: "La vista cambio" });
+      await staleNotice.waitFor({ state: "visible" });
+      assert.equal(await staleNotice.getAttribute("role"), "status");
+      const staleBounds = await staleNotice.boundingBox();
+      assert.ok(staleBounds && staleBounds.x >= 0 && staleBounds.x + staleBounds.width <= viewport.width + 1, label + " stale export notice fits viewport");
+      await staleNotice.screenshot({ path: `tmp/export-view-changed-${label}.png` });
+      assert.equal(await page.locator(".export-report-shell").count(), 0, "changed views allocate no report/canvas");
+      assert.equal(downloads.length, 0);
+      await filter.selectOption("");
       const layout = await page.evaluate(async () => {
         const tools = await getExportShareTools();
         const capture = tools.buildReportCaptureNode(document.getElementById("left-panel"), "fixture");
@@ -2194,8 +2239,11 @@ async function testSecureExports(browser, baseUrl) {
       assert.equal(await page.locator("script[data-export-library][integrity^='sha384-'][crossorigin='anonymous']").count(), 2);
       assert.equal(requests.some(url => /cdn.*(?:jspdf|html2canvas)/.test(url)), false);
       assert.equal(requests.filter(url => /vendor\/exports\/html2canvas.*\.js$/.test(url)).length, 1);
+      assert.equal(downloads.length, 2, "only the explicitly retried PNG and PDF produce downloads");
       assertHealthyPage(test.pageErrors, label + " verified exports");
     } finally {
+      releaseModule();
+      releaseLibrary();
       await page.evaluate(() => {
         window.__releaseExportCapture?.();
         if (window.__originalExportCanvas) window.html2canvas = window.__originalExportCanvas;

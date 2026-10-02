@@ -8,6 +8,7 @@ import { summarizeDependencyAudit } from "../lib/dependency-audit.js";
 import { exportAssets } from "../../vendor/exports/manifest.js";
 import "./share-lifecycle.test.js";
 import "./export-lifecycle.test.js";
+import "./export-view-context.test.js";
 
 await buildExportLibraries({ check: true });
 const temporary = await fs.mkdtemp(path.join(os.tmpdir(), "georisk-export-security-"));
