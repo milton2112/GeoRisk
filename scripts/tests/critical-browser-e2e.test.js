@@ -2130,12 +2130,36 @@ async function testSecureExports(browser, baseUrl) {
         assert.equal(await page.locator('script[data-export-library="jspdf"]').count(), 0, "failed script is removed for retry");
         await page.unroute("**/vendor/exports/jspdf-*.js");
       }
+      await page.evaluate(() => {
+        window.__originalExportCanvas = window.html2canvas;
+        window.__pendingExportCaptures = 0;
+        const held = new Promise(resolve => { window.__releaseExportCapture = resolve; });
+        window.html2canvas = async (...args) => {
+          window.__pendingExportCaptures += 1;
+          await held;
+          const canvas = await window.__originalExportCanvas(...args);
+          window.__completedExportCanvas = canvas;
+          return canvas;
+        };
+      });
       const pdfDownload = page.waitForEvent("download", { timeout: APP_TIMEOUT_MS });
       await pdfButton.click();
+      await page.waitForFunction(() => window.__pendingExportCaptures === 1);
+      await page.locator('[data-export-target="left-panel"][data-export-format="png"]').click();
+      const pendingNotice = page.locator("#app-toast").filter({ hasText: "Hay una exportacion en curso" });
+      await pendingNotice.waitFor({ state: "visible" });
+      assert.equal(await pendingNotice.getAttribute("role"), "status");
+      assert.equal(await page.evaluate(() => window.__pendingExportCaptures), 1, "cross-format taps do not duplicate canvas work");
+      assert.equal(await page.locator(".export-report-shell").count(), 1, "only one export capture is retained");
+      const pendingBounds = await pendingNotice.boundingBox();
+      assert.ok(pendingBounds && pendingBounds.x >= 0 && pendingBounds.x + pendingBounds.width <= viewport.width + 1, label + " pending export notice fits viewport");
+      await pendingNotice.screenshot({ path: `tmp/export-pending-${label}.png` });
+      await page.evaluate(() => window.__releaseExportCapture());
       const pdf = await pdfDownload;
       const pdfBytes = await fs.readFile(await pdf.path());
       assert.equal(pdfBytes.subarray(0, 5).toString(), "%PDF-");
       assert.ok(pdfBytes.length > 20000, label + " PDF includes captured image");
+      assert.equal(await page.evaluate(() => window.__completedExportCanvas.width === 0 && window.__completedExportCanvas.height === 0), true, "completed capture discards canvas pixel dimensions");
       assert.equal(await page.evaluate(() => window.jspdf.jsPDF.version), "4.2.1");
       assert.equal(await page.locator(".export-report-shell").count(), 0);
       assert.equal(await page.locator("script[data-export-library][integrity^='sha384-'][crossorigin='anonymous']").count(), 2);
@@ -2143,6 +2167,10 @@ async function testSecureExports(browser, baseUrl) {
       assert.equal(requests.filter(url => /vendor\/exports\/html2canvas.*\.js$/.test(url)).length, 1);
       assertHealthyPage(test.pageErrors, label + " verified exports");
     } finally {
+      await page.evaluate(() => {
+        window.__releaseExportCapture?.();
+        if (window.__originalExportCanvas) window.html2canvas = window.__originalExportCanvas;
+      }).catch(() => {});
       await test.context.close();
     }
   }
