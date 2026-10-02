@@ -27,6 +27,12 @@ GeoRisk keeps runtime files in the repository root for now. The project is split
 - `scripts/lib/public-assets.js`: production file/directory allowlist shared by the build and performance evidence. Internal tooling only; it is not shipped to browsers.
 - `scripts/lib/performance-inputs.js`: deterministic source/dependency/meter fingerprint for `performanceSnapshot.js` and `releaseStatus.js`. The snapshot also keys reuse by built assets and environment; release status checks the current sources even when `dist` is missing or stale.
 
+## Test Tooling
+
+- `scripts/lib/browser-screenshot.js`: used only by the critical browser E2E to recapture a live locator once if its node is detached during a deferred render. It does not retry assertions, flows, timeouts or other browser errors; the caller checks the visible state again after capture.
+- `scripts/tests/browser-screenshot.test.js`: deterministic retry-boundary checks included by the release gates. Neither file is published or loaded by the app.
+- Release workflow concurrency separates scheduled audits from releases per ref; obsolete runs within the same group still stop. Push/manual releases share their group, and deployment remains gated by the full checks.
+
 ## Data Curation
 
 - `scripts/lib/conflict-curation-*.js` holds source-backed correction batches, including Taraca, Pecos and Sunset Pass. `scripts/applyConflictAutofix.js` applies their aliases, country links and historical details to internal datasets; these modules are never shipped to the browser.

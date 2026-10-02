@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import { chromium } from "@playwright/test";
 import { createLocalSmokeServer } from "../localSmokeServer.js";
+import { captureLiveElement } from "../lib/browser-screenshot.js";
 
 const APP_TIMEOUT_MS = Number(process.env.GEORISK_E2E_TIMEOUT_MS || 45000);
 const MAP_PICK_TIMEOUT_MS = Math.min(APP_TIMEOUT_MS, 8000);
@@ -2120,7 +2121,12 @@ async function testStorageFailures(browser, baseUrl) {
         assert.equal(await notes.inputValue(), "Borrador no persistido", "a section rerender must keep the unsaved draft");
         assert.match(await page.locator("[data-country-notes-status]").textContent(), /No se guardaron/);
         assert.equal(await page.locator("[data-country-notes-status]").evaluate(element => element.scrollWidth <= element.clientWidth), true, "the failure notice must wrap on mobile");
-        await page.locator(".country-local-tools").screenshot({ path: `tmp/storage-${failure}-${viewport.width}-unsaved.png` });
+        await captureLiveElement(page, page.locator(".country-local-tools"), {
+          path: `tmp/storage-${failure}-${viewport.width}-unsaved.png`, timeout: 10000
+        });
+        assert.equal(await notes.inputValue(), "Borrador no persistido", "capture must not hide a lost draft during a deferred render");
+        assert.match(await page.locator("[data-country-notes-status]").textContent(), /No se guardaron/);
+        assert.equal(await page.locator("[data-country-notes-status]").evaluate(element => element.scrollWidth <= element.clientWidth), true);
         await page.locator('[data-country-favorite="ARG"]').click();
         assert.match(await page.locator("#app-toast").textContent(), /No se pudo guardar/);
         await page.evaluate(() => {
