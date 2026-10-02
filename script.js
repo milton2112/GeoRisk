@@ -85,7 +85,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-09-28-release-1";
+const APP_VERSION = "2026-10-02-release-1";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -4713,7 +4713,10 @@ async function activateCountrySection(sectionId) {
     return;
   }
   const countryCode = currentPanelState.code;
-  const renderToken = countryPanelRenderToken;
+  const isCurrentSection = () => currentPanelState.type === "country"
+    && currentPanelState.code === countryCode
+    && currentPanelState.countryActiveSection === sectionId
+    && document.getElementById("country-modal")?.hidden === false;
   const loadedSections = new Set(currentPanelState.countryLoadedSections || ["country-section-general"]);
   loadedSections.add(sectionId);
   currentPanelState.countryLoadedSections = [...loadedSections];
@@ -4723,18 +4726,19 @@ async function activateCountrySection(sectionId) {
     await loadCountryConflictDetail(currentPanelState.code);
   }
 
-  if (currentPanelState.code !== countryCode || countryPanelRenderToken !== renderToken
-    || document.getElementById("country-modal")?.hidden) return;
+  if (!isCurrentSection()) return;
 
   if (
     !deferredDataStatus.runtimeCuration
     && (sectionId === "country-section-history" || sectionId === "country-section-military")
   ) {
     await loadRuntimeCuration();
-  } else {
-    rerenderCurrentPanel();
   }
-  setTimeout(() => scrollCountrySectionIntoView(sectionId), 80);
+  if (!isCurrentSection()) return;
+  rerenderCurrentPanel();
+  setTimeout(() => {
+    if (isCurrentSection()) scrollCountrySectionIntoView(sectionId);
+  }, 80);
 }
 
 function getConflictsSinceFormation(country) {

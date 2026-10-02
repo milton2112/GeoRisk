@@ -1636,6 +1636,8 @@ async function testCountryDataRecovery(browser, baseUrl) {
     let failConflicts = true;
     let releaseBrazil;
     const heldBrazil = new Promise(resolve => { releaseBrazil = resolve; });
+    let releaseConflicts;
+    const heldConflicts = new Promise(resolve => { releaseConflicts = resolve; });
     const requests = [];
     const test = await createTestPage(browser, baseUrl, viewport, async page => {
       page.on("request", request => requests.push(request.url()));
@@ -1649,7 +1651,10 @@ async function testCountryDataRecovery(browser, baseUrl) {
       });
       await page.route(/\/data\/countries\/conflicts\/AUS\.json\?/, async route => {
         if (failConflicts) await route.fulfill({ status: 200, contentType: "application/json", body: "[]" });
-        else await route.continue();
+        else {
+          await heldConflicts;
+          await route.continue();
+        }
       });
     });
     const { page } = test;
@@ -1704,14 +1709,29 @@ async function testCountryDataRecovery(browser, baseUrl) {
       assert.equal(await page.evaluate(() => countriesData.AUS.military.conflicts.length), preview);
       assert.equal(await page.evaluate(() => countriesData.AUS.military.conflictsComplete), false);
       failConflicts = false;
+      const retriedRequest = page.waitForRequest(/\/data\/countries\/conflicts\/AUS\.json\?/);
       await retryConflicts.click();
+      await retriedRequest;
+      // Replace the same profile while its valid retry is still in flight.
+      const oldRetry = await retryConflicts.elementHandle();
+      assert.ok(oldRetry);
+      await page.evaluate(() => rerenderCurrentPanel());
+      await page.waitForFunction(element => !element.isConnected, oldRetry);
+      await oldRetry.dispose();
+      releaseConflicts();
       await page.waitForFunction(() => countriesData.AUS.military.conflictsComplete === true);
       await retryConflicts.waitFor({ state: "hidden" });
+      assert.equal(await page.locator("#country-modal").isVisible(), true);
+      assert.equal(await page.evaluate(() => currentPanelState.code), "AUS");
+      assert.equal(await page.locator("#country-section-military").evaluate(section => section.open), true);
+      assert.ok(await page.locator("#country-section-military [data-conflict-key]").count() > 0);
+      assert.equal(requests.filter(url => /\/countries\/conflicts\/AUS\.json\?/.test(url)).length, 2);
       assert.ok(await page.evaluate(count => countriesData.AUS.military.conflicts.length > count, preview));
       assert.ok(!requests.some(url => /countries_full|conflict_details\.generated/.test(url)));
       assertHealthyPage(test.pageErrors, label + " recuperacion de fichas y conflictos");
     } finally {
       releaseBrazil();
+      releaseConflicts();
       await test.context.close();
     }
   }

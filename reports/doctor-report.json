@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-10-02T11:47:31.219Z",
-  "packageVersion": "1.6.257",
+  "generatedAt": "2026-10-02T13:54:28.593Z",
+  "packageVersion": "1.6.258",
   "status": "observacion",
   "summary": {
     "totalFindings": 1,
     "bySeverity": {
       "media": 1
     },
-    "startupBytes": 881879,
-    "scriptBytes": 582397,
+    "startupBytes": 882014,
+    "scriptBytes": 582532,
     "countriesIndexBytes": 144225,
     "conflictAuditIssues": 0,
     "dataCounts": {
