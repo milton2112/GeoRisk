@@ -32,8 +32,8 @@ GeoRisk keeps runtime files in the repository root for now. The project is split
 
 ## Test Tooling
 
-- `scripts/lib/browser-screenshot.js`: used only by the critical browser E2E to recapture a live locator once if its node is detached during a deferred render. It does not retry assertions, flows, timeouts or other browser errors; the caller checks the visible state again after capture.
-- `scripts/tests/browser-screenshot.test.js`: deterministic retry-boundary checks included by the release gates. Neither file is published or loaded by the app.
+- `scripts/lib/browser-screenshot.js`: used only by the critical browser E2E. Live-locator capture retries once exclusively for a detached node during a deferred render, followed by caller state checks. Transient-notice capture instead checks role=status, visible state and viewport bounds in one DOM query, then crops the page with bounded transition padding and screenshot-only animation disabling; it does not wait for locator stability or change the runtime notice timer. It does not retry assertions, flows, timeouts or other browser errors. An expired notice or failed screenshot still fails the test.
+- `scripts/tests/browser-screenshot.test.js`: deterministic retry-boundary and transient-notice role/visibility/viewport/capture-error checks included by the release gates. Neither file is published or loaded by the app.
 - Release workflow concurrency separates scheduled audits from releases per ref; obsolete runs within the same group still stop. Push/manual releases share their group, and deployment remains gated by the full checks.
 
 ## Data Curation

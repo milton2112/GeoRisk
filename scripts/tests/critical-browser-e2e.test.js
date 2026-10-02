@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import { chromium } from "@playwright/test";
 import { createLocalSmokeServer } from "../localSmokeServer.js";
-import { captureLiveElement } from "../lib/browser-screenshot.js";
+import { captureLiveElement, captureTransientNotice } from "../lib/browser-screenshot.js";
 
 const APP_TIMEOUT_MS = Number(process.env.GEORISK_E2E_TIMEOUT_MS || 45000);
 const MAP_PICK_TIMEOUT_MS = Math.min(APP_TIMEOUT_MS, 8000);
@@ -943,14 +943,11 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
       await history.click();
       const notice = page.locator("#app-toast");
       await notice.filter({ hasText: "datos historicos adicionales" }).waitFor({ state: "visible" });
-      assert.equal(await notice.getAttribute("role"), "status");
+      await captureTransientNotice(page, notice, { path: `tmp/curation-load-recovery-${label}.png` });
       assert.equal(await page.evaluate(() => deferredDataStatus.runtimeCuration), false);
       assert.equal(await page.evaluate(() => loadRuntimeCurationPromise), null);
       assert.equal(await page.locator('script[data-dynamic-src*="app-curation.js"]').count(), 0);
       assert.equal(scriptAttempts["app-curation"], 1, "no automatic retry after a network failure");
-      const bounds = await notice.boundingBox();
-      assert.ok(bounds && bounds.x >= 0 && bounds.x + bounds.width <= viewport.width + 1, label + " curation failure fits viewport");
-      await notice.screenshot({ path: `tmp/curation-load-recovery-${label}.png` });
       await history.focus();
       await history.press("Enter");
       await page.waitForFunction(() => deferredDataStatus.runtimeCuration === true);
@@ -1988,13 +1985,10 @@ async function testDeferredUiRecovery(browser, baseUrl) {
       await button.click();
       const notice = page.locator("#app-toast");
       await notice.filter({ hasText: "Revisa tu conexion" }).waitFor({ state: "visible" });
-      assert.equal(await notice.getAttribute("role"), "status");
+      await captureTransientNotice(page, notice, { path: `tmp/deferred-recovery-${label}.png` });
       assert.equal(attempts, 1, "failed imports do not automatically retry");
       assert.equal(await page.evaluate(() => window.__deferredCopies.length), 0);
       assert.equal(await page.evaluate(() => deferredUiModulePromises.has("exportShare")), false);
-      const bounds = await notice.boundingBox();
-      assert.ok(bounds && bounds.x >= 0 && bounds.x + bounds.width <= viewport.width + 1, label + " load failure fits viewport");
-      await notice.screenshot({ path: `tmp/deferred-recovery-${label}.png` });
 
       await button.focus();
       await button.press("Enter");
@@ -2063,11 +2057,8 @@ async function testShareLifecycle(browser, baseUrl) {
       await button.click();
       const notice = page.locator("#app-toast");
       await notice.filter({ hasText: "No se pudo compartir ni copiar" }).waitFor({ state: "visible" });
+      await captureTransientNotice(page, notice, { path: `tmp/share-denied-${label}.png` });
       assert.equal(await page.evaluate(() => window.__shareFixture.clipboard), "keep");
-      assert.equal(await notice.getAttribute("role"), "status");
-      const bounds = await notice.boundingBox();
-      assert.ok(bounds && bounds.x >= 0 && bounds.x + bounds.width <= viewport.width + 1, label + " error notice fits viewport");
-      await notice.screenshot({ path: `tmp/share-denied-${label}.png` });
       await page.evaluate(() => { window.__shareFixture.copyMode = "absent"; });
       await button.click();
       await page.waitForFunction(() => window.__shareMessages.length === 2);
@@ -2148,10 +2139,7 @@ async function testSecureExports(browser, baseUrl) {
       await page.waitForFunction(() => window.__exportViewNotices === 2);
       const staleNotice = page.locator("#app-toast").filter({ hasText: "La vista cambio" });
       await staleNotice.waitFor({ state: "visible" });
-      assert.equal(await staleNotice.getAttribute("role"), "status");
-      const staleBounds = await staleNotice.boundingBox();
-      assert.ok(staleBounds && staleBounds.x >= 0 && staleBounds.x + staleBounds.width <= viewport.width + 1, label + " stale export notice fits viewport");
-      await staleNotice.screenshot({ path: `tmp/export-view-changed-${label}.png` });
+      await captureTransientNotice(page, staleNotice, { path: `tmp/export-view-changed-${label}.png` });
       assert.equal(await page.locator(".export-report-shell").count(), 0, "changed views allocate no report/canvas");
       assert.equal(downloads.length, 0);
       await filter.selectOption("");
@@ -2222,12 +2210,9 @@ async function testSecureExports(browser, baseUrl) {
       await page.locator('[data-export-target="left-panel"][data-export-format="png"]').click();
       const pendingNotice = page.locator("#app-toast").filter({ hasText: "Hay una exportacion en curso" });
       await pendingNotice.waitFor({ state: "visible" });
-      assert.equal(await pendingNotice.getAttribute("role"), "status");
+      await captureTransientNotice(page, pendingNotice, { path: `tmp/export-pending-${label}.png` });
       assert.equal(await page.evaluate(() => window.__pendingExportCaptures), 1, "cross-format taps do not duplicate canvas work");
       assert.equal(await page.locator(".export-report-shell").count(), 1, "only one export capture is retained");
-      const pendingBounds = await pendingNotice.boundingBox();
-      assert.ok(pendingBounds && pendingBounds.x >= 0 && pendingBounds.x + pendingBounds.width <= viewport.width + 1, label + " pending export notice fits viewport");
-      await pendingNotice.screenshot({ path: `tmp/export-pending-${label}.png` });
       await page.evaluate(() => window.__releaseExportCapture());
       const pdf = await pdfDownload;
       const pdfBytes = await fs.readFile(await pdf.path());
