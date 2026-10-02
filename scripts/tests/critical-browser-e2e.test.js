@@ -915,11 +915,18 @@ async function testAutoRotation(browser, baseUrl) {
 async function testConflictCurationAndLateResponse(browser, baseUrl) {
   for (const viewport of [DESKTOP_VIEWPORT, MOBILE_VIEWPORT]) {
     const label = viewport === MOBILE_VIEWPORT ? "mobile" : "desktop";
+    const scriptAttempts = { "app-curation": 0, "app-conflict-rules": 0 };
     let releaseDetail;
     const pending = new Promise(resolve => { releaseDetail = resolve; });
     let markRequested;
     const requested = new Promise(resolve => { markRequested = resolve; });
     const test = await createTestPage(browser, baseUrl, viewport, async page => {
+      await page.route(/\/app-(curation|conflict-rules)\.js\?/, async route => {
+        const name = route.request().url().match(/\/(app-(?:curation|conflict-rules))\.js/)[1];
+        scriptAttempts[name] += 1;
+        if (name === "app-curation" && scriptAttempts[name] === 1) await route.abort("internetdisconnected");
+        else await route.continue();
+      });
       await page.route(/\/data\/conflicts\/details\/batalla-del-cabo-de-gata-1815-/, async route => {
         markRequested();
         await pending;
@@ -929,6 +936,28 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
     const { page } = test;
     try {
       await waitForAppReady(page, { requireTiles: false });
+      assert.deepEqual(scriptAttempts, { "app-curation": 0, "app-conflict-rules": 0 }, "historical curation is not downloaded at startup");
+      await submitSearch(page, "Argentina");
+      await waitForCountryPanel(page, "Argentina");
+      const history = page.locator('[data-country-nav="country-section-history"]');
+      await history.click();
+      const notice = page.locator("#app-toast");
+      await notice.filter({ hasText: "datos historicos adicionales" }).waitFor({ state: "visible" });
+      assert.equal(await notice.getAttribute("role"), "status");
+      assert.equal(await page.evaluate(() => deferredDataStatus.runtimeCuration), false);
+      assert.equal(await page.evaluate(() => loadRuntimeCurationPromise), null);
+      assert.equal(await page.locator('script[data-dynamic-src*="app-curation.js"]').count(), 0);
+      assert.equal(scriptAttempts["app-curation"], 1, "no automatic retry after a network failure");
+      const bounds = await notice.boundingBox();
+      assert.ok(bounds && bounds.x >= 0 && bounds.x + bounds.width <= viewport.width + 1, label + " curation failure fits viewport");
+      await notice.screenshot({ path: `tmp/curation-load-recovery-${label}.png` });
+      await history.focus();
+      await history.press("Enter");
+      await page.waitForFunction(() => deferredDataStatus.runtimeCuration === true);
+      assert.deepEqual(scriptAttempts, { "app-curation": 2, "app-conflict-rules": 1 }, "explicit reopening only retries the failed script");
+      assert.equal(await page.locator('script[data-dynamic-src*="app-curation.js"]').count(), 1);
+      await page.locator("#country-section-history").waitFor({ state: "visible" });
+      await closeCountryPanel(page);
       await page.evaluate(async () => {
         await loadCountryDetail("USA");
         await loadCountryConflictDetail("USA");

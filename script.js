@@ -85,7 +85,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-10-02-release-5";
+const APP_VERSION = "2026-10-02-release-6";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -12922,13 +12922,28 @@ function loadScriptOnce(src, globalFlag) {
     script.src = src;
     script.async = true;
     script.dataset.dynamicSrc = src;
-    script.addEventListener("load", () => {
-      script.dataset.loaded = "true";
-      resolve(globalFlag ? window[globalFlag] : true);
-    }, { once: true });
-    script.addEventListener("error", () => reject(new Error(`No se pudo cargar ${src}`)), { once: true });
-    if (!existing) {
-      document.body.appendChild(script);
+    let settled = false;
+    const finish = success => {
+      if (settled) return;
+      settled = true;
+      script.removeEventListener("load", onLoad);
+      script.removeEventListener("error", onError);
+      if (success) {
+        script.dataset.loaded = "true";
+        resolve(globalFlag ? window[globalFlag] : true);
+      } else {
+        script.remove();
+        reject(new Error(`No se pudo cargar ${src}`));
+      }
+    };
+    const onLoad = () => finish(!globalFlag || Boolean(window[globalFlag]));
+    const onError = () => finish(false);
+    script.addEventListener("load", onLoad, { once: true });
+    script.addEventListener("error", onError, { once: true });
+    try {
+      if (!existing) document.body.appendChild(script);
+    } catch {
+      finish(false);
     }
   });
 }
@@ -12964,7 +12979,11 @@ async function loadRuntimeCuration() {
     rerenderCurrentPanel?.();
     return curation;
   }).catch(error => {
+    loadRuntimeCurationPromise = null;
     console.warn("No se pudo cargar la curaduria diferida:", error);
+    uiPolish.showToast?.(currentLanguage === "en"
+      ? "Additional historical data could not load. Check your connection and reopen this section."
+      : "No se pudieron cargar datos historicos adicionales. Revisa tu conexion y vuelve a abrir esta seccion.");
     return {};
   });
 

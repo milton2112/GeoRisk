@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.262 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.263 antes de cerrar la siguiente version.
+
+## v1.6.263 - 2026-10-02
+
+- Corrige la recuperacion de datos historicos adicionales: loadRuntimeCuration guardaba una promesa resuelta con {} despues de fallar, y loadScriptOnce dejaba el script fallido en el DOM. Una nueva apertura de Historia o Fuerzas armadas ahora puede reintentar sin recargar la pagina; conserva el otro script si ya cargo. No cambia ni inventa datos historicos.
+- Retira los listeners de load/error al terminar, tambien con consumidores simultaneos o fallos sincronos al insertar el script. Un evento load sin la API global esperada ya no se considera una carga valida. Solo marca/aplica la curaduria cuando estan disponibles ambos scripts; reutiliza cargas exitosas y no agrega reintentos automaticos, polling, temporizadores ni cache nuevo.
+- Un fallo de curaduria muestra un aviso accesible en espanol/ingles que pide comprobar la conexion y volver a abrir la seccion, sin mover el foco. La regresion aislada reprodujo la promesa fallida retenida antes del arreglo; prueba reintento, carga parcial, concurrencia, listeners, API ausente e insercion fallida. Amplia el recorrido existente de conflictos en Chrome desktop/mobile emulado, sin paginas adicionales: corte de app-curation, aviso role=status que cabe en mobile, recuperacion por teclado y exactamente dos solicitudes de curaduria/una de reglas. Conserva las pruebas de notas, fuentes y respuestas tardias; no sustituye un celular fisico.
+- Green coding: script.js pasa de 590397 a 591149 bytes (+752), costo acotado para recuperar una funcion. Mantiene los scripts historicos fuera del arranque y evita descargar de nuevo el que ya cargo; retira nodos fallidos y listeners sin dependencias, caches persistentes ni descargas especulativas nuevas. Una solicitud que no termine ni emita error sigue pendiente: no se agrega un timeout que permita reevaluaciones concurrentes de scripts clasicos. No mide energia/CO2 ni garantiza recuperacion de fallos de ejecucion interna con efectos parciales.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-10-02-release-6`.
 
 ## v1.6.262 - 2026-10-02
 
