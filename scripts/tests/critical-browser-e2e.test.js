@@ -1933,6 +1933,142 @@ async function testBackgroundPanels(browser, baseUrl) {
   }
 }
 
+async function testDeferredUiRecovery(browser, baseUrl) {
+  for (const [label, viewport] of [["desktop", DESKTOP_VIEWPORT], ["mobile", MOBILE_VIEWPORT]]) {
+    let attempts = 0;
+    const test = await createTestPage(browser, baseUrl, viewport, async page => {
+      await page.addInitScript(() => {
+        window.__deferredCopies = [];
+        Object.defineProperty(navigator, "share", { configurable: true, value: undefined });
+        Object.defineProperty(navigator, "clipboard", { configurable: true, value: {
+          async writeText(text) { window.__deferredCopies.push(text); }
+        } });
+      });
+      await page.route("**/app-export-share.js*", async route => {
+        attempts += 1;
+        if (attempts === 1) await route.abort("internetdisconnected");
+        else await route.continue();
+      });
+    });
+    const { page } = test;
+    try {
+      await waitForAppReady(page, { requireTiles: false });
+      assert.equal(attempts, 0, "deferred export/share module is not downloaded at startup");
+      await page.locator(label === "mobile" ? "#toggle-left-panel" : "#rankings-summary").click();
+      const button = page.locator('[data-share-target="left-panel"]');
+      await button.click();
+      const notice = page.locator("#app-toast");
+      await notice.filter({ hasText: "Revisa tu conexion" }).waitFor({ state: "visible" });
+      assert.equal(await notice.getAttribute("role"), "status");
+      assert.equal(attempts, 1, "failed imports do not automatically retry");
+      assert.equal(await page.evaluate(() => window.__deferredCopies.length), 0);
+      assert.equal(await page.evaluate(() => deferredUiModulePromises.has("exportShare")), false);
+      const bounds = await notice.boundingBox();
+      assert.ok(bounds && bounds.x >= 0 && bounds.x + bounds.width <= viewport.width + 1, label + " load failure fits viewport");
+      await notice.screenshot({ path: `tmp/deferred-recovery-${label}.png` });
+
+      await button.focus();
+      await button.press("Enter");
+      const recovered = await page.evaluate(async () => Boolean(await deferredUiModulePromises.get("exportShare")));
+      assert.equal(recovered, true, label + " a real failed import can recover without reloading the page");
+      await page.waitForFunction(() => window.__deferredCopies.length === 1);
+      assert.equal(attempts, 2, "one explicit action makes one retry");
+      await button.click();
+      await page.waitForFunction(() => window.__deferredCopies.length === 2);
+      assert.equal(attempts, 2, "successful imports are reused");
+      assertHealthyPage(test.pageErrors, label + " deferred recovery");
+    } finally {
+      await test.context.close();
+    }
+  }
+}
+
+async function testShareLifecycle(browser, baseUrl) {
+  for (const [label, viewport] of [["desktop", DESKTOP_VIEWPORT], ["mobile", MOBILE_VIEWPORT]]) {
+    const requests = [];
+    const test = await createTestPage(browser, baseUrl, viewport, async page => {
+      page.on("request", request => requests.push(request.url()));
+      await page.addInitScript(() => {
+        const fixture = window.__shareFixture = {
+          nativeMode: "cancel", copyMode: "ok", shares: [], copies: [], clipboard: "keep", release: null
+        };
+        const share = async payload => {
+          fixture.shares.push(payload);
+          if (fixture.nativeMode === "cancel") throw new DOMException("User cancelled", "AbortError");
+          if (fixture.nativeMode === "denied") throw new DOMException("Share denied", "NotAllowedError");
+          if (fixture.nativeMode === "hold") await new Promise(resolve => { fixture.release = resolve; });
+        };
+        const clipboard = { async writeText(text) {
+          fixture.copies.push(text);
+          if (fixture.copyMode === "denied") throw new DOMException("Copy denied", "NotAllowedError");
+          fixture.clipboard = text;
+        } };
+        Object.defineProperty(navigator, "share", { configurable: true, get: () => fixture.nativeMode === "absent" ? undefined : share });
+        Object.defineProperty(navigator, "clipboard", { configurable: true, get: () => fixture.copyMode === "absent" ? undefined : clipboard });
+      });
+    });
+    const { page } = test;
+    try {
+      await waitForAppReady(page, { requireTiles: false });
+      assert.ok(!requests.some(url => /app-export-share\.js|vendor\/exports/.test(url)), "share/export tools are not loaded at startup");
+      await page.evaluate(() => {
+        window.__shareMessages = [];
+        const showToast = uiPolish.showToast;
+        uiPolish.showToast = message => { window.__shareMessages.push(message); return showToast(message); };
+      });
+      await page.locator(label === "mobile" ? "#toggle-left-panel" : "#rankings-summary").click();
+      const button = page.locator('[data-share-target="left-panel"]');
+      await button.focus();
+      await button.press("Enter");
+      await page.waitForFunction(() => window.__shareFixture.shares.length === 1);
+      assert.deepEqual(await page.evaluate(() => ({ copies: window.__shareFixture.copies.length,
+        clipboard: window.__shareFixture.clipboard, messages: window.__shareMessages })),
+        { copies: 0, clipboard: "keep", messages: [] }, label + " cancellation preserves the clipboard");
+      await page.evaluate(() => { window.__shareFixture.nativeMode = "ok"; });
+      await button.click();
+      await page.waitForFunction(() => window.__shareFixture.shares.length === 2);
+      assert.equal(await page.evaluate(() => window.__shareFixture.copies.length), 0);
+      assert.equal(await page.evaluate(() => window.__shareMessages.length), 0, "native handoff is not confirmed delivery");
+
+      await page.evaluate(() => { window.__shareFixture.nativeMode = "absent"; window.__shareFixture.copyMode = "denied"; });
+      await button.click();
+      const notice = page.locator("#app-toast");
+      await notice.filter({ hasText: "No se pudo compartir ni copiar" }).waitFor({ state: "visible" });
+      assert.equal(await page.evaluate(() => window.__shareFixture.clipboard), "keep");
+      assert.equal(await notice.getAttribute("role"), "status");
+      const bounds = await notice.boundingBox();
+      assert.ok(bounds && bounds.x >= 0 && bounds.x + bounds.width <= viewport.width + 1, label + " error notice fits viewport");
+      await notice.screenshot({ path: `tmp/share-denied-${label}.png` });
+      await page.evaluate(() => { window.__shareFixture.copyMode = "absent"; });
+      await button.click();
+      await page.waitForFunction(() => window.__shareMessages.length === 2);
+      assert.equal(await page.evaluate(() => window.__shareFixture.copies.length), 1);
+      await page.evaluate(() => { window.__shareFixture.copyMode = "ok"; });
+      await button.click();
+      await notice.filter({ hasText: "Copiado al portapapeles" }).waitFor({ state: "visible" });
+      assert.match(await page.evaluate(() => window.__shareFixture.clipboard), /^Rankings GeoRisk\n/);
+      assert.equal(await page.evaluate(() => window.__shareFixture.copies.length), 2);
+
+      await page.evaluate(() => { window.__shareFixture.nativeMode = "hold"; });
+      await button.click();
+      await page.waitForFunction(() => window.__shareFixture.shares.length === 3);
+      await button.click();
+      assert.equal(await page.evaluate(() => window.__shareFixture.shares.length), 3, "pending sharing is not duplicated");
+      assert.equal(await page.evaluate(() => window.__shareFixture.copies.length), 2);
+      await page.evaluate(() => { window.__shareFixture.nativeMode = "ok"; window.__shareFixture.release(); });
+      await button.click();
+      await page.waitForFunction(() => window.__shareFixture.shares.length === 4);
+      assert.ok(!requests.some(url => /vendor\/exports\/(?:html2canvas|jspdf)/.test(url)), "text sharing never loads canvas/PDF libraries");
+      assert.equal(requests.filter(url => /vendor\/exports\/manifest\.js/.test(url)).length, 1, "only the shared module metadata is imported");
+      assert.equal(requests.filter(url => /app-export-share\.js/.test(url)).length, 1, "sharing reuses its deferred module");
+      assertHealthyPage(test.pageErrors, label + " share lifecycle");
+    } finally {
+      await page.evaluate(() => window.__shareFixture.release?.()).catch(() => {});
+      await test.context.close();
+    }
+  }
+}
+
 async function testSecureExports(browser, baseUrl) {
   for (const [label, viewport] of [["desktop", DESKTOP_VIEWPORT], ["mobile", MOBILE_VIEWPORT]]) {
     const requests = [];
@@ -2435,6 +2571,8 @@ try {
     ["--input-security-only", testUntrustedInputs],
     ["--storage-only", testStorageFailures],
     ["--exports-only", testSecureExports],
+    ["--share-only", testShareLifecycle],
+    ["--deferred-only", testDeferredUiRecovery],
     ["--performance-only", testIdleMapPerformance],
     ["--green-only", testGreenCoding],
     ["--motion-only", testReducedMapMotion],

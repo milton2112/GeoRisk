@@ -6,6 +6,7 @@ import vm from "node:vm";
 import { buildExportLibraries } from "../buildExportLibraries.js";
 import { summarizeDependencyAudit } from "../lib/dependency-audit.js";
 import { exportAssets } from "../../vendor/exports/manifest.js";
+import "./share-lifecycle.test.js";
 
 await buildExportLibraries({ check: true });
 const temporary = await fs.mkdtemp(path.join(os.tmpdir(), "georisk-export-security-"));

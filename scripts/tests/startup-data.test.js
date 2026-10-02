@@ -16,6 +16,7 @@ import "./boot-scheduler.test.js";
 import "./background-panels.test.js";
 import "./map-overlay-ready.test.js";
 import "./storage-resilience.test.js";
+import "./deferred-ui-recovery.test.js";
 
 const projectRoot = path.resolve(process.cwd());
 const full = await fs.readJson(path.join(projectRoot, "data", "countries_full.json"));

@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-10-02T16:29:15.351Z",
+  "generatedAt": "2026-10-02T17:35:08.159Z",
   "status": "operativo",
   "startup": {
-    "critical": "868 KB",
-    "criticalBytes": 888467,
+    "critical": "869 KB",
+    "criticalBytes": 889879,
     "scope": "App shell and eager local scripts only; excludes the separately budgeted map engine.",
     "mapEngine": {
       "path": "vendor/cesium/engine.js",
@@ -11,7 +11,7 @@
       "human": "3.27 MB",
       "precached": false
     },
-    "appCoreAndEngineBytes": 4318080,
+    "appCoreAndEngineBytes": 4319492,
     "deferred": "3.13 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 13183467,
@@ -40,8 +40,8 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 588985,
-        "human": "575 KB",
+        "bytes": 590397,
+        "human": "577 KB",
         "startupCritical": true,
         "category": "startup-app-core"
       },
@@ -832,14 +832,14 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 588985,
-      "human": "575 KB"
+      "bytes": 590397,
+      "human": "577 KB"
     },
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 304697,
-      "human": "298 KB"
+      "bytes": 308990,
+      "human": "302 KB"
     },
     {
       "path": "style.css",
