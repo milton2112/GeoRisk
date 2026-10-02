@@ -184,6 +184,83 @@ for (const action of ["close", "switch", "retry"]) {
   }
 }
 
+function sectionHarness() {
+  const held = deferred();
+  const events = [];
+  const timers = [];
+  const modal = { hidden: false };
+  const state = {
+    currentPanelState: { type: "country", code: "AUS" }, countryPanelRenderToken: 1,
+    deferredDataStatus: { runtimeCuration: true },
+    document: { getElementById: () => modal },
+    loadCountryConflictDetail: async code => { events.push(["load", code]); await held.promise; },
+    loadRuntimeCuration: async () => { events.push(["curation"]); },
+    rerenderCurrentPanel: () => { events.push(["render"]); state.countryPanelRenderToken++; },
+    setTimeout(fn, ms) { assert.equal(ms, 80); timers.push(fn); },
+    scrollCountrySectionIntoView: section => events.push(["scroll", section])
+  };
+  vm.createContext(state);
+  vm.runInContext(block("async function activateCountrySection", "function getConflictsSinceFormation"), state);
+  return { state, events, timers, modal, held };
+}
+
+{
+  const { state, events, timers, held } = sectionHarness();
+  const pending = state.activateCountrySection("country-section-military");
+  state.countryPanelRenderToken++; // An unrelated redraw of the same open profile.
+  held.resolve();
+  await pending;
+  assert.deepEqual(events, [["load", "AUS"], ["render"]], "a background redraw must not discard a completed conflict retry");
+  assert.equal(timers.length, 1);
+  timers[0]();
+  assert.deepEqual(events.at(-1), ["scroll", "country-section-military"]);
+}
+
+for (const action of ["close", "country", "section", "type", "missing-modal"]) {
+  const { state, events, timers, modal, held } = sectionHarness();
+  const pending = state.activateCountrySection("country-section-military");
+  if (action === "close") modal.hidden = true;
+  if (action === "country") state.currentPanelState.code = "ESP";
+  if (action === "section") state.currentPanelState.countryActiveSection = "country-section-general";
+  if (action === "type") state.currentPanelState.type = "group";
+  if (action === "missing-modal") state.document.getElementById = () => null;
+  held.resolve();
+  await pending;
+  assert.deepEqual(events, [["load", "AUS"]], action + " must invalidate an old section action");
+  assert.equal(timers.length, 0);
+}
+
+for (const action of ["close", "country", "section", "type", "missing-modal"]) {
+  const { state, events, timers, modal, held } = sectionHarness();
+  const pending = state.activateCountrySection("country-section-military");
+  held.resolve();
+  await pending;
+  if (action === "close") modal.hidden = true;
+  if (action === "country") state.currentPanelState.code = "ESP";
+  if (action === "section") state.currentPanelState.countryActiveSection = "country-section-general";
+  if (action === "type") state.currentPanelState.type = "group";
+  if (action === "missing-modal") state.document.getElementById = () => null;
+  timers[0]();
+  assert.ok(!events.some(([name]) => name === "scroll"), "a queued scroll must respect " + action);
+}
+
+for (const action of ["redraw", "close", "country", "section", "type"]) {
+  const { state, events, timers, modal } = sectionHarness();
+  const curation = deferred();
+  state.deferredDataStatus.runtimeCuration = false;
+  state.loadRuntimeCuration = async () => { events.push(["curation"]); await curation.promise; };
+  const pending = state.activateCountrySection("country-section-history");
+  if (action === "redraw") state.countryPanelRenderToken++;
+  if (action === "close") modal.hidden = true;
+  if (action === "country") state.currentPanelState.code = "ESP";
+  if (action === "section") state.currentPanelState.countryActiveSection = "country-section-general";
+  if (action === "type") state.currentPanelState.type = "group";
+  curation.resolve();
+  await pending;
+  assert.deepEqual(events, action === "redraw" ? [["curation"], ["render"]] : [["curation"]]);
+  assert.equal(timers.length, action === "redraw" ? 1 : 0, "curation completion respects " + action);
+}
+
 // Validate the contract against every shipped profile, including Kosovo and Somaliland.
 for (const file of (await fs.readdir("data/countries")).filter(name => name.endsWith(".json"))) {
   const { state } = harness();

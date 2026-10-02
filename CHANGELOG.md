@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.257 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.258 antes de cerrar la siguiente version.
+
+## v1.6.258 - 2026-10-02
+
+- Corrige el reintento de conflictos que dejaba visible el aviso de error aunque los datos ya se hubieran descargado. La publicacion de v1.6.257 en main detecto esa carrera y bloqueo Pages: un render de la misma ficha invalidaba la accion pendiente por usar un token de render como token de seleccion.
+- Valida pais, tipo de ficha, seccion activa y modal abierto al terminar la descarga y la curaduria, y antes del desplazamiento diferido. Un redibujado del mismo pais/seccion permite actualizar la lista; cerrar, cambiar de pais o navegar a otra seccion impide acciones tardias. Conserva los tokens de carga/render de fichas y la deduplicacion de solicitudes.
+- La regresion unitaria fallo antes del arreglo. Agrega pruebas de redibujado, cierre, cambio de pais/seccion/tipo y espera de curaduria. La E2E retiene la respuesta valida del reintento y reemplaza la ficha antes de liberarla, en escritorio y movil emulado; exige lista visible, aviso retirado y exactamente dos solicitudes (fallo y reintento explicito), sin datasets masivos.
+- Green coding: reutiliza el render coalescido existente y agrega comprobaciones acotadas a la accion y su temporizador de 80 ms. Sin polling, cache, dependencias, precarga ni reintentos automaticos nuevos; no modifica datos historicos. script.js pasa de 582397 a 582532 bytes (+135), dentro del presupuesto. No se infiere ahorro energetico ni de CO2; movil emulado no sustituye un telefono fisico.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-10-02-release-1`.
 
 ## v1.6.257 - 2026-09-28
 
