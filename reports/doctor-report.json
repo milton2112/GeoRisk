@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-02T16:31:29.422Z",
-  "packageVersion": "1.6.259",
+  "generatedAt": "2026-10-02T16:57:54.795Z",
+  "packageVersion": "1.6.260",
   "status": "observacion",
   "summary": {
     "totalFindings": 2,
@@ -48,7 +48,7 @@
       "severity": "media",
       "area": "performance",
       "title": "Rendimiento real por revisar",
-      "detail": "desktop: 1 tareas >200 ms; maxima 206 ms.",
+      "detail": "desktop: 1 tareas >200 ms; maxima 222 ms.",
       "command": "npm run performance:snapshot -- --fresh"
     },
     {

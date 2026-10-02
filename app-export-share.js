@@ -2,6 +2,7 @@ import { exportAssets } from "./vendor/exports/manifest.js";
 
 let exportCanvasLibraryPromise = null;
 let exportPdfLibraryPromise = null;
+let sharingInProgress = false;
 
 function getLanguage(context = {}) {
   return context.language === "en" ? "en" : "es";
@@ -244,19 +245,33 @@ async function exportNodeAsPdf(node, filename, context = {}) {
 }
 
 async function shareText(title, text, context = {}) {
-  const payload = `${title}\n\n${text}\n\nGeoRisk - ${new Date().toLocaleDateString(getLocale(context))}`;
-  if (navigator.share) {
-    try {
-      await navigator.share({ title, text: payload });
-      return;
-    } catch (error) {
-      console.error("No se pudo compartir:", error);
+  if (sharingInProgress) return false;
+  sharingInProgress = true;
+  try {
+    const payload = `${title}\n\n${text}\n\nGeoRisk - ${new Date().toLocaleDateString(getLocale(context))}`;
+    if (typeof navigator.share === "function") {
+      try {
+        await navigator.share({ title, text: payload });
+        return true;
+      } catch (error) {
+        if (error?.name === "AbortError") return false;
+        console.warn("No se pudo compartir:", error?.name || error);
+      }
     }
-  }
 
-  if (navigator.clipboard?.writeText) {
-    await navigator.clipboard.writeText(payload);
-    notify(context, "Copied to clipboard.", "Copiado al portapapeles.");
+    if (typeof navigator.clipboard?.writeText === "function") {
+      try {
+        await navigator.clipboard.writeText(payload);
+        notify(context, "Copied to clipboard.", "Copiado al portapapeles.");
+        return true;
+      } catch (error) {
+        console.warn("No se pudo copiar:", error?.name || error);
+      }
+    }
+    notify(context, "Could not share or copy in this browser.", "No se pudo compartir ni copiar en este navegador.");
+    return false;
+  } finally {
+    sharingInProgress = false;
   }
 }
 
