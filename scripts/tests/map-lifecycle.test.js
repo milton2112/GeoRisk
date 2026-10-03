@@ -119,6 +119,13 @@ for (const mode of ["country", "religion", "continent"]) {
   assert.equal(calls.loads, 1, "una capa ya activa no debe volver a construirse");
 }
 
+for (const options of [{}, { preserveView: true }, { resetView: false }]) {
+  const { state, calls } = createHarness();
+  await state.loadMap(false, options);
+  assert.equal(calls.fits, options.preserveView || options.resetView === false ? 0 : 1,
+    "overlay camera ownership must preserve default and detailed-upgrade behavior");
+}
+
 {
   const { state } = createHarness();
   await state.loadMap(false);
