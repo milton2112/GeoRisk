@@ -41,7 +41,7 @@ GeoRisk keeps runtime files in the repository root for now. The project is split
 
 ## Data Curation
 
-- `scripts/lib/conflict-curation-*.js` holds source-backed correction batches, including Taraca, Pecos and Sunset Pass. `scripts/applyConflictAutofix.js` applies their aliases, country links and historical details to internal datasets; these modules are never shipped to the browser.
+- `scripts/lib/conflict-curation-*.js` holds source-backed correction batches, including Taraca, Pecos, Sunset Pass and the Kramatorsk station attack. `scripts/applyConflictAutofix.js` applies their aliases, country links and historical details to internal datasets; these modules are never shipped to the browser. The Kramatorsk batch keeps dated OHCHR and HRW/SITU civilian counts separate and labels investigative attribution; its historical episode status does not close its parent war.
 - `scripts/buildDataIndexes.js` derives public country profiles, light indexes and per-conflict detail shards. Full sources and curation notes stay in on-demand detail; do not copy source documents into startup assets.
 - Curation regressions run through `scripts/tests/conflict-autofix.test.js` and check dates, hierarchy, source limitations, uniqueness and consistency across generated outputs.
 
