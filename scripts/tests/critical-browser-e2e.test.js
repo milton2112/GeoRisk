@@ -2116,9 +2116,11 @@ async function testSecureExports(browser, baseUrl) {
       await page.waitForFunction(() => document.querySelectorAll("#top-population li").length > 0);
       await page.evaluate(() => {
         window.__exportViewNotices = 0;
+        window.__exportSizeNotices = 0;
         const original = uiPolish.showToast;
         uiPolish.showToast = message => {
           if (message.startsWith("La vista cambio")) window.__exportViewNotices += 1;
+          if (message.startsWith("El informe es demasiado grande")) window.__exportSizeNotices += 1;
           return original(message);
         };
       });
@@ -2165,12 +2167,51 @@ async function testSecureExports(browser, baseUrl) {
       });
       assert.ok(layout.height > 300 && layout.belowHeader && layout.inBounds, label + " report body is in flow and unclipped");
       assert.equal(layout.controls, 0);
+      await page.evaluate(() => {
+        window.__nativeBudgetCanvas = window.html2canvas;
+        window.__budgetCaptureCalls = 0;
+        window.html2canvas = (...args) => { window.__budgetCaptureCalls++; return window.__nativeBudgetCanvas(...args); };
+        const spacer = document.createElement("div");
+        spacer.id = "export-size-fixture";
+        spacer.style.height = "24000px";
+        document.getElementById("left-panel").appendChild(spacer);
+      });
+      await pngButton.focus();
+      await pngButton.press("Enter");
+      await page.waitForFunction(() => window.__exportSizeNotices === 1);
+      const sizeNotice = page.locator("#app-toast").filter({ hasText: "El informe es demasiado grande" });
+      await sizeNotice.waitFor({ state: "visible" });
+      await captureTransientNotice(page, sizeNotice, { path: `tmp/export-size-limit-${label}.png` });
+      assert.equal(await page.evaluate(() => window.__budgetCaptureCalls), 0, "preflight rejects before iframe/canvas capture");
+      assert.equal(await page.locator(".export-report-shell, .html2canvas-container").count(), 0);
+      assert.equal(downloads.length, 0);
+      await page.evaluate(() => {
+        document.getElementById("export-size-fixture").remove();
+        window.html2canvas = (node, options) => {
+          window.__budgetCaptureCalls++;
+          return window.__nativeBudgetCanvas(node, { ...options, onclone(doc, clonedNode) {
+            const spacer = doc.createElement("div");
+            spacer.style.height = "24000px";
+            clonedNode.appendChild(spacer);
+            return options.onclone(doc, clonedNode);
+          } });
+        };
+      });
+      await pngButton.click();
+      await page.waitForFunction(() => window.__exportSizeNotices === 2);
+      assert.equal(await page.evaluate(() => window.__budgetCaptureCalls), 1, "cloned-layout growth is checked by the real library");
+      assert.equal(await page.locator(".export-report-shell, .html2canvas-container").count(), 0, "rejected clone iframe is removed");
+      assert.equal(downloads.length, 0);
+      await page.evaluate(() => { window.html2canvas = window.__nativeBudgetCanvas; });
       const imageDownload = page.waitForEvent("download", { timeout: APP_TIMEOUT_MS });
       await page.locator('[data-export-target="left-panel"][data-export-format="png"]').click();
       const image = await imageDownload;
       const png = await fs.readFile(await image.path());
       assert.equal(png.subarray(0, 8).toString("hex"), "89504e470d0a1a0a");
       assert.ok(png.length > 20000, label + " export image contains content");
+      const pngWidth = png.readUInt32BE(16), pngHeight = png.readUInt32BE(20);
+      assert.ok(pngWidth > 0 && pngHeight > 0 && pngWidth <= 8192 && pngHeight <= 8192 && pngWidth * pngHeight <= 4_000_000,
+        label + " real PNG fits the capture budget");
       await image.saveAs("tmp/export-" + label + ".png");
       const colors = await page.evaluate(async data => {
         const bitmap = new Image();
@@ -2206,6 +2247,7 @@ async function testSecureExports(browser, baseUrl) {
           window.__pendingExportCaptures += 1;
           await held;
           const canvas = await window.__originalExportCanvas(...args);
+          window.__completedExportDimensions = { width: canvas.width, height: canvas.height };
           window.__completedExportCanvas = canvas;
           return canvas;
         };
@@ -2225,8 +2267,12 @@ async function testSecureExports(browser, baseUrl) {
       assert.equal(pdfBytes.subarray(0, 5).toString(), "%PDF-");
       assert.ok(pdfBytes.length > 20000, label + " PDF includes captured image");
       assert.equal(await page.evaluate(() => window.__completedExportCanvas.width === 0 && window.__completedExportCanvas.height === 0), true, "completed capture discards canvas pixel dimensions");
+      const pdfDimensions = await page.evaluate(() => window.__completedExportDimensions);
+      assert.ok(pdfDimensions.width <= 8192 && pdfDimensions.height <= 8192 && pdfDimensions.width * pdfDimensions.height <= 4_000_000,
+        label + " PDF capture stays below both canvas and PDF page limits");
       assert.equal(await page.evaluate(() => window.jspdf.jsPDF.version), "4.2.1");
       assert.equal(await page.locator(".export-report-shell").count(), 0);
+      assert.equal(await page.locator(".html2canvas-container").count(), 0);
       assert.equal(await page.locator("script[data-export-library][integrity^='sha384-'][crossorigin='anonymous']").count(), 2);
       assert.equal(requests.some(url => /cdn.*(?:jspdf|html2canvas)/.test(url)), false);
       assert.equal(requests.filter(url => /vendor\/exports\/html2canvas.*\.js$/.test(url)).length, 1);
@@ -2237,6 +2283,8 @@ async function testSecureExports(browser, baseUrl) {
       releaseLibrary();
       await page.evaluate(() => {
         window.__releaseExportCapture?.();
+        document.getElementById("export-size-fixture")?.remove();
+        if (window.__nativeBudgetCanvas) window.html2canvas = window.__nativeBudgetCanvas;
         if (window.__originalExportCanvas) window.html2canvas = window.__originalExportCanvas;
       }).catch(() => {});
       await test.context.close();

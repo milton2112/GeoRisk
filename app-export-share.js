@@ -4,6 +4,23 @@ let exportCanvasLibraryPromise = null;
 let exportPdfLibraryPromise = null;
 let sharingInProgress = false;
 let exportInProgress = false;
+const MAX_CAPTURE_PIXELS = 4_000_000;
+const MAX_CAPTURE_SIDE = 8192;
+
+function getCaptureScale({ width, height }, preferredScale) {
+  if (!Number.isFinite(width) || !Number.isFinite(height) || width <= 0 || height <= 0 ||
+    !Number.isFinite(preferredScale) || preferredScale < 1) throw new Error("Invalid capture dimensions");
+  width = Math.ceil(width);
+  height = Math.ceil(height);
+  const scale = Math.min(preferredScale, MAX_CAPTURE_SIDE / width, MAX_CAPTURE_SIDE / height,
+    Math.sqrt(MAX_CAPTURE_PIXELS / (width * height)));
+  if (scale < 1) {
+    const error = new RangeError("Report exceeds the capture budget");
+    error.code = "EXPORT_SIZE_LIMIT";
+    throw error;
+  }
+  return scale;
+}
 
 function getLanguage(context = {}) {
   return context.language === "en" ? "en" : "es";
@@ -182,6 +199,7 @@ async function exportNode(node, filename, format, context = {}) {
   exportInProgress = true;
   let captureNode = null;
   let canvas = null;
+  let captureFrame = null;
   const isCurrent = () => {
     if (typeof context.isCurrent !== "function" || context.isCurrent()) return true;
     notify(context, "The view changed. Export the current view again.", "La vista cambio. Vuelve a exportar la vista actual.");
@@ -201,12 +219,24 @@ async function exportNode(node, filename, format, context = {}) {
     }
     if (!isCurrent()) return false;
     captureNode = buildReportCaptureNode(node, filename?.replace(/\.(png|pdf)$/i, ""), context);
-    canvas = await html2canvas(captureNode, {
+    const preferredScale = format === "pdf" ? 2 : Math.min(window.devicePixelRatio > 1 ? 2 : 1.8, 2.2);
+    const captureOptions = {
       backgroundColor: "#071320",
-      scale: format === "pdf" ? 2 : Math.min(window.devicePixelRatio > 1 ? 2 : 1.8, 2.2),
+      scale: getCaptureScale(captureNode.getBoundingClientRect(), preferredScale),
       useCORS: true
-    });
+    };
+    // html2canvas measures after cloning/fonts; validate that layout before it allocates the canvas.
+    captureOptions.onclone = (clonedDocument, clonedNode) => {
+      captureFrame = clonedDocument.defaultView?.frameElement;
+      captureOptions.scale = getCaptureScale(clonedNode.getBoundingClientRect(), preferredScale);
+    };
+    canvas = await html2canvas(captureNode, captureOptions);
+    getCaptureScale({ width: canvas.width, height: canvas.height }, 1);
     const image = canvas.toDataURL("image/png");
+    const prefix = "data:image/png;base64,";
+    if (typeof image !== "string" || !image.startsWith(prefix) || image.length <= prefix.length) {
+      throw new Error("Canvas did not produce a PNG image");
+    }
     const base = buildExportFilename(filename?.replace(/\.(png|pdf)$/i, ""), context);
     if (format === "pdf") {
       const { jsPDF } = window.jspdf;
@@ -226,13 +256,19 @@ async function exportNode(node, filename, format, context = {}) {
     return true;
   } catch (error) {
     console.warn("No se pudo generar la exportacion:", error);
-    notify(context,
-      format === "pdf" ? "Could not generate the PDF. Retry the export." : "Could not generate the image. Retry the export.",
-      format === "pdf" ? "No se pudo generar el PDF. Reintenta la exportacion." : "No se pudo generar la imagen. Reintenta la exportacion.");
+    if (error?.code === "EXPORT_SIZE_LIMIT") {
+      notify(context, "Report too large. Reduce the selection or close sections and export again.",
+        "El informe es demasiado grande. Reduce la seleccion o cierra secciones y vuelve a exportar.");
+    } else {
+      notify(context,
+        format === "pdf" ? "Could not generate the PDF. Retry the export." : "Could not generate the image. Retry the export.",
+        format === "pdf" ? "No se pudo generar el PDF. Reintenta la exportacion." : "No se pudo generar la imagen. Reintenta la exportacion.");
+    }
     return false;
   } finally {
     exportInProgress = false;
     if (canvas) { canvas.width = 0; canvas.height = 0; }
+    captureFrame?.remove();
     captureNode?.remove();
   }
 }
