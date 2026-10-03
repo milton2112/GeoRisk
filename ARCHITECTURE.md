@@ -7,7 +7,7 @@ GeoRisk keeps runtime files in the repository root for now. The project is split
 - `index.html`: app shell and stable DOM anchors.
 - `style.css`: shared visual system, responsive layout, modal/hub polish.
 - `script.js`: legacy orchestrator. It wires modules, data loading, map lifecycle and event listeners.
-- `app-store.js`: central UI store for cross-module state snapshots.
+- `app-store.js`: central UI store for cross-module state snapshots, preference normalization and pure saved-entry selection. Saved view/filter/favorite controls accept only canonical in-range decimal option indexes; empty placeholders never trigger restoration. Saved views retain only the configuration used by applySavedView, not the current panel's country datasets. Existing persisted views within the unchanged 131072-character input limit remain readable through readPreferences; unused legacy panelState is ignored. No automatic storage deletion or migration of previously oversized entries. The existing configuration semantics, deduplication and 10-view/8-favorite limits are unchanged.
 - `app-ui-polish.js`: tooltips, focus helpers, keyboard a11y and compact label metadata.
 - `app-map.js`, `app-map-styles.js`, `app-map-interactions.js`: map renderer decisions, country styling, interaction tuning and the pure consecutive-motion FPS controller. The runtime owns Cesium/visibility listeners and quality changes; the boot scheduler owns startup metrics and completion.
 - `app-map-engine.js`: single, bounded ESM import of the local Cesium subset. It inherits the loader's release query and deployment subdirectory. Cesium workers/assets still use the pinned external `CESIUM_BASE_URL`.

@@ -2450,8 +2450,71 @@ async function testUntrustedInputs(browser, baseUrl) {
         history: searchHistory.length, language: currentLanguage, quality: qualityPreset
       })), { views: 0, filters: 0, favorites: 1, history: 1, language: "es", quality: "auto" });
       assert.equal(await page.locator("#favorite-views-select option").last().textContent().then(text => text.includes("<img")), true);
+      const savedControls = await page.evaluate(() => {
+        const original = { views: savedViews, favorites: favoriteViews, filters: savedFilters };
+        const restoreView = applySavedView;
+        const restoreFilters = applyFilters;
+        const calls = [];
+        const filter = document.getElementById("filter-continent-select");
+        const filterValue = filter.value;
+        try {
+          const view = { ...getCurrentViewState(), name: "Test view", selectedCode: "ARG" };
+          savedViews = [view];
+          favoriteViews = [view];
+          savedFilters = [{ name: "Asia", filters: { continent: "Asia" } }];
+          renderSavedViews();
+          renderFavoriteViews();
+          renderSavedFilters();
+          applySavedView = () => calls.push("view");
+          applyFilters = () => calls.push("filters");
+          for (const id of ["saved-views-select", "favorite-views-select", "saved-filters-select"]) {
+            const control = document.getElementById(id);
+            control.value = "";
+            control.dispatchEvent(new Event("change", { bubbles: true }));
+          }
+          const emptyCalls = calls.length;
+          const unchanged = filter.value === filterValue;
+          for (const id of ["saved-views-select", "favorite-views-select", "saved-filters-select"]) {
+            const control = document.getElementById(id);
+            control.value = "0";
+            control.dispatchEvent(new Event("change", { bubbles: true }));
+          }
+          return { emptyCalls, calls, unchanged };
+        } finally {
+          applySavedView = restoreView;
+          applyFilters = restoreFilters;
+          savedViews = original.views;
+          favoriteViews = original.favorites;
+          savedFilters = original.filters;
+          filter.value = filterValue;
+          renderSavedViews();
+          renderFavoriteViews();
+          renderSavedFilters();
+        }
+      });
+      assert.equal(savedControls.emptyCalls, 0, "empty placeholders must not restore any saved configuration");
+      assert.equal(savedControls.unchanged, true, "an empty saved filter must not change the filter inputs");
+      assert.deepEqual(savedControls.calls, ["view", "view", "filters"], "real first options retain their event wiring");
       await submitSearch(page, "Argentina");
       await waitForCountryPanel(page, "Argentina");
+      const savedViewPayload = await page.evaluate(() => {
+        const panel = currentPanelState;
+        try {
+          currentPanelState = { type: "continent", continent: "Asia", countries: [{ name: "Fixture", summary: "x".repeat(100000) }] };
+          document.getElementById("save-view-button").click();
+          document.getElementById("save-favorite-button").click();
+          const views = localStorage.getItem(STORAGE_KEYS.views);
+          const favorites = localStorage.getItem(STORAGE_KEYS.favorites);
+          const loaded = window.GeoRiskStore.readPreferences(readLocalPreference, STORAGE_KEYS, Object.keys(THEME_STYLES));
+          return { viewsBytes: new TextEncoder().encode(views).length,
+            favoritesBytes: new TextEncoder().encode(favorites).length,
+            hasPanel: Object.hasOwn(JSON.parse(views)[0], "panelState") || Object.hasOwn(JSON.parse(favorites)[0], "panelState"),
+            restored: [loaded.savedViews[0].mapMode, loaded.favoriteViews[0].mapMode] };
+        } finally { currentPanelState = panel; }
+      });
+      assert.equal(savedViewPayload.hasPanel, false, "real save controls must not serialize irrelevant country datasets");
+      assert.ok(savedViewPayload.viewsBytes < 2000 && savedViewPayload.favoritesBytes < 3000);
+      assert.ok(savedViewPayload.restored.every(mode => mode === (viewport.width <= 820 ? "2d" : "3d")));
       await page.evaluate(async () => {
         await activateCountrySection("country-section-sources");
         await ensureDeferredUiModule("news");

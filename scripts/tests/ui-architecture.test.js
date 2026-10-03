@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import fs from "fs-extra";
 import path from "node:path";
 import vm from "node:vm";
+import "./saved-view-storage.test.js";
 
 const projectRoot = process.cwd();
 

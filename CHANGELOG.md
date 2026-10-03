@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.267 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.268 antes de cerrar la siguiente version.
+
+## v1.6.268 - 2026-10-03
+
+- Corrige los selectores de vistas, favoritos y filtros guardados: la opcion vacia ya no aplica el primer elemento por Number("") === 0. Un helper puro en app-store valida indices decimales canonicos dentro de la lista; rechaza blancos, negativos, fracciones, notacion exponencial y valores fuera de rango sin cambiar filtros, pais, tema o modo. Las opciones reales 0/1 conservan su funcionamiento.
+- Las nuevas vistas/favoritos guardan solo nombre, fecha, tema, modo, filtros y codigo de pais. Elimina panelState, que copiaba fichas completas de grupos pero applySavedView nunca utilizaba. Medicion local equivalente con los 48 paises de Asia del dataset completo: JSON UTF-8 de una configuracion pasa de 1950669 a 254 bytes al omitir ese campo; no representa toda la memoria pico ni un ahorro energetico/CO2. Evita serializar, escribir y retener esa copia por guardado; no descarga datos ni agrega precalculos.
+- Evidencia: la prueba roja reprodujo que la opcion vacia llamaba a la restauracion. Pruebas aisladas verifican los tres handlers reales, limites de indices, configuracion pequena con grupos grandes/circulares, codigo de pais, deduplicacion y compatibilidad con vistas antiguas dentro del limite. Chrome desktop/mobile emulado verifica el cableado de las tres opciones vacias/reales y los botones reales de guardar vista/favorito contra localStorage y readPreferences. Reutiliza las paginas existentes de seguridad de entradas, sin paginas ni capturas exitosas adicionales.
+- Green coding: helper compartido pequeno, sin dependencias, red, listeners, timers, polling ni caches nuevos. Conserva los limites de 10 vistas/8 favoritos y de 131072 caracteres al leer cada entrada, accesibilidad y avisos existentes ante falta de espacio. No borra ni migra automaticamente almacenamiento anterior; entradas antiguas que ya excedian ese limite siguen requiriendo recuperacion separada. No cambia la semantica de restauracion de grupos ni afirma prueba en celular fisico. Las pruebas y documentacion interna quedan fuera del deploy; el changelog publico agrega texto bajo demanda.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-10-03-release-4`.
 
 ## v1.6.267 - 2026-10-03
 

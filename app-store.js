@@ -25,6 +25,13 @@
     return { getState, setState, subscribe };
   }
 
+  function getSavedEntry(entries, value) {
+    if (!Array.isArray(entries) || typeof value !== "string") return undefined;
+    const index = Number(value);
+    return Number.isSafeInteger(index) && index >= 0 && String(index) === value && index < entries.length
+      ? entries[index] : undefined;
+  }
+
   const store = createStore({
     appMode: "default",
     mapMode: "3d",
@@ -100,6 +107,7 @@
 
   window.GeoRiskStore = {
     createStore,
+    getSavedEntry,
     readPreferences,
     store,
     selectUiState
