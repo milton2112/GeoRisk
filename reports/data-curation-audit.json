@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-27T15:54:18.282Z",
+  "generatedAt": "2026-10-03T17:02:58.259Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 13183467,
-    "duplicatedCountryFilesBytes": 1558208,
-    "countryConflictShardBytes": 461011,
+    "fullBytes": 13194245,
+    "duplicatedCountryFilesBytes": 1558535,
+    "countryConflictShardBytes": 461213,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -318,7 +318,7 @@
         "code": "RUS",
         "name": "Rusia",
         "bytes": 19202,
-        "inlineBytes": 344183,
+        "inlineBytes": 348343,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -360,9 +360,9 @@
               "bytes": 965
             }
           ],
-          "conflictsBytes": 16910,
-          "conflictShardBytes": 16911,
-          "averageConflictBytes": 242
+          "conflictsBytes": 17112,
+          "conflictShardBytes": 17113,
+          "averageConflictBytes": 244
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 86,
+    "pendingCount": 85,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15486,19 +15486,6 @@
         ],
         "regions": [
           "Europa, Asia-Pacífico, África y Atlántico"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Bombardeo de la estación de tren de Kramatorsk",
-        "countries": [
-          "RUS"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"

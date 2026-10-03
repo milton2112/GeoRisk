@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.265 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.266 antes de cerrar la siguiente version.
+
+## v1.6.266 - 2026-10-03
+
+- Cura el ataque a la estacion ferroviaria de Kramatorsk del 8 de abril de 2022: reemplaza un registro sin fecha, vinculado solo a Rusia y con textos genericos de cambio territorial. Lo enlaza tambien con Ucrania, precisa Donetsk y lo vincula con la invasion de 2022, sin tratar a los civiles como un segundo bando militar ni marcar cerrada la guerra madre por haber terminado ese episodio.
+- Conserva fuentes y limites: OHCHR (informe publicado en septiembre de 2022, parrafo 24) registra 60 civiles muertos y 111 heridos; HRW/SITU (investigacion de febrero de 2023) documenta al menos 58 muertos y mas de 100 heridos. No suma ni homologa ambos recuentos. La atribucion a fuerzas rusas se identifica como conclusion de HRW/SITU, con su registro de la negacion rusa; no se presenta como sentencia judicial, no fija una unidad lanzadora ni confunde la estacion con ataques de 2023 a otros lugares de la ciudad. La campana es descriptiva y la confianza general sigue siendo parcial.
+- Evidencia: regresion roja antes del arreglo; consistencia entre datos completos, indice de conflictos, timeline, perfiles publicos y detalle bajo demanda. Prueba aliases locales sin consultar Wikipedia, unicidad, notas visibles y titulo sin duplicar el ano. La comparacion estructurada con el commit anterior detecta cambios de pais solo en Rusia/Ucrania y un unico detalle nuevo. Una segunda aplicacion conserva exactamente los hashes SHA-256 de countries_full y detalles generados. Los conflictos sin fecha pasan de 87 a 86, conservando 2000 conflictos unicos y 20 jerarquias provisionales.
+- Green coding: sin codigo de navegador nuevo, dependencias, polling, precalculos ni solicitudes iniciales adicionales. script.js, countries_index y search_index conservan su peso; search_index actualiza la metrica de conflictos de Ucrania. Costo necesario: detalle bajo demanda de 3395 bytes; indices de conflictos +266, timeline +294 y detalles +180 bytes; perfil de Ucrania +327 y fragmento de conflictos de Rusia +202 bytes. El lote y sus pruebas quedan fuera del deploy. Las fuentes se enlazan sin empaquetar documentos; no se infiere ahorro energetico/CO2 ni se afirma curaduria completa.
+- Fuentes: [OHCHR, informe de 2022, parrafo 24](https://ukraine.un.org/sites/default/files/2022-09/ReportUkraine-1Feb-31Jul2022-en.pdf) y [HRW/SITU, investigacion de 2023](https://www.hrw.org/video-photos/interactive/2023/02/21/death-at-the-station/russian-cluster-munition-attack-in-kramatorsk).
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-10-03-release-2`.
 
 ## v1.6.265 - 2026-10-03
 

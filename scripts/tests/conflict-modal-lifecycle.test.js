@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import vm from "node:vm";
+import { KRAMATORSK_2022_CONFLICT_DETAIL_FIXES } from "../lib/conflict-curation-kramatorsk-2022.js";
 
 const script = await fs.readFile(new URL("../../script.js", import.meta.url), "utf8");
 function block(start, end) {
@@ -71,6 +72,16 @@ assert.equal(state.formatConflictTitle({ name: "Accion (57 a. C.)", startYear: -
 assert.equal(state.formatConflictTitle({ name: "Otra (1814)", startYear: 1815 }), "Otra (1814) (1815)", "no ocultar discrepancias distintas de duplicacion exacta");
 assert.equal(state.renderConflictCurationNotes({}), "");
 assert.equal(state.renderConflictTreaties({ treaties: [null, {}, " "] }), "");
+const kramatorskName = Object.keys(KRAMATORSK_2022_CONFLICT_DETAIL_FIXES)[0];
+const kramatorsk = { name: kramatorskName, ...KRAMATORSK_2022_CONFLICT_DETAIL_FIXES[kramatorskName] };
+assert.equal(state.inferConflictLevel(kramatorsk), "battle", "the attack is an episode, not a new war");
+assert.equal(state.inferConflictType(kramatorsk), "bombardeo");
+assert.equal(state.formatConflictTitle(kramatorsk), kramatorskName, "year is not duplicated in the visible title");
+assert.equal(state.formatConflictPeriod(kramatorsk), " (2022)");
+const kramatorskNotes = state.renderConflictCurationNotes(kramatorsk);
+assert.match(kramatorskNotes, /8 de abril de 2022/);
+assert.match(kramatorskNotes, /no como un segundo bando militar/);
+assert.match(kramatorskNotes, /no el estado actual de la guerra madre/);
 const notes = state.renderConflictCurationNotes({ datePrecision: "<b>fecha</b>", curationNote: '<img src=x onerror="alert(1)">' });
 assert.match(notes, /&lt;b&gt;fecha/);
 assert.doesNotMatch(notes, /<img|<b>fecha/);

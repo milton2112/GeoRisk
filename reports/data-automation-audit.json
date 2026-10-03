@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-03T16:47:42.147Z",
+  "generatedAt": "2026-10-03T17:18:58.833Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 87
+      "count": 86
     },
     "undatedHighLevelConflicts": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 619
+      "count": 620
     },
     "redundantReligions": {
       "count": 0
@@ -172,11 +172,6 @@
         "region": "Europa"
       },
       {
-        "code": "RUS",
-        "name": "Bombardeo de la estación de tren de Kramatorsk",
-        "region": "Europa"
-      },
-      {
         "code": "SWE",
         "name": "Ataque a Åbo",
         "region": "Europa"
@@ -254,6 +249,11 @@
       {
         "code": "GBR",
         "name": "Operación Garlic",
+        "region": "Europa"
+      },
+      {
+        "code": "GBR",
+        "name": "Operación Thunderbolt",
         "region": "Europa"
       }
     ],

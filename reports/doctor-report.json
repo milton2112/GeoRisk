@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-03T16:49:55.967Z",
-  "packageVersion": "1.6.265",
+  "generatedAt": "2026-10-03T17:21:14.341Z",
+  "packageVersion": "1.6.266",
   "status": "observacion",
   "summary": {
     "totalFindings": 1,
@@ -13,13 +13,13 @@
     "conflictAuditIssues": 0,
     "dataCounts": {
       "englishConflictNames": 0,
-      "undatedConflicts": 87,
+      "undatedConflicts": 86,
       "undatedHighLevelConflicts": 0,
       "provisionalConflictHierarchies": 20,
       "suspectRegions": 0,
       "duplicateConflictNames": 0,
       "sameCountryDuplicateConflicts": 0,
-      "sharedConflictNames": 619,
+      "sharedConflictNames": 620,
       "redundantReligions": 0,
       "uppercaseCities": 0,
       "mojibakeText": 0,
