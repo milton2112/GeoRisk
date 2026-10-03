@@ -1615,7 +1615,7 @@ async function testDeferredWorkDuringDrag(browser, baseUrl) {
         await page.mouse.move(x, y);
         await page.mouse.down();
         await page.evaluate(() => { window.__dragStartPosition = Cesium.Cartesian3.clone(viewer.camera.position); });
-        await page.mouse.move(x + 25, y + 5, { steps: 6 });
+        await page.mouse.move(x + 25, y + 5, { steps: 1 });
         await page.waitForFunction(() => autoRotation.hasActivePointers() &&
           Cesium.Cartesian3.distance(viewer.camera.position, window.__dragStartPosition) > 10,
         undefined, { timeout: 3000 });
@@ -1626,13 +1626,19 @@ async function testDeferredWorkDuringDrag(browser, baseUrl) {
           }, { delay: 0, quietFor: 100, timeout: 100 });
         });
         await page.waitForTimeout(1500);
-        assert.equal(await page.evaluate(() => autoRotation.hasActivePointers()), true, "mantener el contacto nativo durante la pausa");
+        const heldDrag = await page.evaluate(() => ({
+          pointers: autoRotation.hasActivePointers(),
+          position: { x: viewer.camera.position.x, y: viewer.camera.position.y, z: viewer.camera.position.z }
+        }));
+        assert.equal(heldDrag.pointers, true, "mantener el contacto nativo durante la pausa");
         assert.equal(await page.evaluate(() => window.__quietTaskRuns.length), 0, "un contacto sostenido no es quietud");
         for (let step = 1; step <= 6; step += 1) {
-          await page.mouse.move(x + 25 + step * 12, y + 5 + step * 3, { steps: 4 });
+          await page.mouse.move(x + 25 + step * 12, y + 5 + step * 3, { steps: 1 });
           await page.waitForTimeout(70);
           assert.equal(await page.evaluate(() => window.__quietTaskRuns.length), 0, label + " no debe forzar trabajo durante un arrastre mayor al deadline");
         }
+        assert.equal(await page.evaluate(position => Cesium.Cartesian3.distance(viewer.camera.position, position) > 10,
+          heldDrag.position), true, "los seis movimientos nativos deben seguir desplazando el globo durante el contacto");
         await page.mouse.up();
         await page.waitForFunction(() => window.__quietTaskRuns.length === 1, undefined, { timeout: 8000 });
         const runs = await page.evaluate(() => window.__quietTaskRuns);
@@ -2687,12 +2693,15 @@ try {
   for (const [flag, run] of focusedFlows) {
     if (!journeysOnly && (!focused || process.argv.includes(flag))) {
       console.log("critical-browser-e2e: " + run.name);
+      const started = performance.now();
       await run(browser, baseUrl);
+      console.log("critical-browser-e2e: " + run.name + " completed in " + Math.round(performance.now() - started) + " ms");
     }
   }
 
   if (!focused) {
     console.log("critical-browser-e2e: desktop journey");
+    const desktopStarted = performance.now();
     const desktop = await createTestPage(browser, baseUrl, DESKTOP_VIEWPORT);
     try {
       await runDesktopCriticalFlow(desktop.page);
@@ -2700,8 +2709,10 @@ try {
     } finally {
       await desktop.context.close();
     }
+    console.log("critical-browser-e2e: desktop journey completed in " + Math.round(performance.now() - desktopStarted) + " ms");
 
     console.log("critical-browser-e2e: mobile journey");
+    const mobileStarted = performance.now();
     const mobile = await createTestPage(browser, baseUrl, MOBILE_VIEWPORT);
     try {
       await runMobileCriticalFlow(mobile.page);
@@ -2709,6 +2720,7 @@ try {
     } finally {
       await mobile.context.close();
     }
+    console.log("critical-browser-e2e: mobile journey completed in " + Math.round(performance.now() - mobileStarted) + " ms");
   }
 } finally {
   await browser?.close();
