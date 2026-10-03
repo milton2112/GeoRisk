@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.264 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.265 antes de cerrar la siguiente version.
+
+## v1.6.265 - 2026-10-03
+
+- Limita las capturas PNG/PDF a 4000000 pixeles y 8192 px por lado. Reduce la escala preferida solo hasta 1; si el informe no cabe a esa resolucion, avisa en espanol/ingles que hay que reducir la seleccion o cerrar secciones y volver a exportar. No recorta contenido ni crea paginas adicionales. Es un presupuesto del proyecto, no una garantia universal de capacidad del navegador.
+- Comprueba dimensiones antes de html2canvas, vuelve a calcular escala sobre el clon despues de fuentes/layout y valida el canvas antes de codificar. Rechaza data:, y salidas PNG vacias en lugar de entregar una descarga invalida. Retira el iframe propio obtenido en onclone, tambien cuando ese callback rechaza un informe que crecio; conserva limpieza de informe/canvas, bloqueo entre formatos y reintento explicito. Un fallo anterior a onclone no permite obtener ese iframe; una captura que nunca resuelva sigue requiriendo recarga.
+- Evidencia: la regresion de informe de 24000 px fallo antes del arreglo. Un constructor del jsPDF instalado mostro que una pagina pedida de 1200x24000 px quedaba en 1200x10800, sin crear un archivo ni un canvas gigante. Pruebas aisladas cubren ambos formatos, limites, layout clonado, escala, salida vacia, errores y recuperacion. Chrome desktop/mobile emulado verifica rechazo antes de capturar, crecimiento del clon con la libreria real, cero descargas/DOM residual y exportaciones normales PNG/PDF con dimensiones dentro del presupuesto y pixeles no vacios. Agrega dos recortes pequenos de aviso y un intento de clon rechazado por viewport a los recorridos existentes; no agrega paginas ni capturas exitosas adicionales, y no sustituye un celular fisico.
+- Green coding: app-export-share.js pasa de 10972 a 12762 bytes (+1790), solo bajo demanda; no agrega dependencias, solicitudes iniciales, polling, timers, caches ni telemetria. Evita asignar el canvas de salida y codificar imagenes que exceden el presupuesto conocido; agrega comprobaciones aritmeticas y lecturas de layout solo al exportar. 4 millones de pixeles RGBA representan unos 16 MB de un buffer de salida, no la memoria pico: clon del documento/mapa, fuentes, base64 y PDF tienen costos adicionales. El informe DOM todavia se construye antes de medir, y la comprobacion final no deshace una asignacion inesperada ya realizada por la libreria. Los informes demasiado largos ahora requieren una seleccion mas chica; no se promete paginacion ni ahorro de energia/CO2.
+- Seguimiento de publicacion: el PR #11 de v1.6.264 paso la puerta completa de GitHub sin aumentar el plazo de npm test ni quitar casos. Se integro en main y se etiqueto el commit integrado con el mismo contenido validado. Su despliegue conserva su propia puerta; esta nueva correccion requiere validacion independiente.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-10-03-release-1`.
 
 ## v1.6.264 - 2026-10-02
 

@@ -14,8 +14,12 @@ function deferred() {
 }
 
 function fixture() {
-  const captures = [], canvases = [], renders = [], downloads = [], messages = [], loads = [], warnings = [];
+  const captures = [], canvases = [], renders = [], downloads = [], messages = [], loads = [], warnings = [], frames = [];
   const config = { ready: true, libraryWait: null, renderWait: null, libraryError: false, buildError: false, renderError: false, encodeError: false, pdfError: false };
+  config.bounds = { width: 960, height: 600 };
+  config.canvasBounds = { width: 960, height: 600 };
+  config.dataUrl = "data:image/png;base64,fixture";
+  config.encodes = 0;
   const context = vm.createContext({
     console: { warn: (...args) => warnings.push(args) },
     document: { createElement(tag) {
@@ -25,12 +29,20 @@ function fixture() {
     devicePixelRatio: 1,
     html2canvas: async (node, options) => {
       renders.push({ node, options });
+      if (options.onclone) {
+        const frame = { removed: false, remove() { this.removed = true; } };
+        frames.push(frame);
+        await options.onclone({ defaultView: { frameElement: frame } }, {
+          getBoundingClientRect: () => config.clonedBounds || config.bounds
+        });
+      }
       if (config.renderWait) await config.renderWait.promise;
       if (config.renderError) throw new Error("Canvas capture failed");
-      const canvas = { width: 960, height: 600, toDataURL(type) {
+      const canvas = { ...config.canvasBounds, toDataURL(type) {
+        config.encodes++;
         assert.equal(type, "image/png");
         if (config.encodeError) throw new Error("Canvas encoding failed");
-        return "data:image/png;base64,fixture";
+        return config.dataUrl;
       } };
       canvases.push(canvas);
       return canvas;
@@ -53,13 +65,14 @@ function fixture() {
   };
   context.buildReportCaptureNode = () => {
     if (config.buildError) throw new Error("Could not clone report");
-    const capture = { removed: false, remove() { this.removed = true; } };
+    const capture = { removed: false, getBoundingClientRect: () => config.bounds, remove() { this.removed = true; } };
     captures.push(capture);
     return capture;
   };
   const options = { language: "es", showToast: message => messages.push(message) };
   const tools = context.GeoRiskExportShare;
-  return { captures, canvases, renders, downloads, messages, loads, warnings, config, options,
+  return { captures, canvases, renders, downloads, messages, loads, warnings, frames, config, options,
+    scale: (bounds, preferred = 2) => context.getCaptureScale(bounds, preferred),
     image: node => tools.exportNodeAsImage(node, "fixture.png", options),
     pdf: node => tools.exportNodeAsPdf(node, "fixture.pdf", options) };
 }
@@ -107,6 +120,7 @@ for (const failure of ["ready", "libraryError", "buildError", "renderError", "en
   assert.equal(failed.downloads.length, 0);
   assert.ok(failed.captures.every(capture => capture.removed));
   assert.ok(failed.canvases.every(canvas => canvas.width === 0 && canvas.height === 0));
+  assert.ok(failed.frames.every(frame => frame.removed), "capture errors clean only the owned clone iframe");
   assert.equal(failed.messages.length, 1);
   failed.config[failure] = failure === "ready";
   assert.equal(await failed.image(node), true, "failure releases the lock: " + failure);
@@ -164,4 +178,69 @@ captured.config.renderWait.resolve();
 assert.equal(await snapshot, true, "after capture starts, the detached report snapshot is already consistent");
 assert.equal(captured.downloads.length, 1);
 assert.ok(captured.canvases.every(canvas => canvas.width === 0 && canvas.height === 0));
+
+for (const format of ["image", "pdf"]) {
+  const large = fixture();
+  large.config.bounds.height = 24000;
+  assert.equal(await large[format](node), false, "oversized reports must not allocate a renderer or produce a clipped file: " + format);
+  assert.equal(large.renders.length, 0);
+  assert.equal(large.downloads.length, 0);
+  assert.match(large.messages[0], /demasiado grande/i);
+  assert.ok(large.captures.every(capture => capture.removed));
+  assert.equal(large.config.encodes, 0);
+  large.config.bounds.height = 600;
+  assert.equal(await large[format](node), true, "a smaller report can be exported with an explicit retry");
+  assert.equal(large.downloads.length, 1);
+
+  const emptyImage = fixture();
+  emptyImage.config.dataUrl = "data:,";
+  assert.equal(await emptyImage[format](node), false, "a browser's empty-canvas URL is not a successful export");
+  assert.equal(emptyImage.downloads.length, 0);
+  assert.ok(emptyImage.canvases.every(canvas => canvas.width === 0 && canvas.height === 0));
+  assert.ok(emptyImage.frames.every(frame => frame.removed));
+
+  const growing = fixture();
+  growing.config.clonedBounds = { width: 960, height: 24000 };
+  assert.equal(await growing[format](node), false, "fonts/cloned layout cannot bypass the budget");
+  assert.equal(growing.canvases.length, 0, "reject before output canvas rendering");
+  assert.equal(growing.downloads.length, 0);
+  assert.match(growing.messages[0], /demasiado grande/i);
+  assert.equal(growing.frames.length, 1);
+  assert.ok(growing.frames.every(frame => frame.removed));
+  assert.ok(growing.captures.every(capture => capture.removed));
+  growing.config.clonedBounds = null;
+  assert.equal(await growing[format](node), true, "clone rejection releases the export lock");
+
+  const adaptive = fixture();
+  adaptive.config.bounds = { width: 960, height: 1500 };
+  adaptive.config.clonedBounds = { width: 1000, height: 2000 };
+  assert.equal(await adaptive[format](node), true);
+  assert.ok(Math.abs(adaptive.renders[0].options.scale - Math.sqrt(2)) < 0.000001, "the final cloned layout determines scale");
+  assert.ok(!("width" in adaptive.renders[0].options) && !("height" in adaptive.renders[0].options), "budgeting must not crop the report");
+
+  for (const canvasBounds of [{ width: 8193, height: 1 }, { width: 2001, height: 2000 }, { width: 0, height: 600 }]) {
+    const unexpected = fixture();
+    unexpected.config.canvasBounds = canvasBounds;
+    assert.equal(await unexpected[format](node), false, "an invalid/over-budget canvas is not encoded or downloaded");
+    assert.equal(unexpected.config.encodes, 0);
+    assert.equal(unexpected.downloads.length, 0);
+    assert.ok(unexpected.canvases.every(canvas => canvas.width === 0 && canvas.height === 0));
+    assert.ok(unexpected.frames.every(frame => frame.removed));
+  }
+}
+
+const budget = fixture();
+for (const bounds of [{ width: 2000, height: 2000 }, { width: 8192, height: 1 }, { width: 1280.2, height: 1700.6 }]) {
+  const scale = budget.scale(bounds);
+  const width = Math.floor(Math.ceil(bounds.width) * scale);
+  const height = Math.floor(Math.ceil(bounds.height) * scale);
+  assert.ok(scale >= 1 && scale <= 2 && width <= 8192 && height <= 8192 && width * height <= 4_000_000);
+}
+for (const bounds of [{ width: 0, height: 100 }, { width: 100, height: -1 }, { width: Infinity, height: 100 }, { width: 100, height: NaN }]) {
+  assert.throws(() => budget.scale(bounds), /Invalid capture dimensions/);
+}
+budget.options.language = "en";
+budget.config.bounds.height = 24000;
+assert.equal(await budget.pdf(node), false);
+assert.match(budget.messages[0], /Report too large/);
 console.log("export-lifecycle.test.js ok: bounded capture, duplicate actions, failures and recovery");
