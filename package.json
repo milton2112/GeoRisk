@@ -1,6 +1,6 @@
 {
   "name": "geo-risk",
-  "version": "1.6.266",
+  "version": "1.6.267",
   "type": "module",
   "scripts": {
     "security:setup": "node scripts/setupSecretScanner.js",
@@ -9,7 +9,7 @@
     "audit:dependencies": "node scripts/auditDependencies.js",
     "test:security": "node scripts/tests/security.test.js && node scripts/tests/runtime-input-security.test.js && node scripts/tests/country-render-security.test.js && node scripts/tests/browser-security-policy.test.js",
     "pretest": "npm run check:security && npm run test:security",
-    "build:data": "node scripts/buildDataset.js && node scripts/applyConflictAutofix.js && node scripts/applyVisibleDataCorrections.js && node scripts/buildDataIndexes.js",
+    "build:data": "node scripts/buildDataset.js && node scripts/applyConflictAutofix.js && node scripts/applyVisibleDataCorrections.js && node scripts/compactStartupIndex.js && node scripts/buildDataIndexes.js",
     "build:prod": "node scripts/buildProduction.js",
     "check:pages-artifact": "node scripts/checkPagesArtifact.js",
     "check:deployment": "node scripts/checkDeployment.js",
@@ -23,7 +23,7 @@
     "audit:project": "node scripts/projectAudit.js",
     "fix:data-visible": "node scripts/applyVisibleDataCorrections.js",
     "fix:source-text": "node scripts/fixSourceText.js",
-    "fix:conflicts": "node scripts/applyConflictAutofix.js && node scripts/applyVisibleDataCorrections.js && node scripts/buildDataIndexes.js && node scripts/dataAutomationAudit.js && node scripts/auditConflicts.js",
+    "fix:conflicts": "node scripts/applyConflictAutofix.js && node scripts/applyVisibleDataCorrections.js && node scripts/compactStartupIndex.js && node scripts/buildDataIndexes.js && node scripts/dataAutomationAudit.js && node scripts/auditConflicts.js",
     "fix:conflicts:batches": "npm run fix:conflicts",
     "compact:index": "node scripts/compactStartupIndex.js",
     "build:indexes": "node scripts/buildDataIndexes.js",

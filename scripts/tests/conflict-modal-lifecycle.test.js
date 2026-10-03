@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import vm from "node:vm";
 import { KRAMATORSK_2022_CONFLICT_DETAIL_FIXES } from "../lib/conflict-curation-kramatorsk-2022.js";
+import { PAYE_CONFLICT_DETAIL_FIXES } from "../lib/conflict-curation-paye.js";
 
 const script = await fs.readFile(new URL("../../script.js", import.meta.url), "utf8");
 function block(start, end) {
@@ -82,6 +83,14 @@ const kramatorskNotes = state.renderConflictCurationNotes(kramatorsk);
 assert.match(kramatorskNotes, /8 de abril de 2022/);
 assert.match(kramatorskNotes, /no como un segundo bando militar/);
 assert.match(kramatorskNotes, /no el estado actual de la guerra madre/);
+const paye = { name: "Batalla de Paye (1900)", ...PAYE_CONFLICT_DETAIL_FIXES["Batalla de Paye (1900)"] };
+assert.equal(state.inferConflictLevel(paye), "battle");
+assert.equal(state.formatConflictTitle(paye), paye.name);
+assert.equal(state.formatConflictPeriod(paye), " (1900)");
+const payeNotes = state.renderConflictCurationNotes(paye);
+assert.match(payeNotes, /31 de julio de 1900/);
+assert.match(payeNotes, /San Mateo \(1899\)/);
+assert.match(payeNotes, /primer\/segundo combate/);
 const notes = state.renderConflictCurationNotes({ datePrecision: "<b>fecha</b>", curationNote: '<img src=x onerror="alert(1)">' });
 assert.match(notes, /&lt;b&gt;fecha/);
 assert.doesNotMatch(notes, /<img|<b>fecha/);

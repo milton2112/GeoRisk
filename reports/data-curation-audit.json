@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-03T17:02:58.259Z",
+  "generatedAt": "2026-10-03T17:32:25.144Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 13194245,
-    "duplicatedCountryFilesBytes": 1558535,
-    "countryConflictShardBytes": 461213,
+    "fullBytes": 13204225,
+    "duplicatedCountryFilesBytes": 1558817,
+    "countryConflictShardBytes": 461268,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24266,
-        "inlineBytes": 3453701,
+        "inlineBytes": 3457309,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 218059,
-          "conflictShardBytes": 218060,
+          "conflictsBytes": 218114,
+          "conflictShardBytes": 218115,
           "averageConflictBytes": 236
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 85,
+    "pendingCount": 84,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15226,19 +15226,6 @@
         ],
         "regions": [
           "Asia"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Paye",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"
