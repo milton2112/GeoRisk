@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-10-02T18:44:55.372Z",
-  "packageVersion": "1.6.263",
+  "generatedAt": "2026-10-03T15:37:13.091Z",
+  "packageVersion": "1.6.264",
   "status": "observacion",
   "summary": {
-    "totalFindings": 2,
+    "totalFindings": 1,
     "bySeverity": {
-      "media": 2
+      "media": 1
     },
-    "startupBytes": 890631,
-    "scriptBytes": 591149,
+    "startupBytes": 891142,
+    "scriptBytes": 591660,
     "countriesIndexBytes": 144225,
     "conflictAuditIssues": 0,
     "dataCounts": {
@@ -33,24 +33,12 @@
   },
   "topActions": [
     {
-      "area": "performance",
-      "title": "Rendimiento real por revisar",
-      "command": "npm run performance:snapshot -- --fresh"
-    },
-    {
       "area": "datos",
       "title": "Jerarquias de conflicto todavia provisionales",
       "command": "npm run fix:conflicts:batches"
     }
   ],
   "findings": [
-    {
-      "severity": "media",
-      "area": "performance",
-      "title": "Rendimiento real por revisar",
-      "detail": "desktop: 2 tareas >200 ms; maxima 202 ms.",
-      "command": "npm run performance:snapshot -- --fresh"
-    },
     {
       "severity": "media",
       "area": "datos",

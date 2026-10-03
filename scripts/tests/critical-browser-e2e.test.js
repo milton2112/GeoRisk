@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import { chromium } from "@playwright/test";
 import { createLocalSmokeServer } from "../localSmokeServer.js";
-import { captureLiveElement } from "../lib/browser-screenshot.js";
+import { captureLiveElement, captureTransientNotice } from "../lib/browser-screenshot.js";
 
 const APP_TIMEOUT_MS = Number(process.env.GEORISK_E2E_TIMEOUT_MS || 45000);
 const MAP_PICK_TIMEOUT_MS = Math.min(APP_TIMEOUT_MS, 8000);
@@ -943,14 +943,11 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
       await history.click();
       const notice = page.locator("#app-toast");
       await notice.filter({ hasText: "datos historicos adicionales" }).waitFor({ state: "visible" });
-      assert.equal(await notice.getAttribute("role"), "status");
+      await captureTransientNotice(page, notice, { path: `tmp/curation-load-recovery-${label}.png` });
       assert.equal(await page.evaluate(() => deferredDataStatus.runtimeCuration), false);
       assert.equal(await page.evaluate(() => loadRuntimeCurationPromise), null);
       assert.equal(await page.locator('script[data-dynamic-src*="app-curation.js"]').count(), 0);
       assert.equal(scriptAttempts["app-curation"], 1, "no automatic retry after a network failure");
-      const bounds = await notice.boundingBox();
-      assert.ok(bounds && bounds.x >= 0 && bounds.x + bounds.width <= viewport.width + 1, label + " curation failure fits viewport");
-      await notice.screenshot({ path: `tmp/curation-load-recovery-${label}.png` });
       await history.focus();
       await history.press("Enter");
       await page.waitForFunction(() => deferredDataStatus.runtimeCuration === true);
@@ -1618,7 +1615,7 @@ async function testDeferredWorkDuringDrag(browser, baseUrl) {
         await page.mouse.move(x, y);
         await page.mouse.down();
         await page.evaluate(() => { window.__dragStartPosition = Cesium.Cartesian3.clone(viewer.camera.position); });
-        await page.mouse.move(x + 25, y + 5, { steps: 6 });
+        await page.mouse.move(x + 25, y + 5, { steps: 1 });
         await page.waitForFunction(() => autoRotation.hasActivePointers() &&
           Cesium.Cartesian3.distance(viewer.camera.position, window.__dragStartPosition) > 10,
         undefined, { timeout: 3000 });
@@ -1629,13 +1626,19 @@ async function testDeferredWorkDuringDrag(browser, baseUrl) {
           }, { delay: 0, quietFor: 100, timeout: 100 });
         });
         await page.waitForTimeout(1500);
-        assert.equal(await page.evaluate(() => autoRotation.hasActivePointers()), true, "mantener el contacto nativo durante la pausa");
+        const heldDrag = await page.evaluate(() => ({
+          pointers: autoRotation.hasActivePointers(),
+          position: { x: viewer.camera.position.x, y: viewer.camera.position.y, z: viewer.camera.position.z }
+        }));
+        assert.equal(heldDrag.pointers, true, "mantener el contacto nativo durante la pausa");
         assert.equal(await page.evaluate(() => window.__quietTaskRuns.length), 0, "un contacto sostenido no es quietud");
         for (let step = 1; step <= 6; step += 1) {
-          await page.mouse.move(x + 25 + step * 12, y + 5 + step * 3, { steps: 4 });
+          await page.mouse.move(x + 25 + step * 12, y + 5 + step * 3, { steps: 1 });
           await page.waitForTimeout(70);
           assert.equal(await page.evaluate(() => window.__quietTaskRuns.length), 0, label + " no debe forzar trabajo durante un arrastre mayor al deadline");
         }
+        assert.equal(await page.evaluate(position => Cesium.Cartesian3.distance(viewer.camera.position, position) > 10,
+          heldDrag.position), true, "los seis movimientos nativos deben seguir desplazando el globo durante el contacto");
         await page.mouse.up();
         await page.waitForFunction(() => window.__quietTaskRuns.length === 1, undefined, { timeout: 8000 });
         const runs = await page.evaluate(() => window.__quietTaskRuns);
@@ -1988,13 +1991,10 @@ async function testDeferredUiRecovery(browser, baseUrl) {
       await button.click();
       const notice = page.locator("#app-toast");
       await notice.filter({ hasText: "Revisa tu conexion" }).waitFor({ state: "visible" });
-      assert.equal(await notice.getAttribute("role"), "status");
+      await captureTransientNotice(page, notice, { path: `tmp/deferred-recovery-${label}.png` });
       assert.equal(attempts, 1, "failed imports do not automatically retry");
       assert.equal(await page.evaluate(() => window.__deferredCopies.length), 0);
       assert.equal(await page.evaluate(() => deferredUiModulePromises.has("exportShare")), false);
-      const bounds = await notice.boundingBox();
-      assert.ok(bounds && bounds.x >= 0 && bounds.x + bounds.width <= viewport.width + 1, label + " load failure fits viewport");
-      await notice.screenshot({ path: `tmp/deferred-recovery-${label}.png` });
 
       await button.focus();
       await button.press("Enter");
@@ -2063,11 +2063,8 @@ async function testShareLifecycle(browser, baseUrl) {
       await button.click();
       const notice = page.locator("#app-toast");
       await notice.filter({ hasText: "No se pudo compartir ni copiar" }).waitFor({ state: "visible" });
+      await captureTransientNotice(page, notice, { path: `tmp/share-denied-${label}.png` });
       assert.equal(await page.evaluate(() => window.__shareFixture.clipboard), "keep");
-      assert.equal(await notice.getAttribute("role"), "status");
-      const bounds = await notice.boundingBox();
-      assert.ok(bounds && bounds.x >= 0 && bounds.x + bounds.width <= viewport.width + 1, label + " error notice fits viewport");
-      await notice.screenshot({ path: `tmp/share-denied-${label}.png` });
       await page.evaluate(() => { window.__shareFixture.copyMode = "absent"; });
       await button.click();
       await page.waitForFunction(() => window.__shareMessages.length === 2);
@@ -2101,8 +2098,15 @@ async function testShareLifecycle(browser, baseUrl) {
 async function testSecureExports(browser, baseUrl) {
   for (const [label, viewport] of [["desktop", DESKTOP_VIEWPORT], ["mobile", MOBILE_VIEWPORT]]) {
     const requests = [];
+    const downloads = [];
+    let releaseModule, releaseLibrary;
+    const moduleHeld = new Promise(resolve => { releaseModule = resolve; });
+    const libraryHeld = new Promise(resolve => { releaseLibrary = resolve; });
     const test = await createTestPage(browser, baseUrl, viewport, async page => {
       page.on("request", request => requests.push(request.url()));
+      page.on("download", download => downloads.push(download));
+      await page.route("**/app-export-share.js*", async route => { await moduleHeld; await route.continue(); });
+      await page.route("**/vendor/exports/html2canvas-*.js", async route => { await libraryHeld; await route.continue(); });
     });
     const { page } = test;
     try {
@@ -2110,6 +2114,41 @@ async function testSecureExports(browser, baseUrl) {
       assert.equal(requests.some(url => /vendor\/exports|html2canvas|jspdf/.test(url)), false, "no export libraries at startup");
       await page.locator(label === "mobile" ? "#toggle-left-panel" : "#rankings-summary").click();
       await page.waitForFunction(() => document.querySelectorAll("#top-population li").length > 0);
+      await page.evaluate(() => {
+        window.__exportViewNotices = 0;
+        const original = uiPolish.showToast;
+        uiPolish.showToast = message => {
+          if (message.startsWith("La vista cambio")) window.__exportViewNotices += 1;
+          return original(message);
+        };
+      });
+      const pngButton = page.locator('[data-export-target="left-panel"][data-export-format="png"]');
+      const filter = page.locator("#rankings-continent-filter");
+      const filterValues = await filter.evaluate(element => [...element.options].map(option => option.value).filter(Boolean));
+      assert.ok(filterValues.length >= 2);
+      const moduleRequest = page.waitForRequest("**/app-export-share.js*", { timeout: APP_TIMEOUT_MS });
+      await pngButton.focus();
+      await pngButton.press("Enter");
+      await moduleRequest;
+      await filter.selectOption(filterValues[0]);
+      releaseModule();
+      await page.waitForFunction(() => window.__exportViewNotices === 1);
+      assert.equal(requests.some(url => /vendor\/exports\/(?:html2canvas|jspdf)/.test(url)), false, "a view changed during module loading must not download capture libraries");
+      assert.equal(await page.locator(".export-report-shell").count(), 0);
+      assert.equal(downloads.length, 0);
+
+      const libraryRequest = page.waitForRequest("**/vendor/exports/html2canvas-*.js", { timeout: APP_TIMEOUT_MS });
+      await pngButton.click();
+      await libraryRequest;
+      await filter.selectOption(filterValues[1]);
+      releaseLibrary();
+      await page.waitForFunction(() => window.__exportViewNotices === 2);
+      const staleNotice = page.locator("#app-toast").filter({ hasText: "La vista cambio" });
+      await staleNotice.waitFor({ state: "visible" });
+      await captureTransientNotice(page, staleNotice, { path: `tmp/export-view-changed-${label}.png` });
+      assert.equal(await page.locator(".export-report-shell").count(), 0, "changed views allocate no report/canvas");
+      assert.equal(downloads.length, 0);
+      await filter.selectOption("");
       const layout = await page.evaluate(async () => {
         const tools = await getExportShareTools();
         const capture = tools.buildReportCaptureNode(document.getElementById("left-panel"), "fixture");
@@ -2177,12 +2216,9 @@ async function testSecureExports(browser, baseUrl) {
       await page.locator('[data-export-target="left-panel"][data-export-format="png"]').click();
       const pendingNotice = page.locator("#app-toast").filter({ hasText: "Hay una exportacion en curso" });
       await pendingNotice.waitFor({ state: "visible" });
-      assert.equal(await pendingNotice.getAttribute("role"), "status");
+      await captureTransientNotice(page, pendingNotice, { path: `tmp/export-pending-${label}.png` });
       assert.equal(await page.evaluate(() => window.__pendingExportCaptures), 1, "cross-format taps do not duplicate canvas work");
       assert.equal(await page.locator(".export-report-shell").count(), 1, "only one export capture is retained");
-      const pendingBounds = await pendingNotice.boundingBox();
-      assert.ok(pendingBounds && pendingBounds.x >= 0 && pendingBounds.x + pendingBounds.width <= viewport.width + 1, label + " pending export notice fits viewport");
-      await pendingNotice.screenshot({ path: `tmp/export-pending-${label}.png` });
       await page.evaluate(() => window.__releaseExportCapture());
       const pdf = await pdfDownload;
       const pdfBytes = await fs.readFile(await pdf.path());
@@ -2194,8 +2230,11 @@ async function testSecureExports(browser, baseUrl) {
       assert.equal(await page.locator("script[data-export-library][integrity^='sha384-'][crossorigin='anonymous']").count(), 2);
       assert.equal(requests.some(url => /cdn.*(?:jspdf|html2canvas)/.test(url)), false);
       assert.equal(requests.filter(url => /vendor\/exports\/html2canvas.*\.js$/.test(url)).length, 1);
+      assert.equal(downloads.length, 2, "only the explicitly retried PNG and PDF produce downloads");
       assertHealthyPage(test.pageErrors, label + " verified exports");
     } finally {
+      releaseModule();
+      releaseLibrary();
       await page.evaluate(() => {
         window.__releaseExportCapture?.();
         if (window.__originalExportCanvas) window.html2canvas = window.__originalExportCanvas;
@@ -2654,12 +2693,15 @@ try {
   for (const [flag, run] of focusedFlows) {
     if (!journeysOnly && (!focused || process.argv.includes(flag))) {
       console.log("critical-browser-e2e: " + run.name);
+      const started = performance.now();
       await run(browser, baseUrl);
+      console.log("critical-browser-e2e: " + run.name + " completed in " + Math.round(performance.now() - started) + " ms");
     }
   }
 
   if (!focused) {
     console.log("critical-browser-e2e: desktop journey");
+    const desktopStarted = performance.now();
     const desktop = await createTestPage(browser, baseUrl, DESKTOP_VIEWPORT);
     try {
       await runDesktopCriticalFlow(desktop.page);
@@ -2667,8 +2709,10 @@ try {
     } finally {
       await desktop.context.close();
     }
+    console.log("critical-browser-e2e: desktop journey completed in " + Math.round(performance.now() - desktopStarted) + " ms");
 
     console.log("critical-browser-e2e: mobile journey");
+    const mobileStarted = performance.now();
     const mobile = await createTestPage(browser, baseUrl, MOBILE_VIEWPORT);
     try {
       await runMobileCriticalFlow(mobile.page);
@@ -2676,6 +2720,7 @@ try {
     } finally {
       await mobile.context.close();
     }
+    console.log("critical-browser-e2e: mobile journey completed in " + Math.round(performance.now() - mobileStarted) + " ms");
   }
 } finally {
   await browser?.close();

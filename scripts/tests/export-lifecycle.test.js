@@ -124,4 +124,44 @@ assert.equal(await empty.image(node), false);
 assert.match(empty.messages[0], /export is already in progress/i);
 empty.config.libraryWait.resolve();
 assert.equal(await english, true);
+
+for (const format of ["image", "pdf"]) {
+  const changed = fixture();
+  let current = true;
+  changed.options.isCurrent = () => current;
+  changed.config.libraryWait = deferred();
+  const originalView = { id: "left-panel", country: "ARG" };
+  const exportPending = changed[format](originalView);
+  current = false;
+  originalView.country = "BRA";
+  changed.config.libraryWait.resolve();
+  assert.equal(await exportPending, false, "a changed view must not be exported with the original context: " + format);
+  assert.equal(changed.captures.length, 0, "do not allocate a stale report or canvas");
+  assert.equal(changed.downloads.length, 0);
+  assert.match(changed.messages[0], /vista cambio/i);
+  current = true;
+  assert.equal(await changed[format](originalView), true, "a new explicit action can export the current view");
+  assert.equal(changed.downloads.length, 1);
+}
+
+const stale = fixture();
+stale.options.language = "en";
+stale.options.isCurrent = () => false;
+assert.equal(await stale.pdf(node), false);
+assert.equal(stale.loads.length, 0, "changes while the feature module was loading must not start library downloads");
+assert.equal(stale.captures.length, 0);
+assert.match(stale.messages[0], /view changed/i);
+
+const captured = fixture();
+let sameView = true;
+captured.options.isCurrent = () => sameView;
+captured.config.renderWait = deferred();
+const snapshot = captured.image(node);
+await new Promise(setImmediate);
+assert.equal(captured.captures.length, 1);
+sameView = false;
+captured.config.renderWait.resolve();
+assert.equal(await snapshot, true, "after capture starts, the detached report snapshot is already consistent");
+assert.equal(captured.downloads.length, 1);
+assert.ok(captured.canvases.every(canvas => canvas.width === 0 && canvas.height === 0));
 console.log("export-lifecycle.test.js ok: bounded capture, duplicate actions, failures and recovery");
