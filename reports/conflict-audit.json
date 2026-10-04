@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-04T18:02:52.077Z",
-  "scannedConflicts": 2000,
+  "generatedAt": "2026-10-04T20:40:22.023Z",
+  "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 17,
-  "reviewCount": 17,
+  "advisoryCount": 16,
+  "reviewCount": 16,
   "summary": {
-    "provisional_parent": 17
+    "provisional_parent": 16
   },
   "topIssues": [],
   "topAdvisories": [
@@ -172,20 +172,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de África",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla del 27 de agosto",
-      "name": "Batalla del 27 de agosto",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],

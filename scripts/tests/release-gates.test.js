@@ -1034,7 +1034,9 @@ assert.ok(
 );
 assert.ok(
   usGlobalFollowupCuration.includes("ataque aéreo estadounidense erróneo")
-    && usGlobalFollowupCuration.includes("Las versiones sobre asesores extranjeros")
+    && usGlobalFollowupCuration.includes("asesores alemanes")
+    && usGlobalFollowupCuration.includes("referencias mexicanas consultadas no permiten confirmar")
+    && usGlobalFollowupCuration.includes('"Batalla del 27 de agosto": "Batalla de Ambos Nogales (1918)"')
     && usGlobalFollowupCuration.includes("fuentes disponibles discrepan")
     && usGlobalFollowupCuration.includes("entre el 6 y el 7")
     && usGlobalFollowupCuration.includes("se separa del bombardeo multinacional")

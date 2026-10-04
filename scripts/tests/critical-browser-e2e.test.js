@@ -932,6 +932,7 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
     const scriptAttempts = { "app-curation": 0, "app-conflict-rules": 0 };
     let datuDetailRequests = 0;
     let focaDetailRequests = 0;
+    let nogalesDetailRequests = 0;
     let releaseDetail;
     const pending = new Promise(resolve => { releaseDetail = resolve; });
     let markRequested;
@@ -940,6 +941,7 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
       page.on("request", request => {
         if (request.url().includes("/data/conflicts/details/combate-contra-datu-ali-1905-")) datuDetailRequests++;
         if (request.url().includes("/data/conflicts/details/combate-de-caleta-foca-1982-")) focaDetailRequests++;
+        if (request.url().includes("/data/conflicts/details/batalla-de-ambos-nogales-1918-")) nogalesDetailRequests++;
       });
       await page.route(/\/app-(curation|conflict-rules)\.js\?/, async route => {
         const name = route.request().url().match(/\/(app-(?:curation|conflict-rules))\.js/)[1];
@@ -1073,6 +1075,30 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
       await page.locator("#conflict-modal-close").click();
       await page.evaluate(() => openConflictModal(window.__caletaFocaKey));
       assert.equal(focaDetailRequests, 1, "reopening only reuses one on-demand detail request");
+      assert.equal(nogalesDetailRequests, 0, "Nogales evidence is not prefetched with other episodes");
+      await page.locator("#conflict-modal-close").click();
+      await page.evaluate(async () => {
+        await loadCountryConflictDetail("USA");
+        const entry = countriesData.USA.military.conflicts.find(item => item.name === "Batalla de Ambos Nogales (1918)");
+        window.__nogalesKey = registerConflictModal(entry, "Estados Unidos");
+        openConflictModal(window.__nogalesKey);
+      });
+      await page.waitForFunction(() => Boolean(CONFLICT_DETAIL_OVERRIDES["Batalla de Ambos Nogales (1918)"]));
+      const nogalesTitle = await page.locator("#conflict-modal-title").innerText();
+      assert.match(nogalesTitle, /Ambos Nogales/i);
+      assert.equal((nogalesTitle.match(/1918/g) || []).length, 1);
+      const nogalesNotes = body.locator(".conflict-curation-notes");
+      assert.match(await nogalesNotes.innerText(), /27 de agosto de 1918/);
+      assert.match(await nogalesNotes.innerText(), /no se contabilizan como dos batallas/);
+      assert.match(await nogalesNotes.innerText(), /asesores alemanes/);
+      assert.match(await nogalesNotes.innerText(), /no permiten confirmar/);
+      assert.equal(await body.locator('.conflict-hierarchy-sources a[href^="https://heroicanogales.gob.mx/"]').count(), 1);
+      assert.equal(await body.locator(".conflict-treaties").count(), 0);
+      assert.equal(await body.evaluate(element => element.scrollWidth <= element.clientWidth), true);
+      await captureLiveElement(page, nogalesNotes, { path: `tmp/nogales-alias-${label}.png`, timeout: 10000 });
+      await page.locator("#conflict-modal-close").click();
+      await page.evaluate(() => openConflictModal(window.__nogalesKey));
+      assert.equal(nogalesDetailRequests, 1, "the merged episode still reuses one on-demand detail request");
       assertHealthyPage(test.pageErrors, label + " notas de curaduria y descarga tardia");
     } catch (error) {
       console.error("curation recovery diagnostic", label, await page.evaluate(() => ({
