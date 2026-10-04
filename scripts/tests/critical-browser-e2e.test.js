@@ -916,11 +916,15 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
   for (const viewport of [DESKTOP_VIEWPORT, MOBILE_VIEWPORT]) {
     const label = viewport === MOBILE_VIEWPORT ? "mobile" : "desktop";
     const scriptAttempts = { "app-curation": 0, "app-conflict-rules": 0 };
+    let datuDetailRequests = 0;
     let releaseDetail;
     const pending = new Promise(resolve => { releaseDetail = resolve; });
     let markRequested;
     const requested = new Promise(resolve => { markRequested = resolve; });
     const test = await createTestPage(browser, baseUrl, viewport, async page => {
+      page.on("request", request => {
+        if (request.url().includes("/data/conflicts/details/combate-contra-datu-ali-1905-")) datuDetailRequests++;
+      });
       await page.route(/\/app-(curation|conflict-rules)\.js\?/, async route => {
         const name = route.request().url().match(/\/(app-(?:curation|conflict-rules))\.js/)[1];
         scriptAttempts[name] += 1;
@@ -991,6 +995,32 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
       assert.match(await body.locator(".conflict-treaties").innerText(), /30 de junio de 1815/);
       assert.match(await body.locator(".conflict-curation-notes").innerText(), /no como bando/);
       assert.ok(await body.locator(".conflict-hierarchy-sources a").count() >= 4);
+      assert.equal(datuDetailRequests, 0, "deep historical references are not loaded before opening the episode");
+      await page.locator("#conflict-modal-close").click();
+      await page.evaluate(() => {
+        const entry = countriesData.USA.military.conflicts.find(item => item.name === "Combate contra Datu Ali (1905)");
+        window.__datuAliKey = registerConflictModal(entry, "Estados Unidos");
+        openConflictModal(window.__datuAliKey);
+      });
+      await page.waitForFunction(() => Boolean(CONFLICT_DETAIL_OVERRIDES["Combate contra Datu Ali (1905)"]));
+      const datuTitle = await page.locator("#conflict-modal-title").innerText();
+      assert.match(datuTitle, /Datu Ali/i);
+      assert.equal((datuTitle.match(/1905/g) || []).length, 1);
+      assert.match(await body.innerText(), /Mindanao, Filipinas/);
+      assert.match(await body.innerText(), /Rebeli\u00f3n moro/);
+      assert.match(await body.innerText(), /1 muerto en el acto y 2 heridos/);
+      assert.match(await body.innerText(), /Malala\/Malola/);
+      assert.match(await body.locator(".conflict-curation-notes").innerText(), /22 de octubre de 1905/);
+      assert.match(await body.locator(".conflict-curation-notes").innerText(), /no un gobierno independiente beligerante/);
+      assert.deepEqual(await body.locator(".conflict-hierarchy-sources a").evaluateAll(links => links.map(link => link.href)), [
+        "https://www.1-22infantry.org/history3/ali.htm", "https://www.army.mil/article/47711/battle_of_san_jacinto"
+      ]);
+      assert.equal(await body.locator(".conflict-treaties").count(), 0);
+      assert.equal(await body.evaluate(element => element.scrollWidth <= element.clientWidth), true);
+      await captureLiveElement(page, body.locator(".conflict-curation-notes"), { path: `tmp/datu-ali-${label}.png`, timeout: 10000 });
+      await page.locator("#conflict-modal-close").click();
+      await page.evaluate(() => openConflictModal(window.__datuAliKey));
+      assert.equal(datuDetailRequests, 1, "reopening reuses the existing detail cache");
       assertHealthyPage(test.pageErrors, label + " notas de curaduria y descarga tardia");
     } finally {
       releaseDetail();

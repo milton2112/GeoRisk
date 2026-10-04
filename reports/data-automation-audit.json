@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-10-04T11:15:58.849Z",
+  "generatedAt": "2026-10-04T11:47:29.633Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 85
+      "count": 84
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 19
+      "count": 18
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 621
+      "count": 622
     },
     "redundantReligions": {
       "count": 0
@@ -374,13 +374,6 @@
       {
         "code": "USA",
         "name": "Batalla del 27 de agosto",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
-      {
-        "code": "USA",
-        "name": "Batalla del río Malalag",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
@@ -1396,7 +1389,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 19,
+      "count": 18,
       "command": "npm run fix:conflicts:batches"
     },
     {

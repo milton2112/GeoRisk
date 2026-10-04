@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-03T17:40:21.599Z",
+  "generatedAt": "2026-10-04T11:34:25.912Z",
   "changedFullCountries": 0,
   "fullPassChanges": [
     0
@@ -12,7 +12,7 @@
     "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1110,
+  "generatedHierarchyCandidates": 1111,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -45,7 +45,8 @@
       "Batalla del paso de Chungam-ni (Notch, 1950)",
       "Combate de Punk Hill (1777)",
       "Expedicion de Taraca (1904)",
-      "Batalla de Paye (1900)"
+      "Batalla de Paye (1900)",
+      "Combate contra Datu Ali (1905)"
     ],
     "nicaragua": [
       "Batalla de Masaya",
@@ -524,7 +525,8 @@
       "Batalla de Pulang Lupa (1900)",
       "Combate del rio Dolores (1904)",
       "Expedicion de Taraca (1904)",
-      "Batalla de Paye (1900)"
+      "Batalla de Paye (1900)",
+      "Combate contra Datu Ali (1905)"
     ],
     "bielorrusia": [
       "Carga de Hrebionka (1920)",
@@ -1782,7 +1784,11 @@
     "Kramatorsk railway station attack": "Ataque a la estación de Kramatorsk (2022)",
     "Batalla de Paye": "Batalla de Paye (1900)",
     "Battle of Paye": "Batalla de Paye (1900)",
-    "Labanan sa Paye": "Batalla de Paye (1900)"
+    "Labanan sa Paye": "Batalla de Paye (1900)",
+    "Batalla del río Malalag": "Combate contra Datu Ali (1905)",
+    "Batalla del rio Malalag": "Combate contra Datu Ali (1905)",
+    "Battle of the Malalag River": "Combate contra Datu Ali (1905)",
+    "Battle of the Malala River": "Combate contra Datu Ali (1905)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -2866,6 +2872,7 @@
     "Combate del río Pecos (1864)",
     "Combate de Sunset Pass (1874)",
     "Ataque a la estación de Kramatorsk (2022)",
-    "Batalla de Paye (1900)"
+    "Batalla de Paye (1900)",
+    "Combate contra Datu Ali (1905)"
   ]
 }

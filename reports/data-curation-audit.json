@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-03T17:32:25.144Z",
+  "generatedAt": "2026-10-04T11:31:38.952Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 13204225,
-    "duplicatedCountryFilesBytes": 1558817,
-    "countryConflictShardBytes": 461268,
+    "fullBytes": 13213043,
+    "duplicatedCountryFilesBytes": 1559121,
+    "countryConflictShardBytes": 461336,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24266,
-        "inlineBytes": 3457309,
+        "inlineBytes": 3460327,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 218114,
-          "conflictShardBytes": 218115,
+          "conflictsBytes": 218182,
+          "conflictShardBytes": 218183,
           "averageConflictBytes": 236
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 84,
+    "pendingCount": 83,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15369,19 +15369,6 @@
         ],
         "regions": [
           "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla del río Malalag",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"
