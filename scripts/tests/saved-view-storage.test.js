@@ -72,4 +72,88 @@ const recent = viewContext.storeViewEntry([], countryView, 10);
 assert.equal(viewContext.storeViewEntry(recent, { ...countryView, savedAt: "new" }, 10).length, 1, "signature deduplication remains intact");
 assert.equal(viewContext.storeViewEntry(Array.from({ length: 12 }, (_, index) => ({ ...countryView, selectedCode: String(index) })), countryView, 8).length, 8);
 
-console.log("Saved views: placeholder isolation, bounded configuration and legacy restoration OK.");
+const restoreSource = source.slice(source.indexOf("async function applySavedView("), source.indexOf("function mergeCountryCuration("));
+const flush = async () => { for (let i = 0; i < 12; i++) await Promise.resolve(); };
+function restoreHarness() {
+  const calls = [];
+  let resolve;
+  const ready = new Promise(done => { resolve = done; });
+  const timers = [];
+  const state = {
+    document: { getElementById: () => ({ value: "" }) },
+    countriesData: { ARG: { name: "Argentina" }, ESP: { name: "Espana" } },
+    currentMapMode: "3d", pendingMapModeChange: null, savedViewRequestId: 0,
+    activeGeoJsonMode: "3d", viewer: { scene: { mode: 3 } },
+    Cesium: { SceneMode: { SCENE2D: 2, SCENE3D: 3 } },
+    applyAppMode() {}, setTheme() {}, applyFilters: () => calls.push("filters"),
+    selectSearchResult: result => calls.push(result.value), fitWorldView: () => calls.push("world"),
+    applyMapMode(mode) { state.currentMapMode = mode; state.pendingMapModeChange = ready; return ready; },
+    setTimeout: callback => timers.push(callback)
+  };
+  vm.createContext(state);
+  vm.runInContext(restoreSource, state);
+  return { state, calls, resolve, timers };
+}
+
+{
+  const { state, calls, resolve, timers } = restoreHarness();
+  const restoring = state.applySavedView({ mapMode: "2d", selectedCode: "ARG" });
+  timers.forEach(callback => callback());
+  await flush();
+  assert.deepEqual(calls, [], "a fixed delay must not restore filters/country before the map is ready");
+  resolve(true);
+  await restoring;
+  assert.deepEqual(calls, ["filters", "ARG"]);
+  assert.equal(timers.length, 0, "restoration must not use a speculative readiness timer");
+}
+
+{
+  const { state, calls, resolve } = restoreHarness();
+  const first = state.applySavedView({ mapMode: "2d", selectedCode: "ARG" });
+  const latest = state.applySavedView({ mapMode: "2d", selectedCode: "ESP" });
+  await flush();
+  assert.deepEqual(calls, [], "the same requested mode must still wait for its pending overlay");
+  resolve(true);
+  await first;
+  await latest;
+  assert.deepEqual(calls, ["filters", "ESP"], "only the latest saved view may restore the country");
+}
+
+{
+  const { state, calls, resolve } = restoreHarness();
+  const restoring = state.applySavedView({ mapMode: "2d", selectedCode: "ARG" });
+  resolve(false);
+  await restoring;
+  assert.deepEqual(calls, [], "a cancelled/failed transition must not apply a stale country or group");
+  state.pendingMapModeChange = null;
+  let retries = 0;
+  state.applyMapMode = async mode => {
+    retries++;
+    state.activeGeoJsonMode = mode;
+    state.viewer.scene.mode = 2;
+    return true;
+  };
+  await state.applySavedView({ mapMode: "2d", selectedCode: "ARG" });
+  assert.equal(retries, 1, "an explicit saved-view retry must not mistake the requested mode for a ready map");
+  assert.deepEqual(calls, ["filters", "ARG"]);
+}
+
+{
+  const { state, calls } = restoreHarness();
+  await state.applySavedView({ mapMode: "3d", filters: { continent: "Asia" } });
+  assert.deepEqual(calls, ["filters", "world"], "a settled same-mode group keeps its existing restoration behavior");
+}
+
+for (const phase of ["scene", "overlay"]) {
+  const { state, calls } = restoreHarness();
+  state.currentMapMode = "2d";
+  state.activeGeoJsonMode = phase === "overlay" ? "3d" : "2d";
+  state.viewer.scene.mode = phase === "scene" ? 3 : 2;
+  let retries = 0;
+  state.applyMapMode = async () => { retries++; return true; };
+  await state.applySavedView({ mapMode: "2d", selectedCode: "ARG" });
+  assert.equal(retries, 1, phase + ": both scene and active geometry must match a settled mode");
+  assert.deepEqual(calls, ["filters", "ARG"]);
+}
+
+console.log("Saved views: placeholder isolation, bounded configuration and map readiness OK.");

@@ -85,7 +85,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-10-03-release-4";
+const APP_VERSION = "2026-10-03-release-5";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -2563,7 +2563,7 @@ function applyMapMode(mode, animate = true) {
     currentMapMode = mode;
     appStore?.setState({ mapMode: currentMapMode }, "map-mode");
     updateMapModeToggle();
-    return;
+    return Promise.resolve(true);
   }
 
   cancelPendingMapTransition?.();
@@ -2585,39 +2585,66 @@ function applyMapMode(mode, animate = true) {
 
   const expectedSceneMode = normalizedMode === "2d" ? Cesium.SceneMode.SCENE2D : Cesium.SceneMode.SCENE3D;
   let settled = false;
+  let loading = false;
   let removeMorphListener = null;
   let settleTimer = null;
-  const cancel = () => {
-    settled = true;
+  let resolveTransition;
+  const ready = new Promise(resolve => { resolveTransition = resolve; });
+  pendingMapModeChange = ready;
+  const cleanup = () => {
     removeMorphListener?.();
     clearTimeout(settleTimer);
   };
-  const finishTransition = async () => {
-    if (settled || currentMapMode !== normalizedMode || viewer.scene.mode !== expectedSceneMode) return;
-    cancel();
+  const finish = result => {
+    if (settled) return;
+    settled = true;
+    cleanup();
     if (cancelPendingMapTransition === cancel) cancelPendingMapTransition = null;
-    await loadMap();
-    if (currentMapMode !== normalizedMode || viewer.scene.mode !== expectedSceneMode) return;
+    if (pendingMapModeChange === ready) pendingMapModeChange = null;
+    resolveTransition(result);
+  };
+  const cancel = () => finish(false);
+  const finishTransition = async () => {
+    if (settled || loading || currentMapMode !== normalizedMode || viewer.scene.mode !== expectedSceneMode) return;
+    loading = true;
+    cleanup();
+    // The transition owns the final camera reset, after the overlay is ready.
+    await loadMap(false, { resetView: false });
+    if (settled || currentMapMode !== normalizedMode || viewer.scene.mode !== expectedSceneMode) {
+      finish(false);
+      return;
+    }
     fitWorldView();
     lastOverlayBucket = getCurrentOverlayBucket();
+    if (cancelPendingMapTransition === cancel) cancelPendingMapTransition = null;
     renderMapLabels();
     viewer.scene.requestRender();
     updateAppStatusPanel();
+    finish(true);
   };
-  const settle = () => finishTransition().catch(error => console.error("No se pudo completar el cambio de mapa:", error));
+  const fail = error => {
+    finish(false);
+    console.error("No se pudo completar el cambio de mapa:", error);
+  };
+  const settle = () => finishTransition().catch(fail);
   cancelPendingMapTransition = cancel;
   removeMorphListener = viewer.scene.morphComplete.addEventListener(settle);
 
-  if (normalizedMode === "2d") {
-    viewer.scene.morphTo2D(transitionPlan.duration);
-  } else {
-    viewer.scene.morphTo3D(transitionPlan.duration);
+  try {
+    if (normalizedMode === "2d") {
+      viewer.scene.morphTo2D(transitionPlan.duration);
+    } else {
+      viewer.scene.morphTo3D(transitionPlan.duration);
+    }
+  } catch (error) {
+    fail(error);
   }
 
   updateMapInteractionTuning();
-  if (!settled) settleTimer = setTimeout(settle, transitionPlan.settleMs);
+  if (!settled && !loading) settleTimer = setTimeout(settle, transitionPlan.settleMs);
   updateMapModeToggle();
   updateAppStatusPanel();
+  return ready;
 }
 
 function toggleMapMode() {
@@ -2670,6 +2697,8 @@ let worldPopulationTotal = 0;
 let currentTheme = "default";
 let currentMapMode = "3d";
 let cancelPendingMapTransition = null;
+let pendingMapModeChange = null;
+let savedViewRequestId = 0;
 let selectionMode = "country";
 let compareSelection = [];
 const compareDataCache = new Map();
@@ -11015,6 +11044,7 @@ async function applySavedView(view) {
   if (!view) {
     return;
   }
+  const requestId = ++savedViewRequestId;
 
   if (view.appMode) {
     applyAppMode(view.appMode);
@@ -11037,10 +11067,12 @@ async function applySavedView(view) {
     }
   }
 
-  if (view.mapMode && view.mapMode !== currentMapMode) {
-    applyMapMode(view.mapMode, false);
-    await new Promise(resolve => setTimeout(resolve, 120));
-  }
+  const mapReady = !viewer || (activeGeoJsonMode === view.mapMode && viewer.scene.mode ===
+    (view.mapMode === "2d" ? Cesium.SceneMode.SCENE2D : Cesium.SceneMode.SCENE3D));
+  const transition = view.mapMode && (view.mapMode !== currentMapMode || (!pendingMapModeChange && !mapReady))
+    ? applyMapMode(view.mapMode, false) : pendingMapModeChange;
+  if (transition && !await transition) return;
+  if (requestId !== savedViewRequestId) return;
 
   applyFilters();
 
@@ -13388,7 +13420,7 @@ function getPickedCountryEntityAt(position) {
   return stacked.map(getPickedCountryEntity).find(Boolean) || null;
 }
 
-async function loadMap(bootPhase = false, { preserveView = false } = {}) {
+async function loadMap(bootPhase = false, { preserveView = false, resetView = !preserveView } = {}) {
   const requestedMode = currentMapMode;
   const geoJsonPath = getGeoJsonPathForCurrentMode(bootPhase);
   if (loadMapPromise && loadMapMode === requestedMode && loadMapPath === geoJsonPath) {
@@ -13649,7 +13681,7 @@ async function loadMap(bootPhase = false, { preserveView = false } = {}) {
     if (!bootPhase) {
       applyImageryForMode(false);
     }
-    if (!preserveView) fitWorldView();
+    if (resetView) fitWorldView();
     renderMapLabels();
   }).finally(() => {
     if (loadToken === mapOverlayLoadToken) {

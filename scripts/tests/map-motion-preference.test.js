@@ -31,7 +31,7 @@ function harness(reduced = false, saved = "true") {
     document: { getElementById: () => button }, console,
     currentLanguage: "es", currentMapMode: "3d", mobile: false,
     isMobileLayout: () => state.mobile, activeFocusToken: 0, appStore: null,
-    cancelPendingMapTransition: null, detailedOverlayUpgradeTimer: null,
+    cancelPendingMapTransition: null, pendingMapModeChange: null, detailedOverlayUpgradeTimer: null,
     Cesium: { SceneMode: { SCENE2D: 2, SCENE3D: 3 } },
     applyImageryForMode() {}, updateMapInteractionTuning() {}, updateMapModeToggle() {},
     updateAppStatusPanel() {}, renderMapLabels() {}, getCurrentOverlayBucket: () => "far",
@@ -122,6 +122,83 @@ for (const reduced of [false, true]) for (const mobile of [false, true]) for (co
   assert.equal(completed, 1);
   state.viewer = null;
   setPreference(true);
+}
+
+const deferred = () => {
+  let resolve;
+  let reject;
+  const promise = new Promise((yes, no) => { resolve = yes; reject = no; });
+  return { promise, resolve, reject };
+};
+const flush = async () => { for (let i = 0; i < 12; i++) await Promise.resolve(); };
+
+for (const reduced of [false, true]) {
+  const { state, calls } = harness(reduced);
+  const overlay = deferred();
+  state.loadMap = async (boot, options) => {
+    calls.loads++;
+    assert.equal(boot, false);
+    assert.equal(options.resetView, false, "only the transition resets the camera");
+    await overlay.promise;
+  };
+  const ready = state.applyMapMode("2d");
+  let finished = false;
+  ready.then(() => { finished = true; });
+  state.viewer.scene.completeMorph();
+  await flush();
+  assert.equal(finished, false, "morph completion is not overlay readiness");
+  assert.equal(calls.loads, 1, "repeated morph events must not duplicate an overlay load");
+  assert.equal(calls.fits, 0);
+  assert.equal(calls.timers.size, 0);
+  overlay.resolve();
+  assert.equal(await ready, true);
+  assert.equal(calls.fits, 1);
+  assert.equal(state.pendingMapModeChange, null);
+  assert.equal(state.cancelPendingMapTransition, null);
+}
+
+for (const phase of ["morph", "overlay"]) {
+  const { state, calls } = harness();
+  const overlay = deferred();
+  state.loadMap = () => overlay.promise;
+  const obsolete = state.applyMapMode("2d");
+  if (phase === "overlay") state.viewer.scene.completeMorph();
+  const latest = state.applyMapMode("3d");
+  assert.equal(await obsolete, false, phase + ": cancellation must settle its waiter");
+  assert.equal(state.pendingMapModeChange, latest, "old cleanup must not clear a newer transition");
+  state.viewer.scene.completeMorph();
+  overlay.resolve();
+  assert.equal(await latest, true);
+  assert.equal(calls.fits, 1, "obsolete transition must not reset the new camera");
+  assert.equal(calls.timers.size, 0);
+  assert.equal(state.pendingMapModeChange, null);
+}
+
+for (const phase of ["morph", "overlay", "render"]) {
+  const { state, calls } = harness();
+  const errors = [];
+  state.console = { error: (...args) => errors.push(args) };
+  const morph = state.viewer.scene.morphTo2D;
+  if (phase === "morph") state.viewer.scene.morphTo2D = () => { throw new Error("morph fixture"); };
+  else if (phase === "overlay") state.loadMap = async () => { throw new Error("overlay fixture"); };
+  else state.renderMapLabels = () => { throw new Error("render fixture"); };
+  const failed = state.applyMapMode("2d", false);
+  assert.equal(await failed, false, "ignored button calls must not create unhandled rejections");
+  assert.equal(errors.length, 1);
+  assert.equal(state.pendingMapModeChange, null);
+  assert.equal(state.cancelPendingMapTransition, null);
+  assert.equal(calls.timers.size, 0);
+  state.viewer.scene.morphTo2D = morph;
+  state.loadMap = async () => {};
+  state.renderMapLabels = () => {};
+  assert.equal(await state.applyMapMode("2d", false), true, "an explicit retry remains possible");
+}
+
+{
+  const { state } = harness();
+  state.viewer = null;
+  assert.equal(await state.applyMapMode("2d"), true, "the pre-viewer fallback remains awaitable");
+  assert.equal(state.currentMapMode, "2d");
 }
 
 assert.match(script, /setAutoRotateState\(autoRotateEnabled, false\)/, "montar controles no persiste estado temporal");

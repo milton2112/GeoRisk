@@ -2515,6 +2515,65 @@ async function testUntrustedInputs(browser, baseUrl) {
       assert.equal(savedViewPayload.hasPanel, false, "real save controls must not serialize irrelevant country datasets");
       assert.ok(savedViewPayload.viewsBytes < 2000 && savedViewPayload.favoritesBytes < 3000);
       assert.ok(savedViewPayload.restored.every(mode => mode === (viewport.width <= 820 ? "2d" : "3d")));
+      // Reuse this page to hold the real overlay load until each saved selector is checked.
+      for (const [control, code] of [["saved-views-select", "ESP"], ["favorite-views-select", "ARG"]]) {
+        const targetMode = await page.evaluate(({ control, code }) => {
+          const original = { load: loadMap, select: selectSearchResult, views: savedViews, favorites: favoriteViews };
+          let release;
+          const gate = new Promise(resolve => { release = resolve; });
+          const probe = { release, loads: 0, selections: [], original, fail: control === "favorite-views-select" };
+          window.__savedMapTransition = probe;
+          loadMap = async (...args) => {
+            probe.loads++;
+            await gate;
+            if (probe.fail) { probe.fail = false; throw new Error("saved-view overlay failure fixture"); }
+            return original.load(...args);
+          };
+          selectSearchResult = async result => { probe.selections.push(result.value); return original.select(result); };
+          const mode = currentMapMode === "2d" ? "3d" : "2d";
+          const view = { ...getCurrentViewState(), name: "Map readiness", selectedCode: code, mapMode: mode };
+          if (control === "saved-views-select") { savedViews = [view]; renderSavedViews(); }
+          else { favoriteViews = [view]; renderFavoriteViews(); }
+          const select = document.getElementById(control);
+          select.value = "0";
+          select.dispatchEvent(new Event("change", { bubbles: true }));
+          return mode;
+        }, { control, code });
+        try {
+          await page.waitForFunction(() => window.__savedMapTransition.loads === 1);
+          assert.deepEqual(await page.evaluate(() => window.__savedMapTransition.selections), [],
+            "a saved selector must not open its country before the held overlay finishes");
+          assert.equal(await page.evaluate(() => Boolean(pendingMapModeChange)), true);
+          await page.evaluate(() => window.__savedMapTransition.release());
+          if (control === "favorite-views-select") {
+            await page.waitForFunction(() => pendingMapModeChange === null);
+            assert.deepEqual(await page.evaluate(() => window.__savedMapTransition.selections), [],
+              "a failed overlay must not apply its country");
+            assert.notEqual(await page.evaluate(() => activeGeoJsonMode), targetMode);
+            await page.evaluate(() => document.getElementById("favorite-views-select").dispatchEvent(new Event("change", { bubbles: true })));
+          }
+          await waitForMapMode(page, targetMode);
+          await waitForCountryPanel(page, code === "ESP" ? "Espa" : "Argentina");
+          await page.waitForFunction(code => selectedLayers.length === 1 && selectedLayers[0].code === code, code);
+          assert.deepEqual(await page.evaluate(() => window.__savedMapTransition.selections), [code]);
+          assert.equal(await page.evaluate(() => window.__savedMapTransition.loads), control === "favorite-views-select" ? 2 : 1);
+          assert.equal(await page.evaluate(() => pendingMapModeChange), null);
+          assert.equal(await page.evaluate(() => cancelPendingMapTransition), null);
+          assert.equal(await page.evaluate(() => viewer.useDefaultRenderLoop), true);
+        } finally {
+          await page.evaluate(() => {
+            const probe = window.__savedMapTransition;
+            probe.release();
+            loadMap = probe.original.load;
+            selectSearchResult = probe.original.select;
+            savedViews = probe.original.views;
+            favoriteViews = probe.original.favorites;
+            renderSavedViews();
+            renderFavoriteViews();
+            delete window.__savedMapTransition;
+          });
+        }
+      }
       await page.evaluate(async () => {
         await activateCountrySection("country-section-sources");
         await ensureDeferredUiModule("news");
