@@ -67,29 +67,27 @@ function buildDefaultReleaseNotes(versionStamp) {
   ].join("\n");
 }
 
-function getUnpublishedNotes(source, versionStamp) {
+function getUnpublishedNotes(source) {
   const match = source.match(/## Sin publicar\n\n([\s\S]*?)(?=\n## v|$)/);
   const notes = (match?.[1] || "")
     .replace(/^- Se documentaran aca los cambios posteriores a v[\d.]+ antes de cerrar la siguiente version\.$/gm, "")
     .replace(/\n{3,}/g, "\n\n")
     .trim();
-  if (!notes) {
-    return buildDefaultReleaseNotes(versionStamp);
-  }
-
-  return notes.includes("APP_VERSION") || notes.includes("CACHE_VERSION")
-    ? notes
-    : `${notes}\n- Actualiza \`APP_VERSION\` y \`CACHE_VERSION\` a \`${versionStamp}\`.`;
+  return notes;
 }
 
 function updateChangelog(source, version, versionStamp, date) {
+  source = source.replace(/\r\n?/g, "\n");
   const sectionTitle = `## v${version} - ${date}`;
   const unpublished = `## Sin publicar\n\n- Se documentaran aca los cambios posteriores a v${version} antes de cerrar la siguiente version.`;
-  const releaseSection = `${sectionTitle}\n\n${getUnpublishedNotes(source, versionStamp)}`;
-
-  const withoutCurrentRelease = source.includes(sectionTitle)
-    ? source.replace(new RegExp(`\\n${sectionTitle.replace(/\./g, "\\.")}[\\s\\S]*?(?=\\n## v|$)`), "")
-    : source;
+  const currentPattern = new RegExp(`(?:^|\\n)## v${version.replace(/\./g, "\\.")} - [^\\n]+\\n([\\s\\S]*?)(?=\\n## |$)`);
+  const current = source.match(currentPattern);
+  const notes = [current?.[1]?.trim(), getUnpublishedNotes(source)].filter(Boolean).join("\n")
+    .replace(/^- Actualiza `APP_VERSION` y `CACHE_VERSION` a `[^`]+`\.$/gm, "").trim();
+  const versionNote = `- Actualiza \`APP_VERSION\` y \`CACHE_VERSION\` a \`${versionStamp}\`.`;
+  const releaseNotes = notes ? `${notes}\n${versionNote}` : buildDefaultReleaseNotes(versionStamp);
+  const releaseSection = `${sectionTitle}\n\n${releaseNotes}`;
+  const withoutCurrentRelease = current ? source.replace(currentPattern, "") : source;
   const match = withoutCurrentRelease.match(/## Sin publicar[\s\S]*?(?=\n## v|$)/);
   if (!match) {
     return `${withoutCurrentRelease.trimEnd()}\n\n${unpublished}\n\n${releaseSection}\n`;

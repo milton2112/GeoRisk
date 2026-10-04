@@ -680,6 +680,17 @@ async function testMapLabels(browser, baseUrl) {
         assert.ok(initial.every(item => !names[item.id] || item.text === names[item.id]), "los datos tardios actualizan los nombres sin mover la camara");
         console.log("map-labels: desktop inicial " + initial.length + " etiquetas");
       }
+      assert.equal(await page.evaluate(() => {
+        const previous = labelEntities.slice();
+        let changed = 0;
+        const remove = previous.map(entity => entity.definitionChanged.addEventListener(() => changed++));
+        try {
+          renderMapLabels();
+          renderMapLabels();
+          return changed === 0 && labelEntities.length === previous.length &&
+            labelEntities.every((entity, index) => entity === previous[index]) && hiddenLabelEntities.length === 0;
+        } finally { remove.forEach(dispose => dispose()); }
+      }), true, "stationary labels retain identity without property rewrites");
       await setMapMode(page, "3d");
       await toolsToggle.click();
       await page.locator("#label-mode-select").selectOption("full");
@@ -774,6 +785,8 @@ async function testMapLabels(browser, baseUrl) {
       await page.waitForFunction(() => isCameraNavigating);
       await page.evaluate(() => renderMapLabels());
       assert.equal(await page.evaluate(() => labelEntities.length), 0, "no reconstruir nombres durante el movimiento");
+      assert.equal(await page.evaluate(() => hiddenLabelEntities.length > 0 && hiddenLabelEntities.every(entity => !entity.show)), true,
+        "temporarily retain only hidden labels from the previous view during navigation");
       await page.waitForFunction(() => !isCameraNavigating && labelEntities.length > 0);
       const asia = await assertVisible();
       assert.notDeepEqual(asia.map(item => item.id), brazil.map(item => item.id), "el nuevo hemisferio recupera sus nombres");
@@ -785,6 +798,7 @@ async function testMapLabels(browser, baseUrl) {
       await page.locator("#label-mode-select").selectOption("none");
       await toolsToggle.click();
       assert.equal(await page.evaluate(() => labelEntities.length), 0);
+      assert.equal(await page.evaluate(() => hiddenLabelEntities.length), 0);
       await setMapMode(page, "2d");
       assert.equal(await page.evaluate(() => labelEntities.length), 0);
       assertHealthyPage(test.pageErrors, label + " etiquetas de mapa");
@@ -1311,6 +1325,16 @@ async function testReducedMapMotion(browser, baseUrl) {
       await waitForMapMode(page, "2d");
       assert.equal(await page.evaluate(() => cancelPendingMapTransition), null);
       assertHealthyPage(test.pageErrors, label + " movimiento reducido");
+    } catch (error) {
+      console.error("Reduced motion failed:", label, await page.evaluate(() => {
+        const button = document.getElementById("map-mode-toggle");
+        const style = getComputedStyle(button);
+        return { visibility: document.visibilityState, classes: document.body.className,
+          button: { display: style.display, visibility: style.visibility, disabled: button.disabled, rect: button.getBoundingClientRect().toJSON() },
+          mode: currentMapMode, navigating: isCameraNavigating, labels: labelEntities.length,
+          hiddenLabels: hiddenLabelEntities.length, recovery: viewer.__geoRiskRenderRecovery.getState(), errors: window.__geoRiskCspViolations };
+      }).catch(() => null));
+      throw error;
     } finally {
       await test.context.close();
     }

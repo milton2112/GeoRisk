@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.271 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.272 antes de cerrar la siguiente version.
+
+## v1.6.272 - 2026-10-04
+
+- Evita recrear todas las etiquetas de pais/contexto en cada actualizacion. Reconcilia por ID con la ultima vista y solo actualiza nombre, posicion o fuente tipografica cuando cambian; actualizaciones identicas no eliminan/agregan entidades, no reescriben propiedades ni piden un nuevo frame.
+- Durante el arrastre conserva oculto solo el grupo anterior; al terminar reutiliza la interseccion y libera nombres obsoletos. Desactivar etiquetas, pasar a 2D o preparar una transicion libera tambien ese grupo oculto. Mantiene limites por vista, horizonte, distancia, texto traducido tardio, estilos, calidad, preferencias mobile y movimiento reducido; no acumula paises visitados ni cambia los datos.
+- Evidencia: regresion roja con 2 creaciones donde debia conservarse 1; tests con Entity real de Cesium cubren identidad, cero eventos de propiedades/requests sin cambios, texto/posicion/fuente actualizados, ocultamiento repetido y limpieza en 2D/none. El flujo existente de Chrome desktop/mobile emulado verifica identidad sin reescrituras, nombres tras datos tardios, pixeles de texto, horizonte, cambios de hemisferio, resize y controles. Traces diagnosticas siguen ubicando trabajo en shaders de Cesium; sus tiempos instrumentados no se usan como comparacion ni reemplazan el benchmark de release.
+- Corrige `release:prepare`: conserva evidencia/costos/limites ya escritos al preparar una version existente, combina borradores LF/CRLF, evita repetir la misma version si cambia su fecha y actualiza solo su linea de cache administrada. Regresion roja por version duplicada; test puro cubre tambien notas conservadas con fecha identica, versiones anteriores intactas, borradores, actualizacion de stamp y segunda preparacion identica. Tooling/pruebas internas fuera del deploy; sin dependencias ni mediciones adicionales.
+- Una primera puerta completa fallo por espera de estabilidad al pulsar el cambio 2D/3D en movimiento reducido. No se reprodujo en el flujo aislado ni en la secuencia green-coding/movimiento reducido. Agrega estado de visibilidad, boton y renderer al diagnostico de ese flujo; no altera clics, timeouts, reintentos ni cobertura. No se presenta el primer intento como aprobado ni se atribuye una causa no comprobada.
+- Green coding: beneficio comprobado en trabajo evitable, sin precarga, dependencias, listeners, polling ni nuevos shaders/exportaciones. Costo: script.js pasa de 592928 a 594559 bytes (+1631), igual aumento del nucleo de app: 892732 a 894363; countries_index conserva 144225 bytes y el motor 3429613. La memoria retiene temporalmente las entidades de la ultima vista mientras se navega, dentro del limite existente; Map/arrays de reconciliacion son locales y se descartan. Las notas de version siguen siendo una descarga bajo demanda, no precache. No promete eliminar todas las tareas largas, ahorro energetico/CO2 ni validacion en celular fisico. Referencia de la API conservada: [Cesium LabelGraphics](https://cesium.com/learn/cesiumjs/ref-doc/LabelGraphics.html).
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-10-04-release-3`.
 
 ## v1.6.271 - 2026-10-04
 
