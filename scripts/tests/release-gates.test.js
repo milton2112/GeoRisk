@@ -1,3 +1,4 @@
+import "./release-prepare-notes.test.js";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import nativeFs from "node:fs";

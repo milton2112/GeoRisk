@@ -85,7 +85,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-10-04-release-2";
+const APP_VERSION = "2026-10-04-release-3";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -720,11 +720,19 @@ function getCountryLabelData() {
 }
 
 function clearMapLabels() {
-  if (!viewer || !labelEntities.length) {
-    return;
-  }
-  labelEntities.forEach(entity => viewer.entities.remove(entity));
+  if (!viewer || (!labelEntities.length && !hiddenLabelEntities.length)) return false;
+  [...labelEntities, ...hiddenLabelEntities].forEach(entity => viewer.entities.remove(entity));
   labelEntities = [];
+  hiddenLabelEntities = [];
+  return true;
+}
+
+function hideMapLabels() {
+  if (!labelEntities.length) return false;
+  labelEntities.forEach(entity => { entity.show = false; });
+  hiddenLabelEntities = labelEntities;
+  labelEntities = [];
+  return true;
 }
 
 function getMapLabelMaxDistance(category) {
@@ -744,17 +752,22 @@ function isMapLabelVisible(position, maximumDistance) {
     point.x <= scene.canvas.clientWidth && point.y <= scene.canvas.clientHeight);
 }
 
-function buildLabelEntityConfig(item, category = "country", position = Cesium.Cartesian3.fromDegrees(item.lon, item.lat, 0)) {
+function getMapLabelFont(category) {
   const isContext = category !== "country";
   const zoomBucket = get3DZoomBucket();
   const countryFont = zoomBucket === "near" ? "700 14px Segoe UI, sans-serif" : zoomBucket === "mid" ? "600 13px Segoe UI, sans-serif" : "600 12px Segoe UI, sans-serif";
   const contextFont = zoomBucket === "near" ? "700 16px Segoe UI, sans-serif" : zoomBucket === "mid" ? "600 15px Segoe UI, sans-serif" : "600 14px Segoe UI, sans-serif";
+  return isContext ? contextFont : countryFont;
+}
+
+function buildLabelEntityConfig(item, category = "country", position = Cesium.Cartesian3.fromDegrees(item.lon, item.lat, 0)) {
+  const isContext = category !== "country";
   return {
     id: item.id,
     position,
     label: {
       text: item.text,
-      font: isContext ? contextFont : countryFont,
+      font: getMapLabelFont(category),
       fillColor: isContext
         ? cssColorToCesiumColor("#e8f6ff", 0.96)
         : cssColorToCesiumColor("#f3fbff", 0.92),
@@ -780,12 +793,20 @@ function renderMapLabels() {
   if (!viewer) {
     return;
   }
-  clearMapLabels();
-  if (labelMode === "none" || currentMapMode !== "3d" || isCameraNavigating || cancelPendingMapTransition) {
-    viewer.scene.requestRender();
+  if (labelMode === "none" || currentMapMode !== "3d" || cancelPendingMapTransition) {
+    if (clearMapLabels()) viewer.scene.requestRender();
+    return;
+  }
+  if (isCameraNavigating) {
+    if (hideMapLabels()) viewer.scene.requestRender();
     return;
   }
 
+  // Retain only the previous view, never a cache of every visited country.
+  const previousLabels = new Map([...labelEntities, ...hiddenLabelEntities].map(entity => [entity.id, entity]));
+  const nextLabels = [];
+  let changed = false;
+  const time = viewer.clock.currentTime;
   const zoomBucket = get3DZoomBucket();
   const countries = getCountryLabelData();
   const maxCountries = zoomBucket === "near"
@@ -796,7 +817,19 @@ function renderMapLabels() {
   const addVisibleLabel = (item, category) => {
     const position = Cesium.Cartesian3.fromDegrees(item.lon, item.lat, 0);
     if (isMapLabelVisible(position, getMapLabelMaxDistance(category))) {
-      labelEntities.push(viewer.entities.add(buildLabelEntityConfig(item, category, position)));
+      let entity = previousLabels.get(item.id);
+      if (entity) {
+        previousLabels.delete(item.id);
+        if (!Cesium.Cartesian3.equals(entity.position.getValue(time), position)) { entity.position = position; changed = true; }
+        if (entity.label.text.getValue(time) !== item.text) { entity.label.text = item.text; changed = true; }
+        const font = getMapLabelFont(category);
+        if (entity.label.font.getValue(time) !== font) { entity.label.font = font; changed = true; }
+        if (!entity.show) { entity.show = true; changed = true; }
+      } else {
+        entity = viewer.entities.add(buildLabelEntityConfig(item, category, position));
+        changed = true;
+      }
+      nextLabels.push(entity);
     }
   };
   countries.slice(0, maxCountries).forEach(item => addVisibleLabel(item, "country"));
@@ -806,7 +839,11 @@ function renderMapLabels() {
       addVisibleLabel(item, "context");
     });
   }
-  viewer.scene.requestRender();
+  if (previousLabels.size) changed = true;
+  previousLabels.forEach(entity => viewer.entities.remove(entity));
+  labelEntities = nextLabels;
+  hiddenLabelEntities = [];
+  if (changed) viewer.scene.requestRender();
 }
 
 function focusRectangle(bounds, options = {}) {
@@ -2412,7 +2449,7 @@ function initializeViewer() {
     emitMapEvent("dragstart");
     emitMapEvent("zoomstart");
     if (currentMapMode === "3d" && labelMode !== "none" && labelEntities.length) {
-      clearMapLabels();
+      hideMapLabels();
     }
     setNavigationQualityState(true);
   });
@@ -2715,6 +2752,7 @@ let activeNewsTopic = "general";
 let appMode = "default";
 let performanceMonitorId = null;
 let labelEntities = [];
+let hiddenLabelEntities = [];
 let qualityPreset = ["auto", "high", "balanced", "performance"].includes(readLocalPreference("geo-risk-quality-preset"))
   ? readLocalPreference("geo-risk-quality-preset") : "auto";
 const constrainedInitialDevice =
