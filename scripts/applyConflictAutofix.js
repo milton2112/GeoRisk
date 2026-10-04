@@ -812,6 +812,11 @@ import {
   PAYE_CONFLICT_RENAMES
 } from "./lib/conflict-curation-paye.js";
 import {
+  DATU_ALI_CONFLICT_DETAIL_FIXES,
+  DATU_ALI_COUNTRY_CONFLICT_ADDITIONS,
+  DATU_ALI_CONFLICT_RENAMES
+} from "./lib/conflict-curation-datu-ali.js";
+import {
   CABO_BOJADOR_COUNTRY_CONFLICT_EXCLUSIONS
 } from "./lib/conflict-curation-cabo-bojador.js";
 import {
@@ -1011,7 +1016,8 @@ const curatedConflictDetailFixes = {
   ...TARACA_CONFLICT_DETAIL_FIXES,
   ...PECOS_SUNSET_CONFLICT_DETAIL_FIXES,
   ...KRAMATORSK_2022_CONFLICT_DETAIL_FIXES,
-  ...PAYE_CONFLICT_DETAIL_FIXES
+  ...PAYE_CONFLICT_DETAIL_FIXES,
+  ...DATU_ALI_CONFLICT_DETAIL_FIXES
 };
 
 const generatedConflictDetailExclusionNames = [
@@ -1193,7 +1199,8 @@ const safeConflictRenames = {
   ...TARACA_CONFLICT_RENAMES,
   ...PECOS_SUNSET_CONFLICT_RENAMES,
   ...KRAMATORSK_2022_CONFLICT_RENAMES,
-  ...PAYE_CONFLICT_RENAMES
+  ...PAYE_CONFLICT_RENAMES,
+  ...DATU_ALI_CONFLICT_RENAMES
 };
 const conflictReferenceRenames = {
   ...ILE_RONDE_1794_CONFLICT_REFERENCE_RENAMES
@@ -1324,7 +1331,8 @@ const countryConflictAdditionBatches = [
   NOTCH_PUNK_HILL_COUNTRY_CONFLICT_ADDITIONS,
   TARACA_COUNTRY_CONFLICT_ADDITIONS,
   KRAMATORSK_2022_COUNTRY_CONFLICT_ADDITIONS,
-  PAYE_COUNTRY_CONFLICT_ADDITIONS
+  PAYE_COUNTRY_CONFLICT_ADDITIONS,
+  DATU_ALI_COUNTRY_CONFLICT_ADDITIONS
 ];
 const countryConflictAdditions = mergeCountryConflictBatches(countryConflictAdditionBatches);
 const countryConflictExclusionBatches = [

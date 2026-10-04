@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.270 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.271 antes de cerrar la siguiente version.
+
+## v1.6.271 - 2026-10-04
+
+- Cura el episodio importado como Batalla del rio Malalag: era una accion sin fecha, localizada en America y con padre regional generico. Lo identifica como Combate contra Datu Ali (1905), fecha el encuentro el 22 de octubre y lo vincula con la rebelion moro en Mindanao, Filipinas. Conserva aliases exactos y agrega el vinculo territorial filipino, sin representar al gobierno actual como beligerante en 1905.
+- Mantiene limites historicos visibles: la documentacion regimental usa Malala/Malola, sin identificar coordenadas ni equipararlo automaticamente al municipio moderno de Malalag, Davao del Sur. Las bajas estadounidenses se atribuyen al relato regimental: un muerto inmediato y dos heridos, uno fallecido despues, no tres muertos. No fabrica totales de seguidores/civiles, tratado ni final de la rebelion; no adopta las calificaciones coloniales de las fuentes. La campana es descriptiva, la confianza general sigue siendo parcial y los partes escaneados no se presentan como verificados independientemente.
+- Evidencia: regresion roja por fecha ausente; pruebas de jerarquia, aliases sin busqueda remota, unicidad y consistencia entre datos completos, metricas iniciales/busqueda, perfiles, timeline y detalle bajo demanda. Chrome desktop/mobile emulado verifica el titulo sin duplicar el ano, notas, fuentes, texto dentro del modal y una sola descarga al abrir/reabrir; reutiliza paginas existentes con un recorte pequeno de notas por viewport. Comparacion estructurada: solo Estados Unidos/Filipinas cambian en countries_full y un detalle nuevo. Una segunda aplicacion conserva los hashes SHA-256 de ambos datasets fuente. Conflictos sin fecha: 85 a 84; jerarquias provisionales: 19 a 18; 2000 conflictos unicos.
+- Green coding: sin codigo de navegador nuevo, dependencias, polling, precalculos ni solicitudes iniciales adicionales. script.js (592928 bytes), countries_index (144225) y search_index (190923) conservan su peso; la metrica de conflictos de Filipinas se sincroniza. Costo necesario: detalle nuevo de 2974 bytes bajo demanda; indices de conflictos +259, timeline +270 y detalles +157 bytes; perfil de Filipinas +304 y fragmento de conflictos estadounidense +68 bytes. Tanda, pruebas y documentacion interna fuera del deploy; fuentes enlazadas sin empaquetar documentos. No afirma curaduria completa, validacion en celular fisico ni ahorro energetico/CO2.
+- Fuentes: [archivo regimental del 22.o de Infanteria, transcripciones de 1906 y 1922](https://www.1-22infantry.org/history3/ali.htm) y [U.S. Army Heritage and Education Center, continuidad de la rebelion moro tras 1902](https://www.army.mil/article/47711/battle_of_san_jacinto).
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-10-04-release-2`.
 
 ## v1.6.270 - 2026-10-04
 
