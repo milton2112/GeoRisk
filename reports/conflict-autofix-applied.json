@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-04T11:34:25.912Z",
+  "generatedAt": "2026-10-04T13:26:06.503Z",
   "changedFullCountries": 0,
   "fullPassChanges": [
     0
@@ -12,7 +12,7 @@
     "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1111,
+  "generatedHierarchyCandidates": 1112,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -218,7 +218,8 @@
       "Combate naval de Jask (1620)",
       "Batalla naval de Pirano (1812)",
       "Batalla naval frente a Halifax (1782)",
-      "Combate de Punk Hill (1777)"
+      "Combate de Punk Hill (1777)",
+      "Combate de Caleta Foca (1982)"
     ],
     "irlanda": [
       "Batalla naval de la bahía de Bantry (1689)",
@@ -423,7 +424,8 @@
       "Combate de Sobota (1655)"
     ],
     "argentina": [
-      "Combate de Top Malo House (1982)"
+      "Combate de Top Malo House (1982)",
+      "Combate de Caleta Foca (1982)"
     ],
     "ecuador": [
       "Batalla de Pichincha (1822)"
@@ -1788,7 +1790,10 @@
     "Batalla del río Malalag": "Combate contra Datu Ali (1905)",
     "Batalla del rio Malalag": "Combate contra Datu Ali (1905)",
     "Battle of the Malalag River": "Combate contra Datu Ali (1905)",
-    "Battle of the Malala River": "Combate contra Datu Ali (1905)"
+    "Battle of the Malala River": "Combate contra Datu Ali (1905)",
+    "Combate de Caleta Foca": "Combate de Caleta Foca (1982)",
+    "Combate de caleta Foca": "Combate de Caleta Foca (1982)",
+    "Battle of Seal Cove": "Combate de Caleta Foca (1982)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -2873,6 +2878,7 @@
     "Combate de Sunset Pass (1874)",
     "Ataque a la estación de Kramatorsk (2022)",
     "Batalla de Paye (1900)",
-    "Combate contra Datu Ali (1905)"
+    "Combate contra Datu Ali (1905)",
+    "Combate de Caleta Foca (1982)"
   ]
 }

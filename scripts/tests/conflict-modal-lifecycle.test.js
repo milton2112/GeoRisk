@@ -72,6 +72,18 @@ assert.equal(state.formatConflictTitle({ name: "Guerra (1812\u20131815)", startY
 assert.equal(state.formatConflictTitle({ name: "Accion (57 a. C.)", startYear: -57 }), "Accion (57 a. C.)");
 assert.equal(state.formatConflictTitle({ name: "Otra (1814)", startYear: 1815 }), "Otra (1814) (1815)", "no ocultar discrepancias distintas de duplicacion exacta");
 assert.equal(state.renderConflictCurationNotes({}), "");
+const disputeOnly = state.renderConflictCurationNotes({ sourceDispute: "  Los relatos difieren  " });
+assert.match(disputeOnly, /Diferencias entre fuentes/);
+assert.match(disputeOnly, /Los relatos difieren/);
+for (const sourceDispute of [true, false, null, {}, [], " "]) {
+  assert.equal(state.renderConflictCurationNotes({ sourceDispute }), "", "flags and malformed values do not manufacture an explanation");
+}
+const sameNote = state.renderConflictCurationNotes({ curationNote: " Texto ", sourceDispute: "Texto" });
+assert.equal((sameNote.match(/Texto/g) || []).length, 1, "identical trimmed notes are not repeated");
+const unsafeDispute = state.renderConflictCurationNotes({ sourceDispute: '<img src=x onerror="alert(1)">&' });
+assert.match(unsafeDispute, /&lt;img/);
+assert.match(unsafeDispute, /&amp;/);
+assert.doesNotMatch(unsafeDispute, /<img/);
 assert.equal(state.renderConflictTreaties({ treaties: [null, {}, " "] }), "");
 const kramatorskName = Object.keys(KRAMATORSK_2022_CONFLICT_DETAIL_FIXES)[0];
 const kramatorsk = { name: kramatorskName, ...KRAMATORSK_2022_CONFLICT_DETAIL_FIXES[kramatorskName] };
@@ -99,6 +111,7 @@ assert.equal((treaties.match(/<li>Acuerdo<\/li>/g) || []).length, 1);
 assert.doesNotMatch(treaties, /<script>/);
 state.currentLanguage = "en";
 assert.match(state.renderConflictCurationNotes({ curationNote: "note" }), /Curation notes/);
+assert.match(state.renderConflictCurationNotes({ sourceDispute: "Different accounts" }), /Source discrepancies/);
 assert.match(state.renderConflictTreaties({ treaties: ["treaty"] }), /Treaties and agreements/);
 
 const open = block("function openConflictModal", "function closeConflictModal");
@@ -106,4 +119,21 @@ assert.match(open, /const renderToken = \+\+conflictModalRenderToken/);
 assert.match(open, /maybeEnhanceOpenConflictModal\(key, entry, renderToken\)/);
 assert.match(open, /renderConflictCurationNotes\(detail\)/);
 assert.match(open, /renderConflictTreaties\(detail\)/);
+
+const contentState = {
+  CONFLICT_DETAIL_OVERRIDES: {},
+  inferConflictType: () => "batalla", inferConflictScope: () => "local", inferConflictRegion: () => "region",
+  getConflictParentName: () => "parent", getConflictHierarchyState: () => ({}), inferConflictLevel: () => "battle",
+  dedupeConflictParticipants: entries => entries, buildGenericConflictParticipants: () => [],
+  getConflictCountryRelationship: () => "participant", buildGenericConflictChronology: () => [],
+  formatConflictTitle: entry => entry.name, buildGenericRelatedConflicts: () => [],
+  buildGenericConflictCause: () => "cause", buildGenericConflictOutcome: () => "outcome", buildGenericConflictConsequences: () => "consequences"
+};
+vm.createContext(contentState);
+vm.runInContext(block("function getConflictModalContent", "function sanitizeConflictModalText"), contentState);
+assert.equal(contentState.getConflictModalContent({ name: "A", sourceDispute: "Original warning" }).sourceDispute, "Original warning");
+contentState.CONFLICT_DETAIL_OVERRIDES.A = { sourceDispute: "Loaded warning" };
+assert.equal(contentState.getConflictModalContent({ name: "A", sourceDispute: "Original warning" }).sourceDispute, "Loaded warning", "lazy detail must reach the renderer");
+contentState.CONFLICT_DETAIL_OVERRIDES.A.sourceDispute = false;
+assert.equal(contentState.getConflictModalContent({ name: "A", sourceDispute: "Original warning" }).sourceDispute, false, "an explicit loaded flag does not revive a stale textual warning");
 console.log("conflict-modal-lifecycle.test.js ok");

@@ -85,7 +85,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-10-04-release-3";
+const APP_VERSION = "2026-10-04-release-4";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -6083,6 +6083,7 @@ function getConflictModalContent(conflict, countryName = "") {
     hierarchySources: detail.hierarchySources || conflict.hierarchySources || [],
     datePrecision: detail.datePrecision || conflict.datePrecision || "",
     curationNote: detail.curationNote || conflict.curationNote || "",
+    sourceDispute: detail.sourceDispute ?? conflict.sourceDispute ?? "",
     treaties: detail.treaties || conflict.treaties || [],
     wikipedia: detail.wikipedia || null
   };
@@ -6253,11 +6254,13 @@ function getConflictModalEntryDetail(entry) {
 function renderConflictCurationNotes(detail) {
   const date = typeof detail.datePrecision === "string" ? detail.datePrecision.trim() : "";
   const note = typeof detail.curationNote === "string" ? detail.curationNote.trim() : "";
-  if (!date && !note) return "";
+  const dispute = typeof detail.sourceDispute === "string" ? detail.sourceDispute.trim() : "";
+  if (!date && !note && !dispute) return "";
   return `<div class="conflict-modal-section conflict-curation-notes">
     <h4>${currentLanguage === "en" ? "Curation notes" : "Notas de curadur\u00eda"}</h4>
     ${date ? `<p><b>${currentLanguage === "en" ? "Date precision" : "Precisi\u00f3n de la fecha"}:</b> ${escapeHtml(date)}</p>` : ""}
     ${note ? `<p>${escapeHtml(note)}</p>` : ""}
+    ${dispute && dispute !== note ? `<p><b>${currentLanguage === "en" ? "Source discrepancies" : "Diferencias entre fuentes"}:</b> ${escapeHtml(dispute)}</p>` : ""}
   </div>`;
 }
 

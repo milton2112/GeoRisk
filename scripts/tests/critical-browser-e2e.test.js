@@ -931,6 +931,7 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
     const label = viewport === MOBILE_VIEWPORT ? "mobile" : "desktop";
     const scriptAttempts = { "app-curation": 0, "app-conflict-rules": 0 };
     let datuDetailRequests = 0;
+    let focaDetailRequests = 0;
     let releaseDetail;
     const pending = new Promise(resolve => { releaseDetail = resolve; });
     let markRequested;
@@ -938,6 +939,7 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
     const test = await createTestPage(browser, baseUrl, viewport, async page => {
       page.on("request", request => {
         if (request.url().includes("/data/conflicts/details/combate-contra-datu-ali-1905-")) datuDetailRequests++;
+        if (request.url().includes("/data/conflicts/details/combate-de-caleta-foca-1982-")) focaDetailRequests++;
       });
       await page.route(/\/app-(curation|conflict-rules)\.js\?/, async route => {
         const name = route.request().url().match(/\/(app-(?:curation|conflict-rules))\.js/)[1];
@@ -1035,6 +1037,35 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
       await page.locator("#conflict-modal-close").click();
       await page.evaluate(() => openConflictModal(window.__datuAliKey));
       assert.equal(datuDetailRequests, 1, "reopening reuses the existing detail cache");
+      assert.equal(focaDetailRequests, 0, "Caleta Foca sources stay unloaded until the episode opens");
+      await page.locator("#conflict-modal-close").click();
+      await page.evaluate(async () => {
+        await loadCountryConflictDetail("ARG");
+        const entry = countriesData.ARG.military.conflicts.find(item => item.name === "Combate de Caleta Foca (1982)");
+        window.__caletaFocaKey = registerConflictModal(entry, "Argentina");
+        openConflictModal(window.__caletaFocaKey);
+      });
+      await page.waitForFunction(() => Boolean(CONFLICT_DETAIL_OVERRIDES["Combate de Caleta Foca (1982)"]));
+      const focaTitle = await page.locator("#conflict-modal-title").innerText();
+      assert.match(focaTitle, /Caleta Foca/i);
+      assert.equal((focaTitle.match(/1982/g) || []).length, 1);
+      assert.match(await body.innerText(), /Guerra de las Malvinas/);
+      assert.match(await body.innerText(), /Malvinas\/Falkland, Atl\u00e1ntico Sur/);
+      assert.match(await body.innerText(), /algunos heridos leves/);
+      const focaNotes = body.locator(".conflict-curation-notes");
+      assert.match(await focaNotes.innerText(), /23 de mayo de 1982/);
+      assert.match(await focaNotes.innerText(), /proyecto de resoluci\u00f3n, no una norma aprobada/);
+      assert.match(await focaNotes.innerText(), /no confirma un derribo/);
+      assert.deepEqual(await body.locator(".conflict-hierarchy-sources a").evaluateAll(links => links.map(link => link.href)), [
+        "https://www.argentina.gob.ar/sites/default/files/ar-ara-coac-7b5.pdf",
+        "https://rest.hcdn.gob.ar/web/tramites-parlamentarios/render/adjunto/69d3b9b78c1e4.pdf"
+      ]);
+      assert.equal(await body.locator(".conflict-treaties").count(), 0);
+      assert.equal(await body.evaluate(element => element.scrollWidth <= element.clientWidth), true);
+      await captureLiveElement(page, focaNotes, { path: `tmp/caleta-foca-${label}.png`, timeout: 10000 });
+      await page.locator("#conflict-modal-close").click();
+      await page.evaluate(() => openConflictModal(window.__caletaFocaKey));
+      assert.equal(focaDetailRequests, 1, "reopening only reuses one on-demand detail request");
       assertHealthyPage(test.pageErrors, label + " notas de curaduria y descarga tardia");
     } finally {
       releaseDetail();

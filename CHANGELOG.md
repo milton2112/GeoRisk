@@ -8,7 +8,17 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.272 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.273 antes de cerrar la siguiente version.
+
+## v1.6.273 - 2026-10-04
+
+- Corrige Caleta Foca: el episodio importado carecia de fecha, figuraba en Europa y solo vinculaba al Reino Unido. La cronologia naval de la COAC (1983), pagina 114 del PDF/31 interna, fecha la accion el 23 de mayo de 1982. Se normaliza dentro de la Guerra de las Malvinas, Atlantico Sur, y se agrega Argentina; no se confunde el combate con la captura posterior del Monsunen el 29 de mayo. La campana es descriptiva y los nombres geograficos no adjudican soberania.
+- Conserva limites de fuentes: el texto parlamentario de 2026 es un proyecto de resolucion, no una norma aprobada. La COAC describe heridos leves sin total y no confirma el derribo de un helicoptero; el proyecto aporta afirmaciones distintas. No se inventan bajas bilaterales, coordenadas, tratado ni victoria decisiva. La confianza general sigue siendo parcial y no se presenta una verificacion bilateral completa.
+- Corrige una omision funcional descubierta en Chrome: getConflictModalContent descartaba sourceDispute y el modal no lo renderizaba. Ahora muestra discrepancias textuales escapadas, con etiqueta localizada, solo al abrir el detalle. No imprime flags booleanos/objetos, no revive texto original ante un false explicito del detalle y no repite una nota identica. La correccion alcanza 91 detalles con advertencias textuales, no convierte el resto en conflictos verificados.
+- Evidencia: regresiones rojas por fecha ausente y advertencia no visible; tests de modelo/render real, escaping, flags, deduplicacion y fallback. Pruebas de aliases locales, unicidad, jerarquia y consistencia entre datos completos, fichas, metricas iniciales/busqueda, timeline y detalle. Chrome escritorio/mobile emulado muestra fecha, notas, discrepancias y fuentes sin desborde, con una sola descarga al abrir/reabrir; reutiliza las paginas existentes y agrega un recorte pequeno por viewport. Comparacion estructurada: solo Argentina/Reino Unido cambian en countries_full y un detalle nuevo; reaplicacion comprobada por SHA-256 sin cambios en ambos datasets fuente. Sin fecha: 84 a 83; jerarquias provisionales: 18 a 17; 2000 conflictos unicos.
+- Green coding: sin dependencias, precarga, polling, listeners, cache ni precalculos nuevos. Costo necesario: script.js 594559 a 594904 bytes (+345), nucleo de app 894363 a 894708; countries_index (144225) y search_index (190923) conservan peso. Detalle nuevo de 3698 bytes bajo demanda; indices de conflictos +254, timeline +268 y detalles +155; perfil argentino +321 y fragmento britanico +93. Una comparacion de dos textos y su escaping por modal, sin recorrer el dataset. Tooling, pruebas y PDF de investigacion temporal fuera del deploy/precache; fuentes enlazadas, no empaquetadas. No afirma curaduria completa, validacion en celular fisico ni ahorro de energia/CO2. La puerta de release mantiene presupuestos y cobertura; los reportes contienen la evidencia asociada al fingerprint actual.
+- Fuentes: [COAC, componente naval (1983), cronologia del 23 de mayo](https://www.argentina.gob.ar/sites/default/files/ar-ara-coac-7b5.pdf) y [Diputados, expediente 1111-D-2026, fundamentos del proyecto](https://rest.hcdn.gob.ar/web/tramites-parlamentarios/render/adjunto/69d3b9b78c1e4.pdf).
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-10-04-release-4`.
 
 ## v1.6.272 - 2026-10-04
 

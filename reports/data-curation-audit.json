@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-10-04T11:31:38.952Z",
+  "generatedAt": "2026-10-04T13:20:30.805Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 13213043,
-    "duplicatedCountryFilesBytes": 1559121,
-    "countryConflictShardBytes": 461336,
+    "fullBytes": 13224815,
+    "duplicatedCountryFilesBytes": 1559442,
+    "countryConflictShardBytes": 461429,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
         "bytes": 25037,
-        "inlineBytes": 1359271,
+        "inlineBytes": 1363791,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -54,8 +54,8 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 80604,
-          "conflictShardBytes": 80605,
+          "conflictsBytes": 80697,
+          "conflictShardBytes": 80698,
           "averageConflictBytes": 238
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 83,
+    "pendingCount": 82,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15616,19 +15616,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Combate de Caleta Foca",
-        "countries": [
-          "GBR"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"
