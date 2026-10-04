@@ -8,7 +8,9 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.275 antes de cerrar la siguiente version.
+- Corrige un fallo reproducido de release:prepare: antes, una constante CACHE_VERSION ausente actualizaba package.json, su lock y script.js antes de fallar; repetir el mismo stamp tambien podia fallar tras escribir. Ahora valida argumentos, fecha real, version estable, stamp y todos los archivos antes de la primera escritura. Rechaza opciones desconocidas, JSON invalido, constantes ausentes/duplicadas y reutilizar el cache actual para una version nueva. El reintento con version/fecha/stamp explicitos conserva archivos identicos y sus mtimes, y puede reparar una preparacion parcial legible sin perder notas ni campos ajenos.
+- Evidencia: regresion roja del CLI real en carpeta temporal aislada; comprobaciones de contenido y mtime para errores sin escrituras, reintento idempotente, formatos JSON conservados, recuperacion parcial, lock opcional, fechas bisiestas y ausencia de mediciones ante rechazo. Se integran en test:release-gates/npm test; las cuatro mediciones opcionales se verifican con un runner stub, sin lanzar navegador, builds ni red desde estas fixtures. Limitacion: no es una transaccion atomica entre archivos; un corte de luz o error de disco durante la escritura todavia puede dejar archivos parciales o truncados, que requieren inspeccion antes de reintentar.
+- Green coding: cambio interno bajo Sin publicar, sin renovar APP_VERSION/CACHE_VERSION ni descargar otra vez assets por este tooling. Sin nuevas dependencias, codigo cliente, polling, caches, telemetria ni cambios de datos. Lee los seis textos de release como maximo para un plan acotado en memoria y evita escrituras identicas; costo adicional: validaciones y subprocesos breves de pruebas, sin copias persistentes del proyecto. No se infiere ahorro energetico o de CO2 de estos indicadores.
 
 ## v1.6.275 - 2026-10-04
 
