@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-03T21:46:52.401Z",
+  "generatedAt": "2026-10-04T11:15:57.941Z",
   "status": "operativo",
   "startup": {
     "critical": "872 KB",
@@ -80,8 +80,8 @@
       {
         "path": "app-country-panel.js",
         "exists": true,
-        "bytes": 45701,
-        "human": "45 KB",
+        "bytes": 47039,
+        "human": "46 KB",
         "startupCritical": false,
         "category": "deferred-or-auxiliary"
       },
@@ -838,8 +838,8 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 334528,
-      "human": "327 KB"
+      "bytes": 336876,
+      "human": "329 KB"
     },
     {
       "path": "style.css",

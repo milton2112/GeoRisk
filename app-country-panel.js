@@ -1,14 +1,18 @@
-const COUNTRY_PANEL_DATA_SOURCE_SUMMARY = {
-  es: [
-    "Dataset geopolitico local curado del proyecto",
-    "Banco Mundial para inflacion",
-    "GeoJSON politico y curaduria historica/manual propia"
-  ],
-  en: [
-    "Local curated geopolitical project dataset",
-    "World Bank for inflation",
-    "Political GeoJSON plus in-project historical/manual curation"
-  ]
+const COUNTRY_PANEL_PROVENANCE_LABELS = {
+  es: {
+    general: "General", history: "Historia", economy: "Economia", military: "Militar",
+    politics: "Politica", religion: "Religion", symbols: "Simbolos", relations: "Relaciones",
+    sections: "Secciones", code: "Codigo", updatedAt: "Actualizado", flags: "Indicadores",
+    base: "Revision pendiente", curated: "Revisado internamente", confirmed: "Declarado confirmado",
+    mixed: "Mixto: incluye estimaciones", fallback: "Dato de respaldo"
+  },
+  en: {
+    general: "General", history: "History", economy: "Economy", military: "Military",
+    politics: "Politics", religion: "Religion", symbols: "Symbols", relations: "Relations",
+    sections: "Sections", code: "Code", updatedAt: "Updated", flags: "Flags",
+    base: "Review pending", curated: "Internally reviewed", confirmed: "Reported as confirmed",
+    mixed: "Mixed: includes estimates", fallback: "Fallback data"
+  }
 };
 
 const COUNTRY_FAVORITES_STORAGE_KEY = "geo-risk-country-favorites";
@@ -19,25 +23,35 @@ function escapeCountryLoadingText(value) {
   })[character]);
 }
 
+function getProvenanceLabel(value, language) {
+  const labels = COUNTRY_PANEL_PROVENANCE_LABELS[language] || COUNTRY_PANEL_PROVENANCE_LABELS.es;
+  return Object.hasOwn(labels, value) ? labels[value] : String(value);
+}
+
+function getCountryPanelQualityScore(country) {
+  const score = country?.metadata?.quality?.score;
+  return Number.isFinite(score) ? Math.min(100, Math.max(0, Math.round(score))) : null;
+}
+
 function formatProvenanceValue(value, language = "es", depth = 0) {
   if (value === null || value === undefined || value === "") {
     return language === "en" ? "No data" : "Sin datos";
   }
   if (typeof value !== "object") {
-    return String(value);
+    return getProvenanceLabel(value, language);
   }
   if (Array.isArray(value)) {
     return value.slice(0, 8).map(item => formatProvenanceValue(item, language, depth + 1)).join(", ");
   }
   if (value.status && typeof value.status !== "object") {
-    return String(value.status);
+    return getProvenanceLabel(value.status, language);
   }
   if (depth >= 2) {
-    return Object.keys(value).slice(0, 8).join(", ");
+    return Object.keys(value).slice(0, 8).map(key => getProvenanceLabel(key, language)).join(", ");
   }
   return Object.entries(value)
     .slice(0, 8)
-    .map(([key, nested]) => `${key}: ${formatProvenanceValue(nested, language, depth + 1)}`)
+    .map(([key, nested]) => `${getProvenanceLabel(key, language)}: ${formatProvenanceValue(nested, language, depth + 1)}`)
     .join(" | ");
 }
 
@@ -309,9 +323,7 @@ function renderProfileMetaRibbon(country, conflictCount, options) {
 
 function renderCurationTodo(country, items, actions, options) {
   const { language, escapeHtml } = options;
-  const qualityScore = Number.isFinite(country?.metadata?.quality?.score)
-    ? Math.max(0, Math.round(country.metadata.quality.score))
-    : null;
+  const qualityScore = getCountryPanelQualityScore(country);
   const healthLabel = qualityScore === null
     ? (language === "en" ? "pending score" : "puntaje pendiente")
     : `${qualityScore}/100`;
@@ -322,7 +334,7 @@ function renderCurationTodo(country, items, actions, options) {
         <span class="curation-todo-kicker">${language === "en" ? "Curation status" : "Estado de curaduria"}</span>
         <h3>${language === "en" ? "What still needs curation" : "Que falta curar"}</h3>
       </div>
-      <span class="curation-score-pill">${escapeHtml(healthLabel)}</span>
+      <span class="curation-score-pill" title="${language === "en" ? "Curation indicator, not certified accuracy" : "Indicador de curaduria, no exactitud certificada"}">${escapeHtml(healthLabel)}</span>
       ${(items || []).length
         ? `<ul class="curation-todo-list">${items.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`
         : `<p class="curation-todo-complete">${language === "en" ? "This profile is comparatively complete; keep validating sources and symbols." : "Esta ficha esta comparativamente completa; conviene seguir validando fuentes y simbolos."}</p>`}
@@ -354,25 +366,27 @@ function renderQualityHighlights(country, options) {
   const { language, formatNumber, escapeHtml, noData } = options;
   const quality = country?.metadata?.quality || {};
   const provenance = country?.metadata?.provenance || {};
-  const qualityScore = Number.isFinite(quality.score) ? Math.max(0, Math.round(quality.score)) : null;
+  const qualityScore = getCountryPanelQualityScore(country);
   const statusEntries = Object.entries(quality.sectionStatus || {});
-  const curatedSections = statusEntries.filter(([, value]) => value === "curated" || value === "confirmed").length;
-  const estimatedFields = Array.isArray(quality.estimatedFields) ? quality.estimatedFields.length : 0;
-  const missingFields = Array.isArray(quality.missingFields) ? quality.missingFields.length : 0;
+  const curatedSections = quality.sectionStatus && typeof quality.sectionStatus === "object" && !Array.isArray(quality.sectionStatus)
+    ? statusEntries.filter(([, value]) => value === "curated" || value === "confirmed").length : null;
+  const estimatedFields = Array.isArray(quality.estimatedFields) ? quality.estimatedFields.length : null;
+  const missingFields = Array.isArray(quality.missingFields) ? quality.missingFields.length : null;
+  const countText = value => value === null ? noData : formatNumber(value);
 
   return `
     <div class="source-audit-grid">
-      <div class="overview-card"><span class="overview-label">${language === "en" ? "Quality score" : "Calidad"}</span><strong class="overview-value">${qualityScore !== null ? `${qualityScore}/100` : escapeHtml(noData)}</strong></div>
-      <div class="overview-card"><span class="overview-label">${language === "en" ? "Updated" : "Actualizado"}</span><strong class="overview-value">${escapeHtml(country?.metadata?.updatedAt || "2026-04-16")}</strong></div>
-      <div class="overview-card"><span class="overview-label">${language === "en" ? "Curated sections" : "Secciones curadas"}</span><strong class="overview-value">${escapeHtml(formatNumber(curatedSections))}</strong></div>
-      <div class="overview-card"><span class="overview-label">${language === "en" ? "Estimated fields" : "Campos estimados"}</span><strong class="overview-value">${escapeHtml(formatNumber(estimatedFields))}</strong></div>
-      <div class="overview-card"><span class="overview-label">${language === "en" ? "Missing fields" : "Campos faltantes"}</span><strong class="overview-value">${escapeHtml(formatNumber(missingFields))}</strong></div>
+      <div class="overview-card"><span class="overview-label">${language === "en" ? "Curation indicator" : "Indicador de curaduria"}</span><strong class="overview-value">${qualityScore !== null ? `${qualityScore}/100` : escapeHtml(noData)}</strong></div>
+      <div class="overview-card"><span class="overview-label">${language === "en" ? "Updated" : "Actualizado"}</span><strong class="overview-value">${escapeHtml(country?.metadata?.updatedAt || country?.metadata?.lastUpdated || noData)}</strong></div>
+      <div class="overview-card"><span class="overview-label">${language === "en" ? "Curated sections" : "Secciones curadas"}</span><strong class="overview-value">${escapeHtml(countText(curatedSections))}</strong></div>
+      <div class="overview-card"><span class="overview-label">${language === "en" ? "Estimated fields" : "Campos estimados"}</span><strong class="overview-value">${escapeHtml(countText(estimatedFields))}</strong></div>
+      <div class="overview-card"><span class="overview-label">${language === "en" ? "Missing fields" : "Campos faltantes"}</span><strong class="overview-value">${escapeHtml(countText(missingFields))}</strong></div>
     </div>
     ${Object.keys(provenance).length ? `
       <div class="provenance-grid">
         ${Object.entries(provenance).map(([key, value]) => `
           <div class="provenance-card">
-            <span class="overview-label">${escapeHtml(key)}</span>
+            <span class="overview-label">${escapeHtml(getProvenanceLabel(key, language))}</span>
             <strong class="overview-value">${escapeHtml(formatProvenanceValue(value, language) || noData)}</strong>
           </div>
         `).join("")}
@@ -451,8 +465,8 @@ function renderProfile(options = {}) {
   const dataQualityHtml = loadedSections.has("country-section-sources")
     ? window.GeoRiskCountryPanel?.renderDataQuality?.(country, {
         currentLanguage: language,
-        organizationCount: options.organizationCount || 0,
-        conflictCount: options.qualityConflictCount || 0,
+        organizationCount: options.organizationCount,
+        conflictCount: options.qualityConflictCount,
         formatNumber,
         escapeHtml,
         noData
@@ -718,31 +732,24 @@ window.GeoRiskCountryPanel = {
     const currentLanguage = options.currentLanguage || "es";
     const escapeHtml = options.escapeHtml || escapeCountryLoadingText;
     const formatNumber = options.formatNumber || (value => String(value || 0));
-    const organizationCount = Number(options.organizationCount || 0);
-    const conflictCount = Number(options.conflictCount || 0);
-    const religionCount = Array.isArray(country.religion?.composition) ? country.religion.composition.length : 0;
-    const cityCount = Array.isArray(country.general?.cities) ? country.general.cities.length : 0;
+    const noData = options.noData || (currentLanguage === "en" ? "No data" : "Sin datos");
+    const organizationCount = options.organizationCount;
+    const conflictCount = options.conflictCount;
+    const religionCount = Array.isArray(country.religion?.composition) ? country.religion.composition.length : null;
+    const cityCount = Array.isArray(country.general?.cities) ? country.general.cities.length : null;
     const sources = country.metadata?.sources || {};
-    const genericSources = COUNTRY_PANEL_DATA_SOURCE_SUMMARY[currentLanguage] || COUNTRY_PANEL_DATA_SOURCE_SUMMARY.es;
-    const estimatedFields = Array.isArray(country.metadata?.quality?.estimatedFields) ? country.metadata.quality.estimatedFields : [];
-    const curatedFields = Array.isArray(country.metadata?.quality?.curatedFields) ? country.metadata.quality.curatedFields : [];
-    const confirmedFields = Array.isArray(country.metadata?.quality?.confirmedFields) ? country.metadata.quality.confirmedFields : [];
-    const missingFields = Array.isArray(country.metadata?.quality?.missingFields) ? country.metadata.quality.missingFields : [];
+    const estimatedFields = country.metadata?.quality?.estimatedFields;
+    const curatedFields = country.metadata?.quality?.curatedFields;
+    const confirmedFields = country.metadata?.quality?.confirmedFields;
+    const missingFields = country.metadata?.quality?.missingFields;
+    const fieldCount = value => Array.isArray(value) ? value.length : null;
+    const fieldText = value => !Array.isArray(value)
+      ? (currentLanguage === "en" ? "No assessment recorded" : "Sin evaluacion registrada")
+      : value.length ? escapeHtml(value.join(", ")) : (currentLanguage === "en" ? "None recorded" : "Ninguno registrado");
     const sectionStatus = country.metadata?.quality?.sectionStatus || {};
     const provenance = country.metadata?.provenance || {};
-    const qualityScore = Number.isFinite(country.metadata?.quality?.score)
-      ? Math.max(0, Math.round(country.metadata.quality.score))
-      : null;
-    const sourceSections = [
-      { key: "general", label: "General" },
-      { key: "history", label: currentLanguage === "en" ? "History" : "Historia" },
-      { key: "economy", label: currentLanguage === "en" ? "Economy" : "Economia" },
-      { key: "military", label: currentLanguage === "en" ? "Military" : "Militar" },
-      { key: "politics", label: currentLanguage === "en" ? "Politics" : "Politica" },
-      { key: "religion", label: "Religion" },
-      { key: "symbols", label: currentLanguage === "en" ? "Symbols" : "Simbolos" },
-      { key: "relations", label: currentLanguage === "en" ? "Relations" : "Relaciones" }
-    ];
+    const qualityScore = getCountryPanelQualityScore(country);
+    const sourceSections = ["general", "history", "economy", "military", "politics", "religion", "symbols", "relations"];
 
     return `
       <div class="data-quality-grid">
@@ -751,35 +758,41 @@ window.GeoRiskCountryPanel = {
           [currentLanguage === "en" ? "Conflicts" : "Conflictos", conflictCount],
           [currentLanguage === "en" ? "Religious branches" : "Ramas religiosas", religionCount],
           [currentLanguage === "en" ? "Cities loaded" : "Ciudades cargadas", cityCount],
-          [currentLanguage === "en" ? "Estimated fields" : "Campos estimados", estimatedFields.length],
-          [currentLanguage === "en" ? "Curated fields" : "Campos curados", curatedFields.length],
-          [currentLanguage === "en" ? "Confirmed fields" : "Campos confirmados", confirmedFields.length]
+          [currentLanguage === "en" ? "Estimated fields" : "Campos estimados", fieldCount(estimatedFields)],
+          [currentLanguage === "en" ? "Curated fields" : "Campos curados", fieldCount(curatedFields)],
+          [currentLanguage === "en" ? "Confirmed fields" : "Campos confirmados", fieldCount(confirmedFields)]
         ].map(([label, value]) => `
           <div class="data-quality-card">
             <span class="data-quality-label">${label}</span>
-            <strong class="data-quality-value">${escapeHtml(formatNumber(value))}</strong>
+            <strong class="data-quality-value">${escapeHtml(Number.isFinite(value) && value >= 0 ? formatNumber(value) : noData)}</strong>
           </div>
         `).join("")}
         <div class="data-quality-card">
-          <span class="data-quality-label">${currentLanguage === "en" ? "Quality score" : "Puntaje de calidad"}</span>
-          <strong class="data-quality-value">${qualityScore !== null ? `${qualityScore}/100` : escapeHtml(options.noData || "Sin datos")}</strong>
+          <span class="data-quality-label">${currentLanguage === "en" ? "Curation indicator" : "Indicador de curaduria"}</span>
+          <strong class="data-quality-value">${qualityScore !== null ? `${qualityScore}/100` : escapeHtml(noData)}</strong>
         </div>
       </div>
-      <p class="data-source-note"><b>${currentLanguage === "en" ? "Validation" : "Validacion"}:</b> ${currentLanguage === "en" ? "local dataset checks currently pass without reported issues" : "los chequeos locales del dataset estan pasando sin incidencias reportadas"}</p>
-      <p class="data-source-note"><b>${currentLanguage === "en" ? "Dataset updated" : "Dataset actualizado"}:</b> ${escapeHtml(country.metadata?.updatedAt || "2026-04-06")}</p>
-      ${Object.keys(provenance).length ? `<p class="data-source-note"><b>${currentLanguage === "en" ? "Provenance" : "Procedencia"}:</b> ${escapeHtml(Object.entries(provenance).map(([key, value]) => `${key}: ${formatProvenanceValue(value, currentLanguage)}`).join(" | "))}</p>` : ""}
-      <p><b>${currentLanguage === "en" ? "Section sources" : "Fuentes por seccion"}:</b></p>
+      <p class="data-source-note">${currentLanguage === "en" ? "The indicator summarizes coverage, estimates and internal review; it does not certify accuracy or freshness." : "El indicador resume cobertura, estimaciones y revision interna; no certifica exactitud ni vigencia."}</p>
+      <p class="data-source-note"><b>${currentLanguage === "en" ? "Dataset updated" : "Dataset actualizado"}:</b> ${escapeHtml(country.metadata?.updatedAt || country.metadata?.lastUpdated || noData)}</p>
+      ${Object.keys(provenance).length ? `<p class="data-source-note"><b>${currentLanguage === "en" ? "Provenance" : "Procedencia"}:</b> ${escapeHtml(Object.entries(provenance).map(([key, value]) => `${getProvenanceLabel(key, currentLanguage)}: ${formatProvenanceValue(value, currentLanguage)}`).join(" | "))}</p>` : ""}
+      <p><b>${currentLanguage === "en" ? "Section sources and lineage" : "Fuentes y trazabilidad por seccion"}:</b></p>
+      <p class="data-source-note">${currentLanguage === "en" ? "File names and paths identify internal lineage, not external verification." : "Los nombres de archivo y rutas indican trazabilidad interna, no verificacion externa."}</p>
       <ul class="data-source-list">
-        ${sourceSections.map(section => {
-          const items = Array.isArray(sources[section.key]) && sources[section.key].length ? sources[section.key] : genericSources;
-          const statusLabel = sectionStatus[section.key] ? ` - ${escapeHtml(sectionStatus[section.key])}` : "";
-          return `<li><b>${escapeHtml(section.label)}</b>${statusLabel}: ${items.map(item => escapeHtml(item)).join(", ")}</li>`;
+        ${sourceSections.map(key => {
+          const items = Array.isArray(sources[key])
+            ? [...new Set(sources[key].filter(item => typeof item === "string" && item.trim()).map(item => item.trim()))] : [];
+          const status = sectionStatus[key] || provenance.sections?.[key]?.status;
+          const statusLabel = typeof status === "string" && status.trim() ? getProvenanceLabel(status, currentLanguage)
+            : (currentLanguage === "en" ? "Review not recorded" : "Sin revision registrada");
+          const sourceText = items.length ? items.map(item => escapeHtml(item)).join(", ")
+            : (currentLanguage === "en" ? "No section sources recorded" : "Sin fuentes de seccion registradas");
+          return `<li data-source-section="${key}"><b>${escapeHtml(getProvenanceLabel(key, currentLanguage))}</b> - ${escapeHtml(statusLabel)}: <span data-section-sources>${sourceText}</span></li>`;
         }).join("")}
       </ul>
-      <p><b>${currentLanguage === "en" ? "Missing fields" : "Campos faltantes"}:</b> ${missingFields.length ? escapeHtml(missingFields.join(", ")) : (currentLanguage === "en" ? "none" : "ninguno")}</p>
-      <p><b>${currentLanguage === "en" ? "Estimated fields" : "Campos estimados"}:</b> ${estimatedFields.length ? escapeHtml(estimatedFields.join(", ")) : (currentLanguage === "en" ? "none" : "ninguno")}</p>
-      <p><b>${currentLanguage === "en" ? "Confirmed fields" : "Campos confirmados"}:</b> ${confirmedFields.length ? escapeHtml(confirmedFields.join(", ")) : (currentLanguage === "en" ? "none" : "ninguno")}</p>
-      <p><b>${currentLanguage === "en" ? "Curated fields" : "Campos curados"}:</b> ${curatedFields.length ? escapeHtml(curatedFields.join(", ")) : (currentLanguage === "en" ? "none" : "ninguno")}</p>
+      <p><b>${currentLanguage === "en" ? "Missing fields" : "Campos faltantes"}:</b> ${fieldText(missingFields)}</p>
+      <p><b>${currentLanguage === "en" ? "Estimated fields" : "Campos estimados"}:</b> ${fieldText(estimatedFields)}</p>
+      <p><b>${currentLanguage === "en" ? "Confirmed fields" : "Campos confirmados"}:</b> ${fieldText(confirmedFields)}</p>
+      <p><b>${currentLanguage === "en" ? "Curated fields" : "Campos curados"}:</b> ${fieldText(curatedFields)}</p>
     `;
   },
   buildFallbackSummary(country) {

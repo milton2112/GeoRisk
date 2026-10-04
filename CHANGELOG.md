@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.269 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.270 antes de cerrar la siguiente version.
+
+## v1.6.270 - 2026-10-04
+
+- Corrige afirmaciones enganosas en las fichas: elimina el mensaje fijo de validacion exitosa que no consultaba evidencia, las fechas de respaldo inventadas y las fuentes genericas atribuidas a cualquier seccion sin metadata. Conserva las fechas registradas (incluido lastUpdated antiguo), distingue ausencia de evaluacion de listas vacias/cero explicitos y muestra la falta de fuentes sin inventarlas ni trasladarlas desde otra seccion.
+- Traduce los estados de revision/procedencia en espanol e ingles y presenta el score como indicador de curaduria, limitado a 0-100 solo para su visualizacion. Explica que resume cobertura, estimaciones y revision interna, no exactitud certificada ni vigencia; los archivos/rutas son trazabilidad interna, no verificacion externa. Deduplica referencias identicas tras quitar espacios dentro de cada seccion y conserva sus textos escapados, sin convertirlos en enlaces ni descargar fuentes.
+- Evidencia: la regresion roja reprodujo una fecha fabricada con metadata ausente. Pruebas VM cubren ausencia frente a cero/lista vacia, fechas registradas, fuentes aisladas/deduplicadas, estados bilingues, score invalido y HTML no confiable. El recorrido de entradas existente en Chrome desktop/mobile emulado prueba el selector real de idioma, metadata incompleta, restauracion de datos originales y ajuste de texto. Agrega un recorte pequeno de la lista de fuentes por viewport, sin paginas adicionales, cambios de presupuesto ni relajacion de casos.
+- Green coding: app-country-panel.js pasa de 45701 a 47039 bytes (+1338), solo bajo demanda; script.js conserva 592928 bytes. Sin dependencias, solicitudes iniciales, polling, listeners, caches, precalculos ni telemetria nuevos. La deduplicacion recorre ocho listas al renderizar fuentes, no el dataset entero. Tooling/documentacion interna quedan fuera del deploy; changelog publico bajo demanda. La muestra de 183 perfiles tiene listas de fuentes y fecha registradas: las protecciones de ausencia cubren metadata incompleta/antigua, no implican que esos 183 perfiles carezcan de metadata. No cambia datasets, formulas ni rankings, no incorpora citas primarias nuevas ni resuelve toda la deuda de curaduria; mobile es emulado, sin afirmacion de ahorro energetico/CO2.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-10-04-release-1`.
 
 ## v1.6.269 - 2026-10-03
 
