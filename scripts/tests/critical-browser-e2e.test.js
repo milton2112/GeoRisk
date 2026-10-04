@@ -933,6 +933,7 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
     let datuDetailRequests = 0;
     let focaDetailRequests = 0;
     let nogalesDetailRequests = 0;
+    let santoriniDetailRequests = 0;
     let releaseDetail;
     const pending = new Promise(resolve => { releaseDetail = resolve; });
     let markRequested;
@@ -942,6 +943,7 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
         if (request.url().includes("/data/conflicts/details/combate-contra-datu-ali-1905-")) datuDetailRequests++;
         if (request.url().includes("/data/conflicts/details/combate-de-caleta-foca-1982-")) focaDetailRequests++;
         if (request.url().includes("/data/conflicts/details/batalla-de-ambos-nogales-1918-")) nogalesDetailRequests++;
+        if (request.url().includes("/data/conflicts/details/incursion-sobre-santorini-1944-")) santoriniDetailRequests++;
       });
       await page.route(/\/app-(curation|conflict-rules)\.js\?/, async route => {
         const name = route.request().url().match(/\/(app-(?:curation|conflict-rules))\.js/)[1];
@@ -1099,6 +1101,37 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
       await page.locator("#conflict-modal-close").click();
       await page.evaluate(() => openConflictModal(window.__nogalesKey));
       assert.equal(nogalesDetailRequests, 1, "the merged episode still reuses one on-demand detail request");
+      assert.equal(santoriniDetailRequests, 0, "Santorini references are not prefetched with other episodes");
+      await page.locator("#conflict-modal-close").click();
+      await page.evaluate(async () => {
+        await loadCountryConflictDetail("GBR");
+        const entry = countriesData.GBR.military.conflicts.find(item => item.name === "Incursion sobre Santorini (1944)");
+        window.__santoriniKey = registerConflictModal(entry, "Reino Unido");
+        openConflictModal(window.__santoriniKey);
+      });
+      await page.waitForFunction(() => Boolean(CONFLICT_DETAIL_OVERRIDES["Incursion sobre Santorini (1944)"]));
+      const santoriniTitle = await page.locator("#conflict-modal-title").innerText();
+      assert.match(santoriniTitle, /Santorini/i);
+      assert.equal((santoriniTitle.match(/1944/g) || []).length, 1);
+      assert.match(await body.innerText(), /Segunda Guerra Mundial/);
+      assert.match(await body.innerText(), /Santorini \(Thera\).*Grecia/);
+      assert.match(await body.innerText(), /Sin total exclusivo.*no equivale a cero/);
+      const santoriniNotes = body.locator(".conflict-curation-notes");
+      assert.match(await santoriniNotes.innerText(), /abril de 1944 sin un d\u00eda definitivo/);
+      assert.match(await santoriniNotes.innerText(), /22 de abril/);
+      assert.match(await santoriniNotes.innerText(), /24 de abril/);
+      assert.match(await santoriniNotes.innerText(), /Grecia vincula el territorio, no una unidad griega confirmada/);
+      assert.match(await santoriniNotes.innerText(), /PDF institucional no pudo descargarse/);
+      assert.deepEqual(await body.locator(".conflict-hierarchy-sources a").evaluateAll(links => links.map(link => new URL(link.href).hostname)), [
+        "www.nam.ac.uk", "hdl.handle.net", "studyres.com", "en.wikipedia.org"
+      ]);
+      assert.match(await body.locator('.conflict-hierarchy-sources a[href^="https://studyres.com/"]').innerText(), /copia consultada, no fuente independiente/);
+      assert.equal(await body.locator(".conflict-treaties").count(), 0);
+      assert.equal(await body.evaluate(element => element.scrollWidth <= element.clientWidth), true);
+      await captureLiveElement(page, santoriniNotes, { path: `tmp/santorini-curation-${label}.png`, timeout: 10000 });
+      await page.locator("#conflict-modal-close").click();
+      await page.evaluate(() => openConflictModal(window.__santoriniKey));
+      assert.equal(santoriniDetailRequests, 1, "reopening Santorini reuses one on-demand detail request");
       assertHealthyPage(test.pageErrors, label + " notas de curaduria y descarga tardia");
     } catch (error) {
       console.error("curation recovery diagnostic", label, await page.evaluate(() => ({

@@ -822,6 +822,11 @@ import {
   CALETA_FOCA_CONFLICT_RENAMES
 } from "./lib/conflict-curation-caleta-foca.js";
 import {
+  SANTORINI_CONFLICT_DETAIL_FIXES,
+  SANTORINI_COUNTRY_CONFLICT_ADDITIONS,
+  SANTORINI_CONFLICT_RENAMES
+} from "./lib/conflict-curation-santorini.js";
+import {
   CABO_BOJADOR_COUNTRY_CONFLICT_EXCLUSIONS
 } from "./lib/conflict-curation-cabo-bojador.js";
 import {
@@ -1023,7 +1028,8 @@ const curatedConflictDetailFixes = {
   ...KRAMATORSK_2022_CONFLICT_DETAIL_FIXES,
   ...PAYE_CONFLICT_DETAIL_FIXES,
   ...DATU_ALI_CONFLICT_DETAIL_FIXES,
-  ...CALETA_FOCA_CONFLICT_DETAIL_FIXES
+  ...CALETA_FOCA_CONFLICT_DETAIL_FIXES,
+  ...SANTORINI_CONFLICT_DETAIL_FIXES
 };
 
 const generatedConflictDetailExclusionNames = [
@@ -1207,7 +1213,8 @@ const safeConflictRenames = {
   ...KRAMATORSK_2022_CONFLICT_RENAMES,
   ...PAYE_CONFLICT_RENAMES,
   ...DATU_ALI_CONFLICT_RENAMES,
-  ...CALETA_FOCA_CONFLICT_RENAMES
+  ...CALETA_FOCA_CONFLICT_RENAMES,
+  ...SANTORINI_CONFLICT_RENAMES
 };
 const conflictReferenceRenames = {
   ...ILE_RONDE_1794_CONFLICT_REFERENCE_RENAMES
@@ -1340,7 +1347,8 @@ const countryConflictAdditionBatches = [
   KRAMATORSK_2022_COUNTRY_CONFLICT_ADDITIONS,
   PAYE_COUNTRY_CONFLICT_ADDITIONS,
   DATU_ALI_COUNTRY_CONFLICT_ADDITIONS,
-  CALETA_FOCA_COUNTRY_CONFLICT_ADDITIONS
+  CALETA_FOCA_COUNTRY_CONFLICT_ADDITIONS,
+  SANTORINI_COUNTRY_CONFLICT_ADDITIONS
 ];
 const countryConflictAdditions = mergeCountryConflictBatches(countryConflictAdditionBatches);
 const countryConflictExclusionBatches = [

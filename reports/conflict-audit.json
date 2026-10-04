@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-04T21:18:41.838Z",
+  "generatedAt": "2026-10-04T22:36:13.387Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 16,
-  "reviewCount": 16,
+  "advisoryCount": 15,
+  "reviewCount": 15,
   "summary": {
-    "provisional_parent": 16
+    "provisional_parent": 15
   },
   "topIssues": [],
   "topAdvisories": [
@@ -200,20 +200,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "incursion sobre santorini",
-      "name": "Incursion sobre Santorini",
-      "countries": [
-        "GBR"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
       "issues": [
         "provisional_parent"
       ],

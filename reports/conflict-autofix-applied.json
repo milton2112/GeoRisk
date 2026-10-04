@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-04T18:32:07.902Z",
+  "generatedAt": "2026-10-04T21:42:55.526Z",
   "changedFullCountries": 0,
   "fullPassChanges": [
     0
@@ -12,7 +12,7 @@
     "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1112,
+  "generatedHierarchyCandidates": 1113,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -121,7 +121,8 @@
       "Batalla naval de Pierres Noires (5-6 de julio de 1944)",
       "Combates navales de Westtief y el Greifswalder Bodden (julio-agosto de 1712)",
       "Combate naval en Putziger Wiek (23 de agosto de 1870)",
-      "Combate de Prużany (29 de julio / 10 de agosto de 1812)"
+      "Combate de Prużany (29 de julio / 10 de agosto de 1812)",
+      "Incursion sobre Santorini (1944)"
     ],
     "corea del sur": [
       "Acción naval de Happo (1592)",
@@ -219,7 +220,8 @@
       "Batalla naval de Pirano (1812)",
       "Batalla naval frente a Halifax (1782)",
       "Combate de Punk Hill (1777)",
-      "Combate de Caleta Foca (1982)"
+      "Combate de Caleta Foca (1982)",
+      "Incursion sobre Santorini (1944)"
     ],
     "irlanda": [
       "Batalla naval de la bahía de Bantry (1689)",
@@ -561,7 +563,8 @@
       "Ataque a la estación de Kramatorsk (2022)"
     ],
     "grecia": [
-      "Accion naval del paso de Doro (1827)"
+      "Accion naval del paso de Doro (1827)",
+      "Incursion sobre Santorini (1944)"
     ],
     "iran": [
       "Combate naval de Jask (1620)"
@@ -632,7 +635,7 @@
     "Battle for Piva Trail": "Batalla de Piva Trail",
     "Battle off Endau": "Batalla frente a Endau",
     "German occupation de Luxemburgo en World War II": "Ocupacion alemana de Luxemburgo en la Segunda Guerra Mundial",
-    "Raid on Santorini": "Incursion sobre Santorini",
+    "Raid on Santorini": "Incursion sobre Santorini (1944)",
     "Raid on Black Rock": "Incursion sobre Black Rock",
     "Raid on Havre de Grace": "Incursion sobre Havre de Grace",
     "Iran–Israel conflict during Syrian civil war": "Conflicto irano-israeli durante la guerra civil siria",
@@ -1797,7 +1800,9 @@
     "Battle of the Malala River": "Combate contra Datu Ali (1905)",
     "Combate de Caleta Foca": "Combate de Caleta Foca (1982)",
     "Combate de caleta Foca": "Combate de Caleta Foca (1982)",
-    "Battle of Seal Cove": "Combate de Caleta Foca (1982)"
+    "Battle of Seal Cove": "Combate de Caleta Foca (1982)",
+    "Incursion sobre Santorini": "Incursion sobre Santorini (1944)",
+    "Incursión sobre Santorini": "Incursion sobre Santorini (1944)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -2883,6 +2888,7 @@
     "Ataque a la estación de Kramatorsk (2022)",
     "Batalla de Paye (1900)",
     "Combate contra Datu Ali (1905)",
-    "Combate de Caleta Foca (1982)"
+    "Combate de Caleta Foca (1982)",
+    "Incursion sobre Santorini (1944)"
   ]
 }
