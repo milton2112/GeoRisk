@@ -2576,6 +2576,62 @@ async function testUntrustedInputs(browser, baseUrl) {
       }
       await page.evaluate(async () => {
         await activateCountrySection("country-section-sources");
+        window.__sourceMetadataOriginal = countriesData.ARG.metadata;
+        countriesData.ARG.metadata = {
+          sources: { general: ["population.csv", " population.csv ", '<img src=x onerror="window.geoRiskInjected=true">'] },
+          quality: { score: 999, sectionStatus: { general: "confirmed", history: "base", politics: "curated", economy: "mixed" } },
+          provenance: { sections: { symbols: { status: "fallback" } } }
+        };
+        await renderCountry(countriesData.ARG, countriesData.ARG.name);
+      });
+      const sources = page.locator("#country-section-sources");
+      try {
+        assert.equal(await sources.locator("[data-source-section]").count(), 8);
+        assert.equal(await sources.locator("img, script").count(), 0);
+        assert.equal(await sources.locator('[data-source-section="general"] [data-section-sources]').textContent(),
+          'population.csv, <img src=x onerror="window.geoRiskInjected=true">');
+        assert.match(await sources.locator('[data-source-section="general"]').textContent(), /Declarado confirmado/);
+        assert.match(await sources.locator('[data-source-section="history"]').textContent(), /Revision pendiente: Sin fuentes de seccion registradas/);
+        assert.match(await sources.locator('[data-source-section="politics"]').textContent(), /Revisado internamente/);
+        assert.match(await sources.locator('[data-source-section="economy"]').textContent(), /Mixto: incluye estimaciones/);
+        assert.match(await sources.locator('[data-source-section="symbols"]').textContent(), /Dato de respaldo/);
+        const text = await sources.textContent();
+        assert.match(text, /Dataset actualizado:\s*Sin datos/);
+        assert.match(text, /Campos faltantes:\s*Sin evaluacion registrada/);
+        assert.match(text, /100\/100/);
+        assert.ok(!/999\/100|2026-04-(06|16)|chequeos locales.*pasando/.test(text));
+        await page.evaluate(() => {
+          const select = document.getElementById("language-select");
+          select.value = "en";
+          select.dispatchEvent(new Event("change", { bubbles: true }));
+        });
+        await page.waitForFunction(() => document.querySelector('[data-source-section="history"]')?.textContent.includes("Review pending"));
+        assert.match(await sources.textContent(), /Dataset updated:\s*No data/);
+        assert.match(await sources.textContent(), /Missing fields:\s*No assessment recorded/);
+        assert.match(await sources.locator('[data-source-section="history"]').textContent(), /No section sources recorded/);
+        assert.match(await sources.locator('[data-source-section="symbols"]').textContent(), /Fallback data/);
+      } finally {
+        await page.evaluate(async () => {
+          countriesData.ARG.metadata = window.__sourceMetadataOriginal;
+          delete window.__sourceMetadataOriginal;
+          const select = document.getElementById("language-select");
+          select.value = "es";
+          select.dispatchEvent(new Event("change", { bubbles: true }));
+        });
+        await page.waitForFunction(() => {
+          const text = document.getElementById("country-section-sources")?.textContent || "";
+          const sourceText = document.querySelector("#country-section-sources .data-source-list")?.textContent || "";
+          return text.includes("Fuentes y trazabilidad por seccion") && sourceText && !sourceText.includes("window.geoRiskInjected=true");
+        });
+      }
+      assert.match(await sources.textContent(), /no certifica exactitud ni vigencia/);
+      assert.match(await sources.textContent(), /trazabilidad interna, no verificacion externa/);
+      assert.equal(await sources.locator(".data-source-list").evaluate(element => element.scrollWidth <= element.clientWidth), true,
+        "source lineage and translated statuses must wrap on mobile");
+      await captureLiveElement(page, sources.locator(".data-source-list"), {
+        path: `tmp/country-sources-${viewport.width}.png`, timeout: 10000
+      });
+      await page.evaluate(async () => {
         await ensureDeferredUiModule("news");
         const text = '<img src=x onerror="window.geoRiskInjected=true">';
         renderNewsArticle({ title: text, summary: text, source: text, url: "javascript:window.geoRiskInjected=true" }, countriesData.ARG, [

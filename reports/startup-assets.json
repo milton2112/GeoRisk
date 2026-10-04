@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-03T21:46:54.022Z",
+  "generatedAt": "2026-10-04T11:15:59.705Z",
   "startupBytes": 892732,
   "startupHuman": "872 KB",
   "startupScope": "App shell and eager local scripts only; excludes the separately budgeted map engine.",
@@ -12,7 +12,7 @@
   "appCoreAndEngineBytes": 4322345,
   "appCoreAndEngineHuman": "4.12 MB",
   "excludedStartupCosts": "External CSS, workers, imagery and geographic/data requests are not included in appCoreAndEngineBytes. This is not total network transfer or compressed size.",
-  "deferredBytes": 3289436,
+  "deferredBytes": 3290774,
   "deferredHuman": "3.14 MB",
   "estimatedRuntimeMemory": {
     "countriesFullBytes": 13204225,
@@ -81,8 +81,8 @@
     {
       "path": "app-country-panel.js",
       "exists": true,
-      "bytes": 45701,
-      "human": "45 KB",
+      "bytes": 47039,
+      "human": "46 KB",
       "startupCritical": false,
       "category": "deferred-or-auxiliary"
     },
@@ -179,8 +179,8 @@
     {
       "path": "app-country-panel.js",
       "exists": true,
-      "bytes": 45701,
-      "human": "45 KB",
+      "bytes": 47039,
+      "human": "46 KB",
       "startupCritical": false,
       "category": "deferred-or-auxiliary"
     },

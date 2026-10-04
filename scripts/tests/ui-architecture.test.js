@@ -3,6 +3,7 @@ import fs from "fs-extra";
 import path from "node:path";
 import vm from "node:vm";
 import "./saved-view-storage.test.js";
+import "./country-source-transparency.test.js";
 
 const projectRoot = process.cwd();
 
@@ -49,12 +50,12 @@ const qualityHtml = countryPanel.renderDataQuality({
   escapeHtml: value => String(value),
   noData: "Sin datos"
 });
-assert.ok(qualityHtml.includes("Puntaje de calidad"), "ficha diferida debe renderizar calidad de datos");
+assert.ok(qualityHtml.includes("Indicador de curaduria"), "ficha diferida debe identificar el indicador interno sin certificar exactitud");
 assert.ok(qualityHtml.includes("92/100"), "ficha diferida debe mostrar score de calidad");
 assert.ok(qualityHtml.includes("Fuente oficial"), "ficha diferida debe mostrar fuentes por seccion");
 assert.ok(qualityHtml.includes("Organizaciones"), "ficha diferida debe conservar metricas de cobertura");
 assert.ok(!qualityHtml.includes("[object Object]"), "procedencia anidada debe mostrarse como texto legible");
-assert.ok(qualityHtml.includes("general: curated"), "procedencia debe resumir estados por seccion");
+assert.ok(qualityHtml.includes("General: Revisado internamente"), "procedencia debe resumir estados traducidos por seccion");
 
 const originalQualityRenderer = countryPanel.renderDataQuality;
 let deferredQualityRenders = 0;
