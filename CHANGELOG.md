@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.274 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.275 antes de cerrar la siguiente version.
+
+## v1.6.275 - 2026-10-04
+
+- Corrige una redundancia no detectada por la auditoria de nombres identicos: Batalla del 27 de agosto y Batalla de Ambos Nogales (1918) figuraban como episodios diferentes en Estados Unidos, el primero sin fecha y con jerarquia generica. Alias exactos verificados los unifican en build, sin fusionar por proximidad de fecha o lugar; conserva los imports originales. La ficha estadounidense, indice inicial y metrica de busqueda/rankings pasan de 923 a 922 conflictos; Mexico conserva 29. No altera otros paises, eventos ni formulas.
+- Agrega precision del 27 de agosto de 1918 y referencia municipal mexicana al detalle existente; su naturaleza conmemorativa queda explicita, no se presenta como parte de combate. La discrepancia antes booleana sobre asesores alemanes ahora tiene texto visible: la cronologia estadounidense los menciona y las referencias mexicanas consultadas no permiten corroborarlos. No los incorpora como bando confirmado, no inventa totales de bajas ni tratado, y mantiene confianza general parcial y campana descriptiva.
+- Evidencia: la regresion roja reprodujo el conteo doble. Pruebas comprueban una sola entrada en las fichas completas/publicas, detalle bajo demanda e indices; fechas, participantes reales sin bandos genericos adicionales, aliases locales y rechazo de nombres con otro ano. La comparacion estructural con Git limita cambios a Mexico/Estados Unidos y un detalle; reaplicar la tanda conserva el hash del arbol data. Conflictos unicos 2000 a 1999, sin fecha 83 a 82 y jerarquias provisionales 17 a 16; esto no certifica el resto del dataset. Se extiende el recorrido de Chrome existente para notas, fuentes, fecha, ajuste mobile y una sola solicitud al reabrir; sin paginas nuevas ni timeouts ampliados.
+- Green coding: sin codigo de navegador nuevo, dependencia, precarga, polling, cache ni telemetria. countries_index conserva 144225 bytes y search_index 190923; perfil USA conserva 24266. Fragmento de conflictos USA -236 bytes, detalle existente +776 (2457 a 3233), build antes del changelog +540. Dataset interno completo +322 por evidencia en ambos paises, siempre fuera del deploy/precache; codigo de curaduria y pruebas tampoco se publican. Fuentes enlazadas, no empaquetadas ni descargadas al arranque. Medidas de bytes no prueban ahorro energetico/CO2; mobile es emulado y quedan datos pendientes de curaduria.
+- Fuentes contrastadas: [Gobierno Municipal de Nogales, conmemoracion del episodio de 1918](https://heroicanogales.gob.mx/acciones/encabeza-alcalde-juan-gim-conmemoracion-del-104-aniversario-de-la-gesta-heroica-del-27-de-agosto), [NPS, cronologia del 10.o de Caballeria](https://home.nps.gov/fols/learn/historyculture/10th-cavalry-timeline.htm) y [Centro de Historia Militar del Ejercito estadounidense, incidentes fronterizos de 1917-1919](https://history.army.mil/Research/Reference-Topics/Army-Campaigns/Brief-Summaries/Mexican-Expedition/).
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-10-04-release-6`.
 
 ## v1.6.274 - 2026-10-04
 

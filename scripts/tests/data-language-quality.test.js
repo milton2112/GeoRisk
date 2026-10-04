@@ -1110,11 +1110,16 @@ assert.equal(
 );
 for (const name of [
   "Batalla de la colina 282 (1950)",
-  "Batalla de Ambos Nogales (1918)",
   "Batalla de Puerto Príncipe (1919)"
 ]) {
   assert.equal(getConflictDetailByVisibleName(name)?.sourceDispute, true, `${name} debe publicar la cautela editorial`);
 }
+const nogalesDetail = getConflictDetailByVisibleName("Batalla de Ambos Nogales (1918)");
+assert.match(nogalesDetail?.sourceDispute, /Servicio de Parques Nacionales.*asesores alemanes/,
+  "Nogales debe atribuir la version estadounidense en una cautela visible, no solo booleana");
+assert.match(nogalesDetail?.sourceDispute, /referencias mexicanas consultadas no permiten confirmar/,
+  "Nogales no debe presentar la participacion discutida como corroborada por ambas partes");
+assert.match(nogalesDetail?.datePrecision, /27 de agosto de 1918/);
 assert.match(
   getConflictDetailByVisibleName("Bombardeo de San Juan de Puerto Rico (1898)")?.curationNote || "",
   /colinas de San Juan/i,
@@ -1125,6 +1130,10 @@ const staleUsGlobalFollowupNames = new Set([
   "Batalla de Hamel",
   "Batalla de Hill 282",
   "Batalla de Nogales",
+  "batalla del 27 de agosto",
+  "Batalla del 27 de agosto",
+  "Batalla del 27 de agosto de 1918",
+  "Batalla del 27 de agosto (1918)",
   "Batalla del Lago Pontchartrain",
   "Batalla de Port-au-Prince",
   "Batalla de Shimonoseki Straits",

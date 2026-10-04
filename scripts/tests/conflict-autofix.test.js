@@ -7,6 +7,7 @@ import "./kramatorsk-curation.test.js";
 import "./paye-curation.test.js";
 import "./datu-ali-curation.test.js";
 import "./caleta-foca-curation.test.js";
+import "./nogales-alias-curation.test.js";
 import { SAFE_CONFLICT_RENAMES, CURATED_CONFLICT_DETAIL_FIXES } from "../lib/conflict-autofix-rules.js";
 import { WWII_1942_CONFLICT_DETAIL_FIXES, WWII_1942_SAFE_CONFLICT_RENAMES } from "../lib/conflict-curation-1942.js";
 import { getContextualConflictName, THEATER_CONFLICT_DETAIL_FIXES, THEATER_SAFE_CONFLICT_RENAMES } from "../lib/conflict-curation-theater.js";
@@ -1750,7 +1751,7 @@ assert.ok(
   "la tanda francesa debe conservar fecha, jerarquia, fuentes, participantes, narrativa y cautelas editoriales"
 );
 assert.equal(Object.keys(US_GLOBAL_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 9);
-assert.equal(Object.keys(US_GLOBAL_FOLLOWUP_SAFE_CONFLICT_RENAMES).length, 10);
+assert.equal(Object.keys(US_GLOBAL_FOLLOWUP_SAFE_CONFLICT_RENAMES).length, 14);
 assert.deepEqual(US_GLOBAL_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS.México, [
   "Combate de Carrizal (1916)",
   "Batalla de Ambos Nogales (1918)"
@@ -1775,7 +1776,7 @@ assert.equal(US_GLOBAL_FOLLOWUP_CONFLICT_DETAIL_FIXES["Combate de Carrizal (1916
 assert.equal(US_GLOBAL_FOLLOWUP_CONFLICT_DETAIL_FIXES["Combate naval del lago Pontchartrain (1779)"].type, "combate naval");
 assert.equal(US_GLOBAL_FOLLOWUP_CONFLICT_DETAIL_FIXES["Bombardeo de San Juan de Puerto Rico (1898)"].type, "bombardeo naval");
 assert.equal(US_GLOBAL_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de la colina 282 (1950)"].sourceDispute, true);
-assert.equal(US_GLOBAL_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Ambos Nogales (1918)"].sourceDispute, true);
+assert.match(US_GLOBAL_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Ambos Nogales (1918)"].sourceDispute, /asesores alemanes/);
 assert.equal(US_GLOBAL_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla de Puerto Príncipe (1919)"].sourceDispute, true);
 assert.ok(
   Object.values(US_GLOBAL_FOLLOWUP_CONFLICT_DETAIL_FIXES).every(detail =>

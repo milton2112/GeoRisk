@@ -35,6 +35,10 @@ const SOURCES = {
     "Centro de Historia Militar del Ejército de EE. UU.: incidentes fronterizos posteriores a la expedición mexicana",
     "https://history.army.mil/Research/Reference-Topics/Army-Campaigns/Brief-Summaries/Mexican-Expedition/"
   ),
+  nogalesMunicipal: source(
+    "Gobierno Municipal de Nogales: conmemoraci\u00f3n de la Gesta Heroica del 27 de agosto de 1918 y memoria de sus v\u00edctimas",
+    "https://heroicanogales.gob.mx/acciones/encabeza-alcalde-juan-gim-conmemoracion-del-104-aniversario-de-la-gesta-heroica-del-27-de-agosto"
+  ),
   pontchartrainNavy: source(
     "Historia Naval y Patrimonio de EE. UU.: captura de la West Florida en el lago Pontchartrain",
     "https://www.history.navy.mil/research/histories/ship-histories/danfs/w/west-florida.html"
@@ -126,6 +130,10 @@ export const US_GLOBAL_FOLLOWUP_SAFE_CONFLICT_RENAMES = {
   "Batalla de Hamel": "Batalla de Hamel (1918)",
   "Batalla de Hill 282": "Batalla de la colina 282 (1950)",
   "Batalla de Nogales": "Batalla de Ambos Nogales (1918)",
+  "batalla del 27 de agosto": "Batalla de Ambos Nogales (1918)",
+  "Batalla del 27 de agosto": "Batalla de Ambos Nogales (1918)",
+  "Batalla del 27 de agosto de 1918": "Batalla de Ambos Nogales (1918)",
+  "Batalla del 27 de agosto (1918)": "Batalla de Ambos Nogales (1918)",
   "Batalla del Lago Pontchartrain": "Combate naval del lago Pontchartrain (1779)",
   "Batalla de Port-au-Prince": "Batalla de Puerto Príncipe (1919)",
   "Batalla de Shimonoseki Straits": "Batalla naval del estrecho de Shimonoseki (1863)",
@@ -222,11 +230,11 @@ export const US_GLOBAL_FOLLOWUP_CONFLICT_DETAIL_FIXES = {
     sourceDispute: true,
     curationNote: "La participación estadounidense se limita al apoyo aéreo y al ataque amigo documentado, no a una fuerza terrestre en la cima. Las cifras de bajas varían entre relatos y por eso no se consolidan."
   }),
-  "Batalla de Ambos Nogales (1918)": historicalFix({
+  "Batalla de Ambos Nogales (1918)": { ...historicalFix({
     parent: "Revolución mexicana",
     campaign: "Incidentes fronterizos México-Estados Unidos de 1918",
     region: "Nogales, Arizona, Estados Unidos, y Nogales, Sonora, México",
-    hierarchySources: [SOURCES.nogalesNps, SOURCES.nogalesCampaign],
+    hierarchySources: [SOURCES.nogalesNps, SOURCES.nogalesCampaign, SOURCES.nogalesMunicipal],
     startYear: 1918,
     type: "combate fronterizo",
     conflictType: "frontera",
@@ -243,8 +251,11 @@ export const US_GLOBAL_FOLLOWUP_CONFLICT_DETAIL_FIXES = {
     ],
     treaties: [],
     sourceDispute: true,
-    curationNote: "Se emplea el nombre Ambos Nogales para reflejar que el combate ocurrió a ambos lados de la frontera. Las versiones sobre asesores extranjeros, bajas y desencadenante inmediato difieren, por lo que no se fijan como hechos cerrados."
+    curationNote: "Ambos Nogales y Batalla del 27 de agosto son denominaciones del mismo episodio fronterizo del 27 de agosto de 1918; no se contabilizan como dos batallas. La referencia municipal corrobora la fecha y recuerda a las v\u00edctimas, pero es conmemorativa, no un parte de combate. La campa\u00f1a es una agrupaci\u00f3n descriptiva de incidentes fronterizos. Las cifras de bajas y el desencadenante inmediato siguen sin consolidarse."
   }),
+    datePrecision: "D\u00eda documentado: 27 de agosto de 1918",
+    sourceDispute: "La cronolog\u00eda del Servicio de Parques Nacionales atribuye intervenci\u00f3n a asesores alemanes; las referencias mexicanas consultadas no permiten confirmar esa participaci\u00f3n. No se los agrega como bando ni se fija un total de bajas a partir de una conmemoraci\u00f3n."
+  },
   "Combate naval del lago Pontchartrain (1779)": historicalFix({
     parent: "Guerra de Independencia de Estados Unidos",
     campaign: "Campaña de la costa del Golfo de 1779",

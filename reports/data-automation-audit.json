@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-10-04T18:02:55.828Z",
+  "generatedAt": "2026-10-04T20:40:25.732Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 83
+      "count": 82
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 17
+      "count": 16
     },
     "suspectRegions": {
       "count": 0
@@ -360,13 +360,6 @@
       {
         "code": "USA",
         "name": "Batalla de Steen's Mountain",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
-      {
-        "code": "USA",
-        "name": "Batalla del 27 de agosto",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
@@ -1382,7 +1375,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 17,
+      "count": 16,
       "command": "npm run fix:conflicts:batches"
     },
     {

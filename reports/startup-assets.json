@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-04T18:02:56.644Z",
+  "generatedAt": "2026-10-04T20:40:26.627Z",
   "startupBytes": 896083,
   "startupHuman": "875 KB",
   "startupScope": "App shell and eager local scripts only; excludes the separately budgeted map engine.",
@@ -12,12 +12,12 @@
   "appCoreAndEngineBytes": 4325696,
   "appCoreAndEngineHuman": "4.13 MB",
   "excludedStartupCosts": "External CSS, workers, imagery and geographic/data requests are not included in appCoreAndEngineBytes. This is not total network transfer or compressed size.",
-  "deferredBytes": 3298142,
+  "deferredBytes": 3298918,
   "deferredHuman": "3.15 MB",
   "estimatedRuntimeMemory": {
-    "countriesFullBytes": 13224815,
+    "countriesFullBytes": 13225137,
     "countriesFullHuman": "12.61 MB",
-    "estimatedParsedBytes": 39674445,
+    "estimatedParsedBytes": 39675411,
     "estimatedParsedHuman": "37.84 MB",
     "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
   },
@@ -33,7 +33,7 @@
     {
       "path": "data/conflict_details.generated.json",
       "exists": true,
-      "bytes": 2628404,
+      "bytes": 2629180,
       "human": "2.51 MB",
       "startupCritical": false,
       "category": "deferred-or-auxiliary"
@@ -363,7 +363,7 @@
     {
       "path": "data/conflict_details.generated.json",
       "exists": true,
-      "bytes": 2628404,
+      "bytes": 2629180,
       "human": "2.51 MB",
       "startupCritical": false,
       "category": "deferred-or-auxiliary"
