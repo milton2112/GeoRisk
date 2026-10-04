@@ -61,6 +61,17 @@ function getInteractionTrigger(event, selector) {
     : null;
 }
 
+function replaceProfileContent(panel, html, { preserveNavigationFocus = false } = {}) {
+  const focused = panel.ownerDocument.activeElement;
+  const section = preserveNavigationFocus && panel.contains(focused) ? focused?.dataset.countryNav : null;
+  panel.innerHTML = html;
+  if (section) {
+    const replacement = [...panel.querySelectorAll("[data-country-nav]")]
+      .find(button => button.dataset.countryNav === section && !button.disabled);
+    replacement?.focus({ preventScroll: true });
+  }
+}
+
 function readFavoriteCodes(storage) {
   try {
     const value = JSON.parse(storage?.getItem(COUNTRY_FAVORITES_STORAGE_KEY) || "[]");
@@ -628,6 +639,7 @@ function renderProfile(options = {}) {
 }
 
 window.GeoRiskCountryPanel = {
+  replaceProfileContent,
   formatProvenanceValue,
   handleInteraction,
   renderProfile,

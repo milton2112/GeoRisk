@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-04T12:57:37.236Z",
+  "generatedAt": "2026-10-04T18:02:52.077Z",
   "scannedConflicts": 2000,
   "issueCount": 0,
-  "advisoryCount": 18,
-  "reviewCount": 18,
+  "advisoryCount": 17,
+  "reviewCount": 17,
   "summary": {
-    "provisional_parent": 18
+    "provisional_parent": 17
   },
   "topIssues": [],
   "topAdvisories": [
@@ -196,20 +196,6 @@
       "name": "Batalla del cabo de la Roca",
       "countries": [
         "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "combate de caleta foca",
-      "name": "Combate de Caleta Foca",
-      "countries": [
-        "GBR"
       ],
       "startYear": null,
       "endYear": null,

@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-10-04T12:57:40.925Z",
+  "generatedAt": "2026-10-04T18:02:55.828Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 84
+      "count": 83
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 18
+      "count": 17
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 622
+      "count": 623
     },
     "redundantReligions": {
       "count": 0
@@ -218,11 +218,6 @@
       },
       {
         "code": "GBR",
-        "name": "Combate de Caleta Foca",
-        "region": "Europa"
-      },
-      {
-        "code": "GBR",
         "name": "Hundimiento del HMS Prince de Wales y del HMS Repulse",
         "region": "Europa"
       },
@@ -254,6 +249,11 @@
       {
         "code": "GBR",
         "name": "Operación Thunderbolt",
+        "region": "Europa"
+      },
+      {
+        "code": "GBR",
+        "name": "Operación Wikinger",
         "region": "Europa"
       }
     ],
@@ -334,13 +334,6 @@
         "name": "Operación Batalla por la Restauración de la Dignidad",
         "parent": "Conflicto regional de Asia",
         "campaign": "Campaña vinculada a Conflicto regional de Asia",
-        "startYear": null
-      },
-      {
-        "code": "GBR",
-        "name": "Combate de Caleta Foca",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
       },
       {
@@ -749,6 +742,14 @@
         ]
       },
       {
+        "name": "Combate de Caleta Foca (1982)",
+        "count": 2,
+        "countries": [
+          "ARG",
+          "GBR"
+        ]
+      },
+      {
         "name": "Combate de Top Malo House (1982)",
         "count": 2,
         "countries": [
@@ -775,14 +776,6 @@
       },
       {
         "name": "Hundimiento de HMS Sheffield",
-        "count": 2,
-        "countries": [
-          "ARG",
-          "GBR"
-        ]
-      },
-      {
-        "name": "Hundimiento del ARA General Belgrano",
         "count": 2,
         "countries": [
           "ARG",
@@ -1389,7 +1382,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 18,
+      "count": 17,
       "command": "npm run fix:conflicts:batches"
     },
     {

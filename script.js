@@ -57,7 +57,8 @@ const fallbackGetRenderProfileText = ({ language = "es", isMobile, currentMapMod
 
 const {
   getDeviceProfile: runtimeGetDeviceProfile = fallbackGetDeviceProfile,
-  getRenderProfileText: runtimeGetRenderProfileText = fallbackGetRenderProfileText
+  getRenderProfileText: runtimeGetRenderProfileText = fallbackGetRenderProfileText,
+  numberFormats: runtimeNumberFormats = {}
 } = window.GeoRiskRuntime || {};
 let {
   EXTRA_CONFLICT_DETAIL_OVERRIDES: curatedConflictDetailOverrides = {},
@@ -85,7 +86,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-10-04-release-3";
+const APP_VERSION = "2026-10-04-release-5";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -3020,7 +3021,7 @@ function formatNumber(value) {
     return "Sin datos";
   }
 
-  return Number(value).toLocaleString("es-AR");
+  return runtimeNumberFormats.number?.(Number(value)) ?? Number(value).toLocaleString("es-AR");
 }
 
 function getUniqueDisplayLabels(values = []) {
@@ -3049,7 +3050,7 @@ function formatPercentage(value) {
     return "0%";
   }
 
-  return `${value.toLocaleString("es-AR", {
+  return `${runtimeNumberFormats.percentage?.(value) ?? value.toLocaleString("es-AR", {
     minimumFractionDigits: value >= 10 ? 1 : 2,
     maximumFractionDigits: value >= 10 ? 1 : 2
   })}%`;
@@ -3078,8 +3079,8 @@ function formatInflation(value) {
     return t("noData");
   }
 
-  return `${parsed.toLocaleString("es-AR", {
-    minimumFractionDigits: parsed >= 10 ? 1 : 1,
+  return `${runtimeNumberFormats.decimal?.(parsed) ?? parsed.toLocaleString("es-AR", {
+    minimumFractionDigits: 1,
     maximumFractionDigits: 1
   })}%`;
 }
@@ -3665,7 +3666,7 @@ function compactNumber(value) {
     return "Sin datos";
   }
 
-  return new Intl.NumberFormat("es-AR", {
+  return runtimeNumberFormats.compact?.(Number(value)) ?? new Intl.NumberFormat("es-AR", {
     notation: "compact",
     maximumFractionDigits: 1
   }).format(Number(value));
@@ -6083,6 +6084,7 @@ function getConflictModalContent(conflict, countryName = "") {
     hierarchySources: detail.hierarchySources || conflict.hierarchySources || [],
     datePrecision: detail.datePrecision || conflict.datePrecision || "",
     curationNote: detail.curationNote || conflict.curationNote || "",
+    sourceDispute: detail.sourceDispute ?? conflict.sourceDispute ?? "",
     treaties: detail.treaties || conflict.treaties || [],
     wikipedia: detail.wikipedia || null
   };
@@ -6253,11 +6255,13 @@ function getConflictModalEntryDetail(entry) {
 function renderConflictCurationNotes(detail) {
   const date = typeof detail.datePrecision === "string" ? detail.datePrecision.trim() : "";
   const note = typeof detail.curationNote === "string" ? detail.curationNote.trim() : "";
-  if (!date && !note) return "";
+  const dispute = typeof detail.sourceDispute === "string" ? detail.sourceDispute.trim() : "";
+  if (!date && !note && !dispute) return "";
   return `<div class="conflict-modal-section conflict-curation-notes">
     <h4>${currentLanguage === "en" ? "Curation notes" : "Notas de curadur\u00eda"}</h4>
     ${date ? `<p><b>${currentLanguage === "en" ? "Date precision" : "Precisi\u00f3n de la fecha"}:</b> ${escapeHtml(date)}</p>` : ""}
     ${note ? `<p>${escapeHtml(note)}</p>` : ""}
+    ${dispute && dispute !== note ? `<p><b>${currentLanguage === "en" ? "Source discrepancies" : "Diferencias entre fuentes"}:</b> ${escapeHtml(dispute)}</p>` : ""}
   </div>`;
 }
 
@@ -6850,7 +6854,7 @@ async function renderCountry(country, fallbackName) {
     throw new Error("No se encontro el panel de ficha pais.");
   }
 
-  panel.innerHTML = countryPanelUi.renderProfile({
+  const profileHtml = countryPanelUi.renderProfile({
     country,
     fallbackName,
     countryCode,
@@ -6905,6 +6909,10 @@ async function renderCountry(country, fallbackName) {
       renderReligionMiniMetrics,
       renderReligion
     }
+  });
+
+  countryPanelUi.replaceProfileContent(panel, profileHtml, {
+    preserveNavigationFocus: preserveConflictState && document.getElementById("country-modal")?.hidden === false
   });
 
   renderNewsHub(countryCode);

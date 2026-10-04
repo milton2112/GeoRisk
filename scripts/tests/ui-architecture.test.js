@@ -4,6 +4,7 @@ import path from "node:path";
 import vm from "node:vm";
 import "./saved-view-storage.test.js";
 import "./country-source-transparency.test.js";
+import "./country-navigation-focus.test.js";
 
 const projectRoot = process.cwd();
 
