@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-10-04T13:36:58.230Z",
+  "generatedAt": "2026-10-04T18:02:54.959Z",
   "status": "operativo",
   "startup": {
-    "critical": "874 KB",
-    "criticalBytes": 894708,
+    "critical": "875 KB",
+    "criticalBytes": 896083,
     "scope": "App shell and eager local scripts only; excludes the separately budgeted map engine.",
     "mapEngine": {
       "path": "vendor/cesium/engine.js",
@@ -11,8 +11,8 @@
       "human": "3.27 MB",
       "precached": false
     },
-    "appCoreAndEngineBytes": 4324321,
-    "deferred": "3.14 MB",
+    "appCoreAndEngineBytes": 4325696,
+    "deferred": "3.15 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 13224815,
       "countriesFullHuman": "12.61 MB",
@@ -40,7 +40,7 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 594904,
+        "bytes": 595295,
         "human": "581 KB",
         "startupCritical": true,
         "category": "startup-app-core"
@@ -80,7 +80,7 @@
       {
         "path": "app-country-panel.js",
         "exists": true,
-        "bytes": 47039,
+        "bytes": 47567,
         "human": "46 KB",
         "startupCritical": false,
         "category": "deferred-or-auxiliary"
@@ -112,7 +112,7 @@
       {
         "path": "app-text.js",
         "exists": true,
-        "bytes": 23554,
+        "bytes": 23735,
         "human": "23 KB",
         "startupCritical": false,
         "category": "deferred-or-auxiliary"
@@ -832,14 +832,14 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 594904,
+      "bytes": 595295,
       "human": "581 KB"
     },
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 346028,
-      "human": "338 KB"
+      "bytes": 349362,
+      "human": "341 KB"
     },
     {
       "path": "style.css",
@@ -874,7 +874,7 @@
     {
       "path": "app-text.js",
       "exists": true,
-      "bytes": 23554,
+      "bytes": 23735,
       "human": "23 KB"
     },
     {
@@ -952,8 +952,8 @@
     {
       "path": "app-runtime.js",
       "exists": true,
-      "bytes": 3051,
-      "human": "3 KB"
+      "bytes": 4035,
+      "human": "4 KB"
     },
     {
       "path": "app-news-ui.js",

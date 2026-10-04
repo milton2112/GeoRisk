@@ -1,4 +1,5 @@
 (() => {
+  const numberFormats = window.GeoRiskRuntime?.numberFormats || {};
   const UI_STRINGS = {
     es: {
       compareTitle: "Comparador",
@@ -154,14 +155,14 @@
     if (value === null || value === undefined || value === "") {
       return "Sin datos";
     }
-    return Number(value).toLocaleString("es-AR");
+    return numberFormats.number?.(Number(value)) ?? Number(value).toLocaleString("es-AR");
   }
 
   function formatPercentage(value) {
     if (value === null || value === undefined || Number.isNaN(value)) {
       return "0%";
     }
-    return `${value.toLocaleString("es-AR", {
+    return `${numberFormats.percentage?.(value) ?? value.toLocaleString("es-AR", {
       minimumFractionDigits: value >= 10 ? 1 : 2,
       maximumFractionDigits: value >= 10 ? 1 : 2
     })}%`;
@@ -187,7 +188,7 @@
     if (!Number.isFinite(parsed)) {
       return options.noDataLabel || "Sin datos";
     }
-    return `${parsed.toLocaleString("es-AR", {
+    return `${numberFormats.decimal?.(parsed) ?? parsed.toLocaleString("es-AR", {
       minimumFractionDigits: 1,
       maximumFractionDigits: 1
     })}%`;

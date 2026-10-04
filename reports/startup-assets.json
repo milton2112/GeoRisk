@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-10-04T13:36:59.807Z",
-  "startupBytes": 894708,
-  "startupHuman": "874 KB",
+  "generatedAt": "2026-10-04T18:02:56.644Z",
+  "startupBytes": 896083,
+  "startupHuman": "875 KB",
   "startupScope": "App shell and eager local scripts only; excludes the separately budgeted map engine.",
   "mapEngine": {
     "path": "vendor/cesium/engine.js",
@@ -9,11 +9,11 @@
     "human": "3.27 MB",
     "precached": false
   },
-  "appCoreAndEngineBytes": 4324321,
-  "appCoreAndEngineHuman": "4.12 MB",
+  "appCoreAndEngineBytes": 4325696,
+  "appCoreAndEngineHuman": "4.13 MB",
   "excludedStartupCosts": "External CSS, workers, imagery and geographic/data requests are not included in appCoreAndEngineBytes. This is not total network transfer or compressed size.",
-  "deferredBytes": 3297433,
-  "deferredHuman": "3.14 MB",
+  "deferredBytes": 3298142,
+  "deferredHuman": "3.15 MB",
   "estimatedRuntimeMemory": {
     "countriesFullBytes": 13224815,
     "countriesFullHuman": "12.61 MB",
@@ -41,7 +41,7 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 594904,
+      "bytes": 595295,
       "human": "581 KB",
       "startupCritical": true,
       "category": "startup-app-core"
@@ -81,7 +81,7 @@
     {
       "path": "app-country-panel.js",
       "exists": true,
-      "bytes": 47039,
+      "bytes": 47567,
       "human": "46 KB",
       "startupCritical": false,
       "category": "deferred-or-auxiliary"
@@ -113,7 +113,7 @@
     {
       "path": "app-text.js",
       "exists": true,
-      "bytes": 23554,
+      "bytes": 23735,
       "human": "23 KB",
       "startupCritical": false,
       "category": "deferred-or-auxiliary"
@@ -131,7 +131,7 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 594904,
+      "bytes": 595295,
       "human": "581 KB",
       "startupCritical": true,
       "category": "startup-app-core"
@@ -155,8 +155,8 @@
     {
       "path": "app-runtime.js",
       "exists": true,
-      "bytes": 3051,
-      "human": "3 KB",
+      "bytes": 4035,
+      "human": "4 KB",
       "startupCritical": true,
       "category": "startup-app-core"
     },
@@ -171,7 +171,7 @@
     {
       "path": "app-text.js",
       "exists": true,
-      "bytes": 23554,
+      "bytes": 23735,
       "human": "23 KB",
       "startupCritical": false,
       "category": "deferred-or-auxiliary"
@@ -179,7 +179,7 @@
     {
       "path": "app-country-panel.js",
       "exists": true,
-      "bytes": 47039,
+      "bytes": 47567,
       "human": "46 KB",
       "startupCritical": false,
       "category": "deferred-or-auxiliary"

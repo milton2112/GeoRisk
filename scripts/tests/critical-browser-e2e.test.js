@@ -969,7 +969,14 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
       assert.equal(await page.locator('script[data-dynamic-src*="app-curation.js"]').count(), 0);
       assert.equal(scriptAttempts["app-curation"], 1, "no automatic retry after a network failure");
       await history.focus();
-      await history.press("Enter");
+      const focusAfterRefresh = await page.evaluate(async () => {
+        const previous = document.activeElement;
+        await renderCountry(countriesData.ARG, "Argentina");
+        return { replaced: !previous.isConnected, section: document.activeElement?.dataset.countryNav };
+      });
+      assert.equal(focusAfterRefresh.replaced, true, "la prueba actualiza realmente los botones de la ficha");
+      assert.equal(focusAfterRefresh.section, "country-section-history", "actualizar datos no debe perder el foco del reintento por teclado");
+      await page.keyboard.press("Enter");
       await page.waitForFunction(() => deferredDataStatus.runtimeCuration === true);
       assert.deepEqual(scriptAttempts, { "app-curation": 2, "app-conflict-rules": 1 }, "explicit reopening only retries the failed script");
       assert.equal(await page.locator('script[data-dynamic-src*="app-curation.js"]').count(), 1);
@@ -1067,6 +1074,16 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
       await page.evaluate(() => openConflictModal(window.__caletaFocaKey));
       assert.equal(focaDetailRequests, 1, "reopening only reuses one on-demand detail request");
       assertHealthyPage(test.pageErrors, label + " notas de curaduria y descarga tardia");
+    } catch (error) {
+      console.error("curation recovery diagnostic", label, await page.evaluate(() => ({
+        country: currentPanelState.code, section: currentPanelState.countryActiveSection,
+        loaded: deferredDataStatus.runtimeCuration, pending: Boolean(loadRuntimeCurationPromise),
+        focusedSection: document.activeElement?.dataset.countryNav, focusedId: document.activeElement?.id,
+        scripts: [...document.querySelectorAll("script[data-dynamic-src]")].map(element => ({
+          src: element.dataset.dynamicSrc, loaded: element.dataset.loaded
+        }))
+      })).catch(() => null), { scriptAttempts, pageErrors: test.pageErrors });
+      throw error;
     } finally {
       releaseDetail();
       await test.context.close();
@@ -2475,6 +2492,12 @@ async function testCountryTextRendering(browser, baseUrl) {
     try {
       const { page } = test;
       await waitForAppReady(page);
+      assert.deepEqual(await page.evaluate(() => [
+        formatNumber(123456.789) === (123456.789).toLocaleString("es-AR"),
+        formatPercentage(9.995) === `${(9.995).toLocaleString("es-AR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%`,
+        formatInflation(12.35) === `${(12.35).toLocaleString("es-AR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}%`,
+        compactNumber(1234567) === new Intl.NumberFormat("es-AR", { notation: "compact", maximumFractionDigits: 1 }).format(1234567)
+      ]), [true, true, true, true], "los formatos reutilizados conservan la salida nativa en este navegador");
       await submitSearch(page, "Argentina");
       await waitForCountryPanel(page, "Argentina");
       const payload = '<img data-security-probe src=x onerror="window.geoRiskInjected=true">';

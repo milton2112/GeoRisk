@@ -88,5 +88,29 @@ function getRenderProfileText({ language = "es", isMobile, currentMapMode, resol
 
 window.GeoRiskRuntime = {
   getDeviceProfile,
-  getRenderProfileText
+  getRenderProfileText,
+  numberFormats: (() => {
+    let standard, oneDecimal, twoDecimals, compact;
+    const decimal = value => (oneDecimal ||= new Intl.NumberFormat("es-AR", {
+      minimumFractionDigits: 1, maximumFractionDigits: 1
+    })).format(value);
+    return {
+      number: value => (standard ||= new Intl.NumberFormat("es-AR")).format(value),
+      decimal,
+      percentage(value) {
+        if (typeof value !== "number" && typeof value !== "bigint") {
+          return value.toLocaleString("es-AR", {
+            minimumFractionDigits: value >= 10 ? 1 : 2,
+            maximumFractionDigits: value >= 10 ? 1 : 2
+          });
+        }
+        return value >= 10 ? decimal(value) : (twoDecimals ||= new Intl.NumberFormat("es-AR", {
+          minimumFractionDigits: 2, maximumFractionDigits: 2
+        })).format(value);
+      },
+      compact: value => (compact ||= new Intl.NumberFormat("es-AR", {
+        notation: "compact", maximumFractionDigits: 1
+      })).format(value)
+    };
+  })()
 };
