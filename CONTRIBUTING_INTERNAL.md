@@ -55,6 +55,8 @@ For UI-heavy changes, also open the local smoke server and verify:
 
 ## Release Evidence
 
+- `release:prepare` validates its arguments and reads/plans all release files before writing. Use a stable `MAJOR.MINOR.PATCH`, a real local-calendar `YYYY-MM-DD` date and a matching `YYYY-MM-DD-release-N` stamp; a new package version cannot reuse the current app stamp. Unknown options fail instead of silently preparing a different release.
+- After an interrupted preparation or failed measurement, retry with the same explicit `--version`, `--date` and `--stamp`. Unchanged files are not rewritten; measurements still run unless `--skip-measure` is given. Omitting the version/stamp prepares another patch/stamp, not a retry. This preflight is not an atomic multi-file transaction: power loss or an I/O error during writes can still leave partial files. Inspect unreadable/truncated files before retrying; do not discard verified changelog notes to repair them.
 - Run `npm run release:check` before publishing. It refreshes audits and browser measurements, then checks their combined status.
 - `npm run release:status` reads the current evidence without rebuilding or launching a browser. Exit code 1 means a release blocker; read the printed reasons and `reports/release-status.json`.
 - Missing/invalid reports, package/app/cache mismatches and changes since measurement block approval. FPS/long-task observations, an uncreated tag and a dirty working tree remain warnings, not automatic approval or performance guarantees.
