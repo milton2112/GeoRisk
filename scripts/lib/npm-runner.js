@@ -3,6 +3,40 @@ import fs from "node:fs";
 import path from "node:path";
 
 export const DEFAULT_STEP_TIMEOUT_MS = 180_000;
+const TREE_CLEANUP_TIMEOUT_MS = 3000;
+
+async function stopProcessTree(child) {
+  if (!Number.isSafeInteger(child.pid) || child.pid <= 0 || child.pid === process.pid
+    || child.exitCode !== null || child.signalCode !== null) {
+    throw new Error("No hay una raiz propia activa para cerrar el arbol.");
+  }
+  if (process.platform !== "win32") {
+    try { process.kill(-child.pid, "SIGKILL"); }
+    catch (error) { if (error.code !== "ESRCH") throw error; }
+    return;
+  }
+  await new Promise((resolve, reject) => {
+    const command = path.win32.join(process.env.SystemRoot || "C:\\Windows", "System32", "taskkill.exe");
+    const killer = spawn(command, ["/pid", String(child.pid), "/t", "/f"], {
+      stdio: "ignore", shell: false, windowsHide: true
+    });
+    let settled = false;
+    const finish = error => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      if (error) reject(error);
+      else resolve();
+    };
+    const timer = setTimeout(() => {
+      try { killer.kill("SIGKILL"); } catch {}
+      finish(new Error("taskkill no termino dentro del limite de limpieza."));
+    }, TREE_CLEANUP_TIMEOUT_MS);
+    killer.once("error", finish);
+    killer.once("close", (code, signal) => finish(code === 0 ? null
+      : new Error(`taskkill fallo con ${signal || code}.`)));
+  });
+}
 
 export function resolveNpmInvocation({
   npmExecPath = process.env.npm_execpath,
@@ -36,20 +70,39 @@ export function runCommand(label, command, args, {
       cwd,
       stdio: "inherit",
       shell: false,
-      windowsHide: true
+      windowsHide: true,
+      detached: process.platform !== "win32"
     });
     let settled = false;
     let timer = null;
+    let cancellationError = null;
 
     function settle(callback, value) {
       if (settled) return;
       settled = true;
       if (timer) clearTimeout(timer);
+      process.off("SIGINT", onInterrupt);
+      process.off("SIGTERM", onTerminate);
       callback(value);
     }
 
-    child.once("error", error => settle(reject, error));
+    function cancel(error) {
+      if (settled || cancellationError) return;
+      cancellationError = error;
+      if (timer) clearTimeout(timer);
+      // Preserve cancellation even when the root exits before its descendants.
+      stopProcessTree(child).then(() => settle(reject, error), cleanupError => {
+        try { child.kill("SIGKILL"); } catch {}
+        settle(reject, new Error(`${error.message} No se pudo confirmar la limpieza del arbol: ${cleanupError.message}`, { cause: cleanupError }));
+      });
+    }
+    const onInterrupt = () => cancel(new Error(`${label} interrumpido por SIGINT.`));
+    const onTerminate = () => cancel(new Error(`${label} interrumpido por SIGTERM.`));
+    process.on("SIGINT", onInterrupt);
+    process.on("SIGTERM", onTerminate);
+    child.once("error", error => { if (!cancellationError) settle(reject, error); });
     child.once("close", (code, signal) => {
+      if (cancellationError) return;
       if (code === 0) {
         settle(resolve);
         return;
@@ -61,13 +114,8 @@ export function runCommand(label, command, args, {
 
     if (Number.isFinite(timeoutMs) && timeoutMs > 0) {
       timer = setTimeout(() => {
-        try {
-          child.kill();
-        } catch {
-          // The process may have ended while the timeout elapsed.
-        }
         const elapsedSeconds = Math.ceil((Date.now() - startedAt) / 1000);
-        settle(reject, new Error(`${label} excedio ${elapsedSeconds}s sin finalizar.`));
+        cancel(new Error(`${label} excedio ${elapsedSeconds}s sin finalizar.`));
       }, timeoutMs);
     }
   });

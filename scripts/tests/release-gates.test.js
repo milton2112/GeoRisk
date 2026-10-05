@@ -17,6 +17,8 @@ import "./browser-screenshot.test.js";
 import "./data-pipeline.test.js";
 import "./release-tag.test.js";
 
+// Run real deadlines after the imported synchronous CLI fixtures have finished.
+await import("./npm-runner.test.js");
 const projectRoot = process.cwd();
 assert.equal(await fs.readFile(path.join(projectRoot, "dist/public/_headers"), "utf8"), renderStaticHostingHeaders(), "build must publish the shared browser security headers");
 let transientAttempts = 0;
