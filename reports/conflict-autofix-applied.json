@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-04T21:42:55.526Z",
+  "generatedAt": "2026-10-05T15:25:29.473Z",
   "changedFullCountries": 0,
   "fullPassChanges": [
     0
@@ -12,7 +12,7 @@
     "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1113,
+  "generatedHierarchyCandidates": 1114,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -280,7 +280,8 @@
       "Segunda batalla de Schooneveld (1673)",
       "Batalla de Dogger Bank (1781)",
       "Batalla de Cabo Rachado (1606)",
-      "Batalla naval de Texel (29 de junio de 1694)"
+      "Batalla naval de Texel (29 de junio de 1694)",
+      "Batalla del cabo de la Roca (1703)"
     ],
     "india": [
       "Asedio y captura de Chandannagar (1757)",
@@ -1802,7 +1803,10 @@
     "Combate de caleta Foca": "Combate de Caleta Foca (1982)",
     "Battle of Seal Cove": "Combate de Caleta Foca (1982)",
     "Incursion sobre Santorini": "Incursion sobre Santorini (1944)",
-    "Incursión sobre Santorini": "Incursion sobre Santorini (1944)"
+    "Incursión sobre Santorini": "Incursion sobre Santorini (1944)",
+    "Batalla del cabo de la Roca": "Batalla del cabo de la Roca (1703)",
+    "Battle of Cap de la Roque": "Batalla del cabo de la Roca (1703)",
+    "Bataille du cap de la Roque": "Batalla del cabo de la Roca (1703)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -2889,6 +2893,7 @@
     "Batalla de Paye (1900)",
     "Combate contra Datu Ali (1905)",
     "Combate de Caleta Foca (1982)",
-    "Incursion sobre Santorini (1944)"
+    "Incursion sobre Santorini (1944)",
+    "Batalla del cabo de la Roca (1703)"
   ]
 }

@@ -927,6 +927,7 @@ async function testAutoRotation(browser, baseUrl) {
 }
 
 async function testConflictCurationAndLateResponse(browser, baseUrl) {
+  const partialEvidence = JSON.parse(await fs.readFile("data/conflict_details.generated.json", "utf8")).conflicts["Batalla de Francia"];
   for (const viewport of [DESKTOP_VIEWPORT, MOBILE_VIEWPORT]) {
     const label = viewport === MOBILE_VIEWPORT ? "mobile" : "desktop";
     const scriptAttempts = { "app-curation": 0, "app-conflict-rules": 0 };
@@ -934,6 +935,7 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
     let focaDetailRequests = 0;
     let nogalesDetailRequests = 0;
     let santoriniDetailRequests = 0;
+    let capeRocaDetailRequests = 0;
     let releaseDetail;
     const pending = new Promise(resolve => { releaseDetail = resolve; });
     let markRequested;
@@ -944,6 +946,7 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
         if (request.url().includes("/data/conflicts/details/combate-de-caleta-foca-1982-")) focaDetailRequests++;
         if (request.url().includes("/data/conflicts/details/batalla-de-ambos-nogales-1918-")) nogalesDetailRequests++;
         if (request.url().includes("/data/conflicts/details/incursion-sobre-santorini-1944-")) santoriniDetailRequests++;
+        if (request.url().includes("/data/conflicts/details/batalla-del-cabo-de-la-roca-1703-")) capeRocaDetailRequests++;
       });
       await page.route(/\/app-(curation|conflict-rules)\.js\?/, async route => {
         const name = route.request().url().match(/\/(app-(?:curation|conflict-rules))\.js/)[1];
@@ -1132,6 +1135,90 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
       await page.locator("#conflict-modal-close").click();
       await page.evaluate(() => openConflictModal(window.__santoriniKey));
       assert.equal(santoriniDetailRequests, 1, "reopening Santorini reuses one on-demand detail request");
+      assert.equal(capeRocaDetailRequests, 0, "Cape Roca source notes are not prefetched with other episodes");
+      await page.locator("#conflict-modal-close").click();
+      await page.evaluate(async () => {
+        await loadCountryDetail("FRA");
+        await loadCountryConflictDetail("FRA");
+        const entry = countriesData.FRA.military.conflicts.find(item => item.name === "Batalla del cabo de la Roca (1703)");
+        window.__capeRocaKey = registerConflictModal(entry, "Francia");
+        openConflictModal(window.__capeRocaKey);
+      });
+      await page.waitForFunction(() => Boolean(CONFLICT_DETAIL_OVERRIDES["Batalla del cabo de la Roca (1703)"]));
+      const capeRocaTitle = await page.locator("#conflict-modal-title").innerText();
+      assert.match(capeRocaTitle, /cabo de la Roca/i);
+      assert.equal((capeRocaTitle.match(/1703/g) || []).length, 1);
+      assert.match(await body.innerText(), /Guerra de Sucesi\u00f3n Espa\u00f1ola/);
+      assert.match(await body.innerText(), /Portugal, Atl\u00e1ntico nororiental/);
+      assert.match(await body.innerText(), /Roemer Vlacq/);
+      assert.match(await body.innerText(), /Sin total de bajas humanas.*no equivale a cero/);
+      const capeRocaNotes = body.locator(".conflict-curation-notes");
+      assert.match(await capeRocaNotes.innerText(), /22 de mayo de 1703/);
+      assert.match(await capeRocaNotes.innerText(), /parte franc\u00e9s, no un recuento independiente/);
+      assert.match(await capeRocaNotes.innerText(), /no acredita una escolta brit\u00e1nica/);
+      assert.match(await capeRocaNotes.innerText(), /Portugal es la referencia geogr\u00e1fica, no un beligerante/);
+      assert.deepEqual(await body.locator(".conflict-hierarchy-sources a").evaluateAll(links => links.map(link => new URL(link.href).hostname)), [
+        "m.shabretagne.com", "www.servicehistorique.sga.defense.gouv.fr", "en.wikipedia.org"
+      ]);
+      assert.match(await body.locator('.conflict-hierarchy-sources a[href^="https://m.shabretagne.com/"]').innerText(), /PDF consultado/);
+      assert.equal(await body.locator(".conflict-treaties").count(), 0);
+      assert.equal(await body.evaluate(element => element.scrollWidth <= element.clientWidth), true);
+      await captureLiveElement(page, capeRocaNotes, { path: `tmp/cape-roca-curation-${label}.png`, timeout: 10000 });
+      await page.locator("#conflict-modal-close").click();
+      await page.evaluate(() => openConflictModal(window.__capeRocaKey));
+      assert.equal(capeRocaDetailRequests, 1, "reopening Cape Roca reuses one on-demand detail request");
+      await page.locator("#conflict-modal-close").click();
+      await page.evaluate(() => {
+        window.__pendingConflictKey = registerConflictModal({ name: "Prueba sin detalle", startYear: 1900, endYear: 1920 }, "Estados Unidos");
+        openConflictModal(window.__pendingConflictKey, { enhance: false });
+      });
+      assert.equal(await body.locator(".compare-note").count(), 5, "missing causes, sides, chronology, outcome and consequences are explicit");
+      assert.match(await body.innerText(), /Sin detalle documentado en esta ficha/);
+      assert.doesNotMatch(await body.innerText(), /1910|Corea del Sur|muy elevadas|fase.*decisiva/i);
+      assert.equal(await body.locator(".conflict-modal-side").count(), 0, "selected profile does not create a military side");
+      assert.equal(await body.evaluate(element => element.scrollWidth <= element.clientWidth), true);
+      await captureLiveElement(page, body, { path: `tmp/conflict-pending-${label}.png`, timeout: 10000 });
+      await page.evaluate(() => {
+        window.__curationLanguage = currentLanguage;
+        currentLanguage = "en";
+        openConflictModal(window.__pendingConflictKey, { enhance: false });
+      });
+      assert.match(await body.innerText(), /No documented detail in this profile/);
+      assert.doesNotMatch(await body.innerText(), /Sin detalle documentado/);
+      await page.locator("#conflict-modal-close").click();
+      await page.evaluate(() => {
+        currentLanguage = window.__curationLanguage;
+        window.__recordedConflictKey = registerConflictModal({
+          name: "Prueba de detalle registrado", cause: "Causa registrada", outcome: "<b>Resultado registrado</b>",
+          participants: [{ side: "Bando 1", members: ["Estados Unidos"] }],
+          chronology: [{ year: null, text: "Evento sin fecha" }, { year: 1901, text: "Evento registrado" }]
+        }, "Estados Unidos");
+        openConflictModal(window.__recordedConflictKey, { enhance: false });
+      });
+      assert.match(await body.innerText(), /Causa registrada/);
+      assert.match(await body.innerText(), /<b>Resultado registrado<\/b>/);
+      assert.equal(await body.locator(".conflict-modal-side strong").innerText(), "Estados Unidos");
+      assert.doesNotMatch(await body.innerText(), /Corea del Sur|ONU/);
+      const recordedChronology = body.locator(".conflict-modal-section").filter({ has: page.locator("h4", { hasText: "Cronologia interna" }) });
+      assert.deepEqual(await recordedChronology.locator("li b").allTextContents(), ["1901"], "null chronology year never becomes year zero");
+      assert.equal(await body.evaluate(element => element.scrollWidth <= element.clientWidth), true);
+      await page.locator("#conflict-modal-close").click();
+      await page.evaluate(evidence => {
+        window.__partialEvidenceKey = registerConflictModal({ ...evidence, name: "Prueba estructural documentada" });
+        openConflictModal(window.__partialEvidenceKey, { enhance: false });
+      }, partialEvidence);
+      assert.match(await body.innerText(), /Declaraci\u00f3n de guerra a Alemania/);
+      assert.match(await body.innerText(), /Victoria decisiva del Eje/);
+      const recordedSides = body.locator(".conflict-modal-section").filter({ has: page.locator("h4", { hasText: "Participantes y bandos" }) });
+      assert.deepEqual(await recordedSides.locator(".conflict-modal-side strong").allTextContents(), ["Eje", "Aliados"]);
+      assert.doesNotMatch(await body.innerText(), /lectura territorial o militar/);
+      assert.equal(await body.locator(".conflict-modal-section").filter({ has: page.locator("h4", { hasText: "Que cambio despues" }) }).locator(".compare-note").count(), 1);
+      await page.locator("#conflict-modal-close").click();
+      await page.evaluate(() => {
+        conflictModalRegistry.delete(window.__pendingConflictKey);
+        conflictModalRegistry.delete(window.__recordedConflictKey);
+        conflictModalRegistry.delete(window.__partialEvidenceKey);
+      });
       assertHealthyPage(test.pageErrors, label + " notas de curaduria y descarga tardia");
     } catch (error) {
       console.error("curation recovery diagnostic", label, await page.evaluate(() => ({
