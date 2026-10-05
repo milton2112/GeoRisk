@@ -1,6 +1,7 @@
 import os from "node:os";
 import { createHash } from "node:crypto";
 import { chromium } from "@playwright/test";
+import { launchProjectBrowser, getBrowserSelection, requestedBrowserChannel } from "./browser-launch.js";
 import { createLocalSmokeServer } from "../localSmokeServer.js";
 import { summarizeLongTasks, summarizeRenderFrames } from "./performance-metrics.js";
 import { BROWSER_MEASUREMENT_SOURCE, hasHealthyRenderLoop } from "./performance-evidence.js";
@@ -22,21 +23,12 @@ export function performanceEnvironment() {
     hostFingerprint: createHash("sha256").update(os.hostname()).digest("hex").slice(0, 16),
     totalMemoryGiB: Math.round(os.totalmem() / 1024 ** 3),
     ci: Boolean(process.env.CI),
-    requestedChannel: process.env.PLAYWRIGHT_CHANNEL || (process.env.CI ? "chromium" : "chrome")
+    requestedChannel: requestedBrowserChannel()
   };
 }
 
 export async function launchPerformanceBrowser() {
-  const channel = process.env.PLAYWRIGHT_CHANNEL || (process.env.CI ? "" : "chrome");
-  let lastError;
-  for (const option of channel ? [{ channel }, {}] : [{}, { channel: "chrome" }]) {
-    try {
-      return await chromium.launch({ headless: true, ...option });
-    } catch (error) {
-      lastError = error;
-    }
-  }
-  throw lastError;
+  return launchProjectBrowser(chromium);
 }
 
 export function verifyCanvasMotion({ windowMs, timeoutMs = 5000 }) {
@@ -313,6 +305,7 @@ export async function measureBrowserPerformance(root) {
       source: BROWSER_MEASUREMENT_SOURCE,
       measuredAt: new Date().toISOString(),
       browserVersion: browser.version(),
+      browserSelection: getBrowserSelection(browser),
       environment: performanceEnvironment(),
       methodology: {
         servedFrom: "dist/public",

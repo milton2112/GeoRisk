@@ -11,25 +11,60 @@ function block(start, end) {
   return script.slice(offset, script.indexOf(end, offset));
 }
 
+const modelBuilds = [];
+const modelState = {
+  conflictModalCounter: 0, conflictModalRegistry: new Map(), currentLanguage: "es", loadedRevision: 1,
+  getConflictModalContent(conflict, countryName) {
+    modelBuilds.push([conflict.name, countryName]);
+    return { title: conflict.name, countryName, language: modelState.currentLanguage, revision: modelState.loadedRevision };
+  }
+};
+vm.createContext(modelState);
+vm.runInContext(block("function registerConflictModal", "function isConflictHierarchyProvisionalForDisplay"), modelState);
+vm.runInContext(block("function getConflictModalEntryDetail", "function renderConflictCurationNotes"), modelState);
+for (let i = 0; i < 1000; i += 1) modelState.registerConflictModal({ name: "Episode " + i }, "Context");
+assert.equal(modelBuilds.length, 0, "registering links must not build 1000 unopened conflict profiles");
+assert.equal(modelState.conflictModalRegistry.size, 1000);
+const modelEntry = modelState.conflictModalRegistry.get("conflict-1");
+assert.deepEqual(Object.keys(modelEntry).sort(), ["conflict", "countryName"], "retain the existing record/context, not a duplicate display model");
+const firstModel = modelState.getConflictModalEntryDetail(modelEntry);
+assert.equal(modelBuilds.length, 1);
+assert.equal(firstModel.title, "Episode 0");
+assert.equal(firstModel.countryName, "Context");
+modelState.loadedRevision = 2;
+modelState.currentLanguage = "en";
+modelEntry.detail = { title: "Stale model", revision: 0 };
+const nextModel = modelState.getConflictModalEntryDetail(modelEntry);
+assert.equal(nextModel.revision, 2, "reopening uses current loaded evidence, not a snapshot from registering the link");
+assert.equal(nextModel.language, "en");
+assert.notEqual(firstModel, nextModel);
+assert.equal(modelBuilds.length, 2);
+assert.equal(modelState.getConflictModalEntryDetail(null), null);
+const legacyDetail = { title: "Legacy direct model" };
+assert.equal(modelState.getConflictModalEntryDetail(legacyDetail), legacyDetail);
+assert.equal(modelState.getConflictModalEntryDetail({ detail: legacyDetail }), legacyDetail);
+assert.equal(modelBuilds.length, 2, "legacy details need no new construction");
+
 function harness() {
   const modal = { hidden: false };
   const body = { innerHTML: "current" };
   const entry = { conflict: { name: "A" } };
   const renders = [];
+  const builds = [];
   let finish;
   const state = {
     currentLanguage: "es", conflictModalRenderToken: 1,
     conflictModalRegistry: new Map([["a", entry]]),
     document: { getElementById: id => id === "conflict-modal" ? modal : body },
     loadWikipediaConflictDetails: () => new Promise(resolve => { finish = resolve; }),
-    getConflictModalContent: conflict => ({ title: conflict.name }),
+    getConflictModalContent: conflict => { builds.push(conflict.name); return { title: conflict.name }; },
     openConflictModal: key => renders.push(key), syncModalOpenState() {}, console,
     escapeHtml: value => String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;")
   };
   vm.createContext(state);
   vm.runInContext(block("function renderConflictCurationNotes", "function openConflictModal"), state);
   vm.runInContext(block("function closeConflictModal", "function clearSelection"), state);
-  return { state, modal, body, entry, renders, resolve: async () => { finish({ source: "loaded" }); await Promise.resolve(); } };
+  return { state, modal, body, entry, renders, builds, resolve: async () => { finish({ source: "loaded" }); await Promise.resolve(); } };
 }
 
 for (const action of ["same", "another", "closed", "reopened-same", "replaced-entry", "missing-modal"]) {
@@ -45,6 +80,7 @@ for (const action of ["same", "another", "closed", "reopened-same", "replaced-en
   if (action === "missing-modal") test.state.document.getElementById = () => null;
   await test.resolve();
   assert.deepEqual(test.renders, action === "same" ? ["a"] : [], action + ": no reemplazar una sesion distinta");
+  assert.deepEqual(test.builds, [], "the loader callback schedules only the owner render, without prebuilding another model");
 }
 
 const { state } = harness();
@@ -115,6 +151,22 @@ assert.match(state.renderConflictCurationNotes({ sourceDispute: "Different accou
 assert.match(state.renderConflictTreaties({ treaties: ["treaty"] }), /Treaties and agreements/);
 
 const open = block("function openConflictModal", "function closeConflictModal");
+let guardBuilds = 0;
+const guardState = {
+  conflictModalRenderToken: 0, conflictModalRegistry: new Map([["valid", { conflict: { name: "A" } }]]),
+  document: { getElementById: () => null },
+  getConflictModalEntryDetail: () => { guardBuilds += 1; return null; }
+};
+vm.createContext(guardState);
+vm.runInContext(open, guardState);
+guardState.openConflictModal("valid", { enhance: false });
+assert.equal(guardBuilds, 0, "missing DOM does not build a model");
+guardState.document.getElementById = () => ({});
+guardState.openConflictModal("missing", { enhance: false });
+assert.equal(guardBuilds, 0, "missing registry entry does not build a model");
+guardState.openConflictModal("valid", { enhance: false });
+assert.equal(guardBuilds, 1);
+assert.equal(guardState.conflictModalRenderToken, 0, "a failed model does not supersede another render");
 assert.match(open, /const renderToken = \+\+conflictModalRenderToken/);
 assert.match(open, /maybeEnhanceOpenConflictModal\(key, entry, renderToken\)/);
 assert.match(open, /renderConflictCurationNotes\(detail\)/);

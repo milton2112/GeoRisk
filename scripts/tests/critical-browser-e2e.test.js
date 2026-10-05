@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import { chromium } from "@playwright/test";
+import { launchProjectBrowser } from "../lib/browser-launch.js";
 import { createLocalSmokeServer } from "../localSmokeServer.js";
 import { captureLiveElement, captureTransientNotice } from "../lib/browser-screenshot.js";
 
@@ -10,25 +11,7 @@ const DESKTOP_VIEWPORT = { width: 1440, height: 920 };
 const MOBILE_VIEWPORT = { width: 390, height: 844 };
 
 async function launchCriticalBrowser() {
-  const baseOptions = { headless: true };
-  const localChannel = process.env.PLAYWRIGHT_CHANNEL || (process.env.CI ? "" : "chrome");
-  const candidates = localChannel
-    ? [{ ...baseOptions, channel: localChannel }, baseOptions]
-    : [baseOptions, { ...baseOptions, channel: "chrome" }];
-  let lastError = null;
-
-  for (const options of candidates) {
-    try {
-      return await chromium.launch(options);
-    } catch (error) {
-      lastError = error;
-    }
-  }
-
-  throw new Error(
-    "No se pudo iniciar Chromium para la E2E critica. En CI se instala automaticamente; en local instala Chromium con Playwright o define PLAYWRIGHT_CHANNEL. " +
-      (lastError?.message || "")
-  );
+  return launchProjectBrowser(chromium);
 }
 
 function getRelevantPageErrors(errors) {
@@ -964,6 +947,14 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
     try {
       await waitForAppReady(page, { requireTiles: false });
       assert.deepEqual(scriptAttempts, { "app-curation": 0, "app-conflict-rules": 0 }, "historical curation is not downloaded at startup");
+      await page.evaluate(() => {
+        window.__originalConflictModalBuilder = getConflictModalContent;
+        window.__conflictModelBuilds = 0;
+        getConflictModalContent = (...args) => {
+          window.__conflictModelBuilds += 1;
+          return window.__originalConflictModalBuilder(...args);
+        };
+      });
       await submitSearch(page, "Argentina");
       await waitForCountryPanel(page, "Argentina");
       const history = page.locator('[data-country-nav="country-section-history"]');
@@ -988,6 +979,14 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
       assert.deepEqual(scriptAttempts, { "app-curation": 2, "app-conflict-rules": 1 }, "explicit reopening only retries the failed script");
       assert.equal(await page.locator('script[data-dynamic-src*="app-curation.js"]').count(), 1);
       await page.locator("#country-section-history").waitFor({ state: "visible" });
+      await page.locator('[data-country-nav="country-section-military"]').click();
+      await page.waitForFunction(() => document.querySelectorAll('#country-section-military [data-conflict-key]').length > 0);
+      const registeredModels = await page.evaluate(() => ({
+        visibleLinks: document.querySelectorAll('#country-section-military [data-conflict-key]').length,
+        preparedModels: window.__conflictModelBuilds
+      }));
+      assert.equal(registeredModels.preparedModels, 0, "military links are rendered without constructing unopened modal models");
+      console.log("conflict-models: " + label + " " + registeredModels.visibleLinks + " visible links; 0 prepared models");
       await closeCountryPanel(page);
       await page.evaluate(async () => {
         await loadCountryDetail("USA");
@@ -997,12 +996,15 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
         openConflictModal(window.__curationKeys[0]);
       });
       await Promise.race([requested, page.waitForTimeout(APP_TIMEOUT_MS).then(() => { throw new Error("No se solicito el detalle de Gata"); })]);
+      assert.equal(await page.evaluate(() => window.__conflictModelBuilds), 1, "only the opened Gata profile is prepared, not its unopened Halifax link");
       await page.evaluate(() => openConflictModal(window.__curationKeys[1]));
       await page.waitForFunction(() => Boolean(CONFLICT_DETAIL_OVERRIDES["Batalla naval frente a Halifax (1782)"]));
       const body = page.locator("#conflict-modal-body");
       assert.match(await body.locator(".overview-card").first().innerText(), /Batalla/i);
       assert.match(await body.locator(".overview-card").nth(2).innerText(), /Local/);
       await body.locator(".conflict-curation-notes").waitFor();
+      await page.waitForFunction(() => window.__conflictModelBuilds >= 3);
+      assert.equal(await page.evaluate(() => window.__conflictModelBuilds), 3, "initial render plus owned loaded render, without a duplicate preparation in the callback");
       assert.match(await body.locator(".conflict-curation-notes").innerText(), /28 al 29 de mayo de 1782/);
       assert.match(await body.locator(".conflict-curation-notes").innerText(), /no un buque de la Marina Continental/);
       assert.equal(await body.locator(".conflict-treaties").count(), 0);
@@ -1013,6 +1015,7 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
       releaseDetail();
       await page.waitForFunction(() => Boolean(CONFLICT_DETAIL_OVERRIDES["Batalla del cabo de Gata (1815)"]));
       await page.waitForTimeout(150);
+      assert.equal(await page.evaluate(() => window.__conflictModelBuilds), 3, "a late response for another episode does not build a discarded model");
       const title = await page.locator("#conflict-modal-title").innerText();
       assert.match(title, /Halifax/i);
       assert.equal((title.match(/1782/g) || []).length, 1, "no duplicar el periodo del titulo");
@@ -1232,6 +1235,9 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
       throw error;
     } finally {
       releaseDetail();
+      await page.evaluate(() => {
+        if (window.__originalConflictModalBuilder) getConflictModalContent = window.__originalConflictModalBuilder;
+      }).catch(() => {});
       await test.context.close();
     }
   }
@@ -2691,6 +2697,14 @@ async function testCountryTextRendering(browser, baseUrl) {
     try {
       const { page } = test;
       await waitForAppReady(page);
+      await page.evaluate(() => {
+        window.__originalTimelineBuilder = getTimelineDetailContent;
+        window.__timelineModelBuilds = 0;
+        getTimelineDetailContent = (...args) => {
+          window.__timelineModelBuilds += 1;
+          return window.__originalTimelineBuilder(...args);
+        };
+      });
       assert.deepEqual(await page.evaluate(() => [
         formatNumber(123456.789) === (123456.789).toLocaleString("es-AR"),
         formatPercentage(9.995) === `${(9.995).toLocaleString("es-AR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%`,
@@ -2724,10 +2738,37 @@ async function testCountryTextRendering(browser, baseUrl) {
         await renderCountry(countriesData.ARG, countriesData.ARG.name);
       });
       await page.locator('[data-country-nav="country-section-history"]').click();
-      await page.locator("#country-section-history .timeline-item").first().click();
+      await page.waitForFunction(() => deferredDataStatus.runtimeCuration === true &&
+        document.querySelectorAll("#country-section-history .timeline-item").length > 0);
+      const timelineLinks = await page.locator("#country-section-history .timeline-item").count();
+      assert.equal(await page.evaluate(() => window.__timelineModelBuilds), 0, "rendering country/history links does not prepare unopened timeline models");
+      console.log("timeline-models: " + viewport.width + " " + timelineLinks + " visible links; 0 prepared models");
+      const eventLink = page.locator("#country-section-history .timeline-item").filter({ hasText: /ruptura del orden virreinal/ }).first();
+      await eventLink.click();
       await page.locator("#timeline-modal").waitFor({ state: "visible" });
+      assert.equal(await page.evaluate(() => window.__timelineModelBuilds), 1);
+      const curated = await page.evaluate(() => window.GeoRiskCuration.EXTRA_TIMELINE_DETAIL_OVERRIDES["Revolucion de Mayo"]);
+      const timelineBody = page.locator("#timeline-modal-body");
+      assert.equal(await page.locator("#timeline-modal-title").textContent(), curated.title);
+      assert.ok((await timelineBody.innerText()).includes(curated.detail), "the real late-loaded historical detail must be visible");
+      assert.ok((await timelineBody.innerText()).includes(curated.significance));
+      assert.equal(await timelineBody.evaluate(element => element.scrollWidth <= element.clientWidth + 1), true, "timeline text must fit the modal width");
+      await page.screenshot({ path: "tmp/timeline-curation-" + viewport.width + ".png" });
+      await assertModalFrame(page, "timeline-modal");
+      await page.locator("#timeline-modal-close").click();
+      await page.evaluate(() => { currentLanguage = "en"; });
+      await eventLink.click();
+      assert.equal(await page.evaluate(() => window.__timelineModelBuilds), 2, "reopening constructs exactly one current model");
+      assert.match(await timelineBody.innerText(), /Historical timeline event/);
+      assert.match(await timelineBody.innerText(), /High impact/);
+      assert.match(await timelineBody.innerText(), /19th c\./);
+      assert.ok((await timelineBody.innerText()).includes(curated.detail), "existing source text is preserved, not invented by localization");
       assertHealthyPage(test.pageErrors, "country text rendering " + viewport.width);
     } finally {
+      await test.page.evaluate(() => {
+        if (window.__originalTimelineBuilder) getTimelineDetailContent = window.__originalTimelineBuilder;
+        currentLanguage = "es";
+      }).catch(() => {});
       await test.context.close();
     }
   }

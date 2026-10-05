@@ -22,6 +22,8 @@ assert.equal(summarizeRenderFrames([], 0, 0).averageFps, null);
 const measuredAt = "2026-09-05T12:00:00.000Z";
 const measurement = {
   source: BROWSER_MEASUREMENT_SOURCE, complete: true, measuredAt,
+  browserVersion: "123.0.0", environment: { requestedChannel: "chrome" },
+  browserSelection: { requestedChannel: "chrome", actualChannel: "chrome", browserVersion: "123.0.0" },
   profiles: ["desktop", "mobile-emulated"].map(name => ({
     name, status: "measured", observedWindowMs: 60001,
     longTasks: tasks, activeRender: { durationMs: 6000, frames: 60, averageFps: 10 },
@@ -72,6 +74,18 @@ assert.equal(canReuseBrowserMeasurement(snapshot, "build-b", now), false);
 assert.equal(canReuseBrowserMeasurement(snapshot, "build-a", now + 7 * 3600000), false);
 assert.equal(canReuseBrowserMeasurement(snapshot, "build-a", now - 1), false);
 assert.equal(canReuseBrowserMeasurement(null, "build-a", now), false);
+for (const change of [
+  sample => { delete sample.browserSelection; },
+  sample => { sample.browserSelection.actualChannel = "headless-shell"; },
+  sample => { sample.browserSelection.requestedChannel = "chromium"; },
+  sample => { sample.environment.requestedChannel = "chromium"; },
+  sample => { sample.browserSelection.browserVersion = "124.0.0"; },
+  sample => { sample.browserSelection.browserVersion = ""; }
+]) {
+  const mislabeled = structuredClone(snapshot);
+  change(mislabeled.browserPerformance);
+  assert.equal(canReuseBrowserMeasurement(mislabeled, "build-a", now), false, "no reutilizar una medicion de otro navegador o sin identidad efectiva");
+}
 assert.equal(browserPerformanceWarnings(measurement).length, 4);
 const capped = { profiles: [{ name: "mobile-emulated", activeRender: { averageFps: 22, targetFps: 22 } }] };
 assert.equal(browserPerformanceWarnings(capped).length, 0, "respetar un limite intencional de FPS no es degradacion");

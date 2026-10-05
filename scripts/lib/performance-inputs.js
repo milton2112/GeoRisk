@@ -7,6 +7,7 @@ export const PERFORMANCE_INPUT_FILES = [
   "package.json", "package-lock.json", "scripts/buildProduction.js",
   "scripts/lib/public-assets.js", "scripts/lib/browser-security-policy.js",
   "scripts/lib/browser-performance.js", "scripts/lib/performance-metrics.js",
+  "scripts/lib/browser-launch.js",
   "scripts/lib/performance-evidence.js", "scripts/lib/performance-inputs.js",
   "scripts/localSmokeServer.js", "scripts/performanceSnapshot.js"
 ];

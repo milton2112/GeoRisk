@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-10-05T16:22:14.844Z",
-  "packageVersion": "1.6.280",
-  "appVersion": "2026-10-05-release-4",
-  "cacheVersion": "2026-10-05-release-4",
-  "performanceInputHash": "2a115e290637c3a1b542934971c26b77994c64b1d9cedcaa46fd915b1b93838f",
+  "generatedAt": "2026-10-05T18:47:22.664Z",
+  "packageVersion": "1.6.282",
+  "appVersion": "2026-10-05-release-6",
+  "cacheVersion": "2026-10-05-release-6",
+  "performanceInputHash": "6c16f05853062f311f09c308d711d00393a180d65d1a702dc0726ab7433aef30",
   "thresholds": {
     "scriptJsBytes": 700000,
     "countriesIndexBytes": 240000,
@@ -16,8 +16,8 @@
     "scriptJs": {
       "path": "script.js",
       "exists": true,
-      "bytes": 587151,
-      "human": "573 KB"
+      "bytes": 587390,
+      "human": "574 KB"
     },
     "countriesIndex": {
       "path": "data/countries_index.json",
@@ -26,8 +26,8 @@
       "human": "141 KB"
     },
     "startupCritical": {
-      "bytes": 891382,
-      "human": "870 KB",
+      "bytes": 891621,
+      "human": "871 KB",
       "scope": "App shell and eager local scripts only; excludes the separately budgeted map engine."
     },
     "mapEngine": {
@@ -37,22 +37,27 @@
       "precached": false
     },
     "appCoreAndEngine": {
-      "bytes": 4320995,
+      "bytes": 4321234,
       "human": "4.12 MB",
       "excludes": "External CSS, workers, imagery and geographic/data requests are not included in appCoreAndEngineBytes. This is not total network transfer or compressed size."
     },
     "buildTotal": {
-      "bytes": 13167461,
+      "bytes": 13175183,
       "human": "12.56 MB",
       "assetCount": 1440
     }
   },
-  "browserMeasurementKey": "ec33f08fa2ec1563643c793e844281ae04a828ad0ee272021cc7e4f02253eb84",
+  "browserMeasurementKey": "216b0e1af2f8b43408459d1f8f7a8a355cd6dc3a66e1798469ebfe72960ff313",
   "browserMeasurementReused": false,
   "browserPerformance": {
     "source": "chromium-performance-observer-and-cesium-post-render",
-    "measuredAt": "2026-10-05T16:22:14.099Z",
+    "measuredAt": "2026-10-05T18:47:11.923Z",
     "browserVersion": "155.0.8059.27",
+    "browserSelection": {
+      "requestedChannel": "chrome",
+      "actualChannel": "chrome",
+      "browserVersion": "155.0.8059.27"
+    },
     "environment": {
       "platform": "win32",
       "arch": "x64",
@@ -85,63 +90,78 @@
         },
         "isMobile": false,
         "cpuSlowdown": 1,
-        "observedWindowMs": 60000.40000000037,
-        "appReadyMs": 2324.800000000745,
+        "observedWindowMs": 60008.300000000745,
+        "appReadyMs": 2563.7000000029802,
         "initialMapMode": "3d",
         "initialSceneMode": "3d",
         "longTasks": {
           "budgetMs": 200,
-          "count": 6,
+          "count": 9,
           "overBudgetCount": 1,
-          "totalDurationMs": 831,
-          "totalBlockingTimeMs": 531,
-          "longestDurationMs": 208,
+          "totalDurationMs": 1118,
+          "totalBlockingTimeMs": 668,
+          "longestDurationMs": 203,
           "worst": [
             {
-              "startTime": 1274.0999999996275,
-              "duration": 208,
+              "startTime": 1040.7000000029802,
+              "duration": 203,
               "name": "self"
             },
             {
-              "startTime": 1485,
-              "duration": 164,
+              "startTime": 2253.60000000149,
+              "duration": 168,
               "name": "self"
             },
             {
-              "startTime": 2059.5,
-              "duration": 143,
+              "startTime": 438,
+              "duration": 165,
               "name": "self"
             },
             {
-              "startTime": 704.0999999996275,
+              "startTime": 1250.4000000022352,
+              "duration": 157,
+              "name": "self"
+            },
+            {
+              "startTime": 2756.400000002235,
               "duration": 134,
               "name": "self"
             },
             {
-              "startTime": 1957.300000000745,
-              "duration": 100,
+              "startTime": 2138.900000002235,
+              "duration": 111,
               "name": "self"
             },
             {
-              "startTime": 2457.4000000003725,
-              "duration": 82,
+              "startTime": 376,
+              "duration": 62,
+              "name": "self"
+            },
+            {
+              "startTime": 1514.9000000022352,
+              "duration": 59,
+              "name": "self"
+            },
+            {
+              "startTime": 2500.7000000029802,
+              "duration": 59,
               "name": "self"
             }
           ]
         },
         "activeRender": {
-          "durationMs": 6000.199999999255,
-          "frames": 202,
-          "averageFps": 33.66554448185479,
-          "longestFrameGapMs": 107,
+          "durationMs": 6001.800000000745,
+          "frames": 196,
+          "averageFps": 32.65686960578088,
+          "longestFrameGapMs": 283.6000000014901,
           "targetFps": 34
         },
         "canvasVerification": {
-          "startedAt": 60006.90000000037,
+          "startedAt": 60015.900000002235,
           "samples": 2,
           "nonblankCanvas": true,
           "changingCanvas": true,
-          "finishedAt": 60112.199999999255
+          "finishedAt": 60121.5
         },
         "renderDiagnostics": {
           "initial": {
@@ -164,7 +184,7 @@
             "vendor": "Google Inc. (Intel)",
             "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)"
           },
-          "collectedAt": 60124.5
+          "collectedAt": 60136.5
         },
         "renderState": {
           "running": true,
@@ -175,19 +195,19 @@
           "events": []
         },
         "bootSteps": {
-          "mapEngine": 63.40000000037253,
-          "viewerBoot": 34.40000000037253,
-          "loadMapOverlay": 204.10000000149012,
-          "geoJsonPrepare": 159.5,
-          "mapBootReady": 946.9000000003725,
-          "loadData": 211.2999999988824,
-          "fetchCountriesIndex": 173.5,
-          "fetchGeoAliases": 154.80000000074506,
-          "startupResources": 946.3999999985099,
-          "geoJsonCesiumLoad": 13.099999999627471,
-          "geoJsonEntityIndex": 29.09999999962747,
-          "countryOverlayReady": 551.2000000011176,
-          "deferredUi": 61.70000000111759
+          "mapEngine": 105.5,
+          "viewerBoot": 54.399999998509884,
+          "loadMapOverlay": 274.19999999925494,
+          "geoJsonPrepare": 197.59999999776483,
+          "mapBootReady": 972.1999999992549,
+          "loadData": 282,
+          "fetchCountriesIndex": 212.39999999850988,
+          "fetchGeoAliases": 211.89999999850988,
+          "startupResources": 970.6999999992549,
+          "geoJsonCesiumLoad": 17.600000001490116,
+          "geoJsonEntityIndex": 55,
+          "countryOverlayReady": 1011.3999999985099,
+          "deferredUi": 61.80000000074506
         },
         "resourceErrors": [],
         "pageErrors": [],
@@ -216,83 +236,83 @@
         },
         "isMobile": true,
         "cpuSlowdown": 4,
-        "observedWindowMs": 60009.09999999963,
-        "appReadyMs": 2247.9000000003725,
+        "observedWindowMs": 60016.400000002235,
+        "appReadyMs": 2732.400000002235,
         "initialMapMode": "2d",
         "initialSceneMode": "2d",
         "longTasks": {
           "budgetMs": 200,
           "count": 10,
           "overBudgetCount": 0,
-          "totalDurationMs": 898,
-          "totalBlockingTimeMs": 398,
-          "longestDurationMs": 135,
+          "totalDurationMs": 1103,
+          "totalBlockingTimeMs": 603,
+          "longestDurationMs": 160,
           "worst": [
             {
-              "startTime": 465,
-              "duration": 135,
+              "startTime": 535.9000000022352,
+              "duration": 160,
               "name": "self"
             },
             {
-              "startTime": 2128,
-              "duration": 117,
+              "startTime": 30379.800000000745,
+              "duration": 158,
               "name": "self"
             },
             {
-              "startTime": 1063.0999999996275,
-              "duration": 113,
+              "startTime": 383.9000000022352,
+              "duration": 128,
               "name": "self"
             },
             {
-              "startTime": 348.80000000074506,
-              "duration": 105,
+              "startTime": 2601,
+              "duration": 128,
               "name": "self"
             },
             {
-              "startTime": 601.6999999992549,
-              "duration": 101,
+              "startTime": 1234.4000000022352,
+              "duration": 121,
               "name": "self"
             },
             {
-              "startTime": 29960.5,
-              "duration": 84,
+              "startTime": 697,
+              "duration": 114,
               "name": "self"
             },
             {
-              "startTime": 1958.5,
+              "startTime": 2228.900000002235,
+              "duration": 93,
+              "name": "self"
+            },
+            {
+              "startTime": 2409.60000000149,
+              "duration": 76,
+              "name": "self"
+            },
+            {
+              "startTime": 962,
               "duration": 64,
               "name": "self"
             },
             {
-              "startTime": 1378,
-              "duration": 62,
-              "name": "self"
-            },
-            {
-              "startTime": 1878.199999999255,
-              "duration": 60,
-              "name": "self"
-            },
-            {
-              "startTime": 795.5,
-              "duration": 57,
+              "startTime": 1597.1000000014901,
+              "duration": 61,
               "name": "self"
             }
           ]
         },
         "activeRender": {
-          "durationMs": 6013.5,
+          "durationMs": 6016.099999997765,
           "frames": 132,
-          "averageFps": 21.95061112496882,
-          "longestFrameGapMs": 56.40000000037253,
+          "averageFps": 21.941124648867046,
+          "longestFrameGapMs": 93.80000000074506,
           "targetFps": 22
         },
         "canvasVerification": {
-          "startedAt": 60028.59999999963,
+          "startedAt": 60033.300000000745,
           "samples": 2,
           "nonblankCanvas": true,
           "changingCanvas": true,
-          "finishedAt": 60174.300000000745
+          "finishedAt": 60141.10000000149
         },
         "renderDiagnostics": {
           "initial": {
@@ -315,7 +335,7 @@
             "vendor": "Google Inc. (Intel)",
             "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)"
           },
-          "collectedAt": 60190.59999999963
+          "collectedAt": 60166
         },
         "renderState": {
           "running": true,
@@ -326,19 +346,19 @@
           "events": []
         },
         "bootSteps": {
-          "mapEngine": 160.80000000074506,
-          "viewerBoot": 123.20000000111759,
-          "loadMapOverlay": 451.2999999988824,
-          "geoJsonPrepare": 215.80000000074506,
-          "mapBootReady": 839.3000000007451,
-          "loadData": 629.5999999996275,
-          "fetchCountriesIndex": 257.2999999988824,
-          "fetchGeoAliases": 255.90000000037253,
-          "startupResources": 834.9000000003725,
-          "geoJsonCesiumLoad": 38.09999999962747,
-          "geoJsonEntityIndex": 187.2000000011176,
-          "countryOverlayReady": 497.5,
-          "deferredUi": 177.59999999962747
+          "mapEngine": 134.10000000149012,
+          "viewerBoot": 147.59999999776483,
+          "loadMapOverlay": 546.6999999992549,
+          "geoJsonPrepare": 287.69999999925494,
+          "mapBootReady": 903.3999999985099,
+          "loadData": 781.6000000014901,
+          "fetchCountriesIndex": 335.8999999985099,
+          "fetchGeoAliases": 334.4000000022352,
+          "startupResources": 899.3000000007451,
+          "geoJsonCesiumLoad": 44,
+          "geoJsonEntityIndex": 199.10000000149012,
+          "countryOverlayReady": 763.4000000022352,
+          "deferredUi": 217.5
         },
         "resourceErrors": [],
         "pageErrors": [],
@@ -363,7 +383,7 @@
     "complete": true
   },
   "warnings": [
-    "desktop: 1 tareas >200 ms; maxima 208 ms."
+    "desktop: 1 tareas >200 ms; maxima 203 ms."
   ],
   "status": {
     "scriptJsWithinBudget": true,

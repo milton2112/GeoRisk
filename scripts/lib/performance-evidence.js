@@ -24,9 +24,14 @@ export function hasCompleteBrowserMeasurement(measurement) {
 }
 
 export function canReuseBrowserMeasurement(snapshot, key, now = Date.now()) {
-  const age = now - Date.parse(snapshot?.browserPerformance?.measuredAt);
+  const measurement = snapshot?.browserPerformance;
+  const selection = measurement?.browserSelection;
+  const age = now - Date.parse(measurement?.measuredAt);
+  const sameBrowserMode = typeof selection?.actualChannel === "string" && selection.actualChannel.length > 0 &&
+    selection.actualChannel === selection.requestedChannel && selection.requestedChannel === measurement?.environment?.requestedChannel &&
+    typeof selection.browserVersion === "string" && selection.browserVersion.length > 0 && selection.browserVersion === measurement?.browserVersion;
   return snapshot?.browserMeasurementKey === key && hasCompleteBrowserMeasurement(snapshot.browserPerformance) &&
-    Number.isFinite(age) && age >= 0 && age <= MAX_REUSE_AGE_MS;
+    sameBrowserMode && Number.isFinite(age) && age >= 0 && age <= MAX_REUSE_AGE_MS;
 }
 
 export function browserPerformanceWarnings(measurement) {

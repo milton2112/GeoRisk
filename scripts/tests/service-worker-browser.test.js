@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import http from "node:http";
 import fs from "node:fs/promises";
 import { chromium } from "@playwright/test";
+import { launchProjectBrowser } from "../lib/browser-launch.js";
 import { createLocalSmokeServer } from "../localSmokeServer.js";
 
 const staticHandler = createLocalSmokeServer().listeners("request")[0];
@@ -39,17 +40,7 @@ const server = http.createServer((request, response) => {
 });
 
 async function launchBrowser() {
-  const channel = process.env.PLAYWRIGHT_CHANNEL || (process.env.CI ? "" : "chrome");
-  const options = channel ? [{ channel }, {}] : [{}, { channel: "chrome" }];
-  let lastError;
-  for (const option of options) {
-    try {
-      return await chromium.launch({ headless: true, ...option });
-    } catch (error) {
-      lastError = error;
-    }
-  }
-  throw lastError;
+  return launchProjectBrowser(chromium);
 }
 
 async function readResource(page, url) {

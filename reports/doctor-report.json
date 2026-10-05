@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-10-05T16:22:16.013Z",
-  "packageVersion": "1.6.280",
+  "generatedAt": "2026-10-05T18:47:24.161Z",
+  "packageVersion": "1.6.282",
   "status": "observacion",
   "summary": {
     "totalFindings": 2,
     "bySeverity": {
       "media": 2
     },
-    "startupBytes": 891382,
-    "scriptBytes": 587151,
+    "startupBytes": 891621,
+    "scriptBytes": 587390,
     "countriesIndexBytes": 144225,
     "conflictAuditIssues": 0,
     "dataCounts": {
@@ -48,7 +48,7 @@
       "severity": "media",
       "area": "performance",
       "title": "Rendimiento real por revisar",
-      "detail": "desktop: 1 tareas >200 ms; maxima 208 ms.",
+      "detail": "desktop: 1 tareas >200 ms; maxima 203 ms.",
       "command": "npm run performance:snapshot -- --fresh"
     },
     {
