@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-10-05T12:45:32.545Z",
-  "packageVersion": "1.6.276",
+  "generatedAt": "2026-10-05T14:16:15.173Z",
+  "packageVersion": "1.6.277",
   "status": "observacion",
   "summary": {
-    "totalFindings": 4,
+    "totalFindings": 1,
     "bySeverity": {
-      "media": 4
+      "media": 1
     },
-    "startupBytes": 896083,
-    "scriptBytes": 595295,
+    "startupBytes": 897079,
+    "scriptBytes": 595697,
     "countriesIndexBytes": 144225,
     "conflictAuditIssues": 0,
     "dataCounts": {
@@ -33,48 +33,12 @@
   },
   "topActions": [
     {
-      "area": "performance",
-      "title": "Rendimiento real por revisar",
-      "command": "npm run performance:snapshot -- --fresh"
-    },
-    {
-      "area": "performance",
-      "title": "Rendimiento real por revisar",
-      "command": "npm run performance:snapshot -- --fresh"
-    },
-    {
-      "area": "performance",
-      "title": "Rendimiento real por revisar",
-      "command": "npm run performance:snapshot -- --fresh"
-    },
-    {
       "area": "datos",
       "title": "Jerarquias de conflicto todavia provisionales",
       "command": "npm run fix:conflicts:batches"
     }
   ],
   "findings": [
-    {
-      "severity": "media",
-      "area": "performance",
-      "title": "Rendimiento real por revisar",
-      "detail": "desktop: 3 tareas >200 ms; maxima 543 ms.",
-      "command": "npm run performance:snapshot -- --fresh"
-    },
-    {
-      "severity": "media",
-      "area": "performance",
-      "title": "Rendimiento real por revisar",
-      "detail": "mobile-emulated: 4 tareas >200 ms; maxima 395 ms.",
-      "command": "npm run performance:snapshot -- --fresh"
-    },
-    {
-      "severity": "media",
-      "area": "performance",
-      "title": "Rendimiento real por revisar",
-      "detail": "mobile-emulated: render activo 14.8 FPS, umbral 17.6 (objetivo 22).",
-      "command": "npm run performance:snapshot -- --fresh"
-    },
     {
       "severity": "media",
       "area": "datos",
