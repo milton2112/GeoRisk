@@ -53,7 +53,7 @@ function target() {
     listeners,
     addEventListener(type, fn) { const list = listeners.get(type) || new Set(); list.add(fn); listeners.set(type, list); },
     removeEventListener(type, fn) { listeners.get(type)?.delete(fn); },
-    emit(type, detail = {}) { for (const fn of listeners.get(type) || []) fn(detail); }
+    emit(type, detail = {}) { for (const fn of listeners.get(type) || []) fn({ type, ...detail }); }
   };
 }
 {
@@ -62,7 +62,11 @@ function target() {
   const host = target();
   const controller = createAutoRotationController();
   let interactions = 0;
-  const dispose = bindAutoRotationInput({ canvas, document, host, controller, onInteraction: () => interactions++ });
+  const inputEvents = [];
+  const dispose = bindAutoRotationInput({ canvas, document, host, controller, onInteraction: event => {
+    interactions++;
+    inputEvents.push(event?.type);
+  } });
   document.emit("pointerup", { pointerId: 7 });
   assert.equal(interactions, 0, "no pausar por punteros ajenos al mapa");
   canvas.emit("pointerdown", { pointerId: 1 });
@@ -72,6 +76,8 @@ function target() {
   canvas.emit("wheel");
   canvas.emit("keydown");
   assert.equal(interactions, 4);
+  assert.deepEqual(inputEvents, ["pointerdown", "pointercancel", "wheel", "keydown"],
+    "el consumidor identifica entrada real sin sumar listeners");
   canvas.emit("pointerdown", { pointerId: 2 });
   host.emit("blur");
   assert.equal(controller.hasActivePointers(), false);
@@ -90,6 +96,12 @@ function target() {
 }
 
 const script = await fs.readFile(new URL("../../script.js", import.meta.url), "utf8");
+const moveStart = script.slice(script.indexOf("viewer.camera.moveStart.addEventListener(() => {"),
+  script.indexOf("viewer.camera.moveEnd.addEventListener(() => {"));
+assert.doesNotMatch(moveStart, /emitMapEvent/, "un ajuste interno de camara no cierra los controles mobile");
+const nativeInput = script.slice(script.indexOf("onInteraction(event) {"), script.indexOf("viewer.clock.onTick.addEventListener"));
+assert.match(nativeInput, /event\?\.type === "pointerdown"\) emitMapEvent\("dragstart"\)/);
+assert.match(nativeInput, /event\?\.type === "wheel" \|\| event\?\.type === "keydown"/);
 const tick = script.slice(script.indexOf("function handleAutoRotateTick("), script.indexOf("function getInitialGlobeDistance("));
 const runtime = {
   autoRotation: createAutoRotationController(), autoRotateEnabled: true, currentMapMode: "3d",

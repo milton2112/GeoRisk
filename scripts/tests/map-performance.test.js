@@ -50,6 +50,8 @@ const { createFpsQualityMonitor } = sandbox.window.GeoRiskMapInteractions;
   assert.match(constructor, /msaaSamples: preset\.msaaSamples/, "configurar MSAA antes del primer frame, no despues de crear buffers");
   const tuning = source.slice(source.indexOf("function updateMapInteractionTuning()"), source.indexOf("function updateMapModeToggle()"));
   assert.match(tuning, /viewer\.scene\.msaaSamples = preset\.msaaSamples/, "cambios de perfil/modo actualizan MSAA");
+  assert.match(tuning, /globeQuality\.reset\(viewer\.scene\.globe\)/, "un nuevo perfil invalida el snapshot del arrastre");
+  assert.match(tuning, /clearTimeout\(navigationQualityRestoreTimer\)/);
 }
 
 function controller(overrides = {}) {
@@ -168,6 +170,7 @@ function runtime({ mobile = false, mode = "3d" } = {}) {
   vm.runInContext(interactions, state);
   vm.runInContext(scheduler, state);
   state.mapInteractionCore = state.window.GeoRiskMapInteractions;
+  state.globeQuality = state.mapInteractionCore.createGlobeQualityController();
   state.bootScheduler = state.window.GeoRiskBootScheduler;
   const block = (start, end) => source.slice(source.indexOf(start), source.indexOf(end, source.indexOf(start)));
   vm.runInContext(block("function startPerformanceMonitor()", "async function showNewsArticle"), state);
@@ -186,6 +189,18 @@ function runtime({ mobile = false, mode = "3d" } = {}) {
   };
 }
 
+{
+  const test = runtime({ mobile: true, mode: "2d" });
+  test.state.reducedPerformanceMode = true;
+  test.state.reducedPerformanceReason = "fixture";
+  test.state.setNavigationQualityState(true);
+  test.move(true);
+  for (let i = 0; i < 3; i++) test.tick(22);
+  assert.ok(test.state.viewer.scene.globe.maximumScreenSpaceError > test.preset.maximumScreenSpaceError,
+    "el arrastre sigue usando relajacion temporal aunque la calidad estable ya se recupero");
+  assert.equal(test.state.reducedPerformanceMode, false, "recuperacion se decide sobre calidad estable, no la temporal");
+  assert.equal(test.state.reducedPerformanceReason, "");
+}
 {
   const test = runtime();
   test.state.startPerformanceMonitor();

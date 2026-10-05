@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.277 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.278 antes de cerrar la siguiente version.
+
+## v1.6.278 - 2026-10-05
+
+- Corrige la perdida de calidad adaptativa al arrastrar: empezar y soltar el globo reponia limites del preset y podia aumentar detalle, cache y carga despues de una reduccion por FPS. Ahora conserva tres limites estables durante la navegacion, aplica una relajacion temporal sin superar sus recursos y adapta/recupera sobre los valores estables. No cambia las formulas, resolucion, suavizado, datos ni geometria; el aviso de recuperacion comprueba todos los limites estables y la resolucion, no el ajuste temporal.
+- Las restauraciones mantienen propietario de timer/viewer y se invalidan al aplicar un perfil o modo explicito. Un callback cancelado no termina otro gesto ni dibuja en un renderer retirado. Elegir calidad manual limpia el aviso adaptativo anterior. Corrige tambien el cierre inesperado de controles mobile: los cambios internos de frustum de Cesium no se tratan como gestos; pointerdown, rueda y teclado del canvas reutilizan los listeners existentes para cerrar el panel al interactuar realmente con el mapa.
+- Evidencia: regresion roja por aumentar detalle al comenzar el arrastre; tests reales de logica para 2D/3D, reduccion/recuperacion durante movimiento, gestos repetidos, limites del preset, cambio manual, callbacks viejos y viewer destruido/reemplazado. Chrome escritorio/mobile emulado verifica arrastres nativos conservando tres ajustes reducidos, con y sin requestIdleCallback, seleccion alta/auto y busqueda/ficha posterior. Un evento interno de camara reproducido de forma controlada cerraba el panel mobile antes del arreglo y ya no lo cierra; un pointerdown real si lo cierra. La comprobacion manual espera el ajuste asincrono existente del render, sin ampliar timeouts ni omitir controles. Se reutilizan los recorridos/paginas de navegador, sin una suite pesada nueva.
+- Green coding: evita restablecer trabajo visual/carga no solicitado en equipos degradados. Costo: un objeto de tres limites y referencias al perfil por globo navegando, liberado al terminar o resetear, y unas operaciones aritmeticas por ajuste; WeakMap no retiene un globo retirado. Sin dependencias, red, precarga, telemetria, listeners, polling o timers nuevos; conserva el restore de 120/180 ms y los presupuestos existentes. Agrega algunos bytes al modulo inicial y notas publicas bajo demanda; tests y arquitectura permanecen fuera del deploy. No demuestra ahorro energetico/CO2, elimina todos los tirones ni sustituye la prueba en celular fisico. La puerta completa registra pesos y mediciones del fingerprint actual.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-10-05-release-2`.
 
 ## v1.6.277 - 2026-10-05
 
