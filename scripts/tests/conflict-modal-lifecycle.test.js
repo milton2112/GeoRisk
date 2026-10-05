@@ -124,12 +124,13 @@ const contentState = {
   CONFLICT_DETAIL_OVERRIDES: {},
   inferConflictType: () => "batalla", inferConflictScope: () => "local", inferConflictRegion: () => "region",
   getConflictParentName: () => "parent", getConflictHierarchyState: () => ({}), inferConflictLevel: () => "battle",
-  dedupeConflictParticipants: entries => entries, buildGenericConflictParticipants: () => [],
-  getConflictCountryRelationship: () => "participant", buildGenericConflictChronology: () => [],
-  formatConflictTitle: entry => entry.name, buildGenericRelatedConflicts: () => [],
-  buildGenericConflictCause: () => "cause", buildGenericConflictOutcome: () => "outcome", buildGenericConflictConsequences: () => "consequences"
+  dedupeConflictParticipants: entries => entries,
+  normalizeText: state.normalizeText, sanitizeConflictModalText: value => value,
+  getConflictCountryRelationship: () => "participant",
+  formatConflictTitle: entry => entry.name, buildGenericRelatedConflicts: () => []
 };
 vm.createContext(contentState);
+vm.runInContext(block("function getConflictRecordedField", "function getConflictModalContent"), contentState);
 vm.runInContext(block("function getConflictModalContent", "function sanitizeConflictModalText"), contentState);
 assert.equal(contentState.getConflictModalContent({ name: "A", sourceDispute: "Original warning" }).sourceDispute, "Original warning");
 contentState.CONFLICT_DETAIL_OVERRIDES.A = { sourceDispute: "Loaded warning" };

@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import "./conflict-modal-lifecycle.test.js";
+import "./conflict-evidence.test.js";
 import { getCountrySectionDescriptors, getDefaultTimelineFilters, buildConflictSummary } from "../lib/ui-logic.js";
 
 const sectionsEs = getCountrySectionDescriptors("es");

@@ -87,7 +87,7 @@ const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const globeQuality = mapInteractionCore.createGlobeQualityController();
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-10-05-release-3";
+const APP_VERSION = "2026-10-05-release-4";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -2067,76 +2067,35 @@ function inferConflictCoalitionLabel(side = "", members = []) {
     return explicit;
   }
 
-  const normalizedMembers = (members || []).map(member => normalizeText(member));
-  const hasAny = needles => needles.some(needle => normalizedMembers.some(member => member.includes(normalizeText(needle))));
-
-  if (hasAny(["Corea del Norte", "China"])) return "Corea del Norte y apoyos";
-  if (hasAny(["Corea del Sur", "Estados Unidos", "Reino Unido", "Australia", "Canada"])) return "Corea del Sur y ONU";
-  if (hasAny(["Vietnam del Norte", "Viet Cong"])) return "Vietnam del Norte y Viet Cong";
-  if (hasAny(["Vietnam del Sur", "Estados Unidos", "Australia"])) return "Vietnam del Sur y aliados";
-  if (hasAny(["Israel"])) return "Israel";
-  if (hasAny(["Egipto", "Siria", "Jordania", "Irak"]) && !hasAny(["Israel"])) return "Coalicion arabe";
-  if (hasAny(["Alemania", "Italia", "Japon"])) return "Eje";
-  if (hasAny(["Austria-Hungria", "Imperio otomano", "Bulgaria"]) && hasAny(["Alemania"])) return "Potencias Centrales";
-  if (hasAny(["Reino Unido", "Union Sovietica", "Estados Unidos", "Francia", "China", "Belgica", "Paises Bajos", "Luxemburgo"])) return "Aliados";
-  if (hasAny(["Argentina", "Brasil", "Uruguay"])) return "Triple Alianza";
-  if (hasAny(["Paraguay"])) return "Paraguay";
-  if (hasAny(["Chile"]) && hasAny(["Peru", "Bolivia"])) return "Chile y aliados";
-  if (hasAny(["Chile"])) return "Chile";
-  if (hasAny(["Peru", "Bolivia"])) return "Alianza Peru-Bolivia";
-  if (hasAny(["Peru"]) && hasAny(["Ecuador"])) return "Peru y Ecuador";
-  if (hasAny(["Peru"])) return "Peru";
-  if (hasAny(["Ecuador"])) return "Ecuador";
-  if (hasAny(["Bolivia"])) return "Bolivia";
-  if (hasAny(["Reino Unido"])) return "Reino Unido";
-  if (hasAny(["Argentina"])) return "Argentina";
-  if (hasAny(["Estados Unidos"]) && hasAny(["Mexico"])) return "Estados Unidos y Mexico";
-  if (hasAny(["Estados Unidos"])) return "Estados Unidos";
-  if (hasAny(["Mexico"])) return "Mexico";
-  if (hasAny(["Colombia"])) return "Estado colombiano";
-  if (hasAny(["FARC", "ELN", "AUC"])) return "Insurgencias y grupos armados";
-  if (hasAny(["Guatemala"])) return "Guatemala";
-  if (hasAny(["El Salvador"])) return "El Salvador";
-  if (hasAny(["Honduras"])) return "Honduras";
-  if (hasAny(["Nicaragua"])) return "Nicaragua";
-  return explicit || "";
+  return uniqueNormalizedList((Array.isArray(members) ? members : [])
+    .filter(member => typeof member === "string").map(sanitizeConflictModalText)).join(" / ") || explicit;
 }
 
 function sanitizeConflictParticipant(item = {}) {
-  const members = uniqueNormalizedList((item?.members || []).map(sanitizeConflictModalText));
-  const organizations = uniqueNormalizedList((item?.organizations || []).map(sanitizeConflictModalText));
-  const side = inferConflictCoalitionLabel(item?.side || "", members);
+  const members = uniqueNormalizedList((Array.isArray(item?.members) ? item.members : [])
+    .filter(value => typeof value === "string").map(sanitizeConflictModalText));
+  const organizations = uniqueNormalizedList((Array.isArray(item?.organizations) ? item.organizations : [])
+    .filter(value => typeof value === "string").map(sanitizeConflictModalText));
+  const side = inferConflictCoalitionLabel(typeof item?.side === "string" ? item.side : "", members);
   return {
     side,
     members,
     organizations,
-    troops: sanitizeConflictModalText(item?.troops || ""),
-    casualties: sanitizeConflictModalText(item?.casualties || "")
+    troops: sanitizeConflictModalText(typeof item?.troops === "string" || Number.isFinite(item?.troops) ? item.troops : ""),
+    casualties: sanitizeConflictModalText(typeof item?.casualties === "string" || Number.isFinite(item?.casualties) ? item.casualties : "")
   };
 }
 
 function dedupeConflictParticipants(items = []) {
   const sanitizedItems = items.map(sanitizeConflictParticipant);
-  const duplicateSideCounts = sanitizedItems.reduce((acc, item) => {
-    const key = normalizeText(item.side || "");
-    if (key) {
-      acc.set(key, (acc.get(key) || 0) + 1);
-    }
-    return acc;
-  }, new Map());
   const merged = new Map();
 
   sanitizedItems
     .filter(item => item.side || item.members.length || item.organizations.length || item.troops || item.casualties)
     .forEach(item => {
-      const sideKey = normalizeText(item.side || "");
-      if (sideKey && (duplicateSideCounts.get(sideKey) || 0) > 1) {
-        const inferred = inferConflictCoalitionLabel("", item.members);
-        if (inferred) {
-          item = { ...item, side: inferred };
-        }
-      }
-      const key = `${item.members.map(normalizeText).sort().join("|")}::${item.organizations.map(normalizeText).sort().join("|")}`;
+      const key = item.members.length || item.organizations.length
+        ? `${item.members.map(normalizeText).sort().join("|")}::${item.organizations.map(normalizeText).sort().join("|")}`
+        : `side:${normalizeText(item.side)}`;
       if (!key) {
         return;
       }
@@ -2158,9 +2117,7 @@ function dedupeConflictParticipants(items = []) {
       });
     });
 
-  const values = [...merged.values()];
-  const hasNamedCoalitions = values.some(item => item.side && !/^Bando \d+$/i.test(item.side) && !/^Beligerantes$/i.test(item.side));
-  return values.filter(item => !hasNamedCoalitions || !/^Bando \d+$/i.test(item.side || ""));
+  return [...merged.values()];
 }
 
 function getConflictChronologySortYear(conflictName, detail = null) {
@@ -4954,78 +4911,6 @@ function translateConflictName(name) {
   return translated.charAt(0).toUpperCase() + translated.slice(1);
 }
 
-function buildGenericConflictChronology(conflict) {
-  const startYear = conflict?.startYear || null;
-  const endYear = conflict?.ongoing ? null : (conflict?.endYear || startYear || null);
-  if (!startYear) {
-    if (conflict?.ongoing) {
-      return [
-        {
-          year: null,
-          text: currentLanguage === "en"
-            ? "The conflict remains active or unresolved within its broader historical context."
-            : "El conflicto sigue activo o sin resolucion definitiva dentro de su contexto historico mas amplio."
-        }
-      ];
-    }
-    if (conflict?.parentName) {
-      return [
-        {
-          year: null,
-          text: currentLanguage === "en"
-            ? "This episode formed part of a broader war or campaign already identified in the dataset."
-            : "Este episodio formo parte de una guerra o campana mas amplia ya identificada en el dataset."
-        }
-      ];
-    }
-    return [
-      {
-        year: null,
-        text: currentLanguage === "en"
-          ? "The conflict belongs to a broader historical sequence, although its exact internal phases are not yet fully structured."
-          : "El conflicto forma parte de una secuencia historica mas amplia, aunque sus fases internas todavia no estan completamente estructuradas."
-      }
-    ];
-  }
-
-  const chronology = [
-    {
-      year: startYear,
-      text: currentLanguage === "en"
-        ? "The conflict began or entered an open phase."
-        : "El conflicto comenzo o entro en una fase abierta."
-    }
-  ];
-
-  if (endYear && endYear !== startYear) {
-    const midpoint = Math.floor((startYear + endYear) / 2);
-    if (midpoint > startYear && midpoint < endYear) {
-      chronology.push({
-        year: midpoint,
-        text: currentLanguage === "en"
-          ? "The conflict reached one of its most intense or decisive phases."
-          : "El conflicto alcanzo una de sus fases mas intensas o decisivas."
-      });
-    }
-
-    chronology.push({
-      year: endYear,
-      text: currentLanguage === "en"
-        ? "The main armed phase ended or was contained."
-        : "La fase armada principal termino o fue contenida."
-    });
-  } else if (conflict?.ongoing) {
-    chronology.push({
-      year: startYear,
-      text: currentLanguage === "en"
-        ? "The conflict remains active or unresolved."
-        : "El conflicto sigue activo o sin resolucion definitiva."
-    });
-  }
-
-  return chronology;
-}
-
 function conflictDedupKey(conflict) {
   const canonicalName = normalizeText(conflict.name)
     .replace(/\bde las\b/g, "de")
@@ -5687,166 +5572,6 @@ function renderRelatedConflictSummary(groups) {
   `;
 }
 
-function buildGenericConflictCause(conflict, type, scope, region, countryName = "") {
-  const parentLabel = conflict?.parentName
-    ? (isConflictHierarchyProvisionalForDisplay(conflict)
-      ? ` con una asociacion provisional a ${conflict.parentName}`
-      : ` dentro de ${conflict.parentName}`)
-    : "";
-  const locationLabel = region && region !== "Region indeterminada" ? ` en ${region}` : "";
-  const actorLabel = countryName ? ` para ${countryName}` : "";
-
-  if (conflict?.level === "battle") {
-    return `Fue un enfrentamiento tactico${parentLabel}${locationLabel}${actorLabel}, vinculado a operaciones militares mas amplias y a objetivos inmediatos de control territorial, desgaste o ruptura del frente.`;
-  }
-  if (conflict?.level === "campaign") {
-    return `Fue una campana militar${parentLabel}${locationLabel}${actorLabel}, desarrollada para sostener una ofensiva, asegurar una region clave o modificar el equilibrio operativo del conflicto principal.`;
-  }
-  if (type === "guerra mundial") {
-    return `Se produjo por la escalada entre grandes coaliciones rivales, la militarizacion acumulada y disputas estrategicas que terminaron proyectandose a escala ${scope}.`;
-  }
-  if (type === "conflicto interno") {
-    return `Se origino en una crisis de poder, legitimidad o control territorial${locationLabel}${actorLabel}, con enfrentamientos entre el aparato estatal y fuerzas rebeldes, insurgentes o secesionistas.`;
-  }
-  if (type === "intervencion u ocupacion") {
-    return `Se desencadeno por una invasion, intervencion externa u ocupacion${locationLabel}${actorLabel}, en un contexto de seguridad regional, cambio de regimen o disputa por influencia estrategica.`;
-  }
-  return `Se desarrollo por disputas interestatales${locationLabel}${actorLabel} vinculadas a fronteras, equilibrio regional, seguridad o control de espacios y recursos estrategicos.`;
-}
-
-function buildGenericConflictParticipants(conflict, type, countryName = "") {
-  const selectedCountry = countryName || "Estado implicado";
-  if (conflict?.level === "battle") {
-    return [
-      {
-        side: "Fuerzas enfrentadas",
-        members: [selectedCountry || "Actores del conflicto principal"],
-        organizations: conflict.parentName ? [conflict.parentName] : [],
-        troops: "contingentes militares variables",
-        casualties: "sin cifra consolidada"
-      }
-    ];
-  }
-  if (conflict?.level === "campaign" || type === "campana militar") {
-    return [
-      {
-        side: "Fuerzas de la campaña principal",
-        members: [selectedCountry],
-        organizations: conflict.parentName ? [conflict.parentName] : [],
-        troops: "fuerzas regulares y apoyos variables",
-        casualties: "sin cifra consolidada"
-      }
-    ];
-  }
-  if (type === "conflicto interno") {
-    return [
-      {
-        side: "Gobierno y aparato estatal",
-        members: [selectedCountry],
-        organizations: [],
-        troops: "movilizacion estatal variable",
-        casualties: "sin cifra consolidada"
-      },
-      {
-        side: "Rebeldes / insurgentes / oposicion armada",
-        members: ["facciones armadas no estatales"],
-        organizations: [],
-        troops: "fuerzas irregulares o mixtas",
-        casualties: "sin cifra consolidada"
-      }
-    ];
-  }
-  if (type === "guerra mundial") {
-    return [
-      {
-        side: "Coalicion principal",
-        members: [selectedCountry],
-        organizations: [],
-        troops: "movilizacion de gran escala",
-        casualties: "muy elevadas"
-      },
-      {
-        side: "Coalicion rival",
-        members: ["potencias rivales"],
-        organizations: [],
-        troops: "movilizacion de gran escala",
-        casualties: "muy elevadas"
-      }
-    ];
-  }
-  if (type === "intervencion u ocupacion") {
-    return [
-      {
-        side: "Fuerzas intervinientes",
-        members: [selectedCountry],
-        organizations: [],
-        troops: "fuerzas expedicionarias o combinadas",
-        casualties: "sin cifra consolidada"
-      },
-      {
-        side: "Defensa local / resistencia / actor intervenido",
-        members: ["fuerzas locales"],
-        organizations: [],
-        troops: "fuerzas regulares e irregulares",
-        casualties: "sin cifra consolidada"
-      }
-    ];
-  }
-  return [
-    {
-      side: "Estado o coalicion principal",
-      members: [selectedCountry],
-      organizations: [],
-      troops: "fuerzas regulares",
-      casualties: "sin cifra consolidada"
-    },
-    {
-      side: "Estado o coalicion rival",
-      members: ["adversarios estatales"],
-      organizations: [],
-      troops: "fuerzas regulares",
-      casualties: "sin cifra consolidada"
-    }
-  ];
-}
-
-function buildGenericConflictOutcome(conflict) {
-  if (conflict?.level === "battle") {
-    return "El combate altero de forma puntual la situacion tactica del frente, aunque su balance exacto no esta completamente estructurado en el dataset.";
-  }
-  if (conflict?.level === "campaign") {
-    return "La campaña modifico el equilibrio operativo del conflicto mayor, aunque su desenlace puntual todavia no esta completamente estructurado.";
-  }
-  if (conflict?.ongoing) {
-    return "El conflicto sigue abierto o no cuenta todavia con una resolucion estable y ampliamente aceptada.";
-  }
-  if (conflict?.endYear && conflict?.startYear && conflict.endYear !== conflict.startYear) {
-    return `La fase armada principal concluyo en ${conflict.endYear}, tras varios ciclos de combate, negociacion o agotamiento militar.`;
-  }
-  if (conflict?.startYear) {
-    return `El episodio principal se cerro en ${conflict.startYear}, aunque sus efectos politicos y territoriales pudieron continuar despues.`;
-  }
-  return "El desenlace puntual no esta completamente estructurado, pero el episodio forma parte de una secuencia historica mayor ya identificada por el dataset.";
-}
-
-function buildGenericConflictConsequences(conflict, type, region, countryName = "") {
-  const regionLabel = region && region !== "Region indeterminada" ? ` en ${region}` : "";
-  const actorLabel = countryName ? ` para ${countryName}` : " para los actores implicados";
-  if (conflict?.level === "battle") {
-    return `Su efecto principal fue operativo: altero posiciones, ritmos de ofensiva o capacidad de resistencia dentro del conflicto mayor${conflict?.parentName ? ` asociado a ${conflict.parentName}` : ""}.`;
-  }
-  if (type === "conflicto interno") {
-    return `Dejo secuelas politicas, sociales y de seguridad${regionLabel}${actorLabel}, con desplazamientos, reconfiguracion del poder interno y efectos duraderos sobre la legitimidad estatal.`;
-  }
-  if (type === "campana militar") {
-    return `Su efecto principal fue operativo y estrategico${regionLabel}${actorLabel}: sostuvo ofensivas, desgasto fuerzas rivales o preparo batallas de mayor escala dentro del conflicto principal.`;
-  }
-  if (type === "guerra mundial") {
-    return `Transformo el equilibrio internacional${regionLabel}${actorLabel}, alterando fronteras, alianzas, doctrinas militares y el sistema politico global posterior.`;
-  }
-  return `Produjo cambios militares y diplomaticos${regionLabel}${actorLabel}, con impacto sobre fronteras, alianzas, prestigio estrategico o seguridad regional.`;
-}
-
 function buildGenericRelatedConflicts(conflict) {
   const related = [];
   if (conflict?.parentName) {
@@ -6028,6 +5753,36 @@ function renderConflictHierarchySources(sources = []) {
   `;
 }
 
+function getConflictRecordedField(conflict, detail, field) {
+  const record = Object.prototype.hasOwnProperty.call(detail, field) ? detail : conflict;
+  const value = record[field];
+  const structural = (record.curationBatch || detail.curationBatch || conflict.curationBatch) === "safe-structured-conflict-curation-2026-06";
+  // Hide only identified generated templates, not all facts in a structural batch.
+  if (["cause", "outcome", "consequences"].includes(field)) {
+    if (typeof value !== "string") return "";
+    const text = sanitizeConflictModalText(value);
+    if (!structural) return text;
+    const key = normalizeText(text);
+    const template = field === "cause"
+      ? /^(?:accion militar de .+ vinculada a .+ centrada en control territorial rutas posiciones o fuerzas en .+|operacion de .+ dentro de .+ organizada alrededor de objetivos militares y politicos en .+|confrontacion interna de .+ por poder politico seguridad territorial o legitimidad estatal en .+|confrontacion de .+ ligada al control colonial rutas imperiales o administracion territorial en .+|confrontacion de .+ asociada a autonomia politica independencia o reorganizacion del poder estatal en .+|insurgencia o campana irregular de .+ relacionada con control local seguridad interna y autoridad estatal en .+|conflicto fronterizo de .+ por delimitacion control de pasos o presencia militar en .+|intervencion militar de .+ con participacion externa y objetivos estrategicos o de seguridad en .+|confrontacion armada de .+ entre actores estatales o fuerzas organizadas por control seguridad o influencia en .+)$/
+      : field === "outcome"
+        ? /^(?:conflicto activo o con efectos abiertos el seguimiento se mantiene por su impacto politico y de seguridad en .+|desenlace tactico registrado dentro de .+ las cifras especificas se mantienen sin consolidar cuando no hay fuente fina en la ficha|cierre historico registrado para .+ el resultado se interpreta en la ficha como cambio de control posicion militar o equilibrio politico en .+)$/
+        : /^(?:contribuyo a la evolucion operacional de .+ y a la lectura territorial o militar de .+|afecto la estabilidad institucional el control territorial y la memoria politica de .+|influyo en el orden colonial las rutas estrategicas y la administracion territorial de .+|incidio en procesos de soberania legitimidad politica y reorganizacion territorial en .+|influyo en la seguridad regional la diplomacia y la comparacion historica de conflictos en .+)$/;
+    const region = record.normalizedRegion || record.region || detail.normalizedRegion || detail.region || conflict.normalizedRegion || conflict.region;
+    if (typeof region === "string" && !key.endsWith(" " + normalizeText(region)) && !key.endsWith("cuando no hay fuente fina en la ficha")) return text;
+    return template.test(key) ? "" : text;
+  }
+  if (!Array.isArray(value)) return [];
+  if (!structural) return value;
+  return value.filter(item => {
+    if (field === "participants") return !(/^(?:actor registrado|estados participantes registrados|oponente o fuerza local documentada)$/.test(normalizeText(item?.side || ""))
+      && normalizeText(item?.casualties || "") === "no consolidado en fuentes livianas" && !item?.troops && !item?.organizations?.length);
+    if (field === "chronology") return !/^(?:inicio registrado del conflicto o accion militar|cierre registrado de la fase principal)$/.test(normalizeText(getConflictChronologyText(item)));
+    if (field === "treaties") return typeof item !== "string" || !/^cierre o arreglo posterior pendiente de curaduria especifica [^ ]+$/.test(normalizeText(item));
+    return true;
+  });
+}
+
 function getConflictModalContent(conflict, countryName = "") {
   const detail = CONFLICT_DETAIL_OVERRIDES[conflict.name] || {};
   const type = inferConflictType(conflict, detail);
@@ -6037,25 +5792,24 @@ function getConflictModalContent(conflict, countryName = "") {
   const hierarchy = getConflictHierarchyState(conflict, detail, parentName);
   const hierarchyProvisional = hierarchy.hierarchyProvisional;
   const level = conflict.level || inferConflictLevel(conflict, detail, parentName);
-  const participants = dedupeConflictParticipants(
-    (Array.isArray(detail.participants) && detail.participants.length)
-      ? detail.participants
-      : buildGenericConflictParticipants(conflict, type, countryName)
-  );
+  const participants = dedupeConflictParticipants(getConflictRecordedField(conflict, detail, "participants")
+    .filter(item => item && typeof item === "object" && !Array.isArray(item)));
   const contextCountry = countryName
     ? getCountryValues().find(country => [country.name, country.general?.officialName, ...(country.general?.historicalNames || [])]
       .some(name => normalizeText(name) === normalizeText(countryName)))
     : null;
   const countryRelationship = getConflictCountryRelationship({ ...detail, participants }, contextCountry);
-  const chronology = (Array.isArray(detail.chronology) && detail.chronology.length ? detail.chronology : buildGenericConflictChronology(conflict))
-    .map(item => ({
-      ...(item && typeof item === "object" ? item : {}),
-      text: sanitizeConflictModalText(getConflictChronologyText(item))
-    }))
+  const chronology = getConflictRecordedField(conflict, detail, "chronology")
+    .map(item => {
+      const rawYear = item?.year;
+      const year = (typeof rawYear === "number" || (typeof rawYear === "string" && rawYear.trim())) && Number.isFinite(Number(rawYear)) ? Number(rawYear) : null;
+      const rawText = getConflictChronologyText(item);
+      return { year, text: typeof rawText === "string" ? sanitizeConflictModalText(rawText) : "" };
+    })
     .filter(item => item.text)
     .sort((a, b) => {
-      const yearA = Number.isFinite(Number(a?.year)) ? Number(a.year) : Number.MAX_SAFE_INTEGER;
-      const yearB = Number.isFinite(Number(b?.year)) ? Number(b.year) : Number.MAX_SAFE_INTEGER;
+      const yearA = a.year ?? Number.MAX_SAFE_INTEGER;
+      const yearB = b.year ?? Number.MAX_SAFE_INTEGER;
       if (yearA !== yearB) {
         return yearA - yearB;
       }
@@ -6072,14 +5826,14 @@ function getConflictModalContent(conflict, countryName = "") {
     scope,
     region,
     countryRelationship,
-    cause: detail.cause || buildGenericConflictCause(conflict, type, scope, region, countryName),
+    cause: getConflictRecordedField(conflict, detail, "cause"),
     participants,
     chronology,
     battles: Array.isArray(conflict.battles) ? conflict.battles : [],
     campaigns: Array.isArray(conflict.campaigns) ? conflict.campaigns : [],
     related: (Array.isArray(detail.related) && detail.related.length) ? detail.related : buildGenericRelatedConflicts(conflict),
-    outcome: detail.outcome || buildGenericConflictOutcome(conflict),
-    consequences: detail.consequences || buildGenericConflictConsequences(conflict, type, region, countryName),
+    outcome: getConflictRecordedField(conflict, detail, "outcome"),
+    consequences: getConflictRecordedField(conflict, detail, "consequences"),
     curationStatus: detail.curationStatus || conflict.curationStatus || ((detail.curationBatch || conflict.curationBatch) ? "estructural" : ""),
     dataConfidence: detail.dataConfidence || conflict.dataConfidence || "",
     hierarchyConfidence: detail.hierarchyConfidence || conflict.hierarchyConfidence || "",
@@ -6087,13 +5841,13 @@ function getConflictModalContent(conflict, countryName = "") {
     datePrecision: detail.datePrecision || conflict.datePrecision || "",
     curationNote: detail.curationNote || conflict.curationNote || "",
     sourceDispute: detail.sourceDispute ?? conflict.sourceDispute ?? "",
-    treaties: detail.treaties || conflict.treaties || [],
-    wikipedia: detail.wikipedia || null
+    treaties: getConflictRecordedField(conflict, detail, "treaties"),
+    wikipedia: detail.wikipedia ?? conflict.wikipedia ?? null
   };
 }
 
 function sanitizeConflictModalText(value = "") {
-  return String(value || "")
+  return String(value ?? "")
     .replace(/&#\d+;?/g, " ")
     .replace(/&#x[a-f0-9]+;?/gi, " ")
     .replace(/[\u200B-\u200D\uFEFF]/g, " ")
@@ -6308,6 +6062,7 @@ function openConflictModal(key, { enhance = true } = {}) {
   }
 
   const renderToken = ++conflictModalRenderToken;
+  const pendingText = currentLanguage === "en" ? "No documented detail in this profile." : "Sin detalle documentado en esta ficha.";
   body.innerHTML = `
     <h3 id="conflict-modal-title">${escapeHtml(detail.title)}</h3>
     <p class="conflict-modal-subtitle">${currentLanguage === "en" ? "Historical conflict summary" : "Resumen historico del conflicto"}</p>
@@ -6324,19 +6079,19 @@ function openConflictModal(key, { enhance = true } = {}) {
     ${renderConflictCurationNotes(detail)}
     <div class="conflict-modal-section">
       <h4>${currentLanguage === "en" ? "Why it started" : "Por que estallo"}</h4>
-      <p>${escapeHtml(detail.cause)}</p>
+      <p${detail.cause ? "" : ' class="compare-note"'}>${escapeHtml(detail.cause || pendingText)}</p>
     </div>
       <div class="conflict-modal-section">
         <h4>${currentLanguage === "en" ? "Participants and sides" : "Participantes y bandos"}</h4>
-      ${detail.participants.map(item => `
+      ${detail.participants.length ? detail.participants.map(item => `
         <div class="conflict-modal-side">
           <strong>${escapeHtml(sanitizeConflictModalText(item.side))}</strong>
-          <p><b>${currentLanguage === "en" ? "Members" : "Integrantes"}:</b> ${escapeHtml((item.members || ["Sin datos"]).map(sanitizeConflictModalText).join(", "))}</p>
+          <p><b>${currentLanguage === "en" ? "Members" : "Integrantes"}:</b> ${escapeHtml(item.members.length ? item.members.map(sanitizeConflictModalText).join(", ") : pendingText)}</p>
           ${item.organizations && item.organizations.length ? `<p><b>${currentLanguage === "en" ? "Organizations" : "Organizaciones"}:</b> ${escapeHtml(item.organizations.map(sanitizeConflictModalText).join(", "))}</p>` : ""}
           ${item.troops ? `<p><b>${currentLanguage === "en" ? "Troops" : "Soldados"}:</b> ${escapeHtml(sanitizeConflictModalText(item.troops))}</p>` : ""}
           ${item.casualties ? `<p><b>${currentLanguage === "en" ? "Casualties" : "Bajas"}:</b> ${escapeHtml(sanitizeConflictModalText(item.casualties))}</p>` : ""}
         </div>
-      `).join("")}
+      `).join("") : `<p class="compare-note">${escapeHtml(pendingText)}</p>`}
     </div>
     ${detail.wikipedia ? `
       <div class="conflict-modal-section">
@@ -6352,17 +6107,15 @@ function openConflictModal(key, { enhance = true } = {}) {
         ${detail.participants?.some(item => item?.casualties) ? "" : renderConflictWikipediaField("Bajas", "Casualties", detail.wikipedia.casualties)}
       </div>
     ` : ""}
-    ${detail.chronology?.length ? `
       <div class="conflict-modal-section">
         <h4>${currentLanguage === "en" ? "Internal chronology" : "Cronologia interna"}</h4>
-        <ul class="data-source-list">
+        ${detail.chronology?.length ? `<ul class="data-source-list">
           ${detail.chronology.map(item => {
-            const yearLabel = Number.isFinite(Number(item?.year)) ? `<b>${escapeHtml(formatHistoricalYear(item.year))}</b> · ` : "";
+            const yearLabel = item.year != null ? `<b>${escapeHtml(formatHistoricalYear(item.year))}</b> · ` : "";
             return `<li>${yearLabel}${escapeHtml(item.text || item)}</li>`;
           }).join("")}
-        </ul>
+        </ul>` : `<p class="compare-note">${escapeHtml(pendingText)}</p>`}
       </div>
-    ` : ""}
     ${detail.campaigns?.length ? `
       <div class="conflict-modal-section">
         <h4>${currentLanguage === "en" ? "Campaigns" : "Campanas"}</h4>
@@ -6385,11 +6138,11 @@ function openConflictModal(key, { enhance = true } = {}) {
     ` : ""}
     <div class="conflict-modal-section">
       <h4>${currentLanguage === "en" ? "How it ended" : "Como se resolvio"}</h4>
-      <p>${escapeHtml(detail.outcome)}</p>
+      <p${detail.outcome ? "" : ' class="compare-note"'}>${escapeHtml(detail.outcome || pendingText)}</p>
     </div>
     <div class="conflict-modal-section">
       <h4>${currentLanguage === "en" ? "Consequences" : "Que cambio despues"}</h4>
-      <p>${escapeHtml(detail.consequences)}</p>
+      <p${detail.consequences ? "" : ' class="compare-note"'}>${escapeHtml(detail.consequences || pendingText)}</p>
     </div>
     ${renderConflictTreaties(detail)}
     ${detail.related?.length ? `

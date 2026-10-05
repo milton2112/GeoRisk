@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.279 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.280 antes de cerrar la siguiente version.
+
+## v1.6.280 - 2026-10-05
+
+- Corrige afirmaciones fabricadas al abrir conflictos sin detalle: elimina causas, consecuencias, resultados, bandos y fases internas generados por tipo, pais seleccionado o ano intermedio. Muestra "Sin detalle documentado en esta ficha" en cinco secciones, localizado tambien en ingles. Conserva fechas registradas y detalles fuente; no asigna participacion militar por abrir desde un pais.
+- Corrige coaliciones inferidas solo por miembros (por ejemplo Estados Unidos -> Corea del Sur y ONU o Alemania -> Eje en cualquier epoca). Respeta el nombre registrado; un bando generico usa sus integrantes reales sin inferir alianzas. No fusiona dos bandos sin integrantes pero con nombres distintos ni oculta cifras de un bando incompleto; conserva un cero expresamente registrado, no lo interpreta como dato ausente.
+- Filtra en la ficha los patrones de relleno identificados de la tanda estructural de junio, campo por campo, sin borrar datos/imports/fuentes ni descartar toda una ficha por su metadata. Batalla de Francia conserva causa, resultado y bandos registrados, pero ya no presenta su consecuencia generica como evidencia historica. Usa campos registrados del episodio cuando el detalle lazy no contiene ese campo; valores cargados explicitamente vacios/invalidos no reviven datos previos. Las fechas internas ausentes o en blanco no se convierten en ano cero.
+- Evidencia: regresion roja por causa inventada; pruebas de campos parciales, vacios/invalidos, coaliciones, bandos incompletos, cero, cronologia a. C. y metadata estructural con evidencia especifica. Chrome escritorio/mobile emulado reutiliza el recorrido de curaduria para avisos bilingues, detalle registrado, texto HTML escapado, ano ausente, evidencia parcial real, ausencia de desbordes y preservacion de fichas/fuentes lazy existentes. La puerta completa conserva presupuestos, tests de seguridad, offline, mapas y medicion actual; sin ampliar timeouts ni omitir cobertura.
+- Green coding: elimina cinco generadores y busquedas de coaliciones especulativas; script.js pasa de 595037 a 587151 bytes. Costo: validacion y reconocimiento de patrones al registrar las filas visibles y actualizar la ficha abierta; sin nuevas pasadas globales por datos, nuevas dependencias, descargas, caches, listeners, polling ni telemetria. Reutiliza estilos y paginas de prueba. Fuentes/datasets y auditorias de fechas/jerarquias no cambian: sigue haciendo falta curaduria y las clasificaciones/enlaces relacionados mantienen sus heuristicas existentes. Bytes/FPS no prueban ahorro energetico o CO2; mobile emulado no sustituye un celular fisico.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-10-05-release-4`.
 
 ## v1.6.279 - 2026-10-05
 
