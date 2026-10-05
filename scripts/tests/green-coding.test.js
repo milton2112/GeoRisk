@@ -1,4 +1,5 @@
 import "./map-performance.test.js";
+import "./map-navigation-quality.test.js";
 import "./map-render-recovery.test.js";
 import "./map-lifecycle.test.js";
 import "./map-entry-batches.test.js";

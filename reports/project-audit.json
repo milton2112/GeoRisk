@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-10-05T14:14:01.791Z",
+  "generatedAt": "2026-10-05T14:56:44.842Z",
   "status": "operativo",
   "startup": {
-    "critical": "876 KB",
-    "criticalBytes": 897079,
+    "critical": "878 KB",
+    "criticalBytes": 899268,
     "scope": "App shell and eager local scripts only; excludes the separately budgeted map engine.",
     "mapEngine": {
       "path": "vendor/cesium/engine.js",
@@ -11,7 +11,7 @@
       "human": "3.27 MB",
       "precached": false
     },
-    "appCoreAndEngineBytes": 4326692,
+    "appCoreAndEngineBytes": 4328881,
     "deferred": "3.15 MB",
     "estimatedRuntimeMemory": {
       "countriesFullBytes": 13240999,
@@ -40,8 +40,8 @@
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 595697,
-        "human": "582 KB",
+        "bytes": 595037,
+        "human": "581 KB",
         "startupCritical": true,
         "category": "startup-app-core"
       },
@@ -832,14 +832,14 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 595697,
-      "human": "582 KB"
+      "bytes": 595037,
+      "human": "581 KB"
     },
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 361793,
-      "human": "353 KB"
+      "bytes": 364419,
+      "human": "356 KB"
     },
     {
       "path": "style.css",
@@ -884,16 +884,16 @@
       "human": "15 KB"
     },
     {
+      "path": "app-map-interactions.js",
+      "exists": true,
+      "bytes": 14180,
+      "human": "14 KB"
+    },
+    {
       "path": "app-quiz-ui.js",
       "exists": true,
       "bytes": 12766,
       "human": "12 KB"
-    },
-    {
-      "path": "app-map-interactions.js",
-      "exists": true,
-      "bytes": 11331,
-      "human": "11 KB"
     },
     {
       "path": "app-risk-radar-ui.js",

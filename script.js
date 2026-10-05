@@ -84,9 +84,10 @@ const bootScheduler = window.GeoRiskBootScheduler || {};
 const mapCore = window.GeoRiskMap || {};
 const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
+const globeQuality = mapInteractionCore.createGlobeQualityController();
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-10-05-release-1";
+const APP_VERSION = "2026-10-05-release-2";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -1720,24 +1721,20 @@ function setNavigationQualityState(isNavigating) {
 
   if (isNavigating) {
     // Changing resolution here resizes Cesium's frustum and starts another camera movement.
-    if (currentMapMode === "2d") {
-      viewer.scene.globe.maximumScreenSpaceError = Math.max(preset.maximumScreenSpaceError, preset.maximumScreenSpaceError + 2.1);
-    } else {
-      viewer.scene.globe.maximumScreenSpaceError = Math.max(preset.maximumScreenSpaceError, preset.maximumScreenSpaceError + 0.95);
-      viewer.scene.globe.loadingDescendantLimit = Math.min(preset.loadingDescendantLimit, Math.max(6, preset.loadingDescendantLimit - 3));
-      viewer.scene.globe.tileCacheSize = Math.min(preset.tileCacheSize, Math.max(120, preset.tileCacheSize - 44));
-    }
+    globeQuality.begin(viewer.scene.globe, preset, currentMapMode);
     viewer.scene.requestRender();
     return;
   }
 
-  navigationQualityRestoreTimer = setTimeout(() => {
-    const stablePreset = getPerformancePreset();
-    viewer.scene.globe.maximumScreenSpaceError = stablePreset.maximumScreenSpaceError;
-    viewer.scene.globe.tileCacheSize = stablePreset.tileCacheSize;
-    viewer.scene.globe.loadingDescendantLimit = stablePreset.loadingDescendantLimit;
-    viewer.scene.requestRender();
+  const activeViewer = viewer;
+  const timer = setTimeout(() => {
+    if (navigationQualityRestoreTimer !== timer) return;
+    navigationQualityRestoreTimer = null;
+    if (viewer === activeViewer && !activeViewer.isDestroyed?.() && globeQuality.finish(activeViewer.scene.globe)) {
+      activeViewer.scene.requestRender();
+    }
   }, currentMapMode === "2d" ? 120 : 180);
+  navigationQualityRestoreTimer = timer;
 }
 
 let viewer = null;
@@ -2447,8 +2444,6 @@ function initializeViewer() {
 
   viewer.camera.moveStart.addEventListener(() => {
     isCameraNavigating = true;
-    emitMapEvent("dragstart");
-    emitMapEvent("zoomstart");
     if (currentMapMode === "3d" && labelMode !== "none" && labelEntities.length) {
       hideMapLabels();
     }
@@ -2471,7 +2466,11 @@ function initializeViewer() {
   if (!globeAutoRotateHandlerAttached) {
     viewer.__geoRiskRemoveAutoRotationInput = mapInteractionCore.bindAutoRotationInput({
       canvas: viewer.scene.canvas, controller: autoRotation,
-      onInteraction() { lastInteractionAt = Date.now(); }
+      onInteraction(event) {
+        lastInteractionAt = Date.now();
+        if (event?.type === "pointerdown") emitMapEvent("dragstart");
+        else if (event?.type === "wheel" || event?.type === "keydown") emitMapEvent("zoomstart");
+      }
     });
     viewer.clock.onTick.addEventListener(handleAutoRotateTick);
     globeAutoRotateHandlerAttached = true;
@@ -2542,6 +2541,9 @@ function updateMapInteractionTuning() {
     return;
   }
   const preset = getPerformancePreset();
+  clearTimeout(navigationQualityRestoreTimer);
+  navigationQualityRestoreTimer = null;
+  globeQuality.reset(viewer.scene.globe);
   viewer.scene.msaaSamples = preset.msaaSamples;
   viewer.targetFrameRate = preset.targetFrameRate;
   viewer.resolutionScale = preset.resolutionScale;
@@ -9085,10 +9087,7 @@ function startPerformanceMonitor() {
               : (isMobileLayout() ? 0.74 : tier === "low" ? 0.86 : 0.94),
             viewer.resolutionScale - (isMobileLayout() ? 0.06 : 0.04)
           ));
-        const globe = viewer.scene.globe;
-        globe.maximumScreenSpaceError = Math.max(globe.maximumScreenSpaceError, Math.min(currentMapMode === "2d" ? 12.5 : 9.2, globe.maximumScreenSpaceError + 0.45));
-        globe.loadingDescendantLimit = Math.min(globe.loadingDescendantLimit, Math.max(currentMapMode === "2d" ? 2 : 5, globe.loadingDescendantLimit - 1));
-        globe.tileCacheSize = Math.min(globe.tileCacheSize, Math.max(currentMapMode === "2d" ? 24 : 60, globe.tileCacheSize - 14));
+        globeQuality.adapt(viewer.scene.globe, getPerformancePreset(), currentMapMode, "reduce");
         viewer.scene.maximumRenderTimeChange = currentMapMode === "2d" ? 0.09 : 0.4;
         if (
           labelEntities.length &&
@@ -9102,13 +9101,13 @@ function startPerformanceMonitor() {
       } else if (action === "recover") {
         const preset = getPerformancePreset();
         viewer.resolutionScale = Math.min(preset.resolutionScale, viewer.resolutionScale + 0.03);
-        viewer.scene.globe.maximumScreenSpaceError = Math.max(preset.maximumScreenSpaceError, viewer.scene.globe.maximumScreenSpaceError - 0.2);
-        viewer.scene.globe.loadingDescendantLimit = Math.min(preset.loadingDescendantLimit, viewer.scene.globe.loadingDescendantLimit + 1);
-        viewer.scene.globe.tileCacheSize = Math.min(preset.tileCacheSize, viewer.scene.globe.tileCacheSize + 12);
+        const stableQuality = globeQuality.adapt(viewer.scene.globe, preset, currentMapMode, "recover");
         viewer.scene.maximumRenderTimeChange = currentMapMode === "2d" ? 0.06 : 0.28;
         if (
           viewer.resolutionScale >= preset.resolutionScale &&
-          viewer.scene.globe.maximumScreenSpaceError <= preset.maximumScreenSpaceError
+          stableQuality.maximumScreenSpaceError <= preset.maximumScreenSpaceError &&
+          stableQuality.tileCacheSize >= preset.tileCacheSize &&
+          stableQuality.loadingDescendantLimit >= preset.loadingDescendantLimit
         ) {
           reducedPerformanceMode = false;
           reducedPerformanceReason = "";
@@ -14230,6 +14229,8 @@ function setupThemeControls() {
 
   qualityPresetSelect?.addEventListener("change", event => {
     qualityPreset = event.target.value || "auto";
+    reducedPerformanceMode = false;
+    reducedPerformanceReason = "";
     writeLocalPreference(STORAGE_KEYS.qualityPreset, qualityPreset);
     updateMapInteractionTuning();
     updateAppStatusPanel();

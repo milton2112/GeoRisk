@@ -4,6 +4,7 @@ import vm from "node:vm";
 
 const script = await fs.readFile(new URL("../../script.js", import.meta.url), "utf8");
 const mapSource = await fs.readFile(new URL("../../app-map.js", import.meta.url), "utf8");
+const interactionSource = await fs.readFile(new URL("../../app-map-interactions.js", import.meta.url), "utf8");
 const SIMPLE = "./data/world_countries_simplified.geo.json";
 const DETAIL = "./data/world_countries.geo.json";
 const block = (start, end) => script.slice(script.indexOf(start), script.indexOf(end, script.indexOf(start)));
@@ -313,12 +314,15 @@ for (const mode of ["2d", "3d"]) {
   let restore;
   const preset = { resolutionScale: 1.05, maximumScreenSpaceError: 2, tileCacheSize: 200, loadingDescendantLimit: 12 };
   const state = {
+    window: {},
     viewer: { resolutionScale: 0.8, scene: { globe: { ...preset }, requestRender() {} } },
     currentMapMode: mode, qualityPreset: "auto", isMobileLayout: () => false,
     getPerformancePreset: () => preset, navigationQualityRestoreTimer: null,
     setTimeout: fn => { restore = fn; return 1; }, clearTimeout() {}
   };
   vm.createContext(state);
+  vm.runInContext(interactionSource, state);
+  state.globeQuality = state.window.GeoRiskMapInteractions.createGlobeQualityController();
   vm.runInContext(block("function setNavigationQualityState", "let viewer = null"), state);
   state.setNavigationQualityState(true);
   assert.equal(state.viewer.resolutionScale, 0.8, "navegar no debe redimensionar el framebuffer ni el frustum");

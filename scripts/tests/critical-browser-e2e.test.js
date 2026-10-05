@@ -1764,6 +1764,18 @@ async function testDeferredWorkDuringDrag(browser, baseUrl) {
     const { page } = test;
     try {
       await waitForAppReady(page);
+      await page.waitForFunction(() => !isCameraNavigating && navigationQualityRestoreTimer === null);
+      const adaptiveQuality = await page.evaluate(() => {
+        const preset = getPerformancePreset();
+        const stable = { maximumScreenSpaceError: preset.maximumScreenSpaceError + 2.3,
+          tileCacheSize: Math.max(1, preset.tileCacheSize - 14),
+          loadingDescendantLimit: Math.max(1, preset.loadingDescendantLimit - 1) };
+        Object.assign(viewer.scene.globe, stable);
+        reducedPerformanceMode = true;
+        reducedPerformanceReason = "navigation-quality-fixture";
+        viewer.scene.requestRender();
+        return stable;
+      });
       await page.evaluate(() => { window.__originalIdleCallback = window.requestIdleCallback; });
       for (const idleSupported of [true, false]) {
         console.log("deferred-drag: " + label + " idle=" + idleSupported);
@@ -1806,7 +1818,48 @@ async function testDeferredWorkDuringDrag(browser, baseUrl) {
         assert.deepEqual(runs, [{ navigating: false, visibility: "visible", pointers: false }]);
         await page.waitForTimeout(250);
         assert.equal(await page.evaluate(() => window.__quietTaskRuns.length), 1);
+        await page.waitForFunction(() => navigationQualityRestoreTimer === null);
+        assert.deepEqual(await page.evaluate(() => ({
+          maximumScreenSpaceError: viewer.scene.globe.maximumScreenSpaceError,
+          tileCacheSize: viewer.scene.globe.tileCacheSize,
+          loadingDescendantLimit: viewer.scene.globe.loadingDescendantLimit
+        })), adaptiveQuality, label + " arrastre real conserva las reducciones adaptativas");
       }
+      const toolbarToggle = page.locator(viewport.width <= 820 ? "#toggle-tools-panel" : "#map-toolbar > summary");
+      await toolbarToggle.click();
+      await page.locator("#quality-preset-select").selectOption("high");
+      assert.equal(await page.evaluate(() => reducedPerformanceMode), false, "calidad elegida no conserva el aviso adaptativo anterior");
+      assert.equal(await page.evaluate(() => reducedPerformanceReason), "");
+      await page.waitForFunction(() => {
+        const preset = getPerformancePreset();
+        return !isCameraNavigating && navigationQualityRestoreTimer === null &&
+          viewer.resolutionScale === preset.resolutionScale &&
+          viewer.scene.globe.maximumScreenSpaceError === preset.maximumScreenSpaceError &&
+          viewer.scene.globe.tileCacheSize === preset.tileCacheSize &&
+          viewer.scene.globe.loadingDescendantLimit === preset.loadingDescendantLimit;
+      });
+      await page.evaluate(() => {
+        // Cesium can emit these events for internal frustum/resize changes too.
+        viewer.camera.moveStart.raiseEvent();
+        viewer.camera.moveEnd.raiseEvent();
+      });
+      if (!(await page.locator("#quality-preset-select").isVisible())) {
+        console.error("quality-controls:", await page.evaluate(() => ({
+          toolbarOpen: document.getElementById("map-toolbar").open,
+          bodyClasses: document.body.className, navigating: isCameraNavigating,
+          pointers: autoRotation.hasActivePointers()
+        })));
+        await page.screenshot({ path: "tmp/quality-controls-" + label + "-closed.png" });
+      }
+      assert.equal(await page.locator("#quality-preset-select").isVisible(), true,
+        "cambiar calidad no debe cerrar los controles sin una interaccion del mapa");
+      await page.locator("#quality-preset-select").selectOption("auto");
+      if (viewport.width <= 820) {
+        await page.mouse.move(3, viewport.height * 0.5);
+        await page.mouse.down();
+        await page.waitForFunction(() => !document.body.classList.contains("mobile-tools-open"));
+        await page.mouse.up();
+      } else await toolbarToggle.click();
       await page.screenshot({ path: "tmp/deferred-drag-" + label + ".png" });
       await submitSearch(page, "Argentina");
       await page.locator("#country-panel .country-profile").waitFor();

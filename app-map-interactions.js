@@ -64,9 +64,9 @@
   }
 
   function bindAutoRotationInput({ canvas, controller, onInteraction, document = window.document, host = window }) {
-    const down = event => { controller.pointerDown(event.pointerId); onInteraction(); };
-    const up = event => { if (controller.pointerUp(event.pointerId)) onInteraction(); };
-    const pause = () => { controller.reset(); onInteraction(); };
+    const down = event => { controller.pointerDown(event.pointerId); onInteraction(event); };
+    const up = event => { if (controller.pointerUp(event.pointerId)) onInteraction(event); };
+    const pause = event => { controller.reset(); onInteraction(event); };
     const leave = () => { controller.releasePointers(); onInteraction(); };
     canvas.addEventListener("pointerdown", down, { passive: true });
     canvas.addEventListener("wheel", pause, { passive: true });
@@ -116,6 +116,61 @@
     }
     const threshold = isMobile ? 18 : tier === "low" ? 16 : tier === "medium" ? 18 : 20;
     return fps < threshold;
+  }
+
+  function createGlobeQualityController() {
+    const navigation = new WeakMap();
+    const read = globe => ({ maximumScreenSpaceError: globe.maximumScreenSpaceError,
+      tileCacheSize: globe.tileCacheSize, loadingDescendantLimit: globe.loadingDescendantLimit });
+    function applyNavigation(globe, { stable, preset, mode }) {
+      Object.assign(globe, {
+        maximumScreenSpaceError: Math.max(stable.maximumScreenSpaceError, preset.maximumScreenSpaceError + (mode === "2d" ? 2.1 : 0.95)),
+        tileCacheSize: mode === "2d" ? stable.tileCacheSize
+          : Math.min(stable.tileCacheSize, preset.tileCacheSize, Math.max(120, preset.tileCacheSize - 44)),
+        loadingDescendantLimit: mode === "2d" ? stable.loadingDescendantLimit
+          : Math.min(stable.loadingDescendantLimit, preset.loadingDescendantLimit, Math.max(6, preset.loadingDescendantLimit - 3))
+      });
+    }
+    return {
+      begin(globe, preset, mode) {
+        const state = navigation.get(globe) || { stable: read(globe) };
+        Object.assign(state, { preset, mode });
+        navigation.set(globe, state);
+        applyNavigation(globe, state);
+      },
+      finish(globe) {
+        const state = navigation.get(globe);
+        if (!state) return false;
+        navigation.delete(globe);
+        Object.assign(globe, state.stable);
+        return true;
+      },
+      reset(globe) { navigation.delete(globe); },
+      adapt(globe, preset, mode, action) {
+        const state = navigation.get(globe);
+        const stable = state?.stable || read(globe);
+        let next;
+        if (action === "reduce") {
+          next = {
+            maximumScreenSpaceError: Math.max(stable.maximumScreenSpaceError, Math.min(mode === "2d" ? 12.5 : 9.2, stable.maximumScreenSpaceError + 0.45)),
+            tileCacheSize: Math.min(stable.tileCacheSize, Math.max(mode === "2d" ? 24 : 60, stable.tileCacheSize - 14)),
+            loadingDescendantLimit: Math.min(stable.loadingDescendantLimit, Math.max(mode === "2d" ? 2 : 5, stable.loadingDescendantLimit - 1))
+          };
+        } else if (action === "recover") {
+          next = {
+            maximumScreenSpaceError: Math.max(preset.maximumScreenSpaceError, stable.maximumScreenSpaceError - 0.2),
+            tileCacheSize: Math.min(preset.tileCacheSize, stable.tileCacheSize + 12),
+            loadingDescendantLimit: Math.min(preset.loadingDescendantLimit, stable.loadingDescendantLimit + 1)
+          };
+        } else throw new Error("Unknown globe quality action.");
+        // FPS changes affect stable quality, never the temporary drag relaxation.
+        if (state) {
+          Object.assign(state, { stable: next, preset, mode });
+          applyNavigation(globe, state);
+        } else Object.assign(globe, next);
+        return next;
+      }
+    };
   }
 
   function createFpsQualityMonitor() {
@@ -303,6 +358,7 @@
     bindAutoRotationInput,
     installRenderRecovery,
     createFpsQualityMonitor,
+    createGlobeQualityController,
     getHoverSampleWindow,
     getNavigationTuning,
     shouldDisableLabelsForFps,
