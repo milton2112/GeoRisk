@@ -87,7 +87,7 @@ const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const globeQuality = mapInteractionCore.createGlobeQualityController();
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-10-05-release-5";
+const APP_VERSION = "2026-10-05-release-6";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -2291,10 +2291,6 @@ const TIMELINE_DETAIL_OVERRIDES = {
   }
 };
 
-Object.assign(TIMELINE_DETAIL_OVERRIDES, curatedTimelineDetailOverrides);
-
-Object.assign(CURATED_TIMELINE_EXTRAS, curatedTimelineExtras);
-
 function emitMapEvent(eventName) {
   (mapEventListeners[eventName] || []).forEach(listener => {
     try {
@@ -4482,7 +4478,16 @@ function getTimelineCategoryAccent(key) {
 }
 
 function getTimelineDetailContent(item, contextLabel = "") {
-  const override = TIMELINE_DETAIL_OVERRIDES[item.reference] || TIMELINE_DETAIL_OVERRIDES[item.text] || {};
+  let override;
+  for (const key of [item.reference, item.text]) {
+    override = curatedTimelineDetailOverrides[key] || TIMELINE_DETAIL_OVERRIDES[key];
+    if (!override && typeof key === "string") {
+      const unaccented = key.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      override = curatedTimelineDetailOverrides[unaccented] || TIMELINE_DETAIL_OVERRIDES[unaccented];
+    }
+    if (override) break;
+  }
+  override ||= {};
   return {
     title: override.title || item.reference || item.text,
     year: formatHistoricalYear(item.year),
@@ -4502,17 +4507,18 @@ function getTimelineDetailContent(item, contextLabel = "") {
 
 function registerTimelineModal(item, contextLabel = "") {
   const key = `timeline-${timelineModalCounter += 1}`;
-  timelineModalRegistry.set(key, getTimelineDetailContent(item, contextLabel));
+  timelineModalRegistry.set(key, { item, contextLabel });
   return key;
 }
 
 function openTimelineModal(key) {
   const modal = document.getElementById("timeline-modal");
   const body = document.getElementById("timeline-modal-body");
-  const detail = timelineModalRegistry.get(key);
-  if (!modal || !body || !detail) {
+  const entry = timelineModalRegistry.get(key);
+  if (!modal || !body || !entry) {
     return;
   }
+  const detail = entry.item ? getTimelineDetailContent(entry.item, entry.contextLabel || "") : entry;
 
   body.innerHTML = `
     <h3 id="timeline-modal-title">${escapeHtml(detail.title)}</h3>
@@ -9405,7 +9411,7 @@ function buildTimeline(country) {
     });
   });
 
-  (CURATED_TIMELINE_EXTRAS[countryCode] || []).forEach(event => {
+  (curatedTimelineExtras[countryCode] || CURATED_TIMELINE_EXTRAS[countryCode] || []).forEach(event => {
     items.push({
       year: event.year,
       category: getTimelineCategoryLabel({

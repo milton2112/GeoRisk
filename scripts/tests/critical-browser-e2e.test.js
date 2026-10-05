@@ -2714,6 +2714,14 @@ async function testCountryTextRendering(browser, baseUrl) {
     try {
       const { page } = test;
       await waitForAppReady(page);
+      await page.evaluate(() => {
+        window.__originalTimelineBuilder = getTimelineDetailContent;
+        window.__timelineModelBuilds = 0;
+        getTimelineDetailContent = (...args) => {
+          window.__timelineModelBuilds += 1;
+          return window.__originalTimelineBuilder(...args);
+        };
+      });
       assert.deepEqual(await page.evaluate(() => [
         formatNumber(123456.789) === (123456.789).toLocaleString("es-AR"),
         formatPercentage(9.995) === `${(9.995).toLocaleString("es-AR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%`,
@@ -2747,10 +2755,37 @@ async function testCountryTextRendering(browser, baseUrl) {
         await renderCountry(countriesData.ARG, countriesData.ARG.name);
       });
       await page.locator('[data-country-nav="country-section-history"]').click();
-      await page.locator("#country-section-history .timeline-item").first().click();
+      await page.waitForFunction(() => deferredDataStatus.runtimeCuration === true &&
+        document.querySelectorAll("#country-section-history .timeline-item").length > 0);
+      const timelineLinks = await page.locator("#country-section-history .timeline-item").count();
+      assert.equal(await page.evaluate(() => window.__timelineModelBuilds), 0, "rendering country/history links does not prepare unopened timeline models");
+      console.log("timeline-models: " + viewport.width + " " + timelineLinks + " visible links; 0 prepared models");
+      const eventLink = page.locator("#country-section-history .timeline-item").filter({ hasText: /ruptura del orden virreinal/ }).first();
+      await eventLink.click();
       await page.locator("#timeline-modal").waitFor({ state: "visible" });
+      assert.equal(await page.evaluate(() => window.__timelineModelBuilds), 1);
+      const curated = await page.evaluate(() => window.GeoRiskCuration.EXTRA_TIMELINE_DETAIL_OVERRIDES["Revolucion de Mayo"]);
+      const timelineBody = page.locator("#timeline-modal-body");
+      assert.equal(await page.locator("#timeline-modal-title").textContent(), curated.title);
+      assert.ok((await timelineBody.innerText()).includes(curated.detail), "the real late-loaded historical detail must be visible");
+      assert.ok((await timelineBody.innerText()).includes(curated.significance));
+      assert.equal(await timelineBody.evaluate(element => element.scrollWidth <= element.clientWidth + 1), true, "timeline text must fit the modal width");
+      await page.screenshot({ path: "tmp/timeline-curation-" + viewport.width + ".png" });
+      await assertModalFrame(page, "timeline-modal");
+      await page.locator("#timeline-modal-close").click();
+      await page.evaluate(() => { currentLanguage = "en"; });
+      await eventLink.click();
+      assert.equal(await page.evaluate(() => window.__timelineModelBuilds), 2, "reopening constructs exactly one current model");
+      assert.match(await timelineBody.innerText(), /Historical timeline event/);
+      assert.match(await timelineBody.innerText(), /High impact/);
+      assert.match(await timelineBody.innerText(), /19th c\./);
+      assert.ok((await timelineBody.innerText()).includes(curated.detail), "existing source text is preserved, not invented by localization");
       assertHealthyPage(test.pageErrors, "country text rendering " + viewport.width);
     } finally {
+      await test.page.evaluate(() => {
+        if (window.__originalTimelineBuilder) getTimelineDetailContent = window.__originalTimelineBuilder;
+        currentLanguage = "es";
+      }).catch(() => {});
       await test.context.close();
     }
   }

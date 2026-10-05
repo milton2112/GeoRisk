@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.281 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.282 antes de cerrar la siguiente version.
+
+## v1.6.282 - 2026-10-05
+
+- Timeline bajo demanda: registrar enlaces conserva el evento y su contexto, sin construir ni retener fichas que el usuario no abre. Abrir/reabrir usa el idioma y la curaduria actuales; conserva modelos directos legacy. DOM o claves inexistentes no preparan modelos. Mantiene estructura, cierre, foco, HTML escapado, referencias registradas y enlaces relacionados.
+- Corrige dos desconexiones de curaduria: los eventos adicionales por pais y los detalles historicos seguian leyendo tablas copiadas antes de cargar app-curation.js. Ahora consultan las tablas diferidas actuales, con fallback base y sin nuevas copias globales. Una lista curada reemplaza los extras base de ese pais, no los concatena; una lista explicitamente vacia permanece vacia. No modifica datasets, fechas, fuentes ni formulas/clasificaciones.
+- Corrige detalle perdido por tildes en referencias/textos, por ejemplo Revolucion de Mayo frente a su variante acentuada. Busca primero la referencia, despues el texto; cada candidato prioriza su clave exacta y admite su variante sin tildes solo si no hay coincidencia. No crea aliases globales, recorre tablas ni traduce/inventa texto historico.
+- Evidencia: tests rojos por 1000 modelos no abiertos, detalle y eventos curados ignorados tras carga, y referencia acentuada sin detalle. Regresiones del codigo real cubren cero construcciones al registrar, una por apertura, reapertura/idioma, tablas reemplazadas, prioridad de claves, legacy, contexto, escaping y guards. Chrome desktop/mobile reutiliza las paginas existentes: 33 enlaces visibles por perfil, cero modelos preparados; muestra el evento adicional de Mayo y su detalle/significado registrado, mantiene el ajuste horizontal y foco del modal, y reabre en ingles con una nueva construccion. Se conservan pruebas de inyeccion, conflictos, seguridad, offline y presupuestos; sin nuevas paginas E2E ni limites relajados.
+- Green coding: evita CPU y snapshots retenidos especulativamente y dos copias de tablas; sin dependencias, precargas, red adicional, polling, timers, listeners ni telemetria. Costo: un modelo por apertura, hasta dos normalizaciones de clave cuando falta coincidencia exacta, y procesar los eventos curados existentes al construir el timeline solicitado, dentro del limite visual anterior. script.js pasa de 587085 a 587390 bytes (+305) para recuperar datos omitidos y evitar trabajo no solicitado; no hay cambios CSS ni de datasets. La vida del registro, los posibles eventos redundantes entre categorias, los textos fuente y las heuristicas de impacto/relevancia siguen requiriendo revision; no se afirma que toda la memoria o calidad historica este resuelta. La puerta completa registra el fingerprint actual. Bytes/FPS no prueban ahorro energetico ni CO2; mobile emulado no sustituye un telefono fisico.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-10-05-release-6`.
 
 ## v1.6.281 - 2026-10-05
 
