@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-10-04T18:27:32.883Z",
+  "generatedAt": "2026-10-04T21:40:54.667Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 13225137,
-    "duplicatedCountryFilesBytes": 1559442,
-    "countryConflictShardBytes": 461193,
+    "fullBytes": 13240999,
+    "duplicatedCountryFilesBytes": 1560046,
+    "countryConflictShardBytes": 461264,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
         "bytes": 25037,
-        "inlineBytes": 1363791,
+        "inlineBytes": 1367253,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -54,8 +54,8 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 80697,
-          "conflictShardBytes": 80698,
+          "conflictsBytes": 80768,
+          "conflictShardBytes": 80769,
           "averageConflictBytes": 238
         }
       },
@@ -215,8 +215,8 @@
       {
         "code": "DEU",
         "name": "Alemania",
-        "bytes": 20437,
-        "inlineBytes": 187497,
+        "bytes": 20739,
+        "inlineBytes": 193697,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -225,12 +225,12 @@
           "religionGroups": 5,
           "organizations": 79,
           "rivals": 21,
-          "conflicts": 31,
+          "conflicts": 32,
           "timelineEvents": 4
         },
         "metrics": {
           "sectionBytes": {
-            "military": 8563,
+            "military": 8865,
             "politics": 8058,
             "metadata": 1952,
             "general": 992,
@@ -243,7 +243,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 8563
+              "bytes": 8865
             },
             {
               "section": "politics",
@@ -258,9 +258,9 @@
               "bytes": 992
             }
           ],
-          "conflictsBytes": 8446,
+          "conflictsBytes": 8748,
           "conflictShardBytes": 0,
-          "averageConflictBytes": 272
+          "averageConflictBytes": 273
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 81,
+    "pendingCount": 80,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15811,19 +15811,6 @@
         ],
         "regions": [
           "Asia-Pacífico"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Incursion sobre Santorini",
-        "countries": [
-          "GBR"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"

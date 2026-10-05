@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-10-04T21:18:45.888Z",
+  "generatedAt": "2026-10-04T22:36:17.175Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 82
+      "count": 81
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 16
+      "count": 15
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 623
+      "count": 624
     },
     "redundantReligions": {
       "count": 0
@@ -228,11 +228,6 @@
       },
       {
         "code": "GBR",
-        "name": "Incursion sobre Santorini",
-        "region": "Europa"
-      },
-      {
-        "code": "GBR",
         "name": "Operación Bodenplatte",
         "region": "Europa"
       },
@@ -255,6 +250,11 @@
         "code": "GBR",
         "name": "Operación Wikinger",
         "region": "Europa"
+      },
+      {
+        "code": "USA",
+        "name": "Asedio de Fort Mackinac",
+        "region": "América"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -334,13 +334,6 @@
         "name": "Operación Batalla por la Restauración de la Dignidad",
         "parent": "Conflicto regional de Asia",
         "campaign": "Campaña vinculada a Conflicto regional de Asia",
-        "startYear": null
-      },
-      {
-        "code": "GBR",
-        "name": "Incursion sobre Santorini",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
       },
       {
@@ -1375,7 +1368,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 16,
+      "count": 15,
       "command": "npm run fix:conflicts:batches"
     },
     {
