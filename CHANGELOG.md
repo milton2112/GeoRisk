@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.280 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.281 antes de cerrar la siguiente version.
+
+## v1.6.281 - 2026-10-05
+
+- Evita preparar fichas de conflictos que el usuario no abre. Registrar enlaces conserva solo la referencia al registro original y el pais de contexto; construye causas, bandos, cronologia y metadata del modal al abrir/refrescar una ficha valida. No duplica el modelo de visualizacion en cada enlace ni cambia textos, campos fuente, jerarquias, clasificaciones o datos.
+- Corrige snapshots viejos: reabrir consulta los detalles cargados y el idioma actuales, aunque el enlace se haya registrado antes. Conserva compatibilidad con modelos directos/anidados antiguos. La respuesta lazy valida propietario, visibilidad y token, y pide el render sin preparar otro modelo primero. Un DOM o enlace inexistente no inicia preparacion ni invalida otra ficha; las respuestas tardias no construyen modelos descartados.
+- Evidencia: regresion roja con 1000 registros que antes construian 1000 fichas sin abrirlas; ahora cero y una por lectura solicitada. Tests del codigo real verifican reapertura con revision/idioma nuevos, modelos legacy, guards y carreras de carga/cierre/reemplazo. El recorrido de Chrome existente muestra 21 enlaces militares desktop y 19 mobile con cero modelos preparados; abrir Gata prepara uno, abrir/cargar Halifax suma dos renders sin duplicar preparacion, y la respuesta tardia de Gata no agrega trabajo ni reemplaza la ficha. Conserva datos documentados, estados pendientes, fuentes, HTML escapado, foco y ajuste mobile; sin paginas de navegador nuevas ni timeouts/presupuestos relajados.
+- Green coding: elimina trabajo CPU y objetos/arrays de detalle retenidos para enlaces no usados; no crea otro cache ni precalculo. Costo: cada apertura/refresco prepara un modelo pequeno con evidencia actual, en lugar de reutilizar un snapshot viejo. script.js pasa de 587151 a 587085 bytes (-66); sin dependencias, red, precarga, polling, timers, listeners, telemetria, CSS ni cambios de datasets. Las identidades y vida del registro de enlaces siguen iguales; no se afirma que toda su retencion este resuelta ni que desaparezcan todos los tirones. La puerta completa registra la medicion del fingerprint actual. Conteos/bytes/FPS no prueban ahorro energetico o CO2 y mobile emulado no sustituye un celular fisico.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-10-05-release-5`.
 
 ## v1.6.280 - 2026-10-05
 

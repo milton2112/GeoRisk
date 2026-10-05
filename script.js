@@ -87,7 +87,7 @@ const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const globeQuality = mapInteractionCore.createGlobeQualityController();
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-10-05-release-4";
+const APP_VERSION = "2026-10-05-release-5";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -5874,8 +5874,7 @@ function registerConflictModal(conflict, countryName = "") {
   const key = `conflict-${conflictModalCounter += 1}`;
   conflictModalRegistry.set(key, {
     conflict,
-    countryName,
-    detail: getConflictModalContent(conflict, countryName)
+    countryName
   });
   return key;
 }
@@ -6002,10 +6001,10 @@ function getConflictModalEntryDetail(entry) {
   if (!entry) {
     return null;
   }
-  if (entry.detail) {
-    return entry.detail;
+  if (entry.conflict) {
+    return getConflictModalContent(entry.conflict, entry.countryName || "");
   }
-  return entry;
+  return entry.detail || entry;
 }
 
 function renderConflictCurationNotes(detail) {
@@ -6044,7 +6043,6 @@ function maybeEnhanceOpenConflictModal(key, entry, renderToken = conflictModalRe
       if (!loadedDetail || currentEntry !== entry || modal?.hidden !== false || renderToken !== conflictModalRenderToken) {
         return;
       }
-      currentEntry.detail = getConflictModalContent(currentEntry.conflict, currentEntry.countryName || "");
       openConflictModal(key, { enhance: false });
     })
     .catch(error => {
@@ -6056,8 +6054,11 @@ function openConflictModal(key, { enhance = true } = {}) {
   const modal = document.getElementById("conflict-modal");
   const body = document.getElementById("conflict-modal-body");
   const entry = conflictModalRegistry.get(key);
+  if (!modal || !body || !entry) {
+    return;
+  }
   const detail = getConflictModalEntryDetail(entry);
-  if (!modal || !body || !detail) {
+  if (!detail) {
     return;
   }
 

@@ -964,6 +964,14 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
     try {
       await waitForAppReady(page, { requireTiles: false });
       assert.deepEqual(scriptAttempts, { "app-curation": 0, "app-conflict-rules": 0 }, "historical curation is not downloaded at startup");
+      await page.evaluate(() => {
+        window.__originalConflictModalBuilder = getConflictModalContent;
+        window.__conflictModelBuilds = 0;
+        getConflictModalContent = (...args) => {
+          window.__conflictModelBuilds += 1;
+          return window.__originalConflictModalBuilder(...args);
+        };
+      });
       await submitSearch(page, "Argentina");
       await waitForCountryPanel(page, "Argentina");
       const history = page.locator('[data-country-nav="country-section-history"]');
@@ -988,6 +996,14 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
       assert.deepEqual(scriptAttempts, { "app-curation": 2, "app-conflict-rules": 1 }, "explicit reopening only retries the failed script");
       assert.equal(await page.locator('script[data-dynamic-src*="app-curation.js"]').count(), 1);
       await page.locator("#country-section-history").waitFor({ state: "visible" });
+      await page.locator('[data-country-nav="country-section-military"]').click();
+      await page.waitForFunction(() => document.querySelectorAll('#country-section-military [data-conflict-key]').length > 0);
+      const registeredModels = await page.evaluate(() => ({
+        visibleLinks: document.querySelectorAll('#country-section-military [data-conflict-key]').length,
+        preparedModels: window.__conflictModelBuilds
+      }));
+      assert.equal(registeredModels.preparedModels, 0, "military links are rendered without constructing unopened modal models");
+      console.log("conflict-models: " + label + " " + registeredModels.visibleLinks + " visible links; 0 prepared models");
       await closeCountryPanel(page);
       await page.evaluate(async () => {
         await loadCountryDetail("USA");
@@ -997,12 +1013,15 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
         openConflictModal(window.__curationKeys[0]);
       });
       await Promise.race([requested, page.waitForTimeout(APP_TIMEOUT_MS).then(() => { throw new Error("No se solicito el detalle de Gata"); })]);
+      assert.equal(await page.evaluate(() => window.__conflictModelBuilds), 1, "only the opened Gata profile is prepared, not its unopened Halifax link");
       await page.evaluate(() => openConflictModal(window.__curationKeys[1]));
       await page.waitForFunction(() => Boolean(CONFLICT_DETAIL_OVERRIDES["Batalla naval frente a Halifax (1782)"]));
       const body = page.locator("#conflict-modal-body");
       assert.match(await body.locator(".overview-card").first().innerText(), /Batalla/i);
       assert.match(await body.locator(".overview-card").nth(2).innerText(), /Local/);
       await body.locator(".conflict-curation-notes").waitFor();
+      await page.waitForFunction(() => window.__conflictModelBuilds >= 3);
+      assert.equal(await page.evaluate(() => window.__conflictModelBuilds), 3, "initial render plus owned loaded render, without a duplicate preparation in the callback");
       assert.match(await body.locator(".conflict-curation-notes").innerText(), /28 al 29 de mayo de 1782/);
       assert.match(await body.locator(".conflict-curation-notes").innerText(), /no un buque de la Marina Continental/);
       assert.equal(await body.locator(".conflict-treaties").count(), 0);
@@ -1013,6 +1032,7 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
       releaseDetail();
       await page.waitForFunction(() => Boolean(CONFLICT_DETAIL_OVERRIDES["Batalla del cabo de Gata (1815)"]));
       await page.waitForTimeout(150);
+      assert.equal(await page.evaluate(() => window.__conflictModelBuilds), 3, "a late response for another episode does not build a discarded model");
       const title = await page.locator("#conflict-modal-title").innerText();
       assert.match(title, /Halifax/i);
       assert.equal((title.match(/1782/g) || []).length, 1, "no duplicar el periodo del titulo");
@@ -1232,6 +1252,9 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
       throw error;
     } finally {
       releaseDetail();
+      await page.evaluate(() => {
+        if (window.__originalConflictModalBuilder) getConflictModalContent = window.__originalConflictModalBuilder;
+      }).catch(() => {});
       await test.context.close();
     }
   }
