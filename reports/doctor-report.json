@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-10-05T18:47:24.161Z",
-  "packageVersion": "1.6.282",
+  "generatedAt": "2026-10-05T19:19:40.600Z",
+  "packageVersion": "1.6.283",
   "status": "observacion",
   "summary": {
-    "totalFindings": 2,
+    "totalFindings": 4,
     "bySeverity": {
-      "media": 2
+      "media": 4
     },
-    "startupBytes": 891621,
-    "scriptBytes": 587390,
+    "startupBytes": 891863,
+    "scriptBytes": 587632,
     "countriesIndexBytes": 144225,
     "conflictAuditIssues": 0,
     "dataCounts": {
@@ -38,6 +38,16 @@
       "command": "npm run performance:snapshot -- --fresh"
     },
     {
+      "area": "performance",
+      "title": "Rendimiento real por revisar",
+      "command": "npm run performance:snapshot -- --fresh"
+    },
+    {
+      "area": "performance",
+      "title": "Rendimiento real por revisar",
+      "command": "npm run performance:snapshot -- --fresh"
+    },
+    {
       "area": "datos",
       "title": "Jerarquias de conflicto todavia provisionales",
       "command": "npm run fix:conflicts:batches"
@@ -48,7 +58,21 @@
       "severity": "media",
       "area": "performance",
       "title": "Rendimiento real por revisar",
-      "detail": "desktop: 1 tareas >200 ms; maxima 203 ms.",
+      "detail": "desktop: 5 tareas >200 ms; maxima 710 ms.",
+      "command": "npm run performance:snapshot -- --fresh"
+    },
+    {
+      "severity": "media",
+      "area": "performance",
+      "title": "Rendimiento real por revisar",
+      "detail": "mobile-emulated: 3 tareas >200 ms; maxima 861 ms.",
+      "command": "npm run performance:snapshot -- --fresh"
+    },
+    {
+      "severity": "media",
+      "area": "performance",
+      "title": "Rendimiento real por revisar",
+      "detail": "mobile-emulated: render activo 16.0 FPS, umbral 17.6 (objetivo 22).",
       "command": "npm run performance:snapshot -- --fresh"
     },
     {

@@ -87,7 +87,7 @@ const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const globeQuality = mapInteractionCore.createGlobeQualityController();
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-10-05-release-6";
+const APP_VERSION = "2026-10-05-release-7";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -6570,6 +6570,7 @@ async function renderCountry(country, fallbackName) {
     && countryViewMode !== "compact";
   if (shouldRenderMilitaryDetail) {
     await ensureConflictAliasesLoaded();
+    if (renderToken !== countryPanelRenderToken) return;
   }
   const conflictGroups = shouldRenderMilitaryDetail ? buildConflictGroups(conflictsSinceFormation) : [];
   const conflictCountHint = getCountryConflictCount(country) || conflictsSinceFormation.length;
@@ -6708,6 +6709,7 @@ async function renderCountry(country, fallbackName) {
   renderThemeSummary();
   openCountryModal();
   } catch (error) {
+    if (renderToken !== countryPanelRenderToken) return;
     console.error(`No se pudo renderizar la ficha de ${country?.name || fallbackName || "pais"}:`, error);
     const countryCode = getCountryCodeByObject(country);
     currentPanelState = { type: "country", code: countryCode, fallbackName };
@@ -6737,6 +6739,7 @@ async function renderCountry(country, fallbackName) {
 }
 
 function renderContinent(continent, countries) {
+  countryPanelRenderToken += 1;
   const timelineFilter =
     currentPanelState.type === "continent" && currentPanelState.continent === continent
       ? (currentPanelState.timelineFilter || "all")
@@ -6781,6 +6784,7 @@ function renderContinent(continent, countries) {
 }
 
 function renderReligionSelection(religionName, countries, totalNominal) {
+  countryPanelRenderToken += 1;
   currentPanelState = { type: "religion", religionName, countries, totalNominal };
   const denominationMode = isKnownReligionDenomination(religionName);
   document.getElementById("country-panel").innerHTML = `
@@ -6819,6 +6823,7 @@ function renderReligionSelection(religionName, countries, totalNominal) {
 }
 
 function renderEmpty(name) {
+  countryPanelRenderToken += 1;
   currentPanelState = { type: "empty", name };
   document.getElementById("country-panel").innerHTML = `
     <h2>${name}</h2>
@@ -9235,6 +9240,7 @@ function renderThemePicker() {
 }
 
 function renderGroupSelection(title, descriptor, countries, options = {}) {
+  countryPanelRenderToken += 1;
   const conflictModalKey = String(
     options.conflictModalKey
       || (currentPanelState.type === "group" && currentPanelState.title === title ? currentPanelState.conflictModalKey || "" : "")

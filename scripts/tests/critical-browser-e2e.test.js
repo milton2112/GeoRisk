@@ -2066,11 +2066,82 @@ async function testCountryDataRecovery(browser, baseUrl) {
       assert.ok(await page.locator("#country-section-military [data-conflict-key]").count() > 0);
       assert.equal(requests.filter(url => /\/countries\/conflicts\/AUS\.json\?/.test(url)).length, 2);
       assert.ok(await page.evaluate(count => countriesData.AUS.military.conflicts.length > count, preview));
+
+      await closeCountryPanel(page);
+      await page.evaluate(() => {
+        const original = ensureDeferredUiModule;
+        let release;
+        const held = new Promise(resolve => { release = resolve; });
+        const probe = window.__countryOwnerProbe = {
+          release, restore: () => { ensureDeferredUiModule = original; }, entered: false
+        };
+        ensureDeferredUiModule = async name => {
+          if (name === "countryPanel") { probe.entered = true; await held; }
+          return original(name);
+        };
+        probe.pending = renderCountry(countriesData.ARG, "Argentina");
+      });
+      await page.waitForFunction(() => window.__countryOwnerProbe.entered);
+      await submitSearch(page, "Europa");
+      await page.waitForFunction(() => currentPanelState.type === "continent");
+      const selectedCodes = await page.evaluate(() => selectedLayers.map(layer => layer.code).sort());
+      assert.ok(selectedCodes.length > 0 && !selectedCodes.includes("ARG"));
+      await page.evaluate(async () => {
+        const probe = window.__countryOwnerProbe;
+        probe.restore();
+        probe.release();
+        await probe.pending;
+        delete window.__countryOwnerProbe;
+      });
+      assert.equal(await page.evaluate(() => currentPanelState.type), "continent", "late country modules preserve the latest continent selection");
+      assert.match(await page.locator("#country-panel h2").first().innerText(), /Europa/);
+      assert.equal(await page.locator("#country-panel .country-profile").count(), 0);
+      assert.deepEqual(await page.evaluate(() => selectedLayers.map(layer => layer.code).sort()), selectedCodes);
+      await page.screenshot({ path: "tmp/country-owner-" + label + ".png" });
+      await closeCountryPanel(page);
+
+      await submitSearch(page, "Australia");
+      await page.locator("#country-panel .country-profile").waitFor();
+      await page.locator('[data-country-nav="country-section-military"]').click();
+      await page.waitForFunction(() => document.getElementById("country-section-military")?.open === true);
+      await page.evaluate(() => {
+        const original = ensureConflictAliasesLoaded;
+        let release;
+        const held = new Promise(resolve => { release = resolve; });
+        const probe = window.__countryOwnerProbe = {
+          release, restore: () => { ensureConflictAliasesLoaded = original; }, entered: false,
+          counters: [conflictModalCounter, timelineModalCounter]
+        };
+        ensureConflictAliasesLoaded = async () => { probe.entered = true; await held; return original(); };
+        probe.pending = renderCountry(countriesData.AUS, "Australia");
+      });
+      await page.waitForFunction(() => window.__countryOwnerProbe.entered);
+      await closeCountryPanel(page);
+      const staleCounters = await page.evaluate(async () => {
+        const probe = window.__countryOwnerProbe;
+        probe.restore();
+        probe.release();
+        await probe.pending;
+        const result = { before: probe.counters, after: [conflictModalCounter, timelineModalCounter] };
+        delete window.__countryOwnerProbe;
+        return result;
+      });
+      assert.equal(await page.locator("#country-modal").isVisible(), false, "late aliases do not reopen a closed full profile");
+      assert.deepEqual(staleCounters.after, staleCounters.before, "discard stale rendering before registering any timeline/conflict links");
+      assert.equal(requests.filter(url => /\/countries\/ARG\.json\?/.test(url)).length, 2);
+      assert.equal(requests.filter(url => /\/countries\/conflicts\/AUS\.json\?/.test(url)).length, 2, "ownership probes reuse already loaded data");
       assert.ok(!requests.some(url => /countries_full|conflict_details\.generated/.test(url)));
       assertHealthyPage(test.pageErrors, label + " recuperacion de fichas y conflictos");
     } finally {
       releaseBrazil();
       releaseConflicts();
+      await page.evaluate(async () => {
+        const probe = window.__countryOwnerProbe;
+        probe?.restore();
+        probe?.release();
+        await probe?.pending;
+        delete window.__countryOwnerProbe;
+      }).catch(() => {});
       await test.context.close();
     }
   }

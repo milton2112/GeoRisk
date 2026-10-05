@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import vm from "node:vm";
+import "./country-render-ownership.test.js";
 
 const script = await fs.readFile(new URL("../../script.js", import.meta.url), "utf8");
 const panelSource = await fs.readFile(new URL("../../app-country-panel.js", import.meta.url), "utf8");
