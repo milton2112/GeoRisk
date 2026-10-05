@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.278 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.279 antes de cerrar la siguiente version.
+
+## v1.6.279 - 2026-10-05
+
+- Corrige Batalla del cabo de la Roca como un unico combate naval del 22 de mayo de 1703, dentro de la Guerra de Sucesion Espanola y frente a Portugal en el Atlantico nororiental. Identifica la escuadra francesa de Coetlogon y la escolta de la republica neerlandesa de Roemer Vlacq; agrega el enlace contemporaneo a Paises Bajos y sincroniza fichas, timeline, busqueda y conteos. No convierte mercantes ingleses o ubicacion portuguesa en beligerantes, ni el Estado neerlandes moderno en participante de 1703.
+- La reproduccion de un parte frances en el estudio SHAB de 1929, pp. 137 y 139-141, respalda contexto, fecha y secuencia. Distingue cinco rendiciones de cinco presas conservadas: el relato describe un incendio posterior. Conserva bajas humanas no consolidadas, sin transformar efectivos de buques en bajas/prisioneros, coordenadas exactas o tratado propio inventado. Explicita el sesgo y alcance del parte, el manuscrito no consultado y el uso solo de la noticia indexada del catalogo SHD; mantiene confianza parcial. Fuentes: [estudio SHAB y parte reproducido](https://m.shabretagne.com/scripts/files/669a4e7b24acc4.27558973/1929_07.pdf), [catalogo SHD, GR 1 A 1706](https://www.servicehistorique.sga.defense.gouv.fr/ark/1146999), [contraste enciclopedico del episodio](https://en.wikipedia.org/wiki/Battle_of_Cap_de_la_Roque).
+- Evidencia: regresion roja por fecha ausente; pruebas de aliases exactos, exclusion de nombres/fechas ajenos, jerarquia, participantes historicos y consistencia full/liviana/lazy/timeline/metricas. Una comparacion estructurada con el commit anterior confirma que solo cambia este episodio y su enlace neerlandes, sin alterar otros campos o conflictos. El recorrido existente de Chrome escritorio/mobile emulado verifica fecha, fuentes, reservas historicas, ano unico en titulo, ausencia de desbordes y un unico request del detalle tras abrir/reabrir. No agrega paginas de prueba ni relaja timeouts o presupuestos. Auditoria: 1999 episodios unicos, fechas pendientes 81 -> 80 y jerarquias provisionales 15 -> 14; quedan datos pendientes, no es una certificacion de exactitud de todo el dataset.
+- Green coding: curaduria y aliases solo en build, sin nuevas dependencias, codigo UI, polling, listeners, telemetria ni precarga. Un detalle adicional de 3764 bytes se descarga solo al abrirlo; los documentos fuente se enlazan, nunca se empaquetan. script.js conserva 595037 bytes, app-map-interactions 14180 y countries_index 144225; el nucleo inicial no crece salvo la actualizacion de cache de igual longitud. Aumentan los indices diferidos, las notas publicas y el build por datos utiles. Pruebas, informes y fuentes internas permanecen fuera del deploy. La puerta completa registra pesos/mediciones del fingerprint actual; bytes/FPS no demuestran ahorro energetico o CO2 y mobile emulado no sustituye un celular fisico.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-10-05-release-3`.
 
 ## v1.6.278 - 2026-10-05
 

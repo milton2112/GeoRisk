@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-10-05T14:56:45.773Z",
+  "generatedAt": "2026-10-05T15:36:56.582Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 81
+      "count": 80
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 15
+      "count": 14
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 624
+      "count": 625
     },
     "redundantReligions": {
       "count": 0
@@ -99,11 +99,6 @@
       {
         "code": "FRA",
         "name": "Batalla de Vinh",
-        "region": "Europa"
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla del cabo de la Roca",
         "region": "Europa"
       },
       {
@@ -255,6 +250,11 @@
         "code": "USA",
         "name": "Asedio de Fort Mackinac",
         "region": "América"
+      },
+      {
+        "code": "USA",
+        "name": "Ataque a Aruba",
+        "region": "América"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -276,13 +276,6 @@
       {
         "code": "FRA",
         "name": "Batalla de Vinh",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla del cabo de la Roca",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -1368,7 +1361,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 15,
+      "count": 14,
       "command": "npm run fix:conflicts:batches"
     },
     {

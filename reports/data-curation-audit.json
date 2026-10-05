@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-04T21:40:54.667Z",
+  "generatedAt": "2026-10-05T15:22:02.154Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 13240999,
-    "duplicatedCountryFilesBytes": 1560046,
-    "countryConflictShardBytes": 461264,
+    "fullBytes": 13253009,
+    "duplicatedCountryFilesBytes": 1560319,
+    "countryConflictShardBytes": 461352,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -164,8 +164,8 @@
       {
         "code": "FRA",
         "name": "Francia",
-        "bytes": 21382,
-        "inlineBytes": 1019987,
+        "bytes": 21334,
+        "inlineBytes": 1024625,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -179,7 +179,7 @@
         },
         "metrics": {
           "sectionBytes": {
-            "military": 9702,
+            "military": 9654,
             "politics": 7898,
             "metadata": 1952,
             "general": 933,
@@ -192,7 +192,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 9702
+              "bytes": 9654
             },
             {
               "section": "politics",
@@ -207,8 +207,8 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 51743,
-          "conflictShardBytes": 51744,
+          "conflictsBytes": 51831,
+          "conflictShardBytes": 51832,
           "averageConflictBytes": 214
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 80,
+    "pendingCount": 79,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15343,19 +15343,6 @@
         ],
         "regions": [
           "África"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla del cabo de la Roca",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"

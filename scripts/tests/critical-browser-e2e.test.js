@@ -934,6 +934,7 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
     let focaDetailRequests = 0;
     let nogalesDetailRequests = 0;
     let santoriniDetailRequests = 0;
+    let capeRocaDetailRequests = 0;
     let releaseDetail;
     const pending = new Promise(resolve => { releaseDetail = resolve; });
     let markRequested;
@@ -944,6 +945,7 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
         if (request.url().includes("/data/conflicts/details/combate-de-caleta-foca-1982-")) focaDetailRequests++;
         if (request.url().includes("/data/conflicts/details/batalla-de-ambos-nogales-1918-")) nogalesDetailRequests++;
         if (request.url().includes("/data/conflicts/details/incursion-sobre-santorini-1944-")) santoriniDetailRequests++;
+        if (request.url().includes("/data/conflicts/details/batalla-del-cabo-de-la-roca-1703-")) capeRocaDetailRequests++;
       });
       await page.route(/\/app-(curation|conflict-rules)\.js\?/, async route => {
         const name = route.request().url().match(/\/(app-(?:curation|conflict-rules))\.js/)[1];
@@ -1132,6 +1134,38 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
       await page.locator("#conflict-modal-close").click();
       await page.evaluate(() => openConflictModal(window.__santoriniKey));
       assert.equal(santoriniDetailRequests, 1, "reopening Santorini reuses one on-demand detail request");
+      assert.equal(capeRocaDetailRequests, 0, "Cape Roca source notes are not prefetched with other episodes");
+      await page.locator("#conflict-modal-close").click();
+      await page.evaluate(async () => {
+        await loadCountryDetail("FRA");
+        await loadCountryConflictDetail("FRA");
+        const entry = countriesData.FRA.military.conflicts.find(item => item.name === "Batalla del cabo de la Roca (1703)");
+        window.__capeRocaKey = registerConflictModal(entry, "Francia");
+        openConflictModal(window.__capeRocaKey);
+      });
+      await page.waitForFunction(() => Boolean(CONFLICT_DETAIL_OVERRIDES["Batalla del cabo de la Roca (1703)"]));
+      const capeRocaTitle = await page.locator("#conflict-modal-title").innerText();
+      assert.match(capeRocaTitle, /cabo de la Roca/i);
+      assert.equal((capeRocaTitle.match(/1703/g) || []).length, 1);
+      assert.match(await body.innerText(), /Guerra de Sucesi\u00f3n Espa\u00f1ola/);
+      assert.match(await body.innerText(), /Portugal, Atl\u00e1ntico nororiental/);
+      assert.match(await body.innerText(), /Roemer Vlacq/);
+      assert.match(await body.innerText(), /Sin total de bajas humanas.*no equivale a cero/);
+      const capeRocaNotes = body.locator(".conflict-curation-notes");
+      assert.match(await capeRocaNotes.innerText(), /22 de mayo de 1703/);
+      assert.match(await capeRocaNotes.innerText(), /parte franc\u00e9s, no un recuento independiente/);
+      assert.match(await capeRocaNotes.innerText(), /no acredita una escolta brit\u00e1nica/);
+      assert.match(await capeRocaNotes.innerText(), /Portugal es la referencia geogr\u00e1fica, no un beligerante/);
+      assert.deepEqual(await body.locator(".conflict-hierarchy-sources a").evaluateAll(links => links.map(link => new URL(link.href).hostname)), [
+        "m.shabretagne.com", "www.servicehistorique.sga.defense.gouv.fr", "en.wikipedia.org"
+      ]);
+      assert.match(await body.locator('.conflict-hierarchy-sources a[href^="https://m.shabretagne.com/"]').innerText(), /PDF consultado/);
+      assert.equal(await body.locator(".conflict-treaties").count(), 0);
+      assert.equal(await body.evaluate(element => element.scrollWidth <= element.clientWidth), true);
+      await captureLiveElement(page, capeRocaNotes, { path: `tmp/cape-roca-curation-${label}.png`, timeout: 10000 });
+      await page.locator("#conflict-modal-close").click();
+      await page.evaluate(() => openConflictModal(window.__capeRocaKey));
+      assert.equal(capeRocaDetailRequests, 1, "reopening Cape Roca reuses one on-demand detail request");
       assertHealthyPage(test.pageErrors, label + " notas de curaduria y descarga tardia");
     } catch (error) {
       console.error("curation recovery diagnostic", label, await page.evaluate(() => ({
