@@ -86,7 +86,7 @@ const mapStyleCore = window.GeoRiskMapStyles || {};
 const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-10-04-release-7";
+const APP_VERSION = "2026-10-05-release-1";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -13508,7 +13508,13 @@ async function loadMap(bootPhase = false, { preserveView = false, resetView = !p
 
       markBootStepStart("geoJsonEntityIndex");
       const entitiesByCode = new Map();
-      dataSource.entities.values.forEach(entity => {
+      const batchOptions = {
+        isCurrent: () => !isObsolete(),
+        yieldTask: () => yieldToMainThread("user-visible"),
+        budgetMs: isMobileLayout() ? 8 : 12
+      };
+      const indexed = await mapCore.visitMapEntries({
+        ...batchOptions, items: dataSource.entities.values, visit: entity => {
         const properties = entity.properties;
         const rawCode =
           properties?.ISO_A3?.getValue?.() ||
@@ -13549,13 +13555,16 @@ async function loadMap(bootPhase = false, { preserveView = false, resetView = !p
         const list = entitiesByCode.get(code) || [];
         list.push(entity);
         entitiesByCode.set(code, list);
-      });
+      } });
+      if (!indexed) return;
 
-      entitiesByCode.forEach((entities, code) => {
+      const styled = await mapCore.visitMapEntries({
+        ...batchOptions, items: entitiesByCode, visit: ([code, entities]) => {
         const layer = new CesiumCountryLayer(code, entities, featureNameByCode[code] || code);
         layer.setStyle(getCountryThemeStyle(code));
         nextCountryLayers.set(code, layer);
-      });
+      } });
+      if (!styled) return;
       if (!nextCountryLayers.size || !dataSource.entities.values.some(entity => entity.polygon)) {
         throw new Error(currentLanguage === "en" ? "The country boundaries are empty or invalid." : "Los limites de paises estan vacios o son invalidos.");
       }

@@ -2,6 +2,24 @@
   const MODE_2D = "2d";
   const MODE_3D = "3d";
 
+  async function visitMapEntries({ items, visit, isCurrent, yieldTask, budgetMs = 8 }) {
+    let startedAt = performance.now();
+    let count = 0;
+    for (const item of items) {
+      if (!isCurrent()) return false;
+      visit(item);
+      count += 1;
+      // Bound both elapsed work and item count, including coarse device clocks.
+      if (count >= 24 || performance.now() - startedAt >= budgetMs) {
+        await yieldTask();
+        if (!isCurrent()) return false;
+        startedAt = performance.now();
+        count = 0;
+      }
+    }
+    return isCurrent();
+  }
+
   function normalizeMapMode(mode) {
     return mode === MODE_2D ? MODE_2D : MODE_3D;
   }
@@ -141,6 +159,7 @@
     getTransitionPlan,
     normalizeMapMode,
     shouldDeferDetailedGeometry,
+    visitMapEntries,
     waitForDataSourceFrame
   };
 })();

@@ -16,7 +16,7 @@ const deferred = () => {
 const flush = async () => { for (let i = 0; i < 12; i += 1) await Promise.resolve(); };
 
 function createHarness() {
-  const calls = { fits: 0, loads: 0, removed: [], prepared: [], timers: new Map() };
+  const calls = { fits: 0, loads: 0, removed: [], prepared: [], timers: new Map(), yields: 0 };
   const sources = new Set();
   class Layer {
     constructor(code, entities) { this.code = code; this.entities = entities; }
@@ -33,6 +33,8 @@ function createHarness() {
   const oldLayer = new Layer("ARG", old.entities.values);
   const state = {
     window: {}, console, Map, Set, navigator: { connection: { saveData: false } },
+    performance: { now: () => 0 },
+    yieldToMainThread: async () => { calls.yields += 1; },
     currentMapMode: "3d", zoom: "near", mobile: false, currentTheme: "default", currentLanguage: "es",
     isMobileLayout: () => state.mobile, get3DZoomBucket: () => state.zoom,
     getCurrentOverlayBucket: () => state.currentMapMode === "2d" ? "2d" : `3d-${state.zoom}`,
@@ -157,12 +159,17 @@ for (const phase of ["prepare", "parse", "add", "index"]) {
   assert.equal(state.loadMapPromise, null, "un fallo debe permitir reintentar");
 }
 
-for (const phase of ["prepare", "parse", "add"]) {
+for (const phase of ["prepare", "parse", "add", "index", "style"]) {
   const { state, old, sources, source } = createHarness();
   const held = deferred();
   if (phase === "prepare") state.getPreparedGeoJson = () => held.promise;
   if (phase === "parse") state.Cesium.GeoJsonDataSource.load = () => held.promise;
   if (phase === "add") state.viewer.dataSources.add = async value => { sources.add(value); await held.promise; return value; };
+  if (phase === "index" || phase === "style") {
+    state.performance.now = (() => { let now = 0; return () => now += 12; })();
+    let yields = 0;
+    state.yieldToMainThread = () => (++yields === (phase === "index" ? 1 : 3) ? held.promise : Promise.resolve());
+  }
   const pending = state.loadMap(false, { preserveView: true });
   await flush();
   state.zoom = "far";
@@ -170,6 +177,35 @@ for (const phase of ["prepare", "parse", "add"]) {
   await pending;
   assert.equal(state.activeGeoJsonDataSource, old, `${phase}: descartar detalle si el usuario se alejo`);
   assert.equal(sources.size, 1, "una respuesta obsoleta no debe dejar capas ocultas");
+}
+
+{
+  const { state, old, oldLayer, sources } = createHarness();
+  const held = deferred();
+  state.performance.now = (() => { let now = 0; return () => now += 12; })();
+  let yields = 0;
+  state.yieldToMainThread = () => (++yields === 1 ? held.promise : Promise.resolve());
+  const handler = state.activeClickHandler;
+  const pending = state.loadMap(false, { preserveView: true });
+  await flush();
+  assert.equal(state.activeGeoJsonDataSource, old, "las tandas no publican un mapa incompleto");
+  assert.equal(state.countryLayers.get("ARG"), oldLayer);
+  assert.equal(handler.destroyed, false, "la capa anterior conserva los clics mientras cede el hilo");
+  state.selectedLayers = [{ code: "ESP" }];
+  held.resolve();
+  await pending;
+  assert.equal(state.selectedLayer, state.countryLayers.get("ESP"), "conservar cambios de seleccion durante una tanda");
+  assert.equal(sources.size, 1);
+}
+
+{
+  const { state, old, sources } = createHarness();
+  state.performance.now = (() => { let now = 0; return () => now += 12; })();
+  state.yieldToMainThread = async () => { throw new Error("yield-failed"); };
+  await assert.rejects(state.loadMap(false, { preserveView: true }), /yield-failed/);
+  assert.equal(state.activeGeoJsonDataSource, old);
+  assert.equal(sources.size, 1);
+  assert.equal(state.loadMapPromise, null, "un error de planificacion deja disponible el reintento");
 }
 
 {
