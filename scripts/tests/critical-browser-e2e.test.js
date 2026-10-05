@@ -117,14 +117,8 @@ async function getCountryScreenPoint(page, code, attempts = 20) {
         return null;
       }
       viewer.scene.requestRender();
-      const picked = [
-        viewer.scene.pick(rawPoint),
-        ...(viewer.scene.drillPick(rawPoint, 8) || [])
-      ].filter(Boolean);
-      const pickedEntity = picked
-        .map(item => item?.id || item?.primitive?.id || item?.collection?.owner || item?.primitive?._owner)
-        .find(item => item?.countryCode === countryCode);
-      if (!pickedEntity) {
+      const pickedEntity = getPickedCountryEntityAt(rawPoint);
+      if (pickedEntity?.countryCode !== countryCode) {
         return null;
       }
       const x = bounds.left + rawPoint.x;
@@ -1591,6 +1585,22 @@ async function testGreenCoding(browser, baseUrl) {
     await closeCountryPanel(page);
     await page.evaluate(() => applyMapMode("2d", false));
     await waitForMapMode(page, "2d");
+    const idleHover = await page.evaluate(() => {
+      const originalRender = requestSceneRender;
+      const originalPick = viewer.scene.pick;
+      const result = { enabled: shouldUseHoverHighlights(), renders: 0, picks: 0 };
+      try {
+        requestSceneRender = () => { result.renders += 1; };
+        viewer.scene.pick = () => { result.picks += 1; };
+        const move = activeClickHandler.getInputAction(Cesium.ScreenSpaceEventType.MOUSE_MOVE);
+        for (let i = 0; i < 100; i++) move({ endPosition: new Cesium.Cartesian2(i, i) });
+        return result;
+      } finally {
+        requestSceneRender = originalRender;
+        viewer.scene.pick = originalPick;
+      }
+    });
+    assert.deepEqual(idleHover, { enabled: false, renders: 0, picks: 0 }, "real 2D hover handler stays idle without highlights");
     await page.evaluate(() => applyMapMode("3d", false));
     await waitForMapMode(page, "3d");
     assert.equal(detailRequests, 0);

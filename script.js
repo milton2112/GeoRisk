@@ -87,7 +87,7 @@ const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const globeQuality = mapInteractionCore.createGlobeQualityController();
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-10-05-release-7";
+const APP_VERSION = "2026-10-05-release-8";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -13371,11 +13371,14 @@ async function loadMap(bootPhase = false, { preserveView = false, resetView = !p
     let lastHoverCode = "";
 
     function restoreHover() {
-      if (hoveredLayer && !selectedLayers.includes(hoveredLayer)) {
+      const changed = Boolean(hoveredLayer && !selectedLayers.includes(hoveredLayer));
+      if (changed) {
         hoveredLayer.setStyle(getCountryThemeStyle(hoveredLayer.code));
       }
       hoveredLayer = null;
+      pendingHoverLayer = null;
       lastHoverCode = "";
+      return changed;
     }
 
     clickHandler.setInputAction(async movement => {
@@ -13425,8 +13428,7 @@ async function loadMap(bootPhase = false, { preserveView = false, resetView = !p
 
     clickHandler.setInputAction(movement => {
     if (!shouldUseHoverHighlights()) {
-      restoreHover();
-      requestSceneRender();
+      if (restoreHover()) requestSceneRender();
       return;
     }
 
@@ -13464,11 +13466,14 @@ async function loadMap(bootPhase = false, { preserveView = false, resetView = !p
     requestAnimationFrame(() => {
       hoverFramePending = false;
       if (activeClickHandler !== clickHandler) return;
+      if (!shouldUseHoverHighlights()) {
+        if (restoreHover()) requestSceneRender();
+        return;
+      }
       const nextLayer = pendingHoverLayer;
 
       if (!nextLayer) {
-        restoreHover();
-        requestSceneRender();
+        if (restoreHover()) requestSceneRender();
         return;
       }
 

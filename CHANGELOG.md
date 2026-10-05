@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.283 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.284 antes de cerrar la siguiente version.
+
+## v1.6.284 - 2026-10-05
+
+- Mapa: el hover desactivado deja de pedir un frame por cada movimiento del puntero. Restaurar un resaltado limpia tambien el objetivo pendiente y solo pide render si cambia el estilo de un pais no seleccionado. El callback ya programado vuelve a comprobar la elegibilidad antes de pintar; no aplica resaltados tardios al iniciar navegacion o desactivar hover. Conserva estilos de seleccion, reactivacion, control de handler retirado, calidad visual y las politicas actuales de mobile/2D/ahorro de datos.
+- Evidencia: regresion roja del handler real en VM con 100 movimientos desactivados y 100 pedidos de render; ahora cero pedidos, picks, estilos ni frames programados. Tests cubren cancelacion antes del callback, restauracion unica, pais seleccionado, salida al vacio, mismo pais, reactivacion y handler reemplazado. El flujo green-coding existente verifica ademas el handler real de Cesium en 2D, sin nuevas paginas/contextos. La E2E focalizada paso en Chrome 155 local; un primer intento de sandbox fallo al iniciar con spawn EPERM, no por una assertion. La puerta completa debe renovar la evidencia del fingerprint actual.
+- Pruebas del mapa: la localizacion de puntos clickeables reutiliza el helper de picking de la app. Antes siempre ejecutaba pick y drillPick de hasta ocho resultados; ahora el resultado directo suficiente evita el segundo trabajo GPU y conserva el fallback acotado tras objetos no nacionales. Se mantienen clics reales 2D/3D, espera de seleccion y comprobacion del pais esperado; no se sustituyen clics por apertura programatica. Regresiones del helper verifican uno o dos picks segun necesidad y entradas ausentes.
+- Diagnostico y limites: el gate posterior a integrar PR31 excedio el deadline existente de npm test (1201 s) durante el recorrido mobile y no publico Pages. El snapshot de su PR previo, leido del artifact con SHA-256 verificado, muestra Chromium 151/SwiftShader Vulkan en Linux, 4.5 FPS desktop y 1.4 mobile emulado; cambiar canal no garantiza aceleracion de hardware ni evita el timeout. Una comprobacion local de reposo dio cero frames en 3 s tanto con el umbral configurado como con Infinity y reloj detenido; no se modifica ese umbral por una hipotesis no confirmada. Estos fixes eliminan trabajo concreto pero no prueban resolver el timeout total ni las tareas largas/FPS activos. No se aumentan el limite de 20 minutos ni el job de 45, ni se omiten pruebas ni se reintenta hasta verde.
+- Green coding: evita trabajo de picking/render/restauracion no solicitado y un picking redundante en las pruebas, sin dependencias, listeners, timers, polling, caches, precarga ni red nueva en la app. Costo: una comprobacion booleana por callback pendiente y script.js de 587632 a 587835 bytes (+203); las comprobaciones de lifecycle son pequenas y las E2E reutilizan paginas existentes. No reduce MSAA, resolucion ni exactitud de datos; no afirma ahorro energetico/CO2 o validacion en un telefono fisico.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-10-05-release-8`.
 
 ## v1.6.283 - 2026-10-05
 
