@@ -14,6 +14,7 @@ import "./export-security.test.js";
 import "./pages-deployment.test.js";
 import "./release-status.test.js";
 import "./browser-screenshot.test.js";
+import "./browser-launch.test.js";
 import "./data-pipeline.test.js";
 import "./release-tag.test.js";
 
@@ -298,7 +299,9 @@ assert.ok(wikipediaConflicts.includes("retry-after"), "importador de Wikipedia d
 assert.ok(wikipediaConflicts.includes('"part of": "partOf"'), "importador debe conservar la jerarquia Part of para revision editorial");
 assert.ok(releaseWorkflow.includes("npm run check:startup-budget"), "GitHub Actions debe correr presupuesto de arranque de forma explicita");
 assert.ok(packageJson.scripts.test.includes("npm run test:browser-visual"), "npm test dentro del release gate debe correr smoke visual");
-assert.ok(releaseWorkflow.includes("npx playwright install --with-deps chromium"), "GitHub Actions debe instalar Chromium para la E2E critica");
+assert.equal(releaseWorkflow.match(/npx playwright install --with-deps --no-shell chromium/g)?.length, 2, "release y auditoria deben instalar Chromium nuevo sin el shell que no usan");
+assert.ok(releaseChecklist.includes("timeoutMs: 20 * 60_000"), "el cambio de navegador no debe aumentar el limite de npm test");
+assert.ok(releaseWorkflow.includes("timeout-minutes: 45"), "el gate conserva su limite global");
 assert.ok(packageJson.scripts.test.includes("npm run test:e2e:critical"), "npm test dentro del release gate debe ejecutar la E2E critica");
 assert.ok(releaseWorkflow.includes("npm run audit:doctor"), "GitHub Actions debe publicar doctor de producto");
 assert.ok(releaseWorkflow.includes("npm run audit:release-artifacts"), "GitHub Actions debe auditar artefactos de release");

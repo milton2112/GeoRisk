@@ -49,8 +49,8 @@ jobs:
       - name: Audit all dependencies including browser export libraries
         run: npm run audit:dependencies
 
-      - name: Install Chromium for critical browser E2E
-        run: npx playwright install --with-deps chromium
+      - name: Install Chromium new headless for critical browser E2E
+        run: npx playwright install --with-deps --no-shell chromium
 
       - name: Startup budget
         run: npm run check:startup-budget
@@ -161,8 +161,8 @@ jobs:
       - name: Audit all dependencies including browser export libraries
         run: npm run audit:dependencies
 
-      - name: Install Chromium for performance audit
-        run: npx playwright install --with-deps chromium
+      - name: Install Chromium new headless for performance audit
+        run: npx playwright install --with-deps --no-shell chromium
 
       - name: Rebuild generated data
         run: npm run build:data

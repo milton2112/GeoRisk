@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import { chromium } from "@playwright/test";
+import { launchProjectBrowser } from "../lib/browser-launch.js";
 import { createLocalSmokeServer } from "../localSmokeServer.js";
 import { captureLiveElement, captureTransientNotice } from "../lib/browser-screenshot.js";
 
@@ -10,25 +11,7 @@ const DESKTOP_VIEWPORT = { width: 1440, height: 920 };
 const MOBILE_VIEWPORT = { width: 390, height: 844 };
 
 async function launchCriticalBrowser() {
-  const baseOptions = { headless: true };
-  const localChannel = process.env.PLAYWRIGHT_CHANNEL || (process.env.CI ? "" : "chrome");
-  const candidates = localChannel
-    ? [{ ...baseOptions, channel: localChannel }, baseOptions]
-    : [baseOptions, { ...baseOptions, channel: "chrome" }];
-  let lastError = null;
-
-  for (const options of candidates) {
-    try {
-      return await chromium.launch(options);
-    } catch (error) {
-      lastError = error;
-    }
-  }
-
-  throw new Error(
-    "No se pudo iniciar Chromium para la E2E critica. En CI se instala automaticamente; en local instala Chromium con Playwright o define PLAYWRIGHT_CHANNEL. " +
-      (lastError?.message || "")
-  );
+  return launchProjectBrowser(chromium);
 }
 
 function getRelevantPageErrors(errors) {
