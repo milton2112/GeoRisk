@@ -361,6 +361,7 @@ async function runDesktopCriticalFlow(page) {
 
 async function runMobileCriticalFlow(page) {
   await waitForAppReady(page);
+  await assertThematicLabelOrder(page);
   assert.equal(await page.evaluate(() => viewer.scene.mode === Cesium.SceneMode.SCENE2D), true, "mobile debe iniciar en una escena 2D real, no solo declarar el modo");
   await waitForMapMode(page, "2d");
   await assertAntialiasingProfile(page);
@@ -1597,10 +1598,33 @@ async function assertMapSelectionStyles(page, code = "ESP", peerCode = "ARG") {
   }
 }
 
+async function assertThematicLabelOrder(page) {
+  const result = await page.evaluate(() => {
+    const ordered = ["religion", "system", "organization", "history-type", "origin", "rival"].every(name => {
+      const labels = [...document.getElementById("filter-" + name + "-select").options].slice(1).map(option => option.textContent);
+      return labels.every((label, index) => !index || labels[index - 1].localeCompare(label, "es") <= 0) &&
+        new Set(labels.map(normalizeText)).size === labels.length;
+    });
+    const repeated = getUniqueDisplayLabels(["Islam", "islam", "Cristianismo", "Budismo"]);
+    return { ordered, repeated, collators: window.__spanishCollators ?? null };
+  });
+  assert.equal(result.ordered, true, "the six rendered thematic lists keep Spanish order without normalized duplicates");
+  assert.deepEqual(result.repeated, ["Budismo", "Cristianismo", "Islam"]);
+  if (result.collators !== null) assert.equal(result.collators, 1, "rendered lists and later label sorting reuse one collator");
+}
+
 async function testGreenCoding(browser, baseUrl) {
   const { context, page, pageErrors } = await createTestPage(browser, baseUrl, DESKTOP_VIEWPORT, async page => {
     await page.addInitScript(() => {
       Object.defineProperty(navigator, "connection", { configurable: true, value: { saveData: true } });
+      window.__spanishCollators = 0;
+      const NativeCollator = Intl.Collator;
+      Intl.Collator = class extends NativeCollator {
+        constructor(...args) {
+          super(...args);
+          if (args[0] === "es") window.__spanishCollators += 1;
+        }
+      };
       window.__greenIntervals = new Map();
       const start = window.setInterval.bind(window);
       const stop = window.clearInterval.bind(window);
@@ -1616,6 +1640,7 @@ async function testGreenCoding(browser, baseUrl) {
   page.on("request", request => { if (/\/world_countries\.geo\.json/.test(request.url())) detailRequests += 1; });
   try {
     await waitForAppReady(page);
+    await assertThematicLabelOrder(page);
     await waitForStable3dMap(page);
     await page.waitForFunction(() => !isCameraNavigating);
     const polls = name => page.evaluate(name => [...window.__greenIntervals.values()].filter(item => item.name === name).length, name);

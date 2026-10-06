@@ -87,7 +87,7 @@ const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const globeQuality = mapInteractionCore.createGlobeQualityController();
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-10-06-release-1";
+const APP_VERSION = "2026-10-06-release-2";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -2997,7 +2997,7 @@ function getUniqueDisplayLabels(values = []) {
     }
   });
 
-  return [...labelsByKey.values()].sort((a, b) => a.localeCompare(b, "es"));
+  return [...labelsByKey.values()].sort(window.GeoRiskRuntime?.compareSpanishText || ((a, b) => a.localeCompare(b, "es")));
 }
 
 function formatPercentage(value) {

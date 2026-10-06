@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.285 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.286 antes de cerrar la siguiente version.
+
+## v1.6.286 - 2026-10-06
+
+- Controles tematicos: getUniqueDisplayLabels reutiliza compareSpanishText del runtime con un unico Intl.Collator privado, locale es y opciones predeterminadas, creado solo al comparar dos etiquetas. Conserva reparacion de texto, preferencia de grafia, deduplicacion normalizada, orden estable y fallback nativo sin runtime/Collator; listas vacias o de una etiqueta no construyen nada. No cambia traducciones, valores de filtros, datos, formulas ni calidad visual. La reutilizacion de un Collator sigue la [recomendacion de MDN para ordenar listas](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare).
+- Evidencia: una traza movil emulada de cinco segundos posteriores a disponibilidad, con muestreo CPU, senalo el callback de ordenacion en script.js con 36 ms propios; el renderer y layout siguieron concentrando otras tareas. Es diagnostico instrumentado, no benchmark de release ni atribucion de todo el bloqueo a etiquetas. La regresion inicial roja del codigo real registro 2453 llamadas a localeCompare en la fixture; ahora cero llamadas a ese metodo y un Collator, manteniendo las comparaciones necesarias y la salida identica. Cubre grupos del indice real, tildes, mayusculas, caracteres combinados, duplicados, entradas vacias y fallback sin API. Reordenaciones posteriores no crean otra instancia; integrada en green-coding/startup/pre-push/npm test.
+- Chrome 155 local verifico las seis listas tematicas renderizadas y su orden/deduplicacion, ademas de un solo constructor compartido con una ordenacion posterior, dentro del flujo green-coding existente (7846 ms). Los recorridos mobile verifican tambien esas listas; no se agregan paginas, flujos ni plazos. La puerta completa debe renovar auditorias, recorridos y muestra del fingerprint actual; esta comprobacion focalizada no la reemplaza ni acredita un telefono fisico.
+- Green coding: evita configurar repetidamente la misma ordenacion localizada, sin dependencias, descargas, precarga, listeners, timers, polling o cache por valores/listas. Costo: una instancia nativa retenida al usarse y 351 bytes iniciales adicionales (script.js +47 a 587894; app-runtime.js +304 a 4339), conservando presupuestos. No demuestra resolver el congelamiento inicial, mejorar FPS/tiempo total ni ahorrar energia/CO2; permanecen otras ordenaciones no modificadas y los costos del renderer. Los colores, resolucion, suavizado y preferencias de ahorro/movimiento no cambian.
+- Validacion remota previa: el HEAD 5f55f5e8 de v1.6.285 aprobo la puerta completa y el artefacto Pages en [37465274731](https://github.com/milton2112/GeoRisk/actions/runs/37465274731), sin aumentar deadlines ni reintentar hasta verde. Su benchmark CI independiente siguio mostrando 6,8/2,0 FPS activos y tareas maximas de 294/568 ms: aprobado no significa rendimiento resuelto. El deploy desde la rama se omitio; no se afirma que ese resultado apruebe esta siguiente revision ni que la URL publica ya la tenga.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-10-06-release-2`.
 
 ## v1.6.285 - 2026-10-06
 
