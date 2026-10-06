@@ -16,6 +16,7 @@ import "./release-status.test.js";
 import "./browser-screenshot.test.js";
 import "./browser-launch.test.js";
 import "./browser-tile-cache.test.js";
+import "./browser-run-report.test.js";
 import "./data-pipeline.test.js";
 import "./release-tag.test.js";
 
@@ -303,6 +304,13 @@ assert.ok(packageJson.scripts.test.includes("npm run test:browser-visual"), "npm
 assert.equal(releaseWorkflow.match(/npx playwright install --with-deps --no-shell chromium/g)?.length, 2, "release y auditoria deben instalar Chromium nuevo sin el shell que no usan");
 assert.ok(releaseChecklist.includes("timeoutMs: 20 * 60_000"), "el cambio de navegador no debe aumentar el limite de npm test");
 assert.ok(criticalBrowserE2E.includes("tileCache.attach(context)"), "la E2E reutiliza teselas reales con limites");
+assert.ok(criticalBrowserE2E.includes("createBrowserRunReport") && criticalBrowserE2E.includes("runReport.run(run.name") &&
+  criticalBrowserE2E.includes('runReport.run("desktop journey"') && criticalBrowserE2E.includes('runReport.run("mobile journey"'),
+"el reporte observa todas las rutas seleccionadas y ambos recorridos, sin sustituir las pruebas");
+assert.ok(criticalBrowserE2E.indexOf("await runReport.finish()") > criticalBrowserE2E.indexOf("await browser?.close()"),
+  "el reporte no declara exito antes del cierre del navegador");
+assert.ok((await fs.readFile(".gitignore", "utf8")).includes("reports/critical-browser-e2e.json"),
+  "el checkpoint de una ejecucion no debe versionarse como evidencia de otra");
 const workerActivation = criticalBrowserE2E.slice(criticalBrowserE2E.indexOf("async function testFirstWorkerActivation"), criticalBrowserE2E.indexOf("async function testPagesBuild"));
 assert.ok(!workerActivation.includes("tileCache.attach"), "la prueba del worker conserva red/cache reales y contexto sin el cache auxiliar");
 for (const file of ["scripts/tests/service-worker-browser.test.js", "scripts/lib/browser-performance.js"]) {

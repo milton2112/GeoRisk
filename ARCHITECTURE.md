@@ -4,6 +4,8 @@ GeoRisk keeps runtime files in the repository root for now. The project is split
 
 ## Runtime Layers
 
+`scripts/lib/browser-run-report.js` is internal E2E diagnostics. It writes one bounded, replaced checkpoint at lifecycle boundaries with the selected plan/scope, actual browser and GitHub execution identity. Pending/running/failed work cannot finish as passed; suite teardown must succeed first. Abrupt termination leaves the last incomplete checkpoint without installing signal handlers, timers or polling. It is uploaded by the existing reports step but is not committed, published, precached or used instead of the protected release gate. All browser assertions and deadlines remain unchanged.
+
 The critical E2E's `scripts/lib/browser-tile-cache.js` is internal tooling, not a runtime module. It observes only already-requested anonymous World_Imagery JPEG/PNG tiles and shares their actual bytes within one run under LRU/count/byte/body/read/TTL limits. Complete request/response headers preserve cache exclusions and CORS/security headers; replays cannot refresh their TTL. Page-level fault/delay handlers retain priority. Context close removes observation listeners and suite teardown clears retained bodies. Service-worker/offline fixtures and the performance meter stay separate, with cold independent contexts; no fake imagery, source/data interception, startup preload, persistent cache, new dependency or raised test deadline.
 
 - `index.html`: app shell and stable DOM anchors.

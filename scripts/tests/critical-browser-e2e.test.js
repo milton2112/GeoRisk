@@ -1,10 +1,11 @@
 import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import { chromium } from "@playwright/test";
-import { launchProjectBrowser } from "../lib/browser-launch.js";
+import { getBrowserSelection, launchProjectBrowser } from "../lib/browser-launch.js";
 import { createLocalSmokeServer } from "../localSmokeServer.js";
 import { captureLiveElement, captureTransientNotice } from "../lib/browser-screenshot.js";
 import { createBrowserTileCache } from "../lib/browser-tile-cache.js";
+import { createBrowserRunReport } from "../lib/browser-run-report.js";
 
 const APP_TIMEOUT_MS = Number(process.env.GEORISK_E2E_TIMEOUT_MS || 45000);
 const MAP_PICK_TIMEOUT_MS = Math.min(APP_TIMEOUT_MS, 8000);
@@ -3299,94 +3300,118 @@ async function testPagesBuild(browser) {
 
 let heldWorkerRequest = null;
 let testWorkerRevision = null;
-const nativeWorkerSource = await fs.readFile("sw.js", "utf8");
-const server = createLocalSmokeServer();
-const staticRequest = server.listeners("request")[0];
-server.removeListener("request", staticRequest);
-server.on("request", async (request, response) => {
-  if (heldWorkerRequest && request.url.startsWith("/sw.js")) await heldWorkerRequest;
-  if (testWorkerRevision && request.url.startsWith("/sw.js")) {
-    response.writeHead(200, { "Content-Type": "text/javascript", "Cache-Control": "no-store" });
-    response.end(nativeWorkerSource.replace(/const CACHE_VERSION = "[^"]+"/, `const CACHE_VERSION = "${testWorkerRevision}"`));
-    return;
-  }
-  void staticRequest(request, response);
+const focusedFlows = [
+  ["--pages-only", testPagesBuild],
+  ["--country-text-only", testCountryTextRendering],
+  ["--csp-only", testContentSecurityPolicy],
+  ["--input-security-only", testUntrustedInputs],
+  ["--storage-only", testStorageFailures],
+  ["--exports-only", testSecureExports],
+  ["--share-only", testShareLifecycle],
+  ["--deferred-only", testDeferredUiRecovery],
+  ["--performance-only", testIdleMapPerformance],
+  ["--green-only", testGreenCoding],
+  ["--motion-only", testReducedMapMotion],
+  ["--auto-rotation-only", testAutoRotation],
+  ["--map-labels-only", testMapLabels],
+  ["--startup-only", testMapEngineStartup],
+  ["--startup-only", testControlsStartup],
+  ["--overlay-ready-only", testCountryOverlayReadiness],
+  ["--conflict-curation-only", testConflictCurationAndLateResponse],
+  ["--detail-only", testDetailedMapUpgrade],
+  ["--recovery-only", testRenderRecovery],
+  ["--offline-only", testFirstWorkerActivation],
+  ["--data-only", testRequiredStartupData],
+  ["--country-data-only", testCountryDataRecovery],
+  ["--news-only", testNewsLifecycle],
+  ["--scheduler-only", testDeferredWorkDuringDrag],
+  ["--panels-only", testBackgroundPanels]
+];
+const focused = focusedFlows.some(([flag]) => process.argv.includes(flag));
+const journeysOnly = process.argv.includes("--journeys-only");
+const selectedFlows = focusedFlows.filter(([flag]) => !journeysOnly && (!focused || process.argv.includes(flag)));
+const runReport = await createBrowserRunReport({
+  file: "reports/critical-browser-e2e.json",
+  flows: [...selectedFlows.map(([_flag, run]) => run.name), ...(!focused ? ["desktop journey", "mobile journey"] : [])],
+  scope: focused ? "focused" : journeysOnly ? "journeys" : "full",
+  metadata: { platform: process.platform, nodeVersion: process.version,
+    ciRunId: process.env.GITHUB_RUN_ID || null, ciRevision: process.env.GITHUB_SHA || null }
 });
-await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
 
 let browser;
+let server;
 try {
+  assert.ok(!journeysOnly || !focused, "--journeys-only no se combina con otros filtros");
+  const nativeWorkerSource = await fs.readFile("sw.js", "utf8");
+  server = createLocalSmokeServer();
+  const staticRequest = server.listeners("request")[0];
+  server.removeListener("request", staticRequest);
+  server.on("request", async (request, response) => {
+    if (heldWorkerRequest && request.url.startsWith("/sw.js")) await heldWorkerRequest;
+    if (testWorkerRevision && request.url.startsWith("/sw.js")) {
+      response.writeHead(200, { "Content-Type": "text/javascript", "Cache-Control": "no-store" });
+      response.end(nativeWorkerSource.replace(/const CACHE_VERSION = "[^"]+"/, `const CACHE_VERSION = "${testWorkerRevision}"`));
+      return;
+    }
+    void staticRequest(request, response);
+  });
+  await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
   await fs.mkdir("tmp", { recursive: true });
   const { port } = server.address();
   const baseUrl = "http://127.0.0.1:" + port;
   browser = await launchCriticalBrowser();
-  const focusedFlows = [
-    ["--pages-only", testPagesBuild],
-    ["--country-text-only", testCountryTextRendering],
-    ["--csp-only", testContentSecurityPolicy],
-    ["--input-security-only", testUntrustedInputs],
-    ["--storage-only", testStorageFailures],
-    ["--exports-only", testSecureExports],
-    ["--share-only", testShareLifecycle],
-    ["--deferred-only", testDeferredUiRecovery],
-    ["--performance-only", testIdleMapPerformance],
-    ["--green-only", testGreenCoding],
-    ["--motion-only", testReducedMapMotion],
-    ["--auto-rotation-only", testAutoRotation],
-    ["--map-labels-only", testMapLabels],
-    ["--startup-only", testMapEngineStartup],
-    ["--startup-only", testControlsStartup],
-    ["--overlay-ready-only", testCountryOverlayReadiness],
-    ["--conflict-curation-only", testConflictCurationAndLateResponse],
-    ["--detail-only", testDetailedMapUpgrade],
-    ["--recovery-only", testRenderRecovery],
-    ["--offline-only", testFirstWorkerActivation],
-    ["--data-only", testRequiredStartupData],
-    ["--country-data-only", testCountryDataRecovery],
-    ["--news-only", testNewsLifecycle],
-    ["--scheduler-only", testDeferredWorkDuringDrag],
-    ["--panels-only", testBackgroundPanels]
-  ];
-  const focused = focusedFlows.some(([flag]) => process.argv.includes(flag));
-  const journeysOnly = process.argv.includes("--journeys-only");
-  assert.ok(!journeysOnly || !focused, "--journeys-only no se combina con otros filtros");
-  for (const [flag, run] of focusedFlows) {
-    if (!journeysOnly && (!focused || process.argv.includes(flag))) {
-      console.log("critical-browser-e2e: " + run.name);
-      const started = performance.now();
-      await run(browser, baseUrl);
-      console.log("critical-browser-e2e: " + run.name + " completed in " + Math.round(performance.now() - started) + " ms");
-    }
+  await runReport.setBrowser(getBrowserSelection(browser));
+  for (const [_flag, run] of selectedFlows) {
+    console.log("critical-browser-e2e: " + run.name);
+    const started = performance.now();
+    await runReport.run(run.name, () => run(browser, baseUrl));
+    console.log("critical-browser-e2e: " + run.name + " completed in " + Math.round(performance.now() - started) + " ms");
   }
 
   if (!focused) {
     console.log("critical-browser-e2e: desktop journey");
     const desktopStarted = performance.now();
-    const desktop = await createTestPage(browser, baseUrl, DESKTOP_VIEWPORT);
-    try {
-      await runDesktopCriticalFlow(desktop.page);
-      assertHealthyPage(desktop.pageErrors, "desktop");
-    } finally {
-      await desktop.context.close();
-    }
+    await runReport.run("desktop journey", async () => {
+      const desktop = await createTestPage(browser, baseUrl, DESKTOP_VIEWPORT);
+      try {
+        await runDesktopCriticalFlow(desktop.page);
+        assertHealthyPage(desktop.pageErrors, "desktop");
+      } finally {
+        await desktop.context.close();
+      }
+    });
     console.log("critical-browser-e2e: desktop journey completed in " + Math.round(performance.now() - desktopStarted) + " ms");
 
     console.log("critical-browser-e2e: mobile journey");
     const mobileStarted = performance.now();
-    const mobile = await createTestPage(browser, baseUrl, MOBILE_VIEWPORT);
-    try {
-      await runMobileCriticalFlow(mobile.page);
-      assertHealthyPage(mobile.pageErrors, "mobile");
-    } finally {
-      await mobile.context.close();
-    }
+    await runReport.run("mobile journey", async () => {
+      const mobile = await createTestPage(browser, baseUrl, MOBILE_VIEWPORT);
+      try {
+        await runMobileCriticalFlow(mobile.page);
+        assertHealthyPage(mobile.pageErrors, "mobile");
+      } finally {
+        await mobile.context.close();
+      }
+    });
     console.log("critical-browser-e2e: mobile journey completed in " + Math.round(performance.now() - mobileStarted) + " ms");
   }
+} catch (error) {
+  await runReport.fail(error);
+  throw error;
 } finally {
-  await browser?.close();
-  console.log("critical-browser-e2e: tile cache " + JSON.stringify(tileCache.stats()));
-  tileCache.close();
-  await new Promise(resolve => server.close(resolve));
+  try {
+    try {
+      await browser?.close();
+    } finally {
+      console.log("critical-browser-e2e: tile cache " + JSON.stringify(tileCache.stats()));
+      tileCache.close();
+      if (server?.listening) await new Promise(resolve => server.close(resolve));
+    }
+  } catch (error) {
+    await runReport.fail(error);
+    throw error;
+  }
 }
+await runReport.finish();
 
 console.log("critical-browser-e2e.test.js ok");
