@@ -87,7 +87,7 @@ const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const globeQuality = mapInteractionCore.createGlobeQualityController();
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-10-06-release-2";
+const APP_VERSION = "2026-10-06-release-3";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -12768,6 +12768,7 @@ function loadScriptOnce(src, globalFlag) {
     const finish = success => {
       if (settled) return;
       settled = true;
+      clearTimeout(timer);
       script.removeEventListener("load", onLoad);
       script.removeEventListener("error", onError);
       if (success) {
@@ -12780,6 +12781,7 @@ function loadScriptOnce(src, globalFlag) {
     };
     const onLoad = () => finish(!globalFlag || Boolean(window[globalFlag]));
     const onError = () => finish(false);
+    const timer = setTimeout(onError, 20000);
     script.addEventListener("load", onLoad, { once: true });
     script.addEventListener("error", onError, { once: true });
     try {

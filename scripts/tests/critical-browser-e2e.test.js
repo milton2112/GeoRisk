@@ -923,9 +923,25 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
     let capeRocaDetailRequests = 0;
     let releaseDetail;
     const pending = new Promise(resolve => { releaseDetail = resolve; });
+    let releaseScript;
+    const stalledScript = new Promise(resolve => { releaseScript = resolve; });
     let markRequested;
     const requested = new Promise(resolve => { markRequested = resolve; });
     const test = await createTestPage(browser, baseUrl, viewport, async page => {
+      await page.addInitScript(() => {
+        window.__curationDeadlines = new Map();
+        const start = window.setTimeout.bind(window);
+        const stop = window.clearTimeout.bind(window);
+        window.setTimeout = (action, delay, ...args) => {
+          const id = start(action, delay, ...args);
+          if (delay === 20000 && action?.name === "onError") window.__curationDeadlines.set(id, action);
+          return id;
+        };
+        window.clearTimeout = id => {
+          window.__curationDeadlines.delete(id);
+          stop(id);
+        };
+      });
       page.on("request", request => {
         if (request.url().includes("/data/conflicts/details/combate-contra-datu-ali-1905-")) datuDetailRequests++;
         if (request.url().includes("/data/conflicts/details/combate-de-caleta-foca-1982-")) focaDetailRequests++;
@@ -936,7 +952,10 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
       await page.route(/\/app-(curation|conflict-rules)\.js\?/, async route => {
         const name = route.request().url().match(/\/(app-(?:curation|conflict-rules))\.js/)[1];
         scriptAttempts[name] += 1;
-        if (name === "app-curation" && scriptAttempts[name] === 1) await route.abort("internetdisconnected");
+        if (name === "app-curation" && scriptAttempts[name] === 1) {
+          if (viewport === MOBILE_VIEWPORT) await stalledScript;
+          await route.abort("internetdisconnected");
+        }
         else await route.continue();
       });
       await page.route(/\/data\/conflicts\/details\/batalla-del-cabo-de-gata-1815-/, async route => {
@@ -961,12 +980,20 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
       await waitForCountryPanel(page, "Argentina");
       const history = page.locator('[data-country-nav="country-section-history"]');
       await history.click();
+      if (viewport === MOBILE_VIEWPORT) {
+        await page.waitForFunction(() => Boolean(window.GeoRiskConflictRules) && window.__curationDeadlines.size === 1);
+        assert.equal(scriptAttempts["app-curation"], 1);
+        // Exercise the real deadline callback without adding a 20-second sleep.
+        await page.evaluate(() => [...window.__curationDeadlines.values()][0]());
+        releaseScript();
+      }
       const notice = page.locator("#app-toast");
       await notice.filter({ hasText: "datos historicos adicionales" }).waitFor({ state: "visible" });
       await captureTransientNotice(page, notice, { path: `tmp/curation-load-recovery-${label}.png` });
       assert.equal(await page.evaluate(() => deferredDataStatus.runtimeCuration), false);
       assert.equal(await page.evaluate(() => loadRuntimeCurationPromise), null);
       assert.equal(await page.locator('script[data-dynamic-src*="app-curation.js"]').count(), 0);
+      assert.equal(await page.evaluate(() => window.__curationDeadlines.size), 0, "failure clears both classic-script deadlines");
       assert.equal(scriptAttempts["app-curation"], 1, "no automatic retry after a network failure");
       await history.focus();
       const focusAfterRefresh = await page.evaluate(async () => {
@@ -980,6 +1007,7 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
       await page.waitForFunction(() => deferredDataStatus.runtimeCuration === true);
       assert.deepEqual(scriptAttempts, { "app-curation": 2, "app-conflict-rules": 1 }, "explicit reopening only retries the failed script");
       assert.equal(await page.locator('script[data-dynamic-src*="app-curation.js"]').count(), 1);
+      assert.equal(await page.evaluate(() => window.__curationDeadlines.size), 0, "retry success leaves no classic-script deadline");
       await page.locator("#country-section-history").waitFor({ state: "visible" });
       await page.locator('[data-country-nav="country-section-military"]').click();
       await page.waitForFunction(() => document.querySelectorAll('#country-section-military [data-conflict-key]').length > 0);
@@ -1237,6 +1265,7 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
       throw error;
     } finally {
       releaseDetail();
+      releaseScript();
       await page.evaluate(() => {
         if (window.__originalConflictModalBuilder) getConflictModalContent = window.__originalConflictModalBuilder;
       }).catch(() => {});

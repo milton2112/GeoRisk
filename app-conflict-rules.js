@@ -1,4 +1,5 @@
 (() => {
+if (window.GeoRiskConflictRules) return;
 const CONFLICT_PARENT_RULES = [
   { parent: "Guerra de las Malvinas", matches: ["goose green", "pradera del ganso", "san carlos", "wireless ridge", "harriet", "longdon", "tumbledown"] },
   { parent: "Guerra de la Triple Alianza", matches: ["ita ybate", "tuyuti", "curupayti", "humaita"] },
