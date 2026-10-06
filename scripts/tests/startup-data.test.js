@@ -226,7 +226,12 @@ assert.ok(!script.includes("buildQuizQuestion = function buildQuizQuestion"), "q
 assert.ok(/function buildQuizQuestion\(category\)[\s\S]{0,500}quizUi\.buildQuestionBank/.test(script), "quiz debe usar banco generado diferido cuando esta disponible");
 assert.ok(!/function buildQuizQuestion\(category\)[\s\S]{0,2400}category === "language"/.test(script), "quiz no debe conservar ramas pesadas de categorias en el runtime critico");
 assert.ok(script.includes("data-conflict-expand-children"), "campanas y batallas anidadas deben expandirse por tandas");
-assert.ok(/function rerenderCurrentPanel\(\)[\s\S]{0,1500}setTimeout\(flush, 0\)/.test(script), "rerender de panel no debe depender de frames visibles");
+const panelRefreshStart = script.indexOf("function rerenderCurrentPanel()");
+const panelRefreshEnd = script.indexOf("function readLocalPreference(", panelRefreshStart);
+assert.ok(panelRefreshStart >= 0 && panelRefreshEnd > panelRefreshStart, "localizar el refresco completo del panel");
+const panelRefreshSource = script.slice(panelRefreshStart, panelRefreshEnd);
+assert.match(panelRefreshSource, /setTimeout\(flush, 0\)/, "rerender de panel no debe depender de frames visibles");
+assert.doesNotMatch(panelRefreshSource, /requestAnimationFrame\s*\(/, "el refresco no espera un frame suspendido");
 assert.ok(!/bootHeavyDataEnhancements[\s\S]{0,500}loadRuntimeCuration/.test(script), "curaduria profunda no debe ejecutarse desde el arranque diferido");
 assert.ok(/sectionId === "country-section-history"[\s\S]{0,220}loadRuntimeCuration/.test(script), "curaduria profunda debe activarse al abrir historia o conflictos");
 assert.ok(script.includes("function setupCriticalCountrySearchIndex"), "busqueda de pais debe tener un indice critico liviano");

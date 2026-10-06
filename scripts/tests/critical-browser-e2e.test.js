@@ -2193,6 +2193,33 @@ async function testCountryDataRecovery(browser, baseUrl) {
       assert.equal(await page.evaluate(() => selectedLayers.some(layer => layer.code === "ARG")), true);
       const error = page.locator("#country-panel .country-load-error");
       assert.equal(await error.evaluate(element => element.scrollWidth <= element.clientWidth), true);
+      const initialRetry = await retry.elementHandle();
+      assert.ok(initialRetry);
+      await retry.focus();
+      const errorOwner = await page.evaluate(() => {
+        const owner = countryPanelRenderToken;
+        rerenderCurrentPanel();
+        rerenderCurrentPanel();
+        return owner;
+      });
+      await page.waitForFunction(() => rerenderCurrentPanelFrame === null);
+      assert.equal(await page.evaluate(button => button.isConnected && document.activeElement === button, initialRetry), true,
+        "a background refresh preserves the failed profile's retry button and keyboard focus");
+      await initialRetry.dispose();
+      assert.equal(await page.evaluate(() => countryPanelRenderToken), errorOwner);
+      assert.equal(requests.filter(url => /\/countries\/ARG\.json\?/.test(url)).length, 1,
+        "background refresh does not retry a failed profile");
+      for (const language of ["en", "es"]) {
+        await page.locator("#language-select").evaluate((select, language) => {
+          select.value = language;
+          select.dispatchEvent(new Event("change", { bubbles: true }));
+        }, language);
+        await page.waitForFunction(language => currentPanelState.countryLoadLanguage === language, language);
+        assert.match(await error.innerText(), language === "en" ? /The profile could not be loaded/ : /No se pudo cargar la ficha/);
+        assert.equal(await page.evaluate(() => countryPanelRenderToken), errorOwner);
+        assert.equal(requests.filter(url => /\/countries\/ARG\.json\?/.test(url)).length, 1,
+          "translating a failed profile does not download it");
+      }
       const bounds = await retry.boundingBox();
       assert.ok(bounds.x >= 0 && bounds.x + bounds.width <= viewport.width && bounds.y + bounds.height <= viewport.height);
       await page.screenshot({ path: "tmp/country-retry-" + label + ".png" });
@@ -2215,6 +2242,15 @@ async function testCountryDataRecovery(browser, baseUrl) {
 
       await submitSearch(page, "Brasil");
       await page.locator('#country-panel [aria-busy="true"]').waitFor();
+      const loadingOwner = await page.evaluate(() => {
+        const owner = countryPanelRenderToken;
+        rerenderCurrentPanel();
+        return owner;
+      });
+      await page.waitForFunction(() => rerenderCurrentPanelFrame === null);
+      assert.equal(await page.evaluate(() => countryPanelRenderToken), loadingOwner,
+        "a background refresh does not replace an in-flight profile owner");
+      assert.equal(requests.filter(url => /\/countries\/BRA\.json\?/.test(url)).length, 1);
       await closeCountryPanel(page);
       releaseBrazil();
       await page.waitForFunction(() => countriesData.BRA.metadata.isIndex === false);
@@ -2472,10 +2508,32 @@ async function testNewsLifecycle(browser, baseUrl) {
   }
 }
 
+async function installQuizTimerProbe(page) {
+  await page.addInitScript(() => {
+    window.__quizTimers = new Map();
+    const start = window.setInterval.bind(window);
+    const stop = window.clearInterval.bind(window);
+    window.setInterval = (action, delay, ...args) => {
+      const id = start(action, delay, ...args);
+      if (delay === 1000 && action?.name === "onQuizTick") window.__quizTimers.set(id, action);
+      return id;
+    };
+    window.clearInterval = id => { window.__quizTimers.delete(id); stop(id); };
+  });
+}
+
+async function openQuizHub(page, label) {
+  if (label === "mobile") {
+    await page.locator("#toggle-more-panel").click();
+    await page.locator('[data-mobile-hub-target="quiz-hub-panel"]').click();
+  } else await page.locator("#quiz-hub-panel > summary").click();
+  await page.locator(".quiz-hub-content").waitFor({ state: "visible" });
+}
+
 async function testBackgroundPanels(browser, baseUrl) {
   for (const viewport of [DESKTOP_VIEWPORT, MOBILE_VIEWPORT]) {
     const label = viewport === MOBILE_VIEWPORT ? "mobile" : "desktop";
-    const test = await createTestPage(browser, baseUrl, viewport);
+    const test = await createTestPage(browser, baseUrl, viewport, installQuizTimerProbe);
     const { page } = test;
     try {
       await waitForAppReady(page, { requireTiles: false });
@@ -2524,6 +2582,84 @@ async function testBackgroundPanels(browser, baseUrl) {
         await page.locator(`#${id}`).evaluate(element => { element.open = false; });
         await page.locator(`#${id} > ${content}`).waitFor({ state: "hidden" });
       }
+      await openQuizHub(page, label);
+      await page.waitForFunction(() => Boolean(window.GeoRiskQuizUI));
+      await page.locator("#quiz-mode").selectOption("timed");
+      const start = page.locator("#quiz-start-button");
+      await start.focus();
+      await start.press("Enter");
+      await page.waitForFunction(() => quizState.current && window.__quizTimers.size === 1);
+      await page.evaluate(() => {
+        window.__previousQuizState = quizState;
+        window.__previousQuizTick = [...window.__quizTimers.values()][0];
+      });
+      await start.click();
+      await page.waitForFunction(() => quizState !== window.__previousQuizState && window.__quizTimers.size === 1);
+      const ticks = await page.evaluate(() => {
+        const before = quizState.timeLeft;
+        window.__previousQuizTick();
+        const afterStale = quizState.timeLeft;
+        const tick = [...window.__quizTimers.values()][0];
+        tick(); tick();
+        window.__activeQuizTick = tick;
+        return { before, afterStale, after: quizState.timeLeft, timers: window.__quizTimers.size };
+      });
+      assert.equal(ticks.afterStale, ticks.before, label + " stale ticks cannot change a new round");
+      assert.equal(ticks.after, ticks.before - 2, label + " each current callback consumes one second");
+      assert.equal(ticks.timers, 1);
+      await page.locator("#quiz-hub-panel > summary").click();
+      await page.waitForFunction(() => window.__quizTimers.size === 0);
+      const paused = await page.evaluate(() => {
+        const before = quizState.timeLeft;
+        window.__activeQuizTick();
+        return { before, after: quizState.timeLeft, code: quizState.current.code, total: quizState.total };
+      });
+      assert.equal(paused.after, paused.before, label + " closed quizzes do not consume remaining time");
+      await openQuizHub(page, label);
+      await page.waitForFunction(() => window.__quizTimers.size === 1);
+      const resumed = await page.evaluate(() => ({ remaining: quizState.timeLeft, code: quizState.current.code, total: quizState.total }));
+      assert.equal(resumed.code, paused.code);
+      assert.equal(resumed.total, paused.total);
+      assert.ok(resumed.remaining > 0 && resumed.remaining <= paused.after, "reopening must not renew the time budget");
+      const visibility = await page.evaluate(() => {
+        const descriptor = Object.getOwnPropertyDescriptor(document, "visibilityState");
+        const tick = [...window.__quizTimers.values()][0];
+        const before = quizState.timeLeft;
+        Object.defineProperty(document, "visibilityState", { configurable: true, value: "hidden" });
+        document.dispatchEvent(new Event("visibilitychange"));
+        const hiddenTimers = window.__quizTimers.size;
+        tick();
+        const afterHidden = quizState.timeLeft;
+        if (descriptor) Object.defineProperty(document, "visibilityState", descriptor);
+        else delete document.visibilityState;
+        document.dispatchEvent(new Event("visibilitychange"));
+        return { before, hiddenTimers, afterHidden, afterResume: quizState.timeLeft, timers: window.__quizTimers.size };
+      });
+      assert.equal(visibility.hiddenTimers, 0);
+      assert.equal(visibility.afterHidden, visibility.before);
+      assert.equal(visibility.afterResume, visibility.before);
+      assert.equal(visibility.timers, 1, "restoring visibility resumes one countdown");
+      await page.locator("#quiz-mode").selectOption("classic");
+      assert.equal(await page.evaluate(() => window.__quizTimers.size), 0);
+      const content = page.locator(".quiz-hub-content");
+      assert.ok(await content.evaluate(element => element.scrollWidth <= element.clientWidth + 1));
+      assert.equal(await page.locator("#quiz-status").textContent(), "Puntaje: 0/0");
+      await content.screenshot({ path: `tmp/quiz-lifecycle-${label}.png` });
+      const correct = await page.evaluate(() => quizState.current.correct);
+      await page.getByRole("button", { name: correct, exact: true }).click();
+      await page.locator("#quiz-hub-panel > summary").click();
+      await openQuizHub(page, label);
+      const review = await page.evaluate(() => ({
+        score: quizState.score, total: quizState.total, timers: window.__quizTimers.size,
+        disabled: [...document.querySelectorAll(".quiz-option")].every(button => button.disabled),
+        correct: document.querySelectorAll(".quiz-option.is-correct").length,
+        next: !document.getElementById("quiz-next-button").hidden
+      }));
+      assert.deepEqual(review, { score: 1, total: 1, timers: 0, disabled: true, correct: 1, next: true },
+        label + " reopening keeps answered options locked, feedback and progression available");
+      await page.locator("#quiz-reset-button").click();
+      assert.equal(await page.evaluate(() => quizState.current === null && window.__quizTimers.size === 0), true);
+      await page.locator("#quiz-hub-panel > summary").click();
       assertHealthyPage(test.pageErrors, label + " paneles en segundo plano");
     } finally {
       await test.context.close();
@@ -2536,7 +2672,11 @@ async function testDeferredUiRecovery(browser, baseUrl) {
     let attempts = 0;
     let releaseModule;
     const stalledModule = new Promise(resolve => { releaseModule = resolve; });
+    let quizAttempts = 0;
+    let releaseQuiz;
+    const stalledQuiz = new Promise(resolve => { releaseQuiz = resolve; });
     const test = await createTestPage(browser, baseUrl, viewport, async page => {
+      await installQuizTimerProbe(page);
       await page.addInitScript(() => {
         window.__deferredCopies = [];
         window.__deferredDeadlines = new Map();
@@ -2557,6 +2697,11 @@ async function testDeferredUiRecovery(browser, baseUrl) {
         attempts += 1;
         if (attempts === 1) await route.abort("internetdisconnected");
         else { await stalledModule; await route.continue(); }
+      });
+      await page.route("**/app-quiz-ui.js*", async route => {
+        quizAttempts += 1;
+        if (quizAttempts === 1) await route.abort("internetdisconnected");
+        else { await stalledQuiz; await route.continue(); }
       });
     });
     const { page } = test;
@@ -2606,9 +2751,42 @@ async function testDeferredUiRecovery(browser, baseUrl) {
       await button.click();
       await page.waitForFunction(() => window.__deferredCopies.length === 2);
       assert.equal(attempts, 2, "successful imports are reused");
+      assert.equal(quizAttempts, 0, "quiz stays deferred until requested");
+      await page.locator(label === "mobile" ? "#toggle-left-panel" : "#rankings-summary").click();
+      await openQuizHub(page, label);
+      await notice.filter({ hasText: "Revisa tu conexion" }).waitFor({ state: "visible" });
+      assert.equal(quizAttempts, 1, "failed quiz imports do not automatically retry");
+      await page.locator("#quiz-mode").selectOption("timed");
+      await page.evaluate(() => {
+        window.__initialQuizState = quizState;
+        window.__originalQuizStart = startQuiz;
+        startQuiz = (...args) => window.__pendingQuizStart = window.__originalQuizStart(...args);
+      });
+      await page.locator("#quiz-start-button").focus();
+      await page.locator("#quiz-start-button").press("Enter");
+      await page.waitForFunction(() => deferredUiModuleLoads.has("quiz"));
+      await page.locator("#quiz-hub-panel > summary").click();
+      await page.waitForFunction(() => !document.getElementById("quiz-hub-panel").open);
+      releaseQuiz();
+      const cancelled = await page.evaluate(async () => {
+        const result = await window.__pendingQuizStart;
+        startQuiz = window.__originalQuizStart;
+        return { result, unchanged: quizState === window.__initialQuizState,
+          question: quizState.current, bank: quizQuestionBank.length, timers: window.__quizTimers.size };
+      });
+      assert.deepEqual(cancelled, { result: false, unchanged: true, question: null, bank: 0, timers: 0 },
+        label + " closing during a real held import cancels the round without building questions");
+      await openQuizHub(page, label);
+      await page.locator("#quiz-start-button").focus();
+      await page.locator("#quiz-start-button").press("Enter");
+      await page.waitForFunction(() => quizState.current && window.__quizTimers.size === 1);
+      assert.equal(quizAttempts, 2, "explicit reopening reuses the late successful module");
+      await page.locator("#quiz-hub-panel > summary").click();
+      await page.waitForFunction(() => window.__quizTimers.size === 0);
       assertHealthyPage(test.pageErrors, label + " deferred recovery");
     } finally {
       releaseModule();
+      releaseQuiz();
       await test.context.close();
     }
   }

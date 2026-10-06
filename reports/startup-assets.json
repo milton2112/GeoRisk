@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-10-06T17:28:39.445Z",
-  "startupBytes": 894085,
-  "startupHuman": "873 KB",
+  "generatedAt": "2026-10-06T18:15:25.812Z",
+  "startupBytes": 896095,
+  "startupHuman": "875 KB",
   "startupScope": "App shell and eager local scripts only; excludes the separately budgeted map engine.",
   "mapEngine": {
     "path": "vendor/cesium/engine.js",
@@ -9,10 +9,10 @@
     "human": "3.27 MB",
     "precached": false
   },
-  "appCoreAndEngineBytes": 4323698,
-  "appCoreAndEngineHuman": "4.12 MB",
+  "appCoreAndEngineBytes": 4325708,
+  "appCoreAndEngineHuman": "4.13 MB",
   "excludedStartupCosts": "External CSS, workers, imagery and geographic/data requests are not included in appCoreAndEngineBytes. This is not total network transfer or compressed size.",
-  "deferredBytes": 3305882,
+  "deferredBytes": 3306786,
   "deferredHuman": "3.15 MB",
   "estimatedRuntimeMemory": {
     "countriesFullBytes": 13253009,
@@ -41,8 +41,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 589550,
-      "human": "576 KB",
+      "bytes": 591560,
+      "human": "578 KB",
       "startupCritical": true,
       "category": "startup-app-core"
     },
@@ -131,8 +131,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 589550,
-      "human": "576 KB",
+      "bytes": 591560,
+      "human": "578 KB",
       "startupCritical": true,
       "category": "startup-app-core"
     },
@@ -267,8 +267,8 @@
     {
       "path": "app-quiz-ui.js",
       "exists": true,
-      "bytes": 12766,
-      "human": "12 KB",
+      "bytes": 13670,
+      "human": "13 KB",
       "startupCritical": false,
       "category": "deferred-or-auxiliary"
     },

@@ -87,7 +87,7 @@ const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const globeQuality = mapInteractionCore.createGlobeQualityController();
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-10-06-release-5";
+const APP_VERSION = "2026-10-06-release-6";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -2764,6 +2764,7 @@ let lastOverlayBucket = "";
 let lastStyleRefreshSignature = "";
 let reducedPerformanceMode = false;
 let reducedPerformanceReason = "";
+let quizStartToken = 0;
 let quizState = {
   category: "capital",
   difficulty: "easy",
@@ -6520,7 +6521,8 @@ async function renderCountry(country, fallbackName) {
       code: countryCode,
       fallbackName,
       ...defaultTimelineFilters,
-      countryViewMode: currentPanelState.countryViewMode || "full"
+      countryViewMode: currentPanelState.countryViewMode || "full",
+      countryLoadLanguage: currentLanguage
     };
     const panel = document.getElementById("country-panel");
     if (panel && typeof countryPanelUi.renderSkeleton === "function") {
@@ -6534,6 +6536,7 @@ async function renderCountry(country, fallbackName) {
       await renderCountry(detailedCountry, fallbackName);
     } else if (panel) {
       panel.innerHTML = countryPanelUi.renderLoadError(country, currentLanguage, escapeHtml);
+      currentPanelState.countryLoadLanguage = currentLanguage;
     }
     return;
   }
@@ -10133,7 +10136,21 @@ function rerenderCurrentPanel() {
     if (document.getElementById("country-modal")?.hidden) return;
 
     if (currentPanelState.type === "country" && currentPanelState.code && countriesData[currentPanelState.code]) {
-      renderCountry(countriesData[currentPanelState.code], currentPanelState.fallbackName);
+      const country = countriesData[currentPanelState.code];
+      if (country.metadata?.isIndex) {
+        // Refresh loading/error text without retrying data or replacing its request owner.
+        if (currentPanelState.countryLoadLanguage !== currentLanguage) {
+          const panel = document.getElementById("country-panel");
+          const render = countryDetailPromises.has(currentPanelState.code)
+            ? countryPanelUi.renderSkeleton : countryPanelUi.renderLoadError;
+          if (panel && typeof render === "function") {
+            panel.innerHTML = render(country, currentLanguage, escapeHtml);
+            currentPanelState.countryLoadLanguage = currentLanguage;
+          }
+        }
+        return;
+      }
+      renderCountry(country, currentPanelState.fallbackName);
       return;
     }
 
@@ -14130,6 +14147,10 @@ function clearQuizTimer() {
   }
 }
 
+function isQuizActive() {
+  return Boolean(document.getElementById("quiz-hub-panel")?.open) && document.visibilityState !== "hidden";
+}
+
 function getQuizBestStreak() {
   const saved = Number(readLocalPreference("geo-risk-quiz-best-streak"));
   return Math.max(Number.isFinite(saved) ? Math.max(0, Math.floor(saved)) : 0, quizState.bestStreak || 0);
@@ -14196,6 +14217,7 @@ function buildQuizQuestion(category) {
   };
 }
 function renderQuizPanel() {
+  if (!isQuizActive()) return;
   if (typeof quizUi.renderPanel === "function" && quizUi.renderPanel({
     document,
     quizState,
@@ -14221,32 +14243,48 @@ function renderQuizPanel() {
 
 function startQuizTimer() {
   clearQuizTimer();
-  if (quizState.mode !== "timed") {
+  if (quizState.mode !== "timed" || !quizState.current || quizState.current.answered) {
     quizState.timeLeft = 0;
     updateQuizMeta();
     return;
   }
   quizState.timeLeft = quizState.difficulty === "hard" ? 12 : quizState.difficulty === "medium" ? 18 : 25;
   updateQuizMeta();
-  quizState.timerId = setInterval(() => {
-    quizState.timeLeft -= 1;
+  syncQuizTimer();
+}
+
+function syncQuizTimer() {
+  clearQuizTimer();
+  const state = quizState;
+  if (!isQuizActive() || state.mode !== "timed" || !state.current || state.current.answered || state.timeLeft <= 0) return;
+  const timer = setInterval(function onQuizTick() {
+    if (quizState !== state || state.timerId !== timer) return;
+    if (!isQuizActive()) { clearQuizTimer(); return; }
+    state.timeLeft -= 1;
     updateQuizMeta();
-    if (quizState.timeLeft <= 0) {
+    if (state.timeLeft <= 0) {
       clearQuizTimer();
-      if (quizState.current && !quizState.current.answered) answerQuiz("__timeout__");
+      answerQuiz("__timeout__");
     }
   }, 1000);
+  state.timerId = timer;
 }
 
 async function startQuiz() {
+  if (!isQuizActive()) return false;
   const categorySelect = document.getElementById("quiz-category");
   const difficultySelect = document.getElementById("quiz-difficulty");
   const modeSelect = document.getElementById("quiz-mode");
-  await ensureDeferredUiModule("quiz");
-  quizState = {
+  const token = ++quizStartToken;
+  const settings = {
     category: categorySelect?.value || "capital",
     difficulty: difficultySelect?.value || "easy",
-    mode: modeSelect?.value || "classic",
+    mode: modeSelect?.value || "classic"
+  };
+  if (!await ensureDeferredUiModule("quiz") || token !== quizStartToken || !isQuizActive()) return false;
+  clearQuizTimer();
+  quizState = {
+    ...settings,
     asked: [],
     score: 0,
     total: 0,
@@ -14260,9 +14298,11 @@ async function startQuiz() {
     timerId: null
   };
   nextQuizQuestion();
+  return true;
 }
 
 function nextQuizQuestion() {
+  if (!isQuizActive()) return;
   clearQuizTimer();
   const question = buildQuizQuestion(quizState.category);
   quizState.current = question;
@@ -14294,6 +14334,7 @@ function answerQuiz(answer) {
   }
   quizState.asked.push(quizState.current.code);
   quizState.current.answered = true;
+  quizState.current.selectedAnswer = answer;
   const feedbackTitle = isCorrect
     ? (currentLanguage === "en" ? "Well answered" : "Bien respondido")
     : (answer === "__timeout__"
@@ -14336,6 +14377,7 @@ setupQuizControls = function setupQuizControls() {
   startButton.addEventListener("click", () => startQuiz());
   nextButton.addEventListener("click", () => nextQuizQuestion());
   resetButton.addEventListener("click", () => {
+    quizStartToken += 1;
     clearQuizTimer();
     quizState = {
       category: categorySelect.value || "capital",
@@ -14355,9 +14397,9 @@ setupQuizControls = function setupQuizControls() {
     };
     renderQuizPanel();
   });
-  categorySelect.addEventListener("change", () => { quizState.category = categorySelect.value || "capital"; renderQuizPanel(); });
-  difficultySelect.addEventListener("change", () => { quizState.difficulty = difficultySelect.value || "easy"; renderQuizPanel(); });
-  modeSelect.addEventListener("change", () => { quizState.mode = modeSelect.value || "classic"; renderQuizPanel(); });
+  categorySelect.addEventListener("change", () => { quizStartToken += 1; quizState.category = categorySelect.value || "capital"; renderQuizPanel(); });
+  difficultySelect.addEventListener("change", () => { quizStartToken += 1; quizState.difficulty = difficultySelect.value || "easy"; renderQuizPanel(); });
+  modeSelect.addEventListener("change", () => { quizStartToken += 1; quizState.mode = modeSelect.value || "classic"; startQuizTimer(); renderQuizPanel(); });
   exportButton?.addEventListener("click", () => {
     const text = typeof quizUi.buildResultsExport === "function"
       ? quizUi.buildResultsExport(quizState, currentLanguage)
@@ -14506,8 +14548,14 @@ function setupQuizHubPanel() {
   }
 
   panel.open = false;
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") quizStartToken += 1;
+    syncQuizTimer();
+  });
   panel.addEventListener("toggle", () => {
     if (!panel.open) {
+      quizStartToken += 1;
+      syncQuizTimer();
       return;
     }
     closeMobilePanels();
@@ -14515,8 +14563,9 @@ function setupQuizHubPanel() {
     const newsPanel = document.getElementById("news-hub-panel");
     if (comparePanel) comparePanel.open = false;
     if (newsPanel) newsPanel.open = false;
-    ensureDeferredUiModule("quiz").then(renderQuizPanel);
+    ensureDeferredUiModule("quiz").then(loaded => { if (loaded) renderQuizPanel(); });
     renderQuizPanel();
+    syncQuizTimer();
   });
 }
 

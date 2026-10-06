@@ -40,6 +40,13 @@ no una certificacion ambiental ni una afirmacion de neutralidad de carbono.
 limpieza de listeners y carga bajo demanda. Tambien forma parte de `test:startup`,
 por lo que se ejecuta en `npm test`, pre-push y GitHub Actions. Los imports ESM
 comparten las mismas pruebas dentro de cada proceso, sin duplicar su ejecucion.
+El quiz tambien comprueba un unico intervalo propio, pausa sin trabajo periodico
+al cerrar/ocultar y descarte de arranques/ticks obsoletos. Conserva los segundos
+restantes al volver; no es un reloj de examen supervisado ni una medicion de energia.
+El refresco de ficha tampoco reintenta perfiles fallidos ni reemplaza su skeleton
+sin cambios. Traducir el mensaje usa solo el renderer local; descargar requiere
+una accion explicita. El request en curso conserva su ownership y el perfil valido
+sigue reutilizandose. Una marca de idioma queda solo en el estado del panel actual.
 
 `npm run check:startup-budget` conserva los limites existentes. `release:check`
 ejecuta pruebas de navegador, offline, presupuestos, auditorias y snapshot de 60 s

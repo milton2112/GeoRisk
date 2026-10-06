@@ -22,7 +22,12 @@ function harness() {
   const calls = [];
   const timers = new Map();
   let timerId = 0;
-  const panel = { innerHTML: "" };
+  let html = "";
+  let panelWrites = 0;
+  const panel = {
+    get innerHTML() { return html; },
+    set innerHTML(value) { html = value; panelWrites++; }
+  };
   const modal = { hidden: true };
   const state = {
     window: {}, console: { warn() {} }, AbortController, APP_VERSION: "test",
@@ -48,7 +53,78 @@ function harness() {
   vm.runInContext(block("async function fetchCountryDataJson", "function shuffleArray"), state);
   vm.runInContext(block("function closeCountryModal", "function getReligionSummaryLabel"), state);
   vm.runInContext(block("async function renderCountry", "  const symbolAssets = getCountrySymbolAssets") + "renderFull(country);\n}", state);
-  return { state, calls, timers, panel, modal };
+  vm.runInContext(block("let rerenderCurrentPanelFrame = null;", "function readLocalPreference"), state);
+  return { state, calls, timers, panel, modal, writes: () => panelWrites };
+}
+
+async function flushPanelRefresh(test) {
+  for (const [id, timer] of [...test.timers]) {
+    if (timer.ms === 0) {
+      test.timers.delete(id);
+      timer.fn();
+    }
+  }
+  await flush();
+}
+
+{
+  const test = harness();
+  const { state, calls, panel } = test;
+  state.fetch = async (url, options) => { calls.push({ url, options }); return response({}, 503); };
+  await state.renderCountry(state.countriesData.ARG, "Argentina");
+  const error = panel.innerHTML;
+  const writes = test.writes();
+  const owner = state.countryPanelRenderToken;
+  state.rerenderCurrentPanel();
+  state.rerenderCurrentPanel();
+  await flushPanelRefresh(test);
+  assert.equal(calls.length, 1, "an automatic refresh must not retry a failed profile");
+  assert.equal(panel.innerHTML, error, "same-language refresh preserves the retry button and its focus");
+  assert.equal(test.writes(), writes, "an unchanged error does not replace the DOM");
+  assert.equal(state.countryPanelRenderToken, owner, "refresh preserves the country request owner");
+  state.currentLanguage = "en";
+  state.rerenderCurrentPanel();
+  await flushPanelRefresh(test);
+  assert.match(panel.innerHTML, /The profile could not be loaded/);
+  assert.equal(calls.length, 1, "translating the error does not request country data");
+  assert.equal(state.countryPanelRenderToken, owner);
+  state.fetch = async (url, options) => { calls.push({ url, options }); return response(profile()); };
+  await state.renderCountry(state.countriesData.ARG, "Argentina");
+  assert.equal(calls.length, 2, "an explicit retry still downloads the profile once");
+  assert.equal(calls[1].options.cache, "reload");
+  assert.equal(panel.innerHTML, "Argentina");
+  state.rerenderCurrentPanel();
+  await flushPanelRefresh(test);
+  assert.equal(calls.length, 2, "complete profiles are repainted without downloading again");
+  assert.ok(state.countryPanelRenderToken > owner);
+}
+
+{
+  const test = harness();
+  const { state, calls, panel } = test;
+  const held = deferred();
+  state.fetch = async (url, options) => { calls.push({ url, options }); return held.promise; };
+  const pending = state.renderCountry(state.countriesData.ARG, "Argentina");
+  await flush();
+  const loading = panel.innerHTML;
+  const writes = test.writes();
+  const owner = state.countryPanelRenderToken;
+  state.rerenderCurrentPanel();
+  await flushPanelRefresh(test);
+  assert.equal(state.countryPanelRenderToken, owner, "a refresh cannot take ownership of an in-flight profile");
+  assert.equal(panel.innerHTML, loading);
+  assert.equal(test.writes(), writes, "an unchanged skeleton is not rendered again");
+  state.currentLanguage = "en";
+  state.rerenderCurrentPanel();
+  await flushPanelRefresh(test);
+  assert.match(panel.innerHTML, /Loading detailed sections/);
+  assert.equal(state.countryPanelRenderToken, owner);
+  assert.equal(calls.length, 1);
+  held.resolve(response(profile()));
+  await pending;
+  assert.equal(panel.innerHTML, "Argentina", "the original request still publishes its valid profile");
+  assert.equal(calls.length, 1);
+  assert.equal(test.timers.size, 0);
 }
 
 for (const failedModule of ["countryPanel", "timelineConflicts", "both"]) {

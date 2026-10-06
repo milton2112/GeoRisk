@@ -7,6 +7,7 @@ import "./map-entry-batches.test.js";
 import "./map-motion-preference.test.js";
 import "./number-formatting.test.js";
 import "./label-ordering.test.js";
+import "./quiz-lifecycle.test.js";
 import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import vm from "node:vm";
