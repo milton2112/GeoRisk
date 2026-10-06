@@ -32,7 +32,7 @@ function harness() {
       querySelector: () => null, querySelectorAll: () => []
     },
     countriesData: { ARG: { code: "ARG", name: "Argentina", general: {} }, BRA: { code: "BRA", name: "Brasil", general: {} } },
-    ensureDeferredUiModule: async () => {}, escapeHtml: value => String(value),
+    ensureDeferredUiModule: async () => true, escapeHtml: value => String(value),
     getCountryNewsUrl: country => "https://example.com/" + country.code,
     getCountryNewsPortalLinks: () => [],
     getNewsTopicLabel: topic => topic,
@@ -44,6 +44,45 @@ function harness() {
       + block("function renderNewsState(", "async function showNewsArticle(") : "";
   vm.runInContext(helpers + block("async function showNewsArticle(", "function renderNewsHub("), context);
   return { context, panel, article, selected, rendered };
+}
+
+for (const language of ["es", "en"]) {
+  const { context, rendered, article } = harness();
+  let externalCalls = 0;
+  context.currentLanguage = language;
+  context.ensureDeferredUiModule = async () => false;
+  context.fetchCountryHeadlines = async () => { externalCalls++; return [{ title: "No solicitado" }]; };
+  await context.showNewsArticle("ARG");
+  assert.equal(externalCalls, 0, "a failed/expired news module must not start a third-party query");
+  assert.deepEqual(rendered, []);
+  assert.doesNotMatch(article.innerHTML, /aria-busy="true"/);
+  assert.match(article.innerHTML, /data-news-country="ARG"/);
+  assert.match(article.innerHTML, language === "en" ? /Headlines unavailable/ : /Titulares no disponibles/);
+  assert.equal(context.activeNewsRequest, null);
+  context.ensureDeferredUiModule = async () => true;
+  await context.showNewsArticle("ARG");
+  assert.equal(externalCalls, 1, "explicit recovery still requests headlines");
+  assert.equal(rendered.length, 1);
+}
+
+for (const action of ["country", "topic", "language", "hidden", "close"]) {
+  const { context, panel, article } = harness();
+  const module = deferred();
+  let externalCalls = 0;
+  context.ensureDeferredUiModule = () => module.promise;
+  context.fetchCountryHeadlines = async () => { externalCalls++; return []; };
+  const pending = context.showNewsArticle("ARG");
+  if (action === "country") context.activeNewsCountryCode = "BRA";
+  if (action === "topic") context.activeNewsTopic = "economy";
+  if (action === "language") context.currentLanguage = "en";
+  if (action === "hidden") context.document.visibilityState = "hidden";
+  if (action === "close") panel.open = false;
+  article.innerHTML = "newer content";
+  module.resolve(false);
+  await pending;
+  assert.equal(article.innerHTML, "newer content", action + ": a stale module error cannot replace the latest content");
+  assert.equal(externalCalls, 0);
+  assert.equal(context.activeNewsRequest, null);
 }
 
 {
@@ -100,7 +139,7 @@ for (const action of ["close", "hidden", "language"]) {
   const pending = context.showNewsArticle("ARG");
   panel.open = false;
   context.cancelNewsRequest();
-  module.resolve();
+  module.resolve(true);
   await pending;
   assert.equal(calls, 0, "closing while a deferred module loads must prevent the external request");
   assert.deepEqual(rendered, []);

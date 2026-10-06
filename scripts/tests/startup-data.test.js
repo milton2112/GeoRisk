@@ -237,7 +237,12 @@ assert.ok(/sectionId === "country-section-history"[\s\S]{0,220}loadRuntimeCurati
 assert.ok(script.includes("function setupCriticalCountrySearchIndex"), "busqueda de pais debe tener un indice critico liviano");
 assert.ok(/await hydrateCountriesData\(countriesJson\);\s*setupCriticalCountrySearchIndex\(\);/.test(script), "indice critico de paises debe quedar listo al terminar la hidratacion inicial");
 assert.ok(script.includes("function ensureSearchIndexReady"), "busqueda avanzada debe tener garantia de indice bajo demanda");
-assert.ok(/async function searchMap\(\)[\s\S]{0,140}ensureSearchIndexReady\(\)/.test(script), "primera busqueda debe habilitar religiones y categorias aunque la tarea ociosa siga pendiente");
+const searchControllerStart = script.indexOf("async function searchMap()");
+const searchControllerEnd = script.indexOf("async function searchByQuery(", searchControllerStart);
+assert.ok(searchControllerStart >= 0 && searchControllerEnd > searchControllerStart);
+const searchControllerSource = script.slice(searchControllerStart, searchControllerEnd);
+assert.match(searchControllerSource, /if \(!await ensureDeferredUiModule\("search"\) \|\| !isCurrent\(\)\) return;\s*ensureSearchIndexReady\(\)/,
+  "solo una busqueda vigente con modulo disponible inicia el indice bajo demanda");
 assert.ok(script.includes("async function openCountryByCode"), "interacciones deben centralizar apertura de ficha por codigo");
 assert.ok(/if \(result\.type === "country"\)[\s\S]{0,180}await openCountryByCode\(countryCode, result\.label\)/.test(script), "busqueda de pais debe abrir ficha aunque la geometria siga cargando");
 assert.ok(/function selectRankedCountry\(country\)[\s\S]{0,180}await openCountryByCode\(code/.test(script), "rankings deben abrir fichas con el mismo flujo que busqueda/mapa");

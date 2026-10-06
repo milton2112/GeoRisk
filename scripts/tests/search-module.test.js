@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import path from "node:path";
 import vm from "node:vm";
+import "./search-lifecycle.test.js";
 
 const projectRoot = process.cwd();
 const source = await fs.readFile(path.join(projectRoot, "app-search.js"), "utf8");

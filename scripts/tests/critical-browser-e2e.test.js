@@ -2373,7 +2373,13 @@ async function testCountryDataRecovery(browser, baseUrl) {
 
 async function testNewsLifecycle(browser, baseUrl) {
   for (const [label, viewport] of [["desktop", DESKTOP_VIEWPORT], ["mobile", MOBILE_VIEWPORT]]) {
+    let newsAttempts = 0;
     const test = await createTestPage(browser, baseUrl, viewport, async page => {
+      await page.route("**/app-news-ui.js*", async route => {
+        newsAttempts++;
+        if (newsAttempts <= 2) await route.abort("internetdisconnected");
+        else await route.continue();
+      });
       await page.addInitScript(() => {
         const nativeFetch = window.fetch.bind(window);
         const fixture = window.__newsFixture = { mode: "ok", calls: [] };
@@ -2414,11 +2420,21 @@ async function testNewsLifecycle(browser, baseUrl) {
       await waitForAppReady(page, { requireTiles: false });
       assert.equal(await count(), 0, label + " no headlines at startup");
       await openHub();
-      await page.waitForFunction(() => typeof newsUi.buildStateCard === "function");
+      await page.waitForFunction(() => deferredUiModuleFailures.get("news") === 1 && !deferredUiModuleLoads.has("news"));
       assert.equal(await count(), 0, "opening the hub does not download headlines");
-      await page.evaluate(() => { window.__newsFixture.mode = "hold"; });
       await selectCountry("Argentina", "ARG");
+      await page.waitForFunction(() => deferredUiModuleFailures.get("news") === 2 && activeNewsRequest === null);
+      assert.equal(await count(), 0, "failed news imports must not query the provider");
+      assert.equal(await page.locator('#news-hub-article [aria-busy="true"]').count(), 0);
+      const moduleRetry = page.locator('#news-hub-article [data-news-country="ARG"]');
+      await moduleRetry.waitFor({ state: "visible" });
+      assert.ok(await page.locator('#news-hub-article a[target="_blank"]').isVisible());
+      await page.locator(".news-hub-content").screenshot({ path: `tmp/news-module-recovery-${label}.png` });
+      await page.evaluate(() => { window.__newsFixture.mode = "hold"; });
+      await moduleRetry.focus();
+      await moduleRetry.press("Enter");
       await page.waitForFunction(() => window.__newsFixture.calls.length === 1);
+      assert.equal(newsAttempts, 3, "explicit news recovery loads once and queries once");
       await page.evaluate(() => { window.__newsFixture.mode = "ok"; });
       await selectCountry("Brasil", "BRA");
       await page.waitForFunction(() => document.getElementById("news-hub-article").textContent.includes("Titular de prueba 1-0"));
@@ -2498,6 +2514,7 @@ async function testNewsLifecycle(browser, baseUrl) {
       const content = page.locator(".news-hub-content");
       assert.ok(await content.evaluate(element => element.scrollWidth <= element.clientWidth + 1), label + " news fits its panel");
       await content.screenshot({ path: `tmp/news-ready-${label}.png` });
+      assert.equal(newsAttempts, 3, "successful news imports are reused throughout the lifecycle");
       assertHealthyPage(test.pageErrors, label + " news lifecycle");
     } finally {
       await page.evaluate(() => {
@@ -2533,7 +2550,17 @@ async function openQuizHub(page, label) {
 async function testBackgroundPanels(browser, baseUrl) {
   for (const viewport of [DESKTOP_VIEWPORT, MOBILE_VIEWPORT]) {
     const label = viewport === MOBILE_VIEWPORT ? "mobile" : "desktop";
-    const test = await createTestPage(browser, baseUrl, viewport, installQuizTimerProbe);
+    let rankingAttempts = 0;
+    let releaseRankings;
+    const stalledRankings = new Promise(resolve => { releaseRankings = resolve; });
+    const test = await createTestPage(browser, baseUrl, viewport, async page => {
+      await installQuizTimerProbe(page);
+      await page.route("**/app-rankings.js*", async route => {
+        rankingAttempts++;
+        await stalledRankings;
+        await route.continue();
+      });
+    });
     const { page } = test;
     try {
       await waitForAppReady(page, { requireTiles: false });
@@ -2548,6 +2575,14 @@ async function testBackgroundPanels(browser, baseUrl) {
         }));
         assert.deepEqual(hidden, { display: "none", rects: 0 }, label + " contenido cerrado sin layout: " + id);
       }
+      await page.evaluate(() => {
+        window.__advancedRankingRenders = 0;
+        const render = renderAdvancedRanking;
+        renderAdvancedRanking = (...args) => { window.__advancedRankingRenders++; return render(...args); };
+        const generate = generateAdvancedRankings;
+        generateAdvancedRankings = (...args) => window.__pendingRankings = generate(...args);
+      });
+      assert.equal(rankingAttempts, 0, "rankings module stays deferred at startup");
       await page.locator(label === "mobile" ? "#toggle-left-panel" : "#rankings-summary").click();
       await page.waitForFunction(() => document.getElementById("world-population-total").textContent === formatNumber(worldPopulationTotal));
       assert.ok(await page.locator("#world-population-total").isVisible(), label + " total disponible al abrir Rankings");
@@ -2556,6 +2591,22 @@ async function testBackgroundPanels(browser, baseUrl) {
         return bounds.left >= 0 && bounds.right <= innerWidth;
       });
       await page.screenshot({ path: "tmp/rankings-ready-" + label + ".png" });
+      await page.waitForFunction(() => deferredUiModuleLoads.has("rankings") && deferredGlobalStatsReady).catch(async error => {
+        console.log("ranking recovery wait:", label, await page.evaluate(() => ({
+          open: isRankingsPanelOpen(), ready: deferredGlobalStatsReady, advanced: advancedRankingsReady,
+          pending: [...deferredUiModuleLoads.keys()], timer: deferredGlobalStatsTimer,
+          renders: window.__advancedRankingRenders, failures: [...deferredUiModuleFailures]
+        })));
+        throw error;
+      });
+      await page.locator(label === "mobile" ? "#toggle-left-panel" : "#rankings-summary").click();
+      await page.waitForFunction(() => !document.getElementById("rankings-panel").open);
+      releaseRankings();
+      await page.evaluate(() => window.__pendingRankings);
+      assert.equal(await page.evaluate(() => window.__advancedRankingRenders), 0, "closing during import prevents advanced calculations and DOM writes");
+      await page.locator(label === "mobile" ? "#toggle-left-panel" : "#rankings-summary").click();
+      await page.waitForFunction(() => advancedRankingsReady && window.__advancedRankingRenders === 6);
+      assert.equal(rankingAttempts, 1, "reopening recovers the late module without downloading again");
       await page.locator(label === "mobile" ? "#toggle-left-panel" : "#rankings-summary").click();
 
       for (const [query, type] of [["Asia", "continent"], ["Cristianismo", "religion"]]) {
@@ -2662,6 +2713,7 @@ async function testBackgroundPanels(browser, baseUrl) {
       await page.locator("#quiz-hub-panel > summary").click();
       assertHealthyPage(test.pageErrors, label + " paneles en segundo plano");
     } finally {
+      releaseRankings();
       await test.context.close();
     }
   }
@@ -2675,6 +2727,9 @@ async function testDeferredUiRecovery(browser, baseUrl) {
     let quizAttempts = 0;
     let releaseQuiz;
     const stalledQuiz = new Promise(resolve => { releaseQuiz = resolve; });
+    let searchAttempts = 0;
+    let releaseSearch;
+    const stalledSearch = new Promise(resolve => { releaseSearch = resolve; });
     const test = await createTestPage(browser, baseUrl, viewport, async page => {
       await installQuizTimerProbe(page);
       await page.addInitScript(() => {
@@ -2702,6 +2757,11 @@ async function testDeferredUiRecovery(browser, baseUrl) {
         quizAttempts += 1;
         if (quizAttempts === 1) await route.abort("internetdisconnected");
         else { await stalledQuiz; await route.continue(); }
+      });
+      await page.route("**/app-search.js*", async route => {
+        searchAttempts++;
+        if (searchAttempts === 1) await route.abort("internetdisconnected");
+        else { await stalledSearch; await route.continue(); }
       });
     });
     const { page } = test;
@@ -2783,10 +2843,40 @@ async function testDeferredUiRecovery(browser, baseUrl) {
       assert.equal(quizAttempts, 2, "explicit reopening reuses the late successful module");
       await page.locator("#quiz-hub-panel > summary").click();
       await page.waitForFunction(() => window.__quizTimers.size === 0);
+      await page.evaluate(() => {
+        window.__originalSearch = searchMap;
+        searchMap = (...args) => window.__pendingSearch = window.__originalSearch(...args);
+        document.getElementById("map-search-input").value = "Islam";
+      });
+      const beforeSearch = await page.evaluate(() => ({ panel: currentPanelState, selection: selectedLayers.map(layer => layer.code),
+        html: document.getElementById("country-panel").innerHTML }));
+      await page.locator("#map-search-button").click();
+      await page.evaluate(() => window.__pendingSearch);
+      assert.equal(searchAttempts, 1);
+      assert.deepEqual(await page.evaluate(() => ({ panel: currentPanelState, selection: selectedLayers.map(layer => layer.code),
+        html: document.getElementById("country-panel").innerHTML })), beforeSearch, "failed advanced search must not select or show false not-found state");
+      await page.locator("#map-search-button").focus();
+      await page.locator("#map-search-button").press("Enter");
+      await page.waitForFunction(() => deferredUiModuleLoads.has("search"));
+      await page.evaluate(() => { window.__olderSearch = window.__pendingSearch; });
+      await submitSearch(page, "Brasil");
+      await waitForCountryPanel(page, "Brasil");
+      assert.equal(await page.evaluate(() => currentPanelState.code), "BRA", "basic country search works without waiting for the held advanced module");
+      releaseSearch();
+      await page.evaluate(() => window.__olderSearch);
+      assert.equal(await page.evaluate(() => currentPanelState.code), "BRA", "late advanced search cannot replace a newer country selection");
+      await closeCountryPanel(page);
+      await submitSearch(page, "Islam");
+      await page.waitForFunction(() => currentPanelState.type === "religion" && !document.getElementById("country-modal").hidden);
+      assert.ok(await page.evaluate(() => selectedLayers.length > 0));
+      assert.equal(searchAttempts, 2, "advanced search recovers on explicit retry and reuses the successful module");
+      await closeCountryPanel(page);
+      await page.evaluate(() => { searchMap = window.__originalSearch; });
       assertHealthyPage(test.pageErrors, label + " deferred recovery");
     } finally {
       releaseModule();
       releaseQuiz();
+      releaseSearch();
       await test.context.close();
     }
   }

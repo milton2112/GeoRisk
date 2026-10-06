@@ -48,6 +48,16 @@ sin cambios. Traducir el mensaje usa solo el renderer local; descargar requiere
 una accion explicita. El request en curso conserva su ownership y el perfil valido
 sigue reutilizandose. Una marca de idioma queda solo en el estado del panel actual.
 
+Busqueda, noticias y rankings comprueban false del cargador antes de construir
+indices, consultar proveedores o calcular/renderizar tablas. Las consultas avanzadas
+tambien descartan resultados con texto, solicitud o propietario de ficha obsoletos.
+Un pais exacto se resuelve con los aliases criticos existentes, sin esperar al modulo
+avanzado; autocomplete y ficha conservan sus cargas propias. Rankings solo inicia o
+continua con panel abierto y pagina visible, y cerrar el contenedor mobile cierra su
+details nativo. Reabrir recupera tablas aun no completadas sin otra descarga si el
+modulo ya llego. Costo: dos escalares, guards por accion y sincronizacion del details,
+sin nuevos monitores, caches ni dependencias. No acredita ahorro energetico.
+
 `npm run check:startup-budget` conserva los limites existentes. `release:check`
 ejecuta pruebas de navegador, offline, presupuestos, auditorias y snapshot de 60 s
 en escritorio y mobile emulado. Las entradas del snapshot deben corresponder al

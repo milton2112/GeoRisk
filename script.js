@@ -87,7 +87,7 @@ const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const globeQuality = mapInteractionCore.createGlobeQualityController();
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-10-06-release-6";
+const APP_VERSION = "2026-10-06-release-7";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -1904,6 +1904,7 @@ function getBootProfileSummary() {
 let mapOverlayLoadToken = 0;
 let deferredGlobalStatsTimer = null;
 let deferredGlobalStatsReady = false;
+let advancedRankingsReady = false;
 let hoverSuppressedUntil = 0;
 let lastHoverSampleAt = 0;
 let lastThemeSummarySignature = "";
@@ -2736,6 +2737,7 @@ let savedViews = [];
 let favoriteViews = [];
 let searchHistory = [];
 let savedSearches = [];
+let searchRequestId = 0;
 let quizQuestionBank = [];
 let compareBenchmarkMode = "world";
 let activeNewsTopic = "general";
@@ -3761,6 +3763,10 @@ function closeMobilePanels() {
   const toolbar = document.getElementById("map-toolbar");
   if (toolbar && isMobileLayout()) {
     toolbar.open = false;
+  }
+  const rankingsPanel = document.getElementById("rankings-panel");
+  if (rankingsPanel && isMobileLayout()) {
+    rankingsPanel.open = false;
   }
   syncMobilePanelControlState();
 }
@@ -9002,8 +9008,9 @@ async function showNewsArticle(countryCode) {
     document.querySelectorAll("#news-hub-list .news-hub-item").forEach(item => {
       item.classList.toggle("is-active", item.querySelector("[data-news-country]")?.dataset.newsCountry === countryCode);
     });
-    await ensureDeferredUiModule("news");
+    const loaded = await ensureDeferredUiModule("news");
     if (!isCurrent()) return;
+    if (!loaded) { renderNewsState(country); return; }
     const headlines = await fetchCountryHeadlines(country, { topic, language, signal: request.controller.signal });
     if (!isCurrent()) return;
     if (headlines.length) renderNewsArticle(headlines[0], country, headlines);
@@ -11437,13 +11444,16 @@ function renderAdvancedRanking(targetId, title, metric, formatter = value => for
 }
 
 async function generateAdvancedRankings() {
-  await ensureDeferredUiModule("rankings");
+  if (!isRankingsPanelOpen() || document.visibilityState === "hidden") return;
+  if (!await ensureDeferredUiModule("rankings") || !isRankingsPanelOpen()
+    || document.visibilityState === "hidden") return;
   renderAdvancedRanking("top-risk-score", currentLanguage === "en" ? "Risk ranking" : "Ranking de riesgo", "risk");
   renderAdvancedRanking("top-data-quality", currentLanguage === "en" ? "Data quality ranking" : "Ranking de calidad de datos", "dataQuality");
   renderAdvancedRanking("top-active-conflicts", currentLanguage === "en" ? "Active conflicts" : "Conflictos activos", "activeConflicts");
   renderAdvancedRanking("top-military-pressure", currentLanguage === "en" ? "Military pressure" : "Presion militar", "military");
   renderAdvancedRanking("top-fragility", currentLanguage === "en" ? "Fragility" : "Fragilidad", "fragility");
   renderAdvancedRanking("top-diplomacy", currentLanguage === "en" ? "Diplomatic buffer" : "Ranking diplomatico", "diplomacy");
+  advancedRankingsReady = true;
 }
 
 function addCountryToCompare(code) {
@@ -12433,15 +12443,22 @@ async function selectSearchResult(result) {
 }
 
 async function searchMap() {
-  await ensureDeferredUiModule("search");
-  ensureSearchIndexReady();
+  const requestId = ++searchRequestId;
   const input = document.getElementById("map-search-input");
-  const rawQuery = input.value;
+  const rawQuery = input?.value || "";
   const query = normalizeText(rawQuery);
-
-  if (!query) {
+  if (!query || document.visibilityState === "hidden") return;
+  const countryCode = countryAliases.get(query);
+  const country = countriesData[countryCode];
+  if (country) {
+    await selectSearchResult({ type: "country", value: countryCode, label: country.name || countryCode });
     return;
   }
+  const panelOwner = countryPanelRenderToken;
+  const isCurrent = () => requestId === searchRequestId && input.value === rawQuery
+    && panelOwner === countryPanelRenderToken && document.visibilityState !== "hidden";
+  if (!await ensureDeferredUiModule("search") || !isCurrent()) return;
+  ensureSearchIndexReady();
 
   const aliasContext = getSearchAliasContext();
   const naturalRankingQuery = typeof searchCore.parseNaturalQuery === "function"
@@ -12510,8 +12527,9 @@ async function searchMap() {
         appVersion: APP_VERSION,
         fetchResourceCached,
         translateConflictName
-      })
+    })
     : null;
+  if (!isCurrent()) return;
   if (indexedConflict) {
     await selectSearchResult({
       label: indexedConflict.name,
@@ -14445,6 +14463,7 @@ function setupRankingsPanel() {
     if (rankingsPanel.open) {
       runCriticalGlobalStats();
       if (!deferredGlobalStatsReady) scheduleDeferredGlobalStats(true);
+      else if (!advancedRankingsReady) generateAdvancedRankings();
     }
   });
 }
@@ -14522,8 +14541,8 @@ function setupNewsHubPanel() {
       const quizPanel = document.getElementById("quiz-hub-panel");
       if (comparePanel) comparePanel.open = false;
       if (quizPanel) quizPanel.open = false;
-      ensureDeferredUiModule("news").then(() => {
-        if (panel.open && document.visibilityState !== "hidden") renderNewsHub(currentPanelState.code || "");
+      ensureDeferredUiModule("news").then(loaded => {
+        if (loaded && panel.open && document.visibilityState !== "hidden") renderNewsHub(currentPanelState.code || "");
       });
       renderNewsHub(currentPanelState.code || "");
     }
