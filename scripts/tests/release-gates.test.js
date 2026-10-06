@@ -15,6 +15,7 @@ import "./pages-deployment.test.js";
 import "./release-status.test.js";
 import "./browser-screenshot.test.js";
 import "./browser-launch.test.js";
+import "./browser-tile-cache.test.js";
 import "./data-pipeline.test.js";
 import "./release-tag.test.js";
 
@@ -301,6 +302,12 @@ assert.ok(releaseWorkflow.includes("npm run check:startup-budget"), "GitHub Acti
 assert.ok(packageJson.scripts.test.includes("npm run test:browser-visual"), "npm test dentro del release gate debe correr smoke visual");
 assert.equal(releaseWorkflow.match(/npx playwright install --with-deps --no-shell chromium/g)?.length, 2, "release y auditoria deben instalar Chromium nuevo sin el shell que no usan");
 assert.ok(releaseChecklist.includes("timeoutMs: 20 * 60_000"), "el cambio de navegador no debe aumentar el limite de npm test");
+assert.ok(criticalBrowserE2E.includes("tileCache.attach(context)"), "la E2E reutiliza teselas reales con limites");
+const workerActivation = criticalBrowserE2E.slice(criticalBrowserE2E.indexOf("async function testFirstWorkerActivation"), criticalBrowserE2E.indexOf("async function testPagesBuild"));
+assert.ok(!workerActivation.includes("tileCache.attach"), "la prueba del worker conserva red/cache reales y contexto sin el cache auxiliar");
+for (const file of ["scripts/tests/service-worker-browser.test.js", "scripts/lib/browser-performance.js"]) {
+  assert.ok(!(await fs.readFile(file, "utf8")).includes("browser-tile-cache"), "offline y benchmark no deben reutilizar teselas desde la E2E");
+}
 assert.ok(releaseWorkflow.includes("timeout-minutes: 45"), "el gate conserva su limite global");
 assert.ok(packageJson.scripts.test.includes("npm run test:e2e:critical"), "npm test dentro del release gate debe ejecutar la E2E critica");
 assert.ok(releaseWorkflow.includes("npm run audit:doctor"), "GitHub Actions debe publicar doctor de producto");

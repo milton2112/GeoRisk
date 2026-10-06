@@ -4,11 +4,13 @@ import { chromium } from "@playwright/test";
 import { launchProjectBrowser } from "../lib/browser-launch.js";
 import { createLocalSmokeServer } from "../localSmokeServer.js";
 import { captureLiveElement, captureTransientNotice } from "../lib/browser-screenshot.js";
+import { createBrowserTileCache } from "../lib/browser-tile-cache.js";
 
 const APP_TIMEOUT_MS = Number(process.env.GEORISK_E2E_TIMEOUT_MS || 45000);
 const MAP_PICK_TIMEOUT_MS = Math.min(APP_TIMEOUT_MS, 8000);
 const DESKTOP_VIEWPORT = { width: 1440, height: 920 };
 const MOBILE_VIEWPORT = { width: 390, height: 844 };
+const tileCache = createBrowserTileCache();
 
 async function launchCriticalBrowser() {
   return launchProjectBrowser(chromium);
@@ -27,6 +29,7 @@ async function createTestPage(browser, baseUrl, viewport, beforeNavigate = async
     hasTouch: isMobile,
     serviceWorkers: "block"
   });
+  await tileCache.attach(context);
   const page = await context.newPage();
   const pageErrors = [];
   page.on("pageerror", error => pageErrors.push(error.message));
@@ -432,6 +435,7 @@ async function testMapEngineStartup(browser, baseUrl) {
   for (const scenario of ["slow", "failure", "early-failure", "timeout", "loader-missing", "no-frame"]) {
     console.log("map-engine-startup: " + scenario);
     const context = await browser.newContext({ viewport: MOBILE_VIEWPORT, isMobile: true, hasTouch: true, serviceWorkers: "block" });
+    await tileCache.attach(context);
     let releaseEngine;
     const held = new Promise(resolve => { releaseEngine = resolve; });
     const pageErrors = [];
@@ -1239,6 +1243,7 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
 
 async function testControlsStartup(browser, baseUrl) {
   const context = await browser.newContext({ viewport: MOBILE_VIEWPORT, isMobile: true, hasTouch: true, serviceWorkers: "block" });
+  await tileCache.attach(context);
   let releaseMain;
   let releaseUi;
   let releaseStyles;
@@ -3379,6 +3384,8 @@ try {
   }
 } finally {
   await browser?.close();
+  console.log("critical-browser-e2e: tile cache " + JSON.stringify(tileCache.stats()));
+  tileCache.close();
   await new Promise(resolve => server.close(resolve));
 }
 
