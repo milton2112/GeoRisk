@@ -14,6 +14,7 @@ import "./export-security.test.js";
 import "./pages-deployment.test.js";
 import "./release-status.test.js";
 import "./browser-screenshot.test.js";
+import "./browser-map-pick.test.js";
 import "./browser-launch.test.js";
 import "./browser-tile-cache.test.js";
 import "./browser-run-report.test.js";

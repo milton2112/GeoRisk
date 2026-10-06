@@ -42,14 +42,18 @@ async function createTestPage(browser, baseUrl, viewport, beforeNavigate = async
     });
   });
   await beforeNavigate(page);
+  const navigationStarted = performance.now();
   await page.goto(baseUrl + "/index.html?critical-e2e=1", {
     waitUntil: "domcontentloaded",
     timeout: APP_TIMEOUT_MS
   });
+  console.log("critical-browser-e2e: navigation " + viewport.width + " in " +
+    Math.round(performance.now() - navigationStarted) + " ms");
   return { context, page, pageErrors };
 }
 
 async function waitForAppReady(page, { requireTiles = true } = {}) {
+  const readinessStarted = performance.now();
   try {
     await page.waitForFunction(needsTiles => {
       const fatal = document.getElementById("fatal-error-banner");
@@ -79,6 +83,8 @@ async function waitForAppReady(page, { requireTiles = true } = {}) {
     throw error;
   }
   await page.locator("#map canvas").waitFor({ state: "visible", timeout: APP_TIMEOUT_MS });
+  console.log("critical-browser-e2e: readiness wait " + page.viewportSize().width +
+    " (tiles=" + requireTiles + ") in " + Math.round(performance.now() - readinessStarted) + " ms");
 }
 
 async function waitForMapMode(page, expectedMode) {
@@ -108,21 +114,20 @@ async function getCountryScreenPoint(page, code, attempts = 20) {
   for (let attempt = 0; attempt < attempts; attempt += 1) {
     const point = await page.evaluate(countryCode => {
       const layer = countryLayers.get(countryCode);
-      const rectangle = layer?.computeRectangle?.();
+      const rectangle = layer?.getBounds?.();
       if (!layer || !rectangle || !viewer || !window.Cesium) {
         return null;
       }
       const center = Cesium.Rectangle.center(rectangle);
       const cartesian = Cesium.Cartesian3.fromRadians(center.longitude, center.latitude);
+      if (viewer.scene.mode === Cesium.SceneMode.SCENE3D && viewer.scene.globe.show &&
+          !isMapLabelVisible(cartesian, Infinity)) {
+        return null;
+      }
       const rawPoint = viewer.scene.cartesianToCanvasCoordinates(cartesian);
       const canvas = viewer.scene.canvas;
       const bounds = canvas.getBoundingClientRect();
       if (!rawPoint || !bounds.width || !bounds.height) {
-        return null;
-      }
-      viewer.scene.requestRender();
-      const pickedEntity = getPickedCountryEntityAt(rawPoint);
-      if (pickedEntity?.countryCode !== countryCode) {
         return null;
       }
       const x = bounds.left + rawPoint.x;
@@ -131,7 +136,12 @@ async function getCountryScreenPoint(page, code, attempts = 20) {
         x < bounds.right - 2 &&
         y > bounds.top + 2 &&
         y < bounds.bottom - 2;
-      return withinCanvas ? { x, y } : null;
+      if (!withinCanvas) {
+        return null;
+      }
+      viewer.scene.requestRender();
+      const pickedEntity = getPickedCountryEntityAt(rawPoint);
+      return pickedEntity?.countryCode === countryCode ? { x, y } : null;
     }, code);
     if (point) {
       return point;
@@ -144,7 +154,7 @@ async function getCountryScreenPoint(page, code, attempts = 20) {
 async function focusCountryFor3dPick(page, code) {
   const focused = await page.evaluate(countryCode => {
     const layer = countryLayers.get(countryCode);
-    const rectangle = layer?.computeRectangle?.();
+    const rectangle = layer?.getBounds?.();
     if (!layer || !rectangle || !viewer || !window.Cesium) {
       return false;
     }
@@ -683,7 +693,7 @@ async function testMapLabels(browser, baseUrl) {
       await page.evaluate(() => new Promise((resolve, reject) => {
         const remove = viewer.camera.moveEnd.addEventListener(() => { clearTimeout(timer); remove(); resolve(); });
         const timer = setTimeout(() => { remove(); reject(new Error("La camara no termino de enfocar Brasil")); }, 15000);
-        focusRectangle(countryLayers.get("BRA").computeRectangle(), { instant: true });
+        focusRectangle(countryLayers.get("BRA").getBounds(), { instant: true });
       }));
       await page.waitForFunction(() => !isCameraNavigating && labelEntities.some(entity => entity.id === "country-label-BRA"));
       const brazil = await assertVisible();
@@ -1510,7 +1520,7 @@ async function testReducedMapMotion(browser, baseUrl) {
       const before = await page.locator("#map canvas").screenshot();
       await page.evaluate(() => {
         window.__motionCompletions = 0;
-        focusRectangle(countryLayers.get("ESP").computeRectangle(), { onComplete: () => window.__motionCompletions++ });
+        focusRectangle(countryLayers.get("ESP").getBounds(), { onComplete: () => window.__motionCompletions++ });
       });
       await page.waitForFunction(() => window.__motionCompletions === 1);
       const durations = await page.evaluate(() => window.__motionDurations);
