@@ -87,7 +87,7 @@ const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const globeQuality = mapInteractionCore.createGlobeQualityController();
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-10-06-release-4";
+const APP_VERSION = "2026-10-06-release-5";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -115,6 +115,8 @@ const DEFERRED_UI_MODULES = {
 };
 const deferredUiModulePromises = new Map();
 const deferredUiModuleFailures = new Map();
+const deferredUiModuleLoads = new Map();
+const DEFERRED_UI_WAIT_MS = 20000;
 
 function refreshDeferredUiGlobals() {
   newsUi = window.GeoRiskNewsUI || newsUi || {};
@@ -153,27 +155,59 @@ async function ensureDeferredUiModule(moduleName) {
         : "No se pudo cargar esta funcion. Recarga la pagina para volver a intentarlo.");
       return false;
     }
-    // Chromium retains failed module URLs. Bound retry variants to this session.
-    const loadUrl = failures ? `${moduleUrl}&retry=${failures}` : moduleUrl;
-    deferredUiModulePromises.set(
-      moduleName,
+    let load = deferredUiModuleLoads.get(moduleName);
+    if (!load) {
+      // A waiting deadline cannot cancel import(). Rejoin it instead of evaluating another URL.
+      // Chromium retains failed module URLs; only actual failures use bounded retry variants.
+      const loadUrl = failures ? `${moduleUrl}&retry=${failures}` : moduleUrl;
+      load = { finish: null };
       import(loadUrl)
         .then(() => true)
         .catch(error => {
-          deferredUiModulePromises.delete(moduleName);
           const exhausted = failures >= 2 || error?.name !== "TypeError" ||
             !/^(Failed to fetch dynamically imported module|error loading dynamically imported module|Importing a module script failed)/i.test(error?.message || "");
           deferredUiModuleFailures.set(moduleName, exhausted ? 3 : failures + 1);
           console.warn(`No se pudo cargar modulo diferido ${moduleName}:`, error);
-          uiPolish.showToast?.(exhausted
-            ? (currentLanguage === "en" ? "Could not load this feature. Reload the page to try again."
-              : "No se pudo cargar esta funcion. Recarga la pagina para volver a intentarlo.")
-            : (currentLanguage === "en" ? "Could not load this feature. Check your connection and try again."
-              : "No se pudo cargar esta funcion. Revisa tu conexion y vuelve a intentarlo."));
           return false;
         })
-        .finally(refreshDeferredUiGlobals)
-    );
+        .finally(() => {
+          refreshDeferredUiGlobals();
+        })
+        .then(loaded => {
+          deferredUiModuleLoads.delete(moduleName);
+          if (loaded) deferredUiModulePromises.set(moduleName, Promise.resolve(true));
+          load.finish?.(loaded);
+        }, () => {
+          deferredUiModuleLoads.delete(moduleName);
+          load.finish?.(false);
+        });
+      deferredUiModuleLoads.set(moduleName, load);
+    }
+    const wait = new Promise(resolve => {
+      let settled = false;
+      const finish = (loaded, timedOut = false) => {
+        if (settled) return;
+        settled = true;
+        load.finish = null;
+        clearTimeout(timer);
+        if (!loaded) {
+          if (deferredUiModulePromises.get(moduleName) === wait) deferredUiModulePromises.delete(moduleName);
+          const exhausted = (deferredUiModuleFailures.get(moduleName) || 0) >= 3;
+          uiPolish.showToast?.(timedOut
+            ? (currentLanguage === "en" ? "This feature is taking too long to load. Try again."
+              : "Esta funcion tarda demasiado en cargar. Vuelve a intentarlo.")
+            : exhausted
+              ? (currentLanguage === "en" ? "Could not load this feature. Reload the page to try again."
+                : "No se pudo cargar esta funcion. Recarga la pagina para volver a intentarlo.")
+              : (currentLanguage === "en" ? "Could not load this feature. Check your connection and try again."
+                : "No se pudo cargar esta funcion. Revisa tu conexion y vuelve a intentarlo."));
+        }
+        resolve(loaded);
+      };
+      const timer = setTimeout(function onDeferredUiTimeout() { finish(false, true); }, DEFERRED_UI_WAIT_MS);
+      load.finish = finish;
+    });
+    deferredUiModulePromises.set(moduleName, wait);
   }
 
   return deferredUiModulePromises.get(moduleName);
@@ -11958,7 +11992,8 @@ function getSuggestions(query) {
 
 function renderSuggestions(query, activeIndex = -1) {
   if (typeof searchCore.rankSuggestions !== "function") {
-    ensureDeferredUiModule("search").then(() => {
+    ensureDeferredUiModule("search").then(loaded => {
+      if (!loaded) return;
       ensureSearchIndexReady();
       if (document.getElementById("map-search-input")?.value === query) {
         renderSuggestions(query, activeIndex);
@@ -14612,7 +14647,7 @@ function getExportShareContext(node) {
 }
 
 async function getExportShareTools() {
-  await ensureDeferredUiModule("exportShare");
+  if (!await ensureDeferredUiModule("exportShare")) return {};
   exportShareUi = window.GeoRiskExportShare || exportShareUi || {};
   return exportShareUi;
 }

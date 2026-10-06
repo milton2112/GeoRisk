@@ -2534,9 +2534,20 @@ async function testBackgroundPanels(browser, baseUrl) {
 async function testDeferredUiRecovery(browser, baseUrl) {
   for (const [label, viewport] of [["desktop", DESKTOP_VIEWPORT], ["mobile", MOBILE_VIEWPORT]]) {
     let attempts = 0;
+    let releaseModule;
+    const stalledModule = new Promise(resolve => { releaseModule = resolve; });
     const test = await createTestPage(browser, baseUrl, viewport, async page => {
       await page.addInitScript(() => {
         window.__deferredCopies = [];
+        window.__deferredDeadlines = new Map();
+        const start = window.setTimeout.bind(window);
+        const stop = window.clearTimeout.bind(window);
+        window.setTimeout = (action, delay, ...args) => {
+          const id = start(action, delay, ...args);
+          if (delay === 20000 && action?.name === "onDeferredUiTimeout") window.__deferredDeadlines.set(id, action);
+          return id;
+        };
+        window.clearTimeout = id => { window.__deferredDeadlines.delete(id); stop(id); };
         Object.defineProperty(navigator, "share", { configurable: true, value: undefined });
         Object.defineProperty(navigator, "clipboard", { configurable: true, value: {
           async writeText(text) { window.__deferredCopies.push(text); }
@@ -2545,7 +2556,7 @@ async function testDeferredUiRecovery(browser, baseUrl) {
       await page.route("**/app-export-share.js*", async route => {
         attempts += 1;
         if (attempts === 1) await route.abort("internetdisconnected");
-        else await route.continue();
+        else { await stalledModule; await route.continue(); }
       });
     });
     const { page } = test;
@@ -2564,15 +2575,40 @@ async function testDeferredUiRecovery(browser, baseUrl) {
 
       await button.focus();
       await button.press("Enter");
+      await page.waitForFunction(() => window.__deferredDeadlines.size === 1 && deferredUiModuleLoads.has("exportShare"));
+      // VM tests verify the exact 20-second boundary; here invoke the real callback on a held native import.
+      await page.evaluate(() => [...window.__deferredDeadlines.values()][0]());
+      await notice.filter({ hasText: "tarda demasiado" }).waitFor({ state: "visible" });
+      await captureTransientNotice(page, notice, { path: `tmp/deferred-timeout-${label}.png` });
+      assert.deepEqual(await page.evaluate(() => ({ copies: window.__deferredCopies.length,
+        waits: window.__deferredDeadlines.size, pending: deferredUiModuleLoads.size,
+        cached: deferredUiModulePromises.has("exportShare"), failures: deferredUiModuleFailures.get("exportShare") })),
+        { copies: 0, waits: 0, pending: 1, cached: false, failures: 1 }, label + " expired wait retains only the native import");
+      assert.equal(attempts, 2, "a waiting deadline neither retries nor consumes another failed-URL variant");
+      if (label === "mobile") {
+        await button.focus();
+        await button.press("Enter");
+        await page.waitForFunction(() => window.__deferredDeadlines.size === 1);
+        assert.equal(attempts, 2, "explicit retry joins the same pending native import");
+      }
+      releaseModule();
+      await page.waitForFunction(() => Boolean(window.GeoRiskExportShare) && deferredUiModuleLoads.size === 0);
       const recovered = await page.evaluate(async () => Boolean(await deferredUiModulePromises.get("exportShare")));
       assert.equal(recovered, true, label + " a real failed import can recover without reloading the page");
+      if (label === "desktop") {
+        assert.equal(await page.evaluate(() => window.__deferredCopies.length), 0, "late success must not replay an expired share action");
+        await button.focus();
+        await button.press("Enter");
+      }
       await page.waitForFunction(() => window.__deferredCopies.length === 1);
       assert.equal(attempts, 2, "one explicit action makes one retry");
+      assert.equal(await page.evaluate(() => window.__deferredDeadlines.size), 0, "settlement clears the wait timer");
       await button.click();
       await page.waitForFunction(() => window.__deferredCopies.length === 2);
       assert.equal(attempts, 2, "successful imports are reused");
       assertHealthyPage(test.pageErrors, label + " deferred recovery");
     } finally {
+      releaseModule();
       await test.context.close();
     }
   }

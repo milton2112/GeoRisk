@@ -28,11 +28,17 @@ function fixture() {
   });
   context.window = context;
   vm.runInContext(helpers, context);
-  return { context, node, calls, imports, filters, release,
+  return { context, node, calls, imports, filters, release: (loaded = true) => release(loaded),
     export: format => context[format === "pdf" ? "exportNodeAsPdf" : "exportNodeAsImage"](node, "report." + format) };
 }
 
 for (const format of ["png", "pdf"]) {
+  const failed = fixture();
+  const expired = failed.export(format);
+  failed.release(false);
+  assert.equal(await expired, undefined);
+  assert.equal(failed.calls.length, 0, "a failed/expired module wait cannot export through late globals");
+
   const unchanged = fixture();
   const first = unchanged.export(format);
   assert.equal(unchanged.calls.length, 0);
