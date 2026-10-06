@@ -21,7 +21,7 @@ function harness() {
     currentPanelState: { type: "country", code: "ARG", countryLoadedSections: ["country-section-general", "country-section-military"] },
     countriesData: profiles, currentLanguage: "es", countryPanelUi: {}, timelineConflictUi: {},
     appStore: { setState: () => effects.push("store") },
-    ensureDeferredUiModule: async () => {}, ensureConflictAliasesLoaded: async () => {},
+    ensureDeferredUiModule: async () => true, ensureConflictAliasesLoaded: async () => {},
     getCountryCodeByObject: country => country.code, getCountrySymbolAssets: () => ({}),
     getLinkedCodes: () => [], getConflictsSinceFormation: () => [],
     loadCountryDetail: async code => { effects.push("load"); return profiles[code]; },
@@ -63,13 +63,13 @@ for (const type of ["continent", "religion", "group", "empty", "close", "country
   const held = deferred();
   state.ensureDeferredUiModule = () => held.promise;
   const pending = state.renderCountry(state.countriesData.ARG, "ARG");
-  state.ensureDeferredUiModule = async () => {};
+  state.ensureDeferredUiModule = async () => true;
   await actions[type]();
   const chosenHtml = panel.innerHTML;
   const chosenState = state.currentPanelState;
   const chosenHidden = modal.hidden;
   effects.length = 0;
-  held.resolve();
+  held.resolve(true);
   await pending;
   assert.equal(panel.innerHTML, chosenHtml, "module completion respects " + type);
   assert.equal(state.currentPanelState, chosenState);

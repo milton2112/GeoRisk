@@ -2108,6 +2108,10 @@ async function testDeferredWorkDuringDrag(browser, baseUrl) {
 
 async function testCountryDataRecovery(browser, baseUrl) {
   for (const [label, viewport] of [["desktop", DESKTOP_VIEWPORT], ["mobile", MOBILE_VIEWPORT]]) {
+    const failedModule = label === "desktop" ? "countryPanel" : "timelineConflicts";
+    const failedModuleFile = label === "desktop" ? "app-country-panel.js" : "app-timeline-conflicts.js";
+    const siblingFile = label === "desktop" ? "app-timeline-conflicts.js" : "app-country-panel.js";
+    let moduleAttempts = 0;
     let failArgentina = true;
     let failSpain = true;
     let failConflicts = true;
@@ -2118,6 +2122,11 @@ async function testCountryDataRecovery(browser, baseUrl) {
     const requests = [];
     const test = await createTestPage(browser, baseUrl, viewport, async page => {
       page.on("request", request => requests.push(request.url()));
+      await page.route(`**/${failedModuleFile}*`, async route => {
+        moduleAttempts += 1;
+        if (moduleAttempts === 1) await route.abort("internetdisconnected");
+        else await route.continue();
+      });
       await page.route(/\/data\/countries\/(ARG|ESP|BRA)\.json\?/, async route => {
         if (route.request().url().includes("/BRA.json")) await heldBrazil;
         if (failArgentina && route.request().url().includes("/ARG.json")) {
@@ -2137,9 +2146,48 @@ async function testCountryDataRecovery(browser, baseUrl) {
     const { page } = test;
     try {
       await waitForAppReady(page);
+      const previousPanel = await page.evaluate(() => {
+        const render = renderCountry;
+        const probe = window.__countryModuleFailure = {
+          pending: null, restore: () => { renderCountry = render; }
+        };
+        renderCountry = function (...args) {
+          const pending = render.apply(this, args);
+          probe.pending = pending;
+          return pending;
+        };
+        return { state: JSON.stringify(currentPanelState), html: document.getElementById("country-panel").innerHTML,
+          hidden: document.getElementById("country-modal").hidden };
+      });
       await submitSearch(page, "Argentina");
+      const moduleNotice = page.locator("#app-toast");
+      await moduleNotice.filter({ hasText: "Revisa tu conexion" }).waitFor({ state: "visible" });
+      await captureTransientNotice(page, moduleNotice, { path: `tmp/country-module-recovery-${label}.png` });
+      const failedPanel = await page.evaluate(async () => {
+        const probe = window.__countryModuleFailure;
+        await probe.pending;
+        probe.restore();
+        delete window.__countryModuleFailure;
+        return { state: JSON.stringify(currentPanelState), html: document.getElementById("country-panel").innerHTML,
+          hidden: document.getElementById("country-modal").hidden };
+      });
+      assert.deepEqual(failedPanel, previousPanel, "failed modules preserve the previous panel and its visibility");
+      assert.equal(requests.filter(url => /\/countries\/ARG\.json\?/.test(url)).length, 0,
+        "a profile with unavailable interface modules must not fetch its detail");
+      assert.equal(moduleAttempts, 1, "failed interface imports do not retry automatically");
+      assert.equal(await page.evaluate(name => deferredUiModulePromises.has(name), failedModule), false);
+      assert.equal(await page.evaluate(() => countriesData.ARG.metadata.isIndex), true);
+      assert.equal(await page.evaluate(() => selectedLayers.some(layer => layer.code === "ARG")), true);
+      await page.locator("#map-search-button").focus();
+      await page.locator("#map-search-button").press("Enter");
       const retry = page.locator("[data-country-retry]");
       await retry.waitFor({ state: "visible" });
+      assert.equal(moduleAttempts, 2, "one explicit action retries only the failed module");
+      const failedModuleRequests = requests.filter(url => url.includes(`/${failedModuleFile}?`));
+      assert.equal(failedModuleRequests.length, 2);
+      assert.match(failedModuleRequests[1], /&retry=1$/);
+      assert.equal(requests.filter(url => url.includes(`/${siblingFile}?`)).length, 1,
+        "the successful sibling module must not be downloaded again");
       assert.equal(await page.locator('#country-panel [aria-busy="true"]').count(), 0);
       assert.equal(await page.evaluate(() => countriesData.ARG.metadata.isIndex), true);
       assert.equal(await page.evaluate(() => selectedLayers.some(layer => layer.code === "ARG")), true);
@@ -2274,6 +2322,8 @@ async function testCountryDataRecovery(browser, baseUrl) {
       releaseBrazil();
       releaseConflicts();
       await page.evaluate(async () => {
+        window.__countryModuleFailure?.restore();
+        delete window.__countryModuleFailure;
         const probe = window.__countryOwnerProbe;
         probe?.restore();
         probe?.release();

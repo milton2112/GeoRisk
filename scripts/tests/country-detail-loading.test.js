@@ -36,7 +36,7 @@ function harness() {
     setTimeout(fn, ms) { const id = ++timerId; timers.set(id, { fn, ms }); return id; },
     clearTimeout(id) { timers.delete(id); },
     countryPanelRenderToken: 0, currentPanelState: {}, currentLanguage: "es", appStore: null,
-    ensureDeferredUiModule: async () => {}, timelineConflictUi: {},
+    ensureDeferredUiModule: async () => true, timelineConflictUi: {},
     getCountryCodeByObject: country => country.code,
     document: { getElementById: id => id === "country-modal" ? modal : panel },
     openCountryModal() { modal.hidden = false; }, syncModalOpenState() {}, syncMobilePanelControlState() {},
@@ -49,6 +49,38 @@ function harness() {
   vm.runInContext(block("function closeCountryModal", "function getReligionSummaryLabel"), state);
   vm.runInContext(block("async function renderCountry", "  const symbolAssets = getCountrySymbolAssets") + "renderFull(country);\n}", state);
   return { state, calls, timers, panel, modal };
+}
+
+for (const failedModule of ["countryPanel", "timelineConflicts", "both"]) {
+  for (const visible of [false, true]) {
+    const { state, calls, timers, panel, modal } = harness();
+    const previousState = { type: "continent", continent: "Europe" };
+    state.currentPanelState = previousState;
+    panel.innerHTML = "previous group";
+    modal.hidden = !visible;
+    const storeWrites = [];
+    state.appStore = { setState: value => storeWrites.push(value) };
+    const availablePanel = state.countryPanelUi;
+    if (failedModule !== "timelineConflicts") state.countryPanelUi = {};
+    state.ensureDeferredUiModule = async name => failedModule !== "both" && name !== failedModule;
+    const original = state.countriesData.ARG;
+    await state.renderCountry(original, "Argentina");
+    assert.equal(calls.length, 0, "failed interface modules must not download country data");
+    assert.equal(state.currentPanelState, previousState, "failed loading must not publish a ghost country panel");
+    assert.equal(panel.innerHTML, "previous group");
+    assert.equal(modal.hidden, !visible, "failure preserves the previous modal visibility");
+    assert.deepEqual(storeWrites, []);
+    assert.equal(state.countriesData.ARG, original);
+    assert.equal(timers.size, 0);
+    state.countryPanelUi = availablePanel;
+    state.ensureDeferredUiModule = async () => true;
+    await state.renderCountry(original, "Argentina");
+    assert.equal(calls.length, 1, "an explicit recovered request loads the country once");
+    assert.equal(panel.innerHTML, "Argentina");
+    assert.equal(modal.hidden, false);
+    assert.equal(state.countriesData.ARG.metadata.isIndex, false);
+    assert.equal(timers.size, 0);
+  }
 }
 
 for (const invalid of [null, {}, [], { name: "Wrong country" }, profile("ESP"),

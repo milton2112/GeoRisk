@@ -87,7 +87,7 @@ const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const globeQuality = mapInteractionCore.createGlobeQualityController();
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-10-06-release-3";
+const APP_VERSION = "2026-10-06-release-4";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -6460,11 +6460,11 @@ function dismissSearchInput() {
 
 async function renderCountry(country, fallbackName) {
   const renderToken = ++countryPanelRenderToken;
-  await Promise.all([
+  const loadedModules = await Promise.all([
     ensureDeferredUiModule("countryPanel"),
     ensureDeferredUiModule("timelineConflicts")
   ]);
-  if (renderToken !== countryPanelRenderToken) return;
+  if (renderToken !== countryPanelRenderToken || loadedModules.some(loaded => !loaded)) return;
   const countryCode = getCountryCodeByObject(country);
   if (countryCode) {
     appStore?.setState({ selectedCode: countryCode }, "country-render");
