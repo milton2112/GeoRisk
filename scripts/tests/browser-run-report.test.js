@@ -74,6 +74,53 @@ try {
   }
   await assert.rejects(createBrowserRunReport({ ...options, scope: "unknown" }), /Invalid/);
   assert.deepEqual(await fs.readdir(path.dirname(file)), ["e2e.json"], "one checkpoint, no accumulating snapshots");
+
+  for (const code of ["EPERM", "EBUSY"]) {
+    const previous = await fs.readFile(file, "utf8");
+    let attempts = 0;
+    const locked = Object.assign(new Error("transient " + code), { code });
+    const recovered = await createBrowserRunReport({ ...options, flows: ["first"], rename: async (from, to) => {
+      attempts += 1;
+      if (attempts < 3) {
+        assert.equal(await fs.readFile(to, "utf8"), previous, "locked checkpoint must not be deleted or overwritten in place");
+        assert.equal(JSON.parse(await fs.readFile(from, "utf8")).status, "running");
+        throw locked;
+      }
+      await fs.rename(from, to);
+    } });
+    assert.equal(attempts, 3, "only the atomic replacement is retried");
+    let taskCalls = 0;
+    await recovered.run("first", async () => { taskCalls += 1; });
+    await recovered.finish();
+    assert.equal(taskCalls, 1, "file recovery never reruns a browser flow");
+    assert.equal(attempts, 6, "healthy checkpoints replace once without retry");
+    assert.equal((await read()).status, "passed");
+    assert.deepEqual(await fs.readdir(path.dirname(file)), ["e2e.json"]);
+  }
+
+  for (const [code, limit] of [["EPERM", 3], ["EBUSY", 3], ["EIO", 1], ["ENOENT", 1]]) {
+    const previous = await fs.readFile(file, "utf8");
+    let attempts = 0;
+    const cause = Object.assign(new Error("persistent " + code), { code });
+    await assert.rejects(createBrowserRunReport({ ...options, rename: async () => {
+      attempts += 1;
+      throw cause;
+    } }), error => error === cause, "persistent/non-retryable replacement errors must block approval");
+    assert.equal(attempts, limit);
+    assert.equal(await fs.readFile(file, "utf8"), previous);
+    assert.deepEqual(await fs.readdir(path.dirname(file)), ["e2e.json", "e2e.json.tmp"], "failure retains only one temporary checkpoint");
+  }
+
+  let locked = false;
+  const finalError = Object.assign(new Error("final checkpoint locked"), { code: "EPERM" });
+  const incomplete = await createBrowserRunReport({ ...options, flows: ["first"], rename: async (from, to) => {
+    if (locked) throw finalError;
+    await fs.rename(from, to);
+  } });
+  await incomplete.run("first", async () => {});
+  locked = true;
+  await assert.rejects(incomplete.finish(), error => error === finalError);
+  assert.equal((await read()).status, "running", "failure to persist completion cannot publish passed status");
 } finally {
   await fs.rm(root, { recursive: true, force: true });
 }

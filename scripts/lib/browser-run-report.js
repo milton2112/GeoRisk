@@ -1,8 +1,9 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { retryFileOperation } from "./resilient-fs.js";
 
 export async function createBrowserRunReport({ file, flows, scope, metadata = {},
-  now = Date.now, clock = () => performance.now() }) {
+  now = Date.now, clock = () => performance.now(), rename = fs.rename }) {
   if (!Array.isArray(flows) || !flows.length || flows.length > 64 ||
       flows.some(name => typeof name !== "string" || !name || name.length > 120) ||
       new Set(flows).size !== flows.length || !["full", "focused", "journeys"].includes(scope)) {
@@ -19,7 +20,7 @@ export async function createBrowserRunReport({ file, flows, scope, metadata = {}
     state.updatedAt = stamp();
     // Replace one checkpoint; interruption leaves pending/running work, never success.
     await fs.writeFile(file + ".tmp", JSON.stringify(state, null, 2) + "\n");
-    await fs.rename(file + ".tmp", file);
+    await retryFileOperation(() => rename(file + ".tmp", file), { attempts: 3, delayMs: 40 });
   };
   const fail = async error => {
     if (state.status === "failed") return;

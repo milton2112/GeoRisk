@@ -87,7 +87,7 @@ const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const globeQuality = mapInteractionCore.createGlobeQualityController();
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-10-05-release-8";
+const APP_VERSION = "2026-10-06-release-1";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -6214,7 +6214,6 @@ function clearSelection() {
 function updateLayerSelection(nextLayers, nextMode, highlightStyle) {
   const previousLayers = selectedLayers.filter(Boolean);
   const nextValidLayers = (nextLayers || []).filter(Boolean);
-  const previousSet = new Set(previousLayers);
   const nextSet = new Set(nextValidLayers);
 
   previousLayers.forEach(layer => {
@@ -6224,9 +6223,7 @@ function updateLayerSelection(nextLayers, nextMode, highlightStyle) {
   });
 
   nextValidLayers.forEach(layer => {
-    if (!previousSet.has(layer)) {
-      layer.setStyle(highlightStyle);
-    }
+    layer.setStyle(highlightStyle);
   });
 
   selectedLayers = nextValidLayers;
@@ -8043,8 +8040,11 @@ function refreshCountryStyles() {
   }
   lastStyleRefreshSignature = nextSignature;
 
+  const highlightedLayers = new Set(selectedLayers);
   countryLayers.forEach((layer, code) => {
-    layer.setStyle(getCountryThemeStyle(code));
+    if (!highlightedLayers.has(layer)) {
+      layer.setStyle(getCountryThemeStyle(code));
+    }
   });
 
   selectedLayers.forEach(layer => {

@@ -373,8 +373,10 @@ async function runMobileCriticalFlow(page) {
   await clickCountryOnMap(page, "ARG");
   await waitForCountryPanel(page, "Argentina");
   await closeCountryPanel(page);
+  await assertMapSelectionStyles(page, "ARG", "ESP");
   await setMapMode(page, "3d");
   await assertAntialiasingProfile(page);
+  await assertMapSelectionStyles(page, "ARG", "ESP");
   await page.evaluate(() => { window.__previousBaseImagery = activeBaseImageryLayer; });
   await setMapMode(page, "2d");
   assert.equal(await page.evaluate(() => window.__previousBaseImagery.isDestroyed() && viewer.imageryLayers.length === 1), true,
@@ -1541,6 +1543,60 @@ async function testReducedMapMotion(browser, baseUrl) {
   }
 }
 
+async function assertMapSelectionStyles(page, code = "ESP", peerCode = "ARG") {
+  await waitForStable3dMap(page);
+  const result = await page.evaluate(({ code, peerCode }) => {
+    const layer = countryLayers.get(code);
+    const peer = countryLayers.get(peerCode);
+    const entity = layer.entities.find(entity => entity.polygon && entity.polyline);
+    const matches = style => {
+      const time = Cesium.JulianDate.now();
+      return entity.polygon.material.getValue(time).color.equals(cssColorToCesiumColor(style.fillColor, style.fillOpacity)) &&
+        entity.polyline.material.getValue(time).color.equals(cssColorToCesiumColor(style.color, 1));
+    };
+    const refreshes = [];
+    const unchangedRefresh = () => {
+      const material = entity.polygon.material;
+      let notifications = 0;
+      const removeListener = entity.polygon.definitionChanged.addEventListener(() => { notifications += 1; });
+      try {
+        lastStyleRefreshSignature = "";
+        refreshCountryStyles();
+        refreshes.push({ mode: selectionMode, performed: Boolean(lastStyleRefreshSignature), notifications,
+          sameMaterial: material === entity.polygon.material });
+      } finally { removeListener(); }
+    };
+    setCountrySelection([layer]);
+    setContinentSelection([layer, peer]);
+    const countryToContinent = matches(CONTINENT_HIGHLIGHT_STYLE);
+    unchangedRefresh();
+    setCountrySelection([layer]);
+    const continentToCountry = matches(COUNTRY_HIGHLIGHT_STYLE);
+    unchangedRefresh();
+    selectCountryGroupLayers([countriesData[code], countriesData[peerCode]], { mode: "religion", focusMap: false });
+    unchangedRefresh();
+    setContinentSelection([layer, peer]);
+    const religionToContinent = matches(CONTINENT_HIGHLIGHT_STYLE);
+    clearSelection();
+    const cleared = matches(getCountryThemeStyle(code));
+    setCountrySelection([layer]);
+    return { countryToContinent, continentToCountry, religionToContinent, cleared, refreshes, mode: currentMapMode };
+  }, { code, peerCode });
+  for (const field of ["countryToContinent", "continentToCountry", "religionToContinent", "cleared"]) {
+    assert.equal(result[field], true, "real Cesium " + result.mode + " preserves current selection style: " + field);
+  }
+  for (const refresh of result.refreshes) {
+    assert.equal(refresh.performed, true, "style refresh must really run, not hide behind the navigation guard");
+    assert.equal(refresh.notifications, 0, "unchanged selected " + refresh.mode + " does not notify Cesium again");
+    assert.equal(refresh.sameMaterial, true, "unchanged selected fills keep their material identity");
+  }
+  console.log("selection-styles: " + page.viewportSize().width + " " + result.mode + " current highlights; 0 redundant notifications");
+  if ((page.viewportSize().width === 390 && result.mode === "2d") ||
+      (page.viewportSize().width === 1440 && result.mode === "3d")) {
+    await page.screenshot({ path: "tmp/selection-styles-" + page.viewportSize().width + "-" + result.mode + ".png" });
+  }
+}
+
 async function testGreenCoding(browser, baseUrl) {
   const { context, page, pageErrors } = await createTestPage(browser, baseUrl, DESKTOP_VIEWPORT, async page => {
     await page.addInitScript(() => {
@@ -1591,6 +1647,7 @@ async function testGreenCoding(browser, baseUrl) {
     await closeCountryPanel(page);
     await page.evaluate(() => applyMapMode("2d", false));
     await waitForMapMode(page, "2d");
+    await assertMapSelectionStyles(page);
     const idleHover = await page.evaluate(() => {
       const originalRender = requestSceneRender;
       const originalPick = viewer.scene.pick;
@@ -1609,6 +1666,7 @@ async function testGreenCoding(browser, baseUrl) {
     assert.deepEqual(idleHover, { enabled: false, renders: 0, picks: 0 }, "real 2D hover handler stays idle without highlights");
     await page.evaluate(() => applyMapMode("3d", false));
     await waitForMapMode(page, "3d");
+    await assertMapSelectionStyles(page);
     assert.equal(detailRequests, 0);
     assertHealthyPage(pageErrors, "green coding y ahorro de datos");
   } finally {
