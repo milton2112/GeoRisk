@@ -1,15 +1,16 @@
 {
-  "generatedAt": "2026-10-05T15:25:29.473Z",
-  "changedFullCountries": 0,
+  "generatedAt": "2026-10-07T14:22:33.571Z",
+  "changedFullCountries": 1,
   "fullPassChanges": [
+    1,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 0,
+    "enriched": 207,
     "retired": 0,
-    "written": false,
+    "written": true,
     "compacted": false
   },
   "generatedHierarchyCandidates": 1114,
@@ -391,7 +392,8 @@
       "Batalla de Danny Boy (2004)",
       "Batalla del palacio Dasman (1990)",
       "Batalla de las marismas (1984)",
-      "Batalla de la línea Bullet (26 de febrero de 1991)"
+      "Batalla de la línea Bullet (26 de febrero de 1991)",
+      "Batalla de Altun Kupri (Pirde, 2017)"
     ],
     "dinamarca": [
       "Batalla de Colberger Heide (1644)",
@@ -1806,7 +1808,10 @@
     "Incursión sobre Santorini": "Incursion sobre Santorini (1944)",
     "Batalla del cabo de la Roca": "Batalla del cabo de la Roca (1703)",
     "Battle of Cap de la Roque": "Batalla del cabo de la Roca (1703)",
-    "Bataille du cap de la Roque": "Batalla del cabo de la Roca (1703)"
+    "Bataille du cap de la Roque": "Batalla del cabo de la Roca (1703)",
+    "Batalla de Pirde": "Batalla de Altun Kupri (Pirde, 2017)",
+    "Battle of Pirde": "Batalla de Altun Kupri (Pirde, 2017)",
+    "Battle of Altun Kupri (2017)": "Batalla de Altun Kupri (Pirde, 2017)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -2894,6 +2899,7 @@
     "Combate contra Datu Ali (1905)",
     "Combate de Caleta Foca (1982)",
     "Incursion sobre Santorini (1944)",
-    "Batalla del cabo de la Roca (1703)"
+    "Batalla del cabo de la Roca (1703)",
+    "Batalla de Altun Kupri (Pirde, 2017)"
   ]
 }

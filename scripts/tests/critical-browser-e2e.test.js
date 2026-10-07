@@ -931,6 +931,7 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
     let nogalesDetailRequests = 0;
     let santoriniDetailRequests = 0;
     let capeRocaDetailRequests = 0;
+    let altunDetailRequests = 0;
     let releaseDetail;
     const pending = new Promise(resolve => { releaseDetail = resolve; });
     let releaseScript;
@@ -958,6 +959,7 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
         if (request.url().includes("/data/conflicts/details/batalla-de-ambos-nogales-1918-")) nogalesDetailRequests++;
         if (request.url().includes("/data/conflicts/details/incursion-sobre-santorini-1944-")) santoriniDetailRequests++;
         if (request.url().includes("/data/conflicts/details/batalla-del-cabo-de-la-roca-1703-")) capeRocaDetailRequests++;
+        if (request.url().includes("/data/conflicts/details/batalla-de-altun-kupri-pirde-2017-")) altunDetailRequests++;
       });
       await page.route(/\/app-(curation|conflict-rules)\.js\?/, async route => {
         const name = route.request().url().match(/\/(app-(?:curation|conflict-rules))\.js/)[1];
@@ -1211,6 +1213,35 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
       await page.evaluate(() => openConflictModal(window.__capeRocaKey));
       assert.equal(capeRocaDetailRequests, 1, "reopening Cape Roca reuses one on-demand detail request");
       await page.locator("#conflict-modal-close").click();
+      assert.equal(altunDetailRequests, 0, "Altun Kupri evidence is not loaded with other conflicts");
+      await submitSearch(page, "Pirde");
+      const altunLink = page.locator('#country-panel .group-selection-action [data-conflict-key]');
+      await altunLink.waitFor({ state: "visible" });
+      assert.match(await page.locator('#country-panel h2').innerText(), /Altun Kupri.*Pirde/);
+      assert.deepEqual(await page.evaluate(() => selectedLayers.map(layer => layer.code)), ["IRQ"]);
+      assert.equal(altunDetailRequests, 0, "search uses the dated lightweight conflict index, not deep evidence");
+      await altunLink.click();
+      await page.waitForFunction(() => Boolean(CONFLICT_DETAIL_OVERRIDES["Batalla de Altun Kupri (Pirde, 2017)"]));
+      const altunTitle = await page.locator("#conflict-modal-title").innerText();
+      assert.match(altunTitle, /Altun Kupri.*Pirde/i);
+      assert.equal((altunTitle.match(/2017/g) || []).length, 1);
+      assert.match(await body.innerText(), /Conflicto kurdo-iraqu\u00ed de 2017/);
+      assert.match(await body.innerText(), /6 civiles muertos y 15 heridos.*no son un total/);
+      assert.doesNotMatch(await body.innerText(), /Conflicto regional de Asia|Actor registrado|Oponente o fuerza local/);
+      assert.deepEqual(await body.locator(".conflict-hierarchy-sources a").evaluateAll(links => links.map(link => new URL(link.href).hostname)), [
+        "archive.cyprus-mail.com", "www.spokesman.com", "efile.fara.gov"
+      ]);
+      const altunNotes = body.locator(".conflict-curation-notes");
+      assert.match(await altunNotes.innerText(), /20 de octubre de 2017/);
+      assert.match(await altunNotes.innerText(), /fuente de parte/);
+      assert.equal(await body.locator(".conflict-treaties").count(), 0);
+      assert.equal(await body.evaluate(element => element.scrollWidth <= element.clientWidth), true);
+      await captureLiveElement(page, altunNotes, { path: `tmp/altun-kupri-curation-${label}.png`, timeout: 10000 });
+      await page.locator("#conflict-modal-close").click();
+      await altunLink.click();
+      assert.equal(altunDetailRequests, 1, "reopening the native search result reuses one deep detail request");
+      await page.locator("#conflict-modal-close").click();
+      await closeCountryPanel(page);
       await page.evaluate(() => {
         window.__pendingConflictKey = registerConflictModal({ name: "Prueba sin detalle", startYear: 1900, endYear: 1920 }, "Estados Unidos");
         openConflictModal(window.__pendingConflictKey, { enhance: false });

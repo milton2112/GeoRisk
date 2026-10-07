@@ -32,6 +32,8 @@ const TEMPORAL_MONTH_ALIASES = {
 };
 
 export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
+  "Batalla de Altun Kupri (Pirde, 2017)": "Battle_of_Altun_Kupri_(2017)",
+  "Batalla de Pirde": "Battle_of_Altun_Kupri_(2017)",
   "Primera Guerra Mundial": "Primera_Guerra_Mundial",
   "Segunda Guerra Mundial": "Segunda_Guerra_Mundial",
   "Guerra de Corea": "Guerra_de_Corea",

@@ -87,7 +87,7 @@ const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const globeQuality = mapInteractionCore.createGlobeQualityController();
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-10-07-release-1";
+const APP_VERSION = "2026-10-07-release-2";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -5025,7 +5025,10 @@ function extractConflictEndYear(conflict) {
 
 function cleanConflictName(name) {
   return String(name || "")
-    .replace(/\s*\((?:[^)]*?\b\d{4}\b[^)]*?)\)\s*$/u, "")
+    .replace(/\s*\(([^)]*?\b\d{4}\b[^)]*?)\)\s*$/u, (_, suffix) => {
+      const alias = suffix.match(/^([^,\d]+),\s*\d{4}\s*$/u);
+      return alias ? ` (${alias[1].trim()})` : "";
+    })
     .replace(/\s+(?:de|en)?\s*\d{4}(?:\s*[-â€“â€”]\s*\d{4})?\s*$/u, "")
     .replace(/\s*[-â€“â€”]\s*\d{4}(?:\s*[-â€“â€”]\s*\d{4})?\s*$/u, "")
     .replace(/\s+/g, " ")

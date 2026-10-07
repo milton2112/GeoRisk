@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-10-07T13:58:54.959Z",
+  "generatedAt": "2026-10-07T14:50:43.140Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 80
+      "count": 79
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 14
+      "count": 13
     },
     "suspectRegions": {
       "count": 0
@@ -137,11 +137,6 @@
         "region": "Asia"
       },
       {
-        "code": "IRQ",
-        "name": "Batalla de Pirde",
-        "region": "Asia"
-      },
-      {
         "code": "JPN",
         "name": "Batalla de Hekihazu",
         "region": "Asia"
@@ -255,6 +250,11 @@
         "code": "USA",
         "name": "Ataque a Aruba",
         "region": "América"
+      },
+      {
+        "code": "USA",
+        "name": "Ataque a Pearl Harbor",
+        "region": "América"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -290,13 +290,6 @@
       {
         "code": "IDN",
         "name": "Batalla de Petaling",
-        "parent": "Conflicto regional de Asia",
-        "campaign": "Campaña vinculada a Conflicto regional de Asia",
-        "startYear": null
-      },
-      {
-        "code": "IRQ",
-        "name": "Batalla de Pirde",
         "parent": "Conflicto regional de Asia",
         "campaign": "Campaña vinculada a Conflicto regional de Asia",
         "startYear": null
@@ -1361,7 +1354,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 14,
+      "count": 13,
       "command": "npm run fix:conflicts:batches"
     },
     {

@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-07T13:58:55.857Z",
-  "startupBytes": 896906,
+  "generatedAt": "2026-10-07T14:50:43.996Z",
+  "startupBytes": 897037,
   "startupHuman": "876 KB",
   "startupScope": "App shell and eager local scripts only; excludes the separately budgeted map engine.",
   "mapEngine": {
@@ -9,16 +9,16 @@
     "human": "3.27 MB",
     "precached": false
   },
-  "appCoreAndEngineBytes": 4326519,
+  "appCoreAndEngineBytes": 4326650,
   "appCoreAndEngineHuman": "4.13 MB",
   "excludedStartupCosts": "External CSS, workers, imagery and geographic/data requests are not included in appCoreAndEngineBytes. This is not total network transfer or compressed size.",
-  "deferredBytes": 3306786,
-  "deferredHuman": "3.15 MB",
+  "deferredBytes": 3310609,
+  "deferredHuman": "3.16 MB",
   "estimatedRuntimeMemory": {
-    "countriesFullBytes": 13253009,
+    "countriesFullBytes": 13257591,
     "countriesFullHuman": "12.64 MB",
-    "estimatedParsedBytes": 39759027,
-    "estimatedParsedHuman": "37.92 MB",
+    "estimatedParsedBytes": 39772773,
+    "estimatedParsedHuman": "37.93 MB",
     "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
   },
   "largestAssets": [
@@ -33,16 +33,16 @@
     {
       "path": "data/conflict_details.generated.json",
       "exists": true,
-      "bytes": 2636088,
-      "human": "2.51 MB",
+      "bytes": 2639691,
+      "human": "2.52 MB",
       "startupCritical": false,
       "category": "deferred-or-auxiliary"
     },
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 592371,
-      "human": "578 KB",
+      "bytes": 592502,
+      "human": "579 KB",
       "startupCritical": true,
       "category": "startup-app-core"
     },
@@ -105,7 +105,7 @@
     {
       "path": "app-conflict-aliases.js",
       "exists": true,
-      "bytes": 30406,
+      "bytes": 30626,
       "human": "30 KB",
       "startupCritical": false,
       "category": "deferred-or-auxiliary"
@@ -131,8 +131,8 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 592371,
-      "human": "578 KB",
+      "bytes": 592502,
+      "human": "579 KB",
       "startupCritical": true,
       "category": "startup-app-core"
     },
@@ -299,7 +299,7 @@
     {
       "path": "app-conflict-aliases.js",
       "exists": true,
-      "bytes": 30406,
+      "bytes": 30626,
       "human": "30 KB",
       "startupCritical": false,
       "category": "deferred-or-auxiliary"
@@ -363,8 +363,8 @@
     {
       "path": "data/conflict_details.generated.json",
       "exists": true,
-      "bytes": 2636088,
-      "human": "2.51 MB",
+      "bytes": 2639691,
+      "human": "2.52 MB",
       "startupCritical": false,
       "category": "deferred-or-auxiliary"
     },

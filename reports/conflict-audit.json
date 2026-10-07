@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-07T13:58:50.857Z",
+  "generatedAt": "2026-10-07T14:50:39.006Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 14,
-  "reviewCount": 14,
+  "advisoryCount": 13,
+  "reviewCount": 13,
   "summary": {
-    "provisional_parent": 14
+    "provisional_parent": 13
   },
   "topIssues": [],
   "topAdvisories": [
@@ -56,20 +56,6 @@
       "name": "Batalla de Petaling",
       "countries": [
         "IDN"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de pirde",
-      "name": "Batalla de Pirde",
-      "countries": [
-        "IRQ"
       ],
       "startYear": null,
       "endYear": null,

@@ -832,6 +832,11 @@ import {
   CAPE_ROCA_CONFLICT_RENAMES
 } from "./lib/conflict-curation-cape-roca.js";
 import {
+  ALTUN_KUPRI_CONFLICT_DETAIL_FIXES,
+  ALTUN_KUPRI_COUNTRY_CONFLICT_ADDITIONS,
+  ALTUN_KUPRI_CONFLICT_RENAMES
+} from "./lib/conflict-curation-altun-kupri.js";
+import {
   CABO_BOJADOR_COUNTRY_CONFLICT_EXCLUSIONS
 } from "./lib/conflict-curation-cabo-bojador.js";
 import {
@@ -1035,7 +1040,8 @@ const curatedConflictDetailFixes = {
   ...DATU_ALI_CONFLICT_DETAIL_FIXES,
   ...CALETA_FOCA_CONFLICT_DETAIL_FIXES,
   ...SANTORINI_CONFLICT_DETAIL_FIXES,
-  ...CAPE_ROCA_CONFLICT_DETAIL_FIXES
+  ...CAPE_ROCA_CONFLICT_DETAIL_FIXES,
+  ...ALTUN_KUPRI_CONFLICT_DETAIL_FIXES
 };
 
 const generatedConflictDetailExclusionNames = [
@@ -1221,7 +1227,8 @@ const safeConflictRenames = {
   ...DATU_ALI_CONFLICT_RENAMES,
   ...CALETA_FOCA_CONFLICT_RENAMES,
   ...SANTORINI_CONFLICT_RENAMES,
-  ...CAPE_ROCA_CONFLICT_RENAMES
+  ...CAPE_ROCA_CONFLICT_RENAMES,
+  ...ALTUN_KUPRI_CONFLICT_RENAMES
 };
 const conflictReferenceRenames = {
   ...ILE_RONDE_1794_CONFLICT_REFERENCE_RENAMES
@@ -1356,7 +1363,8 @@ const countryConflictAdditionBatches = [
   DATU_ALI_COUNTRY_CONFLICT_ADDITIONS,
   CALETA_FOCA_COUNTRY_CONFLICT_ADDITIONS,
   SANTORINI_COUNTRY_CONFLICT_ADDITIONS,
-  CAPE_ROCA_COUNTRY_CONFLICT_ADDITIONS
+  CAPE_ROCA_COUNTRY_CONFLICT_ADDITIONS,
+  ALTUN_KUPRI_COUNTRY_CONFLICT_ADDITIONS
 ];
 const countryConflictAdditions = mergeCountryConflictBatches(countryConflictAdditionBatches);
 const countryConflictExclusionBatches = [
