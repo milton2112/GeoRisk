@@ -2551,10 +2551,17 @@ async function testBackgroundPanels(browser, baseUrl) {
   for (const viewport of [DESKTOP_VIEWPORT, MOBILE_VIEWPORT]) {
     const label = viewport === MOBILE_VIEWPORT ? "mobile" : "desktop";
     let rankingAttempts = 0;
+    const startupRequests = { aliases: 0, search: 0, supplemental: 0 };
     let releaseRankings;
     const stalledRankings = new Promise(resolve => { releaseRankings = resolve; });
     const test = await createTestPage(browser, baseUrl, viewport, async page => {
       await installQuizTimerProbe(page);
+      page.on("request", request => {
+        const url = request.url();
+        if (url.includes("/app-conflict-aliases.js?")) startupRequests.aliases++;
+        if (url.includes("/app-search.js?")) startupRequests.search++;
+        if (url.includes("/data/runtime_supplemental.json?")) startupRequests.supplemental++;
+      });
       await page.route("**/app-rankings.js*", async route => {
         rankingAttempts++;
         await stalledRankings;
@@ -2564,6 +2571,23 @@ async function testBackgroundPanels(browser, baseUrl) {
     const { page } = test;
     try {
       await waitForAppReady(page, { requireTiles: false });
+      assert.equal(await page.evaluate(() => mapSearchAliasesRegistered), false, "advanced search stays unbuilt at startup");
+      const background = await page.evaluate(async () => {
+        const build = setupSearchIndex;
+        let builds = 0;
+        setupSearchIndex = (...args) => { builds++; return build(...args); };
+        try {
+          await loadDeferredDataEnhancements();
+          await loadDeferredDataEnhancements();
+          refreshGlobalStats();
+          return { builds, indexed: mapSearchAliasesRegistered, pendingStats: deferredGlobalStatsTimer !== null,
+            needsRankings: !deferredGlobalStatsReady };
+        } finally { setupSearchIndex = build; }
+      });
+      assert.deepEqual(background, { builds: 0, indexed: false, pendingStats: false, needsRankings: true },
+        label + " real supplementation does not prepare unrequested search/rankings");
+      assert.deepEqual(startupRequests, { aliases: 0, search: 0, supplemental: 1 },
+        "supplement is retained once, without speculative search or conflict aliases");
       const panels = [
         ["map-toolbar", ".toolbar-content"], ["rankings-panel", ".left-panel-inner"],
         ["compare-hub-panel", ".compare-hub-content"], ["quiz-hub-panel", ".quiz-hub-content"],
@@ -2624,6 +2648,9 @@ async function testBackgroundPanels(browser, baseUrl) {
         assert.equal(await page.locator("#country-modal").isVisible(), false, label + " no reabre " + type);
         assert.deepEqual(await page.evaluate(() => ({ html: document.getElementById("country-panel").innerHTML, selection: selectedLayers.map(layer => layer.code) })), before);
       }
+      assert.equal(await page.evaluate(() => mapSearchAliasesRegistered), true, "the first requested advanced search still prepares all category aliases");
+      assert.equal(startupRequests.search, 1, "advanced search imports once on actual use");
+      assert.equal(startupRequests.aliases, 0, "category searches do not need heavy conflict aliases");
 
       for (const [id, content] of panels) {
         // Native details state must still expose the existing workspace without CSS overrides.

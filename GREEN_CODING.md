@@ -58,6 +58,15 @@ details nativo. Reabrir recupera tablas aun no completadas sin otra descarga si 
 modulo ya llego. Costo: dos escalares, guards por accion y sincronizacion del details,
 sin nuevos monitores, caches ni dependencias. No acredita ahorro energetico.
 
+El suplemento de fondo ya no construye el indice avanzado ni descarga aliases de
+conflictos por anticipado. Esas dependencias se resuelven en los consumidores
+explicitos existentes (busqueda/sugerencias, ficha militar y detalle de conflicto).
+Los refrescos de datos no agendan rankings cerrados; los marcan pendientes para
+su proxima apertura. Se conserva el suplemento necesario para las categorias y
+fallbacks actuales. No cambia calidad visual ni soluciona por si solo los costos
+nativos de inicializacion WebGL. startup-on-demand prueba cero trabajo especulativo
+y las paginas existentes de paneles/conflictos verifican los consumidores reales.
+
 `npm run check:startup-budget` conserva los limites existentes. `release:check`
 ejecuta pruebas de navegador, offline, presupuestos, auditorias y snapshot de 60 s
 en escritorio y mobile emulado. Las entradas del snapshot deben corresponder al

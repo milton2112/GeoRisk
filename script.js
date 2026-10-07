@@ -87,7 +87,7 @@ const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const globeQuality = mapInteractionCore.createGlobeQualityController();
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-10-06-release-7";
+const APP_VERSION = "2026-10-07-release-1";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -2005,14 +2005,6 @@ async function ensureConflictAliasesLoaded() {
   await loadConflictAliasesPromise;
   return conflictNameAliases;
 }
-
-function scheduleConflictAliasesLoad() {
-  const schedule = window.requestIdleCallback
-    ? callback => window.requestIdleCallback(callback, { timeout: 1800 })
-    : callback => setTimeout(callback, 500);
-  schedule(() => ensureConflictAliasesLoaded());
-}
-
 
 const CONFLICT_PARENT_RULES = [];
 const CONFLICT_CAMPAIGN_MARKERS = [
@@ -12683,10 +12675,6 @@ async function loadDeferredDataEnhancements() {
   }
 
   loadDeferredDataEnhancementsPromise = (async () => {
-    ensureSearchIndexReady();
-    runCriticalGlobalStats();
-    scheduleDeferredGlobalStats(true);
-    scheduleConflictAliasesLoad();
     await loadSupplementalData();
   })().catch(error => {
     console.warn("No se pudieron completar las mejoras diferidas del arranque:", error);
@@ -12816,7 +12804,8 @@ async function loadData() {
 
 function refreshGlobalStats() {
   runCriticalGlobalStats();
-  scheduleDeferredGlobalStats(true);
+  if (isRankingsPanelOpen()) scheduleDeferredGlobalStats(true);
+  else deferredGlobalStatsReady = false;
 }
 
 function loadScriptOnce(src, globalFlag) {

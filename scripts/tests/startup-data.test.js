@@ -375,7 +375,9 @@ assert.ok(script.includes("app-conflict-rules.js"), "reglas pesadas de conflicto
 assert.ok(!script.includes("CONFLICT_PARENT_RULES.push("), "jerarquia pesada de conflictos debe vivir fuera del runtime critico");
 assert.ok(appConflictRules.includes("window.GeoRiskConflictRules"), "modulo diferido debe exponer reglas de jerarquia de conflictos");
 assert.ok(appConflictRules.includes("CONFLICT_PARENT_RULES.push("), "modulo diferido debe conservar reglas de jerarquia completas");
-assert.ok(script.includes("scheduleConflictAliasesLoad"), "alias pesados de conflictos deben cargarse en idle o bajo demanda");
+assert.ok(!script.includes("scheduleConflictAliasesLoad"), "alias pesados de conflictos no deben descargarse por un idle especulativo");
+assert.match(script, /async function loadWikipediaConflictDetails\(conflictName\) \{\s*await ensureConflictAliasesLoaded\(\);/,
+  "detalle explicito de conflictos conserva su carga de aliases bajo demanda");
 assert.ok(script.includes("app-project-audit-ui.js"), "auditoria del proyecto debe tener modulo diferido declarado");
 assert.ok(appCountryPanel.includes("function renderCurationTodo"), "ficha pais debe exponer checklist de curaduria desde su modulo diferido");
 assert.ok(script.includes("function getCountryCurationActions"), "ficha pais debe exponer acciones de curaduria por seccion");
