@@ -15,7 +15,7 @@ const highlights = {
 function fixture(mode = "3d", size = 3) {
   const calls = { themes: [], materialWrites: 0, renders: 0 };
   const state = {
-    window: {}, currentMapMode: mode, currentTheme: "default", countriesDataRevision: 0,
+    window: {}, currentMapMode: mode, currentTheme: "default", countriesDataRevision: 0, activeGeoJsonDataSource: null,
     selectedLayers: [], selectedLayer: null, selectionMode: "country", countryLayers: new Map(),
     lastStyleRefreshSignature: "", isCameraNavigating: false, bucket: "mid",
     getDynamicBorderScale: () => 1,

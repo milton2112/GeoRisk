@@ -33,6 +33,16 @@
     return previousSignature !== nextSignature;
   }
 
+  function withEntityEventsSuspended(collection, apply) {
+    if (!collection) return apply();
+    collection.suspendEvents();
+    try {
+      return apply();
+    } finally {
+      collection.resumeEvents();
+    }
+  }
+
   function adaptStyleForMode(style, { mode = "3d", defaultStyle = {}, isMobile = false } = {}) {
     if (mode !== "2d") {
       return style;
@@ -48,6 +58,7 @@
     adaptStyleForMode,
     createCountryStyleCache,
     createStyleCacheKey,
-    shouldRefreshStyles
+    shouldRefreshStyles,
+    withEntityEventsSuspended
   };
 })();

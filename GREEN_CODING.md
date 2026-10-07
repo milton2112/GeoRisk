@@ -81,6 +81,15 @@ no joules ni gramos de CO2. Una estimacion ambiental futura requiere limites del
 sistema, unidad funcional, energia, intensidad electrica y supuestos de hardware.
 No recolectar ubicacion ni bateria del usuario para fabricar una puntuacion verde.
 
+Los cambios sincronos de seleccion/tema agrupan los eventos de coleccion de Cesium
+con su API publica y finally, sin suspender entre frames ni retener un nuevo cache.
+Un borde nuevo recibe material/ancho finales una sola vez. La regresion con seis
+poligonos pasa de 24 entregas de coleccion a una, manteniendo colores, geometria,
+calidad y renders solicitados. Los eventos individuales de Entity/Graphics siguen
+existiendo y los errores no revierten estilos parciales. Los recorridos existentes
+comprueban el estado final en 2D/3D; estos contadores no prueban ahorro energetico
+ni que el deadline global de CI quede resuelto.
+
 ## Primera implementacion
 
 - Se elimina el precalculo del modo cartografico alternativo. Costo: su primera

@@ -1626,6 +1626,19 @@ async function assertMapSelectionStyles(page, code = "ESP", peerCode = "ARG") {
         entity.polyline.material.getValue(time).color.equals(cssColorToCesiumColor(style.color, 1));
     };
     const refreshes = [];
+    const batches = [];
+    const observeBatch = (name, apply) => {
+      let notifications = 0;
+      let observedMode;
+      const removeListener = activeGeoJsonDataSource.entities.collectionChanged.addEventListener(() => {
+        notifications++;
+        observedMode = selectionMode;
+      });
+      try {
+        apply();
+        batches.push({ name, notifications, observedMode, finalMode: selectionMode });
+      } finally { removeListener(); }
+    };
     const unchangedRefresh = () => {
       const material = entity.polygon.material;
       let notifications = 0;
@@ -1638,20 +1651,20 @@ async function assertMapSelectionStyles(page, code = "ESP", peerCode = "ARG") {
       } finally { removeListener(); }
     };
     setCountrySelection([layer]);
-    setContinentSelection([layer, peer]);
+    observeBatch("country-to-continent", () => setContinentSelection([layer, peer]));
     const countryToContinent = matches(CONTINENT_HIGHLIGHT_STYLE);
     unchangedRefresh();
-    setCountrySelection([layer]);
+    observeBatch("continent-to-country", () => setCountrySelection([layer]));
     const continentToCountry = matches(COUNTRY_HIGHLIGHT_STYLE);
     unchangedRefresh();
-    selectCountryGroupLayers([countriesData[code], countriesData[peerCode]], { mode: "religion", focusMap: false });
+    observeBatch("country-to-religion", () => selectCountryGroupLayers([countriesData[code], countriesData[peerCode]], { mode: "religion", focusMap: false }));
     unchangedRefresh();
-    setContinentSelection([layer, peer]);
+    observeBatch("religion-to-continent", () => setContinentSelection([layer, peer]));
     const religionToContinent = matches(CONTINENT_HIGHLIGHT_STYLE);
-    clearSelection();
+    observeBatch("clear", () => clearSelection());
     const cleared = matches(getCountryThemeStyle(code));
     setCountrySelection([layer]);
-    return { countryToContinent, continentToCountry, religionToContinent, cleared, refreshes, mode: currentMapMode };
+    return { countryToContinent, continentToCountry, religionToContinent, cleared, refreshes, batches, mode: currentMapMode };
   }, { code, peerCode });
   for (const field of ["countryToContinent", "continentToCountry", "religionToContinent", "cleared"]) {
     assert.equal(result[field], true, "real Cesium " + result.mode + " preserves current selection style: " + field);
@@ -1660,6 +1673,10 @@ async function assertMapSelectionStyles(page, code = "ESP", peerCode = "ARG") {
     assert.equal(refresh.performed, true, "style refresh must really run, not hide behind the navigation guard");
     assert.equal(refresh.notifications, 0, "unchanged selected " + refresh.mode + " does not notify Cesium again");
     assert.equal(refresh.sameMaterial, true, "unchanged selected fills keep their material identity");
+  }
+  for (const batch of result.batches) {
+    assert.equal(batch.notifications, 1, result.mode + " " + batch.name + " delivers one final Cesium collection event");
+    assert.equal(batch.observedMode, batch.finalMode, "collection observers see the final selection mode");
   }
   console.log("selection-styles: " + page.viewportSize().width + " " + result.mode + " current highlights; 0 redundant notifications");
   if ((page.viewportSize().width === 390 && result.mode === "2d") ||

@@ -87,7 +87,7 @@ const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const globeQuality = mapInteractionCore.createGlobeQualityController();
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-10-07-release-2";
+const APP_VERSION = "2026-10-07-release-3";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -697,11 +697,10 @@ class CesiumCountryLayer {
             positions,
             clampToGround: false,
             width: scaledWeight,
-            material: cssColorToCesiumColor(style.color, 0.92)
+            material: cssColorToCesiumColor(style.color, 1)
           });
         }
-      }
-      if (entity.polyline) {
+      } else if (entity.polyline) {
         entity.polyline.material = cssColorToCesiumColor(style.color, 1);
         entity.polyline.width = scaledWeight;
       }
@@ -6230,20 +6229,22 @@ function clearSelection() {
     closeMobilePanels();
   }
 
-  selectedLayers.forEach(layer => {
-    if (layer) {
-      layer.setStyle(getCountryThemeStyle(layer.code));
+  mapStyleCore.withEntityEventsSuspended(activeGeoJsonDataSource?.entities, () => {
+    selectedLayers.forEach(layer => {
+      if (layer) {
+        layer.setStyle(getCountryThemeStyle(layer.code));
+      }
+    });
+    selectedLayer = null;
+    selectedLayers = [];
+
+    if (continentBoundsLayer) {
+      map.removeLayer(continentBoundsLayer);
+      continentBoundsLayer = null;
     }
+
+    selectionMode = "country";
   });
-  selectedLayer = null;
-  selectedLayers = [];
-
-  if (continentBoundsLayer) {
-    map.removeLayer(continentBoundsLayer);
-    continentBoundsLayer = null;
-  }
-
-  selectionMode = "country";
   requestMapRenderSafe("clear-selection");
 }
 
@@ -6252,19 +6253,21 @@ function updateLayerSelection(nextLayers, nextMode, highlightStyle) {
   const nextValidLayers = (nextLayers || []).filter(Boolean);
   const nextSet = new Set(nextValidLayers);
 
-  previousLayers.forEach(layer => {
-    if (!nextSet.has(layer)) {
-      layer.setStyle(getCountryThemeStyle(layer.code));
-    }
-  });
+  mapStyleCore.withEntityEventsSuspended(activeGeoJsonDataSource?.entities, () => {
+    previousLayers.forEach(layer => {
+      if (!nextSet.has(layer)) {
+        layer.setStyle(getCountryThemeStyle(layer.code));
+      }
+    });
 
-  nextValidLayers.forEach(layer => {
-    layer.setStyle(highlightStyle);
-  });
+    nextValidLayers.forEach(layer => {
+      layer.setStyle(highlightStyle);
+    });
 
-  selectedLayers = nextValidLayers;
-  selectedLayer = nextMode === "country" ? (nextValidLayers[0] || null) : null;
-  selectionMode = nextMode;
+    selectedLayers = nextValidLayers;
+    selectedLayer = nextMode === "country" ? (nextValidLayers[0] || null) : null;
+    selectionMode = nextMode;
+  });
 }
 
 function getLinkedCodes(code) {
@@ -8078,21 +8081,23 @@ function refreshCountryStyles() {
   }
   lastStyleRefreshSignature = nextSignature;
 
-  const highlightedLayers = new Set(selectedLayers);
-  countryLayers.forEach((layer, code) => {
-    if (!highlightedLayers.has(layer)) {
-      layer.setStyle(getCountryThemeStyle(code));
-    }
-  });
+  mapStyleCore.withEntityEventsSuspended(activeGeoJsonDataSource?.entities, () => {
+    const highlightedLayers = new Set(selectedLayers);
+    countryLayers.forEach((layer, code) => {
+      if (!highlightedLayers.has(layer)) {
+        layer.setStyle(getCountryThemeStyle(code));
+      }
+    });
 
-  selectedLayers.forEach(layer => {
-    if (selectionMode === "country") {
-      layer.setStyle(COUNTRY_HIGHLIGHT_STYLE);
-    } else if (selectionMode === "religion") {
-      layer.setStyle(RELIGION_HIGHLIGHT_STYLE);
-    } else {
-      layer.setStyle(CONTINENT_HIGHLIGHT_STYLE);
-    }
+    selectedLayers.forEach(layer => {
+      if (selectionMode === "country") {
+        layer.setStyle(COUNTRY_HIGHLIGHT_STYLE);
+      } else if (selectionMode === "religion") {
+        layer.setStyle(RELIGION_HIGHLIGHT_STYLE);
+      } else {
+        layer.setStyle(CONTINENT_HIGHLIGHT_STYLE);
+      }
+    });
   });
 
   viewer?.scene?.requestRender?.();
@@ -12138,11 +12143,11 @@ function selectCountryGroupLayers(countries, { mode = "continent", focusMap = tr
   }
 
   if (mode === "religion") {
-    clearSelection();
-    selectionMode = "religion";
-    selectedLayers = layers;
-    selectedLayers.forEach(layer => layer.setStyle(RELIGION_HIGHLIGHT_STYLE));
-    continentBoundsLayer = createLayerGroup(layers);
+    mapStyleCore.withEntityEventsSuspended(activeGeoJsonDataSource?.entities, () => {
+      clearSelection();
+      updateLayerSelection(layers, "religion", RELIGION_HIGHLIGHT_STYLE);
+      continentBoundsLayer = createLayerGroup(layers);
+    });
     if (focusMap) {
       fitLayerBounds(continentBoundsLayer);
     }
