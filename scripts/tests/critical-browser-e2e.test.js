@@ -697,6 +697,34 @@ async function testMapLabels(browser, baseUrl) {
       }));
       await page.waitForFunction(() => !isCameraNavigating && labelEntities.some(entity => entity.id === "country-label-BRA"));
       const brazil = await assertVisible();
+      const labelBatches = await page.evaluate(() => {
+        const batches = [];
+        const observe = (name, apply) => {
+          let notifications = 0;
+          let finalView = false;
+          const remove = viewer.entities.collectionChanged.addEventListener(() => {
+            notifications++;
+            finalView = name === "hide" ? !labelEntities.length && hiddenLabelEntities.length > 0 :
+              name === "clear" ? !labelEntities.length && !hiddenLabelEntities.length :
+              labelEntities.length > 0 && !hiddenLabelEntities.length;
+          });
+          try { apply(); batches.push({ name, notifications, finalView }); }
+          finally { remove(); }
+        };
+        const retained = labelEntities.slice();
+        observe("hide", hideMapLabels);
+        observe("show", renderMapLabels);
+        const retainedIdentity = labelEntities.every((entity, i) => entity === retained[i]) &&
+          labelEntities.length === retained.length;
+        observe("clear", clearMapLabels);
+        observe("create", renderMapLabels);
+        return { batches, retainedIdentity };
+      });
+      assert.equal(labelBatches.retainedIdentity, true, "hide/show retains the real label entities");
+      for (const batch of labelBatches.batches) {
+        assert.equal(batch.notifications, 1, label + " label " + batch.name + " delivers one collection event");
+        assert.equal(batch.finalView, true, label + " label observers see the final view");
+      }
       const pixels = await page.evaluate(async () => {
         const scene = viewer.scene;
         const source = activeGeoJsonDataSource;

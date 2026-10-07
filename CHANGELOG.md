@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.294 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.295 antes de cerrar la siguiente version.
+
+## v1.6.295 - 2026-10-07
+
+- Etiquetas del mapa: renderMapLabels, hideMapLabels y clearMapLabels agrupan cambios sincronos de viewer.entities con el helper publico existente de Cesium. Crear, actualizar texto/posicion/font, ocultar, restaurar y retirar una vista entregan un unico aviso final de coleccion; labelEntities/hiddenLabelEntities quedan asignados antes de reanudar. Conserva horizonte, distancia, limites por dispositivo/zoom, identidad al ocultar/restaurar, retirada de obsoletas, colores, calidad y solicitudes de render. Mobile sigue iniciando sin nombres salvo preferencia explicita; una vista identica no escribe propiedades ni emite eventos.
+- Evidencia comparable: la regresion roja con EntityCollection real entrego tres eventos por tres etiquetas nuevas frente a uno esperado; ahora una entrega incluye las tres altas y referencias finales. Prueba cambios de texto/posicion/font, ocultacion/restauracion, limpieza, ausencia de acumulacion, cero eventos sin cambios y suspension externa. map-labels deja de simular la coleccion y reutiliza las clases instaladas; se integra tambien en test:green-coding con deduplicacion ESM en startup. Conserva las pruebas de horizonte, antimeridiano, nombres tardios, preferencias y guardas 2D/transicion. test:startup y la regresion focalizada pasaron.
+- Navegador: Chrome 155.0.8059.40 completo --map-labels-only en 28553 ms, en las dos paginas existentes desktop/mobile. Un observador temporal retirado con finally comprueba una entrega y vista final por ocultar/mostrar/limpiar/crear, conservando identidad al mostrar. Mantiene pruebas de pixeles reales del texto, primer nombre antes del indice, traduccion tardia, navegacion, cambio de hemisferio, viewport y 2D; capturas inspeccionadas. Sin paginas, esperas ni deadlines nuevos. Mobile emulado no acredita un telefono fisico.
+- Green coding y costos: reduce entregas repetidas a consumidores de la coleccion de etiquetas, sin dependencia, cache, red, timer, precarga, polling, monitor o listener permanente nuevos. Reutiliza app-map-styles sin modificarlo; script.js pasa de 592876 a 593204 bytes (+328), countries_index sigue en 144225. Costo: callbacks y pares de suspension/reanudacion por accion, con finally y ownership anidado. No suprime definitionChanged individuales ni evita todo trabajo de atlas/shaders; un error puede dejar cambios parciales y no ofrece rollback. No demuestra ahorro energetico/CO2, mejores FPS ni menos renders GPU.
+- Diagnostico y limites: la muestra anterior de release registro una tarea desktop de 263 ms. Una traza breve instrumentada del build v1.6.294 muestra trabajo de frames del motor (maximo RunTask 182,465 ms en esa traza), no reproduce exactamente los 263 ms ni atribuye su causa definitiva. No se usa como benchmark ni como evidencia de que este cambio los resuelva. El gate remoto de v1.6.294 [37646389870](https://github.com/milton2112/GeoRisk/actions/runs/37646389870) seguia en Full release check al preparar esta tanda; no es aprobacion ni publicacion. La puerta completa renueva medidas/fingerprint de la nueva revision sin ampliar presupuestos, quitar cobertura ni rerunnear codigo sin cambios hasta verde.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-10-07-release-4`.
 
 ## v1.6.294 - 2026-10-07
 

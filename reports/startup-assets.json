@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-07T15:37:49.284Z",
-  "startupBytes": 897661,
+  "generatedAt": "2026-10-07T16:12:48.387Z",
+  "startupBytes": 897989,
   "startupHuman": "877 KB",
   "startupScope": "App shell and eager local scripts only; excludes the separately budgeted map engine.",
   "mapEngine": {
@@ -9,7 +9,7 @@
     "human": "3.27 MB",
     "precached": false
   },
-  "appCoreAndEngineBytes": 4327274,
+  "appCoreAndEngineBytes": 4327602,
   "appCoreAndEngineHuman": "4.13 MB",
   "excludedStartupCosts": "External CSS, workers, imagery and geographic/data requests are not included in appCoreAndEngineBytes. This is not total network transfer or compressed size.",
   "deferredBytes": 3310609,
@@ -41,7 +41,7 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 592876,
+      "bytes": 593204,
       "human": "579 KB",
       "startupCritical": true,
       "category": "startup-app-core"
@@ -131,7 +131,7 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 592876,
+      "bytes": 593204,
       "human": "579 KB",
       "startupCritical": true,
       "category": "startup-app-core"

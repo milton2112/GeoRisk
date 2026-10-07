@@ -87,7 +87,7 @@ const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const globeQuality = mapInteractionCore.createGlobeQualityController();
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-10-07-release-3";
+const APP_VERSION = "2026-10-07-release-4";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -756,18 +756,22 @@ function getCountryLabelData() {
 
 function clearMapLabels() {
   if (!viewer || (!labelEntities.length && !hiddenLabelEntities.length)) return false;
-  [...labelEntities, ...hiddenLabelEntities].forEach(entity => viewer.entities.remove(entity));
-  labelEntities = [];
-  hiddenLabelEntities = [];
-  return true;
+  return mapStyleCore.withEntityEventsSuspended(viewer.entities, () => {
+    [...labelEntities, ...hiddenLabelEntities].forEach(entity => viewer.entities.remove(entity));
+    labelEntities = [];
+    hiddenLabelEntities = [];
+    return true;
+  });
 }
 
 function hideMapLabels() {
   if (!labelEntities.length) return false;
-  labelEntities.forEach(entity => { entity.show = false; });
-  hiddenLabelEntities = labelEntities;
-  labelEntities = [];
-  return true;
+  return mapStyleCore.withEntityEventsSuspended(viewer.entities, () => {
+    labelEntities.forEach(entity => { entity.show = false; });
+    hiddenLabelEntities = labelEntities;
+    labelEntities = [];
+    return true;
+  });
 }
 
 function getMapLabelMaxDistance(category) {
@@ -837,48 +841,50 @@ function renderMapLabels() {
     return;
   }
 
-  // Retain only the previous view, never a cache of every visited country.
-  const previousLabels = new Map([...labelEntities, ...hiddenLabelEntities].map(entity => [entity.id, entity]));
-  const nextLabels = [];
-  let changed = false;
-  const time = viewer.clock.currentTime;
-  const zoomBucket = get3DZoomBucket();
-  const countries = getCountryLabelData();
-  const maxCountries = zoomBucket === "near"
-    ? (isMobileLayout() ? 58 : 120)
-    : zoomBucket === "mid"
-      ? (isMobileLayout() ? 38 : 88)
-      : (isMobileLayout() ? 20 : 52);
-  const addVisibleLabel = (item, category) => {
-    const position = Cesium.Cartesian3.fromDegrees(item.lon, item.lat, 0);
-    if (isMapLabelVisible(position, getMapLabelMaxDistance(category))) {
-      let entity = previousLabels.get(item.id);
-      if (entity) {
-        previousLabels.delete(item.id);
-        if (!Cesium.Cartesian3.equals(entity.position.getValue(time), position)) { entity.position = position; changed = true; }
-        if (entity.label.text.getValue(time) !== item.text) { entity.label.text = item.text; changed = true; }
-        const font = getMapLabelFont(category);
-        if (entity.label.font.getValue(time) !== font) { entity.label.font = font; changed = true; }
-        if (!entity.show) { entity.show = true; changed = true; }
-      } else {
-        entity = viewer.entities.add(buildLabelEntityConfig(item, category, position));
-        changed = true;
+  mapStyleCore.withEntityEventsSuspended(viewer.entities, () => {
+    // Retain only the previous view, never a cache of every visited country.
+    const previousLabels = new Map([...labelEntities, ...hiddenLabelEntities].map(entity => [entity.id, entity]));
+    const nextLabels = [];
+    let changed = false;
+    const time = viewer.clock.currentTime;
+    const zoomBucket = get3DZoomBucket();
+    const countries = getCountryLabelData();
+    const maxCountries = zoomBucket === "near"
+      ? (isMobileLayout() ? 58 : 120)
+      : zoomBucket === "mid"
+        ? (isMobileLayout() ? 38 : 88)
+        : (isMobileLayout() ? 20 : 52);
+    const addVisibleLabel = (item, category) => {
+      const position = Cesium.Cartesian3.fromDegrees(item.lon, item.lat, 0);
+      if (isMapLabelVisible(position, getMapLabelMaxDistance(category))) {
+        let entity = previousLabels.get(item.id);
+        if (entity) {
+          previousLabels.delete(item.id);
+          if (!Cesium.Cartesian3.equals(entity.position.getValue(time), position)) { entity.position = position; changed = true; }
+          if (entity.label.text.getValue(time) !== item.text) { entity.label.text = item.text; changed = true; }
+          const font = getMapLabelFont(category);
+          if (entity.label.font.getValue(time) !== font) { entity.label.font = font; changed = true; }
+          if (!entity.show) { entity.show = true; changed = true; }
+        } else {
+          entity = viewer.entities.add(buildLabelEntityConfig(item, category, position));
+          changed = true;
+        }
+        nextLabels.push(entity);
       }
-      nextLabels.push(entity);
-    }
-  };
-  countries.slice(0, maxCountries).forEach(item => addVisibleLabel(item, "country"));
+    };
+    countries.slice(0, maxCountries).forEach(item => addVisibleLabel(item, "country"));
 
-  if (labelMode === "full" && zoomBucket !== "far") {
-    [...MAP_LABEL_SETS.continents, ...MAP_LABEL_SETS.oceans].forEach(item => {
-      addVisibleLabel(item, "context");
-    });
-  }
-  if (previousLabels.size) changed = true;
-  previousLabels.forEach(entity => viewer.entities.remove(entity));
-  labelEntities = nextLabels;
-  hiddenLabelEntities = [];
-  if (changed) viewer.scene.requestRender();
+    if (labelMode === "full" && zoomBucket !== "far") {
+      [...MAP_LABEL_SETS.continents, ...MAP_LABEL_SETS.oceans].forEach(item => {
+        addVisibleLabel(item, "context");
+      });
+    }
+    if (previousLabels.size) changed = true;
+    previousLabels.forEach(entity => viewer.entities.remove(entity));
+    labelEntities = nextLabels;
+    hiddenLabelEntities = [];
+    if (changed) viewer.scene.requestRender();
+  });
 }
 
 function focusRectangle(bounds, options = {}) {

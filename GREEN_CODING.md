@@ -90,6 +90,24 @@ existiendo y los errores no revierten estilos parciales. Los recorridos existent
 comprueban el estado final en 2D/3D; estos contadores no prueban ahorro energetico
 ni que el deadline global de CI quede resuelto.
 
+La coleccion de etiquetas usa el mismo helper para crear, actualizar, ocultar,
+restaurar y retirar la vista. Tres altas pasan de tres entregas a una en la
+regresion real; una vista sin cambios sigue sin escrituras/eventos. Los limites
+mobile/zoom, horizonte, identidad y limpieza no cambian. No se omiten eventos
+individuales ni se acredita resolver costos de atlas/shaders o tareas de arranque.
+Las paginas de etiquetas existentes comprueban la entrega final y conservan sus
+assertions de pixeles, navegacion y 2D, sin nuevas esperas o listeners permanentes.
+
+Estado observado al cerrar v1.6.295: release:check local completo aprobado y
+fingerprint vigente, pero la muestra nueva mantiene advertencias: desktop 203 ms
+de tarea maxima y 25,5 FPS; mobile emulado 163 ms y 15,6 FPS. No son un A/B que
+atribuya la variacion de FPS al cambio de etiquetas ni un telefono fisico.
+El gate remoto previo de v1.6.294 fallo por el deadline global de npm test
+(1201 s, durante testBackgroundPanels), no por una assertion de etiquetas:
+[run 37646389870](https://github.com/milton2112/GeoRisk/actions/runs/37646389870).
+La mejora de contadores no acredita resolver ese timeout. Mantener el bloqueo
+de publicacion, limites y advertencias; no reintentar codigo sin cambios hasta verde.
+
 ## Primera implementacion
 
 - Se elimina el precalculo del modo cartografico alternativo. Costo: su primera
