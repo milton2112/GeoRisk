@@ -1546,10 +1546,13 @@ async function testDetailedMapUpgrade(browser, baseUrl) {
 async function assertAntialiasingProfile(page) {
   const state = await page.evaluate(() => {
     const preset = getPerformancePreset();
+    const webgl2 = viewer.scene.canvas.getContext("webgl2");
     return { mode: currentMapMode, quality: qualityPreset, actualMsaa: viewer.scene.msaaSamples,
       expectedMsaa: preset.msaaSamples, actualFxaa: viewer.scene.postProcessStages.fxaa.enabled,
-      expectedFxaa: preset.enableFxaa };
+      expectedFxaa: preset.enableFxaa, webgl2: Boolean(webgl2),
+      nativeAntialias: webgl2?.getContextAttributes()?.antialias };
   });
+  if (state.webgl2) assert.equal(state.nativeAntialias, false, "WebGL2 no agrega AA redundante al canvas final");
   assert.equal(state.actualMsaa, state.expectedMsaa, `MSAA: ${state.mode}/${state.quality}`);
   assert.equal(state.actualFxaa, state.expectedFxaa, `FXAA: ${state.mode}/${state.quality}`);
   if (["auto", "balanced"].includes(state.quality) && state.actualFxaa) {
