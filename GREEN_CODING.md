@@ -110,6 +110,23 @@ de publicacion, limites y advertencias; no reintentar codigo sin cambios hasta v
 
 ## Primera implementacion
 
+Los cambios de grosor por zoom conservan materiales de relleno/borde y outline
+constante false. La firma existente se compara por componente, sin otro cache:
+seis poligonos pasan de 24 avisos individuales a seis de ancho, conservando una
+entrega final de coleccion. Cambios reales de color/opacidad siguen aplicandose;
+una firma incompleta queda invalidada para reparar errores parciales. Costo:
+parseo JSON transitorio por capa cambiada y guards por componente, sin timers,
+listeners permanentes ni red nuevos. Las regresiones reales y los recorridos
+existentes 2D/3D comprueban identidad y resultado final. No demuestra ahorro
+energetico ni resolver el timeout remoto, que tambien fallo para v1.6.295.
+
+Al cerrar v1.6.296, release:check local aprobo con fingerprint vigente y nueva
+muestra sin reutilizacion: 33,1/22,1 FPS activos desktop/mobile emulado y tareas
+maximas de 141/139 ms, sin advertencias de rendimiento. No se atribuye esa
+variacion a la reutilizacion de materiales sin un A/B equivalente ni se equipara
+Chrome/Intel Windows al runner Chromium/SwiftShader Linux. Su propio gate remoto
+sigue siendo necesario; no se amplian deadlines ni se rerunnea codigo hasta verde.
+
 - Se elimina el precalculo del modo cartografico alternativo. Costo: su primera
   apertura prepara la geometria bajo demanda; las siguientes reutilizan el cache.
 - FPS solo se sondea durante movimiento visible; se conserva el detector de cero

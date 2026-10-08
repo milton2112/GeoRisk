@@ -87,7 +87,7 @@ const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const globeQuality = mapInteractionCore.createGlobeQualityController();
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-10-07-release-4";
+const APP_VERSION = "2026-10-08-release-1";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -684,11 +684,21 @@ class CesiumCountryLayer {
       return;
     }
 
-    this.currentStyleKey = styleKey;
+    const previousStyle = this.currentStyleKey ? JSON.parse(this.currentStyleKey) : null;
+    const fillChanged = !previousStyle || previousStyle.fillColor !== style.fillColor || previousStyle.fillOpacity !== style.fillOpacity;
+    const borderChanged = !previousStyle || previousStyle.color !== style.color;
+    const widthChanged = !previousStyle || previousStyle.weight !== scaledWeight;
+    const fillColor = fillChanged ? cssColorToCesiumColor(style.fillColor, style.fillOpacity) : null;
+    let borderColor = borderChanged ? cssColorToCesiumColor(style.color, 1) : null;
+    // A partial failure must not mark this style complete or prevent a later repair.
+    this.currentStyleKey = "";
     this.entities.forEach(entity => {
       if (entity.polygon) {
-        entity.polygon.material = cssColorToCesiumColor(style.fillColor, style.fillOpacity);
-        entity.polygon.outline = false;
+        if (fillChanged) entity.polygon.material = fillColor;
+        const outline = entity.polygon.outline;
+        if (outline !== false && (!outline?.isConstant || outline.getValue() !== false)) {
+          entity.polygon.outline = false;
+        }
       }
       if (!entity.polyline && entity.polygon) {
         const positions = entity.__geoRiskPolylinePositions || [];
@@ -697,14 +707,15 @@ class CesiumCountryLayer {
             positions,
             clampToGround: false,
             width: scaledWeight,
-            material: cssColorToCesiumColor(style.color, 1)
+            material: borderColor ||= cssColorToCesiumColor(style.color, 1)
           });
         }
       } else if (entity.polyline) {
-        entity.polyline.material = cssColorToCesiumColor(style.color, 1);
-        entity.polyline.width = scaledWeight;
+        if (borderChanged) entity.polyline.material = borderColor;
+        if (widthChanged) entity.polyline.width = scaledWeight;
       }
     });
+    this.currentStyleKey = styleKey;
   }
 
   getBounds() {

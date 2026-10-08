@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-10-07T16:15:01.588Z",
-  "packageVersion": "1.6.295",
+  "generatedAt": "2026-10-08T11:44:44.833Z",
+  "packageVersion": "1.6.296",
   "status": "observacion",
   "summary": {
-    "totalFindings": 4,
+    "totalFindings": 1,
     "bySeverity": {
-      "media": 4
+      "media": 1
     },
-    "startupBytes": 897989,
-    "scriptBytes": 593204,
+    "startupBytes": 898830,
+    "scriptBytes": 594045,
     "countriesIndexBytes": 144225,
     "conflictAuditIssues": 0,
     "dataCounts": {
@@ -33,48 +33,12 @@
   },
   "topActions": [
     {
-      "area": "performance",
-      "title": "Rendimiento real por revisar",
-      "command": "npm run performance:snapshot -- --fresh"
-    },
-    {
-      "area": "performance",
-      "title": "Rendimiento real por revisar",
-      "command": "npm run performance:snapshot -- --fresh"
-    },
-    {
-      "area": "performance",
-      "title": "Rendimiento real por revisar",
-      "command": "npm run performance:snapshot -- --fresh"
-    },
-    {
       "area": "datos",
       "title": "Jerarquias de conflicto todavia provisionales",
       "command": "npm run fix:conflicts:batches"
     }
   ],
   "findings": [
-    {
-      "severity": "media",
-      "area": "performance",
-      "title": "Rendimiento real por revisar",
-      "detail": "desktop: 1 tareas >200 ms; maxima 203 ms.",
-      "command": "npm run performance:snapshot -- --fresh"
-    },
-    {
-      "severity": "media",
-      "area": "performance",
-      "title": "Rendimiento real por revisar",
-      "detail": "desktop: render activo 25.5 FPS, umbral 27.2 (objetivo 34).",
-      "command": "npm run performance:snapshot -- --fresh"
-    },
-    {
-      "severity": "media",
-      "area": "performance",
-      "title": "Rendimiento real por revisar",
-      "detail": "mobile-emulated: render activo 15.6 FPS, umbral 17.6 (objetivo 22).",
-      "command": "npm run performance:snapshot -- --fresh"
-    },
     {
       "severity": "media",
       "area": "datos",

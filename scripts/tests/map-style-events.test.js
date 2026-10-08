@@ -108,6 +108,86 @@ for (const mode of ["2d", "3d"]) {
   assert.equal(state.mapStyleCore.withEntityEventsSuspended(null, () => 42), 42);
 }
 
+for (const mode of ["2d", "3d"]) {
+  const { state, collection, events, layers } = fixture(mode);
+  const materials = collection.values.map(entity => ({ fill: entity.polygon.material, border: entity.polyline.material }));
+  const writes = [];
+  for (const entity of collection.values) {
+    entity.polygon.definitionChanged.addEventListener((_owner, property) => writes.push("polygon." + property));
+    entity.polyline.definitionChanged.addEventListener((_owner, property) => writes.push("polyline." + property));
+  }
+  const apply = style => state.mapStyleCore.withEntityEventsSuspended(collection, () => {
+    for (const layer of layers) layer.setStyle(style);
+  });
+  state.getDynamicBorderScale = () => 1.4;
+  apply(base);
+  assert.deepEqual(writes, Array(6).fill("polyline.width"), "zoom width changes must not replace unchanged fill/border materials");
+  assert.equal(events.length, 1);
+  assert.equal(events[0].changed.length, 6);
+  for (let i = 0; i < collection.values.length; i++) {
+    const entity = collection.values[i];
+    assert.equal(entity.polygon.material, materials[i].fill);
+    assert.equal(entity.polyline.material, materials[i].border);
+    assert.equal(entity.polyline.width.getValue(), base.weight * 1.4);
+  }
+  writes.length = events.length = 0;
+  apply({ ...base, color: "#abcdef" });
+  assert.deepEqual(writes, Array(6).fill("polyline.material"), "a border color change only replaces border materials");
+  for (let i = 0; i < collection.values.length; i++) {
+    assert.equal(collection.values[i].polygon.material, materials[i].fill);
+  }
+  const borders = collection.values.map(entity => entity.polyline.material);
+  writes.length = events.length = 0;
+  const changedFill = { ...base, color: "#abcdef", fillOpacity: 0.7 };
+  apply(changedFill);
+  assert.deepEqual(writes, Array(6).fill("polygon.material"), "an opacity change only replaces fill materials");
+  for (let i = 0; i < collection.values.length; i++) {
+    assert.equal(collection.values[i].polyline.material, borders[i]);
+    assert.equal(collection.values[i].polygon.material.getValue().color.alpha, 0.7);
+  }
+  writes.length = events.length = 0;
+  apply(changedFill);
+  assert.deepEqual(writes, []);
+  assert.deepEqual(events, [], "an identical complete style still performs no writes");
+  state.getDynamicBorderScale = () => 100;
+  apply(changedFill);
+  for (const entity of collection.values) assert.equal(entity.polyline.width.getValue(), mode === "3d" ? 4.8 : 3.6);
+  writes.length = events.length = 0;
+  state.getDynamicBorderScale = () => 200;
+  apply(changedFill);
+  assert.deepEqual(writes, [], "equivalent clamped widths stay inert");
+  const first = collection.values[0];
+  first.polyline = undefined;
+  first.polygon.outline = true;
+  state.getDynamicBorderScale = () => 1;
+  apply(changedFill);
+  assert.equal(first.polygon.outline.getValue(), false, "a changed style still disables an externally enabled outline");
+  assert.equal(first.polyline.width.getValue(), changedFill.weight);
+  assert.equal(first.polyline.material.getValue().color.equals(Color.fromCssColorString(changedFill.color)), true);
+  assert.equal(first.polyline.positions.getValue().length, 4, "a missing border is recreated with the existing geometry");
+}
+
+{
+  const { layers } = fixture("3d");
+  const layer = layers[0];
+  const failure = new Error("material listener failure");
+  const remove = layer.entities[1].polygon.definitionChanged.addEventListener(() => { throw failure; });
+  assert.throws(() => layer.setStyle(highlight), error => error === failure);
+  remove();
+  assert.equal(layer.currentStyleKey, "", "a failed partial update cannot retain a completed style signature");
+  layer.setStyle(base);
+  for (const entity of layer.entities) {
+    assert.equal(entity.polygon.material.getValue().color.equals(Color.fromCssColorString(base.fillColor).withAlpha(base.fillOpacity)), true);
+    assert.equal(entity.polyline.material.getValue().color.equals(Color.fromCssColorString(base.color)), true);
+    assert.equal(entity.polyline.width.getValue(), base.weight);
+  }
+  let writes = 0;
+  const stop = layer.entities[0].polygon.definitionChanged.addEventListener(() => { writes++; });
+  layer.setStyle(base);
+  stop();
+  assert.equal(writes, 0, "successful repair restores the unchanged-style fast path");
+}
+
 {
   const { state, collection } = fixture("3d");
   const entity = collection.add({ id: "fresh", polygon: { hierarchy: new PolygonHierarchy([
@@ -122,4 +202,4 @@ for (const mode of ["2d", "3d"]) {
   assert.equal(entity.polyline.width.getValue(), base.weight);
   assert.equal(entity.polyline.positions.getValue().length, 4);
 }
-console.log("map-style-events.test.js ok: one final Cesium event, nested/error ownership and one border initialization");
+console.log("map-style-events.test.js ok: final events, width-only material reuse, selective colors and partial-error repair");

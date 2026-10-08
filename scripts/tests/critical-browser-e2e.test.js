@@ -1692,7 +1692,34 @@ async function assertMapSelectionStyles(page, code = "ESP", peerCode = "ARG") {
     observeBatch("clear", () => clearSelection());
     const cleared = matches(getCountryThemeStyle(code));
     setCountrySelection([layer]);
-    return { countryToContinent, continentToCountry, religionToContinent, cleared, refreshes, batches, mode: currentMapMode };
+    const styledEntities = layer.entities.filter(entity => entity.polygon && entity.polyline);
+    const materials = styledEntities.map(entity => ({ fill: entity.polygon.material, border: entity.polyline.material }));
+    let fillWrites = 0;
+    let borderWrites = 0;
+    let widthWrites = 0;
+    const removeStyleListeners = styledEntities.flatMap(entity => [
+      entity.polygon.definitionChanged.addEventListener(() => { fillWrites++; }),
+      entity.polyline.definitionChanged.addEventListener((_owner, property) => {
+        if (property === "width") widthWrites++;
+        else borderWrites++;
+      })
+    ]);
+    let widthOnly;
+    try {
+      const weight = entity.polyline.width.getValue() === 1.2 ? 100 : 0.1;
+      mapStyleCore.withEntityEventsSuspended(activeGeoJsonDataSource.entities, () => {
+        layer.setStyle({ ...COUNTRY_HIGHLIGHT_STYLE, weight });
+      });
+      widthOnly = { fillWrites, borderWrites, widthWrites, count: styledEntities.length,
+        retained: styledEntities.every((entity, index) => entity.polygon.material === materials[index].fill &&
+          entity.polyline.material === materials[index].border),
+        width: entity.polyline.width.getValue(),
+        expectedWidth: Math.max(1.2, Math.min(weight * getDynamicBorderScale(), currentMapMode === "3d" ? 4.8 : 3.6)) };
+    } finally {
+      removeStyleListeners.forEach(remove => remove());
+      mapStyleCore.withEntityEventsSuspended(activeGeoJsonDataSource.entities, () => layer.setStyle(COUNTRY_HIGHLIGHT_STYLE));
+    }
+    return { countryToContinent, continentToCountry, religionToContinent, cleared, refreshes, batches, widthOnly, mode: currentMapMode };
   }, { code, peerCode });
   for (const field of ["countryToContinent", "continentToCountry", "religionToContinent", "cleared"]) {
     assert.equal(result[field], true, "real Cesium " + result.mode + " preserves current selection style: " + field);
@@ -1706,6 +1733,11 @@ async function assertMapSelectionStyles(page, code = "ESP", peerCode = "ARG") {
     assert.equal(batch.notifications, 1, result.mode + " " + batch.name + " delivers one final Cesium collection event");
     assert.equal(batch.observedMode, batch.finalMode, "collection observers see the final selection mode");
   }
+  assert.ok(result.widthOnly.count > 0, "the width check uses actual country polygons");
+  assert.equal(result.widthOnly.fillWrites + result.widthOnly.borderWrites, 0, "width changes do not replace unchanged real materials");
+  assert.equal(result.widthOnly.widthWrites, result.widthOnly.count, "every real border receives its new width once");
+  assert.equal(result.widthOnly.retained, true);
+  assert.equal(result.widthOnly.width, result.widthOnly.expectedWidth);
   console.log("selection-styles: " + page.viewportSize().width + " " + result.mode + " current highlights; 0 redundant notifications");
   if ((page.viewportSize().width === 390 && result.mode === "2d") ||
       (page.viewportSize().width === 1440 && result.mode === "3d")) {
