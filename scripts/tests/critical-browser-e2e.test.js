@@ -9,6 +9,7 @@ import { createBrowserRunReport } from "../lib/browser-run-report.js";
 import { CRITICAL_BROWSER_FLOWS, criticalShardFlows, parseCriticalShard } from "../lib/critical-browser-plan.js";
 import { externalCriticalEvidence, writeCriticalEvidence } from "../lib/critical-browser-evidence.js";
 import { getPerformanceInputHash } from "../lib/performance-inputs.js";
+import { installCountryRendererObserver } from "../lib/browser-country-renderer.js";
 
 const APP_TIMEOUT_MS = Number(process.env.GEORISK_E2E_TIMEOUT_MS || 45000);
 const MAP_PICK_TIMEOUT_MS = Math.min(APP_TIMEOUT_MS, 8000);
@@ -60,6 +61,7 @@ async function waitForAppReady(page, { requireTiles = true } = {}) {
   try {
     await page.waitForFunction(needsTiles => {
       const fatal = document.getElementById("fatal-error-banner");
+      if (fatal?.hidden === false) throw new Error(fatal.textContent || "GeoRisk startup failed.");
       return (
         typeof viewer !== "undefined" &&
         Boolean(viewer) &&
@@ -78,6 +80,9 @@ async function waitForAppReady(page, { requireTiles = true } = {}) {
     console.error("App readiness failed:", await page.evaluate(() => ({
       fatal: document.getElementById("fatal-error-banner")?.textContent,
       engine: window.GeoRiskMapEngine?.getState(), csp: window.__geoRiskCspViolations,
+      renderer: window.__countryRendererProbe || null,
+      bootErrors: typeof bootMetrics !== "undefined" ? bootMetrics.errors : null,
+      degradations: typeof mapDegradationLog !== "undefined" ? mapDegradationLog.list() : null,
       boot: typeof bootMetrics !== "undefined" ? bootMetrics.steps : null,
       countryIndex: typeof deferredDataStatus !== "undefined" ? deferredDataStatus.countryIndex : null,
       countries: typeof countriesData !== "undefined" ? Object.keys(countriesData).length : null,
@@ -3854,22 +3859,36 @@ async function testUntrustedInputs(browser, baseUrl) {
 async function testStorageFailures(browser, baseUrl) {
   for (const viewport of [DESKTOP_VIEWPORT, MOBILE_VIEWPORT]) {
     for (const failure of ["quota", "denied"]) {
-      const test = await createTestPage(browser, baseUrl, viewport, page => page.addInitScript(mode => {
-        const storage = window.localStorage;
-        storage.setItem("geo-risk-intro-seen", "true");
-        storage.setItem("geo-risk-country-notes:ARG", "Nota anterior");
-        const descriptor = Object.getOwnPropertyDescriptor(window, "localStorage");
-        const originalSet = Storage.prototype.setItem;
-        if (mode === "denied") {
-          Object.defineProperty(window, "localStorage", { configurable: true, get() { throw new DOMException("Blocked", "SecurityError"); } });
-        } else {
-          Storage.prototype.setItem = function () { throw new DOMException("Full", "QuotaExceededError"); };
-        }
-        window.__restoreTestStorage = () => {
-          Object.defineProperty(window, "localStorage", descriptor);
-          Storage.prototype.setItem = originalSet;
-        };
-      }, failure));
+      const resourceErrors = [];
+      const test = await createTestPage(browser, baseUrl, viewport, async page => {
+        page.on("response", response => {
+          if (resourceErrors.length < 24 && response.url().startsWith(baseUrl + "/") && response.status() >= 400) {
+            resourceErrors.push({ path: new URL(response.url()).pathname, status: response.status() });
+          }
+        });
+        page.on("requestfailed", request => {
+          if (resourceErrors.length < 24 && request.url().startsWith(baseUrl + "/")) {
+            resourceErrors.push({ path: new URL(request.url()).pathname, error: request.failure()?.errorText });
+          }
+        });
+        await page.addInitScript(installCountryRendererObserver);
+        await page.addInitScript(mode => {
+          const storage = window.localStorage;
+          storage.setItem("geo-risk-intro-seen", "true");
+          storage.setItem("geo-risk-country-notes:ARG", "Nota anterior");
+          const descriptor = Object.getOwnPropertyDescriptor(window, "localStorage");
+          const originalSet = Storage.prototype.setItem;
+          if (mode === "denied") {
+            Object.defineProperty(window, "localStorage", { configurable: true, get() { throw new DOMException("Blocked", "SecurityError"); } });
+          } else {
+            Storage.prototype.setItem = function () { throw new DOMException("Full", "QuotaExceededError"); };
+          }
+          window.__restoreTestStorage = () => {
+            Object.defineProperty(window, "localStorage", descriptor);
+            Storage.prototype.setItem = originalSet;
+          };
+        }, failure);
+      });
       try {
         const { page } = test;
         await waitForAppReady(page, { requireTiles: false });
@@ -3918,6 +3937,10 @@ async function testStorageFailures(browser, baseUrl) {
         assert.equal(await page.evaluate(() => localStorage.getItem("geo-risk-country-notes:ARG")), "Nota recuperada");
         await page.screenshot({ path: `tmp/storage-${failure}-${viewport.width}.png` });
         assertHealthyPage(test.pageErrors, `storage ${failure} ${viewport.width}`);
+      } catch (error) {
+        console.error("Storage fixture failed:", { failure, width: viewport.width,
+          pageErrors: test.pageErrors.slice(0, 16), resourceErrors });
+        throw error;
       } finally {
         await test.context.close();
       }
