@@ -6,6 +6,9 @@ import { createLocalSmokeServer } from "../localSmokeServer.js";
 import { captureLiveElement, captureTransientNotice } from "../lib/browser-screenshot.js";
 import { createBrowserTileCache } from "../lib/browser-tile-cache.js";
 import { createBrowserRunReport } from "../lib/browser-run-report.js";
+import { CRITICAL_BROWSER_FLOWS, criticalShardFlows, parseCriticalShard } from "../lib/critical-browser-plan.js";
+import { externalCriticalEvidence, writeCriticalEvidence } from "../lib/critical-browser-evidence.js";
+import { getPerformanceInputHash } from "../lib/performance-inputs.js";
 
 const APP_TIMEOUT_MS = Number(process.env.GEORISK_E2E_TIMEOUT_MS || 45000);
 const MAP_PICK_TIMEOUT_MS = Math.min(APP_TIMEOUT_MS, 8000);
@@ -4006,13 +4009,40 @@ const focusedFlows = [
 ];
 const focused = focusedFlows.some(([flag]) => process.argv.includes(flag));
 const journeysOnly = process.argv.includes("--journeys-only");
-const selectedFlows = focusedFlows.filter(([flag]) => !journeysOnly && (!focused || process.argv.includes(flag)));
+assert.deepEqual([...focusedFlows.map(([_flag, run]) => run.name), "desktop journey", "mobile journey"], CRITICAL_BROWSER_FLOWS,
+  "the shared full plan must cover every registered browser flow");
+const shard = parseCriticalShard(process.env.GEORISK_E2E_SHARD);
+assert.ok(!shard || (!focused && !journeysOnly), "shards cannot combine with focused filters");
+assert.ok(!shard || !process.env.npm_lifecycle_event, "a single shard must use runCriticalShard, never replace npm test");
+const shardNames = shard ? criticalShardFlows(shard.index) : null;
+const selectedFlows = focusedFlows.filter(([flag, run]) => !journeysOnly && (!focused || process.argv.includes(flag)) &&
+  (!shardNames || shardNames.includes(run.name)));
+const desktopJourney = !focused && (!shardNames || shardNames.includes("desktop journey"));
+const mobileJourney = !focused && (!shardNames || shardNames.includes("mobile journey"));
+
+if (process.env.GEORISK_E2E_REPORTS_DIR) {
+  assert.ok(!shard && !focused && !journeysOnly, "external full evidence cannot combine with filters or a shard");
+  const checkpoint = await createBrowserRunReport({ file: "reports/critical-browser-e2e.json", flows: [...CRITICAL_BROWSER_FLOWS],
+    scope: "full", metadata: { ciRunId: process.env.GITHUB_RUN_ID, ciRevision: process.env.GITHUB_SHA } });
+  try {
+    const evidence = await externalCriticalEvidence();
+    await writeCriticalEvidence("reports/critical-browser-e2e.json", evidence.report);
+    console.log("critical-browser-e2e: verified all " + CRITICAL_BROWSER_FLOWS.length + " flows from both current CI shards; " +
+      evidence.criticalMs + " ms charged to the unchanged 20-minute test budget");
+  } catch (error) {
+    await checkpoint.fail(error);
+    throw error;
+  }
+} else {
 const runReport = await createBrowserRunReport({
   file: "reports/critical-browser-e2e.json",
-  flows: [...selectedFlows.map(([_flag, run]) => run.name), ...(!focused ? ["desktop journey", "mobile journey"] : [])],
-  scope: focused ? "focused" : journeysOnly ? "journeys" : "full",
+  flows: [...selectedFlows.map(([_flag, run]) => run.name), ...(desktopJourney ? ["desktop journey"] : []), ...(mobileJourney ? ["mobile journey"] : [])],
+  scope: shard ? "shard" : focused ? "focused" : journeysOnly ? "journeys" : "full",
   metadata: { platform: process.platform, nodeVersion: process.version,
-    ciRunId: process.env.GITHUB_RUN_ID || null, ciRevision: process.env.GITHUB_SHA || null }
+    ciRunId: process.env.GITHUB_RUN_ID || null, ciRunAttempt: process.env.GITHUB_RUN_ATTEMPT || null,
+    ciRevision: process.env.GITHUB_SHA || null, shard,
+    releaseStartedAt: process.env.GEORISK_RELEASE_STARTED_AT || null,
+    publicInputHash: shard ? await getPerformanceInputHash(process.cwd()) : null }
 });
 
 let browser;
@@ -4045,7 +4075,7 @@ try {
     console.log("critical-browser-e2e: " + run.name + " completed in " + Math.round(performance.now() - started) + " ms");
   }
 
-  if (!focused) {
+  if (desktopJourney) {
     console.log("critical-browser-e2e: desktop journey");
     const desktopStarted = performance.now();
     await runReport.run("desktop journey", async () => {
@@ -4058,7 +4088,8 @@ try {
       }
     });
     console.log("critical-browser-e2e: desktop journey completed in " + Math.round(performance.now() - desktopStarted) + " ms");
-
+  }
+  if (mobileJourney) {
     console.log("critical-browser-e2e: mobile journey");
     const mobileStarted = performance.now();
     await runReport.run("mobile journey", async () => {
@@ -4092,3 +4123,4 @@ try {
 await runReport.finish();
 
 console.log("critical-browser-e2e.test.js ok");
+}

@@ -36,6 +36,19 @@ no una certificacion ambiental ni una afirmacion de neutralidad de carbono.
 
 ## Evidencia y control
 
+CI reparte los 27 flujos existentes entre dos runners Linux, con un navegador y
+ejecucion secuencial por runner; el gate local conserva la suite completa. Solo
+agrega evidencia del mismo run/intento/revision/fuentes/Chromium con cobertura
+exacta, sin aceptar un shard como release. El intervalo completo de ambos shards
+(desfase y teardown incluidos) mas el resto real de npm test sigue limitado a
+20 minutos; preparacion y gate final tambien cuentan dentro de los 45 minutos.
+La utilidad esperada es evitar reintentos fallidos por acumulacion, con el costo
+de dos hosts simultaneos y preparacion/descargas/escaneos repetidos. Los JSON son
+acotados y se retienen siete dias; no hay polling o recursos nuevos para la app.
+Los diagnosticos locales descartaron paralelizar navegadores en un solo host:
+su tiempo empeoro. El resultado local no certifica Linux ni ahorro de CPU total,
+energia o CO2; se conserva evidencia/fuentes y se requiere el gate remoto.
+
 El canvas temporal que mide glifos de Cesium pide willReadFrequently porque su
 siguiente trabajo lee pixeles hacia CPU. El build acota el cambio a ese archivo
 y falla si la fuente instalada cambia. Conserva algoritmo, fuentes, raster final,

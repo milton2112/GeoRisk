@@ -35,8 +35,16 @@ try {
   assert.equal(passed.completedAt, passed.updatedAt);
   assert.equal(passed.metadata.browser.actualChannel, "chromium");
   assert.deepEqual(passed.flows.map(flow => flow.durationMs), [23, 42]);
+  assert.equal(passed.elapsedMs, 65, "elapsed time includes the whole sequential run");
   await assert.rejects(report.run("first", () => {}), /Unexpected/);
   await assert.rejects(report.setBrowser({}), /closed/);
+
+  const shard = await createBrowserRunReport({ ...options, flows: ["first"], scope: "shard" });
+  await shard.run("first", async () => { elapsed += 7; });
+  elapsed += 13;
+  await shard.finish();
+  assert.equal((await read()).scope, "shard", "one runner cannot claim full-suite evidence");
+  assert.equal((await read()).elapsedMs, 20, "teardown also counts toward the shard budget");
 
   const failed = await createBrowserRunReport({ ...options, scope: "focused" });
   const cause = new Error("failure ".repeat(500));

@@ -6,7 +6,7 @@ export async function createBrowserRunReport({ file, flows, scope, metadata = {}
   now = Date.now, clock = () => performance.now(), rename = fs.rename }) {
   if (!Array.isArray(flows) || !flows.length || flows.length > 64 ||
       flows.some(name => typeof name !== "string" || !name || name.length > 120) ||
-      new Set(flows).size !== flows.length || !["full", "focused", "journeys"].includes(scope)) {
+      new Set(flows).size !== flows.length || !["full", "focused", "journeys", "shard"].includes(scope)) {
     throw new Error("Invalid browser report plan.");
   }
   const stamp = () => new Date(now()).toISOString();
@@ -14,10 +14,12 @@ export async function createBrowserRunReport({ file, flows, scope, metadata = {}
     updatedAt: null, completedAt: null, metadata,
     flows: flows.map(name => ({ name, status: "pending", durationMs: null })) };
   let index = 0;
+  const runStarted = clock();
   let activeStarted;
   await fs.mkdir(path.dirname(file), { recursive: true });
   const save = async () => {
     state.updatedAt = stamp();
+    state.elapsedMs = Math.max(0, Math.round(clock() - runStarted));
     // Replace one checkpoint; interruption leaves pending/running work, never success.
     await fs.writeFile(file + ".tmp", JSON.stringify(state, null, 2) + "\n");
     await retryFileOperation(() => rename(file + ".tmp", file), { attempts: 3, delayMs: 40 });

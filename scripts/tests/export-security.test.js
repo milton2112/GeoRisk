@@ -118,7 +118,8 @@ for (const failure of ["error", "timeout"]) {
 }
 
 const workflow = await fs.readFile(".github/workflows/release-gate.yml", "utf8");
-assert.equal((workflow.match(/run: npm run audit:dependencies/g) || []).length, 2);
+assert.equal((workflow.match(/run: npm run audit:dependencies/g) || []).length, 3,
+  "critical shards, release gate and scheduled checks must all audit dependencies");
 assert.ok((await fs.readFile("scripts/releaseChecklist.js", "utf8")).includes('"audit:dependencies"'));
 assert.ok((await fs.readFile("scripts/buildProduction.js", "utf8")).includes('"scripts/buildExportLibraries.js", "--check"'));
 assert.ok(!(await fs.readFile("sw.js", "utf8")).includes("vendor/exports"), "export libraries remain outside offline precache");
