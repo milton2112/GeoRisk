@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-08T17:36:52.345Z",
+  "generatedAt": "2026-10-08T18:19:33.149Z",
   "status": "operativo",
   "startup": {
     "critical": "878 KB",
@@ -14,10 +14,10 @@
     "appCoreAndEngineBytes": 4328805,
     "deferred": "3.16 MB",
     "estimatedRuntimeMemory": {
-      "countriesFullBytes": 13257591,
-      "countriesFullHuman": "12.64 MB",
-      "estimatedParsedBytes": 39772773,
-      "estimatedParsedHuman": "37.93 MB",
+      "countriesFullBytes": 13267881,
+      "countriesFullHuman": "12.65 MB",
+      "estimatedParsedBytes": 39803643,
+      "estimatedParsedHuman": "37.96 MB",
       "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
     },
     "largestAssets": [
@@ -32,7 +32,7 @@
       {
         "path": "data/conflict_details.generated.json",
         "exists": true,
-        "bytes": 2639691,
+        "bytes": 2643009,
         "human": "2.52 MB",
         "startupCritical": false,
         "category": "deferred-or-auxiliary"
@@ -123,7 +123,7 @@
     "scanned": 1999,
     "issueCount": 0,
     "summary": {
-      "provisional_parent": 13
+      "provisional_parent": 12
     },
     "eraFocus": []
   },
@@ -132,13 +132,13 @@
       {
         "path": "data/timeline_index.json",
         "exists": true,
-        "bytes": 422463,
+        "bytes": 422729,
         "human": "413 KB"
       },
       {
         "path": "data/conflicts_index.json",
         "exists": true,
-        "bytes": 371751,
+        "bytes": 372005,
         "human": "363 KB"
       },
       {
@@ -150,7 +150,7 @@
       {
         "path": "data/conflicts/details_index.json",
         "exists": true,
-        "bytes": 175401,
+        "bytes": 175554,
         "human": "171 KB"
       },
       {
@@ -168,9 +168,9 @@
     ],
     "countryWeights": {
       "totalCountries": 183,
-      "fullBytes": 13257591,
-      "duplicatedCountryFilesBytes": 1560415,
-      "countryConflictShardBytes": 461352,
+      "fullBytes": 13267881,
+      "duplicatedCountryFilesBytes": 1560736,
+      "countryConflictShardBytes": 461446,
       "tooLargeCount": 0,
       "largest": [
         {
@@ -330,7 +330,7 @@
           "code": "FRA",
           "name": "Francia",
           "bytes": 21334,
-          "inlineBytes": 1024625,
+          "inlineBytes": 1028409,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -372,9 +372,9 @@
                 "bytes": 933
               }
             ],
-            "conflictsBytes": 51831,
-            "conflictShardBytes": 51832,
-            "averageConflictBytes": 214
+            "conflictsBytes": 51925,
+            "conflictShardBytes": 51926,
+            "averageConflictBytes": 215
           }
         },
         {
@@ -811,7 +811,7 @@
     },
     "curationGaps": {},
     "conflictDataConsistency": {
-      "checked": 4212,
+      "checked": 4214,
       "closedMarkedActiveCount": 0,
       "inactiveMarkedActiveCount": 0,
       "nullNarrativeTextCount": 0,
@@ -838,8 +838,8 @@
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 446479,
-      "human": "436 KB"
+      "bytes": 449367,
+      "human": "439 KB"
     },
     {
       "path": "style.css",

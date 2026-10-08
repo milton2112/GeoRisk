@@ -32,6 +32,9 @@ const TEMPORAL_MONTH_ALIASES = {
 };
 
 export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
+  "Batalla de Tizi Ouzou": "Battle_Of_Tizi_Ouzou_(1845)",
+  "Batalla de Tizi Ouzou (1845)": "Battle_Of_Tizi_Ouzou_(1845)",
+  "Battle of Tizi Ouzou": "Battle_Of_Tizi_Ouzou_(1845)",
   "Batalla de Altun Kupri (Pirde, 2017)": "Battle_of_Altun_Kupri_(2017)",
   "Batalla de Pirde": "Battle_of_Altun_Kupri_(2017)",
   "Primera Guerra Mundial": "Primera_Guerra_Mundial",

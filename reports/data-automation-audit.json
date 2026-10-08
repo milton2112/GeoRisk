@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-10-08T17:36:53.291Z",
+  "generatedAt": "2026-10-08T18:19:34.012Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 79
+      "count": 78
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 13
+      "count": 12
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 625
+      "count": 626
     },
     "redundantReligions": {
       "count": 0
@@ -89,11 +89,6 @@
       {
         "code": "FRA",
         "name": "Batalla de Siracusa",
-        "region": "Europa"
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Tizi Ouzou",
         "region": "Europa"
       },
       {
@@ -255,6 +250,11 @@
         "code": "USA",
         "name": "Ataque a Pearl Harbor",
         "region": "América"
+      },
+      {
+        "code": "USA",
+        "name": "Ataque aéreo de Ogu",
+        "region": "América"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -262,13 +262,6 @@
       {
         "code": "FRA",
         "name": "Batalla de Siracusa",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Tizi Ouzou",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -495,6 +488,14 @@
           "DZA",
           "ESP",
           "USA"
+        ]
+      },
+      {
+        "name": "Batalla de Tizi Ouzou (1845)",
+        "count": 2,
+        "countries": [
+          "DZA",
+          "FRA"
         ]
       },
       {
@@ -743,14 +744,6 @@
         "countries": [
           "ARG",
           "FLK",
-          "GBR"
-        ]
-      },
-      {
-        "name": "Hundimiento de HMS Sheffield",
-        "count": 2,
-        "countries": [
-          "ARG",
           "GBR"
         ]
       }
@@ -1354,7 +1347,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 13,
+      "count": 12,
       "command": "npm run fix:conflicts:batches"
     },
     {

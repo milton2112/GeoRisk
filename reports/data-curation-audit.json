@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-07T14:22:41.863Z",
+  "generatedAt": "2026-10-08T18:03:59.567Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 13257591,
-    "duplicatedCountryFilesBytes": 1560415,
-    "countryConflictShardBytes": 461352,
+    "fullBytes": 13267881,
+    "duplicatedCountryFilesBytes": 1560736,
+    "countryConflictShardBytes": 461446,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -165,7 +165,7 @@
         "code": "FRA",
         "name": "Francia",
         "bytes": 21334,
-        "inlineBytes": 1024625,
+        "inlineBytes": 1028409,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -207,9 +207,9 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 51831,
-          "conflictShardBytes": 51832,
-          "averageConflictBytes": 214
+          "conflictsBytes": 51925,
+          "conflictShardBytes": 51926,
+          "averageConflictBytes": 215
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 78,
+    "pendingCount": 77,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15291,19 +15291,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Tizi Ouzou",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"

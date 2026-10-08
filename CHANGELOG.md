@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.298 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.299 antes de cerrar la siguiente version.
+
+## v1.6.299 - 2026-10-08
+
+- Tizi Ouzou: la entrada europea sin fecha pasa a un unico episodio de comienzos de junio de 1845 en Boukhalfa, Cabilia, dentro de la conquista francesa de Argelia. Conserva el enlace con Francia y agrega Argelia como territorio historico, sin proyectar su Estado actual como beligerante. El import original permanece intacto; aliases exactos preservan su identificacion sin fusionar fechas distintas ni otras etiquetas ambiguas.
+- Evidencia y limites: [Robin, Revue africaine 47, n. 248 (1903), cap. V, pp. 79-84](https://cinumedpub.mmsh.fr/RevueAfricaine/Pdf/1903_248_003.pdf), en el archivo de la MMSH, fecha el encuentro en los primeros dias de junio. La ficha distingue contingentes locales aliados de Francia de la columna cercana de Gentil; su presencia directa, la de Bugeaud y la de Ben-Salem en ese choque no se infieren del contexto regional. El relato colonial retrospectivo y la identificacion enciclopedica quedan etiquetados; sus documentos militares originales no se consultaron. Se mantienen confianza parcial, dia exacto y totales de bajas sin consolidar, sin tratado ni cierre ficticio de la resistencia regional.
+- Resultado de datos: 1999 conflictos unicos conservados, jerarquias provisionales 13 -> 12, conflictos sin fecha 79 -> 78 y pendientes fuera del indice fechable 78 -> 77. No se consolidan los otros 12 casos por semejanza de nombre. La regresion inicialmente fallo por fecha ausente y ahora verifica jerarquia, fuerzas, fuentes, import conservado y consistencia de fichas completas, fragmentos, timeline, busqueda y contadores; pasan curaduria e idioma.
+- Navegador: el flujo existente de curaduria paso en Chrome 155 Windows en 13963 ms, con escritorio y mobile emulado. Verifica fecha unica, lugar africano, notas visibles, enlaces de fuente, bajas desconocidas, ausencia de tratado y desborde, cero precarga y un solo request de detalle reutilizado al reabrir; capturas inspeccionadas. Cuesta una apertura/cierre y una descarga local de detalle por cada pagina existente, sin agregar flujos o paginas ni ampliar deadlines. El tiempo no es un A/B, Linux ni un telefono fisico.
+- Green coding y costos: se reutilizan los generadores y el modal actuales, sin dependencia, modulo del cliente, precalculo, polling, timer, listener o cache nuevos. El detalle profundo agrega 3325 bytes bajo demanda, la ficha de Argelia 321 y el fragmento frances 94; conflicts_index crece 254 y timeline_index 266 bytes. script.js sigue en 594350 y countries_index en 144225 bytes antes del stamp de release; se conservan los presupuestos, Save-Data, accesibilidad, offline y calidad del mapa. El beneficio es corregir ubicacion, fecha y evidencia; no se afirma ahorro de CPU/GPU, RAM, energia o CO2. Las mediciones completas se renuevan con estas entradas y notas congeladas.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-10-08-release-4`.
 
 ## v1.6.298 - 2026-10-08
 

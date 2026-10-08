@@ -1,6 +1,6 @@
 {
   "name": "geo-risk",
-  "version": "1.6.298",
+  "version": "1.6.299",
   "type": "module",
   "scripts": {
     "security:setup": "node scripts/setupSecretScanner.js",

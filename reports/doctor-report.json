@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-08T17:39:06.362Z",
-  "packageVersion": "1.6.298",
+  "generatedAt": "2026-10-08T18:21:47.735Z",
+  "packageVersion": "1.6.299",
   "status": "observacion",
   "summary": {
-    "totalFindings": 3,
+    "totalFindings": 1,
     "bySeverity": {
-      "media": 3
+      "media": 1
     },
     "startupBytes": 899135,
     "scriptBytes": 594350,
@@ -13,13 +13,13 @@
     "conflictAuditIssues": 0,
     "dataCounts": {
       "englishConflictNames": 0,
-      "undatedConflicts": 79,
+      "undatedConflicts": 78,
       "undatedHighLevelConflicts": 0,
-      "provisionalConflictHierarchies": 13,
+      "provisionalConflictHierarchies": 12,
       "suspectRegions": 0,
       "duplicateConflictNames": 0,
       "sameCountryDuplicateConflicts": 0,
-      "sharedConflictNames": 625,
+      "sharedConflictNames": 626,
       "redundantReligions": 0,
       "uppercaseCities": 0,
       "mojibakeText": 0,
@@ -33,16 +33,6 @@
   },
   "topActions": [
     {
-      "area": "performance",
-      "title": "Rendimiento real por revisar",
-      "command": "npm run performance:snapshot -- --fresh"
-    },
-    {
-      "area": "performance",
-      "title": "Rendimiento real por revisar",
-      "command": "npm run performance:snapshot -- --fresh"
-    },
-    {
       "area": "datos",
       "title": "Jerarquias de conflicto todavia provisionales",
       "command": "npm run fix:conflicts:batches"
@@ -51,23 +41,9 @@
   "findings": [
     {
       "severity": "media",
-      "area": "performance",
-      "title": "Rendimiento real por revisar",
-      "detail": "desktop: 1 tareas >200 ms; maxima 213 ms.",
-      "command": "npm run performance:snapshot -- --fresh"
-    },
-    {
-      "severity": "media",
-      "area": "performance",
-      "title": "Rendimiento real por revisar",
-      "detail": "mobile-emulated: 1 tareas >200 ms; maxima 229 ms.",
-      "command": "npm run performance:snapshot -- --fresh"
-    },
-    {
-      "severity": "media",
       "area": "datos",
       "title": "Jerarquias de conflicto todavia provisionales",
-      "detail": "13 acciones usan un padre regional generico y no deben contarse como jerarquias verificadas.",
+      "detail": "12 acciones usan un padre regional generico y no deben contarse como jerarquias verificadas.",
       "command": "npm run fix:conflicts:batches"
     }
   ],
@@ -151,7 +127,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 13,
+      "count": 12,
       "command": "npm run fix:conflicts:batches"
     },
     {

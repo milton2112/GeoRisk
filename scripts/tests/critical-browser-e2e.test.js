@@ -972,6 +972,7 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
     let nogalesDetailRequests = 0;
     let santoriniDetailRequests = 0;
     let capeRocaDetailRequests = 0;
+    let tiziDetailRequests = 0;
     let altunDetailRequests = 0;
     let releaseDetail;
     const pending = new Promise(resolve => { releaseDetail = resolve; });
@@ -1000,6 +1001,7 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
         if (request.url().includes("/data/conflicts/details/batalla-de-ambos-nogales-1918-")) nogalesDetailRequests++;
         if (request.url().includes("/data/conflicts/details/incursion-sobre-santorini-1944-")) santoriniDetailRequests++;
         if (request.url().includes("/data/conflicts/details/batalla-del-cabo-de-la-roca-1703-")) capeRocaDetailRequests++;
+        if (request.url().includes("/data/conflicts/details/batalla-de-tizi-ouzou-1845-")) tiziDetailRequests++;
         if (request.url().includes("/data/conflicts/details/batalla-de-altun-kupri-pirde-2017-")) altunDetailRequests++;
       });
       await page.route(/\/app-(curation|conflict-rules)\.js\?/, async route => {
@@ -1253,6 +1255,35 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
       await page.locator("#conflict-modal-close").click();
       await page.evaluate(() => openConflictModal(window.__capeRocaKey));
       assert.equal(capeRocaDetailRequests, 1, "reopening Cape Roca reuses one on-demand detail request");
+      await page.locator("#conflict-modal-close").click();
+      assert.equal(tiziDetailRequests, 0, "Tizi Ouzou evidence stays unloaded until its modal opens");
+      await page.evaluate(() => {
+        const entry = countriesData.FRA.military.conflicts.find(item => item.name === "Batalla de Tizi Ouzou (1845)");
+        window.__tiziKey = registerConflictModal(entry, "Francia");
+        openConflictModal(window.__tiziKey);
+      });
+      await page.waitForFunction(() => Boolean(CONFLICT_DETAIL_OVERRIDES["Batalla de Tizi Ouzou (1845)"]));
+      assert.equal((await page.locator("#conflict-modal-title").innerText()).match(/1845/g)?.length, 1);
+      assert.match(await body.innerText(), /Conquista francesa de Argelia/);
+      assert.match(await body.innerText(), /Boukhalfa.*Cabilia.*Argelia/);
+      assert.match(await body.innerText(), /Contingentes locales aliados/);
+      assert.match(await body.innerText(), /sin total consolidado/);
+      assert.doesNotMatch(await body.innerText(), /Conflicto regional de Europa|Actor registrado|Oponente o fuerza local/);
+      const tiziNotes = body.locator(".conflict-curation-notes");
+      assert.match(await tiziNotes.innerText(), /Primeros dias de junio de 1845/);
+      assert.match(await tiziNotes.innerText(), /Gentil.*Beni-Aicha/);
+      assert.match(await tiziNotes.innerText(), /relato colonial retrospectivo/);
+      assert.match(await tiziNotes.innerText(), /no se consultaron/);
+      assert.match(await tiziNotes.innerText(), /no el Estado actual/);
+      assert.deepEqual(await body.locator(".conflict-hierarchy-sources a").evaluateAll(links => links.map(link => new URL(link.href).hostname)), [
+        "cinumedpub.mmsh.fr", "en.wikipedia.org"
+      ]);
+      assert.equal(await body.locator(".conflict-treaties").count(), 0);
+      assert.equal(await body.evaluate(element => element.scrollWidth <= element.clientWidth), true);
+      await captureLiveElement(page, tiziNotes, { path: `tmp/tizi-ouzou-curation-${label}.png`, timeout: 10000 });
+      await page.locator("#conflict-modal-close").click();
+      await page.evaluate(() => openConflictModal(window.__tiziKey));
+      assert.equal(tiziDetailRequests, 1, "reopening Tizi Ouzou reuses its single deep-detail request");
       await page.locator("#conflict-modal-close").click();
       assert.equal(altunDetailRequests, 0, "Altun Kupri evidence is not loaded with other conflicts");
       await submitSearch(page, "Pirde");
