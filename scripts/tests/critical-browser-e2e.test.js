@@ -113,6 +113,18 @@ async function setMapMode(page, expectedMode) {
   await waitForMapMode(page, expectedMode);
 }
 
+async function focusCountryInstantly(page, code) {
+  const completions = await page.evaluate(countryCode => {
+    let completed = 0;
+    focusRectangle(countryLayers.get(countryCode)?.getBounds(), {
+      instant: true, onComplete: () => completed++
+    });
+    return completed;
+  }, code);
+  // Cesium's duration-zero flight completes synchronously; moveEnd is a later frame event.
+  assert.equal(completions, 1, code + ": el enfoque instantaneo debe completar una vez");
+}
+
 async function getCountryScreenPoint(page, code, attempts = 20) {
   for (let attempt = 0; attempt < attempts; attempt += 1) {
     const point = await page.evaluate(countryCode => {
@@ -700,12 +712,11 @@ async function testMapLabels(browser, baseUrl) {
       await toolsToggle.click();
       await page.locator("#label-mode-select").selectOption("full");
       await toolsToggle.click();
-      await page.evaluate(() => new Promise((resolve, reject) => {
-        const remove = viewer.camera.moveEnd.addEventListener(() => { clearTimeout(timer); remove(); resolve(); });
-        const timer = setTimeout(() => { remove(); reject(new Error("La camara no termino de enfocar Brasil")); }, 15000);
-        focusRectangle(countryLayers.get("BRA").getBounds(), { instant: true });
-      }));
-      await page.waitForFunction(() => !isCameraNavigating && labelEntities.some(entity => entity.id === "country-label-BRA"));
+      await focusCountryInstantly(page, "BRA");
+      // Repeating the same destination must complete even without another camera movement.
+      await focusCountryInstantly(page, "BRA");
+      await page.waitForFunction(() => !isCameraNavigating && labelEntities.some(entity => entity.id === "country-label-BRA"),
+        undefined, { timeout: 15000 });
       const brazil = await assertVisible();
       const labelBatches = await page.evaluate(() => {
         const batches = [];

@@ -101,4 +101,35 @@ const flat = fixture({ mode: SceneMode.SCENE2D, position: Cartesian3.fromDegrees
 assert.ok(await flat.state.getCountryScreenPoint(flat.page, "ARG"), "3D horizon rejection must not run in 2D");
 assert.equal(flat.calls.picks, 1);
 
-console.log("browser-map-pick.test.js OK: cached bounds and zero picks/renders for invalid candidates");
+// Instant focus completion is separate from the frame-dependent moveEnd event.
+// Exercise the actual app and E2E helpers with no camera movement event at all.
+{
+  const calls = { flights: [], renders: 0 };
+  const bounds = { west: -1, east: 0, south: -0.5, north: 0.1 };
+  const state = {
+    assert, activeFocusToken: 0, currentMapMode: "3d", mapMotionPreference: { matches: false },
+    isMobileLayout: () => false, countryLayers: new Map([["BRA", { getBounds: () => bounds }]]),
+    viewer: { camera: {
+      cancelFlight() {},
+      flyTo(options) { calls.flights.push(options); options.complete(); }
+    }, scene: { requestRender() { calls.renders++; } } }
+  };
+  vm.createContext(state);
+  vm.runInContext(block(appSource, "function focusRectangle(", "function update3DPresentationState("), state);
+  vm.runInContext(block(browserSource, "async function focusCountryInstantly(", "async function getCountryScreenPoint("), state);
+  const page = { evaluate: (read, code) => vm.runInContext("(" + read.toString() + ")(" + JSON.stringify(code) + ")", state) };
+  for (let attempt = 0; attempt < 2; attempt++) await state.focusCountryInstantly(page, "BRA");
+  assert.equal(calls.flights.length, 2);
+  assert.ok(calls.flights.every(flight => flight.destination === bounds && flight.duration === 0));
+  assert.equal(calls.renders, 2);
+  await assert.rejects(state.focusCountryInstantly(page, "MISSING"), /debe completar una vez/);
+  assert.equal(calls.flights.length, 2, "an absent destination cannot pass from a previous focus");
+  state.viewer.camera.flyTo = () => {};
+  await assert.rejects(state.focusCountryInstantly(page, "BRA"), /debe completar una vez/, "an incomplete focus must fail");
+  state.viewer.camera.flyTo = options => { options.complete(); options.complete(); };
+  await assert.rejects(state.focusCountryInstantly(page, "BRA"), /debe completar una vez/, "duplicate completion must fail");
+  state.viewer.camera.flyTo = () => { throw new Error("Camera failed"); };
+  await assert.rejects(state.focusCountryInstantly(page, "BRA"), /Camera failed/);
+}
+
+console.log("browser-map-pick.test.js OK: cached bounds, bounded picks and instant focus without moveEnd");

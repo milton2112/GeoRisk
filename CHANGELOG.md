@@ -8,7 +8,9 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.299 antes de cerrar la siguiente version.
+- Gate de etiquetas: el foco instantaneo de Brasil comprueba su callback de finalizacion, que el Cesium instalado ejecuta sincronicamente con duracion cero. La prueba deja de depender del posterior evento de frame `moveEnd`, que puede faltar al repetir la misma vista. Conserva nombres visibles, identidad de entidades, pixeles reales, lectura de glifos, navegacion animada, cambio de hemisferio, resize y apagado de etiquetas en escritorio/mobile; la espera de la etiqueta queda acotada a los mismos 15 segundos del foco original.
+- Evidencia y limites: [CI v1.6.299, run 37824049095](https://github.com/milton2112/GeoRisk/actions/runs/37824049095) fallo en ese foco con `Resulting promise was garbage collected`; el otro shard paso y el gate conjunto rechazo la cobertura incompleta. Un diagnostico Chrome 155 Windows reprodujo la espera incorrecta al reenfocar Brasil en mobile, con timeout de 15 segundos; no reproduce ni demuestra el mecanismo interno de GC de Chromium Linux. La regresion nativa usa los helpers reales sin evento de movimiento y rechaza destino ausente, foco sin completar, doble callback y errores de camara. El flujo focalizado corregido paso en 28406 ms con las dos vistas y verificaciones de pixeles. No sustituye el gate completo ni mide un ahorro frente al diagnostico fallido. Cada revision sigue requiriendo su gate remoto completo.
+- Green coding y costos: solo cambia la herramienta de prueba, sin modificar app, datos, cache, calidad o dependencias. Elimina un listener y un timer de espera por pagina; agrega un segundo foco al mismo destino en las dos paginas existentes para cubrir la regresion. No agrega flujos, paginas, monitores ni artefactos de produccion; conserva presupuestos y cobertura. El pequeno resumen diagnostico queda fuera de deploy/precache. El beneficio esperado es evitar fallos de sincronizacion y reintentos innecesarios, sin afirmar ahorro energetico, de RAM o de CPU/GPU a partir de esta evidencia.
 
 ## v1.6.299 - 2026-10-08
 
