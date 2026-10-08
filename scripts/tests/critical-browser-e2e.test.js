@@ -630,6 +630,13 @@ async function testMapLabels(browser, baseUrl) {
         // Label rendering must not depend on the runner's hardware defaults or FPS fallback.
         localStorage.setItem("geo-risk-quality-preset", "performance");
         if (!isMobile) localStorage.setItem("geo-risk-label-mode", "countries");
+        const readPixels = CanvasRenderingContext2D.prototype.getImageData;
+        window.__glyphReadback = { count: 0, unhinted: 0 };
+        CanvasRenderingContext2D.prototype.getImageData = function (...args) {
+          window.__glyphReadback.count++;
+          if (this.getContextAttributes?.().willReadFrequently !== true) window.__glyphReadback.unhinted++;
+          return readPixels.apply(this, args);
+        };
       }, mobile);
       if (!mobile) await page.route(/\/data\/countries_index\.json(?:\?|$)/, async route => {
         await indexGate;
@@ -800,6 +807,9 @@ async function testMapLabels(browser, baseUrl) {
       });
       assert.ok(pixels.changed > 2 && pixels.brighter > 2 && pixels.sameEntity && pixels.error === 0,
         label + ": el nombre debe producir pixeles de texto, no solo una entidad: " + JSON.stringify(pixels));
+      const readbacks = await page.evaluate(() => window.__glyphReadback);
+      assert.ok(readbacks.count > 0, "real glyph measurement must read pixels");
+      assert.equal(readbacks.unhinted, 0, "glyph measurement uses CPU-oriented canvas readback");
       await page.waitForTimeout(3500);
       await page.waitForFunction(() => viewer.scene.globe.tilesLoaded && !loadMapPromise && !isCameraNavigating);
       await page.screenshot({ path: "tmp/map-labels-" + label + ".png" });
@@ -2490,19 +2500,37 @@ async function testNewsLifecycle(browser, baseUrl) {
       });
       await page.addInitScript(() => {
         const nativeFetch = window.fetch.bind(window);
-        const fixture = window.__newsFixture = { mode: "ok", calls: [] };
+        const fixture = window.__newsFixture = { mode: "ok", calls: [], deadlines: new Map() };
+        const startTimer = window.setTimeout.bind(window);
+        const stopTimer = window.clearTimeout.bind(window);
+        window.setTimeout = (callback, delay, ...args) => {
+          const id = startTimer(callback, delay, ...args);
+          if (delay === 2500 && String(callback).includes("News response timed out")) fixture.deadlines.set(id, callback);
+          return id;
+        };
+        window.clearTimeout = id => { fixture.deadlines.delete(id); stopTimer(id); };
+        fixture.expireQuery = () => {
+          const pending = fixture.deadlines.entries().next().value;
+          if (!pending) throw new Error("Missing native news deadline");
+          const [id, callback] = pending;
+          window.clearTimeout(id);
+          callback();
+        };
         window.fetch = (url, options = {}) => {
           if (!String(url).startsWith("https://api.gdeltproject.org/")) return nativeFetch(url, options);
-          const id = fixture.calls.length;
-          const response = () => new Response(JSON.stringify({ articles: fixture.mode === "empty" ? []
+          const countryCode = activeNewsCountryCode;
+          const topic = activeNewsTopic;
+          const mode = fixture.mode;
+          const key = `${countryCode}:${topic}:${mode}`;
+          const response = () => new Response(JSON.stringify({ articles: mode === "empty" ? []
             : Array.from({ length: 4 }, (_, i) => ({
-              title: `Titular de prueba ${id}-${i}`, sourceCommonName: "Fuente de prueba",
-              seendate: "20261002T120000Z", url: `https://example.com/news/${id}/${i}`
+              title: `Titular de prueba ${key}-${i}`, sourceCommonName: "Fuente de prueba",
+              seendate: "20261002T120000Z", url: `https://example.com/news/${key}/${i}`
             })) }), { headers: { "Content-Type": "application/json" } });
-          const call = { url: String(url), signal: options.signal, release: null };
+          const call = { key, countryCode, topic, mode, url: String(url), signal: options.signal, release: null };
           fixture.calls.push(call);
           // A late provider deliberately ignores abort so the UI must reject stale results.
-          return fixture.mode === "hold" ? new Promise(resolve => { call.release = () => resolve(response()); })
+          return mode === "hold" ? new Promise(resolve => { call.release = () => resolve(response()); })
             : Promise.resolve(response());
         };
       });
@@ -2517,7 +2545,12 @@ async function testNewsLifecycle(browser, baseUrl) {
       }
       await page.locator(".news-hub-content").waitFor({ state: "visible" });
     };
-    const count = () => page.evaluate(() => window.__newsFixture.calls.length);
+    // A download can try the documented official-name/name queries after a deadline.
+    // Check logical contexts here and every physical query/order/duplicate below.
+    const count = () => page.evaluate(() => new Set(window.__newsFixture.calls.map(call => call.key)).size);
+    const title = (code, topic = "general", mode = "ok") => `Titular de prueba ${code}:${topic}:${mode}-0`;
+    const waitForHeadline = (code, topic = "general") => page.waitForFunction(marker =>
+      document.getElementById("news-hub-article").textContent.includes(marker), title(code, topic));
     const selectCountry = async (name, code) => {
       await page.locator("#news-country-filter").fill(name);
       const row = page.locator(`#news-hub-list [data-news-country="${code}"]`);
@@ -2541,37 +2574,45 @@ async function testNewsLifecycle(browser, baseUrl) {
       await page.evaluate(() => { window.__newsFixture.mode = "hold"; });
       await moduleRetry.focus();
       await moduleRetry.press("Enter");
-      await page.waitForFunction(() => window.__newsFixture.calls.length === 1);
+      await page.waitForFunction(() => window.__newsFixture.calls.some(call => call.key === "ARG:general:hold"));
+      if (label === "desktop") {
+        await page.evaluate(() => {
+          if (window.__newsFixture.calls.filter(call => call.key === "ARG:general:hold").length === 1)
+            window.__newsFixture.expireQuery();
+        });
+        await page.waitForFunction(() => window.__newsFixture.calls.filter(call => call.key === "ARG:general:hold").length === 2);
+      }
       assert.equal(newsAttempts, 3, "explicit news recovery loads once and queries once");
       await page.evaluate(() => { window.__newsFixture.mode = "ok"; });
       await selectCountry("Brasil", "BRA");
-      await page.waitForFunction(() => document.getElementById("news-hub-article").textContent.includes("Titular de prueba 1-0"));
-      await page.evaluate(() => window.__newsFixture.calls[0].release());
-      assert.equal(await page.evaluate(() => window.__newsFixture.calls[0].signal.aborted), true);
+      await waitForHeadline("BRA");
+      await page.evaluate(() => window.__newsFixture.calls.filter(call => call.key === "ARG:general:hold").forEach(call => call.release()));
+      assert.equal(await page.evaluate(() => window.__newsFixture.calls.filter(call => call.key === "ARG:general:hold").every(call => call.signal.aborted)), true);
       await page.evaluate(() => renderNewsHub("ARG"));
       assert.match(await page.locator("#news-hub-selected").textContent(), /Brasil/);
-      assert.match(await page.locator("#news-hub-article").textContent(), /Titular de prueba 1-0/);
+      assert.ok((await page.locator("#news-hub-article").textContent()).includes(title("BRA")));
       assert.equal(await page.evaluate(() => newsCache.has("ARG:general")), false, "no late country cache entry");
       assert.equal(await count(), 2);
 
       await page.locator("#news-topic-select").selectOption("economy");
-      await page.waitForFunction(() => document.getElementById("news-hub-article").textContent.includes("Titular de prueba 2-0"));
+      await waitForHeadline("BRA", "economy");
       assert.match(await page.locator("#news-hub-article").textContent(), /economia/i);
       await page.locator("#news-topic-select").selectOption("general");
-      await page.waitForFunction(() => document.getElementById("news-hub-article").textContent.includes("Titular de prueba 1-0"));
+      await waitForHeadline("BRA");
       assert.equal(await count(), 3, "changing back reuses valid topic cache");
 
       await page.evaluate(() => { window.__newsFixture.mode = "hold"; });
       await page.locator("#news-topic-select").selectOption("diplomacy");
-      await page.waitForFunction(() => window.__newsFixture.calls.length === 4);
+      await page.waitForFunction(() => window.__newsFixture.calls.some(call => call.key === "BRA:diplomacy:hold"));
       await page.locator("#news-hub-panel > summary").click();
-      await page.waitForFunction(() => activeNewsRequest === null && window.__newsFixture.calls[3].signal.aborted);
+      await page.waitForFunction(() => activeNewsRequest === null &&
+        window.__newsFixture.calls.filter(call => call.key === "BRA:diplomacy:hold").every(call => call.signal.aborted));
       await openHub();
       await page.locator("#news-hub-article .news-state-card").waitFor({ state: "visible" });
       assert.equal(await page.locator('#news-hub-article [aria-busy="true"]').count(), 0);
       assert.equal(await count(), 4, "reopening never resumes a cancelled download");
-      await page.evaluate(() => window.__newsFixture.calls[3].release());
-      assert.ok(!(await page.locator("#news-hub-article").textContent()).includes("Titular de prueba 3-0"));
+      await page.evaluate(() => window.__newsFixture.calls.filter(call => call.key === "BRA:diplomacy:hold").forEach(call => call.release()));
+      assert.ok(!(await page.locator("#news-hub-article").textContent()).includes(title("BRA", "diplomacy", "hold")));
 
       await page.evaluate(() => { window.__newsFixture.mode = "empty"; });
       await page.locator("#news-topic-select").selectOption("conflict");
@@ -2588,7 +2629,7 @@ async function testNewsLifecycle(browser, baseUrl) {
       await page.waitForFunction(() => document.getElementById("news-hub-article").textContent.includes("Ahorro de datos activo"));
       assert.equal(await count(), failedCount);
       await page.locator("#news-topic-select").selectOption("general");
-      await page.waitForFunction(() => document.getElementById("news-hub-article").textContent.includes("Titular de prueba 1-0"));
+      await waitForHeadline("BRA");
       assert.equal(await count(), failedCount, "Save-Data keeps cached headlines available");
       await page.locator("#news-topic-select").selectOption("politics");
       await page.evaluate(() => {
@@ -2600,7 +2641,7 @@ async function testNewsLifecycle(browser, baseUrl) {
       assert.equal(await count(), failedCount, "restoring data availability does not fetch");
       await retry.focus();
       await retry.press("Enter");
-      await page.waitForFunction(expected => window.__newsFixture.calls.length === expected + 1, failedCount);
+      await page.waitForFunction(expected => new Set(window.__newsFixture.calls.map(call => call.key)).size === expected + 1, failedCount);
       await page.evaluate(() => {
         Object.defineProperty(navigator, "onLine", { configurable: true, value: false });
         window.dispatchEvent(new Event("offline"));
@@ -2618,12 +2659,37 @@ async function testNewsLifecycle(browser, baseUrl) {
       assert.equal(await page.locator('#news-hub-article [aria-busy="true"]').count(), 0);
       assert.equal(await page.locator('#news-hub-article [role="status"]').count(), 1);
       await retry.click();
-      await page.waitForFunction(() => document.querySelector("#news-hub-article .news-headline-list"));
+      await waitForHeadline("BRA", "politics");
+      assert.equal(await page.locator("#news-hub-article .news-headline-list").count(), 1);
+      const groups = await page.evaluate(() => {
+        const groups = new Map();
+        for (const call of window.__newsFixture.calls) {
+          const group = groups.get(call.key) || { key: call.key, queries: buildNewsQueries(countriesData[call.countryCode], call.topic), calls: [] };
+          group.calls.push({ query: new URL(call.url).searchParams.get("query"), aborted: call.signal.aborted });
+          groups.set(call.key, group);
+        }
+        return [...groups.values()];
+      });
+      assert.deepEqual(groups.map(group => group.key).sort(), ["ARG:general:hold", "BRA:general:ok", "BRA:economy:ok",
+        "BRA:diplomacy:hold", "BRA:conflict:empty", "BRA:politics:hold", "BRA:politics:ok"].sort(), "only explicitly exercised country/topic contexts query the provider");
+      for (const group of groups) {
+        assert.ok(group.calls.length > 0 && group.calls.length <= group.queries.length, "provider attempts keep their native query limit: " + group.key);
+        assert.deepEqual(group.calls.map(call => call.query), group.queries.slice(0, group.calls.length), "physical queries retain native order without duplicate downloads: " + group.key);
+        for (const call of group.calls.slice(0, -1)) assert.equal(call.aborted || group.key.endsWith(":empty"), true, "only deadline/empty results advance to the fallback");
+        if (group.key.endsWith(":hold")) assert.ok(group.calls.every(call => call.aborted), "all late transports are cancelled: " + group.key);
+      }
       const content = page.locator(".news-hub-content");
       assert.ok(await content.evaluate(element => element.scrollWidth <= element.clientWidth + 1), label + " news fits its panel");
       await content.screenshot({ path: `tmp/news-ready-${label}.png` });
       assert.equal(newsAttempts, 3, "successful news imports are reused throughout the lifecycle");
       assertHealthyPage(test.pageErrors, label + " news lifecycle");
+    } catch (error) {
+      console.error("News lifecycle failed:", await page.evaluate(() => ({
+        selected: activeNewsCountryCode, topic: activeNewsTopic, pending: activeNewsRequest?.countryCode,
+        calls: window.__newsFixture.calls.map(call => ({ key: call.key, query: new URL(call.url).searchParams.get("query"), aborted: call.signal.aborted })),
+        article: document.getElementById("news-hub-article")?.textContent?.slice(0, 600), cache: [...newsCache.keys()]
+      })).catch(() => null));
+      throw error;
     } finally {
       await page.evaluate(() => {
         for (const call of window.__newsFixture.calls) call.release?.();

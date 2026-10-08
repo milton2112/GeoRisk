@@ -386,4 +386,34 @@ for (const invalid of [null, { articles: "invalid" }, { articles: [null, { title
   assert.equal(Object.keys(raw).length, 4, "cache keeps only the bounded fields needed by the UI");
 }
 
+{
+  const test = dataHarness();
+  test.context.countriesData.ARG.general.officialName = "Republica Argentina";
+  const held = deferred();
+  const calls = [];
+  test.context.fetch = async (url, options) => {
+    calls.push({ query: new URL(url).searchParams.get("query"), signal: options.signal });
+    return { ok: true, json: () => url.includes("Argentina") ? held.promise
+      : Promise.resolve({ articles: articles() }) };
+  };
+  const first = test.context.showNewsArticle("ARG");
+  await tick();
+  assert.equal(calls.length, 1);
+  test.expireRequest();
+  await tick();
+  assert.deepEqual(calls.map(call => call.query), ['"Republica Argentina" actualidad', '"Argentina" actualidad'],
+    "a native deadline advances to the documented fallback instead of keeping a global request ordinal");
+  assert.equal(calls[0].signal.aborted, true);
+  await test.context.showNewsArticle("BRA");
+  await first;
+  assert.equal(calls.length, 3);
+  assert.equal(calls[1].signal.aborted, true, "country replacement cancels the remaining fallback");
+  assert.deepEqual(test.rendered, [["BRA", "Titular 0"]]);
+  held.resolve({ articles: articles() });
+  await tick();
+  assert.deepEqual(test.rendered, [["BRA", "Titular 0"]], "both late Argentina bodies stay obsolete");
+  assert.deepEqual([...test.context.newsCache.keys()], ["BRA:general"]);
+  assert.equal(test.timers.size, 0);
+}
+
 console.log("news-lifecycle.test.js ok");

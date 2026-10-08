@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import { createHash } from "node:crypto";
 import { stripCesiumDebugPragmas } from "../lib/cesium-release-pragmas.js";
+import "./cesium-text-readback.test.js";
 
 const source = [
   "const keep = 1;", "//>>includeStart('debug', pragmas.debug);",

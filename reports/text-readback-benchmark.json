@@ -1,0 +1,117 @@
+{
+  "generatedAt": "2026-10-08T12:11:03.429Z",
+  "platform": "win32",
+  "nodeVersion": "v22.21.0",
+  "source": "node_modules/@cesium/engine/Source/Core/writeTextToCanvas.js",
+  "sourceSha256": "0421c01467e1ece4ae1bdb71e46e6e650121129a72c8166b49229af6cc4e823d",
+  "methodology": "Bounded local diagnostic of the installed upstream glyph measurement, with only its temporary canvas getContext changed to willReadFrequently:true. Six pairs alternate baseline/hint order after pixel verification. Each timed batch renders 108 canvases (12 strings x 3 styles x 3 repetitions). RGBA arrays compared byte by byte plus exact dimensions in 36 cases per renderer. Canvas drawing and pixel scanning are unchanged; helper defaults use the same white/black/transparent colors. Chrome 155 Windows is not Chromium 151 Linux CI, an app FPS benchmark or an energy model.",
+  "strings": [
+    "A",
+    "j",
+    "g",
+    "W",
+    "á",
+    "É",
+    "ñ",
+    "Ω",
+    "界",
+    " ",
+    "España",
+    "Australia"
+  ],
+  "styles": [
+    {
+      "font": "600 13px sans-serif",
+      "fill": true,
+      "stroke": true,
+      "strokeWidth": 2,
+      "padding": 3
+    },
+    {
+      "font": "14px sans-serif",
+      "fill": true
+    },
+    {
+      "font": "italic 18px serif",
+      "stroke": true,
+      "fill": false,
+      "strokeWidth": 3
+    }
+  ],
+  "casesPerRenderer": 36,
+  "measurements": [
+    {
+      "software": false,
+      "browser": "155.0.8059.40",
+      "differences": [],
+      "samples": [
+        {
+          "baseline": 93.79999999981374,
+          "hint": 16.700000000186265
+        },
+        {
+          "hint": 15.799999999813735,
+          "baseline": 88.70000000018626
+        },
+        {
+          "baseline": 83.90000000037253,
+          "hint": 16.5
+        },
+        {
+          "hint": 15.700000000186265,
+          "baseline": 105.29999999981374
+        },
+        {
+          "baseline": 77.59999999962747,
+          "hint": 14.100000000558794
+        },
+        {
+          "hint": 14,
+          "baseline": 84.5
+        }
+      ],
+      "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "baselineMedianMs": 86.60000000009313,
+      "hintMedianMs": 15.75
+    },
+    {
+      "software": true,
+      "browser": "155.0.8059.40",
+      "differences": [],
+      "samples": [
+        {
+          "baseline": 57.40000000037253,
+          "hint": 14.799999999813735
+        },
+        {
+          "hint": 15.200000000186265,
+          "baseline": 56.799999999813735
+        },
+        {
+          "baseline": 57,
+          "hint": 15.599999999627471
+        },
+        {
+          "hint": 15.799999999813735,
+          "baseline": 78.6000000005588
+        },
+        {
+          "baseline": 55.299999999813735,
+          "hint": 13.900000000372529
+        },
+        {
+          "hint": 14.5,
+          "baseline": 56.09999999962747
+        }
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "baselineMedianMs": 56.89999999990687,
+      "hintMedianMs": 15
+    }
+  ],
+  "limits": [
+    "Instrumentation and host variation can affect timing.",
+    "The hint may shift temporary drawing to CPU or be ignored by a browser.",
+    "No claim of full-app FPS, energy or resolution of the global CI deadline."
+  ]
+}

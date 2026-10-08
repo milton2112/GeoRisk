@@ -5,6 +5,7 @@ import { build } from "esbuild";
 import { stripCesiumDebugPragmas } from "./lib/cesium-release-pragmas.js";
 import { removeCesiumEvaluationToken } from "./lib/cesium-evaluation-token.js";
 import { replaceKnockoutGlobalLookup } from "./lib/cesium-csp.js";
+import { enableCesiumTextReadback } from "./lib/cesium-text-readback.js";
 
 const root = process.cwd();
 const outputDirectory = "vendor/cesium";
@@ -16,12 +17,12 @@ const result = await build({
   bundle: true, minify: true, format: "esm", target: "es2020",
   write: false, metafile: true, legalComments: "eof",
   define: { CESIUM_VERSION: '"1.127"' },
-  banner: { js: "/*! GeoRisk subset of CesiumJS 1.127. Copyright 2011-2024 CesiumJS Contributors.\n * Modified distribution: selected exports, tree shaking, release debug and evaluation token removal, CSP-safe global lookup.\n * Apache-2.0 and third-party notices: see LICENSES.txt in this directory. */" },
+  banner: { js: "/*! GeoRisk subset of CesiumJS 1.127. Copyright 2011-2024 CesiumJS Contributors.\n * Modified distribution: selected exports, tree shaking, release debug and evaluation token removal, CSP-safe global lookup, glyph measurement readback hint.\n * Apache-2.0 and third-party notices: see LICENSES.txt in this directory. */" },
   plugins: [{
     name: "cesium-release-pragmas",
     setup(builder) {
       builder.onLoad({ filter: /[\\/]@cesium[\\/].*\.js$/ }, async ({ path: file }) => ({
-        contents: replaceKnockoutGlobalLookup(removeCesiumEvaluationToken(stripCesiumDebugPragmas(await fs.readFile(file, "utf8"), file), file), file), loader: "js"
+        contents: enableCesiumTextReadback(replaceKnockoutGlobalLookup(removeCesiumEvaluationToken(stripCesiumDebugPragmas(await fs.readFile(file, "utf8"), file), file), file), file), loader: "js"
       }));
     }
   }]

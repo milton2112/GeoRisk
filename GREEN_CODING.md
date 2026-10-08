@@ -36,6 +36,24 @@ no una certificacion ambiental ni una afirmacion de neutralidad de carbono.
 
 ## Evidencia y control
 
+El canvas temporal que mide glifos de Cesium pide willReadFrequently porque su
+siguiente trabajo lee pixeles hacia CPU. El build acota el cambio a ese archivo
+y falla si la fuente instalada cambia. Conserva algoritmo, fuentes, raster final,
+geometria, calidad WebGL y cantidad de canvases; no agrega modulos de arranque,
+dependencias, red, caches o monitores. El navegador puede trasladar el dibujo
+temporal a CPU o ignorar el hint. La comparacion local alternada verifica RGBA y
+dimensiones iguales en 36 casos; sus tiempos solo describen ese lote de glifos,
+no ahorro energetico, FPS de la app ni cumplimiento del deadline remoto.
+
+El E2E de Noticias identifica titulares por pais/tema/modo y verifica cada query
+fisica contra el orden y limite nativos. Un deadline puede usar el fallback de
+nombre y cambiar los ordinales; la prueba provoca ese callback real sin ampliar
+2500 ms ni dormir ese plazo. Comprueba cancelacion, cache y cuerpos tardios;
+observacion de timers solo en la pagina aislada y una lectura solo al fallar,
+sin polling adicional o recursos para la app. El costo es una espera de fallback
+necesaria para la regresion. Evitar falsos fallos es un beneficio esperado, no una
+medicion de energia ni una garantia de CI Linux desde un diagnostico Windows.
+
 `npm run test:green-coding` prueba las reglas del mapa, suspension de monitores,
 limpieza de listeners y carga bajo demanda. Tambien forma parte de `test:startup`,
 por lo que se ejecuta en `npm test`, pre-push y GitHub Actions. Los imports ESM
