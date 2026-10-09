@@ -1,30 +1,30 @@
 {
-  "generatedAt": "2026-10-05T18:44:57.517Z",
+  "generatedAt": "2026-10-09T17:58:40.105Z",
   "status": "operativo",
   "startup": {
-    "critical": "871 KB",
-    "criticalBytes": 891621,
+    "critical": "878 KB",
+    "criticalBytes": 899352,
     "scope": "App shell and eager local scripts only; excludes the separately budgeted map engine.",
     "mapEngine": {
       "path": "vendor/cesium/engine.js",
-      "bytes": 3429613,
+      "bytes": 3430614,
       "human": "3.27 MB",
       "precached": false
     },
-    "appCoreAndEngineBytes": 4321234,
-    "deferred": "3.15 MB",
+    "appCoreAndEngineBytes": 4329966,
+    "deferred": "3.16 MB",
     "estimatedRuntimeMemory": {
-      "countriesFullBytes": 13253009,
-      "countriesFullHuman": "12.64 MB",
-      "estimatedParsedBytes": 39759027,
-      "estimatedParsedHuman": "37.92 MB",
+      "countriesFullBytes": 13273009,
+      "countriesFullHuman": "12.66 MB",
+      "estimatedParsedBytes": 39819027,
+      "estimatedParsedHuman": "37.97 MB",
       "note": "Estimacion conservadora: JSON parseado puede ocupar alrededor de 3x el tamano del archivo en memoria."
     },
     "largestAssets": [
       {
         "path": "vendor/cesium/engine.js",
         "exists": true,
-        "bytes": 3429613,
+        "bytes": 3430614,
         "human": "3.27 MB",
         "startupCritical": false,
         "category": "startup-map-engine"
@@ -32,16 +32,16 @@
       {
         "path": "data/conflict_details.generated.json",
         "exists": true,
-        "bytes": 2636088,
-        "human": "2.51 MB",
+        "bytes": 2647037,
+        "human": "2.52 MB",
         "startupCritical": false,
         "category": "deferred-or-auxiliary"
       },
       {
         "path": "script.js",
         "exists": true,
-        "bytes": 587390,
-        "human": "574 KB",
+        "bytes": 594567,
+        "human": "581 KB",
         "startupCritical": true,
         "category": "startup-app-core"
       },
@@ -104,7 +104,7 @@
       {
         "path": "app-conflict-aliases.js",
         "exists": true,
-        "bytes": 30406,
+        "bytes": 30626,
         "human": "30 KB",
         "startupCritical": false,
         "category": "deferred-or-auxiliary"
@@ -123,7 +123,7 @@
     "scanned": 1999,
     "issueCount": 0,
     "summary": {
-      "provisional_parent": 14
+      "provisional_parent": 11
     },
     "eraFocus": []
   },
@@ -132,14 +132,14 @@
       {
         "path": "data/timeline_index.json",
         "exists": true,
-        "bytes": 422322,
-        "human": "412 KB"
+        "bytes": 422867,
+        "human": "413 KB"
       },
       {
         "path": "data/conflicts_index.json",
         "exists": true,
-        "bytes": 371522,
-        "human": "363 KB"
+        "bytes": 372295,
+        "human": "364 KB"
       },
       {
         "path": "data/search_index.json",
@@ -150,8 +150,8 @@
       {
         "path": "data/conflicts/details_index.json",
         "exists": true,
-        "bytes": 175233,
-        "human": "171 KB"
+        "bytes": 175717,
+        "human": "172 KB"
       },
       {
         "path": "data/countries_index.json",
@@ -162,15 +162,15 @@
       {
         "path": "data/country_weights.json",
         "exists": true,
-        "bytes": 118294,
+        "bytes": 118295,
         "human": "116 KB"
       }
     ],
     "countryWeights": {
       "totalCountries": 183,
-      "fullBytes": 13253009,
-      "duplicatedCountryFilesBytes": 1560319,
-      "countryConflictShardBytes": 461352,
+      "fullBytes": 13273009,
+      "duplicatedCountryFilesBytes": 1560736,
+      "countryConflictShardBytes": 461572,
       "tooLargeCount": 0,
       "largest": [
         {
@@ -228,7 +228,7 @@
           "code": "USA",
           "name": "Estados Unidos",
           "bytes": 24266,
-          "inlineBytes": 3459097,
+          "inlineBytes": 3464225,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -270,9 +270,9 @@
                 "bytes": 978
               }
             ],
-            "conflictsBytes": 217946,
-            "conflictShardBytes": 217947,
-            "averageConflictBytes": 236
+            "conflictsBytes": 218072,
+            "conflictShardBytes": 218073,
+            "averageConflictBytes": 237
           }
         },
         {
@@ -330,7 +330,7 @@
           "code": "FRA",
           "name": "Francia",
           "bytes": 21334,
-          "inlineBytes": 1024625,
+          "inlineBytes": 1028409,
           "tooLarge": false,
           "counts": {
             "cities": 5,
@@ -372,9 +372,9 @@
                 "bytes": 933
               }
             ],
-            "conflictsBytes": 51831,
-            "conflictShardBytes": 51832,
-            "averageConflictBytes": 214
+            "conflictsBytes": 51925,
+            "conflictShardBytes": 51926,
+            "averageConflictBytes": 215
           }
         },
         {
@@ -811,7 +811,7 @@
     },
     "curationGaps": {},
     "conflictDataConsistency": {
-      "checked": 4211,
+      "checked": 4215,
       "closedMarkedActiveCount": 0,
       "inactiveMarkedActiveCount": 0,
       "nullNarrativeTextCount": 0,
@@ -832,14 +832,14 @@
     {
       "path": "script.js",
       "exists": true,
-      "bytes": 587390,
-      "human": "574 KB"
+      "bytes": 594567,
+      "human": "581 KB"
     },
     {
       "path": "CHANGELOG.md",
       "exists": true,
-      "bytes": 377559,
-      "human": "369 KB"
+      "bytes": 464484,
+      "human": "454 KB"
     },
     {
       "path": "style.css",
@@ -868,7 +868,7 @@
     {
       "path": "app-conflict-aliases.js",
       "exists": true,
-      "bytes": 30406,
+      "bytes": 30626,
       "human": "30 KB"
     },
     {
@@ -892,8 +892,8 @@
     {
       "path": "app-quiz-ui.js",
       "exists": true,
-      "bytes": 12766,
-      "human": "12 KB"
+      "bytes": 13670,
+      "human": "13 KB"
     },
     {
       "path": "app-risk-radar-ui.js",
@@ -928,7 +928,7 @@
     {
       "path": "app-performance-ui.js",
       "exists": true,
-      "bytes": 6074,
+      "bytes": 6130,
       "human": "6 KB"
     },
     {
@@ -952,7 +952,7 @@
     {
       "path": "app-runtime.js",
       "exists": true,
-      "bytes": 4035,
+      "bytes": 4339,
       "human": "4 KB"
     },
     {
@@ -970,8 +970,8 @@
     {
       "path": "app-map-styles.js",
       "exists": true,
-      "bytes": 1458,
-      "human": "1 KB"
+      "bytes": 1708,
+      "human": "2 KB"
     },
     {
       "path": "app-search-worker.js",
@@ -981,7 +981,7 @@
     }
   ],
   "scriptMetrics": {
-    "functions": 545,
+    "functions": 548,
     "asyncFunctions": 53,
     "consoleWarnings": 20,
     "consoleErrors": 10

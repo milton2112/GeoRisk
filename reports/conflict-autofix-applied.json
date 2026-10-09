@@ -1,18 +1,19 @@
 {
-  "generatedAt": "2026-10-05T15:25:29.473Z",
-  "changedFullCountries": 0,
+  "generatedAt": "2026-10-09T14:03:56.590Z",
+  "changedFullCountries": 1,
   "fullPassChanges": [
+    1,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 0,
+    "enriched": 207,
     "retired": 0,
-    "written": false,
+    "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1114,
+  "generatedHierarchyCandidates": 1116,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -97,7 +98,8 @@
       "Batalla de Remada (mayo de 1958)",
       "Batalla del Sabis (tradicionalmente Sambre, 57 a. C.)",
       "Batalla de Vĩnh Yên (13-17 de enero de 1951)",
-      "Batalla de Vinh"
+      "Batalla de Vinh",
+      "Batalla de Tizi Ouzou (1845)"
     ],
     "alemania": [
       "Batalla de Schleswig (1848)",
@@ -391,7 +393,8 @@
       "Batalla de Danny Boy (2004)",
       "Batalla del palacio Dasman (1990)",
       "Batalla de las marismas (1984)",
-      "Batalla de la línea Bullet (26 de febrero de 1991)"
+      "Batalla de la línea Bullet (26 de febrero de 1991)",
+      "Batalla de Altun Kupri (Pirde, 2017)"
     ],
     "dinamarca": [
       "Batalla de Colberger Heide (1644)",
@@ -574,7 +577,8 @@
       "Batalla naval de Pirano (1812)"
     ],
     "argelia": [
-      "Batalla del cabo de Gata (1815)"
+      "Batalla del cabo de Gata (1815)",
+      "Batalla de Tizi Ouzou (1845)"
     ]
   },
   "countryConflictExclusions": {
@@ -1776,6 +1780,10 @@
     "Battle off Cape Gata": "Batalla del cabo de Gata (1815)",
     "Batalla naval de Halifax": "Batalla naval frente a Halifax (1782)",
     "Battle off Halifax (1782)": "Batalla naval frente a Halifax (1782)",
+    "Batalla de Tizi Ouzou": "Batalla de Tizi Ouzou (1845)",
+    "Battle of Tizi Ouzou": "Batalla de Tizi Ouzou (1845)",
+    "Batalla de Steen's Mountain": "Batalla de Steens Mountain (1867)",
+    "Battle of Steen's Mountain": "Batalla de Steens Mountain (1867)",
     "Batalla de Notch": "Batalla del paso de Chungam-ni (Notch, 1950)",
     "Battle of the Notch": "Batalla del paso de Chungam-ni (Notch, 1950)",
     "Batalla de Punk Hill": "Combate de Punk Hill (1777)",
@@ -1806,7 +1814,10 @@
     "Incursión sobre Santorini": "Incursion sobre Santorini (1944)",
     "Batalla del cabo de la Roca": "Batalla del cabo de la Roca (1703)",
     "Battle of Cap de la Roque": "Batalla del cabo de la Roca (1703)",
-    "Bataille du cap de la Roque": "Batalla del cabo de la Roca (1703)"
+    "Bataille du cap de la Roque": "Batalla del cabo de la Roca (1703)",
+    "Batalla de Pirde": "Batalla de Altun Kupri (Pirde, 2017)",
+    "Battle of Pirde": "Batalla de Altun Kupri (Pirde, 2017)",
+    "Battle of Altun Kupri (2017)": "Batalla de Altun Kupri (Pirde, 2017)"
   },
   "curatedDetails": [
     "Ataques aereos del valle de la Becaa de 2024",
@@ -2884,6 +2895,8 @@
     "Batalla naval de Pirano (1812)",
     "Batalla del cabo de Gata (1815)",
     "Batalla naval frente a Halifax (1782)",
+    "Batalla de Tizi Ouzou (1845)",
+    "Batalla de Steens Mountain (1867)",
     "Batalla del paso de Chungam-ni (Notch, 1950)",
     "Combate de Punk Hill (1777)",
     "Expedicion de Taraca (1904)",
@@ -2894,6 +2907,7 @@
     "Combate contra Datu Ali (1905)",
     "Combate de Caleta Foca (1982)",
     "Incursion sobre Santorini (1944)",
-    "Batalla del cabo de la Roca (1703)"
+    "Batalla del cabo de la Roca (1703)",
+    "Batalla de Altun Kupri (Pirde, 2017)"
   ]
 }

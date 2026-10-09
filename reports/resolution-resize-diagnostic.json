@@ -1,0 +1,2280 @@
+{
+  "generatedAt": "2026-10-09T17:45:50.423Z",
+  "baseRevision": "a77e637ea87ef60e1e6c4ce881363e0057c04560",
+  "uncommittedEnginePatch": true,
+  "version": "1.6.303",
+  "engineSha256": "ed0e62079a2939c1f41741601310c7a04898fd3dba4b2b87b07434433fcaee9b",
+  "scope": "Local Windows diagnostic, not release approval, FPS A/B, Linux/physical-phone parity or energy measurement. Public input hash in timing belongs to pre-final-notes diagnostic inputs; final release gate must measure its own frozen public inputs.",
+  "timing": {
+    "generatedAt": "2026-10-09T17:44:03.773Z",
+    "baseRevision": "a77e637ea87ef60e1e6c4ce881363e0057c04560",
+    "uncommittedEnginePatch": true,
+    "version": "1.6.303",
+    "inputHash": "50d6229ec1ec7e8df05faa438035db14441b63e4c9b9df6fc2c898a65bcf758b",
+    "platform": "win32",
+    "node": "v22.21.0",
+    "method": "Actual generated-engine ABBA: four fresh sequential Windows Chrome SwiftShader mobile contexts CPU x4, four cores/16 GiB hints. A fulfills the unchanged v1.6.302 engine from its preserved bytes; B uses the actual newly generated engine with source-scoped default-loop guard. All other source files identical. Passive setters/sync method timing and 50 ms owned sentinel per actual fence. Eight seconds movement and native auto quality active. CDP CPU profiles filtered to movement. No prototype renderer monkeypatch, pixel-equivalence control or production diagnostic flag.",
+    "limitations": "Instrumentation costs CPU; setter return time can include driver waiting, not pure CPU/GPU execution. Statistical CPU samples. Not Linux parity, a physical phone, release/FPS A/B or energy measurement.",
+    "results": [
+      {
+        "profile": {
+          "name": "mobile-0-native",
+          "enabled": false,
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "mobile": true,
+          "cpu": 4
+        },
+        "errors": [],
+        "metrics": [
+          {
+            "name": "Timestamp",
+            "value": 29418.503021
+          },
+          {
+            "name": "NavigationStart",
+            "value": 29414.437179
+          }
+        ],
+        "sample": {
+          "initial": {
+            "mode": "2d",
+            "resolution": 0.5,
+            "msaa": 4,
+            "fxaa": false,
+            "width": 195,
+            "height": 422,
+            "imagery": "2d:boot",
+            "geometry": "./data/world_countries_simplified.geo.json"
+          },
+          "final": {
+            "mode": "2d",
+            "resolution": 0.44,
+            "msaa": 4,
+            "fxaa": false,
+            "width": 171,
+            "height": 371,
+            "imagery": "2d:boot",
+            "geometry": "./data/world_countries_simplified.geo.json"
+          },
+          "activeStart": 5105,
+          "activeEnd": 13109,
+          "frames": [
+            5179.89999999851,
+            5232.39999999851,
+            5523.39999999851,
+            5838.699999999255,
+            6141,
+            6422.89999999851,
+            6447.39999999851,
+            6723.29999999702,
+            7027,
+            7307,
+            7607.099999997765,
+            7906.89999999851,
+            8219.5,
+            8532.5,
+            8859.5,
+            9169.39999999851,
+            9482.199999999255,
+            9778.5,
+            10080.79999999702,
+            10980.29999999702,
+            11001.699999999255,
+            11292.29999999702,
+            11312,
+            11583.5,
+            11897.199999999255,
+            12182.39999999851,
+            12481.199999999255,
+            12769.5,
+            13063.099999997765
+          ],
+          "tasks": [
+            {
+              "start": 886.0999999977648,
+              "duration": 150
+            },
+            {
+              "start": 1047.699999999255,
+              "duration": 174
+            },
+            {
+              "start": 1222.7999999970198,
+              "duration": 124
+            },
+            {
+              "start": 1444.5,
+              "duration": 68
+            },
+            {
+              "start": 1788.5999999977648,
+              "duration": 99
+            },
+            {
+              "start": 2049.89999999851,
+              "duration": 60
+            },
+            {
+              "start": 2833,
+              "duration": 58
+            },
+            {
+              "start": 2891.599999997765,
+              "duration": 119
+            },
+            {
+              "start": 3405.39999999851,
+              "duration": 205
+            },
+            {
+              "start": 3791.7999999970198,
+              "duration": 214
+            },
+            {
+              "start": 10357.5,
+              "duration": 624
+            }
+          ],
+          "dropped": 0,
+          "writes": [
+            {
+              "dimension": "width",
+              "before": 300,
+              "assigned": 390,
+              "after": 390,
+              "start": 1079.5,
+              "duration": 0.19999999925494194,
+              "phase": "startup",
+              "actualMapCanvas": true
+            },
+            {
+              "dimension": "height",
+              "before": 150,
+              "assigned": 844,
+              "after": 844,
+              "start": 1079.8999999985099,
+              "duration": 0,
+              "phase": "startup",
+              "actualMapCanvas": true
+            },
+            {
+              "dimension": "width",
+              "before": 390,
+              "assigned": 195,
+              "after": 195,
+              "start": 1225.3999999985099,
+              "duration": 0.8999999985098839,
+              "phase": "startup",
+              "actualMapCanvas": true
+            },
+            {
+              "dimension": "height",
+              "before": 844,
+              "assigned": 422,
+              "after": 422,
+              "start": 1226.3999999985099,
+              "duration": 0.6000000014901161,
+              "phase": "startup",
+              "actualMapCanvas": true
+            },
+            {
+              "dimension": "width",
+              "before": 300,
+              "assigned": 1,
+              "after": 1,
+              "start": 1728.8999999985099,
+              "duration": 0,
+              "phase": "startup",
+              "actualMapCanvas": false
+            },
+            {
+              "dimension": "height",
+              "before": 150,
+              "assigned": 1,
+              "after": 1,
+              "start": 1728.8999999985099,
+              "duration": 0,
+              "phase": "startup",
+              "actualMapCanvas": false
+            },
+            {
+              "dimension": "width",
+              "before": 195,
+              "assigned": 171.6,
+              "after": 171,
+              "start": 10357.89999999851,
+              "duration": 596.8999999985099,
+              "phase": "navigation",
+              "actualMapCanvas": true
+            },
+            {
+              "dimension": "height",
+              "before": 422,
+              "assigned": 371.36,
+              "after": 371,
+              "start": 10954.89999999851,
+              "duration": 4.199999999254942,
+              "phase": "navigation",
+              "actualMapCanvas": true
+            }
+          ]
+        },
+        "cpu": {
+          "nodes": 426,
+          "samples": 2091,
+          "bytes": 111003,
+          "activeStartUs": 29419542179,
+          "activeEndUs": 29427546179,
+          "top": [
+            {
+              "selfMs": 6618.912,
+              "functionName": "(idle)",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            {
+              "selfMs": 598.169,
+              "functionName": "set width",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            {
+              "selfMs": 66.298,
+              "functionName": "(program)",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            {
+              "selfMs": 30.847,
+              "functionName": "x2",
+              "scriptId": "9",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 15005,
+              "columnNumber": 20738
+            },
+            {
+              "selfMs": 15.9,
+              "functionName": "K_e",
+              "scriptId": "9",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 3857,
+              "columnNumber": 56864
+            },
+            {
+              "selfMs": 12.718,
+              "functionName": "zn.cartesianToCartographic",
+              "scriptId": "9",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 16,
+              "columnNumber": 58126
+            },
+            {
+              "selfMs": 12.688,
+              "functionName": "isMobileLayout",
+              "scriptId": "16",
+              "url": "http://127.0.0.1:53585/script.js?v=2026-10-09-release-4",
+              "lineNumber": 3729,
+              "columnNumber": 23
+            },
+            {
+              "selfMs": 12.053,
+              "functionName": "nd._setUniforms",
+              "scriptId": "9",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 31,
+              "columnNumber": 2288
+            },
+            {
+              "selfMs": 11.306,
+              "functionName": "n",
+              "scriptId": "9",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 15382,
+              "columnNumber": 5759
+            },
+            {
+              "selfMs": 10.435,
+              "functionName": "get",
+              "scriptId": "9",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 10973,
+              "columnNumber": 131
+            },
+            {
+              "selfMs": 10.356,
+              "functionName": "P",
+              "scriptId": "9",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 3857,
+              "columnNumber": 48974
+            },
+            {
+              "selfMs": 9.753,
+              "functionName": "On.computeIcrfToFixedMatrix",
+              "scriptId": "9",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 17,
+              "columnNumber": 41997
+            },
+            {
+              "selfMs": 9.608,
+              "functionName": "ze.magnitude",
+              "scriptId": "9",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 10,
+              "columnNumber": 7267
+            },
+            {
+              "selfMs": 8.547,
+              "functionName": "Ve.multiply",
+              "scriptId": "9",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 10,
+              "columnNumber": 20330
+            },
+            {
+              "selfMs": 8.463,
+              "functionName": "yo.endUpdate",
+              "scriptId": "9",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 10741,
+              "columnNumber": 35127
+            },
+            {
+              "selfMs": 8.378,
+              "functionName": "uniformMatrix4fv",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            {
+              "selfMs": 8.285,
+              "functionName": "Ue.computeOrthographicOffCenter",
+              "scriptId": "9",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 13,
+              "columnNumber": 4249
+            },
+            {
+              "selfMs": 7.496,
+              "functionName": "So.endFrame",
+              "scriptId": "9",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 11067,
+              "columnNumber": 3441
+            },
+            {
+              "selfMs": 7.292,
+              "functionName": "mE.project",
+              "scriptId": "9",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 16,
+              "columnNumber": 60654
+            },
+            {
+              "selfMs": 7.001,
+              "functionName": "Gk",
+              "scriptId": "9",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 27,
+              "columnNumber": 22432
+            },
+            {
+              "selfMs": 6.917,
+              "functionName": "drawElements",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            {
+              "selfMs": 6.863,
+              "functionName": "eo.rayTriangleParametric",
+              "scriptId": "9",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 34,
+              "columnNumber": 31156
+            },
+            {
+              "selfMs": 6.526,
+              "functionName": "bindFramebuffer",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            {
+              "selfMs": 6.495,
+              "functionName": "Pn.updateAndExecuteCommands",
+              "scriptId": "9",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 15005,
+              "columnNumber": 25544
+            }
+          ]
+        },
+        "gpu": {
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "error": 0
+        },
+        "fence": {
+          "enabled": false,
+          "supported": true,
+          "events": [],
+          "calls": {},
+          "pending": false,
+          "callbacks": [],
+          "pendingBeforeTeardown": false,
+          "pendingAfterTeardown": false
+        },
+        "passed": true
+      },
+      {
+        "profile": {
+          "name": "mobile-1-fence",
+          "enabled": true,
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "mobile": true,
+          "cpu": 4
+        },
+        "errors": [],
+        "metrics": [
+          {
+            "name": "Timestamp",
+            "value": 29431.776625
+          },
+          {
+            "name": "NavigationStart",
+            "value": 29428.806139
+          }
+        ],
+        "sample": {
+          "initial": {
+            "mode": "2d",
+            "resolution": 0.5,
+            "msaa": 4,
+            "fxaa": false,
+            "width": 195,
+            "height": 422,
+            "imagery": "2d:boot",
+            "geometry": "./data/world_countries_simplified.geo.json"
+          },
+          "final": {
+            "mode": "2d",
+            "resolution": 0.44,
+            "msaa": 4,
+            "fxaa": false,
+            "width": 171,
+            "height": 371,
+            "imagery": "2d:boot",
+            "geometry": "./data/world_countries_simplified.geo.json"
+          },
+          "activeStart": 3988.2999999970198,
+          "activeEnd": 11989.699999999255,
+          "frames": [
+            4053.699999999255,
+            4088.199999999255,
+            4362.39999999851,
+            4668.39999999851,
+            4974.199999999255,
+            5267.39999999851,
+            5563.39999999851,
+            5874.39999999851,
+            6161.199999999255,
+            6473.699999999255,
+            6496.79999999702,
+            6766,
+            7077.5,
+            7377.199999999255,
+            7676.79999999702,
+            7984.5,
+            8305.099999997765,
+            8607.39999999851,
+            8915.39999999851,
+            9895.89999999851,
+            9915.79999999702,
+            9920,
+            10239.599999997765,
+            10532.39999999851,
+            10838.79999999702,
+            11171.199999999255,
+            11477,
+            11800
+          ],
+          "tasks": [
+            {
+              "start": 343.69999999925494,
+              "duration": 128
+            },
+            {
+              "start": 485.69999999925494,
+              "duration": 156
+            },
+            {
+              "start": 642.2999999970198,
+              "duration": 118
+            },
+            {
+              "start": 873.1999999992549,
+              "duration": 64
+            },
+            {
+              "start": 1156.5,
+              "duration": 98
+            },
+            {
+              "start": 2063.5,
+              "duration": 206
+            },
+            {
+              "start": 2283.5,
+              "duration": 101
+            },
+            {
+              "start": 2439.5,
+              "duration": 111
+            },
+            {
+              "start": 2705.199999999255,
+              "duration": 249
+            }
+          ],
+          "dropped": 0,
+          "writes": [
+            {
+              "dimension": "width",
+              "before": 300,
+              "assigned": 390,
+              "after": 390,
+              "start": 508.79999999701977,
+              "duration": 0,
+              "phase": "startup",
+              "actualMapCanvas": true
+            },
+            {
+              "dimension": "height",
+              "before": 150,
+              "assigned": 844,
+              "after": 844,
+              "start": 508.8999999985099,
+              "duration": 0,
+              "phase": "startup",
+              "actualMapCanvas": true
+            },
+            {
+              "dimension": "width",
+              "before": 390,
+              "assigned": 195,
+              "after": 195,
+              "start": 645.1999999992549,
+              "duration": 0.5999999977648258,
+              "phase": "startup",
+              "actualMapCanvas": true
+            },
+            {
+              "dimension": "height",
+              "before": 844,
+              "assigned": 422,
+              "after": 422,
+              "start": 645.7999999970198,
+              "duration": 0.8000000007450581,
+              "phase": "startup",
+              "actualMapCanvas": true
+            },
+            {
+              "dimension": "width",
+              "before": 300,
+              "assigned": 1,
+              "after": 1,
+              "start": 1148.7999999970198,
+              "duration": 0,
+              "phase": "startup",
+              "actualMapCanvas": false
+            },
+            {
+              "dimension": "height",
+              "before": 150,
+              "assigned": 1,
+              "after": 1,
+              "start": 1149.199999999255,
+              "duration": 0,
+              "phase": "startup",
+              "actualMapCanvas": false
+            },
+            {
+              "dimension": "width",
+              "before": 195,
+              "assigned": 171.6,
+              "after": 171,
+              "start": 9865.599999997765,
+              "duration": 1.300000000745058,
+              "phase": "navigation",
+              "actualMapCanvas": true
+            },
+            {
+              "dimension": "height",
+              "before": 422,
+              "assigned": 371.36,
+              "after": 371,
+              "start": 9867.099999997765,
+              "duration": 0.6000000014901161,
+              "phase": "navigation",
+              "actualMapCanvas": true
+            }
+          ]
+        },
+        "cpu": {
+          "nodes": 368,
+          "samples": 2018,
+          "bytes": 97570,
+          "activeStartUs": 29432794438.999996,
+          "activeEndUs": 29440795839,
+          "top": [
+            {
+              "selfMs": 7271.887,
+              "functionName": "(idle)",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            {
+              "selfMs": 55.4170000038147,
+              "functionName": "(program)",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            {
+              "selfMs": 28.185,
+              "functionName": "zn.cartesianToCartographic",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 16,
+              "columnNumber": 58126
+            },
+            {
+              "selfMs": 17.374,
+              "functionName": "uniformMatrix4fv",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            {
+              "selfMs": 16.258,
+              "functionName": "(garbage collector)",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            {
+              "selfMs": 13.58,
+              "functionName": "I4",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 3857,
+              "columnNumber": 20898
+            },
+            {
+              "selfMs": 13.134,
+              "functionName": "T2",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 15005,
+              "columnNumber": 20738
+            },
+            {
+              "selfMs": 12.649,
+              "functionName": "T_e",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 3857,
+              "columnNumber": 41669
+            },
+            {
+              "selfMs": 11.36,
+              "functionName": "yo.endUpdate",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 10741,
+              "columnNumber": 35127
+            },
+            {
+              "selfMs": 10.25,
+              "functionName": "n",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 15382,
+              "columnNumber": 6515
+            },
+            {
+              "selfMs": 10.216,
+              "functionName": "ze.clone",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 10,
+              "columnNumber": 6068
+            },
+            {
+              "selfMs": 10.093,
+              "functionName": "li.resize",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 15409,
+              "columnNumber": 108893
+            },
+            {
+              "selfMs": 9.45,
+              "functionName": "drawBuffers",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            {
+              "selfMs": 9.378,
+              "functionName": "qO",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 3857,
+              "columnNumber": 44627
+            },
+            {
+              "selfMs": 8.937,
+              "functionName": "nd._setUniforms",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 31,
+              "columnNumber": 2288
+            },
+            {
+              "selfMs": 8.777,
+              "functionName": "o_e",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 3857,
+              "columnNumber": 19976
+            },
+            {
+              "selfMs": 8.679,
+              "functionName": "drawElements",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            {
+              "selfMs": 7.793,
+              "functionName": "Ue.inverse",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 13,
+              "columnNumber": 13685
+            },
+            {
+              "selfMs": 7.53,
+              "functionName": "hKe",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 11577,
+              "columnNumber": 9262
+            },
+            {
+              "selfMs": 7.313,
+              "functionName": "zu.getHeight",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 10741,
+              "columnNumber": 96644
+            },
+            {
+              "selfMs": 7.042,
+              "functionName": "Nfe",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 16,
+              "columnNumber": 52171
+            },
+            {
+              "selfMs": 6.887,
+              "functionName": "Nfe",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 16,
+              "columnNumber": 52171
+            },
+            {
+              "selfMs": 6.546,
+              "functionName": "ty.update",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 3857,
+              "columnNumber": 38110
+            },
+            {
+              "selfMs": 6.098,
+              "functionName": "bindFramebuffer",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            }
+          ]
+        },
+        "gpu": {
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "error": 0
+        },
+        "fence": {
+          "enabled": true,
+          "supported": true,
+          "events": [
+            {
+              "start": 9223.699999999255,
+              "polls": 2,
+              "lastStatus": 37148,
+              "end": 9865.199999999255,
+              "reason": "signaled"
+            }
+          ],
+          "calls": {
+            "fenceSync": {
+              "count": 1,
+              "totalMs": 0.6999999992549419,
+              "maxMs": 0.6999999992549419
+            },
+            "flush": {
+              "count": 1,
+              "totalMs": 0.10000000149011612,
+              "maxMs": 0.10000000149011612
+            },
+            "clientWaitSync": {
+              "count": 2,
+              "totalMs": 0.29999999701976776,
+              "maxMs": 0.19999999925494194
+            },
+            "deleteSync": {
+              "count": 1,
+              "totalMs": 0,
+              "maxMs": 0
+            }
+          },
+          "pending": false,
+          "callbacks": [
+            {
+              "start": 9223.699999999255,
+              "elapsed": 54.599999997764826,
+              "pending": true
+            }
+          ],
+          "pendingBeforeTeardown": false,
+          "pendingAfterTeardown": false
+        },
+        "passed": true
+      },
+      {
+        "profile": {
+          "name": "mobile-2-fence",
+          "enabled": true,
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "mobile": true,
+          "cpu": 4
+        },
+        "errors": [],
+        "metrics": [
+          {
+            "name": "Timestamp",
+            "value": 29445.150181
+          },
+          {
+            "name": "NavigationStart",
+            "value": 29442.276932
+          }
+        ],
+        "sample": {
+          "initial": {
+            "mode": "2d",
+            "resolution": 0.5,
+            "msaa": 4,
+            "fxaa": false,
+            "width": 195,
+            "height": 422,
+            "imagery": "2d:boot",
+            "geometry": "./data/world_countries_simplified.geo.json"
+          },
+          "final": {
+            "mode": "2d",
+            "resolution": 0.44,
+            "msaa": 4,
+            "fxaa": false,
+            "width": 171,
+            "height": 371,
+            "imagery": "2d:boot",
+            "geometry": "./data/world_countries_simplified.geo.json"
+          },
+          "activeStart": 3914.5,
+          "activeEnd": 11920,
+          "frames": [
+            3962.800000000745,
+            4055.5,
+            4287.900000002235,
+            4323,
+            4587.900000002235,
+            4899.300000000745,
+            5200.20000000298,
+            5506.5,
+            5818.10000000149,
+            6119.400000002235,
+            6421.800000000745,
+            6726.70000000298,
+            7038.10000000149,
+            7350.20000000298,
+            7651.70000000298,
+            7965.400000002235,
+            8290.60000000149,
+            8588.20000000298,
+            8892.70000000298,
+            9829.300000000745,
+            9859.900000002235,
+            10170.800000000745,
+            10479.10000000149,
+            10796.400000002235,
+            11132.800000000745,
+            11439.20000000298,
+            11460.300000000745,
+            11756.400000002235
+          ],
+          "tasks": [
+            {
+              "start": 378.80000000074506,
+              "duration": 122
+            },
+            {
+              "start": 513.3000000007451,
+              "duration": 156
+            },
+            {
+              "start": 670.2000000029802,
+              "duration": 114
+            },
+            {
+              "start": 902.1000000014901,
+              "duration": 68
+            },
+            {
+              "start": 1198,
+              "duration": 99
+            },
+            {
+              "start": 1458,
+              "duration": 56
+            },
+            {
+              "start": 2062.10000000149,
+              "duration": 64
+            },
+            {
+              "start": 2191,
+              "duration": 172
+            },
+            {
+              "start": 2423.5,
+              "duration": 124
+            },
+            {
+              "start": 2729.5,
+              "duration": 128
+            },
+            {
+              "start": 3963.900000002235,
+              "duration": 94
+            }
+          ],
+          "dropped": 0,
+          "writes": [
+            {
+              "dimension": "width",
+              "before": 300,
+              "assigned": 390,
+              "after": 390,
+              "start": 536.4000000022352,
+              "duration": 0.09999999776482582,
+              "phase": "startup",
+              "actualMapCanvas": true
+            },
+            {
+              "dimension": "height",
+              "before": 150,
+              "assigned": 844,
+              "after": 844,
+              "start": 536.7000000029802,
+              "duration": 0,
+              "phase": "startup",
+              "actualMapCanvas": true
+            },
+            {
+              "dimension": "width",
+              "before": 390,
+              "assigned": 195,
+              "after": 195,
+              "start": 672.8000000007451,
+              "duration": 0.8000000007450581,
+              "phase": "startup",
+              "actualMapCanvas": true
+            },
+            {
+              "dimension": "height",
+              "before": 844,
+              "assigned": 422,
+              "after": 422,
+              "start": 673.6000000014901,
+              "duration": 0.30000000074505806,
+              "phase": "startup",
+              "actualMapCanvas": true
+            },
+            {
+              "dimension": "width",
+              "before": 300,
+              "assigned": 1,
+              "after": 1,
+              "start": 1188.9000000022352,
+              "duration": 0,
+              "phase": "startup",
+              "actualMapCanvas": false
+            },
+            {
+              "dimension": "height",
+              "before": 150,
+              "assigned": 1,
+              "after": 1,
+              "start": 1188.9000000022352,
+              "duration": 0,
+              "phase": "startup",
+              "actualMapCanvas": false
+            },
+            {
+              "dimension": "width",
+              "before": 195,
+              "assigned": 171.6,
+              "after": 171,
+              "start": 9801,
+              "duration": 1,
+              "phase": "navigation",
+              "actualMapCanvas": true
+            },
+            {
+              "dimension": "height",
+              "before": 422,
+              "assigned": 371.36,
+              "after": 371,
+              "start": 9802.20000000298,
+              "duration": 0.3999999985098839,
+              "phase": "navigation",
+              "actualMapCanvas": true
+            }
+          ]
+        },
+        "cpu": {
+          "nodes": 396,
+          "samples": 2089,
+          "bytes": 106736,
+          "activeStartUs": 29446191432,
+          "activeEndUs": 29454196932,
+          "top": [
+            {
+              "selfMs": 7103.189,
+              "functionName": "(idle)",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            {
+              "selfMs": 116.212,
+              "functionName": "(program)",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            {
+              "selfMs": 22.409,
+              "functionName": "zn.cartesianToCartographic",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 16,
+              "columnNumber": 58126
+            },
+            {
+              "selfMs": 22.134,
+              "functionName": "(garbage collector)",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            {
+              "selfMs": 17.979,
+              "functionName": "Kf",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 15005,
+              "columnNumber": 17517
+            },
+            {
+              "selfMs": 16.505,
+              "functionName": "T2",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 15005,
+              "columnNumber": 20738
+            },
+            {
+              "selfMs": 16.25,
+              "functionName": "getValue",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 16,
+              "columnNumber": 16151
+            },
+            {
+              "selfMs": 15.44,
+              "functionName": "nd._setUniforms",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 31,
+              "columnNumber": 2288
+            },
+            {
+              "selfMs": 14.499,
+              "functionName": "On.computeFixedToIcrfMatrix",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 17,
+              "columnNumber": 43269
+            },
+            {
+              "selfMs": 14.251,
+              "functionName": "n",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 15382,
+              "columnNumber": 6515
+            },
+            {
+              "selfMs": 13.057,
+              "functionName": "Ue.equalsArray",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 13,
+              "columnNumber": 15986
+            },
+            {
+              "selfMs": 10.135,
+              "functionName": "ln.simpleIntersection",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 17,
+              "columnNumber": 50253
+            },
+            {
+              "selfMs": 9.79,
+              "functionName": "c_e",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 3857,
+              "columnNumber": 34688
+            },
+            {
+              "selfMs": 8.409,
+              "functionName": "el.clear",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 3857,
+              "columnNumber": 56164
+            },
+            {
+              "selfMs": 8.229,
+              "functionName": "I4",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 3857,
+              "columnNumber": 20898
+            },
+            {
+              "selfMs": 8.085,
+              "functionName": "itt",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 15005,
+              "columnNumber": 20448
+            },
+            {
+              "selfMs": 7.971,
+              "functionName": "_o.pick",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 10721,
+              "columnNumber": 1969
+            },
+            {
+              "selfMs": 7.728,
+              "functionName": "I4",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 3857,
+              "columnNumber": 20898
+            },
+            {
+              "selfMs": 7.662,
+              "functionName": "x_",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 15005,
+              "columnNumber": 39008
+            },
+            {
+              "selfMs": 7.562,
+              "functionName": "Ue.inverse",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 13,
+              "columnNumber": 13685
+            },
+            {
+              "selfMs": 7.551,
+              "functionName": "nd._setUniforms",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 31,
+              "columnNumber": 2288
+            },
+            {
+              "selfMs": 7.471,
+              "functionName": "R4",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 3857,
+              "columnNumber": 40973
+            },
+            {
+              "selfMs": 7.466,
+              "functionName": "Ls",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 10741,
+              "columnNumber": 87113
+            },
+            {
+              "selfMs": 7.347,
+              "functionName": "el.draw",
+              "scriptId": "8",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 3857,
+              "columnNumber": 57419
+            }
+          ]
+        },
+        "gpu": {
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "error": 0
+        },
+        "fence": {
+          "enabled": true,
+          "supported": true,
+          "events": [
+            {
+              "start": 9180.800000000745,
+              "polls": 2,
+              "lastStatus": 37148,
+              "end": 9800.60000000149,
+              "reason": "signaled"
+            }
+          ],
+          "calls": {
+            "fenceSync": {
+              "count": 1,
+              "totalMs": 0.9000000022351742,
+              "maxMs": 0.9000000022351742
+            },
+            "flush": {
+              "count": 1,
+              "totalMs": 0.20000000298023224,
+              "maxMs": 0.20000000298023224
+            },
+            "clientWaitSync": {
+              "count": 2,
+              "totalMs": 0.29999999701976776,
+              "maxMs": 0.19999999925494194
+            },
+            "deleteSync": {
+              "count": 1,
+              "totalMs": 0,
+              "maxMs": 0
+            }
+          },
+          "pending": false,
+          "callbacks": [
+            {
+              "start": 9180.800000000745,
+              "elapsed": 55.19999999925494,
+              "pending": true
+            }
+          ],
+          "pendingBeforeTeardown": false,
+          "pendingAfterTeardown": false
+        },
+        "passed": true
+      },
+      {
+        "profile": {
+          "name": "mobile-3-native",
+          "enabled": false,
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "mobile": true,
+          "cpu": 4
+        },
+        "errors": [],
+        "metrics": [
+          {
+            "name": "Timestamp",
+            "value": 29459.150332
+          },
+          {
+            "name": "NavigationStart",
+            "value": 29455.761475
+          }
+        ],
+        "sample": {
+          "initial": {
+            "mode": "2d",
+            "resolution": 0.5,
+            "msaa": 4,
+            "fxaa": false,
+            "width": 195,
+            "height": 422,
+            "imagery": "2d:boot",
+            "geometry": "./data/world_countries_simplified.geo.json"
+          },
+          "final": {
+            "mode": "2d",
+            "resolution": 0.44,
+            "msaa": 4,
+            "fxaa": false,
+            "width": 171,
+            "height": 371,
+            "imagery": "2d:boot",
+            "geometry": "./data/world_countries_simplified.geo.json"
+          },
+          "activeStart": 4336.10000000149,
+          "activeEnd": 12340.300000000745,
+          "frames": [
+            4404.300000000745,
+            4455.300000000745,
+            4731.39999999851,
+            5033.300000000745,
+            5348.199999999255,
+            5648.60000000149,
+            5949,
+            6257.5,
+            6556.89999999851,
+            6564.89999999851,
+            6859.300000000745,
+            7170.39999999851,
+            7477.199999999255,
+            7812.199999999255,
+            8102.800000000745,
+            8413.39999999851,
+            8722.199999999255,
+            9039.10000000149,
+            9347,
+            10298.800000000745,
+            10327.89999999851,
+            10620,
+            10638.699999999255,
+            10934.39999999851,
+            11251.800000000745,
+            11554.5,
+            11868.800000000745,
+            12182.800000000745
+          ],
+          "tasks": [
+            {
+              "start": 399.8999999985099,
+              "duration": 134
+            },
+            {
+              "start": 552.8999999985099,
+              "duration": 164
+            },
+            {
+              "start": 718.5,
+              "duration": 121
+            },
+            {
+              "start": 983,
+              "duration": 60
+            },
+            {
+              "start": 1317.800000000745,
+              "duration": 116
+            },
+            {
+              "start": 1640.300000000745,
+              "duration": 56
+            },
+            {
+              "start": 2492.300000000745,
+              "duration": 71
+            },
+            {
+              "start": 2830.89999999851,
+              "duration": 198
+            },
+            {
+              "start": 3052.89999999851,
+              "duration": 64
+            },
+            {
+              "start": 3219.60000000149,
+              "duration": 148
+            },
+            {
+              "start": 9641.10000000149,
+              "duration": 659
+            }
+          ],
+          "dropped": 0,
+          "writes": [
+            {
+              "dimension": "width",
+              "before": 300,
+              "assigned": 390,
+              "after": 390,
+              "start": 581.6999999992549,
+              "duration": 0,
+              "phase": "startup",
+              "actualMapCanvas": true
+            },
+            {
+              "dimension": "height",
+              "before": 150,
+              "assigned": 844,
+              "after": 844,
+              "start": 581.8999999985099,
+              "duration": 0,
+              "phase": "startup",
+              "actualMapCanvas": true
+            },
+            {
+              "dimension": "width",
+              "before": 390,
+              "assigned": 195,
+              "after": 195,
+              "start": 720.8000000007451,
+              "duration": 1,
+              "phase": "startup",
+              "actualMapCanvas": true
+            },
+            {
+              "dimension": "height",
+              "before": 844,
+              "assigned": 422,
+              "after": 422,
+              "start": 721.8999999985099,
+              "duration": 0.5,
+              "phase": "startup",
+              "actualMapCanvas": true
+            },
+            {
+              "dimension": "width",
+              "before": 300,
+              "assigned": 1,
+              "after": 1,
+              "start": 1464.3999999985099,
+              "duration": 0,
+              "phase": "startup",
+              "actualMapCanvas": false
+            },
+            {
+              "dimension": "height",
+              "before": 150,
+              "assigned": 1,
+              "after": 1,
+              "start": 1464.3999999985099,
+              "duration": 0,
+              "phase": "startup",
+              "actualMapCanvas": false
+            },
+            {
+              "dimension": "width",
+              "before": 195,
+              "assigned": 171.6,
+              "after": 171,
+              "start": 9641.699999999255,
+              "duration": 623.6000000014901,
+              "phase": "navigation",
+              "actualMapCanvas": true
+            },
+            {
+              "dimension": "height",
+              "before": 422,
+              "assigned": 371.36,
+              "after": 371,
+              "start": 10265.5,
+              "duration": 4.5,
+              "phase": "navigation",
+              "actualMapCanvas": true
+            }
+          ]
+        },
+        "cpu": {
+          "nodes": 399,
+          "samples": 2181,
+          "bytes": 104045,
+          "activeStartUs": 29460097575,
+          "activeEndUs": 29468101775,
+          "top": [
+            {
+              "selfMs": 6669.272,
+              "functionName": "(idle)",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            {
+              "selfMs": 623.05,
+              "functionName": "set width",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            {
+              "selfMs": 62.729,
+              "functionName": "(program)",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            {
+              "selfMs": 13.78,
+              "functionName": "zn.cartesianToCartographic",
+              "scriptId": "9",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 16,
+              "columnNumber": 58126
+            },
+            {
+              "selfMs": 10.803,
+              "functionName": "Ue.inverse",
+              "scriptId": "9",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 13,
+              "columnNumber": 13685
+            },
+            {
+              "selfMs": 8.869,
+              "functionName": "bindTexture",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            {
+              "selfMs": 8.763,
+              "functionName": "n",
+              "scriptId": "9",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 15382,
+              "columnNumber": 5759
+            },
+            {
+              "selfMs": 8.541,
+              "functionName": "Ue.multiply",
+              "scriptId": "9",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 13,
+              "columnNumber": 7955
+            },
+            {
+              "selfMs": 8.541,
+              "functionName": "w4",
+              "scriptId": "9",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 3857,
+              "columnNumber": 18132
+            },
+            {
+              "selfMs": 7.878,
+              "functionName": "blendFuncSeparate",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            {
+              "selfMs": 7.762,
+              "functionName": "nd._setUniforms",
+              "scriptId": "9",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 31,
+              "columnNumber": 2288
+            },
+            {
+              "selfMs": 7.132,
+              "functionName": "requestAnimationFrame",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            {
+              "selfMs": 7.056,
+              "functionName": "Uue",
+              "scriptId": "9",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 9,
+              "columnNumber": 148
+            },
+            {
+              "selfMs": 7.048,
+              "functionName": "ey.updateFrustum",
+              "scriptId": "9",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 3857,
+              "columnNumber": 37500
+            },
+            {
+              "selfMs": 6.959,
+              "functionName": "zu.render",
+              "scriptId": "9",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 10741,
+              "columnNumber": 100088
+            },
+            {
+              "selfMs": 6.886,
+              "functionName": "ey.update",
+              "scriptId": "9",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 3857,
+              "columnNumber": 38110
+            },
+            {
+              "selfMs": 6.672,
+              "functionName": "bindVertexArray",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            {
+              "selfMs": 6.645,
+              "functionName": "uniformMatrix4fv",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            {
+              "selfMs": 6.522,
+              "functionName": "sample",
+              "scriptId": "16",
+              "url": "http://127.0.0.1:53585/script.js?v=2026-10-09-release-4",
+              "lineNumber": 8902,
+              "columnNumber": 17
+            },
+            {
+              "selfMs": 6.505,
+              "functionName": "viewport",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            {
+              "selfMs": 6.439,
+              "functionName": "set",
+              "scriptId": "9",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 27,
+              "columnNumber": 1445
+            },
+            {
+              "selfMs": 6.153,
+              "functionName": "cz.set",
+              "scriptId": "9",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 28,
+              "columnNumber": 7074
+            },
+            {
+              "selfMs": 5.98,
+              "functionName": "ze.subtract",
+              "scriptId": "9",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 10,
+              "columnNumber": 7880
+            },
+            {
+              "selfMs": 5.937,
+              "functionName": "vtt",
+              "scriptId": "9",
+              "url": "http://127.0.0.1:53585/vendor/cesium/engine.js?v=2026-10-09-release-4",
+              "lineNumber": 15005,
+              "columnNumber": 37857
+            }
+          ]
+        },
+        "gpu": {
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "error": 0
+        },
+        "fence": {
+          "enabled": false,
+          "supported": true,
+          "events": [],
+          "calls": {},
+          "pending": false,
+          "callbacks": [],
+          "pendingBeforeTeardown": false,
+          "pendingAfterTeardown": false
+        },
+        "passed": true
+      }
+    ],
+    "baselineEngine": {
+      "path": "baseline-engine.js",
+      "sha256": "ec1ae94338f73674cc1053628d5b434b2dc3b799739a1b8be26f054484352fd3"
+    },
+    "currentEngine": {
+      "sha256": "ed0e62079a2939c1f41741601310c7a04898fd3dba4b2b87b07434433fcaee9b"
+    },
+    "browser": "155.0.8059.40",
+    "finishedAt": "2026-10-09T17:44:59.009Z"
+  },
+  "pixels": {
+    "method": "Same-context fallback/guard/fallback controls, exact every-byte RGBA and dimensions; first actual hardware-desktop result retained from a partial report, plus three remaining results. Identical generated-engine hashes checked. Native detail restoration must finish before capture; desktop imagery full, mobile intentionally boot. No temporal moving-camera pixel-equivalence claim.",
+    "accepted": [
+      {
+        "name": "hardware-desktop",
+        "software": false,
+        "mobile": false,
+        "errors": [],
+        "captures": [
+          {
+            "width": 1353,
+            "height": 864,
+            "resolution": 0.94,
+            "mode": "3d",
+            "msaa": 4,
+            "fxaa": false,
+            "imagery": "3d:full",
+            "labels": 0,
+            "pending": false,
+            "navigationQualityRestoreTimer": null,
+            "globeError": 2.6,
+            "tileCache": 170,
+            "position": {
+              "x": 11656727.188070482,
+              "y": -1.2569049329114178e-9,
+              "z": 19411294.930672828
+            },
+            "direction": {
+              "x": -0.5148188449699272,
+              "y": 1.665334536937703e-16,
+              "z": -0.8572989891886204
+            },
+            "readFramebufferDefault": true,
+            "glError": 0,
+            "enabled": false,
+            "created": 0,
+            "bypassed": 1,
+            "rgbaBytes": 4675968,
+            "sha256": "45e72129f92da07d47d1165bd6e25e40e43fab9751553b99a2b3d524e840f942"
+          },
+          {
+            "width": 1353,
+            "height": 864,
+            "resolution": 0.94,
+            "mode": "3d",
+            "msaa": 4,
+            "fxaa": false,
+            "imagery": "3d:full",
+            "labels": 0,
+            "pending": false,
+            "navigationQualityRestoreTimer": null,
+            "globeError": 2.6,
+            "tileCache": 170,
+            "position": {
+              "x": 11656727.188070482,
+              "y": -1.2569049329114178e-9,
+              "z": 19411294.930672828
+            },
+            "direction": {
+              "x": -0.5148188449699272,
+              "y": 1.665334536937703e-16,
+              "z": -0.8572989891886204
+            },
+            "readFramebufferDefault": true,
+            "glError": 0,
+            "enabled": true,
+            "created": 2,
+            "bypassed": 0,
+            "rgbaBytes": 4675968,
+            "sha256": "45e72129f92da07d47d1165bd6e25e40e43fab9751553b99a2b3d524e840f942"
+          },
+          {
+            "width": 1353,
+            "height": 864,
+            "resolution": 0.94,
+            "mode": "3d",
+            "msaa": 4,
+            "fxaa": false,
+            "imagery": "3d:full",
+            "labels": 0,
+            "pending": false,
+            "navigationQualityRestoreTimer": null,
+            "globeError": 2.6,
+            "tileCache": 170,
+            "position": {
+              "x": 11656727.188070482,
+              "y": -1.2569049329114178e-9,
+              "z": 19411294.930672828
+            },
+            "direction": {
+              "x": -0.5148188449699272,
+              "y": 1.665334536937703e-16,
+              "z": -0.8572989891886204
+            },
+            "readFramebufferDefault": true,
+            "glError": 0,
+            "enabled": false,
+            "created": 0,
+            "bypassed": 2,
+            "rgbaBytes": 4675968,
+            "sha256": "45e72129f92da07d47d1165bd6e25e40e43fab9751553b99a2b3d524e840f942"
+          }
+        ],
+        "controlEqual": true,
+        "guardEqual": true,
+        "pixelDifferences": [
+          {
+            "index": 1,
+            "pixels": 0,
+            "maxChannel": 0
+          },
+          {
+            "index": 2,
+            "pixels": 0,
+            "maxChannel": 0
+          }
+        ],
+        "passed": true
+      },
+      {
+        "name": "hardware-mobile",
+        "software": false,
+        "mobile": true,
+        "errors": [],
+        "captures": [
+          {
+            "width": 171,
+            "height": 371,
+            "resolution": 0.44,
+            "mode": "2d",
+            "msaa": 4,
+            "fxaa": false,
+            "imagery": "2d:boot",
+            "labels": 0,
+            "pending": false,
+            "navigationQualityRestoreTimer": null,
+            "globeError": 10.8,
+            "tileCache": 22,
+            "position": {
+              "x": 12756274,
+              "y": 0,
+              "z": 834896.1809495529
+            },
+            "direction": {
+              "x": -1,
+              "y": 0,
+              "z": 0
+            },
+            "readFramebufferDefault": true,
+            "glError": 0,
+            "enabled": false,
+            "created": 0,
+            "bypassed": 1,
+            "rgbaBytes": 253764,
+            "sha256": "e0778baf5de222f59b28bf0ac04025b7bcfd47e86ca7cdaf624b53ca2d304a12"
+          },
+          {
+            "width": 171,
+            "height": 371,
+            "resolution": 0.44,
+            "mode": "2d",
+            "msaa": 4,
+            "fxaa": false,
+            "imagery": "2d:boot",
+            "labels": 0,
+            "pending": false,
+            "navigationQualityRestoreTimer": null,
+            "globeError": 10.8,
+            "tileCache": 22,
+            "position": {
+              "x": 12756274,
+              "y": 0,
+              "z": 834896.1809495529
+            },
+            "direction": {
+              "x": -1,
+              "y": 0,
+              "z": 0
+            },
+            "readFramebufferDefault": true,
+            "glError": 0,
+            "enabled": true,
+            "created": 2,
+            "bypassed": 0,
+            "rgbaBytes": 253764,
+            "sha256": "e0778baf5de222f59b28bf0ac04025b7bcfd47e86ca7cdaf624b53ca2d304a12"
+          },
+          {
+            "width": 171,
+            "height": 371,
+            "resolution": 0.44,
+            "mode": "2d",
+            "msaa": 4,
+            "fxaa": false,
+            "imagery": "2d:boot",
+            "labels": 0,
+            "pending": false,
+            "navigationQualityRestoreTimer": null,
+            "globeError": 10.8,
+            "tileCache": 22,
+            "position": {
+              "x": 12756274,
+              "y": 0,
+              "z": 834896.1809495529
+            },
+            "direction": {
+              "x": -1,
+              "y": 0,
+              "z": 0
+            },
+            "readFramebufferDefault": true,
+            "glError": 0,
+            "enabled": false,
+            "created": 0,
+            "bypassed": 2,
+            "rgbaBytes": 253764,
+            "sha256": "e0778baf5de222f59b28bf0ac04025b7bcfd47e86ca7cdaf624b53ca2d304a12"
+          }
+        ],
+        "controlEqual": true,
+        "guardEqual": true,
+        "pixelDifferences": [
+          {
+            "index": 1,
+            "pixels": 0,
+            "maxChannel": 0
+          },
+          {
+            "index": 2,
+            "pixels": 0,
+            "maxChannel": 0
+          }
+        ],
+        "passed": true
+      },
+      {
+        "name": "software-desktop",
+        "software": true,
+        "mobile": false,
+        "errors": [],
+        "captures": [
+          {
+            "width": 1353,
+            "height": 864,
+            "resolution": 0.94,
+            "mode": "3d",
+            "msaa": 4,
+            "fxaa": false,
+            "imagery": "3d:full",
+            "labels": 0,
+            "pending": false,
+            "navigationQualityRestoreTimer": null,
+            "globeError": 2.6,
+            "tileCache": 170,
+            "position": {
+              "x": 11656727.188070482,
+              "y": -1.2569049329114178e-9,
+              "z": 19411294.930672828
+            },
+            "direction": {
+              "x": -0.5148188449699275,
+              "y": 1.6653345369377028e-16,
+              "z": -0.8572989891886202
+            },
+            "readFramebufferDefault": true,
+            "glError": 0,
+            "enabled": false,
+            "created": 0,
+            "bypassed": 1,
+            "rgbaBytes": 4675968,
+            "sha256": "f2592be65f3dfd7b0fc0bef86187d9009131649b1d7626da81b66b22c91f2094"
+          },
+          {
+            "width": 1353,
+            "height": 864,
+            "resolution": 0.94,
+            "mode": "3d",
+            "msaa": 4,
+            "fxaa": false,
+            "imagery": "3d:full",
+            "labels": 0,
+            "pending": false,
+            "navigationQualityRestoreTimer": null,
+            "globeError": 2.6,
+            "tileCache": 170,
+            "position": {
+              "x": 11656727.188070482,
+              "y": -1.2569049329114178e-9,
+              "z": 19411294.930672828
+            },
+            "direction": {
+              "x": -0.5148188449699275,
+              "y": 1.6653345369377028e-16,
+              "z": -0.8572989891886202
+            },
+            "readFramebufferDefault": true,
+            "glError": 0,
+            "enabled": true,
+            "created": 2,
+            "bypassed": 0,
+            "rgbaBytes": 4675968,
+            "sha256": "f2592be65f3dfd7b0fc0bef86187d9009131649b1d7626da81b66b22c91f2094"
+          },
+          {
+            "width": 1353,
+            "height": 864,
+            "resolution": 0.94,
+            "mode": "3d",
+            "msaa": 4,
+            "fxaa": false,
+            "imagery": "3d:full",
+            "labels": 0,
+            "pending": false,
+            "navigationQualityRestoreTimer": null,
+            "globeError": 2.6,
+            "tileCache": 170,
+            "position": {
+              "x": 11656727.188070482,
+              "y": -1.2569049329114178e-9,
+              "z": 19411294.930672828
+            },
+            "direction": {
+              "x": -0.5148188449699275,
+              "y": 1.6653345369377028e-16,
+              "z": -0.8572989891886202
+            },
+            "readFramebufferDefault": true,
+            "glError": 0,
+            "enabled": false,
+            "created": 0,
+            "bypassed": 2,
+            "rgbaBytes": 4675968,
+            "sha256": "f2592be65f3dfd7b0fc0bef86187d9009131649b1d7626da81b66b22c91f2094"
+          }
+        ],
+        "controlEqual": true,
+        "guardEqual": true,
+        "pixelDifferences": [
+          {
+            "index": 1,
+            "pixels": 0,
+            "maxChannel": 0
+          },
+          {
+            "index": 2,
+            "pixels": 0,
+            "maxChannel": 0
+          }
+        ],
+        "passed": true
+      },
+      {
+        "name": "software-mobile",
+        "software": true,
+        "mobile": true,
+        "errors": [],
+        "captures": [
+          {
+            "width": 171,
+            "height": 371,
+            "resolution": 0.44,
+            "mode": "2d",
+            "msaa": 4,
+            "fxaa": false,
+            "imagery": "2d:boot",
+            "labels": 0,
+            "pending": false,
+            "navigationQualityRestoreTimer": null,
+            "globeError": 10.8,
+            "tileCache": 22,
+            "position": {
+              "x": 12756274,
+              "y": 0,
+              "z": 834896.1809495529
+            },
+            "direction": {
+              "x": -1,
+              "y": 0,
+              "z": 0
+            },
+            "readFramebufferDefault": true,
+            "glError": 0,
+            "enabled": false,
+            "created": 0,
+            "bypassed": 1,
+            "rgbaBytes": 253764,
+            "sha256": "621c21eb877bd3db9537d45010f9b6f64aeecb1f383219d4f30e6b2eb78ceadd"
+          },
+          {
+            "width": 171,
+            "height": 371,
+            "resolution": 0.44,
+            "mode": "2d",
+            "msaa": 4,
+            "fxaa": false,
+            "imagery": "2d:boot",
+            "labels": 0,
+            "pending": false,
+            "navigationQualityRestoreTimer": null,
+            "globeError": 10.8,
+            "tileCache": 22,
+            "position": {
+              "x": 12756274,
+              "y": 0,
+              "z": 834896.1809495529
+            },
+            "direction": {
+              "x": -1,
+              "y": 0,
+              "z": 0
+            },
+            "readFramebufferDefault": true,
+            "glError": 0,
+            "enabled": true,
+            "created": 2,
+            "bypassed": 0,
+            "rgbaBytes": 253764,
+            "sha256": "621c21eb877bd3db9537d45010f9b6f64aeecb1f383219d4f30e6b2eb78ceadd"
+          },
+          {
+            "width": 171,
+            "height": 371,
+            "resolution": 0.44,
+            "mode": "2d",
+            "msaa": 4,
+            "fxaa": false,
+            "imagery": "2d:boot",
+            "labels": 0,
+            "pending": false,
+            "navigationQualityRestoreTimer": null,
+            "globeError": 10.8,
+            "tileCache": 22,
+            "position": {
+              "x": 12756274,
+              "y": 0,
+              "z": 834896.1809495529
+            },
+            "direction": {
+              "x": -1,
+              "y": 0,
+              "z": 0
+            },
+            "readFramebufferDefault": true,
+            "glError": 0,
+            "enabled": false,
+            "created": 0,
+            "bypassed": 2,
+            "rgbaBytes": 253764,
+            "sha256": "621c21eb877bd3db9537d45010f9b6f64aeecb1f383219d4f30e6b2eb78ceadd"
+          }
+        ],
+        "controlEqual": true,
+        "guardEqual": true,
+        "pixelDifferences": [
+          {
+            "index": 1,
+            "pixels": 0,
+            "maxChannel": 0
+          },
+          {
+            "index": 2,
+            "pixels": 0,
+            "maxChannel": 0
+          }
+        ],
+        "passed": true
+      }
+    ],
+    "sourceReports": [
+      {
+        "folder": "canvas-resize-pixels-settled-2026-10-09",
+        "generatedAt": "2026-10-09T17:38:06.336Z",
+        "finishedAt": "2026-10-09T17:39:04.208Z",
+        "originalReportPassed": false,
+        "acceptedOnly": "hardware-desktop",
+        "excluded": "hardware-mobile erroneously waited 45 seconds for full imagery, which native mobile policy intentionally never selects; corrected in remaining run without changing product or gate deadlines."
+      },
+      {
+        "folder": "canvas-resize-pixels-rest-2026-10-09",
+        "generatedAt": "2026-10-09T17:40:47.034Z",
+        "finishedAt": "2026-10-09T17:41:27.299Z",
+        "originalReportPassed": true
+      }
+    ],
+    "rejectedExploration": "Original canvas-resize-pixels-2026-10-09 captured before native navigation-quality restoration; raw guard equality failed while later screenshots were identical. Original report/source/images retained externally and not accepted. Stronger phase/quality-state requirements preserve exact pixel equality without tolerance; the original sample did not record the timer and does not prove a unique cause."
+  },
+  "cost": {
+    "engineBytesBefore": 3429767,
+    "engineBytesAfter": 3430614,
+    "engineDeltaBytes": 847,
+    "runtime": "At most one fence per eligible resolution change, one flush, at most 64 timeout-zero polls using only existing default-loop callbacks, then one delete. No extra submitted frames while pending, timers, listeners, network/dependencies or speculative caches. GPU wait remains; native fallback after 1500 ms / 64 polls. Running clocks, first frame, layout/DPR, WebGL1 and public resize remain native.",
+    "diagnostic": "Four fresh timed startup contexts plus four accepted pixel contexts; earlier failed/exploratory contexts retained. CDP/profile/readback costs local only, raw profiles and screenshots external; no measured RAM/GPU/network/energy saving."
+  },
+  "references": [
+    {
+      "title": "Khronos WebGL2 sync specification",
+      "url": "https://registry.khronos.org/webgl/specs/latest/2.0/"
+    }
+  ]
+}

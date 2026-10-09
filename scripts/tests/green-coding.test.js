@@ -1,10 +1,17 @@
 import "./map-performance.test.js";
+import "./map-selection-styles.test.js";
+import "./map-style-events.test.js";
+import "./map-labels.test.js";
 import "./map-navigation-quality.test.js";
 import "./map-render-recovery.test.js";
 import "./map-lifecycle.test.js";
 import "./map-entry-batches.test.js";
 import "./map-motion-preference.test.js";
 import "./number-formatting.test.js";
+import "./label-ordering.test.js";
+import "./quiz-lifecycle.test.js";
+import "./search-lifecycle.test.js";
+import "./startup-on-demand.test.js";
 import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import vm from "node:vm";

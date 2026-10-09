@@ -48,6 +48,46 @@ const { createFpsQualityMonitor } = sandbox.window.GeoRiskMapInteractions;
   }
   const constructor = source.slice(source.indexOf("function initializeViewer()"), source.indexOf("function fitWorldView()"));
   assert.match(constructor, /msaaSamples: preset\.msaaSamples/, "configurar MSAA antes del primer frame, no despues de crear buffers");
+  vm.runInContext(constructor, state);
+  const stopAfterOptions = new Error("Options captured before allocating the viewer.");
+  let capturedOptions;
+  state.viewer = null;
+  state.getDefaultMapMode = () => state.mobile ? "2d" : "3d";
+  state.Cesium = {
+    SceneMode: { SCENE2D: 2, SCENE3D: 3 },
+    EllipsoidTerrainProvider: class {},
+    Viewer: class {
+      constructor(container, options) {
+        assert.equal(container, "map");
+        capturedOptions = options;
+        throw stopAfterOptions;
+      }
+    }
+  };
+  for (const webgl2 of [false, true]) for (const mobile of [false, true]) {
+    state.mobile = mobile;
+    if (webgl2) state.WebGL2RenderingContext = class {};
+    else delete state.WebGL2RenderingContext;
+    for (const quality of ["auto", "high", "balanced", "performance"]) {
+      state.qualityPreset = quality;
+      assert.throws(() => state.initializeViewer(), error => error === stopAfterOptions);
+      assert.equal(capturedOptions.contextOptions?.webgl?.antialias, !webgl2,
+        "WebGL2 evita AA del canvas redundante; WebGL1 conserva AA nativo");
+      assert.equal(capturedOptions.msaaSamples, state.getPerformancePreset().msaaSamples,
+        "cada calidad conserva MSAA de Cesium antes de asignar buffers");
+    }
+  }
+  const stopBeforeFirstFrame = new Error("Scene configured before the render scheduler.");
+  state.installSceneRenderScheduler = () => { throw stopBeforeFirstFrame; };
+  state.Cesium.Viewer = class {
+    constructor() { this.scene = { useDepthPicking: true }; }
+  };
+  for (const mobile of [false, true]) for (const quality of ["auto", "high", "balanced", "performance"]) {
+    Object.assign(state, { mobile, qualityPreset: quality, viewer: null });
+    assert.throws(() => state.initializeViewer(), error => error === stopBeforeFirstFrame);
+    assert.equal(state.viewer.scene.useDepthPicking, false,
+      "el mapa plano evita copias de profundidad antes del primer frame en todos los perfiles");
+  }
   const tuning = source.slice(source.indexOf("function updateMapInteractionTuning()"), source.indexOf("function updateMapModeToggle()"));
   assert.match(tuning, /viewer\.scene\.msaaSamples = preset\.msaaSamples/, "cambios de perfil/modo actualizan MSAA");
   assert.match(tuning, /globeQuality\.reset\(viewer\.scene\.globe\)/, "un nuevo perfil invalida el snapshot del arrastre");

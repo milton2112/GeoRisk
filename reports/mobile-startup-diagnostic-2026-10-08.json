@@ -1,0 +1,64 @@
+{
+  "measuredAt": "2026-10-08T17:51:26.136Z",
+  "revision": "2f8120b3fe87fadcd0a47df6d8ad1d8e0dfc8682",
+  "version": "1.6.298",
+  "publicInputHash": "a4a328dc6da19e0b43ec9648c78efbef5a3995e16ef6a8c66adee006621128fc",
+  "purpose": "Investigate the previous mobile 229 ms warning before considering an application change.",
+  "browser": "155.0.8059.40",
+  "host": "Windows; installed Chrome; same local Intel host as the previous release snapshot",
+  "profile": {
+    "name": "mobile-emulated",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "isMobile": true,
+    "cpuSlowdown": 4
+  },
+  "runtime": {
+    "declaredMode": "2d",
+    "actualMode": 2,
+    "mode2d": 2,
+    "mode3d": 3
+  },
+  "methodology": "Diagnostic trace without CPU sampling; timings include instrumentation overhead, not the release benchmark. afterReadyMs is relative to the map-ready mark. Overrides replace only their selected resource or the explicitly requested native canvas AA setting. DOM/WebGL details add observation and wrappers only when requested; active-map repeats the release camera movement for up to six seconds.",
+  "observeAfterReadyMs": 2000,
+  "cpuSampling": false,
+  "layout": {
+    "beforeReady": {
+      "count": 14,
+      "totalMs": 199.38799999999998,
+      "maximumMs": 120.077
+    },
+    "afterReady": {
+      "count": 0,
+      "totalMs": 0,
+      "maximumMs": 0
+    }
+  },
+  "filteredEventCount": 665,
+  "collector": "One page; keep thread/ready markers, layouts, and complete events of at least 5 ms; maximum 10000 retained events. No periodic sampler or app change.",
+  "largestLayout": {
+    "afterReadyMs": -129.305,
+    "durationMs": 120.077,
+    "begin": {
+      "dirtyObjects": 52,
+      "totalObjects": 52,
+      "partialLayout": false
+    },
+    "enclosing": [
+      {
+        "name": "RunTask",
+        "durationMs": 134.471
+      }
+    ]
+  },
+  "result": "The largest layout has no enclosing author FunctionCall in this filtered trace. This does not identify an application routine or justify a code change.",
+  "limits": [
+    "Diagnostic instrumentation and short observation; not the 60-second release measurement or a reproduction of the 229 ms event.",
+    "Earlier broader collectors exceeded their retained-event bound and are failed attempts, not accepted evidence.",
+    "An earlier CPU/WebGL instrumented pass observed native shader compilation; its raw report was overwritten and is not included as reproducible evidence.",
+    "No causal FPS, memory, energy/CO2 or Linux/physical-phone claim."
+  ],
+  "resources": "One bounded completed browser/page/server session; no client resources or new dependencies. This report remains outside production/precache."
+}

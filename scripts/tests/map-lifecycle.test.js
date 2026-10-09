@@ -129,6 +129,132 @@ for (const options of [{}, { preserveView: true }, { resetView: false }]) {
     "overlay camera ownership must preserve default and detailed-upgrade behavior");
 }
 
+function hoverHarness(state) {
+  const calls = { enabled: false, now: 0, renders: 0, picks: 0, styles: [], frames: [] };
+  vm.runInContext(interactionSource, state);
+  state.mapInteractionCore = state.window.GeoRiskMapInteractions;
+  state.reducedPerformanceMode = false;
+  state.selectedLayers = [];
+  state.Date = { now: () => calls.now };
+  state.lastHoverSampleAt = -Infinity;
+  state.shouldUseHoverHighlights = () => calls.enabled;
+  state.getPickedCountryEntity = picked => picked?.id;
+  state.getCountryLayerByCodeOrName = code => state.countryLayers.get(code);
+  state.getCountryThemeStyle = code => ({ color: code, weight: 1, fillOpacity: 0.1 });
+  state.requestSceneRender = () => { calls.renders += 1; };
+  state.requestAnimationFrame = callback => calls.frames.push(callback);
+  state.viewer.scene.pick = () => { calls.picks += 1; return { id: { countryCode: calls.code } }; };
+  state.countryLayers.forEach(layer => {
+    const setStyle = layer.setStyle.bind(layer);
+    layer.setStyle = style => { calls.styles.push({ code: layer.code, style }); setStyle(style); };
+  });
+  const move = state.activeClickHandler.actions.get(state.Cesium.ScreenSpaceEventType.MOUSE_MOVE);
+  return { calls, move() { calls.now += 100; move({ endPosition: {} }); },
+    flush() { while (calls.frames.length) calls.frames.shift()(); } };
+}
+
+{
+  const calls = [];
+  const country = { countryCode: "ARG" };
+  const scene = {
+    pick(position) { calls.push(["pick", position]); return { id: country }; },
+    drillPick(position, limit) { calls.push(["drill", position, limit]); return [{ primitive: { id: country } }]; }
+  };
+  const state = vm.createContext({ viewer: { scene } });
+  vm.runInContext(block("function getPickedCountryEntity(", "async function loadMap("), state);
+  const position = {};
+  assert.equal(state.getPickedCountryEntityAt(position), country);
+  assert.deepEqual(calls, [["pick", position]], "direct country picks do not require a stacked GPU pick");
+  scene.pick = input => { calls.push(["pick", input]); return { id: {} }; };
+  calls.length = 0;
+  assert.equal(state.getPickedCountryEntityAt(position), country);
+  assert.deepEqual(calls, [["pick", position], ["drill", position, 8]], "keep bounded fallback behind non-country primitives");
+  delete scene.drillPick;
+  assert.equal(state.getPickedCountryEntityAt(position), null);
+  calls.length = 0;
+  assert.equal(state.getPickedCountryEntityAt(null), null);
+  assert.equal(calls.length, 0, "missing positions do not pick");
+  state.viewer = null;
+  assert.equal(state.getPickedCountryEntityAt(position), null);
+}
+
+{
+  const { state } = createHarness();
+  await state.loadMap(false);
+  const hover = hoverHarness(state);
+  for (let i = 0; i < 100; i++) hover.move();
+  assert.equal(hover.calls.renders, 0, "disabled hover must not request frames for idle pointer movement");
+  assert.equal(hover.calls.picks, 0);
+  assert.equal(hover.calls.styles.length, 0);
+  assert.equal(hover.calls.frames.length, 0);
+}
+
+{
+  const { state } = createHarness();
+  await state.loadMap(false);
+  const hover = hoverHarness(state);
+  Object.assign(hover.calls, { enabled: true, code: "ARG" });
+  hover.move();
+  hover.calls.enabled = false;
+  hover.flush();
+  assert.equal(hover.calls.styles.length, 0, "a queued hover must recheck eligibility before painting");
+  assert.equal(hover.calls.renders, 0);
+  hover.calls.enabled = true;
+  hover.move();
+  hover.flush();
+  assert.equal(hover.calls.styles.length, 1, "a discarded hover must not block the next eligible input");
+  assert.equal(hover.calls.renders, 1);
+  hover.move();
+  hover.flush();
+  assert.equal(hover.calls.styles.length, 1, "same-country hover does not rewrite styles");
+  assert.equal(hover.calls.renders, 1);
+}
+
+for (const selected of [false, true]) {
+  const { state } = createHarness();
+  await state.loadMap(false);
+  const hover = hoverHarness(state);
+  Object.assign(hover.calls, { enabled: true, code: "ARG" });
+  hover.move();
+  hover.flush();
+  Object.assign(hover.calls, { code: "ESP" });
+  hover.move();
+  if (selected) state.selectedLayers = [state.countryLayers.get("ARG")];
+  hover.calls.enabled = false;
+  hover.move();
+  hover.flush();
+  for (let i = 0; i < 100; i++) hover.move();
+  assert.equal(hover.calls.styles.length, selected ? 1 : 2, "restore only the previous unselected highlight, once");
+  assert.equal(hover.calls.renders, selected ? 1 : 2, "selected styles and cleared hover require no extra frame");
+  assert.equal(hover.calls.picks, 2, "disabled hover does not pick or apply pending ESP");
+  hover.calls.enabled = true;
+  hover.move();
+  hover.flush();
+  assert.equal(hover.calls.styles.at(-1).code, "ESP", "hover resumes after cancellation");
+}
+
+{
+  const { state } = createHarness();
+  await state.loadMap(false);
+  const hover = hoverHarness(state);
+  Object.assign(hover.calls, { enabled: true, code: "ARG" });
+  hover.move();
+  hover.flush();
+  hover.calls.code = "";
+  hover.move();
+  hover.flush();
+  hover.move();
+  hover.flush();
+  assert.equal(hover.calls.renders, 2, "leaving a highlight restores once, then stays idle");
+  assert.equal(hover.calls.styles.length, 2);
+  hover.calls.code = "ESP";
+  hover.move();
+  state.activeClickHandler = {};
+  hover.flush();
+  assert.equal(hover.calls.renders, 2, "an obsolete handler cannot paint on a replacement map");
+  assert.equal(hover.calls.styles.length, 2);
+}
+
 {
   const { state } = createHarness();
   await state.loadMap(false);

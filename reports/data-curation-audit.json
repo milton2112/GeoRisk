@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-05T15:22:02.154Z",
+  "generatedAt": "2026-10-09T14:04:04.199Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 13253009,
-    "duplicatedCountryFilesBytes": 1560319,
-    "countryConflictShardBytes": 461352,
+    "fullBytes": 13273009,
+    "duplicatedCountryFilesBytes": 1560736,
+    "countryConflictShardBytes": 461572,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24266,
-        "inlineBytes": 3459097,
+        "inlineBytes": 3464225,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,9 +105,9 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 217946,
-          "conflictShardBytes": 217947,
-          "averageConflictBytes": 236
+          "conflictsBytes": 218072,
+          "conflictShardBytes": 218073,
+          "averageConflictBytes": 237
         }
       },
       {
@@ -165,7 +165,7 @@
         "code": "FRA",
         "name": "Francia",
         "bytes": 21334,
-        "inlineBytes": 1024625,
+        "inlineBytes": 1028409,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -207,9 +207,9 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 51831,
-          "conflictShardBytes": 51832,
-          "averageConflictBytes": 214
+          "conflictsBytes": 51925,
+          "conflictShardBytes": 51926,
+          "averageConflictBytes": 215
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 79,
+    "pendingCount": 76,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15246,19 +15246,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Pirde",
-        "countries": [
-          "IRQ"
-        ],
-        "regions": [
-          "Asia"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Ramth-al-Lbane",
         "countries": [
           "MAR"
@@ -15291,32 +15278,6 @@
         ],
         "regions": [
           "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Steen's Mountain",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Tizi Ouzou",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
         ],
         "types": [
           "interestatal"

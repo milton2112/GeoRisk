@@ -132,8 +132,8 @@
   "artifacts": [
     {
       "path": "vendor/cesium/engine.js",
-      "bytes": 3429613,
-      "sha256": "013c154328155241bc684bbcd75c852d3e3e08cec04547a7d3ae20ae863ca7a2"
+      "bytes": 3430614,
+      "sha256": "ed0e62079a2939c1f41741601310c7a04898fd3dba4b2b87b07434433fcaee9b"
     },
     {
       "path": "vendor/cesium/LICENSES.txt",

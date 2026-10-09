@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-10-05T18:44:58.561Z",
+  "generatedAt": "2026-10-09T17:58:41.043Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 80
+      "count": 77
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 14
+      "count": 11
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 625
+      "count": 626
     },
     "redundantReligions": {
       "count": 0
@@ -93,11 +93,6 @@
       },
       {
         "code": "FRA",
-        "name": "Batalla de Tizi Ouzou",
-        "region": "Europa"
-      },
-      {
-        "code": "FRA",
         "name": "Batalla de Vinh",
         "region": "Europa"
       },
@@ -134,11 +129,6 @@
       {
         "code": "IDN",
         "name": "Batalla de Petaling",
-        "region": "Asia"
-      },
-      {
-        "code": "IRQ",
-        "name": "Batalla de Pirde",
         "region": "Asia"
       },
       {
@@ -255,6 +245,16 @@
         "code": "USA",
         "name": "Ataque a Aruba",
         "region": "América"
+      },
+      {
+        "code": "USA",
+        "name": "Ataque a Pearl Harbor",
+        "region": "América"
+      },
+      {
+        "code": "USA",
+        "name": "Ataque aéreo de Ogu",
+        "region": "América"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -262,13 +262,6 @@
       {
         "code": "FRA",
         "name": "Batalla de Siracusa",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "FRA",
-        "name": "Batalla de Tizi Ouzou",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
         "startYear": null
@@ -290,13 +283,6 @@
       {
         "code": "IDN",
         "name": "Batalla de Petaling",
-        "parent": "Conflicto regional de Asia",
-        "campaign": "Campaña vinculada a Conflicto regional de Asia",
-        "startYear": null
-      },
-      {
-        "code": "IRQ",
-        "name": "Batalla de Pirde",
         "parent": "Conflicto regional de Asia",
         "campaign": "Campaña vinculada a Conflicto regional de Asia",
         "startYear": null
@@ -339,13 +325,6 @@
       {
         "code": "USA",
         "name": "Batalla de SIranaya",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
-        "startYear": null
-      },
-      {
-        "code": "USA",
-        "name": "Batalla de Steen's Mountain",
         "parent": "Conflicto regional de América",
         "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
@@ -502,6 +481,14 @@
           "DZA",
           "ESP",
           "USA"
+        ]
+      },
+      {
+        "name": "Batalla de Tizi Ouzou (1845)",
+        "count": 2,
+        "countries": [
+          "DZA",
+          "FRA"
         ]
       },
       {
@@ -750,14 +737,6 @@
         "countries": [
           "ARG",
           "FLK",
-          "GBR"
-        ]
-      },
-      {
-        "name": "Hundimiento de HMS Sheffield",
-        "count": 2,
-        "countries": [
-          "ARG",
           "GBR"
         ]
       }
@@ -1361,7 +1340,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 14,
+      "count": 11,
       "command": "npm run fix:conflicts:batches"
     },
     {

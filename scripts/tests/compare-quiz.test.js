@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import path from "node:path";
 import vm from "node:vm";
+import "./quiz-lifecycle.test.js";
 
 const projectRoot = process.cwd();
 
@@ -148,5 +149,29 @@ assert.ok(quizElements["quiz-meta"].innerHTML.includes("Answered: 3"), "meta deb
 assert.ok(quizElements["quiz-feedback"].innerHTML.includes("is-correct"), "feedback correcto debe quedar visible");
 assert.ok(quizElements["quiz-options"].innerHTML.includes("Buenos Aires"), "opciones deben renderizarse desde el modulo");
 assert.equal(quizElements["quiz-next-button"].hidden, false, "pregunta respondida debe habilitar siguiente");
+assert.equal((quizElements["quiz-options"].innerHTML.match(/ disabled/g) || []).length, 4,
+  "una pregunta respondida debe conservar todas las opciones bloqueadas al renderizar de nuevo");
+assert.equal(quiz.buildStatusText({ current: {}, score: 0, total: 0 }), "Puntaje: 0/0",
+  "una partida activa no debe mostrar instrucciones de iniciar otra partida");
+assert.equal(quiz.buildStatusText({ current: {}, score: 0, total: 0 }, "en"), "Score: 0/0");
+assert.equal(quiz.buildStatusText({}), "Sin partida activa.");
+assert.equal(quiz.buildStatusText({}, "en"), "No active round.");
+for (const [mode, es, en] of [
+  ["classic", "clasico", "classic"], ["practice", "practica", "practice"],
+  ["exam", "examen", "exam"], ["teacher", "docente", "teacher"]
+]) {
+  assert.ok(quiz.buildMetaHtml({ mode }, "es", 0).includes("Modo: " + es));
+  assert.ok(quiz.buildMetaHtml({ mode }, "en", 0).includes("Mode: " + en));
+}
+const reviewedOptions = quiz.buildOptionsMarkup(["Buenos Aires", "Brasilia", "Santiago", "Montevideo"],
+  value => value, { answered: true, correct: "Buenos Aires", selectedAnswer: "Santiago" });
+assert.equal((reviewedOptions.match(/is-correct/g) || []).length, 1);
+assert.equal((reviewedOptions.match(/is-wrong/g) || []).length, 1);
+assert.equal((reviewedOptions.match(/ disabled/g) || []).length, 4);
+const escaped = quiz.buildOptionsMarkup(['<script>"'], value => String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll('"', "&quot;"),
+  { answered: true, correct: '<script>"', selectedAnswer: '<script>"' });
+assert.ok(!escaped.includes("<script>"), "reviewed option labels and attributes remain escaped");
+assert.ok(escaped.includes("&lt;script>&quot;"));
+assert.ok(!quiz.buildMetaHtml({ mode: "__proto__" }, "es", 0).includes("[object"));
 
 console.log("compare-quiz.test.js ok");

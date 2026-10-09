@@ -14,7 +14,12 @@ import "./export-security.test.js";
 import "./pages-deployment.test.js";
 import "./release-status.test.js";
 import "./browser-screenshot.test.js";
+import "./browser-map-pick.test.js";
+import "./browser-country-renderer.test.js";
 import "./browser-launch.test.js";
+import "./browser-tile-cache.test.js";
+import "./browser-run-report.test.js";
+import "./critical-browser-evidence.test.js";
 import "./data-pipeline.test.js";
 import "./release-tag.test.js";
 
@@ -244,10 +249,12 @@ assert.ok(npmRunner.includes("shell: false"), "automatizaciones deben evitar she
 assert.ok(npmRunner.includes("DEFAULT_STEP_TIMEOUT_MS"), "automatizaciones deben tener un limite de tiempo por paso");
 assert.ok(releaseChecklist.includes("runNpmStep"), "release:check debe usar el ejecutor comun sin shell");
 assert.ok(!releaseChecklist.includes("shell: true"), "release:check no debe crear shells anidados en Windows");
-const checklistProgram = `(async () => { ${releaseChecklist.replace('import { runNpmStep } from "./lib/npm-runner.js";', "")} })()`;
+const checklistProgram = `(async () => { ${releaseChecklist.replace(/^import .+;\r?\n/gm, "")} })()`;
+const localChecklistContext = { console: { log() {} }, performance: { now: () => 0 }, externalCriticalEvidence: async () => null,
+  assertFullReleaseEnvironment() {} };
 const invokedReleaseSteps = [];
 await vm.runInNewContext(checklistProgram, {
-  console: { log() {} },
+  ...localChecklistContext,
   runNpmStep: async (label, args, options) => invokedReleaseSteps.push({ label, args, options })
 });
 assert.deepEqual(Array.from(invokedReleaseSteps[0].args), ["test"]);
@@ -256,10 +263,23 @@ assert.equal(invokedReleaseSteps.find(step => step.args.includes("audit:security
 assert.ok(invokedReleaseSteps.slice(1).filter(step => !step.args.includes("audit:security:history")).every(step => step.options === undefined), "los demas pasos conservan su timeout normal");
 let failedReleaseAttempts = 0;
 await assert.rejects(vm.runInNewContext(checklistProgram, {
-  console: { log() {} },
+  ...localChecklistContext,
   runNpmStep: async () => { failedReleaseAttempts += 1; throw new Error("suite failed"); }
 }), /suite failed/);
 assert.equal(failedReleaseAttempts, 1, "un test fallido debe seguir deteniendo la release");
+const sharedSteps = [];
+let recordedNativeMs;
+await vm.runInNewContext(checklistProgram, {
+  ...localChecklistContext, DEFAULT_STEP_TIMEOUT_MS: 180000,
+  externalCriticalEvidence: async () => ({ criticalMs: 650000, testTimeoutMs: 550000, releaseStartedAt: "2026-10-08T12:00:00Z" }),
+  assertReleaseBudget: () => 2700000,
+  recordNativeTestCost: async (_file, evidence, nativeMs) => { recordedNativeMs = nativeMs; assert.equal(evidence.criticalMs, 650000); },
+  runNpmStep: async (label, args, options) => sharedSteps.push({ label, args, options })
+});
+assert.equal(sharedSteps[0].options.timeoutMs, 550000, "shard execution is charged to the existing whole-test budget");
+assert.equal(sharedSteps.find(step => step.args.includes("audit:security:history")).options.timeoutMs, 660000);
+assert.equal(recordedNativeMs, 0);
+assert.ok(sharedSteps.slice(1).filter(step => !step.args.includes("audit:security:history")).every(step => step.options.timeoutMs === 180000));
 for (const [name, source] of [
   ["prepush", prepushCheck],
   ["maintenance", maintenanceQuick],
@@ -299,8 +319,21 @@ assert.ok(wikipediaConflicts.includes("retry-after"), "importador de Wikipedia d
 assert.ok(wikipediaConflicts.includes('"part of": "partOf"'), "importador debe conservar la jerarquia Part of para revision editorial");
 assert.ok(releaseWorkflow.includes("npm run check:startup-budget"), "GitHub Actions debe correr presupuesto de arranque de forma explicita");
 assert.ok(packageJson.scripts.test.includes("npm run test:browser-visual"), "npm test dentro del release gate debe correr smoke visual");
-assert.equal(releaseWorkflow.match(/npx playwright install --with-deps --no-shell chromium/g)?.length, 2, "release y auditoria deben instalar Chromium nuevo sin el shell que no usan");
+assert.equal(releaseWorkflow.match(/npx playwright install --with-deps --no-shell chromium/g)?.length, 3, "shards, release y auditoria deben instalar Chromium nuevo sin un modo alternativo");
 assert.ok(releaseChecklist.includes("timeoutMs: 20 * 60_000"), "el cambio de navegador no debe aumentar el limite de npm test");
+assert.ok(criticalBrowserE2E.includes("tileCache.attach(context)"), "la E2E reutiliza teselas reales con limites");
+assert.ok(criticalBrowserE2E.includes("createBrowserRunReport") && criticalBrowserE2E.includes("runReport.run(run.name") &&
+  criticalBrowserE2E.includes('runReport.run("desktop journey"') && criticalBrowserE2E.includes('runReport.run("mobile journey"'),
+"el reporte observa todas las rutas seleccionadas y ambos recorridos, sin sustituir las pruebas");
+assert.ok(criticalBrowserE2E.indexOf("await runReport.finish()") > criticalBrowserE2E.indexOf("await browser?.close()"),
+  "el reporte no declara exito antes del cierre del navegador");
+assert.ok((await fs.readFile(".gitignore", "utf8")).includes("reports/critical-browser-e2e.json"),
+  "el checkpoint de una ejecucion no debe versionarse como evidencia de otra");
+const workerActivation = criticalBrowserE2E.slice(criticalBrowserE2E.indexOf("async function testFirstWorkerActivation"), criticalBrowserE2E.indexOf("async function testPagesBuild"));
+assert.ok(!workerActivation.includes("tileCache.attach"), "la prueba del worker conserva red/cache reales y contexto sin el cache auxiliar");
+for (const file of ["scripts/tests/service-worker-browser.test.js", "scripts/lib/browser-performance.js"]) {
+  assert.ok(!(await fs.readFile(file, "utf8")).includes("browser-tile-cache"), "offline y benchmark no deben reutilizar teselas desde la E2E");
+}
 assert.ok(releaseWorkflow.includes("timeout-minutes: 45"), "el gate conserva su limite global");
 assert.ok(packageJson.scripts.test.includes("npm run test:e2e:critical"), "npm test dentro del release gate debe ejecutar la E2E critica");
 assert.ok(releaseWorkflow.includes("npm run audit:doctor"), "GitHub Actions debe publicar doctor de producto");

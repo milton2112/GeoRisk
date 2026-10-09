@@ -1,4 +1,8 @@
-import { runNpmStep } from "./lib/npm-runner.js";
+import { DEFAULT_STEP_TIMEOUT_MS, runNpmStep } from "./lib/npm-runner.js";
+import { assertFullReleaseEnvironment, assertReleaseBudget, externalCriticalEvidence, recordNativeTestCost } from "./lib/critical-browser-evidence.js";
+
+assertFullReleaseEnvironment();
+const externalEvidence = await externalCriticalEvidence();
 
 const steps = [
   ["tests completos", "npm", ["test"], { timeoutMs: 20 * 60_000 }],
@@ -19,12 +23,26 @@ const steps = [
   ["limpieza local", "npm", ["run", "clean:local"]]
 ];
 
-function runStep([label, _command, args, options]) {
-  return runNpmStep(label, args, options);
+async function runStep([label, _command, args, options]) {
+  let settings = options;
+  if (externalEvidence) {
+    const remaining = assertReleaseBudget(externalEvidence.releaseStartedAt);
+    const allowance = label === "tests completos" ? externalEvidence.testTimeoutMs : options?.timeoutMs ?? DEFAULT_STEP_TIMEOUT_MS;
+    settings = { ...options, timeoutMs: Math.min(remaining, allowance) };
+  }
+  const started = performance.now();
+  await runNpmStep(label, args, settings);
+  if (externalEvidence && label === "tests completos") {
+    await recordNativeTestCost("reports/critical-browser-e2e.json", externalEvidence, Math.ceil(performance.now() - started));
+  }
 }
+
+if (externalEvidence) assertReleaseBudget(externalEvidence.releaseStartedAt);
 
 for (const step of steps) {
   await runStep(step);
 }
+
+if (externalEvidence) assertReleaseBudget(externalEvidence.releaseStartedAt);
 
 console.log("\nChecklist de release completada sin errores.");
