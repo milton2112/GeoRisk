@@ -8,7 +8,15 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.301 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.302 antes de cerrar la siguiente version.
+
+## v1.6.302 - 2026-10-09
+
+- Mapa: una coleccion nativa de billboards con todos sus elementos ocultos difiere buffers, shaders y comandos de dibujo hasta que alguno vuelve a mostrarse. Reutiliza el recorrido existente de readiness y conserva actualizaciones de imagen, atlas, errores y teardown. Marca cada imagen pendiente en la cola nativa para evitar entradas duplicadas durante los frames ocultos. El build aplica el cambio solo a BillboardCollection del motor fijado y rechaza una fuente incompatible; no se edita el vendor manualmente.
+- Evidencia: seis controles on/off/on de Chrome 155 Windows, tres estados de etiquetas en Intel y SwiftShader, conservan cada byte RGBA y las dimensiones. Con 157 glifos ocultos, los dos comandos nativos pasan a cero; al restaurarlos reaparecen 20 etiquetas/157 glifos. Dos contextos frescos de SwiftShader confirman dos enlaces de programas al ocultar en la version original y cero con el cambio, sin errores de pagina/WebGL. El diagnostico y sus fuentes quedan en reports, fuera del sitio/precache. No demuestra mas FPS, equivalencia con Linux, memoria GPU ahorrada ni ahorro energetico o de CO2.
+- Regresiones: el update nativo se prueba con elementos ocultos, visibles, mezclados, vacios, imagen pendiente, atlas ausente, reactivacion y coleccion destruida. La nueva assertion fallo antes del cambio. Las paginas existentes de etiquetas desktop/mobile comprueban cero comandos ocultos y conservan pixeles, horizonte, navegacion, resize y 2D; el flujo focalizado paso en 28549 ms. Green-coding tambien paso. El cierre renueva el gate completo y sus mediciones, sin cambiar cobertura, presupuestos o deadlines.
+- Green coding y costos: evita preparar shaders y dibujar glifos que no aportan pixeles, especialmente durante navegacion por software. Agrega un booleano al recorrido existente y 97 bytes al motor distribuido (3429670 -> 3429767), incluidos los avisos de modificacion. No agrega dependencias, modulos de arranque, descargas, cache, polling, timers o listeners de producto; conserva geometria, calidad, seleccion, accesibilidad, offline, Save-Data y movimiento reducido. Las pruebas agregan dos frames a cada pagina de etiquetas existente; los probes internos son finitos y cierran navegador/servidor. La lentitud general de SwiftShader sigue pendiente y requiere evidencia remota propia.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-10-09-release-3`.
 
 ## v1.6.301 - 2026-10-09
 

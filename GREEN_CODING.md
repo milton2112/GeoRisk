@@ -36,6 +36,16 @@ no una certificacion ambiental ni una afirmacion de neutralidad de carbono.
 
 ## Evidencia y control
 
+Las colecciones nativas de billboards totalmente ocultas difieren buffers, shaders
+y comandos hasta tener un elemento visible. Reutilizan el recorrido de readiness
+con un booleano, conservando imagenes, atlas y estados pendientes para reactivarse.
+El motor crece 97 bytes; no agrega recorridos, recursos o actividad permanente.
+Los controles Intel/SwiftShader preservan RGBA, y el arranque frio observado evita
+dos enlaces de programas sin contenido visible. Las paginas existentes agregan
+dos frames de comprobacion; los diagnosticos son finitos y quedan fuera del sitio.
+No se infiere ahorro de energia, CO2, memoria GPU o aumento de FPS a partir de
+estos contadores. Se conserva la calidad y el gate completo con limites originales.
+
 La curaduria de Steens Mountain reutiliza los generadores y el modal actuales:
 un detalle de 4035 bytes se carga bajo demanda, sin distribuir documentos fuente
 ni agregar codigo del cliente. Los incrementos de indices permiten buscar y fechar

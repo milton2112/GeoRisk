@@ -1,0 +1,178 @@
+Finite diagnostic sources. Run builder as tmp/build-hidden-prototype.mjs, pixel probe as tmp/label-opaque-probe.mjs (optionally --software), cold probe as tmp/hidden-shader-probe.mjs. Paths identify the original local output folder; adjust that folder for a new diagnostic. No production diagnostic flags.
+
+===== prototype-builder-source.txt =====
+import fs from 'node:fs/promises';
+import { build } from 'esbuild';
+import { stripCesiumDebugPragmas } from '../scripts/lib/cesium-release-pragmas.js';
+import { removeCesiumEvaluationToken } from '../scripts/lib/cesium-evaluation-token.js';
+import { replaceKnockoutGlobalLookup } from '../scripts/lib/cesium-csp.js';
+import { enableCesiumTextReadback } from '../scripts/lib/cesium-text-readback.js';
+import { skipHiddenCesiumBillboards } from '../scripts/lib/cesium-hidden-billboards.js';
+await build({entryPoints:['scripts/map-engine-entry.js'],outfile:'tmp/hidden-prototype-engine.js',bundle:true,minify:true,format:'esm',target:'es2020',legalComments:'eof',define:{CESIUM_VERSION:'"1.127"'},plugins:[{
+  name:'diagnostic-hidden-toggle',setup(builder){builder.onLoad({filter:/[\\/]@cesium[\\/].*\.js$/},async({path:file})=>{
+    let source=stripCesiumDebugPragmas(await fs.readFile(file,'utf8'),file);
+    source=removeCesiumEvaluationToken(source,file);
+    source=replaceKnockoutGlobalLookup(source,file);
+    source=enableCesiumTextReadback(source,file);
+    source=skipHiddenCesiumBillboards(source,file);
+    if(/[/\\]BillboardCollection\.js$/.test(file))source=source.replace('if (billboardsLength > 0 && !hasShownBillboards) {',
+      'if (!globalThis.__forceHiddenGlyphDraw && billboardsLength > 0 && !hasShownBillboards) { globalThis.__hiddenGlyphSkips = (globalThis.__hiddenGlyphSkips || 0) + 1;');
+    return {contents:source,loader:'js'};
+  });}
+}]});
+
+
+===== native-guard-probe-source.txt =====
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
+import { chromium } from '@playwright/test';
+import { createLocalSmokeServer } from '../scripts/localSmokeServer.js';
+import { createBrowserTileCache } from '../scripts/lib/browser-tile-cache.js';
+
+const software = process.argv.includes('--software');
+const output = 'C:/Users/deren/.codex/visualizations/2026/10/08/01a11b3a-aa28-7763-854b-bb18590cfa69/label-opaque-diagnostic-2026-10-09';
+await fs.mkdir(output, {recursive:true});
+const server = createLocalSmokeServer();
+await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+const cache = createBrowserTileCache();
+let browser;
+const results=[];
+try {
+  browser=await chromium.launch({channel:'chrome',headless:true,args:software?['--use-angle=swiftshader','--enable-unsafe-swiftshader']:[]});
+  const context=await browser.newContext({viewport:{width:1440,height:920},serviceWorkers:'block'});
+  await cache.attach(context);
+  await context.route('**/vendor/cesium/engine.js*',route=>route.fulfill({path:path.resolve('tmp/hidden-prototype-engine.js'),contentType:'application/javascript'}));
+  await context.addInitScript(()=>{
+    Object.defineProperty(navigator,'deviceMemory',{get:()=>4});
+    Object.defineProperty(navigator,'hardwareConcurrency',{get:()=>4});
+    localStorage.setItem('geo-risk-intro-seen','true');
+    localStorage.setItem('geo-risk-auto-rotate','false');
+    localStorage.setItem('geo-risk-label-mode','countries');
+    window.__forceHiddenGlyphDraw=true;
+  });
+  const page=await context.newPage();
+  const errors=[];
+  page.on('pageerror',e=>{if(errors.length<16)errors.push(e.message);});
+  await page.goto(`http://127.0.0.1:${server.address().port}/index.html`,{waitUntil:'domcontentloaded',timeout:45000});
+  for(const view of [{name:'world'}, {name:'hidden'}, {name:'restored'}]) {
+    if(view.name==='hidden') await page.evaluate(()=>hideMapLabels());
+    if(view.name==='restored') await page.evaluate(()=>renderMapLabels());
+    if(view.height) await page.evaluate(height=>viewer.camera.setView({destination:Cesium.Cartesian3.fromDegrees(10,45,height)}),view.height);
+    await page.waitForFunction(hidden=>!document.body.classList.contains('globe-loading')&&viewer.scene.globe.tilesLoaded&&!isCameraNavigating&&!loadMapPromise&&(hidden?hiddenLabelEntities.length>0:labelEntities.length>0),view.name==='hidden',{timeout:45000});
+    await page.evaluate(()=>document.fonts.ready);
+    const captures=[];
+    for(const skip of [false,true,false]) {
+      const c=await page.evaluate(skip=>new Promise((resolve,reject)=>{
+        const scene=viewer.scene;
+        const gl=scene.canvas.getContext('webgl2')||scene.canvas.getContext('webgl');
+        window.__forceHiddenGlyphDraw=!skip;
+        const initialSkips=window.__hiddenGlyphSkips||0;
+        const ids=window.__labelCommandIds||=(new WeakMap());
+        window.__labelCommandNextId||=1;
+        const frames=[];
+        let remove;
+        const timer=setTimeout(()=>{remove?.();reject(new Error('Capture timeout'));},15000);
+        remove=scene.postRender.addEventListener(()=>{
+          if(!scene.globe.tilesLoaded){scene.requestRender();return;}
+          const commands=scene._frameState.commandList.filter(c=>Array.isArray(c.owner?._billboards)&&c.owner._billboards.length>0).map(c=>{
+            if(!ids.has(c))ids.set(c,window.__labelCommandNextId++);
+            return {id:ids.get(c),pass:c.pass,sdf:c.owner._sdf,billboards:c.owner._billboards.length,shown:c.owner._billboards.filter(b=>b.show).length};
+          });
+          frames.push(commands);
+          if(frames.length<3){scene.requestRender();return;}
+          remove();clearTimeout(timer);
+          const data=new Uint8Array(scene.canvas.width*scene.canvas.height*4);
+          gl.readPixels(0,0,scene.canvas.width,scene.canvas.height,gl.RGBA,gl.UNSIGNED_BYTE,data);
+          let bytes='';for(let i=0;i<data.length;i+=8192)bytes+=String.fromCharCode(...data.subarray(i,i+8192));
+          const ext=gl.getExtension('WEBGL_debug_renderer_info');
+          resolve({skip,skipped:(window.__hiddenGlyphSkips||0)-initialSkips,frames,width:scene.canvas.width,height:scene.canvas.height,resolutionScale:viewer.resolutionScale,msaa:scene.msaaSamples,fxaa:scene.postProcessStages.fxaa.enabled,labels:labelEntities.length,geometry:activeGeoJsonPath,gpu:ext?gl.getParameter(ext.UNMASKED_RENDERER_WEBGL):null,pixels:btoa(bytes),glError:gl.getError()});
+        });scene.requestRender();
+      }),skip);
+      const pixels=Buffer.from(c.pixels,'base64');delete c.pixels;
+      captures.push({...c,pixels,sha256:createHash('sha256').update(pixels).digest('hex')});
+    }
+    const result={view:view.name,controlEqual:captures[0].pixels.equals(captures[2].pixels),skipEqual:captures[0].pixels.equals(captures[1].pixels),captures:captures.map(({pixels,...c})=>c)};
+    results.push(result);
+    console.log(JSON.stringify({view:result.view,controlEqual:result.controlEqual,skipEqual:result.skipEqual,skipped:captures[1].skipped,commands:captures[0].frames[2]}));
+    assert.equal(result.controlEqual,true,'Baseline image must be stable');
+    assert.equal(result.skipEqual,true,'Skipped opaque label pass must preserve every RGBA byte');
+    if(view.name==='hidden')assert.ok(captures[1].skipped>0,'Must skip real all-hidden draw commands');
+    assert.ok(captures[0].frames.every(f=>f.some(c=>c.sdf)),'Must exercise actual glyph commands');
+    if(view.name==='hidden')assert.ok(captures[1].frames.every(f=>f.length===0),'Native guard must omit hidden commands');
+    if(view.name==='restored')await page.locator('#map canvas').first().screenshot({path:path.join(output,software?'software.png':'hardware.png')});
+  }
+  assert.deepEqual(errors,[]);
+}finally{
+  await fs.writeFile(path.join(output,software?'software.json':'hardware.json'),JSON.stringify({generatedAt:new Date().toISOString(),browser:browser?.version(),platform:process.platform,software,results,tiles:cache.stats()},null,2)+'\n');
+  await browser?.close();await new Promise(resolve=>server.close(resolve));
+}
+
+
+===== cold-probe-source.txt =====
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import {chromium} from '@playwright/test';
+import {createLocalSmokeServer} from '../scripts/localSmokeServer.js';
+import {createBrowserTileCache} from '../scripts/lib/browser-tile-cache.js';
+const output='C:/Users/deren/.codex/visualizations/2026/10/08/01a11b3a-aa28-7763-854b-bb18590cfa69/label-opaque-diagnostic-2026-10-09';
+const server=createLocalSmokeServer();await new Promise(r=>server.listen(0,'127.0.0.1',r));
+const cache=createBrowserTileCache();const results=[];let browser;let passed=false;
+try{
+  browser=await chromium.launch({channel:'chrome',headless:true,args:['--use-angle=swiftshader','--enable-unsafe-swiftshader']});
+  for(const force of [true,false]){
+    const context=await browser.newContext({viewport:{width:1440,height:920},serviceWorkers:'block'});
+    try{
+      await cache.attach(context);
+      await context.route('**/vendor/cesium/engine.js*',r=>r.fulfill({path:path.resolve('tmp/hidden-prototype-engine.js'),contentType:'application/javascript'}));
+      await context.addInitScript(force=>{
+        window.__forceHiddenGlyphDraw=force;
+        Object.defineProperty(navigator,'deviceMemory',{get:()=>4});Object.defineProperty(navigator,'hardwareConcurrency',{get:()=>4});
+        localStorage.setItem('geo-risk-intro-seen','true');localStorage.setItem('geo-risk-auto-rotate','false');localStorage.setItem('geo-risk-label-mode','countries');
+        const probe=window.__hiddenShaderProbe={contexts:[],restores:[]};
+        const original=HTMLCanvasElement.prototype.getContext;
+        const hooked=function(...args){
+          const gl=original.apply(this,args);
+          if(gl&&/^webgl2?$/.test(args[0])&&!probe.contexts.some(c=>c.gl===gl)&&probe.contexts.length<8){
+            const state={gl,programs:[]};probe.contexts.push(state);
+            const link=gl.linkProgram;
+            const wrapped=function(program){if(state.programs.length<128)state.programs.push(program);return link.call(this,program);};
+            gl.linkProgram=wrapped;probe.restores.push(()=>{if(gl.linkProgram===wrapped)gl.linkProgram=link;});
+          }return gl;
+        };
+        HTMLCanvasElement.prototype.getContext=hooked;
+        probe.restore=()=>{if(HTMLCanvasElement.prototype.getContext===hooked)HTMLCanvasElement.prototype.getContext=original;for(const r of probe.restores)r();};
+      },force);
+      const page=await context.newPage();const errors=[];page.on('pageerror',e=>{if(errors.length<16)errors.push(e.message);});
+      await page.goto(`http://127.0.0.1:${server.address().port}/index.html`,{waitUntil:'domcontentloaded',timeout:45000});
+      await page.waitForFunction(()=>typeof viewer!=='undefined'&&viewer&&!document.body.classList.contains('globe-loading')&&viewer.scene.globe.tilesLoaded&&!isCameraNavigating&&!loadMapPromise&&activeImagerySignature==='3d:full'&&labelEntities.length>0,undefined,{timeout:45000});
+      await page.evaluate(()=>document.fonts.ready);
+      const result=await page.evaluate(async()=>{
+        const scene=viewer.scene;const gl=scene.canvas.getContext('webgl2')||scene.canvas.getContext('webgl');
+        const probe=window.__hiddenShaderProbe;const state=probe.contexts.find(c=>c.gl===gl);
+        const frames=()=>new Promise((resolve,reject)=>{
+          let count=0;const remove=scene.postRender.addEventListener(()=>{if(++count<3){scene.requestRender();return;}clearTimeout(timer);remove();resolve();});
+          const timer=setTimeout(()=>{remove();reject(new Error('Native frames timed out'));},15000);scene.requestRender();
+        });
+        await frames();const before=state.programs.length;
+        hideMapLabels();await frames();const after=state.programs.length;
+        const commands=scene._frameState.commandList.filter(c=>Array.isArray(c.owner?._billboards)&&c.owner._billboards.length>0).map(c=>({pass:c.pass,sdf:c.owner._sdf,shown:c.owner._billboards.filter(b=>b.show).length}));
+        const hiddenPrograms=state.programs.slice(before,after).map(program=>gl.getAttachedShaders(program).map(shader=>({type:gl.getShaderParameter(shader,gl.SHADER_TYPE)===gl.FRAGMENT_SHADER?'fragment':'vertex',defines:(gl.getShaderSource(shader).match(/^\s*#define[^\n]*/gm)||[]).slice(0,40)})));
+        renderMapLabels();await frames();
+        const labels=viewer.dataSourceDisplay.defaultDataSource.clustering._labelCollection;
+        const restored={entities:labelEntities.length,shown:labels._glyphBillboardCollection._billboards.filter(b=>b.show).length,ready:labels.ready};
+        probe.restore();
+        return{before,after,hiddenLinks:after-before,hiddenPrograms,commands,restored,glError:gl.getError(),resolutionScale:viewer.resolutionScale,msaa:scene.msaaSamples,fxaa:scene.postProcessStages.fxaa.enabled};
+      });
+      results.push({force,...result,errors});console.log(JSON.stringify({force,hiddenLinks:result.hiddenLinks,commands:result.commands,restored:result.restored,errors}));
+      assert.equal(result.glError,0);assert.deepEqual(errors,[]);assert.ok(result.restored.entities>0&&result.restored.shown>0&&result.restored.ready);
+      if(force)assert.ok(result.hiddenLinks>0,'Baseline must link cold programs while all glyphs are hidden');
+      else{assert.equal(result.hiddenLinks,0);assert.equal(result.commands.length,0);}
+    }finally{await context.close();}
+  }passed=true;
+}finally{
+  await fs.writeFile(path.join(output,'cold-software.json'),JSON.stringify({generatedAt:new Date().toISOString(),passed,browser:browser?.version(),platform:process.platform,results,tiles:cache.stats()},null,2)+'\n');
+  await browser?.close();await new Promise(r=>server.close(r));
+}

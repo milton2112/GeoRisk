@@ -851,6 +851,26 @@ async function testMapLabels(browser, baseUrl) {
       await toolsToggle.click();
       assert.equal(await page.evaluate(() => labelEntities.length), 0);
       assert.equal(await page.evaluate(() => hiddenLabelEntities.length), 0);
+      const hiddenGlyphs = await page.evaluate(() => new Promise((resolve, reject) => {
+        const scene = viewer.scene;
+        let frames = 0;
+        const remove = scene.postRender.addEventListener(() => {
+          if (++frames < 2) { scene.requestRender(); return; }
+          clearTimeout(timer);
+          remove();
+          const labels = viewer.dataSourceDisplay.defaultDataSource.clustering._labelCollection;
+          const glyphs = labels?._glyphBillboardCollection;
+          resolve({ cached: glyphs?.length || 0, ready: labels?.ready,
+            shown: glyphs?._billboards.filter(billboard => billboard.show).length || 0,
+            commands: scene._frameState.commandList.filter(command =>
+              command.owner?._billboards?.length && command.owner._billboards.every(billboard => !billboard.show)).length });
+        });
+        const timer = setTimeout(() => { remove(); reject(new Error("No frame for hidden glyph regression")); }, 5000);
+        scene.requestRender();
+      }));
+      assert.ok(hiddenGlyphs.cached > 0 && hiddenGlyphs.ready && hiddenGlyphs.shown === 0,
+        "native glyph cache and readiness survive hiding: " + JSON.stringify(hiddenGlyphs));
+      assert.equal(hiddenGlyphs.commands, 0, "all-hidden native glyph collections enqueue no draws or shader work");
       await setMapMode(page, "2d");
       assert.equal(await page.evaluate(() => labelEntities.length), 0);
       assertHealthyPage(test.pageErrors, label + " etiquetas de mapa");
