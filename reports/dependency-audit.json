@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-08T19:00:00.252Z",
-  "lockSha256": "0bfa50ecf2c6c242d8e0e6be30af73c4733f987fbba721785a5f732a178b5609",
+  "generatedAt": "2026-10-09T10:01:09.741Z",
+  "lockSha256": "3317ccbc8b3dcc8f65d2358e261f0fd1c1eda4de6ba2dce66739dd8fb210e222",
   "includes": [
     "production",
     "development",

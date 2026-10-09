@@ -77,6 +77,17 @@ const { createFpsQualityMonitor } = sandbox.window.GeoRiskMapInteractions;
         "cada calidad conserva MSAA de Cesium antes de asignar buffers");
     }
   }
+  const stopBeforeFirstFrame = new Error("Scene configured before the render scheduler.");
+  state.installSceneRenderScheduler = () => { throw stopBeforeFirstFrame; };
+  state.Cesium.Viewer = class {
+    constructor() { this.scene = { useDepthPicking: true }; }
+  };
+  for (const mobile of [false, true]) for (const quality of ["auto", "high", "balanced", "performance"]) {
+    Object.assign(state, { mobile, qualityPreset: quality, viewer: null });
+    assert.throws(() => state.initializeViewer(), error => error === stopBeforeFirstFrame);
+    assert.equal(state.viewer.scene.useDepthPicking, false,
+      "el mapa plano evita copias de profundidad antes del primer frame en todos los perfiles");
+  }
   const tuning = source.slice(source.indexOf("function updateMapInteractionTuning()"), source.indexOf("function updateMapModeToggle()"));
   assert.match(tuning, /viewer\.scene\.msaaSamples = preset\.msaaSamples/, "cambios de perfil/modo actualizan MSAA");
   assert.match(tuning, /globeQuality\.reset\(viewer\.scene\.globe\)/, "un nuevo perfil invalida el snapshot del arrastre");

@@ -36,6 +36,16 @@ no una certificacion ambiental ni una afirmacion de neutralidad de carbono.
 
 ## Evidencia y control
 
+El mapa plano desactiva useDepthPicking antes del primer frame: evita preparar la
+textura/copia por frustum de pickPosition, conservando pick/drillPick de objetos y
+el fallback nativo del rayo contra el globo para la camara. Una futura funcion de
+alturas/modelos o pickPosition debe revisar esa decision. Los controles locales
+Intel/SwiftShader comparan cada byte RGBA con on/off/on; el contador de copias y
+la ausencia de buffers no miden bytes reales de GPU, energia ni mejora de FPS.
+Las pruebas conservan calidad, seleccion, zoom manual y transiciones, sin nuevos
+monitores o recursos del producto. El reloj detenido ya permite reposo sin frames;
+la sospecha de redibujados periodicos se descarto y ese ajuste no cambia.
+
 CI reparte los 27 flujos existentes entre dos runners Linux, con un navegador y
 ejecucion secuencial por runner; el gate local conserva la suite completa. Solo
 agrega evidencia del mismo run/intento/revision/fuentes/Chromium con cobertura

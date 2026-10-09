@@ -87,7 +87,7 @@ const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const globeQuality = mapInteractionCore.createGlobeQualityController();
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-10-08-release-4";
+const APP_VERSION = "2026-10-09-release-1";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -2400,6 +2400,9 @@ function initializeViewer() {
     terrainProvider: new Cesium.EllipsoidTerrainProvider(),
     timeline: false
   });
+  // Flat countries use object picking; camera controls retain the globe ray intersection.
+  // Avoid the per-frustum depth copy for pickPosition, which this map does not need.
+  viewer.scene.useDepthPicking = false;
   installSceneRenderScheduler();
 
   map.scene = viewer.scene;

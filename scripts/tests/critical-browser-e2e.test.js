@@ -1597,8 +1597,10 @@ async function assertAntialiasingProfile(page) {
     return { mode: currentMapMode, quality: qualityPreset, actualMsaa: viewer.scene.msaaSamples,
       expectedMsaa: preset.msaaSamples, actualFxaa: viewer.scene.postProcessStages.fxaa.enabled,
       expectedFxaa: preset.enableFxaa, webgl2: Boolean(webgl2),
+      useDepthPicking: viewer.scene.useDepthPicking,
       nativeAntialias: webgl2?.getContextAttributes()?.antialias };
   });
+  assert.equal(state.useDepthPicking, false, "el mapa plano no prepara profundidad para pickPosition");
   if (state.webgl2) assert.equal(state.nativeAntialias, false, "WebGL2 no agrega AA redundante al canvas final");
   assert.equal(state.actualMsaa, state.expectedMsaa, `MSAA: ${state.mode}/${state.quality}`);
   assert.equal(state.actualFxaa, state.expectedFxaa, `FXAA: ${state.mode}/${state.quality}`);
@@ -1639,6 +1641,13 @@ async function testReducedMapMotion(browser, baseUrl) {
       const alternateMode = mobile ? "3d" : "2d";
       await setMapMode(page, alternateMode);
       await setMapMode(page, initialMode);
+      await assertAntialiasingProfile(page);
+      const magnitude = await page.evaluate(() => viewer.camera.getMagnitude());
+      await page.mouse.move(viewport.width * 0.52, viewport.height * 0.52);
+      await page.mouse.wheel(0, -180);
+      await page.waitForFunction(before => viewer.camera.getMagnitude() < before * 0.99, magnitude,
+        { timeout: 8000 });
+      await waitForStable3dMap(page);
       const before = await page.locator("#map canvas").screenshot();
       await page.evaluate(() => {
         window.__motionCompletions = 0;
