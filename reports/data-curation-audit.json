@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-08T18:03:59.567Z",
+  "generatedAt": "2026-10-09T14:04:04.199Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 13267881,
+    "fullBytes": 13273009,
     "duplicatedCountryFilesBytes": 1560736,
-    "countryConflictShardBytes": 461446,
+    "countryConflictShardBytes": 461572,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24266,
-        "inlineBytes": 3459097,
+        "inlineBytes": 3464225,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,9 +105,9 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 217946,
-          "conflictShardBytes": 217947,
-          "averageConflictBytes": 236
+          "conflictsBytes": 218072,
+          "conflictShardBytes": 218073,
+          "averageConflictBytes": 237
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 77,
+    "pendingCount": 76,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15273,19 +15273,6 @@
       },
       {
         "name": "Batalla de SIranaya",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Steen's Mountain",
         "countries": [
           "USA"
         ],

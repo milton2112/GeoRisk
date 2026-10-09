@@ -32,6 +32,9 @@ const TEMPORAL_MONTH_ALIASES = {
 };
 
 export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
+  "Batalla de Steen's Mountain": "Battle_of_Steen's_Mountain",
+  "Batalla de Steens Mountain (1867)": "Battle_of_Steen's_Mountain",
+  "Battle of Steen's Mountain": "Battle_of_Steen's_Mountain",
   "Batalla de Tizi Ouzou": "Battle_Of_Tizi_Ouzou_(1845)",
   "Batalla de Tizi Ouzou (1845)": "Battle_Of_Tizi_Ouzou_(1845)",
   "Battle of Tizi Ouzou": "Battle_Of_Tizi_Ouzou_(1845)",

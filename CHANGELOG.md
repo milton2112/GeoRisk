@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.300 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.301 antes de cerrar la siguiente version.
+
+## v1.6.301 - 2026-10-09
+
+- Steens Mountain: la entrada sin fecha pasa a un unico episodio de 1867 dentro de la Guerra Snake (1864-1868), vinculado a Estados Unidos. Conserva el import original y aliases exactos, sin identificar otros nombres ambiguos. El timeline incorpora la fecha documentada y las fuentes profundas siguen cargandose al abrir el detalle.
+- Evidencia y limites: [Wainwright, historia del 1.er Regimiento de Caballeria, p. 165, U.S. Army Center of Military History](https://history.army.mil/books/R%26H/R%26H-1CV.htm) registra la Compania M el 29 de enero de 1867. Los 60 muertos y 27 capturados son cifras militares retrospectivas atribuidas, sin balance estadounidense consolidado ni corroboracion independiente. La discrepancia entre su Stein's Mountain, I. T. y la localizacion enciclopedica en Oregon queda visible; no se fijan coordenadas ni presencia personal de Crook o Paulina. [Idaho State Historical Society, Reference Series 236 (1966)](https://history.idaho.gov/wp-content/uploads/0236.pdf) aporta contexto regional, sin equiparar su ataque de enero cerca de Owyhee Ferry con este encuentro. No se consultaron partes originales ni testimonios paiutes; se mantiene confianza parcial y no se inventa un tratado.
+- Resultado: 1999 conflictos unicos conservados, jerarquias provisionales 12 -> 11, entradas sin fecha 78 -> 77 y pendientes fuera del indice fechable 77 -> 76. La regresion inicialmente fallo por fecha ausente; ahora comprueba jerarquia, atribucion de cifras, incertidumbres, aliases y consistencia entre fichas completas, fragmentos, detalle profundo, busqueda, timeline y contadores. Una comparacion estructural confirma que los otros datos de los 183 paises y el import original no cambian.
+- Navegador: el flujo existente de curaduria paso en Chrome 155 Windows en 16352 ms, con escritorio y mobile emulado. Comprueba busqueda real, grupo territorial existente, fecha unica, notas visibles, enlaces de fuente, bajas desconocidas, ausencia de tratado y desborde, cero precarga y un solo request de detalle reutilizado. Capturas inspeccionadas. Costo de una busqueda y dos aperturas/cierres por cada pagina existente, sin flujos/paginas nuevos ni ampliacion de deadlines. El tiempo no es un A/B, Linux ni un telefono fisico.
+- Green coding y costos: detalle profundo +4035 bytes bajo demanda, fragmento de conflictos estadounidense +126, conflicts_index +290 y timeline_index +138; script.js y countries_index no crecen antes del stamp. Reutiliza generadores y modal, sin dependencia, modulo del cliente, cache, polling, timer, listener o precalculo nuevos. Conserva accesibilidad, offline, Save-Data y calidad del mapa. El beneficio es una fecha util con evidencia e incertidumbres visibles; no se afirma ahorro de CPU/GPU, RAM, energia o CO2. Las mediciones completas se renuevan con estas entradas y notas congeladas; la lentitud del renderer por software sigue pendiente.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-10-09-release-2`.
 
 ## v1.6.300 - 2026-10-09
 

@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-10-08T18:03:51.116Z",
-  "changedFullCountries": 2,
+  "generatedAt": "2026-10-09T14:03:56.590Z",
+  "changedFullCountries": 1,
   "fullPassChanges": [
-    2,
+    1,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
@@ -13,7 +13,7 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1115,
+  "generatedHierarchyCandidates": 1116,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -1782,6 +1782,8 @@
     "Battle off Halifax (1782)": "Batalla naval frente a Halifax (1782)",
     "Batalla de Tizi Ouzou": "Batalla de Tizi Ouzou (1845)",
     "Battle of Tizi Ouzou": "Batalla de Tizi Ouzou (1845)",
+    "Batalla de Steen's Mountain": "Batalla de Steens Mountain (1867)",
+    "Battle of Steen's Mountain": "Batalla de Steens Mountain (1867)",
     "Batalla de Notch": "Batalla del paso de Chungam-ni (Notch, 1950)",
     "Battle of the Notch": "Batalla del paso de Chungam-ni (Notch, 1950)",
     "Batalla de Punk Hill": "Combate de Punk Hill (1777)",
@@ -2894,6 +2896,7 @@
     "Batalla del cabo de Gata (1815)",
     "Batalla naval frente a Halifax (1782)",
     "Batalla de Tizi Ouzou (1845)",
+    "Batalla de Steens Mountain (1867)",
     "Batalla del paso de Chungam-ni (Notch, 1950)",
     "Combate de Punk Hill (1777)",
     "Expedicion de Taraca (1904)",

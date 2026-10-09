@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-09T10:03:56.026Z",
+  "generatedAt": "2026-10-09T14:57:48.399Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 12,
-  "reviewCount": 12,
+  "advisoryCount": 11,
+  "reviewCount": 11,
   "summary": {
-    "provisional_parent": 12
+    "provisional_parent": 11
   },
   "topIssues": [],
   "topAdvisories": [
@@ -96,20 +96,6 @@
     {
       "key": "batalla de siranaya",
       "name": "Batalla de SIranaya",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de steen s mountain",
-      "name": "Batalla de Steen's Mountain",
       "countries": [
         "USA"
       ],

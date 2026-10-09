@@ -989,6 +989,7 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
     let santoriniDetailRequests = 0;
     let capeRocaDetailRequests = 0;
     let tiziDetailRequests = 0;
+    let steensDetailRequests = 0;
     let altunDetailRequests = 0;
     let releaseDetail;
     const pending = new Promise(resolve => { releaseDetail = resolve; });
@@ -1018,6 +1019,7 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
         if (request.url().includes("/data/conflicts/details/incursion-sobre-santorini-1944-")) santoriniDetailRequests++;
         if (request.url().includes("/data/conflicts/details/batalla-del-cabo-de-la-roca-1703-")) capeRocaDetailRequests++;
         if (request.url().includes("/data/conflicts/details/batalla-de-tizi-ouzou-1845-")) tiziDetailRequests++;
+        if (request.url().includes("/data/conflicts/details/batalla-de-steens-mountain-1867-")) steensDetailRequests++;
         if (request.url().includes("/data/conflicts/details/batalla-de-altun-kupri-pirde-2017-")) altunDetailRequests++;
       });
       await page.route(/\/app-(curation|conflict-rules)\.js\?/, async route => {
@@ -1301,6 +1303,41 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
       await page.evaluate(() => openConflictModal(window.__tiziKey));
       assert.equal(tiziDetailRequests, 1, "reopening Tizi Ouzou reuses its single deep-detail request");
       await page.locator("#conflict-modal-close").click();
+      assert.equal(steensDetailRequests, 0, "Steens Mountain evidence stays unloaded before its modal opens");
+      await submitSearch(page, "Steens Mountain");
+      const steensLink = page.locator('#country-panel .group-selection-action [data-conflict-key]');
+      await steensLink.waitFor({ state: "visible" });
+      assert.match(await page.locator('#country-panel h2').innerText(), /Steens Mountain/);
+      assert.deepEqual(await page.evaluate(() => selectedLayers.map(layer => layer.code)), ["USA", "PRI"],
+        "search keeps the existing USA territory group; the conflict index links only USA");
+      assert.equal(steensDetailRequests, 0, "search uses the lightweight dated index");
+      const steensKey = await steensLink.getAttribute("data-conflict-key");
+      await steensLink.click();
+      await page.waitForFunction(() => Boolean(CONFLICT_DETAIL_OVERRIDES["Batalla de Steens Mountain (1867)"]));
+      assert.equal((await page.locator("#conflict-modal-title").innerText()).match(/1867/g)?.length, 1);
+      assert.match(await body.innerText(), /Guerra Snake \(1864-1868\)/);
+      assert.match(await body.innerText(), /Compania M del 1.er Regimiento/);
+      assert.match(await body.innerText(), /Wainwright registra 60 muertos y 27 capturados/);
+      assert.match(await body.innerText(), /no a un recuento independiente/);
+      assert.match(await body.innerText(), /Sin balance consolidado.*no equivale a cero/);
+      assert.doesNotMatch(await body.innerText(), /Conflicto regional de|Actor registrado|Oponente o fuerza local/);
+      const steensNotes = body.locator(".conflict-curation-notes");
+      assert.match(await steensNotes.innerText(), /29 de enero de 1867/);
+      assert.match(await steensNotes.innerText(), /Stein's Mountain, I\. T\./);
+      assert.match(await steensNotes.innerText(), /discrepancia geografica no se resuelve/);
+      assert.match(await steensNotes.innerText(), /No se acredita la presencia personal de Crook o Paulina/);
+      assert.match(await steensNotes.innerText(), /No se consultaron los partes originales ni testimonios paiutes/);
+      assert.deepEqual(await body.locator(".conflict-hierarchy-sources a").evaluateAll(links => links.map(link => new URL(link.href).hostname)), [
+        "history.army.mil", "history.idaho.gov", "en.wikipedia.org"
+      ]);
+      assert.equal(await body.locator(".conflict-treaties").count(), 0);
+      assert.equal(await body.evaluate(element => element.scrollWidth <= element.clientWidth), true);
+      await captureLiveElement(page, steensNotes, { path: `tmp/steens-mountain-curation-${label}.png`, timeout: 10000 });
+      await page.locator("#conflict-modal-close").click();
+      await page.evaluate(key => openConflictModal(key), steensKey);
+      assert.equal(steensDetailRequests, 1, "reopening Steens Mountain reuses its single detail request");
+      await page.locator("#conflict-modal-close").click();
+      await closeCountryPanel(page);
       assert.equal(altunDetailRequests, 0, "Altun Kupri evidence is not loaded with other conflicts");
       await submitSearch(page, "Pirde");
       const altunLink = page.locator('#country-panel .group-selection-action [data-conflict-key]');

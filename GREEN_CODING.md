@@ -36,6 +36,15 @@ no una certificacion ambiental ni una afirmacion de neutralidad de carbono.
 
 ## Evidencia y control
 
+La curaduria de Steens Mountain reutiliza los generadores y el modal actuales:
+un detalle de 4035 bytes se carga bajo demanda, sin distribuir documentos fuente
+ni agregar codigo del cliente. Los incrementos de indices permiten buscar y fechar
+el episodio; las atribuciones y discrepancias quedan en el detalle profundo.
+Se conserva el import original y no se resuelven otras entradas por semejanza.
+Las regresiones agregan una busqueda y dos aperturas/cierres a cada pagina de
+curaduria existente, sin mas paginas, flujos o deadlines. No es una optimizacion
+del renderer ni una medicion de ahorro de CPU/GPU, memoria, energia o CO2.
+
 El mapa plano desactiva useDepthPicking antes del primer frame: evita preparar la
 textura/copia por frustum de pickPosition, conservando pick/drillPick de objetos y
 el fallback nativo del rayo contra el globo para la camara. Una futura funcion de
