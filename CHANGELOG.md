@@ -8,7 +8,16 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.302 antes de cerrar la siguiente version.
+- Se documentaran aca los cambios posteriores a v1.6.303 antes de cerrar la siguiente version.
+
+## v1.6.303 - 2026-10-09
+
+- Mapa: evita bloquear JavaScript al adaptar la resolucion con una GPU ocupada. El loop nativo de Cesium con reloj detenido conserva un solo fence WebGL2 y consulta con timeout cero en sus callbacks existentes; difiere resize y nuevos frames hasta que termine el anterior. La espera de GPU sigue existiendo y conserva el ultimo frame visible. Tras 1500 ms o 64 consultas vuelve al resize nativo; no cambia resolucion final, MSAA, FXAA, OIT ni los criterios de calidad adaptativa.
+- Compatibilidad y limpieza: primer frame, WebGL1, animacion del reloj, cambios de layout/DPR y resize/render manuales conservan su camino nativo. Cancelar el cambio, reemplazar el contexto, parar el loop, un error o destruir el widget liberan el fence; varias escalas pendientes conservan la ultima. El build aplica el cambio solo al CesiumWidget fijado y rechaza una fuente incompatible. Las pruebas nativas cubren esos caminos y los controles existentes de calidad verifican dimensiones reales y ausencia de trabajo pendiente sin ampliar deadlines.
+- Evidencia local: ABBA con el motor final, cuatro contextos nuevos de Chrome 155 Windows/SwiftShader y CPU x4. La escritura de ancho original bloqueo 596,9 y 623,6 ms; con la guarda tardo 1,3 y 1,0 ms, con consultas de como maximo 0,2 ms. La espera de GPU continuo durante 641,5 y 619,8 ms, mientras un callback pudo ejecutarse a los 54,6 y 55,2 ms. Las tareas contenedoras originales duraron 624/659 ms; ninguna supero 200 ms en las dos ventanas con guarda. Ambos caminos terminaron en escala 0,44, canvas 171x371, MSAA 4 y FXAA desactivado, sin errores de pagina/WebGL. Es un diagnostico de bloqueo concreto, no prueba de mas FPS generales, Linux, telefono fisico o ahorro energetico/CO2.
+- Cuatro controles fallback/guarda/fallback de Intel/SwiftShader, escritorio 3D y mobile 2D, conservan dimensiones y cada byte RGBA en las doce capturas tras completar la restauracion de detalle. Se exige imagery full en escritorio y boot en mobile, conforme a su politica real. Una captura exploratoria anterior al estado estable y una espera incorrecta de full en mobile se conservan excluidas; no se acepta tolerancia de pixeles ni se modifican plazos del producto/gate. Los informes y prototipos quedan internos, fuera del sitio/precache; los perfiles CPU y capturas originales permanecen externos.
+- Green coding y costos: el motor crece 847 bytes, a 3430614, con los mismos 24 exports, dependencias y licencias. Cada cambio elegible agrega un fence/flush, consultas acotadas y eliminacion; durante la espera evita enviar mas frames. No agrega loops, timers, listeners, red, caches o precalculos al producto. Los dos archivos de evidencia suman 107891 bytes internos. La mejora esperada es mantener disponibles los controles de la pagina mientras termina la GPU; no se cuantifica ahorro de CPU/GPU, RAM, energia ni CO2. Se conservan los 27 flujos y presupuestos originales; el cierre completo y la CI deben validar esta revision.
+- Actualiza `APP_VERSION` y `CACHE_VERSION` a `2026-10-09-release-4`.
 
 ## v1.6.302 - 2026-10-09
 

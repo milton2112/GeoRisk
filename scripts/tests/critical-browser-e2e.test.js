@@ -2300,8 +2300,12 @@ async function testDeferredWorkDuringDrag(browser, baseUrl) {
       assert.equal(await page.evaluate(() => reducedPerformanceReason), "");
       await page.waitForFunction(() => {
         const preset = getPerformancePreset();
+        const canvas = viewer.scene.canvas;
+        const pixelRatio = viewer.resolutionScale * (viewer.useBrowserRecommendedResolution ? 1 : window.devicePixelRatio);
         return !isCameraNavigating && navigationQualityRestoreTimer === null &&
           viewer.resolutionScale === preset.resolutionScale &&
+          !viewer.cesiumWidget._forceResize && !viewer.cesiumWidget._geoRiskResizeFence &&
+          canvas.width === Math.floor(canvas.clientWidth * pixelRatio) && canvas.height === Math.floor(canvas.clientHeight * pixelRatio) &&
           viewer.scene.globe.maximumScreenSpaceError === preset.maximumScreenSpaceError &&
           viewer.scene.globe.tileCacheSize === preset.tileCacheSize &&
           viewer.scene.globe.loadingDescendantLimit === preset.loadingDescendantLimit;

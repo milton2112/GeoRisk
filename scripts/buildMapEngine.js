@@ -7,6 +7,7 @@ import { removeCesiumEvaluationToken } from "./lib/cesium-evaluation-token.js";
 import { replaceKnockoutGlobalLookup } from "./lib/cesium-csp.js";
 import { enableCesiumTextReadback } from "./lib/cesium-text-readback.js";
 import { skipHiddenCesiumBillboards } from "./lib/cesium-hidden-billboards.js";
+import { deferCesiumResolutionResize } from "./lib/cesium-resolution-resize.js";
 
 const root = process.cwd();
 const outputDirectory = "vendor/cesium";
@@ -18,7 +19,7 @@ const result = await build({
   bundle: true, minify: true, format: "esm", target: "es2020",
   write: false, metafile: true, legalComments: "eof",
   define: { CESIUM_VERSION: '"1.127"' },
-  banner: { js: "/*! GeoRisk subset of CesiumJS 1.127. Copyright 2011-2024 CesiumJS Contributors.\n * Modified distribution: selected exports, tree shaking, release debug and evaluation token removal, CSP-safe global lookup, glyph measurement readback hint, hidden billboard deferral.\n * Apache-2.0 and third-party notices: see LICENSES.txt in this directory. */" },
+  banner: { js: "/*! GeoRisk subset of CesiumJS 1.127. Copyright 2011-2024 CesiumJS Contributors.\n * Modified distribution: selected exports, tree shaking, release debug and evaluation token removal, CSP-safe global lookup, glyph measurement readback hint, hidden billboard deferral, nonblocking resolution resize.\n * Apache-2.0 and third-party notices: see LICENSES.txt in this directory. */" },
   plugins: [{
     name: "cesium-release-pragmas",
     setup(builder) {
@@ -27,7 +28,8 @@ const result = await build({
         source = removeCesiumEvaluationToken(source, file);
         source = replaceKnockoutGlobalLookup(source, file);
         source = enableCesiumTextReadback(source, file);
-        return { contents: skipHiddenCesiumBillboards(source, file), loader: "js" };
+        source = skipHiddenCesiumBillboards(source, file);
+        return { contents: deferCesiumResolutionResize(source, file), loader: "js" };
       });
     }
   }]

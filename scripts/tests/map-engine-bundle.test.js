@@ -4,6 +4,7 @@ import { createHash } from "node:crypto";
 import { stripCesiumDebugPragmas } from "../lib/cesium-release-pragmas.js";
 import "./cesium-text-readback.test.js";
 import "./cesium-hidden-billboards.test.js";
+import "./cesium-resolution-resize.test.js";
 
 const source = [
   "const keep = 1;", "//>>includeStart('debug', pragmas.debug);",

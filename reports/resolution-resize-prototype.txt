@@ -1,0 +1,510 @@
+// Diagnostic programs only; never loaded by the app. Split at the FILE markers into tmp/ relative to the checkout; each accepts a new absolute output directory. The timing program also needs preserved v1.6.302 baseline-engine.js in the documented sibling canvas-fence-pilot-2026-10-09 directory. See resolution-resize-diagnostic.json for accepted/excluded results and limitations.
+
+// FILE: tmp/canvas-native-fence-final-probe.mjs
+// Bounded, diagnostic-only passive canvas setters; never loaded by the app.
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { createHash } from 'node:crypto';
+import assert from 'node:assert/strict';
+import { chromium } from '@playwright/test';
+import { createLocalSmokeServer } from '../scripts/localSmokeServer.js';
+import { getPerformanceInputHash } from '../scripts/lib/performance-inputs.js';
+
+const output = path.resolve(process.argv[2]);
+await fs.mkdir(output, { recursive: true });
+const server = createLocalSmokeServer();
+await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+const report = { generatedAt: new Date().toISOString(), baseRevision: 'a77e637ea87ef60e1e6c4ce881363e0057c04560', uncommittedEnginePatch: true, version: '1.6.303', inputHash: await getPerformanceInputHash(process.cwd()), platform: process.platform, node: process.version,
+  method: 'Actual generated-engine ABBA: four fresh sequential Windows Chrome SwiftShader mobile contexts CPU x4, four cores/16 GiB hints. A fulfills the unchanged v1.6.302 engine from its preserved bytes; B uses the actual newly generated engine with source-scoped default-loop guard. All other source files identical. Passive setters/sync method timing and 50 ms owned sentinel per actual fence. Eight seconds movement and native auto quality active. CDP CPU profiles filtered to movement. No prototype renderer monkeypatch, pixel-equivalence control or production diagnostic flag.',
+  limitations: 'Instrumentation costs CPU; setter return time can include driver waiting, not pure CPU/GPU execution. Statistical CPU samples. Not Linux parity, a physical phone, release/FPS A/B or energy measurement.', results: [] };
+report.baselineEngine = { path: 'baseline-engine.js', sha256: createHash('sha256').update(await fs.readFile(path.join(path.dirname(output), 'canvas-fence-pilot-2026-10-09/baseline-engine.js'))).digest('hex') };
+report.currentEngine = { sha256: createHash('sha256').update(await fs.readFile('vendor/cesium/engine.js')).digest('hex') };
+let browser;
+try {
+  browser = await chromium.launch({ channel: 'chrome', headless: true, args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
+  report.browser = browser.version();
+  for (const profile of [false, true, true, false].map((enabled, index) => ({ name: `mobile-${index}-${enabled ? 'fence' : 'native'}`, enabled, viewport: { width: 390, height: 844 }, mobile: true, cpu: 4 }))) {
+    const context = await browser.newContext({ viewport: profile.viewport, isMobile: profile.mobile, hasTouch: profile.mobile, deviceScaleFactor: 1, serviceWorkers: 'block' });
+    const result = { profile, errors: [] };
+    report.results.push(result);
+    try {
+      let baselineRoutes = 0;
+      if (!profile.enabled) await context.route('**/vendor/cesium/engine.js*', route => { baselineRoutes++; return route.fulfill({ path: path.join(path.dirname(output), 'canvas-fence-pilot-2026-10-09/baseline-engine.js'), contentType: 'application/javascript' }); });
+      await context.addInitScript(() => {
+        Object.defineProperty(navigator, 'hardwareConcurrency', { get: () => 4 });
+        Object.defineProperty(navigator, 'deviceMemory', { get: () => 16 });
+        localStorage.setItem('geo-risk-intro-seen', 'true');
+        localStorage.setItem('geo-risk-auto-rotate', 'false');
+        localStorage.setItem('geo-risk-quality-preset', 'auto');
+        const probe = window.__canvasSetterProbe = { phase: 'startup', writes: [], counts: {}, restores: [], tasks: [], frames: [], dropped: 0 };
+        for (const dimension of ['width', 'height']) {
+          const native = Object.getOwnPropertyDescriptor(HTMLCanvasElement.prototype, dimension);
+          const wrapped = function (value) {
+            if (!probe.phase) return native.set.call(this, value);
+            const phase = probe.phase;
+            const before = native.get.call(this);
+            const start = performance.now();
+            try { return native.set.call(this, value); }
+            finally {
+              const duration = performance.now() - start;
+              const count = probe.counts[phase] = (probe.counts[phase] || 0) + 1;
+              if (count <= 64) probe.writes.push({ canvas: this, dimension, before, assigned: value, after: native.get.call(this), start, duration, phase });
+              else probe.dropped++;
+            }
+          };
+          Object.defineProperty(HTMLCanvasElement.prototype, dimension, { ...native, set: wrapped });
+          probe.restores.push(() => { if (Object.getOwnPropertyDescriptor(HTMLCanvasElement.prototype, dimension).set === wrapped) Object.defineProperty(HTMLCanvasElement.prototype, dimension, native); });
+        }
+        const collect = entries => {
+          for (const entry of entries) {
+            if (probe.tasks.length < 512) probe.tasks.push({ start: entry.startTime, duration: entry.duration });
+            else probe.dropped++;
+          }
+        };
+        probe.observer = new PerformanceObserver(list => collect(list.getEntries()));
+        probe.observer.observe({ type: 'longtask', buffered: true });
+        probe.teardown = () => { probe.phase = null; collect(probe.observer.takeRecords()); probe.observer.disconnect(); for (const restore of probe.restores) restore(); };
+        probe.safety = setTimeout(probe.teardown, 70000);
+      });
+      const page = await context.newPage();
+      page.on('pageerror', error => { if (result.errors.length < 12) result.errors.push(error.message); });
+      const cdp = await context.newCDPSession(page);
+      await cdp.send('Emulation.setCPUThrottlingRate', { rate: profile.cpu });
+      await page.goto(`http://127.0.0.1:${server.address().port}/index.html`, { waitUntil: 'domcontentloaded', timeout: 45000 });
+      await page.waitForFunction(() => typeof viewer !== 'undefined' && viewer && !document.body.classList.contains('globe-loading') && countryLayers.has('ARG') && countryLayers.has('ESP') && viewer.scene.globe.tilesLoaded && !isCameraNavigating && !loadMapPromise, undefined, { timeout: 45000 });
+      await page.evaluate(() => document.fonts.ready);
+      assert.equal(baselineRoutes, profile.enabled ? 0 : 1);
+      await page.evaluate(enabled => {
+        const widget = viewer.cesiumWidget;
+        const gl = viewer.scene.context._gl;
+        const stats = { enabled, supported: typeof gl.fenceSync === 'function', events: [], calls: {}, pending: false, callbacks: [] };
+        window.__resizeFenceProbe = stats;
+        const records = new Map();
+        const restores = [];
+        const timers = new Set();
+        for (const name of ['fenceSync', 'flush', 'clientWaitSync', 'deleteSync']) {
+          const native = gl[name];
+          const own = Object.getOwnPropertyDescriptor(gl, name);
+          const wrapped = function (...args) {
+            const start = performance.now();
+            let result;
+            try { result = native.apply(this, args); return result; }
+            finally {
+              const elapsed = performance.now() - start;
+              const cost = stats.calls[name] ||= { count: 0, totalMs: 0, maxMs: 0 };
+              cost.count++; cost.totalMs += elapsed; cost.maxMs = Math.max(cost.maxMs, elapsed);
+              if (name === 'fenceSync' && result) {
+                if (stats.events.length + records.size >= 8) throw new Error('Fence event bound');
+                records.set(result, { start, polls: 0, lastStatus: null });
+                stats.pending = true;
+                const timer = setTimeout(() => {
+                  timers.delete(timer);
+                  stats.callbacks.push({ start, elapsed: performance.now() - start, pending: Boolean(widget._geoRiskResizeFence) });
+                }, 50);
+                timers.add(timer);
+              }
+              if (name === 'clientWaitSync' && records.has(args[0])) { const record = records.get(args[0]); record.polls++; record.lastStatus = result; }
+              if (name === 'deleteSync' && records.has(args[0])) {
+                const record = records.get(args[0]);
+                stats.events.push({ ...record, end: performance.now(), reason: [gl.ALREADY_SIGNALED, gl.CONDITION_SATISFIED].includes(record.lastStatus) ? 'signaled' : 'fallback' });
+                records.delete(args[0]); stats.pending = records.size > 0;
+              }
+            }
+          };
+          gl[name] = wrapped;
+          restores.push(() => { if (gl[name] === wrapped) { if (own) Object.defineProperty(gl,name,own); else delete gl[name]; } });
+        }
+        stats.dispose = () => { for (const restore of restores) restore(); for (const timer of timers) clearTimeout(timer); };
+      }, profile.enabled);
+      await cdp.send('Performance.enable');
+      result.metrics = (await cdp.send('Performance.getMetrics')).metrics.filter(metric => ['Timestamp', 'NavigationStart'].includes(metric.name));
+      await cdp.send('Profiler.enable');
+      await cdp.send('Profiler.setSamplingInterval', { interval: 2000 });
+      await cdp.send('Profiler.start');
+      result.sample = await page.evaluate(() => new Promise(resolve => {
+        const probe = window.__canvasSetterProbe;
+        const scene = viewer.scene;
+        const config = () => ({ mode: currentMapMode, resolution: viewer.resolutionScale, msaa: scene.msaaSamples, fxaa: scene.postProcessStages.fxaa.enabled, width: scene.canvas.width, height: scene.canvas.height, imagery: activeImagerySignature, geometry: activeGeoJsonPath });
+        const initial = config();
+        probe.phase = 'navigation';
+        const activeStart = performance.now();
+        let finished = false;
+        const remove = scene.postRender.addEventListener(() => { if (probe.frames.length < 256) probe.frames.push(performance.now()); else probe.dropped++; });
+        const finish = () => {
+          if (finished) return;
+          finished = true;
+          remove();
+          const activeEnd = performance.now();
+          clearTimeout(probe.safety);
+          probe.teardown();
+          resolve({ initial, final: config(), activeStart, activeEnd, frames: probe.frames, tasks: probe.tasks, dropped: probe.dropped,
+            writes: probe.writes.map(({ canvas, ...record }) => ({ ...record, actualMapCanvas: canvas === scene.canvas })) });
+        };
+        const move = () => {
+          if (finished || performance.now() - activeStart >= 8000) return;
+          if (scene.mode === Cesium.SceneMode.SCENE2D) viewer.camera.moveRight(60000);
+          else viewer.camera.rotateRight(0.003);
+          scene.requestRender();
+          requestAnimationFrame(move);
+        };
+        setTimeout(finish, 8000);
+        requestAnimationFrame(move);
+      }));
+      const { profile: cpu } = await cdp.send('Profiler.stop');
+      await cdp.send('Profiler.disable');
+      assert.ok(cpu.nodes.length <= 4096 && cpu.samples.length <= 12000, 'CPU profile bound');
+      const raw = JSON.stringify(cpu);
+      assert.ok(Buffer.byteLength(raw) <= 4 * 1024 ** 2, 'CPU byte bound');
+      await fs.writeFile(path.join(output, `${profile.name}-cpu.json`), raw + '\n');
+      const originUs = result.metrics.find(metric => metric.name === 'NavigationStart').value * 1e6;
+      const startUs = originUs + result.sample.activeStart * 1000;
+      const endUs = originUs + result.sample.activeEnd * 1000;
+      assert.ok(cpu.startTime <= startUs && cpu.endTime >= endUs, 'CPU timebase brackets movement');
+      const times = new Map();
+      let timeUs = cpu.startTime;
+      for (let i = 0; i < cpu.samples.length; i++) {
+        const nextUs = timeUs + cpu.timeDeltas[i];
+        const overlapUs = Math.max(0, Math.min(endUs, nextUs) - Math.max(startUs, timeUs));
+        if (overlapUs) times.set(cpu.samples[i], (times.get(cpu.samples[i]) || 0) + overlapUs);
+        timeUs = nextUs;
+      }
+      const nodes = new Map(cpu.nodes.map(node => [node.id, node]));
+      result.cpu = { nodes: cpu.nodes.length, samples: cpu.samples.length, bytes: Buffer.byteLength(raw), activeStartUs: startUs, activeEndUs: endUs,
+        top: [...times].sort((a,b) => b[1]-a[1]).slice(0, 24).map(([id, us]) => ({ selfMs: us / 1000, ...nodes.get(id).callFrame })) };
+      result.gpu = await page.evaluate(() => {
+        const gl = viewer.scene.canvas.getContext('webgl2') || viewer.scene.canvas.getContext('webgl');
+        const extension = gl.getExtension('WEBGL_debug_renderer_info');
+        return { renderer: extension ? gl.getParameter(extension.UNMASKED_RENDERER_WEBGL) : null, error: gl.getError() };
+      });
+      result.fence = await page.evaluate(() => {
+        const probe = window.__resizeFenceProbe;
+        const { dispose, ...stats } = probe;
+        stats.pendingBeforeTeardown = Boolean(viewer.cesiumWidget._geoRiskResizeFence);
+        dispose();
+        stats.pendingAfterTeardown = Boolean(viewer.cesiumWidget._geoRiskResizeFence);
+        return stats;
+      });
+      assert.equal(result.fence.pendingBeforeTeardown, false, 'resize completed before sample ended');
+      assert.equal(result.fence.pendingAfterTeardown, false, 'no fence leak');
+      if (profile.enabled) assert.ok(result.fence.events.length > 0 && result.fence.events.every(event => event.reason === 'signaled'), 'prototype signaled without fallback');
+      assert.equal(result.sample.final.resolution, 0.44, 'same adapted target');
+      assert.deepEqual([result.sample.final.width, result.sample.final.height], [171, 371], 'same final dimensions');
+      assert.equal(result.sample.dropped, 0);
+      assert.equal(result.gpu.error, 0);
+      assert.ok(result.sample.frames.length > 0);
+      assert.deepEqual(result.errors, []);
+      result.passed = true;
+      console.log(JSON.stringify({ name: profile.name, fence: result.fence, writes: result.sample.writes.filter(write => write.actualMapCanvas && write.phase === 'navigation'), cpu: result.cpu.top.slice(0, 4), tasks: result.sample.tasks.filter(task => task.start >= result.sample.activeStart).sort((a,b) => b.duration-a.duration).slice(0, 4), errors: result.errors }));
+    } catch (error) { result.failure = error.message; throw error; }
+    finally { await context.close(); }
+  }
+} catch (error) { report.failure = error.message; throw error; }
+finally {
+  report.finishedAt = new Date().toISOString();
+  await fs.writeFile(path.join(output, 'canvas-native-fence-diagnostic.json'), JSON.stringify(report, null, 2) + '\n');
+  await browser?.close();
+  await new Promise(resolve => server.close(resolve));
+}
+
+// FILE: tmp/canvas-resize-pixels-settled.mjs
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
+import { chromium } from '@playwright/test';
+import { createLocalSmokeServer } from '../scripts/localSmokeServer.js';
+import { getPerformanceInputHash } from '../scripts/lib/performance-inputs.js';
+import { createRequire } from 'node:module';
+const { PNG } = createRequire(import.meta.url)('playwright-core/lib/utilsBundle');
+const output = path.resolve(process.argv[2]);
+await fs.mkdir(output, { recursive: true });
+const server = createLocalSmokeServer();
+await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+const report = { generatedAt: new Date().toISOString(), baseRevision: 'a77e637ea87ef60e1e6c4ce881363e0057c04560', uncommittedEnginePatch: true,
+  inputHash: await getPerformanceInputHash(process.cwd()), engineSha256: createHash('sha256').update(await fs.readFile('vendor/cesium/engine.js')).digest('hex'),
+  method: 'Four sequential native generated-engine contexts: Intel/SwiftShader, desktop 3D/mobile 2D, CPU x1/x4. Within each context native fallback/guard/fallback; only fenceSync returns null in fallback arms, exercising the actual native fallback. Each arm restores initial scale then changes to the identical target through the actual default render loop, waits actual native dimensions, fixes the world view and captures three stable native frames after tiles ready. Every RGBA byte/dimension compared with stable fallback control; no performance or energy claim.', results: [] };
+let browser;
+try {
+  for (const software of [false, true]) {
+    browser = await chromium.launch({ channel: 'chrome', headless: true, args: software ? ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'] : [] });
+    report.browser = browser.version();
+    for (const mobile of [false, true]) {
+      const name = `${software ? 'software' : 'hardware'}-${mobile ? 'mobile' : 'desktop'}`;
+      const context = await browser.newContext({ viewport: mobile ? { width: 390, height: 844 } : { width: 1440, height: 920 }, isMobile: mobile, hasTouch: mobile, deviceScaleFactor: 1, serviceWorkers: 'block' });
+      const result = { name, software, mobile, errors: [], captures: [] };
+      report.results.push(result);
+      try {
+        await context.addInitScript(() => {
+          Object.defineProperty(navigator, 'hardwareConcurrency', { get: () => 4 });
+          Object.defineProperty(navigator, 'deviceMemory', { get: () => 16 });
+          localStorage.setItem('geo-risk-intro-seen', 'true');
+          localStorage.setItem('geo-risk-auto-rotate', 'false');
+          localStorage.setItem('geo-risk-quality-preset', 'auto');
+        });
+        const page = await context.newPage();
+        page.on('pageerror', error => { if (result.errors.length < 12) result.errors.push(error.message); });
+        const cdp = await context.newCDPSession(page);
+        await cdp.send('Emulation.setCPUThrottlingRate', { rate: mobile ? 4 : 1 });
+        await page.goto(`http://127.0.0.1:${server.address().port}/index.html`, { waitUntil: 'domcontentloaded', timeout: 45000 });
+        await page.waitForFunction(() => typeof viewer !== 'undefined' && viewer && !document.body.classList.contains('globe-loading') && countryLayers.has('ARG') && countryLayers.has('ESP') && viewer.scene.globe.tilesLoaded && !isCameraNavigating && !loadMapPromise, undefined, { timeout: 45000 });
+        await page.evaluate(() => document.fonts.ready);
+        await page.waitForFunction(() => activeImagerySignature === currentMapMode + ':full' && !isCameraNavigating && navigationQualityRestoreTimer === null && viewer.scene.globe.tilesLoaded, undefined, { timeout: 45000 });
+        await page.evaluate(() => {
+          qualityPreset = 'balanced'; // Stop automatic adaptation in this pixel-only control; preserve actual initial AA/profile.
+          const gl = viewer.scene.context._gl;
+          const native = gl.fenceSync;
+          const own = Object.getOwnPropertyDescriptor(gl, 'fenceSync');
+          const state = window.__pixelResizeProbe = { enabled: false, created: 0, bypassed: 0 };
+          const wrapped = function (...args) {
+            if (!state.enabled) { state.bypassed++; return null; }
+            state.created++; return native.apply(this, args);
+          };
+          gl.fenceSync = wrapped;
+          state.restore = () => { if (gl.fenceSync === wrapped) { if (own) Object.defineProperty(gl, 'fenceSync', own); else delete gl.fenceSync; } };
+        });
+        const buffers = [];
+        for (const [index, enabled] of [false, true, false].entries()) {
+          const capture = await page.evaluate(async ({ enabled, mobile }) => {
+            const scene = viewer.scene;
+            const widget = viewer.cesiumWidget;
+            const gl = scene.context._gl;
+            const probe = window.__pixelResizeProbe;
+            probe.enabled = enabled;
+            const before = { created: probe.created, bypassed: probe.bypassed };
+            const target = mobile ? 0.44 : 0.94;
+            const wait = (scale, pixels = false) => new Promise((resolve, reject) => {
+              let stable = 0;
+              const remove = scene.postRender.addEventListener(() => {
+                if (widget._forceResize || widget._geoRiskResizeFence || !scene.globe.tilesLoaded || isCameraNavigating || navigationQualityRestoreTimer !== null ||
+                    scene.canvas.width !== Math.floor(scene.canvas.clientWidth * scale) || scene.canvas.height !== Math.floor(scene.canvas.clientHeight * scale)) stable = 0;
+                else stable++;
+                if (stable < 3) { scene.requestRender(); return; }
+                remove(); clearTimeout(timer);
+                if (!pixels) { resolve(); return; }
+                const bytes = new Uint8Array(scene.canvas.width * scene.canvas.height * 4);
+                if (bytes.length > 6 * 1024 ** 2) { reject(new Error('Pixel bound exceeded')); return; }
+                gl.readPixels(0, 0, scene.canvas.width, scene.canvas.height, gl.RGBA, gl.UNSIGNED_BYTE, bytes);
+                let binary = '';
+                for (let i = 0; i < bytes.length; i += 8192) binary += String.fromCharCode(...bytes.subarray(i, i + 8192));
+                resolve({ pixels: btoa(binary), width: scene.canvas.width, height: scene.canvas.height, resolution: viewer.resolutionScale,
+                  mode: currentMapMode, msaa: scene.msaaSamples, fxaa: scene.postProcessStages.fxaa.enabled, imagery: activeImagerySignature,
+                  labels: labelEntities.length, pending: Boolean(widget._geoRiskResizeFence), navigationQualityRestoreTimer,
+                  globeError: scene.globe.maximumScreenSpaceError, tileCache: scene.globe.tileCacheSize,
+                  position: Cesium.Cartesian3.clone(viewer.camera.positionWC), direction: Cesium.Cartesian3.clone(viewer.camera.directionWC),
+                  readFramebufferDefault: gl.getParameter(gl.READ_FRAMEBUFFER_BINDING) === null, glError: gl.getError() });
+              });
+              const timer = setTimeout(() => { remove(); reject(new Error('Native resize/frame capture timeout')); }, 15000);
+              scene.requestRender();
+            });
+            viewer.resolutionScale = mobile ? 0.5 : 0.98;
+            await wait(viewer.resolutionScale);
+            viewer.resolutionScale = target;
+            await wait(target);
+            fitWorldView();
+            const result = await wait(target, true);
+            return { ...result, enabled, created: probe.created - before.created, bypassed: probe.bypassed - before.bypassed };
+          }, { enabled, mobile });
+          const bytes = Buffer.from(capture.pixels, 'base64');
+          delete capture.pixels;
+          assert.equal(bytes.length, capture.width * capture.height * 4);
+          assert.ok(new Set(bytes).size > 32, 'nonblank rendered image');
+          buffers.push(bytes);
+          result.captures.push({ ...capture, rgbaBytes: bytes.length, sha256: createHash('sha256').update(bytes).digest('hex') });
+          assert.equal(capture.glError, 0);
+          assert.equal(capture.pending, false);
+          assert.ok(enabled ? capture.created > 0 && capture.bypassed === 0 : capture.bypassed > 0 && capture.created === 0, 'exercise actual native guard/fallback');
+          await page.screenshot({ path: path.join(output, `${name}-${index}.png`) });
+        }
+        await page.evaluate(() => window.__pixelResizeProbe.restore());
+        result.controlEqual = buffers[0].equals(buffers[2]);
+        result.guardEqual = buffers[0].equals(buffers[1]);
+        result.pixelDifferences = [1,2].map(index => {
+          let pixels = 0, maxChannel = 0;
+          for (let i = 0; i < buffers[0].length; i += 4) {
+            let changed = false;
+            for (let channel = 0; channel < 4; channel++) {
+              const delta = Math.abs(buffers[0][i + channel] - buffers[index][i + channel]);
+              maxChannel = Math.max(maxChannel, delta); changed ||= delta !== 0;
+            }
+            if (changed) pixels++;
+          }
+          return { index, pixels, maxChannel };
+        });
+        if (!result.controlEqual || !result.guardEqual) {
+          for (let index = 0; index < buffers.length; index++) {
+            const { width, height } = result.captures[index];
+            const image = new PNG({ width, height });
+            for (let row = 0; row < height; row++) buffers[index].copy(image.data, (height - 1 - row) * width * 4, row * width * 4, (row + 1) * width * 4);
+            await fs.writeFile(path.join(output, `${name}-${index}-raw.png`), PNG.sync.write(image));
+          }
+        }
+        assert.equal(result.controlEqual, true, 'fallback/fallback pixels stable');
+        assert.equal(result.guardEqual, true, 'guard preserves every RGBA byte and dimensions');
+        assert.deepEqual(result.errors, []);
+        result.passed = true;
+        console.log(JSON.stringify({ name, controlEqual: result.controlEqual, guardEqual: result.guardEqual, captures: result.captures.map(({ pixels, ...capture }) => capture), errors: result.errors }));
+      } catch (error) { result.failure = error.message; throw error; }
+      finally { await context.close(); }
+    }
+    await browser.close(); browser = null;
+  }
+  report.passed = true;
+} catch (error) { report.failure = error.message; throw error; }
+finally {
+  report.finishedAt = new Date().toISOString();
+  await fs.writeFile(path.join(output, 'canvas-resize-pixels.json'), JSON.stringify(report, null, 2) + '\n');
+  await browser?.close();
+  await new Promise(resolve => server.close(resolve));
+}
+
+// FILE: tmp/canvas-resize-pixels-rest.mjs
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
+import { chromium } from '@playwright/test';
+import { createLocalSmokeServer } from '../scripts/localSmokeServer.js';
+import { getPerformanceInputHash } from '../scripts/lib/performance-inputs.js';
+import { createRequire } from 'node:module';
+const { PNG } = createRequire(import.meta.url)('playwright-core/lib/utilsBundle');
+const output = path.resolve(process.argv[2]);
+await fs.mkdir(output, { recursive: true });
+const server = createLocalSmokeServer();
+await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+const report = { generatedAt: new Date().toISOString(), baseRevision: 'a77e637ea87ef60e1e6c4ce881363e0057c04560', uncommittedEnginePatch: true,
+  inputHash: await getPerformanceInputHash(process.cwd()), engineSha256: createHash('sha256').update(await fs.readFile('vendor/cesium/engine.js')).digest('hex'),
+  method: 'Four sequential native generated-engine contexts: Intel/SwiftShader, desktop 3D/mobile 2D, CPU x1/x4. Within each context native fallback/guard/fallback; only fenceSync returns null in fallback arms, exercising the actual native fallback. Each arm restores initial scale then changes to the identical target through the actual default render loop, waits actual native dimensions, fixes the world view and captures three stable native frames after tiles ready. Every RGBA byte/dimension compared with stable fallback control; no performance or energy claim.', results: [] };
+let browser;
+try {
+  for (const software of [false, true]) {
+    browser = await chromium.launch({ channel: 'chrome', headless: true, args: software ? ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'] : [] });
+    report.browser = browser.version();
+    for (const mobile of [false, true]) {
+      if (!software && !mobile) continue; // Already retained with identical final engine hash.
+      const name = `${software ? 'software' : 'hardware'}-${mobile ? 'mobile' : 'desktop'}`;
+      const context = await browser.newContext({ viewport: mobile ? { width: 390, height: 844 } : { width: 1440, height: 920 }, isMobile: mobile, hasTouch: mobile, deviceScaleFactor: 1, serviceWorkers: 'block' });
+      const result = { name, software, mobile, errors: [], captures: [] };
+      report.results.push(result);
+      try {
+        await context.addInitScript(() => {
+          Object.defineProperty(navigator, 'hardwareConcurrency', { get: () => 4 });
+          Object.defineProperty(navigator, 'deviceMemory', { get: () => 16 });
+          localStorage.setItem('geo-risk-intro-seen', 'true');
+          localStorage.setItem('geo-risk-auto-rotate', 'false');
+          localStorage.setItem('geo-risk-quality-preset', 'auto');
+        });
+        const page = await context.newPage();
+        page.on('pageerror', error => { if (result.errors.length < 12) result.errors.push(error.message); });
+        const cdp = await context.newCDPSession(page);
+        await cdp.send('Emulation.setCPUThrottlingRate', { rate: mobile ? 4 : 1 });
+        await page.goto(`http://127.0.0.1:${server.address().port}/index.html`, { waitUntil: 'domcontentloaded', timeout: 45000 });
+        await page.waitForFunction(() => typeof viewer !== 'undefined' && viewer && !document.body.classList.contains('globe-loading') && countryLayers.has('ARG') && countryLayers.has('ESP') && viewer.scene.globe.tilesLoaded && !isCameraNavigating && !loadMapPromise, undefined, { timeout: 45000 });
+        await page.evaluate(() => document.fonts.ready);
+        await page.waitForFunction(() => activeImagerySignature === currentMapMode + (isMobileLayout() ? ':boot' : ':full') && !isCameraNavigating && navigationQualityRestoreTimer === null && viewer.scene.globe.tilesLoaded, undefined, { timeout: 45000 });
+        await page.evaluate(() => {
+          qualityPreset = 'balanced'; // Stop automatic adaptation in this pixel-only control; preserve actual initial AA/profile.
+          const gl = viewer.scene.context._gl;
+          const native = gl.fenceSync;
+          const own = Object.getOwnPropertyDescriptor(gl, 'fenceSync');
+          const state = window.__pixelResizeProbe = { enabled: false, created: 0, bypassed: 0 };
+          const wrapped = function (...args) {
+            if (!state.enabled) { state.bypassed++; return null; }
+            state.created++; return native.apply(this, args);
+          };
+          gl.fenceSync = wrapped;
+          state.restore = () => { if (gl.fenceSync === wrapped) { if (own) Object.defineProperty(gl, 'fenceSync', own); else delete gl.fenceSync; } };
+        });
+        const buffers = [];
+        for (const [index, enabled] of [false, true, false].entries()) {
+          const capture = await page.evaluate(async ({ enabled, mobile }) => {
+            const scene = viewer.scene;
+            const widget = viewer.cesiumWidget;
+            const gl = scene.context._gl;
+            const probe = window.__pixelResizeProbe;
+            probe.enabled = enabled;
+            const before = { created: probe.created, bypassed: probe.bypassed };
+            const target = mobile ? 0.44 : 0.94;
+            const wait = (scale, pixels = false) => new Promise((resolve, reject) => {
+              let stable = 0;
+              const remove = scene.postRender.addEventListener(() => {
+                if (widget._forceResize || widget._geoRiskResizeFence || !scene.globe.tilesLoaded || isCameraNavigating || navigationQualityRestoreTimer !== null ||
+                    scene.canvas.width !== Math.floor(scene.canvas.clientWidth * scale) || scene.canvas.height !== Math.floor(scene.canvas.clientHeight * scale)) stable = 0;
+                else stable++;
+                if (stable < 3) { scene.requestRender(); return; }
+                remove(); clearTimeout(timer);
+                if (!pixels) { resolve(); return; }
+                const bytes = new Uint8Array(scene.canvas.width * scene.canvas.height * 4);
+                if (bytes.length > 6 * 1024 ** 2) { reject(new Error('Pixel bound exceeded')); return; }
+                gl.readPixels(0, 0, scene.canvas.width, scene.canvas.height, gl.RGBA, gl.UNSIGNED_BYTE, bytes);
+                let binary = '';
+                for (let i = 0; i < bytes.length; i += 8192) binary += String.fromCharCode(...bytes.subarray(i, i + 8192));
+                resolve({ pixels: btoa(binary), width: scene.canvas.width, height: scene.canvas.height, resolution: viewer.resolutionScale,
+                  mode: currentMapMode, msaa: scene.msaaSamples, fxaa: scene.postProcessStages.fxaa.enabled, imagery: activeImagerySignature,
+                  labels: labelEntities.length, pending: Boolean(widget._geoRiskResizeFence), navigationQualityRestoreTimer,
+                  globeError: scene.globe.maximumScreenSpaceError, tileCache: scene.globe.tileCacheSize,
+                  position: Cesium.Cartesian3.clone(viewer.camera.positionWC), direction: Cesium.Cartesian3.clone(viewer.camera.directionWC),
+                  readFramebufferDefault: gl.getParameter(gl.READ_FRAMEBUFFER_BINDING) === null, glError: gl.getError() });
+              });
+              const timer = setTimeout(() => { remove(); reject(new Error('Native resize/frame capture timeout')); }, 15000);
+              scene.requestRender();
+            });
+            viewer.resolutionScale = mobile ? 0.5 : 0.98;
+            await wait(viewer.resolutionScale);
+            viewer.resolutionScale = target;
+            await wait(target);
+            fitWorldView();
+            const result = await wait(target, true);
+            return { ...result, enabled, created: probe.created - before.created, bypassed: probe.bypassed - before.bypassed };
+          }, { enabled, mobile });
+          const bytes = Buffer.from(capture.pixels, 'base64');
+          delete capture.pixels;
+          assert.equal(bytes.length, capture.width * capture.height * 4);
+          assert.ok(new Set(bytes).size > 32, 'nonblank rendered image');
+          buffers.push(bytes);
+          result.captures.push({ ...capture, rgbaBytes: bytes.length, sha256: createHash('sha256').update(bytes).digest('hex') });
+          assert.equal(capture.glError, 0);
+          assert.equal(capture.pending, false);
+          assert.ok(enabled ? capture.created > 0 && capture.bypassed === 0 : capture.bypassed > 0 && capture.created === 0, 'exercise actual native guard/fallback');
+          await page.screenshot({ path: path.join(output, `${name}-${index}.png`) });
+        }
+        await page.evaluate(() => window.__pixelResizeProbe.restore());
+        result.controlEqual = buffers[0].equals(buffers[2]);
+        result.guardEqual = buffers[0].equals(buffers[1]);
+        result.pixelDifferences = [1,2].map(index => {
+          let pixels = 0, maxChannel = 0;
+          for (let i = 0; i < buffers[0].length; i += 4) {
+            let changed = false;
+            for (let channel = 0; channel < 4; channel++) {
+              const delta = Math.abs(buffers[0][i + channel] - buffers[index][i + channel]);
+              maxChannel = Math.max(maxChannel, delta); changed ||= delta !== 0;
+            }
+            if (changed) pixels++;
+          }
+          return { index, pixels, maxChannel };
+        });
+        if (!result.controlEqual || !result.guardEqual) {
+          for (let index = 0; index < buffers.length; index++) {
+            const { width, height } = result.captures[index];
+            const image = new PNG({ width, height });
+            for (let row = 0; row < height; row++) buffers[index].copy(image.data, (height - 1 - row) * width * 4, row * width * 4, (row + 1) * width * 4);
+            await fs.writeFile(path.join(output, `${name}-${index}-raw.png`), PNG.sync.write(image));
+          }
+        }
+        assert.equal(result.controlEqual, true, 'fallback/fallback pixels stable');
+        assert.equal(result.guardEqual, true, 'guard preserves every RGBA byte and dimensions');
+        assert.deepEqual(result.errors, []);
+        result.passed = true;
+        console.log(JSON.stringify({ name, controlEqual: result.controlEqual, guardEqual: result.guardEqual, captures: result.captures.map(({ pixels, ...capture }) => capture), errors: result.errors }));
+      } catch (error) { result.failure = error.message; throw error; }
+      finally { await context.close(); }
+    }
+    await browser.close(); browser = null;
+  }
+  report.passed = true;
+} catch (error) { report.failure = error.message; throw error; }
+finally {
+  report.finishedAt = new Date().toISOString();
+  await fs.writeFile(path.join(output, 'canvas-resize-pixels.json'), JSON.stringify(report, null, 2) + '\n');
+  await browser?.close();
+  await new Promise(resolve => server.close(resolve));
+}

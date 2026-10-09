@@ -36,6 +36,17 @@ no una certificacion ambiental ni una afirmacion de neutralidad de carbono.
 
 ## Evidencia y control
 
+Los cambios de resolucion del mapa pueden esperar la GPU sin bloquear JavaScript:
+el loop nativo con reloj detenido conserva como maximo un fence WebGL2 y lo consulta
+con timeout cero solo en sus callbacks existentes. No envia nuevos frames durante
+esa espera, no agrega timers/listeners/dependencias y vuelve al resize nativo tras
+1500 ms o 64 consultas. Arranque, WebGL1, animacion, layout/DPR y resize manual
+conservan su camino nativo. Parada, errores y destruccion liberan el recurso.
+El costo es un fence, flush, consultas acotadas y su eliminacion por cambio elegible;
+la espera de GPU sigue existiendo y el ultimo frame permanece visible hasta terminar.
+Las comparaciones locales acotadas evaluan bloqueo del hilo y pixeles; no permiten
+afirmar mas FPS generales, ahorro de memoria, energia o CO2 ni paridad con Linux.
+
 Las colecciones nativas de billboards totalmente ocultas difieren buffers, shaders
 y comandos hasta tener un elemento visible. Reutilizan el recorrido de readiness
 con un booleano, conservando imagenes, atlas y estados pendientes para reactivarse.
