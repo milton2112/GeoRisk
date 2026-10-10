@@ -17,6 +17,6 @@ assert.ok(scan >= 0 && diagnostic > scan && upload > diagnostic);
 assert.equal(job.steps[scan].run, "node scripts/checkSecurity.js --history");
 assert.equal(job.steps[upload].if, "always() && steps.security-scan.outcome == 'success'");
 assert.equal(job.steps[upload].with["retention-days"], 7);
-assert.equal(job.steps[upload].with.path.trim(), "reports/startup-profile.json\nreports/map-diagnostic-cpu.json");
+assert.equal(job.steps[upload].with.path.trim(), "reports/startup-profile.json\nreports/map-diagnostic-cpu.json\nreports/map-diagnostic-trace.json");
 assert.ok(job.steps.every(step => !/pages|deploy/.test(step.uses || "")));
 console.log("map-diagnostic.test.js ok: explicit trigger, read-only permissions, scan-gated bounded diagnostic artifacts");

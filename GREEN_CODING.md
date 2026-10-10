@@ -40,7 +40,7 @@ El diagnostico Linux del mapa reutiliza el perfilador y Chromium ya previstos en
 el proyecto, solo desde una rama codex/diagnose-map/ o una invocacion manual.
 Una muestra mobile con ocho segundos solicitados tras arranque usa un proceso propio limitado
 a 90 s, traza de hasta 50000 eventos / 20 MiB y CPU de hasta 4 MiB; el job completo
-queda limitado a diez minutos. Sus dos reportes internos duran siete dias.
+queda limitado a diez minutos. Sus tres reportes internos duran siete dias.
 Cuesta un runner, preparacion/escaneo/descargas y observacion adicional cuando se
 invoca; no se suma a cada release ni al cliente. Sirve para investigar bloqueos
 en el entorno que los registra. Muestras instrumentadas y comparaciones entre
@@ -50,6 +50,14 @@ seleccionados y 4156 muestras CPU dentro de los limites. La ventana solicitada
 se extendio a 10095 ms por esperas nativas Commit de 1606-1682 ms, sin Layout
 posterior a disponibilidad. Es evidencia para acotar la investigacion, sin causa
 GPU/driver/compositor resuelta ni cambio de calidad justificado por esa muestra.
+La captura acotada conserva ahora los eventos originales seleccionados de
+cc/gpu/viz/toplevel, con identidad de proceso/hilo, timestamps, argumentos y
+fases begin/end/async/flow, dentro de los mismos limites. Un tercer JSON interno
+permite investigar las esperas sin perder sus eventos al resumir; no es una traza
+exhaustiva. El resumen limita los hilos a 20 y sus spans completos a ocho por hilo.
+Los spans inclusivos pueden solaparse: no sumarlos como uso de CPU/GPU ni atribuir
+causalidad por coincidencia temporal. Cuesta mas observacion, RAM y almacenamiento
+solo en la invocacion optativa; el producto y sus presupuestos no cambian.
 
 Los cambios de resolucion del mapa pueden esperar la GPU sin bloquear JavaScript:
 el loop nativo con reloj detenido conserva como maximo un fence WebGL2 y lo consulta

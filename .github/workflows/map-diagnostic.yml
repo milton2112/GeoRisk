@@ -59,5 +59,6 @@ jobs:
           path: |
             reports/startup-profile.json
             reports/map-diagnostic-cpu.json
+            reports/map-diagnostic-trace.json
           if-no-files-found: error
           retention-days: 7

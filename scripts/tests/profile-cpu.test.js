@@ -1,11 +1,14 @@
 import assert from "node:assert/strict";
-import { retainProfileTraceEvent, summarizeCpuWindow } from "../lib/profile-cpu.js";
+import { retainProfileTraceEvent, summarizeCpuWindow, summarizeTraceThreads } from "../lib/profile-cpu.js";
 for (const event of [{ name: "thread_name", ph: "M" }, { name: "georisk-profile-ready", ph: "R" },
+  { name: "process_name", ph: "M" }, { name: "short native", cat: "cc,benchmark", ph: "X", dur: 1 },
+  ...["B", "E", "b", "e", "s", "t", "f", "I"].map(ph => ({ name: "native", cat: "gpu,viz", ph })),
   { name: "Layout", ph: "X", dur: 1 }, { name: "EvaluateScript", ph: "X", dur: 1 },
   { name: "v8.evaluateModule", ph: "X", dur: 1 }, { name: "FunctionCall", ph: "X", dur: 50000 }]) {
   assert.equal(retainProfileTraceEvent(event), true);
 }
 for (const event of [{ name: "RunTask", ph: "X", dur: 49999 },
+  { name: "irrelevant", cat: "notcc,gpu.disabled", ph: "B" },
   { name: "FunctionCall", ph: "B", dur: 50000 }, { name: "unused", ph: "I" }]) {
   assert.equal(retainProfileTraceEvent(event), false);
 }
@@ -33,4 +36,31 @@ for (const [input, start, end] of [
   [{ ...cpu, timeDeltas: [-1, 1000, 1000, 1000] }, 1000, 2000],
   [{ ...cpu, timeDeltas: [0, Infinity, 1000, 1000] }, 1000, 2000]
 ]) assert.throws(() => summarizeCpuWindow(input, start, end));
+const trace = [
+  { name: "nested", cat: "cc", ph: "X", pid: 1, tid: 2, ts: 1500, dur: 500 },
+  { name: "outer", cat: "cc,benchmark", ph: "X", pid: 1, tid: 2, ts: 500, dur: 2500, args: { original: true } },
+  { name: "GPU wait", cat: "gpu", ph: "X", pid: 3, tid: 4, ts: 1000, dur: 5000 },
+  { name: "process_name", ph: "M", pid: 1, args: { name: "Renderer" } },
+  { name: "thread_name", ph: "M", pid: 1, tid: 2, args: { name: "CrRendererMain" } },
+  { name: "begin", cat: "cc", ph: "B", pid: 1, tid: 2, ts: 1000 },
+  { cat: "cc", ph: "E", pid: 1, tid: 2, ts: 3000 },
+  { name: "outside", cat: "gpu", ph: "X", pid: 3, tid: 4, ts: 6000, dur: 1 }
+];
+const traceOriginal = JSON.stringify(trace);
+const native = summarizeTraceThreads(trace, 1000, 4000);
+assert.equal(native.threadCount, 2);
+assert.deepEqual(native.threads[0].longest, [{ eventIndex: 2, name: "GPU wait", category: "gpu",
+  afterReadyMs: 0, durationMs: 5, overlapMs: 3 }]);
+assert.equal(native.threads[1].threadName, "CrRendererMain");
+assert.equal(native.threads[1].processName, "Renderer");
+assert.equal(native.threads[1].completeEventCount, 2);
+assert.deepEqual(native.threads[1].longest.map(row => [row.eventIndex, row.overlapMs]), [[1, 2], [0, 0.5]]);
+assert.equal(JSON.stringify(trace), traceOriginal, "original native events, args and ordering must survive summaries");
+const manyThreads = Array.from({ length: 25 }, (_, tid) => Array.from({ length: 10 }, (_, index) =>
+  ({ cat: "viz", ph: "X", name: "bounded", pid: 1, tid, ts: 1000, dur: index + 1 }))).flat();
+assert.equal(summarizeTraceThreads(manyThreads, 1000, 4000).threads.length, 20);
+assert.ok(summarizeTraceThreads(manyThreads, 1000, 4000).threads.every(thread => thread.longest.length === 8));
+for (const args of [[trace, NaN, 4000], [trace, 1000, 1000], [Array(50001), 1000, 4000]]) {
+  assert.throws(() => summarizeTraceThreads(...args));
+}
 console.log("profile-cpu.test.js ok: clipped phases, native frames, current windows and bounded malformed evidence");

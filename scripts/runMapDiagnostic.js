@@ -8,7 +8,7 @@ const identity = { generatedAt: new Date().toISOString(), scope: "diagnostic", s
   revision: execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf8" }).trim(),
   ciRunId: process.env.GITHUB_RUN_ID || null, ciRunAttempt: process.env.GITHUB_RUN_ATTEMPT || null, profile };
 await fs.mkdir("reports", { recursive: true });
-for (const file of ["startup-profile.json", "map-diagnostic-cpu.json"]) {
+for (const file of ["startup-profile.json", "map-diagnostic-cpu.json", "map-diagnostic-trace.json"]) {
   await fs.writeFile(`reports/${file}`, JSON.stringify(identity, null, 2) + "\n");
 }
 try {
