@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { retainProfileTraceEvent, summarizeCpuWindow, summarizeTraceThreads } from "../lib/profile-cpu.js";
 for (const event of [{ name: "thread_name", ph: "M" }, { name: "georisk-profile-ready", ph: "R" },
-  { name: "process_name", ph: "M" }, { name: "short native", cat: "cc,benchmark", ph: "X", dur: 1 },
+  { name: "process_name", ph: "M" }, { name: "native boundary", cat: "cc,benchmark", ph: "X", dur: 1000 },
   ...["B", "E", "b", "e", "s", "t", "f", "I"].map(ph => ({ name: "native", cat: "gpu,viz", ph })),
   { name: "Layout", ph: "X", dur: 1 }, { name: "EvaluateScript", ph: "X", dur: 1 },
   { name: "v8.evaluateModule", ph: "X", dur: 1 }, { name: "FunctionCall", ph: "X", dur: 50000 }]) {
@@ -9,6 +9,7 @@ for (const event of [{ name: "thread_name", ph: "M" }, { name: "georisk-profile-
 }
 for (const event of [{ name: "RunTask", ph: "X", dur: 49999 },
   { name: "irrelevant", cat: "notcc,gpu.disabled", ph: "B" },
+  { name: "short native", cat: "cc", ph: "X", dur: 999 },
   { name: "FunctionCall", ph: "B", dur: 50000 }, { name: "unused", ph: "I" }]) {
   assert.equal(retainProfileTraceEvent(event), false);
 }

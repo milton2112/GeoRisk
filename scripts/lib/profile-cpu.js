@@ -6,7 +6,8 @@ const isNativeEvent = event => typeof event.cat === "string" &&
 export function retainProfileTraceEvent(event) {
   // Native begin/end, async and flow events cannot be duration-filtered without
   // losing their counterpart. Keep their original fields and delivery order.
-  return event.ph === "M" || event.name === "georisk-profile-ready" || isNativeEvent(event) ||
+  return event.ph === "M" || event.name === "georisk-profile-ready" ||
+    (isNativeEvent(event) && (event.ph !== "X" || event.dur >= 1000)) ||
     (event.ph === "X" && (event.dur >= 50000 ||
       ["Layout", "EvaluateScript", "v8.evaluateModule"].includes(event.name)));
 }
@@ -39,7 +40,7 @@ export function summarizeTraceThreads(events, startUs, endUs) {
   });
   return { startUs, endUs, threadCount: threads.size,
     threads: [...threads.values()].sort((a, b) => b.longest[0].overlapMs - a.longest[0].overlapMs).slice(0, 20),
-    methodology: "Up to 20 threads and eight longest complete X events per thread, clipped to the ready/CPU-end window. Inclusive elapsed spans can nest or overlap; never sum them as CPU/GPU busy time or infer causality. Original B/E, async and flow events remain in the separate selected trace without pairing or interpretation." };
+    methodology: "Up to 20 threads and eight longest selected complete X events per thread, clipped to the ready/CPU-end window. Native X spans below 1 ms are omitted at collection. Inclusive elapsed spans can nest or overlap; never sum them as CPU/GPU busy time or infer causality. Original B/E, async and flow events remain in the separate selected trace without pairing or interpretation." };
 }
 
 // Statistical CPU samples, clipped to explicit monotonic microsecond windows.

@@ -185,7 +185,7 @@ try {
     const rawTrace = JSON.stringify({ scope: "diagnostic-trace", status: traceOverflow ? "truncated" : "collected",
       metadata: diagnosticIdentity, browserVersion: browser.version(), profile, readyTimestampUs: readyTimestamp,
       categories: traceCategories, collectionStoppedAtBound: traceOverflow, traceEvents: events,
-      selection: "Original selected CDP events in delivery order: metadata, ready mark, all cc/gpu/viz/toplevel phases, long complete events and layout/script/module evaluations. Unselected events are omitted; this is not an exhaustive browser trace." });
+      selection: "Original selected CDP events in delivery order: metadata, ready mark, cc/gpu/viz/toplevel X spans of at least 1 ms and all their non-X phases, long complete events and layout/script/module evaluations. Unselected short X events are omitted; this is not an exhaustive browser trace." });
     if (Buffer.byteLength(rawTrace) + 1 > 20 * 1024 ** 2) throw new Error("Selected trace artifact exceeds 20 MiB.");
     await fs.writeFile("reports/map-diagnostic-trace.json", rawTrace + "\n");
     if (traceOverflow) throw new Error("Diagnostic trace exceeded its retained-event/byte bound; partial original events were preserved.");

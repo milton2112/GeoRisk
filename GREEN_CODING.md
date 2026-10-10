@@ -58,6 +58,11 @@ exhaustiva. El resumen limita los hilos a 20 y sus spans completos a ocho por hi
 Los spans inclusivos pueden solaparse: no sumarlos como uso de CPU/GPU ni atribuir
 causalidad por coincidencia temporal. Cuesta mas observacion, RAM y almacenamiento
 solo en la invocacion optativa; el producto y sus presupuestos no cambian.
+El primer intento nativo (38075571598) alcanzo el limite con 49985 eventos
+antes de conservar la marca de disponibilidad; su traza parcial de 11330896 bytes
+queda excluida como diagnostico completo. Predominan spans X breves de tareas y cc.
+El filtro omite ahora los spans nativos completos menores de 1 ms y conserva las
+otras fases sin umbral, sin aumentar el cupo ni los deadlines.
 
 Los cambios de resolucion del mapa pueden esperar la GPU sin bloquear JavaScript:
 el loop nativo con reloj detenido conserva como maximo un fence WebGL2 y lo consulta
