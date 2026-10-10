@@ -8,7 +8,8 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
-- Se documentaran aca los cambios posteriores a v1.6.303 antes de cerrar la siguiente version.
+- Diagnostico interno del mapa: un workflow separado permite perfilar el arranque y ocho segundos de movimiento en Chromium Linux, conservando revision/run/intento/browser/hash y CPU original. Reutiliza el perfilador existente con ventanas antes/despues de disponibilidad, sin consultas GL durante las muestras. Solo corre al enviar una rama codex/diagnose-map/ o invocarlo manualmente; sus resultados nunca sustituyen al gate de release ni cambian el mapa, calidad, versiones o caches.
+- Green coding y limites: proceso propio de 90 s, job de diez minutos, traza acotada a 50000 eventos / 20 MiB y CPU a 4096 nodos / 16000 muestras / 4 MiB; dos reportes internos con retencion de siete dias. Cuesta un runner, instalacion/escaneo y observacion por invocacion, sin nuevas dependencias ni costo del cliente. Busca identificar las tareas largas de SwiftShader en su entorno real; no demuestra ahorro de CPU/GPU, RAM, energia, CO2 ni mas FPS. El control local Chrome 155 Windows no reprodujo tareas largas durante movimiento, y Chromium 151 instalado fallo al iniciar; se conserva el intento parcial, sin inferir paridad con Linux o causa del fallo de arranque.
 
 ## v1.6.303 - 2026-10-09
 

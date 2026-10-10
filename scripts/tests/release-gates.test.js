@@ -20,6 +20,7 @@ import "./browser-launch.test.js";
 import "./browser-tile-cache.test.js";
 import "./browser-run-report.test.js";
 import "./critical-browser-evidence.test.js";
+import "./map-diagnostic.test.js";
 import "./data-pipeline.test.js";
 import "./release-tag.test.js";
 

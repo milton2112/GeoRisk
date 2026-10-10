@@ -36,6 +36,16 @@ no una certificacion ambiental ni una afirmacion de neutralidad de carbono.
 
 ## Evidencia y control
 
+El diagnostico Linux del mapa reutiliza el perfilador y Chromium ya previstos en
+el proyecto, solo desde una rama codex/diagnose-map/ o una invocacion manual.
+Una muestra mobile de ocho segundos tras arranque usa un proceso propio limitado
+a 90 s, traza de hasta 50000 eventos / 20 MiB y CPU de hasta 4 MiB; el job completo
+queda limitado a diez minutos. Sus dos reportes internos duran siete dias.
+Cuesta un runner, preparacion/escaneo/descargas y observacion adicional cuando se
+invoca; no se suma a cada release ni al cliente. Sirve para investigar bloqueos
+en el entorno que los registra. Muestras instrumentadas y comparaciones entre
+hosts/versiones no acreditan ahorro energetico/CO2 ni mas FPS del producto.
+
 Los cambios de resolucion del mapa pueden esperar la GPU sin bloquear JavaScript:
 el loop nativo con reloj detenido conserva como maximo un fence WebGL2 y lo consulta
 con timeout cero solo en sus callbacks existentes. No envia nuevos frames durante

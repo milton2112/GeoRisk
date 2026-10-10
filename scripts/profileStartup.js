@@ -3,7 +3,9 @@ import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { createLocalSmokeServer } from "./localSmokeServer.js";
-import { launchPerformanceBrowser, PERFORMANCE_PROFILES } from "./lib/browser-performance.js";
+import { launchPerformanceBrowser, PERFORMANCE_PROFILES, performanceEnvironment } from "./lib/browser-performance.js";
+import { getPerformanceInputHash } from "./lib/performance-inputs.js";
+import { retainProfileTraceEvent, summarizeCpuWindow } from "./lib/profile-cpu.js";
 
 const root = path.resolve("dist/public");
 await fs.access(path.join(root, "index.html"));
@@ -11,6 +13,7 @@ const profile = PERFORMANCE_PROFILES.find(item => item.name === (process.argv.in
 const sampleCpu = !process.argv.includes("--trace-only");
 const inspectDom = process.argv.includes("--dom-details");
 const activeMap = process.argv.includes("--active-map");
+const bounded = process.argv.includes("--bounded");
 const inspectWebgl = process.argv.includes("--webgl-details");
 const nativeAaArg = process.argv.find(arg => arg.startsWith("--native-aa="));
 const nativeAa = nativeAaArg ? nativeAaArg.slice("--native-aa=".length) : null;
@@ -55,12 +58,23 @@ try {
   }
   const cdp = await context.newCDPSession(page);
   const events = [];
-  cdp.on("Tracing.dataCollected", ({ value }) => events.push(...value));
+  let traceBytes = 0;
+  let traceOverflow = false;
+  cdp.on("Tracing.dataCollected", ({ value }) => {
+    if (traceOverflow) return;
+    const retained = bounded ? value.filter(retainProfileTraceEvent) : value;
+    if (bounded) {
+      traceBytes += Buffer.byteLength(JSON.stringify(retained));
+      if (events.length + retained.length > 50000 || traceBytes > 20 * 1024 ** 2) { traceOverflow = true; return; }
+    }
+    events.push(...retained);
+  });
   await cdp.send("Network.enable");
   await cdp.send("Network.setCacheDisabled", { cacheDisabled: true });
   await cdp.send("Emulation.setCPUThrottlingRate", { rate: profile.cpuSlowdown });
   if (sampleCpu) {
     await cdp.send("Profiler.enable");
+    if (bounded) await cdp.send("Profiler.setSamplingInterval", { interval: 4000 });
     await cdp.send("Profiler.start");
   }
   await cdp.send("Tracing.start", { categories: "devtools.timeline,v8,blink.user_timing,disabled-by-default-devtools.timeline" + (inspectDom ? ",blink,renderer.scheduler,loading,disabled-by-default-devtools.timeline.invalidationTracking" : ""), transferMode: "ReportEvents" });
@@ -147,10 +161,26 @@ try {
   const tracingComplete = new Promise(resolve => cdp.once("Tracing.tracingComplete", resolve));
   await cdp.send("Tracing.end");
   await tracingComplete;
+  if (traceOverflow) throw new Error("Diagnostic trace exceeded its retained-event/byte bound.");
   const localUrl = url => (url || "").replace(baseUrl, "");
   const readyTimestamp = events.find(event => event.name === "georisk-profile-ready")?.ts;
   const thread = events.find(event => event.name === "thread_name" && event.args?.name === "CrRendererMain" && events.some(item => item.pid === event.pid && item.name === "EvaluateScript"));
   if (!thread || !Number.isFinite(readyTimestamp)) throw new Error("Traza incompleta: falta el hilo principal o la marca de disponibilidad.");
+  let functionsByPhase = null;
+  let diagnosticIdentity = null;
+  if (bounded) {
+    if (!cpu) throw new Error("Bounded diagnostic requires CPU sampling.");
+    diagnosticIdentity = { revision: execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf8" }).trim(),
+      ciRunId: process.env.GITHUB_RUN_ID || null, ciRunAttempt: process.env.GITHUB_RUN_ATTEMPT || null,
+      publicInputHash: await getPerformanceInputHash(process.cwd()), environment: performanceEnvironment(),
+      toolingWorkingChanges: execFileSync("git", ["status", "--porcelain=v1", "--", "scripts/profileStartup.js", "scripts/lib/profile-cpu.js", "scripts/runMapDiagnostic.js"], { encoding: "utf8" }).trim() };
+    const rawCpu = JSON.stringify({ scope: "diagnostic-cpu", status: "sampled", metadata: diagnosticIdentity,
+      browserVersion: browser.version(), profile, readyTimestampUs: readyTimestamp, cpu });
+    if (Buffer.byteLength(rawCpu) > 4 * 1024 ** 2) throw new Error("CPU diagnostic exceeds 4 MiB.");
+    await fs.writeFile("reports/map-diagnostic-cpu.json", rawCpu + "\n");
+    functionsByPhase = { beforeReady: summarizeCpuWindow(cpu, cpu.startTime, readyTimestamp, localUrl),
+      afterReady: summarizeCpuWindow(cpu, readyTimestamp, cpu.endTime, localUrl) };
+  }
   if (engineBundle && engineRequests !== 1) throw new Error(`Engine override matched ${engineRequests} requests; expected exactly one.`);
   if (baselineStyle !== null && styleRequests !== 1) throw new Error(`Style override matched ${styleRequests} requests; expected exactly one.`);
   const moduleEvaluations = events.filter(event => event.ph === "X" && event.name === "v8.evaluateModule" && event.pid === thread.pid && event.tid === thread.tid)
@@ -176,7 +206,7 @@ try {
   const nodes = new Map((cpu?.nodes || []).map(node => [node.id, node]));
   const sampled = new Map();
   (cpu?.samples || []).forEach((id, index) => sampled.set(id, (sampled.get(id) || 0) + (cpu.timeDeltas[index] || 0) / 1000));
-  const functions = [...sampled].sort((a, b) => b[1] - a[1]).slice(0, 35).map(([id, selfMs]) => ({
+  const functions = bounded ? summarizeCpuWindow(cpu, cpu.startTime, cpu.endTime, localUrl) : [...sampled].sort((a, b) => b[1] - a[1]).slice(0, 35).map(([id, selfMs]) => ({
     name: nodes.get(id)?.callFrame.functionName || "(anonymous)", url: localUrl(nodes.get(id)?.callFrame.url), line: (nodes.get(id)?.callFrame.lineNumber ?? -1) + 1, selfMs
   }));
   const runtime = await page.evaluate(() => ({ declaredMode: currentMapMode, actualMode: viewer.scene.mode, mode2d: Cesium.SceneMode.SCENE2D, mode3d: Cesium.SceneMode.SCENE3D }));
@@ -187,8 +217,20 @@ try {
     const canvas = viewer.scene.canvas;
     return (canvas.getContext("webgl2") || canvas.getContext("webgl"))?.getContextAttributes()?.antialias ?? null;
   });
+  const gpu = bounded ? await page.evaluate(() => {
+    const gl = viewer.scene.context._gl;
+    const extension = gl.getExtension("WEBGL_debug_renderer_info");
+    return { renderer: extension ? gl.getParameter(extension.UNMASKED_RENDERER_WEBGL) : null,
+      resolutionScale: viewer.resolutionScale, width: gl.drawingBufferWidth, height: gl.drawingBufferHeight,
+      msaaSamples: viewer.scene.msaaSamples, fxaa: viewer.scene.postProcessStages.fxaa.enabled,
+      pendingResize: Boolean(viewer.cesiumWidget._geoRiskResizeFence), error: gl.getError() };
+  }) : null;
   const report = { generatedAt: new Date().toISOString(), browserVersion: browser.version(), profile, runtime, baselineStyleRef, engineOverride, moduleEvaluations, layout, domDetails, webglDetails, activeMap, activeRender, nativeAaOverride: nativeAa, contextAntialias, observeAfterReadyMs: observeMs, cpuSampling: sampleCpu, methodology: `Diagnostic trace${sampleCpu ? " and CPU sampling" : " without CPU sampling"}; timings include instrumentation overhead, not the release benchmark. afterReadyMs is relative to the map-ready mark. Overrides replace only their selected resource or the explicitly requested native canvas AA setting. DOM/WebGL details add observation and wrappers only when requested; active-map repeats the release camera movement for up to six seconds.`, work, functions };
   await fs.mkdir("reports", { recursive: true });
+  if (bounded) Object.assign(report, { scope: "diagnostic", status: "measured", metadata: diagnosticIdentity,
+    functionsByPhase, gpu, bounds: { launcherTimeoutMs: 90000, traceEvents: events.length, traceBytes,
+      maxTraceEvents: 50000, maxTraceBytes: 20 * 1024 ** 2, samplingIntervalUs: 4000, maxCpuNodes: 4096, maxCpuSamples: 16000,
+      maxCpuBytes: 4 * 1024 ** 2 }, limitations: "Instrumented diagnostic, never release approval. CPU samples include driver waiting and are statistical. GPU identity/readback is collected after profiling stops; separate before/after-ready windows use the original monotonic timestamps. No Linux/Windows, physical-phone, energy or causal FPS equivalence." });
   await fs.writeFile("reports/startup-profile.json", JSON.stringify(report, null, 2) + "\n");
   console.log("Diagnostico: reports/startup-profile.json");
   console.log(JSON.stringify({ profile: profile.name, runtime, baselineStyleRef, layout, work: work.slice(0, 10), functions: functions.slice(0, 10) }, null, 2));
