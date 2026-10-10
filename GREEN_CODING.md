@@ -63,6 +63,13 @@ antes de conservar la marca de disponibilidad; su traza parcial de 11330896 byte
 queda excluida como diagnostico completo. Predominan spans X breves de tareas y cc.
 El filtro omite ahora los spans nativos completos menores de 1 ms y conserva las
 otras fases sin umbral, sin aumentar el cupo ni los deadlines.
+La captura completa siguiente (38076216261, 7cabfc25) conserva 32004 eventos
+seleccionados y tres JSON de 5802280 bytes. Doce Commit contienen ReadPixels
+nativo de 539-832 ms y espera al command buffer, dentro de DoUpdateLayers.
+Localiza esa espera concreta; el codigo de Chromium es consistente con un
+readback para composicion por software, sin pila C++ completa. No acredita que
+suprimir lecturas de la app o cambiar flags/calidad sea correcto ni mas FPS.
+Hosts e instrumentacion distintos impiden comparar los tiempos como un A/B.
 
 Los cambios de resolucion del mapa pueden esperar la GPU sin bloquear JavaScript:
 el loop nativo con reloj detenido conserva como maximo un fence WebGL2 y lo consulta
