@@ -2041,7 +2041,10 @@ async function testRenderRecovery(browser, baseUrl, fixture = {}) {
         viewer.scene.renderError.addEventListener((_scene, error) => {
           fixture.errors.push({ message: error.message, running: viewer.useDefaultRenderLoop });
         });
-        viewer.scene.postRender.addEventListener(() => { fixture.frames += 1; });
+        viewer.scene.postRender.addEventListener(() => {
+          fixture.frames += 1;
+          fixture.presentedFrameNumber = viewer.scene.frameState.frameNumber;
+        });
         viewer.scene.primitives.add({
           update() {
             if (fixture.remaining > 0) {
@@ -2074,16 +2077,26 @@ async function testRenderRecovery(browser, baseUrl, fixture = {}) {
       assert.equal(await page.locator(".cesium-widget-errorPanel").count(), 0);
       await fixture.onCheckpoint?.(page, { label, stage: 'recovered' });
       const before = await page.locator("#map canvas").screenshot();
-      const previousFrames = await page.evaluate(() => {
-        const frames = window.__renderFixture.frames;
+      const previousFrame = await page.evaluate(() => {
+        const previous = { frames: window.__renderFixture.frames, frameNumber: viewer.scene.frameState.frameNumber,
+          position: Cesium.Cartesian3.clone(viewer.camera.position) };
         if (currentMapMode === "2d") viewer.camera.moveRight(600000);
         else viewer.camera.rotateRight(0.2);
         viewer.scene.requestRender();
-        return frames;
+        return previous;
       });
-      await page.waitForFunction(frames => window.__renderFixture.frames > frames, previousFrames);
+      // A deferred frame already in flight can finish after the camera moves. Require a newly
+      // submitted frame, rather than accepting that older frame's postRender as camera evidence.
+      await page.waitForFunction(previous => window.__renderFixture.frames > previous.frames &&
+        window.__renderFixture.presentedFrameNumber !== previous.frameNumber, previousFrame);
       const after = await page.locator("#map canvas").screenshot({ path: "tmp/map-recovered-" + label + ".png" });
       assert.equal(before.equals(after), false, label + " debe producir pixeles distintos tras mover la camara recuperada");
+      const cameraFrame = await page.evaluate(previous => ({ beforeFrameNumber: previous.frameNumber,
+        afterFrameNumber: window.__renderFixture.presentedFrameNumber,
+        framesBefore: previous.frames, framesAfter: window.__renderFixture.frames,
+        cameraDistance: Cesium.Cartesian3.distance(viewer.camera.position, previous.position)
+      }), previousFrame);
+      await fixture.onCheckpoint?.(page, { label, stage: 'camera-rendered', cameraFrame, pixelsChanged: true });
 
       await page.evaluate(() => { window.__renderFixture.remaining = Infinity; viewer.scene.requestRender(); });
       await page.locator("#fatal-error-banner").waitFor({ state: "visible" });

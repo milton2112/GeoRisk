@@ -160,9 +160,14 @@ try {
     },
     async onCheckpoint(page, info) {
       const evidence = await checkpoint(page, info);
-      if (info.stage === 'recovered' || info.stage === 'widget-recovered') {
+      if (['recovered', 'widget-recovered', 'camera-rendered'].includes(info.stage)) {
         assert.equal(evidence.recovery.phase, 'recovered'); assert.equal(evidence.recovery.attempts, 1);
         if (evidence.supported && evidence.mode === '2d') assert.ok(evidence.stats.presented > 1);
+        if (info.stage === 'camera-rendered') {
+          assert.notEqual(info.cameraFrame.afterFrameNumber, info.cameraFrame.beforeFrameNumber);
+          assert.ok(info.cameraFrame.framesAfter > info.cameraFrame.framesBefore);
+          assert.ok(info.cameraFrame.cameraDistance > 0); assert.equal(info.pixelsChanged, true);
+        }
       } else {
         assertReleased(evidence); assert.equal(evidence.recovery.phase, 'failed');
       }
