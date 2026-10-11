@@ -5,6 +5,25 @@ const once = (s, a, b) => {
 };
 const sceneHelpers = `
 // PROTOTYPE ONLY: one retained RGBA8/depth-stencil target, one sync, no timers.
+function prototypeSupported(scene) {
+  const context = scene.context, gl = context._gl;
+  if (!context.webgl2) return false;
+  if (gl.isContextLost()) {
+    scene._geoRiskPresentationCapability = undefined;
+    return false;
+  }
+  let capability = scene._geoRiskPresentationCapability;
+  if (!capability || capability.gl !== gl) {
+    let supported = false;
+    try {
+      const extension = gl.getExtension('WEBGL_debug_renderer_info');
+      const renderer = extension && gl.getParameter(extension.UNMASKED_RENDERER_WEBGL);
+      supported = typeof renderer === 'string' && renderer.length <= 512 && /\\bSwiftShader\\b/i.test(renderer);
+    } catch { /* Optional identity can be unavailable under privacy restrictions. */ }
+    capability = scene._geoRiskPresentationCapability = { gl, supported };
+  }
+  return capability.supported;
+}
 function prototypeTarget(scene) {
   const context = scene.context;
   scene._geoRiskPresentationStats ||= { submitted: 0, presented: 0, polls: 0, forced: 0, expired: 0, aborted: 0 };
@@ -52,6 +71,7 @@ function prototypePresent(scene, force) {
   if (!pending) return true;
   try {
   if (pending.gl !== scene.context._gl || pending.gl.isContextLost()) {
+    scene._geoRiskPresentationCapability = undefined;
     throw new Error('Prototype presentation context lost or replaced');
   }
   const stats = scene._geoRiskPresentationStats;
@@ -88,6 +108,7 @@ function prototypePresent(scene, force) {
   } catch (error) { prototypeCancel(scene); throw error; }
 }
 Scene.prototype._geoRiskPollPresentation = function () { return prototypePresent(this, false); };
+Scene.prototype._geoRiskPresentationSupported = function () { return prototypeSupported(this); };
 Scene.prototype._geoRiskFlushPresentation = function () { return prototypePresent(this, true); };
 Scene.prototype._geoRiskCancelPresentation = function () { prototypeCancel(this); };
 Scene.prototype._geoRiskStopPresentation = function () {
@@ -122,6 +143,7 @@ for (const name of ["initializeFrame", "render", "pick", "drillPick", "pickPosit
 }
 const prototypeDestroyScene = Scene.prototype.destroy;
 Scene.prototype.destroy = function () {
+  this._geoRiskPresentationCapability = undefined;
   try { prototypeCancel(this); } finally { prototypeDestroyScene.call(this); }
 };
 `;
@@ -130,9 +152,9 @@ Scene.prototype.destroy = function () {
 export function patchPresentationWidget(s) {
   const helpers = `function prototypeLoopFrame(widget, frameTime) {
   const scene = widget._scene;
-  const eligible = !!scene._geoRiskPresentationEnabled && scene.context.webgl2 &&
+  const eligible = !!scene._geoRiskPresentationEnabled &&
     !widget._clock.shouldAnimate && scene.mode === SceneMode.SCENE2D && !document.hidden &&
-    !!scene._lastRenderTime;
+    !!scene._lastRenderTime && scene._geoRiskPresentationSupported();
   if (!eligible && scene._geoRiskPresentationBuffer) scene._geoRiskStopPresentation();
   if (scene._geoRiskPendingPresentation) {
     if (widget._forceResize || widget._clock.shouldAnimate ||

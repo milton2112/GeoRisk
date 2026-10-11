@@ -34,6 +34,9 @@ function harness() {
   }
   Scene.prototype.destroy = () => { calls.nativeDestroy++; };
   const gl = { SYNC_GPU_COMMANDS_COMPLETE: 1, TIMEOUT_EXPIRED: 2, ALREADY_SIGNALED: 3, WAIT_FAILED: 4,
+    renderer: 'ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero)), SwiftShader driver)', identityQueries: 0,
+    getExtension(name) { assert.equal(name, 'WEBGL_debug_renderer_info'); this.identityQueries++; return { UNMASKED_RENDERER_WEBGL: 99 }; },
+    getParameter(name) { assert.equal(name, 99); return this.renderer; },
     status: 2, lost: false, fence: {}, isContextLost() { return this.lost; },
     fenceSync: () => gl.fence, flush() {}, deleteSync(sync) { assert.equal(sync, gl.fence); calls.deleted++; },
     clientWaitSync(sync, flags, timeout) { assert.equal(sync, gl.fence); assert.equal(flags, 0); assert.equal(timeout, 0); calls.polled++; return gl.status; } };
@@ -103,7 +106,7 @@ for (const fallback of ['null-sync', 'wait-failed', 'poll-bound', 'deadline', 'c
   assert.equal(t.calls.copied, 1); assert.equal(t.calls.post, 1); assert.equal(t.calls.end, 1);
 }
 for (const failure of ['lost', 'replaced', 'poll', 'copy', 'delete']) {
-  const t = harness(); t.stage();
+  const t = harness(); t.scene._geoRiskPresentationSupported(); t.stage();
   if (failure === 'lost') t.gl.lost = true;
   if (failure === 'replaced') t.context._gl = {};
   if (failure === 'poll') t.gl.clientWaitSync = () => { throw new Error('poll failed'); };
@@ -111,6 +114,7 @@ for (const failure of ['lost', 'replaced', 'poll', 'copy', 'delete']) {
   if (failure === 'delete') { t.gl.status = t.gl.ALREADY_SIGNALED; t.gl.deleteSync = () => { t.calls.deleted++; throw new Error('delete failed'); }; }
   assert.throws(() => t.scene._geoRiskPollPresentation(), /lost|replaced|failed/, failure);
   assert.equal(t.scene._geoRiskPendingPresentation, undefined);
+  if (['lost', 'replaced'].includes(failure)) assert.equal(t.scene._geoRiskPresentationCapability, undefined);
   assert.equal(t.calls.post, 0); assert.equal(t.calls.after, 0); assert.equal(t.calls.end, 1);
   assert.equal(t.scene._frameState.afterRender.length, 1, 'do not discard public work on failed presentation');
   assert.equal(t.scene._renderRequested, true);
@@ -140,6 +144,7 @@ for (const failure of ['lost', 'replaced', 'poll', 'copy', 'delete']) {
   t.stage(); t.scene.destroy();
   assert.equal(t.calls.end, 2); assert.equal(t.calls.post, 1, 'destroy cancels without a fictitious postRender');
   assert.equal(t.calls.nativeDestroy, 1); assert.equal(t.calls.destroyed, 1);
+  assert.equal(t.scene._geoRiskPresentationCapability, undefined);
 }
 // Actual transformed widget loop, setter and native error callback.
 function loopHarness() {
@@ -152,6 +157,58 @@ function loopHarness() {
     requestAnimationFrame: fn => frames.push(fn), resolutionResizeReady: () => true, releaseResolutionResizeFence() {} };
   vm.runInNewContext(section(widgetPatched, 'function prototypeLoopFrame(', '\nfunction configurePixelRatio'), scope);
   return { ...t, widget, frames, scope, step() { frames.shift()(100); } };
+}
+for (const renderer of ['ANGLE (Intel, D3D11)', 'ANGLE (NVIDIA, Vulkan)', 'AMD Radeon', 'llvmpipe',
+  'SwiftShaderX', '', null, 'SwiftShader'.repeat(52)]) {
+  const t = loopHarness(); t.gl.renderer = renderer;
+  t.widget.render = () => { assert.equal(t.scene._geoRiskSubmitPresentation, false, String(renderer)); };
+  t.scope.prototypeLoopFrame(t.widget, 100); t.scope.prototypeLoopFrame(t.widget, 200);
+  assert.equal(t.gl.identityQueries, 1, 'cache a negative result without retaining the string');
+  assert.equal(t.scene._geoRiskPresentationBuffer, undefined, 'native hardware fallback allocates no target');
+}
+for (const unavailable of ['extension', 'exception', 'webgl1', 'disabled', 'lost', 'first-frame', 'hidden', 'mode', 'animation']) {
+  const t = loopHarness();
+  if (unavailable === 'extension') t.gl.getExtension = () => null;
+  if (unavailable === 'exception') t.gl.getParameter = () => { throw new Error('privacy blocked'); };
+  if (unavailable === 'webgl1') t.context.webgl2 = false;
+  if (unavailable === 'disabled') t.scene._geoRiskPresentationEnabled = false;
+  if (unavailable === 'lost') t.gl.lost = true;
+  if (unavailable === 'first-frame') t.scene._lastRenderTime = undefined;
+  if (unavailable === 'hidden') t.scope.document.hidden = true;
+  if (unavailable === 'mode') t.scene.mode = 3;
+  if (unavailable === 'animation') t.widget._clock.shouldAnimate = true;
+  t.widget.render = () => { assert.equal(t.scene._geoRiskSubmitPresentation, false, unavailable); };
+  t.scope.prototypeLoopFrame(t.widget, 100);
+  assert.equal(t.scene._geoRiskPresentationBuffer, undefined);
+  if (!['extension', 'exception'].includes(unavailable)) assert.equal(t.gl.identityQueries, 0);
+}
+{
+  const t = loopHarness();
+  assert.equal(t.scene._geoRiskPresentationSupported(), true);
+  assert.equal(t.scene._geoRiskPresentationSupported(), true);
+  assert.equal(t.gl.identityQueries, 1);
+  assert.deepEqual(Object.keys(t.scene._geoRiskPresentationCapability).sort(), ['gl', 'supported']);
+  t.gl.lost = true;
+  assert.equal(t.scene._geoRiskPresentationSupported(), false);
+  assert.equal(t.scene._geoRiskPresentationCapability, undefined, 'loss invalidates the cached decision');
+  t.gl.lost = false; t.gl.renderer = 'ANGLE (Intel, D3D11)';
+  assert.equal(t.scene._geoRiskPresentationSupported(), false);
+  assert.equal(t.gl.identityQueries, 2, 'a resumed context needs a fresh identity');
+  t.context._gl = { ...t.gl, renderer: 'ANGLE (SwiftShader Device)', identityQueries: 0 };
+  assert.equal(t.scene._geoRiskPresentationSupported(), true);
+  assert.equal(t.context._gl.identityQueries, 1, 'replacement context refreshes the bounded decision');
+}
+for (const resize of ['forced', 'width', 'height', 'dpr']) {
+  const t = loopHarness(); t.stage();
+  if (resize === 'forced') t.widget._forceResize = true;
+  if (resize === 'width') t.widget._canvas.clientWidth++;
+  if (resize === 'height') t.widget._canvas.clientHeight++;
+  if (resize === 'dpr') t.scope.window.devicePixelRatio = 2;
+  t.widget.resize = () => { assert.equal(t.scene._geoRiskPendingPresentation, undefined, resize); };
+  t.widget.render = () => {};
+  t.scope.prototypeLoopFrame(t.widget, 100);
+  assert.equal(t.calls.post, 1); assert.equal(t.calls.deleted, 1);
+  assert.equal(t.calls.polled, 0, 'finish the old size before changing canvas or pixel ratio');
 }
 for (const invalidation of ['disabled', 'hidden', 'animation', 'mode', 'webgl1']) {
   const t = loopHarness(); t.stage();

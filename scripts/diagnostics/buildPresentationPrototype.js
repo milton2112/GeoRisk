@@ -36,7 +36,8 @@ await fs.writeFile(path.join(out, 'engine-prototype.js'), engine);
 const metadata = { prototype: true, head: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(),
   bytes: engine.length, sha256: createHash('sha256').update(engine).digest('hex'),
   extraTarget: 'RGBA8 + depth-stencil, one pixel-sized target; estimated attachment storage 8 bytes/pixel, not measured GPU RAM',
-  optIn: 'scene._geoRiskPresentationEnabled; stopped-clock native loop, WebGL2, 2D, after first frame only',
+  optIn: 'scene._geoRiskPresentationEnabled; positively identified SwiftShader only, stopped-clock native loop, WebGL2, visible 2D, after first frame',
+  rendererIdentity: 'One optional WEBGL_debug_renderer_info query per context; retain only context/boolean, unknown/error/hardware use native rendering',
   bounds: { maximumFences: 1, maximumQueries: 64, timeoutMs: 1500 },
   limitations: ['Experiment only; this revision requires its own Linux proof and production gate', 'One additional target and final textured quad per eligible frame',
     'Source-scoped lifecycle tests cover failure/stop/cleanup; full native API and context recovery coverage incomplete, not safe for shipping'] };

@@ -72,7 +72,8 @@ try {
     } });
     return { renderer: ext && gl.getParameter(ext.UNMASKED_RENDERER_WEBGL), scale: viewer.resolutionScale,
       canvas: [scene.canvas.width, scene.canvas.height], mode: scene.mode, msaa: scene.msaaSamples,
-      fxaa: scene.postProcessStages.fxaa.enabled, oit: scene._environmentState.useOIT, webgl2: scene.context.webgl2 };
+      fxaa: scene.postProcessStages.fxaa.enabled, oit: scene._environmentState.useOIT, webgl2: scene.context.webgl2,
+      presentationSupported: scene._geoRiskPresentationSupported() };
   });
   assert.equal(result.configuration.webgl2, true);
   console.log('Ready: ' + JSON.stringify(result.configuration));
@@ -159,10 +160,32 @@ try {
     scene.morphTo3D(0);
     const mode = { flushed: !scene._geoRiskPendingPresentation, mode: scene.mode, counts: { ...counts } };
     scene.morphTo2D(0);
+    // A real pending old-size frame must complete before the public resize changes the canvas.
+    stage();
+    const oldCanvas = [scene.canvas.width, scene.canvas.height];
+    widget.resolutionScale = 0.5;
+    widget.resize();
+    const resize = { flushed: !scene._geoRiskPendingPresentation, oldCanvas,
+      newCanvas: [scene.canvas.width, scene.canvas.height], scale: widget.resolutionScale };
+    scene._renderRequested = true;
+    widget.render();
+    const gl = scene.context._gl;
+    const read = () => {
+      const bytes = new Uint8Array(scene.canvas.width * scene.canvas.height * 4);
+      gl.readPixels(0, 0, scene.canvas.width, scene.canvas.height, gl.RGBA, gl.UNSIGNED_BYTE, bytes);
+      return bytes;
+    };
+    const nativeResized = read();
+    stage(); scene._geoRiskFlushPresentation();
+    const stagedResized = read();
+    resize.pixelsMatch = nativeResized.length === stagedResized.length && nativeResized.every((byte, i) => byte === stagedResized[i]);
+    resize.glError = gl.getError();
+    widget.resolutionScale = 0.44;
+    widget.resize();
+    resize.restoredCanvas = [scene.canvas.width, scene.canvas.height];
     scene._renderRequested = true;
     widget.render();
     const png = scene.canvas.toDataURL('image/png');
-    const gl = scene.context._gl;
     const rgba = new Uint8Array(scene.canvas.width * scene.canvas.height * 4);
     gl.readPixels(0, 0, scene.canvas.width, scene.canvas.height, gl.RGBA, gl.UNSIGNED_BYTE, rgba);
     const blob = new Blob([Uint8Array.from(atob(png.split(',')[1]), c => c.charCodeAt(0))], { type: 'image/png' });
@@ -178,7 +201,7 @@ try {
       if (x % 4 !== 3 && bytes[y * stride + x] !== bytes[x % 4]) nonblank = true;
     }
     removers.forEach(remove => remove());
-    return { before, pick, manual, mode, export: { png: png.startsWith('data:image/png;base64,'), bytes: png.length, matches, nonblank },
+    return { before, pick, manual, mode, resize, export: { png: png.startsWith('data:image/png;base64,'), bytes: png.length, matches, nonblank },
       glError: scene.context._gl.getError(), stats: { ...scene._geoRiskPresentationStats } };
   });
   assert.equal(result.apiControls.before.pre, 1);
@@ -191,6 +214,13 @@ try {
   assert.equal(result.apiControls.manual.flushed, true);
   assert.equal(result.apiControls.mode.flushed, true);
   assert.equal(result.apiControls.mode.mode, 3);
+  assert.equal(result.apiControls.resize.flushed, true);
+  assert.deepEqual(result.apiControls.resize.oldCanvas, [171, 371]);
+  assert.deepEqual(result.apiControls.resize.newCanvas, [195, 422]);
+  assert.equal(result.apiControls.resize.scale, 0.5);
+  assert.deepEqual(result.apiControls.resize.restoredCanvas, [171, 371]);
+  assert.equal(result.apiControls.resize.pixelsMatch, true);
+  assert.equal(result.apiControls.resize.glError, 0);
   assert.equal(result.apiControls.export.png, true);
   assert.equal(result.apiControls.export.matches, true);
   assert.equal(result.apiControls.export.nonblank, true);
@@ -246,6 +276,9 @@ try {
           const teardownMs = performance.now() - teardownStart;
           performance.mark('georisk-prototype-window-' + index + '-cleanup-end');
           resolve({ enabled, elapsed, teardownMs, frameTimes, rafTimes, tasks, before, after: { ...scene._geoRiskPresentationStats },
+            presentationSupported: scene._geoRiskPresentationCapability?.supported === true,
+            resourcesReleased: { pending: !scene._geoRiskPendingPresentation, target: !scene._geoRiskPresentationBuffer,
+              copy: !scene._geoRiskPresentationCopy, state: !scene._geoRiskPresentationState },
             scale: viewer.resolutionScale, canvas: [scene.canvas.width, scene.canvas.height], msaa: scene.msaaSamples,
             fxaa: scene.postProcessStages.fxaa.enabled });
           return;
@@ -269,6 +302,10 @@ try {
     assert.deepEqual(w.canvas, [171, 371]);
     assert.equal(w.msaa, 4);
     assert.equal(w.fxaa, false);
+    assert.equal(w.presentationSupported, result.configuration.presentationSupported);
+    assert.ok(Object.values(w.resourcesReleased).every(Boolean), 'stop releases every owned presentation resource');
+    if (w.enabled && w.presentationSupported) assert.ok(w.after.submitted > w.before.submitted, 'SwiftShader takes the deferred path');
+    else assert.equal(w.after.submitted, w.before.submitted, 'hardware/unknown and disabled windows stay native');
   }
   result.scaleRequests = await page.evaluate(() => window.__prototypeScaleRequests);
   result.browserGpu = await collectBrowserGpuInfo(browser);
