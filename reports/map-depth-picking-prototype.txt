@@ -1,0 +1,200 @@
+// Diagnostic source used for the recorded controls. Run from tmp/ against the baseline dist build; --allocation-only uses current sources. Not a production asset.
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { createHash } from 'node:crypto';
+import { chromium } from '@playwright/test';
+import { createLocalSmokeServer } from '../scripts/localSmokeServer.js';
+import { createBrowserTileCache } from '../scripts/lib/browser-tile-cache.js';
+
+const server = createLocalSmokeServer({ root: path.resolve(process.argv.includes('--allocation-only') ? '.' : 'dist/public') });
+await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+const software = process.argv.includes('--software');
+const allocationOnly = process.argv.includes('--allocation-only');
+const cases = [
+  { name: 'desktop-auto-low', quality: 'auto', mobile: false, memory: 4 },
+  ...['auto', 'high', 'balanced', 'performance'].map(quality => ({ name: 'desktop-' + quality, quality, mobile: false, memory: 16 })),
+  ...['auto', 'high', 'balanced', 'performance'].map(quality => ({ name: 'mobile-' + quality, quality, mobile: true, memory: 4 }))
+];
+const tileCache = createBrowserTileCache();
+const results = [];
+let browser;
+try {
+  browser = await chromium.launch({ channel: 'chrome', headless: true,
+    args: software ? ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'] : [] });
+  for (const testCase of cases.filter(item => !allocationOnly || ['desktop-auto-low', 'mobile-auto'].includes(item.name))) {
+    const context = await browser.newContext({ viewport: testCase.mobile ? { width: 390, height: 844 } : { width: 1440, height: 920 },
+      isMobile: testCase.mobile, hasTouch: testCase.mobile, serviceWorkers: 'block' });
+    try {
+      await tileCache.attach(context);
+      await context.addInitScript(testCase => {
+        Object.defineProperty(navigator, 'deviceMemory', { get: () => testCase.memory });
+        Object.defineProperty(navigator, 'hardwareConcurrency', { get: () => testCase.memory <= 4 ? 4 : 12 });
+        localStorage.setItem('geo-risk-intro-seen', 'true');
+        localStorage.setItem('geo-risk-auto-rotate', 'false');
+        localStorage.setItem('geo-risk-quality-preset', testCase.quality);
+        if (!testCase.mobile) localStorage.setItem('geo-risk-label-mode', 'countries');
+      }, testCase);
+      const page = await context.newPage();
+      const errors = [];
+      page.on('pageerror', error => { if (errors.length < 16) errors.push(error.message); });
+      await page.goto(`http://127.0.0.1:${server.address().port}/index.html`, { waitUntil: 'domcontentloaded', timeout: 45000 });
+      await page.waitForFunction(() => typeof viewer !== 'undefined' && viewer && !document.body.classList.contains('globe-loading') &&
+        viewer.scene.globe.tilesLoaded && !isCameraNavigating && !loadMapPromise &&
+        (currentMapMode === '2d' || activeImagerySignature === '3d:full'), undefined, { timeout: 45000 });
+      await page.evaluate(() => document.fonts.ready);
+      const initial = await page.evaluate(() => ({ useDepthPicking: viewer.scene.useDepthPicking,
+        pickDepthBuffers: viewer.scene._view.pickDepths.length }));
+      if (allocationOnly) assert.deepEqual(initial, { useDepthPicking: false, pickDepthBuffers: 0 });
+      const captures = [];
+      for (const enabled of [true, false, true]) {
+        const capture = await page.evaluate(enabled => new Promise((resolve, reject) => {
+          const scene = viewer.scene;
+          const gl = scene.canvas.getContext('webgl2') || scene.canvas.getContext('webgl');
+          scene.useDepthPicking = enabled;
+          let frames = 0;
+          let remove;
+          const timeout = setTimeout(() => { remove?.(); reject(new Error('Settled pixel capture timed out.')); }, 15000);
+          remove = scene.postRender.addEventListener(() => {
+            frames = scene.globe.tilesLoaded ? frames + 1 : 0;
+            if (frames < 3) { scene.requestRender(); return; }
+            remove();
+            clearTimeout(timeout);
+            const pixels = new Uint8Array(scene.canvas.width * scene.canvas.height * 4);
+            gl.readPixels(0, 0, scene.canvas.width, scene.canvas.height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
+            let bytes = '';
+            for (let offset = 0; offset < pixels.length; offset += 8192) bytes += String.fromCharCode(...pixels.subarray(offset, offset + 8192));
+            const extension = gl.getExtension('WEBGL_debug_renderer_info');
+            resolve({ enabled, pixels: btoa(bytes), width: scene.canvas.width, height: scene.canvas.height,
+              mode: currentMapMode, geometry: activeGeoJsonPath, imagery: activeImagerySignature, labels: labelEntities.length,
+              resolutionScale: viewer.resolutionScale, msaaSamples: scene.msaaSamples, fxaa: scene.postProcessStages.fxaa.enabled,
+              gpu: extension ? gl.getParameter(extension.UNMASKED_RENDERER_WEBGL) : null, glError: gl.getError() });
+          });
+          scene.requestRender();
+        }), enabled);
+        capture.pixels = Buffer.from(capture.pixels, 'base64');
+        capture.sha256 = createHash('sha256').update(capture.pixels).digest('hex');
+        captures.push(capture);
+        if (!enabled && (testCase.name === 'desktop-auto-low' || testCase.name === 'mobile-auto')) {
+          await page.locator('#map canvas').first().screenshot({ path: `tmp/depth-${software ? 'software' : 'hardware'}-${testCase.name}.png` });
+        }
+      }
+      const comparison = { baselineControlEqual: captures[0].pixels.equals(captures[2].pixels),
+        disabledEqual: captures[0].pixels.equals(captures[1].pixels) };
+      let redraw = [];
+      if (software && testCase.name === 'desktop-auto-low') {
+        redraw = await page.evaluate(async () => {
+          const scene = viewer.scene;
+          const results = [];
+          for (const enabled of [true, false, false, true, true, false, false, true]) {
+            scene.useDepthPicking = enabled;
+            let copies = 0;
+            const wrapped = scene._view.pickDepths.map(depth => {
+              const original = depth.executeCopyDepth;
+              depth.executeCopyDepth = function (...args) { copies++; return original.apply(this, args); };
+              return { depth, original };
+            });
+            const start = performance.now();
+            let frames = 0;
+            let remove;
+            try {
+              await new Promise(resolve => {
+                const timeout = setTimeout(() => { remove?.(); resolve(); }, 3500);
+                remove = scene.postRender.addEventListener(() => {
+                  frames++;
+                  if (performance.now() - start >= 3000) { clearTimeout(timeout); remove(); resolve(); }
+                  else scene.requestRender();
+                });
+                scene.requestRender();
+              });
+            } finally { remove?.(); for (const { depth, original } of wrapped) depth.executeCopyDepth = original; }
+            results.push({ enabled, frames, copies, durationMs: performance.now() - start });
+          }
+          return results;
+        });
+      }
+      const result = { case: testCase.name, initial, captures: captures.map(({ pixels, ...capture }) => capture), comparison, redraw, errors };
+      results.push(result);
+      console.log(JSON.stringify({ case: testCase.name, ...comparison, redraw, errors }));
+      assert.equal(comparison.baselineControlEqual, true, 'On/on control must be stable.');
+      assert.equal(comparison.disabledEqual, true, 'Disabling depth picking must preserve every RGBA byte.');
+      assert.deepEqual(errors, []);
+    } finally { await context.close(); }
+  }
+} finally {
+  const result = { generatedAt: new Date().toISOString(), browser: browser?.version(), platform: process.platform, software, results };
+  await fs.writeFile(`tmp/depth-picking-${allocationOnly ? 'allocation' : software ? 'software' : 'hardware'}.json`, JSON.stringify(result, null, 2) + '\n');
+  await browser?.close();
+  await new Promise(resolve => server.close(resolve));
+}
+
+// Rejected idle-clock hypothesis source follows.
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { chromium } from '@playwright/test';
+import { createLocalSmokeServer } from '../scripts/localSmokeServer.js';
+
+const server = createLocalSmokeServer({ root: path.resolve('dist/public') });
+await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+let browser;
+try {
+  browser = await chromium.launch({ channel: 'chrome', headless: true,
+    args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
+  const context = await browser.newContext({ viewport: { width: 1440, height: 920 }, serviceWorkers: 'block' });
+  await context.addInitScript(() => {
+    localStorage.setItem('geo-risk-intro-seen', 'true');
+    localStorage.setItem('geo-risk-auto-rotate', 'false');
+    Object.defineProperty(navigator, 'deviceMemory', { get: () => 4 });
+    Object.defineProperty(navigator, 'hardwareConcurrency', { get: () => 4 });
+  });
+  const page = await context.newPage();
+  const errors = [];
+  page.on('pageerror', error => { if (errors.length < 16) errors.push(error.message); });
+  await page.goto(`http://127.0.0.1:${server.address().port}/index.html`, { waitUntil: 'domcontentloaded', timeout: 45000 });
+  await page.waitForFunction(() => typeof viewer !== 'undefined' && viewer && !document.body.classList.contains('globe-loading') &&
+    viewer.scene.globe.tilesLoaded && !isCameraNavigating && !loadMapPromise && activeImagerySignature === '3d:full', undefined, { timeout: 45000 });
+  const initial = await page.evaluate(() => ({ clockAnimating: viewer.clock.shouldAnimate, clockCanAnimate: viewer.clock.canAnimate,
+    maximumRenderTimeChange: String(viewer.scene.maximumRenderTimeChange), mode: currentMapMode,
+    resolutionScale: viewer.resolutionScale, msaaSamples: viewer.scene.msaaSamples, fxaa: viewer.scene.postProcessStages.fxaa.enabled }));
+  const samples = [];
+  for (const maximum of ['baseline', 'Infinity', 'baseline']) {
+    samples.push(await page.evaluate(async maximum => {
+      const scene = viewer.scene;
+      scene.maximumRenderTimeChange = maximum === 'Infinity' ? Infinity : 0.28;
+      let frames = 0;
+      const remove = scene.postRender.addEventListener(() => frames++);
+      await new Promise(resolve => setTimeout(resolve, 4000));
+      remove();
+      return { maximum, frames, navigating: isCameraNavigating, tilesLoaded: scene.globe.tilesLoaded, clockAnimating: viewer.clock.shouldAnimate };
+    }, maximum));
+  }
+  const cdp = await context.newCDPSession(page);
+  await cdp.send('Profiler.enable');
+  await cdp.send('Profiler.setSamplingInterval', { interval: 2000 });
+  await cdp.send('Profiler.start');
+  const active = await page.evaluate(() => new Promise(resolve => {
+    const start = performance.now();
+    let frames = 0;
+    const remove = viewer.scene.postRender.addEventListener(() => frames++);
+    const move = () => {
+      if (performance.now() - start >= 4000) { remove(); resolve({ frames, duration: performance.now() - start }); return; }
+      viewer.camera.rotateRight(0.003);
+      viewer.scene.requestRender();
+      requestAnimationFrame(move);
+    };
+    move();
+  }));
+  const { profile } = await cdp.send('Profiler.stop');
+  if (profile.nodes.length > 10000 || profile.samples.length > 10000) throw new Error('Profile exceeds diagnostic bound.');
+  const nodes = new Map(profile.nodes.map(node => [node.id, { node, selfUs: 0 }]));
+  profile.samples.forEach((id, index) => nodes.get(id).selfUs += profile.timeDeltas[index]);
+  const top = [...nodes.values()].sort((a,b) => b.selfUs-a.selfUs).slice(0,32).map(({ node, selfUs }) => ({
+    function: node.callFrame.functionName, source: node.callFrame.url.startsWith('http://127.0.0.1:') ? new URL(node.callFrame.url).pathname : node.callFrame.url,
+    line: node.callFrame.lineNumber + 1, column: node.callFrame.columnNumber + 1, selfUs }));
+  const result = { generatedAt: new Date().toISOString(), browser: browser.version(), initial, samples, active, top, errors };
+  await fs.writeFile('tmp/map-idle-diagnostic.json', JSON.stringify(result, null, 2) + '\n');
+  console.log(JSON.stringify(result));
+} finally {
+  await browser?.close();
+  await new Promise(resolve => server.close(resolve));
+}

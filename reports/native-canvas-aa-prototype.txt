@@ -1,0 +1,259 @@
+// ---- Diagnostic source: compare-native-aa.mjs (run from tmp/ against the stated baseline dist build) ----
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { createHash } from 'node:crypto';
+import { chromium } from '@playwright/test';
+import { createLocalSmokeServer } from '../scripts/localSmokeServer.js';
+import { createBrowserTileCache } from '../scripts/lib/browser-tile-cache.js';
+
+const server = createLocalSmokeServer({ root: path.resolve('dist/public') });
+await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+const tileCache = createBrowserTileCache();
+let browser;
+const captures = [];
+const cases = [
+  { name: 'desktop-3d-auto-low', quality: 'auto', mobile: false, memory: 4, labels: false },
+  ...['auto', 'high', 'balanced', 'performance'].map(quality => ({ name: 'desktop-3d-' + quality, quality, mobile: false, memory: 16 })),
+  ...['auto', 'high', 'balanced', 'performance'].map(quality => ({ name: 'mobile-2d-' + quality, quality, mobile: true, memory: 4 }))
+];
+const caseArg = process.argv.find(arg => arg.startsWith('--case='));
+const selectedCases = caseArg ? cases.filter(item => item.name === caseArg.slice(7)) : cases;
+const hardware = process.argv.includes('--hardware');
+const warmup = process.argv.includes('--warmup');
+if (!selectedCases.length) throw new Error('Unknown case.');
+try {
+  browser = await chromium.launch({ headless: true, channel: 'chrome', args: hardware ? [] : ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
+  for (const testCase of selectedCases) {
+  for (const [index, enabled] of (warmup ? [true, true, false, true] : [true, false, true]).entries()) {
+    const context = await browser.newContext({ viewport: testCase.mobile ? { width: 390, height: 844 } : { width: 1440, height: 920 }, isMobile: testCase.mobile, hasTouch: testCase.mobile, serviceWorkers: 'block' });
+    try {
+      await tileCache.attach(context);
+      await context.addInitScript(({ enabled, testCase }) => {
+        Object.defineProperty(navigator, 'hardwareConcurrency', { get: () => testCase.memory <= 4 ? 4 : 12 });
+        Object.defineProperty(navigator, 'deviceMemory', { get: () => testCase.memory });
+        localStorage.setItem('geo-risk-intro-seen', 'true');
+        localStorage.setItem('geo-risk-auto-rotate', 'false');
+        localStorage.setItem('geo-risk-quality-preset', testCase.quality);
+        if (!testCase.mobile) localStorage.setItem('geo-risk-label-mode', testCase.labels === false ? 'none' : 'countries');
+        const original = HTMLCanvasElement.prototype.getContext;
+        HTMLCanvasElement.prototype.getContext = function (type, options) {
+          return original.call(this, type, /^(webgl2?|experimental-webgl)$/.test(type) ? { ...options, antialias: enabled } : options);
+        };
+      }, { enabled, testCase });
+      const page = await context.newPage();
+      const errors = [];
+      page.on('pageerror', error => errors.push(error.message));
+      await page.goto(`http://127.0.0.1:${server.address().port}/index.html`, { waitUntil: 'domcontentloaded', timeout: 45000 });
+      await page.waitForFunction(() => typeof countryLayers !== 'undefined' && countryLayers.has('ARG') && !document.body.classList.contains('globe-loading') && viewer.scene.globe.tilesLoaded && !isCameraNavigating && deferredDataStatus.countryIndex && !loadMapPromise && (currentMapMode === '2d' || activeImagerySignature === '3d:full'), undefined, { timeout: 45000 });
+      await page.evaluate(() => document.fonts.ready);
+      const capture = await page.evaluate(() => new Promise((resolve, reject) => {
+        const scene = viewer.scene;
+        const canvas = scene.canvas;
+        const gl = canvas.getContext('webgl2') || canvas.getContext('webgl');
+        let remove;
+        let settledFrames = 0;
+        const timer = setTimeout(() => { remove?.(); reject(new Error('Pixel capture timed out.')); }, 15000);
+        remove = scene.postRender.addEventListener(() => {
+          settledFrames = scene.globe.tilesLoaded ? settledFrames + 1 : 0;
+          if (settledFrames < 3) { scene.requestRender(); return; }
+          clearTimeout(timer);
+          remove();
+          const pixels = new Uint8Array(canvas.width * canvas.height * 4);
+          gl.readPixels(0, 0, canvas.width, canvas.height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
+          let binary = '';
+          for (let i = 0; i < pixels.length; i += 8192) binary += String.fromCharCode(...pixels.subarray(i, i + 8192));
+          const extension = gl.getExtension('WEBGL_debug_renderer_info');
+          resolve({ width: canvas.width, height: canvas.height, resolutionScale: viewer.resolutionScale,
+            mode: scene.mode, msaaSamples: scene.msaaSamples, fxaa: scene.postProcessStages.fxaa.enabled,
+            nativeAntialias: gl.getContextAttributes().antialias, samples: gl.getParameter(gl.SAMPLES),
+            gpu: extension ? gl.getParameter(extension.UNMASKED_RENDERER_WEBGL) : null,
+            camera: [viewer.camera.positionWC.x, viewer.camera.positionWC.y, viewer.camera.positionWC.z],
+            labels: labelEntities.length, settledFrames, imagery: activeImagerySignature, geometry: loadMapPath, pixels: btoa(binary), glError: gl.getError() });
+        });
+        scene.requestRender();
+      }));
+      const pixels = Buffer.from(capture.pixels, 'base64');
+      delete capture.pixels;
+      captures.push({ case: testCase.name, index, ...capture, pixels, errors, sha256: createHash('sha256').update(pixels).digest('hex') });
+      if (index === (warmup ? 2 : 1)) await page.locator('#map canvas').first().screenshot({ path: `tmp/native-aa-${hardware ? 'hardware' : 'software'}-${testCase.name}.png` });
+      console.log(JSON.stringify({ case: testCase.name, index, ...capture, errors, sha256: captures.at(-1).sha256 }));
+    } finally { await context.close(); }
+  }
+  }
+  const differences = (a, b) => {
+    if (a.pixels.length !== b.pixels.length) return { incompatibleDimensions: true };
+    let changedChannels = 0, changedPixels = 0, maxDifference = 0, absoluteDifference = 0;
+    for (let i = 0; i < a.pixels.length; i += 4) {
+      let changed = false;
+      for (let c = 0; c < 4; c++) {
+        const delta = Math.abs(a.pixels[i+c] - b.pixels[i+c]);
+        if (delta) { changedChannels++; changed = true; absoluteDifference += delta; maxDifference = Math.max(maxDifference, delta); }
+      }
+      if (changed) changedPixels++;
+    }
+    return { changedChannels, changedPixels, maxDifference, absoluteDifference };
+  };
+  const result = { generatedAt: new Date().toISOString(), browser: browser.version(), platform: process.platform,
+    method: 'Real app and imagery, identical low-tier hints, sequential on/off/on, settled globe, full RGBA postRender capture; visual diagnostic only, no timing claim.',
+    captures: captures.map(({ pixels, ...rest }) => rest), comparisons: selectedCases.map(testCase => {
+      const group = captures.filter(item => item.case === testCase.name);
+      const base = warmup ? 1 : 0;
+      return { case: testCase.name, excludedWarmup: warmup, baselineRepeat: differences(group[base], group[base+2]), candidate: differences(group[base], group[base+1]) };
+    }), tileCache: tileCache.stats() };
+  await fs.writeFile(`tmp/native-aa-pixels-${hardware ? 'hardware' : 'software'}-${warmup ? 'warm' : 'cold'}-${caseArg ? 'auto-recheck' : 'matrix'}-settled.json`, JSON.stringify(result, null, 2) + '\n');
+  console.log(JSON.stringify({ comparisons: result.comparisons, tileCache: result.tileCache }));
+} finally {
+  await browser?.close();
+  tileCache.close();
+  await new Promise(resolve => server.close(resolve));
+}
+
+
+// ---- Diagnostic source: benchmark-native-aa.mjs (run from tmp/ against the stated baseline dist build) ----
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import os from 'node:os';
+import { chromium } from '@playwright/test';
+import { createLocalSmokeServer } from '../scripts/localSmokeServer.js';
+import { createBrowserTileCache } from '../scripts/lib/browser-tile-cache.js';
+import { createHash } from 'node:crypto';
+
+const server = createLocalSmokeServer({ root: path.resolve('dist/public') });
+await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+const tileCache = createBrowserTileCache();
+let browser;
+const trials = [];
+try {
+  browser = await chromium.launch({ headless: true, channel: 'chrome', args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
+  for (const [index, enabled] of [true, true, false, false, true, true, false, false, true].entries()) {
+    const context = await browser.newContext({ viewport: { width: 1440, height: 920 }, serviceWorkers: 'block' });
+    try {
+      await tileCache.attach(context);
+      await context.addInitScript(enabled => {
+        Object.defineProperty(navigator, 'hardwareConcurrency', { get: () => 4 });
+        Object.defineProperty(navigator, 'deviceMemory', { get: () => 4 });
+        localStorage.setItem('geo-risk-intro-seen', 'true');
+        localStorage.setItem('geo-risk-auto-rotate', 'false');
+        const original = HTMLCanvasElement.prototype.getContext;
+        HTMLCanvasElement.prototype.getContext = function (type, options) {
+          return original.call(this, type, /^(webgl2?|experimental-webgl)$/.test(type) ? { ...options, antialias: enabled } : options);
+        };
+      }, enabled);
+      const page = await context.newPage();
+      await page.goto(`http://127.0.0.1:${server.address().port}/index.html`, { waitUntil: 'domcontentloaded', timeout: 45000 });
+      await page.waitForFunction(() => typeof countryLayers !== 'undefined' && countryLayers.has('ARG') && !document.body.classList.contains('globe-loading') && viewer.scene.globe.tilesLoaded && !isCameraNavigating && deferredDataStatus.countryIndex && !loadMapPromise && activeImagerySignature === '3d:full', undefined, { timeout: 45000 });
+      const result = await page.evaluate(() => new Promise((resolve, reject) => {
+        const scene = viewer.scene;
+        const gl = scene.canvas.getContext('webgl2');
+        const configuration = () => ({ width: scene.canvas.width, height: scene.canvas.height, mode: scene.mode,
+          resolutionScale: viewer.resolutionScale, msaaSamples: scene.msaaSamples, fxaa: scene.postProcessStages.fxaa.enabled,
+          maximumScreenSpaceError: scene.globe.maximumScreenSpaceError, targetFrameRate: viewer.targetFrameRate,
+          imagery: activeImagerySignature, geometry: loadMapPath });
+        const before = configuration();
+        const extension = gl.getExtension('WEBGL_debug_renderer_info');
+        const gpu = extension ? gl.getParameter(extension.UNMASKED_RENDERER_WEBGL) : null;
+        let first = null, previous = null, frames = 0, settledFrames = 0;
+        const intervals = [];
+        const timer = setTimeout(() => { remove(); reject(new Error('Rendering diagnostic timed out.')); }, 8000);
+        const remove = scene.postRender.addEventListener(() => {
+          const now = performance.now();
+          if (first === null) {
+            settledFrames = scene.globe.tilesLoaded ? settledFrames + 1 : 0;
+            if (settledFrames < 3) { scene.requestRender(); return; }
+          }
+          if (first === null) first = now;
+          if (previous !== null) intervals.push(now - previous);
+          previous = now;
+          frames++;
+          if (now - first >= 3000) {
+            clearTimeout(timer); remove();
+            resolve({ before, after: configuration(), frames, elapsedMs: now - first, intervals, gpu,
+              nativeAntialias: gl.getContextAttributes().antialias, defaultFramebufferSamples: gl.getParameter(gl.SAMPLES),
+              glError: gl.getError() });
+          } else scene.requestRender();
+        });
+        scene.requestRender();
+      }));
+      result.fps = (result.frames - 1) * 1000 / result.elapsedMs;
+      result.warmup = index === 0;
+      result.index = index;
+      result.enabled = enabled;
+      if (JSON.stringify(result.before) !== JSON.stringify(result.after)) throw new Error('Quality changed during comparison.');
+      trials.push(result);
+      console.log(JSON.stringify({ index, enabled, warmup: result.warmup, fps: result.fps, elapsedMs: result.elapsedMs, configuration: result.before }));
+    } finally { await context.close(); }
+  }
+  const median = values => { const sorted = [...values].sort((a,b) => a-b); return (sorted[(sorted.length-1)>>1] + sorted[sorted.length>>1]) / 2; };
+  const measured = trials.filter(item => !item.warmup);
+  const on = median(measured.filter(item => item.enabled).map(item => item.fps));
+  const off = median(measured.filter(item => !item.enabled).map(item => item.fps));
+  const result = { generatedAt: new Date().toISOString(), baselineRevision: '6d8c0567bd6996fa6303ec242fcb435155602a67',
+    baselinePublicInputHash: 'ef5c3280d1f9b778ae33f67ecb866b6a9f081b33d4f0ef5629ec284e6f60c085',
+    builtScriptSha256: createHash('sha256').update(await fs.readFile('dist/public/script.js')).digest('hex'),
+    environment: { platform: process.platform, browser: browser.version(), cpus: os.cpus().length, memoryGiB: os.totalmem()/1024**3 },
+    method: 'One excluded warmup, then ABBA ABBA; isolated sequential contexts, low-tier 4/4 hints, final 3d:full imagery and three settled frames, fixed camera and quality, requestRender after each postRender for 3 seconds. Full app targetFrameRate retained. No CPU profiler or pixel readback during timing.',
+    limitation: 'Windows Chrome software renderer, not Linux CI parity, active navigation, whole-app FPS, physical phone or energy/RAM measurement.',
+    trials, medianFps: { on, off, changePercent: (off/on-1)*100 }, tileCache: tileCache.stats() };
+  await fs.writeFile('tmp/native-aa-render-benchmark.json', JSON.stringify(result, null, 2) + '\n');
+  console.log(JSON.stringify(result.medianFps));
+} finally {
+  await browser?.close(); tileCache.close();
+  await new Promise(resolve => server.close(resolve));
+}
+
+
+// ---- Diagnostic source: check-webgl1-aa.mjs (run from tmp/ against the stated baseline dist build) ----
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { chromium } from '@playwright/test';
+import { createLocalSmokeServer } from '../scripts/localSmokeServer.js';
+
+const server = createLocalSmokeServer({ root: path.resolve('dist/public') });
+await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+let browser;
+try {
+  browser = await chromium.launch({ headless: true, channel: 'chrome' });
+  const context = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, serviceWorkers: 'block' });
+  await context.addInitScript(() => {
+    window.WebGL2RenderingContext = undefined;
+    localStorage.setItem('geo-risk-intro-seen', 'true');
+    const original = HTMLCanvasElement.prototype.getContext;
+    window.__webglOptions = [];
+    HTMLCanvasElement.prototype.getContext = function (type, options) {
+      if (/^(webgl2?|experimental-webgl)$/.test(type)) window.__webglOptions.push({ type, antialias: options?.antialias });
+      return original.call(this, type, options);
+    };
+  });
+  // Compare the candidate source through the existing server without another full build.
+  const candidateSource = await fs.readFile('script.js', 'utf8');
+  const page = await context.newPage();
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  await page.route(/\/script\.js\?/, route => route.fulfill({ status: 200, contentType: 'text/javascript', body: candidateSource }));
+  await page.goto(`http://127.0.0.1:${server.address().port}/index.html`, { waitUntil: 'domcontentloaded', timeout: 45000 });
+  await page.waitForFunction(() => typeof countryLayers !== 'undefined' && countryLayers.has('ARG') && !document.body.classList.contains('globe-loading') && viewer.scene.globe.tilesLoaded, undefined, { timeout: 45000 });
+  const result = await page.evaluate(() => new Promise(resolve => {
+    const scene = viewer.scene;
+    const remove = scene.postRender.addEventListener(() => {
+      remove();
+      const gl = scene.canvas.getContext('webgl');
+      const pixel = new Uint8Array(4), colors = new Set();
+      for (const x of [.25, .5, .75]) for (const y of [.25, .5, .75]) {
+        gl.readPixels(Math.floor(scene.canvas.width*x), Math.floor(scene.canvas.height*y), 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, pixel);
+        colors.add(Array.from(pixel).join(','));
+      }
+      resolve({ options: window.__webglOptions, mode: scene.mode, nativeAntialias: gl.getContextAttributes().antialias,
+        version: gl.getParameter(gl.VERSION), samples: gl.getParameter(gl.SAMPLES), msaaSupported: scene.msaaSupported,
+        msaaSamples: scene.msaaSamples, fxaa: scene.postProcessStages.fxaa.enabled, nonblank: colors.size > 1,
+        glError: gl.getError() });
+    });
+    scene.requestRender();
+  }));
+  if (errors.length || !result.nonblank || result.glError || result.options[0]?.type !== 'webgl' || result.options[0]?.antialias !== true || !result.nativeAntialias) throw new Error('WebGL1 compatibility diagnostic failed: ' + JSON.stringify({ result, errors }));
+  await fs.writeFile('tmp/native-aa-webgl1.json', JSON.stringify({ generatedAt: new Date().toISOString(), browser: browser.version(), platform: process.platform, result, errors }, null, 2) + '\n');
+  console.log(JSON.stringify({ result, errors }));
+} finally {
+  await browser?.close();
+  await new Promise(resolve => server.close(resolve));
+}
+

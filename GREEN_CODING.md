@@ -36,10 +36,151 @@ no una certificacion ambiental ni una afirmacion de neutralidad de carbono.
 
 ## Evidencia y control
 
+El diagnostico acotado consulta una vez SystemInfo.getInfo del navegador despues
+de detener CPU/traza, para distinguir el compositor del renderer WebGL. Conserva
+estados exactos y hasta ocho dispositivos, 64 features y 512 caracteres por string;
+si faltan estados, el compositor sigue desconocido. Excluye la linea de comandos
+y atributos auxiliares libres. Cuesta una consulta CDP y metadatos acotados dentro
+del mismo proceso de 90 s; libera la sesion y no agrega dependencias, polling o
+actividad al producto. Estado global del navegador no acredita una pila C++, costo
+individual, mejora de FPS, energia o CO2.
+
+El diagnostico Linux del mapa reutiliza el perfilador y Chromium ya previstos en
+el proyecto, solo desde una rama codex/diagnose-map/ o una invocacion manual.
+Una muestra mobile con ocho segundos solicitados tras arranque usa un proceso propio limitado
+a 90 s, traza de hasta 50000 eventos / 20 MiB y CPU de hasta 4 MiB; el job completo
+queda limitado a diez minutos. Sus tres reportes internos duran siete dias.
+Cuesta un runner, preparacion/escaneo/descargas y observacion adicional cuando se
+invoca; no se suma a cada release ni al cliente. Sirve para investigar bloqueos
+en el entorno que los registra. Muestras instrumentadas y comparaciones entre
+hosts/versiones no acreditan ahorro energetico/CO2 ni mas FPS del producto.
+El primer run Linux completo (38069696161, checkout 55f11fcb) retuvo 765 eventos
+seleccionados y 4156 muestras CPU dentro de los limites. La ventana solicitada
+se extendio a 10095 ms por esperas nativas Commit de 1606-1682 ms, sin Layout
+posterior a disponibilidad. Es evidencia para acotar la investigacion, sin causa
+GPU/driver/compositor resuelta ni cambio de calidad justificado por esa muestra.
+La captura acotada conserva ahora los eventos originales seleccionados de
+cc/gpu/viz/toplevel, con identidad de proceso/hilo, timestamps, argumentos y
+fases begin/end/async/flow, dentro de los mismos limites. Un tercer JSON interno
+permite investigar las esperas sin perder sus eventos al resumir; no es una traza
+exhaustiva. El resumen limita los hilos a 20 y sus spans completos a ocho por hilo.
+Los spans inclusivos pueden solaparse: no sumarlos como uso de CPU/GPU ni atribuir
+causalidad por coincidencia temporal. Cuesta mas observacion, RAM y almacenamiento
+solo en la invocacion optativa; el producto y sus presupuestos no cambian.
+El primer intento nativo (38075571598) alcanzo el limite con 49985 eventos
+antes de conservar la marca de disponibilidad; su traza parcial de 11330896 bytes
+queda excluida como diagnostico completo. Predominan spans X breves de tareas y cc.
+El filtro omite ahora los spans nativos completos menores de 1 ms y conserva las
+otras fases sin umbral, sin aumentar el cupo ni los deadlines.
+La captura completa siguiente (38076216261, 7cabfc25) conserva 32004 eventos
+seleccionados y tres JSON de 5802280 bytes. Doce Commit contienen ReadPixels
+nativo de 539-832 ms y espera al command buffer, dentro de DoUpdateLayers.
+Localiza esa espera concreta; el codigo de Chromium es consistente con un
+readback para composicion por software, sin pila C++ completa. No acredita que
+suprimir lecturas de la app o cambiar flags/calidad sea correcto ni mas FPS.
+Hosts e instrumentacion distintos impiden comparar los tiempos como un A/B.
+
+Los cambios de resolucion del mapa pueden esperar la GPU sin bloquear JavaScript:
+el loop nativo con reloj detenido conserva como maximo un fence WebGL2 y lo consulta
+con timeout cero solo en sus callbacks existentes. No envia nuevos frames durante
+esa espera, no agrega timers/listeners/dependencias y vuelve al resize nativo tras
+1500 ms o 64 consultas. Arranque, WebGL1, animacion, layout/DPR y resize manual
+conservan su camino nativo. Parada, errores y destruccion liberan el recurso.
+El costo es un fence, flush, consultas acotadas y su eliminacion por cambio elegible;
+la espera de GPU sigue existiendo y el ultimo frame permanece visible hasta terminar.
+Las comparaciones locales acotadas evaluan bloqueo del hilo y pixeles; no permiten
+afirmar mas FPS generales, ahorro de memoria, energia o CO2 ni paridad con Linux.
+
+Las colecciones nativas de billboards totalmente ocultas difieren buffers, shaders
+y comandos hasta tener un elemento visible. Reutilizan el recorrido de readiness
+con un booleano, conservando imagenes, atlas y estados pendientes para reactivarse.
+El motor crece 97 bytes; no agrega recorridos, recursos o actividad permanente.
+Los controles Intel/SwiftShader preservan RGBA, y el arranque frio observado evita
+dos enlaces de programas sin contenido visible. Las paginas existentes agregan
+dos frames de comprobacion; los diagnosticos son finitos y quedan fuera del sitio.
+No se infiere ahorro de energia, CO2, memoria GPU o aumento de FPS a partir de
+estos contadores. Se conserva la calidad y el gate completo con limites originales.
+
+La curaduria de Steens Mountain reutiliza los generadores y el modal actuales:
+un detalle de 4035 bytes se carga bajo demanda, sin distribuir documentos fuente
+ni agregar codigo del cliente. Los incrementos de indices permiten buscar y fechar
+el episodio; las atribuciones y discrepancias quedan en el detalle profundo.
+Se conserva el import original y no se resuelven otras entradas por semejanza.
+Las regresiones agregan una busqueda y dos aperturas/cierres a cada pagina de
+curaduria existente, sin mas paginas, flujos o deadlines. No es una optimizacion
+del renderer ni una medicion de ahorro de CPU/GPU, memoria, energia o CO2.
+
+El mapa plano desactiva useDepthPicking antes del primer frame: evita preparar la
+textura/copia por frustum de pickPosition, conservando pick/drillPick de objetos y
+el fallback nativo del rayo contra el globo para la camara. Una futura funcion de
+alturas/modelos o pickPosition debe revisar esa decision. Los controles locales
+Intel/SwiftShader comparan cada byte RGBA con on/off/on; el contador de copias y
+la ausencia de buffers no miden bytes reales de GPU, energia ni mejora de FPS.
+Las pruebas conservan calidad, seleccion, zoom manual y transiciones, sin nuevos
+monitores o recursos del producto. El reloj detenido ya permite reposo sin frames;
+la sospecha de redibujados periodicos se descarto y ese ajuste no cambia.
+
+CI reparte los 27 flujos existentes entre dos runners Linux, con un navegador y
+ejecucion secuencial por runner; el gate local conserva la suite completa. Solo
+agrega evidencia del mismo run/intento/revision/fuentes/Chromium con cobertura
+exacta, sin aceptar un shard como release. El intervalo completo de ambos shards
+(desfase y teardown incluidos) mas el resto real de npm test sigue limitado a
+20 minutos; preparacion y gate final tambien cuentan dentro de los 45 minutos.
+La utilidad esperada es evitar reintentos fallidos por acumulacion, con el costo
+de dos hosts simultaneos y preparacion/descargas/escaneos repetidos. Los JSON son
+acotados y se retienen siete dias; no hay polling o recursos nuevos para la app.
+Los diagnosticos locales descartaron paralelizar navegadores en un solo host:
+su tiempo empeoro. El resultado local no certifica Linux ni ahorro de CPU total,
+energia o CO2; se conserva evidencia/fuentes y se requiere el gate remoto.
+
+El canvas temporal que mide glifos de Cesium pide willReadFrequently porque su
+siguiente trabajo lee pixeles hacia CPU. El build acota el cambio a ese archivo
+y falla si la fuente instalada cambia. Conserva algoritmo, fuentes, raster final,
+geometria, calidad WebGL y cantidad de canvases; no agrega modulos de arranque,
+dependencias, red, caches o monitores. El navegador puede trasladar el dibujo
+temporal a CPU o ignorar el hint. La comparacion local alternada verifica RGBA y
+dimensiones iguales en 36 casos; sus tiempos solo describen ese lote de glifos,
+no ahorro energetico, FPS de la app ni cumplimiento del deadline remoto.
+
+El E2E de Noticias identifica titulares por pais/tema/modo y verifica cada query
+fisica contra el orden y limite nativos. Un deadline puede usar el fallback de
+nombre y cambiar los ordinales; la prueba provoca ese callback real sin ampliar
+2500 ms ni dormir ese plazo. Comprueba cancelacion, cache y cuerpos tardios;
+observacion de timers solo en la pagina aislada y una lectura solo al fallar,
+sin polling adicional o recursos para la app. El costo es una espera de fallback
+necesaria para la regresion. Evitar falsos fallos es un beneficio esperado, no una
+medicion de energia ni una garantia de CI Linux desde un diagnostico Windows.
+
 `npm run test:green-coding` prueba las reglas del mapa, suspension de monitores,
 limpieza de listeners y carga bajo demanda. Tambien forma parte de `test:startup`,
 por lo que se ejecuta en `npm test`, pre-push y GitHub Actions. Los imports ESM
 comparten las mismas pruebas dentro de cada proceso, sin duplicar su ejecucion.
+El quiz tambien comprueba un unico intervalo propio, pausa sin trabajo periodico
+al cerrar/ocultar y descarte de arranques/ticks obsoletos. Conserva los segundos
+restantes al volver; no es un reloj de examen supervisado ni una medicion de energia.
+El refresco de ficha tampoco reintenta perfiles fallidos ni reemplaza su skeleton
+sin cambios. Traducir el mensaje usa solo el renderer local; descargar requiere
+una accion explicita. El request en curso conserva su ownership y el perfil valido
+sigue reutilizandose. Una marca de idioma queda solo en el estado del panel actual.
+
+Busqueda, noticias y rankings comprueban false del cargador antes de construir
+indices, consultar proveedores o calcular/renderizar tablas. Las consultas avanzadas
+tambien descartan resultados con texto, solicitud o propietario de ficha obsoletos.
+Un pais exacto se resuelve con los aliases criticos existentes, sin esperar al modulo
+avanzado; autocomplete y ficha conservan sus cargas propias. Rankings solo inicia o
+continua con panel abierto y pagina visible, y cerrar el contenedor mobile cierra su
+details nativo. Reabrir recupera tablas aun no completadas sin otra descarga si el
+modulo ya llego. Costo: dos escalares, guards por accion y sincronizacion del details,
+sin nuevos monitores, caches ni dependencias. No acredita ahorro energetico.
+
+El suplemento de fondo ya no construye el indice avanzado ni descarga aliases de
+conflictos por anticipado. Esas dependencias se resuelven en los consumidores
+explicitos existentes (busqueda/sugerencias, ficha militar y detalle de conflicto).
+Los refrescos de datos no agendan rankings cerrados; los marcan pendientes para
+su proxima apertura. Se conserva el suplemento necesario para las categorias y
+fallbacks actuales. No cambia calidad visual ni soluciona por si solo los costos
+nativos de inicializacion WebGL. startup-on-demand prueba cero trabajo especulativo
+y las paginas existentes de paneles/conflictos verifican los consumidores reales.
 
 `npm run check:startup-budget` conserva los limites existentes. `release:check`
 ejecuta pruebas de navegador, offline, presupuestos, auditorias y snapshot de 60 s
@@ -55,7 +196,51 @@ no joules ni gramos de CO2. Una estimacion ambiental futura requiere limites del
 sistema, unidad funcional, energia, intensidad electrica y supuestos de hardware.
 No recolectar ubicacion ni bateria del usuario para fabricar una puntuacion verde.
 
+Los cambios sincronos de seleccion/tema agrupan los eventos de coleccion de Cesium
+con su API publica y finally, sin suspender entre frames ni retener un nuevo cache.
+Un borde nuevo recibe material/ancho finales una sola vez. La regresion con seis
+poligonos pasa de 24 entregas de coleccion a una, manteniendo colores, geometria,
+calidad y renders solicitados. Los eventos individuales de Entity/Graphics siguen
+existiendo y los errores no revierten estilos parciales. Los recorridos existentes
+comprueban el estado final en 2D/3D; estos contadores no prueban ahorro energetico
+ni que el deadline global de CI quede resuelto.
+
+La coleccion de etiquetas usa el mismo helper para crear, actualizar, ocultar,
+restaurar y retirar la vista. Tres altas pasan de tres entregas a una en la
+regresion real; una vista sin cambios sigue sin escrituras/eventos. Los limites
+mobile/zoom, horizonte, identidad y limpieza no cambian. No se omiten eventos
+individuales ni se acredita resolver costos de atlas/shaders o tareas de arranque.
+Las paginas de etiquetas existentes comprueban la entrega final y conservan sus
+assertions de pixeles, navegacion y 2D, sin nuevas esperas o listeners permanentes.
+
+Estado observado al cerrar v1.6.295: release:check local completo aprobado y
+fingerprint vigente, pero la muestra nueva mantiene advertencias: desktop 203 ms
+de tarea maxima y 25,5 FPS; mobile emulado 163 ms y 15,6 FPS. No son un A/B que
+atribuya la variacion de FPS al cambio de etiquetas ni un telefono fisico.
+El gate remoto previo de v1.6.294 fallo por el deadline global de npm test
+(1201 s, durante testBackgroundPanels), no por una assertion de etiquetas:
+[run 37646389870](https://github.com/milton2112/GeoRisk/actions/runs/37646389870).
+La mejora de contadores no acredita resolver ese timeout. Mantener el bloqueo
+de publicacion, limites y advertencias; no reintentar codigo sin cambios hasta verde.
+
 ## Primera implementacion
+
+Los cambios de grosor por zoom conservan materiales de relleno/borde y outline
+constante false. La firma existente se compara por componente, sin otro cache:
+seis poligonos pasan de 24 avisos individuales a seis de ancho, conservando una
+entrega final de coleccion. Cambios reales de color/opacidad siguen aplicandose;
+una firma incompleta queda invalidada para reparar errores parciales. Costo:
+parseo JSON transitorio por capa cambiada y guards por componente, sin timers,
+listeners permanentes ni red nuevos. Las regresiones reales y los recorridos
+existentes 2D/3D comprueban identidad y resultado final. No demuestra ahorro
+energetico ni resolver el timeout remoto, que tambien fallo para v1.6.295.
+
+Al cerrar v1.6.296, release:check local aprobo con fingerprint vigente y nueva
+muestra sin reutilizacion: 33,1/22,1 FPS activos desktop/mobile emulado y tareas
+maximas de 141/139 ms, sin advertencias de rendimiento. No se atribuye esa
+variacion a la reutilizacion de materiales sin un A/B equivalente ni se equipara
+Chrome/Intel Windows al runner Chromium/SwiftShader Linux. Su propio gate remoto
+sigue siendo necesario; no se amplian deadlines ni se rerunnea codigo hasta verde.
 
 - Se elimina el precalculo del modo cartografico alternativo. Costo: su primera
   apertura prepara la geometria bajo demanda; las siguientes reutilizan el cache.

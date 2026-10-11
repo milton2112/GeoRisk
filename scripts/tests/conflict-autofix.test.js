@@ -1,5 +1,8 @@
 import assert from "node:assert/strict";
 import "./gata-halifax-curation.test.js";
+import "./tizi-ouzou-curation.test.js";
+import "./steens-mountain-curation.test.js";
+import "./altun-kupri-curation.test.js";
 import "./notch-punk-hill-curation.test.js";
 import "./taraca-curation.test.js";
 import "./pecos-sunset-curation.test.js";

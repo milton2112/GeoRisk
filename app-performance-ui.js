@@ -1,3 +1,5 @@
+(() => {
+if (window.GeoRiskPerformanceUi) return;
 function renderPerformancePanelContent({
   language = "es",
   summary = {},
@@ -80,3 +82,4 @@ function renderPerformancePanelContent({
 window.GeoRiskPerformanceUi = {
   renderPerformancePanelContent
 };
+})();

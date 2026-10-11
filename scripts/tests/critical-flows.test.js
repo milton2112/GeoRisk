@@ -29,10 +29,12 @@ assert.ok(
   /if \(result\.type === "religion"\)[\s\S]{0,260}selectCountryGroupLayers\(matches, \{ mode: "religion" \}\)[\s\S]{0,220}renderReligionSelection/.test(script),
   "busqueda de religion debe marcar paises y renderizar grupo"
 );
-assert.ok(
-  /async function searchMap\(\)[\s\S]{0,140}ensureSearchIndexReady\(\)/.test(script),
-  "busqueda de categorias debe completar alias al primer uso y no depender del idle de arranque"
-);
+const searchStart = script.indexOf("async function searchMap()");
+const searchEnd = script.indexOf("async function searchByQuery(", searchStart);
+assert.ok(searchStart >= 0 && searchEnd > searchStart);
+assert.match(script.slice(searchStart, searchEnd),
+  /if \(!await ensureDeferredUiModule\("search"\) \|\| !isCurrent\(\)\) return;\s*ensureSearchIndexReady\(\)/,
+  "busqueda avanzada vigente completa alias al primer uso tras cargar su modulo, sin depender del idle");
 assert.ok(
   /if \(result\.type === "religion_denomination"\)[\s\S]{0,260}selectCountryGroupLayers\(matches, \{ mode: "religion" \}\)[\s\S]{0,260}renderReligionSelection/.test(script),
   "busqueda de denominacion religiosa debe marcar paises y renderizar grupo"

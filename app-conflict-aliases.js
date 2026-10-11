@@ -1,5 +1,8 @@
 (() => {
   const CONFLICT_NAME_ALIASES = [
+    [/^Batalla de Pirde$/i, "Batalla de Altun Kupri (Pirde, 2017)"],
+    [/^Battle of Pirde$/i, "Batalla de Altun Kupri (Pirde, 2017)"],
+    [/^Battle of Altun Kupri \(2017\)$/i, "Batalla de Altun Kupri (Pirde, 2017)"],
     [/^Guerra de Malvinas$/i, "Guerra de las Malvinas"],
     [/^Falklands War$/i, "Guerra de las Malvinas"],
     [/^Guerra de Falklands$/i, "Guerra de las Malvinas"],

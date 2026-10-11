@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "revision": "237e27cc0f4bc72674875eb6a9674798ae9e3406",
+  "ci": {
+    "runId": 37829481281,
+    "jobId": 113490780579,
+    "browserVersion": "151.0.7922.34",
+    "flow": "testStorageFailures",
+    "fixture": "quota, desktop 1440x920",
+    "countries": 183,
+    "countryLayers": 179,
+    "countryFrameWaitMs": 20227.3,
+    "countryFrameError": "Country rendering timed out.",
+    "e2eWaitMs": 45000,
+    "otherShard": "passed",
+    "labelFlowReached": false
+  },
+  "localDiagnostic": {
+    "browserVersion": "155.0.8059.40",
+    "platform": "win32",
+    "gpu": "ANGLE SwiftShader Vulkan",
+    "cpuThrottle": 4,
+    "method": "Copy the unchanged storage E2E into ignored tmp, launch existing Chrome with use-angle=swiftshader and enable-unsafe-swiftshader, set hardwareConcurrency/deviceMemory to 4 and CDP CPU rate to 4 before navigation. Observe existing visualizer update returns and postRender; keep the 20000 ms native wait and 180000 ms process bound. No extra updates/renders or trace sampling.",
+    "result": "passed",
+    "flowMs": 45747,
+    "cases": [
+      { "fixture": "quota desktop", "appReadinessWaitMs": 4674, "nativeUpdates": 24, "frames": 24, "geometryFalseUpdates": 23, "polylineFalseUpdates": 21 },
+      { "fixture": "denied desktop", "appReadinessWaitMs": 3820, "nativeUpdates": 21, "frames": 21, "geometryFalseUpdates": 19, "polylineFalseUpdates": 20 },
+      { "fixture": "quota mobile", "appReadinessWaitMs": 2945, "nativeUpdates": 16, "frames": 16, "geometryFalseUpdates": 15, "polylineFalseUpdates": 13 },
+      { "fixture": "denied mobile", "appReadinessWaitMs": 3497, "nativeUpdates": 19, "frames": 19, "geometryFalseUpdates": 17, "polylineFalseUpdates": 18 }
+    ],
+    "finalState": "All observed visualizers returned true, render loop running, no boot errors/degradations.",
+    "limits": "Does not reproduce the Linux Chromium 151 timeout or establish its cause. No claim of A/B savings, release validation, hardware parity, energy or CO2. Private visualizers are inspected only in isolated diagnostic pages of the pinned engine."
+  }
+}

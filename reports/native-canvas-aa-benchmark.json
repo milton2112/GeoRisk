@@ -1,0 +1,4382 @@
+{
+  "generatedAt": "2026-10-08T17:25:27.529Z",
+  "baselineRevision": "6d8c0567bd6996fa6303ec242fcb435155602a67",
+  "baselinePublicInputHash": "ef5c3280d1f9b778ae33f67ecb866b6a9f081b33d4f0ef5629ec284e6f60c085",
+  "builtScriptSha256": "037222bf2d6c01d5b8218ebde52ff2542b5312b5c9ff2475714842017a16511d",
+  "finding": "WebGL2 geometry is drawn to Cesium offscreen framebuffers; the default framebuffer only receives the final full-screen copy. Disabling native canvas AA changes its observed sample count from 4 to 0 without changing Cesium MSAA/FXAA policy or full captured RGBA.",
+  "installedUpstream": {
+    "engine": "15.0.0",
+    "widgets": "11.0.0",
+    "files": [
+      "Source/Renderer/Context.js",
+      "Source/Scene/View.js",
+      "Source/Scene/Scene.js"
+    ]
+  },
+  "qualitySummary": {
+    "approvedCases": 18,
+    "software": [
+      {
+        "case": "desktop-3d-auto-low",
+        "excludedWarmup": true,
+        "baselineRepeat": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        },
+        "candidate": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        }
+      },
+      {
+        "case": "desktop-3d-high",
+        "excludedWarmup": true,
+        "baselineRepeat": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        },
+        "candidate": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        }
+      },
+      {
+        "case": "desktop-3d-balanced",
+        "excludedWarmup": true,
+        "baselineRepeat": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        },
+        "candidate": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        }
+      },
+      {
+        "case": "desktop-3d-performance",
+        "excludedWarmup": true,
+        "baselineRepeat": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        },
+        "candidate": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        }
+      },
+      {
+        "case": "mobile-2d-auto",
+        "excludedWarmup": true,
+        "baselineRepeat": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        },
+        "candidate": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        }
+      },
+      {
+        "case": "mobile-2d-high",
+        "excludedWarmup": true,
+        "baselineRepeat": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        },
+        "candidate": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        }
+      },
+      {
+        "case": "mobile-2d-balanced",
+        "excludedWarmup": true,
+        "baselineRepeat": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        },
+        "candidate": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        }
+      },
+      {
+        "case": "mobile-2d-performance",
+        "excludedWarmup": true,
+        "baselineRepeat": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        },
+        "candidate": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        }
+      },
+      {
+        "case": "desktop-3d-auto",
+        "excludedWarmup": true,
+        "baselineRepeat": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        },
+        "candidate": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        }
+      }
+    ],
+    "hardware": [
+      {
+        "case": "desktop-3d-auto-low",
+        "excludedWarmup": true,
+        "baselineRepeat": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        },
+        "candidate": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        }
+      },
+      {
+        "case": "desktop-3d-auto",
+        "excludedWarmup": true,
+        "baselineRepeat": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        },
+        "candidate": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        }
+      },
+      {
+        "case": "desktop-3d-high",
+        "excludedWarmup": true,
+        "baselineRepeat": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        },
+        "candidate": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        }
+      },
+      {
+        "case": "desktop-3d-balanced",
+        "excludedWarmup": true,
+        "baselineRepeat": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        },
+        "candidate": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        }
+      },
+      {
+        "case": "desktop-3d-performance",
+        "excludedWarmup": true,
+        "baselineRepeat": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        },
+        "candidate": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        }
+      },
+      {
+        "case": "mobile-2d-auto",
+        "excludedWarmup": true,
+        "baselineRepeat": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        },
+        "candidate": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        }
+      },
+      {
+        "case": "mobile-2d-high",
+        "excludedWarmup": true,
+        "baselineRepeat": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        },
+        "candidate": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        }
+      },
+      {
+        "case": "mobile-2d-balanced",
+        "excludedWarmup": true,
+        "baselineRepeat": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        },
+        "candidate": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        }
+      },
+      {
+        "case": "mobile-2d-performance",
+        "excludedWarmup": true,
+        "baselineRepeat": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        },
+        "candidate": {
+          "changedChannels": 0,
+          "changedPixels": 0,
+          "maxDifference": 0,
+          "absoluteDifference": 0
+        }
+      }
+    ],
+    "changedChannels": 0,
+    "scope": "Four user quality presets, desktop 3D with high-tier hints and country label preference, mobile 2D low-tier, and desktop 3D automatic low-tier. Full RGBA after postRender, same dimensions and camera, real map data/imagery. Baseline on/off/on repeat controls must match; one warmup per case excluded."
+  },
+  "controlLimitation": "Early automatic-desktop captures differed between unchanged baselines during progressive imagery/render settling. They are retained as inconclusive controls, not treated as AA differences or approved evidence. Followup requires final desktop imagery and three consecutive loaded postRender frames; all its baseline/candidate bytes match.",
+  "methodTextCorrection": "The pixel reports inherited a single-case description saying identical low-tier hints. The expanded case matrix actually uses 16 GiB/12-thread hints on desktop high-tier cases, 4 GiB/4-thread hints on desktop-auto-low and mobile, as recorded in the archived source. Hints are identical within each on/off/on control, not across cases. Host hardware remains unchanged; this is not CPU throttling or Linux parity.",
+  "pixelEvidence": {
+    "softwareMatrixWithInconclusiveAutoControl": {
+      "generatedAt": "2026-10-08T17:18:03.259Z",
+      "browser": "155.0.8059.40",
+      "platform": "win32",
+      "method": "Real app and imagery, identical low-tier hints, sequential on/off/on, settled globe, full RGBA postRender capture; visual diagnostic only, no timing claim.",
+      "captures": [
+        {
+          "case": "desktop-3d-auto-low",
+          "index": 0,
+          "width": 1411,
+          "height": 901,
+          "resolutionScale": 0.98,
+          "mode": 3,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 0,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "93449b2f02cbe2f4c8697573bbd7245ef3e41d2b2e5223e388de608da9418677"
+        },
+        {
+          "case": "desktop-3d-auto-low",
+          "index": 1,
+          "width": 1411,
+          "height": 901,
+          "resolutionScale": 0.98,
+          "mode": 3,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 0,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "93449b2f02cbe2f4c8697573bbd7245ef3e41d2b2e5223e388de608da9418677"
+        },
+        {
+          "case": "desktop-3d-auto-low",
+          "index": 2,
+          "width": 1411,
+          "height": 901,
+          "resolutionScale": 0.98,
+          "mode": 3,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "nativeAntialias": false,
+          "samples": 0,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 0,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "93449b2f02cbe2f4c8697573bbd7245ef3e41d2b2e5223e388de608da9418677"
+        },
+        {
+          "case": "desktop-3d-auto-low",
+          "index": 3,
+          "width": 1411,
+          "height": 901,
+          "resolutionScale": 0.98,
+          "mode": 3,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 0,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "93449b2f02cbe2f4c8697573bbd7245ef3e41d2b2e5223e388de608da9418677"
+        },
+        {
+          "case": "desktop-3d-auto",
+          "index": 0,
+          "width": 1612,
+          "height": 1030,
+          "resolutionScale": 1.12,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "9e2af300ca279e25ce700530b66b4384423bc239758a8b581fe3fa1b7d75812e"
+        },
+        {
+          "case": "desktop-3d-auto",
+          "index": 1,
+          "width": 1612,
+          "height": 1030,
+          "resolutionScale": 1.12,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "9e2af300ca279e25ce700530b66b4384423bc239758a8b581fe3fa1b7d75812e"
+        },
+        {
+          "case": "desktop-3d-auto",
+          "index": 2,
+          "width": 1612,
+          "height": 1030,
+          "resolutionScale": 1.12,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": false,
+          "samples": 0,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "9e2af300ca279e25ce700530b66b4384423bc239758a8b581fe3fa1b7d75812e"
+        },
+        {
+          "case": "desktop-3d-auto",
+          "index": 3,
+          "width": 1612,
+          "height": 1030,
+          "resolutionScale": 1.12,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "be0dd1a0e4f61d978c650beb0981684b674a356b03bf5169062c914193d01b6e"
+        },
+        {
+          "case": "desktop-3d-high",
+          "index": 0,
+          "width": 1699,
+          "height": 1085,
+          "resolutionScale": 1.18,
+          "mode": 3,
+          "msaaSamples": 4,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "52061e19e9681ef530474b72222aaf3df0ecc984994ae505395db107872a6bd9"
+        },
+        {
+          "case": "desktop-3d-high",
+          "index": 1,
+          "width": 1699,
+          "height": 1085,
+          "resolutionScale": 1.18,
+          "mode": 3,
+          "msaaSamples": 4,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "52061e19e9681ef530474b72222aaf3df0ecc984994ae505395db107872a6bd9"
+        },
+        {
+          "case": "desktop-3d-high",
+          "index": 2,
+          "width": 1699,
+          "height": 1085,
+          "resolutionScale": 1.18,
+          "mode": 3,
+          "msaaSamples": 4,
+          "fxaa": true,
+          "nativeAntialias": false,
+          "samples": 0,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "52061e19e9681ef530474b72222aaf3df0ecc984994ae505395db107872a6bd9"
+        },
+        {
+          "case": "desktop-3d-high",
+          "index": 3,
+          "width": 1699,
+          "height": 1085,
+          "resolutionScale": 1.18,
+          "mode": 3,
+          "msaaSamples": 4,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "52061e19e9681ef530474b72222aaf3df0ecc984994ae505395db107872a6bd9"
+        },
+        {
+          "case": "desktop-3d-balanced",
+          "index": 0,
+          "width": 1497,
+          "height": 956,
+          "resolutionScale": 1.04,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "92faee2345c1c9e408046132f50efec3ca76edf4887399552f4ca1a737eed0cf"
+        },
+        {
+          "case": "desktop-3d-balanced",
+          "index": 1,
+          "width": 1497,
+          "height": 956,
+          "resolutionScale": 1.04,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "92faee2345c1c9e408046132f50efec3ca76edf4887399552f4ca1a737eed0cf"
+        },
+        {
+          "case": "desktop-3d-balanced",
+          "index": 2,
+          "width": 1497,
+          "height": 956,
+          "resolutionScale": 1.04,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": false,
+          "samples": 0,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "92faee2345c1c9e408046132f50efec3ca76edf4887399552f4ca1a737eed0cf"
+        },
+        {
+          "case": "desktop-3d-balanced",
+          "index": 3,
+          "width": 1497,
+          "height": 956,
+          "resolutionScale": 1.04,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "92faee2345c1c9e408046132f50efec3ca76edf4887399552f4ca1a737eed0cf"
+        },
+        {
+          "case": "desktop-3d-performance",
+          "index": 0,
+          "width": 1296,
+          "height": 828,
+          "resolutionScale": 0.9,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": false,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "a515989dbc5ff2b4ce9332717cce054b31b79caccbe99e34889fb63a7a491946"
+        },
+        {
+          "case": "desktop-3d-performance",
+          "index": 1,
+          "width": 1296,
+          "height": 828,
+          "resolutionScale": 0.9,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": false,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "a515989dbc5ff2b4ce9332717cce054b31b79caccbe99e34889fb63a7a491946"
+        },
+        {
+          "case": "desktop-3d-performance",
+          "index": 2,
+          "width": 1296,
+          "height": 828,
+          "resolutionScale": 0.9,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": false,
+          "nativeAntialias": false,
+          "samples": 0,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "a515989dbc5ff2b4ce9332717cce054b31b79caccbe99e34889fb63a7a491946"
+        },
+        {
+          "case": "desktop-3d-performance",
+          "index": 3,
+          "width": 1296,
+          "height": 828,
+          "resolutionScale": 0.9,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": false,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "a515989dbc5ff2b4ce9332717cce054b31b79caccbe99e34889fb63a7a491946"
+        },
+        {
+          "case": "mobile-2d-auto",
+          "index": 0,
+          "width": 195,
+          "height": 422,
+          "resolutionScale": 0.5,
+          "mode": 2,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "imagery": "2d:boot",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "fa4d68d1c4d95680b6b784a9f94699a4be08ecbfb14ebf892d252efe60060609"
+        },
+        {
+          "case": "mobile-2d-auto",
+          "index": 1,
+          "width": 195,
+          "height": 422,
+          "resolutionScale": 0.5,
+          "mode": 2,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "imagery": "2d:boot",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "fa4d68d1c4d95680b6b784a9f94699a4be08ecbfb14ebf892d252efe60060609"
+        },
+        {
+          "case": "mobile-2d-auto",
+          "index": 2,
+          "width": 195,
+          "height": 422,
+          "resolutionScale": 0.5,
+          "mode": 2,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "nativeAntialias": false,
+          "samples": 0,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "imagery": "2d:boot",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "fa4d68d1c4d95680b6b784a9f94699a4be08ecbfb14ebf892d252efe60060609"
+        },
+        {
+          "case": "mobile-2d-auto",
+          "index": 3,
+          "width": 195,
+          "height": 422,
+          "resolutionScale": 0.5,
+          "mode": 2,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "imagery": "2d:boot",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "fa4d68d1c4d95680b6b784a9f94699a4be08ecbfb14ebf892d252efe60060609"
+        },
+        {
+          "case": "mobile-2d-high",
+          "index": 0,
+          "width": 241,
+          "height": 523,
+          "resolutionScale": 0.62,
+          "mode": 2,
+          "msaaSamples": 4,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "imagery": "2d:boot",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "ac58eafe8b62b2959622cb768ac0630af3dc7e4dd690a40c1c7e3918f6e179a4"
+        },
+        {
+          "case": "mobile-2d-high",
+          "index": 1,
+          "width": 241,
+          "height": 523,
+          "resolutionScale": 0.62,
+          "mode": 2,
+          "msaaSamples": 4,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "imagery": "2d:boot",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "ac58eafe8b62b2959622cb768ac0630af3dc7e4dd690a40c1c7e3918f6e179a4"
+        },
+        {
+          "case": "mobile-2d-high",
+          "index": 2,
+          "width": 241,
+          "height": 523,
+          "resolutionScale": 0.62,
+          "mode": 2,
+          "msaaSamples": 4,
+          "fxaa": true,
+          "nativeAntialias": false,
+          "samples": 0,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "imagery": "2d:boot",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "ac58eafe8b62b2959622cb768ac0630af3dc7e4dd690a40c1c7e3918f6e179a4"
+        },
+        {
+          "case": "mobile-2d-high",
+          "index": 3,
+          "width": 241,
+          "height": 523,
+          "resolutionScale": 0.62,
+          "mode": 2,
+          "msaaSamples": 4,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "imagery": "2d:boot",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "ac58eafe8b62b2959622cb768ac0630af3dc7e4dd690a40c1c7e3918f6e179a4"
+        },
+        {
+          "case": "mobile-2d-balanced",
+          "index": 0,
+          "width": 218,
+          "height": 472,
+          "resolutionScale": 0.56,
+          "mode": 2,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "imagery": "2d:boot",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "6ea6076908ba90046de9a43751f9e5250e4c61b3ab2c6ec40d90ed9f0245c16b"
+        },
+        {
+          "case": "mobile-2d-balanced",
+          "index": 1,
+          "width": 218,
+          "height": 472,
+          "resolutionScale": 0.56,
+          "mode": 2,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "imagery": "2d:boot",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "6ea6076908ba90046de9a43751f9e5250e4c61b3ab2c6ec40d90ed9f0245c16b"
+        },
+        {
+          "case": "mobile-2d-balanced",
+          "index": 2,
+          "width": 218,
+          "height": 472,
+          "resolutionScale": 0.56,
+          "mode": 2,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": false,
+          "samples": 0,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "imagery": "2d:boot",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "6ea6076908ba90046de9a43751f9e5250e4c61b3ab2c6ec40d90ed9f0245c16b"
+        },
+        {
+          "case": "mobile-2d-balanced",
+          "index": 3,
+          "width": 218,
+          "height": 472,
+          "resolutionScale": 0.56,
+          "mode": 2,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "imagery": "2d:boot",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "6ea6076908ba90046de9a43751f9e5250e4c61b3ab2c6ec40d90ed9f0245c16b"
+        },
+        {
+          "case": "mobile-2d-performance",
+          "index": 0,
+          "width": 171,
+          "height": 371,
+          "resolutionScale": 0.44,
+          "mode": 2,
+          "msaaSamples": 1,
+          "fxaa": false,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "imagery": "2d:boot",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "14fbcc9ac0950781b5e850fc9ec9a74d3540137a7c8eb771a298cf2346c0781f"
+        },
+        {
+          "case": "mobile-2d-performance",
+          "index": 1,
+          "width": 171,
+          "height": 371,
+          "resolutionScale": 0.44,
+          "mode": 2,
+          "msaaSamples": 1,
+          "fxaa": false,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "imagery": "2d:boot",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "14fbcc9ac0950781b5e850fc9ec9a74d3540137a7c8eb771a298cf2346c0781f"
+        },
+        {
+          "case": "mobile-2d-performance",
+          "index": 2,
+          "width": 171,
+          "height": 371,
+          "resolutionScale": 0.44,
+          "mode": 2,
+          "msaaSamples": 1,
+          "fxaa": false,
+          "nativeAntialias": false,
+          "samples": 0,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "imagery": "2d:boot",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "14fbcc9ac0950781b5e850fc9ec9a74d3540137a7c8eb771a298cf2346c0781f"
+        },
+        {
+          "case": "mobile-2d-performance",
+          "index": 3,
+          "width": 171,
+          "height": 371,
+          "resolutionScale": 0.44,
+          "mode": 2,
+          "msaaSamples": 1,
+          "fxaa": false,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "imagery": "2d:boot",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "14fbcc9ac0950781b5e850fc9ec9a74d3540137a7c8eb771a298cf2346c0781f"
+        }
+      ],
+      "comparisons": [
+        {
+          "case": "desktop-3d-auto-low",
+          "excludedWarmup": true,
+          "baselineRepeat": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          },
+          "candidate": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          }
+        },
+        {
+          "case": "desktop-3d-auto",
+          "excludedWarmup": true,
+          "baselineRepeat": {
+            "changedChannels": 1446114,
+            "changedPixels": 491497,
+            "maxDifference": 204,
+            "absoluteDifference": 63061838
+          },
+          "candidate": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          }
+        },
+        {
+          "case": "desktop-3d-high",
+          "excludedWarmup": true,
+          "baselineRepeat": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          },
+          "candidate": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          }
+        },
+        {
+          "case": "desktop-3d-balanced",
+          "excludedWarmup": true,
+          "baselineRepeat": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          },
+          "candidate": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          }
+        },
+        {
+          "case": "desktop-3d-performance",
+          "excludedWarmup": true,
+          "baselineRepeat": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          },
+          "candidate": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          }
+        },
+        {
+          "case": "mobile-2d-auto",
+          "excludedWarmup": true,
+          "baselineRepeat": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          },
+          "candidate": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          }
+        },
+        {
+          "case": "mobile-2d-high",
+          "excludedWarmup": true,
+          "baselineRepeat": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          },
+          "candidate": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          }
+        },
+        {
+          "case": "mobile-2d-balanced",
+          "excludedWarmup": true,
+          "baselineRepeat": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          },
+          "candidate": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          }
+        },
+        {
+          "case": "mobile-2d-performance",
+          "excludedWarmup": true,
+          "baselineRepeat": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          },
+          "candidate": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          }
+        }
+      ],
+      "tileCache": {
+        "entries": 80,
+        "bytes": 806785,
+        "reads": 0,
+        "hits": 1630,
+        "misses": 104,
+        "savedBytes": 17135543
+      }
+    },
+    "settledSoftwareAuto": {
+      "generatedAt": "2026-10-08T17:19:00.163Z",
+      "browser": "155.0.8059.40",
+      "platform": "win32",
+      "method": "Real app and imagery, identical low-tier hints, sequential on/off/on, settled globe, full RGBA postRender capture; visual diagnostic only, no timing claim.",
+      "captures": [
+        {
+          "case": "desktop-3d-auto",
+          "index": 0,
+          "width": 1612,
+          "height": 1030,
+          "resolutionScale": 1.12,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "settledFrames": 3,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "be0dd1a0e4f61d978c650beb0981684b674a356b03bf5169062c914193d01b6e"
+        },
+        {
+          "case": "desktop-3d-auto",
+          "index": 1,
+          "width": 1612,
+          "height": 1030,
+          "resolutionScale": 1.12,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "settledFrames": 3,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "be0dd1a0e4f61d978c650beb0981684b674a356b03bf5169062c914193d01b6e"
+        },
+        {
+          "case": "desktop-3d-auto",
+          "index": 2,
+          "width": 1612,
+          "height": 1030,
+          "resolutionScale": 1.12,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": false,
+          "samples": 0,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "settledFrames": 3,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "be0dd1a0e4f61d978c650beb0981684b674a356b03bf5169062c914193d01b6e"
+        },
+        {
+          "case": "desktop-3d-auto",
+          "index": 3,
+          "width": 1612,
+          "height": 1030,
+          "resolutionScale": 1.12,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "settledFrames": 3,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "be0dd1a0e4f61d978c650beb0981684b674a356b03bf5169062c914193d01b6e"
+        }
+      ],
+      "comparisons": [
+        {
+          "case": "desktop-3d-auto",
+          "excludedWarmup": true,
+          "baselineRepeat": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          },
+          "candidate": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          }
+        }
+      ],
+      "tileCache": {
+        "entries": 68,
+        "bytes": 673862,
+        "reads": 0,
+        "hits": 464,
+        "misses": 80,
+        "savedBytes": 4573266
+      }
+    },
+    "settledHardware": {
+      "generatedAt": "2026-10-08T17:21:30.425Z",
+      "browser": "155.0.8059.40",
+      "platform": "win32",
+      "method": "Real app and imagery, identical low-tier hints, sequential on/off/on, settled globe, full RGBA postRender capture; visual diagnostic only, no timing claim.",
+      "captures": [
+        {
+          "case": "desktop-3d-auto-low",
+          "index": 0,
+          "width": 1411,
+          "height": 901,
+          "resolutionScale": 0.98,
+          "mode": 3,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 0,
+          "settledFrames": 3,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "2963c82cfcc736b8b75029e1238c553554534885b45a18acecefd85e2a03921f"
+        },
+        {
+          "case": "desktop-3d-auto-low",
+          "index": 1,
+          "width": 1411,
+          "height": 901,
+          "resolutionScale": 0.98,
+          "mode": 3,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 0,
+          "settledFrames": 3,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "2963c82cfcc736b8b75029e1238c553554534885b45a18acecefd85e2a03921f"
+        },
+        {
+          "case": "desktop-3d-auto-low",
+          "index": 2,
+          "width": 1411,
+          "height": 901,
+          "resolutionScale": 0.98,
+          "mode": 3,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "nativeAntialias": false,
+          "samples": 0,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 0,
+          "settledFrames": 3,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "2963c82cfcc736b8b75029e1238c553554534885b45a18acecefd85e2a03921f"
+        },
+        {
+          "case": "desktop-3d-auto-low",
+          "index": 3,
+          "width": 1411,
+          "height": 901,
+          "resolutionScale": 0.98,
+          "mode": 3,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 0,
+          "settledFrames": 3,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "2963c82cfcc736b8b75029e1238c553554534885b45a18acecefd85e2a03921f"
+        },
+        {
+          "case": "desktop-3d-auto",
+          "index": 0,
+          "width": 1612,
+          "height": 1030,
+          "resolutionScale": 1.12,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "settledFrames": 3,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "0024ef93265b554c165f238424b358984c02bc6e2a82a086929ede6788bf64d9"
+        },
+        {
+          "case": "desktop-3d-auto",
+          "index": 1,
+          "width": 1612,
+          "height": 1030,
+          "resolutionScale": 1.12,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "settledFrames": 3,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "0024ef93265b554c165f238424b358984c02bc6e2a82a086929ede6788bf64d9"
+        },
+        {
+          "case": "desktop-3d-auto",
+          "index": 2,
+          "width": 1612,
+          "height": 1030,
+          "resolutionScale": 1.12,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": false,
+          "samples": 0,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "settledFrames": 3,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "0024ef93265b554c165f238424b358984c02bc6e2a82a086929ede6788bf64d9"
+        },
+        {
+          "case": "desktop-3d-auto",
+          "index": 3,
+          "width": 1612,
+          "height": 1030,
+          "resolutionScale": 1.12,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "settledFrames": 3,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "0024ef93265b554c165f238424b358984c02bc6e2a82a086929ede6788bf64d9"
+        },
+        {
+          "case": "desktop-3d-high",
+          "index": 0,
+          "width": 1699,
+          "height": 1085,
+          "resolutionScale": 1.18,
+          "mode": 3,
+          "msaaSamples": 4,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "settledFrames": 3,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "ca277569f65db313b82b07837e434440078a3834c89fdee820f42c6cde11765d"
+        },
+        {
+          "case": "desktop-3d-high",
+          "index": 1,
+          "width": 1699,
+          "height": 1085,
+          "resolutionScale": 1.18,
+          "mode": 3,
+          "msaaSamples": 4,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "settledFrames": 3,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "ca277569f65db313b82b07837e434440078a3834c89fdee820f42c6cde11765d"
+        },
+        {
+          "case": "desktop-3d-high",
+          "index": 2,
+          "width": 1699,
+          "height": 1085,
+          "resolutionScale": 1.18,
+          "mode": 3,
+          "msaaSamples": 4,
+          "fxaa": true,
+          "nativeAntialias": false,
+          "samples": 0,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "settledFrames": 3,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "ca277569f65db313b82b07837e434440078a3834c89fdee820f42c6cde11765d"
+        },
+        {
+          "case": "desktop-3d-high",
+          "index": 3,
+          "width": 1699,
+          "height": 1085,
+          "resolutionScale": 1.18,
+          "mode": 3,
+          "msaaSamples": 4,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "settledFrames": 3,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "ca277569f65db313b82b07837e434440078a3834c89fdee820f42c6cde11765d"
+        },
+        {
+          "case": "desktop-3d-balanced",
+          "index": 0,
+          "width": 1497,
+          "height": 956,
+          "resolutionScale": 1.04,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "settledFrames": 3,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "8f57d0914f8e182705a8afe6c8dbc44abb2a3b0cf277b25a40d44c09c1d32596"
+        },
+        {
+          "case": "desktop-3d-balanced",
+          "index": 1,
+          "width": 1497,
+          "height": 956,
+          "resolutionScale": 1.04,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "settledFrames": 3,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "8f57d0914f8e182705a8afe6c8dbc44abb2a3b0cf277b25a40d44c09c1d32596"
+        },
+        {
+          "case": "desktop-3d-balanced",
+          "index": 2,
+          "width": 1497,
+          "height": 956,
+          "resolutionScale": 1.04,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": false,
+          "samples": 0,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "settledFrames": 3,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "8f57d0914f8e182705a8afe6c8dbc44abb2a3b0cf277b25a40d44c09c1d32596"
+        },
+        {
+          "case": "desktop-3d-balanced",
+          "index": 3,
+          "width": 1497,
+          "height": 956,
+          "resolutionScale": 1.04,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "settledFrames": 3,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "8f57d0914f8e182705a8afe6c8dbc44abb2a3b0cf277b25a40d44c09c1d32596"
+        },
+        {
+          "case": "desktop-3d-performance",
+          "index": 0,
+          "width": 1296,
+          "height": 828,
+          "resolutionScale": 0.9,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": false,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "settledFrames": 3,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "46ff2e9eb1c02feaec062e904d70c6e4f9da28d266363f6b0a7c88e510aa39f0"
+        },
+        {
+          "case": "desktop-3d-performance",
+          "index": 1,
+          "width": 1296,
+          "height": 828,
+          "resolutionScale": 0.9,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": false,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "settledFrames": 3,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "46ff2e9eb1c02feaec062e904d70c6e4f9da28d266363f6b0a7c88e510aa39f0"
+        },
+        {
+          "case": "desktop-3d-performance",
+          "index": 2,
+          "width": 1296,
+          "height": 828,
+          "resolutionScale": 0.9,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": false,
+          "nativeAntialias": false,
+          "samples": 0,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "settledFrames": 3,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "46ff2e9eb1c02feaec062e904d70c6e4f9da28d266363f6b0a7c88e510aa39f0"
+        },
+        {
+          "case": "desktop-3d-performance",
+          "index": 3,
+          "width": 1296,
+          "height": 828,
+          "resolutionScale": 0.9,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": false,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "settledFrames": 3,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "46ff2e9eb1c02feaec062e904d70c6e4f9da28d266363f6b0a7c88e510aa39f0"
+        },
+        {
+          "case": "mobile-2d-auto",
+          "index": 0,
+          "width": 195,
+          "height": 422,
+          "resolutionScale": 0.5,
+          "mode": 2,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "settledFrames": 3,
+          "imagery": "2d:boot",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "a7b7f305bb6b04146ebe0e8939826936f9ce70050c274da50df8c30078b7adb1"
+        },
+        {
+          "case": "mobile-2d-auto",
+          "index": 1,
+          "width": 195,
+          "height": 422,
+          "resolutionScale": 0.5,
+          "mode": 2,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "settledFrames": 3,
+          "imagery": "2d:boot",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "a7b7f305bb6b04146ebe0e8939826936f9ce70050c274da50df8c30078b7adb1"
+        },
+        {
+          "case": "mobile-2d-auto",
+          "index": 2,
+          "width": 195,
+          "height": 422,
+          "resolutionScale": 0.5,
+          "mode": 2,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "nativeAntialias": false,
+          "samples": 0,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "settledFrames": 3,
+          "imagery": "2d:boot",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "a7b7f305bb6b04146ebe0e8939826936f9ce70050c274da50df8c30078b7adb1"
+        },
+        {
+          "case": "mobile-2d-auto",
+          "index": 3,
+          "width": 195,
+          "height": 422,
+          "resolutionScale": 0.5,
+          "mode": 2,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "settledFrames": 3,
+          "imagery": "2d:boot",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "a7b7f305bb6b04146ebe0e8939826936f9ce70050c274da50df8c30078b7adb1"
+        },
+        {
+          "case": "mobile-2d-high",
+          "index": 0,
+          "width": 241,
+          "height": 523,
+          "resolutionScale": 0.62,
+          "mode": 2,
+          "msaaSamples": 4,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "settledFrames": 3,
+          "imagery": "2d:boot",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "1735380cb26b55178d5998102c4a37533661826a5f10a017ab146f8a8755f70a"
+        },
+        {
+          "case": "mobile-2d-high",
+          "index": 1,
+          "width": 241,
+          "height": 523,
+          "resolutionScale": 0.62,
+          "mode": 2,
+          "msaaSamples": 4,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "settledFrames": 3,
+          "imagery": "2d:boot",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "1735380cb26b55178d5998102c4a37533661826a5f10a017ab146f8a8755f70a"
+        },
+        {
+          "case": "mobile-2d-high",
+          "index": 2,
+          "width": 241,
+          "height": 523,
+          "resolutionScale": 0.62,
+          "mode": 2,
+          "msaaSamples": 4,
+          "fxaa": true,
+          "nativeAntialias": false,
+          "samples": 0,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "settledFrames": 3,
+          "imagery": "2d:boot",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "1735380cb26b55178d5998102c4a37533661826a5f10a017ab146f8a8755f70a"
+        },
+        {
+          "case": "mobile-2d-high",
+          "index": 3,
+          "width": 241,
+          "height": 523,
+          "resolutionScale": 0.62,
+          "mode": 2,
+          "msaaSamples": 4,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "settledFrames": 3,
+          "imagery": "2d:boot",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "1735380cb26b55178d5998102c4a37533661826a5f10a017ab146f8a8755f70a"
+        },
+        {
+          "case": "mobile-2d-balanced",
+          "index": 0,
+          "width": 218,
+          "height": 472,
+          "resolutionScale": 0.56,
+          "mode": 2,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "settledFrames": 3,
+          "imagery": "2d:boot",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "d3703542a59c1a43eef41e8e33e47d37482f34758b5ee5ccd267fd6e63cd0fd9"
+        },
+        {
+          "case": "mobile-2d-balanced",
+          "index": 1,
+          "width": 218,
+          "height": 472,
+          "resolutionScale": 0.56,
+          "mode": 2,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "settledFrames": 3,
+          "imagery": "2d:boot",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "d3703542a59c1a43eef41e8e33e47d37482f34758b5ee5ccd267fd6e63cd0fd9"
+        },
+        {
+          "case": "mobile-2d-balanced",
+          "index": 2,
+          "width": 218,
+          "height": 472,
+          "resolutionScale": 0.56,
+          "mode": 2,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": false,
+          "samples": 0,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "settledFrames": 3,
+          "imagery": "2d:boot",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "d3703542a59c1a43eef41e8e33e47d37482f34758b5ee5ccd267fd6e63cd0fd9"
+        },
+        {
+          "case": "mobile-2d-balanced",
+          "index": 3,
+          "width": 218,
+          "height": 472,
+          "resolutionScale": 0.56,
+          "mode": 2,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "settledFrames": 3,
+          "imagery": "2d:boot",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "d3703542a59c1a43eef41e8e33e47d37482f34758b5ee5ccd267fd6e63cd0fd9"
+        },
+        {
+          "case": "mobile-2d-performance",
+          "index": 0,
+          "width": 171,
+          "height": 371,
+          "resolutionScale": 0.44,
+          "mode": 2,
+          "msaaSamples": 1,
+          "fxaa": false,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "settledFrames": 3,
+          "imagery": "2d:boot",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "09425936a5583226025f17483562ec16c64998cb473e7f5461398e569f3f6db4"
+        },
+        {
+          "case": "mobile-2d-performance",
+          "index": 1,
+          "width": 171,
+          "height": 371,
+          "resolutionScale": 0.44,
+          "mode": 2,
+          "msaaSamples": 1,
+          "fxaa": false,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "settledFrames": 3,
+          "imagery": "2d:boot",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "09425936a5583226025f17483562ec16c64998cb473e7f5461398e569f3f6db4"
+        },
+        {
+          "case": "mobile-2d-performance",
+          "index": 2,
+          "width": 171,
+          "height": 371,
+          "resolutionScale": 0.44,
+          "mode": 2,
+          "msaaSamples": 1,
+          "fxaa": false,
+          "nativeAntialias": false,
+          "samples": 0,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "settledFrames": 3,
+          "imagery": "2d:boot",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "09425936a5583226025f17483562ec16c64998cb473e7f5461398e569f3f6db4"
+        },
+        {
+          "case": "mobile-2d-performance",
+          "index": 3,
+          "width": 171,
+          "height": 371,
+          "resolutionScale": 0.44,
+          "mode": 2,
+          "msaaSamples": 1,
+          "fxaa": false,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "settledFrames": 3,
+          "imagery": "2d:boot",
+          "geometry": "./data/world_countries_simplified.geo.json",
+          "glError": 0,
+          "errors": [],
+          "sha256": "09425936a5583226025f17483562ec16c64998cb473e7f5461398e569f3f6db4"
+        }
+      ],
+      "comparisons": [
+        {
+          "case": "desktop-3d-auto-low",
+          "excludedWarmup": true,
+          "baselineRepeat": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          },
+          "candidate": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          }
+        },
+        {
+          "case": "desktop-3d-auto",
+          "excludedWarmup": true,
+          "baselineRepeat": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          },
+          "candidate": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          }
+        },
+        {
+          "case": "desktop-3d-high",
+          "excludedWarmup": true,
+          "baselineRepeat": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          },
+          "candidate": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          }
+        },
+        {
+          "case": "desktop-3d-balanced",
+          "excludedWarmup": true,
+          "baselineRepeat": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          },
+          "candidate": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          }
+        },
+        {
+          "case": "desktop-3d-performance",
+          "excludedWarmup": true,
+          "baselineRepeat": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          },
+          "candidate": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          }
+        },
+        {
+          "case": "mobile-2d-auto",
+          "excludedWarmup": true,
+          "baselineRepeat": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          },
+          "candidate": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          }
+        },
+        {
+          "case": "mobile-2d-high",
+          "excludedWarmup": true,
+          "baselineRepeat": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          },
+          "candidate": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          }
+        },
+        {
+          "case": "mobile-2d-balanced",
+          "excludedWarmup": true,
+          "baselineRepeat": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          },
+          "candidate": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          }
+        },
+        {
+          "case": "mobile-2d-performance",
+          "excludedWarmup": true,
+          "baselineRepeat": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          },
+          "candidate": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          }
+        }
+      ],
+      "tileCache": {
+        "entries": 80,
+        "bytes": 806785,
+        "reads": 0,
+        "hits": 1851,
+        "misses": 85,
+        "savedBytes": 19389108
+      }
+    }
+  },
+  "earlyExploration": {
+    "pixels": {
+      "generatedAt": "2026-10-08T17:11:53.433Z",
+      "browser": "155.0.8059.40",
+      "platform": "win32",
+      "method": "Real app and imagery, identical low-tier hints, sequential on/off/on, settled globe, full RGBA postRender capture; visual diagnostic only, no timing claim.",
+      "captures": [
+        {
+          "case": "desktop-3d-auto",
+          "index": 0,
+          "width": 1612,
+          "height": 1030,
+          "resolutionScale": 1.12,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "glError": 0,
+          "errors": [],
+          "sha256": "be0dd1a0e4f61d978c650beb0981684b674a356b03bf5169062c914193d01b6e"
+        },
+        {
+          "case": "desktop-3d-auto",
+          "index": 1,
+          "width": 1612,
+          "height": 1030,
+          "resolutionScale": 1.12,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": false,
+          "samples": 0,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "glError": 0,
+          "errors": [],
+          "sha256": "9e2af300ca279e25ce700530b66b4384423bc239758a8b581fe3fa1b7d75812e"
+        },
+        {
+          "case": "desktop-3d-auto",
+          "index": 2,
+          "width": 1612,
+          "height": 1030,
+          "resolutionScale": 1.12,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "glError": 0,
+          "errors": [],
+          "sha256": "9e2af300ca279e25ce700530b66b4384423bc239758a8b581fe3fa1b7d75812e"
+        },
+        {
+          "case": "desktop-3d-high",
+          "index": 0,
+          "width": 1699,
+          "height": 1085,
+          "resolutionScale": 1.18,
+          "mode": 3,
+          "msaaSamples": 4,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "glError": 0,
+          "errors": [],
+          "sha256": "52061e19e9681ef530474b72222aaf3df0ecc984994ae505395db107872a6bd9"
+        },
+        {
+          "case": "desktop-3d-high",
+          "index": 1,
+          "width": 1699,
+          "height": 1085,
+          "resolutionScale": 1.18,
+          "mode": 3,
+          "msaaSamples": 4,
+          "fxaa": true,
+          "nativeAntialias": false,
+          "samples": 0,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "glError": 0,
+          "errors": [],
+          "sha256": "52061e19e9681ef530474b72222aaf3df0ecc984994ae505395db107872a6bd9"
+        },
+        {
+          "case": "desktop-3d-high",
+          "index": 2,
+          "width": 1699,
+          "height": 1085,
+          "resolutionScale": 1.18,
+          "mode": 3,
+          "msaaSamples": 4,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "glError": 0,
+          "errors": [],
+          "sha256": "52061e19e9681ef530474b72222aaf3df0ecc984994ae505395db107872a6bd9"
+        },
+        {
+          "case": "desktop-3d-balanced",
+          "index": 0,
+          "width": 1497,
+          "height": 956,
+          "resolutionScale": 1.04,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "glError": 0,
+          "errors": [],
+          "sha256": "3446da4985d8a421fc0a8180fb6729fd6446cba0988651a432c8b4b24c5643f6"
+        },
+        {
+          "case": "desktop-3d-balanced",
+          "index": 1,
+          "width": 1497,
+          "height": 956,
+          "resolutionScale": 1.04,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": false,
+          "samples": 0,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "glError": 0,
+          "errors": [],
+          "sha256": "3446da4985d8a421fc0a8180fb6729fd6446cba0988651a432c8b4b24c5643f6"
+        },
+        {
+          "case": "desktop-3d-balanced",
+          "index": 2,
+          "width": 1497,
+          "height": 956,
+          "resolutionScale": 1.04,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "glError": 0,
+          "errors": [],
+          "sha256": "3446da4985d8a421fc0a8180fb6729fd6446cba0988651a432c8b4b24c5643f6"
+        },
+        {
+          "case": "desktop-3d-performance",
+          "index": 0,
+          "width": 1296,
+          "height": 828,
+          "resolutionScale": 0.9,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": false,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "glError": 0,
+          "errors": [],
+          "sha256": "1e3b3266d5997a47295f66db37a67841bda716604448a859aac63413a4f6c0ba"
+        },
+        {
+          "case": "desktop-3d-performance",
+          "index": 1,
+          "width": 1296,
+          "height": 828,
+          "resolutionScale": 0.9,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": false,
+          "nativeAntialias": false,
+          "samples": 0,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "glError": 0,
+          "errors": [],
+          "sha256": "1e3b3266d5997a47295f66db37a67841bda716604448a859aac63413a4f6c0ba"
+        },
+        {
+          "case": "desktop-3d-performance",
+          "index": 2,
+          "width": 1296,
+          "height": 828,
+          "resolutionScale": 0.9,
+          "mode": 3,
+          "msaaSamples": 1,
+          "fxaa": false,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            11656727.188070482,
+            -1.2569049329114178e-9,
+            19411294.930672828
+          ],
+          "labels": 20,
+          "glError": 0,
+          "errors": [],
+          "sha256": "1e3b3266d5997a47295f66db37a67841bda716604448a859aac63413a4f6c0ba"
+        },
+        {
+          "case": "mobile-2d-auto",
+          "index": 0,
+          "width": 195,
+          "height": 422,
+          "resolutionScale": 0.5,
+          "mode": 2,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "glError": 0,
+          "errors": [],
+          "sha256": "fa4d68d1c4d95680b6b784a9f94699a4be08ecbfb14ebf892d252efe60060609"
+        },
+        {
+          "case": "mobile-2d-auto",
+          "index": 1,
+          "width": 195,
+          "height": 422,
+          "resolutionScale": 0.5,
+          "mode": 2,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "nativeAntialias": false,
+          "samples": 0,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "glError": 0,
+          "errors": [],
+          "sha256": "fa4d68d1c4d95680b6b784a9f94699a4be08ecbfb14ebf892d252efe60060609"
+        },
+        {
+          "case": "mobile-2d-auto",
+          "index": 2,
+          "width": 195,
+          "height": 422,
+          "resolutionScale": 0.5,
+          "mode": 2,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "glError": 0,
+          "errors": [],
+          "sha256": "fa4d68d1c4d95680b6b784a9f94699a4be08ecbfb14ebf892d252efe60060609"
+        },
+        {
+          "case": "mobile-2d-high",
+          "index": 0,
+          "width": 241,
+          "height": 523,
+          "resolutionScale": 0.62,
+          "mode": 2,
+          "msaaSamples": 4,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "glError": 0,
+          "errors": [],
+          "sha256": "ac58eafe8b62b2959622cb768ac0630af3dc7e4dd690a40c1c7e3918f6e179a4"
+        },
+        {
+          "case": "mobile-2d-high",
+          "index": 1,
+          "width": 241,
+          "height": 523,
+          "resolutionScale": 0.62,
+          "mode": 2,
+          "msaaSamples": 4,
+          "fxaa": true,
+          "nativeAntialias": false,
+          "samples": 0,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "glError": 0,
+          "errors": [],
+          "sha256": "ac58eafe8b62b2959622cb768ac0630af3dc7e4dd690a40c1c7e3918f6e179a4"
+        },
+        {
+          "case": "mobile-2d-high",
+          "index": 2,
+          "width": 241,
+          "height": 523,
+          "resolutionScale": 0.62,
+          "mode": 2,
+          "msaaSamples": 4,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "glError": 0,
+          "errors": [],
+          "sha256": "ac58eafe8b62b2959622cb768ac0630af3dc7e4dd690a40c1c7e3918f6e179a4"
+        },
+        {
+          "case": "mobile-2d-balanced",
+          "index": 0,
+          "width": 218,
+          "height": 472,
+          "resolutionScale": 0.56,
+          "mode": 2,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "glError": 0,
+          "errors": [],
+          "sha256": "6ea6076908ba90046de9a43751f9e5250e4c61b3ab2c6ec40d90ed9f0245c16b"
+        },
+        {
+          "case": "mobile-2d-balanced",
+          "index": 1,
+          "width": 218,
+          "height": 472,
+          "resolutionScale": 0.56,
+          "mode": 2,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": false,
+          "samples": 0,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "glError": 0,
+          "errors": [],
+          "sha256": "6ea6076908ba90046de9a43751f9e5250e4c61b3ab2c6ec40d90ed9f0245c16b"
+        },
+        {
+          "case": "mobile-2d-balanced",
+          "index": 2,
+          "width": 218,
+          "height": 472,
+          "resolutionScale": 0.56,
+          "mode": 2,
+          "msaaSamples": 1,
+          "fxaa": true,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "glError": 0,
+          "errors": [],
+          "sha256": "6ea6076908ba90046de9a43751f9e5250e4c61b3ab2c6ec40d90ed9f0245c16b"
+        },
+        {
+          "case": "mobile-2d-performance",
+          "index": 0,
+          "width": 171,
+          "height": 371,
+          "resolutionScale": 0.44,
+          "mode": 2,
+          "msaaSamples": 1,
+          "fxaa": false,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "glError": 0,
+          "errors": [],
+          "sha256": "14fbcc9ac0950781b5e850fc9ec9a74d3540137a7c8eb771a298cf2346c0781f"
+        },
+        {
+          "case": "mobile-2d-performance",
+          "index": 1,
+          "width": 171,
+          "height": 371,
+          "resolutionScale": 0.44,
+          "mode": 2,
+          "msaaSamples": 1,
+          "fxaa": false,
+          "nativeAntialias": false,
+          "samples": 0,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "glError": 0,
+          "errors": [],
+          "sha256": "14fbcc9ac0950781b5e850fc9ec9a74d3540137a7c8eb771a298cf2346c0781f"
+        },
+        {
+          "case": "mobile-2d-performance",
+          "index": 2,
+          "width": 171,
+          "height": 371,
+          "resolutionScale": 0.44,
+          "mode": 2,
+          "msaaSamples": 1,
+          "fxaa": false,
+          "nativeAntialias": true,
+          "samples": 4,
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "camera": [
+            12756274,
+            0,
+            834896.1809495529
+          ],
+          "labels": 0,
+          "glError": 0,
+          "errors": [],
+          "sha256": "14fbcc9ac0950781b5e850fc9ec9a74d3540137a7c8eb771a298cf2346c0781f"
+        }
+      ],
+      "comparisons": [
+        {
+          "case": "desktop-3d-auto",
+          "baselineRepeat": {
+            "changedChannels": 1446114,
+            "changedPixels": 491497,
+            "maxDifference": 204,
+            "absoluteDifference": 63061838
+          },
+          "candidate": {
+            "changedChannels": 1446114,
+            "changedPixels": 491497,
+            "maxDifference": 204,
+            "absoluteDifference": 63061838
+          }
+        },
+        {
+          "case": "desktop-3d-high",
+          "baselineRepeat": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          },
+          "candidate": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          }
+        },
+        {
+          "case": "desktop-3d-balanced",
+          "baselineRepeat": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          },
+          "candidate": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          }
+        },
+        {
+          "case": "desktop-3d-performance",
+          "baselineRepeat": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          },
+          "candidate": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          }
+        },
+        {
+          "case": "mobile-2d-auto",
+          "baselineRepeat": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          },
+          "candidate": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          }
+        },
+        {
+          "case": "mobile-2d-high",
+          "baselineRepeat": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          },
+          "candidate": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          }
+        },
+        {
+          "case": "mobile-2d-balanced",
+          "baselineRepeat": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          },
+          "candidate": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          }
+        },
+        {
+          "case": "mobile-2d-performance",
+          "baselineRepeat": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          },
+          "candidate": {
+            "changedChannels": 0,
+            "changedPixels": 0,
+            "maxDifference": 0,
+            "absoluteDifference": 0
+          }
+        }
+      ],
+      "tileCache": {
+        "entries": 80,
+        "bytes": 806785,
+        "reads": 0,
+        "hits": 995,
+        "misses": 88,
+        "savedBytes": 10317293
+      }
+    },
+    "render": {
+      "generatedAt": "2026-10-08T17:13:46.073Z",
+      "inputHash": "ef5c3280d1f9b778ae33f67ecb866b6a9f081b33d4f0ef5629ec284e6f60c085",
+      "environment": {
+        "platform": "win32",
+        "browser": "155.0.8059.40",
+        "cpus": 12,
+        "memoryGiB": 15.784477233886719
+      },
+      "method": "One excluded warmup, then ABBA ABBA; isolated sequential contexts, low-tier 4/4 hints, same real settled scene, fixed camera and quality, requestRender after each postRender for 3 seconds. Full app targetFrameRate retained. No CPU profiler or pixel readback during timing.",
+      "limitation": "Windows Chrome software renderer, not Linux CI parity, active navigation, whole-app FPS, physical phone or energy/RAM measurement.",
+      "trials": [
+        {
+          "before": {
+            "width": 1411,
+            "height": 901,
+            "mode": 3,
+            "resolutionScale": 0.98,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "maximumScreenSpaceError": 2.6,
+            "targetFrameRate": 26
+          },
+          "after": {
+            "width": 1411,
+            "height": 901,
+            "mode": 3,
+            "resolutionScale": 0.98,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "maximumScreenSpaceError": 2.6,
+            "targetFrameRate": 26
+          },
+          "frames": 25,
+          "elapsedMs": 3016.5,
+          "intervals": [
+            266.8999999985099,
+            131.90000000223517,
+            119.79999999701977,
+            121.40000000223517,
+            122.5,
+            121,
+            248.5,
+            4.899999998509884,
+            125.90000000223517,
+            98.89999999850988,
+            2.300000000745058,
+            99,
+            127.19999999925494,
+            123.30000000074506,
+            138.30000000074506,
+            108.19999999925494,
+            122.69999999925494,
+            139.5,
+            124.39999999850988,
+            127.20000000298023,
+            140,
+            136.89999999850988,
+            133.89999999850988,
+            131.90000000223517
+          ],
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "nativeAntialias": true,
+          "defaultFramebufferSamples": 4,
+          "glError": 0,
+          "fps": 7.956240676280458,
+          "warmup": true,
+          "index": 0,
+          "enabled": true
+        },
+        {
+          "before": {
+            "width": 1411,
+            "height": 901,
+            "mode": 3,
+            "resolutionScale": 0.98,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "maximumScreenSpaceError": 2.6,
+            "targetFrameRate": 26
+          },
+          "after": {
+            "width": 1411,
+            "height": 901,
+            "mode": 3,
+            "resolutionScale": 0.98,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "maximumScreenSpaceError": 2.6,
+            "targetFrameRate": 26
+          },
+          "frames": 26,
+          "elapsedMs": 3017.5,
+          "intervals": [
+            56.30000000074506,
+            126,
+            130.19999999925494,
+            132.69999999925494,
+            130.60000000149012,
+            130,
+            129.89999999850988,
+            262.30000000074506,
+            5.199999999254942,
+            135.40000000223517,
+            205.5,
+            2.099999997764826,
+            147.30000000074506,
+            1.5,
+            126.5,
+            128.80000000074506,
+            129.39999999850988,
+            132,
+            134.20000000298023,
+            131.89999999850988,
+            127.80000000074506,
+            126.39999999850988,
+            129.60000000149012,
+            127.19999999925494,
+            128.69999999925494
+          ],
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "nativeAntialias": true,
+          "defaultFramebufferSamples": 4,
+          "glError": 0,
+          "fps": 8.285004142502071,
+          "warmup": false,
+          "index": 1,
+          "enabled": true
+        },
+        {
+          "before": {
+            "width": 1411,
+            "height": 901,
+            "mode": 3,
+            "resolutionScale": 0.98,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "maximumScreenSpaceError": 2.6,
+            "targetFrameRate": 26
+          },
+          "after": {
+            "width": 1411,
+            "height": 901,
+            "mode": 3,
+            "resolutionScale": 0.98,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "maximumScreenSpaceError": 2.6,
+            "targetFrameRate": 26
+          },
+          "frames": 28,
+          "elapsedMs": 3050.7999999970198,
+          "intervals": [
+            17.199999999254942,
+            160.09999999776483,
+            119.70000000298023,
+            122.59999999776483,
+            118.19999999925494,
+            119.70000000298023,
+            116.09999999776483,
+            118.10000000149012,
+            117.30000000074506,
+            237.39999999850988,
+            5.699999999254942,
+            114.19999999925494,
+            95.30000000074506,
+            2.800000000745058,
+            134.89999999850988,
+            108.80000000074506,
+            115.60000000149012,
+            109.5,
+            120.80000000074506,
+            118.29999999701977,
+            119.20000000298023,
+            118.5,
+            117.39999999850988,
+            119.60000000149012,
+            162.69999999925494,
+            112.80000000074506,
+            128.29999999701977
+          ],
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "nativeAntialias": false,
+          "defaultFramebufferSamples": 0,
+          "glError": 0,
+          "fps": 8.850137668816826,
+          "warmup": false,
+          "index": 2,
+          "enabled": false
+        },
+        {
+          "before": {
+            "width": 1411,
+            "height": 901,
+            "mode": 3,
+            "resolutionScale": 0.98,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "maximumScreenSpaceError": 2.6,
+            "targetFrameRate": 26
+          },
+          "after": {
+            "width": 1411,
+            "height": 901,
+            "mode": 3,
+            "resolutionScale": 0.98,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "maximumScreenSpaceError": 2.6,
+            "targetFrameRate": 26
+          },
+          "frames": 28,
+          "elapsedMs": 3085.699999999255,
+          "intervals": [
+            56.19999999925494,
+            117.5,
+            119.40000000223517,
+            121,
+            133.19999999925494,
+            109.5,
+            132.30000000074506,
+            227.30000000074506,
+            4.5,
+            114.09999999776483,
+            202.30000000074506,
+            1.6000000014901161,
+            6,
+            259.69999999925494,
+            53,
+            75.09999999776483,
+            119.70000000298023,
+            120.5,
+            121.69999999925494,
+            118.5,
+            137.39999999850988,
+            134.90000000223517,
+            87.19999999925494,
+            117.80000000074506,
+            121.39999999850988,
+            119.39999999850988,
+            154.5
+          ],
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "nativeAntialias": false,
+          "defaultFramebufferSamples": 0,
+          "glError": 0,
+          "fps": 8.750040509448915,
+          "warmup": false,
+          "index": 3,
+          "enabled": false
+        },
+        {
+          "before": {
+            "width": 1411,
+            "height": 901,
+            "mode": 3,
+            "resolutionScale": 0.98,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "maximumScreenSpaceError": 2.6,
+            "targetFrameRate": 26
+          },
+          "after": {
+            "width": 1411,
+            "height": 901,
+            "mode": 3,
+            "resolutionScale": 0.98,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "maximumScreenSpaceError": 2.6,
+            "targetFrameRate": 26
+          },
+          "frames": 25,
+          "elapsedMs": 3065.300000000745,
+          "intervals": [
+            55.899999998509884,
+            125.20000000298023,
+            128.69999999925494,
+            128.30000000074506,
+            134.09999999776483,
+            135.10000000149012,
+            131,
+            255.19999999925494,
+            5.300000000745058,
+            11.300000000745058,
+            117.59999999776483,
+            308.19999999925494,
+            8.100000001490116,
+            40.399999998509884,
+            121.40000000223517,
+            124.19999999925494,
+            119.39999999850988,
+            118.5,
+            116.70000000298023,
+            117.39999999850988,
+            124.60000000149012,
+            236.79999999701977,
+            202.30000000074506,
+            199.60000000149012
+          ],
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "nativeAntialias": true,
+          "defaultFramebufferSamples": 4,
+          "glError": 0,
+          "fps": 7.8295762241849625,
+          "warmup": false,
+          "index": 4,
+          "enabled": true
+        },
+        {
+          "before": {
+            "width": 1411,
+            "height": 901,
+            "mode": 3,
+            "resolutionScale": 0.98,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "maximumScreenSpaceError": 2.6,
+            "targetFrameRate": 26
+          },
+          "after": {
+            "width": 1411,
+            "height": 901,
+            "mode": 3,
+            "resolutionScale": 0.98,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "maximumScreenSpaceError": 2.6,
+            "targetFrameRate": 26
+          },
+          "frames": 25,
+          "elapsedMs": 3087.60000000149,
+          "intervals": [
+            17.200000002980232,
+            191.89999999850988,
+            130.39999999850988,
+            127.70000000298023,
+            126.79999999701977,
+            126.80000000074506,
+            126.80000000074506,
+            125.10000000149012,
+            127.79999999701977,
+            260.5,
+            6.600000001490116,
+            133.60000000149012,
+            239.5,
+            3.899999998509884,
+            133.69999999925494,
+            126.30000000074506,
+            134.39999999850988,
+            132.70000000298023,
+            174.59999999776483,
+            228.90000000223517,
+            115.29999999701977,
+            43.30000000074506,
+            153.60000000149012,
+            100.19999999925494
+          ],
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "nativeAntialias": true,
+          "defaultFramebufferSamples": 4,
+          "glError": 0,
+          "fps": 7.773027594244208,
+          "warmup": false,
+          "index": 5,
+          "enabled": true
+        },
+        {
+          "before": {
+            "width": 1411,
+            "height": 901,
+            "mode": 3,
+            "resolutionScale": 0.98,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "maximumScreenSpaceError": 2.6,
+            "targetFrameRate": 26
+          },
+          "after": {
+            "width": 1411,
+            "height": 901,
+            "mode": 3,
+            "resolutionScale": 0.98,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "maximumScreenSpaceError": 2.6,
+            "targetFrameRate": 26
+          },
+          "frames": 27,
+          "elapsedMs": 3073.800000000745,
+          "intervals": [
+            1.5,
+            58.599999997764826,
+            128.10000000149012,
+            129.30000000074506,
+            130.39999999850988,
+            128.40000000223517,
+            128.89999999850988,
+            129.80000000074506,
+            129.30000000074506,
+            251.09999999776483,
+            16.600000001490116,
+            116.09999999776483,
+            276.1000000014901,
+            5.5,
+            78.60000000149012,
+            115,
+            122.59999999776483,
+            123,
+            124.90000000223517,
+            122.89999999850988,
+            154.10000000149012,
+            136.69999999925494,
+            134.09999999776483,
+            101,
+            145,
+            86.20000000298023
+          ],
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "nativeAntialias": false,
+          "defaultFramebufferSamples": 0,
+          "glError": 0,
+          "fps": 8.458585464244159,
+          "warmup": false,
+          "index": 6,
+          "enabled": false
+        },
+        {
+          "before": {
+            "width": 1411,
+            "height": 901,
+            "mode": 3,
+            "resolutionScale": 0.98,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "maximumScreenSpaceError": 2.6,
+            "targetFrameRate": 26
+          },
+          "after": {
+            "width": 1411,
+            "height": 901,
+            "mode": 3,
+            "resolutionScale": 0.98,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "maximumScreenSpaceError": 2.6,
+            "targetFrameRate": 26
+          },
+          "frames": 27,
+          "elapsedMs": 3074.800000000745,
+          "intervals": [
+            135.5,
+            121.30000000074506,
+            120.89999999850988,
+            124.89999999850988,
+            124.90000000223517,
+            124.59999999776483,
+            123.20000000298023,
+            249.39999999850988,
+            4.699999999254942,
+            130.69999999925494,
+            195,
+            1.7000000029802322,
+            9.699999999254942,
+            129.19999999925494,
+            121.5,
+            121.69999999925494,
+            122.5,
+            125.69999999925494,
+            136.30000000074506,
+            112.5,
+            122.10000000149012,
+            122.59999999776483,
+            124.5,
+            122.60000000149012,
+            123.80000000074506,
+            123.30000000074506
+          ],
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "nativeAntialias": false,
+          "defaultFramebufferSamples": 0,
+          "glError": 0,
+          "fps": 8.45583452582077,
+          "warmup": false,
+          "index": 7,
+          "enabled": false
+        },
+        {
+          "before": {
+            "width": 1411,
+            "height": 901,
+            "mode": 3,
+            "resolutionScale": 0.98,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "maximumScreenSpaceError": 2.6,
+            "targetFrameRate": 26
+          },
+          "after": {
+            "width": 1411,
+            "height": 901,
+            "mode": 3,
+            "resolutionScale": 0.98,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "maximumScreenSpaceError": 2.6,
+            "targetFrameRate": 26
+          },
+          "frames": 27,
+          "elapsedMs": 3114.099999997765,
+          "intervals": [
+            56.30000000074506,
+            130.89999999850988,
+            126.89999999850988,
+            1.800000000745058,
+            123.80000000074506,
+            128,
+            127.19999999925494,
+            126.60000000149012,
+            256.80000000074506,
+            12.799999997019768,
+            119.5,
+            121.40000000223517,
+            103.19999999925494,
+            106.10000000149012,
+            133.09999999776483,
+            127.80000000074506,
+            126.39999999850988,
+            124.90000000223517,
+            128.30000000074506,
+            128.09999999776483,
+            126.80000000074506,
+            127.89999999850988,
+            133.80000000074506,
+            137.69999999925494,
+            141.40000000223517,
+            136.59999999776483
+          ],
+          "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "nativeAntialias": true,
+          "defaultFramebufferSamples": 4,
+          "glError": 0,
+          "fps": 8.349121736623314,
+          "warmup": false,
+          "index": 8,
+          "enabled": true
+        }
+      ],
+      "medianFps": {
+        "on": 8.057290183343516,
+        "off": 8.604312986846537,
+        "changePercent": 6.789165973367295
+      },
+      "tileCache": {
+        "entries": 28,
+        "bytes": 317096,
+        "reads": 0,
+        "hits": 433,
+        "misses": 35,
+        "savedBytes": 4882115
+      }
+    },
+    "useForClaim": false
+  },
+  "renderComparison": {
+    "generatedAt": "2026-10-08T17:22:49.693Z",
+    "baselineRevision": "6d8c0567bd6996fa6303ec242fcb435155602a67",
+    "baselinePublicInputHash": "ef5c3280d1f9b778ae33f67ecb866b6a9f081b33d4f0ef5629ec284e6f60c085",
+    "builtScriptSha256": "037222bf2d6c01d5b8218ebde52ff2542b5312b5c9ff2475714842017a16511d",
+    "environment": {
+      "platform": "win32",
+      "browser": "155.0.8059.40",
+      "cpus": 12,
+      "memoryGiB": 15.784477233886719
+    },
+    "method": "One excluded warmup, then ABBA ABBA; isolated sequential contexts, low-tier 4/4 hints, final 3d:full imagery and three settled frames, fixed camera and quality, requestRender after each postRender for 3 seconds. Full app targetFrameRate retained. No CPU profiler or pixel readback during timing.",
+    "limitation": "Windows Chrome software renderer, not Linux CI parity, active navigation, whole-app FPS, physical phone or energy/RAM measurement.",
+    "trials": [
+      {
+        "before": {
+          "width": 1411,
+          "height": 901,
+          "mode": 3,
+          "resolutionScale": 0.98,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "maximumScreenSpaceError": 2.6,
+          "targetFrameRate": 26,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json"
+        },
+        "after": {
+          "width": 1411,
+          "height": 901,
+          "mode": 3,
+          "resolutionScale": 0.98,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "maximumScreenSpaceError": 2.6,
+          "targetFrameRate": 26,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json"
+        },
+        "frames": 23,
+        "elapsedMs": 3021.7999999970198,
+        "intervals": [
+          123.79999999701977,
+          122.10000000149012,
+          126.80000000074506,
+          124.30000000074506,
+          141.09999999776483,
+          137.40000000223517,
+          139.69999999925494,
+          141.39999999850988,
+          142,
+          144.40000000223517,
+          134.69999999925494,
+          130.19999999925494,
+          130.5,
+          133.39999999850988,
+          135.80000000074506,
+          133.30000000074506,
+          175.10000000149012,
+          203.59999999776483,
+          75.40000000223517,
+          118,
+          220.39999999850988,
+          88.39999999850988
+        ],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "nativeAntialias": true,
+        "defaultFramebufferSamples": 4,
+        "glError": 0,
+        "fps": 7.280428883454133,
+        "warmup": true,
+        "index": 0,
+        "enabled": true
+      },
+      {
+        "before": {
+          "width": 1411,
+          "height": 901,
+          "mode": 3,
+          "resolutionScale": 0.98,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "maximumScreenSpaceError": 2.6,
+          "targetFrameRate": 26,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json"
+        },
+        "after": {
+          "width": 1411,
+          "height": 901,
+          "mode": 3,
+          "resolutionScale": 0.98,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "maximumScreenSpaceError": 2.6,
+          "targetFrameRate": 26,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json"
+        },
+        "frames": 25,
+        "elapsedMs": 3094.199999999255,
+        "intervals": [
+          124.69999999925494,
+          125.69999999925494,
+          130.5,
+          126.5,
+          128.10000000149012,
+          126.60000000149012,
+          127.79999999701977,
+          128.60000000149012,
+          127.10000000149012,
+          126.89999999850988,
+          129.5,
+          126,
+          128.30000000074506,
+          127.69999999925494,
+          133,
+          124.89999999850988,
+          126.10000000149012,
+          127.80000000074506,
+          127,
+          135.69999999925494,
+          132.19999999925494,
+          134.5,
+          134.80000000074506,
+          134.19999999925494
+        ],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "nativeAntialias": true,
+        "defaultFramebufferSamples": 4,
+        "glError": 0,
+        "fps": 7.756447547025331,
+        "warmup": false,
+        "index": 1,
+        "enabled": true
+      },
+      {
+        "before": {
+          "width": 1411,
+          "height": 901,
+          "mode": 3,
+          "resolutionScale": 0.98,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "maximumScreenSpaceError": 2.6,
+          "targetFrameRate": 26,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json"
+        },
+        "after": {
+          "width": 1411,
+          "height": 901,
+          "mode": 3,
+          "resolutionScale": 0.98,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "maximumScreenSpaceError": 2.6,
+          "targetFrameRate": 26,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json"
+        },
+        "frames": 25,
+        "elapsedMs": 3029.2000000029802,
+        "intervals": [
+          119.80000000074506,
+          123.30000000074506,
+          123.5,
+          126.19999999925494,
+          123.19999999925494,
+          122.90000000223517,
+          131.09999999776483,
+          143.30000000074506,
+          145.40000000223517,
+          142.09999999776483,
+          122.80000000074506,
+          124.30000000074506,
+          123.89999999850988,
+          123.69999999925494,
+          123.10000000149012,
+          124.39999999850988,
+          122.40000000223517,
+          123.30000000074506,
+          121.39999999850988,
+          123.19999999925494,
+          123.69999999925494,
+          126.20000000298023,
+          122.69999999925494,
+          123.30000000074506
+        ],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "nativeAntialias": false,
+        "defaultFramebufferSamples": 0,
+        "glError": 0,
+        "fps": 7.922883929742635,
+        "warmup": false,
+        "index": 2,
+        "enabled": false
+      },
+      {
+        "before": {
+          "width": 1411,
+          "height": 901,
+          "mode": 3,
+          "resolutionScale": 0.98,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "maximumScreenSpaceError": 2.6,
+          "targetFrameRate": 26,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json"
+        },
+        "after": {
+          "width": 1411,
+          "height": 901,
+          "mode": 3,
+          "resolutionScale": 0.98,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "maximumScreenSpaceError": 2.6,
+          "targetFrameRate": 26,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json"
+        },
+        "frames": 26,
+        "elapsedMs": 3101.2999999970198,
+        "intervals": [
+          119.29999999701977,
+          124.70000000298023,
+          122.59999999776483,
+          123,
+          124.80000000074506,
+          121.10000000149012,
+          122,
+          125.09999999776483,
+          123.5,
+          141.69999999925494,
+          112.80000000074506,
+          121.69999999925494,
+          122.70000000298023,
+          122.79999999701977,
+          124.30000000074506,
+          123.10000000149012,
+          132.19999999925494,
+          124.89999999850988,
+          125.20000000298023,
+          124.29999999701977,
+          124.20000000298023,
+          125.29999999701977,
+          123.5,
+          125.5,
+          121
+        ],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "nativeAntialias": false,
+        "defaultFramebufferSamples": 0,
+        "glError": 0,
+        "fps": 8.061135652798512,
+        "warmup": false,
+        "index": 3,
+        "enabled": false
+      },
+      {
+        "before": {
+          "width": 1411,
+          "height": 901,
+          "mode": 3,
+          "resolutionScale": 0.98,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "maximumScreenSpaceError": 2.6,
+          "targetFrameRate": 26,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json"
+        },
+        "after": {
+          "width": 1411,
+          "height": 901,
+          "mode": 3,
+          "resolutionScale": 0.98,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "maximumScreenSpaceError": 2.6,
+          "targetFrameRate": 26,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json"
+        },
+        "frames": 24,
+        "elapsedMs": 3000.800000000745,
+        "intervals": [
+          129.30000000074506,
+          129.80000000074506,
+          128.79999999701977,
+          1.6000000014901161,
+          128.39999999850988,
+          129.60000000149012,
+          128.30000000074506,
+          130.39999999850988,
+          163.19999999925494,
+          145.80000000074506,
+          138.30000000074506,
+          99.10000000149012,
+          121,
+          128.69999999925494,
+          139,
+          120,
+          154.5,
+          138.39999999850988,
+          146.90000000223517,
+          221.19999999925494,
+          133.5,
+          129.69999999925494,
+          115.30000000074506
+        ],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "nativeAntialias": true,
+        "defaultFramebufferSamples": 4,
+        "glError": 0,
+        "fps": 7.664622767260161,
+        "warmup": false,
+        "index": 4,
+        "enabled": true
+      },
+      {
+        "before": {
+          "width": 1411,
+          "height": 901,
+          "mode": 3,
+          "resolutionScale": 0.98,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "maximumScreenSpaceError": 2.6,
+          "targetFrameRate": 26,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json"
+        },
+        "after": {
+          "width": 1411,
+          "height": 901,
+          "mode": 3,
+          "resolutionScale": 0.98,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "maximumScreenSpaceError": 2.6,
+          "targetFrameRate": 26,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json"
+        },
+        "frames": 26,
+        "elapsedMs": 3131.5,
+        "intervals": [
+          129.69999999925494,
+          1.800000000745058,
+          129.5,
+          129.30000000074506,
+          130.09999999776483,
+          129.19999999925494,
+          132.20000000298023,
+          127.59999999776483,
+          129.10000000149012,
+          128.59999999776483,
+          132.20000000298023,
+          129.69999999925494,
+          131.69999999925494,
+          129.5,
+          135,
+          129.30000000074506,
+          130,
+          130.30000000074506,
+          131.19999999925494,
+          129.59999999776483,
+          130.90000000223517,
+          131.80000000074506,
+          130,
+          130.5,
+          132.69999999925494
+        ],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "nativeAntialias": true,
+        "defaultFramebufferSamples": 4,
+        "glError": 0,
+        "fps": 7.983394539358135,
+        "warmup": false,
+        "index": 5,
+        "enabled": true
+      },
+      {
+        "before": {
+          "width": 1411,
+          "height": 901,
+          "mode": 3,
+          "resolutionScale": 0.98,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "maximumScreenSpaceError": 2.6,
+          "targetFrameRate": 26,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json"
+        },
+        "after": {
+          "width": 1411,
+          "height": 901,
+          "mode": 3,
+          "resolutionScale": 0.98,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "maximumScreenSpaceError": 2.6,
+          "targetFrameRate": 26,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json"
+        },
+        "frames": 25,
+        "elapsedMs": 3028.900000002235,
+        "intervals": [
+          123.40000000223517,
+          123.89999999850988,
+          125.60000000149012,
+          126.80000000074506,
+          1.7999999970197678,
+          121.90000000223517,
+          127.39999999850988,
+          125.69999999925494,
+          127.60000000149012,
+          125.39999999850988,
+          128.40000000223517,
+          126.89999999850988,
+          178.40000000223517,
+          91.59999999776483,
+          129.60000000149012,
+          126.09999999776483,
+          123.90000000223517,
+          123.69999999925494,
+          129.39999999850988,
+          171.40000000223517,
+          127.39999999850988,
+          123,
+          199.30000000074506,
+          120.30000000074506
+        ],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "nativeAntialias": false,
+        "defaultFramebufferSamples": 0,
+        "glError": 0,
+        "fps": 7.92366865858308,
+        "warmup": false,
+        "index": 6,
+        "enabled": false
+      },
+      {
+        "before": {
+          "width": 1411,
+          "height": 901,
+          "mode": 3,
+          "resolutionScale": 0.98,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "maximumScreenSpaceError": 2.6,
+          "targetFrameRate": 26,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json"
+        },
+        "after": {
+          "width": 1411,
+          "height": 901,
+          "mode": 3,
+          "resolutionScale": 0.98,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "maximumScreenSpaceError": 2.6,
+          "targetFrameRate": 26,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json"
+        },
+        "frames": 25,
+        "elapsedMs": 3008.099999997765,
+        "intervals": [
+          132.89999999850988,
+          117.80000000074506,
+          126.59999999776483,
+          123.90000000223517,
+          122.89999999850988,
+          125.30000000074506,
+          125.30000000074506,
+          125,
+          124.59999999776483,
+          124.90000000223517,
+          124.89999999850988,
+          127.19999999925494,
+          124,
+          126.20000000298023,
+          126.19999999925494,
+          123.69999999925494,
+          124.39999999850988,
+          124.40000000223517,
+          123.30000000074506,
+          126.39999999850988,
+          125.19999999925494,
+          125.69999999925494,
+          139.80000000074506,
+          117.5
+        ],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "nativeAntialias": false,
+        "defaultFramebufferSamples": 0,
+        "glError": 0,
+        "fps": 7.978458162965937,
+        "warmup": false,
+        "index": 7,
+        "enabled": false
+      },
+      {
+        "before": {
+          "width": 1411,
+          "height": 901,
+          "mode": 3,
+          "resolutionScale": 0.98,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "maximumScreenSpaceError": 2.6,
+          "targetFrameRate": 26,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json"
+        },
+        "after": {
+          "width": 1411,
+          "height": 901,
+          "mode": 3,
+          "resolutionScale": 0.98,
+          "msaaSamples": 4,
+          "fxaa": false,
+          "maximumScreenSpaceError": 2.6,
+          "targetFrameRate": 26,
+          "imagery": "3d:full",
+          "geometry": "./data/world_countries_simplified.geo.json"
+        },
+        "frames": 24,
+        "elapsedMs": 3097.10000000149,
+        "intervals": [
+          139.39999999850988,
+          140.10000000149012,
+          143.69999999925494,
+          142.10000000149012,
+          139.19999999925494,
+          140.30000000074506,
+          139.69999999925494,
+          134.60000000149012,
+          132.5,
+          131.19999999925494,
+          128.89999999850988,
+          132.80000000074506,
+          133.10000000149012,
+          133.09999999776483,
+          132.19999999925494,
+          131.10000000149012,
+          132.10000000149012,
+          132.79999999701977,
+          131,
+          128.90000000223517,
+          131.69999999925494,
+          131.10000000149012,
+          135.5
+        ],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "nativeAntialias": true,
+        "defaultFramebufferSamples": 4,
+        "glError": 0,
+        "fps": 7.426302024470935,
+        "warmup": false,
+        "index": 8,
+        "enabled": true
+      }
+    ],
+    "medianFps": {
+      "on": 7.710535157142746,
+      "off": 7.951063410774508,
+      "changePercent": 3.119475480362044
+    },
+    "tileCache": {
+      "entries": 28,
+      "bytes": 317096,
+      "reads": 0,
+      "hits": 437,
+      "misses": 31,
+      "savedBytes": 4934683
+    }
+  },
+  "webgl1Compatibility": {
+    "generatedAt": "2026-10-08T17:23:09.017Z",
+    "browser": "155.0.8059.40",
+    "platform": "win32",
+    "result": {
+      "options": [
+        {
+          "type": "webgl",
+          "antialias": true
+        },
+        {
+          "type": "webgl"
+        }
+      ],
+      "mode": 2,
+      "nativeAntialias": true,
+      "version": "WebGL 1.0 (OpenGL ES 2.0 Chromium)",
+      "samples": 4,
+      "msaaSupported": false,
+      "msaaSamples": 0,
+      "fxaa": false,
+      "nonblank": true,
+      "glError": 0
+    },
+    "errors": []
+  },
+  "limits": "Windows Chrome 155 Intel/SwiftShader are not Linux Chromium 151 CI parity. The 3-second fixed-camera redraw samples are a small diagnostic with variance, not active-navigation or whole-app FPS, energy/CO2 or measured memory savings. No output quality decrease is inferred from timing. Recheck pixel controls when upgrading Cesium; native WebGL1 AA is preserved."
+}

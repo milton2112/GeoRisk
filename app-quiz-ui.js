@@ -1,22 +1,36 @@
 (() => {
+  const MODE_LABELS = {
+    classic: ["Modo: clasico", "Mode: classic"],
+    practice: ["Modo: practica", "Mode: practice"],
+    exam: ["Modo: examen", "Mode: exam"],
+    teacher: ["Modo: docente", "Mode: teacher"]
+  };
   function buildStatusText(quizState, currentLanguage = "es") {
-    if (quizState.total) {
-      return `${currentLanguage === "en" ? "Score" : "Puntaje"}: ${quizState.score}/${quizState.total}`;
+    if (quizState.current || quizState.total) {
+      return `${currentLanguage === "en" ? "Score" : "Puntaje"}: ${quizState.score || 0}/${quizState.total || 0}`;
     }
     return currentLanguage === "en"
-      ? "Choose a category and start the quiz."
-      : "Elegi una categoria y empeza el quiz.";
+      ? "No active round."
+      : "Sin partida activa.";
   }
 
-  function buildOptionsMarkup(options, escapeHtml) {
-    return options.map(option => `<button type="button" class="quiz-option" data-quiz-answer="${escapeHtml(option)}">${escapeHtml(option)}</button>`).join("");
+  function buildOptionsMarkup(options, escapeHtml, question = {}) {
+    const correctAnswer = question.answered ? normalizeText(question.correct) : null;
+    const selectedAnswer = question.answered && question.selectedAnswer !== undefined ? normalizeText(question.selectedAnswer) : null;
+    return options.map(option => {
+      const label = question.answered ? normalizeText(option) : null;
+      const correct = question.answered && label === correctAnswer;
+      const wrong = question.answered && !correct && selectedAnswer !== null && label === selectedAnswer;
+      return `<button type="button" class="quiz-option${correct ? " is-correct" : wrong ? " is-wrong" : ""}" data-quiz-answer="${escapeHtml(option)}"${question.answered ? " disabled" : ""}>${escapeHtml(option)}</button>`;
+    }).join("");
   }
 
   function buildMetaHtml(quizState, currentLanguage, best) {
+    const mode = Object.hasOwn(MODE_LABELS, quizState.mode) ? quizState.mode : "classic";
     return `
       <span class="quiz-meta-pill">${currentLanguage === "en" ? "Streak" : "Racha"}: ${quizState.streak || 0}</span>
       <span class="quiz-meta-pill">${currentLanguage === "en" ? "Best streak" : "Mejor racha"}: ${best}</span>
-      <span class="quiz-meta-pill">${quizState.mode === "timed" ? `${currentLanguage === "en" ? "Time" : "Tiempo"}: ${quizState.timeLeft || 0}s` : (currentLanguage === "en" ? "Mode: classic" : "Modo: clasico")}</span>
+      <span class="quiz-meta-pill">${quizState.mode === "timed" ? `${currentLanguage === "en" ? "Time" : "Tiempo"}: ${quizState.timeLeft || 0}s` : MODE_LABELS[mode][currentLanguage === "en" ? 1 : 0]}</span>
       <span class="quiz-meta-pill">${currentLanguage === "en" ? "Answered" : "Respondidas"}: ${quizState.total || 0}</span>
     `;
   }
@@ -85,7 +99,7 @@
     }
 
     question.textContent = quizState.current.prompt || "";
-    answers.innerHTML = buildOptionsMarkup(quizState.current.options || [], escapeHtml);
+    answers.innerHTML = buildOptionsMarkup(quizState.current.options || [], escapeHtml, quizState.current);
     nextButton.hidden = !quizState.current.answered;
     resetButton.hidden = false;
     return true;

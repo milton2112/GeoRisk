@@ -1,0 +1,1389 @@
+{
+  "date": "2026-10-09",
+  "baselineCommit": "6e8696eb8b18cb7b13bdd95371c99b17672e5cf9",
+  "baselineVersion": "1.6.299",
+  "purpose": "Avoid the per-frustum pickPosition depth copy for flat ellipsoid geography while preserving rendered quality and object selection.",
+  "engine": {
+    "cesium": "1.127",
+    "package": "@cesium/engine",
+    "version": "15.0.0",
+    "sources": [
+      {
+        "file": "node_modules/@cesium/engine/Source/Scene/Scene.js",
+        "lines": "2798-2806",
+        "finding": "useDepthPicking gates PickDepth update and executeCopyDepth after translucent rendering."
+      },
+      {
+        "file": "node_modules/@cesium/engine/Source/Scene/PickDepth.js",
+        "finding": "A full-size color framebuffer and viewport quad pack the depth texture for position readback."
+      },
+      {
+        "file": "node_modules/@cesium/engine/Source/Scene/ScreenSpaceCameraController.js",
+        "lines": "1145-1186",
+        "finding": "Controller compares depth and globe-ray intersections, retaining the globe ray when depth is undefined."
+      },
+      {
+        "file": "node_modules/@cesium/engine/Source/Scene/Picking.js",
+        "lines": "589-596",
+        "finding": "pickPositionWorldCoordinates returns undefined with useDepthPicking false; object pick/drillPick are distinct."
+      }
+    ]
+  },
+  "method": {
+    "visual": "Sequential on/off/on in the same page with real final imagery, idle camera, loaded tiles, fonts ready and three loaded postRender frames per capture; compare every RGBA byte and dimensions. No quality or geometry setting changes.",
+    "contexts": "Nine existing quality/device profiles per renderer, sequential contexts; finite 256-entry/8-MiB real imagery test cache; no production observer.",
+    "redraw": "Eight 3-second fixed-camera forced-redraw windows, ABBA ABBA, software desktop auto-low, same page and settings. Passive bounded wrapper counts native PickDepth.executeCopyDepth calls; restored after each window. Not active camera navigation or startup timing.",
+    "allocation": "Two fresh current-source app pages, desktop auto-low and mobile auto, read depth flag and pinned private pickDepths count before on/off/on. No prototype alteration or constructor interception.",
+    "bounds": "At most 16 page errors per case, one context at a time, finite capture deadlines; listeners/timers/wrappers and own browser/server cleaned. Sources retained outside production/precache."
+  },
+  "hardware": {
+    "generatedAt": "2026-10-09T09:47:38.477Z",
+    "browser": "155.0.8059.40",
+    "platform": "win32",
+    "software": false,
+    "results": [
+      {
+        "case": "desktop-auto-low",
+        "captures": [
+          {
+            "enabled": true,
+            "width": 1411,
+            "height": 901,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 0.98,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "ae1106fa76a582449464935064689e5c945ed8ec7a8a8d0c6c686dc7d7cf967c"
+          },
+          {
+            "enabled": false,
+            "width": 1411,
+            "height": 901,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 0.98,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "ae1106fa76a582449464935064689e5c945ed8ec7a8a8d0c6c686dc7d7cf967c"
+          },
+          {
+            "enabled": true,
+            "width": 1411,
+            "height": 901,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 0.98,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "ae1106fa76a582449464935064689e5c945ed8ec7a8a8d0c6c686dc7d7cf967c"
+          }
+        ],
+        "comparison": {
+          "baselineControlEqual": true,
+          "disabledEqual": true
+        },
+        "redraw": [],
+        "errors": []
+      },
+      {
+        "case": "desktop-auto",
+        "captures": [
+          {
+            "enabled": true,
+            "width": 1612,
+            "height": 1030,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 1.12,
+            "msaaSamples": 1,
+            "fxaa": true,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "0024ef93265b554c165f238424b358984c02bc6e2a82a086929ede6788bf64d9"
+          },
+          {
+            "enabled": false,
+            "width": 1612,
+            "height": 1030,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 1.12,
+            "msaaSamples": 1,
+            "fxaa": true,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "0024ef93265b554c165f238424b358984c02bc6e2a82a086929ede6788bf64d9"
+          },
+          {
+            "enabled": true,
+            "width": 1612,
+            "height": 1030,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 1.12,
+            "msaaSamples": 1,
+            "fxaa": true,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "0024ef93265b554c165f238424b358984c02bc6e2a82a086929ede6788bf64d9"
+          }
+        ],
+        "comparison": {
+          "baselineControlEqual": true,
+          "disabledEqual": true
+        },
+        "redraw": [],
+        "errors": []
+      },
+      {
+        "case": "desktop-high",
+        "captures": [
+          {
+            "enabled": true,
+            "width": 1699,
+            "height": 1085,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 1.18,
+            "msaaSamples": 4,
+            "fxaa": true,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "ca277569f65db313b82b07837e434440078a3834c89fdee820f42c6cde11765d"
+          },
+          {
+            "enabled": false,
+            "width": 1699,
+            "height": 1085,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 1.18,
+            "msaaSamples": 4,
+            "fxaa": true,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "ca277569f65db313b82b07837e434440078a3834c89fdee820f42c6cde11765d"
+          },
+          {
+            "enabled": true,
+            "width": 1699,
+            "height": 1085,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 1.18,
+            "msaaSamples": 4,
+            "fxaa": true,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "ca277569f65db313b82b07837e434440078a3834c89fdee820f42c6cde11765d"
+          }
+        ],
+        "comparison": {
+          "baselineControlEqual": true,
+          "disabledEqual": true
+        },
+        "redraw": [],
+        "errors": []
+      },
+      {
+        "case": "desktop-balanced",
+        "captures": [
+          {
+            "enabled": true,
+            "width": 1497,
+            "height": 956,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 1.04,
+            "msaaSamples": 1,
+            "fxaa": true,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "8f57d0914f8e182705a8afe6c8dbc44abb2a3b0cf277b25a40d44c09c1d32596"
+          },
+          {
+            "enabled": false,
+            "width": 1497,
+            "height": 956,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 1.04,
+            "msaaSamples": 1,
+            "fxaa": true,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "8f57d0914f8e182705a8afe6c8dbc44abb2a3b0cf277b25a40d44c09c1d32596"
+          },
+          {
+            "enabled": true,
+            "width": 1497,
+            "height": 956,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 1.04,
+            "msaaSamples": 1,
+            "fxaa": true,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "8f57d0914f8e182705a8afe6c8dbc44abb2a3b0cf277b25a40d44c09c1d32596"
+          }
+        ],
+        "comparison": {
+          "baselineControlEqual": true,
+          "disabledEqual": true
+        },
+        "redraw": [],
+        "errors": []
+      },
+      {
+        "case": "desktop-performance",
+        "captures": [
+          {
+            "enabled": true,
+            "width": 1296,
+            "height": 828,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 0.9,
+            "msaaSamples": 1,
+            "fxaa": false,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "46ff2e9eb1c02feaec062e904d70c6e4f9da28d266363f6b0a7c88e510aa39f0"
+          },
+          {
+            "enabled": false,
+            "width": 1296,
+            "height": 828,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 0.9,
+            "msaaSamples": 1,
+            "fxaa": false,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "46ff2e9eb1c02feaec062e904d70c6e4f9da28d266363f6b0a7c88e510aa39f0"
+          },
+          {
+            "enabled": true,
+            "width": 1296,
+            "height": 828,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 0.9,
+            "msaaSamples": 1,
+            "fxaa": false,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "46ff2e9eb1c02feaec062e904d70c6e4f9da28d266363f6b0a7c88e510aa39f0"
+          }
+        ],
+        "comparison": {
+          "baselineControlEqual": true,
+          "disabledEqual": true
+        },
+        "redraw": [],
+        "errors": []
+      },
+      {
+        "case": "mobile-auto",
+        "captures": [
+          {
+            "enabled": true,
+            "width": 195,
+            "height": 422,
+            "mode": "2d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "2d:boot",
+            "labels": 0,
+            "resolutionScale": 0.5,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "a7b7f305bb6b04146ebe0e8939826936f9ce70050c274da50df8c30078b7adb1"
+          },
+          {
+            "enabled": false,
+            "width": 195,
+            "height": 422,
+            "mode": "2d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "2d:boot",
+            "labels": 0,
+            "resolutionScale": 0.5,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "a7b7f305bb6b04146ebe0e8939826936f9ce70050c274da50df8c30078b7adb1"
+          },
+          {
+            "enabled": true,
+            "width": 195,
+            "height": 422,
+            "mode": "2d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "2d:boot",
+            "labels": 0,
+            "resolutionScale": 0.5,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "a7b7f305bb6b04146ebe0e8939826936f9ce70050c274da50df8c30078b7adb1"
+          }
+        ],
+        "comparison": {
+          "baselineControlEqual": true,
+          "disabledEqual": true
+        },
+        "redraw": [],
+        "errors": []
+      },
+      {
+        "case": "mobile-high",
+        "captures": [
+          {
+            "enabled": true,
+            "width": 241,
+            "height": 523,
+            "mode": "2d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "2d:boot",
+            "labels": 0,
+            "resolutionScale": 0.62,
+            "msaaSamples": 4,
+            "fxaa": true,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "1735380cb26b55178d5998102c4a37533661826a5f10a017ab146f8a8755f70a"
+          },
+          {
+            "enabled": false,
+            "width": 241,
+            "height": 523,
+            "mode": "2d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "2d:boot",
+            "labels": 0,
+            "resolutionScale": 0.62,
+            "msaaSamples": 4,
+            "fxaa": true,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "1735380cb26b55178d5998102c4a37533661826a5f10a017ab146f8a8755f70a"
+          },
+          {
+            "enabled": true,
+            "width": 241,
+            "height": 523,
+            "mode": "2d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "2d:boot",
+            "labels": 0,
+            "resolutionScale": 0.62,
+            "msaaSamples": 4,
+            "fxaa": true,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "1735380cb26b55178d5998102c4a37533661826a5f10a017ab146f8a8755f70a"
+          }
+        ],
+        "comparison": {
+          "baselineControlEqual": true,
+          "disabledEqual": true
+        },
+        "redraw": [],
+        "errors": []
+      },
+      {
+        "case": "mobile-balanced",
+        "captures": [
+          {
+            "enabled": true,
+            "width": 218,
+            "height": 472,
+            "mode": "2d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "2d:boot",
+            "labels": 0,
+            "resolutionScale": 0.56,
+            "msaaSamples": 1,
+            "fxaa": true,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "d3703542a59c1a43eef41e8e33e47d37482f34758b5ee5ccd267fd6e63cd0fd9"
+          },
+          {
+            "enabled": false,
+            "width": 218,
+            "height": 472,
+            "mode": "2d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "2d:boot",
+            "labels": 0,
+            "resolutionScale": 0.56,
+            "msaaSamples": 1,
+            "fxaa": true,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "d3703542a59c1a43eef41e8e33e47d37482f34758b5ee5ccd267fd6e63cd0fd9"
+          },
+          {
+            "enabled": true,
+            "width": 218,
+            "height": 472,
+            "mode": "2d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "2d:boot",
+            "labels": 0,
+            "resolutionScale": 0.56,
+            "msaaSamples": 1,
+            "fxaa": true,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "d3703542a59c1a43eef41e8e33e47d37482f34758b5ee5ccd267fd6e63cd0fd9"
+          }
+        ],
+        "comparison": {
+          "baselineControlEqual": true,
+          "disabledEqual": true
+        },
+        "redraw": [],
+        "errors": []
+      },
+      {
+        "case": "mobile-performance",
+        "captures": [
+          {
+            "enabled": true,
+            "width": 171,
+            "height": 371,
+            "mode": "2d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "2d:boot",
+            "labels": 0,
+            "resolutionScale": 0.44,
+            "msaaSamples": 1,
+            "fxaa": false,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "09425936a5583226025f17483562ec16c64998cb473e7f5461398e569f3f6db4"
+          },
+          {
+            "enabled": false,
+            "width": 171,
+            "height": 371,
+            "mode": "2d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "2d:boot",
+            "labels": 0,
+            "resolutionScale": 0.44,
+            "msaaSamples": 1,
+            "fxaa": false,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "09425936a5583226025f17483562ec16c64998cb473e7f5461398e569f3f6db4"
+          },
+          {
+            "enabled": true,
+            "width": 171,
+            "height": 371,
+            "mode": "2d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "2d:boot",
+            "labels": 0,
+            "resolutionScale": 0.44,
+            "msaaSamples": 1,
+            "fxaa": false,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "09425936a5583226025f17483562ec16c64998cb473e7f5461398e569f3f6db4"
+          }
+        ],
+        "comparison": {
+          "baselineControlEqual": true,
+          "disabledEqual": true
+        },
+        "redraw": [],
+        "errors": []
+      }
+    ]
+  },
+  "software": {
+    "generatedAt": "2026-10-09T09:46:39.392Z",
+    "browser": "155.0.8059.40",
+    "platform": "win32",
+    "software": true,
+    "results": [
+      {
+        "case": "desktop-auto-low",
+        "captures": [
+          {
+            "enabled": true,
+            "width": 1411,
+            "height": 901,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 0.98,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+            "glError": 0,
+            "sha256": "086d6a2e5d338cbdde1696b767d539b6d722d99245ab96cbfeda01a63f2b5c7d"
+          },
+          {
+            "enabled": false,
+            "width": 1411,
+            "height": 901,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 0.98,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+            "glError": 0,
+            "sha256": "086d6a2e5d338cbdde1696b767d539b6d722d99245ab96cbfeda01a63f2b5c7d"
+          },
+          {
+            "enabled": true,
+            "width": 1411,
+            "height": 901,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 0.98,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+            "glError": 0,
+            "sha256": "086d6a2e5d338cbdde1696b767d539b6d722d99245ab96cbfeda01a63f2b5c7d"
+          }
+        ],
+        "comparison": {
+          "baselineControlEqual": true,
+          "disabledEqual": true
+        },
+        "redraw": [
+          {
+            "enabled": true,
+            "frames": 27,
+            "copies": 27,
+            "durationMs": 3075.3000000000466
+          },
+          {
+            "enabled": false,
+            "frames": 25,
+            "copies": 0,
+            "durationMs": 3035.29999999993
+          },
+          {
+            "enabled": false,
+            "frames": 26,
+            "copies": 0,
+            "durationMs": 3104.0999999999767
+          },
+          {
+            "enabled": true,
+            "frames": 24,
+            "copies": 24,
+            "durationMs": 3056.4000000000233
+          },
+          {
+            "enabled": true,
+            "frames": 24,
+            "copies": 24,
+            "durationMs": 3072.600000000093
+          },
+          {
+            "enabled": false,
+            "frames": 24,
+            "copies": 0,
+            "durationMs": 3108.6999999999534
+          },
+          {
+            "enabled": false,
+            "frames": 24,
+            "copies": 0,
+            "durationMs": 3124.70000000007
+          },
+          {
+            "enabled": true,
+            "frames": 22,
+            "copies": 22,
+            "durationMs": 3082.29999999993
+          }
+        ],
+        "errors": []
+      },
+      {
+        "case": "desktop-auto",
+        "captures": [
+          {
+            "enabled": true,
+            "width": 1612,
+            "height": 1030,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 1.12,
+            "msaaSamples": 1,
+            "fxaa": true,
+            "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+            "glError": 0,
+            "sha256": "be0dd1a0e4f61d978c650beb0981684b674a356b03bf5169062c914193d01b6e"
+          },
+          {
+            "enabled": false,
+            "width": 1612,
+            "height": 1030,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 1.12,
+            "msaaSamples": 1,
+            "fxaa": true,
+            "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+            "glError": 0,
+            "sha256": "be0dd1a0e4f61d978c650beb0981684b674a356b03bf5169062c914193d01b6e"
+          },
+          {
+            "enabled": true,
+            "width": 1612,
+            "height": 1030,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 1.12,
+            "msaaSamples": 1,
+            "fxaa": true,
+            "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+            "glError": 0,
+            "sha256": "be0dd1a0e4f61d978c650beb0981684b674a356b03bf5169062c914193d01b6e"
+          }
+        ],
+        "comparison": {
+          "baselineControlEqual": true,
+          "disabledEqual": true
+        },
+        "redraw": [],
+        "errors": []
+      },
+      {
+        "case": "desktop-high",
+        "captures": [
+          {
+            "enabled": true,
+            "width": 1699,
+            "height": 1085,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 1.18,
+            "msaaSamples": 4,
+            "fxaa": true,
+            "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+            "glError": 0,
+            "sha256": "52061e19e9681ef530474b72222aaf3df0ecc984994ae505395db107872a6bd9"
+          },
+          {
+            "enabled": false,
+            "width": 1699,
+            "height": 1085,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 1.18,
+            "msaaSamples": 4,
+            "fxaa": true,
+            "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+            "glError": 0,
+            "sha256": "52061e19e9681ef530474b72222aaf3df0ecc984994ae505395db107872a6bd9"
+          },
+          {
+            "enabled": true,
+            "width": 1699,
+            "height": 1085,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 1.18,
+            "msaaSamples": 4,
+            "fxaa": true,
+            "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+            "glError": 0,
+            "sha256": "52061e19e9681ef530474b72222aaf3df0ecc984994ae505395db107872a6bd9"
+          }
+        ],
+        "comparison": {
+          "baselineControlEqual": true,
+          "disabledEqual": true
+        },
+        "redraw": [],
+        "errors": []
+      },
+      {
+        "case": "desktop-balanced",
+        "captures": [
+          {
+            "enabled": true,
+            "width": 1497,
+            "height": 956,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 1.04,
+            "msaaSamples": 1,
+            "fxaa": true,
+            "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+            "glError": 0,
+            "sha256": "3446da4985d8a421fc0a8180fb6729fd6446cba0988651a432c8b4b24c5643f6"
+          },
+          {
+            "enabled": false,
+            "width": 1497,
+            "height": 956,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 1.04,
+            "msaaSamples": 1,
+            "fxaa": true,
+            "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+            "glError": 0,
+            "sha256": "3446da4985d8a421fc0a8180fb6729fd6446cba0988651a432c8b4b24c5643f6"
+          },
+          {
+            "enabled": true,
+            "width": 1497,
+            "height": 956,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 1.04,
+            "msaaSamples": 1,
+            "fxaa": true,
+            "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+            "glError": 0,
+            "sha256": "3446da4985d8a421fc0a8180fb6729fd6446cba0988651a432c8b4b24c5643f6"
+          }
+        ],
+        "comparison": {
+          "baselineControlEqual": true,
+          "disabledEqual": true
+        },
+        "redraw": [],
+        "errors": []
+      },
+      {
+        "case": "desktop-performance",
+        "captures": [
+          {
+            "enabled": true,
+            "width": 1296,
+            "height": 828,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 0.9,
+            "msaaSamples": 1,
+            "fxaa": false,
+            "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+            "glError": 0,
+            "sha256": "1e3b3266d5997a47295f66db37a67841bda716604448a859aac63413a4f6c0ba"
+          },
+          {
+            "enabled": false,
+            "width": 1296,
+            "height": 828,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 0.9,
+            "msaaSamples": 1,
+            "fxaa": false,
+            "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+            "glError": 0,
+            "sha256": "1e3b3266d5997a47295f66db37a67841bda716604448a859aac63413a4f6c0ba"
+          },
+          {
+            "enabled": true,
+            "width": 1296,
+            "height": 828,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 0.9,
+            "msaaSamples": 1,
+            "fxaa": false,
+            "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+            "glError": 0,
+            "sha256": "1e3b3266d5997a47295f66db37a67841bda716604448a859aac63413a4f6c0ba"
+          }
+        ],
+        "comparison": {
+          "baselineControlEqual": true,
+          "disabledEqual": true
+        },
+        "redraw": [],
+        "errors": []
+      },
+      {
+        "case": "mobile-auto",
+        "captures": [
+          {
+            "enabled": true,
+            "width": 195,
+            "height": 422,
+            "mode": "2d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "2d:boot",
+            "labels": 0,
+            "resolutionScale": 0.5,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+            "glError": 0,
+            "sha256": "fa4d68d1c4d95680b6b784a9f94699a4be08ecbfb14ebf892d252efe60060609"
+          },
+          {
+            "enabled": false,
+            "width": 195,
+            "height": 422,
+            "mode": "2d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "2d:boot",
+            "labels": 0,
+            "resolutionScale": 0.5,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+            "glError": 0,
+            "sha256": "fa4d68d1c4d95680b6b784a9f94699a4be08ecbfb14ebf892d252efe60060609"
+          },
+          {
+            "enabled": true,
+            "width": 195,
+            "height": 422,
+            "mode": "2d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "2d:boot",
+            "labels": 0,
+            "resolutionScale": 0.5,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+            "glError": 0,
+            "sha256": "fa4d68d1c4d95680b6b784a9f94699a4be08ecbfb14ebf892d252efe60060609"
+          }
+        ],
+        "comparison": {
+          "baselineControlEqual": true,
+          "disabledEqual": true
+        },
+        "redraw": [],
+        "errors": []
+      },
+      {
+        "case": "mobile-high",
+        "captures": [
+          {
+            "enabled": true,
+            "width": 241,
+            "height": 523,
+            "mode": "2d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "2d:boot",
+            "labels": 0,
+            "resolutionScale": 0.62,
+            "msaaSamples": 4,
+            "fxaa": true,
+            "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+            "glError": 0,
+            "sha256": "ac58eafe8b62b2959622cb768ac0630af3dc7e4dd690a40c1c7e3918f6e179a4"
+          },
+          {
+            "enabled": false,
+            "width": 241,
+            "height": 523,
+            "mode": "2d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "2d:boot",
+            "labels": 0,
+            "resolutionScale": 0.62,
+            "msaaSamples": 4,
+            "fxaa": true,
+            "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+            "glError": 0,
+            "sha256": "ac58eafe8b62b2959622cb768ac0630af3dc7e4dd690a40c1c7e3918f6e179a4"
+          },
+          {
+            "enabled": true,
+            "width": 241,
+            "height": 523,
+            "mode": "2d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "2d:boot",
+            "labels": 0,
+            "resolutionScale": 0.62,
+            "msaaSamples": 4,
+            "fxaa": true,
+            "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+            "glError": 0,
+            "sha256": "ac58eafe8b62b2959622cb768ac0630af3dc7e4dd690a40c1c7e3918f6e179a4"
+          }
+        ],
+        "comparison": {
+          "baselineControlEqual": true,
+          "disabledEqual": true
+        },
+        "redraw": [],
+        "errors": []
+      },
+      {
+        "case": "mobile-balanced",
+        "captures": [
+          {
+            "enabled": true,
+            "width": 218,
+            "height": 472,
+            "mode": "2d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "2d:boot",
+            "labels": 0,
+            "resolutionScale": 0.56,
+            "msaaSamples": 1,
+            "fxaa": true,
+            "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+            "glError": 0,
+            "sha256": "6ea6076908ba90046de9a43751f9e5250e4c61b3ab2c6ec40d90ed9f0245c16b"
+          },
+          {
+            "enabled": false,
+            "width": 218,
+            "height": 472,
+            "mode": "2d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "2d:boot",
+            "labels": 0,
+            "resolutionScale": 0.56,
+            "msaaSamples": 1,
+            "fxaa": true,
+            "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+            "glError": 0,
+            "sha256": "6ea6076908ba90046de9a43751f9e5250e4c61b3ab2c6ec40d90ed9f0245c16b"
+          },
+          {
+            "enabled": true,
+            "width": 218,
+            "height": 472,
+            "mode": "2d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "2d:boot",
+            "labels": 0,
+            "resolutionScale": 0.56,
+            "msaaSamples": 1,
+            "fxaa": true,
+            "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+            "glError": 0,
+            "sha256": "6ea6076908ba90046de9a43751f9e5250e4c61b3ab2c6ec40d90ed9f0245c16b"
+          }
+        ],
+        "comparison": {
+          "baselineControlEqual": true,
+          "disabledEqual": true
+        },
+        "redraw": [],
+        "errors": []
+      },
+      {
+        "case": "mobile-performance",
+        "captures": [
+          {
+            "enabled": true,
+            "width": 171,
+            "height": 371,
+            "mode": "2d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "2d:boot",
+            "labels": 0,
+            "resolutionScale": 0.44,
+            "msaaSamples": 1,
+            "fxaa": false,
+            "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+            "glError": 0,
+            "sha256": "14fbcc9ac0950781b5e850fc9ec9a74d3540137a7c8eb771a298cf2346c0781f"
+          },
+          {
+            "enabled": false,
+            "width": 171,
+            "height": 371,
+            "mode": "2d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "2d:boot",
+            "labels": 0,
+            "resolutionScale": 0.44,
+            "msaaSamples": 1,
+            "fxaa": false,
+            "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+            "glError": 0,
+            "sha256": "14fbcc9ac0950781b5e850fc9ec9a74d3540137a7c8eb771a298cf2346c0781f"
+          },
+          {
+            "enabled": true,
+            "width": 171,
+            "height": 371,
+            "mode": "2d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "2d:boot",
+            "labels": 0,
+            "resolutionScale": 0.44,
+            "msaaSamples": 1,
+            "fxaa": false,
+            "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+            "glError": 0,
+            "sha256": "14fbcc9ac0950781b5e850fc9ec9a74d3540137a7c8eb771a298cf2346c0781f"
+          }
+        ],
+        "comparison": {
+          "baselineControlEqual": true,
+          "disabledEqual": true
+        },
+        "redraw": [],
+        "errors": []
+      }
+    ]
+  },
+  "allocation": {
+    "generatedAt": "2026-10-09T09:49:23.941Z",
+    "browser": "155.0.8059.40",
+    "platform": "win32",
+    "software": false,
+    "results": [
+      {
+        "case": "desktop-auto-low",
+        "initial": {
+          "useDepthPicking": false,
+          "pickDepthBuffers": 0
+        },
+        "captures": [
+          {
+            "enabled": true,
+            "width": 1411,
+            "height": 901,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 0.98,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "ae1106fa76a582449464935064689e5c945ed8ec7a8a8d0c6c686dc7d7cf967c"
+          },
+          {
+            "enabled": false,
+            "width": 1411,
+            "height": 901,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 0.98,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "ae1106fa76a582449464935064689e5c945ed8ec7a8a8d0c6c686dc7d7cf967c"
+          },
+          {
+            "enabled": true,
+            "width": 1411,
+            "height": 901,
+            "mode": "3d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "3d:full",
+            "labels": 20,
+            "resolutionScale": 0.98,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "ae1106fa76a582449464935064689e5c945ed8ec7a8a8d0c6c686dc7d7cf967c"
+          }
+        ],
+        "comparison": {
+          "baselineControlEqual": true,
+          "disabledEqual": true
+        },
+        "redraw": [],
+        "errors": []
+      },
+      {
+        "case": "mobile-auto",
+        "initial": {
+          "useDepthPicking": false,
+          "pickDepthBuffers": 0
+        },
+        "captures": [
+          {
+            "enabled": true,
+            "width": 195,
+            "height": 422,
+            "mode": "2d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "2d:boot",
+            "labels": 0,
+            "resolutionScale": 0.5,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "a7b7f305bb6b04146ebe0e8939826936f9ce70050c274da50df8c30078b7adb1"
+          },
+          {
+            "enabled": false,
+            "width": 195,
+            "height": 422,
+            "mode": "2d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "2d:boot",
+            "labels": 0,
+            "resolutionScale": 0.5,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "a7b7f305bb6b04146ebe0e8939826936f9ce70050c274da50df8c30078b7adb1"
+          },
+          {
+            "enabled": true,
+            "width": 195,
+            "height": 422,
+            "mode": "2d",
+            "geometry": "./data/world_countries_simplified.geo.json",
+            "imagery": "2d:boot",
+            "labels": 0,
+            "resolutionScale": 0.5,
+            "msaaSamples": 4,
+            "fxaa": false,
+            "gpu": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A68) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "glError": 0,
+            "sha256": "a7b7f305bb6b04146ebe0e8939826936f9ce70050c274da50df8c30078b7adb1"
+          }
+        ],
+        "comparison": {
+          "baselineControlEqual": true,
+          "disabledEqual": true
+        },
+        "redraw": [],
+        "errors": []
+      }
+    ]
+  },
+  "redrawSummary": {
+    "onMedianFps": 7.831674881299951,
+    "offMedianFps": 7.978343534588786,
+    "interpretation": "Small noisy difference, not evidence of an active FPS improvement. Each observed enabled frame copied depth once; disabled windows copied zero times."
+  },
+  "rejectedIdleHypothesis": {
+    "initial": {
+      "clockAnimating": false,
+      "clockCanAnimate": true,
+      "maximumRenderTimeChange": "0.28",
+      "mode": "3d",
+      "resolutionScale": 0.98,
+      "msaaSamples": 4,
+      "fxaa": false
+    },
+    "samples": [
+      {
+        "maximum": "baseline",
+        "frames": 6,
+        "navigating": false,
+        "tilesLoaded": true,
+        "clockAnimating": false
+      },
+      {
+        "maximum": "Infinity",
+        "frames": 0,
+        "navigating": false,
+        "tilesLoaded": true,
+        "clockAnimating": false
+      },
+      {
+        "maximum": "baseline",
+        "frames": 0,
+        "navigating": false,
+        "tilesLoaded": true,
+        "clockAnimating": false
+      }
+    ],
+    "conclusion": "Clock shouldAnimate is false. After settling, baseline and Infinity both render zero frames at rest. Initial six frames were not attributable to the clock; do not claim idle-redraw savings or alter maximumRenderTimeChange based on this experiment."
+  },
+  "focusedValidation": {
+    "native": "map-performance new constructor regression failed before change and passed with green-coding suite after change.",
+    "browser": "Existing reduced-motion flow passed in 16522 ms on Chrome 155 Windows: desktop/mobile wheel zoom, object selection, instant/animated transitions and live reduced-motion preference. The final public flag assertion is covered in the following full gate."
+  },
+  "limitations": [
+    "Chrome 155 Windows/Intel and Windows/SwiftShader are not Chromium 151 Linux, a physical phone, or a release gate.",
+    "No direct GPU allocation bytes, CPU/GPU time, energy, CO2 or active FPS saving was measured. Texture counts and eliminated copy calls are resource indicators.",
+    "Flat EllipsoidTerrainProvider and zero-height countries make the native globe-ray fallback appropriate. Future elevated terrain, models or a pickPosition feature must revisit useDepthPicking.",
+    "The camera fallback may differ numerically from packed depth at pixel edges; identical static RGBA does not prove identical camera trajectories. Real wheel and drag behavior requires browser validation.",
+    "No startup timeout cause is established; original readiness, quality, deadlines and budgets remain required."
+  ],
+  "preparationAttempt": {
+    "measuredAt": "2026-10-09T09:52:15.191Z",
+    "performanceInputHash": "b766e464ccc29c519435ec5faf05269f5c5dc6e67486e383e94ded0d74d04234",
+    "complete": false,
+    "reason": "Sandbox denied browser access to the owned localhost server; not an application resource failure or valid measurement.",
+    "errors": [
+      {
+        "name": "desktop",
+        "status": "failed",
+        "error": "page.goto: net::ERR_NETWORK_ACCESS_DENIED at http://127.0.0.1:62025/index.html?performance-measurement=1\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:62025/index.html?performance-measurement=1\", waiting until \"domcontentloaded\"\u001b[22m\n",
+        "resourceErrors": [
+          {
+            "url": "/index.html?performance-measurement=1",
+            "error": "net::ERR_NETWORK_ACCESS_DENIED"
+          }
+        ]
+      },
+      {
+        "name": "mobile-emulated",
+        "status": "failed",
+        "error": "page.goto: net::ERR_NETWORK_ACCESS_DENIED at http://127.0.0.1:62025/index.html?performance-measurement=1\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:62025/index.html?performance-measurement=1\", waiting until \"domcontentloaded\"\u001b[22m\n",
+        "resourceErrors": [
+          {
+            "url": "/index.html?performance-measurement=1",
+            "error": "net::ERR_NETWORK_ACCESS_DENIED"
+          }
+        ]
+      }
+    ]
+  },
+  "localClosure": {
+    "version": "1.6.300",
+    "appVersion": "2026-10-09-release-1",
+    "performanceInputHash": "b766e464ccc29c519435ec5faf05269f5c5dc6e67486e383e94ded0d74d04234",
+    "gate": "npm run release:check passed",
+    "e2e": {
+      "scope": "full",
+      "status": "passed",
+      "flows": 27,
+      "elapsedMs": 379380
+    },
+    "measurement": {
+      "measuredAt": "2026-10-09T10:06:10.520Z",
+      "reused": false,
+      "profiles": [
+        {
+          "name": "desktop",
+          "appReadyMs": 1802.8999999999069,
+          "activeFps": 33.61064891846922,
+          "maxTaskMs": 140,
+          "tasksOver200ms": 0,
+          "checks": {
+            "longTasksSupported": true,
+            "fullWindowObserved": true,
+            "noDroppedEntries": true,
+            "activeSampleWithinWindow": true,
+            "canvasRendered": true,
+            "canvasChanged": true,
+            "canvasVerificationOutsideWindow": true,
+            "sceneModeMatches": true,
+            "renderLoopHealthy": true,
+            "noPageErrors": true,
+            "noMissingLocalResources": true,
+            "noHeavyStartupRequests": true
+          }
+        },
+        {
+          "name": "mobile-emulated",
+          "appReadyMs": 2326.8000000000466,
+          "activeFps": 22.0992639117357,
+          "maxTaskMs": 127,
+          "tasksOver200ms": 0,
+          "checks": {
+            "longTasksSupported": true,
+            "fullWindowObserved": true,
+            "noDroppedEntries": true,
+            "activeSampleWithinWindow": true,
+            "canvasRendered": true,
+            "canvasChanged": true,
+            "canvasVerificationOutsideWindow": true,
+            "sceneModeMatches": true,
+            "renderLoopHealthy": true,
+            "noPageErrors": true,
+            "noMissingLocalResources": true,
+            "noHeavyStartupRequests": true
+          }
+        }
+      ]
+    },
+    "build": {
+      "bytes": 13271364,
+      "human": "12.66 MB",
+      "assetCount": 1442
+    },
+    "blockerCount": 0,
+    "screenshots": "Intel desktop/mobile comparison and final full-gate reduced-motion Spain selection captures inspected before owned artifact cleanup.",
+    "caveat": "Local Chrome 155 Windows/Intel validation; current revision still requires its own Linux CI gate. No causal performance/energy saving inferred."
+  }
+}

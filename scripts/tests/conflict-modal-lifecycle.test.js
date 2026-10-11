@@ -107,6 +107,12 @@ assert.equal(state.formatConflictTitle({ name: "Gata", startYear: 1815 }), "Gata
 assert.equal(state.formatConflictTitle({ name: "Guerra (1812\u20131815)", startYear: 1812, endYear: 1815 }), "Guerra (1812\u20131815)");
 assert.equal(state.formatConflictTitle({ name: "Accion (57 a. C.)", startYear: -57 }), "Accion (57 a. C.)");
 assert.equal(state.formatConflictTitle({ name: "Otra (1814)", startYear: 1815 }), "Otra (1814) (1815)", "no ocultar discrepancias distintas de duplicacion exacta");
+vm.runInContext(block("function cleanConflictName", "function normalizeConflictForDisplay"), state);
+assert.equal(state.cleanConflictName("Batalla de Altun Kupri (Pirde, 2017)"), "Batalla de Altun Kupri (Pirde)", "date cleanup must preserve a geographic alias");
+assert.equal(state.cleanConflictName("Batalla de Fayetteville (Arkansas, 1863)"), "Batalla de Fayetteville (Arkansas)");
+assert.equal(state.cleanConflictName("Batalla de Gata (1815)"), "Batalla de Gata");
+assert.equal(state.cleanConflictName("Batalla de Wenden (21-22 de octubre de 1578)"), "Batalla de Wenden");
+assert.equal(state.formatConflictTitle({ name: state.cleanConflictName("Batalla de Altun Kupri (Pirde, 2017)"), startYear: 2017 }), "Batalla de Altun Kupri (Pirde) (2017)");
 assert.equal(state.renderConflictCurationNotes({}), "");
 const disputeOnly = state.renderConflictCurationNotes({ sourceDispute: "  Los relatos difieren  " });
 assert.match(disputeOnly, /Diferencias entre fuentes/);
