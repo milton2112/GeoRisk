@@ -1,0 +1,60 @@
+name: Presentation Prototype
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches:
+      - 'codex/experiment/map-presentation-*'
+  workflow_dispatch:
+
+concurrency:
+  group: presentation-prototype-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  presentation-prototype:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Setup Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install verified secret scanner
+        run: node scripts/setupSecretScanner.js
+      - name: Scan source and full Git history
+        id: security-scan
+        run: node scripts/checkSecurity.js --history
+      - name: Install
+        run: npm ci
+      - name: Audit dependencies
+        run: npm run audit:dependencies
+      - name: Install regular Chromium
+        run: npx playwright install --with-deps --no-shell chromium
+      - name: Validate experimental scope and bounds
+        run: node scripts/tests/presentation-prototype.test.js
+      - name: Build public baseline
+        run: npm run build:prod
+      - name: Bounded experimental controls
+        run: node scripts/diagnostics/runPresentationPrototype.js
+      - name: Upload proof only
+        if: always() && steps.security-scan.outcome == 'success'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: geo-risk-presentation-prototype-${{ github.run_attempt }}
+          path: |
+            reports/presentation-prototype/build.json
+            reports/presentation-prototype/control-ci-1.json
+            reports/presentation-prototype/trace-ci-1.json
+            reports/presentation-prototype/failure.json
+            reports/presentation-prototype/ci-1-*.rgba
+          if-no-files-found: error
+          retention-days: 7

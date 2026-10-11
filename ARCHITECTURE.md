@@ -128,6 +128,8 @@ Use this flow:
 - Service worker config should keep heavy datasets, flags, coats and reports out of initial precache.
 - Country profile shards should keep heavy conflict lists in `data/countries/conflicts/*.json` and load them only when the military section opens.
 
+El experimento interno `scripts/diagnostics/*PresentationPrototype.js` construye un motor alternativo solo en `reports/presentation-prototype/` y lo enruta en una pagina de diagnostico. No participa del build del cliente, precache ni release gate. Su workflow separado solo se dispara desde ramas `codex/experiment/map-presentation-*` o manualmente; conserva controles y trazas acotadas, sin desplegar. La rama de release mantiene el motor aprobado hasta validar compatibilidad y beneficio en Linux.
+
 ## Naming Conventions
 
 - `build*`: pure model or markup builder.
