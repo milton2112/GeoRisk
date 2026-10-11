@@ -82,10 +82,13 @@ try {
     const captures = await page.evaluate(async variant => {
       const widget = viewer.cesiumWidget, scene = viewer.scene, gl = scene.context._gl;
       widget.useDefaultRenderLoop = false;
+      // Let queued native loop callbacks observe suspension before handing ownership to manual B.
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
       if (variant === 'shifted') viewer.camera.moveRight(6000000);
       if (variant === 'fxaa') scene.postProcessStages.fxaa.enabled = true;
       const samples = [];
       async function render(staged) {
+        const before = { ...scene._geoRiskPresentationStats };
         // The app batches requestRender on its next rAF; this manual control forces the native flag.
         scene._renderRequested = true;
         scene._geoRiskSubmitPresentation = staged;
@@ -105,6 +108,10 @@ try {
             };
             requestAnimationFrame(poll);
           });
+          if (scene._geoRiskPresentationStats.presented !== (before.presented || 0) + 1 ||
+              scene._geoRiskPresentationStats.aborted !== (before.aborted || 0)) {
+            throw new Error('Staged frame did not present exactly once: ' + JSON.stringify({ before, after: scene._geoRiskPresentationStats }));
+          }
         }
       }
       for (const staged of [false, true, false]) {
@@ -183,8 +190,17 @@ try {
     widget.resolutionScale = 0.44;
     widget.resize();
     resize.restoredCanvas = [scene.canvas.width, scene.canvas.height];
+    // Stopping is suspension: retain the last visible frame, not a forced copy of unfinished work.
+    widget.useDefaultRenderLoop = true;
+    stage();
+    const stopBefore = { ...counts }, forcedBefore = scene._geoRiskPresentationStats.forced;
+    widget.useDefaultRenderLoop = false;
+    const stop = { pending: !!scene._geoRiskPendingPresentation, before: stopBefore, after: { ...counts },
+      forcedCopy: scene._geoRiskPresentationStats.forced !== forcedBefore,
+      released: !scene._geoRiskPresentationBuffer && !scene._geoRiskPresentationCopy && !scene._geoRiskPresentationState };
     scene._renderRequested = true;
     widget.render();
+    stop.afterManualRender = { ...counts };
     const png = scene.canvas.toDataURL('image/png');
     const rgba = new Uint8Array(scene.canvas.width * scene.canvas.height * 4);
     gl.readPixels(0, 0, scene.canvas.width, scene.canvas.height, gl.RGBA, gl.UNSIGNED_BYTE, rgba);
@@ -201,7 +217,7 @@ try {
       if (x % 4 !== 3 && bytes[y * stride + x] !== bytes[x % 4]) nonblank = true;
     }
     removers.forEach(remove => remove());
-    return { before, pick, manual, mode, resize, export: { png: png.startsWith('data:image/png;base64,'), bytes: png.length, matches, nonblank },
+    return { before, pick, manual, mode, resize, stop, export: { png: png.startsWith('data:image/png;base64,'), bytes: png.length, matches, nonblank },
       glError: scene.context._gl.getError(), stats: { ...scene._geoRiskPresentationStats } };
   });
   assert.equal(result.apiControls.before.pre, 1);
@@ -221,6 +237,13 @@ try {
   assert.deepEqual(result.apiControls.resize.restoredCanvas, [171, 371]);
   assert.equal(result.apiControls.resize.pixelsMatch, true);
   assert.equal(result.apiControls.resize.glError, 0);
+  assert.equal(result.apiControls.stop.pending, false);
+  assert.equal(result.apiControls.stop.forcedCopy, false);
+  assert.equal(result.apiControls.stop.released, true);
+  for (const count of ['post', 'after']) {
+    assert.equal(result.apiControls.stop.after[count], result.apiControls.stop.before[count]);
+    assert.equal(result.apiControls.stop.afterManualRender[count], result.apiControls.stop.before[count] + 1);
+  }
   assert.equal(result.apiControls.export.png, true);
   assert.equal(result.apiControls.export.matches, true);
   assert.equal(result.apiControls.export.nonblank, true);
@@ -304,6 +327,7 @@ try {
     assert.equal(w.fxaa, false);
     assert.equal(w.presentationSupported, result.configuration.presentationSupported);
     assert.ok(Object.values(w.resourcesReleased).every(Boolean), 'stop releases every owned presentation resource');
+    assert.equal(w.after.forced, w.before.forced, 'default loop suspension never forces unfinished work onto the canvas');
     if (w.enabled && w.presentationSupported) assert.ok(w.after.submitted > w.before.submitted, 'SwiftShader takes the deferred path');
     else assert.equal(w.after.submitted, w.before.submitted, 'hardware/unknown and disabled windows stay native');
   }

@@ -152,6 +152,10 @@ Scene.prototype.destroy = function () {
 export function patchPresentationWidget(s) {
   const helpers = `function prototypeLoopFrame(widget, frameTime) {
   const scene = widget._scene;
+  if (document.hidden && (scene._geoRiskPresentationEnabled || scene._geoRiskPresentationBuffer)) {
+    scene._geoRiskCancelPresentation();
+    return;
+  }
   const eligible = !!scene._geoRiskPresentationEnabled &&
     !widget._clock.shouldAnimate && scene.mode === SceneMode.SCENE2D && !document.hidden &&
     !!scene._lastRenderTime && scene._geoRiskPresentationSupported();
@@ -173,10 +177,10 @@ export function patchPresentationWidget(s) {
   if ([...s.matchAll(frames)].length !== 2) throw new Error('Default loop anchors changed');
   s = s.replace(frames, (_, indent) => indent + 'prototypeLoopFrame(widget, frameTime);');
   s = once(s, 'function startRenderLoop(widget) {', helpers + '\nfunction startRenderLoop(widget) {');
-  s = once(s, '        this._useDefaultRenderLoop = value;', '        this._useDefaultRenderLoop = value;\n        if (!value) this._scene?._geoRiskStopPresentation?.();');
+  s = once(s, '        this._useDefaultRenderLoop = value;', '        this._useDefaultRenderLoop = value;\n        if (!value) this._scene?._geoRiskCancelPresentation?.();');
   s = once(s, '        widget._useDefaultRenderLoop = false;', '        widget._scene?._geoRiskCancelPresentation?.();\n        widget._useDefaultRenderLoop = false;');
   s = once(s, '      that._useDefaultRenderLoop = false;', '      that._scene?._geoRiskCancelPresentation?.();\n      that._useDefaultRenderLoop = false;');
-  s = once(s, '      widget._renderLoopRunning = false;\n    }', '      widget._scene?._geoRiskStopPresentation?.();\n      widget._renderLoopRunning = false;\n    }');
+  s = once(s, '      widget._renderLoopRunning = false;\n    }', '      widget._scene?._geoRiskCancelPresentation?.();\n      widget._renderLoopRunning = false;\n    }');
   s = once(s, '  this._forceResize = false;\n\n  configureCanvasSize(this);', '  this._scene._geoRiskFlushPresentation();\n  this._forceResize = false;\n\n  configureCanvasSize(this);');
   return s;
 }

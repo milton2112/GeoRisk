@@ -217,10 +217,12 @@ for (const invalidation of ['disabled', 'hidden', 'animation', 'mode', 'webgl1']
   if (invalidation === 'animation') t.widget._clock.shouldAnimate = true;
   if (invalidation === 'mode') t.scene.mode = 3;
   if (invalidation === 'webgl1') t.context.webgl2 = false;
-  t.widget.render = () => { assert.equal(t.scene._geoRiskSubmitPresentation, false); };
+  let rendered = 0;
+  t.widget.render = () => { rendered++; assert.equal(t.scene._geoRiskSubmitPresentation, false); };
   t.scope.prototypeLoopFrame(t.widget, 100);
   assert.equal(t.scene._geoRiskPresentationBuffer, undefined, invalidation);
-  assert.equal(t.calls.post, 1); assert.equal(t.calls.destroyed, 1);
+  assert.equal(t.calls.post, invalidation === 'hidden' ? 0 : 1); assert.equal(t.calls.destroyed, 1);
+  assert.equal(rendered, invalidation === 'hidden' ? 0 : 1, 'hidden opt-in page does not issue native work either');
 }
 for (const stop of ['setter', 'error', 'native-error', 'direct-stop']) {
   const t = loopHarness(); t.stage();
@@ -242,6 +244,15 @@ for (const stop of ['setter', 'error', 'native-error', 'direct-stop']) {
   assert.equal(t.widget._useDefaultRenderLoop, false, stop);
   assert.equal(t.scene._geoRiskPresentationBuffer, undefined, stop);
   assert.equal(t.calls.deleted, 1); assert.equal(t.calls.end, 1); assert.equal(t.calls.destroyed, 1);
+  assert.equal(t.calls.post, 0, 'stopping the loop keeps the last presented frame, without forcing a new default-canvas copy');
+  assert.equal(t.calls.after, 0);
+  assert.equal(t.scene._frameState.afterRender.length, 1, 'resume or manual render retains pending public callbacks');
+  assert.equal(t.scene._renderRequested, true);
   assert.equal(t.frames.length, 0, 'stopped loop schedules no polling');
+  if (['setter', 'direct-stop'].includes(stop)) {
+    t.stage(); t.scene._geoRiskFlushPresentation();
+    assert.equal(t.calls.after, 2, 'retained and new callbacks complete on the next successful render');
+    assert.equal(t.calls.post, 1); assert.equal(t.calls.end, 2);
+  }
 }
 console.log('presentation-lifecycle.test.js ok: actual source entry points, bounded wait, cache ownership, stop/error/destroy and failed-context cleanup');
