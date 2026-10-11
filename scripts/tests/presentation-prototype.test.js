@@ -10,7 +10,7 @@ assert.deepEqual(workflow.on.push.branches, ['codex/experiment/map-presentation-
 assert.equal(workflow.jobs['presentation-prototype']['timeout-minutes'], 10);
 const steps = workflow.jobs['presentation-prototype'].steps;
 const scan = steps.findIndex(step => step.id === 'security-scan');
-const run = steps.findIndex(step => step.run === 'node scripts/diagnostics/runPresentationPrototype.js');
+const run = steps.findIndex(step => step.run === 'node scripts/diagnostics/runPresentationInteractions.js');
 assert.ok(scan >= 0 && run > scan);
 assert.equal(steps[scan].run, 'node scripts/checkSecurity.js --history');
 assert.ok(steps.some(s => s.run === 'npx playwright install --with-deps --no-shell chromium'));
@@ -32,4 +32,24 @@ assert.ok(controller.includes('events.length + selected.length > 5000'));
 assert.ok(controller.includes('await stopTrace()'));
 assert.ok(!controller.includes('enable-unsafe') && !controller.includes('use-angle'));
 assert.ok(controller.includes('capture.sha256 === captures[0].sha256') || controller.includes('c.sha256 === captures[0].sha256'));
+const interactionsRunner = await fs.readFile('scripts/diagnostics/runPresentationInteractions.js', 'utf8');
+assert.ok(interactionsRunner.includes('timeoutMs: 30000'));
+assert.ok(interactionsRunner.includes('timeoutMs: 90000'));
+assert.ok(interactionsRunner.includes('interactions-failure.json'));
+assert.deepEqual(upload.with.path.trim().split('\n'), ['reports/presentation-prototype/build.json',
+  'reports/presentation-prototype/interactions.json', 'reports/presentation-prototype/interactions-failure.json',
+  'reports/presentation-prototype/interactions.png']);
+// Import must expose the real assertions without starting a browser or replacing the normal checkpoint.
+const checkpoint = await fs.readFile('reports/critical-browser-e2e.json').catch(error => {
+  if (error.code !== 'ENOENT') throw error;
+  return null;
+});
+const shared = await import('./critical-browser-e2e.test.js');
+assert.equal(typeof shared.clickCountryOnMap, 'function');
+assert.equal(typeof shared.closeCriticalTileCache, 'function');
+assert.deepEqual(await fs.readFile('reports/critical-browser-e2e.json').catch(error => {
+  if (error.code !== 'ENOENT') throw error;
+  return null;
+}), checkpoint, 'import must preserve ordinary release evidence');
+shared.closeCriticalTileCache();
 console.log('presentation-prototype.test.js ok: isolated trigger, unchanged regular Chromium, bounded process/evidence, production exclusion');

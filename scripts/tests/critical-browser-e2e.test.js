@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import fs from "node:fs/promises";
+import { pathToFileURL } from "node:url";
 import { chromium } from "@playwright/test";
 import { getBrowserSelection, launchProjectBrowser } from "../lib/browser-launch.js";
 import { createLocalSmokeServer } from "../localSmokeServer.js";
@@ -4118,6 +4119,13 @@ async function testPagesBuild(browser) {
 
 let heldWorkerRequest = null;
 let testWorkerRevision = null;
+// Diagnostic consumers reuse the actual UI assertions without running or overwriting the release gate.
+export { createTestPage, waitForAppReady, clickCountryOnMap, waitForCountryPanel,
+  closeCountryPanel, setMapMode, focusCountryInstantly, assertThematicLabelOrder, assertHealthyPage,
+  assertAntialiasingProfile };
+export function closeCriticalTileCache() { tileCache.close(); }
+
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
 const focusedFlows = [
   ["--pages-only", testPagesBuild],
   ["--country-text-only", testCountryTextRendering],
@@ -4261,4 +4269,5 @@ try {
 await runReport.finish();
 
 console.log("critical-browser-e2e.test.js ok");
+}
 }

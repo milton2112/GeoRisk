@@ -36,6 +36,15 @@ no una certificacion ambiental ni una afirmacion de neutralidad de carbono.
 
 ## Evidencia y control
 
+El control optativo de interacciones del prototipo reutiliza aserciones reales del
+E2E sin iniciar ni sobrescribir su gate al importarlas. Una pagina mobile CPU x4
+mantiene resolucion y monitor adaptativo reales; hasta 32 muestras observadas y una
+captura de hasta 2 MiB conservan el resultado de entradas nativas, resize, modos,
+reposo y suspension. Build de 30 s/proceso de 90 s/job de diez minutos; recursos y
+listeners propios se cierran al terminar. Reemplaza en el workflow experimental
+la repeticion de ventanas A/B/A ya conservadas. Agrega una ejecucion finita solo
+al invocarlo, sin dependencias, timers del producto o afirmaciones energeticas.
+
 El diagnostico acotado consulta una vez SystemInfo.getInfo del navegador despues
 de detener CPU/traza, para distinguir el compositor del renderer WebGL. Conserva
 estados exactos y hasta ocho dispositivos, 64 features y 512 caracteres por string;
