@@ -36,6 +36,16 @@ no una certificacion ambiental ni una afirmacion de neutralidad de carbono.
 
 ## Evidencia y control
 
+El control optativo de recuperacion reutiliza el E2E nativo en dos paginas
+secuenciales, con fallos y recargas finitos. Solo SwiftShader 2D agrega fallos con
+frame realmente pendiente para verificar liberacion, un unico reintento y
+callbacks retenidos. Hasta 32 checkpoints/256 KiB, 24 cancelaciones por pagina y
+una captura de 2 MiB; build de 30 s, proceso de 90 s y job de diez minutos.
+Sustituye en el workflow la repeticion de interacciones ya archivadas; no agrega
+dependencias, modulos cliente o trabajo recurrente, ni cambia la calidad o politica
+de recuperacion. La perdida real de contexto exige la recarga existente, no una
+restauracion automatica inventada. No acredita ahorro energetico/CO2.
+
 El control optativo de interacciones del prototipo reutiliza aserciones reales del
 E2E sin iniciar ni sobrescribir su gate al importarlas. Una pagina mobile CPU x4
 mantiene resolucion y monitor adaptativo reales; hasta 32 muestras observadas y una

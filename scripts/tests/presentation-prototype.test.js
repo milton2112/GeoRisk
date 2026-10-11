@@ -10,7 +10,7 @@ assert.deepEqual(workflow.on.push.branches, ['codex/experiment/map-presentation-
 assert.equal(workflow.jobs['presentation-prototype']['timeout-minutes'], 10);
 const steps = workflow.jobs['presentation-prototype'].steps;
 const scan = steps.findIndex(step => step.id === 'security-scan');
-const run = steps.findIndex(step => step.run === 'node scripts/diagnostics/runPresentationInteractions.js');
+const run = steps.findIndex(step => step.run === 'node scripts/diagnostics/runPresentationRecovery.js');
 assert.ok(scan >= 0 && run > scan);
 assert.equal(steps[scan].run, 'node scripts/checkSecurity.js --history');
 assert.ok(steps.some(s => s.run === 'npx playwright install --with-deps --no-shell chromium'));
@@ -37,8 +37,12 @@ assert.ok(interactionsRunner.includes('timeoutMs: 30000'));
 assert.ok(interactionsRunner.includes('timeoutMs: 90000'));
 assert.ok(interactionsRunner.includes('interactions-failure.json'));
 assert.deepEqual(upload.with.path.trim().split('\n'), ['reports/presentation-prototype/build.json',
-  'reports/presentation-prototype/interactions.json', 'reports/presentation-prototype/interactions-failure.json',
-  'reports/presentation-prototype/interactions.png']);
+  'reports/presentation-prototype/recovery.json', 'reports/presentation-prototype/recovery-failure.json',
+  'reports/presentation-prototype/recovery.png']);
+const recoveryRunner = await fs.readFile('scripts/diagnostics/runPresentationRecovery.js', 'utf8');
+assert.ok(recoveryRunner.includes('timeoutMs: 30000'));
+assert.ok(recoveryRunner.includes('timeoutMs: 90000'));
+assert.ok(recoveryRunner.includes('recovery-failure.json'));
 // Import must expose the real assertions without starting a browser or replacing the normal checkpoint.
 const checkpoint = await fs.readFile('reports/critical-browser-e2e.json').catch(error => {
   if (error.code !== 'ENOENT') throw error;
@@ -47,6 +51,7 @@ const checkpoint = await fs.readFile('reports/critical-browser-e2e.json').catch(
 const shared = await import('./critical-browser-e2e.test.js');
 assert.equal(typeof shared.clickCountryOnMap, 'function');
 assert.equal(typeof shared.closeCriticalTileCache, 'function');
+assert.equal(typeof shared.testRenderRecovery, 'function');
 assert.deepEqual(await fs.readFile('reports/critical-browser-e2e.json').catch(error => {
   if (error.code !== 'ENOENT') throw error;
   return null;

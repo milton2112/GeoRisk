@@ -19,6 +19,9 @@ const outerRender = section(patched, 'Scene.prototype.render = function (time)',
 const helpers = section(patched, '// PROTOTYPE ONLY:', '// Explicit rendering,');
 const wrappers = section(patched, '// Explicit rendering,', '\nexport default Scene;');
 const nativeCatch = section(patched, 'function tryAndCatchError(', '\nfunction updateMostDetailedRayPicks');
+const wrappedApis = ['initializeFrame', 'pick', 'drillPick', 'pickPosition', 'pickPositionWorldCoordinates',
+  'pickVoxel', 'pickMetadata', 'pickMetadataSchema', 'pickFromRay', 'drillPickFromRay',
+  'pickFromRayMostDetailed', 'drillPickFromRayMostDetailed', 'morphTo2D', 'morphTo3D', 'morphToColumbusView'];
 
 // Execute the actual transformed entry points, frame finalizer and helpers with small GL doubles.
 // No browser, downloads or copies of Cesium's lifecycle logic in these regressions.
@@ -27,10 +30,13 @@ function harness() {
     begin: 0, end: 0, pre: 0, post: 0, after: 0, errors: 0, nativeDestroy: 0, states: [], removed: [] };
   let now = 100;
   function Scene() {}
-  for (const name of ['initializeFrame', 'pick', 'drillPick', 'pickPosition', 'pickPositionWorldCoordinates',
-    'pickVoxel', 'pickMetadata', 'pickMetadataSchema', 'pickFromRay', 'drillPickFromRay',
-    'pickFromRayMostDetailed', 'drillPickFromRayMostDetailed', 'morphTo2D', 'morphTo3D', 'morphToColumbusView']) {
-    Scene.prototype[name] = function (...args) { return { receiver: this, args }; };
+  for (const name of wrappedApis) {
+    assert.ok(sceneSource.includes('Scene.prototype.' + name + ' = function'), 'native API exists: ' + name);
+    Scene.prototype[name] = function (...args) {
+      calls.apiEntry = { receiver: this, args, pending: this._geoRiskPendingPresentation, posts: calls.post };
+      if (this.apiError) throw this.apiError;
+      return this.apiResult || { receiver: this, args };
+    };
   }
   Scene.prototype.destroy = () => { calls.nativeDestroy++; };
   const gl = { SYNC_GPU_COMMANDS_COMPLETE: 1, TIMEOUT_EXPIRED: 2, ALREADY_SIGNALED: 3, WAIT_FAILED: 4,
@@ -65,8 +71,13 @@ function harness() {
     updateFrameNumber: (s, n, time) => Object.assign(s._frameState, { frameNumber: n, time }),
     prePassesUpdate() {}, updateDebugShowFramesPerSecond() {}, postPassesUpdate() {},
     callAfterRenderFunctions(s) { for (const fn of s._frameState.afterRender) fn(); s._frameState.afterRender.length = 0; },
-    render(s) { scope.prototypeTarget(s); if (scene.renderError) throw new Error('render failed'); scope.prototypeSubmit(s); } };
-  vm.runInNewContext(helpers + nativeCatch + outerRender + wrappers, scope);
+    render(s) {
+      if (s._geoRiskSubmitPresentation) scope.prototypeTarget(s);
+      if (scene.renderError) throw new Error('render failed');
+      if (s._geoRiskSubmitPresentation) scope.prototypeSubmit(s);
+    } };
+  const nativeForceRender = section(sceneSource, 'Scene.prototype.forceRender = function', '\n/**');
+  vm.runInNewContext(helpers + nativeCatch + outerRender + nativeForceRender + wrappers, scope);
   return { scene, gl, context, calls, scope, setTime: value => { now = value; },
     stage() {
       scene._renderRequested = true;
@@ -74,6 +85,30 @@ function harness() {
       scene._frameState.afterRender.push(() => { calls.after++; });
       try { scene.render({}); } finally { scene._geoRiskSubmitPresentation = false; }
     } };
+}
+for (const name of wrappedApis) {
+  for (const behavior of ['return', 'promise', 'throw']) {
+    const t = harness(); t.stage();
+    const args = [{ point: 1 }, [2], 3, { result: true }];
+    const value = behavior === 'promise' ? Promise.resolve(name) : { name };
+    t.scene.apiResult = value;
+    if (behavior === 'throw') t.scene.apiError = value;
+    if (behavior === 'throw') assert.throws(() => t.scene[name](...args), error => error === value);
+    else assert.equal(t.scene[name](...args), value, name + ': preserve exact return/promise identity');
+    assert.equal(t.calls.apiEntry.receiver, t.scene);
+    args.forEach((arg, index) => assert.equal(t.calls.apiEntry.args[index], arg));
+    assert.equal(t.calls.apiEntry.pending, undefined, name + ': finish before entering native API');
+    assert.equal(t.calls.apiEntry.posts, 1); assert.equal(t.calls.end, 1);
+    assert.equal(t.calls.deleted, 1); assert.equal(t.scene._geoRiskPendingPresentation, undefined);
+  }
+}
+{
+  const t = harness(); t.stage();
+  t.scene.forceRender({});
+  assert.equal(t.calls.copied, 1, 'native forceRender delegates through the wrapped public render');
+  assert.equal(t.calls.post, 2); assert.equal(t.calls.begin, 2); assert.equal(t.calls.end, 2);
+  assert.equal(t.scene._geoRiskPendingPresentation, undefined);
+  assert.equal(t.scene._geoRiskPresentationBuffer, undefined, 'explicit native rendering releases retained target');
 }
 {
   const t = harness(); t.stage();

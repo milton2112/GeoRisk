@@ -2020,12 +2020,13 @@ async function testIdleMapPerformance(browser, baseUrl) {
   }
 }
 
-async function testRenderRecovery(browser, baseUrl) {
+async function testRenderRecovery(browser, baseUrl, fixture = {}) {
   for (const viewport of [DESKTOP_VIEWPORT, MOBILE_VIEWPORT]) {
     const label = viewport.width > 820 ? "desktop" : "mobile";
-    const { context, page, pageErrors } = await createTestPage(browser, baseUrl, viewport);
+    const { context, page, pageErrors } = await createTestPage(browser, baseUrl, viewport, fixture.beforeNavigate);
     try {
       await waitForAppReady(page);
+      await fixture.onReady?.(page, { label, stage: 'initial' });
       await page.waitForFunction(() => !isCameraNavigating);
       await page.evaluate(() => {
         setCountrySelection(countryLayers.get("ESP"));
@@ -2071,6 +2072,7 @@ async function testRenderRecovery(browser, baseUrl) {
       }
       assert.ok(result.log.some(entry => entry.phase === "recovered" && entry.error === "GeoRisk fixture primitive failure"));
       assert.equal(await page.locator(".cesium-widget-errorPanel").count(), 0);
+      await fixture.onCheckpoint?.(page, { label, stage: 'recovered' });
       const before = await page.locator("#map canvas").screenshot();
       const previousFrames = await page.evaluate(() => {
         const frames = window.__renderFixture.frames;
@@ -2091,9 +2093,11 @@ async function testRenderRecovery(browser, baseUrl) {
       await page.waitForTimeout(1100);
       assert.equal(await page.evaluate(() => window.__renderFixture.frames), stoppedFrames, "no reintentar indefinidamente un error persistente");
       assert.equal(await page.evaluate(() => viewer.useDefaultRenderLoop), false);
+      await fixture.onCheckpoint?.(page, { label, stage: 'persistent-failed' });
       await page.screenshot({ path: "tmp/map-render-failed-" + label + ".png" });
       await page.locator("#fatal-error-banner a").click();
       await waitForAppReady(page);
+      await fixture.onReady?.(page, { label, stage: 'persistent-reloaded' });
       assert.equal(await page.evaluate(() => viewer.__geoRiskRenderRecovery.getState().attempts), 0);
 
       // Exercise the widget's outer catch, which does not emit scene.renderError.
@@ -2104,11 +2108,12 @@ async function testRenderRecovery(browser, baseUrl) {
         viewer.scene.requestRender();
       });
       await page.waitForFunction(() => viewer.__geoRiskRenderRecovery.getState().phase === "recovered");
+      await fixture.onCheckpoint?.(page, { label, stage: 'widget-recovered' });
       assert.equal(await page.evaluate(() => mapDegradationLog.list().some(entry => entry.error === "Render loop stopped")), true);
       await submitSearch(page, "Argentina");
       await waitForCountryPanel(page, "Argentina");
       await closeCountryPanel(page);
-      const contextLossSupported = await page.evaluate(() => {
+      const contextLossSupported = fixture.loseContext ? await fixture.loseContext(page, { label }) : await page.evaluate(() => {
         const canvas = viewer.scene.canvas;
         const gl = canvas.getContext("webgl2") || canvas.getContext("webgl");
         const extension = gl?.getExtension("WEBGL_lose_context");
@@ -2120,6 +2125,7 @@ async function testRenderRecovery(browser, baseUrl) {
       await page.waitForFunction(() => viewer.__geoRiskRenderRecovery.getState().phase === "failed");
       assert.equal(await page.evaluate(() => viewer.useDefaultRenderLoop), false);
       assert.equal(await page.locator("#fatal-error-banner a").isVisible(), true);
+      await fixture.onCheckpoint?.(page, { label, stage: 'context-lost' });
       assertHealthyPage(pageErrors, "recuperacion " + label);
     } finally {
       await context.close();
@@ -4122,7 +4128,7 @@ let testWorkerRevision = null;
 // Diagnostic consumers reuse the actual UI assertions without running or overwriting the release gate.
 export { createTestPage, waitForAppReady, clickCountryOnMap, waitForCountryPanel,
   closeCountryPanel, setMapMode, focusCountryInstantly, assertThematicLabelOrder, assertHealthyPage,
-  assertAntialiasingProfile };
+  assertAntialiasingProfile, testRenderRecovery };
 export function closeCriticalTileCache() { tileCache.close(); }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {

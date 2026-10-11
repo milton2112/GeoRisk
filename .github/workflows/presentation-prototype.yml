@@ -43,17 +43,17 @@ jobs:
         run: node scripts/tests/presentation-prototype.test.js
       - name: Build public baseline
         run: npm run build:prod
-      - name: Bounded real interactions
-        run: node scripts/diagnostics/runPresentationInteractions.js
+      - name: Bounded real recovery
+        run: node scripts/diagnostics/runPresentationRecovery.js
       - name: Upload proof only
         if: always() && steps.security-scan.outcome == 'success'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: geo-risk-presentation-interactions-${{ github.run_attempt }}
+          name: geo-risk-presentation-recovery-${{ github.run_attempt }}
           path: |
             reports/presentation-prototype/build.json
-            reports/presentation-prototype/interactions.json
-            reports/presentation-prototype/interactions-failure.json
-            reports/presentation-prototype/interactions.png
+            reports/presentation-prototype/recovery.json
+            reports/presentation-prototype/recovery-failure.json
+            reports/presentation-prototype/recovery.png
           if-no-files-found: error
           retention-days: 7
