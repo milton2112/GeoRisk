@@ -46,7 +46,10 @@ try {
     isMobile: true, hasTouch: true, serviceWorkers: 'block' });
   const page = await context.newPage();
   page.setDefaultTimeout(15000);
-  page.on('pageerror', error => result.errors.push(error.message));
+  page.on('pageerror', error => {
+    result.errorCount = (result.errorCount || 0) + 1;
+    if (result.errors.length < 30) result.errors.push(error.message.slice(0, 1000));
+  });
   let overrides = 0;
   await page.route(/\/vendor\/cesium\/engine\.js\?/, route => { overrides++; return route.fulfill({ contentType: 'text/javascript', body: engine }); });
   cdp = await context.newCDPSession(page);
@@ -206,13 +209,23 @@ try {
   await cdp.send('Tracing.start', { categories: 'cc,gpu,viz,toplevel,blink.user_timing', transferMode: 'ReportEvents' });
   traceStarted = true;
   for (const enabled of [false, true, false]) {
+    const preparation = await page.evaluate(async index => {
+      const widget = viewer.cesiumWidget, scene = viewer.scene;
+      const start = performance.now();
+      performance.mark('georisk-prototype-window-' + index + '-prepare-start');
+      // Finish and compose the native reset frame before starting any measured window.
+      widget.useDefaultRenderLoop = false;
+      scene._geoRiskPresentationEnabled = false;
+      viewer.camera.setView({ destination: countryLayers.get('ARG').getBounds() });
+      scene._renderRequested = true;
+      widget.render();
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      performance.mark('georisk-prototype-window-' + index + '-prepare-end');
+      return { elapsed: performance.now() - start, callbacks: 2 };
+    }, result.windows.length);
     const measured = await page.evaluate(({ enabled, index }) => new Promise(resolve => {
       const widget = viewer.cesiumWidget, scene = viewer.scene;
       // Same start and time-based path for A/B/A; faster callbacks must not move farther.
-      viewer.camera.setView({ destination: countryLayers.get('ARG').getBounds() });
-      scene._geoRiskPresentationEnabled = false;
-      scene._renderRequested = true;
-      widget.render();
       scene._geoRiskPresentationEnabled = enabled;
       const frameTimes = [], rafTimes = [], tasks = [];
       const observer = new PerformanceObserver(list => { for (const e of list.getEntries()) if (tasks.length < 200) tasks.push({ at: e.startTime, duration: e.duration }); });
@@ -244,6 +257,7 @@ try {
       };
       requestAnimationFrame(move);
     }), { enabled, index: result.windows.length });
+    measured.preparation = preparation;
     result.windows.push(measured); await save();
     console.log('Window: ' + JSON.stringify({ enabled, frames: measured.frameTimes.length, callbacks: measured.rafTimes.length,
       maxLongTask: Math.max(0, ...measured.tasks.map(t => t.duration)), before: measured.before, after: measured.after }));

@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import { parse } from 'yaml';
 import { PUBLIC_FILES, PUBLIC_DIRS } from '../lib/public-assets.js';
+import './presentation-lifecycle.test.js';
 const workflow = parse(await fs.readFile('.github/workflows/presentation-prototype.yml', 'utf8'));
 assert.deepEqual(workflow.permissions, { contents: 'read' });
 assert.deepEqual(Object.keys(workflow.on).sort(), ['push', 'workflow_dispatch']);

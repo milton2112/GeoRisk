@@ -1,0 +1,190 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import vm from 'node:vm';
+import { patchPresentationScene, patchPresentationWidget } from '../diagnostics/presentation-transform.js';
+import { deferCesiumResolutionResize } from '../lib/cesium-resolution-resize.js';
+
+const sceneSource = await fs.readFile('node_modules/@cesium/engine/Source/Scene/Scene.js', 'utf8');
+const widgetFile = 'node_modules/@cesium/engine/Source/Widget/CesiumWidget.js';
+const widgetSource = await fs.readFile(widgetFile, 'utf8');
+const patched = patchPresentationScene(sceneSource);
+const widgetPatched = patchPresentationWidget(deferCesiumResolutionResize(widgetSource, widgetFile));
+assert.throws(() => patchPresentationScene(patched), /anchor|finalization/);
+assert.throws(() => patchPresentationWidget(widgetPatched), /anchors/);
+for (const anchor of ['    frameState.creditDisplay.beginFrame();', '    scene._renderError.raiseEvent(scene, error);']) {
+  assert.throws(() => patchPresentationScene(sceneSource.replace(anchor, 'changed')), /anchor/);
+}
+const section = (source, start, end) => source.slice(source.indexOf(start), source.indexOf(end, source.indexOf(start)));
+const outerRender = section(patched, 'Scene.prototype.render = function (time)', '\n/**');
+const helpers = section(patched, '// PROTOTYPE ONLY:', '// Explicit rendering,');
+const wrappers = section(patched, '// Explicit rendering,', '\nexport default Scene;');
+const nativeCatch = section(patched, 'function tryAndCatchError(', '\nfunction updateMostDetailedRayPicks');
+
+// Execute the actual transformed entry points, frame finalizer and helpers with small GL doubles.
+// No browser, downloads or copies of Cesium's lifecycle logic in these regressions.
+function harness() {
+  const calls = { created: 0, destroyed: 0, shaders: 0, deleted: 0, polled: 0, copied: 0,
+    begin: 0, end: 0, pre: 0, post: 0, after: 0, errors: 0, nativeDestroy: 0, states: [], removed: [] };
+  let now = 100;
+  function Scene() {}
+  for (const name of ['initializeFrame', 'pick', 'drillPick', 'pickPosition', 'pickPositionWorldCoordinates',
+    'pickVoxel', 'pickMetadata', 'pickMetadataSchema', 'pickFromRay', 'drillPickFromRay',
+    'pickFromRayMostDetailed', 'drillPickFromRayMostDetailed', 'morphTo2D', 'morphTo3D', 'morphToColumbusView']) {
+    Scene.prototype[name] = function (...args) { return { receiver: this, args }; };
+  }
+  Scene.prototype.destroy = () => { calls.nativeDestroy++; };
+  const gl = { SYNC_GPU_COMMANDS_COMPLETE: 1, TIMEOUT_EXPIRED: 2, ALREADY_SIGNALED: 3, WAIT_FAILED: 4,
+    status: 2, lost: false, fence: {}, isContextLost() { return this.lost; },
+    fenceSync: () => gl.fence, flush() {}, deleteSync(sync) { assert.equal(sync, gl.fence); calls.deleted++; },
+    clientWaitSync(sync, flags, timeout) { assert.equal(sync, gl.fence); assert.equal(flags, 0); assert.equal(timeout, 0); calls.polled++; return gl.status; } };
+  const context = { _gl: gl, webgl2: true, drawingBufferWidth: 171, drawingBufferHeight: 371, endFrame() {},
+    createViewportQuadCommand: () => ({ shaderProgram: { destroy() { calls.shaders++; } },
+      execute() { calls.copied++; if (context.copyError) throw new Error('copy failed'); } }) };
+  class FramebufferManager {
+    constructor() { calls.created++; this.framebuffer = {}; }
+    update() {} getColorTexture() {} destroy() { calls.destroyed++; }
+  }
+  const scene = Object.assign(new Scene(), { context, _geoRiskPresentationEnabled: true,
+    _renderRequested: true, requestRenderMode: true, _lastRenderTime: {}, mode: 2, primitives: { show: false },
+    _frameState: { frameNumber: 1, time: {}, afterRender: [],
+      creditDisplay: { beginFrame() { calls.begin++; }, endFrame() { calls.end++; } } },
+    _preUpdate: { raiseEvent() {} }, _postUpdate: { raiseEvent() {} },
+    _view: { checkForCameraUpdates: () => false },
+    _preRender: { raiseEvent() { calls.pre++; } },
+    _postRender: { raiseEvent() { calls.post++; if (scene.postError) throw new Error('post failed'); } },
+    _renderError: { raiseEvent() { calls.errors++; } }, rethrowRenderErrors: false });
+  const scope = { Scene, FramebufferManager, PassThrough: '', performance: { now: () => now },
+    BoundingRectangle: class { constructor(x, y, width, height) { Object.assign(this, { x, y, width, height }); } },
+    RenderState: { fromCache(descriptor) { calls.states.push(descriptor); return { cached: descriptor }; },
+      removeFromCache(descriptor) { calls.removed.push(descriptor); } },
+    JulianDate: { clone: time => time, now: () => ({}), secondsDifference: () => 0 },
+    defined: value => value != null, CesiumMath: { incrementWrap: n => n + 1 },
+    updateFrameNumber: (s, n, time) => Object.assign(s._frameState, { frameNumber: n, time }),
+    prePassesUpdate() {}, updateDebugShowFramesPerSecond() {}, postPassesUpdate() {},
+    callAfterRenderFunctions(s) { for (const fn of s._frameState.afterRender) fn(); s._frameState.afterRender.length = 0; },
+    render(s) { scope.prototypeTarget(s); if (scene.renderError) throw new Error('render failed'); scope.prototypeSubmit(s); } };
+  vm.runInNewContext(helpers + nativeCatch + outerRender + wrappers, scope);
+  return { scene, gl, context, calls, scope, setTime: value => { now = value; },
+    stage() {
+      scene._renderRequested = true;
+      scene._geoRiskSubmitPresentation = true;
+      scene._frameState.afterRender.push(() => { calls.after++; });
+      try { scene.render({}); } finally { scene._geoRiskSubmitPresentation = false; }
+    } };
+}
+{
+  const t = harness(); t.stage();
+  assert.equal(t.calls.begin, 1); assert.equal(t.calls.end, 0);
+  assert.equal(t.calls.post, 0); assert.equal(t.calls.after, 0);
+  assert.equal(t.scene._geoRiskPollPresentation(), false);
+  assert.equal(t.calls.copied, 0);
+  t.gl.status = t.gl.ALREADY_SIGNALED;
+  assert.equal(t.scene._geoRiskPollPresentation(), true);
+  assert.equal(t.calls.deleted, 1); assert.equal(t.calls.post, 1); assert.equal(t.calls.after, 1); assert.equal(t.calls.end, 1);
+  for (let i = 0; i < 5; i++) { t.stage(); t.scene._geoRiskFlushPresentation(); }
+  assert.equal(t.calls.states.length, 1, 'reuse the native cache entry at unchanged dimensions');
+  t.context.drawingBufferWidth++; t.stage(); t.scene._geoRiskFlushPresentation();
+  assert.equal(t.calls.states.length, 2);
+  assert.equal(t.calls.removed[0], t.calls.states[0], 'release using the original partial descriptor');
+  t.scene._geoRiskStopPresentation(); t.scene._geoRiskStopPresentation();
+  assert.deepEqual(t.calls.removed, t.calls.states); assert.equal(t.calls.destroyed, 1); assert.equal(t.calls.shaders, 1);
+  t.stage(); t.scene._geoRiskStopPresentation();
+  assert.equal(t.calls.created, 2); assert.equal(t.scene._geoRiskPresentationStats.submitted, 8, 'bounded counters survive target recreation');
+}
+for (const fallback of ['null-sync', 'wait-failed', 'poll-bound', 'deadline', 'clock-reversed']) {
+  const t = harness();
+  if (fallback === 'null-sync') t.gl.fence = null;
+  t.stage();
+  if (fallback === 'wait-failed') t.gl.status = t.gl.WAIT_FAILED;
+  if (fallback === 'poll-bound') t.scene._geoRiskPendingPresentation.polls = 63;
+  if (fallback === 'deadline') t.setTime(1600);
+  if (fallback === 'clock-reversed') t.setTime(0);
+  assert.equal(t.scene._geoRiskPollPresentation(), true, fallback);
+  assert.equal(t.calls.copied, 1); assert.equal(t.calls.post, 1); assert.equal(t.calls.end, 1);
+}
+for (const failure of ['lost', 'replaced', 'poll', 'copy', 'delete']) {
+  const t = harness(); t.stage();
+  if (failure === 'lost') t.gl.lost = true;
+  if (failure === 'replaced') t.context._gl = {};
+  if (failure === 'poll') t.gl.clientWaitSync = () => { throw new Error('poll failed'); };
+  if (failure === 'copy') { t.gl.status = t.gl.ALREADY_SIGNALED; t.context.copyError = true; }
+  if (failure === 'delete') { t.gl.status = t.gl.ALREADY_SIGNALED; t.gl.deleteSync = () => { t.calls.deleted++; throw new Error('delete failed'); }; }
+  assert.throws(() => t.scene._geoRiskPollPresentation(), /lost|replaced|failed/, failure);
+  assert.equal(t.scene._geoRiskPendingPresentation, undefined);
+  assert.equal(t.calls.post, 0); assert.equal(t.calls.after, 0); assert.equal(t.calls.end, 1);
+  assert.equal(t.scene._frameState.afterRender.length, 1, 'do not discard public work on failed presentation');
+  assert.equal(t.scene._renderRequested, true);
+  assert.equal(t.calls.destroyed, 1); assert.equal(t.calls.shaders, 1);
+  t.scene._geoRiskCancelPresentation();
+  assert.ok(t.calls.deleted <= 1, 'release sync once, including a throwing driver');
+  assert.equal(t.calls.end, 1); assert.equal(t.calls.destroyed, 1);
+}
+{
+  const t = harness(); t.scene.renderError = true; t.stage();
+  assert.equal(t.calls.errors, 1); assert.equal(t.calls.end, 1); assert.equal(t.calls.post, 0); assert.equal(t.calls.after, 0);
+  assert.equal(t.calls.destroyed, 1); assert.equal(t.scene._renderRequested, true);
+  t.scene.renderError = false; t.stage(); t.scene._geoRiskFlushPresentation();
+  assert.equal(t.calls.after, 2, 'retained callbacks complete on the next successful frame');
+}
+{
+  const t = harness(); t.stage(); t.scene.postError = true;
+  assert.throws(() => t.scene._geoRiskFlushPresentation(), /post failed/);
+  assert.equal(t.calls.end, 1, 'close credit even when a public callback throws');
+  assert.equal(t.calls.destroyed, 1); t.scene._geoRiskCancelPresentation(); assert.equal(t.calls.end, 1);
+}
+{
+  const t = harness(); t.stage();
+  const picked = t.scene.pick('point', 1);
+  assert.equal(picked.receiver, t.scene); assert.deepEqual(picked.args, ['point', 1]);
+  assert.equal(t.calls.post, 1);
+  t.stage(); t.scene.destroy();
+  assert.equal(t.calls.end, 2); assert.equal(t.calls.post, 1, 'destroy cancels without a fictitious postRender');
+  assert.equal(t.calls.nativeDestroy, 1); assert.equal(t.calls.destroyed, 1);
+}
+// Actual transformed widget loop, setter and native error callback.
+function loopHarness() {
+  const t = harness(), frames = [];
+  const widget = { _scene: t.scene, _clock: { shouldAnimate: false }, _forceResize: false,
+    _canvas: { clientWidth: 390, clientHeight: 844 }, _canvasClientWidth: 390, _canvasClientHeight: 844,
+    _lastDevicePixelRatio: 1, _useDefaultRenderLoop: true, isDestroyed: () => false,
+    resize() {}, render() { t.stage(); } };
+  const scope = { ...t.scope, window: { devicePixelRatio: 1 }, document: { hidden: false }, SceneMode: { SCENE2D: 2 },
+    requestAnimationFrame: fn => frames.push(fn), resolutionResizeReady: () => true, releaseResolutionResizeFence() {} };
+  vm.runInNewContext(section(widgetPatched, 'function prototypeLoopFrame(', '\nfunction configurePixelRatio'), scope);
+  return { ...t, widget, frames, scope, step() { frames.shift()(100); } };
+}
+for (const invalidation of ['disabled', 'hidden', 'animation', 'mode', 'webgl1']) {
+  const t = loopHarness(); t.stage();
+  if (invalidation === 'disabled') t.scene._geoRiskPresentationEnabled = false;
+  if (invalidation === 'hidden') t.scope.document.hidden = true;
+  if (invalidation === 'animation') t.widget._clock.shouldAnimate = true;
+  if (invalidation === 'mode') t.scene.mode = 3;
+  if (invalidation === 'webgl1') t.context.webgl2 = false;
+  t.widget.render = () => { assert.equal(t.scene._geoRiskSubmitPresentation, false); };
+  t.scope.prototypeLoopFrame(t.widget, 100);
+  assert.equal(t.scene._geoRiskPresentationBuffer, undefined, invalidation);
+  assert.equal(t.calls.post, 1); assert.equal(t.calls.destroyed, 1);
+}
+for (const stop of ['setter', 'error', 'native-error', 'direct-stop']) {
+  const t = loopHarness(); t.stage();
+  if (stop === 'setter') {
+    const setter = section(widgetPatched, '  useDefaultRenderLoop: {', '\n  /**');
+    const props = vm.runInNewContext('({' + setter + '})', t.scope);
+    props.useDefaultRenderLoop.set.call(t.widget, false);
+  } else if (stop === 'native-error') {
+    // The callback is assigned to the VM global this, rather than the widget.
+    t.scope.that = t.widget;
+    vm.runInNewContext(section(widgetPatched, '    this._onRenderError = function', '    scene.renderError.addEventListener'), t.scope);
+    t.scope._onRenderError(t.scene, new Error('native error'));
+  } else {
+    t.scope.startRenderLoop(t.widget);
+    if (stop === 'error') t.gl.clientWaitSync = () => { throw new Error('poll failed'); };
+    else t.widget._useDefaultRenderLoop = false;
+    t.step();
+  }
+  assert.equal(t.widget._useDefaultRenderLoop, false, stop);
+  assert.equal(t.scene._geoRiskPresentationBuffer, undefined, stop);
+  assert.equal(t.calls.deleted, 1); assert.equal(t.calls.end, 1); assert.equal(t.calls.destroyed, 1);
+  assert.equal(t.frames.length, 0, 'stopped loop schedules no polling');
+}
+console.log('presentation-lifecycle.test.js ok: actual source entry points, bounded wait, cache ownership, stop/error/destroy and failed-context cleanup');
