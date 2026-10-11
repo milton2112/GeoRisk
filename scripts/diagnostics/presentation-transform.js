@@ -115,7 +115,7 @@ Scene.prototype._geoRiskStopPresentation = function () {
   try { prototypePresent(this, true); } finally { prototypeRelease(this); }
 };
 `;
-export function patchPresentationScene(s) {
+export function patchPresentationScene(s, { enabledByDefault = false } = {}) {
   s = once(s, 'import Context from "../Renderer/Context.js";', 'import Context from "../Renderer/Context.js";\nimport FramebufferManager from "../Renderer/FramebufferManager.js";\nimport PassThrough from "../Shaders/PostProcessStages/PassThrough.js";');
   s = once(s, '  passState.framebuffer = undefined;\n  passState.blendingEnabled = undefined;', '  passState.framebuffer = scene._geoRiskSubmitPresentation ? prototypeTarget(scene) : undefined;\n  passState.blendingEnabled = undefined;');
   s = once(s, '  passState.framebuffer = undefined;\n  executeOverlayCommands(scene, passState);', '  passState.framebuffer = scene._geoRiskSubmitPresentation ? scene._geoRiskPresentationBuffer.framebuffer : undefined;\n  executeOverlayCommands(scene, passState);');
@@ -147,7 +147,8 @@ Scene.prototype.destroy = function () {
   try { prototypeCancel(this); } finally { prototypeDestroyScene.call(this); }
 };
 `;
-  return once(s, 'export default Scene;', sceneHelpers + wrappers + '\nexport default Scene;');
+  return once(s, 'export default Scene;', sceneHelpers + wrappers +
+    (enabledByDefault ? '\nScene.prototype._geoRiskPresentationEnabled = true;\n' : '') + '\nexport default Scene;');
 }
 export function patchPresentationWidget(s) {
   const helpers = `function prototypeLoopFrame(widget, frameTime) {

@@ -20,6 +20,7 @@ assert.ok(criticalShardFlows(1).includes("mobile journey"));
 assert.throws(() => criticalShardFlows(3));
 assertFullReleaseEnvironment({});
 assert.throws(() => assertFullReleaseEnvironment({ GEORISK_E2E_SHARD: "1/2" }), /full suite/);
+assert.throws(() => assertFullReleaseEnvironment({ GEORISK_PRESENTATION_COMPATIBILITY: '1' }), /not release approval/);
 assert.equal(await externalCriticalEvidence({ env: {} }), null);
 await assert.rejects(externalCriticalEvidence({ env: { GEORISK_E2E_REPORTS_DIR: "ignored" } }), /only.*CI/);
 
@@ -49,6 +50,7 @@ for (const alter of [
   reports => { reports[0].status = "failed"; }, reports => { reports[0].error = { message: "failed" }; },
   reports => { reports[0].metadata.ciRunId = "previous"; }, reports => { reports[0].metadata.ciRunAttempt = "2"; },
   reports => { reports[0].metadata.ciRevision = "c".repeat(40); }, reports => { reports[0].metadata.publicInputHash = "d".repeat(64); },
+  reports => { reports[0].metadata.experiment = { name: 'presentation' }; },
   reports => { reports[0].metadata.shard.total = 3; }, reports => { reports[0].metadata.platform = "win32"; },
   reports => { reports[0].metadata.browser.actualChannel = "headless-shell"; },
   reports => { reports[0].metadata.browser.requestedChannel = "chrome"; },

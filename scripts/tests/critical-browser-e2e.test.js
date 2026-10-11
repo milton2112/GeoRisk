@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import { pathToFileURL } from "node:url";
 import { chromium } from "@playwright/test";
 import { getBrowserSelection, launchProjectBrowser } from "../lib/browser-launch.js";
-import { createLocalSmokeServer } from "../localSmokeServer.js";
+import { createLocalSmokeServer as createNativeSmokeServer } from "../localSmokeServer.js";
 import { captureLiveElement, captureTransientNotice } from "../lib/browser-screenshot.js";
 import { createBrowserTileCache } from "../lib/browser-tile-cache.js";
 import { createBrowserRunReport } from "../lib/browser-run-report.js";
@@ -17,6 +17,9 @@ const MAP_PICK_TIMEOUT_MS = Math.min(APP_TIMEOUT_MS, 8000);
 const DESKTOP_VIEWPORT = { width: 1440, height: 920 };
 const MOBILE_VIEWPORT = { width: 390, height: 844 };
 const tileCache = createBrowserTileCache();
+let presentationCompatibility = null;
+const createLocalSmokeServer = options => presentationCompatibility
+  ? presentationCompatibility.createServer(options) : createNativeSmokeServer(options);
 
 async function launchCriticalBrowser() {
   return launchProjectBrowser(chromium);
@@ -92,6 +95,7 @@ async function waitForAppReady(page, { requireTiles = true } = {}) {
     throw error;
   }
   await page.locator("#map canvas").waitFor({ state: "visible", timeout: APP_TIMEOUT_MS });
+  await presentationCompatibility?.ready(page);
   console.log("critical-browser-e2e: readiness wait " + page.viewportSize().width +
     " (tiles=" + requireTiles + ") in " + Math.round(performance.now() - readinessStarted) + " ms");
 }
@@ -4184,6 +4188,13 @@ const selectedFlows = focusedFlows.filter(([flag, run]) => !journeysOnly && (!fo
   (!shardNames || shardNames.includes(run.name)));
 const desktopJourney = !focused && (!shardNames || shardNames.includes("desktop journey"));
 const mobileJourney = !focused && (!shardNames || shardNames.includes("mobile journey"));
+if (process.env.GEORISK_PRESENTATION_COMPATIBILITY) {
+  assert.equal(process.env.GEORISK_PRESENTATION_COMPATIBILITY, '1');
+  assert.ok(!focused && !journeysOnly && !shard && !process.env.GEORISK_E2E_REPORTS_DIR &&
+    !process.env.npm_lifecycle_event && process.argv.length === 2, 'experimental compatibility requires all 27 direct flows');
+  const { createPresentationCompatibility } = await import('../diagnostics/presentation-compatibility.js');
+  presentationCompatibility = await createPresentationCompatibility();
+}
 
 if (process.env.GEORISK_E2E_REPORTS_DIR) {
   assert.ok(!shard && !focused && !journeysOnly, "external full evidence cannot combine with filters or a shard");
@@ -4200,14 +4211,15 @@ if (process.env.GEORISK_E2E_REPORTS_DIR) {
   }
 } else {
 const runReport = await createBrowserRunReport({
-  file: "reports/critical-browser-e2e.json",
+  file: presentationCompatibility ? 'reports/presentation-prototype/compatibility.json' : "reports/critical-browser-e2e.json",
   flows: [...selectedFlows.map(([_flag, run]) => run.name), ...(desktopJourney ? ["desktop journey"] : []), ...(mobileJourney ? ["mobile journey"] : [])],
   scope: shard ? "shard" : focused ? "focused" : journeysOnly ? "journeys" : "full",
   metadata: { platform: process.platform, nodeVersion: process.version,
     ciRunId: process.env.GITHUB_RUN_ID || null, ciRunAttempt: process.env.GITHUB_RUN_ATTEMPT || null,
     ciRevision: process.env.GITHUB_SHA || null, shard,
     releaseStartedAt: process.env.GEORISK_RELEASE_STARTED_AT || null,
-    publicInputHash: shard ? await getPerformanceInputHash(process.cwd()) : null }
+    publicInputHash: shard ? await getPerformanceInputHash(process.cwd()) : null,
+    ...(presentationCompatibility ? { experiment: presentationCompatibility.metadata } : {}) }
 });
 
 let browser;
@@ -4268,6 +4280,7 @@ try {
     });
     console.log("critical-browser-e2e: mobile journey completed in " + Math.round(performance.now() - mobileStarted) + " ms");
   }
+  presentationCompatibility?.verify();
 } catch (error) {
   await runReport.fail(error);
   throw error;
@@ -4287,6 +4300,6 @@ try {
 }
 await runReport.finish();
 
-console.log("critical-browser-e2e.test.js ok");
+console.log(presentationCompatibility ? 'presentation-compatibility: all 27 flows passed (not release approval)' : "critical-browser-e2e.test.js ok");
 }
 }

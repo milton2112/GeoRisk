@@ -36,6 +36,18 @@ no una certificacion ambiental ni una afirmacion de neutralidad de carbono.
 
 ## Evidencia y control
 
+El control completo de compatibilidad del prototipo reutiliza los 27 flujos y un
+solo navegador secuencial. Sirve el motor alternativo solo por HTTP local, con su
+opt-in privado habilitado; el motor publicado no se toca. Hasta 128 lecturas de
+readiness y una espera finita de activacion de 8 s prueban el camino efectivo sin
+monitores nuevos. Build de 30 s, proceso de 20 min y job optativo de 45 min; un JSON
+de 256 KiB y dos capturas existentes de hasta 2 MiB cada una duran siete dias.
+Se invoca manualmente o con cambios relevantes en la rama experimental explicita.
+Cuesta un runner, preparacion y descargas solo al invocarlo; no agrega trabajo,
+dependencias, red ni almacenamiento al producto. Los reportes separados no pueden
+aprobar la release normal. Compatibilidad no acredita mas FPS, energia/CO2 ni
+reemplaza mediciones equivalentes y el gate de integracion.
+
 El control optativo de recuperacion reutiliza el E2E nativo en dos paginas
 secuenciales, con fallos y recargas finitos. Solo SwiftShader 2D agrega fallos con
 frame realmente pendiente para verificar liberacion, un unico reintento y

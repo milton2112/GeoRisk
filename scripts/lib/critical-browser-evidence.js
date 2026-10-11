@@ -23,6 +23,7 @@ export function remainingTestBudget(criticalMs) {
 
 export function assertFullReleaseEnvironment(env = process.env) {
   ensure(!env.GEORISK_E2E_SHARD, "release:check requires the full suite, never a single shard");
+  ensure(!env.GEORISK_PRESENTATION_COMPATIBILITY, "experimental compatibility is not release approval");
 }
 
 export function assertReleaseBudget(startedAt, now = Date.now()) {
@@ -44,6 +45,7 @@ export function validateCriticalShards(reports, expected, now = Date.now()) {
     ensure(report?.schemaVersion === 1 && report.scope === "shard" && report.status === "passed" && !report.error,
       "a partial, failed or non-shard report cannot approve the full suite");
     const metadata = report.metadata;
+    ensure(!metadata?.experiment, "experimental compatibility is not release approval");
     ensure(metadata?.ciRunId === expected.runId && metadata.ciRunAttempt === expected.attempt &&
       metadata.ciRevision === expected.revision && metadata.publicInputHash === expected.inputHash,
       "run, attempt, revision and public sources must match");

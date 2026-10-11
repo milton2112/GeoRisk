@@ -5,6 +5,8 @@ import { pathToFileURL } from 'node:url';
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { patchPresentationScene, patchPresentationWidget } from './presentation-transform.js';
+const enabledByDefault = process.argv[2] === '--compatibility';
+if (process.argv.length !== (enabledByDefault ? 3 : 2)) throw new Error('Only --compatibility is accepted');
 const root = process.cwd();
 const out = path.join(root, 'reports/presentation-prototype');
 await fs.mkdir(out, { recursive: true });
@@ -25,7 +27,7 @@ const result = await build({
       let s = await fs.readFile(file, 'utf8');
       for (const transform of transforms) s = transform(s, file);
       s = s.replace(/\r\n/g, '\n');
-      if (/[/\\]engine[/\\]Source[/\\]Scene[/\\]Scene\.js$/.test(file)) s = patchPresentationScene(s);
+      if (/[/\\]engine[/\\]Source[/\\]Scene[/\\]Scene\.js$/.test(file)) s = patchPresentationScene(s, { enabledByDefault });
       if (/[/\\]engine[/\\]Source[/\\]Widget[/\\]CesiumWidget\.js$/.test(file)) s = patchPresentationWidget(s);
       return { contents: s, loader: 'js' };
     });
@@ -33,7 +35,7 @@ const result = await build({
 });
 const engine = result.outputFiles[0].contents;
 await fs.writeFile(path.join(out, 'engine-prototype.js'), engine);
-const metadata = { prototype: true, head: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(),
+const metadata = { prototype: true, enabledByDefault, head: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(),
   bytes: engine.length, sha256: createHash('sha256').update(engine).digest('hex'),
   extraTarget: 'RGBA8 + depth-stencil, one pixel-sized target; estimated attachment storage 8 bytes/pixel, not measured GPU RAM',
   optIn: 'scene._geoRiskPresentationEnabled; positively identified SwiftShader only, stopped-clock native loop, WebGL2, visible 2D, after first frame',

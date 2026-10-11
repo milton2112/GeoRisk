@@ -1,0 +1,68 @@
+name: Presentation Compatibility
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches:
+      - 'codex/experiment/map-presentation-*'
+    paths:
+      - '.github/workflows/presentation-compatibility.yml'
+      - 'scripts/diagnostics/*Presentation*.js'
+      - 'scripts/diagnostics/presentation-*.js'
+      - 'scripts/tests/critical-browser-e2e.test.js'
+      - 'scripts/tests/presentation-*.test.js'
+  workflow_dispatch:
+
+concurrency:
+  group: presentation-compatibility-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  presentation-compatibility:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Record start
+        run: echo "GEORISK_RELEASE_STARTED_AT=$(date -u +%Y-%m-%dT%H:%M:%S.%3NZ)" >> "$GITHUB_ENV"
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Setup Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install verified secret scanner
+        run: node scripts/setupSecretScanner.js
+      - name: Scan source and full Git history
+        id: security-scan
+        run: node scripts/checkSecurity.js --history
+      - name: Install
+        run: npm ci
+      - name: Audit dependencies
+        run: npm run audit:dependencies
+      - name: Install regular Chromium
+        run: npx playwright install --with-deps --no-shell chromium
+      - name: Validate isolation and source transforms
+        run: node scripts/tests/presentation-prototype.test.js && node scripts/tests/presentation-compatibility.test.js
+      - name: Build verified public baseline
+        run: npm run build:prod
+      - name: All 27 flows with enabled isolated prototype
+        run: node scripts/diagnostics/runPresentationCompatibility.js
+      - name: Upload compatibility evidence only
+        if: always() && steps.security-scan.outcome == 'success'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: geo-risk-presentation-compatibility-${{ github.run_attempt }}
+          path: |
+            reports/presentation-prototype/build.json
+            reports/presentation-prototype/compatibility.json
+            reports/presentation-prototype/compatibility-failure.json
+            tmp/map-labels-desktop.png
+            tmp/map-labels-mobile.png
+          if-no-files-found: error
+          retention-days: 7
