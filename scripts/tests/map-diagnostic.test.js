@@ -1,4 +1,5 @@
 import "./profile-cpu.test.js";
+import "./profile-gpu.test.js";
 import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import { parse } from "yaml";

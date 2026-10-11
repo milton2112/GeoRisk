@@ -6,6 +6,7 @@ import { createLocalSmokeServer } from "./localSmokeServer.js";
 import { launchPerformanceBrowser, PERFORMANCE_PROFILES, performanceEnvironment } from "./lib/browser-performance.js";
 import { getPerformanceInputHash } from "./lib/performance-inputs.js";
 import { NATIVE_TRACE_CATEGORIES, retainProfileTraceEvent, summarizeCpuWindow, summarizeTraceThreads } from "./lib/profile-cpu.js";
+import { collectBrowserGpuInfo } from "./lib/profile-gpu.js";
 
 const root = path.resolve("dist/public");
 await fs.access(path.join(root, "index.html"));
@@ -176,7 +177,7 @@ try {
     diagnosticIdentity = { revision: execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf8" }).trim(),
       ciRunId: process.env.GITHUB_RUN_ID || null, ciRunAttempt: process.env.GITHUB_RUN_ATTEMPT || null,
       publicInputHash: await getPerformanceInputHash(process.cwd()), environment: performanceEnvironment(),
-      toolingWorkingChanges: execFileSync("git", ["status", "--porcelain=v1", "--", "scripts/profileStartup.js", "scripts/lib/profile-cpu.js", "scripts/runMapDiagnostic.js"], { encoding: "utf8" }).trim() };
+      toolingWorkingChanges: execFileSync("git", ["status", "--porcelain=v1", "--", "scripts/profileStartup.js", "scripts/lib/profile-cpu.js", "scripts/lib/profile-gpu.js", "scripts/runMapDiagnostic.js"], { encoding: "utf8" }).trim() };
     await fs.mkdir("reports", { recursive: true });
     const rawCpu = JSON.stringify({ scope: "diagnostic-cpu", status: "sampled", metadata: diagnosticIdentity,
       browserVersion: browser.version(), profile, readyTimestampUs: readyTimestamp, cpu });
@@ -229,6 +230,7 @@ try {
     const canvas = viewer.scene.canvas;
     return (canvas.getContext("webgl2") || canvas.getContext("webgl"))?.getContextAttributes()?.antialias ?? null;
   });
+  const browserGpu = bounded ? await collectBrowserGpuInfo(browser) : null;
   const gpu = bounded ? await page.evaluate(() => {
     const gl = viewer.scene.context._gl;
     const extension = gl.getExtension("WEBGL_debug_renderer_info");
@@ -240,11 +242,11 @@ try {
   const report = { generatedAt: new Date().toISOString(), browserVersion: browser.version(), profile, runtime, baselineStyleRef, engineOverride, moduleEvaluations, layout, domDetails, webglDetails, activeMap, activeRender, nativeAaOverride: nativeAa, contextAntialias, observeAfterReadyMs: observeMs, cpuSampling: sampleCpu, methodology: `Diagnostic trace${sampleCpu ? " and CPU sampling" : " without CPU sampling"}; timings include instrumentation overhead, not the release benchmark. afterReadyMs is relative to the map-ready mark. Overrides replace only their selected resource or the explicitly requested native canvas AA setting. DOM/WebGL details add observation and wrappers only when requested; active-map repeats the release camera movement for up to six seconds.`, work, functions };
   await fs.mkdir("reports", { recursive: true });
   if (bounded) Object.assign(report, { scope: "diagnostic", status: "measured", metadata: diagnosticIdentity,
-    functionsByPhase, gpu, nativeThreads: summarizeTraceThreads(events, readyTimestamp, cpu.endTime),
+    functionsByPhase, gpu, browserGpu, nativeThreads: summarizeTraceThreads(events, readyTimestamp, cpu.endTime),
     bounds: { launcherTimeoutMs: 90000, traceEvents: events.length, traceBytes,
       maxTraceEvents: 50000, maxTraceBytes: 20 * 1024 ** 2, traceEnvelopeReserveBytes,
       samplingIntervalUs: 4000, maxCpuNodes: 4096, maxCpuSamples: 16000,
-      maxCpuBytes: 4 * 1024 ** 2 }, limitations: "Instrumented diagnostic, never release approval. CPU samples include driver waiting and are statistical. GPU identity/readback is collected after profiling stops; separate before/after-ready windows use the original monotonic timestamps. Selected native trace events preserve pid/tid, categories, timestamps, arguments and original order in map-diagnostic-trace.json. Inclusive native spans and cross-thread overlap do not prove causality or CPU/GPU utilization. No Linux/Windows, physical-phone, energy or causal FPS equivalence." });
+      maxCpuBytes: 4 * 1024 ** 2, maxGpuDevices: 8, maxGpuFeatures: 64, maxGpuStringCharacters: 512 }, limitations: "Instrumented diagnostic, never release approval. CPU samples include driver waiting and are statistical. GPU identity/readback and browser SystemInfo feature status are collected after profiling stops; separate before/after-ready windows use the original monotonic timestamps. Browser-wide feature status does not capture a C++ stack or prove the cost of an individual operation. Unavailable SystemInfo leaves compositor status unknown. Selected native trace events preserve pid/tid, categories, timestamps, arguments and original order in map-diagnostic-trace.json. Inclusive native spans and cross-thread overlap do not prove causality or CPU/GPU utilization. No Linux/Windows, physical-phone, energy or causal FPS equivalence." });
   await fs.writeFile("reports/startup-profile.json", JSON.stringify(report, null, 2) + "\n");
   console.log("Diagnostico: reports/startup-profile.json");
   console.log(JSON.stringify({ profile: profile.name, runtime, baselineStyleRef, layout, work: work.slice(0, 10), functions: functions.slice(0, 10) }, null, 2));

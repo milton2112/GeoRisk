@@ -36,6 +36,15 @@ no una certificacion ambiental ni una afirmacion de neutralidad de carbono.
 
 ## Evidencia y control
 
+El diagnostico acotado consulta una vez SystemInfo.getInfo del navegador despues
+de detener CPU/traza, para distinguir el compositor del renderer WebGL. Conserva
+estados exactos y hasta ocho dispositivos, 64 features y 512 caracteres por string;
+si faltan estados, el compositor sigue desconocido. Excluye la linea de comandos
+y atributos auxiliares libres. Cuesta una consulta CDP y metadatos acotados dentro
+del mismo proceso de 90 s; libera la sesion y no agrega dependencias, polling o
+actividad al producto. Estado global del navegador no acredita una pila C++, costo
+individual, mejora de FPS, energia o CO2.
+
 El diagnostico Linux del mapa reutiliza el perfilador y Chromium ya previstos en
 el proyecto, solo desde una rama codex/diagnose-map/ o una invocacion manual.
 Una muestra mobile con ocho segundos solicitados tras arranque usa un proceso propio limitado
