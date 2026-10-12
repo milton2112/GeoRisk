@@ -42,9 +42,14 @@ jobs:
       - name: Validate experimental scope and bounds
         run: node scripts/tests/presentation-prototype.test.js
       - name: Build public baseline
+        id: public-build
         run: npm run build:prod
       - name: Bounded real recovery
         run: node scripts/diagnostics/runPresentationRecovery.js
+      - name: Bounded A/B/A responsiveness diagnostic
+        id: presentation-measurement
+        if: always() && steps.security-scan.outcome == 'success' && steps.public-build.outcome == 'success'
+        run: node scripts/diagnostics/runPresentationPrototype.js
       - name: Upload proof only
         if: always() && steps.security-scan.outcome == 'success'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
@@ -56,4 +61,16 @@ jobs:
             reports/presentation-prototype/recovery-failure.json
             reports/presentation-prototype/recovery.png
           if-no-files-found: error
+          retention-days: 7
+      - name: Upload bounded performance proof only
+        if: always() && steps.security-scan.outcome == 'success'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: geo-risk-presentation-abba-${{ github.run_attempt }}
+          path: |
+            reports/presentation-prototype/control-ci-1.json
+            reports/presentation-prototype/trace-ci-1.json
+            reports/presentation-prototype/ci-1-*.rgba
+            reports/presentation-prototype/failure.json
+          if-no-files-found: warn
           retention-days: 7
