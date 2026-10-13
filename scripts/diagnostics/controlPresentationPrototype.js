@@ -276,15 +276,34 @@ try {
       performance.mark('georisk-prototype-window-' + index + '-prepare-end');
       return { elapsed: performance.now() - start, callbacks: 2 };
     }, result.windows.length);
-    const measured = await page.evaluate(({ enabled, index }) => new Promise(resolve => {
+    const measuredPromise = page.evaluate(({ enabled, index }) => new Promise(resolve => {
       const widget = viewer.cesiumWidget, scene = viewer.scene;
       // Same start and time-based path for A/B/A; faster callbacks must not move farther.
       scene._geoRiskPresentationEnabled = enabled;
-      const frameTimes = [], rafTimes = [], tasks = [];
+      const frameTimes = [], rafTimes = [], tasks = [], trustedInputs = [], eventTimings = [];
+      const eventTimingSupported = PerformanceObserver.supportedEntryTypes?.includes('event') === true;
+      const start = performance.now();
+      const captureInput = event => {
+        if (event.target?.id === 'toggle-tools-panel' && trustedInputs.length < 16) {
+          trustedInputs.push({ type: event.type, trusted: event.isTrusted, at: event.timeStamp });
+        }
+      };
+      for (const type of ['pointerdown', 'pointerup', 'click']) document.addEventListener(type, captureInput, true);
+      const eventObserver = eventTimingSupported ? new PerformanceObserver(list => {
+        for (const entry of list.getEntries()) {
+          if (entry.startTime >= start && entry.startTime < start + 6000 &&
+              entry.target?.id === 'toggle-tools-panel' && eventTimings.length < 16) {
+            eventTimings.push({ name: entry.name, startTime: entry.startTime, duration: entry.duration,
+              processingStart: entry.processingStart, processingEnd: entry.processingEnd,
+              interactionId: entry.interactionId || 0 });
+          }
+        }
+      }) : null;
+      eventObserver?.observe({ type: 'event', buffered: true, durationThreshold: 16 });
       const observer = new PerformanceObserver(list => { for (const e of list.getEntries()) if (tasks.length < 200) tasks.push({ at: e.startTime, duration: e.duration }); });
       observer.observe({ type: 'longtask' });
-      const start = performance.now();
       let previousElapsed = 0;
+      window.__geoRiskMeasuredWindow = { index, active: true };
       performance.mark('georisk-prototype-window-' + index + '-start');
       const before = { ...scene._geoRiskPresentationStats };
       const remove = scene.postRender.addEventListener(() => { if (frameTimes.length < 1000) frameTimes.push(performance.now() - start); });
@@ -294,11 +313,27 @@ try {
         if (elapsed >= 6000) {
           performance.mark('georisk-prototype-window-' + index + '-end');
           remove(); observer.disconnect();
+          if (eventObserver) {
+            const remaining = eventObserver.takeRecords();
+            for (const entry of remaining) {
+              if (entry.startTime >= start && entry.startTime < start + 6000 &&
+                  entry.target?.id === 'toggle-tools-panel' && eventTimings.length < 16) {
+                eventTimings.push({ name: entry.name, startTime: entry.startTime, duration: entry.duration,
+                  processingStart: entry.processingStart, processingEnd: entry.processingEnd,
+                  interactionId: entry.interactionId || 0 });
+              }
+            }
+            eventObserver.disconnect();
+          }
+          for (const type of ['pointerdown', 'pointerup', 'click']) document.removeEventListener(type, captureInput, true);
+          window.__geoRiskMeasuredWindow = { index, active: false };
           const teardownStart = performance.now();
           widget.useDefaultRenderLoop = false;
           const teardownMs = performance.now() - teardownStart;
           performance.mark('georisk-prototype-window-' + index + '-cleanup-end');
-          resolve({ enabled, elapsed, teardownMs, frameTimes, rafTimes, tasks, before, after: { ...scene._geoRiskPresentationStats },
+          resolve({ enabled, elapsed, teardownMs, frameTimes, rafTimes, tasks,
+            userInput: { target: 'toggle-tools-panel', actions: 2, eventTimingSupported, eventTimingThresholdMs: 16,
+              trustedInputs, eventTimings }, before, after: { ...scene._geoRiskPresentationStats },
             presentationSupported: scene._geoRiskPresentationCapability?.supported === true,
             resourcesReleased: { pending: !scene._geoRiskPendingPresentation, target: !scene._geoRiskPresentationBuffer,
               copy: !scene._geoRiskPresentationCopy, state: !scene._geoRiskPresentationState },
@@ -313,10 +348,27 @@ try {
       };
       requestAnimationFrame(move);
     }), { enabled, index: result.windows.length });
+    await page.waitForFunction(index => window.__geoRiskMeasuredWindow?.index === index && window.__geoRiskMeasuredWindow.active,
+      result.windows.length, { timeout: 3000 });
+    const fatalBanner = page.locator('#fatal-error-banner');
+    if (await fatalBanner.isVisible()) {
+      result.fatalError = (await fatalBanner.innerText()).slice(0, 1000);
+      await measuredPromise.catch(() => undefined);
+      await save();
+      throw new Error('Application fatal banner appeared during the measured window: ' + result.fatalError);
+    }
+    await page.locator('#toggle-tools-panel').tap();
+    await page.waitForTimeout(300);
+    await page.locator('#toggle-tools-panel').tap();
+    const measured = await measuredPromise;
     measured.preparation = preparation;
+    assert.equal(measured.userInput.trustedInputs.length, 6, 'two real mobile taps must emit trusted pointer and click events');
+    assert.ok(measured.userInput.trustedInputs.every(event => event.trusted));
+    assert.ok(measured.userInput.eventTimings.length <= 16, 'Event Timing evidence must remain bounded');
     result.windows.push(measured); await save();
     console.log('Window: ' + JSON.stringify({ enabled, frames: measured.frameTimes.length, callbacks: measured.rafTimes.length,
-      maxLongTask: Math.max(0, ...measured.tasks.map(t => t.duration)), before: measured.before, after: measured.after }));
+      maxLongTask: Math.max(0, ...measured.tasks.map(t => t.duration)), userInput: measured.userInput,
+      before: measured.before, after: measured.after }));
   }
   await stopTrace();
   assert.equal(traceOverflow, false, 'Selected trace exceeded the existing finite proof cap');
