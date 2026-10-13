@@ -62,6 +62,11 @@ try {
   result.configuration = await page.evaluate(() => {
     const scene = viewer.scene, gl = scene.context._gl, ext = gl.getExtension('WEBGL_debug_renderer_info');
     scene.rethrowRenderErrors = true;
+    const recoveryState = viewer.__geoRiskRenderRecovery?.getState();
+    if (recoveryState?.phase !== 'healthy') throw new Error('Render recovery is not healthy before controlled timing');
+    // This diagnostic intentionally stops/restarts the Cesium loop between windows.
+    // Recovery is covered separately; its watchdog must not mistake test pauses for a product failure.
+    viewer.__geoRiskRenderRecovery.dispose();
     // Equal-size experiment only. Record every ignored adaptive scale request, bounded to 32 values.
     viewer.resolutionScale = 0.44;
     viewer.cesiumWidget.resize();
@@ -73,9 +78,10 @@ try {
     return { renderer: ext && gl.getParameter(ext.UNMASKED_RENDERER_WEBGL), scale: viewer.resolutionScale,
       canvas: [scene.canvas.width, scene.canvas.height], mode: scene.mode, msaa: scene.msaaSamples,
       fxaa: scene.postProcessStages.fxaa.enabled, oit: scene._environmentState.useOIT, webgl2: scene.context.webgl2,
-      presentationSupported: scene._geoRiskPresentationSupported() };
+      presentationSupported: scene._geoRiskPresentationSupported(), renderRecoveryDisposedForDiagnostic: true };
   });
   assert.equal(result.configuration.webgl2, true);
+  assert.equal(result.configuration.renderRecoveryDisposedForDiagnostic, true);
   console.log('Ready: ' + JSON.stringify(result.configuration));
   // One page, alternating A/B/A. Reads happen only after presentation, outside timings.
   for (const variant of ['initial', 'shifted', 'fxaa']) {
@@ -292,7 +298,7 @@ try {
       const eventObserver = eventTimingSupported ? new PerformanceObserver(list => {
         for (const entry of list.getEntries()) {
           if (entry.startTime >= start && entry.startTime < start + 6000 &&
-              entry.target?.id === 'toggle-tools-panel' && eventTimings.length < 16) {
+              entry.name === 'click' && entry.target?.id === 'toggle-tools-panel' && eventTimings.length < 16) {
             eventTimings.push({ name: entry.name, startTime: entry.startTime, duration: entry.duration,
               processingStart: entry.processingStart, processingEnd: entry.processingEnd,
               interactionId: entry.interactionId || 0 });
@@ -317,7 +323,7 @@ try {
             const remaining = eventObserver.takeRecords();
             for (const entry of remaining) {
               if (entry.startTime >= start && entry.startTime < start + 6000 &&
-                  entry.target?.id === 'toggle-tools-panel' && eventTimings.length < 16) {
+                  entry.name === 'click' && entry.target?.id === 'toggle-tools-panel' && eventTimings.length < 16) {
                 eventTimings.push({ name: entry.name, startTime: entry.startTime, duration: entry.duration,
                   processingStart: entry.processingStart, processingEnd: entry.processingEnd,
                   interactionId: entry.interactionId || 0 });
@@ -332,7 +338,8 @@ try {
           const teardownMs = performance.now() - teardownStart;
           performance.mark('georisk-prototype-window-' + index + '-cleanup-end');
           resolve({ enabled, elapsed, teardownMs, frameTimes, rafTimes, tasks,
-            userInput: { target: 'toggle-tools-panel', actions: 2, eventTimingSupported, eventTimingThresholdMs: 16,
+            userInput: { target: 'toggle-tools-panel', actions: 2, eventTimingEvent: 'click',
+              eventTimingSupported, eventTimingThresholdMs: 16,
               trustedInputs, eventTimings }, before, after: { ...scene._geoRiskPresentationStats },
             presentationSupported: scene._geoRiskPresentationCapability?.supported === true,
             resourcesReleased: { pending: !scene._geoRiskPendingPresentation, target: !scene._geoRiskPresentationBuffer,
@@ -364,6 +371,7 @@ try {
     measured.preparation = preparation;
     assert.equal(measured.userInput.trustedInputs.length, 6, 'two real mobile taps must emit trusted pointer and click events');
     assert.ok(measured.userInput.trustedInputs.every(event => event.trusted));
+    assert.ok(measured.userInput.eventTimings.every(event => event.name === 'click'));
     assert.ok(measured.userInput.eventTimings.length <= 16, 'Event Timing evidence must remain bounded');
     result.windows.push(measured); await save();
     console.log('Window: ' + JSON.stringify({ enabled, frames: measured.frameTimes.length, callbacks: measured.rafTimes.length,

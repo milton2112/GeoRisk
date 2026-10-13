@@ -36,6 +36,9 @@ assert.ok(controller.includes("eventObserver?.observe({ type: 'event', buffered:
 assert.ok(controller.includes("page.locator('#toggle-tools-panel').tap()"));
 assert.ok(controller.includes('two real mobile taps must emit trusted pointer and click events'));
 assert.ok(controller.includes('eventTimings.length <= 16'));
+assert.ok(controller.includes("entry.name === 'click' && entry.target?.id === 'toggle-tools-panel'"));
+assert.ok(controller.includes('viewer.__geoRiskRenderRecovery.dispose()'));
+assert.ok(controller.includes('renderRecoveryDisposedForDiagnostic: true'));
 const interactionsRunner = await fs.readFile('scripts/diagnostics/runPresentationInteractions.js', 'utf8');
 assert.ok(interactionsRunner.includes('timeoutMs: 30000'));
 assert.ok(interactionsRunner.includes('timeoutMs: 90000'));
