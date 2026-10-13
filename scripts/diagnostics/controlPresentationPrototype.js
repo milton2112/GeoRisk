@@ -291,7 +291,8 @@ try {
       const start = performance.now();
       const captureInput = event => {
         if (event.target?.id === 'toggle-tools-panel' && trustedInputs.length < 16) {
-          trustedInputs.push({ type: event.type, trusted: event.isTrusted, at: event.timeStamp });
+          trustedInputs.push({ type: event.type, trusted: event.isTrusted, pointerType: event.pointerType || null,
+            at: event.timeStamp });
         }
       };
       for (const type of ['pointerdown', 'pointerup', 'click']) document.addEventListener(type, captureInput, true);
@@ -338,7 +339,8 @@ try {
           const teardownMs = performance.now() - teardownStart;
           performance.mark('georisk-prototype-window-' + index + '-cleanup-end');
           resolve({ enabled, elapsed, teardownMs, frameTimes, rafTimes, tasks,
-            userInput: { target: 'toggle-tools-panel', actions: 2, eventTimingEvent: 'click',
+            userInput: { target: 'toggle-tools-panel', actions: 2,
+              inputMethod: 'Playwright trusted mouse pointer at mobile control center', eventTimingEvent: 'click',
               eventTimingSupported, eventTimingThresholdMs: 16,
               trustedInputs, eventTimings }, before, after: { ...scene._geoRiskPresentationStats },
             presentationSupported: scene._geoRiskPresentationCapability?.supported === true,
@@ -364,13 +366,20 @@ try {
       await save();
       throw new Error('Application fatal banner appeared during the measured window: ' + result.fatalError);
     }
-    await page.locator('#toggle-tools-panel').tap();
+    const toggleBounds = await page.locator('#toggle-tools-panel').boundingBox();
+    assert.ok(toggleBounds, 'mobile control must have a visible hit target');
+    const inputPoint = { x: toggleBounds.x + toggleBounds.width / 2, y: toggleBounds.y + toggleBounds.height / 2 };
+    const inputTarget = await page.evaluate(point => document.elementFromPoint(point.x, point.y)?.closest('#toggle-tools-panel')?.id || null,
+      inputPoint);
+    assert.equal(inputTarget, 'toggle-tools-panel', 'mobile control must not be covered during measurement');
+    await page.mouse.click(inputPoint.x, inputPoint.y);
     await page.waitForTimeout(300);
-    await page.locator('#toggle-tools-panel').tap();
+    await page.mouse.click(inputPoint.x, inputPoint.y);
     const measured = await measuredPromise;
     measured.preparation = preparation;
-    assert.equal(measured.userInput.trustedInputs.length, 6, 'two real mobile taps must emit trusted pointer and click events');
+    assert.equal(measured.userInput.trustedInputs.length, 6, 'two real pointer clicks must emit trusted pointer and click events');
     assert.ok(measured.userInput.trustedInputs.every(event => event.trusted));
+    assert.ok(measured.userInput.trustedInputs.filter(event => event.type.startsWith('pointer')).every(event => event.pointerType === 'mouse'));
     assert.ok(measured.userInput.eventTimings.every(event => event.name === 'click'));
     assert.ok(measured.userInput.eventTimings.length <= 16, 'Event Timing evidence must remain bounded');
     result.windows.push(measured); await save();
