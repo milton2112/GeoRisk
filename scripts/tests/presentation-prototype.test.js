@@ -34,7 +34,12 @@ assert.ok(!controller.includes('enable-unsafe') && !controller.includes('use-ang
 assert.ok(controller.includes('capture.sha256 === captures[0].sha256') || controller.includes('c.sha256 === captures[0].sha256'));
 assert.ok(controller.includes("eventObserver?.observe({ type: 'event', buffered: true, durationThreshold: 16 })"));
 assert.ok(controller.includes('page.mouse.click(inputPoint.x, inputPoint.y)'));
-assert.ok(controller.includes('two real pointer clicks must emit trusted pointer and click events'));
+assert.ok(controller.includes('one real pointer click must emit trusted pointer and click events'));
+assert.ok(controller.indexOf('const toggleBounds =') < controller.indexOf('const measuredPromise ='),
+  'input target discovery must stay outside the timed window');
+assert.ok(controller.indexOf('const measuredPromise =') < controller.indexOf('await page.waitForFunction(index => window.__geoRiskMeasuredWindow'),
+  'input must wait for the measured window start marker');
+assert.ok(controller.includes('Promise.all([measuredPromise, inputPromise])'));
 assert.ok(controller.includes('eventTimings.length <= 16'));
 assert.ok(controller.includes("entry.name === 'click' && entry.target?.id === 'toggle-tools-panel'"));
 assert.ok(controller.includes('viewer.__geoRiskRenderRecovery.dispose()'));

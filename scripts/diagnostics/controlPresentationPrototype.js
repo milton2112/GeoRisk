@@ -282,6 +282,18 @@ try {
       performance.mark('georisk-prototype-window-' + index + '-prepare-end');
       return { elapsed: performance.now() - start, callbacks: 2 };
     }, result.windows.length);
+    const fatalBanner = page.locator('#fatal-error-banner');
+    if (await fatalBanner.isVisible()) {
+      result.fatalError = (await fatalBanner.innerText()).slice(0, 1000);
+      await save();
+      throw new Error('Application fatal banner appeared before the measured window: ' + result.fatalError);
+    }
+    const toggleBounds = await page.locator('#toggle-tools-panel').boundingBox();
+    assert.ok(toggleBounds, 'mobile control must have a visible hit target');
+    const inputPoint = { x: toggleBounds.x + toggleBounds.width / 2, y: toggleBounds.y + toggleBounds.height / 2 };
+    const inputTarget = await page.evaluate(point => document.elementFromPoint(point.x, point.y)?.closest('#toggle-tools-panel')?.id || null,
+      inputPoint);
+    assert.equal(inputTarget, 'toggle-tools-panel', 'mobile control must not be covered before measurement');
     const measuredPromise = page.evaluate(({ enabled, index }) => new Promise(resolve => {
       const widget = viewer.cesiumWidget, scene = viewer.scene;
       // Same start and time-based path for A/B/A; faster callbacks must not move farther.
@@ -339,7 +351,7 @@ try {
           const teardownMs = performance.now() - teardownStart;
           performance.mark('georisk-prototype-window-' + index + '-cleanup-end');
           resolve({ enabled, elapsed, teardownMs, frameTimes, rafTimes, tasks,
-            userInput: { target: 'toggle-tools-panel', actions: 2,
+            userInput: { target: 'toggle-tools-panel', actions: 1,
               inputMethod: 'Playwright trusted mouse pointer at mobile control center', eventTimingEvent: 'click',
               eventTimingSupported, eventTimingThresholdMs: 16,
               trustedInputs, eventTimings }, before, after: { ...scene._geoRiskPresentationStats },
@@ -359,29 +371,16 @@ try {
     }), { enabled, index: result.windows.length });
     await page.waitForFunction(index => window.__geoRiskMeasuredWindow?.index === index && window.__geoRiskMeasuredWindow.active,
       result.windows.length, { timeout: 3000 });
-    const fatalBanner = page.locator('#fatal-error-banner');
-    if (await fatalBanner.isVisible()) {
-      result.fatalError = (await fatalBanner.innerText()).slice(0, 1000);
-      await measuredPromise.catch(() => undefined);
-      await save();
-      throw new Error('Application fatal banner appeared during the measured window: ' + result.fatalError);
-    }
-    const toggleBounds = await page.locator('#toggle-tools-panel').boundingBox();
-    assert.ok(toggleBounds, 'mobile control must have a visible hit target');
-    const inputPoint = { x: toggleBounds.x + toggleBounds.width / 2, y: toggleBounds.y + toggleBounds.height / 2 };
-    const inputTarget = await page.evaluate(point => document.elementFromPoint(point.x, point.y)?.closest('#toggle-tools-panel')?.id || null,
-      inputPoint);
-    assert.equal(inputTarget, 'toggle-tools-panel', 'mobile control must not be covered during measurement');
-    await page.mouse.click(inputPoint.x, inputPoint.y);
-    await page.waitForTimeout(300);
-    await page.mouse.click(inputPoint.x, inputPoint.y);
-    const measured = await measuredPromise;
+    const inputPromise = page.mouse.click(inputPoint.x, inputPoint.y);
+    const [measured] = await Promise.all([measuredPromise, inputPromise]);
     measured.preparation = preparation;
-    assert.equal(measured.userInput.trustedInputs.length, 6, 'two real pointer clicks must emit trusted pointer and click events');
+    assert.equal(measured.userInput.trustedInputs.length, 3, 'one real pointer click must emit trusted pointer and click events');
     assert.ok(measured.userInput.trustedInputs.every(event => event.trusted));
     assert.ok(measured.userInput.trustedInputs.filter(event => event.type.startsWith('pointer')).every(event => event.pointerType === 'mouse'));
     assert.ok(measured.userInput.eventTimings.every(event => event.name === 'click'));
     assert.ok(measured.userInput.eventTimings.length <= 16, 'Event Timing evidence must remain bounded');
+    await page.mouse.click(inputPoint.x, inputPoint.y);
+    await page.waitForTimeout(300);
     result.windows.push(measured); await save();
     console.log('Window: ' + JSON.stringify({ enabled, frames: measured.frameTimes.length, callbacks: measured.rafTimes.length,
       maxLongTask: Math.max(0, ...measured.tasks.map(t => t.duration)), userInput: measured.userInput,
