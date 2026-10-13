@@ -157,9 +157,11 @@ export function patchPresentationWidget(s) {
     scene._geoRiskCancelPresentation();
     return;
   }
+  // Cesium applies queued camera input inside render, so active contact must use the native loop.
+  const pointerActive = typeof autoRotation !== 'undefined' && autoRotation.hasActivePointers();
   const eligible = !!scene._geoRiskPresentationEnabled &&
     !widget._clock.shouldAnimate && scene.mode === SceneMode.SCENE2D && !document.hidden &&
-    !!scene._lastRenderTime && scene._geoRiskPresentationSupported();
+    !pointerActive && !!scene._lastRenderTime && scene._geoRiskPresentationSupported();
   if (!eligible && scene._geoRiskPresentationBuffer) scene._geoRiskStopPresentation();
   if (scene._geoRiskPendingPresentation) {
     if (widget._forceResize || widget._clock.shouldAnimate ||

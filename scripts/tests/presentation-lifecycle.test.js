@@ -184,14 +184,17 @@ for (const failure of ['lost', 'replaced', 'poll', 'copy', 'delete']) {
 // Actual transformed widget loop, setter and native error callback.
 function loopHarness() {
   const t = harness(), frames = [];
+  let activePointers = false;
   const widget = { _scene: t.scene, _clock: { shouldAnimate: false }, _forceResize: false,
     _canvas: { clientWidth: 390, clientHeight: 844 }, _canvasClientWidth: 390, _canvasClientHeight: 844,
     _lastDevicePixelRatio: 1, _useDefaultRenderLoop: true, isDestroyed: () => false,
     resize() {}, render() { t.stage(); } };
-  const scope = { ...t.scope, window: { devicePixelRatio: 1 }, document: { hidden: false }, SceneMode: { SCENE2D: 2 },
+  const scope = { ...t.scope, autoRotation: { hasActivePointers: () => activePointers },
+    window: { devicePixelRatio: 1 }, document: { hidden: false }, SceneMode: { SCENE2D: 2 },
     requestAnimationFrame: fn => frames.push(fn), resolutionResizeReady: () => true, releaseResolutionResizeFence() {} };
   vm.runInNewContext(section(widgetPatched, 'function prototypeLoopFrame(', '\nfunction configurePixelRatio'), scope);
-  return { ...t, widget, frames, scope, step() { frames.shift()(100); } };
+  return { ...t, widget, frames, scope, setActivePointers(value) { activePointers = value; },
+    step() { frames.shift()(100); } };
 }
 for (const renderer of ['ANGLE (Intel, D3D11)', 'ANGLE (NVIDIA, Vulkan)', 'AMD Radeon', 'llvmpipe',
   'SwiftShaderX', '', null, 'SwiftShader'.repeat(52)]) {
@@ -201,7 +204,7 @@ for (const renderer of ['ANGLE (Intel, D3D11)', 'ANGLE (NVIDIA, Vulkan)', 'AMD R
   assert.equal(t.gl.identityQueries, 1, 'cache a negative result without retaining the string');
   assert.equal(t.scene._geoRiskPresentationBuffer, undefined, 'native hardware fallback allocates no target');
 }
-for (const unavailable of ['extension', 'exception', 'webgl1', 'disabled', 'lost', 'first-frame', 'hidden', 'mode', 'animation']) {
+for (const unavailable of ['extension', 'exception', 'webgl1', 'disabled', 'lost', 'first-frame', 'hidden', 'mode', 'animation', 'pointer']) {
   const t = loopHarness();
   if (unavailable === 'extension') t.gl.getExtension = () => null;
   if (unavailable === 'exception') t.gl.getParameter = () => { throw new Error('privacy blocked'); };
@@ -212,6 +215,7 @@ for (const unavailable of ['extension', 'exception', 'webgl1', 'disabled', 'lost
   if (unavailable === 'hidden') t.scope.document.hidden = true;
   if (unavailable === 'mode') t.scene.mode = 3;
   if (unavailable === 'animation') t.widget._clock.shouldAnimate = true;
+  if (unavailable === 'pointer') t.setActivePointers(true);
   t.widget.render = () => { assert.equal(t.scene._geoRiskSubmitPresentation, false, unavailable); };
   t.scope.prototypeLoopFrame(t.widget, 100);
   assert.equal(t.scene._geoRiskPresentationBuffer, undefined);
@@ -245,19 +249,38 @@ for (const resize of ['forced', 'width', 'height', 'dpr']) {
   assert.equal(t.calls.post, 1); assert.equal(t.calls.deleted, 1);
   assert.equal(t.calls.polled, 0, 'finish the old size before changing canvas or pixel ratio');
 }
-for (const invalidation of ['disabled', 'hidden', 'animation', 'mode', 'webgl1']) {
+for (const invalidation of ['disabled', 'hidden', 'animation', 'mode', 'webgl1', 'pointer']) {
   const t = loopHarness(); t.stage();
   if (invalidation === 'disabled') t.scene._geoRiskPresentationEnabled = false;
   if (invalidation === 'hidden') t.scope.document.hidden = true;
   if (invalidation === 'animation') t.widget._clock.shouldAnimate = true;
   if (invalidation === 'mode') t.scene.mode = 3;
   if (invalidation === 'webgl1') t.context.webgl2 = false;
+  if (invalidation === 'pointer') t.setActivePointers(true);
   let rendered = 0;
   t.widget.render = () => { rendered++; assert.equal(t.scene._geoRiskSubmitPresentation, false); };
   t.scope.prototypeLoopFrame(t.widget, 100);
   assert.equal(t.scene._geoRiskPresentationBuffer, undefined, invalidation);
   assert.equal(t.calls.post, invalidation === 'hidden' ? 0 : 1); assert.equal(t.calls.destroyed, 1);
   assert.equal(rendered, invalidation === 'hidden' ? 0 : 1, 'hidden opt-in page does not issue native work either');
+}
+{
+  const t = loopHarness(); t.stage();
+  const submissions = [];
+  t.widget.render = () => {
+    submissions.push(t.scene._geoRiskSubmitPresentation);
+    if (t.scene._geoRiskSubmitPresentation) t.stage();
+  };
+  t.setActivePointers(true);
+  t.scope.prototypeLoopFrame(t.widget, 100);
+  assert.deepEqual(submissions, [false], 'active map contact uses a native scene update');
+  assert.equal(t.scene._geoRiskPendingPresentation, undefined);
+  assert.equal(t.scene._geoRiskPresentationBuffer, undefined, 'release the staged target while contact remains active');
+  t.setActivePointers(false);
+  t.scope.prototypeLoopFrame(t.widget, 200);
+  assert.deepEqual(submissions, [false, true], 'resume deferred frames after contact ends');
+  assert.ok(t.scene._geoRiskPendingPresentation);
+  t.scene._geoRiskCancelPresentation();
 }
 for (const stop of ['setter', 'error', 'native-error', 'direct-stop']) {
   const t = loopHarness(); t.stage();
