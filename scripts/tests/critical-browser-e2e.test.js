@@ -2287,11 +2287,22 @@ async function testDeferredWorkDuringDrag(browser, baseUrl) {
         await page.waitForTimeout(250);
         assert.equal(await page.evaluate(() => window.__quietTaskRuns.length), 1);
         await page.waitForFunction(() => navigationQualityRestoreTimer === null);
-        assert.deepEqual(await page.evaluate(() => ({
+        const afterDrag = await page.evaluate(() => ({
           maximumScreenSpaceError: viewer.scene.globe.maximumScreenSpaceError,
           tileCacheSize: viewer.scene.globe.tileCacheSize,
-          loadingDescendantLimit: viewer.scene.globe.loadingDescendantLimit
-        })), adaptiveQuality, label + " arrastre real conserva las reducciones adaptativas");
+          loadingDescendantLimit: viewer.scene.globe.loadingDescendantLimit,
+          reducedPerformanceMode,
+          reducedPerformanceReason
+        }));
+        assert.ok(afterDrag.maximumScreenSpaceError >= adaptiveQuality.maximumScreenSpaceError,
+          label + " arrastre no restaura detalle por encima del perfil adaptativo");
+        assert.ok(afterDrag.tileCacheSize <= adaptiveQuality.tileCacheSize,
+          label + " arrastre conserva el limite adaptativo de cache o lo reduce mas");
+        assert.ok(afterDrag.loadingDescendantLimit <= adaptiveQuality.loadingDescendantLimit,
+          label + " arrastre conserva el limite adaptativo de carga o lo reduce mas");
+        assert.equal(afterDrag.reducedPerformanceMode, true, label + " mantiene el modo adaptativo");
+        assert.ok(typeof afterDrag.reducedPerformanceReason === "string" && afterDrag.reducedPerformanceReason.length > 0,
+          label + " mantiene un motivo explicito para el modo adaptativo");
       }
       const toolbarToggle = page.locator(viewport.width <= 820 ? "#toggle-tools-panel" : "#map-toolbar > summary");
       await toolbarToggle.click();
