@@ -21,12 +21,12 @@ function harness(type) {
     set textContent(value) { population = value; writes += 1; }
   };
   const state = {
-    document: { getElementById: id => ({ "country-modal": modal, "rankings-panel": ranks, "world-population-total": total })[id] },
+    document: { visibilityState: "visible", getElementById: id => ({ "country-modal": modal, "rankings-panel": ranks, "world-population-total": total })[id] },
     setTimeout(callback) { timers.push(callback); return timers.length; },
     currentPanelState: { type, code: "ARG", continent: "America", countries: [], religionName: "Islam", title: "Grupo" },
     countriesData: { ARG: { name: "Argentina" }, ESP: { name: "Espana" } },
     t: key => key,
-    worldPopulationTotal: 123456,
+    worldPopulationTotal: 123456, currentLanguage: "es", advancedRankingsReady: false,
     formatNumber: value => value.toLocaleString("es-AR")
   };
   for (const name of ["renderCountry", "renderContinent", "renderReligionSelection", "renderGroupSelection", "renderEmpty"]) {
@@ -36,6 +36,7 @@ function harness(type) {
   vm.runInContext(block("let rerenderCurrentPanelFrame = null;", "function loadSavedPreferences"), state);
   vm.runInContext(block("function runCriticalGlobalStats", "function runDeferredGlobalStatsBatch"), state);
   vm.runInContext(block("function generateWorldPopulation", "function generateTopPopulation"), state);
+  vm.runInContext(block("async function generateAdvancedRankings", "function addCountryToCompare"), state);
   return { state, modal, ranks, renders, total, writes: () => writes, flush: () => { while (timers.length) timers.shift()(); }, timers };
 }
 
@@ -89,5 +90,51 @@ for (const type of ["country", "continent", "religion", "group", "empty"]) {
   assert.equal(test.total.textContent, "654.321", "reabrir muestra el total vigente");
 }
 
+for (const action of ["closed", "hidden", "failed", "close-pending", "hide-pending", "current"]) {
+  const test = harness("country");
+  let requests = 0;
+  let renders = 0;
+  let release;
+  test.state.ensureDeferredUiModule = () => { requests++; return new Promise(done => { release = done; }); };
+  test.state.renderAdvancedRanking = () => { renders++; };
+  test.ranks.open = action !== "closed";
+  if (action === "hidden") test.state.document.visibilityState = "hidden";
+  const pending = test.state.generateAdvancedRankings();
+  if (action === "close-pending") test.ranks.open = false;
+  if (action === "hide-pending") test.state.document.visibilityState = "hidden";
+  release?.(action !== "failed");
+  await pending;
+  assert.equal(requests, ["closed", "hidden"].includes(action) ? 0 : 1,
+    action + ": no optional ranking load while inactive");
+  assert.equal(renders, action === "current" ? 6 : 0, action + ": no late/failed ranking calculations or DOM writes");
+  assert.equal(test.state.advancedRankingsReady, action === "current", "only completed visible rankings are ready");
+  if (action !== "current") {
+    test.ranks.open = true;
+    test.state.document.visibilityState = "visible";
+    test.state.ensureDeferredUiModule = async () => true;
+    await test.state.generateAdvancedRankings();
+    assert.equal(renders, 6, action + ": explicit recovery renders all advanced rankings");
+    assert.equal(test.state.advancedRankingsReady, true);
+  }
+}
+
 assert.match(block("function setupRankingsPanel", "function setupRankingGroups"), /runCriticalGlobalStats/);
+assert.match(block("function setupRankingsPanel", "function setupRankingGroups"), /else if \(!advancedRankingsReady\) generateAdvancedRankings\(\)/);
+for (const mobile of [true, false]) {
+  const toolbar = { open: true };
+  const rankings = { open: true };
+  const removed = [];
+  let syncs = 0;
+  const context = vm.createContext({
+    document: { body: { classList: { remove: (...names) => removed.push(...names) } },
+      getElementById: id => ({ "map-toolbar": toolbar, "rankings-panel": rankings })[id] },
+    isMobileLayout: () => mobile, closeMobileMoreMenu() {}, syncMobilePanelControlState() { syncs++; }
+  });
+  vm.runInContext(block("function closeMobilePanels", "function openMobilePanel"), context);
+  context.closeMobilePanels();
+  assert.equal(rankings.open, !mobile, "mobile close must close native rankings, not just hide its CSS shell");
+  assert.equal(toolbar.open, !mobile);
+  assert.ok(removed.includes("mobile-left-open"));
+  assert.equal(syncs, 1);
+}
 console.log("background-panels.test.js ok");

@@ -1,14 +1,21 @@
 import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import { chromium } from "@playwright/test";
-import { launchProjectBrowser } from "../lib/browser-launch.js";
+import { getBrowserSelection, launchProjectBrowser } from "../lib/browser-launch.js";
 import { createLocalSmokeServer } from "../localSmokeServer.js";
 import { captureLiveElement, captureTransientNotice } from "../lib/browser-screenshot.js";
+import { createBrowserTileCache } from "../lib/browser-tile-cache.js";
+import { createBrowserRunReport } from "../lib/browser-run-report.js";
+import { CRITICAL_BROWSER_FLOWS, criticalShardFlows, parseCriticalShard } from "../lib/critical-browser-plan.js";
+import { externalCriticalEvidence, writeCriticalEvidence } from "../lib/critical-browser-evidence.js";
+import { getPerformanceInputHash } from "../lib/performance-inputs.js";
+import { installCountryRendererObserver } from "../lib/browser-country-renderer.js";
 
 const APP_TIMEOUT_MS = Number(process.env.GEORISK_E2E_TIMEOUT_MS || 45000);
 const MAP_PICK_TIMEOUT_MS = Math.min(APP_TIMEOUT_MS, 8000);
 const DESKTOP_VIEWPORT = { width: 1440, height: 920 };
 const MOBILE_VIEWPORT = { width: 390, height: 844 };
+const tileCache = createBrowserTileCache();
 
 async function launchCriticalBrowser() {
   return launchProjectBrowser(chromium);
@@ -27,6 +34,7 @@ async function createTestPage(browser, baseUrl, viewport, beforeNavigate = async
     hasTouch: isMobile,
     serviceWorkers: "block"
   });
+  await tileCache.attach(context);
   const page = await context.newPage();
   const pageErrors = [];
   page.on("pageerror", error => pageErrors.push(error.message));
@@ -38,17 +46,22 @@ async function createTestPage(browser, baseUrl, viewport, beforeNavigate = async
     });
   });
   await beforeNavigate(page);
+  const navigationStarted = performance.now();
   await page.goto(baseUrl + "/index.html?critical-e2e=1", {
     waitUntil: "domcontentloaded",
     timeout: APP_TIMEOUT_MS
   });
+  console.log("critical-browser-e2e: navigation " + viewport.width + " in " +
+    Math.round(performance.now() - navigationStarted) + " ms");
   return { context, page, pageErrors };
 }
 
 async function waitForAppReady(page, { requireTiles = true } = {}) {
+  const readinessStarted = performance.now();
   try {
     await page.waitForFunction(needsTiles => {
       const fatal = document.getElementById("fatal-error-banner");
+      if (fatal?.hidden === false) throw new Error(fatal.textContent || "GeoRisk startup failed.");
       return (
         typeof viewer !== "undefined" &&
         Boolean(viewer) &&
@@ -67,6 +80,9 @@ async function waitForAppReady(page, { requireTiles = true } = {}) {
     console.error("App readiness failed:", await page.evaluate(() => ({
       fatal: document.getElementById("fatal-error-banner")?.textContent,
       engine: window.GeoRiskMapEngine?.getState(), csp: window.__geoRiskCspViolations,
+      renderer: window.__countryRendererProbe || null,
+      bootErrors: typeof bootMetrics !== "undefined" ? bootMetrics.errors : null,
+      degradations: typeof mapDegradationLog !== "undefined" ? mapDegradationLog.list() : null,
       boot: typeof bootMetrics !== "undefined" ? bootMetrics.steps : null,
       countryIndex: typeof deferredDataStatus !== "undefined" ? deferredDataStatus.countryIndex : null,
       countries: typeof countriesData !== "undefined" ? Object.keys(countriesData).length : null,
@@ -75,6 +91,8 @@ async function waitForAppReady(page, { requireTiles = true } = {}) {
     throw error;
   }
   await page.locator("#map canvas").waitFor({ state: "visible", timeout: APP_TIMEOUT_MS });
+  console.log("critical-browser-e2e: readiness wait " + page.viewportSize().width +
+    " (tiles=" + requireTiles + ") in " + Math.round(performance.now() - readinessStarted) + " ms");
 }
 
 async function waitForMapMode(page, expectedMode) {
@@ -100,31 +118,36 @@ async function setMapMode(page, expectedMode) {
   await waitForMapMode(page, expectedMode);
 }
 
+async function focusCountryInstantly(page, code) {
+  const completions = await page.evaluate(countryCode => {
+    let completed = 0;
+    focusRectangle(countryLayers.get(countryCode)?.getBounds(), {
+      instant: true, onComplete: () => completed++
+    });
+    return completed;
+  }, code);
+  // Cesium's duration-zero flight completes synchronously; moveEnd is a later frame event.
+  assert.equal(completions, 1, code + ": el enfoque instantaneo debe completar una vez");
+}
+
 async function getCountryScreenPoint(page, code, attempts = 20) {
   for (let attempt = 0; attempt < attempts; attempt += 1) {
     const point = await page.evaluate(countryCode => {
       const layer = countryLayers.get(countryCode);
-      const rectangle = layer?.computeRectangle?.();
+      const rectangle = layer?.getBounds?.();
       if (!layer || !rectangle || !viewer || !window.Cesium) {
         return null;
       }
       const center = Cesium.Rectangle.center(rectangle);
       const cartesian = Cesium.Cartesian3.fromRadians(center.longitude, center.latitude);
+      if (viewer.scene.mode === Cesium.SceneMode.SCENE3D && viewer.scene.globe.show &&
+          !isMapLabelVisible(cartesian, Infinity)) {
+        return null;
+      }
       const rawPoint = viewer.scene.cartesianToCanvasCoordinates(cartesian);
       const canvas = viewer.scene.canvas;
       const bounds = canvas.getBoundingClientRect();
       if (!rawPoint || !bounds.width || !bounds.height) {
-        return null;
-      }
-      viewer.scene.requestRender();
-      const picked = [
-        viewer.scene.pick(rawPoint),
-        ...(viewer.scene.drillPick(rawPoint, 8) || [])
-      ].filter(Boolean);
-      const pickedEntity = picked
-        .map(item => item?.id || item?.primitive?.id || item?.collection?.owner || item?.primitive?._owner)
-        .find(item => item?.countryCode === countryCode);
-      if (!pickedEntity) {
         return null;
       }
       const x = bounds.left + rawPoint.x;
@@ -133,7 +156,12 @@ async function getCountryScreenPoint(page, code, attempts = 20) {
         x < bounds.right - 2 &&
         y > bounds.top + 2 &&
         y < bounds.bottom - 2;
-      return withinCanvas ? { x, y } : null;
+      if (!withinCanvas) {
+        return null;
+      }
+      viewer.scene.requestRender();
+      const pickedEntity = getPickedCountryEntityAt(rawPoint);
+      return pickedEntity?.countryCode === countryCode ? { x, y } : null;
     }, code);
     if (point) {
       return point;
@@ -146,7 +174,7 @@ async function getCountryScreenPoint(page, code, attempts = 20) {
 async function focusCountryFor3dPick(page, code) {
   const focused = await page.evaluate(countryCode => {
     const layer = countryLayers.get(countryCode);
-    const rectangle = layer?.computeRectangle?.();
+    const rectangle = layer?.getBounds?.();
     if (!layer || !rectangle || !viewer || !window.Cesium) {
       return false;
     }
@@ -363,6 +391,7 @@ async function runDesktopCriticalFlow(page) {
 
 async function runMobileCriticalFlow(page) {
   await waitForAppReady(page);
+  await assertThematicLabelOrder(page);
   assert.equal(await page.evaluate(() => viewer.scene.mode === Cesium.SceneMode.SCENE2D), true, "mobile debe iniciar en una escena 2D real, no solo declarar el modo");
   await waitForMapMode(page, "2d");
   await assertAntialiasingProfile(page);
@@ -375,8 +404,10 @@ async function runMobileCriticalFlow(page) {
   await clickCountryOnMap(page, "ARG");
   await waitForCountryPanel(page, "Argentina");
   await closeCountryPanel(page);
+  await assertMapSelectionStyles(page, "ARG", "ESP");
   await setMapMode(page, "3d");
   await assertAntialiasingProfile(page);
+  await assertMapSelectionStyles(page, "ARG", "ESP");
   await page.evaluate(() => { window.__previousBaseImagery = activeBaseImageryLayer; });
   await setMapMode(page, "2d");
   assert.equal(await page.evaluate(() => window.__previousBaseImagery.isDestroyed() && viewer.imageryLayers.length === 1), true,
@@ -438,6 +469,7 @@ async function testMapEngineStartup(browser, baseUrl) {
   for (const scenario of ["slow", "failure", "early-failure", "timeout", "loader-missing", "no-frame"]) {
     console.log("map-engine-startup: " + scenario);
     const context = await browser.newContext({ viewport: MOBILE_VIEWPORT, isMobile: true, hasTouch: true, serviceWorkers: "block" });
+    await tileCache.attach(context);
     let releaseEngine;
     const held = new Promise(resolve => { releaseEngine = resolve; });
     const pageErrors = [];
@@ -618,6 +650,13 @@ async function testMapLabels(browser, baseUrl) {
         // Label rendering must not depend on the runner's hardware defaults or FPS fallback.
         localStorage.setItem("geo-risk-quality-preset", "performance");
         if (!isMobile) localStorage.setItem("geo-risk-label-mode", "countries");
+        const readPixels = CanvasRenderingContext2D.prototype.getImageData;
+        window.__glyphReadback = { count: 0, unhinted: 0 };
+        CanvasRenderingContext2D.prototype.getImageData = function (...args) {
+          window.__glyphReadback.count++;
+          if (this.getContextAttributes?.().willReadFrequently !== true) window.__glyphReadback.unhinted++;
+          return readPixels.apply(this, args);
+        };
       }, mobile);
       if (!mobile) await page.route(/\/data\/countries_index\.json(?:\?|$)/, async route => {
         await indexGate;
@@ -678,13 +717,40 @@ async function testMapLabels(browser, baseUrl) {
       await toolsToggle.click();
       await page.locator("#label-mode-select").selectOption("full");
       await toolsToggle.click();
-      await page.evaluate(() => new Promise((resolve, reject) => {
-        const remove = viewer.camera.moveEnd.addEventListener(() => { clearTimeout(timer); remove(); resolve(); });
-        const timer = setTimeout(() => { remove(); reject(new Error("La camara no termino de enfocar Brasil")); }, 15000);
-        focusRectangle(countryLayers.get("BRA").computeRectangle(), { instant: true });
-      }));
-      await page.waitForFunction(() => !isCameraNavigating && labelEntities.some(entity => entity.id === "country-label-BRA"));
+      await focusCountryInstantly(page, "BRA");
+      // Repeating the same destination must complete even without another camera movement.
+      await focusCountryInstantly(page, "BRA");
+      await page.waitForFunction(() => !isCameraNavigating && labelEntities.some(entity => entity.id === "country-label-BRA"),
+        undefined, { timeout: 15000 });
       const brazil = await assertVisible();
+      const labelBatches = await page.evaluate(() => {
+        const batches = [];
+        const observe = (name, apply) => {
+          let notifications = 0;
+          let finalView = false;
+          const remove = viewer.entities.collectionChanged.addEventListener(() => {
+            notifications++;
+            finalView = name === "hide" ? !labelEntities.length && hiddenLabelEntities.length > 0 :
+              name === "clear" ? !labelEntities.length && !hiddenLabelEntities.length :
+              labelEntities.length > 0 && !hiddenLabelEntities.length;
+          });
+          try { apply(); batches.push({ name, notifications, finalView }); }
+          finally { remove(); }
+        };
+        const retained = labelEntities.slice();
+        observe("hide", hideMapLabels);
+        observe("show", renderMapLabels);
+        const retainedIdentity = labelEntities.every((entity, i) => entity === retained[i]) &&
+          labelEntities.length === retained.length;
+        observe("clear", clearMapLabels);
+        observe("create", renderMapLabels);
+        return { batches, retainedIdentity };
+      });
+      assert.equal(labelBatches.retainedIdentity, true, "hide/show retains the real label entities");
+      for (const batch of labelBatches.batches) {
+        assert.equal(batch.notifications, 1, label + " label " + batch.name + " delivers one collection event");
+        assert.equal(batch.finalView, true, label + " label observers see the final view");
+      }
       const pixels = await page.evaluate(async () => {
         const scene = viewer.scene;
         const source = activeGeoJsonDataSource;
@@ -760,6 +826,9 @@ async function testMapLabels(browser, baseUrl) {
       });
       assert.ok(pixels.changed > 2 && pixels.brighter > 2 && pixels.sameEntity && pixels.error === 0,
         label + ": el nombre debe producir pixeles de texto, no solo una entidad: " + JSON.stringify(pixels));
+      const readbacks = await page.evaluate(() => window.__glyphReadback);
+      assert.ok(readbacks.count > 0, "real glyph measurement must read pixels");
+      assert.equal(readbacks.unhinted, 0, "glyph measurement uses CPU-oriented canvas readback");
       await page.waitForTimeout(3500);
       await page.waitForFunction(() => viewer.scene.globe.tilesLoaded && !loadMapPromise && !isCameraNavigating);
       await page.screenshot({ path: "tmp/map-labels-" + label + ".png" });
@@ -782,6 +851,26 @@ async function testMapLabels(browser, baseUrl) {
       await toolsToggle.click();
       assert.equal(await page.evaluate(() => labelEntities.length), 0);
       assert.equal(await page.evaluate(() => hiddenLabelEntities.length), 0);
+      const hiddenGlyphs = await page.evaluate(() => new Promise((resolve, reject) => {
+        const scene = viewer.scene;
+        let frames = 0;
+        const remove = scene.postRender.addEventListener(() => {
+          if (++frames < 2) { scene.requestRender(); return; }
+          clearTimeout(timer);
+          remove();
+          const labels = viewer.dataSourceDisplay.defaultDataSource.clustering._labelCollection;
+          const glyphs = labels?._glyphBillboardCollection;
+          resolve({ cached: glyphs?.length || 0, ready: labels?.ready,
+            shown: glyphs?._billboards.filter(billboard => billboard.show).length || 0,
+            commands: scene._frameState.commandList.filter(command =>
+              command.owner?._billboards?.length && command.owner._billboards.every(billboard => !billboard.show)).length });
+        });
+        const timer = setTimeout(() => { remove(); reject(new Error("No frame for hidden glyph regression")); }, 5000);
+        scene.requestRender();
+      }));
+      assert.ok(hiddenGlyphs.cached > 0 && hiddenGlyphs.ready && hiddenGlyphs.shown === 0,
+        "native glyph cache and readiness survive hiding: " + JSON.stringify(hiddenGlyphs));
+      assert.equal(hiddenGlyphs.commands, 0, "all-hidden native glyph collections enqueue no draws or shader work");
       await setMapMode(page, "2d");
       assert.equal(await page.evaluate(() => labelEntities.length), 0);
       assertHealthyPage(test.pageErrors, label + " etiquetas de mapa");
@@ -919,22 +1008,47 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
     let nogalesDetailRequests = 0;
     let santoriniDetailRequests = 0;
     let capeRocaDetailRequests = 0;
+    let tiziDetailRequests = 0;
+    let steensDetailRequests = 0;
+    let altunDetailRequests = 0;
     let releaseDetail;
     const pending = new Promise(resolve => { releaseDetail = resolve; });
+    let releaseScript;
+    const stalledScript = new Promise(resolve => { releaseScript = resolve; });
     let markRequested;
     const requested = new Promise(resolve => { markRequested = resolve; });
     const test = await createTestPage(browser, baseUrl, viewport, async page => {
+      await page.addInitScript(() => {
+        window.__curationDeadlines = new Map();
+        const start = window.setTimeout.bind(window);
+        const stop = window.clearTimeout.bind(window);
+        window.setTimeout = (action, delay, ...args) => {
+          const id = start(action, delay, ...args);
+          if (delay === 20000 && action?.name === "onError") window.__curationDeadlines.set(id, action);
+          return id;
+        };
+        window.clearTimeout = id => {
+          window.__curationDeadlines.delete(id);
+          stop(id);
+        };
+      });
       page.on("request", request => {
         if (request.url().includes("/data/conflicts/details/combate-contra-datu-ali-1905-")) datuDetailRequests++;
         if (request.url().includes("/data/conflicts/details/combate-de-caleta-foca-1982-")) focaDetailRequests++;
         if (request.url().includes("/data/conflicts/details/batalla-de-ambos-nogales-1918-")) nogalesDetailRequests++;
         if (request.url().includes("/data/conflicts/details/incursion-sobre-santorini-1944-")) santoriniDetailRequests++;
         if (request.url().includes("/data/conflicts/details/batalla-del-cabo-de-la-roca-1703-")) capeRocaDetailRequests++;
+        if (request.url().includes("/data/conflicts/details/batalla-de-tizi-ouzou-1845-")) tiziDetailRequests++;
+        if (request.url().includes("/data/conflicts/details/batalla-de-steens-mountain-1867-")) steensDetailRequests++;
+        if (request.url().includes("/data/conflicts/details/batalla-de-altun-kupri-pirde-2017-")) altunDetailRequests++;
       });
       await page.route(/\/app-(curation|conflict-rules)\.js\?/, async route => {
         const name = route.request().url().match(/\/(app-(?:curation|conflict-rules))\.js/)[1];
         scriptAttempts[name] += 1;
-        if (name === "app-curation" && scriptAttempts[name] === 1) await route.abort("internetdisconnected");
+        if (name === "app-curation" && scriptAttempts[name] === 1) {
+          if (viewport === MOBILE_VIEWPORT) await stalledScript;
+          await route.abort("internetdisconnected");
+        }
         else await route.continue();
       });
       await page.route(/\/data\/conflicts\/details\/batalla-del-cabo-de-gata-1815-/, async route => {
@@ -959,12 +1073,20 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
       await waitForCountryPanel(page, "Argentina");
       const history = page.locator('[data-country-nav="country-section-history"]');
       await history.click();
+      if (viewport === MOBILE_VIEWPORT) {
+        await page.waitForFunction(() => Boolean(window.GeoRiskConflictRules) && window.__curationDeadlines.size === 1);
+        assert.equal(scriptAttempts["app-curation"], 1);
+        // Exercise the real deadline callback without adding a 20-second sleep.
+        await page.evaluate(() => [...window.__curationDeadlines.values()][0]());
+        releaseScript();
+      }
       const notice = page.locator("#app-toast");
       await notice.filter({ hasText: "datos historicos adicionales" }).waitFor({ state: "visible" });
       await captureTransientNotice(page, notice, { path: `tmp/curation-load-recovery-${label}.png` });
       assert.equal(await page.evaluate(() => deferredDataStatus.runtimeCuration), false);
       assert.equal(await page.evaluate(() => loadRuntimeCurationPromise), null);
       assert.equal(await page.locator('script[data-dynamic-src*="app-curation.js"]').count(), 0);
+      assert.equal(await page.evaluate(() => window.__curationDeadlines.size), 0, "failure clears both classic-script deadlines");
       assert.equal(scriptAttempts["app-curation"], 1, "no automatic retry after a network failure");
       await history.focus();
       const focusAfterRefresh = await page.evaluate(async () => {
@@ -978,6 +1100,7 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
       await page.waitForFunction(() => deferredDataStatus.runtimeCuration === true);
       assert.deepEqual(scriptAttempts, { "app-curation": 2, "app-conflict-rules": 1 }, "explicit reopening only retries the failed script");
       assert.equal(await page.locator('script[data-dynamic-src*="app-curation.js"]').count(), 1);
+      assert.equal(await page.evaluate(() => window.__curationDeadlines.size), 0, "retry success leaves no classic-script deadline");
       await page.locator("#country-section-history").waitFor({ state: "visible" });
       await page.locator('[data-country-nav="country-section-military"]').click();
       await page.waitForFunction(() => document.querySelectorAll('#country-section-military [data-conflict-key]').length > 0);
@@ -1171,6 +1294,99 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
       await page.evaluate(() => openConflictModal(window.__capeRocaKey));
       assert.equal(capeRocaDetailRequests, 1, "reopening Cape Roca reuses one on-demand detail request");
       await page.locator("#conflict-modal-close").click();
+      assert.equal(tiziDetailRequests, 0, "Tizi Ouzou evidence stays unloaded until its modal opens");
+      await page.evaluate(() => {
+        const entry = countriesData.FRA.military.conflicts.find(item => item.name === "Batalla de Tizi Ouzou (1845)");
+        window.__tiziKey = registerConflictModal(entry, "Francia");
+        openConflictModal(window.__tiziKey);
+      });
+      await page.waitForFunction(() => Boolean(CONFLICT_DETAIL_OVERRIDES["Batalla de Tizi Ouzou (1845)"]));
+      assert.equal((await page.locator("#conflict-modal-title").innerText()).match(/1845/g)?.length, 1);
+      assert.match(await body.innerText(), /Conquista francesa de Argelia/);
+      assert.match(await body.innerText(), /Boukhalfa.*Cabilia.*Argelia/);
+      assert.match(await body.innerText(), /Contingentes locales aliados/);
+      assert.match(await body.innerText(), /sin total consolidado/);
+      assert.doesNotMatch(await body.innerText(), /Conflicto regional de Europa|Actor registrado|Oponente o fuerza local/);
+      const tiziNotes = body.locator(".conflict-curation-notes");
+      assert.match(await tiziNotes.innerText(), /Primeros dias de junio de 1845/);
+      assert.match(await tiziNotes.innerText(), /Gentil.*Beni-Aicha/);
+      assert.match(await tiziNotes.innerText(), /relato colonial retrospectivo/);
+      assert.match(await tiziNotes.innerText(), /no se consultaron/);
+      assert.match(await tiziNotes.innerText(), /no el Estado actual/);
+      assert.deepEqual(await body.locator(".conflict-hierarchy-sources a").evaluateAll(links => links.map(link => new URL(link.href).hostname)), [
+        "cinumedpub.mmsh.fr", "en.wikipedia.org"
+      ]);
+      assert.equal(await body.locator(".conflict-treaties").count(), 0);
+      assert.equal(await body.evaluate(element => element.scrollWidth <= element.clientWidth), true);
+      await captureLiveElement(page, tiziNotes, { path: `tmp/tizi-ouzou-curation-${label}.png`, timeout: 10000 });
+      await page.locator("#conflict-modal-close").click();
+      await page.evaluate(() => openConflictModal(window.__tiziKey));
+      assert.equal(tiziDetailRequests, 1, "reopening Tizi Ouzou reuses its single deep-detail request");
+      await page.locator("#conflict-modal-close").click();
+      assert.equal(steensDetailRequests, 0, "Steens Mountain evidence stays unloaded before its modal opens");
+      await submitSearch(page, "Steens Mountain");
+      const steensLink = page.locator('#country-panel .group-selection-action [data-conflict-key]');
+      await steensLink.waitFor({ state: "visible" });
+      assert.match(await page.locator('#country-panel h2').innerText(), /Steens Mountain/);
+      assert.deepEqual(await page.evaluate(() => selectedLayers.map(layer => layer.code)), ["USA", "PRI"],
+        "search keeps the existing USA territory group; the conflict index links only USA");
+      assert.equal(steensDetailRequests, 0, "search uses the lightweight dated index");
+      const steensKey = await steensLink.getAttribute("data-conflict-key");
+      await steensLink.click();
+      await page.waitForFunction(() => Boolean(CONFLICT_DETAIL_OVERRIDES["Batalla de Steens Mountain (1867)"]));
+      assert.equal((await page.locator("#conflict-modal-title").innerText()).match(/1867/g)?.length, 1);
+      assert.match(await body.innerText(), /Guerra Snake \(1864-1868\)/);
+      assert.match(await body.innerText(), /Compania M del 1.er Regimiento/);
+      assert.match(await body.innerText(), /Wainwright registra 60 muertos y 27 capturados/);
+      assert.match(await body.innerText(), /no a un recuento independiente/);
+      assert.match(await body.innerText(), /Sin balance consolidado.*no equivale a cero/);
+      assert.doesNotMatch(await body.innerText(), /Conflicto regional de|Actor registrado|Oponente o fuerza local/);
+      const steensNotes = body.locator(".conflict-curation-notes");
+      assert.match(await steensNotes.innerText(), /29 de enero de 1867/);
+      assert.match(await steensNotes.innerText(), /Stein's Mountain, I\. T\./);
+      assert.match(await steensNotes.innerText(), /discrepancia geografica no se resuelve/);
+      assert.match(await steensNotes.innerText(), /No se acredita la presencia personal de Crook o Paulina/);
+      assert.match(await steensNotes.innerText(), /No se consultaron los partes originales ni testimonios paiutes/);
+      assert.deepEqual(await body.locator(".conflict-hierarchy-sources a").evaluateAll(links => links.map(link => new URL(link.href).hostname)), [
+        "history.army.mil", "history.idaho.gov", "en.wikipedia.org"
+      ]);
+      assert.equal(await body.locator(".conflict-treaties").count(), 0);
+      assert.equal(await body.evaluate(element => element.scrollWidth <= element.clientWidth), true);
+      await captureLiveElement(page, steensNotes, { path: `tmp/steens-mountain-curation-${label}.png`, timeout: 10000 });
+      await page.locator("#conflict-modal-close").click();
+      await page.evaluate(key => openConflictModal(key), steensKey);
+      assert.equal(steensDetailRequests, 1, "reopening Steens Mountain reuses its single detail request");
+      await page.locator("#conflict-modal-close").click();
+      await closeCountryPanel(page);
+      assert.equal(altunDetailRequests, 0, "Altun Kupri evidence is not loaded with other conflicts");
+      await submitSearch(page, "Pirde");
+      const altunLink = page.locator('#country-panel .group-selection-action [data-conflict-key]');
+      await altunLink.waitFor({ state: "visible" });
+      assert.match(await page.locator('#country-panel h2').innerText(), /Altun Kupri.*Pirde/);
+      assert.deepEqual(await page.evaluate(() => selectedLayers.map(layer => layer.code)), ["IRQ"]);
+      assert.equal(altunDetailRequests, 0, "search uses the dated lightweight conflict index, not deep evidence");
+      await altunLink.click();
+      await page.waitForFunction(() => Boolean(CONFLICT_DETAIL_OVERRIDES["Batalla de Altun Kupri (Pirde, 2017)"]));
+      const altunTitle = await page.locator("#conflict-modal-title").innerText();
+      assert.match(altunTitle, /Altun Kupri.*Pirde/i);
+      assert.equal((altunTitle.match(/2017/g) || []).length, 1);
+      assert.match(await body.innerText(), /Conflicto kurdo-iraqu\u00ed de 2017/);
+      assert.match(await body.innerText(), /6 civiles muertos y 15 heridos.*no son un total/);
+      assert.doesNotMatch(await body.innerText(), /Conflicto regional de Asia|Actor registrado|Oponente o fuerza local/);
+      assert.deepEqual(await body.locator(".conflict-hierarchy-sources a").evaluateAll(links => links.map(link => new URL(link.href).hostname)), [
+        "archive.cyprus-mail.com", "www.spokesman.com", "efile.fara.gov"
+      ]);
+      const altunNotes = body.locator(".conflict-curation-notes");
+      assert.match(await altunNotes.innerText(), /20 de octubre de 2017/);
+      assert.match(await altunNotes.innerText(), /fuente de parte/);
+      assert.equal(await body.locator(".conflict-treaties").count(), 0);
+      assert.equal(await body.evaluate(element => element.scrollWidth <= element.clientWidth), true);
+      await captureLiveElement(page, altunNotes, { path: `tmp/altun-kupri-curation-${label}.png`, timeout: 10000 });
+      await page.locator("#conflict-modal-close").click();
+      await altunLink.click();
+      assert.equal(altunDetailRequests, 1, "reopening the native search result reuses one deep detail request");
+      await page.locator("#conflict-modal-close").click();
+      await closeCountryPanel(page);
       await page.evaluate(() => {
         window.__pendingConflictKey = registerConflictModal({ name: "Prueba sin detalle", startYear: 1900, endYear: 1920 }, "Estados Unidos");
         openConflictModal(window.__pendingConflictKey, { enhance: false });
@@ -1235,6 +1451,7 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
       throw error;
     } finally {
       releaseDetail();
+      releaseScript();
       await page.evaluate(() => {
         if (window.__originalConflictModalBuilder) getConflictModalContent = window.__originalConflictModalBuilder;
       }).catch(() => {});
@@ -1245,6 +1462,7 @@ async function testConflictCurationAndLateResponse(browser, baseUrl) {
 
 async function testControlsStartup(browser, baseUrl) {
   const context = await browser.newContext({ viewport: MOBILE_VIEWPORT, isMobile: true, hasTouch: true, serviceWorkers: "block" });
+  await tileCache.attach(context);
   let releaseMain;
   let releaseUi;
   let releaseStyles;
@@ -1432,10 +1650,15 @@ async function testDetailedMapUpgrade(browser, baseUrl) {
 async function assertAntialiasingProfile(page) {
   const state = await page.evaluate(() => {
     const preset = getPerformancePreset();
+    const webgl2 = viewer.scene.canvas.getContext("webgl2");
     return { mode: currentMapMode, quality: qualityPreset, actualMsaa: viewer.scene.msaaSamples,
       expectedMsaa: preset.msaaSamples, actualFxaa: viewer.scene.postProcessStages.fxaa.enabled,
-      expectedFxaa: preset.enableFxaa };
+      expectedFxaa: preset.enableFxaa, webgl2: Boolean(webgl2),
+      useDepthPicking: viewer.scene.useDepthPicking,
+      nativeAntialias: webgl2?.getContextAttributes()?.antialias };
   });
+  assert.equal(state.useDepthPicking, false, "el mapa plano no prepara profundidad para pickPosition");
+  if (state.webgl2) assert.equal(state.nativeAntialias, false, "WebGL2 no agrega AA redundante al canvas final");
   assert.equal(state.actualMsaa, state.expectedMsaa, `MSAA: ${state.mode}/${state.quality}`);
   assert.equal(state.actualFxaa, state.expectedFxaa, `FXAA: ${state.mode}/${state.quality}`);
   if (["auto", "balanced"].includes(state.quality) && state.actualFxaa) {
@@ -1475,10 +1698,17 @@ async function testReducedMapMotion(browser, baseUrl) {
       const alternateMode = mobile ? "3d" : "2d";
       await setMapMode(page, alternateMode);
       await setMapMode(page, initialMode);
+      await assertAntialiasingProfile(page);
+      const magnitude = await page.evaluate(() => viewer.camera.getMagnitude());
+      await page.mouse.move(viewport.width * 0.52, viewport.height * 0.52);
+      await page.mouse.wheel(0, -180);
+      await page.waitForFunction(before => viewer.camera.getMagnitude() < before * 0.99, magnitude,
+        { timeout: 8000 });
+      await waitForStable3dMap(page);
       const before = await page.locator("#map canvas").screenshot();
       await page.evaluate(() => {
         window.__motionCompletions = 0;
-        focusRectangle(countryLayers.get("ESP").computeRectangle(), { onComplete: () => window.__motionCompletions++ });
+        focusRectangle(countryLayers.get("ESP").getBounds(), { onComplete: () => window.__motionCompletions++ });
       });
       await page.waitForFunction(() => window.__motionCompletions === 1);
       const durations = await page.evaluate(() => window.__motionDurations);
@@ -1541,10 +1771,136 @@ async function testReducedMapMotion(browser, baseUrl) {
   }
 }
 
+async function assertMapSelectionStyles(page, code = "ESP", peerCode = "ARG") {
+  await waitForStable3dMap(page);
+  const result = await page.evaluate(({ code, peerCode }) => {
+    const layer = countryLayers.get(code);
+    const peer = countryLayers.get(peerCode);
+    const entity = layer.entities.find(entity => entity.polygon && entity.polyline);
+    const matches = style => {
+      const time = Cesium.JulianDate.now();
+      return entity.polygon.material.getValue(time).color.equals(cssColorToCesiumColor(style.fillColor, style.fillOpacity)) &&
+        entity.polyline.material.getValue(time).color.equals(cssColorToCesiumColor(style.color, 1));
+    };
+    const refreshes = [];
+    const batches = [];
+    const observeBatch = (name, apply) => {
+      let notifications = 0;
+      let observedMode;
+      const removeListener = activeGeoJsonDataSource.entities.collectionChanged.addEventListener(() => {
+        notifications++;
+        observedMode = selectionMode;
+      });
+      try {
+        apply();
+        batches.push({ name, notifications, observedMode, finalMode: selectionMode });
+      } finally { removeListener(); }
+    };
+    const unchangedRefresh = () => {
+      const material = entity.polygon.material;
+      let notifications = 0;
+      const removeListener = entity.polygon.definitionChanged.addEventListener(() => { notifications += 1; });
+      try {
+        lastStyleRefreshSignature = "";
+        refreshCountryStyles();
+        refreshes.push({ mode: selectionMode, performed: Boolean(lastStyleRefreshSignature), notifications,
+          sameMaterial: material === entity.polygon.material });
+      } finally { removeListener(); }
+    };
+    setCountrySelection([layer]);
+    observeBatch("country-to-continent", () => setContinentSelection([layer, peer]));
+    const countryToContinent = matches(CONTINENT_HIGHLIGHT_STYLE);
+    unchangedRefresh();
+    observeBatch("continent-to-country", () => setCountrySelection([layer]));
+    const continentToCountry = matches(COUNTRY_HIGHLIGHT_STYLE);
+    unchangedRefresh();
+    observeBatch("country-to-religion", () => selectCountryGroupLayers([countriesData[code], countriesData[peerCode]], { mode: "religion", focusMap: false }));
+    unchangedRefresh();
+    observeBatch("religion-to-continent", () => setContinentSelection([layer, peer]));
+    const religionToContinent = matches(CONTINENT_HIGHLIGHT_STYLE);
+    observeBatch("clear", () => clearSelection());
+    const cleared = matches(getCountryThemeStyle(code));
+    setCountrySelection([layer]);
+    const styledEntities = layer.entities.filter(entity => entity.polygon && entity.polyline);
+    const materials = styledEntities.map(entity => ({ fill: entity.polygon.material, border: entity.polyline.material }));
+    let fillWrites = 0;
+    let borderWrites = 0;
+    let widthWrites = 0;
+    const removeStyleListeners = styledEntities.flatMap(entity => [
+      entity.polygon.definitionChanged.addEventListener(() => { fillWrites++; }),
+      entity.polyline.definitionChanged.addEventListener((_owner, property) => {
+        if (property === "width") widthWrites++;
+        else borderWrites++;
+      })
+    ]);
+    let widthOnly;
+    try {
+      const weight = entity.polyline.width.getValue() === 1.2 ? 100 : 0.1;
+      mapStyleCore.withEntityEventsSuspended(activeGeoJsonDataSource.entities, () => {
+        layer.setStyle({ ...COUNTRY_HIGHLIGHT_STYLE, weight });
+      });
+      widthOnly = { fillWrites, borderWrites, widthWrites, count: styledEntities.length,
+        retained: styledEntities.every((entity, index) => entity.polygon.material === materials[index].fill &&
+          entity.polyline.material === materials[index].border),
+        width: entity.polyline.width.getValue(),
+        expectedWidth: Math.max(1.2, Math.min(weight * getDynamicBorderScale(), currentMapMode === "3d" ? 4.8 : 3.6)) };
+    } finally {
+      removeStyleListeners.forEach(remove => remove());
+      mapStyleCore.withEntityEventsSuspended(activeGeoJsonDataSource.entities, () => layer.setStyle(COUNTRY_HIGHLIGHT_STYLE));
+    }
+    return { countryToContinent, continentToCountry, religionToContinent, cleared, refreshes, batches, widthOnly, mode: currentMapMode };
+  }, { code, peerCode });
+  for (const field of ["countryToContinent", "continentToCountry", "religionToContinent", "cleared"]) {
+    assert.equal(result[field], true, "real Cesium " + result.mode + " preserves current selection style: " + field);
+  }
+  for (const refresh of result.refreshes) {
+    assert.equal(refresh.performed, true, "style refresh must really run, not hide behind the navigation guard");
+    assert.equal(refresh.notifications, 0, "unchanged selected " + refresh.mode + " does not notify Cesium again");
+    assert.equal(refresh.sameMaterial, true, "unchanged selected fills keep their material identity");
+  }
+  for (const batch of result.batches) {
+    assert.equal(batch.notifications, 1, result.mode + " " + batch.name + " delivers one final Cesium collection event");
+    assert.equal(batch.observedMode, batch.finalMode, "collection observers see the final selection mode");
+  }
+  assert.ok(result.widthOnly.count > 0, "the width check uses actual country polygons");
+  assert.equal(result.widthOnly.fillWrites + result.widthOnly.borderWrites, 0, "width changes do not replace unchanged real materials");
+  assert.equal(result.widthOnly.widthWrites, result.widthOnly.count, "every real border receives its new width once");
+  assert.equal(result.widthOnly.retained, true);
+  assert.equal(result.widthOnly.width, result.widthOnly.expectedWidth);
+  console.log("selection-styles: " + page.viewportSize().width + " " + result.mode + " current highlights; 0 redundant notifications");
+  if ((page.viewportSize().width === 390 && result.mode === "2d") ||
+      (page.viewportSize().width === 1440 && result.mode === "3d")) {
+    await page.screenshot({ path: "tmp/selection-styles-" + page.viewportSize().width + "-" + result.mode + ".png" });
+  }
+}
+
+async function assertThematicLabelOrder(page) {
+  const result = await page.evaluate(() => {
+    const ordered = ["religion", "system", "organization", "history-type", "origin", "rival"].every(name => {
+      const labels = [...document.getElementById("filter-" + name + "-select").options].slice(1).map(option => option.textContent);
+      return labels.every((label, index) => !index || labels[index - 1].localeCompare(label, "es") <= 0) &&
+        new Set(labels.map(normalizeText)).size === labels.length;
+    });
+    const repeated = getUniqueDisplayLabels(["Islam", "islam", "Cristianismo", "Budismo"]);
+    return { ordered, repeated, collators: window.__spanishCollators ?? null };
+  });
+  assert.equal(result.ordered, true, "the six rendered thematic lists keep Spanish order without normalized duplicates");
+  assert.deepEqual(result.repeated, ["Budismo", "Cristianismo", "Islam"]);
+  if (result.collators !== null) assert.equal(result.collators, 1, "rendered lists and later label sorting reuse one collator");
+}
+
 async function testGreenCoding(browser, baseUrl) {
   const { context, page, pageErrors } = await createTestPage(browser, baseUrl, DESKTOP_VIEWPORT, async page => {
     await page.addInitScript(() => {
       Object.defineProperty(navigator, "connection", { configurable: true, value: { saveData: true } });
+      window.__spanishCollators = 0;
+      const NativeCollator = Intl.Collator;
+      Intl.Collator = class extends NativeCollator {
+        constructor(...args) {
+          super(...args);
+          if (args[0] === "es") window.__spanishCollators += 1;
+        }
+      };
       window.__greenIntervals = new Map();
       const start = window.setInterval.bind(window);
       const stop = window.clearInterval.bind(window);
@@ -1560,6 +1916,7 @@ async function testGreenCoding(browser, baseUrl) {
   page.on("request", request => { if (/\/world_countries\.geo\.json/.test(request.url())) detailRequests += 1; });
   try {
     await waitForAppReady(page);
+    await assertThematicLabelOrder(page);
     await waitForStable3dMap(page);
     await page.waitForFunction(() => !isCameraNavigating);
     const polls = name => page.evaluate(name => [...window.__greenIntervals.values()].filter(item => item.name === name).length, name);
@@ -1591,8 +1948,26 @@ async function testGreenCoding(browser, baseUrl) {
     await closeCountryPanel(page);
     await page.evaluate(() => applyMapMode("2d", false));
     await waitForMapMode(page, "2d");
+    await assertMapSelectionStyles(page);
+    const idleHover = await page.evaluate(() => {
+      const originalRender = requestSceneRender;
+      const originalPick = viewer.scene.pick;
+      const result = { enabled: shouldUseHoverHighlights(), renders: 0, picks: 0 };
+      try {
+        requestSceneRender = () => { result.renders += 1; };
+        viewer.scene.pick = () => { result.picks += 1; };
+        const move = activeClickHandler.getInputAction(Cesium.ScreenSpaceEventType.MOUSE_MOVE);
+        for (let i = 0; i < 100; i++) move({ endPosition: new Cesium.Cartesian2(i, i) });
+        return result;
+      } finally {
+        requestSceneRender = originalRender;
+        viewer.scene.pick = originalPick;
+      }
+    });
+    assert.deepEqual(idleHover, { enabled: false, renders: 0, picks: 0 }, "real 2D hover handler stays idle without highlights");
     await page.evaluate(() => applyMapMode("3d", false));
     await waitForMapMode(page, "3d");
+    await assertMapSelectionStyles(page);
     assert.equal(detailRequests, 0);
     assertHealthyPage(pageErrors, "green coding y ahorro de datos");
   } finally {
@@ -1925,8 +2300,12 @@ async function testDeferredWorkDuringDrag(browser, baseUrl) {
       assert.equal(await page.evaluate(() => reducedPerformanceReason), "");
       await page.waitForFunction(() => {
         const preset = getPerformancePreset();
+        const canvas = viewer.scene.canvas;
+        const pixelRatio = viewer.resolutionScale * (viewer.useBrowserRecommendedResolution ? 1 : window.devicePixelRatio);
         return !isCameraNavigating && navigationQualityRestoreTimer === null &&
           viewer.resolutionScale === preset.resolutionScale &&
+          !viewer.cesiumWidget._forceResize && !viewer.cesiumWidget._geoRiskResizeFence &&
+          canvas.width === Math.floor(canvas.clientWidth * pixelRatio) && canvas.height === Math.floor(canvas.clientHeight * pixelRatio) &&
           viewer.scene.globe.maximumScreenSpaceError === preset.maximumScreenSpaceError &&
           viewer.scene.globe.tileCacheSize === preset.tileCacheSize &&
           viewer.scene.globe.loadingDescendantLimit === preset.loadingDescendantLimit;
@@ -1970,6 +2349,10 @@ async function testDeferredWorkDuringDrag(browser, baseUrl) {
 
 async function testCountryDataRecovery(browser, baseUrl) {
   for (const [label, viewport] of [["desktop", DESKTOP_VIEWPORT], ["mobile", MOBILE_VIEWPORT]]) {
+    const failedModule = label === "desktop" ? "countryPanel" : "timelineConflicts";
+    const failedModuleFile = label === "desktop" ? "app-country-panel.js" : "app-timeline-conflicts.js";
+    const siblingFile = label === "desktop" ? "app-timeline-conflicts.js" : "app-country-panel.js";
+    let moduleAttempts = 0;
     let failArgentina = true;
     let failSpain = true;
     let failConflicts = true;
@@ -1980,6 +2363,11 @@ async function testCountryDataRecovery(browser, baseUrl) {
     const requests = [];
     const test = await createTestPage(browser, baseUrl, viewport, async page => {
       page.on("request", request => requests.push(request.url()));
+      await page.route(`**/${failedModuleFile}*`, async route => {
+        moduleAttempts += 1;
+        if (moduleAttempts === 1) await route.abort("internetdisconnected");
+        else await route.continue();
+      });
       await page.route(/\/data\/countries\/(ARG|ESP|BRA)\.json\?/, async route => {
         if (route.request().url().includes("/BRA.json")) await heldBrazil;
         if (failArgentina && route.request().url().includes("/ARG.json")) {
@@ -1999,14 +2387,80 @@ async function testCountryDataRecovery(browser, baseUrl) {
     const { page } = test;
     try {
       await waitForAppReady(page);
+      const previousPanel = await page.evaluate(() => {
+        const render = renderCountry;
+        const probe = window.__countryModuleFailure = {
+          pending: null, restore: () => { renderCountry = render; }
+        };
+        renderCountry = function (...args) {
+          const pending = render.apply(this, args);
+          probe.pending = pending;
+          return pending;
+        };
+        return { state: JSON.stringify(currentPanelState), html: document.getElementById("country-panel").innerHTML,
+          hidden: document.getElementById("country-modal").hidden };
+      });
       await submitSearch(page, "Argentina");
+      const moduleNotice = page.locator("#app-toast");
+      await moduleNotice.filter({ hasText: "Revisa tu conexion" }).waitFor({ state: "visible" });
+      await captureTransientNotice(page, moduleNotice, { path: `tmp/country-module-recovery-${label}.png` });
+      const failedPanel = await page.evaluate(async () => {
+        const probe = window.__countryModuleFailure;
+        await probe.pending;
+        probe.restore();
+        delete window.__countryModuleFailure;
+        return { state: JSON.stringify(currentPanelState), html: document.getElementById("country-panel").innerHTML,
+          hidden: document.getElementById("country-modal").hidden };
+      });
+      assert.deepEqual(failedPanel, previousPanel, "failed modules preserve the previous panel and its visibility");
+      assert.equal(requests.filter(url => /\/countries\/ARG\.json\?/.test(url)).length, 0,
+        "a profile with unavailable interface modules must not fetch its detail");
+      assert.equal(moduleAttempts, 1, "failed interface imports do not retry automatically");
+      assert.equal(await page.evaluate(name => deferredUiModulePromises.has(name), failedModule), false);
+      assert.equal(await page.evaluate(() => countriesData.ARG.metadata.isIndex), true);
+      assert.equal(await page.evaluate(() => selectedLayers.some(layer => layer.code === "ARG")), true);
+      await page.locator("#map-search-button").focus();
+      await page.locator("#map-search-button").press("Enter");
       const retry = page.locator("[data-country-retry]");
       await retry.waitFor({ state: "visible" });
+      assert.equal(moduleAttempts, 2, "one explicit action retries only the failed module");
+      const failedModuleRequests = requests.filter(url => url.includes(`/${failedModuleFile}?`));
+      assert.equal(failedModuleRequests.length, 2);
+      assert.match(failedModuleRequests[1], /&retry=1$/);
+      assert.equal(requests.filter(url => url.includes(`/${siblingFile}?`)).length, 1,
+        "the successful sibling module must not be downloaded again");
       assert.equal(await page.locator('#country-panel [aria-busy="true"]').count(), 0);
       assert.equal(await page.evaluate(() => countriesData.ARG.metadata.isIndex), true);
       assert.equal(await page.evaluate(() => selectedLayers.some(layer => layer.code === "ARG")), true);
       const error = page.locator("#country-panel .country-load-error");
       assert.equal(await error.evaluate(element => element.scrollWidth <= element.clientWidth), true);
+      const initialRetry = await retry.elementHandle();
+      assert.ok(initialRetry);
+      await retry.focus();
+      const errorOwner = await page.evaluate(() => {
+        const owner = countryPanelRenderToken;
+        rerenderCurrentPanel();
+        rerenderCurrentPanel();
+        return owner;
+      });
+      await page.waitForFunction(() => rerenderCurrentPanelFrame === null);
+      assert.equal(await page.evaluate(button => button.isConnected && document.activeElement === button, initialRetry), true,
+        "a background refresh preserves the failed profile's retry button and keyboard focus");
+      await initialRetry.dispose();
+      assert.equal(await page.evaluate(() => countryPanelRenderToken), errorOwner);
+      assert.equal(requests.filter(url => /\/countries\/ARG\.json\?/.test(url)).length, 1,
+        "background refresh does not retry a failed profile");
+      for (const language of ["en", "es"]) {
+        await page.locator("#language-select").evaluate((select, language) => {
+          select.value = language;
+          select.dispatchEvent(new Event("change", { bubbles: true }));
+        }, language);
+        await page.waitForFunction(language => currentPanelState.countryLoadLanguage === language, language);
+        assert.match(await error.innerText(), language === "en" ? /The profile could not be loaded/ : /No se pudo cargar la ficha/);
+        assert.equal(await page.evaluate(() => countryPanelRenderToken), errorOwner);
+        assert.equal(requests.filter(url => /\/countries\/ARG\.json\?/.test(url)).length, 1,
+          "translating a failed profile does not download it");
+      }
       const bounds = await retry.boundingBox();
       assert.ok(bounds.x >= 0 && bounds.x + bounds.width <= viewport.width && bounds.y + bounds.height <= viewport.height);
       await page.screenshot({ path: "tmp/country-retry-" + label + ".png" });
@@ -2029,6 +2483,15 @@ async function testCountryDataRecovery(browser, baseUrl) {
 
       await submitSearch(page, "Brasil");
       await page.locator('#country-panel [aria-busy="true"]').waitFor();
+      const loadingOwner = await page.evaluate(() => {
+        const owner = countryPanelRenderToken;
+        rerenderCurrentPanel();
+        return owner;
+      });
+      await page.waitForFunction(() => rerenderCurrentPanelFrame === null);
+      assert.equal(await page.evaluate(() => countryPanelRenderToken), loadingOwner,
+        "a background refresh does not replace an in-flight profile owner");
+      assert.equal(requests.filter(url => /\/countries\/BRA\.json\?/.test(url)).length, 1);
       await closeCountryPanel(page);
       releaseBrazil();
       await page.waitForFunction(() => countriesData.BRA.metadata.isIndex === false);
@@ -2066,11 +2529,84 @@ async function testCountryDataRecovery(browser, baseUrl) {
       assert.ok(await page.locator("#country-section-military [data-conflict-key]").count() > 0);
       assert.equal(requests.filter(url => /\/countries\/conflicts\/AUS\.json\?/.test(url)).length, 2);
       assert.ok(await page.evaluate(count => countriesData.AUS.military.conflicts.length > count, preview));
+
+      await closeCountryPanel(page);
+      await page.evaluate(() => {
+        const original = ensureDeferredUiModule;
+        let release;
+        const held = new Promise(resolve => { release = resolve; });
+        const probe = window.__countryOwnerProbe = {
+          release, restore: () => { ensureDeferredUiModule = original; }, entered: false
+        };
+        ensureDeferredUiModule = async name => {
+          if (name === "countryPanel") { probe.entered = true; await held; }
+          return original(name);
+        };
+        probe.pending = renderCountry(countriesData.ARG, "Argentina");
+      });
+      await page.waitForFunction(() => window.__countryOwnerProbe.entered);
+      await submitSearch(page, "Europa");
+      await page.waitForFunction(() => currentPanelState.type === "continent");
+      const selectedCodes = await page.evaluate(() => selectedLayers.map(layer => layer.code).sort());
+      assert.ok(selectedCodes.length > 0 && !selectedCodes.includes("ARG"));
+      await page.evaluate(async () => {
+        const probe = window.__countryOwnerProbe;
+        probe.restore();
+        probe.release();
+        await probe.pending;
+        delete window.__countryOwnerProbe;
+      });
+      assert.equal(await page.evaluate(() => currentPanelState.type), "continent", "late country modules preserve the latest continent selection");
+      assert.match(await page.locator("#country-panel h2").first().innerText(), /Europa/);
+      assert.equal(await page.locator("#country-panel .country-profile").count(), 0);
+      assert.deepEqual(await page.evaluate(() => selectedLayers.map(layer => layer.code).sort()), selectedCodes);
+      await page.screenshot({ path: "tmp/country-owner-" + label + ".png" });
+      await closeCountryPanel(page);
+
+      await submitSearch(page, "Australia");
+      await page.locator("#country-panel .country-profile").waitFor();
+      await page.locator('[data-country-nav="country-section-military"]').click();
+      await page.waitForFunction(() => document.getElementById("country-section-military")?.open === true);
+      await page.evaluate(() => {
+        const original = ensureConflictAliasesLoaded;
+        let release;
+        const held = new Promise(resolve => { release = resolve; });
+        const probe = window.__countryOwnerProbe = {
+          release, restore: () => { ensureConflictAliasesLoaded = original; }, entered: false,
+          counters: [conflictModalCounter, timelineModalCounter]
+        };
+        ensureConflictAliasesLoaded = async () => { probe.entered = true; await held; return original(); };
+        probe.pending = renderCountry(countriesData.AUS, "Australia");
+      });
+      await page.waitForFunction(() => window.__countryOwnerProbe.entered);
+      await closeCountryPanel(page);
+      const staleCounters = await page.evaluate(async () => {
+        const probe = window.__countryOwnerProbe;
+        probe.restore();
+        probe.release();
+        await probe.pending;
+        const result = { before: probe.counters, after: [conflictModalCounter, timelineModalCounter] };
+        delete window.__countryOwnerProbe;
+        return result;
+      });
+      assert.equal(await page.locator("#country-modal").isVisible(), false, "late aliases do not reopen a closed full profile");
+      assert.deepEqual(staleCounters.after, staleCounters.before, "discard stale rendering before registering any timeline/conflict links");
+      assert.equal(requests.filter(url => /\/countries\/ARG\.json\?/.test(url)).length, 2);
+      assert.equal(requests.filter(url => /\/countries\/conflicts\/AUS\.json\?/.test(url)).length, 2, "ownership probes reuse already loaded data");
       assert.ok(!requests.some(url => /countries_full|conflict_details\.generated/.test(url)));
       assertHealthyPage(test.pageErrors, label + " recuperacion de fichas y conflictos");
     } finally {
       releaseBrazil();
       releaseConflicts();
+      await page.evaluate(async () => {
+        window.__countryModuleFailure?.restore();
+        delete window.__countryModuleFailure;
+        const probe = window.__countryOwnerProbe;
+        probe?.restore();
+        probe?.release();
+        await probe?.pending;
+        delete window.__countryOwnerProbe;
+      }).catch(() => {});
       await test.context.close();
     }
   }
@@ -2078,22 +2614,46 @@ async function testCountryDataRecovery(browser, baseUrl) {
 
 async function testNewsLifecycle(browser, baseUrl) {
   for (const [label, viewport] of [["desktop", DESKTOP_VIEWPORT], ["mobile", MOBILE_VIEWPORT]]) {
+    let newsAttempts = 0;
     const test = await createTestPage(browser, baseUrl, viewport, async page => {
+      await page.route("**/app-news-ui.js*", async route => {
+        newsAttempts++;
+        if (newsAttempts <= 2) await route.abort("internetdisconnected");
+        else await route.continue();
+      });
       await page.addInitScript(() => {
         const nativeFetch = window.fetch.bind(window);
-        const fixture = window.__newsFixture = { mode: "ok", calls: [] };
+        const fixture = window.__newsFixture = { mode: "ok", calls: [], deadlines: new Map() };
+        const startTimer = window.setTimeout.bind(window);
+        const stopTimer = window.clearTimeout.bind(window);
+        window.setTimeout = (callback, delay, ...args) => {
+          const id = startTimer(callback, delay, ...args);
+          if (delay === 2500 && String(callback).includes("News response timed out")) fixture.deadlines.set(id, callback);
+          return id;
+        };
+        window.clearTimeout = id => { fixture.deadlines.delete(id); stopTimer(id); };
+        fixture.expireQuery = () => {
+          const pending = fixture.deadlines.entries().next().value;
+          if (!pending) throw new Error("Missing native news deadline");
+          const [id, callback] = pending;
+          window.clearTimeout(id);
+          callback();
+        };
         window.fetch = (url, options = {}) => {
           if (!String(url).startsWith("https://api.gdeltproject.org/")) return nativeFetch(url, options);
-          const id = fixture.calls.length;
-          const response = () => new Response(JSON.stringify({ articles: fixture.mode === "empty" ? []
+          const countryCode = activeNewsCountryCode;
+          const topic = activeNewsTopic;
+          const mode = fixture.mode;
+          const key = `${countryCode}:${topic}:${mode}`;
+          const response = () => new Response(JSON.stringify({ articles: mode === "empty" ? []
             : Array.from({ length: 4 }, (_, i) => ({
-              title: `Titular de prueba ${id}-${i}`, sourceCommonName: "Fuente de prueba",
-              seendate: "20261002T120000Z", url: `https://example.com/news/${id}/${i}`
+              title: `Titular de prueba ${key}-${i}`, sourceCommonName: "Fuente de prueba",
+              seendate: "20261002T120000Z", url: `https://example.com/news/${key}/${i}`
             })) }), { headers: { "Content-Type": "application/json" } });
-          const call = { url: String(url), signal: options.signal, release: null };
+          const call = { key, countryCode, topic, mode, url: String(url), signal: options.signal, release: null };
           fixture.calls.push(call);
           // A late provider deliberately ignores abort so the UI must reject stale results.
-          return fixture.mode === "hold" ? new Promise(resolve => { call.release = () => resolve(response()); })
+          return mode === "hold" ? new Promise(resolve => { call.release = () => resolve(response()); })
             : Promise.resolve(response());
         };
       });
@@ -2108,7 +2668,12 @@ async function testNewsLifecycle(browser, baseUrl) {
       }
       await page.locator(".news-hub-content").waitFor({ state: "visible" });
     };
-    const count = () => page.evaluate(() => window.__newsFixture.calls.length);
+    // A download can try the documented official-name/name queries after a deadline.
+    // Check logical contexts here and every physical query/order/duplicate below.
+    const count = () => page.evaluate(() => new Set(window.__newsFixture.calls.map(call => call.key)).size);
+    const title = (code, topic = "general", mode = "ok") => `Titular de prueba ${code}:${topic}:${mode}-0`;
+    const waitForHeadline = (code, topic = "general") => page.waitForFunction(marker =>
+      document.getElementById("news-hub-article").textContent.includes(marker), title(code, topic));
     const selectCountry = async (name, code) => {
       await page.locator("#news-country-filter").fill(name);
       const row = page.locator(`#news-hub-list [data-news-country="${code}"]`);
@@ -2119,40 +2684,58 @@ async function testNewsLifecycle(browser, baseUrl) {
       await waitForAppReady(page, { requireTiles: false });
       assert.equal(await count(), 0, label + " no headlines at startup");
       await openHub();
-      await page.waitForFunction(() => typeof newsUi.buildStateCard === "function");
+      await page.waitForFunction(() => deferredUiModuleFailures.get("news") === 1 && !deferredUiModuleLoads.has("news"));
       assert.equal(await count(), 0, "opening the hub does not download headlines");
-      await page.evaluate(() => { window.__newsFixture.mode = "hold"; });
       await selectCountry("Argentina", "ARG");
-      await page.waitForFunction(() => window.__newsFixture.calls.length === 1);
+      await page.waitForFunction(() => deferredUiModuleFailures.get("news") === 2 && activeNewsRequest === null);
+      assert.equal(await count(), 0, "failed news imports must not query the provider");
+      assert.equal(await page.locator('#news-hub-article [aria-busy="true"]').count(), 0);
+      const moduleRetry = page.locator('#news-hub-article [data-news-country="ARG"]');
+      await moduleRetry.waitFor({ state: "visible" });
+      assert.ok(await page.locator('#news-hub-article a[target="_blank"]').isVisible());
+      await page.locator(".news-hub-content").screenshot({ path: `tmp/news-module-recovery-${label}.png` });
+      await page.evaluate(() => { window.__newsFixture.mode = "hold"; });
+      await moduleRetry.focus();
+      await moduleRetry.press("Enter");
+      await page.waitForFunction(() => window.__newsFixture.calls.some(call => call.key === "ARG:general:hold"));
+      if (label === "desktop") {
+        await page.evaluate(() => {
+          if (window.__newsFixture.calls.filter(call => call.key === "ARG:general:hold").length === 1)
+            window.__newsFixture.expireQuery();
+        });
+        await page.waitForFunction(() => window.__newsFixture.calls.filter(call => call.key === "ARG:general:hold").length === 2);
+      }
+      assert.equal(newsAttempts, 3, "explicit news recovery loads once and queries once");
       await page.evaluate(() => { window.__newsFixture.mode = "ok"; });
       await selectCountry("Brasil", "BRA");
-      await page.waitForFunction(() => document.getElementById("news-hub-article").textContent.includes("Titular de prueba 1-0"));
-      await page.evaluate(() => window.__newsFixture.calls[0].release());
-      assert.equal(await page.evaluate(() => window.__newsFixture.calls[0].signal.aborted), true);
+      await waitForHeadline("BRA");
+      await page.evaluate(() => window.__newsFixture.calls.filter(call => call.key === "ARG:general:hold").forEach(call => call.release()));
+      assert.equal(await page.evaluate(() => window.__newsFixture.calls.filter(call => call.key === "ARG:general:hold").every(call => call.signal.aborted)), true);
       await page.evaluate(() => renderNewsHub("ARG"));
       assert.match(await page.locator("#news-hub-selected").textContent(), /Brasil/);
-      assert.match(await page.locator("#news-hub-article").textContent(), /Titular de prueba 1-0/);
+      assert.ok((await page.locator("#news-hub-article").textContent()).includes(title("BRA")));
       assert.equal(await page.evaluate(() => newsCache.has("ARG:general")), false, "no late country cache entry");
       assert.equal(await count(), 2);
 
       await page.locator("#news-topic-select").selectOption("economy");
-      await page.waitForFunction(() => document.getElementById("news-hub-article").textContent.includes("Titular de prueba 2-0"));
+      await waitForHeadline("BRA", "economy");
       assert.match(await page.locator("#news-hub-article").textContent(), /economia/i);
       await page.locator("#news-topic-select").selectOption("general");
-      await page.waitForFunction(() => document.getElementById("news-hub-article").textContent.includes("Titular de prueba 1-0"));
+      await waitForHeadline("BRA");
       assert.equal(await count(), 3, "changing back reuses valid topic cache");
 
       await page.evaluate(() => { window.__newsFixture.mode = "hold"; });
       await page.locator("#news-topic-select").selectOption("diplomacy");
-      await page.waitForFunction(() => window.__newsFixture.calls.length === 4);
+      await page.waitForFunction(() => window.__newsFixture.calls.some(call => call.key === "BRA:diplomacy:hold"));
       await page.locator("#news-hub-panel > summary").click();
-      await page.waitForFunction(() => activeNewsRequest === null && window.__newsFixture.calls[3].signal.aborted);
+      await page.waitForFunction(() => activeNewsRequest === null &&
+        window.__newsFixture.calls.filter(call => call.key === "BRA:diplomacy:hold").every(call => call.signal.aborted));
       await openHub();
       await page.locator("#news-hub-article .news-state-card").waitFor({ state: "visible" });
       assert.equal(await page.locator('#news-hub-article [aria-busy="true"]').count(), 0);
       assert.equal(await count(), 4, "reopening never resumes a cancelled download");
-      await page.evaluate(() => window.__newsFixture.calls[3].release());
-      assert.ok(!(await page.locator("#news-hub-article").textContent()).includes("Titular de prueba 3-0"));
+      await page.evaluate(() => window.__newsFixture.calls.filter(call => call.key === "BRA:diplomacy:hold").forEach(call => call.release()));
+      assert.ok(!(await page.locator("#news-hub-article").textContent()).includes(title("BRA", "diplomacy", "hold")));
 
       await page.evaluate(() => { window.__newsFixture.mode = "empty"; });
       await page.locator("#news-topic-select").selectOption("conflict");
@@ -2169,7 +2752,7 @@ async function testNewsLifecycle(browser, baseUrl) {
       await page.waitForFunction(() => document.getElementById("news-hub-article").textContent.includes("Ahorro de datos activo"));
       assert.equal(await count(), failedCount);
       await page.locator("#news-topic-select").selectOption("general");
-      await page.waitForFunction(() => document.getElementById("news-hub-article").textContent.includes("Titular de prueba 1-0"));
+      await waitForHeadline("BRA");
       assert.equal(await count(), failedCount, "Save-Data keeps cached headlines available");
       await page.locator("#news-topic-select").selectOption("politics");
       await page.evaluate(() => {
@@ -2181,7 +2764,7 @@ async function testNewsLifecycle(browser, baseUrl) {
       assert.equal(await count(), failedCount, "restoring data availability does not fetch");
       await retry.focus();
       await retry.press("Enter");
-      await page.waitForFunction(expected => window.__newsFixture.calls.length === expected + 1, failedCount);
+      await page.waitForFunction(expected => new Set(window.__newsFixture.calls.map(call => call.key)).size === expected + 1, failedCount);
       await page.evaluate(() => {
         Object.defineProperty(navigator, "onLine", { configurable: true, value: false });
         window.dispatchEvent(new Event("offline"));
@@ -2199,11 +2782,37 @@ async function testNewsLifecycle(browser, baseUrl) {
       assert.equal(await page.locator('#news-hub-article [aria-busy="true"]').count(), 0);
       assert.equal(await page.locator('#news-hub-article [role="status"]').count(), 1);
       await retry.click();
-      await page.waitForFunction(() => document.querySelector("#news-hub-article .news-headline-list"));
+      await waitForHeadline("BRA", "politics");
+      assert.equal(await page.locator("#news-hub-article .news-headline-list").count(), 1);
+      const groups = await page.evaluate(() => {
+        const groups = new Map();
+        for (const call of window.__newsFixture.calls) {
+          const group = groups.get(call.key) || { key: call.key, queries: buildNewsQueries(countriesData[call.countryCode], call.topic), calls: [] };
+          group.calls.push({ query: new URL(call.url).searchParams.get("query"), aborted: call.signal.aborted });
+          groups.set(call.key, group);
+        }
+        return [...groups.values()];
+      });
+      assert.deepEqual(groups.map(group => group.key).sort(), ["ARG:general:hold", "BRA:general:ok", "BRA:economy:ok",
+        "BRA:diplomacy:hold", "BRA:conflict:empty", "BRA:politics:hold", "BRA:politics:ok"].sort(), "only explicitly exercised country/topic contexts query the provider");
+      for (const group of groups) {
+        assert.ok(group.calls.length > 0 && group.calls.length <= group.queries.length, "provider attempts keep their native query limit: " + group.key);
+        assert.deepEqual(group.calls.map(call => call.query), group.queries.slice(0, group.calls.length), "physical queries retain native order without duplicate downloads: " + group.key);
+        for (const call of group.calls.slice(0, -1)) assert.equal(call.aborted || group.key.endsWith(":empty"), true, "only deadline/empty results advance to the fallback");
+        if (group.key.endsWith(":hold")) assert.ok(group.calls.every(call => call.aborted), "all late transports are cancelled: " + group.key);
+      }
       const content = page.locator(".news-hub-content");
       assert.ok(await content.evaluate(element => element.scrollWidth <= element.clientWidth + 1), label + " news fits its panel");
       await content.screenshot({ path: `tmp/news-ready-${label}.png` });
+      assert.equal(newsAttempts, 3, "successful news imports are reused throughout the lifecycle");
       assertHealthyPage(test.pageErrors, label + " news lifecycle");
+    } catch (error) {
+      console.error("News lifecycle failed:", await page.evaluate(() => ({
+        selected: activeNewsCountryCode, topic: activeNewsTopic, pending: activeNewsRequest?.countryCode,
+        calls: window.__newsFixture.calls.map(call => ({ key: call.key, query: new URL(call.url).searchParams.get("query"), aborted: call.signal.aborted })),
+        article: document.getElementById("news-hub-article")?.textContent?.slice(0, 600), cache: [...newsCache.keys()]
+      })).catch(() => null));
+      throw error;
     } finally {
       await page.evaluate(() => {
         for (const call of window.__newsFixture.calls) call.release?.();
@@ -2213,13 +2822,69 @@ async function testNewsLifecycle(browser, baseUrl) {
   }
 }
 
+async function installQuizTimerProbe(page) {
+  await page.addInitScript(() => {
+    window.__quizTimers = new Map();
+    const start = window.setInterval.bind(window);
+    const stop = window.clearInterval.bind(window);
+    window.setInterval = (action, delay, ...args) => {
+      const id = start(action, delay, ...args);
+      if (delay === 1000 && action?.name === "onQuizTick") window.__quizTimers.set(id, action);
+      return id;
+    };
+    window.clearInterval = id => { window.__quizTimers.delete(id); stop(id); };
+  });
+}
+
+async function openQuizHub(page, label) {
+  if (label === "mobile") {
+    await page.locator("#toggle-more-panel").click();
+    await page.locator('[data-mobile-hub-target="quiz-hub-panel"]').click();
+  } else await page.locator("#quiz-hub-panel > summary").click();
+  await page.locator(".quiz-hub-content").waitFor({ state: "visible" });
+}
+
 async function testBackgroundPanels(browser, baseUrl) {
   for (const viewport of [DESKTOP_VIEWPORT, MOBILE_VIEWPORT]) {
     const label = viewport === MOBILE_VIEWPORT ? "mobile" : "desktop";
-    const test = await createTestPage(browser, baseUrl, viewport);
+    let rankingAttempts = 0;
+    const startupRequests = { aliases: 0, search: 0, supplemental: 0 };
+    let releaseRankings;
+    const stalledRankings = new Promise(resolve => { releaseRankings = resolve; });
+    const test = await createTestPage(browser, baseUrl, viewport, async page => {
+      await installQuizTimerProbe(page);
+      page.on("request", request => {
+        const url = request.url();
+        if (url.includes("/app-conflict-aliases.js?")) startupRequests.aliases++;
+        if (url.includes("/app-search.js?")) startupRequests.search++;
+        if (url.includes("/data/runtime_supplemental.json?")) startupRequests.supplemental++;
+      });
+      await page.route("**/app-rankings.js*", async route => {
+        rankingAttempts++;
+        await stalledRankings;
+        await route.continue();
+      });
+    });
     const { page } = test;
     try {
       await waitForAppReady(page, { requireTiles: false });
+      assert.equal(await page.evaluate(() => mapSearchAliasesRegistered), false, "advanced search stays unbuilt at startup");
+      const background = await page.evaluate(async () => {
+        const build = setupSearchIndex;
+        let builds = 0;
+        setupSearchIndex = (...args) => { builds++; return build(...args); };
+        try {
+          await loadDeferredDataEnhancements();
+          await loadDeferredDataEnhancements();
+          refreshGlobalStats();
+          return { builds, indexed: mapSearchAliasesRegistered, pendingStats: deferredGlobalStatsTimer !== null,
+            needsRankings: !deferredGlobalStatsReady };
+        } finally { setupSearchIndex = build; }
+      });
+      assert.deepEqual(background, { builds: 0, indexed: false, pendingStats: false, needsRankings: true },
+        label + " real supplementation does not prepare unrequested search/rankings");
+      assert.deepEqual(startupRequests, { aliases: 0, search: 0, supplemental: 1 },
+        "supplement is retained once, without speculative search or conflict aliases");
       const panels = [
         ["map-toolbar", ".toolbar-content"], ["rankings-panel", ".left-panel-inner"],
         ["compare-hub-panel", ".compare-hub-content"], ["quiz-hub-panel", ".quiz-hub-content"],
@@ -2231,6 +2896,14 @@ async function testBackgroundPanels(browser, baseUrl) {
         }));
         assert.deepEqual(hidden, { display: "none", rects: 0 }, label + " contenido cerrado sin layout: " + id);
       }
+      await page.evaluate(() => {
+        window.__advancedRankingRenders = 0;
+        const render = renderAdvancedRanking;
+        renderAdvancedRanking = (...args) => { window.__advancedRankingRenders++; return render(...args); };
+        const generate = generateAdvancedRankings;
+        generateAdvancedRankings = (...args) => window.__pendingRankings = generate(...args);
+      });
+      assert.equal(rankingAttempts, 0, "rankings module stays deferred at startup");
       await page.locator(label === "mobile" ? "#toggle-left-panel" : "#rankings-summary").click();
       await page.waitForFunction(() => document.getElementById("world-population-total").textContent === formatNumber(worldPopulationTotal));
       assert.ok(await page.locator("#world-population-total").isVisible(), label + " total disponible al abrir Rankings");
@@ -2239,6 +2912,22 @@ async function testBackgroundPanels(browser, baseUrl) {
         return bounds.left >= 0 && bounds.right <= innerWidth;
       });
       await page.screenshot({ path: "tmp/rankings-ready-" + label + ".png" });
+      await page.waitForFunction(() => deferredUiModuleLoads.has("rankings") && deferredGlobalStatsReady).catch(async error => {
+        console.log("ranking recovery wait:", label, await page.evaluate(() => ({
+          open: isRankingsPanelOpen(), ready: deferredGlobalStatsReady, advanced: advancedRankingsReady,
+          pending: [...deferredUiModuleLoads.keys()], timer: deferredGlobalStatsTimer,
+          renders: window.__advancedRankingRenders, failures: [...deferredUiModuleFailures]
+        })));
+        throw error;
+      });
+      await page.locator(label === "mobile" ? "#toggle-left-panel" : "#rankings-summary").click();
+      await page.waitForFunction(() => !document.getElementById("rankings-panel").open);
+      releaseRankings();
+      await page.evaluate(() => window.__pendingRankings);
+      assert.equal(await page.evaluate(() => window.__advancedRankingRenders), 0, "closing during import prevents advanced calculations and DOM writes");
+      await page.locator(label === "mobile" ? "#toggle-left-panel" : "#rankings-summary").click();
+      await page.waitForFunction(() => advancedRankingsReady && window.__advancedRankingRenders === 6);
+      assert.equal(rankingAttempts, 1, "reopening recovers the late module without downloading again");
       await page.locator(label === "mobile" ? "#toggle-left-panel" : "#rankings-summary").click();
 
       for (const [query, type] of [["Asia", "continent"], ["Cristianismo", "religion"]]) {
@@ -2256,6 +2945,9 @@ async function testBackgroundPanels(browser, baseUrl) {
         assert.equal(await page.locator("#country-modal").isVisible(), false, label + " no reabre " + type);
         assert.deepEqual(await page.evaluate(() => ({ html: document.getElementById("country-panel").innerHTML, selection: selectedLayers.map(layer => layer.code) })), before);
       }
+      assert.equal(await page.evaluate(() => mapSearchAliasesRegistered), true, "the first requested advanced search still prepares all category aliases");
+      assert.equal(startupRequests.search, 1, "advanced search imports once on actual use");
+      assert.equal(startupRequests.aliases, 0, "category searches do not need heavy conflict aliases");
 
       for (const [id, content] of panels) {
         // Native details state must still expose the existing workspace without CSS overrides.
@@ -2265,8 +2957,87 @@ async function testBackgroundPanels(browser, baseUrl) {
         await page.locator(`#${id}`).evaluate(element => { element.open = false; });
         await page.locator(`#${id} > ${content}`).waitFor({ state: "hidden" });
       }
+      await openQuizHub(page, label);
+      await page.waitForFunction(() => Boolean(window.GeoRiskQuizUI));
+      await page.locator("#quiz-mode").selectOption("timed");
+      const start = page.locator("#quiz-start-button");
+      await start.focus();
+      await start.press("Enter");
+      await page.waitForFunction(() => quizState.current && window.__quizTimers.size === 1);
+      await page.evaluate(() => {
+        window.__previousQuizState = quizState;
+        window.__previousQuizTick = [...window.__quizTimers.values()][0];
+      });
+      await start.click();
+      await page.waitForFunction(() => quizState !== window.__previousQuizState && window.__quizTimers.size === 1);
+      const ticks = await page.evaluate(() => {
+        const before = quizState.timeLeft;
+        window.__previousQuizTick();
+        const afterStale = quizState.timeLeft;
+        const tick = [...window.__quizTimers.values()][0];
+        tick(); tick();
+        window.__activeQuizTick = tick;
+        return { before, afterStale, after: quizState.timeLeft, timers: window.__quizTimers.size };
+      });
+      assert.equal(ticks.afterStale, ticks.before, label + " stale ticks cannot change a new round");
+      assert.equal(ticks.after, ticks.before - 2, label + " each current callback consumes one second");
+      assert.equal(ticks.timers, 1);
+      await page.locator("#quiz-hub-panel > summary").click();
+      await page.waitForFunction(() => window.__quizTimers.size === 0);
+      const paused = await page.evaluate(() => {
+        const before = quizState.timeLeft;
+        window.__activeQuizTick();
+        return { before, after: quizState.timeLeft, code: quizState.current.code, total: quizState.total };
+      });
+      assert.equal(paused.after, paused.before, label + " closed quizzes do not consume remaining time");
+      await openQuizHub(page, label);
+      await page.waitForFunction(() => window.__quizTimers.size === 1);
+      const resumed = await page.evaluate(() => ({ remaining: quizState.timeLeft, code: quizState.current.code, total: quizState.total }));
+      assert.equal(resumed.code, paused.code);
+      assert.equal(resumed.total, paused.total);
+      assert.ok(resumed.remaining > 0 && resumed.remaining <= paused.after, "reopening must not renew the time budget");
+      const visibility = await page.evaluate(() => {
+        const descriptor = Object.getOwnPropertyDescriptor(document, "visibilityState");
+        const tick = [...window.__quizTimers.values()][0];
+        const before = quizState.timeLeft;
+        Object.defineProperty(document, "visibilityState", { configurable: true, value: "hidden" });
+        document.dispatchEvent(new Event("visibilitychange"));
+        const hiddenTimers = window.__quizTimers.size;
+        tick();
+        const afterHidden = quizState.timeLeft;
+        if (descriptor) Object.defineProperty(document, "visibilityState", descriptor);
+        else delete document.visibilityState;
+        document.dispatchEvent(new Event("visibilitychange"));
+        return { before, hiddenTimers, afterHidden, afterResume: quizState.timeLeft, timers: window.__quizTimers.size };
+      });
+      assert.equal(visibility.hiddenTimers, 0);
+      assert.equal(visibility.afterHidden, visibility.before);
+      assert.equal(visibility.afterResume, visibility.before);
+      assert.equal(visibility.timers, 1, "restoring visibility resumes one countdown");
+      await page.locator("#quiz-mode").selectOption("classic");
+      assert.equal(await page.evaluate(() => window.__quizTimers.size), 0);
+      const content = page.locator(".quiz-hub-content");
+      assert.ok(await content.evaluate(element => element.scrollWidth <= element.clientWidth + 1));
+      assert.equal(await page.locator("#quiz-status").textContent(), "Puntaje: 0/0");
+      await content.screenshot({ path: `tmp/quiz-lifecycle-${label}.png` });
+      const correct = await page.evaluate(() => quizState.current.correct);
+      await page.getByRole("button", { name: correct, exact: true }).click();
+      await page.locator("#quiz-hub-panel > summary").click();
+      await openQuizHub(page, label);
+      const review = await page.evaluate(() => ({
+        score: quizState.score, total: quizState.total, timers: window.__quizTimers.size,
+        disabled: [...document.querySelectorAll(".quiz-option")].every(button => button.disabled),
+        correct: document.querySelectorAll(".quiz-option.is-correct").length,
+        next: !document.getElementById("quiz-next-button").hidden
+      }));
+      assert.deepEqual(review, { score: 1, total: 1, timers: 0, disabled: true, correct: 1, next: true },
+        label + " reopening keeps answered options locked, feedback and progression available");
+      await page.locator("#quiz-reset-button").click();
+      assert.equal(await page.evaluate(() => quizState.current === null && window.__quizTimers.size === 0), true);
+      await page.locator("#quiz-hub-panel > summary").click();
       assertHealthyPage(test.pageErrors, label + " paneles en segundo plano");
     } finally {
+      releaseRankings();
       await test.context.close();
     }
   }
@@ -2275,9 +3046,27 @@ async function testBackgroundPanels(browser, baseUrl) {
 async function testDeferredUiRecovery(browser, baseUrl) {
   for (const [label, viewport] of [["desktop", DESKTOP_VIEWPORT], ["mobile", MOBILE_VIEWPORT]]) {
     let attempts = 0;
+    let releaseModule;
+    const stalledModule = new Promise(resolve => { releaseModule = resolve; });
+    let quizAttempts = 0;
+    let releaseQuiz;
+    const stalledQuiz = new Promise(resolve => { releaseQuiz = resolve; });
+    let searchAttempts = 0;
+    let releaseSearch;
+    const stalledSearch = new Promise(resolve => { releaseSearch = resolve; });
     const test = await createTestPage(browser, baseUrl, viewport, async page => {
+      await installQuizTimerProbe(page);
       await page.addInitScript(() => {
         window.__deferredCopies = [];
+        window.__deferredDeadlines = new Map();
+        const start = window.setTimeout.bind(window);
+        const stop = window.clearTimeout.bind(window);
+        window.setTimeout = (action, delay, ...args) => {
+          const id = start(action, delay, ...args);
+          if (delay === 20000 && action?.name === "onDeferredUiTimeout") window.__deferredDeadlines.set(id, action);
+          return id;
+        };
+        window.clearTimeout = id => { window.__deferredDeadlines.delete(id); stop(id); };
         Object.defineProperty(navigator, "share", { configurable: true, value: undefined });
         Object.defineProperty(navigator, "clipboard", { configurable: true, value: {
           async writeText(text) { window.__deferredCopies.push(text); }
@@ -2286,7 +3075,17 @@ async function testDeferredUiRecovery(browser, baseUrl) {
       await page.route("**/app-export-share.js*", async route => {
         attempts += 1;
         if (attempts === 1) await route.abort("internetdisconnected");
-        else await route.continue();
+        else { await stalledModule; await route.continue(); }
+      });
+      await page.route("**/app-quiz-ui.js*", async route => {
+        quizAttempts += 1;
+        if (quizAttempts === 1) await route.abort("internetdisconnected");
+        else { await stalledQuiz; await route.continue(); }
+      });
+      await page.route("**/app-search.js*", async route => {
+        searchAttempts++;
+        if (searchAttempts === 1) await route.abort("internetdisconnected");
+        else { await stalledSearch; await route.continue(); }
       });
     });
     const { page } = test;
@@ -2305,15 +3104,103 @@ async function testDeferredUiRecovery(browser, baseUrl) {
 
       await button.focus();
       await button.press("Enter");
+      await page.waitForFunction(() => window.__deferredDeadlines.size === 1 && deferredUiModuleLoads.has("exportShare"));
+      // VM tests verify the exact 20-second boundary; here invoke the real callback on a held native import.
+      await page.evaluate(() => [...window.__deferredDeadlines.values()][0]());
+      await notice.filter({ hasText: "tarda demasiado" }).waitFor({ state: "visible" });
+      await captureTransientNotice(page, notice, { path: `tmp/deferred-timeout-${label}.png` });
+      assert.deepEqual(await page.evaluate(() => ({ copies: window.__deferredCopies.length,
+        waits: window.__deferredDeadlines.size, pending: deferredUiModuleLoads.size,
+        cached: deferredUiModulePromises.has("exportShare"), failures: deferredUiModuleFailures.get("exportShare") })),
+        { copies: 0, waits: 0, pending: 1, cached: false, failures: 1 }, label + " expired wait retains only the native import");
+      assert.equal(attempts, 2, "a waiting deadline neither retries nor consumes another failed-URL variant");
+      if (label === "mobile") {
+        await button.focus();
+        await button.press("Enter");
+        await page.waitForFunction(() => window.__deferredDeadlines.size === 1);
+        assert.equal(attempts, 2, "explicit retry joins the same pending native import");
+      }
+      releaseModule();
+      await page.waitForFunction(() => Boolean(window.GeoRiskExportShare) && deferredUiModuleLoads.size === 0);
       const recovered = await page.evaluate(async () => Boolean(await deferredUiModulePromises.get("exportShare")));
       assert.equal(recovered, true, label + " a real failed import can recover without reloading the page");
+      if (label === "desktop") {
+        assert.equal(await page.evaluate(() => window.__deferredCopies.length), 0, "late success must not replay an expired share action");
+        await button.focus();
+        await button.press("Enter");
+      }
       await page.waitForFunction(() => window.__deferredCopies.length === 1);
       assert.equal(attempts, 2, "one explicit action makes one retry");
+      assert.equal(await page.evaluate(() => window.__deferredDeadlines.size), 0, "settlement clears the wait timer");
       await button.click();
       await page.waitForFunction(() => window.__deferredCopies.length === 2);
       assert.equal(attempts, 2, "successful imports are reused");
+      assert.equal(quizAttempts, 0, "quiz stays deferred until requested");
+      await page.locator(label === "mobile" ? "#toggle-left-panel" : "#rankings-summary").click();
+      await openQuizHub(page, label);
+      await notice.filter({ hasText: "Revisa tu conexion" }).waitFor({ state: "visible" });
+      assert.equal(quizAttempts, 1, "failed quiz imports do not automatically retry");
+      await page.locator("#quiz-mode").selectOption("timed");
+      await page.evaluate(() => {
+        window.__initialQuizState = quizState;
+        window.__originalQuizStart = startQuiz;
+        startQuiz = (...args) => window.__pendingQuizStart = window.__originalQuizStart(...args);
+      });
+      await page.locator("#quiz-start-button").focus();
+      await page.locator("#quiz-start-button").press("Enter");
+      await page.waitForFunction(() => deferredUiModuleLoads.has("quiz"));
+      await page.locator("#quiz-hub-panel > summary").click();
+      await page.waitForFunction(() => !document.getElementById("quiz-hub-panel").open);
+      releaseQuiz();
+      const cancelled = await page.evaluate(async () => {
+        const result = await window.__pendingQuizStart;
+        startQuiz = window.__originalQuizStart;
+        return { result, unchanged: quizState === window.__initialQuizState,
+          question: quizState.current, bank: quizQuestionBank.length, timers: window.__quizTimers.size };
+      });
+      assert.deepEqual(cancelled, { result: false, unchanged: true, question: null, bank: 0, timers: 0 },
+        label + " closing during a real held import cancels the round without building questions");
+      await openQuizHub(page, label);
+      await page.locator("#quiz-start-button").focus();
+      await page.locator("#quiz-start-button").press("Enter");
+      await page.waitForFunction(() => quizState.current && window.__quizTimers.size === 1);
+      assert.equal(quizAttempts, 2, "explicit reopening reuses the late successful module");
+      await page.locator("#quiz-hub-panel > summary").click();
+      await page.waitForFunction(() => window.__quizTimers.size === 0);
+      await page.evaluate(() => {
+        window.__originalSearch = searchMap;
+        searchMap = (...args) => window.__pendingSearch = window.__originalSearch(...args);
+        document.getElementById("map-search-input").value = "Islam";
+      });
+      const beforeSearch = await page.evaluate(() => ({ panel: currentPanelState, selection: selectedLayers.map(layer => layer.code),
+        html: document.getElementById("country-panel").innerHTML }));
+      await page.locator("#map-search-button").click();
+      await page.evaluate(() => window.__pendingSearch);
+      assert.equal(searchAttempts, 1);
+      assert.deepEqual(await page.evaluate(() => ({ panel: currentPanelState, selection: selectedLayers.map(layer => layer.code),
+        html: document.getElementById("country-panel").innerHTML })), beforeSearch, "failed advanced search must not select or show false not-found state");
+      await page.locator("#map-search-button").focus();
+      await page.locator("#map-search-button").press("Enter");
+      await page.waitForFunction(() => deferredUiModuleLoads.has("search"));
+      await page.evaluate(() => { window.__olderSearch = window.__pendingSearch; });
+      await submitSearch(page, "Brasil");
+      await waitForCountryPanel(page, "Brasil");
+      assert.equal(await page.evaluate(() => currentPanelState.code), "BRA", "basic country search works without waiting for the held advanced module");
+      releaseSearch();
+      await page.evaluate(() => window.__olderSearch);
+      assert.equal(await page.evaluate(() => currentPanelState.code), "BRA", "late advanced search cannot replace a newer country selection");
+      await closeCountryPanel(page);
+      await submitSearch(page, "Islam");
+      await page.waitForFunction(() => currentPanelState.type === "religion" && !document.getElementById("country-modal").hidden);
+      assert.ok(await page.evaluate(() => selectedLayers.length > 0));
+      assert.equal(searchAttempts, 2, "advanced search recovers on explicit retry and reuses the successful module");
+      await closeCountryPanel(page);
+      await page.evaluate(() => { searchMap = window.__originalSearch; });
       assertHealthyPage(test.pageErrors, label + " deferred recovery");
     } finally {
+      releaseModule();
+      releaseQuiz();
+      releaseSearch();
       await test.context.close();
     }
   }
@@ -3042,22 +3929,36 @@ async function testUntrustedInputs(browser, baseUrl) {
 async function testStorageFailures(browser, baseUrl) {
   for (const viewport of [DESKTOP_VIEWPORT, MOBILE_VIEWPORT]) {
     for (const failure of ["quota", "denied"]) {
-      const test = await createTestPage(browser, baseUrl, viewport, page => page.addInitScript(mode => {
-        const storage = window.localStorage;
-        storage.setItem("geo-risk-intro-seen", "true");
-        storage.setItem("geo-risk-country-notes:ARG", "Nota anterior");
-        const descriptor = Object.getOwnPropertyDescriptor(window, "localStorage");
-        const originalSet = Storage.prototype.setItem;
-        if (mode === "denied") {
-          Object.defineProperty(window, "localStorage", { configurable: true, get() { throw new DOMException("Blocked", "SecurityError"); } });
-        } else {
-          Storage.prototype.setItem = function () { throw new DOMException("Full", "QuotaExceededError"); };
-        }
-        window.__restoreTestStorage = () => {
-          Object.defineProperty(window, "localStorage", descriptor);
-          Storage.prototype.setItem = originalSet;
-        };
-      }, failure));
+      const resourceErrors = [];
+      const test = await createTestPage(browser, baseUrl, viewport, async page => {
+        page.on("response", response => {
+          if (resourceErrors.length < 24 && response.url().startsWith(baseUrl + "/") && response.status() >= 400) {
+            resourceErrors.push({ path: new URL(response.url()).pathname, status: response.status() });
+          }
+        });
+        page.on("requestfailed", request => {
+          if (resourceErrors.length < 24 && request.url().startsWith(baseUrl + "/")) {
+            resourceErrors.push({ path: new URL(request.url()).pathname, error: request.failure()?.errorText });
+          }
+        });
+        await page.addInitScript(installCountryRendererObserver);
+        await page.addInitScript(mode => {
+          const storage = window.localStorage;
+          storage.setItem("geo-risk-intro-seen", "true");
+          storage.setItem("geo-risk-country-notes:ARG", "Nota anterior");
+          const descriptor = Object.getOwnPropertyDescriptor(window, "localStorage");
+          const originalSet = Storage.prototype.setItem;
+          if (mode === "denied") {
+            Object.defineProperty(window, "localStorage", { configurable: true, get() { throw new DOMException("Blocked", "SecurityError"); } });
+          } else {
+            Storage.prototype.setItem = function () { throw new DOMException("Full", "QuotaExceededError"); };
+          }
+          window.__restoreTestStorage = () => {
+            Object.defineProperty(window, "localStorage", descriptor);
+            Storage.prototype.setItem = originalSet;
+          };
+        }, failure);
+      });
       try {
         const { page } = test;
         await waitForAppReady(page, { requireTiles: false });
@@ -3106,6 +4007,10 @@ async function testStorageFailures(browser, baseUrl) {
         assert.equal(await page.evaluate(() => localStorage.getItem("geo-risk-country-notes:ARG")), "Nota recuperada");
         await page.screenshot({ path: `tmp/storage-${failure}-${viewport.width}.png` });
         assertHealthyPage(test.pageErrors, `storage ${failure} ${viewport.width}`);
+      } catch (error) {
+        console.error("Storage fixture failed:", { failure, width: viewport.width,
+          pageErrors: test.pageErrors.slice(0, 16), resourceErrors });
+        throw error;
       } finally {
         await test.context.close();
       }
@@ -3213,92 +4118,147 @@ async function testPagesBuild(browser) {
 
 let heldWorkerRequest = null;
 let testWorkerRevision = null;
-const nativeWorkerSource = await fs.readFile("sw.js", "utf8");
-const server = createLocalSmokeServer();
-const staticRequest = server.listeners("request")[0];
-server.removeListener("request", staticRequest);
-server.on("request", async (request, response) => {
-  if (heldWorkerRequest && request.url.startsWith("/sw.js")) await heldWorkerRequest;
-  if (testWorkerRevision && request.url.startsWith("/sw.js")) {
-    response.writeHead(200, { "Content-Type": "text/javascript", "Cache-Control": "no-store" });
-    response.end(nativeWorkerSource.replace(/const CACHE_VERSION = "[^"]+"/, `const CACHE_VERSION = "${testWorkerRevision}"`));
-    return;
+const focusedFlows = [
+  ["--pages-only", testPagesBuild],
+  ["--country-text-only", testCountryTextRendering],
+  ["--csp-only", testContentSecurityPolicy],
+  ["--input-security-only", testUntrustedInputs],
+  ["--storage-only", testStorageFailures],
+  ["--exports-only", testSecureExports],
+  ["--share-only", testShareLifecycle],
+  ["--deferred-only", testDeferredUiRecovery],
+  ["--performance-only", testIdleMapPerformance],
+  ["--green-only", testGreenCoding],
+  ["--motion-only", testReducedMapMotion],
+  ["--auto-rotation-only", testAutoRotation],
+  ["--map-labels-only", testMapLabels],
+  ["--startup-only", testMapEngineStartup],
+  ["--startup-only", testControlsStartup],
+  ["--overlay-ready-only", testCountryOverlayReadiness],
+  ["--conflict-curation-only", testConflictCurationAndLateResponse],
+  ["--detail-only", testDetailedMapUpgrade],
+  ["--recovery-only", testRenderRecovery],
+  ["--offline-only", testFirstWorkerActivation],
+  ["--data-only", testRequiredStartupData],
+  ["--country-data-only", testCountryDataRecovery],
+  ["--news-only", testNewsLifecycle],
+  ["--scheduler-only", testDeferredWorkDuringDrag],
+  ["--panels-only", testBackgroundPanels]
+];
+const focused = focusedFlows.some(([flag]) => process.argv.includes(flag));
+const journeysOnly = process.argv.includes("--journeys-only");
+assert.deepEqual([...focusedFlows.map(([_flag, run]) => run.name), "desktop journey", "mobile journey"], CRITICAL_BROWSER_FLOWS,
+  "the shared full plan must cover every registered browser flow");
+const shard = parseCriticalShard(process.env.GEORISK_E2E_SHARD);
+assert.ok(!shard || (!focused && !journeysOnly), "shards cannot combine with focused filters");
+assert.ok(!shard || !process.env.npm_lifecycle_event, "a single shard must use runCriticalShard, never replace npm test");
+const shardNames = shard ? criticalShardFlows(shard.index) : null;
+const selectedFlows = focusedFlows.filter(([flag, run]) => !journeysOnly && (!focused || process.argv.includes(flag)) &&
+  (!shardNames || shardNames.includes(run.name)));
+const desktopJourney = !focused && (!shardNames || shardNames.includes("desktop journey"));
+const mobileJourney = !focused && (!shardNames || shardNames.includes("mobile journey"));
+
+if (process.env.GEORISK_E2E_REPORTS_DIR) {
+  assert.ok(!shard && !focused && !journeysOnly, "external full evidence cannot combine with filters or a shard");
+  const checkpoint = await createBrowserRunReport({ file: "reports/critical-browser-e2e.json", flows: [...CRITICAL_BROWSER_FLOWS],
+    scope: "full", metadata: { ciRunId: process.env.GITHUB_RUN_ID, ciRevision: process.env.GITHUB_SHA } });
+  try {
+    const evidence = await externalCriticalEvidence();
+    await writeCriticalEvidence("reports/critical-browser-e2e.json", evidence.report);
+    console.log("critical-browser-e2e: verified all " + CRITICAL_BROWSER_FLOWS.length + " flows from both current CI shards; " +
+      evidence.criticalMs + " ms charged to the unchanged 20-minute test budget");
+  } catch (error) {
+    await checkpoint.fail(error);
+    throw error;
   }
-  void staticRequest(request, response);
+} else {
+const runReport = await createBrowserRunReport({
+  file: "reports/critical-browser-e2e.json",
+  flows: [...selectedFlows.map(([_flag, run]) => run.name), ...(desktopJourney ? ["desktop journey"] : []), ...(mobileJourney ? ["mobile journey"] : [])],
+  scope: shard ? "shard" : focused ? "focused" : journeysOnly ? "journeys" : "full",
+  metadata: { platform: process.platform, nodeVersion: process.version,
+    ciRunId: process.env.GITHUB_RUN_ID || null, ciRunAttempt: process.env.GITHUB_RUN_ATTEMPT || null,
+    ciRevision: process.env.GITHUB_SHA || null, shard,
+    releaseStartedAt: process.env.GEORISK_RELEASE_STARTED_AT || null,
+    publicInputHash: shard ? await getPerformanceInputHash(process.cwd()) : null }
 });
-await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
 
 let browser;
+let server;
 try {
+  assert.ok(!journeysOnly || !focused, "--journeys-only no se combina con otros filtros");
+  const nativeWorkerSource = await fs.readFile("sw.js", "utf8");
+  server = createLocalSmokeServer();
+  const staticRequest = server.listeners("request")[0];
+  server.removeListener("request", staticRequest);
+  server.on("request", async (request, response) => {
+    if (heldWorkerRequest && request.url.startsWith("/sw.js")) await heldWorkerRequest;
+    if (testWorkerRevision && request.url.startsWith("/sw.js")) {
+      response.writeHead(200, { "Content-Type": "text/javascript", "Cache-Control": "no-store" });
+      response.end(nativeWorkerSource.replace(/const CACHE_VERSION = "[^"]+"/, `const CACHE_VERSION = "${testWorkerRevision}"`));
+      return;
+    }
+    void staticRequest(request, response);
+  });
+  await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
   await fs.mkdir("tmp", { recursive: true });
   const { port } = server.address();
   const baseUrl = "http://127.0.0.1:" + port;
   browser = await launchCriticalBrowser();
-  const focusedFlows = [
-    ["--pages-only", testPagesBuild],
-    ["--country-text-only", testCountryTextRendering],
-    ["--csp-only", testContentSecurityPolicy],
-    ["--input-security-only", testUntrustedInputs],
-    ["--storage-only", testStorageFailures],
-    ["--exports-only", testSecureExports],
-    ["--share-only", testShareLifecycle],
-    ["--deferred-only", testDeferredUiRecovery],
-    ["--performance-only", testIdleMapPerformance],
-    ["--green-only", testGreenCoding],
-    ["--motion-only", testReducedMapMotion],
-    ["--auto-rotation-only", testAutoRotation],
-    ["--map-labels-only", testMapLabels],
-    ["--startup-only", testMapEngineStartup],
-    ["--startup-only", testControlsStartup],
-    ["--overlay-ready-only", testCountryOverlayReadiness],
-    ["--conflict-curation-only", testConflictCurationAndLateResponse],
-    ["--detail-only", testDetailedMapUpgrade],
-    ["--recovery-only", testRenderRecovery],
-    ["--offline-only", testFirstWorkerActivation],
-    ["--data-only", testRequiredStartupData],
-    ["--country-data-only", testCountryDataRecovery],
-    ["--news-only", testNewsLifecycle],
-    ["--scheduler-only", testDeferredWorkDuringDrag],
-    ["--panels-only", testBackgroundPanels]
-  ];
-  const focused = focusedFlows.some(([flag]) => process.argv.includes(flag));
-  const journeysOnly = process.argv.includes("--journeys-only");
-  assert.ok(!journeysOnly || !focused, "--journeys-only no se combina con otros filtros");
-  for (const [flag, run] of focusedFlows) {
-    if (!journeysOnly && (!focused || process.argv.includes(flag))) {
-      console.log("critical-browser-e2e: " + run.name);
-      const started = performance.now();
-      await run(browser, baseUrl);
-      console.log("critical-browser-e2e: " + run.name + " completed in " + Math.round(performance.now() - started) + " ms");
-    }
+  await runReport.setBrowser(getBrowserSelection(browser));
+  for (const [_flag, run] of selectedFlows) {
+    console.log("critical-browser-e2e: " + run.name);
+    const started = performance.now();
+    await runReport.run(run.name, () => run(browser, baseUrl));
+    console.log("critical-browser-e2e: " + run.name + " completed in " + Math.round(performance.now() - started) + " ms");
   }
 
-  if (!focused) {
+  if (desktopJourney) {
     console.log("critical-browser-e2e: desktop journey");
     const desktopStarted = performance.now();
-    const desktop = await createTestPage(browser, baseUrl, DESKTOP_VIEWPORT);
-    try {
-      await runDesktopCriticalFlow(desktop.page);
-      assertHealthyPage(desktop.pageErrors, "desktop");
-    } finally {
-      await desktop.context.close();
-    }
+    await runReport.run("desktop journey", async () => {
+      const desktop = await createTestPage(browser, baseUrl, DESKTOP_VIEWPORT);
+      try {
+        await runDesktopCriticalFlow(desktop.page);
+        assertHealthyPage(desktop.pageErrors, "desktop");
+      } finally {
+        await desktop.context.close();
+      }
+    });
     console.log("critical-browser-e2e: desktop journey completed in " + Math.round(performance.now() - desktopStarted) + " ms");
-
+  }
+  if (mobileJourney) {
     console.log("critical-browser-e2e: mobile journey");
     const mobileStarted = performance.now();
-    const mobile = await createTestPage(browser, baseUrl, MOBILE_VIEWPORT);
-    try {
-      await runMobileCriticalFlow(mobile.page);
-      assertHealthyPage(mobile.pageErrors, "mobile");
-    } finally {
-      await mobile.context.close();
-    }
+    await runReport.run("mobile journey", async () => {
+      const mobile = await createTestPage(browser, baseUrl, MOBILE_VIEWPORT);
+      try {
+        await runMobileCriticalFlow(mobile.page);
+        assertHealthyPage(mobile.pageErrors, "mobile");
+      } finally {
+        await mobile.context.close();
+      }
+    });
     console.log("critical-browser-e2e: mobile journey completed in " + Math.round(performance.now() - mobileStarted) + " ms");
   }
+} catch (error) {
+  await runReport.fail(error);
+  throw error;
 } finally {
-  await browser?.close();
-  await new Promise(resolve => server.close(resolve));
+  try {
+    try {
+      await browser?.close();
+    } finally {
+      console.log("critical-browser-e2e: tile cache " + JSON.stringify(tileCache.stats()));
+      tileCache.close();
+      if (server?.listening) await new Promise(resolve => server.close(resolve));
+    }
+  } catch (error) {
+    await runReport.fail(error);
+    throw error;
+  }
 }
+await runReport.finish();
 
 console.log("critical-browser-e2e.test.js ok");
+}

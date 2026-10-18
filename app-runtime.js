@@ -89,6 +89,15 @@ function getRenderProfileText({ language = "es", isMobile, currentMapMode, resol
 window.GeoRiskRuntime = {
   getDeviceProfile,
   getRenderProfileText,
+  compareSpanishText: (() => {
+    let collator;
+    return (left, right) => {
+      if (typeof Intl === "undefined" || typeof Intl.Collator !== "function") {
+        return left.localeCompare(right, "es");
+      }
+      return (collator ||= new Intl.Collator("es")).compare(left, right);
+    };
+  })(),
   numberFormats: (() => {
     let standard, oneDecimal, twoDecimals, compact;
     const decimal = value => (oneDecimal ||= new Intl.NumberFormat("es-AR", {

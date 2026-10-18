@@ -1,0 +1,329 @@
+diff --git a/scripts/lib/browser-run-report.js b/scripts/lib/browser-run-report.js
+index af7acafa..cc65b292 100644
+--- a/scripts/lib/browser-run-report.js
++++ b/scripts/lib/browser-run-report.js
+@@ -3,10 +3,11 @@ import path from "node:path";
+ import { retryFileOperation } from "./resilient-fs.js";
+
+ export async function createBrowserRunReport({ file, flows, scope, metadata = {},
+-  now = Date.now, clock = () => performance.now(), rename = fs.rename }) {
++  maxConcurrency = 1, now = Date.now, clock = () => performance.now(), rename = fs.rename }) {
+   if (!Array.isArray(flows) || !flows.length || flows.length > 64 ||
+       flows.some(name => typeof name !== "string" || !name || name.length > 120) ||
+-      new Set(flows).size !== flows.length || !["full", "focused", "journeys"].includes(scope)) {
++      new Set(flows).size !== flows.length || !["full", "focused", "journeys"].includes(scope) ||
++      ![1, 2].includes(maxConcurrency)) {
+     throw new Error("Invalid browser report plan.");
+   }
+   const stamp = () => new Date(now()).toISOString();
+@@ -14,22 +15,29 @@ export async function createBrowserRunReport({ file, flows, scope, metadata = {}
+     updatedAt: null, completedAt: null, metadata,
+     flows: flows.map(name => ({ name, status: "pending", durationMs: null })) };
+   let index = 0;
+-  let activeStarted;
++  const activeStarts = new Map();
++  let writes = Promise.resolve();
+   await fs.mkdir(path.dirname(file), { recursive: true });
+-  const save = async () => {
++  const save = () => {
+     state.updatedAt = stamp();
++    const snapshot = JSON.stringify(state, null, 2) + "\n";
+     // Replace one checkpoint; interruption leaves pending/running work, never success.
+-    await fs.writeFile(file + ".tmp", JSON.stringify(state, null, 2) + "\n");
+-    await retryFileOperation(() => rename(file + ".tmp", file), { attempts: 3, delayMs: 40 });
++    // Serial writes prevent concurrent flows from racing on the same temporary file.
++    writes = writes.then(async () => {
++      await fs.writeFile(file + ".tmp", snapshot);
++      await retryFileOperation(() => rename(file + ".tmp", file), { attempts: 3, delayMs: 40 });
++    });
++    return writes;
+   };
+-  const fail = async error => {
++  const fail = async (error, name) => {
+     if (state.status === "failed") return;
+     state.status = "failed";
+     state.completedAt = stamp();
+-    const active = state.flows[index];
+-    if (active?.status === "running") {
+-      active.status = "failed";
+-      active.durationMs = Math.max(0, Math.round(clock() - activeStarted));
++    for (const flow of state.flows) {
++      if (flow.status === "running" && (!name || flow.name === name)) {
++        flow.status = "failed";
++        flow.durationMs = Math.max(0, Math.round(clock() - activeStarts.get(flow.name)));
++      }
+     }
+     state.error = { name: String(error?.name || "Error").slice(0, 80),
+       message: String(error?.message || error).slice(0, 1000) };
+@@ -44,26 +52,33 @@ export async function createBrowserRunReport({ file, flows, scope, metadata = {}
+     },
+     async run(name, task) {
+       const flow = state.flows[index];
+-      if (state.status !== "running" || flow?.status !== "pending" || flow.name !== name) {
++      if (state.status !== "running" || flow?.status !== "pending" || flow.name !== name ||
++          activeStarts.size >= maxConcurrency) {
+         throw new Error("Unexpected browser report flow: " + name);
+       }
+       flow.status = "running";
+-      activeStarted = clock();
++      activeStarts.set(name, clock());
++      index += 1;
+       await save();
+       try {
+         await task();
+-        flow.durationMs = Math.max(0, Math.round(clock() - activeStarted));
++        flow.durationMs = Math.max(0, Math.round(clock() - activeStarts.get(name)));
+         flow.status = "passed";
+-        index += 1;
+         await save();
+       } catch (error) {
+-        await fail(error);
++        if (state.status === "failed") {
++          flow.status = "failed";
++          flow.durationMs = Math.max(0, Math.round(clock() - activeStarts.get(name)));
++          await save();
++        } else await fail(error, name);
+         throw error;
++      } finally {
++        activeStarts.delete(name);
+       }
+     },
+     fail,
+     async finish() {
+-      if (state.status !== "running" || index !== state.flows.length) {
++      if (state.status !== "running" || state.flows.some(flow => flow.status !== "passed") || activeStarts.size) {
+         throw new Error("Incomplete browser report cannot pass.");
+       }
+       state.status = "passed";
+diff --git a/scripts/tests/browser-run-report.test.js b/scripts/tests/browser-run-report.test.js
+index a8a0157d..fb820b06 100644
+--- a/scripts/tests/browser-run-report.test.js
++++ b/scripts/tests/browser-run-report.test.js
+@@ -3,6 +3,7 @@ import fs from "node:fs/promises";
+ import os from "node:os";
+ import path from "node:path";
+ import { createBrowserRunReport } from "../lib/browser-run-report.js";
++import "./browser-flow-runner.test.js";
+
+ const root = await fs.mkdtemp(path.join(os.tmpdir(), "geo-risk-browser-report-"));
+ const file = path.join(root, "reports", "e2e.json");
+@@ -121,6 +122,60 @@ try {
+   locked = true;
+   await assert.rejects(incomplete.finish(), error => error === finalError);
+   assert.equal((await read()).status, "running", "failure to persist completion cannot publish passed status");
++
++  let renameActive = 0;
++  const concurrent = await createBrowserRunReport({ ...options, maxConcurrency: 2, rename: async (from, to) => {
++    assert.equal(++renameActive, 1, "concurrent flows serialize checkpoint replacement");
++    await new Promise(resolve => setImmediate(resolve));
++    try { await fs.rename(from, to); } finally { renameActive--; }
++  } });
++  let releaseFirst, releaseSecond;
++  let enterFirst, enterSecond;
++  const firstEntered = new Promise(resolve => { enterFirst = resolve; });
++  const secondEntered = new Promise(resolve => { enterSecond = resolve; });
++  elapsed = 0;
++  const first = concurrent.run("first", async () => {
++    enterFirst();
++    await new Promise(resolve => { releaseFirst = resolve; });
++  });
++  elapsed = 5;
++  const second = concurrent.run("second", async () => {
++    enterSecond();
++    await new Promise(resolve => { releaseSecond = resolve; });
++  });
++  await Promise.all([firstEntered, secondEntered]);
++  assert.deepEqual((await read()).flows.map(flow => flow.status), ["running", "running"]);
++  await assert.rejects(concurrent.finish(), /Incomplete/);
++  elapsed = 12;
++  releaseSecond();
++  await second;
++  assert.deepEqual((await read()).flows.map(flow => flow.status), ["running", "passed"]);
++  assert.equal((await read()).flows[1].durationMs, 7);
++  await assert.rejects(concurrent.finish(), /Incomplete/);
++  elapsed = 30;
++  releaseFirst();
++  await first;
++  await concurrent.finish();
++  assert.deepEqual((await read()).flows.map(flow => flow.durationMs), [30, 7], "duration belongs to each independent flow");
++  assert.equal((await read()).status, "passed");
++  assert.deepEqual(await fs.readdir(path.dirname(file)), ["e2e.json"]);
++  await assert.rejects(createBrowserRunReport({ ...options, maxConcurrency: 3 }), /Invalid/);
++
++  const parallelFailure = await createBrowserRunReport({ ...options, maxConcurrency: 2 });
++  let rejectFirst, rejectSecond;
++  const firstFailEntered = new Promise(resolve => { enterFirst = resolve; });
++  const secondFailEntered = new Promise(resolve => { enterSecond = resolve; });
++  const failedFirst = parallelFailure.run("first", async () => { enterFirst(); await new Promise((_, reject) => { rejectFirst = reject; }); });
++  const failedSecond = parallelFailure.run("second", async () => { enterSecond(); await new Promise((_, reject) => { rejectSecond = reject; }); });
++  await Promise.all([firstFailEntered, secondFailEntered]);
++  rejectFirst(new Error("first failure"));
++  await assert.rejects(failedFirst, /first failure/);
++  assert.deepEqual((await read()).flows.map(flow => flow.status), ["failed", "running"]);
++  rejectSecond(new Error("peer failure"));
++  await assert.rejects(failedSecond, /peer failure/);
++  assert.deepEqual((await read()).flows.map(flow => flow.status), ["failed", "failed"]);
++  assert.equal((await read()).error.message, "first failure", "peer errors never overwrite the original failure");
++  await assert.rejects(parallelFailure.finish(), /Incomplete/);
+ } finally {
+   await fs.rm(root, { recursive: true, force: true });
+ }
+diff --git a/scripts/tests/critical-browser-e2e.test.js b/scripts/tests/critical-browser-e2e.test.js
+index 321e5c38..95e21564 100644
+--- a/scripts/tests/critical-browser-e2e.test.js
++++ b/scripts/tests/critical-browser-e2e.test.js
+@@ -6,6 +6,7 @@ import { createLocalSmokeServer } from "../localSmokeServer.js";
+ import { captureLiveElement, captureTransientNotice } from "../lib/browser-screenshot.js";
+ import { createBrowserTileCache } from "../lib/browser-tile-cache.js";
+ import { createBrowserRunReport } from "../lib/browser-run-report.js";
++import { browserFlowConcurrency, runBrowserFlowBatch } from "../lib/browser-flow-runner.js";
+
+ const APP_TIMEOUT_MS = Number(process.env.GEORISK_E2E_TIMEOUT_MS || 45000);
+ const MAP_PICK_TIMEOUT_MS = Math.min(APP_TIMEOUT_MS, 8000);
+@@ -4007,15 +4008,24 @@ const focusedFlows = [
+ const focused = focusedFlows.some(([flag]) => process.argv.includes(flag));
+ const journeysOnly = process.argv.includes("--journeys-only");
+ const selectedFlows = focusedFlows.filter(([flag]) => !journeysOnly && (!focused || process.argv.includes(flag)));
++const concurrency = browserFlowConcurrency(process.env.GEORISK_E2E_CONCURRENCY);
++// Explicit allowlist: unknown flows, timing/quality tests and shared worker fixtures stay isolated.
++const independentUiFlows = new Set([testPagesBuild, testCountryTextRendering, testContentSecurityPolicy,
++  testUntrustedInputs, testStorageFailures, testSecureExports, testShareLifecycle, testDeferredUiRecovery,
++  testConflictCurationAndLateResponse, testCountryDataRecovery, testNewsLifecycle]);
++const pairedFlows = concurrency === 2 ? selectedFlows.filter(([_flag, run]) => independentUiFlows.has(run)) : [];
++const isolatedFlows = selectedFlows.filter(flow => !pairedFlows.includes(flow));
+ const runReport = await createBrowserRunReport({
+   file: "reports/critical-browser-e2e.json",
+-  flows: [...selectedFlows.map(([_flag, run]) => run.name), ...(!focused ? ["desktop journey", "mobile journey"] : [])],
++  flows: [...pairedFlows, ...isolatedFlows].map(([_flag, run]) => run.name).concat(!focused ? ["desktop journey", "mobile journey"] : []),
+   scope: focused ? "focused" : journeysOnly ? "journeys" : "full",
+-  metadata: { platform: process.platform, nodeVersion: process.version,
++  maxConcurrency: concurrency,
++  metadata: { platform: process.platform, nodeVersion: process.version, concurrency,
+     ciRunId: process.env.GITHUB_RUN_ID || null, ciRevision: process.env.GITHUB_SHA || null }
+ });
+
+ let browser;
++let peerBrowser;
+ let server;
+ try {
+   assert.ok(!journeysOnly || !focused, "--journeys-only no se combina con otros filtros");
+@@ -4037,13 +4047,21 @@ try {
+   const { port } = server.address();
+   const baseUrl = "http://127.0.0.1:" + port;
+   browser = await launchCriticalBrowser();
+-  await runReport.setBrowser(getBrowserSelection(browser));
+-  for (const [_flag, run] of selectedFlows) {
++  if (pairedFlows.length > 1) {
++    peerBrowser = await launchCriticalBrowser();
++    assert.deepEqual(getBrowserSelection(peerBrowser), getBrowserSelection(browser), "parallel browsers must use the same effective channel/version");
++  }
++  await runReport.setBrowser({ ...getBrowserSelection(browser), instances: peerBrowser ? 2 : 1 });
++  const executeFlow = async ([_flag, run], slot = 0) => {
+     console.log("critical-browser-e2e: " + run.name);
+     const started = performance.now();
+-    await runReport.run(run.name, () => run(browser, baseUrl));
++    await runReport.run(run.name, () => run(slot === 1 ? peerBrowser : browser, baseUrl));
+     console.log("critical-browser-e2e: " + run.name + " completed in " + Math.round(performance.now() - started) + " ms");
+-  }
++  };
++  await runBrowserFlowBatch(pairedFlows, executeFlow, concurrency);
++  await peerBrowser?.close();
++  peerBrowser = null;
++  await runBrowserFlowBatch(isolatedFlows, executeFlow);
+
+   if (!focused) {
+     console.log("critical-browser-e2e: desktop journey");
+@@ -4078,7 +4096,7 @@ try {
+ } finally {
+   try {
+     try {
+-      await browser?.close();
++      try { await peerBrowser?.close(); } finally { await browser?.close(); }
+     } finally {
+       console.log("critical-browser-e2e: tile cache " + JSON.stringify(tileCache.stats()));
+       tileCache.close();
+
+Uncommitted prototype file: scripts/lib/browser-flow-runner.js
+export function browserFlowConcurrency(value = "1") {
+  if (value !== "1" && value !== "2") throw new Error("Browser flow concurrency must be 1 or 2.");
+  return Number(value);
+}
+
+// The caller selects independent flows; map/performance/shared-server flows stay serial.
+export async function runBrowserFlowBatch(flows, execute, concurrency = 1) {
+  if (![1, 2].includes(concurrency)) throw new Error("Browser flow concurrency must be 1 or 2.");
+  let next = 0;
+  let failed = false;
+  let firstError;
+  async function worker(slot) {
+    while (!failed && next < flows.length) {
+      const flow = flows[next++];
+      try { await execute(flow, slot); }
+      catch (error) { if (!failed) { failed = true; firstError = error; } }
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(concurrency, flows.length) }, (_, slot) => worker(slot)));
+  if (failed) throw firstError;
+}
+
+Uncommitted prototype file: scripts/tests/browser-flow-runner.test.js
+import assert from "node:assert/strict";
+import { browserFlowConcurrency, runBrowserFlowBatch } from "../lib/browser-flow-runner.js";
+
+assert.equal(browserFlowConcurrency(), 1);
+assert.equal(browserFlowConcurrency("2"), 2);
+for (const value of ["0", "3", "02", "", "NaN", 2]) assert.throws(() => browserFlowConcurrency(value), /1 or 2/);
+await assert.rejects(runBrowserFlowBatch([], () => {}, 3), /1 or 2/);
+
+const gates = [];
+const started = [];
+const slots = [];
+let active = 0;
+let peak = 0;
+const execute = async (name, slot) => {
+  started.push(name);
+  slots.push(slot);
+  active++;
+  peak = Math.max(peak, active);
+  await new Promise(resolve => { gates.push(resolve); });
+  active--;
+};
+const paired = runBrowserFlowBatch(["a", "b", "c", "d"], execute, 2);
+assert.deepEqual(started, ["a", "b"]);
+gates.shift()();
+await new Promise(resolve => setImmediate(resolve));
+assert.deepEqual(started, ["a", "b", "c"]);
+gates.shift()();
+await new Promise(resolve => setImmediate(resolve));
+assert.deepEqual(started, ["a", "b", "c", "d"]);
+gates.splice(0).forEach(release => release());
+await paired;
+assert.equal(peak, 2);
+assert.equal(active, 0);
+assert.deepEqual(slots, [0, 1, 0, 1], "a worker owns one stable browser slot across its flows");
+
+const failure = new Error("original failure");
+let releasePeer;
+let peerClosed = false;
+const dispatched = [];
+const failed = runBrowserFlowBatch(["bad", "peer", "never"], async name => {
+  dispatched.push(name);
+  if (name === "bad") throw failure;
+  try { await new Promise(resolve => { releasePeer = resolve; }); }
+  finally { peerClosed = true; }
+}, 2);
+let settled = false;
+failed.then(() => { settled = true; }, () => { settled = true; });
+await new Promise(resolve => setImmediate(resolve));
+assert.equal(settled, false, "active peer must finish its own teardown before batch rejects");
+releasePeer();
+await assert.rejects(failed, error => error === failure);
+assert.deepEqual(dispatched, ["bad", "peer"], "a failure stops new work without dropping the original error");
+assert.equal(peerClosed, true);
+let serialActive = 0;
+await runBrowserFlowBatch([1, 2, 3], async () => {
+  assert.equal(++serialActive, 1);
+  await Promise.resolve();
+  serialActive--;
+});
+console.log("browser-flow-runner.test.js ok: one/two workers, exact dispatch, failure stop and peer teardown");

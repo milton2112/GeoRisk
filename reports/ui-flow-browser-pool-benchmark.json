@@ -1,0 +1,123 @@
+{
+  "measuredAt": "2026-10-08T14:27:51.881Z",
+  "sourceSha256": "93d733fede1333bb59b8332b5078ca46f44652de6a92c76615c14a0fc53b3d23",
+  "publicInputHash": "f60f0da9727e20aa9da633111396c633f01ce4957530ca490c8579a48735768a",
+  "methodology": {
+    "browser": "Chrome Windows, forced SwiftShader; each worker owns a browser",
+    "cpuRate": 4,
+    "order": [
+      1,
+      2,
+      2,
+      1
+    ],
+    "flows": [
+      "testUntrustedInputs",
+      "testCountryDataRecovery"
+    ],
+    "httpCache": "fresh contexts, routing disables HTTP cache",
+    "limits": "Two existing flows; software renderer and CPU emulation are not Linux CI parity, whole-app performance, RAM bytes or energy."
+  },
+  "samples": [
+    {
+      "concurrency": 1,
+      "elapsedMs": 112730,
+      "peakContexts": 1,
+      "remainingContexts": 0,
+      "browser": {
+        "requestedChannel": "chrome",
+        "actualChannel": "chrome",
+        "browserVersion": "155.0.8059.40",
+        "instances": 1
+      },
+      "status": "passed",
+      "flows": [
+        {
+          "name": "testUntrustedInputs",
+          "status": "passed",
+          "durationMs": 43511
+        },
+        {
+          "name": "testCountryDataRecovery",
+          "status": "passed",
+          "durationMs": 67854
+        }
+      ]
+    },
+    {
+      "concurrency": 2,
+      "elapsedMs": 155068,
+      "peakContexts": 2,
+      "remainingContexts": 0,
+      "browser": {
+        "requestedChannel": "chrome",
+        "actualChannel": "chrome",
+        "browserVersion": "155.0.8059.40",
+        "instances": 2
+      },
+      "status": "passed",
+      "flows": [
+        {
+          "name": "testUntrustedInputs",
+          "status": "passed",
+          "durationMs": 128831
+        },
+        {
+          "name": "testCountryDataRecovery",
+          "status": "passed",
+          "durationMs": 153267
+        }
+      ]
+    },
+    {
+      "concurrency": 2,
+      "elapsedMs": 134975,
+      "peakContexts": 2,
+      "remainingContexts": 0,
+      "browser": {
+        "requestedChannel": "chrome",
+        "actualChannel": "chrome",
+        "browserVersion": "155.0.8059.40",
+        "instances": 2
+      },
+      "status": "passed",
+      "flows": [
+        {
+          "name": "testUntrustedInputs",
+          "status": "passed",
+          "durationMs": 109197
+        },
+        {
+          "name": "testCountryDataRecovery",
+          "status": "passed",
+          "durationMs": 133181
+        }
+      ]
+    },
+    {
+      "concurrency": 1,
+      "elapsedMs": 111241,
+      "peakContexts": 1,
+      "remainingContexts": 0,
+      "browser": {
+        "requestedChannel": "chrome",
+        "actualChannel": "chrome",
+        "browserVersion": "155.0.8059.40",
+        "instances": 1
+      },
+      "status": "passed",
+      "flows": [
+        {
+          "name": "testUntrustedInputs",
+          "status": "passed",
+          "durationMs": 38297
+        },
+        {
+          "name": "testCountryDataRecovery",
+          "status": "passed",
+          "durationMs": 71869
+        }
+      ]
+    }
+  ]
+}

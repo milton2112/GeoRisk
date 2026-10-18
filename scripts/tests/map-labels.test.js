@@ -9,8 +9,10 @@ import CesiumMath from "@cesium/engine/Source/Core/Math.js";
 import NearFarScalar from "@cesium/engine/Source/Core/NearFarScalar.js";
 import DistanceDisplayCondition from "@cesium/engine/Source/Core/DistanceDisplayCondition.js";
 import Entity from "@cesium/engine/Source/DataSources/Entity.js";
+import EntityCollection from "@cesium/engine/Source/DataSources/EntityCollection.js";
 
 const source = await fs.readFile(new URL("../../script.js", import.meta.url), "utf8");
+const styles = await fs.readFile(new URL("../../app-map-styles.js", import.meta.url), "utf8");
 const initialLabels = source.slice(source.indexOf("const constrainedInitialDevice ="), source.indexOf("let autoRotateEnabled ="));
 for (const smallViewport of [false, true]) {
   for (const deviceMemory of [undefined, 2, 4, 8]) {
@@ -29,7 +31,9 @@ for (const smallViewport of [false, true]) {
 }
 const radius = Ellipsoid.WGS84.maximumRadius;
 const point = (lon, lat = 0) => Cartesian3.fromDegrees(lon, lat);
+const collection = new EntityCollection();
 const state = {
+  window: {},
   Cesium: { Cartesian3, Cartesian2, Ellipsoid, Rectangle, Math: CesiumMath, NearFarScalar, DistanceDisplayCondition,
     LabelStyle: { FILL_AND_OUTLINE: 2 }, HorizontalOrigin: { CENTER: 0 }, VerticalOrigin: { CENTER: 0 } },
   countriesData: {}, countryLayers: new Map(), labelEntities: [], hiddenLabelEntities: [], labelMode: "countries", currentMapMode: "3d",
@@ -41,12 +45,18 @@ const state = {
   viewer: {
     clock: {},
     camera: { positionWC: new Cartesian3(radius * 3, 0, 0) },
-    entities: { add(config) { const entity = new Entity(config); state.created.push(entity); return entity; }, remove(entity) { state.removed.push(entity); } },
+    entities: collection,
     scene: { globe: { ellipsoid: Ellipsoid.WGS84 }, canvas: { clientWidth: 100, clientHeight: 100 },
       cartesianToCanvasCoordinates: () => state.projected, requestRender() { state.renders++; } }
   }
 };
+const addEntity = collection.add.bind(collection);
+const removeEntity = collection.remove.bind(collection);
+collection.add = config => { const entity = addEntity(new Entity(config)); state.created.push(entity); return entity; };
+collection.remove = entity => { state.removed.push(entity); return removeEntity(entity); };
 vm.createContext(state);
+vm.runInContext(styles, state);
+state.mapStyleCore = state.window.GeoRiskMapStyles;
 vm.runInContext(source.slice(source.indexOf("function getCountryLabelData("), source.indexOf("function focusRectangle(")), state);
 assert.equal(state.getMapLabelMaxDistance("country"), 18000000);
 assert.equal(state.getMapLabelMaxDistance("context"), 30000000);
@@ -142,4 +152,55 @@ state.labelMode = "none";
 state.renderMapLabels();
 assert.equal(state.hiddenLabelEntities.length, 0);
 assert.equal(state.created.length, state.removed.length, "disabling labels releases visible and temporarily hidden entities");
+
+Object.assign(state, { labelMode: "countries", currentMapMode: "3d", bucket: "near", isCameraNavigating: false });
+state.viewer.camera.positionWC = new Cartesian3(radius * 3, 0, 0);
+state.getCountryLabelData = () => [0, 1, 2].map(i => ({ id: `batch-${i}`, text: `Pais ${i}`, lon: i, lat: 0 }));
+const batches = [];
+const stopObserving = collection.collectionChanged.addEventListener((_owner, added, removed, changed) => {
+  batches.push({ added: added.length, removed: removed.length, changed: changed.length,
+    visible: state.labelEntities.length, hidden: state.hiddenLabelEntities.length });
+});
+state.renderMapLabels();
+assert.equal(batches.length, 1, "three new labels deliver one collection event, not one per label");
+assert.deepEqual(batches[0], { added: 3, removed: 0, changed: 0, visible: 3, hidden: 0 });
+const retained = [...state.labelEntities];
+batches.length = 0;
+state.renderMapLabels();
+assert.equal(batches.length, 0, "an unchanged label view stays silent");
+state.hideMapLabels();
+assert.equal(batches.length, 1, "hide is one event with the final hidden view");
+assert.deepEqual(batches[0], { added: 0, removed: 0, changed: 3, visible: 0, hidden: 3 });
+batches.length = 0;
+state.renderMapLabels();
+assert.equal(batches.length, 1, "show the retained view in one collection event");
+assert.deepEqual([...state.labelEntities], retained);
+assert.deepEqual(batches[0], { added: 0, removed: 0, changed: 3, visible: 3, hidden: 0 });
+batches.length = 0;
+state.getCountryLabelData = () => [0, 1, 2].map(i => ({ id: `batch-${i}`, text: `Nombre ${i}`, lon: i + 1, lat: 0 }));
+state.bucket = "mid";
+state.renderMapLabels();
+assert.equal(batches.length, 1, "position, text and font changes share one final collection event");
+assert.equal(batches[0].changed, 3);
+for (const [i, entity] of state.labelEntities.entries()) {
+  assert.equal(entity.label.text.getValue(), `Nombre ${i}`);
+  assert.equal(Cartesian3.distance(entity.position.getValue(), point(i + 1)), 0);
+  assert.equal(entity.label.font.getValue(), "600 13px Segoe UI, sans-serif");
+}
+batches.length = 0;
+state.clearMapLabels();
+assert.equal(batches.length, 1, "clear delivers one removal batch after releasing label references");
+assert.deepEqual(batches[0], { added: 0, removed: 3, changed: 0, visible: 0, hidden: 0 });
+batches.length = 0;
+assert.equal(state.clearMapLabels(), false);
+assert.equal(state.hideMapLabels(), false);
+assert.equal(batches.length, 0);
+collection.suspendEvents();
+state.renderMapLabels();
+assert.equal(batches.length, 0, "render cannot release a caller's outer suspension");
+collection.resumeEvents();
+assert.equal(batches.length, 1);
+stopObserving();
+state.clearMapLabels();
+assert.equal(collection.values.length, 0, "obsolete labels still do not accumulate");
 console.log("map-labels.test.js ok");

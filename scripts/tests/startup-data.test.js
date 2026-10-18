@@ -226,13 +226,23 @@ assert.ok(!script.includes("buildQuizQuestion = function buildQuizQuestion"), "q
 assert.ok(/function buildQuizQuestion\(category\)[\s\S]{0,500}quizUi\.buildQuestionBank/.test(script), "quiz debe usar banco generado diferido cuando esta disponible");
 assert.ok(!/function buildQuizQuestion\(category\)[\s\S]{0,2400}category === "language"/.test(script), "quiz no debe conservar ramas pesadas de categorias en el runtime critico");
 assert.ok(script.includes("data-conflict-expand-children"), "campanas y batallas anidadas deben expandirse por tandas");
-assert.ok(/function rerenderCurrentPanel\(\)[\s\S]{0,1500}setTimeout\(flush, 0\)/.test(script), "rerender de panel no debe depender de frames visibles");
+const panelRefreshStart = script.indexOf("function rerenderCurrentPanel()");
+const panelRefreshEnd = script.indexOf("function readLocalPreference(", panelRefreshStart);
+assert.ok(panelRefreshStart >= 0 && panelRefreshEnd > panelRefreshStart, "localizar el refresco completo del panel");
+const panelRefreshSource = script.slice(panelRefreshStart, panelRefreshEnd);
+assert.match(panelRefreshSource, /setTimeout\(flush, 0\)/, "rerender de panel no debe depender de frames visibles");
+assert.doesNotMatch(panelRefreshSource, /requestAnimationFrame\s*\(/, "el refresco no espera un frame suspendido");
 assert.ok(!/bootHeavyDataEnhancements[\s\S]{0,500}loadRuntimeCuration/.test(script), "curaduria profunda no debe ejecutarse desde el arranque diferido");
 assert.ok(/sectionId === "country-section-history"[\s\S]{0,220}loadRuntimeCuration/.test(script), "curaduria profunda debe activarse al abrir historia o conflictos");
 assert.ok(script.includes("function setupCriticalCountrySearchIndex"), "busqueda de pais debe tener un indice critico liviano");
 assert.ok(/await hydrateCountriesData\(countriesJson\);\s*setupCriticalCountrySearchIndex\(\);/.test(script), "indice critico de paises debe quedar listo al terminar la hidratacion inicial");
 assert.ok(script.includes("function ensureSearchIndexReady"), "busqueda avanzada debe tener garantia de indice bajo demanda");
-assert.ok(/async function searchMap\(\)[\s\S]{0,140}ensureSearchIndexReady\(\)/.test(script), "primera busqueda debe habilitar religiones y categorias aunque la tarea ociosa siga pendiente");
+const searchControllerStart = script.indexOf("async function searchMap()");
+const searchControllerEnd = script.indexOf("async function searchByQuery(", searchControllerStart);
+assert.ok(searchControllerStart >= 0 && searchControllerEnd > searchControllerStart);
+const searchControllerSource = script.slice(searchControllerStart, searchControllerEnd);
+assert.match(searchControllerSource, /if \(!await ensureDeferredUiModule\("search"\) \|\| !isCurrent\(\)\) return;\s*ensureSearchIndexReady\(\)/,
+  "solo una busqueda vigente con modulo disponible inicia el indice bajo demanda");
 assert.ok(script.includes("async function openCountryByCode"), "interacciones deben centralizar apertura de ficha por codigo");
 assert.ok(/if \(result\.type === "country"\)[\s\S]{0,180}await openCountryByCode\(countryCode, result\.label\)/.test(script), "busqueda de pais debe abrir ficha aunque la geometria siga cargando");
 assert.ok(/function selectRankedCountry\(country\)[\s\S]{0,180}await openCountryByCode\(code/.test(script), "rankings deben abrir fichas con el mismo flujo que busqueda/mapa");
@@ -365,7 +375,9 @@ assert.ok(script.includes("app-conflict-rules.js"), "reglas pesadas de conflicto
 assert.ok(!script.includes("CONFLICT_PARENT_RULES.push("), "jerarquia pesada de conflictos debe vivir fuera del runtime critico");
 assert.ok(appConflictRules.includes("window.GeoRiskConflictRules"), "modulo diferido debe exponer reglas de jerarquia de conflictos");
 assert.ok(appConflictRules.includes("CONFLICT_PARENT_RULES.push("), "modulo diferido debe conservar reglas de jerarquia completas");
-assert.ok(script.includes("scheduleConflictAliasesLoad"), "alias pesados de conflictos deben cargarse en idle o bajo demanda");
+assert.ok(!script.includes("scheduleConflictAliasesLoad"), "alias pesados de conflictos no deben descargarse por un idle especulativo");
+assert.match(script, /async function loadWikipediaConflictDetails\(conflictName\) \{\s*await ensureConflictAliasesLoaded\(\);/,
+  "detalle explicito de conflictos conserva su carga de aliases bajo demanda");
 assert.ok(script.includes("app-project-audit-ui.js"), "auditoria del proyecto debe tener modulo diferido declarado");
 assert.ok(appCountryPanel.includes("function renderCurationTodo"), "ficha pais debe exponer checklist de curaduria desde su modulo diferido");
 assert.ok(script.includes("function getCountryCurationActions"), "ficha pais debe exponer acciones de curaduria por seccion");

@@ -87,7 +87,7 @@ const mapInteractionCore = window.GeoRiskMapInteractions || {};
 const globeQuality = mapInteractionCore.createGlobeQualityController();
 const appStore = window.GeoRiskStore?.store || null;
 let uiPolish = window.GeoRiskUiPolish || {};
-const APP_VERSION = "2026-10-05-release-6";
+const APP_VERSION = "2026-10-09-release-4";
 window.GeoRiskAppVersion = APP_VERSION;
 function createFallbackCache() {
   return { isFallback: true, get(key, revision, build) { return build(); }, invalidate() {}, size() { return 0; } };
@@ -115,6 +115,8 @@ const DEFERRED_UI_MODULES = {
 };
 const deferredUiModulePromises = new Map();
 const deferredUiModuleFailures = new Map();
+const deferredUiModuleLoads = new Map();
+const DEFERRED_UI_WAIT_MS = 20000;
 
 function refreshDeferredUiGlobals() {
   newsUi = window.GeoRiskNewsUI || newsUi || {};
@@ -153,27 +155,59 @@ async function ensureDeferredUiModule(moduleName) {
         : "No se pudo cargar esta funcion. Recarga la pagina para volver a intentarlo.");
       return false;
     }
-    // Chromium retains failed module URLs. Bound retry variants to this session.
-    const loadUrl = failures ? `${moduleUrl}&retry=${failures}` : moduleUrl;
-    deferredUiModulePromises.set(
-      moduleName,
+    let load = deferredUiModuleLoads.get(moduleName);
+    if (!load) {
+      // A waiting deadline cannot cancel import(). Rejoin it instead of evaluating another URL.
+      // Chromium retains failed module URLs; only actual failures use bounded retry variants.
+      const loadUrl = failures ? `${moduleUrl}&retry=${failures}` : moduleUrl;
+      load = { finish: null };
       import(loadUrl)
         .then(() => true)
         .catch(error => {
-          deferredUiModulePromises.delete(moduleName);
           const exhausted = failures >= 2 || error?.name !== "TypeError" ||
             !/^(Failed to fetch dynamically imported module|error loading dynamically imported module|Importing a module script failed)/i.test(error?.message || "");
           deferredUiModuleFailures.set(moduleName, exhausted ? 3 : failures + 1);
           console.warn(`No se pudo cargar modulo diferido ${moduleName}:`, error);
-          uiPolish.showToast?.(exhausted
-            ? (currentLanguage === "en" ? "Could not load this feature. Reload the page to try again."
-              : "No se pudo cargar esta funcion. Recarga la pagina para volver a intentarlo.")
-            : (currentLanguage === "en" ? "Could not load this feature. Check your connection and try again."
-              : "No se pudo cargar esta funcion. Revisa tu conexion y vuelve a intentarlo."));
           return false;
         })
-        .finally(refreshDeferredUiGlobals)
-    );
+        .finally(() => {
+          refreshDeferredUiGlobals();
+        })
+        .then(loaded => {
+          deferredUiModuleLoads.delete(moduleName);
+          if (loaded) deferredUiModulePromises.set(moduleName, Promise.resolve(true));
+          load.finish?.(loaded);
+        }, () => {
+          deferredUiModuleLoads.delete(moduleName);
+          load.finish?.(false);
+        });
+      deferredUiModuleLoads.set(moduleName, load);
+    }
+    const wait = new Promise(resolve => {
+      let settled = false;
+      const finish = (loaded, timedOut = false) => {
+        if (settled) return;
+        settled = true;
+        load.finish = null;
+        clearTimeout(timer);
+        if (!loaded) {
+          if (deferredUiModulePromises.get(moduleName) === wait) deferredUiModulePromises.delete(moduleName);
+          const exhausted = (deferredUiModuleFailures.get(moduleName) || 0) >= 3;
+          uiPolish.showToast?.(timedOut
+            ? (currentLanguage === "en" ? "This feature is taking too long to load. Try again."
+              : "Esta funcion tarda demasiado en cargar. Vuelve a intentarlo.")
+            : exhausted
+              ? (currentLanguage === "en" ? "Could not load this feature. Reload the page to try again."
+                : "No se pudo cargar esta funcion. Recarga la pagina para volver a intentarlo.")
+              : (currentLanguage === "en" ? "Could not load this feature. Check your connection and try again."
+                : "No se pudo cargar esta funcion. Revisa tu conexion y vuelve a intentarlo."));
+        }
+        resolve(loaded);
+      };
+      const timer = setTimeout(function onDeferredUiTimeout() { finish(false, true); }, DEFERRED_UI_WAIT_MS);
+      load.finish = finish;
+    });
+    deferredUiModulePromises.set(moduleName, wait);
   }
 
   return deferredUiModulePromises.get(moduleName);
@@ -650,11 +684,21 @@ class CesiumCountryLayer {
       return;
     }
 
-    this.currentStyleKey = styleKey;
+    const previousStyle = this.currentStyleKey ? JSON.parse(this.currentStyleKey) : null;
+    const fillChanged = !previousStyle || previousStyle.fillColor !== style.fillColor || previousStyle.fillOpacity !== style.fillOpacity;
+    const borderChanged = !previousStyle || previousStyle.color !== style.color;
+    const widthChanged = !previousStyle || previousStyle.weight !== scaledWeight;
+    const fillColor = fillChanged ? cssColorToCesiumColor(style.fillColor, style.fillOpacity) : null;
+    let borderColor = borderChanged ? cssColorToCesiumColor(style.color, 1) : null;
+    // A partial failure must not mark this style complete or prevent a later repair.
+    this.currentStyleKey = "";
     this.entities.forEach(entity => {
       if (entity.polygon) {
-        entity.polygon.material = cssColorToCesiumColor(style.fillColor, style.fillOpacity);
-        entity.polygon.outline = false;
+        if (fillChanged) entity.polygon.material = fillColor;
+        const outline = entity.polygon.outline;
+        if (outline !== false && (!outline?.isConstant || outline.getValue() !== false)) {
+          entity.polygon.outline = false;
+        }
       }
       if (!entity.polyline && entity.polygon) {
         const positions = entity.__geoRiskPolylinePositions || [];
@@ -663,15 +707,15 @@ class CesiumCountryLayer {
             positions,
             clampToGround: false,
             width: scaledWeight,
-            material: cssColorToCesiumColor(style.color, 0.92)
+            material: borderColor ||= cssColorToCesiumColor(style.color, 1)
           });
         }
-      }
-      if (entity.polyline) {
-        entity.polyline.material = cssColorToCesiumColor(style.color, 1);
-        entity.polyline.width = scaledWeight;
+      } else if (entity.polyline) {
+        if (borderChanged) entity.polyline.material = borderColor;
+        if (widthChanged) entity.polyline.width = scaledWeight;
       }
     });
+    this.currentStyleKey = styleKey;
   }
 
   getBounds() {
@@ -723,18 +767,22 @@ function getCountryLabelData() {
 
 function clearMapLabels() {
   if (!viewer || (!labelEntities.length && !hiddenLabelEntities.length)) return false;
-  [...labelEntities, ...hiddenLabelEntities].forEach(entity => viewer.entities.remove(entity));
-  labelEntities = [];
-  hiddenLabelEntities = [];
-  return true;
+  return mapStyleCore.withEntityEventsSuspended(viewer.entities, () => {
+    [...labelEntities, ...hiddenLabelEntities].forEach(entity => viewer.entities.remove(entity));
+    labelEntities = [];
+    hiddenLabelEntities = [];
+    return true;
+  });
 }
 
 function hideMapLabels() {
   if (!labelEntities.length) return false;
-  labelEntities.forEach(entity => { entity.show = false; });
-  hiddenLabelEntities = labelEntities;
-  labelEntities = [];
-  return true;
+  return mapStyleCore.withEntityEventsSuspended(viewer.entities, () => {
+    labelEntities.forEach(entity => { entity.show = false; });
+    hiddenLabelEntities = labelEntities;
+    labelEntities = [];
+    return true;
+  });
 }
 
 function getMapLabelMaxDistance(category) {
@@ -804,48 +852,50 @@ function renderMapLabels() {
     return;
   }
 
-  // Retain only the previous view, never a cache of every visited country.
-  const previousLabels = new Map([...labelEntities, ...hiddenLabelEntities].map(entity => [entity.id, entity]));
-  const nextLabels = [];
-  let changed = false;
-  const time = viewer.clock.currentTime;
-  const zoomBucket = get3DZoomBucket();
-  const countries = getCountryLabelData();
-  const maxCountries = zoomBucket === "near"
-    ? (isMobileLayout() ? 58 : 120)
-    : zoomBucket === "mid"
-      ? (isMobileLayout() ? 38 : 88)
-      : (isMobileLayout() ? 20 : 52);
-  const addVisibleLabel = (item, category) => {
-    const position = Cesium.Cartesian3.fromDegrees(item.lon, item.lat, 0);
-    if (isMapLabelVisible(position, getMapLabelMaxDistance(category))) {
-      let entity = previousLabels.get(item.id);
-      if (entity) {
-        previousLabels.delete(item.id);
-        if (!Cesium.Cartesian3.equals(entity.position.getValue(time), position)) { entity.position = position; changed = true; }
-        if (entity.label.text.getValue(time) !== item.text) { entity.label.text = item.text; changed = true; }
-        const font = getMapLabelFont(category);
-        if (entity.label.font.getValue(time) !== font) { entity.label.font = font; changed = true; }
-        if (!entity.show) { entity.show = true; changed = true; }
-      } else {
-        entity = viewer.entities.add(buildLabelEntityConfig(item, category, position));
-        changed = true;
+  mapStyleCore.withEntityEventsSuspended(viewer.entities, () => {
+    // Retain only the previous view, never a cache of every visited country.
+    const previousLabels = new Map([...labelEntities, ...hiddenLabelEntities].map(entity => [entity.id, entity]));
+    const nextLabels = [];
+    let changed = false;
+    const time = viewer.clock.currentTime;
+    const zoomBucket = get3DZoomBucket();
+    const countries = getCountryLabelData();
+    const maxCountries = zoomBucket === "near"
+      ? (isMobileLayout() ? 58 : 120)
+      : zoomBucket === "mid"
+        ? (isMobileLayout() ? 38 : 88)
+        : (isMobileLayout() ? 20 : 52);
+    const addVisibleLabel = (item, category) => {
+      const position = Cesium.Cartesian3.fromDegrees(item.lon, item.lat, 0);
+      if (isMapLabelVisible(position, getMapLabelMaxDistance(category))) {
+        let entity = previousLabels.get(item.id);
+        if (entity) {
+          previousLabels.delete(item.id);
+          if (!Cesium.Cartesian3.equals(entity.position.getValue(time), position)) { entity.position = position; changed = true; }
+          if (entity.label.text.getValue(time) !== item.text) { entity.label.text = item.text; changed = true; }
+          const font = getMapLabelFont(category);
+          if (entity.label.font.getValue(time) !== font) { entity.label.font = font; changed = true; }
+          if (!entity.show) { entity.show = true; changed = true; }
+        } else {
+          entity = viewer.entities.add(buildLabelEntityConfig(item, category, position));
+          changed = true;
+        }
+        nextLabels.push(entity);
       }
-      nextLabels.push(entity);
-    }
-  };
-  countries.slice(0, maxCountries).forEach(item => addVisibleLabel(item, "country"));
+    };
+    countries.slice(0, maxCountries).forEach(item => addVisibleLabel(item, "country"));
 
-  if (labelMode === "full" && zoomBucket !== "far") {
-    [...MAP_LABEL_SETS.continents, ...MAP_LABEL_SETS.oceans].forEach(item => {
-      addVisibleLabel(item, "context");
-    });
-  }
-  if (previousLabels.size) changed = true;
-  previousLabels.forEach(entity => viewer.entities.remove(entity));
-  labelEntities = nextLabels;
-  hiddenLabelEntities = [];
-  if (changed) viewer.scene.requestRender();
+    if (labelMode === "full" && zoomBucket !== "far") {
+      [...MAP_LABEL_SETS.continents, ...MAP_LABEL_SETS.oceans].forEach(item => {
+        addVisibleLabel(item, "context");
+      });
+    }
+    if (previousLabels.size) changed = true;
+    previousLabels.forEach(entity => viewer.entities.remove(entity));
+    labelEntities = nextLabels;
+    hiddenLabelEntities = [];
+    if (changed) viewer.scene.requestRender();
+  });
 }
 
 function focusRectangle(bounds, options = {}) {
@@ -1870,6 +1920,7 @@ function getBootProfileSummary() {
 let mapOverlayLoadToken = 0;
 let deferredGlobalStatsTimer = null;
 let deferredGlobalStatsReady = false;
+let advancedRankingsReady = false;
 let hoverSuppressedUntil = 0;
 let lastHoverSampleAt = 0;
 let lastThemeSummarySignature = "";
@@ -1970,14 +2021,6 @@ async function ensureConflictAliasesLoaded() {
   await loadConflictAliasesPromise;
   return conflictNameAliases;
 }
-
-function scheduleConflictAliasesLoad() {
-  const schedule = window.requestIdleCallback
-    ? callback => window.requestIdleCallback(callback, { timeout: 1800 })
-    : callback => setTimeout(callback, 500);
-  schedule(() => ensureConflictAliasesLoaded());
-}
-
 
 const CONFLICT_PARENT_RULES = [];
 const CONFLICT_CAMPAIGN_MARKERS = [
@@ -2334,6 +2377,13 @@ function initializeViewer() {
     animation: false,
     baseLayer: false,
     baseLayerPicker: false,
+    contextOptions: {
+      webgl: {
+        // WebGL2 renders geometry in Cesium framebuffers; canvas AA repeats only the final copy.
+        // Keep native AA for WebGL1, which can draw geometry to the default framebuffer.
+        antialias: typeof WebGL2RenderingContext === "undefined"
+      }
+    },
     fullscreenButton: false,
     geocoder: false,
     homeButton: false,
@@ -2350,6 +2400,9 @@ function initializeViewer() {
     terrainProvider: new Cesium.EllipsoidTerrainProvider(),
     timeline: false
   });
+  // Flat countries use object picking; camera controls retain the globe ray intersection.
+  // Avoid the per-frustum depth copy for pickPosition, which this map does not need.
+  viewer.scene.useDepthPicking = false;
   installSceneRenderScheduler();
 
   map.scene = viewer.scene;
@@ -2702,6 +2755,7 @@ let savedViews = [];
 let favoriteViews = [];
 let searchHistory = [];
 let savedSearches = [];
+let searchRequestId = 0;
 let quizQuestionBank = [];
 let compareBenchmarkMode = "world";
 let activeNewsTopic = "general";
@@ -2730,6 +2784,7 @@ let lastOverlayBucket = "";
 let lastStyleRefreshSignature = "";
 let reducedPerformanceMode = false;
 let reducedPerformanceReason = "";
+let quizStartToken = 0;
 let quizState = {
   category: "capital",
   difficulty: "easy",
@@ -2997,7 +3052,7 @@ function getUniqueDisplayLabels(values = []) {
     }
   });
 
-  return [...labelsByKey.values()].sort((a, b) => a.localeCompare(b, "es"));
+  return [...labelsByKey.values()].sort(window.GeoRiskRuntime?.compareSpanishText || ((a, b) => a.localeCompare(b, "es")));
 }
 
 function formatPercentage(value) {
@@ -3726,6 +3781,10 @@ function closeMobilePanels() {
   const toolbar = document.getElementById("map-toolbar");
   if (toolbar && isMobileLayout()) {
     toolbar.open = false;
+  }
+  const rankingsPanel = document.getElementById("rankings-panel");
+  if (rankingsPanel && isMobileLayout()) {
+    rankingsPanel.open = false;
   }
   syncMobilePanelControlState();
 }
@@ -4992,7 +5051,10 @@ function extractConflictEndYear(conflict) {
 
 function cleanConflictName(name) {
   return String(name || "")
-    .replace(/\s*\((?:[^)]*?\b\d{4}\b[^)]*?)\)\s*$/u, "")
+    .replace(/\s*\(([^)]*?\b\d{4}\b[^)]*?)\)\s*$/u, (_, suffix) => {
+      const alias = suffix.match(/^([^,\d]+),\s*\d{4}\s*$/u);
+      return alias ? ` (${alias[1].trim()})` : "";
+    })
     .replace(/\s+(?:de|en)?\s*\d{4}(?:\s*[-â€“â€”]\s*\d{4})?\s*$/u, "")
     .replace(/\s*[-â€“â€”]\s*\d{4}(?:\s*[-â€“â€”]\s*\d{4})?\s*$/u, "")
     .replace(/\s+/g, " ")
@@ -6194,44 +6256,45 @@ function clearSelection() {
     closeMobilePanels();
   }
 
-  selectedLayers.forEach(layer => {
-    if (layer) {
-      layer.setStyle(getCountryThemeStyle(layer.code));
+  mapStyleCore.withEntityEventsSuspended(activeGeoJsonDataSource?.entities, () => {
+    selectedLayers.forEach(layer => {
+      if (layer) {
+        layer.setStyle(getCountryThemeStyle(layer.code));
+      }
+    });
+    selectedLayer = null;
+    selectedLayers = [];
+
+    if (continentBoundsLayer) {
+      map.removeLayer(continentBoundsLayer);
+      continentBoundsLayer = null;
     }
+
+    selectionMode = "country";
   });
-  selectedLayer = null;
-  selectedLayers = [];
-
-  if (continentBoundsLayer) {
-    map.removeLayer(continentBoundsLayer);
-    continentBoundsLayer = null;
-  }
-
-  selectionMode = "country";
   requestMapRenderSafe("clear-selection");
 }
 
 function updateLayerSelection(nextLayers, nextMode, highlightStyle) {
   const previousLayers = selectedLayers.filter(Boolean);
   const nextValidLayers = (nextLayers || []).filter(Boolean);
-  const previousSet = new Set(previousLayers);
   const nextSet = new Set(nextValidLayers);
 
-  previousLayers.forEach(layer => {
-    if (!nextSet.has(layer)) {
-      layer.setStyle(getCountryThemeStyle(layer.code));
-    }
-  });
+  mapStyleCore.withEntityEventsSuspended(activeGeoJsonDataSource?.entities, () => {
+    previousLayers.forEach(layer => {
+      if (!nextSet.has(layer)) {
+        layer.setStyle(getCountryThemeStyle(layer.code));
+      }
+    });
 
-  nextValidLayers.forEach(layer => {
-    if (!previousSet.has(layer)) {
+    nextValidLayers.forEach(layer => {
       layer.setStyle(highlightStyle);
-    }
-  });
+    });
 
-  selectedLayers = nextValidLayers;
-  selectedLayer = nextMode === "country" ? (nextValidLayers[0] || null) : null;
-  selectionMode = nextMode;
+    selectedLayers = nextValidLayers;
+    selectedLayer = nextMode === "country" ? (nextValidLayers[0] || null) : null;
+    selectionMode = nextMode;
+  });
 }
 
 function getLinkedCodes(code) {
@@ -6463,11 +6526,11 @@ function dismissSearchInput() {
 
 async function renderCountry(country, fallbackName) {
   const renderToken = ++countryPanelRenderToken;
-  await Promise.all([
+  const loadedModules = await Promise.all([
     ensureDeferredUiModule("countryPanel"),
     ensureDeferredUiModule("timelineConflicts")
   ]);
-  if (renderToken !== countryPanelRenderToken) return;
+  if (renderToken !== countryPanelRenderToken || loadedModules.some(loaded => !loaded)) return;
   const countryCode = getCountryCodeByObject(country);
   if (countryCode) {
     appStore?.setState({ selectedCode: countryCode }, "country-render");
@@ -6489,7 +6552,8 @@ async function renderCountry(country, fallbackName) {
       code: countryCode,
       fallbackName,
       ...defaultTimelineFilters,
-      countryViewMode: currentPanelState.countryViewMode || "full"
+      countryViewMode: currentPanelState.countryViewMode || "full",
+      countryLoadLanguage: currentLanguage
     };
     const panel = document.getElementById("country-panel");
     if (panel && typeof countryPanelUi.renderSkeleton === "function") {
@@ -6503,6 +6567,7 @@ async function renderCountry(country, fallbackName) {
       await renderCountry(detailedCountry, fallbackName);
     } else if (panel) {
       panel.innerHTML = countryPanelUi.renderLoadError(country, currentLanguage, escapeHtml);
+      currentPanelState.countryLoadLanguage = currentLanguage;
     }
     return;
   }
@@ -6570,6 +6635,7 @@ async function renderCountry(country, fallbackName) {
     && countryViewMode !== "compact";
   if (shouldRenderMilitaryDetail) {
     await ensureConflictAliasesLoaded();
+    if (renderToken !== countryPanelRenderToken) return;
   }
   const conflictGroups = shouldRenderMilitaryDetail ? buildConflictGroups(conflictsSinceFormation) : [];
   const conflictCountHint = getCountryConflictCount(country) || conflictsSinceFormation.length;
@@ -6708,6 +6774,7 @@ async function renderCountry(country, fallbackName) {
   renderThemeSummary();
   openCountryModal();
   } catch (error) {
+    if (renderToken !== countryPanelRenderToken) return;
     console.error(`No se pudo renderizar la ficha de ${country?.name || fallbackName || "pais"}:`, error);
     const countryCode = getCountryCodeByObject(country);
     currentPanelState = { type: "country", code: countryCode, fallbackName };
@@ -6737,6 +6804,7 @@ async function renderCountry(country, fallbackName) {
 }
 
 function renderContinent(continent, countries) {
+  countryPanelRenderToken += 1;
   const timelineFilter =
     currentPanelState.type === "continent" && currentPanelState.continent === continent
       ? (currentPanelState.timelineFilter || "all")
@@ -6781,6 +6849,7 @@ function renderContinent(continent, countries) {
 }
 
 function renderReligionSelection(religionName, countries, totalNominal) {
+  countryPanelRenderToken += 1;
   currentPanelState = { type: "religion", religionName, countries, totalNominal };
   const denominationMode = isKnownReligionDenomination(religionName);
   document.getElementById("country-panel").innerHTML = `
@@ -6819,6 +6888,7 @@ function renderReligionSelection(religionName, countries, totalNominal) {
 }
 
 function renderEmpty(name) {
+  countryPanelRenderToken += 1;
   currentPanelState = { type: "empty", name };
   document.getElementById("country-panel").innerHTML = `
     <h2>${name}</h2>
@@ -8038,18 +8108,23 @@ function refreshCountryStyles() {
   }
   lastStyleRefreshSignature = nextSignature;
 
-  countryLayers.forEach((layer, code) => {
-    layer.setStyle(getCountryThemeStyle(code));
-  });
+  mapStyleCore.withEntityEventsSuspended(activeGeoJsonDataSource?.entities, () => {
+    const highlightedLayers = new Set(selectedLayers);
+    countryLayers.forEach((layer, code) => {
+      if (!highlightedLayers.has(layer)) {
+        layer.setStyle(getCountryThemeStyle(code));
+      }
+    });
 
-  selectedLayers.forEach(layer => {
-    if (selectionMode === "country") {
-      layer.setStyle(COUNTRY_HIGHLIGHT_STYLE);
-    } else if (selectionMode === "religion") {
-      layer.setStyle(RELIGION_HIGHLIGHT_STYLE);
-    } else {
-      layer.setStyle(CONTINENT_HIGHLIGHT_STYLE);
-    }
+    selectedLayers.forEach(layer => {
+      if (selectionMode === "country") {
+        layer.setStyle(COUNTRY_HIGHLIGHT_STYLE);
+      } else if (selectionMode === "religion") {
+        layer.setStyle(RELIGION_HIGHLIGHT_STYLE);
+      } else {
+        layer.setStyle(CONTINENT_HIGHLIGHT_STYLE);
+      }
+    });
   });
 
   viewer?.scene?.requestRender?.();
@@ -8960,8 +9035,9 @@ async function showNewsArticle(countryCode) {
     document.querySelectorAll("#news-hub-list .news-hub-item").forEach(item => {
       item.classList.toggle("is-active", item.querySelector("[data-news-country]")?.dataset.newsCountry === countryCode);
     });
-    await ensureDeferredUiModule("news");
+    const loaded = await ensureDeferredUiModule("news");
     if (!isCurrent()) return;
+    if (!loaded) { renderNewsState(country); return; }
     const headlines = await fetchCountryHeadlines(country, { topic, language, signal: request.controller.signal });
     if (!isCurrent()) return;
     if (headlines.length) renderNewsArticle(headlines[0], country, headlines);
@@ -9235,6 +9311,7 @@ function renderThemePicker() {
 }
 
 function renderGroupSelection(title, descriptor, countries, options = {}) {
+  countryPanelRenderToken += 1;
   const conflictModalKey = String(
     options.conflictModalKey
       || (currentPanelState.type === "group" && currentPanelState.title === title ? currentPanelState.conflictModalKey || "" : "")
@@ -10093,7 +10170,21 @@ function rerenderCurrentPanel() {
     if (document.getElementById("country-modal")?.hidden) return;
 
     if (currentPanelState.type === "country" && currentPanelState.code && countriesData[currentPanelState.code]) {
-      renderCountry(countriesData[currentPanelState.code], currentPanelState.fallbackName);
+      const country = countriesData[currentPanelState.code];
+      if (country.metadata?.isIndex) {
+        // Refresh loading/error text without retrying data or replacing its request owner.
+        if (currentPanelState.countryLoadLanguage !== currentLanguage) {
+          const panel = document.getElementById("country-panel");
+          const render = countryDetailPromises.has(currentPanelState.code)
+            ? countryPanelUi.renderSkeleton : countryPanelUi.renderLoadError;
+          if (panel && typeof render === "function") {
+            panel.innerHTML = render(country, currentLanguage, escapeHtml);
+            currentPanelState.countryLoadLanguage = currentLanguage;
+          }
+        }
+        return;
+      }
+      renderCountry(country, currentPanelState.fallbackName);
       return;
     }
 
@@ -11380,13 +11471,16 @@ function renderAdvancedRanking(targetId, title, metric, formatter = value => for
 }
 
 async function generateAdvancedRankings() {
-  await ensureDeferredUiModule("rankings");
+  if (!isRankingsPanelOpen() || document.visibilityState === "hidden") return;
+  if (!await ensureDeferredUiModule("rankings") || !isRankingsPanelOpen()
+    || document.visibilityState === "hidden") return;
   renderAdvancedRanking("top-risk-score", currentLanguage === "en" ? "Risk ranking" : "Ranking de riesgo", "risk");
   renderAdvancedRanking("top-data-quality", currentLanguage === "en" ? "Data quality ranking" : "Ranking de calidad de datos", "dataQuality");
   renderAdvancedRanking("top-active-conflicts", currentLanguage === "en" ? "Active conflicts" : "Conflictos activos", "activeConflicts");
   renderAdvancedRanking("top-military-pressure", currentLanguage === "en" ? "Military pressure" : "Presion militar", "military");
   renderAdvancedRanking("top-fragility", currentLanguage === "en" ? "Fragility" : "Fragilidad", "fragility");
   renderAdvancedRanking("top-diplomacy", currentLanguage === "en" ? "Diplomatic buffer" : "Ranking diplomatico", "diplomacy");
+  advancedRankingsReady = true;
 }
 
 function addCountryToCompare(code) {
@@ -11952,7 +12046,8 @@ function getSuggestions(query) {
 
 function renderSuggestions(query, activeIndex = -1) {
   if (typeof searchCore.rankSuggestions !== "function") {
-    ensureDeferredUiModule("search").then(() => {
+    ensureDeferredUiModule("search").then(loaded => {
+      if (!loaded) return;
       ensureSearchIndexReady();
       if (document.getElementById("map-search-input")?.value === query) {
         renderSuggestions(query, activeIndex);
@@ -12075,11 +12170,11 @@ function selectCountryGroupLayers(countries, { mode = "continent", focusMap = tr
   }
 
   if (mode === "religion") {
-    clearSelection();
-    selectionMode = "religion";
-    selectedLayers = layers;
-    selectedLayers.forEach(layer => layer.setStyle(RELIGION_HIGHLIGHT_STYLE));
-    continentBoundsLayer = createLayerGroup(layers);
+    mapStyleCore.withEntityEventsSuspended(activeGeoJsonDataSource?.entities, () => {
+      clearSelection();
+      updateLayerSelection(layers, "religion", RELIGION_HIGHLIGHT_STYLE);
+      continentBoundsLayer = createLayerGroup(layers);
+    });
     if (focusMap) {
       fitLayerBounds(continentBoundsLayer);
     }
@@ -12375,15 +12470,22 @@ async function selectSearchResult(result) {
 }
 
 async function searchMap() {
-  await ensureDeferredUiModule("search");
-  ensureSearchIndexReady();
+  const requestId = ++searchRequestId;
   const input = document.getElementById("map-search-input");
-  const rawQuery = input.value;
+  const rawQuery = input?.value || "";
   const query = normalizeText(rawQuery);
-
-  if (!query) {
+  if (!query || document.visibilityState === "hidden") return;
+  const countryCode = countryAliases.get(query);
+  const country = countriesData[countryCode];
+  if (country) {
+    await selectSearchResult({ type: "country", value: countryCode, label: country.name || countryCode });
     return;
   }
+  const panelOwner = countryPanelRenderToken;
+  const isCurrent = () => requestId === searchRequestId && input.value === rawQuery
+    && panelOwner === countryPanelRenderToken && document.visibilityState !== "hidden";
+  if (!await ensureDeferredUiModule("search") || !isCurrent()) return;
+  ensureSearchIndexReady();
 
   const aliasContext = getSearchAliasContext();
   const naturalRankingQuery = typeof searchCore.parseNaturalQuery === "function"
@@ -12452,8 +12554,9 @@ async function searchMap() {
         appVersion: APP_VERSION,
         fetchResourceCached,
         translateConflictName
-      })
+    })
     : null;
+  if (!isCurrent()) return;
   if (indexedConflict) {
     await selectSearchResult({
       label: indexedConflict.name,
@@ -12607,10 +12710,6 @@ async function loadDeferredDataEnhancements() {
   }
 
   loadDeferredDataEnhancementsPromise = (async () => {
-    ensureSearchIndexReady();
-    runCriticalGlobalStats();
-    scheduleDeferredGlobalStats(true);
-    scheduleConflictAliasesLoad();
     await loadSupplementalData();
   })().catch(error => {
     console.warn("No se pudieron completar las mejoras diferidas del arranque:", error);
@@ -12740,7 +12839,8 @@ async function loadData() {
 
 function refreshGlobalStats() {
   runCriticalGlobalStats();
-  scheduleDeferredGlobalStats(true);
+  if (isRankingsPanelOpen()) scheduleDeferredGlobalStats(true);
+  else deferredGlobalStatsReady = false;
 }
 
 function loadScriptOnce(src, globalFlag) {
@@ -12762,6 +12862,7 @@ function loadScriptOnce(src, globalFlag) {
     const finish = success => {
       if (settled) return;
       settled = true;
+      clearTimeout(timer);
       script.removeEventListener("load", onLoad);
       script.removeEventListener("error", onError);
       if (success) {
@@ -12774,6 +12875,7 @@ function loadScriptOnce(src, globalFlag) {
     };
     const onLoad = () => finish(!globalFlag || Boolean(window[globalFlag]));
     const onError = () => finish(false);
+    const timer = setTimeout(onError, 20000);
     script.addEventListener("load", onLoad, { once: true });
     script.addEventListener("error", onError, { once: true });
     try {
@@ -13365,11 +13467,14 @@ async function loadMap(bootPhase = false, { preserveView = false, resetView = !p
     let lastHoverCode = "";
 
     function restoreHover() {
-      if (hoveredLayer && !selectedLayers.includes(hoveredLayer)) {
+      const changed = Boolean(hoveredLayer && !selectedLayers.includes(hoveredLayer));
+      if (changed) {
         hoveredLayer.setStyle(getCountryThemeStyle(hoveredLayer.code));
       }
       hoveredLayer = null;
+      pendingHoverLayer = null;
       lastHoverCode = "";
+      return changed;
     }
 
     clickHandler.setInputAction(async movement => {
@@ -13419,8 +13524,7 @@ async function loadMap(bootPhase = false, { preserveView = false, resetView = !p
 
     clickHandler.setInputAction(movement => {
     if (!shouldUseHoverHighlights()) {
-      restoreHover();
-      requestSceneRender();
+      if (restoreHover()) requestSceneRender();
       return;
     }
 
@@ -13458,11 +13562,14 @@ async function loadMap(bootPhase = false, { preserveView = false, resetView = !p
     requestAnimationFrame(() => {
       hoverFramePending = false;
       if (activeClickHandler !== clickHandler) return;
+      if (!shouldUseHoverHighlights()) {
+        if (restoreHover()) requestSceneRender();
+        return;
+      }
       const nextLayer = pendingHoverLayer;
 
       if (!nextLayer) {
-        restoreHover();
-        requestSceneRender();
+        if (restoreHover()) requestSceneRender();
         return;
       }
 
@@ -14082,6 +14189,10 @@ function clearQuizTimer() {
   }
 }
 
+function isQuizActive() {
+  return Boolean(document.getElementById("quiz-hub-panel")?.open) && document.visibilityState !== "hidden";
+}
+
 function getQuizBestStreak() {
   const saved = Number(readLocalPreference("geo-risk-quiz-best-streak"));
   return Math.max(Number.isFinite(saved) ? Math.max(0, Math.floor(saved)) : 0, quizState.bestStreak || 0);
@@ -14148,6 +14259,7 @@ function buildQuizQuestion(category) {
   };
 }
 function renderQuizPanel() {
+  if (!isQuizActive()) return;
   if (typeof quizUi.renderPanel === "function" && quizUi.renderPanel({
     document,
     quizState,
@@ -14173,32 +14285,48 @@ function renderQuizPanel() {
 
 function startQuizTimer() {
   clearQuizTimer();
-  if (quizState.mode !== "timed") {
+  if (quizState.mode !== "timed" || !quizState.current || quizState.current.answered) {
     quizState.timeLeft = 0;
     updateQuizMeta();
     return;
   }
   quizState.timeLeft = quizState.difficulty === "hard" ? 12 : quizState.difficulty === "medium" ? 18 : 25;
   updateQuizMeta();
-  quizState.timerId = setInterval(() => {
-    quizState.timeLeft -= 1;
+  syncQuizTimer();
+}
+
+function syncQuizTimer() {
+  clearQuizTimer();
+  const state = quizState;
+  if (!isQuizActive() || state.mode !== "timed" || !state.current || state.current.answered || state.timeLeft <= 0) return;
+  const timer = setInterval(function onQuizTick() {
+    if (quizState !== state || state.timerId !== timer) return;
+    if (!isQuizActive()) { clearQuizTimer(); return; }
+    state.timeLeft -= 1;
     updateQuizMeta();
-    if (quizState.timeLeft <= 0) {
+    if (state.timeLeft <= 0) {
       clearQuizTimer();
-      if (quizState.current && !quizState.current.answered) answerQuiz("__timeout__");
+      answerQuiz("__timeout__");
     }
   }, 1000);
+  state.timerId = timer;
 }
 
 async function startQuiz() {
+  if (!isQuizActive()) return false;
   const categorySelect = document.getElementById("quiz-category");
   const difficultySelect = document.getElementById("quiz-difficulty");
   const modeSelect = document.getElementById("quiz-mode");
-  await ensureDeferredUiModule("quiz");
-  quizState = {
+  const token = ++quizStartToken;
+  const settings = {
     category: categorySelect?.value || "capital",
     difficulty: difficultySelect?.value || "easy",
-    mode: modeSelect?.value || "classic",
+    mode: modeSelect?.value || "classic"
+  };
+  if (!await ensureDeferredUiModule("quiz") || token !== quizStartToken || !isQuizActive()) return false;
+  clearQuizTimer();
+  quizState = {
+    ...settings,
     asked: [],
     score: 0,
     total: 0,
@@ -14212,9 +14340,11 @@ async function startQuiz() {
     timerId: null
   };
   nextQuizQuestion();
+  return true;
 }
 
 function nextQuizQuestion() {
+  if (!isQuizActive()) return;
   clearQuizTimer();
   const question = buildQuizQuestion(quizState.category);
   quizState.current = question;
@@ -14246,6 +14376,7 @@ function answerQuiz(answer) {
   }
   quizState.asked.push(quizState.current.code);
   quizState.current.answered = true;
+  quizState.current.selectedAnswer = answer;
   const feedbackTitle = isCorrect
     ? (currentLanguage === "en" ? "Well answered" : "Bien respondido")
     : (answer === "__timeout__"
@@ -14288,6 +14419,7 @@ setupQuizControls = function setupQuizControls() {
   startButton.addEventListener("click", () => startQuiz());
   nextButton.addEventListener("click", () => nextQuizQuestion());
   resetButton.addEventListener("click", () => {
+    quizStartToken += 1;
     clearQuizTimer();
     quizState = {
       category: categorySelect.value || "capital",
@@ -14307,9 +14439,9 @@ setupQuizControls = function setupQuizControls() {
     };
     renderQuizPanel();
   });
-  categorySelect.addEventListener("change", () => { quizState.category = categorySelect.value || "capital"; renderQuizPanel(); });
-  difficultySelect.addEventListener("change", () => { quizState.difficulty = difficultySelect.value || "easy"; renderQuizPanel(); });
-  modeSelect.addEventListener("change", () => { quizState.mode = modeSelect.value || "classic"; renderQuizPanel(); });
+  categorySelect.addEventListener("change", () => { quizStartToken += 1; quizState.category = categorySelect.value || "capital"; renderQuizPanel(); });
+  difficultySelect.addEventListener("change", () => { quizStartToken += 1; quizState.difficulty = difficultySelect.value || "easy"; renderQuizPanel(); });
+  modeSelect.addEventListener("change", () => { quizStartToken += 1; quizState.mode = modeSelect.value || "classic"; startQuizTimer(); renderQuizPanel(); });
   exportButton?.addEventListener("click", () => {
     const text = typeof quizUi.buildResultsExport === "function"
       ? quizUi.buildResultsExport(quizState, currentLanguage)
@@ -14355,6 +14487,7 @@ function setupRankingsPanel() {
     if (rankingsPanel.open) {
       runCriticalGlobalStats();
       if (!deferredGlobalStatsReady) scheduleDeferredGlobalStats(true);
+      else if (!advancedRankingsReady) generateAdvancedRankings();
     }
   });
 }
@@ -14432,8 +14565,8 @@ function setupNewsHubPanel() {
       const quizPanel = document.getElementById("quiz-hub-panel");
       if (comparePanel) comparePanel.open = false;
       if (quizPanel) quizPanel.open = false;
-      ensureDeferredUiModule("news").then(() => {
-        if (panel.open && document.visibilityState !== "hidden") renderNewsHub(currentPanelState.code || "");
+      ensureDeferredUiModule("news").then(loaded => {
+        if (loaded && panel.open && document.visibilityState !== "hidden") renderNewsHub(currentPanelState.code || "");
       });
       renderNewsHub(currentPanelState.code || "");
     }
@@ -14458,8 +14591,14 @@ function setupQuizHubPanel() {
   }
 
   panel.open = false;
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") quizStartToken += 1;
+    syncQuizTimer();
+  });
   panel.addEventListener("toggle", () => {
     if (!panel.open) {
+      quizStartToken += 1;
+      syncQuizTimer();
       return;
     }
     closeMobilePanels();
@@ -14467,8 +14606,9 @@ function setupQuizHubPanel() {
     const newsPanel = document.getElementById("news-hub-panel");
     if (comparePanel) comparePanel.open = false;
     if (newsPanel) newsPanel.open = false;
-    ensureDeferredUiModule("quiz").then(renderQuizPanel);
+    ensureDeferredUiModule("quiz").then(loaded => { if (loaded) renderQuizPanel(); });
     renderQuizPanel();
+    syncQuizTimer();
   });
 }
 
@@ -14599,7 +14739,7 @@ function getExportShareContext(node) {
 }
 
 async function getExportShareTools() {
-  await ensureDeferredUiModule("exportShare");
+  if (!await ensureDeferredUiModule("exportShare")) return {};
   exportShareUi = window.GeoRiskExportShare || exportShareUi || {};
   return exportShareUi;
 }

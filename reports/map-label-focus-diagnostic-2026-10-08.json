@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "revision": "2aaa07c75ce2c5ef310f4ffac6406617afdac160",
+  "ci": {
+    "runId": 37824049095,
+    "jobId": 113472148596,
+    "flow": "testMapLabels",
+    "browserVersion": "151.0.7922.34",
+    "error": "page.evaluate: Resulting promise was garbage collected",
+    "location": "scripts/tests/critical-browser-e2e.test.js:703",
+    "otherShard": "passed",
+    "fullGate": "failed"
+  },
+  "localReproduction": {
+    "browserVersion": "155.0.8059.40",
+    "platform": "win32",
+    "method": "Copy the unchanged E2E into ignored tmp; before its moveEnd Promise, focus Brazil instantly, wait until its label is present and navigation is idle, then settle 500 ms. Keep the original second focus and 15000 ms deadline. Run --map-labels-only with a 180000 ms process bound.",
+    "result": "The desktop portion progressed; mobile failed with La camara no termino de enfocar Brasil after the original 15000 ms timer.",
+    "appChanged": false,
+    "limits": "This reproduces an incorrect dependency on movement after instant completion, not Chromium Linux's internal promise-GC mechanism. A focused run is not full release evidence."
+  },
+  "fix": {
+    "method": "Check exactly one synchronous completion from the existing focusRectangle instant callback. Repeat the same destination, then wait at most 15000 ms for idle navigation and the Brazil label. Preserve all downstream visual and navigation assertions.",
+    "nativeCases": ["same destination without moveEnd", "missing destination", "missing completion", "duplicate completion", "camera exception"],
+    "productionCost": "No runtime code, asset, dependency, cache or data changes. The E2E removes one listener/timer and adds one same-destination focus per existing page."
+  }
+}

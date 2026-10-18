@@ -120,8 +120,10 @@ try {
 
 const workflow = await fs.readFile(".github/workflows/release-gate.yml", "utf8");
 assert.ok(workflow.includes("contents: read") && workflow.includes("persist-credentials: false"));
-assert.equal((workflow.match(/node scripts\/checkSecurity.js --history/g) || []).length, 2);
-assert.equal((workflow.match(/fetch-depth: 0/g) || []).length, 2);
+assert.equal((workflow.match(/node scripts\/checkSecurity.js --history/g) || []).length, 3,
+  "critical shards, release gate and scheduled audit must scan the full history");
+assert.equal((workflow.match(/fetch-depth: 0/g) || []).length, 3,
+  "each scanning job must receive full Git history");
 assert.ok((await fs.readFile("scripts/prepushCheck.js", "utf8")).includes('"check:security", "--", "--outgoing"'));
 assert.ok((await fs.readFile("scripts/buildProduction.js", "utf8")).includes("runSecretScan"));
 console.log("security.test.js ok");

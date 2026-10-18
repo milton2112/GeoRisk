@@ -1,3 +1,5 @@
+(() => {
+if (window.GeoRiskCuration) return;
 const EXTRA_CONFLICT_DETAIL_OVERRIDES = {
   "Guerra de los Seis Dias": {
     cause: "Estallo por la escalada militar entre Israel y varios estados arabes, el cierre egipcio del estrecho de Tiran y la percepcion de una amenaza inminente.",
@@ -6349,3 +6351,4 @@ window.GeoRiskCuration = {
   EXTRA_TIMELINE_DETAIL_OVERRIDES,
   COUNTRY_CURATION_OVERRIDES
 };
+})();
