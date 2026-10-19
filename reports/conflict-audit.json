@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-11T12:06:04.663Z",
+  "generatedAt": "2026-10-19T20:37:18.373Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 11,
-  "reviewCount": 11,
+  "advisoryCount": 10,
+  "reviewCount": 10,
   "summary": {
-    "provisional_parent": 11
+    "provisional_parent": 10
   },
   "topIssues": [],
   "topAdvisories": [
@@ -60,20 +60,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de ramth al lbane",
-      "name": "Batalla de Ramth-al-Lbane",
-      "countries": [
-        "MAR"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de África",
       "issues": [
         "provisional_parent"
       ],
