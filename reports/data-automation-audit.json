@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-10-11T12:06:08.468Z",
+  "generatedAt": "2026-10-19T18:13:46.716Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 77
+      "count": 76
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 11
+      "count": 10
     },
     "suspectRegions": {
       "count": 0
@@ -115,11 +115,6 @@
         "code": "FRA",
         "name": "Captura de Montserrat",
         "region": "Europa"
-      },
-      {
-        "code": "GEO",
-        "name": "Batalla de Ochamchira",
-        "region": "Asia"
       },
       {
         "code": "DEU",
@@ -255,6 +250,11 @@
         "code": "USA",
         "name": "Ataque aéreo de Ogu",
         "region": "América"
+      },
+      {
+        "code": "USA",
+        "name": "Batalla de Firebase Anaconda",
+        "region": "Asia central"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -271,13 +271,6 @@
         "name": "Batalla de Vinh",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "GEO",
-        "name": "Batalla de Ochamchira",
-        "parent": "Conflicto regional de Asia",
-        "campaign": "Campaña vinculada a Conflicto regional de Asia",
         "startYear": null
       },
       {
@@ -1340,7 +1333,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 11,
+      "count": 10,
       "command": "npm run fix:conflicts:batches"
     },
     {

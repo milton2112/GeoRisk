@@ -49,7 +49,7 @@
     "test:text-normalization": "node scripts/tests/text-normalization.test.js",
     "test:normalization": "node scripts/tests/normalization.test.js",
     "test:conflicts": "node scripts/tests/conflict-cleaning.test.js",
-    "test:conflict-audit": "node scripts/tests/conflict-audit.test.js",
+    "test:conflict-audit": "node scripts/tests/conflict-audit.test.js && node scripts/tests/ochamchira-curation.test.js",
     "test:conflict-audit-report": "node scripts/tests/conflict-audit-report.test.js",
     "test:provisional-candidates": "node scripts/tests/provisional-conflict-candidates.test.js",
     "test:conflict-autofix": "node scripts/tests/conflict-autofix.test.js",
