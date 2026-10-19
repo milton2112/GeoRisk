@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-10-09T14:04:04.199Z",
+  "generatedAt": "2026-10-19T19:07:19.207Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 13273009,
-    "duplicatedCountryFilesBytes": 1560736,
+    "fullBytes": 13283573,
+    "duplicatedCountryFilesBytes": 1561165,
     "countryConflictShardBytes": 461572,
     "tooLargeCount": 0,
     "largest": [
@@ -419,8 +419,8 @@
       {
         "code": "KOR",
         "name": "Corea del Sur",
-        "bytes": 18273,
-        "inlineBytes": 138516,
+        "bytes": 18597,
+        "inlineBytes": 145136,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -429,12 +429,12 @@
           "religionGroups": 5,
           "organizations": 31,
           "rivals": 51,
-          "conflicts": 32,
+          "conflicts": 33,
           "timelineEvents": 3
         },
         "metrics": {
           "sectionBytes": {
-            "military": 8408,
+            "military": 8732,
             "politics": 6254,
             "metadata": 1927,
             "general": 866,
@@ -447,7 +447,7 @@
           "largestSections": [
             {
               "section": "military",
-              "bytes": 8408
+              "bytes": 8732
             },
             {
               "section": "politics",
@@ -462,9 +462,9 @@
               "bytes": 866
             }
           ],
-          "conflictsBytes": 8289,
+          "conflictsBytes": 8613,
           "conflictShardBytes": 0,
-          "averageConflictBytes": 259
+          "averageConflictBytes": 261
         }
       },
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 76,
+    "pendingCount": 75,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15174,19 +15174,6 @@
         ],
         "regions": [
           "Asia central"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Hekihazu",
-        "countries": [
-          "JPN"
-        ],
-        "regions": [
-          "Asia"
         ],
         "types": [
           "interestatal"

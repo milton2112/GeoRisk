@@ -19,6 +19,14 @@ const SOURCES = {
     "Instituto Nacional de Historia de Corea: reconstrucción de Eoranpo y Myeongnyang",
     "https://contents.history.go.kr/front/kc/printViewPopup.do?levelId=kc_i302300"
   ),
+  byeokpajin: source(
+    "Instituto Nacional de Historia de Corea: acciones navales en Byeokpajin antes de Myeongnyang, en el séptimo día del noveno mes lunar de 1597",
+    "https://contents.history.go.kr/mobile/kc/view.do?code=kc_age_30&levelId=kc_i302300"
+  ),
+  byeokpajinDiary: source(
+    "Instituto de Investigación de Energía Atómica de Corea: artículo sobre el Nanjung Ilgi que identifica el combate de Byeokpajin y registra una diferencia de una nave en los relatos",
+    "https://www.kaeri.re.kr/cnews/vol294/sub06.html"
+  ),
   jeolido: source(
     "Korea Society for Naval Science and Technology: estudio táctico de la batalla de Jeolido",
     "https://journal.knst.kr/xml/25965/25965.pdf"
@@ -111,6 +119,8 @@ export const JAPAN_KOREA_FOLLOWUP_SAFE_CONFLICT_RENAMES = {
   "Batalla de Chobayashiura": "Acción naval de Jangnimpo (1592)",
   "Batalla de Busan": "Batalla naval de Busan (1592)",
   "Batalla de Eoranpo": "Escaramuza naval de Eoranpo (1597)",
+  "Battle of Hekihazu": "Batalla naval de Byeokpajin (1597)",
+  "Batalla de Hekihazu": "Batalla naval de Byeokpajin (1597)",
   "Batalla de Myeongnyang": "Batalla naval de Myeongnyang (1597)",
   "Batalla de Jeolido": "Batalla naval de Jeolido (1598)",
   "Batalla de Noryang": "Batalla naval de Noryang (1598)"
@@ -127,6 +137,7 @@ const KOREAN_PROFILE_ACTIONS = [
   "Acción naval de Jangnimpo (1592)",
   "Batalla naval de Busan (1592)",
   "Escaramuza naval de Eoranpo (1597)",
+  "Batalla naval de Byeokpajin (1597)",
   "Batalla naval de Myeongnyang (1597)",
   "Batalla naval de Jeolido (1598)",
   "Batalla naval de Noryang (1598)"
@@ -271,6 +282,27 @@ export const JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES = {
     consequences: "Fue el primer contacto naval tras la restitución de Yi y ayudó a preparar la defensa que culminó en Myeongnyang.",
     curationNote: "Se reclasifica como escaramuza y persecución: la fuente oficial no describe una batalla decisiva ni atribuye pérdidas navales."
   }),
+  "Batalla naval de Byeokpajin (1597)": {
+    ...navalFix({
+      campaign: "Reconstrucción naval previa a Myeongnyang de 1597",
+      region: "Puerto de Byeokpajin, isla de Jindo, Corea del Sur",
+      hierarchySources: [SOURCES.myeongnyang, SOURCES.byeokpajin, SOURCES.byeokpajinDiary],
+      startYear: 1597,
+      participants: JOSEON_AND_JAPAN,
+      cause: "Después de retirarse a Byeokpajin, la flota de Joseon se preparó para frenar a las fuerzas japonesas que avanzaban hacia el estrecho de Myeongnyang.",
+      outcome: "Yi Sun-sin persiguió a las naves japonesas que se aproximaron a Byeokpajin y repelió un ataque nocturno. Las fuentes coreanas consultadas difieren entre 12 y 13 naves japonesas.",
+      consequences: "El combate defendió la posición de Joseon antes de la batalla de Myeongnyang, nueve días después según el calendario lunar coreano.",
+      chronology: [
+        { year: 1597, event: "La armada de Joseon trasladó su posición a Byeokpajin después de la acción de Eoranpo." },
+        { year: 1597, event: "En el séptimo día del noveno mes lunar, las naves de Joseon rechazaron la aproximación japonesa y un ataque nocturno." },
+        { year: 1597, event: "La batalla de Myeongnyang siguió nueve días después en el calendario lunar." }
+      ],
+      related: ["Escaramuza naval de Eoranpo (1597)", "Batalla naval de Myeongnyang (1597)", "Isla de Jindo"],
+      sourceDispute: true,
+      curationNote: "El título importado Hekihazu se normaliza al nombre documentado Byeokpajin; las fuentes coreanas citadas describen la acción bajo Byeokpajin, y la forma importada se conserva como alias sin crear un segundo combate. El Instituto Nacional de Historia de Corea sitúa la acción allí el día 7 del noveno mes lunar de 1597; el artículo del Instituto de Investigación de Energía Atómica de Corea reproduce el relato del Nanjung Ilgi. Las fuentes difieren entre 12 y 13 naves, por lo que no se conserva una cifra única ni se inventan bajas. Se registra solo el año para no convertir una fecha lunisolar a un día gregoriano no indicado por la fuente primaria."
+    }),
+    curationBatch: "source-backed-byeokpajin-2026-10"
+  },
   "Batalla naval de Myeongnyang (1597)": navalFix({
     campaign: "Reconstrucción naval y campaña de Myeongnyang de 1597",
     region: "Estrecho de Myeongnyang, entre Jindo y Haenam, Corea del Sur",
