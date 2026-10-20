@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-19T19:07:11.979Z",
+  "generatedAt": "2026-10-20T15:16:30.753Z",
   "changedFullCountries": 2,
   "fullPassChanges": [
     2,
@@ -8,7 +8,7 @@
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 207,
+    "enriched": 208,
     "retired": 0,
     "written": true,
     "compacted": false
@@ -2684,6 +2684,7 @@
     "Batalla de la Haya (1940)",
     "Batalla de Rumaila (1991)",
     "Batalla de Solebay (1672)",
+    "Batalla de Ochamchira",
     "Batalla de Colberger Heide (1644)",
     "Batalla de Fehmarn (1644)",
     "Batalla de Dynekilen (1716)",
@@ -2901,6 +2902,7 @@
     "Batalla naval frente a Halifax (1782)",
     "Batalla de Tizi Ouzou (1845)",
     "Batalla de Steens Mountain (1867)",
+    "Batalla de Petaling",
     "Batalla del paso de Chungam-ni (Notch, 1950)",
     "Combate de Punk Hill (1777)",
     "Expedicion de Taraca (1904)",

@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-10-19T19:07:20.967Z",
+  "generatedAt": "2026-10-20T15:16:44.348Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 76
+      "count": 74
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 10
+      "count": 8
     },
     "suspectRegions": {
       "count": 0
@@ -117,19 +117,9 @@
         "region": "Europa"
       },
       {
-        "code": "GEO",
-        "name": "Batalla de Ochamchira",
-        "region": "Asia"
-      },
-      {
         "code": "DEU",
         "name": "Asedio de Niemcza",
         "region": "Europa"
-      },
-      {
-        "code": "IDN",
-        "name": "Batalla de Petaling",
-        "region": "Asia"
       },
       {
         "code": "MAR",
@@ -255,6 +245,16 @@
         "code": "USA",
         "name": "Batalla de Firebase Anaconda",
         "region": "Asia central"
+      },
+      {
+        "code": "USA",
+        "name": "Batalla de Kasumi",
+        "region": "América"
+      },
+      {
+        "code": "USA",
+        "name": "Batalla de Kuwait International Airport",
+        "region": "Golfo Pérsico"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -271,20 +271,6 @@
         "name": "Batalla de Vinh",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "GEO",
-        "name": "Batalla de Ochamchira",
-        "parent": "Conflicto regional de Asia",
-        "campaign": "Campaña vinculada a Conflicto regional de Asia",
-        "startYear": null
-      },
-      {
-        "code": "IDN",
-        "name": "Batalla de Petaling",
-        "parent": "Conflicto regional de Asia",
-        "campaign": "Campaña vinculada a Conflicto regional de Asia",
         "startYear": null
       },
       {
@@ -1333,7 +1319,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 10,
+      "count": 8,
       "command": "npm run fix:conflicts:batches"
     },
     {
