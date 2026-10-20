@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-10-09T14:04:04.199Z",
+  "generatedAt": "2026-10-20T14:50:12.386Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 13273009,
-    "duplicatedCountryFilesBytes": 1560736,
+    "fullBytes": 13279515,
+    "duplicatedCountryFilesBytes": 1560770,
     "countryConflictShardBytes": 461572,
     "tooLargeCount": 0,
     "largest": [
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 76,
+    "pendingCount": 74,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15213,32 +15213,6 @@
         ],
         "regions": [
           "Golfo Pérsico"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Ochamchira",
-        "countries": [
-          "GEO"
-        ],
-        "regions": [
-          "Asia"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Petaling",
-        "countries": [
-          "IDN"
-        ],
-        "regions": [
-          "Asia"
         ],
         "types": [
           "interestatal"

@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-10-11T12:06:08.468Z",
+  "generatedAt": "2026-10-20T14:50:13.976Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 77
+      "count": 75
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 11
+      "count": 9
     },
     "suspectRegions": {
       "count": 0
@@ -117,19 +117,9 @@
         "region": "Europa"
       },
       {
-        "code": "GEO",
-        "name": "Batalla de Ochamchira",
-        "region": "Asia"
-      },
-      {
         "code": "DEU",
         "name": "Asedio de Niemcza",
         "region": "Europa"
-      },
-      {
-        "code": "IDN",
-        "name": "Batalla de Petaling",
-        "region": "Asia"
       },
       {
         "code": "JPN",
@@ -255,6 +245,16 @@
         "code": "USA",
         "name": "Ataque aéreo de Ogu",
         "region": "América"
+      },
+      {
+        "code": "USA",
+        "name": "Batalla de Firebase Anaconda",
+        "region": "Asia central"
+      },
+      {
+        "code": "USA",
+        "name": "Batalla de Kasumi",
+        "region": "América"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -271,20 +271,6 @@
         "name": "Batalla de Vinh",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "GEO",
-        "name": "Batalla de Ochamchira",
-        "parent": "Conflicto regional de Asia",
-        "campaign": "Campaña vinculada a Conflicto regional de Asia",
-        "startYear": null
-      },
-      {
-        "code": "IDN",
-        "name": "Batalla de Petaling",
-        "parent": "Conflicto regional de Asia",
-        "campaign": "Campaña vinculada a Conflicto regional de Asia",
         "startYear": null
       },
       {
@@ -1340,7 +1326,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 11,
+      "count": 9,
       "command": "npm run fix:conflicts:batches"
     },
     {

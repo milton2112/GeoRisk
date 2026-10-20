@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-11T12:06:04.663Z",
+  "generatedAt": "2026-10-20T14:50:18.741Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 11,
-  "reviewCount": 11,
+  "advisoryCount": 9,
+  "reviewCount": 9,
   "summary": {
-    "provisional_parent": 11
+    "provisional_parent": 9
   },
   "topIssues": [],
   "topAdvisories": [
@@ -32,34 +32,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de ochamchira",
-      "name": "Batalla de Ochamchira",
-      "countries": [
-        "GEO"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de petaling",
-      "name": "Batalla de Petaling",
-      "countries": [
-        "IDN"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Asia",
       "issues": [
         "provisional_parent"
       ],

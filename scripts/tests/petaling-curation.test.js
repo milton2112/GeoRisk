@@ -78,6 +78,6 @@ assert.equal(searchIndex.find(entry => entry.code === "IDN").metrics.conflicts, 
 const raw = await read("data/raw/conflicts.json");
 assert.ok(raw.IDN.some(entry => entry.name.toLowerCase() === name.toLowerCase()), "preserve the original import");
 const report = buildConflictAuditReport({ countries: full });
-assert.equal(report.summary.provisional_parent, 10);
+assert.equal(report.summary.provisional_parent, 9);
 assert.equal(report.topAdvisories.some(entry => entry.name === name), false);
 console.log("petaling-curation.test.js ok: sourced 1946 date, Indonesia hierarchy and lazy evidence");
