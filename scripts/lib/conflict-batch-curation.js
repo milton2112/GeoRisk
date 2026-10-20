@@ -562,7 +562,11 @@ export function curateConflictEntry(entry = {}, context = {}) {
   const countryCount = context.countriesByConflict?.get(normalizeConflictKey(name))?.size || 1;
   const normalizedRegion = normalizeRegion(baseEntry, context.country, warRule, campaignHint, regionHint);
   const parent = (preferNameHint ? campaignHint.war : null) || baseEntry.parent || baseEntry.war || campaignHint?.war || (isBattleLike(baseEntry) ? (warRule?.name || `Conflicto regional de ${normalizedRegion}`) : null);
-  const campaign = (preferNameHint ? campaignHint.campaign : null) || baseEntry.campaign || campaignHint?.campaign || (parent && isBattleLike(baseEntry) ? `Campana vinculada a ${parent}` : null);
+  const hasExplicitlyUnsetCampaign = Object.prototype.hasOwnProperty.call(baseEntry, "campaign")
+    && baseEntry.campaign === undefined;
+  const campaign = hasExplicitlyUnsetCampaign
+    ? undefined
+    : (preferNameHint ? campaignHint.campaign : null) || baseEntry.campaign || campaignHint?.campaign || (parent && isBattleLike(baseEntry) ? `Campana vinculada a ${parent}` : null);
   const conflictType = inferConflictType(baseEntry, warRule);
   const scale = inferScale(baseEntry, countryCount, warRule);
   const active = isOpenConflict(baseEntry, warRule);

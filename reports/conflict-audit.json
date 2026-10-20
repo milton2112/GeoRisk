@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-19T18:13:51.193Z",
+  "generatedAt": "2026-10-20T14:50:18.741Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 10,
-  "reviewCount": 10,
+  "advisoryCount": 9,
+  "reviewCount": 9,
   "summary": {
-    "provisional_parent": 10
+    "provisional_parent": 9
   },
   "topIssues": [],
   "topAdvisories": [
@@ -32,20 +32,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de petaling",
-      "name": "Batalla de Petaling",
-      "countries": [
-        "IDN"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Asia",
       "issues": [
         "provisional_parent"
       ],

@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-10-19T18:13:46.716Z",
+  "generatedAt": "2026-10-20T14:50:13.976Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 76
+      "count": 75
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 10
+      "count": 9
     },
     "suspectRegions": {
       "count": 0
@@ -120,11 +120,6 @@
         "code": "DEU",
         "name": "Asedio de Niemcza",
         "region": "Europa"
-      },
-      {
-        "code": "IDN",
-        "name": "Batalla de Petaling",
-        "region": "Asia"
       },
       {
         "code": "JPN",
@@ -255,6 +250,11 @@
         "code": "USA",
         "name": "Batalla de Firebase Anaconda",
         "region": "Asia central"
+      },
+      {
+        "code": "USA",
+        "name": "Batalla de Kasumi",
+        "region": "América"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -271,13 +271,6 @@
         "name": "Batalla de Vinh",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "IDN",
-        "name": "Batalla de Petaling",
-        "parent": "Conflicto regional de Asia",
-        "campaign": "Campaña vinculada a Conflicto regional de Asia",
         "startYear": null
       },
       {
@@ -1333,7 +1326,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 10,
+      "count": 9,
       "command": "npm run fix:conflicts:batches"
     },
     {
