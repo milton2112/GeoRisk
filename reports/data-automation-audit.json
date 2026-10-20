@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-10-20T14:50:13.976Z",
+  "generatedAt": "2026-10-20T15:16:44.348Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 75
+      "count": 74
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 9
+      "count": 8
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 626
+      "count": 627
     },
     "redundantReligions": {
       "count": 0
@@ -120,11 +120,6 @@
         "code": "DEU",
         "name": "Asedio de Niemcza",
         "region": "Europa"
-      },
-      {
-        "code": "JPN",
-        "name": "Batalla de Hekihazu",
-        "region": "Asia"
       },
       {
         "code": "MAR",
@@ -255,6 +250,11 @@
         "code": "USA",
         "name": "Batalla de Kasumi",
         "region": "América"
+      },
+      {
+        "code": "USA",
+        "name": "Batalla de Kuwait International Airport",
+        "region": "Golfo Pérsico"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -271,13 +271,6 @@
         "name": "Batalla de Vinh",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "JPN",
-        "name": "Batalla de Hekihazu",
-        "parent": "Conflicto regional de Asia",
-        "campaign": "Campaña vinculada a Conflicto regional de Asia",
         "startYear": null
       },
       {
@@ -1326,7 +1319,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 9,
+      "count": 8,
       "command": "npm run fix:conflicts:batches"
     },
     {

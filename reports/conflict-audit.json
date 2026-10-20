@@ -1,28 +1,14 @@
 {
-  "generatedAt": "2026-10-20T14:50:18.741Z",
+  "generatedAt": "2026-10-20T15:16:48.800Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 9,
-  "reviewCount": 9,
+  "advisoryCount": 8,
+  "reviewCount": 8,
   "summary": {
-    "provisional_parent": 9
+    "provisional_parent": 8
   },
   "topIssues": [],
   "topAdvisories": [
-    {
-      "key": "batalla de hekihazu",
-      "name": "Batalla de Hekihazu",
-      "countries": [
-        "JPN"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
     {
       "key": "batalla de kasumi",
       "name": "Batalla de Kasumi",

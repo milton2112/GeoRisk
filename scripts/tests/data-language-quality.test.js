@@ -873,6 +873,7 @@ const japanKoreaNavalExpectations = [
   { name: "Acción naval de Jangnimpo (1592)", startYear: 1592, type: "acción naval" },
   { name: "Batalla naval de Busan (1592)", startYear: 1592, type: "batalla naval" },
   { name: "Escaramuza naval de Eoranpo (1597)", startYear: 1597, type: "escaramuza naval" },
+  { name: "Batalla naval de Byeokpajin (1597)", startYear: 1597, type: "batalla naval", curationBatch: "source-backed-byeokpajin-2026-10" },
   { name: "Batalla naval de Myeongnyang (1597)", startYear: 1597, type: "batalla naval" },
   { name: "Batalla naval de Jeolido (1598)", startYear: 1598, type: "batalla naval" },
   { name: "Batalla naval de Noryang (1598)", startYear: 1598, type: "batalla naval" }
@@ -896,7 +897,7 @@ for (const expectation of japanKoreaNavalExpectations) {
   const detail = getConflictDetailByVisibleName(expectation.name);
   assert.equal(
     detail?.curationBatch,
-    "source-backed-japan-korea-naval-followup-2026-07",
+    expectation.curationBatch || "source-backed-japan-korea-naval-followup-2026-07",
     `${expectation.name} debe conservar el lote editorial`
   );
   assert.equal(detail?.hierarchyConfidence, "alta", `${expectation.name} debe declarar confianza de jerarquia`);

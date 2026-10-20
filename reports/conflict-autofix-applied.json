@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-10-20T14:49:54.463Z",
-  "changedFullCountries": 1,
+  "generatedAt": "2026-10-20T15:16:30.753Z",
+  "changedFullCountries": 2,
   "fullPassChanges": [
-    1,
+    2,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 207,
+    "enriched": 208,
     "retired": 0,
     "written": true,
     "compacted": false
@@ -137,6 +137,7 @@
       "Acción naval de Jangnimpo (1592)",
       "Batalla naval de Busan (1592)",
       "Escaramuza naval de Eoranpo (1597)",
+      "Batalla naval de Byeokpajin (1597)",
       "Batalla naval de Myeongnyang (1597)",
       "Batalla naval de Jeolido (1598)",
       "Batalla naval de Noryang (1598)",
@@ -974,6 +975,8 @@
     "Batalla de Chobayashiura": "Acción naval de Jangnimpo (1592)",
     "Batalla de Busan": "Batalla naval de Busan (1592)",
     "Batalla de Eoranpo": "Escaramuza naval de Eoranpo (1597)",
+    "Battle of Hekihazu": "Batalla naval de Byeokpajin (1597)",
+    "Batalla de Hekihazu": "Batalla naval de Byeokpajin (1597)",
     "Batalla de Myeongnyang": "Batalla naval de Myeongnyang (1597)",
     "Batalla de Jeolido": "Batalla naval de Jeolido (1598)",
     "Batalla de Noryang": "Batalla naval de Noryang (1598)",
@@ -2641,6 +2644,7 @@
     "Accion naval de Jangnimpo (1592)",
     "Batalla naval de Busan (1592)",
     "Escaramuza naval de Eoranpo (1597)",
+    "Batalla naval de Byeokpajin (1597)",
     "Batalla naval de Myeongnyang (1597)",
     "Batalla naval de Jeolido (1598)",
     "Batalla naval de Noryang (1598)",

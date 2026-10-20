@@ -71,6 +71,6 @@ assert.equal(countriesIndex.GEO.military.conflictCount, full.GEO.military.confli
 assert.equal(searchIndex.find(entry => entry.code === "GEO").metrics.conflicts, full.GEO.military.conflicts.length);
 
 const report = buildConflictAuditReport({ countries: full });
-assert.equal(report.summary.provisional_parent, 9);
+assert.equal(report.summary.provisional_parent, 8);
 assert.equal(report.topAdvisories.some(entry => matches({ name: entry.name })), false);
 console.log("ochamchira-curation.test.js ok: sourced regional fighting, Abkhazia hierarchy and lazy evidence");
