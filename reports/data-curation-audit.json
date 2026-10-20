@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-20T15:16:42.782Z",
+  "generatedAt": "2026-10-20T15:21:14.115Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 13290079,
-    "duplicatedCountryFilesBytes": 1561199,
-    "countryConflictShardBytes": 461572,
+    "fullBytes": 13302229,
+    "duplicatedCountryFilesBytes": 1561483,
+    "countryConflictShardBytes": 461614,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 73,
+    "pendingCount": 72,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15200,19 +15200,6 @@
         ],
         "regions": [
           "Golfo Pérsico"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Ramth-al-Lbane",
-        "countries": [
-          "MAR"
-        ],
-        "regions": [
-          "África"
         ],
         "types": [
           "interestatal"

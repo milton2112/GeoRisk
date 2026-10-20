@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-10-20T15:16:44.348Z",
+  "generatedAt": "2026-10-20T15:21:15.723Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 74
+      "count": 73
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 8
+      "count": 7
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 627
+      "count": 628
     },
     "redundantReligions": {
       "count": 0
@@ -120,11 +120,6 @@
         "code": "DEU",
         "name": "Asedio de Niemcza",
         "region": "Europa"
-      },
-      {
-        "code": "MAR",
-        "name": "Batalla de Ramth-al-Lbane",
-        "region": "África"
       },
       {
         "code": "MAR",
@@ -255,6 +250,11 @@
         "code": "USA",
         "name": "Batalla de Kuwait International Airport",
         "region": "Golfo Pérsico"
+      },
+      {
+        "code": "USA",
+        "name": "Batalla de SIranaya",
+        "region": "América"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -271,13 +271,6 @@
         "name": "Batalla de Vinh",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "MAR",
-        "name": "Batalla de Ramth-al-Lbane",
-        "parent": "Conflicto regional de África",
-        "campaign": "Campaña vinculada a Conflicto regional de África",
         "startYear": null
       },
       {
@@ -1319,7 +1312,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 8,
+      "count": 7,
       "command": "npm run fix:conflicts:batches"
     },
     {

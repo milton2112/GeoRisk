@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-10-20T15:16:30.753Z",
-  "changedFullCountries": 2,
+  "generatedAt": "2026-10-20T15:21:02.379Z",
+  "changedFullCountries": 4,
   "fullPassChanges": [
-    2,
+    4,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 208,
+    "enriched": 209,
     "retired": 0,
     "written": true,
     "compacted": false
@@ -515,6 +515,7 @@
     "sahara occidental": [
       "Batalla de Bir Enzaran (1979)",
       "Ataque a Lebouirate (1979)",
+      "Combates de Ramth al-Lbane (1979)",
       "Combate de Deglebat-Leglia (1977)"
     ],
     "armenia": [
@@ -1136,6 +1137,10 @@
     "Batalla de Lebuirate": "Ataque a Lebouirate (1979)",
     "Attack on Lebouirate": "Ataque a Lebouirate (1979)",
     "Attaque de Lebouirate": "Ataque a Lebouirate (1979)",
+    "Batalla de Ramth-al-Lbane": "Combates de Ramth al-Lbane (1979)",
+    "Bataille de Ramth-al-Lbane": "Combates de Ramth al-Lbane (1979)",
+    "Battle of Ramth-al-Lbane": "Combates de Ramth al-Lbane (1979)",
+    "Battle of Ramth al-Lbane": "Combates de Ramth al-Lbane (1979)",
     "Batalla de Kalyazin": "Combate de Kalyazin (1609)",
     "Batalla de Kaljazin": "Combate de Kalyazin (1609)",
     "Battle of Kalyazin": "Combate de Kalyazin (1609)",
@@ -2789,6 +2794,7 @@
     "Batalla naval de Chef-de-Caux (1417)",
     "Batalla de Bir Enzaran (1979)",
     "Ataque a Lebouirate (1979)",
+    "Combates de Ramth al-Lbane (1979)",
     "Combate de Kalyazin (1609)",
     "Batalla naval de Santo Domingo (1806)",
     "Batalla naval de Santa Lucía (1778)",
