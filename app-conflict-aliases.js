@@ -467,7 +467,9 @@
     [/^North Borneo campaign$/i, "Campana de Borneo septentrional"],
     [/^Battle between HMAS Sydney and Kormoran$/i, "Combate entre el HMAS Sydney y el Kormoran"],
     [/^Convoy GP 55$/i, "Convoy GP 55"],
-    [/^Battle off Endau$/i, "Batalla frente a Endau"]
+    [/^Battle off Endau$/i, "Batalla frente a Endau"],
+    [/^Battle of Hekihazu$/i, "Batalla naval de Byeokpajin (1597)"],
+    [/^Batalla de Hekihazu$/i, "Batalla naval de Byeokpajin (1597)"]
   );
 
   window.GeoRiskConflictAliases = {

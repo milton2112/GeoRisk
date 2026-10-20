@@ -1,4 +1,6 @@
 import assert from "node:assert/strict";
+import fs from "node:fs/promises";
+import vm from "node:vm";
 import "./gata-halifax-curation.test.js";
 import "./tizi-ouzou-curation.test.js";
 import "./steens-mountain-curation.test.js";
@@ -1430,9 +1432,10 @@ assert.ok(
   ),
   "la tanda africana reciente debe conservar jerarquia, cautelas editoriales, dos fuentes y participantes reales"
 );
-assert.equal(Object.keys(JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 13);
-assert.equal(Object.keys(JAPAN_KOREA_FOLLOWUP_SAFE_CONFLICT_RENAMES).length, 13);
-assert.equal(JAPAN_KOREA_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS["Corea del Sur"].length, 13);
+assert.equal(Object.keys(JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 14);
+assert.equal(Object.keys(JAPAN_KOREA_FOLLOWUP_SAFE_CONFLICT_RENAMES).length, 15);
+assert.equal(new Set(Object.values(JAPAN_KOREA_FOLLOWUP_SAFE_CONFLICT_RENAMES)).size, 14);
+assert.equal(JAPAN_KOREA_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS["Corea del Sur"].length, 14);
 assert.deepEqual(
   JAPAN_KOREA_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS["República Popular China"],
   ["Batalla naval de Noryang (1598)"]
@@ -1446,6 +1449,34 @@ assert.equal(
   JAPAN_KOREA_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Chobayashiura"],
   "Acción naval de Jangnimpo (1592)"
 );
+assert.equal(
+  JAPAN_KOREA_FOLLOWUP_SAFE_CONFLICT_RENAMES["Battle of Hekihazu"],
+  "Batalla naval de Byeokpajin (1597)"
+);
+assert.equal(
+  JAPAN_KOREA_FOLLOWUP_SAFE_CONFLICT_RENAMES["Batalla de Hekihazu"],
+  "Batalla naval de Byeokpajin (1597)"
+);
+const aliasesWindow = {};
+vm.runInNewContext(
+  await fs.readFile(new URL("../../app-conflict-aliases.js", import.meta.url), "utf8"),
+  { window: aliasesWindow }
+);
+for (const name of ["Battle of Hekihazu", "Batalla de Hekihazu"]) {
+  assert.equal(
+    aliasesWindow.GeoRiskConflictAliases.entries.find(([pattern]) => pattern.test(name))?.[1],
+    "Batalla naval de Byeokpajin (1597)"
+  );
+}
+const byeokpajinDetail = JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla naval de Byeokpajin (1597)"];
+assert.equal(byeokpajinDetail.parent, "Invasiones japonesas de Corea (1592-1598)");
+assert.equal(byeokpajinDetail.startYear, 1597);
+assert.equal(byeokpajinDetail.endYear, 1597);
+assert.equal(byeokpajinDetail.sourceDispute, true);
+assert.equal(byeokpajinDetail.hierarchySources.length, 3);
+assert.match(byeokpajinDetail.outcome, /12 y 13 naves/i);
+assert.match(byeokpajinDetail.curationNote, /fecha lunisolar/i);
+assert.match(byeokpajinDetail.curationNote, /forma importada se conserva como alias/i);
 assert.equal(
   COOKES_CANYON_CONFLICT_RENAMES["Batalla de Cookes Canyon"],
   "Combate de Cooke's Canyon (1861)"
@@ -1703,10 +1734,14 @@ assert.ok(
       && detail.participants?.length === 2
       && detail.participants.every(side => side.side && side.members?.length)
       && Array.isArray(detail.treaties)
-      && detail.curationBatch === "source-backed-japan-korea-naval-followup-2026-07"
+      && ["source-backed-japan-korea-naval-followup-2026-07", "source-backed-byeokpajin-2026-10"].includes(detail.curationBatch)
       && detail.curationNote
   ),
   "la tanda naval de Imjin debe conservar fechas, jerarquia, fuentes, participantes y cautelas editoriales"
+);
+assert.equal(
+  JAPAN_KOREA_FOLLOWUP_CONFLICT_DETAIL_FIXES["Batalla naval de Byeokpajin (1597)"].curationBatch,
+  "source-backed-byeokpajin-2026-10"
 );
 assert.equal(Object.keys(FRANCE_FOLLOWUP_CONFLICT_DETAIL_FIXES).length, 12);
 assert.equal(Object.keys(FRANCE_FOLLOWUP_SAFE_CONFLICT_RENAMES).length, 12);

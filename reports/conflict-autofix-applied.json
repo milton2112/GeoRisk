@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-10-19T20:37:01.093Z",
-  "changedFullCountries": 2,
+  "generatedAt": "2026-10-20T15:21:02.379Z",
+  "changedFullCountries": 4,
   "fullPassChanges": [
-    2,
+    4,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 207,
+    "enriched": 209,
     "retired": 0,
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1117,
+  "generatedHierarchyCandidates": 1118,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -137,6 +137,7 @@
       "Acción naval de Jangnimpo (1592)",
       "Batalla naval de Busan (1592)",
       "Escaramuza naval de Eoranpo (1597)",
+      "Batalla naval de Byeokpajin (1597)",
       "Batalla naval de Myeongnyang (1597)",
       "Batalla naval de Jeolido (1598)",
       "Batalla naval de Noryang (1598)",
@@ -975,6 +976,8 @@
     "Batalla de Chobayashiura": "Acción naval de Jangnimpo (1592)",
     "Batalla de Busan": "Batalla naval de Busan (1592)",
     "Batalla de Eoranpo": "Escaramuza naval de Eoranpo (1597)",
+    "Battle of Hekihazu": "Batalla naval de Byeokpajin (1597)",
+    "Batalla de Hekihazu": "Batalla naval de Byeokpajin (1597)",
     "Batalla de Myeongnyang": "Batalla naval de Myeongnyang (1597)",
     "Batalla de Jeolido": "Batalla naval de Jeolido (1598)",
     "Batalla de Noryang": "Batalla naval de Noryang (1598)",
@@ -2646,6 +2649,7 @@
     "Accion naval de Jangnimpo (1592)",
     "Batalla naval de Busan (1592)",
     "Escaramuza naval de Eoranpo (1597)",
+    "Batalla naval de Byeokpajin (1597)",
     "Batalla naval de Myeongnyang (1597)",
     "Batalla naval de Jeolido (1598)",
     "Batalla naval de Noryang (1598)",
@@ -2685,6 +2689,7 @@
     "Batalla de la Haya (1940)",
     "Batalla de Rumaila (1991)",
     "Batalla de Solebay (1672)",
+    "Batalla de Ochamchira",
     "Batalla de Colberger Heide (1644)",
     "Batalla de Fehmarn (1644)",
     "Batalla de Dynekilen (1716)",
@@ -2903,6 +2908,7 @@
     "Batalla naval frente a Halifax (1782)",
     "Batalla de Tizi Ouzou (1845)",
     "Batalla de Steens Mountain (1867)",
+    "Batalla de Petaling",
     "Batalla del paso de Chungam-ni (Notch, 1950)",
     "Combate de Punk Hill (1777)",
     "Expedicion de Taraca (1904)",

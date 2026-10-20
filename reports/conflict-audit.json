@@ -1,28 +1,14 @@
 {
-  "generatedAt": "2026-10-19T20:37:18.373Z",
+  "generatedAt": "2026-10-20T15:21:20.160Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 10,
-  "reviewCount": 10,
+  "advisoryCount": 7,
+  "reviewCount": 7,
   "summary": {
-    "provisional_parent": 10
+    "provisional_parent": 7
   },
   "topIssues": [],
   "topAdvisories": [
-    {
-      "key": "batalla de hekihazu",
-      "name": "Batalla de Hekihazu",
-      "countries": [
-        "JPN"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
     {
       "key": "batalla de kasumi",
       "name": "Batalla de Kasumi",
@@ -32,34 +18,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de ochamchira",
-      "name": "Batalla de Ochamchira",
-      "countries": [
-        "GEO"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Asia",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de petaling",
-      "name": "Batalla de Petaling",
-      "countries": [
-        "IDN"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Asia",
       "issues": [
         "provisional_parent"
       ],

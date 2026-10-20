@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-10-19T20:37:14.130Z",
+  "generatedAt": "2026-10-20T15:21:15.723Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 76
+      "count": 73
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 10
+      "count": 7
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 627
+      "count": 628
     },
     "redundantReligions": {
       "count": 0
@@ -117,24 +117,9 @@
         "region": "Europa"
       },
       {
-        "code": "GEO",
-        "name": "Batalla de Ochamchira",
-        "region": "Asia"
-      },
-      {
         "code": "DEU",
         "name": "Asedio de Niemcza",
         "region": "Europa"
-      },
-      {
-        "code": "IDN",
-        "name": "Batalla de Petaling",
-        "region": "Asia"
-      },
-      {
-        "code": "JPN",
-        "name": "Batalla de Hekihazu",
-        "region": "Asia"
       },
       {
         "code": "MAR",
@@ -255,6 +240,21 @@
         "code": "USA",
         "name": "Batalla de Firebase Anaconda",
         "region": "Asia central"
+      },
+      {
+        "code": "USA",
+        "name": "Batalla de Kasumi",
+        "region": "América"
+      },
+      {
+        "code": "USA",
+        "name": "Batalla de Kuwait International Airport",
+        "region": "Golfo Pérsico"
+      },
+      {
+        "code": "USA",
+        "name": "Batalla de SIranaya",
+        "region": "América"
       }
     ],
     "undatedHighLevelConflicts": [],
@@ -271,27 +271,6 @@
         "name": "Batalla de Vinh",
         "parent": "Conflicto regional de Europa",
         "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
-      {
-        "code": "GEO",
-        "name": "Batalla de Ochamchira",
-        "parent": "Conflicto regional de Asia",
-        "campaign": "Campaña vinculada a Conflicto regional de Asia",
-        "startYear": null
-      },
-      {
-        "code": "IDN",
-        "name": "Batalla de Petaling",
-        "parent": "Conflicto regional de Asia",
-        "campaign": "Campaña vinculada a Conflicto regional de Asia",
-        "startYear": null
-      },
-      {
-        "code": "JPN",
-        "name": "Batalla de Hekihazu",
-        "parent": "Conflicto regional de Asia",
-        "campaign": "Campaña vinculada a Conflicto regional de Asia",
         "startYear": null
       },
       {
@@ -1333,7 +1312,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 10,
+      "count": 7,
       "command": "npm run fix:conflicts:batches"
     },
     {
