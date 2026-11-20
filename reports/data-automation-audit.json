@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-10-20T15:21:15.723Z",
+  "generatedAt": "2026-11-20T16:59:50.541Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 73
+      "count": 72
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 7
+      "count": 6
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 628
+      "count": 629
     },
     "redundantReligions": {
       "count": 0
@@ -243,17 +243,17 @@
       },
       {
         "code": "USA",
-        "name": "Batalla de Kasumi",
-        "region": "América"
-      },
-      {
-        "code": "USA",
         "name": "Batalla de Kuwait International Airport",
         "region": "Golfo Pérsico"
       },
       {
         "code": "USA",
         "name": "Batalla de SIranaya",
+        "region": "América"
+      },
+      {
+        "code": "USA",
+        "name": "Bloqueo de Veracruz",
         "region": "América"
       }
     ],
@@ -285,13 +285,6 @@
         "name": "Operación Batalla por la Restauración de la Dignidad",
         "parent": "Conflicto regional de Asia",
         "campaign": "Campaña vinculada a Conflicto regional de Asia",
-        "startYear": null
-      },
-      {
-        "code": "USA",
-        "name": "Batalla de Kasumi",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
       },
       {
@@ -1312,7 +1305,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 7,
+      "count": 6,
       "command": "npm run fix:conflicts:batches"
     },
     {

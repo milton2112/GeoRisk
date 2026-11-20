@@ -1,28 +1,14 @@
 {
-  "generatedAt": "2026-10-20T15:21:20.160Z",
+  "generatedAt": "2026-11-20T16:59:55.432Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 7,
-  "reviewCount": 7,
+  "advisoryCount": 6,
+  "reviewCount": 6,
   "summary": {
-    "provisional_parent": 7
+    "provisional_parent": 6
   },
   "topIssues": [],
   "topAdvisories": [
-    {
-      "key": "batalla de kasumi",
-      "name": "Batalla de Kasumi",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
     {
       "key": "batalla de siracusa",
       "name": "Batalla de Siracusa",

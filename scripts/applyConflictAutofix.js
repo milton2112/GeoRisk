@@ -63,6 +63,11 @@ import {
   US_WWII_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "./lib/conflict-curation-us-wwii-followup.js";
 import {
+  KASUMI_CONFLICT_DETAIL_FIXES,
+  KASUMI_COUNTRY_CONFLICT_ADDITIONS,
+  KASUMI_CONFLICT_RENAMES
+} from "./lib/conflict-curation-kasumi-1945.js";
+import {
   US_INDIAN_WARS_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   US_INDIAN_WARS_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "./lib/conflict-curation-us-indian-wars-followup.js";
@@ -900,6 +905,7 @@ const curatedConflictDetailFixes = {
   ...WAR_1812_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   ...US_CIVIL_WAR_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   ...US_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES,
+  ...KASUMI_CONFLICT_DETAIL_FIXES,
   ...US_INDIAN_WARS_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   ...US_FRONTIER_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   ...US_FRONTIER_SECOND_FOLLOWUP_CONFLICT_DETAIL_FIXES,
@@ -1092,6 +1098,7 @@ const safeConflictRenames = {
   ...WAR_1812_FOLLOWUP_SAFE_CONFLICT_RENAMES,
   ...US_CIVIL_WAR_FOLLOWUP_SAFE_CONFLICT_RENAMES,
   ...US_WWII_FOLLOWUP_SAFE_CONFLICT_RENAMES,
+  ...KASUMI_CONFLICT_RENAMES,
   ...US_INDIAN_WARS_FOLLOWUP_SAFE_CONFLICT_RENAMES,
   ...US_FRONTIER_FOLLOWUP_SAFE_CONFLICT_RENAMES,
   ...US_FRONTIER_SECOND_FOLLOWUP_SAFE_CONFLICT_RENAMES,
@@ -1259,6 +1266,7 @@ const conflictReferenceRenames = {
 };
 const countryConflictAdditionBatches = [
   TRANSITION_1846_1902_COUNTRY_CONFLICT_ADDITIONS,
+  KASUMI_COUNTRY_CONFLICT_ADDITIONS,
   US_CARIBBEAN_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
   AUSTRALIA_DENMARK_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
   JAPAN_KOREA_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
@@ -1588,8 +1596,13 @@ function normalizeConflictEntryWithContext(entry, context) {
     ...importedHierarchy,
     ...curatedDetailFix
   };
+  const normalizedCuratedEntry = normalizeConflictReferences(curatedEntry);
+  // Reference cleanup drops undefined values; retain an intentional campaign opt-out.
+  if (Object.prototype.hasOwnProperty.call(curatedDetailFix, "campaign") && curatedDetailFix.campaign === undefined) {
+    normalizedCuratedEntry.campaign = undefined;
+  }
   return normalizeVisibleValue(
-    curateConflictEntry(normalizeConflictReferences(curatedEntry), context)
+    curateConflictEntry(normalizedCuratedEntry, context)
   );
 }
 

@@ -452,6 +452,8 @@
     [/^Battle of Singapore$/i, "Batalla de Singapur"],
     [/^Battle of Sunda Strait$/i, "Batalla del estrecho de la Sonda"],
     [/^Battle of the Java Sea$/i, "Batalla del mar de Java"],
+    [/^Batalla de Kasumi$/i, "Acciones navales frente a Kasumi (1945)"],
+    [/^Battle of Kasumi$/i, "Acciones navales frente a Kasumi (1945)"],
     [/^Battle of the Coral Sea$/i, "Batalla del mar del Coral"],
     [/^Battle of Timor$/i, "Batalla de Timor"],
     [/^Batalla de Ramth-al-Lbane$/i, "Combates de Ramth al-Lbane (1979)"],

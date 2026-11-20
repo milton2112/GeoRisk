@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-20T15:21:14.115Z",
+  "generatedAt": "2026-11-06T16:22:24.288Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 13302229,
-    "duplicatedCountryFilesBytes": 1561483,
-    "countryConflictShardBytes": 461614,
+    "fullBytes": 13312833,
+    "duplicatedCountryFilesBytes": 1561801,
+    "countryConflictShardBytes": 461703,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24266,
-        "inlineBytes": 3464225,
+        "inlineBytes": 3468161,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 218072,
-          "conflictShardBytes": 218073,
+          "conflictsBytes": 218161,
+          "conflictShardBytes": 218162,
           "averageConflictBytes": 237
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 72,
+    "pendingCount": 71,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15174,19 +15174,6 @@
         ],
         "regions": [
           "Asia central"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Kasumi",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"

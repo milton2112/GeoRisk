@@ -98,5 +98,5 @@ for (const alias of [OLD_NAME, "Bataille de Ramth-al-Lbane", "Battle of Ramth-al
   assert.equal(window.GeoRiskConflictAliases.entries.find(([pattern]) => pattern.test(alias))?.[1], NAME);
 }
 assert.equal(RAMTH_AL_LBANE_CONFLICT_RENAMES["Batalla de Ramth al-Lbane (1980)"], undefined);
-assert.ok(full.USA.conflicts.some(entry => entry.name === "Batalla de Kasumi"), "leave unrelated imports unchanged");
+assert.ok(full.USA.conflicts.some(entry => entry.name === "Acciones navales frente a Kasumi (1945)"), "retain the independently curated Kasumi actions");
 console.log("ramth-al-lbane-curation.test.js ok: 1979 combat, source date caveat, neutral territorial treatment and lazy evidence");
