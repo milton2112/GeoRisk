@@ -68,6 +68,12 @@ import {
   KASUMI_CONFLICT_RENAMES
 } from "./lib/conflict-curation-kasumi-1945.js";
 import {
+  SYRACUSE_CONFLICT_DETAIL_FIXES,
+  SYRACUSE_COUNTRY_CONFLICT_ADDITIONS,
+  SYRACUSE_CONFLICT_RENAMES,
+  SYRACUSE_CONFLICT_POST_MERGE_OVERRIDES
+} from "./lib/conflict-curation-syracuse.js";
+import {
   US_INDIAN_WARS_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   US_INDIAN_WARS_FOLLOWUP_SAFE_CONFLICT_RENAMES
 } from "./lib/conflict-curation-us-indian-wars-followup.js";
@@ -906,6 +912,7 @@ const curatedConflictDetailFixes = {
   ...US_CIVIL_WAR_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   ...US_WWII_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   ...KASUMI_CONFLICT_DETAIL_FIXES,
+  ...SYRACUSE_CONFLICT_DETAIL_FIXES,
   ...US_INDIAN_WARS_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   ...US_FRONTIER_FOLLOWUP_CONFLICT_DETAIL_FIXES,
   ...US_FRONTIER_SECOND_FOLLOWUP_CONFLICT_DETAIL_FIXES,
@@ -1074,6 +1081,15 @@ const curatedConflictDetailFixes = {
 const generatedConflictDetailExclusionNames = [
   ...LAGOS_1759_GENERATED_DETAIL_EXCLUSIONS
 ];
+const curatedConflictPostMergeOverrides = {
+  ...SYRACUSE_CONFLICT_POST_MERGE_OVERRIDES
+};
+const curatedConflictPostMergeOverridesByKey = new Map(
+  Object.entries(curatedConflictPostMergeOverrides).map(([name, fields]) => [
+    normalizeConflictKey(name),
+    { detail: curatedConflictDetailFixes[name], fields }
+  ])
+);
 const generatedConflictDetailExclusions = new Set(
   generatedConflictDetailExclusionNames.map(normalizeConflictKey)
 );
@@ -1099,6 +1115,7 @@ const safeConflictRenames = {
   ...US_CIVIL_WAR_FOLLOWUP_SAFE_CONFLICT_RENAMES,
   ...US_WWII_FOLLOWUP_SAFE_CONFLICT_RENAMES,
   ...KASUMI_CONFLICT_RENAMES,
+  ...SYRACUSE_CONFLICT_RENAMES,
   ...US_INDIAN_WARS_FOLLOWUP_SAFE_CONFLICT_RENAMES,
   ...US_FRONTIER_FOLLOWUP_SAFE_CONFLICT_RENAMES,
   ...US_FRONTIER_SECOND_FOLLOWUP_SAFE_CONFLICT_RENAMES,
@@ -1267,6 +1284,7 @@ const conflictReferenceRenames = {
 const countryConflictAdditionBatches = [
   TRANSITION_1846_1902_COUNTRY_CONFLICT_ADDITIONS,
   KASUMI_COUNTRY_CONFLICT_ADDITIONS,
+  SYRACUSE_COUNTRY_CONFLICT_ADDITIONS,
   US_CARIBBEAN_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
   AUSTRALIA_DENMARK_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
   JAPAN_KOREA_FOLLOWUP_COUNTRY_CONFLICT_ADDITIONS,
@@ -1623,6 +1641,22 @@ function isExcludedCountryConflict(entry, exclusions) {
   return exclusions.has(renameConflictName(name));
 }
 
+function normalizeMergedCountryConflicts(entries) {
+  const merged = mergeConflictEntries(entries)
+    .sort((a, b) => (a.startYear ?? 99999) - (b.startYear ?? 99999) || String(a.name).localeCompare(String(b.name), "es"));
+  for (const entry of merged) {
+    // mergeConflictEntries normalizes labels (including accents), so match overrides by conflict key.
+    const override = curatedConflictPostMergeOverridesByKey.get(normalizeConflictKey(entry.name));
+    for (const field of override?.fields || []) {
+      const detail = override.detail;
+      if (!detail || !Object.prototype.hasOwnProperty.call(detail, field)) continue;
+      if (detail[field] === undefined) delete entry[field];
+      else entry[field] = detail[field];
+    }
+  }
+  return normalizeVisibleValue(merged);
+}
+
 function fixCountryConflicts(country, countriesByConflict, generatedHierarchyByConflict) {
   let changed = 0;
   const context = { country, countriesByConflict, generatedHierarchyByConflict };
@@ -1634,11 +1668,10 @@ function fixCountryConflicts(country, countriesByConflict, generatedHierarchyByC
       continue;
     }
     const before = country[pathKey];
-    const updated = normalizeVisibleValue(
-      mergeConflictEntries([...before, ...additions]
+    const updated = normalizeMergedCountryConflicts(
+      [...before, ...additions]
         .filter(entry => !isExcludedCountryConflict(entry, exclusions))
-        .map(entry => normalizeConflictEntryWithContext(entry, context)))
-        .sort((a, b) => (a.startYear ?? 99999) - (b.startYear ?? 99999) || String(a.name).localeCompare(String(b.name), "es"))
+        .map(entry => normalizeConflictEntryWithContext(entry, context))
     );
     if (!areJsonValuesEquivalent(updated, before)) {
       country[pathKey] = updated;
@@ -1648,11 +1681,10 @@ function fixCountryConflicts(country, countriesByConflict, generatedHierarchyByC
 
   if (Array.isArray(country.military?.conflicts)) {
     const before = country.military.conflicts;
-    const updated = normalizeVisibleValue(
-      mergeConflictEntries([...before, ...additions]
+    const updated = normalizeMergedCountryConflicts(
+      [...before, ...additions]
         .filter(entry => !isExcludedCountryConflict(entry, exclusions))
-        .map(entry => normalizeConflictEntryWithContext(entry, context)))
-        .sort((a, b) => (a.startYear ?? 99999) - (b.startYear ?? 99999) || String(a.name).localeCompare(String(b.name), "es"))
+        .map(entry => normalizeConflictEntryWithContext(entry, context))
     );
     if (!areJsonValuesEquivalent(updated, before)) {
       country.military.conflicts = updated;

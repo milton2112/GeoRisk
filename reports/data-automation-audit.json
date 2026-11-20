@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-11-20T16:59:50.541Z",
+  "generatedAt": "2026-11-20T18:04:17.154Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 72
+      "count": 73
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 6
+      "count": 5
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 629
+      "count": 630
     },
     "redundantReligions": {
       "count": 0
@@ -88,8 +88,8 @@
       },
       {
         "code": "FRA",
-        "name": "Batalla de Siracusa",
-        "region": "Europa"
+        "name": "Acción naval de Cassard frente a Siracusa",
+        "region": "Frente a Siracusa, Sicilia, Italia"
       },
       {
         "code": "FRA",
@@ -173,6 +173,11 @@
       },
       {
         "code": "GBR",
+        "name": "Acción naval de Cassard frente a Siracusa",
+        "region": "Frente a Siracusa, Sicilia, Italia"
+      },
+      {
+        "code": "GBR",
         "name": "Bombardeo de Belfast",
         "region": "Europa"
       },
@@ -250,22 +255,10 @@
         "code": "USA",
         "name": "Batalla de SIranaya",
         "region": "América"
-      },
-      {
-        "code": "USA",
-        "name": "Bloqueo de Veracruz",
-        "region": "América"
       }
     ],
     "undatedHighLevelConflicts": [],
     "provisionalConflictHierarchies": [
-      {
-        "code": "FRA",
-        "name": "Batalla de Siracusa",
-        "parent": "Conflicto regional de Europa",
-        "campaign": "Campaña vinculada a Conflicto regional de Europa",
-        "startYear": null
-      },
       {
         "code": "FRA",
         "name": "Batalla de Vinh",
@@ -1305,7 +1298,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 6,
+      "count": 5,
       "command": "npm run fix:conflicts:batches"
     },
     {
