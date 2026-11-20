@@ -87,5 +87,5 @@ assert.equal(countriesIndex.USA.military.conflictCount, full.USA.military.confli
 assert.equal(searchIndex.find(entry => entry.code === "USA").metrics.conflicts, full.USA.military.conflicts.length);
 const raw = await read("data/raw/conflicts.json");
 assert.ok(raw.USA.some(entry => entry.name === oldName), "retain the original undated source import");
-assert.ok(full.USA.conflicts.some(entry => entry.name === "Batalla de Kasumi"), "preserve unrelated ambiguous imports");
+assert.ok(full.USA.conflicts.some(entry => entry.name === "Acciones navales frente a Kasumi (1945)"), "preserve the independently curated Kasumi actions");
 console.log("steens-mountain-curation.test.js ok: dated record, attributed losses, qualified location and lazy evidence");
