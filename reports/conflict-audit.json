@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-11-24T14:51:43.336Z",
+  "generatedAt": "2026-11-24T15:38:30.195Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 4,
-  "reviewCount": 4,
+  "advisoryCount": 3,
+  "reviewCount": 3,
   "summary": {
-    "provisional_parent": 4
+    "provisional_parent": 3
   },
   "topIssues": [],
   "topAdvisories": [
@@ -18,20 +18,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de z moul niran",
-      "name": "Batalla de Z'Moul NIran",
-      "countries": [
-        "MAR"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de África",
       "issues": [
         "provisional_parent"
       ],

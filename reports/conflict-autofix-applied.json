@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-24T14:51:28.644Z",
+  "generatedAt": "2026-11-24T15:38:17.015Z",
   "changedFullCountries": 0,
   "fullPassChanges": [
     0
@@ -7,12 +7,12 @@
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
     "renamed": 0,
-    "enriched": 207,
+    "enriched": 0,
     "retired": 0,
-    "written": true,
+    "written": false,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1124,
+  "generatedHierarchyCandidates": 1125,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -517,7 +517,8 @@
       "Batalla de Bir Enzaran (1979)",
       "Ataque a Lebouirate (1979)",
       "Combates de Ramth al-Lbane (1979)",
-      "Combate de Deglebat-Leglia (1977)"
+      "Combate de Deglebat-Leglia (1977)",
+      "Combates del sector de Zag (13 de octubre de 1984)"
     ],
     "armenia": [
       "Operaciones de Jabrayil (2020)"
@@ -1808,6 +1809,11 @@
     "Batalla de Siranaya": "Batalla de Siranaya (1904)",
     "Batalla de SIranaya": "Batalla de Siranaya (1904)",
     "Battle of Siranaya": "Batalla de Siranaya (1904)",
+    "Batalla de Z'Moul NIran": "Combates del sector de Zag (13 de octubre de 1984)",
+    "batalla de Z'Moul Niran": "Combates del sector de Zag (13 de octubre de 1984)",
+    "Batalla de Z'Moul Niran": "Combates del sector de Zag (13 de octubre de 1984)",
+    "Bataille de Z'Moul Niran": "Combates del sector de Zag (13 de octubre de 1984)",
+    "Battle of Z'Moul Niran": "Combates del sector de Zag (13 de octubre de 1984)",
     "Batalla de Pecos River": "Combate del río Pecos (1864)",
     "Battle of Pecos River": "Combate del río Pecos (1864)",
     "Combate del rio Pecos (1864)": "Combate del río Pecos (1864)",
@@ -2923,6 +2929,7 @@
     "Combate de Punk Hill (1777)",
     "Expedicion de Taraca (1904)",
     "Batalla de Siranaya (1904)",
+    "Combates del sector de Zag (13 de octubre de 1984)",
     "Combate del río Pecos (1864)",
     "Combate de Sunset Pass (1874)",
     "Ataque a la estación de Kramatorsk (2022)",

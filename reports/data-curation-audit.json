@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-11-24T14:44:16.873Z",
+  "generatedAt": "2026-11-24T15:37:27.521Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 13334367,
-    "duplicatedCountryFilesBytes": 1562051,
-    "countryConflictShardBytes": 461933,
+    "fullBytes": 13349357,
+    "duplicatedCountryFilesBytes": 1562439,
+    "countryConflictShardBytes": 462017,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 70,
+    "pendingCount": 69,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15214,19 +15214,6 @@
         ],
         "regions": [
           "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Z'Moul NIran",
-        "countries": [
-          "MAR"
-        ],
-        "regions": [
-          "África"
         ],
         "types": [
           "interestatal"
