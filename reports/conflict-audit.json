@@ -1,28 +1,14 @@
 {
-  "generatedAt": "2026-11-20T18:04:21.686Z",
+  "generatedAt": "2026-11-24T14:51:43.336Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 5,
-  "reviewCount": 5,
+  "advisoryCount": 4,
+  "reviewCount": 4,
   "summary": {
-    "provisional_parent": 5
+    "provisional_parent": 4
   },
   "topIssues": [],
   "topAdvisories": [
-    {
-      "key": "batalla de siranaya",
-      "name": "Batalla de SIranaya",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
     {
       "key": "batalla de vinh",
       "name": "Batalla de Vinh",

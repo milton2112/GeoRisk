@@ -1,8 +1,7 @@
 {
-  "generatedAt": "2026-11-20T18:04:07.541Z",
-  "changedFullCountries": 2,
+  "generatedAt": "2026-11-24T14:51:28.644Z",
+  "changedFullCountries": 0,
   "fullPassChanges": [
-    2,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
@@ -13,7 +12,7 @@
     "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1123,
+  "generatedHierarchyCandidates": 1124,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -537,6 +536,7 @@
       "Batalla de Pulang Lupa (1900)",
       "Combate del rio Dolores (1904)",
       "Expedicion de Taraca (1904)",
+      "Batalla de Siranaya (1904)",
       "Batalla de Paye (1900)",
       "Combate contra Datu Ali (1905)"
     ],
@@ -1805,6 +1805,9 @@
     "Battle of Taraca": "Expedicion de Taraca (1904)",
     "Expedición de Taraca (1904)": "Expedicion de Taraca (1904)",
     "Expedición de Taraka (1904)": "Expedicion de Taraca (1904)",
+    "Batalla de Siranaya": "Batalla de Siranaya (1904)",
+    "Batalla de SIranaya": "Batalla de Siranaya (1904)",
+    "Battle of Siranaya": "Batalla de Siranaya (1904)",
     "Batalla de Pecos River": "Combate del río Pecos (1864)",
     "Battle of Pecos River": "Combate del río Pecos (1864)",
     "Combate del rio Pecos (1864)": "Combate del río Pecos (1864)",
@@ -2919,6 +2922,7 @@
     "Batalla del paso de Chungam-ni (Notch, 1950)",
     "Combate de Punk Hill (1777)",
     "Expedicion de Taraca (1904)",
+    "Batalla de Siranaya (1904)",
     "Combate del río Pecos (1864)",
     "Combate de Sunset Pass (1874)",
     "Ataque a la estación de Kramatorsk (2022)",

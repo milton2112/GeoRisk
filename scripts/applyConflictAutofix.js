@@ -825,6 +825,11 @@ import {
   TARACA_CONFLICT_RENAMES
 } from "./lib/conflict-curation-taraca.js";
 import {
+  SIRANAYA_1904_CONFLICT_DETAIL_FIXES,
+  SIRANAYA_1904_COUNTRY_CONFLICT_ADDITIONS,
+  SIRANAYA_1904_CONFLICT_RENAMES
+} from "./lib/conflict-curation-siranaya-1904.js";
+import {
   PECOS_SUNSET_CONFLICT_DETAIL_FIXES,
   PECOS_SUNSET_CONFLICT_RENAMES
 } from "./lib/conflict-curation-pecos-sunset.js";
@@ -1068,6 +1073,7 @@ const curatedConflictDetailFixes = {
   ...PETALING_CONFLICT_DETAIL_FIXES,
   ...NOTCH_PUNK_HILL_CONFLICT_DETAIL_FIXES,
   ...TARACA_CONFLICT_DETAIL_FIXES,
+  ...SIRANAYA_1904_CONFLICT_DETAIL_FIXES,
   ...PECOS_SUNSET_CONFLICT_DETAIL_FIXES,
   ...KRAMATORSK_2022_CONFLICT_DETAIL_FIXES,
   ...PAYE_CONFLICT_DETAIL_FIXES,
@@ -1269,6 +1275,7 @@ const safeConflictRenames = {
   ...STEENS_MOUNTAIN_CONFLICT_RENAMES,
   ...NOTCH_PUNK_HILL_CONFLICT_RENAMES,
   ...TARACA_CONFLICT_RENAMES,
+  ...SIRANAYA_1904_CONFLICT_RENAMES,
   ...PECOS_SUNSET_CONFLICT_RENAMES,
   ...KRAMATORSK_2022_CONFLICT_RENAMES,
   ...PAYE_CONFLICT_RENAMES,
@@ -1410,6 +1417,7 @@ const countryConflictAdditionBatches = [
   TIZI_OUZOU_COUNTRY_CONFLICT_ADDITIONS,
   NOTCH_PUNK_HILL_COUNTRY_CONFLICT_ADDITIONS,
   TARACA_COUNTRY_CONFLICT_ADDITIONS,
+  SIRANAYA_1904_COUNTRY_CONFLICT_ADDITIONS,
   KRAMATORSK_2022_COUNTRY_CONFLICT_ADDITIONS,
   PAYE_COUNTRY_CONFLICT_ADDITIONS,
   DATU_ALI_COUNTRY_CONFLICT_ADDITIONS,
@@ -1773,6 +1781,13 @@ async function fixGeneratedDetails(countriesByConflict) {
     const curated = normalizeConflictReferences(
       curateConflictDetail(name, normalizeParticipantSides(detail), { countriesByConflict })
     );
+    const curatedDetailFix = curatedConflictDetailFixes[renameConflictName(name)] || {};
+    // Keep explicit campaign opt-outs through the detail curation pass. The
+    // generated campaign fallback is useful generally, but unsupported campaigns
+    // must remain absent for source-backed entries such as Petaling.
+    if (Object.prototype.hasOwnProperty.call(curatedDetailFix, "campaign") && curatedDetailFix.campaign === undefined) {
+      curated.campaign = undefined;
+    }
     const finalName = renameConflictName(curated.name);
     const normalized = normalizeVisibleValue({ ...curated, name: undefined });
     delete normalized.name;

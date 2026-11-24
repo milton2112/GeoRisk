@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-11-20T18:04:15.492Z",
+  "generatedAt": "2026-11-24T14:44:16.873Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 13321935,
-    "duplicatedCountryFilesBytes": 1561801,
-    "countryConflictShardBytes": 461918,
+    "fullBytes": 13334367,
+    "duplicatedCountryFilesBytes": 1562051,
+    "countryConflictShardBytes": 461933,
     "tooLargeCount": 0,
     "largest": [
       {
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24266,
-        "inlineBytes": 3468161,
+        "inlineBytes": 3472991,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 218161,
-          "conflictShardBytes": 218162,
+          "conflictsBytes": 218176,
+          "conflictShardBytes": 218177,
           "averageConflictBytes": 237
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 71,
+    "pendingCount": 70,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15201,19 +15201,6 @@
         ],
         "regions": [
           "Golfo Pérsico"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de SIranaya",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
         ],
         "types": [
           "interestatal"

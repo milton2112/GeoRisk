@@ -456,6 +456,8 @@
     [/^Battle of Kasumi$/i, "Acciones navales frente a Kasumi (1945)"],
     [/^Batalla de Siracusa$/i, "Acción naval de Cassard frente a Siracusa"],
     [/^Battle of Syracuse$/i, "Acción naval de Cassard frente a Siracusa"],
+    [/^Batalla de SIranaya$/i, "Batalla de Siranaya (1904)"],
+    [/^Battle of Siranaya$/i, "Batalla de Siranaya (1904)"],
     [/^Battle of the Coral Sea$/i, "Batalla del mar del Coral"],
     [/^Battle of Timor$/i, "Batalla de Timor"],
     [/^Batalla de Ramth-al-Lbane$/i, "Combates de Ramth al-Lbane (1979)"],

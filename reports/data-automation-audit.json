@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-11-20T18:04:17.154Z",
+  "generatedAt": "2026-11-24T14:51:38.676Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 73
+      "count": 72
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 5
+      "count": 4
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 630
+      "count": 631
     },
     "redundantReligions": {
       "count": 0
@@ -253,7 +253,7 @@
       },
       {
         "code": "USA",
-        "name": "Batalla de SIranaya",
+        "name": "Bloqueo de Veracruz",
         "region": "América"
       }
     ],
@@ -278,13 +278,6 @@
         "name": "Operación Batalla por la Restauración de la Dignidad",
         "parent": "Conflicto regional de Asia",
         "campaign": "Campaña vinculada a Conflicto regional de Asia",
-        "startYear": null
-      },
-      {
-        "code": "USA",
-        "name": "Batalla de SIranaya",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
       },
       {
@@ -1298,7 +1291,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 5,
+      "count": 4,
       "command": "npm run fix:conflicts:batches"
     },
     {
