@@ -8,6 +8,8 @@ Este proyecto usa versionado semantico:
 
 ## Sin publicar
 
+- Seguridad: las copias de claves y credenciales con sufijos de editor o respaldo (`~`, `.bak`, `.old`, `.backup`, `.orig`, `.save`, `.swp`, `.swo`, incluso combinados) conservan el bloqueo del nombre original. Antes, `private.key~` no se clasificaba como sensible. La regresión reproduce ese fallo y verifica ocho archivos ficticios: rechazo del árbol publicable y HTTP 403 sin entregar contenido. La misma política protege el escaneo del repositorio. Costo: una normalización por componente de ruta en las herramientas existentes y estas comprobaciones finitas; sin dependencias, solicitudes, timers ni código de cliente nuevos. Crece esta nota pública; no se mide ahorro energético ni se afirma cubrir cualquier nombre arbitrario de respaldo.
+
 - El servidor local y la validación del sitio público bloquean archivos de credenciales de Windows llamados `_netrc` y sus copias de respaldo. La política también reconoce copias de `.netrc`, `.npmrc`, `.pypirc` y `.envrc`. La prueba de seguridad verifica el rechazo de un archivo de muestra en el árbol publicable y la respuesta HTTP 403 del servidor. El cambio añade una comparación de nombre por componente de ruta en estas herramientas.
 - La importación de Little Mountain y los títulos ya curados de Cedar Mountain y Mani-Mani se resuelven localmente. Antes, la suite dependía de búsquedas de Wikipedia que podían fallar por DNS. El diccionario solo acepta claves propias. Pasaron la suite de corrección automática con red restringida y las pruebas de seguridad. Ambos cambios afectan herramientas del proyecto, sin añadir dependencias ni bytes al cliente web.
 

@@ -10,6 +10,13 @@ import { checkHistory, checkWorkingTree } from "../checkSecurity.js";
 import { removeCesiumEvaluationToken } from "../lib/cesium-evaluation-token.js";
 import { createLocalSmokeServer } from "../localSmokeServer.js";
 
+const sensitiveBackups = ["private.key~", "server.pem.bak.old", "CERT.PFX.orig", "vault.kdbx.save",
+  "id_ed25519~", "credentials.json~", "service-account-prod.json.bak~", "server.key.swp"];
+for (const file of sensitiveBackups) {
+  assert.equal(isSensitivePath(file), true, file);
+  assert.equal(isInternalRequest(file), true, file);
+}
+
 for (const file of [".env", ".env.local", "assets/.env.production", "data/.envrc", ".git/config", ".ssh/id_ed25519",
   "assets/server.pem", "config/private.key", "CERT.PFX", "id_rsa.pub", "credentials.json.bak", "secrets.production.json",
   "_netrc", "assets/_NETRC.bak", ".npmrc.old", ".pypirc~",
@@ -17,7 +24,8 @@ for (const file of [".env", ".env.local", "assets/.env.production", "data/.envrc
   assert.equal(isSensitivePath(file), true, file);
   assert.equal(isInternalRequest(file), true, file);
 }
-for (const file of ["assets/flags/ARG.svg", "data/countries/ARG.json", "script.js", "scripts/lib/secret-scanner.js", ".gitleaks.toml"]) {
+for (const file of ["assets/flags/ARG.svg", "data/countries/ARG.json", "script.js", "scripts/lib/secret-scanner.js", ".gitleaks.toml",
+  "keyboard.js", "public.keywords.json", "notes.txt~", "image.png.bak", "server.key-info.json"]) {
   assert.equal(isSensitivePath(file), false, file);
 }
 for (const file of ["scripts/buildProduction.js", "reports/doctor-report.json", ".gitleaks.toml", "tmp/file.txt"]) {
@@ -96,6 +104,11 @@ try {
   await fs.writeFile(path.join(publicRoot, "_netrc"), "# fixture");
   await assert.rejects(assertPublishableTree(publicRoot), /sensible/);
   await fs.unlink(path.join(publicRoot, "_netrc"));
+  for (const file of sensitiveBackups) {
+    await fs.writeFile(path.join(publicRoot, file), "# synthetic backup fixture");
+    await assert.rejects(assertPublishableTree(publicRoot), /sensible/, file);
+    await fs.unlink(path.join(publicRoot, file));
+  }
   await fs.symlink(root, path.join(publicRoot, "linked"), process.platform === "win32" ? "junction" : "dir");
   await assert.rejects(assertPublishableTree(publicRoot), /enlace/);
 
@@ -103,6 +116,12 @@ try {
   server = createLocalSmokeServer({ root: publicRoot });
   await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
   const base = `http://127.0.0.1:${server.address().port}`;
+  for (const file of sensitiveBackups) {
+    await fs.writeFile(path.join(publicRoot, file), "# synthetic backup fixture");
+    const response = await fetch(`${base}/${encodeURIComponent(file)}`);
+    assert.equal(response.status, 403, file);
+    assert.equal(await response.text(), "Forbidden", file);
+  }
   const index = await fetch(base);
   assert.equal(index.status, 200);
   assert.equal(index.headers.get("x-content-type-options"), "nosniff");
