@@ -729,8 +729,21 @@ const WIKIPEDIA_HEADERS = {
 };
 const WIKIPEDIA_REQUEST_TIMEOUT_MS = 15_000;
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+function sleep(ms, signal) {
+  return new Promise((resolve, reject) => {
+    const abort = () => {
+      clearTimeout(timer);
+      signal.removeEventListener("abort", abort);
+      reject(signal.reason instanceof Error ? signal.reason : new Error("Wikipedia request cancelado"));
+    };
+    let timer;
+    if (signal?.aborted) { abort(); return; }
+    timer = setTimeout(() => {
+      signal?.removeEventListener("abort", abort);
+      resolve();
+    }, ms);
+    signal?.addEventListener("abort", abort, { once: true });
+  });
 }
 
 function normalizeWikipediaRequestTimeout(timeoutMs) {
@@ -773,7 +786,10 @@ async function fetchWikipediaJson(url, attempt = 1, { signal, timeoutMs } = {}) 
     const delayMs = Number.isFinite(retryAfterSeconds) && retryAfterSeconds > 0
       ? retryAfterSeconds * 1000
       : 1_500 * attempt;
-    await sleep(delayMs);
+    if (delayMs > WIKIPEDIA_REQUEST_TIMEOUT_MS) {
+      throw new Error(`Wikipedia Retry-After excede la espera maxima de ${WIKIPEDIA_REQUEST_TIMEOUT_MS}ms`);
+    }
+    await sleep(delayMs, signal);
     return fetchWikipediaJson(url, attempt + 1, { signal, timeoutMs: requestTimeoutMs });
   }
   throw new Error(`Wikipedia request fallo con ${response.status}`);

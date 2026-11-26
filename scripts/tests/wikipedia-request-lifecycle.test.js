@@ -87,4 +87,26 @@ assert.deepEqual(await retryResult, { retried: true });
 assert.equal(attempts, 2);
 assert.equal(retried.timers.size, 0);
 
-console.log("wikipedia-request-lifecycle.test.js ok: body deadline, cancellation and cleanup");
+let notifyWaiting;
+const waiting = new Promise(resolve => { notifyWaiting = resolve; });
+const retryCaller = new AbortController();
+let cancelledAttempts = 0;
+const waitingRetry = harness(async () => {
+  cancelledAttempts++;
+  return { ok: false, status: 429, headers: { get: () => "10" }, body: { destroy() { notifyWaiting(); } } };
+});
+const retryCancelled = assert.rejects(waitingRetry.request({ signal: retryCaller.signal }), error => error === reason);
+await waiting;
+assert.equal(waitingRetry.timers.size, 1);
+retryCaller.abort(reason);
+assert.equal(waitingRetry.timers.size, 0, "cancelling backoff must clear its timer immediately");
+await retryCancelled;
+assert.equal(cancelledAttempts, 1, "cancellation must not send another request");
+
+const excessive = harness(async () => ({
+  ok: false, status: 429, headers: { get: () => "86400" }, body: { destroy() {} }
+}));
+await assert.rejects(excessive.request(), /Retry-After/);
+assert.equal(excessive.timers.size, 0, "excessive waits must fail instead of scheduling or retrying early");
+
+console.log("wikipedia-request-lifecycle.test.js ok: body deadline, cancellation, bounded retries and cleanup");
