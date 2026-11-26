@@ -6,7 +6,8 @@ export function isSensitivePath(relativePath) {
   return parts.some(part =>
     /^(?:\.git|\.svn|\.hg|\.ssh|\.aws|\.azure|\.config|\.cache|node_modules)$/.test(part) ||
     /^\.env(?:$|[.-])/.test(part) ||
-    /^(?:\.envrc|\.npmrc|\.netrc|\.pypirc|credentials(?:\.[\w.-]+)?|secrets?(?:\.[\w.-]+)?|service[-_]?account(?:[-_.][\w.-]+)?\.json|id_(?:rsa|dsa|ecdsa|ed25519)(?:\..*)?)$/.test(part) ||
+    /^(?:_netrc|\.netrc|\.npmrc|\.pypirc|\.envrc)(?:$|[.~])/.test(part) ||
+    /^(?:credentials(?:\.[\w.-]+)?|secrets?(?:\.[\w.-]+)?|service[-_]?account(?:[-_.][\w.-]+)?\.json|id_(?:rsa|dsa|ecdsa|ed25519)(?:\..*)?)$/.test(part) ||
     /\.(?:pem|key|p12|pfx|keystore|jks|kdbx)(?:\.(?:bak|old|backup))?$/.test(part)
   );
 }

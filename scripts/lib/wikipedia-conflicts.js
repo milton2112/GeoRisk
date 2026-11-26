@@ -32,6 +32,10 @@ const TEMPORAL_MONTH_ALIASES = {
 };
 
 export const CONFLICT_WIKIPEDIA_TITLE_OVERRIDES = {
+  // This imported label was identified during the Cedar Mountain curation.
+  "Batalla de Little Mountain": "Batalla de Cedar Mountain",
+  "Batalla de Cedar Mountain (1862)": "Batalla de Cedar Mountain",
+  "Batalla de Mani-Mani": "Batalla de Mani-Mani",
   "Batalla de Steen's Mountain": "Battle_of_Steen's_Mountain",
   "Batalla de Steens Mountain (1867)": "Battle_of_Steen's_Mountain",
   "Battle of Steen's Mountain": "Battle_of_Steen's_Mountain",
@@ -1348,7 +1352,9 @@ async function resolveWikipediaConflictTitleFromApi(conflictName, apiUrl, option
 }
 
 export async function resolveWikipediaConflictTitle(conflictName, options = {}) {
-  const direct = CONFLICT_WIKIPEDIA_TITLE_OVERRIDES[conflictName];
+  const direct = Object.hasOwn(CONFLICT_WIKIPEDIA_TITLE_OVERRIDES, conflictName)
+    ? CONFLICT_WIKIPEDIA_TITLE_OVERRIDES[conflictName]
+    : undefined;
   if (direct) {
     const language = /^(?:Battle|First_Battle|Second_Battle|Siege|Raid|Capture|SS)_/.test(direct)
       || ENGLISH_WIKIPEDIA_TITLE_EXCEPTIONS.has(direct)

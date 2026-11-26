@@ -12,6 +12,7 @@ import { createLocalSmokeServer } from "../localSmokeServer.js";
 
 for (const file of [".env", ".env.local", "assets/.env.production", "data/.envrc", ".git/config", ".ssh/id_ed25519",
   "assets/server.pem", "config/private.key", "CERT.PFX", "id_rsa.pub", "credentials.json.bak", "secrets.production.json",
+  "_netrc", "assets/_NETRC.bak", ".npmrc.old", ".pypirc~",
   "assets/service-account-prod.json", ".npmrc", ".netrc", "folder\\.env.local", "assets/.aws/credentials"]) {
   assert.equal(isSensitivePath(file), true, file);
   assert.equal(isInternalRequest(file), true, file);
@@ -92,6 +93,9 @@ try {
   await fs.writeFile(path.join(publicRoot, ".env.production"), "TEST=fixture");
   await assert.rejects(assertPublishableTree(publicRoot), /sensible/);
   await fs.unlink(path.join(publicRoot, ".env.production"));
+  await fs.writeFile(path.join(publicRoot, "_netrc"), "# fixture");
+  await assert.rejects(assertPublishableTree(publicRoot), /sensible/);
+  await fs.unlink(path.join(publicRoot, "_netrc"));
   await fs.symlink(root, path.join(publicRoot, "linked"), process.platform === "win32" ? "junction" : "dir");
   await assert.rejects(assertPublishableTree(publicRoot), /enlace/);
 
@@ -106,7 +110,7 @@ try {
   const head = await fetch(base, { method: "HEAD" });
   assert.equal(await head.text(), "");
   assert.equal(Number(head.headers.get("content-length")), (await fs.stat(path.join(publicRoot, "index.html"))).size);
-  for (const route of ["/.git/config", "/%2eenv.local", "/assets/.env.production", "/%2egit%5cconfig", "/scripts/buildProduction.js",
+  for (const route of ["/_netrc", "/.git/config", "/%2eenv.local", "/assets/.env.production", "/%2egit%5cconfig", "/scripts/buildProduction.js",
     "/reports/performance-snapshot.json", "/server.pem", "/index.html%3A%24DATA", "/linked/app.js", "/linked/.env.local"]) {
     assert.equal((await fetch(base + route)).status, 403, route);
   }
