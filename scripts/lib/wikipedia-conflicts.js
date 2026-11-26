@@ -751,6 +751,9 @@ async function fetchWikipediaJson(url, attempt = 1, { signal, timeoutMs } = {}) 
 
   try {
     response = await fetch(url, { headers: WIKIPEDIA_HEADERS, signal: requestSignal });
+    // Headers do not finish a request: keep the deadline through body consumption.
+    if (response.ok) return await response.json();
+    response.body?.destroy();
   } catch (error) {
     if (signal?.aborted) {
       throw signal.reason instanceof Error
@@ -773,10 +776,7 @@ async function fetchWikipediaJson(url, attempt = 1, { signal, timeoutMs } = {}) 
     await sleep(delayMs);
     return fetchWikipediaJson(url, attempt + 1, { signal, timeoutMs: requestTimeoutMs });
   }
-  if (!response.ok) {
-    throw new Error(`Wikipedia request fallo con ${response.status}`);
-  }
-  return response.json();
+  throw new Error(`Wikipedia request fallo con ${response.status}`);
 }
 
 function decodeHtmlEntities(text = "") {

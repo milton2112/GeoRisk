@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import vm from "node:vm";
+import "./wikipedia-request-lifecycle.test.js";
 import "./gata-halifax-curation.test.js";
 import "./tizi-ouzou-curation.test.js";
 import "./steens-mountain-curation.test.js";
