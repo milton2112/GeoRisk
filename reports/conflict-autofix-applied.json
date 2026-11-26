@@ -1,18 +1,19 @@
 {
-  "generatedAt": "2026-11-24T15:38:17.015Z",
-  "changedFullCountries": 0,
+  "generatedAt": "2026-11-26T16:04:06.132Z",
+  "changedFullCountries": 2,
   "fullPassChanges": [
+    2,
     0
   ],
   "compactCountryFilesStrategy": "regenerated-by-buildDataIndexes",
   "detailStats": {
-    "renamed": 0,
-    "enriched": 0,
+    "renamed": 1,
+    "enriched": 207,
     "retired": 0,
-    "written": false,
+    "written": true,
     "compacted": false
   },
-  "generatedHierarchyCandidates": 1125,
+  "generatedHierarchyCandidates": 1126,
   "countryConflictAdditions": {
     "estados unidos": [
       "Batalla de Manila (1945)",
@@ -119,6 +120,7 @@
       "Batalla naval de Pirano (1812)",
       "Batalla naval frente a Halifax (1782)",
       "Combate de Punk Hill (1777)",
+      "Acción naval del Alliance y el Sybil (10 de marzo de 1783)",
       "Combate de Caleta Foca (1982)",
       "Incursion sobre Santorini (1944)"
     ],
@@ -1814,6 +1816,11 @@
     "Batalla de Z'Moul Niran": "Combates del sector de Zag (13 de octubre de 1984)",
     "Bataille de Z'Moul Niran": "Combates del sector de Zag (13 de octubre de 1984)",
     "Battle of Z'Moul Niran": "Combates del sector de Zag (13 de octubre de 1984)",
+    "Accion naval del Alliance y el Sybil (10 de marzo de 1783)": "Acción naval del Alliance y el Sybil (10 de marzo de 1783)",
+    "Combat off coast de Florida": "Acción naval del Alliance y el Sybil (10 de marzo de 1783)",
+    "combat off the coast of Florida": "Acción naval del Alliance y el Sybil (10 de marzo de 1783)",
+    "Combate frente a la costa de Florida": "Acción naval del Alliance y el Sybil (10 de marzo de 1783)",
+    "Combat off the coast of Florida": "Acción naval del Alliance y el Sybil (10 de marzo de 1783)",
     "Batalla de Pecos River": "Combate del río Pecos (1864)",
     "Battle of Pecos River": "Combate del río Pecos (1864)",
     "Combate del rio Pecos (1864)": "Combate del río Pecos (1864)",
@@ -2930,6 +2937,7 @@
     "Expedicion de Taraca (1904)",
     "Batalla de Siranaya (1904)",
     "Combates del sector de Zag (13 de octubre de 1984)",
+    "Acción naval del Alliance y el Sybil (10 de marzo de 1783)",
     "Combate del río Pecos (1864)",
     "Combate de Sunset Pass (1874)",
     "Ataque a la estación de Kramatorsk (2022)",

@@ -98,6 +98,6 @@ for (const alias of ["Batalla de Z'Moul NIran", "Bataille de Z'Moul Niran", "Bat
 }
 
 const report = buildConflictAuditReport({ countries: full });
-assert.equal(report.summary.provisional_parent, 3);
+assert.equal(report.summary.provisional_parent, 2);
 assert.equal(report.topAdvisories.some(entry => equivalent(entry.name, NAME)), false);
 console.log("zmoul-niran-curation.test.js ok: dated 1984 Zag-sector action, competing reports and historical-territory profile");

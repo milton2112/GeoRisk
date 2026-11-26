@@ -106,7 +106,7 @@ for (const alias of ["Batalla de Kasumi", "Battle of Kasumi"]) {
 }
 
 const report = buildConflictAuditReport({ countries: full });
-assert.equal(report.summary.provisional_parent, 3);
+assert.equal(report.summary.provisional_parent, 2);
 assert.equal(report.topAdvisories.some(entry => equivalent(entry.name, NAME)), false);
 
 console.log("kasumi-curation.test.js ok: dated submarine actions, source limits, Japan profile and deferred evidence");

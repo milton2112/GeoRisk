@@ -86,7 +86,7 @@ for (const alias of ["Batalla de Siranaya", "Battle of Siranaya"]) {
 }
 
 const report = buildConflictAuditReport({ countries: full });
-assert.equal(report.summary.provisional_parent, 3);
+assert.equal(report.summary.provisional_parent, 2);
 assert.equal(report.topAdvisories.some(entry => equivalent(entry.name, NAME)), false);
 
 console.log("siranaya-curation.test.js ok: sourced 1904 action, Moro hierarchy, historical-territory profile and cautious date precision");

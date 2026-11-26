@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-11-24T15:38:25.581Z",
+  "generatedAt": "2026-11-26T16:04:27.613Z",
   "summary": {
     "englishConflictNames": {
       "count": 0
     },
     "undatedConflicts": {
-      "count": 71
+      "count": 70
     },
     "undatedHighLevelConflicts": {
       "count": 0
     },
     "provisionalConflictHierarchies": {
-      "count": 3
+      "count": 2
     },
     "suspectRegions": {
       "count": 0
@@ -23,7 +23,7 @@
       "count": 0
     },
     "sharedConflictNames": {
-      "count": 632
+      "count": 633
     },
     "redundantReligions": {
       "count": 0
@@ -271,13 +271,6 @@
         "name": "Operación Batalla por la Restauración de la Dignidad",
         "parent": "Conflicto regional de Asia",
         "campaign": "Campaña vinculada a Conflicto regional de Asia",
-        "startYear": null
-      },
-      {
-        "code": "USA",
-        "name": "Combate frente a la costa de Florida",
-        "parent": "Conflicto regional de América",
-        "campaign": "Campaña vinculada a Conflicto regional de América",
         "startYear": null
       }
     ],
@@ -1284,7 +1277,7 @@
     {
       "priority": "media",
       "title": "Reemplazar jerarquias regionales provisionales por guerras verificadas",
-      "count": 3,
+      "count": 2,
       "command": "npm run fix:conflicts:batches"
     },
     {

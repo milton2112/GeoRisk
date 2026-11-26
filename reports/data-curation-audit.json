@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-11-24T15:37:27.521Z",
+  "generatedAt": "2026-11-26T16:04:25.770Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 13349357,
+    "fullBytes": 13363359,
     "duplicatedCountryFilesBytes": 1562439,
-    "countryConflictShardBytes": 462017,
+    "countryConflictShardBytes": 462343,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
         "bytes": 25037,
-        "inlineBytes": 1373163,
+        "inlineBytes": 1381567,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,7 +21,7 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 340,
+          "conflicts": 341,
           "timelineEvents": 4
         },
         "metrics": {
@@ -54,8 +54,8 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 80988,
-          "conflictShardBytes": 80989,
+          "conflictsBytes": 81275,
+          "conflictShardBytes": 81276,
           "averageConflictBytes": 238
         }
       },
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24266,
-        "inlineBytes": 3472991,
+        "inlineBytes": 3478589,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 218176,
-          "conflictShardBytes": 218177,
+          "conflictsBytes": 218215,
+          "conflictShardBytes": 218216,
           "averageConflictBytes": 237
         }
       },
@@ -15086,7 +15086,7 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 69,
+    "pendingCount": 68,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
       {
@@ -15456,19 +15456,6 @@
       },
       {
         "name": "Captura del Fuerte Ticonderoga",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Combate frente a la costa de Florida",
         "countries": [
           "USA"
         ],
