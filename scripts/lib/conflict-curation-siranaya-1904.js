@@ -1,0 +1,74 @@
+const NAME = "Batalla de Siranaya (1904)";
+const WAR = "Rebelión moro";
+
+const SOURCES = [
+  {
+    label: "E. A. Mearns, Itinerary for the Seranaya expedition, 9-15 de marzo de 1904; Smithsonian Institution Archives, incluye un relato del ataque",
+    url: "https://www.biodiversitylibrary.org/bibliography/161543"
+  },
+  {
+    label: "U.S. Army Center of Military History, U.S. Army Counterinsurgency and Contingency Operations Doctrine, 1860-1941, pp. 166-168: identifica el bombardeo del fuerte de Datu Ali en Siranaya",
+    url: "https://history.army.mil/Portals/143/Images/Publications/Publication%20By%20Title%20Images/U%20Pdf/us-army-counterinsurgency-1.pdf"
+  },
+  {
+    label: "1st Battalion, 22nd Infantry, The Datu Ali Expedition: transcribe el informe de 1904 sobre la destrucción de las obras de Seranaya y la retirada de Ali",
+    url: "https://www.1-22infantry.org/history3/ali.htm"
+  }
+];
+
+export const SIRANAYA_1904_CONFLICT_RENAMES = {
+  "Batalla de Siranaya": NAME,
+  "Batalla de SIranaya": NAME,
+  "Battle of Siranaya": NAME
+};
+
+export const SIRANAYA_1904_COUNTRY_CONFLICT_ADDITIONS = {
+  "Filipinas": [NAME]
+};
+
+export const SIRANAYA_1904_CONFLICT_DETAIL_FIXES = {
+  [NAME]: {
+    parent: WAR,
+    war: WAR,
+    campaign: undefined,
+    related: [WAR, "Datu Ali", "Seranaya", "Siranaya", "Mindanao"],
+    startYear: 1904,
+    endYear: 1904,
+    datePrecision: "marzo de 1904; el itinerario consultado cubre del 9 al 15 de marzo, sin fijar el día del ataque",
+    type: "batalla",
+    conflictType: "colonial",
+    scale: "local",
+    status: "historico",
+    active: false,
+    ongoing: false,
+    region: "Siranaya (también Seranaya), valle del Río Grande de Mindanao, Cotabato, Filipinas",
+    normalizedRegion: "Siranaya (también Seranaya), valle del Río Grande de Mindanao, Cotabato, Filipinas",
+    cause: "En marzo de 1904, fuerzas coloniales estadounidenses avanzaron contra Datu Ali y su fortificación en el valle de Cotabato, durante la resistencia moro a la autoridad estadounidense en Mindanao. Los partes justificaban la expedición por la oposición de Ali a la ley antiesclavista; esa es la explicación del mando atacante.",
+    outcome: "La artillería estadounidense bombardeó el fuerte de Datu Ali en Siranaya. El informe de 1904 recogido en la historia del 22.º de Infantería dice que las obras fueron destruidas en marzo y Ali se retiró río arriba; no permite fijar el día ni atribuir un saldo de bajas a este combate aislado.",
+    consequences: "La destrucción del fuerte no puso fin a la resistencia de Datu Ali: las operaciones contra sus fuerzas continuaron en Mindanao durante 1905.",
+    participants: [
+      {
+        side: "Fuerzas coloniales estadounidenses",
+        members: ["Estados Unidos", "Leonard Wood"],
+        casualties: "Las fuentes consultadas no separan las bajas de este ataque."
+      },
+      {
+        side: "Defensores moro del fuerte de Siranaya",
+        members: ["Datu Ali", "Defensores del fuerte de Seranaya"],
+        casualties: "Las fuentes consultadas no separan las bajas de este ataque."
+      }
+    ],
+    chronology: [
+      { year: 1904, event: "En marzo, fuerzas de Leonard Wood bombardearon el fuerte de Datu Ali en Siranaya; el itinerario de Mearns cubre la expedición del 9 al 15 de marzo." }
+    ],
+    treaties: [],
+    hierarchyConfidence: "alta",
+    hierarchySources: SOURCES,
+    sourceDispute: "Las fuentes escriben el topónimo como Siranaya o Seranaya. El archivo de Mearns fecha la expedición del 9 al 15 de marzo de 1904 e incluye un relato del ataque; no fija qué día ocurrió el bombardeo. Se usa el año 1904 sin inferir un día y se distingue esta acción de las operaciones posteriores contra Datu Ali en 1905.",
+    curationPriority: "media",
+    curationBatch: "source-backed-siranaya-1904-2026-11",
+    curationStatus: "estructural",
+    dataConfidence: "parcial",
+    curationNote: "La importación solo contenía el título mal capitalizado «Batalla de SIranaya» en el perfil de Estados Unidos y la situaba bajo una jerarquía regional americana. Se normaliza la acción en Mindanao dentro de la Rebelión moro y se añade Filipinas como perfil territorial, no como beligerante estatal independiente. Las fuentes registran topónimos Siranaya/Seranaya y acotan la expedición a marzo de 1904, pero no el día del ataque ni bajas atribuibles al combate aislado."
+  }
+};

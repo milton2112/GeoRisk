@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-10-20T15:21:14.115Z",
+  "generatedAt": "2026-11-26T16:04:25.770Z",
   "purpose": "Auditoria interna/tecnica para priorizar curaduria. No forma parte del shell de produccion.",
   "weightSummary": {
     "totalCountries": 183,
-    "fullBytes": 13302229,
-    "duplicatedCountryFilesBytes": 1561483,
-    "countryConflictShardBytes": 461614,
+    "fullBytes": 13363359,
+    "duplicatedCountryFilesBytes": 1562439,
+    "countryConflictShardBytes": 462343,
     "tooLargeCount": 0,
     "largest": [
       {
         "code": "GBR",
         "name": "Reino Unido",
         "bytes": 25037,
-        "inlineBytes": 1367253,
+        "inlineBytes": 1381567,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -21,7 +21,7 @@
           "religionGroups": 6,
           "organizations": 51,
           "rivals": 78,
-          "conflicts": 339,
+          "conflicts": 341,
           "timelineEvents": 4
         },
         "metrics": {
@@ -54,8 +54,8 @@
               "bytes": 1018
             }
           ],
-          "conflictsBytes": 80768,
-          "conflictShardBytes": 80769,
+          "conflictsBytes": 81275,
+          "conflictShardBytes": 81276,
           "averageConflictBytes": 238
         }
       },
@@ -63,7 +63,7 @@
         "code": "USA",
         "name": "Estados Unidos",
         "bytes": 24266,
-        "inlineBytes": 3464225,
+        "inlineBytes": 3478589,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -105,8 +105,8 @@
               "bytes": 978
             }
           ],
-          "conflictsBytes": 218072,
-          "conflictShardBytes": 218073,
+          "conflictsBytes": 218215,
+          "conflictShardBytes": 218216,
           "averageConflictBytes": 237
         }
       },
@@ -165,7 +165,7 @@
         "code": "FRA",
         "name": "Francia",
         "bytes": 21334,
-        "inlineBytes": 1028409,
+        "inlineBytes": 1031601,
         "tooLarge": false,
         "counts": {
           "cities": 5,
@@ -207,8 +207,8 @@
               "bytes": 933
             }
           ],
-          "conflictsBytes": 51925,
-          "conflictShardBytes": 51926,
+          "conflictsBytes": 51920,
+          "conflictShardBytes": 51921,
           "averageConflictBytes": 215
         }
       },
@@ -15086,9 +15086,23 @@
     "issues": []
   },
   "conflictDateQuality": {
-    "pendingCount": 72,
+    "pendingCount": 68,
     "description": "Conflictos retenidos en fichas de pais pero excluidos del indice publico fechable hasta curaduria segura.",
     "examples": [
+      {
+        "name": "Acción naval de Cassard frente a Siracusa",
+        "countries": [
+          "FRA",
+          "GBR"
+        ],
+        "regions": [
+          "Frente a Siracusa, Sicilia, Italia"
+        ],
+        "types": [
+          "interestatal"
+        ],
+        "reason": "sin startYear consolidado en fuentes internas"
+      },
       {
         "name": "Asedio de Fort Mackinac",
         "countries": [
@@ -15181,19 +15195,6 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Kasumi",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Kuwait International Airport",
         "countries": [
           "USA"
@@ -15207,51 +15208,12 @@
         "reason": "sin startYear consolidado en fuentes internas"
       },
       {
-        "name": "Batalla de Siracusa",
-        "countries": [
-          "FRA"
-        ],
-        "regions": [
-          "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de SIranaya",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
         "name": "Batalla de Vinh",
         "countries": [
           "FRA"
         ],
         "regions": [
           "Europa"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Batalla de Z'Moul NIran",
-        "countries": [
-          "MAR"
-        ],
-        "regions": [
-          "África"
         ],
         "types": [
           "interestatal"
@@ -15494,19 +15456,6 @@
       },
       {
         "name": "Captura del Fuerte Ticonderoga",
-        "countries": [
-          "USA"
-        ],
-        "regions": [
-          "América"
-        ],
-        "types": [
-          "interestatal"
-        ],
-        "reason": "sin startYear consolidado en fuentes internas"
-      },
-      {
-        "name": "Combate frente a la costa de Florida",
         "countries": [
           "USA"
         ],

@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import vm from "node:vm";
+import "./wikipedia-request-lifecycle.test.js";
 import "./gata-halifax-curation.test.js";
 import "./tizi-ouzou-curation.test.js";
 import "./steens-mountain-curation.test.js";
@@ -4297,7 +4298,10 @@ assert.ok(
     && /Little Mountain era ambigua/i.test(cedarMountainDetail.sourceDispute),
   "la curaduria de Cedar Mountain debe preservar fecha, jerarquia, fuentes, participantes y cautela sobre alias y bajas"
 );
-const cedarMountainWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Little Mountain");
+const offlineLookup = { signal: AbortSignal.abort() };
+const cedarMountainWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Little Mountain", offlineLookup);
+assert.deepEqual(await resolveWikipediaConflictTitle("Batalla de Cedar Mountain (1862)", offlineLookup), cedarMountainWikipediaOverride);
+await assert.rejects(resolveWikipediaConflictTitle("constructor", offlineLookup));
 assert.equal(cedarMountainWikipediaOverride.language, "es");
 assert.equal(cedarMountainWikipediaOverride.pageTitle, "Batalla de Cedar Mountain");
 assert.equal(Object.keys(MANI_MANI_1898_CONFLICT_DETAIL_FIXES).length, 2);
@@ -4355,7 +4359,7 @@ assert.ok(
     && /no fija cifras cerradas/i.test(maniManiDetail.sourceDispute),
   "la curaduria de Mani-Mani debe preservar fecha, jerarquia, fuentes, participantes y cautela sobre lugar, desembarco y bajas"
 );
-const maniManiWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Mani-Mani");
+const maniManiWikipediaOverride = await resolveWikipediaConflictTitle("Batalla de Mani-Mani", offlineLookup);
 assert.equal(maniManiWikipediaOverride.language, "es");
 assert.equal(maniManiWikipediaOverride.pageTitle, "Batalla de Mani-Mani");
 assert.equal(Object.keys(MOUNT_GRAY_1864_CONFLICT_DETAIL_FIXES).length, 2);

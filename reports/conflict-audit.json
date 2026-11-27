@@ -1,56 +1,14 @@
 {
-  "generatedAt": "2026-10-20T15:21:20.160Z",
+  "generatedAt": "2026-11-26T16:04:32.720Z",
   "scannedConflicts": 1999,
   "issueCount": 0,
-  "advisoryCount": 7,
-  "reviewCount": 7,
+  "advisoryCount": 2,
+  "reviewCount": 2,
   "summary": {
-    "provisional_parent": 7
+    "provisional_parent": 2
   },
   "topIssues": [],
   "topAdvisories": [
-    {
-      "key": "batalla de kasumi",
-      "name": "Batalla de Kasumi",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de siracusa",
-      "name": "Batalla de Siracusa",
-      "countries": [
-        "FRA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de siranaya",
-      "name": "Batalla de SIranaya",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
     {
       "key": "batalla de vinh",
       "name": "Batalla de Vinh",
@@ -60,34 +18,6 @@
       "startYear": null,
       "endYear": null,
       "hierarchyLabel": "Conflicto regional de Europa",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "batalla de z moul niran",
-      "name": "Batalla de Z'Moul NIran",
-      "countries": [
-        "MAR"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de África",
-      "issues": [
-        "provisional_parent"
-      ],
-      "severity": 1
-    },
-    {
-      "key": "combate frente a la costa de florida",
-      "name": "Combate frente a la costa de Florida",
-      "countries": [
-        "USA"
-      ],
-      "startYear": null,
-      "endYear": null,
-      "hierarchyLabel": "Conflicto regional de América",
       "issues": [
         "provisional_parent"
       ],

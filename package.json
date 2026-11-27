@@ -49,7 +49,7 @@
     "test:text-normalization": "node scripts/tests/text-normalization.test.js",
     "test:normalization": "node scripts/tests/normalization.test.js",
     "test:conflicts": "node scripts/tests/conflict-cleaning.test.js",
-    "test:conflict-audit": "node scripts/tests/conflict-audit.test.js && node scripts/tests/petaling-curation.test.js && node scripts/tests/ochamchira-curation.test.js",
+    "test:conflict-audit": "node scripts/tests/conflict-audit.test.js && node scripts/tests/kasumi-curation.test.js && node scripts/tests/syracuse-curation.test.js && node scripts/tests/siranaya-curation.test.js && node scripts/tests/zmoul-niran-curation.test.js && node scripts/tests/florida-naval-1783-curation.test.js && node scripts/tests/petaling-curation.test.js && node scripts/tests/ochamchira-curation.test.js",
     "test:conflict-audit-report": "node scripts/tests/conflict-audit-report.test.js",
     "test:provisional-candidates": "node scripts/tests/provisional-conflict-candidates.test.js",
     "test:conflict-autofix": "node scripts/tests/conflict-autofix.test.js",
@@ -90,6 +90,7 @@
     "yaml": "2.9.1"
   },
   "overrides": {
-    "@zip.js/zip.js": "2.7.57"
+    "@zip.js/zip.js": "2.7.57",
+    "dompurify": "3.4.18"
   }
 }
